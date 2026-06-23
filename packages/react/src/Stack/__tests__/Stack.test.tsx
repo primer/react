@@ -2,11 +2,17 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import type React from 'react'
 import {Stack} from '../Stack'
-import {implementsClassName} from '../../utils/testing'
-import classes from '../Stack.module.css'
 
 describe('Stack', () => {
-  implementsClassName(Stack, classes.Stack)
+  it('should render as a custom element by default', () => {
+    const {container} = render(<Stack />)
+    expect(container.firstChild?.nodeName).toBe('DS-STACK')
+  })
+
+  it('renders with the custom className', () => {
+    render(<Stack data-testid="stack" className="custom-class" />)
+    expect(screen.getByTestId('stack')).toHaveClass('custom-class')
+  })
 
   it('should support rendering content through `children`', () => {
     render(
@@ -21,6 +27,7 @@ describe('Stack', () => {
     const {container, rerender} = render(<Stack as="section" />)
 
     expect(container.firstChild?.nodeName).toBe('SECTION')
+    expect(container.firstChild).toHaveAttribute('stack')
 
     const CustomComponent = vi.fn(({children}: React.PropsWithChildren) => {
       return <div data-testid="custom-component">{children}</div>
@@ -39,7 +46,7 @@ describe('Stack', () => {
   describe('align', () => {
     it('should set the default `align` to `stretch`', () => {
       render(<Stack data-testid="stack" />)
-      expect(screen.getByTestId('stack')).toHaveAttribute('data-align', 'stretch')
+      expect(screen.getByTestId('stack')).toHaveAttribute('align', 'stretch')
     })
 
     it('should support specifying the stack alignment with the `align` prop', () => {
@@ -52,11 +59,11 @@ describe('Stack', () => {
           <Stack data-testid="stretch" align="stretch" />
         </>,
       )
-      expect(screen.getByTestId('baseline')).toHaveAttribute('data-align', 'baseline')
-      expect(screen.getByTestId('center')).toHaveAttribute('data-align', 'center')
-      expect(screen.getByTestId('end')).toHaveAttribute('data-align', 'end')
-      expect(screen.getByTestId('start')).toHaveAttribute('data-align', 'start')
-      expect(screen.getByTestId('stretch')).toHaveAttribute('data-align', 'stretch')
+      expect(screen.getByTestId('baseline')).toHaveAttribute('align', 'baseline')
+      expect(screen.getByTestId('center')).toHaveAttribute('align', 'center')
+      expect(screen.getByTestId('end')).toHaveAttribute('align', 'end')
+      expect(screen.getByTestId('start')).toHaveAttribute('align', 'start')
+      expect(screen.getByTestId('stretch')).toHaveAttribute('align', 'stretch')
     })
 
     it('should support responsive `align` values', () => {
@@ -70,16 +77,16 @@ describe('Stack', () => {
           }}
         />,
       )
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-align-narrow', 'start')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-align-regular', 'center')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-align-wide', 'end')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('align-narrow', 'start')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('align-regular', 'center')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('align-wide', 'end')
     })
   })
 
   describe('direction', () => {
     it('should set the default direction to `vertical`', () => {
       render(<Stack data-testid="stack" />)
-      expect(screen.getByTestId('stack')).toHaveAttribute('data-direction', 'vertical')
+      expect(screen.getByTestId('stack')).toHaveAttribute('direction', 'vertical')
     })
 
     it('should support changing the stack direction with the `direction` prop', () => {
@@ -89,14 +96,14 @@ describe('Stack', () => {
           <Stack data-testid="horizontal" direction="horizontal" />
         </>,
       )
-      expect(screen.getByTestId('vertical')).toHaveAttribute('data-direction', 'vertical')
-      expect(screen.getByTestId('horizontal')).toHaveAttribute('data-direction', 'horizontal')
+      expect(screen.getByTestId('vertical')).toHaveAttribute('direction', 'vertical')
+      expect(screen.getByTestId('horizontal')).toHaveAttribute('direction', 'horizontal')
     })
 
     it('should support responsive `direction` values', () => {
       render(<Stack data-testid="responsive-direction" direction={{narrow: 'vertical', regular: 'horizontal'}} />)
-      expect(screen.getByTestId('responsive-direction')).toHaveAttribute('data-direction-narrow', 'vertical')
-      expect(screen.getByTestId('responsive-direction')).toHaveAttribute('data-direction-regular', 'horizontal')
+      expect(screen.getByTestId('responsive-direction')).toHaveAttribute('direction-narrow', 'vertical')
+      expect(screen.getByTestId('responsive-direction')).toHaveAttribute('direction-regular', 'horizontal')
     })
   })
 
@@ -117,25 +124,25 @@ describe('Stack', () => {
           <Stack data-testid="spacious" gap="spacious" />
         </>,
       )
-      expect(screen.getByTestId('tight')).toHaveAttribute('data-gap', 'tight')
-      expect(screen.getByTestId('condensed')).toHaveAttribute('data-gap', 'condensed')
-      expect(screen.getByTestId('cozy')).toHaveAttribute('data-gap', 'cozy')
-      expect(screen.getByTestId('normal')).toHaveAttribute('data-gap', 'normal')
-      expect(screen.getByTestId('spacious')).toHaveAttribute('data-gap', 'spacious')
+      expect(screen.getByTestId('tight')).toHaveAttribute('gap', 'tight')
+      expect(screen.getByTestId('condensed')).toHaveAttribute('gap', 'condensed')
+      expect(screen.getByTestId('cozy')).toHaveAttribute('gap', 'cozy')
+      expect(screen.getByTestId('normal')).toHaveAttribute('gap', 'normal')
+      expect(screen.getByTestId('spacious')).toHaveAttribute('gap', 'spacious')
     })
 
     it('should support responsive `gap` values', () => {
       render(<Stack data-testid="responsive-gap" gap={{narrow: 'condensed', regular: 'normal', wide: 'spacious'}} />)
-      expect(screen.getByTestId('responsive-gap')).toHaveAttribute('data-gap-narrow', 'condensed')
-      expect(screen.getByTestId('responsive-gap')).toHaveAttribute('data-gap-regular', 'normal')
-      expect(screen.getByTestId('responsive-gap')).toHaveAttribute('data-gap-wide', 'spacious')
+      expect(screen.getByTestId('responsive-gap')).toHaveAttribute('gap-narrow', 'condensed')
+      expect(screen.getByTestId('responsive-gap')).toHaveAttribute('gap-regular', 'normal')
+      expect(screen.getByTestId('responsive-gap')).toHaveAttribute('gap-wide', 'spacious')
     })
   })
 
   describe('justify', () => {
     it('should set the default justify to `start`', () => {
       render(<Stack data-testid="stack" />)
-      expect(screen.getByTestId('stack')).toHaveAttribute('data-justify', 'start')
+      expect(screen.getByTestId('stack')).toHaveAttribute('justify', 'start')
     })
 
     it('should support justifying content within the stack with `justify`', () => {
@@ -148,11 +155,11 @@ describe('Stack', () => {
           <Stack data-testid="space-between" justify="space-between" />
         </>,
       )
-      expect(screen.getByTestId('center')).toHaveAttribute('data-justify', 'center')
-      expect(screen.getByTestId('start')).toHaveAttribute('data-justify', 'start')
-      expect(screen.getByTestId('end')).toHaveAttribute('data-justify', 'end')
-      expect(screen.getByTestId('space-evenly')).toHaveAttribute('data-justify', 'space-evenly')
-      expect(screen.getByTestId('space-between')).toHaveAttribute('data-justify', 'space-between')
+      expect(screen.getByTestId('center')).toHaveAttribute('justify', 'center')
+      expect(screen.getByTestId('start')).toHaveAttribute('justify', 'start')
+      expect(screen.getByTestId('end')).toHaveAttribute('justify', 'end')
+      expect(screen.getByTestId('space-evenly')).toHaveAttribute('justify', 'space-evenly')
+      expect(screen.getByTestId('space-between')).toHaveAttribute('justify', 'space-between')
     })
 
     it('should support responsive `justify` values', () => {
@@ -166,16 +173,16 @@ describe('Stack', () => {
           }}
         />,
       )
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-justify-narrow', 'start')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-justify-regular', 'center')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-justify-wide', 'end')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('justify-narrow', 'start')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('justify-regular', 'center')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('justify-wide', 'end')
     })
   })
 
   describe('padding', () => {
     it('should set the default padding to `none`', () => {
       render(<Stack data-testid="stack" />)
-      expect(screen.getByTestId('stack')).toHaveAttribute('data-padding', 'none')
+      expect(screen.getByTestId('stack')).toHaveAttribute('padding', 'none')
     })
 
     it('should support specifying the stack padding with the `padding` prop', () => {
@@ -188,11 +195,11 @@ describe('Stack', () => {
           <Stack data-testid="spacious" padding="spacious" />
         </>,
       )
-      expect(screen.getByTestId('tight')).toHaveAttribute('data-padding', 'tight')
-      expect(screen.getByTestId('condensed')).toHaveAttribute('data-padding', 'condensed')
-      expect(screen.getByTestId('cozy')).toHaveAttribute('data-padding', 'cozy')
-      expect(screen.getByTestId('normal')).toHaveAttribute('data-padding', 'normal')
-      expect(screen.getByTestId('spacious')).toHaveAttribute('data-padding', 'spacious')
+      expect(screen.getByTestId('tight')).toHaveAttribute('padding', 'tight')
+      expect(screen.getByTestId('condensed')).toHaveAttribute('padding', 'condensed')
+      expect(screen.getByTestId('cozy')).toHaveAttribute('padding', 'cozy')
+      expect(screen.getByTestId('normal')).toHaveAttribute('padding', 'normal')
+      expect(screen.getByTestId('spacious')).toHaveAttribute('padding', 'spacious')
     })
 
     it('should support responsive `padding` values', () => {
@@ -206,16 +213,16 @@ describe('Stack', () => {
           }}
         />,
       )
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-narrow', 'none')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-regular', 'condensed')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-wide', 'spacious')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-narrow', 'none')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-regular', 'condensed')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-wide', 'spacious')
     })
 
     it('should render both padding and paddingBlock/paddingInline attributes when combined', () => {
       render(<Stack data-testid="combined" padding="normal" paddingBlock="condensed" paddingInline="spacious" />)
-      expect(screen.getByTestId('combined')).toHaveAttribute('data-padding', 'normal')
-      expect(screen.getByTestId('combined')).toHaveAttribute('data-padding-block', 'condensed')
-      expect(screen.getByTestId('combined')).toHaveAttribute('data-padding-inline', 'spacious')
+      expect(screen.getByTestId('combined')).toHaveAttribute('padding', 'normal')
+      expect(screen.getByTestId('combined')).toHaveAttribute('padding-block', 'condensed')
+      expect(screen.getByTestId('combined')).toHaveAttribute('padding-inline', 'spacious')
     })
   })
 
@@ -230,11 +237,11 @@ describe('Stack', () => {
           <Stack data-testid="spacious" paddingBlock="spacious" />
         </>,
       )
-      expect(screen.getByTestId('tight')).toHaveAttribute('data-padding-block', 'tight')
-      expect(screen.getByTestId('condensed')).toHaveAttribute('data-padding-block', 'condensed')
-      expect(screen.getByTestId('cozy')).toHaveAttribute('data-padding-block', 'cozy')
-      expect(screen.getByTestId('normal')).toHaveAttribute('data-padding-block', 'normal')
-      expect(screen.getByTestId('spacious')).toHaveAttribute('data-padding-block', 'spacious')
+      expect(screen.getByTestId('tight')).toHaveAttribute('padding-block', 'tight')
+      expect(screen.getByTestId('condensed')).toHaveAttribute('padding-block', 'condensed')
+      expect(screen.getByTestId('cozy')).toHaveAttribute('padding-block', 'cozy')
+      expect(screen.getByTestId('normal')).toHaveAttribute('padding-block', 'normal')
+      expect(screen.getByTestId('spacious')).toHaveAttribute('padding-block', 'spacious')
     })
 
     it('should support responsive `paddingBlock` values', () => {
@@ -248,9 +255,9 @@ describe('Stack', () => {
           }}
         />,
       )
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-block-narrow', 'none')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-block-regular', 'condensed')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-block-wide', 'spacious')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-block-narrow', 'none')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-block-regular', 'condensed')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-block-wide', 'spacious')
     })
   })
 
@@ -265,11 +272,11 @@ describe('Stack', () => {
           <Stack data-testid="spacious" paddingInline="spacious" />
         </>,
       )
-      expect(screen.getByTestId('tight')).toHaveAttribute('data-padding-inline', 'tight')
-      expect(screen.getByTestId('condensed')).toHaveAttribute('data-padding-inline', 'condensed')
-      expect(screen.getByTestId('cozy')).toHaveAttribute('data-padding-inline', 'cozy')
-      expect(screen.getByTestId('normal')).toHaveAttribute('data-padding-inline', 'normal')
-      expect(screen.getByTestId('spacious')).toHaveAttribute('data-padding-inline', 'spacious')
+      expect(screen.getByTestId('tight')).toHaveAttribute('padding-inline', 'tight')
+      expect(screen.getByTestId('condensed')).toHaveAttribute('padding-inline', 'condensed')
+      expect(screen.getByTestId('cozy')).toHaveAttribute('padding-inline', 'cozy')
+      expect(screen.getByTestId('normal')).toHaveAttribute('padding-inline', 'normal')
+      expect(screen.getByTestId('spacious')).toHaveAttribute('padding-inline', 'spacious')
     })
 
     it('should support responsive `paddingInline` values', () => {
@@ -283,16 +290,16 @@ describe('Stack', () => {
           }}
         />,
       )
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-inline-narrow', 'tight')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-inline-regular', 'normal')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-inline-wide', 'spacious')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-inline-narrow', 'tight')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-inline-regular', 'normal')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('padding-inline-wide', 'spacious')
     })
   })
 
   describe('wrap', () => {
     it('should set the default wrap to `nowrap`', () => {
       render(<Stack data-testid="stack" />)
-      expect(screen.getByTestId('stack')).toHaveAttribute('data-wrap', 'nowrap')
+      expect(screen.getByTestId('stack')).toHaveAttribute('wrap', 'nowrap')
     })
 
     it('should support wrapping the content in the container with `wrap`', () => {
@@ -302,8 +309,8 @@ describe('Stack', () => {
           <Stack data-testid="nowrap" wrap="nowrap" />
         </>,
       )
-      expect(screen.getByTestId('wrap')).toHaveAttribute('data-wrap', 'wrap')
-      expect(screen.getByTestId('nowrap')).toHaveAttribute('data-wrap', 'nowrap')
+      expect(screen.getByTestId('wrap')).toHaveAttribute('wrap', 'wrap')
+      expect(screen.getByTestId('nowrap')).toHaveAttribute('wrap', 'nowrap')
     })
 
     it('should support responsive `wrap` values', () => {
@@ -317,9 +324,9 @@ describe('Stack', () => {
           }}
         />,
       )
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-wrap-narrow', 'wrap')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-wrap-regular', 'nowrap')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-wrap-wide', 'wrap')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('wrap-narrow', 'wrap')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('wrap-regular', 'nowrap')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('wrap-wide', 'wrap')
     })
   })
 })

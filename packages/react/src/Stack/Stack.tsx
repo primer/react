@@ -1,10 +1,32 @@
 import type React from 'react'
 import {forwardRef, type ElementType} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
-import classes from './Stack.module.css'
-import {clsx} from 'clsx'
+import './Stack.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+
+type StackCustomElementProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+  align?: string
+  class?: string
+  direction?: string
+  gap?: string
+  grow?: string
+  justify?: string
+  padding?: string
+  shrink?: string
+  stack?: string
+  'stack-item'?: string
+  wrap?: string
+}
+
+declare module 'react' {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      'ds-stack': StackCustomElementProps
+      'ds-stack-item': StackCustomElementProps
+    }
+  }
+}
 
 type GapScale = 'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'
 type Gap = GapScale | ResponsiveValue<GapScale>
@@ -23,6 +45,46 @@ type Justify = JustifyScale | ResponsiveValue<JustifyScale>
 
 type PaddingScale = 'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'
 type Padding = PaddingScale | ResponsiveValue<PaddingScale>
+
+function getResponsiveStackAttributes<T extends string | boolean>(
+  property: string,
+  values?: T | ResponsiveValue<T>,
+): Record<string, string> | undefined {
+  if (values === undefined) {
+    return
+  }
+
+  if (typeof values === 'object') {
+    return Object.fromEntries(
+      Object.entries(values).map(([key, value]) => {
+        return [serializeAttributeName(property, key), String(value)]
+      }),
+    )
+  }
+
+  return {
+    [property]: String(values),
+  }
+}
+
+function serializeAttributeName(property: string, breakpoint: string) {
+  return `${property}-${breakpoint}`
+}
+
+function getPolymorphicElementProps(Component: ElementType, defaultElement: string, className?: string) {
+  const isStringElement = typeof Component === 'string'
+  const props: Record<string, string | undefined> = {}
+
+  if (className) {
+    props[isStringElement && Component.includes('-') ? 'class' : 'className'] = className
+  }
+
+  if (isStringElement && Component !== defaultElement) {
+    props[defaultElement === 'ds-stack' ? 'stack' : 'stack-item'] = ''
+  }
+
+  return props
+}
 
 type StackProps<As> = React.PropsWithChildren<{
   /**
@@ -83,7 +145,7 @@ type StackProps<As> = React.PropsWithChildren<{
 const Stack = forwardRef(
   (
     {
-      as: Component = 'div',
+      as: Component = 'ds-stack',
       children,
       align = 'stretch',
       direction = 'vertical',
@@ -102,15 +164,15 @@ const Stack = forwardRef(
       <Component
         ref={forwardedRef}
         {...rest}
-        className={clsx(className, classes.Stack)}
-        {...getResponsiveAttributes('gap', gap)}
-        {...getResponsiveAttributes('direction', direction)}
-        {...getResponsiveAttributes('align', align)}
-        {...getResponsiveAttributes('wrap', wrap)}
-        {...getResponsiveAttributes('justify', justify)}
-        {...getResponsiveAttributes('padding', padding)}
-        {...getResponsiveAttributes('padding-block', paddingBlock)}
-        {...getResponsiveAttributes('padding-inline', paddingInline)}
+        {...getPolymorphicElementProps(Component, 'ds-stack', className)}
+        {...getResponsiveStackAttributes('gap', gap)}
+        {...getResponsiveStackAttributes('direction', direction)}
+        {...getResponsiveStackAttributes('align', align)}
+        {...getResponsiveStackAttributes('wrap', wrap)}
+        {...getResponsiveStackAttributes('justify', justify)}
+        {...getResponsiveStackAttributes('padding', padding)}
+        {...getResponsiveStackAttributes('padding-block', paddingBlock)}
+        {...getResponsiveStackAttributes('padding-inline', paddingInline)}
       >
         {children}
       </Component>
@@ -139,19 +201,21 @@ type StackItemProps<As> = React.PropsWithChildren<{
   className?: string
 }>
 
-const StackItem = forwardRef(({as: Component = 'div', children, grow, shrink, className, ...rest}, forwardedRef) => {
-  return (
-    <Component
-      ref={forwardedRef}
-      {...rest}
-      className={clsx(className, classes.StackItem)}
-      {...getResponsiveAttributes('grow', grow)}
-      {...getResponsiveAttributes('shrink', shrink)}
-    >
-      {children}
-    </Component>
-  )
-}) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
+const StackItem = forwardRef(
+  ({as: Component = 'ds-stack-item', children, grow, shrink, className, ...rest}, forwardedRef) => {
+    return (
+      <Component
+        ref={forwardedRef}
+        {...rest}
+        {...getPolymorphicElementProps(Component, 'ds-stack-item', className)}
+        {...getResponsiveStackAttributes('grow', grow)}
+        {...getResponsiveStackAttributes('shrink', shrink)}
+      >
+        {children}
+      </Component>
+    )
+  },
+) as PolymorphicForwardRefComponent<ElementType, StackItemProps<ElementType>>
 
 export {Stack, StackItem}
 export type {StackProps, StackItemProps}

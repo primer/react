@@ -2,11 +2,12 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Banner} from '../Banner'
-import {implementsClassName} from '../utils/testing'
-import classes from './Banner.module.css'
 
 describe('Banner', () => {
-  implementsClassName(props => <Banner title="test" {...props} />, classes.Banner)
+  it('renders with the custom className', () => {
+    render(<Banner title="test" className="test-class" />)
+    expect(screen.getByRole('region', {name: 'test'})).toHaveClass('test-class')
+  })
 
   it('should render as a region element', () => {
     render(<Banner title="test" />)
@@ -25,16 +26,16 @@ describe('Banner', () => {
       />,
     )
 
-    expect(container.querySelector('[data-component="Banner"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Icon"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Content"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Actions"]')).toBeInTheDocument()
+    expect(container.querySelector('section[data-component="Banner"]')).toBeInTheDocument()
+    expect(container.querySelector('ds-banner-icon[data-component="Banner.Icon"]')).toBeInTheDocument()
+    expect(container.querySelector('ds-banner-content[data-component="Banner.Content"]')).toBeInTheDocument()
+    expect(container.querySelector('ds-banner-actions[data-component="Banner.Actions"]')).toBeInTheDocument()
 
     expect(container.querySelector('[data-component="Banner.PrimaryAction"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="Banner.SecondaryAction"]')).toBeInTheDocument()
 
-    expect(container.querySelector('[data-component="Banner.Title"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Description"]')).toBeInTheDocument()
+    expect(container.querySelector('ds-banner-title [data-component="Banner.Title"]')).toBeInTheDocument()
+    expect(container.querySelector('ds-banner-description[data-component="Banner.Description"]')).toBeInTheDocument()
   })
 
   it('renders Banner dismiss IconButton with data-component attribute', () => {
@@ -226,6 +227,7 @@ describe('Banner', () => {
   it('should pass extra props onto the container element', () => {
     const {container} = render(<Banner title="test" data-testid="test" />)
     expect(container.firstChild).toHaveAttribute('data-testid', 'test')
+    expect(container.firstChild).toHaveProperty('tagName', 'SECTION')
   })
 
   it('should support a custom icon for info and upsell variants', () => {
@@ -284,39 +286,44 @@ describe('Banner', () => {
     expect(screen.queryByTestId('deprecated-icon')).toBe(null)
   })
 
-  it('should render data-actions-layout attribute with inline value', () => {
+  it('should render actions-layout attribute with inline value', () => {
     const {container} = render(<Banner title="test" actionsLayout="inline" />)
-    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'inline')
+    expect(container.querySelector('ds-banner')).toHaveAttribute('actions-layout', 'inline')
   })
 
-  it('should render data-actions-layout attribute with stacked value', () => {
+  it('should render actions-layout attribute with stacked value', () => {
     const {container} = render(<Banner title="test" actionsLayout="stacked" />)
-    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'stacked')
+    expect(container.querySelector('ds-banner')).toHaveAttribute('actions-layout', 'stacked')
   })
 
-  it('should render data-actions-layout attribute with default value when not specified', () => {
+  it('should render actions-layout attribute with default value when not specified', () => {
     const {container} = render(<Banner title="test" />)
-    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
+    expect(container.querySelector('ds-banner')).toHaveAttribute('actions-layout', 'default')
   })
 
-  it('should render data-flush attribute when flush is true', () => {
+  it('should render flush attribute when flush is true', () => {
     const {container} = render(<Banner title="test" flush />)
-    expect(container.firstChild).toHaveAttribute('data-flush')
+    expect(container.querySelector('ds-banner')).toHaveAttribute('flush')
   })
 
-  it('should not render data-flush attribute when flush is false', () => {
+  it('should not render flush attribute when flush is false', () => {
     const {container} = render(<Banner title="test" />)
-    expect(container.firstChild).not.toHaveAttribute('data-flush')
+    expect(container.querySelector('ds-banner')).not.toHaveAttribute('flush')
   })
 
   describe('Banner.Title', () => {
-    it('should render as a h2 element by default', () => {
+    it('should render as a level 2 heading by default', () => {
       render(
         <Banner>
           <Banner.Title>test</Banner.Title>
         </Banner>,
       )
       expect(screen.getByRole('heading', {level: 2, name: 'test'})).toBeInTheDocument()
+      expect(screen.getByRole('heading', {level: 2, name: 'test'})).toHaveProperty('tagName', 'H2')
+      expect(screen.getByRole('heading', {level: 2, name: 'test'}).parentElement).toHaveProperty(
+        'tagName',
+        'DS-BANNER-TITLE',
+      )
     })
 
     it('should support rendering as any heading element above level 2', () => {

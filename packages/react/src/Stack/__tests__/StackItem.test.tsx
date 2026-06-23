@@ -2,11 +2,17 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import type React from 'react'
 import {Stack, StackItem} from '../Stack'
-import {implementsClassName} from '../../utils/testing'
-import classes from '../Stack.module.css'
 
 describe('StackItem', () => {
-  implementsClassName(StackItem, classes.StackItem)
+  it('should render as a custom element by default', () => {
+    const {container} = render(<StackItem />)
+    expect(container.firstChild?.nodeName).toBe('DS-STACK-ITEM')
+  })
+
+  it('renders with the custom className', () => {
+    render(<StackItem data-testid="stack-item" className="custom-class" />)
+    expect(screen.getByTestId('stack-item')).toHaveClass('custom-class')
+  })
 
   it('should render its children', () => {
     render(
@@ -24,8 +30,8 @@ describe('StackItem', () => {
         <StackItem data-testid="grow-false" />
       </Stack>,
     )
-    expect(screen.getByTestId('grow-true')).toHaveAttribute('data-grow', 'true')
-    expect(screen.getByTestId('grow-false')).not.toHaveAttribute('data-grow', 'false')
+    expect(screen.getByTestId('grow-true')).toHaveAttribute('grow', 'true')
+    expect(screen.getByTestId('grow-false')).not.toHaveAttribute('grow', 'false')
   })
 
   it('should support responsive `grow` values', () => {
@@ -34,9 +40,9 @@ describe('StackItem', () => {
         <StackItem data-testid="responsive-grow" grow={{narrow: true, regular: false, wide: true}} />
       </Stack>,
     )
-    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('data-grow-narrow', 'true')
-    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('data-grow-regular', 'false')
-    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('data-grow-wide', 'true')
+    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('grow-narrow', 'true')
+    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('grow-regular', 'false')
+    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('grow-wide', 'true')
   })
 
   it('should support the `shrink` prop', () => {
@@ -46,8 +52,8 @@ describe('StackItem', () => {
         <StackItem data-testid="shrink-false" />
       </Stack>,
     )
-    expect(screen.getByTestId('shrink-true')).toHaveAttribute('data-shrink', 'true')
-    expect(screen.getByTestId('shrink-false')).not.toHaveAttribute('data-shrink', 'false')
+    expect(screen.getByTestId('shrink-true')).toHaveAttribute('shrink', 'true')
+    expect(screen.getByTestId('shrink-false')).not.toHaveAttribute('shrink', 'false')
   })
 
   it('should support responsive `shrink` values', () => {
@@ -56,9 +62,9 @@ describe('StackItem', () => {
         <StackItem data-testid="responsive-shrink" shrink={{narrow: true, regular: false, wide: true}} />
       </Stack>,
     )
-    expect(screen.getByTestId('responsive-shrink')).toHaveAttribute('data-shrink-narrow', 'true')
-    expect(screen.getByTestId('responsive-shrink')).toHaveAttribute('data-shrink-regular', 'false')
-    expect(screen.getByTestId('responsive-shrink')).toHaveAttribute('data-shrink-wide', 'true')
+    expect(screen.getByTestId('responsive-shrink')).toHaveAttribute('shrink-narrow', 'true')
+    expect(screen.getByTestId('responsive-shrink')).toHaveAttribute('shrink-regular', 'false')
+    expect(screen.getByTestId('responsive-shrink')).toHaveAttribute('shrink-wide', 'true')
   })
 
   it('should render a custom component with the `as` prop', () => {
@@ -72,5 +78,12 @@ describe('StackItem', () => {
     )
     expect(CustomComponent).toHaveBeenCalled()
     expect(screen.getByTestId('custom-stack-item')).toHaveTextContent('Content')
+  })
+
+  it('should preserve native semantics with the `as` prop', () => {
+    const {container} = render(<StackItem as="li">Content</StackItem>)
+
+    expect(container.firstChild?.nodeName).toBe('LI')
+    expect(container.firstChild).toHaveAttribute('stack-item')
   })
 })
