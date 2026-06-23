@@ -1,7 +1,6 @@
 import './global.css'
 import {cookies} from 'next/headers'
-import {BaseStyles, ThemeProvider} from '@primer/styled-react'
-import {StyledComponentsRegistry} from './registry'
+import {BaseStyles, ThemeProvider} from '@primer/react'
 
 export const metadata = {
   title: 'Next.js',
@@ -24,11 +23,9 @@ export default async function RootLayout({children}: {children: React.ReactNode}
       data-dark-theme="dark"
     >
       <body>
-        <StyledComponentsRegistry>
-          <ThemeProvider colorMode={colorMode}>
-            <BaseStyles>{children}</BaseStyles>
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+        <ThemeProvider colorMode={colorMode} contextOnly>
+          <BaseStyles>{children}</BaseStyles>
+        </ThemeProvider>
       </body>
     </html>
   )
