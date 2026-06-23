@@ -1,7 +1,7 @@
 import {createContext, useContext} from 'react'
 
 type BlankslateContextType = {
-  size: 'small' | 'medium' | 'large'
+  size: 'medium' | 'large'
 }
 
 const BlankslateContext = createContext<BlankslateContextType | null>(null)

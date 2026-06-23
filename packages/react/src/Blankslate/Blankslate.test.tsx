@@ -23,7 +23,7 @@ function getCSSStyleRules(): Array<CSSStyleRule> {
   })
 }
 
-function getSizePadding(size: 'small' | 'medium' | 'large') {
+function getSizePadding(size: 'medium' | 'large') {
   const rule = getCSSStyleRules().find(cssRule => {
     return (
       cssRule.selectorText.includes(`.${classes.Blankslate}`) &&
@@ -53,10 +53,10 @@ describe('Blankslate', () => {
     expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', '')
   })
 
-  it('sets reduced padding for small size variant', () => {
+  it('sets reduced padding for the default medium size variant', () => {
     render(<Blankslate>Test content</Blankslate>)
 
-    expect(getSizePadding('small')).toMatch(/^var\(--base-size-16/)
+    expect(getSizePadding('medium')).toMatch(/^var\(--base-size-16/)
   })
 
   it('renders data-component attributes', () => {

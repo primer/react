@@ -19,18 +19,6 @@
   }
 
   &:where([data-size='medium']) {
-    --blankslate-heading-text: var(--text-title-shorthand-medium);
-    --blankslate-heading-margin-block: 0 var(--base-size-4);
-    --blankslate-description-text: var(--text-body-shorthand-large);
-    --blankslate-padding: var(--base-size-32);
-    --blankslate-action-margin-block-end: var(--base-size-16);
-  }
-
-  &:where([data-size='medium'][data-spacious]) {
-    --blankslate-padding: var(--base-size-80) var(--base-size-40);
-  }
-
-  &:where([data-size='small']) {
     --blankslate-heading-text: var(--text-title-shorthand-small);
     --blankslate-heading-margin-block: 0 var(--base-size-4);
     --blankslate-description-text: var(--text-body-shorthand-medium);
@@ -39,15 +27,14 @@
     --blankslate-visual-size: var(--base-size-24);
   }
 
-  &:where([data-size='small'][data-spacious]) {
+  &:where([data-size='medium'][data-spacious]) {
     --blankslate-padding: var(--base-size-44) var(--base-size-28);
   }
 
   &:where([data-size='large']) {
-    --blankslate-heading-text: var(--text-title-shorthand-large);
-    --blankslate-heading-margin-block: var(--base-size-8) var(--base-size-4);
+    --blankslate-heading-text: var(--text-title-shorthand-medium);
+    --blankslate-heading-margin-block: 0 var(--base-size-4);
     --blankslate-description-text: var(--text-body-shorthand-large);
-    --blankslate-description-margin-block: 0 var(--base-size-8);
     --blankslate-padding: var(--base-size-32);
     --blankslate-action-margin-block-end: var(--base-size-16);
   }
@@ -75,8 +62,6 @@
   /* stylelint-disable-next-line primer/typography */
   font: var(--blankslate-description-text);
   color: var(--fgColor-muted);
-  /* stylelint-disable-next-line primer/spacing */
-  margin-block: var(--blankslate-description-margin-block);
 }
 
 .Visual {
@@ -99,41 +84,5 @@
   &:where(:last-of-type) {
     /* stylelint-disable-next-line primer/spacing */
     margin-block-end: var(--blankslate-action-margin-block-end);
-  }
-}
-
-/* At the time these styles were written, 34rem was our "small" breakpoint width */
-@container blankslate (max-width: 34rem) {
-  .Blankslate {
-    --blankslate-padding: var(--base-size-20);
-
-    &:where([data-size='small']) {
-      --blankslate-padding: var(--base-size-16);
-    }
-
-    &:where([data-spacious]) {
-      --blankslate-padding: var(--base-size-44) var(--base-size-28);
-    }
-
-    --blankslate-heading-text: var(--text-title-shorthand-small);
-    --blankslate-description-text: var(--text-body-shorthand-medium);
-  }
-
-  .Visual {
-    max-width: var(--base-size-24);
-    margin-bottom: var(--base-size-8);
-    color: var(--fgColor-muted);
-  }
-
-  .Action {
-    margin-top: var(--base-size-8);
-
-    &:first-of-type {
-      margin-top: var(--base-size-16);
-    }
-
-    &:last-of-type {
-      margin-bottom: calc(var(--base-size-8) / 2);
-    }
   }
 }

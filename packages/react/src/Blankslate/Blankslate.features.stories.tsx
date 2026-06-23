@@ -106,8 +106,8 @@ export const Spacious = () => (
   </Blankslate>
 )
 
-export const SizeSmall = () => (
-  <Blankslate border size="small">
+export const SizeMedium = () => (
+  <Blankslate border size="medium">
     <Blankslate.Visual>
       <BookIcon size="medium" />
     </Blankslate.Visual>

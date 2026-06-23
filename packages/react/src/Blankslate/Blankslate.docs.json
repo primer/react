@@ -54,7 +54,7 @@
     },
     {
       "name": "size",
-      "type": "'small' | 'medium' | 'large'",
+      "type": "'medium' | 'large'",
       "description": "The size of the componeont",
       "defaultValue": "'medium'"
     }

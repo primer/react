@@ -30,7 +30,7 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
   /**
    * Specify the size of this component
    */
-  size?: 'small' | 'medium' | 'large'
+  size?: 'medium' | 'large'
 }
 
 function Blankslate({border, children, narrow, spacious, className, size = 'medium', ...rest}: BlankslateProps) {
@@ -116,7 +116,7 @@ function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps)
         as={href ? 'a' : 'button'}
         href={href}
         variant="primary"
-        size={size === 'small' ? 'small' : undefined}
+        size={size === 'medium' ? 'small' : undefined}
       >
         {children}
       </Button>
