@@ -112,7 +112,7 @@ describe('LabelGroup', () => {
   })
 
   it('should truncate labels to a specified number', () => {
-    const {getByText} = render(
+    const {getByText, queryByText, rerender} = render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3}>
           <Label>One</Label>
@@ -126,6 +126,21 @@ describe('LabelGroup', () => {
     const expandButton = getByText('+2')
 
     expect(expandButton).toBeDefined()
+
+    rerender(
+      <ThemeAndStyleContainer>
+        <LabelGroup visibleChildCount={4}>
+          <Label>One</Label>
+          <Label>Two</Label>
+          <Label>Three</Label>
+          <Label>Four</Label>
+          <Label>Five</Label>
+        </LabelGroup>
+      </ThemeAndStyleContainer>,
+    )
+
+    expect(queryByText('+2')).toBeNull()
+    expect(getByText('+1')).toBeDefined()
   })
 
   it('should expand all tokens into an overlay when overflowStyle="overlay"', async () => {
