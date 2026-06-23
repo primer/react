@@ -1,7 +1,7 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import ToggleSwitch from './ToggleSwitch'
-import {Text} from '..'
+import Text from '../Text'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
 import classes from './ToggleSwitch.stories.module.css'
 

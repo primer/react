@@ -1,5 +1,6 @@
 import React from 'react'
-import {ActionMenu, ActionList} from '../'
+import {ActionMenu} from '.'
+import {ActionList} from '../ActionList'
 import {
   WorkflowIcon,
   ArchiveIcon,
