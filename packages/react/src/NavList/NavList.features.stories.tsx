@@ -667,8 +667,6 @@ export const WithHeading: StoryFn = () => (
   </PageLayout>
 )
 
-WithHeading.storyName = 'With Heading'
-
 export const WithVisuallyHiddenHeading: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
