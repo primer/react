@@ -1,4 +1,4 @@
-import React, {forwardRef, useRef, useContext, useCallback, useSyncExternalStore} from 'react'
+import React, {forwardRef, useRef, useContext} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
@@ -22,24 +22,10 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
 
   const {loadingCounters} = useContext(UnderlineNavContext)
 
-  const isOverflowing = useSyncExternalStore(
-    useCallback(
-      onChange => {
-        const observer = new IntersectionObserver(() => onChange(), {
-          threshold: 1,
-        })
-        if (ref.current) observer.observe(ref.current)
-        return () => observer.disconnect()
-      },
-      [ref],
-    ),
-    // Note: the IntersectionObserver is just being used as a trigger to re-check
-    // `offsetTop > 0`; this is fast and simpler than checking visibility from
-    // the observed entry. When an item wraps, it will move to the next row which
-    // increases its `offsetTop`
-    () => (ref.current ? ref.current.offsetTop > 0 : false),
-    () => false,
-  )
+  // Subscribe to the registry's shared IntersectionObserver. The observer is just being used as a trigger to
+  // re-check `offsetTop > 0`; this is fast and simpler than checking visibility from the observed entry. When an
+  // item wraps, it moves to the next (clipped) row, which increases its `offsetTop`.
+  const isOverflowing = UnderlineNavItemsRegistry.useRegisterOverflowObserver(ref)
 
   UnderlineNavItemsRegistry.useRegisterDescendant(isOverflowing ? allProps : null)
 

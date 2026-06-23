@@ -53,5 +53,12 @@ export type UnderlineNavItemProps = {
   counter?: number | string
 } & LinkProps
 
-/** Registry of currently-overflowing underline items. If an item is not overflowing, its value will be `null`. */
-export const UnderlineNavItemsRegistry = createDescendantRegistry<UnderlineNavItemProps | null>()
+/**
+ * Registry of currently-overflowing underline items. If an item is not overflowing, its value will be `null`.
+ *
+ * Items opt into a single shared IntersectionObserver (threshold 1) via `useRegisterOverflowObserver` instead of
+ * each item creating its own observer.
+ */
+export const UnderlineNavItemsRegistry = createDescendantRegistry<UnderlineNavItemProps | null>({
+  overflow: {threshold: 1},
+})
