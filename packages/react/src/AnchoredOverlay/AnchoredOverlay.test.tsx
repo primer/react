@@ -1,7 +1,7 @@
-import {act, createRef, useCallback, useRef, useState} from 'react'
+import {createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
-import {userEvent} from 'vitest/browser'
+import {act, fireEvent, render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
@@ -105,9 +105,7 @@ describe.each([true, false])(
         />,
       )
       const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-      await act(async () => {
-        await userEvent.click(anchor)
-      })
+      await userEvent.click(anchor)
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(1)
       expect(mockOpenCallback).toHaveBeenCalledWith('anchor-click')
@@ -125,9 +123,7 @@ describe.each([true, false])(
         />,
       )
       const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-      await act(async () => {
-        await userEvent.type(anchor, '{Space}')
-      })
+      fireEvent.keyDown(anchor, {key: ' '})
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(1)
       expect(mockOpenCallback).toHaveBeenCalledWith('anchor-key-press')
@@ -145,9 +141,7 @@ describe.each([true, false])(
           withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
         />,
       )
-      await act(async () => {
-        await userEvent.click(anchoredOverlay.baseElement)
-      })
+      await userEvent.click(anchoredOverlay.baseElement)
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(0)
       expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -167,9 +161,7 @@ describe.each([true, false])(
         />,
       )
 
-      await act(async () => {
-        await userEvent.keyboard('{Escape}')
-      })
+      await userEvent.keyboard('{Escape}')
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(0)
       expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -186,9 +178,7 @@ describe.each([true, false])(
         />,
       )
 
-      await act(async () => {
-        await userEvent.keyboard('{Escape}')
-      })
+      await userEvent.keyboard('{Escape}')
 
       expect(mockPositionChangeCallback).toHaveBeenCalled()
       expect(mockPositionChangeCallback).toHaveBeenCalledWith({

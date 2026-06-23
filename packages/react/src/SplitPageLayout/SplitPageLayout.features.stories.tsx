@@ -1,6 +1,6 @@
 import type {StoryFn, Meta} from '@storybook/react-vite'
-
-import {Button, Heading} from '..'
+import {Button} from '../Button'
+import Heading from '../Heading'
 import {NavList} from '../NavList'
 import {SplitPageLayout} from '../SplitPageLayout'
 import classes from './SplitPageLayout.features.stories.module.css'

@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {ProgressBar} from '..'
+import {ProgressBar} from '.'
 import {render} from '@testing-library/react'
 import {implementsClassName} from '../utils/testing'
 import classes from './ProgressBar.module.css'

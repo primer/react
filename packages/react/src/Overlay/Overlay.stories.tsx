@@ -1,7 +1,9 @@
 import {useState, useRef, type ComponentProps} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import {XIcon} from '@primer/octicons-react'
-import {Button, Text, useFocusTrap, IconButton} from '..'
+import {Button, IconButton} from '../Button'
+import Text from '../Text'
+import {useFocusTrap} from '../hooks/useFocusTrap'
 import Overlay from '../Overlay'
 import classes from './Overlay.stories.module.css'
 

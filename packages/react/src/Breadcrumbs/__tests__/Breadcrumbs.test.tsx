@@ -1,5 +1,5 @@
 import Breadcrumbs from '..'
-import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
+import {act, fireEvent, render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
@@ -143,6 +143,47 @@ describe('Breadcrumbs', () => {
     expect(screen.getByText('Item 6')).toBeInTheDocument()
   })
 
+  it('updates overflow menu items when children change with same item count', async () => {
+    const user = userEvent.setup()
+    const {rerender} = renderWithTheme(
+      <Breadcrumbs overflow="menu">
+        <Breadcrumbs.Item href="/home">Old Home</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/category">Old Category</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/subcategory">Subcategory</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/product">Product</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/details">Details</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/reviews">Reviews</Breadcrumbs.Item>
+      </Breadcrumbs>,
+    )
+
+    const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
+    await user.click(menuButton)
+
+    const oldMenu = menuButton.closest('details')
+    expect(oldMenu).not.toBeNull()
+    expect(within(oldMenu!).getByRole('link', {name: 'Old Home'})).toBeInTheDocument()
+
+    await user.click(menuButton)
+
+    rerender(
+      <Breadcrumbs overflow="menu">
+        <Breadcrumbs.Item href="/new-home">New Home</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/new-category">New Category</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/subcategory">Subcategory</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/product">Product</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/details">Details</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/reviews">Reviews</Breadcrumbs.Item>
+      </Breadcrumbs>,
+    )
+
+    await user.click(screen.getByRole('button', {name: /more breadcrumb items/i}))
+
+    const updatedMenu = screen.getByRole('button', {name: /more breadcrumb items/i}).closest('details')
+    expect(updatedMenu).not.toBeNull()
+    expect(within(updatedMenu!).getByRole('link', {name: 'New Home'})).toBeInTheDocument()
+    expect(within(updatedMenu!).queryByRole('link', {name: 'Old Home'})).not.toBeInTheDocument()
+  })
+
   it('show root in menu', () => {
     expect(() => {
       renderWithTheme(
@@ -179,7 +220,7 @@ describe('Breadcrumbs', () => {
     await user.click(menuButton)
 
     // Find the <details> element that contains the overflow menu
-    const detailsEl = menuButton.closest('details') as HTMLElement | null
+    const detailsEl = menuButton.closest('details')
     expect(detailsEl).not.toBeNull()
     const detailsScope = within(detailsEl!)
 
@@ -249,11 +290,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 800, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      const callback = resizeCallback
+      act(() => {
+        callback([
+          {
+            contentRect: {width: 800, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Should still have overflow menu for 6 items (>5 rule)
@@ -261,11 +305,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a narrow container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 250, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      const callback = resizeCallback
+      act(() => {
+        callback([
+          {
+            contentRect: {width: 250, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Should maintain overflow menu for narrow container
@@ -332,11 +379,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very narrow container resize that would affect overflow calculation
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      const callback = resizeCallback
+      act(() => {
+        callback([
+          {
+            contentRect: {width: 200, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Menu button should still be present
@@ -344,11 +394,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 1200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      const callback = resizeCallback
+      act(() => {
+        callback([
+          {
+            contentRect: {width: 1200, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Menu button should still be present (7 items > 5)
@@ -400,7 +453,7 @@ describe('Breadcrumbs', () => {
       })
 
       // Press Escape key
-      await user.keyboard('{Escape}') // sometimes tooltip swallows this escape
+      fireEvent.keyDown(document, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})
 
       // Verify menu is closed
       await waitFor(() => {
@@ -506,7 +559,9 @@ describe('Breadcrumbs', () => {
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
 
       // Focus the menu button
-      menuButton.focus()
+      act(() => {
+        menuButton.focus()
+      })
       expect(menuButton).toHaveFocus()
 
       // Open menu with Enter key
@@ -518,7 +573,7 @@ describe('Breadcrumbs', () => {
       })
 
       // Close with Escape
-      await user.keyboard('{Escape}')
+      fireEvent.keyDown(document, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})
 
       // Verify focus returns to button
       expect(menuButton).toHaveFocus()
