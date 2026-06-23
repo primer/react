@@ -44,7 +44,11 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
   const LeadingVisual = leadingVisual ?? leadingIcon
 
   return (
-    <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
+    <li
+      className={clsx(classes.Item)}
+      data-selected={selected ? '' : undefined}
+      data-component="SegmentedControl.Button"
+    >
       <button
         aria-current={selected}
         aria-disabled={disabled || ariaDisabled || undefined}

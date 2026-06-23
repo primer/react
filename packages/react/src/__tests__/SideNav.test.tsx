@@ -12,6 +12,17 @@ describe('SideNav', () => {
     expect(render(<SideNav.Link />).container.firstChild).toHaveProperty('tagName', 'A')
   })
 
+  it('renders data-component attributes', () => {
+    const {getByRole} = render(
+      <SideNav aria-label="Label">
+        <SideNav.Link href="#one">One</SideNav.Link>
+      </SideNav>,
+    )
+
+    expect(getByRole('navigation')).toHaveAttribute('data-component', 'SideNav')
+    expect(getByRole('link', {name: 'One'})).toHaveAttribute('data-component', 'SideNav.Link')
+  })
+
   it('sets aria-label appropriately', () => {
     render(<SideNav aria-label="Label" />)
     expect(screen.getByRole('navigation')).toHaveAttribute('aria-label', 'Label')

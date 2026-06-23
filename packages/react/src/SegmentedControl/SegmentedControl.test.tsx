@@ -34,6 +34,44 @@ const segmentData = [
 describe('SegmentedControl', () => {
   implementsClassName(props => <SegmentedControl aria-label="File view" {...props} />, classes.SegmentedControl)
 
+  it('renders data-component attribute on the root', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label}) => (
+          <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
+        ))}
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('list')).toHaveAttribute('data-component', 'SegmentedControl')
+  })
+
+  it('renders data-component attribute on segmented control buttons', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button>Preview</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute(
+      'data-component',
+      'SegmentedControl.Button',
+    )
+  })
+
+  it('renders data-component attribute on segmented control icon buttons', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.IconButton icon={() => <EyeIcon />} aria-label="Preview" />
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute(
+      'data-component',
+      'SegmentedControl.IconButton',
+    )
+  })
+
   it('renders with a selected segment - controlled', () => {
     const {getByText} = render(
       <SegmentedControl aria-label="File view">
