@@ -68,8 +68,7 @@ export function createDescendantRegistry<T>(options?: {
    * Configure a shared IntersectionObserver owned by the `Provider`. When set, descendants can call
    * `useRegisterOverflowObserver` to subscribe to a single observer rather than each creating their own.
    */
-  overflow?: {
-  }
+  overflow?: object
 }) {
   const Context = createContext<DescendantRegistryContext<T>>({
     register: () => () => {},
@@ -141,18 +140,25 @@ export function createDescendantRegistry<T>(options?: {
 
         if (typeof IntersectionObserver === 'undefined') return () => {}
 
-        const observer = new IntersectionObserver(entries => {
-          for (const entry of entries) {
-            if (entry.target === element) updateOverflowState(getIsOverflowing(entry))
-          }
-        }, {threshold: [0, 1]})
+        const observer = new IntersectionObserver(
+          entries => {
+            for (const entry of entries) {
+              if (entry.target === element) updateOverflowState(getIsOverflowing(entry))
+            }
+          },
+          {threshold: [0, 1]},
+        )
         observer.observe(element)
         return () => observer.disconnect()
       },
       [ref, observe, disabled],
     )
 
-    return useSyncExternalStore(subscribe, () => isOverflowingRef.current, () => false)
+    return useSyncExternalStore(
+      subscribe,
+      () => isOverflowingRef.current,
+      () => false,
+    )
   }
 
   const unsetValue = Symbol('unset')
@@ -259,11 +265,7 @@ export function createDescendantRegistry<T>(options?: {
 
     return (
       <Context.Provider value={contextValue}>
-        {overflowEnabled ? (
-          <OverflowObserverProvider rootRef={rootRef}>{children}</OverflowObserverProvider>
-        ) : (
-          children
-        )}
+        {overflowEnabled ? <OverflowObserverProvider rootRef={rootRef}>{children}</OverflowObserverProvider> : children}
       </Context.Provider>
     )
   }
@@ -272,13 +274,7 @@ export function createDescendantRegistry<T>(options?: {
    * Owns a single IntersectionObserver shared by every descendant that calls `useRegisterOverflowObserver`.
    * Each observed element maps to a set of change callbacks; one observer notification fans out to all of them.
    */
-  function OverflowObserverProvider({
-    children,
-    rootRef,
-  }: {
-    children: ReactNode
-    rootRef?: RefObject<Element | null>
-  }) {
+  function OverflowObserverProvider({children, rootRef}: {children: ReactNode; rootRef?: RefObject<Element | null>}) {
     // Map of observed element -> set of subscriber callbacks.
     const subscribersRef = useRef<Map<Element, Set<(isOverflowing: boolean) => void>>>(new Map())
     const observedElementsRef = useRef<Set<Element>>(new Set())
@@ -353,10 +349,11 @@ export function createDescendantRegistry<T>(options?: {
 
     useEffect(() => {
       const subscribers = subscribersRef.current
+      const observedElements = observedElementsRef.current
       return () => {
         observerRef.current?.disconnect()
         observerRef.current = null
-        observedElementsRef.current.clear()
+        observedElements.clear()
         subscribers.clear()
       }
     }, [])

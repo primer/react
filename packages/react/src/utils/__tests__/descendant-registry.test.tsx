@@ -49,7 +49,7 @@ describe('createDescendantRegistry', () => {
         <Wrapper value="a" />
         <Wrapper value="b" />
         <Wrapper value="c" />
-      </RegistryParent>
+      </RegistryParent>,
     )
 
     expect(getByTestId('registry-values').textContent).toBe('a,b,c')
@@ -65,7 +65,7 @@ describe('createDescendantRegistry', () => {
           <Item value="b" />
         </Fragment>
         <Item value="c" />
-      </RegistryParent>
+      </RegistryParent>,
     )
 
     expect(getByTestId('registry-values').textContent).toBe('a,b,c')
@@ -233,7 +233,7 @@ describe('createDescendantRegistry coalesced rebuilds', () => {
           <button type="button" onClick={() => setExtraItems(5)}>
             Add five
           </button>
-        </RegistryParent>,
+        </RegistryParent>
       )
     }
 
@@ -282,7 +282,7 @@ describe('createDescendantRegistry coalesced rebuilds', () => {
           <button type="button" onClick={() => setShow(true)}>
             Show middle
           </button>
-        </RegistryParent>,
+        </RegistryParent>
       )
     }
 
@@ -356,8 +356,9 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
    * assert how many were updated by a single observer callback (the fan-out).
    */
   function createOverflowRegistry() {
-    const {Provider, useRegistryState, useRegisterDescendant, useRegisterOverflowObserver} =
-      createDescendantRegistry<string | null>({overflow: {}})
+    const {Provider, useRegistryState, useRegisterDescendant, useRegisterOverflowObserver} = createDescendantRegistry<
+      string | null
+    >({overflow: {}})
 
     function RegistryParent({children}: {children: React.ReactNode}) {
       const [, setRegistry] = useRegistryState()
