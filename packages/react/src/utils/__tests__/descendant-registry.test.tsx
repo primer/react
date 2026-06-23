@@ -374,15 +374,10 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
     }
 
     function Item({value}: {value: string}) {
-      const [isOverflowing, registerOverflowRef] = useRegisterOverflowObserver()
+      const ref = useRef<HTMLDivElement>(null)
+      const isOverflowing = useRegisterOverflowObserver(ref)
       useRegisterDescendant(isOverflowing ? value : null)
-      return (
-        <div
-          ref={registerOverflowRef}
-          data-testid={`item-${value}`}
-          data-overflowing={isOverflowing ? 'true' : 'false'}
-        />
-      )
+      return <div ref={ref} data-testid={`item-${value}`} data-overflowing={isOverflowing ? 'true' : 'false'} />
     }
 
     return {RegistryParent, Item}

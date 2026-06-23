@@ -1,5 +1,5 @@
 import {type RefObject, type MouseEventHandler, useContext} from 'react'
-import React, {useState, useCallback, useRef, useEffect, forwardRef, useMemo} from 'react'
+import React, {useState, useCallback, useRef, forwardRef, useMemo} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 
@@ -311,30 +311,32 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
   )
 }
 
-function useActionBarItem(registryProps: ChildProps) {
+function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProps: ChildProps) {
   const isGroupOverflowing = useContext(ActionBarGroupContext)?.isOverflowing
   const isInGroup = isGroupOverflowing !== undefined
 
   // There's no need to observe items inside of a group since the entire group overflows at once, so `disabled` skips
   // subscription for grouped items and always reports `false` for the child item itself.
-  const [isItemOverflowing, registerOverflowRef] = ActionBarItemsRegistry.useRegisterOverflowObserver({
-    disabled: isInGroup,
-  })
+  const isItemOverflowing = ActionBarItemsRegistry.useRegisterOverflowObserver(ref, {disabled: isInGroup})
 
   const isOverflowing = isGroupOverflowing || isItemOverflowing
 
   ActionBarItemsRegistry.useRegisterDescendant(isOverflowing ? registryProps : null)
 
-  return {isOverflowing, dataOverflowingAttr: isOverflowing ? '' : undefined, registerOverflowRef}
+  return {isOverflowing, dataOverflowingAttr: isOverflowing ? '' : undefined}
 }
 
 export const ActionBarIconButton = forwardRef(
   ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
+    const ref = useRef<HTMLButtonElement>(null)
+    const mergedRef = useMergedRefs(forwardedRef, ref)
+
     const {size} = React.useContext(ActionBarContext)
 
     const {['aria-label']: ariaLabel, icon} = props
 
-    const {dataOverflowingAttr, registerOverflowRef} = useActionBarItem(
+    const {dataOverflowingAttr} = useActionBarItem(
+      ref,
       useMemo(
         (): ChildProps => ({
           type: 'action',
@@ -346,8 +348,6 @@ export const ActionBarIconButton = forwardRef(
         [ariaLabel, icon, disabled, onClick],
       ),
     )
-
-    const mergedRef = useMergedRefs(forwardedRef, registerOverflowRef)
 
     const clickHandler = useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -377,19 +377,15 @@ const ActionBarGroupContext = React.createContext<{
 
 export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
   const backupRef = useRef<HTMLDivElement>(null)
-  const {dataOverflowingAttr, isOverflowing, registerOverflowRef} = useActionBarItem(
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
+  const {dataOverflowingAttr, isOverflowing} = useActionBarItem(
+    ref,
     useMemo((): ChildProps => ({type: 'group'}), []),
   )
-  const mergedRef = useMergedRefs((forwardedRef ?? backupRef) as RefObject<HTMLDivElement>, registerOverflowRef)
 
   return (
     <ActionBarGroupContext.Provider value={{isOverflowing}}>
-      <div
-        className={styles.Group}
-        data-component="ActionBar.Group"
-        ref={mergedRef}
-        data-overflowing={dataOverflowingAttr}
-      >
+      <div className={styles.Group} data-component="ActionBar.Group" ref={ref} data-overflowing={dataOverflowingAttr}>
         {children}
       </div>
     </ActionBarGroupContext.Provider>
@@ -406,7 +402,8 @@ export const ActionBarMenu = forwardRef(
 
     const [menuOpen, setMenuOpen] = useState(false)
 
-    const {dataOverflowingAttr, registerOverflowRef} = useActionBarItem(
+    const {dataOverflowingAttr} = useActionBarItem(
+      ref,
       useMemo(
         (): ChildProps => ({
           type: 'menu',
@@ -418,13 +415,6 @@ export const ActionBarMenu = forwardRef(
         [ariaLabel, overflowIcon, icon, items, returnFocusRef],
       ),
     )
-
-    // The anchor element is only reachable through `anchorRef` (a RefObject required by ActionMenu), so bridge it to
-    // the shared observer's callback ref once the anchor is attached.
-    useEffect(() => {
-      registerOverflowRef(ref.current)
-      return () => registerOverflowRef(null)
-    }, [registerOverflowRef, ref])
 
     return (
       <ActionMenu anchorRef={ref} open={menuOpen} onOpenChange={setMenuOpen}>
@@ -448,13 +438,15 @@ export const ActionBarMenu = forwardRef(
 )
 
 export const VerticalDivider = () => {
-  const {dataOverflowingAttr, registerOverflowRef} = useActionBarItem(
+  const ref = useRef<HTMLDivElement>(null)
+  const {dataOverflowingAttr} = useActionBarItem(
+    ref,
     useMemo((): ChildProps => ({type: 'divider'}), []),
   )
 
   return (
     <div
-      ref={registerOverflowRef}
+      ref={ref}
       data-component="ActionBar.VerticalDivider"
       aria-hidden="true"
       className={styles.Divider}
