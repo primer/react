@@ -220,7 +220,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
 
   const numericVisibilityMap = React.useMemo(
     () =>
-      typeof visibleChildCount === 'number' && !isOverflowShown
+      visibleChildCount && typeof visibleChildCount === 'number' && !isOverflowShown
         ? getVisibilityMapAfterIndex(childArray.length, visibleChildCount)
         : undefined,
     [childArray.length, isOverflowShown, visibleChildCount],

@@ -169,7 +169,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const allItemsToRenderRef = useRef<T[]>([])
   const [highlightedItem, setHighlightedItem] = useState<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
-  const [prevShowMenu, setPrevShowMenu] = useState(showMenu)
   const generatedUniqueId = useId(id)
 
   const selectableItems = useMemo(
@@ -325,17 +324,21 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     }
   }, [highlightedItem, deferredInputValue, selectedItemIds, setAutocompleteSuggestion])
 
-  const itemIdSortResult = [...sortedItemIds].sort(
-    sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds)),
-  )
-  const sortResultMatchesState =
-    itemIdSortResult.length === sortedItemIds.length &&
-    itemIdSortResult.every((element, index) => element === sortedItemIds[index])
+  // Re-sort the items during render while the menu is closed so the order is ready the next time
+  // it opens. `AutocompleteOverlay` mounts this component under a different parent when the menu
+  // opens vs. closes, so it remounts on each open/close and a render-time previous-value transition
+  // can't be observed here — guarding on the closed state is what replaces the old close-time effect.
+  // The comparator therefore runs only while the menu is closed, never on the frequent renders that
+  // happen while it is open.
+  if (showMenu === false) {
+    const itemIdSortResult = [...sortedItemIds].sort(
+      sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds)),
+    )
+    const sortResultMatchesState =
+      itemIdSortResult.length === sortedItemIds.length &&
+      itemIdSortResult.every((element, index) => element === sortedItemIds[index])
 
-  if (prevShowMenu !== showMenu) {
-    setPrevShowMenu(showMenu)
-
-    if (prevShowMenu && showMenu === false && !sortResultMatchesState) {
+    if (!sortResultMatchesState) {
       setSortedItemIds(itemIdSortResult)
     }
   }
