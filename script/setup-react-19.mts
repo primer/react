@@ -43,4 +43,4 @@ for (const packageJsonPath of packageJsonPaths) {
   fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`, 'utf8')
 }
 
-execSync('npm install', {stdio: 'inherit'})
+execSync('pnpm install --no-frozen-lockfile', {stdio: 'inherit'})

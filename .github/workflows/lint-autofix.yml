@@ -90,16 +90,20 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           fetch-depth: 0
 
+      - name: Set up pnpm
+        if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+
       - name: Set up Node.js
         if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install dependencies
         if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Run format auto-fix
         if: steps.check_jobs.outputs.format_failed == 'true' && steps.pr.outputs.head_ref != ''

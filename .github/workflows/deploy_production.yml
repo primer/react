@@ -62,6 +62,6 @@ jobs:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:
       node_version: 22
-      install: npm ci
+      install: pnpm install --frozen-lockfile
       build: npm run build:docs
       output_dir: docs/public

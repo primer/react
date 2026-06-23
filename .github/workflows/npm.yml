@@ -13,11 +13,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - name: Set up pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
       - name: Set up turbo cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
@@ -28,9 +30,9 @@ jobs:
             ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: npm run build
+        run: pnpm run build
       - name: Pack public packages
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
@@ -43,22 +45,36 @@ jobs:
 
             core.startGroup('Packing npm packages');
 
-            const {stdout: queryOutput} = await exec.getExecOutput('npm', ['query', '.workspace']);
+            const {stdout: queryOutput} = await exec.getExecOutput('pnpm', [
+              'list',
+              '--recursive',
+              '--depth',
+              '-1',
+              '--json',
+            ]);
             const workspaces = JSON.parse(queryOutput);
             const packages = workspaces.filter(pkg => pkg.private !== true).map(pkg => pkg.name);
             core.info(`Packing: ${packages.join(' ')}`);
 
-            const args = ['pack', ...packages.map(name => `--workspace=${name}`), '--pack-destination', directory, '--json'];
-            const {stdout: packOutput} = await exec.getExecOutput('npm', args);
+            const args = [
+              'pack',
+              '--recursive',
+              ...packages.map(name => `--filter=${name}`),
+              '--pack-destination',
+              directory,
+              '--json',
+            ];
+            const {stdout: packOutput} = await exec.getExecOutput('pnpm', args);
             const result = JSON.parse(packOutput);
+            const packedPackages = Array.isArray(result) ? result : [result];
 
             core.endGroup();
 
             const metadata = {
-              packages: result.map(pkg => ({
+              packages: packedPackages.map(pkg => ({
                 name: pkg.name,
                 version: pkg.version,
-                path: path.join('packed', pkg.filename),
+                path: path.relative(process.cwd(), pkg.filename),
               })),
             };
 

@@ -27,12 +27,12 @@ jobs:
         with:
           schedule-id: 'P3IIVC4'
           token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
+      - name: Set up pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-      - name: Install packages for github-script
-        run: npm i date-fns
       - name: Create Release Issue
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         env:
@@ -46,13 +46,46 @@ jobs:
           DRY: ${{ github.event.inputs.dry }}
         with:
           script: |
-            const {
-              eachDayOfInterval,
-              format,
-              isSaturday,
-              isSunday,
-              parseISO,
-            } = require('date-fns');
+            const parseISO = (value) => new Date(value);
+            const isSaturday = (date) => date.getDay() === 6;
+            const isSunday = (date) => date.getDay() === 0;
+            const eachDayOfInterval = ({start, end}) => {
+              const days = [];
+              const day = new Date(start);
+              day.setHours(0, 0, 0, 0);
+
+              const lastDay = new Date(end);
+              lastDay.setHours(0, 0, 0, 0);
+
+              while (day <= lastDay) {
+                days.push(new Date(day));
+                day.setDate(day.getDate() + 1);
+              }
+
+              return days;
+            };
+            const ordinal = (day) => {
+              const modulo100 = day % 100;
+              if (modulo100 >= 11 && modulo100 <= 13) {
+                return `${day}th`;
+              }
+
+              switch (day % 10) {
+                case 1:
+                  return `${day}st`;
+                case 2:
+                  return `${day}nd`;
+                case 3:
+                  return `${day}rd`;
+                default:
+                  return `${day}th`;
+              }
+            };
+            const formatDate = (date) => {
+              const weekday = new Intl.DateTimeFormat('en-US', {weekday: 'long'}).format(date);
+              const month = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(date);
+              return `${weekday}, ${month} ${ordinal(date.getDate())}`;
+            };
 
             const {
               RELEASE_CONDUCTOR,
@@ -104,7 +137,7 @@ jobs:
                   }
                   return true;
                 }).map((day) => {
-                  return `- ${format(day, 'EEEE, LLLL do')}`;
+                  return `- ${formatDate(day)}`;
                 }),
               '',
             ].join('\n');
@@ -133,7 +166,7 @@ jobs:
 
             let ISSUE_BODY = `<!-- ${id} -->\n\n`;
 
-            ISSUE_BODY += `_This is a scheduled issue for tracking the release between ${format(start, 'EEEE, LLLL do')} and ${format(end, 'EEEE, LLLL do')}_\n\n`;
+            ISSUE_BODY += `_This is a scheduled issue for tracking the release between ${formatDate(start)} and ${formatDate(end)}_\n\n`;
 
             // Find the latest existing release issue
             const iterator = github.paginate.iterator(

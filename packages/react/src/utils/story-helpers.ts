@@ -2,7 +2,7 @@ import type React from 'react'
 import type CheckboxGroup from '../CheckboxGroup'
 import type FormControl from '../FormControl'
 import type {ComponentProps} from './types'
-import type {ArgTypes} from '@storybook/react'
+import type {ArgTypes} from '@storybook/react-vite'
 import type {InputType} from 'storybook/internal/csf'
 import type {Icon} from '@primer/octicons-react'
 

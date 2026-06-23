@@ -21,5 +21,7 @@ export function StyledComponentsRegistry({children}: React.PropsWithChildren) {
 
   if (typeof window !== 'undefined') return <>{children}</>
 
+  // @ts-expect-error - styled-components@5.x is not compatible type-wise with
+  // React 19
   return <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>{children}</StyleSheetManager>
 }

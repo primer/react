@@ -12,6 +12,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up pnpm
+
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
@@ -67,6 +71,6 @@ jobs:
               await github.rest.issues.addLabels({...issue, labels: [INTEGRATION_LABEL_NAMES.recommended]})
               await github.rest.issues.createComment({
                 ...issue,
-                body: '<!-- recommend-integration-tests.yml -->\n\n # ⚠️ Action required \n\n :wave: Hi, there are new commits since the last successful integration test. If you are GitHub staff, test these changes with github/github-ui using the [integration workflow](https://github.com/github/github-ui/actions/workflows/primer-npm-packages-integration.yml). If this doesn\'t work, you can also the your original workflow [here](https://github.com/github/github-ui/actions/workflows/primer-react-pr-test.yml). Check the [integration testing docs](https://gh.io/testing_primer_at_dotcom) for step-by-step instructions. Or, apply the `integration-tests: skipped manually` label to skip these checks.'
+                body: '<!-- recommend-integration-tests.yml -->\n\n # ⚠️ Action required \n\n :wave: Hi, there are new commits since the last successful integration test. If you are GitHub staff, test these changes with github/github-ui using the [integration workflow](https://github.com/github/github-ui/actions/workflows/primer-npm-packages-integration.yml). If this doesn\'t work, you can also use your original workflow [here](https://github.com/github/github-ui/actions/workflows/primer-react-pr-test.yml). Check the [integration testing docs](https://gh.io/testing_primer_at_dotcom) for step-by-step instructions. Or, apply the `integration-tests: skipped manually` label to skip these checks.'
               })
             }
