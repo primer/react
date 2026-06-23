@@ -189,14 +189,20 @@ export const UnderlineNav = forwardRef(
       menuItems: [],
     })
 
-    // Detect when children added/removed/reordered relative to the last overflow calculation.
-    // When that happens, `responsiveProps` is stale, so we render `validChildren` directly
-    // (placing all items inline with no overflow menu) until the layout effect below recomputes.
+    // The ordered signature drives `useResizeObserver` deps below so it re-fires whenever
+    // children are added, removed, or reordered.
     const childrenSignature = validChildren.map(child => String(child.key ?? '')).join('|')
-    const responsiveSignature = [...responsiveProps.items, ...responsiveProps.menuItems]
-      .map(item => String(item.key ?? ''))
-      .join('|')
-    const childrenChanged = childrenSignature !== responsiveSignature
+
+    // `childrenChanged` only tracks membership (set of keys), not order. This is intentional
+    // because `swapMenuItemWithListItem` legitimately reorders `responsiveProps.items` (to keep
+    // the selected item visible), and we don't want that to be treated as a stale-children
+    // situation. We only need to fall back to rendering `validChildren` directly when a child
+    // was actually added or removed (so a new item isn't missed and a removed item isn't kept).
+    const responsiveKeys = new Set<string>()
+    for (const item of responsiveProps.items) responsiveKeys.add(String(item.key ?? ''))
+    for (const item of responsiveProps.menuItems) responsiveKeys.add(String(item.key ?? ''))
+    const validKeys = validChildren.map(child => String(child.key ?? ''))
+    const childrenChanged = validKeys.length !== responsiveKeys.size || validKeys.some(key => !responsiveKeys.has(key))
 
     // Make sure to have the fresh props data for list items when children are changed (keeping aria-current up-to-date)
     const listItems = childrenChanged
