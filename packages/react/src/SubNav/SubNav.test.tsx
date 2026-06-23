@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {SubNav} from '..'
+import SubNav from '.'
 import {render as HTMLRender} from '@testing-library/react'
 import {implementsClassName} from '../utils/testing'
 import classes from './SubNav.module.css'

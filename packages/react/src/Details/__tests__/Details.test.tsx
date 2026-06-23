@@ -1,13 +1,22 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {Details, useDetails, Button} from '../..'
+import Details from '..'
+import useDetails from '../../hooks/useDetails'
+import {Button} from '../../Button'
 import type {ButtonProps} from '../../Button'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../Details.module.css'
 
 describe('Details', () => {
-  implementsClassName(Details, classes.Details)
+  implementsClassName(
+    props => (
+      <Details {...props}>
+        <Details.Summary>Summary</Details.Summary>
+      </Details>
+    ),
+    classes.Details,
+  )
   implementsClassName(Details.Summary)
   it('Toggles when you click outside', async () => {
     const Component = () => {

@@ -44,11 +44,14 @@ export function getLiveRegion(): LiveRegionElement {
   throw new Error('No live-region found')
 }
 
-const renderWithProp = (element: React.ReactElement, flag?: boolean) => {
+const getFocusManagement = (flag?: boolean) => {
   // true = 'use roving tabindex'
   // false = 'use aria-activedescendant'
-  const focusManagement = flag ? 'roving-tabindex' : 'active-descendant'
-  return render(React.cloneElement(element, {_PrivateFocusManagement: focusManagement}))
+  return flag ? 'roving-tabindex' : 'active-descendant'
+}
+
+const renderWithProp = (element: React.ReactElement, flag?: boolean) => {
+  return render(React.cloneElement(element, {_PrivateFocusManagement: getFocusManagement(flag)}))
 }
 
 const items: SelectPanelProps['items'] = [
@@ -160,12 +163,11 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     it('should close the select panel when clicking outside of the select panel', async () => {
       const user = userEvent.setup()
 
-      renderWithProp(
+      render(
         <>
           <button type="button">outer button</button>
-          <BasicSelectPanel />
+          <BasicSelectPanel _PrivateFocusManagement={getFocusManagement(usingRemoveActiveDescendant)} />
         </>,
-        usingRemoveActiveDescendant,
       )
 
       await user.click(screen.getByText('Select items'))

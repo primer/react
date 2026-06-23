@@ -1,5 +1,9 @@
 import type {Meta} from '@storybook/react-vite'
-import {Button, Link, Text, StateLabel, BranchName} from '..'
+import {Button} from '../Button'
+import Link from '../Link'
+import Text from '../Text'
+import StateLabel from '../StateLabel'
+import BranchName from '../BranchName'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
 import {PageHeader} from '../PageHeader'

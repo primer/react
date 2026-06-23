@@ -39,7 +39,7 @@ const unsupportedPatterns = [
   'src/hooks/useSafeTimeout.ts',
   'src/hooks/useScrollFlash.ts',
   'src/internal/components/CheckboxOrRadioGroup/**/*.tsx',
-  'src/internal/hooks/useMergedRefs.ts',
+  'src/hooks/useMergedRefs.ts',
   'src/TooltipV2/**/*.tsx',
 ]
 

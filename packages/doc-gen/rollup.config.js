@@ -6,17 +6,19 @@ import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
 import packageJson from './package.json' with {type: 'json'}
 
-const external = [
+const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
   ...Object.keys(packageJson.devDependencies ?? {}),
-].map(name => {
+]
+
+function createPackageRegex(name) {
   return new RegExp(`^${name}(/.*)?`)
-})
+}
 
 const config = defineConfig({
   input: ['./src/index.ts'],
-  external,
+  external: dependencies.map(createPackageRegex),
   plugins: [
     nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
     commonjs(),

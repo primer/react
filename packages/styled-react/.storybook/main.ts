@@ -1,5 +1,6 @@
 import type {StorybookConfig} from '@storybook/react-vite'
 import babel from '@rolldown/plugin-babel'
+
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 

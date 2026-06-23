@@ -1,5 +1,5 @@
 import React from 'react'
-import {TextInput} from '..'
+import TextInput from '.'
 import {SearchIcon} from '@primer/octicons-react'
 
 export function shouldNotAcceptInvalidDomProps() {

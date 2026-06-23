@@ -1,6 +1,9 @@
 import type {Meta} from '@storybook/react-vite'
 import {KebabHorizontalIcon, RepoIcon, RepoForkedIcon, StarIcon} from '@primer/octicons-react'
-import {ActionList, ActionMenu, Button, IconButton, VisuallyHidden} from '..'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import {Button, IconButton} from '../Button'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {Card} from './index'
 import classes from './Card.stories.module.css'
 

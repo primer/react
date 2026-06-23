@@ -1,17 +1,17 @@
 import React, {useEffect, useState, type MutableRefObject} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
-
-import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
-import {
-  Button,
-  IconButton,
-  Heading,
-  TextInput,
-  Spinner,
-  Link,
-  Checkbox,
-  useFormControlForwardedProps,
-} from '../../index'
+import type {ButtonProps} from '../../Button'
+import type {TextInputProps} from '../../TextInput'
+import type {ActionListProps} from '../../ActionList'
+import type {LinkProps} from '../../Link'
+import type {CheckboxProps} from '../../Checkbox'
+import {Button, IconButton} from '../../Button'
+import Heading from '../../Heading'
+import TextInput from '../../TextInput'
+import Spinner from '../../Spinner'
+import Link from '../../Link'
+import Checkbox from '../../Checkbox'
+import {useFormControlForwardedProps} from '../../FormControl'
 import Octicon from '../../Octicon'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
