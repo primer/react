@@ -14,8 +14,9 @@ import TextInputWrapper from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import VisuallyHidden from '../_VisuallyHidden'
-import {getCharacterCountState} from '../utils/character-counter'
-import {useCharacterCountAnnouncement} from '../utils/useCharacterCountAnnouncement'
+import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
+import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
+import {AriaStatus} from '../live-region'
 import Text from '../Text'
 
 export type TextInputNonPassthroughProps = {
@@ -128,10 +129,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const counter = characterLimit ? getCharacterCountState(currentLength, characterLimit) : undefined
     const isOverLimit = counter?.isOverLimit ?? false
 
-    // The debounced screen reader announcement is encapsulated in a shared hook so
-    // it never blocks typing and stays consistent with Textarea.
-    const {screenReaderMessage, announce} = useCharacterCountAnnouncement(characterLimit)
-
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = clsx(className, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
@@ -178,15 +175,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     // Handle input change with character counter
     const handleInputChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (characterLimit) {
-          if (!isControlled) {
-            setUncontrolledLength(e.target.value.length)
-          }
-          announce(e.target.value.length)
+        if (characterLimit && !isControlled) {
+          setUncontrolledLength(e.target.value.length)
         }
         onChange?.(e)
       },
-      [onChange, characterLimit, isControlled, announce],
+      [onChange, characterLimit, isControlled],
     )
 
     const characterCountId = useId()
@@ -263,9 +257,16 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         </TextInputWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden aria-live="polite" role="status">
-              {screenReaderMessage}
-            </VisuallyHidden>
+            {/* The remaining-count message is derived in render and announced
+                (debounced) by AriaStatus via a shared live region, so it never
+                triggers an extra React commit while typing. */}
+            <AriaStatus
+              announceOnShow={false}
+              delayMs={SCREEN_READER_DELAY}
+              className={visuallyHiddenClasses.InternalVisuallyHidden}
+            >
+              {counter?.message}
+            </AriaStatus>
             <VisuallyHidden id={characterCountStaticMessageId}>
               You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
             </VisuallyHidden>

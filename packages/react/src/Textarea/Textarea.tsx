@@ -5,9 +5,10 @@ import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import classes from './TextArea.module.css'
 import type {WithSlotMarker} from '../utils/types'
 import {AlertFillIcon} from '@primer/octicons-react'
-import {getCharacterCountState} from '../utils/character-counter'
-import {useCharacterCountAnnouncement} from '../utils/useCharacterCountAnnouncement'
+import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
+import {AriaStatus} from '../live-region'
 import VisuallyHidden from '../_VisuallyHidden'
+import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import Text from '../Text'
 import {clsx} from 'clsx'
 
@@ -105,22 +106,15 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const counter = characterLimit ? getCharacterCountState(currentLength, characterLimit) : undefined
     const isOverLimit = counter?.isOverLimit ?? false
 
-    // The debounced screen reader announcement is encapsulated in a shared hook so
-    // it never blocks typing and stays consistent with TextInput.
-    const {screenReaderMessage, announce} = useCharacterCountAnnouncement(characterLimit)
-
     // Handle textarea change with character counter
     const handleTextareaChange = useCallback(
       (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        if (characterLimit) {
-          if (!isControlled) {
-            setUncontrolledLength(e.target.value.length)
-          }
-          announce(e.target.value.length)
+        if (characterLimit && !isControlled) {
+          setUncontrolledLength(e.target.value.length)
         }
         onChange?.(e)
       },
-      [onChange, characterLimit, isControlled, announce],
+      [onChange, characterLimit, isControlled],
     )
 
     const isValid = isOverLimit ? 'error' : validationStatus
@@ -161,9 +155,16 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         </TextInputBaseWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden aria-live="polite" role="status">
-              {screenReaderMessage}
-            </VisuallyHidden>
+            {/* The remaining-count message is derived in render and announced
+                (debounced) by AriaStatus via a shared live region, so it never
+                triggers an extra React commit while typing. */}
+            <AriaStatus
+              announceOnShow={false}
+              delayMs={SCREEN_READER_DELAY}
+              className={visuallyHiddenClasses.InternalVisuallyHidden}
+            >
+              {counter?.message}
+            </AriaStatus>
             <VisuallyHidden id={characterCountStaticMessageId}>
               You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
             </VisuallyHidden>
