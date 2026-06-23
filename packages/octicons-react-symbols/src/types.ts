@@ -9,5 +9,5 @@ export type OcticonReferenceProps = HTMLAttributes<SVGElement> &
     id?: string
     size?: number | 'small' | 'medium' | 'large'
     tabIndex?: number
-    title?: string | ReactElement<any>
+    title?: string | ReactElement<unknown>
   }>

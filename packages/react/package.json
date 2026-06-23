@@ -40,7 +40,7 @@
     "clean": "rimraf dist generated",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006 --no-open",
-    "build:storybook": "storybook build",
+    "build:storybook": "npm run build -w @primer/octicons-react-symbols && storybook build",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "tsx script/components-json/build.ts",

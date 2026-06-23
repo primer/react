@@ -6,3 +6,4 @@ docs/.cache
 docs/public
 **/.next/**
 packages/react/src/legacy-theme/ts/color-schemes.ts
+packages/octicons-react-symbols/src/generated
