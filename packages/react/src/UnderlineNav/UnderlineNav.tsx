@@ -101,7 +101,7 @@ export const UnderlineNav = forwardRef(
           data-has-overflow={isOverflowing ? 'true' : undefined}
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
-            <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
+            <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems} rootRef={listRef}>
               {children}
             </UnderlineNavItemsRegistry.Provider>
           </UnderlineItemList>

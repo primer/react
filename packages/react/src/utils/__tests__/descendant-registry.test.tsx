@@ -49,7 +49,7 @@ describe('createDescendantRegistry', () => {
         <Wrapper value="a" />
         <Wrapper value="b" />
         <Wrapper value="c" />
-      </RegistryParent>,
+      </RegistryParent>
     )
 
     expect(getByTestId('registry-values').textContent).toBe('a,b,c')
@@ -65,7 +65,7 @@ describe('createDescendantRegistry', () => {
           <Item value="b" />
         </Fragment>
         <Item value="c" />
-      </RegistryParent>,
+      </RegistryParent>
     )
 
     expect(getByTestId('registry-values').textContent).toBe('a,b,c')
@@ -302,13 +302,15 @@ describe('createDescendantRegistry coalesced rebuilds', () => {
 describe('createDescendantRegistry shared IntersectionObserver', () => {
   // Capture every IntersectionObserver instance and its observed elements so we can assert a single shared observer
   // is used and drive its callback manually.
+  type MockEntry = Pick<IntersectionObserverEntry, 'target' | 'isIntersecting' | 'intersectionRatio'>
   type FakeObserver = {
     callback: IntersectionObserverCallback
+    options?: IntersectionObserverInit
     observed: Set<Element>
     observe: ReturnType<typeof vi.fn>
     unobserve: ReturnType<typeof vi.fn>
     disconnect: ReturnType<typeof vi.fn>
-    trigger: () => void
+    emit: (entries: MockEntry[]) => void
   }
   let observers: FakeObserver[] = []
 
@@ -316,6 +318,7 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
     observers = []
     class MockIntersectionObserver {
       callback: IntersectionObserverCallback
+      options?: IntersectionObserverInit
       observed = new Set<Element>()
       observe = vi.fn((el: Element) => {
         this.observed.add(el)
@@ -326,14 +329,15 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
       disconnect = vi.fn(() => {
         this.observed.clear()
       })
-      constructor(callback: IntersectionObserverCallback) {
+      constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
         this.callback = callback
+        this.options = options
         observers.push(this as unknown as FakeObserver)
-        ;(this as unknown as FakeObserver).trigger = () => {
-          const entries = Array.from(this.observed).map(
-            target => ({target}) as IntersectionObserverEntry,
+        ;(this as unknown as FakeObserver).emit = entries => {
+          this.callback(
+            entries.map(entry => entry as IntersectionObserverEntry),
+            this as unknown as IntersectionObserver,
           )
-          this.callback(entries, this as unknown as IntersectionObserver)
         }
       }
       takeRecords() {
@@ -353,11 +357,18 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
    */
   function createOverflowRegistry() {
     const {Provider, useRegistryState, useRegisterDescendant, useRegisterOverflowObserver} =
-      createDescendantRegistry<string | null>({overflow: {threshold: 1}})
+      createDescendantRegistry<string | null>({overflow: {}})
 
     function RegistryParent({children}: {children: React.ReactNode}) {
       const [, setRegistry] = useRegistryState()
-      return <Provider setRegistry={setRegistry}>{children}</Provider>
+      const rootRef = useRef<HTMLDivElement>(null)
+      return (
+        <div ref={rootRef} data-testid="observer-root">
+          <Provider setRegistry={setRegistry} rootRef={rootRef}>
+            {children}
+          </Provider>
+        </div>
+      )
     }
 
     function Item({value}: {value: string}) {
@@ -370,10 +381,10 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
     return {RegistryParent, Item}
   }
 
-  it('creates a single shared observer for all items rather than one per item', () => {
+  it('creates a single shared observer for all items with the provided root element', () => {
     const {RegistryParent, Item} = createOverflowRegistry()
 
-    render(
+    const {getByTestId} = render(
       <RegistryParent>
         <Item value="a" />
         <Item value="b" />
@@ -383,6 +394,7 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
 
     // Exactly one observer instance, observing all three elements.
     expect(observers).toHaveLength(1)
+    expect(observers[0].options?.root).toBe(getByTestId('observer-root'))
     expect(observers[0].observed.size).toBe(3)
   })
 
@@ -397,20 +409,50 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
       </RegistryParent>,
     )
 
-    // Simulate all items wrapping to a clipped row (offsetTop > 0). jsdom reports 0 for offsetTop, so stub it.
     const items = ['a', 'b', 'c'].map(v => getByTestId(`item-${v}`))
-    for (const el of items) {
-      Object.defineProperty(el, 'offsetTop', {configurable: true, value: 10})
-    }
 
     // One observer notification should update all three items via fan-out.
     act(() => {
-      observers[0].trigger()
+      observers[0].emit(
+        items.map(target => ({
+          target,
+          isIntersecting: false,
+          intersectionRatio: 0,
+        })),
+      )
     })
 
     for (const el of items) {
       expect(el).toHaveAttribute('data-overflowing', 'true')
     }
+  })
+
+  it('updates an item from the observed entry without reading layout', () => {
+    const {RegistryParent, Item} = createOverflowRegistry()
+
+    const {getByTestId} = render(
+      <RegistryParent>
+        <Item value="a" />
+      </RegistryParent>,
+    )
+
+    const item = getByTestId('item-a')
+    Object.defineProperty(item, 'offsetTop', {
+      configurable: true,
+      get() {
+        throw new Error('offsetTop should not be read')
+      },
+    })
+
+    act(() => {
+      observers[0].emit([{target: item, isIntersecting: false, intersectionRatio: 0}])
+    })
+    expect(item).toHaveAttribute('data-overflowing', 'true')
+
+    act(() => {
+      observers[0].emit([{target: item, isIntersecting: true, intersectionRatio: 1}])
+    })
+    expect(item).toHaveAttribute('data-overflowing', 'false')
   })
 
   it('unobserves an element from the shared observer when its item unmounts', async () => {
@@ -441,6 +483,7 @@ describe('createDescendantRegistry shared IntersectionObserver', () => {
     // Still the same single observer, now observing only the two remaining items.
     expect(observers).toHaveLength(1)
     expect(observers[0].observed.size).toBe(2)
+    expect(observers[0].unobserve).toHaveBeenCalled()
   })
 
   it('disconnects the shared observer when the provider unmounts', async () => {

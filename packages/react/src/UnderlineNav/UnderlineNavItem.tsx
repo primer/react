@@ -22,9 +22,8 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
 
   const {loadingCounters} = useContext(UnderlineNavContext)
 
-  // Subscribe to the registry's shared IntersectionObserver. The observer is just being used as a trigger to
-  // re-check `offsetTop > 0`; this is fast and simpler than checking visibility from the observed entry. When an
-  // item wraps, it moves to the next (clipped) row, which increases its `offsetTop`.
+  // Observe the wrapping `<li>` directly so a root-scoped IntersectionObserver can detect when the item is clipped
+  // onto the hidden next row.
   const isOverflowing = UnderlineNavItemsRegistry.useRegisterOverflowObserver(ref)
 
   UnderlineNavItemsRegistry.useRegisterDescendant(isOverflowing ? allProps : null)

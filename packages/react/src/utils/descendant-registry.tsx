@@ -19,6 +19,8 @@ export interface ProviderProps<T> {
   children: ReactNode
   /** State setter from `useRegistryState`. */
   setRegistry: Dispatch<React.SetStateAction<ReadonlyMap<string, T> | undefined>>
+  /** Clipping container used as the `IntersectionObserver` root for overflow detection. */
+  rootRef?: RefObject<Element | null>
 }
 
 interface DescendantRegistryContext<T> {
@@ -28,7 +30,7 @@ interface DescendantRegistryContext<T> {
 }
 
 /** Subscribe a single observed element to the shared IntersectionObserver. Returns an unsubscribe function. */
-type ObserveFn = (element: Element, onChange: () => void) => () => void
+type ObserveFn = (element: Element, onOverflowChange: (isOverflowing: boolean) => void) => () => void
 
 interface OverflowObserverContext {
   /** Subscribe an element. `null` when no shared observer is configured for this registry. */
@@ -67,12 +69,6 @@ export function createDescendantRegistry<T>(options?: {
    * `useRegisterOverflowObserver` to subscribe to a single observer rather than each creating their own.
    */
   overflow?: {
-    /**
-     * IntersectionObserver threshold. The observer is only used as a *trigger* to re-check `offsetTop > 0`,
-     * so the exact value mainly affects reliability at the wrap boundary.
-     * @default 1
-     */
-    threshold?: number
   }
 }) {
   const Context = createContext<DescendantRegistryContext<T>>({
@@ -83,7 +79,6 @@ export function createDescendantRegistry<T>(options?: {
 
   const ObserverContext = createContext<OverflowObserverContext>(noopObserve)
 
-  const overflowThreshold = options?.overflow?.threshold ?? 1
   const overflowEnabled = options?.overflow !== undefined
 
   /**
@@ -110,12 +105,12 @@ export function createDescendantRegistry<T>(options?: {
 
   /**
    * Subscribe an element to the registry's shared IntersectionObserver and derive whether it is currently overflowing
-   * (i.e. has wrapped to a clipped row, so `offsetTop > 0`). Falls back to a per-item observer if no shared observer is
-   * configured for this registry, so the hook is always safe to call.
+   * from the observed entry. Falls back to a per-item observer when no shared observer is configured for this registry,
+   * so the hook is always safe to call.
    *
-   * The IntersectionObserver is only used as a cheap *trigger* to re-check `offsetTop`; the actual overflow detection
-   * relies on `flex-wrap` + `overflow: hidden` pushing items to a clipped second row, not on viewport intersection.
-   * That's why there is no `root` option on the observer.
+   * If the root-scoped `intersectionRatio` signal proves unreliable at the wrap boundary, fall back to caching
+   * `ref.current.offsetTop > 0` inside the observer callback (NOT in getSnapshot) and returning the cached value.
+   * This mirrors the historical reason `ActionBar` used a looser threshold for the offsetTop approach.
    *
    * @param ref Ref to the element whose overflow state should be tracked.
    * @param options.disabled When true, skips observer subscription entirely and always reports `false`. Useful for
@@ -124,6 +119,9 @@ export function createDescendantRegistry<T>(options?: {
   function useRegisterOverflowObserver(ref: RefObject<HTMLElement | null>, options?: {disabled?: boolean}) {
     const disabled = options?.disabled ?? false
     const {observe} = useContext(ObserverContext)
+    const isOverflowingRef = useRef(false)
+
+    if (disabled) isOverflowingRef.current = false
 
     const subscribe = useCallback(
       (onChange: () => void) => {
@@ -131,27 +129,36 @@ export function createDescendantRegistry<T>(options?: {
         const element = ref.current
         if (!element) return () => {}
 
-        // Prefer the provider's shared observer; fall back to a local observer when none is configured.
-        if (observe) return observe(element, onChange)
+        const updateOverflowState = (isOverflowing: boolean) => {
+          if (isOverflowing !== isOverflowingRef.current) {
+            isOverflowingRef.current = isOverflowing
+            onChange()
+          }
+        }
 
-        const observer = new IntersectionObserver(() => onChange(), {threshold: overflowThreshold})
+        // Prefer the provider's shared observer; fall back to a local observer when none is configured.
+        if (observe) return observe(element, updateOverflowState)
+
+        if (typeof IntersectionObserver === 'undefined') return () => {}
+
+        const observer = new IntersectionObserver(entries => {
+          for (const entry of entries) {
+            if (entry.target === element) updateOverflowState(getIsOverflowing(entry))
+          }
+        }, {threshold: [0, 1]})
         observer.observe(element)
         return () => observer.disconnect()
       },
       [ref, observe, disabled],
     )
 
-    return useSyncExternalStore(
-      subscribe,
-      () => (!disabled && ref.current ? ref.current.offsetTop > 0 : false),
-      () => false,
-    )
+    return useSyncExternalStore(subscribe, () => isOverflowingRef.current, () => false)
   }
 
   const unsetValue = Symbol('unset')
 
   /** Provide context for registering descendant components. This only needs to wrap `children`. */
-  function Provider({children, setRegistry}: ProviderProps<T>) {
+  function Provider({children, setRegistry, rootRef}: ProviderProps<T>) {
     const workingRegistryRef = useRef<Map<string, T | typeof unsetValue> | 'queued' | 'idle'>('queued')
 
     /** State value to trigger a re-render and force all descendants to re-register. This ensures everything remains ordered. */
@@ -252,7 +259,11 @@ export function createDescendantRegistry<T>(options?: {
 
     return (
       <Context.Provider value={contextValue}>
-        {overflowEnabled ? <OverflowObserverProvider>{children}</OverflowObserverProvider> : children}
+        {overflowEnabled ? (
+          <OverflowObserverProvider rootRef={rootRef}>{children}</OverflowObserverProvider>
+        ) : (
+          children
+        )}
       </Context.Provider>
     )
   }
@@ -261,57 +272,91 @@ export function createDescendantRegistry<T>(options?: {
    * Owns a single IntersectionObserver shared by every descendant that calls `useRegisterOverflowObserver`.
    * Each observed element maps to a set of change callbacks; one observer notification fans out to all of them.
    */
-  function OverflowObserverProvider({children}: {children: ReactNode}) {
+  function OverflowObserverProvider({
+    children,
+    rootRef,
+  }: {
+    children: ReactNode
+    rootRef?: RefObject<Element | null>
+  }) {
     // Map of observed element -> set of subscriber callbacks.
-    const subscribersRef = useRef<Map<Element, Set<() => void>>>(new Map())
+    const subscribersRef = useRef<Map<Element, Set<(isOverflowing: boolean) => void>>>(new Map())
+    const observedElementsRef = useRef<Set<Element>>(new Set())
     const observerRef = useRef<IntersectionObserver | null>(null)
+    const observerRootRef = useRef<Element | null>(null)
 
     // Lazily create the observer on first subscribe so SSR / zero-item renders allocate nothing.
     const getObserver = useCallback(() => {
-      if (observerRef.current) return observerRef.current
       if (typeof IntersectionObserver === 'undefined') return null
+      if (rootRef && rootRef.current === null) return null
+
+      const root = rootRef?.current ?? null
+      if (observerRef.current && observerRootRef.current === root) return observerRef.current
+
+      observerRef.current?.disconnect()
+      observedElementsRef.current.clear()
+
       observerRef.current = new IntersectionObserver(
         entries => {
           for (const entry of entries) {
             const callbacks = subscribersRef.current.get(entry.target)
             if (!callbacks) continue
-            for (const cb of callbacks) cb()
+            const isOverflowing = getIsOverflowing(entry)
+            for (const cb of callbacks) cb(isOverflowing)
           }
         },
-        {threshold: overflowThreshold},
+        {root, threshold: [0, 1]},
       )
+      observerRootRef.current = root
       return observerRef.current
-    }, [])
+    }, [rootRef])
+
+    const observeSubscribedElements = useCallback(() => {
+      const observer = getObserver()
+      if (!observer) return
+
+      for (const element of subscribersRef.current.keys()) {
+        if (!observedElementsRef.current.has(element)) {
+          observer.observe(element)
+          observedElementsRef.current.add(element)
+        }
+      }
+    }, [getObserver])
 
     const observe = useCallback<ObserveFn>(
-      (element, onChange) => {
-        const observer = getObserver()
+      (element, onOverflowChange) => {
         let callbacks = subscribersRef.current.get(element)
         if (!callbacks) {
           callbacks = new Set()
           subscribersRef.current.set(element, callbacks)
-          observer?.observe(element)
         }
-        callbacks.add(onChange)
+        callbacks.add(onOverflowChange)
+        observeSubscribedElements()
 
         return () => {
           const set = subscribersRef.current.get(element)
           if (!set) return
-          set.delete(onChange)
+          set.delete(onOverflowChange)
           if (set.size === 0) {
             subscribersRef.current.delete(element)
-            observer?.unobserve(element)
+            observedElementsRef.current.delete(element)
+            observerRef.current?.unobserve(element)
           }
         }
       },
-      [getObserver],
+      [observeSubscribedElements],
     )
+
+    useIsomorphicLayoutEffect(() => {
+      observeSubscribedElements()
+    })
 
     useEffect(() => {
       const subscribers = subscribersRef.current
       return () => {
         observerRef.current?.disconnect()
         observerRef.current = null
+        observedElementsRef.current.clear()
         subscribers.clear()
       }
     }, [])
@@ -322,4 +367,8 @@ export function createDescendantRegistry<T>(options?: {
   }
 
   return {Provider, useRegistryState, useRegisterDescendant, useRegisterOverflowObserver}
+}
+
+function getIsOverflowing(entry: Pick<IntersectionObserverEntry, 'intersectionRatio' | 'isIntersecting'>) {
+  return !entry.isIntersecting || entry.intersectionRatio < 1
 }

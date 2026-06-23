@@ -139,11 +139,9 @@ export type ActionBarMenuProps = {
   returnFocusRef?: React.RefObject<HTMLElement>
 } & IconButtonProps
 
-// Items opt into a single shared IntersectionObserver (threshold 0.75) via `useRegisterOverflowObserver` instead of
-// each item creating its own observer. 0.75 is used (rather than 1) because in some scenarios a threshold of 1 doesn't
-// trigger correctly - the browser still thinks a tiny bit of the button is not visible since the container height is
-// exactly the button height. See `useActionBarItem`.
-const ActionBarItemsRegistry = createDescendantRegistry<ChildProps | null>({overflow: {threshold: 0.75}})
+// Items opt into a single shared IntersectionObserver via `useRegisterOverflowObserver` instead of each item creating
+// its own observer.
+const ActionBarItemsRegistry = createDescendantRegistry<ChildProps | null>({overflow: {}})
 
 const FOCUSABLE_ITEM_SELECTOR =
   ':is(button, a, input, [tabindex]):not(:disabled):not([data-overflowing]):not([data-more-button-inactive])'
@@ -207,6 +205,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
   gap = 'condensed',
 }) => {
   const [childRegistry, setChildRegistry] = ActionBarItemsRegistry.useRegistryState()
+  const overflowContainerRef = useRef<HTMLDivElement>(null)
 
   const overflowItems = useMemo(
     () =>
@@ -237,10 +236,12 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
           data-size={size}
           data-has-overflow={overflowItems ? overflowItems.length > 0 : undefined}
         >
-          <div className={styles.OverflowContainer}>
+          <div ref={overflowContainerRef} className={styles.OverflowContainer}>
             {/* An empty first element allows the real first item to wrap to the next line and get clipped. */}
             <div className={styles.OverflowSpacer} />
-            <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>{children}</ActionBarItemsRegistry.Provider>
+            <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry} rootRef={overflowContainerRef}>
+              {children}
+            </ActionBarItemsRegistry.Provider>
           </div>
           <ActionMenu>
             <ActionMenu.Anchor>
@@ -314,12 +315,8 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
   const isGroupOverflowing = useContext(ActionBarGroupContext)?.isOverflowing
   const isInGroup = isGroupOverflowing !== undefined
 
-  // Subscribe to the registry's shared IntersectionObserver to detect overflow. The observer is just being used as a
-  // trigger to re-check `offsetTop > 0`; this is fast and simpler than checking visibility from the observed entry.
-  // When an item wraps, it moves to the next row which increases its `offsetTop`.
-  //
   // There's no need to observe items inside of a group since the entire group overflows at once, so `disabled` skips
-  // subscription for grouped items (the snapshot returns `false`, matching the previous early-return behavior).
+  // subscription for grouped items and always reports `false` for the child item itself.
   const isItemOverflowing = ActionBarItemsRegistry.useRegisterOverflowObserver(ref, {disabled: isInGroup})
 
   const isOverflowing = isGroupOverflowing || isItemOverflowing
