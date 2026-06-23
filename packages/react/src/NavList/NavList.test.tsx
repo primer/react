@@ -619,4 +619,122 @@ describe('NavList.ShowMoreItem with pages', () => {
       expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('0px')
     })
   })
+
+  describe('NavList.Heading', () => {
+    it('renders an h2 heading by default', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 2, name: 'Settings'})).toBeInTheDocument()
+    })
+
+    it('respects an explicit heading level via the `as` prop', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading as="h3">Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 3, name: 'Settings'})).toBeInTheDocument()
+    })
+
+    it('labels the nav landmark with the heading', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      const nav = getByRole('navigation', {name: 'Settings'})
+      const heading = getByRole('heading', {name: 'Settings'})
+      expect(nav).toHaveAttribute('aria-labelledby', heading.id)
+    })
+
+    it('does not override a consumer-supplied aria-label', () => {
+      const {getByRole} = render(
+        <NavList aria-label="Custom label">
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      const nav = getByRole('navigation', {name: 'Custom label'})
+      expect(nav).not.toHaveAttribute('aria-labelledby')
+    })
+
+    it('defaults group headings to one level below the NavList.Heading', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Group title="Account">
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 2, name: 'Settings'})).toBeInTheDocument()
+      expect(getByRole('heading', {level: 3, name: 'Account'})).toBeInTheDocument()
+    })
+
+    it('derives group headings to h4 when the NavList.Heading is an h3', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading as="h3">Settings</NavList.Heading>
+          <NavList.Group title="Account">
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 3, name: 'Settings'})).toBeInTheDocument()
+      expect(getByRole('heading', {level: 4, name: 'Account'})).toBeInTheDocument()
+    })
+
+    it('keeps the h3 group heading default when there is no NavList.Heading', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Group title="Account">
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 3, name: 'Account'})).toBeInTheDocument()
+    })
+
+    it('lets group headings override their computed level with `as`', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Group>
+            <NavList.GroupHeading as="h4">Account</NavList.GroupHeading>
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 4, name: 'Account'})).toBeInTheDocument()
+    })
+
+    it('keeps a visually hidden heading in the accessibility tree', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading visuallyHidden>Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      const heading = getByRole('heading', {level: 2, name: 'Settings'})
+      expect(heading).toBeInTheDocument()
+      expect(getByRole('navigation', {name: 'Settings'})).toBeInTheDocument()
+      // The visually-hidden styles are applied to the heading itself, not a wrapping element.
+      expect(heading.parentElement?.tagName).not.toBe('SPAN')
+    })
+  })
 })

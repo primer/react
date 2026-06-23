@@ -19,6 +19,31 @@ import navListClasses from './NavList.module.css'
 import {flushSync} from 'react-dom'
 import {useSlots} from '../hooks/useSlots'
 import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
+import HeadingComponent from '../Heading'
+import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
+
+type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
+// NavList establishes a shallow hierarchy: the NavList itself is named by a
+// heading (h2 or h3) and its groups render one level deeper (h3 or h4). We don't
+// expose an h1 (that's the page title) and we don't go deeper than h4.
+type NavListHeadingLevels = 'h2' | 'h3'
+
+// Publishes the resolved numeric level of a NavList.Heading (e.g. 2 for an h2) so
+// NavList.Group/NavList.GroupHeading can default to one level deeper. `null` when
+// there is no NavList.Heading, in which case groups keep their historical h3 default.
+const NavListHeadingLevelContext = React.createContext<number | null>(null)
+
+function headingTagToLevel(as: NavListHeadingLevels): number {
+  return Number.parseInt(as.slice(1), 10)
+}
+
+function levelToHeadingTag(level: number): HeadingLevels {
+  // Clamp to h4 so group headings never go deeper than the supported hierarchy.
+  const clamped = Math.min(Math.max(level, 1), 4)
+  return `h${clamped}` as HeadingLevels
+}
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -27,21 +52,81 @@ export type NavListProps = {
   children: React.ReactNode
 } & React.ComponentProps<'nav'>
 
-const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
-  return (
-    <nav {...props} ref={ref} data-component="NavList">
-      <ActionListContainerContext.Provider
-        value={{
-          container: 'NavList',
-        }}
-      >
-        <ActionList>{children}</ActionList>
-      </ActionListContainerContext.Provider>
-    </nav>
-  )
-})
+const Root = React.forwardRef<HTMLElement, NavListProps>(
+  ({children, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props}, ref) => {
+    const [slots, childrenWithoutHeading] = useSlots(children, {
+      heading: Heading,
+    })
+
+    const fallbackHeadingId = useId()
+    const heading = slots.heading
+    const headingId = heading ? (heading.props.id ?? fallbackHeadingId) : undefined
+    const headingLevel = heading ? headingTagToLevel(heading.props.as ?? 'h2') : null
+
+    // Don't override a consumer-supplied accessible name; otherwise label the
+    // <nav> landmark with the heading so it gets an accessible name automatically.
+    const navLabelledby = ariaLabelledby ?? (ariaLabel ? undefined : headingId)
+
+    return (
+      <nav {...props} aria-label={ariaLabel} aria-labelledby={navLabelledby} ref={ref} data-component="NavList">
+        <NavListHeadingLevelContext.Provider value={headingLevel}>
+          {heading ? React.cloneElement(heading, {id: headingId}) : null}
+          <ActionListContainerContext.Provider
+            value={{
+              container: 'NavList',
+            }}
+          >
+            <ActionList>{childrenWithoutHeading}</ActionList>
+          </ActionListContainerContext.Provider>
+        </NavListHeadingLevelContext.Provider>
+      </nav>
+    )
+  },
+)
 
 Root.displayName = 'NavList'
+
+// ----------------------------------------------------------------------------
+// NavList.Heading
+
+export type NavListHeadingProps = {
+  /** Semantic heading level for the NavList. Also sets the default level for child group headings, which render one level deeper. */
+  as?: NavListHeadingLevels
+  /** Visually hide the heading while keeping it available to assistive technology. */
+  visuallyHidden?: boolean
+  children: React.ReactNode
+  className?: string
+  id?: string
+  style?: React.CSSProperties
+}
+
+const Heading: FCWithSlotMarker<NavListHeadingProps> = ({
+  as = 'h2',
+  visuallyHidden = false,
+  className,
+  children,
+  ...props
+}) => {
+  return (
+    <HeadingComponent
+      as={as}
+      variant="small"
+      className={clsx(
+        // Apply the visually-hidden styles directly to the heading rather than wrapping
+        // it in a span (a heading isn't valid phrasing content inside a span).
+        visuallyHidden ? visuallyHiddenClasses.InternalVisuallyHidden : navListClasses.Heading,
+        className,
+      )}
+      data-component="NavList.Heading"
+      {...props}
+    >
+      {children}
+    </HeadingComponent>
+  )
+}
+
+Heading.displayName = 'NavList.Heading'
+Heading.__SLOT__ = Symbol('NavList.Heading')
 
 // ----------------------------------------------------------------------------
 // NavList.Item
@@ -285,13 +370,17 @@ export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
 }
 
 const Group: React.FC<NavListGroupProps> = ({title, children, ...props}) => {
+  const headingLevel = React.useContext(NavListHeadingLevelContext)
+  // Default the group heading to one level below the NavList.Heading (h3 under an
+  // h2, h4 under an h3), falling back to h3 when there is no NavList.Heading. To
+  // use a different level, pass NavList.GroupHeading with an explicit `as` instead.
+  const groupHeadingAs = headingLevel ? levelToHeadingTag(headingLevel + 1) : 'h3'
   return (
     <>
       <ActionList.Divider />
       <ActionList.Group {...props}>
-        {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
         {title ? (
-          <ActionList.GroupHeading as="h3" data-component="ActionList.GroupHeading">
+          <ActionList.GroupHeading as={groupHeadingAs} data-component="ActionList.GroupHeading">
             {title}
           </ActionList.GroupHeading>
         ) : null}
@@ -409,10 +498,12 @@ export type NavListGroupHeadingProps = ActionListGroupHeadingProps
  * This is an alternative to the `title` prop on `NavList.Group`.
  * It was primarily added to allow links in group headings.
  */
-const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', className, ...rest}) => {
+const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as, className, ...rest}) => {
+  const headingLevel = React.useContext(NavListHeadingLevelContext)
+  const resolvedAs = as ?? (headingLevel ? levelToHeadingTag(headingLevel + 1) : 'h3')
   return (
     <ActionList.GroupHeading
-      as={as}
+      as={resolvedAs}
       className={clsx(navListClasses.GroupHeading, className)}
       data-component="NavList.GroupHeading"
       headingWrapElement="li"
@@ -426,6 +517,7 @@ const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', className,
 
 export const NavList = Object.assign(Root, {
   Description: ActionList.Description,
+  Heading,
   Item,
   SubNav,
   LeadingVisual,
