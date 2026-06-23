@@ -106,18 +106,6 @@ export const Spacious = () => (
   </Blankslate>
 )
 
-export const SizeMedium = () => (
-  <Blankslate border size="medium">
-    <Blankslate.Visual>
-      <BookIcon size="medium" />
-    </Blankslate.Visual>
-    <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
-    <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
-    <Blankslate.PrimaryAction href="#">Primary action</Blankslate.PrimaryAction>
-    <Blankslate.SecondaryAction href="#">Secondary action</Blankslate.SecondaryAction>
-  </Blankslate>
-)
-
 export const SizeLarge = () => (
   <Blankslate size="large">
     <Blankslate.Visual>
