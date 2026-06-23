@@ -13,7 +13,7 @@ importers:
         version: 7.29.7(supports-color@5.5.0)
       '@babel/eslint-parser':
         specifier: 7.28.6
-        version: 7.28.6(@babel/core@7.29.7)(eslint@10.0.2(jiti@2.4.2)(supports-color@5.5.0))
+        version: 7.28.6(@babel/core@7.29.7(supports-color@5.5.0))(eslint@10.0.2(jiti@2.4.2)(supports-color@5.5.0))
       '@changesets/changelog-github':
         specifier: 0.5.1
         version: 0.5.1
@@ -200,11 +200,11 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@primer/react':
-        specifier: 38.28.0
-        version: 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+        specifier: 38.29.0
+        version: 38.29.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
       '@primer/styled-react':
         specifier: 1.1.0
-        version: 1.1.0(@primer/react@38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(@types/styled-components@5.1.36)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))
+        version: 1.1.0(@primer/react@38.29.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(@types/styled-components@5.1.36)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))
       '@types/react':
         specifier: ^18.3.11
         version: 18.3.11
@@ -226,18 +226,15 @@ importers:
 
   examples/nextjs:
     dependencies:
-      '@primer/primitives':
-        specifier: ^11.5.1
-        version: 11.5.1
       '@primer/react':
-        specifier: 38.28.0
-        version: 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+        specifier: 38.29.0
+        version: 38.29.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       '@primer/styled-react':
         specifier: 1.1.0
-        version: 1.1.0(@primer/react@38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))
+        version: 1.1.0(@primer/react@38.29.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))
       next:
         specifier: ^16.1.7
-        version: 16.2.9(@babel/core@7.29.7)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.101.0)
+        version: 16.2.9(@babel/core@7.29.7(supports-color@5.5.0))(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.101.0)
       react:
         specifier: ^19.2.0
         version: 19.2.4
@@ -248,12 +245,6 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
     devDependencies:
-      '@types/react':
-        specifier: ~19.2.17
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ~19.2.3
-        version: 19.2.3(@types/react@19.2.17)
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
@@ -263,21 +254,18 @@ importers:
       '@primer/octicons-react':
         specifier: ^19.21.0
         version: 19.28.1(react@19.2.4)
-      '@primer/primitives':
-        specifier: ^11.5.1
-        version: 11.5.1
       '@primer/react':
-        specifier: 38.28.0
-        version: 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+        specifier: 38.29.0
+        version: 38.29.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       '@primer/styled-react':
         specifier: 1.1.0
-        version: 1.1.0(@primer/react@38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))
+        version: 1.1.0(@primer/react@38.29.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
       next:
         specifier: ^16.1.7
-        version: 16.2.9(@babel/core@7.29.7)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.101.0)
+        version: 16.2.9(@babel/core@7.29.7(supports-color@5.5.0))(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.101.0)
       react:
         specifier: ^19.2.0
         version: 19.2.4
@@ -286,30 +274,23 @@ importers:
         version: 19.2.4(react@19.2.4)
       styled-components:
         specifier: 5.x
-        version: 5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+        version: 5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
     devDependencies:
-      '@types/react':
-        specifier: ~19.2.17
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ~19.2.3
-        version: 19.2.3(@types/react@19.2.17)
-      '@types/styled-components':
-        specifier: ^5.1.36
-        version: 5.1.36
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
 
   packages/canvas:
-    dependencies:
+    devDependencies:
+      '@primer/primitives':
+        specifier: 11.x
+        version: 11.5.1
       '@primer/react':
         specifier: ^38.27.0
         version: 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
-    devDependencies:
       rimraf:
         specifier: ^6.1.3
         version: 6.1.3
@@ -923,10 +904,10 @@ importers:
         version: 7.29.7(supports-color@5.5.0)
       '@babel/preset-react':
         specifier: ^7.28.5
-        version: 7.28.5(@babel/core@7.29.7(supports-color@5.5.0))
+        version: 7.28.5(@babel/core@7.29.7)
       '@babel/preset-typescript':
         specifier: ^7.28.5
-        version: 7.28.5(@babel/core@7.29.7(supports-color@5.5.0))
+        version: 7.28.5(@babel/core@7.29.7)
       '@primer/primitives':
         specifier: 10.x || 11.x
         version: 11.5.1
@@ -938,7 +919,7 @@ importers:
         version: link:../vitest-config
       '@rolldown/plugin-babel':
         specifier: ^0.2.3
-        version: 0.2.3(@babel/core@7.29.7(supports-color@5.5.0))(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7(supports-color@5.5.0)))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))
+        version: 0.2.3(@babel/core@7.29.7)(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))
       '@rollup/plugin-babel':
         specifier: ^6.1.0
         version: 6.1.0(@babel/core@7.29.7)(@types/babel__core@7.20.5)(rollup@4.59.0)
@@ -977,7 +958,7 @@ importers:
         version: 5.1.36
       '@vitejs/plugin-react':
         specifier: ^6.0.2
-        version: 6.0.2(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7(supports-color@5.5.0))(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7(supports-color@5.5.0)))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)))(babel-plugin-react-compiler@1.0.0)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))
+        version: 6.0.2(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7)(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)))(babel-plugin-react-compiler@1.0.0)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))
       '@vitest/browser-playwright':
         specifier: ^4.1.5
         version: 4.1.5(playwright@1.60.0)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))(vitest@4.1.5)
@@ -986,7 +967,7 @@ importers:
         version: 1.0.0
       babel-plugin-styled-components:
         specifier: 2.1.4
-        version: 2.1.4(@babel/core@7.29.7(supports-color@5.5.0))(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(supports-color@5.5.0)
+        version: 2.1.4(@babel/core@7.29.7)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(supports-color@5.5.0)
       magic-string:
         specifier: ^0.30.21
         version: 0.30.21
@@ -1016,7 +997,7 @@ importers:
         version: 0.36.0(rollup@4.59.0)(typescript@6.0.3)
       styled-components:
         specifier: 5.3.11
-        version: 5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+        version: 5.3.11(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -3257,6 +3238,24 @@ packages:
 
   '@primer/react@38.28.0':
     resolution: {integrity: sha512-ajCk5MMlnNPb6HToKCYpYwK8suaEFRm5GsKM4v55ZPooPSep0rYBDFQ/hZLrqcvztIhLid9MibOf4/tdzkpt8A==}
+    engines: {node: '>=12', npm: '>=7'}
+    peerDependencies:
+      '@types/react': 18.x || 19.x
+      '@types/react-dom': 18.x || 19.x
+      '@types/react-is': 18.x || 19.x
+      react: 18.x || 19.x
+      react-dom: 18.x || 19.x
+      react-is: 18.x || 19.x
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+      '@types/react-is':
+        optional: true
+
+  '@primer/react@38.29.0':
+    resolution: {integrity: sha512-QOv616syu+TbOcya2/3bb7SQhCHbe7i8yFDZbR8ejnUZTknfTvejp/joLxEtOkWuBRIDyZ4DFZ0EpYBw78hhBw==}
     engines: {node: '>=12', npm: '>=7'}
     peerDependencies:
       '@types/react': 18.x || 19.x
@@ -10499,7 +10498,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/eslint-parser@7.28.6(@babel/core@7.29.7)(eslint@10.0.2(jiti@2.4.2)(supports-color@5.5.0))':
+  '@babel/eslint-parser@7.28.6(@babel/core@7.29.7(supports-color@5.5.0))(eslint@10.0.2(jiti@2.4.2)(supports-color@5.5.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
       '@nicolo-ribaudo/eslint-scope-5-internals': 5.1.1-v1
@@ -10540,19 +10539,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-create-class-features-plugin@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-annotate-as-pure': 7.29.7
-      '@babel/helper-member-expression-to-functions': 7.29.7
-      '@babel/helper-optimise-call-expression': 7.29.7
-      '@babel/helper-replace-supers': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@5.5.0)
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/helper-create-class-features-plugin@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
@@ -10584,18 +10570,6 @@ snapshots:
   '@babel/helper-define-polyfill-provider@0.6.8(@babel/core@7.29.6(supports-color@5.5.0))':
     dependencies:
       '@babel/core': 7.29.6(supports-color@5.5.0)
-      '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-      debug: 4.4.3(supports-color@5.5.0)
-      lodash.debounce: 4.0.8
-      resolve: 1.22.11
-    transitivePeerDependencies:
-      - supports-color
-    optional: true
-
-  '@babel/helper-define-polyfill-provider@0.6.8(@babel/core@7.29.7(supports-color@5.5.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
       '@babel/helper-compilation-targets': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
       debug: 4.4.3(supports-color@5.5.0)
@@ -10691,15 +10665,6 @@ snapshots:
   '@babel/helper-replace-supers@7.29.7(@babel/core@7.29.6(supports-color@5.5.0))':
     dependencies:
       '@babel/core': 7.29.6(supports-color@5.5.0)
-      '@babel/helper-member-expression-to-functions': 7.29.7
-      '@babel/helper-optimise-call-expression': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@5.5.0)
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/helper-replace-supers@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
       '@babel/helper-member-expression-to-functions': 7.29.7
       '@babel/helper-optimise-call-expression': 7.29.7
       '@babel/traverse': 7.29.7(supports-color@5.5.0)
@@ -10953,11 +10918,6 @@ snapshots:
   '@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.6(supports-color@5.5.0))':
     dependencies:
       '@babel/core': 7.29.6(supports-color@5.5.0)
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7)':
@@ -11336,14 +11296,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-modules-commonjs@7.28.6(@babel/core@7.29.7(supports-color@5.5.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/helper-plugin-utils': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-transform-modules-commonjs@7.28.6(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
@@ -11584,7 +11536,7 @@ snapshots:
       '@babel/core': 7.29.6(supports-color@5.5.0)
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-react-display-name@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
+  '@babel/plugin-transform-react-display-name@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
       '@babel/helper-plugin-utils': 7.29.7
@@ -11596,10 +11548,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-react-jsx-development@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
+  '@babel/plugin-transform-react-jsx-development@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/plugin-transform-react-jsx': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
+      '@babel/plugin-transform-react-jsx': 7.29.7(@babel/core@7.29.7)
     transitivePeerDependencies:
       - supports-color
 
@@ -11614,13 +11566,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-react-jsx@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
+  '@babel/plugin-transform-react-jsx@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
       '@babel/helper-annotate-as-pure': 7.29.7
       '@babel/helper-module-imports': 7.29.7(supports-color@5.5.0)
       '@babel/helper-plugin-utils': 7.29.7
-      '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
+      '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7)
       '@babel/types': 7.29.7
     transitivePeerDependencies:
       - supports-color
@@ -11631,7 +11583,7 @@ snapshots:
       '@babel/helper-annotate-as-pure': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-react-pure-annotations@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
+  '@babel/plugin-transform-react-pure-annotations@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
       '@babel/helper-annotate-as-pure': 7.29.7
@@ -11680,19 +11632,6 @@ snapshots:
       babel-plugin-polyfill-corejs2: 0.4.17(@babel/core@7.29.6(supports-color@5.5.0))
       babel-plugin-polyfill-corejs3: 0.13.0(@babel/core@7.29.6(supports-color@5.5.0))
       babel-plugin-polyfill-regenerator: 0.6.8(@babel/core@7.29.6(supports-color@5.5.0))
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-    optional: true
-
-  '@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-module-imports': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-plugin-utils': 7.29.7
-      babel-plugin-polyfill-corejs2: 0.4.17(@babel/core@7.29.7(supports-color@5.5.0))
-      babel-plugin-polyfill-corejs3: 0.13.0(@babel/core@7.29.7(supports-color@5.5.0))
-      babel-plugin-polyfill-regenerator: 0.6.8(@babel/core@7.29.7(supports-color@5.5.0))
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -11779,17 +11718,6 @@ snapshots:
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
       '@babel/plugin-syntax-typescript': 7.29.7(@babel/core@7.29.6(supports-color@5.5.0))
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-transform-typescript@7.29.7(@babel/core@7.29.7(supports-color@5.5.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-annotate-as-pure': 7.29.7
-      '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-      '@babel/plugin-syntax-typescript': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -12043,15 +11971,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/preset-react@7.28.5(@babel/core@7.29.7(supports-color@5.5.0))':
+  '@babel/preset-react@7.28.5(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/helper-validator-option': 7.29.7
-      '@babel/plugin-transform-react-display-name': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/plugin-transform-react-jsx': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/plugin-transform-react-jsx-development': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/plugin-transform-react-pure-annotations': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
+      '@babel/plugin-transform-react-display-name': 7.29.7(@babel/core@7.29.7)
+      '@babel/plugin-transform-react-jsx': 7.29.7(@babel/core@7.29.7)
+      '@babel/plugin-transform-react-jsx-development': 7.29.7(@babel/core@7.29.7)
+      '@babel/plugin-transform-react-pure-annotations': 7.29.7(@babel/core@7.29.7)
     transitivePeerDependencies:
       - supports-color
 
@@ -12063,17 +11991,6 @@ snapshots:
       '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.6(supports-color@5.5.0))
       '@babel/plugin-transform-modules-commonjs': 7.28.6(@babel/core@7.29.6(supports-color@5.5.0))
       '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.6(supports-color@5.5.0))
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/preset-typescript@7.28.5(@babel/core@7.29.7(supports-color@5.5.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-validator-option': 7.29.7
-      '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/plugin-transform-modules-commonjs': 7.28.6(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -13701,36 +13618,6 @@ snapshots:
 
   '@primer/primitives@11.5.1': {}
 
-  '@primer/react@38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)':
-    dependencies:
-      '@github/mini-throttle': 2.1.1
-      '@github/relative-time-element': 5.2.0
-      '@github/tab-container-element': 4.8.2
-      '@lit-labs/react': 1.2.1
-      '@oddbird/popover-polyfill': 0.5.2
-      '@primer/behaviors': 1.10.3
-      '@primer/live-region-element': 0.8.0
-      '@primer/octicons-react': 19.28.1(react@18.3.1)
-      '@primer/primitives': 11.5.1
-      '@tanstack/react-virtual': 3.14.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      clsx: 2.1.1
-      color2k: 2.0.3
-      deepmerge: 4.3.1
-      focus-visible: 5.2.1
-      history: 5.3.0
-      hsluv: 1.0.1
-      lodash.isempty: 4.4.0
-      lodash.isobject: 3.0.2
-      react: 18.3.1
-      react-compiler-runtime: 1.0.0(react@18.3.1)
-      react-dom: 18.3.1(react@18.3.1)
-      react-intersection-observer: 9.16.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-is: 18.3.1
-    optionalDependencies:
-      '@types/react': 18.3.11
-      '@types/react-dom': 18.3.1
-      '@types/react-is': 18.3.1
-
   '@primer/react@38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)':
     dependencies:
       '@github/mini-throttle': 2.1.1
@@ -13761,9 +13648,69 @@ snapshots:
       '@types/react-dom': 19.2.3(@types/react@19.2.17)
       '@types/react-is': 18.3.1
 
-  '@primer/styled-react@1.1.0(@primer/react@38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(@types/styled-components@5.1.36)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))':
+  '@primer/react@38.29.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)':
     dependencies:
-      '@primer/react': 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+      '@github/mini-throttle': 2.1.1
+      '@github/relative-time-element': 5.2.0
+      '@github/tab-container-element': 4.8.2
+      '@lit-labs/react': 1.2.1
+      '@oddbird/popover-polyfill': 0.5.2
+      '@primer/behaviors': 1.10.3
+      '@primer/live-region-element': 0.8.0
+      '@primer/octicons-react': 19.28.1(react@18.3.1)
+      '@primer/primitives': 11.5.1
+      '@tanstack/react-virtual': 3.14.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      clsx: 2.1.1
+      color2k: 2.0.3
+      deepmerge: 4.3.1
+      focus-visible: 5.2.1
+      history: 5.3.0
+      hsluv: 1.0.1
+      lodash.isempty: 4.4.0
+      lodash.isobject: 3.0.2
+      react: 18.3.1
+      react-compiler-runtime: 1.0.0(react@18.3.1)
+      react-dom: 18.3.1(react@18.3.1)
+      react-intersection-observer: 9.16.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-is: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.11
+      '@types/react-dom': 18.3.1
+      '@types/react-is': 18.3.1
+
+  '@primer/react@38.29.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)':
+    dependencies:
+      '@github/mini-throttle': 2.1.1
+      '@github/relative-time-element': 5.2.0
+      '@github/tab-container-element': 4.8.2
+      '@lit-labs/react': 1.2.1
+      '@oddbird/popover-polyfill': 0.5.2
+      '@primer/behaviors': 1.10.3
+      '@primer/live-region-element': 0.8.0
+      '@primer/octicons-react': 19.28.1(react@19.2.4)
+      '@primer/primitives': 11.5.1
+      '@tanstack/react-virtual': 3.14.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      clsx: 2.1.1
+      color2k: 2.0.3
+      deepmerge: 4.3.1
+      focus-visible: 5.2.1
+      history: 5.3.0
+      hsluv: 1.0.1
+      lodash.isempty: 4.4.0
+      lodash.isobject: 3.0.2
+      react: 19.2.4
+      react-compiler-runtime: 1.0.0(react@19.2.4)
+      react-dom: 19.2.4(react@19.2.4)
+      react-intersection-observer: 9.16.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-is: 18.3.1
+    optionalDependencies:
+      '@types/react': 19.2.17
+      '@types/react-dom': 19.2.3(@types/react@19.2.17)
+      '@types/react-is': 18.3.1
+
+  '@primer/styled-react@1.1.0(@primer/react@38.29.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(@types/styled-components@5.1.36)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))':
+    dependencies:
+      '@primer/react': 38.29.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
       '@styled-system/css': 5.1.5
       '@styled-system/props': 5.1.5
       '@styled-system/theme-get': 5.1.2
@@ -13784,9 +13731,9 @@ snapshots:
       '@types/react-is': 18.3.1
       '@types/styled-components': 5.1.36
 
-  '@primer/styled-react@1.1.0(@primer/react@38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))':
+  '@primer/styled-react@1.1.0(@primer/react@38.29.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))':
     dependencies:
-      '@primer/react': 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+      '@primer/react': 38.29.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       '@styled-system/css': 5.1.5
       '@styled-system/props': 5.1.5
       '@styled-system/theme-get': 5.1.2
@@ -13799,7 +13746,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       react-is: 18.3.1
-      styled-components: 5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+      styled-components: 5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       styled-system: 5.1.5
     optionalDependencies:
       '@types/react': 19.2.17
@@ -14339,16 +14286,6 @@ snapshots:
       '@babel/runtime': 7.28.6
       vite: 8.0.16(@types/node@20.12.11)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)
 
-  '@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7(supports-color@5.5.0))(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7(supports-color@5.5.0)))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      picomatch: 4.0.4
-      rolldown: 1.1.1
-    optionalDependencies:
-      '@babel/plugin-transform-runtime': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@babel/runtime': 7.28.6
-      vite: 8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)
-
   '@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7)(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
@@ -14358,7 +14295,6 @@ snapshots:
       '@babel/plugin-transform-runtime': 7.29.7(@babel/core@7.29.7)
       '@babel/runtime': 7.28.6
       vite: 8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)
-    optional: true
 
   '@rolldown/pluginutils@1.0.1': {}
 
@@ -15208,6 +15144,7 @@ snapshots:
   '@types/react-dom@19.2.3(@types/react@19.2.17)':
     dependencies:
       '@types/react': 19.2.17
+    optional: true
 
   '@types/react-is@18.3.1':
     dependencies:
@@ -15221,6 +15158,7 @@ snapshots:
   '@types/react@19.2.17':
     dependencies:
       csstype: 3.2.3
+    optional: true
 
   '@types/resolve@1.20.2': {}
 
@@ -15447,14 +15385,6 @@ snapshots:
       vite: 8.0.16(@types/node@20.12.11)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)
     optionalDependencies:
       '@rolldown/plugin-babel': 0.2.3(@babel/core@7.29.6(supports-color@5.5.0))(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.6(supports-color@5.5.0)))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@20.12.11)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))
-      babel-plugin-react-compiler: 1.0.0
-
-  '@vitejs/plugin-react@6.0.2(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7(supports-color@5.5.0))(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7(supports-color@5.5.0)))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)))(babel-plugin-react-compiler@1.0.0)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))':
-    dependencies:
-      '@rolldown/pluginutils': 1.0.1
-      vite: 8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)
-    optionalDependencies:
-      '@rolldown/plugin-babel': 0.2.3(@babel/core@7.29.7(supports-color@5.5.0))(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7(supports-color@5.5.0)))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))
       babel-plugin-react-compiler: 1.0.0
 
   '@vitejs/plugin-react@6.0.2(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7)(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7))(@babel/runtime@7.28.6)(rolldown@1.1.1)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0)))(babel-plugin-react-compiler@1.0.0)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))':
@@ -15945,16 +15875,6 @@ snapshots:
       - supports-color
     optional: true
 
-  babel-plugin-polyfill-corejs2@0.4.17(@babel/core@7.29.7(supports-color@5.5.0)):
-    dependencies:
-      '@babel/compat-data': 7.29.7
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7(supports-color@5.5.0))
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-    optional: true
-
   babel-plugin-polyfill-corejs2@0.4.17(@babel/core@7.29.7):
     dependencies:
       '@babel/compat-data': 7.29.7
@@ -15968,15 +15888,6 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.6(supports-color@5.5.0)
       '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.6(supports-color@5.5.0))
-      core-js-compat: 3.49.0
-    transitivePeerDependencies:
-      - supports-color
-    optional: true
-
-  babel-plugin-polyfill-corejs3@0.13.0(@babel/core@7.29.7(supports-color@5.5.0)):
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7(supports-color@5.5.0))
       core-js-compat: 3.49.0
     transitivePeerDependencies:
       - supports-color
@@ -16015,14 +15926,6 @@ snapshots:
       - supports-color
     optional: true
 
-  babel-plugin-polyfill-regenerator@0.6.8(@babel/core@7.29.7(supports-color@5.5.0)):
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@5.5.0)
-      '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7(supports-color@5.5.0))
-    transitivePeerDependencies:
-      - supports-color
-    optional: true
-
   babel-plugin-polyfill-regenerator@0.6.8(@babel/core@7.29.7):
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
@@ -16034,14 +15937,14 @@ snapshots:
     dependencies:
       '@babel/types': 7.29.7
 
-  babel-plugin-styled-components@2.1.4(@babel/core@7.29.7(supports-color@5.5.0))(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(supports-color@5.5.0):
+  babel-plugin-styled-components@2.1.4(@babel/core@7.29.7(supports-color@5.5.0))(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(supports-color@5.5.0):
     dependencies:
       '@babel/helper-annotate-as-pure': 7.29.7
       '@babel/helper-module-imports': 7.29.7(supports-color@5.5.0)
       '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
       lodash: 4.17.23
       picomatch: 2.3.2
-      styled-components: 5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+      styled-components: 5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -16054,18 +15957,6 @@ snapshots:
       lodash: 4.17.23
       picomatch: 2.3.2
       styled-components: 5.3.11(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
-
-  babel-plugin-styled-components@2.1.4(@babel/core@7.29.7)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(supports-color@5.5.0):
-    dependencies:
-      '@babel/helper-annotate-as-pure': 7.29.7
-      '@babel/helper-module-imports': 7.29.7(supports-color@5.5.0)
-      '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7)
-      lodash: 4.17.23
-      picomatch: 2.3.2
-      styled-components: 5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -19355,7 +19246,7 @@ snapshots:
 
   netmask@2.0.2: {}
 
-  next@16.2.9(@babel/core@7.29.7)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.101.0):
+  next@16.2.9(@babel/core@7.29.7(supports-color@5.5.0))(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.101.0):
     dependencies:
       '@next/env': 16.2.9
       '@swc/helpers': 0.5.15
@@ -19364,7 +19255,7 @@ snapshots:
       postcss: 8.4.31
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
-      styled-jsx: 5.1.6(@babel/core@7.29.7)(react@19.2.4)
+      styled-jsx: 5.1.6(@babel/core@7.29.7(supports-color@5.5.0))(react@19.2.4)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.2.9
       '@next/swc-darwin-x64': 16.2.9
@@ -21335,18 +21226,18 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1):
+  styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4):
     dependencies:
       '@babel/helper-module-imports': 7.29.7(supports-color@5.5.0)
       '@babel/traverse': 7.29.7(supports-color@5.5.0)
       '@emotion/is-prop-valid': 1.4.0
       '@emotion/stylis': 0.8.5
       '@emotion/unitless': 0.7.5
-      babel-plugin-styled-components: 2.1.4(@babel/core@7.29.7(supports-color@5.5.0))(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(supports-color@5.5.0)
+      babel-plugin-styled-components: 2.1.4(@babel/core@7.29.7(supports-color@5.5.0))(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(supports-color@5.5.0)
       css-to-react-native: 3.2.0
       hoist-non-react-statics: 3.3.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
       react-is: 18.3.1
       shallowequal: 1.1.0
       supports-color: 5.5.0
@@ -21371,25 +21262,7 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
 
-  styled-components@5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4):
-    dependencies:
-      '@babel/helper-module-imports': 7.29.7(supports-color@5.5.0)
-      '@babel/traverse': 7.29.7(supports-color@5.5.0)
-      '@emotion/is-prop-valid': 1.4.0
-      '@emotion/stylis': 0.8.5
-      '@emotion/unitless': 0.7.5
-      babel-plugin-styled-components: 2.1.4(@babel/core@7.29.7)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(supports-color@5.5.0)
-      css-to-react-native: 3.2.0
-      hoist-non-react-statics: 3.3.2
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-      react-is: 18.3.1
-      shallowequal: 1.1.0
-      supports-color: 5.5.0
-    transitivePeerDependencies:
-      - '@babel/core'
-
-  styled-jsx@5.1.6(@babel/core@7.29.7)(react@19.2.4):
+  styled-jsx@5.1.6(@babel/core@7.29.7(supports-color@5.5.0))(react@19.2.4):
     dependencies:
       client-only: 0.0.1
       react: 19.2.4
