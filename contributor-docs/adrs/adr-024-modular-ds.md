@@ -59,25 +59,25 @@ To do this, we will:
 
 ### Breaking components down into parts
 
+We will break down the following components into parts plus appropriate
+behavioral hooks. These changes will make it easier for teams to layer behavior
+on top of these components.
+
 - SelectPanel
-- Dialog
-- ConfirmationDialog
-- Pagination
+- Dialog (and ConfirmationDialog)
+- DataTable (write documentation for `useTable` and `Table.*` components)
 
 ### Delivering low-level components, hooks, and utilities
 
 We will immediately deliver high priority components that assist in building accessible experiences, including:
 
-- **Combobox** for filtering and selection-based experiences
 - **Dialog** for modal and nonmodal experiences with built in parts for
-  wiring up accessibility, behaviors, and semantics
-- **Disclosure** for showing/hiding content
-- **Listbox** for selection-based experiences
-- **Menu** for action-based experiences
-- **Popover** for positioned, transient experiences
 - **ScrollableRegion** for scrollable containers with built in accessibility and behaviors
+- **Popover** for positioned, transient experiences
 - **Tabs** for building tabs-based experiences
 - **ToggleButton**, **ToggleSwitch** for building toggle-based experiences
+- **Disclosure** for showing/hiding content
+- **Accordion** for showing/hiding content
 
 We will also deliver documentation for all existing low-level components,
 hooks, and utilities.
@@ -85,6 +85,11 @@ hooks, and utilities.
 In the future, we are investigating the following opportunities for offering
 additional low-level components, hooks, and utilities:
 
+- **Listbox** for selection-based experiences
+- **Combobox** for filtering and selection-based experiences
+  wiring up accessibility, behaviors, and semantics
+- **Menu** for action-based experiences
+- \*_Tree_ for tree-based experiences
 - useFilter
 - useSelection
 
