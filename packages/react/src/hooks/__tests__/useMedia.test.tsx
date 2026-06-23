@@ -68,6 +68,7 @@ describe('useMedia', () => {
   })
 
   it('should default to false when used during SSR', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const match: boolean[] = []
 
     function TestComponent() {
@@ -78,6 +79,10 @@ describe('useMedia', () => {
 
     ReactDOM.renderToString(<TestComponent />)
     expect(match[0]).toBe(false)
+    // Without a `defaultState`, rendering on the server warns about a possible
+    // hydration mismatch.
+    expect(warnSpy).toHaveBeenCalledWith('Warning:', expect.stringContaining('`useMedia` When server side rendering'))
+    warnSpy.mockRestore()
   })
 
   it('should respond to change in matchMedia values', () => {
