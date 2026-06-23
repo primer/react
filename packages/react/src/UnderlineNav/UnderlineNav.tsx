@@ -162,26 +162,12 @@ export const UnderlineNav = forwardRef(
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
-    // Width measurements are stored keyed by item text so that adding/removing/reordering
-    // children does not produce stale or out-of-order entries (as the previous append-only
-    // arrays did). See https://github.com/github/primer/issues/6389.
-    const [childWidthMap, setChildWidthMap] = useState<Record<string, number>>({})
-    const [noIconChildWidthMap, setNoIconChildWidthMap] = useState<Record<string, number>>({})
+    const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
+    const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
     // Track whether the initial overflow calculation is complete to prevent CLS
     const [isOverflowMeasured, setIsOverflowMeasured] = useState(false)
 
     const validChildren = getValidChildren(children)
-
-    // Build ordered width arrays from the current children so order always matches
-    // `validChildren`, even after items are added, removed, or reordered.
-    const childWidthArray: ChildWidthArray = validChildren.map(child => {
-      const text = child.props.children as string
-      return {text, width: childWidthMap[text] ?? 0}
-    })
-    const noIconChildWidthArray: ChildWidthArray = validChildren.map(child => {
-      const text = child.props.children as string
-      return {text, width: noIconChildWidthMap[text] ?? 0}
-    })
 
     // Responsive props object manages which items are in the list and which items are in the menu.
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
@@ -286,11 +272,17 @@ export const UnderlineNav = forwardRef(
       [],
     )
     const setChildrenWidth = useCallback((size: ChildSize) => {
-      setChildWidthMap(prev => (prev[size.text] === size.width ? prev : {...prev, [size.text]: size.width}))
+      setChildWidthArray(arr => {
+        const newArr = [...arr, size]
+        return newArr
+      })
     }, [])
 
     const setNoIconChildrenWidth = useCallback((size: ChildSize) => {
-      setNoIconChildWidthMap(prev => (prev[size.text] === size.width ? prev : {...prev, [size.text]: size.width}))
+      setNoIconChildWidthArray(arr => {
+        const newArr = [...arr, size]
+        return newArr
+      })
     }, [])
 
     const closeOverlay = React.useCallback(() => {
