@@ -94,11 +94,7 @@ export type NavListHeadingProps = {
   as?: NavListHeadingLevels
   /** Visually hide the heading while keeping it available to assistive technology. */
   visuallyHidden?: boolean
-  children: React.ReactNode
-  className?: string
-  id?: string
-  style?: React.CSSProperties
-}
+} & React.ComponentPropsWithoutRef<'h2'>
 
 const Heading: FCWithSlotMarker<NavListHeadingProps> = ({
   as = 'h2',

@@ -736,5 +736,20 @@ describe('NavList.ShowMoreItem with pages', () => {
       // The visually-hidden styles are applied to the heading itself, not a wrapping element.
       expect(heading.parentElement?.tagName).not.toBe('SPAN')
     })
+
+    it('forwards standard HTML attributes to the heading element', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading data-testid="nav-heading" title="Section navigation">
+            Settings
+          </NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      const heading = getByRole('heading', {level: 2, name: 'Settings'})
+      expect(heading).toHaveAttribute('data-testid', 'nav-heading')
+      expect(heading).toHaveAttribute('title', 'Section navigation')
+    })
   })
 })

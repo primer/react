@@ -72,6 +72,11 @@
           "description": "The text rendered as the NavList's heading."
         },
         {
+          "name": "id",
+          "type": "string",
+          "description": "Custom id for the heading element. When set, it is used as the `aria-labelledby` target that names the `nav` landmark; otherwise a generated id is used."
+        },
+        {
           "name": "className",
           "type": "string",
           "description": "Custom CSS class name."
