@@ -31,10 +31,14 @@ export default sheet;
   }
 }
 
+const external = ['react', 'react-compiler-runtime', 'react-dom', '@primer/octicons-react'].map(
+  pkg => new RegExp(`^${pkg}(\\/.*)?$`),
+)
+
 const config: RolldownOptions = defineConfig({
-  input: ['./src/index.ts', './src/deprecated.ts', './src/experimental.ts', './src/next.ts'],
+  input: ['./src/index.ts', './src/deprecated.ts', './src/experimental.ts', './src/next.ts', './src/primitives.ts'],
   plugins: [cssStylesheetPlugin()],
-  external: ['react', 'react-dom', '@primer/octicons-react'],
+  external,
   output: {
     dir: 'dist',
     format: 'esm',
