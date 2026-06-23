@@ -19,6 +19,5 @@ export default defineConfig({
   output: {
     dir: 'dist',
     format: 'esm',
-    importAttributesKey: 'with',
   },
 })
