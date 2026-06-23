@@ -120,8 +120,6 @@ export function createDescendantRegistry<T>(options?: {
     const {observe} = useContext(ObserverContext)
     const isOverflowingRef = useRef(false)
 
-    if (disabled) isOverflowingRef.current = false
-
     const subscribe = useCallback(
       (onChange: () => void) => {
         if (disabled) return () => {}
@@ -156,7 +154,7 @@ export function createDescendantRegistry<T>(options?: {
 
     return useSyncExternalStore(
       subscribe,
-      () => isOverflowingRef.current,
+      () => (disabled ? false : isOverflowingRef.current),
       () => false,
     )
   }
@@ -366,6 +364,11 @@ export function createDescendantRegistry<T>(options?: {
   return {Provider, useRegistryState, useRegisterDescendant, useRegisterOverflowObserver}
 }
 
+/**
+ * Treat any target that is not fully visible within the observer root as overflowing. Wrapped items should be fully
+ * clipped (`isIntersecting: false`, `intersectionRatio: 0`), but partial ratios also count as overflowing to guard
+ * against sub-pixel boundary cases.
+ */
 function getIsOverflowing(entry: Pick<IntersectionObserverEntry, 'intersectionRatio' | 'isIntersecting'>) {
   return !entry.isIntersecting || entry.intersectionRatio < 1
 }

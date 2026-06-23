@@ -302,6 +302,7 @@ describe('createDescendantRegistry coalesced rebuilds', () => {
 describe('createDescendantRegistry shared IntersectionObserver', () => {
   // Capture every IntersectionObserver instance and its observed elements so we can assert a single shared observer
   // is used and drive its callback manually.
+  /** Minimal `IntersectionObserverEntry` shape needed to drive overflow updates in tests. */
   type MockEntry = Pick<IntersectionObserverEntry, 'target' | 'isIntersecting' | 'intersectionRatio'>
   type FakeObserver = {
     callback: IntersectionObserverCallback
