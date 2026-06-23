@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "build": "rolldown -c && tsc --project tsconfig.build.json",
+    "build": "rolldown -c",
     "type-check": "tsc --noEmit",
     "watch": "rolldown -c -w",
     "test": "vitest --run",
@@ -38,6 +38,7 @@
   "devDependencies": {
     "rimraf": "^6.0.1",
     "rolldown": "^1.1.2",
+    "rolldown-plugin-dts": "^0.26.0",
     "typescript": "^6.0.3"
   }
 }
