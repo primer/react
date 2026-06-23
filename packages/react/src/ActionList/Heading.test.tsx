@@ -2,8 +2,8 @@ import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
-import {ActionMenu} from '..'
-import {implementsClassName} from '../utils/testing'
+import {ActionMenu} from '../ActionMenu'
+import {implementsClassName, withExpectedConsoleError} from '../utils/testing'
 import classes from './Heading.module.css'
 
 describe('ActionList.Heading', () => {
@@ -42,22 +42,24 @@ describe('ActionList.Heading', () => {
   })
 
   it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
-    expect(() =>
-      HTMLRender(
-        <BaseStyles>
-          <ActionMenu open={true}>
-            <ActionMenu.Button>Trigger</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Heading as="h1">Heading</ActionList.Heading>
-                <ActionList.Item>Item</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>,
-      ),
-    ).toThrow(
-      "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
-    )
+    withExpectedConsoleError(() => {
+      expect(() =>
+        HTMLRender(
+          <BaseStyles>
+            <ActionMenu open={true}>
+              <ActionMenu.Button>Trigger</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Heading as="h1">Heading</ActionList.Heading>
+                  <ActionList.Item>Item</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>,
+        ),
+      ).toThrow(
+        "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
+      )
+    })
   })
 })

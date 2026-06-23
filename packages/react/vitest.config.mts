@@ -1,5 +1,6 @@
 import {defineConfig} from '@primer/vitest-config/config'
 import babel from '@rolldown/plugin-babel'
+
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import {isSupported} from './script/react-compiler.mjs'
 

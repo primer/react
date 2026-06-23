@@ -1,4 +1,5 @@
 import babel from '@rolldown/plugin-babel'
+
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
 import {defineConfig} from '@primer/vitest-config/config'

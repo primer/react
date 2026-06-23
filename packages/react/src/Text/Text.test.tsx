@@ -1,4 +1,4 @@
-import {Text} from '..'
+import Text from '.'
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import testClasses from './Text.test.module.css'

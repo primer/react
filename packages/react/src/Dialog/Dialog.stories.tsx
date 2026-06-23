@@ -1,6 +1,7 @@
 import {useState, useRef, useCallback} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Button, Text} from '..'
+import {Button} from '../Button'
+import Text from '../Text'
 import type {DialogProps} from './Dialog'
 import {Dialog} from './Dialog'
 import classes from './Dialog.stories.module.css'
