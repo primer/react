@@ -15,6 +15,11 @@ describe('Spinner', () => {
     expect(getByLabelText('Loading')).toBeInTheDocument()
   })
 
+  it('renders data-component attribute on the outermost element', () => {
+    const {container} = render(<Spinner />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'Spinner')
+  })
+
   it('should label the spinner with with custom loading text', async () => {
     const {getByLabelText} = render(<Spinner srText="Custom loading text" />)
 
