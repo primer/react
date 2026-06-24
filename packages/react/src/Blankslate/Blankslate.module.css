@@ -28,7 +28,7 @@
   }
 
   &:where([data-size='medium'][data-spacious]) {
-    --blankslate-padding: var(--base-size-44) var(--base-size-28);
+    --blankslate-padding: var(--base-size-80) var(--base-size-40);
   }
 
   &:where([data-size='large']) {
