@@ -243,19 +243,23 @@ function Panel({
 
   // Reset the intermediate selected item when the panel is opened/closed or the external
   // selection changes. Adjusting state during render (tracking the previous inputs) rather
-  // than syncing it from an effect avoids an extra post-commit render.
+  // than syncing it from an effect avoids an extra post-commit render. The reset is also
+  // gated on the intermediate selection actually changing, so variants that never use it
+  // (e.g. multi-select / anchored, where it stays `undefined`) don't pay for a render-phase
+  // restart on every open/selection change.
+  const nextIntermediateSelected = isSingleSelectModal ? selected : undefined
   const [intermediateSelectedResetKey, setIntermediateSelectedResetKey] = useState({
     open,
     selected,
     isSingleSelectModal,
   })
-  if (
+  const intermediateSelectedInputsChanged =
     intermediateSelectedResetKey.open !== open ||
     intermediateSelectedResetKey.selected !== selected ||
     intermediateSelectedResetKey.isSingleSelectModal !== isSingleSelectModal
-  ) {
+  if (intermediateSelectedInputsChanged && intermediateSelected !== nextIntermediateSelected) {
     setIntermediateSelectedResetKey({open, selected, isSingleSelectModal})
-    setIntermediateSelected(isSingleSelectModal ? selected : undefined)
+    setIntermediateSelected(nextIntermediateSelected)
   }
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
