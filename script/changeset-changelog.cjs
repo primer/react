@@ -82,6 +82,7 @@ function isRetryableStatus(status) {
 }
 
 function isRetryableError(error) {
+  // Node.js v26 can surface GitHub gzip stream failures as premature close errors.
   return (
     error?.retryable === true ||
     error?.code === 'ERR_STREAM_PREMATURE_CLOSE' ||
@@ -104,6 +105,7 @@ async function fetchGitHubData(query) {
   const {fetch, useNodeFetchOptions} = getFetchImplementation()
   const headers = {
     Authorization: 'Bearer ' + GITHUB_TOKEN,
+    // Avoid node-fetch gzip handling failures in the release workflow on Node.js v26.
     'Accept-Encoding': 'identity',
     'Content-Type': 'application/json',
   }
@@ -119,6 +121,7 @@ async function fetchGitHubData(query) {
       }
 
       if (useNodeFetchOptions) {
+        // Complement the identity encoding request for node-fetch v2, which is used on older Node.js versions.
         requestOptions.compress = false
       }
 
