@@ -64,14 +64,25 @@ function makeQuery(repos) {
 
 function getFetchImplementation() {
   if (typeof globalThis.fetch === 'function') {
-    return globalThis.fetch
+    return {
+      fetch: globalThis.fetch,
+      useNodeFetchOptions: false,
+    }
   }
 
-  return require('node-fetch')
+  return {
+    fetch: require('node-fetch'),
+    useNodeFetchOptions: true,
+  }
+}
+
+function isRetryableStatus(status) {
+  return status === 429 || status >= 500
 }
 
 function isRetryableError(error) {
   return (
+    error?.retryable === true ||
     error?.code === 'ERR_STREAM_PREMATURE_CLOSE' ||
     error?.cause?.code === 'ERR_STREAM_PREMATURE_CLOSE' ||
     /premature close|terminated|socket hang up|network timeout/i.test(error?.message || '')
@@ -80,7 +91,7 @@ function isRetryableError(error) {
 
 async function fetchGitHubData(query) {
   const {GITHUB_GRAPHQL_URL, GITHUB_TOKEN} = readEnv()
-  const fetch = getFetchImplementation()
+  const {fetch, useNodeFetchOptions} = getFetchImplementation()
   const headers = {
     Authorization: `Token ${GITHUB_TOKEN}`,
     'Accept-Encoding': 'identity',
@@ -91,15 +102,22 @@ async function fetchGitHubData(query) {
 
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const response = await fetch(GITHUB_GRAPHQL_URL, {
+      const requestOptions = {
         method: 'POST',
         headers,
         body,
-        compress: false,
-      })
+      }
 
-      if (!response.ok && (response.status === 429 || response.status >= 500)) {
-        throw new Error(`GitHub GraphQL request failed with status ${response.status}`)
+      if (useNodeFetchOptions) {
+        requestOptions.compress = false
+      }
+
+      const response = await fetch(GITHUB_GRAPHQL_URL, requestOptions)
+
+      if (!response.ok && isRetryableStatus(response.status)) {
+        const error = new Error(`GitHub GraphQL request failed with status ${response.status}`)
+        error.retryable = true
+        throw error
       }
 
       const data = await response.json()
@@ -115,7 +133,7 @@ async function fetchGitHubData(query) {
       return data
     } catch (error) {
       lastError = error
-      if (!isRetryableError(error) && !/status (?:429|5\d\d)/.test(error?.message || '')) {
+      if (!isRetryableError(error)) {
         break
       }
     }
@@ -178,9 +196,9 @@ async function getInfo(request) {
             return -1
           }
 
-          a = new Date(a.mergedAt)
-          b = new Date(b.mergedAt)
-          return a > b ? 1 : a < b ? -1 : 0
+          const dateA = new Date(a.mergedAt)
+          const dateB = new Date(b.mergedAt)
+          return dateA > dateB ? 1 : dateA < dateB ? -1 : 0
         })[0]
       : null
 
