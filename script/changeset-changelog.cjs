@@ -1,4 +1,5 @@
 const validRepoNameRegex = /^[\w.-]+\/[\w.-]+$/
+const MAX_RETRY_ATTEMPTS = 3
 
 function readEnv() {
   return {
@@ -89,6 +90,15 @@ function isRetryableError(error) {
   )
 }
 
+function getCommitLink(commit, url, options = {}) {
+  if (typeof commit !== 'string' || commit.length === 0) {
+    throw new Error('Expected a commit SHA when generating changelog links')
+  }
+
+  const label = options.alreadyAbbreviated ? commit : commit.slice(0, 7)
+  return `[\`${label}\`](${url})`
+}
+
 async function fetchGitHubData(query) {
   const {GITHUB_GRAPHQL_URL, GITHUB_TOKEN} = readEnv()
   const {fetch, useNodeFetchOptions} = getFetchImplementation()
@@ -100,7 +110,7 @@ async function fetchGitHubData(query) {
   const body = JSON.stringify({query})
   let lastError
 
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < MAX_RETRY_ATTEMPTS; attempt++) {
     try {
       const requestOptions = {
         method: 'POST',
@@ -139,7 +149,11 @@ async function fetchGitHubData(query) {
     }
   }
 
-  throw new Error(`An error occurred when fetching data from GitHub\n${lastError.message}`)
+  throw new Error(
+    `An error occurred when fetching data from GitHub after ${MAX_RETRY_ATTEMPTS} attempts\n${
+      lastError.stack || lastError.message
+    }`,
+  )
 }
 
 async function loadGitHubInfo(request) {
@@ -210,7 +224,7 @@ async function getInfo(request) {
     user: user ? user.login : null,
     pull: associatedPullRequest ? associatedPullRequest.number : null,
     links: {
-      commit: `[\`${request.commit.slice(0, 7)}\`](${data.commitUrl})`,
+      commit: getCommitLink(request.commit, data.commitUrl),
       pull: associatedPullRequest ? `[#${associatedPullRequest.number}](${associatedPullRequest.url})` : null,
       user: user ? `[@${user.login}](${user.url})` : null,
     },
@@ -235,7 +249,7 @@ async function getInfoFromPullRequest(request) {
     user: user ? user.login : null,
     commit: commit ? commit.abbreviatedOid : null,
     links: {
-      commit: commit ? `[\`${commit.abbreviatedOid.slice(0, 7)}\`](${commit.commitUrl})` : null,
+      commit: commit ? getCommitLink(commit.abbreviatedOid, commit.commitUrl, {alreadyAbbreviated: true}) : null,
       pull: `[#${request.pull}](${GITHUB_SERVER_URL}/${request.repo}/pull/${request.pull})`,
       user: user ? `[@${user.login}](${user.url})` : null,
     },
@@ -310,10 +324,9 @@ const changelogFunctions = {
         })
 
         if (commitFromSummary) {
-          const shortCommitId = commitFromSummary.slice(0, 7)
           links = {
             ...links,
-            commit: `[\`${shortCommitId}\`](https://github.com/${options.repo}/commit/${commitFromSummary})`,
+            commit: getCommitLink(commitFromSummary, `https://github.com/${options.repo}/commit/${commitFromSummary}`),
           }
         }
 
