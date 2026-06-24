@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   CodeIcon,
@@ -272,16 +272,20 @@ describe('UnderlineNav', () => {
     expect(screen.queryByText('Another')).not.toBeInTheDocument()
 
     // Toggle on: the new tab should appear in the DOM (either in the visible list
-    // or the overflow menu) without the nav being remounted.
+    // or the overflow menu) without the nav being remounted. `findByText` waits
+    // for the ResizeObserver-driven re-render that runs after `childrenSignature`
+    // changes (the callback is async in real browsers like chromium).
     await user.click(toggle)
-    expect(screen.getByText('Another')).toBeInTheDocument()
+    expect(await screen.findByText('Another')).toBeInTheDocument()
     // Existing tabs are still present
     expect(screen.getByText('Code')).toBeInTheDocument()
     expect(screen.getByText('Pull requests')).toBeInTheDocument()
 
     // Toggle off: the tab should be removed
     await user.click(screen.getByRole('button', {name: 'hide item'}))
-    expect(screen.queryByText('Another')).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.queryByText('Another')).not.toBeInTheDocument()
+    })
     expect(screen.getByText('Code')).toBeInTheDocument()
   })
 })
