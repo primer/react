@@ -1,12 +1,6 @@
 const validRepoNameRegex = /^[\w.-]+\/[\w.-]+$/
 const MAX_RETRY_ATTEMPTS = 3
-
-function readEnv() {
-  return {
-    GITHUB_SERVER_URL: (process.env.GITHUB_SERVER_URL || 'https://github.com').replace(/\/+$/, ''),
-    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
-  }
-}
+const GITHUB_SERVER_URL = (process.env.GITHUB_SERVER_URL || 'https://github.com').replace(/\/+$/, '')
 
 function makeQuery(repos) {
   return `
@@ -14,7 +8,7 @@ function makeQuery(repos) {
         ${Object.keys(repos)
           .map((repo, index) => {
             const [owner, name] = repo.split('/')
-            return `a${index}: repository(
+            return `repo${index}: repository(
             owner: ${JSON.stringify(owner)}
             name: ${JSON.stringify(name)}
           ) {
@@ -107,8 +101,33 @@ function getErrorSummary(error) {
   return error?.code || error?.name || 'unknown error'
 }
 
+function summarizeGitHubErrors(errors) {
+  return errors
+    .slice(0, 3)
+    .map(error => error.type || error.message || 'unknown error')
+    .join('; ')
+}
+
+function sortPullRequestsByMergeDate(a, b) {
+  if (a.mergedAt === null && b.mergedAt === null) {
+    return 0
+  }
+
+  if (a.mergedAt === null) {
+    return 1
+  }
+
+  if (b.mergedAt === null) {
+    return -1
+  }
+
+  const dateA = new Date(a.mergedAt)
+  const dateB = new Date(b.mergedAt)
+  return dateA.getTime() - dateB.getTime()
+}
+
 async function fetchGitHubData(query) {
-  const {GITHUB_TOKEN} = readEnv()
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN
   if (!GITHUB_TOKEN) {
     throw new Error('GITHUB_TOKEN is required to fetch changelog data from GitHub')
   }
@@ -148,7 +167,9 @@ async function fetchGitHubData(query) {
       const data = await response.json()
 
       if (data.errors) {
-        throw new Error(`Fetched data from GitHub returned ${data.errors.length} error(s)`)
+        throw new Error(
+          `Fetched data from GitHub returned ${data.errors.length} error(s): ${summarizeGitHubErrors(data.errors)}`,
+        )
       }
 
       if (!data.data) {
@@ -174,7 +195,7 @@ async function fetchGitHubData(query) {
 }
 
 async function loadGitHubInfo(request) {
-  const {GITHUB_SERVER_URL, GITHUB_TOKEN} = readEnv()
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
   if (!GITHUB_TOKEN) {
     throw new Error(
@@ -198,7 +219,7 @@ async function loadGitHubInfo(request) {
     ],
   }
   const data = await fetchGitHubData(makeQuery(repos))
-  return data.data.a0[request.kind === 'commit' ? `a${request.commit}` : `pr__${request.pull}`]
+  return data.data.repo0[request.kind === 'commit' ? `a${request.commit}` : `pr__${request.pull}`]
 }
 
 async function getInfo(request) {
@@ -214,23 +235,7 @@ async function getInfo(request) {
   let user = data.author?.user || null
   const associatedPullRequest =
     data.associatedPullRequests?.nodes?.length > 0
-      ? data.associatedPullRequests.nodes.sort((a, b) => {
-          if (a.mergedAt === null && b.mergedAt === null) {
-            return 0
-          }
-
-          if (a.mergedAt === null) {
-            return 1
-          }
-
-          if (b.mergedAt === null) {
-            return -1
-          }
-
-          const dateA = new Date(a.mergedAt)
-          const dateB = new Date(b.mergedAt)
-          return dateA.getTime() - dateB.getTime()
-        })[0]
+      ? data.associatedPullRequests.nodes.sort(sortPullRequestsByMergeDate)[0]
       : null
 
   if (associatedPullRequest) {
@@ -253,7 +258,6 @@ async function getInfoFromPullRequest(request) {
     throw new Error('Please pass a pull request number')
   }
 
-  const {GITHUB_SERVER_URL} = readEnv()
   const data = await loadGitHubInfo({
     kind: 'pull',
     repo: request.repo,
@@ -285,21 +289,18 @@ const changelogFunctions = {
       return ''
     }
 
-    const changesetLink = `- Updated dependencies [${(
-      await Promise.all(
-        changesets.map(async changeset => {
-          if (changeset.commit) {
-            const {links} = await getInfo({
-              repo: options.repo,
-              commit: changeset.commit,
-            })
-            return links.commit
-          }
-        }),
-      )
+    const dependencyCommitLinks = await Promise.all(
+      changesets.map(async changeset => {
+        if (changeset.commit) {
+          const {links} = await getInfo({
+            repo: options.repo,
+            commit: changeset.commit,
+          })
+          return links.commit
+        }
+      }),
     )
-      .filter(Boolean)
-      .join(', ')}]:`
+    const changesetLink = `- Updated dependencies [${dependencyCommitLinks.filter(Boolean).join(', ')}]:`
     const updatedDependenciesList = dependenciesUpdated.map(
       dependency => `  - ${dependency.name}@${dependency.newVersion}`,
     )
@@ -312,7 +313,6 @@ const changelogFunctions = {
       )
     }
 
-    const {GITHUB_SERVER_URL} = readEnv()
     let prFromSummary
     let commitFromSummary
     const usersFromSummary = []
