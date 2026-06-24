@@ -175,36 +175,25 @@ export const UnderlineNav = forwardRef(
       menuItems: [],
     })
 
-    // The ordered signature drives `useResizeObserver` deps below so it re-fires whenever
-    // children are added, removed, or reordered.
-    const childrenSignature = validChildren.map(child => String(child.key ?? '')).join('|')
-
-    // `childrenChanged` only tracks membership (set of keys), not order. This is intentional
-    // because `swapMenuItemWithListItem` legitimately reorders `responsiveProps.items` (to keep
-    // the selected item visible), and we don't want that to be treated as a stale-children
-    // situation. We only need to fall back to rendering `validChildren` directly when a child
-    // was actually added or removed (so a new item isn't missed and a removed item isn't kept).
-    const responsiveKeys = new Set<string>()
-    for (const item of responsiveProps.items) responsiveKeys.add(String(item.key ?? ''))
-    for (const item of responsiveProps.menuItems) responsiveKeys.add(String(item.key ?? ''))
-    const validKeys = validChildren.map(child => String(child.key ?? ''))
-    const childrenChanged = validKeys.length !== responsiveKeys.size || validKeys.some(key => !responsiveKeys.has(key))
+    // Track the set of children so the overflow effect re-runs whenever children are
+    // added or removed (not just when the nav element resizes). Keys are sorted so that
+    // simply reordering existing children doesn't trigger an unnecessary recalculation.
+    const childrenSignature = validChildren
+      .map(child => String(child.key ?? ''))
+      .sort()
+      .join('|')
 
     // Make sure to have the fresh props data for list items when children are changed (keeping aria-current up-to-date)
-    const listItems = childrenChanged
-      ? validChildren
-      : responsiveProps.items.map(item => {
-          return validChildren.find(child => child.key === item.key) ?? item
-        })
+    const listItems = responsiveProps.items.map(item => {
+      return validChildren.find(child => child.key === item.key) ?? item
+    })
 
     // Make sure to have the fresh props data for menu items when children are changed (keeping aria-current up-to-date)
-    const menuItems = childrenChanged
-      ? []
-      : responsiveProps.menuItems.map(menuItem => {
-          return validChildren.find(child => child.key === menuItem.key) ?? menuItem
-        })
+    const menuItems = responsiveProps.menuItems.map(menuItem => {
+      return validChildren.find(child => child.key === menuItem.key) ?? menuItem
+    })
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
-    const onlyMenuVisible = !childrenChanged && responsiveProps.items.length === 0
+    const onlyMenuVisible = responsiveProps.items.length === 0
 
     useDevOnlyEffect(() => {
       // Address illegal state where there are multiple items that have `aria-current='page'` attribute
@@ -313,10 +302,6 @@ export const UnderlineNav = forwardRef(
 
     useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
 
-    // The resize observer fires when the nav element resizes, and re-observes (firing the
-    // callback again with current size) whenever its deps change. Passing `childrenSignature`
-    // ensures the overflow calculation re-runs when child tabs are added, removed, or
-    // reordered. See https://github.com/github/primer/issues/6389.
     useResizeObserver(
       (resizeObserverEntries: ResizeObserverEntry[]) => {
         const navWidth = resizeObserverEntries[0].contentRect.width
