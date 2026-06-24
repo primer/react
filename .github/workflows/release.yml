@@ -50,10 +50,23 @@ jobs:
           private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
 
       - name: Create release pull request or publish to npm
-        id: changesets
+        id: changesets-initial
         # Uses SHA for security hardening
         # Currently pointing at a commit for the v1.4.1 tag
         # Please keep this up-to-date if you're changing the SHA below
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
+        continue-on-error: true
+        with:
+          title: Release tracking
+          commitMode: github-api
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: npm run release
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Retry create release pull request or publish to npm
+        if: steps.changesets-initial.outcome == 'failure'
+        # Retries transient GitHub API failures from changesets/action.
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
         with:
           title: Release tracking
