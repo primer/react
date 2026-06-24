@@ -14,7 +14,6 @@ const files = glob
 const unsupportedPatterns = [
   'src/ActionMenu/**/*.tsx',
   'src/Autocomplete/**/*.tsx',
-  'src/AvatarStack/**/*.tsx',
   'src/Banner/**/*.tsx',
   'src/Button/**/*.tsx',
   'src/Checkbox/**/*.tsx',
