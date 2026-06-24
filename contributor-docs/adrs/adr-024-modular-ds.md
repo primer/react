@@ -24,7 +24,7 @@ details several layers that Primer could be structured into:
 
 We took this proposal into a Modular design System Workshop:
 https://github.com/github/primer/discussions/6703. In this workshop, we
-identified several scenarios that team run into challenges when building with
+identified several scenarios where teams run into challenges when building with
 Primer:
 
 - It can be difficult to extend or add new functionality to a component
@@ -46,15 +46,15 @@ want to focus on in order to improve Primer:
 - Embrace layer 2 from the layer model, offering parts for our components that
   can be combined with hooks for improved flexibility
 - Provide low-level components and hooks to make it easier to build
-  quality, accessible experience
-- Create a model for upstreaming work where people build on top of Primer
+  quality, accessible experiences
+- Create a model for upstreaming work where people have already built on top of Primer
 
 To do this, we will:
 
-- Identify and deliver components to break down into parts that can be used to create more
+- Identify and deliver components that can be broken down into parts, which can be used to create more
   flexible and extensible components
 - Identify and deliver low-level components, hooks, and utilities that can be used to quickly build out accessible experiences
-- Embrace the spectrum of abstraction model, authoring presentation components
+- Embrace the spectrum of abstraction model, authoring presentational components
   that combine with hooks to provide flexible patterns and opinionated defaults.
 
 ### Breaking components down into parts
@@ -70,10 +70,10 @@ on top of these components.
 
 ### Delivering low-level components, hooks, and utilities
 
-We will immediately deliver high priority components that assist in building accessible experiences, including:
+We will immediately deliver high-priority components that will assist in building accessible experiences, including:
 
-- **Dialog** for modal and nonmodal experiences with built in parts for
-- **ScrollableRegion** for scrollable containers with built in accessibility and behaviors
+- **Dialog** for modal and nonmodal experiences with built-in parts for
+- **ScrollableRegion** for scrollable containers with built-in accessibility and behaviors
 - **Popover** for positioned, transient experiences
 - **Tabs** for building tabs-based experiences
 - **ToggleButton**, **ToggleSwitch** for building toggle-based experiences
@@ -140,7 +140,7 @@ beginning with presentational components that can combine with hooks to provide
 opionated, config-driven components.
 
 This model allows us to offer opinionated defaults that work for common
-scenarios while still allow teams to extend and customize components as needed.
+scenarios while still allowing teams to extend and customize components as needed.
 
 Default to building presentational components, then add behavior through hooks.
 As opinions or defaults are established, create config-driven components that
@@ -207,8 +207,8 @@ function Example({items}) {
 ```
 
 Presentational components are accompanied by behavior or state hooks for a
-component's core functionality. Often times, config components are built by
-combining presentational components and the corresponding behavior and state
+component's core functionality. Oftentimes, config components are built by
+combining presentational components with the corresponding behavior and state
 hooks needed for a feature.
 
 #### Base components
