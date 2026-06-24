@@ -9,8 +9,16 @@ export type Size = 'small' | 'medium' | 'large'
 export type AlignContent = 'start' | 'center'
 
 type ButtonA11yProps =
-  | {'aria-label': string; 'aria-labelledby'?: undefined}
-  | {'aria-label'?: undefined; 'aria-labelledby': string}
+  | {
+      /** Accessible label for the button. */
+      'aria-label': string
+      'aria-labelledby'?: undefined
+    }
+  | {
+      'aria-label'?: undefined
+      /** ID of the element that labels the button. */
+      'aria-labelledby': string
+    }
 
 export type ButtonBaseProps = {
   /**
@@ -38,7 +46,7 @@ export type ButtonBaseProps = {
    * The content to announce to screen readers when loading
    */
   loadingAnnouncement?: string
-  /*
+  /**
    * Whether the button looks visually disabled, but can still accept all the same
    * interactions as an enabled button.
    */
@@ -85,12 +93,27 @@ export type ButtonProps = {
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
+  /**
+   * Icon rendered inside the button.
+   */
   icon: React.ElementType
+  /**
+   * Disable the default tooltip for the icon button.
+   */
   unsafeDisableTooltip?: boolean
+  /**
+   * Text used as the icon button's tooltip description.
+   */
   description?: string
+  /**
+   * Direction for the icon button tooltip.
+   */
   tooltipDirection?: TooltipDirection
   /** @deprecated Use `keybindingHint` instead. */
   keyshortcuts?: string
+  /**
+   * Keybinding hint rendered in the icon button tooltip.
+   */
   keybindingHint?: string | string[]
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 

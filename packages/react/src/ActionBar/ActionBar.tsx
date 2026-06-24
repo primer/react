@@ -84,6 +84,10 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
+type ActionBarGroupProps = {
+  children?: React.ReactNode
+}
+
 export type ActionBarMenuItemProps =
   | ({
       /**
@@ -127,6 +131,7 @@ export type ActionBarMenuProps = {
   'aria-label': string
   /** Icon for the menu button */
   icon: ActionBarIconButtonProps['icon']
+  /** Items to render in the menu */
   items: ActionBarMenuItemProps[]
   /**
    * Icon displayed when the menu item is overflowing.
@@ -137,7 +142,7 @@ export type ActionBarMenuProps = {
    * Target element to return focus to when the menu is closed.
    */
   returnFocusRef?: React.RefObject<HTMLElement>
-} & IconButtonProps
+} & Omit<IconButtonProps, 'aria-label' | 'aria-labelledby' | 'icon'>
 
 const ActionBarItemsRegistry = createDescendantRegistry<ChildProps | null>()
 
@@ -394,7 +399,7 @@ const ActionBarGroupContext = React.createContext<{
   isOverflowing: boolean
 } | null>(null)
 
-export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
+export const ActionBarGroup = forwardRef<HTMLDivElement, ActionBarGroupProps>(({children}, forwardedRef) => {
   const backupRef = useRef<HTMLDivElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
   const {dataOverflowingAttr, isOverflowing} = useActionBarItem(

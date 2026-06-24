@@ -57,9 +57,9 @@ for (const componentDocFile of componentDocsFiles) {
         // propResult.mismatchedType ||
         propResult.missingJSDoc
       ) {
-        subPassingProps.push(propName)
-      } else {
         subBrokenProps.push(propName)
+      } else {
+        subPassingProps.push(propName)
       }
     }
 

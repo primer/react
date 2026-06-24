@@ -12,44 +12,32 @@
   "props": [
     {
       "name": "aria-label",
-      "type": "string",
       "derive": true
     },
     {
       "name": "aria-labelledby",
-      "type": "string",
       "derive": true
     },
     {
       "name": "children",
-      "type": "ReactNode",
-      "required": false,
-      "description": "Buttons in the action bar",
-      "defaultValue": ""
+      "derive": true,
+      "required": true
     },
     {
       "name": "size",
-      "type": "'small' | 'large' | 'medium'",
       "derive": true
     },
     {
       "name": "flush",
-      "derive": true,
-      "type": "boolean"
+      "derive": true
     },
     {
       "name": "className",
-      "type": "string",
-      "required": false,
-      "description": "Custom className",
-      "defaultValue": ""
+      "derive": true
     },
     {
       "name": "gap",
-      "type": "'none' | 'condensed'",
-      "required": false,
-      "defaultValue": "'condensed'",
-      "description": "Horizontal gap scale between items (restricted to none or condensed)."
+      "derive": true
     }
   ],
   "subcomponents": [
@@ -57,28 +45,84 @@
       "name": "ActionBar.IconButton",
       "props": [
         {
-          "name": "children",
-          "type": "React.ReactNode",
-          "defaultValue": "",
-          "required": true,
-          "description": "This will be the Button description."
+          "name": "aria-label",
+          "type": "string",
+          "description": "Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "ID of the element that labels the button."
+        },
+        {
+          "name": "variant",
+          "type": "VariantType",
+          "description": "Determines the styles on a button, one of 'default' | 'primary' | 'invisible' | 'danger' | 'link'"
+        },
+        {
+          "name": "size",
+          "type": "Size",
+          "description": "Size of the button and fontSize of the text in the button"
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Allow a button to fill its container horizontally"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Specify whether the button is in a loading state"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "description": "The content to announce to screen readers when loading"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Whether the button label should wrap to multiple lines if it is longer than the button width"
         },
         {
           "name": "icon",
-          "type": "Component",
-          "defaultValue": "",
-          "description": "Provide an octicon. It will be placed in the center of the button"
+          "type": "ElementType<any, keyof IntrinsicElements>",
+          "required": true,
+          "description": "Icon rendered inside the button."
         },
         {
-          "name": "aria-label",
+          "name": "unsafeDisableTooltip",
+          "type": "boolean",
+          "description": "Disable the default tooltip for the icon button."
+        },
+        {
+          "name": "description",
           "type": "string",
-          "defaultValue": "",
-          "description": "Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text."
+          "description": "Text used as the icon button's tooltip description."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "description": "Direction for the icon button tooltip."
+        },
+        {
+          "name": "keyshortcuts",
+          "type": "string",
+          "deprecated": true
+        },
+        {
+          "name": "keybindingHint",
+          "type": "string | string[]",
+          "description": "Keybinding hint rendered in the icon button tooltip."
         },
         {
           "name": "disabled",
           "type": "boolean",
-          "defaultValue": "",
           "description": "Provides a disabled state for the button. The button will remain focusable, and have `aria-disabled` applied."
         }
       ],
@@ -96,14 +140,78 @@
       "props": [
         {
           "name": "children",
-          "type": "React.ReactNode",
-          "defaultValue": ""
+          "type": "React.ReactElement[]"
         }
       ]
     },
     {
       "name": "ActionBar.Menu",
       "props": [
+        {
+          "name": "variant",
+          "type": "VariantType",
+          "description": "Determines the styles on a button, one of 'default' | 'primary' | 'invisible' | 'danger' | 'link'"
+        },
+        {
+          "name": "size",
+          "type": "Size",
+          "description": "Size of the button and fontSize of the text in the button"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Disables a button. Avoid disabling buttons because it will make them inaccessible to users who rely on keyboard navigation. Buttons that are disabled cannot be clicked, selected, or navigated through."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Allow a button to fill its container horizontally"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Specify whether the button is in a loading state"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "description": "The content to announce to screen readers when loading"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Whether the button label should wrap to multiple lines if it is longer than the button width"
+        },
+        {
+          "name": "unsafeDisableTooltip",
+          "type": "boolean",
+          "description": "Disable the default tooltip for the icon button."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Text used as the icon button's tooltip description."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "description": "Direction for the icon button tooltip."
+        },
+        {
+          "name": "keyshortcuts",
+          "type": "string",
+          "deprecated": true
+        },
+        {
+          "name": "keybindingHint",
+          "type": "string | string[]",
+          "description": "Keybinding hint rendered in the icon button tooltip."
+        },
         {
           "name": "aria-label",
           "type": "string",
@@ -112,7 +220,7 @@
         },
         {
           "name": "icon",
-          "type": "Component",
+          "type": "ElementType<any, keyof IntrinsicElements>",
           "required": true,
           "description": "Icon for the menu button."
         },
@@ -120,19 +228,17 @@
           "name": "items",
           "type": "ActionBarMenuItemProps[]",
           "required": true,
-          "description": "Array of menu items to render in the menu. Each item can be an action, group, or divider."
+          "description": "Items to render in the menu."
         },
         {
           "name": "overflowIcon",
-          "type": "Component | 'none'",
-          "required": false,
+          "type": "\"none\" | ElementType<any, keyof IntrinsicElements>",
           "description": "Icon displayed when the menu item is within the overflow menu. If 'none' is provided, no icon will be shown in the overflow menu."
         },
         {
           "name": "returnFocusRef",
-          "type": "React.RefObject<HTMLElement>",
-          "required": false,
-          "description": "A ref to an element that should receive focus when the menu is closed."
+          "type": "RefObject<HTMLElement>",
+          "description": "Target element to return focus to when the menu is closed."
         }
       ]
     }
