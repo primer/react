@@ -131,7 +131,7 @@
     "@types/lodash.isempty": "4.4.9",
     "@types/lodash.isobject": "3.0.9",
     "@types/lodash.keyby": "4.6.9",
-    "@types/node": "20.12.11",
+    "@types/node": "26.0.0",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
     "@types/react-is": "18.3.1",
