@@ -168,6 +168,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       {...getResponsiveAttributes('variant', variant)}
       data-size={size}
       {...rest}
+      data-component="SegmentedControl"
     >
       {React.Children.map(children, (child, index) => {
         // Not a valid child element - skip rendering child
