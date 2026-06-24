@@ -13,11 +13,11 @@ function makeQuery(repos) {
   return `
       query {
         ${Object.keys(repos)
-          .map(
-            (repo, index) =>
-              `a${index}: repository(
-            owner: ${JSON.stringify(repo.split('/')[0])}
-            name: ${JSON.stringify(repo.split('/')[1])}
+          .map((repo, index) => {
+            const [owner, name] = repo.split('/')
+            return `a${index}: repository(
+            owner: ${JSON.stringify(owner)}
+            name: ${JSON.stringify(name)}
           ) {
             ${repos[repo]
               .map(data =>
@@ -56,8 +56,8 @@ function makeQuery(repos) {
                   }`,
               )
               .join('\n')}
-          }`,
-          )
+          }`
+          })
           .join('\n')}
         }
     `
@@ -102,6 +102,10 @@ function getCommitLink(commit, url, options = {}) {
 
 async function fetchGitHubData(query) {
   const {GITHUB_GRAPHQL_URL, GITHUB_TOKEN} = readEnv()
+  if (!GITHUB_TOKEN) {
+    throw new Error('GITHUB_TOKEN is required to fetch changelog data from GitHub')
+  }
+
   const {fetch, useNodeFetchOptions} = getFetchImplementation()
   const headers = {
     Authorization: 'Bearer ' + GITHUB_TOKEN,
@@ -153,9 +157,7 @@ async function fetchGitHubData(query) {
   }
 
   throw new Error(
-    `An error occurred when fetching data from GitHub after ${MAX_RETRY_ATTEMPTS} attempts\n${
-      lastError.stack || lastError.message
-    }`,
+    `An error occurred when fetching data from GitHub after ${MAX_RETRY_ATTEMPTS} attempts\n${lastError.message}`,
   )
 }
 
