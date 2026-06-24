@@ -4,7 +4,7 @@ const MAX_RETRY_ATTEMPTS = 3
 function readEnv() {
   return {
     GITHUB_GRAPHQL_URL: process.env.GITHUB_GRAPHQL_URL || 'https://api.github.com/graphql',
-    GITHUB_SERVER_URL: (process.env.GITHUB_SERVER_URL || 'https://github.com').replace(/\/$/, ''),
+    GITHUB_SERVER_URL: (process.env.GITHUB_SERVER_URL || 'https://github.com').replace(/\/+$/, ''),
     GITHUB_TOKEN: process.env.GITHUB_TOKEN,
   }
 }
@@ -156,9 +156,11 @@ async function fetchGitHubData(query) {
     }
   }
 
-  throw new Error(
+  const error = new Error(
     `An error occurred when fetching data from GitHub after ${MAX_RETRY_ATTEMPTS} attempts\n${lastError.message}`,
   )
+  error.cause = lastError
+  throw error
 }
 
 async function loadGitHubInfo(request) {
@@ -217,7 +219,7 @@ async function getInfo(request) {
 
           const dateA = new Date(a.mergedAt)
           const dateB = new Date(b.mergedAt)
-          return dateA - dateB
+          return dateA.getTime() - dateB.getTime()
         })[0]
       : null
 
@@ -321,7 +323,7 @@ const changelogFunctions = {
         return ''
       })
       .trim()
-    const [firstLine, ...futureLines] = replacedChangelog.split('\n').map(line => line.trimEnd())
+    const [firstLine, ...remainingLines] = replacedChangelog.split('\n').map(line => line.trimEnd())
     const links = await (async () => {
       if (prFromSummary !== undefined) {
         let {links} = await getInfoFromPullRequest({
@@ -368,7 +370,7 @@ const changelogFunctions = {
       links.commit === null ? '' : ` ${links.commit}`,
       users === null ? '' : ` Thanks ${users}!`,
     ].join('')
-    return `\n\n-${prefix ? `${prefix} -` : ''} ${firstLine}\n${futureLines.map(line => `  ${line}`).join('\n')}`
+    return `\n\n-${prefix ? `${prefix} -` : ''} ${firstLine}\n${remainingLines.map(line => `  ${line}`).join('\n')}`
   },
 }
 
