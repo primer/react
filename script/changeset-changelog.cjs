@@ -144,7 +144,9 @@ async function loadGitHubInfo(request) {
   }
 
   const repos = {
-    [request.repo]: [request.kind === 'commit' ? {kind: 'commit', commit: request.commit} : {kind: 'pull', pull: request.pull}],
+    [request.repo]: [
+      request.kind === 'commit' ? {kind: 'commit', commit: request.commit} : {kind: 'pull', pull: request.pull},
+    ],
   }
   const data = await fetchGitHubData(makeQuery(repos))
   return data.data.a0[request.kind === 'commit' ? `a${request.commit}` : `pr__${request.pull}`]
@@ -249,7 +251,9 @@ const changelogFunctions = {
     )
       .filter(Boolean)
       .join(', ')}]:`
-    const updatedDependenciesList = dependenciesUpdated.map(dependency => `  - ${dependency.name}@${dependency.newVersion}`)
+    const updatedDependenciesList = dependenciesUpdated.map(
+      dependency => `  - ${dependency.name}@${dependency.newVersion}`,
+    )
     return [changesetLink, ...updatedDependenciesList].join('\n')
   },
   getReleaseLine: async (changeset, _type, options) => {
@@ -315,9 +319,15 @@ const changelogFunctions = {
       }
     })()
     const users = usersFromSummary.length
-      ? usersFromSummary.map(userFromSummary => `[@${userFromSummary}](https://github.com/${userFromSummary})`).join(', ')
+      ? usersFromSummary
+          .map(userFromSummary => `[@${userFromSummary}](https://github.com/${userFromSummary})`)
+          .join(', ')
       : links.user
-    const prefix = [links.pull === null ? '' : ` ${links.pull}`, links.commit === null ? '' : ` ${links.commit}`, users === null ? '' : ` Thanks ${users}!`].join('')
+    const prefix = [
+      links.pull === null ? '' : ` ${links.pull}`,
+      links.commit === null ? '' : ` ${links.commit}`,
+      users === null ? '' : ` Thanks ${users}!`,
+    ].join('')
     return `\n\n-${prefix ? `${prefix} -` : ''} ${firstLine}\n${futureLines.map(line => `  ${line}`).join('\n')}`
   },
 }
