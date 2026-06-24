@@ -3,12 +3,20 @@ import babel from '@rolldown/plugin-babel'
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
 import {defineConfig} from '@primer/vitest-config/config'
+import postcss from 'postcss'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import {isSupported} from './script/react-compiler.mjs'
+
+const postcssProcessor = postcss([postcssPresetPrimer()])
 
 export default defineConfig({
   css: {
     transformer: 'lightningcss',
+    lightningcss: {
+      cssModules: {
+        pattern: 'prc-[name]-[local]-[hash]',
+      },
+    },
     modules: {
       generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
     },
@@ -17,6 +25,27 @@ export default defineConfig({
     },
   },
   plugins: [
+    {
+      name: 'postcss-preset-primer-for-lightningcss',
+      enforce: 'pre',
+      async transform(code, id) {
+        const [filepath] = id.split('?')
+
+        if (!filepath.endsWith('.css')) {
+          return
+        }
+
+        const result = await postcssProcessor.process(code, {
+          from: filepath,
+          map: false,
+        })
+
+        return {
+          code: result.css,
+          map: null,
+        }
+      },
+    },
     react(),
     babel({
       presets: [
