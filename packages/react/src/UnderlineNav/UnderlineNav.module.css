@@ -77,7 +77,8 @@
     &::after {
       position: absolute;
       inset: auto 0 0;
-      margin-bottom: -9px;
+      /* Pull down same amount as the item-level decoration, plus the border width of the button */
+      margin-bottom: calc(-1 * (var(--base-size-8) + var(--borderWidth-thin)));
       height: 2px;
       pointer-events: none;
       content: '';
