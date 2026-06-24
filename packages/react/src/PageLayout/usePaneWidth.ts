@@ -68,19 +68,24 @@ export type UsePaneWidthResult = {
  * Default value for --pane-max-width-diff CSS variable.
  * Imported from CSS to ensure JS fallback matches the CSS default.
  */
-export const DEFAULT_MAX_WIDTH_DIFF = Number(cssExports.paneMaxWidthDiffDefault)
+const getCssExportNumber = (value: string | undefined, fallback: number): number => {
+  const parsed = Number(value)
+  return Number.isNaN(parsed) ? fallback : parsed
+}
+
+export const DEFAULT_MAX_WIDTH_DIFF = getCssExportNumber(cssExports.paneMaxWidthDiffDefault, 511)
 
 /**
  * Default value for --sidebar-max-width-diff CSS variable.
  * Unlike --pane-max-width-diff, this is constant across all viewport sizes.
  */
-export const DEFAULT_SIDEBAR_MAX_WIDTH_DIFF = Number(cssExports.sidebarMaxWidthDiffDefault)
+export const DEFAULT_SIDEBAR_MAX_WIDTH_DIFF = getCssExportNumber(cssExports.sidebarMaxWidthDiffDefault, 256)
 
 // Value for --pane-max-width-diff at/above the wide breakpoint.
-const WIDE_MAX_WIDTH_DIFF = Number(cssExports.paneMaxWidthDiffWide)
+const WIDE_MAX_WIDTH_DIFF = getCssExportNumber(cssExports.paneMaxWidthDiffWide, 959)
 
 // --pane-max-width-diff changes at this breakpoint in PageLayout.module.css.
-const DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT = Number(cssExports.paneMaxWidthDiffBreakpoint)
+const DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT = getCssExportNumber(cssExports.paneMaxWidthDiffBreakpoint, 1280)
 /**
  * Default max pane width for SSR when viewport is unknown.
  * Updated to actual value in layout effect before paint.

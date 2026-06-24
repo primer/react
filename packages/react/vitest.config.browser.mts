@@ -15,6 +15,7 @@ export default defineConfig({
     lightningcss: {
       cssModules: {
         pattern: 'prc-[name]-[local]-[hash]',
+        grid: false,
       },
     },
     modules: {

@@ -4,7 +4,7 @@ exports[`TextInput > renders contrast 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    class="TextInput-wrapper prc-TextInputWrapper-module-TextInputWrapper-Vpuw6W prc-TextInputWrapper-module-TextInputBaseWrapper-Vpuw6W"
     data-component="TextInput"
     data-contrast="true"
     data-no-leading-visual="true"
@@ -12,7 +12,7 @@ exports[`TextInput > renders contrast 1`] = `
     data-no-trailing-visual="true"
   >
     <input
-      class="prc-components-Input-sKHcw"
+      class="prc-UnstyledTextInput-module-Input-PFYkOG"
       data-component="input"
       name="zipcode"
       type="text"
@@ -26,7 +26,7 @@ exports[`TextInput > renders error 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    class="TextInput-wrapper prc-TextInputWrapper-module-TextInputWrapper-Vpuw6W prc-TextInputWrapper-module-TextInputBaseWrapper-Vpuw6W"
     data-component="TextInput"
     data-no-leading-visual="true"
     data-no-trailing-action="true"
@@ -35,7 +35,7 @@ exports[`TextInput > renders error 1`] = `
   >
     <input
       aria-invalid="true"
-      class="prc-components-Input-sKHcw"
+      class="prc-UnstyledTextInput-module-Input-PFYkOG"
       data-component="input"
       name="zipcode"
       type="text"
@@ -49,7 +49,7 @@ exports[`TextInput > renders monospace 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    class="TextInput-wrapper prc-TextInputWrapper-module-TextInputWrapper-Vpuw6W prc-TextInputWrapper-module-TextInputBaseWrapper-Vpuw6W"
     data-component="TextInput"
     data-monospace="true"
     data-no-leading-visual="true"
@@ -57,7 +57,7 @@ exports[`TextInput > renders monospace 1`] = `
     data-no-trailing-visual="true"
   >
     <input
-      class="prc-components-Input-sKHcw"
+      class="prc-UnstyledTextInput-module-Input-PFYkOG"
       data-component="input"
       name="zipcode"
       type="text"
@@ -71,14 +71,14 @@ exports[`TextInput > renders placeholder 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    class="TextInput-wrapper prc-TextInputWrapper-module-TextInputWrapper-Vpuw6W prc-TextInputWrapper-module-TextInputBaseWrapper-Vpuw6W"
     data-component="TextInput"
     data-no-leading-visual="true"
     data-no-trailing-action="true"
     data-no-trailing-visual="true"
   >
     <input
-      class="prc-components-Input-sKHcw"
+      class="prc-UnstyledTextInput-module-Input-PFYkOG"
       data-component="input"
       name="zipcode"
       placeholder="560076"
@@ -93,14 +93,14 @@ exports[`TextInput > should render a password input 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    class="TextInput-wrapper prc-TextInputWrapper-module-TextInputWrapper-Vpuw6W prc-TextInputWrapper-module-TextInputBaseWrapper-Vpuw6W"
     data-component="TextInput"
     data-no-leading-visual="true"
     data-no-trailing-action="true"
     data-no-trailing-visual="true"
   >
     <input
-      class="prc-components-Input-sKHcw"
+      class="prc-UnstyledTextInput-module-Input-PFYkOG"
       data-component="input"
       name="password"
       type="password"

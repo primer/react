@@ -3,7 +3,7 @@
 exports[`Timeline.Item > renders with condensed prop 1`] = `
 <div>
   <div
-    class="Timeline-Item prc-Timeline-TimelineItem-yUFAS"
+    class="Timeline-Item prc-Timeline-module-TimelineItem-zbceGq"
     data-condensed=""
   />
 </div>
