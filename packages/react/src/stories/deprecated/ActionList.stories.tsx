@@ -13,7 +13,7 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import React, {forwardRef, type JSX} from 'react'
-import {Label} from '../..'
+import Label from '../../Label'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
 import {ReactRouterLikeLink} from '../../Pagination/mocks/ReactRouterLink'

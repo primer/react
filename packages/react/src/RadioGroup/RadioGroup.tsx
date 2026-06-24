@@ -44,7 +44,7 @@ const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, dis
         },
       }}
     >
-      <CheckboxOrRadioGroup disabled={disabled} {...rest}>
+      <CheckboxOrRadioGroup disabled={disabled} data-component="RadioGroup" {...rest}>
         {children}
       </CheckboxOrRadioGroup>
     </RadioGroupContext.Provider>

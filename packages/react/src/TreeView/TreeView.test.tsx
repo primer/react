@@ -369,6 +369,134 @@ describe('Markup', () => {
     })
     expect(item1).toHaveFocus()
   })
+
+  describe('as prop', () => {
+    it('renders as an `li` by default', () => {
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Item 1/})
+      expect(item.tagName).toBe('LI')
+    })
+
+    it('renders as the element specified by `as`', () => {
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as="a" href="#item-1" id="item-1">
+            Item 1
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Item 1/})
+      expect(item.tagName).toBe('A')
+      expect(item).toHaveAttribute('href', '#item-1')
+    })
+
+    it('wraps the polymorphic element in an `li role="none"` to keep markup valid', () => {
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as="a" href="#item-1" id="item-1">
+            Item 1
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Item 1/})
+      const wrapper = item.parentElement
+      expect(wrapper?.tagName).toBe('LI')
+      expect(wrapper).toHaveAttribute('role', 'none')
+    })
+
+    it('does not add an extra `li role="none"` wrapper when `as="li"`', () => {
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as="li" id="item-1">
+            Item 1
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Item 1/})
+      expect(item.tagName).toBe('LI')
+      // The treeitem should be a direct child of the tree (`<ul>`), not wrapped
+      // in an outer `<li role="none">`.
+      expect(item.parentElement).toHaveAttribute('role', 'tree')
+    })
+
+    it('supports polymorphic Item with custom component via `as`', () => {
+      const CustomLink = React.forwardRef<
+        HTMLAnchorElement,
+        React.AnchorHTMLAttributes<HTMLAnchorElement> & {custom: boolean}
+      >(({children, custom, ...props}, ref) => (
+        <a ref={ref} data-custom-link={custom} {...props}>
+          {children}
+        </a>
+      ))
+      CustomLink.displayName = 'CustomLink'
+
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as={CustomLink} href="#docs" custom={true} id="item-docs">
+            Docs
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Docs/})
+      expect(item.tagName).toBe('A')
+      expect(item).toHaveAttribute('href', '#docs')
+      expect(item).toHaveAttribute('data-custom-link', 'true')
+    })
+
+    it('preserves treeitem role, tabIndex, and aria attributes when `as` is provided', () => {
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as="a" href="#item-1" id="item-1" current>
+            Item 1
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Item 1/})
+      expect(item).toHaveAttribute('role', 'treeitem')
+      expect(item).toHaveAttribute('tabindex', '0')
+      expect(item).toHaveAttribute('aria-current', 'true')
+      expect(item).toHaveAttribute('aria-level', '1')
+    })
+
+    it('forwards ref to the element specified by `as`', () => {
+      const ref = React.createRef<HTMLAnchorElement>()
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as="a" href="#item-1" id="item-1" ref={ref}>
+            Item 1
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      expect(ref.current).not.toBeNull()
+      expect(ref.current?.tagName).toBe('A')
+    })
+
+    it('calls onSelect when the polymorphic element is clicked', () => {
+      const onSelect = vi.fn()
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as="a" href="#item-1" id="item-1" onSelect={onSelect}>
+            Item 1
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Item 1/})
+      fireEvent.click(item)
+      expect(onSelect).toHaveBeenCalledTimes(1)
+    })
+  })
 })
 
 describe('Keyboard interactions', () => {

@@ -3,7 +3,8 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 
 import BaseStyles from '../BaseStyles'
-import {Stack, registerPortalRoot} from '..'
+import {Stack} from '../Stack'
+import {registerPortalRoot} from '../Portal'
 import {Dialog} from '../deprecated/DialogV1'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from './Autocomplete'
@@ -556,6 +557,7 @@ export const InADialog = () => {
   useEffect(() => {
     if (outerContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(outerContainerRef.current, 'outerContainer')
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
       setMounted(true)
     }
   }, [isDialogOpen])

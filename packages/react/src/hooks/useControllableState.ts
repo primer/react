@@ -73,6 +73,7 @@ export function useControllableState<T>({
 
     // Uncontrolled -> Controlled
     // If the component prop is uncontrolled, the prop value should be undefined
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (controlled.current === false && controlledValue) {
       warning(
         true,
@@ -87,6 +88,7 @@ export function useControllableState<T>({
 
     // Controlled -> Uncontrolled
     // If the component prop is controlled, the prop value should be defined
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (controlled.current === true && !controlledValue) {
       warning(
         true,

@@ -1,4 +1,4 @@
-import {PageHeader} from '../'
+import {PageHeader} from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(
