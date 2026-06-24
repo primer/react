@@ -135,9 +135,9 @@ export const UnderlineNav = forwardRef(
                       return (
                         <ActionList.LinkItem
                           key={key}
-                          className={classes.OverflowMenuItem}
                           onClick={event => onSelect?.(event)}
                           {...(menuItemProps as Omit<typeof menuItemProps, 'as'>)}
+                          className={classes.OverflowMenuItem}
                         >
                           <span className={classes.OverflowMenuItemLabel}>{menuItemChildren}</span>
 
