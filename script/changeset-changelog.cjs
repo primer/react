@@ -103,7 +103,7 @@ async function fetchGitHubData(query) {
   const {GITHUB_GRAPHQL_URL, GITHUB_TOKEN} = readEnv()
   const {fetch, useNodeFetchOptions} = getFetchImplementation()
   const headers = {
-    Authorization: `Token ${GITHUB_TOKEN}`,
+    Authorization: 'Bearer ' + GITHUB_TOKEN,
     'Accept-Encoding': 'identity',
     'Content-Type': 'application/json',
   }
@@ -212,7 +212,7 @@ async function getInfo(request) {
 
           const dateA = new Date(a.mergedAt)
           const dateB = new Date(b.mergedAt)
-          return dateA > dateB ? 1 : dateA < dateB ? -1 : 0
+          return dateA - dateB
         })[0]
       : null
 
@@ -295,6 +295,7 @@ const changelogFunctions = {
       )
     }
 
+    const {GITHUB_SERVER_URL} = readEnv()
     let prFromSummary
     let commitFromSummary
     const usersFromSummary = []
@@ -326,7 +327,10 @@ const changelogFunctions = {
         if (commitFromSummary) {
           links = {
             ...links,
-            commit: getCommitLink(commitFromSummary, `https://github.com/${options.repo}/commit/${commitFromSummary}`),
+            commit: getCommitLink(
+              commitFromSummary,
+              `${GITHUB_SERVER_URL}/${options.repo}/commit/${commitFromSummary}`,
+            ),
           }
         }
 
