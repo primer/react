@@ -1,5 +1,7 @@
 const validRepoNameRegex = /^[\w.-]+\/[\w.-]+$/
 const MAX_RETRY_ATTEMPTS = 3
+const COMMIT_ABBREVIATION_LENGTH = 7
+const MAX_GITHUB_ERRORS_TO_DISPLAY = 3
 const GITHUB_SERVER_URL = (process.env.GITHUB_SERVER_URL || 'https://github.com').replace(/\/+$/, '')
 
 function makeQuery(repos) {
@@ -89,7 +91,7 @@ function getCommitLink(commit, url, options = {}) {
     throw new Error('Expected a commit SHA when generating changelog links')
   }
 
-  const label = options.alreadyAbbreviated ? commit : commit.slice(0, 7)
+  const label = options.alreadyAbbreviated ? commit : commit.slice(0, COMMIT_ABBREVIATION_LENGTH)
   return `[\`${label}\`](${url})`
 }
 
@@ -103,7 +105,7 @@ function getErrorSummary(error) {
 
 function summarizeGitHubErrors(errors) {
   return errors
-    .slice(0, 3)
+    .slice(0, MAX_GITHUB_ERRORS_TO_DISPLAY)
     .map(error => error.type || error.message || 'unknown error')
     .join('; ')
 }
@@ -235,7 +237,7 @@ async function getInfo(request) {
   let user = data.author?.user || null
   const associatedPullRequest =
     data.associatedPullRequests?.nodes?.length > 0
-      ? data.associatedPullRequests.nodes.sort(sortPullRequestsByMergeDate)[0]
+      ? [...data.associatedPullRequests.nodes].sort(sortPullRequestsByMergeDate)[0]
       : null
 
   if (associatedPullRequest) {
@@ -333,7 +335,9 @@ const changelogFunctions = {
         return ''
       })
       .trim()
-    const [firstLine, ...remainingLines] = replacedChangelog.split('\n').map(line => line.trimEnd())
+    const [rawFirstLine, ...rawRemainingLines] = replacedChangelog.split('\n')
+    const firstLine = rawFirstLine.trimEnd()
+    const remainingLines = rawRemainingLines.map(line => line.trimEnd())
     const links = await (async () => {
       if (prFromSummary !== undefined) {
         let {links} = await getInfoFromPullRequest({
