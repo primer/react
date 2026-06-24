@@ -72,7 +72,8 @@ on top of these components.
 
 We will immediately deliver high-priority components that will assist in building accessible experiences, including:
 
-- **Dialog** for modal and nonmodal experiences with built-in parts for
+- **Dialog** for modal and nonmodal experiences with built-in parts for dialog
+  headings, content, and actions
 - **ScrollableRegion** for scrollable containers with built-in accessibility and behaviors
 - **Popover** for positioned, transient experiences
 - **Tabs** for building tabs-based experiences
