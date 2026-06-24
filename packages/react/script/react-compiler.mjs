@@ -12,7 +12,6 @@ const files = glob
     return path.join(PACKAGE_DIR, match)
   })
 const unsupportedPatterns = [
-  'src/ActionMenu/**/*.tsx',
   'src/Autocomplete/**/*.tsx',
   'src/AvatarStack/**/*.tsx',
   'src/Banner/**/*.tsx',

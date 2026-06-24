@@ -82,8 +82,12 @@ function ExampleWithTooltip(): JSX.Element {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
+function ExampleWithTooltipV2({
+  actionMenuTrigger,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  actionMenuTrigger: React.ReactElement<any>
+}): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>
@@ -99,6 +103,8 @@ function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.E
 }
 
 function ExampleWithReplaceableAnchor(): JSX.Element {
+  'use no memo'
+
   const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [anchorKey, setAnchorKey] = useState(0)
@@ -392,11 +398,13 @@ describe('ActionMenu', () => {
 
   it('should open menu on menu button click and it is wrapped with tooltip v2', async () => {
     const component = HTMLRender(
-      ExampleWithTooltipV2(
-        <TooltipV2 text="Additional context about the menu button" direction="s">
-          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-        </TooltipV2>,
-      ),
+      <ExampleWithTooltipV2
+        actionMenuTrigger={
+          <TooltipV2 text="Additional context about the menu button" direction="s">
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          </TooltipV2>
+        }
+      />,
     )
     const button = component.getByRole('button')
 
@@ -415,11 +423,13 @@ describe('ActionMenu', () => {
 
   it('should display tooltip v2 when menu button is focused', async () => {
     const component = HTMLRender(
-      ExampleWithTooltipV2(
-        <TooltipV2 text="Additional context about the menu button" direction="s">
-          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-        </TooltipV2>,
-      ),
+      <ExampleWithTooltipV2
+        actionMenuTrigger={
+          <TooltipV2 text="Additional context about the menu button" direction="s">
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          </TooltipV2>
+        }
+      />,
     )
     const button = component.getByRole('button')
     act(() => {
@@ -431,13 +441,15 @@ describe('ActionMenu', () => {
 
   it('should open menu on menu anchor click and it is wrapped with tooltip v2', async () => {
     const component = HTMLRender(
-      ExampleWithTooltipV2(
-        <ActionMenu.Anchor>
-          <TooltipV2 text="Additional context about the menu button" direction="n">
-            <Button>Toggle Menu</Button>
-          </TooltipV2>
-        </ActionMenu.Anchor>,
-      ),
+      <ExampleWithTooltipV2
+        actionMenuTrigger={
+          <ActionMenu.Anchor>
+            <TooltipV2 text="Additional context about the menu button" direction="n">
+              <Button>Toggle Menu</Button>
+            </TooltipV2>
+          </ActionMenu.Anchor>
+        }
+      />,
     )
     const button = component.getByRole('button')
 
@@ -449,13 +461,15 @@ describe('ActionMenu', () => {
 
   it('should display tooltip v2 and menu anchor is focused', async () => {
     const component = HTMLRender(
-      ExampleWithTooltipV2(
-        <ActionMenu.Anchor>
-          <TooltipV2 text="Additional context about the menu button" direction="n">
-            <Button>Toggle Menu</Button>
-          </TooltipV2>
-        </ActionMenu.Anchor>,
-      ),
+      <ExampleWithTooltipV2
+        actionMenuTrigger={
+          <ActionMenu.Anchor>
+            <TooltipV2 text="Additional context about the menu button" direction="n">
+              <Button>Toggle Menu</Button>
+            </TooltipV2>
+          </ActionMenu.Anchor>
+        }
+      />,
     )
     const button = component.getByRole('button')
     act(() => {
@@ -805,11 +819,15 @@ describe('ActionMenu', () => {
 
       const newAnchor = component.getByRole('button', {name: 'Open menu'})
       expect(newAnchor).not.toBe(initialAnchor)
+      const newOverlay = component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]') as HTMLElement
+      expect(newOverlay).not.toBeNull()
 
       // The new anchor should have the same anchor-name re-applied, and the
       // overlay should still reference it via position-anchor.
-      expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
-      expect(overlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
+      await waitFor(() => {
+        expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
+        expect(newOverlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
+      })
     })
   })
 
