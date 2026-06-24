@@ -24,7 +24,7 @@ details several layers that Primer could be structured into:
 
 We took this proposal into a Modular design System Workshop:
 https://github.com/github/primer/discussions/6703. In this workshop, we
-identified several scenarios that team run into challenges when building with
+identified several scenarios where teams run into challenges when building with
 Primer:
 
 - It can be difficult to extend or add new functionality to a component
