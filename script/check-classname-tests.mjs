@@ -20,8 +20,6 @@ const IGNORED_FILES = [
   'packages/react/src/FeatureFlags/__tests__/FeatureFlags.test.tsx',
   'packages/react/src/FormControl/__tests__/useFormControlForwardedProps.test.tsx',
   'packages/react/src/experimental/SelectPanel2/__tests__/SelectPanelLoading.test.tsx',
-  // Internal animation wrapper that does not forward a className prop
-  'packages/react/src/internal/components/ValidationAnimationContainer.test.tsx',
   'packages/react/src/__tests__/ThemeProvider.test.tsx',
   'packages/react/src/__tests__/deprecated/ActionMenu.test.tsx',
   'packages/react/src/__tests__/Caret.test.tsx',

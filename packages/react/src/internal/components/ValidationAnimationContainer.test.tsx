@@ -2,8 +2,11 @@ import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import ValidationAnimationContainer from './ValidationAnimationContainer'
 import {createRenderCounter} from '../../utils/testing/profiler'
+import {implementsClassName} from '../../utils/testing'
 
 describe('ValidationAnimationContainer', () => {
+  implementsClassName(props => <ValidationAnimationContainer show {...props} />)
+
   it('renders children when show is true', () => {
     const {getByText} = render(<ValidationAnimationContainer show>content</ValidationAnimationContainer>)
     expect(getByText('content')).toBeInTheDocument()
@@ -42,5 +45,6 @@ describe('ValidationAnimationContainer', () => {
     )
 
     expect(counter.updateCount).toBe(1)
+    expect(counter.nestedUpdateCount).toBe(0)
   })
 })

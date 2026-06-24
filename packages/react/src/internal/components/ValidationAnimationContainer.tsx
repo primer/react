@@ -6,7 +6,7 @@ import classes from './ValidationAnimationContainer.module.css'
 interface Props extends HTMLProps<HTMLDivElement> {
   show?: boolean
 }
-const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children}) => {
+const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children, style, ...rest}) => {
   const [shouldRender, setRender] = useState(show)
 
   // Start rendering as soon as `show` becomes true. Adjusting state during render
@@ -20,7 +20,7 @@ const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = (
   }
 
   return shouldRender ? (
-    <div style={{height: show ? 'auto' : 0, overflow: 'hidden'}}>
+    <div {...rest} style={{...style, height: show ? 'auto' : 0, overflow: 'hidden'}}>
       <div data-show={show ? '' : undefined} onAnimationEnd={onAnimationEnd} className={classes.Animation}>
         {children}
       </div>
