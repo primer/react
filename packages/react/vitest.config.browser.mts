@@ -8,6 +8,7 @@ import {isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
   css: {
+    transformer: 'lightningcss',
     modules: {
       generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
     },
