@@ -66,6 +66,7 @@ on top of these components.
 - SelectPanel
 - Dialog (and ConfirmationDialog)
 - DataTable (write documentation for `useTable` and `Table.*` components)
+- ActionList (break down into list primitives)
 
 ### Delivering low-level components, hooks, and utilities
 
