@@ -200,6 +200,27 @@ describe('ToggleSwitch', () => {
     expect(handleChange).not.toHaveBeenCalled()
   })
 
+  it('does not call onChange when a new inline onChange is passed on rerender', () => {
+    const handleChange = vi.fn()
+    const {rerender} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch checked={false} onChange={() => handleChange()} aria-labelledby="switchLabel" />
+      </>,
+    )
+    expect(handleChange).not.toHaveBeenCalled()
+
+    // A new `onChange` identity each render previously re-ran the effect and
+    // fired the callback; it must not be called without a user interaction.
+    rerender(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch checked={false} onChange={() => handleChange()} aria-labelledby="switchLabel" />
+      </>,
+    )
+    expect(handleChange).not.toHaveBeenCalled()
+  })
+
   it('can pass data attributes to the rendered component', async () => {
     const TEST_ID = 'a test id'
     const ControlledSwitchComponent = () => {

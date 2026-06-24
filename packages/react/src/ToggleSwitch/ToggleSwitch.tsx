@@ -112,7 +112,8 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
       if (isControlled) {
         // For controlled usage the click is the source of the change, so notify the
         // consumer here rather than echoing the `checked` prop back from an effect
-        // (which fired on mount and whenever `checked` changed).
+        // (which fired on mount and whenever any of its dependencies — `checked`,
+        // `disabled`, or `onChange` — changed).
         onChange?.(!isOn)
       } else {
         // `setIsOn` notifies `onChange` for uncontrolled usage.
