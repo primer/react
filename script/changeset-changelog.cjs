@@ -3,7 +3,6 @@ const MAX_RETRY_ATTEMPTS = 3
 
 function readEnv() {
   return {
-    GITHUB_GRAPHQL_URL: process.env.GITHUB_GRAPHQL_URL || 'https://api.github.com/graphql',
     GITHUB_SERVER_URL: (process.env.GITHUB_SERVER_URL || 'https://github.com').replace(/\/+$/, ''),
     GITHUB_TOKEN: process.env.GITHUB_TOKEN,
   }
@@ -100,8 +99,16 @@ function getCommitLink(commit, url, options = {}) {
   return `[\`${label}\`](${url})`
 }
 
+function getErrorSummary(error) {
+  if (error?.status) {
+    return `status ${error.status}`
+  }
+
+  return error?.code || error?.name || 'unknown error'
+}
+
 async function fetchGitHubData(query) {
-  const {GITHUB_GRAPHQL_URL, GITHUB_TOKEN} = readEnv()
+  const {GITHUB_TOKEN} = readEnv()
   if (!GITHUB_TOKEN) {
     throw new Error('GITHUB_TOKEN is required to fetch changelog data from GitHub')
   }
@@ -129,10 +136,11 @@ async function fetchGitHubData(query) {
         requestOptions.compress = false
       }
 
-      const response = await fetch(GITHUB_GRAPHQL_URL, requestOptions)
+      const response = await fetch('https://api.github.com/graphql', requestOptions)
 
       if (!response.ok && isRetryableStatus(response.status)) {
         const error = new Error(`GitHub GraphQL request failed with status ${response.status}`)
+        error.status = response.status
         error.retryable = true
         throw error
       }
@@ -140,11 +148,11 @@ async function fetchGitHubData(query) {
       const data = await response.json()
 
       if (data.errors) {
-        throw new Error(`Fetched data from GitHub returned errors\n${JSON.stringify(data.errors, null, 2)}`)
+        throw new Error(`Fetched data from GitHub returned ${data.errors.length} error(s)`)
       }
 
       if (!data.data) {
-        throw new Error(`Fetched data from GitHub has missing data\n${JSON.stringify(data)}`)
+        throw new Error('Fetched data from GitHub has missing data')
       }
 
       return data
@@ -157,7 +165,9 @@ async function fetchGitHubData(query) {
   }
 
   const error = new Error(
-    `An error occurred when fetching data from GitHub after ${MAX_RETRY_ATTEMPTS} attempts\n${lastError.message}`,
+    `An error occurred when fetching data from GitHub after ${MAX_RETRY_ATTEMPTS} attempts: ${getErrorSummary(
+      lastError,
+    )}`,
   )
   error.cause = lastError
   throw error
