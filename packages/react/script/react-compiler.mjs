@@ -40,7 +40,6 @@ const unsupportedPatterns = [
   'src/hooks/useScrollFlash.ts',
   'src/internal/components/CheckboxOrRadioGroup/**/*.tsx',
   'src/hooks/useMergedRefs.ts',
-  'src/TooltipV2/**/*.tsx',
 ]
 
 const unsupported = new Set(
