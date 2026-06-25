@@ -2,7 +2,6 @@ import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {ButtonProps} from './types'
 import {useMergedRefs} from '../hooks/useMergedRefs'
-import {useMergedRefs} from '../hooks/useMergedRefs'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
@@ -124,7 +123,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
             <span data-component="buttonContent" data-align={alignContent} className={classes.ButtonContent}>
               {
                 /* If there are no leading/trailing visuals/actions to replace with a loading spinner,
-                     render a loading spiner in place of the button content. */
+                     render a loading spinner in place of the button content. */
                 loading &&
                   !LeadingVisual &&
                   !TrailingVisual &&

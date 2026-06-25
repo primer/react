@@ -6,7 +6,6 @@ import Overlay from '../Overlay'
 import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import {useMergedRefs} from '../hooks/useMergedRefs'
-import {useMergedRefs} from '../hooks/useMergedRefs'
 import VisuallyHidden from '../_VisuallyHidden'
 
 import classes from './AutocompleteOverlay.module.css'

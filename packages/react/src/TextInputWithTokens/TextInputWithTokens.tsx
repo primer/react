@@ -4,7 +4,6 @@ import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObje
 import React, {useRef, useState} from 'react'
 import {isValidElementType} from 'react-is'
 import {useMergedRefs} from '../hooks/useMergedRefs'
-import {useMergedRefs} from '../hooks/useMergedRefs'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import Text from '../Text'
@@ -109,7 +108,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const ref = useRef<HTMLInputElement>(null)
   const mergedRef = useMergedRefs(forwardedRef, ref)
   const selectedValuesDescriptionId = useId()
-  const mergedRef = useMergedRefs(forwardedRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
   const [tokensAreTruncated, setTokensAreTruncated] = useState<boolean>(Boolean(visibleTokenCount))
   const selectedTokenTexts = tokens
