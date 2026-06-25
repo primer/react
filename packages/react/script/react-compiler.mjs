@@ -30,16 +30,7 @@ const unsupportedPatterns = [
   'src/SideNav.tsx',
   'src/UnderlineNav/**/*.tsx',
   'src/experimental/SelectPanel2/**/*.tsx',
-  'src/hooks/useAnchoredPosition.ts',
-  'src/hooks/useFocusTrap.ts',
-  'src/hooks/useFocusZone.ts',
-  'src/hooks/useMenuInitialFocus.ts',
-  'src/hooks/useOnEscapePress.ts',
-  'src/hooks/useResizeObserver.ts',
-  'src/hooks/useSafeTimeout.ts',
-  'src/hooks/useScrollFlash.ts',
   'src/internal/components/CheckboxOrRadioGroup/**/*.tsx',
-  'src/hooks/useMergedRefs.ts',
   'src/TooltipV2/**/*.tsx',
 ]
 
