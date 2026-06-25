@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import React, {type ForwardedRef, type ElementRef} from 'react'
+import React, {useEffect, type ForwardedRef, type ElementRef} from 'react'
 import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {useMergedRefs} from '../hooks'
 import classes from './Link.module.css'
@@ -46,7 +46,6 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
       }
     }, [innerRef])
   }
-  const mergedRef = useMergedRefs(ref, innerRef)
 
   useDevOnlyEffect(() => {
     if (
