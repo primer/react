@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-BranchName: Add `leadingVisual`, `trailingAction` and `description` prop
+BranchName: Add `LeadingVisual` and `TrailingAction` subcomponents and a `description` prop
