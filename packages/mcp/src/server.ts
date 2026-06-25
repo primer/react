@@ -385,7 +385,7 @@ server.registerTool(
       content: [
         {
           type: 'text',
-          text: `The following patterns are available in the @primer/react in TypeScript projects. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the UI patterns otherwise.
+          text: `The following patterns are available from \`@primer/react\` for use in TypeScript projects. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the UI patterns otherwise.
 
 ## Scenario patterns
 
