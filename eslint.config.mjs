@@ -51,6 +51,7 @@ const config = defineConfig([
     '**/.next/**/*',
     'dist/**/*',
     '**/dist/**/*',
+    'packages/octicons-react-symbols/src/generated/**/*',
     'script/**/*.ts',
     '**/*.module.css.d.ts',
     '**/.playwright/**',
