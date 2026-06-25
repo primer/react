@@ -67,7 +67,7 @@ function Spinner({
 
   return (
     /* inline-flex removes the extra line height */
-    <span className={classes.Box}>
+    <span className={classes.Box} data-component="Spinner">
       <svg
         height={size}
         width={size}

@@ -9924,6 +9924,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -9972,6 +9973,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -10403,6 +10405,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -10843,6 +10846,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -10912,6 +10916,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -11343,6 +11348,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -11412,6 +11418,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -11843,6 +11850,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -11912,6 +11920,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -12343,6 +12352,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -12804,6 +12814,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -12852,6 +12863,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -13304,6 +13316,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -13765,6 +13778,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -13834,6 +13848,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -14286,6 +14301,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -14355,6 +14371,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -14807,6 +14824,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -14876,6 +14894,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -15328,6 +15347,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             </div>
             <span
               class="prc-Spinner-Box-yUhAo"
+              data-component="Spinner"
             >
               <svg
                 aria-hidden="true"
@@ -15771,6 +15791,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         >
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -15819,6 +15840,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         >
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -16250,6 +16272,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         >
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -16690,6 +16713,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         >
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -16759,6 +16783,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -17190,6 +17215,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         >
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -17259,6 +17285,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -17690,6 +17717,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         >
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -17759,6 +17787,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -18190,6 +18219,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         >
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -18651,6 +18681,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -18699,6 +18730,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         >
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -19151,6 +19183,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -19612,6 +19645,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -19681,6 +19715,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -20133,6 +20168,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -20202,6 +20238,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -20654,6 +20691,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -20723,6 +20761,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"
@@ -21175,6 +21214,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           </div>
           <span
             class="prc-Spinner-Box-yUhAo"
+            data-component="Spinner"
           >
             <svg
               aria-hidden="true"

@@ -21,6 +21,7 @@ npm install -S @primer/react-canvas
     "imports": {
       "react": "https://esm.sh/react@%5E19",
       "react/jsx-runtime": "https://esm.sh/react@%5E19/jsx-runtime",
+      "react-compiler-runtime": "https://esm.sh/react-compiler-runtime@%5E1",
       "react-dom": "https://esm.sh/react-dom@%5E19",
       "react-dom/client": "https://esm.sh/react-dom@%5E19/client",
       "@primer/react": "https://esm.sh/@primer/react-canvas@%5E38?deps=react@%5E19,react-dom@%5E19",
