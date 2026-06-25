@@ -372,18 +372,28 @@ ${text}`,
 // -----------------------------------------------------------------------------
 server.registerTool(
   'list_patterns',
-  {description: 'List all of the patterns available from Primer React', annotations: {readOnlyHint: true}},
+  {
+    description:
+      'List all of the patterns available from Primer React. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
-    const patterns = listPatterns().map(pattern => {
-      return `- ${pattern.name}`
-    })
+    const all = listPatterns()
+    const scenario = all.filter(pattern => pattern.category === 'scenario').map(pattern => `- ${pattern.name}`)
+    const ui = all.filter(pattern => pattern.category === 'ui').map(pattern => `- ${pattern.name}`)
     return {
       content: [
         {
           type: 'text',
-          text: `The following patterns are available in the @primer/react in TypeScript projects:
+          text: `The following patterns are available in the @primer/react in TypeScript projects. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the UI patterns otherwise.
 
-${patterns.join('\n')}`,
+## Scenario patterns
+
+${scenario.join('\n')}
+
+## UI patterns
+
+${ui.join('\n')}`,
         },
       ],
     }
@@ -393,7 +403,8 @@ ${patterns.join('\n')}`,
 server.registerTool(
   'get_pattern',
   {
-    description: 'Get a specific pattern by name',
+    description:
+      'Get a specific pattern by name. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
     inputSchema: {
       name: z.string().describe('The name of the pattern to retrieve'),
     },
@@ -401,9 +412,10 @@ server.registerTool(
   },
   async ({name}) => {
     const patterns = listPatterns()
-    const match = patterns.find(pattern => {
-      return pattern.name === name
-    })
+    // Resolve scenario patterns first so a name clash favours the scenario pattern.
+    const match =
+      patterns.find(pattern => pattern.category === 'scenario' && pattern.name === name) ??
+      patterns.find(pattern => pattern.name === name)
     if (!match) {
       return {
         content: [
@@ -415,7 +427,8 @@ server.registerTool(
       }
     }
 
-    const url = new URL(`/product/ui-patterns/${match.id}`, 'https://primer.style')
+    const basePath = match.category === 'scenario' ? 'scenario-patterns' : 'ui-patterns'
+    const url = new URL(`/product/${basePath}/${match.id}`, 'https://primer.style')
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
