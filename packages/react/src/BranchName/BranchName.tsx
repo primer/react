@@ -90,7 +90,7 @@ function BranchNameComponent<As extends 'span' | 'a'>(
 
   // With a trailing action, render the action as a sibling of the link
   return (
-    <span className={classes.BranchNameWithTrailingAction} data-component="BranchName.WrapperWithAction">
+    <span className={classes.BranchNameWithTrailingAction}>
       {link}
       {slots.trailingAction}
     </span>
