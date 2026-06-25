@@ -1,5 +1,16 @@
 # @primer/mcp
 
+## 0.4.0
+
+### Minor Changes
+
+- [#8058](https://github.com/primer/react/pull/8058) [`0a49d7d`](https://github.com/primer/react/commit/0a49d7d2fad0ff897c53a7b77583d6058b79005a) Thanks [@mattobee](https://github.com/mattobee)! - MCP server: Add Copy, Delete, Filter and Search scenario patterns to the `list_patterns` and `get_pattern` tools. Scenario patterns take precedence over UI patterns when a name matches.
+
+### Patch Changes
+
+- Updated dependencies [[`0add561`](https://github.com/primer/react/commit/0add5615720d17d69c77b014786c5e17e4337bb0), [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd), [`5b3c806`](https://github.com/primer/react/commit/5b3c806305cfa09d33d42fc2957d55105725ea3b), [`cb79351`](https://github.com/primer/react/commit/cb79351f29b9a1aea7bacf890eca97a5c9d97590), [`f052126`](https://github.com/primer/react/commit/f0521263c85a8d665f7c031bd711b3568bdac8e2), [`b906268`](https://github.com/primer/react/commit/b906268b7ebe8d684d8b5e9b1c4e9b528a5dd67a), [`73a45df`](https://github.com/primer/react/commit/73a45dfe11c3a297e4f2f8317caa4a535a70ce80), [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd), [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd), [`e58907c`](https://github.com/primer/react/commit/e58907c5559f5ef8133a1d98a05e2e4a6c1ca6cb)]:
+  - @primer/react@38.30.0
+
 ## 0.3.3
 
 ### Patch Changes
