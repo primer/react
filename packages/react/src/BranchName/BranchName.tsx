@@ -40,19 +40,23 @@ const TrailingAction = forwardRef<HTMLButtonElement, TrailingActionProps>(
 TrailingAction.displayName = 'BranchName.TrailingAction'
 ;(TrailingAction as WithSlotMarker<typeof TrailingAction>).__SLOT__ = Symbol('BranchName.TrailingAction')
 
-export type BranchNameProps<As extends 'span' | 'a'> = PolymorphicProps<
-  As,
-  'a',
-  {
-    className?: string
-    /** Description tooltip text (renders as aria-describedby) */
-    description?: string
-  }
->
+// `description` renders a tooltip (via aria-describedby), which needs an interactive trigger
+// So it is only allowed on an anchor that has an `href`.
 
-// Wraps its child in a description tooltip only when `description` is provided.
-const ConditionalTooltip: React.FC<React.PropsWithChildren<{description?: string}>> = ({description, children}) => {
-  if (!description) return children
+type BranchNameAsAnchorProps = PolymorphicProps<'a', 'a', {description?: never} | {description: string; href: string}>
+
+// `as="span"`. A span is never interactive, so `description` is not allowed.
+type BranchNameAsSpanProps = PolymorphicProps<'span', 'a', {description?: never}>
+
+export type BranchNameProps = BranchNameAsAnchorProps | BranchNameAsSpanProps
+
+// Wraps its child in a description tooltip, but only on an interactive trigger similar to the types above
+const ConditionalTooltip: React.FC<React.PropsWithChildren<{description?: string; href?: string}>> = ({
+  description,
+  href,
+  children,
+}) => {
+  if (!description || !href) return children
   return (
     <Tooltip text={description} type="description">
       {children}
@@ -60,11 +64,8 @@ const ConditionalTooltip: React.FC<React.PropsWithChildren<{description?: string
   )
 }
 
-function BranchNameComponent<As extends 'span' | 'a'>(
-  props: BranchNameProps<As>,
-  ref: ForwardedRef<HTMLSpanElement | HTMLAnchorElement>,
-) {
-  const {as: Component = 'a', className, children, description, ...rest} = props as BranchNameProps<'a'>
+function BranchNameComponent(props: BranchNameProps, ref: ForwardedRef<HTMLSpanElement | HTMLAnchorElement>) {
+  const {as: Component = 'a', className, children, description, ...rest} = props as BranchNameAsAnchorProps
 
   const [slots, textChildren] = useSlots(children, {
     leadingVisual: LeadingVisual,
@@ -72,7 +73,7 @@ function BranchNameComponent<As extends 'span' | 'a'>(
   })
 
   const link = (
-    <ConditionalTooltip description={description}>
+    <ConditionalTooltip description={description} href={rest.href}>
       <Component
         {...rest}
         ref={ref as React.Ref<HTMLAnchorElement>}
