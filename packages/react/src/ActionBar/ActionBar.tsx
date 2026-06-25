@@ -384,7 +384,6 @@ export const ActionBarIconButton = forwardRef(
       <IconButton
         aria-disabled={disabled}
         ref={mergedRef}
-        ref={mergedRef}
         size={size}
         onClick={clickHandler}
         {...props}
