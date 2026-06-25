@@ -88,6 +88,34 @@
       }
     },
     {
+      "name": "ActionBar.Button",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "The text content of the button."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Provide an octicon to render before the button text. It will also be shown when the button overflows into the menu."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Provides a disabled state for the button. The button will remain focusable, and have `aria-disabled` applied."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
+    },
+    {
       "name": "ActionBar.Divider",
       "props": []
     },
