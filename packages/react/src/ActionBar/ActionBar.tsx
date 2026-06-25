@@ -10,7 +10,6 @@ import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
 import {useMergedRefs} from '../hooks'
-import {useMergedRefs} from '../hooks'
 import {createDescendantRegistry} from '../utils/descendant-registry'
 
 type ChildProps =
