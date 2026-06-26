@@ -1,55 +1,8 @@
 import React, {useContext} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-
-const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
-const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
-
-const portalRootRegistry: Partial<Record<string, Element>> = {}
-
-/**
- * Register a container to serve as a portal root.
- * @param root The element that will be the root for portals created in this container
- * @param name The name of the container, to be used with the `containerName` prop on the Portal Component.
- * If name is not specified, registers the default portal root.
- */
-export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINER_NAME): void {
-  portalRootRegistry[name] = root
-}
-
-// Ensures that a default portal root exists and is registered. If a DOM element exists
-// with id __primerPortalRoot__, allow that element to serve as the default portal root.
-// Otherwise, create that element and attach it to the end of document.body.
-function ensureDefaultPortal() {
-  const existingDefaultPortalContainer = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
-  if (!existingDefaultPortalContainer || !document.body.contains(existingDefaultPortalContainer)) {
-    let defaultPortalContainer = document.getElementById(PRIMER_PORTAL_ROOT_ID)
-    if (!(defaultPortalContainer instanceof Element)) {
-      defaultPortalContainer = document.createElement('div')
-      defaultPortalContainer.setAttribute('id', PRIMER_PORTAL_ROOT_ID)
-      defaultPortalContainer.style.position = 'absolute'
-      defaultPortalContainer.style.top = '0'
-      defaultPortalContainer.style.left = '0'
-      defaultPortalContainer.style.width = '100%'
-      const suitablePortalRoot = document.querySelector('[data-portal-root]')
-      if (suitablePortalRoot) {
-        suitablePortalRoot.appendChild(defaultPortalContainer)
-      } else {
-        document.body.appendChild(defaultPortalContainer)
-      }
-    }
-
-    registerPortalRoot(defaultPortalContainer)
-  }
-}
-
-/**
- * Provides the ability for component trees to override the portal root container for a sub-set of the experience.
- * The portal will prioritize the context value unless overridden by their own `containerName` prop, and fallback to the default root if neither are specified
- */
-export const PortalContext = React.createContext<{
-  portalContainerName?: string
-}>({})
+import {PortalContext} from './PortalContext'
+import {DEFAULT_PORTAL_CONTAINER_NAME, ensureDefaultPortal, getPortalRoot} from './portalRoot'
 
 export interface PortalProps {
   /**
@@ -76,8 +29,10 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
 }) => {
   const {portalContainerName} = useContext(PortalContext)
   const elementRef = React.useRef<HTMLDivElement | null>(null)
+  // eslint-disable-next-line react-hooks/refs
   if (!elementRef.current) {
     const div = document.createElement('div')
+    div.setAttribute('data-component', 'Portal')
     // Portaled content should get their own stacking context so they don't interfere
     // with each other in unexpected ways. One should never find themselves tempted
     // to change the zIndex to a value other than "1".
@@ -86,6 +41,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     elementRef.current = div
   }
 
+  // eslint-disable-next-line react-hooks/refs
   const element = elementRef.current
 
   useLayoutEffect(() => {
@@ -94,7 +50,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
       ensureDefaultPortal()
     }
-    const parentElement = portalRootRegistry[containerName]
+    const parentElement = getPortalRoot(containerName)
 
     if (!parentElement) {
       throw new Error(

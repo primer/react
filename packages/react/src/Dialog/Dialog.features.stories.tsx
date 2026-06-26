@@ -1,5 +1,9 @@
 import React, {useState, useRef, useCallback} from 'react'
-import {Stack, TextInput, Text, Button, ActionList} from '..'
+import {Stack} from '../Stack'
+import TextInput from '../TextInput'
+import Text from '../Text'
+import {Button} from '../Button'
+import {ActionList} from '../ActionList'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
 import classes from './Dialog.stories.module.css'
@@ -213,6 +217,7 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
   React.useEffect(() => {
     // focus the close button when the step changes
     const focusTarget = dialogRef.current?.querySelector('button[aria-label="Close"]') as HTMLButtonElement
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (step === 2) {
       focusTarget.focus()
     }
@@ -616,3 +621,22 @@ export const AlignBottom = () => {
   )
 }
 AlignBottom.storyName = '[Align] Bottom'
+
+export const CustomWidth = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog title="Custom Width Dialog" onClose={onDialogClose} width="400px">
+          {bodyContent}
+        </Dialog>
+      )}
+    </>
+  )
+}

@@ -1,8 +1,5 @@
 # Build folders
 dist/
-lib/
-!packages/react/codemods/lib/
-lib-esm/
 css/
 
 # Editor
@@ -16,6 +13,9 @@ css/
 
 # Dependencies
 node_modules
+
+# Local agent workspaces
+.agents
 
 # Gatsby
 public/

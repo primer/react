@@ -2,8 +2,12 @@ import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
+import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
-import {ActionMenu, ActionList, Button, IconButton, Dialog} from '..'
+import {ActionMenu} from '.'
+import {ActionList} from '../ActionList'
+import {Button, IconButton} from '../Button'
+import {Dialog} from '../Dialog'
 import Tooltip from '../Tooltip'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
@@ -94,6 +98,38 @@ function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.E
   )
 }
 
+function ExampleWithReplaceableAnchor(): JSX.Element {
+  const anchorRef = useRef<HTMLButtonElement>(null)
+  const [open, setOpen] = useState(false)
+  const [anchorKey, setAnchorKey] = useState(0)
+
+  return (
+    <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+      <BaseStyles>
+        <Button key={anchorKey} ref={anchorRef} onClick={() => setOpen(o => !o)}>
+          Open menu
+        </Button>
+        <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={setOpen}>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item
+                onSelect={event => {
+                  // Prevent the menu from closing so the overlay stays mounted
+                  event.preventDefault()
+                  setAnchorKey(k => k + 1)
+                }}
+              >
+                Switch anchor
+              </ActionList.Item>
+              <ActionList.Item>Item one</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>
+    </FeatureFlags>
+  )
+}
+
 function ExampleWithSubmenus(): JSX.Element {
   return (
     <BaseStyles>
@@ -146,6 +182,19 @@ function ExampleWithSubmenus(): JSX.Element {
 
 describe('ActionMenu', () => {
   implementsClassName(ActionMenu.Button)
+
+  it('renders data-component attributes for ActionMenu parts', async () => {
+    const component = HTMLRender(<Example />)
+    const user = userEvent.setup()
+
+    const trigger = component.getByRole('button', {name: 'Toggle Menu'})
+    expect(trigger).toHaveAttribute('data-component', 'ActionMenu.Button')
+
+    await user.click(trigger)
+
+    expect(component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]')).not.toBeNull()
+    expect(component.baseElement.querySelector('[data-component="AnchoredOverlay"]')).toBeNull()
+  })
 
   it('should open Menu on MenuButton click', async () => {
     const component = HTMLRender(<Example />)
@@ -307,9 +356,7 @@ describe('ActionMenu', () => {
     const button = component.getByRole('button')
 
     const user = userEvent.setup()
-    await act(async () => {
-      await user.click(button)
-    })
+    await user.click(button)
 
     expect(component.queryByRole('menu')).toBeInTheDocument()
     const menuItems = component.getAllByRole('menuitem')
@@ -322,13 +369,11 @@ describe('ActionMenu', () => {
     await user.keyboard('{ArrowDown}')
     expect(menuItems[1]).toEqual(document.activeElement)
 
-    await act(async () => {
-      // TODO: Removed one ArrowDown to account for the focus trap starting at the second element
-      // await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-    })
+    // TODO: Removed one ArrowDown to account for the focus trap starting at the second element
+    // await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
     expect(menuItems[menuItems.length - 1]).toEqual(document.activeElement) // last elememt
 
     await user.keyboard('{ArrowDown}')
@@ -736,6 +781,35 @@ describe('ActionMenu', () => {
       )
       const button = component.getByRole('button', {name: 'Toggle Menu'})
       expect(button).toHaveClass('test-class')
+    })
+
+    it('keeps anchor-name and position-anchor linked when the anchor is replaced while the menu is open', async () => {
+      const user = userEvent.setup()
+      const component = HTMLRender(<ExampleWithReplaceableAnchor />)
+
+      const initialAnchor = component.getByRole('button', {name: 'Open menu'})
+      await user.click(initialAnchor)
+
+      const overlay = component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]') as HTMLElement
+      expect(overlay).not.toBeNull()
+
+      const initialAnchorName = initialAnchor.style.getPropertyValue('anchor-name')
+      const initialPositionAnchor = overlay.style.getPropertyValue('position-anchor')
+      expect(initialAnchorName).not.toBe('')
+      expect(initialPositionAnchor).not.toBe('')
+      expect(initialPositionAnchor).toBe(initialAnchorName)
+
+      // Click the item that remounts the anchor while keeping the menu open
+      const switchItem = component.getByRole('menuitem', {name: 'Switch anchor'})
+      await user.click(switchItem)
+
+      const newAnchor = component.getByRole('button', {name: 'Open menu'})
+      expect(newAnchor).not.toBe(initialAnchor)
+
+      // The new anchor should have the same anchor-name re-applied, and the
+      // overlay should still reference it via position-anchor.
+      expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
+      expect(overlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
     })
   })
 

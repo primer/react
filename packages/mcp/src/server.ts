@@ -39,6 +39,7 @@ server.registerTool(
   'init',
   {
     description: 'Setup or create a project that includes Primer React',
+    annotations: {readOnlyHint: true},
   },
   async () => {
     const url = new URL(`/product/getting-started/react`, 'https://primer.style')
@@ -92,7 +93,7 @@ ${text}
 // -----------------------------------------------------------------------------
 server.registerTool(
   'list_components',
-  {description: 'List all of the components available from Primer React'},
+  {description: 'List all of the components available from Primer React', annotations: {readOnlyHint: true}},
   async () => {
     const components = listComponents().map(component => {
       return `- ${component.name}`
@@ -120,6 +121,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const components = listComponents()
@@ -133,11 +135,10 @@ server.registerTool(
         content: [],
       }
     }
-
-    const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
-    const llmsResponse = await fetch(llmsUrl)
-    if (llmsResponse.ok) {
-      try {
+    try {
+      const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
+      const llmsResponse = await fetch(llmsUrl)
+      if (llmsResponse.ok) {
         const llmsText = await llmsResponse.text()
         return {
           content: [
@@ -147,42 +148,15 @@ server.registerTool(
             },
           ],
         }
-      } catch (_: unknown) {
-        // If there's an error fetching or processing the llms.txt, we fall back to the regular documentation
       }
+    } catch (_: unknown) {
+      // If there's an error fetching or processing the llms.txt, we fall back to a generic error message.
     }
-
-    const url = new URL(`/product/components/${match.slug}`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
-    }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
-      }
-    }
-
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
-    }
-
-    const text = turndownService.turndown(source)
 
     return {
-      content: [
-        {
-          type: 'text',
-          text: `Here is the documentation for the \`${name}\` component from the @primer/react package:
-${text}`,
-        },
-      ],
+      isError: true,
+      errorMessage: `There was an error fetching documentation for ${name}. Ensure the component exists.`,
+      content: [],
     }
   },
 )
@@ -194,6 +168,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const components = listComponents()
@@ -254,6 +229,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const components = listComponents()
@@ -326,6 +302,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const components = listComponents()
@@ -395,18 +372,28 @@ ${text}`,
 // -----------------------------------------------------------------------------
 server.registerTool(
   'list_patterns',
-  {description: 'List all of the patterns available from Primer React'},
+  {
+    description:
+      'List all of the patterns available from Primer React. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
-    const patterns = listPatterns().map(pattern => {
-      return `- ${pattern.name}`
-    })
+    const all = listPatterns()
+    const scenario = all.filter(pattern => pattern.category === 'scenario').map(pattern => `- ${pattern.name}`)
+    const ui = all.filter(pattern => pattern.category === 'ui').map(pattern => `- ${pattern.name}`)
     return {
       content: [
         {
           type: 'text',
-          text: `The following patterns are available in the @primer/react in TypeScript projects:
+          text: `The following patterns are available from \`@primer/react\` for use in TypeScript projects. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the UI patterns otherwise.
 
-${patterns.join('\n')}`,
+## Scenario patterns
+
+${scenario.join('\n')}
+
+## UI patterns
+
+${ui.join('\n')}`,
         },
       ],
     }
@@ -416,16 +403,19 @@ ${patterns.join('\n')}`,
 server.registerTool(
   'get_pattern',
   {
-    description: 'Get a specific pattern by name',
+    description:
+      'Get a specific pattern by name. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
     inputSchema: {
       name: z.string().describe('The name of the pattern to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const patterns = listPatterns()
-    const match = patterns.find(pattern => {
-      return pattern.name === name
-    })
+    // Resolve scenario patterns first so a name clash favours the scenario pattern.
+    const match =
+      patterns.find(pattern => pattern.category === 'scenario' && pattern.name === name) ??
+      patterns.find(pattern => pattern.name === name)
     if (!match) {
       return {
         content: [
@@ -437,7 +427,8 @@ server.registerTool(
       }
     }
 
-    const url = new URL(`/product/ui-patterns/${match.id}`, 'https://primer.style')
+    const basePath = match.category === 'scenario' ? 'scenario-patterns' : 'ui-patterns'
+    const url = new URL(`/product/${basePath}/${match.id}`, 'https://primer.style')
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
@@ -497,6 +488,7 @@ server.registerTool(
         .default(15)
         .describe('Maximum results to return to stay within context limits'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({query, group, limit}) => {
     // Resolve group via aliases
@@ -594,6 +586,7 @@ server.registerTool(
     inputSchema: {
       groups: z.array(z.string()).describe('Array of group names (e.g., ["overlay", "shadow", "focus"])'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({groups}) => {
     // Normalize and resolve aliases
@@ -636,6 +629,7 @@ server.registerTool(
   {
     description:
       'CRITICAL: CALL THIS FIRST. Provides the logic matrix and the list of valid group names. You cannot search accurately without this map.',
+    annotations: {readOnlyHint: true},
   },
   async () => {
     const groups = listTokenGroups()
@@ -659,6 +653,7 @@ server.registerTool(
   {
     description:
       'Provides "Golden Example" CSS for core patterns: Button (Interactions) and Stack (Layout). Use this to understand how to apply the Logic Matrix, Motion, and Spacing scales.',
+    annotations: {readOnlyHint: true},
   },
   async () => {
     const customPatterns = getTokenUsagePatternsText()
@@ -687,6 +682,7 @@ server.registerTool(
     description:
       'REQUIRED FINAL STEP. Use this to validate your CSS. You cannot complete a task involving CSS without a successful run of this tool.',
     inputSchema: {css: z.string()},
+    annotations: {readOnlyHint: true},
   },
   async ({css}) => {
     try {
@@ -722,7 +718,7 @@ server.registerTool(
 // -----------------------------------------------------------------------------
 server.registerTool(
   'get_color_usage',
-  {description: 'Get the guidelines for how to apply color to a user interface'},
+  {description: 'Get the guidelines for how to apply color to a user interface', annotations: {readOnlyHint: true}},
   async () => {
     const url = new URL(`/product/getting-started/foundations/color-usage`, 'https://primer.style')
     const response = await fetch(url)
@@ -760,7 +756,10 @@ server.registerTool(
 
 server.registerTool(
   'get_typography_usage',
-  {description: 'Get the guidelines for how to apply typography to a user interface'},
+  {
+    description: 'Get the guidelines for how to apply typography to a user interface',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
     const url = new URL(`/product/getting-started/foundations/typography`, 'https://primer.style')
     const response = await fetch(url)
@@ -801,7 +800,10 @@ server.registerTool(
 // -----------------------------------------------------------------------------
 server.registerTool(
   'list_icons',
-  {description: 'List all of the icons (octicons) available from Primer Octicons React'},
+  {
+    description: 'List all of the icons (octicons) available from Primer Octicons React',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
     const icons = listIcons().map(icon => {
       const keywords = icon.keywords.map(keyword => {
@@ -836,6 +838,7 @@ server.registerTool(
       name: z.string().describe('The name of the icon to retrieve'),
       size: z.string().optional().describe('The size of the icon to retrieve, e.g. "16"').default('16'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name, size}) => {
     const icons = listIcons()
@@ -893,7 +896,10 @@ ${text}`,
 // -----------------------------------------------------------------------------
 server.registerTool(
   'primer_coding_guidelines',
-  {description: 'Get the guidelines when writing code that uses Primer or for UI code that you are creating'},
+  {
+    description: 'Get the guidelines when writing code that uses Primer or for UI code that you are creating',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
     return {
       content: [
@@ -950,6 +956,7 @@ server.registerTool(
       alt: z.string().describe('The alt text of the image being evaluated'),
       image: z.string().describe('The image URL or file path being evaluated'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({surroundingText, alt, image}) => {
     // Call the LLM through MCP sampling

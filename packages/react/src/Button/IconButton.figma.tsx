@@ -1,5 +1,5 @@
 import {figma} from '@figma/code-connect'
-import {IconButton} from '../../src'
+import {IconButton} from '.'
 import type {VariantType} from './types'
 import type React from 'react'
 

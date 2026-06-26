@@ -59,10 +59,63 @@ const WrappedValidationComponent: FCWithSlotMarker<object> = () => (
 WrappedValidationComponent.__SLOT__ = FormControl.Validation.__SLOT__
 
 describe('FormControl', () => {
-  implementsClassName(FormControl, classes.ControlVerticalLayout)
-  implementsClassName(props => <FormControl {...props} layout="horizontal" />, classes.ControlHorizontalLayout)
+  implementsClassName(
+    props => (
+      <FormControl {...props}>
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+      </FormControl>
+    ),
+    classes.ControlVerticalLayout,
+  )
+  implementsClassName(
+    props => (
+      <FormControl {...props} layout="horizontal">
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+      </FormControl>
+    ),
+    classes.ControlHorizontalLayout,
+  )
   implementsClassName(FormControl.Caption, captionClasses.Caption)
   implementsClassName(FormControl.Label, inputClasses.Label)
+
+  it('renders data-component attributes (vertical, non-choice input)', () => {
+    const {container, getByText} = render(
+      <FormControl id="test-id">
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+        <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+        <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
+      </FormControl>,
+    )
+
+    expect(container.firstElementChild).toHaveAttribute('data-component', 'FormControl')
+    expect(getByText(LABEL_TEXT)).toHaveAttribute('data-component', 'FormControl.Label')
+    expect(getByText(CAPTION_TEXT)).toHaveAttribute('data-component', 'FormControl.Caption')
+
+    const validation = container.querySelector('[data-component="FormControl.Validation"]')
+    expect(validation).toHaveTextContent(ERROR_TEXT)
+  })
+
+  it('renders data-component attributes (choice input)', () => {
+    const {container, getByText} = render(
+      <FormControl id="test-id-choice">
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <Checkbox />
+        <FormControl.LeadingVisual>
+          <MarkGithubIcon aria-label="Icon label" />
+        </FormControl.LeadingVisual>
+      </FormControl>,
+    )
+
+    expect(container.firstElementChild).toHaveAttribute('data-component', 'FormControl')
+    expect(getByText(LABEL_TEXT)).toHaveAttribute('data-component', 'FormControl.Label')
+
+    const leadingVisual = container.querySelector('[data-component="FormControl.LeadingVisual"]')
+    expect(leadingVisual).not.toBeNull()
+  })
+
   describe('vertically stacked layout (default)', () => {
     describe('rendering', () => {
       it('renders with a hidden label', () => {

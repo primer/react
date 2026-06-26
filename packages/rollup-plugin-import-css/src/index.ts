@@ -64,6 +64,7 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       }
 
       const sourceId = path.join(path.dirname(id), path.basename(id, '.js'))
+      this.addWatchFile(sourceId)
       const code = await fs.readFile(sourceId, 'utf8')
       const hash = getSourceHash(code)
       const relativePath = path.relative(rootDirectory, sourceId)

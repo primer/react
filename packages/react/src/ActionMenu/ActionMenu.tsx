@@ -18,8 +18,7 @@ import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
-import {useFeatureFlag} from '../FeatureFlags'
-import {DialogContext} from '../Dialog/Dialog'
+import {DialogContext} from '../Dialog/DialogContext'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -173,22 +172,22 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
     }
   })
 
-  return (
-    <MenuContext.Provider
-      value={{
-        anchorRef,
-        renderAnchor,
-        anchorId,
-        open: combinedOpenState,
-        onOpen,
-        onClose,
-        // will be undefined for the outermost level, then false for the top menu, then true inside that
-        isSubmenu: parentMenuContext.isSubmenu !== undefined,
-      }}
-    >
-      {contents}
-    </MenuContext.Provider>
+  const isSubmenu = parentMenuContext.isSubmenu !== undefined
+
+  const menuContextValue = useMemo(
+    () => ({
+      anchorRef,
+      renderAnchor,
+      anchorId,
+      open: combinedOpenState,
+      onOpen,
+      onClose,
+      isSubmenu,
+    }),
+    [anchorRef, renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu],
   )
+
+  return <MenuContext.Provider value={menuContextValue}>{contents}</MenuContext.Provider>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -257,7 +256,7 @@ export type ActionMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
+      <Button data-component="ActionMenu.Button" type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
@@ -330,7 +329,19 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     }
   }, [anchorRef])
 
-  const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
+  const afterSelect = useCallback(() => onClose?.('item-select'), [onClose])
+
+  const overlayContextValue = useMemo(
+    () => ({
+      container: 'ActionMenu' as const,
+      listRole: 'menu' as const,
+      listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
+      selectionAttribute: 'aria-checked' as const,
+      afterSelect,
+      enableFocusZone: isNarrowFullscreen,
+    }),
+    [ariaLabelledby, anchorAriaLabelledby, anchorId, afterSelect, isNarrowFullscreen],
+  )
 
   const isInsideDialog = useContext(DialogContext) !== undefined
 
@@ -344,7 +355,10 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onClose={handleClose}
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
-      overlayProps={overlayProps}
+      overlayProps={{
+        ...overlayProps,
+        'data-component': 'ActionMenu.Overlay',
+      }}
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
@@ -354,21 +368,10 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
         ref={containerRef}
         className={styles.ActionMenuContainer}
         data-variant={responsiveVariant}
-        {...(featureFlagMaxHeightClampToViewport ? {'data-max-height-clamp-to-viewport': ''} : {})}
         {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
         {...(overlayProps.maxHeight ? {[`data-max-height-${overlayProps.maxHeight}`]: ''} : {})}
       >
-        <ActionListContainerContext.Provider
-          value={{
-            container: 'ActionMenu',
-            listRole: 'menu',
-            // If there is a custom aria-labelledby, use that. Otherwise, if exists, use the id that labels the anchor such as tooltip. If none of them exist, use anchor id.
-            listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
-            selectionAttribute: 'aria-checked', // Should this be here?
-            afterSelect: () => onClose?.('item-select'),
-            enableFocusZone: isNarrowFullscreen, // AnchoredOverlay takes care of focus zone. We only want to enable this if menu is narrow fullscreen.
-          }}
-        >
+        <ActionListContainerContext.Provider value={overlayContextValue}>
           {children}
         </ActionListContainerContext.Provider>
       </div>
@@ -378,7 +381,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
 
 Menu.displayName = 'ActionMenu'
 
-Menu.__SLOT__ = Symbol('ActionMenu')
 MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
 Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
 Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')

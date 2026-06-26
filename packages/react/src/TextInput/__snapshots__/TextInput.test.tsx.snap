@@ -5,7 +5,11 @@ exports[`TextInput > renders contrast 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
     data-contrast="true"
+    data-no-leading-visual="true"
+    data-no-trailing-action="true"
+    data-no-trailing-visual="true"
   >
     <input
       class="prc-components-Input-sKHcw"
@@ -23,6 +27,10 @@ exports[`TextInput > renders error 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
+    data-no-leading-visual="true"
+    data-no-trailing-action="true"
+    data-no-trailing-visual="true"
     data-validation="error"
   >
     <input
@@ -42,7 +50,11 @@ exports[`TextInput > renders monospace 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
     data-monospace="true"
+    data-no-leading-visual="true"
+    data-no-trailing-action="true"
+    data-no-trailing-visual="true"
   >
     <input
       class="prc-components-Input-sKHcw"
@@ -60,6 +72,10 @@ exports[`TextInput > renders placeholder 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
+    data-no-leading-visual="true"
+    data-no-trailing-action="true"
+    data-no-trailing-visual="true"
   >
     <input
       class="prc-components-Input-sKHcw"
@@ -78,6 +94,10 @@ exports[`TextInput > should render a password input 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
+    data-no-leading-visual="true"
+    data-no-trailing-action="true"
+    data-no-trailing-visual="true"
   >
     <input
       class="prc-components-Input-sKHcw"

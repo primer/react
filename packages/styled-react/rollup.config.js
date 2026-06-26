@@ -16,7 +16,7 @@ function createPackageRegex(name) {
 }
 
 export default defineConfig({
-  input: ['src/index.tsx', 'src/experimental.tsx', 'src/deprecated.tsx'],
+  input: ['src/index.tsx'],
   external: dependencies.map(createPackageRegex),
   plugins: [
     typescript({

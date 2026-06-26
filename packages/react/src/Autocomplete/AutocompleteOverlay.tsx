@@ -57,7 +57,7 @@ function AutocompleteOverlay({
     [showMenu, selectedItemLength],
   )
 
-  const mergedRef = useMergedRefs(scrollContainerRef, floatingElementRef)
+  const mergedScrollContainerRef = useMergedRefs(scrollContainerRef, floatingElementRef)
 
   const closeOptionList = useCallback(() => {
     setShowMenu(false)
@@ -73,11 +73,12 @@ function AutocompleteOverlay({
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
-      ref={mergedRef}
+      ref={mergedScrollContainerRef}
       top={position?.top}
       left={position?.left}
       className={clsx(classes.Overlay, className)}
       {...overlayProps}
+      data-component="Autocomplete.Overlay"
     >
       {children}
     </Overlay>

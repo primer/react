@@ -2,7 +2,7 @@ import React from 'react'
 import {render as HTMLRender, fireEvent, act, render} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import type {TokenSizeKeys} from '../Token/TokenBase'
-import {tokenSizes} from '../Token/TokenBase'
+import {tokenSizes} from '../Token/constants'
 import {IssueLabelToken} from '../Token'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
@@ -572,5 +572,62 @@ describe('TextInputWithTokens', () => {
     fireEvent.focus(inputNode)
     fireEvent.keyDown(inputNode, {key: 'a'})
     expect(onKeyDownMock).toHaveBeenCalled()
+  })
+
+  describe('data-component attributes', () => {
+    it('renders TextInputWithTokens with data-component attribute', () => {
+      const onRemoveMock = vi.fn()
+      const {container} = render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />)
+
+      expect(container.querySelector('[data-component="TextInputWithTokens"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInputWithTokens.Input with data-component attribute', () => {
+      const onRemoveMock = vi.fn()
+      const {container} = render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />)
+
+      expect(container.querySelector('[data-component="TextInputWithTokens.Input"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInputWithTokens.Token with data-component attribute', () => {
+      const onRemoveMock = vi.fn()
+      const {container} = render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+
+      expect(container.querySelector('[data-component="TextInputWithTokens.Token"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInputWithTokens.Icon with data-component attribute', () => {
+      const onRemoveMock = vi.fn()
+      const {container} = render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} icon={MarkGithubIcon} />)
+
+      expect(container.querySelector('[data-component="TextInputWithTokens.Icon"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInputWithTokens.LeadingVisual with data-component attribute', () => {
+      const onRemoveMock = vi.fn()
+      const {container} = render(
+        <TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} leadingVisual={MarkGithubIcon} />,
+      )
+
+      expect(container.querySelector('[data-component="TextInputWithTokens.LeadingVisual"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInputWithTokens.TrailingVisual with data-component attribute', () => {
+      const onRemoveMock = vi.fn()
+      const {container} = render(
+        <TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} trailingVisual={MarkGithubIcon} />,
+      )
+
+      expect(container.querySelector('[data-component="TextInputWithTokens.TrailingVisual"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInputWithTokens.OverflowCount with data-component attribute when tokens are truncated', () => {
+      const onRemoveMock = vi.fn()
+      const {container} = render(
+        <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />,
+      )
+
+      expect(container.querySelector('[data-component="TextInputWithTokens.OverflowCount"]')).toBeInTheDocument()
+    })
   })
 })

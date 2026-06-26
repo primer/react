@@ -1,11 +1,16 @@
 import {describe, expect, it, vi} from 'vitest'
-import {Heading} from '../..'
+import Heading from '..'
 import {render, screen} from '@testing-library/react'
 import classes from '../Heading.module.css'
 import {implementsClassName} from '../../utils/testing'
 
 describe('Heading', () => {
   implementsClassName(Heading, classes.Heading)
+
+  it('renders data-component attribute', () => {
+    const {container} = render(<Heading />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'Heading')
+  })
 
   it('renders <h2> by default', () => {
     const {container} = render(<Heading />)

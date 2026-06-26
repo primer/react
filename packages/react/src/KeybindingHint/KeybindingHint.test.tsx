@@ -7,6 +7,11 @@ import {implementsClassName} from '../utils/testing'
 describe('KeybindingHint', () => {
   implementsClassName(props => <KeybindingHint keys="Control" {...props} />)
 
+  it('renders data-component="KeybindingHint" on the root element', () => {
+    render(<KeybindingHint keys="Control" />)
+    expect(screen.getByTestId('keybinding-hint')).toHaveAttribute('data-component', 'KeybindingHint')
+  })
+
   it('renders condensed keys by default', () => {
     render(<KeybindingHint keys="Shift+Control+Function+PageUp" />)
     for (const icon of ['⇧', '⌃', 'Fn', 'PgUp']) {
@@ -102,4 +107,27 @@ describe('getAccessibleKeybindingHintString', () => {
 
   it('returns "control" for "mod" on non-MacOS', () =>
     expect(getAccessibleKeybindingHintString('Mod+x', false)).toBe('control x'))
+
+  it('returns "command" for "mod" on Apple platforms', () =>
+    expect(getAccessibleKeybindingHintString('Mod+x', 'apple')).toBe('command x'))
+
+  it('returns "control" for "mod" on non-Apple platforms', () => {
+    expect(getAccessibleKeybindingHintString('Mod+x', 'windows')).toBe('control x')
+    expect(getAccessibleKeybindingHintString('Mod+x', 'other')).toBe('control x')
+  })
+
+  it('returns "command" for "meta" on Apple platforms', () =>
+    expect(getAccessibleKeybindingHintString('Meta+x', 'apple')).toBe('command x'))
+
+  it('returns "Windows" for "meta" on Windows', () =>
+    expect(getAccessibleKeybindingHintString('Meta+x', 'windows')).toBe('Windows x'))
+
+  it('returns "meta" for "meta" on other platforms', () =>
+    expect(getAccessibleKeybindingHintString('Meta+x', 'other')).toBe('meta x'))
+
+  it('returns "option" for "alt" on Apple platforms and "alt" elsewhere', () => {
+    expect(getAccessibleKeybindingHintString('Alt+x', 'apple')).toBe('option x')
+    expect(getAccessibleKeybindingHintString('Alt+x', 'windows')).toBe('alt x')
+    expect(getAccessibleKeybindingHintString('Alt+x', 'other')).toBe('alt x')
+  })
 })

@@ -10,6 +10,8 @@
   grid-template-columns: auto 1fr;
   align-items: start;
 
+  --inline-message-fgColor: var(--fgColor-default);
+
   &[data-size='small'] {
     --inline-message-fontSize: var(--text-body-size-small);
     --inline-message-lineHeight: var(--text-body-lineHeight-small, 1.6666);

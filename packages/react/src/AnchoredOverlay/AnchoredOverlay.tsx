@@ -1,6 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, useRef, type JSX} from 'react'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useCallback, useEffect, useState, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -16,6 +15,8 @@ import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import {widthMap} from '../Overlay/constants'
+import {reactMajorVersion} from '../utils/environment'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -119,22 +120,28 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Props to be spread on the close button in the overlay.
    */
   closeButtonProps?: Partial<IconButtonProps>
+  /**
+   * When `"popover"`, uses the Popover API only if the CSS anchor positioning feature flag is enabled
+   * and the browser supports native CSS anchor positioning. Has no effect otherwise. Defaults to `"portal"`.
+   */
+  renderAs?: 'portal' | 'popover'
+  /**
+   * Settings for CSS anchor positioning behavior when CSS anchor positioning is active.
+   *
+   * `fallbackStrategy` controls CSS fallback behavior:
+   * - `"default"`: use built-in CSS fallback rules.
+   * - `"none"`: keep the requested side with no CSS fallbacks.
+   * - `"opposite-side"`: only allow fallback to the opposite side.
+   *
+   * `disable`: When `true`, opts this overlay out of native CSS anchor positioning (and the Popover API)
+   *   even if `primer_react_css_anchor_positioning` is enabled and the browser supports it.
+   */
+  cssAnchorPositioningSettings?: {fallbackStrategy?: 'default' | 'none' | 'opposite-side'; disable?: boolean}
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
   Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInViewport'>>
-
-const applyAnchorPositioningPolyfill = async () => {
-  if (typeof window !== 'undefined' && !('anchorName' in document.documentElement.style)) {
-    try {
-      await import('@oddbird/css-anchor-positioning')
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Failed to load CSS anchor positioning polyfill:', e)
-    }
-  }
-}
 
 const defaultVariant = {
   regular: 'anchored',
@@ -172,11 +179,36 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   onPositionChange,
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
+  renderAs = 'portal',
+  cssAnchorPositioningSettings,
 }) => {
-  const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
+  const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
+  // Lazy initial state so feature detection runs once per mount on the client.
+  // Guarded for SSR where `document` is undefined.
+  const [supportsNativeCSSAnchorPositioning] = useState(
+    () =>
+      typeof document !== 'undefined' &&
+      'anchorName' in document.documentElement.style &&
+      'positionTryFallbacks' in document.documentElement.style &&
+      'positionVisibility' in document.documentElement.style,
+  )
+
+  const cssAnchorPositioning =
+    cssAnchorPositioningFlag &&
+    supportsNativeCSSAnchorPositioning &&
+    !overlayProps?.portalContainerName &&
+    !cssAnchorPositioningSettings?.disable
+  // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
+  const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
+  // eslint-disable-next-line react-hooks/refs
+  if (anchorRef.current !== anchorElement) {
+    setAnchorElement(anchorRef.current)
+  }
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const mergedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
+  const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
   const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
@@ -229,68 +261,140 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       anchorOffset,
       displayInViewport,
       onPositionChange: positionChange,
+      // Disable position computation, scroll listeners, and resize observers
+      // when the overlay is closed (no floating element to position) or when
+      // native CSS anchor positioning is active (the browser handles it).
+      // Skipping the listeners while closed avoids a wasted re-render on the
+      // first scroll/resize after a close (where `setPosition(undefined)`
+      // would otherwise clear the stale open-position state).
+      enabled: open && !cssAnchorPositioning,
     },
-    [overlayRef.current],
-  )
 
-  const hasLoadedAnchorPositioningPolyfill = useRef(false)
+    [overlayElement],
+  )
 
   useEffect(() => {
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
     }
-
-    if (cssAnchorPositioning && !hasLoadedAnchorPositioningPolyfill.current) {
-      applyAnchorPositioningPolyfill()
-      hasLoadedAnchorPositioningPolyfill.current = true
-    }
-  }, [open, overlayRef, updateOverlayRef, cssAnchorPositioning])
+  }, [open, overlayRef, updateOverlayRef])
 
   useFocusZone({
     containerRef: overlayRef,
-    disabled: !open || !position,
+    disabled: !open || (!position && !cssAnchorPositioning),
     ...focusZoneSettings,
   })
-  useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
+  useFocusTrap({
+    containerRef: overlayRef,
+    disabled: !open || (!position && !cssAnchorPositioning),
+    ...focusTrapSettings,
+  })
 
   const popoverId = useId()
+  const popoverTargetProps = shouldRenderAsPopover
+    ? reactMajorVersion >= 19
+      ? {popoverTarget: popoverId}
+      : {popovertarget: popoverId}
+    : {}
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
+  const anchorName = `--anchored-overlay-anchor-${id}`
+
+  // Manage `anchor-name` on the anchor independently of `open`/`width` so a
+  // parent re-render that re-runs the positioning effect below doesn't
+  // briefly flicker the anchor link off and back on.
+  useEffect(() => {
+    if (!cssAnchorPositioning || !anchorElement) return
+    if (anchorElement.style.getPropertyValue('anchor-name')) return
+    anchorElement.style.setProperty('anchor-name', anchorName)
+    return () => {
+      if (anchorElement.style.getPropertyValue('anchor-name') === anchorName) {
+        anchorElement.style.removeProperty('anchor-name')
+      }
+    }
+  }, [cssAnchorPositioning, anchorElement, anchorName])
 
   useEffect(() => {
-    if (!cssAnchorPositioning || !anchorRef.current) return
+    if (!cssAnchorPositioning || !anchorElement) return
 
-    const anchor = anchorRef.current
-    const overlay = overlayRef.current
-    anchor.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
+    const currentOverlay = overlayRef.current
+    const resolvedAnchorName = anchorElement.style.getPropertyValue('anchor-name') || anchorName
+
+    let pendingPositionFrame: number | null = null
+    if (open && currentOverlay) {
+      currentOverlay.style.setProperty('position-anchor', resolvedAnchorName)
+
+      const positionTryFallbacks = getCSSAnchorPositionTryFallbacks(
+        side,
+        cssAnchorPositioningSettings?.fallbackStrategy ?? 'default',
+      )
+
+      if (positionTryFallbacks) {
+        currentOverlay.style.setProperty('position-try-fallbacks', positionTryFallbacks)
+      } else {
+        currentOverlay.style.removeProperty('position-try-fallbacks')
+      }
+
+      // Defer the getBoundingClientRect read into a `requestAnimationFrame` so the style write above
+      // does not force a synchronous layout.
+      pendingPositionFrame = requestAnimationFrame(() => {
+        pendingPositionFrame = null
+        const fallbackWidth = width ? parseInt(widthMap[width]) : parseInt(widthMap.small)
+        const result = getDefaultPosition(anchorElement, currentOverlay, fallbackWidth)
+
+        currentOverlay.setAttribute('data-align', result.horizontal)
+        if (result.suggestedSide) {
+          currentOverlay.setAttribute('data-side', result.suggestedSide)
+        }
+
+        const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
+        currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
+
+        // Set y-axis offset to prevent overflow if needed.
+        const settledRect = currentOverlay.getBoundingClientRect()
+        const overflowBottom = settledRect.bottom - window.innerHeight
+        if (overflowBottom > 0) {
+          const clampedTop = Math.max(0, settledRect.top - overflowBottom - 8)
+          currentOverlay.style.setProperty('--anchored-overlay-top-override', `${clampedTop}px`)
+        } else {
+          currentOverlay.style.removeProperty('--anchored-overlay-top-override')
+        }
+      })
+
+      // Only call showPopover when shouldRenderAsPopover is enabled
+      if (shouldRenderAsPopover) {
+        try {
+          if (!currentOverlay.matches(':popover-open')) {
+            currentOverlay.showPopover()
+          }
+        } catch {
+          // Ignore if popover is already showing or not supported
+        }
+      }
+    }
 
     return () => {
-      anchor.style.removeProperty('anchor-name')
-      if (overlay) {
-        overlay.style.removeProperty('position-anchor')
+      if (pendingPositionFrame !== null) cancelAnimationFrame(pendingPositionFrame)
+      // The overlay may no longer be in the DOM at this point, so we need to check for its presence before trying to update it.
+      if (currentOverlay) {
+        currentOverlay.style.removeProperty('position-anchor')
+        currentOverlay.style.removeProperty('position-try-fallbacks')
       }
     }
-  }, [cssAnchorPositioning, anchorRef, overlayRef, id, open])
-
-  // Track the overlay element so we can re-run the effect when it changes.
-  // The overlay unmounts when closed, so each open creates a new DOM node -
-  // that needs showPopover() called.
-  const overlayElement = overlayRef.current
-
-  useLayoutEffect(() => {
-    // Read ref inside effect to get the value after child refs are attached
-    const currentOverlay = overlayRef.current
-
-    if (!cssAnchorPositioning || !open || !currentOverlay) return
-    currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
-    try {
-      if (!currentOverlay.matches(':popover-open')) {
-        currentOverlay.showPopover()
-      }
-    } catch {
-      // Ignore if popover is already showing or not supported
-    }
-  }, [cssAnchorPositioning, open, overlayElement, id, overlayRef])
+    // overlayRef is a stable ref object; including it in deps is unnecessary.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    cssAnchorPositioning,
+    shouldRenderAsPopover,
+    open,
+    anchorElement,
+    overlayElement,
+    id,
+    width,
+    side,
+    cssAnchorPositioningSettings?.fallbackStrategy,
+  ])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
@@ -301,6 +405,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   return (
     <>
       {renderAnchor &&
+        // eslint-disable-next-line react-hooks/refs
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
@@ -309,7 +414,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(cssAnchorPositioning ? {popoverTarget: popoverId} : {}),
+          ...popoverTargetProps,
         })}
       {open ? (
         <Overlay
@@ -329,9 +434,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
           _PrivateDisablePortal={_PrivateDisablePortal}
-          {...(cssAnchorPositioning ? {popover: 'manual'} : {})}
+          {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
+          {...(shouldRenderAsPopover ? {id: popoverId} : {})}
           {...(cssAnchorPositioning ? {id: popoverId} : {})}
+            setOverlayElement(node)
+          }}
           ref={mergedOverlayRef}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
@@ -340,6 +448,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
             <div className={classes.ResponsiveCloseButtonContainer}>
               <IconButton
                 {...(closeButtonProps as IconButtonProps)}
+                data-component="AnchoredOverlay.CloseButton"
                 type="button"
                 variant="invisible"
                 icon={XIcon}
@@ -359,6 +468,95 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       ) : null}
     </>
   )
+}
+
+function getDefaultPosition(
+  anchorElement: HTMLElement,
+  overlayElement: HTMLElement,
+  fallbackWidth: number,
+): {
+  horizontal: 'left' | 'right'
+  leftOffset?: number
+  rightOffset?: number
+  suggestedSide?: 'outside-left' | 'outside-right' | 'outside-bottom'
+} {
+  const anchorRect = anchorElement.getBoundingClientRect()
+  const overlayRect = overlayElement.getBoundingClientRect()
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const margin = 8
+  const overlayWidth = overlayRect.width || fallbackWidth
+  const spaceLeft = anchorRect.left
+  const spaceRight = vw - anchorRect.right
+  const horizontal: 'left' | 'right' = spaceLeft > spaceRight ? 'left' : 'right'
+
+  // Suggest a flip when the overlay is currently overflowing both axes:
+  // prefer the side of the anchor with enough room, otherwise fall back to
+  // outside-bottom and let the offsets keep it inside the viewport.
+  const overflowsX = overlayRect.right > vw || overlayRect.left < 0
+  const overflowsY = overlayRect.bottom > vh || overlayRect.top < 0
+  let suggestedSide: 'outside-left' | 'outside-right' | 'outside-bottom' | undefined
+  if (overflowsX && overflowsY) {
+    if (spaceLeft >= overlayWidth + margin) {
+      suggestedSide = 'outside-left'
+    } else if (spaceRight >= overlayWidth + margin) {
+      suggestedSide = 'outside-right'
+    } else {
+      suggestedSide = 'outside-bottom'
+    }
+  }
+
+  // If the viewport is too narrow to fit the overlay on either side, calculate offsets to prevent overflow.
+  let leftOffset: number | undefined
+  let rightOffset: number | undefined
+
+  if (spaceLeft < overlayWidth + margin && spaceRight < overlayWidth + margin) {
+    leftOffset = Math.max(0, overlayWidth - anchorRect.right + margin)
+    rightOffset = Math.max(0, anchorRect.left + overlayWidth - vw + margin)
+  }
+
+  return {horizontal, leftOffset, rightOffset, suggestedSide}
+}
+
+function getCSSAnchorPositionTryFallbacks(
+  side: PositionSettings['side'],
+  strategy: 'default' | 'none' | 'opposite-side',
+): string | undefined {
+  // Disable all CSS fallbacks (including those defined in the stylesheet).
+  if (strategy === 'none') return 'none'
+
+  // Restrict fallbacks to flipping to the opposite side along the relevant axis.
+  if (strategy === 'opposite-side') {
+    switch (side) {
+      case 'outside-top':
+      case 'outside-bottom':
+      case 'inside-top':
+      case 'inside-bottom':
+        return 'flip-block'
+      case 'outside-left':
+      case 'outside-right':
+      case 'inside-left':
+      case 'inside-right':
+        return 'flip-inline'
+      default:
+        return undefined
+    }
+  }
+
+  // 'default': don't write an inline `position-try-fallbacks`, so the
+  // stylesheet-defined fallback list on `.AnchoredOverlay` takes effect.
+  return undefined
+}
+
+function assignRef<T>(
+  ref: React.MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,
+  value: T | null,
+) {
+  if (typeof ref === 'function') {
+    ref(value)
+  } else if (ref) {
+    ref.current = value
+  }
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'

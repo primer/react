@@ -51,7 +51,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   } = props
 
   const innerRef = React.useRef<HTMLButtonElement>(null)
-  const combinedRefs = useMergedRefs(forwardedRef, innerRef)
+  const mergedRef = useMergedRefs(forwardedRef, innerRef)
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
@@ -86,8 +86,10 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
     >
       <Component
         aria-disabled={loading ? true : undefined}
+        data-component="Button"
         {...rest}
-        ref={combinedRefs}
+        // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
+        ref={mergedRef}
         className={clsx(classes.ButtonBase, className)}
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
@@ -97,6 +99,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-variant={variant}
         data-label-wrap={labelWrap}
         data-has-count={count !== undefined ? true : undefined}
+        data-icon-only-counter={count !== undefined && LeadingVisual && !children ? true : undefined}
         aria-describedby={ariaDescribedByIds.filter(descriptionID => Boolean(descriptionID)).join(' ') || undefined}
         // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
         // We only set it when the button is in a loading state because it will supersede the aria-label when the screen

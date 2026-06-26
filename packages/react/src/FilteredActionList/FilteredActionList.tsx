@@ -4,7 +4,6 @@ import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
 import {forwardRef, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
-import TextInput from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -22,6 +21,7 @@ import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {useMergedRefs} from '../hooks'
+import {FilteredActionListInput} from './FilteredActionListInput'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -282,6 +282,7 @@ export function FilteredActionList({
     [onListContainerRefChanged],
   )
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     onInputRefChanged?.(inputRef)
   }, [inputRef, onInputRefChanged])
 
@@ -290,6 +291,7 @@ export function FilteredActionList({
   // initial total-height estimate before items scroll into view.
   const DEFAULT_VIRTUAL_ITEM_HEIGHT = 32
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => scrollContainerRef.current,
@@ -297,7 +299,11 @@ export function FilteredActionList({
     overscan: 10,
     enabled: isVirtualized,
     getItemKey: index => {
-      const item = items[index]
+      // `measureElement` from @tanstack/react-virtual can invoke this with an index
+      // whose item has just been removed (e.g. during a filter that shrinks `items`),
+      // so guard against `items[index]` being undefined.
+      const item = items[index] as ItemInput | undefined
+      if (!item) return index.toString()
       return item.key ?? item.id?.toString() ?? index.toString()
     },
     measureElement: el => (el as HTMLElement).scrollHeight,
@@ -365,6 +371,7 @@ export function FilteredActionList({
   }, [items, inputRef, scrollContainerRef, scrollBehavior])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex) {
       const inputAndListContainerElement = inputAndListContainerRef.current
       if (!inputAndListContainerElement) return
@@ -387,7 +394,9 @@ export function FilteredActionList({
   }, [items, inputRef, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex && !loading) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
     }
   }, [loading, inputRef, usingRovingTabindex])
@@ -543,44 +552,42 @@ export function FilteredActionList({
     }
   }
 
-  const {className: textInputClassName, ...restTextInputProps} = textInputProps || {}
-
   return (
-    <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
-      <div className={classes.Header}>
-        <TextInput
-          ref={combinedInputRef}
-          block
-          width="auto"
-          color="fg.default"
-          value={filterValue}
-          onChange={onInputChange}
-          onKeyPress={onInputKeyPress}
-          onKeyDown={usingRovingTabindex ? onInputKeyDown : () => {}}
-          placeholder={placeholderText}
-          role="combobox"
-          aria-expanded="true"
-          aria-autocomplete="list"
-          aria-controls={listId}
-          aria-label={placeholderText}
-          aria-describedby={inputDescriptionTextId}
-          loaderPosition={'leading'}
-          loading={loading && !loadingType.appearsInBody}
-          className={clsx(textInputClassName, {[classes.FullScreenTextInput]: fullScreenOnNarrow})}
-          {...restTextInputProps}
-        />
-      </div>
+    <div
+      ref={inputAndListContainerRef}
+      className={clsx(className, classes.Root)}
+      data-testid="filtered-action-list"
+      data-component="FilteredActionList"
+    >
+      <FilteredActionListInput
+        inputRef={combinedInputRef}
+        value={filterValue}
+        onInputChange={onInputChange}
+        onInputKeyPress={onInputKeyPress}
+        onInputKeyDown={usingRovingTabindex ? onInputKeyDown : undefined}
+        placeholderText={placeholderText}
+        listId={listId}
+        inputDescriptionTextId={inputDescriptionTextId}
+        loading={loading && !loadingType.appearsInBody}
+        fullScreenOnNarrow={fullScreenOnNarrow}
+        {...textInputProps}
+      />
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       {onSelectAllChange !== undefined && (
-        <div className={classes.SelectAllContainer}>
+        <div className={classes.SelectAllContainer} data-component="FilteredActionList.SelectAll">
           <Checkbox
             id="select-all-checkbox"
             className={classes.SelectAllCheckbox}
             checked={selectAllChecked}
             indeterminate={selectAllIndeterminate}
             onChange={handleSelectAllChange}
+            data-component="FilteredActionList.SelectAllCheckbox"
           />
-          <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
+          <label
+            className={classes.SelectAllLabel}
+            htmlFor="select-all-checkbox"
+            data-component="FilteredActionList.SelectAllLabel"
+          >
             {selectAllLabelText}
           </label>
         </div>

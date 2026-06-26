@@ -1,5 +1,5 @@
 import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
-import {useId, useOnEscapePress, useIsMacOS, useMergedRefs} from '../hooks'
+import {useId, useOnEscapePress, useMergedRefs} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -8,9 +8,11 @@ import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 import {clsx} from 'clsx'
 import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
+import {usePlatform} from '../KeybindingHint/platform'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
+import {TooltipContext} from './TooltipContext'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -101,8 +103,6 @@ const isInteractive = (element: HTMLElement) => {
     (element.hasAttribute('role') && element.getAttribute('role') === 'button')
   )
 }
-export const TooltipContext = React.createContext<{tooltipId?: string}>({})
-
 const emptyKeybindingHints: Array<KeybindingHintProps['keys']> = []
 
 export const Tooltip: ForwardRefExoticComponent<
@@ -240,6 +240,7 @@ export const Tooltip: ForwardRefExoticComponent<
         'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (type === 'label') {
         const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
         const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
@@ -273,7 +274,7 @@ export const Tooltip: ForwardRefExoticComponent<
       [isPopoverOpen],
     )
 
-    const isMacOS = useIsMacOS()
+    const platform = usePlatform()
     const hasAriaLabel = 'aria-label' in rest
 
     // Normalize keybindingHint to an array for uniform rendering
@@ -283,7 +284,6 @@ export const Tooltip: ForwardRefExoticComponent<
       <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
-            // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: mergedTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
@@ -349,6 +349,7 @@ export const Tooltip: ForwardRefExoticComponent<
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
             data-direction={calculatedDirection}
+            data-component="Tooltip"
             {...rest}
             // Only need tooltip role if the tooltip is a description for supplementary information
             role={type === 'description' ? 'tooltip' : undefined}
@@ -370,7 +371,7 @@ export const Tooltip: ForwardRefExoticComponent<
                       to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
                       label and instead render the plain keybinding description string. */}
                   <VisuallyHidden>
-                    ({keybindingHints.map(hint => getAccessibleKeybindingHintString(hint, isMacOS)).join(' or ')})
+                    ({keybindingHints.map(hint => getAccessibleKeybindingHintString(hint, platform)).join(' or ')})
                   </VisuallyHidden>
                 </span>
                 <span
@@ -380,6 +381,7 @@ export const Tooltip: ForwardRefExoticComponent<
                     keybindingHints.length > 1 && classes.HasMultipleHints,
                   )}
                   aria-hidden
+                  data-component="Tooltip.KeybindingHintContainer"
                 >
                   {keybindingHints.map((hint, i) => (
                     <React.Fragment key={`${i}-${hint}`}>

@@ -1,0 +1,138 @@
+{
+  "id": "card",
+  "name": "Card",
+  "status": "draft",
+  "a11yReviewed": false,
+  "importPath": "@primer/react/experimental",
+  "stories": [
+    {
+      "id": "experimental-components-card--default"
+    },
+    {
+      "id": "experimental-components-card-features--with-image"
+    },
+    {
+      "id": "experimental-components-card-features--with-metadata"
+    },
+    {
+      "id": "experimental-components-card-features--with-menu"
+    },
+    {
+      "id": "experimental-components-card-features--standalone-section"
+    },
+    {
+      "id": "experimental-components-card-features--in-list"
+    },
+    {
+      "id": "experimental-components-card-features--interactive-content"
+    }
+  ],
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "The contents of the card. Provide either `Card.*` subcomponents (for example `Card.Heading`, `Card.Description`, `Card.Metadata`) or any custom content. A card with no children will not render."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "CSS class name(s) for custom styling."
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'condensed' | 'normal'",
+      "defaultValue": "'normal'",
+      "description": "Controls the internal padding of the Card."
+    },
+    {
+      "name": "borderRadius",
+      "type": "'medium' | 'large'",
+      "defaultValue": "'large'",
+      "description": "Controls the border radius of the Card."
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'section'",
+      "defaultValue": "'div'",
+      "description": "The HTML element to render. Use `'section'` for **standalone** Cards (not inside a list of cards) so screen readers announce the Card as a labelled region. When `Card.Heading` is present, `aria-labelledby` is automatically wired. Use the default `'div'` when the Card is inside an `<li>` of a list of cards."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Card.Icon",
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "description": "An Octicon or custom SVG icon to render."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Accessible label for the icon. When omitted, the icon is treated as decorative."
+        }
+      ]
+    },
+    {
+      "name": "Card.Image",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "description": "The image source URL."
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "defaultValue": "\"\"",
+          "description": "Alt text for accessibility. Defaults to empty string (decorative)."
+        }
+      ]
+    },
+    {
+      "name": "Card.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "'h3'",
+          "description": "The heading level to render. When the parent Card uses `as=\"section\"`, the heading's `id` is automatically wired to the section's `aria-labelledby`."
+        }
+      ]
+    },
+    {
+      "name": "Card.Description",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The descriptive text for the card. Rendered inside a `<p>` element so should be flowing text content."
+        }
+      ]
+    },
+    {
+      "name": "Card.Action",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Interactive control for the top-right corner of the card."
+        }
+      ]
+    },
+    {
+      "name": "Card.Metadata",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Metadata content for the bottom of the card. Accepts any content: plain text, icons, or other Primer components."
+        }
+      ]
+    }
+  ]
+}

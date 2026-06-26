@@ -4,7 +4,15 @@ import React, {useState, useRef} from 'react'
 import {Button} from '../Button'
 import {AnchoredOverlay} from '.'
 import {Stack} from '../Stack'
-import {Dialog, Spinner, ActionList, ActionMenu} from '..'
+import {Dialog} from '../Dialog'
+import Spinner from '../Spinner'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import Octicon from '../Octicon'
+import Avatar from '../Avatar'
+import Link from '../Link'
+import {LocationIcon, RepoIcon} from '@primer/octicons-react'
+import classes from './AnchoredOverlay.features.stories.module.css'
 
 const meta = {
   title: 'Components/AnchoredOverlay/Dev',
@@ -12,6 +20,34 @@ const meta = {
 } satisfies Meta<typeof AnchoredOverlay>
 
 export default meta
+
+const hoverCard = (
+  <Stack gap="condensed" style={{padding: '16px'}}>
+    <Stack direction="horizontal" gap="condensed" justify="space-between">
+      <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" size={48} />
+      <Button size="small">Follow</Button>
+    </Stack>
+    <Stack direction="horizontal" gap="none">
+      <span className={classes.UserName}>monalisa</span>
+      <span className={classes.UserMeta}>
+        <Link inline muted href="#">
+          Monalisa Octocat
+        </Link>
+      </span>
+    </Stack>
+    <span className={classes.Bio}>
+      Former beach cat and champion swimmer. Now your friendly octopus with a normal face.
+    </span>
+    <Stack direction="horizontal" gap="none">
+      <Octicon className={classes.Icon} icon={LocationIcon} />
+      <span className={classes.MetaMuted}>Interwebs</span>
+    </Stack>
+    <Stack direction="horizontal" gap="none">
+      <Octicon className={classes.Icon} icon={RepoIcon} />
+      <span className={classes.MetaMuted}>Owns this repository</span>
+    </Stack>
+  </Stack>
+)
 
 export const RepositionAfterContentGrows = () => {
   const [open, setOpen] = useState(false)
@@ -308,4 +344,107 @@ export const WithActionMenu = {
       },
     },
   },
+}
+
+const ManyOverlaysItem = ({index}: {index: number}) => {
+  const [open, setOpen] = useState(false)
+  return (
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderAnchor={props => <Button {...props}>Trigger {index}</Button>}
+      overlayProps={{role: 'dialog', 'aria-label': `Overlay ${index}`}}
+      focusZoneSettings={{disabled: true}}
+    >
+      <div style={{padding: '8px', width: '160px'}}>Overlay #{index}</div>
+    </AnchoredOverlay>
+  )
+}
+
+export const ManyOverlays = () => {
+  const count = 50
+  const items = Array.from({length: count}, (_, i) => i)
+  return (
+    <div style={{padding: '16px'}}>
+      <p>
+        Renders {count} <code>AnchoredOverlay</code> instances. Use the per-trigger button to open any subset, or open
+        all via <code>document.querySelectorAll(&apos;[aria-haspopup=true]&apos;).forEach(b =&gt; b.click())</code>.
+      </p>
+      <div style={{display: 'grid', gridTemplateColumns: 'repeat(5, max-content)', gap: '12px'}}>
+        {items.map(i => (
+          <ManyOverlaysItem key={i} index={i} />
+        ))}
+      </div>
+      {/* Spacer so the page is scrollable */}
+      <div style={{height: '120vh'}} />
+    </div>
+  )
+}
+
+const gridPositions = [
+  {row: 'start', col: 'start'},
+  {row: 'start', col: 'center'},
+  {row: 'start', col: 'end'},
+  {row: 'center', col: 'start'},
+  {row: 'center', col: 'center'},
+  {row: 'center', col: 'end'},
+  {row: 'end', col: 'start'},
+  {row: 'end', col: 'center'},
+  {row: 'end', col: 'end'},
+]
+
+export const AnchorPositionGridFallbackDisabled = () => {
+  return <AnchorPositionGridFallback cssAnchorPositioningSettings={{fallbackStrategy: 'none'}} />
+}
+
+const AnchorPositionGridFallback = ({
+  cssAnchorPositioningSettings,
+}: {
+  cssAnchorPositioningSettings: {fallbackStrategy: 'none' | 'opposite-side'}
+}) => {
+  const [openCell, setOpenCell] = useState<string | null>(null)
+
+  return (
+    <div className={classes.AnchorGridContainer}>
+      <div className={classes.AnchorGrid}>
+        <div className={classes.AnchorGridInner}>
+          {gridPositions.map(({row, col}) => {
+            const key = `${row}-${col}`
+            const isCenter = row === 'center' && col === 'center'
+
+            return (
+              <div key={key} className={classes.AnchorGridCell}>
+                <span className={classes.AnchorGridLabel}>
+                  {row} / {col}
+                </span>
+                {isCenter ? (
+                  <AnchoredOverlay
+                    open={openCell === key}
+                    onOpen={() => setOpenCell(key)}
+                    onClose={() => setOpenCell(null)}
+                    renderAnchor={props => <Button {...props}>Anchor</Button>}
+                    overlayProps={{
+                      role: 'dialog',
+                      'aria-modal': true,
+                      'aria-label': 'Anchor Position Grid Demo',
+                    }}
+                    focusZoneSettings={{disabled: true}}
+                    preventOverflow={false}
+                    cssAnchorPositioningSettings={cssAnchorPositioningSettings}
+                  >
+                    <div className={classes.FlexColFill}>{hoverCard}</div>
+                  </AnchoredOverlay>
+                ) : null}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const AnchorPositionGridFallbackOppositeSide = () => {
+  return <AnchorPositionGridFallback cssAnchorPositioningSettings={{fallbackStrategy: 'opposite-side'}} />
 }

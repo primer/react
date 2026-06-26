@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {CounterLabel} from '..'
+import CounterLabel from '.'
 import {render as HTMLRender} from '@testing-library/react'
 import classes from './CounterLabel.module.css'
 import {implementsClassName} from '../utils/testing'
@@ -10,6 +10,11 @@ describe('CounterLabel', () => {
   it('renders a <span>', () => {
     const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
     expect(container.firstChild?.nodeName).toEqual('SPAN')
+  })
+
+  it('renders data-component attribute', () => {
+    const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
+    expect(container.querySelector('[data-component="CounterLabel"]')).toBeInTheDocument()
   })
 
   it('renders the counter correctly', () => {

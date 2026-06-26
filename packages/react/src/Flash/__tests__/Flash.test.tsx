@@ -37,4 +37,9 @@ describe('Flash', () => {
     const {container} = render(<Flash data-testid="test" />)
     expect(container.firstChild).toHaveAttribute('data-testid', 'test')
   })
+
+  it('renders data-component attribute', () => {
+    render(<Flash data-testid="flash" />)
+    expect(screen.getByTestId('flash')).toHaveAttribute('data-component', 'Flash')
+  })
 })

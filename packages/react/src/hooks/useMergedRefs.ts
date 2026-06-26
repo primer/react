@@ -1,7 +1,17 @@
 import type {ForwardedRef, Ref as StandardRef, MutableRefObject} from 'react'
 import {useCallback, version} from 'react'
+import {isExperimentalReactVersion, reactMajorVersion} from '../utils/environment'
 
 const majorReactVersion = parseInt(version.split('.')[0] ?? '18', 10)
+
+/**
+ * Cleanup functions for refs were introduced in React 19. For feature detection,
+ * we look to see if current version of React is >= 19 or if it is an
+ * experimental version of React
+ *
+ * @see https://react.dev/blog/2024/12/05/react-19
+ */
+const supportsRefCleanup = reactMajorVersion >= 19 || isExperimentalReactVersion
 
 /**
  * Combine two refs of matching type (typically an external or forwarded ref and an internal `useRef` object or
@@ -19,18 +29,18 @@ const majorReactVersion = parseInt(version.split('.')[0] ?? '18', 10)
  * // React 18
  * const Example = forwardRef<HTMLButtonElement, {}>((props, forwardedRef) => {
  *  const ref = useRef<HTMLButtonElement>(null)
- *  const mergedRef = useMergedRefs(forwardedRef, ref)
+ *  const combinedRef = useMergedRefs(forwardedRef, ref)
  *
- *  return <button ref={mergedRef} />
+ *  return <button ref={combinedRef} />
  * })
  *
  * @example
  * // React 19
  * const Example = ({ref: externalRef}: {ref?: Ref<HTMLButtonElement>}) => {
  *  const ref = useRef<HTMLButtonElement>(null)
- *  const mergedRef = useMergedRefs(externalRef, ref)
+ *  const combinedRef = useMergedRefs(externalRef, ref)
  *
- *  return <button ref={mergedRef} />
+ *  return <button ref={combinedRef} />
  * }
  */
 export function useMergedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
@@ -38,6 +48,11 @@ export function useMergedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
     (value: T | null) => {
       const cleanupA = setRef(refA, value)
       const cleanupB = setRef(refB, value)
+      
+      // TODO: remove when we are on React 19
+      if (!supportsRefCleanup) {
+        return
+      }
 
       // Callback refs only work in React 19+. In React 18, the ref will get called with
       // `null` which will be passed to each ref as expected.

@@ -356,6 +356,7 @@ export const RepositionAfterLoading = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -367,7 +368,9 @@ export const RepositionAfterLoading = () => {
   }, [open])
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -403,6 +406,7 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -414,7 +418,9 @@ export const SelectPanelRepositionInsideDialog = () => {
   }, [open])
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -530,8 +536,10 @@ export const RenderMoreOnScroll = () => {
 
   useEffect(
     function measureTimeAfterOpen() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (open) {
         timeAfterOpen.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
       }
     },
@@ -559,10 +567,7 @@ export const RenderMoreOnScroll = () => {
         Time taken (ms) to render initial {renderSubset ? 50 : NUMBER_OF_ITEMS} items:{' '}
         {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
       </p>
-      <p>
-        Known bug: Scroll resets to top when the items change. Works well with feature flag{' '}
-        <Label>primer_react_select_panel_remove_active_descendant</Label>
-      </p>
+      <p>Known bug: Scroll resets to top when the items change.</p>
 
       <FormControl>
         <FormControl.Label>Labels</FormControl.Label>
@@ -615,14 +620,17 @@ export const VirtualizedConsumerSide = () => {
   }
   useEffect(
     function measureTimeAfterOpen() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (open) {
         timeAfterOpen.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
       }
     },
     [open],
   )
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: filteredItems.length,
     getScrollElement: () => scrollContainer ?? null,
@@ -755,8 +763,10 @@ export const VirtualizedBuiltIn = () => {
   }
   useEffect(
     function measureA() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (openA) {
         timeAfterOpenA.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpenA.current) setTimeTakenA(timeAfterOpenA.current - timeBeforeOpenA.current)
       }
     },
@@ -774,8 +784,10 @@ export const VirtualizedBuiltIn = () => {
   }
   useEffect(
     function measureB() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (openB) {
         timeAfterOpenB.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpenB.current) setTimeTakenB(timeAfterOpenB.current - timeBeforeOpenB.current)
       }
     },

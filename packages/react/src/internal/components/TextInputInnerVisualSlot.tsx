@@ -15,8 +15,12 @@ const TextInputInnerVisualSlot: React.FC<
     visualPosition: 'leading' | 'trailing'
     /** Used to provide a reference for usage with `aria-describedby` */
     id?: string
+    /**
+     * A prefix to use for the `data-component` attribute
+     */
+    componentPrefix?: string
   }>
-> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition, id}) => {
+> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition, id, componentPrefix = 'TextInput'}) => {
   const isLeading = visualPosition === 'leading'
   if ((!children && !hasLoadingIndicator) || (isLeading && !children && !showLoadingIndicator)) {
     return null
@@ -24,14 +28,22 @@ const TextInputInnerVisualSlot: React.FC<
 
   if (!hasLoadingIndicator) {
     return (
-      <span className="TextInput-icon" id={id} aria-hidden="true">
+      <span
+        className="TextInput-icon"
+        id={id}
+        aria-hidden="true"
+        data-component={isLeading ? `${componentPrefix}.LeadingVisual` : `${componentPrefix}.TrailingVisual`}
+      >
         {children}
       </span>
     )
   }
 
   return (
-    <span className="TextInput-icon">
+    <span
+      className="TextInput-icon"
+      data-component={isLeading ? `${componentPrefix}.LeadingVisual` : `${componentPrefix}.TrailingVisual`}
+    >
       <div className={styles.Box} id={id}>
         {children && (
           <div className={clsx(showLoadingIndicator ? styles.SpinnerHidden : styles.SpinnerVisible)}>{children}</div>

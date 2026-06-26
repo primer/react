@@ -168,6 +168,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       {...getResponsiveAttributes('variant', variant)}
       data-size={size}
       {...rest}
+      data-component="SegmentedControl"
     >
       {React.Children.map(children, (child, index) => {
         // Not a valid child element - skip rendering child
@@ -225,7 +226,6 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 Root.displayName = 'SegmentedControl'
 
 export const SegmentedControl = Object.assign(Root, {
-  __SLOT__: Symbol('SegmentedControl'),
   Button,
   IconButton: SegmentedControlIconButton,
 })

@@ -6,7 +6,6 @@ import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
 import {useMedia} from '../hooks/useMedia'
-import {useFeatureFlag} from '../FeatureFlags'
 
 const ANIMATION_DURATION_MS = 1000
 
@@ -38,7 +37,6 @@ function Spinner({
   delay = false,
   ...props
 }: SpinnerProps) {
-  const syncAnimationsEnabled = useFeatureFlag('primer_react_spinner_synchronize_animations')
   const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', false)
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
@@ -50,6 +48,7 @@ function Spinner({
   }))
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (delay) {
       const delayDuration = typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000
       const timeoutId = setTimeout(() => {
@@ -64,12 +63,11 @@ function Spinner({
     return null
   }
 
-  const shouldSync = syncAnimationsEnabled && noMotionPreference
-  const mergedStyle = shouldSync ? {...style, animationDelay: `${syncDelay}ms`} : style
+  const mergedStyle = noMotionPreference ? {...style, animationDelay: `${syncDelay}ms`} : style
 
   return (
     /* inline-flex removes the extra line height */
-    <span className={classes.Box}>
+    <span className={classes.Box} data-component="Spinner">
       <svg
         height={size}
         width={size}

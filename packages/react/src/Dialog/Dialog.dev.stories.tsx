@@ -1,6 +1,7 @@
 import type React from 'react'
 import {useState, useCallback, useRef} from 'react'
-import {Text, Button} from '..'
+import Text from '../Text'
+import {Button} from '../Button'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
 import classes from './Dialog.stories.module.css'

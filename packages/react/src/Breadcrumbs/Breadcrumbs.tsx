@@ -1,7 +1,8 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React, {useState, useRef, useCallback, useEffect, useMemo, type ForwardedRef} from 'react'
+import React, {useState, useRef, useCallback, useMemo, type ForwardedRef} from 'react'
 import classes from './Breadcrumbs.module.css'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import Details from '../Details'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button/IconButton'
@@ -10,7 +11,6 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
-import {useFeatureFlag} from '../FeatureFlags'
 import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
 
 export type BreadcrumbsProps = React.PropsWithChildren<{
@@ -102,7 +102,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     })
 
     return (
-      <Details ref={detailsRefCallback} className={classes.MenuDetails}>
+      <Details ref={detailsRefCallback} className={classes.MenuDetails} data-component="Breadcrumbs.MenuItem">
         <IconButton
           as="summary"
           role="button"
@@ -145,193 +145,208 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
+const MENU_BUTTON_FALLBACK_WIDTH = 32 // Design system small IconButton
+const CONTAINER_FALLBACK_WIDTH = 800 // Used before the container has been measured
+
+type OverflowResult = {
+  /** Number of leading items collapsed into the overflow menu. */
+  menuItemCount: number
+  effectiveHideRoot: boolean
+}
+
+// Pure derivation of how many leading breadcrumb items collapse into the
+// overflow menu, given the measured widths. Returns counts/flags (primitives)
+// rather than element arrays so the render memo below only invalidates when the
+// split actually changes, not on every sub-threshold resize. Kept outside the
+// component so it has no hidden dependency on previous state and can be called
+// directly during render.
+function calculateOverflow({
+  availableWidth,
+  itemCount,
+  childArrayWidths,
+  menuButtonWidth,
+  overflow,
+  hideRoot,
+}: {
+  availableWidth: number
+  itemCount: number
+  childArrayWidths: number[]
+  menuButtonWidth: number
+  overflow: NonNullable<BreadcrumbsProps['overflow']>
+  hideRoot: boolean
+}): OverflowResult {
+  let eHideRoot = hideRoot
+  const rootItemWidth = childArrayWidths[0] ?? 0
+  const NARROW_BREAKPOINT = 544
+  const isNarrow = availableWidth < NARROW_BREAKPOINT
+
+  let MIN_VISIBLE_ITEMS = 4
+  if (!eHideRoot) {
+    MIN_VISIBLE_ITEMS = 3
+  } else if (isNarrow && itemCount > 2) {
+    MIN_VISIBLE_ITEMS = 1
+  }
+
+  const calculateVisibleItemsWidth = (w: number[]) => {
+    const widths = w.reduce((sum, width) => sum + width + 16, 0)
+    return !eHideRoot ? rootItemWidth + widths : widths
+  }
+
+  let currentVisibleItemWidths = [...childArrayWidths]
+  let menuItemCount = 0
+
+  if (availableWidth > 0 && currentVisibleItemWidths.length > 0) {
+    let visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
+
+    while (
+      (overflow === 'menu' || overflow === 'menu-with-root') &&
+      (visibleItemsWidthTotal > availableWidth || currentVisibleItemWidths.length > MIN_VISIBLE_ITEMS)
+    ) {
+      menuItemCount += 1
+      currentVisibleItemWidths = currentVisibleItemWidths.slice(1)
+
+      // A menu button is now shown, so its width is always part of the total.
+      visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths) + menuButtonWidth
+
+      if (currentVisibleItemWidths.length === 1 && visibleItemsWidthTotal > availableWidth) {
+        eHideRoot = true
+        break
+      } else {
+        eHideRoot = hideRoot
+      }
+    }
+  }
+  return {menuItemCount, effectiveHideRoot: eHideRoot}
+}
+
 function Breadcrumbs({className, children, style, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
-  const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
-  const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   const containerRef = useRef<HTMLElement>(null)
 
+  const hideRoot = !(overflow === 'menu-with-root')
+  const childArray = useMemo(() => getValidChildren(children), [children])
+  const rootItem = childArray[0]
+
+  // Measured values. Everything else (which items are visible, which are collapsed
+  // into the overflow menu, and whether the root is hidden) is derived from these
+  // during render rather than synced into state with effects.
+  const [childArrayWidths, setChildArrayWidths] = useState<number[]>(() => [])
+  const [containerWidth, setContainerWidth] = useState<number | null>(null)
+  const [menuButtonWidth, setMenuButtonWidth] = useState(MENU_BUTTON_FALLBACK_WIDTH)
+
+  // TODO(perf): consider replacing this runtime measurement with the static token
+  // width (small IconButton == --control-small-size == 28px) to drop a state var and
+  // the extra mount render, and to make the collapse point correct from first paint
+  // (the current 32px fallback is the medium size). Deferred because it shifts the
+  // collapse boundary by a few px and loses rem-responsiveness, so it needs a VRT run.
   const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
     if (element) {
       const iconButtonElement = element.querySelector('button[data-component="IconButton"]')
       if (iconButtonElement) {
         const measuredWidth = (iconButtonElement as HTMLElement).offsetWidth
-        // eslint-disable-next-line react-hooks/immutability
-        setMenuButtonWidth(measuredWidth)
+        setMenuButtonWidth(prev => (prev === measuredWidth ? prev : measuredWidth))
       }
     }
   }, [])
 
-  const hideRoot = !(overflow === 'menu-with-root')
-  const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
-  const childArray = useMemo(() => getValidChildren(children), [children])
-
-  const rootItem = childArray[0]
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [visibleItems, setVisibleItems] = useState<React.ReactElement<any>[]>(() => childArray)
-  const [childArrayWidths, setChildArrayWidths] = useState<number[]>(() => [])
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [menuItems, setMenuItems] = useState<React.ReactElement<any>[]>([])
-  const [rootItemWidth, setRootItemWidth] = useState<number>(0)
-
-  const MENU_BUTTON_FALLBACK_WIDTH = 32 // Design system small IconButton
-  const [menuButtonWidth, setMenuButtonWidth] = useState(MENU_BUTTON_FALLBACK_WIDTH)
-
-  useEffect(() => {
-    const listElement = containerRef.current?.querySelector('ol')
-    if (
-      overflowMenuEnabled &&
-      listElement &&
-      listElement.children.length > 0 &&
-      listElement.children.length === childArray.length
-    ) {
-      const listElementArray = Array.from(listElement.children) as HTMLElement[]
-      const widths = listElementArray.map(child => child.offsetWidth)
+  // Measure the container and every breadcrumb item. Only the menu overflow modes
+  // need measurement; `wrap` is laid out entirely by CSS, so we skip the work (and
+  // the extra pre-paint render) there. Item widths can only be measured while all
+  // items are rendered (before any move into the overflow menu), so the derivation
+  // below renders all items until these measurements exist.
+  useIsomorphicLayoutEffect(() => {
+    if (overflow === 'wrap') return
+    const containerElement = containerRef.current
+    if (!containerElement) return
+    const measuredContainerWidth = containerElement.offsetWidth
+    setContainerWidth(prev => (prev === measuredContainerWidth ? prev : measuredContainerWidth))
+    const listElement = containerElement.querySelector('ol')
+    if (listElement && listElement.children.length > 0 && listElement.children.length === childArray.length) {
+      const widths = Array.from(listElement.children).map(child => (child as HTMLElement).offsetWidth)
       setChildArrayWidths(widths)
-      setRootItemWidth(listElementArray[0].offsetWidth)
     }
-  }, [childArray, overflowMenuEnabled])
+  }, [childArray, overflow])
 
-  const calculateOverflow = useCallback(
-    (availableWidth: number) => {
-      let eHideRoot = effectiveHideRoot
-      const MENU_BUTTON_WIDTH = menuButtonWidth
-      const MIN_VISIBLE_ITEMS = !eHideRoot ? 3 : 4
-
-      const calculateVisibleItemsWidth = (w: number[]) => {
-        const widths = w.reduce((sum, width) => sum + width + 16, 0)
-        return !eHideRoot ? rootItemWidth + widths : widths
-      }
-
-      let currentVisibleItems = [...childArray]
-      let currentVisibleItemWidths = [...childArrayWidths]
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let currentMenuItems: React.ReactElement<any>[] = []
-      let currentMenuItemsWidths: number[] = []
-
-      if (availableWidth > 0 && currentVisibleItemWidths.length > 0) {
-        let visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
-
-        if (currentMenuItems.length > 0) {
-          visibleItemsWidthTotal += MENU_BUTTON_WIDTH
-        }
-        while (
-          (overflow === 'menu' || overflow === 'menu-with-root') &&
-          (visibleItemsWidthTotal > availableWidth || currentVisibleItems.length > MIN_VISIBLE_ITEMS)
-        ) {
-          const itemToHide = currentVisibleItems[0]
-          const itemToHideWidth = currentVisibleItemWidths[0]
-          currentMenuItems = [...currentMenuItems, itemToHide]
-          currentMenuItemsWidths = [...currentMenuItemsWidths, itemToHideWidth]
-          currentVisibleItems = currentVisibleItems.slice(1)
-          currentVisibleItemWidths = currentVisibleItemWidths.slice(1)
-
-          visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
-
-          if (currentMenuItems.length > 0) {
-            visibleItemsWidthTotal += MENU_BUTTON_WIDTH
-          }
-
-          if (currentVisibleItems.length === 1 && visibleItemsWidthTotal > availableWidth) {
-            eHideRoot = true
-            break
-          } else {
-            eHideRoot = hideRoot
-          }
-        }
-      }
-      return {
-        visibleItems: currentVisibleItems,
-        menuItems: currentMenuItems,
-        effectiveHideRoot: eHideRoot,
-      }
-    },
-    [childArray, childArrayWidths, effectiveHideRoot, hideRoot, overflow, rootItemWidth, menuButtonWidth],
-  )
-
-  const handleResize = useCallback(
+  // `wrap` mode never reads the container width, so don't observe it there.
+  useResizeObserver(
     (entries: ResizeObserverEntry[]) => {
-      if (overflowMenuEnabled && entries[0]) {
-        const containerWidth = entries[0].contentRect.width
-        const result = calculateOverflow(containerWidth)
-        if (
-          (visibleItems.length !== result.visibleItems.length && menuItems.length !== result.menuItems.length) ||
-          result.effectiveHideRoot !== effectiveHideRoot
-        ) {
-          setVisibleItems(result.visibleItems)
-          setMenuItems(result.menuItems)
-          setEffectiveHideRoot(result.effectiveHideRoot)
-        }
+      if (entries[0]) {
+        // `contentRect.width` is fractional, but the layout effect above measures the
+        // container with the integer `offsetWidth`. Round to the same integer so an
+        // unchanged width doesn't trigger a needless re-render on mount and the
+        // measurement units stay consistent.
+        const width = Math.round(entries[0].contentRect.width)
+        setContainerWidth(prev => (prev === width ? prev : width))
       }
     },
-    [calculateOverflow, effectiveHideRoot, menuItems.length, overflowMenuEnabled, visibleItems.length],
+    containerRef,
+    [],
+    overflow !== 'wrap',
   )
 
-  useResizeObserver(handleResize, containerRef)
-
-  useEffect(() => {
-    if (
-      overflowMenuEnabled &&
-      (overflow === 'menu' || overflow === 'menu-with-root') &&
-      childArray.length > 5 &&
-      menuItems.length === 0
-    ) {
-      const containerWidth = containerRef.current?.offsetWidth || 800
-      const result = calculateOverflow(containerWidth)
-      setVisibleItems(result.visibleItems)
-      setMenuItems(result.menuItems)
-      setEffectiveHideRoot(result.effectiveHideRoot)
+  // Derive how many leading items collapse into the overflow menu. This runs during
+  // render and returns primitives, so `finalChildren` below is only rebuilt when the
+  // split actually changes — not on every sub-threshold resize. Until item widths
+  // have been measured we collapse nothing so the layout effect above can measure
+  // every item.
+  const {menuItemCount, effectiveHideRoot} = useMemo<OverflowResult>(() => {
+    if (overflow === 'wrap' || childArrayWidths.length !== childArray.length) {
+      return {menuItemCount: 0, effectiveHideRoot: hideRoot}
     }
-  }, [overflow, childArray, calculateOverflow, menuItems.length, overflowMenuEnabled])
+    return calculateOverflow({
+      availableWidth: containerWidth ?? CONTAINER_FALLBACK_WIDTH,
+      itemCount: childArray.length,
+      childArrayWidths,
+      menuButtonWidth,
+      overflow,
+      hideRoot,
+    })
+  }, [overflow, hideRoot, childArray, childArrayWidths, containerWidth, menuButtonWidth])
 
   const finalChildren = React.useMemo(() => {
-    if (overflowMenuEnabled) {
-      if (overflow === 'wrap' || menuItems.length === 0) {
-        return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
-      }
-
-      let effectiveMenuItems = [...menuItems]
-      // In 'menu-with-root' mode, include the root item inside the menu even if it's visible in the breadcrumbs
-      if (!effectiveHideRoot) {
-        effectiveMenuItems = [...menuItems.slice(1)]
-      }
-      const menuElement = (
-        <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
-          <BreadcrumbsMenuItem
-            ref={measureMenuButton}
-            items={effectiveMenuItems}
-            aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
-          />
-          <ItemSeparator />
-        </li>
-      )
-
-      const visibleElements = visibleItems.map((child, index) => (
-        <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
-          {child}
-          <ItemSeparator />
-        </li>
-      ))
-
-      const rootElement = (
-        <li className={classes.BreadcrumbsItem} key={`rootElement`}>
-          {rootItem}
-          <ItemSeparator />
-        </li>
-      )
-
-      if (effectiveHideRoot) {
-        // Show: [overflow menu, leaf breadcrumb]
-        return [menuElement, ...visibleElements]
-      } else {
-        // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
-        return [rootElement, menuElement, ...visibleElements]
-      }
+    if (overflow === 'wrap' || menuItemCount === 0) {
+      return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
     }
-  }, [overflowMenuEnabled, overflow, menuItems, effectiveHideRoot, measureMenuButton, visibleItems, rootItem, children])
 
-  return overflowMenuEnabled ? (
+    const menuItems = childArray.slice(0, menuItemCount)
+    const visibleItems = childArray.slice(menuItemCount)
+
+    // In 'menu-with-root' mode the root stays visible, so drop it from the menu.
+    const effectiveMenuItems = effectiveHideRoot ? menuItems : menuItems.slice(1)
+    const menuElement = (
+      <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
+        <BreadcrumbsMenuItem
+          ref={measureMenuButton}
+          items={effectiveMenuItems}
+          aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
+        />
+        <ItemSeparator />
+      </li>
+    )
+
+    const visibleElements = visibleItems.map((child, index) => (
+      <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
+        {child}
+        <ItemSeparator />
+      </li>
+    ))
+
+    const rootElement = (
+      <li className={classes.BreadcrumbsItem} key={`rootElement`}>
+        {rootItem}
+        <ItemSeparator />
+      </li>
+    )
+
+    if (effectiveHideRoot) {
+      // Show: [overflow menu, leaf breadcrumb]
+      return [menuElement, ...visibleElements]
+    } else {
+      // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
+      return [rootElement, menuElement, ...visibleElements]
+    }
+  }, [overflow, menuItemCount, effectiveHideRoot, measureMenuButton, childArray, rootItem, children])
+
+  return (
     <nav
       className={clsx(className, classes.BreadcrumbsBase)}
       aria-label="Breadcrumbs"
@@ -339,17 +354,9 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       ref={containerRef}
       data-overflow={overflow}
       data-variant={variant}
+      data-component="Breadcrumbs"
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
-    </nav>
-  ) : (
-    <nav
-      className={clsx(className, classes.BreadcrumbsBase)}
-      aria-label="Breadcrumbs"
-      style={style}
-      data-variant={variant}
-    >
-      <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
     </nav>
   )
 }
@@ -385,6 +392,7 @@ const BreadcrumbsItem = fixedForwardRef(
         className={clsx(className, classes.Item, selected && 'selected')}
         aria-current={selected ? 'page' : undefined}
         ref={ref}
+        data-component="Breadcrumbs.Item"
         {...rest}
       />
     )

@@ -3,14 +3,14 @@ import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
-import {useOverlay} from '../hooks'
+import {useMergedRefs, useOverlay} from '../hooks'
 import Portal from '../Portal'
-import {useMergedRefs} from '../hooks/useMergedRefs'
 import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import type {heightMap, widthMap} from './constants'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -22,26 +22,6 @@ type StyledOverlayProps = {
   style?: React.CSSProperties
 }
 
-export const heightMap = {
-  xsmall: '192px',
-  small: '256px',
-  medium: '320px',
-  large: '432px',
-  xlarge: '600px',
-  auto: 'auto',
-  initial: 'auto', // Passing 'initial' initially applies 'auto'
-  'fit-content': 'fit-content',
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-useless-assignment
-const widthMap = {
-  small: '256px',
-  medium: '320px',
-  large: '480px',
-  xlarge: '640px',
-  xxlarge: '960px',
-  auto: 'auto',
-}
 const animationDuration = 200
 
 function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y: number} {
@@ -61,6 +41,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
 type BaseOverlayProps = {
   visibility?: 'visible' | 'hidden'
   'data-test-id'?: unknown
+  'data-component'?: string
   position?: React.CSSProperties['position']
   top?: React.CSSProperties['top']
   left?: React.CSSProperties['left']
@@ -192,9 +173,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
     const overlayRef = useRef<HTMLDivElement>(null)
-    const mergedRef = useMergedRefs(forwardedRef, overlayRef)
+    const mergedOverlayRef = useMergedRefs(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
     const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
@@ -239,13 +219,12 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         role={role}
         width={width}
         data-reflow-container={!preventOverflow ? true : undefined}
-        ref={mergedRef}
+        ref={mergedOverlayRef}
         left={leftPosition}
         right={right}
         height={height}
         visibility={visibility}
         data-responsive={responsiveVariant}
-        {...(featureFlagMaxHeightClampToViewport ? {'data-max-height-clamp-to-viewport': ''} : {})}
         {...props}
       />
     )

@@ -5,7 +5,7 @@
     margin-block-start: var(--base-size-8);
 
     /* If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading */
-    /* stylelint-disable-next-line selector-max-specificity */
+    /* stylelint-disable-next-line selector-max-specificity, selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has(.GroupHeadingWrap + ul > .GroupHeadingWrap) {
       /* stylelint-disable-next-line selector-max-specificity */
       & > .GroupHeadingWrap {
@@ -57,4 +57,21 @@
   font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-muted);
   align-self: flex-start;
+}
+
+.GroupHeadingWrap[data-has-trailing-action] {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-8);
+
+  & > .GroupHeading {
+    align-self: center;
+  }
+}
+
+.GroupHeadingTrailingAction {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: auto;
 }

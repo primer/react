@@ -3,7 +3,7 @@ import {type CSSProperties, type PropsWithChildren, type JSX} from 'react'
 import {clsx} from 'clsx'
 // eslint-disable-next-line import/no-namespace
 import type * as styledSystem from 'styled-system'
-import {useTheme} from './ThemeProvider'
+import {useTheme} from './useTheme'
 
 import 'focus-visible'
 import {createGlobalStyle} from 'styled-components'
@@ -74,19 +74,12 @@ const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
     /* stylelint-disable-next-line primer/colors */
     color: var(--BaseStyles-fgColor, var(--fgColor-default));
 
-    /* Global styles for light mode */
-    &:has([data-color-mode='light']) {
-      input & {
-        color-scheme: light;
-      }
-    }
-
-    /* Global styles for dark mode */
-    &:has([data-color-mode='dark']) {
-      input & {
-        color-scheme: dark;
-      }
-    }
+    /*
+     * PERFORMANCE: Removed :has([data-color-mode]) selectors that scanned entire DOM.
+     * Input color-scheme is already handled by global selectors above:
+     *   [data-color-mode='light'] input { color-scheme: light; }
+     *   [data-color-mode='dark'] input { color-scheme: dark; }
+     */
 
     /* Low-specificity default link styling */
     :where(a:not([class*='prc-']):not([class*='PRC-']):not([class*='Primer_Brand__'])) {

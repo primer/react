@@ -19,6 +19,7 @@ function FormControlCaption({id, children, className, style}: FormControlCaption
       className={clsx(className, classes.Caption)}
       data-control-disabled={disabled ? '' : undefined}
       style={style}
+      data-component="FormControl.Caption"
     >
       {children}
     </Text>

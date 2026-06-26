@@ -1,5 +1,23 @@
 # @primer/mcp
 
+## 0.3.3
+
+### Patch Changes
+
+- [#7965](https://github.com/primer/react/pull/7965) [`53ea013`](https://github.com/primer/react/commit/53ea0139bc48f5497bab5b43baed959b69dd16b0) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - MCP server: Add `readOnlyHint` annotation to all tools, allowing them to run without human-in-the-loop approval in agentic environments such as Copilot cloud agent.
+
+- Updated dependencies [[`45be31b`](https://github.com/primer/react/commit/45be31b561b2c1280b182531069e8a84364a4185), [`95986ce`](https://github.com/primer/react/commit/95986ce22eaca6f4cb2122a00d51ec93d72f2dfe), [`6a7e130`](https://github.com/primer/react/commit/6a7e13051139ba06e48391edc0b05ef555b814b9), [`55b7b04`](https://github.com/primer/react/commit/55b7b04647af9d7812e9ff77605524048358039c), [`3af5edc`](https://github.com/primer/react/commit/3af5edc56dd21aaa16c7c1676c4627c4ecd6f0f2), [`2087e87`](https://github.com/primer/react/commit/2087e87c9fe869a59fc1dcb0546ee25a14767006), [`0f0f79f`](https://github.com/primer/react/commit/0f0f79f5da92087e636cde0d0709479c9c68d2d1), [`0c38cfa`](https://github.com/primer/react/commit/0c38cfaeabab347e48d4e34c200739e32efa73a2)]:
+  - @primer/react@38.28.0
+
+## 0.3.2
+
+### Patch Changes
+
+- [#7710](https://github.com/primer/react/pull/7710) [`e15db4c`](https://github.com/primer/react/commit/e15db4c29a0852524741c62dce694703dc48b6fd) Thanks [@adierkens](https://github.com/adierkens)! - Removes fallback for legacy documentation for components using `get_component`
+
+- Updated dependencies [[`ec6c88f`](https://github.com/primer/react/commit/ec6c88fe3eb3ef349500617c90378712f802376d), [`f5f2869`](https://github.com/primer/react/commit/f5f28691d9e5c9f8495e8c592635d2b616f7cb49), [`d7b9313`](https://github.com/primer/react/commit/d7b9313b53e370e258c152084ac1f0402d64b77f), [`b7dfb78`](https://github.com/primer/react/commit/b7dfb78079c50c6798aa4e09212aede701bf6c56), [`d7380a7`](https://github.com/primer/react/commit/d7380a7616a6c0cf861b5fe3dd9bd8d76470ca2e), [`b9211db`](https://github.com/primer/react/commit/b9211db173841c9d9a531c777c5ce2c0cd8af60f), [`efa7af8`](https://github.com/primer/react/commit/efa7af8d1e628cddc2f0356de83e7af5568ff358), [`30206c4`](https://github.com/primer/react/commit/30206c4fab92de8888f3f103f9b05bff96fdc1b9), [`5c34ab4`](https://github.com/primer/react/commit/5c34ab45c8744d7d038d63773adff324015f5643)]:
+  - @primer/react@38.20.0
+
 ## 0.3.1
 
 ### Patch Changes
