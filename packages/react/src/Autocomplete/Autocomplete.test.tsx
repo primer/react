@@ -162,21 +162,25 @@ describe('Autocomplete', () => {
     })
 
     it('closes the menu when the input is blurred', async () => {
+      const user = userEvent.setup()
       const {getByLabelText} = render(
-        <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,
+        <>
+          <LabelledAutocomplete
+            menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+          />
+          <button type="button">outside</button>
+        </>,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
+      const outsideButton = screen.getByRole('button', {name: 'outside'})
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      inputNode.focus()
-      fireEvent.click(inputNode)
+      await user.click(inputNode)
       fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
 
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
 
-      // `userEvent.tab()` is unreliable in browser-mode Vitest for this case; blur is deterministic.
-      // eslint-disable-next-line github/no-blur
-      fireEvent.blur(inputNode)
+      await user.click(outsideButton)
 
       await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).not.toBe('true'))
     })
