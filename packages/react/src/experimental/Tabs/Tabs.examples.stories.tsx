@@ -15,12 +15,26 @@ const meta = {
 export default meta
 
 const CustomTabList = (props: React.PropsWithChildren) => {
-  const {tabListProps} = useTabList<HTMLUListElement>({'aria-label': 'Tabs', 'aria-orientation': 'vertical'})
-  const {ref: _ref, ...listProps} = tabListProps
+  const localRef = React.useRef<HTMLUListElement>(null)
+  const {tabListProps} = useTabList<HTMLUListElement>({
+    'aria-label': 'Tabs',
+    'aria-orientation': 'vertical',
+    ref: localRef,
+  })
+
+  const listProps = {
+    onKeyDown: tabListProps.onKeyDown,
+    'aria-orientation': tabListProps['aria-orientation'],
+    'aria-label': tabListProps['aria-label'],
+    'aria-labelledby': tabListProps['aria-labelledby'],
+    role: tabListProps.role,
+  }
 
   return (
     <div style={{width: '200px'}}>
-      <ActionList {...listProps}>{props.children}</ActionList>
+      <ActionList ref={localRef} {...listProps}>
+        {props.children}
+      </ActionList>
     </div>
   )
 }
