@@ -58,11 +58,24 @@ const AutocompleteInput = React.forwardRef(
       event => {
         onBlur && onBlur(event)
 
-        // HACK: wait a tick and check the focused element before hiding the autocomplete menu
-        // this prevents the menu from hiding when the user is clicking an option in the Autoselect.Menu,
-        // but still hides the menu when the user blurs the input by tabbing out or clicking somewhere else on the page
+        // HACK: wait a tick before hiding the menu so click interactions can complete.
+        // Use the blur event's relatedTarget to determine whether focus is moving into the
+        // autocomplete menu; if not, hide the menu when focus leaves the input.
         safeSetTimeout(() => {
-          if (document.activeElement !== inputRef.current) {
+          console.log({
+            activeElement: document.activeElement,
+            inputCurrent: inputRef.current,
+            same: document.activeElement === inputRef.current,
+          })
+
+          const nextFocusedElement = event.relatedTarget as Node | null
+          const menuElement = document.getElementById(`${id}-listbox`)
+
+          if (
+            !nextFocusedElement ||
+            (nextFocusedElement !== menuElement && !menuElement?.contains(nextFocusedElement))
+          ) {
+            console.log('closing')
             setShowMenu(false)
 
             // Reset the input's value to the text the user actually typed rather than leaving the
@@ -72,6 +85,8 @@ const AutocompleteInput = React.forwardRef(
             if (inputRef.current && autocompleteSuggestion && inputRef.current.value !== inputValue) {
               inputRef.current.value = inputValue
             }
+          } else {
+            console.log('not closing')
           }
         }, 0)
       },
