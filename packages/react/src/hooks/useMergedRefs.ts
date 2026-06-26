@@ -99,6 +99,6 @@ function setRef<T>(ref: Ref<T>, value: T) {
     // `React.Ref` is typed as immutable to protect consumers but it's OK to mutate it here. We could just change the
     // type to only accept mutable refs, but then it would be harder to accept refs as props in React 19 because we
     // would have to use the `React.ForwardedRef` type instead of `React.Ref`
-    ;(ref as MutableRefObject<T>).current = value
+    ;(ref as MutableRefObject<T | null>).current = value
   }
 }
