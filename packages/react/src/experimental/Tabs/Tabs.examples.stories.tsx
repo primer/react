@@ -16,10 +16,11 @@ export default meta
 
 const CustomTabList = (props: React.PropsWithChildren) => {
   const {tabListProps} = useTabList<HTMLUListElement>({'aria-label': 'Tabs', 'aria-orientation': 'vertical'})
+  const {ref: _ref, ...listProps} = tabListProps
 
   return (
     <div style={{width: '200px'}}>
-      <ActionList {...tabListProps}>{props.children}</ActionList>
+      <ActionList {...listProps}>{props.children}</ActionList>
     </div>
   )
 }
