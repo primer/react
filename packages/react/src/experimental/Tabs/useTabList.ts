@@ -7,7 +7,7 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
   const ref = useRef<T>(null)
-  useMergedRefs(ref, props.ref)
+  const mergedRef = useMergedRefs(ref, props.ref)
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     const {current: tablist} = ref
@@ -59,7 +59,7 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
 
   return {
     tabListProps: {
-      ref,
+      ref: mergedRef,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
       'aria-orientation': ariaOrientation ?? 'horizontal',
