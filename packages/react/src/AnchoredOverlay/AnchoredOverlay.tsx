@@ -438,9 +438,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {...restOverlayProps}
           {...(shouldRenderAsPopover ? {id: popoverId} : {})}
           {...(cssAnchorPositioning ? {id: popoverId} : {})}
+          ref={node => {
             setOverlayElement(node)
+            assignRef(mergedOverlayRef, node)
           }}
-          ref={mergedOverlayRef}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
         >
