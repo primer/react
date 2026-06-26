@@ -560,7 +560,7 @@ export function FilteredActionList({
       data-component="FilteredActionList"
     >
       <FilteredActionListInput
-        inputRef={combinedInputRef}
+        inputRef={inputRef}
         value={filterValue}
         onInputChange={onInputChange}
         onInputKeyPress={onInputKeyPress}
