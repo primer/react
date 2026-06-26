@@ -1,9 +1,10 @@
-import React, {forwardRef, useRef, useContext, useCallback, useSyncExternalStore} from 'react'
+import React, {forwardRef, useRef, useContext} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
 import {type UnderlineNavItemProps, UnderlineNavItemsRegistry} from './UnderlineNavItemsRegistry'
+import {useIsClipped} from '../internal/hooks/useOverflowObserver'
 
 export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
   const {
@@ -22,24 +23,9 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
 
   const {loadingCounters} = useContext(UnderlineNavContext)
 
-  const isOverflowing = useSyncExternalStore(
-    useCallback(
-      onChange => {
-        const observer = new IntersectionObserver(() => onChange(), {
-          threshold: 1,
-        })
-        if (ref.current) observer.observe(ref.current)
-        return () => observer.disconnect()
-      },
-      [ref],
-    ),
-    // Note: the IntersectionObserver is just being used as a trigger to re-check
-    // `offsetTop > 0`; this is fast and simpler than checking visibility from
-    // the observed entry. When an item wraps, it will move to the next row which
-    // increases its `offsetTop`
-    () => (ref.current ? ref.current.offsetTop > 0 : false),
-    () => false,
-  )
+  // Observe the wrapping `<li>` directly so a root-scoped IntersectionObserver can detect when the item is clipped
+  // onto the hidden next row.
+  const isOverflowing = useIsClipped(ref)
 
   UnderlineNavItemsRegistry.useRegisterDescendant(isOverflowing ? allProps : null)
 
