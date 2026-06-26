@@ -62,12 +62,6 @@ const AutocompleteInput = React.forwardRef(
         // Use the blur event's relatedTarget to determine whether focus is moving into the
         // autocomplete menu; if not, hide the menu when focus leaves the input.
         safeSetTimeout(() => {
-          console.log({
-            activeElement: document.activeElement,
-            inputCurrent: inputRef.current,
-            same: document.activeElement === inputRef.current,
-          })
-
           const nextFocusedElement = event.relatedTarget as Node | null
           const menuElement = document.getElementById(`${id}-listbox`)
 
@@ -75,7 +69,6 @@ const AutocompleteInput = React.forwardRef(
             !nextFocusedElement ||
             (nextFocusedElement !== menuElement && !menuElement?.contains(nextFocusedElement))
           ) {
-            console.log('closing')
             setShowMenu(false)
 
             // Reset the input's value to the text the user actually typed rather than leaving the
@@ -86,7 +79,6 @@ const AutocompleteInput = React.forwardRef(
               inputRef.current.value = inputValue
             }
           } else {
-            console.log('not closing')
           }
         }, 0)
       },
