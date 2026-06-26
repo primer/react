@@ -149,6 +149,7 @@ const AutocompleteInput = React.forwardRef(
 
       if (
         isInputFocused &&
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         highlightRemainingText &&
         autocompleteSuggestion &&
         (inputValue || isMenuDirectlyActivated)
