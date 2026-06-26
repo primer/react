@@ -61,3 +61,13 @@ export const IconButtonWithinFlexContainer = () => (
     <IconButton icon={BoldIcon} aria-label="Icon button" />
   </Stack>
 )
+
+export const WithTriangleDownIcon = () => (
+  <Stack direction="horizontal" align="center">
+    <IconButton icon={BoldIcon} aria-label="Formatting options" hasTriangleDownIcon size="small" />
+    <IconButton icon={BoldIcon} aria-label="Formatting options" hasTriangleDownIcon />
+    <IconButton icon={BoldIcon} aria-label="Formatting options" hasTriangleDownIcon size="large" />
+    <IconButton icon={BoldIcon} aria-label="Formatting options" hasTriangleDownIcon variant="primary" />
+    <IconButton icon={BoldIcon} aria-label="Formatting options" hasTriangleDownIcon variant="invisible" />
+  </Stack>
+)
