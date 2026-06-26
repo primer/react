@@ -16,10 +16,6 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
   {as: BaseComponent = 'div', children, className, role, ...rest},
   forwardRef,
 ) {
-    const buttons = React.Children.map(children, (child, index) => (
-    <div key={index} className={classes.Item}>
-      {child}
-    </div>
   const buttonRef = useRef<HTMLDivElement>(null)
   const mergedRef = useMergedRefs(buttonRef, forwardRef)
   const buttons = React.Children.map(children, (child, index) => (
@@ -37,7 +33,6 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
 
   return (
     <BaseComponent
-      //@ts-expect-error it needs a non nullable ref
       ref={mergedRef}
       className={clsx(className, classes.ButtonGroup)}
       role={role}
