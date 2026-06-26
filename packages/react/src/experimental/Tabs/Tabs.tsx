@@ -47,12 +47,10 @@ function TabList({children, ...rest}: TabListProps) {
   const {tabListProps} = useTabList<HTMLDivElement>(rest)
 
   return (
-    <>
-      {/* @ts-expect-error it needs a non nullable ref */}
-      <div {...rest} {...tabListProps}>
-        {children}
-      </div>
-    </>
+    // @ts-expect-error it needs a non nullable ref
+    <div {...rest} {...tabListProps}>
+      {children}
+    </div>
   )
 }
 

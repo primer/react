@@ -48,7 +48,7 @@ export function useMergedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
     (value: T | null) => {
       const cleanupA = setRef(refA, value)
       const cleanupB = setRef(refB, value)
-      
+
       // TODO: remove when we are on React 19
       if (!supportsRefCleanup) {
         return
