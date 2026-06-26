@@ -55,7 +55,7 @@
     {
       "name": "size",
       "type": "'medium' | 'large'",
-      "description": "The size of the componeont",
+      "description": "The size of the component",
       "defaultValue": "'medium'"
     }
   ],

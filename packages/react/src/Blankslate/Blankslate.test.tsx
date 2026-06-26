@@ -146,6 +146,16 @@ describe('Blankslate', () => {
       expect(screen.getByRole('button', {name: 'Primary action'})).toBeInTheDocument()
     })
 
+    it.each(['medium', 'large'] as const)('should render a default-size button for the %s blankslate size', size => {
+      render(
+        <Blankslate size={size}>
+          <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
+        </Blankslate>,
+      )
+
+      expect(screen.getByRole('button', {name: 'Primary action'})).toHaveAttribute('data-size', 'medium')
+    })
+
     it('should handle click events on the button', async () => {
       const user = userEvent.setup()
       const onClick = vi.fn()
