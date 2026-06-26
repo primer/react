@@ -78,11 +78,10 @@ const AutocompleteInput = React.forwardRef(
             if (inputRef.current && autocompleteSuggestion && inputRef.current.value !== inputValue) {
               inputRef.current.value = inputValue
             }
-          } else {
           }
         }, 0)
       },
-      [onBlur, setShowMenu, inputRef, safeSetTimeout, autocompleteSuggestion, inputValue],
+      [onBlur, setShowMenu, inputRef, safeSetTimeout, autocompleteSuggestion, inputValue, id],
     )
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
