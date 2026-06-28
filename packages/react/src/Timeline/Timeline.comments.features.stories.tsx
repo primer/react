@@ -51,14 +51,14 @@ import classes from './Timeline.comments.features.stories.module.css'
  * - via-app: the timestamp line gets a " – with {app}" suffix, the app name an
  *   `inline` (underlined) `Link` — see the CommentViaApp story.
  *
- * AUDIT-vs-LIVE DRIFT (flagged for review): the live React comment header squares
- * the avatar for COPILOT ONLY (`square={isCopilot}`); generic bots and Dependabot
- * would render with a CIRCLE avatar in that exact component. We render bot and
- * Dependabot comment avatars as SQUARE here to match (a) GitHub product appearance,
- * (b) the already-shipped Dependabot badge-row surface (ERB
- * `ActorComponent`, square avatar + "bot" tag), and (c) this task's brief. If strict
- * React-comment-path fidelity is preferred, switch those `avatarShape` props to
- * 'circle'.
+ * AVATAR SHAPE (resolved decision): bot and Dependabot comment avatars are SQUARE.
+ * Source-of-truth precedence is "what renders on github.com" > literal component
+ * behavior. On github.com, bot/app accounts (github-actions, Dependabot) have square
+ * avatars by ACCOUNT TYPE — the shape is determined upstream of the comment component,
+ * so the live rendered result is square. The React `ActivityHeader` only FORCES
+ * `square={isCopilot}`, which avoids overriding an already-square bot avatar; it does
+ * NOT make bots render circular. Square also keeps Dependabot consistent with the
+ * shipped Dependabot badge-row surface (#8071). Users render CIRCLE; Copilot SQUARE.
  */
 
 const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
@@ -230,14 +230,22 @@ export const CommentStandard = () => (
 
 /**
  * A bot comment (e.g. github-actions). Live `ActivityHeader` renders the actor badge
- * as "bot" (`LABELS.authorLabel`) next to the name. Avatar is SQUARE here per the
- * drift note (live squares Copilot only).
+ * as "bot" (`LABELS.authorLabel`) next to the name.
+ *
+ * Avatar is intentionally SQUARE. Source-of-truth precedence is "what renders on
+ * github.com" > literal component behavior: bot/app accounts have square avatars by
+ * account type (the shape is set upstream of the comment component), so the live
+ * rendered result is square. `ActivityHeader.tsx` only FORCES `square={isCopilot}`,
+ * which doesn't override an already-square bot avatar — it does not make bots
+ * circular. Do NOT "fix" this to 'circle'.
  */
 export const CommentBot = () => (
   <Variant label="Bot comment (GitHub App)">
     <CommentCard
       authorName="github-actions"
       avatarSrc={GITHUB_ACTIONS_AVATAR}
+      // Square: github.com renders bot/app avatars square by account type; live result
+      // is square even though ActivityHeader.tsx only forces square={isCopilot}.
       avatarShape="square"
       badgeLabel="bot"
       badgeAriaLabel="This comment was posted by a bot."
@@ -278,15 +286,21 @@ export const CommentCopilot = () => (
 )
 
 /**
- * A Dependabot comment. Live `ActivityHeader` renders the actor badge as "bot". Avatar
- * is SQUARE here, matching the shipped Dependabot badge-row surface and product
- * appearance (see drift note — the React comment header itself squares Copilot only).
+ * A Dependabot comment. Live `ActivityHeader` renders the actor badge as "bot".
+ *
+ * Avatar is intentionally SQUARE — same precedence as CommentBot: github.com renders
+ * Dependabot's avatar square by account type (set upstream of the comment component;
+ * `ActivityHeader.tsx`'s `square={isCopilot}` only avoids overriding it, it does not
+ * force bots circular). This also matches the shipped Dependabot badge-row surface
+ * (#8071), which uses the same square dependabot avatar. Do NOT "fix" this to 'circle'.
  */
 export const CommentDependabot = () => (
   <Variant label="Dependabot comment">
     <CommentCard
       authorName="dependabot"
       avatarSrc={DEPENDABOT_AVATAR}
+      // Square: github.com renders Dependabot's avatar square by account type; also
+      // consistent with the square dependabot avatar on the badge-row surface (#8071).
       avatarShape="square"
       badgeLabel="bot"
       badgeAriaLabel="This comment was posted by a bot."
