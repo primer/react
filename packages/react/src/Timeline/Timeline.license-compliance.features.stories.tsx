@@ -113,13 +113,16 @@ const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/hubot'
 
 /**
  * User actor — live `TimelineEventWithActor` (`events/shared.tsx`). Renders a
- * 20px CIRCLE `GitHubAvatar` followed by the login. Three shapes, all reproduced
- * here so every future group can reuse this helper:
- * - `url` present → a `<Link>` wrapping avatar + login, forced semibold +
- *   default color (`actorLink`); bold weight satisfies `link-in-text-block`.
- * - no `url` → avatar + bold login text (`<strong className="ml-1">`).
- * - `bot` (live: `login.endsWith('[bot]')`) → avatar + bold display login (the
- *   `[bot]` suffix stripped) + a secondary "bot" `Label`.
+ * 20px CIRCLE `GitHubAvatar` followed by the login. Rendered as PLAIN INLINE
+ * elements (avatar with `vertical-align: middle` immediately followed by an
+ * inline `<Link>`/span) — NO `inline-flex` wrapper — so the avatar, login, badge
+ * and trailing summary all sit on one cleanly vertically-centered line, exactly
+ * like the working Issues (#8070) / Dependabot (#8071) rows. Three shapes:
+ * - `url` present → inline `<Link>` login, semibold + `fgColor-default` (the bold
+ *   weight is the non-color differentiator that satisfies `link-in-text-block`).
+ * - no `url` → bold login text.
+ * - `bot` (live: `login.endsWith('[bot]')`) → bold display login (the `[bot]`
+ *   suffix stripped) + a secondary "bot" `Label`.
  */
 const UserActor = ({
   login = 'monalisa',
@@ -135,28 +138,30 @@ const UserActor = ({
   const avatar = <Avatar src={src} size={20} alt="" className={classes.InlineAvatar} />
   if (bot) {
     return (
-      <span className={classes.ActorLink}>
+      <>
         {avatar}
         <span className={classes.ActorName}>{login}</span>
         <Label variant="secondary" className={classes.BotLabel}>
           bot
         </Label>
-      </span>
+      </>
     )
   }
   if (url) {
     return (
-      <Link href={url} className={classes.ActorLink}>
+      <>
         {avatar}
-        {login}
-      </Link>
+        <Link href={url} className={classes.ActorName}>
+          {login}
+        </Link>
+      </>
     )
   }
   return (
-    <span className={classes.ActorLink}>
+    <>
       {avatar}
       <span className={classes.ActorName}>{login}</span>
-    </span>
+    </>
   )
 }
 
