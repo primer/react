@@ -4,9 +4,9 @@ import type {ComponentProps} from '../utils/types'
 import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
 import {
-  CheckCircleIcon,
+  CheckIcon,
+  CommentIcon,
   NoteIcon,
-  PersonIcon,
   ShieldCheckIcon,
   ShieldIcon,
   ShieldSlashIcon,
@@ -105,13 +105,6 @@ const UserActor = () => (
     </Link>
   </>
 )
-
-/**
- * Plain bold actor — for the delegated-closures Dismissal Request / Reviewed
- * events, whose live `*.html.erb` renders the actor as plain bold text with NO
- * avatar and NO profile link (`<strong>…<span>…</span></strong>`).
- */
-const PlainActor = ({login = 'monalisa'}: {login?: string}) => <strong className={classes.PlainActor}>{login}</strong>
 
 // Muted relative timestamp. The Dependabot ERB renders a plain
 // `Primer::Beta::RelativeTime` (no link wrapper) — muted text only, which is a
@@ -605,20 +598,21 @@ export const EventReopened = () => (
  * The Dismissal Request event group — `DepTimeline.eventDismissalRequest`
  * (audit § 5). Part of the org-level delegated-closures system.
  *
- * The Requested / Approved / Denied variants render the actor as PLAIN BOLD TEXT
- * with NO avatar and NO profile link (live `dismissal_requested_component.html.erb`
- * / `dismissal_reviewed_component.html.erb`), with a small octicon badge.
- * Cancelled (`DismissalCancelledComponent`) instead renders the user via
- * `ActorComponent` (circle avatar).
+ * SOURCE OF TRUTH — inline `erb_template` (NOT the dormant sidecar): each
+ * `dismissal_*_component.rb` does `include ViewComponent::InlineTemplate` and
+ * defines an `erb_template`, which is the ACTIVE render; the sibling
+ * `*.html.erb` sidecar is dead code left in the tree. So every variant here
+ * renders the actor via `ActorComponent` (a USER → circle avatar + bold link,
+ * our `UserActor`), with status-driven badges:
+ * - Requested  (`DismissalRequestedComponent`): `comment` icon / `attention`.
+ * - Approved   (`DismissalReviewedComponent`, status approved): `check` / `success`.
+ * - Denied     (`DismissalReviewedComponent`, status rejected): `x` / `danger`.
+ * - Cancelled  (`DismissalCancelledComponent`): `x` / `subtle` (plain default badge).
  *
- * SOURCE-OF-TRUTH UNCERTAINTY: each of these `.rb` components ALSO defines a
- * newer inline `erb_template` (via `ViewComponent::InlineTemplate`) that renders
- * the actor WITH an avatar and uses different badges (`comment`/attention for
- * Requested; dynamic check/x for Reviewed). A ViewComponent can only have one
- * active template, so one path is dormant. We follow the `.html.erb` sidecar /
- * no-avatar rendering here because it matches the v11 audit (the audit author's
- * proxy for what actually renders); the newer inline template may be an
- * in-flight migration. FLAGGED for confirmation against the live site / Figma.
+ * `attention`, `success`, and `danger` are named `TimelineBadgeVariants`, so we
+ * use `variant="…"` directly (no inline `--timelineBadge-bgColor` hook needed).
+ * Optional review/resolution notes render via the shared `NoteComment` sub-row
+ * (the ERB's `note`-octicon `TimelineItem tmp-pl-5 …` block).
  */
 export const EventDismissalRequest = () => (
   <div
@@ -627,71 +621,65 @@ export const EventDismissalRequest = () => (
       if ((e.target as HTMLElement).closest('a')) e.preventDefault()
     }}
   >
-    {/* Dismissal requested — no avatar, plain bold actor */}
+    {/* Dismissal requested — circle user actor, attention/comment badge.
+        (The live ERB also renders optional float-right Review/Deny actions via
+        `DismissalReviewDialogComponent` when `show_dismissal_actions` — those
+        would live in `Timeline.Actions`; omitted here as interactive controls.) */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Dismissal requested</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
-          <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Dismissal requested" />
+          <Timeline.Badge variant="attention">
+            <Octicon icon={CommentIcon} aria-label="Dismissal requested" />
           </Timeline.Badge>
           <Timeline.Body>
-            <PlainActor />
-            <span className={classes.Muted}>requested dismissal</span>
-            <div className={classes.ResolutionLine}>
-              {'Dismiss as: '}
-              <strong>Risk is tolerable</strong>
-              {' • '}
-              <Time date="2022-08-07T13:20:00Z" />
-            </div>
+            <UserActor />
+            {'requested to dismiss this as '}
+            <strong>Tolerable risk</strong> <Time date="2022-08-07T13:20:00Z" />
+            <NoteComment>This dependency is only used in our test tooling, so the risk is acceptable.</NoteComment>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
     </section>
 
-    {/* Dismissal approved — no avatar, optional review comment box */}
+    {/* Dismissal approved — circle user actor, success/check badge */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Dismissal approved</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
-          <Timeline.Badge>
-            <Octicon icon={CheckCircleIcon} aria-label="Dismissal approved" />
+          <Timeline.Badge variant="success">
+            <Octicon icon={CheckIcon} aria-label="Dismissal approved" />
           </Timeline.Badge>
           <Timeline.Body>
-            <PlainActor />
-            <span className={classes.Muted}>approved dismissal request</span>
-            <div className={classes.ResolutionLine}>
-              <Time date="2022-08-08T10:05:00Z" />
-            </div>
-            <div className={classes.ReviewCommentBox}>
-              <div className={classes.ReviewCommentLabel}>Review comment:</div>
-              <div>Confirmed this dependency is dev-only — approving the dismissal.</div>
-            </div>
+            <UserActor />
+            {'approved dismissal '}
+            <Time date="2022-08-08T10:05:00Z" />
+            <NoteComment>Confirmed this dependency is dev-only — approving the dismissal.</NoteComment>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
     </section>
 
-    {/* Dismissal denied — no avatar */}
+    {/* Dismissal denied — circle user actor, danger/x badge */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Dismissal denied</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
-          <Timeline.Badge>
-            <Octicon icon={CheckCircleIcon} aria-label="Dismissal denied" />
+          <Timeline.Badge variant="danger">
+            <Octicon icon={XIcon} aria-label="Dismissal denied" />
           </Timeline.Badge>
           <Timeline.Body>
-            <PlainActor />
-            <span className={classes.Muted}>denied dismissal request</span>
-            <div className={classes.ResolutionLine}>
-              <Time date="2022-08-08T15:40:00Z" />
-            </div>
+            <UserActor />
+            {'denied dismissal '}
+            <Time date="2022-08-08T15:40:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
     </section>
 
-    {/* Dismissal cancelled — user actor via ActorComponent (circle avatar) */}
+    {/* Dismissal cancelled — circle user actor, plain default (subtle) x badge.
+        `DismissalCancelledComponent` renders `with_badge(color: :subtle, icon:
+        "x")` (no bg) → a bare default badge, not a danger/emphasis one. */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Dismissal cancelled</h3>
       <Timeline aria-label="Dependabot alert timeline">
