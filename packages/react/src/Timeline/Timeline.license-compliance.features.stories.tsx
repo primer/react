@@ -117,30 +117,28 @@ const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/hubot'
  * elements (avatar with `vertical-align: middle` immediately followed by an
  * inline `<Link>`/span) — NO `inline-flex` wrapper — so the avatar, login, badge
  * and trailing summary all sit on one cleanly vertically-centered line, exactly
- * like the working Issues (#8070) / Dependabot (#8071) rows. Three shapes:
- * - `url` present → inline `<Link>` login, semibold + `fgColor-default` (the bold
- *   weight is the non-color differentiator that satisfies `link-in-text-block`).
- * - no `url` → bold login text.
- * - `bot` (live: `login.endsWith('[bot]')`) → bold display login (the `[bot]`
- *   suffix stripped) + a secondary "bot" `Label`.
+ * like the working Issues (#8070) / Dependabot (#8071) rows. The shape is derived
+ * from the login, matching live `shared.tsx`:
+ * - login ends with `[bot]` → the suffix is stripped and the (UNLINKED) display
+ *   login renders bold + a secondary "bot" `Label` (live ignores `url` for bots).
+ * - otherwise `url` present → inline `<Link>` login, semibold + `fgColor-default`
+ *   (the bold weight is the non-color differentiator that satisfies
+ *   `link-in-text-block`).
+ * - otherwise → bold login text.
  */
-const UserActor = ({
-  login = 'monalisa',
-  src = MONALISA_AVATAR,
-  url,
-  bot = false,
-}: {
-  login?: string
-  src?: string
-  url?: string
-  bot?: boolean
-}) => {
+const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR, url}: {login?: string; src?: string; url?: string}) => {
+  // Derive the bot shape from the login itself, exactly like live `shared.tsx`
+  // (`isBot = login.endsWith('[bot]')`, with the suffix stripped for display).
+  const isBot = login.endsWith('[bot]')
+  const displayLogin = isBot ? login.replace(/\[bot\]$/i, '') : login
   const avatar = <Avatar src={src} size={20} alt="" className={classes.InlineAvatar} />
-  if (bot) {
+  if (isBot) {
+    // Live renders bots UNLINKED (the bot branch ignores `actor.url`): avatar +
+    // bold display login + a secondary "bot" Label.
     return (
       <>
         {avatar}
-        <span className={classes.ActorName}>{login}</span>
+        <span className={classes.ActorName}>{displayLogin}</span>
         <Label variant="secondary" className={classes.BotLabel}>
           bot
         </Label>
@@ -152,7 +150,7 @@ const UserActor = ({
       <>
         {avatar}
         <Link href={url} className={classes.ActorName}>
-          {login}
+          {displayLogin}
         </Link>
       </>
     )
@@ -160,7 +158,7 @@ const UserActor = ({
   return (
     <>
       {avatar}
-      <span className={classes.ActorName}>{login}</span>
+      <span className={classes.ActorName}>{displayLogin}</span>
     </>
   )
 }
@@ -218,6 +216,24 @@ const PolicyLink = ({href = '../../settings/security_analysis'}: {href?: string}
   </Link>
 )
 
+/**
+ * Story-only wrapper around each group's examples. Besides constraining the
+ * width (`.RealisticTimeline`), it swallows clicks on the demo links (actor
+ * profile, PR, license-policy) so navigating one of these placeholder `href`s
+ * doesn't kick the viewer out of the Storybook UI — the same guard the base
+ * `Timeline.features.stories.tsx` `WithActions` story uses.
+ */
+const Examples = ({children}: {children: React.ReactNode}) => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {children}
+  </div>
+)
+
 export default {
   title: 'Components/Timeline/Events/License Compliance',
   component: Timeline,
@@ -263,7 +279,7 @@ export default {
  * document the resolved actor question.
  */
 export const EventOpened = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Opened by a user — linked actor (20px avatar + semibold login), ShieldIcon
         on success (green). */}
     <section className={classes.Variant}>
@@ -292,13 +308,13 @@ export const EventOpened = () => (
             <Octicon icon={ShieldIcon} aria-label="Opened" />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="dependabot" src={DEPENDABOT_AVATAR} bot />{' '}
+            <UserActor login="dependabot[bot]" src={DEPENDABOT_AVATAR} />{' '}
             <span className={classes.ActionText}>opened this alert</span> <Time date="2025-10-20T09:30:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -317,7 +333,7 @@ export const EventOpened = () => (
  * here. Single variant: the branch-name pill.
  */
 export const EventAppearedInBranch = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Appeared in branch — actor-less, GitBranchIcon on the default (gray)
         badge, with a BranchName pill. PR sub-row is dormant (see group doc). */}
     <section className={classes.Variant}>
@@ -335,7 +351,7 @@ export const EventAppearedInBranch = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -354,7 +370,7 @@ export const EventAppearedInBranch = () => (
  * slot (the established template convention).
  */
 export const EventReviewRequested = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Requested to close — no reason, no PR, no comment */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Requested to close</h3>
@@ -411,7 +427,7 @@ export const EventReviewRequested = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -423,7 +439,7 @@ export const EventReviewRequested = () => (
  * request", with an optional `EventComment` sub-row.
  */
 export const EventReviewApproved = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Approved closure request */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Approved closure request</h3>
@@ -456,7 +472,7 @@ export const EventReviewApproved = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -467,7 +483,7 @@ export const EventReviewApproved = () => (
  * with an optional `EventComment` sub-row.
  */
 export const EventReviewDenied = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Denied closure request */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Denied closure request</h3>
@@ -500,7 +516,7 @@ export const EventReviewDenied = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -514,7 +530,7 @@ export const EventReviewDenied = () => (
  * sub-row. Single variant.
  */
 export const EventReviewExpired = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Request to close expired — actor-less (automatic expiry) */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Request to close expired</h3>
@@ -529,7 +545,7 @@ export const EventReviewExpired = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -543,7 +559,7 @@ export const EventReviewExpired = () => (
  * known) " for {repo}". Otherwise it falls back to "created exception".
  */
 export const EventExceptionAdded = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Full shape — package + policy link + repo name */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Added a package exception to the license policy</h3>
@@ -578,7 +594,7 @@ export const EventExceptionAdded = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -591,7 +607,7 @@ export const EventExceptionAdded = () => (
  * known) " for {repo}". Otherwise it falls back to "added to approved licenses".
  */
 export const EventLicensesAdded = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Full shape — licenses list + policy link + repo name */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Added licenses to the license policy</h3>
@@ -626,7 +642,7 @@ export const EventLicensesAdded = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -644,7 +660,7 @@ export const EventLicensesAdded = () => (
  * An optional `EventComment` sub-row renders a closing comment.
  */
 export const EventClosed = () => (
-  <div className={classes.RealisticTimeline}>
+  <Examples>
     {/* Closed as {free-text reason}, with a closing comment */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Closed as a specific reason (with comment)</h3>
@@ -709,5 +725,5 @@ export const EventClosed = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
