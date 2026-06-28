@@ -650,7 +650,9 @@ export const EventDismissalRequest = () => (
             <NoteComment>This dependency is only used in our test tooling, so the risk is acceptable.</NoteComment>
           </Timeline.Body>
           <Timeline.Actions>
-            <Button size="small">Review request</Button>
+            <Button variant="primary" size="small">
+              Review request
+            </Button>
           </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
