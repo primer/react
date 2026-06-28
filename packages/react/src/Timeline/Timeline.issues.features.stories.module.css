@@ -29,11 +29,17 @@
   color: var(--fgColor-default);
 }
 
-/* Story-only scaffolding: a small caption per Timeline.Item so the variants
-   can be scanned like a Figma component set. Not part of the faithful event. */
+/* Story-only scaffolding: each variant is wrapped in its own <section> with a
+   small caption heading ABOVE the event, so the event row itself (badge +
+   inline avatar + body) renders exactly as it would in product — the caption
+   never sits inside Timeline.Body. Variants stay scannable like a Figma
+   component set. Not part of the faithful event. */
+.Variant {
+  margin-bottom: var(--base-size-24);
+}
+
 .VariantLabel {
-  display: block;
-  margin-bottom: var(--base-size-4);
+  margin: 0 0 var(--base-size-4);
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-muted);
@@ -102,12 +108,15 @@
   margin: 0 var(--base-size-4);
 }
 
-/* Simplified commit-reference card (github-ui's `ReferencedEventInner`): a
-   bordered row with a monospace commit message link and a trailing SHA. */
+/* Commit reference (github-ui's `ReferencedEventInner`): NOT a bordered card on
+   live GitHub — `.referencedCommitContainer` is a plain flex column (`gap: 2px`)
+   with the monospace message on the left and the SHA on the right. Mirror that:
+   no border, no card background, no row dividers. */
 .CommitRefBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-4);
   margin-top: var(--base-size-8);
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-radius: var(--borderRadius-medium);
 }
 
 .CommitRefRow {
@@ -115,11 +124,6 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--base-size-8);
-  padding: var(--base-size-8) var(--base-size-12);
-}
-
-.CommitRefRow + .CommitRefRow {
-  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
 }
 
 .CommitRefMessage {
@@ -134,22 +138,18 @@
 }
 
 /* Secondary reference list (github-ui Hierarchy/Dependency events render the
-   linked issues in a bordered `<ul>` Box below the main copy). Single vs
+   linked issues below the main copy). On live GitHub these are PLAIN, lightly
+   indented rows — state octicon + bold title + muted #number per line — with no
+   surrounding border, no card background, and no row dividers. Single vs
    multiple differ only by item count + singular/plural leading copy. */
 .RefList {
   margin-top: var(--base-size-8);
-  padding: 0;
+  padding-left: var(--base-size-4);
   list-style: none;
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-radius: var(--borderRadius-medium);
-}
-
-.RefListItem {
-  padding: var(--base-size-8) var(--base-size-12);
 }
 
 .RefListItem + .RefListItem {
-  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+  margin-top: var(--base-size-4);
 }
 
 /* IssueField event: the field name reads as semibold inline text, the value as
