@@ -89,7 +89,7 @@ const Time = ({date}: {date: string}) => (
 )
 
 export default {
-  title: 'Components/Timeline/Issues Features',
+  title: 'Components/Timeline/Events/Issues',
   component: Timeline,
   subcomponents: {
     'Timeline.Item': Timeline.Item,
