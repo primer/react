@@ -58,10 +58,15 @@
   color: var(--fgColor-muted);
 }
 
-/* Push-pill: the `(push-pill: SHA)` blue rounded pill from `PushLinkComponent`
-   (`<code>` wrapping `Primer::Beta::Link` with `bg: :accent, px: 2, py: 1,
-   border_radius: 3`). Primer `Link`'s own color rule is `:where(.Link)` (zero
-   specificity), so this CSS-module class fully drives the pill appearance. */
+/* Push-pill: the `(push-pill: SHA)` SUBTLE light-blue rounded pill from
+   `PushLinkComponent` (`<code>` wrapping `Primer::Beta::Link` with
+   `bg: :accent, px: 2, py: 1, border_radius: 3`). In primer/view_components
+   `bg: :accent` resolves to `.color-bg-accent` = the SUBTLE/MUTED light-blue
+   background (`--color-accent-subtle`), NOT the solid emphasis blue — so the
+   text stays accent-blue (the Link's default color), not white. This is the
+   standard GitHub SHA push-pill look. Primer `Link`'s own color rule is
+   `:where(.Link)` (zero specificity), so this CSS-module class fully drives the
+   pill appearance. */
 .PushPill {
   /* The wrapping <code> element — no own box, the inner link is the pill. */
   font-family: var(--fontStack-monospace);
@@ -71,8 +76,8 @@
   display: inline-block;
   font-family: var(--fontStack-monospace);
   font-size: var(--text-body-size-small);
-  color: var(--fgColor-onEmphasis);
-  background-color: var(--bgColor-accent-emphasis);
+  color: var(--fgColor-accent);
+  background-color: var(--bgColor-accent-muted);
   padding: var(--base-size-2) var(--base-size-4);
   border-radius: var(--borderRadius-medium);
   text-decoration: none;
@@ -80,4 +85,59 @@
 
 .PushPillLink:hover {
   text-decoration: none;
+}
+
+/* Plain bold actor (no avatar, no link) for the delegated-closures Dismissal
+   Request / Reviewed events, whose live `*.html.erb` renders the actor as
+   `<strong><span>{login}</span></strong>`. */
+.PlainActor {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+}
+
+/* Muted inline copy — e.g. "requested dismissal" / "approved dismissal request"
+   verb phrases that the ERB wraps in `color-fg-muted`. */
+.Muted {
+  color: var(--fgColor-muted);
+}
+
+/* Second line of the Dismissal Requested event: muted "Dismiss as: {resolution}"
+   (`mt-1` in the ERB). */
+.ResolutionLine {
+  margin-top: var(--base-size-4);
+  color: var(--fgColor-muted);
+}
+
+/* Optional dismissal/auto sub-content row. Live ERB renders a
+   `<div class="TimelineItem tmp-pl-5 pt-0 f6 d-block">` (small, indented block
+   below the event) holding a `note` octicon + the comment text. */
+.NoteComment {
+  margin-top: var(--base-size-8);
+  padding-left: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.NoteIcon {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+  color: var(--fgColor-muted);
+}
+
+/* Dismissal Reviewed (Approved / Denied) optional review comment. Live ERB
+   renders a bordered subtle box (`mt-2 p-2 border rounded-2 color-bg-subtle`)
+   with a "Review comment:" label and a `markdown-body` body. */
+.ReviewCommentBox {
+  margin-top: var(--base-size-8);
+  padding: var(--base-size-8);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-muted);
+  font-size: var(--text-body-size-small);
+}
+
+.ReviewCommentLabel {
+  margin-bottom: var(--base-size-4);
+  color: var(--fgColor-muted);
 }
