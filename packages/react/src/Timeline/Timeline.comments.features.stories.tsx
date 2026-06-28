@@ -233,7 +233,7 @@ export const EventComment = () => (
     className={classes.RealisticTimeline}
     // Prevent the placeholder `href="#"` links from navigating inside Storybook.
     onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
     }}
   >
     {/* Standard USER comment: circular photo avatar, the "Author" subject-author badge
