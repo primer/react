@@ -4,7 +4,7 @@ import {clsx} from 'clsx'
 import type {ComponentProps} from '../utils/types'
 import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
-import {CopilotIcon, KebabHorizontalIcon, SmileyIcon} from '@primer/octicons-react'
+import {CopilotIcon, DependabotIcon, KebabHorizontalIcon, SmileyIcon} from '@primer/octicons-react'
 import Avatar from '../Avatar'
 import {IconButton} from '../Button'
 import Label from '../Label'
@@ -53,25 +53,23 @@ import classes from './Timeline.comments.features.stories.module.css'
  * - via-app: the timestamp line gets a " – with {app}" suffix, the app name an
  *   `inline` (underlined) `Link` — see the via-app section.
  *
- * AVATAR SHAPE (resolved decision):
- * - Users render a CIRCLE photo avatar.
- * - Copilot renders an OCTICON avatar: a muted `CopilotIcon` inside a 40px circle
- *   (see `avatarIcon` on `CommentCard`). Our earlier "square Copilot" note referred to
- *   the live 24px header avatar; the 40px gutter avatar here is the octicon.
- * - Generic bots and Dependabot render a SQUARE photo avatar. Source-of-truth
- *   precedence is "what renders on github.com" > literal component behavior: bot/app
- *   accounts (github-actions, Dependabot) have square avatars by ACCOUNT TYPE, set
- *   upstream of the comment component, so the live result is square. The React
- *   `ActivityHeader` only FORCES `square={isCopilot}`, which avoids overriding an
- *   already-square bot avatar; it does NOT make bots render circular. Square also keeps
- *   Dependabot consistent with the shipped Dependabot badge-row surface (#8071). (The
- *   Dependabot avatar may switch to an octicon pending a forthcoming Figma spec.)
+ * AVATAR SHAPE (resolved matrix):
+ * - Users → CIRCLE photo avatar.
+ * - Bot (github-actions) → SQUARE photo avatar. Source-of-truth precedence is "what
+ *   renders on github.com" > literal component behavior: bot/app accounts have square
+ *   avatars by ACCOUNT TYPE, set upstream of the comment component, so the live result
+ *   is square. The React `ActivityHeader` only FORCES `square={isCopilot}`, which
+ *   avoids overriding an already-square bot avatar; it does NOT make bots circular.
+ * - Copilot → OCTICON avatar: a muted `CopilotIcon` in a 40px CIRCLE with a subtle
+ *   muted background (audit "Copilot = octicon avatar"). The earlier "square Copilot"
+ *   note referred to the live 24px header avatar, not this 40px gutter avatar.
+ * - Dependabot → OCTICON avatar (per Figma spec): a white `DependabotIcon` in a 40px
+ *   ROUNDED-SQUARE with an accent-blue background — the clean Dependabot brand avatar.
+ *   `bgColor-accent-emphasis` is the closest Primer token to the Dependabot brand blue.
+ *   (Replaces the old photo URL, which rendered an off-brand hexagonal design.)
  */
 
 const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
-// dependabot[bot] (u/27347476) — same public avatar used on the Dependabot badge-row
-// surface, kept for cross-surface consistency.
-const DEPENDABOT_AVATAR = 'https://avatars.githubusercontent.com/u/27347476?v=4'
 // github-actions[bot] (u/44036562) — a representative generic GitHub App bot.
 const GITHUB_ACTIONS_AVATAR = 'https://avatars.githubusercontent.com/u/44036562?v=4'
 
@@ -84,10 +82,14 @@ type CommentCardProps = {
   /** Circle for users; square for bots/Dependabot photo avatars. Ignored when `avatarIcon` is set. */
   avatarShape?: 'circle' | 'square'
   /**
-   * Octicon avatar mode: render this icon inside a 40px muted circle instead of a
-   * photo `Avatar` (used for Copilot — audit "Copilot = octicon avatar").
+   * Octicon avatar mode: render this icon inside a 40px container instead of a photo
+   * `Avatar` (Copilot, Dependabot). Pair with `avatarIconShape` / `avatarIconTone`.
    */
   avatarIcon?: React.ElementType
+  /** Octicon-avatar container shape (default 'circle'; 'square' for Dependabot). */
+  avatarIconShape?: 'circle' | 'square'
+  /** Octicon-avatar tone: 'muted' (subtle gray, Copilot) or 'accent' (blue + white icon, Dependabot). */
+  avatarIconTone?: 'muted' | 'accent'
   /** "Author"/"Member"/"Owner"/… subject-author or association badge (variant secondary). */
   associationLabel?: string
   associationAriaLabel?: string
@@ -121,6 +123,8 @@ const CommentCard = ({
   avatarSrc,
   avatarShape = 'circle',
   avatarIcon: AvatarIcon,
+  avatarIconShape = 'circle',
+  avatarIconTone = 'muted',
   associationLabel,
   associationAriaLabel,
   badgeLabel,
@@ -135,7 +139,13 @@ const CommentCard = ({
     {!isReply && (
       <Timeline.Avatar className={classes.GutterAvatar}>
         {AvatarIcon ? (
-          <span className={classes.OcticonAvatar}>
+          <span
+            className={clsx(
+              classes.OcticonAvatar,
+              avatarIconShape === 'square' && classes.OcticonAvatarSquare,
+              avatarIconTone === 'accent' && classes.OcticonAvatarAccent,
+            )}
+          >
             <AvatarIcon size={24} />
           </span>
         ) : (
@@ -295,12 +305,12 @@ export const EventComment = () => (
     <CommentSection label="Dependabot comment">
       <CommentCard
         authorName="dependabot"
-        avatarSrc={DEPENDABOT_AVATAR}
-        // Square: github.com renders Dependabot's avatar square by account type; also
-        // consistent with the square dependabot avatar on the badge-row surface (#8071).
-        // (May switch to an octicon avatar pending a forthcoming Figma spec.) Do NOT
-        // "fix" to 'circle'.
-        avatarShape="square"
+        // Octicon avatar per Figma spec: white DependabotIcon on an accent-blue rounded
+        // square — the clean Dependabot brand avatar. accent-emphasis approximates the
+        // Dependabot brand blue; replaces the off-brand hexagonal photo (u/27347476).
+        avatarIcon={DependabotIcon}
+        avatarIconShape="square"
+        avatarIconTone="accent"
         badgeLabel="bot"
         badgeAriaLabel="This comment was posted by a bot."
         timestamp="2022-07-26T12:18:00Z"
