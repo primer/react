@@ -69,3 +69,39 @@
 .Timestamp {
   color: var(--fgColor-muted);
 }
+
+/* Comment sub-row — live `EventComment` (`events/shared.tsx`) renders a
+   `Stack` (mt-1) with a 16px muted `NoteIcon` + an `f6` muted comment span. */
+.CommentRow {
+  display: flex;
+  align-items: center;
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.CommentRowIcon {
+  margin-right: var(--base-size-8);
+  color: var(--fgColor-muted);
+}
+
+/* PR-link sub-row — live `PullRequestLink` (`events/shared.tsx`) renders a 16px
+   success-green `GitPullRequestIcon` + an `f6` `<Link>`. */
+.PrRow {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+}
+
+.PrIcon {
+  margin-right: var(--base-size-8);
+  color: var(--fgColor-success);
+}
+
+/* Sub-row link forced to the default foreground color, matching live
+   `defaultColorLink`. Rendered with the `inline` prop (underline) at the call
+   site so it stays distinguishable for the axe `link-in-text-block` rule. */
+.SubRowLink {
+  color: var(--fgColor-default) !important;
+}
