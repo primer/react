@@ -1,0 +1,172 @@
+.RealisticTimeline {
+  /* GitHub renders the timeline at most 1012px wide in product surfaces. The
+     comment card sits in the same rail as badge-row events, with the 40px actor
+     avatar in the left gutter, so reserve that gutter and cap the width to match. */
+  max-width: 1012px;
+  padding-left: calc(var(--base-size-40) + var(--base-size-32));
+}
+
+/* Story-only scaffolding: each variant is wrapped in its own <section> with a
+   small caption heading ABOVE the card, mirroring the badge-row Issue stories so
+   the card itself renders exactly as it would in product. Not part of the card. */
+.Variant {
+  margin-bottom: var(--base-size-24);
+}
+
+.VariantLabel {
+  margin: 0 0 var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* The bordered comment card. Mirrors GitHub's `.timeline-comment` shell: a
+   1px-bordered, rounded box that the gutter avatar's speech-bubble caret points
+   at. There is no Primer comment primitive, so the box is composed directly. */
+.Card {
+  position: relative;
+  flex: auto;
+  min-width: 0;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+}
+
+/* Speech-bubble caret pointing from the card's left edge toward the gutter
+   avatar, recreated with the classic two-triangle border trick (outer border
+   triangle + inner background triangle). The border declarations below describe
+   triangle GEOMETRY, not a real border, so the raw px/color values are
+   intentional and the primer size/border/color rules are disabled for them. */
+/* stylelint-disable primer/spacing, primer/borders, primer/colors -- CSS triangle geometry, not a real border */
+.Card::before {
+  position: absolute;
+  top: 12px;
+  left: -8px;
+  display: block;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid var(--borderColor-default);
+}
+
+.Card::after {
+  position: absolute;
+  top: 13px;
+  left: -7px;
+  display: block;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid var(--bgColor-muted);
+}
+/* stylelint-enable primer/spacing, primer/borders, primer/colors */
+
+/* Header bar: muted background, bottom divider, rounded top corners — matches
+   github-ui's `ActivityHeader` `containerBase`. Holds the author identity row on
+   the left and the actions affordance on the right. */
+.CardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  padding: var(--base-size-8) var(--base-size-16);
+  background-color: var(--bgColor-muted);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-top-left-radius: var(--borderRadius-medium);
+  border-top-right-radius: var(--borderRadius-medium);
+}
+
+.HeaderText {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--base-size-4);
+  min-width: 0;
+  flex: auto;
+}
+
+/* Bold author link. Bold weight (not just muted color) keeps the in-text link
+   above the high-contrast axe threshold per the a11y in-text-link rule. */
+.AuthorLink {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+.AuthorLink:hover {
+  color: var(--fgColor-accent);
+}
+
+/* Muted, underlined relative-time permalink. The underline keeps this muted
+   in-text link high-contrast accessible (matches the badge-row `.Timestamp`). */
+.Timestamp {
+  text-decoration: underline;
+}
+
+.CardActions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Body: the rendered markdown. Padding mirrors github-ui's `IssueCommentBody`
+   (16px around the content). */
+.CardBody {
+  padding: var(--base-size-16);
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-default);
+}
+
+.CardBody p {
+  margin: 0;
+}
+
+.CardBody p:not(:first-child) {
+  margin-top: var(--base-size-8);
+}
+
+.CardBody code {
+  padding: var(--base-size-2) var(--base-size-4);
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  background-color: var(--bgColor-neutral-muted);
+  border-radius: var(--borderRadius-medium);
+}
+
+/* Reactions row below the body, separated by a divider — mirrors the reaction
+   bar GitHub renders under a comment. Each reaction is a small pill. */
+.Reactions {
+  display: flex;
+  gap: var(--base-size-8);
+  padding: var(--base-size-8) var(--base-size-16);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.Reaction {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  padding: 0 var(--base-size-8);
+  height: var(--base-size-24);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  background-color: var(--bgColor-muted);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-full);
+  cursor: pointer;
+}
+
+.Reaction:hover {
+  background-color: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+}
+
+.ReactionCount {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
