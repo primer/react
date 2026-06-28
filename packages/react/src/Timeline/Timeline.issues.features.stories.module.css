@@ -72,18 +72,12 @@
   color: var(--fgColor-muted);
 }
 
-.ProjectIcon {
-  vertical-align: middle;
-  margin-right: var(--base-size-4);
-  color: var(--fgColor-muted);
-}
-
-/* Issue-version ProjectV2 reference (github-ui `ProjectV2.tsx`): an inline
-   default-colored TableIcon octicon followed by a regular-weight, default-color
-   link. The underline comes from the Link `inline` prop (always-on underline,
-   which also satisfies the high-contrast a11y rule). Mirrors live
-   `.projectLink { color: var(--fgColor-default) }`. NOTE: the PR (ERB) surface
-   renders this differently — see the EventProject group comment. */
+/* Issue-version ProjectV2 reference (github-ui `ProjectV2.tsx` + `ClosedEvent.tsx`):
+   an inline default-colored TableIcon octicon followed by a default-color link
+   (`.ProjectRefLink`). The underline comes from the Link `inline` prop (always-on
+   underline, which also satisfies the high-contrast a11y rule). Mirrors live
+   `.projectLink`/`.stateReasonLink` (both `color: var(--fgColor-default)`). NOTE:
+   the PR (ERB) surface renders this differently — see the EventProject group. */
 .ProjectRefIcon {
   vertical-align: middle;
   margin-right: var(--base-size-4);
