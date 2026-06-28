@@ -1,0 +1,165 @@
+.RealisticTimeline {
+  /* GitHub renders the timeline at most 1012px wide in product surfaces. */
+  max-width: 1012px;
+}
+
+.LinkWithBoldStyle {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+}
+
+.LinkWithBoldStyle:hover {
+  color: var(--fgColor-accent);
+}
+
+.InlineAvatar {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+.Timestamp {
+  text-decoration: underline;
+}
+
+.CommitSha {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+/* Story-only scaffolding: a small caption per Timeline.Item so the variants
+   can be scanned like a Figma component set. Not part of the faithful event. */
+.VariantLabel {
+  display: block;
+  margin-bottom: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* IssueLink-style inline reference: state octicon + bold title + muted number. */
+.IssueLink {
+  color: var(--fgColor-default);
+  text-decoration: none;
+}
+
+.IssueLink:hover {
+  color: var(--fgColor-accent);
+  text-decoration: underline;
+}
+
+.IssueLinkIcon {
+  color: var(--fgColor-done);
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+.IssueLinkTitle {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.IssueLinkNumber {
+  color: var(--fgColor-muted);
+}
+
+.ProjectIcon {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+  color: var(--fgColor-muted);
+}
+
+/* Open (green) state icon variant for IssueLink references that point at an
+   open issue/PR (e.g. the canonical issue in a "marked as duplicate of" row). */
+.IssueLinkIconOpen {
+  color: var(--fgColor-open);
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+/* Inline pull-request state icon rendered in the body text (References group),
+   mirroring github-ui's `sourceIcon('PullRequest', ...)` open-state coloring. */
+.PrStateIcon {
+  color: var(--fgColor-open);
+  vertical-align: middle;
+  margin: 0 var(--base-size-4);
+}
+
+/* Open (green) badge icon, used when the badge icon itself is a PR state icon
+   (References "removed a link to a pull request" → `leadingIcon={PullStateIcon}`). */
+.BadgeIconOpen {
+  color: var(--fgColor-open);
+}
+
+/* Wrapper around a colored issue-type Token so it sits inline with the copy,
+   matching github-ui's `IssueTypeEvent.module.css` `issueTypeTokenWrapper`. */
+.TokenWrapper {
+  display: inline-flex;
+  vertical-align: middle;
+  margin: 0 var(--base-size-4);
+}
+
+/* Simplified commit-reference card (github-ui's `ReferencedEventInner`): a
+   bordered row with a monospace commit message link and a trailing SHA. */
+.CommitRefBox {
+  margin-top: var(--base-size-8);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.CommitRefRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-8);
+  padding: var(--base-size-8) var(--base-size-12);
+}
+
+.CommitRefRow + .CommitRefRow {
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.CommitRefMessage {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+.CommitRefOid {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+/* Secondary reference list (github-ui Hierarchy/Dependency events render the
+   linked issues in a bordered `<ul>` Box below the main copy). Single vs
+   multiple differ only by item count + singular/plural leading copy. */
+.RefList {
+  margin-top: var(--base-size-8);
+  padding: 0;
+  list-style: none;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.RefListItem {
+  padding: var(--base-size-8) var(--base-size-12);
+}
+
+.RefListItem + .RefListItem {
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+/* IssueField event: the field name reads as semibold inline text, the value as
+   an inline link (github-ui's `IssueFieldEvent` `issueFieldTokenWrapper`). */
+.FieldName {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin: 0 var(--base-size-4);
+}
+
+.FieldValue {
+  margin-left: var(--base-size-4);
+}
