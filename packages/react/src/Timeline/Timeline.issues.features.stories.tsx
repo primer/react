@@ -43,6 +43,13 @@ import classes from './Timeline.issues.features.stories.module.css'
  * (`issue-timeline-events-for-figma.md`) and verified against the live React
  * implementation in `github/github-ui` (`packages/timeline-items`).
  *
+ * SCOPE: These are Storybook-only examples by design. They are intentionally
+ * NOT wired into components-json / the primer.style docs page (do NOT add this
+ * file to `Timeline.docs.json` or `build.ts`). Individual timeline events are not
+ * consumer-facing components — the primer.style Timeline page reflects the base
+ * `Timeline` component's own stories, and any docs-site representation is a
+ * Phase 3 consideration via base-component story changes, out of scope here.
+ *
  * FUTURE FILTERING (taxonomy still open — github/primer#6663): category
  * `data-*` attributes (e.g. `data-event-category="closed"`) will attach to each
  * `Timeline.Item` below so stories can be filtered/grouped by event family. We
