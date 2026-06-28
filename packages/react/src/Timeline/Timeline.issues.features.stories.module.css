@@ -127,8 +127,9 @@
 }
 
 .CommitRefMessage {
+  font-family: var(--fontStack-monospace);
   font-size: var(--text-body-size-small);
-  color: var(--fgColor-default);
+  color: var(--fgColor-muted);
 }
 
 .CommitRefOid {
