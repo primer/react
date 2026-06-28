@@ -194,9 +194,10 @@
   color: var(--fgColor-default);
 }
 
-/* Octicon avatar mode (e.g. Copilot): a 40px CIRCLE with a subtle muted background
-   and a centered muted octicon, used where the actor is represented by an icon
-   rather than a photo. Sits in the same gutter slot as the photo avatar. */
+/* Octicon avatar mode: a 40px container with a centered octicon, used where the
+   actor is represented by an icon rather than a photo. Base = CIRCLE + subtle muted
+   background + muted icon (e.g. Copilot). Sits in the same gutter slot as the photo
+   avatar. Shape/tone modifiers below cover the other presets. */
 .OcticonAvatar {
   display: flex;
   align-items: center;
@@ -207,6 +208,19 @@
   background-color: var(--bgColor-muted);
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-full);
+}
+
+/* Rounded-square variant (e.g. Dependabot), matching the brand avatar shape. */
+.OcticonAvatarSquare {
+  border-radius: var(--borderRadius-medium);
+}
+
+/* Accent (blue) tone with a white icon — approximates the Dependabot brand-blue
+   avatar (accent-emphasis is the closest Primer token to the Dependabot blue). */
+.OcticonAvatarAccent {
+  color: var(--fgColor-onEmphasis);
+  background-color: var(--bgColor-accent-emphasis);
+  border-color: var(--borderColor-accent-emphasis);
 }
 
 /* Threaded reply (wired for the deferred reply stories): the nested card drops its
