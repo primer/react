@@ -3,7 +3,19 @@ import type React from 'react'
 import type {ComponentProps} from '../utils/types'
 import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
-import {GitBranchIcon, ShieldIcon} from '@primer/octicons-react'
+import {
+  CheckIcon,
+  CommentIcon,
+  DotFillIcon,
+  GitBranchIcon,
+  NoteIcon,
+  ShieldCheckIcon,
+  ShieldIcon,
+  ShieldXIcon,
+  XIcon,
+} from '@primer/octicons-react'
+import Avatar from '../Avatar'
+import {Button} from '../Button'
 import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
@@ -113,6 +125,28 @@ import classes from './Timeline.code-scanning.features.stories.module.css'
  */
 const Ref = ({name}: {name: string}) => <span className={classes.RefName}>{name}</span>
 
+const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
+
+/**
+ * User actor — live `profile_link(user, scheme: :primary, font_weight: :bold,
+ * class: "Link--primary text-bold")` wrapping `Primer::Beta::Avatar` +
+ * `display_login`: a CIRCLE avatar + bold login profile link. Used by every
+ * USER event (Closed by user, Reopened, both Dismissal events).
+ *
+ * a11y: this IS a real link, so to satisfy the axe `link-in-text-block` rule the
+ * bold weight is the non-color differentiator (matching the live `text-bold` and
+ * the Dependabot / Issues precedent — bold in-text links pass; only non-bold
+ * ones need `inline`).
+ */
+const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR}: {login?: string; src?: string}) => (
+  <>
+    <Avatar src={src} size={20} alt="" className={classes.InlineAvatar} />
+    <Link href="#" className={classes.LinkWithBoldStyle} muted>
+      {login}
+    </Link>
+  </>
+)
+
 // Muted relative timestamp. The shared `timeline_item_component` renders a plain
 // `time_ago_in_words_js` (no link wrapper) — muted text only.
 const Time = ({date}: {date: string}) => (
@@ -122,16 +156,21 @@ const Time = ({date}: {date: string}) => (
 )
 
 /**
+ * Subtle gray monospace pill — live `Primer::Beta::Truncate.new(bg: :subtle,
+ * font_family: :mono, font_size: 6, border_radius: 1)`. Used both inline mid-copy
+ * (the Config-deleted `{category}`) and after "in configuration" (`ConfigPill`).
+ */
+const MonoPill = ({children}: {children: React.ReactNode}) => <span className={classes.ConfigPill}>{children}</span>
+
+/**
  * "in configuration {category}" inline pill — live `show_analysis_origin?` rows
- * render `Primer::Beta::Truncate.new(bg: :subtle, font_family: :mono,
- * font_size: 6, border_radius: 1)`: a subtle gray monospace rounded pill. Only
- * shown when the alert has more than one analysis category
- * (`has_more_than_one_category?`).
+ * render the `MonoPill` after the literal " in configuration". Only shown when
+ * the alert has more than one analysis category (`has_more_than_one_category?`).
  */
 const ConfigPill = ({category}: {category: string}) => (
   <>
     {' in configuration'}
-    <span className={classes.ConfigPill}>{category}</span>
+    <MonoPill>{category}</MonoPill>
   </>
 )
 
@@ -143,6 +182,19 @@ const ConfigPill = ({category}: {category: string}) => (
  * `Timeline.Body` rather than a badge-less Timeline.Item.
  */
 const SubRow = ({children}: {children: React.ReactNode}) => <div className={classes.SubRow}>{children}</div>
+
+/**
+ * Note sub-row — live `show_resolution_note?` / `show_reviewer_comment?` render a
+ * condensed row with a `note` octicon + the comment text below the event. Used
+ * by Closed-by-user / Dismissal-requested (`resolution_note`) and
+ * Dismissal-reviewed (`reviewer_comment`).
+ */
+const NoteSubRow = ({children}: {children: React.ReactNode}) => (
+  <SubRow>
+    <Octicon icon={NoteIcon} size={16} className={classes.SubRowIcon} />
+    {children}
+  </SubRow>
+)
 
 export default {
   title: 'Components/Timeline/Events/Code Scanning',
@@ -269,6 +321,322 @@ export const EventDetected = () => (
             <span className={classes.BoldBody}>Reappeared in branch</span> <Ref name="main" />
             <ConfigPill category="rust" />
             <Time date="2024-01-10T14:05:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Fixed / Config-deleted event group — `CodeScanTimeline.eventFixed`
+ * (audit § 2).
+ *
+ * Source: the `ALERT_CLOSED_BECAME_FIXED` and `ALERT_CLOSED_BECAME_OUTDATED`
+ * cases. Both are SYSTEM events (no actor — bold body text only) and both share
+ * the SAME conditional badge: when the event's ref is the currently selected ref
+ * (`timeline_event.ref_name_bytes == @selected_ref`) the badge is
+ * `shield-check` on `done_emphasis` (SOLID purple → `Timeline.Badge
+ * variant="done"`); otherwise it is a plain `check` icon on the default badge
+ * (BARE gray). Both variants are shown below for each event to demonstrate the
+ * conditional.
+ *
+ * Config-deleted renders the analysis category as an inline subtle mono pill
+ * (`MonoPill`); when the category is empty the live ERB substitutes "API
+ * Upload".
+ */
+export const EventFixed = () => (
+  <div className={classes.RealisticTimeline}>
+    {/* Fixed — selected ref → SOLID purple shield-check */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Fixed in branch (current ref)</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="done">
+            <Octicon icon={ShieldCheckIcon} aria-label="Fixed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <span className={classes.BoldBody}>Fixed in branch</span> <Ref name="main" />
+            <Time date="2024-01-12T10:15:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Fixed — non-selected ref → bare default check */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Fixed in branch (other ref)</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={CheckIcon} aria-label="Fixed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <span className={classes.BoldBody}>Fixed in branch</span> <Ref name="feature-x" />
+            <Time date="2024-01-12T10:15:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Config deleted — selected ref → SOLID purple shield-check */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Configuration deleted (current ref)</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="done">
+            <Octicon icon={ShieldCheckIcon} aria-label="Closed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <span className={classes.BoldBody}>Closed as</span> <MonoPill>java</MonoPill>{' '}
+            <span className={classes.BoldBody}>configuration was deleted in branch</span> <Ref name="main" />
+            <Time date="2024-01-13T16:40:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Config deleted — non-selected ref → bare default check */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Configuration deleted (other ref)</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={CheckIcon} aria-label="Closed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <span className={classes.BoldBody}>Closed as</span> <MonoPill>java</MonoPill>{' '}
+            <span className={classes.BoldBody}>configuration was deleted in branch</span> <Ref name="feature-x" />
+            <Time date="2024-01-13T16:40:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Closed-by-user event group — `CodeScanTimeline.eventClosedByUser`
+ * (audit § 3).
+ *
+ * Source: the `ALERT_CLOSED_BY_USER` case. Badge: `shield-x` on
+ * `danger_emphasis` (SOLID red → `Timeline.Badge variant="danger"`). This is a
+ * USER event — a circle avatar + bold login profile link. Copy: "closed this"
+ * plus, when `resolution != :NO_RESOLUTION`, " as {bold reason}". The reason set
+ * (`alert_closure_reasons`, downcased) is exactly three values: "false
+ * positive", "used in tests", "won't fix". When `resolution_note` is present the
+ * shared row appends a `note` sub-row (`show_resolution_note?`).
+ */
+export const EventClosedByUser = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Closed as false positive — with a resolution-note sub-row */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Closed as false positive</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="danger">
+            <Octicon icon={ShieldXIcon} aria-label="Closed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'closed this as '}
+            <span className={classes.Reason}>false positive</span> <Time date="2024-01-14T08:20:00Z" />
+            <NoteSubRow>Verified this pattern only appears in generated fixtures.</NoteSubRow>
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Closed as used in tests */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Closed as used in tests</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="danger">
+            <Octicon icon={ShieldXIcon} aria-label="Closed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'closed this as '}
+            <span className={classes.Reason}>used in tests</span> <Time date="2024-01-14T08:20:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Closed as won't fix */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Closed as won&apos;t fix</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="danger">
+            <Octicon icon={ShieldXIcon} aria-label="Closed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'closed this as '}
+            <span className={classes.Reason}>won&apos;t fix</span> <Time date="2024-01-14T08:20:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Closed with no resolution — ERB omits the " as {reason}" clause when
+        `resolution == :NO_RESOLUTION`. */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Closed (no resolution)</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="danger">
+            <Octicon icon={ShieldXIcon} aria-label="Closed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'closed this '}
+            <Time date="2024-01-14T08:20:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Reopened event group — `CodeScanTimeline.eventReopened` (audit § 4).
+ *
+ * Source: the `ALERT_REOPENED_BY_USER` case. Badge: `dot-fill` on
+ * `success_emphasis` (SOLID green → `Timeline.Badge variant="success"`). USER
+ * event — circle avatar + bold login. Copy is a fixed "reopened this". Single
+ * variant.
+ */
+export const EventReopened = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Reopened</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="success">
+            <Octicon icon={DotFillIcon} aria-label="Reopened" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'reopened this '}
+            <Time date="2024-01-15T11:05:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Dismissal-requested event group — `CodeScanTimeline.eventDismissalRequested`
+ * (audit § 5).
+ *
+ * Source: the `ALERT_DISMISSAL_REQUESTED` case. Badge: `comment` icon on the
+ * default badge (BARE gray — no `background:` passed). USER event — circle
+ * avatar + bold login. Copy: "requested to dismiss this as {reason}" where the
+ * reason is plain (NOT bold) `alert_closure_reason_description` text. A
+ * `requester_comment` renders as a `note` sub-row (`show_resolution_note?`).
+ *
+ * FEATURE-GATED: this whole event only renders when `delegated_dismissal_enabled?`
+ * is true for the repo, and the Review-request button is further gated on
+ * `timeline_event.show_dismissal_actions` (the live button is a
+ * `Primer::Alpha::Dialog` show-button, `scheme: :primary, size: :small`, label
+ * "Review request"). It is mapped here to the `Timeline.Actions` right slot.
+ */
+export const EventDismissalRequested = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Requested to dismiss</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={CommentIcon} aria-label="Dismissal requested" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'requested to dismiss this as false positive '}
+            <Time date="2024-01-16T09:00:00Z" />
+            <NoteSubRow>This finding is a test-only helper, safe to dismiss.</NoteSubRow>
+          </Timeline.Body>
+          <Timeline.Actions>
+            <Button size="small" variant="primary">
+              Review request
+            </Button>
+          </Timeline.Actions>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Dismissal-reviewed event group — `CodeScanTimeline.eventDismissalReviewed`
+ * (audit § 6).
+ *
+ * Source: the `ALERT_DISMISSAL_REVIEWED` case. Badge icon comes from
+ * `exemption_evaluation_icon`: `check` when the request was approved, `x` when
+ * denied — both on the default badge (BARE gray). USER event — circle avatar +
+ * bold login. Copy comes from `dismissal_resolution_msg`: "approved dismissal"
+ * or "denied dismissal". A `reviewer_comment` renders as a `note` sub-row
+ * (`show_reviewer_comment?`).
+ *
+ * FEATURE-GATED: like the request event, this only renders when
+ * `delegated_dismissal_enabled?` is true for the repo.
+ */
+export const EventDismissalReviewed = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Approved — check icon + reviewer-comment sub-row */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Approved dismissal</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={CheckIcon} aria-label="Approved" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'approved dismissal '}
+            <Time date="2024-01-17T13:30:00Z" />
+            <NoteSubRow>Agreed — this rule does not apply to test fixtures.</NoteSubRow>
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Denied — x icon */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Denied dismissal</h3>
+      <Timeline aria-label="Code scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={XIcon} aria-label="Denied" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'denied dismissal '}
+            <Time date="2024-01-17T13:30:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
