@@ -101,6 +101,12 @@
   color: var(--fgColor-accent);
 }
 
+/* The timestamp permalink plus any " – with {app}" via-app suffix. Kept as plain
+   inline text (NOT flex) so the whitespace around the suffix renders naturally. */
+.TimestampLine {
+  color: var(--fgColor-muted);
+}
+
 /* Muted, underlined relative-time permalink. The underline keeps this muted
    in-text link high-contrast accessible (matches the badge-row `.Timestamp`). */
 .Timestamp {
@@ -169,4 +175,20 @@
 .ReactionCount {
   font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-default);
+}
+
+/* Threaded reply (wired for the deferred reply stories): the nested card drops its
+   border + speech-bubble caret so replies read as part of the parent thread. */
+.CardReply {
+  border: 0;
+}
+
+.CardReply::before,
+.CardReply::after {
+  display: none;
+}
+
+.CardReply .CardHeader {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
