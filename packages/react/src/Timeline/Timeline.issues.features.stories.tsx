@@ -249,7 +249,7 @@ export const EventClosed = () => (
               completed
             </Link>
             {' by moving to Done in '}
-            <Octicon icon={TableIcon} size={16} className={classes.ProjectIcon} />
+            <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
             <Link href="#" className={classes.LinkWithBoldStyle}>
               Roadmap
             </Link>{' '}
