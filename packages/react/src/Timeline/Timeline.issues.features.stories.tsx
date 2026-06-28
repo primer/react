@@ -1785,3 +1785,120 @@ export const EventIssueFields = () => (
     </section>
   </div>
 )
+
+/**
+ * The Project event group — shared timeline events (ProjectV2), Issue version.
+ *
+ * Sourced from the live React `timeline-items` components, which are the ISSUE
+ * implementation of these "shared" events: `AddedToProjectV2Event.tsx`,
+ * `RemovedFromProjectV2Event.tsx`, `ProjectV2ItemStatusChangedEvent.tsx`, and
+ * the shared `ProjectV2.tsx` sub-component. All three use a `TableIcon` badge.
+ *
+ * Issue-version `{ProjectV2}` reference (live `ProjectV2.tsx`): an inline
+ * default-colored `TableIcon` octicon, then a `<Link inline>` with REGULAR
+ * weight and `color: var(--fgColor-default)` (NOT bold, NOT accent-blue). The
+ * `inline` prop supplies the always-on underline. Status text is PLAIN TEXT
+ * (live `ProjectV2ItemStatusChangedEvent.tsx` renders `status`/`previousStatus`
+ * as bare strings, not bold).
+ *
+ * PR-SURFACE DIVERGENCE (build the PR version from ERB later, NOT from this):
+ * The PR (ERB) path renders these events DIFFERENTLY —
+ *   - Project link: `app/views/issues/events/_memex_project_link.html.erb` uses
+ *     `<a class="Link--primary text-bold">` — i.e. a BOLD project name, NO inline
+ *     `TableIcon`, and hover-only underline.
+ *   - Status: `_project_item_status_changed_event.html.erb` wraps the status in
+ *     `<strong>` (BOLD).
+ * So: Issue = inline icon + regular-weight always-underlined link + plain-text
+ * status; PR = bold link, no icon, bold status. Whoever builds the PR surface
+ * must use the ERB spec above, not this Issue composition.
+ */
+export const EventProject = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Added to project */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Added to project</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={TableIcon} aria-label="Added to project" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'added this to '}
+            {/* Issue-version ProjectV2 reference (github-ui `ProjectV2.tsx`). */}
+            <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
+            <Link href="#" inline className={classes.ProjectRefLink}>
+              Roadmap
+            </Link>{' '}
+            <Time date="2022-07-26T11:46:07Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Removed from project */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Removed from project</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={TableIcon} aria-label="Removed from project" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'removed this from '}
+            <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
+            <Link href="#" inline className={classes.ProjectRefLink}>
+              Roadmap
+            </Link>{' '}
+            <Time date="2022-07-25T09:12:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Project status changed. Two forms per live
+        `ProjectV2ItemStatusChangedEvent.tsx`: with no previous status,
+        "moved this to {status} in {project}"; with a previous status,
+        "moved this from {previousStatus} to {status} in {project}". Status
+        strings are PLAIN TEXT (not bold). Both forms shown under one caption. */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Project status changed</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={TableIcon} aria-label="Project status changed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'moved this to In Progress in '}
+            <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
+            <Link href="#" inline className={classes.ProjectRefLink}>
+              Roadmap
+            </Link>{' '}
+            <Time date="2022-07-24T16:40:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={TableIcon} aria-label="Project status changed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'moved this from Todo to In Progress in '}
+            <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
+            <Link href="#" inline className={classes.ProjectRefLink}>
+              Roadmap
+            </Link>{' '}
+            <Time date="2022-07-24T16:42:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
