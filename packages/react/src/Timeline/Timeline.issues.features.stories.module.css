@@ -78,6 +78,21 @@
   color: var(--fgColor-muted);
 }
 
+/* Issue-version ProjectV2 reference (github-ui `ProjectV2.tsx`): an inline
+   default-colored TableIcon octicon followed by a regular-weight, default-color
+   link. The underline comes from the Link `inline` prop (always-on underline,
+   which also satisfies the high-contrast a11y rule). Mirrors live
+   `.projectLink { color: var(--fgColor-default) }`. NOTE: the PR (ERB) surface
+   renders this differently — see the EventProject group comment. */
+.ProjectRefIcon {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+.ProjectRefLink {
+  color: var(--fgColor-default);
+}
+
 /* Open (green) state icon variant for IssueLink references that point at an
    open issue/PR (e.g. the canonical issue in a "marked as duplicate of" row). */
 .IssueLinkIconOpen {
