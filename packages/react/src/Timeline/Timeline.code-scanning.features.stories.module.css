@@ -1,0 +1,111 @@
+.RealisticTimeline {
+  /* GitHub renders the timeline at most 1012px wide in product surfaces. */
+  max-width: 1012px;
+}
+
+/* Story-only scaffolding: each variant is wrapped in its own <section> with a
+   small caption heading ABOVE the event, so the event row itself (badge + body)
+   renders exactly as it would in product — the caption never sits inside
+   Timeline.Body. Variants stay scannable like a Figma component set. Not part of
+   the faithful event. */
+.Variant {
+  margin-bottom: var(--base-size-24);
+}
+
+.VariantLabel {
+  margin: 0 0 var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Bold body text, mirroring the live `item.with_body(font_weight: :bold)` used
+   by every system (no-actor) Code Scanning event. */
+.BoldBody {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+/* Bold branch ref — live `formatted_ref_name` renders
+   `Primer::Beta::Text.new(font_weight: :bold, classes: "branch-name")` (dotcom
+   defines no `.branch-name` rule, so it is plain bold text, NOT the monospace
+   `BranchName` pill). */
+.RefName {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+/* Muted relative timestamp. The shared `timeline_item_component` renders a plain
+   `time_ago_in_words_js` — muted text only, no link wrapper (matching the
+   Dependabot / Secret Scanning timelines, unlike the Issues `Ago` deep-link). */
+.Timestamp {
+  color: var(--fgColor-muted);
+  margin-left: var(--base-size-4);
+}
+
+/* "in configuration {category}" inline pill — live `show_analysis_origin?` rows
+   render `Primer::Beta::Truncate.new(bg: :subtle, font_family: :mono,
+   font_size: 6, border_radius: 1)`: a SUBTLE gray monospace rounded pill.
+   Rendered only when the alert has more than one analysis category. */
+.ConfigPill {
+  display: inline-block;
+  margin-left: var(--base-size-4);
+  padding: 0 var(--base-size-4);
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-muted);
+  border-radius: var(--borderRadius-small);
+  vertical-align: middle;
+}
+
+/* Supplementary sub-row below a detection event. Live ERB renders a condensed
+   `Primer::Beta::TimelineItem(condensed: true, font_size: 6, classes:
+   "tmp-pl-5")` — a small, indented row beneath the main item. We mirror the
+   established Dependabot / Secret Scanning precedent and compose it as a small
+   muted block inside `Timeline.Body` (not a badge-less Timeline.Item). */
+.SubRow {
+  margin-top: var(--base-size-8);
+  padding-left: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+/* Bold segment inside the path sub-row — live ERB bolds
+   `{file_name}:{start_line} on branch` via
+   `Primer::Beta::Text(color: :default, font_weight: :bold)`. */
+.SubRowStrong {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+/* Workflow-run sub-row icon (the green check / pending dot before the run
+   link). Live ERB renders a check-suite conclusion octicon. */
+.SubRowIconSuccess {
+  margin-right: var(--base-size-4);
+  color: var(--fgColor-success);
+  vertical-align: middle;
+}
+
+/* Bold workflow-run link — live ERB `Primer::Beta::Link(scheme: :primary,
+   font_weight: :bold)`. The a11y `link-in-text-block` rule requires in-text
+   links to be visually distinct without relying on color, so the bold weight is
+   the non-color differentiator (matching the Issues / Dependabot precedent). */
+.WorkflowLink {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+.WorkflowLink:hover {
+  color: var(--fgColor-accent);
+}
+
+/* Monospace commit-SHA link — live ERB `Primer::Beta::Link(scheme: :secondary,
+   font_family: :mono)` truncated to 8 chars. */
+.CommitSha {
+  margin-left: var(--base-size-4);
+  font-family: var(--fontStack-monospace);
+  color: var(--fgColor-muted);
+}
