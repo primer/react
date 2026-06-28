@@ -108,8 +108,10 @@ import classes from './Timeline.license-compliance.features.stories.module.css'
  */
 
 const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
-const DEPENDABOT_AVATAR = 'https://avatars.githubusercontent.com/in/29110?v=4'
 const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/hubot'
+// The license-compliance system bot — Rails attributes every system event
+// (Opened, Review-expired) to `github-license-compliance[bot]` when user_id<=0.
+const LICENSE_BOT_AVATAR = 'https://avatars.githubusercontent.com/u/9919?s=40&v=4'
 
 /**
  * User actor — live `TimelineEventWithActor` (`events/shared.tsx`). Renders a
@@ -268,48 +270,26 @@ export default {
  * alert"` + the relative time. This is a SYNTHETIC event created by Rails, but
  * it still carries an `actor` (enriched by the Rails controller).
  *
- * ACTOR (audit UNCERTAIN resolved): the Opened event is NOT attributed to a
- * GitHub-system actor. `OpenedEvent` uses `TimelineEventWithActor`, so the actor
- * is whatever user/bot Rails enriched onto the event — rendered as a 20px avatar
- * + login (a `<Link>` when `actor.url` is present, otherwise bold text; bots get
- * a "bot" Label). Both shapes are shown below.
- *
- * The live `OpenedEvent` has exactly one rendering shape (no source / from-PR /
- * from-push branches); the two variants here differ ONLY by actor type to
- * document the resolved actor question.
+ * ACTOR (security UNCERTAIN deep-dive resolved): the synthetic `opened` event is
+ * ALWAYS attributed to the license-compliance system bot,
+ * `github-license-compliance[bot]` (Rails `create_synthetic_opened_event`). Per
+ * live `shared.tsx`, a login ending in `[bot]` renders avatar + bold display
+ * login ("github-license-compliance") + a secondary "bot" Label — NOT a Link.
+ * There is no human "opened" actor, so a single bot variant is shown.
  */
 export const EventOpened = () => (
   <Examples>
-    {/* Opened by a user — linked actor (20px avatar + semibold login), ShieldIcon
-        on success (green). */}
+    {/* Opened — license-compliance system bot, ShieldIcon on success (green) */}
     <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Opened by a user</h3>
+      <h3 className={classes.VariantLabel}>Opened</h3>
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
             <Octicon icon={ShieldIcon} aria-label="Opened" />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="github-license-compliance[bot]" src={LICENSE_BOT_AVATAR} />{' '}
             <span className={classes.ActionText}>opened this alert</span> <Time date="2025-10-20T10:00:00Z" />
-          </Timeline.Body>
-        </Timeline.Item>
-      </Timeline>
-    </section>
-
-    {/* Opened by a bot — automated dependency detection. Live `shared.tsx`
-        strips the `[bot]` suffix from the login and appends a secondary "bot"
-        Label. Same success badge + copy. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Opened by a bot</h3>
-      <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
-          <Timeline.Badge variant="success">
-            <Octicon icon={ShieldIcon} aria-label="Opened" />
-          </Timeline.Badge>
-          <Timeline.Body>
-            <UserActor login="dependabot[bot]" src={DEPENDABOT_AVATAR} />{' '}
-            <span className={classes.ActionText}>opened this alert</span> <Time date="2025-10-20T09:30:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -368,6 +348,11 @@ export const EventAppearedInBranch = () => (
  * "Review request" button. Live nests that button beside the PR link in a
  * space-between Stack; we surface it via the `Timeline.Actions` right-controls
  * slot (the established template convention).
+ *
+ * NOTE: the `closure_reason` text shown after "requested to close as …" is
+ * produced by the Go OLC service, not the local Rails/React code — its exact
+ * format (e.g. "amendment"-style label vs raw value) is unverified here. Confirm
+ * via a prod smoke-test; the example label below is illustrative.
  */
 export const EventReviewRequested = () => (
   <Examples>
@@ -522,16 +507,15 @@ export const EventReviewDenied = () => (
 /**
  * The Review-expired event group — `AlertEventType.ReviewExpired` (audit § 6).
  *
- * Source: `events/ReviewExpiredEvent.tsx`. Although it uses
- * `TimelineEventWithActor`, expiry is automatic and Rails attaches no actor, so
- * it renders ACTOR-LESS (verified: the `review_expired` test fixture has no
- * actor, and the copy "Request to close expired" is a standalone capitalized
- * sentence). `CircleSlashIcon size={16}` on the default (gray) badge. No comment
- * sub-row. Single variant.
+ * Source: `events/ReviewExpiredEvent.tsx` (`TimelineEventWithActor`):
+ * `CircleSlashIcon size={16}` on the default (gray) badge, copy "Request to close
+ * expired". Although a misleading test mock omits the actor, Rails sets the
+ * license-compliance system bot for these system events (`user_id<=0`), so it
+ * renders WITH the bot actor. No comment sub-row. Single variant.
  */
 export const EventReviewExpired = () => (
   <Examples>
-    {/* Request to close expired — actor-less (automatic expiry) */}
+    {/* Request to close expired — license-compliance system bot, automatic expiry */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Request to close expired</h3>
       <Timeline aria-label="License compliance alert timeline">
@@ -540,6 +524,7 @@ export const EventReviewExpired = () => (
             <Octicon icon={CircleSlashIcon} aria-label="Request to close expired" />
           </Timeline.Badge>
           <Timeline.Body>
+            <UserActor login="github-license-compliance[bot]" src={LICENSE_BOT_AVATAR} />{' '}
             <span className={classes.ActionText}>Request to close expired</span> <Time date="2025-10-23T10:00:00Z" />
           </Timeline.Body>
         </Timeline.Item>
@@ -651,28 +636,92 @@ export const EventLicensesAdded = () => (
  * Source: `events/ClosedEvent.tsx` (`TimelineEventWithActor`): `ShieldCheckIcon
  * size={16}` on the `done` (PURPLE) badge — the only colored gray-exempt event
  * besides Opened. The copy comes from `getClosedActionText(closureReason,
- * resolution)`, which renders exactly one of:
- * - "closed as {closureReason}" — when a free-text `closureReason` is present
- *   (e.g. "used in tests", carried over from the review flow);
- * - "closed as outdated" — resolution `Outdated`;
- * - "closed as amendment" — resolution `ExceptionAdded` or `LicensesAdded`;
- * - "closed this alert" — the default.
- * An optional `EventComment` sub-row renders a closing comment.
+ * resolution)`. When a free-text `closureReason` is present it renders "closed as
+ * {reason}"; the live label set is `CLOSURE_REASON_TO_LABEL`
+ * (`license_compliance_dismissal_options.rb`): amendment, private package,
+ * inaccurate license, policy edited, fixed. The two resolution-driven fallbacks
+ * are "closed as outdated" (resolution `Outdated`) and "closed this alert"
+ * (default). An optional `EventComment` sub-row renders a closing comment.
  */
 export const EventClosed = () => (
   <Examples>
-    {/* Closed as {free-text reason}, with a closing comment */}
+    {/* Closed as amendment — with a closing comment */}
     <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as a specific reason (with comment)</h3>
+      <h3 className={classes.VariantLabel}>Closed as amendment (with comment)</h3>
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed" />
+            <Octicon icon={ShieldCheckIcon} aria-label="Closed as amendment" />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed as used in tests</span> <Time date="2025-10-25T10:00:00Z" />
-            <EventComment>Confirmed this dependency only ships in the test bundle.</EventComment>
+            <span className={classes.ActionText}>closed as amendment</span> <Time date="2025-10-25T10:00:00Z" />
+            <EventComment>Added a policy exception covering this package.</EventComment>
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Closed as private package */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Closed as private package</h3>
+      <Timeline aria-label="License compliance alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="done">
+            <Octicon icon={ShieldCheckIcon} aria-label="Closed as private package" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <span className={classes.ActionText}>closed as private package</span> <Time date="2025-10-25T10:05:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Closed as inaccurate license */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Closed as inaccurate license</h3>
+      <Timeline aria-label="License compliance alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="done">
+            <Octicon icon={ShieldCheckIcon} aria-label="Closed as inaccurate license" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <span className={classes.ActionText}>closed as inaccurate license</span>{' '}
+            <Time date="2025-10-25T10:10:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Closed as policy edited */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Closed as policy edited</h3>
+      <Timeline aria-label="License compliance alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="done">
+            <Octicon icon={ShieldCheckIcon} aria-label="Closed as policy edited" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <span className={classes.ActionText}>closed as policy edited</span> <Time date="2025-10-25T10:15:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Closed as fixed */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Closed as fixed</h3>
+      <Timeline aria-label="License compliance alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge variant="done">
+            <Octicon icon={ShieldCheckIcon} aria-label="Closed as fixed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <span className={classes.ActionText}>closed as fixed</span> <Time date="2025-10-25T10:20:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -688,23 +737,7 @@ export const EventClosed = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed as outdated</span> <Time date="2025-10-25T10:05:00Z" />
-          </Timeline.Body>
-        </Timeline.Item>
-      </Timeline>
-    </section>
-
-    {/* Closed as amendment — resolution ExceptionAdded / LicensesAdded */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as amendment</h3>
-      <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
-          <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed as amendment" />
-          </Timeline.Badge>
-          <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed as amendment</span> <Time date="2025-10-25T10:10:00Z" />
+            <span className={classes.ActionText}>closed as outdated</span> <Time date="2025-10-25T10:25:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -720,7 +753,7 @@ export const EventClosed = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed this alert</span> <Time date="2025-10-25T10:15:00Z" />
+            <span className={classes.ActionText}>closed this alert</span> <Time date="2025-10-25T10:30:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
