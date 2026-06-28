@@ -1,22 +1,18 @@
 .RealisticTimeline {
-  /* GitHub renders the timeline at most 1012px wide in product surfaces. Just a
-     small left pad so the 40px gutter avatar (which sits ON the rail, see
-     .GutterAvatar) isn't clipped at the page edge — NOT a full avatar-column
-     reservation (the avatar overlays the gutter; the card is pushed right of it
-     via .Card's margin-left, so the two don't double-pad). */
+  /* GitHub renders the timeline at most 1012px wide in product surfaces. Reserve the
+     ~72px gutter so the large avatar (which sits left of the rail) isn't clipped. */
   max-width: 1012px;
-  padding-left: var(--base-size-24);
+  padding-left: calc(var(--base-size-40) + var(--base-size-32));
 }
 
-/* Re-seat the 40px gutter avatar so it is centered ON the Timeline rail (the
-   Timeline.Item ::before line), rather than pushed far into the negative gutter
-   like the badge-row avatars. This makes the rail pass BEHIND the avatar and lets
-   the speech-bubble caret bridge avatar → card. The default Timeline.Avatar `top`
-   / translateY (vertical centering) is preserved; only `left` is overridden.
+/* Seat the 40px gutter avatar to the LEFT of the rail (left edge ~72px left of the
+   rail), so its right edge lands just left of the rail and the card overlaps the
+   rail — matching Figma: avatar-left → card-left ≈ 56px, caret bridges the gap. The
+   default Timeline.Avatar `top` / translateY (vertical centering) is preserved.
    Specificity (.RealisticTimeline .GutterAvatar = 0-2-0) beats the base
    .TimelineItemAvatar (0-1-0) regardless of stylesheet order. */
 .RealisticTimeline .GutterAvatar {
-  left: calc(-1 * var(--base-size-20));
+  left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
 }
 
 /* Story-only scaffolding: each variant is wrapped in its own <section> with a
@@ -45,7 +41,7 @@
   position: relative;
   flex: auto;
   min-width: 0;
-  margin-left: var(--base-size-32);
+  margin-left: calc(-1 * var(--base-size-16));
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-default);
@@ -161,13 +157,12 @@
   border-radius: var(--borderRadius-medium);
 }
 
-/* Reactions row below the body, separated by a divider — mirrors the reaction
-   bar GitHub renders under a comment. Each reaction is a small pill. */
+/* Reactions row below the body — GitHub renders these directly under the body text
+   with no separating divider. Each reaction is a small pill. */
 .Reactions {
   display: flex;
   gap: var(--base-size-8);
-  padding: var(--base-size-8) var(--base-size-16);
-  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+  padding: 0 var(--base-size-16) var(--base-size-16);
 }
 
 .Reaction {
