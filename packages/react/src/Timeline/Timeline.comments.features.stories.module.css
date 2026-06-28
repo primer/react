@@ -1,9 +1,22 @@
 .RealisticTimeline {
-  /* GitHub renders the timeline at most 1012px wide in product surfaces. The
-     comment card sits in the same rail as badge-row events, with the 40px actor
-     avatar in the left gutter, so reserve that gutter and cap the width to match. */
+  /* GitHub renders the timeline at most 1012px wide in product surfaces. Just a
+     small left pad so the 40px gutter avatar (which sits ON the rail, see
+     .GutterAvatar) isn't clipped at the page edge — NOT a full avatar-column
+     reservation (the avatar overlays the gutter; the card is pushed right of it
+     via .Card's margin-left, so the two don't double-pad). */
   max-width: 1012px;
-  padding-left: calc(var(--base-size-40) + var(--base-size-32));
+  padding-left: var(--base-size-24);
+}
+
+/* Re-seat the 40px gutter avatar so it is centered ON the Timeline rail (the
+   Timeline.Item ::before line), rather than pushed far into the negative gutter
+   like the badge-row avatars. This makes the rail pass BEHIND the avatar and lets
+   the speech-bubble caret bridge avatar → card. The default Timeline.Avatar `top`
+   / translateY (vertical centering) is preserved; only `left` is overridden.
+   Specificity (.RealisticTimeline .GutterAvatar = 0-2-0) beats the base
+   .TimelineItemAvatar (0-1-0) regardless of stylesheet order. */
+.RealisticTimeline .GutterAvatar {
+  left: calc(-1 * var(--base-size-20));
 }
 
 /* Story-only scaffolding: each variant is wrapped in its own <section> with a
@@ -24,11 +37,15 @@
 
 /* The bordered comment card. Mirrors GitHub's `.timeline-comment` shell: a
    1px-bordered, rounded box that the gutter avatar's speech-bubble caret points
-   at. There is no Primer comment primitive, so the box is composed directly. */
+   at. There is no Primer comment primitive, so the box is composed directly.
+   `margin-left` pushes the card to the RIGHT of the on-rail gutter avatar so the
+   rail stays in the gutter (behind the avatar) and never passes behind the opaque
+   card; the caret bridges the small remaining gap. */
 .Card {
   position: relative;
   flex: auto;
   min-width: 0;
+  margin-left: var(--base-size-32);
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-default);
@@ -177,9 +194,26 @@
   color: var(--fgColor-default);
 }
 
+/* Octicon avatar mode (e.g. Copilot): a 40px CIRCLE with a subtle muted background
+   and a centered muted octicon, used where the actor is represented by an icon
+   rather than a photo. Sits in the same gutter slot as the photo avatar. */
+.OcticonAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-40);
+  height: var(--base-size-40);
+  color: var(--fgColor-muted);
+  background-color: var(--bgColor-muted);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-full);
+}
+
 /* Threaded reply (wired for the deferred reply stories): the nested card drops its
-   border + speech-bubble caret so replies read as part of the parent thread. */
+   border + speech-bubble caret + gutter offset so replies read as part of the
+   parent thread (no on-rail avatar to clear). */
 .CardReply {
+  margin-left: 0;
   border: 0;
 }
 

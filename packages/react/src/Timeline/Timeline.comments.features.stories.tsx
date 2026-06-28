@@ -4,7 +4,7 @@ import {clsx} from 'clsx'
 import type {ComponentProps} from '../utils/types'
 import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
-import {KebabHorizontalIcon, SmileyIcon} from '@primer/octicons-react'
+import {CopilotIcon, KebabHorizontalIcon, SmileyIcon} from '@primer/octicons-react'
 import Avatar from '../Avatar'
 import {IconButton} from '../Button'
 import Label from '../Label'
@@ -47,18 +47,25 @@ import classes from './Timeline.comments.features.stories.module.css'
  *   `secondary` (`CommentAuthorAssociation`).
  * - Bot/AI badge: `LABELS.authorLabel(isBot, isCopilot)` → "bot" for bots, "AI" for
  *   Copilot, "mannequin" for mannequins; `Label` variant `secondary`, next to the name.
- * - Copilot: name renders as "Copilot" and the avatar is SQUARE (`square={isCopilot}`).
+ * - Copilot: name renders as "Copilot"; the 40px GUTTER avatar is a muted `CopilotIcon`
+ *   octicon in a circle (audit: "Copilot = octicon avatar"). The live `square={isCopilot}`
+ *   applies to the small 24px HEADER avatar, a different element from this gutter avatar.
  * - via-app: the timestamp line gets a " – with {app}" suffix, the app name an
- *   `inline` (underlined) `Link` — see the CommentViaApp story.
+ *   `inline` (underlined) `Link` — see the via-app section.
  *
- * AVATAR SHAPE (resolved decision): bot and Dependabot comment avatars are SQUARE.
- * Source-of-truth precedence is "what renders on github.com" > literal component
- * behavior. On github.com, bot/app accounts (github-actions, Dependabot) have square
- * avatars by ACCOUNT TYPE — the shape is determined upstream of the comment component,
- * so the live rendered result is square. The React `ActivityHeader` only FORCES
- * `square={isCopilot}`, which avoids overriding an already-square bot avatar; it does
- * NOT make bots render circular. Square also keeps Dependabot consistent with the
- * shipped Dependabot badge-row surface (#8071). Users render CIRCLE; Copilot SQUARE.
+ * AVATAR SHAPE (resolved decision):
+ * - Users render a CIRCLE photo avatar.
+ * - Copilot renders an OCTICON avatar: a muted `CopilotIcon` inside a 40px circle
+ *   (see `avatarIcon` on `CommentCard`). Our earlier "square Copilot" note referred to
+ *   the live 24px header avatar; the 40px gutter avatar here is the octicon.
+ * - Generic bots and Dependabot render a SQUARE photo avatar. Source-of-truth
+ *   precedence is "what renders on github.com" > literal component behavior: bot/app
+ *   accounts (github-actions, Dependabot) have square avatars by ACCOUNT TYPE, set
+ *   upstream of the comment component, so the live result is square. The React
+ *   `ActivityHeader` only FORCES `square={isCopilot}`, which avoids overriding an
+ *   already-square bot avatar; it does NOT make bots render circular. Square also keeps
+ *   Dependabot consistent with the shipped Dependabot badge-row surface (#8071). (The
+ *   Dependabot avatar may switch to an octicon pending a forthcoming Figma spec.)
  */
 
 const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
@@ -67,16 +74,20 @@ const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
 const DEPENDABOT_AVATAR = 'https://avatars.githubusercontent.com/u/27347476?v=4'
 // github-actions[bot] (u/44036562) — a representative generic GitHub App bot.
 const GITHUB_ACTIONS_AVATAR = 'https://avatars.githubusercontent.com/u/44036562?v=4'
-// Copilot (u/198982749) — renders SQUARE, matching the live `square={isCopilot}`.
-const COPILOT_AVATAR = 'https://avatars.githubusercontent.com/u/198982749?v=4'
 
 type CommentCardProps = {
   /** Display name of the comment author (rendered as a bold link). */
   authorName: string
   authorHref?: string
-  avatarSrc: string
-  /** Circle for users; square for Copilot (live) and — per the drift note above — bots. */
+  /** Photo avatar URL. Omit when using `avatarIcon` (e.g. Copilot). */
+  avatarSrc?: string
+  /** Circle for users; square for bots/Dependabot photo avatars. Ignored when `avatarIcon` is set. */
   avatarShape?: 'circle' | 'square'
+  /**
+   * Octicon avatar mode: render this icon inside a 40px muted circle instead of a
+   * photo `Avatar` (used for Copilot — audit "Copilot = octicon avatar").
+   */
+  avatarIcon?: React.ElementType
   /** "Author"/"Member"/"Owner"/… subject-author or association badge (variant secondary). */
   associationLabel?: string
   associationAriaLabel?: string
@@ -100,15 +111,16 @@ type CommentCardProps = {
 /**
  * Self-contained comment-card composition (NOT exported — local to this file, like
  * the badge-row stories' `Actor`/`Time` helpers). Renders the full `Timeline.Item`:
- * the gutter `Timeline.Avatar` (40px, circle or square) on the rail, and the bordered
- * card (header bar with author + badges + timestamp + actions, markdown body, optional
- * reactions). The speech-bubble caret (CSS) points from the card back at the avatar.
+ * the gutter `Timeline.Avatar` (40px photo or octicon) seated ON the rail, and the
+ * bordered card (header bar with author + badges + timestamp + actions, markdown body,
+ * optional reactions). The speech-bubble caret (CSS) bridges the avatar to the card.
  */
 const CommentCard = ({
   authorName,
   authorHref = '#',
   avatarSrc,
   avatarShape = 'circle',
+  avatarIcon: AvatarIcon,
   associationLabel,
   associationAriaLabel,
   badgeLabel,
@@ -121,8 +133,14 @@ const CommentCard = ({
 }: CommentCardProps) => (
   <Timeline.Item>
     {!isReply && (
-      <Timeline.Avatar>
-        <Avatar size={40} src={avatarSrc} square={avatarShape === 'square'} alt="" />
+      <Timeline.Avatar className={classes.GutterAvatar}>
+        {AvatarIcon ? (
+          <span className={classes.OcticonAvatar}>
+            <AvatarIcon size={24} />
+          </span>
+        ) : (
+          <Avatar size={40} src={avatarSrc ?? ''} square={avatarShape === 'square'} alt="" />
+        )}
       </Timeline.Avatar>
     )}
     <div className={clsx(classes.Card, isReply && classes.CardReply)}>
@@ -183,156 +201,133 @@ const CommentCard = ({
 
 /**
  * Story-only scaffolding: a captioned `<section>` wrapping a single `<Timeline>`,
- * mirroring the badge-row Issue stories so the card itself renders as it would in
- * product. The placeholder `href="#"` links are prevented from navigating in
- * Storybook.
+ * mirroring the badge-row Issue stories so each card renders as it would in product.
  */
-const Variant = ({label, children}: {label: string; children: React.ReactNode}) => (
+const CommentSection = ({label, children}: {label: string; children: React.ReactNode}) => (
+  <section className={classes.Variant}>
+    <h3 className={classes.VariantLabel}>{label}</h3>
+    <Timeline aria-label="Issue timeline">{children}</Timeline>
+  </section>
+)
+
+/**
+ * The Comment event group — all actor variants of a timeline comment card, stacked in
+ * one export so they can be scanned like a Figma component set (matching the badge-row
+ * stories' "one export per event group" pattern). Each `<section>` is captioned and
+ * holds a single `CommentCard`. Deferred (NOT shown): threaded review replies,
+ * embedded-in-thread comments, minimized/collapsed states — the `CommentCard` helper's
+ * `isReply` prop is wired for those later.
+ */
+export const EventComment = () => (
   <div
     className={classes.RealisticTimeline}
+    // Prevent the placeholder `href="#"` links from navigating inside Storybook.
     onClick={e => {
       if ((e.target as HTMLElement).closest('a')) e.preventDefault()
     }}
   >
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>{label}</h3>
-      <Timeline aria-label="Issue timeline">{children}</Timeline>
-    </section>
+    {/* Standard USER comment: circular photo avatar, the "Author" subject-author badge
+        (the commenter opened the issue), a muted relative-time permalink, and reactions. */}
+    <CommentSection label="Standard user comment">
+      <CommentCard
+        authorName="monalisa"
+        avatarSrc={MONALISA_AVATAR}
+        associationLabel="Author"
+        associationAriaLabel="This user is the author of this issue."
+        timestamp="2022-07-26T11:46:07Z"
+        reactions
+      >
+        <p>
+          Thanks for the report! I can reproduce this with <code>npm run build</code> on a clean checkout. Looks like
+          the regression landed in{' '}
+          <Link href="#" inline>
+            #1234
+          </Link>{' '}
+          — I&apos;ll open a fix shortly.
+        </p>
+      </CommentCard>
+    </CommentSection>
+
+    {/* Bot comment (e.g. github-actions): live `ActivityHeader` renders the actor badge
+        as "bot" (`LABELS.authorLabel`). */}
+    <CommentSection label="Bot comment (GitHub App)">
+      <CommentCard
+        authorName="github-actions"
+        avatarSrc={GITHUB_ACTIONS_AVATAR}
+        // Square: github.com renders bot/app avatars square by account type; the live
+        // result is square even though ActivityHeader.tsx only forces square={isCopilot}.
+        // Do NOT "fix" to 'circle'.
+        avatarShape="square"
+        badgeLabel="bot"
+        badgeAriaLabel="This comment was posted by a bot."
+        timestamp="2022-07-26T12:02:00Z"
+      >
+        <p>
+          All checks have passed ✅ — <code>build</code>, <code>test</code>, and <code>lint</code> are green on the
+          latest commit.
+        </p>
+      </CommentCard>
+    </CommentSection>
+
+    {/* Copilot comment: name renders as "Copilot", the actor badge is "AI"
+        (`LABELS.authorLabel(true, true)`). The 40px gutter avatar is a muted CopilotIcon
+        octicon in a circle (audit "Copilot = octicon avatar"); the live square={isCopilot}
+        applies to the separate 24px header avatar, not this gutter avatar. */}
+    <CommentSection label="Copilot comment">
+      <CommentCard
+        authorName="Copilot"
+        avatarIcon={CopilotIcon}
+        badgeLabel="AI"
+        badgeAriaLabel="This comment was generated by Copilot."
+        timestamp="2022-07-26T12:10:00Z"
+      >
+        <p>
+          I&apos;ve analyzed the failing test. The assertion in{' '}
+          <Link href="#" inline>
+            parser.test.ts
+          </Link>{' '}
+          expects the old token shape — updating the fixture should resolve it.
+        </p>
+      </CommentCard>
+    </CommentSection>
+
+    {/* Dependabot comment: live `ActivityHeader` renders the actor badge as "bot". */}
+    <CommentSection label="Dependabot comment">
+      <CommentCard
+        authorName="dependabot"
+        avatarSrc={DEPENDABOT_AVATAR}
+        // Square: github.com renders Dependabot's avatar square by account type; also
+        // consistent with the square dependabot avatar on the badge-row surface (#8071).
+        // (May switch to an octicon avatar pending a forthcoming Figma spec.) Do NOT
+        // "fix" to 'circle'.
+        avatarShape="square"
+        badgeLabel="bot"
+        badgeAriaLabel="This comment was posted by a bot."
+        timestamp="2022-07-26T12:18:00Z"
+      >
+        <p>
+          Bumps <code>lodash</code> from 4.17.20 to 4.17.21. This update includes a security fix —{' '}
+          <Link href="#" inline>
+            view the advisory
+          </Link>
+          .
+        </p>
+      </CommentCard>
+    </CommentSection>
+
+    {/* User comment via a GitHub App: the timestamp line gains a " – with {app}" suffix,
+        the app name an `inline` (underlined) `Link`. Live adds no child/app avatar here. */}
+    <CommentSection label="User comment via a GitHub App">
+      <CommentCard
+        authorName="monalisa"
+        avatarSrc={MONALISA_AVATAR}
+        timestamp="2022-07-26T12:24:00Z"
+        viaApp={{name: 'Acme Sync'}}
+      >
+        <p>Mirrored from our internal tracker — closing the loop here so the thread stays in sync.</p>
+      </CommentCard>
+    </CommentSection>
   </div>
-)
-
-/**
- * A standard USER comment (proof-of-pattern): circular 40px avatar, the "Author"
- * subject-author badge (the commenter opened the issue), a muted relative-time
- * permalink, a short markdown-style body, and a reactions row.
- */
-export const CommentStandard = () => (
-  <Variant label="Standard user comment">
-    <CommentCard
-      authorName="monalisa"
-      avatarSrc={MONALISA_AVATAR}
-      associationLabel="Author"
-      associationAriaLabel="This user is the author of this issue."
-      timestamp="2022-07-26T11:46:07Z"
-      reactions
-    >
-      <p>
-        Thanks for the report! I can reproduce this with <code>npm run build</code> on a clean checkout. Looks like the
-        regression landed in{' '}
-        <Link href="#" inline>
-          #1234
-        </Link>{' '}
-        — I&apos;ll open a fix shortly.
-      </p>
-    </CommentCard>
-  </Variant>
-)
-
-/**
- * A bot comment (e.g. github-actions). Live `ActivityHeader` renders the actor badge
- * as "bot" (`LABELS.authorLabel`) next to the name.
- *
- * Avatar is intentionally SQUARE. Source-of-truth precedence is "what renders on
- * github.com" > literal component behavior: bot/app accounts have square avatars by
- * account type (the shape is set upstream of the comment component), so the live
- * rendered result is square. `ActivityHeader.tsx` only FORCES `square={isCopilot}`,
- * which doesn't override an already-square bot avatar — it does not make bots
- * circular. Do NOT "fix" this to 'circle'.
- */
-export const CommentBot = () => (
-  <Variant label="Bot comment (GitHub App)">
-    <CommentCard
-      authorName="github-actions"
-      avatarSrc={GITHUB_ACTIONS_AVATAR}
-      // Square: github.com renders bot/app avatars square by account type; live result
-      // is square even though ActivityHeader.tsx only forces square={isCopilot}.
-      avatarShape="square"
-      badgeLabel="bot"
-      badgeAriaLabel="This comment was posted by a bot."
-      timestamp="2022-07-26T12:02:00Z"
-    >
-      <p>
-        All checks have passed ✅ — <code>build</code>, <code>test</code>, and <code>lint</code> are green on the latest
-        commit.
-      </p>
-    </CommentCard>
-  </Variant>
-)
-
-/**
- * A Copilot comment. Live denotation: the name renders as "Copilot", the actor badge
- * is "AI" (`LABELS.authorLabel(true, true)`), and the avatar is SQUARE
- * (`square={isCopilot}`) — the one square case confirmed directly in the live header.
- */
-export const CommentCopilot = () => (
-  <Variant label="Copilot comment">
-    <CommentCard
-      authorName="Copilot"
-      avatarSrc={COPILOT_AVATAR}
-      avatarShape="square"
-      badgeLabel="AI"
-      badgeAriaLabel="This comment was generated by Copilot."
-      timestamp="2022-07-26T12:10:00Z"
-    >
-      <p>
-        I&apos;ve analyzed the failing test. The assertion in{' '}
-        <Link href="#" inline>
-          parser.test.ts
-        </Link>{' '}
-        expects the old token shape — updating the fixture should resolve it.
-      </p>
-    </CommentCard>
-  </Variant>
-)
-
-/**
- * A Dependabot comment. Live `ActivityHeader` renders the actor badge as "bot".
- *
- * Avatar is intentionally SQUARE — same precedence as CommentBot: github.com renders
- * Dependabot's avatar square by account type (set upstream of the comment component;
- * `ActivityHeader.tsx`'s `square={isCopilot}` only avoids overriding it, it does not
- * force bots circular). This also matches the shipped Dependabot badge-row surface
- * (#8071), which uses the same square dependabot avatar. Do NOT "fix" this to 'circle'.
- */
-export const CommentDependabot = () => (
-  <Variant label="Dependabot comment">
-    <CommentCard
-      authorName="dependabot"
-      avatarSrc={DEPENDABOT_AVATAR}
-      // Square: github.com renders Dependabot's avatar square by account type; also
-      // consistent with the square dependabot avatar on the badge-row surface (#8071).
-      avatarShape="square"
-      badgeLabel="bot"
-      badgeAriaLabel="This comment was posted by a bot."
-      timestamp="2022-07-26T12:18:00Z"
-    >
-      <p>
-        Bumps <code>lodash</code> from 4.17.20 to 4.17.21. This update includes a security fix —{' '}
-        <Link href="#" inline>
-          view the advisory
-        </Link>
-        .
-      </p>
-    </CommentCard>
-  </Variant>
-)
-
-/**
- * A user comment posted via a GitHub App. Live denotation: the timestamp line gains a
- * " – with {app}" suffix, the app name an `inline` (underlined) `Link`. Live does not
- * add a child/app avatar in this path, so only the text suffix is shown.
- */
-export const CommentViaApp = () => (
-  <Variant label="User comment via a GitHub App">
-    <CommentCard
-      authorName="monalisa"
-      avatarSrc={MONALISA_AVATAR}
-      timestamp="2022-07-26T12:24:00Z"
-      viaApp={{name: 'Acme Sync'}}
-    >
-      <p>Mirrored from our internal tracker — closing the loop here so the thread stays in sync.</p>
-    </CommentCard>
-  </Variant>
 )
 
 export default {
