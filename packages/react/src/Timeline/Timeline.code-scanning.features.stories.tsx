@@ -53,11 +53,10 @@ import classes from './Timeline.code-scanning.features.stories.module.css'
  * base `Timeline` component's own stories, and any docs-site representation is a
  * Phase 3 consideration via base-component story changes, out of scope here.
  *
- * THIS FILE IS A PROOF-OF-PATTERN: it ships only the **Detected** event group
- * (alert created / appeared / reappeared) plus the file scaffold + helpers. The
- * remaining groups (Fixed / Config-deleted, Closed by user, Reopened, Dismissal
- * requested, Dismissal reviewed) are deliberately deferred to a follow-up so the
- * conventions below can be reviewed first.
+ * This file ships all six Code Scanning event groups: **Detected** (alert
+ * created / appeared / reappeared), **Fixed / Config-deleted**, **Closed by
+ * user**, **Reopened**, **Dismissal requested**, and **Dismissal reviewed**.
+ * Each renders as its own story export.
  *
  * AUTHORITATIVE EVENT LIST (live `timeline_component.html.erb` dispatch), for
  * planning the remaining groups:
@@ -103,18 +102,21 @@ import classes from './Timeline.code-scanning.features.stories.module.css'
  * which render a CIRCLE 20px avatar + bold `display_login` profile link. The
  * Detected group below is system-only, so no actor and no in-text link appears.
  *
- * ACCESSIBILITY NOTE: the Detected group renders no in-text `<Link>` in the main
- * body (system events are bold text only). The only links are in the workflow
- * sub-row, where the bold weight is the non-color differentiator required by the
- * axe `link-in-text-block` rule. Any in-text link added when the USER-actor
- * groups are built must likewise use `inline`/bold styling.
+ * ACCESSIBILITY NOTE: the SYSTEM events (Detected, Fixed, Config-deleted) render
+ * no in-text `<Link>` in the main body (bold text only); their only links are in
+ * the workflow sub-row. The USER events (Closed by user, Reopened, both Dismissal
+ * events) DO render an in-text profile `<Link>` via `UserActor` — it carries the
+ * bold weight as its non-color differentiator, which is what the axe
+ * `link-in-text-block` rule (WCAG 1.4.1) requires in high-contrast themes. Any
+ * further in-text link added here must likewise use bold or `inline` styling.
  *
  * RIGHT CONTROLS (`Timeline.Actions`): the shared row renders a right-aligned
  * tool-version `Primer::Beta::Label(scheme: :secondary)` whenever the event
- * carries a `tool_version` (the title reads "Tool version X" or "Tool upgraded
- * to X"). It is `margin-left: auto` inside the body in the ERB; we map it to the
- * `Timeline.Actions` right-controls slot. The "First detected" variant below
- * demonstrates it.
+ * carries a `tool_version` (the live title is
+ * `"Label: #{tool_version_prefix} #{tool_version}"`, e.g. "Label: Tool version
+ * 2.15.0" or "Label: Tool upgraded to X"). It is `margin-left: auto` inside the
+ * body in the ERB; we map it to the `Timeline.Actions` right-controls slot. The
+ * "First detected" variant below demonstrates it.
  */
 
 /**
@@ -267,7 +269,10 @@ export const EventDetected = () => (
           </Timeline.Body>
           <Timeline.Actions>
             {/* Tool-version Label — `Primer::Beta::Label(scheme: :secondary)`,
-                right-aligned, title "Tool version 2.15.0". */}
+                right-aligned. The live ERB sets the title to
+                `"Label: #{tool_version_prefix} #{tool_version}"`, so the faithful
+                title is "Label: Tool version 2.15.0" (the "Label:" prefix is part
+                of dotcom's tooltip text, kept verbatim). */}
             <Label variant="secondary" title="Label: Tool version 2.15.0">
               2.15.0
             </Label>
