@@ -14,6 +14,7 @@ import {
   XIcon,
 } from '@primer/octicons-react'
 import Avatar from '../Avatar'
+import {Button} from '../Button'
 import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
@@ -624,10 +625,13 @@ export const EventDismissalRequest = () => (
       if ((e.target as HTMLElement).closest('a')) e.preventDefault()
     }}
   >
-    {/* Dismissal requested — circle user actor, attention/comment badge.
-        (The live ERB also renders optional float-right Review/Deny actions via
-        `DismissalReviewDialogComponent` when `show_dismissal_actions` — those
-        would live in `Timeline.Actions`; omitted here as interactive controls.) */}
+    {/* Dismissal requested — circle user actor, attention/comment badge. When
+        `show_dismissal_actions` is true, the live inline template
+        (`dismissal_requested_component.rb`) renders a `<span class="float-right">`
+        holding `DismissalReviewDialogComponent` — whose visible control is a
+        SINGLE small primary "Review request" button that opens a review dialog
+        (the approve/deny choice lives inside the dialog, not on the row). We
+        place that right-aligned control in the `Timeline.Actions` slot. */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Dismissal requested</h3>
       <Timeline aria-label="Dependabot alert timeline">
@@ -641,6 +645,9 @@ export const EventDismissalRequest = () => (
             <strong>Tolerable risk</strong> <Time date="2022-08-07T13:20:00Z" />
             <NoteComment>This dependency is only used in our test tooling, so the risk is acceptable.</NoteComment>
           </Timeline.Body>
+          <Timeline.Actions>
+            <Button size="small">Review request</Button>
+          </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
     </section>
