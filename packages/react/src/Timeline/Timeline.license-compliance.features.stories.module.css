@@ -33,28 +33,28 @@
 /* Bold actor name for the non-link actor shapes — live `shared.tsx` renders the
    login as a bold `<strong className="ml-1">` when there is no `actor.url`
    (and for the bot shape, before the secondary "bot" Label). */
+/* Actor name — shared by the linked actor (`<Link>`), the bold non-link actor,
+   and the bot login. Rendered PLAIN INLINE (no flex wrapper) so it sits on the
+   same vertically-centered line as the avatar, badge and summary, matching the
+   Issues / Dependabot rows. Semibold + `fgColor-default`: the bold weight is the
+   non-color differentiator that satisfies the axe `link-in-text-block` rule, so
+   the linked variant stays a11y-safe without an underline. */
 .ActorName {
   font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+}
+
+/* Accent on hover for the linked actor (no-op on the plain-span shapes),
+   mirroring the Dependabot `LinkWithBoldStyle` hover. */
+.ActorName:hover {
+  color: var(--fgColor-accent);
 }
 
 /* Secondary "bot" Label spacing — live `shared.tsx` renders the bot Label with
    a leading `ml-1`. */
 .BotLabel {
   margin-left: var(--base-size-4);
-}
-
-/* Linked actor — live `shared.tsx` `actorLink`: an inline-flex avatar + login
-   rendered as a `<Link>` whenever `actor.url` is present, forced to the default
-   foreground color and SEMIBOLD weight (overriding the link accent color). The
-   bold weight is what keeps it distinguishable from the surrounding muted text
-   WITHOUT relying on color, so it satisfies the axe `link-in-text-block`
-   high-contrast rule. */
-.ActorLink {
-  display: inline-flex;
-  align-items: center;
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default) !important;
 }
 
 /* Muted action verb (e.g. "opened this alert"). Live `shared.tsx` renders it as
