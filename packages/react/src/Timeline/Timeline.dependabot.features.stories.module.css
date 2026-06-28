@@ -87,28 +87,6 @@
   text-decoration: none;
 }
 
-/* Plain bold actor (no avatar, no link) for the delegated-closures Dismissal
-   Request / Reviewed events, whose live `*.html.erb` renders the actor as
-   `<strong><span>{login}</span></strong>`. */
-.PlainActor {
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
-  margin-right: var(--base-size-4);
-}
-
-/* Muted inline copy — e.g. "requested dismissal" / "approved dismissal request"
-   verb phrases that the ERB wraps in `color-fg-muted`. */
-.Muted {
-  color: var(--fgColor-muted);
-}
-
-/* Second line of the Dismissal Requested event: muted "Dismiss as: {resolution}"
-   (`mt-1` in the ERB). */
-.ResolutionLine {
-  margin-top: var(--base-size-4);
-  color: var(--fgColor-muted);
-}
-
 /* Optional dismissal/auto sub-content row. Live ERB renders a
    `<div class="TimelineItem tmp-pl-5 pt-0 f6 d-block">` (small, indented block
    below the event) holding a `note` octicon + the comment text. */
@@ -122,22 +100,5 @@
 .NoteIcon {
   vertical-align: middle;
   margin-right: var(--base-size-4);
-  color: var(--fgColor-muted);
-}
-
-/* Dismissal Reviewed (Approved / Denied) optional review comment. Live ERB
-   renders a bordered subtle box (`mt-2 p-2 border rounded-2 color-bg-subtle`)
-   with a "Review comment:" label and a `markdown-body` body. */
-.ReviewCommentBox {
-  margin-top: var(--base-size-8);
-  padding: var(--base-size-8);
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-radius: var(--borderRadius-medium);
-  background-color: var(--bgColor-muted);
-  font-size: var(--text-body-size-small);
-}
-
-.ReviewCommentLabel {
-  margin-bottom: var(--base-size-4);
   color: var(--fgColor-muted);
 }
