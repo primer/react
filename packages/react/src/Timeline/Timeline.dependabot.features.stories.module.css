@@ -102,3 +102,26 @@
   margin-right: var(--base-size-4);
   color: var(--fgColor-muted);
 }
+
+/* Colored badge icons for the Dismissal Request / Review / Cancelled events.
+   Their live ERB renders `with_badge(color: :X, icon: …)` with NO `bg:` — in
+   Primer `color:` tints the ICON on the DEFAULT badge background (it is NOT a
+   solid-color badge). So these render as a bare `<Timeline.Badge>` (default gray
+   circle) with the icon color set here, mirroring the Dismissed muted icon. */
+.BadgeIconAttention {
+  color: var(--fgColor-attention);
+}
+
+.BadgeIconSuccess {
+  color: var(--fgColor-success);
+}
+
+.BadgeIconDanger {
+  color: var(--fgColor-danger);
+}
+
+/* `:subtle` icon color. Primer has no `--fgColor-subtle` token, so the closest
+   functional equivalent for the Dismissal Cancelled `color: :subtle` is muted. */
+.BadgeIconMuted {
+  color: var(--fgColor-muted);
+}

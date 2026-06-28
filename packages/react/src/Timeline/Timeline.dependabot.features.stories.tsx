@@ -604,15 +604,18 @@ export const EventReopened = () => (
  * `*.html.erb` sidecar is dead code left in the tree. So every variant here
  * renders the actor via `ActorComponent` (a USER → circle avatar + bold link,
  * our `UserActor`), with status-driven badges:
- * - Requested  (`DismissalRequestedComponent`): `comment` icon / `attention`.
- * - Approved   (`DismissalReviewedComponent`, status approved): `check` / `success`.
- * - Denied     (`DismissalReviewedComponent`, status rejected): `x` / `danger`.
- * - Cancelled  (`DismissalCancelledComponent`): `x` / `subtle` (plain default badge).
+ * - Requested  (`DismissalRequestedComponent`): `comment` icon, attention color.
+ * - Approved   (`DismissalReviewedComponent`, status approved): `check`, success.
+ * - Denied     (`DismissalReviewedComponent`, status rejected): `x`, danger.
+ * - Cancelled  (`DismissalCancelledComponent`): `x`, subtle color.
  *
- * `attention`, `success`, and `danger` are named `TimelineBadgeVariants`, so we
- * use `variant="…"` directly (no inline `--timelineBadge-bgColor` hook needed).
- * Optional review/resolution notes render via the shared `NoteComment` sub-row
- * (the ERB's `note`-octicon `TimelineItem tmp-pl-5 …` block).
+ * BADGE MECHANIC: the ERB uses `with_badge(color: :X, icon: Y)` with NO `bg:`.
+ * In Primer that tints the ICON on the DEFAULT badge background — it does NOT
+ * produce a solid-color badge (unlike Opened/Fixed/Reopened, which DO set
+ * `bg: :X_emphasis` and so use solid `variant`s). So these four render as a bare
+ * `<Timeline.Badge>` (default gray circle) with the icon color set via a
+ * `.BadgeIcon*` class — the same structure as the muted Dismissed badge.
+ * Optional review/resolution notes render via the shared `NoteComment` sub-row.
  */
 export const EventDismissalRequest = () => (
   <div
@@ -629,8 +632,8 @@ export const EventDismissalRequest = () => (
       <h3 className={classes.VariantLabel}>Dismissal requested</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
-          <Timeline.Badge variant="attention">
-            <Octicon icon={CommentIcon} aria-label="Dismissal requested" />
+          <Timeline.Badge>
+            <Octicon icon={CommentIcon} className={classes.BadgeIconAttention} aria-label="Dismissal requested" />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -647,8 +650,8 @@ export const EventDismissalRequest = () => (
       <h3 className={classes.VariantLabel}>Dismissal approved</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
-          <Timeline.Badge variant="success">
-            <Octicon icon={CheckIcon} aria-label="Dismissal approved" />
+          <Timeline.Badge>
+            <Octicon icon={CheckIcon} className={classes.BadgeIconSuccess} aria-label="Dismissal approved" />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -665,8 +668,8 @@ export const EventDismissalRequest = () => (
       <h3 className={classes.VariantLabel}>Dismissal denied</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
-          <Timeline.Badge variant="danger">
-            <Octicon icon={XIcon} aria-label="Dismissal denied" />
+          <Timeline.Badge>
+            <Octicon icon={XIcon} className={classes.BadgeIconDanger} aria-label="Dismissal denied" />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -685,7 +688,7 @@ export const EventDismissalRequest = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={XIcon} aria-label="Dismissal cancelled" />
+            <Octicon icon={XIcon} className={classes.BadgeIconMuted} aria-label="Dismissal cancelled" />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
