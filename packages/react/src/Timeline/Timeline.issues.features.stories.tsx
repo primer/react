@@ -20,11 +20,18 @@ import {
   IssueTrackedByIcon,
   IssueTracksIcon,
   LinkExternalIcon,
+  LockIcon,
+  MilestoneIcon,
   NumberIcon,
+  PencilIcon,
+  PersonIcon,
   PinIcon,
   SingleSelectIcon,
   TableIcon,
+  TagIcon,
+  TrashIcon,
   TypographyIcon,
+  UnlockIcon,
 } from '@primer/octicons-react'
 import Avatar from '../Avatar'
 import {Button} from '../Button'
@@ -1896,6 +1903,633 @@ export const EventProject = () => (
               Roadmap
             </Link>{' '}
             <Time date="2022-07-24T16:42:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Labels event group — shared timeline events (Issue version).
+ *
+ * Sourced from live `LabeledEvent.tsx` / `UnlabeledEvent.tsx` (badge `TagIcon`).
+ * Copy is just "added {label}" / "removed {label}" (live `LABELS.timeline.added`
+ * / `removed`, then the `Label` pill — no "the"/"label" filler words). The
+ * rolled-up form (`RolledupLabeledEvent`) joins them: "added {…} and removed {…}".
+ *
+ * Labels render as colored pills; the color comes from the label in live code
+ * (`@github-ui/label-token` `LabelToken`). We compose the closest Primer
+ * equivalent with `Token` + the label's semantic color tokens (same pattern as
+ * the IssueTypes group).
+ *
+ * PR ERB source: `app/views/issues/events/_labeled_event.html.erb` — verify on
+ * the PR build (label pill markup is shared, copy is the same).
+ */
+export const EventLabels = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Label added */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Label added</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={TagIcon} aria-label="Label added" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'added '}
+            <span className={classes.TokenWrapper}>
+              <Token
+                as="a"
+                href="#"
+                text="bug"
+                size="small"
+                style={{
+                  backgroundColor: 'var(--bgColor-danger-muted)',
+                  color: 'var(--fgColor-danger)',
+                  borderColor: 'var(--borderColor-danger-muted)',
+                }}
+              />
+            </span>{' '}
+            <Time date="2022-07-26T11:46:07Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Label removed */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Label removed</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={TagIcon} aria-label="Label removed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'removed '}
+            <span className={classes.TokenWrapper}>
+              <Token
+                as="a"
+                href="#"
+                text="bug"
+                size="small"
+                style={{
+                  backgroundColor: 'var(--bgColor-danger-muted)',
+                  color: 'var(--fgColor-danger)',
+                  borderColor: 'var(--borderColor-danger-muted)',
+                }}
+              />
+            </span>{' '}
+            <Time date="2022-07-25T09:12:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Added + removed (rollup) — RolledupLabeledEvent joins both renderings
+        with "and" between them. */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Labels added and removed</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={TagIcon} aria-label="Labels added and removed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'added '}
+            <span className={classes.TokenWrapper}>
+              <Token
+                as="a"
+                href="#"
+                text="enhancement"
+                size="small"
+                style={{
+                  backgroundColor: 'var(--bgColor-accent-muted)',
+                  color: 'var(--fgColor-accent)',
+                  borderColor: 'var(--borderColor-accent-muted)',
+                }}
+              />
+            </span>
+            {' and removed '}
+            <span className={classes.TokenWrapper}>
+              <Token
+                as="a"
+                href="#"
+                text="bug"
+                size="small"
+                style={{
+                  backgroundColor: 'var(--bgColor-danger-muted)',
+                  color: 'var(--fgColor-danger)',
+                  borderColor: 'var(--borderColor-danger-muted)',
+                }}
+              />
+            </span>{' '}
+            <Time date="2022-07-24T16:40:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Title event group — shared timeline event (Issue version).
+ *
+ * Sourced from live `RenamedTitleEvent.tsx` (badge `PencilIcon`). Copy is
+ * "changed the title {old} {new}" where the OLD title is struck through (`<del>`,
+ * default color) and the NEW title is plain (default color, no underline). NOTE
+ * audit-vs-live DRIFT: the audit phrases this "changed the title from {old} to
+ * {new}", but live renders NO "from"/"to" words — just strikethrough old then
+ * new (`LABELS.timeline.renamedTitle` = "changed the title").
+ *
+ * PR ERB source: `app/views/issues/events/_renamed_event.html.erb` — verify on
+ * the PR build.
+ */
+export const EventTitle = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Title changed */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Title changed</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PencilIcon} aria-label="Title changed" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'changed the title '}
+            <del>Fix the uplaod bug</del> Fix the upload bug <Time date="2022-07-23T11:05:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Milestones event group — shared timeline events (Issue version).
+ *
+ * Sourced from live `MilestonedEvent.tsx` / `DemilestonedEvent.tsx` (badge
+ * `MilestoneIcon`). Copy: "added this to the {milestone} milestone" /
+ * "removed this from the {milestone} milestone" (`LABELS.timeline.addedToMilestone`
+ * / `removedFromMilestone` + the milestone link + `milestone`). The milestone
+ * link is a regular-weight, default-color `<Link inline>` (live `.milestoneLink`
+ * = `color: var(--fgColor-default)`); the `inline` prop gives the always-on
+ * underline (also satisfies the high-contrast a11y rule).
+ *
+ * PR ERB source: `app/views/issues/events/_milestoned_event.html.erb` — verify
+ * on the PR build.
+ */
+export const EventMilestones = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Added to milestone */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Added to milestone</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={MilestoneIcon} aria-label="Added to milestone" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'added this to the '}
+            <Link href="#" inline className={classes.ProjectRefLink}>
+              v2.0
+            </Link>
+            {' milestone '}
+            <Time date="2022-07-26T11:46:07Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Removed from milestone */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Removed from milestone</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={MilestoneIcon} aria-label="Removed from milestone" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'removed this from the '}
+            <Link href="#" inline className={classes.ProjectRefLink}>
+              v2.0
+            </Link>
+            {' milestone '}
+            <Time date="2022-07-25T09:12:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Assignments event group — shared timeline events (Issue version).
+ *
+ * Sourced from live `AssignedEvent.tsx` / `UnassignedEvent.tsx` (badge
+ * `PersonIcon`). Copy: self → "self-assigned this" / "removed their assignment"
+ * (no actor-name prefix); other → "assigned {user}" / "unassigned {user}";
+ * multiple → joined with "and". The assignee is a BOLD text link with NO avatar
+ * in the React Issue impl (`AssignmentEventAssignee` → `ProfileReference` inside
+ * a `<Link>`, no avatar element).
+ *
+ * PR/Dependabot DIVERGENCE: Dependabot's assignment events render the assignee
+ * via a different ActorComponent that DOES include an inline avatar (avatar +
+ * name), unlike this Issue impl (bold name only). Whoever builds the
+ * Dependabot/PR surface must use that ActorComponent, not this composition.
+ */
+export const EventAssignments = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Self-assigned */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Self-assigned</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} aria-label="Self-assigned" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'self-assigned this '}
+            <Time date="2022-07-26T11:46:07Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Assigned someone else — assignee is a bold link, no avatar. */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Assigned</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} aria-label="Assigned" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'assigned '}
+            <Link href="#" className={classes.LinkWithBoldStyle}>
+              hubot
+            </Link>{' '}
+            <Time date="2022-07-25T09:12:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Assigned multiple — joined with "and". */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Assigned multiple</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} aria-label="Assigned multiple" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'assigned '}
+            <Link href="#" className={classes.LinkWithBoldStyle}>
+              hubot
+            </Link>
+            {' and '}
+            <Link href="#" className={classes.LinkWithBoldStyle}>
+              octocat
+            </Link>{' '}
+            <Time date="2022-07-24T16:40:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Self-unassigned */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Self-unassigned</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} aria-label="Self-unassigned" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'removed their assignment '}
+            <Time date="2022-07-23T11:05:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Unassigned someone else */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Unassigned</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} aria-label="Unassigned" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'unassigned '}
+            <Link href="#" className={classes.LinkWithBoldStyle}>
+              hubot
+            </Link>{' '}
+            <Time date="2022-07-22T14:20:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Unassigned multiple — joined with "and". */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Unassigned multiple</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} aria-label="Unassigned multiple" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'unassigned '}
+            <Link href="#" className={classes.LinkWithBoldStyle}>
+              hubot
+            </Link>
+            {' and '}
+            <Link href="#" className={classes.LinkWithBoldStyle}>
+              octocat
+            </Link>{' '}
+            <Time date="2022-07-21T08:30:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Lock/Unlock event group — shared timeline events (Issue version).
+ *
+ * Sourced from live `LockedEvent.tsx` / `UnlockedEvent.tsx`. Locked uses the
+ * `LockIcon` badge; UNLOCKED uses the `UnlockIcon` badge (badge DRIFT vs the
+ * single "LockIcon" family note — live `UnlockedEvent` passes
+ * `leadingIcon={UnlockIcon}`). Locked copy: "locked as {reason} and limited
+ * conversation to collaborators" (reason from `VALUES.lockedReasonStrings`:
+ * off topic / resolved / spam / too heated); with no reason: "locked and limited
+ * conversation to collaborators". Unlocked copy: "unlocked this conversation".
+ *
+ * PR ERB source: `app/views/issues/events/_locked_event.html.erb` — verify on
+ * the PR build.
+ */
+export const EventLockUnlock = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Locked with reason — one row per reason (off topic / resolved / spam /
+        too heated). */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Locked (with reason)</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={LockIcon} aria-label="Locked as off topic" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'locked as off topic and limited conversation to collaborators '}
+            <Time date="2022-07-26T11:46:07Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={LockIcon} aria-label="Locked as resolved" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'locked as resolved and limited conversation to collaborators '}
+            <Time date="2022-07-26T11:47:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={LockIcon} aria-label="Locked as spam" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'locked as spam and limited conversation to collaborators '}
+            <Time date="2022-07-26T11:48:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={LockIcon} aria-label="Locked as too heated" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'locked as too heated and limited conversation to collaborators '}
+            <Time date="2022-07-26T11:49:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Locked (no reason) */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Locked (no reason)</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={LockIcon} aria-label="Locked" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'locked and limited conversation to collaborators '}
+            <Time date="2022-07-25T09:12:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Unlocked — UnlockIcon badge (not LockIcon). */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Unlocked</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={UnlockIcon} aria-label="Unlocked" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'unlocked this conversation '}
+            <Time date="2022-07-24T16:40:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Comment-deleted event group — shared timeline event (Issue version).
+ *
+ * Sourced from live `CommentDeletedEvent.tsx` (badge `TrashIcon`). Copy:
+ * "deleted a comment from {user}" (`LABELS.timeline.deletedACommentFrom` + the
+ * deleted comment author as an inline `<Link>` wrapping a `ProfileReference`).
+ * The author link uses the `inline` prop (always-on underline / high-contrast).
+ *
+ * PR ERB source: `app/views/issues/events/_comment_deleted_event.html.erb` —
+ * verify on the PR build.
+ */
+export const EventCommentDeleted = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Comment deleted */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Comment deleted</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={TrashIcon} aria-label="Comment deleted" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'deleted a comment from '}
+            <Link href="#" inline>
+              octocat
+            </Link>{' '}
+            <Time date="2022-07-26T11:46:07Z" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+  </div>
+)
+
+/**
+ * The Cross-references event group — shared timeline events (Issue version).
+ *
+ * Sourced from live `CrossReferencedEvent.tsx` + `IssueLink.tsx` (badge
+ * `LinkExternalIcon`). The body message is "mentioned this" (then timestamp);
+ * the closing-PR form is "linked a pull request that will close this issue";
+ * rolled-up forms read "mentioned this in {n} issues / pull requests". The
+ * referenced source is rendered in a Secondary slot as an `IssueLink` row:
+ * a state octicon (from `useIssueState().sourceIcon` — open issue green
+ * `IssueOpenedIcon`, open PR green `GitPullRequestIcon`) + the title + the
+ * abbreviated #number reference. We reuse the plain (borderless) `.RefList`.
+ *
+ * PR ERB source: `app/views/issues/events/_cross_referenced_event.html.erb` —
+ * verify on the PR build.
+ */
+export const EventCrossReferences = () => (
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
+    {/* Mentioned from an issue */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Mentioned in an issue</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={LinkExternalIcon} aria-label="Mentioned in an issue" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'mentioned this '}
+            <Time date="2022-07-26T11:46:07Z" />
+            <ul className={classes.RefList}>
+              <li className={classes.RefListItem}>
+                <Octicon icon={IssueOpenedIcon} size={16} className={classes.IssueLinkIconOpen} aria-label="Open" />
+                <Link href="#" inline className={classes.IssueLinkTitle}>
+                  Track flaky upload retries
+                </Link>
+                <span className={classes.IssueLinkNumber}> #128</span>
+              </li>
+            </ul>
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Mentioned from a pull request */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Mentioned in a pull request</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={LinkExternalIcon} aria-label="Mentioned in a pull request" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'mentioned this '}
+            <Time date="2022-07-25T09:12:00Z" />
+            <ul className={classes.RefList}>
+              <li className={classes.RefListItem}>
+                <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
+                <Link href="#" inline className={classes.IssueLinkTitle}>
+                  Add retry logic to the uploader
+                </Link>
+                <span className={classes.IssueLinkNumber}> #42</span>
+              </li>
+            </ul>
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </section>
+
+    {/* Linked a closing pull request */}
+    <section className={classes.Variant}>
+      <h3 className={classes.VariantLabel}>Linked a closing pull request</h3>
+      <Timeline aria-label="Issue timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={LinkExternalIcon} aria-label="Linked a closing pull request" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Actor />
+            {'linked a pull request that will close this issue '}
+            <Time date="2022-07-24T16:40:00Z" />
+            <ul className={classes.RefList}>
+              <li className={classes.RefListItem}>
+                <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
+                <Link href="#" inline className={classes.IssueLinkTitle}>
+                  Fix the upload retry race condition
+                </Link>
+                <span className={classes.IssueLinkNumber}> #57</span>
+              </li>
+            </ul>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
