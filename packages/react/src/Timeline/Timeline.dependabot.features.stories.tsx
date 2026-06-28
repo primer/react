@@ -438,7 +438,9 @@ export const EventDismissed = () => (
             <Time date="2022-08-03T08:00:00Z" />
             <NoteComment>
               {'Rule created and '}
-              <Link href="#">low-severity-dev-deps</Link>
+              <Link href="#" inline>
+                low-severity-dev-deps
+              </Link>
               {' was applied'}
             </NoteComment>
           </Timeline.Body>
@@ -586,7 +588,9 @@ export const EventReopened = () => (
             <Time date="2022-08-06T09:45:00Z" />
             <NoteComment>
               {'Rule disabled: '}
-              <Link href="#">low-severity-dev-deps</Link>
+              <Link href="#" inline>
+                low-severity-dev-deps
+              </Link>
             </NoteComment>
           </Timeline.Body>
         </Timeline.Item>
