@@ -87,8 +87,8 @@ import classes from './Timeline.secret-scanning.features.stories.module.css'
  */
 
 const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
-const SIX7_AVATAR = 'https://avatars.githubusercontent.com/six7'
-const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/hubot'
+const SIX7_AVATAR = 'https://avatars.githubusercontent.com/u/4548309?v=4'
+const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/u/480938?v=4'
 
 /**
  * System "GitHub" actor — live `TimelineItemBody` (`AlertTimeline.tsx`) in
@@ -340,10 +340,23 @@ export const EventResolution = () => (
 
     {/* Reopened — SyncIcon on success (green), preceded by a Timeline.Break.
         The live code emits the Break as a sibling immediately BEFORE the
-        reopened Item so the sibling-selector CSS applies. */}
+        reopened Item so the sibling-selector CSS applies. We include the
+        preceding (closed) Item here so the Break renders BETWEEN two items, as
+        it does in product — mirroring the live "break between events"
+        placement rather than leaving the Break as a stray first child. */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Reopened</h3>
       <Timeline aria-label="Secret scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={ShieldSlashIcon} aria-label="Closed as false positive" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor />
+            {'closed this as '}
+            <strong>false positive</strong> <Time date="2022-07-26T18:20:00Z" />
+          </Timeline.Body>
+        </Timeline.Item>
         <Timeline.Break />
         <Timeline.Item>
           <Timeline.Badge variant="success">
