@@ -27,15 +27,15 @@ jobs:
         run: |
           set -euo pipefail
 
-          if jq -r '.pull_request.labels[]? | select(.name) | .name' "$GITHUB_EVENT_PATH" | grep -Fxq "$SKIP_LABEL"; then
-            echo "the skip label \"$SKIP_LABEL\" is set"
+          if jq -r '.pull_request.labels[]?.name // empty' "$GITHUB_EVENT_PATH" | grep -Fxq "$SKIP_LABEL"; then
+            echo "The skip label \"$SKIP_LABEL\" is set"
             exit 0
           fi
 
           changed_files="$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename')"
 
           if grep -Eq '^\.changeset/[^/]+\.md$' <<<"$changed_files"; then
-            echo 'the ".changeset/*.md" file pattern matched the changed files of the pull request'
+            echo 'The ".changeset/*.md" file pattern matched the changed files of the pull request'
             exit 0
           fi
 
