@@ -17,7 +17,6 @@ const unsupportedPatterns = [
   'src/AvatarStack/**/*.tsx',
   'src/Banner/**/*.tsx',
   'src/Button/**/*.tsx',
-  'src/Checkbox/**/*.tsx',
   'src/ConfirmationDialog/**/*.tsx',
   'src/Dialog/**/*.tsx',
   'src/PageLayout/**/*.tsx',
@@ -33,7 +32,6 @@ const unsupportedPatterns = [
   'src/hooks/useResizeObserver.ts',
   'src/hooks/useSafeTimeout.ts',
   'src/hooks/useScrollFlash.ts',
-  'src/internal/components/CheckboxOrRadioGroup/**/*.tsx',
   'src/hooks/useMergedRefs.ts',
   'src/TooltipV2/**/*.tsx',
 ]
