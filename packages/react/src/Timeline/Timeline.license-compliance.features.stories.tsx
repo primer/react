@@ -220,16 +220,25 @@ const PolicyLink = ({href = '../../settings/security_analysis'}: {href?: string}
 
 /**
  * Story-only wrapper around each group's examples. Besides constraining the
- * width (`.RealisticTimeline`), it swallows clicks on the demo links (actor
- * profile, PR, license-policy) so navigating one of these placeholder `href`s
- * doesn't kick the viewer out of the Storybook UI — the same guard the base
- * `Timeline.features.stories.tsx` `WithActions` story uses.
+ * width (`.RealisticTimeline`), it:
+ * - sets `data-a11y-link-underlines="true"` so Primer's inline-link underline
+ *   (gated on this ancestor attribute, which GitHub sets from the default-on
+ *   "Show link underlines" preference but Storybook never sets) renders for the
+ *   in-text `<Link inline>` links (policy / PR) — reproducing production and
+ *   satisfying WCAG 1.4.1. Actor-name links have no `inline` prop, so they stay
+ *   un-underlined (avatar + semibold cue only).
+ * - swallows clicks on the demo links (actor profile, PR, license-policy) so
+ *   navigating one of these placeholder `href`s doesn't kick the viewer out of
+ *   the Storybook UI — the same guard the base `Timeline.features.stories.tsx`
+ *   `WithActions` story uses. The `e.target instanceof Element` check keeps it
+ *   safe when the click originates on an SVG/octicon.
  */
 const Examples = ({children}: {children: React.ReactNode}) => (
   <div
     className={classes.RealisticTimeline}
+    data-a11y-link-underlines="true"
     onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
     }}
   >
     {children}
@@ -285,7 +294,7 @@ export const EventOpened = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={ShieldIcon} aria-label="Opened" />
+            <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="github-license-compliance[bot]" src={LICENSE_BOT_AVATAR} />{' '}
@@ -321,7 +330,7 @@ export const EventAppearedInBranch = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={GitBranchIcon} aria-label="Appeared in branch" />
+            <Octicon icon={GitBranchIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <span className={classes.ActionText}>Appeared in branch</span>{' '}
@@ -362,7 +371,7 @@ export const EventReviewRequested = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CommentIcon} aria-label="Requested to close" />
+            <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -378,7 +387,7 @@ export const EventReviewRequested = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CommentIcon} aria-label="Requested to close" />
+            <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -397,7 +406,7 @@ export const EventReviewRequested = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CommentIcon} aria-label="Requested to close" />
+            <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -431,7 +440,7 @@ export const EventReviewApproved = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CheckIcon} aria-label="Approved closure request" />
+            <Octicon icon={CheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
@@ -447,7 +456,7 @@ export const EventReviewApproved = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CheckIcon} aria-label="Approved closure request" />
+            <Octicon icon={CheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
@@ -475,7 +484,7 @@ export const EventReviewDenied = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={XIcon} aria-label="Denied closure request" />
+            <Octicon icon={XIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
@@ -491,7 +500,7 @@ export const EventReviewDenied = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={XIcon} aria-label="Denied closure request" />
+            <Octicon icon={XIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
@@ -521,7 +530,7 @@ export const EventReviewExpired = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CircleSlashIcon} aria-label="Request to close expired" />
+            <Octicon icon={CircleSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="github-license-compliance[bot]" src={LICENSE_BOT_AVATAR} />{' '}
@@ -551,7 +560,7 @@ export const EventExceptionAdded = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LawIcon} aria-label="Exception added" />
+            <Octicon icon={LawIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -570,7 +579,7 @@ export const EventExceptionAdded = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LawIcon} aria-label="Exception created" />
+            <Octicon icon={LawIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -599,7 +608,7 @@ export const EventLicensesAdded = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LawIcon} aria-label="Licenses added" />
+            <Octicon icon={LawIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -618,7 +627,7 @@ export const EventLicensesAdded = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LawIcon} aria-label="Added to approved licenses" />
+            <Octicon icon={LawIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -651,7 +660,7 @@ export const EventClosed = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed as amendment" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -668,7 +677,7 @@ export const EventClosed = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed as private package" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -684,7 +693,7 @@ export const EventClosed = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed as inaccurate license" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -701,7 +710,7 @@ export const EventClosed = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed as policy edited" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -717,7 +726,7 @@ export const EventClosed = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed as fixed" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -733,7 +742,7 @@ export const EventClosed = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed as outdated" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
@@ -749,7 +758,7 @@ export const EventClosed = () => (
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
