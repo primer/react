@@ -17,7 +17,7 @@ permissions:
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null) }}"
+    if: "${{ (github.event_name == 'pull_request' && (contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') || contains(github.event.pull_request.labels.*.name, 'integration-tests: ignored'))) || github.event_name == 'merge_group' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null) }}"
     steps:
       - name: Generate token for primer
         id: generate_primer_token
@@ -35,7 +35,7 @@ jobs:
         run: |
           # Get the timeline event ID for the label being added
           EVENT_ID=$(gh api "/repos/primer/react/issues/$PR_NUMBER/timeline" \
-            --jq '.[] | select(.event == "labeled" and .label.name == "integration-tests: skipped manually") | .id' \
+            --jq '.[] | select(.event == "labeled" and (.label.name == "integration-tests: skipped manually" or .label.name == "integration-tests: ignored")) | .id' \
             | tail -n 1)
 
           # Construct the HTML URL from the event ID
