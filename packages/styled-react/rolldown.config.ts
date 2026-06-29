@@ -1,15 +1,25 @@
 import babel from '@rolldown/plugin-babel'
-import {defineConfig, RolldownMagicString as MagicString} from 'rolldown'
+import {defineConfig, RolldownMagicString as MagicString, type TransformPluginContext} from 'rolldown'
 import {dts} from 'rolldown-plugin-dts'
 import packageJson from './package.json' with {type: 'json'}
 
+type Program = ReturnType<TransformPluginContext['parse']>
+
+interface PackageMetadata {
+  readonly peerDependencies?: Record<string, string>
+  readonly dependencies?: Record<string, string>
+  readonly devDependencies?: Record<string, string>
+}
+
+const packageMetadata: PackageMetadata = packageJson
+
 const dependencies = [
-  ...Object.keys(packageJson.peerDependencies ?? {}),
-  ...Object.keys(packageJson.dependencies ?? {}),
-  ...Object.keys(packageJson.devDependencies ?? {}),
+  ...Object.keys(packageMetadata.peerDependencies ?? {}),
+  ...Object.keys(packageMetadata.dependencies ?? {}),
+  ...Object.keys(packageMetadata.devDependencies ?? {}),
 ]
 
-function createPackageRegex(name) {
+function createPackageRegex(name: string) {
   return new RegExp(`^${name}(/.*)?`)
 }
 
@@ -29,16 +39,8 @@ const declarationInput = {
   'components/useTheme': 'src/components/useTheme.ts',
 }
 
-function hasClientDirective(ast) {
-  if (ast.type !== 'Program' || !ast.body) {
-    return false
-  }
-
+function hasClientDirective(ast: Program) {
   for (const node of ast.body) {
-    if (!node) {
-      continue
-    }
-
     if (node.type !== 'ExpressionStatement') {
       continue
     }
@@ -102,8 +104,12 @@ export default defineConfig([
             let chunkHasClientDirective = false
 
             for (const moduleId of Object.keys(chunk.modules)) {
-              const hasClientDirective = this.getModuleInfo(moduleId)?.meta?.hasClientDirective
-              if (hasClientDirective) {
+              const moduleInfo = this.getModuleInfo(moduleId)
+              if (moduleInfo === null) {
+                continue
+              }
+
+              if (moduleInfo.meta.hasClientDirective) {
                 chunkHasClientDirective = true
                 break
               }

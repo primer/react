@@ -1,10 +1,25 @@
 import path from 'node:path'
 import babel from '@rolldown/plugin-babel'
-import {defineConfig, RolldownMagicString as MagicString} from 'rolldown'
+import {
+  defineConfig,
+  RolldownMagicString as MagicString,
+  type RolldownOptions,
+  type TransformPluginContext,
+} from 'rolldown'
 import {importCSS} from 'rollup-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import {isSupported} from './script/react-compiler.mjs'
 import packageJson from './package.json' with {type: 'json'}
+
+type Program = ReturnType<TransformPluginContext['parse']>
+
+interface PackageMetadata {
+  readonly peerDependencies?: Record<string, string>
+  readonly dependencies?: Record<string, string>
+  readonly devDependencies?: Record<string, string>
+}
+
+const packageMetadata: PackageMetadata = packageJson
 
 const input = new Set([
   // "exports"
@@ -21,7 +36,7 @@ const input = new Set([
   'src/next/index.ts',
 ])
 
-function getEntrypointsFromInput(input) {
+function getEntrypointsFromInput(input: ReadonlySet<string>) {
   return Object.fromEntries(
     Array.from(input).map(value => {
       const relativePath = path.relative('src', value)
@@ -31,12 +46,12 @@ function getEntrypointsFromInput(input) {
 }
 
 const dependencies = [
-  ...Object.keys(packageJson.peerDependencies ?? {}),
-  ...Object.keys(packageJson.dependencies ?? {}),
-  ...Object.keys(packageJson.devDependencies ?? {}),
+  ...Object.keys(packageMetadata.peerDependencies ?? {}),
+  ...Object.keys(packageMetadata.dependencies ?? {}),
+  ...Object.keys(packageMetadata.devDependencies ?? {}),
 ]
 
-function createPackageRegex(name) {
+function createPackageRegex(name: string) {
   return new RegExp(`^${name}(/.*)?`)
 }
 
@@ -44,52 +59,76 @@ const postcssModulesOptions = {
   generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
 }
 
-const baseConfig = {
+const babelOptions = {
+  include: /\.(?:js|jsx|ts|tsx)$/,
+  exclude: /node_modules/,
+  babelrc: false,
+  configFile: false,
+  presets: [
+    '@babel/preset-typescript',
+    [
+      '@babel/preset-react',
+      {
+        modules: false,
+        runtime: 'automatic',
+      },
+    ],
+  ],
+  plugins: [
+    [
+      'babel-plugin-react-compiler',
+      {
+        target: '18',
+        sources: (filepath: string) => isSupported(filepath),
+      },
+    ],
+    'macros',
+    'add-react-displayname',
+    'dev-expression',
+    'babel-plugin-styled-components',
+    '@babel/plugin-proposal-nullish-coalescing-operator',
+    '@babel/plugin-proposal-optional-chaining',
+    [
+      'babel-plugin-transform-replace-expressions',
+      {
+        replace: {
+          __DEV__: "process.env.NODE_ENV !== 'production'",
+        },
+      },
+    ],
+  ],
+}
+
+const esmOutput = {
+  interop: 'auto',
+  dir: 'dist',
+  format: 'esm',
+  preserveModules: true,
+  preserveModulesRoot: 'src',
+} as const
+
+function hasClientDirective(ast: Program) {
+  for (const node of ast.body) {
+    if (node.type !== 'ExpressionStatement') {
+      continue
+    }
+
+    if (node.directive === 'use client') {
+      return true
+    }
+  }
+
+  return false
+}
+
+const baseConfig: RolldownOptions = {
   input: {
     ...getEntrypointsFromInput(input),
     // "./test-helpers"
     'test-helpers': 'src/utils/test-helpers.tsx',
   },
   plugins: [
-    babel({
-      include: /\.(?:js|jsx|ts|tsx)$/,
-      exclude: /node_modules/,
-      babelrc: false,
-      configFile: false,
-      presets: [
-        '@babel/preset-typescript',
-        [
-          '@babel/preset-react',
-          {
-            modules: false,
-            runtime: 'automatic',
-          },
-        ],
-      ],
-      plugins: [
-        [
-          'babel-plugin-react-compiler',
-          {
-            target: '18',
-            sources: filepath => isSupported(filepath),
-          },
-        ],
-        'macros',
-        'add-react-displayname',
-        'dev-expression',
-        'babel-plugin-styled-components',
-        '@babel/plugin-proposal-nullish-coalescing-operator',
-        '@babel/plugin-proposal-optional-chaining',
-        [
-          'babel-plugin-transform-replace-expressions',
-          {
-            replace: {
-              __DEV__: "process.env.NODE_ENV !== 'production'",
-            },
-          },
-        ],
-      ],
-    }),
+    babel(babelOptions),
     importCSS({
       modulesRoot: 'src',
       postcssPlugins: [postcssPresetPrimer()],
@@ -107,32 +146,8 @@ const baseConfig = {
       name: 'preserve-directives',
       transform(code) {
         const ast = this.parse(code)
-        if (ast.type !== 'Program' || !ast.body) {
-          return {
-            code,
-            ast,
-            map: null,
-          }
-        }
 
-        let hasClientDirective = false
-
-        for (const node of ast.body) {
-          if (!node) {
-            continue
-          }
-
-          if (node.type !== 'ExpressionStatement') {
-            continue
-          }
-
-          if (node.directive === 'use client') {
-            hasClientDirective = true
-            break
-          }
-        }
-
-        if (hasClientDirective) {
+        if (hasClientDirective(ast)) {
           return {
             code,
             ast,
@@ -161,14 +176,23 @@ const baseConfig = {
           let chunkHasClientDirective = false
 
           for (const moduleId of Object.keys(chunk.modules)) {
-            const hasClientDirective = this.getModuleInfo(moduleId)?.meta?.hasClientDirective
-            if (hasClientDirective) {
+            const moduleInfo = this.getModuleInfo(moduleId)
+            if (moduleInfo === null) {
+              continue
+            }
+
+            if (moduleInfo.meta.hasClientDirective) {
               chunkHasClientDirective = true
               break
             }
           }
 
           if (chunkHasClientDirective) {
+            const ast = this.parse(code)
+            if (hasClientDirective(ast)) {
+              return null
+            }
+
             const transformed = new MagicString(code)
             transformed.prepend(`"use client";\n`)
             return {
@@ -202,12 +226,6 @@ export default defineConfig([
   {
     ...baseConfig,
     external: dependencies.map(createPackageRegex),
-    output: {
-      interop: 'auto',
-      dir: 'dist',
-      format: 'esm',
-      preserveModules: true,
-      preserveModulesRoot: 'src',
-    },
+    output: esmOutput,
   },
 ])
