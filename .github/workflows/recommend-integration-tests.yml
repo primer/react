@@ -20,6 +20,7 @@ jobs:
       - name: Get source files changes
         id: source-files
         run: |
+          # Include @primer/react and the local packages that can affect its generated runtime output.
           DIFF=$(git diff --name-only origin/main -- \
             packages/react \
             packages/postcss-preset-primer \
@@ -60,7 +61,8 @@ jobs:
             const integrationLabels = labels.filter(label => label.name.startsWith('integration-tests'))
             const hasPassingLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.passing)
             const hasIgnoredLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.ignored)
-            const hasOnlyIgnoredLabel = integrationLabels.length === 1 && hasIgnoredLabel
+            const hasOnlyIgnoredLabel =
+              integrationLabels.length === 1 && integrationLabels[0].name === INTEGRATION_LABEL_NAMES.ignored
             const hasRelevantDiff = process.env.HAS_RELEVANT_DIFF === 'true'
 
             if (!hasRelevantDiff) {
