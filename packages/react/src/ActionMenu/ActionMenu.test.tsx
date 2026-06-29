@@ -2,7 +2,7 @@ import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
-import {useRef, useState} from 'react'
+import {createRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import {ActionMenu} from '.'
 import {ActionList} from '../ActionList'
@@ -103,11 +103,9 @@ function ExampleWithTooltipV2({
 }
 
 function ExampleWithReplaceableAnchor(): JSX.Element {
-  'use no memo'
-
-  const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [anchorKey, setAnchorKey] = useState(0)
+  const anchorRef = createRef<HTMLButtonElement>()
 
   return (
     <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
@@ -115,7 +113,13 @@ function ExampleWithReplaceableAnchor(): JSX.Element {
         <Button key={anchorKey} ref={anchorRef} onClick={() => setOpen(o => !o)}>
           Open menu
         </Button>
-        <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={setOpen}>
+        <ActionMenu
+          anchorRef={anchorRef}
+          open={open}
+          onOpenChange={nextOpen => {
+            setOpen(nextOpen && anchorKey >= 0)
+          }}
+        >
           <ActionMenu.Overlay>
             <ActionList>
               <ActionList.Item
