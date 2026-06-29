@@ -1,14 +1,18 @@
-const fs = require('node:fs')
-
 const apiVersion = '2022-11-28'
 const userAgent = 'primer-react-check-for-changed-files'
 
-main().catch(error => {
-  fail(error.message)
-})
+run()
+
+async function run() {
+  try {
+    await main()
+  } catch (error) {
+    fail(error.message)
+  }
+}
 
 async function main() {
-  const payload = readEventPayload()
+  const payload = await readEventPayload()
   const inputs = readInputs()
 
   if (!payload || !payload.pull_request || !payload.repository || process.env.GITHUB_EVENT_NAME !== 'pull_request') {
@@ -38,18 +42,19 @@ async function main() {
   fail(formatFailureMessage(inputs))
 }
 
-function readEventPayload() {
+async function readEventPayload() {
   const eventPath = process.env.GITHUB_EVENT_PATH
   if (!eventPath) {
     return undefined
   }
-  return JSON.parse(fs.readFileSync(eventPath, 'utf8'))
+  const fs = await import('node:fs/promises')
+  return JSON.parse(await fs.readFile(eventPath, 'utf8'))
 }
 
 function readInputs() {
   return {
     filePattern: getInput('file-pattern'),
-    preReqPattern: getInput('prereq-pattern'),
+    preReqPattern: getInput('prereq-pattern') || '**',
     skipLabel: getInput('skip-label'),
     failureMessage: getInput('failure-message'),
     token: getInput('token'),
