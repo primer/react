@@ -147,7 +147,7 @@ function globToRegExp(pattern) {
 }
 
 function escapeRegExp(value) {
-  return value.replace(/[|\\{}()[\]^$+?.]/g, '\\$&')
+  return value.replace(/[|\\{}()[\]^$+*?.-]/g, '\\$&')
 }
 
 function formatFailureMessage(inputs) {
