@@ -15,11 +15,15 @@ jobs:
   check-for-changeset:
     name: Check for changeset
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: 'Check for changeset'
-        uses: brettcannon/check-for-changed-files@v1
+        uses: ./.github/actions/check-for-changed-files
         with:
           file-pattern: '.changeset/*.md'
           skip-label: 'skip changeset'
           failure-message: 'No changeset found. If these changes should not result in a new version, apply the ${skip-label} label to this pull request. If these changes should result in a version bump, please add a changeset https://git.io/J6QvQ'
+          token: ${{ github.token }}
