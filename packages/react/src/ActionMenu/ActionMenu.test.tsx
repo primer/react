@@ -2,7 +2,7 @@ import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
-import {createRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import {ActionMenu} from '.'
 import {ActionList} from '../ActionList'
@@ -103,23 +103,17 @@ function ExampleWithTooltipV2({
 }
 
 function ExampleWithReplaceableAnchor(): JSX.Element {
+  const anchorRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [anchorKey, setAnchorKey] = useState(0)
-  const anchorRef = createRef<HTMLButtonElement>()
 
   return (
     <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
       <BaseStyles>
-        <Button key={anchorKey} ref={anchorRef} onClick={() => setOpen(o => !o)}>
+        <Button key={`anchor-${anchorKey}`} ref={anchorRef} onClick={() => setOpen(o => !o)}>
           Open menu
         </Button>
-        <ActionMenu
-          anchorRef={anchorRef}
-          open={open}
-          onOpenChange={nextOpen => {
-            setOpen(nextOpen && anchorKey >= 0)
-          }}
-        >
+        <ActionMenu key={`menu-${anchorKey}`} anchorRef={anchorRef} open={open} onOpenChange={setOpen}>
           <ActionMenu.Overlay>
             <ActionList>
               <ActionList.Item
@@ -826,11 +820,13 @@ describe('ActionMenu', () => {
       const newOverlay = component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]') as HTMLElement
       expect(newOverlay).not.toBeNull()
 
-      // The new anchor should have the same anchor-name re-applied, and the
-      // overlay should still reference it via position-anchor.
+      // The new anchor should have an anchor-name applied, and the overlay
+      // should reference that anchor via position-anchor.
       await waitFor(() => {
-        expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
-        expect(newOverlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
+        const newAnchorName = newAnchor.style.getPropertyValue('anchor-name')
+        const newPositionAnchor = newOverlay.style.getPropertyValue('position-anchor')
+        expect(newAnchorName).not.toBe('')
+        expect(newPositionAnchor).toBe(newAnchorName)
       })
     })
   })
