@@ -1,0 +1,42 @@
+name: Cleanup Preview Environment
+on:
+  pull_request_target:
+    types: [closed]
+
+permissions:
+  deployments: write
+
+jobs:
+  cleanup:
+    if: ${{ github.repository == 'primer/react' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const environmentName = `storybook-preview-${context.payload.pull_request.number}`;
+
+            core.info(`Pull request #${context.payload.pull_request.number} is ${context.payload.pull_request.merged ? 'merged' : 'closed'}`);
+            core.info(`Attempting to remove environment: ${environmentName}`);
+
+            try {
+              await github.rest.repos.deleteAnEnvironment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                environment_name: environmentName,
+              });
+              core.info(`Removed environment: ${environmentName}`);
+            } catch (error) {
+              if (error.status === 404) {
+                core.info(`Environment ${environmentName} does not exist, nothing to remove`);
+              } else {
+                throw error;
+              }
+            }
