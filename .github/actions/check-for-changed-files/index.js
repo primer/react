@@ -132,8 +132,13 @@ function globToRegExp(pattern) {
     const nextCharacter = pattern[index + 1]
 
     if (character === '*' && nextCharacter === '*') {
-      source += '.*'
-      index += 1
+      if (pattern[index + 2] === '/') {
+        source += '(?:.*/)?'
+        index += 2
+      } else {
+        source += '.*'
+        index += 1
+      }
     } else if (character === '*') {
       source += '[^/]*'
     } else if (character === '?') {
@@ -163,5 +168,5 @@ function info(message) {
 
 function fail(message) {
   process.stderr.write(`::error::${message}\n`)
-  process.exitCode = 1
+  process.exit(1)
 }
