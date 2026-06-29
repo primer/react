@@ -1,0 +1,300 @@
+name: cleanup
+on:
+  schedule:
+    # https://crontab.guru/every-night-at-midnight
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    if: ${{ github.repository == 'primer/react' }}
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const environments = [];
+
+            for await (const response of github.paginate.iterator(
+              github.rest.repos.getAllEnvironments,
+              {
+                owner: 'primer',
+                repo: 'react',
+                per_page: 100,
+              }
+            )) {
+              environments.push(...response.data);
+            }
+
+            core.info(`${environments.length} environments found`);
+
+            const previews = environments.filter(environment => {
+              return environment.name.startsWith('storybook-preview');
+            });
+
+            core.info(`${previews.length} preview environments found`);
+
+            core.startGroup('Status');
+
+            const changes = [];
+
+            for (const preview of previews) {
+              // Assumes that environments are named `storybook-preview-123`
+              const segments = preview.name.split('-');
+              const number = segments[2];
+              const { data: pull } = await github.rest.pulls.get({
+                owner: 'primer',
+                repo: 'react',
+                pull_number: number,
+              });
+
+              if (pull.state === 'open') {
+                core.info(`${preview.name} is still being used by: ${pull.html_url}`);
+                changes.push({
+                  preview,
+                  pull,
+                  type: 'none',
+                });
+                continue;
+              }
+
+              core.info(`Removing ${preview.name} since ${pull.html_url} is ${pull.state}`);
+
+              await github.rest.repos.deleteAnEnvironment({
+                owner: 'primer',
+                repo: 'react',
+                environment_name: preview.name,
+              });
+
+              changes.push({
+                preview,
+                pull,
+                type: 'removed',
+              });
+            }
+
+            core.endGroup();
+
+            await core.summary
+              .addHeading('Environments')
+              .addTable([
+                [
+                  {
+                    data: 'Environment',
+                    header: true,
+                  },
+                  {
+                    data: 'Status',
+                    header: true,
+                  },
+                  {
+                    data: 'Pull Request',
+                    header: true,
+                  },
+                ],
+                ...changes.map((change) => {
+                  return [
+                    change.preview.name,
+                    change.type === 'removed' ? 'Removed' : '',
+                    change.pull.html_url,
+                  ];
+                }),
+              ])
+              .write();
+
+  branches:
+    if: ${{ github.repository == 'primer/react' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const owner = 'primer';
+            const repo = 'react';
+            const branches = [];
+            const sixMonthsAgo = new Date();
+            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+            const getErrorMessage = (error) => {
+              return error instanceof Error ? error.message : String(error);
+            };
+
+            let defaultBranch = context.payload.repository?.default_branch;
+
+            if (!defaultBranch) {
+              const { data: repository } = await github.rest.repos.get({
+                owner,
+                repo,
+              });
+
+              defaultBranch = repository.default_branch;
+            }
+
+            defaultBranch ||= 'main';
+
+            for await (const response of github.paginate.iterator(
+              github.rest.repos.listBranches,
+              {
+                owner,
+                repo,
+                per_page: 100,
+              }
+            )) {
+              branches.push(...response.data);
+            }
+
+            core.info(`${branches.length} branches found`);
+            core.info(`Keeping default branch ${defaultBranch}`);
+
+            core.startGroup('Status');
+
+            const changes = [];
+
+            for (const branch of branches) {
+              if (branch.name === defaultBranch) {
+                core.info(`Keeping ${branch.name} because it is the default branch`);
+                continue;
+              }
+
+              if (branch.protected) {
+                core.info(`Keeping ${branch.name} because it is protected`);
+                continue;
+              }
+
+              let pull;
+              let reason = 'recent-activity';
+              let type = 'none';
+
+              const { data: pulls } = await github.rest.pulls.list({
+                owner,
+                repo,
+                head: `${owner}:${branch.name}`,
+                state: 'all',
+                per_page: 1,
+              });
+
+              pull = pulls[0];
+
+              if (pull && pull.state !== 'open') {
+                reason = `pr-${pull.state}`;
+                core.info(`Removing ${branch.name} since ${pull.html_url} is ${pull.state}`);
+
+                try {
+                  await github.rest.git.deleteRef({
+                    owner,
+                    repo,
+                    ref: `heads/${branch.name}`,
+                  });
+                  type = 'removed';
+                } catch (error) {
+                  reason = `${reason}-delete-failed`;
+                  core.warning(`Failed to remove ${branch.name}: ${getErrorMessage(error)}`);
+                }
+
+                changes.push({
+                  branch,
+                  pull,
+                  reason,
+                  type,
+                });
+                continue;
+              }
+
+              const { data: commit } = await github.rest.repos.getCommit({
+                owner,
+                repo,
+                ref: branch.commit.sha,
+              });
+
+              const commitDate = commit.commit.committer?.date ?? commit.commit.author?.date;
+
+              if (!commitDate) {
+                reason = 'unknown-commit-date';
+                core.warning(`Keeping ${branch.name} because its latest commit date could not be determined`);
+              } else {
+                const parsedCommitDate = new Date(commitDate);
+
+                if (Number.isNaN(parsedCommitDate.getTime())) {
+                  reason = 'unknown-commit-date';
+                  core.warning(`Keeping ${branch.name} because its latest commit date could not be parsed`);
+                } else if (parsedCommitDate < sixMonthsAgo) {
+                  reason = 'stale-6-months';
+                  core.info(`Removing ${branch.name} because its latest commit is older than 6 months`);
+
+                  try {
+                    await github.rest.git.deleteRef({
+                      owner,
+                      repo,
+                      ref: `heads/${branch.name}`,
+                    });
+                    type = 'removed';
+                  } catch (error) {
+                    reason = `${reason}-delete-failed`;
+                    core.warning(`Failed to remove ${branch.name}: ${getErrorMessage(error)}`);
+                  }
+                } else if (pull) {
+                  reason = 'pr-open';
+                  core.info(`${branch.name} is still being used by: ${pull.html_url}`);
+                } else {
+                  core.info(`Keeping ${branch.name} because it has recent activity`);
+                }
+              }
+
+              changes.push({
+                branch,
+                pull,
+                reason,
+                type,
+              });
+            }
+
+            core.endGroup();
+
+            await core.summary
+              .addHeading('Branches')
+              .addTable([
+                [
+                  {
+                    data: 'Branch',
+                    header: true,
+                  },
+                  {
+                    data: 'Status',
+                    header: true,
+                  },
+                  {
+                    data: 'Reason',
+                    header: true,
+                  },
+                  {
+                    data: 'Pull Request',
+                    header: true,
+                  },
+                ],
+                ...changes.map((change) => {
+                  return [
+                    change.branch.name,
+                    change.type === 'removed' ? 'Removed' : 'Kept',
+                    change.reason,
+                    change.pull?.html_url ?? '',
+                  ];
+                }),
+              ])
+              .write();
