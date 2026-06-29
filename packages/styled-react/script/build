@@ -5,8 +5,5 @@ set -e
 # Build the package
 npx rolldown -c
 
-# Generate type declarations
-npx tsc --project tsconfig.build.json
-
 # Generate components.json
 ./script/generate-components-json
