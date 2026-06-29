@@ -60,7 +60,7 @@ jobs:
             const integrationLabels = labels.filter(label => label.name.startsWith('integration-tests'))
             const hasPassingLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.passing)
             const hasIgnoredLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.ignored)
-            const onlyIgnoredLabel = integrationLabels.length === 1 && hasIgnoredLabel
+            const hasOnlyIgnoredLabel = integrationLabels.length === 1 && hasIgnoredLabel
             const hasRelevantDiff = process.env.HAS_RELEVANT_DIFF === 'true'
 
             if (!hasRelevantDiff) {
@@ -74,7 +74,7 @@ jobs:
               await github.rest.issues.removeLabel({...issue, name: INTEGRATION_LABEL_NAMES.ignored})
             }
 
-            if (integrationLabels.length === 0 || onlyIgnoredLabel) {
+            if (integrationLabels.length === 0 || hasOnlyIgnoredLabel) {
               // recommend integration tests
               await github.rest.issues.addLabels({...issue, labels: [INTEGRATION_LABEL_NAMES.recommended]})
               await github.rest.issues.createComment({
