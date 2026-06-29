@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          if jq -r '.pull_request.labels[].name // empty' "$GITHUB_EVENT_PATH" | grep -Fxq "$SKIP_LABEL"; then
+          if jq -r '.pull_request.labels[]? | select(.name) | .name' "$GITHUB_EVENT_PATH" | grep -Fxq "$SKIP_LABEL"; then
             echo "the skip label \"$SKIP_LABEL\" is set"
             exit 0
           fi
@@ -39,5 +39,5 @@ jobs:
             exit 0
           fi
 
-          echo "::error::No changeset found. If these changes should not result in a new version, apply the $SKIP_LABEL label to this pull request. If these changes should result in a version bump, please add a changeset https://git.io/J6QvQ"
+          echo "::error::No changeset found. If these changes should not result in a new version, apply the \"$SKIP_LABEL\" label to this pull request. If these changes should result in a version bump, please add a changeset https://git.io/J6QvQ"
           exit 1
