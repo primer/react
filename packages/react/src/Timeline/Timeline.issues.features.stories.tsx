@@ -102,6 +102,30 @@ const Time = ({date}: {date: string}) => (
   </Link>
 )
 
+// Shared wrapper for every event-group story. Renders the realistic timeline
+// surface and applies two story-only a11y/UX shims:
+//  - `data-a11y-link-underlines="true"`: Primer gates the inline-link underline
+//    on this ancestor attribute, which GitHub sets from the default-on "Show
+//    link underlines" user preference. Storybook never sets it, so without this
+//    the in-text `<Link inline>` links would render color-only (WCAG 1.4.1).
+//    Actor-name links use `<Link className={ActorName}>` WITHOUT `inline`, so
+//    they don't match the `[data-inline='true']` selector and stay un-underlined
+//    (avatar + semibold remain their cue).
+//  - onClick guard: prevents the placeholder `href="#"` links from navigating
+//    inside Storybook. Uses `instanceof Element` so a click on an SVG/octicon
+//    target (no `.closest`) doesn't throw.
+const Examples = ({children}: {children: React.ReactNode}) => (
+  <div
+    className={classes.RealisticTimeline}
+    data-a11y-link-underlines="true"
+    onClick={e => {
+      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
+    }}
+  >
+    {children}
+  </div>
+)
+
 export default {
   title: 'Components/Timeline/Events/Issues',
   component: Timeline,
@@ -135,20 +159,14 @@ export default {
  * not-planned/duplicate -> CircleSlashIcon on `neutral` (gray).
  */
 export const EventClosed = () => (
-  <div
-    className={classes.RealisticTimeline}
-    // Prevent the placeholder `href="#"` links from navigating inside Storybook.
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Closed as completed */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Closed as completed</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={CheckCircleIcon} aria-label="Closed as completed" />
+            <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -177,7 +195,7 @@ export const EventClosed = () => (
               } as React.CSSProperties
             }
           >
-            <Octicon icon={CircleSlashIcon} aria-label="Closed as not planned" />
+            <Octicon icon={CircleSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -197,7 +215,7 @@ export const EventClosed = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={CheckCircleIcon} aria-label="Closed via pull request" />
+            <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -221,7 +239,7 @@ export const EventClosed = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={CheckCircleIcon} aria-label="Closed via commit" />
+            <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -247,7 +265,7 @@ export const EventClosed = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={CheckCircleIcon} aria-label="Closed via project" />
+            <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -281,7 +299,7 @@ export const EventClosed = () => (
               } as React.CSSProperties
             }
           >
-            <Octicon icon={CircleSlashIcon} aria-label="Closed as duplicate" />
+            <Octicon icon={CircleSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -307,7 +325,7 @@ export const EventClosed = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={CheckCircleIcon} aria-label="Closed" />
+            <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -317,7 +335,7 @@ export const EventClosed = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -329,19 +347,14 @@ export const EventClosed = () => (
  * structural events with a default (muted) badge.
  */
 export const EventState = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Reopened — open (green) badge via useIssueState (ReopenedEvent.tsx) */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Reopened</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="open">
-            <Octicon icon={IssueReopenedIcon} aria-label="Reopened" />
+            <Octicon icon={IssueReopenedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -359,7 +372,7 @@ export const EventState = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LinkExternalIcon} aria-label="Transferred" />
+            <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -379,7 +392,7 @@ export const EventState = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PinIcon} aria-label="Pinned" />
+            <Octicon icon={PinIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -396,7 +409,7 @@ export const EventState = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PinIcon} aria-label="Unpinned" />
+            <Octicon icon={PinIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -414,7 +427,7 @@ export const EventState = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CommentDiscussionIcon} aria-label="Converted to discussion" />
+            <Octicon icon={CommentDiscussionIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -434,7 +447,7 @@ export const EventState = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueDraftIcon} aria-label="Converted from draft" />
+            <Octicon icon={IssueDraftIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -444,7 +457,7 @@ export const EventState = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -456,12 +469,7 @@ export const EventState = () => (
  * references compose a simplified `ReferencedEventInner` card.
  */
 export const EventReferences = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Linked pull request — ConnectedEvent.tsx (CrossReferenceIcon badge,
           open PR state icon inline before the PR title). */}
     <section className={classes.Variant}>
@@ -469,7 +477,7 @@ export const EventReferences = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CrossReferenceIcon} aria-label="Linked pull request" />
+            <Octicon icon={CrossReferenceIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -495,7 +503,7 @@ export const EventReferences = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={GitPullRequestIcon} className={classes.BadgeIconOpen} aria-label="Unlinked pull request" />
+            <Octicon icon={GitPullRequestIcon} className={classes.BadgeIconOpen} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -517,7 +525,7 @@ export const EventReferences = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={GitCommitIcon} aria-label="Commit reference" />
+            <Octicon icon={GitCommitIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -549,7 +557,7 @@ export const EventReferences = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={GitCommitIcon} aria-label="Commit references" />
+            <Octicon icon={GitCommitIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -585,7 +593,7 @@ export const EventReferences = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -597,12 +605,7 @@ export const EventReferences = () => (
  * We map that to the `Timeline.Actions` slot (sibling of `Timeline.Body`).
  */
 export const EventDuplicates = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Marked this as a duplicate of <canonical>. Right-controls "Undo" button
           (viewerCanUndo) → Timeline.Actions. The canonical issue is open, so its
           IssueLink uses the open (green) state icon. */}
@@ -611,7 +614,7 @@ export const EventDuplicates = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={DuplicateIcon} aria-label="Marked as duplicate" />
+            <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -636,7 +639,7 @@ export const EventDuplicates = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={DuplicateIcon} aria-label="Marked as canonical" />
+            <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -659,7 +662,7 @@ export const EventDuplicates = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={DuplicateIcon} aria-label="Unmarked as duplicate" />
+            <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -681,7 +684,7 @@ export const EventDuplicates = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={DuplicateIcon} aria-label="Unmarked as canonical" />
+            <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -697,7 +700,7 @@ export const EventDuplicates = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -708,19 +711,14 @@ export const EventDuplicates = () => (
  * (no avatar) via `ProfileReference`.
  */
 export const EventModeration = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* User blocked (permanent) */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>User blocked</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="User blocked" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -740,7 +738,7 @@ export const EventModeration = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="User temporarily blocked" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -760,7 +758,7 @@ export const EventModeration = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PinIcon} aria-label="Comment pinned" />
+            <Octicon icon={PinIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -780,7 +778,7 @@ export const EventModeration = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PinIcon} aria-label="Comment unpinned" />
+            <Octicon icon={PinIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -793,7 +791,7 @@ export const EventModeration = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -805,19 +803,14 @@ export const EventModeration = () => (
  * functional color tokens.
  */
 export const EventIssueTypes = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Type added */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Issue type added</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueOpenedIcon} aria-label="Issue type added" />
+            <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -848,7 +841,7 @@ export const EventIssueTypes = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueOpenedIcon} aria-label="Issue type removed" />
+            <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -879,7 +872,7 @@ export const EventIssueTypes = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueOpenedIcon} aria-label="Issue type changed" />
+            <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -916,7 +909,7 @@ export const EventIssueTypes = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -933,19 +926,14 @@ export const EventIssueTypes = () => (
  * 'single' : 'multiple']` + `itemsToRender.map(...)`.)
  */
 export const EventIssueHierarchy = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Sub-issue added (single) */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Sub-issue added (single)</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueTracksIcon} aria-label="Sub-issue added" />
+            <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -971,7 +959,7 @@ export const EventIssueHierarchy = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueTracksIcon} aria-label="Sub-issues added" />
+            <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1004,7 +992,7 @@ export const EventIssueHierarchy = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueTracksIcon} aria-label="Sub-issue removed" />
+            <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1030,7 +1018,7 @@ export const EventIssueHierarchy = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueTracksIcon} aria-label="Sub-issues removed" />
+            <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1063,7 +1051,7 @@ export const EventIssueHierarchy = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueTrackedByIcon} aria-label="Parent issue added" />
+            <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1089,7 +1077,7 @@ export const EventIssueHierarchy = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueTrackedByIcon} aria-label="Parent issues added" />
+            <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1122,7 +1110,7 @@ export const EventIssueHierarchy = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueTrackedByIcon} aria-label="Parent issue removed" />
+            <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1148,7 +1136,7 @@ export const EventIssueHierarchy = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={IssueTrackedByIcon} aria-label="Parent issues removed" />
+            <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1174,7 +1162,7 @@ export const EventIssueHierarchy = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -1190,19 +1178,14 @@ export const EventIssueHierarchy = () => (
  * .multiple(count)`, and the secondary list grows from 1 to N rows.
  */
 export const EventDependencies = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Blocked by (single) */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Blocked by (single)</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="Marked as blocked" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1228,7 +1211,7 @@ export const EventDependencies = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="Marked as blocked by multiple issues" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1261,7 +1244,7 @@ export const EventDependencies = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="Unmarked as blocked" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1287,7 +1270,7 @@ export const EventDependencies = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="Unmarked as blocked by multiple issues" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1320,7 +1303,7 @@ export const EventDependencies = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="Marked as blocking" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1346,7 +1329,7 @@ export const EventDependencies = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="Marked as blocking multiple issues" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1379,7 +1362,7 @@ export const EventDependencies = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="Unmarked as blocking" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1405,7 +1388,7 @@ export const EventDependencies = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={BlockedIcon} aria-label="Unmarked as blocking multiple issues" />
+            <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1431,7 +1414,7 @@ export const EventDependencies = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -1451,19 +1434,14 @@ export const EventDependencies = () => (
  * only the rendered variants, not the timing.)
  */
 export const EventIssueFields = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Set text field */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Set · text</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TypographyIcon} aria-label="Text field set" />
+            <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1485,7 +1463,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={NumberIcon} aria-label="Number field set" />
+            <Octicon icon={NumberIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1507,7 +1485,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CalendarIcon} aria-label="Date field set" />
+            <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1529,7 +1507,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={SingleSelectIcon} aria-label="Single select field set" />
+            <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1564,7 +1542,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TypographyIcon} aria-label="Text field changed" />
+            <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1586,7 +1564,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={NumberIcon} aria-label="Number field changed" />
+            <Octicon icon={NumberIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1608,7 +1586,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CalendarIcon} aria-label="Date field changed" />
+            <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1630,7 +1608,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={SingleSelectIcon} aria-label="Single select field changed" />
+            <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1662,7 +1640,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TypographyIcon} aria-label="Text field cleared" />
+            <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1679,7 +1657,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={NumberIcon} aria-label="Number field cleared" />
+            <Octicon icon={NumberIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1696,7 +1674,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CalendarIcon} aria-label="Date field cleared" />
+            <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1713,7 +1691,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={SingleSelectIcon} aria-label="Single select field cleared" />
+            <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1730,7 +1708,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TypographyIcon} aria-label="Fields updated" />
+            <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1756,7 +1734,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TypographyIcon} aria-label="Fields removed" />
+            <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1775,7 +1753,7 @@ export const EventIssueFields = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TypographyIcon} aria-label="Fields updated and removed" />
+            <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1790,7 +1768,7 @@ export const EventIssueFields = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -1820,19 +1798,14 @@ export const EventIssueFields = () => (
  * must use the ERB spec above, not this Issue composition.
  */
 export const EventProject = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Added to project */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Added to project</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TableIcon} aria-label="Added to project" />
+            <Octicon icon={TableIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1854,7 +1827,7 @@ export const EventProject = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TableIcon} aria-label="Removed from project" />
+            <Octicon icon={TableIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1879,7 +1852,7 @@ export const EventProject = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TableIcon} aria-label="Project status changed" />
+            <Octicon icon={TableIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1893,7 +1866,7 @@ export const EventProject = () => (
         </Timeline.Item>
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TableIcon} aria-label="Project status changed" />
+            <Octicon icon={TableIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1907,7 +1880,7 @@ export const EventProject = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -1927,19 +1900,14 @@ export const EventProject = () => (
  * the PR build (label pill markup is shared, copy is the same).
  */
 export const EventLabels = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Label added */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Label added</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TagIcon} aria-label="Label added" />
+            <Octicon icon={TagIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -1969,7 +1937,7 @@ export const EventLabels = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TagIcon} aria-label="Label removed" />
+            <Octicon icon={TagIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2000,7 +1968,7 @@ export const EventLabels = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TagIcon} aria-label="Labels added and removed" />
+            <Octicon icon={TagIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2037,7 +2005,7 @@ export const EventLabels = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -2054,19 +2022,14 @@ export const EventLabels = () => (
  * the PR build.
  */
 export const EventTitle = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Title changed */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Title changed</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PencilIcon} aria-label="Title changed" />
+            <Octicon icon={PencilIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2076,7 +2039,7 @@ export const EventTitle = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -2094,19 +2057,14 @@ export const EventTitle = () => (
  * on the PR build.
  */
 export const EventMilestones = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Added to milestone */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Added to milestone</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={MilestoneIcon} aria-label="Added to milestone" />
+            <Octicon icon={MilestoneIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2127,7 +2085,7 @@ export const EventMilestones = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={MilestoneIcon} aria-label="Removed from milestone" />
+            <Octicon icon={MilestoneIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2141,7 +2099,7 @@ export const EventMilestones = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -2160,19 +2118,14 @@ export const EventMilestones = () => (
  * Dependabot/PR surface must use that ActorComponent, not this composition.
  */
 export const EventAssignments = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Self-assigned */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Self-assigned</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Self-assigned" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2189,7 +2142,7 @@ export const EventAssignments = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Assigned" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2209,7 +2162,7 @@ export const EventAssignments = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Assigned multiple" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2233,7 +2186,7 @@ export const EventAssignments = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Self-unassigned" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2250,7 +2203,7 @@ export const EventAssignments = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Unassigned" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2270,7 +2223,7 @@ export const EventAssignments = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Unassigned multiple" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2287,7 +2240,7 @@ export const EventAssignments = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -2305,12 +2258,7 @@ export const EventAssignments = () => (
  * the PR build.
  */
 export const EventLockUnlock = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Locked with reason — one row per reason (off topic / resolved / spam /
         too heated). */}
     <section className={classes.Variant}>
@@ -2318,7 +2266,7 @@ export const EventLockUnlock = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LockIcon} aria-label="Locked as off topic" />
+            <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2328,7 +2276,7 @@ export const EventLockUnlock = () => (
         </Timeline.Item>
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LockIcon} aria-label="Locked as resolved" />
+            <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2338,7 +2286,7 @@ export const EventLockUnlock = () => (
         </Timeline.Item>
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LockIcon} aria-label="Locked as spam" />
+            <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2348,7 +2296,7 @@ export const EventLockUnlock = () => (
         </Timeline.Item>
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LockIcon} aria-label="Locked as too heated" />
+            <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2365,7 +2313,7 @@ export const EventLockUnlock = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LockIcon} aria-label="Locked" />
+            <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2382,7 +2330,7 @@ export const EventLockUnlock = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={UnlockIcon} aria-label="Unlocked" />
+            <Octicon icon={UnlockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2392,7 +2340,7 @@ export const EventLockUnlock = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -2407,19 +2355,14 @@ export const EventLockUnlock = () => (
  * verify on the PR build.
  */
 export const EventCommentDeleted = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Comment deleted */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Comment deleted</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={TrashIcon} aria-label="Comment deleted" />
+            <Octicon icon={TrashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2432,7 +2375,7 @@ export const EventCommentDeleted = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -2451,19 +2394,14 @@ export const EventCommentDeleted = () => (
  * verify on the PR build.
  */
 export const EventCrossReferences = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Mentioned from an issue */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Mentioned in an issue</h3>
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LinkExternalIcon} aria-label="Mentioned in an issue" />
+            <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2489,7 +2427,7 @@ export const EventCrossReferences = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LinkExternalIcon} aria-label="Mentioned in a pull request" />
+            <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2515,7 +2453,7 @@ export const EventCrossReferences = () => (
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={LinkExternalIcon} aria-label="Linked a closing pull request" />
+            <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <Actor />
@@ -2534,5 +2472,5 @@ export const EventCrossReferences = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
