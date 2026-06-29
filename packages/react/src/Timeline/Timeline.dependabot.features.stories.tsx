@@ -143,6 +143,28 @@ const NoteComment = ({children}: {children: React.ReactNode}) => (
   </div>
 )
 
+/**
+ * Shared story wrapper. Constrains width to product surfaces, and sets
+ * `data-a11y-link-underlines="true"` to reproduce GitHub's default-on "Show link
+ * underlines" preference — Primer gates `<Link inline>` underlines on this
+ * ancestor attribute, so inline content links get a non-color distinction
+ * (WCAG 1.4.1). Actor-name links use `className` WITHOUT `inline`, so they stay
+ * avatar + semibold with no underline. The click handler swallows the
+ * placeholder `href="#"` navigation so the stories don't reload Storybook
+ * (`e.target instanceof Element` guards against SVG/Octicon clicks).
+ */
+const Examples = ({children}: {children: React.ReactNode}) => (
+  <div
+    className={classes.RealisticTimeline}
+    data-a11y-link-underlines="true"
+    onClick={e => {
+      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
+    }}
+  >
+    {children}
+  </div>
+)
+
 export default {
   title: 'Components/Timeline/Events/Dependabot',
   component: Timeline,
@@ -179,20 +201,14 @@ export default {
  * blue push-pill.
  */
 export const EventOpened = () => (
-  <div
-    className={classes.RealisticTimeline}
-    // Prevent the placeholder `href="#"` links from navigating inside Storybook.
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Opened — no source */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Opened</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={ShieldIcon} aria-label="Opened" />
+            <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -209,7 +225,7 @@ export const EventOpened = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={ShieldIcon} aria-label="Opened from pull request" />
+            <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -229,7 +245,7 @@ export const EventOpened = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={ShieldIcon} aria-label="Opened from push" />
+            <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -239,7 +255,7 @@ export const EventOpened = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -256,19 +272,14 @@ export const EventOpened = () => (
  * runtime separator — it is a list-position concern, not part of the event.
  */
 export const EventFixed = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Fixed — no source */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Fixed</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Fixed" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -285,7 +296,7 @@ export const EventFixed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Fixed via pull request" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -305,7 +316,7 @@ export const EventFixed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Fixed via push" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -315,7 +326,7 @@ export const EventFixed = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -332,19 +343,14 @@ export const EventFixed = () => (
  * The optional comment renders as a small indented sub-row (note octicon + text).
  */
 export const EventDismissed = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Manual — risk is tolerable (with an optional dismissal note) */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Dismissed as risk is tolerable</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Dismissed as risk is tolerable" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -362,7 +368,7 @@ export const EventDismissed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Dismissed as fix started" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -379,7 +385,7 @@ export const EventDismissed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Dismissed as no bandwidth to fix this" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -396,7 +402,7 @@ export const EventDismissed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Dismissed as vulnerable code is not actually used" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -413,7 +419,7 @@ export const EventDismissed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Dismissed as inaccurate" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -430,7 +436,7 @@ export const EventDismissed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Auto-dismissed due to an alert rule" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -454,7 +460,7 @@ export const EventDismissed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Auto-dismissed due to an alert rule from pull request" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -474,7 +480,7 @@ export const EventDismissed = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Auto-dismissed due to an alert rule from push" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -484,7 +490,7 @@ export const EventDismissed = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -497,19 +503,14 @@ export const EventDismissed = () => (
  * `with_badge(bg: :success_emphasis, color: :on_emphasis, icon: :sync)`.
  */
 export const EventReopened = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Manual reopen — user actor */}
     <section className={classes.Variant}>
       <h3 className={classes.VariantLabel}>Reopened</h3>
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={SyncIcon} aria-label="Reopened" />
+            <Octicon icon={SyncIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -526,7 +527,7 @@ export const EventReopened = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={SyncIcon} aria-label="Reintroduced" />
+            <Octicon icon={SyncIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -543,7 +544,7 @@ export const EventReopened = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={SyncIcon} aria-label="Reintroduced from pull request" />
+            <Octicon icon={SyncIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -563,7 +564,7 @@ export const EventReopened = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={SyncIcon} aria-label="Reintroduced from push" />
+            <Octicon icon={SyncIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -580,7 +581,7 @@ export const EventReopened = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={SyncIcon} aria-label="Auto-reopened" />
+            <Octicon icon={SyncIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <DependabotActor />
@@ -596,7 +597,7 @@ export const EventReopened = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
 
 /**
@@ -623,12 +624,7 @@ export const EventReopened = () => (
  * Optional review/resolution notes render via the shared `NoteComment` sub-row.
  */
 export const EventDismissalRequest = () => (
-  <div
-    className={classes.RealisticTimeline}
-    onClick={e => {
-      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
-    }}
-  >
+  <Examples>
     {/* Dismissal requested — circle user actor, attention/comment badge. When
         `show_dismissal_actions` is true, the live inline template
         (`dismissal_requested_component.rb`) renders a `<span class="float-right">`
@@ -641,7 +637,7 @@ export const EventDismissalRequest = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CommentIcon} className={classes.BadgeIconAttention} aria-label="Dismissal requested" />
+            <Octicon icon={CommentIcon} className={classes.BadgeIconAttention} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -664,7 +660,7 @@ export const EventDismissalRequest = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CheckIcon} className={classes.BadgeIconSuccess} aria-label="Dismissal approved" />
+            <Octicon icon={CheckIcon} className={classes.BadgeIconSuccess} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -682,7 +678,7 @@ export const EventDismissalRequest = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={XIcon} className={classes.BadgeIconDanger} aria-label="Dismissal denied" />
+            <Octicon icon={XIcon} className={classes.BadgeIconDanger} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -701,7 +697,7 @@ export const EventDismissalRequest = () => (
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={XIcon} className={classes.BadgeIconMuted} aria-label="Dismissal cancelled" />
+            <Octicon icon={XIcon} className={classes.BadgeIconMuted} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -711,5 +707,5 @@ export const EventDismissalRequest = () => (
         </Timeline.Item>
       </Timeline>
     </section>
-  </div>
+  </Examples>
 )
