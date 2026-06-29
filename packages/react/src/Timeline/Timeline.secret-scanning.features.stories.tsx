@@ -84,6 +84,12 @@ import classes from './Timeline.secret-scanning.features.stories.module.css'
  * bolded plain text). So the axe `link-in-text-block` rule (which failed the
  * Dependabot CI for underline-less in-text links) is never exercised by this
  * surface. Any future in-text link added here must use `inline`/bold.
+ *
+ * The badge octicons are DECORATIVE — they are rendered bare (no `aria-label`,
+ * so Primer defaults them to `aria-hidden`), exactly as the live
+ * `AlertTimeline.tsx` renders them. The adjacent `Timeline.Body` sentence is the
+ * sole accessible description of each event, so the badge icon must NOT restate
+ * it (a labelled badge would make screen readers announce the event twice).
  */
 
 const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
@@ -183,7 +189,7 @@ export const EventCreated = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={ShieldIcon} aria-label="Created" />
+            <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <GitHubActor />
@@ -224,7 +230,7 @@ export const EventResolution = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
-            <Octicon icon={ShieldCheckIcon} aria-label="Closed as revoked" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -242,7 +248,7 @@ export const EventResolution = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Closed as false positive" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -259,7 +265,7 @@ export const EventResolution = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Closed as won't fix" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -276,7 +282,7 @@ export const EventResolution = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Closed as used in tests" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -293,7 +299,7 @@ export const EventResolution = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Closed as pattern deleted" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -310,7 +316,7 @@ export const EventResolution = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Closed as pattern edited" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -327,7 +333,7 @@ export const EventResolution = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Closed as ignored by configuration" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -349,7 +355,7 @@ export const EventResolution = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldSlashIcon} aria-label="Closed as false positive" />
+            <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -360,7 +366,7 @@ export const EventResolution = () => (
         <Timeline.Break />
         <Timeline.Item>
           <Timeline.Badge variant="success">
-            <Octicon icon={SyncIcon} aria-label="Reopened" />
+            <Octicon icon={SyncIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -391,7 +397,7 @@ export const EventBypass = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={AlertIcon} aria-label="Bypassed push protection" />
+            <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -409,7 +415,7 @@ export const EventBypass = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CommentIcon} aria-label="Requested bypass privileges" />
+            <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -426,7 +432,7 @@ export const EventBypass = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CheckCircleIcon} aria-label="Approved a bypass" />
+            <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -459,7 +465,7 @@ export const EventValidityChange = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="danger">
-            <Octicon icon={AlertIcon} aria-label="Validity active" />
+            <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <GitHubActor />
@@ -476,7 +482,7 @@ export const EventValidityChange = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="danger">
-            <Octicon icon={AlertIcon} aria-label="Validity active" />
+            <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -493,7 +499,7 @@ export const EventValidityChange = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={SkipIcon} aria-label="Validity inactive" />
+            <Octicon icon={SkipIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <GitHubActor />
@@ -510,7 +516,7 @@ export const EventValidityChange = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={SkipIcon} aria-label="Validity inactive" />
+            <Octicon icon={SkipIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -527,7 +533,7 @@ export const EventValidityChange = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="attention">
-            <Octicon icon={AlertIcon} aria-label="Validity unknown" />
+            <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <GitHubActor />
@@ -544,7 +550,7 @@ export const EventValidityChange = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="attention">
-            <Octicon icon={AlertIcon} aria-label="Validity unknown" />
+            <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -573,7 +579,7 @@ export const EventReport = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={ShieldCheckIcon} aria-label="Reported" />
+            <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -619,7 +625,7 @@ export const EventClosureRequest = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CommentIcon} aria-label="Requested to dismiss" />
+            <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -642,7 +648,7 @@ export const EventClosureRequest = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CommentIcon} aria-label="Requested to dismiss" />
+            <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -664,7 +670,7 @@ export const EventClosureRequest = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={CheckCircleIcon} aria-label="Approved dismissal" />
+            <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="six7" src={SIX7_AVATAR} />
@@ -682,7 +688,7 @@ export const EventClosureRequest = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={XIcon} aria-label="Denied dismissal" />
+            <Octicon icon={XIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="six7" src={SIX7_AVATAR} />
@@ -700,7 +706,7 @@ export const EventClosureRequest = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={SkipIcon} aria-label="Cancelled request to dismiss" />
+            <Octicon icon={SkipIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -732,7 +738,7 @@ export const EventAssignment = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Assignment changed" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -749,7 +755,7 @@ export const EventAssignment = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Assignment changed" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -766,7 +772,7 @@ export const EventAssignment = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Assignment changed" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -783,7 +789,7 @@ export const EventAssignment = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Assignment changed" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
@@ -800,7 +806,7 @@ export const EventAssignment = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
-            <Octicon icon={PersonIcon} aria-label="Assignment changed" />
+            <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor />
