@@ -130,13 +130,16 @@ jobs:
             const owner = 'primer';
             const repo = 'react';
             const branches = [];
-            const sixMonthsAgo = new Date();
-            const sixMonthsAgoDay = sixMonthsAgo.getDate();
-            sixMonthsAgo.setDate(1);
-            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-            sixMonthsAgo.setDate(
-              Math.min(sixMonthsAgoDay, new Date(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth() + 1, 0).getDate())
-            );
+            const subtractMonths = (date, months) => {
+              const result = new Date(date);
+              const day = result.getDate();
+              result.setDate(1);
+              result.setMonth(result.getMonth() - months);
+              result.setDate(Math.min(day, new Date(result.getFullYear(), result.getMonth() + 1, 0).getDate()));
+
+              return result;
+            };
+            const sixMonthsAgo = subtractMonths(new Date(), 6);
             const getErrorMessage = (error) => {
               return error instanceof Error ? error.message : String(error);
             };
@@ -150,6 +153,10 @@ jobs:
               });
 
               defaultBranch = repository.default_branch;
+            }
+
+            if (!defaultBranch) {
+              core.warning('Default branch could not be determined, falling back to main');
             }
 
             defaultBranch ||= 'main';
