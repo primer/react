@@ -14,9 +14,6 @@ npm run type-css-modules
 # Bundle
 npx rolldown -c
 
-# Type check
-npx tsc --project tsconfig.build.json
-
 # Build components.json file for documentation
 npm run build:components.json
 

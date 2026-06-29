@@ -1,4 +1,4 @@
-# rollup-plugin-import-css
+# rolldown-plugin-import-css
 
 > A Rolldown plugin to include generated CSS alongside transformed CSS Modules so
 > that importing a component from a library includes its CSS.
@@ -7,7 +7,7 @@
 
 ```ts
 // rolldown.config.js
-import {importCSS} from 'rollup-plugin-import-css'
+import {importCSS} from 'rolldown-plugin-import-css'
 
 export default {
   input: ['src/index.ts'],

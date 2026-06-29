@@ -1,9 +1,8 @@
 import babel from '@rolldown/plugin-babel'
-import {defineConfig, RolldownMagicString as MagicString, type TransformPluginContext} from 'rolldown'
+import {defineConfig} from 'rolldown'
+import {preserveDirectives} from 'rolldown-plugin-preserve-directives'
 import {dts} from 'rolldown-plugin-dts'
 import packageJson from './package.json' with {type: 'json'}
-
-type Program = ReturnType<TransformPluginContext['parse']>
 
 interface PackageMetadata {
   readonly peerDependencies?: Record<string, string>
@@ -39,20 +38,6 @@ const declarationInput = {
   'components/useTheme': 'src/components/useTheme.ts',
 }
 
-function hasClientDirective(ast: Program) {
-  for (const node of ast.body) {
-    if (node.type !== 'ExpressionStatement') {
-      continue
-    }
-
-    if (node.directive === 'use client') {
-      return true
-    }
-  }
-
-  return false
-}
-
 export default defineConfig([
   {
     input: ['src/index.tsx'],
@@ -63,76 +48,7 @@ export default defineConfig([
         plugins: ['babel-plugin-styled-components'],
         include: /\.(?:ts|tsx)$/,
       }),
-      /**
-       * This custom Rolldown plugin allows us to preserve directives in source
-       * code, such as "use client", in order to support React Server Components.
-       *
-       * The source for this plugin is inspired by:
-       * https://github.com/Ephem/rollup-plugin-preserve-directives
-       */
-      {
-        name: 'preserve-directives',
-        transform(code) {
-          const ast = this.parse(code)
-
-          if (hasClientDirective(ast)) {
-            return {
-              code,
-              ast,
-              map: null,
-              meta: {
-                hasClientDirective: true,
-              },
-            }
-          }
-
-          return {
-            code,
-            ast,
-            map: null,
-          }
-        },
-        renderChunk: {
-          order: 'post',
-          handler(code, chunk, options) {
-            // If `preserveModules` is not set to true, we can't be sure if the client
-            // directive corresponds to the whole chunk or just a part of it.
-            if (!options.preserveModules) {
-              return undefined
-            }
-
-            let chunkHasClientDirective = false
-
-            for (const moduleId of Object.keys(chunk.modules)) {
-              const moduleInfo = this.getModuleInfo(moduleId)
-              if (moduleInfo === null) {
-                continue
-              }
-
-              if (moduleInfo.meta.hasClientDirective) {
-                chunkHasClientDirective = true
-                break
-              }
-            }
-
-            if (chunkHasClientDirective) {
-              const ast = this.parse(code)
-              if (hasClientDirective(ast)) {
-                return null
-              }
-
-              const transformed = new MagicString(code)
-              transformed.prepend(`"use client";\n`)
-              return {
-                code: transformed.toString(),
-                map: null,
-              }
-            }
-
-            return null
-          },
-        },
-      },
+      preserveDirectives(),
     ],
     onwarn(warning, defaultHandler) {
       // Dependencies or modules may use "use client" as an indicator for React

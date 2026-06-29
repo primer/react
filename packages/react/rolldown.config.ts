@@ -1,17 +1,12 @@
 import path from 'node:path'
 import babel from '@rolldown/plugin-babel'
-import {
-  defineConfig,
-  RolldownMagicString as MagicString,
-  type RolldownOptions,
-  type TransformPluginContext,
-} from 'rolldown'
-import {importCSS} from 'rollup-plugin-import-css'
+import {defineConfig, type RolldownOptions} from 'rolldown'
+import {preserveDirectives} from 'rolldown-plugin-preserve-directives'
+import {dts} from 'rolldown-plugin-dts'
+import {importCSS} from 'rolldown-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import {isSupported} from './script/react-compiler.mjs'
 import packageJson from './package.json' with {type: 'json'}
-
-type Program = ReturnType<TransformPluginContext['parse']>
 
 interface PackageMetadata {
   readonly peerDependencies?: Record<string, string>
@@ -36,6 +31,11 @@ const input = new Set([
   'src/next/index.ts',
 ])
 
+const declarationInput = {
+  ...getEntrypointsFromInput(input),
+  'utils/test-helpers': 'src/utils/test-helpers.tsx',
+}
+
 function getEntrypointsFromInput(input: ReadonlySet<string>) {
   return Object.fromEntries(
     Array.from(input).map(value => {
@@ -54,6 +54,8 @@ const dependencies = [
 function createPackageRegex(name: string) {
   return new RegExp(`^${name}(/.*)?`)
 }
+
+const external = dependencies.map(createPackageRegex)
 
 const postcssModulesOptions = {
   generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
@@ -107,19 +109,12 @@ const esmOutput = {
   preserveModulesRoot: 'src',
 } as const
 
-function hasClientDirective(ast: Program) {
-  for (const node of ast.body) {
-    if (node.type !== 'ExpressionStatement') {
-      continue
-    }
-
-    if (node.directive === 'use client') {
-      return true
-    }
-  }
-
-  return false
-}
+const declarationOutput = {
+  dir: 'dist',
+  format: 'esm',
+  preserveModules: true,
+  preserveModulesRoot: 'src',
+} as const
 
 const baseConfig: RolldownOptions = {
   input: {
@@ -134,77 +129,7 @@ const baseConfig: RolldownOptions = {
       postcssPlugins: [postcssPresetPrimer()],
       postcssModulesOptions,
     }),
-
-    /**
-     * This custom Rolldown plugin allows us to preserve directives in source
-     * code, such as "use client", in order to support React Server Components.
-     *
-     * The source for this plugin is inspired by:
-     * https://github.com/Ephem/rollup-plugin-preserve-directives
-     */
-    {
-      name: 'preserve-directives',
-      transform(code) {
-        const ast = this.parse(code)
-
-        if (hasClientDirective(ast)) {
-          return {
-            code,
-            ast,
-            map: null,
-            meta: {
-              hasClientDirective: true,
-            },
-          }
-        }
-
-        return {
-          code,
-          ast,
-          map: null,
-        }
-      },
-      renderChunk: {
-        order: 'post',
-        handler(code, chunk, options) {
-          // If `preserveModules` is not set to true, we can't be sure if the client
-          // directive corresponds to the whole chunk or just a part of it.
-          if (!options.preserveModules) {
-            return undefined
-          }
-
-          let chunkHasClientDirective = false
-
-          for (const moduleId of Object.keys(chunk.modules)) {
-            const moduleInfo = this.getModuleInfo(moduleId)
-            if (moduleInfo === null) {
-              continue
-            }
-
-            if (moduleInfo.meta.hasClientDirective) {
-              chunkHasClientDirective = true
-              break
-            }
-          }
-
-          if (chunkHasClientDirective) {
-            const ast = this.parse(code)
-            if (hasClientDirective(ast)) {
-              return null
-            }
-
-            const transformed = new MagicString(code)
-            transformed.prepend(`"use client";\n`)
-            return {
-              code: transformed.toString(),
-              map: null,
-            }
-          }
-
-          return null
-        },
-      },
-    },
+    preserveDirectives(),
   ],
   onwarn(warning, defaultHandler) {
     // Dependencies or modules may use "use client" as an indicator for React
@@ -225,7 +150,21 @@ export default defineConfig([
   // ESM
   {
     ...baseConfig,
-    external: dependencies.map(createPackageRegex),
+    external,
     output: esmOutput,
+  },
+  // TypeScript declarations
+  {
+    input: declarationInput,
+    external,
+    plugins: [
+      dts({
+        emitDtsOnly: true,
+        oxc: false,
+        sourcemap: true,
+        tsconfig: './tsconfig.build.json',
+      }),
+    ],
+    output: declarationOutput,
   },
 ])

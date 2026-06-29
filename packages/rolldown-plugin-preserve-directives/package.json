@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-import-css",
+  "name": "rolldown-plugin-preserve-directives",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -11,12 +11,9 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "postcss": "^8.4.38",
-    "postcss-modules": "^6.0.0"
+    "rolldown": "^1.1.2"
   },
   "devDependencies": {
-    "postcss": "^8.4.38",
-    "postcss-modules": "^6.0.0",
     "rolldown": "^1.1.2",
     "typescript": "^6.0.3"
   },
