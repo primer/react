@@ -131,7 +131,12 @@ jobs:
             const repo = 'react';
             const branches = [];
             const sixMonthsAgo = new Date();
+            const sixMonthsAgoDay = sixMonthsAgo.getDate();
+            sixMonthsAgo.setDate(1);
             sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+            sixMonthsAgo.setDate(
+              Math.min(sixMonthsAgoDay, new Date(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth() + 1, 0).getDate())
+            );
             const getErrorMessage = (error) => {
               return error instanceof Error ? error.message : String(error);
             };
@@ -223,6 +228,8 @@ jobs:
                 ref: branch.commit.sha,
               });
 
+              // Prefer the committer date because it best reflects the latest activity on the branch,
+              // and fall back to the author date when a committer date is unavailable.
               const commitDate = commit.commit.committer?.date ?? commit.commit.author?.date;
 
               if (!commitDate) {
