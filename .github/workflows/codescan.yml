@@ -66,7 +66,7 @@ jobs:
             core.setOutput('metrics', metrics.join('\n'))
 
       - name: Build count
-        uses: masci/datadog@7696b770aa52aee8a8bffcd1fd52c0a71423ce04
+        uses: masci/datadog@e6e5018c23bc080396a913bfa61555db64431269
         with:
           api-key: ${{ secrets.datadog_api_key }}
           metrics: ${{ steps.file-counts.outputs.metrics }}
