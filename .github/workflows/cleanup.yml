@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  cleanup:
+  environments:
     if: ${{ github.repository == 'primer/react' }}
     runs-on: ubuntu-latest
     permissions:
