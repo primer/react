@@ -80,6 +80,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         onChange={handleOnChange}
         className={clsx(className, sharedClasses.Input, classes.Radio)}
         {...rest}
+        data-component="Radio"
       />
     )
   },

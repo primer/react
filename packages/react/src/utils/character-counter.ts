@@ -1,76 +1,43 @@
 /**
- * Shared character counting functionality for text inputs with character limits.
- * Handles real-time character count updates, validation, and aria-live announcements.
+ * Shared character counting helpers for text inputs with character limits.
+ * Provides the pure derivation used to render the counter and validation state.
  */
 
-const SCREEN_READER_DELAY = 500
+export const SCREEN_READER_DELAY = 500
 
-export interface CharacterCounterCallbacks {
-  onCountUpdate: (count: number, isOverLimit: boolean, message: string) => void
-  onScreenReaderAnnounce: (message: string) => void
+export interface CharacterCountState {
+  /**
+   * Number of characters remaining before the limit is reached, or the number of
+   * characters over the limit when it has been exceeded.
+   */
+  count: number
+  /** Whether the current length exceeds the limit. */
+  isOverLimit: boolean
+  /** Human readable description of the remaining or over count. */
+  message: string
 }
 
-export class CharacterCounter {
-  private announceTimeout: number | null = null
-  private callbacks: CharacterCounterCallbacks
-  private isInitialLoad: boolean = true
+/**
+ * Compute the character count state for a given length and limit. This is a pure
+ * function so the counter can be derived during render without component state.
+ */
+export function getCharacterCountState(currentLength: number, maxLength: number): CharacterCountState {
+  const charactersRemaining = maxLength - currentLength
 
-  constructor(callbacks: CharacterCounterCallbacks) {
-    this.callbacks = callbacks
-  }
-
-  /**
-   * Update the character count based on current input value
-   */
-  updateCharacterCount(currentLength: number, maxLength: number): void {
-    const charactersRemaining = maxLength - currentLength
-    // eslint-disable-next-line no-useless-assignment
-    let message: string = ''
-
-    if (charactersRemaining >= 0) {
-      const characterText = charactersRemaining === 1 ? 'character' : 'characters'
-      message = `${charactersRemaining} ${characterText} remaining`
-      this.callbacks.onCountUpdate(charactersRemaining, false, message)
-    } else {
-      const charactersOver = -charactersRemaining
-      const characterText = charactersOver === 1 ? 'character' : 'characters'
-      message = `${charactersOver} ${characterText} over`
-      this.callbacks.onCountUpdate(charactersOver, true, message)
-    }
-
-    if (!this.isInitialLoad) {
-      this.announceToScreenReader(message)
-    }
-
-    // After first update, set isInitialLoad to false
-    if (this.isInitialLoad) {
-      this.isInitialLoad = false
+  if (charactersRemaining >= 0) {
+    const characterText = charactersRemaining === 1 ? 'character' : 'characters'
+    return {
+      count: charactersRemaining,
+      isOverLimit: false,
+      message: `${charactersRemaining} ${characterText} remaining`,
     }
   }
 
-  /**
-   * Announce character count to screen readers with debouncing
-   */
-  private announceToScreenReader(message: string): void {
-    if (this.announceTimeout) {
-      clearTimeout(this.announceTimeout)
-    }
-
-    if (typeof window === 'undefined' || typeof window.setTimeout !== 'function') {
-      return
-    }
-
-    this.announceTimeout = window.setTimeout(() => {
-      this.callbacks.onScreenReaderAnnounce(message)
-    }, SCREEN_READER_DELAY)
-  }
-
-  /**
-   * Clean up any pending timeouts
-   */
-  cleanup(): void {
-    if (this.announceTimeout) {
-      clearTimeout(this.announceTimeout)
-    }
+  const charactersOver = -charactersRemaining
+  const characterText = charactersOver === 1 ? 'character' : 'characters'
+  return {
+    count: charactersOver,
+    isOverLimit: true,
+    message: `${charactersOver} ${characterText} over`,
   }
 }
