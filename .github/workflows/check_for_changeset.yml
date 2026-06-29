@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          if jq -r '.pull_request.labels[].name' "$GITHUB_EVENT_PATH" | grep -Fxq "$SKIP_LABEL"; then
+          if jq -r '.pull_request.labels[].name // empty' "$GITHUB_EVENT_PATH" | grep -Fxq "$SKIP_LABEL"; then
             echo "the skip label \"$SKIP_LABEL\" is set"
             exit 0
           fi
