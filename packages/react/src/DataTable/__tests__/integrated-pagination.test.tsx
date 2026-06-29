@@ -201,4 +201,166 @@ describe('DataTable integrated pagination', () => {
       expect(screen.queryByText('item-10')).not.toBeInTheDocument()
     })
   })
+
+  describe('page-size dropdown', () => {
+    it('does not render a rows-per-page dropdown when `pageSizeOptions` is omitted', () => {
+      render(
+        <DataTable aria-labelledby="t" data={makeItems(30)} columns={buildColumns()} pagination={{pageSize: 10}} />,
+      )
+      expect(screen.queryByLabelText(/rows per page/i)).not.toBeInTheDocument()
+    })
+
+    it('renders the rows-per-page dropdown when `pageSizeOptions` is provided', () => {
+      render(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(30)}
+          columns={buildColumns()}
+          pagination={{pageSize: 10, pageSizeOptions: [10, 25, 50]}}
+        />,
+      )
+      const select = screen.getByLabelText(/rows per page/i) as HTMLSelectElement
+      expect(select).toBeInTheDocument()
+      // Initial value reflects the current pageSize.
+      expect(select.value).toBe('10')
+      // All options are present.
+      expect(Array.from(select.options).map(o => o.value)).toEqual(['10', '25', '50'])
+    })
+
+    it('uses a custom `pageSizeLabel` when supplied', () => {
+      render(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(30)}
+          columns={buildColumns()}
+          pagination={{pageSize: 10, pageSizeOptions: [10, 25], pageSizeLabel: 'Per page'}}
+        />,
+      )
+      expect(screen.getByLabelText('Per page')).toBeInTheDocument()
+    })
+
+    it('prepends the current `pageSize` to the dropdown if not present in options', () => {
+      render(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(60)}
+          columns={buildColumns()}
+          pagination={{pageSize: 15, pageSizeOptions: [10, 25, 50]}}
+        />,
+      )
+      const select = screen.getByLabelText(/rows per page/i) as HTMLSelectElement
+      // 15 is prepended to keep the dropdown accurate.
+      expect(Array.from(select.options).map(o => o.value)).toEqual(['15', '10', '25', '50'])
+      expect(select.value).toBe('15')
+    })
+
+    it('changing the page size re-slices and renders the new page of rows (uncontrolled)', async () => {
+      const user = userEvent.setup()
+      render(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(30)}
+          columns={buildColumns()}
+          pagination={{pageSize: 10, pageSizeOptions: [10, 25, 50]}}
+        />,
+      )
+      // Initial render: 10 rows visible (header + 10 data).
+      expect(screen.getAllByRole('row')).toHaveLength(11)
+      // Change page size to 25.
+      await user.selectOptions(screen.getByLabelText(/rows per page/i), '25')
+      // 25 rows visible now.
+      expect(screen.getAllByRole('row')).toHaveLength(26)
+      expect(screen.getByText('item-25')).toBeInTheDocument()
+    })
+
+    it('resets to the first page when the page size changes (uncontrolled)', async () => {
+      const user = userEvent.setup()
+      render(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(30)}
+          columns={buildColumns()}
+          pagination={{pageSize: 10, pageSizeOptions: [10, 25, 50], defaultPageIndex: 2}}
+        />,
+      )
+      // Page 2 of pageSize 10 contains items 21..30.
+      expect(screen.getByText('item-21')).toBeInTheDocument()
+      // Pick a larger page size.
+      await user.selectOptions(screen.getByLabelText(/rows per page/i), '25')
+      // We're now back on page 0 (items 1..25), not still on page 2.
+      expect(screen.getByText('item-1')).toBeInTheDocument()
+      expect(screen.getByText('item-25')).toBeInTheDocument()
+    })
+
+    it('fires `onPageSizeChange` and `onPageChange(0)` when the user picks a new page size from page > 0', async () => {
+      const user = userEvent.setup()
+      const onPageSizeChange = vi.fn()
+      const onPageChange = vi.fn()
+      render(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(30)}
+          columns={buildColumns()}
+          pagination={{pageSize: 10, pageSizeOptions: [10, 25, 50], defaultPageIndex: 1}}
+          onPageSizeChange={onPageSizeChange}
+          onPageChange={onPageChange}
+        />,
+      )
+      await user.selectOptions(screen.getByLabelText(/rows per page/i), '25')
+      expect(onPageSizeChange).toHaveBeenCalledWith(25)
+      // We were on page 1 — picking a new page size resets to page 0, so
+      // controlled consumers should hear about the reset too.
+      expect(onPageChange).toHaveBeenCalledWith(0)
+    })
+
+    it('does not fire `onPageChange(0)` when already on page 0', async () => {
+      const user = userEvent.setup()
+      const onPageChange = vi.fn()
+      render(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(30)}
+          columns={buildColumns()}
+          pagination={{pageSize: 10, pageSizeOptions: [10, 25]}}
+          onPageChange={onPageChange}
+        />,
+      )
+      await user.selectOptions(screen.getByLabelText(/rows per page/i), '25')
+      expect(onPageChange).not.toHaveBeenCalled()
+    })
+
+    it('respects controlled `pageSize` and ignores user picks until the parent updates it', async () => {
+      const user = userEvent.setup()
+      const onPageSizeChange = vi.fn()
+      const {rerender} = render(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(60)}
+          columns={buildColumns()}
+          pagination={{pageSizeOptions: [10, 25, 50]}}
+          pageSize={10}
+          onPageSizeChange={onPageSizeChange}
+        />,
+      )
+      // 10 visible rows.
+      expect(screen.getAllByRole('row')).toHaveLength(11)
+      // User picks 25, but parent hasn't bumped pageSize yet — slice stays at 10.
+      await user.selectOptions(screen.getByLabelText(/rows per page/i), '25')
+      expect(onPageSizeChange).toHaveBeenLastCalledWith(25)
+      expect(screen.getAllByRole('row')).toHaveLength(11)
+      // Parent now updates pageSize.
+      rerender(
+        <DataTable
+          aria-labelledby="t"
+          data={makeItems(60)}
+          columns={buildColumns()}
+          pagination={{pageSizeOptions: [10, 25, 50]}}
+          pageSize={25}
+          onPageSizeChange={onPageSizeChange}
+        />,
+      )
+      // 25 visible rows now.
+      expect(screen.getAllByRole('row')).toHaveLength(26)
+    })
+  })
 })

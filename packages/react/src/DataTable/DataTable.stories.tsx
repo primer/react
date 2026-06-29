@@ -197,8 +197,9 @@ export const Playground: StoryObj<DataTableProps<UniqueRow> & ColWidthArgTypes> 
     const align = args.align as CellAlignment
 
     const [pageIndex, setPageIndex] = React.useState(0)
-    const start = pageIndex * parseInt(args.pageSize, 10)
-    const end = start + parseInt(args.pageSize, 10)
+    const playgroundPageSize = Number(args.pageSize) || 5
+    const start = pageIndex * playgroundPageSize
+    const end = start + playgroundPageSize
     const rows = data.slice(start, end)
 
     return (
@@ -284,21 +285,20 @@ export const Playground: StoryObj<DataTableProps<UniqueRow> & ColWidthArgTypes> 
         />
         <Table.Pagination
           aria-label="Pagination for Repositories"
-          pageSize={parseInt(args.pageSize, 10)}
+          pageSize={playgroundPageSize}
           totalCount={data.length}
           onChange={({pageIndex}) => {
             setPageIndex(pageIndex)
           }}
-          defaultPageIndex={parseInt(args.defaultPageIndex, 10)}
+          defaultPageIndex={Number(args.defaultPageIndex) || 0}
         />
       </Table.Container>
     )
   },
   args: {
     cellPadding: 'normal',
-    // @ts-expect-error it seems like args is not being correctly inferred
     pageSize: 5,
-  },
+  } as Partial<DataTableProps<UniqueRow> & ColWidthArgTypes>,
   // @ts-expect-error it seems like arg types with column helpers are not working as intended
   argTypes: {
     align: {
