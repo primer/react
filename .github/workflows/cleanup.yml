@@ -130,6 +130,8 @@ jobs:
             const owner = 'primer';
             const repo = 'react';
             const branches = [];
+            // Clamp the day so subtracting calendar months stays within the target month
+            // (for example, August 31 should become February 28/29 rather than March 2/3).
             const subtractMonths = (date, months) => {
               const result = new Date(date);
               const day = result.getDate();
