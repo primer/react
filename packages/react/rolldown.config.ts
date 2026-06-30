@@ -102,7 +102,6 @@ const babelOptions = {
 }
 
 const esmOutput = {
-  interop: 'auto',
   dir: 'dist',
   format: 'esm',
   preserveModules: true,
