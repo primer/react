@@ -20,8 +20,9 @@ jobs:
       - name: Get source files changes
         id: source-files
         run: |
-          # Include @primer/react and the local packages that can affect its generated runtime output.
+          # Include @primer/react, e2e snapshots, and the local packages that can affect its generated runtime output.
           DIFF=$(git diff --name-only origin/main -- \
+            .playwright/snapshots \
             packages/react \
             packages/postcss-preset-primer \
             packages/rollup-plugin-import-css \
