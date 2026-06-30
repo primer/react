@@ -1,6 +1,6 @@
 import path from 'node:path'
 import babel from '@rolldown/plugin-babel'
-import {defineConfig, type RolldownOptions} from 'rolldown'
+import {defineConfig} from 'rolldown'
 import {preserveDirectives} from 'rolldown-plugin-preserve-directives'
 import {dts} from 'rolldown-plugin-dts'
 import {importCSS} from 'rolldown-plugin-import-css'
