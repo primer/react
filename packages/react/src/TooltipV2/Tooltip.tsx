@@ -1,5 +1,5 @@
 import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
-import {useId, useOnEscapePress, useMergedRefs} from '../hooks'
+import {useId, useOnEscapePress} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -126,9 +126,24 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
+    const childRef = (child as React.ReactElement & {ref?: React.Ref<HTMLElement>}).ref
     const triggerRef = useRef<HTMLElement>(null)
-    const mergedTriggerRef = useMergedRefs(triggerRef, forwardedRef)
-    const tooltipElRef = useRef<HTMLDivElement>(null)
+    const tooltipElRef = React.useRef<HTMLDivElement>(null)
+
+    // Tooltip clones its trigger, so compose refs manually to avoid overwriting the child's original ref
+    const assignRef = (ref: React.Ref<HTMLElement> | undefined, node: HTMLElement | null) => {
+      if (typeof ref === 'function') {
+        ref(node)
+      } else if (ref) {
+        ;(ref as React.MutableRefObject<HTMLElement | null>).current = node
+      }
+    }
+
+    const setTriggerRef = (node: HTMLElement | null) => {
+      assignRef(triggerRef, node)
+      assignRef(childRef, node)
+      assignRef(forwardedRef, node)
+    }
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
@@ -285,7 +300,7 @@ export const Tooltip: ForwardRefExoticComponent<
         <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              ref: mergedTriggerRef,
+              ref: setTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
                 // If tooltip is not a description type, keep the original aria-describedby
