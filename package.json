@@ -2,7 +2,7 @@
   "name": "primer",
   "private": true,
   "workspaces": [
-    "packages/rollup-plugin-import-css",
+    "packages/rolldown-plugin-import-css",
     "packages/react",
     "packages/mcp",
     "packages/*",
@@ -105,9 +105,6 @@
     "typed-css-modules": {
       "yargs": "^18.0.0"
     }
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.59.0"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
