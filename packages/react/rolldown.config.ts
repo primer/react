@@ -16,7 +16,7 @@ interface PackageMetadata {
 
 const packageMetadata: PackageMetadata = packageJson
 
-const input = new Set([
+const entrypoints = new Set([
   // "exports"
   // "."
   'src/index.ts',
@@ -31,11 +31,6 @@ const input = new Set([
   'src/next/index.ts',
 ])
 
-const declarationInput = {
-  ...getEntrypointsFromInput(input),
-  'utils/test-helpers': 'src/utils/test-helpers.tsx',
-}
-
 function getEntrypointsFromInput(input: ReadonlySet<string>) {
   return Object.fromEntries(
     Array.from(input).map(value => {
@@ -49,121 +44,112 @@ const dependencies = [
   ...Object.keys(packageMetadata.peerDependencies ?? {}),
   ...Object.keys(packageMetadata.dependencies ?? {}),
   ...Object.keys(packageMetadata.devDependencies ?? {}),
+].map(name => {
+  return new RegExp(`^${name}(/.*)?`)
+})
+
+const external = [
+  // Exclude package dependencies
+  ...dependencies,
+  // Exclude Node.js built-in modules
+  /node:.*/,
 ]
 
-function createPackageRegex(name: string) {
-  return new RegExp(`^${name}(/.*)?`)
-}
-
-const external = dependencies.map(createPackageRegex)
-
-const postcssModulesOptions = {
-  generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
-}
-
-const babelOptions = {
-  include: /\.(?:js|jsx|ts|tsx)$/,
-  exclude: /node_modules/,
-  babelrc: false,
-  configFile: false,
-  presets: [
-    '@babel/preset-typescript',
-    [
-      '@babel/preset-react',
-      {
-        modules: false,
-        runtime: 'automatic',
-      },
-    ],
-  ],
-  plugins: [
-    [
-      'babel-plugin-react-compiler',
-      {
-        target: '18',
-        sources: (filepath: string) => isSupported(filepath),
-      },
-    ],
-    'macros',
-    'add-react-displayname',
-    'dev-expression',
-    'babel-plugin-styled-components',
-    '@babel/plugin-proposal-nullish-coalescing-operator',
-    '@babel/plugin-proposal-optional-chaining',
-    [
-      'babel-plugin-transform-replace-expressions',
-      {
-        replace: {
-          __DEV__: "process.env.NODE_ENV !== 'production'",
-        },
-      },
-    ],
-  ],
-}
-
-const esmOutput = {
-  dir: 'dist',
-  format: 'esm',
-  preserveModules: true,
-  preserveModulesRoot: 'src',
-} as const
-
-const declarationOutput = {
-  dir: 'dist',
-  format: 'esm',
-  preserveModules: true,
-  preserveModulesRoot: 'src',
-} as const
-
-const baseConfig: RolldownOptions = {
-  input: {
-    ...getEntrypointsFromInput(input),
-    // "./test-helpers"
-    'test-helpers': 'src/utils/test-helpers.tsx',
-  },
-  plugins: [
-    babel(babelOptions),
-    importCSS({
-      modulesRoot: 'src',
-      postcssPlugins: [postcssPresetPrimer()],
-      postcssModulesOptions,
-    }),
-    preserveDirectives(),
-  ],
-  onwarn(warning, defaultHandler) {
-    // Dependencies or modules may use "use client" as an indicator for React
-    // Server Components that this module should only be loaded on the client.
-    if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('use client')) {
-      return
-    }
-
-    if (warning.code === 'CIRCULAR_DEPENDENCY') {
-      throw warning
-    }
-
-    defaultHandler(warning)
-  },
+const input = {
+  ...getEntrypointsFromInput(entrypoints),
+  // "./test-helpers"
+  'test-helpers': 'src/utils/test-helpers.tsx',
 }
 
 export default defineConfig([
   // ESM
   {
-    ...baseConfig,
+    input,
+    plugins: [
+      babel({
+        include: /\.(?:js|jsx|ts|tsx)$/,
+        exclude: /node_modules/,
+        presets: [
+          '@babel/preset-typescript',
+          [
+            '@babel/preset-react',
+            {
+              modules: false,
+              runtime: 'automatic',
+            },
+          ],
+        ],
+        plugins: [
+          [
+            'babel-plugin-react-compiler',
+            {
+              target: '18',
+              sources: (filepath: string) => isSupported(filepath),
+            },
+          ],
+          'macros',
+          'add-react-displayname',
+          'dev-expression',
+          'babel-plugin-styled-components',
+          '@babel/plugin-proposal-nullish-coalescing-operator',
+          '@babel/plugin-proposal-optional-chaining',
+          [
+            'babel-plugin-transform-replace-expressions',
+            {
+              replace: {
+                __DEV__: "process.env.NODE_ENV !== 'production'",
+              },
+            },
+          ],
+        ],
+      }),
+      importCSS({
+        modulesRoot: 'src',
+        postcssPlugins: [postcssPresetPrimer()],
+        postcssModulesOptions: {
+          generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
+        },
+      }),
+      preserveDirectives(),
+    ],
+    onwarn(warning, defaultHandler) {
+      // Dependencies or modules may use "use client" as an indicator for React
+      // Server Components that this module should only be loaded on the client.
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('use client')) {
+        return
+      }
+
+      if (warning.code === 'CIRCULAR_DEPENDENCY') {
+        throw warning
+      }
+
+      defaultHandler(warning)
+    },
     external,
-    output: esmOutput,
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
   },
   // TypeScript declarations
   {
-    input: declarationInput,
+    input,
     external,
     plugins: [
       dts({
         emitDtsOnly: true,
         oxc: false,
-        sourcemap: true,
+        sourcemap: false,
         tsconfig: './tsconfig.build.json',
       }),
     ],
-    output: declarationOutput,
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
   },
 ])

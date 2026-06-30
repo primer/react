@@ -20,7 +20,11 @@ export function preserveDirectives(options: PreserveDirectivesOptions = {}): Plu
 
   return {
     name: 'preserve-directives',
-    transform(code) {
+    transform(code, id) {
+      if (isDeclarationFile(id)) {
+        return null
+      }
+
       const ast = this.parse(code)
       const sourceDirectives = getDirectives(ast, directives)
 
@@ -48,6 +52,10 @@ export function preserveDirectives(options: PreserveDirectivesOptions = {}): Plu
           return undefined
         }
 
+        if (isDeclarationFile(chunk.fileName)) {
+          return null
+        }
+
         const chunkDirectives = getChunkDirectives(this, chunk)
 
         if (chunkDirectives.length === 0) {
@@ -72,6 +80,10 @@ export function preserveDirectives(options: PreserveDirectivesOptions = {}): Plu
       },
     },
   }
+}
+
+function isDeclarationFile(id: string) {
+  return /\.d\.[cm]?ts(?:$|\?)/.test(id)
 }
 
 function getDirectives(ast: Program, directives: readonly string[]) {
