@@ -1,8 +1,6 @@
 import type {ForwardedRef, Ref as StandardRef, MutableRefObject} from 'react'
-import {useCallback, version} from 'react'
+import {useCallback} from 'react'
 import {isExperimentalReactVersion, reactMajorVersion} from '../utils/environment'
-
-const majorReactVersion = parseInt(version.split('.')[0] ?? '18', 10)
 
 /**
  * Cleanup functions for refs were introduced in React 19. For feature detection,
@@ -54,10 +52,8 @@ export function useMergedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
         return
       }
 
-      // Callback refs only work in React 19+. In React 18, the ref will get called with
+      // Only works in React 19. In React 18, the cleanup function will be ignored and the ref will get called with
       // `null` which will be passed to each ref as expected.
-      if (majorReactVersion <= 18) return
-
       return () => {
         // For object refs and callback refs that don't return cleanups, we still need to pass `null` on cleanup
         if (cleanupA) cleanupA()
