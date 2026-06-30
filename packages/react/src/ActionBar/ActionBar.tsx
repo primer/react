@@ -3,8 +3,8 @@ import React, {useState, useCallback, useRef, forwardRef, useMemo, useSyncExtern
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 
-import type {IconButtonProps} from '../Button'
-import {IconButton} from '../Button'
+import type {ButtonProps, IconButtonProps} from '../Button'
+import {Button, IconButton} from '../Button'
 import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
@@ -15,9 +15,9 @@ import {createDescendantRegistry} from '../utils/descendant-registry'
 type ChildProps =
   | {
       type: 'action'
-      label: string
+      label: React.ReactNode
       disabled: boolean
-      icon: ActionBarIconButtonProps['icon']
+      icon?: ActionBarIconButtonProps['icon']
       onClick: MouseEventHandler
     }
   | {type: 'divider' | 'group'}
@@ -83,6 +83,8 @@ export type ActionBarProps = {
 } & A11yProps
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
+
+export type ActionBarButtonProps = {disabled?: boolean} & ButtonProps
 
 export type ActionBarMenuItemProps =
   | ({
@@ -260,15 +262,17 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
                     const {onClick, icon: Icon, label, disabled} = menuItem
                     return (
                       <ActionList.Item
-                        key={label}
+                        key={id}
                         onSelect={event => {
                           typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
                         }}
                         disabled={disabled}
                       >
-                        <ActionList.LeadingVisual>
-                          <Icon />
-                        </ActionList.LeadingVisual>
+                        {Icon ? (
+                          <ActionList.LeadingVisual>
+                            <Icon />
+                          </ActionList.LeadingVisual>
+                        ) : null}
                         {label}
                       </ActionList.Item>
                     )
@@ -389,6 +393,51 @@ export const ActionBarIconButton = forwardRef(
     )
   },
 )
+
+export const ActionBarButton = forwardRef(({disabled, onClick, ...props}: ActionBarButtonProps, forwardedRef) => {
+  const ref = useRef<HTMLButtonElement>(null)
+  const mergedRef = useMergedRefs(forwardedRef, ref)
+
+  const {size} = React.useContext(ActionBarContext)
+
+  const {children, leadingVisual} = props
+
+  const {dataOverflowingAttr} = useActionBarItem(
+    ref,
+    useMemo(
+      (): ChildProps => ({
+        type: 'action',
+        label: children,
+        // Only forward the leading visual to the overflow menu when it is a component
+        // that can be rendered as an icon (e.g. an octicon), matching ActionBar.IconButton.
+        icon: typeof leadingVisual === 'function' ? (leadingVisual as ActionBarIconButtonProps['icon']) : undefined,
+        disabled: !!disabled,
+        onClick: onClick as MouseEventHandler,
+      }),
+      [children, leadingVisual, disabled, onClick],
+    ),
+  )
+
+  const clickHandler = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (disabled) return
+      onClick?.(event)
+    },
+    [disabled, onClick],
+  )
+
+  return (
+    <Button
+      aria-disabled={disabled}
+      ref={mergedRef}
+      size={size}
+      onClick={clickHandler}
+      {...props}
+      variant="invisible"
+      data-overflowing={dataOverflowingAttr}
+    />
+  )
+})
 
 const ActionBarGroupContext = React.createContext<{
   isOverflowing: boolean

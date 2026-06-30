@@ -26,7 +26,7 @@
     "lint:css": "stylelint --rd -q --cache '**/*.css'",
     "lint:css:fix": "npm run lint:css -- --fix",
     "lint:fix": "npm run lint -- --fix",
-    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
+    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!.agents\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "test": "vitest",
     "test:type-check": "tsc --noEmit",
     "test:update": "npm run test -- -u",

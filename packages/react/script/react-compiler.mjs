@@ -13,14 +13,7 @@ const files = glob
   })
 const unsupportedPatterns = [
   'src/ActionMenu/**/*.tsx',
-  'src/AvatarStack/**/*.tsx',
-  'src/Checkbox/**/*.tsx',
-  'src/Heading/**/*.tsx',
-  'src/Link/**/*.tsx',
-  'src/Pagehead/**/*.tsx',
-  'src/Portal/**/*.tsx',
   'src/SelectPanel/**/*.tsx',
-  'src/SideNav.tsx',
   'src/hooks/useAnchoredPosition.ts',
   'src/hooks/useFocusTrap.ts',
   'src/hooks/useFocusZone.ts',
@@ -29,7 +22,6 @@ const unsupportedPatterns = [
   'src/hooks/useResizeObserver.ts',
   'src/hooks/useSafeTimeout.ts',
   'src/hooks/useScrollFlash.ts',
-  'src/internal/components/CheckboxOrRadioGroup/**/*.tsx',
   'src/hooks/useMergedRefs.ts',
   'src/TooltipV2/**/*.tsx',
 ]

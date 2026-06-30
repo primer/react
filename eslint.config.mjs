@@ -35,6 +35,7 @@ const github = githubPlugin.getFlatConfigs()
  */
 const config = defineConfig([
   globalIgnores([
+    '.agents/**/*',
     '**/.cache',
     'coverage/**/*',
     'docs/public/**/*',
