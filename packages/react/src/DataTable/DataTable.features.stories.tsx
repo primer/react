@@ -1715,3 +1715,169 @@ export const WithNetworkError = () => {
     </Table.Container>
   )
 }
+
+export const WithIntegratedPagination = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      The `pagination` prop renders an integrated pager and slices the rows for you. No manual `Table.Pagination` wiring
+      needed.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={repos}
+      columns={[
+        {header: 'Repository', field: 'name', rowHeader: true, sortBy: 'alphanumeric'},
+        {
+          header: 'Type',
+          field: 'type',
+          renderCell: row => <Label>{uppercase(row.type)}</Label>,
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          renderCell: row => <RelativeTime date={new Date(row.updatedAt)} />,
+        },
+      ]}
+      pagination={{pageSize: 10, 'aria-label': 'Pagination for Repositories'}}
+    />
+  </Table.Container>
+)
+
+export const WithIntegratedPaginationControlled = () => {
+  const [pageIndex, setPageIndex] = React.useState(0)
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        The parent owns `pageIndex`. Combine with custom buttons or a URL query parameter for deep-linkable pagination.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={repos}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true},
+          {header: 'Type', field: 'type'},
+        ]}
+        pagination={{pageSize: 10}}
+        pageIndex={pageIndex}
+        onPageChange={next => {
+          action('onPageChange')(next)
+          setPageIndex(next)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+export const WithIntegratedPaginationExternal = () => {
+  const pageSize = 10
+  const [pageIndex, setPageIndex] = React.useState(0)
+  // Simulate server-side pagination: only this page's slice is in scope.
+  const start = pageIndex * pageSize
+  const visible = repos.slice(start, start + pageSize)
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        `externalPagination` lets the consumer fetch one page of data at a time. The component renders whatever rows are
+        in `data`.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={visible}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true},
+          {header: 'Type', field: 'type'},
+        ]}
+        pagination={{pageSize}}
+        pageIndex={pageIndex}
+        externalPagination
+        onPageChange={next => {
+          action('onPageChange')(next)
+          setPageIndex(next)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+export const WithIntegratedPaginationPageSize = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      Pass `pageSizeOptions` to render a rows-per-page dropdown alongside the range. Picking a new value resets the page
+      index to `0`.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={repos}
+      columns={[
+        {header: 'Repository', field: 'name', rowHeader: true, sortBy: 'alphanumeric'},
+        {
+          header: 'Type',
+          field: 'type',
+          renderCell: row => <Label>{uppercase(row.type)}</Label>,
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          renderCell: row => <RelativeTime date={new Date(row.updatedAt)} />,
+        },
+      ]}
+      pagination={{
+        pageSize: 10,
+        pageSizeOptions: [10, 25, 50],
+        'aria-label': 'Pagination for Repositories',
+      }}
+    />
+  </Table.Container>
+)
+
+export const WithIntegratedPaginationPageSizeControlled = () => {
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const [pageSize, setPageSize] = React.useState(10)
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        Pair controlled `pageSize` / `onPageSizeChange` with controlled `pageIndex` / `onPageChange` to keep both pieces
+        of state in a parent (or a URL query parameter).
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={repos}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true},
+          {header: 'Type', field: 'type'},
+        ]}
+        pagination={{pageSizeOptions: [5, 10, 25]}}
+        pageIndex={pageIndex}
+        pageSize={pageSize}
+        onPageChange={next => {
+          action('onPageChange')(next)
+          setPageIndex(next)
+        }}
+        onPageSizeChange={next => {
+          action('onPageSizeChange')(next)
+          setPageSize(next)
+        }}
+      />
+    </Table.Container>
+  )
+}

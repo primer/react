@@ -1,6 +1,6 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type React from 'react'
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useId, useMemo, useState} from 'react'
 import {Button} from '../internal/components/ButtonReset'
 import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -8,6 +8,7 @@ import {warning} from '../utils/warning'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {buildPaginationModel} from '../Pagination/model'
+import Select from '../Select'
 import classes from './Pagination.module.css'
 import {clsx} from 'clsx'
 
@@ -35,9 +36,29 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onCha
   onChange?: (state: PaginationState) => void
 
   /**
+   * Called whenever the user selects a new page size from the rows-per-page
+   * dropdown. Pair with `pageSizeOptions` to enable the dropdown.
+   */
+  onPageSizeChange?: (pageSize: number) => void
+
+  /**
    * Optionally specify the number of items within a page
    */
   pageSize?: number
+
+  /**
+   * When provided, renders a rows-per-page `<select>` dropdown to the left of
+   * the range. Each value must be a positive integer. The current `pageSize`
+   * is selected by default; choosing a new value resets the page index to `0`
+   * and fires `onPageSizeChange` (and `onChange` with `pageIndex: 0`).
+   */
+  pageSizeOptions?: ReadonlyArray<number>
+
+  /**
+   * Visible label for the rows-per-page dropdown. Only used when
+   * `pageSizeOptions` is provided. Defaults to `'Rows per page'`.
+   */
+  pageSizeLabel?: string
 
   /**
    * Whether to show the page numbers
@@ -59,7 +80,10 @@ export function Pagination({
   defaultPageIndex,
   id,
   onChange,
+  onPageSizeChange,
   pageSize = 25,
+  pageSizeOptions,
+  pageSizeLabel = 'Rows per page',
   showPages = defaultShowPages,
   totalCount,
 }: PaginationProps) {
@@ -98,6 +122,27 @@ export function Pagination({
     return buildPaginationModel(pageCount, pageIndex + 1, !!showPages, 1, 2)
   }, [pageCount, pageIndex, showPages])
 
+  // Validate the page-size options once per change so a consumer passing a
+  // bogus value (0, negative, NaN) gets a single dev-time warning instead of
+  // a silently broken dropdown.
+  const validatedPageSizeOptions = useMemo(() => {
+    if (!pageSizeOptions || pageSizeOptions.length === 0) {
+      return undefined
+    }
+    const cleaned = pageSizeOptions.filter(size => Number.isFinite(size) && size > 0 && Number.isInteger(size))
+    warning(
+      cleaned.length !== pageSizeOptions.length,
+      // eslint-disable-next-line github/unescaped-html-literal
+      '<Pagination> received non-positive-integer entries in `pageSizeOptions`. ' +
+        'Those entries were dropped. Got: %s',
+      JSON.stringify(pageSizeOptions),
+    )
+    return cleaned.length > 0 ? cleaned : undefined
+  }, [pageSizeOptions])
+
+  const pageSizeSelectId = useId()
+  const showPageSizeDropdown = validatedPageSizeOptions !== undefined
+
   return (
     <nav
       aria-label={label}
@@ -105,7 +150,29 @@ export function Pagination({
       id={id}
       data-component="Table.Pagination"
     >
-      <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
+      <div className={clsx('TablePaginationStart', classes.TablePaginationStart)}>
+        {showPageSizeDropdown ? (
+          <PageSizeSelect
+            id={pageSizeSelectId}
+            label={pageSizeLabel}
+            options={validatedPageSizeOptions}
+            value={pageSize}
+            onChange={nextSize => {
+              if (nextSize === pageSize) {
+                return
+              }
+              // Resetting page index whenever the page size changes avoids
+              // landing on a phantom page (e.g. page 5 of a 10-page list
+              // collapsing to a 2-page list when the user picks "50/page").
+              if (pageIndex !== 0) {
+                selectPage(0)
+              }
+              onPageSizeChange?.(nextSize)
+            }}
+          />
+        ) : null}
+        <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
+      </div>
       <ol
         className={clsx('TablePaginationSteps', classes.TablePaginationSteps)}
         data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}
@@ -169,6 +236,48 @@ export function Pagination({
         </Step>
       </ol>
     </nav>
+  )
+}
+
+type PageSizeSelectProps = {
+  id: string
+  label: string
+  options: ReadonlyArray<number>
+  value: number
+  onChange: (size: number) => void
+}
+
+function PageSizeSelect({id, label, options, value, onChange}: PageSizeSelectProps) {
+  // If the current page size isn't part of the provided options, prepend it so
+  // the dropdown can still reflect reality (useful when a consumer feeds an
+  // initial pageSize like 25 alongside options like [10, 50, 100]).
+  const renderedOptions = options.includes(value) ? options : [value, ...options]
+  return (
+    <div
+      className={clsx('TablePaginationPageSize', classes.TablePaginationPageSize)}
+      data-component="Table.Pagination.PageSizeSelect"
+    >
+      <label htmlFor={id} className={clsx('TablePaginationPageSizeLabel', classes.TablePaginationPageSizeLabel)}>
+        {label}
+      </label>
+      <Select
+        id={id}
+        size="small"
+        value={String(value)}
+        onChange={event => {
+          const next = Number((event.target as HTMLSelectElement).value)
+          if (Number.isFinite(next) && next > 0) {
+            onChange(next)
+          }
+        }}
+      >
+        {renderedOptions.map(size => (
+          <Select.Option key={size} value={String(size)}>
+            {size}
+          </Select.Option>
+        ))}
+      </Select>
+    </div>
   )
 }
 
