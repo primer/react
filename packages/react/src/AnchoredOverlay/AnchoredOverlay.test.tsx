@@ -3,6 +3,7 @@ import {describe, expect, it, vi} from 'vitest'
 import {act, fireEvent, render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {AnchoredOverlay} from '../AnchoredOverlay'
+import type {AnchorHasPopup} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
 import type {AnchorPosition} from '@primer/behaviors'
@@ -252,8 +253,8 @@ describe('AnchoredOverlay anchor ARIA', () => {
     consumerHasPopup,
   }: {
     initiallyOpen?: boolean
-    anchorHasPopup?: 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'
-    consumerHasPopup?: 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'
+    anchorHasPopup?: AnchorHasPopup
+    consumerHasPopup?: AnchorHasPopup
   }) {
     const [open, setOpen] = useState(initiallyOpen)
     const anchorRef = useRef<HTMLButtonElement>(null)

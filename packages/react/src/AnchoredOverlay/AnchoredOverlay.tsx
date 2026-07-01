@@ -18,7 +18,8 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
 
-type AnchorHasPopup = 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'
+type AnchorHasPopup = Exclude<React.AriaAttributes['aria-haspopup'], boolean | 'false' | undefined>
+export type {AnchorHasPopup}
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -324,28 +325,37 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   useEffect(() => {
     // Read the node from the ref (available once committed) rather than the
     // anchorElement state, which lags a render behind for a detached anchor and
-    // would leave the collapsed trigger without ARIA until first opened.
+    // would leave the collapsed trigger without aria-haspopup until first opened.
+    // aria-haspopup is stable for the component's lifetime, so this effect is
+    // kept separate from `open` to avoid rewriting the attribute on every toggle.
+    const node = anchorRef.current ?? anchorElement
+    if (renderAnchor !== null || !node) return
+    if (node.hasAttribute('aria-haspopup')) return // don't clobber a consumer value
+
+    node.setAttribute('aria-haspopup', anchorHasPopup)
+
+    return () => {
+      if (node.getAttribute('aria-haspopup') === anchorHasPopup) {
+        node.removeAttribute('aria-haspopup')
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [renderAnchor, anchorElement, anchorHasPopup])
+
+  useEffect(() => {
     const node = anchorRef.current ?? anchorElement
     if (renderAnchor !== null || !node) return
 
-    const addedHasPopup = !node.hasAttribute('aria-haspopup')
     const expandedValue = String(open)
-
-    if (addedHasPopup) {
-      node.setAttribute('aria-haspopup', anchorHasPopup)
-    }
     node.setAttribute('aria-expanded', expandedValue)
 
     return () => {
-      if (addedHasPopup && node.getAttribute('aria-haspopup') === anchorHasPopup) {
-        node.removeAttribute('aria-haspopup')
-      }
       if (node.getAttribute('aria-expanded') === expandedValue) {
         node.removeAttribute('aria-expanded')
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderAnchor, anchorElement, anchorHasPopup, open])
+  }, [renderAnchor, anchorElement, open])
 
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
