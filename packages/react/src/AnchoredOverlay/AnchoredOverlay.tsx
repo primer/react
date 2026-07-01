@@ -21,26 +21,23 @@ import {reactMajorVersion} from '../utils/environment'
 type AnchorHasPopup = Exclude<React.AriaAttributes['aria-haspopup'], boolean | 'false' | undefined>
 export type {AnchorHasPopup}
 
-// `aria-haspopup` and `aria-expanded` are only valid on elements whose role
-// supports them. In detached-anchor mode the consumer owns the anchor element,
-// so guard the imperative ARIA writes: if the ref points at a non-interactive
-// element (e.g. a wrapper `<div>`), writing these attributes produces invalid
-// ARIA (axe `aria-allowed-attr`). In that case the consumer should point the
-// ref at the real trigger, and we skip rather than emit a violation.
+// `aria-haspopup` and `aria-expanded` describe a button-like trigger that opens
+// a popup, and are only valid on elements whose role supports both. In
+// detached-anchor mode the consumer owns the anchor element, so guard the
+// imperative ARIA writes: if the ref points at an element that can't legally
+// carry them (e.g. a wrapper `<div>` or a plain `<input>`/textbox), writing them
+// produces invalid ARIA (axe `aria-allowed-attr`). In that case the consumer
+// should point the ref at the real trigger (or give it an appropriate role), and
+// we skip rather than emit a violation.
 const rolesSupportingPopupAria = new Set([
   'application',
   'button',
-  'checkbox',
-  'columnheader',
   'combobox',
   'gridcell',
   'link',
   'menuitem',
   'menuitemcheckbox',
   'menuitemradio',
-  'row',
-  'rowheader',
-  'switch',
   'tab',
   'treeitem',
 ])
@@ -51,13 +48,9 @@ function anchorSupportsPopupAria(node: HTMLElement): boolean {
   switch (node.tagName) {
     case 'BUTTON':
     case 'SUMMARY':
-    case 'SELECT':
-    case 'TEXTAREA':
       return true
     case 'A':
       return node.hasAttribute('href')
-    case 'INPUT':
-      return (node as HTMLInputElement).type !== 'hidden'
     default:
       return false
   }
