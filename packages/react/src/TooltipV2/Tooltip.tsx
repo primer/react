@@ -49,8 +49,8 @@ type TriggerPropsType = Pick<
   | 'onFocus'
   | 'onMouseOverCapture'
   | 'onMouseLeave'
+  | 'onMouseEnter'
   | 'onTouchCancel'
-  | 'onTouchEnd'
 > & {
   ref?: React.Ref<HTMLElement>
 }
@@ -331,13 +331,11 @@ export const Tooltip: ForwardRefExoticComponent<
                 safeSetTimeout(() => closeTooltip(), 10)
               },
               onFocus: (event: React.FocusEvent) => {
-                // only show tooltip on :focus-visible, not on :focus
                 try {
                   if (!event.target.matches(':focus-visible')) return
-                } catch (_error) {
-                  // jsdom (jest) does not support `:focus-visible` yet and would throw an error
-                  // https://github.com/jsdom/jsdom/issues/3426
-                }
+                } catch (_error) {}
+
+                if (event.currentTarget.hasAttribute('data-restoring-focus')) return
 
                 openTooltip()
                 child.props.onFocus?.(event)
