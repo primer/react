@@ -131,14 +131,11 @@ const config = defineConfig([
     },
     rules: {
       'primer-react/direct-slot-children': 'error',
-      'primer-react/no-system-props': 'error',
       'primer-react/a11y-tooltip-interactive-trigger': 'error',
       'primer-react/new-color-css-vars': 'error',
       'primer-react/a11y-explicit-heading': 'error',
       'primer-react/no-deprecated-props': 'error',
       'primer-react/a11y-remove-disable-tooltip': 'error',
-      'primer-react/a11y-use-next-tooltip': 'error',
-      'primer-react/no-unnecessary-components': 'error',
       'primer-react/prefer-action-list-item-onselect': 'error',
     },
   },
@@ -203,7 +200,6 @@ const config = defineConfig([
           message: 'The "use no memo" directive is not allowed.',
         },
       ],
-      'primer-react/a11y-use-next-tooltip': 'off',
     },
   },
 
@@ -415,9 +411,7 @@ const config = defineConfig([
   // packages/styled-react overrides
   {
     files: ['packages/styled-react/**/*.{ts,tsx}'],
-    rules: {
-      'primer-react/no-unnecessary-components': 'off',
-    },
+    rules: {},
   },
   {
     files: ['packages/styled-react/**/*.test.{ts,tsx}'],
