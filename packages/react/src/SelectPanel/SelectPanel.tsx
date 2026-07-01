@@ -291,7 +291,7 @@ function Panel({
 
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             setIsLoading(true)
-            announceLoading(inputRef.current)
+            announceLoading(inputRef?.current)
           }, LONG_DELAY_MS)
         } else {
           // If this is the first data load and there are no items, show the loading spinner
@@ -303,7 +303,7 @@ function Panel({
 
           // We still want to announce if loading is taking too long
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
-            announceLoading(inputRef.current)
+            announceLoading(inputRef?.current)
           }, LONG_DELAY_MS)
         }
       }
@@ -447,7 +447,7 @@ function Panel({
       if (isLoading) {
         // Delay the announcement a bit, just in case the loading is quick
         loadingDelayTimeoutId.current = safeSetTimeout(() => {
-          announceLoading(inputRef.current)
+          announceLoading(inputRef?.current)
         }, LONG_DELAY_MS)
       } else {
         // If loading is done, we can clear the loading announcement

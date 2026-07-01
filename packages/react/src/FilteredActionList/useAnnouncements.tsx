@@ -69,7 +69,7 @@ export const useAnnouncements = (
           const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
           announce(announcementText, {
             delayMs,
-            from: inputElement,
+            from: inputElement ?? undefined,
           })
         } else {
           // give @primer/behaviors a moment to apply active-descendant
@@ -86,7 +86,7 @@ export const useAnnouncements = (
             ].join(', ')
             announce(announcementText, {
               delayMs,
-              from: inputElement,
+              from: inputElement ?? undefined,
             })
           })
         }
