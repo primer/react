@@ -193,7 +193,13 @@ const config = defineConfig([
       'github/filenames-match-regex': 'off',
       'github/no-inner-html': 'off',
       'github/role-supports-aria-props': 'off',
-      'no-restricted-syntax': 'off',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExpressionStatement[directive="use no memo"]',
+          message: 'The "use no memo" directive is not allowed.',
+        },
+      ],
     },
   },
 

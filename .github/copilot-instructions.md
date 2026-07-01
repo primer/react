@@ -109,7 +109,6 @@ ComponentName/
 
 - `.github/workflows/ci.yml` -- Main CI pipeline (format, lint, test, type-check, build)
 - `.github/workflows/vrt.yml` -- Visual regression testing
-- `.github/workflows/storybook-tests.yml` -- Storybook interaction tests
 
 **The CI will fail if:**
 
