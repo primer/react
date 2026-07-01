@@ -9,6 +9,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     versioning-strategy: increase
     labels:
       - 'dependencies'
@@ -48,6 +50,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     labels:
       - 'dependencies'
       - 'skip changeset'
