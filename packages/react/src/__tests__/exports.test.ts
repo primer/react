@@ -4,12 +4,34 @@ import path from 'node:path'
 import {beforeAll, describe, expect, it} from 'vitest'
 // eslint-disable-next-line import/no-namespace
 import * as parser from '@babel/parser'
+import type {ParserOptions} from '@babel/parser'
 import {traverse} from '@babel/core'
 import {createHash} from 'node:crypto'
 
 const ROOT_DIR = path.resolve(__dirname, '..', '..')
 
 let project!: Project
+
+const parserPlugins = [
+  'typescript',
+  // Language
+  'jsx',
+  // Proposal
+  'classProperties',
+  'classPrivateProperties',
+  'classPrivateMethods',
+  'decorators-legacy',
+  'dynamicImport',
+  'exportDefaultFrom',
+  'exportNamespaceFrom',
+  'importMeta',
+  'nullishCoalescingOperator',
+  'numericSeparator',
+  'objectRestSpread',
+  'optionalCatchBinding',
+  'optionalChaining',
+  'topLevelAwait',
+] as ParserOptions['plugins']
 
 beforeAll(async () => {
   project = await setup()
@@ -268,26 +290,7 @@ async function setup(): Promise<Project> {
     const contents = await fs.readFile(filepath, 'utf8')
     const ast = parser.parse(contents, {
       sourceType: 'module',
-      plugins: [
-        'typescript',
-        // Language
-        'jsx',
-        // Proposal
-        'classProperties',
-        'classPrivateProperties',
-        'classPrivateMethods',
-        'decorators-legacy',
-        'dynamicImport',
-        'exportDefaultFrom',
-        'exportNamespaceFrom',
-        'importMeta',
-        'nullishCoalescingOperator',
-        'numericSeparator',
-        'objectRestSpread',
-        'optionalCatchBinding',
-        'optionalChaining',
-        'topLevelAwait',
-      ],
+      plugins: parserPlugins,
     })
 
     const sources: Array<string> = []
@@ -338,26 +341,7 @@ async function setup(): Promise<Project> {
     const contents = await fs.readFile(mod.filepath, 'utf8')
     const ast = parser.parse(contents, {
       sourceType: 'module',
-      plugins: [
-        'typescript',
-        // Language
-        'jsx',
-        // Proposal
-        'classProperties',
-        'classPrivateProperties',
-        'classPrivateMethods',
-        'decorators-legacy',
-        'dynamicImport',
-        'exportDefaultFrom',
-        'exportNamespaceFrom',
-        'importMeta',
-        'nullishCoalescingOperator',
-        'numericSeparator',
-        'objectRestSpread',
-        'optionalCatchBinding',
-        'optionalChaining',
-        'topLevelAwait',
-      ],
+      plugins: parserPlugins,
     })
 
     const exports: Array<ExportInfo> = []

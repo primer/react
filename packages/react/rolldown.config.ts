@@ -74,7 +74,6 @@ export default defineConfig([
           [
             '@babel/preset-react',
             {
-              modules: false,
               runtime: 'automatic',
             },
           ],
