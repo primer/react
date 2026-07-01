@@ -13,9 +13,9 @@ export function shouldNotAcceptSystemProps() {
 export function shouldAcceptAs() {
   return (
     <BranchName
-      as="button"
+      as="span"
       onClick={event => {
-        type test = Expect<Equal<typeof event, React.MouseEvent<HTMLButtonElement, MouseEvent>>>
+        type test = Expect<Equal<typeof event, React.MouseEvent<HTMLSpanElement, MouseEvent>>>
       }}
     />
   )
@@ -32,13 +32,13 @@ export function defaultAsIsAnchor() {
 }
 
 export function ShouldAcceptRef() {
-  const ref = React.useRef<HTMLButtonElement>(null)
+  const ref = React.useRef<HTMLSpanElement>(null)
   return (
     <BranchName
-      as="button"
+      as="span"
       ref={ref}
       onClick={event => {
-        type test = Expect<Equal<typeof event, React.MouseEvent<HTMLButtonElement, MouseEvent>>>
+        type test = Expect<Equal<typeof event, React.MouseEvent<HTMLSpanElement, MouseEvent>>>
       }}
     />
   )
