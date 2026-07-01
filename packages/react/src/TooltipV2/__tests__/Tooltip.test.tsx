@@ -30,7 +30,7 @@ const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text
 )
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
+function ExampleWithActionMenu({actionMenuTrigger}: {actionMenuTrigger: React.ReactElement<any>}): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>
@@ -82,11 +82,13 @@ describe('Tooltip', () => {
 
   it('should spread the accessibility attributes correctly on the trigger (ActionMenu.Button) when tooltip is used in an action menu', () => {
     const {getByRole, getByText} = HTMLRender(
-      ExampleWithActionMenu(
-        <Tooltip text="Additional context about the menu button">
-          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-        </Tooltip>,
-      ),
+      <ExampleWithActionMenu
+        actionMenuTrigger={
+          <Tooltip text="Additional context about the menu button">
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          </Tooltip>
+        }
+      />,
     )
     const menuButton = getByRole('button')
     const tooltip = getByText('Additional context about the menu button')
@@ -96,13 +98,15 @@ describe('Tooltip', () => {
 
   it('should spread the accessibility attributes correctly on the trigger (Button) when tooltip is used in an action menu', () => {
     const {getByRole, getByText} = HTMLRender(
-      ExampleWithActionMenu(
-        <ActionMenu.Anchor>
-          <Tooltip text="Additional context about the menu button">
-            <Button>Toggle Menu</Button>
-          </Tooltip>
-        </ActionMenu.Anchor>,
-      ),
+      <ExampleWithActionMenu
+        actionMenuTrigger={
+          <ActionMenu.Anchor>
+            <Tooltip text="Additional context about the menu button">
+              <Button>Toggle Menu</Button>
+            </Tooltip>
+          </ActionMenu.Anchor>
+        }
+      />,
     )
     const menuButton = getByRole('button')
     const tooltip = getByText('Additional context about the menu button')
