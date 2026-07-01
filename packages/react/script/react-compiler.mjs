@@ -13,8 +13,6 @@ const files = glob
   })
 const unsupportedPatterns = [
   'src/ActionMenu/ActionMenu.tsx',
-  'src/Autocomplete/Autocomplete.test.tsx',
-  'src/Autocomplete/AutocompleteInput.tsx',
   'src/Button/ButtonBase.tsx',
   'src/Dialog/Dialog.tsx',
   'src/SelectPanel/SelectPanel.examples.stories.tsx',

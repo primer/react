@@ -1,5 +1,5 @@
 import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext, AutocompleteInputContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
@@ -44,7 +44,7 @@ const AutocompleteInput = React.forwardRef(
     const {activeDescendantRef, id, inputRef, setInputValue, setShowMenu, showMenu} = autocompleteContext
     const {autocompleteSuggestion = '', inputValue = '', isMenuDirectlyActivated} = inputContext
     const mergedRef = useMergedRefs(forwardedRef, inputRef)
-    const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
+    const highlightRemainingTextRef = useRef(true)
     const {safeSetTimeout} = useSafeTimeout()
 
     const handleInputFocus: FocusEventHandler<HTMLInputElement> = event => {
@@ -91,7 +91,7 @@ const AutocompleteInput = React.forwardRef(
         onKeyDown && onKeyDown(event)
 
         if (event.key === 'Backspace') {
-          setHighlightRemainingText(false)
+          highlightRemainingTextRef.current = false
         }
 
         if (event.key === 'Escape' && inputRef.current?.value) {
@@ -102,7 +102,7 @@ const AutocompleteInput = React.forwardRef(
           setShowMenu(true)
         }
       },
-      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown, showMenu, setShowMenu],
+      [inputRef, setInputValue, onKeyDown, showMenu, setShowMenu],
     )
 
     const handleInputKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -110,10 +110,10 @@ const AutocompleteInput = React.forwardRef(
         onKeyUp && onKeyUp(event)
 
         if (event.key === 'Backspace') {
-          setHighlightRemainingText(true)
+          highlightRemainingTextRef.current = true
         }
       },
-      [setHighlightRemainingText, onKeyUp],
+      [onKeyUp],
     )
 
     const onInputKeyPress: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -151,8 +151,7 @@ const AutocompleteInput = React.forwardRef(
 
       if (
         isInputFocused &&
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-        highlightRemainingText &&
+        highlightRemainingTextRef.current &&
         autocompleteSuggestion &&
         (inputValue || isMenuDirectlyActivated)
       ) {
@@ -162,9 +161,6 @@ const AutocompleteInput = React.forwardRef(
           inputRef.current.setSelectionRange(inputValue.length, autocompleteSuggestion.length)
         }
       }
-
-      // calling this useEffect when `highlightRemainingText` changes breaks backspace functionality
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated])
 
     useEffect(() => {
