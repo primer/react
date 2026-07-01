@@ -603,12 +603,11 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
       const [filter, setFilter] = React.useState('')
       const [open, setOpen] = React.useState(false)
+      const [items, setItems] = React.useState<SelectPanelProps['items']>([])
 
       const onSelectedChange = (selected: SelectPanelProps['items']) => {
         setSelected(selected)
       }
-
-      const items: SelectPanelProps['items'] = []
 
       return (
         <SelectPanel
@@ -622,6 +621,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           filterValue={filter}
           onFilterChange={value => {
             setFilter(value)
+            setItems(currentItems => [...currentItems])
           }}
           open={open}
           onOpenChange={isOpen => {
@@ -940,8 +940,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
         renderWithProp(<NoItemAvailableSelectPanel />, usingRemoveActiveDescendant)
 
-        await waitFor(async () => {
-          await user.click(screen.getByText('Select items'))
+        await user.click(screen.getByText('Select items'))
+
+        await waitFor(() => {
           expect(screen.getByText('No items available')).toBeInTheDocument()
         })
       })
