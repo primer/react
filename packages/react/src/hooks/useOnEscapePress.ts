@@ -1,4 +1,5 @@
 import {useEffect, useCallback, useMemo} from 'react'
+import {useValueWithDependencies} from './useDependencies'
 
 /**
  * Calls all handlers in reverse order
@@ -54,8 +55,7 @@ export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
   callbackDependencies: React.DependencyList = [onEscape],
 ): void => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-  const escapeCallback = useCallback(onEscape, callbackDependencies)
+  const {value: escapeCallback} = useValueWithDependencies(onEscape, callbackDependencies)
 
   const handler = useCallback<KeyboardEventCallback>(
     event => {

@@ -2,6 +2,7 @@ import React from 'react'
 import {focusTrap} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useOnOutsideClick} from './useOnOutsideClick'
+import {useValueWithDependencies} from './useDependencies'
 
 export interface FocusTrapHookSettings {
   /**
@@ -52,59 +53,53 @@ export function useFocusTrap(
   settings?: FocusTrapHookSettings,
   dependencies: React.DependencyList = [],
 ): {containerRef: React.RefObject<HTMLElement | null>; initialFocusRef: React.RefObject<HTMLElement | null>} {
-  const [outsideClicked, setOutsideClicked] = React.useState(false)
   const containerRef = useProvidedRefOrCreate(settings?.containerRef)
   const initialFocusRef = useProvidedRefOrCreate(settings?.initialFocusRef)
   const disabled = settings?.disabled
+  const {signal: settingsSignal, value: focusTrapSettings} = useValueWithDependencies(settings, [
+    disabled,
+    ...dependencies,
+  ])
   const abortController = React.useRef<AbortController>()
   const previousFocusedElement = React.useRef<Element | null>(null)
-
-  // If we are enabling a focus trap and haven't already stored the previously focused element
-  // go ahead an do that so we can restore later when the trap is disabled.
-  // eslint-disable-next-line react-hooks/refs
-  if (!previousFocusedElement.current && !disabled) {
-    previousFocusedElement.current = document.activeElement
-  }
+  const skipRestoreFocusRef = React.useRef(false)
 
   // This function removes the event listeners that enable the focus trap and restores focus
   // to the previously-focused element (if necessary).
-  function disableTrap() {
+  const disableTrap = React.useCallback(() => {
     abortController.current?.abort()
-    if (settings?.allowOutsideClick && outsideClicked) {
+    if (focusTrapSettings?.allowOutsideClick && skipRestoreFocusRef.current) {
       return
     }
-    if (settings?.returnFocusRef && settings.returnFocusRef.current instanceof HTMLElement) {
-      settings.returnFocusRef.current.focus()
-    } else if (settings?.restoreFocusOnCleanUp && previousFocusedElement.current instanceof HTMLElement) {
+    if (focusTrapSettings?.returnFocusRef && focusTrapSettings.returnFocusRef.current instanceof HTMLElement) {
+      focusTrapSettings.returnFocusRef.current.focus()
+    } else if (focusTrapSettings?.restoreFocusOnCleanUp && previousFocusedElement.current instanceof HTMLElement) {
       previousFocusedElement.current.focus()
       previousFocusedElement.current = null
     }
-  }
+  }, [focusTrapSettings])
 
-  React.useEffect(
-    () => {
-      if (containerRef.current instanceof HTMLElement) {
-        if (!disabled) {
-          abortController.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
-          return () => {
-            disableTrap()
-          }
-        } else {
+  React.useEffect(() => {
+    if (containerRef.current instanceof HTMLElement) {
+      if (!disabled) {
+        // If we are enabling a focus trap and haven't already stored the previously focused element
+        // go ahead an do that so we can restore later when the trap is disabled.
+        previousFocusedElement.current ??= document.activeElement
+        abortController.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
+        return () => {
           disableTrap()
         }
+      } else {
+        disableTrap()
       }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [containerRef, initialFocusRef, disabled, ...dependencies],
-  )
+    }
+  }, [containerRef, initialFocusRef, disabled, settingsSignal, disableTrap])
+
   useOnOutsideClick({
     containerRef: containerRef as React.RefObject<HTMLDivElement>,
     onClickOutside: () => {
-      setOutsideClicked(true)
       if (settings?.allowOutsideClick) {
-        // eslint-disable-next-line react-hooks/immutability
-        if (settings.returnFocusRef) settings.returnFocusRef = undefined
-        settings.restoreFocusOnCleanUp = false
+        skipRestoreFocusRef.current = true
         abortController.current?.abort()
       }
     },

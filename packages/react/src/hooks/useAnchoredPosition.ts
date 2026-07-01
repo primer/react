@@ -4,6 +4,7 @@ import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useValueWithDependencies} from './useDependencies'
 
 /**
  * Returns all scrollable ancestor elements of the given element, plus the window.
@@ -34,6 +35,15 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
   enabled?: boolean
 }
 
+function topPositionChanged(prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) {
+  return (
+    prevPosition &&
+    ['outside-top', 'inside-top'].includes(prevPosition.anchorSide) &&
+    // either the anchor changed or the element is trying to shrink in height
+    (prevPosition.anchorSide !== newPosition.anchorSide || prevPosition.top < newPosition.top)
+  )
+}
+
 /**
  * Calculates the top and left values for an absolutely-positioned floating element
  * to be anchored to some anchor element. Returns refs for the floating element
@@ -54,21 +64,12 @@ export function useAnchoredPosition(
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const enabled = settings?.enabled ?? true
+  const positionSettingsState = useValueWithDependencies(settings, [enabled, ...dependencies])
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
+  const [, setPrevHeight] = React.useState<number | undefined>(undefined)
 
-  const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
-    return (
-      prevPosition &&
-      ['outside-top', 'inside-top'].includes(prevPosition.anchorSide) &&
-      // either the anchor changed or the element is trying to shrink in height
-      (prevPosition.anchorSide !== newPosition.anchorSide || prevPosition.top < newPosition.top)
-    )
-  }
-
-  const updateElementHeight = () => {
+  const updateElementHeight = React.useCallback(() => {
     let heightUpdated = false
     setPrevHeight(prevHeight => {
       // if the element is trying to shrink in height, restore to old height to prevent it from jumping
@@ -81,39 +82,40 @@ export function useAnchoredPosition(
       return prevHeight
     })
     return heightUpdated
-  }
+  }, [floatingElementRef])
 
-  const updatePosition = React.useCallback(
-    () => {
-      if (!enabled) return
-      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
-        setPosition(prev => {
-          if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
-            const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
-            const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
+  const updatePosition = React.useCallback(() => {
+    if (!enabled) return
+    if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+      const newPosition = getAnchoredPosition(
+        floatingElementRef.current,
+        anchorElementRef.current,
+        positionSettingsState.value,
+      )
+      setPosition(prev => {
+        if (positionSettingsState.value?.pinPosition && topPositionChanged(prev, newPosition)) {
+          const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
+          const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
 
-            if (elementStillFitsOnTop && updateElementHeight()) {
-              return prev
-            }
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (elementStillFitsOnTop && updateElementHeight()) {
+            return prev
           }
+        }
 
-          if (prev && prev.anchorSide === newPosition.anchorSide) {
-            // if the position hasn't changed, don't update
-            savedOnPositionChange.current?.(newPosition)
-          }
+        if (prev && prev.anchorSide === newPosition.anchorSide) {
+          // if the position hasn't changed, don't update
+          savedOnPositionChange.current?.(newPosition)
+        }
 
-          return newPosition
-        })
-      } else {
-        setPosition(undefined)
-        savedOnPositionChange.current?.(undefined)
-      }
-      setPrevHeight(floatingElementRef.current?.clientHeight)
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-    [floatingElementRef, anchorElementRef, enabled, ...dependencies],
-  )
+        return newPosition
+      })
+    } else {
+      setPosition(undefined)
+      savedOnPositionChange.current?.(undefined)
+    }
+    setPrevHeight(floatingElementRef.current?.clientHeight)
+  }, [anchorElementRef, enabled, floatingElementRef, positionSettingsState, updateElementHeight])
 
   useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange

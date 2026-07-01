@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {focusZone} from '@primer/behaviors'
 import type {FocusZoneSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
+import {useValueWithDependencies} from './useDependencies'
 export {FocusKeys} from '@primer/behaviors'
 export type {Direction} from '@primer/behaviors'
 
@@ -45,32 +46,32 @@ export function useFocusZone(
       : settings.activeDescendantFocus
   const activeDescendantControlRef = useProvidedRefOrCreate(passedActiveDescendantRef)
   const disabled = settings.disabled
+  const {signal: settingsSignal, value: focusZoneSettings} = useValueWithDependencies(settings, [
+    disabled,
+    ...dependencies,
+  ])
   const abortController = React.useRef<AbortController>()
 
-  useEffect(
-    () => {
-      if (
-        containerRef.current instanceof HTMLElement &&
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-        (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
-      ) {
-        if (!disabled) {
-          const vanillaSettings: FocusZoneSettings = {
-            ...settings,
-            activeDescendantControl: activeDescendantControlRef.current ?? undefined,
-          }
-          abortController.current = focusZone(containerRef.current, vanillaSettings)
-          return () => {
-            abortController.current?.abort()
-          }
-        } else {
+  useEffect(() => {
+    if (
+      containerRef.current instanceof HTMLElement &&
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
+    ) {
+      if (!disabled) {
+        const vanillaSettings: FocusZoneSettings = {
+          ...focusZoneSettings,
+          activeDescendantControl: activeDescendantControlRef.current ?? undefined,
+        }
+        abortController.current = focusZone(containerRef.current, vanillaSettings)
+        return () => {
           abortController.current?.abort()
         }
+      } else {
+        abortController.current?.abort()
       }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [disabled, ...dependencies],
-  )
+    }
+  }, [activeDescendantControlRef, containerRef, disabled, focusZoneSettings, settingsSignal, useActiveDescendant])
 
   return {containerRef, activeDescendantControlRef}
 }

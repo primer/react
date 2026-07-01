@@ -1,6 +1,7 @@
 import type {RefObject} from 'react'
-import {useRef, useState} from 'react'
+import {useCallback, useRef, useState} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {areDependenciesEqual} from './useDependencies'
 
 // https://gist.github.com/strothj/708afcf4f01dd04de8f49c92e88093c3
 export type ResizeObserverCallback = (entries: ResizeObserverEntry[]) => void
@@ -17,16 +18,31 @@ export function useResizeObserver<T extends HTMLElement>(
 ) {
   const [targetClientRect, setTargetClientRect] = useState<DOMRect | null>(null)
   const savedCallback = useRef(callback)
+  const cleanupRef = useRef<(() => void) | undefined>(undefined)
+  const dependenciesRef = useRef<React.DependencyList | undefined>(undefined)
 
   useLayoutEffect(() => {
     savedCallback.current = callback
   })
 
+  const runCleanup = useCallback(() => {
+    cleanupRef.current?.()
+    cleanupRef.current = undefined
+  }, [])
+
   useLayoutEffect(() => {
+    const targetEl = target && 'current' in target ? target.current : document.documentElement
+    const nextDependencies = [targetEl, enabled, ...depsArray]
+    if (dependenciesRef.current && areDependenciesEqual(dependenciesRef.current, nextDependencies)) {
+      return
+    }
+
+    runCleanup()
+    dependenciesRef.current = nextDependencies
+
     if (!enabled) {
       return
     }
-    const targetEl = target && 'current' in target ? target.current : document.documentElement
     if (!targetEl) {
       return
     }
@@ -38,7 +54,7 @@ export function useResizeObserver<T extends HTMLElement>(
 
       observer.observe(targetEl)
 
-      return () => {
+      cleanupRef.current = () => {
         observer.disconnect()
       }
     } else {
@@ -54,14 +70,16 @@ export function useResizeObserver<T extends HTMLElement>(
         }
         setTargetClientRect(currTargetRect)
       }
-      // eslint-disable-next-line github/prefer-observers
+      // eslint-disable-next-line github/prefer-observers, @eslint-react/web-api/no-leaked-event-listener
       window.addEventListener('resize', saveTargetDimensions)
 
-      return () => {
+      cleanupRef.current = () => {
         window.removeEventListener('resize', saveTargetDimensions)
       }
     }
+  })
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target?.current, enabled, ...depsArray])
+  useLayoutEffect(() => {
+    return runCleanup
+  }, [runCleanup])
 }
