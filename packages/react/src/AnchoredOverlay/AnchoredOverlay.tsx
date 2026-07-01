@@ -18,6 +18,8 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
 
+type AnchorHasPopup = 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'
+
 interface AnchoredOverlayPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
@@ -117,6 +119,10 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    */
   displayCloseButton?: boolean
   /**
+   * Indicates the type of popup opened by the anchor. Defaults to `'true'`, which is equivalent to `'menu'` in ARIA.
+   */
+  anchorHasPopup?: AnchorHasPopup
+  /**
    * Props to be spread on the close button in the overlay.
    */
   closeButtonProps?: Partial<IconButtonProps>
@@ -178,6 +184,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   preventOverflow = true,
   onPositionChange,
   displayCloseButton = true,
+  anchorHasPopup = 'true',
   closeButtonProps = defaultCloseButtonProps,
   renderAs = 'portal',
   cssAnchorPositioningSettings,
@@ -315,6 +322,32 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   }, [cssAnchorPositioning, anchorElement, anchorName])
 
   useEffect(() => {
+    // Read the node from the ref (available once committed) rather than the
+    // anchorElement state, which lags a render behind for a detached anchor and
+    // would leave the collapsed trigger without ARIA until first opened.
+    const node = anchorRef.current ?? anchorElement
+    if (renderAnchor !== null || !node) return
+
+    const addedHasPopup = !node.hasAttribute('aria-haspopup')
+    const expandedValue = String(open)
+
+    if (addedHasPopup) {
+      node.setAttribute('aria-haspopup', anchorHasPopup)
+    }
+    node.setAttribute('aria-expanded', expandedValue)
+
+    return () => {
+      if (addedHasPopup && node.getAttribute('aria-haspopup') === anchorHasPopup) {
+        node.removeAttribute('aria-haspopup')
+      }
+      if (node.getAttribute('aria-expanded') === expandedValue) {
+        node.removeAttribute('aria-expanded')
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [renderAnchor, anchorElement, anchorHasPopup, open])
+
+  useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
 
     const currentOverlay = overlayRef.current
@@ -408,7 +441,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
-          'aria-haspopup': 'true',
+          'aria-haspopup': anchorHasPopup,
           'aria-expanded': open,
           tabIndex: 0,
           onClick: onAnchorClick,

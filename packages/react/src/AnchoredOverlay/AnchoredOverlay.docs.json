@@ -170,6 +170,13 @@
       "defaultValue": "true"
     },
     {
+      "name": "anchorHasPopup",
+      "type": "'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'",
+      "required": false,
+      "description": "Indicates the type of popup opened by the anchor. Defaults to `'true'`, which is equivalent to `'menu'` in ARIA.",
+      "defaultValue": "'true'"
+    },
+    {
       "name": "closeButtonProps",
       "type": "Partial<ButtonProps>",
       "required": false,

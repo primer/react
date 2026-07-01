@@ -245,6 +245,110 @@ describe.each([true, false])(
   },
 )
 
+describe('AnchoredOverlay anchor ARIA', () => {
+  function DetachedOverlayTestComponent({
+    initiallyOpen = false,
+    anchorHasPopup = 'true',
+    consumerHasPopup,
+  }: {
+    initiallyOpen?: boolean
+    anchorHasPopup?: 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'
+    consumerHasPopup?: 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'
+  }) {
+    const [open, setOpen] = useState(initiallyOpen)
+    const anchorRef = useRef<HTMLButtonElement>(null)
+
+    return (
+      <BaseStyles>
+        <button
+          type="button"
+          ref={anchorRef}
+          data-testid="detached-anchor"
+          onClick={() => setOpen(isOpen => !isOpen)}
+          {...(consumerHasPopup ? {'aria-haspopup': consumerHasPopup} : {})}
+        >
+          Detached anchor
+        </button>
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAnchor={null}
+          anchorRef={anchorRef}
+          anchorHasPopup={anchorHasPopup}
+        >
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>
+    )
+  }
+
+  it('sets aria-haspopup and aria-expanded on a detached anchor when closed', async () => {
+    const {baseElement} = render(<DetachedOverlayTestComponent />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="detached-anchor"]')
+    expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('reflects aria-expanded on a detached anchor when opened and closed', async () => {
+    const {baseElement} = render(<DetachedOverlayTestComponent />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="detached-anchor"]') as HTMLElement
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+
+    await userEvent.click(anchor)
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    await userEvent.click(anchor)
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('does not overwrite aria-haspopup supplied by a detached anchor consumer', async () => {
+    const {baseElement} = render(<DetachedOverlayTestComponent consumerHasPopup="listbox" />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="detached-anchor"]')
+    expect(anchor).toHaveAttribute('aria-haspopup', 'listbox')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('reflects anchorHasPopup on the rendered anchor path', () => {
+    const {baseElement} = render(
+      <BaseStyles>
+        <AnchoredOverlay
+          open={false}
+          onOpen={() => {}}
+          onClose={() => {}}
+          anchorHasPopup="dialog"
+          renderAnchor={props => (
+            <button type="button" {...props}>
+              Anchor Button
+            </button>
+          )}
+        >
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>,
+    )
+
+    expect(baseElement.querySelector('button')).toHaveAttribute('aria-haspopup', 'dialog')
+  })
+
+  it('does not leave aria-expanded="true" on a detached anchor after close', async () => {
+    const {baseElement} = render(<DetachedOverlayTestComponent initiallyOpen={true} />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="detached-anchor"]') as HTMLElement
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    await userEvent.click(anchor)
+    expect(anchor).not.toHaveAttribute('aria-expanded', 'true')
+  })
+})
+
 describe('AnchoredOverlay scroll/resize cascade', () => {
   it('does not re-render after close when window scrolls (closed-overlay listeners detached)', async () => {
     // Before the `enabled: open` fix, useAnchoredPosition kept its scroll

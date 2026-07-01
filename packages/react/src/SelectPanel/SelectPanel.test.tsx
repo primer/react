@@ -110,7 +110,44 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       const trigger = screen.getByRole('button', {
         name: 'Select items',
       })
-      expect(trigger).toHaveAttribute('aria-haspopup', 'true')
+      expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
+      expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    })
+
+    it('sets aria-haspopup="dialog" on a detached anchor', async () => {
+      function DetachedSelectPanel() {
+        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+        const [filter, setFilter] = React.useState('')
+        const [open, setOpen] = React.useState(false)
+        const anchorRef = React.useRef<HTMLButtonElement>(null)
+
+        return (
+          <>
+            <button type="button" ref={anchorRef} onClick={() => setOpen(isOpen => !isOpen)}>
+              Detached select anchor
+            </button>
+            <SelectPanel
+              title="test title"
+              items={items}
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+              renderAnchor={null}
+              anchorRef={anchorRef}
+            />
+          </>
+        )
+      }
+
+      render(<DetachedSelectPanel />)
+
+      const trigger = screen.getByRole('button', {name: 'Detached select anchor'})
+      await waitFor(() => {
+        expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
+      })
       expect(trigger).toHaveAttribute('aria-expanded', 'false')
     })
 
