@@ -126,7 +126,7 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
-    const childRef = (child as React.ReactElement & {ref?: React.Ref<HTMLElement>}).ref
+    const childRef = (child as React.ReactElement<{ref?: React.Ref<HTMLElement>}>).props.ref
     const triggerRef = useRef<HTMLElement>(null)
     const tooltipElRef = React.useRef<HTMLDivElement>(null)
 
