@@ -12,6 +12,7 @@ const files = glob
     return path.join(PACKAGE_DIR, match)
   })
 const unsupportedPatterns = [
+  'src/ActionMenu/ActionMenu.test.tsx',
   'src/ActionMenu/ActionMenu.tsx',
   'src/Autocomplete/Autocomplete.test.tsx',
   'src/Autocomplete/AutocompleteInput.tsx',
