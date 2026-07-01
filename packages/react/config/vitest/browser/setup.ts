@@ -25,6 +25,9 @@ import '@testing-library/jest-dom/vitest'
 
 afterEach(() => {
   cleanup()
+  for (const liveRegion of document.querySelectorAll('live-region')) {
+    liveRegion.remove()
+  }
 })
 
 // @ts-expect-error this is needed for act() from React
