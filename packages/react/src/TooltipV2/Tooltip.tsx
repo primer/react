@@ -333,10 +333,10 @@ export const Tooltip: ForwardRefExoticComponent<
               onFocus: (event: React.FocusEvent) => {
                 try {
                   if (!event.target.matches(':focus-visible')) return
-                } catch (_error) {}
-
+                } catch {
+                  // Some test environments do not support `:focus-visible`.
+                }
                 if (event.currentTarget.hasAttribute('data-restoring-focus')) return
-
                 openTooltip()
                 child.props.onFocus?.(event)
               },
