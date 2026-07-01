@@ -18,6 +18,7 @@ const unsupportedPatterns = [
   'src/Button/ButtonBase.tsx',
   'src/Dialog/Dialog.tsx',
   'src/SelectPanel/SelectPanel.examples.stories.tsx',
+  'src/SelectPanel/SelectPanel.test.tsx',
   'src/SelectPanel/SelectPanel.tsx',
   'src/experimental/SelectPanel2/SelectPanel.tsx',
   'src/hooks/useAnchoredPosition.ts',
