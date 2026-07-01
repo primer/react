@@ -20,7 +20,13 @@ jobs:
       - name: Get source files changes
         id: source-files
         run: |
-          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -Ev '.stories.tsx|.stories.module.css|.docs.json' || true)
+          # Include @primer/react, e2e snapshots, and the local packages that can affect its generated runtime output.
+          DIFF=$(git diff --name-only origin/main -- \
+            .playwright/snapshots \
+            packages/react \
+            packages/postcss-preset-primer \
+            packages/rollup-plugin-import-css \
+            | grep -Ev '\.stories\.tsx$|\.stories\.module\.css$|\.docs\.json$' || true)
           if [ -z "$DIFF" ]; then
             echo "diff=" >> $GITHUB_OUTPUT
           else
@@ -31,8 +37,9 @@ jobs:
         run: echo ${{ steps.source-files.outputs.diff != '' }}
 
       - name: Add label and comment
-        if: ${{ steps.source-files.outputs.diff != '' }}
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
+        env:
+          HAS_RELEVANT_DIFF: ${{ steps.source-files.outputs.diff != '' }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -41,7 +48,8 @@ jobs:
               skipped: 'integration-tests: skipped manually',
               recommended: 'integration-tests: recommended',
               failing: 'integration-tests: failing',
-              passing: 'integration-tests: passing'
+              passing: 'integration-tests: passing',
+              ignored: 'integration-tests: ignored'
             }
 
             const issue = {
@@ -53,8 +61,23 @@ jobs:
             const labels = await github.paginate(github.rest.issues.listLabelsOnIssue, issue);
             const integrationLabels = labels.filter(label => label.name.startsWith('integration-tests'))
             const hasPassingLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.passing)
+            const hasIgnoredLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.ignored)
+            const hasOnlyIgnoredLabel =
+              integrationLabels.length === 1 && integrationLabels[0].name === INTEGRATION_LABEL_NAMES.ignored
+            const hasRelevantDiff = process.env.HAS_RELEVANT_DIFF === 'true'
 
-            if (integrationLabels.length === 0) {
+            if (!hasRelevantDiff) {
+              if (!hasIgnoredLabel) {
+                await github.rest.issues.addLabels({...issue, labels: [INTEGRATION_LABEL_NAMES.ignored]})
+              }
+              return
+            }
+
+            if (hasIgnoredLabel) {
+              await github.rest.issues.removeLabel({...issue, name: INTEGRATION_LABEL_NAMES.ignored})
+            }
+
+            if (integrationLabels.length === 0 || hasOnlyIgnoredLabel) {
               // recommend integration tests
               await github.rest.issues.addLabels({...issue, labels: [INTEGRATION_LABEL_NAMES.recommended]})
               await github.rest.issues.createComment({
