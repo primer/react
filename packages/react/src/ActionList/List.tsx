@@ -1,11 +1,11 @@
-import React, {type JSX} from 'react'
+import React, {useRef, type JSX} from 'react'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -43,7 +43,8 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
-  const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
+  const listRef = useRef<HTMLElement>(null)
+  const mergedRef = useMergedRefs(forwardedRef, listRef)
   const itemGapEnabled = useFeatureFlag('primer_react_action_list_item_gap') && container === 'NavList'
 
   let enableFocusZone = false
@@ -100,12 +101,11 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   return (
     <ListContext.Provider value={listContextValue}>
       {slots.heading}
-      {/* @ts-expect-error ref needs a non nullable ref */}
       <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
-        ref={listRef}
+        ref={mergedRef}
         data-component="ActionList"
         data-dividers={showDividers}
         data-variant={variant}

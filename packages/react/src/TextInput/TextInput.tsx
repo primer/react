@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState, useId} from 'react'
+import React, {useCallback, useState, useId, useRef} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -7,7 +7,6 @@ import {AlertFillIcon} from '@primer/octicons-react'
 
 import classes from './TextInput.module.css'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
-import {useProvidedRefOrCreate} from '../hooks'
 import type {Merge} from '../utils/types'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
@@ -18,6 +17,7 @@ import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
 import {AriaStatus} from '../live-region'
 import Text from '../Text'
+import {useMergedRefs} from '../hooks'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -112,7 +112,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
-    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
+    const inputRef = useRef<HTMLInputElement>(null)
+    const mergedRef = useMergedRefs(inputRef, ref)
 
     // For uncontrolled usage we track the length of the input's content so the
     // character counter can be derived during render rather than synced from an
@@ -219,8 +220,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
           </TextInputInnerVisualSlot>
           <UnstyledTextInput
-            // @ts-expect-error it needs a non nullable ref
-            ref={inputRef}
+            ref={mergedRef}
             disabled={disabled}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}

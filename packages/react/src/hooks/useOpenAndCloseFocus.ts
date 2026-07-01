@@ -30,7 +30,13 @@ export function useOpenAndCloseFocus({
     // If returnFocusRef element is rendered, apply focus
     const returnFocusRefCurrent = returnFocusRef.current
     return function () {
-      returnFocusRefCurrent?.focus()
+      if (returnFocusRefCurrent instanceof HTMLElement) {
+        returnFocusRefCurrent.setAttribute('data-restoring-focus', 'true')
+        returnFocusRefCurrent.focus()
+        queueMicrotask(() => {
+          returnFocusRefCurrent.removeAttribute('data-restoring-focus')
+        })
+      }
     }
   }, [initialFocusRef, returnFocusRef, containerRef, preventFocusOnOpen])
 }

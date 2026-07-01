@@ -6,7 +6,7 @@ import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useMergedRefs, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -207,6 +207,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     setAnchorElement(anchorRef.current)
   }
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
+  const mergedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
   const anchorId = useId(externalAnchorId)
 
@@ -436,12 +437,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
           {...(shouldRenderAsPopover ? {id: popoverId} : {})}
+          {...(cssAnchorPositioning ? {id: popoverId} : {})}
           ref={node => {
-            if (overlayProps?.ref) {
-              assignRef(overlayProps.ref, node)
-            }
-            updateOverlayRef(node)
             setOverlayElement(node)
+            assignRef(mergedOverlayRef, node)
           }}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}

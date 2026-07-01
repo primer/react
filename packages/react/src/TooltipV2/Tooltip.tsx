@@ -1,5 +1,5 @@
-import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
-import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
+import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
+import {useId, useOnEscapePress} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -49,10 +49,10 @@ type TriggerPropsType = Pick<
   | 'onFocus'
   | 'onMouseOverCapture'
   | 'onMouseLeave'
+  | 'onMouseEnter'
   | 'onTouchCancel'
-  | 'onTouchEnd'
 > & {
-  ref?: React.RefObject<HTMLElement>
+  ref?: React.Ref<HTMLElement>
 }
 
 // map tooltip direction to anchoredPosition props
@@ -126,8 +126,24 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
-    const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
-    const tooltipElRef = useRef<HTMLDivElement>(null)
+    const childRef = (child as React.ReactElement<{ref?: React.Ref<HTMLElement>}>).props.ref
+    const triggerRef = useRef<HTMLElement>(null)
+    const tooltipElRef = React.useRef<HTMLDivElement>(null)
+
+    // Tooltip clones its trigger, so compose refs manually to avoid overwriting the child's original ref
+    const assignRef = (ref: React.Ref<HTMLElement> | undefined, node: HTMLElement | null) => {
+      if (typeof ref === 'function') {
+        ref(node)
+      } else if (ref) {
+        ;(ref as React.MutableRefObject<HTMLElement | null>).current = node
+      }
+    }
+
+    const setTriggerRef = (node: HTMLElement | null) => {
+      assignRef(triggerRef, node)
+      assignRef(childRef, node)
+      assignRef(forwardedRef, node)
+    }
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
@@ -284,8 +300,7 @@ export const Tooltip: ForwardRefExoticComponent<
         <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              // @ts-expect-error it needs a non nullable ref
-              ref: triggerRef,
+              ref: setTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
                 // If tooltip is not a description type, keep the original aria-describedby
@@ -316,14 +331,12 @@ export const Tooltip: ForwardRefExoticComponent<
                 safeSetTimeout(() => closeTooltip(), 10)
               },
               onFocus: (event: React.FocusEvent) => {
-                // only show tooltip on :focus-visible, not on :focus
                 try {
                   if (!event.target.matches(':focus-visible')) return
-                } catch (_error) {
-                  // jsdom (jest) does not support `:focus-visible` yet and would throw an error
-                  // https://github.com/jsdom/jsdom/issues/3426
+                } catch {
+                  // Some test environments do not support `:focus-visible`.
                 }
-
+                if (event.currentTarget.hasAttribute('data-restoring-focus')) return
                 openTooltip()
                 child.props.onFocus?.(event)
               },
