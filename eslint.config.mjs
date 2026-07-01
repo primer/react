@@ -35,6 +35,7 @@ const github = githubPlugin.getFlatConfigs()
  */
 const config = defineConfig([
   globalIgnores([
+    '.agents/**/*',
     '**/.cache',
     'coverage/**/*',
     'docs/public/**/*',
@@ -195,7 +196,13 @@ const config = defineConfig([
       'github/filenames-match-regex': 'off',
       'github/no-inner-html': 'off',
       'github/role-supports-aria-props': 'off',
-      'no-restricted-syntax': 'off',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExpressionStatement[directive="use no memo"]',
+          message: 'The "use no memo" directive is not allowed.',
+        },
+      ],
       'primer-react/a11y-use-next-tooltip': 'off',
     },
   },
@@ -360,7 +367,8 @@ const config = defineConfig([
   {
     files: [
       'packages/postcss-preset-primer/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
-      'packages/rollup-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/rolldown-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/rolldown-plugin-preserve-directives/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
     ],
     rules: {
       'import/no-nodejs-modules': 'off',

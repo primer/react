@@ -82,6 +82,72 @@ describe('ActionBar', () => {
   })
 })
 
+describe('ActionBar.Button', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('renders a text button with its children as the accessible name', () => {
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Button>Save</ActionBar.Button>
+      </ActionBar>,
+    )
+
+    expect(screen.getByRole('button', {name: 'Save'})).toBeInTheDocument()
+  })
+
+  it('should trigger non-disabled button', () => {
+    const onClick = vi.fn()
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Button onClick={onClick}>Save</ActionBar.Button>
+      </ActionBar>,
+    )
+
+    screen.getByRole('button', {name: 'Save'}).click()
+
+    expect(onClick).toHaveBeenCalled()
+  })
+
+  it('should not trigger disabled button', () => {
+    const onClick = vi.fn()
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Button onClick={onClick} disabled>
+          Save
+        </ActionBar.Button>
+      </ActionBar>,
+    )
+
+    screen.getByRole('button', {name: 'Save'}).click()
+
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('should not trigger disabled button with spacebar or enter', async () => {
+    const user = userEvent.setup()
+    const onClick = vi.fn()
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Button onClick={onClick} disabled>
+          Save
+        </ActionBar.Button>
+      </ActionBar>,
+    )
+
+    const button = screen.getByRole('button', {name: 'Save'})
+
+    act(() => {
+      button.focus()
+    })
+
+    await user.keyboard('{Enter}')
+
+    expect(onClick).not.toHaveBeenCalled()
+  })
+})
+
 describe('ActionBar Registry System', () => {
   it('should preserve order with deep nesting', () => {
     render(
@@ -440,6 +506,17 @@ describe('ActionBar data-component attributes', () => {
 
     const iconButton = container.querySelector('[data-component="ActionBar"] [data-component="IconButton"]')
     expect(iconButton).toBeInTheDocument()
+  })
+
+  it('renders ActionBar.Button with a text label', () => {
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Button>Save</ActionBar.Button>
+      </ActionBar>,
+    )
+
+    const button = screen.getByRole('button', {name: 'Save'})
+    expect(button).toBeInTheDocument()
   })
 
   it('renders ActionBar.VerticalDivider with data-component attribute', () => {
