@@ -893,7 +893,6 @@ function Panel({
         open={open}
         onOpen={onOpen}
         onClose={onClose}
-        anchorHasPopup="dialog"
         overlayProps={mergedOverlayProps}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}

@@ -21,6 +21,48 @@ import {reactMajorVersion} from '../utils/environment'
 type AnchorHasPopup = Exclude<React.AriaAttributes['aria-haspopup'], boolean | 'false' | undefined>
 export type {AnchorHasPopup}
 
+// `aria-haspopup` and `aria-expanded` are only valid on elements whose role
+// supports them. In detached-anchor mode the consumer owns the anchor element,
+// so guard the imperative ARIA writes: if the ref points at a non-interactive
+// element (e.g. a wrapper `<div>`), writing these attributes produces invalid
+// ARIA (axe `aria-allowed-attr`). In that case the consumer should point the
+// ref at the real trigger, and we skip rather than emit a violation.
+const rolesSupportingPopupAria = new Set([
+  'application',
+  'button',
+  'checkbox',
+  'columnheader',
+  'combobox',
+  'gridcell',
+  'link',
+  'menuitem',
+  'menuitemcheckbox',
+  'menuitemradio',
+  'row',
+  'rowheader',
+  'switch',
+  'tab',
+  'treeitem',
+])
+
+function anchorSupportsPopupAria(node: HTMLElement): boolean {
+  const explicitRole = node.getAttribute('role')
+  if (explicitRole) return rolesSupportingPopupAria.has(explicitRole)
+  switch (node.tagName) {
+    case 'BUTTON':
+    case 'SUMMARY':
+    case 'SELECT':
+    case 'TEXTAREA':
+      return true
+    case 'A':
+      return node.hasAttribute('href')
+    case 'INPUT':
+      return (node as HTMLInputElement).type !== 'hidden'
+    default:
+      return false
+  }
+}
+
 interface AnchoredOverlayPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
@@ -330,6 +372,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     // kept separate from `open` to avoid rewriting the attribute on every toggle.
     const node = anchorRef.current ?? anchorElement
     if (renderAnchor !== null || !node) return
+    if (!anchorSupportsPopupAria(node)) return // avoid invalid ARIA on non-interactive anchors
     if (node.hasAttribute('aria-haspopup')) return // don't clobber a consumer value
 
     node.setAttribute('aria-haspopup', anchorHasPopup)
@@ -344,6 +387,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   useEffect(() => {
     const node = anchorRef.current ?? anchorElement
     if (renderAnchor !== null || !node) return
+    if (!anchorSupportsPopupAria(node)) return // avoid invalid ARIA on non-interactive anchors
 
     const expandedValue = String(open)
     node.setAttribute('aria-expanded', expandedValue)

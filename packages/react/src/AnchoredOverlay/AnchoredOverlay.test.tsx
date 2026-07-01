@@ -348,6 +348,37 @@ describe('AnchoredOverlay anchor ARIA', () => {
     await userEvent.click(anchor)
     expect(anchor).not.toHaveAttribute('aria-expanded', 'true')
   })
+
+  it('does not write ARIA to a non-interactive (e.g. <div>) detached anchor', async () => {
+    function DivAnchorComponent() {
+      const [open, setOpen] = useState(false)
+      const anchorRef = useRef<HTMLDivElement>(null)
+
+      return (
+        <BaseStyles>
+          <div ref={anchorRef} data-testid="div-anchor" onClick={() => setOpen(isOpen => !isOpen)}>
+            Detached div anchor
+          </div>
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={null}
+            anchorRef={anchorRef}
+          >
+            <button type="button">Focusable Child</button>
+          </AnchoredOverlay>
+        </BaseStyles>
+      )
+    }
+
+    const {baseElement} = render(<DivAnchorComponent />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="div-anchor"]')
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).not.toHaveAttribute('aria-expanded')
+  })
 })
 
 describe('AnchoredOverlay scroll/resize cascade', () => {

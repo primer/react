@@ -110,11 +110,11 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       const trigger = screen.getByRole('button', {
         name: 'Select items',
       })
-      expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
+      expect(trigger).toHaveAttribute('aria-haspopup', 'true')
       expect(trigger).toHaveAttribute('aria-expanded', 'false')
     })
 
-    it('sets aria-haspopup="dialog" on a detached anchor', async () => {
+    it('sets aria-haspopup="true" on a detached anchor', async () => {
       function DetachedSelectPanel() {
         const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
         const [filter, setFilter] = React.useState('')
@@ -146,7 +146,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
       const trigger = screen.getByRole('button', {name: 'Detached select anchor'})
       await waitFor(() => {
-        expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
+        expect(trigger).toHaveAttribute('aria-haspopup', 'true')
       })
       expect(trigger).toHaveAttribute('aria-expanded', 'false')
     })
