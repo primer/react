@@ -339,8 +339,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         node.removeAttribute('aria-haspopup')
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderAnchor, anchorElement, anchorHasPopup])
+  }, [renderAnchor, anchorRef, anchorElement, anchorHasPopup])
 
   useEffect(() => {
     const node = anchorRef.current ?? anchorElement
@@ -354,8 +353,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         node.removeAttribute('aria-expanded')
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderAnchor, anchorElement, open])
+  }, [renderAnchor, anchorRef, anchorElement, open])
 
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
