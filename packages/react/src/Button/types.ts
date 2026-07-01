@@ -82,12 +82,23 @@ export type ButtonProps = {
   children?: React.ReactNode
 
   count?: number | string
+
+  /**
+   * Whether to render a `TriangleDownIcon` after the icon to indicate the button opens a
+   * dropdown or menu. Only has an effect on `IconButton`.
+   */
+  hasTriangleDownIcon?: boolean
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.ElementType
   unsafeDisableTooltip?: boolean
   description?: string
+  /**
+   * Whether to render a `TriangleDownIcon` after the icon to indicate the button opens a
+   * dropdown or menu.
+   */
+  hasTriangleDownIcon?: boolean
   tooltipDirection?: TooltipDirection
   /** @deprecated Use `keybindingHint` instead. */
   keyshortcuts?: string
