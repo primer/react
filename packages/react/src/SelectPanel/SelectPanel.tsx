@@ -29,6 +29,7 @@ import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
 import {isAlphabetKey} from '../hooks/useMnemonics'
 import {useFormControlContext} from '../FormControl/_FormControlContext'
+import {clearLiveRegion} from '../live-region/getLiveRegion'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -44,19 +45,17 @@ const DefaultEmptyMessage = (
   </SelectPanelMessage>
 )
 
-async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
+async function announceText(text: string, from?: HTMLElement | null, delayMs = SHORT_DELAY_MS) {
+  clearLiveRegion(from)
 
   await announce(text, {
     delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+    from: from ?? undefined,
   })
 }
 
-async function announceLoading() {
-  await announceText('Loading.')
+async function announceLoading(from?: HTMLElement | null) {
+  await announceText('Loading.', from)
 }
 
 interface SelectPanelSingleSelection {
@@ -292,7 +291,7 @@ function Panel({
 
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             setIsLoading(true)
-            announceLoading()
+            announceLoading(inputRef.current)
           }, LONG_DELAY_MS)
         } else {
           // If this is the first data load and there are no items, show the loading spinner
@@ -304,7 +303,7 @@ function Panel({
 
           // We still want to announce if loading is taking too long
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
-            announceLoading()
+            announceLoading(inputRef.current)
           }, LONG_DELAY_MS)
         }
       }
@@ -324,6 +323,7 @@ function Panel({
       safeClearTimeout,
       items.length,
       resetSort,
+      inputRef,
     ],
   )
 
@@ -447,7 +447,7 @@ function Panel({
       if (isLoading) {
         // Delay the announcement a bit, just in case the loading is quick
         loadingDelayTimeoutId.current = safeSetTimeout(() => {
-          announceLoading()
+          announceLoading(inputRef.current)
         }, LONG_DELAY_MS)
       } else {
         // If loading is done, we can clear the loading announcement
@@ -456,7 +456,7 @@ function Panel({
         }
       }
     }
-  }, [isLoading, loadingManagedExternally, safeSetTimeout, safeClearTimeout])
+  }, [isLoading, loadingManagedExternally, safeSetTimeout, safeClearTimeout, inputRef])
 
   // Populate panel with items on first open
   useEffect(() => {
@@ -523,12 +523,11 @@ function Panel({
   useEffect(() => {
     const announceNotice = async () => {
       if (!noticeRef.current) return
-      const liveRegion = document.querySelector('live-region')
 
-      liveRegion?.clear()
+      clearLiveRegion(noticeRef.current)
 
       await announceFromElement(noticeRef.current, {
-        from: liveRegion ? liveRegion : undefined,
+        from: noticeRef.current,
       })
     }
 

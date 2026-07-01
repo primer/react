@@ -5,6 +5,7 @@ import {announce as liveRegionAnnounce} from '@primer/live-region-element'
 import {useCallback, useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './index'
 import type {ItemInput} from '../SelectPanel'
+import {clearLiveRegion} from '../live-region/getLiveRegion'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
@@ -49,8 +50,6 @@ export const useAnnouncements = (
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
 
-  const liveRegion = document.querySelector('live-region')
-
   // Notify user of the number of items available
   const selectedItems = items.filter(item => item.selected).length
 
@@ -70,7 +69,7 @@ export const useAnnouncements = (
           const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
           announce(announcementText, {
             delayMs,
-            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+            from: inputElement,
           })
         } else {
           // give @primer/behaviors a moment to apply active-descendant
@@ -87,7 +86,7 @@ export const useAnnouncements = (
             ].join(', ')
             announce(announcementText, {
               delayMs,
-              from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+              from: inputElement,
             })
           })
         }
@@ -97,7 +96,7 @@ export const useAnnouncements = (
       inputElement?.addEventListener('focus', focusHandler)
       return () => inputElement?.removeEventListener('focus', focusHandler)
     },
-    [listContainerRef, inputRef, items, liveRegion, announce, usingRovingTabindex, selectedItems],
+    [listContainerRef, inputRef, items, announce, usingRovingTabindex, selectedItems],
   )
 
   const isFirstRender = useFirstRender()
@@ -105,11 +104,12 @@ export const useAnnouncements = (
     function announceListUpdates() {
       if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
 
-      liveRegion?.clear() // clear previous announcements
+      const from = listContainerRef.current ?? inputRef.current
+      clearLiveRegion(from) // clear previous announcements
 
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !loading) {
-        announce(`${message?.title}. ${message?.description}`, {delayMs})
+        announce(`${message?.title}. ${message?.description}`, {delayMs, from: from ?? undefined})
         return
       }
 
@@ -118,7 +118,7 @@ export const useAnnouncements = (
 
         announce(announcementText, {
           delayMs,
-          from: liveRegion ? liveRegion : undefined,
+          from: from ?? undefined,
         })
       } else {
         // give @primer/behaviors a moment to update active-descendant
@@ -136,7 +136,7 @@ export const useAnnouncements = (
 
           announce(announcementText, {
             delayMs,
-            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+            from: from ?? undefined,
           })
         })
       }
@@ -146,7 +146,7 @@ export const useAnnouncements = (
       isFirstRender,
       items,
       listContainerRef,
-      liveRegion,
+      inputRef,
       usingRovingTabindex,
       message?.title,
       message?.description,
