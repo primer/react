@@ -19,7 +19,13 @@ const SubNav = React.forwardRef<HTMLElement, SubNavProps>(function SubNav(
   forwardRef,
 ) {
   return (
-    <nav ref={forwardRef} className={clsx(className, 'SubNav', styles.SubNav)} aria-label={label} {...rest}>
+    <nav
+      ref={forwardRef}
+      className={clsx(className, 'SubNav', styles.SubNav)}
+      aria-label={label}
+      data-component="SubNav"
+      {...rest}
+    >
       <div className={clsx('SubNav-body', styles.Body)}>{children}</div>
       {actions && <div className={clsx('SubNav-actions', styles.Actions)}>{actions}</div>}
     </nav>
@@ -31,7 +37,7 @@ SubNav.displayName = 'SubNav'
 
 const SubNavLinks = React.forwardRef<HTMLDivElement, SubNavLinksProps>(({children, className, ...rest}, forwardRef) => {
   return (
-    <div ref={forwardRef} className={clsx(className, styles.Links)} {...rest}>
+    <div ref={forwardRef} className={clsx(className, styles.Links)} data-component="SubNav.Links" {...rest}>
       {children}
     </div>
   )
@@ -46,6 +52,7 @@ const SubNavLink = React.forwardRef<HTMLAnchorElement, SubNavLinkProps>(
       <a
         ref={forwardRef}
         className={clsx(className, styles.Link)}
+        data-component="SubNav.Link"
         data-selected={rest.selected}
         aria-current={rest.selected}
         {...rest}
