@@ -57,6 +57,7 @@ jobs:
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
         with:
           title: Release tracking
+          commitMode: github-api
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release
         env:
