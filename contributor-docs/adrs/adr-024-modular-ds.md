@@ -84,9 +84,6 @@ extend.
   onSelect={item => {
     /* ... */
   }}
-  onFilter={query => {
-    /* ... */
-  }}
 />
 ```
 
@@ -111,29 +108,21 @@ function Example({items}) {
 
   return (
     <List>
-      <List.Filter
-        query={state.query}
-        onChange={query => {
-          actions.updateQuery(query)
-        }}
-      />
-      {items
-        .filter(item => item.label.includes(state.query))
-        .map(item => {
-          return (
-            <List.Item
-              key={item.label}
-              onClick={() => {
-                actions.toggleSelect(item.label)
-              }}
-            >
-              <List.ItemLeadingVisual>
-                <Checkbox checked={state.selected.has(item.label)} />
-              </List.ItemLeadingVisual>
-              <List.ItemLabel>{item.label}</List.ItemLabel>
-            </List.Item>
-          )
-        })}
+      {items.map(item => {
+        return (
+          <List.Item
+            key={item.label}
+            onClick={() => {
+              actions.toggleSelect(item.label)
+            }}
+          >
+            <List.ItemLeadingVisual>
+              <List.ItemSelection selected={state.selected.has(item.label)} />
+            </List.ItemLeadingVisual>
+            <List.ItemLabel>{item.label}</List.ItemLabel>
+          </List.Item>
+        )
+      })}
     </List>
   )
 }
@@ -193,6 +182,70 @@ experiences. These can include hooks such as `useMergedRefs`,
 
 These utilities may extend beyond hooks, such as `@primer/behaviors` or custom
 elements, where appropriate.
+
+#### Layered example
+
+When using this model, the config component should cover the default version of
+a pattern, while presentational components let teams extend the pattern when
+they need behavior that is not yet part of the high-level API.
+
+For example, we may have a `List` config component that supports selection as
+the default interaction:
+
+```tsx
+<List
+  items={[{label: 'Item one'}, {label: 'Item two'}, {label: 'Item three'}]}
+  onSelect={item => {
+    /* ... */
+  }}
+/>
+```
+
+If a team needs to add filtering, they can build on the presentational `List`
+parts and a lower-level behavior hook instead of forking the config component or
+asking the config API to support every possible variation. For example:
+
+```tsx
+function FilterableList({items}) {
+  const { getInputProps, getListboxProps, getOptionProps } = useCombobox({
+    items,
+    getItemLabel: item => item.label,
+    selectionMode: 'multiple',
+  })
+
+  return (
+    <Stack>
+      <Filter {...getInputProps({aria-label: 'Filter items'})} />
+      <List {...getListboxProps()}>
+        {combobox.items.map(item => {
+          return (
+            <List.Item
+              key={item.label}
+              {...getOptionProps({item})}
+            >
+              <List.ItemLeadingVisual>
+                <List.ItemSelection selected={combobox.selectedItems.has(item)} />
+              </List.ItemLeadingVisual>
+              <List.ItemLabel>{item.label}</List.ItemLabel>
+            </List.Item>
+          )
+        })}
+      </List>
+    </Stack>
+  )
+}
+```
+
+The important part is that the `List` parts continue to provide the selected
+item structure while the team layers filtering on top of it. If that filtering
+control needs richer accessibility or interaction behavior, the team can keep
+using the same `List` parts while moving more of the interaction model into
+lower-level primitives or hooks.
+
+As this filtering behavior becomes common and well-understood, we could decide
+to move it up the spectrum by adding it to the config component. Until then, the
+presentational API gives teams a supported path to compose the experience
+without relying on internal implementation details.
 
 ## Consequences
 
