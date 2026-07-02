@@ -169,23 +169,31 @@
   &:not(:last-child) {
     /* stylelint-disable-next-line primer/spacing */
     margin-right: 1px;
+  }
 
-    &::after {
-      position: absolute;
-      top: var(--base-size-8);
-      right: calc(-1 * var(--base-size-2));
-      bottom: var(--base-size-8);
-      width: 1px;
-      content: '';
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
-    }
+  /*
+   * Divider is drawn on the LEADING edge of each non-first item (rather than
+   * the trailing edge of each non-last item) so the "hide divider before the
+   * selected item" case can be expressed as a plain adjacent-sibling selector
+   * instead of `:has(+ [data-selected])`. Visual position is unchanged: the
+   * original `::after` at `right: -2px` (1px wide) on item N sat in the first
+   * 1px of item N+1's column (the previous item has `margin-right: 1px`), so
+   * the equivalent ::before on item N+1 lives at `left: 0`.
+   */
+  &:not(:first-child)::before {
+    position: absolute;
+    top: var(--base-size-8);
+    left: 0;
+    bottom: var(--base-size-8);
+    width: 1px;
+    content: '';
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--borderColor-default);
+  }
 
-    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-    &:has(+ [data-selected])::after,
-    &:where([data-selected])::after {
-      background-color: transparent;
-    }
+  /* Hide the divider on the leading edge of the selected item itself. */
+  &:where([data-selected])::before {
+    background-color: transparent;
   }
 
   /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
@@ -208,6 +216,16 @@
     display: flex;
     align-items: center;
   }
+}
+
+/*
+ * Hide the divider on the leading edge of the item that immediately follows
+ * the selected item. Adjacent-sibling combinator avoids the previous
+ * `:has(+ [data-selected])::after` which forced a sibling-direction `:has()`
+ * re-evaluation on every selection change.
+ */
+.Item[data-selected] + .Item::before {
+  background-color: transparent;
 }
 
 .Button {
