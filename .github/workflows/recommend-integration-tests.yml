@@ -58,7 +58,7 @@ jobs:
 
             const labels = await github.paginate(github.rest.issues.listLabelsOnIssue, issue);
             const integrationLabels = labels.filter(label => label.name.startsWith('integration-tests'))
-            const hasSkippedLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.skipped)
+            const hasSkippedLabel = integrationLabels.find(label => label.name === 'integration-tests: skipped manually')
             const hasPassingLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.passing)
 
             if (hasSkippedLabel) {
@@ -90,6 +90,7 @@ jobs:
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository && steps.integration-tests.outputs.should-run == 'true' }}
         run: |
           echo "Requesting github-ui integration tests for primer/react#$PR_NUMBER"
+          # prc-pr is the github-ui workflow input for the primer/react pull request number.
           gh workflow run primer-npm-packages-integration.yml -R github/github-ui --ref main --field prc-pr="$PR_NUMBER"
           echo "Requested github-ui integration tests for primer/react#$PR_NUMBER"
         env:
