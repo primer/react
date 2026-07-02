@@ -6,6 +6,7 @@ import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import CounterLabel from '../CounterLabel'
 import {LoadingCounter, UnderlineItemList, UnderlineWrapper} from '../internal/components/UnderlineTabbedInterface'
+import {OverflowObserverProvider} from '../internal/components/OverflowObserverProvider'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -101,9 +102,11 @@ export const UnderlineNav = forwardRef(
           data-has-overflow={isOverflowing ? 'true' : undefined}
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
-            <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
-              {children}
-            </UnderlineNavItemsRegistry.Provider>
+            <OverflowObserverProvider rootRef={navRef}>
+              <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
+                {children}
+              </UnderlineNavItemsRegistry.Provider>
+            </OverflowObserverProvider>
           </UnderlineItemList>
 
           <div className={classes.MoreButtonContainer}>
