@@ -16,6 +16,7 @@ export type SplitPageLayoutProps = {className?: string}
 export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
     <PageLayout
+      data-component="SplitPageLayout"
       containerWidth="full"
       padding="none"
       columnGap="none"
@@ -43,7 +44,7 @@ export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps
   ...props
 }) => {
   // eslint-disable-next-line primer-react/direct-slot-children
-  return <PageLayout.Header padding={padding} divider={divider} {...props} />
+  return <PageLayout.Header data-component="SplitPageLayout.Header" padding={padding} divider={divider} {...props} />
 }
 
 Header.displayName = 'SplitPageLayout.Header'
@@ -58,7 +59,7 @@ export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentPro
   padding = 'normal',
   ...props
 }) => {
-  return <PageLayout.Content width={width} padding={padding} {...props} />
+  return <PageLayout.Content data-component="SplitPageLayout.Content" width={width} padding={padding} {...props} />
 }
 
 Content.displayName = 'SplitPageLayout.Content'
@@ -77,6 +78,7 @@ export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> =
 }) => {
   return (
     <PageLayout.Pane
+      data-component="SplitPageLayout.Pane"
       position={position}
       sticky={sticky}
       padding={padding}
@@ -98,7 +100,15 @@ export const Sidebar: React.FC<React.PropsWithChildren<SplitPageLayoutSidebarPro
   divider = 'line',
   ...props
 }) => {
-  return <PageLayout.Sidebar position={position} padding={padding} divider={divider} {...props} />
+  return (
+    <PageLayout.Sidebar
+      data-component="SplitPageLayout.Sidebar"
+      position={position}
+      padding={padding}
+      divider={divider}
+      {...props}
+    />
+  )
 }
 
 Sidebar.displayName = 'SplitPageLayout.Sidebar'
@@ -114,7 +124,7 @@ export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps
   ...props
 }) => {
   // eslint-disable-next-line primer-react/direct-slot-children
-  return <PageLayout.Footer padding={padding} divider={divider} {...props} />
+  return <PageLayout.Footer data-component="SplitPageLayout.Footer" padding={padding} divider={divider} {...props} />
 }
 
 Footer.displayName = 'SplitPageLayout.Footer'
