@@ -17,8 +17,9 @@ guidance, especially the spectrum of abstraction model.
 
 Follow these rules:
 
-- Start with presentational components and behavior hooks for new flexible
-  component APIs.
+- Start with presentational components for new flexible component APIs. Use
+  behavior hooks to keep implementation logic reusable, but do not make those
+  hooks public unless the requested API or a clear consumer need requires it.
 - Add config components over time when common use-cases and opinionated defaults
   are established, and ensure they compose presentational components and hooks
   instead of duplicating behavior.
@@ -38,7 +39,9 @@ Follow these rules:
   primitives before adding new ones.
 - Do not expose public hooks for subcomponent internals unless there is a clear
   consumer need. Internal hooks are fine when they keep behavior reusable without
-  expanding the public API.
+  expanding the public API. The style guide's recommendation to pair
+  presentational components with behavior hooks does not mean every internal
+  behavior hook should become a package export.
 - Do not expose `data-component` as a customizable prop. Primer owns
   `data-component` values as component identifiers.
 - Avoid inventing visual styling without a concrete design reference, image, or

@@ -18,6 +18,8 @@ Check for:
 
 - Whether the change starts with presentational components and behavior hooks
   before introducing config-driven APIs.
+- Whether behavior hooks are kept internal unless a public hook is explicitly
+  requested or clearly justified by consumer needs.
 - Whether config components compose presentational components and hooks instead
   of duplicating state, behavior, or markup.
 - Whether base components or existing utilities should be reused for
@@ -35,7 +37,8 @@ Check for:
   accessibility behavior is reusable, including heading-first structures when a
   heading labels an interactive control.
 - Whether public hooks are justified by a clear consumer need instead of
-  exposing subcomponent internals by default.
+  exposing subcomponent internals by default, and whether any public hook has
+  docs metadata and tests matching its API.
 - Whether `data-component` values are owned by Primer and not exposed as
   customizable public props.
 - Whether visual styling is supported by a concrete design reference, image, or
