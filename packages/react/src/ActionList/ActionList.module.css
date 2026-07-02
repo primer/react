@@ -556,26 +556,32 @@
     & ~ .SubGroup {
       display: none;
     }
+  }
+}
 
-    /* show active indicator on parent collapse if child is active */
-    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-    &:has(~ .SubGroup [data-active='true']) {
-      background: var(--control-transparent-bgColor-selected);
+/*
+ * Show active indicator on a collapsed parent item when one of its descendants
+ * is active. Relies on the consumer (e.g. NavList.ItemWithSubNav) passing
+ * `active` to the parent `ActionList.Item` so `data-active` lands on the `<li>`.
+ * Previously expressed as `.ActionListContent[aria-expanded='false']:has(~ .SubGroup [data-active='true'])`,
+ * which forced the engine to re-walk every collapsed parent's subtree on any
+ * descendant attribute change. Plain attribute + child combinator is O(1) per element.
+ */
+.ActionListItem[data-has-subitem='true'][data-active='true'] > .ActionListContent[aria-expanded='false'] {
+  background: var(--control-transparent-bgColor-selected);
 
-      & .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
-      }
+  & .ItemLabel {
+    font-weight: var(--base-text-weight-semibold);
+  }
 
-      & .ActionListSubContent::before,
-      & + .ActionListItem .ActionListSubContent::before {
-        visibility: hidden;
-      }
+  & .ActionListSubContent::before,
+  & + .ActionListItem .ActionListSubContent::before {
+    visibility: hidden;
+  }
 
-      /* blue accent line */
-      &::after {
-        @mixin activeIndicatorLine;
-      }
-    }
+  /* blue accent line */
+  &::after {
+    @mixin activeIndicatorLine;
   }
 }
 
