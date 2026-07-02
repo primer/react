@@ -26,10 +26,22 @@ Check for:
 - Whether accessibility primitives for established patterns, such as ARIA
   Authoring Practices Guide patterns, are consolidated instead of reimplemented
   across components.
+- Whether established ARIA Authoring Practices Guide patterns use the expected
+  pattern semantics and structure instead of defaulting to native elements that
+  produce a different component model.
 - Whether consumers can customize appearance, content, semantics, and behavior
   without forking Primer or relying on overrides.
 - Whether native accessibility semantics are preserved and low-level
-  accessibility behavior is reusable.
+  accessibility behavior is reusable, including heading-first structures when a
+  heading labels an interactive control.
+- Whether public hooks are justified by a clear consumer need instead of
+  exposing subcomponent internals by default.
+- Whether `data-component` values are owned by Primer and not exposed as
+  customizable public props.
+- Whether visual styling is supported by a concrete design reference, image, or
+  specification instead of being invented by the implementation.
+- Whether root refs and element types default to `HTMLElement` unless a narrower
+  element type is required.
 - Whether exports, stories, tests, docs metadata, and changesets match the public
   API impact of the change.
 

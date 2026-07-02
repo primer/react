@@ -28,11 +28,25 @@ Follow these rules:
 - Consolidate accessibility primitives for established patterns, such as ARIA
   Authoring Practices Guide patterns, instead of reimplementing them across
   components.
-- Keep markup and accessibility semantics flexible. Preserve native semantics
-  and expose presentational pieces or slots when consumers need control over
-  content, appearance, or semantics.
+- Match the accessibility pattern to the component contract. For established
+  ARIA Authoring Practices Guide patterns such as accordions, prefer the APG
+  semantics and structure expected by the pattern.
+- Keep markup and accessibility semantics flexible. Preserve native semantics,
+  including heading structure, and expose presentational pieces or slots when
+  consumers need control over content, appearance, or semantics.
 - Search for existing Primer components, hooks, utilities, and accessibility
   primitives before adding new ones.
+- Do not expose public hooks for subcomponent internals unless there is a clear
+  consumer need. Internal hooks are fine when they keep behavior reusable without
+  expanding the public API.
+- Do not expose `data-component` as a customizable prop. Primer owns
+  `data-component` values as component identifiers.
+- Avoid inventing visual styling without a concrete design reference, image, or
+  specification. If styling is not specified, keep styles minimal and structural
+  so the component API and accessibility model can be evaluated independently.
+- Prefer `HTMLElement` for default root refs and polymorphic component typing.
+  Use narrower element types only when the API or behavior requires a specific
+  element.
 - Include the surfaces needed for adoption: source exports, tests, stories, docs
   metadata, and changesets when the published package behavior changes.
 
