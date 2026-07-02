@@ -1,0 +1,46 @@
+.TabList {
+  display: flex;
+  gap: var(--stack-gap-condensed, 0.5rem);
+  padding-inline: var(--base-size-4, var(--base-size-4));
+  border-bottom: var(--borderWidth-thin, var(--borderWidth-thin)) solid
+    var(--borderColor-muted, var(--borderColor-default));
+}
+
+.Tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--stack-gap-condensed, 0.5rem);
+  padding-block: var(--control-medium-paddingBlock, var(--base-size-6));
+  padding-inline: var(--control-medium-paddingInline-condensed, var(--base-size-8));
+  margin-bottom: calc(-1 * var(--borderWidth-thin, 1px));
+  border: 0;
+  border-bottom: var(--borderWidth-thick, var(--borderWidth-thick)) solid transparent;
+  background-color: transparent;
+  color: var(--fgColor-muted);
+  font: inherit;
+  font-size: var(--text-body-size-medium, 0.875rem);
+  line-height: var(--base-text-lineHeight-normal);
+  cursor: pointer;
+}
+
+.Tab:hover {
+  color: var(--fgColor-default);
+}
+
+.Tab[aria-selected='true'] {
+  color: var(--fgColor-default);
+  border-bottom-color: var(--underlineNav-borderColor-active, var(--fgColor-accent, var(--color-accent-fg)));
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.Tab:focus-visible {
+  outline: var(--borderWidth-thick, 2px) solid var(--fgColor-accent, var(--color-accent-fg));
+  outline-offset: -2px;
+  border-radius: var(--borderRadius-medium, var(--borderRadius-default));
+}
+
+.TabPanel {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
