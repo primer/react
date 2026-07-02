@@ -91,8 +91,12 @@ jobs:
         run: |
           echo "Requesting github-ui integration tests for primer/react#$PR_NUMBER"
           # prc-pr is the github-ui workflow input for the primer/react pull request number.
-          gh workflow run primer-npm-packages-integration.yml -R github/github-ui --ref main --field prc-pr="$PR_NUMBER"
-          echo "Requested github-ui integration tests for primer/react#$PR_NUMBER"
+          if gh workflow run primer-npm-packages-integration.yml -R github/github-ui --ref main --field prc-pr="$PR_NUMBER"; then
+            echo "Requested github-ui integration tests for primer/react#$PR_NUMBER"
+          else
+            echo "::error::Failed to request github-ui integration tests for primer/react#$PR_NUMBER"
+            exit 1
+          fi
         env:
           # Use GITHUB_TOKEN so this fails closed if Actions cannot access github-ui.
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
