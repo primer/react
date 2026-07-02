@@ -1,4 +1,5 @@
 .UnderlineWrapper {
+  width: 100%;
   /* Progressive enhancement: Detect overflow using scroll-based animations.
   The idiomatic way would be a scroll-state container query but browser support
   is slightly better for animations. */
@@ -6,6 +7,7 @@
   animation-timeline: scroll(self block);
 
   --UnderlineNav_moreButton-visibility: hidden;
+  --UnderlineNav_icons-display: inline;
   --UnderlineNav_hide-icons-play-state: paused;
 
   &[data-has-overflow='true'] {
@@ -13,31 +15,43 @@
   }
 }
 
+@keyframes delay-render {
+  0% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
 @keyframes detect-overflow {
   0%,
   100% {
     --UnderlineNav_moreButton-visibility: visible;
+    --UnderlineNav_icons-display: none;
     --UnderlineNav_hide-icons-play-state: running;
   }
 }
 
 .ItemsList [data-component='icon'] {
-  /* Unlike the more button, which reserves space when hidden, the icons are removed from the layout when hidden. This
-  can cause the container to no longer overflow, which would cause a flickering loop if we just drove the visibility
-  directly from the scroll state. So instead, we drive an animation that can only play forwards - this way, the icons
-  will remain hidden forever after being hidden for the first tiem, even if the container is no longer overflowing.
-  You might think we could just do this directly with the scroll-driven animation instead of driving a second animation,
-  but this approach doesn't work for scroll-driven animations because they are conditionally applied. */
-  animation-play-state: var(--UnderlineNav_hide-icons-play-state);
+  /* Unlike the more button, the icons are removed from the layout when hidden. This can cause the container to no
+  longer overflow, which would cause a flickering loop if we just drove the visibility directly from the scroll state.
+  So instead we drive an animation that can only play forwards so the icons stay hidden for the life of the page, even
+  if the container is no longer overflowing. We can't just make the scroll-driven animation itself play forwards,
+  because scroll-driven animations are conditionally applied and revert when not scrollable. */
   animation-name: hide-icons;
-  animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-duration: 1ms; /* must be non-zero or the animation will finish immediately even if paused */
+  animation-timing-function: linear;
+  animation-play-state: var(--UnderlineNav_hide-icons-play-state);
+  animation-duration: 0.01ms; /* Must be >0 */
+  display: var(--UnderlineNav_icons-display);
 }
 
 @keyframes hide-icons {
   0% {
-    display: inline;
+    /* Making this end of the animation dynamic makes the change instant even on slow machines; waiting for even
+    0.01ms can take a frame and look flickery. */
+    display: var(--UnderlineNav_icons-display);
   }
 
   100% {
