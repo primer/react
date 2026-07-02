@@ -48,14 +48,14 @@ export const UnderlineNav = forwardRef(
     const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
 
+    /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
+    const [hasEverOverflowed, setHasOverflowed] = useState(false)
+
     const [registeredItems, setRegisteredItems] = UnderlineNavItemsRegistry.useRegistryState()
 
     const overflowMenuItems = Array.from(registeredItems?.entries() ?? []).filter(
       (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
     )
-
-    /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
-    const [hasEverOverflowed, setHasOverflowed] = useState(false)
 
     const isOverflowing = overflowMenuItems.length > 0
     if (isOverflowing && !hasEverOverflowed) setHasOverflowed(true)
