@@ -123,12 +123,16 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
     }
   }, [onChange, checked, isControlled, disabled])
 
+  // Hiding the loading label is pure state derived from `loading`, so compute it
+  // during render. Only the delayed reveal needs a timer, which stays in the
+  // effect below.
+  if (!loading && isLoadingLabelVisible) {
+    setIsLoadingLabelVisible(false)
+  }
+
   useEffect(() => {
-    if (!loading && isLoadingLabelVisible) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
-      setIsLoadingLabelVisible(false)
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    } else if (loading && !isLoadingLabelVisible) {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (loading && !isLoadingLabelVisible) {
       safeSetTimeout(() => {
         setIsLoadingLabelVisible(true)
       }, loadingLabelDelay)

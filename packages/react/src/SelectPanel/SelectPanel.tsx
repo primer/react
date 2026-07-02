@@ -245,11 +245,14 @@ function Panel({
     isSingleSelectModal ? selected : undefined,
   )
 
-  // Reset the intermediate selected item when the panel is open/closed
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
+  // Reset the intermediate selected item when the panel is opened or closed.
+  // Tracking the previous `open` value lets us derive this during render instead
+  // of in an effect, avoiding an extra render pass each time the panel toggles.
+  const [prevOpen, setPrevOpen] = useState(open)
+  if (prevOpen !== open) {
+    setPrevOpen(open)
     setIntermediateSelected(isSingleSelectModal ? selected : undefined)
-  }, [isSingleSelectModal, open, selected])
+  }
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -392,7 +395,8 @@ function Panel({
     if (open) {
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !(isLoading || loading)) {
-        // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
+        // We need to wait for the listContainerElement to disappear before announcing no items,
+        // otherwise it will be interrupted — this depends on commit timing, so it must run in an effect.
         // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setNeedsNoItemsAnnouncement(true)
       }
@@ -473,7 +477,8 @@ function Panel({
       // Only trigger filter change event if there are no items
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0) {
-        // Trigger filter event to populate panel on first open
+        // Trigger filter event to populate panel on first open. This calls a consumer callback
+        // (a side effect), so it must run in an effect rather than during render.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         onFilterChange(filterValue, null)
       }
