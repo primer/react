@@ -6,11 +6,6 @@
   animation-timeline: scroll(self block);
 
   --UnderlineNav_moreButton-visibility: hidden;
-  --UnderlineNav_icons-display: inline;
-
-  &[data-hide-icons='true'] {
-    --UnderlineNav_icons-display: none;
-  }
 
   &[data-has-overflow='true'] {
     --UnderlineNav_moreButton-visibility: visible;
@@ -21,12 +16,32 @@
   0%,
   100% {
     --UnderlineNav_moreButton-visibility: visible;
-    --UnderlineNav_icons-display: none;
+    --UnderlineNav_hide-icons-play-state: running;
   }
 }
 
 .ItemsList [data-component='icon'] {
-  display: var(--UnderlineNav_icons-display);
+  /* Unlike the more button, which reserves space when hidden, the icons are removed from the layout when hidden. This
+  can cause the container to no longer overflow, which would cause a flickering loop if we just drove the visibility
+  directly from the scroll state. So instead, we drive an animation that can only play forwards - this way, the icons
+  will remain hidden forever after being hidden for the first tiem, even if the container is no longer overflowing.
+  You might think we could just do this directly with the scroll-driven animation instead of driving a second animation,
+  but this approach doesn't work for scroll-driven animations because they are conditionally applied. */
+  animation-play-state: var(--UnderlineNav_hide-icons-play-state, paused);
+  animation-name: hide-icons;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-duration: 1ms; /* must be non-zero or the animation will finish immediately even if paused */
+}
+
+@keyframes hide-icons {
+  0% {
+    display: inline;
+  }
+
+  100% {
+    display: none;
+  }
 }
 
 .MoreButtonContainer {

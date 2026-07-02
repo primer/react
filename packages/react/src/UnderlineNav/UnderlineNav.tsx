@@ -48,9 +48,6 @@ export const UnderlineNav = forwardRef(
     const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
 
-    /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
-    const [hasEverOverflowed, setHasOverflowed] = useState(false)
-
     const [registeredItems, setRegisteredItems] = UnderlineNavItemsRegistry.useRegistryState()
 
     const overflowMenuItems = Array.from(registeredItems?.entries() ?? []).filter(
@@ -58,7 +55,6 @@ export const UnderlineNav = forwardRef(
     )
 
     const isOverflowing = overflowMenuItems.length > 0
-    if (isOverflowing && !hasEverOverflowed) setHasOverflowed(true)
 
     // Find the current item if it has overflowed into the menu, so we can reflect
     // its "current" state on the overflow menu anchor.
@@ -95,8 +91,6 @@ export const UnderlineNav = forwardRef(
           ref={navRef}
           data-variant={variant}
           data-overflow-mode="wrap"
-          // Force icons to stay hidden, avoiding flickering as icons create/remove overflow
-          data-hide-icons={hasEverOverflowed ? 'true' : undefined}
           // Ensure button is shown (after initial render) on browsers that don't support scroll-driven animations
           data-has-overflow={isOverflowing ? 'true' : undefined}
         >
@@ -115,7 +109,7 @@ export const UnderlineNav = forwardRef(
                 variant="invisible"
                 data-component="overflow-menu-button"
                 data-current={overflowingCurrentItem ? 'true' : undefined}
-                aria-label={overflowingCurrentItem ? `More items, including current item` : undefined}
+                aria-label={overflowingCurrentItem ? 'More items, including current item' : undefined}
               >
                 <span>
                   More<VisuallyHidden as="span"> items</VisuallyHidden>
