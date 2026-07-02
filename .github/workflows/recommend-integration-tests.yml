@@ -87,14 +87,14 @@ jobs:
             }
 
       - name: Run github-ui integration tests
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository && steps.integration-tests.outputs.should-run == 'true' }}
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository && steps.source-files.outputs.diff != '' && steps.integration-tests.outputs.should-run == 'true' }}
         run: |
-          echo "Requesting github-ui integration tests for primer/react#$PR_NUMBER"
+          echo "Requesting github-ui integration workflow for pull request #$PR_NUMBER"
           # prc-pr is the github-ui workflow input for the primer/react pull request number.
           if gh workflow run primer-npm-packages-integration.yml -R github/github-ui --ref main --field prc-pr="$PR_NUMBER"; then
-            echo "Successfully requested github-ui integration tests for primer/react#$PR_NUMBER"
+            echo "Successfully requested github-ui integration workflow for pull request #$PR_NUMBER"
           else
-            echo "::error::Failed to request github-ui integration tests for primer/react#$PR_NUMBER"
+            echo "::error::Failed to request github-ui integration workflow for pull request #$PR_NUMBER"
             exit 1
           fi
         env:
