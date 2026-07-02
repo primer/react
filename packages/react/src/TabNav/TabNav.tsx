@@ -86,9 +86,9 @@ const TabNavLink = React.forwardRef(function TabNavLink(
       role="tab"
       tabIndex={-1}
       aria-selected={selected ? true : undefined}
-      data-component="TabNav.Link"
       className={clsx('TabNav-item', styles.TabNavLink, selected && 'selected', selected && styles.Selected, className)}
       {...rest}
+      data-component="TabNav.Link"
     />
   )
 }) as PolymorphicForwardRefComponent<'a', TabNavLinkProps>
