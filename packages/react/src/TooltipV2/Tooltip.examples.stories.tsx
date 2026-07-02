@@ -1,248 +1,174 @@
-import {useState, useCallback, useRef} from 'react'
-import {Button, IconButton} from '../Button'
-import Breadcrumbs from '../Breadcrumbs'
-import {ActionMenu} from '../ActionMenu'
-import {ActionList} from '../ActionList'
-import {PageHeader} from '../PageHeader'
+import React from 'react'
+import {flushSync} from 'react-dom'
+import {Button} from '../Button'
+import Checkbox from '../Checkbox'
+import {Stack} from '../Stack'
 import {Tooltip} from './Tooltip'
-import {Dialog} from '../experimental'
-import {GitBranchIcon, KebabHorizontalIcon, TriangleDownIcon, CheckIcon, XIcon} from '@primer/octicons-react'
-import {default as VisuallyHidden} from '../_VisuallyHidden'
+import classes from './Tooltip.examples.stories.module.css'
 
 export default {
   title: 'Components/TooltipV2/Examples',
   component: Tooltip,
 }
 
-export const CustomId = () => (
-  <Tooltip id="tooltip-custom-id" text="Close feedback form" direction="nw" type="label">
-    <IconButton aria-labelledby="tooltip-custom-id" icon={XIcon} variant="invisible" onClick={() => {}} />
-  </Tooltip>
+// Description type, north direction by default
+export const Default = () => (
+  <div className={classes.PaddedContainer}>
+    <Tooltip text="This tooltip has a red background and a larger font size." className={classes.Popover}>
+      <Button>Delete</Button>
+    </Tooltip>
+  </div>
 )
 
-export const FilesPage = () => (
-  <PageHeader role="banner" aria-label="Banner">
-    <PageHeader.ContextArea>
-      <PageHeader.ParentLink>Files</PageHeader.ParentLink>
-      <PageHeader.ContextAreaActions>
-        <ActionMenu>
-          <ActionMenu.Anchor>
-            <Tooltip text="Supplementary text to add here">
-              <Button size="small" leadingVisual={GitBranchIcon} trailingAction={TriangleDownIcon}>
-                main
-              </Button>
-            </Tooltip>
-          </ActionMenu.Anchor>
-          <ActionMenu.Overlay width="medium">
-            <ActionList>
-              <ActionList.Item onSelect={() => alert('Main')}>
-                <ActionList.LeadingVisual>
-                  <CheckIcon />
-                </ActionList.LeadingVisual>
-                main <ActionList.TrailingVisual>default</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Item onSelect={() => alert('Branch 1')}>branch-1</ActionList.Item>
-              <ActionList.Item onSelect={() => alert('Branch 2')}>branch-2</ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-        <ActionMenu>
-          <ActionMenu.Anchor>
-            <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
-          </ActionMenu.Anchor>
-          <ActionMenu.Overlay width="medium">
-            <ActionList>
-              <ActionList.Group>
-                <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
-                <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
-              </ActionList.Group>
-              <ActionList.Divider />
-              <ActionList.Item onSelect={() => alert('Jump to line')}>
-                Jump to line
-                <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Divider />
-              <ActionList.Item onSelect={() => alert('Copy path')}>
-                Copy path
-                <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Item onSelect={() => alert('Copy permalink')}>
-                Copy permalink
-                <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Divider />
-              <ActionList.Group>
-                <ActionList.GroupHeading>View Options</ActionList.GroupHeading>
-                <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
-                  Show code folding buttons
-                </ActionList.Item>
-                <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
-                <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
-              </ActionList.Group>
-              <ActionList.Divider />
-              <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
-                Delete file
-                <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-              </ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </PageHeader.ContextAreaActions>
-    </PageHeader.ContextArea>
-    <PageHeader.TitleArea>
-      <Breadcrumbs>
-        <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
-        <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src">src</Breadcrumbs.Item>
-        <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader">
-          PageHeader
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader/PageHeader.tsx">
-          PageHeader.tsx
-        </Breadcrumbs.Item>
-      </Breadcrumbs>
-      <VisuallyHidden as="h2">PageHeader.tsx</VisuallyHidden>
-      <PageHeader.Actions hidden={{narrow: true}}>
-        <ActionMenu>
-          <ActionMenu.Anchor>
-            <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
-          </ActionMenu.Anchor>
-          <ActionMenu.Overlay width="medium">
-            <ActionList>
-              <ActionList.Group>
-                <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
-                <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
-              </ActionList.Group>
-              <ActionList.Divider />
-              <ActionList.Item onSelect={() => alert('Jump to line')}>
-                Jump to line
-                <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Divider />
-              <ActionList.Item onSelect={() => alert('Copy path')}>
-                Copy path
-                <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Item onSelect={() => alert('Copy permalink')}>
-                Copy permalink
-                <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Divider />
-              <ActionList.Group>
-                <ActionList.GroupHeading>View Options</ActionList.GroupHeading>
-                <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
-                  Show code folding buttons
-                </ActionList.Item>
-                <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
-                <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
-              </ActionList.Group>
-              <ActionList.Divider />
-              <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
-                Delete file
-                <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-              </ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </PageHeader.Actions>
-    </PageHeader.TitleArea>
-  </PageHeader>
-)
+function describeActiveElement() {
+  const el = document.activeElement
+  if (!el || el === document.body) return 'body'
 
-FilesPage.parameters = {
-  viewport: {
-    defaultViewport: 'small',
-  },
+  const tag = el.tagName.toLowerCase()
+  const text = el.textContent ? el.textContent.trim() : ''
+  return text ? `${tag} "${text}"` : tag
 }
 
-export const DialogTrigger = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [secondOpen, setSecondOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
-  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
+export const ConditionalTooltipWrap = () => {
+  const [inactive, setInactive] = React.useState(false)
+  const [currentFocus, setCurrentFocus] = React.useState(describeActiveElement)
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+
+  React.useEffect(function printCurrentActiveElement() {
+    const interval = setInterval(() => {
+      setCurrentFocus(describeActiveElement())
+    }, 100)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Buggy flow: same toggle, but no focus restoration.
+  const saveWithoutRestoringFocus = () => {
+    setInactive(true)
+    window.setTimeout(() => setInactive(false), 2000)
+  }
+
+  // Imperative save flow for the fixed buttons: start, then after 2s flip back,
+  // restoring focus after each swap. flushSync forces React to commit the
+  // remount synchronously so buttonRef points at the new node before focus().
+  const saveAndRestoreFocus = () => {
+    flushSync(() => {
+      setInactive(true)
+    })
+    if (document.activeElement === document.body) buttonRef.current?.focus()
+    window.setTimeout(() => {
+      flushSync(() => {
+        setInactive(false)
+      })
+      if (document.activeElement === document.body) buttonRef.current?.focus()
+    }, 2000)
+  }
+
   return (
     <>
-      <Tooltip text="Ready to merge">
-        <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Merge" />
-      </Tooltip>
-      {isOpen && (
-        <Dialog
-          title="My Dialog"
-          onClose={onDialogClose}
-          footerButtons={[
-            {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
-            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
-          ]}
-        >
-          The icon button that triggers the dialog, takes the focus back when the dialog is closed however the tooltip
-          is not shown again if the dialog is closed with a mouse. Because the tooltip is shown only on focus-visible.
-          {secondOpen && (
-            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
-              Hello world
-            </Dialog>
-          )}
-        </Dialog>
-      )}
+      <p>
+        Current focus: <span style={{fontFamily: 'monospace', fontWeight: 'bold'}}>{currentFocus}</span>
+      </p>
+      <h3>Buggy</h3>
+      <p>
+        The element type at this slot swaps between <code>Button</code> and <code>Tooltip</code>, so React unmounts and
+        recreates the button. Focusing the button and activating it drops focus to <code>body</code>.
+      </p>
+      <Stack direction="horizontal">
+        {inactive ? (
+          <Tooltip text="Saving progress">
+            <Button inactive>Saving</Button>
+          </Tooltip>
+        ) : (
+          <Button onClick={saveWithoutRestoringFocus}>Save</Button>
+        )}
+
+        <Button>Another button</Button>
+      </Stack>
+      <br />
+      <h3>Fix, Option A: stable tree</h3>
+      <p>
+        The <code>Tooltip</code> is always mounted and only its <code>text</code> changes, so the button is never
+        remounted and focus is preserved. Tradeoff: the active button also gets a tooltip.
+      </p>
+      <Stack direction="horizontal">
+        <Tooltip text={inactive ? 'Saving progress' : 'Save your progress'}>
+          <Button inactive={inactive} onClick={inactive ? undefined : saveWithoutRestoringFocus}>
+            {inactive ? 'Saving' : 'Save'}
+          </Button>
+        </Tooltip>
+
+        <Button>Another button</Button>
+      </Stack>
+      <br />
+      <h3>Fix, Option B: restore focus via ref</h3>
+      <p>
+        Accept the remount, then restore focus with a ref (see <code>saveAndRestoreFocus</code>). The ref goes on the{' '}
+        <code>Tooltip</code> in the inactive branch, because <code>Tooltip</code> overrides its child&apos;s ref via{' '}
+        <code>cloneElement</code>.
+      </p>
+      <Stack direction="horizontal">
+        {inactive ? (
+          <Tooltip text="Saving progress" ref={buttonRef}>
+            <Button inactive>Saving</Button>
+          </Tooltip>
+        ) : (
+          <Button ref={buttonRef} onClick={saveAndRestoreFocus}>
+            Save
+          </Button>
+        )}
+
+        <Button>Another button</Button>
+      </Stack>
     </>
   )
 }
 
-export const EmojiPicker = () => {
-  // This example demonstrates a grid of emojis/icons with tooltips that appear after a long delay.
-  // This pattern is used in places like emoji reactions on comments and the icon picker in the issues dashboard's saved views on GitHub.
-  // The delay improves UX by preventing distraction when users move their cursor across multiple emojis/icons,
-  // especially since these icons are generally familiar and don't require immediate explanation.
+const ALERTS = ['Item 1', 'Item 2', 'Item 3']
 
-  const emojis = [
-    {emoji: '😀', name: 'Grinning Face'},
-    {emoji: '😍', name: 'Heart Eyes'},
-    {emoji: '🎉', name: 'Party Popper'},
-    {emoji: '👍', name: 'Thumbs Up'},
-    {emoji: '❤️', name: 'Red Heart'},
-    {emoji: '🔥', name: 'Fire'},
-    {emoji: '💯', name: 'Hundred Points'},
-    {emoji: '🚀', name: 'Rocket'},
-    {emoji: '⭐', name: 'Star'},
-    {emoji: '🎯', name: 'Direct Hit'},
-    {emoji: '💡', name: 'Light Bulb'},
-    {emoji: '🌟', name: 'Glowing Star'},
-    {emoji: '🎊', name: 'Confetti Ball'},
-    {emoji: '✨', name: 'Sparkles'},
-    {emoji: '🌈', name: 'Rainbow'},
-  ]
+export const CheckToActivate = () => {
+  const [checked, setChecked] = React.useState<boolean[]>(() => ALERTS.map(() => false))
+  const [focus, setFocus] = React.useState(describeActiveElement)
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setFocus(describeActiveElement())
+    }, 100)
+    return () => clearInterval(interval)
+  }, [])
+
+  const selectedCount = checked.filter(Boolean).length
+  const active = selectedCount >= 2
+
+  const toggle = (index: number) => {
+    setChecked(prev => prev.map((value, i) => (i === index ? !value : value)))
+  }
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(5, 1fr)',
-        gap: '4px',
-        maxWidth: '200px',
-        padding: '16px',
-      }}
-    >
-      {emojis.map((emojiItem, index) => (
-        <Tooltip key={index} text={emojiItem.name} direction="n" delay="long">
-          <Button
-            aria-label={emojiItem.name}
-            variant="invisible"
-            size="small"
-            style={{
-              fontSize: '18px',
-              padding: '8px',
-              minWidth: '32px',
-              minHeight: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {emojiItem.emoji}
-          </Button>
+    <div>
+      <p>
+        Current focus: <span style={{fontFamily: 'monospace', fontWeight: 'bold'}}>{focus}</span>
+      </p>
+      <p>{selectedCount} selected (check at least 2 to activate the button)</p>
+      {active ? (
+        <Button onClick={() => setChecked(ALERTS.map(() => false))}>Assign to Copilot</Button>
+      ) : (
+        <Tooltip text="Select at least 2 items to assign to Copilot">
+          <Button inactive>Assign to Copilot</Button>
         </Tooltip>
-      ))}
+      )}
+      <ul style={{listStyle: 'none', paddingLeft: 0, marginTop: 16}}>
+        {ALERTS.map((label, index) => (
+          <li key={label} style={{display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8}}>
+            <Checkbox
+              checked={checked[index]}
+              onChange={() => toggle(index)}
+              aria-label={label}
+              id={`alert-${index}`}
+            />
+            <label htmlFor={`alert-${index}`}>{label}</label>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
