@@ -45,7 +45,7 @@ want to focus on in order to improve Primer:
 
 - Embrace layer 2 from the layer model, offering parts for our components that
   can be combined with hooks for improved flexibility
-- Provide low-level components and hooks to make it easier to build customized, 
+- Provide low-level components and hooks to make it easier to build customized,
   quality, accessible experiences
 - Create a model for upstreaming work where people have already built on top of Primer
 
