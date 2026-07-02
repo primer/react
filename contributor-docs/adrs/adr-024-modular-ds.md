@@ -252,7 +252,7 @@ without relying on internal implementation details.
 This approach is a consolidation of our existing approach to building
 components. It highlights changes that need to happen in existing components,
 namely SelectPanel and Dialog, that would require changes in order for them to
-accomodate the spectrum of abstraction model.
+accommodate the spectrum of abstraction model.
 
 This decision also impacts future component development as components must start
 with this in mind. One critical part to this is that authoring components as
