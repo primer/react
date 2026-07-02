@@ -7,6 +7,7 @@ import type {
   PageLayoutSidebarProps,
 } from '../PageLayout'
 import {PageLayout} from '../PageLayout'
+import type {WithSlotMarker} from '../utils/types'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout
@@ -131,6 +132,11 @@ Footer.displayName = 'SplitPageLayout.Footer'
 
 // ----------------------------------------------------------------------------
 // Export
+;(Header as WithSlotMarker<typeof Header>).__SLOT__ = PageLayout.Header.__SLOT__
+;(Content as WithSlotMarker<typeof Content>).__SLOT__ = PageLayout.Content.__SLOT__
+;(Pane as WithSlotMarker<typeof Pane>).__SLOT__ = PageLayout.Pane.__SLOT__
+;(Sidebar as WithSlotMarker<typeof Sidebar>).__SLOT__ = PageLayout.Sidebar.__SLOT__
+;(Footer as WithSlotMarker<typeof Footer>).__SLOT__ = PageLayout.Footer.__SLOT__
 
 export const SplitPageLayout = Object.assign(Root, {
   Header,
