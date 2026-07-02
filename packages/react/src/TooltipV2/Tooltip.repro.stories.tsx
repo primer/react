@@ -4,10 +4,10 @@ import {Button} from '../Button'
 import Checkbox from '../Checkbox'
 import {Stack} from '../Stack'
 import {Tooltip} from './Tooltip'
-import classes from './Tooltip.dev.stories.module.css'
+import classes from './Tooltip.repro.stories.module.css'
 
 export default {
-  title: 'Components/TooltipV2/Dev',
+  title: 'Components/TooltipV2/Repro',
   component: Tooltip,
 }
 
