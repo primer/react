@@ -61,7 +61,7 @@ To do this, we will:
 
 We will author components with a spectrum of abstraction in mind, specifically
 beginning with presentational components that can combine with hooks to provide
-opionated, config-driven components.
+opinionated, config-driven components.
 
 This model allows us to offer opinionated defaults that work for common
 scenarios while still allowing teams to extend and customize components as needed.
@@ -89,6 +89,15 @@ extend.
   }}
 />
 ```
+
+- High-level abstraction: consumers describe intent through props/data rather than composing markup directly.
+- Opinionated defaults: Primer owns the default structure, behavior, accessibility, styling, and interaction patterns.
+- Fast path for common use cases: optimized for teams that want to implement an established pattern quickly and correctly.
+- Props-driven customization: extension happens through supported props, slots/render props, or configuration—not arbitrary internal composition.
+- Limited flexibility by design: they should not try to support every variation; unusual needs may require dropping down to presentational parts.
+- Stable product pattern: best suited for patterns Primer understands well and expects many teams to reuse.
+- Integrated behavior: state management, keyboard behavior, selection, filtering, validation, etc. are usually bundled in.
+- Clear escape boundary: when consumers need to change structure, semantics, or behavior beyond the config API, they should move to presentational components.
 
 #### Presentational components
 
@@ -135,6 +144,17 @@ component's core functionality. Oftentimes, config components are built by
 combining presentational components with the corresponding behavior and state
 hooks needed for a feature.
 
+These components are defined by:
+
+- Mid-level abstraction: consumers compose Primer-provided parts directly while Primer still owns styling and semantics for each part.
+- Structure-first API: consumers control layout, ordering, conditional rendering, and content by assembling parts.
+- Behavior via hooks: state and interactions are usually provided separately through hooks, letting teams choose how much behavior to adopt.
+- Flexible composition: supports variants that config components cannot reasonably expose through props.
+- Primer-owned building blocks: parts still encode design-system quality—styling, accessibility expectations, data attributes, and component contracts.
+- Best for emerging patterns: useful when a pattern is known, but the right high-level API has not stabilized yet.
+- Foundation for config components: config components should often be implemented by composing presentational parts plus behavior hooks.
+- More consumer responsibility: consumers gain flexibility but must wire state, events, filtering, selection, and edge cases themselves
+
 #### Base components
 
 Base components are unstyled and may optionally provide behavior. These
@@ -176,6 +196,53 @@ elements, where appropriate.
 
 ## Consequences
 
+This approach is a consolidation of our existing approach to building
+components. It highlights changes that need to happen in existing components,
+namely SelectPanel and Dialog, that would require changes in order for them to
+accomodate the spectrum of abstraction model.
+
+This decision also impacts future component development as components must start
+with this in mind. One critical part to this is that authoring components as
+parts makes migration over time more difficult. For example, consider an
+existing Card component implementation:
+
+```tsx
+<Card>
+  <Card.Title>Title</Card.Title>
+  <Card.Body>Body</Card.Body>
+  <Card.Footer>Footer</Card.Footer>
+</Card>
+```
+
+Over time, there may be a request to add support for a `Card.Action`. This may
+require us to add a `Card.Header` part to the Card component.
+
+```tsx
+<Card>
+  <Card.Header>
+    <Card.Title>Title</Card.Title>
+    <Card.Action>Edit</Card.Action>
+  </Card.Header>
+  <Card.Body>Body</Card.Body>
+  <Card.Footer>Footer</Card.Footer>
+</Card>
+```
+
+As a result, we would need to manage how we support this kind of breaking
+change. We could coordinate migrating existing implementations to
+the new structure as a part of the change. We could also consider supporting
+both structures which would increase the surface area of the component.
+
 ## Alternatives
+
+The main alternatives to this approach would be:
+
+- Do nothing, continue our current approach which is causing the challenges
+  mentioned at the beginning of the ADR
+- Fully adopt the layer model as proposed
+
+Most likely we'll never find a model that will exactly work across components.
+As a result, we should develop techniques and learn how to apply them as the
+design system grows.
 
 ## Questions
