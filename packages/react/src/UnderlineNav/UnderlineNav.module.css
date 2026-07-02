@@ -1,13 +1,13 @@
 .UnderlineWrapper {
-  width: 100%;
   /* Progressive enhancement: Detect overflow using scroll-based animations.
   The idiomatic way would be a scroll-state container query but browser support
   is slightly better for animations. */
-  animation: detect-overflow linear;
-  animation-timeline: scroll(self block);
+  animation:
+    detect-overflow linear,
+    delay-visibility forwards 0ms 5ms;
+  animation-timeline: scroll(self block), auto;
 
   --UnderlineNav_moreButton-visibility: hidden;
-  --UnderlineNav_icons-display: inline;
   --UnderlineNav_hide-icons-play-state: paused;
 
   &[data-has-overflow='true'] {
@@ -15,20 +15,10 @@
   }
 }
 
-@keyframes delay-render {
-  0% {
-    visibility: hidden;
-  }
-  100% {
-    visibility: visible;
-  }
-}
-
 @keyframes detect-overflow {
   0%,
   100% {
     --UnderlineNav_moreButton-visibility: visible;
-    --UnderlineNav_icons-display: none;
     --UnderlineNav_hide-icons-play-state: running;
   }
 }
@@ -43,17 +33,28 @@
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   animation-play-state: var(--UnderlineNav_hide-icons-play-state);
-  animation-duration: 0.01ms; /* Must be >0 */
-  display: var(--UnderlineNav_icons-display);
+  animation-duration: 0.1ms; /* must be greater than 0 */
+}
+
+/* Slow devices will still flicker on initial paint as we figure out if we have room to render icons or not,
+so we delay the tabs visibility by a very short time to allow things to settle. */
+@keyframes delay-visibility {
+  0%,
+  99.9% {
+    visibility: hidden;
+  }
+
+  100% {
+    visibility: visible;
+  }
 }
 
 @keyframes hide-icons {
   0% {
-    /* Making this end of the animation dynamic makes the change instant even on slow machines; waiting for even
-    0.01ms can take a frame and look flickery. */
-    display: var(--UnderlineNav_icons-display);
+    display: inline;
   }
 
+  0.1%,
   100% {
     display: none;
   }

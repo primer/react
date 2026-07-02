@@ -92,7 +92,7 @@ export const UnderlineNav = forwardRef(
           data-variant={variant}
           data-overflow-mode="wrap"
           // Ensure button is shown (after initial render) on browsers that don't support scroll-driven animations
-          // data-has-overflow={isOverflowing ? 'true' : undefined}
+          data-has-overflow={isOverflowing ? 'true' : undefined}
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
             <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
