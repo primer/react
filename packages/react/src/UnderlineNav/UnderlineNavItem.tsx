@@ -20,24 +20,39 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
 
   const ref = useRef<HTMLLIElement>(null)
 
+  // Cached overflow state. `offsetTop` is read inside the IntersectionObserver
+  // callback below (which runs *after* the browser has computed layout), so it
+  // never forces a synchronous reflow. `getSnapshot` then just returns this
+  // cached boolean. Reading `offsetTop` directly in `getSnapshot` — as this used
+  // to — forces layout every time React calls it (during render, commit, and on
+  // every store change, for every item), causing significant layout thrashing on
+  // pages with many nav items.
+  const isOverflowingRef = useRef(false)
+
   const {loadingCounters} = useContext(UnderlineNavContext)
 
   const isOverflowing = useSyncExternalStore(
-    useCallback(
-      onChange => {
-        const observer = new IntersectionObserver(() => onChange(), {
+    useCallback(onChange => {
+      // The IntersectionObserver is a trigger to re-check whether the item has
+      // wrapped to the next row (which increases its `offsetTop`) and is clipped
+      // out of the single-row nav. Its callback runs after layout, so measuring
+      // here is reflow-free. Only notify React when the overflow state changes.
+      const observer = new IntersectionObserver(
+        () => {
+          const isOverflowingNow = ref.current ? ref.current.offsetTop > 0 : false
+          if (isOverflowingNow !== isOverflowingRef.current) {
+            isOverflowingRef.current = isOverflowingNow
+            onChange()
+          }
+        },
+        {
           threshold: 1,
-        })
-        if (ref.current) observer.observe(ref.current)
-        return () => observer.disconnect()
-      },
-      [ref],
-    ),
-    // Note: the IntersectionObserver is just being used as a trigger to re-check
-    // `offsetTop > 0`; this is fast and simpler than checking visibility from
-    // the observed entry. When an item wraps, it will move to the next row which
-    // increases its `offsetTop`
-    () => (ref.current ? ref.current.offsetTop > 0 : false),
+        },
+      )
+      if (ref.current) observer.observe(ref.current)
+      return () => observer.disconnect()
+    }, []),
+    () => isOverflowingRef.current,
     () => false,
   )
 
