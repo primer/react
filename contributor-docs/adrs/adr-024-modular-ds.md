@@ -299,3 +299,26 @@ As a result, we should develop techniques and learn how to apply them as the
 design system grows.
 
 ## Questions
+
+### Will this be the de facto standard for all components in the Design System going forward?
+
+Yes, our team will prioritize authoring components as presentational components
+with hooks as the starting point for new components. As patterns and opinions
+emerge, we create config components to simplify adoption of those patterns.
+
+### Does this only apply to certain type of components?
+
+Not every component will need to be authored with config, presentational, and
+base components in mind. Not all components will need their own hooks, either.
+Generally, when writing a component we will want to start with the
+presentational components first. We'll focus on markup and styles before adding
+in behavior and state. For some components, this can be baked into the
+component. For others, they will need to be extracted into hooks.
+
+There is no clear test for this yet, but one concept that seems to work is when
+state does not have a clear component that owns it. For example, if we have a
+`List` component and we want to manage selection then we have two options:
+
+- Bake it into the `List` component (this would be our config approach)
+- Provide a `useSelection` hook (or bake selection into a `useList` hook) that
+  can then be used with `List` components to provide selection
