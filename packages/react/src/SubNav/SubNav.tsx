@@ -23,8 +23,8 @@ const SubNav = React.forwardRef<HTMLElement, SubNavProps>(function SubNav(
       ref={forwardRef}
       className={clsx(className, 'SubNav', styles.SubNav)}
       aria-label={label}
-      data-component="SubNav"
       {...rest}
+      data-component="SubNav"
     >
       <div className={clsx('SubNav-body', styles.Body)}>{children}</div>
       {actions && <div className={clsx('SubNav-actions', styles.Actions)}>{actions}</div>}
