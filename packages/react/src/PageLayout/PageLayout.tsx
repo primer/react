@@ -1347,6 +1347,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
   style,
   'data-component': dataComponent = 'PageLayout.Footer',
 }) => {
+  // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
       ? {regular: divider, narrow: dividerWhenNarrow}
