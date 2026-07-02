@@ -54,7 +54,11 @@ export const UnderlineNav = forwardRef(
       (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
     )
 
+    /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
+    const [hasEverOverflowed, setHasOverflowed] = useState(false)
+
     const isOverflowing = overflowMenuItems.length > 0
+    if (isOverflowing && !hasEverOverflowed) setHasOverflowed(true)
 
     // Find the current item if it has overflowed into the menu, so we can reflect
     // its "current" state on the overflow menu anchor.
@@ -91,7 +95,8 @@ export const UnderlineNav = forwardRef(
           ref={navRef}
           data-variant={variant}
           data-overflow-mode="wrap"
-          // Ensure button is shown (after initial render) on browsers that don't support scroll-driven animations
+          // Ensure icons are hidden and button is shown on browsers that don't support scroll-driven animations
+          data-hide-icons={hasEverOverflowed ? 'true' : undefined}
           data-has-overflow={isOverflowing ? 'true' : undefined}
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
