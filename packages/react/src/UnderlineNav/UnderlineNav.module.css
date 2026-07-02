@@ -6,6 +6,7 @@
   animation-timeline: scroll(self block);
 
   --UnderlineNav_moreButton-visibility: hidden;
+  --UnderlineNav_hide-icons-play-state: paused;
 
   &[data-has-overflow='true'] {
     --UnderlineNav_moreButton-visibility: visible;
@@ -27,7 +28,7 @@
   will remain hidden forever after being hidden for the first tiem, even if the container is no longer overflowing.
   You might think we could just do this directly with the scroll-driven animation instead of driving a second animation,
   but this approach doesn't work for scroll-driven animations because they are conditionally applied. */
-  animation-play-state: var(--UnderlineNav_hide-icons-play-state, paused);
+  animation-play-state: var(--UnderlineNav_hide-icons-play-state);
   animation-name: hide-icons;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
