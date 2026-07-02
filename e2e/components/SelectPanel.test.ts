@@ -58,7 +58,7 @@ test.describe('SelectPanel', () => {
         await page.emulateMedia({reducedMotion: 'reduce'})
 
         // Open select panel
-        const isPanelOpen = await page.isVisible('[role="listbox"]')
+        const isPanelOpen = await page.locator('[role="listbox"]').isVisible()
         if (!isPanelOpen) {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
@@ -88,7 +88,7 @@ test.describe('SelectPanel', () => {
     })
 
     // Open select panel
-    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    const isPanelOpen = await page.locator('[role="listbox"]').isVisible()
     if (!isPanelOpen) {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
@@ -126,7 +126,7 @@ test.describe('SelectPanel', () => {
     await page.setViewportSize({width: 767, height: 767})
 
     // Open select panel
-    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    const isPanelOpen = await page.locator('[role="listbox"]').isVisible()
     if (!isPanelOpen) {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
@@ -143,7 +143,7 @@ test.describe('SelectPanel', () => {
     })
 
     // Open select panel
-    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    const isPanelOpen = await page.locator('[role="listbox"]').isVisible()
     if (!isPanelOpen) {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Tab')
