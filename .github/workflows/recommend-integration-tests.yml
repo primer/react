@@ -87,7 +87,7 @@ jobs:
             }
 
       - name: Run github-ui integration tests
-        if: ${{ steps.integration-tests.outputs.should-run == 'true' }}
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository && steps.integration-tests.outputs.should-run == 'true' }}
         run: gh workflow run primer-npm-packages-integration.yml -R github/github-ui --ref main --field prc-pr="$PR_NUMBER"
         env:
           # Use GITHUB_TOKEN so this fails closed if Actions cannot access github-ui.
