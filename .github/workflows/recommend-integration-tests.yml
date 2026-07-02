@@ -2,6 +2,11 @@ name: Recommend integration tests
 on:
   pull_request:
 
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
 jobs:
   recommend:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
@@ -31,6 +36,7 @@ jobs:
         run: echo ${{ steps.source-files.outputs.diff != '' }}
 
       - name: Add label and comment
+        id: integration-tests
         if: ${{ steps.source-files.outputs.diff != '' }}
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         with:
@@ -52,7 +58,16 @@ jobs:
 
             const labels = await github.paginate(github.rest.issues.listLabelsOnIssue, issue);
             const integrationLabels = labels.filter(label => label.name.startsWith('integration-tests'))
+            const hasSkippedLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.skipped)
             const hasPassingLabel = integrationLabels.find(label => label.name === INTEGRATION_LABEL_NAMES.passing)
+
+            if (hasSkippedLabel) {
+              core.info('Integration tests were skipped manually')
+              core.setOutput('should-run', 'false')
+              return
+            }
+
+            core.setOutput('should-run', 'true')
 
             if (integrationLabels.length === 0) {
               // recommend integration tests
@@ -70,3 +85,11 @@ jobs:
                 body: '<!-- recommend-integration-tests.yml -->\n\n # ⚠️ Action required \n\n :wave: Hi, there are new commits since the last successful integration test. If you are GitHub staff, test these changes with github/github-ui using the [integration workflow](https://github.com/github/github-ui/actions/workflows/primer-npm-packages-integration.yml). If this doesn\'t work, you can also the your original workflow [here](https://github.com/github/github-ui/actions/workflows/primer-react-pr-test.yml). Check the [integration testing docs](https://gh.io/testing_primer_at_dotcom) for step-by-step instructions. Or, apply the `integration-tests: skipped manually` label to skip these checks.'
               })
             }
+
+      - name: Run github-ui integration tests
+        if: ${{ steps.integration-tests.outputs.should-run == 'true' }}
+        run: gh workflow run primer-npm-packages-integration.yml -R github/github-ui --ref main --field prc-pr="$PR_NUMBER"
+        env:
+          # Use GITHUB_TOKEN so this fails closed if Actions cannot access github-ui.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
