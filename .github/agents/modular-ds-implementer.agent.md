@@ -46,6 +46,8 @@ Not every component needs every API type. Don't build a config component, a base
 
 ## Entry points
 
+Target entry points for each API type — check `packages/react/package.json`'s `exports` field first, since not all of these subpaths exist yet. Only `.` and `./experimental` are currently exported; `foundations` and `hooks` subpaths must be added when a component first needs them, not assumed to already be shipped.
+
 | API type       | Experimental import                      | Stable import               |
 | -------------- | ---------------------------------------- | --------------------------- |
 | Config         | `@primer/react/experimental`             | `@primer/react`             |
@@ -53,18 +55,12 @@ Not every component needs every API type. Don't build a config component, a base
 | Base           | `@primer/react/foundations/experimental` | `@primer/react/foundations` |
 | Utilities      | `@primer/react/hooks/experimental`       | `@primer/react/hooks`       |
 
-`@primer/react` does not re-export base components or utilities — each is opt-in via its own entry point. All API types ship in one package version; stability is per-component (e.g. a hook can graduate to stable while its base component remains experimental).
+`@primer/react` does not re-export base components or utilities — each is opt-in via its own entry point once it exists. All API types ship in one package version; stability is per-component (e.g. a hook can graduate to stable while its base component remains experimental).
 
-Create or update `index.ts` files to re-export the public API for each API type touched, and update the relevant experimental barrel files. Check `packages/react/package.json`'s `exports` field for the required subpaths and add or update package exports only if the subpath doesn't already exist.
+Create or update `index.ts` files to re-export the public API for each API type touched, and update the relevant experimental barrel files. Add or update package exports in `packages/react/package.json` only if the subpath doesn't already exist.
 
 ## Validation
 
-Run in this order and fix any failures before reporting completion:
-
-1. `npx prettier --write <changed-files>`
-2. `npx eslint --fix <changed-files>`
-3. `npx stylelint -q --rd --fix <changed-css-files>`
-4. `npm run type-check`
-5. `npm test -- --reporter=verbose <test-files>`
+Follow the validation order in `modular-ds-tdd-a11y-test-backfill` and fix any failures before reporting completion.
 
 When proposing or implementing work, explain which API type changed, why that level of abstraction is appropriate, and how the implementation can be extended without forking or overriding Primer internals.

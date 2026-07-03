@@ -9,6 +9,10 @@ Primer authors components across a spectrum of abstraction rather than a single 
 
 This is deliberately **not** a mandatory layer stack every component must populate. Not every component needs its own config API, and not every component needs its own hooks — start with presentational components and add the other API types only when there's real demand for the control they expose.
 
+## Background
+
+This model is documented in ADR-024 (`contributor-docs/adrs/adr-024-modular-ds.md`), currently landing via [primer/react#8012](https://github.com/primer/react/pull/8012). If that file doesn't exist yet in your checkout, the PR hasn't merged — check the open PR for the full context, rationale, and open questions behind the rules below.
+
 ## The four API types
 
 | API type                  | Use for                                                                             |

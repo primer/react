@@ -23,6 +23,8 @@ function Example() {
 
 Other examples of things suited to base components: Combobox (filtering, selection), Listbox (selection), Popover, Tabs, Treeview.
 
+Shown above with dot-notation for readability — ship flat named exports per the RSC-safe convention in `modular-ds-presentational-components`, not an `Object.assign` composed export.
+
 ## When to use a base component
 
 Use base components for accessibility primitives and low-level behaviors that need full markup and style control. Before adding custom behavior to a component, look for an existing base component, hook, or utility that can already provide the foundation — don't reimplement it.

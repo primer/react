@@ -19,6 +19,25 @@ Utilities are not a layer or a wrapper in a stack — they're shared helpers tha
 - Fires a dev-mode warning if required accessibility attributes are missing (see `modular-ds-accessibility-contract`).
 - Passes through `aria-label` when provided, for cases without a visible title.
 
+Shape of a compound hook returning prop-getters, consumed by a base component:
+
+```tsx
+function useDialog(options: {open: boolean; onClose: () => void; 'aria-label'?: string}) {
+  const titleId = useId()
+  return {
+    getRootProps: () => ({role: 'dialog', 'aria-modal': true, 'aria-label': options['aria-label']}),
+    getTitleProps: () => ({id: titleId}),
+    getCloseProps: () => ({onClick: options.onClose}),
+  }
+}
+
+// A base component wraps the hook and spreads its prop-getters onto real elements:
+function DialogRoot({children, ...props}: DialogRootProps) {
+  const {getRootProps} = useDialogContext()
+  return <div {...getRootProps()}>{children}</div>
+}
+```
+
 **Generic, single-purpose, component-agnostic utilities** (`useScrollLock`, `useFocusTrap`, `useFocusZone`, `useFilter`, `useSelectionState`) are not tied to any one component. They live in `packages/react/src/hooks/`, and a component's compound hook composes them internally as needed. Check for an existing utility before writing a new one — don't duplicate behavior that already exists as a shared hook.
 
 ## Naming
