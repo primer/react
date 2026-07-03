@@ -25,6 +25,8 @@ function Example({items}) {
 }
 ```
 
+Shown above with dot-notation for readability — see "Sub-component export conventions" below for the actual RSC-safe export shape to ship.
+
 ## When to use presentational components
 
 - The pattern is **emerging** — it's known to exist, but the right high-level config API hasn't stabilized yet.
