@@ -31,7 +31,8 @@ function useDialog(options: {open: boolean; onClose: () => void; 'aria-label'?: 
   }
 }
 
-// A base component wraps the hook and spreads its prop-getters onto real elements:
+// A context provider (rendered once by DialogRoot) calls useDialog() and shares its
+// getters via context. Base components below it read those getters, they don't call the hook again:
 function DialogRoot({children, ...props}: DialogRootProps) {
   const {getRootProps} = useDialogContext()
   return <div {...getRootProps()}>{children}</div>
