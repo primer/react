@@ -1,6 +1,6 @@
 ---
 name: modular-ds-utilities
-description: 'Use when: extracting, reusing, or naming hooks, state management, or other component-agnostic behavior in Primer React. Covers the compound behavior-hook pattern (prop-getters), the difference between a component''s own hook and a generic reusable utility, naming conventions, and where utilities live in the package.'
+description: "Use when: extracting, reusing, or naming hooks, state management, or other component-agnostic behavior in Primer React. Covers the compound behavior-hook pattern (prop-getters), the difference between a component's own hook and a generic reusable utility, naming conventions, and where utilities live in the package."
 ---
 
 # Modular DS — Utilities

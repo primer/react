@@ -21,7 +21,7 @@ Config components are "all-in-one" APIs that let consumers describe intent throu
 - The pattern is a **stable product pattern** — Primer understands it well and expects many teams to reuse it.
 - Common use-cases and opinionated defaults have already become clear, usually because a presentational + utility version of the same pattern already exists and has stabilized.
 
-Don't reach for a config API for emerging or unstable patterns — see `modular-ds-presentational-components` for those instead. Config components should typically be *built by composing* presentational components and behavior hooks, not by reimplementing structure or behavior from scratch.
+Don't reach for a config API for emerging or unstable patterns — see `modular-ds-presentational-components` for those instead. Config components should typically be _built by composing_ presentational components and behavior hooks, not by reimplementing structure or behavior from scratch.
 
 ## What a config component owns
 

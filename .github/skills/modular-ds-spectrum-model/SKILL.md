@@ -1,6 +1,6 @@
 ---
 name: modular-ds-spectrum-model
-description: 'Use when: deciding how to structure a new Primer React component, evaluating whether an existing component''s API is at the right level of abstraction, or orienting on the modular design system approach before using a more specific modular-ds-* skill. Covers the spectrum of abstraction model (config, presentational, base, utility components), when each API type is appropriate, and how they compose.'
+description: "Use when: deciding how to structure a new Primer React component, evaluating whether an existing component's API is at the right level of abstraction, or orienting on the modular design system approach before using a more specific modular-ds-* skill. Covers the spectrum of abstraction model (config, presentational, base, utility components), when each API type is appropriate, and how they compose."
 ---
 
 # Modular DS — Spectrum of Abstraction Model
@@ -11,12 +11,12 @@ This is deliberately **not** a mandatory layer stack every component must popula
 
 ## The four API types
 
-| API type                  | Use for                                                                              |
-| -------------------------- | ------------------------------------------------------------------------------------ |
-| Config components          | Ready-made, props-based components for stable product patterns and common use-cases |
-| Presentational components  | Styled pieces that consumers compose directly, often with companion behavior hooks  |
-| Base components            | Unstyled primitives, often for accessibility structure or low-level behavior        |
-| Utilities                  | Hooks, state management, behaviors, and functions used to build components          |
+| API type                  | Use for                                                                             |
+| ------------------------- | ----------------------------------------------------------------------------------- |
+| Config components         | Ready-made, props-based components for stable product patterns and common use-cases |
+| Presentational components | Styled pieces that consumers compose directly, often with companion behavior hooks  |
+| Base components           | Unstyled primitives, often for accessibility structure or low-level behavior        |
+| Utilities                 | Hooks, state management, behaviors, and functions used to build components          |
 
 See the dedicated skill for each API type for detailed rules:
 
