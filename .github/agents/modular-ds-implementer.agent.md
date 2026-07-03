@@ -47,11 +47,11 @@ Not every component needs every API type. Don't build a config component, a base
 ## Entry points
 
 | API type       | Experimental import                      | Stable import               |
-| -------------- | ----------------------------------------- | ---------------------------- |
-| Config         | `@primer/react/experimental`              | `@primer/react`               |
-| Presentational | `@primer/react/experimental`              | `@primer/react`               |
-| Base           | `@primer/react/foundations/experimental`  | `@primer/react/foundations`   |
-| Utilities      | `@primer/react/hooks/experimental`        | `@primer/react/hooks`         |
+| -------------- | ---------------------------------------- | --------------------------- |
+| Config         | `@primer/react/experimental`             | `@primer/react`             |
+| Presentational | `@primer/react/experimental`             | `@primer/react`             |
+| Base           | `@primer/react/foundations/experimental` | `@primer/react/foundations` |
+| Utilities      | `@primer/react/hooks/experimental`       | `@primer/react/hooks`       |
 
 `@primer/react` does not re-export base components or utilities — each is opt-in via its own entry point. All API types ship in one package version; stability is per-component (e.g. a hook can graduate to stable while its base component remains experimental).
 

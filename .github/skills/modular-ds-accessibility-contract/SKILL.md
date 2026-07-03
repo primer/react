@@ -9,22 +9,22 @@ Each API type in the spectrum of abstraction model shifts accessibility responsi
 
 ## Responsibility matrix — Dialog example
 
-| Requirement                            | Utility               | Base component                    | Presentational   | Config                  |
-| --------------------------------------- | --------------------- | ---------------------------------- | ----------------- | ------------------------ |
-| `role="dialog"` / `role="alertdialog"`  | Consumer sets          | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited             |
-| `aria-modal="true"`                     | Consumer sets          | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited             |
-| `aria-labelledby` → title                | Consumer wires         | ✅ Auto-wired via context          | ✅ Inherited      | ✅ From `title` prop     |
-| `aria-describedby` → description        | Consumer wires         | ✅ Auto-wired if Description used  | ✅ Inherited      | ✅ From `subtitle` prop  |
-| Focus trapping                          | Consumer implements    | ✅ Native `showModal()`            | ✅ Inherited      | ✅ Inherited             |
-| Escape closes                           | Consumer handles       | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited             |
-| Focus moves into component               | Consumer manages       | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited             |
-| Focus returns on close                  | Consumer manages       | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited             |
-| Visible close control                   | Consumer provides      | ✅ Enforced by structure           | ✅ Built-in       | ✅ Built-in              |
-| Background inert                        | Consumer manages       | ✅ Native `showModal()`            | ✅ Inherited      | ✅ Inherited             |
-| Scroll lock                             | `useScrollLock` hook   | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited             |
-| Visible backdrop                        | Consumer provides      | ⚠️ Consumer must style              | ✅ Primer token   | ✅ Primer token          |
-| Appropriate heading level                | Consumer chooses       | ⚠️ Consumer must choose             | ✅ `<h2>` default | ✅ `<h2>` default        |
-| Colour contrast                         | Consumer responsible   | ⚠️ Consumer must ensure             | ✅ Primer tokens  | ✅ Primer tokens         |
+| Requirement                            | Utility              | Base component                    | Presentational    | Config                  |
+| -------------------------------------- | -------------------- | --------------------------------- | ----------------- | ----------------------- |
+| `role="dialog"` / `role="alertdialog"` | Consumer sets        | ✅ Automatic                      | ✅ Inherited      | ✅ Inherited            |
+| `aria-modal="true"`                    | Consumer sets        | ✅ Automatic                      | ✅ Inherited      | ✅ Inherited            |
+| `aria-labelledby` → title              | Consumer wires       | ✅ Auto-wired via context         | ✅ Inherited      | ✅ From `title` prop    |
+| `aria-describedby` → description       | Consumer wires       | ✅ Auto-wired if Description used | ✅ Inherited      | ✅ From `subtitle` prop |
+| Focus trapping                         | Consumer implements  | ✅ Native `showModal()`           | ✅ Inherited      | ✅ Inherited            |
+| Escape closes                          | Consumer handles     | ✅ Automatic                      | ✅ Inherited      | ✅ Inherited            |
+| Focus moves into component             | Consumer manages     | ✅ Automatic                      | ✅ Inherited      | ✅ Inherited            |
+| Focus returns on close                 | Consumer manages     | ✅ Automatic                      | ✅ Inherited      | ✅ Inherited            |
+| Visible close control                  | Consumer provides    | ✅ Enforced by structure          | ✅ Built-in       | ✅ Built-in             |
+| Background inert                       | Consumer manages     | ✅ Native `showModal()`           | ✅ Inherited      | ✅ Inherited            |
+| Scroll lock                            | `useScrollLock` hook | ✅ Automatic                      | ✅ Inherited      | ✅ Inherited            |
+| Visible backdrop                       | Consumer provides    | ⚠️ Consumer must style            | ✅ Primer token   | ✅ Primer token         |
+| Appropriate heading level              | Consumer chooses     | ⚠️ Consumer must choose           | ✅ `<h2>` default | ✅ `<h2>` default       |
+| Colour contrast                        | Consumer responsible | ⚠️ Consumer must ensure           | ✅ Primer tokens  | ✅ Primer tokens        |
 
 ## Key principles
 
@@ -49,7 +49,9 @@ useEffect(() => {
   if (process.env.NODE_ENV !== 'production' && open) {
     queueMicrotask(() => {
       if (!titleUsed.current && !ariaLabel) {
-        console.warn('<Component>: No accessible name provided. Use getTitleProps() on a title element, or pass aria-label.')
+        console.warn(
+          '<Component>: No accessible name provided. Use getTitleProps() on a title element, or pass aria-label.',
+        )
       }
     })
   }
@@ -67,14 +69,14 @@ When building a component with a different ARIA pattern (tabs, menu, listbox, et
 
 ### Tabs example (skeleton)
 
-| Requirement                     | Utility              | Base component             | Presentational   | Config           |
-| -------------------------------- | --------------------- | --------------------------- | ----------------- | ------------------ |
-| `role="tablist"`                 | Consumer sets          | ✅ Automatic                 | ✅ Inherited      | ✅ Inherited        |
-| `role="tab"` on each tab          | Consumer sets          | ✅ Automatic                 | ✅ Inherited      | ✅ Inherited        |
-| `role="tabpanel"` on each panel   | Consumer sets          | ✅ Automatic                 | ✅ Inherited      | ✅ Inherited        |
-| `aria-selected` on active tab     | Consumer manages       | ✅ Automatic                 | ✅ Inherited      | ✅ Inherited        |
-| `aria-controls` tab → panel       | Consumer wires         | ✅ Auto-wired via context    | ✅ Inherited      | ✅ Inherited        |
-| Arrow key navigation              | `useFocusZone` hook    | ✅ Automatic                 | ✅ Inherited      | ✅ Inherited        |
-| Home/End to first/last tab        | Consumer handles       | ✅ Automatic                 | ✅ Inherited      | ✅ Inherited        |
-| Hidden panels (`hidden` attr)     | Consumer manages       | ✅ Automatic                 | ✅ Inherited      | ✅ Inherited        |
-| Focus indicator styling           | Consumer styles        | ⚠️ Consumer must style        | ✅ Primer tokens  | ✅ Primer tokens    |
+| Requirement                     | Utility             | Base component            | Presentational   | Config           |
+| ------------------------------- | ------------------- | ------------------------- | ---------------- | ---------------- |
+| `role="tablist"`                | Consumer sets       | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
+| `role="tab"` on each tab        | Consumer sets       | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
+| `role="tabpanel"` on each panel | Consumer sets       | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
+| `aria-selected` on active tab   | Consumer manages    | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
+| `aria-controls` tab → panel     | Consumer wires      | ✅ Auto-wired via context | ✅ Inherited     | ✅ Inherited     |
+| Arrow key navigation            | `useFocusZone` hook | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
+| Home/End to first/last tab      | Consumer handles    | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
+| Hidden panels (`hidden` attr)   | Consumer manages    | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
+| Focus indicator styling         | Consumer styles     | ⚠️ Consumer must style    | ✅ Primer tokens | ✅ Primer tokens |
