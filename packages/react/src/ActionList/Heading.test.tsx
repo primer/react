@@ -5,6 +5,7 @@ import {ActionList} from '.'
 import {ActionMenu} from '../ActionMenu'
 import {implementsClassName, withExpectedConsoleError} from '../utils/testing'
 import classes from './Heading.module.css'
+import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 
 describe('ActionList.Heading', () => {
   implementsClassName(
@@ -27,6 +28,41 @@ describe('ActionList.Heading', () => {
     const heading = container.getByRole('heading', {level: 1})
     expect(heading).toBeInTheDocument()
     expect(heading).toHaveTextContent('Heading')
+  })
+
+  it('should not wrap the heading in a span', async () => {
+    const {getByRole} = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1">Heading</ActionList.Heading>
+      </ActionList>,
+    )
+    const heading = getByRole('heading', {level: 1})
+    expect(heading.parentElement?.tagName).not.toBe('SPAN')
+    expect(heading).toHaveClass(classes.ActionListHeader)
+  })
+
+  it('should apply the visually-hidden class to the heading when visuallyHidden is set', async () => {
+    const {getByRole} = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1" visuallyHidden>
+          Heading
+        </ActionList.Heading>
+      </ActionList>,
+    )
+    const heading = getByRole('heading', {level: 1})
+    expect(heading).toHaveClass(visuallyHiddenClasses.InternalVisuallyHidden)
+    expect(heading).toHaveClass(classes.ActionListHeader)
+  })
+
+  it('should not apply the visually-hidden class to the heading by default', async () => {
+    const {getByRole} = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1">Heading</ActionList.Heading>
+      </ActionList>,
+    )
+    const heading = getByRole('heading', {level: 1})
+    expect(heading).not.toHaveClass(visuallyHiddenClasses.InternalVisuallyHidden)
+    expect(heading).toHaveClass(classes.ActionListHeader)
   })
 
   it('should label the action list with the heading id', async () => {
