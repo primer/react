@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Hooks: Enable React Compiler optimization for hook utilities
+Enable React Compiler optimization for `useAnchoredPosition`, `useFocusTrap`, `useFocusZone`, `useMenuInitialFocus`, `useOnEscapePress`, `useResizeObserver`, and `useSafeTimeout`
