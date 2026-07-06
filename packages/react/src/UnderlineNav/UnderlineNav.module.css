@@ -4,7 +4,7 @@
   is slightly better for animations. */
   animation:
     detect-overflow linear,
-    delay-visibility forwards 0ms 5ms;
+    delay-visibility forwards 100ms 0;
   animation-timeline: scroll(self block), auto;
 
   --UnderlineNav_moreButton-visibility: hidden;
