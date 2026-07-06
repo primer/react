@@ -179,8 +179,11 @@ export function useAnchoredPosition(
       scrollAncestorsCacheRef.current = {anchor: anchorEl, scrollables}
     }
     for (const scrollable of scrollables) {
+      // `handleScroll` only schedules a rAF and never calls preventDefault, so mark the
+      // listener passive — this lets Safari/Chrome scroll without waiting to see if the
+      // default is cancelled, improving scroll smoothness (especially in Safari).
       // eslint-disable-next-line github/prefer-observers -- IntersectionObserver cannot detect continuous scroll position changes needed for repositioning
-      scrollable.addEventListener('scroll', handleScroll)
+      scrollable.addEventListener('scroll', handleScroll, {passive: true})
     }
 
     return () => {
