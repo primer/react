@@ -1,6 +1,7 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon, HeartFillIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '.'
 import {Stack} from '../Stack'
+import Avatar from '../Avatar'
 
 export default {
   title: 'Components/Button/Dev',
@@ -82,6 +83,27 @@ export const DisabledButtonVariants = () => {
         <IconButton icon={HeartFillIcon} variant="primary" aria-label="Primary" disabled />
         <IconButton icon={HeartFillIcon} variant="danger" aria-label="Danger" disabled />
       </Stack>
+    </Stack>
+  )
+}
+
+export const LeadingVisualAvatar = () => {
+  const avatarSrc = 'https://avatars.githubusercontent.com/u/7143434?v=4'
+  return (
+    <Stack direction="horizontal" align="center">
+      <Button leadingVisual={<Avatar src={avatarSrc} alt="mona" />}>Default</Button>
+      <Button variant="primary" leadingVisual={<Avatar src={avatarSrc} alt="mona" />}>
+        Primary
+      </Button>
+      <Button variant="invisible" leadingVisual={<Avatar src={avatarSrc} alt="mona" />}>
+        Invisible
+      </Button>
+      <Button size="small" leadingVisual={<Avatar size={16} src={avatarSrc} alt="mona" />}>
+        Small
+      </Button>
+      <Button size="large" leadingVisual={<Avatar size={24} src={avatarSrc} alt="mona" />}>
+        Large
+      </Button>
     </Stack>
   )
 }
