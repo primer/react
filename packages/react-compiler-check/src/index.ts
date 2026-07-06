@@ -2,6 +2,10 @@ import {CompilerError as ReactCompilerError} from 'babel-plugin-react-compiler'
 import {type InputOptions, transformAsync} from '@babel/core'
 import type {Logger, SourceLocation} from 'babel-plugin-react-compiler'
 
+const babelPresetTypescript = import.meta.resolve('@babel/preset-typescript')
+const babelPresetReact = import.meta.resolve('@babel/preset-react')
+const reactCompilerPlugin = import.meta.resolve('babel-plugin-react-compiler')
+
 type CheckError = {
   location: SourceLocation | null
   reason: string
@@ -26,9 +30,9 @@ async function check(filename: string, contents: string): Promise<Result> {
     configFile: false,
     filename,
     presets: [
-      '@babel/preset-typescript',
+      babelPresetTypescript,
       [
-        '@babel/preset-react',
+        babelPresetReact,
         {
           runtime: 'automatic',
         },
@@ -36,7 +40,7 @@ async function check(filename: string, contents: string): Promise<Result> {
     ],
     plugins: [
       [
-        'babel-plugin-react-compiler',
+        reactCompilerPlugin,
         {
           target: '18',
           panicThreshold: 'all_errors',

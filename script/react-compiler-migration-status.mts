@@ -1,9 +1,6 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import {transformFileSync} from '@babel/core'
-import type {TransformOptions} from '@babel/core'
-import {CompilerError} from 'babel-plugin-react-compiler'
-import type {PluginOptions, Logger, LoggerEvent} from 'babel-plugin-react-compiler'
+import {check} from '@primer/react-compiler-check'
 import {files as compilerFiles, notMigrated as notMigratedFiles} from '../packages/react/script/react-compiler.mjs'
 
 const directory = path.resolve(import.meta.dirname, '..')
@@ -15,18 +12,6 @@ interface CompilerFile {
 interface CompilerFailure {
   readonly line: number | null
   readonly reason: string
-}
-type CompilerErrorDetail = CompilerError['details'][number]
-
-type BabelReactPresetOptions = {
-  readonly modules: false
-  readonly runtime: 'automatic'
-}
-type BabelTransformPlugin = [string, PluginOptions | Record<string, never>] | string
-type BabelTransformPreset = [string, BabelReactPresetOptions] | string
-interface BabelTransformOptions extends TransformOptions {
-  readonly presets: Array<BabelTransformPreset>
-  readonly plugins: Array<BabelTransformPlugin>
 }
 
 const files: Array<CompilerFile> = compilerFiles.map(filepath => {
@@ -46,12 +31,14 @@ const notMigrated = notMigratedFiles.map(filepath => {
     size: stats.size,
   }
 })
-const notMigratedReports = notMigrated.map(file => {
-  return {
-    ...file,
-    failures: getCompilerFailures(file.filepath),
-  }
-})
+const notMigratedReports = await Promise.all(
+  notMigrated.map(async file => {
+    return {
+      ...file,
+      failures: await getCompilerFailures(file.filepath),
+    }
+  }),
+)
 
 let totalSize = 0
 
@@ -117,89 +104,19 @@ function round(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100
 }
 
-function getCompilerFailures(filepath: string): Array<CompilerFailure> {
-  const failures: Array<CompilerFailure> = []
-  const logger: Logger = {
-    logEvent(_filename: string | null, event: LoggerEvent) {
-      if (event.kind === 'CompileError') {
-        addCompilerFailure(failures, formatCompilerError(event))
-      }
+async function getCompilerFailures(filepath: string): Promise<Array<CompilerFailure>> {
+  const result = await check(filepath, fs.readFileSync(filepath, 'utf8'))
 
-      if (event.kind === 'CompileSkip') {
-        addCompilerFailure(failures, {
-          line: getLocationLine(event.loc ?? event.fnLoc),
-          reason: event.reason,
-        })
-      }
-    },
+  if (result.ok) {
+    return []
   }
 
-  try {
-    transformFileSync(filepath, getBabelTransformOptions(logger))
-  } catch (error: unknown) {
-    if (!(error instanceof CompilerError)) {
-      throw error
+  return result.errors.map(error => {
+    return {
+      line: getLocationLine(error.location),
+      reason: error.reason,
     }
-
-    for (const detail of error.details) {
-      addCompilerFailure(failures, formatCompilerErrorDetail(detail))
-    }
-  }
-
-  return failures
-}
-
-function getBabelTransformOptions(logger: Logger): BabelTransformOptions {
-  return {
-    babelrc: false,
-    configFile: false,
-    presets: [
-      '@babel/preset-typescript',
-      [
-        '@babel/preset-react',
-        {
-          modules: false,
-          runtime: 'automatic',
-        },
-      ],
-    ],
-    plugins: [
-      [
-        'babel-plugin-react-compiler',
-        {
-          target: '18',
-          panicThreshold: 'all_errors',
-          logger,
-        },
-      ],
-      'macros',
-      'add-react-displayname',
-      'dev-expression',
-      '@babel/plugin-proposal-nullish-coalescing-operator',
-      '@babel/plugin-proposal-optional-chaining',
-    ],
-  }
-}
-
-function formatCompilerError(event: Extract<LoggerEvent, {kind: 'CompileError'}>): CompilerFailure {
-  return formatCompilerErrorDetail(event.detail)
-}
-
-function formatCompilerErrorDetail(detail: CompilerErrorDetail): CompilerFailure {
-  return {
-    line: getLocationLine(detail.primaryLocation()),
-    reason: detail.reason,
-  }
-}
-
-function addCompilerFailure(failures: Array<CompilerFailure>, failure: CompilerFailure): void {
-  const hasFailure = failures.some(existingFailure => {
-    return existingFailure.line === failure.line && existingFailure.reason === failure.reason
   })
-
-  if (!hasFailure) {
-    failures.push(failure)
-  }
 }
 
 function getLocationLine(location: {start: {line: number}} | null): number | null {
