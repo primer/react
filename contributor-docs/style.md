@@ -201,6 +201,13 @@ flexible APIs where a single high-level config API has not stabilized. Build
 config components over time by composing those components and hooks after common
 use-cases and defaults become clear.
 
+Do not add slots by default. Prefer normal React composition first, and only
+introduce slots when a parent component must identify a specific child part or
+the requested API explicitly needs child extraction. Do not reorder
+consumer-authored children in flexible presentational components just to enforce
+a preferred structure; document the recommended structure or add a dev warning
+instead.
+
 #### Base components
 
 Base components are unstyled primitives used to build higher-level components.
@@ -210,6 +217,11 @@ such as ARIA Authoring Practices Guide patterns, should be consolidated and
 reused rather than reimplemented across components. Before adding custom
 behavior to a component, look for an existing base component, hook, utility, or
 behavior that can provide the foundation.
+
+Prefer existing base primitives over recreating native elements and their reset
+styles. For example, use shared button primitives such as `ButtonBase` when a
+new component needs Primer-owned button semantics, interaction behavior, and
+reset styling instead of hand-rolling a button with custom reset CSS.
 
 #### Utilities
 
