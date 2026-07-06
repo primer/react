@@ -58,6 +58,21 @@ const unsupported = new Set(
 )
 
 function isSupported(filepath) {
+  // Never compile test or story files: they aren't shipped, often define ad-hoc
+  // helper components that violate the Rules of React (which makes the compiler
+  // inject hooks into non-components and throw "invalid hook call"), and gain
+  // nothing from memoization. Excluding them also keeps a component's test suite
+  // green when the component itself is migrated.
+  if (/\.(test|stories)\.[cm]?[jt]sx?$/.test(filepath)) {
+    return false
+  }
+  // Opt-in override to compile ALL (non-test) source files, including the
+  // not-yet-migrated ones, so the full test suite can validate a bulk React
+  // Compiler migration. Enable with REACT_COMPILER_ALL=true
+  // (e.g. `REACT_COMPILER_ALL=true npm test`).
+  if (process.env.REACT_COMPILER_ALL === 'true') {
+    return true
+  }
   return !unsupported.has(filepath)
 }
 

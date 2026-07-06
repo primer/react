@@ -12,7 +12,6 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefreshPlugin from 'eslint-plugin-react-refresh'
 import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
-import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import primerReact from 'eslint-plugin-primer-react'
@@ -77,13 +76,13 @@ const config = defineConfig([
       ],
     },
   },
-  // Disable react-compiler rule for files not yet migrated
-  {
-    files: reactCompilerUnsupported.map(p => `packages/react/${p}`),
-    rules: {
-      'react-compiler/react-compiler': 'off',
-    },
-  },
+  // Note: React Compiler lint diagnostics are enforced repo-wide by
+  // eslint-plugin-react-hooks `recommended-latest` (the granular `react-hooks/*`
+  // rules, e.g. `set-state-in-effect`, `immutability`, `refs`, `purity`). The old
+  // monolithic `react-compiler/react-compiler` rule no longer exists (that plugin
+  // is not installed), so there is no per-file compiler-rule override here. Which
+  // files actually get compiled/memoized is gated separately by `isSupported` in
+  // packages/react/script/react-compiler.mjs.
 
   ...fixupConfigRules([github.browser, github.recommended, github.react]),
 
