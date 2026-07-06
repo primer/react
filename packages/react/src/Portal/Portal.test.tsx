@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
 
 import {render} from '@testing-library/react'
@@ -206,5 +206,39 @@ describe('Portal', () => {
     // Cleanup
     document.body.removeChild(contextPortalRoot)
     document.body.removeChild(propPortalRoot)
+  })
+
+  it('calls onMount once after the portal is mounted', () => {
+    const onMount = vi.fn()
+    const {baseElement} = render(<Portal onMount={onMount}>mount-content</Portal>)
+    expect(onMount).toHaveBeenCalledTimes(1)
+    baseElement.innerHTML = ''
+  })
+
+  it('reuses the same portal container element across re-renders', () => {
+    // The container <div> is created once (via a useState initializer), so
+    // re-rendering must update content in place rather than recreate the node.
+    const {baseElement, rerender} = render(<Portal>first</Portal>)
+    const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+    const portalNodeBefore = generatedRoot?.querySelector('[data-component="Portal"]')
+    expect(portalNodeBefore?.textContent?.trim()).toEqual('first')
+
+    rerender(<Portal>second</Portal>)
+    const portalNodeAfter = generatedRoot?.querySelector('[data-component="Portal"]')
+    expect(portalNodeAfter).toBe(portalNodeBefore)
+    expect(portalNodeAfter?.textContent?.trim()).toEqual('second')
+
+    baseElement.innerHTML = ''
+  })
+
+  it('removes the portal container from the DOM when unmounted', () => {
+    const {baseElement, unmount} = render(<Portal>cleanup-content</Portal>)
+    const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+    expect(generatedRoot?.querySelector('[data-component="Portal"]')).toBeInstanceOf(HTMLElement)
+
+    unmount()
+    expect(generatedRoot?.querySelector('[data-component="Portal"]')).toBeNull()
+
+    baseElement.innerHTML = ''
   })
 })
