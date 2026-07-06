@@ -2,16 +2,18 @@
   /* Progressive enhancement: Detect overflow using scroll-based animations.
   The idiomatic way would be a scroll-state container query but browser support
   is slightly better for animations. */
-  animation:
-    detect-overflow linear,
-    delay-visibility forwards 0ms 5ms;
-  animation-timeline: scroll(self block), auto;
+  animation: detect-overflow;
+  animation-timeline: scroll(self block);
 
   --UnderlineNav_moreButton-visibility: hidden;
   --UnderlineNav_hide-icons-play-state: paused;
 
   &[data-has-overflow='true'] {
     --UnderlineNav_moreButton-visibility: visible;
+  }
+
+  &[data-hide-icons='true'] [data-component='icon'] {
+    display: none;
   }
 }
 
@@ -31,22 +33,8 @@
   because scroll-driven animations are conditionally applied and revert when not scrollable. */
   animation-name: hide-icons;
   animation-fill-mode: forwards;
-  animation-timing-function: linear;
   animation-play-state: var(--UnderlineNav_hide-icons-play-state);
   animation-duration: 0.1ms; /* must be greater than 0 */
-}
-
-/* Slow devices will still flicker on initial paint as we figure out if we have room to render icons or not,
-so we delay the tabs visibility by a very short time to allow things to settle. */
-@keyframes delay-visibility {
-  0%,
-  99.9% {
-    visibility: hidden;
-  }
-
-  100% {
-    visibility: visible;
-  }
 }
 
 @keyframes hide-icons {
