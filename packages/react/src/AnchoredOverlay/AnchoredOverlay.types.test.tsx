@@ -1,5 +1,6 @@
 import {InfoIcon} from '@primer/octicons-react'
-import {AnchoredOverlay, IconButton} from '..'
+import {AnchoredOverlay} from '.'
+import {IconButton} from '../Button'
 
 export function itemWithIconElements() {
   return (

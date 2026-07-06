@@ -1,5 +1,7 @@
 import {useState} from 'react'
-import {FormControl, Heading, Stack} from '..'
+import FormControl from '../FormControl'
+import Heading from '../Heading'
+import {Stack} from '../Stack'
 import Textarea from '../Textarea'
 
 export default {

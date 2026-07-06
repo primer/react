@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import type React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   CodeIcon,
@@ -13,9 +13,10 @@ import {
 } from '@primer/octicons-react'
 
 import {UnderlineNav} from '.'
-import {implementsClassName} from '../utils/testing'
+import {implementsClassName, withExpectedConsoleError} from '../utils/testing'
 import classes from '../internal/components/UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
+import {page} from 'vitest/browser'
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
@@ -78,7 +79,8 @@ describe('UnderlineNav', () => {
   it('renders icons correctly', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const nav = getByRole('navigation')
-    expect(nav.getElementsByTagName('svg').length).toEqual(7)
+    const list = within(nav).getByRole('list')
+    expect(list.getElementsByTagName('svg').length).toEqual(7)
   })
 
   it('fires onSelect on click', async () => {
@@ -141,9 +143,10 @@ describe('UnderlineNav', () => {
     expect(counter.textContent).toBe('\u00A0(120)')
   })
 
-  it('respects loadingCounters prop', () => {
+  it('respects loadingCounters prop', async () => {
+    await page.viewport(1000, 500)
     const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
-    const item = getByRole('link', {name: 'Actions'})
+    const item = getByRole('link', {name: 'Actions', hidden: true})
     const loadingCounter = item.getElementsByTagName('span')[2]
     expect(loadingCounter.className).toContain('LoadingCounter')
     expect(loadingCounter.textContent).toBe('')
@@ -158,14 +161,16 @@ describe('UnderlineNav', () => {
   })
 
   it('throws an error when there are multiple items that have aria-current', () => {
-    expect(() => {
-      render(
-        <UnderlineNav aria-label="Test Navigation">
-          <UnderlineNav.Item aria-current="page">Item 1</UnderlineNav.Item>
-          <UnderlineNav.Item aria-current="page">Item 2</UnderlineNav.Item>
-        </UnderlineNav>,
-      )
-    }).toThrow('Only one current element is allowed')
+    withExpectedConsoleError(() => {
+      expect(() => {
+        render(
+          <UnderlineNav aria-label="Test Navigation">
+            <UnderlineNav.Item aria-current="page">Item 1</UnderlineNav.Item>
+            <UnderlineNav.Item aria-current="page">Item 2</UnderlineNav.Item>
+          </UnderlineNav>,
+        )
+      }).toThrow('Only one current element is allowed')
+    })
   })
 
   it('should support icons passed in as an element', () => {
@@ -242,7 +247,12 @@ describe('UnderlineNav', () => {
 
 describe('Keyboard Navigation', () => {
   it('should move focus to the next/previous item on the list with the tab key', async () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const {getByRole} = render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+        <UnderlineNav.Item counter={120}>Issues</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
     const item = getByRole('link', {name: 'Code'})
     const nextItem = getByRole('link', {name: 'Issues (120)'})
     const user = userEvent.setup()

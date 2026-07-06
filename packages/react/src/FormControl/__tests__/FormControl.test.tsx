@@ -59,8 +59,24 @@ const WrappedValidationComponent: FCWithSlotMarker<object> = () => (
 WrappedValidationComponent.__SLOT__ = FormControl.Validation.__SLOT__
 
 describe('FormControl', () => {
-  implementsClassName(FormControl, classes.ControlVerticalLayout)
-  implementsClassName(props => <FormControl {...props} layout="horizontal" />, classes.ControlHorizontalLayout)
+  implementsClassName(
+    props => (
+      <FormControl {...props}>
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+      </FormControl>
+    ),
+    classes.ControlVerticalLayout,
+  )
+  implementsClassName(
+    props => (
+      <FormControl {...props} layout="horizontal">
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+      </FormControl>
+    ),
+    classes.ControlHorizontalLayout,
+  )
   implementsClassName(FormControl.Caption, captionClasses.Caption)
   implementsClassName(FormControl.Label, inputClasses.Label)
 

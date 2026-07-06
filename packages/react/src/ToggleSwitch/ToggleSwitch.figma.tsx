@@ -1,4 +1,4 @@
-import {ToggleSwitch} from '../../src'
+import ToggleSwitch from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(

@@ -145,6 +145,7 @@ export function createDescendantRegistry<T>() {
         const setEntries = Array.from(workingRegistryRef.current.entries()).filter(
           (entry): entry is [string, T] => entry[1] !== unsetValue,
         )
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
         setRegistry(new Map(setEntries))
         workingRegistryRef.current = 'idle'
       }

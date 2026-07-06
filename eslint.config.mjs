@@ -11,6 +11,7 @@ import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefreshPlugin from 'eslint-plugin-react-refresh'
+import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
 import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
@@ -34,6 +35,7 @@ const github = githubPlugin.getFlatConfigs()
  */
 const config = defineConfig([
   globalIgnores([
+    '.agents/**/*',
     '**/.cache',
     'coverage/**/*',
     'docs/public/**/*',
@@ -115,6 +117,9 @@ const config = defineConfig([
     },
   },
 
+  // eslint-plugin-react-you-might-not-need-an-effect
+  reactYouMightNotNeedAnEffect.configs.recommended,
+
   {
     extends: fixupConfigRules(compat.extends('plugin:clsx/recommended', 'plugin:ssr-friendly/recommended')),
   },
@@ -126,14 +131,11 @@ const config = defineConfig([
     },
     rules: {
       'primer-react/direct-slot-children': 'error',
-      'primer-react/no-system-props': 'error',
       'primer-react/a11y-tooltip-interactive-trigger': 'error',
       'primer-react/new-color-css-vars': 'error',
       'primer-react/a11y-explicit-heading': 'error',
       'primer-react/no-deprecated-props': 'error',
       'primer-react/a11y-remove-disable-tooltip': 'error',
-      'primer-react/a11y-use-next-tooltip': 'error',
-      'primer-react/no-unnecessary-components': 'error',
       'primer-react/prefer-action-list-item-onselect': 'error',
     },
   },
@@ -191,8 +193,13 @@ const config = defineConfig([
       'github/filenames-match-regex': 'off',
       'github/no-inner-html': 'off',
       'github/role-supports-aria-props': 'off',
-      'no-restricted-syntax': 'off',
-      'primer-react/a11y-use-next-tooltip': 'off',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExpressionStatement[directive="use no memo"]',
+          message: 'The "use no memo" directive is not allowed.',
+        },
+      ],
     },
   },
 
@@ -356,7 +363,8 @@ const config = defineConfig([
   {
     files: [
       'packages/postcss-preset-primer/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
-      'packages/rollup-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/rolldown-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/rolldown-plugin-preserve-directives/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
     ],
     rules: {
       'import/no-nodejs-modules': 'off',
@@ -403,9 +411,7 @@ const config = defineConfig([
   // packages/styled-react overrides
   {
     files: ['packages/styled-react/**/*.{ts,tsx}'],
-    rules: {
-      'primer-react/no-unnecessary-components': 'off',
-    },
+    rules: {},
   },
   {
     files: ['packages/styled-react/**/*.test.{ts,tsx}'],

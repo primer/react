@@ -1,4 +1,4 @@
-import {StateLabel} from '../../src'
+import StateLabel from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(

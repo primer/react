@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {useState, useRef} from 'react'
-import {Text, Button} from '../..'
+import Text from '../../Text'
+import {Button} from '../../Button'
 import {Dialog} from '../DialogV1'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {implementsClassName} from '../../utils/testing'

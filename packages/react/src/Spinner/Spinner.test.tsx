@@ -1,5 +1,5 @@
-import type {SpinnerProps} from '..'
-import {Spinner} from '..'
+import type {SpinnerProps} from '.'
+import Spinner from '.'
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import {act} from 'react'
@@ -13,6 +13,11 @@ describe('Spinner', () => {
     const {getByLabelText} = render(<Spinner />)
 
     expect(getByLabelText('Loading')).toBeInTheDocument()
+  })
+
+  it('renders data-component attribute on the outermost element', () => {
+    const {container} = render(<Spinner />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'Spinner')
   })
 
   it('should label the spinner with with custom loading text', async () => {

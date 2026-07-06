@@ -1,0 +1,54 @@
+import {readFile} from 'node:fs/promises'
+import {defineConfig} from 'rolldown/config'
+import type {Plugin, RolldownOptions} from 'rolldown'
+
+const cssStylesheetPlugin = (): Plugin => {
+  return {
+    name: 'css-stylesheet',
+    async load(id) {
+      if (!id.endsWith('.css')) {
+        return null
+      }
+
+      const css = await readFile(id, 'utf8')
+
+      return {
+        code: `const sheet = typeof CSSStyleSheet !== 'undefined' ? new CSSStyleSheet() : null;
+
+if (sheet) {
+  sheet.replaceSync(${JSON.stringify(css)});
+  if (typeof document !== 'undefined' && 'adoptedStyleSheets' in document) {
+    document.adoptedStyleSheets.push(sheet);
+  }
+}
+
+export default sheet;
+`,
+        moduleSideEffects: true,
+        moduleType: 'js',
+      }
+    },
+  }
+}
+
+const external = ['react', 'react-compiler-runtime', 'react-dom', '@primer/octicons-react'].map(
+  pkg => new RegExp(`^${pkg}(\\/.*)?$`),
+)
+
+const config: RolldownOptions = defineConfig({
+  input: ['./src/index.ts', './src/deprecated.ts', './src/experimental.ts', './src/next.ts', './src/primitives.ts'],
+  plugins: [cssStylesheetPlugin()],
+  external,
+  output: {
+    dir: 'dist',
+    format: 'esm',
+    minify: true,
+  },
+  transform: {
+    define: {
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    },
+  },
+})
+
+export default config
