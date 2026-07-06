@@ -28,9 +28,10 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
-  const elementRef = React.useRef<HTMLDivElement | null>(null)
-  // eslint-disable-next-line react-hooks/refs
-  if (!elementRef.current) {
+  // Lazily create the portal's container element once via a useState initializer.
+  // (Reading/writing a ref during render violates the Rules of React that the
+  // compiler relies on; useState is the canonical lazy-initialization pattern.)
+  const [element] = React.useState<HTMLDivElement>(() => {
     const div = document.createElement('div')
     div.setAttribute('data-component', 'Portal')
     // Portaled content should get their own stacking context so they don't interfere
@@ -38,11 +39,8 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     // to change the zIndex to a value other than "1".
     div.style.position = 'relative'
     div.style.zIndex = '1'
-    elementRef.current = div
-  }
-
-  // eslint-disable-next-line react-hooks/refs
-  const element = elementRef.current
+    return div
+  })
 
   useLayoutEffect(() => {
     let containerName = _containerName ?? portalContainerName

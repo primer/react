@@ -25,7 +25,6 @@ const unsupportedPatterns = [
   'src/Pagehead/**/*.tsx',
   'src/PageLayout/**/*.tsx',
   'src/Pagination/**/*.tsx',
-  'src/Portal/**/*.tsx',
   'src/SelectPanel/**/*.tsx',
   'src/SideNav.tsx',
   'src/UnderlineNav/**/*.tsx',
