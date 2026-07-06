@@ -1,0 +1,19 @@
+{
+  "name": "@primer/react-compiler-check",
+  "type": "module",
+  "private": true,
+  "exports": "./src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@babel/core": "^8.0.1",
+    "@babel/preset-react": "^8.0.1",
+    "@babel/preset-typescript": "^8.0.1",
+    "babel-plugin-react-compiler": "^1.0.0"
+  },
+  "devDependencies": {
+    "@primer/vitest-config": "^0.0.0",
+    "typescript": "^6.0.3"
+  }
+}
