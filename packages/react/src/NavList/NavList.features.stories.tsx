@@ -646,6 +646,31 @@ export const WithItemGap: StoryFn = () => (
 
 WithItemGap.storyName = 'With gap between items (behind feature flag)'
 
+export const WithoutDivider: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item href="#" aria-current="page">
+          Home
+        </NavList.Item>
+        <NavList.Group hideDivider={true}>
+          <NavList.Item defaultOpen href="#">
+            About
+            <NavList.SubNav>
+              <NavList.Item href="#">Team</NavList.Item>
+              <NavList.Item href="#">History</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+          <NavList.Item href="#">Settings</NavList.Item>
+        </NavList.Group>
+        <NavList.Group>
+          <NavList.Item href="#">Contact</NavList.Item>
+        </NavList.Group>
+      </NavList>
+    </PageLayout.Pane>
+  </PageLayout>
+)
+
 export const WithHeading: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
