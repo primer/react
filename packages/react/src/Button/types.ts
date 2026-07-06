@@ -31,11 +31,16 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   /**
-   * Specify whether the button is in a loading state
+   * Specify whether the button is in a loading state. While loading, a spinner replaces the
+   * button's content and the button automatically announces its loading state to screen readers
+   * through a visually hidden live region. Do not add a separate `aria-live` loading message for
+   * the button, as that would cause a duplicate announcement.
    */
   loading?: boolean
   /**
-   * The content to announce to screen readers when loading
+   * The text announced to screen readers through the built-in visually hidden live region when the
+   * button enters its loading state. Requires `loading` to be true.
+   * @default 'Loading'
    */
   loadingAnnouncement?: string
   /*

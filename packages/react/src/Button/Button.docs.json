@@ -135,12 +135,13 @@
     {
       "name": "loading",
       "type": "boolean",
-      "description": "When true, the button is in a loading state."
+      "description": "When true, the button is in a loading state. A spinner replaces the button's content and the button automatically announces its loading state to screen readers through a built-in, visually hidden live region. Do not add your own separate `aria-live` loading message for the button, as that would cause a duplicate announcement."
     },
     {
       "name": "loadingAnnouncement",
       "type": "string",
-      "description": "The content to announce to screen readers when loading. This requires `loading` prop to be true"
+      "defaultValue": "'Loading'",
+      "description": "The text announced to screen readers through the built-in, visually hidden live region when the button enters its loading state. Requires the `loading` prop to be true."
     },
     {
       "name": "ref",

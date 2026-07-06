@@ -64,6 +64,14 @@ export const AsAMenuAnchor = () => (
 )
 
 export const Loading = () => <IconButton loading icon={HeartIcon} variant="primary" aria-label="Primary" />
+Loading.parameters = {
+  docs: {
+    description: {
+      story:
+        'When `loading` is set, the button automatically renders a visually hidden live region that announces "Loading" to screen readers. Customize this text with the `loadingAnnouncement` prop. Because the announcement is built in, do not add your own separate `aria-live` loading message for the button — doing so would cause a duplicate announcement.',
+    },
+  },
+}
 
 export const LoadingTrigger = () => {
   const [isLoading, setIsLoading] = useState(false)
