@@ -28,9 +28,9 @@ Apply the [general coding guidelines](./general-coding.instructions.md) to all c
 
 ## Storybook Guidelines
 
-- Put the default component stories in `packages/react/src/[ComponentName]/[ComponentName].stories.tsx`
+- Put the default component stories alongside the component (for most components this is `packages/react/src/[ComponentName]/[ComponentName].stories.tsx`)
 - Include `Default` and `Playground` stories in the default stories file when the component supports configurable controls
 - Use the `Components/[ComponentName]` Storybook title for the default stories file
-- Put feature-specific stories in `packages/react/src/[ComponentName]/[ComponentName].features.stories.tsx`
+- Put feature-specific stories alongside the component (for most components this is `packages/react/src/[ComponentName]/[ComponentName].features.stories.tsx`)
 - Use the `Components/[ComponentName]/Features` Storybook title for feature stories
 - Put examples or scenario-based stories in separate files, such as `[ComponentName].examples.stories.tsx`, when they are distinct from core feature coverage
