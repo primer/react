@@ -142,6 +142,15 @@ export function useAnchoredPosition(
   useResizeObserver(updatePosition, undefined, [], enabled) // watches for changes in window size
   useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>, [], enabled) // watches for changes in floating element size
 
+  // Caches the scrollable-ancestor walk (which calls getComputedStyle on every
+  // ancestor) keyed by the anchor element, so the scroll-listener effect below can
+  // re-run on `updatePosition`/`enabled` changes without repeating the DOM walk when
+  // the anchor is unchanged (the common case).
+  const scrollAncestorsCacheRef = React.useRef<{anchor: Element | null; scrollables: Array<Element | Window>}>({
+    anchor: null,
+    scrollables: [],
+  })
+
   // Recalculate position when any scrollable ancestor of the anchor scrolls.
   // Uses requestAnimationFrame to avoid layout thrashing during scroll.
   React.useEffect(() => {
@@ -158,7 +167,17 @@ export function useAnchoredPosition(
       })
     }
 
-    const scrollables = getScrollableAncestors(anchorEl)
+    // The set of scrollable ancestors only depends on the anchor element, so reuse
+    // the cached walk when the anchor hasn't changed instead of re-running
+    // getComputedStyle up the whole ancestor chain.
+    const cache = scrollAncestorsCacheRef.current
+    let scrollables: Array<Element | Window>
+    if (cache.anchor === anchorEl) {
+      scrollables = cache.scrollables
+    } else {
+      scrollables = getScrollableAncestors(anchorEl)
+      scrollAncestorsCacheRef.current = {anchor: anchorEl, scrollables}
+    }
     for (const scrollable of scrollables) {
       // eslint-disable-next-line github/prefer-observers -- IntersectionObserver cannot detect continuous scroll position changes needed for repositioning
       scrollable.addEventListener('scroll', handleScroll)
