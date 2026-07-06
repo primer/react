@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {focusZone} from '@primer/behaviors'
 import type {FocusZoneSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
+import {useDependencyListEffect} from '../internal/hooks/useDependencyListEffect'
 export {FocusKeys} from '@primer/behaviors'
 export type {Direction} from '@primer/behaviors'
 
@@ -47,11 +48,10 @@ export function useFocusZone(
   const disabled = settings.disabled
   const abortController = React.useRef<AbortController>()
 
-  useEffect(
+  useDependencyListEffect(
     () => {
       if (
         containerRef.current instanceof HTMLElement &&
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
       ) {
         if (!disabled) {
@@ -68,8 +68,7 @@ export function useFocusZone(
         }
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [disabled, ...dependencies],
+    () => [containerRef, activeDescendantControlRef, disabled, useActiveDescendant, ...dependencies],
   )
 
   return {containerRef, activeDescendantControlRef}

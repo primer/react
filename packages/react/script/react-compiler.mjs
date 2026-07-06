@@ -22,13 +22,6 @@ const unsupportedPatterns = [
   'src/SelectPanel/SelectPanel.test.tsx',
   'src/SelectPanel/SelectPanel.tsx',
   'src/experimental/SelectPanel2/SelectPanel.tsx',
-  'src/hooks/useAnchoredPosition.ts',
-  'src/hooks/useFocusTrap.ts',
-  'src/hooks/useFocusZone.ts',
-  'src/hooks/useMenuInitialFocus.ts',
-  'src/hooks/useOnEscapePress.ts',
-  'src/hooks/useResizeObserver.ts',
-  'src/hooks/useSafeTimeout.ts',
   'src/TooltipV2/Tooltip.tsx',
 ]
 

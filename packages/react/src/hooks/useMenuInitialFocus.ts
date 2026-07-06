@@ -1,5 +1,6 @@
 import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
+import {useDependencyListEffect} from '../internal/hooks/useDependencyListEffect'
 
 export const useMenuInitialFocus = (
   open: boolean,
@@ -44,9 +45,8 @@ export const useMenuInitialFocus = (
    * ArrowDown | Space | Enter: first element
    * ArrowUp: last element
    */
-  React.useEffect(
-    function moveFocusOnOpen() {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+  useDependencyListEffect(
+    () => {
       if (!open || !containerRef?.current) return // wait till the menu is open
 
       const iterable = iterateFocusableElements(containerRef.current)
@@ -57,22 +57,24 @@ export const useMenuInitialFocus = (
       } else if (openingGesture && ['ArrowDown', 'Space', 'Enter'].includes(openingGesture)) {
         const firstElement = iterable.next().value
         /** We push imperative focus to the next tick to prevent React's batching */
-        setTimeout(() => firstElement?.focus())
+        const timeoutId = window.setTimeout(() => firstElement?.focus())
+        return () => window.clearTimeout(timeoutId)
       } else if ('ArrowUp' === openingGesture) {
         const elements = [...iterable]
         const lastElement = elements[elements.length - 1]
-        setTimeout(() => lastElement.focus())
+        const timeoutId = window.setTimeout(() => lastElement.focus())
+        return () => window.clearTimeout(timeoutId)
       } else {
         /** if the menu was not opened with the anchor, we default to the first element
          *  for example: with keyboard shortcut (see stories/fixtures)
          */
         const firstElement = iterable.next().value
-        setTimeout(() => firstElement?.focus())
+        const timeoutId = window.setTimeout(() => firstElement?.focus())
+        return () => window.clearTimeout(timeoutId)
       }
     },
-    // we don't want containerRef in dependencies
-    // because re-renders to containerRef while it's open should not fire initialMenuFocus
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [open, openingGesture, anchorRef],
+    // We intentionally do not include containerRef because re-renders to
+    // containerRef while open should not fire initialMenuFocus.
+    () => [open, openingGesture, anchorRef],
   )
 }

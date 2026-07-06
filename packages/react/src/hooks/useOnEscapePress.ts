@@ -1,4 +1,5 @@
-import {useEffect, useCallback, useMemo} from 'react'
+import {useEffect, useCallback, useMemo, useRef} from 'react'
+import {useDependencyListEffect} from '../internal/hooks/useDependencyListEffect'
 
 /**
  * Calls all handlers in reverse order
@@ -6,7 +7,7 @@ import {useEffect, useCallback, useMemo} from 'react'
  */
 function handleEscape(event: KeyboardEvent) {
   if (!event.defaultPrevented) {
-    for (const handler of Object.values(registry).reverse()) {
+    for (const handler of Array.from(registry.values()).reverse()) {
       handler(event)
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (event.defaultPrevented) break
@@ -16,18 +17,15 @@ function handleEscape(event: KeyboardEvent) {
 
 type KeyboardEventCallback = (event: KeyboardEvent) => void
 
-const registry: {[id: number]: KeyboardEventCallback} = {}
+const registry = new Map<symbol, KeyboardEventCallback>()
 
-function register(id: number, handler: KeyboardEventCallback): void {
-  registry[id] = handler
+function register(id: symbol, handler: KeyboardEventCallback): void {
+  registry.set(id, handler)
 }
 
-function deregister(id: number) {
-  delete registry[id]
+function deregister(id: symbol) {
+  registry.delete(id)
 }
-
-// For auto-incrementing unique identifiers for registered handlers.
-let handlerId = 0
 
 /**
  * Sets up a `keydown` listener on `window.document`. If
@@ -54,26 +52,29 @@ export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
   callbackDependencies: React.DependencyList = [onEscape],
 ): void => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-  const escapeCallback = useCallback(onEscape, callbackDependencies)
+  const savedOnEscape = useRef(onEscape)
 
-  const handler = useCallback<KeyboardEventCallback>(
-    event => {
-      if (event.key === 'Escape') escapeCallback(event)
+  useDependencyListEffect(
+    () => {
+      savedOnEscape.current = onEscape
     },
-    [escapeCallback],
+    () => callbackDependencies,
   )
 
-  const id = useMemo(() => handlerId++, [])
+  const handler = useCallback<KeyboardEventCallback>(event => {
+    if (event.key === 'Escape') savedOnEscape.current(event)
+  }, [])
+
+  const id = useMemo(() => Symbol('useOnEscapePress'), [])
   useEffect(() => {
-    if (Object.keys(registry).length === 0) {
+    if (registry.size === 0) {
       document.addEventListener('keydown', handleEscape)
     }
     register(id, handler)
 
     return () => {
       deregister(id)
-      if (Object.keys(registry).length === 0) {
+      if (registry.size === 0) {
         document.removeEventListener('keydown', handleEscape)
       }
     }

@@ -3,6 +3,7 @@ import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
+import {useDependencyListEffect, useDependencyListLayoutEffect} from '../internal/hooks/useDependencyListEffect'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 /**
@@ -83,37 +84,33 @@ export function useAnchoredPosition(
     return heightUpdated
   }
 
-  const updatePosition = React.useCallback(
-    () => {
-      if (!enabled) return
-      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
-        setPosition(prev => {
-          if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
-            const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
-            const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
+  const updatePosition = () => {
+    if (!enabled) return
+    if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+      const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
+      setPosition(prev => {
+        if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
+          const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
+          const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
 
-            if (elementStillFitsOnTop && updateElementHeight()) {
-              return prev
-            }
+          if (elementStillFitsOnTop && updateElementHeight()) {
+            return prev
           }
+        }
 
-          if (prev && prev.anchorSide === newPosition.anchorSide) {
-            // if the position hasn't changed, don't update
-            savedOnPositionChange.current?.(newPosition)
-          }
+        if (prev && prev.anchorSide === newPosition.anchorSide) {
+          // if the position hasn't changed, don't update
+          savedOnPositionChange.current?.(newPosition)
+        }
 
-          return newPosition
-        })
-      } else {
-        setPosition(undefined)
-        savedOnPositionChange.current?.(undefined)
-      }
-      setPrevHeight(floatingElementRef.current?.clientHeight)
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-    [floatingElementRef, anchorElementRef, enabled, ...dependencies],
-  )
+        return newPosition
+      })
+    } else {
+      setPosition(undefined)
+      savedOnPositionChange.current?.(undefined)
+    }
+    setPrevHeight(floatingElementRef.current?.clientHeight)
+  }
 
   useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange
@@ -125,54 +122,60 @@ export function useAnchoredPosition(
   // After mount (including Suspense reappear), only call updatePosition when
   // both refs are attached — skipping closed overlays avoids unnecessary setState.
   const hasMountedRef = React.useRef(false)
-  useLayoutEffect(() => {
-    if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-      hasMountedRef.current = true
-      updatePosition()
-    }
-  }, [updatePosition, floatingElementRef, anchorElementRef])
+  useDependencyListLayoutEffect(
+    () => {
+      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+        hasMountedRef.current = true
+        updatePosition()
+      }
+    },
+    () => [floatingElementRef.current, anchorElementRef.current, enabled, ...dependencies],
+  )
 
   React.useEffect(() => {
     if (!hasMountedRef.current) {
       hasMountedRef.current = true
       updatePosition()
     }
-  }, [updatePosition])
+  })
 
   useResizeObserver(updatePosition, undefined, [], enabled) // watches for changes in window size
   useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>, [], enabled) // watches for changes in floating element size
 
   // Recalculate position when any scrollable ancestor of the anchor scrolls.
   // Uses requestAnimationFrame to avoid layout thrashing during scroll.
-  React.useEffect(() => {
-    if (!enabled) return
-    const anchorEl = anchorElementRef.current
-    if (!anchorEl) return
+  useDependencyListEffect(
+    () => {
+      if (!enabled) return
+      const anchorEl = anchorElementRef.current
+      if (!anchorEl) return
 
-    let rafId: number | null = null
-    const handleScroll = () => {
-      if (rafId !== null) return
-      rafId = requestAnimationFrame(() => {
-        rafId = null
-        updatePosition()
-      })
-    }
+      let rafId: number | null = null
+      const handleScroll = () => {
+        if (rafId !== null) return
+        rafId = requestAnimationFrame(() => {
+          rafId = null
+          updatePosition()
+        })
+      }
 
-    const scrollables = getScrollableAncestors(anchorEl)
-    for (const scrollable of scrollables) {
-      // eslint-disable-next-line github/prefer-observers -- IntersectionObserver cannot detect continuous scroll position changes needed for repositioning
-      scrollable.addEventListener('scroll', handleScroll)
-    }
-
-    return () => {
+      const scrollables = getScrollableAncestors(anchorEl)
       for (const scrollable of scrollables) {
-        scrollable.removeEventListener('scroll', handleScroll)
+        // eslint-disable-next-line github/prefer-observers -- IntersectionObserver cannot detect continuous scroll position changes needed for repositioning
+        scrollable.addEventListener('scroll', handleScroll)
       }
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId)
+
+      return () => {
+        for (const scrollable of scrollables) {
+          scrollable.removeEventListener('scroll', handleScroll)
+        }
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId)
+        }
       }
-    }
-  }, [anchorElementRef, updatePosition, enabled])
+    },
+    () => [anchorElementRef.current, enabled, ...dependencies],
+  )
 
   return {
     floatingElementRef,
