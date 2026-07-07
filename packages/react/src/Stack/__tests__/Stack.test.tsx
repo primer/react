@@ -8,6 +8,11 @@ import classes from '../Stack.module.css'
 describe('Stack', () => {
   implementsClassName(Stack, classes.Stack)
 
+  it('renders data-component attribute', () => {
+    render(<Stack data-testid="stack" />)
+    expect(screen.getByTestId('stack')).toHaveAttribute('data-component', 'Stack')
+  })
+
   it('should support rendering content through `children`', () => {
     render(
       <Stack>
