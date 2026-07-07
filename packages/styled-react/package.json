@@ -38,9 +38,9 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.1",
-    "@babel/preset-react": "^8.0.1",
-    "@babel/preset-typescript": "^8.0.1",
+    "@babel/core": "^7.29.7",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@primer/primitives": "10.x || 11.x",
     "@primer/react": "^38.26.0",
     "@rolldown/plugin-babel": "^0.2.3",
