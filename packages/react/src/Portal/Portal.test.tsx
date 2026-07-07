@@ -221,12 +221,12 @@ describe('Portal', () => {
     const {baseElement, rerender} = render(<Portal>first</Portal>)
     const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
     const portalNodeBefore = generatedRoot?.querySelector('[data-component="Portal"]')
-    expect(portalNodeBefore?.textContent?.trim()).toEqual('first')
+    expect(portalNodeBefore?.textContent.trim()).toEqual('first')
 
     rerender(<Portal>second</Portal>)
     const portalNodeAfter = generatedRoot?.querySelector('[data-component="Portal"]')
     expect(portalNodeAfter).toBe(portalNodeBefore)
-    expect(portalNodeAfter?.textContent?.trim()).toEqual('second')
+    expect(portalNodeAfter?.textContent.trim()).toEqual('second')
 
     baseElement.innerHTML = ''
   })
