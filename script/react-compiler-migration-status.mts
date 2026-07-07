@@ -1,6 +1,6 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import {check} from '@primer/react-compiler-check'
+import {checkFile} from '@primer/react-compiler-check'
 import {files as compilerFiles, notMigrated as notMigratedFiles} from '../packages/react/script/react-compiler.mjs'
 
 const directory = path.resolve(import.meta.dirname, '..')
@@ -31,14 +31,12 @@ const notMigrated = notMigratedFiles.map(filepath => {
     size: stats.size,
   }
 })
-const notMigratedReports = await Promise.all(
-  notMigrated.map(async file => {
-    return {
-      ...file,
-      failures: await getCompilerFailures(file.filepath),
-    }
-  }),
-)
+const notMigratedReports = notMigrated.map(file => {
+  return {
+    ...file,
+    failures: getCompilerFailures(file.filepath),
+  }
+})
 
 let totalSize = 0
 
@@ -104,10 +102,10 @@ function round(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100
 }
 
-async function getCompilerFailures(filepath: string): Promise<Array<CompilerFailure>> {
+function getCompilerFailures(filepath: string): Array<CompilerFailure> {
   let result
   try {
-    result = await check(filepath, fs.readFileSync(filepath, 'utf8'))
+    result = checkFile(filepath, fs.readFileSync(filepath, 'utf8'))
   } catch (error) {
     return [
       {

@@ -1,4 +1,4 @@
-import {type TransformOptions, transformAsync} from '@babel/core'
+import {type TransformOptions, transformSync} from '@babel/core'
 import {CompilerError} from 'babel-plugin-react-compiler'
 import type {Logger, SourceLocation} from 'babel-plugin-react-compiler'
 
@@ -9,7 +9,7 @@ type CheckError = {
 
 type CheckResult = {ok: true; errors?: never} | {ok: false; errors: Array<CheckError>}
 
-async function check(filename: string, contents: string): Promise<CheckResult> {
+function checkFile(filename: string, contents: string): CheckResult {
   const errors: Array<CheckError> = []
   const logger: Logger = {
     logEvent(_filename, event) {
@@ -18,11 +18,6 @@ async function check(filename: string, contents: string): Promise<CheckResult> {
         addCheckError(errors, {
           location: event.detail.primaryLocation(),
           reason: event.detail.reason,
-        })
-      } else if (event.kind === 'CompileSkip') {
-        addCheckError(errors, {
-          location: event.loc ?? event.fnLoc,
-          reason: event.reason,
         })
       }
     },
@@ -53,7 +48,7 @@ async function check(filename: string, contents: string): Promise<CheckResult> {
   }
 
   try {
-    await transformAsync(contents, inputOptions)
+    transformSync(contents, inputOptions)
   } catch (error: unknown) {
     if (!(error instanceof CompilerError)) {
       throw error
@@ -100,5 +95,5 @@ function getLocationLine(location: CheckError['location']): number | null {
   return location.start.line
 }
 
-export {check}
+export {checkFile}
 export type {CheckResult, CheckError}

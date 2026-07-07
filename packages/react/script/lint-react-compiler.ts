@@ -1,31 +1,18 @@
-import fs from 'node:fs/promises'
+import fs from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
-import {check} from '@primer/react-compiler-check'
-import type {CheckError} from '@primer/react-compiler-check'
-import PQueue from 'p-queue'
+import {checkFile} from '@primer/react-compiler-check'
+import type {CheckError, CheckResult} from '@primer/react-compiler-check'
 import {files, isSupported} from './react-compiler.mjs'
 
-interface CompilerFailure {
-  readonly filepath: string
-  readonly errors: Array<CheckError>
+type CompilerFailure = Extract<CheckResult, {ok: false}> & {
+  filepath: string
 }
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const packageDirectory = path.resolve(dirname, '..')
 const migratedFiles = files.filter(isSupported)
-const queue = new PQueue({
-  concurrency: 20,
-})
-const failures = (
-  await Promise.all(
-    migratedFiles.map(filepath => {
-      return queue.add(() => {
-        return checkFile(filepath)
-      })
-    }),
-  )
-).filter((failure): failure is CompilerFailure => failure !== null)
+const failures = migratedFiles.map(checkCompilerFile).filter((result): result is CompilerFailure => !result.ok)
 
 if (failures.length > 0) {
   // eslint-disable-next-line no-console
@@ -49,31 +36,6 @@ if (failures.length > 0) {
   console.log(`React Compiler passed for ${migratedFiles.length} migrated files.`)
 }
 
-async function checkFile(filepath: string): Promise<CompilerFailure | null> {
-  try {
-    const result = await check(filepath, await fs.readFile(filepath, 'utf8'))
-
-    if (result.ok) {
-      return null
-    }
-
-    return {
-      filepath,
-      errors: result.errors,
-    }
-  } catch (error) {
-    return {
-      filepath,
-      errors: [
-        {
-          location: null,
-          reason: error instanceof Error ? error.message : String(error),
-        },
-      ],
-    }
-  }
-}
-
 function formatReason(reason: string): string {
   return reason.replaceAll('\n', ' ')
 }
@@ -84,4 +46,11 @@ function getLocationLine(location: CheckError['location']): number | undefined {
   }
 
   return location.start.line
+}
+
+function checkCompilerFile(filepath: string): CheckResult & {filepath: string} {
+  return {
+    filepath,
+    ...checkFile(filepath, fs.readFileSync(filepath, 'utf8')),
+  }
 }

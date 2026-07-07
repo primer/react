@@ -1,10 +1,10 @@
 import {describe, expect, test} from 'vitest'
-import {check} from './'
+import {checkFile} from './'
 
-describe('check', () => {
-  test('returns ok for files that compile successfully', async () => {
-    await expect(
-      check(
+describe('checkFile', () => {
+  test('returns ok for files that compile successfully', () => {
+    expect(
+      checkFile(
         'Counter.tsx',
         `
           function Counter({value}: {value: number}) {
@@ -14,12 +14,12 @@ describe('check', () => {
           }
         `,
       ),
-    ).resolves.toEqual({ok: true})
+    ).toEqual({ok: true})
   })
 
-  test('does not fail on recoverable compiler diagnostics for successfully compiled files', async () => {
-    await expect(
-      check(
+  test('does not fail on recoverable compiler diagnostics for successfully compiled files', () => {
+    expect(
+      checkFile(
         'BaseStyles.tsx',
         `
           import type React from 'react'
@@ -52,11 +52,11 @@ describe('check', () => {
           }
         `,
       ),
-    ).resolves.toEqual({ok: true})
+    ).toEqual({ok: true})
   })
 
-  test('returns compiler errors with source locations', async () => {
-    const result = await check(
+  test('returns compiler errors with source locations', () => {
+    const result = checkFile(
       'ConditionalHook.tsx',
       `
         import {useState} from 'react'
@@ -87,8 +87,8 @@ describe('check', () => {
     }
   })
 
-  test('returns compile skips as errors', async () => {
-    const result = await check(
+  test('returns compile skips as errors', () => {
+    const result = checkFile(
       'NoMemo.tsx',
       `
         function NoMemo() {
@@ -110,9 +110,9 @@ describe('check', () => {
     }
   })
 
-  test('rethrows errors that do not come from the React Compiler', async () => {
-    await expect(
-      check(
+  test('rethrows errors that do not come from the React Compiler', () => {
+    expect(() =>
+      checkFile(
         'SyntaxError.tsx',
         `
           function SyntaxError() {
@@ -120,6 +120,6 @@ describe('check', () => {
           }
         `,
       ),
-    ).rejects.toThrow()
+    ).toThrow()
   })
 })
