@@ -13,13 +13,12 @@ import {
   SyncIcon,
   XIcon,
 } from '@primer/octicons-react'
-import Avatar from '../Avatar'
 import {Button} from '../Button'
 import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
-import RelativeTime from '../RelativeTime'
 import classes from './Timeline.dependabot.features.stories.module.css'
+import {BoldLink, Examples, InlineAvatar, MutedTime, VariantSection} from './internal/timelineStoryHelpers'
 
 /**
  * Dependabot alert Timeline event examples (Phase 2 of github/primer#6663).
@@ -82,10 +81,10 @@ const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
  */
 const DependabotActor = () => (
   <>
-    <Avatar src={DEPENDABOT_AVATAR} size={20} square alt="" className={classes.InlineAvatar} />
-    <Link href="#" className={classes.LinkWithBoldStyle} muted>
+    <InlineAvatar src={DEPENDABOT_AVATAR} square />
+    <BoldLink href="#" muted>
       dependabot
-    </Link>
+    </BoldLink>
     <Label variant="secondary" className={classes.BotLabel}>
       bot
     </Label>
@@ -100,20 +99,11 @@ const DependabotActor = () => (
  */
 const UserActor = () => (
   <>
-    <Avatar src={MONALISA_AVATAR} size={20} alt="" className={classes.InlineAvatar} />
-    <Link href="#" className={classes.LinkWithBoldStyle} muted>
+    <InlineAvatar src={MONALISA_AVATAR} />
+    <BoldLink href="#" muted>
       monalisa
-    </Link>
+    </BoldLink>
   </>
-)
-
-// Muted relative timestamp. The Dependabot ERB renders a plain
-// `Primer::Beta::RelativeTime` (no link wrapper) — muted text only, which is a
-// deliberate difference from the Issues `Ago` deep-link.
-const Time = ({date}: {date: string}) => (
-  <span className={classes.Timestamp}>
-    <RelativeTime date={new Date(date)} format="relative" />
-  </span>
 )
 
 /**
@@ -139,28 +129,6 @@ const PushPill = ({sha}: {sha: string}) => (
 const NoteComment = ({children}: {children: React.ReactNode}) => (
   <div className={classes.NoteComment}>
     <Octicon icon={NoteIcon} size={16} className={classes.NoteIcon} />
-    {children}
-  </div>
-)
-
-/**
- * Shared story wrapper. Constrains width to product surfaces, and sets
- * `data-a11y-link-underlines="true"` to reproduce GitHub's default-on "Show link
- * underlines" preference — Primer gates `<Link inline>` underlines on this
- * ancestor attribute, so inline content links get a non-color distinction
- * (WCAG 1.4.1). Actor-name links use `className` WITHOUT `inline`, so they stay
- * avatar + semibold with no underline. The click handler swallows the
- * placeholder `href="#"` navigation so the stories don't reload Storybook
- * (`e.target instanceof Element` guards against SVG/Octicon clicks).
- */
-const Examples = ({children}: {children: React.ReactNode}) => (
-  <div
-    className={classes.RealisticTimeline}
-    data-a11y-link-underlines="true"
-    onClick={e => {
-      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
-    }}
-  >
     {children}
   </div>
 )
@@ -203,8 +171,7 @@ export default {
 export const EventOpened = () => (
   <Examples>
     {/* Opened — no source */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Opened</h3>
+    <VariantSection label="Opened">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -213,15 +180,14 @@ export const EventOpened = () => (
           <Timeline.Body>
             <DependabotActor />
             {'opened this '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* OpenedFromPR — bold `#123` pull-request link (scheme: primary, bold) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Opened from pull request</h3>
+    <VariantSection label="Opened from pull request">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -230,18 +196,14 @@ export const EventOpened = () => (
           <Timeline.Body>
             <DependabotActor />
             {'opened this from '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              #123
-            </Link>{' '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <BoldLink href="#">#123</BoldLink> <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* OpenedFromPush — blue push-pill with the 7-char `after` SHA */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Opened from push</h3>
+    <VariantSection label="Opened from push">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -250,11 +212,11 @@ export const EventOpened = () => (
           <Timeline.Body>
             <DependabotActor />
             {'opened this from '}
-            <PushPill sha="adfc29a" /> <Time date="2022-07-26T11:46:07Z" />
+            <PushPill sha="adfc29a" /> <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -274,8 +236,7 @@ export const EventOpened = () => (
 export const EventFixed = () => (
   <Examples>
     {/* Fixed — no source */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Fixed</h3>
+    <VariantSection label="Fixed">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -284,15 +245,14 @@ export const EventFixed = () => (
           <Timeline.Body>
             <DependabotActor />
             {'closed this as completed '}
-            <Time date="2022-08-01T09:30:00Z" />
+            <MutedTime date={new Date('2022-08-01T09:30:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* FixedViaPR — bold `#123` pull-request link */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Fixed via pull request</h3>
+    <VariantSection label="Fixed via pull request">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -301,18 +261,14 @@ export const EventFixed = () => (
           <Timeline.Body>
             <DependabotActor />
             {'closed this as completed in '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              #123
-            </Link>{' '}
-            <Time date="2022-08-01T09:30:00Z" />
+            <BoldLink href="#">#123</BoldLink> <MutedTime date={new Date('2022-08-01T09:30:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* FixedViaPush — blue push-pill */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Fixed via push</h3>
+    <VariantSection label="Fixed via push">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -321,11 +277,11 @@ export const EventFixed = () => (
           <Timeline.Body>
             <DependabotActor />
             {'closed this as completed in '}
-            <PushPill sha="adfc29a" /> <Time date="2022-08-01T09:30:00Z" />
+            <PushPill sha="adfc29a" /> <MutedTime date={new Date('2022-08-01T09:30:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -345,8 +301,7 @@ export const EventFixed = () => (
 export const EventDismissed = () => (
   <Examples>
     {/* Manual — risk is tolerable (with an optional dismissal note) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissed as risk is tolerable</h3>
+    <VariantSection label="Dismissed as risk is tolerable">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -355,16 +310,15 @@ export const EventDismissed = () => (
           <Timeline.Body>
             <UserActor />
             {'dismissed this as risk is tolerable '}
-            <Time date="2022-08-02T14:10:00Z" />
+            <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
             <NoteComment>This dependency is only used in our test tooling, so the risk is acceptable.</NoteComment>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Manual — fix started */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissed as fix started</h3>
+    <VariantSection label="Dismissed as fix started">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -373,15 +327,14 @@ export const EventDismissed = () => (
           <Timeline.Body>
             <UserActor />
             {'dismissed this as fix started '}
-            <Time date="2022-08-02T14:10:00Z" />
+            <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Manual — no bandwidth to fix this */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissed as no bandwidth</h3>
+    <VariantSection label="Dismissed as no bandwidth">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -390,15 +343,14 @@ export const EventDismissed = () => (
           <Timeline.Body>
             <UserActor />
             {'dismissed this as no bandwidth to fix this '}
-            <Time date="2022-08-02T14:10:00Z" />
+            <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Manual — vulnerable code is not actually used */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissed as not used</h3>
+    <VariantSection label="Dismissed as not used">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -407,15 +359,14 @@ export const EventDismissed = () => (
           <Timeline.Body>
             <UserActor />
             {'dismissed this as vulnerable code is not actually used '}
-            <Time date="2022-08-02T14:10:00Z" />
+            <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Manual — inaccurate */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissed as inaccurate</h3>
+    <VariantSection label="Dismissed as inaccurate">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -424,15 +375,14 @@ export const EventDismissed = () => (
           <Timeline.Body>
             <UserActor />
             {'dismissed this as inaccurate '}
-            <Time date="2022-08-02T14:10:00Z" />
+            <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Auto — rule-based, no source (with optional rule comment) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Auto-dismissed by alert rule</h3>
+    <VariantSection label="Auto-dismissed by alert rule">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -441,7 +391,7 @@ export const EventDismissed = () => (
           <Timeline.Body>
             <DependabotActor />
             {'dismissed this due to an alert rule '}
-            <Time date="2022-08-03T08:00:00Z" />
+            <MutedTime date={new Date('2022-08-03T08:00:00Z')} />
             <NoteComment>
               {'Rule created and '}
               <Link href="#" inline>
@@ -452,11 +402,10 @@ export const EventDismissed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Auto — from a pull request */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Auto-dismissed from pull request</h3>
+    <VariantSection label="Auto-dismissed from pull request">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -465,18 +414,14 @@ export const EventDismissed = () => (
           <Timeline.Body>
             <DependabotActor />
             {'dismissed this due to an alert rule from '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              #123
-            </Link>{' '}
-            <Time date="2022-08-03T08:00:00Z" />
+            <BoldLink href="#">#123</BoldLink> <MutedTime date={new Date('2022-08-03T08:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Auto — from a push */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Auto-dismissed from push</h3>
+    <VariantSection label="Auto-dismissed from push">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -485,11 +430,11 @@ export const EventDismissed = () => (
           <Timeline.Body>
             <DependabotActor />
             {'dismissed this due to an alert rule from '}
-            <PushPill sha="adfc29a" /> <Time date="2022-08-03T08:00:00Z" />
+            <PushPill sha="adfc29a" /> <MutedTime date={new Date('2022-08-03T08:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -505,8 +450,7 @@ export const EventDismissed = () => (
 export const EventReopened = () => (
   <Examples>
     {/* Manual reopen — user actor */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reopened</h3>
+    <VariantSection label="Reopened">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -515,15 +459,14 @@ export const EventReopened = () => (
           <Timeline.Body>
             <UserActor />
             {'reopened this '}
-            <Time date="2022-08-04T10:15:00Z" />
+            <MutedTime date={new Date('2022-08-04T10:15:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Reintroduced — no source */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reintroduced</h3>
+    <VariantSection label="Reintroduced">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -532,15 +475,14 @@ export const EventReopened = () => (
           <Timeline.Body>
             <DependabotActor />
             {'reopened this '}
-            <Time date="2022-08-05T11:00:00Z" />
+            <MutedTime date={new Date('2022-08-05T11:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Reintroduced — from a pull request */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reintroduced from pull request</h3>
+    <VariantSection label="Reintroduced from pull request">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -549,18 +491,14 @@ export const EventReopened = () => (
           <Timeline.Body>
             <DependabotActor />
             {'reopened this from '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              #123
-            </Link>{' '}
-            <Time date="2022-08-05T11:00:00Z" />
+            <BoldLink href="#">#123</BoldLink> <MutedTime date={new Date('2022-08-05T11:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Reintroduced — from a push */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reintroduced from push</h3>
+    <VariantSection label="Reintroduced from push">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -569,15 +507,14 @@ export const EventReopened = () => (
           <Timeline.Body>
             <DependabotActor />
             {'reopened this from '}
-            <PushPill sha="adfc29a" /> <Time date="2022-08-05T11:00:00Z" />
+            <PushPill sha="adfc29a" /> <MutedTime date={new Date('2022-08-05T11:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Auto-reopened — rule change (with optional rule comment) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Auto-reopened by rule change</h3>
+    <VariantSection label="Auto-reopened by rule change">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -586,7 +523,7 @@ export const EventReopened = () => (
           <Timeline.Body>
             <DependabotActor />
             {'reopened this '}
-            <Time date="2022-08-06T09:45:00Z" />
+            <MutedTime date={new Date('2022-08-06T09:45:00Z')} />
             <NoteComment>
               {'Rule disabled: '}
               <Link href="#" inline>
@@ -596,7 +533,7 @@ export const EventReopened = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -632,8 +569,7 @@ export const EventDismissalRequest = () => (
         SINGLE small primary "Review request" button that opens a review dialog
         (the approve/deny choice lives inside the dialog, not on the row). We
         place that right-aligned control in the `Timeline.Actions` slot. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal requested</h3>
+    <VariantSection label="Dismissal requested">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -642,7 +578,7 @@ export const EventDismissalRequest = () => (
           <Timeline.Body>
             <UserActor />
             {'requested to dismiss this as '}
-            <strong>Tolerable risk</strong> <Time date="2022-08-07T13:20:00Z" />
+            <strong>Tolerable risk</strong> <MutedTime date={new Date('2022-08-07T13:20:00Z')} />
             <NoteComment>This dependency is only used in our test tooling, so the risk is acceptable.</NoteComment>
           </Timeline.Body>
           <Timeline.Actions>
@@ -652,11 +588,10 @@ export const EventDismissalRequest = () => (
           </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Dismissal approved — circle user actor, success/check badge */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal approved</h3>
+    <VariantSection label="Dismissal approved">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -665,16 +600,15 @@ export const EventDismissalRequest = () => (
           <Timeline.Body>
             <UserActor />
             {'approved dismissal '}
-            <Time date="2022-08-08T10:05:00Z" />
+            <MutedTime date={new Date('2022-08-08T10:05:00Z')} />
             <NoteComment>Confirmed this dependency is dev-only — approving the dismissal.</NoteComment>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Dismissal denied — circle user actor, danger/x badge */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal denied</h3>
+    <VariantSection label="Dismissal denied">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -683,17 +617,16 @@ export const EventDismissalRequest = () => (
           <Timeline.Body>
             <UserActor />
             {'denied dismissal '}
-            <Time date="2022-08-08T15:40:00Z" />
+            <MutedTime date={new Date('2022-08-08T15:40:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Dismissal cancelled — circle user actor, plain default (subtle) x badge.
         `DismissalCancelledComponent` renders `with_badge(color: :subtle, icon:
         "x")` (no bg) → a bare default badge, not a danger/emphasis one. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal cancelled</h3>
+    <VariantSection label="Dismissal cancelled">
       <Timeline aria-label="Dependabot alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -702,10 +635,10 @@ export const EventDismissalRequest = () => (
           <Timeline.Body>
             <UserActor />
             {'cancelled their dismissal request '}
-            <Time date="2022-08-09T09:00:00Z" />
+            <MutedTime date={new Date('2022-08-09T09:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )

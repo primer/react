@@ -1,61 +1,9 @@
-.RealisticTimeline {
-  /* GitHub renders the timeline at most 1012px wide in product surfaces. */
-  max-width: 1012px;
-}
-
-/* Story-only scaffolding: each variant is wrapped in its own <section> with a
-   small caption heading ABOVE the event, so the event row itself (badge +
-   inline avatar + body) renders exactly as it would in product — the caption
-   never sits inside Timeline.Body. Variants stay scannable like a Figma
-   component set. Not part of the faithful event. */
-.Variant {
-  margin-bottom: var(--base-size-24);
-}
-
-.VariantLabel {
-  margin: 0 0 var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-/* Inline 20px-ish actor avatar in the body. The Dependabot actor renders a
-   SQUARE avatar (live ERB `ActorComponent` uses `GitHub::AvatarComponent` with
-   `is_user: false` → square, the bundled `dependabot-icon.png`). */
-.InlineAvatar {
-  vertical-align: middle;
-  margin-right: var(--base-size-4);
-}
-
-/* Bold actor / reference link: live ERB renders these via
-   `Primer::Beta::Link.new(scheme: :primary, font_weight: :bold)` — semibold,
-   default foreground, accent on hover. Used for the bold `dependabot` actor
-   link and the bold `#123` pull-request link. */
-.LinkWithBoldStyle {
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
-  margin-right: var(--base-size-4);
-}
-
-.LinkWithBoldStyle:hover {
-  color: var(--fgColor-accent);
-}
-
 /* `(bot)` identifier tag. Live ERB `bot_identifier_tag` renders
    `<span class="Label Label--secondary">bot</span>`; mirrored here with Primer
    `Label variant="secondary"`. This class only adds inline spacing. */
 .BotLabel {
   margin: 0 var(--base-size-4) 0 0;
   vertical-align: middle;
-}
-
-/* Muted relative timestamp. Unlike the Issues timeline (whose `Ago` renders a
-   muted UNDERLINED deep-link), the Dependabot ERB renders a plain
-   `Primer::Beta::RelativeTime` with no link wrapper — muted text only. */
-.Timestamp {
-  color: var(--fgColor-muted);
 }
 
 /* Push-pill: the `(push-pill: SHA)` SUBTLE light-blue rounded pill from
