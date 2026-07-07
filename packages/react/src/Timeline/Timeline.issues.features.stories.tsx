@@ -33,7 +33,6 @@ import {
   TypographyIcon,
   UnlockIcon,
 } from '@primer/octicons-react'
-import Avatar from '../Avatar'
 import {Button} from '../Button'
 import Label from '../Label'
 import Link from '../Link'
@@ -41,6 +40,7 @@ import Octicon from '../Octicon'
 import RelativeTime from '../RelativeTime'
 import Token from '../Token'
 import classes from './Timeline.issues.features.stories.module.css'
+import {BoldLink, Examples, InlineAvatar, VariantSection} from './internal/timelineStoryHelpers'
 
 /**
  * Issue Timeline event examples (Phase 2 of github/primer#6663).
@@ -88,10 +88,10 @@ const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
 // (packages/timeline-items/components/row/EventActor.tsx) inline-avatar mode.
 const Actor = () => (
   <>
-    <Avatar src={MONALISA_AVATAR} size={20} alt="" className={classes.InlineAvatar} />
-    <Link href="#" className={classes.LinkWithBoldStyle} muted>
+    <InlineAvatar src={MONALISA_AVATAR} />
+    <BoldLink href="#" muted>
       monalisa
-    </Link>
+    </BoldLink>
   </>
 )
 
@@ -100,30 +100,6 @@ const Time = ({date}: {date: string}) => (
   <Link href="#" className={classes.Timestamp} muted>
     <RelativeTime date={new Date(date)} format="relative" />
   </Link>
-)
-
-// Shared wrapper for every event-group story. Renders the realistic timeline
-// surface and applies two story-only a11y/UX shims:
-//  - `data-a11y-link-underlines="true"`: Primer gates the inline-link underline
-//    on this ancestor attribute, which GitHub sets from the default-on "Show
-//    link underlines" user preference. Storybook never sets it, so without this
-//    the in-text `<Link inline>` links would render color-only (WCAG 1.4.1).
-//    Actor-name links use `<Link className={ActorName}>` WITHOUT `inline`, so
-//    they don't match the `[data-inline='true']` selector and stay un-underlined
-//    (avatar + semibold remain their cue).
-//  - onClick guard: prevents the placeholder `href="#"` links from navigating
-//    inside Storybook. Uses `instanceof Element` so a click on an SVG/octicon
-//    target (no `.closest`) doesn't throw.
-const Examples = ({children}: {children: React.ReactNode}) => (
-  <div
-    className={classes.RealisticTimeline}
-    data-a11y-link-underlines="true"
-    onClick={e => {
-      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
-    }}
-  >
-    {children}
-  </div>
 )
 
 export default {
@@ -161,8 +137,7 @@ export default {
 export const EventClosed = () => (
   <Examples>
     {/* Closed as completed */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as completed</h3>
+    <VariantSection label="Closed as completed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -178,13 +153,12 @@ export const EventClosed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Not planned — neutral (gray) badge. Timeline.Badge has no `neutral`
           variant, so drive the documented `--timelineBadge-bgColor` hook inline
           (portable for docs copy-paste; matches production `TimelineRow`). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as not planned</h3>
+    <VariantSection label="Closed as not planned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge
@@ -207,11 +181,10 @@ export const EventClosed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed via pull request */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed via pull request</h3>
+    <VariantSection label="Closed via pull request">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -224,18 +197,14 @@ export const EventClosed = () => (
               completed
             </Link>
             {' in '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              #123
-            </Link>{' '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <BoldLink href="#">#123</BoldLink> <Time date="2022-07-24T16:40:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed via commit */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed via commit</h3>
+    <VariantSection label="Closed via commit">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -255,13 +224,12 @@ export const EventClosed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed via project (ProjectV2 status change). github-ui composes
           the closer link as TableIcon + project title; there is no Primer
           equivalent for github-ui's `ProjectV2` closer link. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed via project</h3>
+    <VariantSection label="Closed via project">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -275,20 +243,16 @@ export const EventClosed = () => (
             </Link>
             {' by moving to Done in '}
             <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              Roadmap
-            </Link>{' '}
-            <Time date="2022-07-22T14:20:00Z" />
+            <BoldLink href="#">Roadmap</BoldLink> <Time date="2022-07-22T14:20:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as duplicate — neutral (gray) badge (see note above). github-ui
           renders an `IssueLink` (state icon + title + #number + hovercard);
           composed here from Primer primitives. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as duplicate</h3>
+    <VariantSection label="Closed as duplicate">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge
@@ -317,11 +281,10 @@ export const EventClosed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed with no state reason */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed (no reason)</h3>
+    <VariantSection label="Closed (no reason)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -334,7 +297,7 @@ export const EventClosed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -349,8 +312,7 @@ export const EventClosed = () => (
 export const EventState = () => (
   <Examples>
     {/* Reopened — open (green) badge via useIssueState (ReopenedEvent.tsx) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reopened</h3>
+    <VariantSection label="Reopened">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge variant="open">
@@ -363,12 +325,11 @@ export const EventState = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Transferred — github-ui's TransferredEvent renders the source repo as a
           plain inline Link (the audit shows it bold; live code is canonical). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Transferred</h3>
+    <VariantSection label="Transferred">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -384,11 +345,10 @@ export const EventState = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Pinned */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Pinned</h3>
+    <VariantSection label="Pinned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -401,11 +361,10 @@ export const EventState = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unpinned */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Unpinned</h3>
+    <VariantSection label="Unpinned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -418,12 +377,11 @@ export const EventState = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Converted to discussion — github-ui's ConvertedToDiscussionEvent links
           the resulting discussion by number. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Converted to discussion</h3>
+    <VariantSection label="Converted to discussion">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -432,18 +390,14 @@ export const EventState = () => (
           <Timeline.Body>
             <Actor />
             {'converted this issue into a discussion '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              #123
-            </Link>{' '}
-            <Time date="2022-07-22T14:20:00Z" />
+            <BoldLink href="#">#123</BoldLink> <Time date="2022-07-22T14:20:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Converted from draft */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Converted from draft</h3>
+    <VariantSection label="Converted from draft">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -456,7 +410,7 @@ export const EventState = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -472,8 +426,7 @@ export const EventReferences = () => (
   <Examples>
     {/* Linked pull request — ConnectedEvent.tsx (CrossReferenceIcon badge,
           open PR state icon inline before the PR title). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Linked pull request</h3>
+    <VariantSection label="Linked pull request">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -483,14 +436,12 @@ export const EventReferences = () => (
             <Actor />
             {'linked a pull request that will close this issue '}
             <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              Add retry logic to the uploader
-            </Link>
+            <BoldLink href="#">Add retry logic to the uploader</BoldLink>
             <span className={classes.IssueLinkNumber}>#42</span> <Time date="2022-07-26T11:46:07Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unlinked pull request — DisconnectedEvent.tsx uses the PR state icon AS
           the badge icon (leadingIcon={PullStateIcon}), so the badge octicon is
@@ -498,8 +449,7 @@ export const EventReferences = () => (
           active (in TIMELINE_ITEMS[__typename], current useIssueState hook,
           story fixture is an OPEN PR) — the Figma audit's gray cross-reference
           icon is behind the live code here. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Unlinked pull request</h3>
+    <VariantSection label="Unlinked pull request">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -509,19 +459,16 @@ export const EventReferences = () => (
             <Actor />
             {'removed a link to a pull request '}
             <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              Add retry logic to the uploader
-            </Link>
+            <BoldLink href="#">Add retry logic to the uploader</BoldLink>
             <span className={classes.IssueLinkNumber}>#42</span> <Time date="2022-07-25T09:12:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Single commit reference — ReferencedEvent.tsx. The timestamp renders
           inline (showAgoTimestamp={false}) and the commit card is sub-content. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Single commit reference</h3>
+    <VariantSection label="Single commit reference">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -549,11 +496,10 @@ export const EventReferences = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Multiple commit references — same event, pluralized copy + N cards. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Multiple commit references</h3>
+    <VariantSection label="Multiple commit references">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -592,7 +538,7 @@ export const EventReferences = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -609,8 +555,7 @@ export const EventDuplicates = () => (
     {/* Marked this as a duplicate of <canonical>. Right-controls "Undo" button
           (viewerCanUndo) → Timeline.Actions. The canonical issue is open, so its
           IssueLink uses the open (green) state icon. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Marked as duplicate</h3>
+    <VariantSection label="Marked as duplicate">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -631,11 +576,10 @@ export const EventDuplicates = () => (
           </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Marked <canonical> as a duplicate of this issue — no right controls. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Marked as canonical</h3>
+    <VariantSection label="Marked as canonical">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -654,11 +598,10 @@ export const EventDuplicates = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unmarked this as a duplicate of <canonical>. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Unmarked as duplicate</h3>
+    <VariantSection label="Unmarked as duplicate">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -676,11 +619,10 @@ export const EventDuplicates = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unmarked <canonical> as a duplicate of this issue. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Unmarked as canonical</h3>
+    <VariantSection label="Unmarked as canonical">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -699,7 +641,7 @@ export const EventDuplicates = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -713,8 +655,7 @@ export const EventDuplicates = () => (
 export const EventModeration = () => (
   <Examples>
     {/* User blocked (permanent) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>User blocked</h3>
+    <VariantSection label="User blocked">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -723,18 +664,14 @@ export const EventModeration = () => (
           <Timeline.Body>
             <Actor />
             {'blocked '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              six7
-            </Link>{' '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <BoldLink href="#">six7</BoldLink> <Time date="2022-07-26T11:46:07Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* User temporarily blocked */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>User temporarily blocked</h3>
+    <VariantSection label="User temporarily blocked">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -743,18 +680,14 @@ export const EventModeration = () => (
           <Timeline.Body>
             <Actor />
             {'temporarily blocked '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              six7
-            </Link>{' '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <BoldLink href="#">six7</BoldLink> <Time date="2022-07-25T09:12:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Comment pinned — IssueCommentPinnedEvent.tsx links the pinned comment. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Comment pinned</h3>
+    <VariantSection label="Comment pinned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -770,11 +703,10 @@ export const EventModeration = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Comment unpinned */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Comment unpinned</h3>
+    <VariantSection label="Comment unpinned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -790,7 +722,7 @@ export const EventModeration = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -805,8 +737,7 @@ export const EventModeration = () => (
 export const EventIssueTypes = () => (
   <Examples>
     {/* Type added */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Issue type added</h3>
+    <VariantSection label="Issue type added">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -833,11 +764,10 @@ export const EventIssueTypes = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Type removed */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Issue type removed</h3>
+    <VariantSection label="Issue type removed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -864,11 +794,10 @@ export const EventIssueTypes = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Type changed */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Issue type changed</h3>
+    <VariantSection label="Issue type changed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -908,7 +837,7 @@ export const EventIssueTypes = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -928,8 +857,7 @@ export const EventIssueTypes = () => (
 export const EventIssueHierarchy = () => (
   <Examples>
     {/* Sub-issue added (single) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Sub-issue added (single)</h3>
+    <VariantSection label="Sub-issue added (single)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -951,11 +879,10 @@ export const EventIssueHierarchy = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Sub-issue added (multiple) — plural copy + N reference rows */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Sub-issues added (multiple)</h3>
+    <VariantSection label="Sub-issues added (multiple)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -984,11 +911,10 @@ export const EventIssueHierarchy = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Sub-issue removed (single) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Sub-issue removed (single)</h3>
+    <VariantSection label="Sub-issue removed (single)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1010,11 +936,10 @@ export const EventIssueHierarchy = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Sub-issues removed (multiple) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Sub-issues removed (multiple)</h3>
+    <VariantSection label="Sub-issues removed (multiple)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1043,11 +968,10 @@ export const EventIssueHierarchy = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Parent issue added (single) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Parent issue added (single)</h3>
+    <VariantSection label="Parent issue added (single)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1069,11 +993,10 @@ export const EventIssueHierarchy = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Parent issues added (multiple) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Parent issues added (multiple)</h3>
+    <VariantSection label="Parent issues added (multiple)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1102,11 +1025,10 @@ export const EventIssueHierarchy = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Parent issue removed (single) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Parent issue removed (single)</h3>
+    <VariantSection label="Parent issue removed (single)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1128,11 +1050,10 @@ export const EventIssueHierarchy = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Parent issues removed (multiple) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Parent issues removed (multiple)</h3>
+    <VariantSection label="Parent issues removed (multiple)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1161,7 +1082,7 @@ export const EventIssueHierarchy = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -1180,8 +1101,7 @@ export const EventIssueHierarchy = () => (
 export const EventDependencies = () => (
   <Examples>
     {/* Blocked by (single) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Blocked by (single)</h3>
+    <VariantSection label="Blocked by (single)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1203,11 +1123,10 @@ export const EventDependencies = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Blocked by (multiple) — count in copy + N rows */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Blocked by (multiple)</h3>
+    <VariantSection label="Blocked by (multiple)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1236,11 +1155,10 @@ export const EventDependencies = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Blocked by removed (single) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Blocked by removed (single)</h3>
+    <VariantSection label="Blocked by removed (single)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1262,11 +1180,10 @@ export const EventDependencies = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Blocked by removed (multiple) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Blocked by removed (multiple)</h3>
+    <VariantSection label="Blocked by removed (multiple)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1295,11 +1212,10 @@ export const EventDependencies = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Blocking (single) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Blocking (single)</h3>
+    <VariantSection label="Blocking (single)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1321,11 +1237,10 @@ export const EventDependencies = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Blocking (multiple) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Blocking (multiple)</h3>
+    <VariantSection label="Blocking (multiple)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1354,11 +1269,10 @@ export const EventDependencies = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Blocking removed (single) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Blocking removed (single)</h3>
+    <VariantSection label="Blocking removed (single)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1380,11 +1294,10 @@ export const EventDependencies = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Blocking removed (multiple) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Blocking removed (multiple)</h3>
+    <VariantSection label="Blocking removed (multiple)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1413,7 +1326,7 @@ export const EventDependencies = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -1436,8 +1349,7 @@ export const EventDependencies = () => (
 export const EventIssueFields = () => (
   <Examples>
     {/* Set text field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Set · text</h3>
+    <VariantSection label="Set · text">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1455,11 +1367,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Set number field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Set · number</h3>
+    <VariantSection label="Set · number">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1477,11 +1388,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Set date field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Set · date</h3>
+    <VariantSection label="Set · date">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1499,11 +1409,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Set single-select field — value is a colored token */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Set · single select</h3>
+    <VariantSection label="Set · single select">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1534,11 +1443,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Changed text field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Changed · text</h3>
+    <VariantSection label="Changed · text">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1556,11 +1464,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Changed number field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Changed · number</h3>
+    <VariantSection label="Changed · number">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1578,11 +1485,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Changed date field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Changed · date</h3>
+    <VariantSection label="Changed · date">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1600,11 +1506,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Changed single-select field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Changed · single select</h3>
+    <VariantSection label="Changed · single select">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1632,11 +1537,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Cleared text field — no value */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Cleared · text</h3>
+    <VariantSection label="Cleared · text">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1649,11 +1553,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Cleared number field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Cleared · number</h3>
+    <VariantSection label="Cleared · number">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1666,11 +1569,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Cleared date field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Cleared · date</h3>
+    <VariantSection label="Cleared · date">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1683,11 +1585,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Cleared single-select field */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Cleared · single select</h3>
+    <VariantSection label="Cleared · single select">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1700,11 +1601,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Rollup: updated only — multiple field updates collapsed into one row */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Rollup · updated</h3>
+    <VariantSection label="Rollup · updated">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1726,11 +1626,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Rollup: removed only */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Rollup · removed</h3>
+    <VariantSection label="Rollup · removed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1745,11 +1644,10 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Rollup: updated and also removed — combined row joined by "and also" */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Rollup · updated and removed</h3>
+    <VariantSection label="Rollup · updated and removed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1767,7 +1665,7 @@ export const EventIssueFields = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -1800,8 +1698,7 @@ export const EventIssueFields = () => (
 export const EventProject = () => (
   <Examples>
     {/* Added to project */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Added to project</h3>
+    <VariantSection label="Added to project">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1819,11 +1716,10 @@ export const EventProject = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Removed from project */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Removed from project</h3>
+    <VariantSection label="Removed from project">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1840,15 +1736,14 @@ export const EventProject = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Project status changed. Two forms per live
         `ProjectV2ItemStatusChangedEvent.tsx`: with no previous status,
         "moved this to {status} in {project}"; with a previous status,
         "moved this from {previousStatus} to {status} in {project}". Status
         strings are PLAIN TEXT (not bold). Both forms shown under one caption. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Project status changed</h3>
+    <VariantSection label="Project status changed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1879,7 +1774,7 @@ export const EventProject = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -1902,8 +1797,7 @@ export const EventProject = () => (
 export const EventLabels = () => (
   <Examples>
     {/* Label added */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Label added</h3>
+    <VariantSection label="Label added">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1929,11 +1823,10 @@ export const EventLabels = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Label removed */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Label removed</h3>
+    <VariantSection label="Label removed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -1959,12 +1852,11 @@ export const EventLabels = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Added + removed (rollup) — RolledupLabeledEvent joins both renderings
         with "and" between them. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Labels added and removed</h3>
+    <VariantSection label="Labels added and removed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2004,7 +1896,7 @@ export const EventLabels = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -2024,8 +1916,7 @@ export const EventLabels = () => (
 export const EventTitle = () => (
   <Examples>
     {/* Title changed */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Title changed</h3>
+    <VariantSection label="Title changed">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2038,7 +1929,7 @@ export const EventTitle = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -2059,8 +1950,7 @@ export const EventTitle = () => (
 export const EventMilestones = () => (
   <Examples>
     {/* Added to milestone */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Added to milestone</h3>
+    <VariantSection label="Added to milestone">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2077,11 +1967,10 @@ export const EventMilestones = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Removed from milestone */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Removed from milestone</h3>
+    <VariantSection label="Removed from milestone">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2098,7 +1987,7 @@ export const EventMilestones = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -2120,8 +2009,7 @@ export const EventMilestones = () => (
 export const EventAssignments = () => (
   <Examples>
     {/* Self-assigned */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Self-assigned</h3>
+    <VariantSection label="Self-assigned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2134,11 +2022,10 @@ export const EventAssignments = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Assigned someone else — assignee is a bold link, no avatar. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Assigned</h3>
+    <VariantSection label="Assigned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2147,18 +2034,14 @@ export const EventAssignments = () => (
           <Timeline.Body>
             <Actor />
             {'assigned '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              hubot
-            </Link>{' '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <BoldLink href="#">hubot</BoldLink> <Time date="2022-07-25T09:12:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Assigned multiple — joined with "and". */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Assigned multiple</h3>
+    <VariantSection label="Assigned multiple">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2167,22 +2050,16 @@ export const EventAssignments = () => (
           <Timeline.Body>
             <Actor />
             {'assigned '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              hubot
-            </Link>
+            <BoldLink href="#">hubot</BoldLink>
             {' and '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              octocat
-            </Link>{' '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <BoldLink href="#">octocat</BoldLink> <Time date="2022-07-24T16:40:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Self-unassigned */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Self-unassigned</h3>
+    <VariantSection label="Self-unassigned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2195,11 +2072,10 @@ export const EventAssignments = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unassigned someone else */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Unassigned</h3>
+    <VariantSection label="Unassigned">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2208,18 +2084,14 @@ export const EventAssignments = () => (
           <Timeline.Body>
             <Actor />
             {'unassigned '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              hubot
-            </Link>{' '}
-            <Time date="2022-07-22T14:20:00Z" />
+            <BoldLink href="#">hubot</BoldLink> <Time date="2022-07-22T14:20:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unassigned multiple — joined with "and". */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Unassigned multiple</h3>
+    <VariantSection label="Unassigned multiple">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2228,18 +2100,13 @@ export const EventAssignments = () => (
           <Timeline.Body>
             <Actor />
             {'unassigned '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              hubot
-            </Link>
+            <BoldLink href="#">hubot</BoldLink>
             {' and '}
-            <Link href="#" className={classes.LinkWithBoldStyle}>
-              octocat
-            </Link>{' '}
-            <Time date="2022-07-21T08:30:00Z" />
+            <BoldLink href="#">octocat</BoldLink> <Time date="2022-07-21T08:30:00Z" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -2261,8 +2128,7 @@ export const EventLockUnlock = () => (
   <Examples>
     {/* Locked with reason — one row per reason (off topic / resolved / spam /
         too heated). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Locked (with reason)</h3>
+    <VariantSection label="Locked (with reason)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2305,11 +2171,10 @@ export const EventLockUnlock = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Locked (no reason) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Locked (no reason)</h3>
+    <VariantSection label="Locked (no reason)">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2322,11 +2187,10 @@ export const EventLockUnlock = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unlocked — UnlockIcon badge (not LockIcon). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Unlocked</h3>
+    <VariantSection label="Unlocked">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2339,7 +2203,7 @@ export const EventLockUnlock = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -2357,8 +2221,7 @@ export const EventLockUnlock = () => (
 export const EventCommentDeleted = () => (
   <Examples>
     {/* Comment deleted */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Comment deleted</h3>
+    <VariantSection label="Comment deleted">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2374,7 +2237,7 @@ export const EventCommentDeleted = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -2396,8 +2259,7 @@ export const EventCommentDeleted = () => (
 export const EventCrossReferences = () => (
   <Examples>
     {/* Mentioned from an issue */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Mentioned in an issue</h3>
+    <VariantSection label="Mentioned in an issue">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2419,11 +2281,10 @@ export const EventCrossReferences = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Mentioned from a pull request */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Mentioned in a pull request</h3>
+    <VariantSection label="Mentioned in a pull request">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2445,11 +2306,10 @@ export const EventCrossReferences = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Linked a closing pull request */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Linked a closing pull request</h3>
+    <VariantSection label="Linked a closing pull request">
       <Timeline aria-label="Issue timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -2471,6 +2331,6 @@ export const EventCrossReferences = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
