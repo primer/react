@@ -119,12 +119,17 @@ type CommentCardProps = {
   /** Show the reactions footer. */
   reactions?: boolean
   /**
-   * Inline-avatar (compact) form: no 40px left-gutter avatar; instead a ~24px avatar
-   * sits inline in the header before the author, the header reads "{author} commented
-   * {time}", and the body spans full width with no gutter indent or speech-bubble caret.
-   * This is BOTH the new Issues `issue_inline_avatars` rendering (github-ui
-   * `ActivityHeader` `forceInlineAvatar` branch) AND the responsive narrow-viewport form
-   * for all comments (`avatarHiddenOnMedium` hides the gutter avatar on small widths).
+   * ALWAYS-inline (compact) form: no 40px left-gutter avatar at any width; instead a
+   * ~24px avatar sits inline in the header before the author, the header reads
+   * "{author} commented {time}", and the body spans full width with no gutter indent or
+   * speech-bubble caret. This is the new Issues `issue_inline_avatars` rendering
+   * (github-ui `ActivityHeader` `forceInlineAvatar` branch).
+   *
+   * NOTE: the DEFAULT (large-gutter) cards ALSO collapse to this exact form below 768px
+   * responsively (see the `.CommentsRoot` container query in the CSS module) — that is
+   * the live narrow-viewport behavior (`.avatarHiddenOnMedium` +
+   * `.nonLeadingElement`'s 56px indent only inside `@container (min-width: 768px)`).
+   * This prop forces the compact form at all widths for the dedicated demo section.
    */
   inlineAvatar?: boolean
   /**
@@ -161,97 +166,135 @@ const CommentCard = ({
   inlineAvatar = false,
   isReply = false,
   children,
-}: CommentCardProps) => (
-  <Timeline.Item>
-    {!isReply && !inlineAvatar && (
-      <Timeline.Avatar className={classes.GutterAvatar}>
-        {AvatarIcon ? (
-          <span
-            className={clsx(
-              classes.OcticonAvatar,
-              avatarIconShape === 'square' && classes.OcticonAvatarSquare,
-              avatarIconTone === 'accent' && classes.OcticonAvatarAccent,
-            )}
-          >
-            <AvatarIcon size={24} />
-          </span>
-        ) : (
-          <span className={appAvatar ? classes.AvatarParent : undefined}>
-            <Avatar size={40} src={avatarSrc ?? ''} square={avatarShape === 'square'} alt="" />
-            {appAvatar ? (
-              // Parent-child avatar: the small app avatar overlaps the bottom-right of
-              // the large avatar. Primer's `.avatar-child` has a long-standing asymmetric
-              // offset (right: -15% / bottom: -9%) and a translucent white shadow; we
-              // deliberately reconstruct it with a SYMMETRIC offset and an opaque ring so
-              // the badge sits cleanly in the corner (github/github#439417).
-              <img className={classes.AppAvatarChild} src={appAvatar.src} alt={appAvatar.alt} />
-            ) : null}
-          </span>
-        )}
-      </Timeline.Avatar>
-    )}
-    <div className={clsx(classes.Card, inlineAvatar && classes.CardInline, isReply && classes.CardReply)}>
-      <div className={classes.CardHeader}>
-        <div className={classes.HeaderText}>
-          {/* Inline-avatar form: a ~24px avatar sits inline in the header before the
-              author (github-ui `ActivityHeader` forceInlineAvatar / DefaultAvatar
-              size={24}), reusing the shared InlineAvatar helper. */}
-          {inlineAvatar ? <InlineAvatar src={avatarSrc ?? ''} size={24} /> : null}
-          {/* Bold (not just muted) keeps the author link above the high-contrast axe
-              threshold per the a11y in-text-link rule. */}
-          <Link href={authorHref} className={classes.AuthorLink} muted>
-            {authorName}
-          </Link>
-          {badgeLabel ? (
-            <Label variant="secondary" aria-label={badgeAriaLabel}>
-              {badgeLabel}
-            </Label>
-          ) : null}
-          {associationLabel ? (
-            <Label variant="secondary" aria-label={associationAriaLabel}>
-              {associationLabel}
-            </Label>
-          ) : null}
-          {/* The inline/compact header reads "{author} commented {time}", matching the
-              live forceInlineAvatar header phrasing. */}
-          {inlineAvatar ? <span className={classes.CommentedVerb}>commented</span> : null}
-          <span className={classes.TimestampLine}>
-            {/* Muted + underlined keeps this muted permalink high-contrast accessible. */}
-            <Link href="#" className={classes.Timestamp} muted>
-              <RelativeTime date={new Date(timestamp)} format="relative" />
-            </Link>
-            {viaApp ? (
-              <>
-                {' – with '}
-                {/* `inline` (underline) satisfies the a11y in-text-link rule. */}
-                <Link href={viaApp.href ?? '#'} inline>
-                  {viaApp.name}
-                </Link>
-              </>
-            ) : null}
-          </span>
-        </div>
-        <div className={classes.CardActions}>
-          <IconButton icon={KebabHorizontalIcon} aria-label="Comment actions" variant="invisible" size="small" />
-        </div>
-      </div>
-      <div className={classes.CardBody}>{children}</div>
-      {reactions ? (
-        <div className={classes.Reactions}>
-          <button type="button" className={classes.Reaction} aria-label="👍 3 reactions">
-            <span aria-hidden="true">👍</span>
-            <span className={classes.ReactionCount}>3</span>
-          </button>
-          <button type="button" className={classes.Reaction} aria-label="🎉 1 reaction">
-            <span aria-hidden="true">🎉</span>
-            <span className={classes.ReactionCount}>1</span>
-          </button>
-          <IconButton icon={SmileyIcon} aria-label="Add reaction" variant="invisible" size="small" />
-        </div>
+}: CommentCardProps) => {
+  // A large-gutter card that responsively COLLAPSES to the inline form below 768px
+  // (both avatars are in the DOM; CSS toggles them via a container query, mirroring
+  // live github-ui). The always-inline compact demo (`inlineAvatar`) and threaded
+  // replies (`isReply`) are not responsive.
+  const isResponsive = !isReply && !inlineAvatar
+  // Whether an inline header avatar + "commented" verb is present: for the
+  // always-inline demo (shown at all widths) and for responsive cards (shown only
+  // <768px via CSS). Threaded replies have no avatar.
+  const hasInlineHeader = !isReply
+
+  // The 40px gutter avatar (octicon actor, or photo, optionally with an app badge).
+  const gutterAvatarNode = AvatarIcon ? (
+    <span
+      className={clsx(
+        classes.OcticonAvatar,
+        avatarIconShape === 'square' && classes.OcticonAvatarSquare,
+        avatarIconTone === 'accent' && classes.OcticonAvatarAccent,
+      )}
+    >
+      <AvatarIcon size={24} />
+    </span>
+  ) : (
+    <span className={appAvatar ? classes.AvatarParent : undefined}>
+      <Avatar size={40} src={avatarSrc ?? ''} square={avatarShape === 'square'} alt="" />
+      {appAvatar ? (
+        // Parent-child avatar: the small app avatar overlaps the bottom-right of
+        // the large avatar. Primer's `.avatar-child` has a long-standing asymmetric
+        // offset (right: -15% / bottom: -9%) and a translucent white shadow; we
+        // deliberately reconstruct it with a SYMMETRIC offset and an opaque ring so
+        // the badge sits cleanly in the corner (github/github#439417).
+        <img className={classes.AppAvatarChild} src={appAvatar.src} alt={appAvatar.alt} />
       ) : null}
-    </div>
-  </Timeline.Item>
-)
+    </span>
+  )
+
+  // The ~24px inline header avatar mirroring the actor (octicon actors keep their
+  // octicon; everyone else uses the shared 24px photo InlineAvatar).
+  const inlineAvatarNode = AvatarIcon ? (
+    <span
+      className={clsx(
+        classes.InlineHeaderAvatar,
+        classes.InlineOcticonAvatar,
+        avatarIconShape === 'square' && classes.OcticonAvatarSquare,
+        avatarIconTone === 'accent' && classes.OcticonAvatarAccent,
+      )}
+    >
+      <AvatarIcon size={16} />
+    </span>
+  ) : (
+    <InlineAvatar className={classes.InlineHeaderAvatar} src={avatarSrc ?? ''} size={24} />
+  )
+
+  return (
+    <Timeline.Item>
+      {!isReply && !inlineAvatar && (
+        <Timeline.Avatar className={classes.GutterAvatar}>{gutterAvatarNode}</Timeline.Avatar>
+      )}
+      <div
+        className={clsx(
+          classes.Card,
+          inlineAvatar && classes.CardInline,
+          isResponsive && classes.CardResponsive,
+          isReply && classes.CardReply,
+        )}
+      >
+        <div className={classes.CardHeader}>
+          <div className={classes.HeaderText}>
+            {/* Inline-avatar form: a ~24px avatar sits inline in the header before the
+                author (github-ui `ActivityHeader` forceInlineAvatar / DefaultAvatar
+                size={24}). Shown always for the compact demo, and only <768px for the
+                responsive large cards (CSS container query). */}
+            {hasInlineHeader ? inlineAvatarNode : null}
+            {/* Bold (not just muted) keeps the author link above the high-contrast axe
+                threshold per the a11y in-text-link rule. */}
+            <Link href={authorHref} className={classes.AuthorLink} muted>
+              {authorName}
+            </Link>
+            {badgeLabel ? (
+              <Label variant="secondary" aria-label={badgeAriaLabel}>
+                {badgeLabel}
+              </Label>
+            ) : null}
+            {associationLabel ? (
+              <Label variant="secondary" aria-label={associationAriaLabel}>
+                {associationLabel}
+              </Label>
+            ) : null}
+            {/* The inline/compact header reads "{author} commented {time}", matching the
+                live forceInlineAvatar header phrasing. */}
+            {hasInlineHeader ? <span className={classes.CommentedVerb}>commented</span> : null}
+            <span className={classes.TimestampLine}>
+              {/* Muted + underlined keeps this muted permalink high-contrast accessible. */}
+              <Link href="#" className={classes.Timestamp} muted>
+                <RelativeTime date={new Date(timestamp)} format="relative" />
+              </Link>
+              {viaApp ? (
+                <>
+                  {' – with '}
+                  {/* `inline` (underline) satisfies the a11y in-text-link rule. */}
+                  <Link href={viaApp.href ?? '#'} inline>
+                    {viaApp.name}
+                  </Link>
+                </>
+              ) : null}
+            </span>
+          </div>
+          <div className={classes.CardActions}>
+            <IconButton icon={KebabHorizontalIcon} aria-label="Comment actions" variant="invisible" size="small" />
+          </div>
+        </div>
+        <div className={classes.CardBody}>{children}</div>
+        {reactions ? (
+          <div className={classes.Reactions}>
+            <button type="button" className={classes.Reaction} aria-label="👍 3 reactions">
+              <span aria-hidden="true">👍</span>
+              <span className={classes.ReactionCount}>3</span>
+            </button>
+            <button type="button" className={classes.Reaction} aria-label="🎉 1 reaction">
+              <span aria-hidden="true">🎉</span>
+              <span className={classes.ReactionCount}>1</span>
+            </button>
+            <IconButton icon={SmileyIcon} aria-label="Add reaction" variant="invisible" size="small" />
+          </div>
+        ) : null}
+      </div>
+    </Timeline.Item>
+  )
+}
 
 /**
  * Story-only scaffolding: the shared captioned `VariantSection` wrapping a single
@@ -274,6 +317,10 @@ const CommentSection = ({label, children}: {label: string; children: React.React
 export const EventComment = () => (
   <RealisticTimeline>
     <div
+      // Establishes the container for the responsive collapse (see `.CommentsRoot`):
+      // the large-gutter cards below switch to the inline layout when this container
+      // is narrower than 768px, mirroring live github.com.
+      className={classes.CommentsRoot}
       // Prevent the placeholder `href="#"` links from navigating inside Storybook.
       onClick={e => {
         if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
@@ -427,7 +474,7 @@ export const EventComment = () => (
 )
 
 export default {
-  title: 'Private/Components/Timeline/Events/Comments',
+  title: 'Components/Timeline/Internal/Comments',
   component: Timeline,
   subcomponents: {
     'Timeline.Item': Timeline.Item,

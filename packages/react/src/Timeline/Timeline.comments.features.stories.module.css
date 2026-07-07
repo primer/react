@@ -1,8 +1,24 @@
-/* Reserve the ~72px gutter for the large-avatar (default) comment forms so the 40px
-   avatar (which sits left of the rail) isn't clipped. Wraps only the large-gutter
-   sections; the inline/compact section is a full-width sibling with no gutter. */
+/* Establishes the container query context for the responsive collapse. The large
+   comment cards below switch between the large-gutter form (≥768px) and the compact
+   inline form (<768px) based on THIS element's inline size — mirroring live
+   github.com, which uses a container query (`@container issueViewerContainer`), not a
+   viewport media query, at a 768px breakpoint. */
+.CommentsRoot {
+  container-type: inline-size;
+}
+
+/* Reserve the ~72px gutter for the large-avatar comment forms so the 40px avatar
+   (which sits left of the rail) isn't clipped. Only applies at ≥768px; below that the
+   cards collapse to the gutter-less inline form (live `.nonLeadingElement` only gets
+   its 56px indent inside `@container (min-width: 768px)`). */
 .GutterGroup {
-  padding-left: calc(var(--base-size-40) + var(--base-size-32));
+  padding-left: 0;
+}
+
+@container (min-width: 768px) {
+  .GutterGroup {
+    padding-left: calc(var(--base-size-40) + var(--base-size-32));
+  }
 }
 
 /* Seat the 40px gutter avatar to the LEFT of the rail (left edge ~72px left of the
@@ -10,9 +26,17 @@
    rail — matching Figma: avatar-left → card-left ≈ 56px, caret bridges the gap. The
    default Timeline.Avatar `top` / translateY (vertical centering) is preserved.
    Specificity (.GutterGroup .GutterAvatar = 0-2-0) beats the base .TimelineItemAvatar
-   (0-1-0) regardless of stylesheet order. */
+   (0-1-0) regardless of stylesheet order. The gutter avatar is HIDDEN below 768px
+   (the inline header avatar shows instead — live `.avatarHiddenOnMedium`). */
 .GutterGroup .GutterAvatar {
   left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
+  display: none;
+}
+
+@container (min-width: 768px) {
+  .GutterGroup .GutterAvatar {
+    display: block;
+  }
 }
 
 /* Parent-child avatar: a small app/agent avatar overlapping the bottom-right of the
@@ -216,6 +240,24 @@
   border-radius: var(--borderRadius-full);
 }
 
+/* Inline header avatar (~24px) that mirrors the actor in the compact / collapsed
+   form. Photo actors use the shared InlineAvatar; octicon actors (Copilot,
+   Dependabot) use `.InlineOcticonAvatar` — a 24px inline version of the octicon
+   avatar, composing the shared shape/tone modifiers below. */
+.InlineOcticonAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  margin-right: var(--base-size-4);
+  color: var(--fgColor-muted);
+  background-color: var(--bgColor-muted);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-full);
+  vertical-align: middle;
+}
+
 /* Rounded-square variant (e.g. Dependabot), matching the brand avatar shape. */
 .OcticonAvatarSquare {
   border-radius: var(--borderRadius-medium);
@@ -247,11 +289,11 @@
   border-top-right-radius: 0;
 }
 
-/* Inline-avatar (compact) card: no left-gutter avatar to point at, so drop the rail
-   overlap and the speech-bubble caret and let the card span full width. Mirrors the
-   github-ui `forceInlineAvatar` rendering (and the responsive narrow-viewport form). */
+/* Inline-avatar (compact) card: no left-gutter avatar to point at, so drop the
+   speech-bubble caret. It still OVERLAPS the rail by ~16px (same as the large `.Card`)
+   so the rail sits behind the card's opaque left edge — matching live github.com. */
 .CardInline {
-  margin-left: 0;
+  margin-left: calc(-1 * var(--base-size-16));
 }
 
 .CardInline::before,
@@ -259,13 +301,38 @@
   display: none;
 }
 
-/* Center the header row so the inline 24px avatar aligns with the author/text
+/* Center the header row so the inline ~24px avatar aligns with the author/text
    (the default baseline alignment is for the text-only large-gutter header). */
 .CardInline .HeaderText {
   align-items: center;
 }
 
+/* Inline header avatar hook (photo InlineAvatar or InlineOcticonAvatar): don't let it
+   shrink, and it's the toggle target for the responsive collapse. */
+.InlineHeaderAvatar {
+  flex-shrink: 0;
+}
+
 /* Muted "commented" verb in the inline/compact header ("{author} commented {time}"). */
 .CommentedVerb {
   color: var(--fgColor-muted);
+}
+
+/* Responsive collapse for the LARGE cards: below 768px they render the compact inline
+   form (inline avatar + "commented" verb, centered header); at ≥768px they use the
+   large gutter avatar and the inline header parts are hidden (live
+   `.avatarHiddenOnMedium`). The always-inline `.CardInline` demo is unaffected. */
+.CardResponsive .HeaderText {
+  align-items: center;
+}
+
+@container (min-width: 768px) {
+  .CardResponsive .InlineHeaderAvatar,
+  .CardResponsive .CommentedVerb {
+    display: none;
+  }
+
+  .CardResponsive .HeaderText {
+    align-items: baseline;
+  }
 }
