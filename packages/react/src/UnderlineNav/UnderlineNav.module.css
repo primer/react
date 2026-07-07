@@ -4,6 +4,7 @@
   is slightly better for animations. */
   animation: detect-overflow linear;
   animation-timeline: scroll(self block);
+  container-type: inline-size;
 
   --UnderlineNav_moreButton-display: none;
 
@@ -12,6 +13,7 @@
   }
 }
 
+/* Set overflow button visibility with pure CSS to avoid a layout shift on hydration */
 @keyframes detect-overflow {
   0%,
   100% {
@@ -20,7 +22,7 @@
 }
 
 .UnderlineWrapper[data-hide-icons-breakpoint='xsmall'] {
-  @media screen and (max-width: 20rem) {
+  @container (width < 20rem) {
     .ItemsList [data-component='icon'] {
       display: none;
     }
@@ -28,7 +30,7 @@
 }
 
 .UnderlineWrapper[data-hide-icons-breakpoint='small'] {
-  @media screen and (max-width: 34rem) {
+  @container (width < 34rem) {
     .ItemsList [data-component='icon'] {
       display: none;
     }
@@ -36,7 +38,7 @@
 }
 
 .UnderlineWrapper[data-hide-icons-breakpoint='medium'] {
-  @media screen and (max-width: 48rem) {
+  @container (width < 48rem) {
     .ItemsList [data-component='icon'] {
       display: none;
     }
@@ -44,7 +46,7 @@
 }
 
 .UnderlineWrapper[data-hide-icons-breakpoint='large'] {
-  @media screen and (max-width: 63.25rem) {
+  @container (width < 63.25rem) {
     .ItemsList [data-component='icon'] {
       display: none;
     }
@@ -52,7 +54,7 @@
 }
 
 .UnderlineWrapper[data-hide-icons-breakpoint='xlarge'] {
-  @media screen and (max-width: 80rem) {
+  @container (width < 80rem) {
     .ItemsList [data-component='icon'] {
       display: none;
     }
@@ -60,7 +62,7 @@
 }
 
 .UnderlineWrapper[data-hide-icons-breakpoint='xxlarge'] {
-  @media screen and (max-width: 87.5rem) {
+  @container (width < 87.5rem) {
     .ItemsList [data-component='icon'] {
       display: none;
     }
