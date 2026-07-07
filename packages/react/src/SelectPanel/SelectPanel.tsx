@@ -131,7 +131,10 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align' | 'displayInViewport'> &
+  Pick<
+    AnchoredOverlayProps,
+    'open' | 'height' | 'width' | 'align' | 'displayInViewport' | 'cssAnchorPositioningSettings'
+  > &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
@@ -204,6 +207,7 @@ function Panel({
   focusPrependedElements,
   virtualized,
   displayInViewport,
+  cssAnchorPositioningSettings,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -907,7 +911,11 @@ function Panel({
         closeButtonProps={closeButtonProps}
         displayInViewport={displayInViewport}
         // Modal variant is positioned manually so native CSS anchor positioning must not be used
-        cssAnchorPositioningSettings={{disable: variant === 'modal'}}
+        // Other cssAnchorPositioningSettings (e.g. fallbackStrategy) may be passed in and are forwarded here
+        cssAnchorPositioningSettings={{
+          ...cssAnchorPositioningSettings,
+          disable: variant === 'modal' || cssAnchorPositioningSettings?.disable,
+        }}
       >
         <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
           <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">

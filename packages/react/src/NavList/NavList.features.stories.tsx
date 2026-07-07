@@ -646,4 +646,48 @@ export const WithItemGap: StoryFn = () => (
 
 WithItemGap.storyName = 'With gap between items (behind feature flag)'
 
+export const WithHeading: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Heading>Settings</NavList.Heading>
+        <NavList.Group title="Account">
+          <NavList.Item href="#" aria-current="page">
+            Profile
+          </NavList.Item>
+          <NavList.Item href="#">Appearance</NavList.Item>
+        </NavList.Group>
+        <NavList.Group title="Security">
+          <NavList.Item href="#">Password and authentication</NavList.Item>
+          <NavList.Item href="#">Sessions</NavList.Item>
+        </NavList.Group>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+export const WithVisuallyHiddenHeading: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Heading visuallyHidden>Settings</NavList.Heading>
+        <NavList.Group title="Account">
+          <NavList.Item href="#" aria-current="page">
+            Profile
+          </NavList.Item>
+          <NavList.Item href="#">Appearance</NavList.Item>
+        </NavList.Group>
+        <NavList.Group title="Security">
+          <NavList.Item href="#">Password and authentication</NavList.Item>
+          <NavList.Item href="#">Sessions</NavList.Item>
+        </NavList.Group>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+WithVisuallyHiddenHeading.storyName = 'With Heading (hidden)'
+
 export default meta
