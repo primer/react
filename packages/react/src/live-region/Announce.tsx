@@ -1,6 +1,6 @@
 import {announceFromElement} from '@primer/live-region-element'
 import type React from 'react'
-import {useEffect, useRef, useState, type ElementRef} from 'react'
+import {useEffect, useRef, type ElementRef} from 'react'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
@@ -52,7 +52,10 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     ...rest
   } = props
   const ref = useRef<ElementRef<'div'>>(null)
-  const [previousAnnouncementText, setPreviousAnnouncementText] = useState<string | null>(null)
+  // Tracked in a ref rather than state because it is only used to dedupe
+  // announcements and is never rendered. Using state here would trigger a React
+  // commit on every content change (e.g. one per keystroke when tied to an input).
+  const previousAnnouncementText = useRef<string | null>(null)
   const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
   const announce = useEffectCallback(() => {
     const {current: element} = ref
@@ -73,16 +76,11 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
       return
     }
 
-    if (textContent === previousAnnouncementText) {
+    if (textContent === previousAnnouncementText.current) {
       return
     }
 
-    const style = window.getComputedStyle(element)
-    if (style.display === 'none') {
-      return
-    }
-
-    if (style.visibility === 'hidden') {
+    if (!isVisible(element)) {
       return
     }
 
@@ -98,7 +96,7 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
             delayMs,
           },
     )
-    setPreviousAnnouncementText(textContent)
+    previousAnnouncementText.current = textContent
   })
 
   // Announce the initial message, this is wrapped in `useEffectOnce` so that it
@@ -155,4 +153,25 @@ function getTextContent(element: HTMLElement): string {
     value = element.textContent
   }
   return value ? value.trim() : ''
+}
+
+/**
+ * Determine if an element is visible (not hidden via `display: none` or
+ * `visibility: hidden`). Prefers the native `checkVisibility()` API when
+ * available and falls back to `getComputedStyle` for older browsers.
+ */
+function isVisible(element: HTMLElement): boolean {
+  if (typeof element.checkVisibility === 'function') {
+    return element.checkVisibility({
+      // `visibilityProperty` is the standard option name (Chrome 116+, Firefox
+      // 125+, Safari 17.4+); `checkVisibilityCSS` is the legacy Chromium name
+      // (Chrome 105+). Unknown options are ignored, so passing both ensures
+      // `visibility: hidden` is treated as not visible across all engines.
+      visibilityProperty: true,
+      checkVisibilityCSS: true,
+    })
+  }
+
+  const style = window.getComputedStyle(element)
+  return style.display !== 'none' && style.visibility !== 'hidden'
 }
