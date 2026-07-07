@@ -78,6 +78,7 @@ function AutocompleteOverlay({
       left={position?.left}
       className={clsx(classes.Overlay, className)}
       {...overlayProps}
+      data-component="Autocomplete.Overlay"
     >
       {children}
     </Overlay>

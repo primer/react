@@ -1,12 +1,14 @@
 import type {TextareaHTMLAttributes, ReactElement} from 'react'
-import React, {useEffect, useRef, useCallback, useId} from 'react'
+import React, {useCallback, useId, useState} from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import classes from './TextArea.module.css'
 import type {WithSlotMarker} from '../utils/types'
 import {AlertFillIcon} from '@primer/octicons-react'
-import {CharacterCounter} from '../utils/character-counter'
+import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
+import {AriaStatus} from '../live-region'
 import VisuallyHidden from '../_VisuallyHidden'
+import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import Text from '../Text'
 import {clsx} from 'clsx'
 
@@ -86,52 +88,33 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    // Character counter state
-    const [characterCount, setCharacterCount] = React.useState<string>('')
-    const [isOverLimit, setIsOverLimit] = React.useState<boolean>(false)
-    const [screenReaderMessage, setScreenReaderMessage] = React.useState<string>('')
-    const characterCounterRef = useRef<CharacterCounter | null>(null)
-
     const characterCountId = useId()
     const characterCountStaticMessageId = useId()
 
-    // Initialize character counter
-    useEffect(() => {
-      if (characterLimit) {
-        characterCounterRef.current = new CharacterCounter({
-          onCountUpdate: (count, overLimit, message) => {
-            setCharacterCount(message)
-            setIsOverLimit(overLimit)
-          },
-          onScreenReaderAnnounce: message => {
-            setScreenReaderMessage(message)
-          },
-        })
+    // For uncontrolled usage we track the length of the textarea's content so the
+    // character counter can be derived during render rather than synced from an
+    // effect (which would trigger an extra render on every keystroke). For
+    // controlled usage the `value` prop is the source of truth.
+    const isControlled = value !== undefined
+    const [uncontrolledLength, setUncontrolledLength] = useState(() =>
+      defaultValue !== undefined ? String(defaultValue).length : 0,
+    )
+    const currentLength = isControlled ? String(value).length : uncontrolledLength
 
-        return () => {
-          characterCounterRef.current?.cleanup()
-        }
-      }
-    }, [characterLimit])
-
-    // Update character count when value changes
-    useEffect(() => {
-      if (characterLimit && characterCounterRef.current) {
-        const currentValue =
-          value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
-        characterCounterRef.current.updateCharacterCount(currentValue.length, characterLimit)
-      }
-    }, [value, defaultValue, characterLimit])
+    // The counter and validation state are derived directly from the current
+    // length, so they stay in sync with the input without an extra render.
+    const counter = characterLimit ? getCharacterCountState(currentLength, characterLimit) : undefined
+    const isOverLimit = counter?.isOverLimit ?? false
 
     // Handle textarea change with character counter
     const handleTextareaChange = useCallback(
       (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        if (characterLimit && characterCounterRef.current) {
-          characterCounterRef.current.updateCharacterCount(e.target.value.length, characterLimit)
+        if (characterLimit && !isControlled) {
+          setUncontrolledLength(e.target.value.length)
         }
         onChange?.(e)
       },
-      [onChange, characterLimit],
+      [onChange, characterLimit, isControlled],
     )
 
     const isValid = isOverLimit ? 'error' : validationStatus
@@ -172,9 +155,16 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         </TextInputBaseWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden aria-live="polite" role="status">
-              {screenReaderMessage}
-            </VisuallyHidden>
+            {/* The remaining-count message is derived in render and announced
+                (debounced) by AriaStatus via a shared live region, so it never
+                triggers an extra React commit while typing. */}
+            <AriaStatus
+              announceOnShow={false}
+              delayMs={SCREEN_READER_DELAY}
+              className={visuallyHiddenClasses.InternalVisuallyHidden}
+            >
+              {counter?.message}
+            </AriaStatus>
             <VisuallyHidden id={characterCountStaticMessageId}>
               You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
             </VisuallyHidden>
@@ -185,7 +175,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               className={clsx(classes.CharacterCounter, isOverLimit && classes['CharacterCounter--error'])}
             >
               {isOverLimit && <AlertFillIcon size={16} />}
-              {characterCount}
+              {counter?.message}
             </Text>
           </>
         )}

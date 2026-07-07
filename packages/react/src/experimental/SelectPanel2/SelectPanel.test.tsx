@@ -1,6 +1,7 @@
 import React, {type JSX} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {ActionList, FormControl} from '../../'
+import {ActionList} from '../../ActionList'
+import FormControl from '../../FormControl'
 import type {RenderResult} from '@testing-library/react'
 import {render} from '@testing-library/react'
 import type {UserEvent} from '@testing-library/user-event'

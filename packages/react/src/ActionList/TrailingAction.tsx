@@ -1,6 +1,7 @@
 import type React from 'react'
 import {forwardRef} from 'react'
 import {Button, IconButton} from '../Button'
+import type {IconButtonProps} from '../Button/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -26,10 +27,13 @@ export type ActionListTrailingActionProps = ElementProps & {
   label: string
   className?: string
   style?: React.CSSProperties
-}
+} & Pick<IconButtonProps, 'tooltipDirection'>
 
 export const TrailingAction = forwardRef(
-  ({as = 'button', icon, label, href = null, className, style, loading, ...props}, forwardedRef) => {
+  (
+    {as = 'button', icon, label, href = null, className, style, loading, tooltipDirection = 'w', ...props},
+    forwardedRef,
+  ) => {
     return (
       <span
         className={clsx(className, classes.TrailingAction)}
@@ -42,7 +46,7 @@ export const TrailingAction = forwardRef(
             aria-label={label}
             icon={icon}
             variant="invisible"
-            tooltipDirection="w"
+            tooltipDirection={tooltipDirection}
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
@@ -59,6 +63,7 @@ export const TrailingAction = forwardRef(
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
+            data-has-label="true"
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}

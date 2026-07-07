@@ -67,12 +67,17 @@ export const StressTest: React.FC<StressTestProps> = ({
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (count === totalIterations - 1) {
       // Get the median of the duration when the test is done
       const durations = observer.current?.data ?? []
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change, react-you-might-not-need-an-effect/no-chain-state-updates
       setMedian(durations.sort((a, b) => a - b)[Math.floor(durations.length / 2)])
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change, react-you-might-not-need-an-effect/no-chain-state-updates
       setAverage(durations.reduce((a, b) => a + b, 0) / durations.length)
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change, react-you-might-not-need-an-effect/no-chain-state-updates
       setMin(Math.min(...durations))
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change, react-you-might-not-need-an-effect/no-chain-state-updates
       setMax(Math.max(...durations))
     }
   }, [count, totalIterations])

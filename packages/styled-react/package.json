@@ -1,6 +1,6 @@
 {
   "name": "@primer/styled-react",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "type": "module",
   "exports": {
     ".": {
@@ -38,16 +38,18 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.7",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@primer/primitives": "10.x || 11.x",
-    "@primer/react": "^38.24.0",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@storybook/react-vite": "^10.3.3",
+    "@primer/react": "^38.26.0",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@storybook/react-vite": "^10.4.6",
+    "@types/babel__core": "^7.20.5",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
     "@types/styled-components": "^5.1.26",
-    "@vitejs/plugin-react": "^4.3.3",
+    "@vitejs/plugin-react": "^6.0.2",
     "babel-plugin-react-compiler": "^1.0.0",
     "babel-plugin-styled-components": "2.1.4",
     "postcss-preset-primer": "^0.0.0",
@@ -56,8 +58,9 @@
     "react-compiler-runtime": "^1.0.0",
     "react-dom": "18.3.1",
     "rimraf": "^6.0.1",
-    "rollup": "4.59.0",
-    "rollup-plugin-typescript2": "^0.36.0",
+    "rolldown": "^1.1.2",
+    "rolldown-plugin-dts": "^0.26.0",
+    "rolldown-plugin-preserve-directives": "^0.0.0",
     "styled-components": "5.3.11",
     "typescript": "^6.0.3"
   },

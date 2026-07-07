@@ -14,6 +14,9 @@ css/
 # Dependencies
 node_modules
 
+# Local agent workspaces
+.agents
+
 # Gatsby
 public/
 

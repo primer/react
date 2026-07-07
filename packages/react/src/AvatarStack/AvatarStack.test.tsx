@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
-import {AvatarStack} from '..'
+import AvatarStack from '.'
 import {implementsClassName} from '../utils/testing'
 import classes from './AvatarStack.module.css'
 

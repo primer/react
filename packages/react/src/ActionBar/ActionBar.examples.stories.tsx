@@ -21,7 +21,11 @@ import {
   KebabHorizontalIcon,
   NoteIcon,
 } from '@primer/octicons-react'
-import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
+import {Button, IconButton} from '../Button'
+import Avatar from '../Avatar'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
+import Textarea from '../Textarea'
 import {Dialog} from '../deprecated/DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
@@ -65,6 +69,17 @@ export const SmallActionBar = () => (
     <ActionBar.Divider />
     <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
     <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+  </ActionBar>
+)
+
+export const WithTextButtons = () => (
+  <ActionBar aria-label="Toolbar">
+    <ActionBar.Button>Save</ActionBar.Button>
+    <ActionBar.Button leadingVisual={FileAddedIcon}>Add file</ActionBar.Button>
+    <ActionBar.Button leadingVisual={SearchIcon}>Search</ActionBar.Button>
+    <ActionBar.Divider />
+    <ActionBar.Button>Cancel</ActionBar.Button>
+    <ActionBar.Button disabled>Disabled</ActionBar.Button>
   </ActionBar>
 )
 

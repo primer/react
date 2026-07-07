@@ -1,12 +1,12 @@
 import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
 import type React from 'react'
-import {createContext} from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroup from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroupCaption from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
+import {RadioGroupContext} from './RadioGroupContext'
 
 export type RadioGroupProps = {
   /**
@@ -18,12 +18,6 @@ export type RadioGroupProps = {
    */
   name: string
 } & CheckboxOrRadioGroupProps
-
-export const RadioGroupContext = createContext<{
-  disabled?: boolean
-  onChange?: ChangeEventHandler<HTMLInputElement>
-  name: string
-} | null>(null)
 
 const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, disabled, onChange, name, ...rest}) => {
   const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(null)
@@ -50,7 +44,7 @@ const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, dis
         },
       }}
     >
-      <CheckboxOrRadioGroup disabled={disabled} {...rest}>
+      <CheckboxOrRadioGroup disabled={disabled} data-component="RadioGroup" {...rest}>
         {children}
       </CheckboxOrRadioGroup>
     </RadioGroupContext.Provider>

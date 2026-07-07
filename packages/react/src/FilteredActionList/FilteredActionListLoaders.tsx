@@ -2,24 +2,11 @@ import Spinner from '../Spinner'
 import {Stack} from '../Stack/Stack'
 import {SkeletonBox} from '../Skeleton/SkeletonBox'
 import classes from './FilteredActionListLoaders.module.css'
+import {FilteredActionListLoadingType, FilteredActionListLoadingTypes} from './constants'
 
 import type {JSX} from 'react'
 
-export class FilteredActionListLoadingType {
-  public name: string
-  public appearsInBody: boolean
-
-  constructor(name: string, appearsInBody: boolean) {
-    this.name = name
-    this.appearsInBody = appearsInBody
-  }
-}
-
-export const FilteredActionListLoadingTypes = {
-  bodySpinner: new FilteredActionListLoadingType('body-spinner', true),
-  bodySkeleton: new FilteredActionListLoadingType('body-skeleton', true),
-  input: new FilteredActionListLoadingType('input', false),
-}
+export {FilteredActionListLoadingType, FilteredActionListLoadingTypes}
 
 const SKELETON_ROW_HEIGHT = 24
 const SKELETON_MIN_ROWS = 3
@@ -56,10 +43,9 @@ function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
     <div className={classes.LoadingSkeletonContainer} data-component="FilteredActionList.Skeleton">
       <Stack direction="vertical" justify="center" gap="condensed" {...props}>
         {Array.from({length: rows}, (_, i) => (
-          <Stack key={i} direction="horizontal" gap="condensed" align="center">
+          <Stack key={i} direction="horizontal" gap="condensed" align="center" className={classes.LoadingSkeletonRow}>
             <SkeletonBox width="16px" height="16px" />
-            {/* eslint-disable-next-line react-hooks/purity */}
-            <SkeletonBox height="10px" width={`${Math.random() * 60 + 20}%`} className={classes.LoadingSkeleton} />
+            <SkeletonBox height="10px" className={classes.LoadingSkeleton} />
           </Stack>
         ))}
       </Stack>

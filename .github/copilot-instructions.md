@@ -24,16 +24,30 @@ The primary workspace is `packages/react` which contains the `@primer/react` pac
 - Dependencies: Node.js (check with `node --version`), npm (check with `npm --version`)
 - `npm install` -- installs dependencies. ~5 seconds with cache, ~2 minutes for clean install. Set timeout to 180+ seconds.
 - `npm run build` -- builds all packages. NEVER CANCEL. Takes 90 seconds without turbo cache, ~1 second with cache. Set timeout to 120+ minutes.
-- `npx turbo build` -- builds all packages including example applications. Takes ~33 seconds.
+- `npx turbo run build` -- builds all packages including example applications. Takes ~33 seconds.
+
+**Node.js version updates:**
+
+- When updating Node.js, update `.nvmrc` and `.devcontainer/devcontainer.json` together. Also check contributor documentation for any hardcoded Node.js version guidance, such as `contributor-docs/CONTRIBUTING.md`.
+- GitHub Actions workflows use `node-version-file: '.nvmrc'`; only update workflow files if they stop using `.nvmrc`.
 
 **Run tests:**
 
 - `npm test` -- runs unit tests. NEVER CANCEL. Takes 75 seconds. Set timeout to 90+ minutes. Runs 1500+ tests using Vitest in both node and chromium environments.
+- Vitest console enforcement is enabled by default in CI. For local debugging, it is disabled unless you opt in with `VITEST_FAIL_ON_CONSOLE=true npm test`.
 - `npm run type-check` -- runs TypeScript type checking across all packages. Takes 42 seconds. Set timeout to 60+ minutes.
 
 **Development workflow:**
 
 - Main component development happens in `packages/react/src/[ComponentName]/`
+
+**Turbo usage in this repository:**
+
+- This repository uses Turborepo for selected workspace orchestration, not for every validation command. Follow the existing root npm scripts first unless you are specifically changing Turbo configuration.
+- `npm run build` delegates to `turbo run build --filter='!./examples/*'`, so it builds workspace packages while excluding examples. Use `npx turbo run build` when you intentionally need Turbo's direct CLI behavior, such as building all workspaces including examples.
+- `npm run type-check` runs the root TypeScript check first, then `turbo run type-check` for packages that define that task.
+- `npm test`, `npm run lint`, `npm run lint:css`, `npm run format`, and `npm run format:diff` are not currently Turbo-orchestrated. Do not replace them with Turbo commands unless you are intentionally updating the repository's task setup.
+- Use the `turborepo` skill when creating or changing `turbo.json`, package task scripts that should be orchestrated by Turbo, caching/outputs/env behavior, CI Turbo usage, filters such as `--affected` or `--filter`, or debugging Turbo cache/task execution. For ordinary Primer React component work, validation, or package scripts that already exist, use the commands documented here instead of applying generic Turborepo guidance.
 
 **Linting and formatting:**
 
@@ -77,6 +91,7 @@ ComponentName/
 ├── index.ts              // Re-exports
 ├── ComponentName.tsx     // Main component
 ├── ComponentName.stories.tsx  // Storybook stories
+├── ComponentName.features.stories.tsx  // (optional) Storybook feature stories
 ├── ComponentName.test.tsx     // Unit tests
 ├── ComponentName.docs.json    // Documentation metadata
 └── __snapshots__/        // Test snapshots (being migrated to VRT)
@@ -86,7 +101,8 @@ ComponentName/
 
 - `*.module.css` -- CSS Modules for component styling
 - `*.test.tsx` -- Unit tests using Vitest and Testing Library
-- `*.stories.tsx` -- Storybook stories for documentation and testing
+- `[ComponentName].stories.tsx` -- Default Storybook stories for documentation and testing
+- `[ComponentName].features.stories.tsx` -- Storybook feature stories
 - `*.docs.json` -- Component metadata for documentation generation
 
 ## CI/CD and Workflows
@@ -95,7 +111,6 @@ ComponentName/
 
 - `.github/workflows/ci.yml` -- Main CI pipeline (format, lint, test, type-check, build)
 - `.github/workflows/vrt.yml` -- Visual regression testing
-- `.github/workflows/storybook-tests.yml` -- Storybook interaction tests
 
 **The CI will fail if:**
 
@@ -135,6 +150,13 @@ npm run lint:fix        # Auto-fix linting issues
 ## Storybook
 
 When working on UI components, always use the `primer-storybook` MCP tools to access Storybook's component and documentation knowledge before answering or taking any action. Reference the `.github/skills/storybook/SKILL.md` file for detailed instructions on using the Storybook MCP effectively and accurately.
+
+**Story conventions:**
+
+- Each component should have a default stories file colocated with the component (for most components: `packages/react/src/[ComponentName]/[ComponentName].stories.tsx`).
+- The default stories file should use the `Components/[ComponentName]` Storybook title and include `Default` and `Playground` stories when the component supports configurable controls.
+- Put feature-specific stories colocated with the component (for most components: `packages/react/src/[ComponentName]/[ComponentName].features.stories.tsx`) with the `Components/[ComponentName]/Features` Storybook title.
+- Keep examples or scenario-based stories in separate files, such as `[ComponentName].examples.stories.tsx`, when they are distinct from core feature coverage
 
 ## Slots
 

@@ -1,12 +1,21 @@
 import {describe, it, expect, beforeAll, afterAll, vi} from 'vitest'
 import {render} from '@testing-library/react'
-import {RadioGroup, FormControl, Radio} from '..'
+import RadioGroup from '.'
+import FormControl from '../FormControl'
+import Radio from '../Radio'
 import userEvent from '@testing-library/user-event'
 import {implementsClassName} from '../utils/testing'
 import classes from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.module.css'
 
 describe('RadioGroup', () => {
-  implementsClassName(RadioGroup, classes.GroupFieldset)
+  implementsClassName(
+    props => (
+      <RadioGroup {...props}>
+        <RadioGroup.Label>Choices</RadioGroup.Label>
+      </RadioGroup>
+    ),
+    classes.GroupFieldset,
+  )
   implementsClassName(RadioGroup.Caption, classes.CheckboxOrRadioGroupCaption)
   implementsClassName(RadioGroup.Label, classes.RadioGroupLabel)
   const mockWarningFn = vi.fn()
@@ -17,6 +26,25 @@ describe('RadioGroup', () => {
 
   afterAll(() => {
     vi.clearAllMocks()
+  })
+
+  it('renders data-component attributes', () => {
+    const {getByRole, getByText} = render(
+      <RadioGroup name="choices">
+        <RadioGroup.Label>Choices</RadioGroup.Label>
+        <RadioGroup.Caption>Pick one</RadioGroup.Caption>
+        <RadioGroup.Validation variant="error">Selection required</RadioGroup.Validation>
+        <FormControl>
+          <Radio value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+      </RadioGroup>,
+    )
+
+    expect(getByRole('group')).toHaveAttribute('data-component', 'RadioGroup')
+    expect(getByText('Choices')).toHaveAttribute('data-component', 'RadioGroup.Label')
+    expect(getByText('Pick one')).toHaveAttribute('data-component', 'RadioGroup.Caption')
+    expect(document.querySelector('[data-component="RadioGroup.Validation"]')).toHaveTextContent('Selection required')
   })
 
   it('renders a disabled group of inputs', () => {

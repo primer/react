@@ -21,7 +21,13 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
-import {Avatar, Button, Heading, Link, Text, StateLabel, BranchName} from '..'
+import Avatar from '../Avatar'
+import {Button} from '../Button'
+import Heading from '../Heading'
+import Link from '../Link'
+import Text from '../Text'
+import StateLabel from '../StateLabel'
+import BranchName from '../BranchName'
 import classes from './UnderlineNav.examples.stories.module.css'
 
 export default {

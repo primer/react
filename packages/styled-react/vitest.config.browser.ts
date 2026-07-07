@@ -1,7 +1,7 @@
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
-import {defineConfig} from 'vitest/config'
+import {defineConfig} from '@primer/vitest-config/config'
 
 export default defineConfig({
   plugins: [react()],
@@ -9,6 +9,7 @@ export default defineConfig({
     __DEV__: true,
   },
   resolve: {
+    dedupe: ['react', 'react-dom'],
     alias: [
       {
         find: '@primer/react/experimental',

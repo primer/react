@@ -1,6 +1,9 @@
 import type {Meta} from '@storybook/react-vite'
 import {KebabHorizontalIcon, RepoIcon, RepoForkedIcon, StarIcon} from '@primer/octicons-react'
-import {ActionList, ActionMenu, Button, IconButton, VisuallyHidden} from '..'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import {Button, IconButton} from '../Button'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {Card} from './index'
 import classes from './Card.stories.module.css'
 
@@ -24,6 +27,22 @@ export const WithImage = () => {
       <Card.Image src="https://github.com/octocat.png" alt="Octocat" />
       <Card.Heading>Card with Image</Card.Heading>
       <Card.Description>This card uses an edge-to-edge image instead of an icon.</Card.Description>
+    </Card>
+  )
+}
+
+export const Compact = () => {
+  return (
+    <Card layout="compact">
+      <Card.Icon icon={RepoIcon} />
+      <Card.Heading>primer/react</Card.Heading>
+      <Card.Description>
+        The compact layout uses tighter spacing, an icon without a background container, and a smaller title.
+      </Card.Description>
+      <Card.Metadata>
+        <StarIcon size={16} />
+        1.2k stars
+      </Card.Metadata>
     </Card>
   )
 }

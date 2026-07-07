@@ -11,6 +11,10 @@ describe('Portal', () => {
     const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
     expect(generatedRoot).toBeInstanceOf(HTMLElement)
     expect(generatedRoot?.textContent.trim()).toEqual('123test123')
+
+    const portalNode = generatedRoot?.querySelector('[data-component="Portal"]')
+    expect(portalNode).toBeInstanceOf(HTMLElement)
+
     baseElement.innerHTML = ''
   })
 
@@ -35,6 +39,9 @@ describe('Portal', () => {
     expect(generatedRoot).toBeInstanceOf(HTMLElement)
     expect(generatedRoot?.textContent.trim()).toEqual('123test123')
 
+    const portalNode = generatedRoot?.querySelector('[data-component="Portal"]')
+    expect(portalNode).toBeInstanceOf(HTMLElement)
+
     baseElement.innerHTML = ''
   })
 
@@ -52,6 +59,9 @@ describe('Portal', () => {
     expect(portalRoot).toBeInstanceOf(HTMLElement)
     expect(portalRoot?.textContent.trim()).toEqual('123test123')
 
+    const portalNode = portalRoot?.querySelector('[data-component="Portal"]')
+    expect(portalNode).toBeInstanceOf(HTMLElement)
+
     baseElement.innerHTML = ''
   })
 
@@ -66,6 +76,9 @@ describe('Portal', () => {
     const toRender = <Portal>123test123</Portal>
     ;({baseElement} = render(toRender))
     expect(portalRoot?.textContent.trim()).toEqual('123test123')
+
+    const portalNode = portalRoot?.querySelector('[data-component="Portal"]')
+    expect(portalNode).toBeInstanceOf(HTMLElement)
 
     baseElement.innerHTML = ''
   })
@@ -99,6 +112,13 @@ describe('Portal', () => {
     expect(fancyPortalRoot1?.textContent.trim()).toEqual('456test456')
     expect(fancyPortalRoot2?.textContent.trim()).toEqual('789test789')
 
+    const portalNodeDefault = generatedRoot?.querySelector('[data-component="Portal"]')
+    expect(portalNodeDefault).toBeInstanceOf(HTMLElement)
+    const portalNode1 = fancyPortalRoot1?.querySelector('[data-component="Portal"]')
+    expect(portalNode1).toBeInstanceOf(HTMLElement)
+    const portalNode2 = fancyPortalRoot2?.querySelector('[data-component="Portal"]')
+    expect(portalNode2).toBeInstanceOf(HTMLElement)
+
     baseElement.innerHTML = ''
   })
 
@@ -118,6 +138,7 @@ describe('Portal', () => {
     render(toRender)
 
     expect(customPortalRoot.textContent.trim()).toEqual('context-portal-content')
+    expect(customPortalRoot.querySelector('[data-component="Portal"]')).toBeInstanceOf(HTMLElement)
 
     // Cleanup
     document.body.removeChild(customPortalRoot)
@@ -135,6 +156,7 @@ describe('Portal', () => {
 
     expect(generatedRoot).toBeInstanceOf(HTMLElement)
     expect(generatedRoot?.textContent.trim()).toEqual('default-portal-content')
+    expect(generatedRoot?.querySelector('[data-component="Portal"]')).toBeInstanceOf(HTMLElement)
 
     baseElement.innerHTML = ''
   })
@@ -151,6 +173,7 @@ describe('Portal', () => {
 
     expect(generatedRoot).toBeInstanceOf(HTMLElement)
     expect(generatedRoot?.textContent.trim()).toEqual('undefined-context-content')
+    expect(generatedRoot?.querySelector('[data-component="Portal"]')).toBeInstanceOf(HTMLElement)
 
     baseElement.innerHTML = ''
   })
@@ -178,6 +201,7 @@ describe('Portal', () => {
     // Should render in the portal specified by the prop, not the context
     expect(propPortalRoot.textContent.trim()).toEqual('prop-overrides-context')
     expect(contextPortalRoot.textContent.trim()).toEqual('')
+    expect(propPortalRoot.querySelector('[data-component="Portal"]')).toBeInstanceOf(HTMLElement)
 
     // Cleanup
     document.body.removeChild(contextPortalRoot)

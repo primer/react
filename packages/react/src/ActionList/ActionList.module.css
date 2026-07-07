@@ -26,6 +26,18 @@
     padding-bottom: var(--base-size-8);
   }
 
+  /* add a small gap between sibling items for readability */
+  &:where([data-item-gap]) {
+    & .ActionListItem + .ActionListItem {
+      margin-block-start: var(--base-size-2);
+    }
+
+    /* also separate a parent item's row from the first item of its expanded sub-nav */
+    & .SubGroup {
+      margin-block-start: var(--base-size-2);
+    }
+  }
+
   &:where([data-dividers='true']) {
     /* place dividers on the wrapper that excludes leading visuals/actions */
     & .ActionListSubContent::before {
@@ -103,8 +115,7 @@
   border-radius: var(--borderRadius-medium);
 
   /* apply flex if trailing action exists as an immediate child */
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:has(> .TrailingAction) {
+  &[data-has-trailing-action] {
     display: flex;
     flex-wrap: nowrap;
   }
@@ -372,8 +383,7 @@
   }
 
   /* When TrailingAction is in loading state, keep labels and descriptions accessible */
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:has(.TrailingAction [data-loading='true']):not([data-is-disabled]) {
+  &[data-trailing-action-loading]:not([data-is-disabled]) {
     /* Ensure labels and descriptions maintain accessibility contrast */
     & .ItemLabel {
       color: var(--fgColor-default);
@@ -725,8 +735,7 @@ span wrapping svg or text */
   height: 100%;
 
   /* Preserve width consistency when loading state is active for text buttons only */
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &[data-loading='true']:has([data-component='buttonContent']) {
+  &[data-loading='true'][data-has-label='true'] {
     /* Double the left padding to compensate for missing right padding */
     padding: 0 0 0 calc(var(--base-size-12) * 2);
 
@@ -745,13 +754,11 @@ span wrapping svg or text */
 }
 
 .InactiveButtonWrap {
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:has(.TrailingVisual) {
+  &[data-position='trailing'] {
     grid-area: trailingVisual;
   }
 
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:has(.LeadingVisual) {
+  &[data-position='leading'] {
     grid-area: leadingVisual;
   }
 }
