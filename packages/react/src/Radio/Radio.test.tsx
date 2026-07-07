@@ -23,6 +23,12 @@ describe('Radio', () => {
     expect(radio).toBeDefined()
   })
 
+  it('renders data-component attribute', () => {
+    const {getByRole} = render(<Radio {...defaultProps} />)
+
+    expect(getByRole('radio')).toHaveAttribute('data-component', 'Radio')
+  })
+
   it('renders an unchecked radio by default', () => {
     const {getByRole} = render(<Radio {...defaultProps} />)
 
