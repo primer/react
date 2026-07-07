@@ -121,14 +121,11 @@
 .TextInput {
   padding-left: var(--base-size-8) !important;
 
-  /*
-   * `data-empty` lives on the inner `<input>` (TextInput spreads unknown
-   * props onto the input, not its wrapper). The clear-action button is a
-   * later sibling of the input within this wrapper, so a general-sibling
-   * combinator targets it directly without a `:has()` walk.
-   */
-  /* stylelint-disable-next-line selector-class-pattern, selector-no-qualifying-type -- `.TextInput-action` is a third-party class on the wrapped TextInput */
-  & input[data-empty] ~ :global(.TextInput-action) {
+  /* Hide the trailing action while the input is empty (showing its placeholder). Uses a
+     forward sibling selector on the input instead of `:has()` to avoid Safari's `:has()`
+     invalidation cost; `input` and `.TextInput-action` are siblings inside the wrapper. */
+  /* stylelint-disable-next-line selector-class-pattern */
+  & input:placeholder-shown ~ :global(.TextInput-action) {
     display: none;
   }
 }
