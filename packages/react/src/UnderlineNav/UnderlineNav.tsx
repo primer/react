@@ -101,6 +101,8 @@ export const UnderlineNav = forwardRef(
           data-has-overflow={isOverflowing ? 'true' : undefined}
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
+            {/* Empty first element allows real first item to wrap out of view on tiny screens */}
+            <div />
             <OverflowObserverProvider rootRef={navRef}>
               <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
                 {children}
