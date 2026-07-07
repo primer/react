@@ -1,5 +1,5 @@
 import {type RefObject, type MouseEventHandler, useContext} from 'react'
-import React, {useState, useCallback, useRef, forwardRef, useMemo, useSyncExternalStore} from 'react'
+import React, {useState, useCallback, useRef, forwardRef, useMemo} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 
@@ -11,6 +11,8 @@ import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
 import {useMergedRefs} from '../hooks'
 import {createDescendantRegistry} from '../utils/descendant-registry'
+import {OverflowObserverProvider} from '../internal/components/OverflowObserverProvider'
+import {useIsClipped} from '../internal/hooks/useOverflowObserver'
 
 type ChildProps =
   | {
@@ -238,7 +240,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
           <div className={styles.OverflowContainer}>
             {/* An empty first element allows the real first item to wrap to the next line and get clipped. */}
             <div className={styles.OverflowSpacer} />
-            <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>{children}</ActionBarItemsRegistry.Provider>
+            <OverflowObserverProvider rootRef={containerRef}>
+              <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>
+                {children}
+              </ActionBarItemsRegistry.Provider>
+            </OverflowObserverProvider>
           </div>
           <ActionMenu>
             <ActionMenu.Anchor>
@@ -314,33 +320,9 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
   const isGroupOverflowing = useContext(ActionBarGroupContext)?.isOverflowing
   const isInGroup = isGroupOverflowing !== undefined
 
-  const subscribeIntersectionObserver = useCallback(
-    (onChange: () => void) => {
-      // There's no need to register observers on items inside of a group
-      // since the entire group overflows at once
-      if (isInGroup) return () => {}
-
-      // Technically 1 should work as the threshold, but in some scenarios that
-      // doesn't seem to trigger correctly - probably because the browser still
-      // thinks a tiny bit of the button is not visible, since the container
-      // height is exactly the button height. So 75% should be more reliable.
-      const observer = new IntersectionObserver(() => onChange(), {threshold: 0.75})
-
-      if (ref.current) observer.observe(ref.current)
-      return () => observer.disconnect()
-    },
-    [ref, isInGroup],
-  )
-
-  const isItemOverflowing = useSyncExternalStore(
-    subscribeIntersectionObserver,
-    // Note: the IntersectionObserver is just being used as a trigger to re-check
-    // `offsetTop > 0`; this is fast and simpler than checking visibility from
-    // the observed entry. When an item wraps, it will move to the next row which
-    // increases its `offsetTop`
-    () => (ref.current ? ref.current.offsetTop > 0 : false),
-    () => false,
-  )
+  // There's no need to observe items inside of a group since the entire group overflows at once, so `disabled` skips
+  // subscription for grouped items and always reports `false` for the child item itself.
+  const isItemOverflowing = useIsClipped(ref, {disabled: isInGroup})
 
   const isOverflowing = isGroupOverflowing || isItemOverflowing
 
