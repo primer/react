@@ -199,8 +199,6 @@ All of the tests run on our continuous integration workflows.
 
 Unit tests are included in the `test` job, Playwright tests are included in the `avt` and `vrt` jobs of the `CI` workflow.
 
-Storybook tests are ran in `Storybook Tests` workflow.
-
 The results of the Playwright test run are uploaded at the end of the job and are available
 to download and view locally.
 
