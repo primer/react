@@ -188,11 +188,6 @@
     }
   }
 
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:focus-within:has(:focus-visible) {
-    background-color: transparent;
-  }
-
   &:first-child {
     /* stylelint-disable-next-line primer/spacing */
     margin-left: -1px;
