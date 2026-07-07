@@ -68,7 +68,6 @@ describe('useMedia', () => {
   })
 
   it('should default to false when used during SSR', () => {
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const match: boolean[] = []
 
     function TestComponent() {
@@ -77,11 +76,29 @@ describe('useMedia', () => {
       return null
     }
 
+    // `renderToString` uses the server snapshot, which defaults to `false` when
+    // no `defaultState` is provided.
     ReactDOM.renderToString(<TestComponent />)
     expect(match[0]).toBe(false)
-    // Without a `defaultState`, rendering on the server warns about a possible
-    // hydration mismatch.
-    expect(warnSpy).toHaveBeenCalledWith('Warning:', expect.stringContaining('`useMedia` When server side rendering'))
+  })
+
+  it('does not warn about a missing defaultState on the client', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    function TestComponent() {
+      useMedia('(pointer: coarse)')
+      return null
+    }
+
+    // On the client (where `window` is defined) the hook reads `matchMedia`
+    // directly, so the SSR guidance warning must not appear in the browser
+    // console — including during hydration, when `getServerSnapshot` runs.
+    render(<TestComponent />)
+
+    expect(warnSpy).not.toHaveBeenCalledWith(
+      'Warning:',
+      expect.stringContaining('`useMedia` When server side rendering'),
+    )
     warnSpy.mockRestore()
   })
 
