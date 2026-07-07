@@ -574,8 +574,7 @@
     font-weight: var(--base-text-weight-semibold);
   }
 
-  & .ActionListSubContent::before,
-  & + .ActionListItem .ActionListSubContent::before {
+  & .ActionListSubContent::before {
     visibility: hidden;
   }
 
