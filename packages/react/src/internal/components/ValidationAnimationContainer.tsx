@@ -1,6 +1,6 @@
 import type {HTMLProps} from 'react'
 import type React from 'react'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import classes from './ValidationAnimationContainer.module.css'
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -9,12 +9,10 @@ interface Props extends HTMLProps<HTMLDivElement> {
 const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children}) => {
   const [shouldRender, setRender] = useState(show)
 
-  // Mounting is derived from `show`, so compute it during render. Un-mounting is
-  // deferred to `onAnimationEnd` so the exit animation can play. Deriving this in
-  // render avoids the extra commit/paint an effect + setState would introduce.
-  if (show && !shouldRender) {
-    setRender(true)
-  }
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state, react-you-might-not-need-an-effect/no-event-handler
+    if (show) setRender(true)
+  }, [show])
 
   const onAnimationEnd = () => {
     if (!show) setRender(false)

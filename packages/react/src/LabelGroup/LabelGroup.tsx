@@ -246,8 +246,6 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       return () => observer.disconnect()
     }
     // We're not auto truncating, so we need to hide children after the given `visibleChildCount`.
-    // `hideChildrenAfterIndex` reads the rendered children from the DOM, so it must run in an
-    // effect. (Follow-up: this branch could derive the visibility map from child indices instead.)
     else {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       hideChildrenAfterIndex(visibleChildCount)

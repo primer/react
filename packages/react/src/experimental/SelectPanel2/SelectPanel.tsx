@@ -329,8 +329,6 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   useEffect(() => {
     const label = document.querySelector(`[for='${inputProps.id}']`)
     if (label?.textContent) {
-      // Reads the associated label's `textContent` from the committed DOM, so it must run in
-      // an effect.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setLabelText(label.textContent)
     }

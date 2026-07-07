@@ -556,8 +556,6 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
     const parentElement = document.getElementById(itemId)
     if (!parentElement) return
 
-    // `getAccessibleName` reads the committed DOM, so the label cannot be derived during
-    // render and must be set from an effect.
     // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
     setSubTreeLabel(getAccessibleName(parentElement))
     if (previousState === 'loading' && state === 'done') {
