@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-SegmentedControl: move the inter-item divider from `::after` of each non-last item to `::before` of each non-first item so the "hide divider next to the selected item" rule can be expressed with the adjacent-sibling combinator instead of `:has(+ [data-selected])`. The 1px line sits at the same visual gap between items; no rendered output change.
+SegmentedControl: improve rendering performance by removing an expensive `:has()` selector used for the inter-item divider. No visual or API changes.
