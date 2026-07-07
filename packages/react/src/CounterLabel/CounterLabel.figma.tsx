@@ -1,4 +1,4 @@
-import {CounterLabel} from '../../src'
+import CounterLabel from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(

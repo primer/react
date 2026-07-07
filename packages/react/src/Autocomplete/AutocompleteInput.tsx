@@ -151,6 +151,7 @@ const AutocompleteInput = React.forwardRef(
 
       if (
         isInputFocused &&
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         highlightRemainingText &&
         autocompleteSuggestion &&
         (inputValue || isMenuDirectlyActivated)
@@ -188,6 +189,7 @@ const AutocompleteInput = React.forwardRef(
         autoComplete="off"
         id={id}
         {...props}
+        data-component="Autocomplete.Input"
       />
     )
   },

@@ -49,6 +49,46 @@
   ],
   "subcomponents": [
     {
+      "name": "NavList.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h2' | 'h3'",
+          "defaultValue": "\"h2\"",
+          "required": false,
+          "description": "Semantic heading level for the NavList. Also sets the default level for child group headings, which render one level deeper (h3 under an h2, h4 under an h3). Constrained to h2/h3 so the hierarchy stays shallow."
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "defaultValue": "false",
+          "required": false,
+          "description": "Visually hide the heading while keeping it available to assistive technology and as the accessible name for the `nav` landmark."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "The text rendered as the NavList's heading."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Custom id for the heading element. When set, it is used as the `aria-labelledby` target that names the `nav` landmark; otherwise a generated id is used."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Custom CSS class name."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "description": "Custom CSS styles."
+        }
+      ]
+    },
+    {
       "name": "NavList.Item",
       "props": [
         {
@@ -194,10 +234,9 @@
         },
         {
           "name": "as",
-          "description": "Heading level for the group heading. Sets the semantic heading tag.",
+          "description": "Heading level for the group heading. Sets the semantic heading tag. Defaults to one level below a `NavList.Heading` (h3 under an h2, h4 under an h3), or `h3` when there is no `NavList.Heading`.",
           "required": false,
-          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
-          "defaultValue": "\"h3\""
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
         }
       ]
     },

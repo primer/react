@@ -83,6 +83,28 @@ export function createDescendantRegistry<T>() {
     /** State value to trigger a re-render and force all descendants to re-register. This ensures everything remains ordered. */
     const [key, rebuildRegistry] = useReducer(prev => prev + 1, 0)
 
+    // Coalesce rebuilds: when several descendants register in the same tick (e.g. multiple items crossing the wrap
+    // boundary during one resize frame), schedule a single rebuild via microtask instead of one rebuild per
+    // registration. The microtask drains before paint, so the rebuild still lands within the same frame.
+    const pendingRebuildRef = useRef(false)
+    const isMountedRef = useRef(true)
+    const scheduleRebuild = useCallback(() => {
+      if (pendingRebuildRef.current) return
+      pendingRebuildRef.current = true
+      scheduleMicrotask(() => {
+        pendingRebuildRef.current = false
+        // Guard against dispatching into an unmounted provider.
+        if (isMountedRef.current) rebuildRegistry()
+      })
+    }, [])
+
+    useEffect(() => {
+      isMountedRef.current = true
+      return () => {
+        isMountedRef.current = false
+      }
+    }, [])
+
     // If a rebuild is queued, instantiate a new map. Must be in a layout effect to run before all descendants' effects run to populate it
     useIsomorphicLayoutEffect(function instantiateNewRegistry() {
       if (workingRegistryRef.current === 'queued') {
@@ -101,9 +123,10 @@ export function createDescendantRegistry<T>() {
           workingRegistryRef.current.set(id, unsetValue)
         } else if (workingRegistryRef.current === 'idle') {
           // When idle, registering a new component causes the whole registry to be rebuilt (because that item could
-          // be inserted anywhere in the tree, changing the order of items)
+          // be inserted anywhere in the tree, changing the order of items). Coalesce concurrent registrations so the
+          // rebuild only happens once per tick.
           workingRegistryRef.current = 'queued'
-          rebuildRegistry()
+          scheduleRebuild()
         }
         // Noop if status is `queued` since we will restart the map in the next cycle
 
@@ -121,7 +144,7 @@ export function createDescendantRegistry<T>() {
           }
         }
       },
-      [setRegistry],
+      [setRegistry, scheduleRebuild],
     )
 
     /** Update a descendant's value in the registry. */
@@ -145,6 +168,7 @@ export function createDescendantRegistry<T>() {
         const setEntries = Array.from(workingRegistryRef.current.entries()).filter(
           (entry): entry is [string, T] => entry[1] !== unsetValue,
         )
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
         setRegistry(new Map(setEntries))
         workingRegistryRef.current = 'idle'
       }
@@ -156,4 +180,14 @@ export function createDescendantRegistry<T>() {
   }
 
   return {Provider, useRegistryState, useRegisterDescendant}
+}
+
+/** Schedule a callback on a microtask, with a fallback for environments that lack `queueMicrotask`. */
+function scheduleMicrotask(callback: () => void) {
+  if (typeof queueMicrotask === 'function') {
+    queueMicrotask(callback)
+  } else {
+    // Fallback for environments without `queueMicrotask`. A macrotask still coalesces all synchronous registrations.
+    setTimeout(callback)
+  }
 }

@@ -1,4 +1,5 @@
-import {Dialog, type ResponsiveValue} from '../'
+import {Dialog} from '.'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import figma from '@figma/code-connect'
 
 figma.connect(Dialog, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=16593%3A65798', {

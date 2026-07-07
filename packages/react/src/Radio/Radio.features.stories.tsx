@@ -1,5 +1,7 @@
 import {MarkGithubIcon} from '@primer/octicons-react'
-import {Avatar, FormControl, Radio} from '..'
+import Avatar from '../Avatar'
+import FormControl from '../FormControl'
+import Radio from '.'
 
 export default {
   title: 'Components/Radio/Features',

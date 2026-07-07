@@ -8,7 +8,7 @@ const localeOptions: Intl.DateTimeFormatOptions = {month: 'short', day: 'numeric
 function RelativeTime({date, datetime, children, noTitle, ...props}: RelativeTimeProps) {
   if (datetime) date = new Date(datetime)
   return (
-    <RelativeTimeComponent {...props} date={date} no-title={noTitle ? '' : undefined}>
+    <RelativeTimeComponent {...props} date={date} no-title={noTitle ? '' : undefined} data-component="RelativeTime">
       {children || date?.toLocaleDateString('en', localeOptions) || ''}
     </RelativeTimeComponent>
   )

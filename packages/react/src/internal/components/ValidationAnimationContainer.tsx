@@ -10,7 +10,7 @@ const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = (
   const [shouldRender, setRender] = useState(show)
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state, react-you-might-not-need-an-effect/no-event-handler
     if (show) setRender(true)
   }, [show])
 

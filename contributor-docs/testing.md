@@ -86,6 +86,8 @@ We are slowly moving away from using snapshots as a way to test visual changes o
 | Run a specific test | `npm test ComponentName` |
 | Update snapshots    | `npm test -- -u`         |
 
+By default, Vitest fails when tests emit unexpected console output in CI. For local debugging, it is disabled unless you opt in with `VITEST_FAIL_ON_CONSOLE=true`.
+
 ## Interaction Tests
 
 ### As A Part Of Unit Tests
@@ -196,8 +198,6 @@ script/test-e2e --grep @avt
 All of the tests run on our continuous integration workflows.
 
 Unit tests are included in the `test` job, Playwright tests are included in the `avt` and `vrt` jobs of the `CI` workflow.
-
-Storybook tests are ran in `Storybook Tests` workflow.
 
 The results of the Playwright test run are uploaded at the end of the job and are available
 to download and view locally.
