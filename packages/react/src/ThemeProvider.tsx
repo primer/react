@@ -87,6 +87,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   return (
     <ThemeContext.Provider value={contextValue}>
       <div
+        data-component="ThemeProvider"
         data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme.includes('dark') ? 'dark' : 'light'}
         data-light-theme={dayScheme}
         data-dark-theme={nightScheme}
