@@ -14,7 +14,7 @@ import {UnderlineNavItemsRegistry, type UnderlineNavItemProps} from './Underline
 import {SkeletonText} from '../SkeletonText'
 import {clsx} from 'clsx'
 import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
-import {isCurrent} from './utils'
+import {getValidChildren, isCurrent} from './utils'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -67,12 +67,14 @@ export const UnderlineNav = forwardRef(
     // its "current" state on the overflow menu anchor.
     const overflowingCurrentItem = overflowMenuItems.some(([, itemProps]) => isCurrent(itemProps))
 
+    const validChildren = getValidChildren(children)
+
     useDevOnlyEffect(() => {
       // Address illegal state where there are multiple items that have `aria-current='page'` attribute
-      const activeElements = overflowMenuItems.filter(([, props]) => isCurrent(props))
+      const activeElements = validChildren.filter(child => isCurrent(child.props))
       invariant(activeElements.length <= 1, 'Only one current element is allowed')
       invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
-    }, [overflowMenuItems, ariaLabel])
+    }, [validChildren, ariaLabel])
 
     const contextValue = useMemo(
       () => ({
