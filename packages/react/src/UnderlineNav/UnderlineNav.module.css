@@ -6,10 +6,10 @@
   animation-timeline: scroll(self block);
 
   --UnderlineNav_moreButton-visibility: hidden;
-  --UnderlineNav_icons-display: inline;
+  --UnderlineNav_icons-height: auto;
 
   &[data-hide-icons='true'] {
-    --UnderlineNav_icons-display: none;
+    --UnderlineNav_icons-height: 0;
   }
 
   &[data-has-overflow='true'] {
@@ -21,12 +21,22 @@
   0%,
   100% {
     --UnderlineNav_moreButton-visibility: visible;
-    --UnderlineNav_icons-display: none;
+    --UnderlineNav_icons-height: 0;
   }
 }
 
+/* Hide icons by wrapping them up out of view rather than with `display: none`.
+   Removing an icon from the layout would shrink the tab, which can remove the
+   overflow, which shows the icon again, which restores the overflow — an
+   infinite flicker loop before hydration. Instead we mirror the wrap-to-hide
+   trick the tab container uses: each icon lives in a column-reverse container
+   with an explicit height and `overflow: hidden`, so collapsing the height to
+   `0` wraps the icon up out of view while the tab keeps its full width. */
 .ItemsList [data-component='icon'] {
-  display: var(--UnderlineNav_icons-display);
+  display: flex;
+  flex-direction: column-reverse;
+  height: var(--UnderlineNav_icons-height);
+  overflow: hidden;
 }
 
 .MoreButtonContainer {
