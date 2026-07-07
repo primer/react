@@ -8,6 +8,11 @@ import classes from './SkeletonAvatar.module.css'
 describe('SkeletonAvatar', () => {
   implementsClassName(SkeletonAvatar, classes.SkeletonAvatar)
 
+  it('renders data-component attribute', () => {
+    const {container} = render(<SkeletonAvatar />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'SkeletonAvatar')
+  })
+
   it('applies the given size', () => {
     const {container} = render(<SkeletonAvatar size={48} />)
     expect(container.firstChild).toHaveStyle('--avatarSize-regular: 48px;')

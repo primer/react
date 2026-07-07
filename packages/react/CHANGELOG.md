@@ -1,5 +1,65 @@
 # @primer/react
 
+## 38.31.0
+
+### Minor Changes
+
+- [#8057](https://github.com/primer/react/pull/8057) [`0b9c81e`](https://github.com/primer/react/commit/0b9c81e7e8fef1dfc98f3b86b5a375d4ec7fe204) Thanks [@francinelucca](https://github.com/francinelucca)! - ThemeProvider: Remove `primer_react_theme_provider_remove_ssr_handoff` feature flag.
+
+- [#8105](https://github.com/primer/react/pull/8105) [`be2950f`](https://github.com/primer/react/commit/be2950fd1ac268dd4e79258ab2cfe9241dd9e1c6) Thanks [@joshblack](https://github.com/joshblack)! - React Compiler: Enable compiler output for Banner, ConfirmationDialog, PageLayout, Pagination, UnderlineNav, `useMergedRefs`, and `useScrollFlash`
+
+### Patch Changes
+
+- [#8066](https://github.com/primer/react/pull/8066) [`dd66aa2`](https://github.com/primer/react/commit/dd66aa27611f7ad56adb7429b50813d6af5a01d7) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Fix invalid HTML nesting in `ActionList.Heading` by applying the visually-hidden styles directly to the heading element instead of wrapping it in a `span`.
+
+- [#8054](https://github.com/primer/react/pull/8054) [`1775f2e`](https://github.com/primer/react/commit/1775f2e8b968d59a1189456b14cff15e527937cb) Thanks [@joshblack](https://github.com/joshblack)! - AvatarStack: Improve rendering performance with React Compiler support
+
+- [#8053](https://github.com/primer/react/pull/8053) [`b2151ae`](https://github.com/primer/react/commit/b2151ae2d5719f09efb0b89731e52e4ca50e8bf1) Thanks [@joshblack](https://github.com/joshblack)! - Checkbox, CheckboxGroup, and RadioGroup: Improve rendering performance with React Compiler support
+
+- [#8052](https://github.com/primer/react/pull/8052) [`a1b24cf`](https://github.com/primer/react/commit/a1b24cf3411566641aeb846e62069dc26505da6b) Thanks [@joshblack](https://github.com/joshblack)! - Heading, Link, Pagehead, Portal, and SideNav: Improve rendering performance with React Compiler support
+
+## 38.30.0
+
+### Minor Changes
+
+- [#8048](https://github.com/primer/react/pull/8048) [`0add561`](https://github.com/primer/react/commit/0add5615720d17d69c77b014786c5e17e4337bb0) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - ActionBar: Add `ActionBar.Button` for rendering text buttons that overflow into the menu, alongside the existing `ActionBar.IconButton`
+
+- [#8031](https://github.com/primer/react/pull/8031) [`cb79351`](https://github.com/primer/react/commit/cb79351f29b9a1aea7bacf890eca97a5c9d97590) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Add a `NavList.Heading` slot that names the navigation region. It renders an `h2`
+  by default (configurable to `h3` via `as`), supports a `visuallyHidden` variant,
+  labels the `nav` landmark via `aria-labelledby`, and makes `NavList.Group`
+  headings default to one level deeper (`h3`, or `h4` under an `h3` heading) for a
+  correct heading hierarchy.
+
+- [#7991](https://github.com/primer/react/pull/7991) [`b906268`](https://github.com/primer/react/commit/b906268b7ebe8d684d8b5e9b1c4e9b528a5dd67a) Thanks [@llastflowers](https://github.com/llastflowers)! - Add data-component attributes and associated tests for:
+
+  Radio
+  RadioGroup
+  RelativeTime
+  ScrollableRegion
+  SegmentedControl
+  Select
+  SideNav
+  SkeletonBox
+  SkeletonAvatar
+  SkeletonText
+  Spinner
+
+- [#8026](https://github.com/primer/react/pull/8026) [`73a45df`](https://github.com/primer/react/commit/73a45dfe11c3a297e4f2f8317caa4a535a70ce80) Thanks [@TylerJDev](https://github.com/TylerJDev)! - SelectPanel: Add `cssAnchorPositioningSettings` prop to customize CSS anchor positioning behavior
+
+- [#7506](https://github.com/primer/react/pull/7506) [`e58907c`](https://github.com/primer/react/commit/e58907c5559f5ef8133a1d98a05e2e4a6c1ca6cb) Thanks [@iansan5653](https://github.com/iansan5653)! - Refactors `UnderlineNav` overflow handling to use CSS-based overflow detection instead of JavaScript width measurements, eliminating layout shift (CLS) issues and improving performance. The overflow menu is now implemented with `ActionMenu`, and item registration uses a descendant registry instead of the `React.Children` API. Consumer-facing changes: items can now be wrapped in fragments or wrapper components; the current item may appear in the overflow menu when the viewport is narrow; and the overflow menu button is right-aligned.
+
+### Patch Changes
+
+- [#8021](https://github.com/primer/react/pull/8021) [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Announce, AriaStatus, AriaAlert: Avoid an extra React render on every content change (e.g. per keystroke when tied to an input)
+
+- [#7935](https://github.com/primer/react/pull/7935) [`5b3c806`](https://github.com/primer/react/commit/5b3c806305cfa09d33d42fc2957d55105725ea3b) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - ConfirmationDialog: `useConfirm`/`confirm` now removes its host element from `document.body` after the dialog is closed, and uses a fresh host element per call, so the empty container no longer lingers or leaks into other components and tests
+
+- [#8007](https://github.com/primer/react/pull/8007) [`f052126`](https://github.com/primer/react/commit/f0521263c85a8d665f7c031bd711b3568bdac8e2) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Improve style-recalc performance by making ButtonGroup, DataTable Pagination, and Checkbox CSS selectors bucketable (removing universal `*`/`:not([attr])` subjects and `:is()` selector-list merges)
+
+- [#8021](https://github.com/primer/react/pull/8021) [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Textarea: Improve typing performance by deriving the character counter in render instead of in effects, removing extra re-renders on each keystroke.
+
+- [#8021](https://github.com/primer/react/pull/8021) [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd) Thanks [@mattcosta7](https://github.com/mattcosta7)! - TextInput: Improve typing performance by deriving the character counter in render instead of in effects, removing extra re-renders on each keystroke.
+
 ## 38.29.0
 
 ### Minor Changes

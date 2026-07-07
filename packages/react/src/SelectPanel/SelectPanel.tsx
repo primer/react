@@ -131,7 +131,10 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align' | 'displayInViewport'> &
+  Pick<
+    AnchoredOverlayProps,
+    'open' | 'height' | 'width' | 'align' | 'displayInViewport' | 'cssAnchorPositioningSettings'
+  > &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
@@ -204,6 +207,7 @@ function Panel({
   focusPrependedElements,
   virtualized,
   displayInViewport,
+  cssAnchorPositioningSettings,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -242,8 +246,10 @@ function Panel({
   )
 
   // Reset the intermediate selected item when the panel is opened or closed.
-  // Tracking the previous `open` value lets us derive this during render instead
-  // of in an effect, avoiding an extra render pass each time the panel toggles.
+  // Tracking the previous `open` value in state lets us derive this during render
+  // instead of in an effect. Adjusting state during render this way does not cause
+  // an extra committed render — React re-renders synchronously before painting —
+  // and a ref cannot be used here because writing refs during render is disallowed.
   const [prevOpen, setPrevOpen] = useState(open)
   if (prevOpen !== open) {
     setPrevOpen(open)
@@ -907,7 +913,11 @@ function Panel({
         closeButtonProps={closeButtonProps}
         displayInViewport={displayInViewport}
         // Modal variant is positioned manually so native CSS anchor positioning must not be used
-        cssAnchorPositioningSettings={{disable: variant === 'modal'}}
+        // Other cssAnchorPositioningSettings (e.g. fallbackStrategy) may be passed in and are forwarded here
+        cssAnchorPositioningSettings={{
+          ...cssAnchorPositioningSettings,
+          disable: variant === 'modal' || cssAnchorPositioningSettings?.disable,
+        }}
       >
         <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
           <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">

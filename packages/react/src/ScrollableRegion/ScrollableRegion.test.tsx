@@ -30,6 +30,16 @@ describe('ScrollableRegion', () => {
     window.ResizeObserver = originalResizeObserver
   })
 
+  test('renders data-component attribute', () => {
+    render(
+      <ScrollableRegion aria-label="Example label" data-testid="container">
+        Example content
+      </ScrollableRegion>,
+    )
+
+    expect(screen.getByTestId('container')).toHaveAttribute('data-component', 'ScrollableRegion')
+  })
+
   test('does not render with region props by default', () => {
     render(
       <ScrollableRegion aria-label="Example label" data-testid="container">
