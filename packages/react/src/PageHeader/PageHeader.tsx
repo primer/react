@@ -57,6 +57,19 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
     // which saw through fragment wrappers. `titleVariant` stays undefined when
     // no TitleArea is rendered so the root doesn't emit title sizing in that case.
     //
+    // Scope of the walk: only direct children and children nested inside
+    // `React.Fragment` are inspected. Unlike the old `:has()` selectors — which
+    // matched a slot at *any* depth in the rendered subtree — we intentionally do
+    // NOT descend into host elements (`<div>…`) or custom wrapper components. This
+    // is safe because `PageHeader.TitleArea`/`Navigation` are compound-component
+    // slots: they are only supported as direct children (optionally via fragments
+    // or conditional/mapped expressions, which `React.Children.toArray` flattens).
+    // Wrapping a slot in an arbitrary element is not a supported usage — the
+    // component's other slot logic (e.g. the direct-children scan in
+    // `validateInteractiveElementsInTitle` below) already assumes this — so the
+    // narrower traversal preserves supported behavior while avoiding an expensive
+    // deep tree walk on every render.
+    //
     // We return the hoisted state (rather than mutating closure variables) so
     // TypeScript's control-flow analysis keeps the correct types at the usage
     // sites below — a value mutated inside a closure stays narrowed to its
