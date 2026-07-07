@@ -33,7 +33,7 @@ export type UnderlineNavProps = {
   variant?: 'inset' | 'flush'
   /**
    * Customize when the icons are hidden to save space. Set to `null` to always show icons.
-   * Defaults to `xlarge`; if you know there won't be very many tabs you might set this to a smaller value.
+   * Defaults to `xxlarge`; if you know there won't be very many tabs you might set this to a smaller value.
    */
   hideIconsBreakpoint?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | null
 }
