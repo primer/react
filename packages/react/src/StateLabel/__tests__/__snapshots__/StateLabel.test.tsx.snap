@@ -4,6 +4,7 @@ exports[`StateLabel > prefers the size prop over deprecated variant prop 1`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="small"
     data-status="issueOpened"
   >
@@ -37,6 +38,7 @@ exports[`StateLabel > renders children 1`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="issueOpened"
   >
@@ -70,6 +72,7 @@ exports[`StateLabel > respects the deprecated variant prop 1`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="small"
     data-status="issueOpened"
   >
@@ -103,6 +106,7 @@ exports[`StateLabel > respects the deprecated variant prop 2`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="issueOpened"
   >
@@ -135,6 +139,7 @@ exports[`StateLabel > respects the size prop 1`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="small"
     data-status="issueOpened"
   >
@@ -168,6 +173,7 @@ exports[`StateLabel > respects the size prop 2`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="issueOpened"
   >
@@ -200,6 +206,7 @@ exports[`StateLabel > respects the status prop 1`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="issueOpened"
   >
@@ -232,6 +239,7 @@ exports[`StateLabel > respects the status prop 2`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="issueClosed"
   >
@@ -264,6 +272,7 @@ exports[`StateLabel > respects the status prop 3`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="issueClosedNotPlanned"
   >
@@ -293,6 +302,7 @@ exports[`StateLabel > respects the status prop 4`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="pullMerged"
   >
@@ -322,6 +332,7 @@ exports[`StateLabel > respects the status prop 5`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="pullQueued"
   >
@@ -351,6 +362,7 @@ exports[`StateLabel > respects the status prop 6`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="alertOpened"
   >
@@ -380,6 +392,7 @@ exports[`StateLabel > respects the status prop 7`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="alertFixed"
   >
@@ -409,6 +422,7 @@ exports[`StateLabel > respects the status prop 8`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="alertDismissed"
   >
@@ -438,6 +452,7 @@ exports[`StateLabel > respects the status prop 9`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="alertClosed"
   >
@@ -467,6 +482,7 @@ exports[`StateLabel > respects the status prop 10`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"
+    data-component="StateLabel"
     data-size="medium"
     data-status="archived"
   >

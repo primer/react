@@ -37,6 +37,11 @@ describe('Textarea', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument()
   })
 
+  it('renders data-component attribute', () => {
+    render(<Textarea />)
+    expect(screen.getByRole('textbox')).toHaveAttribute('data-component', 'Textarea')
+  })
+
   it('renders an empty textarea by default', () => {
     render(<Textarea />)
     const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
