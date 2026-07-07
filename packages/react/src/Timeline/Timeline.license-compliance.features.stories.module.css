@@ -1,55 +1,7 @@
-.RealisticTimeline {
-  /* GitHub renders the alert timeline at most 1012px wide in product surfaces. */
-  max-width: 1012px;
-}
-
-/* Story-only scaffolding: each variant is wrapped in its own <section> with a
-   small caption heading ABOVE the event, so the event row itself (badge +
-   inline actor + body) renders exactly as it would in product — the caption
-   never sits inside Timeline.Body. Variants stay scannable like a Figma
-   component set. Not part of the faithful event. */
-.Variant {
-  margin-bottom: var(--base-size-24);
-}
-
-.VariantLabel {
-  margin: 0 0 var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-/* Inline user-actor avatar in the body. Live `TimelineEventWithActor`
-   (`events/shared.tsx`) renders a 20px CIRCLE `GitHubAvatar` immediately before
-   the login — note this surface uses 20px, NOT the 16px of the secret-scanning
-   timeline. */
-.InlineAvatar {
-  vertical-align: middle;
-  margin-right: var(--base-size-4);
-}
-
-/* Bold actor name for the non-link actor shapes — live `shared.tsx` renders the
-   login as a bold `<strong className="ml-1">` when there is no `actor.url`
-   (and for the bot shape, before the secondary "bot" Label). */
-/* Actor name — shared by the linked actor (`<Link>`), the bold non-link actor,
-   and the bot login. Rendered PLAIN INLINE (no flex wrapper) so it sits on the
-   same vertically-centered line as the avatar, badge and summary, matching the
-   Issues / Dependabot rows. Semibold + `fgColor-default`: the bold weight is the
-   non-color differentiator that satisfies the axe `link-in-text-block` rule, so
-   the linked variant stays a11y-safe without an underline. */
-.ActorName {
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
-  margin-right: var(--base-size-4);
-}
-
-/* Accent on hover for the linked actor (no-op on the plain-span shapes),
-   mirroring the Dependabot `LinkWithBoldStyle` hover. */
-.ActorName:hover {
-  color: var(--fgColor-accent);
-}
+/* Surface-specific classes for the License Compliance event stories. The generic
+   scaffolding (RealisticTimeline / VariantSection width + caption), the inline
+   avatar, the bold actor link, and the muted timestamp now come from the shared
+   `./internal/timelineStoryHelpers` module. */
 
 /* Secondary "bot" Label spacing — live `shared.tsx` renders the bot Label with
    a leading `ml-1`. */
@@ -60,13 +12,6 @@
 /* Muted action verb (e.g. "opened this alert"). Live `shared.tsx` renders it as
    `<span className="color-fg-muted ml-1">`. */
 .ActionText {
-  color: var(--fgColor-muted);
-}
-
-/* Muted relative timestamp — live `shared.tsx` renders a plain `RelativeTime`
-   with no link wrapper (muted text only), matching the secret-scanning and
-   Dependabot timelines. */
-.Timestamp {
   color: var(--fgColor-muted);
 }
 

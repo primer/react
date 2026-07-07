@@ -15,13 +15,13 @@ import {
   XIcon,
 } from '@primer/octicons-react'
 import type React from 'react'
-import Avatar from '../Avatar'
 import BranchName from '../BranchName'
 import {Button} from '../Button'
 import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
-import RelativeTime from '../RelativeTime'
+import {BoldLink, Examples, InlineAvatar, MutedTime, VariantSection} from './internal/timelineStoryHelpers'
+import sharedClasses from './internal/timelineStoryHelpers.module.css'
 import classes from './Timeline.license-compliance.features.stories.module.css'
 
 /**
@@ -115,32 +115,33 @@ const LICENSE_BOT_AVATAR = 'https://avatars.githubusercontent.com/u/9919?s=40&v=
 
 /**
  * User actor — live `TimelineEventWithActor` (`events/shared.tsx`). Renders a
- * 20px CIRCLE `GitHubAvatar` followed by the login. Rendered as PLAIN INLINE
- * elements (avatar with `vertical-align: middle` immediately followed by an
- * inline `<Link>`/span) — NO `inline-flex` wrapper — so the avatar, login, badge
- * and trailing summary all sit on one cleanly vertically-centered line, exactly
- * like the working Issues (#8070) / Dependabot (#8071) rows. The shape is derived
+ * 20px CIRCLE avatar (shared `InlineAvatar`) followed by the login (shared
+ * `BoldLink`), as PLAIN INLINE elements so the avatar, login, badge and trailing
+ * summary all sit on one cleanly vertically-centered line. The shape is derived
  * from the login, matching live `shared.tsx`:
  * - login ends with `[bot]` → the suffix is stripped and the (UNLINKED) display
- *   login renders bold + a secondary "bot" `Label` (live ignores `url` for bots).
- * - otherwise `url` present → inline `<Link>` login, semibold + `fgColor-default`
- *   (the bold weight is the non-color differentiator that satisfies
- *   `link-in-text-block`).
- * - otherwise → bold login text.
+ *   login renders bold (a `<span>` sourcing the shared `BoldLink` styling — a
+ *   plain span rather than `BoldLink as="span"` because Primer's `Link` errors
+ *   when it renders as a non-anchor) + a secondary "bot" `Label` (live ignores
+ *   `url` for bots).
+ * - otherwise `url` present → linked login (`BoldLink href`), semibold +
+ *   `fgColor-default` (the bold weight is the non-color differentiator that
+ *   satisfies `link-in-text-block`; no `inline`, so it stays un-underlined).
+ * - otherwise → bold login text (same shared-styled `<span>`).
  */
 const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR, url}: {login?: string; src?: string; url?: string}) => {
   // Derive the bot shape from the login itself, exactly like live `shared.tsx`
   // (`isBot = login.endsWith('[bot]')`, with the suffix stripped for display).
   const isBot = login.endsWith('[bot]')
   const displayLogin = isBot ? login.replace(/\[bot\]$/i, '') : login
-  const avatar = <Avatar src={src} size={20} alt="" className={classes.InlineAvatar} />
+  const avatar = <InlineAvatar src={src} />
   if (isBot) {
     // Live renders bots UNLINKED (the bot branch ignores `actor.url`): avatar +
     // bold display login + a secondary "bot" Label.
     return (
       <>
         {avatar}
-        <span className={classes.ActorName}>{displayLogin}</span>
+        <span className={sharedClasses.BoldLink}>{displayLogin}</span>
         <Label variant="secondary" className={classes.BotLabel}>
           bot
         </Label>
@@ -151,28 +152,17 @@ const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR, url}: {login?: st
     return (
       <>
         {avatar}
-        <Link href={url} className={classes.ActorName}>
-          {displayLogin}
-        </Link>
+        <BoldLink href={url}>{displayLogin}</BoldLink>
       </>
     )
   }
   return (
     <>
       {avatar}
-      <span className={classes.ActorName}>{displayLogin}</span>
+      <span className={sharedClasses.BoldLink}>{displayLogin}</span>
     </>
   )
 }
-
-// Muted relative timestamp. Live `shared.tsx` renders a plain `RelativeTime`
-// with no link wrapper — muted text only (matching the secret-scanning and
-// Dependabot timelines, unlike the Issues `Ago` deep-link).
-const Time = ({date}: {date: string}) => (
-  <span className={classes.Timestamp}>
-    <RelativeTime date={new Date(date)} format="relative" />
-  </span>
-)
 
 /**
  * Optional comment sub-row — live `EventComment` (`events/shared.tsx`) renders a
@@ -216,33 +206,6 @@ const PolicyLink = ({href = '../../settings/security_analysis'}: {href?: string}
   <Link href={href} inline>
     license policy
   </Link>
-)
-
-/**
- * Story-only wrapper around each group's examples. Besides constraining the
- * width (`.RealisticTimeline`), it:
- * - sets `data-a11y-link-underlines="true"` so Primer's inline-link underline
- *   (gated on this ancestor attribute, which GitHub sets from the default-on
- *   "Show link underlines" preference but Storybook never sets) renders for the
- *   in-text `<Link inline>` links (policy / PR) — reproducing production and
- *   satisfying WCAG 1.4.1. Actor-name links have no `inline` prop, so they stay
- *   un-underlined (avatar + semibold cue only).
- * - swallows clicks on the demo links (actor profile, PR, license-policy) so
- *   navigating one of these placeholder `href`s doesn't kick the viewer out of
- *   the Storybook UI — the same guard the base `Timeline.features.stories.tsx`
- *   `WithActions` story uses. The `e.target instanceof Element` check keeps it
- *   safe when the click originates on an SVG/octicon.
- */
-const Examples = ({children}: {children: React.ReactNode}) => (
-  <div
-    className={classes.RealisticTimeline}
-    data-a11y-link-underlines="true"
-    onClick={e => {
-      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
-    }}
-  >
-    {children}
-  </div>
 )
 
 export default {
@@ -289,8 +252,7 @@ export default {
 export const EventOpened = () => (
   <Examples>
     {/* Opened — license-compliance system bot, ShieldIcon on success (green) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Opened</h3>
+    <VariantSection label="Opened">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -298,11 +260,12 @@ export const EventOpened = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="github-license-compliance[bot]" src={LICENSE_BOT_AVATAR} />{' '}
-            <span className={classes.ActionText}>opened this alert</span> <Time date="2025-10-20T10:00:00Z" />
+            <span className={classes.ActionText}>opened this alert</span>{' '}
+            <MutedTime date={new Date('2025-10-20T10:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -325,8 +288,7 @@ export const EventAppearedInBranch = () => (
   <Examples>
     {/* Appeared in branch — actor-less, GitBranchIcon on the default (gray)
         badge, with a BranchName pill. PR sub-row is dormant (see group doc). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Appeared in branch</h3>
+    <VariantSection label="Appeared in branch">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -335,11 +297,11 @@ export const EventAppearedInBranch = () => (
           <Timeline.Body>
             <span className={classes.ActionText}>Appeared in branch</span>{' '}
             <BranchName href="../../tree/feature-branch">feature-branch</BranchName>{' '}
-            <Time date="2025-10-20T10:01:00Z" />
+            <MutedTime date={new Date('2025-10-20T10:01:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -366,8 +328,7 @@ export const EventAppearedInBranch = () => (
 export const EventReviewRequested = () => (
   <Examples>
     {/* Requested to close — no reason, no PR, no comment */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Requested to close</h3>
+    <VariantSection label="Requested to close">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -375,15 +336,15 @@ export const EventReviewRequested = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>requested to close</span> <Time date="2025-10-21T09:00:00Z" />
+            <span className={classes.ActionText}>requested to close</span>{' '}
+            <MutedTime date={new Date('2025-10-21T09:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Requested to close as {reason}, with a requester comment sub-row */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Requested to close as a specific reason (with comment)</h3>
+    <VariantSection label="Requested to close as a specific reason (with comment)">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -392,17 +353,16 @@ export const EventReviewRequested = () => (
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>requested to close as used in tests</span>{' '}
-            <Time date="2025-10-21T09:05:00Z" />
+            <MutedTime date={new Date('2025-10-21T09:05:00Z')} />
             <EventComment>This dependency is only pulled in by our test harness.</EventComment>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Requested to close with an associated PR — PR link sub-row + the primary
         "Review request" button (latest request only) in Timeline.Actions. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Requested to close with a pull request (latest — shows Review request)</h3>
+    <VariantSection label="Requested to close with a pull request (latest — shows Review request)">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -410,7 +370,8 @@ export const EventReviewRequested = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>requested to close</span> <Time date="2025-10-21T09:10:00Z" />
+            <span className={classes.ActionText}>requested to close</span>{' '}
+            <MutedTime date={new Date('2025-10-21T09:10:00Z')} />
             <PullRequestLink number={42} title="Replace GPL dependency" />
           </Timeline.Body>
           <Timeline.Actions>
@@ -420,7 +381,7 @@ export const EventReviewRequested = () => (
           </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -435,8 +396,7 @@ export const EventReviewRequested = () => (
 export const EventReviewApproved = () => (
   <Examples>
     {/* Approved closure request */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Approved closure request</h3>
+    <VariantSection label="Approved closure request">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -444,15 +404,15 @@ export const EventReviewApproved = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
-            <span className={classes.ActionText}>approved closure request</span> <Time date="2025-10-22T10:00:00Z" />
+            <span className={classes.ActionText}>approved closure request</span>{' '}
+            <MutedTime date={new Date('2025-10-22T10:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Approved closure request — with reviewer comment */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Approved closure request (with comment)</h3>
+    <VariantSection label="Approved closure request (with comment)">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -460,12 +420,13 @@ export const EventReviewApproved = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
-            <span className={classes.ActionText}>approved closure request</span> <Time date="2025-10-22T10:05:00Z" />
+            <span className={classes.ActionText}>approved closure request</span>{' '}
+            <MutedTime date={new Date('2025-10-22T10:05:00Z')} />
             <EventComment>Agreed — test-only usage is within policy.</EventComment>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -479,8 +440,7 @@ export const EventReviewApproved = () => (
 export const EventReviewDenied = () => (
   <Examples>
     {/* Denied closure request */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Denied closure request</h3>
+    <VariantSection label="Denied closure request">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -488,15 +448,15 @@ export const EventReviewDenied = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
-            <span className={classes.ActionText}>denied closure request</span> <Time date="2025-10-22T11:00:00Z" />
+            <span className={classes.ActionText}>denied closure request</span>{' '}
+            <MutedTime date={new Date('2025-10-22T11:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Denied closure request — with reviewer comment */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Denied closure request (with comment)</h3>
+    <VariantSection label="Denied closure request (with comment)">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -504,12 +464,13 @@ export const EventReviewDenied = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
-            <span className={classes.ActionText}>denied closure request</span> <Time date="2025-10-22T11:05:00Z" />
+            <span className={classes.ActionText}>denied closure request</span>{' '}
+            <MutedTime date={new Date('2025-10-22T11:05:00Z')} />
             <EventComment>This package is distributed to customers, so the license still applies.</EventComment>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -525,8 +486,7 @@ export const EventReviewDenied = () => (
 export const EventReviewExpired = () => (
   <Examples>
     {/* Request to close expired — license-compliance system bot, automatic expiry */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Request to close expired</h3>
+    <VariantSection label="Request to close expired">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -534,11 +494,12 @@ export const EventReviewExpired = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="github-license-compliance[bot]" src={LICENSE_BOT_AVATAR} />{' '}
-            <span className={classes.ActionText}>Request to close expired</span> <Time date="2025-10-23T10:00:00Z" />
+            <span className={classes.ActionText}>Request to close expired</span>{' '}
+            <MutedTime date={new Date('2025-10-23T10:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -555,8 +516,7 @@ export const EventReviewExpired = () => (
 export const EventExceptionAdded = () => (
   <Examples>
     {/* Full shape — package + policy link + repo name */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Added a package exception to the license policy</h3>
+    <VariantSection label="Added a package exception to the license policy">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -567,15 +527,14 @@ export const EventExceptionAdded = () => (
             <span className={classes.ActionText}>
               added npm/left-pad to <PolicyLink /> for monalisa/octo-app
             </span>{' '}
-            <Time date="2025-10-23T12:00:00Z" />
+            <MutedTime date={new Date('2025-10-23T12:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Fallback shape — body missing package info */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Created exception (fallback)</h3>
+    <VariantSection label="Created exception (fallback)">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -583,11 +542,12 @@ export const EventExceptionAdded = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>created exception</span> <Time date="2025-10-23T12:05:00Z" />
+            <span className={classes.ActionText}>created exception</span>{' '}
+            <MutedTime date={new Date('2025-10-23T12:05:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -603,8 +563,7 @@ export const EventExceptionAdded = () => (
 export const EventLicensesAdded = () => (
   <Examples>
     {/* Full shape — licenses list + policy link + repo name */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Added licenses to the license policy</h3>
+    <VariantSection label="Added licenses to the license policy">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -615,15 +574,14 @@ export const EventLicensesAdded = () => (
             <span className={classes.ActionText}>
               added MIT, Apache-2.0 to <PolicyLink /> for monalisa/octo-app
             </span>{' '}
-            <Time date="2025-10-24T12:00:00Z" />
+            <MutedTime date={new Date('2025-10-24T12:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Fallback shape — body missing licenses array */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Added to approved licenses (fallback)</h3>
+    <VariantSection label="Added to approved licenses (fallback)">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -631,11 +589,12 @@ export const EventLicensesAdded = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>added to approved licenses</span> <Time date="2025-10-24T12:05:00Z" />
+            <span className={classes.ActionText}>added to approved licenses</span>{' '}
+            <MutedTime date={new Date('2025-10-24T12:05:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -655,8 +614,7 @@ export const EventLicensesAdded = () => (
 export const EventClosed = () => (
   <Examples>
     {/* Closed as amendment — with a closing comment */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as amendment (with comment)</h3>
+    <VariantSection label="Closed as amendment (with comment)">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -664,16 +622,16 @@ export const EventClosed = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed as amendment</span> <Time date="2025-10-25T10:00:00Z" />
+            <span className={classes.ActionText}>closed as amendment</span>{' '}
+            <MutedTime date={new Date('2025-10-25T10:00:00Z')} />
             <EventComment>Added a policy exception covering this package.</EventComment>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as private package */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as private package</h3>
+    <VariantSection label="Closed as private package">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -681,15 +639,15 @@ export const EventClosed = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed as private package</span> <Time date="2025-10-25T10:05:00Z" />
+            <span className={classes.ActionText}>closed as private package</span>{' '}
+            <MutedTime date={new Date('2025-10-25T10:05:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as inaccurate license */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as inaccurate license</h3>
+    <VariantSection label="Closed as inaccurate license">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -698,15 +656,14 @@ export const EventClosed = () => (
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>closed as inaccurate license</span>{' '}
-            <Time date="2025-10-25T10:10:00Z" />
+            <MutedTime date={new Date('2025-10-25T10:10:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as policy edited */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as policy edited</h3>
+    <VariantSection label="Closed as policy edited">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -714,15 +671,15 @@ export const EventClosed = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed as policy edited</span> <Time date="2025-10-25T10:15:00Z" />
+            <span className={classes.ActionText}>closed as policy edited</span>{' '}
+            <MutedTime date={new Date('2025-10-25T10:15:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as fixed */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as fixed</h3>
+    <VariantSection label="Closed as fixed">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -730,15 +687,15 @@ export const EventClosed = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed as fixed</span> <Time date="2025-10-25T10:20:00Z" />
+            <span className={classes.ActionText}>closed as fixed</span>{' '}
+            <MutedTime date={new Date('2025-10-25T10:20:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as outdated — resolution Outdated */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as outdated</h3>
+    <VariantSection label="Closed as outdated">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -746,15 +703,15 @@ export const EventClosed = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed as outdated</span> <Time date="2025-10-25T10:25:00Z" />
+            <span className={classes.ActionText}>closed as outdated</span>{' '}
+            <MutedTime date={new Date('2025-10-25T10:25:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed this alert — default (no reason / resolution) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed this alert (default)</h3>
+    <VariantSection label="Closed this alert (default)">
       <Timeline aria-label="License compliance alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -762,10 +719,11 @@ export const EventClosed = () => (
           </Timeline.Badge>
           <Timeline.Body>
             <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
-            <span className={classes.ActionText}>closed this alert</span> <Time date="2025-10-25T10:30:00Z" />
+            <span className={classes.ActionText}>closed this alert</span>{' '}
+            <MutedTime date={new Date('2025-10-25T10:30:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
