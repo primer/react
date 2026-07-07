@@ -22,6 +22,7 @@ function Text<As extends React.ElementType>(props: TextProps<As>, ref: Forwarded
   return (
     <Component
       className={clsx(className, classes.Text)}
+      data-component="Text"
       data-size={size}
       data-weight={weight}
       data-white-space={whiteSpace}
