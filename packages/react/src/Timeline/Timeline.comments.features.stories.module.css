@@ -15,6 +15,33 @@
   left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
 }
 
+/* Parent-child avatar: a small app/agent avatar overlapping the bottom-right of the
+   large author avatar (GitHub renders this for app/agent co-authored comments). Based
+   on Primer's `.avatar-parent-child` / `.avatar-child`, but deliberately CORRECTED:
+   the upstream `.avatar-child` uses an asymmetric `right: -15%` / `bottom: -9%` offset
+   and a translucent `#fffc` box-shadow, which makes the badge sit unevenly with a
+   lopsided ring (github/github#439417). We use a SYMMETRIC offset and an OPAQUE ring so
+   the badge sits cleanly in the corner. */
+.AvatarParent {
+  position: relative;
+  display: inline-flex;
+}
+
+.AppAvatarChild {
+  position: absolute;
+  right: calc(-1 * var(--base-size-4));
+  bottom: calc(-1 * var(--base-size-4));
+  width: var(--base-size-20);
+  height: var(--base-size-20);
+  /* App avatars are rounded squares (vs circular user avatars). */
+  border-radius: var(--borderRadius-medium);
+  /* Opaque canvas ring separating the child from the parent (not the translucent
+     upstream shadow). Mirrors Primer's own `.avatar-child` ring, which is likewise a
+     custom box-shadow (`--avatar-shadow`), so no token maps to it. */
+  /* stylelint-disable-next-line primer/box-shadow -- avatar separator ring, matches upstream .avatar-child */
+  box-shadow: 0 0 0 var(--borderWidth-thick) var(--bgColor-default);
+}
+
 /* Story-only scaffolding: each variant is wrapped in its own <section> with a
    small caption heading ABOVE the card, mirroring the badge-row Issue stories so
    the card itself renders exactly as it would in product. Not part of the card. */

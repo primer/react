@@ -67,6 +67,15 @@ import classes from './Timeline.comments.features.stories.module.css'
  *   ROUNDED-SQUARE with an accent-blue background — the clean Dependabot brand avatar.
  *   `bgColor-accent-emphasis` is the closest Primer token to the Dependabot brand blue.
  *   (Replaces the old photo URL, which rendered an off-brand hexagonal design.)
+ *
+ * PARENT-CHILD AVATAR (app/agent co-authored comments): a small app avatar (rounded
+ * square) overlaps the bottom-right of the large author avatar — GitHub renders this
+ * for comments created "with" an app/agent (e.g. "monalisa … – with GitHub Actions").
+ * See the `appAvatar` prop + the app-avatar-badge section. Primer's upstream
+ * `.avatar-child` has a long-standing asymmetric offset (`right: -15%` / `bottom: -9%`)
+ * and a translucent `#fffc` shadow that renders the badge unevenly; we deliberately
+ * reconstruct it with a SYMMETRIC offset and an OPAQUE ring so it sits cleanly in the
+ * corner (github/github#439417).
  */
 
 const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
@@ -100,6 +109,12 @@ type CommentCardProps = {
   timestamp: string
   /** Renders the live " – with {app}" suffix in the timestamp line. */
   viaApp?: {name: string; href?: string}
+  /**
+   * A small app/agent avatar overlapping the bottom-right of the large gutter avatar
+   * (the "parent-child" avatar pattern GitHub renders for app/agent co-authored
+   * comments, e.g. "monalisa … – with Claude"). App avatars are rounded squares.
+   */
+  appAvatar?: {src: string; alt: string}
   /** Show the reactions footer. */
   reactions?: boolean
   /**
@@ -131,6 +146,7 @@ const CommentCard = ({
   badgeAriaLabel,
   timestamp,
   viaApp,
+  appAvatar,
   reactions = false,
   isReply = false,
   children,
@@ -149,7 +165,17 @@ const CommentCard = ({
             <AvatarIcon size={24} />
           </span>
         ) : (
-          <Avatar size={40} src={avatarSrc ?? ''} square={avatarShape === 'square'} alt="" />
+          <span className={appAvatar ? classes.AvatarParent : undefined}>
+            <Avatar size={40} src={avatarSrc ?? ''} square={avatarShape === 'square'} alt="" />
+            {appAvatar ? (
+              // Parent-child avatar: the small app avatar overlaps the bottom-right of
+              // the large avatar. Primer's `.avatar-child` has a long-standing asymmetric
+              // offset (right: -15% / bottom: -9%) and a translucent white shadow; we
+              // deliberately reconstruct it with a SYMMETRIC offset and an opaque ring so
+              // the badge sits cleanly in the corner (github/github#439417).
+              <img className={classes.AppAvatarChild} src={appAvatar.src} alt={appAvatar.alt} />
+            ) : null}
+          </span>
         )}
       </Timeline.Avatar>
     )}
@@ -326,7 +352,7 @@ export const EventComment = () => (
     </CommentSection>
 
     {/* User comment via a GitHub App: the timestamp line gains a " – with {app}" suffix,
-        the app name an `inline` (underlined) `Link`. Live adds no child/app avatar here. */}
+        the app name an `inline` (underlined) `Link`. */}
     <CommentSection label="User comment via a GitHub App">
       <CommentCard
         authorName="monalisa"
@@ -335,6 +361,24 @@ export const EventComment = () => (
         viaApp={{name: 'Acme Sync'}}
       >
         <p>Mirrored from our internal tracker — closing the loop here so the thread stays in sync.</p>
+      </CommentCard>
+    </CommentSection>
+
+    {/* User comment via an app, WITH the app's avatar badge overlapping the author avatar
+        (the parent-child avatar pattern — GitHub renders this for app/agent co-authored
+        comments, e.g. "monalisa … – with GitHub Actions"). The small app avatar (rounded
+        square) sits at the bottom-right of the large author avatar. We reconstruct it
+        with a symmetric offset + opaque ring, avoiding Primer `.avatar-child`'s
+        long-standing asymmetric offset (github/github#439417). */}
+    <CommentSection label="User comment via an app (with app avatar badge)">
+      <CommentCard
+        authorName="monalisa"
+        avatarSrc={MONALISA_AVATAR}
+        appAvatar={{src: GITHUB_ACTIONS_AVATAR, alt: 'GitHub Actions'}}
+        timestamp="2022-07-26T12:30:00Z"
+        viaApp={{name: 'GitHub Actions'}}
+      >
+        <p>Deploy preview is ready — the changes are live on the staging environment.</p>
       </CommentCard>
     </CommentSection>
   </div>
