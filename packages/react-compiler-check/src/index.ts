@@ -19,6 +19,11 @@ function checkFile(filename: string, contents: string): CheckResult {
           location: event.detail.primaryLocation(),
           reason: event.detail.reason,
         })
+      } else if (event.kind === 'CompileSkip') {
+        addCheckError(errors, {
+          location: event.loc ?? event.fnLoc,
+          reason: event.reason,
+        })
       }
     },
   }
