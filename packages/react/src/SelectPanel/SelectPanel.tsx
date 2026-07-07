@@ -247,10 +247,7 @@ function Panel({
 
   // Reset the intermediate selected item when the panel is opened/closed or the external
   // selection changes. Adjusting state during render (tracking the previous inputs) rather
-  // than syncing it from an effect avoids an extra post-commit render. The reset is also
-  // gated on the intermediate selection actually changing, so variants that never use it
-  // (e.g. multi-select / anchored, where it stays `undefined`) don't pay for a render-phase
-  // restart on every open/selection change.
+  // than syncing it from an effect avoids an extra post-commit render.
   const nextIntermediateSelected = isSingleSelectModal ? selected : undefined
   const [intermediateSelectedResetKey, setIntermediateSelectedResetKey] = useState({
     open,
@@ -261,9 +258,17 @@ function Panel({
     intermediateSelectedResetKey.open !== open ||
     intermediateSelectedResetKey.selected !== selected ||
     intermediateSelectedResetKey.isSingleSelectModal !== isSingleSelectModal
-  if (intermediateSelectedInputsChanged && intermediateSelected !== nextIntermediateSelected) {
+  if (intermediateSelectedInputsChanged) {
+    // Always advance the reset key when the inputs change so it never goes stale. If the key
+    // only advanced when the value also differed, it could stay behind while the panel is
+    // open and clobber the next user-driven `setIntermediateSelected` on the following render
+    // (breaking single-select modal interaction). Only reset the intermediate selection when
+    // it actually differs, so multi-select / anchored variants (where it stays `undefined`)
+    // don't call `setIntermediateSelected` at all.
     setIntermediateSelectedResetKey({open, selected, isSingleSelectModal})
-    setIntermediateSelected(nextIntermediateSelected)
+    if (intermediateSelected !== nextIntermediateSelected) {
+      setIntermediateSelected(nextIntermediateSelected)
+    }
   }
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
