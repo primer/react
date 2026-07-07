@@ -191,8 +191,13 @@
     background-color: var(--borderColor-default);
   }
 
-  /* Hide the divider on the leading edge of the selected item itself. */
-  &:where([data-selected])::before {
+  /*
+   * Hide the divider on the leading edge of the selected item itself. Uses a
+   * plain `[data-selected]` (not `:where()`) so specificity matches the divider
+   * rule above (0,2,1) and wins by source order; `:where()` would drop to
+   * (0,1,1) and lose, leaving the divider visible.
+   */
+  &[data-selected]::before {
     background-color: transparent;
   }
 
