@@ -1,7 +1,7 @@
-.RealisticTimeline {
-  /* GitHub renders the timeline at most 1012px wide in product surfaces. Reserve the
-     ~72px gutter so the large avatar (which sits left of the rail) isn't clipped. */
-  max-width: 1012px;
+/* Reserve the ~72px gutter so the large avatar (which sits left of the rail) isn't
+   clipped. Nested inside the shared `RealisticTimeline` (max-width) container; this
+   div also hosts the story-only click guard for the placeholder in-text links. */
+.Gutter {
   padding-left: calc(var(--base-size-40) + var(--base-size-32));
 }
 
@@ -9,9 +9,9 @@
    rail), so its right edge lands just left of the rail and the card overlaps the
    rail — matching Figma: avatar-left → card-left ≈ 56px, caret bridges the gap. The
    default Timeline.Avatar `top` / translateY (vertical centering) is preserved.
-   Specificity (.RealisticTimeline .GutterAvatar = 0-2-0) beats the base
-   .TimelineItemAvatar (0-1-0) regardless of stylesheet order. */
-.RealisticTimeline .GutterAvatar {
+   Specificity (.Gutter .GutterAvatar = 0-2-0) beats the base .TimelineItemAvatar
+   (0-1-0) regardless of stylesheet order. */
+.Gutter .GutterAvatar {
   left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
 }
 
@@ -40,22 +40,6 @@
      custom box-shadow (`--avatar-shadow`), so no token maps to it. */
   /* stylelint-disable-next-line primer/box-shadow -- avatar separator ring, matches upstream .avatar-child */
   box-shadow: 0 0 0 var(--borderWidth-thick) var(--bgColor-default);
-}
-
-/* Story-only scaffolding: each variant is wrapped in its own <section> with a
-   small caption heading ABOVE the card, mirroring the badge-row Issue stories so
-   the card itself renders exactly as it would in product. Not part of the card. */
-.Variant {
-  margin-bottom: var(--base-size-24);
-}
-
-.VariantLabel {
-  margin: 0 0 var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 /* The bordered comment card. Mirrors GitHub's `.timeline-comment` shell: a

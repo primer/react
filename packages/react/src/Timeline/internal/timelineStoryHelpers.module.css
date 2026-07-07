@@ -1,0 +1,39 @@
+.RealisticTimeline {
+  /* GitHub renders the timeline at most 1012px wide in product surfaces. */
+  max-width: 1012px;
+}
+
+.VariantSection {
+  margin-bottom: var(--base-size-24);
+}
+
+.VariantLabel {
+  margin: 0 0 var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* TODO(github/primer#6826): remove when Primer Link ships a bold/actor weight affordance */
+.BoldLink {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+}
+
+.BoldLink:hover {
+  color: var(--fgColor-accent);
+}
+
+/* TODO(github/primer#6827): remove when Primer ships an inline (in-text) avatar treatment */
+.InlineAvatar {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+/* TODO(github/primer#6828): remove when Timeline provides a muted relative-time treatment */
+.MutedTime {
+  color: var(--fgColor-muted);
+}
