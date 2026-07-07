@@ -113,7 +113,7 @@
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/addon-links": "^10.4.6",
     "@storybook/addon-mcp": "^0.6.0",
-    "@storybook/icons": "^2.0.2",
+    "@storybook/icons": "^2.1.0",
     "@storybook/react-vite": "^10.4.6",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.5",
