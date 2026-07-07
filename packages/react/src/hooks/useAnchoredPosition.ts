@@ -145,7 +145,9 @@ export function useAnchoredPosition(
   // Caches the scrollable-ancestor walk (which calls getComputedStyle on every
   // ancestor) keyed by the anchor element, so the scroll-listener effect below can
   // re-run on `updatePosition`/`enabled` changes without repeating the DOM walk when
-  // the anchor is unchanged (the common case).
+  // the anchor is unchanged (the common case). This assumes the anchor is not
+  // re-parented while it stays mounted — anchored overlays keep a stable anchor for
+  // their lifetime, so a moved-but-same-identity anchor is not a supported case.
   const scrollAncestorsCacheRef = React.useRef<{anchor: Element | null; scrollables: Array<Element | Window>}>({
     anchor: null,
     scrollables: [],
@@ -167,9 +169,11 @@ export function useAnchoredPosition(
       })
     }
 
-    // The set of scrollable ancestors only depends on the anchor element, so reuse
-    // the cached walk when the anchor hasn't changed instead of re-running
-    // getComputedStyle up the whole ancestor chain.
+    // The set of scrollable ancestors depends on the anchor element and its
+    // position in the DOM tree. Anchored overlays keep a stable, non-re-parented
+    // anchor while mounted, so keying the cache on anchor identity lets us reuse
+    // the walk when the anchor hasn't changed instead of re-running
+    // getComputedStyle up the whole ancestor chain on every effect re-run.
     const cache = scrollAncestorsCacheRef.current
     let scrollables: Array<Element | Window>
     if (cache.anchor === anchorEl) {
