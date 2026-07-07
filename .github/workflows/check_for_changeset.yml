@@ -15,11 +15,30 @@ jobs:
   check-for-changeset:
     name: Check for changeset
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: 'Check for changeset'
-        uses: brettcannon/check-for-changed-files@v1
-        with:
-          file-pattern: '.changeset/*.md'
-          skip-label: 'skip changeset'
-          failure-message: 'No changeset found. If these changes should not result in a new version, apply the ${skip-label} label to this pull request. If these changes should result in a version bump, please add a changeset https://git.io/J6QvQ'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SKIP_LABEL: 'skip changeset'
+        run: |
+          set -euo pipefail
+
+          if jq -r '.pull_request.labels[]?.name // empty' "$GITHUB_EVENT_PATH" | grep -Fxq "$SKIP_LABEL"; then
+            echo "The skip label \"$SKIP_LABEL\" is set"
+            exit 0
+          fi
+
+          changed_files="$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename')"
+
+          if grep -Eq '^\.changeset/[^/]+\.md$' <<<"$changed_files"; then
+            echo 'The ".changeset/*.md" file pattern matched the changed files of the pull request'
+            exit 0
+          fi
+
+          failure_message="No changeset found. If these changes should not result in a new version, apply the \"$SKIP_LABEL\" label to this pull request. If these changes should result in a version bump, please add a changeset https://git.io/J6QvQ"
+          echo "::error::$failure_message"
+          exit 1

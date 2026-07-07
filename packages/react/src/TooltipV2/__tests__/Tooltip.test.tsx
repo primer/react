@@ -4,12 +4,15 @@ import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
-import {Button, IconButton, ActionMenu, ActionList, ButtonGroup} from '../..'
+import {Button, IconButton} from '../../Button'
+import {ActionMenu} from '../../ActionMenu'
+import {ActionList} from '../../ActionList'
+import ButtonGroup from '../../ButtonGroup'
 import {XIcon} from '@primer/octicons-react'
 import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
-import {implementsClassName} from '../../utils/testing'
+import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -27,7 +30,7 @@ const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text
 )
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
+function ExampleWithActionMenu({actionMenuTrigger}: {actionMenuTrigger: React.ReactElement<any>}): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>
@@ -79,11 +82,13 @@ describe('Tooltip', () => {
 
   it('should spread the accessibility attributes correctly on the trigger (ActionMenu.Button) when tooltip is used in an action menu', () => {
     const {getByRole, getByText} = HTMLRender(
-      ExampleWithActionMenu(
-        <Tooltip text="Additional context about the menu button">
-          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-        </Tooltip>,
-      ),
+      <ExampleWithActionMenu
+        actionMenuTrigger={
+          <Tooltip text="Additional context about the menu button">
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          </Tooltip>
+        }
+      />,
     )
     const menuButton = getByRole('button')
     const tooltip = getByText('Additional context about the menu button')
@@ -93,13 +98,15 @@ describe('Tooltip', () => {
 
   it('should spread the accessibility attributes correctly on the trigger (Button) when tooltip is used in an action menu', () => {
     const {getByRole, getByText} = HTMLRender(
-      ExampleWithActionMenu(
-        <ActionMenu.Anchor>
-          <Tooltip text="Additional context about the menu button">
-            <Button>Toggle Menu</Button>
-          </Tooltip>
-        </ActionMenu.Anchor>,
-      ),
+      <ExampleWithActionMenu
+        actionMenuTrigger={
+          <ActionMenu.Anchor>
+            <Tooltip text="Additional context about the menu button">
+              <Button>Toggle Menu</Button>
+            </Tooltip>
+          </ActionMenu.Anchor>
+        }
+      />,
     )
     const menuButton = getByRole('button')
     const tooltip = getByText('Additional context about the menu button')
@@ -125,15 +132,17 @@ describe('Tooltip', () => {
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
   it('should throw an error if the trigger element is disabled', () => {
-    expect(() => {
-      HTMLRender(
-        <Tooltip text="Tooltip text" direction="n">
-          <Button disabled>Delete</Button>
-        </Tooltip>,
+    withExpectedConsoleError(() => {
+      expect(() => {
+        HTMLRender(
+          <Tooltip text="Tooltip text" direction="n">
+            <Button disabled>Delete</Button>
+          </Tooltip>,
+        )
+      }).toThrow(
+        'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
-    }).toThrow(
-      'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
-    )
+    })
   })
   it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(

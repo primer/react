@@ -56,4 +56,22 @@ test.describe('Card', () => {
       })
     }
   })
+
+  test.describe('Compact', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'experimental-components-card-features--compact',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Card.Compact.${theme}.png`)
+        })
+      })
+    }
+  })
 })

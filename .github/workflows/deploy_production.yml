@@ -26,7 +26,7 @@ jobs:
       # If it's 0, we deploy. Can be bypassed with force_deploy input.
       should_deploy: ${{ inputs.force_deploy == true || (steps.changeset-count.outputs.change_count == 0 && steps.has-pages.outputs.pages == 1) }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
       - id: changeset-count
         run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"

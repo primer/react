@@ -1,23 +1,25 @@
 import {type RefObject, type MouseEventHandler, useContext} from 'react'
-import React, {useState, useCallback, useRef, forwardRef, useMemo, useSyncExternalStore} from 'react'
+import React, {useState, useCallback, useRef, forwardRef, useMemo} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 
-import type {IconButtonProps} from '../Button'
-import {IconButton} from '../Button'
+import type {ButtonProps, IconButtonProps} from '../Button'
+import {Button, IconButton} from '../Button'
 import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
 import {useMergedRefs} from '../hooks'
 import {createDescendantRegistry} from '../utils/descendant-registry'
+import {OverflowObserverProvider} from '../internal/components/OverflowObserverProvider'
+import {useIsClipped} from '../internal/hooks/useOverflowObserver'
 
 type ChildProps =
   | {
       type: 'action'
-      label: string
+      label: React.ReactNode
       disabled: boolean
-      icon: ActionBarIconButtonProps['icon']
+      icon?: ActionBarIconButtonProps['icon']
       onClick: MouseEventHandler
     }
   | {type: 'divider' | 'group'}
@@ -83,6 +85,8 @@ export type ActionBarProps = {
 } & A11yProps
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
+
+export type ActionBarButtonProps = {disabled?: boolean} & ButtonProps
 
 export type ActionBarMenuItemProps =
   | ({
@@ -236,7 +240,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
           <div className={styles.OverflowContainer}>
             {/* An empty first element allows the real first item to wrap to the next line and get clipped. */}
             <div className={styles.OverflowSpacer} />
-            <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>{children}</ActionBarItemsRegistry.Provider>
+            <OverflowObserverProvider rootRef={containerRef}>
+              <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>
+                {children}
+              </ActionBarItemsRegistry.Provider>
+            </OverflowObserverProvider>
           </div>
           <ActionMenu>
             <ActionMenu.Anchor>
@@ -260,15 +268,17 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
                     const {onClick, icon: Icon, label, disabled} = menuItem
                     return (
                       <ActionList.Item
-                        key={label}
+                        key={id}
                         onSelect={event => {
                           typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
                         }}
                         disabled={disabled}
                       >
-                        <ActionList.LeadingVisual>
-                          <Icon />
-                        </ActionList.LeadingVisual>
+                        {Icon ? (
+                          <ActionList.LeadingVisual>
+                            <Icon />
+                          </ActionList.LeadingVisual>
+                        ) : null}
                         {label}
                       </ActionList.Item>
                     )
@@ -310,33 +320,9 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
   const isGroupOverflowing = useContext(ActionBarGroupContext)?.isOverflowing
   const isInGroup = isGroupOverflowing !== undefined
 
-  const subscribeIntersectionObserver = useCallback(
-    (onChange: () => void) => {
-      // There's no need to register observers on items inside of a group
-      // since the entire group overflows at once
-      if (isInGroup) return () => {}
-
-      // Technically 1 should work as the threshold, but in some scenarios that
-      // doesn't seem to trigger correctly - probably because the browser still
-      // thinks a tiny bit of the button is not visible, since the container
-      // height is exactly the button height. So 75% should be more reliable.
-      const observer = new IntersectionObserver(() => onChange(), {threshold: 0.75})
-
-      if (ref.current) observer.observe(ref.current)
-      return () => observer.disconnect()
-    },
-    [ref, isInGroup],
-  )
-
-  const isItemOverflowing = useSyncExternalStore(
-    subscribeIntersectionObserver,
-    // Note: the IntersectionObserver is just being used as a trigger to re-check
-    // `offsetTop > 0`; this is fast and simpler than checking visibility from
-    // the observed entry. When an item wraps, it will move to the next row which
-    // increases its `offsetTop`
-    () => (ref.current ? ref.current.offsetTop > 0 : false),
-    () => false,
-  )
+  // There's no need to observe items inside of a group since the entire group overflows at once, so `disabled` skips
+  // subscription for grouped items and always reports `false` for the child item itself.
+  const isItemOverflowing = useIsClipped(ref, {disabled: isInGroup})
 
   const isOverflowing = isGroupOverflowing || isItemOverflowing
 
@@ -389,6 +375,51 @@ export const ActionBarIconButton = forwardRef(
     )
   },
 )
+
+export const ActionBarButton = forwardRef(({disabled, onClick, ...props}: ActionBarButtonProps, forwardedRef) => {
+  const ref = useRef<HTMLButtonElement>(null)
+  const mergedRef = useMergedRefs(forwardedRef, ref)
+
+  const {size} = React.useContext(ActionBarContext)
+
+  const {children, leadingVisual} = props
+
+  const {dataOverflowingAttr} = useActionBarItem(
+    ref,
+    useMemo(
+      (): ChildProps => ({
+        type: 'action',
+        label: children,
+        // Only forward the leading visual to the overflow menu when it is a component
+        // that can be rendered as an icon (e.g. an octicon), matching ActionBar.IconButton.
+        icon: typeof leadingVisual === 'function' ? (leadingVisual as ActionBarIconButtonProps['icon']) : undefined,
+        disabled: !!disabled,
+        onClick: onClick as MouseEventHandler,
+      }),
+      [children, leadingVisual, disabled, onClick],
+    ),
+  )
+
+  const clickHandler = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (disabled) return
+      onClick?.(event)
+    },
+    [disabled, onClick],
+  )
+
+  return (
+    <Button
+      aria-disabled={disabled}
+      ref={mergedRef}
+      size={size}
+      onClick={clickHandler}
+      {...props}
+      variant="invisible"
+      data-overflowing={dataOverflowingAttr}
+    />
+  )
+})
 
 const ActionBarGroupContext = React.createContext<{
   isOverflowing: boolean

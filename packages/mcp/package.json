@@ -1,7 +1,7 @@
 {
   "name": "@primer/mcp",
   "description": "An MCP server that connects AI tools to the Primer Design System",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "type": "module",
   "bin": {
     "mcp": "./bin/mcp.js"
@@ -28,34 +28,25 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "rollup -c",
+    "build": "rolldown -c",
     "type-check": "tsc --noEmit",
-    "watch": "rollup -c -w"
+    "watch": "rolldown -c -w"
   },
   "dependencies": {
-    "@babel/runtime": "^7.28.6",
     "@modelcontextprotocol/sdk": "^1.24.0",
     "@primer/octicons": "^19.15.5",
     "@primer/primitives": "10.x || 11.x",
-    "@primer/react": "^38.20.0",
+    "@primer/react": "^38.30.0",
     "cheerio": "^1.0.0",
     "turndown": "^7.2.0",
     "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.0",
-    "@babel/plugin-transform-runtime": "^7.29.0",
-    "@babel/preset-env": "^7.29.0",
-    "@babel/preset-typescript": "^7.28.5",
     "@modelcontextprotocol/inspector": "^0.16.6",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
-    "rollup": "^4.59.0",
-    "rollup-plugin-typescript2": "^0.36.0",
+    "rolldown": "^1.1.2",
+    "rolldown-plugin-dts": "^0.26.0",
     "typescript": "^6.0.3"
   }
 }

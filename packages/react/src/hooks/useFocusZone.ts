@@ -51,6 +51,7 @@ export function useFocusZone(
     () => {
       if (
         containerRef.current instanceof HTMLElement &&
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
       ) {
         if (!disabled) {

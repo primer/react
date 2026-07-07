@@ -109,9 +109,11 @@ export function useQuery<T>(
   React.useEffect(() => {
     const controller = new AbortController()
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
     setLoading(true)
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
     setError(null)
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
     setData(null)
 
     savedQueryFn

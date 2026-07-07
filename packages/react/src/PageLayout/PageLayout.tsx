@@ -130,6 +130,7 @@ const RootWrapper = memo(
           } as React.CSSProperties
         }
         className={clsx(classes.PageLayoutRoot, className)}
+        data-component="PageLayout"
         data-has-sidebar={hasSidebar || undefined}
       >
         {children}
@@ -157,6 +158,7 @@ const HorizontalDivider = memo<React.PropsWithChildren<DividerProps>>(
     return (
       <div
         className={clsx(classes.HorizontalDivider, className)}
+        data-component="PageLayout.HorizontalDivider"
         {...getResponsiveAttributes('variant', variant)}
         {...getResponsiveAttributes('position', position)}
         style={
@@ -181,6 +183,7 @@ const VerticalDivider = memo<React.PropsWithChildren<VerticalDividerProps>>(
     return (
       <div
         className={clsx(classes.VerticalDivider, className)}
+        data-component="PageLayout.VerticalDivider"
         {...getResponsiveAttributes('variant', variant)}
         {...getResponsiveAttributes('position', position)}
         style={style}
@@ -493,6 +496,7 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
     <div
       ref={handleRef}
       className={classes.DraggableHandle}
+      data-component="PageLayout.DragHandle"
       role="slider"
       aria-label="Draggable pane splitter"
       aria-valuemin={ariaValueMin}
@@ -570,6 +574,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
     <header
       aria-label={label}
       aria-labelledby={labelledBy}
+      data-component="PageLayout.Header"
       {...getResponsiveAttributes('hidden', hidden)}
       className={clsx(classes.Header, className)}
       style={
@@ -649,6 +654,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
       ref={contentWrapperRef}
       aria-label={label}
       aria-labelledby={labelledBy}
+      data-component="PageLayout.Content"
       style={style}
       className={clsx(classes.ContentWrapper, className)}
       {...getResponsiveAttributes('is-hidden', hidden)}
@@ -896,6 +902,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...labelProp}
           {...(id && {id: paneId})}
           className={classes.Pane}
+          data-component="PageLayout.Pane"
           data-resizable={resizable || undefined}
           style={
             {
@@ -1012,7 +1019,7 @@ Pane.displayName = 'PageLayout.Pane'
 // ----------------------------------------------------------------------------
 // PageLayout.Sidebar
 
-export type PageLayoutSidebarProps = {
+export type PageLayoutSidebarBaseProps = {
   /**
    * A unique label for the sidebar region
    */
@@ -1030,7 +1037,10 @@ export type PageLayoutSidebarProps = {
   position?: 'start' | 'end'
 
   /**
-   * Width configuration for the sidebar
+   * Width configuration for the sidebar.
+   *
+   * When `resizable` is enabled, this defines the default width and constraints
+   * (min/max bounds for dragging). Use `currentWidth` to control the displayed width.
    */
   width?: PaneWidth | CustomWidthOptions
 
@@ -1048,7 +1058,7 @@ export type PageLayoutSidebarProps = {
 
   /**
    * localStorage key used to persist the sidebar width across sessions.
-   * Only applies when `resizable` is `true`.
+   * Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided.
    * When omitted, localStorage is not used.
    */
   widthStorageKey?: string
@@ -1092,6 +1102,28 @@ export type PageLayoutSidebarProps = {
   style?: React.CSSProperties
 }
 
+export type PageLayoutSidebarProps = PageLayoutSidebarBaseProps &
+  (
+    | {
+        /**
+         * Callback fired when a resize operation ends (drag release or keyboard key up).
+         * When provided, this callback is used instead of localStorage persistence.
+         */
+        onResizeEnd: (width: number) => void
+        /**
+         * Current/controlled width value in pixels.
+         * When provided, this is used as the current sidebar width instead of internal state.
+         * The `width` prop still defines the default used when resetting (e.g., double-click).
+         * Pass `undefined` when the persisted value has not loaded yet (e.g., async fetch).
+         */
+        currentWidth: number | undefined
+      }
+    | {
+        onResizeEnd?: never
+        currentWidth?: never
+      }
+  )
+
 const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutSidebarProps>>(
   (
     {
@@ -1100,6 +1132,8 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
       position = 'start',
       width = 'medium',
       minWidth = 256,
+      currentWidth: controlledWidth,
+      onResizeEnd,
       padding = 'none',
       resizable = false,
       widthStorageKey,
@@ -1134,6 +1168,8 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         handleRef,
         contentWrapperRef: sidebarContentWrapperRef,
         constrainToViewport: true,
+        onResizeEnd,
+        currentWidth: controlledWidth,
       })
 
     const mergedSidebarRef = useMergedRefs(forwardRef, sidebarRef)
@@ -1195,11 +1231,13 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           ref={mergedSidebarRef}
           // Suppress hydration mismatch for --pane-width when localStorage
           // provides a width that differs from the server-rendered default.
-          suppressHydrationWarning={resizable === true && !!widthStorageKey}
+          // Not needed when onResizeEnd is provided (localStorage isn't read).
+          suppressHydrationWarning={resizable === true && !!widthStorageKey && !onResizeEnd}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: sidebarId})}
           className={classes.Sidebar}
+          data-component="PageLayout.Sidebar"
           data-resizable={resizable || undefined}
           style={
             {
@@ -1300,6 +1338,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
     <footer
       aria-label={label}
       aria-labelledby={labelledBy}
+      data-component="PageLayout.Footer"
       {...getResponsiveAttributes('hidden', hidden)}
       className={clsx(classes.FooterWrapper, className)}
       style={

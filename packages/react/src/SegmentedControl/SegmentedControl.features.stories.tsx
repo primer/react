@@ -2,7 +2,7 @@ import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
-import {Text} from '..'
+import Text from '../Text'
 import classes from './SegmentedControl.features.stories.module.css'
 
 export default {

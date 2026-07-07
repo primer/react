@@ -1,4 +1,4 @@
-import {Text} from '..'
+import Text from '.'
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import testClasses from './Text.test.module.css'
@@ -113,5 +113,18 @@ describe('Text', () => {
     const textElement = container.firstChild as HTMLElement
     expect(textElement).toBeInTheDocument()
     expect(textElement).toHaveClass(testClasses.ResponsiveLine)
+  })
+
+  it.each(['pre', 'normal', 'nowrap', 'pre-wrap', 'pre-line'] as const)(
+    'sets the data-white-space attribute when whiteSpace is %s',
+    whiteSpace => {
+      const {container} = render(<Text whiteSpace={whiteSpace}>Hello</Text>)
+      expect(container.firstChild).toHaveAttribute('data-white-space', whiteSpace)
+    },
+  )
+
+  it('does not set the data-white-space attribute when whiteSpace is not provided', () => {
+    const {container} = render(<Text>Hello</Text>)
+    expect(container.firstChild).not.toHaveAttribute('data-white-space')
   })
 })

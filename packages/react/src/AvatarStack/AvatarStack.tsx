@@ -126,6 +126,7 @@ const AvatarStack = ({
       observer.observe(stackContainer.current, {childList: true})
 
       // Call on initial render, then call it again only if there's a mutation
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-initialize-state
       interactiveChildren()
 
       return () => {

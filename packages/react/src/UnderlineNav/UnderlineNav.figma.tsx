@@ -1,4 +1,4 @@
-import {UnderlineNav} from '../../src'
+import {UnderlineNav} from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(
