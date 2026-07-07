@@ -1,26 +1,3 @@
-.RealisticTimeline {
-  /* GitHub renders the timeline at most 1012px wide in product surfaces. */
-  max-width: 1012px;
-}
-
-/* Story-only scaffolding: each variant is wrapped in its own <section> with a
-   small caption heading ABOVE the event, so the event row itself (badge + body)
-   renders exactly as it would in product — the caption never sits inside
-   Timeline.Body. Variants stay scannable like a Figma component set. Not part of
-   the faithful event. */
-.Variant {
-  margin-bottom: var(--base-size-24);
-}
-
-.VariantLabel {
-  margin: 0 0 var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
 /* Bold body text, mirroring the live `item.with_body(font_weight: :bold)` used
    by every system (no-actor) Code Scanning event. */
 .BoldBody {
@@ -35,14 +12,6 @@
 .RefName {
   font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-default);
-}
-
-/* Muted relative timestamp. The shared `timeline_item_component` renders a plain
-   `time_ago_in_words_js` — muted text only, no link wrapper (matching the
-   Dependabot / Secret Scanning timelines, unlike the Issues `Ago` deep-link). */
-.Timestamp {
-  color: var(--fgColor-muted);
-  margin-left: var(--base-size-4);
 }
 
 /* "in configuration {category}" inline pill — live `show_analysis_origin?` rows
@@ -110,26 +79,9 @@
   color: var(--fgColor-muted);
 }
 
-/* Inline user-actor avatar — live `profile_link` wraps a `Primer::Beta::Avatar`
-   (CIRCLE) before the bold login. */
-.InlineAvatar {
-  vertical-align: middle;
-  margin-right: var(--base-size-4);
-}
-
-/* Bold actor / reference link — live `profile_link(scheme: :primary,
-   font_weight: :bold, class: "Link--primary text-bold")`: semibold, default
-   foreground, accent on hover. The bold weight is also the non-color
-   differentiator that satisfies the axe `link-in-text-block` rule. */
-.LinkWithBoldStyle {
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
-  margin-right: var(--base-size-4);
-}
-
-.LinkWithBoldStyle:hover {
-  color: var(--fgColor-accent);
-}
+/* Inline user-actor avatar and the bold actor / reference link moved to the
+   shared internal helpers (`InlineAvatar` → github/primer#6827, `BoldLink` →
+   github/primer#6826) in `./internal/timelineStoryHelpers`. */
 
 /* Bold closure / resolution reason — live ERB wraps the reason in
    `Primer::Beta::Text(font_weight: :bold, classes: "branch-name")`. */

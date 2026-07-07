@@ -14,12 +14,18 @@ import {
   ShieldXIcon,
   XIcon,
 } from '@primer/octicons-react'
-import Avatar from '../Avatar'
 import {Button} from '../Button'
 import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
-import RelativeTime from '../RelativeTime'
+import {
+  BoldLink,
+  Examples,
+  InlineAvatar,
+  MutedTime,
+  RealisticTimeline,
+  VariantSection,
+} from './internal/timelineStoryHelpers'
 import classes from './Timeline.code-scanning.features.stories.module.css'
 
 /**
@@ -142,19 +148,22 @@ const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
  */
 const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR}: {login?: string; src?: string}) => (
   <>
-    <Avatar src={src} size={20} alt="" className={classes.InlineAvatar} />
-    <Link href="#" className={classes.LinkWithBoldStyle} muted>
+    <InlineAvatar src={src} />
+    <BoldLink href="#" muted>
       {login}
-    </Link>
+    </BoldLink>
   </>
 )
 
-// Muted relative timestamp. The shared `timeline_item_component` renders a plain
-// `time_ago_in_words_js` (no link wrapper) — muted text only.
+// Muted relative timestamp — the shared `MutedTime` helper (github/primer#6828).
+// The live shared `timeline_item_component` renders a plain `time_ago_in_words_js`
+// (no link wrapper) — muted text only. A leading space preserves the gap the old
+// local `.Timestamp` class provided via `margin-left`.
 const Time = ({date}: {date: string}) => (
-  <span className={classes.Timestamp}>
-    <RelativeTime date={new Date(date)} format="relative" />
-  </span>
+  <>
+    {' '}
+    <MutedTime date={new Date(date)} />
+  </>
 )
 
 /**
@@ -196,37 +205,6 @@ const NoteSubRow = ({children}: {children: React.ReactNode}) => (
     <Octicon icon={NoteIcon} size={16} className={classes.SubRowIcon} />
     {children}
   </SubRow>
-)
-
-/**
- * Shared story wrapper. Provides the realistic max-width frame and two
- * environment behaviours every group needs:
- *
- * - `data-a11y-link-underlines="true"`: in production GitHub sets this on an
- *   ancestor from the (default-ON) "Show link underlines" preference, which is
- *   what activates Primer's underline on `Link inline` content links. Storybook
- *   never sets it, so we add it here to reproduce the production default. Primer
- *   only underlines links carrying `data-inline` (i.e. `Link inline`); this
- *   surface's links are all className-styled — the actor-name profile link is
- *   bold (`muted`, no `inline`) and the workflow / commit-SHA links are
- *   bold / monospace — so none are underlined by this attribute (their bold /
- *   mono weight is the non-color differentiator). The attribute keeps the
- *   wrapper aligned with production so any future `Link inline` underlines
- *   correctly without a WCAG 1.4.1 color-only gap.
- * - `onClick` guard: stops the placeholder `href="#"` links from navigating
- *   inside Storybook. Guarded with `instanceof Element` so non-element event
- *   targets can't throw.
- */
-const Examples = ({children}: {children: React.ReactNode}) => (
-  <div
-    className={classes.RealisticTimeline}
-    data-a11y-link-underlines="true"
-    onClick={e => {
-      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
-    }}
-  >
-    {children}
-  </div>
 )
 
 export default {
@@ -274,8 +252,7 @@ export const EventDetected = () => (
   <Examples>
     {/* First detected — ALERT_CREATED. Bare shield badge, bold body, a path
         sub-row, and a right-aligned tool-version Label (Timeline.Actions). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>First detected in commit</h3>
+    <VariantSection label="First detected in commit">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -304,13 +281,12 @@ export const EventDetected = () => (
           </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Appeared in branch — ALERT_APPEARED_IN_BRANCH. Bare git-branch badge,
         bold "Appeared in branch {ref}", and a workflow-run sub-row (no commit
         card — `show_timeline_commit?` is false for this event). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Appeared in branch</h3>
+    <VariantSection label="Appeared in branch">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -335,13 +311,12 @@ export const EventDetected = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Reappeared in branch — ALERT_REAPPEARED. Bare shield badge, bold
         "Reappeared in branch {ref}", and the optional "in configuration
         {category}" pill (rendered when the alert has more than one category). */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reappeared in branch</h3>
+    <VariantSection label="Reappeared in branch">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -354,7 +329,7 @@ export const EventDetected = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -376,10 +351,9 @@ export const EventDetected = () => (
  * Upload".
  */
 export const EventFixed = () => (
-  <Examples>
+  <RealisticTimeline>
     {/* Fixed — selected ref → SOLID purple shield-check */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Fixed in branch (current ref)</h3>
+    <VariantSection label="Fixed in branch (current ref)">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -391,11 +365,10 @@ export const EventFixed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Fixed — non-selected ref → bare default check */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Fixed in branch (other ref)</h3>
+    <VariantSection label="Fixed in branch (other ref)">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -407,11 +380,10 @@ export const EventFixed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Config deleted — selected ref → SOLID purple shield-check */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Configuration deleted (current ref)</h3>
+    <VariantSection label="Configuration deleted (current ref)">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -424,11 +396,10 @@ export const EventFixed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Config deleted — non-selected ref → bare default check */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Configuration deleted (other ref)</h3>
+    <VariantSection label="Configuration deleted (other ref)">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -441,8 +412,8 @@ export const EventFixed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
-  </Examples>
+    </VariantSection>
+  </RealisticTimeline>
 )
 
 /**
@@ -460,8 +431,7 @@ export const EventFixed = () => (
 export const EventClosedByUser = () => (
   <Examples>
     {/* Closed as false positive — with a resolution-note sub-row */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as false positive</h3>
+    <VariantSection label="Closed as false positive">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="danger">
@@ -475,11 +445,10 @@ export const EventClosedByUser = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as used in tests */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as used in tests</h3>
+    <VariantSection label="Closed as used in tests">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="danger">
@@ -492,11 +461,10 @@ export const EventClosedByUser = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as won't fix */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as won&apos;t fix</h3>
+    <VariantSection label="Closed as won't fix">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="danger">
@@ -509,12 +477,11 @@ export const EventClosedByUser = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed with no resolution — ERB omits the " as {reason}" clause when
         `resolution == :NO_RESOLUTION`. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed (no resolution)</h3>
+    <VariantSection label="Closed (no resolution)">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="danger">
@@ -527,7 +494,7 @@ export const EventClosedByUser = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -541,8 +508,7 @@ export const EventClosedByUser = () => (
  */
 export const EventReopened = () => (
   <Examples>
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reopened</h3>
+    <VariantSection label="Reopened">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -555,7 +521,7 @@ export const EventReopened = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -577,8 +543,7 @@ export const EventReopened = () => (
  */
 export const EventDismissalRequested = () => (
   <Examples>
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Requested to dismiss</h3>
+    <VariantSection label="Requested to dismiss">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -597,7 +562,7 @@ export const EventDismissalRequested = () => (
           </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
 
@@ -618,8 +583,7 @@ export const EventDismissalRequested = () => (
 export const EventDismissalReviewed = () => (
   <Examples>
     {/* Approved — check icon + reviewer-comment sub-row */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Approved dismissal</h3>
+    <VariantSection label="Approved dismissal">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -633,11 +597,10 @@ export const EventDismissalReviewed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Denied — x icon */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Denied dismissal</h3>
+    <VariantSection label="Denied dismissal">
       <Timeline aria-label="Code scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -650,6 +613,6 @@ export const EventDismissalReviewed = () => (
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
   </Examples>
 )
