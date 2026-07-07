@@ -41,6 +41,7 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     <div
       {...props}
       ref={forwardRef}
+      data-component="Popover"
       data-open={open ? '' : undefined}
       data-relative={relative ? '' : undefined}
       data-caret={caret}
@@ -86,6 +87,7 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
   return (
     <div
       ref={divRef}
+      data-component="Popover.Content"
       data-width={width}
       data-height={height}
       className={clsx(className, classes.PopoverContent)}

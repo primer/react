@@ -1,5 +1,9 @@
 import React, {useState, useRef, useCallback} from 'react'
-import {Stack, TextInput, Text, Button, ActionList} from '..'
+import {Stack} from '../Stack'
+import TextInput from '../TextInput'
+import Text from '../Text'
+import {Button} from '../Button'
+import {ActionList} from '../ActionList'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
 import classes from './Dialog.stories.module.css'
@@ -213,6 +217,7 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
   React.useEffect(() => {
     // focus the close button when the step changes
     const focusTarget = dialogRef.current?.querySelector('button[aria-label="Close"]') as HTMLButtonElement
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (step === 2) {
       focusTarget.focus()
     }

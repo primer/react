@@ -1,7 +1,7 @@
-import {act, createRef, useCallback, useRef, useState} from 'react'
+import {createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
-import {userEvent} from 'vitest/browser'
+import {act, fireEvent, render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
@@ -105,9 +105,7 @@ describe.each([true, false])(
         />,
       )
       const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-      await act(async () => {
-        await userEvent.click(anchor)
-      })
+      await userEvent.click(anchor)
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(1)
       expect(mockOpenCallback).toHaveBeenCalledWith('anchor-click')
@@ -125,9 +123,7 @@ describe.each([true, false])(
         />,
       )
       const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-      await act(async () => {
-        await userEvent.type(anchor, '{Space}')
-      })
+      fireEvent.keyDown(anchor, {key: ' '})
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(1)
       expect(mockOpenCallback).toHaveBeenCalledWith('anchor-key-press')
@@ -145,9 +141,7 @@ describe.each([true, false])(
           withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
         />,
       )
-      await act(async () => {
-        await userEvent.click(anchoredOverlay.baseElement)
-      })
+      await userEvent.click(anchoredOverlay.baseElement)
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(0)
       expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -167,9 +161,7 @@ describe.each([true, false])(
         />,
       )
 
-      await act(async () => {
-        await userEvent.keyboard('{Escape}')
-      })
+      await userEvent.keyboard('{Escape}')
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(0)
       expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -186,9 +178,7 @@ describe.each([true, false])(
         />,
       )
 
-      await act(async () => {
-        await userEvent.keyboard('{Escape}')
-      })
+      await userEvent.keyboard('{Escape}')
 
       expect(mockPositionChangeCallback).toHaveBeenCalled()
       expect(mockPositionChangeCallback).toHaveBeenCalledWith({
@@ -199,6 +189,26 @@ describe.each([true, false])(
           top: 36,
         },
       })
+    })
+
+    it('renders data-component attributes for AnchoredOverlay parts when shown', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open={true}
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+              variant={{regular: 'anchored', narrow: 'fullscreen'}}
+            >
+              <div>content</div>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      expect(baseElement.querySelector('[data-component="AnchoredOverlay"]')).toBeInTheDocument()
+      expect(baseElement.querySelector('[data-component="AnchoredOverlay.CloseButton"]')).toBeInTheDocument()
     })
 
     it('should support a `ref` through `overlayProps` on the overlay element', () => {
@@ -407,6 +417,50 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       expect(overlay).not.toHaveAttribute('popover')
     })
 
+    it('should disable CSS side fallbacks when cssAnchorPositioningSettings.fallbackStrategy is "none"', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open={true}
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+              side="outside-bottom"
+              cssAnchorPositioningSettings={{fallbackStrategy: 'none'}}
+            >
+              <button type="button">Focusable Child</button>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+      expect(overlay.style.getPropertyValue('position-try-fallbacks')).toBe('none')
+    })
+
+    it('should only allow opposite-side CSS fallback when cssAnchorPositioningSettings.fallbackStrategy is "opposite-side"', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open={true}
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+              side="outside-bottom"
+              cssAnchorPositioningSettings={{fallbackStrategy: 'opposite-side'}}
+            >
+              <button type="button">Focusable Child</button>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+      expect(overlay.style.getPropertyValue('position-try-fallbacks')).toBe('flip-block')
+    })
+
     describe('when overlayProps.portalContainerName is provided', () => {
       it('should fall back to JS positioning (data-anchor-position="false") even with the flag enabled', () => {
         const portalRoot = document.createElement('div')
@@ -503,6 +557,28 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
 
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(overlay).not.toHaveAttribute('popover')
+    })
+
+    it('should ignore cssAnchorPositioningSettings when CSS anchor positioning is disabled', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open={true}
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+              side="outside-bottom"
+              cssAnchorPositioningSettings={{fallbackStrategy: 'none'}}
+            >
+              <button type="button">Focusable Child</button>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+      expect(overlay.style.getPropertyValue('position-try-fallbacks')).toBe('')
     })
   })
 })

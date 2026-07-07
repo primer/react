@@ -1,4 +1,8 @@
-import {IconButton, Button, Link, ActionMenu, ActionList, VisuallyHidden} from '..'
+import {IconButton, Button} from '../Button'
+import Link from '../Link'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
+import {VisuallyHidden} from '../VisuallyHidden'
 import Octicon from '../Octicon'
 import {Tooltip} from './Tooltip'
 import {

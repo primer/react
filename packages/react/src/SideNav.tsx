@@ -36,7 +36,7 @@ function SideNav({
   )
 
   return (
-    <Component className={newClassName} aria-label={ariaLabel}>
+    <Component className={newClassName} aria-label={ariaLabel} data-component="SideNav">
       {children}
     </Component>
   )
@@ -55,7 +55,12 @@ const SideNavLink = ({selected, to, variant, className, children, ...rest}: Styl
   // according to their docs, NavLink supports aria-current:
   // https://reacttraining.com/react-router/web/api/NavLink/aria-current-string
   return (
-    <Link aria-current={isReactRouter || selected ? 'page' : undefined} className={newClassName} {...rest}>
+    <Link
+      aria-current={isReactRouter || selected ? 'page' : undefined}
+      className={newClassName}
+      {...rest}
+      data-component="SideNav.Link"
+    >
       {children}
     </Link>
   )

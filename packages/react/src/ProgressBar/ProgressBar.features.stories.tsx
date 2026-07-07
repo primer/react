@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {ProgressBar} from '..'
+import {ProgressBar} from '.'
 
 export default {
   title: 'Components/ProgressBar/Features',

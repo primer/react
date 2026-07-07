@@ -1,6 +1,9 @@
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Checkbox, FormControl, TextInput, TextInputWithTokens} from '..'
+import Checkbox from '../Checkbox'
+import FormControl from '.'
+import TextInput from '../TextInput'
+import TextInputWithTokens from '../TextInputWithTokens'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 export default {
