@@ -7,6 +7,13 @@ import classes from '../StateLabel.module.css'
 describe('StateLabel', () => {
   implementsClassName(props => <StateLabel {...props} status="issueOpened" />, classes.StateLabel)
 
+  it('renders data-component attribute', () => {
+    expect(HTMLRender(<StateLabel status="issueOpened" />).container.firstChild).toHaveAttribute(
+      'data-component',
+      'StateLabel',
+    )
+  })
+
   it('respects the status prop', () => {
     expect(HTMLRender(<StateLabel status="issueOpened" />).container).toMatchSnapshot()
     expect(HTMLRender(<StateLabel status="issueClosed" />).container).toMatchSnapshot()
@@ -64,11 +71,13 @@ describe('StateLabel', () => {
     expect(screenArchived.getByText('Archived')).toBeInTheDocument() // text
     screenArchived.unmount()
   })
+
   it('renders open status without an icon', () => {
     const screen = HTMLRender(<StateLabel status="open">Open</StateLabel>)
     expect(screen.queryByRole('img')).not.toBeInTheDocument() // svg
     expect(screen.getByText('Open')).toBeInTheDocument() // text
   })
+
   it('renders closed status without an icon', () => {
     const screen = HTMLRender(<StateLabel status="closed">Closed</StateLabel>)
     expect(screen.queryByRole('img')).not.toBeInTheDocument() // svg
