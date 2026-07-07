@@ -7,7 +7,9 @@ interface Props extends HTMLProps<HTMLDivElement> {
   show?: boolean
 }
 const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children, style, ...rest}) => {
-  const [shouldRender, setRender] = useState(show)
+  // `show` is optional; coerce to a boolean so `shouldRender` is typed `boolean`
+  // rather than `boolean | undefined` (it is only ever used as a boolean flag).
+  const [shouldRender, setRender] = useState(Boolean(show))
 
   // Start rendering as soon as `show` becomes true. Adjusting state during render
   // (instead of from an effect) avoids the extra post-commit render the effect caused.
