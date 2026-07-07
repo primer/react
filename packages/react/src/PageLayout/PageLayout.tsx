@@ -67,6 +67,7 @@ export type PageLayoutProps = {
   _slotsConfig?: Record<'header' | 'footer' | 'sidebar', React.ElementType>
   className?: string
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 // TODO: refs
@@ -79,6 +80,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   className,
   style,
   _slotsConfig: slotsConfig,
+  'data-component': dataComponent = 'PageLayout',
 }) => {
   const paneRef = useRef<HTMLDivElement>(null)
   const contentWrapperRef = useRef<HTMLDivElement>(null)
@@ -101,7 +103,13 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
-      <RootWrapper style={style} padding={padding} className={className} hasSidebar={!!slots.sidebar}>
+      <RootWrapper
+        style={style}
+        padding={padding}
+        className={className}
+        hasSidebar={!!slots.sidebar}
+        dataComponent={dataComponent}
+      >
         {slots.sidebar}
         <div ref={sidebarContentWrapperRef} className={classes.PageLayoutWrapper} data-width={containerWidth}>
           {slots.header}
@@ -120,7 +128,10 @@ const RootWrapper = memo(
     children,
     className,
     hasSidebar,
-  }: React.PropsWithChildren<Pick<PageLayoutProps, 'style' | 'padding' | 'className'> & {hasSidebar?: boolean}>) => {
+    dataComponent,
+  }: React.PropsWithChildren<
+    Pick<PageLayoutProps, 'style' | 'padding' | 'className'> & {hasSidebar?: boolean; dataComponent: string}
+  >) => {
     return (
       <div
         style={
@@ -130,7 +141,7 @@ const RootWrapper = memo(
           } as React.CSSProperties
         }
         className={clsx(classes.PageLayoutRoot, className)}
-        data-component="PageLayout"
+        data-component={dataComponent}
         data-has-sidebar={hasSidebar || undefined}
       >
         {children}
@@ -549,6 +560,7 @@ export type PageLayoutHeaderProps = {
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
@@ -561,6 +573,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
   children,
   style,
   className,
+  'data-component': dataComponent = 'PageLayout.Header',
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
@@ -574,7 +587,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
     <header
       aria-label={label}
       aria-labelledby={labelledBy}
-      data-component="PageLayout.Header"
+      data-component={dataComponent}
       {...getResponsiveAttributes('hidden', hidden)}
       className={clsx(classes.Header, className)}
       style={
@@ -632,6 +645,7 @@ export type PageLayoutContentProps = {
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 // TODO: Account for pane width when centering content
@@ -645,6 +659,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
   children,
   className,
   style,
+  'data-component': dataComponent = 'PageLayout.Content',
 }) => {
   const Component = as
   const {contentWrapperRef} = React.useContext(PageLayoutContext)
@@ -654,7 +669,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
       ref={contentWrapperRef}
       aria-label={label}
       aria-labelledby={labelledBy}
-      data-component="PageLayout.Content"
+      data-component={dataComponent}
       style={style}
       className={clsx(classes.ContentWrapper, className)}
       {...getResponsiveAttributes('is-hidden', hidden)}
@@ -750,6 +765,7 @@ export type PageLayoutPaneBaseProps = {
   id?: string
   className?: string
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
@@ -799,6 +815,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       id,
       className,
       style,
+      'data-component': dataComponent = 'PageLayout.Pane',
     },
     forwardRef,
   ) => {
@@ -902,7 +919,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...labelProp}
           {...(id && {id: paneId})}
           className={classes.Pane}
-          data-component="PageLayout.Pane"
+          data-component={dataComponent}
           data-resizable={resizable || undefined}
           style={
             {
@@ -1100,6 +1117,7 @@ export type PageLayoutSidebarBaseProps = {
 
   className?: string
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 export type PageLayoutSidebarProps = PageLayoutSidebarBaseProps &
@@ -1145,6 +1163,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
       id,
       className,
       style,
+      'data-component': dataComponent = 'PageLayout.Sidebar',
     },
     forwardRef,
   ) => {
@@ -1237,7 +1256,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           {...labelProp}
           {...(id && {id: sidebarId})}
           className={classes.Sidebar}
-          data-component="PageLayout.Sidebar"
+          data-component={dataComponent}
           data-resizable={resizable || undefined}
           style={
             {
@@ -1313,6 +1332,7 @@ export type PageLayoutFooterProps = {
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = ({
@@ -1325,6 +1345,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
   children,
   className,
   style,
+  'data-component': dataComponent = 'PageLayout.Footer',
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
@@ -1338,7 +1359,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
     <footer
       aria-label={label}
       aria-labelledby={labelledBy}
-      data-component="PageLayout.Footer"
+      data-component={dataComponent}
       {...getResponsiveAttributes('hidden', hidden)}
       className={clsx(classes.FooterWrapper, className)}
       style={

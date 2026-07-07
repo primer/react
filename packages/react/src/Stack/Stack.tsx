@@ -102,6 +102,7 @@ const Stack = forwardRef(
       <Component
         ref={forwardedRef}
         {...rest}
+        data-component="Stack"
         className={clsx(className, classes.Stack)}
         {...getResponsiveAttributes('gap', gap)}
         {...getResponsiveAttributes('direction', direction)}
@@ -144,6 +145,7 @@ const StackItem = forwardRef(({as: Component = 'div', children, grow, shrink, cl
     <Component
       ref={forwardedRef}
       {...rest}
+      data-component="StackItem"
       className={clsx(className, classes.StackItem)}
       {...getResponsiveAttributes('grow', grow)}
       {...getResponsiveAttributes('shrink', shrink)}
