@@ -1,7 +1,7 @@
-/* Reserve the ~72px gutter so the large avatar (which sits left of the rail) isn't
-   clipped. Nested inside the shared `RealisticTimeline` (max-width) container; this
-   div also hosts the story-only click guard for the placeholder in-text links. */
-.Gutter {
+/* Reserve the ~72px gutter for the large-avatar (default) comment forms so the 40px
+   avatar (which sits left of the rail) isn't clipped. Wraps only the large-gutter
+   sections; the inline/compact section is a full-width sibling with no gutter. */
+.GutterGroup {
   padding-left: calc(var(--base-size-40) + var(--base-size-32));
 }
 
@@ -9,9 +9,9 @@
    rail), so its right edge lands just left of the rail and the card overlaps the
    rail — matching Figma: avatar-left → card-left ≈ 56px, caret bridges the gap. The
    default Timeline.Avatar `top` / translateY (vertical centering) is preserved.
-   Specificity (.Gutter .GutterAvatar = 0-2-0) beats the base .TimelineItemAvatar
+   Specificity (.GutterGroup .GutterAvatar = 0-2-0) beats the base .TimelineItemAvatar
    (0-1-0) regardless of stylesheet order. */
-.Gutter .GutterAvatar {
+.GutterGroup .GutterAvatar {
   left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
 }
 
@@ -245,4 +245,27 @@
 .CardReply .CardHeader {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+/* Inline-avatar (compact) card: no left-gutter avatar to point at, so drop the rail
+   overlap and the speech-bubble caret and let the card span full width. Mirrors the
+   github-ui `forceInlineAvatar` rendering (and the responsive narrow-viewport form). */
+.CardInline {
+  margin-left: 0;
+}
+
+.CardInline::before,
+.CardInline::after {
+  display: none;
+}
+
+/* Center the header row so the inline 24px avatar aligns with the author/text
+   (the default baseline alignment is for the text-only large-gutter header). */
+.CardInline .HeaderText {
+  align-items: center;
+}
+
+/* Muted "commented" verb in the inline/compact header ("{author} commented {time}"). */
+.CommentedVerb {
+  color: var(--fgColor-muted);
 }

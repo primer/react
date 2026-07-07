@@ -10,7 +10,7 @@ import {IconButton} from '../Button'
 import Label from '../Label'
 import Link from '../Link'
 import RelativeTime from '../RelativeTime'
-import {RealisticTimeline, VariantSection} from './internal/timelineStoryHelpers'
+import {InlineAvatar, RealisticTimeline, VariantSection} from './internal/timelineStoryHelpers'
 import classes from './Timeline.comments.features.stories.module.css'
 
 /**
@@ -119,6 +119,15 @@ type CommentCardProps = {
   /** Show the reactions footer. */
   reactions?: boolean
   /**
+   * Inline-avatar (compact) form: no 40px left-gutter avatar; instead a ~24px avatar
+   * sits inline in the header before the author, the header reads "{author} commented
+   * {time}", and the body spans full width with no gutter indent or speech-bubble caret.
+   * This is BOTH the new Issues `issue_inline_avatars` rendering (github-ui
+   * `ActivityHeader` `forceInlineAvatar` branch) AND the responsive narrow-viewport form
+   * for all comments (`avatarHiddenOnMedium` hides the gutter avatar on small widths).
+   */
+  inlineAvatar?: boolean
+  /**
    * Threaded reply: drops the card border + speech-bubble caret + gutter avatar.
    * Wired now for the deferred threaded-reply stories; no reply story ships yet.
    */
@@ -149,11 +158,12 @@ const CommentCard = ({
   viaApp,
   appAvatar,
   reactions = false,
+  inlineAvatar = false,
   isReply = false,
   children,
 }: CommentCardProps) => (
   <Timeline.Item>
-    {!isReply && (
+    {!isReply && !inlineAvatar && (
       <Timeline.Avatar className={classes.GutterAvatar}>
         {AvatarIcon ? (
           <span
@@ -180,9 +190,13 @@ const CommentCard = ({
         )}
       </Timeline.Avatar>
     )}
-    <div className={clsx(classes.Card, isReply && classes.CardReply)}>
+    <div className={clsx(classes.Card, inlineAvatar && classes.CardInline, isReply && classes.CardReply)}>
       <div className={classes.CardHeader}>
         <div className={classes.HeaderText}>
+          {/* Inline-avatar form: a ~24px avatar sits inline in the header before the
+              author (github-ui `ActivityHeader` forceInlineAvatar / DefaultAvatar
+              size={24}), reusing the shared InlineAvatar helper. */}
+          {inlineAvatar ? <InlineAvatar src={avatarSrc ?? ''} size={24} /> : null}
           {/* Bold (not just muted) keeps the author link above the high-contrast axe
               threshold per the a11y in-text-link rule. */}
           <Link href={authorHref} className={classes.AuthorLink} muted>
@@ -198,6 +212,9 @@ const CommentCard = ({
               {associationLabel}
             </Label>
           ) : null}
+          {/* The inline/compact header reads "{author} commented {time}", matching the
+              live forceInlineAvatar header phrasing. */}
+          {inlineAvatar ? <span className={classes.CommentedVerb}>commented</span> : null}
           <span className={classes.TimestampLine}>
             {/* Muted + underlined keeps this muted permalink high-contrast accessible. */}
             <Link href="#" className={classes.Timestamp} muted>
@@ -257,129 +274,152 @@ const CommentSection = ({label, children}: {label: string; children: React.React
 export const EventComment = () => (
   <RealisticTimeline>
     <div
-      className={classes.Gutter}
       // Prevent the placeholder `href="#"` links from navigating inside Storybook.
       onClick={e => {
         if (e.target instanceof Element && e.target.closest('a')) e.preventDefault()
       }}
     >
-      {/* Standard USER comment: circular photo avatar, the "Author" subject-author badge
+      {/* Default (large-gutter) comment forms: a 40px avatar sits in the left gutter and
+          the card is indented past it. The `.GutterGroup` reserves that ~72px column. */}
+      <div className={classes.GutterGroup}>
+        {/* Standard USER comment: circular photo avatar, the "Author" subject-author badge
         (the commenter opened the issue), a muted relative-time permalink, and reactions. */}
-      <CommentSection label="Standard user comment">
-        <CommentCard
-          authorName="monalisa"
-          avatarSrc={MONALISA_AVATAR}
-          associationLabel="Author"
-          associationAriaLabel="This user is the author of this issue."
-          timestamp="2022-07-26T11:46:07Z"
-          reactions
-        >
-          <p>
-            Thanks for the report! I can reproduce this with <code>npm run build</code> on a clean checkout. Looks like
-            the regression landed in{' '}
-            <Link href="#" inline>
-              #1234
-            </Link>{' '}
-            — I&apos;ll open a fix shortly.
-          </p>
-        </CommentCard>
-      </CommentSection>
+        <CommentSection label="Standard user comment">
+          <CommentCard
+            authorName="monalisa"
+            avatarSrc={MONALISA_AVATAR}
+            associationLabel="Author"
+            associationAriaLabel="This user is the author of this issue."
+            timestamp="2022-07-26T11:46:07Z"
+            reactions
+          >
+            <p>
+              Thanks for the report! I can reproduce this with <code>npm run build</code> on a clean checkout. Looks
+              like the regression landed in{' '}
+              <Link href="#" inline>
+                #1234
+              </Link>{' '}
+              — I&apos;ll open a fix shortly.
+            </p>
+          </CommentCard>
+        </CommentSection>
 
-      {/* Bot comment (e.g. github-actions): live `ActivityHeader` renders the actor badge
+        {/* Bot comment (e.g. github-actions): live `ActivityHeader` renders the actor badge
         as "bot" (`LABELS.authorLabel`). */}
-      <CommentSection label="Bot comment (GitHub App)">
-        <CommentCard
-          authorName="github-actions"
-          avatarSrc={GITHUB_ACTIONS_AVATAR}
-          // Square: github.com renders bot/app avatars square by account type; the live
-          // result is square even though ActivityHeader.tsx only forces square={isCopilot}.
-          // Do NOT "fix" to 'circle'.
-          avatarShape="square"
-          badgeLabel="bot"
-          badgeAriaLabel="This comment was posted by a bot."
-          timestamp="2022-07-26T12:02:00Z"
-        >
-          <p>
-            All checks have passed ✅ — <code>build</code>, <code>test</code>, and <code>lint</code> are green on the
-            latest commit.
-          </p>
-        </CommentCard>
-      </CommentSection>
+        <CommentSection label="Bot comment (GitHub App)">
+          <CommentCard
+            authorName="github-actions"
+            avatarSrc={GITHUB_ACTIONS_AVATAR}
+            // Square: github.com renders bot/app avatars square by account type; the live
+            // result is square even though ActivityHeader.tsx only forces square={isCopilot}.
+            // Do NOT "fix" to 'circle'.
+            avatarShape="square"
+            badgeLabel="bot"
+            badgeAriaLabel="This comment was posted by a bot."
+            timestamp="2022-07-26T12:02:00Z"
+          >
+            <p>
+              All checks have passed ✅ — <code>build</code>, <code>test</code>, and <code>lint</code> are green on the
+              latest commit.
+            </p>
+          </CommentCard>
+        </CommentSection>
 
-      {/* Copilot comment: name renders as "Copilot", the actor badge is "AI"
+        {/* Copilot comment: name renders as "Copilot", the actor badge is "AI"
         (`LABELS.authorLabel(true, true)`). The 40px gutter avatar is a muted CopilotIcon
         octicon in a circle (audit "Copilot = octicon avatar"); the live square={isCopilot}
         applies to the separate 24px header avatar, not this gutter avatar. */}
-      <CommentSection label="Copilot comment">
-        <CommentCard
-          authorName="Copilot"
-          avatarIcon={CopilotIcon}
-          badgeLabel="AI"
-          badgeAriaLabel="This comment was generated by Copilot."
-          timestamp="2022-07-26T12:10:00Z"
-        >
-          <p>
-            I&apos;ve analyzed the failing test. The assertion in{' '}
-            <Link href="#" inline>
-              parser.test.ts
-            </Link>{' '}
-            expects the old token shape — updating the fixture should resolve it.
-          </p>
-        </CommentCard>
-      </CommentSection>
+        <CommentSection label="Copilot comment">
+          <CommentCard
+            authorName="Copilot"
+            avatarIcon={CopilotIcon}
+            badgeLabel="AI"
+            badgeAriaLabel="This comment was generated by Copilot."
+            timestamp="2022-07-26T12:10:00Z"
+          >
+            <p>
+              I&apos;ve analyzed the failing test. The assertion in{' '}
+              <Link href="#" inline>
+                parser.test.ts
+              </Link>{' '}
+              expects the old token shape — updating the fixture should resolve it.
+            </p>
+          </CommentCard>
+        </CommentSection>
 
-      {/* Dependabot comment: live `ActivityHeader` renders the actor badge as "bot". */}
-      <CommentSection label="Dependabot comment">
-        <CommentCard
-          authorName="dependabot"
-          // Octicon avatar per Figma spec: white DependabotIcon on an accent-blue rounded
-          // square — the clean Dependabot brand avatar. accent-emphasis approximates the
-          // Dependabot brand blue; replaces the off-brand hexagonal photo (u/27347476).
-          avatarIcon={DependabotIcon}
-          avatarIconShape="square"
-          avatarIconTone="accent"
-          badgeLabel="bot"
-          badgeAriaLabel="This comment was posted by a bot."
-          timestamp="2022-07-26T12:18:00Z"
-        >
-          <p>
-            Bumps <code>lodash</code> from 4.17.20 to 4.17.21. This update includes a security fix —{' '}
-            <Link href="#" inline>
-              view the advisory
-            </Link>
-            .
-          </p>
-        </CommentCard>
-      </CommentSection>
+        {/* Dependabot comment: live `ActivityHeader` renders the actor badge as "bot". */}
+        <CommentSection label="Dependabot comment">
+          <CommentCard
+            authorName="dependabot"
+            // Octicon avatar per Figma spec: white DependabotIcon on an accent-blue rounded
+            // square — the clean Dependabot brand avatar. accent-emphasis approximates the
+            // Dependabot brand blue; replaces the off-brand hexagonal photo (u/27347476).
+            avatarIcon={DependabotIcon}
+            avatarIconShape="square"
+            avatarIconTone="accent"
+            badgeLabel="bot"
+            badgeAriaLabel="This comment was posted by a bot."
+            timestamp="2022-07-26T12:18:00Z"
+          >
+            <p>
+              Bumps <code>lodash</code> from 4.17.20 to 4.17.21. This update includes a security fix —{' '}
+              <Link href="#" inline>
+                view the advisory
+              </Link>
+              .
+            </p>
+          </CommentCard>
+        </CommentSection>
 
-      {/* User comment via a GitHub App: the timestamp line gains a " – with {app}" suffix,
+        {/* User comment via a GitHub App: the timestamp line gains a " – with {app}" suffix,
         the app name an `inline` (underlined) `Link`. */}
-      <CommentSection label="User comment via a GitHub App">
-        <CommentCard
-          authorName="monalisa"
-          avatarSrc={MONALISA_AVATAR}
-          timestamp="2022-07-26T12:24:00Z"
-          viaApp={{name: 'Acme Sync'}}
-        >
-          <p>Mirrored from our internal tracker — closing the loop here so the thread stays in sync.</p>
-        </CommentCard>
-      </CommentSection>
+        <CommentSection label="User comment via a GitHub App">
+          <CommentCard
+            authorName="monalisa"
+            avatarSrc={MONALISA_AVATAR}
+            timestamp="2022-07-26T12:24:00Z"
+            viaApp={{name: 'Acme Sync'}}
+          >
+            <p>Mirrored from our internal tracker — closing the loop here so the thread stays in sync.</p>
+          </CommentCard>
+        </CommentSection>
 
-      {/* User comment via an app, WITH the app's avatar badge overlapping the author avatar
+        {/* User comment via an app, WITH the app's avatar badge overlapping the author avatar
         (the parent-child avatar pattern — GitHub renders this for app/agent co-authored
         comments, e.g. "monalisa … – with GitHub Actions"). The small app avatar (rounded
         square) sits at the bottom-right of the large author avatar. We reconstruct it
         with a symmetric offset + opaque ring, avoiding Primer `.avatar-child`'s
         long-standing asymmetric offset (github/github#439417). */}
-      <CommentSection label="User comment via an app (with app avatar badge)">
+        <CommentSection label="User comment via an app (with app avatar badge)">
+          <CommentCard
+            authorName="monalisa"
+            avatarSrc={MONALISA_AVATAR}
+            appAvatar={{src: GITHUB_ACTIONS_AVATAR, alt: 'GitHub Actions'}}
+            timestamp="2022-07-26T12:30:00Z"
+            viaApp={{name: 'GitHub Actions'}}
+          >
+            <p>Deploy preview is ready — the changes are live on the staging environment.</p>
+          </CommentCard>
+        </CommentSection>
+      </div>
+
+      {/* Inline-avatar (compact) comment: NO left gutter / 40px avatar column — a ~24px
+          avatar sits inline in the header before the author, and the body spans full
+          width. This is BOTH the new Issues `issue_inline_avatars` rendering
+          (github-ui `ActivityHeader` forceInlineAvatar branch) AND the responsive
+          narrow-viewport form for all comments. Rendered as a full-width sibling of the
+          `.GutterGroup` above so it gets no gutter indent. */}
+      <CommentSection label="Comment (inline avatar / compact)">
         <CommentCard
           authorName="monalisa"
           avatarSrc={MONALISA_AVATAR}
-          appAvatar={{src: GITHUB_ACTIONS_AVATAR, alt: 'GitHub Actions'}}
-          timestamp="2022-07-26T12:30:00Z"
-          viaApp={{name: 'GitHub Actions'}}
+          timestamp="2022-07-26T12:36:00Z"
+          reactions
+          inlineAvatar
         >
-          <p>Deploy preview is ready — the changes are live on the staging environment.</p>
+          <p>
+            Same comment, compact form — the avatar is inline in the header and the body runs full width with no gutter.
+          </p>
         </CommentCard>
       </CommentSection>
     </div>
