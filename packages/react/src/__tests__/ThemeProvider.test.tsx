@@ -537,6 +537,7 @@ describe('contextOnly', () => {
     const div = container.querySelector('[data-color-mode]')
     expect(div).toBeInTheDocument()
     expect(div?.tagName).toBe('DIV')
+    expect(div).toHaveAttribute('data-component', 'ThemeProvider')
     expect(div).toHaveAttribute('data-light-theme')
     expect(div).toHaveAttribute('data-dark-theme')
   })
