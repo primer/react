@@ -16,10 +16,9 @@ import {
   XIcon,
 } from '@primer/octicons-react'
 import type React from 'react'
-import Avatar from '../Avatar'
 import {Button} from '../Button'
 import Octicon from '../Octicon'
-import RelativeTime from '../RelativeTime'
+import {InlineAvatar, MutedTime, RealisticTimeline, VariantSection} from './internal/timelineStoryHelpers'
 import classes from './Timeline.secret-scanning.features.stories.module.css'
 
 /**
@@ -117,18 +116,9 @@ const GitHubActor = () => (
  */
 const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR}: {login?: string; src?: string}) => (
   <>
-    <Avatar src={src} size={16} alt="" className={classes.InlineAvatar} />
+    <InlineAvatar src={src} size={16} />
     <span className={classes.ActorName}>{login}</span>
   </>
-)
-
-// Muted relative timestamp. The live secret-scanning `TimelineItemBody` renders
-// a plain `RelativeTime` with no link wrapper — muted text only (matching the
-// Dependabot timeline, unlike the Issues `Ago` deep-link).
-const Time = ({date}: {date: string}) => (
-  <span className={classes.Timestamp}>
-    <RelativeTime date={new Date(date)} format="relative" />
-  </span>
 )
 
 /**
@@ -182,10 +172,9 @@ export default {
  * source / from-PR / from-push branches like Dependabot's Opened).
  */
 export const EventCreated = () => (
-  <div className={classes.RealisticTimeline}>
+  <RealisticTimeline>
     {/* Created — GitHub system actor, ShieldIcon on success (green) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Created</h3>
+    <VariantSection label="Created">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="success">
@@ -194,12 +183,12 @@ export const EventCreated = () => (
           <Timeline.Body>
             <GitHubActor />
             {'opened this alert '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
-  </div>
+    </VariantSection>
+  </RealisticTimeline>
 )
 
 /**
@@ -222,11 +211,10 @@ export const EventCreated = () => (
  * variant. Actor is always the user.
  */
 export const EventResolution = () => (
-  <div className={classes.RealisticTimeline}>
+  <RealisticTimeline>
     {/* Closed as revoked — the only reason with the purple `done` / ShieldCheck
         badge. Shown WITH an optional resolution-comment sub-row. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as revoked</h3>
+    <VariantSection label="Closed as revoked">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="done">
@@ -235,16 +223,15 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'closed this as '}
-            <strong>revoked</strong> <Time date="2022-07-26T11:46:07Z" />
+            <strong>revoked</strong> <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
             <CommentSubRow>Rotated the leaked token and confirmed the provider revoked it.</CommentSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as false positive — gray (default) ShieldSlash badge. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as false positive</h3>
+    <VariantSection label="Closed as false positive">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -253,15 +240,14 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'closed this as '}
-            <strong>false positive</strong> <Time date="2022-07-25T09:12:00Z" />
+            <strong>false positive</strong> <MutedTime date={new Date('2022-07-25T09:12:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as won't fix */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as won&apos;t fix</h3>
+    <VariantSection label="Closed as won't fix">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -270,15 +256,14 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'closed this as '}
-            <strong>won&apos;t fix</strong> <Time date="2022-07-24T16:40:00Z" />
+            <strong>won&apos;t fix</strong> <MutedTime date={new Date('2022-07-24T16:40:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as used in tests */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as used in tests</h3>
+    <VariantSection label="Closed as used in tests">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -287,15 +272,14 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'closed this as '}
-            <strong>used in tests</strong> <Time date="2022-07-23T11:05:00Z" />
+            <strong>used in tests</strong> <MutedTime date={new Date('2022-07-23T11:05:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as pattern deleted */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as pattern deleted</h3>
+    <VariantSection label="Closed as pattern deleted">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -304,15 +288,14 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'closed this as '}
-            <strong>pattern deleted</strong> <Time date="2022-07-22T14:18:00Z" />
+            <strong>pattern deleted</strong> <MutedTime date={new Date('2022-07-22T14:18:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as pattern edited */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as pattern edited</h3>
+    <VariantSection label="Closed as pattern edited">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -321,15 +304,14 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'closed this as '}
-            <strong>pattern edited</strong> <Time date="2022-07-21T08:02:00Z" />
+            <strong>pattern edited</strong> <MutedTime date={new Date('2022-07-21T08:02:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Closed as ignored by configuration (resolution type `hidden_by_config`) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Closed as ignored by configuration</h3>
+    <VariantSection label="Closed as ignored by configuration">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -338,11 +320,11 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'closed this as '}
-            <strong>ignored by configuration</strong> <Time date="2022-07-20T10:33:00Z" />
+            <strong>ignored by configuration</strong> <MutedTime date={new Date('2022-07-20T10:33:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Reopened — SyncIcon on success (green), preceded by a Timeline.Break.
         The live code emits the Break as a sibling immediately BEFORE the
@@ -350,8 +332,7 @@ export const EventResolution = () => (
         preceding (closed) Item here so the Break renders BETWEEN two items, as
         it does in product — mirroring the live "break between events"
         placement rather than leaving the Break as a stray first child. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reopened</h3>
+    <VariantSection label="Reopened">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -360,7 +341,7 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'closed this as '}
-            <strong>false positive</strong> <Time date="2022-07-26T18:20:00Z" />
+            <strong>false positive</strong> <MutedTime date={new Date('2022-07-26T18:20:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
         <Timeline.Break />
@@ -371,12 +352,12 @@ export const EventResolution = () => (
           <Timeline.Body>
             <UserActor />
             {'reopened this '}
-            <Time date="2022-07-27T12:00:00Z" />
+            <MutedTime date={new Date('2022-07-27T12:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
-  </div>
+    </VariantSection>
+  </RealisticTimeline>
 )
 
 /**
@@ -390,10 +371,9 @@ export const EventResolution = () => (
  * for repos with delegated bypass enabled (backend-gated org feature).
  */
 export const EventBypass = () => (
-  <div className={classes.RealisticTimeline}>
+  <RealisticTimeline>
     {/* Bypassed — AlertIcon, default (gray) badge */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Bypassed push protection</h3>
+    <VariantSection label="Bypassed push protection">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -402,16 +382,15 @@ export const EventBypass = () => (
           <Timeline.Body>
             <UserActor />
             {'bypassed push protection '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Bypass requested — CommentIcon. Delegated bypass: only renders when the
         repo has delegated bypass enabled. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Bypass requested (delegated bypass enabled)</h3>
+    <VariantSection label="Bypass requested (delegated bypass enabled)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -420,15 +399,14 @@ export const EventBypass = () => (
           <Timeline.Body>
             <UserActor />
             {'requested bypass privileges '}
-            <Time date="2022-07-26T11:50:00Z" />
+            <MutedTime date={new Date('2022-07-26T11:50:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Bypass approved — CheckCircleIcon. Delegated bypass: gated as above. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Bypass approved (delegated bypass enabled)</h3>
+    <VariantSection label="Bypass approved (delegated bypass enabled)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -437,12 +415,12 @@ export const EventBypass = () => (
           <Timeline.Body>
             <UserActor />
             {'approved a bypass '}
-            <Time date="2022-07-26T12:10:00Z" />
+            <MutedTime date={new Date('2022-07-26T12:10:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
-  </div>
+    </VariantSection>
+  </RealisticTimeline>
 )
 
 /**
@@ -458,10 +436,9 @@ export const EventBypass = () => (
  * decided purely by `!event.actor`. Both forms are shown per bucket.
  */
 export const EventValidityChange = () => (
-  <div className={classes.RealisticTimeline}>
+  <RealisticTimeline>
     {/* Active — automated (GitHub), AlertIcon on danger (red) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Validity: active (automated)</h3>
+    <VariantSection label="Validity: active (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="danger">
@@ -470,15 +447,14 @@ export const EventValidityChange = () => (
           <Timeline.Body>
             <GitHubActor />
             {'verified this secret is active '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Active — manual (user), same danger badge */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Validity: active (manual)</h3>
+    <VariantSection label="Validity: active (manual)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="danger">
@@ -487,15 +463,14 @@ export const EventValidityChange = () => (
           <Timeline.Body>
             <UserActor />
             {'set validity to active '}
-            <Time date="2022-07-26T13:00:00Z" />
+            <MutedTime date={new Date('2022-07-26T13:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Inactive — automated (GitHub), SkipIcon on default (gray) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Validity: inactive (automated)</h3>
+    <VariantSection label="Validity: inactive (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -504,15 +479,14 @@ export const EventValidityChange = () => (
           <Timeline.Body>
             <GitHubActor />
             {'verified this secret is inactive '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Inactive — manual (user) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Validity: inactive (manual)</h3>
+    <VariantSection label="Validity: inactive (manual)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -521,15 +495,14 @@ export const EventValidityChange = () => (
           <Timeline.Body>
             <UserActor />
             {'set validity to inactive '}
-            <Time date="2022-07-26T13:05:00Z" />
+            <MutedTime date={new Date('2022-07-26T13:05:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unknown — automated (GitHub), AlertIcon on attention (amber) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Validity: unknown (automated)</h3>
+    <VariantSection label="Validity: unknown (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="attention">
@@ -538,15 +511,14 @@ export const EventValidityChange = () => (
           <Timeline.Body>
             <GitHubActor />
             {'is unable to determine the validity of this secret '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unknown — manual (user) */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Validity: unknown (manual)</h3>
+    <VariantSection label="Validity: unknown (manual)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge variant="attention">
@@ -555,12 +527,12 @@ export const EventValidityChange = () => (
           <Timeline.Body>
             <UserActor />
             {'set validity to unknown '}
-            <Time date="2022-07-26T13:10:00Z" />
+            <MutedTime date={new Date('2022-07-26T13:10:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
-  </div>
+    </VariantSection>
+  </RealisticTimeline>
 )
 
 /**
@@ -572,10 +544,9 @@ export const EventValidityChange = () => (
  * GitHub system actor) — confirmed against the live switch.
  */
 export const EventReport = () => (
-  <div className={classes.RealisticTimeline}>
+  <RealisticTimeline>
     {/* Reported — ShieldCheckIcon, default (gray) badge, user actor */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Reported</h3>
+    <VariantSection label="Reported">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -584,12 +555,12 @@ export const EventReport = () => (
           <Timeline.Body>
             <UserActor />
             {'reported this secret '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
-  </div>
+    </VariantSection>
+  </RealisticTimeline>
 )
 
 /**
@@ -616,12 +587,11 @@ export const EventReport = () => (
  * requester comment (Opened) or reviewer comment (Approved / Denied).
  */
 export const EventClosureRequest = () => (
-  <div className={classes.RealisticTimeline}>
+  <RealisticTimeline>
     {/* Requested — with the reviewer-facing "Review request" primary button and
         a requester comment sub-row. The `[ as {reason}]` clause is the
         un-bolded `resolutionText(exemption_request.reason)`. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal requested (reviewer view)</h3>
+    <VariantSection label="Dismissal requested (reviewer view)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -630,7 +600,7 @@ export const EventClosureRequest = () => (
           <Timeline.Body>
             <UserActor />
             {'requested to dismiss this as false positive '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
             <CommentSubRow>This token only ever pointed at our throwaway sandbox.</CommentSubRow>
           </Timeline.Body>
           <Timeline.Actions>
@@ -640,11 +610,10 @@ export const EventClosureRequest = () => (
           </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Requested — requester view: the invisible "Cancel request" button. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal requested (requester view)</h3>
+    <VariantSection label="Dismissal requested (requester view)">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -653,7 +622,7 @@ export const EventClosureRequest = () => (
           <Timeline.Body>
             <UserActor />
             {'requested to dismiss this as false positive '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
           <Timeline.Actions>
             <Button size="small" variant="invisible">
@@ -662,11 +631,10 @@ export const EventClosureRequest = () => (
           </Timeline.Actions>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Approved — CheckCircleIcon, with a reviewer comment sub-row. */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal approved</h3>
+    <VariantSection label="Dismissal approved">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -675,16 +643,15 @@ export const EventClosureRequest = () => (
           <Timeline.Body>
             <UserActor login="six7" src={SIX7_AVATAR} />
             {'approved dismissal '}
-            <Time date="2022-07-26T12:30:00Z" />
+            <MutedTime date={new Date('2022-07-26T12:30:00Z')} />
             <CommentSubRow>Confirmed — safe to dismiss.</CommentSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Denied — XIcon */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal denied</h3>
+    <VariantSection label="Dismissal denied">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -693,16 +660,15 @@ export const EventClosureRequest = () => (
           <Timeline.Body>
             <UserActor login="six7" src={SIX7_AVATAR} />
             {'denied dismissal '}
-            <Time date="2022-07-26T12:35:00Z" />
+            <MutedTime date={new Date('2022-07-26T12:35:00Z')} />
             <CommentSubRow>Please rotate the secret before dismissing.</CommentSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Cancelled — SkipIcon */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Dismissal request cancelled</h3>
+    <VariantSection label="Dismissal request cancelled">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -711,12 +677,12 @@ export const EventClosureRequest = () => (
           <Timeline.Body>
             <UserActor />
             {'cancelled request to dismiss '}
-            <Time date="2022-07-26T12:40:00Z" />
+            <MutedTime date={new Date('2022-07-26T12:40:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
-  </div>
+    </VariantSection>
+  </RealisticTimeline>
 )
 
 /**
@@ -731,10 +697,9 @@ export const EventClosureRequest = () => (
  * whether the actor equals the (un)assignee (self vs other).
  */
 export const EventAssignment = () => (
-  <div className={classes.RealisticTimeline}>
+  <RealisticTimeline>
     {/* Self-assigned — actor === assignee */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Self-assigned</h3>
+    <VariantSection label="Self-assigned">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -743,15 +708,14 @@ export const EventAssignment = () => (
           <Timeline.Body>
             <UserActor />
             {'self-assigned this '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Assigned someone else — both actor + assignee avatars */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Assigned another user</h3>
+    <VariantSection label="Assigned another user">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -760,15 +724,14 @@ export const EventAssignment = () => (
           <Timeline.Body>
             <UserActor />
             {'assigned '}
-            <UserActor login="six7" src={SIX7_AVATAR} /> <Time date="2022-07-26T11:50:00Z" />
+            <UserActor login="six7" src={SIX7_AVATAR} /> <MutedTime date={new Date('2022-07-26T11:50:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Self-unassigned — actor removed their own assignment */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Removed own assignment</h3>
+    <VariantSection label="Removed own assignment">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -777,15 +740,14 @@ export const EventAssignment = () => (
           <Timeline.Body>
             <UserActor />
             {'removed their assignment '}
-            <Time date="2022-07-26T11:55:00Z" />
+            <MutedTime date={new Date('2022-07-26T11:55:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Unassigned someone else */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Unassigned another user</h3>
+    <VariantSection label="Unassigned another user">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -794,15 +756,14 @@ export const EventAssignment = () => (
           <Timeline.Body>
             <UserActor />
             {'unassigned '}
-            <UserActor login="six7" src={SIX7_AVATAR} /> <Time date="2022-07-26T12:00:00Z" />
+            <UserActor login="six7" src={SIX7_AVATAR} /> <MutedTime date={new Date('2022-07-26T12:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
+    </VariantSection>
 
     {/* Assigned one user and unassigned another in a single event */}
-    <section className={classes.Variant}>
-      <h3 className={classes.VariantLabel}>Assigned and unassigned</h3>
+    <VariantSection label="Assigned and unassigned">
       <Timeline aria-label="Secret scanning alert timeline">
         <Timeline.Item>
           <Timeline.Badge>
@@ -813,10 +774,10 @@ export const EventAssignment = () => (
             {'assigned '}
             <UserActor login="six7" src={SIX7_AVATAR} />
             {' and unassigned '}
-            <UserActor login="hubot" src={HUBOT_AVATAR} /> <Time date="2022-07-26T12:05:00Z" />
+            <UserActor login="hubot" src={HUBOT_AVATAR} /> <MutedTime date={new Date('2022-07-26T12:05:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
-    </section>
-  </div>
+    </VariantSection>
+  </RealisticTimeline>
 )
