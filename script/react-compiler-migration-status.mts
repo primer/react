@@ -105,7 +105,17 @@ function round(value: number): number {
 }
 
 async function getCompilerFailures(filepath: string): Promise<Array<CompilerFailure>> {
-  const result = await check(filepath, fs.readFileSync(filepath, 'utf8'))
+  let result
+  try {
+    result = await check(filepath, fs.readFileSync(filepath, 'utf8'))
+  } catch (error) {
+    return [
+      {
+        line: getErrorLine(error),
+        reason: error instanceof Error ? error.message : String(error),
+      },
+    ]
+  }
 
   if (result.ok) {
     return []
@@ -121,6 +131,18 @@ async function getCompilerFailures(filepath: string): Promise<Array<CompilerFail
 
 function getLocationLine(location: {start: {line: number}} | null): number | null {
   return location?.start.line ?? null
+}
+
+function getErrorLine(error: unknown): number | null {
+  if (error !== null && typeof error === 'object' && 'loc' in error) {
+    const loc = error.loc
+
+    if (loc !== null && typeof loc === 'object' && 'line' in loc && typeof loc.line === 'number') {
+      return loc.line
+    }
+  }
+
+  return null
 }
 
 function formatCompilerFailures(failures: Array<CompilerFailure>): string {

@@ -1,38 +1,40 @@
-import {CompilerError as ReactCompilerError} from 'babel-plugin-react-compiler'
-import {type InputOptions, transformAsync} from '@babel/core'
+import {type TransformOptions, transformAsync} from '@babel/core'
+import {CompilerError} from 'babel-plugin-react-compiler'
 import type {Logger, SourceLocation} from 'babel-plugin-react-compiler'
-
-const babelPresetTypescript = import.meta.resolve('@babel/preset-typescript')
-const babelPresetReact = import.meta.resolve('@babel/preset-react')
-const reactCompilerPlugin = import.meta.resolve('babel-plugin-react-compiler')
 
 type CheckError = {
   location: SourceLocation | null
   reason: string
 }
 
-type Result = {ok: true; errors?: never} | {ok: false; errors: Array<CheckError>}
+type CheckResult = {ok: true; errors?: never} | {ok: false; errors: Array<CheckError>}
 
-async function check(filename: string, contents: string): Promise<Result> {
+async function check(filename: string, contents: string): Promise<CheckResult> {
   const errors: Array<CheckError> = []
   const logger: Logger = {
     logEvent(_filename, event) {
-      if (event.kind === 'CompileSkip') {
-        errors.push({
-          location: event.loc,
+      // https://react.dev/reference/react-compiler/logger#event-types
+      if (event.kind === 'CompileError') {
+        addCheckError(errors, {
+          location: event.detail.primaryLocation(),
+          reason: event.detail.reason,
+        })
+      } else if (event.kind === 'CompileSkip') {
+        addCheckError(errors, {
+          location: event.loc ?? event.fnLoc,
           reason: event.reason,
         })
       }
     },
   }
-  const inputOptions: InputOptions = {
+  const inputOptions: TransformOptions = {
     babelrc: false,
     configFile: false,
     filename,
     presets: [
-      babelPresetTypescript,
+      '@babel/preset-typescript',
       [
-        babelPresetReact,
+        '@babel/preset-react',
         {
           runtime: 'automatic',
         },
@@ -40,11 +42,11 @@ async function check(filename: string, contents: string): Promise<Result> {
     ],
     plugins: [
       [
-        reactCompilerPlugin,
+        'babel-plugin-react-compiler',
         {
           target: '18',
-          panicThreshold: 'all_errors',
           logger,
+          panicThreshold: 'critical_errors',
         },
       ],
     ],
@@ -53,12 +55,12 @@ async function check(filename: string, contents: string): Promise<Result> {
   try {
     await transformAsync(contents, inputOptions)
   } catch (error: unknown) {
-    if (!(error instanceof ReactCompilerError)) {
+    if (!(error instanceof CompilerError)) {
       throw error
     }
 
     for (const detail of error.details) {
-      errors.push({
+      addCheckError(errors, {
         location: detail.primaryLocation(),
         reason: detail.reason,
       })
@@ -77,4 +79,26 @@ async function check(filename: string, contents: string): Promise<Result> {
   }
 }
 
+function addCheckError(errors: Array<CheckError>, error: CheckError): void {
+  const hasError = errors.some(existingError => {
+    return (
+      existingError.reason === error.reason &&
+      getLocationLine(existingError.location) === getLocationLine(error.location)
+    )
+  })
+
+  if (!hasError) {
+    errors.push(error)
+  }
+}
+
+function getLocationLine(location: CheckError['location']): number | null {
+  if (location === null || typeof location !== 'object' || !('start' in location)) {
+    return null
+  }
+
+  return location.start.line
+}
+
 export {check}
+export type {CheckResult, CheckError}

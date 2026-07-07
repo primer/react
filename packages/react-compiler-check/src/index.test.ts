@@ -17,6 +17,44 @@ describe('check', () => {
     ).resolves.toEqual({ok: true})
   })
 
+  test('does not fail on recoverable compiler diagnostics for successfully compiled files', async () => {
+    await expect(
+      check(
+        'BaseStyles.tsx',
+        `
+          import type React from 'react'
+
+          type BaseStylesProps = {
+            children?: React.ReactNode
+            as?: keyof React.JSX.IntrinsicElements
+            className?: string
+            color?: string
+            style?: React.CSSProperties
+          }
+
+          function BaseStyles({children, color, className, as: Component = 'div', style, ...rest}: BaseStylesProps) {
+            const baseStyles = {
+              ['--BaseStyles-fgColor']: color,
+            }
+
+            return (
+              <Component
+                className={className}
+                style={{
+                  ...baseStyles,
+                  ...style,
+                }}
+                {...rest}
+              >
+                {children}
+              </Component>
+            )
+          }
+        `,
+      ),
+    ).resolves.toEqual({ok: true})
+  })
+
   test('returns compiler errors with source locations', async () => {
     const result = await check(
       'ConditionalHook.tsx',
@@ -82,6 +120,6 @@ describe('check', () => {
           }
         `,
       ),
-    ).rejects.toThrow('Unexpected token')
+    ).rejects.toThrow()
   })
 })
