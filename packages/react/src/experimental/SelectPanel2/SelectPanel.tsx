@@ -117,8 +117,6 @@ const Panel: React.FC<SelectPanelProps> = ({
   // 🚨 Hack for good API!
   // we strip out Anchor from children and wire it up to Dialog
   // with additional props for accessibility
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let Anchor: React.ReactElement<any> | undefined
   const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
 
   const onAnchorClick = () => {
@@ -126,20 +124,32 @@ const Panel: React.FC<SelectPanelProps> = ({
     else onInternalCancel()
   }
 
-  const contents = React.Children.map(props.children, child => {
-    if (React.isValidElement(child) && (child.type === SelectPanelButton || isSlot(child, SelectPanelButton))) {
-      // eslint-disable-next-line react-hooks/immutability
-      Anchor = React.cloneElement(child, {
-        // @ts-ignore TODO
-        ref: anchorRef,
-        onClick: child.props.onClick || onAnchorClick,
-        'aria-haspopup': true,
-        'aria-expanded': internalOpen,
-      })
-      return null
-    }
-    return child
-  })
+  const {anchor, contents} = React.Children.toArray(props.children).reduce<{
+    anchor: React.ReactNode
+    contents: React.ReactNode[]
+  }>(
+    (result, child) => {
+      if (React.isValidElement(child) && (child.type === SelectPanelButton || isSlot(child, SelectPanelButton))) {
+        return {
+          contents: [...result.contents, null],
+          anchor: React.createElement(child.type, {
+            ...child.props,
+            key: child.key,
+            ref: anchorRef,
+            onClick: child.props.onClick || onAnchorClick,
+            'aria-haspopup': true,
+            'aria-expanded': internalOpen,
+          }),
+        }
+      }
+
+      return {
+        ...result,
+        contents: [...result.contents, child],
+      }
+    },
+    {anchor: undefined, contents: []},
+  )
 
   const onInternalClose = React.useCallback(() => {
     if (internalOpen === false) return // nothing to do here
@@ -235,8 +245,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       align: 'start',
       ...anchoredPositionSettings,
     },
-    // eslint-disable-next-line react-hooks/refs
-    [internalOpen, anchorRef.current, dialogRef.current],
+    [internalOpen],
   )
 
   /*
@@ -254,7 +263,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   return (
     <>
-      {Anchor}
+      {anchor}
 
       <BaseOverlay
         as="dialog"
@@ -326,23 +335,24 @@ const Panel: React.FC<SelectPanelProps> = ({
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   const inputProps = useFormControlForwardedProps(props)
   const [labelText, setLabelText] = useState('')
+  const [buttonText, setButtonText] = useState('')
   useEffect(() => {
-    const label = document.querySelector(`[for='${inputProps.id}']`)
-    if (label?.textContent) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLabelText(label.textContent)
+    const timeoutId = window.setTimeout(() => {
+      const label = document.querySelector(`[for='${inputProps.id}']`)
+      if (label?.textContent) {
+        setLabelText(label.textContent)
+      }
+      const button = (anchorRef as MutableRefObject<HTMLButtonElement | null>).current
+      setButtonText(button?.textContent ?? '')
+    })
+
+    return () => {
+      window.clearTimeout(timeoutId)
     }
-  }, [inputProps.id])
+  }, [anchorRef, inputProps.id, props.children])
 
   if (labelText) {
-    return (
-      <Button
-        ref={anchorRef}
-        // eslint-disable-next-line react-hooks/refs
-        aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
-        {...inputProps}
-      />
-    )
+    return <Button ref={anchorRef} aria-label={`${buttonText}, ${labelText}`} {...inputProps} />
   } else {
     return <Button ref={anchorRef} {...props} />
   }
@@ -593,15 +603,11 @@ export type SelectPanelMessageProps = {children: React.ReactNode} & (
     }
 )
 
-const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
-  variant = 'warning',
-  size = variant === 'empty' ? 'full' : 'inline',
-  title,
-  children,
-}) => {
+const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({variant = 'warning', size, title, children}) => {
+  const messageSize = size ?? (variant === 'empty' ? 'full' : 'inline')
   const MessageWrapper = variant === 'empty' ? 'div' : AriaStatus
 
-  if (size === 'full') {
+  if (messageSize === 'full') {
     return (
       <MessageWrapper className={classes.MessageFull}>
         {variant !== 'empty' ? (

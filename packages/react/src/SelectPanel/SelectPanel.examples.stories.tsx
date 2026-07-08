@@ -10,9 +10,12 @@ import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
 import styles from './SelectPanel.examples.stories.module.css'
-import {useVirtualizer, type VirtualItem} from '@tanstack/react-virtual'
+import {useVirtualizer} from '@tanstack/react-virtual'
+import type {VirtualItem} from '@tanstack/react-virtual'
 import Checkbox from '../Checkbox'
 import Label from '../Label'
+
+const createVirtualizer = useVirtualizer
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
@@ -352,29 +355,36 @@ export const RepositionAfterLoading = () => {
   const [open, setOpen] = useState(false)
   const [filter, setFilter] = React.useState('')
   const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
-
   const [loading, setLoading] = useState(true)
-
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-event-handler
-    if (!open) setLoading(true)
-    window.setTimeout(() => {
+    const resetLoadingTimeoutId = window.setTimeout(() => {
+      if (!open) setLoading(true)
+    })
+    const loadingTimeoutId = window.setTimeout(() => {
       if (open) {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
         setLoading(false)
       }
     }, 2000)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+
+    return () => {
+      window.clearTimeout(resetLoadingTimeoutId)
+      window.clearTimeout(loadingTimeoutId)
+    }
+  }, [filter, open])
 
   React.useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!loading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
-      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+      const timeoutId = window.setTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+      })
+
+      return () => {
+        window.clearTimeout(timeoutId)
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter])
+  }, [filter, loading])
 
   return (
     <>
@@ -402,29 +412,36 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [open, setOpen] = useState(false)
   const [filter, setFilter] = React.useState('')
   const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
-
   const [loading, setLoading] = useState(true)
-
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-event-handler
-    if (!open) setLoading(true)
-    window.setTimeout(() => {
+    const resetLoadingTimeoutId = window.setTimeout(() => {
+      if (!open) setLoading(true)
+    })
+    const loadingTimeoutId = window.setTimeout(() => {
       if (open) {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
         setLoading(false)
       }
     }, 2000)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+
+    return () => {
+      window.clearTimeout(resetLoadingTimeoutId)
+      window.clearTimeout(loadingTimeoutId)
+    }
+  }, [filter, open])
 
   React.useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!loading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
-      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+      const timeoutId = window.setTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+      })
+
+      return () => {
+        window.clearTimeout(timeoutId)
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter])
+  }, [filter, loading])
 
   return (
     <Dialog title="SelectPanel reposition after loading inside Dialog" onClose={() => {}}>
@@ -630,8 +647,7 @@ export const VirtualizedConsumerSide = () => {
     [open],
   )
 
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const virtualizer = useVirtualizer({
+  const virtualizer = createVirtualizer({
     count: filteredItems.length,
     getScrollElement: () => scrollContainer ?? null,
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,

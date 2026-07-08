@@ -9,15 +9,6 @@ import type {ItemInput} from '../SelectPanel'
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 
-const useFirstRender = () => {
-  const firstRender = useRef(true)
-  useEffect(() => {
-    firstRender.current = false
-  }, [])
-  // eslint-disable-next-line react-hooks/refs
-  return firstRender.current
-}
-
 const getItemWithActiveDescendant = (
   listRef: React.RefObject<HTMLUListElement | null>,
   items: FilteredActionListProps['items'],
@@ -48,6 +39,7 @@ export const useAnnouncements = (
   focusManagement?: 'active-descendant' | 'roving-tabindex',
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
+  const firstRender = useRef(true)
 
   const liveRegion = document.querySelector('live-region')
 
@@ -100,10 +92,12 @@ export const useAnnouncements = (
     [listContainerRef, inputRef, items, liveRegion, announce, usingRovingTabindex, selectedItems],
   )
 
-  const isFirstRender = useFirstRender()
   useEffect(
     function announceListUpdates() {
-      if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
+      if (firstRender.current) {
+        firstRender.current = false
+        return // ignore on first render as announceInitialFocus will also announce
+      }
 
       liveRegion?.clear() // clear previous announcements
 
@@ -143,7 +137,6 @@ export const useAnnouncements = (
     },
     [
       announce,
-      isFirstRender,
       items,
       listContainerRef,
       liveRegion,

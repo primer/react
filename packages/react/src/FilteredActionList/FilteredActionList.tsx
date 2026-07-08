@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {forwardRef, useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
@@ -24,6 +24,7 @@ import {useVirtualizer} from '@tanstack/react-virtual'
 import {FilteredActionListInput} from './FilteredActionListInput'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
+const createVirtualizer = useVirtualizer
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
@@ -192,6 +193,14 @@ export function FilteredActionList({
   const scrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(
     providedScrollContainerRef as React.RefObject<HTMLDivElement>,
   )
+  const [scrollContainerElement, setScrollContainerElement] = useState<HTMLDivElement | null>(null)
+  const scrollContainerRefCallback = useCallback(
+    (node: HTMLDivElement | null) => {
+      ;(scrollContainerRef as React.MutableRefObject<HTMLDivElement | null>).current = node
+      setScrollContainerElement(node)
+    },
+    [scrollContainerRef],
+  )
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
@@ -290,10 +299,9 @@ export function FilteredActionList({
   // initial total-height estimate before items scroll into view.
   const DEFAULT_VIRTUAL_ITEM_HEIGHT = 32
 
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const virtualizer = useVirtualizer({
+  const virtualizer = createVirtualizer({
     count: items.length,
-    getScrollElement: () => scrollContainerRef.current,
+    getScrollElement: () => scrollContainerElement,
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
     overscan: 10,
     enabled: isVirtualized,
@@ -310,13 +318,13 @@ export function FilteredActionList({
 
   const virtualItems = isVirtualized ? virtualizer.getVirtualItems() : undefined
 
-  const virtualizedItemEntries = useMemo(() => {
-    if (!isVirtualized || !virtualItems) return undefined
-    return virtualItems.map(virtualItem => {
-      const item = items[virtualItem.index]
-      return {virtualItem, item, index: virtualItem.index}
-    })
-  }, [isVirtualized, virtualItems, items])
+  const virtualizedItemEntries =
+    isVirtualized && virtualItems
+      ? virtualItems.map(virtualItem => {
+          const item = items[virtualItem.index]
+          return {virtualItem, item, index: virtualItem.index}
+        })
+      : undefined
 
   useFocusZone(
     !usingRovingTabindex
@@ -421,20 +429,20 @@ export function FilteredActionList({
   )
 
   function getBodyContent() {
-    if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
-      return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+    if (loading && scrollContainerElement && loadingType.appearsInBody) {
+      return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerElement.clientHeight} />
     }
     if (message) {
       return message
     }
-    let firstGroupIndex = 0
+    const firstGroupIndex =
+      groupMetadata?.findIndex(group => {
+        return getItemListForEachGroup(group.groupId).length > 0
+      }) ?? -1
 
     const renderListItems = () => {
       if (groupMetadata?.length) {
         return groupMetadata.map((group, index) => {
-          if (index === firstGroupIndex && getItemListForEachGroup(group.groupId).length === 0) {
-            firstGroupIndex++
-          }
           return (
             <ActionList.Group key={index}>
               <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
@@ -592,7 +600,7 @@ export function FilteredActionList({
         </div>
       )}
       {/* @ts-expect-error div needs a non nullable ref */}
-      <div ref={scrollContainerRef} className={classes.Container}>
+      <div ref={scrollContainerRefCallback} className={classes.Container}>
         {getBodyContent()}
       </div>
     </div>

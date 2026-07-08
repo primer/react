@@ -247,8 +247,13 @@ function Panel({
 
   // Reset the intermediate selected item when the panel is open/closed
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
-    setIntermediateSelected(isSingleSelectModal ? selected : undefined)
+    const timeoutId = window.setTimeout(() => {
+      setIntermediateSelected(isSingleSelectModal ? selected : undefined)
+    })
+
+    return () => {
+      window.clearTimeout(timeoutId)
+    }
   }, [isSingleSelectModal, open, selected])
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
@@ -388,42 +393,37 @@ function Panel({
   }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
 
   useEffect(() => {
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (open) {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-      if (items.length === 0 && !(isLoading || loading)) {
+    const timeoutId = window.setTimeout(() => {
+      if (open && items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
-        // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setNeedsNoItemsAnnouncement(true)
       }
-    }
 
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (loadingManagedExternally) {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-      if (items.length > 0) {
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
-        setDataLoadedOnce(true)
+      if (loadingManagedExternally) {
+        if (items.length > 0) {
+          setDataLoadedOnce(true)
+        }
+
+        return
       }
 
-      return
-    }
+      if (isLoading || items.length > 0) {
+        setIsLoading(false)
 
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (isLoading || items.length > 0) {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
-      setIsLoading(false)
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
-      setDataLoadedOnce(true)
-    }
+        setDataLoadedOnce(true)
+      }
+    })
 
     if (loadingDelayTimeoutId.current) {
       safeClearTimeout(loadingDelayTimeoutId.current)
     }
 
+    return () => {
+      window.clearTimeout(timeoutId)
+    }
+
     // Only fire this effect if items have changed
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items])
+  }, [items, isLoading, loading, loadingManagedExternally, open, safeClearTimeout])
 
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
@@ -474,8 +474,13 @@ function Panel({
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0) {
         // Trigger filter event to populate panel on first open
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        onFilterChange(filterValue, null)
+        const timeoutId = window.setTimeout(() => {
+          onFilterChange(filterValue, null)
+        })
+
+        return () => {
+          window.clearTimeout(timeoutId)
+        }
       }
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
