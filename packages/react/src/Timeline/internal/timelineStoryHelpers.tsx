@@ -1,7 +1,9 @@
 import type React from 'react'
 import {clsx} from 'clsx'
 import Avatar from '../../Avatar'
+import Label from '../../Label'
 import Link from '../../Link'
+import Octicon from '../../Octicon'
 import RelativeTime from '../../RelativeTime'
 import classes from './timelineStoryHelpers.module.css'
 
@@ -64,7 +66,82 @@ export const InlineAvatar = ({className, size = 20, alt = '', ...props}: React.C
   <Avatar {...props} size={size} alt={alt} className={clsx(classes.InlineAvatar, className)} />
 )
 
-// TODO(github/primer#6828): remove when Timeline provides a muted relative-time treatment
-export const MutedTime = ({date}: {date: Date}) => (
-  <RelativeTime date={date} format="relative" className={classes.MutedTime} />
+export const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
+
+/**
+ * An actor "avatar + name" cluster, composed from the shared `InlineAvatar` + `BoldLink`
+ * helpers so every Timeline surface renders actors identically.
+ *
+ * The bot shape mirrors live-GitHub `shared.tsx`: a `[bot]` suffix is stripped from the
+ * display name, the name renders as an unlinked `<span>`, and a secondary `bot` `Label`
+ * follows it. The optional `icon` prop renders a glyph instead of an avatar for system
+ * actors (e.g. Secret scanning's GitHubActor: `<UserActor login="GitHub" icon={MarkGithubIcon} />`).
+ *
+ * TODO(github/primer#6827): remove when Primer ships an inline (in-text) avatar treatment.
+ */
+export const UserActor = ({
+  login = 'monalisa',
+  src = MONALISA_AVATAR,
+  size = 20,
+  href,
+  muted = false,
+  icon,
+}: {
+  login?: string
+  src?: string
+  size?: number
+  href?: string
+  muted?: boolean
+  icon?: React.ElementType
+}) => {
+  const isBot = login.endsWith('[bot]')
+  const display = isBot ? login.replace(/\[bot\]$/i, '') : login
+  return (
+    <>
+      {icon ? <Octicon icon={icon} className={classes.ActorIcon} /> : <InlineAvatar src={src} size={size} />}
+      {href && !isBot ? (
+        <BoldLink href={href} muted={muted}>
+          {display}
+        </BoldLink>
+      ) : (
+        <span className={classes.BoldName}>{display}</span>
+      )}
+      {isBot && (
+        <Label variant="secondary" className={classes.BotLabel}>
+          bot
+        </Label>
+      )}
+    </>
+  )
+}
+
+/**
+ * A muted "icon + small text" sub-row rendered below an event body (e.g. a commit
+ * reference or a note). The four current surfaces drift between flex/margin-top-4 and
+ * block/margin-top-8 layouts — that variance is incidental, so this canonicalizes to a
+ * single flex-centered layout. Only the icon and its size vary.
+ */
+export const EventSubRow = ({
+  icon,
+  iconSize = 16,
+  children,
+}: {
+  icon: React.ElementType
+  iconSize?: number
+  children: React.ReactNode
+}) => (
+  <div className={classes.EventSubRow}>
+    <Octicon icon={icon} size={iconSize} className={classes.EventSubRowIcon} />
+    <span>{children}</span>
+  </div>
 )
+
+// TODO(github/primer#6828): remove when Timeline provides a muted relative-time treatment
+export const MutedTime = ({date, href}: {date: Date; href?: string}) =>
+  href ? (
+    <Link href={href} muted className={clsx(classes.MutedTime, classes.MutedTimeLink)}>
+      <RelativeTime date={date} format="relative" />
+    </Link>
+  ) : (
+    <RelativeTime date={date} format="relative" className={classes.MutedTime} />
+  )
