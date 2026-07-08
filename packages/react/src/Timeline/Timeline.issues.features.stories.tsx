@@ -37,10 +37,9 @@ import {Button} from '../Button'
 import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
-import RelativeTime from '../RelativeTime'
 import Token from '../Token'
 import classes from './Timeline.issues.features.stories.module.css'
-import {BoldLink, Examples, UserActor, VariantSection} from './internal/timelineStoryHelpers'
+import {BoldLink, Examples, MutedTime, UserActor, VariantSection} from './internal/timelineStoryHelpers'
 
 /**
  * Issue Timeline event examples (Phase 2 of github/primer#6663).
@@ -81,13 +80,6 @@ import {BoldLink, Examples, UserActor, VariantSection} from './internal/timeline
  *       </Timeline.Actions>
  *     </Timeline.Item>
  */
-
-// Muted underlined relative timestamp, mirroring github-ui's `Ago` deep-link.
-const Time = ({date}: {date: string}) => (
-  <Link href="#" className={classes.Timestamp} muted>
-    <RelativeTime date={new Date(date)} format="relative" />
-  </Link>
-)
 
 export default {
   title: 'Components/Timeline/Events/Issues',
@@ -136,7 +128,7 @@ export const EventClosed = () => (
             <Link href="#" inline>
               completed
             </Link>{' '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -164,7 +156,7 @@ export const EventClosed = () => (
             <Link href="#" inline>
               not planned
             </Link>{' '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -184,7 +176,7 @@ export const EventClosed = () => (
               completed
             </Link>
             {' in '}
-            <BoldLink href="#">#123</BoldLink> <Time date="2022-07-24T16:40:00Z" />
+            <BoldLink href="#">#123</BoldLink> <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -207,7 +199,7 @@ export const EventClosed = () => (
             <Link href="#" className={classes.CommitSha}>
               abc1234
             </Link>{' '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -230,7 +222,7 @@ export const EventClosed = () => (
             </Link>
             {' by moving to Done in '}
             <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
-            <BoldLink href="#">Roadmap</BoldLink> <Time date="2022-07-22T14:20:00Z" />
+            <BoldLink href="#">Roadmap</BoldLink> <MutedTime date={new Date('2022-07-22T14:20:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -264,7 +256,7 @@ export const EventClosed = () => (
               <span className={classes.IssueLinkTitle}>Fix the flaky avatar test</span>{' '}
               <span className={classes.IssueLinkNumber}>#42</span>
             </Link>{' '}
-            <Time date="2022-07-21T08:30:00Z" />
+            <MutedTime date={new Date('2022-07-21T08:30:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -280,7 +272,7 @@ export const EventClosed = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'closed this '}
-            <Time date="2022-07-20T10:00:00Z" />
+            <MutedTime date={new Date('2022-07-20T10:00:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -308,7 +300,7 @@ export const EventState = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'reopened this '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -328,7 +320,7 @@ export const EventState = () => (
             <Link href="#" inline>
               octo-org/legacy-repo
             </Link>{' '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -344,7 +336,7 @@ export const EventState = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'pinned this issue '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -360,7 +352,7 @@ export const EventState = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'unpinned this issue '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -377,7 +369,7 @@ export const EventState = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'converted this issue into a discussion '}
-            <BoldLink href="#">#123</BoldLink> <Time date="2022-07-22T14:20:00Z" />
+            <BoldLink href="#">#123</BoldLink> <MutedTime date={new Date('2022-07-22T14:20:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -393,7 +385,7 @@ export const EventState = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'converted this from a draft issue '}
-            <Time date="2022-07-21T08:30:00Z" />
+            <MutedTime date={new Date('2022-07-21T08:30:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -424,7 +416,8 @@ export const EventReferences = () => (
             {'linked a pull request that will close this issue '}
             <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
             <BoldLink href="#">Add retry logic to the uploader</BoldLink>
-            <span className={classes.IssueLinkNumber}>#42</span> <Time date="2022-07-26T11:46:07Z" />
+            <span className={classes.IssueLinkNumber}>#42</span>{' '}
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -447,7 +440,8 @@ export const EventReferences = () => (
             {'removed a link to a pull request '}
             <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
             <BoldLink href="#">Add retry logic to the uploader</BoldLink>
-            <span className={classes.IssueLinkNumber}>#42</span> <Time date="2022-07-25T09:12:00Z" />
+            <span className={classes.IssueLinkNumber}>#42</span>{' '}
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -464,7 +458,7 @@ export const EventReferences = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'added a commit that references this issue '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
             {/* Simplified ReferencedEventInner card (github-ui composes message +
               verification status + abbreviated OID per commit). */}
             <div className={classes.CommitRefBox}>
@@ -495,7 +489,7 @@ export const EventReferences = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'added 3 commits that reference this issue '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
             <div className={classes.CommitRefBox}>
               <div className={classes.CommitRefRow}>
                 <Link href="#" className={classes.CommitRefMessage} muted>
@@ -556,7 +550,7 @@ export const EventDuplicates = () => (
               <span className={classes.IssueLinkTitle}>Upload fails on large avatars</span>{' '}
               <span className={classes.IssueLinkNumber}>#42</span>
             </Link>{' '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
           <Timeline.Actions>
             <Button size="small">Undo</Button>
@@ -581,7 +575,7 @@ export const EventDuplicates = () => (
               <span className={classes.IssueLinkNumber}>#43</span>
             </Link>
             {' as a duplicate of this issue '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -602,7 +596,7 @@ export const EventDuplicates = () => (
               <span className={classes.IssueLinkTitle}>Upload fails on large avatars</span>{' '}
               <span className={classes.IssueLinkNumber}>#42</span>
             </Link>{' '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -624,7 +618,7 @@ export const EventDuplicates = () => (
               <span className={classes.IssueLinkNumber}>#43</span>
             </Link>
             {' as a duplicate of this issue '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -651,7 +645,7 @@ export const EventModeration = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'blocked '}
-            <BoldLink href="#">six7</BoldLink> <Time date="2022-07-26T11:46:07Z" />
+            <BoldLink href="#">six7</BoldLink> <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -667,7 +661,7 @@ export const EventModeration = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'temporarily blocked '}
-            <BoldLink href="#">six7</BoldLink> <Time date="2022-07-25T09:12:00Z" />
+            <BoldLink href="#">six7</BoldLink> <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -686,7 +680,7 @@ export const EventModeration = () => (
             <Link href="#" inline>
               comment
             </Link>{' '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -705,7 +699,7 @@ export const EventModeration = () => (
             <Link href="#" inline>
               comment
             </Link>{' '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -747,7 +741,7 @@ export const EventIssueTypes = () => (
               />
             </span>
             {' issue type '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -777,7 +771,7 @@ export const EventIssueTypes = () => (
               />
             </span>
             {' issue type '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -820,7 +814,7 @@ export const EventIssueTypes = () => (
                 }}
               />
             </span>{' '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -853,7 +847,7 @@ export const EventIssueHierarchy = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'added a sub-issue '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -878,7 +872,7 @@ export const EventIssueHierarchy = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'added sub-issues '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -910,7 +904,7 @@ export const EventIssueHierarchy = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'removed a sub-issue '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -935,7 +929,7 @@ export const EventIssueHierarchy = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'removed sub-issues '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -967,7 +961,7 @@ export const EventIssueHierarchy = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'added a parent issue '}
-            <Time date="2022-07-22T14:20:00Z" />
+            <MutedTime date={new Date('2022-07-22T14:20:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -992,7 +986,7 @@ export const EventIssueHierarchy = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'added parent issues '}
-            <Time date="2022-07-21T08:30:00Z" />
+            <MutedTime date={new Date('2022-07-21T08:30:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1024,7 +1018,7 @@ export const EventIssueHierarchy = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'removed a parent issue '}
-            <Time date="2022-07-20T10:00:00Z" />
+            <MutedTime date={new Date('2022-07-20T10:00:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1049,7 +1043,7 @@ export const EventIssueHierarchy = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'removed parent issues '}
-            <Time date="2022-07-19T13:15:00Z" />
+            <MutedTime date={new Date('2022-07-19T13:15:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1097,7 +1091,7 @@ export const EventDependencies = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'marked this as blocked '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1122,7 +1116,7 @@ export const EventDependencies = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'marked this as blocked by 2 issues '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1154,7 +1148,7 @@ export const EventDependencies = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'unmarked this as blocked '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1179,7 +1173,7 @@ export const EventDependencies = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'unmarked this as blocked by 2 issues '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1211,7 +1205,7 @@ export const EventDependencies = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'marked this as blocking '}
-            <Time date="2022-07-22T14:20:00Z" />
+            <MutedTime date={new Date('2022-07-22T14:20:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1236,7 +1230,7 @@ export const EventDependencies = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'marked this as blocking 2 issues '}
-            <Time date="2022-07-21T08:30:00Z" />
+            <MutedTime date={new Date('2022-07-21T08:30:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1268,7 +1262,7 @@ export const EventDependencies = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'unmarked this as blocking '}
-            <Time date="2022-07-20T10:00:00Z" />
+            <MutedTime date={new Date('2022-07-20T10:00:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1293,7 +1287,7 @@ export const EventDependencies = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'unmarked this as blocking 2 issues '}
-            <Time date="2022-07-19T13:15:00Z" />
+            <MutedTime date={new Date('2022-07-19T13:15:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Link href="#" className={classes.IssueLink}>
@@ -1350,7 +1344,7 @@ export const EventIssueFields = () => (
             <Link href="#" inline className={classes.FieldValue}>
               Identity
             </Link>{' '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1371,7 +1365,7 @@ export const EventIssueFields = () => (
             <Link href="#" inline className={classes.FieldValue}>
               5
             </Link>{' '}
-            <Time date="2022-07-25T15:30:00Z" />
+            <MutedTime date={new Date('2022-07-25T15:30:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1392,7 +1386,7 @@ export const EventIssueFields = () => (
             <Link href="#" inline className={classes.FieldValue}>
               Aug 1, 2022
             </Link>{' '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1426,7 +1420,7 @@ export const EventIssueFields = () => (
                 }}
               />
             </span>{' '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1447,7 +1441,7 @@ export const EventIssueFields = () => (
             <Link href="#" inline className={classes.FieldValue}>
               Platform
             </Link>{' '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1468,7 +1462,7 @@ export const EventIssueFields = () => (
             <Link href="#" inline className={classes.FieldValue}>
               8
             </Link>{' '}
-            <Time date="2022-07-22T14:20:00Z" />
+            <MutedTime date={new Date('2022-07-22T14:20:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1489,7 +1483,7 @@ export const EventIssueFields = () => (
             <Link href="#" inline className={classes.FieldValue}>
               Aug 15, 2022
             </Link>{' '}
-            <Time date="2022-07-21T08:30:00Z" />
+            <MutedTime date={new Date('2022-07-21T08:30:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1520,7 +1514,7 @@ export const EventIssueFields = () => (
                 }}
               />
             </span>{' '}
-            <Time date="2022-07-20T10:00:00Z" />
+            <MutedTime date={new Date('2022-07-20T10:00:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1536,7 +1530,8 @@ export const EventIssueFields = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'cleared '}
-            <span className={classes.FieldName}>Team</span> <Time date="2022-07-19T13:15:00Z" />
+            <span className={classes.FieldName}>Team</span>{' '}
+            <MutedTime date={new Date('2022-07-19T13:15:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1552,7 +1547,8 @@ export const EventIssueFields = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'cleared '}
-            <span className={classes.FieldName}>Story Points</span> <Time date="2022-07-18T09:00:00Z" />
+            <span className={classes.FieldName}>Story Points</span>{' '}
+            <MutedTime date={new Date('2022-07-18T09:00:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1568,7 +1564,8 @@ export const EventIssueFields = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'cleared '}
-            <span className={classes.FieldName}>Target Date</span> <Time date="2022-07-17T12:00:00Z" />
+            <span className={classes.FieldName}>Target Date</span>{' '}
+            <MutedTime date={new Date('2022-07-17T12:00:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1584,7 +1581,8 @@ export const EventIssueFields = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'cleared '}
-            <span className={classes.FieldName}>Priority</span> <Time date="2022-07-16T08:30:00Z" />
+            <span className={classes.FieldName}>Priority</span>{' '}
+            <MutedTime date={new Date('2022-07-16T08:30:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1609,7 +1607,7 @@ export const EventIssueFields = () => (
             <Link href="#" inline className={classes.FieldValue}>
               8
             </Link>{' '}
-            <Time date="2022-07-15T10:00:00Z" />
+            <MutedTime date={new Date('2022-07-15T10:00:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1627,7 +1625,8 @@ export const EventIssueFields = () => (
             {'removed '}
             <span className={classes.FieldName}>Team</span>
             {' and '}
-            <span className={classes.FieldName}>Priority</span> <Time date="2022-07-14T10:00:00Z" />
+            <span className={classes.FieldName}>Priority</span>{' '}
+            <MutedTime date={new Date('2022-07-14T10:00:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1648,7 +1647,8 @@ export const EventIssueFields = () => (
               Platform
             </Link>
             {', and also removed '}
-            <span className={classes.FieldName}>Priority</span> <Time date="2022-07-13T10:00:00Z" />
+            <span className={classes.FieldName}>Priority</span>{' '}
+            <MutedTime date={new Date('2022-07-13T10:00:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1699,7 +1699,7 @@ export const EventProject = () => (
             <Link href="#" inline className={classes.ProjectRefLink}>
               Roadmap
             </Link>{' '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1719,7 +1719,7 @@ export const EventProject = () => (
             <Link href="#" inline className={classes.ProjectRefLink}>
               Roadmap
             </Link>{' '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1743,7 +1743,7 @@ export const EventProject = () => (
             <Link href="#" inline className={classes.ProjectRefLink}>
               Roadmap
             </Link>{' '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
         <Timeline.Item>
@@ -1757,7 +1757,7 @@ export const EventProject = () => (
             <Link href="#" inline className={classes.ProjectRefLink}>
               Roadmap
             </Link>{' '}
-            <Time date="2022-07-24T16:42:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:42:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1806,7 +1806,7 @@ export const EventLabels = () => (
                 }}
               />
             </span>{' '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1835,7 +1835,7 @@ export const EventLabels = () => (
                 }}
               />
             </span>{' '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1879,7 +1879,7 @@ export const EventLabels = () => (
                 }}
               />
             </span>{' '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1912,7 +1912,8 @@ export const EventTitle = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'changed the title '}
-            <del>Fix the uplaod bug</del> Fix the upload bug <Time date="2022-07-23T11:05:00Z" />
+            <del>Fix the uplaod bug</del> Fix the upload bug{' '}
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1950,7 +1951,7 @@ export const EventMilestones = () => (
               v2.0
             </Link>
             {' milestone '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -1970,7 +1971,7 @@ export const EventMilestones = () => (
               v2.0
             </Link>
             {' milestone '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2005,7 +2006,7 @@ export const EventAssignments = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'self-assigned this '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2021,7 +2022,7 @@ export const EventAssignments = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'assigned '}
-            <BoldLink href="#">hubot</BoldLink> <Time date="2022-07-25T09:12:00Z" />
+            <BoldLink href="#">hubot</BoldLink> <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2039,7 +2040,7 @@ export const EventAssignments = () => (
             {'assigned '}
             <BoldLink href="#">hubot</BoldLink>
             {' and '}
-            <BoldLink href="#">octocat</BoldLink> <Time date="2022-07-24T16:40:00Z" />
+            <BoldLink href="#">octocat</BoldLink> <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2055,7 +2056,7 @@ export const EventAssignments = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'removed their assignment '}
-            <Time date="2022-07-23T11:05:00Z" />
+            <MutedTime date={new Date('2022-07-23T11:05:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2071,7 +2072,7 @@ export const EventAssignments = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'unassigned '}
-            <BoldLink href="#">hubot</BoldLink> <Time date="2022-07-22T14:20:00Z" />
+            <BoldLink href="#">hubot</BoldLink> <MutedTime date={new Date('2022-07-22T14:20:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2089,7 +2090,7 @@ export const EventAssignments = () => (
             {'unassigned '}
             <BoldLink href="#">hubot</BoldLink>
             {' and '}
-            <BoldLink href="#">octocat</BoldLink> <Time date="2022-07-21T08:30:00Z" />
+            <BoldLink href="#">octocat</BoldLink> <MutedTime date={new Date('2022-07-21T08:30:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2124,7 +2125,7 @@ export const EventLockUnlock = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'locked as off topic and limited conversation to collaborators '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
         <Timeline.Item>
@@ -2134,7 +2135,7 @@ export const EventLockUnlock = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'locked as resolved and limited conversation to collaborators '}
-            <Time date="2022-07-26T11:47:00Z" />
+            <MutedTime date={new Date('2022-07-26T11:47:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
         <Timeline.Item>
@@ -2144,7 +2145,7 @@ export const EventLockUnlock = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'locked as spam and limited conversation to collaborators '}
-            <Time date="2022-07-26T11:48:00Z" />
+            <MutedTime date={new Date('2022-07-26T11:48:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
         <Timeline.Item>
@@ -2154,7 +2155,7 @@ export const EventLockUnlock = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'locked as too heated and limited conversation to collaborators '}
-            <Time date="2022-07-26T11:49:00Z" />
+            <MutedTime date={new Date('2022-07-26T11:49:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2170,7 +2171,7 @@ export const EventLockUnlock = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'locked and limited conversation to collaborators '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2186,7 +2187,7 @@ export const EventLockUnlock = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'unlocked this conversation '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2220,7 +2221,7 @@ export const EventCommentDeleted = () => (
             <Link href="#" inline>
               octocat
             </Link>{' '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -2255,7 +2256,7 @@ export const EventCrossReferences = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'mentioned this '}
-            <Time date="2022-07-26T11:46:07Z" />
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Octicon icon={IssueOpenedIcon} size={16} className={classes.IssueLinkIconOpen} aria-label="Open" />
@@ -2280,7 +2281,7 @@ export const EventCrossReferences = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'mentioned this '}
-            <Time date="2022-07-25T09:12:00Z" />
+            <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
@@ -2305,7 +2306,7 @@ export const EventCrossReferences = () => (
           <Timeline.Body>
             <UserActor href="#" muted />
             {'linked a pull request that will close this issue '}
-            <Time date="2022-07-24T16:40:00Z" />
+            <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
             <ul className={classes.RefList}>
               <li className={classes.RefListItem}>
                 <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
