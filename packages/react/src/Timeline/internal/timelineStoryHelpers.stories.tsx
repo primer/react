@@ -1,5 +1,15 @@
 import type {Meta} from '@storybook/react-vite'
-import {BoldLink, Examples, InlineAvatar, MutedTime, RealisticTimeline, VariantSection} from './timelineStoryHelpers'
+import {MarkGithubIcon, NoteIcon} from '@primer/octicons-react'
+import {
+  BoldLink,
+  EventSubRow,
+  Examples,
+  InlineAvatar,
+  MutedTime,
+  RealisticTimeline,
+  UserActor,
+  VariantSection,
+} from './timelineStoryHelpers'
 
 /**
  * Reference stories for the internal, story-only Timeline helpers
@@ -51,6 +61,24 @@ export const Helpers = () => (
       <p>
         Updated <MutedTime date={new Date('2022-07-26T11:46:07Z')} /> — muted relative time, pending a Timeline muted
         time treatment.
+      </p>
+    </VariantSection>
+
+    <VariantSection label="UserActor — avatar + actor name (composed from InlineAvatar + BoldLink)">
+      <p>
+        <UserActor href="#" muted /> linked+muted, <UserActor size={16} /> unlinked 16px, and a system actor{' '}
+        <UserActor login="GitHub" icon={MarkGithubIcon} /> rendering a glyph instead of an avatar.
+      </p>
+    </VariantSection>
+
+    <VariantSection label="EventSubRow — muted icon + small-text sub-row below an event body">
+      <EventSubRow icon={NoteIcon}>Example note sub-row</EventSubRow>
+    </VariantSection>
+
+    <VariantSection label="MutedTime (permalink) — muted relative time linking to the event">
+      <p>
+        Updated <MutedTime date={new Date('2022-07-26T12:00:00Z')} href="#" /> as a permalink, beside a plain{' '}
+        <MutedTime date={new Date('2022-07-26T12:00:00Z')} /> with no href.
       </p>
     </VariantSection>
   </RealisticTimeline>
