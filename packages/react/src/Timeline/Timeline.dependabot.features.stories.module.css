@@ -35,22 +35,6 @@
   text-decoration: none;
 }
 
-/* Optional dismissal/auto sub-content row. Live ERB renders a
-   `<div class="TimelineItem tmp-pl-5 pt-0 f6 d-block">` (small, indented block
-   below the event) holding a `note` octicon + the comment text. */
-.NoteComment {
-  margin-top: var(--base-size-8);
-  padding-left: var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
-}
-
-.NoteIcon {
-  vertical-align: middle;
-  margin-right: var(--base-size-4);
-  color: var(--fgColor-muted);
-}
-
 /* Colored badge icons for the Dismissal Request / Review / Cancelled events.
    Their live ERB renders `with_badge(color: :X, icon: …)` with NO `bg:` — in
    Primer `color:` tints the ICON on the DEFAULT badge background (it is NOT a

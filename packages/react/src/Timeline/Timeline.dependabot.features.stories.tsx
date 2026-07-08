@@ -1,5 +1,4 @@
 import type {Meta} from '@storybook/react-vite'
-import type React from 'react'
 import type {ComponentProps} from '../utils/types'
 import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
@@ -18,7 +17,15 @@ import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
 import classes from './Timeline.dependabot.features.stories.module.css'
-import {BoldLink, Examples, InlineAvatar, MutedTime, VariantSection} from './internal/timelineStoryHelpers'
+import {
+  BoldLink,
+  EventSubRow,
+  Examples,
+  InlineAvatar,
+  MutedTime,
+  UserActor,
+  VariantSection,
+} from './internal/timelineStoryHelpers'
 
 /**
  * Dependabot alert Timeline event examples (Phase 2 of github/primer#6663).
@@ -69,7 +76,6 @@ import {BoldLink, Examples, InlineAvatar, MutedTime, VariantSection} from './int
 // Live ERB uses the bundled `modules/site/dependabot-icon.png`; this is the
 // public dependabot[bot] avatar (square Dependabot logo) for Storybook.
 const DEPENDABOT_AVATAR = 'https://avatars.githubusercontent.com/u/27347476?v=4'
-const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
 
 /**
  * Dependabot actor — `DependabotAlerts::TimelineItems::ActorComponent` in
@@ -92,21 +98,6 @@ const DependabotActor = () => (
 )
 
 /**
- * User actor — `ActorComponent` regular-user branch (`linked_avatar_for(actor,
- * 20)` + `profile_link(... "text-bold")`): a CIRCLE 20px avatar + bold profile
- * link, no `(bot)` tag. Used by user-authored events (manual Dismissed, manual
- * Reopened, Dismissal Cancelled).
- */
-const UserActor = () => (
-  <>
-    <InlineAvatar src={MONALISA_AVATAR} />
-    <BoldLink href="#" muted>
-      monalisa
-    </BoldLink>
-  </>
-)
-
-/**
  * Push-pill — `PushLinkComponent`: a `<code>` wrapping a `Primer::Beta::Link`
  * (`bg: :accent, px: 2, py: 1, border_radius: 3`) → SUBTLE light-blue rounded
  * pill with accent-blue monospace text (the standard GitHub SHA pill), showing
@@ -118,19 +109,6 @@ const PushPill = ({sha}: {sha: string}) => (
       {sha}
     </Link>
   </code>
-)
-
-/**
- * Optional sub-content row rendered below a dismissal/auto event — the live ERB
- * renders a `<div class="TimelineItem tmp-pl-5 pt-0 f6 d-block">` with a `note`
- * octicon and the comment text. Rendered here as a small muted block inside the
- * event body.
- */
-const NoteComment = ({children}: {children: React.ReactNode}) => (
-  <div className={classes.NoteComment}>
-    <Octicon icon={NoteIcon} size={16} className={classes.NoteIcon} />
-    {children}
-  </div>
 )
 
 export default {
@@ -296,7 +274,7 @@ export const EventFixed = () => (
  * `Timeline.Badge` (no variant), NOT the neutral-emphasis hook.
  *
  * Manual reasons are `RepositoryVulnerabilityAlert::DISMISS_REASONS` downcased.
- * The optional comment renders as a small indented sub-row (note octicon + text).
+ * The optional comment renders as a small sub-row (note octicon + text).
  */
 export const EventDismissed = () => (
   <Examples>
@@ -308,10 +286,12 @@ export const EventDismissed = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'dismissed this as risk is tolerable '}
             <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
-            <NoteComment>This dependency is only used in our test tooling, so the risk is acceptable.</NoteComment>
+            <EventSubRow icon={NoteIcon}>
+              This dependency is only used in our test tooling, so the risk is acceptable.
+            </EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -325,7 +305,7 @@ export const EventDismissed = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'dismissed this as fix started '}
             <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
           </Timeline.Body>
@@ -341,7 +321,7 @@ export const EventDismissed = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'dismissed this as no bandwidth to fix this '}
             <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
           </Timeline.Body>
@@ -357,7 +337,7 @@ export const EventDismissed = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'dismissed this as vulnerable code is not actually used '}
             <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
           </Timeline.Body>
@@ -373,7 +353,7 @@ export const EventDismissed = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'dismissed this as inaccurate '}
             <MutedTime date={new Date('2022-08-02T14:10:00Z')} />
           </Timeline.Body>
@@ -392,13 +372,13 @@ export const EventDismissed = () => (
             <DependabotActor />
             {'dismissed this due to an alert rule '}
             <MutedTime date={new Date('2022-08-03T08:00:00Z')} />
-            <NoteComment>
+            <EventSubRow icon={NoteIcon}>
               {'Rule created and '}
               <Link href="#" inline>
                 low-severity-dev-deps
               </Link>
               {' was applied'}
-            </NoteComment>
+            </EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -457,7 +437,7 @@ export const EventReopened = () => (
             <Octicon icon={SyncIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'reopened this '}
             <MutedTime date={new Date('2022-08-04T10:15:00Z')} />
           </Timeline.Body>
@@ -524,12 +504,12 @@ export const EventReopened = () => (
             <DependabotActor />
             {'reopened this '}
             <MutedTime date={new Date('2022-08-06T09:45:00Z')} />
-            <NoteComment>
+            <EventSubRow icon={NoteIcon}>
               {'Rule disabled: '}
               <Link href="#" inline>
                 low-severity-dev-deps
               </Link>
-            </NoteComment>
+            </EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -558,7 +538,7 @@ export const EventReopened = () => (
  * `bg: :X_emphasis` and so use solid `variant`s). So these four render as a bare
  * `<Timeline.Badge>` (default gray circle) with the icon color set via a
  * `.BadgeIcon*` class — the same structure as the muted Dismissed badge.
- * Optional review/resolution notes render via the shared `NoteComment` sub-row.
+ * Optional review/resolution notes render via the shared `EventSubRow` sub-row.
  */
 export const EventDismissalRequest = () => (
   <Examples>
@@ -576,10 +556,12 @@ export const EventDismissalRequest = () => (
             <Octicon icon={CommentIcon} className={classes.BadgeIconAttention} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'requested to dismiss this as '}
             <strong>Tolerable risk</strong> <MutedTime date={new Date('2022-08-07T13:20:00Z')} />
-            <NoteComment>This dependency is only used in our test tooling, so the risk is acceptable.</NoteComment>
+            <EventSubRow icon={NoteIcon}>
+              This dependency is only used in our test tooling, so the risk is acceptable.
+            </EventSubRow>
           </Timeline.Body>
           <Timeline.Actions>
             <Button variant="primary" size="small">
@@ -598,10 +580,10 @@ export const EventDismissalRequest = () => (
             <Octicon icon={CheckIcon} className={classes.BadgeIconSuccess} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'approved dismissal '}
             <MutedTime date={new Date('2022-08-08T10:05:00Z')} />
-            <NoteComment>Confirmed this dependency is dev-only — approving the dismissal.</NoteComment>
+            <EventSubRow icon={NoteIcon}>Confirmed this dependency is dev-only — approving the dismissal.</EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -615,7 +597,7 @@ export const EventDismissalRequest = () => (
             <Octicon icon={XIcon} className={classes.BadgeIconDanger} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'denied dismissal '}
             <MutedTime date={new Date('2022-08-08T15:40:00Z')} />
           </Timeline.Body>
@@ -633,7 +615,7 @@ export const EventDismissalRequest = () => (
             <Octicon icon={XIcon} className={classes.BadgeIconMuted} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'cancelled their dismissal request '}
             <MutedTime date={new Date('2022-08-09T09:00:00Z')} />
           </Timeline.Body>
