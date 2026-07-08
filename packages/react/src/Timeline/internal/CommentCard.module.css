@@ -319,6 +319,15 @@
   align-items: center;
 }
 
+/* Below 768px the responsive card is collapsed (gutter avatar hidden, avatar inline),
+   so hide its speech-bubble caret — there's no gutter avatar for it to point at. These
+   rules come AFTER `.Card::before`/`::after` (equal specificity) so they win in the base
+   state; the caret is restored at ≥768px in the container block below. */
+.CardResponsive::before,
+.CardResponsive::after {
+  display: none;
+}
+
 @container (min-width: 768px) {
   .CardResponsive .InlineHeaderAvatar,
   .CardResponsive .CommentedVerb {
@@ -327,5 +336,12 @@
 
   .CardResponsive .HeaderText {
     align-items: baseline;
+  }
+
+  /* Restore the caret at ≥768px, where the large gutter avatar is shown and the caret
+     bridges avatar → card. */
+  .CardResponsive::before,
+  .CardResponsive::after {
+    display: block;
   }
 }

@@ -25,11 +25,11 @@ import classes from './Timeline.comments.features.stories.module.css'
  * Dependabot), the parent-child app-avatar reconstruction, the responsive collapse, and
  * the verified live denotations.
  *
- * TITLE / IA: The story appears under `Components/Timeline/Events/Comments` — a sibling
- * of the other event catalogs (Issues, Dependabot, …). Storybook sidebar location is
- * driven by the `title` string, decoupled from code location: the reusable machinery is
- * in `internal/` while the story is a normal events catalog. (`Internal/` in the sidebar
- * is reserved for the helper/primitive docs — see `Internal/Helpers`.)
+ * TITLE / IA: The story appears under `Components/Timeline/Internal/Comment cards` —
+ * a sibling of `Internal/Helpers`. Storybook sidebar location is driven by the `title`
+ * string, decoupled from code location. There is only ever one comment story and it
+ * documents the internal `CommentCard` component, so it lives under `Internal/` next to
+ * the helper docs (keeping the tree small).
  *
  * SCOPE: Storybook-only by design, like the badge-row event stories. Intentionally NOT
  * wired into components-json / the primer.style docs page (do NOT add this file to
@@ -220,7 +220,7 @@ export const EventComment = () => (
 )
 
 export default {
-  title: 'Components/Timeline/Events/Comments',
+  title: 'Components/Timeline/Internal/Comment cards',
   component: Timeline,
   subcomponents: {
     'Timeline.Item': Timeline.Item,
