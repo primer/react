@@ -28,6 +28,7 @@ export const StressTest: React.FC<StressTestProps> = ({
   const [average, setAverage] = useState<undefined | number>(undefined)
   const [min, setMin] = useState<undefined | number>(undefined)
   const [max, setMax] = useState<undefined | number>(undefined)
+  const [elapsedSeconds, setElapsedSeconds] = useState(0)
 
   // Initialize the observer to log performance metrics, stored in a ref and initialized only once
   const observer = useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
@@ -49,8 +50,10 @@ export const StressTest: React.FC<StressTestProps> = ({
   const onClick = () => {
     setCount(0)
     startTime.current = performance.now()
+    setElapsedSeconds(0)
     let count = 0
     const interval = setInterval(() => {
+      setElapsedSeconds((performance.now() - (startTime.current ?? 0)) / 1000)
       if (count < totalIterations - 1) {
         const interaction = measureInteraction()
         // The afterFrame library calls the function
@@ -59,7 +62,7 @@ export const StressTest: React.FC<StressTestProps> = ({
         afterFrame(() => {
           interaction.end()
         })
-        count++
+        count += 1
       } else {
         clearInterval(interval)
       }
@@ -132,10 +135,7 @@ export const StressTest: React.FC<StressTestProps> = ({
                 {`Max: ${max?.toFixed(2)}ms`}
               </>
             ) : (
-              // eslint-disable-next-line react-hooks/purity, react-hooks/refs
-              `Step ${count}/${totalIterations} — ${((performance.now() - (startTime.current ?? 0)) / 1000).toFixed(
-                0,
-              )}s`
+              `Step ${count}/${totalIterations} — ${elapsedSeconds.toFixed(0)}s`
             )}
           </code>
         </Text>

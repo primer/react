@@ -122,17 +122,26 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     // elements — they flow through UnderlinePanelsContext, so this memo's deps
     // can stay tight ([children, parentId]) and Tab elements stay
     // referentially stable across resize-driven iconsVisible toggles.
-    let tabIndex = 0
-    let panelIndex = 0
+    const childArray = Children.toArray(children)
 
-    const childrenWithProps = Children.map(children, child => {
+    const childrenWithProps = childArray.map((child, index) => {
       if (isValidElement<UnderlineItemProps<ElementType>>(child) && (child.type === Tab || isSlot(child, Tab))) {
-        return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`})
+        const tabIndex = childArray.slice(0, index).filter(sibling => {
+          return (
+            isValidElement<UnderlineItemProps<ElementType>>(sibling) && (sibling.type === Tab || isSlot(sibling, Tab))
+          )
+        }).length
+        const id = `${parentId}-tab-${tabIndex}`
+        return cloneElement(child, {id})
       }
 
       if (isValidElement<PanelProps>(child) && (child.type === Panel || isSlot(child, Panel))) {
+        const panelIndex = childArray.slice(0, index).filter(sibling => {
+          return isValidElement<PanelProps>(sibling) && (sibling.type === Panel || isSlot(sibling, Panel))
+        }).length
         const childPanel = child as React.ReactElement<PanelProps>
-        return cloneElement(childPanel, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
+        const labelledBy = `${parentId}-tab-${panelIndex}`
+        return cloneElement(childPanel, {'aria-labelledby': labelledBy})
       }
       return child
     })

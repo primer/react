@@ -12,7 +12,7 @@ import {
   ArrowLeftIcon,
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
-import React, {forwardRef, type JSX} from 'react'
+import React, {type JSX} from 'react'
 import Label from '../../Label'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
@@ -347,17 +347,10 @@ export function SizeStressTestingStory(): JSX.Element {
 }
 SizeStressTestingStory.storyName = 'Size Stress Testing'
 
-const NextJSLikeLink = forwardRef(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement<any> => {
-    const child = React.Children.only(children)
-    const childProps = {
-      ref,
-      href,
-    }
-    return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
-  },
-)
+const NextJSLikeLink = ({href, children}: {href: string; children: React.ReactNode}) => {
+  const child = React.Children.only(children)
+  return <>{React.isValidElement(child) ? React.createElement(child.type, {...child.props, href}) : null}</>
+}
 
 export function LinkItemStory(): JSX.Element {
   return (

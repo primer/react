@@ -512,9 +512,9 @@ export const AsyncError: StoryFn = args => {
         setAsyncItems(items)
       } catch (error) {
         setError(error as Error)
-      } finally {
-        setIsLoading(false)
       }
+
+      setIsLoading(false)
     }
   }
 

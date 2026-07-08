@@ -175,9 +175,9 @@ describe('UnderlinePanels — render architecture', () => {
     // more if the resize observer fires synchronously to set iconsVisible.
     // If a future change reintroduces the props-mirrored-in-state pattern
     // (mount → effect → setState → second render), this would trip.
-    let parentRenderCount = 0
+    const countedHostRender = vi.fn()
     function CountedHost(props: {children: React.ReactNode}) {
-      parentRenderCount++
+      countedHostRender()
       return <UnderlinePanels aria-label="Counted">{props.children}</UnderlinePanels>
     }
     render(
@@ -194,7 +194,7 @@ describe('UnderlinePanels — render architecture', () => {
     // to two renders (initial + a potential post-resize iconsVisible toggle
     // if the test environment fires ResizeObserver synchronously). Anything
     // higher indicates a regression to the old state-from-effect pattern.
-    expect(parentRenderCount).toBeLessThanOrEqual(1)
+    expect(countedHostRender).toHaveBeenCalledTimes(1)
   })
 
   it('does not re-render tabs when an unrelated re-render of the parent occurs', () => {

@@ -75,20 +75,25 @@ describe('useFocus', () => {
     // the user's own setState triggers. We track function-body executions
     // directly (rather than using <Profiler>) so we count this component
     // specifically rather than any wrapper subtree.
-    let renderCount = 0
+    const countedRender = vi.fn()
 
     let triggerFocus: (() => void) | null = null
 
     function Demo() {
-      renderCount += 1
+      countedRender()
       const focus = useFocus()
       const ref = React.useRef<HTMLInputElement>(null)
-      triggerFocus = () => focus(ref.current!)
+      React.useEffect(() => {
+        triggerFocus = () => focus(ref.current!)
+        return () => {
+          triggerFocus = null
+        }
+      }, [focus])
       return <input ref={ref} data-testid="target" />
     }
 
     render(<Demo />)
-    expect(renderCount).toBe(1) // initial mount
+    expect(countedRender).toHaveBeenCalledTimes(1) // initial mount
 
     await act(async () => {
       triggerFocus!()

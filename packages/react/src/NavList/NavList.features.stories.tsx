@@ -118,17 +118,10 @@ export const WithReactRouterLink = () => (
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
-const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ({href, children}, ref): React.ReactElement<any> => {
-    const child = React.Children.only(children)
-    const childProps = {
-      ref,
-      href,
-    }
-    return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
-  },
-)
+const NextJSLikeLink = ({href, children}: NextJSLinkProps) => {
+  const child = React.Children.only(children)
+  return <>{React.isValidElement(child) ? React.createElement(child.type, {...child.props, href}) : null}</>
+}
 
 export const WithNextJsLink = () => (
   <PageLayout>

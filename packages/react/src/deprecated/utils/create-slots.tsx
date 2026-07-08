@@ -1,5 +1,4 @@
 import React from 'react'
-import {useForceUpdate} from '../../utils/use-force-update'
 import useLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 /**
@@ -42,42 +41,39 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
     const slotsDefinition: Slots = {}
     slotNames.map(name => (slotsDefinition[name] = null))
     const slotsRef = React.useRef<Slots>(slotsDefinition)
+    const [slots, setSlots] = React.useState<Slots>(slotsDefinition)
 
-    const rerenderWithSlots = useForceUpdate()
     const [isMounted, setIsMounted] = React.useState(false)
 
     // fires after all the effects in children
     useLayoutEffect(() => {
-      rerenderWithSlots()
+      setSlots({...slotsRef.current})
       setIsMounted(true)
-    }, [rerenderWithSlots])
+    }, [])
 
     const registerSlot = React.useCallback(
       (name: SlotNames, contents: React.ReactNode) => {
         slotsRef.current[name] = contents
 
         // don't render until the component mounts = all slots are registered
-        if (isMounted) rerenderWithSlots()
+        if (isMounted) {
+          setSlots({...slotsRef.current})
+        }
       },
-      [isMounted, rerenderWithSlots],
+      [isMounted],
     )
 
     // Slot can be removed from the tree as well,
     // we need to unregister them from the slot
-    const unregisterSlot = React.useCallback(
-      (name: SlotNames) => {
-        slotsRef.current[name] = null
-        rerenderWithSlots()
-      },
-      [rerenderWithSlots],
-    )
+    const unregisterSlot = React.useCallback((name: SlotNames) => {
+      slotsRef.current[name] = null
+      setSlots({...slotsRef.current})
+    }, [])
 
     /**
      * Slots uses a render prop API so abstract the
      * implementation detail of using a context provider.
      */
-    const slots = slotsRef.current
-
     return (
       <SlotsContext.Provider value={{registerSlot, unregisterSlot, context}}>{children(slots)}</SlotsContext.Provider>
     )

@@ -649,14 +649,19 @@ SubTree.displayName = 'TreeView.SubTree'
 SubTree.__SLOT__ = Symbol('TreeView.SubTree')
 
 function usePreviousValue<T>(value: T): T {
-  const ref = React.useRef(value)
+  const [previousValue, setPreviousValue] = React.useState(value)
 
   React.useEffect(() => {
-    ref.current = value
+    const timeoutId = window.setTimeout(() => {
+      setPreviousValue(value)
+    })
+
+    return () => {
+      window.clearTimeout(timeoutId)
+    }
   }, [value])
 
-  // eslint-disable-next-line react-hooks/refs
-  return ref.current
+  return previousValue
 }
 
 const SkeletonItem = () => {
