@@ -40,7 +40,7 @@ import Octicon from '../Octicon'
 import RelativeTime from '../RelativeTime'
 import Token from '../Token'
 import classes from './Timeline.issues.features.stories.module.css'
-import {BoldLink, Examples, InlineAvatar, VariantSection} from './internal/timelineStoryHelpers'
+import {BoldLink, Examples, UserActor, VariantSection} from './internal/timelineStoryHelpers'
 
 /**
  * Issue Timeline event examples (Phase 2 of github/primer#6663).
@@ -81,19 +81,6 @@ import {BoldLink, Examples, InlineAvatar, VariantSection} from './internal/timel
  *       </Timeline.Actions>
  *     </Timeline.Item>
  */
-
-const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
-
-// Inline 20px avatar + bold username link, matching github-ui's `EventActor`
-// (packages/timeline-items/components/row/EventActor.tsx) inline-avatar mode.
-const Actor = () => (
-  <>
-    <InlineAvatar src={MONALISA_AVATAR} />
-    <BoldLink href="#" muted>
-      monalisa
-    </BoldLink>
-  </>
-)
 
 // Muted underlined relative timestamp, mirroring github-ui's `Ago` deep-link.
 const Time = ({date}: {date: string}) => (
@@ -144,7 +131,7 @@ export const EventClosed = () => (
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'closed this as '}
             <Link href="#" inline>
               completed
@@ -172,7 +159,7 @@ export const EventClosed = () => (
             <Octicon icon={CircleSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'closed this as '}
             <Link href="#" inline>
               not planned
@@ -191,7 +178,7 @@ export const EventClosed = () => (
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'closed this as '}
             <Link href="#" inline>
               completed
@@ -211,7 +198,7 @@ export const EventClosed = () => (
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'closed this as '}
             <Link href="#" inline>
               completed
@@ -236,7 +223,7 @@ export const EventClosed = () => (
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'closed this as '}
             <Link href="#" inline>
               completed
@@ -266,7 +253,7 @@ export const EventClosed = () => (
             <Octicon icon={CircleSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'closed this as a '}
             <Link href="#" inline>
               duplicate
@@ -291,7 +278,7 @@ export const EventClosed = () => (
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'closed this '}
             <Time date="2022-07-20T10:00:00Z" />
           </Timeline.Body>
@@ -319,7 +306,7 @@ export const EventState = () => (
             <Octicon icon={IssueReopenedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'reopened this '}
             <Time date="2022-07-26T11:46:07Z" />
           </Timeline.Body>
@@ -336,7 +323,7 @@ export const EventState = () => (
             <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'transferred this issue from '}
             <Link href="#" inline>
               octo-org/legacy-repo
@@ -355,7 +342,7 @@ export const EventState = () => (
             <Octicon icon={PinIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'pinned this issue '}
             <Time date="2022-07-24T16:40:00Z" />
           </Timeline.Body>
@@ -371,7 +358,7 @@ export const EventState = () => (
             <Octicon icon={PinIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unpinned this issue '}
             <Time date="2022-07-23T11:05:00Z" />
           </Timeline.Body>
@@ -388,7 +375,7 @@ export const EventState = () => (
             <Octicon icon={CommentDiscussionIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'converted this issue into a discussion '}
             <BoldLink href="#">#123</BoldLink> <Time date="2022-07-22T14:20:00Z" />
           </Timeline.Body>
@@ -404,7 +391,7 @@ export const EventState = () => (
             <Octicon icon={IssueDraftIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'converted this from a draft issue '}
             <Time date="2022-07-21T08:30:00Z" />
           </Timeline.Body>
@@ -433,7 +420,7 @@ export const EventReferences = () => (
             <Octicon icon={CrossReferenceIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'linked a pull request that will close this issue '}
             <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
             <BoldLink href="#">Add retry logic to the uploader</BoldLink>
@@ -456,7 +443,7 @@ export const EventReferences = () => (
             <Octicon icon={GitPullRequestIcon} className={classes.BadgeIconOpen} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed a link to a pull request '}
             <Octicon icon={GitPullRequestIcon} size={16} className={classes.PrStateIcon} aria-label="Open" />
             <BoldLink href="#">Add retry logic to the uploader</BoldLink>
@@ -475,7 +462,7 @@ export const EventReferences = () => (
             <Octicon icon={GitCommitIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added a commit that references this issue '}
             <Time date="2022-07-24T16:40:00Z" />
             {/* Simplified ReferencedEventInner card (github-ui composes message +
@@ -506,7 +493,7 @@ export const EventReferences = () => (
             <Octicon icon={GitCommitIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added 3 commits that reference this issue '}
             <Time date="2022-07-23T11:05:00Z" />
             <div className={classes.CommitRefBox}>
@@ -562,7 +549,7 @@ export const EventDuplicates = () => (
             <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'marked this as a duplicate of '}
             <Link href="#" className={classes.IssueLink}>
               <Octicon icon={IssueOpenedIcon} size={16} className={classes.IssueLinkIconOpen} />
@@ -586,7 +573,7 @@ export const EventDuplicates = () => (
             <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'marked '}
             <Link href="#" className={classes.IssueLink}>
               <Octicon icon={IssueOpenedIcon} size={16} className={classes.IssueLinkIconOpen} />
@@ -608,7 +595,7 @@ export const EventDuplicates = () => (
             <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unmarked this as a duplicate of '}
             <Link href="#" className={classes.IssueLink}>
               <Octicon icon={IssueOpenedIcon} size={16} className={classes.IssueLinkIconOpen} />
@@ -629,7 +616,7 @@ export const EventDuplicates = () => (
             <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unmarked '}
             <Link href="#" className={classes.IssueLink}>
               <Octicon icon={IssueOpenedIcon} size={16} className={classes.IssueLinkIconOpen} />
@@ -662,7 +649,7 @@ export const EventModeration = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'blocked '}
             <BoldLink href="#">six7</BoldLink> <Time date="2022-07-26T11:46:07Z" />
           </Timeline.Body>
@@ -678,7 +665,7 @@ export const EventModeration = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'temporarily blocked '}
             <BoldLink href="#">six7</BoldLink> <Time date="2022-07-25T09:12:00Z" />
           </Timeline.Body>
@@ -694,7 +681,7 @@ export const EventModeration = () => (
             <Octicon icon={PinIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'pinned a '}
             <Link href="#" inline>
               comment
@@ -713,7 +700,7 @@ export const EventModeration = () => (
             <Octicon icon={PinIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unpinned a '}
             <Link href="#" inline>
               comment
@@ -744,7 +731,7 @@ export const EventIssueTypes = () => (
             <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added the '}
             <span className={classes.TokenWrapper}>
               <Token
@@ -774,7 +761,7 @@ export const EventIssueTypes = () => (
             <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed the '}
             <span className={classes.TokenWrapper}>
               <Token
@@ -804,7 +791,7 @@ export const EventIssueTypes = () => (
             <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'changed the issue type from '}
             <span className={classes.TokenWrapper}>
               <Token
@@ -864,7 +851,7 @@ export const EventIssueHierarchy = () => (
             <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added a sub-issue '}
             <Time date="2022-07-26T11:46:07Z" />
             <ul className={classes.RefList}>
@@ -889,7 +876,7 @@ export const EventIssueHierarchy = () => (
             <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added sub-issues '}
             <Time date="2022-07-25T09:12:00Z" />
             <ul className={classes.RefList}>
@@ -921,7 +908,7 @@ export const EventIssueHierarchy = () => (
             <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed a sub-issue '}
             <Time date="2022-07-24T16:40:00Z" />
             <ul className={classes.RefList}>
@@ -946,7 +933,7 @@ export const EventIssueHierarchy = () => (
             <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed sub-issues '}
             <Time date="2022-07-23T11:05:00Z" />
             <ul className={classes.RefList}>
@@ -978,7 +965,7 @@ export const EventIssueHierarchy = () => (
             <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added a parent issue '}
             <Time date="2022-07-22T14:20:00Z" />
             <ul className={classes.RefList}>
@@ -1003,7 +990,7 @@ export const EventIssueHierarchy = () => (
             <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added parent issues '}
             <Time date="2022-07-21T08:30:00Z" />
             <ul className={classes.RefList}>
@@ -1035,7 +1022,7 @@ export const EventIssueHierarchy = () => (
             <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed a parent issue '}
             <Time date="2022-07-20T10:00:00Z" />
             <ul className={classes.RefList}>
@@ -1060,7 +1047,7 @@ export const EventIssueHierarchy = () => (
             <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed parent issues '}
             <Time date="2022-07-19T13:15:00Z" />
             <ul className={classes.RefList}>
@@ -1108,7 +1095,7 @@ export const EventDependencies = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'marked this as blocked '}
             <Time date="2022-07-26T11:46:07Z" />
             <ul className={classes.RefList}>
@@ -1133,7 +1120,7 @@ export const EventDependencies = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'marked this as blocked by 2 issues '}
             <Time date="2022-07-25T09:12:00Z" />
             <ul className={classes.RefList}>
@@ -1165,7 +1152,7 @@ export const EventDependencies = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unmarked this as blocked '}
             <Time date="2022-07-24T16:40:00Z" />
             <ul className={classes.RefList}>
@@ -1190,7 +1177,7 @@ export const EventDependencies = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unmarked this as blocked by 2 issues '}
             <Time date="2022-07-23T11:05:00Z" />
             <ul className={classes.RefList}>
@@ -1222,7 +1209,7 @@ export const EventDependencies = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'marked this as blocking '}
             <Time date="2022-07-22T14:20:00Z" />
             <ul className={classes.RefList}>
@@ -1247,7 +1234,7 @@ export const EventDependencies = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'marked this as blocking 2 issues '}
             <Time date="2022-07-21T08:30:00Z" />
             <ul className={classes.RefList}>
@@ -1279,7 +1266,7 @@ export const EventDependencies = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unmarked this as blocking '}
             <Time date="2022-07-20T10:00:00Z" />
             <ul className={classes.RefList}>
@@ -1304,7 +1291,7 @@ export const EventDependencies = () => (
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unmarked this as blocking 2 issues '}
             <Time date="2022-07-19T13:15:00Z" />
             <ul className={classes.RefList}>
@@ -1356,7 +1343,7 @@ export const EventIssueFields = () => (
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'set '}
             <span className={classes.FieldName}>Team</span>
             {' to '}
@@ -1377,7 +1364,7 @@ export const EventIssueFields = () => (
             <Octicon icon={NumberIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'set '}
             <span className={classes.FieldName}>Story Points</span>
             {' to '}
@@ -1398,7 +1385,7 @@ export const EventIssueFields = () => (
             <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'set '}
             <span className={classes.FieldName}>Target Date</span>
             {' to '}
@@ -1419,7 +1406,7 @@ export const EventIssueFields = () => (
             <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'set '}
             <span className={classes.FieldName}>Priority</span>
             {' to '}
@@ -1453,7 +1440,7 @@ export const EventIssueFields = () => (
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'changed '}
             <span className={classes.FieldName}>Team</span>
             {' to '}
@@ -1474,7 +1461,7 @@ export const EventIssueFields = () => (
             <Octicon icon={NumberIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'changed '}
             <span className={classes.FieldName}>Story Points</span>
             {' to '}
@@ -1495,7 +1482,7 @@ export const EventIssueFields = () => (
             <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'changed '}
             <span className={classes.FieldName}>Target Date</span>
             {' to '}
@@ -1516,7 +1503,7 @@ export const EventIssueFields = () => (
             <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'changed '}
             <span className={classes.FieldName}>Priority</span>
             {' to '}
@@ -1547,7 +1534,7 @@ export const EventIssueFields = () => (
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'cleared '}
             <span className={classes.FieldName}>Team</span> <Time date="2022-07-19T13:15:00Z" />
           </Timeline.Body>
@@ -1563,7 +1550,7 @@ export const EventIssueFields = () => (
             <Octicon icon={NumberIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'cleared '}
             <span className={classes.FieldName}>Story Points</span> <Time date="2022-07-18T09:00:00Z" />
           </Timeline.Body>
@@ -1579,7 +1566,7 @@ export const EventIssueFields = () => (
             <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'cleared '}
             <span className={classes.FieldName}>Target Date</span> <Time date="2022-07-17T12:00:00Z" />
           </Timeline.Body>
@@ -1595,7 +1582,7 @@ export const EventIssueFields = () => (
             <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'cleared '}
             <span className={classes.FieldName}>Priority</span> <Time date="2022-07-16T08:30:00Z" />
           </Timeline.Body>
@@ -1611,7 +1598,7 @@ export const EventIssueFields = () => (
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'updated '}
             <span className={classes.FieldName}>Team</span>
             <Link href="#" inline className={classes.FieldValue}>
@@ -1636,7 +1623,7 @@ export const EventIssueFields = () => (
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed '}
             <span className={classes.FieldName}>Team</span>
             {' and '}
@@ -1654,7 +1641,7 @@ export const EventIssueFields = () => (
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'updated '}
             <span className={classes.FieldName}>Team</span>
             <Link href="#" inline className={classes.FieldValue}>
@@ -1705,7 +1692,7 @@ export const EventProject = () => (
             <Octicon icon={TableIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added this to '}
             {/* Issue-version ProjectV2 reference (github-ui `ProjectV2.tsx`). */}
             <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
@@ -1726,7 +1713,7 @@ export const EventProject = () => (
             <Octicon icon={TableIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed this from '}
             <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
             <Link href="#" inline className={classes.ProjectRefLink}>
@@ -1750,7 +1737,7 @@ export const EventProject = () => (
             <Octicon icon={TableIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'moved this to In Progress in '}
             <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
             <Link href="#" inline className={classes.ProjectRefLink}>
@@ -1764,7 +1751,7 @@ export const EventProject = () => (
             <Octicon icon={TableIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'moved this from Todo to In Progress in '}
             <Octicon icon={TableIcon} size={16} className={classes.ProjectRefIcon} />
             <Link href="#" inline className={classes.ProjectRefLink}>
@@ -1804,7 +1791,7 @@ export const EventLabels = () => (
             <Octicon icon={TagIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added '}
             <span className={classes.TokenWrapper}>
               <Token
@@ -1833,7 +1820,7 @@ export const EventLabels = () => (
             <Octicon icon={TagIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed '}
             <span className={classes.TokenWrapper}>
               <Token
@@ -1863,7 +1850,7 @@ export const EventLabels = () => (
             <Octicon icon={TagIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added '}
             <span className={classes.TokenWrapper}>
               <Token
@@ -1923,7 +1910,7 @@ export const EventTitle = () => (
             <Octicon icon={PencilIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'changed the title '}
             <del>Fix the uplaod bug</del> Fix the upload bug <Time date="2022-07-23T11:05:00Z" />
           </Timeline.Body>
@@ -1957,7 +1944,7 @@ export const EventMilestones = () => (
             <Octicon icon={MilestoneIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'added this to the '}
             <Link href="#" inline className={classes.ProjectRefLink}>
               v2.0
@@ -1977,7 +1964,7 @@ export const EventMilestones = () => (
             <Octicon icon={MilestoneIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed this from the '}
             <Link href="#" inline className={classes.ProjectRefLink}>
               v2.0
@@ -2016,7 +2003,7 @@ export const EventAssignments = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'self-assigned this '}
             <Time date="2022-07-26T11:46:07Z" />
           </Timeline.Body>
@@ -2032,7 +2019,7 @@ export const EventAssignments = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'assigned '}
             <BoldLink href="#">hubot</BoldLink> <Time date="2022-07-25T09:12:00Z" />
           </Timeline.Body>
@@ -2048,7 +2035,7 @@ export const EventAssignments = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'assigned '}
             <BoldLink href="#">hubot</BoldLink>
             {' and '}
@@ -2066,7 +2053,7 @@ export const EventAssignments = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'removed their assignment '}
             <Time date="2022-07-23T11:05:00Z" />
           </Timeline.Body>
@@ -2082,7 +2069,7 @@ export const EventAssignments = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unassigned '}
             <BoldLink href="#">hubot</BoldLink> <Time date="2022-07-22T14:20:00Z" />
           </Timeline.Body>
@@ -2098,7 +2085,7 @@ export const EventAssignments = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unassigned '}
             <BoldLink href="#">hubot</BoldLink>
             {' and '}
@@ -2135,7 +2122,7 @@ export const EventLockUnlock = () => (
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'locked as off topic and limited conversation to collaborators '}
             <Time date="2022-07-26T11:46:07Z" />
           </Timeline.Body>
@@ -2145,7 +2132,7 @@ export const EventLockUnlock = () => (
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'locked as resolved and limited conversation to collaborators '}
             <Time date="2022-07-26T11:47:00Z" />
           </Timeline.Body>
@@ -2155,7 +2142,7 @@ export const EventLockUnlock = () => (
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'locked as spam and limited conversation to collaborators '}
             <Time date="2022-07-26T11:48:00Z" />
           </Timeline.Body>
@@ -2165,7 +2152,7 @@ export const EventLockUnlock = () => (
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'locked as too heated and limited conversation to collaborators '}
             <Time date="2022-07-26T11:49:00Z" />
           </Timeline.Body>
@@ -2181,7 +2168,7 @@ export const EventLockUnlock = () => (
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'locked and limited conversation to collaborators '}
             <Time date="2022-07-25T09:12:00Z" />
           </Timeline.Body>
@@ -2197,7 +2184,7 @@ export const EventLockUnlock = () => (
             <Octicon icon={UnlockIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'unlocked this conversation '}
             <Time date="2022-07-24T16:40:00Z" />
           </Timeline.Body>
@@ -2228,7 +2215,7 @@ export const EventCommentDeleted = () => (
             <Octicon icon={TrashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'deleted a comment from '}
             <Link href="#" inline>
               octocat
@@ -2266,7 +2253,7 @@ export const EventCrossReferences = () => (
             <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'mentioned this '}
             <Time date="2022-07-26T11:46:07Z" />
             <ul className={classes.RefList}>
@@ -2291,7 +2278,7 @@ export const EventCrossReferences = () => (
             <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'mentioned this '}
             <Time date="2022-07-25T09:12:00Z" />
             <ul className={classes.RefList}>
@@ -2316,7 +2303,7 @@ export const EventCrossReferences = () => (
             <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <Actor />
+            <UserActor href="#" muted />
             {'linked a pull request that will close this issue '}
             <Time date="2022-07-24T16:40:00Z" />
             <ul className={classes.RefList}>
