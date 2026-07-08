@@ -220,6 +220,10 @@ export const CommentCards = () => (
   </RealisticTimeline>
 )
 
+// Force the exact sentence-case leaf label (Storybook would otherwise title-case the
+// export `CommentCards` to "Comment Cards"). Story ID stays `--comment-cards`.
+CommentCards.storyName = 'Comment cards'
+
 export default {
   title: 'Components/Timeline/Internal',
   component: Timeline,
