@@ -14,14 +14,11 @@ import {
   ShieldIcon,
   XIcon,
 } from '@primer/octicons-react'
-import type React from 'react'
 import BranchName from '../BranchName'
 import {Button} from '../Button'
-import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
-import {BoldLink, Examples, InlineAvatar, MutedTime, VariantSection} from './internal/timelineStoryHelpers'
-import sharedClasses from './internal/timelineStoryHelpers.module.css'
+import {EventSubRow, Examples, MutedTime, UserActor, VariantSection} from './internal/timelineStoryHelpers'
 import classes from './Timeline.license-compliance.features.stories.module.css'
 
 /**
@@ -112,71 +109,6 @@ const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/hubot'
 // The license-compliance system bot — Rails attributes every system event
 // (Opened, Review-expired) to `github-license-compliance[bot]` when user_id<=0.
 const LICENSE_BOT_AVATAR = 'https://avatars.githubusercontent.com/u/9919?s=40&v=4'
-
-/**
- * User actor — live `TimelineEventWithActor` (`events/shared.tsx`). Renders a
- * 20px CIRCLE avatar (shared `InlineAvatar`) followed by the login (shared
- * `BoldLink`), as PLAIN INLINE elements so the avatar, login, badge and trailing
- * summary all sit on one cleanly vertically-centered line. The shape is derived
- * from the login, matching live `shared.tsx`:
- * - login ends with `[bot]` → the suffix is stripped and the (UNLINKED) display
- *   login renders bold (a `<span>` sourcing the shared `BoldLink` styling — a
- *   plain span rather than `BoldLink as="span"` because Primer's `Link` errors
- *   when it renders as a non-anchor) + a secondary "bot" `Label` (live ignores
- *   `url` for bots).
- * - otherwise `url` present → linked login (`BoldLink href`), semibold +
- *   `fgColor-default` (the bold weight is the non-color differentiator that
- *   satisfies `link-in-text-block`; no `inline`, so it stays un-underlined).
- * - otherwise → bold login text (same shared-styled `<span>`).
- */
-const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR, url}: {login?: string; src?: string; url?: string}) => {
-  // Derive the bot shape from the login itself, exactly like live `shared.tsx`
-  // (`isBot = login.endsWith('[bot]')`, with the suffix stripped for display).
-  const isBot = login.endsWith('[bot]')
-  const displayLogin = isBot ? login.replace(/\[bot\]$/i, '') : login
-  const avatar = <InlineAvatar src={src} />
-  if (isBot) {
-    // Live renders bots UNLINKED (the bot branch ignores `actor.url`): avatar +
-    // bold display login + a secondary "bot" Label.
-    return (
-      <>
-        {avatar}
-        <span className={sharedClasses.BoldLink}>{displayLogin}</span>
-        <Label variant="secondary" className={classes.BotLabel}>
-          bot
-        </Label>
-      </>
-    )
-  }
-  if (url) {
-    return (
-      <>
-        {avatar}
-        <BoldLink href={url}>{displayLogin}</BoldLink>
-      </>
-    )
-  }
-  return (
-    <>
-      {avatar}
-      <span className={sharedClasses.BoldLink}>{displayLogin}</span>
-    </>
-  )
-}
-
-/**
- * Optional comment sub-row — live `EventComment` (`events/shared.tsx`) renders a
- * `<Stack direction="horizontal" gap="condensed" className="mt-1">` containing a
- * 16px muted `NoteIcon` + an `f6` muted comment span. Shared by the review
- * request / approve / deny events and the closed event. (Note this surface uses
- * `NoteIcon`, NOT the secret-scanning `CommentIcon`.)
- */
-const EventComment = ({children}: {children: React.ReactNode}) => (
-  <div className={classes.CommentRow}>
-    <Octicon icon={NoteIcon} size={16} className={classes.CommentRowIcon} />
-    <span>{children}</span>
-  </div>
-)
 
 /**
  * PR link sub-row — live `PullRequestLink` (`events/shared.tsx`): a 16px
@@ -312,7 +244,7 @@ export const EventAppearedInBranch = () => (
  * Source: `events/ReviewRequestedEvent.tsx` (`TimelineEventWithActor`):
  * `CommentIcon size={16}` on the default (gray) badge. Copy is "requested to
  * close" or, when the event body carries a `closure_reason`, "requested to close
- * as {reason}". An optional `EventComment` sub-row renders the requester's
+ * as {reason}". An optional note sub-row (shared `EventSubRow`) renders the requester's
  * comment. When the alert has an associated PR, the Rails controller enriches
  * this event with `pull_request_number` / `_title`, so a `PullRequestLink`
  * sub-row appears AND — for the latest review_requested event only — a primary
@@ -335,7 +267,7 @@ export const EventReviewRequested = () => (
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>requested to close</span>{' '}
             <MutedTime date={new Date('2025-10-21T09:00:00Z')} />
           </Timeline.Body>
@@ -351,10 +283,10 @@ export const EventReviewRequested = () => (
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>requested to close as used in tests</span>{' '}
             <MutedTime date={new Date('2025-10-21T09:05:00Z')} />
-            <EventComment>This dependency is only pulled in by our test harness.</EventComment>
+            <EventSubRow icon={NoteIcon}>This dependency is only pulled in by our test harness.</EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -369,7 +301,7 @@ export const EventReviewRequested = () => (
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>requested to close</span>{' '}
             <MutedTime date={new Date('2025-10-21T09:10:00Z')} />
             <PullRequestLink number={42} title="Replace GPL dependency" />
@@ -391,7 +323,7 @@ export const EventReviewRequested = () => (
  *
  * Source: `events/ReviewApprovedEvent.tsx` (`TimelineEventWithActor`):
  * `CheckIcon size={16}` on the default (gray) badge, copy "approved closure
- * request", with an optional `EventComment` sub-row.
+ * request", with an optional note sub-row (shared `EventSubRow`).
  */
 export const EventReviewApproved = () => (
   <Examples>
@@ -403,7 +335,7 @@ export const EventReviewApproved = () => (
             <Octicon icon={CheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
+            <UserActor login="hubot" src={HUBOT_AVATAR} href="https://github.com/hubot" />{' '}
             <span className={classes.ActionText}>approved closure request</span>{' '}
             <MutedTime date={new Date('2025-10-22T10:00:00Z')} />
           </Timeline.Body>
@@ -419,10 +351,10 @@ export const EventReviewApproved = () => (
             <Octicon icon={CheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
+            <UserActor login="hubot" src={HUBOT_AVATAR} href="https://github.com/hubot" />{' '}
             <span className={classes.ActionText}>approved closure request</span>{' '}
             <MutedTime date={new Date('2025-10-22T10:05:00Z')} />
-            <EventComment>Agreed — test-only usage is within policy.</EventComment>
+            <EventSubRow icon={NoteIcon}>Agreed — test-only usage is within policy.</EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -435,7 +367,7 @@ export const EventReviewApproved = () => (
  *
  * Source: `events/ReviewDeniedEvent.tsx` (`TimelineEventWithActor`):
  * `XIcon size={16}` on the default (gray) badge, copy "denied closure request",
- * with an optional `EventComment` sub-row.
+ * with an optional note sub-row (shared `EventSubRow`).
  */
 export const EventReviewDenied = () => (
   <Examples>
@@ -447,7 +379,7 @@ export const EventReviewDenied = () => (
             <Octicon icon={XIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
+            <UserActor login="hubot" src={HUBOT_AVATAR} href="https://github.com/hubot" />{' '}
             <span className={classes.ActionText}>denied closure request</span>{' '}
             <MutedTime date={new Date('2025-10-22T11:00:00Z')} />
           </Timeline.Body>
@@ -463,10 +395,12 @@ export const EventReviewDenied = () => (
             <Octicon icon={XIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="hubot" src={HUBOT_AVATAR} url="https://github.com/hubot" />{' '}
+            <UserActor login="hubot" src={HUBOT_AVATAR} href="https://github.com/hubot" />{' '}
             <span className={classes.ActionText}>denied closure request</span>{' '}
             <MutedTime date={new Date('2025-10-22T11:05:00Z')} />
-            <EventComment>This package is distributed to customers, so the license still applies.</EventComment>
+            <EventSubRow icon={NoteIcon}>
+              This package is distributed to customers, so the license still applies.
+            </EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -523,7 +457,7 @@ export const EventExceptionAdded = () => (
             <Octicon icon={LawIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>
               added npm/left-pad to <PolicyLink /> for monalisa/octo-app
             </span>{' '}
@@ -541,7 +475,7 @@ export const EventExceptionAdded = () => (
             <Octicon icon={LawIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>created exception</span>{' '}
             <MutedTime date={new Date('2025-10-23T12:05:00Z')} />
           </Timeline.Body>
@@ -570,7 +504,7 @@ export const EventLicensesAdded = () => (
             <Octicon icon={LawIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>
               added MIT, Apache-2.0 to <PolicyLink /> for monalisa/octo-app
             </span>{' '}
@@ -588,7 +522,7 @@ export const EventLicensesAdded = () => (
             <Octicon icon={LawIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>added to approved licenses</span>{' '}
             <MutedTime date={new Date('2025-10-24T12:05:00Z')} />
           </Timeline.Body>
@@ -609,7 +543,7 @@ export const EventLicensesAdded = () => (
  * (`license_compliance_dismissal_options.rb`): amendment, private package,
  * inaccurate license, policy edited, fixed. The two resolution-driven fallbacks
  * are "closed as outdated" (resolution `Outdated`) and "closed this alert"
- * (default). An optional `EventComment` sub-row renders a closing comment.
+ * (default). An optional note sub-row (shared `EventSubRow`) renders a closing comment.
  */
 export const EventClosed = () => (
   <Examples>
@@ -621,10 +555,10 @@ export const EventClosed = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>closed as amendment</span>{' '}
             <MutedTime date={new Date('2025-10-25T10:00:00Z')} />
-            <EventComment>Added a policy exception covering this package.</EventComment>
+            <EventSubRow icon={NoteIcon}>Added a policy exception covering this package.</EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -638,7 +572,7 @@ export const EventClosed = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>closed as private package</span>{' '}
             <MutedTime date={new Date('2025-10-25T10:05:00Z')} />
           </Timeline.Body>
@@ -654,7 +588,7 @@ export const EventClosed = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>closed as inaccurate license</span>{' '}
             <MutedTime date={new Date('2025-10-25T10:10:00Z')} />
           </Timeline.Body>
@@ -670,7 +604,7 @@ export const EventClosed = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>closed as policy edited</span>{' '}
             <MutedTime date={new Date('2025-10-25T10:15:00Z')} />
           </Timeline.Body>
@@ -686,7 +620,7 @@ export const EventClosed = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>closed as fixed</span>{' '}
             <MutedTime date={new Date('2025-10-25T10:20:00Z')} />
           </Timeline.Body>
@@ -702,7 +636,7 @@ export const EventClosed = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>closed as outdated</span>{' '}
             <MutedTime date={new Date('2025-10-25T10:25:00Z')} />
           </Timeline.Body>
@@ -718,7 +652,7 @@ export const EventClosed = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="monalisa" src={MONALISA_AVATAR} url="https://github.com/monalisa" />{' '}
+            <UserActor login="monalisa" src={MONALISA_AVATAR} href="https://github.com/monalisa" />{' '}
             <span className={classes.ActionText}>closed this alert</span>{' '}
             <MutedTime date={new Date('2025-10-25T10:30:00Z')} />
           </Timeline.Body>

@@ -1,32 +1,11 @@
 /* Surface-specific classes for the License Compliance event stories. The generic
    scaffolding (RealisticTimeline / VariantSection width + caption), the inline
-   avatar, the bold actor link, and the muted timestamp now come from the shared
-   `./internal/timelineStoryHelpers` module. */
-
-/* Secondary "bot" Label spacing — live `shared.tsx` renders the bot Label with
-   a leading `ml-1`. */
-.BotLabel {
-  margin-left: var(--base-size-4);
-}
+   avatar, the bold actor name/link, the "bot" Label, the muted timestamp, and the
+   note sub-row now come from the shared `./internal/timelineStoryHelpers` module. */
 
 /* Muted action verb (e.g. "opened this alert"). Live `shared.tsx` renders it as
    `<span className="color-fg-muted ml-1">`. */
 .ActionText {
-  color: var(--fgColor-muted);
-}
-
-/* Comment sub-row — live `EventComment` (`events/shared.tsx`) renders a
-   `Stack` (mt-1) with a 16px muted `NoteIcon` + an `f6` muted comment span. */
-.CommentRow {
-  display: flex;
-  align-items: center;
-  margin-top: var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
-}
-
-.CommentRowIcon {
-  margin-right: var(--base-size-8);
   color: var(--fgColor-muted);
 }
 
