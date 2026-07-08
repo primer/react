@@ -1,0 +1,331 @@
+/* Reserve the ~72px gutter for the large-avatar comment forms so the 40px avatar
+   (which sits left of the rail) isn't clipped. Only applies at ≥768px; below that the
+   cards collapse to the gutter-less inline form (live `.nonLeadingElement` only gets
+   its 56px indent inside `@container (min-width: 768px)`). The container itself
+   (`container-type: inline-size`) is established by the consuming story on a root
+   wrapper, so this responsive block resolves against the timeline width. */
+.GutterGroup {
+  padding-left: 0;
+}
+
+@container (min-width: 768px) {
+  .GutterGroup {
+    padding-left: calc(var(--base-size-40) + var(--base-size-32));
+  }
+}
+
+/* Seat the 40px gutter avatar to the LEFT of the rail (left edge ~72px left of the
+   rail), so its right edge lands just left of the rail and the card overlaps the
+   rail — matching Figma: avatar-left → card-left ≈ 56px, caret bridges the gap. The
+   default Timeline.Avatar `top` / translateY (vertical centering) is preserved.
+   Specificity (.GutterGroup .GutterAvatar = 0-2-0) beats the base .TimelineItemAvatar
+   (0-1-0) regardless of stylesheet order. The gutter avatar is HIDDEN below 768px
+   (the inline header avatar shows instead — live `.avatarHiddenOnMedium`). */
+.GutterGroup .GutterAvatar {
+  left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
+  display: none;
+}
+
+@container (min-width: 768px) {
+  .GutterGroup .GutterAvatar {
+    display: block;
+  }
+}
+
+/* Parent-child avatar: a small app/agent avatar overlapping the bottom-right of the
+   large author avatar (GitHub renders this for app/agent co-authored comments). Based
+   on Primer's `.avatar-parent-child` / `.avatar-child`, but deliberately CORRECTED:
+   the upstream `.avatar-child` uses an asymmetric `right: -15%` / `bottom: -9%` offset
+   and a translucent `#fffc` box-shadow, which makes the badge sit unevenly with a
+   lopsided ring (github/github#439417). We use a SYMMETRIC offset and an OPAQUE ring so
+   the badge sits cleanly in the corner. */
+.AvatarParent {
+  position: relative;
+  display: inline-flex;
+}
+
+.AppAvatarChild {
+  position: absolute;
+  right: calc(-1 * var(--base-size-4));
+  bottom: calc(-1 * var(--base-size-4));
+  width: var(--base-size-20);
+  height: var(--base-size-20);
+  /* App avatars are rounded squares (vs circular user avatars). */
+  border-radius: var(--borderRadius-medium);
+  /* Opaque canvas ring separating the child from the parent (not the translucent
+     upstream shadow). Mirrors Primer's own `.avatar-child` ring, which is likewise a
+     custom box-shadow (`--avatar-shadow`), so no token maps to it. */
+  /* stylelint-disable-next-line primer/box-shadow -- avatar separator ring, matches upstream .avatar-child */
+  box-shadow: 0 0 0 var(--borderWidth-thick) var(--bgColor-default);
+}
+
+/* The bordered comment card. Mirrors GitHub's `.timeline-comment` shell: a
+   1px-bordered, rounded box that the gutter avatar's speech-bubble caret points
+   at. There is no Primer comment primitive, so the box is composed directly.
+   `margin-left` pushes the card to the RIGHT of the on-rail gutter avatar so the
+   rail stays in the gutter (behind the avatar) and never passes behind the opaque
+   card; the caret bridges the small remaining gap. */
+.Card {
+  position: relative;
+  flex: auto;
+  min-width: 0;
+  margin-left: calc(-1 * var(--base-size-16));
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+}
+
+/* Speech-bubble caret pointing from the card's left edge toward the gutter
+   avatar, recreated with the classic two-triangle border trick (outer border
+   triangle + inner background triangle). The border declarations below describe
+   triangle GEOMETRY, not a real border, so the raw px/color values are
+   intentional and the primer size/border/color rules are disabled for them. */
+/* stylelint-disable primer/spacing, primer/borders, primer/colors -- CSS triangle geometry, not a real border */
+.Card::before {
+  position: absolute;
+  top: 12px;
+  left: -8px;
+  display: block;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid var(--borderColor-default);
+}
+
+.Card::after {
+  position: absolute;
+  top: 13px;
+  left: -7px;
+  display: block;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid var(--bgColor-muted);
+}
+/* stylelint-enable primer/spacing, primer/borders, primer/colors */
+
+/* Header bar: muted background, bottom divider, rounded top corners — matches
+   github-ui's `ActivityHeader` `containerBase`. Holds the author identity row on
+   the left and the actions affordance on the right. */
+.CardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  padding: var(--base-size-8) var(--base-size-16);
+  background-color: var(--bgColor-muted);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-top-left-radius: var(--borderRadius-medium);
+  border-top-right-radius: var(--borderRadius-medium);
+}
+
+.HeaderText {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--base-size-4);
+  min-width: 0;
+  flex: auto;
+}
+
+/* Bold author link. Bold weight (not just muted color) keeps the in-text link
+   above the high-contrast axe threshold per the a11y in-text-link rule. */
+.AuthorLink {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+.AuthorLink:hover {
+  color: var(--fgColor-accent);
+}
+
+/* The timestamp permalink plus any " – with {app}" via-app suffix. Kept as plain
+   inline text (NOT flex) so the whitespace around the suffix renders naturally. */
+.TimestampLine {
+  color: var(--fgColor-muted);
+}
+
+/* Muted, underlined relative-time permalink. The underline keeps this muted
+   in-text link high-contrast accessible (matches the badge-row `.Timestamp`). */
+.Timestamp {
+  text-decoration: underline;
+}
+
+.CardActions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Body: the rendered markdown. Padding mirrors github-ui's `IssueCommentBody`
+   (16px around the content). */
+.CardBody {
+  padding: var(--base-size-16);
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-default);
+}
+
+.CardBody p {
+  margin: 0;
+}
+
+.CardBody p:not(:first-child) {
+  margin-top: var(--base-size-8);
+}
+
+.CardBody code {
+  padding: var(--base-size-2) var(--base-size-4);
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  background-color: var(--bgColor-neutral-muted);
+  border-radius: var(--borderRadius-medium);
+}
+
+/* Reactions row below the body — GitHub renders these directly under the body text
+   with no separating divider. Each reaction is a small pill. */
+.Reactions {
+  display: flex;
+  gap: var(--base-size-8);
+  padding: 0 var(--base-size-16) var(--base-size-16);
+}
+
+.Reaction {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  padding: 0 var(--base-size-8);
+  height: var(--base-size-24);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  background-color: var(--bgColor-muted);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-full);
+  cursor: pointer;
+}
+
+.Reaction:hover {
+  background-color: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+}
+
+.ReactionCount {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+/* Octicon avatar mode: a 40px container with a centered octicon, used where the
+   actor is represented by an icon rather than a photo. Base = CIRCLE + subtle muted
+   background + muted icon (e.g. Copilot). Sits in the same gutter slot as the photo
+   avatar. Shape/tone modifiers below cover the other presets. */
+.OcticonAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-40);
+  height: var(--base-size-40);
+  color: var(--fgColor-muted);
+  background-color: var(--bgColor-muted);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-full);
+}
+
+/* Inline header avatar (~24px) that mirrors the actor in the compact / collapsed
+   form. Photo actors use the shared InlineAvatar; octicon actors (Copilot,
+   Dependabot) use `.InlineOcticonAvatar` — a 24px inline version of the octicon
+   avatar, composing the shared shape/tone modifiers below. */
+.InlineOcticonAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  margin-right: var(--base-size-4);
+  color: var(--fgColor-muted);
+  background-color: var(--bgColor-muted);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-full);
+  vertical-align: middle;
+}
+
+/* Rounded-square variant (e.g. Dependabot), matching the brand avatar shape. */
+.OcticonAvatarSquare {
+  border-radius: var(--borderRadius-medium);
+}
+
+/* Accent (blue) tone with a white icon — approximates the Dependabot brand-blue
+   avatar (accent-emphasis is the closest Primer token to the Dependabot blue). */
+.OcticonAvatarAccent {
+  color: var(--fgColor-onEmphasis);
+  background-color: var(--bgColor-accent-emphasis);
+  border-color: var(--borderColor-accent-emphasis);
+}
+
+/* Threaded reply (wired for the deferred reply stories): the nested card drops its
+   border + speech-bubble caret + gutter offset so replies read as part of the
+   parent thread (no on-rail avatar to clear). */
+.CardReply {
+  margin-left: 0;
+  border: 0;
+}
+
+.CardReply::before,
+.CardReply::after {
+  display: none;
+}
+
+.CardReply .CardHeader {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Inline-avatar (compact) card: no left-gutter avatar to point at, so drop the
+   speech-bubble caret. It still OVERLAPS the rail by ~16px (same as the large `.Card`)
+   so the rail sits behind the card's opaque left edge — matching live github.com. */
+.CardInline {
+  margin-left: calc(-1 * var(--base-size-16));
+}
+
+.CardInline::before,
+.CardInline::after {
+  display: none;
+}
+
+/* Center the header row so the inline ~24px avatar aligns with the author/text
+   (the default baseline alignment is for the text-only large-gutter header). */
+.CardInline .HeaderText {
+  align-items: center;
+}
+
+/* Inline header avatar hook (photo InlineAvatar or InlineOcticonAvatar): don't let it
+   shrink, and it's the toggle target for the responsive collapse. */
+.InlineHeaderAvatar {
+  flex-shrink: 0;
+}
+
+/* Muted "commented" verb in the inline/compact header ("{author} commented {time}"). */
+.CommentedVerb {
+  color: var(--fgColor-muted);
+}
+
+/* Responsive collapse for the LARGE cards: below 768px they render the compact inline
+   form (inline avatar + "commented" verb, centered header); at ≥768px they use the
+   large gutter avatar and the inline header parts are hidden (live
+   `.avatarHiddenOnMedium`). The always-inline `.CardInline` demo is unaffected. */
+.CardResponsive .HeaderText {
+  align-items: center;
+}
+
+@container (min-width: 768px) {
+  .CardResponsive .InlineHeaderAvatar,
+  .CardResponsive .CommentedVerb {
+    display: none;
+  }
+
+  .CardResponsive .HeaderText {
+    align-items: baseline;
+  }
+}
