@@ -1,0 +1,75 @@
+/* `(bot)` identifier tag. Live ERB `bot_identifier_tag` renders
+   `<span class="Label Label--secondary">bot</span>`; mirrored here with Primer
+   `Label variant="secondary"`. This class only adds inline spacing. */
+.BotLabel {
+  margin: 0 var(--base-size-4) 0 0;
+  vertical-align: middle;
+}
+
+/* Push-pill: the `(push-pill: SHA)` SUBTLE light-blue rounded pill from
+   `PushLinkComponent` (`<code>` wrapping `Primer::Beta::Link` with
+   `bg: :accent, px: 2, py: 1, border_radius: 3`). In primer/view_components
+   `bg: :accent` resolves to `.color-bg-accent` = the SUBTLE/MUTED light-blue
+   background (`--color-accent-subtle`), NOT the solid emphasis blue — so the
+   text stays accent-blue (the Link's default color), not white. This is the
+   standard GitHub SHA push-pill look. Primer `Link`'s own color rule is
+   `:where(.Link)` (zero specificity), so this CSS-module class fully drives the
+   pill appearance. */
+.PushPill {
+  /* The wrapping <code> element — no own box, the inner link is the pill. */
+  font-family: var(--fontStack-monospace);
+}
+
+.PushPillLink {
+  display: inline-block;
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-accent);
+  background-color: var(--bgColor-accent-muted);
+  padding: var(--base-size-2) var(--base-size-4);
+  border-radius: var(--borderRadius-medium);
+  text-decoration: none;
+}
+
+.PushPillLink:hover {
+  text-decoration: none;
+}
+
+/* Optional dismissal/auto sub-content row. Live ERB renders a
+   `<div class="TimelineItem tmp-pl-5 pt-0 f6 d-block">` (small, indented block
+   below the event) holding a `note` octicon + the comment text. */
+.NoteComment {
+  margin-top: var(--base-size-8);
+  padding-left: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.NoteIcon {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+  color: var(--fgColor-muted);
+}
+
+/* Colored badge icons for the Dismissal Request / Review / Cancelled events.
+   Their live ERB renders `with_badge(color: :X, icon: …)` with NO `bg:` — in
+   Primer `color:` tints the ICON on the DEFAULT badge background (it is NOT a
+   solid-color badge). So these render as a bare `<Timeline.Badge>` (default gray
+   circle) with the icon color set here, mirroring the Dismissed muted icon. */
+.BadgeIconAttention {
+  color: var(--fgColor-attention);
+}
+
+.BadgeIconSuccess {
+  color: var(--fgColor-success);
+}
+
+.BadgeIconDanger {
+  color: var(--fgColor-danger);
+}
+
+/* `:subtle` icon color. Primer has no `--fgColor-subtle` token, so the closest
+   functional equivalent for the Dismissal Cancelled `color: :subtle` is muted. */
+.BadgeIconMuted {
+  color: var(--fgColor-muted);
+}
