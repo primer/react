@@ -1,5 +1,5 @@
 import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext, AutocompleteInputContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
@@ -131,6 +131,11 @@ const AutocompleteInput = React.forwardRef(
       [activeDescendantRef, showMenu, onKeyPress],
     )
 
+    const highlightRemainingTextRef = useRef(highlightRemainingText)
+    useEffect(() => {
+      highlightRemainingTextRef.current = highlightRemainingText
+    }, [highlightRemainingText])
+
     useEffect(() => {
       if (!inputRef.current) {
         return
@@ -151,8 +156,7 @@ const AutocompleteInput = React.forwardRef(
 
       if (
         isInputFocused &&
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-        highlightRemainingText &&
+        highlightRemainingTextRef.current &&
         autocompleteSuggestion &&
         (inputValue || isMenuDirectlyActivated)
       ) {
@@ -164,7 +168,7 @@ const AutocompleteInput = React.forwardRef(
       }
 
       // calling this useEffect when `highlightRemainingText` changes breaks backspace functionality
-    }, [autocompleteSuggestion, highlightRemainingText, inputValue, inputRef, isMenuDirectlyActivated])
+    }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated])
 
     useEffect(() => {
       setInputValue(typeof value !== 'undefined' ? value.toString() : '')

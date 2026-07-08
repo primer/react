@@ -83,12 +83,23 @@ const OverlayToggle: React.FC<
       anchorRef={expandButtonElementRef}
       anchorOffset={overlayPaddingPx * -1}
       alignmentOffset={overlayPaddingPx * -1}
-      renderAnchor={props => (
-        <Button variant="invisible" size="small" {...props} ref={expandButtonRef}>
-          <VisuallyHidden>Show +{hiddenItemIds.length} more</VisuallyHidden>
-          <span aria-hidden="true">+{hiddenItemIds.length}</span>
-        </Button>
-      )}
+      renderAnchor={props => {
+        const {ref, ...anchorProps} = props as typeof props & {ref?: React.Ref<HTMLElement>}
+        return (
+          <Button
+            variant="invisible"
+            size="small"
+            {...anchorProps}
+            ref={node => {
+              expandButtonRef(node)
+              if (typeof ref === 'function') ref(node)
+            }}
+          >
+            <VisuallyHidden>Show +{hiddenItemIds.length} more</VisuallyHidden>
+            <span aria-hidden="true">+{hiddenItemIds.length}</span>
+          </Button>
+        )
+      }}
       focusZoneSettings={{disabled: true}}
       overlayProps={{role: 'dialog', 'aria-label': `All ${totalLength} labels`, 'aria-modal': true}}
     >
@@ -113,7 +124,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   as: Component = 'ul',
   className,
 }) => {
-  const containerRef = React.useRef<HTMLElement>(null)
+  const containerRef = React.useRef<HTMLElement | null>(null)
   const [containerElement, setContainerElement] = React.useState<HTMLElement | null>(null)
   const containerRefCallback = React.useCallback((node: HTMLElement | null) => {
     containerRef.current = node
@@ -146,7 +157,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       ? getOverlayWidth(buttonClientRect, containerElement, overlayPaddingPx)
       : undefined
 
-  const expandButtonElementRef = React.useRef<HTMLButtonElement>(null)
+  const expandButtonElementRef = React.useRef<HTMLButtonElement | null>(null)
   const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(
     node => {
       expandButtonElementRef.current = node

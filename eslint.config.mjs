@@ -12,7 +12,6 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefreshPlugin from 'eslint-plugin-react-refresh'
 import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
-import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import primerReact from 'eslint-plugin-primer-react'
@@ -78,14 +77,6 @@ const config = defineConfig([
       ],
     },
   },
-  // Disable react-compiler rule for files not yet migrated
-  {
-    files: reactCompilerUnsupported.map(p => `packages/react/${p}`),
-    rules: {
-      'react-compiler/react-compiler': 'off',
-    },
-  },
-
   ...fixupConfigRules([github.browser, github.recommended, github.react]),
 
   ...fixupConfigRules([prettierRecommended]),

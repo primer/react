@@ -58,6 +58,7 @@ function Caret(props: CaretProps) {
 
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
+  const marginKey = `margin${perp}` as 'marginTop' | 'marginRight' | 'marginBottom' | 'marginLeft'
 
   // note: these arrays represent points in the form [x, y]
   const a = [-size, 0]
@@ -76,25 +77,16 @@ function Caret(props: CaretProps) {
     bottom: `translate(${[size, 0]})`,
     left: `translate(${[size * 2, size]}) rotate(90)`,
   }[edge]
+  const style = {
+    ...getPosition(edge, align, size),
+    '--caret-bg': bg,
+    '--caret-border-color': borderColor,
+    '--caret-border-width': borderWidth,
+  } as React.CSSProperties
+  style[marginKey] = align ? undefined : -size
 
   return (
-    <svg
-      className={classes.Caret}
-      width={size * 2}
-      height={size * 2}
-      style={{
-        ...getPosition(edge, align, size),
-        // if align is set (top|right|bottom|left),
-        // then we don't need an offset margin
-        [`margin${perp}`]: align ? null : -size,
-        ...({
-          '--caret-bg': bg,
-          '--caret-border-color': borderColor,
-          '--caret-border-width': borderWidth,
-        } as React.CSSProperties),
-      }}
-      role="presentation"
-    >
+    <svg className={classes.Caret} width={size * 2} height={size * 2} style={style} role="presentation">
       <g transform={transform}>
         <path d={triangle} className={classes.CaretTriangle} />
         <path d={line} className={classes.CaretBorder} />

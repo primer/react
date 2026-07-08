@@ -1,5 +1,7 @@
 import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
-import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
+import {useId, useOnEscapePress} from '../hooks'
+import {useMergedRefs} from '../hooks/useMergedRefs'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -39,21 +41,6 @@ export type TooltipProps = React.PropsWithChildren<{
   _privateDisableTooltip?: boolean
 }> &
   React.HTMLAttributes<HTMLElement>
-
-type TriggerPropsType = Pick<
-  React.HTMLAttributes<HTMLElement>,
-  | 'aria-describedby'
-  | 'aria-labelledby'
-  | 'onBlur'
-  | 'onTouchEnd'
-  | 'onFocus'
-  | 'onMouseOverCapture'
-  | 'onMouseLeave'
-  | 'onTouchCancel'
-  | 'onTouchEnd'
-> & {
-  ref?: React.RefObject<HTMLElement>
-}
 
 // map tooltip direction to anchoredPosition props
 const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: AnchorAlignment}> = {
@@ -125,8 +112,9 @@ export const Tooltip: ForwardRefExoticComponent<
     forwardedRef,
   ) => {
     const tooltipId = useId(id)
-    const child = Children.only(children)
-    const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    const child = Children.only(children) as React.ReactElement<React.HTMLAttributes<HTMLElement>>
+    const triggerRef = React.useRef<HTMLElement>(null)
+    const mergedTriggerRef = useMergedRefs(forwardedRef, triggerRef)
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
@@ -277,79 +265,85 @@ export const Tooltip: ForwardRefExoticComponent<
     const platform = usePlatform()
     const hasAriaLabel = 'aria-label' in rest
 
+    useIsomorphicLayoutEffect(() => {
+      const trigger = tooltipElRef.current?.previousElementSibling
+      if (!(trigger instanceof HTMLElement)) {
+        return
+      }
+
+      const cleanup = mergedTriggerRef(trigger)
+      const previousAriaDescribedBy = trigger.getAttribute('aria-describedby')
+      const previousAriaLabelledBy = trigger.getAttribute('aria-labelledby')
+
+      if (type === 'description') {
+        const existingDescribedBy = child.props['aria-describedby']
+        trigger.setAttribute(
+          'aria-describedby',
+          existingDescribedBy ? `${existingDescribedBy} ${tooltipId}` : tooltipId,
+        )
+      }
+
+      if (type === 'label') {
+        trigger.setAttribute('aria-labelledby', tooltipId)
+      }
+
+      const onBlur = () => {
+        closeTooltip()
+      }
+      const onTouchEnd = () => {
+        safeSetTimeout(() => closeTooltip(), 10)
+      }
+      const onFocus = (event: FocusEvent) => {
+        if (event.target instanceof Element && !event.target.matches(':focus-visible')) return
+
+        openTooltip()
+      }
+      const onMouseOver = () => {
+        const delayTime = delayTimeMap[delay] || 50
+        openTimeoutRef.current = safeSetTimeout(() => {
+          if (!openTimeoutRef.current) return
+          openTooltip()
+        }, delayTime)
+      }
+      const onMouseLeave = () => {
+        closeTooltip()
+      }
+      trigger.addEventListener('blur', onBlur)
+      trigger.addEventListener('touchend', onTouchEnd, {passive: true})
+      trigger.addEventListener('focus', onFocus)
+      trigger.addEventListener('mouseover', onMouseOver, {capture: true})
+      trigger.addEventListener('mouseleave', onMouseLeave)
+
+      return () => {
+        if (previousAriaDescribedBy === null) {
+          trigger.removeAttribute('aria-describedby')
+        } else {
+          trigger.setAttribute('aria-describedby', previousAriaDescribedBy)
+        }
+
+        if (previousAriaLabelledBy === null) {
+          trigger.removeAttribute('aria-labelledby')
+        } else {
+          trigger.setAttribute('aria-labelledby', previousAriaLabelledBy)
+        }
+
+        trigger.removeEventListener('blur', onBlur)
+        trigger.removeEventListener('touchend', onTouchEnd)
+        trigger.removeEventListener('focus', onFocus)
+        trigger.removeEventListener('mouseover', onMouseOver, {capture: true})
+        trigger.removeEventListener('mouseleave', onMouseLeave)
+
+        if (typeof cleanup === 'function') {
+          cleanup()
+        } else {
+          mergedTriggerRef(null)
+        }
+      }
+    }, [child, closeTooltip, delay, mergedTriggerRef, openTooltip, safeSetTimeout, tooltipId, type])
+
     // Normalize keybindingHint to an array for uniform rendering
     const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
-    const triggerElement = React.isValidElement(child)
-      ? (() => {
-          const TriggerComponent = child.type as React.ElementType<TriggerPropsType>
-          const triggerProps = child.props as TriggerPropsType
-
-          return (
-            <TriggerComponent
-              {...triggerProps}
-              ref={triggerRef}
-              // If it is a type description, we use tooltip to describe the trigger
-              aria-describedby={(() => {
-                // If tooltip is not a description type, keep the original aria-describedby
-                if (type !== 'description') {
-                  return child.props['aria-describedby']
-                }
-
-                // If tooltip is a description type, append our tooltipId
-                const existingDescribedBy = child.props['aria-describedby']
-                if (existingDescribedBy) {
-                  return `${existingDescribedBy} ${tooltipId}`
-                }
-
-                // If no existing aria-describedby, use our tooltipId
-                return tooltipId
-              })()}
-              // If it is a label type, we use tooltip to label the trigger
-              aria-labelledby={type === 'label' ? tooltipId : child.props['aria-labelledby']}
-              onBlur={(event: React.FocusEvent) => {
-                closeTooltip()
-                child.props.onBlur?.(event)
-              }}
-              onTouchEnd={(event: React.TouchEvent) => {
-                child.props.onTouchEnd?.(event)
-
-                // Hide tooltips on tap to essentially disable them on touch devices;
-                // this still allows viewing the tooltip on tap-and-hold
-                safeSetTimeout(() => closeTooltip(), 10)
-              }}
-              onFocus={(event: React.FocusEvent) => {
-                // only show tooltip on :focus-visible, not on :focus
-                try {
-                  if (!event.target.matches(':focus-visible')) return
-                } catch (_error) {
-                  // jsdom (jest) does not support `:focus-visible` yet and would throw an error
-                  // https://github.com/jsdom/jsdom/issues/3426
-                }
-
-                openTooltip()
-                child.props.onFocus?.(event)
-              }}
-              onMouseOverCapture={(event: React.MouseEvent) => {
-                const delayTime = delayTimeMap[delay] || 50
-                // We use a `capture` event to ensure this is called first before
-                // events that might cancel the opening timeout (like `onTouchEnd`)
-                // show tooltip after mouse has been hovering for the specified delay time
-                // (prevent showing tooltip when mouse is just passing through)
-                openTimeoutRef.current = safeSetTimeout(() => {
-                  // if the mouse is already moved out, do not show the tooltip
-                  if (!openTimeoutRef.current) return
-                  openTooltip()
-                  child.props.onMouseEnter?.(event)
-                }, delayTime)
-              }}
-              onMouseLeave={(event: React.MouseEvent) => {
-                closeTooltip()
-                child.props.onMouseLeave?.(event)
-              }}
-            />
-          )
-        })()
-      : null
+    const triggerElement = React.isValidElement(child) ? child : null
 
     return (
       <TooltipContext.Provider value={value}>

@@ -5,7 +5,6 @@ import {preserveDirectives} from 'rolldown-plugin-preserve-directives'
 import {dts} from 'rolldown-plugin-dts'
 import {importCSS} from 'rolldown-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
-import {isSupported} from './script/react-compiler.mjs'
 import packageJson from './package.json' with {type: 'json'}
 
 interface PackageMetadata {
@@ -84,7 +83,6 @@ export default defineConfig([
             'babel-plugin-react-compiler',
             {
               target: '18',
-              sources: (filepath: string) => isSupported(filepath),
             },
           ],
           'macros',

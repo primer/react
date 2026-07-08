@@ -1,4 +1,4 @@
-import type React from 'react'
+import React from 'react'
 import {useCallback, useEffect, useState, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
@@ -18,6 +18,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -202,7 +203,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     !cssAnchorPositioningSettings?.disable
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
-  const anchorRef = React.useRef<HTMLElement>(null)
+  const anchorRef = React.useRef<HTMLElement | null>(null)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
   const updateAnchorElementRef = useCallback((node: HTMLElement | null) => setAnchorElement(node), [])
   const internalAnchorRef = useMergedRefs(anchorRef, updateAnchorElementRef)
@@ -210,6 +211,18 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
   const anchorId = useId(externalAnchorId)
+
+  useIsomorphicLayoutEffect(() => {
+    if (renderAnchor !== null) {
+      return
+    }
+
+    const node = externalAnchorRef.current
+    if (anchorRef.current !== node) {
+      anchorRef.current = node
+      setAnchorElement(node)
+    }
+  })
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
@@ -301,19 +314,62 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
   const anchorName = `--anchored-overlay-anchor-${id}`
 
+  useIsomorphicLayoutEffect(() => {
+    if (!cssAnchorPositioning || renderAnchor !== null || typeof MutationObserver === 'undefined') {
+      return
+    }
+
+    const syncExternalAnchor = () => {
+      const node = externalAnchorRef.current
+      if (!node) {
+        return
+      }
+
+      const previousAnchor = anchorRef.current
+      if (
+        previousAnchor &&
+        previousAnchor !== node &&
+        previousAnchor.style.getPropertyValue('anchor-name') === anchorName
+      ) {
+        previousAnchor.style.removeProperty('anchor-name')
+      }
+      anchorRef.current = node
+      anchorRef.current = node
+      node.style.setProperty('anchor-name', anchorName)
+
+      if (open && overlayRef.current) {
+        overlayRef.current.style.setProperty('position-anchor', anchorName)
+      }
+    }
+
+    syncExternalAnchor()
+
+    const observer = new MutationObserver(syncExternalAnchor)
+    observer.observe(document.body, {childList: true, subtree: true})
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [anchorName, cssAnchorPositioning, externalAnchorRef, open, overlayRef, renderAnchor])
+
   // Manage `anchor-name` on the anchor independently of `open`/`width` so a
   // parent re-render that re-runs the positioning effect below doesn't
   // briefly flicker the anchor link off and back on.
-  useEffect(() => {
-    if (!cssAnchorPositioning || !anchorElement) return
-    if (anchorElement.style.getPropertyValue('anchor-name')) return
-    anchorElement.style.setProperty('anchor-name', anchorName)
+  useIsomorphicLayoutEffect(() => {
+    const currentAnchorElement = renderAnchor === null ? externalAnchorRef.current : anchorElement
+    if (!cssAnchorPositioning || !currentAnchorElement) return
+    if (anchorRef.current !== currentAnchorElement) {
+      anchorRef.current = currentAnchorElement
+      setAnchorElement(currentAnchorElement)
+    }
+    if (currentAnchorElement.style.getPropertyValue('anchor-name')) return
+    currentAnchorElement.style.setProperty('anchor-name', anchorName)
     return () => {
-      if (anchorElement.style.getPropertyValue('anchor-name') === anchorName) {
-        anchorElement.style.removeProperty('anchor-name')
+      if (currentAnchorElement.style.getPropertyValue('anchor-name') === anchorName) {
+        currentAnchorElement.style.removeProperty('anchor-name')
       }
     }
-  }, [cssAnchorPositioning, anchorElement, anchorName])
+  })
 
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return

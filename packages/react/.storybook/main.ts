@@ -6,7 +6,6 @@ import babel from '@rolldown/plugin-babel'
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
-import {isSupported} from '../script/react-compiler.mjs'
 
 const require = createRequire(import.meta.url)
 
@@ -71,7 +70,6 @@ const config: StorybookConfig = {
       babel({
         presets: [
           reactCompilerPreset({
-            sources: (filepath: string) => isSupported(filepath),
             target: '18',
           }),
         ],

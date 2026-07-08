@@ -31,8 +31,7 @@ const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
   inputProps?: AutocompleteInputProps
   menuProps: AutocompleteMenuInternalProps<T>
 }) => {
-  const ariaLabelledBy = menuProps['aria-labelledby']
-  const {items, selectedItemIds, ...menuPropsRest} = menuProps
+  const {items, selectedItemIds, 'aria-labelledby': ariaLabelledBy, ...menuPropsRest} = menuProps
   const {id = 'autocompleteInput', ...inputPropsRest} = inputProps
   return (
     <BaseStyles>

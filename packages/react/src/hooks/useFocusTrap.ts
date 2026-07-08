@@ -64,6 +64,7 @@ export function useFocusTrap(
   // If we are enabling a focus trap and haven't already stored the previously focused element
   // go ahead an do that so we can restore later when the trap is disabled.
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!previousFocusedElement.current && !disabled) {
       previousFocusedElement.current = document.activeElement
     }

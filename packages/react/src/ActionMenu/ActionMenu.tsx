@@ -126,7 +126,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
     renderAnchor: AnchoredOverlayProps['renderAnchor']
   }>(
     (result, child) => {
-      if (!React.isValidElement<{children?: React.ReactElement; className?: string}>(child)) {
+      if (!React.isValidElement<React.PropsWithChildren<{className?: string}>>(child)) {
         return {
           ...result,
           contents: [...result.contents, child],
@@ -137,7 +137,10 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       if (child.type === Tooltip || isSlot(child, Tooltip)) {
         // tooltip trigger
         const anchorChildren = child.props.children
-        if (anchorChildren.type === MenuButton || isSlot(anchorChildren, MenuButton)) {
+        if (
+          React.isValidElement<ButtonProps>(anchorChildren) &&
+          (anchorChildren.type === MenuButton || isSlot(anchorChildren, MenuButton))
+        ) {
           return {
             contents: [...result.contents, null],
             renderAnchor: anchorProps => {
@@ -146,7 +149,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
                 anchorChildren,
                 mergeAnchorHandlers({...anchorProps}, anchorChildren.props),
               )
-              return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
+              return React.cloneElement(child, {children: triggerButton})
             },
           }
         }
@@ -157,21 +160,22 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       } else if (child.type === Anchor || isSlot(child, Anchor)) {
         const anchorChildren = child.props.children
         const isWrappedWithTooltip =
-          anchorChildren !== undefined ? anchorChildren.type === Tooltip || isSlot(anchorChildren, Tooltip) : false
+          React.isValidElement<React.PropsWithChildren>(anchorChildren) &&
+          (anchorChildren.type === Tooltip || isSlot(anchorChildren, Tooltip))
         if (isWrappedWithTooltip) {
-          if (anchorChildren.props.children !== null) {
+          const tooltipTrigger = anchorChildren.props.children
+          if (React.isValidElement<ButtonProps>(tooltipTrigger)) {
             return {
               contents: [...result.contents, null],
               renderAnchor: anchorProps => {
                 // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
-                const tooltipTrigger = anchorChildren.props.children
                 // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
                 const tooltipTriggerEl = React.cloneElement(
                   tooltipTrigger,
                   mergeAnchorHandlers({...anchorProps}, tooltipTrigger.props),
                 )
                 const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
-                return React.cloneElement(child, {children: tooltip, ref: anchorRef})
+                return React.cloneElement(child, {children: tooltip})
               },
             }
           }

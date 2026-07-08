@@ -1,7 +1,7 @@
 import {act, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {useFocus} from '../useFocus'
 import {createRenderCounter} from '../../../utils/testing/profiler'
 
@@ -100,6 +100,6 @@ describe('useFocus', () => {
     })
     // The host re-renders once because useFocus bumps its internal version state.
     // It must NOT re-render a second time (which the old impl did when resetting state).
-    expect(renderCount).toBe(2)
+    expect(countedRender).toHaveBeenCalledTimes(2)
   })
 })

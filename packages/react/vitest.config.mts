@@ -2,7 +2,6 @@ import {defineConfig} from '@primer/vitest-config/config'
 import babel from '@rolldown/plugin-babel'
 
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
-import {isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
   plugins: [
@@ -10,7 +9,6 @@ export default defineConfig({
     babel({
       presets: [
         reactCompilerPreset({
-          sources: (filepath: string) => isSupported(filepath),
           target: '18',
         }),
       ],

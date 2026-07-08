@@ -1,5 +1,6 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
+import type React from 'react'
+import {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -219,7 +220,7 @@ function Panel({
   const loadingDelayTimeoutId = useRef<number | null>(null)
   const loadingManagedInternally = loading === undefined
   const loadingManagedExternally = !loadingManagedInternally
-  const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
@@ -246,14 +247,10 @@ function Panel({
   )
 
   // Reset the intermediate selected item when the panel is open/closed
-  useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      setIntermediateSelected(isSingleSelectModal ? selected : undefined)
-    })
 
-    return () => {
-      window.clearTimeout(timeoutId)
-    }
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
+    setIntermediateSelected(isSingleSelectModal ? selected : undefined)
   }, [isSingleSelectModal, open, selected])
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
@@ -268,9 +265,12 @@ function Panel({
 
   const onInputRefChanged = useCallback(
     (ref: React.RefObject<HTMLInputElement>) => {
-      setInputRef(ref)
+      inputRef.current = ref.current
+      if (open) {
+        inputRef.current?.focus()
+      }
     },
-    [setInputRef],
+    [open],
   )
 
   const resetSort = useCallback(() => {
@@ -392,42 +392,64 @@ function Panel({
     }
   }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
 
+  const itemsChangedEffectState = useRef({
+    isLoading,
+    loading,
+    loadingManagedExternally,
+    open,
+  })
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      if (open && items.length === 0 && !(isLoading || loading)) {
-        // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
-        setNeedsNoItemsAnnouncement(true)
-      }
+    itemsChangedEffectState.current = {
+      isLoading,
+      loading,
+      loadingManagedExternally,
+      open,
+    }
+  })
 
-      if (loadingManagedExternally) {
-        if (items.length > 0) {
-          setDataLoadedOnce(true)
-        }
+  useEffect(() => {
+    const {
+      isLoading: currentIsLoading,
+      loading: currentLoading,
+      loadingManagedExternally: currentLoadingManagedExternally,
+      open: currentOpen,
+    } = itemsChangedEffectState.current
 
-        return
-      }
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (currentOpen && items.length === 0 && !(currentIsLoading || currentLoading)) {
+      // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
+      setNeedsNoItemsAnnouncement(true)
+    }
 
-      if (isLoading || items.length > 0) {
-        setIsLoading(false)
-
+    if (currentLoadingManagedExternally) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (items.length > 0) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setDataLoadedOnce(true)
       }
-    })
+
+      return
+    }
+
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (currentIsLoading || items.length > 0) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
+      setIsLoading(false)
+
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
+      setDataLoadedOnce(true)
+    }
 
     if (loadingDelayTimeoutId.current) {
       safeClearTimeout(loadingDelayTimeoutId.current)
     }
 
-    return () => {
-      window.clearTimeout(timeoutId)
-    }
-
     // Only fire this effect if items have changed
-  }, [items, isLoading, loading, loadingManagedExternally, open, safeClearTimeout])
+  }, [items, safeClearTimeout])
 
   useEffect(() => {
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (inputRef?.current) {
+    if (inputRef.current) {
       const ref = inputRef.current
 
       // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
@@ -438,7 +460,7 @@ function Panel({
         ref.focus()
       }
     }
-  }, [inputRef, open])
+  }, [open])
 
   // Manage loading announcements when loadingManagedExternally
   useEffect(() => {
@@ -474,13 +496,8 @@ function Panel({
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0) {
         // Trigger filter event to populate panel on first open
-        const timeoutId = window.setTimeout(() => {
-          onFilterChange(filterValue, null)
-        })
-
-        return () => {
-          window.clearTimeout(timeoutId)
-        }
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        onFilterChange(filterValue, null)
       }
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
@@ -743,7 +760,7 @@ function Panel({
     }
   }, [open, resetSort])
 
-  const focusTrapSettings = useMemo(() => ({initialFocusRef: inputRef || undefined}), [inputRef])
+  const focusTrapSettings = useMemo(() => ({initialFocusRef: inputRef}), [])
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -974,7 +991,7 @@ function Panel({
             selectionVariant={isSingleSelectModal ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
-            loading={loading || (isLoading && !message)}
+            loading={loading || (isLoading && !message && externalFilterValue === undefined)}
             loadingType={loadingType()}
             onSelectAllChange={showSelectAll ? handleSelectAllChange : undefined}
             // hack because the deprecated ActionList does not support this prop

@@ -82,8 +82,7 @@ function ExampleWithTooltip(): JSX.Element {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
+function ExampleWithTooltipV2({actionMenuTrigger}: {actionMenuTrigger: React.ReactElement<unknown>}): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>
@@ -392,11 +391,13 @@ describe('ActionMenu', () => {
 
   it('should open menu on menu button click and it is wrapped with tooltip v2', async () => {
     const component = HTMLRender(
-      ExampleWithTooltipV2(
-        <TooltipV2 text="Additional context about the menu button" direction="s">
-          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-        </TooltipV2>,
-      ),
+      <ExampleWithTooltipV2
+        actionMenuTrigger={
+          <TooltipV2 text="Additional context about the menu button" direction="s">
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          </TooltipV2>
+        }
+      />,
     )
     const button = component.getByRole('button')
 
@@ -415,11 +416,13 @@ describe('ActionMenu', () => {
 
   it('should display tooltip v2 when menu button is focused', async () => {
     const component = HTMLRender(
-      ExampleWithTooltipV2(
-        <TooltipV2 text="Additional context about the menu button" direction="s">
-          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-        </TooltipV2>,
-      ),
+      <ExampleWithTooltipV2
+        actionMenuTrigger={
+          <TooltipV2 text="Additional context about the menu button" direction="s">
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          </TooltipV2>
+        }
+      />,
     )
     const button = component.getByRole('button')
     act(() => {
@@ -431,13 +434,15 @@ describe('ActionMenu', () => {
 
   it('should open menu on menu anchor click and it is wrapped with tooltip v2', async () => {
     const component = HTMLRender(
-      ExampleWithTooltipV2(
-        <ActionMenu.Anchor>
-          <TooltipV2 text="Additional context about the menu button" direction="n">
-            <Button>Toggle Menu</Button>
-          </TooltipV2>
-        </ActionMenu.Anchor>,
-      ),
+      <ExampleWithTooltipV2
+        actionMenuTrigger={
+          <ActionMenu.Anchor>
+            <TooltipV2 text="Additional context about the menu button" direction="n">
+              <Button>Toggle Menu</Button>
+            </TooltipV2>
+          </ActionMenu.Anchor>
+        }
+      />,
     )
     const button = component.getByRole('button')
 
@@ -449,13 +454,15 @@ describe('ActionMenu', () => {
 
   it('should display tooltip v2 and menu anchor is focused', async () => {
     const component = HTMLRender(
-      ExampleWithTooltipV2(
-        <ActionMenu.Anchor>
-          <TooltipV2 text="Additional context about the menu button" direction="n">
-            <Button>Toggle Menu</Button>
-          </TooltipV2>
-        </ActionMenu.Anchor>,
-      ),
+      <ExampleWithTooltipV2
+        actionMenuTrigger={
+          <ActionMenu.Anchor>
+            <TooltipV2 text="Additional context about the menu button" direction="n">
+              <Button>Toggle Menu</Button>
+            </TooltipV2>
+          </ActionMenu.Anchor>
+        }
+      />,
     )
     const button = component.getByRole('button')
     act(() => {

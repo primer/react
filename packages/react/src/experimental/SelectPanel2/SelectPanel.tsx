@@ -337,18 +337,14 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   const [labelText, setLabelText] = useState('')
   const [buttonText, setButtonText] = useState('')
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      const label = document.querySelector(`[for='${inputProps.id}']`)
-      if (label?.textContent) {
-        setLabelText(label.textContent)
-      }
-      const button = (anchorRef as MutableRefObject<HTMLButtonElement | null>).current
-      setButtonText(button?.textContent ?? '')
-    })
-
-    return () => {
-      window.clearTimeout(timeoutId)
+    const label = document.querySelector(`[for='${inputProps.id}']`)
+    if (label?.textContent) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLabelText(label.textContent)
     }
+    const button = (anchorRef as MutableRefObject<HTMLButtonElement | null>).current
+
+    setButtonText(button?.textContent ?? '')
   }, [anchorRef, inputProps.id, props.children])
 
   if (labelText) {

@@ -1,5 +1,4 @@
 const defines = require('./babel-defines.cjs')
-const {isSupported} = require('./script/react-compiler.mjs')
 
 function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
@@ -10,7 +9,6 @@ const sharedPlugins = [
     'babel-plugin-react-compiler',
     {
       target: '18',
-      sources: isSupported,
     },
   ],
   'macros',

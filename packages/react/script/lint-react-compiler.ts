@@ -3,7 +3,7 @@ import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {checkFile} from '@primer/react-compiler-check'
 import type {CheckError, CheckResult} from '@primer/react-compiler-check'
-import {files, isSupported} from './react-compiler.mjs'
+import glob from 'fast-glob'
 
 type CompilerFailure = Extract<CheckResult, {ok: false}> & {
   filepath: string
@@ -11,8 +11,15 @@ type CompilerFailure = Extract<CheckResult, {ok: false}> & {
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const packageDirectory = path.resolve(dirname, '..')
-const migratedFiles = files.filter(isSupported)
-const failures = migratedFiles.map(checkCompilerFile).filter((result): result is CompilerFailure => !result.ok)
+const files = glob
+  .sync('src/**/*.{ts,tsx}', {
+    cwd: packageDirectory,
+    ignore: ['**/*.d.ts'],
+  })
+  .map(match => {
+    return path.join(packageDirectory, match)
+  })
+const failures = files.map(checkCompilerFile).filter((result): result is CompilerFailure => !result.ok)
 
 if (failures.length > 0) {
   // eslint-disable-next-line no-console
@@ -33,7 +40,7 @@ if (failures.length > 0) {
   process.exitCode = 1
 } else {
   // eslint-disable-next-line no-console
-  console.log(`React Compiler passed for ${migratedFiles.length} migrated files.`)
+  console.log(`React Compiler passed for ${files.length} files.`)
 }
 
 function formatReason(reason: string): string {

@@ -599,7 +599,6 @@ export function FilteredActionList({
           </label>
         </div>
       )}
-      {/* @ts-expect-error div needs a non nullable ref */}
       <div ref={scrollContainerRefCallback} className={classes.Container}>
         {getBodyContent()}
       </div>
