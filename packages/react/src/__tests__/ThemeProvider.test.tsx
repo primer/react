@@ -2,8 +2,8 @@ import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
-import {ThemeProvider, useColorSchemeVar, useTheme} from '../ThemeProvider'
-import {FeatureFlags} from '../FeatureFlags'
+import ThemeProvider from '../ThemeProvider'
+import {useColorSchemeVar, useTheme} from '../useTheme'
 
 // copied from '@primer/primitives/dist/css/functional/themes/';
 const fgDefaultColors = {
@@ -537,6 +537,7 @@ describe('contextOnly', () => {
     const div = container.querySelector('[data-color-mode]')
     expect(div).toBeInTheDocument()
     expect(div?.tagName).toBe('DIV')
+    expect(div).toHaveAttribute('data-component', 'ThemeProvider')
     expect(div).toHaveAttribute('data-light-theme')
     expect(div).toHaveAttribute('data-dark-theme')
   })
@@ -569,62 +570,5 @@ describe('contextOnly', () => {
     )
 
     expect(screen.getByTestId('consumer').textContent).toBe('night-light-dark_dimmed')
-  })
-
-  it('renders the preventSSRMismatch script tag when contextOnly and preventSSRMismatch are both true', () => {
-    const {container} = render(
-      <ThemeProvider contextOnly preventSSRMismatch>
-        <span>Hello</span>
-      </ThemeProvider>,
-    )
-
-    const div = container.querySelector('[data-color-mode]')
-    expect(div).not.toBeInTheDocument()
-
-    const script = container.querySelector('script[type="application/json"]')
-    expect(script).toBeInTheDocument()
-    expect(script?.textContent).toContain('resolvedServerColorMode')
-  })
-})
-
-describe('primer_react_theme_provider_remove_ssr_handoff feature flag', () => {
-  it('does not render the script tag when the feature flag is enabled', () => {
-    const {container} = render(
-      <FeatureFlags flags={{primer_react_theme_provider_remove_ssr_handoff: true}}>
-        <ThemeProvider preventSSRMismatch>
-          <span>Hello</span>
-        </ThemeProvider>
-      </FeatureFlags>,
-    )
-
-    const script = container.querySelector('script[type="application/json"]')
-    expect(script).not.toBeInTheDocument()
-  })
-
-  it('does not render the script tag when the feature flag is enabled and contextOnly is true', () => {
-    const {container} = render(
-      <FeatureFlags flags={{primer_react_theme_provider_remove_ssr_handoff: true}}>
-        <ThemeProvider contextOnly preventSSRMismatch>
-          <span>Hello</span>
-        </ThemeProvider>
-      </FeatureFlags>,
-    )
-
-    const script = container.querySelector('script[type="application/json"]')
-    expect(script).not.toBeInTheDocument()
-  })
-
-  it('renders the script tag when the feature flag is disabled', () => {
-    const {container} = render(
-      <FeatureFlags flags={{primer_react_theme_provider_remove_ssr_handoff: false}}>
-        <ThemeProvider preventSSRMismatch>
-          <span>Hello</span>
-        </ThemeProvider>
-      </FeatureFlags>,
-    )
-
-    const script = container.querySelector('script[type="application/json"]')
-    expect(script).toBeInTheDocument()
-    expect(script?.textContent).toContain('resolvedServerColorMode')
   })
 })

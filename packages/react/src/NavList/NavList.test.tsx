@@ -5,6 +5,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import {NavList} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -551,5 +552,204 @@ describe('NavList.ShowMoreItem with pages', () => {
     expect(queryByRole('link', {name: 'Item 2'})).toHaveAttribute('data-custom-link', 'false')
     expect(queryByRole('link', {name: 'Item 3'})).toHaveAttribute('href', '#item3')
     expect(queryByRole('link', {name: 'Item 4'})).toHaveAttribute('href', '#item4')
+  })
+
+  describe('item gap feature flag', () => {
+    it('does not set data-item-gap on the underlying ActionList by default', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Item href="#" aria-current="page">
+            Home
+          </NavList.Item>
+          <NavList.Item href="#">About</NavList.Item>
+        </NavList>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
+    })
+
+    it('sets data-item-gap on the underlying ActionList when the primer_react_action_list_item_gap feature flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <NavList>
+            <NavList.Item href="#" aria-current="page">
+              Home
+            </NavList.Item>
+            <NavList.Item href="#">About</NavList.Item>
+          </NavList>
+        </FeatureFlags>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList"]')).toHaveAttribute('data-item-gap', '')
+    })
+
+    it('adds a gap between a parent item and the first item of its expanded sub-nav when the feature flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <NavList>
+            <NavList.Item defaultOpen href="#">
+              Item 1
+              <NavList.SubNav>
+                <NavList.Item href="#">Sub item 1</NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList>
+        </FeatureFlags>,
+      )
+
+      const subGroup = container.querySelector('ul[aria-labelledby]')
+      expect(subGroup).not.toBeNull()
+      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('2px')
+    })
+
+    it('does not add a gap before a sub-nav when the feature flag is disabled', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Item defaultOpen href="#">
+            Item 1
+            <NavList.SubNav>
+              <NavList.Item href="#">Sub item 1</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+        </NavList>,
+      )
+
+      const subGroup = container.querySelector('ul[aria-labelledby]')
+      expect(subGroup).not.toBeNull()
+      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('0px')
+    })
+  })
+
+  describe('NavList.Heading', () => {
+    it('renders an h2 heading by default', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 2, name: 'Settings'})).toBeInTheDocument()
+    })
+
+    it('respects an explicit heading level via the `as` prop', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading as="h3">Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 3, name: 'Settings'})).toBeInTheDocument()
+    })
+
+    it('labels the nav landmark with the heading', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      const nav = getByRole('navigation', {name: 'Settings'})
+      const heading = getByRole('heading', {name: 'Settings'})
+      expect(nav).toHaveAttribute('aria-labelledby', heading.id)
+    })
+
+    it('does not override a consumer-supplied aria-label', () => {
+      const {getByRole} = render(
+        <NavList aria-label="Custom label">
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      const nav = getByRole('navigation', {name: 'Custom label'})
+      expect(nav).not.toHaveAttribute('aria-labelledby')
+    })
+
+    it('defaults group headings to one level below the NavList.Heading', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Group title="Account">
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 2, name: 'Settings'})).toBeInTheDocument()
+      expect(getByRole('heading', {level: 3, name: 'Account'})).toBeInTheDocument()
+    })
+
+    it('derives group headings to h4 when the NavList.Heading is an h3', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading as="h3">Settings</NavList.Heading>
+          <NavList.Group title="Account">
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 3, name: 'Settings'})).toBeInTheDocument()
+      expect(getByRole('heading', {level: 4, name: 'Account'})).toBeInTheDocument()
+    })
+
+    it('keeps the h3 group heading default when there is no NavList.Heading', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Group title="Account">
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 3, name: 'Account'})).toBeInTheDocument()
+    })
+
+    it('lets group headings override their computed level with `as`', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading>Settings</NavList.Heading>
+          <NavList.Group>
+            <NavList.GroupHeading as="h4">Account</NavList.GroupHeading>
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 4, name: 'Account'})).toBeInTheDocument()
+    })
+
+    it('keeps a visually hidden heading in the accessibility tree', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading visuallyHidden>Settings</NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      const heading = getByRole('heading', {level: 2, name: 'Settings'})
+      expect(heading).toBeInTheDocument()
+      expect(getByRole('navigation', {name: 'Settings'})).toBeInTheDocument()
+      // The visually-hidden styles are applied to the heading itself, not a wrapping element.
+      expect(heading.parentElement?.tagName).not.toBe('SPAN')
+    })
+
+    it('forwards standard HTML attributes to the heading element', () => {
+      const {getByRole} = render(
+        <NavList>
+          <NavList.Heading data-testid="nav-heading" title="Section navigation">
+            Settings
+          </NavList.Heading>
+          <NavList.Item href="#">Item 1</NavList.Item>
+        </NavList>,
+      )
+
+      const heading = getByRole('heading', {level: 2, name: 'Settings'})
+      expect(heading).toHaveAttribute('data-testid', 'nav-heading')
+      expect(heading).toHaveAttribute('title', 'Section navigation')
+    })
   })
 })

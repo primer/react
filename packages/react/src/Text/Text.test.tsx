@@ -1,4 +1,4 @@
-import {Text} from '..'
+import Text from '.'
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import testClasses from './Text.test.module.css'
@@ -10,6 +10,11 @@ describe('Text', () => {
   it('renders a <span> by default', () => {
     const {container} = render(<Text />)
     expect(container.firstChild?.nodeName).toEqual('SPAN')
+  })
+
+  it('renders data-component attribute', () => {
+    const {container} = render(<Text />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'Text')
   })
 
   it('renders children', () => {

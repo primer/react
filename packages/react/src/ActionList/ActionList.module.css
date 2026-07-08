@@ -26,6 +26,18 @@
     padding-bottom: var(--base-size-8);
   }
 
+  /* add a small gap between sibling items for readability */
+  &:where([data-item-gap]) {
+    & .ActionListItem + .ActionListItem {
+      margin-block-start: var(--base-size-2);
+    }
+
+    /* also separate a parent item's row from the first item of its expanded sub-nav */
+    & .SubGroup {
+      margin-block-start: var(--base-size-2);
+    }
+  }
+
   &:where([data-dividers='true']) {
     /* place dividers on the wrapper that excludes leading visuals/actions */
     & .ActionListSubContent::before {
@@ -545,9 +557,17 @@
       display: none;
     }
 
-    /* show active indicator on parent collapse if child is active */
-    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-    &:has(~ .SubGroup [data-active='true']) {
+    /*
+     * Show the active indicator on a collapsed parent when one of its subnav
+     * items is active. NavList sets `active` (→ the parent <li>'s `data-active`)
+     * to exactly `!isOpen && containsCurrentItem`, which is the same condition as
+     * `:has(~ .SubGroup [data-active='true'])`. Keying off the ancestor's
+     * `data-active` avoids Safari's `:has()` invalidation cost, which is
+     * especially high here because the old anchor (`[data-active]`) toggles on
+     * every navigation and combined a general-sibling with a descendant match.
+     * The ancestor prefix keeps the original selector specificity (0,4,0).
+     */
+    .ActionListItem[data-active='true'] & {
       background: var(--control-transparent-bgColor-selected);
 
       & .ItemLabel {
@@ -641,13 +661,6 @@ default block */
 
     & .ItemLabel {
       word-break: normal;
-    }
-
-    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-    &:has([data-truncate='true']) {
-      & .ItemLabel {
-        flex: 1 0 auto;
-      }
     }
 
     & .Description {

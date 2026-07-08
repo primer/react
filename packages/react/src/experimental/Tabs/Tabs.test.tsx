@@ -1,5 +1,5 @@
 import {render, screen, fireEvent, act} from '@testing-library/react'
-import {userEvent} from 'vitest/browser'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {describe, test, expect, vi} from 'vitest'
 import {Tabs, TabList, Tab, TabPanel} from './Tabs'

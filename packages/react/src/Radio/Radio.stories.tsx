@@ -1,6 +1,7 @@
 import type {Meta} from '@storybook/react-vite'
-import type {RadioProps} from '..'
-import {FormControl, Radio} from '..'
+import type {RadioProps} from '.'
+import FormControl from '../FormControl'
+import Radio from '.'
 import type {FormControlArgs} from '../utils/form-story-helpers'
 import {
   formControlArgs,

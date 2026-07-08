@@ -15,7 +15,8 @@ import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {widthMap} from '../Overlay/Overlay'
+import {widthMap} from '../Overlay/constants'
+import {reactMajorVersion} from '../utils/environment'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -273,6 +274,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   useEffect(() => {
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
     }
@@ -290,6 +292,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
 
   const popoverId = useId()
+  const popoverTargetProps = shouldRenderAsPopover
+    ? reactMajorVersion >= 19
+      ? {popoverTarget: popoverId}
+      : {popovertarget: popoverId}
+    : {}
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
   const anchorName = `--anchored-overlay-anchor-${id}`
 
@@ -406,7 +413,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(shouldRenderAsPopover ? {popoverTarget: popoverId} : {}),
+          ...popoverTargetProps,
         })}
       {open ? (
         <Overlay

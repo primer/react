@@ -48,6 +48,7 @@ function Spinner({
   }))
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (delay) {
       const delayDuration = typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000
       const timeoutId = setTimeout(() => {
@@ -66,7 +67,7 @@ function Spinner({
 
   return (
     /* inline-flex removes the extra line height */
-    <span className={classes.Box}>
+    <span className={classes.Box} data-component="Spinner">
       <svg
         height={size}
         width={size}

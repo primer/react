@@ -1,6 +1,13 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Button, Text, Flash, FormControl, TextInput} from '../../index'
+import {ActionList} from '../../ActionList'
+import {ActionMenu} from '../../ActionMenu'
+import Avatar from '../../Avatar'
+import {Button} from '../../Button'
+import Text from '../../Text'
+import Flash from '../../Flash'
+import FormControl from '../../FormControl'
+import TextInput from '../../TextInput'
 import Octicon from '../../Octicon'
 import {Dialog} from '../../experimental'
 import {
@@ -544,7 +551,7 @@ export const WithFilterButtons = () => {
 
   React.useEffect(
     function updateSearchResults() {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
       setSearchResults(query, selectedFilter)
     },
     [query, selectedFilter],

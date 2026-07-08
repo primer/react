@@ -7,6 +7,10 @@ import {act} from 'react'
 
 describe('SkeletonBox', () => {
   implementsClassName(SkeletonBox, classes.SkeletonBox)
+  it('renders data-component attribute', () => {
+    const {container} = render(<SkeletonBox />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'SkeletonBox')
+  })
 
   it('uses the default size when size is not provided', () => {
     const {container} = render(<SkeletonBox width={200} height={100} />)
