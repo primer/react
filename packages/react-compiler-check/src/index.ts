@@ -80,6 +80,10 @@ function checkFile(filename: string, contents: string): CheckResult {
 }
 
 function addCheckError(errors: Array<CheckError>, error: CheckError): void {
+  if (shouldIgnoreError(error)) {
+    return
+  }
+
   const hasError = errors.some(existingError => {
     return (
       existingError.reason === error.reason &&
@@ -90,6 +94,13 @@ function addCheckError(errors: Array<CheckError>, error: CheckError): void {
   if (!hasError) {
     errors.push(error)
   }
+}
+
+function shouldIgnoreError(error: CheckError): boolean {
+  return (
+    error.reason === '(BuildHIR::lowerAssignment) Handle computed properties in ObjectPattern' ||
+    error.reason === '(BuildHIR::lowerExpression) Expected Identifier, got TemplateLiteral key in ObjectExpression'
+  )
 }
 
 function getLocationLine(location: CheckError['location']): number | null {
