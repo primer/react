@@ -138,31 +138,13 @@ export const Tooltip: ForwardRefExoticComponent<
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
     const openTooltip = () => {
+      const tooltip = tooltipElRef.current
+      const trigger = triggerRef.current
+      let isPopoverOpen = false
+
       try {
-        if (
-          tooltipElRef.current &&
-          triggerRef.current &&
-          tooltipElRef.current.hasAttribute('popover') &&
-          !tooltipElRef.current.matches(':popover-open') &&
-          !_privateDisableTooltip
-        ) {
-          const tooltip = tooltipElRef.current
-          const trigger = triggerRef.current
-          tooltip.showPopover()
-          setIsPopoverOpen(true)
-          /*
-           * TOOLTIP POSITIONING
-           */
-          const settings = {
-            side: directionToPosition[direction].side,
-            align: directionToPosition[direction].align,
-          }
-          const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
-          // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-          const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-          setCalculatedDirection(calculatedDirection)
-          tooltip.style.top = `${top}px`
-          tooltip.style.left = `${left}px`
+        if (tooltip) {
+          isPopoverOpen = tooltip.matches(':popover-open')
         }
       } catch (error) {
         // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
@@ -178,6 +160,24 @@ export const Tooltip: ForwardRefExoticComponent<
         } else {
           throw error
         }
+      }
+
+      if (tooltip && trigger && tooltip.hasAttribute('popover') && !isPopoverOpen && !_privateDisableTooltip) {
+        tooltip.showPopover()
+        setIsPopoverOpen(true)
+        /*
+         * TOOLTIP POSITIONING
+         */
+        const settings = {
+          side: directionToPosition[direction].side,
+          align: directionToPosition[direction].align,
+        }
+        const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
+        // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
+        const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
+        setCalculatedDirection(calculatedDirection)
+        tooltip.style.top = `${top}px`
+        tooltip.style.left = `${left}px`
       }
     }
     const closeTooltip = () => {
@@ -185,17 +185,13 @@ export const Tooltip: ForwardRefExoticComponent<
         safeClearTimeout(openTimeoutRef.current)
         openTimeoutRef.current = null
       }
+      const tooltip = tooltipElRef.current
+      const trigger = triggerRef.current
+      let isTooltipOpen = false
+
       try {
-        if (
-          tooltipElRef.current &&
-          triggerRef.current &&
-          tooltipElRef.current.hasAttribute('popover') &&
-          tooltipElRef.current.matches(':popover-open')
-        ) {
-          tooltipElRef.current.hidePopover()
-          setIsPopoverOpen(false)
-        } else {
-          setIsPopoverOpen(false)
+        if (tooltip) {
+          isTooltipOpen = tooltip.matches(':popover-open')
         }
       } catch (error) {
         // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
@@ -212,6 +208,11 @@ export const Tooltip: ForwardRefExoticComponent<
           throw error
         }
       }
+
+      if (tooltip && trigger && tooltip.hasAttribute('popover') && isTooltipOpen) {
+        tooltip.hidePopover()
+      }
+      setIsPopoverOpen(false)
     }
 
     // context value
@@ -278,16 +279,17 @@ export const Tooltip: ForwardRefExoticComponent<
 
     // Normalize keybindingHint to an array for uniform rendering
     const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
+    const triggerElement = React.isValidElement(child)
+      ? (() => {
+          const TriggerComponent = child.type as React.ElementType<TriggerPropsType>
+          const triggerProps = child.props as TriggerPropsType
 
-    return (
-      <TooltipContext.Provider value={value}>
-        <>
-          {React.isValidElement(child) &&
-            React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              // @ts-expect-error it needs a non nullable ref
-              ref: triggerRef,
+          return (
+            <TriggerComponent
+              {...triggerProps}
+              ref={triggerRef}
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': (() => {
+              aria-describedby={(() => {
                 // If tooltip is not a description type, keep the original aria-describedby
                 if (type !== 'description') {
                   return child.props['aria-describedby']
@@ -301,21 +303,21 @@ export const Tooltip: ForwardRefExoticComponent<
 
                 // If no existing aria-describedby, use our tooltipId
                 return tooltipId
-              })(),
+              })()}
               // If it is a label type, we use tooltip to label the trigger
-              'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
-              onBlur: (event: React.FocusEvent) => {
+              aria-labelledby={type === 'label' ? tooltipId : child.props['aria-labelledby']}
+              onBlur={(event: React.FocusEvent) => {
                 closeTooltip()
                 child.props.onBlur?.(event)
-              },
-              onTouchEnd: (event: React.TouchEvent) => {
+              }}
+              onTouchEnd={(event: React.TouchEvent) => {
                 child.props.onTouchEnd?.(event)
 
                 // Hide tooltips on tap to essentially disable them on touch devices;
                 // this still allows viewing the tooltip on tap-and-hold
                 safeSetTimeout(() => closeTooltip(), 10)
-              },
-              onFocus: (event: React.FocusEvent) => {
+              }}
+              onFocus={(event: React.FocusEvent) => {
                 // only show tooltip on :focus-visible, not on :focus
                 try {
                   if (!event.target.matches(':focus-visible')) return
@@ -326,8 +328,8 @@ export const Tooltip: ForwardRefExoticComponent<
 
                 openTooltip()
                 child.props.onFocus?.(event)
-              },
-              onMouseOverCapture: (event: React.MouseEvent) => {
+              }}
+              onMouseOverCapture={(event: React.MouseEvent) => {
                 const delayTime = delayTimeMap[delay] || 50
                 // We use a `capture` event to ensure this is called first before
                 // events that might cancel the opening timeout (like `onTouchEnd`)
@@ -339,12 +341,20 @@ export const Tooltip: ForwardRefExoticComponent<
                   openTooltip()
                   child.props.onMouseEnter?.(event)
                 }, delayTime)
-              },
-              onMouseLeave: (event: React.MouseEvent) => {
+              }}
+              onMouseLeave={(event: React.MouseEvent) => {
                 closeTooltip()
                 child.props.onMouseLeave?.(event)
-              },
-            })}
+              }}
+            />
+          )
+        })()
+      : null
+
+    return (
+      <TooltipContext.Provider value={value}>
+        <>
+          {triggerElement}
           <span
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}

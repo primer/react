@@ -6,7 +6,8 @@ import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -167,7 +168,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   overlayProps,
   focusTrapSettings,
   focusZoneSettings,
-  side = overlayProps?.['anchorSide'] || 'outside-bottom',
+  side: sideProp,
   align = 'start',
   alignmentOffset,
   anchorOffset,
@@ -182,6 +183,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   renderAs = 'portal',
   cssAnchorPositioningSettings,
 }) => {
+  const side = sideProp ?? overlayProps?.['anchorSide'] ?? 'outside-bottom'
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   // Lazy initial state so feature detection runs once per mount on the client.
   // Guarded for SSR where `document` is undefined.
@@ -200,12 +202,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     !cssAnchorPositioningSettings?.disable
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
-  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const anchorRef = React.useRef<HTMLElement>(null)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
-  // eslint-disable-next-line react-hooks/refs
-  if (anchorRef.current !== anchorElement) {
-    setAnchorElement(anchorRef.current)
-  }
+  const updateAnchorElementRef = useCallback((node: HTMLElement | null) => setAnchorElement(node), [])
+  const internalAnchorRef = useMergedRefs(anchorRef, updateAnchorElementRef)
+  const mergedAnchorRef = useMergedRefs(externalAnchorRef, internalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
   const anchorId = useId(externalAnchorId)
@@ -381,16 +382,16 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         currentOverlay.style.removeProperty('position-try-fallbacks')
       }
     }
-    // overlayRef is a stable ref object; including it in deps is unnecessary.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     cssAnchorPositioning,
     shouldRenderAsPopover,
     open,
+    anchorName,
     anchorElement,
     overlayElement,
     id,
     width,
+    overlayRef,
     side,
     cssAnchorPositioningSettings?.fallbackStrategy,
   ])
@@ -404,9 +405,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   return (
     <>
       {renderAnchor &&
-        // eslint-disable-next-line react-hooks/refs
         renderAnchor({
-          ref: anchorRef,
+          ref: mergedAnchorRef,
           id: anchorId,
           'aria-haspopup': 'true',
           'aria-expanded': open,

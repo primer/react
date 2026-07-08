@@ -41,18 +41,18 @@ const RemoveTokenButton = ({
     )
   }
 
+  const {ref: buttonRef, ...buttonRest} = rest as typeof rest & {ref?: React.Ref<HTMLButtonElement>}
+
   return (
     <button
-      // eslint-disable-next-line react-hooks/refs
-      {...rest}
+      {...buttonRest}
       aria-label={'Remove token'}
       data-size={size}
       className={clsx(classes.TokenButton, className)}
       style={{
         transform: `translate(${borderOffset}px, -${borderOffset}px)`,
       }}
-      // eslint-disable-next-line react-hooks/refs
-      ref={rest.ref as React.Ref<HTMLButtonElement>}
+      ref={buttonRef}
       type="button"
     >
       <XIcon size={size === 'small' || size === 'medium' ? 12 : 16} />

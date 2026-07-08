@@ -17,11 +17,8 @@ export type LabelGroupProps = {
   className?: string
 }
 // Calculates the width of the overlay to cover the labels/tokens and the expand button.
-const getOverlayWidth = (
-  buttonClientRect: DOMRect,
-  containerRef: React.RefObject<HTMLElement>,
-  overlayPaddingPx: number,
-) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect().left || 0)
+const getOverlayWidth = (buttonClientRect: DOMRect, containerElement: HTMLElement | null, overlayPaddingPx: number) =>
+  overlayPaddingPx + buttonClientRect.right - (containerElement?.getBoundingClientRect().left || 0)
 
 const InlineToggle: React.FC<{
   collapseButtonRef: React.RefObject<HTMLButtonElement>
@@ -53,6 +50,7 @@ const InlineToggle: React.FC<{
 const OverlayToggle: React.FC<
   React.PropsWithChildren<{
     closeOverflowOverlay: () => void
+    expandButtonElementRef: React.RefObject<HTMLButtonElement>
     expandButtonRef: React.RefCallback<HTMLButtonElement>
     hiddenItemIds: string[]
     isOverflowShown: boolean
@@ -64,6 +62,7 @@ const OverlayToggle: React.FC<
 > = ({
   children,
   closeOverflowOverlay,
+  expandButtonElementRef,
   expandButtonRef,
   hiddenItemIds,
   isOverflowShown,
@@ -81,8 +80,7 @@ const OverlayToggle: React.FC<
       height="auto"
       align="start"
       side="inside-right"
-      // expandButtonRef satisfies React.RefObject<HTMLButtonElement> because we manually set `.current` in the `useCallback` above
-      anchorRef={expandButtonRef as unknown as React.RefObject<HTMLButtonElement>}
+      anchorRef={expandButtonElementRef}
       anchorOffset={overlayPaddingPx * -1}
       alignmentOffset={overlayPaddingPx * -1}
       renderAnchor={props => (
@@ -116,6 +114,11 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   className,
 }) => {
   const containerRef = React.useRef<HTMLElement>(null)
+  const [containerElement, setContainerElement] = React.useState<HTMLElement | null>(null)
+  const containerRefCallback = React.useCallback((node: HTMLElement | null) => {
+    containerRef.current = node
+    setContainerElement(node)
+  }, [])
   const collapseButtonRef = React.useRef<HTMLButtonElement>(null)
   const firstHiddenIndexRef = React.useRef<number | undefined>(undefined)
   const [visibilityMap, setVisibilityMap] = React.useState<Record<string, boolean>>({})
@@ -140,23 +143,20 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // and save on reflows caused by measuring DOM nodes.
   const overlayWidth =
     hiddenItemIds.length && overflowStyle === 'overlay'
-      ? // eslint-disable-next-line react-hooks/refs
-        getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
+      ? getOverlayWidth(buttonClientRect, containerElement, overlayPaddingPx)
       : undefined
 
+  const expandButtonElementRef = React.useRef<HTMLButtonElement>(null)
   const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(
-    // eslint-disable-next-line react-hooks/immutability
     node => {
+      expandButtonElementRef.current = node
+
       if (node !== null) {
         const nodeClientRect = node.getBoundingClientRect()
 
         if (nodeClientRect.width !== buttonClientRect.width || nodeClientRect.right !== buttonClientRect.right) {
           setButtonClientRect(nodeClientRect)
         }
-
-        // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
-        // eslint-disable-next-line react-hooks/immutability
-        expandButtonRef.current = node
       }
     },
     [buttonClientRect],
@@ -193,10 +193,9 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     // list in an overlay.
     // TODO: get rid of this hack
     setTimeout(() => {
-      // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
-      expandButtonRef.current?.focus()
+      expandButtonElementRef.current?.focus()
     }, 10)
-  }, [expandButtonRef, hideChildrenAfterIndex, visibleChildCount])
+  }, [hideChildrenAfterIndex, visibleChildCount])
 
   const showAllTokensInline = React.useCallback(() => {
     setVisibilityMap({})
@@ -296,7 +295,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // If truncation is enabled, we need to render based on truncation logic.
   return visibleChildCount ? (
     <Component
-      ref={containerRef}
+      ref={containerRefCallback}
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
       className={clsx(className, classes.Container)}
@@ -328,6 +327,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
         ) : (
           <OverlayToggle
             closeOverflowOverlay={closeOverflowOverlay}
+            expandButtonElementRef={expandButtonElementRef}
             expandButtonRef={expandButtonRef}
             hiddenItemIds={hiddenItemIds}
             isOverflowShown={isOverflowShown}

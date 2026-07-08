@@ -296,15 +296,20 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
-  for (const footerButton of footerButtons) {
-    if (footerButton.autoFocus) {
-      // eslint-disable-next-line react-hooks/immutability
-      footerButton.ref = autoFocusedFooterButtonRef
-    }
-  }
+  const footerButtonsWithAutoFocusRef = footerButtons.map(footerButton =>
+    footerButton.autoFocus ? {...footerButton, ref: autoFocusedFooterButtonRef} : footerButton,
+  )
   const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
   const [footerButtonLayout, setFooterButtonLayout] = useState<'scroll' | 'wrap'>('wrap')
-  const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
+  const defaultedProps = {
+    ...props,
+    title,
+    subtitle,
+    role,
+    dialogLabelId,
+    dialogDescriptionId,
+    footerButtons: footerButtonsWithAutoFocusRef,
+  }
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
       if (e.target === e.currentTarget && lastMouseDownIsBackdrop) {
@@ -326,8 +331,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   useFocusTrap({
     containerRef: dialogRef,
     initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
-    // eslint-disable-next-line react-hooks/refs
-    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
+    restoreFocusOnCleanUp: returnFocusRef ? false : true,
     returnFocusRef,
   })
 
@@ -342,12 +346,12 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
 
-    dialogScrollDisabledCount++
+    dialogScrollDisabledCount += 1
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
     document.body.setAttribute('data-dialog-scroll-disabled', '')
 
     return () => {
-      dialogScrollDisabledCount--
+      dialogScrollDisabledCount -= 1
       if (dialogScrollDisabledCount === 0) {
         document.body.style.removeProperty('--prc-dialog-scrollgutter')
         document.body.removeAttribute('data-dialog-scroll-disabled')
@@ -383,7 +387,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     dialogElement.setAttribute('data-footer-button-layout', newLayout)
 
     setFooterButtonLayout(newLayout)
-  }, [hasFooter])
+  }, [hasFooter, setFooterButtonLayout])
 
   useResizeObserver(updateFooterButtonLayout, backdropRef)
 
@@ -485,7 +489,7 @@ Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
-  let autoFocusCount = 0
+  const autoFocusIndex = buttons.findIndex(({autoFocus = false}) => autoFocus)
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
     // hack to work around dialogs originating from other focus traps.
@@ -509,7 +513,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
             // @ts-expect-error it needs a non nullable ref
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
+            ref={autoFocus && index === autoFocusIndex ? autoFocusRef : null}
           >
             {content}
           </Button>
