@@ -148,12 +148,6 @@
   color: var(--fgColor-muted);
 }
 
-/* Muted, underlined relative-time permalink. The underline keeps this muted
-   in-text link high-contrast accessible (matches the badge-row `.Timestamp`). */
-.Timestamp {
-  text-decoration: underline;
-}
-
 .CardActions {
   display: flex;
   align-items: center;
