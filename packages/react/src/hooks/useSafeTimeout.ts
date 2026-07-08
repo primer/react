@@ -26,9 +26,10 @@ export default function useSafeTimeout(): {safeSetTimeout: SetTimeout; safeClear
   }, [])
 
   useEffect(() => {
+    const currentTimers = timers.current
+
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      for (const id of timers.current) {
+      for (const id of currentTimers) {
         clearTimeout(id)
       }
     }

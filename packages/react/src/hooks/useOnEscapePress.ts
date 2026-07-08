@@ -1,4 +1,5 @@
-import {useEffect, useCallback, useMemo} from 'react'
+import {useEffect, useCallback, useId} from 'react'
+import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 
 /**
  * Calls all handlers in reverse order
@@ -16,18 +17,15 @@ function handleEscape(event: KeyboardEvent) {
 
 type KeyboardEventCallback = (event: KeyboardEvent) => void
 
-const registry: {[id: number]: KeyboardEventCallback} = {}
+const registry: {[id: string]: KeyboardEventCallback} = {}
 
-function register(id: number, handler: KeyboardEventCallback): void {
+function register(id: string, handler: KeyboardEventCallback): void {
   registry[id] = handler
 }
 
-function deregister(id: number) {
+function deregister(id: string) {
   delete registry[id]
 }
-
-// For auto-incrementing unique identifiers for registered handlers.
-let handlerId = 0
 
 /**
  * Sets up a `keydown` listener on `window.document`. If
@@ -52,10 +50,9 @@ let handlerId = 0
  */
 export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
-  callbackDependencies: React.DependencyList = [onEscape],
+  _callbackDependencies: React.DependencyList = [onEscape],
 ): void => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-  const escapeCallback = useCallback(onEscape, callbackDependencies)
+  const escapeCallback = useEffectCallback(onEscape)
 
   const handler = useCallback<KeyboardEventCallback>(
     event => {
@@ -64,7 +61,7 @@ export const useOnEscapePress = (
     [escapeCallback],
   )
 
-  const id = useMemo(() => handlerId++, [])
+  const id = useId()
   useEffect(() => {
     if (Object.keys(registry).length === 0) {
       document.addEventListener('keydown', handleEscape)

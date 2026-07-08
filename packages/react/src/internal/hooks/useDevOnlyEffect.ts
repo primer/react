@@ -1,23 +1,25 @@
 import {useEffect} from 'react'
+import {useEffectCallback} from './useEffectCallback'
 
 /**
  * Runs an effect only in development. Wrapping `useEffect` in a regular hook
- * with an outer `__DEV__` guard keeps the production cost to zero (the entire
- * call is dropped by the consumer's `process.env.NODE_ENV` replacement) while
- * centralising the `eslint-disable react-hooks/rules-of-hooks` to one place
- * instead of every call site.
+ * with an outer `__DEV__` guard keeps the production cost low while centralising
+ * the development-only effect behavior instead of repeating it at every call
+ * site.
  *
  * `exhaustive-deps` is wired up to also check call sites of this hook via
  * `additionalEffectHooks` in `eslint.config.mjs`, so callers get the same
  * deps lint they would for a plain `useEffect`.
  *
  * @param effect The effect callback to run in development.
- * @param deps Dependency list, same semantics as `useEffect`.
+ * @param _deps Dependency list accepted for call-site compatibility.
  */
-export const useDevOnlyEffect = (effect: React.EffectCallback, deps?: React.DependencyList) => {
-  if (__DEV__) {
-    // Forwarding wrapper; deps lint applies at call sites.
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(effect, deps)
-  }
+export const useDevOnlyEffect = (effect: React.EffectCallback, _deps?: React.DependencyList) => {
+  const effectCallback = useEffectCallback(effect)
+
+  useEffect(() => {
+    if (__DEV__) {
+      return effectCallback()
+    }
+  })
 }

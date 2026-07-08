@@ -40,16 +40,12 @@ export function useControllableState<T>({
   onChange,
 }: ControllableStateOptions<T>): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [state, internalSetState] = React.useState(value ?? defaultValue)
-  const controlled = React.useRef<boolean | null>(null)
+  const [controlled] = React.useState(value !== undefined)
   const stableOnChange = React.useRef(onChange)
 
   React.useEffect(() => {
     stableOnChange.current = onChange
   })
-
-  if (controlled.current === null) {
-    controlled.current = value !== undefined
-  }
 
   const setState = React.useCallback(
     (stateOrUpdater: T | ((prevState: T) => T)) => {
@@ -59,13 +55,13 @@ export function useControllableState<T>({
             stateOrUpdater(state)
           : stateOrUpdater
 
-      if (controlled.current === false) {
+      if (!controlled) {
         internalSetState(value)
       }
 
       stableOnChange.current?.(value)
     },
-    [state],
+    [controlled, state],
   )
 
   React.useEffect(() => {
@@ -74,7 +70,7 @@ export function useControllableState<T>({
     // Uncontrolled -> Controlled
     // If the component prop is uncontrolled, the prop value should be undefined
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (controlled.current === false && controlledValue) {
+    if (!controlled && controlledValue) {
       warning(
         true,
         'A component is changing an uncontrolled %s component to be controlled. ' +
@@ -89,7 +85,7 @@ export function useControllableState<T>({
     // Controlled -> Uncontrolled
     // If the component prop is controlled, the prop value should be defined
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (controlled.current === true && !controlledValue) {
+    if (controlled && !controlledValue) {
       warning(
         true,
         'A component is changing a controlled %s component to be uncontrolled. ' +
@@ -100,10 +96,9 @@ export function useControllableState<T>({
         name,
       )
     }
-  }, [name, value])
+  }, [controlled, name, value])
 
-  // eslint-disable-next-line react-hooks/refs
-  if (controlled.current === true) {
+  if (controlled) {
     return [value as T, setState]
   }
 

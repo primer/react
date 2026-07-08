@@ -61,7 +61,5 @@ export function useResizeObserver<T extends HTMLElement>(
         window.removeEventListener('resize', saveTargetDimensions)
       }
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target?.current, enabled, ...depsArray])
+  }, [target, targetClientRect?.height, targetClientRect?.width, enabled, depsArray])
 }
