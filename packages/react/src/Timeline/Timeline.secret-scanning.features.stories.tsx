@@ -15,11 +15,9 @@ import {
   SyncIcon,
   XIcon,
 } from '@primer/octicons-react'
-import type React from 'react'
 import {Button} from '../Button'
 import Octicon from '../Octicon'
-import {InlineAvatar, MutedTime, RealisticTimeline, VariantSection} from './internal/timelineStoryHelpers'
-import classes from './Timeline.secret-scanning.features.stories.module.css'
+import {EventSubRow, MutedTime, RealisticTimeline, UserActor, VariantSection} from './internal/timelineStoryHelpers'
 
 /**
  * Secret Scanning alert Timeline event examples (Phase 2 of github/primer#6663).
@@ -91,50 +89,10 @@ import classes from './Timeline.secret-scanning.features.stories.module.css'
  * it (a labelled badge would make screen readers announce the event twice).
  */
 
-const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
+// Demo assignee avatars for the Assignment group. All other actors fall back to
+// the shared `UserActor` default avatar (monalisa).
 const SIX7_AVATAR = 'https://avatars.githubusercontent.com/u/4548309?v=4'
 const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/u/480938?v=4'
-
-/**
- * System "GitHub" actor — live `TimelineItemBody` (`AlertTimeline.tsx`) in
- * `isGitHubActor` mode renders `<MarkGithubIcon /> <span class="ml-1
- * text-bold">GitHub</span>` (no avatar). Used by the Created event and by
- * automated validity changes.
- */
-const GitHubActor = () => (
-  <>
-    <Octicon icon={MarkGithubIcon} className={classes.ActorIcon} />
-    <span className={classes.ActorName}>GitHub</span>
-  </>
-)
-
-/**
- * User actor — live `UserComponent` (`components/shared/UserComponent.tsx`):
- * a 16px CIRCLE `GitHubAvatar` + bold `display_login` (`<span class="ml-1
- * text-bold">`). Note the login is bold TEXT, not a link (hovercard attrs only),
- * so there is no in-text-link a11y concern. Used by every non-system event.
- */
-const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR}: {login?: string; src?: string}) => (
-  <>
-    <InlineAvatar src={src} size={16} />
-    <span className={classes.ActorName}>{login}</span>
-  </>
-)
-
-/**
- * Optional comment sub-row — live `TimelineItemBody` renders a
- * `<div class="… mt-1"><CommentIcon size={12} class="fgColor-muted" /> <span
- * class="f6">{comment}</span></div>` below the body whenever any of
- * `resolution.comment` / `exemption_request.requester_comment` /
- * `exemption_response.reviewer_comment` is present. Shared by the Resolution
- * closures and the delegated-closure request/approve/deny events.
- */
-const CommentSubRow = ({children}: {children: React.ReactNode}) => (
-  <div className={classes.CommentRow}>
-    <Octicon icon={CommentIcon} size={12} className={classes.CommentRowIcon} />
-    <span>{children}</span>
-  </div>
-)
 
 export default {
   title: 'Components/Timeline/Events/Secret Scanning',
@@ -181,7 +139,7 @@ export const EventCreated = () => (
             <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <GitHubActor />
+            <UserActor login="GitHub" icon={MarkGithubIcon} />
             {'opened this alert '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
@@ -221,10 +179,12 @@ export const EventResolution = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'closed this as '}
             <strong>revoked</strong> <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
-            <CommentSubRow>Rotated the leaked token and confirmed the provider revoked it.</CommentSubRow>
+            <EventSubRow icon={CommentIcon} iconSize={12}>
+              Rotated the leaked token and confirmed the provider revoked it.
+            </EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -238,7 +198,7 @@ export const EventResolution = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'closed this as '}
             <strong>false positive</strong> <MutedTime date={new Date('2022-07-25T09:12:00Z')} />
           </Timeline.Body>
@@ -254,7 +214,7 @@ export const EventResolution = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'closed this as '}
             <strong>won&apos;t fix</strong> <MutedTime date={new Date('2022-07-24T16:40:00Z')} />
           </Timeline.Body>
@@ -270,7 +230,7 @@ export const EventResolution = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'closed this as '}
             <strong>used in tests</strong> <MutedTime date={new Date('2022-07-23T11:05:00Z')} />
           </Timeline.Body>
@@ -286,7 +246,7 @@ export const EventResolution = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'closed this as '}
             <strong>pattern deleted</strong> <MutedTime date={new Date('2022-07-22T14:18:00Z')} />
           </Timeline.Body>
@@ -302,7 +262,7 @@ export const EventResolution = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'closed this as '}
             <strong>pattern edited</strong> <MutedTime date={new Date('2022-07-21T08:02:00Z')} />
           </Timeline.Body>
@@ -318,7 +278,7 @@ export const EventResolution = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'closed this as '}
             <strong>ignored by configuration</strong> <MutedTime date={new Date('2022-07-20T10:33:00Z')} />
           </Timeline.Body>
@@ -339,7 +299,7 @@ export const EventResolution = () => (
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'closed this as '}
             <strong>false positive</strong> <MutedTime date={new Date('2022-07-26T18:20:00Z')} />
           </Timeline.Body>
@@ -350,7 +310,7 @@ export const EventResolution = () => (
             <Octicon icon={SyncIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'reopened this '}
             <MutedTime date={new Date('2022-07-27T12:00:00Z')} />
           </Timeline.Body>
@@ -380,7 +340,7 @@ export const EventBypass = () => (
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'bypassed push protection '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
@@ -397,7 +357,7 @@ export const EventBypass = () => (
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'requested bypass privileges '}
             <MutedTime date={new Date('2022-07-26T11:50:00Z')} />
           </Timeline.Body>
@@ -413,7 +373,7 @@ export const EventBypass = () => (
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'approved a bypass '}
             <MutedTime date={new Date('2022-07-26T12:10:00Z')} />
           </Timeline.Body>
@@ -445,7 +405,7 @@ export const EventValidityChange = () => (
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <GitHubActor />
+            <UserActor login="GitHub" icon={MarkGithubIcon} />
             {'verified this secret is active '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
@@ -461,7 +421,7 @@ export const EventValidityChange = () => (
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'set validity to active '}
             <MutedTime date={new Date('2022-07-26T13:00:00Z')} />
           </Timeline.Body>
@@ -477,7 +437,7 @@ export const EventValidityChange = () => (
             <Octicon icon={SkipIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <GitHubActor />
+            <UserActor login="GitHub" icon={MarkGithubIcon} />
             {'verified this secret is inactive '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
@@ -493,7 +453,7 @@ export const EventValidityChange = () => (
             <Octicon icon={SkipIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'set validity to inactive '}
             <MutedTime date={new Date('2022-07-26T13:05:00Z')} />
           </Timeline.Body>
@@ -509,7 +469,7 @@ export const EventValidityChange = () => (
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <GitHubActor />
+            <UserActor login="GitHub" icon={MarkGithubIcon} />
             {'is unable to determine the validity of this secret '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
@@ -525,7 +485,7 @@ export const EventValidityChange = () => (
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'set validity to unknown '}
             <MutedTime date={new Date('2022-07-26T13:10:00Z')} />
           </Timeline.Body>
@@ -553,7 +513,7 @@ export const EventReport = () => (
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'reported this secret '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
@@ -598,10 +558,12 @@ export const EventClosureRequest = () => (
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'requested to dismiss this as false positive '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
-            <CommentSubRow>This token only ever pointed at our throwaway sandbox.</CommentSubRow>
+            <EventSubRow icon={CommentIcon} iconSize={12}>
+              This token only ever pointed at our throwaway sandbox.
+            </EventSubRow>
           </Timeline.Body>
           <Timeline.Actions>
             <Button size="small" variant="primary">
@@ -620,7 +582,7 @@ export const EventClosureRequest = () => (
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'requested to dismiss this as false positive '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
@@ -641,10 +603,12 @@ export const EventClosureRequest = () => (
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="six7" src={SIX7_AVATAR} />
+            <UserActor login="six7" src={SIX7_AVATAR} size={16} />
             {'approved dismissal '}
             <MutedTime date={new Date('2022-07-26T12:30:00Z')} />
-            <CommentSubRow>Confirmed — safe to dismiss.</CommentSubRow>
+            <EventSubRow icon={CommentIcon} iconSize={12}>
+              Confirmed — safe to dismiss.
+            </EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -658,10 +622,12 @@ export const EventClosureRequest = () => (
             <Octicon icon={XIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor login="six7" src={SIX7_AVATAR} />
+            <UserActor login="six7" src={SIX7_AVATAR} size={16} />
             {'denied dismissal '}
             <MutedTime date={new Date('2022-07-26T12:35:00Z')} />
-            <CommentSubRow>Please rotate the secret before dismissing.</CommentSubRow>
+            <EventSubRow icon={CommentIcon} iconSize={12}>
+              Please rotate the secret before dismissing.
+            </EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -675,7 +641,7 @@ export const EventClosureRequest = () => (
             <Octicon icon={SkipIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'cancelled request to dismiss '}
             <MutedTime date={new Date('2022-07-26T12:40:00Z')} />
           </Timeline.Body>
@@ -706,7 +672,7 @@ export const EventAssignment = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'self-assigned this '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
@@ -722,9 +688,9 @@ export const EventAssignment = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'assigned '}
-            <UserActor login="six7" src={SIX7_AVATAR} /> <MutedTime date={new Date('2022-07-26T11:50:00Z')} />
+            <UserActor login="six7" src={SIX7_AVATAR} size={16} /> <MutedTime date={new Date('2022-07-26T11:50:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -738,7 +704,7 @@ export const EventAssignment = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'removed their assignment '}
             <MutedTime date={new Date('2022-07-26T11:55:00Z')} />
           </Timeline.Body>
@@ -754,9 +720,9 @@ export const EventAssignment = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'unassigned '}
-            <UserActor login="six7" src={SIX7_AVATAR} /> <MutedTime date={new Date('2022-07-26T12:00:00Z')} />
+            <UserActor login="six7" src={SIX7_AVATAR} size={16} /> <MutedTime date={new Date('2022-07-26T12:00:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -770,11 +736,12 @@ export const EventAssignment = () => (
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor size={16} />
             {'assigned '}
-            <UserActor login="six7" src={SIX7_AVATAR} />
+            <UserActor login="six7" src={SIX7_AVATAR} size={16} />
             {' and unassigned '}
-            <UserActor login="hubot" src={HUBOT_AVATAR} /> <MutedTime date={new Date('2022-07-26T12:05:00Z')} />
+            <UserActor login="hubot" src={HUBOT_AVATAR} size={16} />{' '}
+            <MutedTime date={new Date('2022-07-26T12:05:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
