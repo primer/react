@@ -69,6 +69,12 @@
   }
 }
 
+.WrapSpacer {
+  /* Cancel out the flex gap so the first real item has no leading gap */
+  /* stylelint-disable-next-line primer/spacing */
+  margin-inline-end: calc(-1 * var(--stack-gap-condensed));
+}
+
 .MoreButtonContainer {
   display: var(--UnderlineNav_moreButton-display, flex);
   align-items: center;

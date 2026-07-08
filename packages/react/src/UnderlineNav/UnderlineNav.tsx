@@ -104,7 +104,7 @@ export const UnderlineNav = forwardRef(
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
             {/* Empty first element allows real first item to wrap out of view on tiny screens */}
-            <li role="presentation" aria-hidden />
+            <li role="presentation" aria-hidden className={classes.WrapSpacer} />
             <OverflowObserverProvider rootRef={navRef}>
               <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
                 {children}
