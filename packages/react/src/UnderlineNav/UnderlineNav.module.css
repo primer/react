@@ -71,7 +71,7 @@
 
 .WrapSpacer {
   /* Cancel out the flex gap so the first real item has no leading gap */
-  /* stylelint-disable-next-line primer/spacing */
+  /* stylelint-disable-next-line primer/spacing -- negative margin required to cancel the flex gap from the list */
   margin-inline-end: calc(-1 * var(--stack-gap-condensed));
 }
 
