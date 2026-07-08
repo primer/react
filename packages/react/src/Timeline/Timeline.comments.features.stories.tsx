@@ -25,11 +25,12 @@ import classes from './Timeline.comments.features.stories.module.css'
  * Dependabot), the parent-child app-avatar reconstruction, the responsive collapse, and
  * the verified live denotations.
  *
- * TITLE / IA: The story appears under `Components/Timeline/Internal/Comment cards` —
- * a sibling of `Internal/Helpers`. Storybook sidebar location is driven by the `title`
- * string, decoupled from code location. There is only ever one comment story and it
- * documents the internal `CommentCard` component, so it lives under `Internal/` next to
- * the helper docs (keeping the tree small).
+ * TITLE / IA: The story is a LEAF named "Comment cards" directly under
+ * `Components/Timeline/Internal` (title `Components/Timeline/Internal` + export
+ * `CommentCards`), a sibling of the "Helpers" leaf. Storybook sidebar location is driven
+ * by the `title` string + story name, decoupled from code location. There is only ever
+ * one comment story and it documents the internal `CommentCard` component, so it lives
+ * under `Internal/` next to the helper docs (keeping the tree small).
  *
  * SCOPE: Storybook-only by design, like the badge-row event stories. Intentionally NOT
  * wired into components-json / the primer.style docs page (do NOT add this file to
@@ -59,7 +60,7 @@ const CommentSection = ({label, children}: {label: string; children: React.React
  * embedded-in-thread comments, minimized/collapsed states — the `CommentCard` helper's
  * `isReply` prop is wired for those later.
  */
-export const EventComment = () => (
+export const CommentCards = () => (
   <RealisticTimeline>
     <div
       // Establishes the container for the responsive collapse (see `.CommentsRoot`):
@@ -220,7 +221,7 @@ export const EventComment = () => (
 )
 
 export default {
-  title: 'Components/Timeline/Internal/Comment cards',
+  title: 'Components/Timeline/Internal',
   component: Timeline,
   subcomponents: {
     'Timeline.Item': Timeline.Item,

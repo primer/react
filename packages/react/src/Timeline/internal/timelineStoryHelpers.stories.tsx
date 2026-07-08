@@ -57,6 +57,6 @@ export const Helpers = () => (
 )
 
 export default {
-  title: 'Components/Timeline/Internal/Helpers',
+  title: 'Components/Timeline/Internal',
   component: VariantSection,
 } as Meta
