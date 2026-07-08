@@ -55,6 +55,48 @@ describe('checkFile', () => {
     ).toEqual({ok: true})
   })
 
+  test('does not fail on computed object pattern keys', () => {
+    expect(
+      checkFile(
+        'Label.tsx',
+        `
+          type LabelProps = {
+            'data-component'?: string
+          }
+
+          function Label({['data-component']: dataComponent = 'Label'}: LabelProps) {
+            return <span data-component={dataComponent} />
+          }
+        `,
+      ),
+    ).toEqual({ok: true})
+  })
+
+  test('does not fail on computed object expression keys', () => {
+    expect(
+      checkFile(
+        'Tooltip.tsx',
+        `
+          import {clsx} from 'clsx'
+
+          const styles = {
+            Tooltip: 'Tooltip',
+            TooltipLeft: 'TooltipLeft',
+          }
+
+          function Tooltip({align}: {align?: 'left' | 'right'}) {
+            const className = clsx(styles.Tooltip, {
+              [styles[\`Tooltip\${align === 'left' ? 'Left' : 'Right'}\`]]: align,
+              [\`tooltipped-\${align}\`]: align,
+            })
+
+            return <span className={className} />
+          }
+        `,
+      ),
+    ).toEqual({ok: true})
+  })
+
   test('returns compiler errors with source locations', () => {
     const result = checkFile(
       'ConditionalHook.tsx',
