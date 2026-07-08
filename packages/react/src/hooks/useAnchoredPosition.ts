@@ -4,6 +4,7 @@ import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 
 /**
  * Returns all scrollable ancestor elements of the given element, plus the window.
@@ -83,37 +84,33 @@ export function useAnchoredPosition(
     return heightUpdated
   }
 
-  const updatePosition = React.useCallback(
-    () => {
-      if (!enabled) return
-      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
-        setPosition(prev => {
-          if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
-            const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
-            const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
+  const updatePosition = useEffectCallback(() => {
+    if (!enabled) return
+    if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+      const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
+      setPosition(prev => {
+        if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
+          const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
+          const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
 
-            if (elementStillFitsOnTop && updateElementHeight()) {
-              return prev
-            }
+          if (elementStillFitsOnTop && updateElementHeight()) {
+            return prev
           }
+        }
 
-          if (prev && prev.anchorSide === newPosition.anchorSide) {
-            // if the position hasn't changed, don't update
-            savedOnPositionChange.current?.(newPosition)
-          }
+        if (prev && prev.anchorSide === newPosition.anchorSide) {
+          // if the position hasn't changed, don't update
+          savedOnPositionChange.current?.(newPosition)
+        }
 
-          return newPosition
-        })
-      } else {
-        setPosition(undefined)
-        savedOnPositionChange.current?.(undefined)
-      }
-      setPrevHeight(floatingElementRef.current?.clientHeight)
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-    [floatingElementRef, anchorElementRef, enabled, ...dependencies],
-  )
+        return newPosition
+      })
+    } else {
+      setPosition(undefined)
+      savedOnPositionChange.current?.(undefined)
+    }
+    setPrevHeight(floatingElementRef.current?.clientHeight)
+  })
 
   useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange
@@ -130,7 +127,7 @@ export function useAnchoredPosition(
       hasMountedRef.current = true
       updatePosition()
     }
-  }, [updatePosition, floatingElementRef, anchorElementRef])
+  }, [updatePosition, floatingElementRef, anchorElementRef, enabled, dependencies])
 
   React.useEffect(() => {
     if (!hasMountedRef.current) {

@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useEffect, useCallback, useMemo} from 'react'
+import {useEffect, useCallback, useId} from 'react'
 
 export type TouchOrMouseEvent = MouseEvent | TouchEvent
 type TouchOrMouseEventCallback = (event: TouchOrMouseEvent) => boolean | undefined
@@ -28,21 +28,18 @@ function handleClick(event: MouseEvent) {
   }
 }
 
-const registry: {[id: number]: TouchOrMouseEventCallback} = {}
+const registry: {[id: string]: TouchOrMouseEventCallback} = {}
 
-function register(id: number, handler: TouchOrMouseEventCallback): void {
+function register(id: string, handler: TouchOrMouseEventCallback): void {
   registry[id] = handler
 }
 
-function deregister(id: number) {
+function deregister(id: string) {
   delete registry[id]
 }
 
-// For auto-incrementing unique identifiers for registered handlers.
-let handlerId = 0
-
 export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickSettings) => {
-  const id = useMemo(() => handlerId++, [])
+  const id = useId()
 
   const handler = useCallback<TouchOrMouseEventCallback>(
     event => {

@@ -2,6 +2,7 @@ import React from 'react'
 import {focusTrap} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useOnOutsideClick} from './useOnOutsideClick'
+import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 
 export interface FocusTrapHookSettings {
   /**
@@ -58,19 +59,21 @@ export function useFocusTrap(
   const disabled = settings?.disabled
   const abortController = React.useRef<AbortController>()
   const previousFocusedElement = React.useRef<Element | null>(null)
+  const shouldRestoreFocusRef = React.useRef(true)
 
   // If we are enabling a focus trap and haven't already stored the previously focused element
   // go ahead an do that so we can restore later when the trap is disabled.
-  // eslint-disable-next-line react-hooks/refs
-  if (!previousFocusedElement.current && !disabled) {
-    previousFocusedElement.current = document.activeElement
-  }
+  React.useEffect(() => {
+    if (!previousFocusedElement.current && !disabled) {
+      previousFocusedElement.current = document.activeElement
+    }
+  }, [disabled])
 
   // This function removes the event listeners that enable the focus trap and restores focus
   // to the previously-focused element (if necessary).
-  function disableTrap() {
+  const disableTrap = useEffectCallback(() => {
     abortController.current?.abort()
-    if (settings?.allowOutsideClick && outsideClicked) {
+    if (!shouldRestoreFocusRef.current || (settings?.allowOutsideClick && outsideClicked)) {
       return
     }
     if (settings?.returnFocusRef && settings.returnFocusRef.current instanceof HTMLElement) {
@@ -79,32 +82,27 @@ export function useFocusTrap(
       previousFocusedElement.current.focus()
       previousFocusedElement.current = null
     }
-  }
+  })
 
-  React.useEffect(
-    () => {
-      if (containerRef.current instanceof HTMLElement) {
-        if (!disabled) {
-          abortController.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
-          return () => {
-            disableTrap()
-          }
-        } else {
+  React.useEffect(() => {
+    if (containerRef.current instanceof HTMLElement) {
+      if (!disabled) {
+        shouldRestoreFocusRef.current = true
+        abortController.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
+        return () => {
           disableTrap()
         }
+      } else {
+        disableTrap()
       }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [containerRef, initialFocusRef, disabled, ...dependencies],
-  )
+    }
+  }, [containerRef, initialFocusRef, disabled, dependencies, disableTrap])
   useOnOutsideClick({
     containerRef: containerRef as React.RefObject<HTMLDivElement>,
     onClickOutside: () => {
       setOutsideClicked(true)
       if (settings?.allowOutsideClick) {
-        // eslint-disable-next-line react-hooks/immutability
-        if (settings.returnFocusRef) settings.returnFocusRef = undefined
-        settings.restoreFocusOnCleanUp = false
+        shouldRestoreFocusRef.current = false
         abortController.current?.abort()
       }
     },
