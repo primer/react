@@ -19,11 +19,11 @@ import Label from '../Label'
 import Link from '../Link'
 import Octicon from '../Octicon'
 import {
-  BoldLink,
+  EventSubRow,
   Examples,
-  InlineAvatar,
   MutedTime,
   RealisticTimeline,
+  UserActor,
   VariantSection,
 } from './internal/timelineStoryHelpers'
 import classes from './Timeline.code-scanning.features.stories.module.css'
@@ -133,28 +133,6 @@ import classes from './Timeline.code-scanning.features.stories.module.css'
  */
 const Ref = ({name}: {name: string}) => <span className={classes.RefName}>{name}</span>
 
-const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'
-
-/**
- * User actor — live `profile_link(user, scheme: :primary, font_weight: :bold,
- * class: "Link--primary text-bold")` wrapping `Primer::Beta::Avatar` +
- * `display_login`: a CIRCLE avatar + bold login profile link. Used by every
- * USER event (Closed by user, Reopened, both Dismissal events).
- *
- * a11y: this IS a real link, so to satisfy the axe `link-in-text-block` rule the
- * bold weight is the non-color differentiator (matching the live `text-bold` and
- * the Dependabot / Issues precedent — bold in-text links pass; only non-bold
- * ones need `inline`).
- */
-const UserActor = ({login = 'monalisa', src = MONALISA_AVATAR}: {login?: string; src?: string}) => (
-  <>
-    <InlineAvatar src={src} />
-    <BoldLink href="#" muted>
-      {login}
-    </BoldLink>
-  </>
-)
-
 // Muted relative timestamp — the shared `MutedTime` helper (github/primer#6828).
 // The live shared `timeline_item_component` renders a plain `time_ago_in_words_js`
 // (no link wrapper) — muted text only. A leading space preserves the gap the old
@@ -193,19 +171,6 @@ const ConfigPill = ({category}: {category: string}) => (
  * `Timeline.Body` rather than a badge-less Timeline.Item.
  */
 const SubRow = ({children}: {children: React.ReactNode}) => <div className={classes.SubRow}>{children}</div>
-
-/**
- * Note sub-row — live `show_resolution_note?` / `show_reviewer_comment?` render a
- * condensed row with a `note` octicon + the comment text below the event. Used
- * by Closed-by-user / Dismissal-requested (`resolution_note`) and
- * Dismissal-reviewed (`reviewer_comment`).
- */
-const NoteSubRow = ({children}: {children: React.ReactNode}) => (
-  <SubRow>
-    <Octicon icon={NoteIcon} size={16} className={classes.SubRowIcon} />
-    {children}
-  </SubRow>
-)
 
 export default {
   title: 'Components/Timeline/Events/Code Scanning',
@@ -438,10 +403,10 @@ export const EventClosedByUser = () => (
             <Octicon icon={ShieldXIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'closed this as '}
             <span className={classes.Reason}>false positive</span> <Time date="2024-01-14T08:20:00Z" />
-            <NoteSubRow>Verified this pattern only appears in generated fixtures.</NoteSubRow>
+            <EventSubRow icon={NoteIcon}>Verified this pattern only appears in generated fixtures.</EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -455,7 +420,7 @@ export const EventClosedByUser = () => (
             <Octicon icon={ShieldXIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'closed this as '}
             <span className={classes.Reason}>used in tests</span> <Time date="2024-01-14T08:20:00Z" />
           </Timeline.Body>
@@ -471,7 +436,7 @@ export const EventClosedByUser = () => (
             <Octicon icon={ShieldXIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'closed this as '}
             <span className={classes.Reason}>won&apos;t fix</span> <Time date="2024-01-14T08:20:00Z" />
           </Timeline.Body>
@@ -488,7 +453,7 @@ export const EventClosedByUser = () => (
             <Octicon icon={ShieldXIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'closed this '}
             <Time date="2024-01-14T08:20:00Z" />
           </Timeline.Body>
@@ -515,7 +480,7 @@ export const EventReopened = () => (
             <Octicon icon={DotFillIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'reopened this '}
             <Time date="2024-01-15T11:05:00Z" />
           </Timeline.Body>
@@ -550,10 +515,10 @@ export const EventDismissalRequested = () => (
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'requested to dismiss this as false positive '}
             <Time date="2024-01-16T09:00:00Z" />
-            <NoteSubRow>This finding is a test-only helper, safe to dismiss.</NoteSubRow>
+            <EventSubRow icon={NoteIcon}>This finding is a test-only helper, safe to dismiss.</EventSubRow>
           </Timeline.Body>
           <Timeline.Actions>
             <Button size="small" variant="primary">
@@ -590,10 +555,10 @@ export const EventDismissalReviewed = () => (
             <Octicon icon={CheckIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'approved dismissal '}
             <Time date="2024-01-17T13:30:00Z" />
-            <NoteSubRow>Agreed — this rule does not apply to test fixtures.</NoteSubRow>
+            <EventSubRow icon={NoteIcon}>Agreed — this rule does not apply to test fixtures.</EventSubRow>
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
@@ -607,7 +572,7 @@ export const EventDismissalReviewed = () => (
             <Octicon icon={XIcon} />
           </Timeline.Badge>
           <Timeline.Body>
-            <UserActor />
+            <UserActor href="#" muted />
             {'denied dismissal '}
             <Time date="2024-01-17T13:30:00Z" />
           </Timeline.Body>

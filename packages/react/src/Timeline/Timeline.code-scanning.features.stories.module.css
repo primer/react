@@ -90,9 +90,5 @@
   color: var(--fgColor-default);
 }
 
-/* Leading `note` octicon in a NoteSubRow. */
-.SubRowIcon {
-  margin-right: var(--base-size-4);
-  color: var(--fgColor-muted);
-  vertical-align: middle;
-}
+/* The note sub-row's `note` octicon styling moved to the shared `EventSubRow`
+   helper (`.EventSubRowIcon`) in `./internal/timelineStoryHelpers`. */
