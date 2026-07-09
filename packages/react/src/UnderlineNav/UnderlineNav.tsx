@@ -6,6 +6,7 @@ import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import CounterLabel from '../CounterLabel'
 import {LoadingCounter, UnderlineItemList, UnderlineWrapper} from '../internal/components/UnderlineTabbedInterface'
+import {OverflowObserverProvider} from '../internal/components/OverflowObserverProvider'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -30,6 +31,11 @@ export type UnderlineNavProps = {
    * Setting this to `flush` will remove the horizontal padding on the items.
    */
   variant?: 'inset' | 'flush'
+  /**
+   * Customize when the icons are hidden to save space. Set to `null` to always show icons.
+   * Defaults to `xxlarge`; if you know there won't be very many tabs you might set this to a smaller value.
+   */
+  hideIconsBreakpoint?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | null
 }
 
 export const UnderlineNav = forwardRef(
@@ -41,15 +47,13 @@ export const UnderlineNav = forwardRef(
       variant = 'inset',
       className,
       children,
+      hideIconsBreakpoint = 'xxlarge',
     }: UnderlineNavProps,
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
-
-    /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
-    const [hasEverOverflowed, setHasOverflowed] = useState(false)
 
     const [registeredItems, setRegisteredItems] = UnderlineNavItemsRegistry.useRegistryState()
 
@@ -58,7 +62,6 @@ export const UnderlineNav = forwardRef(
     )
 
     const isOverflowing = overflowMenuItems.length > 0
-    if (isOverflowing && !hasEverOverflowed) setHasOverflowed(true)
 
     // Find the current item if it has overflowed into the menu, so we can reflect
     // its "current" state on the overflow menu anchor.
@@ -95,15 +98,18 @@ export const UnderlineNav = forwardRef(
           ref={navRef}
           data-variant={variant}
           data-overflow-mode="wrap"
-          // Force icons to stay hidden, avoiding flickering as icons create/remove overflow
-          data-hide-icons={hasEverOverflowed ? 'true' : undefined}
+          data-hide-icons-breakpoint={hideIconsBreakpoint ?? undefined}
           // Ensure button is shown (after initial render) on browsers that don't support scroll-driven animations
           data-has-overflow={isOverflowing ? 'true' : undefined}
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
-            <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
-              {children}
-            </UnderlineNavItemsRegistry.Provider>
+            {/* Empty first element allows real first item to wrap out of view on tiny screens */}
+            <li role="presentation" aria-hidden className={classes.WrapSpacer} />
+            <OverflowObserverProvider rootRef={navRef}>
+              <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
+                {children}
+              </UnderlineNavItemsRegistry.Provider>
+            </OverflowObserverProvider>
           </UnderlineItemList>
 
           <div className={classes.MoreButtonContainer}>

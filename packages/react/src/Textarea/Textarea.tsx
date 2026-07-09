@@ -131,6 +131,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           <textarea
             value={value}
             defaultValue={defaultValue}
+            data-component="Textarea"
             data-resize={resize}
             aria-required={required}
             aria-invalid={isValid === 'error' ? 'true' : 'false'}
