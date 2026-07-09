@@ -45,6 +45,23 @@ function getPosition(edge: Alignment, align: Alignment | undefined, spacing: num
   }
 }
 
+function getMarginStyle(
+  perpendicular: (typeof perpendicularEdge)[Alignment],
+  align: Alignment | undefined,
+  size: number,
+) {
+  if (align) {
+    return {}
+  }
+
+  return {
+    marginTop: perpendicular === 'Top' ? -size : undefined,
+    marginRight: perpendicular === 'Right' ? -size : undefined,
+    marginBottom: perpendicular === 'Bottom' ? -size : undefined,
+    marginLeft: perpendicular === 'Left' ? -size : undefined,
+  }
+}
+
 export type CaretProps = {
   bg?: string
   borderColor?: string
@@ -86,10 +103,7 @@ function Caret(props: CaretProps) {
         ...getPosition(edge, align, size),
         // if align is set (top|right|bottom|left),
         // then we don't need an offset margin
-        marginTop: perp === 'Top' && !align ? -size : undefined,
-        marginRight: perp === 'Right' && !align ? -size : undefined,
-        marginBottom: perp === 'Bottom' && !align ? -size : undefined,
-        marginLeft: perp === 'Left' && !align ? -size : undefined,
+        ...getMarginStyle(perp, align, size),
         ...({
           '--caret-bg': bg,
           '--caret-border-color': borderColor,

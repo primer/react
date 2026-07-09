@@ -29,6 +29,56 @@ const tooltipDirectionClasses = {
   nw: classes['Tooltip--nw'],
 }
 
+const tooltipAlignmentClasses = {
+  left: classes['Tooltip--alignLeft'],
+  right: classes['Tooltip--alignRight'],
+}
+
+const legacyTooltipDirectionClasses = {
+  n: 'tooltipped-n',
+  ne: 'tooltipped-ne',
+  e: 'tooltipped-e',
+  se: 'tooltipped-se',
+  s: 'tooltipped-s',
+  sw: 'tooltipped-sw',
+  w: 'tooltipped-w',
+  nw: 'tooltipped-nw',
+}
+
+const legacyTooltipAlignmentClasses = {
+  left: 'tooltipped-align-left-2',
+  right: 'tooltipped-align-right-2',
+}
+
+function getTooltipClasses({
+  align,
+  className,
+  direction,
+  noDelay,
+  wrap,
+}: {
+  align: TooltipProps['align']
+  className: TooltipProps['className']
+  direction: NonNullable<TooltipProps['direction']>
+  noDelay: TooltipProps['noDelay']
+  wrap: TooltipProps['wrap']
+}) {
+  return clsx(
+    className,
+    classes.Tooltip,
+    tooltipDirectionClasses[direction],
+    align && tooltipAlignmentClasses[align],
+    noDelay && classes['Tooltip--noDelay'],
+    wrap && classes['Tooltip--multiline'],
+    legacyTooltipDirectionClasses[direction],
+    align && legacyTooltipAlignmentClasses[align],
+    {
+      'tooltipped-no-delay': noDelay,
+      'tooltipped-multiline': wrap,
+    },
+  )
+}
+
 /**
  * @deprecated
  */
@@ -37,30 +87,7 @@ const Tooltip = React.forwardRef(function Tooltip(
   ref,
 ) {
   const tooltipId = useId(id)
-  const tooltipClasses = clsx(
-    className,
-    classes.Tooltip,
-    tooltipDirectionClasses[direction],
-    align === 'left' && classes['Tooltip--alignLeft'],
-    align === 'right' && classes['Tooltip--alignRight'],
-    noDelay && classes['Tooltip--noDelay'],
-    wrap && classes['Tooltip--multiline'],
-    {
-      // maintaining feature parity with old classes
-      'tooltipped-n': direction === 'n',
-      'tooltipped-ne': direction === 'ne',
-      'tooltipped-e': direction === 'e',
-      'tooltipped-se': direction === 'se',
-      'tooltipped-s': direction === 's',
-      'tooltipped-sw': direction === 'sw',
-      'tooltipped-w': direction === 'w',
-      'tooltipped-nw': direction === 'nw',
-      'tooltipped-align-left-2': align === 'left',
-      'tooltipped-align-right-2': align === 'right',
-      'tooltipped-no-delay': noDelay,
-      'tooltipped-multiline': wrap,
-    },
-  )
+  const tooltipClasses = getTooltipClasses({align, className, direction, noDelay, wrap})
 
   const value = useMemo(() => ({tooltipId}), [tooltipId])
   return (
