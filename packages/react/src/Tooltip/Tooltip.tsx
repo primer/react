@@ -18,17 +18,6 @@ export type TooltipProps = {
   wrap?: boolean
 } & React.ComponentProps<'span'>
 
-const tooltipDirectionClasses = {
-  n: classes['Tooltip--n'],
-  ne: classes['Tooltip--ne'],
-  e: classes['Tooltip--e'],
-  se: classes['Tooltip--se'],
-  s: classes['Tooltip--s'],
-  sw: classes['Tooltip--sw'],
-  w: classes['Tooltip--w'],
-  nw: classes['Tooltip--nw'],
-}
-
 /**
  * @deprecated
  */
@@ -37,30 +26,16 @@ const Tooltip = React.forwardRef(function Tooltip(
   ref,
 ) {
   const tooltipId = useId(id)
-  const tooltipClasses = clsx(
-    className,
-    classes.Tooltip,
-    tooltipDirectionClasses[direction],
-    align === 'left' && classes['Tooltip--alignLeft'],
-    align === 'right' && classes['Tooltip--alignRight'],
-    noDelay && classes['Tooltip--noDelay'],
-    wrap && classes['Tooltip--multiline'],
-    {
-      // maintaining feature parity with old classes
-      'tooltipped-n': direction === 'n',
-      'tooltipped-ne': direction === 'ne',
-      'tooltipped-e': direction === 'e',
-      'tooltipped-se': direction === 'se',
-      'tooltipped-s': direction === 's',
-      'tooltipped-sw': direction === 'sw',
-      'tooltipped-w': direction === 'w',
-      'tooltipped-nw': direction === 'nw',
-      'tooltipped-align-left-2': align === 'left',
-      'tooltipped-align-right-2': align === 'right',
-      'tooltipped-no-delay': noDelay,
-      'tooltipped-multiline': wrap,
-    },
-  )
+  const tooltipClasses = clsx(className, classes.Tooltip, classes[`Tooltip--${direction}`], {
+    [classes[`Tooltip--align${align === 'left' ? 'Left' : 'Right'}`]]: align,
+    [classes['Tooltip--noDelay']]: noDelay,
+    [classes['Tooltip--multiline']]: wrap,
+    // maintaining feature parity with old classes
+    [`tooltipped-${direction}`]: true,
+    [`tooltipped-align-${align === 'left' ? 'left' : 'right'}-2`]: align,
+    'tooltipped-no-delay': noDelay,
+    'tooltipped-multiline': wrap,
+  })
 
   const value = useMemo(() => ({tooltipId}), [tooltipId])
   return (

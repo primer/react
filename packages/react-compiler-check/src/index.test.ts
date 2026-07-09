@@ -72,7 +72,7 @@ describe('checkFile', () => {
     ).toEqual({ok: true})
   })
 
-  test('does not fail on static object expression keys', () => {
+  test('does not fail on computed object expression keys', () => {
     expect(
       checkFile(
         'Tooltip.tsx',
@@ -86,10 +86,8 @@ describe('checkFile', () => {
 
           function Tooltip({align}: {align?: 'left' | 'right'}) {
             const className = clsx(styles.Tooltip, {
-              TooltipLeft: align === 'left',
-              TooltipRight: align === 'right',
-              'tooltipped-left': align === 'left',
-              'tooltipped-right': align === 'right',
+              [styles[\`Tooltip\${align === 'left' ? 'Left' : 'Right'}\`]]: align,
+              [\`tooltipped-\${align}\`]: align,
             })
 
             return <span className={className} />
