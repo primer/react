@@ -5,9 +5,8 @@ import Avatar from '../../Avatar'
 import {IconButton} from '../../Button'
 import Label from '../../Label'
 import Link from '../../Link'
-import RelativeTime from '../../RelativeTime'
 import Timeline from '../Timeline'
-import {InlineAvatar} from './timelineStoryHelpers'
+import {InlineAvatar, MutedTime} from './timelineStoryHelpers'
 import classes from './CommentCard.module.css'
 
 /**
@@ -207,9 +206,7 @@ export const CommentCard = ({
             {hasInlineHeader ? <span className={classes.CommentedVerb}>commented</span> : null}
             <span className={classes.TimestampLine}>
               {/* Muted + underlined keeps this muted permalink high-contrast accessible. */}
-              <Link href="#" className={classes.Timestamp} muted>
-                <RelativeTime date={new Date(timestamp)} format="relative" />
-              </Link>
+              <MutedTime date={new Date(timestamp)} href="#" />
               {viaApp ? (
                 <>
                   {' – with '}
