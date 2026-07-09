@@ -23,8 +23,8 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
 
     const counterProps = {
       ref: forwardedRef,
-      'aria-hidden': 'true' as const,
-      'data-variant': inferredVariant,
+      ['aria-hidden']: 'true' as const,
+      ['data-variant']: inferredVariant,
       ...rest,
     }
 
