@@ -338,7 +338,7 @@ export const ActionBarIconButton = forwardRef(
 
     const {size} = React.useContext(ActionBarContext)
 
-    const {['aria-label']: ariaLabel, icon} = props
+    const {'aria-label': ariaLabel, icon} = props
 
     const {dataOverflowingAttr} = useActionBarItem(
       ref,

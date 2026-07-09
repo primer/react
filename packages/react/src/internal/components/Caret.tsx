@@ -86,7 +86,10 @@ function Caret(props: CaretProps) {
         ...getPosition(edge, align, size),
         // if align is set (top|right|bottom|left),
         // then we don't need an offset margin
-        [`margin${perp}`]: align ? null : -size,
+        marginTop: perp === 'Top' && !align ? -size : undefined,
+        marginRight: perp === 'Right' && !align ? -size : undefined,
+        marginBottom: perp === 'Bottom' && !align ? -size : undefined,
+        marginLeft: perp === 'Left' && !align ? -size : undefined,
         ...({
           '--caret-bg': bg,
           '--caret-border-color': borderColor,
