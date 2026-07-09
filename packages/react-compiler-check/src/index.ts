@@ -55,7 +55,7 @@ function checkFile(filename: string, contents: string): CheckResult {
   try {
     transformSync(contents, inputOptions)
   } catch (error: unknown) {
-    if (!(error instanceof CompilerError) && !isCompilerError(error)) {
+    if (!(error instanceof CompilerError)) {
       throw error
     }
 
@@ -77,18 +77,6 @@ function checkFile(filename: string, contents: string): CheckResult {
   return {
     ok: true,
   }
-}
-
-function isCompilerError(error: unknown): error is CompilerError {
-  return (
-    error !== null &&
-    typeof error === 'object' &&
-    'details' in error &&
-    Array.isArray(error.details) &&
-    error.details.every(detail => {
-      return detail !== null && typeof detail === 'object' && 'primaryLocation' in detail && 'reason' in detail
-    })
-  )
 }
 
 function addCheckError(errors: Array<CheckError>, error: CheckError): void {
