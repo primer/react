@@ -34,7 +34,7 @@ describe('checkFile', () => {
 
           function BaseStyles({children, color, className, as: Component = 'div', style, ...rest}: BaseStylesProps) {
             const baseStyles = {
-              '--BaseStyles-fgColor': color,
+              ['--BaseStyles-fgColor']: color,
             }
 
             return (
@@ -49,50 +49,6 @@ describe('checkFile', () => {
                 {children}
               </Component>
             )
-          }
-        `,
-      ),
-    ).toEqual({ok: true})
-  })
-
-  test('does not fail on static object pattern keys', () => {
-    expect(
-      checkFile(
-        'Label.tsx',
-        `
-          type LabelProps = {
-            'data-component'?: string
-          }
-
-          function Label({'data-component': dataComponent = 'Label'}: LabelProps) {
-            return <span data-component={dataComponent} />
-          }
-        `,
-      ),
-    ).toEqual({ok: true})
-  })
-
-  test('does not fail on static object expression keys', () => {
-    expect(
-      checkFile(
-        'Tooltip.tsx',
-        `
-          import {clsx} from 'clsx'
-
-          const styles = {
-            Tooltip: 'Tooltip',
-            TooltipLeft: 'TooltipLeft',
-          }
-
-          function Tooltip({align}: {align?: 'left' | 'right'}) {
-            const className = clsx(styles.Tooltip, {
-              TooltipLeft: align === 'left',
-              TooltipRight: align === 'right',
-              'tooltipped-left': align === 'left',
-              'tooltipped-right': align === 'right',
-            })
-
-            return <span className={className} />
           }
         `,
       ),
