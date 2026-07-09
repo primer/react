@@ -24,6 +24,69 @@ type StyledOverlayProps = {
 
 const animationDuration = 200
 
+const widthDataAttributes = {
+  small: {'data-width-small': ''},
+  medium: {'data-width-medium': ''},
+  large: {'data-width-large': ''},
+  xlarge: {'data-width-xlarge': ''},
+  xxlarge: {'data-width-xxlarge': ''},
+  auto: {'data-width-auto': ''},
+  undefined: {'data-width-undefined': ''},
+}
+
+const maxWidthDataAttributes = {
+  small: {'data-max-width-small': ''},
+  medium: {'data-max-width-medium': ''},
+  large: {'data-max-width-large': ''},
+  xlarge: {'data-max-width-xlarge': ''},
+  xxlarge: {'data-max-width-xxlarge': ''},
+}
+
+const heightDataAttributes = {
+  xsmall: {'data-height-xsmall': ''},
+  small: {'data-height-small': ''},
+  medium: {'data-height-medium': ''},
+  large: {'data-height-large': ''},
+  xlarge: {'data-height-xlarge': ''},
+  auto: {'data-height-auto': ''},
+  initial: {'data-height-initial': ''},
+  'fit-content': {'data-height-fit-content': ''},
+  undefined: {'data-height-undefined': ''},
+}
+
+const maxHeightDataAttributes = {
+  xsmall: {'data-max-height-xsmall': ''},
+  small: {'data-max-height-small': ''},
+  medium: {'data-max-height-medium': ''},
+  large: {'data-max-height-large': ''},
+  xlarge: {'data-max-height-xlarge': ''},
+  'fit-content': {'data-max-height-fit-content': ''},
+}
+
+const visibilityDataAttributes = {
+  visible: {'data-visibility-visible': ''},
+  hidden: {'data-visibility-hidden': ''},
+  undefined: {'data-visibility-undefined': ''},
+}
+
+const overflowDataAttributes = {
+  auto: {'data-overflow-auto': ''},
+  hidden: {'data-overflow-hidden': ''},
+  scroll: {'data-overflow-scroll': ''},
+  visible: {'data-overflow-visible': ''},
+}
+
+function getOverlayDataAttributes({height, maxHeight, maxWidth, overflow, visibility, width}: StyledOverlayProps) {
+  return {
+    ...widthDataAttributes[width ?? 'undefined'],
+    ...(maxWidth ? maxWidthDataAttributes[maxWidth] : {}),
+    ...heightDataAttributes[height ?? 'undefined'],
+    ...(maxHeight ? maxHeightDataAttributes[maxHeight] : {}),
+    ...visibilityDataAttributes[visibility ?? 'undefined'],
+    ...(overflow ? overflowDataAttributes[overflow] : {}),
+  }
+}
+
 function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y: number} {
   if (anchorSide?.endsWith('bottom')) {
     return {x: 0, y: -1}
@@ -103,42 +166,7 @@ export const BaseOverlay = React.forwardRef(
             ...styleFromProps,
           } as React.CSSProperties
         }
-        {...{
-          'data-width-small': width === 'small' ? '' : undefined,
-          'data-width-medium': width === 'medium' ? '' : undefined,
-          'data-width-large': width === 'large' ? '' : undefined,
-          'data-width-xlarge': width === 'xlarge' ? '' : undefined,
-          'data-width-xxlarge': width === 'xxlarge' ? '' : undefined,
-          'data-width-auto': width === 'auto' ? '' : undefined,
-          'data-width-undefined': width === undefined ? '' : undefined,
-          'data-max-width-small': maxWidth === 'small' ? '' : undefined,
-          'data-max-width-medium': maxWidth === 'medium' ? '' : undefined,
-          'data-max-width-large': maxWidth === 'large' ? '' : undefined,
-          'data-max-width-xlarge': maxWidth === 'xlarge' ? '' : undefined,
-          'data-max-width-xxlarge': maxWidth === 'xxlarge' ? '' : undefined,
-          'data-height-xsmall': height === 'xsmall' ? '' : undefined,
-          'data-height-small': height === 'small' ? '' : undefined,
-          'data-height-medium': height === 'medium' ? '' : undefined,
-          'data-height-large': height === 'large' ? '' : undefined,
-          'data-height-xlarge': height === 'xlarge' ? '' : undefined,
-          'data-height-auto': height === 'auto' ? '' : undefined,
-          'data-height-initial': height === 'initial' ? '' : undefined,
-          'data-height-fit-content': height === 'fit-content' ? '' : undefined,
-          'data-height-undefined': height === undefined ? '' : undefined,
-          'data-max-height-xsmall': maxHeight === 'xsmall' ? '' : undefined,
-          'data-max-height-small': maxHeight === 'small' ? '' : undefined,
-          'data-max-height-medium': maxHeight === 'medium' ? '' : undefined,
-          'data-max-height-large': maxHeight === 'large' ? '' : undefined,
-          'data-max-height-xlarge': maxHeight === 'xlarge' ? '' : undefined,
-          'data-max-height-fit-content': maxHeight === 'fit-content' ? '' : undefined,
-          'data-visibility-visible': visibility === 'visible' ? '' : undefined,
-          'data-visibility-hidden': visibility === 'hidden' ? '' : undefined,
-          'data-visibility-undefined': visibility === undefined ? '' : undefined,
-          'data-overflow-auto': rest.overflow === 'auto' ? '' : undefined,
-          'data-overflow-hidden': rest.overflow === 'hidden' ? '' : undefined,
-          'data-overflow-scroll': rest.overflow === 'scroll' ? '' : undefined,
-          'data-overflow-visible': rest.overflow === 'visible' ? '' : undefined,
-        }}
+        {...getOverlayDataAttributes({height, maxHeight, maxWidth, overflow: rest.overflow, visibility, width})}
         className={clsx(className, classes.Overlay)}
       />
     )
