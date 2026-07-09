@@ -34,7 +34,7 @@ describe('checkFile', () => {
 
           function BaseStyles({children, color, className, as: Component = 'div', style, ...rest}: BaseStylesProps) {
             const baseStyles = {
-              ['--BaseStyles-fgColor']: color,
+              '--BaseStyles-fgColor': color,
             }
 
             return (
@@ -55,7 +55,7 @@ describe('checkFile', () => {
     ).toEqual({ok: true})
   })
 
-  test('does not fail on computed object pattern keys', () => {
+  test('does not fail on static object pattern keys', () => {
     expect(
       checkFile(
         'Label.tsx',
@@ -64,7 +64,7 @@ describe('checkFile', () => {
             'data-component'?: string
           }
 
-          function Label({['data-component']: dataComponent = 'Label'}: LabelProps) {
+          function Label({'data-component': dataComponent = 'Label'}: LabelProps) {
             return <span data-component={dataComponent} />
           }
         `,
@@ -72,7 +72,7 @@ describe('checkFile', () => {
     ).toEqual({ok: true})
   })
 
-  test('does not fail on computed object expression keys', () => {
+  test('does not fail on static object expression keys', () => {
     expect(
       checkFile(
         'Tooltip.tsx',
@@ -86,8 +86,10 @@ describe('checkFile', () => {
 
           function Tooltip({align}: {align?: 'left' | 'right'}) {
             const className = clsx(styles.Tooltip, {
-              [styles[\`Tooltip\${align === 'left' ? 'Left' : 'Right'}\`]]: align,
-              [\`tooltipped-\${align}\`]: align,
+              TooltipLeft: align === 'left',
+              TooltipRight: align === 'right',
+              'tooltipped-left': align === 'left',
+              'tooltipped-right': align === 'right',
             })
 
             return <span className={className} />

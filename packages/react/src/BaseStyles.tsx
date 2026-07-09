@@ -16,7 +16,7 @@ export type BaseStylesProps = PropsWithChildren & {
 function BaseStyles({children, color, className, as: Component = 'div', style, ...rest}: BaseStylesProps) {
   const newClassName = clsx(classes.BaseStyles, className)
   const baseStyles = {
-    ['--BaseStyles-fgColor']: color,
+    '--BaseStyles-fgColor': color,
   }
 
   return (
