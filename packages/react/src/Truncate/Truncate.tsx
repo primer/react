@@ -25,7 +25,7 @@ const Truncate = React.forwardRef(function Truncate(
       style={
         {
           ...style,
-          '--truncate-max-width':
+          [`--truncate-max-width`]:
             typeof maxWidth === 'number' ? `${maxWidth}px` : typeof maxWidth === 'string' ? maxWidth : undefined,
         } as React.CSSProperties
       }
