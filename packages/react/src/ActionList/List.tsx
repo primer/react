@@ -5,7 +5,7 @@ import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'
-import {useMergedRefs} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -43,8 +43,12 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
-  const listRef = useRef<HTMLElement>(null)
-  const mergedRef = useMergedRefs(forwardedRef, listRef)
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+  const internalRef = useRef<HTMLElement>(null)
+  const mergedRef = useMergedRefs(forwardedRef, internalRef)
+  const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+  const listRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
   const itemGapEnabled = useFeatureFlag('primer_react_action_list_item_gap') && container === 'NavList'
 
   let enableFocusZone = false
@@ -101,11 +105,12 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   return (
     <ListContext.Provider value={listContextValue}>
       {slots.heading}
+      {/* @ts-expect-error ref needs a non nullable ref */}
       <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
-        ref={mergedRef}
+        ref={appliedRef}
         data-component="ActionList"
         data-dividers={showDividers}
         data-variant={variant}

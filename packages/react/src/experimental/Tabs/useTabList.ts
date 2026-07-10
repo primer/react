@@ -1,13 +1,18 @@
 import type React from 'react'
 import {useRef} from 'react'
-import {useMergedRefs} from '../../hooks'
+import {useMergedRefs, useProvidedRefOrCreate} from '../../hooks'
+import {useFeatureFlag} from '../../FeatureFlags'
 import type {TabListHookProps, TabListHookResult} from './types'
 
 export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): TabListHookResult<T> {
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
-  const ref = useRef<T>(null)
-  const mergedRef = useMergedRefs(ref, props.ref)
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+  const internalRef = useRef<T>(null)
+  const mergedRef = useMergedRefs(internalRef, props.ref)
+  const providedOrCreatedRef = useProvidedRefOrCreate<T>(props.ref as React.RefObject<T | null>)
+  const ref = mergedRefEnabled ? internalRef : providedOrCreatedRef
+  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     const {current: tablist} = ref
@@ -59,7 +64,7 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
 
   return {
     tabListProps: {
-      ref: mergedRef,
+      ref: appliedRef,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
       'aria-orientation': ariaOrientation ?? 'horizontal',

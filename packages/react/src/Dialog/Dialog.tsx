@@ -1,7 +1,8 @@
 import React, {useCallback, useEffect, useRef, useState, type CSSProperties, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
-import {useMergedRefs, useOnEscapePress} from '../hooks'
+import {useMergedRefs, useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -484,8 +485,13 @@ const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Foot
 Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
-  const autoFocusRef = useRef<HTMLButtonElement>(null)
-  const mergedRef = useMergedRefs(autoFocusRef, buttons.find(button => button.autoFocus)?.ref)
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+  const providedButtonRef = buttons.find(button => button.autoFocus)?.ref
+  const internalRef = useRef<HTMLButtonElement>(null)
+  const mergedRef = useMergedRefs(internalRef, providedButtonRef)
+  const providedOrCreatedRef = useProvidedRefOrCreate<HTMLButtonElement>(providedButtonRef)
+  const autoFocusRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
@@ -509,7 +515,8 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, mergedRef) : null}
+            // @ts-expect-error it needs a non nullable ref
+            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, appliedRef) : null}
           >
             {content}
           </Button>

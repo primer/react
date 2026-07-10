@@ -10,7 +10,8 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
-import {useMergedRefs} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import type {AriaRole, FCWithSlotMarker} from '../utils/types'
 import {clsx} from 'clsx'
 
@@ -49,8 +50,12 @@ export type PageHeaderProps = {
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
-    const rootRef = useRef<HTMLDivElement>(null)
-    const mergedRef = useMergedRefs(rootRef, forwardedRef)
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const internalRef = useRef<HTMLDivElement>(null)
+    const mergedRef = useMergedRefs(internalRef, forwardedRef)
+    const providedOrCreatedRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+    const rootRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+    const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
 
     // Hoist title size + navigation visibility off children onto the root so
     // styling can use plain attribute selectors instead of `:has()`. We descend
@@ -156,7 +161,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
     return (
       <BaseComponent
-        ref={mergedRef}
+        ref={appliedRef}
         className={clsx(classes.PageHeader, className)}
         data-component="PageHeader"
         data-has-border={hasBorder ? 'true' : undefined}
@@ -274,10 +279,14 @@ export type TitleAreaProps = {
 
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, hidden = false, variant = 'medium'}, forwardedRef) => {
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const providedOrCreatedRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+    const titleAreaRef = mergedRefEnabled ? forwardedRef : providedOrCreatedRef
     return (
       <div
         className={clsx(classes.TitleArea, className)}
-        ref={forwardedRef}
+        // @ts-expect-error it needs a non nullable ref
+        ref={titleAreaRef}
         data-component="TitleArea"
         {...getResponsiveAttributes('size-variant', variant)}
         {...getHiddenDataAttributes(hidden)}

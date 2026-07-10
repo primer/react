@@ -1,5 +1,6 @@
 import {clsx} from 'clsx'
-import {useMergedRefs} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import React, {
   useContext,
   useEffect,
@@ -65,8 +66,12 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const checkboxRef = useRef<HTMLInputElement>(null)
-    const mergedRef = useMergedRefs(checkboxRef, ref)
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const internalRef = useRef<HTMLInputElement>(null)
+    const mergedRef = useMergedRefs(internalRef, ref)
+    const providedOrCreatedRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const checkboxRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+    const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
@@ -80,7 +85,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const inputProps = {
       type: 'checkbox',
       disabled,
-      ref: mergedRef,
+      ref: appliedRef,
       checked: indeterminate ? false : checked,
       defaultChecked,
       required,
@@ -111,6 +116,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     })
     return (
+      // @ts-expect-error inputProp needs a non nullable ref
       <input
         {...inputProps}
         data-component={dataComponent ?? 'Checkbox'}

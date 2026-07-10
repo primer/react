@@ -1,5 +1,6 @@
 import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
-import {useId, useOnEscapePress, useMergedRefs} from '../hooks'
+import {useId, useOnEscapePress, useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -126,8 +127,14 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
-    const triggerRef = useRef<HTMLElement>(null)
-    const mergedTriggerRef = useMergedRefs(triggerRef, forwardedRef)
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const internalRef = useRef<HTMLElement>(null)
+    const mergedTriggerRef = useMergedRefs(internalRef, forwardedRef)
+    const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    // The ref whose `.current` the positioning logic reads. Both point to the trigger DOM node.
+    const triggerRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+    // The ref applied to the cloned trigger element.
+    const appliedTriggerRef = mergedRefEnabled ? mergedTriggerRef : providedOrCreatedRef
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
@@ -285,7 +292,8 @@ export const Tooltip: ForwardRefExoticComponent<
         <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              ref: mergedTriggerRef,
+              // @ts-expect-error the provided-or-created ref path needs a non nullable ref
+              ref: appliedTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
                 // If tooltip is not a description type, keep the original aria-describedby

@@ -17,7 +17,8 @@ import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
 import {AriaStatus} from '../live-region'
 import Text from '../Text'
-import {useMergedRefs} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -112,8 +113,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
-    const inputRef = useRef<HTMLInputElement>(null)
-    const mergedRef = useMergedRefs(inputRef, ref)
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const internalRef = useRef<HTMLInputElement>(null)
+    const mergedRef = useMergedRefs(internalRef, ref)
+    const providedOrCreatedRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
+    const inputRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+    const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
 
     // For uncontrolled usage we track the length of the input's content so the
     // character counter can be derived during render rather than synced from an
@@ -220,7 +225,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
           </TextInputInnerVisualSlot>
           <UnstyledTextInput
-            ref={mergedRef}
+            // @ts-expect-error it needs a non nullable ref
+            ref={appliedRef}
             disabled={disabled}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}

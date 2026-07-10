@@ -20,7 +20,8 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
-import {useMergedRefs} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import {FilteredActionListInput} from './FilteredActionListInput'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
@@ -189,11 +190,21 @@ export function FilteredActionList({
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const combinedScrollContainerRef = useMergedRefs(scrollContainerRef, providedScrollContainerRef)
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
 
-  const inputRef = useRef<HTMLInputElement>(null)
-  const combinedInputRef = useMergedRefs(inputRef, providedInputRef)
+  const internalScrollContainerRef = useRef<HTMLDivElement>(null)
+  const combinedScrollContainerRef = useMergedRefs(internalScrollContainerRef, providedScrollContainerRef)
+  const providedOrCreatedScrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(
+    providedScrollContainerRef as React.RefObject<HTMLDivElement>,
+  )
+  const scrollContainerRef = mergedRefEnabled ? internalScrollContainerRef : providedOrCreatedScrollContainerRef
+  const appliedScrollContainerRef = mergedRefEnabled ? combinedScrollContainerRef : providedOrCreatedScrollContainerRef
+
+  const internalInputRef = useRef<HTMLInputElement>(null)
+  const combinedInputRef = useMergedRefs(internalInputRef, providedInputRef)
+  const providedOrCreatedInputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
+  const inputRef = mergedRefEnabled ? internalInputRef : providedOrCreatedInputRef
+  const appliedInputRef = mergedRefEnabled ? combinedInputRef : providedOrCreatedInputRef
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
@@ -560,7 +571,7 @@ export function FilteredActionList({
       data-component="FilteredActionList"
     >
       <FilteredActionListInput
-        inputRef={combinedInputRef}
+        inputRef={appliedInputRef}
         value={filterValue}
         onInputChange={onInputChange}
         onInputKeyPress={onInputKeyPress}
@@ -592,7 +603,8 @@ export function FilteredActionList({
           </label>
         </div>
       )}
-      <div ref={combinedScrollContainerRef} className={classes.Container}>
+      {/* @ts-expect-error div needs a non nullable ref */}
+      <div ref={appliedScrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
     </div>

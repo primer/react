@@ -207,6 +207,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     setAnchorElement(anchorRef.current)
   }
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const mergedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
   const anchorId = useId(externalAnchorId)
@@ -440,7 +441,14 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {...(cssAnchorPositioning ? {id: popoverId} : {})}
           ref={node => {
             setOverlayElement(node)
-            assignRef(mergedOverlayRef, node)
+            if (mergedRefEnabled) {
+              assignRef(mergedOverlayRef, node)
+            } else {
+              if (overlayProps?.ref) {
+                assignRef(overlayProps.ref, node)
+              }
+              updateOverlayRef(node)
+            }
           }}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
