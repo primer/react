@@ -14,7 +14,7 @@ export default defineConfig({
   external,
   plugins: [
     dts({
-      emitDtsOnly: true,
+      emitDtsOnly: false,
       oxc: false,
       sourcemap: false,
       tsconfig: 'tsconfig.build.json',
