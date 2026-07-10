@@ -12,70 +12,114 @@ type CompilerFailure = Extract<CheckResult, {ok: false}> & {
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const packageDirectory = path.resolve(dirname, '..')
 const repositoryDirectory = path.resolve(packageDirectory, '../..')
-const allResults = files.map(checkCompilerFile)
-const migratedFailures = allResults.filter(
-  (result): result is CompilerFailure => !result.ok && isSupported(result.filepath),
-)
-const nonMigratedFailures = allResults.filter(
-  (result): result is CompilerFailure => !result.ok && !isSupported(result.filepath),
-)
 
-if (migratedFailures.length > 0) {
-  // eslint-disable-next-line no-console
-  console.error(
-    `React Compiler failed for ${migratedFailures.length} migrated file${migratedFailures.length === 1 ? '' : 's'}:\n`,
-  )
+// When CHANGED_FILES is set (CI PR mode), only check the files changed in the PR.
+// Otherwise fall back to checking all migrated files.
+const changedFilesEnv = process.env.CHANGED_FILES
+const changedFilePaths = changedFilesEnv ? changedFilesEnv.split('\n').filter(Boolean) : null
 
-  for (const failure of migratedFailures) {
-    const relativePath = path.relative(packageDirectory, failure.filepath)
+if (changedFilePaths !== null) {
+  const filesSet = new Set(files)
+  const relevantFiles = changedFilePaths
+    .map(changedFile => path.resolve(repositoryDirectory, changedFile))
+    .filter(changedFile => filesSet.has(changedFile))
 
-    for (const error of failure.errors) {
-      if (process.env.GITHUB_ACTIONS === 'true') {
-        writeGitHubAnnotation('error', path.relative(repositoryDirectory, failure.filepath), error)
+  if (relevantFiles.length === 0) {
+    // eslint-disable-next-line no-console
+    console.log('No changed files overlap with @primer/react package. Skipping React Compiler check.')
+  } else {
+    const results = relevantFiles.map(checkCompilerFile)
+    const migratedFailures = results.filter(
+      (result): result is CompilerFailure => !result.ok && isSupported(result.filepath),
+    )
+    const nonMigratedFailures = results.filter(
+      (result): result is CompilerFailure => !result.ok && !isSupported(result.filepath),
+    )
+
+    if (migratedFailures.length > 0) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `React Compiler failed for ${migratedFailures.length} migrated file${migratedFailures.length === 1 ? '' : 's'}:\n`,
+      )
+
+      for (const failure of migratedFailures) {
+        const relativePath = path.relative(packageDirectory, failure.filepath)
+
+        for (const error of failure.errors) {
+          if (process.env.GITHUB_ACTIONS === 'true') {
+            writeGitHubAnnotation('error', path.relative(repositoryDirectory, failure.filepath), error)
+          }
+
+          const line = getLocationLine(error.location)
+          const location = line === undefined ? relativePath : `${relativePath}:${line}`
+
+          // eslint-disable-next-line no-console
+          console.error(`- ${location} ${formatReason(error.reason)}`)
+        }
       }
 
-      const line = getLocationLine(error.location)
-      const location = line === undefined ? relativePath : `${relativePath}:${line}`
+      process.exitCode = 1
+    }
 
+    if (nonMigratedFailures.length > 0) {
       // eslint-disable-next-line no-console
-      console.error(`- ${location} ${formatReason(error.reason)}`)
+      console.log(
+        `\nReact Compiler found issues in ${nonMigratedFailures.length} not-yet-migrated file${nonMigratedFailures.length === 1 ? '' : 's'}:\n`,
+      )
+
+      for (const failure of nonMigratedFailures) {
+        const relativePath = path.relative(packageDirectory, failure.filepath)
+
+        for (const error of failure.errors) {
+          if (process.env.GITHUB_ACTIONS === 'true') {
+            writeGitHubAnnotation(
+              'notice',
+              path.relative(repositoryDirectory, failure.filepath),
+              error,
+              getMigrationSuggestion(relativePath),
+            )
+          }
+
+          const line = getLocationLine(error.location)
+          const location = line === undefined ? relativePath : `${relativePath}:${line}`
+
+          // eslint-disable-next-line no-console
+          console.log(`- ${location} ${formatReason(error.reason)}`)
+          // eslint-disable-next-line no-console
+          console.log(`  Suggestion: ${getMigrationSuggestion(relativePath)}`)
+        }
+      }
     }
   }
-
-  process.exitCode = 1
 } else {
-  const migratedCount = files.filter(isSupported).length
-  // eslint-disable-next-line no-console
-  console.log(`React Compiler passed for ${migratedCount} migrated files.`)
-}
+  // Fallback: check all migrated files for compiler errors
+  const migratedFiles = files.filter(isSupported)
+  const failures = migratedFiles.map(checkCompilerFile).filter((result): result is CompilerFailure => !result.ok)
 
-if (nonMigratedFailures.length > 0) {
-  // eslint-disable-next-line no-console
-  console.log(
-    `\nReact Compiler found issues in ${nonMigratedFailures.length} not-yet-migrated file${nonMigratedFailures.length === 1 ? '' : 's'}:\n`,
-  )
+  if (failures.length > 0) {
+    // eslint-disable-next-line no-console
+    console.error(`React Compiler failed for ${failures.length} migrated file${failures.length === 1 ? '' : 's'}:\n`)
 
-  for (const failure of nonMigratedFailures) {
-    const relativePath = path.relative(packageDirectory, failure.filepath)
+    for (const failure of failures) {
+      const relativePath = path.relative(packageDirectory, failure.filepath)
 
-    for (const error of failure.errors) {
-      if (process.env.GITHUB_ACTIONS === 'true') {
-        writeGitHubAnnotation(
-          'notice',
-          path.relative(repositoryDirectory, failure.filepath),
-          error,
-          getMigrationSuggestion(relativePath),
-        )
+      for (const error of failure.errors) {
+        if (process.env.GITHUB_ACTIONS === 'true') {
+          writeGitHubAnnotation('error', path.relative(repositoryDirectory, failure.filepath), error)
+        }
+
+        const line = getLocationLine(error.location)
+        const location = line === undefined ? relativePath : `${relativePath}:${line}`
+
+        // eslint-disable-next-line no-console
+        console.error(`- ${location} ${formatReason(error.reason)}`)
       }
-
-      const line = getLocationLine(error.location)
-      const location = line === undefined ? relativePath : `${relativePath}:${line}`
-
-      // eslint-disable-next-line no-console
-      console.log(`- ${location} ${formatReason(error.reason)}`)
-      // eslint-disable-next-line no-console
-      console.log(`  Suggestion: ${getMigrationSuggestion(relativePath)}`)
     }
+
+    process.exitCode = 1
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(`React Compiler passed for ${migratedFiles.length} migrated files.`)
   }
 }
 

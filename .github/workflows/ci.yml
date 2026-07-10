@@ -52,8 +52,20 @@ jobs:
         run: npx turbo run lint:npm
       - name: Check className test coverage
         run: npm run test:classname-coverage
+      - name: Get changed files
+        id: diff
+        if: github.base_ref != ''
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          {
+            echo 'files<<EOF'
+            git diff --name-only "origin/${{ github.base_ref }}" HEAD
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
       - name: Check react compiler coverage
         run: npx turbo run lint:react-compiler --log-prefix=none
+        env:
+          CHANGED_FILES: ${{ steps.diff.outputs.files }}
 
   test:
     runs-on: ubuntu-latest

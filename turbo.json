@@ -15,7 +15,8 @@
     },
     "lint:react-compiler": {
       "dependsOn": [],
-      "outputs": []
+      "outputs": [],
+      "env": ["CHANGED_FILES"]
     },
     "type-check": {
       "dependsOn": ["^build"],
