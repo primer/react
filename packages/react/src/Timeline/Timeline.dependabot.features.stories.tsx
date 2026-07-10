@@ -5,7 +5,10 @@ import Timeline from './Timeline'
 import {
   CheckIcon,
   CommentIcon,
+  GitBranchIcon,
   NoteIcon,
+  PersonIcon,
+  RepoPushIcon,
   ShieldCheckIcon,
   ShieldIcon,
   ShieldSlashIcon,
@@ -76,6 +79,12 @@ import {
 // Live ERB uses the bundled `modules/site/dependabot-icon.png`; this is the
 // public dependabot[bot] avatar (square Dependabot logo) for Storybook.
 const DEPENDABOT_AVATAR = 'https://avatars.githubusercontent.com/u/27347476?v=4'
+
+// User avatars for the assignment actor + assignee examples. `six7` / `hubot`
+// are the same public fixtures the Secret scanning assignment story uses, so the
+// two surfaces read consistently.
+const SIX7_AVATAR = 'https://avatars.githubusercontent.com/u/4548309?v=4'
+const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/u/480938?v=4'
 
 /**
  * Dependabot actor — `DependabotAlerts::TimelineItems::ActorComponent` in
@@ -618,6 +627,172 @@ export const EventDismissalRequest = () => (
             <UserActor href="#" muted />
             {'cancelled their dismissal request '}
             <MutedTime date={new Date('2022-08-09T09:00:00Z')} />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+  </Examples>
+)
+
+/**
+ * The Assignment event group — `AssignmentComponent`
+ * (`assignment_items/assignment_component.{rb,html.erb}`).
+ *
+ * Source: `DependabotAlerts::TimelineItems::AssignmentComponent`. Badge:
+ * `person` icon on the PLAIN DEFAULT badge (subtle gray circle) — the ERB
+ * renders `with_badge(icon: :person)` with NO `bg:`/`color:` override. The actor
+ * AND the assignee are each rendered with an avatar via `ActorComponent` (our
+ * `UserActor`), matching the rest of this Dependabot surface (linked + muted).
+ *
+ * COPY: `action_text` keys off `self_assignment?` (`actor.id == assignee.id`):
+ * a self-action collapses to `self-assigned this` (assigned) / `removed their
+ * assignment` (unassigned) with NO trailing assignee; otherwise the body is the
+ * bare action word (`assigned` / `unassigned`) followed by the assignee actor.
+ * The five variants mirror the Secret scanning assignment story: self-assign,
+ * assign another, self-unassign, unassign another, and a combined assign +
+ * unassign example.
+ */
+export const EventAssignment = () => (
+  <Examples>
+    {/* Self-assigned — actor === assignee (`self_assignment?`) */}
+    <VariantSection label="Self-assigned">
+      <Timeline aria-label="Dependabot alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor href="#" muted />
+            {'self-assigned this '}
+            <MutedTime date={new Date('2022-08-10T09:00:00Z')} />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+
+    {/* Assigned someone else — both actor + assignee avatars */}
+    <VariantSection label="Assigned another user">
+      <Timeline aria-label="Dependabot alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor href="#" muted />
+            {'assigned '}
+            <UserActor login="six7" src={SIX7_AVATAR} href="#" muted />{' '}
+            <MutedTime date={new Date('2022-08-10T09:05:00Z')} />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+
+    {/* Self-unassigned — actor removed their own assignment */}
+    <VariantSection label="Removed own assignment">
+      <Timeline aria-label="Dependabot alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor href="#" muted />
+            {'removed their assignment '}
+            <MutedTime date={new Date('2022-08-10T09:10:00Z')} />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+
+    {/* Unassigned someone else */}
+    <VariantSection label="Unassigned another user">
+      <Timeline aria-label="Dependabot alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor href="#" muted />
+            {'unassigned '}
+            <UserActor login="six7" src={SIX7_AVATAR} href="#" muted />{' '}
+            <MutedTime date={new Date('2022-08-10T09:15:00Z')} />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+
+    {/* Assigned one user and unassigned another in a single event */}
+    <VariantSection label="Assigned and unassigned">
+      <Timeline aria-label="Dependabot alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={PersonIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor href="#" muted />
+            {'assigned '}
+            <UserActor login="six7" src={SIX7_AVATAR} href="#" muted />
+            {' and unassigned '}
+            <UserActor login="hubot" src={HUBOT_AVATAR} href="#" muted />{' '}
+            <MutedTime date={new Date('2022-08-10T09:20:00Z')} />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+  </Examples>
+)
+
+/**
+ * The Copilot work event group — `CopilotWorkStartedComponent` /
+ * `CopilotWorkFinishedComponent` (`copilot_work_started_component.{rb,html.erb}`
+ * and `copilot_work_finished_component.{rb,html.erb}`).
+ *
+ * These events surface when a Dependabot alert is assigned to Copilot. In both,
+ * `Copilot` is BOLD PLAIN TEXT (a `<strong>`, NOT a link or avatar), followed by
+ * `started`/`finished` `work on behalf of` the human {actor} (an `ActorComponent`
+ * → our linked + muted `UserActor`) and the past `RelativeTime`.
+ *
+ * - Work started (`with_badge(icon: "git-branch")`): default (gray) badge. When
+ *   `session_url` is present the ERB also renders a right-floated small anchor
+ *   `Button` ("View session"). We place that in the `Timeline.Actions` slot —
+ *   the same right-controls convention as the Dismissal request "Review request"
+ *   button above.
+ * - Work finished (`with_badge(icon: "repo-push")`): default (gray) badge, no
+ *   right control.
+ */
+export const EventCopilotWork = () => (
+  <Examples>
+    {/* Work started — git-branch badge + optional "View session" right control */}
+    <VariantSection label="Work started">
+      <Timeline aria-label="Dependabot alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={GitBranchIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <strong>Copilot</strong>
+            {' started work on behalf of '}
+            <UserActor href="#" muted /> <MutedTime date={new Date('2022-08-11T10:00:00Z')} />
+          </Timeline.Body>
+          <Timeline.Actions>
+            <Button as="a" href="#" size="small">
+              View session
+            </Button>
+          </Timeline.Actions>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+
+    {/* Work finished — repo-push badge, no right control */}
+    <VariantSection label="Work finished">
+      <Timeline aria-label="Dependabot alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={RepoPushIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <strong>Copilot</strong>
+            {' finished work on behalf of '}
+            <UserActor href="#" muted /> <MutedTime date={new Date('2022-08-11T10:45:00Z')} />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
