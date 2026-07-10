@@ -636,7 +636,7 @@ export const EventDismissalRequest = () => (
 
 /**
  * The Assignment event group — `AssignmentComponent`
- * (`assignment_items/assignment_component.{rb,html.erb}`).
+ * (`timeline_items/assignment_component.{rb,html.erb}`).
  *
  * Source: `DependabotAlerts::TimelineItems::AssignmentComponent`. Badge:
  * `person` icon on the PLAIN DEFAULT badge (subtle gray circle) — the ERB
