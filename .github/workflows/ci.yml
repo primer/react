@@ -53,7 +53,7 @@ jobs:
       - name: Check className test coverage
         run: npm run test:classname-coverage
       - name: Check react compiler coverage
-        run: npx turbo run lint:react-compiler
+        run: npx turbo run lint:react-compiler --log-prefix=none
 
   test:
     runs-on: ubuntu-latest
