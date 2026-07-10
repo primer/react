@@ -13,7 +13,7 @@
   "scripts": {
     "build": "node script/build.ts && rolldown -c",
     "clean": "rimraf dist",
-    "lint:npm": "npm run build && publint --types",
+    "lint:npm": "publint --types",
     "lint:react-compiler": "node script/lint-react-compiler.ts",
     "type-check": "tsc --noEmit",
     "watch": "rolldown -c -w"
