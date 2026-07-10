@@ -1,5 +1,23 @@
 # @primer/react
 
+## 38.31.0
+
+### Minor Changes
+
+- [#8057](https://github.com/primer/react/pull/8057) [`0b9c81e`](https://github.com/primer/react/commit/0b9c81e7e8fef1dfc98f3b86b5a375d4ec7fe204) Thanks [@francinelucca](https://github.com/francinelucca)! - ThemeProvider: Remove `primer_react_theme_provider_remove_ssr_handoff` feature flag.
+
+- [#8105](https://github.com/primer/react/pull/8105) [`be2950f`](https://github.com/primer/react/commit/be2950fd1ac268dd4e79258ab2cfe9241dd9e1c6) Thanks [@joshblack](https://github.com/joshblack)! - React Compiler: Enable compiler output for Banner, ConfirmationDialog, PageLayout, Pagination, UnderlineNav, `useMergedRefs`, and `useScrollFlash`
+
+### Patch Changes
+
+- [#8066](https://github.com/primer/react/pull/8066) [`dd66aa2`](https://github.com/primer/react/commit/dd66aa27611f7ad56adb7429b50813d6af5a01d7) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Fix invalid HTML nesting in `ActionList.Heading` by applying the visually-hidden styles directly to the heading element instead of wrapping it in a `span`.
+
+- [#8054](https://github.com/primer/react/pull/8054) [`1775f2e`](https://github.com/primer/react/commit/1775f2e8b968d59a1189456b14cff15e527937cb) Thanks [@joshblack](https://github.com/joshblack)! - AvatarStack: Improve rendering performance with React Compiler support
+
+- [#8053](https://github.com/primer/react/pull/8053) [`b2151ae`](https://github.com/primer/react/commit/b2151ae2d5719f09efb0b89731e52e4ca50e8bf1) Thanks [@joshblack](https://github.com/joshblack)! - Checkbox, CheckboxGroup, and RadioGroup: Improve rendering performance with React Compiler support
+
+- [#8052](https://github.com/primer/react/pull/8052) [`a1b24cf`](https://github.com/primer/react/commit/a1b24cf3411566641aeb846e62069dc26505da6b) Thanks [@joshblack](https://github.com/joshblack)! - Heading, Link, Pagehead, Portal, and SideNav: Improve rendering performance with React Compiler support
+
 ## 38.30.0
 
 ### Minor Changes

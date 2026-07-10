@@ -4,34 +4,79 @@
   is slightly better for animations. */
   animation: detect-overflow linear;
   animation-timeline: scroll(self block);
+  container-type: inline-size;
 
-  --UnderlineNav_moreButton-visibility: hidden;
-  --UnderlineNav_icons-display: inline;
-
-  &[data-hide-icons='true'] {
-    --UnderlineNav_icons-display: none;
-  }
+  --UnderlineNav_moreButton-display: none;
 
   &[data-has-overflow='true'] {
-    --UnderlineNav_moreButton-visibility: visible;
+    --UnderlineNav_moreButton-display: flex;
   }
 }
 
+/* Set overflow button visibility with pure CSS to avoid a layout shift on hydration */
 @keyframes detect-overflow {
   0%,
   100% {
-    --UnderlineNav_moreButton-visibility: visible;
-    --UnderlineNav_icons-display: none;
+    --UnderlineNav_moreButton-display: flex;
   }
 }
 
-.ItemsList [data-component='icon'] {
-  display: var(--UnderlineNav_icons-display);
+.UnderlineWrapper[data-hide-icons-breakpoint='xsmall'] {
+  @container (width < 20rem) {
+    .ItemsList [data-component='icon'] {
+      display: none;
+    }
+  }
+}
+
+.UnderlineWrapper[data-hide-icons-breakpoint='small'] {
+  @container (width < 34rem) {
+    .ItemsList [data-component='icon'] {
+      display: none;
+    }
+  }
+}
+
+.UnderlineWrapper[data-hide-icons-breakpoint='medium'] {
+  @container (width < 48rem) {
+    .ItemsList [data-component='icon'] {
+      display: none;
+    }
+  }
+}
+
+.UnderlineWrapper[data-hide-icons-breakpoint='large'] {
+  @container (width < 63.25rem) {
+    .ItemsList [data-component='icon'] {
+      display: none;
+    }
+  }
+}
+
+.UnderlineWrapper[data-hide-icons-breakpoint='xlarge'] {
+  @container (width < 80rem) {
+    .ItemsList [data-component='icon'] {
+      display: none;
+    }
+  }
+}
+
+.UnderlineWrapper[data-hide-icons-breakpoint='xxlarge'] {
+  @container (width < 87.5rem) {
+    .ItemsList [data-component='icon'] {
+      display: none;
+    }
+  }
+}
+
+.WrapSpacer {
+  /* Cancel out the flex gap so the first real item has no leading gap */
+  /* stylelint-disable-next-line primer/spacing -- negative margin required to cancel the flex gap from the list */
+  margin-inline-end: calc(-1 * var(--stack-gap-condensed));
 }
 
 .MoreButtonContainer {
-  display: flex;
-  visibility: var(--UnderlineNav_moreButton-visibility);
+  display: var(--UnderlineNav_moreButton-display, flex);
   align-items: center;
 }
 

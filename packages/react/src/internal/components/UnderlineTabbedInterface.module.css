@@ -18,10 +18,6 @@
     padding-inline: unset;
   }
 
-  &[data-hide-icons='true'] [data-component='icon'] {
-    display: none;
-  }
-
   &[data-overflow-mode='wrap'] {
     /* Wrap items onto hidden next lines */
     overflow: hidden;
