@@ -25,6 +25,7 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@primer/octicons": "^19.21.1",
+    "@primer/vitest-config": "^0.0.0",
     "@rolldown/plugin-babel": "^0.2.3",
     "@rollup/plugin-babel": "^7.1.0",
     "@types/babel__core": "^7.20.5",

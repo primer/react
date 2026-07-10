@@ -1,8 +1,5 @@
 # @primer/octicons-react-symbols
 
-[![npm package](https://img.shields.io/npm/v/@primer/octicons-react-symbols.svg)](https://www.npmjs.com/package/@primer/octicons-react-symbols)
-[![contributors graph](https://img.shields.io/github/contributors/primer/octicons-react.svg)](
-
 > Optimized React components for rendering Octicons with shared SVG symbols
 
 ## Getting started
