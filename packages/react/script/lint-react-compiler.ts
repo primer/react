@@ -12,19 +12,26 @@ type CompilerFailure = Extract<CheckResult, {ok: false}> & {
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const packageDirectory = path.resolve(dirname, '..')
 const repositoryDirectory = path.resolve(packageDirectory, '../..')
-const migratedFiles = files.filter(isSupported)
-const failures = migratedFiles.map(checkCompilerFile).filter((result): result is CompilerFailure => !result.ok)
+const allResults = files.map(checkCompilerFile)
+const migratedFailures = allResults.filter(
+  (result): result is CompilerFailure => !result.ok && isSupported(result.filepath),
+)
+const nonMigratedFailures = allResults.filter(
+  (result): result is CompilerFailure => !result.ok && !isSupported(result.filepath),
+)
 
-if (failures.length > 0) {
+if (migratedFailures.length > 0) {
   // eslint-disable-next-line no-console
-  console.error(`React Compiler failed for ${failures.length} migrated file${failures.length === 1 ? '' : 's'}:\n`)
+  console.error(
+    `React Compiler failed for ${migratedFailures.length} migrated file${migratedFailures.length === 1 ? '' : 's'}:\n`,
+  )
 
-  for (const failure of failures) {
+  for (const failure of migratedFailures) {
     const relativePath = path.relative(packageDirectory, failure.filepath)
 
     for (const error of failure.errors) {
       if (process.env.GITHUB_ACTIONS === 'true') {
-        writeGitHubError(path.relative(repositoryDirectory, failure.filepath), error)
+        writeGitHubAnnotation('error', path.relative(repositoryDirectory, failure.filepath), error)
       }
 
       const line = getLocationLine(error.location)
@@ -37,15 +44,50 @@ if (failures.length > 0) {
 
   process.exitCode = 1
 } else {
+  const migratedCount = files.filter(isSupported).length
   // eslint-disable-next-line no-console
-  console.log(`React Compiler passed for ${migratedFiles.length} migrated files.`)
+  console.log(`React Compiler passed for ${migratedCount} migrated files.`)
+}
+
+if (nonMigratedFailures.length > 0) {
+  // eslint-disable-next-line no-console
+  console.log(
+    `\nReact Compiler found issues in ${nonMigratedFailures.length} not-yet-migrated file${nonMigratedFailures.length === 1 ? '' : 's'}:\n`,
+  )
+
+  for (const failure of nonMigratedFailures) {
+    const relativePath = path.relative(packageDirectory, failure.filepath)
+
+    for (const error of failure.errors) {
+      if (process.env.GITHUB_ACTIONS === 'true') {
+        writeGitHubAnnotation(
+          'notice',
+          path.relative(repositoryDirectory, failure.filepath),
+          error,
+          getMigrationSuggestion(relativePath),
+        )
+      }
+
+      const line = getLocationLine(error.location)
+      const location = line === undefined ? relativePath : `${relativePath}:${line}`
+
+      // eslint-disable-next-line no-console
+      console.log(`- ${location} ${formatReason(error.reason)}`)
+      // eslint-disable-next-line no-console
+      console.log(`  Suggestion: ${getMigrationSuggestion(relativePath)}`)
+    }
+  }
+}
+
+function getMigrationSuggestion(relativePath: string): string {
+  return `To migrate ${relativePath} to React Compiler, remove it from the exclusion list in script/react-compiler.mjs and fix the compiler errors above.`
 }
 
 function formatReason(reason: string): string {
   return reason.replaceAll('\n', ' ')
 }
 
-function writeGitHubError(filepath: string, error: CheckError): void {
+function writeGitHubAnnotation(level: 'error' | 'notice', filepath: string, error: CheckError, message?: string): void {
   const properties = [`file=${escapeWorkflowProperty(filepath)}`, 'title=React Compiler']
   const line = getLocationLine(error.location)
   const column = getLocationColumn(error.location)
@@ -58,8 +100,10 @@ function writeGitHubError(filepath: string, error: CheckError): void {
     properties.push(`col=${column}`)
   }
 
+  const detail = message ? `${error.reason}\n${message}` : error.reason
+
   // eslint-disable-next-line no-console
-  console.log(`::error ${properties.join(',')}::${escapeWorkflowCommand(error.reason)}`)
+  console.log(`::${level} ${properties.join(',')}::${escapeWorkflowCommand(detail)}`)
 }
 
 function escapeWorkflowCommand(value: string): string {
@@ -87,8 +131,17 @@ function getLocationColumn(location: CheckError['location']): number | undefined
 }
 
 function checkCompilerFile(filepath: string): CheckResult & {filepath: string} {
-  return {
-    filepath,
-    ...checkFile(filepath, fs.readFileSync(filepath, 'utf8')),
+  try {
+    return {
+      filepath,
+      ...checkFile(filepath, fs.readFileSync(filepath, 'utf8')),
+    }
+  } catch (error: unknown) {
+    const reason = error instanceof Error ? error.message : String(error)
+    return {
+      filepath,
+      ok: false,
+      errors: [{location: null, reason}],
+    }
   }
 }
