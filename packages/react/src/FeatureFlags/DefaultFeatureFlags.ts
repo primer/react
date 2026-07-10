@@ -8,5 +8,5 @@ export const DefaultFeatureFlags = FeatureFlagScope.create({
   primer_react_action_list_group_heading_trailing_action: false,
   primer_react_action_list_item_gap: false,
   primer_react_timeline_list_semantics: false,
-  primer_react_merged_forwarded_refs: true,
+  primer_react_merged_forwarded_refs: false,
 })
