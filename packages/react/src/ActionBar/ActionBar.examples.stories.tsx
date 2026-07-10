@@ -72,6 +72,17 @@ export const SmallActionBar = () => (
   </ActionBar>
 )
 
+export const WithTextButtons = () => (
+  <ActionBar aria-label="Toolbar">
+    <ActionBar.Button>Save</ActionBar.Button>
+    <ActionBar.Button leadingVisual={FileAddedIcon}>Add file</ActionBar.Button>
+    <ActionBar.Button leadingVisual={SearchIcon}>Search</ActionBar.Button>
+    <ActionBar.Divider />
+    <ActionBar.Button>Cancel</ActionBar.Button>
+    <ActionBar.Button disabled>Disabled</ActionBar.Button>
+  </ActionBar>
+)
+
 export const GapScale = () => (
   <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
     <div>

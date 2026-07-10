@@ -232,7 +232,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 }
 
 const TabImpl: FCWithSlotMarker<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) => {
-  const {iconsVisible, loadingCounters} = useContext(UnderlinePanelsContext)
+  const {loadingCounters} = useContext(UnderlinePanelsContext)
   const clickHandler = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       if (!event.defaultPrevented && typeof onSelect === 'function') {
@@ -259,7 +259,6 @@ const TabImpl: FCWithSlotMarker<TabProps> = ({'aria-selected': ariaSelected, onS
       type="button"
       onClick={clickHandler}
       onKeyDown={keyDownHandler}
-      iconsVisible={iconsVisible}
       loadingCounters={loadingCounters}
       {...props}
     />

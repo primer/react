@@ -33,7 +33,7 @@
         {
           "name": "preventSSRMismatch",
           "type": "boolean",
-          "description": "Prevent SSR mismatch by injecting server-side color mode."
+          "description": "Deprecated: This prop is no longer used and has no effect."
         }
       ]
     },
