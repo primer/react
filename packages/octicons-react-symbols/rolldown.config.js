@@ -1,6 +1,6 @@
 import {defineConfig} from 'rolldown/config'
 import babel from '@rollup/plugin-babel'
-import typescript from 'rollup-plugin-typescript2'
+import {dts} from 'rolldown-plugin-dts'
 import packageJson from './package.json' with {type: 'json'}
 
 const external = [
@@ -13,7 +13,10 @@ export default defineConfig({
   input: ['./src/generated/index.ts'],
   external,
   plugins: [
-    typescript({
+    dts({
+      emitDtsOnly: true,
+      oxc: false,
+      sourcemap: false,
       tsconfig: 'tsconfig.build.json',
     }),
     babel({

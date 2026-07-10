@@ -19,7 +19,8 @@ time an icon is rendered. This is useful in apps that render the same icons many
 times, because the symbol definition can be shared while each icon renders a
 small `<svg><use /></svg>` reference.
 
-At the root of your application, wrap your app with `OcticonSymbols`:
+In your project, add the `OcticonSymbols` component and include any symbol
+references that you would like to include.
 
 ```tsx
 import {OcticonSymbols, CheckSymbol} from '@primer/octicons-react-symbols'
