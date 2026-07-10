@@ -68,7 +68,7 @@
     "@vitest/eslint-plugin": "^1.6.20",
     "babel-plugin-react-compiler": "^1.0.0",
     "change-case": "^5.4.4",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "eslint-import-resolver-typescript": "3.7.0",
     "eslint-plugin-clsx": "^0.1.0",
     "eslint-plugin-github": "^6.0.0",
