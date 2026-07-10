@@ -7,10 +7,14 @@
     "types": "./dist/generated/index.d.ts",
     "default": "./dist/generated/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "node script/build.ts && rolldown -c",
     "clean": "rimraf dist",
     "lint:npm": "publint --types",
+    "lint:react-compiler": "node script/lint-react-compiler.ts",
     "type-check": "tsc --noEmit",
     "watch": "rolldown -c -w"
   },
@@ -25,6 +29,7 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@primer/octicons": "^19.21.1",
+    "@primer/react-compiler-check": "^0.0.0",
     "@primer/vitest-config": "^0.0.0",
     "@rolldown/plugin-babel": "^0.2.3",
     "@rollup/plugin-babel": "^7.1.0",
