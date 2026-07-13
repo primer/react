@@ -41,33 +41,58 @@ export const Playground: StoryObj<typeof Banner> = {
   render: ({onDismiss, primaryAction, secondaryAction, leadingVisual, ...rest}) => {
     // Map the string selection to the actual icon component
     const leadingVisualElement = leadingVisual && iconMap[leadingVisual as keyof typeof iconMap]
+    const supportsCustomVisual = rest.variant === undefined || rest.variant === 'info' || rest.variant === 'upsell'
 
     return (
       <PageLayout>
         <PageLayout.Pane divider="line" position="start">
-          <Banner
-            aria-label="Pane level banner"
-            onDismiss={onDismiss ? action('onDismiss') : undefined}
-            primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
-            secondaryAction={
-              secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
-            }
-            leadingVisual={leadingVisualElement}
-            {...rest}
-          />
+          {supportsCustomVisual ? (
+            <Banner
+              aria-label="Pane level banner"
+              onDismiss={onDismiss ? action('onDismiss') : undefined}
+              primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+              secondaryAction={
+                secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
+              }
+              leadingVisual={leadingVisualElement}
+              {...rest}
+            />
+          ) : (
+            <Banner
+              aria-label="Pane level banner"
+              onDismiss={onDismiss ? action('onDismiss') : undefined}
+              primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+              secondaryAction={
+                secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
+              }
+              {...rest}
+            />
+          )}
         </PageLayout.Pane>
 
         <PageLayout.Content>
-          <Banner
-            aria-label="Content level banner"
-            onDismiss={onDismiss ? action('onDismiss') : undefined}
-            primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
-            secondaryAction={
-              secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
-            }
-            leadingVisual={leadingVisualElement}
-            {...rest}
-          />
+          {supportsCustomVisual ? (
+            <Banner
+              aria-label="Content level banner"
+              onDismiss={onDismiss ? action('onDismiss') : undefined}
+              primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+              secondaryAction={
+                secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
+              }
+              leadingVisual={leadingVisualElement}
+              {...rest}
+            />
+          ) : (
+            <Banner
+              aria-label="Content level banner"
+              onDismiss={onDismiss ? action('onDismiss') : undefined}
+              primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+              secondaryAction={
+                secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
+              }
+              {...rest}
+            />
+          )}
         </PageLayout.Content>
       </PageLayout>
     )

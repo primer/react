@@ -11,13 +11,16 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 
 export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
+type BannerVariantWithCustomVisual = 'info' | 'upsell'
+type BannerVariantWithDefaultVisual = Exclude<BannerVariant, BannerVariantWithCustomVisual>
+
 type BannerContextValue = {
   titleId: string
 }
 
 const BannerContext = React.createContext<BannerContextValue | undefined>(undefined)
 
-export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
+interface BannerBaseProps extends Omit<React.ComponentPropsWithoutRef<'section'>, 'title'> {
   /**
    * Provide an optional label to override the default name for the Banner
    * landmark region
@@ -40,17 +43,6 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * Specify whether the title of the Banner should be visible or not.
    */
   hideTitle?: boolean
-
-  /**
-   * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
-   * @deprecated Use `leadingVisual` instead
-   */
-  icon?: React.ReactNode
-
-  /**
-   * Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`
-   */
-  leadingVisual?: React.ReactNode
 
   /**
    * Optionally provide a handler to be called when the banner is dismissed.
@@ -94,6 +86,36 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    */
   flush?: boolean
 }
+
+type BannerCustomVisualProps = {
+  /**
+   * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
+   * @deprecated Use `leadingVisual` instead
+   */
+  icon?: React.ReactNode
+
+  /**
+   * Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`
+   */
+  leadingVisual?: React.ReactNode
+
+  /**
+   * Specify the type of the Banner
+   */
+  variant?: BannerVariantWithCustomVisual
+}
+
+type BannerDefaultVisualProps = {
+  icon?: never
+  leadingVisual?: never
+
+  /**
+   * Specify the type of the Banner
+   */
+  variant: BannerVariantWithDefaultVisual
+}
+
+export type BannerProps = BannerBaseProps & (BannerCustomVisualProps | BannerDefaultVisualProps)
 
 const iconForVariant: Record<BannerVariant, React.ReactNode> = {
   critical: <StopIcon />,
