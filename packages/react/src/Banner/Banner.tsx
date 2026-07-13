@@ -65,11 +65,6 @@ interface BannerBaseProps extends Omit<React.ComponentPropsWithoutRef<'section'>
   title?: React.ReactNode
 
   /**
-   * Specify the type of the Banner
-   */
-  variant?: BannerVariant
-
-  /**
    * Specify the layout of the Banner. Compact layout will reduce the padding.
    */
   layout?: 'default' | 'compact'
@@ -85,10 +80,10 @@ interface BannerBaseProps extends Omit<React.ComponentPropsWithoutRef<'section'>
   flush?: boolean
 }
 
-type LeadingVisualProps =
+type VariantAndLeadingVisualProps =
   | {
       /**
-       * Specify the type of the Banner
+       * Specify the type of the Banner, default = info
        */
       variant?: BannerVariantsWithCustomVisual
 
@@ -109,7 +104,7 @@ type LeadingVisualProps =
       leadingVisual?: never
     }
 
-export type BannerProps = BannerBaseProps & LeadingVisualProps
+export type BannerProps = BannerBaseProps & VariantAndLeadingVisualProps
 
 const defaultIconForVariant: Record<BannerVariant, React.ReactNode> = {
   critical: <StopIcon />,
