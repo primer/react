@@ -162,6 +162,65 @@ server.registerTool(
 )
 
 server.registerTool(
+  'get_component_batch',
+  {
+    description:
+      'Retrieve documentation for multiple Primer React components in one call. ' +
+      'Pass all component names you need at once. Docs are fetched in parallel to avoid repeated MCP round-trips when resolving several components. ' +
+      'For a single component, prefer get_component instead.',
+    inputSchema: {
+      names: z
+        .array(z.string())
+        .min(2)
+        .max(10)
+        .describe('Component names to retrieve (e.g. ["ActionMenu", "Button", "Pagination"])'),
+    },
+    annotations: {readOnlyHint: true},
+  },
+  async ({names}) => {
+    const deduped = [...new Set(names)]
+    const components = listComponents()
+
+    const results = await Promise.all(
+      deduped.map(async name => {
+        const match = components.find(
+          component => component.name === name || component.name.toLowerCase() === name.toLowerCase(),
+        )
+        if (!match) {
+          return {
+            type: 'text' as const,
+            text: `## ${name}\n\nStatus: not-found. No component named \`${name}\` exists in @primer/react. Use \`list_components\` for valid names.`,
+          }
+        }
+
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 10_000)
+
+        try {
+          const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
+          const llmsResponse = await fetch(llmsUrl, {signal: controller.signal})
+          if (llmsResponse.ok) {
+            const text = await llmsResponse.text()
+            return {type: 'text' as const, text}
+          }
+        } catch (_: unknown) {
+          // Fall through to the in-band error result so other component requests can succeed.
+        } finally {
+          clearTimeout(timeout)
+        }
+
+        return {
+          type: 'text' as const,
+          text: `## ${name}\n\nStatus: fetch-error. Failed to load documentation for ${name}.`,
+        }
+      }),
+    )
+
+    return {content: results}
+  },
+)
+
+server.registerTool(
   'get_component_examples',
   {
     description: 'Get examples for how to use a component from Primer React',
