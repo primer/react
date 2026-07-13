@@ -178,7 +178,15 @@ server.registerTool(
     annotations: {readOnlyHint: true},
   },
   async ({names}) => {
-    const deduped = [...new Set(names)]
+    const seenNames = new Set<string>()
+    const deduped = names.filter(name => {
+      const normalizedName = name.toLowerCase()
+      if (seenNames.has(normalizedName)) {
+        return false
+      }
+      seenNames.add(normalizedName)
+      return true
+    })
     const components = listComponents()
 
     const results = await Promise.all(
