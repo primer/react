@@ -86,7 +86,7 @@ describe('get_component_batch', () => {
   it('returns missing components and fetch failures in-band', async () => {
     vi.mocked(fetch).mockResolvedValue(new Response(null, {status: 500}))
 
-    const result = await callBatch(['MissingComponent', 'Button'])
+    const result = await callBatch(['MissingComponent', 'button'])
 
     expect(result.isError).not.toBe(true)
     expect(result.content).toEqual([

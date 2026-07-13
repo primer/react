@@ -219,7 +219,7 @@ server.registerTool(
 
         return {
           type: 'text' as const,
-          text: `## ${name}\n\nStatus: fetch-error. Failed to load documentation for ${name}.`,
+          text: `## ${match.name}\n\nStatus: fetch-error. Failed to load documentation for ${match.name}.`,
         }
       }),
     )
