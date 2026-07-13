@@ -29,6 +29,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "rolldown -c",
+    "test": "vitest --run",
     "type-check": "tsc --noEmit",
     "watch": "rolldown -c -w"
   },
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@modelcontextprotocol/inspector": "^0.16.6",
+    "@primer/vitest-config": "^0.0.0",
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
     "rolldown": "^1.1.2",
