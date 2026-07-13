@@ -10,9 +10,7 @@ import classes from './Banner.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
-
-type BannerVariantWithCustomVisual = 'info' | 'upsell'
-type BannerVariantWithDefaultVisual = Exclude<BannerVariant, BannerVariantWithCustomVisual>
+type BannerVariantsWithCustomVisual = 'info' | 'upsell'
 
 type BannerContextValue = {
   titleId: string
@@ -87,37 +85,33 @@ interface BannerBaseProps extends Omit<React.ComponentPropsWithoutRef<'section'>
   flush?: boolean
 }
 
-type BannerCustomVisualProps = {
-  /**
-   * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
-   * @deprecated Use `leadingVisual` instead
-   */
-  icon?: React.ReactNode
+type LeadingVisualProps =
+  | {
+      /**
+       * Specify the type of the Banner
+       */
+      variant?: BannerVariantsWithCustomVisual
 
-  /**
-   * Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`
-   */
-  leadingVisual?: React.ReactNode
+      /**
+       * Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`
+       */
+      leadingVisual?: React.ReactNode
 
-  /**
-   * Specify the type of the Banner
-   */
-  variant?: BannerVariantWithCustomVisual
-}
+      /**
+       * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
+       * @deprecated Use `leadingVisual` instead
+       */
+      icon?: React.ReactNode
+    }
+  | {
+      variant: Exclude<BannerVariant, BannerVariantsWithCustomVisual>
+      icon?: never
+      leadingVisual?: never
+    }
 
-type BannerDefaultVisualProps = {
-  icon?: never
-  leadingVisual?: never
+export type BannerProps = BannerBaseProps & LeadingVisualProps
 
-  /**
-   * Specify the type of the Banner
-   */
-  variant: BannerVariantWithDefaultVisual
-}
-
-export type BannerProps = BannerBaseProps & (BannerCustomVisualProps | BannerDefaultVisualProps)
-
-const iconForVariant: Record<BannerVariant, React.ReactNode> = {
+const defaultIconForVariant: Record<BannerVariant, React.ReactNode> = {
   critical: <StopIcon />,
   info: <InfoIcon />,
   success: <CheckCircleIcon />,
@@ -192,7 +186,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
         data-flush={flush ? '' : undefined}
       >
         <div data-component="Banner.Icon" className={classes.BannerIcon}>
-          {visual && supportsCustomIcon ? visual : iconForVariant[variant]}
+          {visual && supportsCustomIcon ? visual : defaultIconForVariant[variant]}
         </div>
         <div className={classes.BannerContainer}>
           <div data-component="Banner.Content" className={classes.BannerContent}>

@@ -41,24 +41,33 @@ export const Playground: StoryObj<typeof Banner> = {
   render: ({onDismiss, primaryAction, secondaryAction, leadingVisual, ...rest}) => {
     // Map the string selection to the actual icon component
     const leadingVisualElement = leadingVisual && iconMap[leadingVisual as keyof typeof iconMap]
-    // leadingVisual is only supported for the info and upsell variants
-    const supportsCustomVisual = rest.variant === undefined || rest.variant === 'info' || rest.variant === 'upsell'
-    const sharedProps = {
-      onDismiss: onDismiss ? action('onDismiss') : undefined,
-      primaryAction: primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null,
-      secondaryAction: secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null,
-      ...(supportsCustomVisual ? {leadingVisual: leadingVisualElement} : {}),
-      ...rest,
-    } as React.ComponentProps<typeof Banner>
 
     return (
       <PageLayout>
         <PageLayout.Pane divider="line" position="start">
-          <Banner aria-label="Pane level banner" {...sharedProps} />
+          <Banner
+            aria-label="Pane level banner"
+            onDismiss={onDismiss ? action('onDismiss') : undefined}
+            primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+            secondaryAction={
+              secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
+            }
+            leadingVisual={leadingVisualElement}
+            {...rest}
+          />
         </PageLayout.Pane>
 
         <PageLayout.Content>
-          <Banner aria-label="Content level banner" {...sharedProps} />
+          <Banner
+            aria-label="Content level banner"
+            onDismiss={onDismiss ? action('onDismiss') : undefined}
+            primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+            secondaryAction={
+              secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
+            }
+            leadingVisual={leadingVisualElement}
+            {...rest}
+          />
         </PageLayout.Content>
       </PageLayout>
     )
