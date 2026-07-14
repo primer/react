@@ -1,2 +1,12 @@
 export * from './PageLayout'
-export {defaultPaneWidth} from './usePaneWidth'
+export {usePaneWidth, defaultPaneWidth, updateAriaValues, ARROW_KEY_STEP} from './usePaneWidth'
+export type {
+  UsePaneWidthOptions,
+  UsePaneWidthResult,
+  PaneWidth,
+  PaneWidthValue,
+  CustomWidthOptions,
+} from './usePaneWidth'
+export {DragHandle} from './DragHandle'
+export type {DragHandleProps} from './DragHandle'
+export {setDraggingStyles, removeDraggingStyles} from './paneUtils'

@@ -31,7 +31,11 @@ export type UsePaneWidthOptions = {
   widthStorageKey?: string
   paneRef: React.RefObject<HTMLDivElement | null>
   handleRef: React.RefObject<HTMLDivElement | null>
-  contentWrapperRef: React.RefObject<HTMLDivElement | null>
+  /**
+   * Optional ref to the content wrapper element. Only used by PageLayout for its
+   * viewport/content math during resize. Standalone consumers can omit this.
+   */
+  contentWrapperRef?: React.RefObject<HTMLDivElement | null>
   /**
    * When true, custom max width values are capped to the viewport-based max.
    * This prevents overflow in non-wrapping flex layouts (e.g., Sidebar).
@@ -126,18 +130,25 @@ export function getMaxWidthDiffFromViewport(): number {
   return window.innerWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT ? WIDE_MAX_WIDTH_DIFF : DEFAULT_MAX_WIDTH_DIFF
 }
 
+/**
+ * Default formatter for the drag handle's `aria-valuetext`.
+ * Kept in sync between the rendered attribute and drag-time DOM writes.
+ */
+export const defaultFormatValueText = (valueNow: number): string => `Pane width ${valueNow} pixels`
+
 // Helper to update ARIA slider attributes via direct DOM manipulation
 // This avoids re-renders when values change during drag or on viewport resize
 export const updateAriaValues = (
   handle: HTMLElement | null,
   values: {current?: number; min?: number; max?: number},
+  formatValueText: (valueNow: number) => string = defaultFormatValueText,
 ) => {
   if (!handle) return
   if (values.min !== undefined) handle.setAttribute('aria-valuemin', String(values.min))
   if (values.max !== undefined) handle.setAttribute('aria-valuemax', String(values.max))
   if (values.current !== undefined) {
     handle.setAttribute('aria-valuenow', String(values.current))
-    handle.setAttribute('aria-valuetext', `Pane width ${values.current} pixels`)
+    handle.setAttribute('aria-valuetext', formatValueText(values.current))
   }
 }
 
@@ -415,14 +426,14 @@ export function usePaneWidth({
       if (isResizing) return
       isResizing = true
       paneRef.current?.setAttribute('data-dragging', 'true')
-      contentWrapperRef.current?.setAttribute('data-dragging', 'true')
+      contentWrapperRef?.current?.setAttribute('data-dragging', 'true')
     }
 
     const endResizeOptimizations = () => {
       if (!isResizing) return
       isResizing = false
       paneRef.current?.removeAttribute('data-dragging')
-      contentWrapperRef.current?.removeAttribute('data-dragging')
+      contentWrapperRef?.current?.removeAttribute('data-dragging')
     }
 
     const handleResize = () => {
