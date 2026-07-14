@@ -61,8 +61,10 @@ function formatAnnotation(error: CheckError): string {
     details.push(error.description)
   }
 
-  if (error.suggestions !== null && error.suggestions !== undefined && error.suggestions.length > 0) {
-    details.push(`Suggestions:\n${error.suggestions.map(suggestion => `- ${suggestion.description}`).join('\n')}`)
+  const suggestions = error.suggestions ?? []
+
+  if (suggestions.length > 0) {
+    details.push(`Suggestions:\n${suggestions.map(suggestion => `- ${suggestion.description}`).join('\n')}`)
   }
 
   return details.join('\n\n')
