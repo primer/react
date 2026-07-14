@@ -7,3 +7,32 @@
 .SuccessColor {
   color: var(--fgColor-success);
 }
+
+.StandaloneContainer {
+  display: flex;
+  height: 260px;
+  margin: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.StandalonePanel {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--pane-width);
+  min-width: var(--pane-min-width, 160px);
+  padding: var(--base-size-16);
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-muted);
+}
+
+.StandaloneHandleBar {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 2px;
+}
+
+.StandaloneContent {
+  flex: 1 1 auto;
+  padding: var(--base-size-16);
+}
+
