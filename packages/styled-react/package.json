@@ -38,14 +38,13 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.7",
-    "@babel/preset-react": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-react": "^8.0.1",
+    "@babel/preset-typescript": "^8.0.1",
     "@primer/primitives": "10.x || 11.x",
     "@primer/react": "^38.26.0",
     "@rolldown/plugin-babel": "^0.2.3",
     "@storybook/react-vite": "^10.4.6",
-    "@types/babel__core": "^7.20.5",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
     "@types/styled-components": "^5.1.26",

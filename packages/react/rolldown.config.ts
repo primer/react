@@ -1,4 +1,5 @@
 import path from 'node:path'
+import {fileURLToPath} from 'node:url'
 import babel from '@rolldown/plugin-babel'
 import {defineConfig} from 'rolldown'
 import {preserveDirectives} from 'rolldown-plugin-preserve-directives'
@@ -15,6 +16,10 @@ interface PackageMetadata {
 }
 
 const packageMetadata: PackageMetadata = packageJson
+const devExpressionPlugin = fileURLToPath(new URL('./script/babel-plugins/dev-expression.cjs', import.meta.url))
+const replaceExpressionsPlugin = fileURLToPath(
+  new URL('./script/babel-plugins/replace-expressions.cjs', import.meta.url),
+)
 
 const entrypoints = new Set([
   // "exports"
@@ -74,7 +79,6 @@ export default defineConfig([
           [
             '@babel/preset-react',
             {
-              modules: false,
               runtime: 'automatic',
             },
           ],
@@ -89,12 +93,12 @@ export default defineConfig([
           ],
           'macros',
           'add-react-displayname',
-          'dev-expression',
+          devExpressionPlugin,
           'babel-plugin-styled-components',
-          '@babel/plugin-proposal-nullish-coalescing-operator',
-          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-transform-nullish-coalescing-operator',
+          '@babel/plugin-transform-optional-chaining',
           [
-            'babel-plugin-transform-replace-expressions',
+            replaceExpressionsPlugin,
             {
               replace: {
                 __DEV__: "process.env.NODE_ENV !== 'production'",
