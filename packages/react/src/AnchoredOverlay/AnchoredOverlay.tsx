@@ -438,7 +438,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
           {...(shouldRenderAsPopover ? {id: popoverId} : {})}
-          {...(cssAnchorPositioning ? {id: popoverId} : {})}
           ref={node => {
             setOverlayElement(node)
             if (mergedRefEnabled) {
