@@ -25,7 +25,7 @@
 
     /* Pin the vertical box model so external border/padding overrides can't change the height budget and incorrectly trigger the overflow "more" menu */
     box-sizing: border-box;
-    border: 0 !important;
+    border-block: 0 !important;
     padding-block: var(--base-size-8) 0 !important;
 
     .UnderlineItemList {
