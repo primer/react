@@ -30,8 +30,8 @@ function OcticonSymbols({children}: OcticonSymbolsProps) {
 
   return (
     <OcticonSymbolsContext.Provider value={value}>
-      {children}
       <svg aria-hidden="true" height={0} width={0} display="none">
+        {children}
         {Array.from(symbols.entries()).map(([id, symbol]) => {
           return <Fragment key={id}>{symbol}</Fragment>
         })}
