@@ -58,7 +58,7 @@
     "react-compiler-runtime": "^1.0.0",
     "react-dom": "18.3.1",
     "rimraf": "^6.0.1",
-    "rolldown": "^1.1.2",
+    "rolldown": "^1.1.4",
     "rolldown-plugin-dts": "^0.26.0",
     "rolldown-plugin-preserve-directives": "^0.0.0",
     "styled-components": "5.3.11",
