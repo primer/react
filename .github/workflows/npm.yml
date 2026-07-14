@@ -45,9 +45,8 @@ jobs:
 
             const {stdout: queryOutput} = await exec.getExecOutput('npm', ['query', '.workspace']);
             const workspaces = JSON.parse(queryOutput);
-            const packagesToInclude = new Set(['@primer/octicons-react-symbols']);
             const packages = workspaces
-              .filter(pkg => pkg.private !== true || packagesToInclude.has(pkg.name))
+              .filter(pkg => pkg.private !== true)
               .map(pkg => pkg.name);
             core.info(`Packing: ${packages.join(' ')}`);
 

@@ -2,7 +2,7 @@
   "name": "@primer/octicons-react-symbols",
   "version": "0.0.0",
   "type": "module",
-  "private": true,
+  "private": false,
   "exports": {
     "types": "./dist/generated/index.d.ts",
     "default": "./dist/generated/index.js"
