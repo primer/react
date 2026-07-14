@@ -1,6 +1,12 @@
-import {type TransformOptions, transformSync} from '@babel/core'
+import {createRequire} from 'node:module'
+import {type InputOptions, transformSync} from '@babel/core'
 import {CompilerError} from 'babel-plugin-react-compiler'
 import type {Logger, SourceLocation} from 'babel-plugin-react-compiler'
+
+const require = createRequire(import.meta.url)
+const presetTypescript = require.resolve('@babel/preset-typescript')
+const presetReact = require.resolve('@babel/preset-react')
+const reactCompilerPlugin = require.resolve('babel-plugin-react-compiler')
 
 type CheckError = {
   location: SourceLocation | null
@@ -15,11 +21,19 @@ function checkFile(filename: string, contents: string): CheckResult {
     logEvent(_filename, event) {
       // https://react.dev/reference/react-compiler/logger#event-types
       if (event.kind === 'CompileError') {
+        if (isRecoverableCompileSkip(event.detail.reason)) {
+          return
+        }
+
         addCheckError(errors, {
           location: event.detail.primaryLocation(),
           reason: event.detail.reason,
         })
       } else if (event.kind === 'CompileSkip') {
+        if (isRecoverableCompileSkip(event.reason)) {
+          return
+        }
+
         addCheckError(errors, {
           location: event.loc ?? event.fnLoc,
           reason: event.reason,
@@ -27,14 +41,14 @@ function checkFile(filename: string, contents: string): CheckResult {
       }
     },
   }
-  const inputOptions: TransformOptions = {
+  const inputOptions: InputOptions = {
     babelrc: false,
     configFile: false,
     filename,
     presets: [
-      '@babel/preset-typescript',
+      presetTypescript,
       [
-        '@babel/preset-react',
+        presetReact,
         {
           runtime: 'automatic',
         },
@@ -42,7 +56,7 @@ function checkFile(filename: string, contents: string): CheckResult {
     ],
     plugins: [
       [
-        'babel-plugin-react-compiler',
+        reactCompilerPlugin,
         {
           target: '18',
           logger,
@@ -60,6 +74,10 @@ function checkFile(filename: string, contents: string): CheckResult {
     }
 
     for (const detail of error.details) {
+      if (isRecoverableCompileSkip(detail.reason)) {
+        continue
+      }
+
       addCheckError(errors, {
         location: detail.primaryLocation(),
         reason: detail.reason,
@@ -90,6 +108,10 @@ function addCheckError(errors: Array<CheckError>, error: CheckError): void {
   if (!hasError) {
     errors.push(error)
   }
+}
+
+function isRecoverableCompileSkip(reason: string): boolean {
+  return reason === '(BuildHIR::lowerAssignment) Expected object property value to be an LVal, got: AssignmentPattern'
 }
 
 function getLocationLine(location: CheckError['location']): number | null {

@@ -273,20 +273,9 @@ async function setup(): Promise<Project> {
         // Language
         'jsx',
         // Proposal
-        'classProperties',
-        'classPrivateProperties',
-        'classPrivateMethods',
         'decorators-legacy',
-        'dynamicImport',
         'exportDefaultFrom',
-        'exportNamespaceFrom',
         'importMeta',
-        'nullishCoalescingOperator',
-        'numericSeparator',
-        'objectRestSpread',
-        'optionalCatchBinding',
-        'optionalChaining',
-        'topLevelAwait',
       ],
     })
 
@@ -343,20 +332,9 @@ async function setup(): Promise<Project> {
         // Language
         'jsx',
         // Proposal
-        'classProperties',
-        'classPrivateProperties',
-        'classPrivateMethods',
         'decorators-legacy',
-        'dynamicImport',
         'exportDefaultFrom',
-        'exportNamespaceFrom',
         'importMeta',
-        'nullishCoalescingOperator',
-        'numericSeparator',
-        'objectRestSpread',
-        'optionalCatchBinding',
-        'optionalChaining',
-        'topLevelAwait',
       ],
     })
 
