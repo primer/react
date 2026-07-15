@@ -45,7 +45,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   const listRole = role || listRoleFromContainer
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const listRef = useRef<HTMLElement>(null)
-  const mergedRef = useMergedRefs(forwardedRef, listRef)
+  const mergedRef = useMergedRefs(listRef, forwardedRef)
   // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
   // At graduation: remove the three declarations below, and replace all instances of `readRef` with `listRef` and `appliedRef` with `mergedRef`.
   const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
