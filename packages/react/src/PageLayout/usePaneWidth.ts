@@ -148,14 +148,15 @@ export const defaultFormatValueText = (valueNow: number): string => `Pane width 
 export const updateAriaValues = (
   handle: HTMLElement | null,
   values: {current?: number; min?: number; max?: number},
-  formatValueText: (valueNow: number) => string = defaultFormatValueText,
+  formatValueText?: (valueNow: number) => string,
 ) => {
   if (!handle) return
+  const format = formatValueText ?? defaultFormatValueText
   if (values.min !== undefined) handle.setAttribute('aria-valuemin', String(values.min))
   if (values.max !== undefined) handle.setAttribute('aria-valuemax', String(values.max))
   if (values.current !== undefined) {
     handle.setAttribute('aria-valuenow', String(values.current))
-    handle.setAttribute('aria-valuetext', formatValueText(values.current))
+    handle.setAttribute('aria-valuetext', format(values.current))
   }
 }
 
