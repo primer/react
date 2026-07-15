@@ -1,0 +1,104 @@
+@supports (anchor-name: --anchor-position) {
+  .Anchor {
+    anchor-name: var(--anchor-position-name);
+  }
+
+  .Target {
+    --anchor-position-gap: var(--base-size-4);
+
+    position: fixed;
+    inset: auto;
+    position-anchor: var(--anchor-position-name);
+    position-area: self-block-end span-self-inline-end;
+    position-try-fallbacks:
+      flip-block,
+      flip-inline,
+      flip-block flip-inline;
+    position-visibility: anchors-visible;
+  }
+
+  .Target[popover] {
+    inset: auto;
+    margin: 0;
+  }
+
+  .Target[data-placement='above'][data-alignment='start'] {
+    position-area: self-block-start span-self-inline-end;
+  }
+
+  .Target[data-placement='above'][data-alignment='center'] {
+    position-area: self-block-start;
+  }
+
+  .Target[data-placement='above'][data-alignment='end'] {
+    position-area: self-block-start span-self-inline-start;
+  }
+
+  .Target[data-placement='below'][data-alignment='start'] {
+    position-area: self-block-end span-self-inline-end;
+  }
+
+  .Target[data-placement='below'][data-alignment='center'] {
+    position-area: self-block-end;
+  }
+
+  .Target[data-placement='below'][data-alignment='end'] {
+    position-area: self-block-end span-self-inline-start;
+  }
+
+  .Target[data-placement='start'][data-alignment='start'] {
+    position-area: self-inline-start span-self-block-end;
+  }
+
+  .Target[data-placement='start'][data-alignment='center'] {
+    position-area: self-inline-start;
+  }
+
+  .Target[data-placement='start'][data-alignment='end'] {
+    position-area: self-inline-start span-self-block-start;
+  }
+
+  .Target[data-placement='end'][data-alignment='start'] {
+    position-area: self-inline-end span-self-block-end;
+  }
+
+  .Target[data-placement='end'][data-alignment='center'] {
+    position-area: self-inline-end;
+  }
+
+  .Target[data-placement='end'][data-alignment='end'] {
+    position-area: self-inline-end span-self-block-start;
+  }
+
+  /* stylelint-disable primer/spacing -- supports the public custom gap value */
+  .Target[data-placement='above'] {
+    margin-block-end: var(--anchor-position-gap);
+  }
+
+  .Target[data-placement='below'] {
+    margin-block-start: var(--anchor-position-gap);
+  }
+
+  .Target[data-placement='start'] {
+    margin-inline-end: var(--anchor-position-gap);
+  }
+
+  .Target[data-placement='end'] {
+    margin-inline-start: var(--anchor-position-gap);
+  }
+  /* stylelint-enable primer/spacing */
+
+  .Target[data-fallback-strategy='none'] {
+    position-try-fallbacks: none;
+  }
+
+  .Target[data-fallback-strategy='opposite-side'][data-placement='above'],
+  .Target[data-fallback-strategy='opposite-side'][data-placement='below'] {
+    position-try-fallbacks: flip-block;
+  }
+
+  .Target[data-fallback-strategy='opposite-side'][data-placement='start'],
+  .Target[data-fallback-strategy='opposite-side'][data-placement='end'] {
+    position-try-fallbacks: flip-inline;
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "useAnchorPosition",
+  "status": "ready",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "config",
+      "type": "UseAnchorPositionConfig",
+      "defaultValue": "{}",
+      "description": "Configures the CSS anchor name shared by the anchor and target."
+    }
+  ],
+  "returns": {
+    "type": "UseAnchorPositionReturn"
+  },
+  "relatedTypes": [
+    {
+      "name": "UseAnchorPositionConfig",
+      "properties": [
+        {
+          "name": "anchorName",
+          "type": "`--${string}`",
+          "defaultValue": "A generated CSS anchor name",
+          "description": "A custom CSS anchor name shared by the anchor and target."
+        }
+      ]
+    },
+    {
+      "name": "UseAnchorPositionReturn",
+      "properties": [
+        {
+          "name": "anchorName",
+          "type": "`--${string}`",
+          "required": true,
+          "description": "The resolved CSS anchor name."
+        },
+        {
+          "name": "getAnchorProps",
+          "type": "() => React.HTMLAttributes<HTMLElement>",
+          "required": true,
+          "description": "Returns the props that establish an element as the anchor."
+        },
+        {
+          "name": "getTargetProps",
+          "type": "(options?: AnchorPositionTargetOptions) => React.HTMLAttributes<HTMLElement>",
+          "required": true,
+          "description": "Returns the props that position an element relative to the anchor."
+        }
+      ]
+    },
+    {
+      "name": "AnchorPositionTargetOptions",
+      "properties": [
+        {
+          "name": "placement",
+          "type": "'above' | 'below' | 'start' | 'end'",
+          "defaultValue": "'below'",
+          "description": "The target's logical placement relative to the anchor."
+        },
+        {
+          "name": "alignment",
+          "type": "'start' | 'center' | 'end'",
+          "defaultValue": "'start'",
+          "description": "The target's alignment along the placement axis."
+        },
+        {
+          "name": "fallbackStrategy",
+          "type": "'default' | 'none' | 'opposite-side'",
+          "defaultValue": "'default'",
+          "description": "Controls which overflow fallbacks the browser may try."
+        },
+        {
+          "name": "gap",
+          "type": "number | string",
+          "defaultValue": "'var(--base-size-4)'",
+          "description": "The space between the anchor and target."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "id": "anchor-position",
+  "name": "AnchorPosition",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-anchorposition--default"
+    },
+    {
+      "id": "components-anchorposition-features--placements"
+    },
+    {
+      "id": "components-anchorposition-features--with-base-popover"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "The anchor and target elements."
+    },
+    {
+      "name": "anchorName",
+      "type": "`--${string}`",
+      "defaultValue": "A generated CSS anchor name",
+      "description": "A custom CSS anchor name shared by the anchor and target."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "AnchorPosition.Anchor",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'",
+          "description": "The element or component to render as the anchor."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The anchor content."
+        }
+      ]
+    },
+    {
+      "name": "AnchorPosition.Target",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'",
+          "description": "The element or component to render as the positioned target."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The positioned content."
+        },
+        {
+          "name": "placement",
+          "type": "'above' | 'below' | 'start' | 'end'",
+          "defaultValue": "'below'",
+          "description": "The target's logical placement relative to the anchor."
+        },
+        {
+          "name": "alignment",
+          "type": "'start' | 'center' | 'end'",
+          "defaultValue": "'start'",
+          "description": "The target's alignment along the placement axis."
+        },
+        {
+          "name": "fallbackStrategy",
+          "type": "'default' | 'none' | 'opposite-side'",
+          "defaultValue": "'default'",
+          "description": "Controls which CSS anchor-positioning fallbacks the browser may try when the target overflows."
+        },
+        {
+          "name": "gap",
+          "type": "number | string",
+          "defaultValue": "'var(--base-size-4)'",
+          "description": "The space between the anchor and target. Numbers are interpreted as pixels."
+        }
+      ]
+    }
+  ]
+}

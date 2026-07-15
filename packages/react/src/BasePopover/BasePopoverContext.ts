@@ -1,7 +1,7 @@
 import {createContext, useContext} from 'react'
-import type {UsePopoverReturn} from './usePopover'
+import type {UseBasePopoverReturn} from './useBasePopover'
 
-type BasePopoverContextValue = UsePopoverReturn
+type BasePopoverContextValue = UseBasePopoverReturn
 
 const BasePopoverContext = createContext<BasePopoverContextValue | null>(null)
 
