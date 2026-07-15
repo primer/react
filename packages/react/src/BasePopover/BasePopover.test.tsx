@@ -1,5 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {createRef} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {Close, Popover, Root, Trigger} from './BasePopover'
 
@@ -68,14 +69,18 @@ describe('BasePopover', () => {
   })
 
   it('forwards props to the trigger, popover, and close elements', () => {
+    const triggerRef = createRef<HTMLButtonElement>()
+    const popoverRef = createRef<HTMLElement>()
+    const closeRef = createRef<HTMLButtonElement>()
+
     render(
       <Root>
-        <Trigger className="custom-trigger" aria-label="Custom trigger">
+        <Trigger className="custom-trigger" aria-label="Custom trigger" ref={triggerRef}>
           Toggle popover
         </Trigger>
-        <Popover className="custom-popover" data-testid="popover" data-variant="custom">
+        <Popover className="custom-popover" data-testid="popover" data-variant="custom" ref={popoverRef}>
           Popover content
-          <Close className="custom-close" aria-label="Custom close">
+          <Close className="custom-close" aria-label="Custom close" ref={closeRef}>
             Close popover
           </Close>
         </Popover>
@@ -92,6 +97,68 @@ describe('BasePopover', () => {
     expect(popover).toHaveAttribute('data-variant', 'custom')
     expect(close).toHaveClass('custom-close')
     expect(close).toHaveAttribute('type', 'button')
+    expect(triggerRef.current).toBe(trigger)
+    expect(popoverRef.current).toBe(popover)
+    expect(closeRef.current).toBe(close)
+  })
+
+  it('composes props and refs with custom rendered elements', () => {
+    const triggerRef = createRef<HTMLButtonElement>()
+    const renderedTriggerRef = createRef<HTMLButtonElement>()
+    const popoverRef = createRef<HTMLElement>()
+    const renderedPopoverRef = createRef<HTMLElement>()
+    const closeRef = createRef<HTMLButtonElement>()
+    const renderedCloseRef = createRef<HTMLButtonElement>()
+
+    render(
+      <Root id="custom-render-popover">
+        <Trigger
+          className="trigger"
+          ref={triggerRef}
+          render={
+            <button className="rendered-trigger" ref={renderedTriggerRef} type="button">
+              Toggle popover
+            </button>
+          }
+        />
+        <Popover
+          className="popover"
+          ref={popoverRef}
+          render={
+            <section className="rendered-popover" data-testid="popover" ref={renderedPopoverRef}>
+              Popover content
+              <Close
+                className="close"
+                ref={closeRef}
+                render={
+                  <button className="rendered-close" ref={renderedCloseRef} type="button">
+                    Close popover
+                  </button>
+                }
+              />
+            </section>
+          }
+        />
+      </Root>,
+    )
+
+    const trigger = screen.getByRole('button', {name: 'Toggle popover'})
+    const popover = screen.getByTestId('popover')
+    const close = screen.getByRole('button', {name: 'Close popover', hidden: true})
+
+    expect(trigger).toHaveClass('trigger', 'rendered-trigger')
+    expect(trigger).toHaveAttribute('commandfor', 'custom-render-popover')
+    expect(popover).toHaveClass('popover', 'rendered-popover')
+    expect(popover).toHaveAttribute('id', 'custom-render-popover')
+    expect(popover).toHaveAttribute('popover', 'auto')
+    expect(close).toHaveClass('close', 'rendered-close')
+    expect(close).toHaveAttribute('commandfor', 'custom-render-popover')
+    expect(triggerRef.current).toBe(trigger)
+    expect(renderedTriggerRef.current).toBe(trigger)
+    expect(popoverRef.current).toBe(popover)
+    expect(renderedPopoverRef.current).toBe(popover)
+    expect(closeRef.current).toBe(close)
+    expect(renderedCloseRef.current).toBe(close)
   })
 
   it('opens the popover from the trigger', async () => {

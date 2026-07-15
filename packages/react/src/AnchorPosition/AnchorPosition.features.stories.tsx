@@ -36,7 +36,7 @@ export const Placements: Story = {
     >
       {placements.map(placement => (
         <Root key={placement}>
-          <Anchor as={Button}>{placement}</Anchor>
+          <Anchor render={<Button>{placement}</Button>} />
           <Target alignment="center" placement={placement} style={targetStyle}>
             {placement}
           </Target>
@@ -51,13 +51,17 @@ export const WithBasePopover: Story = {
     <div style={{padding: '8rem'}}>
       <BasePopoverRoot>
         <Root>
-          <Anchor as={Trigger}>Toggle popover</Anchor>
-          <Target as={Popover} style={targetStyle}>
-            Anchored popover
-            <div>
-              <Close>Close popover</Close>
-            </div>
-          </Target>
+          <Anchor render={<Trigger>Toggle popover</Trigger>} />
+          <Target
+            render={
+              <Popover style={targetStyle}>
+                Anchored popover
+                <div>
+                  <Close>Close popover</Close>
+                </div>
+              </Popover>
+            }
+          />
         </Root>
       </BasePopoverRoot>
     </div>

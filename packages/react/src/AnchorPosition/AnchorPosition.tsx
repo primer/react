@@ -1,4 +1,6 @@
 import React, {createContext, useContext} from 'react'
+import {useRender} from '../hooks/useRender'
+import type {RenderComponentProps, RenderProp} from '../hooks/useRender'
 import {mergeProps} from '../utils/mergeProps'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useAnchorPosition} from './useAnchorPosition'
@@ -14,9 +16,9 @@ import type {
 
 type RootProps = React.PropsWithChildren<UseAnchorPositionConfig>
 
-type AnchorProps = React.ComponentPropsWithoutRef<'div'>
+type AnchorProps = RenderComponentProps<'div'>
 
-type TargetProps = React.ComponentPropsWithoutRef<'div'> & AnchorPositionTargetOptions
+type TargetProps = RenderComponentProps<'div'> & AnchorPositionTargetOptions
 
 const AnchorPositionContext = createContext<UseAnchorPositionReturn | null>(null)
 
@@ -34,27 +36,60 @@ function Root({anchorName: customAnchorName, children}: RootProps) {
   return <AnchorPositionContext.Provider value={value}>{children}</AnchorPositionContext.Provider>
 }
 
-const Anchor = React.forwardRef(function Anchor({as: Component = 'div', ...rest}, forwardedRef) {
-  const {getAnchorProps} = useAnchorPositionContext()
-  const anchorProps = getAnchorProps()
+type AnchorInternalProps = AnchorProps & {
+  as?: React.ElementType
+}
 
-  return <Component {...mergeProps(anchorProps, rest)} ref={forwardedRef} />
+const Anchor = React.forwardRef<HTMLElement, AnchorInternalProps>(function Anchor(
+  {as: Component, render, ...rest},
+  forwardedRef,
+) {
+  const {getAnchorProps} = useAnchorPositionContext()
+
+  return useRender({
+    defaultTagName: 'div',
+    render: resolveRenderProp(Component, render),
+    props: mergeProps(getAnchorProps(), rest),
+    ref: forwardedRef,
+  })
 }) as PolymorphicForwardRefComponent<'div', AnchorProps>
 
-const Target = React.forwardRef(function Target(
-  {as: Component = 'div', alignment = 'start', fallbackStrategy = 'default', gap, placement = 'below', ...rest},
+type TargetInternalProps = TargetProps & {
+  as?: React.ElementType
+}
+
+const Target = React.forwardRef<HTMLElement, TargetInternalProps>(function Target(
+  {as: Component, alignment = 'start', fallbackStrategy = 'default', gap, placement = 'below', render, ...rest},
   forwardedRef,
 ) {
   const {getTargetProps} = useAnchorPositionContext()
-  const targetProps = getTargetProps({
-    alignment,
-    fallbackStrategy,
-    gap,
-    placement,
-  })
 
-  return <Component {...mergeProps(targetProps, rest)} ref={forwardedRef} />
+  return useRender({
+    defaultTagName: 'div',
+    render: resolveRenderProp(Component, render),
+    props: mergeProps(
+      getTargetProps({
+        alignment,
+        fallbackStrategy,
+        gap,
+        placement,
+      }),
+      rest,
+    ),
+    ref: forwardedRef,
+  })
 }) as PolymorphicForwardRefComponent<'div', TargetProps>
+
+function resolveRenderProp(
+  Component: React.ElementType | undefined,
+  render: RenderProp<React.ComponentPropsWithRef<'div'>> | undefined,
+) {
+  if (Component && render) {
+    throw new Error('AnchorPosition components cannot use both `as` and `render`')
+  }
+
+  return render ?? (Component ? React.createElement(Component) : undefined)
+}
 
 export {Root, Anchor, Target}
 export type {RootProps, AnchorProps, TargetProps, AnchorName, Placement, Alignment, FallbackStrategy}

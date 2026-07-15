@@ -74,10 +74,8 @@ describe('AnchorPosition', () => {
     render(
       <BasePopoverRoot>
         <Root>
-          <Anchor as={Trigger}>Toggle popover</Anchor>
-          <Target as={Popover} data-testid="popover">
-            Popover content
-          </Target>
+          <Anchor render={<Trigger>Toggle popover</Trigger>} />
+          <Target render={<Popover data-testid="popover">Popover content</Popover>} />
         </Root>
       </BasePopoverRoot>,
     )
@@ -90,6 +88,22 @@ describe('AnchorPosition', () => {
     expect(popover.style.getPropertyValue('--anchor-position-name')).toBe(
       trigger.style.getPropertyValue('--anchor-position-name'),
     )
+  })
+
+  it('does not accept both as and render', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    try {
+      expect(() =>
+        render(
+          <Root>
+            <Anchor as="button" render={<button type="button">Anchor</button>} />
+          </Root>,
+        ),
+      ).toThrow('AnchorPosition components cannot use both `as` and `render`')
+    } finally {
+      consoleError.mockRestore()
+    }
   })
 
   it('throws when Anchor or Target are rendered outside Root', () => {

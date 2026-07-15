@@ -1,8 +1,11 @@
-import type {HTMLAttributes, PropsWithChildren} from 'react'
+import React from 'react'
+import type {PropsWithChildren} from 'react'
+import {useRender} from '../hooks/useRender'
+import type {RenderComponentProps} from '../hooks/useRender'
+import {mergeProps} from '../utils/mergeProps'
 import {BasePopoverContext, useBasePopoverContext} from './BasePopoverContext'
 import {useBasePopover} from './useBasePopover'
 import type {UseBasePopoverConfig} from './useBasePopover'
-import {mergeProps} from '../utils/mergeProps'
 
 type RootProps = PropsWithChildren<UseBasePopoverConfig>
 
@@ -14,37 +17,44 @@ function Root({children, id, popover}: RootProps) {
   return <BasePopoverContext.Provider value={value}>{children}</BasePopoverContext.Provider>
 }
 
-type TriggerProps = HTMLAttributes<HTMLButtonElement> & {}
+type TriggerProps = RenderComponentProps<'button'>
 
-function Trigger({children, ...rest}: TriggerProps) {
+const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(function Trigger({render, ...rest}, forwardedRef) {
   const {getTriggerProps} = useBasePopoverContext()
-  const triggerProps = getTriggerProps()
-  return (
-    <button type="button" {...mergeProps(triggerProps, rest)}>
-      {children}
-    </button>
-  )
-}
 
-type PopoverProps = HTMLAttributes<HTMLElement> & {}
+  return useRender({
+    defaultTagName: 'button',
+    render,
+    props: mergeProps({type: 'button', ...getTriggerProps()}, rest),
+    ref: forwardedRef,
+  })
+})
 
-function Popover({children, ...rest}: PopoverProps) {
+type PopoverProps = RenderComponentProps<'div'>
+
+const Popover = React.forwardRef<HTMLElement, PopoverProps>(function Popover({render, ...rest}, forwardedRef) {
   const {getPopoverProps} = useBasePopoverContext()
-  const popoverProps = getPopoverProps()
-  return <div {...mergeProps(popoverProps, rest)}>{children}</div>
-}
 
-type CloseProps = HTMLAttributes<HTMLButtonElement> & {}
+  return useRender({
+    defaultTagName: 'div',
+    render,
+    props: mergeProps(getPopoverProps(), rest),
+    ref: forwardedRef,
+  })
+})
 
-function Close({children, ...rest}: CloseProps) {
+type CloseProps = RenderComponentProps<'button'>
+
+const Close = React.forwardRef<HTMLButtonElement, CloseProps>(function Close({render, ...rest}, forwardedRef) {
   const {getCloseProps} = useBasePopoverContext()
-  const closeProps = getCloseProps()
-  return (
-    <button type="button" {...mergeProps(closeProps, rest)}>
-      {children}
-    </button>
-  )
-}
+
+  return useRender({
+    defaultTagName: 'button',
+    render,
+    props: mergeProps({type: 'button', ...getCloseProps()}, rest),
+    ref: forwardedRef,
+  })
+})
 
 export {Root, Trigger, Popover, Close}
 export type {RootProps, TriggerProps, PopoverProps, CloseProps}

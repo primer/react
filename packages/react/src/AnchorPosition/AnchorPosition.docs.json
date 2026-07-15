@@ -40,6 +40,11 @@
           "description": "The element or component to render as the anchor."
         },
         {
+          "name": "render",
+          "type": "React.ReactElement | function",
+          "description": "Replaces the default anchor element or composes it with another component."
+        },
+        {
           "name": "children",
           "type": "React.ReactNode",
           "description": "The anchor content."
@@ -54,6 +59,11 @@
           "type": "React.ElementType",
           "defaultValue": "'div'",
           "description": "The element or component to render as the positioned target."
+        },
+        {
+          "name": "render",
+          "type": "React.ReactElement | function",
+          "description": "Replaces the default target element or composes it with another component."
         },
         {
           "name": "children",

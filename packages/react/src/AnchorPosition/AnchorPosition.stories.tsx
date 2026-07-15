@@ -21,7 +21,7 @@ const targetStyle = {
 
 export const Default = () => (
   <Root>
-    <Anchor as={Button}>Anchor</Anchor>
+    <Anchor render={<Button>Anchor</Button>} />
     <Target style={targetStyle}>Target</Target>
   </Root>
 )
@@ -36,7 +36,7 @@ type PlaygroundArgs = {
 export const Playground: StoryFn<PlaygroundArgs> = ({alignment, fallbackStrategy, gap, placement}) => (
   <div style={{padding: '8rem'}}>
     <Root>
-      <Anchor as={Button}>Anchor</Anchor>
+      <Anchor render={<Button>Anchor</Button>} />
       <Target
         alignment={alignment}
         fallbackStrategy={fallbackStrategy}

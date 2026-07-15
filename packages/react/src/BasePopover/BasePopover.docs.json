@@ -43,6 +43,11 @@
       "name": "BasePopover.Trigger",
       "props": [
         {
+          "name": "render",
+          "type": "React.ReactElement | function",
+          "description": "Composes the trigger props and ref with a custom button component."
+        },
+        {
           "name": "children",
           "type": "React.ReactNode",
           "required": true,
@@ -54,6 +59,11 @@
       "name": "BasePopover.Popover",
       "props": [
         {
+          "name": "render",
+          "type": "React.ReactElement | function",
+          "description": "Replaces the default popover element or composes it with another component."
+        },
+        {
           "name": "children",
           "type": "React.ReactNode",
           "required": true,
@@ -64,6 +74,11 @@
     {
       "name": "BasePopover.Close",
       "props": [
+        {
+          "name": "render",
+          "type": "React.ReactElement | function",
+          "description": "Composes the close props and ref with a custom button component."
+        },
         {
           "name": "children",
           "type": "React.ReactNode",
