@@ -25,4 +25,4 @@ The `*.stories.tsx` file should contain two stories:
 - A `Default` story rendering the default case for the component
 - A `Playground` story rendering a playground for the component, allowing users to interact with the component and change its props
 
-When additional functionality needs to be documented, a `*.features.stories.tsx` file should be created. This file should contain stories for each feature of the component, demonstrating how to use the feature and any relevant props.
+When additional functionality needs to be documented, a `*.features.stories.tsx` file should be created. This file should contain stories for each feature of the component, demonstrating how to use the feature and any relevant props. Feature stories must be written in a way that allows for individuals to easily copy and paste the snippets into their own project. As a result, avoid abstractions that inhibit this workflow.
