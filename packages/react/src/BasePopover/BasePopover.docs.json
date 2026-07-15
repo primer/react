@@ -1,0 +1,76 @@
+{
+  "id": "base-popover",
+  "name": "BasePopover",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-basepopover--default"
+    },
+    {
+      "id": "components-basepopover-features--auto"
+    },
+    {
+      "id": "components-basepopover-features--hint"
+    },
+    {
+      "id": "components-basepopover-features--manual"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "The trigger, popover, and optional close elements."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "defaultValue": "A generated string",
+      "description": "The id used to associate the trigger with the popover."
+    },
+    {
+      "name": "popover",
+      "type": "'auto' | 'hint' | 'manual'",
+      "defaultValue": "'auto'",
+      "description": "Sets the native popover behavior. Auto and hint popovers support light dismiss, while manual popovers must be dismissed explicitly."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "BasePopover.Trigger",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The content of the button that toggles the popover."
+        }
+      ]
+    },
+    {
+      "name": "BasePopover.Popover",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The content displayed in the popover, including an optional close control."
+        }
+      ]
+    },
+    {
+      "name": "BasePopover.Close",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The content of the button that closes the popover."
+        }
+      ]
+    }
+  ]
+}

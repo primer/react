@@ -32,6 +32,8 @@
   "typings": "dist/index.d.ts",
   "sideEffects": [
     "dist/**/*.css",
+    "src/polyfills/*.tsx",
+    "dist/polyfills/*.tsx",
     "src/**/test-helpers.tsx",
     "dist/**/test-helpers.js"
   ],
@@ -152,6 +154,7 @@
     "filesize": "10.1.6",
     "front-matter": "4.0.2",
     "gzip-size": "6.0.0",
+    "invokers-polyfill": "^1.0.3",
     "jscodeshift": "0.15.0",
     "lodash.groupby": "4.6.0",
     "lodash.keyby": "4.6.0",
