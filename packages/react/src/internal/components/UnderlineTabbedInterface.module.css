@@ -24,6 +24,7 @@
     max-height: var(--control-xlarge-size);
 
     .UnderlineItemList {
+      flex-grow: 1;
       flex-wrap: wrap;
       overflow: hidden;
     }
