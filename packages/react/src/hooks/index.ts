@@ -9,14 +9,6 @@ export {useAnchoredPosition} from './useAnchoredPosition'
 export {useOverlay} from './useOverlay'
 export type {UseOverlaySettings} from './useOverlay'
 export {useRenderForcingRef} from './useRenderForcingRef'
-export {useRender} from './useRender'
-export type {
-  RenderComponentProps,
-  RenderElementProps,
-  RenderFunction,
-  RenderProp,
-  UseRenderParameters,
-} from './useRender'
 export {useProvidedStateOrCreate} from './useProvidedStateOrCreate'
 export {useMenuInitialFocus} from './useMenuInitialFocus'
 export {useMenuKeyboardNavigation} from './useMenuKeyboardNavigation'
