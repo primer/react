@@ -162,6 +162,73 @@ server.registerTool(
 )
 
 server.registerTool(
+  'get_component_batch',
+  {
+    description:
+      'Retrieve documentation for multiple Primer React components in one call. ' +
+      'Pass all component names you need at once. Docs are fetched in parallel to avoid repeated MCP round-trips when resolving several components. ' +
+      'For a single component, prefer get_component instead.',
+    inputSchema: {
+      names: z
+        .array(z.string())
+        .min(2)
+        .max(10)
+        .describe('Component names to retrieve (e.g. ["ActionMenu", "Button", "Pagination"])'),
+    },
+    annotations: {readOnlyHint: true},
+  },
+  async ({names}) => {
+    const seenNames = new Set<string>()
+    const deduped = names.filter(name => {
+      const normalizedName = name.toLowerCase()
+      if (seenNames.has(normalizedName)) {
+        return false
+      }
+      seenNames.add(normalizedName)
+      return true
+    })
+    const components = listComponents()
+
+    const results = await Promise.all(
+      deduped.map(async name => {
+        const match = components.find(
+          component => component.name === name || component.name.toLowerCase() === name.toLowerCase(),
+        )
+        if (!match) {
+          return {
+            type: 'text' as const,
+            text: `## ${name}\n\nStatus: not-found. No component named \`${name}\` exists in @primer/react. Use \`list_components\` for valid names.`,
+          }
+        }
+
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 10_000)
+
+        try {
+          const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
+          const llmsResponse = await fetch(llmsUrl, {signal: controller.signal})
+          if (llmsResponse.ok) {
+            const text = await llmsResponse.text()
+            return {type: 'text' as const, text}
+          }
+        } catch (_: unknown) {
+          // Fall through to the in-band error result so other component requests can succeed.
+        } finally {
+          clearTimeout(timeout)
+        }
+
+        return {
+          type: 'text' as const,
+          text: `## ${match.name}\n\nStatus: fetch-error. Failed to load documentation for ${match.name}.`,
+        }
+      }),
+    )
+
+    return {content: results}
+  },
+)
+
+server.registerTool(
   'get_component_examples',
   {
     description: 'Get examples for how to use a component from Primer React',
@@ -372,18 +439,28 @@ ${text}`,
 // -----------------------------------------------------------------------------
 server.registerTool(
   'list_patterns',
-  {description: 'List all of the patterns available from Primer React', annotations: {readOnlyHint: true}},
+  {
+    description:
+      'List all of the patterns available from Primer React. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
-    const patterns = listPatterns().map(pattern => {
-      return `- ${pattern.name}`
-    })
+    const all = listPatterns()
+    const scenario = all.filter(pattern => pattern.category === 'scenario').map(pattern => `- ${pattern.name}`)
+    const ui = all.filter(pattern => pattern.category === 'ui').map(pattern => `- ${pattern.name}`)
     return {
       content: [
         {
           type: 'text',
-          text: `The following patterns are available in the @primer/react in TypeScript projects:
+          text: `The following patterns are available from \`@primer/react\` for use in TypeScript projects. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the UI patterns otherwise.
 
-${patterns.join('\n')}`,
+## Scenario patterns
+
+${scenario.join('\n')}
+
+## UI patterns
+
+${ui.join('\n')}`,
         },
       ],
     }
@@ -393,7 +470,8 @@ ${patterns.join('\n')}`,
 server.registerTool(
   'get_pattern',
   {
-    description: 'Get a specific pattern by name',
+    description:
+      'Get a specific pattern by name. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
     inputSchema: {
       name: z.string().describe('The name of the pattern to retrieve'),
     },
@@ -401,9 +479,10 @@ server.registerTool(
   },
   async ({name}) => {
     const patterns = listPatterns()
-    const match = patterns.find(pattern => {
-      return pattern.name === name
-    })
+    // Resolve scenario patterns first so a name clash favours the scenario pattern.
+    const match =
+      patterns.find(pattern => pattern.category === 'scenario' && pattern.name === name) ??
+      patterns.find(pattern => pattern.name === name)
     if (!match) {
       return {
         content: [
@@ -415,7 +494,8 @@ server.registerTool(
       }
     }
 
-    const url = new URL(`/product/ui-patterns/${match.id}`, 'https://primer.style')
+    const basePath = match.category === 'scenario' ? 'scenario-patterns' : 'ui-patterns'
+    const url = new URL(`/product/${basePath}/${match.id}`, 'https://primer.style')
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`Failed to fetch ${url} - ${response.statusText}`)

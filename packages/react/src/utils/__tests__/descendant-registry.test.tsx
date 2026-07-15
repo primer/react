@@ -121,6 +121,38 @@ describe('createDescendantRegistry', () => {
     expect(getByTestId('registry-values').textContent).toBe('a,middle,b')
   })
 
+  it('coalesces multiple descendants added in a single update into one correct rebuild', async () => {
+    const {RegistryParent, Item} = createTestRegistry()
+
+    function Test() {
+      const [expanded, setExpanded] = useState(false)
+      return (
+        <RegistryParent>
+          <Item value="a" />
+          {expanded && (
+            <>
+              <Item value="b" />
+              <Item value="c" />
+              <Item value="d" />
+            </>
+          )}
+          <Item value="e" />
+          <button type="button" onClick={() => setExpanded(true)}>
+            Expand
+          </button>
+        </RegistryParent>
+      )
+    }
+
+    const {getByTestId, getByRole} = render(<Test />)
+    expect(getByTestId('registry-values').textContent).toBe('a,e')
+
+    // Several descendants register in the same tick; the coalesced rebuild must still capture all of them in order.
+    await userEvent.click(getByRole('button'))
+
+    expect(getByTestId('registry-values').textContent).toBe('a,b,c,d,e')
+  })
+
   it('drops items from the registry after they unmount', async () => {
     const {RegistryParent, Item} = createTestRegistry()
 

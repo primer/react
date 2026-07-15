@@ -1,0 +1,21 @@
+{
+  "name": "rolldown-plugin-preserve-directives",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "types": "./src/index.ts",
+    "default": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "rolldown": "^1.1.4"
+  },
+  "devDependencies": {
+    "rolldown": "^1.1.4",
+    "typescript": "^6.0.3"
+  },
+  "sideEffects": false
+}

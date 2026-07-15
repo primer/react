@@ -52,6 +52,8 @@ jobs:
         run: npx turbo run lint:npm
       - name: Check className test coverage
         run: npm run test:classname-coverage
+      - name: Check react compiler coverage
+        run: npx turbo run lint:react-compiler
 
   test:
     runs-on: ubuntu-latest
@@ -68,7 +70,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-${{ github.run_id }}-${{ github.run_attempt }}
@@ -103,7 +105,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-${{ github.run_id }}-${{ github.run_attempt }}
@@ -137,7 +139,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-${{ github.run_id }}-${{ github.run_attempt }}
@@ -164,7 +166,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.job }}-default-${{ github.run_id }}-${{ github.run_attempt }}
@@ -194,7 +196,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.job }}-default-${{ github.run_id }}-${{ github.run_attempt }}

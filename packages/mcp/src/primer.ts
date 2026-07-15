@@ -40,48 +40,81 @@ function listComponents(): Array<Component> {
 type Pattern = {
   id: string
   name: string
+  // 'scenario' maps to the /product/scenario-patterns/ base path, 'ui' to /product/ui-patterns/
+  category: 'scenario' | 'ui'
 }
 
+// Scenario patterns are listed first so name resolution favours them over UI patterns.
 const patterns: Array<Pattern> = [
+  {
+    id: 'copy',
+    name: 'Copy',
+    category: 'scenario',
+  },
+  {
+    id: 'delete',
+    name: 'Delete',
+    category: 'scenario',
+  },
+  {
+    id: 'filter',
+    name: 'Filter',
+    category: 'scenario',
+  },
+  {
+    id: 'search',
+    name: 'Search',
+    category: 'scenario',
+  },
   {
     id: 'data-visualization',
     name: 'Data Visualization',
+    category: 'ui',
   },
   {
     id: 'degraded-experiences',
     name: 'Degraded Experiences',
+    category: 'ui',
   },
   {
     id: 'empty-states',
     name: 'Empty States',
+    category: 'ui',
   },
   {
     id: 'feature-onboarding',
     name: 'Feature Onboarding',
+    category: 'ui',
   },
   {
     id: 'forms',
     name: 'Forms',
+    category: 'ui',
   },
   {
     id: 'loading',
     name: 'Loading',
+    category: 'ui',
   },
   {
     id: 'navigation',
     name: 'Navigation',
+    category: 'ui',
   },
   {
     id: 'notification-messaging',
     name: 'Notification message',
+    category: 'ui',
   },
   {
     id: 'progressive-disclosure',
     name: 'Progressive disclosure',
+    category: 'ui',
   },
   {
     id: 'saving',
     name: 'Saving',
+    category: 'ui',
   },
 ]
 
