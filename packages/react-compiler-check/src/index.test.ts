@@ -110,6 +110,35 @@ describe('checkFile', () => {
     }
   })
 
+  test('returns compiler descriptions and suggestions', () => {
+    const result = checkFile(
+      'SuppressedRule.tsx',
+      `
+        function SuppressedRule() {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          return <span />
+        }
+      `,
+    )
+
+    expect(result.ok).toBe(false)
+
+    if (!result.ok) {
+      expect(result.errors).toHaveLength(1)
+      expect(result.errors[0]).toMatchObject({
+        description: expect.stringContaining(
+          'React Compiler only works when your components follow all the rules of React',
+        ),
+        reason: expect.stringContaining('one or more React ESLint rules were disabled'),
+        suggestions: [
+          {
+            description: 'Remove the ESLint suppression and address the React error',
+          },
+        ],
+      })
+    }
+  })
+
   test('rethrows errors that do not come from the React Compiler', () => {
     expect(() =>
       checkFile(

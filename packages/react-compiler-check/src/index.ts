@@ -1,10 +1,14 @@
 import {type TransformOptions, transformSync} from '@babel/core'
 import {CompilerError} from 'babel-plugin-react-compiler'
-import type {Logger, SourceLocation} from 'babel-plugin-react-compiler'
+import type {CompilerErrorDetailOptions, Logger, SourceLocation} from 'babel-plugin-react-compiler'
+
+type CheckSuggestion = NonNullable<CompilerErrorDetailOptions['suggestions']>[number]
 
 type CheckError = {
+  description: string | null
   location: SourceLocation | null
   reason: string
+  suggestions: Array<CheckSuggestion> | null | undefined
 }
 
 type CheckResult = {ok: true; errors?: never} | {ok: false; errors: Array<CheckError>}
@@ -16,13 +20,17 @@ function checkFile(filename: string, contents: string): CheckResult {
       // https://react.dev/reference/react-compiler/logger#event-types
       if (event.kind === 'CompileError') {
         addCheckError(errors, {
+          description: event.detail.description ?? null,
           location: event.detail.primaryLocation(),
           reason: event.detail.reason,
+          suggestions: event.detail.suggestions,
         })
       } else if (event.kind === 'CompileSkip') {
         addCheckError(errors, {
+          description: null,
           location: event.loc ?? event.fnLoc,
           reason: event.reason,
+          suggestions: null,
         })
       }
     },
@@ -61,8 +69,10 @@ function checkFile(filename: string, contents: string): CheckResult {
 
     for (const detail of error.details) {
       addCheckError(errors, {
+        description: detail.description ?? null,
         location: detail.primaryLocation(),
         reason: detail.reason,
+        suggestions: detail.suggestions,
       })
     }
   }
