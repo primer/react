@@ -444,6 +444,7 @@ function StandaloneResizablePanel() {
       widthStorageKey: 'dev-standalone-panel-width',
       paneRef: panelRef,
       handleRef,
+      formatValueText,
     })
 
   const handleDragStart = React.useCallback(
