@@ -56,14 +56,15 @@ export const TrailingAction = forwardRef(
             {...props}
           />
         ) : (
-          // @ts-expect-error shhh
           <Button
             variant="invisible"
+            // @ts-expect-error Button supports anchors and buttons, but its default overload expects a button.
             as={as}
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
             data-has-label="true"
+            // @ts-expect-error The polymorphic ref can point to either supported element.
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}

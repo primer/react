@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "@primer/vitest-config": "^0.0.0",
-    "typescript": "^6.0.3"
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
   }
 }
