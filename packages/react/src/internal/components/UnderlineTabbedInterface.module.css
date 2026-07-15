@@ -23,7 +23,13 @@
     overflow: hidden;
     max-height: var(--control-xlarge-size);
 
+    /* Pin the vertical box model so external border/padding overrides can't change the height budget and incorrectly trigger the overflow "more" menu */
+    box-sizing: border-box;
+    border-block: 0 !important;
+    padding-block: var(--base-size-8) 0 !important;
+
     .UnderlineItemList {
+      flex-grow: 1;
       flex-wrap: wrap;
       overflow: hidden;
     }
