@@ -21,10 +21,10 @@ import {Button} from '../Button'
 import Label from '../Label'
 import BranchName from '../BranchName'
 import Octicon from '../Octicon'
-import classes from './Timeline.actions-responsive.dev.stories.module.css'
+import classes from './Timeline.actions-responsive.features.stories.module.css'
 
 export default {
-  title: 'Components/Timeline/Dev/Actions Responsive',
+  title: 'Components/Timeline/Features/Actions Responsive',
   component: Timeline,
   subcomponents: {
     'Timeline.Item': Timeline.Item,
