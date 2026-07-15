@@ -9,4 +9,3 @@ export type {
 } from './usePaneWidth'
 export {DragHandle} from './DragHandle'
 export type {DragHandleProps} from './DragHandle'
-export {setDraggingStyles, removeDraggingStyles} from './paneUtils'
