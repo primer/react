@@ -237,7 +237,7 @@ const SidebarDivider = memo<SidebarDividerProps>(function SidebarDivider({
   getDefaultWidth,
   saveWidth,
 }) {
-  const {columnGap, paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
+  const {columnGap, sidebarContentWrapperRef} = React.useContext(PageLayoutContext)
 
   return (
     <VerticalDivider
@@ -253,8 +253,8 @@ const SidebarDivider = memo<SidebarDividerProps>(function SidebarDivider({
       {resizable ? (
         <DragHandle
           handleRef={handleRef}
-          dragTargetRef={paneRef}
-          contentWrapperRef={contentWrapperRef}
+          dragTargetRef={sidebarRef}
+          contentWrapperRef={sidebarContentWrapperRef}
           aria-valuemin={minPaneWidth}
           aria-valuemax={maxPaneWidth}
           aria-valuenow={currentWidth}

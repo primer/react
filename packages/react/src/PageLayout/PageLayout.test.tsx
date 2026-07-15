@@ -405,6 +405,57 @@ describe('PageLayout', async () => {
       expect(typeof onResizeEnd.mock.calls[0][0]).toBe('number')
     })
 
+    it('sets optimization styles on the sidebar during pointer drag', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebar = container.querySelector<HTMLElement>('[class*="Sidebar"][data-resizable]')
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no data-dragging attribute
+      expect(sidebar).not.toHaveAttribute('data-dragging')
+
+      // Start drag - optimization attribute is set on the sidebar element
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(sidebar).toHaveAttribute('data-dragging', 'true')
+
+      // End drag - pointer capture lost ends the drag and removes optimization attribute
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(sidebar).not.toHaveAttribute('data-dragging')
+    })
+
+    it('sets optimization styles on the sidebar during keyboard resize', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebar = container.querySelector<HTMLElement>('[class*="Sidebar"][data-resizable]')
+      const divider = await screen.findByRole('slider')
+
+      // Before interaction - no data-dragging attribute
+      expect(sidebar).not.toHaveAttribute('data-dragging')
+
+      // Start keyboard resize (focus first)
+      fireEvent.focus(divider)
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      expect(sidebar).toHaveAttribute('data-dragging', 'true')
+
+      // End keyboard resize - removes optimization attribute
+      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      expect(sidebar).not.toHaveAttribute('data-dragging')
+    })
+
     it('respects different position values (start, end)', () => {
       const {rerender, container} = render(
         <PageLayout>
