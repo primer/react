@@ -18,7 +18,7 @@
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0",
     "rolldown": "^1.1.4",
-    "typescript": "npm:@typescript/typescript6@^6.0.2"
+    "typescript": "^7.0.2"
   },
   "sideEffects": false
 }
