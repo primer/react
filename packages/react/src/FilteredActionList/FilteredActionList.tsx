@@ -193,18 +193,18 @@ export function FilteredActionList({
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
 
   const internalScrollContainerRef = useRef<HTMLDivElement>(null)
-  const combinedScrollContainerRef = useMergedRefs(internalScrollContainerRef, providedScrollContainerRef)
+  const mergedScrollContainerRef = useMergedRefs(internalScrollContainerRef, providedScrollContainerRef)
   const providedOrCreatedScrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(
     providedScrollContainerRef as React.RefObject<HTMLDivElement>,
   )
   const scrollContainerRef = mergedRefEnabled ? internalScrollContainerRef : providedOrCreatedScrollContainerRef
-  const appliedScrollContainerRef = mergedRefEnabled ? combinedScrollContainerRef : providedOrCreatedScrollContainerRef
+  const appliedScrollContainerRef = mergedRefEnabled ? mergedScrollContainerRef : providedOrCreatedScrollContainerRef
 
   const internalInputRef = useRef<HTMLInputElement>(null)
-  const combinedInputRef = useMergedRefs(internalInputRef, providedInputRef)
+  const mergedInputRef = useMergedRefs(internalInputRef, providedInputRef)
   const providedOrCreatedInputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const inputRef = mergedRefEnabled ? internalInputRef : providedOrCreatedInputRef
-  const appliedInputRef = mergedRefEnabled ? combinedInputRef : providedOrCreatedInputRef
+  const appliedInputRef = mergedRefEnabled ? mergedInputRef : providedOrCreatedInputRef
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
