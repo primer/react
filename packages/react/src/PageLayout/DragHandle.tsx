@@ -18,6 +18,14 @@ export type DragHandleProps = {
   onDragEnd: () => void
   /** Reset width on double-click */
   onDoubleClick?: React.MouseEventHandler<HTMLDivElement>
+  /**
+   * Accessible name for the slider. Defaults to `'Draggable pane splitter'`.
+   * Provide a context-specific or localized label for standalone usage.
+   * Ignored when `aria-labelledby` is provided.
+   */
+  'aria-label'?: string
+  /** Id of an element that labels the slider. Takes precedence over `aria-label`. */
+  'aria-labelledby'?: string
   /** ARIA slider min value */
   'aria-valuemin'?: number
   /** ARIA slider max value */
@@ -55,6 +63,8 @@ export const DragHandle = memo<DragHandleProps>(function DragHandle({
   onDrag,
   onDragEnd,
   onDoubleClick,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   'aria-valuemin': ariaValueMin,
   'aria-valuemax': ariaValueMax,
   'aria-valuenow': ariaValueNow,
@@ -221,7 +231,8 @@ export const DragHandle = memo<DragHandleProps>(function DragHandle({
       className={classes.DraggableHandle}
       data-component={dataComponent}
       role="slider"
-      aria-label="Draggable pane splitter"
+      aria-label={ariaLabelledBy ? undefined : (ariaLabel ?? 'Draggable pane splitter')}
+      aria-labelledby={ariaLabelledBy}
       aria-valuemin={ariaValueMin}
       aria-valuemax={ariaValueMax}
       aria-valuenow={ariaValueNow}

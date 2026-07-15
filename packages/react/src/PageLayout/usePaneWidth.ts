@@ -46,6 +46,13 @@ export type UsePaneWidthOptions = {
   onResizeEnd?: (width: number) => void
   /** Current/controlled width value in pixels (used instead of internal state; default from `width` is still used for reset) */
   currentWidth?: number
+  /**
+   * Formats the `aria-valuetext` written during mount and viewport resize.
+   * Should match the formatter passed to `DragHandle` so screen-reader output
+   * stays consistent across drag, mount, and resize updates.
+   * @default defaultFormatValueText
+   */
+  formatValueText?: (valueNow: number) => string
 }
 
 export type UsePaneWidthResult = {
@@ -201,6 +208,7 @@ export function usePaneWidth({
   constrainToViewport = false,
   onResizeEnd,
   currentWidth: controlledWidth,
+  formatValueText,
 }: UsePaneWidthOptions): UsePaneWidthResult {
   // Derive constraints from width configuration
   const isCustomWidth = isCustomWidthOptions(width)
@@ -340,6 +348,13 @@ export function usePaneWidth({
     getMaxPaneWidthRef.current = getMaxPaneWidth
   })
 
+  // Stable ref to the value-text formatter so mount/resize ARIA writes use the
+  // same formatter as DragHandle without re-subscribing the resize effect.
+  const formatValueTextRef = React.useRef(formatValueText)
+  useIsomorphicLayoutEffect(() => {
+    formatValueTextRef.current = formatValueText
+  })
+
   // Update CSS variable, refs, and ARIA on mount and window resize.
   // Strategy: Only sync when resize stops (debounced) to avoid layout thrashing on large DOMs
   useIsomorphicLayoutEffect(() => {
@@ -376,7 +391,11 @@ export function usePaneWidth({
       }
 
       // Update ARIA via DOM - cheap, no React re-render
-      updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
+      updateAriaValues(
+        handleRef.current,
+        {max: actualMax, current: currentWidthRef.current},
+        formatValueTextRef.current,
+      )
 
       // Only trigger React re-render if values actually changed.
       // startTransition doesn't bail out on same-value updates like normal setState,
@@ -400,7 +419,11 @@ export function usePaneWidth({
     const initialMax = getMaxPaneWidthRef.current()
     maxPaneWidthRef.current = initialMax
     paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
-    updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})
+    updateAriaValues(
+      handleRef.current,
+      {min: minPaneWidth, max: initialMax, current: currentWidthRef.current},
+      formatValueTextRef.current,
+    )
     // Sync React state via a transition so it doesn't force a synchronous
     // re-render before paint (i.e. a Profiler `nested-update`). The DOM and
     // ARIA values above are already correct; this state is only consumed by
