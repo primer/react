@@ -51,10 +51,12 @@ export type PageHeaderProps = {
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-    const internalRef = useRef<HTMLDivElement>(null)
-    const mergedRef = useMergedRefs(internalRef, forwardedRef)
+    const rootRef = useRef<HTMLDivElement>(null)
+    const mergedRef = useMergedRefs(rootRef, forwardedRef)
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the three declarations below, and replace all instances of `readRef` with `rootRef` and `appliedRef` with `mergedRef`.
     const providedOrCreatedRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
-    const rootRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+    const readRef = mergedRefEnabled ? rootRef : providedOrCreatedRef
     const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
 
     // Hoist title size + navigation visibility off children onto the root so
@@ -123,8 +125,8 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         let hasContextArea = false
         let hasLeadingAction = false
 
-        if (!rootRef.current || rootRef.current.children.length <= 0) return
-        const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
+        if (!readRef.current || readRef.current.children.length <= 0) return
+        const titleArea = Array.from(readRef.current.children as HTMLCollection).find(child => {
           return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
         })
 
@@ -156,7 +158,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
           'When PageHeader.ContextArea or PageHeader.LeadingAction is present, we recommended not to include any interactive items in the PageHeader.TitleArea to make sure the focus order is logical.',
         )
       },
-      [children, rootRef],
+      [children, readRef],
     )
 
     return (
@@ -280,13 +282,15 @@ export type TitleAreaProps = {
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, hidden = false, variant = 'medium'}, forwardedRef) => {
     const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the two declarations below, and replace all instances of `appliedRef` with `forwardedRef`.
     const providedOrCreatedRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
-    const titleAreaRef = mergedRefEnabled ? forwardedRef : providedOrCreatedRef
+    const appliedRef = mergedRefEnabled ? forwardedRef : providedOrCreatedRef
     return (
       <div
         className={clsx(classes.TitleArea, className)}
         // @ts-expect-error it needs a non nullable ref
-        ref={titleAreaRef}
+        ref={appliedRef}
         data-component="TitleArea"
         {...getResponsiveAttributes('size-variant', variant)}
         {...getHiddenDataAttributes(hidden)}

@@ -128,12 +128,12 @@ export const Tooltip: ForwardRefExoticComponent<
     const tooltipId = useId(id)
     const child = Children.only(children)
     const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-    const internalRef = useRef<HTMLElement>(null)
-    const mergedTriggerRef = useMergedRefs(internalRef, forwardedRef)
+    const triggerRef = useRef<HTMLElement>(null)
+    const mergedTriggerRef = useMergedRefs(triggerRef, forwardedRef)
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the three declarations below, and replace all instances of `readTriggerRef` with `triggerRef` and `appliedTriggerRef` with `mergedTriggerRef`.
     const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
-    // The ref whose `.current` the positioning logic reads. Both point to the trigger DOM node.
-    const triggerRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
-    // The ref applied to the cloned trigger element.
+    const readTriggerRef = mergedRefEnabled ? triggerRef : providedOrCreatedRef
     const appliedTriggerRef = mergedRefEnabled ? mergedTriggerRef : providedOrCreatedRef
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
@@ -149,13 +149,13 @@ export const Tooltip: ForwardRefExoticComponent<
       try {
         if (
           tooltipElRef.current &&
-          triggerRef.current &&
+          readTriggerRef.current &&
           tooltipElRef.current.hasAttribute('popover') &&
           !tooltipElRef.current.matches(':popover-open') &&
           !_privateDisableTooltip
         ) {
           const tooltip = tooltipElRef.current
-          const trigger = triggerRef.current
+          const trigger = readTriggerRef.current
           tooltip.showPopover()
           setIsPopoverOpen(true)
           /*
@@ -196,7 +196,7 @@ export const Tooltip: ForwardRefExoticComponent<
       try {
         if (
           tooltipElRef.current &&
-          triggerRef.current &&
+          readTriggerRef.current &&
           tooltipElRef.current.hasAttribute('popover') &&
           tooltipElRef.current.matches(':popover-open')
         ) {
@@ -226,13 +226,13 @@ export const Tooltip: ForwardRefExoticComponent<
     const value = useMemo(() => ({tooltipId}), [tooltipId])
 
     useEffect(() => {
-      if (!tooltipElRef.current || !triggerRef.current) return
+      if (!tooltipElRef.current || !readTriggerRef.current) return
       /*
        * ACCESSIBILITY CHECKS
        */
       // Has trigger element or any of its children interactive elements?
-      const isTriggerInteractive = isInteractive(triggerRef.current)
-      const triggerChildren = triggerRef.current.childNodes
+      const isTriggerInteractive = isInteractive(readTriggerRef.current)
+      const triggerChildren = readTriggerRef.current.childNodes
       // two levels deep
       const hasInteractiveDescendant = Array.from(triggerChildren).some(child => {
         return (
@@ -249,8 +249,8 @@ export const Tooltip: ForwardRefExoticComponent<
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (type === 'label') {
-        const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
-        const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
+        const hasAriaLabel = readTriggerRef.current.hasAttribute('aria-label')
+        const hasAriaLabelInChildren = Array.from(readTriggerRef.current.childNodes).some(
           child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
         )
         warning(
@@ -268,7 +268,7 @@ export const Tooltip: ForwardRefExoticComponent<
 
       const tooltip = tooltipElRef.current
       tooltip.setAttribute('popover', 'auto')
-    }, [tooltipElRef, triggerRef, direction, type])
+    }, [tooltipElRef, readTriggerRef, direction, type])
 
     useOnEscapePress(
       (event: KeyboardEvent) => {

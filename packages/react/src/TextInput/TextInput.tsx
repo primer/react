@@ -114,10 +114,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
     const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-    const internalRef = useRef<HTMLInputElement>(null)
-    const mergedRef = useMergedRefs(internalRef, ref)
+    const inputRef = useRef<HTMLInputElement>(null)
+    const mergedRef = useMergedRefs(inputRef, ref)
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the three declarations below, and replace all instances of `readRef` with `inputRef` and `appliedRef` with `mergedRef`.
     const providedOrCreatedRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
-    const inputRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+    const readRef = mergedRefEnabled ? inputRef : providedOrCreatedRef
     const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
 
     // For uncontrolled usage we track the length of the input's content so the
@@ -147,8 +149,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
     const focusInput: MouseEventHandler = e => {
       // Don't call focus() if the input itself was clicked on date/time inputs.
-      if (e.target !== inputRef.current || !isSegmentedInputType) {
-        inputRef.current?.focus()
+      if (e.target !== readRef.current || !isSegmentedInputType) {
+        readRef.current?.focus()
       }
     }
     const leadingVisualId = useId()

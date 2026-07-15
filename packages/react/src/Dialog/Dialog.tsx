@@ -487,22 +487,24 @@ Footer.displayName = 'Dialog.Footer'
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const providedButtonRef = buttons.find(button => button.autoFocus)?.ref
-  const internalRef = useRef<HTMLButtonElement>(null)
-  const mergedRef = useMergedRefs(internalRef, providedButtonRef)
+  const autoFocusRef = useRef<HTMLButtonElement>(null)
+  const mergedRef = useMergedRefs(autoFocusRef, providedButtonRef)
+  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `autoFocusRef` and `appliedRef` with `mergedRef`.
   const providedOrCreatedRef = useProvidedRefOrCreate<HTMLButtonElement>(providedButtonRef)
-  const autoFocusRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+  const readRef = mergedRefEnabled ? autoFocusRef : providedOrCreatedRef
   const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
     // hack to work around dialogs originating from other focus traps.
     if (hasRendered === 1) {
-      autoFocusRef.current?.focus()
+      readRef.current?.focus()
     } else {
       // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
       setHasRendered(hasRendered + 1)
     }
-  }, [autoFocusRef, hasRendered])
+  }, [readRef, hasRendered])
 
   return (
     <>

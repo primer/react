@@ -44,10 +44,12 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-  const internalRef = useRef<HTMLElement>(null)
-  const mergedRef = useMergedRefs(forwardedRef, internalRef)
+  const listRef = useRef<HTMLElement>(null)
+  const mergedRef = useMergedRefs(forwardedRef, listRef)
+  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `listRef` and `appliedRef` with `mergedRef`.
   const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
-  const listRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+  const readRef = mergedRefEnabled ? listRef : providedOrCreatedRef
   const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
   const itemGapEnabled = useFeatureFlag('primer_react_action_list_item_gap') && container === 'NavList'
 
@@ -57,7 +59,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   useFocusZone({
     disabled: !enableFocusZone,
-    containerRef: listRef,
+    containerRef: readRef,
     bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
     focusOutBehavior:
       listRole === 'menu' || container === 'SelectPanel' || container === 'FilteredActionList' ? 'wrap' : undefined,
@@ -89,7 +91,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   // Two querySelector calls after render is trivially cheap compared to what the browser
   // was doing on every DOM mutation with `:has()`.
   useIsomorphicLayoutEffect(() => {
-    const list = listRef.current
+    const list = readRef.current
     if (!list) return
     const hasMixed =
       list.querySelector('[data-has-description="true"]') !== null &&

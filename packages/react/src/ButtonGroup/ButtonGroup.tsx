@@ -18,10 +18,12 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
   forwardRef,
 ) {
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-  const internalRef = useRef<HTMLDivElement>(null)
-  const mergedRef = useMergedRefs(internalRef, forwardRef)
+  const buttonRef = useRef<HTMLDivElement>(null)
+  const mergedRef = useMergedRefs(buttonRef, forwardRef)
+  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `buttonRef` and `appliedRef` with `mergedRef`.
   const providedOrCreatedRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement | null>)
-  const buttonRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+  const readRef = mergedRefEnabled ? buttonRef : providedOrCreatedRef
   const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
   const buttons = React.Children.map(children, (child, index) => (
     <div key={index} className={classes.Item}>
@@ -30,7 +32,7 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
   ))
 
   useFocusZone({
-    containerRef: buttonRef,
+    containerRef: readRef,
     disabled: role !== 'toolbar',
     bindKeys: FocusKeys.ArrowHorizontal,
     focusOutBehavior: 'wrap',

@@ -67,19 +67,21 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-    const internalRef = useRef<HTMLInputElement>(null)
-    const mergedRef = useMergedRefs(internalRef, ref)
+    const checkboxRef = useRef<HTMLInputElement>(null)
+    const mergedRef = useMergedRefs(checkboxRef, ref)
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the three declarations below, and replace all instances of `readRef` with `checkboxRef` and `appliedRef` with `mergedRef`.
     const providedOrCreatedRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
-    const checkboxRef = mergedRefEnabled ? internalRef : providedOrCreatedRef
+    const readRef = mergedRefEnabled ? checkboxRef : providedOrCreatedRef
     const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
 
-      if (indeterminate && checkboxRef.current) {
-        checkboxRef.current.indeterminate = true
-        checkboxRef.current.setAttribute('aria-checked', 'mixed')
+      if (indeterminate && readRef.current) {
+        readRef.current.indeterminate = true
+        readRef.current.setAttribute('aria-checked', 'mixed')
       }
     }
     const inputProps = {
@@ -98,13 +100,13 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     }
 
     useLayoutEffect(() => {
-      if (checkboxRef.current) {
-        checkboxRef.current.indeterminate = indeterminate || false
+      if (readRef.current) {
+        readRef.current.indeterminate = indeterminate || false
       }
-    }, [indeterminate, checked, checkboxRef])
+    }, [indeterminate, checked, readRef])
 
     useEffect(() => {
-      const {current: checkbox} = checkboxRef
+      const {current: checkbox} = readRef
       if (!checkbox) {
         return
       }
