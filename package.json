@@ -96,6 +96,7 @@
     "stylelint": "17.4.0",
     "turbo": "^2.9.18",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.59.1",
     "vite": "^8.0.16",
     "vitest": "^4.1.9",
     "yargs": "^18.0.0"
