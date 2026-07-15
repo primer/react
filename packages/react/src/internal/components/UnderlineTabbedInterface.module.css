@@ -38,6 +38,12 @@
   list-style: none;
   align-items: center;
   gap: 8px;
+
+  /* Isolate the ResizeObserver-driven item swapping (UnderlineNav overflow menu / UnderlinePanels)
+  so it can't invalidate ancestor layout. This element is already the positioned ancestor for the
+  absolutely positioned overflow menu, and layout containment does not clip, so the menu still
+  overflows the nav as before. */
+  contain: layout;
 }
 
 .UnderlineItem {
