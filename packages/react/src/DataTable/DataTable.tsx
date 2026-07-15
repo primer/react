@@ -239,12 +239,12 @@ function DataTable<Data extends UniqueRow>({
   let totalCount = rows.length
   if (paginationEnabled) {
     if (externalPagination) {
-      // Consumer is feeding one page of data already. `data.length` is the
-      // page size; totalCount is unknown to us, but Pagination needs a
-      // sensible value to compute its model. Default to the larger of
-      // (pageIndex+1)*pageSize and the visible row count so the "next"
-      // button stays enabled while there might be more pages.
-      totalCount = Math.max(rows.length, (effectivePageIndex + 1) * effectivePageSize + 1)
+      // Consumer is feeding one page of data already. We don't know the true
+      // totalCount, but we can infer whether there *might* be another page:
+      // a short page implies we've reached the end.
+      const baseCount = effectivePageIndex * effectivePageSize + rows.length
+      const maybeMore = rows.length === effectivePageSize ? 1 : 0
+      totalCount = Math.max(baseCount + maybeMore, 1)
     } else {
       // Clamp the slice window to valid bounds so a bogus pageIndex (out
       // of range in controlled mode, or stale across data shrinks) can't
