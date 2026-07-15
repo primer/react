@@ -1,7 +1,7 @@
 {
   "name": "@primer/react",
   "type": "module",
-  "version": "38.31.0",
+  "version": "38.32.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -169,7 +169,7 @@
     "react-is": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
-    "rolldown": "^1.1.2",
+    "rolldown": "^1.1.4",
     "rolldown-plugin-dts": "^0.26.0",
     "rolldown-plugin-import-css": "^0.0.0",
     "rolldown-plugin-preserve-directives": "^0.0.0",

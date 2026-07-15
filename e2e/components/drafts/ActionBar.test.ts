@@ -53,7 +53,7 @@ test.describe('ActionBar', () => {
             state: 'hidden',
           })
           await expect(page.locator(toolbarButtonSelector).filter({visible: true})).toHaveCount(8)
-          const moreButtonSelector = page.getByLabel('More Comment box toolbar items')
+          const moreButtonSelector = page.getByLabel('More items')
           await moreButtonSelector.click()
           await expect(page.locator('ul[role="menu"] [role="menuitem"]')).toHaveCount(3)
         })

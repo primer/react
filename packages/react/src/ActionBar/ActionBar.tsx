@@ -250,7 +250,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
             <ActionMenu.Anchor>
               <IconButton
                 variant="invisible"
-                aria-label={`More ${ariaLabel} items ${overflowItems?.length}`}
+                aria-label="More items"
                 icon={KebabHorizontalIcon}
                 className={styles.MoreButton}
                 data-more-button-inactive={overflowItems?.length ? undefined : true}
