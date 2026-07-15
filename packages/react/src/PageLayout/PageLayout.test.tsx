@@ -416,18 +416,19 @@ describe('PageLayout', async () => {
       )
 
       const sidebar = container.querySelector<HTMLElement>('[class*="Sidebar"][data-resizable]')
+      expect(sidebar).not.toBeNull()
       const divider = await screen.findByRole('slider')
 
       // Before drag - no data-dragging attribute
-      expect(sidebar).not.toHaveAttribute('data-dragging')
+      expect(sidebar!).not.toHaveAttribute('data-dragging')
 
       // Start drag - optimization attribute is set on the sidebar element
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(sidebar).toHaveAttribute('data-dragging', 'true')
+      expect(sidebar!).toHaveAttribute('data-dragging', 'true')
 
       // End drag - pointer capture lost ends the drag and removes optimization attribute
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
-      expect(sidebar).not.toHaveAttribute('data-dragging')
+      expect(sidebar!).not.toHaveAttribute('data-dragging')
     })
 
     it('sets optimization styles on the sidebar during keyboard resize', async () => {
