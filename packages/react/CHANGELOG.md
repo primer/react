@@ -1,5 +1,36 @@
 # @primer/react
 
+## 38.32.0
+
+### Minor Changes
+
+- [#8133](https://github.com/primer/react/pull/8133) [`0cb8e17`](https://github.com/primer/react/commit/0cb8e17219f61f853fcf06ce9ee09c755c9ef5ff) Thanks [@iansan5653](https://github.com/iansan5653)! - `UnderlineNav`: Replaced dynamic icon visibility with static breakpoints to avoid flickering. Breakpoints customizable via the `hideIconsBreakpoint` prop.
+
+- [#8112](https://github.com/primer/react/pull/8112) [`50face0`](https://github.com/primer/react/commit/50face041d55eb800d643b0d264d23fc12fd4121) Thanks [@llastflowers](https://github.com/llastflowers)! - Add data-component attributes and associated tests for:
+
+  SplitPageLayout
+  Stack
+  StateLabel
+  SubNav
+  TabNav
+  Text
+  TextArea
+  ThemeProvider
+
+### Patch Changes
+
+- [#7901](https://github.com/primer/react/pull/7901) [`8288ed9`](https://github.com/primer/react/commit/8288ed9d88668f93cf3b1eb70ee61edac6217367) Thanks [@mattcosta7](https://github.com/mattcosta7)! - PageHeader: improve rendering performance by removing expensive `:has()` selectors. No visual or API changes.
+
+- [#8115](https://github.com/primer/react/pull/8115) [`07c530a`](https://github.com/primer/react/commit/07c530a1686ef16b68b2f2fe692b7a3327bdc02b) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Improve rendering performance in Safari by removing expensive `:has()` selectors from ActionList/NavList, Breadcrumbs, SelectPanel, and SegmentedControl. No visual or API changes.
+
+- [#8024](https://github.com/primer/react/pull/8024) [`18e3b7d`](https://github.com/primer/react/commit/18e3b7d7a7b54275b99d2562eb279722f5cdd60e) Thanks [@mattcosta7](https://github.com/mattcosta7)! - ToggleSwitch: Fire `onChange` from the user interaction instead of an effect, so it no longer fires on mount or when a controlled `checked` value changes externally.
+
+- [#8035](https://github.com/primer/react/pull/8035) [`723f4d6`](https://github.com/primer/react/commit/723f4d6db12710e2b94f56b945a937158fcbb127) Thanks [@mattcosta7](https://github.com/mattcosta7)! - UnderlineNav, ActionBar: Detect item overflow with a single shared IntersectionObserver per component instead of one observer per item, reducing observer churn during resize. No public API changes.
+
+- [#8001](https://github.com/primer/react/pull/8001) [`4edc824`](https://github.com/primer/react/commit/4edc8242da557eedd41d71b242674b33254029ec) Thanks [@mattcosta7](https://github.com/mattcosta7)! - `useMedia` now reads the live `matchMedia` value on the first client render instead of after an effect, removing a redundant render pass. `defaultState` is only used for the SSR/hydration snapshot (no public API changes).
+
+- [#8023](https://github.com/primer/react/pull/8023) [`71fa75c`](https://github.com/primer/react/commit/71fa75c861c55bf29dd30ddf4a83549bf81369f8) Thanks [@mattcosta7](https://github.com/mattcosta7)! - FormControl: Avoid an extra re-render when showing a validation message.
+
 ## 38.31.0
 
 ### Minor Changes

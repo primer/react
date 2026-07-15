@@ -18,16 +18,13 @@
     padding-inline: unset;
   }
 
-  &[data-hide-icons='true'] [data-component='icon'] {
-    display: none;
-  }
-
   &[data-overflow-mode='wrap'] {
     /* Wrap items onto hidden next lines */
     overflow: hidden;
     max-height: var(--control-xlarge-size);
 
     .UnderlineItemList {
+      flex-grow: 1;
       flex-wrap: wrap;
       overflow: hidden;
     }
