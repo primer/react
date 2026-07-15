@@ -442,20 +442,20 @@ describe('PageLayout', async () => {
       )
 
       const sidebar = container.querySelector<HTMLElement>('[class*="Sidebar"][data-resizable]')
+      expect(sidebar).not.toBeNull()
       const divider = await screen.findByRole('slider')
 
       // Before interaction - no data-dragging attribute
-      expect(sidebar).not.toHaveAttribute('data-dragging')
+      expect(sidebar!).not.toHaveAttribute('data-dragging')
 
       // Start keyboard resize (focus first)
       fireEvent.focus(divider)
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
-      expect(sidebar).toHaveAttribute('data-dragging', 'true')
+      expect(sidebar!).toHaveAttribute('data-dragging', 'true')
 
       // End keyboard resize - removes optimization attribute
       fireEvent.keyUp(divider, {key: 'ArrowRight'})
-      expect(sidebar).not.toHaveAttribute('data-dragging')
-    })
+      expect(sidebar!).not.toHaveAttribute('data-dragging')
 
     it('respects different position values (start, end)', () => {
       const {rerender, container} = render(
