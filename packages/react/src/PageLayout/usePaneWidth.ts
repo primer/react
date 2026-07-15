@@ -50,7 +50,7 @@ export type UsePaneWidthOptions = {
    * Formats the `aria-valuetext` written during mount and viewport resize.
    * Should match the formatter passed to `DragHandle` so screen-reader output
    * stays consistent across drag, mount, and resize updates.
-   * @default defaultFormatValueText
+   * @default valueNow => `Pane width ${valueNow} pixels`
    */
   formatValueText?: (valueNow: number) => string
 }
