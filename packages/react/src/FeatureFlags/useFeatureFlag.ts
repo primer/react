@@ -6,5 +6,5 @@ import {FeatureFlagContext} from './FeatureFlagContext'
  */
 export function useFeatureFlag(flag: string): boolean {
   const context = useContext(FeatureFlagContext)
-  return context.enabled(flag)
+  return context?.enabled(flag) ?? false
 }
