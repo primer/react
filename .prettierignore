@@ -1,7 +1,5 @@
 .changeset
 .agents
-.github/instructions/generated
-.github/skills/primer-component-review/references/generated-policy.md
 packages/react/CHANGELOG.md
 dist
 storybook-static

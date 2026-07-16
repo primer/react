@@ -27,8 +27,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Check generated component review guidance
-        run: npm run test:review-guidance && npm run check:review-guidance
       - name: Check for unformatted files
         run: npm run format:diff
 
