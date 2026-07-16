@@ -658,7 +658,13 @@ function normalizeHeading(value: string): string {
 }
 
 function isEmptyMarkdown(value: string): boolean {
-  return value.replace(/<!--[\s\S]*?-->/g, '').trim().length === 0
+  let sanitized = value
+  let previous: string
+  do {
+    previous = sanitized
+    sanitized = sanitized.replace(/<!--[\s\S]*?-->/g, '')
+  } while (sanitized !== previous)
+  return sanitized.trim().length === 0
 }
 
 function createLocation(path: string, heading: HeadingRecord | null): SpecLocation {
