@@ -1,6 +1,9 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
+import React from 'react'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
+import {usePaneWidth, updateAriaValues} from './usePaneWidth'
+import {DragHandle} from './DragHandle'
 import classes from './PageLayout.dev.stories.module.css'
 
 const meta: Meta = {
@@ -420,5 +423,103 @@ export const Default: StoryFn = args => (
     </PageLayout.Footer>
   </PageLayout>
 )
+
+const formatValueText = (n: number) => `Panel width ${n} pixels`
+
+function StandaloneResizablePanel() {
+  const panelRef = React.useRef<HTMLDivElement>(null)
+  const handleRef = React.useRef<HTMLDivElement>(null)
+
+  // Cache drag-start values so width math is immune to layout shifts mid-drag.
+  const dragStartClientXRef = React.useRef(0)
+  const dragStartWidthRef = React.useRef(0)
+  const dragMaxWidthRef = React.useRef(0)
+
+  const {currentWidth, currentWidthRef, minPaneWidth, maxPaneWidth, getMaxPaneWidth, saveWidth, getDefaultWidth} =
+    usePaneWidth({
+      width: {min: '160px', default: '260px', max: '480px'},
+      minWidth: 160,
+      resizable: true,
+      // Persist across reloads with localStorage (default behavior).
+      widthStorageKey: 'dev-standalone-panel-width',
+      paneRef: panelRef,
+      handleRef,
+      formatValueText,
+    })
+
+  const handleDragStart = React.useCallback(
+    (clientX: number) => {
+      dragStartClientXRef.current = clientX
+      dragStartWidthRef.current = panelRef.current?.getBoundingClientRect().width ?? currentWidthRef.current
+      dragMaxWidthRef.current = getMaxPaneWidth()
+    },
+    [currentWidthRef, getMaxPaneWidth],
+  )
+
+  const handleDrag = React.useCallback(
+    (value: number, isKeyboard: boolean) => {
+      const maxWidth = isKeyboard ? getMaxPaneWidth() : dragMaxWidthRef.current
+      // Panel is docked on the left, so a larger width extends to the right.
+      const newWidth = isKeyboard
+        ? currentWidthRef.current + value
+        : dragStartWidthRef.current + (value - dragStartClientXRef.current)
+      const clamped = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
+      if (Math.round(clamped) !== Math.round(currentWidthRef.current)) {
+        currentWidthRef.current = clamped
+        panelRef.current?.style.setProperty('--pane-width', `${clamped}px`)
+        updateAriaValues(handleRef.current, {current: Math.round(clamped), max: maxWidth}, formatValueText)
+      }
+    },
+    [currentWidthRef, getMaxPaneWidth, minPaneWidth],
+  )
+
+  const handleDragEnd = React.useCallback(() => {
+    saveWidth(currentWidthRef.current)
+  }, [currentWidthRef, saveWidth])
+
+  const handleDoubleClick = React.useCallback(() => {
+    const resetWidth = getDefaultWidth()
+    currentWidthRef.current = resetWidth
+    panelRef.current?.style.setProperty('--pane-width', `${resetWidth}px`)
+    updateAriaValues(handleRef.current, {current: resetWidth}, formatValueText)
+    saveWidth(resetWidth)
+  }, [currentWidthRef, getDefaultWidth, saveWidth])
+
+  return (
+    <div className={classes.StandaloneContainer}>
+      <div
+        ref={panelRef}
+        className={classes.StandalonePanel}
+        style={
+          {
+            '--pane-width': `${currentWidth}px`,
+          } as React.CSSProperties
+        }
+      >
+        Drag the right edge, use arrow keys, or double-click to reset.
+        <div className={classes.StandaloneHandleBar}>
+          <DragHandle
+            handleRef={handleRef}
+            dragTargetRef={panelRef}
+            data-component="StandaloneResizablePanel.DragHandle"
+            aria-valuemin={minPaneWidth}
+            aria-valuemax={maxPaneWidth}
+            aria-valuenow={currentWidth}
+            formatValueText={formatValueText}
+            onDragStart={handleDragStart}
+            onDrag={handleDrag}
+            onDragEnd={handleDragEnd}
+            onDoubleClick={handleDoubleClick}
+          />
+        </div>
+      </div>
+      <div className={classes.StandaloneContent}>
+        <Placeholder height={228} label="Main content" />
+      </div>
+    </div>
+  )
+}
+
+export const StandaloneResize: StoryFn = () => <StandaloneResizablePanel />
 
 export default meta
