@@ -1,6 +1,8 @@
 ---
 name: component-spec
-description: Use when defining or using the specification for a component
+description: |
+  Use when creating a new component; adding, changing, or removing a feature; or
+  evaluating a change to a component in order to make sure everything is in sync
 ---
 
 # Component Spec

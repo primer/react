@@ -1,0 +1,21 @@
+{
+  "name": "@primer/spec",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "exports": "./src/index.ts",
+  "scripts": {
+    "test": "vitest --run",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "mdast-util-from-markdown": "2.0.1",
+    "mdast-util-to-string": "4.0.0",
+    "unist-util-visit": "5.0.0"
+  },
+  "devDependencies": {
+    "@primer/vitest-config": "^0.0.0",
+    "typescript": "^6.0.3"
+  },
+  "sideEffects": false
+}
