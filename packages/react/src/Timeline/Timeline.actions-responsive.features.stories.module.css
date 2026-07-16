@@ -129,8 +129,16 @@
   color: var(--fgColor-success);
 }
 
+.SignatureLabelPartial {
+  color: var(--fgColor-attention);
+}
+
 .IconSuccess {
   color: var(--fgColor-success);
+}
+
+.IconDanger {
+  color: var(--fgColor-danger);
 }
 
 .Timestamp {

@@ -15,7 +15,7 @@
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps, ReactNode} from 'react'
 import Timeline from './Timeline'
-import {CheckIcon, GitCommitIcon, GitMergeIcon, RepoPushIcon} from '@primer/octicons-react'
+import {CheckIcon, GitCommitIcon, GitMergeIcon, RepoPushIcon, XIcon} from '@primer/octicons-react'
 import Link from '../Link'
 import {Button} from '../Button'
 import Label from '../Label'
@@ -55,7 +55,9 @@ function ResizableTimeline({children}: {children: ReactNode}) {
 /**
  * Renders the same set of realistic Timeline items used to stress-test each
  * option. Cases cover: two-button actions, single-button + long body, a
- * condensed multi-element row, and a worst-case long body + long actions.
+ * condensed multi-element row, a worst-case long body + long actions, and
+ * PR-style commit rows where the Actions slot is a verification cluster
+ * (Label + icon + SHA link) rather than buttons.
  */
 function ItemCases({itemClassName, actionsClassName}: {itemClassName?: string; actionsClassName?: string}) {
   return (
@@ -155,6 +157,53 @@ function ItemCases({itemClassName, actionsClassName}: {itemClassName?: string; a
             <Button size="small">View details</Button>
             <Button size="small">Compare</Button>
             <Button size="small">Revert</Button>
+          </Timeline.Actions>
+        </Timeline.Item>
+      </div>
+
+      {/* Case E: PR commit row — realistic long commit subject with a
+          `Verified` signature cluster (Label + check icon + SHA link) in
+          Actions instead of buttons. Mirrors the pattern used on PR
+          commit-added events (see github/primer#6693 discussion). */}
+      <div className={classes.ItemContainer}>
+        <Timeline.Item condensed className={itemClassName}>
+          <Timeline.Badge>
+            <Octicon icon={GitCommitIcon} aria-label="Commit" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Link href="#" muted>
+              Apply suggestions from code review
+            </Link>
+          </Timeline.Body>
+          <Timeline.Actions className={actionsClassName}>
+            <Label className={classes.SignatureLabelVerified}>Verified</Label>
+            <Octicon icon={CheckIcon} className={classes.IconSuccess} aria-label="Signature verified" />
+            <Link href="#" className={classes.ShaLink} muted>
+              3fbdc0
+            </Link>
+          </Timeline.Actions>
+        </Timeline.Item>
+      </div>
+
+      {/* Case F: PR commit row — `Partially verified` variant with a longer
+          label and an X icon. Stresses the SHA cluster with a wider Actions
+          slot to see how each option handles the extra width. */}
+      <div className={classes.ItemContainer}>
+        <Timeline.Item condensed className={itemClassName}>
+          <Timeline.Badge>
+            <Octicon icon={GitCommitIcon} aria-label="Commit" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Link href="#" muted>
+              Initial commit
+            </Link>
+          </Timeline.Body>
+          <Timeline.Actions className={actionsClassName}>
+            <Label className={classes.SignatureLabelPartial}>Partially verified</Label>
+            <Octicon icon={XIcon} className={classes.IconDanger} aria-label="Signature partially verified" />
+            <Link href="#" className={classes.ShaLink} muted>
+              3fbdc0
+            </Link>
           </Timeline.Actions>
         </Timeline.Item>
       </div>
