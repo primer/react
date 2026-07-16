@@ -45,6 +45,11 @@
   list-style: none;
   align-items: center;
   gap: var(--stack-gap-condensed);
+
+  /* Isolate the ResizeObserver-driven item swapping (UnderlineNav overflow menu / UnderlinePanels)
+  so it can't invalidate ancestor layout. Safe because UnderlineNav's overflow menu is rendered via ActionMenu.Overlay
+  (portal by default), and layout containment does not clip. */
+  contain: layout;
 }
 
 .UnderlineItem {
