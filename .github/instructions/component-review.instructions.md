@@ -20,8 +20,8 @@ migration debt.
 ## `component-review.file-structure`
 
 - **Check:** New components use a PascalCase directory and colocate
-  implementation, CSS, tests, stories, docs metadata, and exports according to
-  repository conventions.
+  applicable implementation, styles, tests, stories, docs metadata, and exports
+  according to repository conventions.
 - **Prefer:** Name subcomponent files with the parent component prefix for
   discoverability.
 - **Authority:** `contributor-docs/adrs/adr-013-file-structure.md`
@@ -36,9 +36,8 @@ migration debt.
 
 ## `component-review.stable-identifiers` (advisory)
 
-- **Check:** New or changed component roots, public subcomponents, and
-  meaningful structural parts follow the established `data-component` naming
-  contract.
+- **Check:** Newly added component roots, public subcomponents, and meaningful
+  structural parts follow the established `data-component` naming contract.
 - **Prefer:** Use PascalCase component API names, keep state in separate data
   attributes, and test stable identifier values.
 - **Authority:** `contributor-docs/adrs/adr-023-stable-selectors-api.md`
