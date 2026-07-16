@@ -54,11 +54,8 @@
   margin-right: var(--base-size-4);
 }
 
-/*
-  Mirrors github.com's `.d-flex.flex-column.flex-md-row` on the linked-issue/PR
-  reference row: title on top, lock icon and state pill stacked below at narrow;
-  laid out horizontally with the title claiming remaining space at md+.
-*/
+/* Title on top, lock icon and state pill stacked below at narrow;
+   inline row with the title claiming remaining space above 480px. */
 .CrossReferenceRow {
   display: flex;
   flex-direction: row;
@@ -116,14 +113,9 @@
   flex-shrink: 0;
 }
 
-/*
-  Hides Timeline.Actions children (like the "Verified"/"Unverified" signature
-  labels on commit rows) when the surrounding Timeline is below 480px inline
-  size. Mirrors github.com's `.d-md-inline-block .d-none` responsive hide, so
-  after the Actions row wraps beneath Body only the compact icon + SHA cluster
-  remains. Container query resolves against `.Timeline` (which sets
-  `container-type: inline-size` in the shipped component CSS).
-*/
+/* Hides Timeline.Actions children (Verified / Unverified signature labels
+   on commit rows) when Timeline is narrow, so only the compact icon + SHA
+   cluster remains after the Actions row wraps beneath Body. */
 @container (width < 480px) {
   .HideAtNarrow {
     display: none;

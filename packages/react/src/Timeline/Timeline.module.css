@@ -4,11 +4,9 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  /* Establish an inline-size container so descendants (Timeline.Item and
-     its Badge / Body / Actions slots) can respond to the timeline's own
-     width via the narrow-viewport rules at the end of this file. Uses
-     container queries rather than viewport media queries so Timeline
-     works correctly inside narrow side panels and split views. */
+  /* Container for the narrow-viewport rules at the end of this file. Uses
+     an inline-size container so behavior tracks the timeline's own width,
+     not the viewport (works inside narrow side panels and split views). */
   container-type: inline-size;
 
   &:where([data-clip-sidebar='start']),
@@ -201,13 +199,9 @@
   flex-shrink: 0;
 }
 
-/* Below ~480px inline size (mobile viewports, narrow side panels, etc.),
-   switch each Timeline.Item to a 2-column grid so Timeline.Actions wraps
-   onto its own row directly under Timeline.Body, left-aligned with the
-   body content. The badge stays in the left column across both rows so
-   the vertical rule and gutter behavior are unchanged; items without an
-   Actions slot leave the second grid row empty and collapse to 0 height.
-   Tracked in github/primer#6693. */
+/* Below 480px inline size, wrap Timeline.Actions onto its own row under
+   Timeline.Body via a 2-column grid. The badge keeps the left column so
+   the vertical rule stays consistent. */
 @container (width < 480px) {
   .TimelineItem {
     display: grid;
@@ -227,8 +221,7 @@
 
   .TimelineItemActions {
     grid-area: actions;
-    /* Reset the flex-row auto-push behavior; the wrapped row already sits
-       under Body and doesn't need to match the badge's row height. */
+    /* Reset flex-row auto-push; the wrapped row sits under Body. */
     margin-top: var(--base-size-8);
     margin-left: 0;
     justify-content: flex-start;
