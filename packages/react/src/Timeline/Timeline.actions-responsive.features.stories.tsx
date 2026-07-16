@@ -15,12 +15,21 @@
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps, ReactNode} from 'react'
 import Timeline from './Timeline'
-import {CheckIcon, GitCommitIcon, GitMergeIcon, RepoPushIcon, XIcon} from '@primer/octicons-react'
+import {
+  CheckIcon,
+  CrossReferenceIcon,
+  GitCommitIcon,
+  GitMergeIcon,
+  LockIcon,
+  RepoPushIcon,
+  XIcon,
+} from '@primer/octicons-react'
 import Link from '../Link'
 import {Button} from '../Button'
 import Label from '../Label'
 import BranchName from '../BranchName'
 import Octicon from '../Octicon'
+import StateLabel from '../StateLabel'
 import classes from './Timeline.actions-responsive.features.stories.module.css'
 
 export default {
@@ -204,6 +213,33 @@ function ItemCases({itemClassName, actionsClassName}: {itemClassName?: string; a
             <Link href="#" className={classes.ShaLink} muted>
               3fbdc0
             </Link>
+          </Timeline.Actions>
+        </Timeline.Item>
+      </div>
+
+      {/* Case G: PR cross-reference — the third Actions pattern Jan
+          identified alongside Buttons and SHA clusters (github/primer#6693).
+          An optional octicon (LockIcon for private references) paired with a
+          StateLabel showing the referenced PR's state. */}
+      <div className={classes.ItemContainer}>
+        <Timeline.Item className={itemClassName}>
+          <Timeline.Badge>
+            <Octicon icon={CrossReferenceIcon} aria-label="Cross-reference" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Link href="#" className={classes.LinkWithBoldStyle} muted>
+              Monalisa
+            </Link>
+            mentioned this pull request in{' '}
+            <Link href="#" muted>
+              Fix positioning of Autocomplete overlay menu primer/react#7431
+            </Link>
+          </Timeline.Body>
+          <Timeline.Actions className={actionsClassName}>
+            <Octicon icon={LockIcon} className={classes.CrossReferenceMeta} aria-label="Private" />
+            <StateLabel status="pullOpened" size="small">
+              Open
+            </StateLabel>
           </Timeline.Actions>
         </Timeline.Item>
       </div>

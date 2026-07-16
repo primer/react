@@ -141,6 +141,11 @@
   color: var(--fgColor-danger);
 }
 
+.CrossReferenceMeta {
+  color: var(--fgColor-muted);
+  flex-shrink: 0;
+}
+
 .Timestamp {
   color: var(--fgColor-muted);
 }
