@@ -8,6 +8,9 @@ import classes from './Banner.module.css'
 describe('Banner', () => {
   implementsClassName(props => <Banner title="test" {...props} />, classes.Banner)
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should render as a region element', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('region', {name: 'test'})).toBeInTheDocument()
@@ -44,6 +47,9 @@ describe('Banner', () => {
     expect(dismissButton).toBeInTheDocument()
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should label the landmark element with the title by default', () => {
     render(<Banner title="My Banner Title" />)
     const region = screen.getByRole('region', {name: 'My Banner Title'})
@@ -51,41 +57,62 @@ describe('Banner', () => {
     expect(region).not.toHaveAttribute('aria-label')
   })
 
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
   it('should use aria-labelledby to reference the title for the critical variant', () => {
     render(<Banner title="Critical Issue" variant="critical" />)
     const region = screen.getByRole('region', {name: 'Critical Issue'})
     expect(region).toHaveAttribute('aria-labelledby')
   })
 
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
   it('should use aria-labelledby to reference the title for the info variant', () => {
     render(<Banner title="Information" variant="info" />)
     const region = screen.getByRole('region', {name: 'Information'})
     expect(region).toHaveAttribute('aria-labelledby')
   })
 
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
   it('should use aria-labelledby to reference the title for the success variant', () => {
     render(<Banner title="Success Message" variant="success" />)
     const region = screen.getByRole('region', {name: 'Success Message'})
     expect(region).toHaveAttribute('aria-labelledby')
   })
 
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
   it('should use aria-labelledby to reference the title for the upsell variant', () => {
     render(<Banner title="Recommendation" variant="upsell" />)
     const region = screen.getByRole('region', {name: 'Recommendation'})
     expect(region).toHaveAttribute('aria-labelledby')
   })
 
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
   it('should use aria-labelledby to reference the title for the warning variant', () => {
     render(<Banner title="Warning" variant="warning" />)
     const region = screen.getByRole('region', {name: 'Warning'})
     expect(region).toHaveAttribute('aria-labelledby')
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should support the `aria-label` prop to override the default label for the landmark', () => {
     render(<Banner aria-label="Test" title="test" variant="warning" />)
     expect(screen.getByRole('region')).toHaveAttribute('aria-label', 'Test')
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should prefer aria-labelledby over aria-label and not set both', () => {
     render(
       <Banner aria-label="Override" aria-labelledby="my-banner-title">
@@ -98,6 +125,9 @@ describe('Banner', () => {
     expect(region).not.toHaveAttribute('aria-label')
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should only set aria-label when aria-labelledby is not provided', () => {
     render(<Banner aria-label="Custom Label" title="test" />)
     const region = screen.getByRole('region')
@@ -105,6 +135,9 @@ describe('Banner', () => {
     expect(region).not.toHaveAttribute('aria-labelledby')
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should use aria-labelledby to reference Banner.Title when provided as a child', () => {
     render(
       <Banner>
@@ -118,6 +151,9 @@ describe('Banner', () => {
     expect(region).not.toHaveAttribute('aria-label')
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should use aria-labelledby to reference Banner.Title with custom id', () => {
     render(
       <Banner aria-labelledby="custom-title-id">
@@ -129,12 +165,18 @@ describe('Banner', () => {
     expect(screen.getByRole('heading')).toHaveAttribute('id', 'custom-title-id')
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should default the title to a h2', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('heading', {level: 2})).toBeInTheDocument()
     expect(screen.getByRole('heading', {level: 2})).toEqual(screen.getByText('test'))
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should throw an error if no title is provided', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
@@ -143,12 +185,18 @@ describe('Banner', () => {
     spy.mockRestore()
   })
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should rendering a description with the `description` prop', () => {
     render(<Banner title="test" description="test-description" />)
     expect(screen.getByText('test-description')).toBeInTheDocument()
     expect(screen.getByRole('region', {name: 'test'})).toContainElement(screen.getByText('test-description'))
   })
 
+  /**
+   * @see ./SPEC.md#actions
+   */
   it('should support a primary action', async () => {
     const user = userEvent.setup()
     const onClick = vi.fn()
@@ -166,6 +214,9 @@ describe('Banner', () => {
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
+  /**
+   * @see ./SPEC.md#actions
+   */
   it('should support a secondary action', async () => {
     const user = userEvent.setup()
     const onClick = vi.fn()
@@ -183,6 +234,9 @@ describe('Banner', () => {
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
+  /**
+   * @see ./SPEC.md#actions
+   */
   it('should support primary action and secondary action', () => {
     render(
       <Banner
@@ -197,6 +251,9 @@ describe('Banner', () => {
     expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
   })
 
+  /**
+   * @see ./SPEC.md#dismissal
+   */
   it('should call `onDismiss` when the dismiss button is activated', async () => {
     const user = userEvent.setup()
     const onDismiss = vi.fn()
@@ -214,6 +271,9 @@ describe('Banner', () => {
     expect(onDismiss).toHaveBeenCalledTimes(3)
   })
 
+  /**
+   * @see ./SPEC.md#dismissal
+   */
   it.each(['critical', 'info', 'success', 'upsell', 'warning'] as const)(
     'should support onDismiss for the %s variant',
     variant => {
@@ -223,11 +283,17 @@ describe('Banner', () => {
     },
   )
 
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should pass extra props onto the container element', () => {
     const {container} = render(<Banner title="test" data-testid="test" />)
     expect(container.firstChild).toHaveAttribute('data-testid', 'test')
   })
 
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
   it('should support a custom icon for info and upsell variants', () => {
     const CustomIcon = vi.fn(() => <svg data-testid="icon" aria-hidden="true" />)
     const {rerender} = render(
@@ -248,6 +314,9 @@ describe('Banner', () => {
     expect(screen.queryByTestId('icon')).toBe(null)
   })
 
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
   it('should support a custom leadingVisual for info and upsell variants', () => {
     const CustomIcon = vi.fn(() => <svg data-testid="leading-visual" aria-hidden="true" />)
     const {rerender} = render(
@@ -268,6 +337,9 @@ describe('Banner', () => {
     expect(screen.queryByTestId('leading-visual')).toBe(null)
   })
 
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
   it('should prefer leadingVisual over icon when both are provided', () => {
     const LeadingVisualIcon = () => <svg data-testid="leading-visual" aria-hidden="true" />
     const DeprecatedIcon = () => <svg data-testid="deprecated-icon" aria-hidden="true" />
@@ -284,32 +356,50 @@ describe('Banner', () => {
     expect(screen.queryByTestId('deprecated-icon')).toBe(null)
   })
 
+  /**
+   * @see ./SPEC.md#layout
+   */
   it('should render data-actions-layout attribute with inline value', () => {
     const {container} = render(<Banner title="test" actionsLayout="inline" />)
     expect(container.firstChild).toHaveAttribute('data-actions-layout', 'inline')
   })
 
+  /**
+   * @see ./SPEC.md#layout
+   */
   it('should render data-actions-layout attribute with stacked value', () => {
     const {container} = render(<Banner title="test" actionsLayout="stacked" />)
     expect(container.firstChild).toHaveAttribute('data-actions-layout', 'stacked')
   })
 
+  /**
+   * @see ./SPEC.md#layout
+   */
   it('should render data-actions-layout attribute with default value when not specified', () => {
     const {container} = render(<Banner title="test" />)
     expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
   })
 
+  /**
+   * @see ./SPEC.md#layout
+   */
   it('should render data-flush attribute when flush is true', () => {
     const {container} = render(<Banner title="test" flush />)
     expect(container.firstChild).toHaveAttribute('data-flush')
   })
 
+  /**
+   * @see ./SPEC.md#layout
+   */
   it('should not render data-flush attribute when flush is false', () => {
     const {container} = render(<Banner title="test" />)
     expect(container.firstChild).not.toHaveAttribute('data-flush')
   })
 
   describe('Banner.Title', () => {
+    /**
+     * @see ./SPEC.md#default
+     */
     it('should render as a h2 element by default', () => {
       render(
         <Banner>
@@ -319,6 +409,9 @@ describe('Banner', () => {
       expect(screen.getByRole('heading', {level: 2, name: 'test'})).toBeInTheDocument()
     })
 
+    /**
+     * @see ./SPEC.md#default
+     */
     it('should support rendering as any heading element above level 2', () => {
       const levels = [2, 3, 4, 5, 6] as const
 

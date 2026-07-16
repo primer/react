@@ -33,6 +33,10 @@ export const Critical = () => {
   )
 }
 
+Critical.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#variants-and-leading-visuals'],
+}
+
 export const Info = () => {
   return (
     <Banner
@@ -50,6 +54,10 @@ export const Info = () => {
       variant="info"
     ></Banner>
   )
+}
+
+Info.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#variants-and-leading-visuals', './SPEC.md#dismissal'],
 }
 
 export const Success = () => {
@@ -71,6 +79,10 @@ export const Success = () => {
   )
 }
 
+Success.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#variants-and-leading-visuals', './SPEC.md#dismissal'],
+}
+
 export const Upsell = () => {
   return (
     <Banner
@@ -88,6 +100,10 @@ export const Upsell = () => {
       variant="upsell"
     />
   )
+}
+
+Upsell.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#variants-and-leading-visuals', './SPEC.md#dismissal'],
 }
 
 export const Warning = () => {
@@ -109,6 +125,10 @@ export const Warning = () => {
   )
 }
 
+Warning.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#variants-and-leading-visuals', './SPEC.md#dismissal'],
+}
+
 export const Dismiss = () => {
   return (
     <Banner
@@ -125,6 +145,10 @@ export const Dismiss = () => {
       onDismiss={action('onDismiss')}
     />
   )
+}
+
+Dismiss.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#dismissal'],
 }
 
 export const DismissWithActions = () => {
@@ -147,6 +171,10 @@ export const DismissWithActions = () => {
   )
 }
 
+DismissWithActions.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#actions', './SPEC.md#dismissal'],
+}
+
 export const WithHiddenTitle = () => {
   return (
     <Banner
@@ -164,6 +192,10 @@ export const WithHiddenTitle = () => {
       variant="warning"
     />
   )
+}
+
+WithHiddenTitle.parameters = {
+  spec: ['./SPEC.md#default'],
 }
 
 export const WithHiddenTitleAndActions = () => {
@@ -185,6 +217,10 @@ export const WithHiddenTitleAndActions = () => {
       secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
     />
   )
+}
+
+WithHiddenTitleAndActions.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#actions'],
 }
 
 export const DismissibleWithHiddenTitleAndActions = () => {
@@ -209,6 +245,10 @@ export const DismissibleWithHiddenTitleAndActions = () => {
   )
 }
 
+DismissibleWithHiddenTitleAndActions.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#actions', './SPEC.md#dismissal'],
+}
+
 export const DismissibleWithHiddenTitleAndSecondaryAction = () => {
   return (
     <Banner
@@ -228,6 +268,10 @@ export const DismissibleWithHiddenTitleAndSecondaryAction = () => {
       secondaryAction={<Banner.SecondaryAction leadingVisual={GitPullRequestIcon}>Button</Banner.SecondaryAction>}
     />
   )
+}
+
+DismissibleWithHiddenTitleAndSecondaryAction.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#actions', './SPEC.md#dismissal'],
 }
 
 export const WithActions = () => {
@@ -250,6 +294,10 @@ export const WithActions = () => {
   )
 }
 
+WithActions.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#variants-and-leading-visuals', './SPEC.md#actions'],
+}
+
 export const CustomIcon = () => {
   return (
     <Banner
@@ -260,6 +308,10 @@ export const CustomIcon = () => {
       variant="upsell"
     />
   )
+}
+
+CustomIcon.parameters = {
+  spec: ['./SPEC.md#variants-and-leading-visuals'],
 }
 
 export const FlushInsideDialog = () => {
@@ -286,6 +338,10 @@ export const FlushInsideDialog = () => {
       <div style={{padding: 'var(--base-size-16)'}}>rest of the dialog content goes here</div>
     </Dialog>
   )
+}
+
+FlushInsideDialog.parameters = {
+  spec: ['./SPEC.md#actions', './SPEC.md#layout'],
 }
 
 export const ActionsLayoutStacked = () => {
@@ -352,6 +408,10 @@ export const ActionsLayoutStacked = () => {
   )
 }
 
+ActionsLayoutStacked.parameters = {
+  spec: ['./SPEC.md#actions', './SPEC.md#layout'],
+}
+
 export const ActionsLayoutInline = () => {
   return (
     <Stack gap="spacious">
@@ -404,4 +464,8 @@ export const ActionsLayoutInline = () => {
       </Stack>
     </Stack>
   )
+}
+
+ActionsLayoutInline.parameters = {
+  spec: ['./SPEC.md#actions', './SPEC.md#layout'],
 }

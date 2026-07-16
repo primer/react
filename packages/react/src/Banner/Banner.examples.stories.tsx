@@ -47,6 +47,10 @@ export const WithUserAction = () => {
   )
 }
 
+WithUserAction.parameters = {
+  spec: ['./SPEC.md#accessibility'],
+}
+
 export const WithAnnouncement = () => {
   type Choice = 'one' | 'two' | 'three'
   const messages: Map<Choice, string> = new Map([
@@ -90,6 +94,10 @@ export const WithAnnouncement = () => {
   )
 }
 
+WithAnnouncement.parameters = {
+  spec: ['./SPEC.md#accessibility'],
+}
+
 export const WithCustomHeading = () => {
   return (
     <Banner
@@ -107,6 +115,10 @@ export const WithCustomHeading = () => {
       </Banner.Description>
     </Banner>
   )
+}
+
+WithCustomHeading.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#actions', './SPEC.md#dismissal'],
 }
 
 export const InSidebar = () => {
@@ -139,6 +151,10 @@ export const InSidebar = () => {
   )
 }
 
+InSidebar.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#layout'],
+}
+
 export const Multiline = () => {
   return (
     <Banner
@@ -149,6 +165,10 @@ export const Multiline = () => {
       secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
     />
   )
+}
+
+Multiline.parameters = {
+  spec: ['./SPEC.md#actions', './SPEC.md#dismissal', './SPEC.md#layout'],
 }
 
 export const DismissBanner = () => {
@@ -186,4 +206,8 @@ export const DismissBanner = () => {
       </main>
     </>
   )
+}
+
+DismissBanner.parameters = {
+  spec: ['./SPEC.md#accessibility', './SPEC.md#dismissal'],
 }
