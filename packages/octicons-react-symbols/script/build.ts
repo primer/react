@@ -1,11 +1,14 @@
 import fs from 'node:fs/promises'
+import {createRequire} from 'node:module'
 import path from 'node:path'
 import babel from '@babel/core'
-import {generate} from '@babel/generator'
+import type babelGenerate from '@babel/generator'
 import {pascalCase} from 'change-case'
 import data from '@primer/octicons/build/data.json' with {type: 'json'}
 
 const {types: t} = babel
+const require = createRequire(import.meta.url)
+const generate: typeof babelGenerate = require('@babel/generator').default
 const SOURCE_DIRECTORY = path.resolve(import.meta.dirname, '../src')
 const GENERATED_DIRECTORY = path.join(SOURCE_DIRECTORY, 'generated')
 
@@ -32,6 +35,12 @@ const modules = partition(Object.values(data), BUCKET_SIZE).map((icons, index) =
     // import {Icon} from '../Icon'
     t.importDeclaration([t.importSpecifier(t.identifier('Icon'), t.identifier('Icon'))], t.stringLiteral('../Icon')),
 
+    // import {createOcticonSymbol} from '../OcticonSymbol'
+    t.importDeclaration(
+      [t.importSpecifier(t.identifier('createOcticonSymbol'), t.identifier('createOcticonSymbol'))],
+      t.stringLiteral('../OcticonSymbol'),
+    ),
+
     // import type {OcticonReferenceProps} from '../types'
     t.importDeclaration([propsImportSpecifier], t.stringLiteral('../types')),
   ]
@@ -57,23 +66,28 @@ const modules = partition(Object.values(data), BUCKET_SIZE).map((icons, index) =
         jsx,
       }
     })
-    const symbolComponent = t.functionDeclaration(
-      t.identifier(symbolName),
-      [],
-      t.blockStatement([
-        t.returnStatement(
-          symbols.length === 1
-            ? symbols[0].jsx
-            : t.jsxFragment(
-                t.jsxOpeningFragment(),
-                t.jsxClosingFragment(),
-                symbols.map(symbol => symbol.jsx),
-              ),
-        ),
-      ]),
-    )
+    const symbol = t.variableDeclaration('const', [
+      t.variableDeclarator(
+        t.identifier(symbolName),
+        t.callExpression(t.identifier('createOcticonSymbol'), [
+          t.objectExpression([
+            t.objectProperty(t.identifier('id'), t.stringLiteral(`symbol-octicon-${icon.name}`)),
+            t.objectProperty(
+              t.identifier('definition'),
+              symbols.length === 1
+                ? symbols[0].jsx
+                : t.jsxFragment(
+                    t.jsxOpeningFragment(),
+                    t.jsxClosingFragment(),
+                    symbols.map(symbol => symbol.jsx),
+                  ),
+            ),
+          ]),
+        ]),
+      ),
+    ])
 
-    const referenceName = `${pascalCase(icon.name)}Icon`
+    const referenceName = `${pascalCase(icon.name)}IconReference`
     const forwardRef = t.callExpression(t.identifier('forwardRef'), [
       t.functionExpression(
         t.identifier(referenceName),
@@ -120,7 +134,7 @@ const modules = partition(Object.values(data), BUCKET_SIZE).map((icons, index) =
 
     const reference = t.variableDeclaration('const', [t.variableDeclarator(t.identifier(referenceName), forwardRef)])
 
-    return [t.exportNamedDeclaration(symbolComponent), t.exportNamedDeclaration(reference)]
+    return [t.exportNamedDeclaration(symbol), t.exportNamedDeclaration(reference)]
   })
 
   const body = [...imports, ...components]
@@ -133,7 +147,7 @@ const modules = partition(Object.values(data), BUCKET_SIZE).map((icons, index) =
   return {
     filepath,
     contents: generate(program).code,
-    exports: icons.flatMap(icon => [`${pascalCase(icon.name)}Icon`, `${pascalCase(icon.name)}Symbol`]),
+    exports: icons.flatMap(icon => [`${pascalCase(icon.name)}IconReference`, `${pascalCase(icon.name)}Symbol`]),
   }
 })
 
@@ -155,6 +169,9 @@ const octiconsReferencePropsExportSpecifier = t.exportSpecifier(
 )
 octiconsReferencePropsExportSpecifier.exportKind = 'type'
 
+const octiconSymbolExportSpecifier = t.exportSpecifier(t.identifier('OcticonSymbol'), t.identifier('OcticonSymbol'))
+octiconSymbolExportSpecifier.exportKind = 'type'
+
 const index = t.addComment(
   t.program([
     t.exportNamedDeclaration(
@@ -164,6 +181,14 @@ const index = t.addComment(
         octiconsSymbolsPropsExportSpecifier,
       ],
       t.stringLiteral('../OcticonSymbols'),
+    ),
+    t.exportNamedDeclaration(
+      null,
+      [
+        t.exportSpecifier(t.identifier('createOcticonSymbol'), t.identifier('createOcticonSymbol')),
+        octiconSymbolExportSpecifier,
+      ],
+      t.stringLiteral('../OcticonSymbol'),
     ),
     t.exportNamedDeclaration(null, [octiconsReferencePropsExportSpecifier], t.stringLiteral('../types')),
     ...modules.map(mod => {

@@ -1,44 +1,39 @@
-import {createContext, Fragment, useMemo, useState} from 'react'
-import type {PropsWithChildren} from 'react'
+import {createContext, Fragment, useContext} from 'react'
+import type {FC, ReactNode} from 'react'
+import type {OcticonSymbol} from './OcticonSymbol'
 
-type OcticonSymbolsProps = PropsWithChildren
-
-type OcticonSymbolsContextValue = {
-  registerSymbol(id: string, symbol: React.ReactNode): void
+interface OcticonSymbolsProps {
+  children?: ReactNode
+  symbols: ReadonlyArray<OcticonSymbol>
 }
 
-const OcticonSymbolsContext = createContext<OcticonSymbolsContextValue | null>(null)
+const OcticonSymbolsContext = createContext<ReadonlySet<string>>(new Set())
 
-function OcticonSymbols({children}: OcticonSymbolsProps) {
-  const [symbols, setSymbols] = useState<Map<string, React.ReactNode>>(() => {
-    return new Map()
-  })
-  const value: OcticonSymbolsContextValue = useMemo(() => {
-    return {
-      registerSymbol(id, symbol) {
-        setSymbols(symbols => {
-          if (!symbols.has(id)) {
-            const nextSymbols = new Map(symbols)
-            nextSymbols.set(id, symbol)
-            return nextSymbols
-          }
-          return symbols
-        })
-      },
+const OcticonSymbols: FC<OcticonSymbolsProps> = ({children, symbols}) => {
+  const inheritedSymbolIds = useContext(OcticonSymbolsContext)
+  const registeredSymbolIds = new Set(inheritedSymbolIds)
+  const symbolsToRender: Array<OcticonSymbol> = []
+
+  for (const symbol of symbols) {
+    if (!registeredSymbolIds.has(symbol.id)) {
+      registeredSymbolIds.add(symbol.id)
+      symbolsToRender.push(symbol)
     }
-  }, [])
+  }
 
   return (
-    <OcticonSymbolsContext.Provider value={value}>
-      <svg aria-hidden="true" height={0} width={0} display="none">
-        {children}
-        {Array.from(symbols.entries()).map(([id, symbol]) => {
-          return <Fragment key={id}>{symbol}</Fragment>
-        })}
-      </svg>
+    <OcticonSymbolsContext.Provider value={registeredSymbolIds}>
+      {symbolsToRender.length > 0 ? (
+        <svg aria-hidden="true" height={0} width={0} display="none">
+          {symbolsToRender.map(symbol => {
+            return <Fragment key={symbol.id}>{symbol.definition}</Fragment>
+          })}
+        </svg>
+      ) : null}
+      {children}
     </OcticonSymbolsContext.Provider>
   )
 }
 
-export {OcticonSymbols, OcticonSymbolsContext}
+export {OcticonSymbols}
 export type {OcticonSymbolsProps}
