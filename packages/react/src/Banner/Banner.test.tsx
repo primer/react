@@ -1,6 +1,7 @@
 import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {createRef} from 'react'
 import {Banner} from '../Banner'
 import {implementsClassName} from '../utils/testing'
 import classes from './Banner.module.css'
@@ -13,7 +14,7 @@ describe('Banner', () => {
    */
   it('should render as a region element', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region', {name: 'test'})).toBeInTheDocument()
+    expect(screen.getByRole('region', {name: 'test'})).toHaveAttribute('tabindex', '-1')
     expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
   })
 
@@ -177,12 +178,51 @@ describe('Banner', () => {
   /**
    * @see ./SPEC.md#default
    */
+  it('should keep a visually hidden title in the accessibility tree', () => {
+    render(<Banner title="Hidden title" hideTitle />)
+
+    expect(screen.getByRole('region', {name: 'Hidden title'})).toBeInTheDocument()
+    expect(screen.getByRole('heading', {name: 'Hidden title'})).toBeInTheDocument()
+  })
+
+  /**
+   * @see ./SPEC.md#default
+   */
   it('should throw an error if no title is provided', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(<Banner />)
     }).toThrowErrorMatchingSnapshot()
     spy.mockRestore()
+  })
+
+  /**
+   * @see ./SPEC.md#default
+   */
+  it('should throw an error if more than one title is provided', () => {
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    expect(() => {
+      render(
+        <Banner title="Title prop">
+          <Banner.Title>Title child</Banner.Title>
+        </Banner>,
+      )
+    }).toThrow(
+      'Expected exactly one title to be provided to the <Banner> component with either the `title` prop or through `<Banner.Title>` but multiple titles were found',
+    )
+    spy.mockRestore()
+  })
+
+  /**
+   * @see ./SPEC.md#default
+   */
+  it('should not automatically announce itself', () => {
+    render(<Banner title="test" />)
+    const banner = screen.getByRole('region', {name: 'test'})
+
+    expect(banner).not.toHaveAttribute('aria-live')
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    expect(screen.queryByRole('status')).not.toBeInTheDocument()
   })
 
   /**
@@ -209,6 +249,7 @@ describe('Banner', () => {
     )
 
     expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
+    expect(screen.getAllByRole('button', {name: 'test primary action'})).toHaveLength(1)
 
     await user.click(screen.queryAllByText('test primary action')[0])
     expect(onClick).toHaveBeenCalledTimes(1)
@@ -229,6 +270,7 @@ describe('Banner', () => {
     )
 
     expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
+    expect(screen.getAllByRole('button', {name: 'test secondary action'})).toHaveLength(1)
 
     await user.click(screen.queryAllByText('test secondary action')[0])
     expect(onClick).toHaveBeenCalledTimes(1)
@@ -249,6 +291,73 @@ describe('Banner', () => {
 
     expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
     expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
+    expect(screen.getAllByRole('button', {name: 'test primary action'})).toHaveLength(1)
+    expect(screen.getAllByRole('button', {name: 'test secondary action'})).toHaveLength(1)
+  })
+
+  /**
+   * @see ./SPEC.md#actions
+   */
+  it.each(['default', 'inline', 'stacked'] as const)(
+    'should expose one operable instance of each action in the %s layout',
+    actionsLayout => {
+      render(
+        <Banner
+          title="test"
+          actionsLayout={actionsLayout}
+          primaryAction={<Banner.PrimaryAction>test primary action</Banner.PrimaryAction>}
+          secondaryAction={<Banner.SecondaryAction>test secondary action</Banner.SecondaryAction>}
+        />,
+      )
+
+      expect(screen.getAllByRole('button', {name: 'test primary action'})).toHaveLength(1)
+      expect(screen.getAllByRole('button', {name: 'test secondary action'})).toHaveLength(1)
+    },
+  )
+
+  /**
+   * @see ./SPEC.md#actions
+   */
+  it('should support rendering actions as links', () => {
+    render(
+      <Banner
+        title="test"
+        primaryAction={
+          <Banner.PrimaryAction as="a" href="#primary">
+            test primary action
+          </Banner.PrimaryAction>
+        }
+        secondaryAction={
+          <Banner.SecondaryAction as="a" href="#secondary">
+            test secondary action
+          </Banner.SecondaryAction>
+        }
+      />,
+    )
+
+    expect(screen.getAllByRole('link', {name: 'test primary action'})).toHaveLength(1)
+    expect(screen.getAllByRole('link', {name: 'test secondary action'})).toHaveLength(1)
+  })
+
+  /**
+   * @see ./SPEC.md#actions
+   */
+  it('should not dismiss the Banner when an action is activated', async () => {
+    const user = userEvent.setup()
+    const onAction = vi.fn()
+    const onDismiss = vi.fn()
+    render(
+      <Banner
+        title="test"
+        onDismiss={onDismiss}
+        primaryAction={<Banner.PrimaryAction onClick={onAction}>test primary action</Banner.PrimaryAction>}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'test primary action'}))
+
+    expect(onAction).toHaveBeenCalledOnce()
+    expect(onDismiss).not.toHaveBeenCalled()
   })
 
   /**
@@ -292,6 +401,32 @@ describe('Banner', () => {
   })
 
   /**
+   * @see ./SPEC.md#default
+   */
+  it('should forward the ref to the root section', () => {
+    const ref = createRef<HTMLElement>()
+    render(<Banner ref={ref} title="test" />)
+
+    expect(ref.current).toBeInstanceOf(HTMLElement)
+    expect(ref.current?.tagName).toBe('SECTION')
+    expect(ref.current).toHaveAttribute('data-component', 'Banner')
+  })
+
+  /**
+   * @see ./SPEC.md#variants-and-leading-visuals
+   */
+  it.each(['critical', 'info', 'success', 'upsell', 'warning'] as const)(
+    'should render a decorative built-in leading visual for the %s variant',
+    variant => {
+      const {container} = render(<Banner title={variant} variant={variant} />)
+      const visual = container.querySelector('[data-component="Banner.Icon"] svg')
+
+      expect(visual).toBeInTheDocument()
+      expect(visual).toHaveAttribute('aria-hidden', 'true')
+    },
+  )
+
+  /**
    * @see ./SPEC.md#variants-and-leading-visuals
    */
   it('should support a custom icon for info and upsell variants', () => {
@@ -323,6 +458,7 @@ describe('Banner', () => {
       <Banner title="test" description="test-description" variant="info" leadingVisual={<CustomIcon />} />,
     )
     expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+    expect(screen.getByTestId('leading-visual')).toHaveAttribute('aria-hidden', 'true')
 
     rerender(<Banner title="test" description="test-description" variant="upsell" leadingVisual={<CustomIcon />} />)
     expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
@@ -394,6 +530,14 @@ describe('Banner', () => {
   it('should not render data-flush attribute when flush is false', () => {
     const {container} = render(<Banner title="test" />)
     expect(container.firstChild).not.toHaveAttribute('data-flush')
+  })
+
+  /**
+   * @see ./SPEC.md#layout
+   */
+  it('should render the compact layout', () => {
+    const {container} = render(<Banner title="test" layout="compact" />)
+    expect(container.firstChild).toHaveAttribute('data-layout', 'compact')
   })
 
   describe('Banner.Title', () => {

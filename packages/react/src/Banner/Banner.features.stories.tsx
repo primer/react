@@ -298,6 +298,30 @@ WithActions.parameters = {
   spec: ['./SPEC.md#default', './SPEC.md#variants-and-leading-visuals', './SPEC.md#actions'],
 }
 
+export const ActionsAsLinks = () => {
+  return (
+    <Banner
+      title="Subscription expires soon"
+      description="Extend your subscription to keep access to all features."
+      primaryAction={
+        <Banner.PrimaryAction as="a" href="#extend-subscription">
+          Extend subscription
+        </Banner.PrimaryAction>
+      }
+      secondaryAction={
+        <Banner.SecondaryAction as="a" href="#learn-more">
+          Learn more
+        </Banner.SecondaryAction>
+      }
+      variant="warning"
+    />
+  )
+}
+
+ActionsAsLinks.parameters = {
+  spec: ['./SPEC.md#actions'],
+}
+
 export const CustomIcon = () => {
   return (
     <Banner
@@ -342,6 +366,20 @@ export const FlushInsideDialog = () => {
 
 FlushInsideDialog.parameters = {
   spec: ['./SPEC.md#actions', './SPEC.md#layout'],
+}
+
+export const Compact = () => {
+  return (
+    <Banner
+      title="Compact banner"
+      description="Compact layout reduces the padding without changing the Banner structure."
+      layout="compact"
+    />
+  )
+}
+
+Compact.parameters = {
+  spec: ['./SPEC.md#default', './SPEC.md#layout'],
 }
 
 export const ActionsLayoutStacked = () => {

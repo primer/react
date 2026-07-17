@@ -200,4 +200,147 @@ test.describe('Banner', () => {
       }
     })
   }
+
+  test.describe('Banner accessibility behavior', () => {
+    /**
+     * @see ../../packages/react/src/Banner/SPEC.md#accessibility
+     */
+    test('moves focus to essential feedback after a user action @avt', async ({page}) => {
+      await visit(page, {
+        id: 'components-banner-examples--with-user-action',
+      })
+
+      await page.getByRole('button', {name: 'Update profile'}).click()
+
+      await expect(page.getByRole('region', {name: 'Error'})).toBeFocused()
+    })
+
+    /**
+     * @see ../../packages/react/src/Banner/SPEC.md#accessibility
+     * @see ../../packages/react/src/Banner/SPEC.md#actions
+     */
+    test('moves focus to dynamic feedback with a required action @avt', async ({page}) => {
+      await visit(page, {
+        id: 'components-banner-examples--with-required-action-after-user-action',
+      })
+
+      await page.getByRole('button', {name: 'Submit changes'}).click()
+
+      await expect(page.getByRole('region', {name: 'Changes not saved'})).toBeFocused()
+      await expect(page.getByRole('button', {name: 'Review errors'})).toBeVisible()
+    })
+
+    /**
+     * @see ../../packages/react/src/Banner/SPEC.md#accessibility
+     */
+    test('updates content within a persistent live region @avt', async ({page}) => {
+      await visit(page, {
+        id: 'components-banner-examples--with-announcement',
+      })
+
+      const announcement = page.getByTestId('announcement')
+      const initialAnnouncement = await announcement.elementHandle()
+      if (!initialAnnouncement) {
+        throw new Error('Expected the Banner announcement source to be present')
+      }
+
+      await page.getByRole('radio', {name: 'Choice two'}).check()
+      await expect(announcement).toHaveText('This is a message for choice two')
+
+      const updatedAnnouncement = await announcement.elementHandle()
+      if (!updatedAnnouncement) {
+        throw new Error('Expected the Banner announcement source to remain present')
+      }
+      expect(await initialAnnouncement.evaluate((node, current) => node === current, updatedAnnouncement)).toBe(true)
+
+      await expect(page.locator('live-region')).toHaveCount(1)
+      await expect(page.locator('live-region #polite')).toContainText('This is a message for choice two')
+    })
+
+    /**
+     * @see ../../packages/react/src/Banner/SPEC.md#accessibility
+     * @see ../../packages/react/src/Banner/SPEC.md#dismissal
+     */
+    test('moves focus after a dismissed Banner is removed @avt', async ({page}) => {
+      await visit(page, {
+        id: 'components-banner-examples--dismiss-banner',
+      })
+
+      await page.getByRole('button', {name: 'Dismiss banner'}).click()
+
+      await expect(page.getByRole('heading', {name: 'Example page title'})).toBeFocused()
+    })
+
+    /**
+     * @see ../../packages/react/src/Banner/SPEC.md#accessibility
+     * @see ../../packages/react/src/Banner/SPEC.md#actions
+     * @see ../../packages/react/src/Banner/SPEC.md#dismissal
+     */
+    test('provides minimum target sizes for interactive controls @avt', async ({page}) => {
+      await visit(page, {
+        id: 'components-banner--default',
+      })
+
+      const controls = page.getByRole('button')
+      for (let index = 0; index < (await controls.count()); index++) {
+        const control = controls.nth(index)
+        const box = await control.boundingBox()
+        if (!box) {
+          throw new Error(`Expected Banner control ${index + 1} to be visible`)
+        }
+
+        expect(box.width).toBeGreaterThanOrEqual(24)
+        expect(box.height).toBeGreaterThanOrEqual(24)
+      }
+    })
+
+    /**
+     * @see ../../packages/react/src/Banner/SPEC.md#accessibility
+     * @see ../../packages/react/src/Banner/SPEC.md#layout
+     */
+    test('reflows without horizontal scrolling at narrow widths and 200% zoom @avt', async ({page}) => {
+      const hasHorizontalOverflow = () =>
+        page.evaluate(() => {
+          const documentWidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth)
+          return documentWidth > document.documentElement.clientWidth
+        })
+
+      await page.setViewportSize({width: 320, height: 256})
+      await visit(page, {
+        id: 'components-banner-examples--multiline',
+      })
+      expect(await hasHorizontalOverflow()).toBe(false)
+
+      await page.setViewportSize({width: 640, height: 512})
+      await visit(page, {
+        id: 'components-banner-examples--multiline',
+      })
+      await page.evaluate(() => {
+        document.documentElement.style.zoom = '2'
+      })
+      expect(await hasHorizontalOverflow()).toBe(false)
+    })
+  })
+
+  test.describe('Banner layout behavior', () => {
+    /**
+     * @see ../../packages/react/src/Banner/SPEC.md#layout
+     */
+    test('uses reduced padding for the compact layout', async ({page}) => {
+      const getPadding = () =>
+        page.getByRole('region').evaluate(element => Number.parseFloat(getComputedStyle(element).paddingBlockStart))
+
+      await visit(page, {
+        id: 'components-banner--default',
+      })
+      const defaultPadding = await getPadding()
+
+      await visit(page, {
+        id: 'components-banner-features--compact',
+      })
+      const compactPadding = await getPadding()
+
+      expect(compactPadding).toBeLessThan(defaultPadding)
+    })
+  })
 })

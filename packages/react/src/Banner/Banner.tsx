@@ -134,22 +134,24 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const visual = leadingVisual ?? icon
 
   useDevOnlyEffect(() => {
-    if (title) {
-      return
-    }
-
     const {current: banner} = bannerRef
     if (!banner) {
       return
     }
 
-    const hasTitle = banner.querySelector('[data-banner-title]')
-    if (!hasTitle) {
+    const titles = banner.querySelectorAll('[data-banner-title]')
+    if (titles.length === 0) {
       throw new Error(
         'Expected a title to be provided to the <Banner> component with the `title` prop or through `<Banner.Title>` but no title was found',
       )
     }
-  }, [title])
+
+    if (titles.length > 1) {
+      throw new Error(
+        'Expected exactly one title to be provided to the <Banner> component with either the `title` prop or through `<Banner.Title>` but multiple titles were found',
+      )
+    }
+  }, [children, title])
 
   return (
     <BannerContext.Provider value={{titleId}}>

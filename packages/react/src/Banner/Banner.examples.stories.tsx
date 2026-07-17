@@ -51,6 +51,39 @@ WithUserAction.parameters = {
   spec: ['./SPEC.md#accessibility'],
 }
 
+export const WithRequiredActionAfterUserAction = () => {
+  const [hasError, setHasError] = React.useState(false)
+  const bannerRef = React.useRef<React.ElementRef<typeof Banner>>(null)
+  const focus = useFocus()
+
+  return (
+    <>
+      {hasError ? (
+        <Banner
+          ref={bannerRef}
+          title="Changes not saved"
+          description="Review the highlighted fields before submitting again."
+          variant="critical"
+          primaryAction={<Banner.PrimaryAction onClick={action('Review errors')}>Review errors</Banner.PrimaryAction>}
+        />
+      ) : null}
+      <Button
+        type="button"
+        onClick={() => {
+          setHasError(true)
+          focus(bannerRef)
+        }}
+      >
+        Submit changes
+      </Button>
+    </>
+  )
+}
+
+WithRequiredActionAfterUserAction.parameters = {
+  spec: ['./SPEC.md#accessibility', './SPEC.md#actions'],
+}
+
 export const WithAnnouncement = () => {
   type Choice = 'one' | 'two' | 'three'
   const messages: Map<Choice, string> = new Map([
@@ -64,7 +97,7 @@ export const WithAnnouncement = () => {
     <>
       <Banner
         title="Info"
-        description={<AriaStatus>{messages.get(selected)}</AriaStatus>}
+        description={<AriaStatus data-testid="announcement">{messages.get(selected)}</AriaStatus>}
         onDismiss={action('onDismiss')}
         primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
         secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
