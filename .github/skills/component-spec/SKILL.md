@@ -20,8 +20,8 @@ Before changing a component, read its local component spec. Update the spec when
 a change adds, updates, or removes a feature or changes its markup, behavior,
 public API contract, or accessibility requirements.
 
-When referencing a component spec from source, tests, or stories, link to the
-relevant heading in the local `SPEC.md` file.
+When referencing a component spec from source, tests, or Storybook feature
+stories, link to the relevant heading in the local `SPEC.md` file.
 
 `SPEC.md` files may be broken up for larger components. Instead of a single
 file, a component may have a `spec` folder with a `README.md` file as the index
@@ -118,12 +118,14 @@ Explanatory prose does not need normative language.
 
 ## Keeping specs in sync
 
-Tests and Storybook stories should link directly to the spec heading that
-describes the behavior or feature they cover. Do not add requirement IDs or a
-verification section to the spec.
+Tests and Storybook feature stories should link directly to the spec heading
+that describes the behavior or feature they cover. Only feature stories should
+define `spec` parameters; Playground and other non-feature stories should not
+include spec references. Do not add requirement IDs or a verification section
+to the spec.
 
-Keep feature headings unique and stable because tests and stories may link to
-their generated Markdown anchors.
+Keep feature headings unique and stable because tests and feature stories may
+link to their generated Markdown anchors.
 
 For example, a test may link to a feature:
 
@@ -136,7 +138,7 @@ it('waits before rendering', () => {
 })
 ```
 
-A Storybook story may link to one or more features through parameters:
+A Storybook feature story may link to one or more features through parameters:
 
 ```tsx
 WithDelay.parameters = {

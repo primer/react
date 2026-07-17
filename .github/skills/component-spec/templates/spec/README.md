@@ -19,7 +19,8 @@ file.
 
 <!--
 Copy and rename feature.md for each additional feature. Keep feature names and
-links unique and stable because tests and stories may link to their headings.
+links unique and stable because tests and feature stories may link to their
+headings.
 -->
 
 ## Glossary
