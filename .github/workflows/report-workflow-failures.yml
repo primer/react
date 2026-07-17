@@ -77,11 +77,9 @@ jobs:
               },
             );
             const failedJobs = jobs.filter((job) => job.conclusion === 'failure');
-            const escapeMarkdownSpecialChars = (text) =>
-              text.replace(/[\\[\]]/g, '\\$&');
             const failedJobLinks = failedJobs.map(
               (job) =>
-                `[${escapeMarkdownSpecialChars(job.name)}](${job.html_url})`,
+                `[${job.name.replace(/[\\[\]]/g, '\\$&')}](${job.html_url})`,
             );
 
             if (failedJobLinks.length === 0) {
@@ -138,7 +136,7 @@ jobs:
               });
             } catch (error) {
               core.warning(
-                `Unable to assign Copilot to issue #${issueNumber}: ${error?.message ?? String(error)}`,
+                `Unable to assign Copilot to issue #${issueNumber}. This may be expected if Copilot issue assignment is unavailable for the repository: ${error?.message ?? String(error)}`,
               );
             }
 
