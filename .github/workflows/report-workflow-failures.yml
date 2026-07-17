@@ -57,10 +57,12 @@ jobs:
                 per_page: 100,
               },
             );
-            const failureIssues = issues.filter(
-              (issue) =>
-                !issue.pull_request && issue.body?.includes(issueMarker),
-            );
+            const failureIssues = issues
+              .filter(
+                (issue) =>
+                  !issue.pull_request && issue.body?.includes(issueMarker),
+              )
+              .sort((a, b) => a.number - b.number);
 
             if (workflowRun.conclusion === 'success') {
               for (const issue of failureIssues) {
