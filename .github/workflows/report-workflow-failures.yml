@@ -34,8 +34,12 @@ jobs:
             });
             const latestRun = latestRuns.data.workflow_runs[0];
 
+            if (!latestRun) {
+              core.warning('No completed workflow run found');
+              return;
+            }
+
             if (
-              !latestRun ||
               latestRun.id !== workflowRun.id ||
               latestRun.run_attempt !== workflowRun.run_attempt
             ) {
@@ -48,6 +52,7 @@ jobs:
               workflow_id: workflowRun.workflow_id,
             });
             const title = `Investigate ${workflow.data.name} workflow failure`;
+            const issueMarker = `<!-- workflow-failure:${workflowRun.workflow_id} -->`;
             const issues = await github.paginate(
               github.rest.issues.listForRepo,
               {
@@ -58,7 +63,8 @@ jobs:
               },
             );
             const failureIssues = issues.filter(
-              (issue) => !issue.pull_request && issue.title === title,
+              (issue) =>
+                !issue.pull_request && issue.body?.includes(issueMarker),
             );
 
             if (workflowRun.conclusion === 'success') {
@@ -94,6 +100,8 @@ jobs:
             }
 
             const body = [
+              issueMarker,
+              '',
               `- ${workflow.data.name}: ${failedJobLinks.join(', ')}`,
               '',
               '@github/primer-engineering, please investigate and fix.',
@@ -111,6 +119,15 @@ jobs:
                 ...issue,
                 issue_number: failureIssues[0].number,
               });
+              for (const duplicate of failureIssues.slice(1)) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: duplicate.number,
+                  state: 'closed',
+                  state_reason: 'not_planned',
+                });
+              }
             } else {
               await github.rest.issues.create(issue);
             }
