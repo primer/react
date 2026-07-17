@@ -98,9 +98,7 @@ test.describe('ActionMenu', () => {
                   await page.getByRole('button', {name: buttonName}).click()
                 }
               }
-              expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-                `ActionMenu.${story.title}.${theme}${suffix}.png`,
-              )
+              await expect(page).toHaveScreenshot(`ActionMenu.${story.title}.${theme}${suffix}.png`)
             })
           }
         })
