@@ -35,8 +35,8 @@ jobs:
             const latestRun = latestRuns.data.workflow_runs[0];
 
             if (
-              latestRun.id !== workflowRun.id ||
-              latestRun.run_attempt !== workflowRun.run_attempt
+              latestRun?.id !== workflowRun.id ||
+              latestRun?.run_attempt !== workflowRun.run_attempt
             ) {
               return;
             }
