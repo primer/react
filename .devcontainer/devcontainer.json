@@ -1,6 +1,6 @@
 {
   "name": "Primer React",
-  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:26",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu24.04",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -14,7 +14,7 @@
   },
   "forwardPorts": [8000],
   "onCreateCommand": ["/bin/bash", "-c", "npm run setup"],
-  "remoteUser": "node",
+  "remoteUser": "vscode",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "26.4.0"
