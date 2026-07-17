@@ -36,8 +36,7 @@ feature, even if its only feature is named `Default`.
 Feature sections may include:
 
 - `Markup` for semantic structure and stable element or attribute relationships
-- `Behavior` for state, interactions, callbacks, responsive behavior, and other
-  runtime requirements
+- `Behavior` for state, interactions, callbacks, and other runtime requirements
 - `Public API` for relationships or constraints that cannot be represented in
   `*.docs.json`
 - `Accessibility` for requirements specific to that feature
@@ -72,13 +71,39 @@ announcement requirements remain in context.
 
 Classify motion and reduced-motion requirements as accessibility requirements.
 
+Distinguish defaults provided by the component from responsibilities left to
+consumers. Prefer safe component defaults when the component can reliably
+provide them, rather than documenting avoidable consumer work.
+
 ### Markup
 
 Document the semantic contract rather than unstable implementation details.
 Include elements, roles, attributes, and relationships that consumers or
-assistive technologies depend on. Do not require exact CSS classes, internal
-wrappers, or implementation-specific DOM unless they are intentionally part of
-the public contract.
+assistive technologies depend on.
+
+Name an exact HTML element only when that element's semantics are important,
+when accessibility behavior depends on it, or when it is intentionally a stable
+part of the public contract. For example, distinguishing a button from a link or
+documenting a heading level is useful; naming an incidental presentational
+wrapper is not. Do not require exact CSS classes, internal wrappers, or
+implementation-specific DOM unless they are intentionally part of the public
+contract.
+
+### Behavior
+
+Document behavior that the component actively implements or coordinates. Do not
+list the absence of unrelated automatic behavior, such as stating that a
+component does not announce itself or does not reorder children, unless
+consumers might reasonably expect that behavior from the component pattern or
+the distinction is necessary to prevent misuse.
+
+### Presentation and layout
+
+Do not create features or requirements that merely restate visual props such as
+border, size, width, or spacing, or that describe generic CSS implementation.
+Include presentation or responsive behavior only when it changes composition,
+visibility, interaction, semantics, or another consumer-facing contract that
+callers need to understand.
 
 ### Normative language
 

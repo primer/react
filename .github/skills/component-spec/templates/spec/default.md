@@ -5,13 +5,17 @@
 ## Markup
 
 <!--
-Describe semantic markup and stable relationships. Do not document internal
-wrappers or CSS classes unless they are intentionally part of the contract.
+Describe semantic markup and stable relationships. Name exact elements only
+when their semantics matter or they are intentionally part of the public
+contract. Do not document incidental wrappers or CSS classes.
 -->
 
 ## Behavior
 
-<!-- Describe state, interactions, callbacks, and responsive behavior. -->
+<!--
+Describe behavior the component actively implements or coordinates. Do not
+list unrelated things the component does not do automatically.
+-->
 
 ## Public API
 
