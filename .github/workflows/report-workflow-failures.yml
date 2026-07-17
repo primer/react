@@ -85,10 +85,11 @@ jobs:
 
             const body = [
               issueMarker,
+              'The following jobs are failing in this workflow:'
               '',
-              `- ${workflow.data.name}: ${failedJobLinks.join(', ')}`,
+              ...failedJobLinks.map((link) => `- ${link}`).join('\n')
               '',
-              '@github/primer-engineering, please investigate and fix.',
+              'cc @github/primer-engineering to investigate and fix',
             ].join('\n');
 
             const issue = {
