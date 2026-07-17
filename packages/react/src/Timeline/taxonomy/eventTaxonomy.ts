@@ -392,16 +392,29 @@ export function qualifyEventType(scope: EventScope, type: string): string {
 
 /**
  * Inverse of {@link qualifyEventType}: recover the unscoped leaf `type` from a
- * flattened union/registry key. Strips the snake-cased scope prefix when present
+ * flattened union/registry key. Strips the snake-cased scope prefix when the
+ * remainder is a real leaf of that scope's catalog
  * (`('license-compliance', 'license_compliance_appeared_in_branch')` →
  * `appeared_in_branch`); leaves an already-unscoped key untouched
  * (`('pull', 'labeled')` → `labeled`, since pull/issue events carry no prefix).
+ *
+ * The catalog check guards the scope-name collision: some `issue` leaves begin
+ * with the scope token itself (`issue_type_added`, `issue_type_removed`,
+ * `issue_type_changed`). A naive prefix strip would corrupt those raw leaves to
+ * `type_added` etc.; requiring the remainder to be a cataloged leaf keeps them
+ * untouched while still reversing a genuinely qualified key
+ * (`issue_issue_type_added` → `issue_type_added`).
+ *
  * This is the projection a row renderer uses to emit the unscoped `data-event-type`
  * while `data-event-scope` carries the surface.
  */
 export function unqualifyEventType(scope: EventScope, flattenedType: string): string {
   const prefix = `${scope.replace(/-/g, '_')}_`
-  return flattenedType.startsWith(prefix) ? flattenedType.slice(prefix.length) : flattenedType
+  if (!flattenedType.startsWith(prefix)) return flattenedType
+  const remainder = flattenedType.slice(prefix.length)
+  const catalog = SURFACE_TAXONOMIES[scope as CatalogedScope] as Record<string, EventTaxonomyEntry> | undefined
+  if (catalog && !(remainder in catalog)) return flattenedType
+  return remainder
 }
 
 /** Input for the `data-*` projection. */

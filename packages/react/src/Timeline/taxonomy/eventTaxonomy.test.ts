@@ -19,7 +19,14 @@ import {
   type CodeScanningEventType,
   type CatalogedScope,
 } from './eventTaxonomy'
-import {SURFACE_CATEGORIES, isToggleableCategory} from './eventCategories'
+import {
+  SURFACE_CATEGORIES,
+  ALL_TOGGLEABLE_CATEGORIES,
+  isToggleableCategory,
+  surfacesForCategory,
+} from './eventCategories'
+import {actorTypeForLogin} from './actorType'
+import {SECURITY_ALERT_SURFACES, isSecurityAlertSurface} from './surfaces'
 
 const LC_TYPES = Object.keys(LICENSE_COMPLIANCE_TAXONOMY) as LicenseComplianceEventType[]
 
@@ -88,6 +95,23 @@ describe('unqualifyEventType', () => {
     for (const type of LC_TYPES) {
       const flattened = qualifyEventType(LICENSE_COMPLIANCE_SCOPE, type)
       expect(unqualifyEventType(LICENSE_COMPLIANCE_SCOPE, flattened)).toBe(type)
+    }
+  })
+
+  it('leaves raw issue leaves that start with the scope token untouched', () => {
+    // Regression: the `issue` scope prefix (`issue_`) collides with three real
+    // unscoped leaves. A naive prefix strip corrupts them to `type_added` etc.;
+    // they must pass through unchanged because they are already unscoped.
+    for (const leaf of ['issue_type_added', 'issue_type_removed', 'issue_type_changed'] as const) {
+      expect(unqualifyEventType('issue', leaf)).toBe(leaf)
+      // …while a genuinely qualified key still reverses cleanly.
+      expect(unqualifyEventType('issue', qualifyEventType('issue', leaf))).toBe(leaf)
+    }
+  })
+
+  it('round-trips with qualifyEventType for every Issue leaf', () => {
+    for (const type of Object.keys(ISSUE_TAXONOMY)) {
+      expect(unqualifyEventType('issue', qualifyEventType('issue', type))).toBe(type)
     }
   })
 })
@@ -231,5 +255,65 @@ describe('SURFACE_TAXONOMIES (cross-surface model)', () => {
     const actorFlags = Object.fromEntries(Object.entries(dependabot).map(([type, entry]) => [type, entry.hasActor]))
     const everyLeafHasActor = Object.fromEntries(Object.keys(dependabot).map(type => [type, true]))
     expect(actorFlags).toEqual(everyLeafHasActor)
+  })
+})
+
+describe('actorTypeForLogin', () => {
+  it('treats a missing login as a human user', () => {
+    expect(actorTypeForLogin(undefined)).toBe('user')
+    expect(actorTypeForLogin('')).toBe('user')
+  })
+
+  it('classifies any `[bot]`-suffixed login as a bot, case-insensitively', () => {
+    expect(actorTypeForLogin('renovate[bot]')).toBe('bot')
+    expect(actorTypeForLogin('Some-App[BOT]')).toBe('bot')
+  })
+
+  it('classifies known first-party automation logins as bots', () => {
+    for (const login of ['dependabot', 'github-actions', 'github-license-compliance', 'copilot', 'hubot']) {
+      expect(actorTypeForLogin(login)).toBe('bot')
+      expect(actorTypeForLogin(login.toUpperCase())).toBe('bot')
+    }
+  })
+
+  it('classifies an ordinary login as a human user', () => {
+    expect(actorTypeForLogin('octocat')).toBe('user')
+    // A human whose name merely contains "bot" is not a bot.
+    expect(actorTypeForLogin('robotta')).toBe('user')
+  })
+})
+
+describe('surfacesForCategory', () => {
+  it('is the inverse of SURFACE_CATEGORIES and returns surfaces in canonical order', () => {
+    // `merging` is a pull-only category.
+    expect(surfacesForCategory('merging')).toEqual(['pull'])
+    // `findings` is shared by exactly the four security-alert surfaces.
+    expect(surfacesForCategory('findings')).toEqual([
+      'dependabot',
+      'code-scanning',
+      'secret-scanning',
+      'license-compliance',
+    ])
+  })
+
+  it('agrees with SURFACE_CATEGORIES for every surface/category pair', () => {
+    for (const category of ALL_TOGGLEABLE_CATEGORIES) {
+      for (const surface of surfacesForCategory(category)) {
+        expect(SURFACE_CATEGORIES[surface]).toContain(category)
+      }
+    }
+  })
+})
+
+describe('isSecurityAlertSurface', () => {
+  it('is true for exactly the four security-alert surfaces', () => {
+    for (const surface of SECURITY_ALERT_SURFACES) {
+      expect(isSecurityAlertSurface(surface)).toBe(true)
+    }
+  })
+
+  it('is false for the conversational surfaces', () => {
+    expect(isSecurityAlertSurface('pull')).toBe(false)
+    expect(isSecurityAlertSurface('issue')).toBe(false)
   })
 })
