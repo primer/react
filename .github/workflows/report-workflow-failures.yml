@@ -82,7 +82,8 @@ jobs:
                 .replaceAll('&', '&amp;')
                 .replaceAll('<', '&lt;')
                 .replaceAll('>', '&gt;')
-                .replaceAll('"', '&quot;');
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#39;');
             const failedJobListItems = failedJobs.map(
               (job) =>
                 `- <a href="${job.html_url}">${escapeHtml(job.name)}</a>`,
@@ -141,7 +142,7 @@ jobs:
               });
             } catch (error) {
               core.warning(
-                `Unable to assign Copilot to issue #${issueNumber}. This may be expected if Copilot issue assignment is unavailable for the repository: ${error?.message ?? String(error)}`,
+                `Failed to assign @copilot to issue #${issueNumber}. This is expected if Copilot assignment is not enabled for this repository. Error: ${error?.message ?? String(error)}`,
               );
             }
 
