@@ -112,6 +112,23 @@ describe('FilteredActionList', () => {
       expect(renderItem).toHaveBeenCalled()
     })
 
+    it('prefers an item-level renderer over the list-level renderer', () => {
+      const listRenderItem = vi.fn(() => <li>List renderer</li>)
+      const itemRenderItem = vi.fn(() => <li>Item renderer</li>)
+
+      const {getByText} = render(
+        <FilteredActionList
+          renderItem={listRenderItem}
+          items={[{id: 1, text: 'Item 1', renderItem: itemRenderItem}]}
+          onFilterChange={vi.fn()}
+        />,
+      )
+
+      expect(getByText('Item renderer')).toBeInTheDocument()
+      expect(itemRenderItem).toHaveBeenCalled()
+      expect(listRenderItem).not.toHaveBeenCalled()
+    })
+
     it('uses an item-level renderer for grouped items', () => {
       const itemRenderItem = vi.fn(() => <li>Item renderer</li>)
 
