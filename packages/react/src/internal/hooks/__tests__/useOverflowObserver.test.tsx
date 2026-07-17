@@ -10,6 +10,7 @@ type Entry = Pick<IntersectionObserverEntry, 'target' | 'isIntersecting' | 'inte
 class MockIntersectionObserver {
   static instances: MockIntersectionObserver[] = []
   readonly observed = new Set<Element>()
+  disconnected = false
   callback: (entries: Entry[]) => void
   options?: IntersectionObserverInit
   constructor(callback: (entries: Entry[]) => void, options?: IntersectionObserverInit) {
@@ -24,6 +25,7 @@ class MockIntersectionObserver {
     this.observed.delete(element)
   }
   disconnect() {
+    this.disconnected = true
     this.observed.clear()
   }
   trigger(entries: Entry[]) {
@@ -141,26 +143,39 @@ describe('useIsClipped', () => {
     vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
     vi.stubGlobal('ResizeObserver', MockResizeObserver)
 
+    // Override clientWidth on the prototype BEFORE rendering so the ResizeObserver effect
+    // captures lastWidth = 0, simulating a zero-width container at mount time (as on Safari).
+    let mockClientWidth = 0
+    vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockImplementation(() => mockClientWidth)
+
     const {getByTestId} = render(<Harness />)
     const item = getByTestId('item')
     const root = item.closest('ul')!
 
-    // Start with zero-width root; IO callback fires but is suppressed.
-    let clientWidth = 0
-    Object.defineProperty(root, 'clientWidth', {configurable: true, get: () => clientWidth})
+    const observerBeforeTransition = MockIntersectionObserver.instances.at(-1)!
+    const instanceCountBeforeTransition = MockIntersectionObserver.instances.length
 
-    const observer = MockIntersectionObserver.instances.at(-1)!
-    observer.trigger([{target: item, isIntersecting: false, intersectionRatio: 0}])
+    // IO callback fires but is suppressed because clientWidth is 0.
+    observerBeforeTransition.trigger([{target: item, isIntersecting: false, intersectionRatio: 0}])
     expect(item.getAttribute('data-overflowing')).toBe('false')
 
-    // Root gains size — ResizeObserver fires the 0→non-zero transition, which clears
-    // observedElementsRef and calls observeSubscribedElements() to re-attach the IO.
-    clientWidth = 400
+    // Root gains size — ResizeObserver fires the 0→non-zero transition, which must disconnect
+    // the existing IntersectionObserver and create a new one so a fresh batch is delivered.
+    mockClientWidth = 400
     const ro = MockResizeObserver.instances.at(-1)!
     ro.trigger(root)
 
-    // Now that items are re-observed, a fresh IO batch with correct intersections is delivered.
+    vi.restoreAllMocks()
+
+    // The old observer must have been disconnected.
+    expect(observerBeforeTransition.disconnected).toBe(true)
+    // A new IntersectionObserver instance must have been created.
+    expect(MockIntersectionObserver.instances.length).toBeGreaterThan(instanceCountBeforeTransition)
+
+    // Now that items are re-observed with the new observer, a fresh IO batch with correct
+    // intersections is delivered.
     const freshObserver = MockIntersectionObserver.instances.at(-1)!
+    expect(freshObserver).not.toBe(observerBeforeTransition)
     freshObserver.trigger([{target: item, isIntersecting: true, intersectionRatio: 1}])
     expect(item.getAttribute('data-overflowing')).toBe('false')
 

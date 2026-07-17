@@ -116,6 +116,9 @@ export function OverflowObserverProvider({
     const ro = new ResizeObserver(() => {
       const width = root.clientWidth
       if (width > 0 && lastWidth === 0) {
+        observerRef.current?.disconnect()
+        observerRef.current = null
+        observerRootRef.current = null
         observedElementsRef.current.clear()
         observeSubscribedElements()
       }
