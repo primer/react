@@ -10,8 +10,8 @@
  *
  * Provenance: ported from the Timeline redesign prototype
  * (github/prototyping, `src/packages/conversation/timeline`). See the Phase 3
- * Timeline Playground issue (github/primer#6664) and the `data-*` event contract
- * (github/primer#6654).
+ * Timeline Playground issue and the `data-*` event contract (both
+ * github/primer#6664).
  */
 
 /**

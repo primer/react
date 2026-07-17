@@ -1,9 +1,9 @@
 /**
  * Ported from the Timeline redesign prototype (github/prototyping,
  * src/packages/conversation/timeline). Backs the taxonomy model documented in
- * github/primer docs/timeline-audit/. Related: github/primer#6664 (Phase 3
- * Timeline Playground), github/primer#6654 (data-* event contract),
- * primer/react#8075 (License Compliance stories).
+ * github/primer docs/timeline-audit/. Related: github/primer#6664 (Phase 3:
+ * Timeline Playground, taxonomy, and data-* tagging), parent epic
+ * github/primer#6654, primer/react#8075 (License Compliance stories).
  */
 
 /**
@@ -438,7 +438,7 @@ export interface EventDataAttributes {
 }
 
 /**
- * Canonical serializer for the event `data-*` contract (primer#6654). The single
+ * Canonical serializer for the event `data-*` contract (primer#6664). The single
  * place that turns the five axes into attribute strings; a row renderer can
  * delegate here so the contract has exactly one implementation. `data-event-type`
  * is the **unscoped** leaf; the surface travels in `data-event-scope`. `data-actor-type`

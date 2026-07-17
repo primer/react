@@ -1,15 +1,15 @@
 /**
  * Ported from the Timeline redesign prototype (github/prototyping,
  * src/packages/conversation/timeline). Backs the taxonomy model documented in
- * github/primer docs/timeline-audit/. Related: github/primer#6664 (Phase 3
- * Timeline Playground), github/primer#6654 (data-* event contract),
- * primer/react#8075 (License Compliance stories).
+ * github/primer docs/timeline-audit/. Related: github/primer#6664 (Phase 3:
+ * Timeline Playground, taxonomy, and data-* tagging), parent epic
+ * github/primer#6654, primer/react#8075 (License Compliance stories).
  */
 
 /**
  * Coarse actor classification, surfaced as the `data-actor-type` attribute on
  * event rows (mirrors the Primer Timeline `data-*` convention from
- * github/primer#6654, alongside `data-event-type` / `data-event-scope`).
+ * github/primer#6664, alongside `data-event-type` / `data-event-scope`).
  *
  * "bot" covers GitHub apps and first-party automation (Dependabot, Actions,
  * Copilot, Hubot) plus any `…[bot]` login; everything else is a human "user".
