@@ -142,7 +142,6 @@ export const WithTitle = () => (
     </Table.Title>
     <DataTable
       aria-labelledby="repositories"
-      aria-describedby="repositories-subtitle"
       data={data}
       columns={[
         {
@@ -194,6 +193,10 @@ export const WithTitle = () => (
     />
   </Table.Container>
 )
+
+WithTitle.parameters = {
+  spec: ['./spec/header-and-actions.md#header-and-actions'],
+}
 
 export const WithTitleAndSubtitle = () => (
   <Table.Container>
@@ -328,6 +331,10 @@ export const WithSorting = () => {
       />
     </Table.Container>
   )
+}
+
+WithSorting.parameters = {
+  spec: ['./spec/sorting.md#sorting'],
 }
 
 export const WithCustomSorting = () => {
@@ -754,6 +761,10 @@ export const WithRowAction = () => (
     />
   </Table.Container>
 )
+
+WithRowAction.parameters = {
+  spec: ['./spec/row-actions.md#row-actions'],
+}
 
 export const WithRowActions = () => (
   <Table.Container>
@@ -1215,6 +1226,10 @@ export const WithOverflow = () => (
   </div>
 )
 
+WithOverflow.parameters = {
+  spec: ['./spec/default.md#default'],
+}
+
 const columnHelper = createColumnHelper<Repo>()
 const columns = [
   columnHelper.column({
@@ -1291,6 +1306,10 @@ export const WithLoading = () => {
       )}
     </Table.Container>
   )
+}
+
+WithLoading.parameters = {
+  spec: ['./spec/loading-and-errors.md#loading-and-errors'],
 }
 
 export const WithPlaceholderCells = () => (
@@ -1584,9 +1603,13 @@ export const WithPagination = () => {
   )
 }
 
+WithPagination.parameters = {
+  spec: ['./spec/pagination.md#pagination'],
+}
+
 export const WithPaginationUsingDefaultPageIndex = () => {
   const pageSize = 10
-  const [pageIndex, setPageIndex] = React.useState(0)
+  const [pageIndex, setPageIndex] = React.useState(49)
   const start = pageIndex * pageSize
   const end = start + pageSize
   const rows = repos.slice(start, end)
@@ -1664,6 +1687,10 @@ export const WithPaginationUsingDefaultPageIndex = () => {
   )
 }
 
+WithPaginationUsingDefaultPageIndex.parameters = {
+  spec: ['./spec/pagination.md#pagination'],
+}
+
 export const WithNetworkError = () => {
   const pageSize = 10
   const [pageIndex, setPageIndex] = React.useState(0)
@@ -1685,7 +1712,9 @@ export const WithNetworkError = () => {
       <Table.Subtitle as="p" id="repositories-subtitle">
         A subtitle could appear here to give extra context to the data.
       </Table.Subtitle>
-      {loading || error ? <Table.Skeleton columns={columns} /> : null}
+      {loading || error ? (
+        <Table.Skeleton aria-labelledby="repositories" aria-describedby="repositories-subtitle" columns={columns} />
+      ) : null}
       {error ? (
         <Table.ErrorDialog
           onDismiss={() => {
@@ -1694,7 +1723,9 @@ export const WithNetworkError = () => {
           onRetry={() => {
             action('onRetry')
           }}
-        />
+        >
+          Repositories could not be loaded.
+        </Table.ErrorDialog>
       ) : null}
       {data ? (
         <DataTable
@@ -1714,4 +1745,8 @@ export const WithNetworkError = () => {
       />
     </Table.Container>
   )
+}
+
+WithNetworkError.parameters = {
+  spec: ['./spec/loading-and-errors.md#loading-and-errors', './spec/pagination.md#pagination'],
 }

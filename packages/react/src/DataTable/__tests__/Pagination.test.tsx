@@ -4,6 +4,9 @@ import {Pagination} from '../Pagination'
 import {act, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
+/**
+ * @see ../spec/pagination.md#pagination
+ */
 describe('Table.Pagination', () => {
   beforeEach(async () => {
     await page.viewport(1400, 728)

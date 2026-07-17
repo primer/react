@@ -159,6 +159,9 @@ describe('Table', () => {
     })
   })
 
+  /**
+   * @see ../spec/header-and-actions.md#header-and-actions
+   */
   describe('Table.Title', () => {
     it('should default to rendering a level 2 heading', () => {
       render(<Table.Title id="test">test</Table.Title>)
@@ -269,6 +272,9 @@ describe('Table', () => {
     })
   })
 
+  /**
+   * @see ../spec/loading-and-errors.md#loading-and-errors
+   */
   describe('Table.Skeleton', () => {
     implementsClassName(props => <Table.Skeleton columns={[]} {...props} />)
 

@@ -184,6 +184,10 @@ export const Default = () => (
   </Table.Container>
 )
 
+Default.parameters = {
+  spec: ['./spec/default.md#default', './spec/header-and-actions.md#header-and-actions'],
+}
+
 export const Playground: StoryObj<DataTableProps<UniqueRow> & ColWidthArgTypes> = {
   render: (args: DataTableProps<UniqueRow> & ColWidthArgTypes) => {
     const getColWidth = (colIndex: number) => {
@@ -356,5 +360,12 @@ export const Playground: StoryObj<DataTableProps<UniqueRow> & ColWidthArgTypes> 
       },
     },
     ...getColumnWidthArgTypes(5),
+  },
+  parameters: {
+    spec: [
+      './spec/default.md#default',
+      './spec/header-and-actions.md#header-and-actions',
+      './spec/pagination.md#pagination',
+    ],
   },
 }

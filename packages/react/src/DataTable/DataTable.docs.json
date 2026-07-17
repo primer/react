@@ -107,6 +107,13 @@
       "defaultValue": "false"
     },
     {
+      "name": "getRowId",
+      "type": "(rowData: Data) => string | number",
+      "required": false,
+      "description": "Provide a function to determine the unique identifier for each row. By default, the table uses the `id` field from the data.",
+      "defaultValue": ""
+    },
+    {
       "name": "onToggleSort",
       "type": "(columnId: ObjectPaths<Data> | string | number, direction: 'ASC' | 'DESC') => void",
       "required": false,
@@ -292,7 +299,7 @@
         },
         {
           "name": "defaultPageIndex",
-          "type": "string",
+          "type": "number",
           "description": "Provide an optional index to specify the default selected page"
         },
         {
@@ -354,33 +361,13 @@
       ]
     },
     {
-      "name": "Table.SortHeader",
-      "props": [
-        {
-          "name": "direction",
-          "type": "'ASC' | 'DESC' | 'NONE'",
-          "required": true,
-          "description": "Specify the sort direction for the TableHeader",
-          "defaultValue": ""
-        },
-        {
-          "name": "onToggleSort",
-          "type": "() => void",
-          "required": true,
-          "description": "Provide a handler that is called when the sortable TableHeader is\ninteracted with via a click or keyboard interaction",
-          "defaultValue": ""
-        },
-        {
-          "name": "align",
-          "type": "'end' | 'start'",
-          "description": "The horizontal alignment of the cell's content",
-          "defaultValue": ""
-        }
-      ]
-    },
-    {
       "name": "Column options",
       "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Provide an explicit identifier for the column"
+        },
         {
           "name": "align",
           "type": "'start' | 'end'",

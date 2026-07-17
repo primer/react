@@ -6,6 +6,9 @@ import type {Column} from '../column'
 import {createColumnHelper} from '../column'
 import {getGridTemplateFromColumns, useTable} from '../useTable'
 
+/**
+ * @see ../spec/default.md#default
+ */
 describe('DataTable', () => {
   it('should render a semantic <table> through `data` and `columns`', () => {
     const columnHelper = createColumnHelper<{id: number; name: string}>()
@@ -275,6 +278,9 @@ describe('DataTable', () => {
     }
   })
 
+  /**
+   * @see ../spec/sorting.md#sorting
+   */
   describe('sorting', () => {
     describe('initial state', () => {
       it('should set the default sort state of a sortable table', () => {

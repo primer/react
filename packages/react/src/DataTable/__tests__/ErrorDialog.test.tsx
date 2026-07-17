@@ -3,6 +3,9 @@ import userEvent from '@testing-library/user-event'
 import {render, screen} from '@testing-library/react'
 import {ErrorDialog} from '../ErrorDialog'
 
+/**
+ * @see ../spec/loading-and-errors.md#loading-and-errors
+ */
 describe('Table.ErrorDialog', () => {
   it('should use a default title of "Error" if `title` is not provided', () => {
     render(<ErrorDialog />)
