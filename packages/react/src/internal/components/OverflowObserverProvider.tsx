@@ -42,6 +42,12 @@ export function OverflowObserverProvider({
 
     observerRef.current = new IntersectionObserver(
       entries => {
+        // Safari can deliver the initial notification batch before the clipping root has laid out,
+        // resulting in a zero-size root. When that happens every child reports isIntersecting:false,
+        // causing all items to collapse into the overflow menu. Ignore this batch entirely; the
+        // ResizeObserver below re-triggers observeSubscribedElements() once the root gains a real size.
+        if (root instanceof HTMLElement && root.clientWidth === 0) return
+
         for (const entry of entries) {
           const callbacks = subscribersRef.current.get(entry.target)
           if (!callbacks) continue
@@ -98,6 +104,27 @@ export function OverflowObserverProvider({
   })
 
   useEffect(() => {
+    const root = rootRef.current
+    // When the root element transitions from zero-width to a real size, the IntersectionObserver's
+    // initial batch may have already fired against a zero-size root (see guard above). A single
+    // ResizeObserver on the root re-triggers observation so a fresh, correct batch is delivered.
+    // Only act on the 0 → non-zero transition to avoid unnecessary work on every resize.
+    if (!root || typeof ResizeObserver === 'undefined') return
+
+    let lastWidth = root instanceof HTMLElement ? root.clientWidth : -1
+    const ro = new ResizeObserver(() => {
+      const width = root instanceof HTMLElement ? root.clientWidth : -1
+      if (width > 0 && lastWidth === 0) {
+        observedElementsRef.current.clear()
+        observeSubscribedElements()
+      }
+      lastWidth = width
+    })
+    ro.observe(root)
+    return () => ro.disconnect()
+  }, [rootRef, observeSubscribedElements])
+
+  useEffect(() => {
     const subscribers = subscribersRef.current
     const observedElements = observedElementsRef.current
     return () => {
@@ -114,10 +141,11 @@ export function OverflowObserverProvider({
 /**
  * Treat any target that is not fully visible within the observer root as overflowing. Wrapped items should be fully
  * clipped (`isIntersecting: false`, `intersectionRatio: 0`), but partial ratios also count as overflowing to guard
- * against sub-pixel boundary cases.
+ * against sub-pixel boundary cases. A small epsilon (0.99) is used instead of exactly 1 to avoid false positives
+ * from Safari's sub-pixel rounding (e.g. 0.999… for fully-visible elements).
  */
 function getIsOverflowing(entry: Pick<IntersectionObserverEntry, 'intersectionRatio' | 'isIntersecting'>) {
-  return !entry.isIntersecting || entry.intersectionRatio < 1
+  return !entry.isIntersecting || entry.intersectionRatio < 0.99
 }
 
 function supportsIntersectionObserver() {
