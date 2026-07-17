@@ -34,11 +34,6 @@ jobs:
             });
             const latestRun = latestRuns.data.workflow_runs[0];
 
-            if (!latestRun) {
-              core.warning('No completed workflow run found');
-              return;
-            }
-
             if (
               latestRun.id !== workflowRun.id ||
               latestRun.run_attempt !== workflowRun.run_attempt
@@ -119,15 +114,17 @@ jobs:
                 ...issue,
                 issue_number: failureIssues[0].number,
               });
-              for (const duplicate of failureIssues.slice(1)) {
-                await github.rest.issues.update({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: duplicate.number,
-                  state: 'closed',
-                  state_reason: 'not_planned',
-                });
-              }
+              await Promise.all(
+                failureIssues.slice(1).map((duplicate) =>
+                  github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: duplicate.number,
+                    state: 'closed',
+                    state_reason: 'not_planned',
+                  }),
+                ),
+              );
             } else {
               await github.rest.issues.create(issue);
             }
