@@ -77,23 +77,23 @@ jobs:
               },
             );
             const failedJobs = jobs.filter((job) => job.conclusion === 'failure');
-            const escapeMarkdownLinkTextBrackets = (text) =>
+            const escapeMarkdownBrackets = (text) =>
               text.replace(/[\\[\]]/g, '\\$&');
             const failedJobLinks = failedJobs.map(
               (job) =>
-                `[${escapeMarkdownLinkTextBrackets(job.name)}](${job.html_url})`,
+                `[${escapeMarkdownBrackets(job.name)}](${job.html_url})`,
             );
 
             if (failedJobLinks.length === 0) {
               failedJobLinks.push(`[Failed run](${workflowRun.html_url})`);
             }
 
-            const failedJobListItems = failedJobLinks.map((link) => `- ${link}`);
+            const failedJobList = failedJobLinks.map((link) => `- ${link}`).join('\n');
             const body = [
               issueMarker,
               'The following jobs are failing in this workflow:',
               '',
-              ...failedJobListItems,
+              failedJobList,
               '',
               'cc @github/primer-engineering to investigate and fix',
             ].join('\n');
