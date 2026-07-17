@@ -104,16 +104,17 @@ export function OverflowObserverProvider({
   })
 
   useEffect(() => {
-    const root = rootRef.current
+    if (typeof ResizeObserver === 'undefined') return
     // When the root element transitions from zero-width to a real size, the IntersectionObserver's
     // initial batch may have already fired against a zero-size root (see guard above). A single
     // ResizeObserver on the root re-triggers observation so a fresh, correct batch is delivered.
     // Only act on the 0 → non-zero transition to avoid unnecessary work on every resize.
-    if (!root || typeof ResizeObserver === 'undefined') return
+    const root = rootRef.current
+    if (!(root instanceof HTMLElement)) return
 
-    let lastWidth = root instanceof HTMLElement ? root.clientWidth : -1
+    let lastWidth = root.clientWidth
     const ro = new ResizeObserver(() => {
-      const width = root instanceof HTMLElement ? root.clientWidth : -1
+      const width = root.clientWidth
       if (width > 0 && lastWidth === 0) {
         observedElementsRef.current.clear()
         observeSubscribedElements()

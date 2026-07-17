@@ -49,8 +49,11 @@ class MockResizeObserver {
   disconnect() {
     this.observed.clear()
   }
-  trigger() {
-    act(() => this.callback([], this as unknown as ResizeObserver))
+  trigger(element?: Element) {
+    const entries = element
+      ? ([{target: element, contentRect: element.getBoundingClientRect()}] as unknown as ResizeObserverEntry[])
+      : []
+    act(() => this.callback(entries, this as unknown as ResizeObserver))
   }
 }
 
@@ -154,7 +157,7 @@ describe('useIsClipped', () => {
     // observedElementsRef and calls observeSubscribedElements() to re-attach the IO.
     clientWidth = 400
     const ro = MockResizeObserver.instances.at(-1)!
-    ro.trigger()
+    ro.trigger(root)
 
     // Now that items are re-observed, a fresh IO batch with correct intersections is delivered.
     const freshObserver = MockIntersectionObserver.instances.at(-1)!
