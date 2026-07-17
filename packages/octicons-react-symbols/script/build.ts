@@ -19,122 +19,67 @@ const BUCKET_SIZE = 40
 const modules = partition(Object.values(data), BUCKET_SIZE).map((icons, index) => {
   const filepath = path.join(GENERATED_DIRECTORY, `icons-${(index + 1).toString().padStart(2, '0')}.tsx`)
 
-  const propsImportSpecifier = t.importSpecifier(
-    t.identifier('OcticonReferenceProps'),
-    t.identifier('OcticonReferenceProps'),
-  )
-  propsImportSpecifier.importKind = 'type'
-
   const imports = [
-    // import {forwardRef} from 'react'
+    // import {createIconReference} from '../IconReference'
     t.importDeclaration(
-      [t.importSpecifier(t.identifier('forwardRef'), t.identifier('forwardRef'))],
-      t.stringLiteral('react'),
+      [t.importSpecifier(t.identifier('createIconReference'), t.identifier('createIconReference'))],
+      t.stringLiteral('../IconReference'),
     ),
-
-    // import {Icon} from '../Icon'
-    t.importDeclaration([t.importSpecifier(t.identifier('Icon'), t.identifier('Icon'))], t.stringLiteral('../Icon')),
-
-    // import {createOcticonSymbol} from '../OcticonSymbol'
-    t.importDeclaration(
-      [t.importSpecifier(t.identifier('createOcticonSymbol'), t.identifier('createOcticonSymbol'))],
-      t.stringLiteral('../OcticonSymbol'),
-    ),
-
-    // import type {OcticonReferenceProps} from '../types'
-    t.importDeclaration([propsImportSpecifier], t.stringLiteral('../types')),
   ]
 
   const components = icons.flatMap(icon => {
     const symbolName = `${pascalCase(icon.name)}Symbol`
+    const referenceName = `${pascalCase(icon.name)}IconReference`
     const symbols = Object.entries(icon.heights).map(([height, size]) => {
-      const id = `symbol-octicon-${icon.name}-${height}`
-
       const jsx = t.jsxElement(
         t.jsxOpeningElement(t.jsxIdentifier('symbol'), [
-          t.jsxAttribute(t.jsxIdentifier('id'), t.stringLiteral(id)),
+          t.jsxAttribute(t.jsxIdentifier('id'), t.stringLiteral(`symbol-octicon-${icon.name}-${height}`)),
           t.jsxAttribute(t.jsxIdentifier('viewBox'), t.stringLiteral(`0 0 ${size.width} ${height}`)),
         ]),
         t.jsxClosingElement(t.jsxIdentifier('symbol')),
         svgToJSX(size.ast),
       )
-
       return {
-        id,
         height,
         width: size.width,
         jsx,
       }
     })
-    const symbol = t.variableDeclaration('const', [
+    const iconReference = t.variableDeclaration('const', [
       t.variableDeclarator(
-        t.identifier(symbolName),
-        t.callExpression(t.identifier('createOcticonSymbol'), [
-          t.objectExpression([
-            t.objectProperty(t.identifier('id'), t.stringLiteral(`symbol-octicon-${icon.name}`)),
-            t.objectProperty(
-              t.identifier('definition'),
-              symbols.length === 1
-                ? symbols[0].jsx
-                : t.jsxFragment(
-                    t.jsxOpeningFragment(),
-                    t.jsxClosingFragment(),
-                    symbols.map(symbol => symbol.jsx),
-                  ),
-            ),
-          ]),
-        ]),
-      ),
-    ])
-
-    const referenceName = `${pascalCase(icon.name)}IconReference`
-    const forwardRef = t.callExpression(t.identifier('forwardRef'), [
-      t.functionExpression(
-        t.identifier(referenceName),
-        [t.identifier('props'), t.identifier('ref')],
-        t.blockStatement([
-          t.returnStatement(
-            t.jsxElement(
-              t.jsxOpeningElement(
-                t.jsxIdentifier('Icon'),
-                [
-                  t.jsxSpreadAttribute(t.identifier('props')),
-                  t.jsxAttribute(t.jsxIdentifier('ref'), t.jsxExpressionContainer(t.identifier('ref'))),
-                  t.jsxAttribute(
-                    t.jsxIdentifier('sizes'),
-                    t.jsxExpressionContainer(
-                      t.objectExpression(
-                        symbols.map(symbol =>
-                          t.objectProperty(
-                            t.stringLiteral(symbol.height),
-                            t.objectExpression([
-                              t.objectProperty(t.stringLiteral('width'), t.numericLiteral(symbol.width)),
-                              t.objectProperty(t.stringLiteral('id'), t.stringLiteral(symbol.id)),
-                            ]),
-                          ),
+        t.arrayPattern([t.identifier(symbolName), t.identifier(referenceName)]),
+        t.addComment(
+          t.callExpression(t.identifier('createIconReference'), [
+            t.objectExpression([
+              t.objectProperty(t.identifier('id'), t.stringLiteral(`symbol-octicon-${icon.name}`)),
+              t.objectProperty(t.identifier('name'), t.stringLiteral(referenceName)),
+              t.objectProperty(
+                t.identifier('sizes'),
+                t.objectExpression(
+                  symbols.map(symbol =>
+                    t.objectProperty(
+                      t.stringLiteral(symbol.height),
+                      t.objectExpression([
+                        t.objectProperty(t.identifier('definition'), symbol.jsx),
+                        t.objectProperty(
+                          t.stringLiteral('id'),
+                          t.stringLiteral(`symbol-octicon-${icon.name}-${symbol.height}`),
                         ),
-                      ),
+                        t.objectProperty(t.stringLiteral('width'), t.numericLiteral(symbol.width)),
+                      ]),
                     ),
                   ),
-                ],
-                true,
+                ),
               ),
-              t.jsxClosingElement(t.jsxIdentifier('Icon')),
-              [],
-            ),
-          ),
-        ]),
+            ]),
+          ]),
+          'leading',
+          '#__PURE__',
+        ),
       ),
     ])
 
-    forwardRef.typeParameters = t.tsTypeParameterInstantiation([
-      t.tsTypeReference(t.identifier('SVGSVGElement')),
-      t.tsTypeReference(t.identifier('OcticonReferenceProps')),
-    ])
-
-    const reference = t.variableDeclaration('const', [t.variableDeclarator(t.identifier(referenceName), forwardRef)])
-
-    return [t.exportNamedDeclaration(symbol), t.exportNamedDeclaration(reference)]
+    return [t.exportNamedDeclaration(iconReference)]
   })
 
   const body = [...imports, ...components]
@@ -172,6 +117,12 @@ octiconsReferencePropsExportSpecifier.exportKind = 'type'
 const octiconSymbolExportSpecifier = t.exportSpecifier(t.identifier('OcticonSymbol'), t.identifier('OcticonSymbol'))
 octiconSymbolExportSpecifier.exportKind = 'type'
 
+const createIconReferenceOptionsExportSpecifier = t.exportSpecifier(
+  t.identifier('CreateIconReferenceOptions'),
+  t.identifier('CreateIconReferenceOptions'),
+)
+createIconReferenceOptionsExportSpecifier.exportKind = 'type'
+
 const index = t.addComment(
   t.program([
     t.exportNamedDeclaration(
@@ -185,10 +136,11 @@ const index = t.addComment(
     t.exportNamedDeclaration(
       null,
       [
-        t.exportSpecifier(t.identifier('createOcticonSymbol'), t.identifier('createOcticonSymbol')),
+        t.exportSpecifier(t.identifier('createIconReference'), t.identifier('createIconReference')),
+        createIconReferenceOptionsExportSpecifier,
         octiconSymbolExportSpecifier,
       ],
-      t.stringLiteral('../OcticonSymbol'),
+      t.stringLiteral('../IconReference'),
     ),
     t.exportNamedDeclaration(null, [octiconsReferencePropsExportSpecifier], t.stringLiteral('../types')),
     ...modules.map(mod => {

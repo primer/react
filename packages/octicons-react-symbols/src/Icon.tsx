@@ -1,4 +1,4 @@
-import {forwardRef, type HTMLAttributes} from 'react'
+import {forwardRef} from 'react'
 import type {OcticonReferenceProps} from './types'
 
 const sizeMap = {
@@ -9,17 +9,18 @@ const sizeMap = {
 
 type Size = 'small' | 'medium' | 'large'
 
-type IconProps = HTMLAttributes<SVGSVGElement> &
-  OcticonReferenceProps & {
-    size?: Size | number
-    sizes: Record<
+type IconProps = OcticonReferenceProps & {
+  size?: Size | number
+  sizes: Readonly<
+    Record<
       string,
       {
-        id: string
-        width: number
+        readonly id: string
+        readonly width: number
       }
     >
-  }
+  >
+}
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
   {

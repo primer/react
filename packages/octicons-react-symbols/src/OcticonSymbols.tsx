@@ -1,6 +1,6 @@
 import {createContext, Fragment, useContext} from 'react'
 import type {ReactNode} from 'react'
-import type {OcticonSymbol} from './OcticonSymbol'
+import type {OcticonSymbol} from './IconReference'
 
 interface OcticonSymbolsProps {
   children?: ReactNode
