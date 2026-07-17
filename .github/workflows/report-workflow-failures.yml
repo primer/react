@@ -77,21 +77,23 @@ jobs:
               },
             );
             const failedJobs = jobs.filter((job) => job.conclusion === 'failure');
-            const escapeMarkdownLinkText = (text) => text.replace(/[\\[\]]/g, '\\$&');
+            const escapeMarkdownLinkTextBrackets = (text) =>
+              text.replace(/[\\[\]]/g, '\\$&');
             const failedJobLinks = failedJobs.map(
               (job) =>
-                `[${escapeMarkdownLinkText(job.name)}](${job.html_url})`,
+                `[${escapeMarkdownLinkTextBrackets(job.name)}](${job.html_url})`,
             );
 
             if (failedJobLinks.length === 0) {
               failedJobLinks.push(`[Failed run](${workflowRun.html_url})`);
             }
 
+            const failedJobListItems = failedJobLinks.map((link) => `- ${link}`);
             const body = [
               issueMarker,
               'The following jobs are failing in this workflow:',
               '',
-              ...failedJobLinks.map((link) => `- ${link}`),
+              ...failedJobListItems,
               '',
               'cc @github/primer-engineering to investigate and fix',
             ].join('\n');
@@ -135,7 +137,7 @@ jobs:
                 assignees: ['copilot'],
               });
             } catch (error) {
-              core.warning(`Unable to assign Copilot: ${error.message}`);
+              core.warning(`Unable to assign Copilot: ${error?.message ?? String(error)}`);
             }
 
   close-issue:
