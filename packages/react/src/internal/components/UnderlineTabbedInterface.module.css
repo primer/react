@@ -33,7 +33,6 @@
     padding-block: var(--base-size-8) 0 !important;
 
     .UnderlineItemList {
-      flex-grow: 1;
       flex-wrap: wrap;
       overflow: hidden;
     }
