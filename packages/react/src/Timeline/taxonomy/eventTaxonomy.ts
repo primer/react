@@ -26,11 +26,12 @@
  * carries the surface, and keeping `type` unscoped lets a selector target a
  * lifecycle verb across every surface (`[data-event-type="closed"]`) or one
  * surface (`[data-event-scope="license-compliance"][data-event-type="closed"]`).
- * The prototype's flattened `PullConversationEventType` union is a downstream
- * storage artifact derived via {@link qualifyEventType}, not the canonical form.
+ * The flattened, surface-prefixed event-type union some stores use (e.g.
+ * `license_compliance_opened`) is a downstream storage artifact derived via
+ * {@link qualifyEventType}, not the canonical form.
  *
- * Every consumer (the `data-*` attributes, the Storybook story grouping, and the
- * prototype registry/union keys) is a **projection** of this one catalog, not a
+ * Every consumer (the `data-*` attributes, the Storybook story grouping, and any
+ * flattened registry/union keys) is a **projection** of this one catalog, not a
  * separately hand-maintained list.
  *
  * NOTE (value casing): axis values are currently mixed — scope is kebab
@@ -60,9 +61,9 @@ export type EventScope = TimelineSurface
  * `packages/license-compliance-alerts/components/timeline/TimelineEventItem.tsx`
  * plus the Rails synthetic-event builder (`opened`, `appeared_in_branch`).
  *
- * The prototype union (`repo-pull-conversation-types.ts`) drifts from this: it
- * shortens `appeared_in_branch` to `appeared`, omits `licenses_added`, and
- * flattens each leaf with a `license_compliance_` prefix. Reconcile to this set.
+ * A downstream flattened union can drift from this: e.g. shortening
+ * `appeared_in_branch` to `appeared`, omitting `licenses_added`, or prefixing
+ * each leaf with `license_compliance_`. Reconcile to this set.
  */
 export type LicenseComplianceEventType =
   | 'opened'
@@ -111,14 +112,13 @@ export interface EventTaxonomyEntry {
 export const LICENSE_COMPLIANCE_SCOPE: EventScope = 'license-compliance'
 
 /**
- * The License Compliance catalog — declared ONCE. Categories mirror the running
- * registry (`TimelineEventRegistry.tsx`): lifecycle + branch presence are
- * `findings`, all review governance is `reviews`, and the two policy-change
- * events are `status` (folding `exception_added` + `licenses_added` into one
- * "Status updates" story instead of two singletons). The lifecycle bookends
- * (`opened`, `closed`) are additionally pinned by `computeLifecycleBookendIds`
- * so filtering never empties the record — a guarantee that lives in the renderer,
- * not in this catalog.
+ * The License Compliance catalog — declared ONCE. Categories mirror the canonical
+ * registry: lifecycle + branch presence are `findings`, all review governance is
+ * `reviews`, and the two policy-change events are `status` (folding
+ * `exception_added` + `licenses_added` into one "Status updates" story instead of
+ * two singletons). The lifecycle bookends (`opened`, `closed`) are additionally
+ * pinned by the renderer as lifecycle bookends so filtering never empties the
+ * record — a guarantee that lives in the renderer, not in this catalog.
  */
 export const LICENSE_COMPLIANCE_TAXONOMY: Record<LicenseComplianceEventType, EventTaxonomyEntry> = {
   opened: {category: 'findings', hasActor: true}, // synthetic; system-identity actor, rendered linked (no "bot" Label)
@@ -138,7 +138,6 @@ export const LICENSE_COMPLIANCE_TAXONOMY: Record<LicenseComplianceEventType, Eve
  * SOURCE OF TRUTH: live github-ui React `packages/secret-scanning-alerts`
  * `components/show/AlertTimeline.tsx` `switch (event.type)` (five cases:
  * Creation, Resolution, Bypass, Report, DelegatedClosureRequestOpened).
- * See `files/story-secret-scanning.diff` (translated 1:1 from the live switch).
  *
  * DELTA — 5 canonical cases → 7 prototype leaves. The prototype fans the switch
  * out to finer wire types: `Resolution` splits into `closed` + `reopened`
@@ -174,7 +173,7 @@ export const SECRET_SCANNING_TAXONOMY: Record<SecretScanningEventType, EventTaxo
  *
  * SOURCE OF TRUTH: live dotcom ERB `timeline_component.html.erb` dispatch (Code
  * Scanning is NOT migrated to React — server-rendered ViewComponent). The
- * authoritative nine cases are enumerated in `files/story-code-scanning.diff`:
+ * authoritative nine cases are:
  * ALERT_CREATED, ALERT_APPEARED_IN_BRANCH, ALERT_REAPPEARED,
  * ALERT_CLOSED_BECAME_FIXED, ALERT_CLOSED_BECAME_OUTDATED, ALERT_CLOSED_BY_USER,
  * ALERT_REOPENED_BY_USER, ALERT_DISMISSAL_REQUESTED, ALERT_DISMISSAL_REVIEWED.
@@ -382,11 +381,11 @@ export const SURFACE_TAXONOMIES = {
 export type CatalogedScope = keyof typeof SURFACE_TAXONOMIES
 
 /**
- * Derive the prototype's flattened union/registry key from the canonical
- * `(scope, type)` pair. Snake-cases the (kebab) scope and joins with `_`, so
- * `('license-compliance', 'opened')` → `license_compliance_opened`, matching the
- * existing `PullConversationEventType` keys. This is the prototype storage
- * projection — the emitted `data-event-type` stays the unscoped leaf.
+ * Derive a flattened union/registry key from the canonical `(scope, type)` pair.
+ * Snake-cases the (kebab) scope and joins with `_`, so
+ * `('license-compliance', 'opened')` → `license_compliance_opened`, matching a
+ * flat store's per-event keys. This is the storage projection: the emitted
+ * `data-event-type` stays the unscoped leaf.
  */
 export function qualifyEventType(scope: EventScope, type: string): string {
   return `${scope.replace(/-/g, '_')}_${type}`
@@ -398,7 +397,7 @@ export function qualifyEventType(scope: EventScope, type: string): string {
  * (`('license-compliance', 'license_compliance_appeared_in_branch')` →
  * `appeared_in_branch`); leaves an already-unscoped key untouched
  * (`('pull', 'labeled')` → `labeled`, since pull/issue events carry no prefix).
- * This is the projection `EventRow` uses to emit the unscoped `data-event-type`
+ * This is the projection a row renderer uses to emit the unscoped `data-event-type`
  * while `data-event-scope` carries the surface.
  */
 export function unqualifyEventType(scope: EventScope, flattenedType: string): string {
@@ -428,9 +427,9 @@ export interface EventDataAttributes {
 
 /**
  * Canonical serializer for the event `data-*` contract (primer#6654). The single
- * place that turns the five axes into attribute strings — `EventRow` can delegate
- * here so the contract has exactly one implementation. `data-event-type` is the
- * **unscoped** leaf; the surface travels in `data-event-scope`. `data-actor-type`
+ * place that turns the five axes into attribute strings; a row renderer can
+ * delegate here so the contract has exactly one implementation. `data-event-type`
+ * is the **unscoped** leaf; the surface travels in `data-event-scope`. `data-actor-type`
  * is omitted entirely for actor-less events rather than emitted empty.
  */
 export function toEventDataAttributes({
