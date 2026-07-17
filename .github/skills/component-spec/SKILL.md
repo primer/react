@@ -43,6 +43,12 @@ Feature sections may include:
 
 Only include subsections that are relevant to the feature.
 
+Keep every heading unique within its Markdown file so the spec passes
+`npm run lint:md`. In a single-file spec, qualify subsection headings with the
+feature name, such as `#### Actions behavior` or
+`#### Dismissal accessibility`. Feature files in a split spec may use generic
+subsection headings because each feature has its own file.
+
 ### Public API
 
 Do not repeat information that can be represented in `*.docs.json`. Prop names,
@@ -148,6 +154,8 @@ WithDelay.parameters = {
 
 Generic repository requirements, such as support for server rendering, do not
 need dedicated sections in each component spec.
+
+Run `npm run lint:md` after adding or updating component specs.
 
 ## Templates
 

@@ -21,7 +21,7 @@ Banner highlights important information or provides feedback after a user action
 
 Banner provides a title, an optional description, and a visual that communicates the selected variant.
 
-#### Markup
+#### Default markup
 
 - The root MUST render as a `<section>` landmark.
 - The root MUST be programmatically focusable without placing it in the sequential focus order.
@@ -32,14 +32,14 @@ Banner provides a title, an optional description, and a visual that communicates
 - A visually hidden title MUST remain in the accessibility tree and continue to name the landmark.
 - The built-in leading visual MUST be hidden from the accessibility tree.
 
-#### Behavior
+#### Default behavior
 
 - Consumers MUST provide exactly one title, either through the `title` prop or a `Banner.Title` child.
 - The component MUST report a development error when no title is provided.
 - Hiding the title MUST affect only its visual presentation.
 - The component MUST NOT automatically announce itself when it is rendered.
 
-#### Public API
+#### Default public API
 
 - When a `Banner.Title` child provides a custom `id`, consumers MUST provide a matching `aria-labelledby` value on Banner.
 - The forwarded ref MUST target the root `<section>`.
@@ -49,7 +49,7 @@ Banner provides a title, an optional description, and a visual that communicates
 
 Variants communicate the type of message and provide a corresponding visual treatment.
 
-#### Behavior
+#### Variants and leading visuals behavior
 
 - Banner MUST support critical, info, success, upsell, and warning variants.
 - Each variant MUST render a leading visual that distinguishes it without relying on color alone.
@@ -63,13 +63,13 @@ Variants communicate the type of message and provide a corresponding visual trea
 
 Banner may provide one primary action, one secondary action, or both.
 
-#### Markup
+#### Actions markup
 
 - Primary and secondary actions MUST render as interactive controls.
 - Primary and secondary actions MAY render as buttons for actions or links for navigation.
 - Responsive layout changes MUST expose only one operable instance of each action at a time.
 
-#### Behavior
+#### Actions behavior
 
 - When both actions are present, the primary action MUST represent the recommended action.
 - In the default actions layout, actions MUST remain inline when sufficient container space is available and stack when the available container width is less than 500 CSS pixels.
@@ -78,7 +78,7 @@ Banner may provide one primary action, one secondary action, or both.
 - When actions stack, the primary action MUST precede the secondary action.
 - Activating an action MUST invoke the handler provided to that action without invoking Banner dismissal.
 
-#### Accessibility
+#### Actions accessibility
 
 - When a Banner appears dynamically and contains an action that is required to continue, consumers MUST move focus to the Banner when it appears.
 
@@ -86,11 +86,11 @@ Banner may provide one primary action, one secondary action, or both.
 
 A Banner may provide a dismiss control when the message can be safely removed.
 
-#### Markup
+#### Dismissal markup
 
 - A dismissible Banner MUST render a button with the accessible name `Dismiss banner`.
 
-#### Behavior
+#### Dismissal behavior
 
 - Activating the dismiss button MUST invoke `onDismiss` once for each activation.
 - Banner MUST NOT remove itself after dismissal. Consumers are responsible for updating visibility in response to `onDismiss`.
@@ -100,7 +100,7 @@ A Banner may provide a dismiss control when the message can be safely removed.
 
 Banner supports default and compact spacing, responsive action placement, and a flush presentation for confined surfaces.
 
-#### Behavior
+#### Layout behavior
 
 - The default layout MUST use the standard Banner spacing.
 - The compact layout MUST reduce the Banner's padding without changing its semantic structure.
