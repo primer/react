@@ -25,6 +25,10 @@ export const WithVisual = () => (
   </Blankslate>
 )
 
+WithVisual.parameters = {
+  spec: ['./SPEC.md#visual'],
+}
+
 export const WithPrimaryActionAsLink = () => (
   <Blankslate>
     <Blankslate.Visual>
@@ -35,6 +39,10 @@ export const WithPrimaryActionAsLink = () => (
     <Blankslate.PrimaryAction href="#">Primary action</Blankslate.PrimaryAction>
   </Blankslate>
 )
+
+WithPrimaryActionAsLink.parameters = {
+  spec: ['./SPEC.md#actions'],
+}
 
 export const WithPrimaryActionAsButton = () => {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -65,6 +73,10 @@ export const WithPrimaryActionAsButton = () => {
   )
 }
 
+WithPrimaryActionAsButton.parameters = {
+  spec: ['./SPEC.md#actions'],
+}
+
 export const WithSecondaryAction = () => (
   <Blankslate>
     <Blankslate.Visual>
@@ -75,6 +87,10 @@ export const WithSecondaryAction = () => (
     <Blankslate.SecondaryAction href="#">Secondary action</Blankslate.SecondaryAction>
   </Blankslate>
 )
+
+WithSecondaryAction.parameters = {
+  spec: ['./SPEC.md#actions'],
+}
 
 export const WithBorder = () => (
   <Blankslate border>
@@ -118,6 +134,10 @@ export const SizeSmall = () => (
   </Blankslate>
 )
 
+SizeSmall.parameters = {
+  spec: ['./SPEC.md#actions'],
+}
+
 export const SizeLarge = () => (
   <Blankslate size="large">
     <Blankslate.Visual>
@@ -129,3 +149,7 @@ export const SizeLarge = () => (
     <Blankslate.SecondaryAction href="#">Secondary action</Blankslate.SecondaryAction>
   </Blankslate>
 )
+
+SizeLarge.parameters = {
+  spec: ['./SPEC.md#actions'],
+}

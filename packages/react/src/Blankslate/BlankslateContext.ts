@@ -4,14 +4,12 @@ type BlankslateContextType = {
   size: 'small' | 'medium' | 'large'
 }
 
-const BlankslateContext = createContext<BlankslateContextType | null>(null)
+const BlankslateContext = createContext<BlankslateContextType>({
+  size: 'medium',
+})
 
 function useBlankslate(): BlankslateContextType {
-  const context = useContext(BlankslateContext)
-  if (!context) {
-    throw new Error('useBlankslate must be used within a BlankslateProvider')
-  }
-  return context
+  return useContext(BlankslateContext)
 }
 
 const Provider = BlankslateContext.Provider

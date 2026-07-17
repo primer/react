@@ -38,6 +38,22 @@ function getSizePadding(size: 'small' | 'medium' | 'large') {
 describe('Blankslate', () => {
   implementsClassName(Blankslate, classes.Blankslate)
 
+  /**
+   * @see ./SPEC.md#default
+   */
+  it('forwards additional props to the outer container and className to the inner container', () => {
+    const {container} = render(
+      <Blankslate className="custom-class" data-testid="outer-container">
+        Test content
+      </Blankslate>,
+    )
+    const outerContainer = screen.getByTestId('outer-container')
+
+    expect(outerContainer).toBe(container.firstChild)
+    expect(outerContainer).not.toHaveClass('custom-class')
+    expect(outerContainer.firstChild).toHaveClass('custom-class')
+  })
+
   it('should render with border when border is true', () => {
     const {container} = render(<Blankslate border>Test content</Blankslate>)
     expect(container.firstChild!.firstChild).toHaveAttribute('data-border', '')
@@ -92,19 +108,25 @@ describe('Blankslate', () => {
   })
 
   describe('Blankslate.Visual', () => {
-    it('should render a visual element', () => {
+    /**
+     * @see ./SPEC.md#visual
+     */
+    it('hides the visual from the accessibility tree', () => {
       render(
         <Blankslate>
-          <Blankslate.Visual>
+          <Blankslate.Visual aria-hidden={false}>
             <svg aria-hidden="true" data-testid="test-icon" />
           </Blankslate.Visual>
         </Blankslate>,
       )
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument()
+      expect(screen.getByTestId('test-icon').parentElement).toHaveAttribute('aria-hidden', 'true')
     })
   })
 
   describe('Blankslate.Heading', () => {
+    /**
+     * @see ./SPEC.md#default
+     */
     it('should render a heading with h2 by default', () => {
       render(
         <Blankslate>
@@ -115,6 +137,9 @@ describe('Blankslate', () => {
       expect(screen.getByRole('heading', {level: 2})).toHaveClass('Blankslate-Heading')
     })
 
+    /**
+     * @see ./SPEC.md#default
+     */
     it('should render with a custom heading level', () => {
       render(
         <Blankslate>
@@ -126,6 +151,9 @@ describe('Blankslate', () => {
   })
 
   describe('Blankslate.Description', () => {
+    /**
+     * @see ./SPEC.md#default
+     */
     it('should render a description', () => {
       render(
         <Blankslate>
@@ -137,6 +165,9 @@ describe('Blankslate', () => {
   })
 
   describe('Blankslate.PrimaryAction', () => {
+    /**
+     * @see ./SPEC.md#actions
+     */
     it('should render a primary action button', () => {
       render(
         <Blankslate>
@@ -146,6 +177,17 @@ describe('Blankslate', () => {
       expect(screen.getByRole('button', {name: 'Primary action'})).toBeInTheDocument()
     })
 
+    /**
+     * @see ./SPEC.md#actions
+     */
+    it('should render independently from Blankslate', () => {
+      render(<Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>)
+      expect(screen.getByRole('button', {name: 'Primary action'})).toBeInTheDocument()
+    })
+
+    /**
+     * @see ./SPEC.md#actions
+     */
     it('should handle click events on the button', async () => {
       const user = userEvent.setup()
       const onClick = vi.fn()
@@ -159,6 +201,9 @@ describe('Blankslate', () => {
       expect(onClick).toHaveBeenCalledTimes(1)
     })
 
+    /**
+     * @see ./SPEC.md#actions
+     */
     it('should render as an anchor when href is provided', () => {
       render(
         <Blankslate>
@@ -169,9 +214,27 @@ describe('Blankslate', () => {
       expect(link).toBeInTheDocument()
       expect(link).toHaveAttribute('href', 'https://example.com')
     })
+
+    /**
+     * @see ./SPEC.md#actions
+     */
+    it('should render as an anchor when href is an empty string', () => {
+      const {container} = render(
+        <Blankslate>
+          <Blankslate.PrimaryAction href="">Primary action</Blankslate.PrimaryAction>
+        </Blankslate>,
+      )
+      const link = container.querySelector('a')
+
+      expect(link).toHaveAttribute('href', '')
+      expect(link).toHaveTextContent('Primary action')
+    })
   })
 
   describe('Blankslate.SecondaryAction', () => {
+    /**
+     * @see ./SPEC.md#actions
+     */
     it('should render a secondary action link', () => {
       render(
         <Blankslate>

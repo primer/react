@@ -1,0 +1,55 @@
+# Blankslate spec
+
+Blankslate explains why content is missing and may guide users toward a next step.
+
+## Accessibility
+
+- Consumers MUST include a heading that identifies the empty state.
+- Consumers MUST choose a heading level that fits the surrounding page hierarchy.
+- Consumers MUST provide text that explains the empty state without relying on the visual alone.
+- Consumers MUST give interactive controls descriptive accessible names that communicate their purpose.
+
+## Features
+
+### Default
+
+Blankslate provides a compound component for composing a heading, optional description, visual, and actions.
+
+#### Markup
+
+- The heading MUST render as an `<h2>` by default and MAY render as an `<h1>`, `<h3>`, `<h4>`, `<h5>`, or `<h6>` when consumers provide the appropriate heading level.
+- The description MUST render as a paragraph.
+
+#### Public API
+
+- Additional HTML attributes MUST be forwarded to the outer container.
+- `className` MUST be applied to the inner Blankslate presentation container rather than the outer container.
+- `Blankslate.Visual`, `Blankslate.Heading`, and `Blankslate.Description` MUST forward additional HTML attributes to their rendered elements.
+
+### Visual
+
+The optional visual supports the empty-state message with an icon, illustration, or other graphic.
+
+#### Accessibility
+
+- The visual MUST be presentational and hidden from the accessibility tree.
+
+### Actions
+
+Blankslate may provide a primary action, a secondary action, or both.
+
+#### Markup
+
+- A primary action without a navigation target MUST render as a button.
+- A primary action with a navigation target MUST render as a link.
+- A secondary action MUST render as a link.
+
+#### Behavior
+
+- Consumers SHOULD use the primary action for the recommended next step.
+- Consumers SHOULD use the secondary action for supplementary navigation, such as documentation or more information.
+
+#### Public API
+
+- A button-form primary action MUST forward additional button props to its rendered button.
+- A primary action MAY be rendered independently from Blankslate.

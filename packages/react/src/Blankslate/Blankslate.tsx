@@ -62,7 +62,12 @@ type BlankslateVisualProps = React.HTMLAttributes<HTMLElement>
 
 function Visual({children, className, ...rest}: BlankslateVisualProps) {
   return (
-    <span {...rest} className={clsx('Blankslate-Visual', classes.Visual, className)} data-component="Blankslate.Visual">
+    <span
+      {...rest}
+      aria-hidden="true"
+      className={clsx('Blankslate-Visual', classes.Visual, className)}
+      data-component="Blankslate.Visual"
+    >
       {children}
     </span>
   )
@@ -113,7 +118,7 @@ function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps)
     <div className={clsx('Blankslate-Action', classes.Action)} data-component="Blankslate.PrimaryAction">
       <Button
         {...props}
-        as={href ? 'a' : 'button'}
+        as={href !== undefined ? 'a' : 'button'}
         href={href}
         variant="primary"
         size={size === 'small' ? 'small' : undefined}

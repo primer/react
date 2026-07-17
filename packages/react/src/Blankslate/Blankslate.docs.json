@@ -27,6 +27,12 @@
     },
     {
       "id": "experimental-components-blankslate-features--spacious"
+    },
+    {
+      "id": "experimental-components-blankslate-features--size-small"
+    },
+    {
+      "id": "experimental-components-blankslate-features--size-large"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -39,12 +45,12 @@
     {
       "name": "narrow",
       "type": "boolean",
-      "description": ""
+      "description": "Constrain the maximum width of the component"
     },
     {
       "name": "spacious",
       "type": "boolean",
-      "description": ""
+      "description": "Increase the component padding"
     },
     {
       "name": "className",
@@ -55,7 +61,7 @@
     {
       "name": "size",
       "type": "'small' | 'medium' | 'large'",
-      "description": "The size of the componeont",
+      "description": "The size of the component",
       "defaultValue": "'medium'"
     }
   ],
@@ -69,7 +75,8 @@
       "props": [
         {
           "name": "as",
-          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "'h2'"
         }
       ]
     },
