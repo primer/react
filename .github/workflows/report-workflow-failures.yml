@@ -47,16 +47,18 @@ jobs:
               workflow_id: workflowRun.workflow_id,
             });
             const title = `Investigate ${workflow.data.name} workflow failure`;
-            const issueMarker = `<!-- workflow-failure:${workflowRun.workflow_id} -->`;
-            const issues = await github.paginate(
-              github.rest.issues.listForRepo,
-              {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                state: 'open',
-                per_page: 100,
-              },
-            );
+            const issueMarkerText = `workflow-failure:${workflowRun.workflow_id}`;
+            const issueMarker = `<!-- ${issueMarkerText} -->`;
+            const issues = await github.paginate(github.rest.search.issuesAndPullRequests, {
+              q: [
+                `repo:${context.repo.owner}/${context.repo.repo}`,
+                'is:issue',
+                'is:open',
+                `"${issueMarkerText}"`,
+                'in:body',
+              ].join(' '),
+              per_page: 100,
+            });
             const failureIssues = issues
               .filter(
                 (issue) =>
@@ -75,8 +77,10 @@ jobs:
               },
             );
             const failedJobs = jobs.filter((job) => job.conclusion === 'failure');
+            const escapeMarkdownLinkText = (text) => text.replace(/[\\[\]]/g, '\\$&');
             const failedJobLinks = failedJobs.map(
-              (job) => `[${job.name}](${job.html_url})`,
+              (job) =>
+                `[${escapeMarkdownLinkText(job.name)}](${job.html_url})`,
             );
 
             if (failedJobLinks.length === 0) {
@@ -85,9 +89,9 @@ jobs:
 
             const body = [
               issueMarker,
-              'The following jobs are failing in this workflow:'
+              'The following jobs are failing in this workflow:',
               '',
-              ...failedJobLinks.map((link) => `- ${link}`).join('\n')
+              ...failedJobLinks.map((link) => `- ${link}`),
               '',
               'cc @github/primer-engineering to investigate and fix',
             ].join('\n');
@@ -99,11 +103,14 @@ jobs:
               body,
             };
 
+            let issueNumber;
+
             if (failureIssues.length > 0) {
               await github.rest.issues.update({
                 ...issue,
                 issue_number: failureIssues[0].number,
               });
+              issueNumber = failureIssues[0].number;
               await Promise.all(
                 failureIssues.slice(1).map((duplicate) =>
                   github.rest.issues.update({
@@ -116,7 +123,19 @@ jobs:
                 ),
               );
             } else {
-              await github.rest.issues.create(issue);
+              const createdIssue = await github.rest.issues.create(issue);
+              issueNumber = createdIssue.data.number;
+            }
+
+            try {
+              await github.rest.issues.addAssignees({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                assignees: ['copilot'],
+              });
+            } catch (error) {
+              core.warning(`Unable to assign Copilot: ${error.message}`);
             }
 
   close-issue:
@@ -135,7 +154,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: workflowRun.workflow_id,
-              status: 'completed',
               per_page: 1,
             });
             const latestRun = latestRuns.data.workflow_runs[0];
@@ -147,16 +165,18 @@ jobs:
               return;
             }
 
-            const issueMarker = `<!-- workflow-failure:${workflowRun.workflow_id} -->`;
-            const issues = await github.paginate(
-              github.rest.issues.listForRepo,
-              {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                state: 'open',
-                per_page: 100,
-              },
-            );
+            const issueMarkerText = `workflow-failure:${workflowRun.workflow_id}`;
+            const issueMarker = `<!-- ${issueMarkerText} -->`;
+            const issues = await github.paginate(github.rest.search.issuesAndPullRequests, {
+              q: [
+                `repo:${context.repo.owner}/${context.repo.repo}`,
+                'is:issue',
+                'is:open',
+                `"${issueMarkerText}"`,
+                'in:body',
+              ].join(' '),
+              per_page: 100,
+            });
             const failureIssues = issues.filter(
               (issue) =>
                 !issue.pull_request && issue.body?.includes(issueMarker),
