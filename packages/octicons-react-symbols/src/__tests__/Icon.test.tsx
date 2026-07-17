@@ -19,12 +19,17 @@ describe('Icon', () => {
     const {container} = render(<Icon data-testid="icon" sizes={sizes} />)
 
     const icon = screen.getByTestId('icon')
+    expect(icon.getAttribute('data-component')).toBe('Octicon')
     expect(icon.getAttribute('aria-hidden')).toBe('true')
     expect(icon.getAttribute('focusable')).toBe('false')
     expect(icon.hasAttribute('role')).toBe(false)
     expect(icon.getAttribute('viewBox')).toBe('0 0 16 16')
     expect(icon.getAttribute('width')).toBe('16')
     expect(icon.getAttribute('height')).toBe('16')
+    expect(icon.getAttribute('fill')).toBe('currentColor')
+    expect(icon.getAttribute('display')).toBe('inline-block')
+    expect(icon.getAttribute('overflow')).toBe('visible')
+    expect(icon.getAttribute('style')).toContain('vertical-align: text-bottom;')
     expect(container.querySelector('use')?.getAttribute('href')).toBe('#symbol-octicon-test-16')
   })
 
@@ -66,6 +71,14 @@ describe('Icon', () => {
     const icon = screen.getByTestId('icon')
     expect(icon.getAttribute('focusable')).toBe('true')
     expect(icon.getAttribute('tabindex')).toBe('0')
+  })
+
+  test('allows verticalAlign override', () => {
+    render(<Icon data-testid="icon" size={16} sizes={sizes} style={{color: 'red'}} verticalAlign="middle" />)
+
+    const icon = screen.getByTestId('icon')
+    expect(icon.getAttribute('style')).toContain('vertical-align: middle;')
+    expect(icon.getAttribute('style')).toContain('color: red;')
   })
 
   test('uses the closest natural height and scales width', () => {

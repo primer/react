@@ -22,7 +22,20 @@ type IconProps = HTMLAttributes<SVGSVGElement> &
   }
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
-  {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, className, size = 16, sizes, tabIndex, title, ...rest},
+  {
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    className = '',
+    fill = 'currentColor',
+    id,
+    size = 16,
+    sizes,
+    style,
+    tabIndex,
+    title,
+    verticalAlign = 'text-bottom',
+    ...rest
+  },
   ref,
 ) {
   const height = typeof size === 'number' ? size : sizeMap[size]
@@ -30,7 +43,7 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
   const naturalHeight = closestNaturalHeight(heights, height)
   const naturalWidth = sizes[naturalHeight].width
   const width = height * (naturalWidth / naturalHeight)
-  const id = sizes[naturalHeight].id
+  const symbolId = sizes[naturalHeight].id
   const labelled = ariaLabel || ariaLabelledBy
   const role = labelled ? 'img' : undefined
 
@@ -38,6 +51,7 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
     <svg
       {...rest}
       ref={ref}
+      data-component="Octicon"
       aria-hidden={labelled ? undefined : 'true'}
       tabIndex={tabIndex}
       focusable={tabIndex !== undefined && tabIndex >= 0 ? 'true' : 'false'}
@@ -48,9 +62,14 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
       viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
       width={width}
       height={height}
+      fill={fill}
+      id={id}
+      display="inline-block"
+      overflow="visible"
+      style={{verticalAlign, ...style}}
     >
       {title ? <title>{title}</title> : null}
-      <use href={`#${id}`} />
+      <use href={`#${symbolId}`} />
     </svg>
   )
 })
