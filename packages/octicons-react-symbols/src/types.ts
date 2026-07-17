@@ -1,13 +1,12 @@
-import type {HTMLAttributes, PropsWithChildren, ReactElement} from 'react'
+import type {ComponentPropsWithoutRef, ReactElement} from 'react'
 
-export type OcticonReferenceProps = HTMLAttributes<SVGElement> &
-  PropsWithChildren<{
-    'aria-label'?: string
-    'aria-labelledby'?: string
-    className?: string
-    fill?: string
-    id?: string
-    size?: number | 'small' | 'medium' | 'large'
-    tabIndex?: number
-    title?: string | ReactElement<unknown>
-  }>
+export type OcticonReferenceProps = ComponentPropsWithoutRef<'svg'> & {
+  'aria-label'?: string
+  'aria-labelledby'?: string
+  className?: string
+  fill?: string
+  id?: string
+  size?: number | 'small' | 'medium' | 'large'
+  tabIndex?: number
+  title?: string | ReactElement<unknown>
+}

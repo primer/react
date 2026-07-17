@@ -1,5 +1,5 @@
 import {createContext, Fragment, useContext} from 'react'
-import type {FC, ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import type {OcticonSymbol} from './OcticonSymbol'
 
 interface OcticonSymbolsProps {
@@ -9,7 +9,7 @@ interface OcticonSymbolsProps {
 
 const OcticonSymbolsContext = createContext<ReadonlySet<string>>(new Set())
 
-const OcticonSymbols: FC<OcticonSymbolsProps> = ({children, symbols}) => {
+function OcticonSymbols({children, symbols}: OcticonSymbolsProps) {
   const inheritedSymbolIds = useContext(OcticonSymbolsContext)
   const registeredSymbolIds = new Set(inheritedSymbolIds)
   const symbolsToRender: Array<OcticonSymbol> = []
