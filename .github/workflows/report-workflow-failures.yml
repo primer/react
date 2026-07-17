@@ -18,7 +18,7 @@ jobs:
       issues: write
     steps:
       - name: Create issue
-        uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const workflowRun = context.payload.workflow_run;
@@ -38,18 +38,16 @@ jobs:
               },
             );
             const failedJobs = jobs.filter((job) => job.conclusion === 'failure');
-            const failedWorkflows = failedJobs.map(
-              (job) => `- [${workflow.data.name}: ${job.name}](${job.html_url})`,
+            const failedJobLinks = failedJobs.map(
+              (job) => `[${job.name}](${job.html_url})`,
             );
 
-            if (failedWorkflows.length === 0) {
-              failedWorkflows.push(
-                `- [${workflow.data.name}](${workflowRun.html_url})`,
-              );
+            if (failedJobLinks.length === 0) {
+              failedJobLinks.push(`[Failed run](${workflowRun.html_url})`);
             }
 
             const body = [
-              ...failedWorkflows,
+              `- ${workflow.data.name}: ${failedJobLinks.join(', ')}`,
               '',
               '@github/primer-engineering, please investigate and fix.',
             ].join('\n');
