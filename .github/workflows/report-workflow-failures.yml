@@ -1,0 +1,62 @@
+name: Report workflow failures
+
+on:
+  workflow_run:
+    workflows:
+      - Codespaces Prebuilds
+    types:
+      - completed
+
+permissions: {}
+
+jobs:
+  create-issue:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      issues: write
+    steps:
+      - name: Create issue
+        uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
+        with:
+          script: |
+            const workflowRun = context.payload.workflow_run;
+            const workflow = await github.rest.actions.getWorkflow({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: workflowRun.workflow_id,
+            });
+            const jobs = await github.paginate(
+              github.rest.actions.listJobsForWorkflowRun,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: workflowRun.id,
+                filter: 'latest',
+                per_page: 100,
+              },
+            );
+            const failedJobs = jobs.filter((job) => job.conclusion === 'failure');
+            const failedWorkflows = failedJobs.map(
+              (job) => `- [${workflow.data.name}: ${job.name}](${job.html_url})`,
+            );
+
+            if (failedWorkflows.length === 0) {
+              failedWorkflows.push(
+                `- [${workflow.data.name}](${workflowRun.html_url})`,
+              );
+            }
+
+            const body = [
+              ...failedWorkflows,
+              '',
+              '@github/primer-engineering, please investigate and fix.',
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Investigate GitHub workflow failure',
+              body,
+            });
