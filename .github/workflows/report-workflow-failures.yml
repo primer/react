@@ -77,11 +77,11 @@ jobs:
               },
             );
             const failedJobs = jobs.filter((job) => job.conclusion === 'failure');
-            const escapeMarkdownBrackets = (text) =>
+            const escapeMarkdownSpecialChars = (text) =>
               text.replace(/[\\[\]]/g, '\\$&');
             const failedJobLinks = failedJobs.map(
               (job) =>
-                `[${escapeMarkdownBrackets(job.name)}](${job.html_url})`,
+                `[${escapeMarkdownSpecialChars(job.name)}](${job.html_url})`,
             );
 
             if (failedJobLinks.length === 0) {
@@ -137,7 +137,9 @@ jobs:
                 assignees: ['copilot'],
               });
             } catch (error) {
-              core.warning(`Unable to assign Copilot: ${error?.message ?? String(error)}`);
+              core.warning(
+                `Unable to assign Copilot to issue #${issueNumber}: ${error?.message ?? String(error)}`,
+              );
             }
 
   close-issue:
