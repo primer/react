@@ -45,9 +45,7 @@ jobs:
 
             const {stdout: queryOutput} = await exec.getExecOutput('npm', ['query', '.workspace']);
             const workspaces = JSON.parse(queryOutput);
-            const packages = workspaces
-              .filter(pkg => pkg.private !== true)
-              .map(pkg => pkg.name);
+            const packages = workspaces.filter(pkg => pkg.private !== true).map(pkg => pkg.name);
             core.info(`Packing: ${packages.join(' ')}`);
 
             const args = ['pack', ...packages.map(name => `--workspace=${name}`), '--pack-destination', directory, '--json'];
