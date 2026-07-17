@@ -448,8 +448,8 @@ export function FilteredActionList({
                     className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                     data-input-focused={isInputFocused ? '' : undefined}
                     data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
-                    {...item}
                     renderItem={listProps.renderItem}
+                    {...item}
                   />
                 )
               })}
@@ -480,8 +480,8 @@ export function FilteredActionList({
                 right: 0,
                 transform: `translateY(${virtualItem.start}px)`,
               }}
-              {...item}
               renderItem={listProps.renderItem}
+              {...item}
             />
           )
         })
@@ -495,8 +495,8 @@ export function FilteredActionList({
             className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
             data-input-focused={isInputFocused ? '' : undefined}
             data-first-child={index === 0 ? '' : undefined}
-            {...item}
             renderItem={listProps.renderItem}
+            {...item}
           />
         )
       })

@@ -99,6 +99,34 @@ describe('FilteredActionList', () => {
       ).toBeInTheDocument()
     })
   })
+
+  describe('custom item rendering', () => {
+    it('uses an item-level renderer', () => {
+      const renderItem = vi.fn(() => <li>Custom item</li>)
+
+      const {getByText} = render(
+        <FilteredActionList items={[{id: 1, text: 'Item 1', renderItem}]} onFilterChange={vi.fn()} />,
+      )
+
+      expect(getByText('Custom item')).toBeInTheDocument()
+      expect(renderItem).toHaveBeenCalled()
+    })
+
+    it('uses an item-level renderer for grouped items', () => {
+      const itemRenderItem = vi.fn(() => <li>Item renderer</li>)
+
+      const {getByText} = render(
+        <FilteredActionList
+          groupMetadata={[{groupId: 'group'}]}
+          items={[{groupId: 'group', id: 1, text: 'Item 1', renderItem: itemRenderItem}]}
+          onFilterChange={vi.fn()}
+        />,
+      )
+
+      expect(getByText('Item renderer')).toBeInTheDocument()
+      expect(itemRenderItem).toHaveBeenCalled()
+    })
+  })
 })
 
 describe('FilteredActionListBodyLoader', () => {
