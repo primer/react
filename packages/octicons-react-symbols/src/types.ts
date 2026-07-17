@@ -10,6 +10,4 @@ export type OcticonReferenceProps = HTMLAttributes<SVGElement> &
     size?: number | 'small' | 'medium' | 'large'
     tabIndex?: number
     title?: string | ReactElement<unknown>
-    /** @deprecated use v-align utilities instead */
-    verticalAlign?: 'middle' | 'text-bottom' | 'text-top' | 'top' | 'unset'
   }>

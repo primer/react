@@ -73,11 +73,11 @@ describe('Icon', () => {
     expect(icon.getAttribute('tabindex')).toBe('0')
   })
 
-  test('allows verticalAlign override', () => {
-    render(<Icon data-testid="icon" size={16} sizes={sizes} style={{color: 'red'}} verticalAlign="middle" />)
+  test('keeps default vertical-align while merging style', () => {
+    render(<Icon data-testid="icon" size={16} sizes={sizes} style={{color: 'red'}} />)
 
     const icon = screen.getByTestId('icon')
-    expect(icon.getAttribute('style')).toContain('vertical-align: middle;')
+    expect(icon.getAttribute('style')).toContain('vertical-align: text-bottom;')
     expect(icon.getAttribute('style')).toContain('color: red;')
   })
 

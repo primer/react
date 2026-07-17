@@ -33,7 +33,6 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
     style,
     tabIndex,
     title,
-    verticalAlign = 'text-bottom',
     ...rest
   },
   ref,
@@ -66,7 +65,7 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
       id={id}
       display="inline-block"
       overflow="visible"
-      style={{verticalAlign, ...style}}
+      style={{verticalAlign: 'text-bottom', ...style}}
     >
       {title ? <title>{title}</title> : null}
       <use href={`#${symbolId}`} />
