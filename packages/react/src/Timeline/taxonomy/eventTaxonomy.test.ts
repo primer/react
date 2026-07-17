@@ -61,14 +61,14 @@ describe('LICENSE_COMPLIANCE_TAXONOMY', () => {
 })
 
 describe('qualifyEventType', () => {
-  it('snake-cases the scope and matches the existing prototype key convention', () => {
+  it('snake-cases the scope and matches the flattened snake_case key convention', () => {
     expect(qualifyEventType('license-compliance', 'opened')).toBe('license_compliance_opened')
     expect(qualifyEventType('license-compliance', 'review_requested')).toBe('license_compliance_review_requested')
   })
 
   it('produces the corrected key for the drifted branch event', () => {
-    // Prototype currently ships `license_compliance_appeared`; the real leaf is
-    // `appeared_in_branch`, so the reconciled key gains the full suffix.
+    // The real leaf is `appeared_in_branch` (not the shortened `appeared`), so
+    // the qualified key carries the full suffix.
     expect(qualifyEventType('license-compliance', 'appeared_in_branch')).toBe('license_compliance_appeared_in_branch')
   })
 })

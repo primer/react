@@ -37,9 +37,8 @@
  * NOTE (value casing): axis values are currently mixed — scope is kebab
  * (`license-compliance`, from {@link TimelineSurface}), type is snake
  * (`review_requested`), category is a bare word (`reviews`). Normalizing all
- * axis values to snake_case is an open ratification item (see the rollout doc);
- * this module intentionally mirrors the values the running prototype emits today
- * rather than forking casing unilaterally.
+ * axis values to snake_case is an open ratification item; this module mirrors
+ * the values the surfaces emit today rather than forking casing unilaterally.
  */
 
 import type {EventCategory, EventVisibility, ToggleableCategory} from './eventCategories'
@@ -139,10 +138,10 @@ export const LICENSE_COMPLIANCE_TAXONOMY: Record<LicenseComplianceEventType, Eve
  * `components/show/AlertTimeline.tsx` `switch (event.type)` (five cases:
  * Creation, Resolution, Bypass, Report, DelegatedClosureRequestOpened).
  *
- * DELTA — 5 canonical cases → 7 prototype leaves. The prototype fans the switch
+ * DELTA — 5 canonical cases → 7 catalog leaves. This catalog fans the switch
  * out to finer wire types: `Resolution` splits into `closed` + `reopened`
- * (the case branches on `resolution.type === 'reopened'`), and the prototype
- * additionally carries `validity_changed` (the Report path) and a distinct
+ * (the case branches on `resolution.type === 'reopened'`), and it additionally
+ * carries `validity_changed` (the Report path) and a distinct
  * `dismissal_reviewed`. Tracked in the cross-surface delta report.
  *
  * ACTOR — `Creation` uses `isGitHubActor` unconditionally: the detection event
@@ -178,7 +177,7 @@ export const SECRET_SCANNING_TAXONOMY: Record<SecretScanningEventType, EventTaxo
  * ALERT_CLOSED_BECAME_FIXED, ALERT_CLOSED_BECAME_OUTDATED, ALERT_CLOSED_BY_USER,
  * ALERT_REOPENED_BY_USER, ALERT_DISMISSAL_REQUESTED, ALERT_DISMISSAL_REVIEWED.
  *
- * DELTA — 9 ERB cases → 8 prototype leaves. The two non-fixed closure paths
+ * DELTA — 9 ERB cases → 8 catalog leaves. The two non-fixed closure paths
  * (`CLOSED_BECAME_OUTDATED`, system/config-deleted, no actor; and
  * `CLOSED_BY_USER`, user actor) are folded into one `closed` leaf, so `closed`
  * is actor-CAPABLE with presence data-driven (like LC `review_expired`).
@@ -260,11 +259,11 @@ export const DEPENDABOT_TAXONOMY: Record<DependabotEventType, EventTaxonomyEntry
  * Issues — axis L3 leaves (the ISSUE-SCOPED subset of the classic
  * issue/PR timeline).
  *
- * SOURCE OF TRUTH: dotcom (Rails) issue timeline. The running prototype stores
- * issue and PR events in one flattened 56-entry registry map with no scope
- * prefix; this catalog is the issue-applicable slice, excluding PR-only families
- * (commits, merging, reviews) and PR-only lifecycle verbs (`convert_to_draft`,
- * `ready_for_review`, `converted_from_draft`, `deployed`).
+ * SOURCE OF TRUTH: dotcom (Rails) issue timeline. The classic issue/PR timeline
+ * combines both event sets in one stream; this catalog is the issue-applicable
+ * slice, excluding PR-only families (commits, merging, reviews) and PR-only
+ * lifecycle verbs (`convert_to_draft`, `ready_for_review`, `converted_from_draft`,
+ * `deployed`).
  *
  * CATEGORY FIT: `SURFACE_CATEGORIES.issue` offers `status`, `references`,
  * `moderation` (toggleable) plus the always-audit `metadata` family. Every leaf
