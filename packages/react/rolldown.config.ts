@@ -29,6 +29,9 @@ const entrypoints = new Set([
 
   // "./next"
   'src/next/index.ts',
+
+  // "./legacy-theme/ts/color-schemes"
+  'src/legacy-theme/ts/color-schemes.ts',
 ])
 
 function getEntrypointsFromInput(input: ReadonlySet<string>) {

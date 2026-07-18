@@ -12,6 +12,10 @@ export default defineConfig({
     dedupe: ['react', 'react-dom'],
     alias: [
       {
+        find: '@primer/react/legacy-theme/ts/color-schemes',
+        replacement: path.resolve(import.meta.dirname, '..', 'react', 'src', 'legacy-theme', 'ts', 'color-schemes.ts'),
+      },
+      {
         find: '@primer/react/experimental',
         replacement: path.resolve(import.meta.dirname, '..', 'react', 'src', 'experimental', 'index.ts'),
       },

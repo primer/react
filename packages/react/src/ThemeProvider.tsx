@@ -1,6 +1,5 @@
 import React from 'react'
 import defaultTheme from './theme'
-import deepmerge from 'deepmerge'
 import {useSyncedState} from './hooks/useSyncedState'
 import {ThemeContext} from './ThemeContext'
 import {useTheme} from './useTheme'
@@ -48,18 +47,13 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const systemColorMode = useSystemColorMode()
   const resolvedColorMode = resolveColorMode(colorMode, systemColorMode)
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
-  const {resolvedTheme, resolvedColorScheme} = React.useMemo(
-    () => applyColorScheme(theme, colorScheme),
-    [theme, colorScheme],
-  )
 
   const contextValue = React.useMemo(
     () => ({
-      theme: resolvedTheme,
+      theme,
       colorScheme,
       colorMode,
       resolvedColorMode,
-      resolvedColorScheme,
       dayScheme,
       nightScheme,
       setColorMode,
@@ -67,11 +61,10 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
       setNightScheme,
     }),
     [
-      resolvedTheme,
+      theme,
       colorScheme,
       colorMode,
       resolvedColorMode,
-      resolvedColorScheme,
       dayScheme,
       nightScheme,
       setColorMode,
@@ -133,35 +126,6 @@ function chooseColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme:
     case 'dark':
     case 'night':
       return nightScheme
-  }
-}
-
-function applyColorScheme(
-  theme: Theme,
-  colorScheme: string,
-): {resolvedTheme: Theme; resolvedColorScheme: string | undefined} {
-  if (!theme.colorSchemes) {
-    return {
-      resolvedTheme: theme,
-      resolvedColorScheme: undefined,
-    }
-  }
-
-  if (!theme.colorSchemes[colorScheme]) {
-    // eslint-disable-next-line no-console
-    console.error(`\`${colorScheme}\` scheme not defined in \`theme.colorSchemes\``)
-
-    // Apply the first defined color scheme
-    const defaultColorScheme = Object.keys(theme.colorSchemes)[0]
-    return {
-      resolvedTheme: deepmerge(theme, theme.colorSchemes[defaultColorScheme]),
-      resolvedColorScheme: defaultColorScheme,
-    }
-  }
-
-  return {
-    resolvedTheme: deepmerge(theme, theme.colorSchemes[colorScheme]),
-    resolvedColorScheme: colorScheme,
   }
 }
 

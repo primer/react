@@ -26,6 +26,10 @@
       "types": "./dist/test-helpers.d.ts",
       "default": "./dist/test-helpers.js"
     },
+    "./legacy-theme/ts/color-schemes": {
+      "types": "./dist/legacy-theme/ts/color-schemes.d.ts",
+      "default": "./dist/legacy-theme/ts/color-schemes.js"
+    },
     "./generated/components.json": "./generated/components.json",
     "./generated/hooks.json": "./generated/hooks.json"
   },

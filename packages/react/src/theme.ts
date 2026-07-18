@@ -1,6 +1,5 @@
 import type {KeyPaths} from './utils/types/KeyPaths'
 import {fontStack} from './utils/theme'
-import {colorSchemes} from './legacy-theme/ts/color-schemes'
 
 const animation = {
   easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',
@@ -69,7 +68,6 @@ const theme = {
   radii,
   sizes,
   space,
-  colorSchemes,
 }
 
 export default theme

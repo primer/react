@@ -56,11 +56,6 @@
           "description": "The color mode (for example: \"day\", \"night\") that is applied. If the color mode is \"auto\", the color mode is determined by the user's system preference."
         },
         {
-          "name": "resolvedColorScheme",
-          "type": "string",
-          "description": "The name of the current color scheme."
-        },
-        {
           "name": "resolvedColorMode",
           "type": "'day' | 'night' | 'light' | 'dark'",
           "description": "If the color mode is set to \"auto\", the resolved color mode will be determined by the user's system preference."

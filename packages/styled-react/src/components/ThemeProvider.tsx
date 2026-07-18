@@ -1,6 +1,7 @@
 import React from 'react'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import {theme as defaultTheme, useId, useSyncedState} from '@primer/react'
+import {colorSchemes} from '@primer/react/legacy-theme/ts/color-schemes'
 import deepmerge from 'deepmerge'
 import {ThemeContext} from './ThemeContext'
 import {useTheme} from './useTheme'
@@ -8,6 +9,7 @@ import {useTheme} from './useTheme'
 export const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
 const defaultNightScheme = 'dark'
+const defaultThemeWithColorSchemes = {...defaultTheme, colorSchemes}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Theme = {[key: string]: any}
@@ -64,7 +66,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   } = useTheme()
 
   // Initialize state
-  const theme = props.theme ?? fallbackTheme ?? defaultTheme
+  const theme = props.theme ?? fallbackTheme ?? defaultThemeWithColorSchemes
 
   const uniqueDataId = useId()
 

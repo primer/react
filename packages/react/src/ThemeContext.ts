@@ -6,7 +6,6 @@ export const ThemeContext = React.createContext<{
   colorScheme?: string
   colorMode?: ColorModeWithAuto
   resolvedColorMode?: ColorMode
-  resolvedColorScheme?: string
   dayScheme?: string
   nightScheme?: string
   setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
