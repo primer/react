@@ -35,17 +35,11 @@
       "description": "Set to true for links adjacent to text, underlining them for clear visibility and improved accessibility."
     },
     {
-      "name": "underline",
-      "type": "boolean",
-      "defaultValue": "false",
-      "description": "Use `inline` instead.",
-      "deprecated": true
-    },
-    {
       "name": "hoverColor",
       "type": "string",
       "defaultValue": "",
-      "description": "Color used when hovering over the link."
+      "description": "Use CSS modules to style hover color.",
+      "deprecated": true
     },
     {
       "name": "ref",
