@@ -208,8 +208,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   }
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-  const mergedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
+  const mergedOverlayRef = useMergedRefs(updateOverlayRef, useMergedRefs(overlayProps?.ref, setOverlayElement))
   const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
@@ -438,17 +438,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
           {...(shouldRenderAsPopover ? {id: popoverId} : {})}
-          ref={node => {
-            setOverlayElement(node)
-            if (mergedRefEnabled) {
-              assignRef(mergedOverlayRef, node)
-            } else {
-              if (overlayProps?.ref) {
-                assignRef(overlayProps.ref, node)
-              }
-              updateOverlayRef(node)
-            }
-          }}
+          ref={
+            mergedRefEnabled
+              ? mergedOverlayRef
+              : node => {
+                  setOverlayElement(node)
+                  if (overlayProps?.ref) {
+                    assignRef(overlayProps.ref, node)
+                  }
+                  updateOverlayRef(node)
+                }
+          }
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
         >
