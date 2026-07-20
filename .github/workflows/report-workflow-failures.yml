@@ -162,6 +162,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: workflowRun.workflow_id,
+              status: 'completed',
               per_page: 1,
             });
             const latestRun = latestRuns.data.workflow_runs[0];
