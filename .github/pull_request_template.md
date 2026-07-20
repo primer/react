@@ -32,6 +32,6 @@ Closes #
 ### Testing & Reviewing
 
 <!-- Describe any specific details to help reviewers test or review this Pull Request -->
-<!-- To publish a canary release for integration testing, apply the "Canary Release" label to this PR -->
+<!-- To test these changes with github/github-ui, use the [integration workflow](https://github.com/github/github-ui/actions/workflows/primer-npm-packages-integration.yml) -->
 
 <!-- Take a look at the [What we look for in reviews](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#what-we-look-for-in-reviews) section of the contributing guidelines for more information on how we review PRs. -->
