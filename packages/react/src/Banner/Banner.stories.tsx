@@ -32,9 +32,7 @@ export const Default = () => {
   )
 }
 
-Default.parameters = {
-  spec: ['./SPEC.md#default', './SPEC.md#actions', './SPEC.md#dismissal'],
-}
+Default.parameters = {}
 
 const iconMap = {
   GitPullRequestIcon: <GitPullRequestIcon />,
@@ -42,15 +40,7 @@ const iconMap = {
 }
 
 export const Playground: StoryObj<typeof Banner> = {
-  parameters: {
-    spec: [
-      './SPEC.md#default',
-      './SPEC.md#variants-and-leading-visuals',
-      './SPEC.md#actions',
-      './SPEC.md#dismissal',
-      './SPEC.md#layout',
-    ],
-  },
+  parameters: {},
   render: ({onDismiss, primaryAction, secondaryAction, leadingVisual, ...rest}) => {
     // Map the string selection to the actual icon component
     const leadingVisualElement = leadingVisual && iconMap[leadingVisual as keyof typeof iconMap]

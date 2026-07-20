@@ -87,6 +87,12 @@ Document the semantic contract rather than unstable implementation details.
 Include elements, roles, attributes, and relationships that consumers or
 assistive technologies depend on.
 
+Include an HTML code block in each markup section to show the rendered
+structure. The code block should contain the stable semantic elements,
+attributes, and relationships that form the public contract. Use comments to
+explain optional or conditional parts. Omit unstable wrappers, internal
+elements, and CSS class names from the code block.
+
 Name an exact HTML element only when that element's semantics are important,
 when accessibility behavior depends on it, or when it is intentionally a stable
 part of the public contract. For example, distinguishing a button from a link or

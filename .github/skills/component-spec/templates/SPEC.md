@@ -20,10 +20,16 @@ Use MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY for declarative requirements.
 #### Default markup
 
 <!--
-Describe semantic markup and stable relationships. Name exact elements only
-when their semantics matter or they are intentionally part of the public
-contract. Do not document incidental wrappers or CSS classes.
+Show the rendered HTML markup using a code block. Include only elements,
+attributes, and relationships that are part of the stable semantic contract.
+Name exact elements only when their semantics matter. Use comments in the
+code block to explain optional or conditional parts. Do not document
+incidental wrappers, CSS classes, or unstable internal structure.
 -->
+
+```html
+<!-- Example rendered output -->
+```
 
 #### Default behavior
 

@@ -5,6 +5,23 @@ divided into pages.
 
 ## Markup
 
+```html
+<nav aria-label="Pagination for Repositories">
+  <!-- Unavailable controls expose aria-disabled -->
+  <button type="button" aria-disabled="true">Previous page</button>
+  <button type="button">1</button>
+  <!-- Selected page exposes aria-current -->
+  <button type="button" aria-current="page">2</button>
+  <button type="button">3</button>
+  <!-- Ellipsis before a truncated range is exposed to assistive technologies -->
+  <span aria-label="…">…</span>
+  <button type="button">10</button>
+  <button type="button">Next page</button>
+  <!-- Visual-only truncation indicator is hidden from assistive technologies -->
+  <span aria-hidden="true">…</span>
+</nav>
+```
+
 - Pagination MUST render a navigation landmark with an accessible name that
   identifies the related DataTable.
 - Pagination MUST display the range of records represented by the selected

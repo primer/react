@@ -17,6 +17,12 @@ Blankslate provides a compound component for composing a heading, optional descr
 
 #### Default markup
 
+```html
+<!-- Heading defaults to h2; consumers may specify h1–h6 -->
+<h2>Heading text</h2>
+<p>Description text</p>
+```
+
 - The heading MUST render as an `<h2>` by default and MAY render as an `<h1>`, `<h3>`, `<h4>`, `<h5>`, or `<h6>` when consumers provide the appropriate heading level.
 - The description MUST render as a paragraph.
 
@@ -39,6 +45,17 @@ The optional visual supports the empty-state message with an icon, illustration,
 Blankslate may provide a primary action, a secondary action, or both.
 
 #### Actions markup
+
+```html
+<!-- Primary action without a navigation target renders as a button -->
+<button type="button">Create the first page</button>
+
+<!-- Primary action with a navigation target renders as a link -->
+<a href="...">Create the first page</a>
+
+<!-- Secondary action always renders as a link -->
+<a href="...">Learn more about wikis</a>
+```
 
 - A primary action without a navigation target MUST render as a button.
 - A primary action with a navigation target MUST render as a link.

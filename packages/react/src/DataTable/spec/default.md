@@ -4,6 +4,25 @@ DataTable renders structured row data from a collection of column definitions.
 
 ## Markup
 
+```html
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Column header</th>
+      <!-- Row header column -->
+      <th scope="col">Row identifier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cell value</td>
+      <!-- Row header cell -->
+      <th scope="row">Row identifier value</th>
+    </tr>
+  </tbody>
+</table>
+```
+
 - DataTable MUST render a semantic `table` containing a header row and a body
   row for each item in the data collection.
 - DataTable MUST render one column header row.

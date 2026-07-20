@@ -5,6 +5,26 @@ column at a time.
 
 ## Markup
 
+```html
+<table>
+  <thead>
+    <tr>
+      <!-- Active sorted column exposes aria-sort -->
+      <th scope="col" aria-sort="ascending">
+        <button type="button">Name</button>
+      </th>
+      <!-- Unsorted sortable columns do not expose aria-sort -->
+      <th scope="col">
+        <button type="button">Updated</button>
+      </th>
+      <!-- Non-sortable columns render plain headers -->
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+  <!-- ... -->
+</table>
+```
+
 - A sortable column header MUST contain a native button that includes the
   column heading.
 - The active sorted column header MUST expose `aria-sort="ascending"` or

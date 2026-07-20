@@ -30,9 +30,7 @@ export const Default = () => (
   </Blankslate>
 )
 
-Default.parameters = {
-  spec: ['./SPEC.md#default', './SPEC.md#visual', './SPEC.md#actions'],
-}
+Default.parameters = {}
 
 export const Playground: StoryFn<
   ComponentProps<typeof Blankslate> & {primaryAction: boolean; secondaryAction: boolean}
@@ -51,9 +49,7 @@ export const Playground: StoryFn<
   </Blankslate>
 )
 
-Playground.parameters = {
-  spec: ['./SPEC.md#default', './SPEC.md#visual', './SPEC.md#actions'],
-}
+Playground.parameters = {}
 
 Playground.args = {
   border: false,

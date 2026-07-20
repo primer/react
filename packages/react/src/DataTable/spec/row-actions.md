@@ -5,6 +5,27 @@ row by rendering controls in a custom cell.
 
 ## Markup
 
+```html
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <!-- Row actions column must have a column header like any other column -->
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Repository name</td>
+      <!-- Controls rendered by the custom cell renderer -->
+      <td>
+        <button type="button">Edit repository-name</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
+
 - DataTable MUST render row-action controls inside the cell produced by the
   column's custom cell renderer.
 - The row-action column MUST have a column header like every other column.

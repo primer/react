@@ -23,6 +23,14 @@ Banner provides a title, an optional description, and a visual that communicates
 
 #### Default markup
 
+```html
+<section aria-labelledby="banner-title" tabindex="-1">
+  <h2 id="banner-title">Banner title</h2>
+  <!-- optional description -->
+  <p>Description text</p>
+</section>
+```
+
 - The root MUST render as a `<section>` landmark.
 - The root MUST be programmatically focusable without placing it in the sequential focus order.
 - The Banner title MUST render as a heading. It MUST render as an `<h2>` by default and MAY render as an `<h3>`, `<h4>`, `<h5>`, or `<h6>` when consumers provide the appropriate heading level.
@@ -65,6 +73,17 @@ Banner may provide one primary action, one secondary action, or both.
 
 #### Actions markup
 
+```html
+<!-- Primary action as a button -->
+<button type="button">Action label</button>
+
+<!-- Primary action as a link -->
+<a href="...">Action label</a>
+
+<!-- Secondary action as a link -->
+<a href="...">Action label</a>
+```
+
 - Primary and secondary actions MUST render as interactive controls.
 - Primary and secondary actions MAY render as buttons for actions or links for navigation.
 - Responsive layout changes MUST expose only one operable instance of each action at a time.
@@ -87,6 +106,10 @@ Banner may provide one primary action, one secondary action, or both.
 A Banner may provide a dismiss control when the message can be safely removed.
 
 #### Dismissal markup
+
+```html
+<button type="button">Dismiss banner</button>
+```
 
 - A dismissible Banner MUST render a button with the accessible name `Dismiss banner`.
 

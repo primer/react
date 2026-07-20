@@ -5,6 +5,16 @@ description, and optional actions that apply to the table as a whole.
 
 ## Markup
 
+```html
+<h2 id="table-title">Table title</h2>
+<p id="table-subtitle">Supplementary description</p>
+<!-- Actions are placed outside the semantic table element -->
+<div><!-- Table.Actions content --></div>
+<table aria-labelledby="table-title" aria-describedby="table-subtitle">
+  <!-- ... -->
+</table>
+```
+
 - `Table.Title` MUST render an `h2` by default and MUST place its identifier on
   that heading.
 - `Table.Subtitle` MUST place its identifier on its rendered element.

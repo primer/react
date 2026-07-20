@@ -5,6 +5,31 @@ is being retrieved or could not be retrieved.
 
 ## Markup
 
+```html
+<!-- Skeleton table while loading -->
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Column header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Each cell exposes loading text to assistive technologies -->
+    <tr>
+      <td>Loading...</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Error dialog -->
+<div role="alertdialog" aria-modal="true" aria-labelledby="error-title">
+  <h2 id="error-title">Error title</h2>
+  <p>Error description</p>
+  <button type="button">Retry</button>
+  <button type="button">Dismiss</button>
+</div>
+```
+
 - `Table.Skeleton` MUST render a semantic table with the provided column
   headers.
 - Each skeleton cell MUST expose loading text to assistive technologies.
