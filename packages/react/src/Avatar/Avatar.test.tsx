@@ -4,6 +4,24 @@ import Avatar from '../Avatar'
 import {implementsClassName} from '../utils/testing'
 import classes from './Avatar.module.css'
 
+function getCSSRules(selector: string): Array<CSSStyleRule> {
+  function getRules(rules: CSSRuleList): Array<CSSStyleRule> {
+    return Array.from(rules).flatMap(rule => {
+      if (rule instanceof CSSStyleRule) {
+        return rule.selectorText === selector ? [rule] : []
+      }
+
+      if ('cssRules' in rule) {
+        return getRules(rule.cssRules)
+      }
+
+      return []
+    })
+  }
+
+  return Array.from(document.styleSheets).flatMap(sheet => getRules(sheet.cssRules))
+}
+
 describe('Avatar', () => {
   implementsClassName(Avatar, classes.Avatar)
 
@@ -28,6 +46,17 @@ describe('Avatar', () => {
     const avatar = screen.getByTestId('avatar')
     expect(avatar).toHaveAttribute('width', '40')
     expect(avatar).toHaveAttribute('height', '40')
+  })
+
+  it('sets min-width from its size variable so it cannot shrink in min-content slots', () => {
+    render(<Avatar src="primer.png" data-testid="avatar" />)
+
+    const rules = getCSSRules(`:where(.${classes.Avatar})`)
+    const hasMinWidthDeclaration = rules.some(rule => {
+      return rule.style.minWidth === 'var(--avatarSize-regular)'
+    })
+
+    expect(hasMinWidthDeclaration).toBe(true)
   })
 
   it('passes through the src prop', () => {
