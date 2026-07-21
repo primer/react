@@ -19,7 +19,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
   props: PolymorphicProps<As, 'a', StyledLinkProps>,
   ref: ForwardedRef<unknown>,
 ) => {
-  const {as: Component = 'a', className, inline, muted, hoverColor, ...restProps} = props
+  const {as: Component = 'a', className, inline, muted, hoverColor: _hoverColor, ...restProps} = props
   const innerRef = React.useRef<ElementRef<As>>(null)
   const mergedRef = useMergedRefs(ref, innerRef)
 
