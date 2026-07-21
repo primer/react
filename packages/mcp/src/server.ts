@@ -1037,7 +1037,7 @@ server.registerTool(
           },
         },
       ],
-      sampling: {temperature: 0.4},
+      temperature: 0.4,
       maxTokens: 500,
     })
 
