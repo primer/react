@@ -11,7 +11,8 @@
   },
   "files": [
     "README.md",
-    "dist"
+    "dist",
+    "!dist/legacy-theme/ts/colors"
   ],
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "scripts": {
     "build": "script/build",
+    "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "build:storybook": "storybook build",
     "clean": "rimraf dist",
     "lint:npm": "publint --types",
@@ -62,6 +64,7 @@
     "rolldown-plugin-dts": "^0.26.0",
     "rolldown-plugin-preserve-directives": "^0.0.0",
     "styled-components": "5.3.11",
+    "tsx": "4.20.3",
     "typescript": "^6.0.3"
   },
   "peerDependencies": {

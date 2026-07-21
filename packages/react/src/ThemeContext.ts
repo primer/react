@@ -1,12 +1,10 @@
 import React from 'react'
-import type {ColorMode, ColorModeWithAuto, Theme} from './ThemeProvider'
+import type {ColorMode, ColorModeWithAuto} from './ThemeProvider'
 
 export const ThemeContext = React.createContext<{
-  theme?: Theme
   colorScheme?: string
   colorMode?: ColorModeWithAuto
   resolvedColorMode?: ColorMode
-  resolvedColorScheme?: string
   dayScheme?: string
   nightScheme?: string
   setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
