@@ -48,6 +48,7 @@ export const PullRequestPage = () => (
     </PageLayout.Header>
     <PageLayout.Content>
       <div className={classes.ContentBox}></div>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <div className={classes.ScrollBox} tabIndex={0}>
         This box has really long content. If it is too long, it will cause x overflow and should show a scrollbar. When
         this overflows, it should not break to overall page layout!
@@ -161,6 +162,7 @@ export const NestedScrollContainer: StoryFn = args => (
           <Placeholder label="Header" height={64} />
         </PageLayout.Header>
         <PageLayout.Content padding="normal" width="large">
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div className={classes.ContentGrid} tabIndex={0} role="region" aria-label="Page content">
             {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
               <p key={i} className={classes.Paragraph}>
@@ -319,6 +321,7 @@ export const ScrollContainerWithinPageLayoutPane: StoryFn = () => (
           </div>
         </PageLayout.Pane>
         <PageLayout.Content padding="normal" width="large">
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div className={classes.ContentGrid} tabIndex={0} role="region" aria-label="Page content">
             <Placeholder label="Page content" height={1600} />
           </div>

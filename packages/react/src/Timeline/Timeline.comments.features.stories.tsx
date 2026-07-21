@@ -62,6 +62,7 @@ const CommentSection = ({label, children}: {label: string; children: React.React
  */
 export const CommentCards = () => (
   <RealisticTimeline>
+    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
     <div
       // Establishes the container for the responsive collapse (see `.CommentsRoot`):
       // the large-gutter cards below switch to the inline layout when this container
