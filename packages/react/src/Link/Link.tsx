@@ -44,7 +44,6 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
       data-component="Link"
       data-muted={muted}
       data-inline={inline}
-      data-hover-color={hoverColor}
       {...restProps}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={mergedRef as any}
