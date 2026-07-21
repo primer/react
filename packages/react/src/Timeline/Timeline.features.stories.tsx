@@ -217,6 +217,7 @@ export const WithInlineLinks = () => (
 )
 
 export const WithActions = () => (
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div
     className={classes.RealisticTimeline}
     onClick={e => {
@@ -344,6 +345,7 @@ export const WithActions = () => (
 )
 
 export const WithAvatar = () => (
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div
     className={`${classes.RealisticTimeline} ${classes.AvatarGutter}`}
     onClick={e => {

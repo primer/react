@@ -400,6 +400,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <DialogContext.Provider value={DIALOG_CONTEXT_VALUE}>
       <Portal>
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div
           ref={backdropRef}
           className={classes.Backdrop}
@@ -452,6 +453,7 @@ Header.displayName = 'Dialog.Header'
 type StyledTitleProps = React.ComponentProps<'h1'>
 
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
+  // eslint-disable-next-line jsx-a11y/heading-has-content
   return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} data-component="Dialog.Title" />
 })
 Title.displayName = 'Dialog.Title'
@@ -463,6 +465,7 @@ const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(funct
   forwardRef,
 ) {
   return (
+    // eslint-disable-next-line jsx-a11y/heading-has-content
     <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} data-component="Dialog.Subtitle" />
   )
 })

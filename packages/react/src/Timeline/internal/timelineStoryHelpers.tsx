@@ -45,6 +45,7 @@ export const RealisticTimeline = ({children}: {children: React.ReactNode}) => (
  * placeholder `href="#"` links from navigating inside Storybook.
  */
 export const Examples = ({children}: {children: React.ReactNode}) => (
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div
     className={classes.RealisticTimeline}
     data-a11y-link-underlines="true"
