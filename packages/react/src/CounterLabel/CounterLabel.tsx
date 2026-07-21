@@ -16,7 +16,7 @@ export type CounterLabelProps = React.PropsWithChildren<
 >
 
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
-  ({variant, scheme, className, children, ['data-component']: dataComponent, ...rest}, forwardedRef) => {
+  ({variant, scheme, className, children, 'data-component': dataComponent, ...rest}, forwardedRef) => {
     const label = <VisuallyHidden>&nbsp;({children})</VisuallyHidden>
 
     const inferredVariant = variant || scheme || 'secondary'

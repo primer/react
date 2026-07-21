@@ -52,7 +52,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       required,
       validationStatus,
       value,
-      ['data-component']: dataComponent,
+      'data-component': dataComponent,
       ...rest
     },
     ref,

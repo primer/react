@@ -11,7 +11,7 @@
     "@babel/core": "7.29.6",
     "@babel/preset-react": "7.28.5",
     "@babel/preset-typescript": "7.28.5",
-    "babel-plugin-react-compiler": "^1.0.0"
+    "babel-plugin-react-compiler": "0.0.0-experimental-a1856f3-20260507"
   },
   "devDependencies": {
     "@primer/vitest-config": "^0.0.0",

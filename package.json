@@ -66,7 +66,7 @@
     "@vitest/browser": "^4.1.9",
     "@vitest/browser-playwright": "^4.1.9",
     "@vitest/eslint-plugin": "^1.6.20",
-    "babel-plugin-react-compiler": "^1.0.0",
+    "babel-plugin-react-compiler": "0.0.0-experimental-a1856f3-20260507",
     "change-case": "^5.4.4",
     "eslint": "^10.6.0",
     "eslint-import-resolver-typescript": "3.7.0",
