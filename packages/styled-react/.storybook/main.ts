@@ -1,5 +1,5 @@
-import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
+import {fileURLToPath} from 'node:url'
+import {dirname} from 'node:path'
 import type {StorybookConfig} from '@storybook/react-vite'
 import babel from '@rolldown/plugin-babel'
 
@@ -12,7 +12,7 @@ const STORYBOOK_ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.tsx'],
   framework: {
-    name: getAbsolutePath("@storybook/react-vite"),
+    name: getAbsolutePath('@storybook/react-vite'),
     options: {
       strictMode: true,
     },
@@ -70,6 +70,6 @@ const config: StorybookConfig = {
 
 export default config
 
-function getAbsolutePath(value: string): any {
-  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+function getAbsolutePath(value: string) {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)))
 }

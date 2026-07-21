@@ -26,7 +26,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-docs'),
-    getAbsolutePath("@github-ui/storybook-addon-performance-panel"),
+    getAbsolutePath('@github-ui/storybook-addon-performance-panel'),
     getAbsolutePath('@storybook/addon-mcp'),
   ],
 
