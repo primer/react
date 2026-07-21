@@ -18,7 +18,7 @@ type BannerContextValue = {
 
 const BannerContext = React.createContext<BannerContextValue | undefined>(undefined)
 
-interface BannerBaseProps extends Omit<React.ComponentPropsWithoutRef<'section'>, 'title'> {
+type BannerBaseProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
    * Provide an optional label to override the default name for the Banner
    * landmark region
