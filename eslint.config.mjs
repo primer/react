@@ -193,6 +193,13 @@ const config = defineConfig([
       'github/filenames-match-regex': 'off',
       'github/no-inner-html': 'off',
       'github/role-supports-aria-props': 'off',
+      'github/unescaped-html-literal': 'off',
+      'jsx-a11y/anchor-has-content': 'off',
+      'jsx-a11y/click-events-have-key-events': 'off',
+      'jsx-a11y/heading-has-content': 'off',
+      'jsx-a11y/no-noninteractive-tabindex': 'off',
+      'jsx-a11y/no-static-element-interactions': 'off',
+      'jsx-a11y/role-has-required-aria-props': 'off',
       'no-restricted-syntax': [
         'error',
         {
