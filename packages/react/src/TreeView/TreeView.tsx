@@ -422,7 +422,6 @@ const ItemImpl = fixedForwardRef(
           event.stopPropagation()
         }}
       >
-        {}
         <div
           className={clsx('PRIVATE_TreeView-item-container', classes.TreeViewItemContainer)}
           style={{
