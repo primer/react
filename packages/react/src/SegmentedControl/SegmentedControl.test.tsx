@@ -183,6 +183,19 @@ describe('SegmentedControl', () => {
     }
   })
 
+  it('renders IconButton with aria-pressed when selected', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}, index) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} selected={index === 1} key={label} />
+        ))}
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('button', {name: 'Raw'})).toHaveAttribute('aria-pressed', 'true')
+    expect(getByRole('button', {name: 'Preview'})).toHaveAttribute('aria-pressed', 'false')
+  })
+
   it('renders icon button with tooltip as label', () => {
     const {getByRole, getByText} = render(
       <SegmentedControl aria-label="File view">
