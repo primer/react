@@ -34,7 +34,7 @@
     "watch": "rolldown -c -w"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@primer/octicons": "^19.15.5",
     "@primer/primitives": "10.x || 11.x",
     "@primer/react": "^38.33.0",
