@@ -199,19 +199,19 @@ test.describe('UnderlineNav', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot()
+          await expect(page).toHaveScreenshot()
 
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
           await page.locator('button', {hasText: 'More items'}).waitFor()
 
           // Resize
-          expect(await page.screenshot()).toMatchSnapshot()
+          await expect(page).toHaveScreenshot()
 
           await page.getByRole('button', {name: 'More items'}).click()
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot()
+          await expect(page).toHaveScreenshot()
 
           await page.getByRole('menuitem', {name: 'Settings (10)'}).click()
-          expect(await page.screenshot()).toMatchSnapshot()
+          await expect(page).toHaveScreenshot()
         })
 
         test('Hide icons when there is not enough space to display all list items @vrt', async ({page}) => {
