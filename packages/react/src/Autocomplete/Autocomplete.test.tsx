@@ -180,6 +180,30 @@ describe('Autocomplete', () => {
       await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).not.toBe('true'))
     })
 
+    it('keeps the menu open when focus moves into the menu', async () => {
+      const {getByRole} = render(
+        <LabelledAutocomplete
+          menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
+      )
+      const inputNode = getByRole('combobox')
+
+      expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
+      fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
+
+      expect(inputNode.getAttribute('aria-expanded')).toBe('true')
+
+      // Blurring the input while focus moves into the menu should not close the menu, e.g. when
+      // the user clicks an option in the menu. The blur handler relies on `relatedTarget` to
+      // detect this rather than the input's ref, so it works regardless of how the ref is wired up.
+      const menu = getByRole('listbox')
+      // eslint-disable-next-line github/no-blur
+      fireEvent.blur(inputNode, {relatedTarget: menu})
+
+      await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).toBe('true'))
+    })
+
     it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {
       const user = userEvent.setup()
       const {container, getByDisplayValue} = render(
