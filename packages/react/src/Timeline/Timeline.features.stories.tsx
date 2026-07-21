@@ -280,7 +280,7 @@ export const WithActions = () => (
           </Link>
         </Timeline.Body>
         <Timeline.Actions>
-          <Label className={classes.SignatureLabelVerified}>Verified</Label>
+          <Label className={`${classes.SignatureLabelVerified} ${classes.HideAtNarrow}`}>Verified</Label>
           <Octicon icon={CheckIcon} className={classes.IconSuccess} aria-label="All checks passed" />
           <Link href="#" className={classes.ShaLink} muted>
             3fbdc0
@@ -297,7 +297,7 @@ export const WithActions = () => (
           </Link>
         </Timeline.Body>
         <Timeline.Actions>
-          <Label>Unverified</Label>
+          <Label className={classes.HideAtNarrow}>Unverified</Label>
           <Octicon icon={XIcon} className={classes.IconDanger} aria-label="Some checks failed" />
           <Link href="#" className={classes.ShaLink} muted>
             3fbdc0
@@ -322,24 +322,20 @@ export const WithActions = () => (
             just now
           </Link>
           <div className={classes.CrossReferenceRow}>
-            <div className={classes.CrossReferenceContent}>
-              <div className={classes.CrossReferenceTitle}>
-                <Link href="#" className={classes.CrossReferenceLink}>
-                  <span className={classes.CrossReferenceName}>Fix positioning of Autocomplete overlay menu</span>{' '}
-                  <span className={classes.CrossReferenceNumber}>primer/react#7431</span>
-                </Link>
-              </div>
-              <div className={classes.CrossReferenceTaskline}>
-                <Octicon icon={TasklistIcon} size={16} />
-                17 tasks
-              </div>
+            <div className={classes.CrossReferenceTitle}>
+              <Link href="#" className={classes.CrossReferenceLink}>
+                <span className={classes.CrossReferenceName}>Fix positioning of Autocomplete overlay menu</span>{' '}
+                <span className={classes.CrossReferenceNumber}>primer/react#7431</span>
+              </Link>
             </div>
-            <div className={classes.CrossReferenceActions}>
-              <Octicon icon={LockIcon} size={16} className={classes.CrossReferenceMeta} />
-              <StateLabel status="pullOpened" size="medium">
-                Open
-              </StateLabel>
-            </div>
+            <Octicon icon={LockIcon} size={16} className={classes.CrossReferenceMeta} aria-label="Private" />
+            <StateLabel status="pullOpened" size="small">
+              Open
+            </StateLabel>
+          </div>
+          <div className={classes.CrossReferenceTaskline}>
+            <Octicon icon={TasklistIcon} size={16} />
+            17 tasks
           </div>
         </Timeline.Body>
       </Timeline.Item>

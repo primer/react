@@ -23,7 +23,13 @@
     overflow: hidden;
     max-height: var(--control-xlarge-size);
 
+    /* Pin the vertical box model so external border/padding overrides can't change the height budget and incorrectly trigger the overflow "more" menu */
+    box-sizing: border-box;
+    border-block: 0 !important;
+    padding-block: var(--base-size-8) 0 !important;
+
     .UnderlineItemList {
+      flex-grow: 1;
       flex-wrap: wrap;
       overflow: hidden;
     }
@@ -39,6 +45,11 @@
   list-style: none;
   align-items: center;
   gap: var(--stack-gap-condensed);
+
+  /* Isolate the ResizeObserver-driven item swapping (UnderlineNav overflow menu / UnderlinePanels)
+  so it can't invalidate ancestor layout. Safe because UnderlineNav's overflow menu is rendered via ActionMenu.Overlay
+  (portal by default), and layout containment does not clip. */
+  contain: layout;
 }
 
 .UnderlineItem {
@@ -57,7 +68,7 @@
   border-radius: var(--borderRadius-medium);
   max-width: 100%;
   margin-bottom: var(--base-size-8);
-  height: 32px;
+  height: var(--base-size-32);
 
   /* button resets */
   appearance: none;

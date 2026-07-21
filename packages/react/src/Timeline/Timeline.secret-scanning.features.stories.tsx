@@ -6,6 +6,8 @@ import {
   AlertIcon,
   CheckCircleIcon,
   CommentIcon,
+  FileAddedIcon,
+  FileRemovedIcon,
   MarkGithubIcon,
   PersonIcon,
   ShieldCheckIcon,
@@ -38,10 +40,11 @@ import {EventSubRow, MutedTime, RealisticTimeline, UserActor, VariantSection} fr
  * badge colors map directly. The actor is rendered by
  * `components/shared/UserComponent.tsx` (16px circle avatar + bold login); the
  * system actor is `MarkGithubIcon` + bold "GitHub". (No ERB secret-scanning
- * timeline exists — the migration to React is complete.) The exact event list
- * built below is the full set of cases the live `switch` actually renders; the
- * defined-but-never-dispatched `REVOCATION` event type (no `case`) renders
- * nothing and is intentionally NOT built.
+ * timeline exists — the migration to React is complete.) The event list built
+ * below tracks the cases the live `switch` actually renders (including the
+ * `MetadataCreated` / `MetadataRemoved` events added upstream after the original
+ * audit); the defined-but-never-dispatched `REVOCATION` event type (no `case`)
+ * renders nothing and is intentionally NOT built.
  *
  * SCOPE: These are Storybook-only examples by design. They are intentionally
  * NOT wired into components-json / the primer.style docs page (do NOT add this
@@ -515,6 +518,56 @@ export const EventReport = () => (
           <Timeline.Body>
             <UserActor size={16} />
             {'reported this secret '}
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+  </RealisticTimeline>
+)
+
+/**
+ * The Metadata event group — added upstream AFTER the original audit.
+ *
+ * Source: `case TimelineEventType.MetadataCreated` / `…MetadataRemoved` in
+ * `AlertTimeline.tsx`. Both cases pass `isGitHubActor`, so the actor is ALWAYS
+ * the GitHub system actor (`MarkGithubIcon` + bold "GitHub"). Both use the
+ * default (gray) badge (no `variant`); icon + copy differ:
+ * - Created -> `FileAddedIcon`, "found extended metadata about this secret"
+ * - Removed -> `FileRemovedIcon`, "removed extended metadata after it expired"
+ *
+ * These two events did not exist when the original Phase 2 audit was taken; they
+ * were added to the live `switch` later, so they are built here to keep the
+ * story set in sync with `AlertTimeline.tsx`.
+ */
+export const EventMetadata = () => (
+  <RealisticTimeline>
+    {/* Metadata created — GitHub system actor, FileAddedIcon, default (gray) badge */}
+    <VariantSection label="Extended metadata found">
+      <Timeline aria-label="Secret scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={FileAddedIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor login="GitHub" icon={MarkGithubIcon} />
+            {'found extended metadata about this secret '}
+            <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+
+    {/* Metadata removed — GitHub system actor, FileRemovedIcon, default (gray) badge */}
+    <VariantSection label="Extended metadata removed">
+      <Timeline aria-label="Secret scanning alert timeline">
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={FileRemovedIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor login="GitHub" icon={MarkGithubIcon} />
+            {'removed extended metadata after it expired '}
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
           </Timeline.Body>
         </Timeline.Item>
