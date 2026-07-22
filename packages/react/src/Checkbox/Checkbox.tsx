@@ -1,6 +1,14 @@
 import {clsx} from 'clsx'
-import {useProvidedRefOrCreate} from '../hooks'
-import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  type ChangeEventHandler,
+  type InputHTMLAttributes,
+  type ReactElement,
+} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
@@ -58,21 +66,28 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const checkboxRef = useRef<HTMLInputElement>(null)
+    const mergedRef = useMergedRefs(checkboxRef, ref)
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the three declarations below, and replace all instances of `readRef` with `checkboxRef` and `appliedRef` with `mergedRef`.
+    const providedOrCreatedRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const readRef = mergedRefEnabled ? checkboxRef : providedOrCreatedRef
+    const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
 
-      if (indeterminate && checkboxRef.current) {
-        checkboxRef.current.indeterminate = true
-        checkboxRef.current.setAttribute('aria-checked', 'mixed')
+      if (indeterminate && readRef.current) {
+        readRef.current.indeterminate = true
+        readRef.current.setAttribute('aria-checked', 'mixed')
       }
     }
     const inputProps = {
       type: 'checkbox',
       disabled,
-      ref: checkboxRef,
+      ref: appliedRef,
       checked: indeterminate ? false : checked,
       defaultChecked,
       required,
@@ -85,13 +100,13 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     }
 
     useLayoutEffect(() => {
-      if (checkboxRef.current) {
-        checkboxRef.current.indeterminate = indeterminate || false
+      if (readRef.current) {
+        readRef.current.indeterminate = indeterminate || false
       }
-    }, [indeterminate, checked, checkboxRef])
+    }, [indeterminate, checked, readRef])
 
     useEffect(() => {
-      const {current: checkbox} = checkboxRef
+      const {current: checkbox} = readRef
       if (!checkbox) {
         return
       }

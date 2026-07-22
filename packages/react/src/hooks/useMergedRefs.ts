@@ -1,6 +1,8 @@
 import type {ForwardedRef, Ref as StandardRef, MutableRefObject} from 'react'
-import {useCallback} from 'react'
+import {useCallback, version} from 'react'
 import {isExperimentalReactVersion, reactMajorVersion} from '../utils/environment'
+
+const majorReactVersion = parseInt(version.split('.')[0] ?? '18', 10)
 
 /**
  * Cleanup functions for refs were introduced in React 19. For feature detection,
@@ -27,18 +29,18 @@ const supportsRefCleanup = reactMajorVersion >= 19 || isExperimentalReactVersion
  * // React 18
  * const Example = forwardRef<HTMLButtonElement, {}>((props, forwardedRef) => {
  *  const ref = useRef<HTMLButtonElement>(null)
- *  const combinedRef = useMergedRefs(forwardedRef, ref)
+ *  const mergedRef = useMergedRefs(forwardedRef, ref)
  *
- *  return <button ref={combinedRef} />
+ *  return <button ref={mergedRef} />
  * })
  *
  * @example
  * // React 19
  * const Example = ({ref: externalRef}: {ref?: Ref<HTMLButtonElement>}) => {
  *  const ref = useRef<HTMLButtonElement>(null)
- *  const combinedRef = useMergedRefs(externalRef, ref)
+ *  const mergedRef = useMergedRefs(externalRef, ref)
  *
- *  return <button ref={combinedRef} />
+ *  return <button ref={mergedRef} />
  * }
  */
 export function useMergedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
@@ -52,8 +54,10 @@ export function useMergedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
         return
       }
 
-      // Only works in React 19. In React 18, the cleanup function will be ignored and the ref will get called with
+      // Callback refs only work in React 19+. In React 18, the ref will get called with
       // `null` which will be passed to each ref as expected.
+      if (majorReactVersion <= 18) return
+
       return () => {
         // For object refs and callback refs that don't return cleanups, we still need to pass `null` on cleanup
         if (cleanupA) cleanupA()
@@ -95,6 +99,6 @@ function setRef<T>(ref: Ref<T>, value: T) {
     // `React.Ref` is typed as immutable to protect consumers but it's OK to mutate it here. We could just change the
     // type to only accept mutable refs, but then it would be harder to accept refs as props in React 19 because we
     // would have to use the `React.ForwardedRef` type instead of `React.Ref`
-    ;(ref as MutableRefObject<T>).current = value
+    ;(ref as MutableRefObject<T | null>).current = value
   }
 }
