@@ -1,7 +1,7 @@
 {
   "$id": "composition.schema.json",
   "type": "object",
-  "required": ["schemaVersion", "derivation", "sourceSummary", "apiParentChild", "observed"],
+  "required": ["schemaVersion", "derivation", "sourceSummary", "apiParentChild", "apiSubcomponents", "observed"],
   "additionalProperties": false,
   "properties": {
     "schemaVersion": {
@@ -15,7 +15,7 @@
       "properties": {
         "sourceKinds": {
           "type": "array",
-          "items": {"type": "string", "enum": ["story", "example", "test"]}
+          "items": {"type": "string", "enum": ["story", "example", "test", "implementation"]}
         },
         "minimumSourceCount": {"type": "number"},
         "highConfidenceSourceCount": {"type": "number"}
@@ -30,12 +30,13 @@
         "sourceUnits": {"type": "number"},
         "sourceUnitsByKind": {
           "type": "object",
-          "required": ["story", "example", "test"],
+          "required": ["story", "example", "test", "implementation"],
           "additionalProperties": false,
           "properties": {
             "story": {"type": "number"},
             "example": {"type": "number"},
-            "test": {"type": "number"}
+            "test": {"type": "number"},
+            "implementation": {"type": "number"}
           }
         }
       }
@@ -44,9 +45,13 @@
       "type": "array",
       "items": {"$ref": "#/definitions/apiParentChild"}
     },
+    "apiSubcomponents": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/apiSubcomponent"}
+    },
     "observed": {
       "type": "object",
-      "required": ["parentChild", "adjacentSibling"],
+      "required": ["parentChild", "adjacentSibling", "variants", "relatedComponents"],
       "additionalProperties": false,
       "properties": {
         "parentChild": {
@@ -56,6 +61,14 @@
         "adjacentSibling": {
           "type": "array",
           "items": {"$ref": "#/definitions/observedSibling"}
+        },
+        "variants": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/observedVariant"}
+        },
+        "relatedComponents": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/observedRelatedComponents"}
         }
       }
     }
@@ -66,18 +79,18 @@
       "required": ["kind", "path"],
       "additionalProperties": false,
       "properties": {
-        "kind": {"type": "string", "enum": ["story", "example", "test"]},
+        "kind": {"type": "string", "enum": ["story", "example", "test", "implementation"]},
         "path": {"type": "string"}
       }
     },
     "apiParentChild": {
       "type": "object",
-      "required": ["parent", "child", "required", "source"],
+      "required": ["parent", "child", "childrenPropRequired", "source"],
       "additionalProperties": false,
       "properties": {
         "parent": {"type": "string"},
         "child": {"type": "string"},
-        "required": {"type": "boolean"},
+        "childrenPropRequired": {"type": "boolean"},
         "source": {
           "type": "object",
           "required": ["path", "prop", "type"],
@@ -86,6 +99,23 @@
             "path": {"type": "string"},
             "prop": {"type": "string"},
             "type": {"type": "string"}
+          }
+        }
+      }
+    },
+    "apiSubcomponent": {
+      "type": "object",
+      "required": ["parent", "subcomponent", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "parent": {"type": "string"},
+        "subcomponent": {"type": "string"},
+        "source": {
+          "type": "object",
+          "required": ["path"],
+          "additionalProperties": false,
+          "properties": {
+            "path": {"type": "string"}
           }
         }
       }
@@ -114,6 +144,43 @@
         "parent": {"type": "string"},
         "previous": {"type": "string"},
         "next": {"type": "string"},
+        "occurrences": {"type": "number"},
+        "sourceCount": {"type": "number"},
+        "confidence": {"type": "string", "enum": ["medium", "high"]},
+        "sources": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/source"}
+        }
+      }
+    },
+    "observedVariant": {
+      "type": "object",
+      "required": ["component", "prop", "value", "occurrences", "sourceCount", "confidence", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "component": {"type": "string"},
+        "prop": {"type": "string"},
+        "value": {"type": "string"},
+        "occurrences": {"type": "number"},
+        "sourceCount": {"type": "number"},
+        "confidence": {"type": "string", "enum": ["medium", "high"]},
+        "sources": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/source"}
+        }
+      }
+    },
+    "observedRelatedComponents": {
+      "type": "object",
+      "required": ["first", "second", "relationshipKinds", "occurrences", "sourceCount", "confidence", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "first": {"type": "string"},
+        "second": {"type": "string"},
+        "relationshipKinds": {
+          "type": "array",
+          "items": {"type": "string", "enum": ["parentChild", "adjacentSibling"]}
+        },
         "occurrences": {"type": "number"},
         "sourceCount": {"type": "number"},
         "confidence": {"type": "string", "enum": ["medium", "high"]},

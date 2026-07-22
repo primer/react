@@ -1,7 +1,7 @@
 {
   "$id": "output.schema.json",
   "type": "object",
-  "required": ["schemaVersion", "components"],
+  "required": ["schemaVersion", "components", "composition"],
   "properties": {
     "schemaVersion": {
       "type": "number",
