@@ -2176,6 +2176,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div
           onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
             const isAlphabetKey = e.key.length === 1 && /[a-z\d]/i.test(e.key)

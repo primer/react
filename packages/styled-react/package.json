@@ -46,7 +46,7 @@
     "@primer/primitives": "10.x || 11.x",
     "@primer/react": "^38.26.0",
     "@rolldown/plugin-babel": "^0.2.3",
-    "@storybook/react-vite": "^10.4.6",
+    "@storybook/react-vite": "10.5.0",
     "@types/babel__core": "^7.20.5",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
