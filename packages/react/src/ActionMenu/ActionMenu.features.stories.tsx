@@ -103,6 +103,34 @@ export const SingleSelect = () => {
   )
 }
 
+export const GroupedSingleSelect = () => {
+  const options = ['Status', 'Severity', 'Repository']
+  const [selectedOption, setSelectedOption] = React.useState(options[0])
+
+  return (
+    <ActionMenu>
+      <ActionMenu.Button>Group by: {selectedOption}</ActionMenu.Button>
+      <ActionMenu.Overlay>
+        <ActionList selectionVariant="single">
+          <ActionList.Group>
+            <ActionList.GroupHeading>Group by</ActionList.GroupHeading>
+            {options.map(option => (
+              <ActionList.Item
+                key={option}
+                role="menuitemradio"
+                selected={option === selectedOption}
+                onSelect={() => setSelectedOption(option)}
+              >
+                {option}
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+}
+
 export const MultiSelect = () => {
   type Option = {name: string; selected: boolean}
 

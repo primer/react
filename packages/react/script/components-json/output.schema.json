@@ -16,6 +16,9 @@
           "$ref": "./component.schema.json#"
         }
       }
+    },
+    "composition": {
+      "$ref": "./composition.schema.json#"
     }
   }
 }
