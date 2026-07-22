@@ -43,7 +43,15 @@ type UncontrolledTabsProps = {
   onValueChange?: ({value}: {value: string}) => void
 }
 
-export type TabsProps = PropsWithChildren<ControlledTabsProps | UncontrolledTabsProps>
+type CommonTabsProps = {
+  /**
+   * Optional id used as the base for generated tab and panel ids. If omitted, a
+   * unique id is generated automatically.
+   */
+  id?: string
+}
+
+export type TabsProps = PropsWithChildren<(ControlledTabsProps | UncontrolledTabsProps) & CommonTabsProps>
 
 type Label = {
   'aria-label': string
