@@ -1,7 +1,18 @@
 import {Client} from '@modelcontextprotocol/sdk/client/index.js'
 import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js'
 import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
+import {getComponentDocsSource} from './primer'
 import {server} from './server'
+
+describe('component documentation sources', () => {
+  it('uses hosted documentation by default and supports package metadata', () => {
+    expect(getComponentDocsSource(undefined)).toBe('hosted')
+    expect(getComponentDocsSource('package')).toBe('package')
+    expect(() => getComponentDocsSource('invalid')).toThrow(
+      'PRIMER_COMPONENT_DOCS_SOURCE must be either "hosted" or "package".',
+    )
+  })
+})
 
 describe('get_component_batch', () => {
   const client = new Client({name: 'mcp-server-test', version: '1.0.0'})
@@ -101,6 +112,42 @@ describe('get_component_batch', () => {
     ])
   })
 
+  it('returns package metadata and source-derived composition without fetching hosted documentation', async () => {
+    const result = await client.callTool({
+      name: 'get_component',
+      arguments: {name: 'ActionMenu', source: 'package'},
+    })
+
+    expect(fetch).not.toHaveBeenCalled()
+    expect(JSON.parse(getTextContent(result))).toMatchObject({
+      source: 'package',
+      component: {name: 'ActionMenu'},
+      composition: {
+        schemaVersion: 1,
+        apiSubcomponents: expect.arrayContaining([
+          expect.objectContaining({parent: 'ActionMenu', subcomponent: 'ActionMenu.Overlay'}),
+        ]),
+      },
+    })
+  })
+
+  it('returns filtered package-backed composition metadata', async () => {
+    const result = await client.callTool({
+      name: 'get_component_composition',
+      arguments: {name: 'ActionMenu'},
+    })
+
+    const payload = JSON.parse(getTextContent(result))
+    expect(payload.component).toEqual({
+      id: 'action_menu',
+      name: 'ActionMenu',
+      importPath: '@primer/react',
+    })
+    expect(payload.composition.observed.parentChild).toEqual(
+      expect.arrayContaining([expect.objectContaining({parent: 'ActionMenu.Overlay', child: 'ActionList'})]),
+    )
+  })
+
   it('times out stalled requests without leaving timers active', async () => {
     vi.useFakeTimers()
     const fetchMock = vi.mocked(fetch)
@@ -123,3 +170,22 @@ describe('get_component_batch', () => {
     expect(vi.getTimerCount()).toBe(0)
   })
 })
+
+function getTextContent(result: unknown): string {
+  if (typeof result !== 'object' || result === null || !('content' in result) || !Array.isArray(result.content)) {
+    throw new Error('Expected tool content')
+  }
+
+  const content = result.content.find(
+    (item): item is {type: 'text'; text: string} =>
+      typeof item === 'object' &&
+      item !== null &&
+      'type' in item &&
+      item.type === 'text' &&
+      'text' in item &&
+      typeof item.text === 'string',
+  )
+  if (!content) throw new Error('Expected text tool content')
+
+  return content.text
+}

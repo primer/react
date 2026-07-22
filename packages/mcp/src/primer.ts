@@ -1,12 +1,53 @@
 import componentsMetadata from '@primer/react/generated/components.json' with {type: 'json'}
 import octicons from '@primer/octicons/build/data.json' with {type: 'json'}
 
+type ComponentDocsSource = 'hosted' | 'package'
+
 type Component = {
   id: string
   name: string
   importPath: string
   slug: string
 }
+
+interface ComponentDocument {
+  name: string
+  importPath: string
+  [key: string]: unknown
+}
+
+interface ComponentRelationship {
+  parent?: string
+  child?: string
+  previous?: string
+  next?: string
+  first?: string
+  second?: string
+  component?: string
+  subcomponent?: string
+  [key: string]: unknown
+}
+
+interface CompositionMetadata {
+  schemaVersion: number
+  derivation: Record<string, unknown>
+  sourceSummary: Record<string, unknown>
+  apiParentChild: Array<ComponentRelationship>
+  apiSubcomponents: Array<ComponentRelationship>
+  observed: {
+    parentChild: Array<ComponentRelationship>
+    adjacentSibling: Array<ComponentRelationship>
+    variants: Array<ComponentRelationship>
+    relatedComponents: Array<ComponentRelationship>
+  }
+}
+
+interface ComponentsMetadata {
+  components: Record<string, ComponentDocument>
+  composition?: CompositionMetadata
+}
+
+const metadata: ComponentsMetadata = componentsMetadata
 
 function idToSlug(id: string): string {
   if (id === 'actionbar') {
@@ -24,7 +65,7 @@ function idToSlug(id: string): string {
   return id.replaceAll('_', '-')
 }
 
-const components: Array<Component> = Object.entries(componentsMetadata.components).map(([id, component]) => {
+const components: Array<Component> = Object.entries(metadata.components).map(([id, component]) => {
   return {
     id,
     name: component.name,
@@ -35,6 +76,60 @@ const components: Array<Component> = Object.entries(componentsMetadata.component
 
 function listComponents(): Array<Component> {
   return components
+}
+
+function getComponentDocsSource(value = process.env.PRIMER_COMPONENT_DOCS_SOURCE): ComponentDocsSource {
+  if (value === undefined || value === 'hosted' || value === 'package') {
+    return value ?? 'hosted'
+  }
+
+  throw new Error('PRIMER_COMPONENT_DOCS_SOURCE must be either "hosted" or "package".')
+}
+
+function getComponentDocument(id: string): ComponentDocument | undefined {
+  return metadata.components[id]
+}
+
+function getComponentComposition(id: string) {
+  const component = getComponentDocument(id)
+  const composition = metadata.composition
+  if (!component || !composition) return undefined
+
+  return {
+    schemaVersion: composition.schemaVersion,
+    derivation: composition.derivation,
+    sourceSummary: composition.sourceSummary,
+    apiParentChild: composition.apiParentChild.filter(relation => includesComponent(relation, component.name)),
+    apiSubcomponents: composition.apiSubcomponents.filter(relation => includesComponent(relation, component.name)),
+    observed: {
+      parentChild: composition.observed.parentChild.filter(relation => includesComponent(relation, component.name)),
+      adjacentSibling: composition.observed.adjacentSibling.filter(relation =>
+        includesComponent(relation, component.name),
+      ),
+      variants: composition.observed.variants.filter(relation => includesComponent(relation, component.name)),
+      relatedComponents: composition.observed.relatedComponents.filter(relation =>
+        includesComponent(relation, component.name),
+      ),
+    },
+  }
+}
+
+function includesComponent(relation: ComponentRelationship, componentName: string): boolean {
+  const componentFields = [
+    'parent',
+    'child',
+    'previous',
+    'next',
+    'first',
+    'second',
+    'component',
+    'subcomponent',
+  ] as const
+
+  return componentFields.some(field => {
+    const value = relation[field]
+    return value === componentName || value?.startsWith(`${componentName}.`)
+  })
 }
 
 type Pattern = {
@@ -140,4 +235,12 @@ function listIcons(): Array<Icon> {
   return icons
 }
 
-export {listComponents, listPatterns, listIcons}
+export {
+  getComponentComposition,
+  getComponentDocsSource,
+  getComponentDocument,
+  listComponents,
+  listPatterns,
+  listIcons,
+  type ComponentDocsSource,
+}
