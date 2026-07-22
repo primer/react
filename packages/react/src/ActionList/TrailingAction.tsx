@@ -50,20 +50,21 @@ export const TrailingAction = forwardRef(
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
-            // @ts-expect-error StyledButton wants both Anchor and Button refs
+            // @ts-expect-error The polymorphic ref is typed as a union of anchor/button but IconButton expects the specific element ref
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}
           />
         ) : (
-          // @ts-expect-error shhh
           <Button
             variant="invisible"
+            // @ts-expect-error Button supports anchors and buttons, but its default overload expects a button.
             as={as}
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
             data-has-label="true"
+            // @ts-expect-error The polymorphic ref can point to either supported element.
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}
