@@ -85,7 +85,7 @@ describe('SegmentedControl', () => {
 
     const selectedButton = getByText('Raw').closest('button')
 
-    expect(selectedButton?.getAttribute('aria-current')).toBe('true')
+    expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
   })
 
   it('renders with a selected segment - uncontrolled', () => {
@@ -101,7 +101,7 @@ describe('SegmentedControl', () => {
 
     const selectedButton = getByText('Raw').closest('button')
 
-    expect(selectedButton?.getAttribute('aria-current')).toBe('true')
+    expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
   })
 
   it('renders the dropdown variant', () => {
@@ -148,7 +148,7 @@ describe('SegmentedControl', () => {
 
     const selectedButton = getByText('Preview').closest('button')
 
-    expect(selectedButton?.getAttribute('aria-current')).toBe('true')
+    expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
   })
 
   it('renders segments with segment labels that have leading icons', () => {
@@ -181,6 +181,19 @@ describe('SegmentedControl', () => {
       const labelledButton = getByLabelText(datum.label)
       expect(labelledButton).toBeDefined()
     }
+  })
+
+  it('renders IconButton with aria-pressed when selected', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}, index) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} selected={index === 1} key={label} />
+        ))}
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('button', {name: 'Raw'})).toHaveAttribute('aria-pressed', 'true')
+    expect(getByRole('button', {name: 'Preview'})).toHaveAttribute('aria-pressed', 'false')
   })
 
   it('renders icon button with tooltip as label', () => {
@@ -252,11 +265,11 @@ describe('SegmentedControl', () => {
 
     const buttonToClick = getByText('Raw').closest('button')
 
-    expect(buttonToClick?.getAttribute('aria-current')).toBe('false')
+    expect(buttonToClick?.getAttribute('aria-pressed')).toBe('false')
     if (buttonToClick) {
       await user.click(buttonToClick)
     }
-    expect(buttonToClick?.getAttribute('aria-current')).toBe('true')
+    expect(buttonToClick?.getAttribute('aria-pressed')).toBe('true')
   })
 
   it('calls segment button onClick if it is passed', async () => {

@@ -2,8 +2,9 @@ import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {render, fireEvent, screen, act} from '@testing-library/react'
 import {describe, it, expect, vi, afterEach} from 'vitest'
-import React from 'react'
+import React, {createRef} from 'react'
 import TextInput from '../TextInput'
+import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 import {SCREEN_READER_DELAY} from '../utils/character-counter'
 import {createRenderCounter} from '../utils/testing/profiler'
@@ -534,4 +535,30 @@ describe('TextInput', () => {
       expect(wrapper).toHaveAttribute('data-trailing-action', 'true')
     })
   })
+})
+
+describe('TextInput forwarded ref (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      it('forwards a ref object to the element', () => {
+        const ref = createRef<HTMLInputElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <TextInput ref={ref} />
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLInputElement)
+      })
+
+      it('calls a callback ref with the element', () => {
+        const refCallback = vi.fn()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <TextInput ref={refCallback} />
+          </FeatureFlags>,
+        )
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLInputElement)).toBe(true)
+      })
+    })
+  }
 })

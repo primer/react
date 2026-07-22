@@ -6,7 +6,7 @@ import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useMergedRefs, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -207,7 +207,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     setAnchorElement(anchorRef.current)
   }
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
+  const mergedOverlayRef = useMergedRefs(updateOverlayRef, useMergedRefs(overlayProps?.ref, setOverlayElement))
   const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
@@ -436,13 +438,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
           {...(shouldRenderAsPopover ? {id: popoverId} : {})}
-          ref={node => {
-            if (overlayProps?.ref) {
-              assignRef(overlayProps.ref, node)
-            }
-            updateOverlayRef(node)
-            setOverlayElement(node)
-          }}
+          ref={
+            mergedRefEnabled
+              ? mergedOverlayRef
+              : node => {
+                  setOverlayElement(node)
+                  if (overlayProps?.ref) {
+                    assignRef(overlayProps.ref, node)
+                  }
+                  updateOverlayRef(node)
+                }
+          }
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
         >

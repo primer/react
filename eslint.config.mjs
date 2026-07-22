@@ -421,6 +421,14 @@ const config = defineConfig([
       'primer-react/direct-slot-children': 'off',
     },
   },
+  // Timeline event taxonomy: catalog keys are REST `event.type` wire values
+  // (snake_case), not code identifiers.
+  {
+    files: ['packages/react/src/Timeline/taxonomy/eventTaxonomy.ts'],
+    rules: {
+      camelcase: 'off',
+    },
+  },
 ])
 
 export default tseslint.config(config)
