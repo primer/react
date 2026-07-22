@@ -273,7 +273,7 @@ const BannerPrimaryAction = forwardRef(({children, className, ...rest}, forwarde
   )
 }) as PolymorphicForwardRefComponent<'button', BannerPrimaryActionProps>
 
-BannerPrimaryAction.displayName = 'BannerPrimaryAction'
+BannerPrimaryAction.displayName = 'Banner.PrimaryAction'
 
 export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
 
@@ -291,6 +291,6 @@ const BannerSecondaryAction = forwardRef(({children, className, ...rest}, forwar
   )
 }) as PolymorphicForwardRefComponent<'button', BannerSecondaryActionProps>
 
-BannerSecondaryAction.displayName = 'BannerSecondaryAction'
+BannerSecondaryAction.displayName = 'Banner.SecondaryAction'
 
 export {BannerPrimaryAction, BannerSecondaryAction}

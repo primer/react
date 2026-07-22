@@ -57,7 +57,7 @@ function Summary<As extends React.ElementType>({as, children, ...props}: Summary
     </Component>
   )
 }
-Summary.displayName = 'Summary'
+Summary.displayName = 'Details.Summary'
 
 export {Summary}
 
