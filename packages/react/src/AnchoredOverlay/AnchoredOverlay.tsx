@@ -18,6 +18,44 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
 
+type AnchorHasPopup = Exclude<React.AriaAttributes['aria-haspopup'], boolean | 'false' | undefined>
+export type {AnchorHasPopup}
+
+// `aria-haspopup` and `aria-expanded` describe a button-like trigger that opens
+// a popup, and are only valid on elements whose role supports both. In
+// detached-anchor mode the consumer owns the anchor element, so guard the
+// imperative ARIA writes: if the ref points at an element that can't legally
+// carry them (e.g. a wrapper `<div>` or a plain `<input>`/textbox), writing them
+// produces invalid ARIA (axe `aria-allowed-attr`). In that case the consumer
+// should point the ref at the real trigger (or give it an appropriate role), and
+// we skip rather than emit a violation.
+const rolesSupportingPopupAria = new Set([
+  'application',
+  'button',
+  'combobox',
+  'gridcell',
+  'link',
+  'menuitem',
+  'menuitemcheckbox',
+  'menuitemradio',
+  'tab',
+  'treeitem',
+])
+
+function anchorSupportsPopupAria(node: HTMLElement): boolean {
+  const explicitRole = node.getAttribute('role')
+  if (explicitRole) return rolesSupportingPopupAria.has(explicitRole)
+  switch (node.tagName) {
+    case 'BUTTON':
+    case 'SUMMARY':
+      return true
+    case 'A':
+      return node.hasAttribute('href')
+    default:
+      return false
+  }
+}
+
 interface AnchoredOverlayPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
@@ -117,6 +155,10 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    */
   displayCloseButton?: boolean
   /**
+   * Indicates the type of popup opened by the anchor. Defaults to `'true'`, which is equivalent to `'menu'` in ARIA.
+   */
+  anchorHasPopup?: AnchorHasPopup
+  /**
    * Props to be spread on the close button in the overlay.
    */
   closeButtonProps?: Partial<IconButtonProps>
@@ -178,6 +220,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   preventOverflow = true,
   onPositionChange,
   displayCloseButton = true,
+  anchorHasPopup = 'true',
   closeButtonProps = defaultCloseButtonProps,
   renderAs = 'portal',
   cssAnchorPositioningSettings,
@@ -317,6 +360,41 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   }, [cssAnchorPositioning, anchorElement, anchorName])
 
   useEffect(() => {
+    // Read the node from the ref (available once committed) rather than the
+    // anchorElement state, which lags a render behind for a detached anchor and
+    // would leave the collapsed trigger without aria-haspopup until first opened.
+    // aria-haspopup is stable for the component's lifetime, so this effect is
+    // kept separate from `open` to avoid rewriting the attribute on every toggle.
+    const node = anchorRef.current ?? anchorElement
+    if (renderAnchor !== null || !node) return
+    if (!anchorSupportsPopupAria(node)) return // avoid invalid ARIA on non-interactive anchors
+    if (node.hasAttribute('aria-haspopup')) return // don't clobber a consumer value
+
+    node.setAttribute('aria-haspopup', anchorHasPopup)
+
+    return () => {
+      if (node.getAttribute('aria-haspopup') === anchorHasPopup) {
+        node.removeAttribute('aria-haspopup')
+      }
+    }
+  }, [renderAnchor, anchorRef, anchorElement, anchorHasPopup])
+
+  useEffect(() => {
+    const node = anchorRef.current ?? anchorElement
+    if (renderAnchor !== null || !node) return
+    if (!anchorSupportsPopupAria(node)) return // avoid invalid ARIA on non-interactive anchors
+
+    const expandedValue = String(open)
+    node.setAttribute('aria-expanded', expandedValue)
+
+    return () => {
+      if (node.getAttribute('aria-expanded') === expandedValue) {
+        node.removeAttribute('aria-expanded')
+      }
+    }
+  }, [renderAnchor, anchorRef, anchorElement, open])
+
+  useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
 
     const currentOverlay = overlayRef.current
@@ -410,7 +488,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
-          'aria-haspopup': 'true',
+          'aria-haspopup': anchorHasPopup,
           'aria-expanded': open,
           tabIndex: 0,
           onClick: onAnchorClick,
