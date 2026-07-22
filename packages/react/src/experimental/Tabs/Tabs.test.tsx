@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {describe, test, expect, vi} from 'vitest'
 import {Tabs, TabList, Tab, TabPanel} from './Tabs'
+import {useTabList} from './useTabList'
+import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName} from '../../utils/testing'
 
 describe('Tabs', () => {
@@ -581,4 +583,38 @@ describe('Tabs', () => {
     expect(tabB).toHaveAttribute('tabindex', '0')
     expect(tabC).toHaveAttribute('tabindex', '-1')
   })
+})
+
+function TabListRefHarness({tabRef}: {tabRef: React.Ref<HTMLDivElement | null>}) {
+  const {tabListProps} = useTabList<HTMLDivElement>({'aria-label': 'Test tabs', ref: tabRef})
+  return (
+    // @ts-expect-error it needs a non nullable ref
+    <div {...tabListProps} />
+  )
+}
+
+describe('useTabList forwarded ref (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      test('forwards a ref object to the tablist', () => {
+        const ref = React.createRef<HTMLDivElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <TabListRefHarness tabRef={ref} />
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLDivElement)
+      })
+
+      test('calls a callback ref with the tablist', () => {
+        const refCallback = vi.fn()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <TabListRefHarness tabRef={refCallback} />
+          </FeatureFlags>,
+        )
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+      })
+    })
+  }
 })

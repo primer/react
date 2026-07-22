@@ -1,5 +1,5 @@
 import type React from 'react'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {render as HTMLRender} from '@testing-library/react'
@@ -12,6 +12,8 @@ import {XIcon} from '@primer/octicons-react'
 import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
+import {createRef} from 'react'
+import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
@@ -224,4 +226,36 @@ describe('Tooltip data-component attributes', () => {
     const keybindingHintContainer = container.querySelector('[data-component="Tooltip.KeybindingHintContainer"]')
     expect(keybindingHintContainer).toBeInTheDocument()
   })
+})
+
+describe('Tooltip forwarded ref (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      it('forwards a ref object to the trigger element', () => {
+        const ref = createRef<HTMLButtonElement>()
+        HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <Tooltip text="Tooltip text" ref={ref}>
+              <Button>Button Text</Button>
+            </Tooltip>
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLButtonElement)
+        expect(ref.current).toHaveTextContent('Button Text')
+      })
+
+      it('calls a callback ref with the trigger element', () => {
+        const refCallback = vi.fn()
+        HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <Tooltip text="Tooltip text" ref={refCallback}>
+              <Button>Button Text</Button>
+            </Tooltip>
+          </FeatureFlags>,
+        )
+        expect(refCallback).toHaveBeenCalled()
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLButtonElement)).toBe(true)
+      })
+    })
+  }
 })
