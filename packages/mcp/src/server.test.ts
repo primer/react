@@ -131,15 +131,25 @@ describe('get_component_batch', () => {
     })
   })
 
-  it('returns package metadata and composition for every batched component', async () => {
-    const result = await callBatch(['NavList', 'CounterLabel', 'SegmentedControl'], 'package')
-    const payloads = getTextContents(result).map(content => JSON.parse(content))
+  it('returns compact, composition-first package metadata for every batched component', async () => {
+    const result = await callBatch(['NavList', 'SegmentedControl', 'CounterLabel', 'Avatar'], 'package')
+    const contents = getTextContents(result)
+    const payloads = contents.map(content => JSON.parse(content))
+
+    expect(contents.join('\n').length).toBeLessThan(20_000)
+    expect(contents.every(content => content.indexOf('"composition"') < 100)).toBe(true)
 
     expect(fetch).not.toHaveBeenCalled()
-    expect(payloads.map(payload => payload.component.name)).toEqual(['NavList', 'CounterLabel', 'SegmentedControl'])
+    expect(payloads.map(payload => payload.component.name)).toEqual([
+      'NavList',
+      'SegmentedControl',
+      'CounterLabel',
+      'Avatar',
+    ])
     expect(payloads.every(payload => payload.source === 'package' && payload.composition.schemaVersion === 1)).toBe(
       true,
     )
+    expect(payloads.every(payload => !('props' in payload.component) && !('stories' in payload.component))).toBe(true)
     expect(payloads[0].composition.apiSubcomponents).toEqual(
       expect.arrayContaining([expect.objectContaining({parent: 'NavList', subcomponent: 'NavList.Item'})]),
     )

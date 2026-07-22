@@ -10,6 +10,10 @@ type Component = {
   slug: string
 }
 
+type ComponentSummary = Pick<Component, 'id' | 'name' | 'importPath'> & {
+  status?: string
+}
+
 interface ComponentDocument {
   name: string
   importPath: string
@@ -90,6 +94,14 @@ function getComponentDocument(id: string): ComponentDocument | undefined {
   return metadata.components[id]
 }
 
+function getComponentSummary(component: Component): ComponentSummary {
+  const status = getComponentDocument(component.id)?.status
+
+  return typeof status === 'string'
+    ? {id: component.id, name: component.name, importPath: component.importPath, status}
+    : {id: component.id, name: component.name, importPath: component.importPath}
+}
+
 function getComponentComposition(id: string) {
   const component = getComponentDocument(id)
   const composition = metadata.composition
@@ -112,6 +124,34 @@ function getComponentComposition(id: string) {
       ),
     },
   }
+}
+
+function getComponentCompositionSummary(id: string) {
+  const composition = getComponentComposition(id)
+  if (!composition) return undefined
+
+  return {
+    schemaVersion: composition.schemaVersion,
+    derivation: composition.derivation,
+    sourceSummary: composition.sourceSummary,
+    apiParentChild: composition.apiParentChild.map(compactRelationship),
+    apiSubcomponents: composition.apiSubcomponents.map(compactRelationship),
+    observed: {
+      parentChild: composition.observed.parentChild.map(compactRelationship),
+      adjacentSibling: composition.observed.adjacentSibling.map(compactRelationship),
+      variants: composition.observed.variants.map(compactRelationship),
+      relatedComponents: composition.observed.relatedComponents.map(compactRelationship),
+    },
+  }
+}
+
+function compactRelationship(relationship: ComponentRelationship): ComponentRelationship {
+  const compact: ComponentRelationship = {}
+  for (const [key, value] of Object.entries(relationship)) {
+    if (key !== 'sources') compact[key] = value
+  }
+
+  return compact
 }
 
 function includesComponent(relation: ComponentRelationship, componentName: string): boolean {
@@ -237,8 +277,10 @@ function listIcons(): Array<Icon> {
 
 export {
   getComponentComposition,
+  getComponentCompositionSummary,
   getComponentDocsSource,
   getComponentDocument,
+  getComponentSummary,
   listComponents,
   listPatterns,
   listIcons,

@@ -51,7 +51,8 @@ generated component metadata and composition instead. Set
 `PRIMER_COMPONENT_DOCS_SOURCE=package` when starting the server to make package
 metadata the default; use `PRIMER_COMPONENT_DOCS_SOURCE=hosted` to retain the
 hosted default. The per-call `source` input takes precedence over the startup
-default.
+default. Package-mode batches return a compact composition-first summary;
+`get_component` remains available when full package documentation is needed.
 
 ## 🙌 Contributing
 

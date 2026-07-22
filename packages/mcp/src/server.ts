@@ -6,8 +6,10 @@ import * as z from 'zod'
 import TurndownService from 'turndown'
 import {
   getComponentComposition,
+  getComponentCompositionSummary,
   getComponentDocsSource,
   getComponentDocument,
+  getComponentSummary,
   listComponents,
   listPatterns,
   listIcons,
@@ -288,11 +290,10 @@ server.registerTool(
         }
 
         if (docsSource === 'package') {
-          const document = getComponentDocument(match.id)
-          const composition = getComponentComposition(match.id)
+          const composition = getComponentCompositionSummary(match.id)
           return {
             type: 'text' as const,
-            text: JSON.stringify({source: 'package', component: document, composition}, null, 2),
+            text: JSON.stringify({source: 'package', composition, component: getComponentSummary(match)}, null, 2),
           }
         }
 
