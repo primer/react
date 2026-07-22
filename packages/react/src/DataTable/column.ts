@@ -1,6 +1,7 @@
 import type {ObjectPaths} from './utils'
 import type {UniqueRow} from './row'
 import type {SortStrategy, CustomSortStrategy} from './sorting'
+import type {FilterStrategy, CustomFilterStrategy} from './filtering'
 
 export type ColumnWidth = 'grow' | 'growCollapse' | 'auto' | React.CSSProperties['width']
 export type CellAlignment = 'start' | 'end' | undefined
@@ -57,6 +58,19 @@ export interface Column<Data extends UniqueRow> {
    * specific sort strategy or custom sort strategy
    */
   sortBy?: boolean | SortStrategy | CustomSortStrategy<Data>
+
+  /**
+   * Specify if and how the table should filter by this column. Mirrors the
+   * shape of `sortBy`:
+   *   - `true`            → case-insensitive substring match on the field value
+   *   - `FilterStrategy`  → a named built-in strategy (`'substring' | 'startsWith'`)
+   *   - `(value, query, row) => boolean` → a custom matcher receiving the
+   *     extracted field value, the trimmed query, and the underlying row
+   *
+   * When omitted (or `false`), the column is not filterable and no input is
+   * rendered in the filter row.
+   */
+  filterBy?: boolean | FilterStrategy | CustomFilterStrategy<Data>
 
   /**
    * Controls the width of the column.

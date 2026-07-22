@@ -42,6 +42,15 @@
     },
     {
       "id": "experimental-components-datatable-features--with-pagination"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-filtering"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-controlled-filters"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-custom-filter"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -112,6 +121,48 @@
       "required": false,
       "description": "Fires every time the user clicks a sortable column header. It reports the column id that is now sorted and the direction after the toggle (never 'NONE').",
       "defaultValue": ""
+    },
+    {
+      "name": "filterable",
+      "type": "boolean",
+      "required": false,
+      "description": "When `true`, render a per-column filter row beneath the column headers. Only columns that opt in via `Column.filterBy` will get an input. The row is hidden entirely when no column is filterable.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "filters",
+      "type": "Record<string, string>",
+      "required": false,
+      "description": "Controlled column filter state, keyed by column id. When provided, `defaultFilters` is ignored and the parent owns the state. Pair with `onFilterChange` to handle updates.",
+      "defaultValue": ""
+    },
+    {
+      "name": "defaultFilters",
+      "type": "Record<string, string>",
+      "required": false,
+      "description": "Uncontrolled initial filter state, keyed by column id. Ignored when `filters` is provided.",
+      "defaultValue": ""
+    },
+    {
+      "name": "onFilterChange",
+      "type": "(filters: Record<string, string>) => void",
+      "required": false,
+      "description": "Called whenever any column's filter query changes. Receives the next full filter map. Fires in both controlled and uncontrolled modes.",
+      "defaultValue": ""
+    },
+    {
+      "name": "externalFiltering",
+      "type": "boolean",
+      "required": false,
+      "description": "When `true`, disables client-side filtering. The filter row continues to render and `onFilterChange` still fires, but the displayed rows come straight from `data`. Use this for server-driven filtering.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "filterPlaceholder",
+      "type": "string",
+      "required": false,
+      "description": "Placeholder text shown inside each filter input.",
+      "defaultValue": "'Filter'"
     }
   ],
   "subcomponents": [
@@ -421,6 +472,11 @@
           "name": "sortBy",
           "type": "boolean | 'alphanumeric' | 'basic' | 'datetime' | (a: Data, b: Data) => number",
           "description": "Specify if the table should sort by this column and, if applicable, a specific sort strategy or custom sort strategy"
+        },
+        {
+          "name": "filterBy",
+          "type": "boolean | 'substring' | 'startsWith' | (value: unknown, query: string, row: Data) => boolean",
+          "description": "Specify if and how this column participates in filtering. Mirrors the shape of `sortBy`. `true` uses the substring strategy on the stringified field value."
         },
         {
           "name": "width",
