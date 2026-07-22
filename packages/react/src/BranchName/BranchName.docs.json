@@ -8,7 +8,16 @@
       "id": "components-branchname--default"
     },
     {
-      "id": "components-branchname-features--with-branch-icon"
+      "id": "components-branchname-features--with-leading-visual"
+    },
+    {
+      "id": "components-branchname-features--with-description"
+    },
+    {
+      "id": "components-branchname-features--with-trailing-action"
+    },
+    {
+      "id": "components-branchname-features--with-trailing-action-menu"
     },
     {
       "id": "components-branchname-features--not-a-link"
@@ -24,7 +33,88 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"a\""
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": false,
+      "description": "The branch name, optionally including BranchName.LeadingVisual and BranchName.TrailingAction subcomponents.",
+      "defaultValue": ""
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description tooltip text. Provides additional context for the branch name and is exposed to assistive technology via `aria-describedby`.",
+      "defaultValue": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Custom className",
+      "defaultValue": ""
     }
   ],
-  "subcomponents": []
+  "subcomponents": [
+    {
+      "name": "BranchName.LeadingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "description": "The leading visual content, typically an octicon. We recommend using `GitBranchIcon` to represent a branch.",
+          "defaultValue": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "A custom class name that is merged with the leading visual's class. Additional `span` props are forwarded to the underlying element.",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "name": "BranchName.TrailingAction",
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ComponentType",
+          "required": true,
+          "description": "Provide an octicon. It will be placed in the center of the action button.",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text.",
+          "defaultValue": ""
+        },
+        {
+          "name": "onClick",
+          "type": "React.MouseEventHandler<HTMLButtonElement>",
+          "required": false,
+          "description": "Handler called when the trailing action button is clicked.",
+          "defaultValue": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "A custom class name that is merged with the action button's class. Additional `button` props are forwarded to the underlying button.",
+          "defaultValue": ""
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>",
+          "required": false,
+          "description": "A ref forwarded to the underlying action button.",
+          "defaultValue": ""
+        }
+      ]
+    }
+  ]
 }
