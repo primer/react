@@ -256,7 +256,7 @@
     width: 0;
   }
 
-  &[aria-disabled='true']:not([aria-current='true']) {
+  &[aria-disabled='true']:not([aria-pressed='true']) {
     cursor: not-allowed;
     color: var(--fgColor-disabled);
     background-color: transparent;
@@ -305,7 +305,7 @@
   justify-content: center;
 }
 
-.Button[aria-current='true'] {
+.Button[aria-pressed='true'] {
   padding: 0;
   font-weight: var(--base-text-weight-semibold);
 
@@ -321,7 +321,7 @@
   }
 }
 
-.Button:not([aria-current='true'], [aria-disabled='true']) {
+.Button:not([aria-pressed='true'], [aria-disabled='true']) {
   &:hover .Content {
     background-color: var(--controlTrack-bgColor-hover);
   }
