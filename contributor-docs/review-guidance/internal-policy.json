@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "ruleSets": [
+    {
+      "id": "architecture-api-language",
+      "title": "Component API language",
+      "applyTo": "packages/react/src/**/*.ts,packages/react/src/**/*.tsx,packages/react/src/**/*.docs.json,packages/react/src/**/*.hookDocs.json",
+      "rules": [
+        {
+          "id": "architecture-api-language.semantic-size-names",
+          "enforcement": "advisory",
+          "check": "New public size, density, thickness, and viewport-range APIs use the established semantic vocabulary instead of abbreviations, CSS literals, or default as a size name.",
+          "prefer": "Use descriptive full names and semantic values that remain meaningful across platforms."
+        },
+        {
+          "id": "architecture-api-language.component-references",
+          "enforcement": "advisory",
+          "check": "Documentation and stories use the exported code name when referring to a specific React component and sentence case when discussing a generic interface pattern.",
+          "prefer": "Keep API references unambiguous without presenting every generic pattern name as a code identifier."
+        }
+      ]
+    },
+    {
+      "id": "architecture-button-layout",
+      "title": "Button layout semantics",
+      "applyTo": "packages/react/src/**/*Button*.tsx,packages/react/src/**/*Button*.css,packages/react/src/SelectPanel/**/*.tsx,packages/react/src/experimental/SelectPanel2/**/*.tsx",
+      "rules": [
+        {
+          "id": "architecture-button-layout.full-width-alignment",
+          "enforcement": "advisory",
+          "check": "A full-width call-to-action centers its content, while a full-width selection trigger aligns its primary content to the start and keeps any trailing affordance at the end.",
+          "prefer": "Use alignment to communicate whether the control performs an action or exposes a selection."
+        }
+      ]
+    },
+    {
+      "id": "architecture-notifications",
+      "title": "Notification patterns",
+      "applyTo": "packages/react/src/**/*.ts,packages/react/src/**/*.tsx,packages/react/src/**/*.docs.json",
+      "rules": [
+        {
+          "id": "architecture-notifications.no-toast-pattern",
+          "enforcement": "enforce",
+          "check": "The change does not add, restore, or recommend a toast component or toast recipe.",
+          "prefer": "Use a supported feedback pattern appropriate to the interaction, such as a banner, inline validation, inline message, or dialog."
+        }
+      ]
+    },
+    {
+      "id": "architecture-color",
+      "title": "Semantic color and contrast",
+      "applyTo": "packages/react/src/**/*.module.css",
+      "rules": [
+        {
+          "id": "architecture-color.state-roles",
+          "enforcement": "advisory",
+          "check": "Open and closed states use their corresponding semantic functional color roles instead of success and danger roles.",
+          "prefer": "Preserve the distinction between lifecycle state and validation or outcome semantics."
+        },
+        {
+          "id": "architecture-color.canonical-variants",
+          "enforcement": "enforce",
+          "check": "The change does not introduce deprecated subtle functional color variants.",
+          "prefer": "Use muted for secondary or less-prominent treatment and emphasis for stronger treatment."
+        },
+        {
+          "id": "architecture-color.text-and-links",
+          "enforcement": "advisory",
+          "check": "Non-decorative text and placeholders maintain at least 4.5:1 contrast against every supported background, and links remain distinguishable from surrounding text without relying only on color.",
+          "prefer": "Use supported token pairs and retain a visible non-color link affordance."
+        },
+        {
+          "id": "architecture-color.focus-and-state",
+          "enforcement": "advisory",
+          "check": "Focus indicators and simultaneously visible interactive states maintain at least 3:1 contrast against adjacent colors.",
+          "prefer": "Verify contrast across supported themes without imposing a contrast requirement on purely decorative or inactive control borders."
+        }
+      ]
+    },
+    {
+      "id": "architecture-select-panel",
+      "title": "SelectPanel interaction contract",
+      "applyTo": "packages/react/src/SelectPanel/**/*",
+      "rules": [
+        {
+          "id": "architecture-select-panel.focus-restoration",
+          "enforcement": "enforce",
+          "check": "Opening moves focus to the configured initial target and closing restores focus to the trigger.",
+          "prefer": "Focus the filter input by default while preserving explicit deferred-focus behavior and the component's established secondary-focus semantics."
+        },
+        {
+          "id": "architecture-select-panel.commit-behavior",
+          "enforcement": "enforce",
+          "check": "Anchored dismissal preserves the latest selection, while modal Save finalizes changes and modal cancellation or dismissal invokes the cancellation contract.",
+          "prefer": "Preserve distinct anchored and modal commit semantics across every close path so consumers can restore the prior committed modal selection."
+        },
+        {
+          "id": "architecture-select-panel.filter-focus",
+          "enforcement": "enforce",
+          "check": "Input focus and filtering preserve a valid active option whenever option activation is enabled.",
+          "prefer": "Keep the input and list behavior connected and normally activate the first available option after filtering.",
+          "exceptions": [
+            "An explicit deferred-initial-focus configuration may wait for user interaction before assigning the active option."
+          ]
+        },
+        {
+          "id": "architecture-select-panel.keyboard-navigation",
+          "enforcement": "enforce",
+          "check": "Keyboard behavior supports toggling the active option, sequential tab navigation, directional option navigation, first and last option shortcuts, and Escape dismissal.",
+          "prefer": "Maintain the complete interaction contract instead of adding isolated key handlers."
+        },
+        {
+          "id": "architecture-select-panel.announcements",
+          "enforcement": "enforce",
+          "check": "Screen-reader announcements communicate the active option, its position, and selection state without announcing on every filtering keystroke.",
+          "prefer": "Use polite, delayed announcements and debounce filtering updates."
+        }
+      ]
+    }
+  ]
+}
