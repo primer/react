@@ -12,7 +12,7 @@ function getCSSRules(selector: string): Array<CSSStyleRule> {
       }
 
       if ('cssRules' in rule) {
-        return getRules(rule.cssRules)
+        return getRules(rule.cssRules as CSSRuleList)
       }
 
       return []
