@@ -412,6 +412,7 @@ export {
 TableHead.displayName = 'Table.Head'
 TableBody.displayName = 'Table.Body'
 TableHeader.displayName = 'Table.Header'
+TableSortHeader.displayName = 'Table.SortHeader'
 TableRow.displayName = 'Table.Row'
 TableCell.displayName = 'Table.Cell'
 TableCellPlaceholder.displayName = 'Table.CellPlaceholder'
