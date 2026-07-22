@@ -1197,6 +1197,49 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getByRole('button', {name: 'Cancel'})).toBeInTheDocument()
       })
 
+      it('keeps the intermediate selection after clicking an item in a single-select modal', async () => {
+        const user = userEvent.setup()
+
+        const singleSelectItems: SelectPanelProps['items'] = [
+          {id: '1', text: 'item one'},
+          {id: '2', text: 'item two'},
+          {id: '3', text: 'item three'},
+        ]
+
+        function SingleSelectModalPanel() {
+          const [selected, setSelected] = React.useState<ItemInput | undefined>(undefined)
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              variant="modal"
+              onCancel={() => {}}
+              items={singleSelectItems}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+            />
+          )
+        }
+
+        renderWithProp(<SingleSelectModalPanel />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        // Selecting an item must persist. A stale intermediate-selection reset key
+        // previously reverted the selection on the very next render, so the option
+        // never stayed selected.
+        await user.click(screen.getByRole('option', {name: 'item one'}))
+        expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+      })
+
       it('locks body scroll when modal is open', async () => {
         const user = userEvent.setup()
 
