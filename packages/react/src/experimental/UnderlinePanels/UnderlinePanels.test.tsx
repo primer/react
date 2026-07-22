@@ -1,16 +1,16 @@
-// Most of the functionality is already tested in [@github/tab-container-element](https://github.com/github/tab-container-element)
+// Most of the underlying tab behavior is provided by the experimental `Tabs`
+// component and its hooks (see ../Tabs). These tests cover the UnderlinePanels
+// public API and its integration with Tabs.
 
 import type React from 'react'
 import {act} from 'react'
 import {render, screen} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {describe, it, afterEach, beforeEach, expect, vi} from 'vitest'
 import {CodeIcon, EyeIcon} from '@primer/octicons-react'
 import UnderlinePanels from './UnderlinePanels'
-import TabContainerElement from '@github/tab-container-element'
 import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
 import classes from './UnderlinePanels.module.css'
-
-TabContainerElement.prototype.selectTab = vi.fn()
 
 const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-labelledby'?: string; id?: string}) => (
   <UnderlinePanels {...props}>
@@ -25,10 +25,32 @@ const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-label
 
 describe('UnderlinePanels', () => {
   implementsClassName(UnderlinePanels, classes.StyledUnderlineWrapper)
-  implementsClassName(UnderlinePanels.Tab)
-  implementsClassName(UnderlinePanels.Panel)
   afterEach(() => {
     vi.restoreAllMocks()
+  })
+
+  // Tab/Panel require the Tabs context, so they're rendered inside
+  // UnderlinePanels rather than via `implementsClassName` (which renders alone).
+  it('UnderlinePanels.Tab renders with a custom className', () => {
+    const Tab = UnderlinePanels.Tab as React.ElementType
+    render(
+      <UnderlinePanels aria-label="Select a tab">
+        <Tab className="test-class">Tab 1</Tab>
+        <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+      </UnderlinePanels>,
+    )
+
+    expect(screen.getByRole('tab', {name: 'Tab 1'})).toHaveClass('test-class')
+  })
+  it('UnderlinePanels.Panel renders with a custom className', () => {
+    render(
+      <UnderlinePanels aria-label="Select a tab">
+        <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel className="test-class">Panel 1</UnderlinePanels.Panel>
+      </UnderlinePanels>,
+    )
+
+    expect(screen.getByText('Panel 1')).toHaveClass('test-class')
   })
 
   it('renders with a custom ID', () => {
@@ -104,6 +126,27 @@ describe('UnderlinePanels', () => {
     tab.click()
 
     expect(onSelect).toHaveBeenCalled()
+  })
+
+  it('selects the first tab by default and hides the other panels', () => {
+    render(<UnderlinePanelsMockComponent aria-label="Select a tab" />)
+
+    expect(screen.getByRole('tab', {name: 'Tab 1'})).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByText('Panel 1')).toBeVisible()
+    expect(screen.getByText('Panel 2')).not.toBeVisible()
+    expect(screen.getByText('Panel 3')).not.toBeVisible()
+  })
+
+  it('switches the visible panel when a tab is selected (uncontrolled)', async () => {
+    const user = userEvent.setup()
+    render(<UnderlinePanelsMockComponent aria-label="Select a tab" />)
+
+    await user.click(screen.getByRole('tab', {name: 'Tab 2'}))
+
+    expect(screen.getByRole('tab', {name: 'Tab 2'})).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tab', {name: 'Tab 1'})).toHaveAttribute('aria-selected', 'false')
+    expect(screen.getByText('Panel 2')).toBeVisible()
+    expect(screen.getByText('Panel 1')).not.toBeVisible()
   })
 
   it('throws an error when the number of tabs does not match the number of panels', () => {
