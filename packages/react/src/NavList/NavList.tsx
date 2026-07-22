@@ -3,6 +3,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import React, {isValidElement} from 'react'
 import {clsx} from 'clsx'
 import type {
+  ActionListProps,
   ActionListTrailingActionProps,
   ActionListDividerProps,
   ActionListLeadingVisualProps,
@@ -50,10 +51,14 @@ function levelToHeadingTag(level: number): HeadingLevels {
 
 export type NavListProps = {
   children: React.ReactNode
+  /**
+   * Style variations for the underlying `ActionList`. See `ActionList`'s `variant` prop for details.
+   */
+  variant?: ActionListProps['variant']
 } & React.ComponentProps<'nav'>
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(
-  ({children, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props}, ref) => {
+  ({children, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, variant, ...props}, ref) => {
     const [slots, childrenWithoutHeading] = useSlots(children, {
       heading: Heading,
     })
@@ -76,7 +81,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(
               container: 'NavList',
             }}
           >
-            <ActionList>{childrenWithoutHeading}</ActionList>
+            <ActionList variant={variant}>{childrenWithoutHeading}</ActionList>
           </ActionListContainerContext.Provider>
         </NavListHeadingLevelContext.Provider>
       </nav>

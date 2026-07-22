@@ -11,7 +11,7 @@
     list-style: none;
   }
 
-  &:where([data-variant='inset']) {
+  &:where([data-variant='inset'], [data-variant='vertical-inset'], [data-variant='start'], [data-variant='end']) {
     padding-block: var(--base-size-8);
   }
 
@@ -19,6 +19,18 @@
     /* this is only to match default experience */
     & .ActionListItem {
       margin-inline: var(--base-size-8);
+    }
+  }
+
+  &:where([data-variant='start']) {
+    & .ActionListItem {
+      margin-inline-start: var(--base-size-8);
+    }
+  }
+
+  &:where([data-variant='end']) {
+    & .ActionListItem {
+      margin-inline-end: var(--base-size-8);
     }
   }
 
