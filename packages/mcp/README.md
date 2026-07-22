@@ -45,12 +45,13 @@ installed `@primer/react` package. It is package-backed, so a local workspace
 can exercise newly generated metadata without waiting for hosted Primer Style
 documentation to deploy.
 
-`get_component` uses hosted Primer Style documentation by default. Pass
-`source: "package"` to return the installed package's generated component
-metadata and composition instead. Set `PRIMER_COMPONENT_DOCS_SOURCE=package`
-when starting the server to make package metadata the default; use
-`PRIMER_COMPONENT_DOCS_SOURCE=hosted` to retain the hosted default. The
-per-call `source` input takes precedence over the startup default.
+`get_component` and `get_component_batch` use hosted Primer Style documentation
+by default. Pass `source: "package"` to return the installed package's
+generated component metadata and composition instead. Set
+`PRIMER_COMPONENT_DOCS_SOURCE=package` when starting the server to make package
+metadata the default; use `PRIMER_COMPONENT_DOCS_SOURCE=hosted` to retain the
+hosted default. The per-call `source` input takes precedence over the startup
+default.
 
 ## 🙌 Contributing
 

@@ -37,10 +37,10 @@ describe('get_component_batch', () => {
     await server.close()
   })
 
-  const callBatch = (names: string[]) => {
+  const callBatch = (names: string[], source?: 'hosted' | 'package') => {
     return client.callTool({
       name: 'get_component_batch',
-      arguments: {names},
+      arguments: {names, source},
     })
   }
 
@@ -131,6 +131,20 @@ describe('get_component_batch', () => {
     })
   })
 
+  it('returns package metadata and composition for every batched component', async () => {
+    const result = await callBatch(['NavList', 'CounterLabel', 'SegmentedControl'], 'package')
+    const payloads = getTextContents(result).map(content => JSON.parse(content))
+
+    expect(fetch).not.toHaveBeenCalled()
+    expect(payloads.map(payload => payload.component.name)).toEqual(['NavList', 'CounterLabel', 'SegmentedControl'])
+    expect(payloads.every(payload => payload.source === 'package' && payload.composition.schemaVersion === 1)).toBe(
+      true,
+    )
+    expect(payloads[0].composition.apiSubcomponents).toEqual(
+      expect.arrayContaining([expect.objectContaining({parent: 'NavList', subcomponent: 'NavList.Item'})]),
+    )
+  })
+
   it('returns filtered package-backed composition metadata', async () => {
     const result = await client.callTool({
       name: 'get_component_composition',
@@ -172,20 +186,26 @@ describe('get_component_batch', () => {
 })
 
 function getTextContent(result: unknown): string {
+  const [content] = getTextContents(result)
+  if (!content) throw new Error('Expected text tool content')
+
+  return content
+}
+
+function getTextContents(result: unknown): Array<string> {
   if (typeof result !== 'object' || result === null || !('content' in result) || !Array.isArray(result.content)) {
     throw new Error('Expected tool content')
   }
 
-  const content = result.content.find(
-    (item): item is {type: 'text'; text: string} =>
-      typeof item === 'object' &&
-      item !== null &&
-      'type' in item &&
-      item.type === 'text' &&
-      'text' in item &&
-      typeof item.text === 'string',
-  )
-  if (!content) throw new Error('Expected text tool content')
-
-  return content.text
+  return result.content
+    .filter(
+      (item): item is {type: 'text'; text: string} =>
+        typeof item === 'object' &&
+        item !== null &&
+        'type' in item &&
+        item.type === 'text' &&
+        'text' in item &&
+        typeof item.text === 'string',
+    )
+    .map(content => content.text)
 }

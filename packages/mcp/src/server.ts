@@ -255,10 +255,14 @@ server.registerTool(
         .min(2)
         .max(10)
         .describe('Component names to retrieve (e.g. ["ActionMenu", "Button", "Pagination"])'),
+      source: z
+        .enum(['hosted', 'package'])
+        .optional()
+        .describe('Use hosted Primer Style documentation or metadata from the installed @primer/react package'),
     },
     annotations: {readOnlyHint: true},
   },
-  async ({names}) => {
+  async ({names, source}) => {
     const seenNames = new Set<string>()
     const deduped = names.filter(name => {
       const normalizedName = name.toLowerCase()
@@ -269,6 +273,7 @@ server.registerTool(
       return true
     })
     const components = listComponents()
+    const docsSource = source ?? defaultComponentDocsSource
 
     const results = await Promise.all(
       deduped.map(async name => {
@@ -279,6 +284,15 @@ server.registerTool(
           return {
             type: 'text' as const,
             text: `## ${name}\n\nStatus: not-found. No component named \`${name}\` exists in @primer/react. Use \`list_components\` for valid names.`,
+          }
+        }
+
+        if (docsSource === 'package') {
+          const document = getComponentDocument(match.id)
+          const composition = getComponentComposition(match.id)
+          return {
+            type: 'text' as const,
+            text: JSON.stringify({source: 'package', component: document, composition}, null, 2),
           }
         }
 
