@@ -1,0 +1,11 @@
+/* Foundation reset — no visual opinion.
+ * Removes browser defaults that interfere with correct behaviour.
+ * Uses :where() for zero specificity so Layer 2 styles always win. */
+
+:where([data-select-panel-foundation]) {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+}
