@@ -11,11 +11,6 @@
       "name": "ThemeProviderProps",
       "properties": [
         {
-          "name": "theme",
-          "type": "{[key: string]: any}",
-          "description": "The theme object to be applied."
-        },
-        {
           "name": "colorMode",
           "type": "'auto' | 'day' | 'night' | 'light' | 'dark'",
           "description": "The color mode to be applied."
@@ -41,11 +36,6 @@
       "name": "ThemeData",
       "properties": [
         {
-          "name": "theme",
-          "type": "Theme",
-          "description": "The theme object that is applied."
-        },
-        {
           "name": "colorScheme",
           "type": "string",
           "description": "The color scheme (for example: \"light\", \"dark\") that is applied."
@@ -54,11 +44,6 @@
           "name": "colorMode",
           "type": "'auto' | 'day' | 'night' | 'light' | 'dark'",
           "description": "The color mode (for example: \"day\", \"night\") that is applied. If the color mode is \"auto\", the color mode is determined by the user's system preference."
-        },
-        {
-          "name": "resolvedColorScheme",
-          "type": "string",
-          "description": "The name of the current color scheme."
         },
         {
           "name": "resolvedColorMode",
