@@ -29,6 +29,7 @@ import {
   UserActor,
   VariantSection,
 } from './internal/timelineStoryHelpers'
+import {actorTypeForLogin, DEPENDABOT_TAXONOMY, toEventDataAttributes, type DependabotEventType} from './taxonomy'
 
 /**
  * Dependabot alert Timeline event examples (Phase 2 of github/primer#6663).
@@ -56,10 +57,26 @@ import {
  * base `Timeline` component's own stories, and any docs-site representation is a
  * Phase 3 consideration via base-component story changes, out of scope here.
  *
- * FUTURE FILTERING (taxonomy still open — github/primer#6663): category
- * `data-*` attributes (e.g. `data-event-category="opened"`) will attach to each
- * `Timeline.Item` below so stories can be filtered/grouped by event family. We
- * intentionally do NOT add them yet to avoid baking in a taxonomy.
+ * TAXONOMY `data-*` CONTRACT: every cataloged `Timeline.Item` below carries the
+ * event `data-*` attributes projected from the merged taxonomy module
+ * (`./taxonomy`, primer/react#8180) — the single source of truth for Timeline
+ * event categorization (github/primer#6664, docs github/primer#6888). Each row
+ * spreads the output of `toEventDataAttributes` via the local `dependabotAttrs`
+ * helper, which derives `category` / `visibility` FROM the catalog entry
+ * (`DEPENDABOT_TAXONOMY`) so the stories stay in sync with the catalog, and
+ * resolves `data-actor-type` at runtime from each row's rendered actor login
+ * (`actorTypeForLogin`): Dependabot-authored rows resolve to `bot`, user-driven
+ * rows to `user`. The contract per rendered `<li>`: `data-event-scope`,
+ * `data-event-type` (the UNSCOPED leaf), `data-event-category`,
+ * `data-event-visibility` (defaults `primary`), and `data-actor-type`. This
+ * applies the same contract proven by the License Compliance pilot
+ * (primer/react#8216).
+ *
+ * SHARED / PARKED EVENTS (left untagged): the Assignment and Copilot-work groups
+ * are cross-surface SHARED events, deliberately kept OUT of the per-surface
+ * Dependabot catalog (github/primer#6888), so they intentionally carry NO
+ * `data-*` attributes. See the code comments above `EventAssignment` and
+ * `EventCopilotWork`.
  *
  * SLOT USAGE (Phase 1 slots — same convention as the Issues group):
  * - `Timeline.Avatar` (gutter slot, #6677): the 40px LEFT-GUTTER avatar.
@@ -120,6 +137,25 @@ const PushPill = ({sha}: {sha: string}) => (
   </code>
 )
 
+/**
+ * Local projection of the taxonomy `data-*` contract for this surface. Given a
+ * Dependabot leaf `type` (and, when the row renders an actor, that actor's
+ * `login`), it returns the `data-*` attribute set to spread on the
+ * `Timeline.Item`. `category` and `visibility` come FROM the catalog entry so
+ * the stories track `DEPENDABOT_TAXONOMY`; `data-actor-type` is resolved at
+ * runtime from the login (Dependabot-authored rows pass a `…[bot]` login so they
+ * resolve to `bot`; user-driven rows pass the rendered user login). See
+ * github/primer#6664 and the taxonomy docs (github/primer#6888).
+ */
+const dependabotAttrs = (type: DependabotEventType, login?: string) =>
+  toEventDataAttributes({
+    scope: 'dependabot',
+    type,
+    category: DEPENDABOT_TAXONOMY[type].category,
+    visibility: DEPENDABOT_TAXONOMY[type].visibility,
+    actorType: login ? actorTypeForLogin(login) : undefined,
+  })
+
 export default {
   title: 'Components/Timeline/Events/Dependabot',
   component: Timeline,
@@ -160,7 +196,7 @@ export const EventOpened = () => (
     {/* Opened — no source */}
     <VariantSection label="Opened">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('opened', 'dependabot[bot]')}>
           <Timeline.Badge variant="success">
             <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
@@ -176,7 +212,7 @@ export const EventOpened = () => (
     {/* OpenedFromPR — bold `#123` pull-request link (scheme: primary, bold) */}
     <VariantSection label="Opened from pull request">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('opened', 'dependabot[bot]')}>
           <Timeline.Badge variant="success">
             <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
@@ -192,7 +228,7 @@ export const EventOpened = () => (
     {/* OpenedFromPush — blue push-pill with the 7-char `after` SHA */}
     <VariantSection label="Opened from push">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('opened', 'dependabot[bot]')}>
           <Timeline.Badge variant="success">
             <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
@@ -225,7 +261,7 @@ export const EventFixed = () => (
     {/* Fixed — no source */}
     <VariantSection label="Fixed">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('fixed', 'dependabot[bot]')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -241,7 +277,7 @@ export const EventFixed = () => (
     {/* FixedViaPR — bold `#123` pull-request link */}
     <VariantSection label="Fixed via pull request">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('fixed', 'dependabot[bot]')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -257,7 +293,7 @@ export const EventFixed = () => (
     {/* FixedViaPush — blue push-pill */}
     <VariantSection label="Fixed via push">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('fixed', 'dependabot[bot]')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -290,7 +326,7 @@ export const EventDismissed = () => (
     {/* Manual — risk is tolerable (with an optional dismissal note) */}
     <VariantSection label="Dismissed as risk is tolerable">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -309,7 +345,7 @@ export const EventDismissed = () => (
     {/* Manual — fix started */}
     <VariantSection label="Dismissed as fix started">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -325,7 +361,7 @@ export const EventDismissed = () => (
     {/* Manual — no bandwidth to fix this */}
     <VariantSection label="Dismissed as no bandwidth">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -341,7 +377,7 @@ export const EventDismissed = () => (
     {/* Manual — vulnerable code is not actually used */}
     <VariantSection label="Dismissed as not used">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -357,7 +393,7 @@ export const EventDismissed = () => (
     {/* Manual — inaccurate */}
     <VariantSection label="Dismissed as inaccurate">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -373,7 +409,7 @@ export const EventDismissed = () => (
     {/* Auto — rule-based, no source (with optional rule comment) */}
     <VariantSection label="Auto-dismissed by alert rule">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissed', 'dependabot[bot]')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -396,7 +432,7 @@ export const EventDismissed = () => (
     {/* Auto — from a pull request */}
     <VariantSection label="Auto-dismissed from pull request">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissed', 'dependabot[bot]')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -412,7 +448,7 @@ export const EventDismissed = () => (
     {/* Auto — from a push */}
     <VariantSection label="Auto-dismissed from push">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissed', 'dependabot[bot]')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -441,7 +477,7 @@ export const EventReopened = () => (
     {/* Manual reopen — user actor */}
     <VariantSection label="Reopened">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('reopened', 'monalisa')}>
           <Timeline.Badge variant="success">
             <Octicon icon={SyncIcon} />
           </Timeline.Badge>
@@ -457,7 +493,7 @@ export const EventReopened = () => (
     {/* Reintroduced — no source */}
     <VariantSection label="Reintroduced">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('reopened', 'dependabot[bot]')}>
           <Timeline.Badge variant="success">
             <Octicon icon={SyncIcon} />
           </Timeline.Badge>
@@ -473,7 +509,7 @@ export const EventReopened = () => (
     {/* Reintroduced — from a pull request */}
     <VariantSection label="Reintroduced from pull request">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('reopened', 'dependabot[bot]')}>
           <Timeline.Badge variant="success">
             <Octicon icon={SyncIcon} />
           </Timeline.Badge>
@@ -489,7 +525,7 @@ export const EventReopened = () => (
     {/* Reintroduced — from a push */}
     <VariantSection label="Reintroduced from push">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('reopened', 'dependabot[bot]')}>
           <Timeline.Badge variant="success">
             <Octicon icon={SyncIcon} />
           </Timeline.Badge>
@@ -505,7 +541,7 @@ export const EventReopened = () => (
     {/* Auto-reopened — rule change (with optional rule comment) */}
     <VariantSection label="Auto-reopened by rule change">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('reopened', 'dependabot[bot]')}>
           <Timeline.Badge variant="success">
             <Octicon icon={SyncIcon} />
           </Timeline.Badge>
@@ -560,7 +596,7 @@ export const EventDismissalRequest = () => (
         place that right-aligned control in the `Timeline.Actions` slot. */}
     <VariantSection label="Dismissal requested">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissal_requested', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} className={classes.BadgeIconAttention} />
           </Timeline.Badge>
@@ -584,7 +620,7 @@ export const EventDismissalRequest = () => (
     {/* Dismissal approved — circle user actor, success/check badge */}
     <VariantSection label="Dismissal approved">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissal_reviewed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CheckIcon} className={classes.BadgeIconSuccess} />
           </Timeline.Badge>
@@ -601,7 +637,7 @@ export const EventDismissalRequest = () => (
     {/* Dismissal denied — circle user actor, danger/x badge */}
     <VariantSection label="Dismissal denied">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissal_reviewed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={XIcon} className={classes.BadgeIconDanger} />
           </Timeline.Badge>
@@ -619,7 +655,7 @@ export const EventDismissalRequest = () => (
         "x")` (no bg) → a bare default badge, not a danger/emphasis one. */}
     <VariantSection label="Dismissal cancelled">
       <Timeline aria-label="Dependabot alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...dependabotAttrs('dismissal_cancelled', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={XIcon} className={classes.BadgeIconMuted} />
           </Timeline.Badge>
@@ -651,6 +687,12 @@ export const EventDismissalRequest = () => (
  * The five variants mirror the Secret scanning assignment story: self-assign,
  * assign another, self-unassign, unassign another, and a combined assign +
  * unassign example.
+ *
+ * SHARED / PARKED — NO `data-*` TAXONOMY: assignment is a cross-surface SHARED
+ * event, deliberately kept OUT of the per-surface Dependabot catalog
+ * (`DEPENDABOT_TAXONOMY` has no assignment leaf), per the taxonomy docs
+ * (github/primer#6888). It has no per-surface taxonomy leaf yet, so these rows
+ * intentionally carry NO `data-*` attributes.
  */
 export const EventAssignment = () => (
   <Examples>
@@ -758,6 +800,12 @@ export const EventAssignment = () => (
  *   button above.
  * - Work finished (`with_badge(icon: "repo-push")`): default (gray) badge, no
  *   right control.
+ *
+ * SHARED / PARKED — NO `data-*` TAXONOMY: Copilot-agent work is a cross-surface
+ * SHARED event, deliberately kept OUT of the per-surface Dependabot catalog
+ * (`DEPENDABOT_TAXONOMY` has no copilot leaf), per the taxonomy docs
+ * (github/primer#6888). It has no per-surface taxonomy leaf yet, so these rows
+ * intentionally carry NO `data-*` attributes.
  */
 export const EventCopilotWork = () => (
   <Examples>
