@@ -262,9 +262,9 @@ const TabImpl: FC<TabProps & WithValue> = ({onSelect, value, ...itemProps}) => {
   return (
     <UnderlineItem
       as="button"
-      type="button"
       {...itemProps}
       {...restTabProps}
+      type="button"
       onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
         if (!event.defaultPrevented && typeof onSelect === 'function') {
           onSelect(event)
