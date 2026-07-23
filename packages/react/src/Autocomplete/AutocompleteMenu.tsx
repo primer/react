@@ -324,7 +324,13 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     }
   }, [highlightedItem, deferredInputValue, selectedItemIds, setAutocompleteSuggestion])
 
-  useEffect(() => {
+  // Re-sort the items during render while the menu is closed so the order is ready the next time
+  // it opens. `AutocompleteOverlay` mounts this component under a different parent when the menu
+  // opens vs. closes, so it remounts on each open/close and a render-time previous-value transition
+  // can't be observed here — guarding on the closed state is what replaces the old close-time effect.
+  // The comparator therefore runs only while the menu is closed, never on the frequent renders that
+  // happen while it is open.
+  if (showMenu === false) {
     const itemIdSortResult = [...sortedItemIds].sort(
       sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds)),
     )
@@ -332,15 +338,15 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       itemIdSortResult.length === sortedItemIds.length &&
       itemIdSortResult.every((element, index) => element === sortedItemIds[index])
 
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (showMenu === false && !sortResultMatchesState) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
+    if (!sortResultMatchesState) {
       setSortedItemIds(itemIdSortResult)
     }
+  }
 
+  useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     onOpenChange && onOpenChange(Boolean(showMenu))
-  }, [showMenu, onOpenChange, selectedItemIds, sortOnCloseFn, sortedItemIds])
+  }, [showMenu, onOpenChange])
 
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler

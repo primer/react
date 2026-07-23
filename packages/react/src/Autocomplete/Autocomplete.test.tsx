@@ -289,50 +289,61 @@ describe('Autocomplete', () => {
     })
 
     it('calls a custom sort function when the menu closes', async () => {
-      const user = userEvent.setup()
       const sortOnCloseFnMock = vi.fn()
-      const {container} = render(
-        <LabelledAutocomplete
-          menuProps={{
-            items: mockItems,
-            selectedItemIds: [],
-            sortOnCloseFn: sortOnCloseFnMock,
-            ['aria-labelledby']: 'autocompleteLabel',
-          }}
-        />,
-      )
-      const inputNode = container.querySelector('#autocompleteInput')
-
-      // `sortOnCloseFnMock` will be called in a `.sort()` on render to check if the
-      // current sort order matches the result of `sortOnCloseFnMock`
-      expect(sortOnCloseFnMock).toHaveBeenCalledTimes(mockItems.length - 1)
-      if (inputNode) {
-        await user.type(inputNode, 'ze')
-        // eslint-disable-next-line github/no-blur
-        fireEvent.blur(inputNode)
-      }
-
-      // wait a tick for blur to finish
-      await waitFor(() => expect(sortOnCloseFnMock).toHaveBeenCalled())
-    })
-
-    it("calls onOpenChange with the menu's open state", async () => {
-      const user = userEvent.setup()
       const onOpenChangeMock = vi.fn()
       const {container} = render(
         <LabelledAutocomplete
           menuProps={{
             items: mockItems,
             selectedItemIds: [],
+            sortOnCloseFn: sortOnCloseFnMock,
             onOpenChange: onOpenChangeMock,
             ['aria-labelledby']: 'autocompleteLabel',
           }}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = container.querySelector('#autocompleteInput') as HTMLInputElement
 
-      inputNode && (await user.type(inputNode, 'ze'))
-      expect(onOpenChangeMock).toHaveBeenCalled()
+      // The menu starts closed, so the items are sorted during render.
+      expect(sortOnCloseFnMock).toHaveBeenCalled()
+
+      // Opening the menu does not run the close-time sort.
+      sortOnCloseFnMock.mockClear()
+      fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
+      await waitFor(() => expect(onOpenChangeMock).toHaveBeenLastCalledWith(true))
+      expect(sortOnCloseFnMock).not.toHaveBeenCalled()
+
+      // Closing the menu re-runs the sort.
+      // eslint-disable-next-line github/no-blur
+      fireEvent.blur(inputNode)
+      await waitFor(() => expect(sortOnCloseFnMock).toHaveBeenCalled())
+    })
+
+    it("calls onOpenChange with the menu's open state", async () => {
+      const onOpenChangeMock = vi.fn()
+      const {getByLabelText} = render(
+        <LabelledAutocomplete
+          menuProps={{
+            items: [],
+            selectedItemIds: [],
+            onOpenChange: onOpenChangeMock,
+            ['aria-labelledby']: 'autocompleteLabel',
+          }}
+        />,
+      )
+      const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
+
+      expect(onOpenChangeMock).toHaveBeenNthCalledWith(1, false)
+
+      fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
+      await waitFor(() => expect(onOpenChangeMock).toHaveBeenLastCalledWith(true))
+
+      // eslint-disable-next-line github/no-blur
+      fireEvent.blur(inputNode)
+
+      await waitFor(() => expect(onOpenChangeMock).toHaveBeenLastCalledWith(false))
     })
 
     it('calls onSelectedChange with the data for the selected items', async () => {
