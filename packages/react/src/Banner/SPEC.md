@@ -139,3 +139,7 @@ Banner supports default and compact spacing, responsive action placement, and a 
 - The default actions layout MUST respond to the Banner's available container width rather than only the viewport width.
 - A flush Banner MUST span the available width without rounded side borders.
 - Flush presentation SHOULD be used only within confined surfaces such as dialogs, tables, cards, or boxes.
+
+## Log
+
+<!-- Record notable decisions and significant spec changes in reverse-chronological order. -->

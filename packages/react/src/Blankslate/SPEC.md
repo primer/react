@@ -70,3 +70,7 @@ Blankslate may provide a primary action, a secondary action, or both.
 
 - A button-form primary action MUST forward additional button props to its rendered button.
 - A primary action MAY be rendered independently from Blankslate.
+
+## Log
+
+<!-- Record notable decisions and significant spec changes in reverse-chronological order. -->

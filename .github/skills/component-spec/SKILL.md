@@ -145,6 +145,30 @@ Use these uppercase terms for declarative requirements:
 
 Explanatory prose does not need normative language.
 
+## Log
+
+Every spec file MUST include a `Log` section at the end. The Log records notable
+decisions and significant changes made to the spec over time.
+
+Add a new entry to the Log whenever a change:
+
+- Adds, removes, or significantly revises a requirement
+- Resolves a design question or chooses among competing approaches
+- Documents why a requirement was deliberately excluded or limited
+
+Each log entry MUST include the date in `YYYY-MM-DD` format, the author, and a
+one-sentence description of the decision or change. Routine housekeeping such as
+typo fixes, formatting, or wording clarifications do not require log entries.
+
+Keep entries in reverse-chronological order. Format entries as a flat list:
+
+```markdown
+## Log
+
+- **2024-01-15** (@author): Added `Actions` feature covering primary and secondary action rendering.
+- **2024-01-10** (@author): Chose `<section>` landmark over `<div>` to support named region navigation.
+```
+
 ## Keeping specs in sync
 
 Tests and Storybook feature stories should link directly to the spec heading

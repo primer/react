@@ -26,3 +26,13 @@ headings.
 ## Glossary
 
 <!-- An optional glossary of terms and definitions used across feature files. -->
+
+## Log
+
+<!--
+Record notable decisions and significant spec changes in reverse-chronological
+order. Include the date (YYYY-MM-DD), your GitHub handle, and a one-sentence
+description of the decision or change. Omit routine housekeeping like typos or
+rewording. Example:
+- **2024-01-15** (@author): Added Actions feature covering primary and secondary action rendering.
+-->

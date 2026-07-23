@@ -23,3 +23,7 @@ pagination controls, actions, and loading or error states.
 - [Pagination](./pagination.md)
 - [Row actions](./row-actions.md)
 - [Loading and errors](./loading-and-errors.md)
+
+## Log
+
+<!-- Record notable decisions and significant spec changes in reverse-chronological order. -->
