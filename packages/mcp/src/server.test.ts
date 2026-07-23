@@ -150,9 +150,35 @@ describe('get_component_batch', () => {
       true,
     )
     expect(payloads.every(payload => !('props' in payload.component) && !('stories' in payload.component))).toBe(true)
+    expect(
+      payloads.every(payload => !('derivation' in payload.composition) && !('sourceSummary' in payload.composition)),
+    ).toBe(true)
     expect(payloads[0].composition.apiSubcomponents).toEqual(
       expect.arrayContaining([expect.objectContaining({parent: 'NavList', subcomponent: 'NavList.Item'})]),
     )
+  })
+
+  it('bounds high-connectivity package batches below MCP truncation limits', async () => {
+    const result = await callBatch(['ActionList', 'SegmentedControl'], 'package')
+    const contents = getTextContents(result)
+    const payloads = contents.map(content => JSON.parse(content))
+
+    expect(contents.join('\n').length).toBeLessThan(15_000)
+    expect(payloads.every(payload => payload.composition.observedRelationshipLimit === 3)).toBe(true)
+    expect(
+      payloads.every(payload =>
+        Object.values(payload.composition.observed).every(
+          relationships => Array.isArray(relationships) && relationships.length <= 3,
+        ),
+      ),
+    ).toBe(true)
+    expect(
+      payloads.find(payload => payload.component.name === 'ActionList')?.composition.omittedObservedRelationshipCounts,
+    ).toMatchObject({
+      parentChild: expect.any(Number),
+      adjacentSibling: expect.any(Number),
+      relatedComponents: expect.any(Number),
+    })
   })
 
   it('returns filtered package-backed composition metadata', async () => {

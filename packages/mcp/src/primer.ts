@@ -52,6 +52,7 @@ interface ComponentsMetadata {
 }
 
 const metadata: ComponentsMetadata = componentsMetadata
+const maximumObservedRelationshipsPerKind = 3
 
 function idToSlug(id: string): string {
   if (id === 'actionbar') {
@@ -130,19 +131,49 @@ function getComponentCompositionSummary(id: string) {
   const composition = getComponentComposition(id)
   if (!composition) return undefined
 
+  const parentChild = summarizeObservedRelationships(composition.observed.parentChild)
+  const adjacentSibling = summarizeObservedRelationships(composition.observed.adjacentSibling)
+  const variants = summarizeObservedRelationships(composition.observed.variants)
+  const relatedComponents = summarizeObservedRelationships(composition.observed.relatedComponents)
+
   return {
     schemaVersion: composition.schemaVersion,
-    derivation: composition.derivation,
-    sourceSummary: composition.sourceSummary,
     apiParentChild: composition.apiParentChild.map(compactRelationship),
     apiSubcomponents: composition.apiSubcomponents.map(compactRelationship),
     observed: {
-      parentChild: composition.observed.parentChild.map(compactRelationship),
-      adjacentSibling: composition.observed.adjacentSibling.map(compactRelationship),
-      variants: composition.observed.variants.map(compactRelationship),
-      relatedComponents: composition.observed.relatedComponents.map(compactRelationship),
+      parentChild: parentChild.relationships,
+      adjacentSibling: adjacentSibling.relationships,
+      variants: variants.relationships,
+      relatedComponents: relatedComponents.relationships,
+    },
+    observedRelationshipLimit: maximumObservedRelationshipsPerKind,
+    omittedObservedRelationshipCounts: {
+      parentChild: parentChild.omittedCount,
+      adjacentSibling: adjacentSibling.omittedCount,
+      variants: variants.omittedCount,
+      relatedComponents: relatedComponents.omittedCount,
     },
   }
+}
+
+function summarizeObservedRelationships(relationships: Array<ComponentRelationship>) {
+  const orderedRelationships = [...relationships].sort((first, second) => {
+    return (
+      getRelationshipNumber(second, 'sourceCount') - getRelationshipNumber(first, 'sourceCount') ||
+      getRelationshipNumber(second, 'occurrences') - getRelationshipNumber(first, 'occurrences') ||
+      JSON.stringify(compactRelationship(first)).localeCompare(JSON.stringify(compactRelationship(second)))
+    )
+  })
+
+  return {
+    relationships: orderedRelationships.slice(0, maximumObservedRelationshipsPerKind).map(compactRelationship),
+    omittedCount: Math.max(orderedRelationships.length - maximumObservedRelationshipsPerKind, 0),
+  }
+}
+
+function getRelationshipNumber(relationship: ComponentRelationship, key: string): number {
+  const value = relationship[key]
+  return typeof value === 'number' ? value : 0
 }
 
 function compactRelationship(relationship: ComponentRelationship): ComponentRelationship {

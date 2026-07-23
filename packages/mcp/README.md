@@ -52,7 +52,9 @@ generated component metadata and composition instead. Set
 metadata the default; use `PRIMER_COMPONENT_DOCS_SOURCE=hosted` to retain the
 hosted default. The per-call `source` input takes precedence over the startup
 default. Package-mode batches return a compact composition-first summary;
-`get_component` remains available when full package documentation is needed.
+observed relationship types are deterministically limited to the three strongest
+records and report omitted counts. `get_component` remains available when full
+package documentation or complete relationship provenance is needed.
 
 ## 🙌 Contributing
 
