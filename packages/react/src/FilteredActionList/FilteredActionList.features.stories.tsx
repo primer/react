@@ -484,7 +484,7 @@ export function CustomItemRendering() {
       <div>Use renderItem to customize how each item is displayed.</div>
       <FilteredActionList
         aria-label="Labels"
-        className={classes.FeatureListContainer}
+        className={classes.FilteredActionListContainer}
         items={visibleItems}
         onFilterChange={setFilter}
         placeholderText="Filter labels"
