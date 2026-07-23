@@ -50,7 +50,9 @@ divided into pages.
 - Activating the selected page or an unavailable previous-page or next-page
   control MUST NOT invoke the change callback.
 - Long page ranges MAY replace omitted page options with truncation indicators.
-- Page-number controls MAY be shown or hidden responsively.
+- Page-number buttons MAY be shown or hidden per viewport width range. When
+  hidden at a given viewport width, only the Previous and Next controls and the
+  record-range summary remain visible.
 
 ## Public API
 

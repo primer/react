@@ -119,6 +119,13 @@ in what context each state is permissible. Describe the conditions that make a
 state valid, note any states that cannot coexist, and clarify whether the
 component or the consumer is responsible for entering and leaving each state.
 
+When a feature includes responsive behavior that changes what content is
+visible, what interactions are available, or what is rendered at different
+viewport or container sizes, document those changes. Describe what appears,
+disappears, or changes form and at which sizes. Do not document presentational
+changes such as padding, spacing, or font size unless they directly affect
+composition or available interactions.
+
 ### Presentation and layout
 
 Do not create features or requirements that merely restate visual props such as

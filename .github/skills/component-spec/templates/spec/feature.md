@@ -23,7 +23,9 @@ Describe behavior the component actively implements or coordinates. Do not
 list unrelated things the component does not do automatically.
 When the feature has user interactions, include keyboard keys that trigger
 each action. When the feature has multiple states, document which states are
-allowed and in what context each state is permissible.
+allowed and in what context each state is permissible. When the feature has
+responsive behavior that changes visible content or available interactions,
+describe what changes and at what viewport or container size.
 -->
 
 ## Public API
