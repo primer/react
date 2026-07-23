@@ -35,16 +35,20 @@ const componentProps = {
 
 figma.connect(Banner, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=34303-2712&m=dev', {
   props: componentProps,
-  example: ({dismissible, variant, icon, secondaryAction, primaryAction, description, title, hideTitle}) => (
-    <Banner
-      hideTitle={hideTitle}
-      title={title}
-      description={description}
-      icon={icon}
-      variant={variant}
-      onDismiss={dismissible}
-      primaryAction={primaryAction}
-      secondaryAction={secondaryAction}
-    />
-  ),
+  example: ({dismissible, variant, icon, secondaryAction, primaryAction, description, title, hideTitle}) => {
+    // icon is only supported for the info and upsell variants
+    const variantAndVisualProps = variant === 'info' || variant === 'upsell' ? {variant, icon} : {variant}
+
+    return (
+      <Banner
+        hideTitle={hideTitle}
+        title={title}
+        description={description}
+        onDismiss={dismissible}
+        primaryAction={primaryAction}
+        secondaryAction={secondaryAction}
+        {...variantAndVisualProps}
+      />
+    )
+  },
 })
