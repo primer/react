@@ -35,6 +35,10 @@ const stories = [
     title: 'With Description',
     id: 'components-navlist-features--with-description',
   },
+  {
+    title: 'Without Divider',
+    id: 'components-navlist-features--without-divider',
+  },
 ]
 
 test.describe('NavList', () => {

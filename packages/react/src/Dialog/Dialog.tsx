@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useRef, useState, type CSSProperties, typ
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
 import {useMergedRefs, useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -400,6 +401,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <DialogContext.Provider value={DIALOG_CONTEXT_VALUE}>
       <Portal>
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div
           ref={backdropRef}
           className={classes.Backdrop}
@@ -452,6 +454,7 @@ Header.displayName = 'Dialog.Header'
 type StyledTitleProps = React.ComponentProps<'h1'>
 
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
+  // eslint-disable-next-line jsx-a11y/heading-has-content
   return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} data-component="Dialog.Title" />
 })
 Title.displayName = 'Dialog.Title'
@@ -463,6 +466,7 @@ const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(funct
   forwardRef,
 ) {
   return (
+    // eslint-disable-next-line jsx-a11y/heading-has-content
     <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} data-component="Dialog.Subtitle" />
   )
 })
@@ -484,18 +488,26 @@ const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Foot
 Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
-  const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+  const providedButtonRef = buttons.find(button => button.autoFocus)?.ref
+  const autoFocusRef = useRef<HTMLButtonElement>(null)
+  const mergedRef = useMergedRefs(autoFocusRef, providedButtonRef)
+  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `autoFocusRef` and `appliedRef` with `mergedRef`.
+  const providedOrCreatedRef = useProvidedRefOrCreate<HTMLButtonElement>(providedButtonRef)
+  const readRef = mergedRefEnabled ? autoFocusRef : providedOrCreatedRef
+  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
     // hack to work around dialogs originating from other focus traps.
     if (hasRendered === 1) {
-      autoFocusRef.current?.focus()
+      readRef.current?.focus()
     } else {
       // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
       setHasRendered(hasRendered + 1)
     }
-  }, [autoFocusRef, hasRendered])
+  }, [readRef, hasRendered])
 
   return (
     <>
@@ -509,7 +521,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
             // @ts-expect-error it needs a non nullable ref
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
+            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, appliedRef) : null}
           >
             {content}
           </Button>
