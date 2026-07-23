@@ -1,7 +1,18 @@
 import {Client} from '@modelcontextprotocol/sdk/client/index.js'
 import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js'
 import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
+import {getComponentDocsSource} from './primer'
 import {server} from './server'
+
+describe('component documentation sources', () => {
+  it('uses hosted documentation by default and supports package metadata', () => {
+    expect(getComponentDocsSource(undefined)).toBe('hosted')
+    expect(getComponentDocsSource('package')).toBe('package')
+    expect(() => getComponentDocsSource('invalid')).toThrow(
+      'PRIMER_COMPONENT_DOCS_SOURCE must be either "hosted" or "package".',
+    )
+  })
+})
 
 describe('get_component_batch', () => {
   const client = new Client({name: 'mcp-server-test', version: '1.0.0'})
@@ -26,10 +37,10 @@ describe('get_component_batch', () => {
     await server.close()
   })
 
-  const callBatch = (names: string[]) => {
+  const callBatch = (names: string[], source?: 'hosted' | 'package') => {
     return client.callTool({
       name: 'get_component_batch',
-      arguments: {names},
+      arguments: {names, source},
     })
   }
 
@@ -101,6 +112,92 @@ describe('get_component_batch', () => {
     ])
   })
 
+  it('returns package metadata and source-derived composition without fetching hosted documentation', async () => {
+    const result = await client.callTool({
+      name: 'get_component',
+      arguments: {name: 'ActionMenu', source: 'package'},
+    })
+
+    expect(fetch).not.toHaveBeenCalled()
+    expect(JSON.parse(getTextContent(result))).toMatchObject({
+      source: 'package',
+      component: {name: 'ActionMenu'},
+      composition: {
+        schemaVersion: 1,
+        apiSubcomponents: expect.arrayContaining([
+          expect.objectContaining({parent: 'ActionMenu', subcomponent: 'ActionMenu.Overlay'}),
+        ]),
+      },
+    })
+  })
+
+  it('returns compact, composition-first package metadata for every batched component', async () => {
+    const result = await callBatch(['NavList', 'SegmentedControl', 'CounterLabel', 'Avatar'], 'package')
+    const contents = getTextContents(result)
+    const payloads = contents.map(content => JSON.parse(content))
+
+    expect(contents.join('\n').length).toBeLessThan(20_000)
+    expect(contents.every(content => content.indexOf('"composition"') < 100)).toBe(true)
+
+    expect(fetch).not.toHaveBeenCalled()
+    expect(payloads.map(payload => payload.component.name)).toEqual([
+      'NavList',
+      'SegmentedControl',
+      'CounterLabel',
+      'Avatar',
+    ])
+    expect(payloads.every(payload => payload.source === 'package' && payload.composition.schemaVersion === 1)).toBe(
+      true,
+    )
+    expect(payloads.every(payload => !('props' in payload.component) && !('stories' in payload.component))).toBe(true)
+    expect(
+      payloads.every(payload => !('derivation' in payload.composition) && !('sourceSummary' in payload.composition)),
+    ).toBe(true)
+    expect(payloads[0].composition.apiSubcomponents).toEqual(
+      expect.arrayContaining([expect.objectContaining({parent: 'NavList', subcomponent: 'NavList.Item'})]),
+    )
+  })
+
+  it('bounds high-connectivity package batches below MCP truncation limits', async () => {
+    const result = await callBatch(['ActionList', 'SegmentedControl'], 'package')
+    const contents = getTextContents(result)
+    const payloads = contents.map(content => JSON.parse(content))
+
+    expect(contents.join('\n').length).toBeLessThan(15_000)
+    expect(payloads.every(payload => payload.composition.observedRelationshipLimit === 3)).toBe(true)
+    expect(
+      payloads.every(payload =>
+        Object.values(payload.composition.observed).every(
+          relationships => Array.isArray(relationships) && relationships.length <= 3,
+        ),
+      ),
+    ).toBe(true)
+    expect(
+      payloads.find(payload => payload.component.name === 'ActionList')?.composition.omittedObservedRelationshipCounts,
+    ).toMatchObject({
+      parentChild: expect.any(Number),
+      adjacentSibling: expect.any(Number),
+      relatedComponents: expect.any(Number),
+    })
+  })
+
+  it('returns filtered package-backed composition metadata', async () => {
+    const result = await client.callTool({
+      name: 'get_component_composition',
+      arguments: {name: 'ActionMenu'},
+    })
+
+    const payload = JSON.parse(getTextContent(result))
+    expect(payload.component).toEqual({
+      id: 'action_menu',
+      name: 'ActionMenu',
+      importPath: '@primer/react',
+    })
+    expect(payload.composition.observed.parentChild).toEqual(
+      expect.arrayContaining([expect.objectContaining({parent: 'ActionMenu.Overlay', child: 'ActionList'})]),
+    )
+  })
+
   it('times out stalled requests without leaving timers active', async () => {
     vi.useFakeTimers()
     const fetchMock = vi.mocked(fetch)
@@ -123,3 +220,28 @@ describe('get_component_batch', () => {
     expect(vi.getTimerCount()).toBe(0)
   })
 })
+
+function getTextContent(result: unknown): string {
+  const [content] = getTextContents(result)
+  if (!content) throw new Error('Expected text tool content')
+
+  return content
+}
+
+function getTextContents(result: unknown): Array<string> {
+  if (typeof result !== 'object' || result === null || !('content' in result) || !Array.isArray(result.content)) {
+    throw new Error('Expected tool content')
+  }
+
+  return result.content
+    .filter(
+      (item): item is {type: 'text'; text: string} =>
+        typeof item === 'object' &&
+        item !== null &&
+        'type' in item &&
+        item.type === 'text' &&
+        'text' in item &&
+        typeof item.text === 'string',
+    )
+    .map(content => content.text)
+}
