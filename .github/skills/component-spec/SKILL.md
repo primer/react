@@ -109,6 +109,16 @@ component does not announce itself or does not reorder children, unless
 consumers might reasonably expect that behavior from the component pattern or
 the distinction is necessary to prevent misuse.
 
+When a feature includes user interactions, document the keyboard keys that
+trigger each action. Focus on keys the component explicitly handles or that
+differ from an element's native defaults; do not repeat standard browser
+defaults for native elements unless the distinction matters for consumers.
+
+When a feature exposes multiple states, document which states are allowed and
+in what context each state is permissible. Describe the conditions that make a
+state valid, note any states that cannot coexist, and clarify whether the
+component or the consumer is responsible for entering and leaving each state.
+
 ### Presentation and layout
 
 Do not create features or requirements that merely restate visual props such as

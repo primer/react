@@ -38,6 +38,8 @@ is being retrieved or could not be retrieved.
 
 ## Behavior
 
+- `Table.Skeleton` SHOULD be rendered only while data is actively being fetched; consumers MUST replace it with `DataTable` once data is available.
+- `Table.ErrorDialog` SHOULD be rendered only when a data fetch or operation fails; consumers MUST remove it once the error is resolved or the user dismisses it.
 - The configured row count MUST determine the number of visual placeholders in
   each skeleton column; it MUST NOT create that number of semantic table rows.
 - Retrying an error MUST invoke the retry handler. Dismissing an error MUST
@@ -55,3 +57,5 @@ is being retrieved or could not be retrieved.
 - Loading animation MUST respect the user's reduced-motion preference.
 - An error dialog MUST preserve the keyboard and focus behavior of the dialog
   primitive.
+- When an error dialog opens, focus MUST move to the dialog. When the dialog is
+  dismissed, focus MUST return to a logical element in the page.

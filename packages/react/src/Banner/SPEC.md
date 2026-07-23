@@ -60,6 +60,11 @@ Variants communicate the type of message and provide a corresponding visual trea
 #### Variants and leading visuals behavior
 
 - Banner MUST support critical, info, success, upsell, and warning variants.
+- The `critical` variant SHOULD be used when a user-blocking error or destructive condition requires immediate attention.
+- The `info` variant SHOULD be used for neutral or informational messages that do not require an immediate action.
+- The `success` variant SHOULD be used to confirm that an action has completed successfully.
+- The `warning` variant SHOULD be used to surface a potential issue or condition that may require attention but is not yet an error.
+- The `upsell` variant SHOULD be used for promotional content, feature suggestions, or upgrade prompts.
 - Each variant MUST render a leading visual that distinguishes it without relying on color alone.
 - Consumers MUST NOT be able to remove the leading visual.
 - Custom leading visuals MUST be supported only for info and upsell variants.
@@ -118,6 +123,10 @@ A Banner may provide a dismiss control when the message can be safely removed.
 - Activating the dismiss button MUST invoke `onDismiss` once for each activation.
 - Banner MUST NOT remove itself after dismissal. Consumers are responsible for updating visibility in response to `onDismiss`.
 - Banner MUST NOT move focus after dismissal. Consumers are responsible for restoring focus when removing the Banner would otherwise cause focus loss.
+
+#### Dismissal accessibility
+
+- The dismiss button MUST be reachable by keyboard focus and MUST be activated by Space or Enter.
 
 ### Layout
 

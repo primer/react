@@ -21,6 +21,9 @@ incidental wrappers, CSS classes, or unstable internal structure.
 <!--
 Describe behavior the component actively implements or coordinates. Do not
 list unrelated things the component does not do automatically.
+When the feature has user interactions, include keyboard keys that trigger
+each action. When the feature has multiple states, document which states are
+allowed and in what context each state is permissible.
 -->
 
 ## Public API
