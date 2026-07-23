@@ -51,7 +51,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
-        run: npx turbo run build:storybook
+        run: npx turbo run build:storybook --filter=@primer/react --filter=@primer/styled-react -- --test
       - name: Run storybook
         id: storybook
         run: |
