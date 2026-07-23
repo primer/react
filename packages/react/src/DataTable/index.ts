@@ -52,7 +52,7 @@ const Table: typeof TableImpl &
 })
 
 export {DataTable, Table}
-export type {DataTableProps} from './DataTable'
+export type {DataTableProps, IntegratedPaginationOptions} from './DataTable'
 export type {
   TableProps,
   TableHeadProps,
