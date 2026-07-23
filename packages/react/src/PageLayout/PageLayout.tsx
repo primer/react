@@ -7,7 +7,7 @@ import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {useSlots} from '../hooks/useSlots'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
-import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
+import {getResponsiveAttributes} from '../utils/getResponsiveAttributes'
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'

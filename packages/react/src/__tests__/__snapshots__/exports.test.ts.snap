@@ -334,6 +334,7 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "FilteredActionListLoadingTypes",
   "type FilteredActionListProps",
   "getAccessibleKeybindingHintString",
+  "getResponsiveAttributes",
   "Hidden",
   "type HiddenProps",
   "InlineMessage",
