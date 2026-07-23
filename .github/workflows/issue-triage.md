@@ -19,25 +19,25 @@ network: defaults
 
 safe-outputs:
   set-issue-type:
-    allowed: ["Bug", "Feature", "Task"]
+    allowed: ['Bug', 'Feature', 'Task']
     max: 1
     issue-intent: true
   add-labels:
     max: 5
     issue-intent: true
     blocked:
-      - "*[bot]"
-      - "~*"
-      - "Stale"
-      - "update snapshots"
-      - "do not merge"
-      - "skip changeset"
-      - "ds-reviewed"
-      - "fr-skip"
-      - "deployment"
-      - "patch release"
-      - "minor release"
-      - "major release"
+      - '*[bot]'
+      - '~*'
+      - 'Stale'
+      - 'update snapshots'
+      - 'do not merge'
+      - 'skip changeset'
+      - 'ds-reviewed'
+      - 'fr-skip'
+      - 'deployment'
+      - 'patch release'
+      - 'minor release'
+      - 'major release'
   add-comment:
     max: 1
 
