@@ -1,9 +1,17 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
 import {Popover} from './Popover'
 
-export default {component: Popover, title: 'Components/Popover'}
+const meta = {
+  title: 'React Tailwind/Components/Popover',
+  component: Popover,
+} satisfies Meta<typeof Popover>
 
-export const Default = {
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   render: () => (
     <Popover>
       <Popover.Button>Open popover</Popover.Button>
@@ -11,7 +19,7 @@ export const Default = {
     </Popover>
   ),
 }
-export const Playground = {
+export const Playground: Story = {
   render: () => (
     <Popover modal>
       <Popover.Trigger render={<Button>Open modal popover</Button>} />
@@ -21,7 +29,7 @@ export const Playground = {
     </Popover>
   ),
 }
-export const WithArrow = {
+export const WithArrow: Story = {
   render: () => (
     <Popover>
       <Popover.Button>More</Popover.Button>

@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {PageHeader} from './PageHeader'
 
 const meta = {
-  title: 'Layout/PageHeader',
+  title: 'React Tailwind/Layout/PageHeader',
   component: PageHeader,
   render: args => (
     <PageHeader {...args}>
@@ -13,9 +13,11 @@ const meta = {
   ),
 } satisfies Meta<typeof PageHeader>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {hasBorder: true}}
-export const WithNavigation: StoryObj<typeof meta> = {
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {hasBorder: true}}
+export const WithNavigation: Story = {
   render: () => (
     <PageHeader>
       <PageHeader.TitleArea>

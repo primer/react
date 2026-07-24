@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Card, CardDescription, CardHeading} from './Card'
 const meta = {
-  title: 'Content/Card',
+  title: 'React Tailwind/Content/Card',
   component: Card,
   render: args => (
     <Card {...args}>
@@ -11,5 +11,7 @@ const meta = {
   ),
 } satisfies Meta<typeof Card>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {as: 'section', layout: 'compact', padding: 'condensed'}}
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {as: 'section', layout: 'compact', padding: 'condensed'}}

@@ -1,7 +1,15 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
 import {Dialog} from './Dialog'
 
-export default {component: Dialog, title: 'Components/Dialog'}
+const meta = {
+  title: 'React Tailwind/Components/Dialog',
+  component: Dialog,
+} satisfies Meta<typeof Dialog>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
 
 const content = (
   <>
@@ -18,7 +26,7 @@ const content = (
   </>
 )
 
-export const Default = {
+export const Default: Story = {
   render: () => (
     <Dialog>
       <Dialog.Trigger>Open dialog</Dialog.Trigger>
@@ -26,7 +34,7 @@ export const Default = {
     </Dialog>
   ),
 }
-export const Playground = {
+export const Playground: Story = {
   render: () => (
     <Dialog modal="trap-focus">
       <Dialog.Trigger>Open dialog</Dialog.Trigger>
@@ -34,7 +42,7 @@ export const Playground = {
     </Dialog>
   ),
 }
-export const NonModal = {
+export const NonModal: Story = {
   render: () => (
     <Dialog modal={false}>
       <Dialog.Trigger>Open non-modal dialog</Dialog.Trigger>

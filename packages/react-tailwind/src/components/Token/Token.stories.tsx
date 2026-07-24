@@ -1,6 +1,10 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Token} from './Token'
-const meta = {title: 'Content/Token', component: Token, args: {text: 'design'}} satisfies Meta<typeof Token>
+const meta = {title: 'React Tailwind/Content/Token', component: Token, args: {text: 'design'}} satisfies Meta<
+  typeof Token
+>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {size: 'large', isSelected: true, onRemove: () => {}}}
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {size: 'large', isSelected: true, onRemove: () => {}}}

@@ -1,6 +1,12 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Flash} from './Flash'
-const meta = {title: 'Content/Flash', component: Flash, args: {children: 'Changes saved.'}} satisfies Meta<typeof Flash>
+const meta = {
+  title: 'React Tailwind/Content/Flash',
+  component: Flash,
+  args: {children: 'Changes saved.'},
+} satisfies Meta<typeof Flash>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {variant: 'warning', full: true}}
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {variant: 'warning', full: true}}

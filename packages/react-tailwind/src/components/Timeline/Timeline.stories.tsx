@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Timeline} from './Timeline'
 
 const meta = {
-  title: 'Layout/Timeline',
+  title: 'React Tailwind/Layout/Timeline',
   component: Timeline,
   render: args => (
     <Timeline {...args}>
@@ -14,9 +14,11 @@ const meta = {
   ),
 } satisfies Meta<typeof Timeline>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {clipSidebar: 'both'}}
-export const WithActions: StoryObj<typeof meta> = {
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {clipSidebar: 'both'}}
+export const WithActions: Story = {
   render: () => (
     <Timeline>
       <Timeline.Item>

@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {IconButton} from './IconButton'
 
 const meta = {
-  title: 'Components/React Tailwind/IconButton',
+  title: 'React Tailwind/Components/IconButton',
   component: IconButton,
   args: {
     'aria-label': 'Add item',

@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {LinkButton} from './LinkButton'
 
 const meta = {
-  title: 'Components/React Tailwind/LinkButton',
+  title: 'React Tailwind/Components/LinkButton',
   component: LinkButton,
   args: {
     children: 'View settings',

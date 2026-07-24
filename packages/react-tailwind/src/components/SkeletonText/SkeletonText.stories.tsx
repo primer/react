@@ -1,5 +1,13 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {SkeletonText} from './SkeletonText'
 
-export default {title: 'Display/SkeletonText', component: SkeletonText}
-export const Default = {args: {}}
-export const Playground = {args: {lines: 3, size: 'titleMedium', maxWidth: 320}}
+const meta = {
+  title: 'React Tailwind/Display/SkeletonText',
+  component: SkeletonText,
+} satisfies Meta<typeof SkeletonText>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {args: {}}
+export const Playground: Story = {args: {lines: 3, size: 'titleMedium', maxWidth: 320}}

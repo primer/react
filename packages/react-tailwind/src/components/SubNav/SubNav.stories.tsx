@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {SubNav} from './SubNav'
 
 const meta = {
-  title: 'Navigation/SubNav',
+  title: 'React Tailwind/Navigation/SubNav',
   component: SubNav,
   render: args => (
     <SubNav {...args} label="Repository">
@@ -16,6 +16,8 @@ const meta = {
   ),
 } satisfies Meta<typeof SubNav>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {actions: <button type="button">New issue</button>}}
-export const WithActions: StoryObj<typeof meta> = {args: {actions: <button type="button">New issue</button>}}
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {actions: <button type="button">New issue</button>}}
+export const WithActions: Story = {args: {actions: <button type="button">New issue</button>}}

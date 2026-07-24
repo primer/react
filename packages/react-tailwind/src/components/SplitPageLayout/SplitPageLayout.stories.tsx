@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {SplitPageLayout} from './SplitPageLayout'
 
 const meta = {
-  title: 'Layout/SplitPageLayout',
+  title: 'React Tailwind/Layout/SplitPageLayout',
   component: SplitPageLayout,
   render: args => (
     <SplitPageLayout {...args}>
@@ -12,9 +12,11 @@ const meta = {
   ),
 } satisfies Meta<typeof SplitPageLayout>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {}
-export const WithSidebar: StoryObj<typeof meta> = {
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {}
+export const WithSidebar: Story = {
   render: () => (
     <SplitPageLayout>
       <SplitPageLayout.Sidebar>Sidebar</SplitPageLayout.Sidebar>

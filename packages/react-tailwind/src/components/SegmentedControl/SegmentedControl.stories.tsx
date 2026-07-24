@@ -1,6 +1,14 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {SegmentedControl} from './SegmentedControl'
-export default {title: 'Forms/SegmentedControl', component: SegmentedControl}
-export const Default = {
+const meta = {
+  title: 'React Tailwind/Forms/SegmentedControl',
+  component: SegmentedControl,
+} satisfies Meta<typeof SegmentedControl>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
   render: () => (
     <SegmentedControl defaultValue={['list']}>
       <SegmentedControl.Button value="list">List</SegmentedControl.Button>
@@ -8,4 +16,4 @@ export const Default = {
     </SegmentedControl>
   ),
 }
-export const Playground = {args: {disabled: false}}
+export const Playground: Story = {args: {disabled: false}}

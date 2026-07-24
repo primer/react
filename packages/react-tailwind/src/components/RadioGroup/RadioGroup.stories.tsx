@@ -1,7 +1,15 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Radio} from '../Radio'
 import {RadioGroup} from './RadioGroup'
-export default {title: 'Forms/RadioGroup', component: RadioGroup}
-export const Default = {
+const meta = {
+  title: 'React Tailwind/Forms/RadioGroup',
+  component: RadioGroup,
+} satisfies Meta<typeof RadioGroup>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
   render: () => (
     <RadioGroup name="view">
       <span>
@@ -15,4 +23,4 @@ export const Default = {
     </RadioGroup>
   ),
 }
-export const Playground = {args: {name: 'view', defaultValue: 'list'}}
+export const Playground: Story = {args: {name: 'view', defaultValue: 'list'}}

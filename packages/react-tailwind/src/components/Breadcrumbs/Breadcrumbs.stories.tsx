@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Breadcrumbs} from './Breadcrumbs'
 
 const meta = {
-  title: 'Navigation/Breadcrumbs',
+  title: 'React Tailwind/Navigation/Breadcrumbs',
   component: Breadcrumbs,
   render: args => (
     <Breadcrumbs {...args}>
@@ -15,6 +15,8 @@ const meta = {
   ),
 } satisfies Meta<typeof Breadcrumbs>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {variant: 'spacious'}}
-export const OverflowMenu: StoryObj<typeof meta> = {args: {overflow: 'menu'}}
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {variant: 'spacious'}}
+export const OverflowMenu: Story = {args: {overflow: 'menu'}}

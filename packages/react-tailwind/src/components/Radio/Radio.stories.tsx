@@ -1,6 +1,17 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Radio} from './Radio'
-export default {title: 'Forms/Radio', component: Radio}
-export const Default = {
+const meta = {
+  title: 'React Tailwind/Forms/Radio',
+  component: Radio,
+  args: {
+    value: 'one',
+  },
+} satisfies Meta<typeof Radio>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
   render: () => (
     <span className="flex gap-2">
       <Radio id="one" value="one" />
@@ -8,4 +19,4 @@ export const Default = {
     </span>
   ),
 }
-export const Playground = {args: {value: 'one', disabled: false}}
+export const Playground: Story = {args: {value: 'one', disabled: false}}

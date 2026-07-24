@@ -1,9 +1,21 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
 import {ConfirmationDialog} from './ConfirmationDialog'
 
-export default {component: ConfirmationDialog, title: 'Components/ConfirmationDialog'}
+const meta = {
+  title: 'React Tailwind/Components/ConfirmationDialog',
+  component: ConfirmationDialog,
+  args: {
+    title: 'Discard changes?',
+    trigger: <Button>Discard</Button>,
+  },
+} satisfies Meta<typeof ConfirmationDialog>
 
-export const Default = {
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   render: () => (
     <ConfirmationDialog
       title="Discard changes?"
@@ -12,7 +24,7 @@ export const Default = {
     />
   ),
 }
-export const Playground = {
+export const Playground: Story = {
   render: () => (
     <ConfirmationDialog
       dangerous
@@ -22,6 +34,6 @@ export const Playground = {
     />
   ),
 }
-export const LoadingConfirmation = {
+export const LoadingConfirmation: Story = {
   render: () => <ConfirmationDialog confirmButtonLoading title="Continue?" trigger={<Button>Continue</Button>} />,
 }

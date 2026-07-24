@@ -1,7 +1,15 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Checkbox} from '../Checkbox'
 import {CheckboxGroup} from './CheckboxGroup'
-export default {title: 'Forms/CheckboxGroup', component: CheckboxGroup}
-export const Default = {
+const meta = {
+  title: 'React Tailwind/Forms/CheckboxGroup',
+  component: CheckboxGroup,
+} satisfies Meta<typeof CheckboxGroup>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
   render: () => (
     <CheckboxGroup>
       <span>
@@ -15,7 +23,7 @@ export const Default = {
     </CheckboxGroup>
   ),
 }
-export const Playground = {
+export const Playground: Story = {
   args: {defaultValue: ['one'], disabled: false},
   render: (args: React.ComponentProps<typeof CheckboxGroup>) => (
     <CheckboxGroup {...args}>

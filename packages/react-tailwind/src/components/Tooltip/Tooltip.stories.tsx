@@ -1,9 +1,17 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
 import {Tooltip} from './Tooltip'
 
-export default {component: Tooltip, title: 'Components/Tooltip'}
+const meta = {
+  title: 'React Tailwind/Components/Tooltip',
+  component: Tooltip,
+} satisfies Meta<typeof Tooltip>
 
-export const Default = {
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   render: () => (
     <Tooltip>
       <Tooltip.Trigger render={<Button>Save</Button>} />
@@ -11,7 +19,7 @@ export const Default = {
     </Tooltip>
   ),
 }
-export const Playground = {
+export const Playground: Story = {
   render: () => (
     <Tooltip disableHoverablePopup>
       <Tooltip.Trigger>Info</Tooltip.Trigger>
@@ -19,7 +27,7 @@ export const Playground = {
     </Tooltip>
   ),
 }
-export const WithArrow = {
+export const WithArrow: Story = {
   render: () => (
     <Tooltip>
       <Tooltip.Trigger>More</Tooltip.Trigger>

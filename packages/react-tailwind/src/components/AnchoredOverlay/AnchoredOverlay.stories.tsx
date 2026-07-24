@@ -1,8 +1,16 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {AnchoredOverlay} from './AnchoredOverlay'
 
-export default {component: AnchoredOverlay, title: 'Components/AnchoredOverlay'}
+const meta = {
+  title: 'React Tailwind/Components/AnchoredOverlay',
+  component: AnchoredOverlay,
+} satisfies Meta<typeof AnchoredOverlay>
 
-export const Default = {
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
   render: () => (
     <AnchoredOverlay>
       <AnchoredOverlay.Trigger>Open overlay</AnchoredOverlay.Trigger>
@@ -10,7 +18,7 @@ export const Default = {
     </AnchoredOverlay>
   ),
 }
-export const Playground = {
+export const Playground: Story = {
   render: () => (
     <AnchoredOverlay modal="trap-focus">
       <AnchoredOverlay.Trigger>Open</AnchoredOverlay.Trigger>
@@ -20,7 +28,7 @@ export const Playground = {
     </AnchoredOverlay>
   ),
 }
-export const WithArrow = {
+export const WithArrow: Story = {
   render: () => (
     <AnchoredOverlay>
       <AnchoredOverlay.Trigger>More</AnchoredOverlay.Trigger>

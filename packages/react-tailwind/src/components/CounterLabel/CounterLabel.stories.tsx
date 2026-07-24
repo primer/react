@@ -1,5 +1,13 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {CounterLabel} from './CounterLabel'
 
-export default {title: 'Display/CounterLabel', component: CounterLabel}
-export const Default = {args: {children: 12}}
-export const Playground = {args: {children: 99, variant: 'primary'}}
+const meta = {
+  title: 'React Tailwind/Display/CounterLabel',
+  component: CounterLabel,
+} satisfies Meta<typeof CounterLabel>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {args: {children: 12}}
+export const Playground: Story = {args: {children: 99, variant: 'primary'}}

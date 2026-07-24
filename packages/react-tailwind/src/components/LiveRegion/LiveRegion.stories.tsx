@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {Announce} from './LiveRegion'
 
 const meta = {
-  title: 'Components/LiveRegion',
+  title: 'React Tailwind/Components/LiveRegion',
   component: Announce,
 } satisfies Meta<typeof Announce>
 

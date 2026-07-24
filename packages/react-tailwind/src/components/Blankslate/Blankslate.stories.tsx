@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Blankslate, BlankslateDescription, BlankslateHeading} from './Blankslate'
 const meta = {
-  title: 'Content/Blankslate',
+  title: 'React Tailwind/Content/Blankslate',
   component: Blankslate,
   render: args => (
     <Blankslate {...args}>
@@ -11,5 +11,7 @@ const meta = {
   ),
 } satisfies Meta<typeof Blankslate>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {border: true, spacious: true}}
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {border: true, spacious: true}}

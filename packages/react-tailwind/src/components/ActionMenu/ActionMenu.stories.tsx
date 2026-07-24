@@ -1,7 +1,15 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {ActionMenu} from './ActionMenu'
 
-export default {component: ActionMenu, title: 'Components/ActionMenu'}
-export const Default = {
+const meta = {
+  title: 'React Tailwind/Components/ActionMenu',
+  component: ActionMenu,
+} satisfies Meta<typeof ActionMenu>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
   render: () => (
     <ActionMenu>
       <ActionMenu.Button>Actions</ActionMenu.Button>
@@ -12,7 +20,7 @@ export const Default = {
     </ActionMenu>
   ),
 }
-export const Playground = {
+export const Playground: Story = {
   render: () => (
     <ActionMenu>
       <ActionMenu.Button>Labels</ActionMenu.Button>

@@ -1,13 +1,16 @@
-import React, {useEffect} from 'react'
+import React, {Profiler, useEffect} from 'react'
 import {ThemeProvider} from '../src/ThemeProvider'
 import BaseStyles from '../src/BaseStyles'
 import {FeatureFlags} from '../src/FeatureFlags'
 import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
 import {clsx} from 'clsx'
+import {BaseStyles as TailwindBaseStyles} from '../../react-tailwind/src/BaseStyles'
+import {ThemeProvider as TailwindThemeProvider} from '../../react-tailwind/src/ThemeProvider'
 
 import './storybook.css'
 import './primitives-v8.css'
-import {Profiler} from 'react'
+import '@primer/react-tailwind/base.css'
+import '@primer/react-tailwind/styles.css'
 
 // TODO: Update the hard-coded values when the primitives are ready
 const breakpoints = ['544px', '768px', '1012px', '1280px']
@@ -20,8 +23,8 @@ export const PrimerBreakpoints = {
   xxlarge: {width: '1400px'},
 }
 
-let storybookViewports = {}
-Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
+const storybookViewports = {}
+for (const [viewport, value] of Object.entries(PrimerBreakpoints)) {
   const {width} = value
   storybookViewports[viewport] = {
     name: viewport,
@@ -30,7 +33,7 @@ Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
       height: '100%',
     },
   }
-})
+}
 
 const preview = {
   parameters: {
@@ -285,16 +288,52 @@ export const decorators = [
     }, [colorScheme])
 
     // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link dev Inline Story.
-    let wrapperProps =
+    const wrapperProps =
       context.id !== 'components-link-dev--inline' ||
       context.id !== 'components-button-dev--link-variant-with-underline-preference'
         ? {
             'data-a11y-link-underlines': true,
-            className: clsx('story-wrap'),
+            className: 'story-wrap',
           }
-        : {className: clsx('story-wrap')}
+        : {className: 'story-wrap'}
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
+    const isTailwindStory = context.title.startsWith('React Tailwind/')
+    if (isTailwindStory) {
+      return context.globals.colorScheme === 'all' ? (
+        primerThemes.map(({value: theme}) => (
+          <TailwindThemeProvider key={theme} dayScheme={theme} nightScheme={theme} colorMode="day">
+            <div
+              id="story"
+              className="story-wrap-grid story-wrap"
+              data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
+              data-light-theme={theme.startsWith('light') ? theme : undefined}
+              data-dark-theme={theme.startsWith('dark') ? theme : undefined}
+            >
+              <TailwindBaseStyles>
+                <Story {...context} />
+                <p className="theme-name">{theme}</p>
+              </TailwindBaseStyles>
+            </div>
+          </TailwindThemeProvider>
+        ))
+      ) : (
+        <TailwindThemeProvider
+          dayScheme={context.globals.colorScheme}
+          nightScheme={context.globals.colorScheme}
+          colorMode="day"
+        >
+          <div {...wrapperProps}>
+            <TailwindBaseStyles>
+              {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+              <Story {...context} />
+              {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+            </TailwindBaseStyles>
+          </div>
+        </TailwindThemeProvider>
+      )
+    }
+
     return context.globals.colorScheme === 'all' ? (
       primerThemes.map(({value: theme}) => (
         <ThemeProvider key={theme} dayScheme={theme} nightScheme={theme} colorMode="day">
@@ -333,6 +372,10 @@ export const decorators = [
     )
   },
   (Story, context) => {
+    if (context.title.startsWith('React Tailwind/')) {
+      return <Story {...context} />
+    }
+
     const {featureFlags} = context.globals
     return (
       <FeatureFlags flags={featureFlags}>

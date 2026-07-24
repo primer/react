@@ -1,5 +1,13 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Select} from './Select'
-export default {title: 'Forms/Select', component: Select}
+const meta = {
+  title: 'React Tailwind/Forms/Select',
+  component: Select,
+} satisfies Meta<typeof Select>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
 const Example = () => (
   <Select>
     <Select.Trigger>
@@ -17,5 +25,5 @@ const Example = () => (
     </Select.Portal>
   </Select>
 )
-export const Default = {render: () => <Example />}
-export const Playground = {render: () => <Example />}
+export const Default: Story = {render: () => <Example />}
+export const Playground: Story = {render: () => <Example />}

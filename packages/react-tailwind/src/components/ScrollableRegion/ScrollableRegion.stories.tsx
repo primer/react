@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {ScrollableRegion} from './ScrollableRegion'
 
 const meta = {
-  title: 'Components/ScrollableRegion',
+  title: 'React Tailwind/Components/ScrollableRegion',
   component: ScrollableRegion,
 } satisfies Meta<typeof ScrollableRegion>
 

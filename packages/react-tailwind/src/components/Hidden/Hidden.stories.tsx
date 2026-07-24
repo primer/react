@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Hidden} from './Hidden'
 
 const meta = {
-  title: 'Components/Hidden',
+  title: 'React Tailwind/Components/Hidden',
   component: Hidden,
 } satisfies Meta<typeof Hidden>
 

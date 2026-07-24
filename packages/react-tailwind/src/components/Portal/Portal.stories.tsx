@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Portal} from './Portal'
 
 const meta = {
-  title: 'Components/Portal',
+  title: 'React Tailwind/Components/Portal',
   component: Portal,
 } satisfies Meta<typeof Portal>
 

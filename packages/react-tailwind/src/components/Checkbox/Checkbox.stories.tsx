@@ -1,6 +1,14 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Checkbox} from './Checkbox'
-export default {title: 'Forms/Checkbox', component: Checkbox}
-export const Default = {
+const meta = {
+  title: 'React Tailwind/Forms/Checkbox',
+  component: Checkbox,
+} satisfies Meta<typeof Checkbox>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
   render: () => (
     <span className="flex gap-2">
       <Checkbox id="receive-updates" />
@@ -8,4 +16,4 @@ export const Default = {
     </span>
   ),
 }
-export const Playground = {args: {defaultChecked: true, disabled: false}}
+export const Playground: Story = {args: {defaultChecked: true, disabled: false}}

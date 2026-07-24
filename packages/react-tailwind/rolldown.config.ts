@@ -1,3 +1,5 @@
+import {existsSync, readdirSync} from 'node:fs'
+import path from 'node:path'
 import babel from '@rolldown/plugin-babel'
 import {defineConfig} from 'rolldown'
 import {dts} from 'rolldown-plugin-dts'
@@ -17,8 +19,16 @@ const external = [
   ...Object.keys(packageMetadata.devDependencies ?? {}),
 ].map(name => new RegExp(`^${name}(/.*)?`))
 
+const componentsDirectory = path.resolve(import.meta.dirname, 'src/components')
+const componentEntries = Object.fromEntries(
+  readdirSync(componentsDirectory, {withFileTypes: true})
+    .filter(entry => entry.isDirectory() && existsSync(path.join(componentsDirectory, entry.name, 'index.ts')))
+    .map(entry => [`components/${entry.name}/index`, `src/components/${entry.name}/index.ts`]),
+)
+
 const input = {
   index: 'src/index.ts',
+  ...componentEntries,
 }
 
 export default defineConfig([

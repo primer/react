@@ -1,6 +1,14 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Details} from './Details'
-export default {title: 'Forms/Details', component: Details}
-export const Default = {
+const meta = {
+  title: 'React Tailwind/Forms/Details',
+  component: Details,
+} satisfies Meta<typeof Details>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
   render: () => (
     <Details>
       <Details.Summary>More options</Details.Summary>
@@ -8,7 +16,7 @@ export const Default = {
     </Details>
   ),
 }
-export const Playground = {
+export const Playground: Story = {
   args: {open: false},
   render: (args: React.ComponentProps<typeof Details>) => (
     <Details {...args}>

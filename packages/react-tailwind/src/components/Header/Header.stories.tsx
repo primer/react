@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Header} from './Header'
 
 const meta = {
-  title: 'Layout/Header',
+  title: 'React Tailwind/Layout/Header',
   component: Header,
   render: args => (
     <Header {...args}>
@@ -13,6 +13,8 @@ const meta = {
   ),
 } satisfies Meta<typeof Header>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {as: 'div'}}
-export const Items: StoryObj<typeof meta> = {}
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {as: 'div'}}
+export const Items: Story = {}

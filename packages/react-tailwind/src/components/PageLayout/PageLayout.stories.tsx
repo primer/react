@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 
 const meta = {
-  title: 'Layout/PageLayout',
+  title: 'React Tailwind/Layout/PageLayout',
   component: PageLayout,
   render: args => (
     <PageLayout {...args}>
@@ -13,9 +13,11 @@ const meta = {
   ),
 } satisfies Meta<typeof PageLayout>
 export default meta
-export const Default: StoryObj<typeof meta> = {}
-export const Playground: StoryObj<typeof meta> = {args: {containerWidth: 'large', padding: 'condensed'}}
-export const ResizablePane: StoryObj<typeof meta> = {
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Playground: Story = {args: {containerWidth: 'large', padding: 'condensed'}}
+export const ResizablePane: Story = {
   render: () => (
     <PageLayout>
       <PageLayout.Pane resizable>Files</PageLayout.Pane>

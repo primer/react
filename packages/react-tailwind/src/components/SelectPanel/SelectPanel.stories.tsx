@@ -1,13 +1,21 @@
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
 
-export default {component: SelectPanel, title: 'Components/SelectPanel'}
+const meta = {
+  title: 'React Tailwind/Components/SelectPanel',
+  component: SelectPanel,
+} satisfies Meta<typeof SelectPanel>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
 const items = [
   {id: 'mona', text: 'Mona'},
   {id: 'hubot', text: 'Hubot'},
 ]
 
-export const Default = {
+export const Default: Story = {
   args: {items, onSelectedChange: () => {}, selected: undefined},
   render: () => {
     const [selected, setSelected] = React.useState<(typeof items)[number]>()
@@ -21,7 +29,7 @@ export const Default = {
     )
   },
 }
-export const Playground = {
+export const Playground: Story = {
   args: {items, onSelectedChange: () => {}, selected: []},
   render: () => {
     const [selected, setSelected] = React.useState<typeof items>([])
