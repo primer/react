@@ -56,6 +56,23 @@ observed relationship types are deterministically limited to the three strongest
 records and report omitted counts. `get_component` remains available when full
 package documentation or complete relationship provenance is needed.
 
+## Pattern guidance
+
+`get_pattern` returns compact structured guidance by default. Its component and
+related-pattern references are parsed from the authoritative Primer Style page
+at request time: `/product/components/` links are reported as
+`primer-public`, and `/product/internal-components/` links are reported as
+`primer-internal`. This avoids a separate mapping catalog and keeps the result
+current as the hosted page changes.
+
+Pass `detail: "full"` to receive the complete Primer Style guidance when
+compact implementation, accessibility, and state guidance is insufficient. Full
+guidance uses the pattern's text-only `llms.txt` endpoint. Until a hosted
+pattern page has that endpoint, the server falls back to the existing HTML
+conversion. The compact parser intentionally fails when it cannot identify the
+page's guidance body, rather than returning navigation content as pattern
+guidance.
+
 ## 🙌 Contributing
 
 We love collaborating with folks inside and outside of GitHub and welcome contributions! If you're interested, check out our [contributing docs](contributor-docs/CONTRIBUTING.md) for more info on how to get started.

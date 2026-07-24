@@ -203,7 +203,7 @@ function includesComponent(relation: ComponentRelationship, componentName: strin
   })
 }
 
-type Pattern = {
+export interface Pattern {
   id: string
   name: string
   // 'scenario' maps to the /product/scenario-patterns/ base path, 'ui' to /product/ui-patterns/
