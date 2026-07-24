@@ -320,6 +320,34 @@ describe('UnderlinePanels', () => {
         expect(onChange).toHaveBeenCalledTimes(1)
         expect(onChange).toHaveBeenCalledWith({value: 'tag'})
       })
+
+      it('commits selection with Enter when uncontrolled (defaultValue)', async () => {
+        const user = userEvent.setup()
+        const onChange = vi.fn()
+        render(<RefTabs defaultValue="branch" activationMode="manual" onChange={onChange} />)
+
+        const branch = screen.getByRole('tab', {name: 'Branches'})
+        const tag = screen.getByRole('tab', {name: 'Tags'})
+
+        await act(async () => {
+          branch.focus()
+          await user.keyboard('{ArrowRight}')
+        })
+
+        // Focus moved but selection has not committed yet.
+        expect(tag).toHaveFocus()
+        expect(branch).toHaveAttribute('aria-selected', 'true')
+        expect(onChange).not.toHaveBeenCalled()
+
+        await act(async () => {
+          await user.keyboard('{Enter}')
+        })
+
+        // Uncontrolled selection updates internally on commit.
+        expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+        expect(tag).toHaveAttribute('aria-selected', 'true')
+        expect(screen.getByText('Tag panel')).toBeVisible()
+      })
     })
 
     it('fires onChange on arrow keys even without explicit values (positional back-compat)', async () => {
