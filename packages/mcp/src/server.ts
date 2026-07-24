@@ -106,7 +106,7 @@ server.registerTool(
 
 ${components.join('\n')}
 
-You can use the \`get_component\` tool to get more information about a specific component. You can use these components from the @primer/react package.`,
+Use \`get_component\` for exactly one component and \`get_component_batch\` for 2 to 10 components. You can use these components from the @primer/react package.`,
         },
       ],
     }
@@ -117,7 +117,7 @@ server.registerTool(
   'get_component',
   {
     description:
-      'Retrieve documentation and usage details for a specific React component from the @primer/react package by its name. This tool provides the official Primer documentation for any listed component, making it easy to inspect, reuse, or integrate components in your project.',
+      'Retrieve official documentation and usage details for exactly one React component from the @primer/react package. Use get_component_batch for 2 to 10 components.',
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
@@ -165,9 +165,7 @@ server.registerTool(
   'get_component_batch',
   {
     description:
-      'Retrieve documentation for multiple Primer React components in one call. ' +
-      'Pass all component names you need at once. Docs are fetched in parallel to avoid repeated MCP round-trips when resolving several components. ' +
-      'For a single component, prefer get_component instead.',
+      'Retrieve official documentation and usage details for 2 to 10 React components from the @primer/react package in one call. Use get_component for exactly one component.',
     inputSchema: {
       names: z
         .array(z.string())
