@@ -1,0 +1,66 @@
+'use client'
+
+import React from 'react'
+import {createPortal} from 'react-dom'
+
+type PortalContainer = HTMLElement | ShadowRoot
+type PortalContainerRef = React.RefObject<PortalContainer | null>
+
+export interface PortalProps extends React.ComponentPropsWithoutRef<'div'> {
+  container?: PortalContainer | PortalContainerRef | null
+  onMount?: () => void
+}
+
+function resolveContainer(container: PortalProps['container']): PortalContainer | null {
+  if (container === null) {
+    return null
+  }
+
+  if (container !== undefined && 'current' in container) {
+    return container.current
+  }
+
+  return container ?? document.body
+}
+
+export const Portal = React.forwardRef<HTMLDivElement, PortalProps>(function Portal(
+  {children, container, onMount, ...rest},
+  ref,
+) {
+  const [target, setTarget] = React.useState<PortalContainer | null>(null)
+  const onMountRef = React.useRef(onMount)
+
+  React.useEffect(() => {
+    onMountRef.current = onMount
+  }, [onMount])
+
+  React.useEffect(() => {
+    setTarget(resolveContainer(container))
+  }, [container])
+
+  const portalRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      if (typeof ref === 'function') {
+        ref(node)
+      } else if (ref !== null) {
+        ;(ref as React.MutableRefObject<HTMLDivElement | null>).current = node
+      }
+
+      if (node !== null) {
+        onMountRef.current?.()
+      }
+    },
+    [ref],
+  )
+
+  if (target === null) {
+    return null
+  }
+
+  return createPortal(
+    <div {...rest} ref={portalRef} data-component="Portal">
+      {children}
+    </div>,
+    target,
+  )
+})

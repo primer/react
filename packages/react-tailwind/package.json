@@ -17,6 +17,10 @@
     "./tailwind.css": "./dist/tailwind.css",
     "./base.css": "./dist/base.css",
     "./api-inventory.json": "./api-inventory.json",
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "default": "./dist/components/*/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
