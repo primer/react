@@ -37,9 +37,12 @@ function Tabs(props: TabsProps) {
       activationMode,
       focusedValue,
       selectTab(value: string) {
-        setSelectedValue(value)
         // Focus and selection reconverge on commit.
         setFocusedValue(undefined)
+        if (value === selectedValue) {
+          return
+        }
+        setSelectedValue(value)
         savedOnValueChange.current?.({value})
       },
       focusTab(value: string) {

@@ -89,6 +89,26 @@ describe('Tabs', () => {
     expect(onValueChange).toHaveBeenCalledTimes(1)
   })
 
+  test('onValueChange is not called when the selected tab is re-selected', async () => {
+    const user = userEvent.setup()
+    const onValueChange = vi.fn()
+
+    render(
+      <Tabs defaultValue="a" onValueChange={onValueChange}>
+        <TabList aria-label="Test tabs">
+          <Tab value="a">Tab A</Tab>
+          <Tab value="b">Tab B</Tab>
+        </TabList>
+        <TabPanel value="a">Panel A</TabPanel>
+        <TabPanel value="b">Panel B</TabPanel>
+      </Tabs>,
+    )
+
+    await user.click(screen.getByRole('tab', {name: 'Tab A'}))
+
+    expect(onValueChange).not.toHaveBeenCalled()
+  })
+
   describe('TabList', () => {
     test('renders with role="tablist"', () => {
       render(

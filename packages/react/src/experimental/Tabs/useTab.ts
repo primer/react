@@ -13,7 +13,6 @@ export function useTab<T extends HTMLElement>(props: Pick<TabProps, 'disabled' |
   const id = `${tabs.groupId}-tab-${value}`
   const panelId = `${tabs.groupId}-panel-${value}`
 
-  // In manual activation the roving tab stop follows focus (APG); otherwise it sits on the selected tab.
   const isTabStop =
     tabs.activationMode === 'manual' && tabs.focusedValue !== undefined ? tabs.focusedValue === value : selected
 

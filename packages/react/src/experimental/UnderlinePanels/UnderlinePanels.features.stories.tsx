@@ -131,7 +131,7 @@ export const Controlled = () => {
         aria-label="Ref type"
         value={refType}
         onChange={({value}) => {
-          action('onChange')(value)
+          action('onChange')({value})
           setRefType(value)
         }}
       >
@@ -156,7 +156,7 @@ export const Uncontrolled = () => (
     aria-label="Ref type"
     defaultValue="tag"
     onChange={({value}) => {
-      action('onChange')(value)
+      action('onChange')({value})
     }}
   >
     <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
@@ -180,7 +180,7 @@ export const ManualActivation = () => {
         value={refType}
         activationMode="manual"
         onChange={({value}) => {
-          action('onChange')(value)
+          action('onChange')({value})
           setRefType(value)
         }}
       >
@@ -216,7 +216,7 @@ export const InOverlay = () => {
         aria-label="Ref type"
         value={refType}
         onChange={({value}) => {
-          action('onChange')(value)
+          action('onChange')({value})
           setRefType(value)
         }}
       >

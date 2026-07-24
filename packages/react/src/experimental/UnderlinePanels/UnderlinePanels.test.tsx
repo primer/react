@@ -233,6 +233,16 @@ describe('UnderlinePanels', () => {
       expect(onChange).toHaveBeenCalledWith({value: 'tag'})
     })
 
+    it('does not call onChange when the selected tab is re-clicked', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(<RefTabs value="branch" onChange={onChange} />)
+
+      await user.click(screen.getByRole('tab', {name: 'Branches'}))
+
+      expect(onChange).not.toHaveBeenCalled()
+    })
+
     it('calls onChange on arrow-key navigation (automatic activation)', async () => {
       const user = userEvent.setup()
       const onChange = vi.fn()
