@@ -501,32 +501,6 @@ describe('get_component_batch', () => {
     expect(getTextContent(second)).not.toContain('CSS unchanged')
   })
 
-  it('retrieves batched icon documentation concurrently without changing get_icon', async () => {
-    const fetchMock = vi.mocked(fetch)
-    let resolveAlert: ((response: Response) => void) | undefined
-    let resolveBell: ((response: Response) => void) | undefined
-    fetchMock.mockImplementation(input => {
-      const path = new URL(input.toString()).pathname
-      return new Promise(resolve => {
-        if (path.includes('/alert-16/')) resolveAlert = resolve
-        else resolveBell = resolve
-      })
-    })
-
-    const result = callTool('get_icon_batch', {names: ['alert', 'bell'], size: '16'})
-    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2))
-    resolveAlert?.(new Response('Alert docs'))
-    resolveBell?.(new Response('Bell docs'))
-
-    await expect(result).resolves.toMatchObject({
-      content: [
-        {type: 'text', text: expect.stringContaining('Alert docs')},
-        {type: 'text', text: expect.stringContaining('Bell docs')},
-      ],
-    })
-    expect(fetchMock).toHaveBeenCalledTimes(2)
-  })
-
   it('preserves the single-icon missing result', async () => {
     const result = await callTool('get_icon', {name: 'missing'})
 

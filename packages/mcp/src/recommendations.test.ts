@@ -365,6 +365,47 @@ describe('component recommendations', () => {
     expect(formatRecommendation(result)).toContain('GitHub-only; no public import')
   })
 
+  it('keeps low-scoring internal-only patterns visible only for the all source scope', () => {
+    const internalOnlyPatterns = [{id: 'filter', name: 'Filter', category: 'scenario' as const}]
+    const internalOnlyDetails: CompactPatternDetails = {
+      ...filterDetails,
+      components: [
+        {
+          id: 'filter',
+          name: 'Filter',
+          source: 'primer-internal',
+          sourceUrl: 'https://primer.style/product/internal-components/filter',
+        },
+      ],
+    }
+    const input = {intent: 'filter'}
+
+    const allScope = createRecommendation(
+      {...input, sourceScope: 'all'},
+      rankPatterns(internalOnlyPatterns, input),
+      [internalOnlyDetails],
+      components,
+      internalCatalog,
+    )
+    const publicScope = createRecommendation(
+      input,
+      rankPatterns(internalOnlyPatterns, input),
+      [internalOnlyDetails],
+      components,
+      internalCatalog,
+    )
+
+    expect(allScope).toMatchObject({
+      status: 'partial-match',
+      patterns: [expect.objectContaining({pattern: expect.objectContaining({name: 'Filter'})})],
+      components: [],
+      internalComponents: [expect.objectContaining({component: expect.objectContaining({name: 'Filter'})})],
+    })
+    expect(formatRecommendation(allScope)).toContain('Documented internal candidates')
+    expect(publicScope).toMatchObject({status: 'no-match', patterns: [], internalComponents: []})
+    expect(formatRecommendation(publicScope)).toMatch(/^No Primer pattern matched/)
+  })
+
   it('uses stable lexical ordering and bounded payloads', () => {
     const input = {intent: 'search filter', limit: 1}
     const first = createRecommendation(

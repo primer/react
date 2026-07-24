@@ -1252,35 +1252,15 @@ server.registerTool(
     annotations: {readOnlyHint: true},
   },
   async ({name, size}) => {
-    const text = await getIconDocumentation(name, size, 'get_icon')
+    const text = await getIconDocumentation(name, size)
     return {content: text ? [{type: 'text', text}] : []}
   },
 )
 
-server.registerTool(
-  'get_icon_batch',
-  {
-    description: 'Get documentation for multiple Primer Octicons in one call',
-    inputSchema: {
-      names: z.array(z.string()).min(2).max(10).describe('Icon names to retrieve'),
-      size: z.string().optional().describe('The icon size to retrieve, e.g. "16"').default('16'),
-    },
-    annotations: {readOnlyHint: true},
-  },
-  async ({names, size}) => {
-    const documentation = await Promise.all(names.map(name => getIconDocumentation(name, size)))
-    return {content: documentation.filter((text): text is string => Boolean(text)).map(text => ({type: 'text', text}))}
-  },
-)
-
-async function getIconDocumentation(
-  name: string,
-  size: string,
-  missingIconTool = 'list_icons',
-): Promise<string | undefined> {
+async function getIconDocumentation(name: string, size: string): Promise<string | undefined> {
   const match = listIcons().find(icon => icon.name === name || icon.name.toLowerCase() === name.toLowerCase())
   if (!match) {
-    return `There is no icon named \`${name}\` in the @primer/octicons-react package. For a full list of icons, use the \`${missingIconTool}\` tool.`
+    return `There is no icon named \`${name}\` in the @primer/octicons-react package. For a full list of icons, use the \`get_icon\` tool.`
   }
 
   const url = new URL(`/octicons/icon/${match.name}-${size}`, 'https://primer.style')

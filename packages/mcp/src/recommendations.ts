@@ -220,6 +220,7 @@ export function createRecommendation(
               detail: `${detail.pattern.name} links to documented internal ${entry.name}.`,
             },
           })
+          supportedPatternIds.add(pattern.pattern.id)
           continue
         }
 
@@ -339,7 +340,7 @@ export function createRecommendation(
   const unmetSignals = getUnmetSignals(input, matchedSignals)
   const ambiguous = patternCandidates.length > 1 && patternCandidates[0].score === patternCandidates[1].score
   const status =
-    patternCandidates.length === 0 && componentCandidates.length === 0
+    patternCandidates.length === 0 && componentCandidates.length === 0 && internalComponentCandidates.length === 0
       ? 'no-match'
       : ambiguous
         ? 'ambiguous'
