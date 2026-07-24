@@ -69,6 +69,26 @@ const patternOutputSchema = z.object({
 // Load all tokens with guidelines from primitives
 const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
 
+async function fetchTextOnlyContent(url: URL): Promise<string | undefined> {
+  const llmsUrl = new URL(`${url.pathname}/llms.txt`, url)
+  const response = await fetch(llmsUrl)
+
+  if (response.ok) return response.text()
+  if (response.status === 404) return undefined
+
+  throw new Error(`Failed to fetch ${llmsUrl}: ${response.statusText}`)
+}
+
+function convertMainHtmlToMarkdown(html: string): string | undefined {
+  if (!html) return undefined
+
+  const $ = cheerio.load(html)
+  const source = $('main').html()
+  if (!source) return undefined
+
+  return turndownService.turndown(source)
+}
+
 // -----------------------------------------------------------------------------
 // Project setup
 // -----------------------------------------------------------------------------
@@ -80,27 +100,16 @@ server.registerTool(
   },
   async () => {
     const url = new URL(`/product/getting-started/react`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
-    }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
+    let text = await fetchTextOnlyContent(url)
+    if (text === undefined) {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
       }
-    }
 
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
+      text = convertMainHtmlToMarkdown(await response.text())
     }
-
-    const text = turndownService.turndown(source)
+    if (!text) return {content: []}
 
     return {
       content: [
@@ -377,27 +386,16 @@ server.registerTool(
     }
 
     const url = new URL(`/product/components/${match.id}`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
-    }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
+    let text = await fetchTextOnlyContent(url)
+    if (text === undefined) {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
       }
-    }
 
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
+      text = convertMainHtmlToMarkdown(await response.text())
     }
-
-    const text = turndownService.turndown(source)
+    if (!text) return {content: []}
 
     return {
       content: [
@@ -438,38 +436,27 @@ server.registerTool(
     }
 
     const url = new URL(`/product/components/${match.id}/guidelines`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
-        return {
-          content: [
-            {
-              type: 'text',
-              text: `There are no accessibility guidelines for the \`${name}\` component in the @primer/react package.`,
-            },
-          ],
+    let text = await fetchTextOnlyContent(url)
+    if (text === undefined) {
+      const response = await fetch(url)
+      if (!response.ok) {
+        if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
+          return {
+            content: [
+              {
+                type: 'text',
+                text: `There are no accessibility guidelines for the \`${name}\` component in the @primer/react package.`,
+              },
+            ],
+          }
         }
+
+        throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
       }
 
-      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+      text = convertMainHtmlToMarkdown(await response.text())
     }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
-      }
-    }
-
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
-    }
-
-    const text = turndownService.turndown(source)
+    if (!text) return {content: []}
 
     return {
       content: [
@@ -511,38 +498,27 @@ server.registerTool(
     }
 
     const url = new URL(`/product/components/${match.id}/accessibility`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
-        return {
-          content: [
-            {
-              type: 'text',
-              text: `There are no accessibility guidelines for the \`${name}\` component in the @primer/react package.`,
-            },
-          ],
+    let text = await fetchTextOnlyContent(url)
+    if (text === undefined) {
+      const response = await fetch(url)
+      if (!response.ok) {
+        if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
+          return {
+            content: [
+              {
+                type: 'text',
+                text: `There are no accessibility guidelines for the \`${name}\` component in the @primer/react package.`,
+              },
+            ],
+          }
         }
+
+        throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
       }
 
-      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+      text = convertMainHtmlToMarkdown(await response.text())
     }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
-      }
-    }
-
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
-    }
-
-    const text = turndownService.turndown(source)
+    if (!text) return {content: []}
 
     return {
       content: [
@@ -959,27 +935,16 @@ server.registerTool(
   {description: 'Get the guidelines for how to apply color to a user interface', annotations: {readOnlyHint: true}},
   async () => {
     const url = new URL(`/product/getting-started/foundations/color-usage`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
-    }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
+    let text = await fetchTextOnlyContent(url)
+    if (text === undefined) {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
       }
-    }
 
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
+      text = convertMainHtmlToMarkdown(await response.text())
     }
-
-    const text = turndownService.turndown(source)
+    if (!text) return {content: []}
 
     return {
       content: [
@@ -1000,27 +965,16 @@ server.registerTool(
   },
   async () => {
     const url = new URL(`/product/getting-started/foundations/typography`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
-    }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
+    let text = await fetchTextOnlyContent(url)
+    if (text === undefined) {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
       }
-    }
 
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
+      text = convertMainHtmlToMarkdown(await response.text())
     }
-
-    const text = turndownService.turndown(source)
+    if (!text) return {content: []}
 
     return {
       content: [
@@ -1095,27 +1049,16 @@ server.registerTool(
     }
 
     const url = new URL(`/octicons/icon/${match.name}-${size}`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
-    }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
+    let text = await fetchTextOnlyContent(url)
+    if (text === undefined) {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
       }
-    }
 
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
+      text = convertMainHtmlToMarkdown(await response.text())
     }
-
-    const text = turndownService.turndown(source)
+    if (!text) return {content: []}
 
     return {
       content: [
