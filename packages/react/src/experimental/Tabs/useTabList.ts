@@ -24,6 +24,21 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
 
     const tabs = getFocusableTabs(tablist)
 
+    // Determine the tab the user is navigating from. In automatic activation the
+    // focused tab is also the selected one, but in manual activation focus and
+    // selection diverge, so prefer the currently focused tab and fall back to the
+    // selected tab.
+    const getCurrentIndex = () => {
+      const activeElement = tablist.ownerDocument.activeElement
+      const focusedIndex = activeElement instanceof HTMLElement ? tabs.indexOf(activeElement) : -1
+      if (focusedIndex !== -1) {
+        return focusedIndex
+      }
+      return tabs.findIndex(tab => {
+        return tab.getAttribute('aria-selected') === 'true'
+      })
+    }
+
     const isVertical = ariaOrientation === 'vertical'
     const nextKey = isVertical ? 'ArrowDown' : 'ArrowRight'
     const prevKey = isVertical ? 'ArrowUp' : 'ArrowLeft'
@@ -34,24 +49,20 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
     }
 
     if (event.key === nextKey) {
-      const selectedTabIndex = tabs.findIndex(tab => {
-        return tab.getAttribute('aria-selected') === 'true'
-      })
-      if (selectedTabIndex === -1) {
+      const currentTabIndex = getCurrentIndex()
+      if (currentTabIndex === -1) {
         return
       }
 
-      const nextTabIndex = (selectedTabIndex + 1) % tabs.length
+      const nextTabIndex = (currentTabIndex + 1) % tabs.length
       tabs[nextTabIndex].focus()
     } else if (event.key === prevKey) {
-      const selectedTabIndex = tabs.findIndex(tab => {
-        return tab.getAttribute('aria-selected') === 'true'
-      })
-      if (selectedTabIndex === -1) {
+      const currentTabIndex = getCurrentIndex()
+      if (currentTabIndex === -1) {
         return
       }
 
-      const nextTabIndex = (tabs.length + selectedTabIndex - 1) % tabs.length
+      const nextTabIndex = (tabs.length + currentTabIndex - 1) % tabs.length
       tabs[nextTabIndex].focus()
     } else if (event.key === 'Home') {
       if (tabs[0]) {

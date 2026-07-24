@@ -3,12 +3,13 @@
 // public API and its integration with Tabs.
 
 import type React from 'react'
-import {act} from 'react'
+import {act, useState} from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, it, afterEach, beforeEach, expect, vi} from 'vitest'
 import {CodeIcon, EyeIcon} from '@primer/octicons-react'
 import UnderlinePanels from './UnderlinePanels'
+import {AnchoredOverlay} from '../../AnchoredOverlay'
 import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
 import classes from './UnderlinePanels.module.css'
 
@@ -197,6 +198,141 @@ describe('UnderlinePanels', () => {
       }).toThrow('Only one tab can be selected at a time.')
     })
   })
+
+  describe('controlled value / onChange / activationMode', () => {
+    const RefTabs = (props: {
+      value?: string
+      defaultValue?: string
+      activationMode?: 'automatic' | 'manual'
+      onChange?: ({value}: {value: string}) => void
+    }) => (
+      <UnderlinePanels aria-label="Ref type" {...props}>
+        <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel value="branch">Branch panel</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel value="tag">Tag panel</UnderlinePanels.Panel>
+      </UnderlinePanels>
+    )
+
+    it('`value` selects the matching tab and shows its panel', () => {
+      render(<RefTabs value="tag" onChange={vi.fn()} />)
+
+      expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
+      expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'false')
+      expect(screen.getByText('Tag panel')).toBeVisible()
+      expect(screen.getByText('Branch panel')).not.toBeVisible()
+    })
+
+    it('calls onChange with the domain value when a tab is clicked', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(<RefTabs value="branch" onChange={onChange} />)
+
+      await user.click(screen.getByRole('tab', {name: 'Tags'}))
+
+      expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+    })
+
+    it('calls onChange on arrow-key navigation (automatic activation)', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(<RefTabs value="branch" onChange={onChange} />)
+
+      await act(async () => {
+        screen.getByRole('tab', {name: 'Branches'}).focus()
+        await user.keyboard('{ArrowRight}')
+      })
+
+      expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+    })
+
+    it('does not update selection while controlled unless `value` changes', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      const {rerender} = render(<RefTabs value="branch" onChange={onChange} />)
+
+      await user.click(screen.getByRole('tab', {name: 'Tags'}))
+
+      // Parent ignored onChange, so the controlled value pins selection on branch.
+      expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'true')
+
+      rerender(<RefTabs value="tag" onChange={onChange} />)
+      expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
+    })
+
+    it('`defaultValue` sets the initial selection and updates internally (uncontrolled)', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(<RefTabs defaultValue="tag" onChange={onChange} />)
+
+      expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
+
+      await user.click(screen.getByRole('tab', {name: 'Branches'}))
+
+      expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'true')
+      expect(onChange).toHaveBeenCalledWith({value: 'branch'})
+      expect(screen.getByText('Branch panel')).toBeVisible()
+    })
+
+    describe('manual activation', () => {
+      it('arrow keys move focus without selecting or firing onChange', async () => {
+        const user = userEvent.setup()
+        const onChange = vi.fn()
+        render(<RefTabs value="branch" activationMode="manual" onChange={onChange} />)
+
+        const branch = screen.getByRole('tab', {name: 'Branches'})
+        const tag = screen.getByRole('tab', {name: 'Tags'})
+
+        await act(async () => {
+          branch.focus()
+          await user.keyboard('{ArrowRight}')
+        })
+
+        expect(tag).toHaveFocus()
+        expect(branch).toHaveAttribute('aria-selected', 'true')
+        expect(onChange).not.toHaveBeenCalled()
+        // Roving tab stop follows focus in manual mode (APG manual activation pattern).
+        expect(tag).toHaveAttribute('tabindex', '0')
+        expect(branch).toHaveAttribute('tabindex', '-1')
+      })
+
+      it('commits selection with Enter', async () => {
+        const user = userEvent.setup()
+        const onChange = vi.fn()
+        render(<RefTabs value="branch" activationMode="manual" onChange={onChange} />)
+
+        await act(async () => {
+          screen.getByRole('tab', {name: 'Branches'}).focus()
+          await user.keyboard('{ArrowRight}')
+          await user.keyboard('{Enter}')
+        })
+
+        expect(onChange).toHaveBeenCalledTimes(1)
+        expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+      })
+    })
+
+    it('fires onChange on arrow keys even without explicit values (positional back-compat)', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(
+        <UnderlinePanels aria-label="Select a tab" onChange={onChange}>
+          <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
+          <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
+          <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+          <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+        </UnderlinePanels>,
+      )
+
+      await act(async () => {
+        screen.getByRole('tab', {name: 'Tab 1'}).focus()
+        await user.keyboard('{ArrowRight}')
+      })
+
+      expect(onChange).toHaveBeenCalledWith({value: '1'})
+      expect(screen.getByRole('tab', {name: 'Tab 2'})).toHaveAttribute('aria-selected', 'true')
+    })
+  })
 })
 
 describe('UnderlinePanels — render architecture', () => {
@@ -380,5 +516,67 @@ describe('UnderlinePanels — list resize observation', () => {
     // icons would (incorrectly) stay visible.
     fireResize(wrapper, 250)
     expect(wrapper).toHaveAttribute('data-icons-visible', 'false')
+  })
+})
+
+describe('UnderlinePanels — AnchoredOverlay composition', () => {
+  // Regression coverage for the RefSelector issue: when UnderlinePanels lives inside an
+  // AnchoredOverlay, the overlay's focus zone must be disabled so it doesn't fight the tablist's
+  // own roving tabindex. Otherwise every tab can end up at tabindex="-1", trapping keyboard users.
+  const OverlayHarness = ({onChange}: {onChange?: ({value}: {value: string}) => void}) => {
+    const [open, setOpen] = useState(true)
+    return (
+      <AnchoredOverlay
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderAnchor={props => (
+          <button type="button" {...props}>
+            Open
+          </button>
+        )}
+        focusZoneSettings={{disabled: true}}
+      >
+        <UnderlinePanels aria-label="Ref type" defaultValue="branch" onChange={onChange}>
+          <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+          <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+          <UnderlinePanels.Panel value="branch">Branch panel</UnderlinePanels.Panel>
+          <UnderlinePanels.Panel value="tag">Tag panel</UnderlinePanels.Panel>
+        </UnderlinePanels>
+      </AnchoredOverlay>
+    )
+  }
+
+  it('keeps the tablist roving tabindex intact (exactly one tab is tabbable)', async () => {
+    render(<OverlayHarness />)
+    // Flush AnchoredOverlay's async positioning updates inside act.
+    await act(async () => {})
+
+    const branch = screen.getByRole('tab', {name: 'Branches'})
+    const tag = screen.getByRole('tab', {name: 'Tags'})
+
+    expect(branch).toHaveAttribute('tabindex', '0')
+    expect(tag).toHaveAttribute('tabindex', '-1')
+  })
+
+  it('supports arrow-key navigation inside the overlay without trapping focus', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(<OverlayHarness onChange={onChange} />)
+    await act(async () => {})
+
+    const branch = screen.getByRole('tab', {name: 'Branches'})
+    const tag = screen.getByRole('tab', {name: 'Tags'})
+
+    await act(async () => {
+      branch.focus()
+      await user.keyboard('{ArrowRight}')
+    })
+
+    expect(tag).toHaveFocus()
+    expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+    // Roving tabindex still resolves to exactly one tab stop after selection moves.
+    expect(tag).toHaveAttribute('tabindex', '0')
+    expect(branch).toHaveAttribute('tabindex', '-1')
   })
 })

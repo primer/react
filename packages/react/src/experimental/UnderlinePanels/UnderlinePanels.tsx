@@ -37,6 +37,31 @@ export type UnderlinePanelsProps = {
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   /**
+   * The value of the selected tab, keyed to each `UnderlinePanels.Tab`/`UnderlinePanels.Panel`
+   * `value`. Provide this (with `onChange`) for a controlled component where the selected tab is
+   * the single source of truth.
+   */
+  value?: string
+  /**
+   * The value of the tab that should be selected by default, keyed to each tab's `value`. Use this
+   * for an uncontrolled component. Cannot be combined with `value`.
+   */
+  defaultValue?: string
+  /**
+   * Callback fired whenever the selected tab changes, for *every* selection method — pointer,
+   * Enter/Space, and Arrow/Home/End keys. Unlike `UnderlinePanels.Tab`'s `onSelect` (which only
+   * fires on click and Enter/Space), this makes the selected value usable as a single source of
+   * truth for data-driven tabs.
+   */
+  onChange?: ({value}: {value: string}) => void
+  /**
+   * Controls how tabs are activated with the keyboard.
+   * - `'automatic'` (default): selection follows focus, so Arrow/Home/End keys select immediately.
+   * - `'manual'`: Arrow/Home/End keys only move focus; selection commits on Enter, Space, or click.
+   *   Prefer this when a panel is not instant to display (e.g. it triggers a network request).
+   */
+  activationMode?: 'automatic' | 'manual'
+  /**
    * Custom string to use when generating the IDs of tabs and `aria-labelledby` for the panels
    */
   id?: string
@@ -56,6 +81,12 @@ export type UnderlinePanelsProps = {
 
 export type TabProps = PropsWithChildren<{
   /**
+   * A value that uniquely identifies this tab, paired with the `UnderlinePanels.Panel` of the same
+   * `value`. Provide this to use domain values (e.g. `'branch'`) with the container's controlled
+   * `value`/`onChange` API. When omitted, tabs and panels are paired by their DOM order.
+   */
+  value?: string
+  /**
    * Whether this is the selected tab
    */
   'aria-selected'?: boolean
@@ -73,10 +104,16 @@ export type TabProps = PropsWithChildren<{
   icon?: FC<IconProps>
 }>
 
-export type PanelProps = React.HTMLAttributes<HTMLDivElement>
+export type PanelProps = React.HTMLAttributes<HTMLDivElement> & {
+  /**
+   * A value that uniquely identifies this panel, paired with the `UnderlinePanels.Tab` of the same
+   * `value`. When omitted, tabs and panels are paired by their DOM order.
+   */
+  value?: string
+}
 
-// Internal-only positional value injected via cloneElement to pair the Nth tab
-// with the Nth panel. Not part of the public Tab/Panel API.
+// Resolved per-tab/panel value. When a consumer provides an explicit `value`, it is used as-is;
+// otherwise a positional value is injected via cloneElement to pair the Nth tab with the Nth panel.
 type WithValue = {value?: string}
 
 // Carries flags that affect every Tab's rendering but that don't belong on the
@@ -99,6 +136,10 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   children,
   loadingCounters,
   className,
+  value: controlledValue,
+  defaultValue,
+  onChange,
+  activationMode = 'automatic',
   ...props
 }) => {
   const [iconsVisible, setIconsVisible] = useState(true)
@@ -109,20 +150,24 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   const parentId = useId(props.id)
 
   const [tabs, tabPanels, tabsHaveIcons, selectedFromProps] = useMemo(() => {
-    // Clone each Tab/Panel with a positional `value` so the Tabs hooks can pair
-    // the Nth tab with the Nth panel. Derived in render (not an effect) to avoid
-    // an empty-tablist frame; iconsVisible/loadingCounters flow via context so
-    // this memo can stay keyed on [children].
+    // Pair each Tab with its Panel by `value`. Consumers may provide an explicit `value` (domain
+    // values like 'branch'); when omitted we inject a positional value so the Nth tab pairs with
+    // the Nth panel. Derived in render (not an effect) to avoid an empty-tablist frame;
+    // iconsVisible/loadingCounters flow via context so this memo can stay keyed on [children].
     let tabIndex = 0
     let panelIndex = 0
 
     const childrenWithProps = Children.map(children, child => {
       if (isValidElement<TabProps & WithValue>(child) && (child.type === Tab || isSlot(child, Tab))) {
-        return cloneElement(child, {value: `${tabIndex++}`})
+        const value = child.props.value ?? `${tabIndex}`
+        tabIndex++
+        return cloneElement(child, {value})
       }
 
       if (isValidElement<PanelProps & WithValue>(child) && (child.type === Panel || isSlot(child, Panel))) {
-        return cloneElement(child, {value: `${panelIndex++}`})
+        const value = child.props.value ?? `${panelIndex}`
+        panelIndex++
+        return cloneElement(child, {value})
       }
       return child
     })
@@ -135,7 +180,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       if (child.type === Tab || isSlot(child, Tab)) {
         const ariaSelected = (child.props as {'aria-selected'?: boolean | string})['aria-selected']
         if (ariaSelected === true || ariaSelected === 'true') {
-          selectedFromProps = `${tabs.length}`
+          selectedFromProps = (child.props as WithValue).value
         }
         tabs.push(child)
       } else if (child.type === Panel || isSlot(child, Panel)) {
@@ -148,17 +193,30 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     return [tabs, tabPanels, tabsHaveIcons, selectedFromProps] as const
   }, [children])
 
-  // Hybrid selection: seed from the consumer's `aria-selected` prop, but let
-  // clicks/keyboard update selection internally (mirrors the previous
-  // tab-container-element behavior). Re-sync via React's "adjust state during
-  // render" pattern when the selected prop changes.
-  const [selectedValue, setSelectedValue] = useState<string>(() => selectedFromProps ?? '0')
+  // Hybrid selection supporting three sources, in priority order:
+  //   1. Controlled `value` prop (domain value) — the container is fully controlled.
+  //   2. Uncontrolled `defaultValue` (initial only).
+  //   3. Back-compat `aria-selected` seed — initial value AND re-synced when it changes, via
+  //      React's "adjust state during render" pattern (mirrors the previous behavior).
+  // We hand-roll the controlled/uncontrolled branching (rather than using `useControllableState`)
+  // because of source #3: the `aria-selected` seed is a third input the shared hook doesn't model.
+  const isControlled = controlledValue !== undefined
+  const [uncontrolledValue, setUncontrolledValue] = useState<string>(() => defaultValue ?? selectedFromProps ?? '0')
   const [prevSelectedFromProps, setPrevSelectedFromProps] = useState(selectedFromProps)
-  if (selectedFromProps !== prevSelectedFromProps) {
+  if (!isControlled && selectedFromProps !== prevSelectedFromProps) {
     setPrevSelectedFromProps(selectedFromProps)
-    if (selectedFromProps !== undefined && selectedFromProps !== selectedValue) {
-      setSelectedValue(selectedFromProps)
+    if (selectedFromProps !== undefined && selectedFromProps !== uncontrolledValue) {
+      setUncontrolledValue(selectedFromProps)
     }
+  }
+
+  const selectedValue = isControlled ? controlledValue : uncontrolledValue
+
+  const handleValueChange = (value: string) => {
+    if (!isControlled) {
+      setUncontrolledValue(value)
+    }
+    onChange?.({value})
   }
 
   const {tabListProps} = useTabList<HTMLUListElement>({
@@ -223,6 +281,11 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     invariant(selectedTabs.length <= 1, 'Only one tab can be selected at a time.')
 
     invariant(
+      !(isControlled && selectedTabs.length > 0),
+      'Do not combine the controlled `value` prop with `aria-selected` on a tab. Use `value`/`onChange` (or `defaultValue`) to drive selection instead.',
+    )
+
+    invariant(
       tabs.length === tabPanels.length,
       `The number of tabs and panels must be equal. Counted ${tabs.length} tabs and ${tabPanels.length} panels.`,
     )
@@ -230,7 +293,12 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 
   return (
     <UnderlinePanelsContext.Provider value={contextValue}>
-      <Tabs id={parentId} value={selectedValue} onValueChange={({value}) => setSelectedValue(value)}>
+      <Tabs
+        id={parentId}
+        value={selectedValue}
+        activationMode={activationMode}
+        onValueChange={({value}) => handleValueChange(value)}
+      >
         <UnderlineWrapper
           ref={wrapperRef}
           data-icons-visible={iconsVisible}

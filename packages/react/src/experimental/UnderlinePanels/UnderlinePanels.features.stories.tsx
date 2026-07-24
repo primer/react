@@ -1,17 +1,23 @@
 import type {Meta} from '@storybook/react-vite'
+import {action} from 'storybook/actions'
+import {useState} from 'react'
 import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 import UnderlinePanels from './UnderlinePanels'
+import {AnchoredOverlay} from '../../AnchoredOverlay'
+import {Button} from '../../Button'
 import type {ComponentProps} from '../../utils/types'
 import {
   CodeIcon,
   CommentDiscussionIcon,
   EyeIcon,
   GearIcon,
+  GitBranchIcon,
   GitPullRequestIcon,
   GraphIcon,
   PlayIcon,
   ProjectIcon,
   ShieldLockIcon,
+  TagIcon,
 } from '@primer/octicons-react'
 
 export default {
@@ -113,5 +119,112 @@ export const WithCountersInLoadingState = () => {
       <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
       <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
     </UnderlinePanels>
+  )
+}
+
+export const Controlled = () => {
+  const [refType, setRefType] = useState('branch')
+
+  return (
+    <>
+      <UnderlinePanels
+        aria-label="Ref type"
+        value={refType}
+        onChange={({value}) => {
+          action('onChange')(value)
+          setRefType(value)
+        }}
+      >
+        <UnderlinePanels.Tab value="branch" icon={GitBranchIcon}>
+          Branches
+        </UnderlinePanels.Tab>
+        <UnderlinePanels.Tab value="tag" icon={TagIcon}>
+          Tags
+        </UnderlinePanels.Tab>
+        <UnderlinePanels.Panel value="branch">Find or create a branch…</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel value="tag">Search or create a new tag…</UnderlinePanels.Panel>
+      </UnderlinePanels>
+      <p>
+        Selected ref type: <strong>{refType}</strong>
+      </p>
+    </>
+  )
+}
+
+export const Uncontrolled = () => (
+  <UnderlinePanels
+    aria-label="Ref type"
+    defaultValue="tag"
+    onChange={({value}) => {
+      action('onChange')(value)
+    }}
+  >
+    <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+    <UnderlinePanels.Panel value="branch">Find or create a branch…</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel value="tag">Search or create a new tag…</UnderlinePanels.Panel>
+  </UnderlinePanels>
+)
+
+export const ManualActivation = () => {
+  const [refType, setRefType] = useState('branch')
+
+  return (
+    <>
+      <p>
+        With <code>activationMode=&quot;manual&quot;</code>, arrow keys only move focus; press Enter or Space (or click)
+        to commit selection. Prefer this when switching tabs triggers async work like a fetch.
+      </p>
+      <UnderlinePanels
+        aria-label="Ref type"
+        value={refType}
+        activationMode="manual"
+        onChange={({value}) => {
+          action('onChange')(value)
+          setRefType(value)
+        }}
+      >
+        <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel value="branch">Find or create a branch…</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel value="tag">Search or create a new tag…</UnderlinePanels.Panel>
+      </UnderlinePanels>
+    </>
+  )
+}
+
+// When `UnderlinePanels` lives inside an `AnchoredOverlay` (or any container with its own
+// `FocusZone`), disable the overlay's focus zone so the two don't both manage `tabindex`. The
+// tablist already implements its own roving tabindex (a single tab stop with internal Arrow
+// navigation); a competing focus zone can leave every tab at `tabindex="-1"` and trap keyboard
+// users. Disabling it via `focusZoneSettings={{disabled: true}}` lets the tablist own keyboard
+// navigation for the tabs.
+export const InOverlay = () => {
+  const [open, setOpen] = useState(false)
+  const [refType, setRefType] = useState('branch')
+
+  return (
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderAnchor={props => <Button {...props}>Select ref type</Button>}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'Select a ref type', style: {width: '320px'}}}
+      focusZoneSettings={{disabled: true}}
+    >
+      <UnderlinePanels
+        aria-label="Ref type"
+        value={refType}
+        onChange={({value}) => {
+          action('onChange')(value)
+          setRefType(value)
+        }}
+      >
+        <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel value="branch">Find or create a branch…</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel value="tag">Search or create a new tag…</UnderlinePanels.Panel>
+      </UnderlinePanels>
+    </AnchoredOverlay>
   )
 }

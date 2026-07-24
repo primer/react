@@ -49,6 +49,16 @@ type CommonTabsProps = {
    * unique id is generated automatically.
    */
   id?: string
+
+  /**
+   * Controls how tabs are activated when navigating with the keyboard.
+   * - `'automatic'` (default): selection follows focus, so Arrow/Home/End keys
+   *   immediately select the newly focused tab.
+   * - `'manual'`: Arrow/Home/End keys only move focus; selection is committed
+   *   with Enter, Space, or a pointer click. Prefer this when displaying a panel
+   *   is not instant (e.g. it triggers a network request).
+   */
+  activationMode?: 'automatic' | 'manual'
 }
 
 export type TabsProps = PropsWithChildren<(ControlledTabsProps | UncontrolledTabsProps) & CommonTabsProps>
@@ -89,7 +99,15 @@ export type TabPanelProps = {
 export type TabsContextValue = {
   groupId: string
   selectedValue: string
+  activationMode: 'automatic' | 'manual'
+  /**
+   * The value of the tab that currently owns the roving tab stop when
+   * `activationMode` is `'manual'` and focus has diverged from selection.
+   * `undefined` until a manual focus move happens (falls back to the selected tab).
+   */
+  focusedValue: string | undefined
   selectTab(value: string): void
+  focusTab(value: string): void
 }
 
 export type TabListHookProps<T extends HTMLElement> = TabListProps & {

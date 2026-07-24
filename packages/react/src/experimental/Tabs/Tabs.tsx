@@ -18,6 +18,7 @@ function Tabs(props: TabsProps) {
   const {children, onValueChange} = props
   const generatedId = useId()
   const groupId = props.id ?? generatedId
+  const activationMode = props.activationMode ?? 'automatic'
 
   const [selectedValue, setSelectedValue] = useControllableState<string>({
     name: 'tab-selection',
@@ -25,17 +26,30 @@ function Tabs(props: TabsProps) {
     value: props.value,
   })
 
+  // In manual activation, keyboard focus can move to a tab without selecting it, so we track the
+  // focused tab separately to keep the roving tab stop on the focused tab (per the APG manual
+  // activation pattern). Unused in automatic activation, where focus == selection.
+  const [focusedValue, setFocusedValue] = React.useState<string>()
+
   const savedOnValueChange = React.useRef(onValueChange)
   const contextValue: TabsContextValue = useMemo(() => {
     return {
       groupId,
       selectedValue,
+      activationMode,
+      focusedValue,
       selectTab(value: string) {
         setSelectedValue(value)
+        // Selection and focus reconverge on commit; clearing the tracked focus value returns the
+        // roving tab stop to following selection until the next manual keyboard focus move.
+        setFocusedValue(undefined)
         savedOnValueChange.current?.({value})
       },
+      focusTab(value: string) {
+        setFocusedValue(value)
+      },
     }
-  }, [groupId, selectedValue, setSelectedValue])
+  }, [groupId, selectedValue, activationMode, focusedValue, setSelectedValue])
 
   useIsomorphicLayoutEffect(() => {
     savedOnValueChange.current = onValueChange
