@@ -79,6 +79,17 @@ conversion. The compact parser intentionally fails when it cannot identify the
 page's guidance body, rather than returning navigation content as pattern
 guidance.
 
+## Recommendations
+
+`recommend_components` maps freeform product or UI intent to a bounded set of
+Primer patterns and public `@primer/react` component candidates. Optional
+surface, region, pattern-hint, state, constraint, existing-component, and
+preferred-component signals refine deterministic lexical ranking. Results
+include the source URLs and kinds for pattern links and package-derived
+composition evidence. Deprecated, incompatible, and Primer-internal references
+are excluded from installable component candidates; unresolved internal links
+remain source-labeled evidence.
+
 ## 🙌 Contributing
 
 We love collaborating with folks inside and outside of GitHub and welcome contributions! If you're interested, check out our [contributing docs](contributor-docs/CONTRIBUTING.md) for more info on how to get started.

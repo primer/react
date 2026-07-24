@@ -15,6 +15,7 @@ import {
   listIcons,
 } from './primer'
 import {formatCompactPatternDetails, getPatternUrl, parseCompactPatternDetails, toFullPatternDetails} from './patterns'
+import {createRecommendation, formatRecommendation, rankPatterns, type RecommendationComponent} from './recommendations'
 import {
   listTokenGroups,
   loadAllTokensWithGuidelines,
@@ -65,6 +66,12 @@ const patternOutputSchema = z.object({
     })
     .optional(),
 })
+const recommendationOutputSchema = z
+  .object({
+    status: z.enum(['matched', 'ambiguous', 'partial-match', 'no-match']),
+    intent: z.string(),
+  })
+  .passthrough()
 
 // Load all tokens with guidelines from primitives
 const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
@@ -674,6 +681,81 @@ ${text}`,
           text: formatCompactPatternDetails(details),
         },
       ],
+    }
+  },
+)
+
+server.registerTool(
+  'recommend_components',
+  {
+    description:
+      'Recommend public Primer patterns and components for product or UI intent. Deterministically ranks pattern names and hints, resolves authoritative pattern-linked public components, and expands with source-derived composition evidence. Deprecated, incompatible, and Primer-internal references are excluded from installable component candidates.',
+    inputSchema: {
+      intent: z.string().min(1).describe('The product or UI intent to match, in freeform language'),
+      surface: z.string().optional().describe('Optional product surface, such as issue list or settings page'),
+      region: z.string().optional().describe('Optional UI region, such as toolbar, form, or sidebar'),
+      patternHints: z
+        .array(z.string())
+        .max(8)
+        .optional()
+        .describe('Optional likely Primer pattern names or interaction hints'),
+      states: z
+        .array(z.string())
+        .max(8)
+        .optional()
+        .describe('Optional relevant states, such as loading, empty, or error'),
+      constraints: z.array(z.string()).max(8).optional().describe('Optional product or implementation constraints'),
+      existingComponents: z
+        .array(z.string())
+        .max(8)
+        .optional()
+        .describe('Optional existing public component names to retain'),
+      preferredComponents: z.array(z.string()).max(8).optional().describe('Optional public component names to prefer'),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(5)
+        .optional()
+        .default(3)
+        .describe('Maximum patterns and public components to return'),
+    },
+    outputSchema: recommendationOutputSchema,
+    annotations: {readOnlyHint: true},
+  },
+  async input => {
+    const rankedPatterns = rankPatterns(listPatterns(), input)
+    const details = await Promise.all(
+      rankedPatterns.slice(0, input.limit * 2).map(async candidate => {
+        const url = getPatternUrl(candidate.pattern)
+        const response = await fetch(url)
+        if (!response.ok) throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
+
+        const html = await response.text()
+        if (!html) throw new Error(`Primer Style returned an empty page for the \`${candidate.pattern.name}\` pattern.`)
+
+        return parseCompactPatternDetails(html, candidate.pattern, url, listPatterns())
+      }),
+    )
+    const components: Array<RecommendationComponent> = listComponents().map(component => {
+      const document = getComponentDocument(component.id)
+      const status = typeof document?.status === 'string' ? document.status : undefined
+      const searchTerms = [component.id, component.name, JSON.stringify(document?.props ?? [])]
+      const composition = getComponentCompositionSummary(component.id)
+
+      return {
+        ...component,
+        status,
+        sourceUrl: new URL(`/product/components/${component.slug}`, 'https://primer.style').toString(),
+        searchTerms,
+        composition,
+      }
+    })
+    const recommendation = createRecommendation(input, rankedPatterns, details, components)
+
+    return {
+      structuredContent: recommendation,
+      content: [{type: 'text', text: formatRecommendation(recommendation)}],
     }
   },
 )

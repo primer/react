@@ -69,6 +69,12 @@ describe('get_component_batch', () => {
   const callTool = (name: string, args: Record<string, unknown> = {}) => {
     return client.callTool({name, arguments: args})
   }
+  const callRecommendation = (arguments_: Record<string, unknown>) => {
+    return client.callTool({
+      name: 'recommend_components',
+      arguments: arguments_,
+    })
+  }
 
   it('requires between 2 and 10 names', async () => {
     const tooFew = await callBatch(['Button'])
@@ -339,6 +345,94 @@ describe('get_component_batch', () => {
 
     expect(empty.isError).toBe(true)
     expect(getTextContent(empty)).toContain('Primer Style returned an empty page')
+  })
+
+  it('recommends public components from compact pattern links and retains internal links as unresolved evidence', async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(searchPatternPage))
+
+    const result = await callRecommendation({intent: 'Add a search query'})
+    const payload = result.structuredContent as Record<string, unknown>
+
+    expect(payload).toMatchObject({
+      status: 'matched',
+      patterns: [expect.objectContaining({pattern: expect.objectContaining({name: 'Search'})})],
+      components: expect.arrayContaining([
+        expect.objectContaining({
+          component: expect.objectContaining({name: 'TextInput', sourceKind: 'primer-public'}),
+        }),
+      ]),
+      unresolvedReferences: expect.arrayContaining([
+        expect.objectContaining({name: 'Filter', source: 'primer-internal', reason: 'internal-reference'}),
+      ]),
+    })
+    expect(getTextContent(result)).toContain('Public components')
+  })
+
+  it('uses structured signals to distinguish patterns and expands composition evidence', async () => {
+    const filterPatternPage = searchPatternPage
+      .replace('<h1>Search</h1>', '<h1>Filter</h1>')
+      .replace('Search finds things that match specific criteria.', 'Filter narrows a list.')
+      .replace(
+        '<a href="/product/components/text-input/">TextInput</a>',
+        '<a href="/product/components/action-menu/">ActionMenu</a>',
+      )
+    vi.mocked(fetch).mockImplementation(async input => {
+      const url = new URL(input.toString())
+      return new Response(url.pathname.includes('/filter') ? filterPatternPage : searchPatternPage)
+    })
+
+    const filtered = await callRecommendation({intent: 'search', patternHints: ['filter']})
+    const filterPayload = filtered.structuredContent as {patterns: Array<{pattern: {name: string}}>}
+    expect(filterPayload.patterns[0]?.pattern.name).toBe('Filter')
+
+    const composed = await callRecommendation({intent: 'filter'})
+    const compositionPayload = composed.structuredContent as {
+      components: Array<{component: {name: string}; evidence: Array<{sourceKind: string}>}>
+    }
+    expect(compositionPayload.components.map(candidate => candidate.component.name)).toContain('ActionMenu')
+    expect(compositionPayload.components).toContainEqual(
+      expect.objectContaining({component: expect.objectContaining({name: 'ActionList'})}),
+    )
+    expect(compositionPayload.components.flatMap(candidate => candidate.evidence)).toContainEqual(
+      expect.objectContaining({sourceKind: 'composition'}),
+    )
+  })
+
+  it('reports ambiguous and no-match recommendations without requesting unrelated pattern pages', async () => {
+    vi.mocked(fetch).mockImplementation(async () => new Response(searchPatternPage))
+
+    const ambiguous = await callRecommendation({intent: 'search filter'})
+    const noMatch = await callRecommendation({intent: 'calendar planner'})
+
+    expect(ambiguous.structuredContent).toMatchObject({
+      status: 'ambiguous',
+      nextAction: expect.stringContaining('pattern hint'),
+    })
+    expect(noMatch.structuredContent).toMatchObject({
+      status: 'no-match',
+      confidence: {level: 'none', score: 0},
+    })
+  })
+
+  it('excludes deprecated results, has stable ordering, and bounds recommendation payloads', async () => {
+    const deprecatedPatternPage = searchPatternPage.replace(
+      '</p>\n        <p>Use the <a href="/product/internal-components/filter/',
+      '</p>\n        <p>Use <a href="/product/components/octicon/">Octicon</a>.</p>\n        <p>Use the <a href="/product/internal-components/filter/',
+    )
+    vi.mocked(fetch).mockImplementation(async () => new Response(deprecatedPatternPage))
+
+    const first = await callRecommendation({intent: 'search', limit: 1})
+    const second = await callRecommendation({intent: 'search', limit: 1})
+    const payload = first.structuredContent as {
+      components: Array<{component: {name: string}}>
+      exclusions: Array<{name: string; reason: string}>
+    }
+
+    expect(first.structuredContent).toEqual(second.structuredContent)
+    expect(payload.components).toHaveLength(1)
+    expect(payload.components.map(candidate => candidate.component.name)).not.toContain('Octicon')
+    expect(payload.exclusions).toContainEqual({name: 'Octicon', source: 'primer-public', reason: 'deprecated'})
+    expect(JSON.stringify(first.structuredContent).length).toBeLessThan(5_000)
   })
 
   it('times out stalled requests without leaving timers active', async () => {
