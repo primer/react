@@ -14,6 +14,7 @@ import {
   listPatterns,
   listIcons,
 } from './primer'
+import {formatCompactPatternDetails, getPatternUrl, parseCompactPatternDetails, toFullPatternDetails} from './patterns'
 import {
   listTokenGroups,
   loadAllTokensWithGuidelines,
@@ -38,6 +39,32 @@ const server = new McpServer({
 
 const turndownService = new TurndownService()
 const defaultComponentDocsSource = getComponentDocsSource()
+const patternReferenceOutputSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  category: z.enum(['scenario', 'ui']),
+  sourceUrl: z.string().url(),
+})
+const patternComponentOutputSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  source: z.enum(['primer-public', 'primer-internal']),
+  sourceUrl: z.string().url(),
+})
+const patternOutputSchema = z.object({
+  detail: z.enum(['compact', 'full']),
+  pattern: patternReferenceOutputSchema,
+  summary: z.string().optional(),
+  components: z.array(patternComponentOutputSchema).optional(),
+  relatedPatterns: z.array(patternReferenceOutputSchema).optional(),
+  guidance: z
+    .object({
+      implementation: z.string(),
+      accessibility: z.array(z.string()),
+      states: z.array(z.string()),
+    })
+    .optional(),
+})
 
 // Load all tokens with guidelines from primitives
 const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
@@ -567,13 +594,19 @@ server.registerTool(
   'get_pattern',
   {
     description:
-      'Get a specific pattern by name. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
+      'Get a specific pattern by name. Returns compact structured guidance by default, including authoritative component and related-pattern links. Pass detail: "full" for the complete Primer Style page. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
     inputSchema: {
       name: z.string().describe('The name of the pattern to retrieve'),
+      detail: z
+        .enum(['compact', 'full'])
+        .optional()
+        .default('compact')
+        .describe('Response detail: compact structured guidance (default) or full Primer Style guidance'),
     },
+    outputSchema: patternOutputSchema,
     annotations: {readOnlyHint: true},
   },
-  async ({name}) => {
+  async ({name, detail}) => {
     const patterns = listPatterns()
     // Resolve scenario patterns first so a name clash favours the scenario pattern.
     const match =
@@ -581,6 +614,7 @@ server.registerTool(
       patterns.find(pattern => pattern.name === name)
     if (!match) {
       return {
+        isError: true,
         content: [
           {
             type: 'text',
@@ -590,8 +624,32 @@ server.registerTool(
       }
     }
 
-    const basePath = match.category === 'scenario' ? 'scenario-patterns' : 'ui-patterns'
-    const url = new URL(`/product/${basePath}/${match.id}`, 'https://primer.style')
+    const url = getPatternUrl(match)
+
+    if (detail === 'full') {
+      const llmsUrl = new URL(`${url.pathname}/llms.txt`, url)
+      const llmsResponse = await fetch(llmsUrl)
+
+      if (llmsResponse.ok) {
+        const text = await llmsResponse.text()
+        if (!text) {
+          return {
+            isError: true,
+            content: [{type: 'text', text: `Primer Style returned an empty page for the \`${name}\` pattern.`}],
+          }
+        }
+
+        return {
+          structuredContent: toFullPatternDetails(match, url),
+          content: [{type: 'text', text}],
+        }
+      }
+
+      if (llmsResponse.status !== 404) {
+        throw new Error(`Failed to fetch ${llmsUrl} - ${llmsResponse.statusText}`)
+      }
+    }
+
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
@@ -600,7 +658,8 @@ server.registerTool(
     const html = await response.text()
     if (!html) {
       return {
-        content: [],
+        isError: true,
+        content: [{type: 'text', text: `Primer Style returned an empty page for the \`${name}\` pattern.`}],
       }
     }
 
@@ -608,19 +667,35 @@ server.registerTool(
     const source = $('main').html()
     if (!source) {
       return {
-        content: [],
+        isError: true,
+        content: [{type: 'text', text: `Primer Style did not return pattern guidance for \`${name}\`.`}],
       }
     }
 
-    const text = turndownService.turndown(source)
+    if (detail === 'full') {
+      const details = toFullPatternDetails(match, url)
+      const text = turndownService.turndown(source)
 
+      return {
+        structuredContent: details,
+        content: [
+          {
+            type: 'text',
+            text: `Here are the guidelines for the \`${name}\` pattern for Primer:
+
+${text}`,
+          },
+        ],
+      }
+    }
+
+    const details = parseCompactPatternDetails(html, match, url, patterns)
     return {
+      structuredContent: details,
       content: [
         {
           type: 'text',
-          text: `Here are the guidelines for the \`${name}\` pattern for Primer:
-
-${text}`,
+          text: formatCompactPatternDetails(details),
         },
       ],
     }

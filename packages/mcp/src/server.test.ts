@@ -4,6 +4,23 @@ import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} fr
 import {getComponentDocsSource} from './primer'
 import {server} from './server'
 
+const searchPatternPage = `
+  <main>
+    <div>
+      <div><nav>Product UI / Scenario patterns</nav><h1>Search</h1></div>
+      <div>
+        <p>Search finds things that match specific criteria.</p>
+        <h2>Implementation guidelines</h2>
+        <p>Use <a href="/product/components/text-input/">TextInput</a> for a simple query.</p>
+        <p>Use the <a href="/product/internal-components/filter/">Filter</a> component for tokenised qualifiers.</p>
+        <p>Set aria-busy="true" while loading, and show an empty state when no results match.</p>
+        <h2>Related scenario patterns</h2>
+        <ul><li><a href="/product/scenario-patterns/filter/">Filter</a></li></ul>
+      </div>
+    </div>
+  </main>
+`
+
 describe('component documentation sources', () => {
   it('uses hosted documentation by default and supports package metadata', () => {
     expect(getComponentDocsSource(undefined)).toBe('hosted')
@@ -41,6 +58,12 @@ describe('get_component_batch', () => {
     return client.callTool({
       name: 'get_component_batch',
       arguments: {names, source},
+    })
+  }
+  const callPattern = (name: string, detail?: 'compact' | 'full') => {
+    return client.callTool({
+      name: 'get_pattern',
+      arguments: {name, detail},
     })
   }
 
@@ -196,6 +219,83 @@ describe('get_component_batch', () => {
     expect(payload.composition.observed.parentChild).toEqual(
       expect.arrayContaining([expect.objectContaining({parent: 'ActionMenu.Overlay', child: 'ActionList'})]),
     )
+  })
+
+  it('returns compact structured pattern guidance with explicit component sources', async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(searchPatternPage))
+
+    const result = await callPattern('Search')
+    const text = getTextContent(result)
+
+    expect(result.structuredContent).toMatchObject({
+      detail: 'compact',
+      pattern: {
+        id: 'search',
+        name: 'Search',
+        category: 'scenario',
+        sourceUrl: 'https://primer.style/product/scenario-patterns/search',
+      },
+      components: [
+        {
+          id: 'text-input',
+          name: 'TextInput',
+          source: 'primer-public',
+          sourceUrl: 'https://primer.style/product/components/text-input/',
+        },
+        {
+          id: 'filter',
+          name: 'Filter',
+          source: 'primer-internal',
+          sourceUrl: 'https://primer.style/product/internal-components/filter/',
+        },
+      ],
+      relatedPatterns: [{id: 'filter', name: 'Filter', category: 'scenario'}],
+      guidance: {
+        implementation: expect.stringContaining('Use TextInput'),
+        accessibility: [expect.stringContaining('aria-busy')],
+        states: [expect.stringContaining('loading')],
+      },
+    })
+    expect(text).not.toContain('Product UI / Scenario patterns')
+    expect(text).toContain('Pass `detail: "full"`')
+    expect(text.length).toBeLessThan(4_000)
+    expect(JSON.stringify(result.structuredContent).length).toBeLessThan(4_000)
+  })
+
+  it('preserves complete pattern guidance when full detail is requested', async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response('# Search\n\nText-only pattern guidance.'))
+
+    const result = await callPattern('Search', 'full')
+
+    expect(result.structuredContent).toEqual({
+      detail: 'full',
+      pattern: {
+        id: 'search',
+        name: 'Search',
+        category: 'scenario',
+        sourceUrl: 'https://primer.style/product/scenario-patterns/search',
+      },
+    })
+    expect(fetch).toHaveBeenCalledWith(new URL('https://primer.style/product/scenario-patterns/search/llms.txt'))
+    expect(getTextContent(result)).toBe('# Search\n\nText-only pattern guidance.')
+  })
+
+  it('reports missing, empty, and invalid pattern requests without fetching unrelated content', async () => {
+    const missing = await callPattern('Missing')
+    const invalidDetail = await client.callTool({
+      name: 'get_pattern',
+      arguments: {name: 'Search', detail: 'summary'},
+    })
+
+    expect(getTextContent(missing)).toContain('There is no pattern named `Missing`')
+    expect(invalidDetail.isError).toBe(true)
+    expect(fetch).not.toHaveBeenCalled()
+
+    vi.mocked(fetch).mockResolvedValue(new Response(''))
+    const empty = await callPattern('Search')
+
+    expect(empty.isError).toBe(true)
+    expect(getTextContent(empty)).toContain('Primer Style returned an empty page')
   })
 
   it('times out stalled requests without leaving timers active', async () => {
