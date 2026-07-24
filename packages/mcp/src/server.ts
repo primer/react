@@ -14,8 +14,15 @@ import {
   listComponents,
   listPatterns,
   listIcons,
+  type Pattern,
 } from './primer'
-import {formatCompactPatternDetails, getPatternUrl, parseCompactPatternDetails, toFullPatternDetails} from './patterns'
+import {
+  formatCompactPatternDetails,
+  getPatternUrl,
+  parseCompactPatternDetails,
+  toFullPatternDetails,
+  type CompactPatternDetails,
+} from './patterns'
 import {createRecommendation, formatRecommendation, rankPatterns, type RecommendationComponent} from './recommendations'
 import {fetchInternalCatalog} from './internalCatalog'
 import {
@@ -40,6 +47,8 @@ const server = new McpServer({
   version: packageJson.version,
 })
 
+const maximumCachedPatternDetails = 24
+const compactPatternDetailsCache = new Map<string, Promise<CompactPatternDetails>>()
 const turndownService = new TurndownService()
 const defaultComponentDocsSource = getComponentDocsSource()
 const patternReferenceOutputSchema = z.object({
@@ -86,6 +95,53 @@ async function fetchTextOnlyContent(url: URL): Promise<string | undefined> {
   if (response.status === 404) return undefined
 
   throw new Error(`Failed to fetch ${llmsUrl}: ${response.statusText}`)
+}
+
+function fetchCompactPatternDetails(pattern: Pattern): Promise<CompactPatternDetails> {
+  const url = getPatternUrl(pattern)
+  const cacheKey = url.toString()
+  const cached = compactPatternDetailsCache.get(cacheKey)
+  if (cached) {
+    compactPatternDetailsCache.delete(cacheKey)
+    compactPatternDetailsCache.set(cacheKey, cached)
+    return cached
+  }
+
+  const pending = (async () => {
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
+
+    const html = await response.text()
+    if (!html) throw new Error(`Primer Style returned an empty page for the \`${pattern.name}\` pattern.`)
+
+    return parseCompactPatternDetails(html, pattern, url, listPatterns())
+  })()
+  compactPatternDetailsCache.set(cacheKey, pending)
+  trimCompactPatternDetailsCache()
+  void removeFailedPatternDetails(cacheKey, pending)
+
+  return pending
+}
+
+async function removeFailedPatternDetails(cacheKey: string, pending: Promise<CompactPatternDetails>) {
+  try {
+    await pending
+  } catch {
+    // Do not cache failures; the request that received it still propagates the error.
+    if (compactPatternDetailsCache.get(cacheKey) === pending) compactPatternDetailsCache.delete(cacheKey)
+  }
+}
+
+function trimCompactPatternDetailsCache() {
+  while (compactPatternDetailsCache.size > maximumCachedPatternDetails) {
+    const oldestCacheKey = compactPatternDetailsCache.keys().next().value
+    if (oldestCacheKey === undefined) return
+    compactPatternDetailsCache.delete(oldestCacheKey)
+  }
+}
+
+export function clearPatternDetailsCacheForTesting() {
+  compactPatternDetailsCache.clear()
 }
 
 function convertMainHtmlToMarkdown(html: string): string | undefined {
@@ -784,16 +840,7 @@ server.registerTool(
   async input => {
     const rankedPatterns = rankPatterns(listPatterns(), input)
     const details = await Promise.all(
-      rankedPatterns.slice(0, input.limit * 2).map(async candidate => {
-        const url = getPatternUrl(candidate.pattern)
-        const response = await fetch(url)
-        if (!response.ok) throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
-
-        const html = await response.text()
-        if (!html) throw new Error(`Primer Style returned an empty page for the \`${candidate.pattern.name}\` pattern.`)
-
-        return parseCompactPatternDetails(html, candidate.pattern, url, listPatterns())
-      }),
+      rankedPatterns.slice(0, input.limit).map(candidate => fetchCompactPatternDetails(candidate.pattern)),
     )
     const components: Array<RecommendationComponent> = listComponents().map(component => {
       const document = getComponentDocument(component.id)
