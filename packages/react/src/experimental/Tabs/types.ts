@@ -101,9 +101,11 @@ export type TabsContextValue = {
   selectedValue: string
   activationMode: 'automatic' | 'manual'
   /**
-   * The value of the tab that currently owns the roving tab stop when
-   * `activationMode` is `'manual'` and focus has diverged from selection.
-   * `undefined` until a manual focus move happens (falls back to the selected tab).
+   * In `'manual'` activation, the value of the most recently focused tab; the roving tab stop
+   * follows it so focus can diverge from selection. It is set on any focus within the tablist
+   * (including the initial focus, where it matches the selected tab). It is `undefined` before the
+   * first focus and after a selection commit, in which cases the tab stop falls back to the
+   * selected tab. Unused in `'automatic'` activation.
    */
   focusedValue: string | undefined
   selectTab(value: string): void
