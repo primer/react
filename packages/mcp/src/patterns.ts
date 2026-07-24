@@ -66,7 +66,15 @@ export function parseCompactPatternDetails(
   return {
     detail: 'compact',
     pattern: toPatternReference(pattern, sourceUrl),
-    summary: truncate(getText(content.find('p').first()), maximumSummaryLength),
+    summary: truncate(
+      getText(
+        content
+          .find('p')
+          .filter((_, element) => getText($(element)).length > 0)
+          .first(),
+      ),
+      maximumSummaryLength,
+    ),
     components: getComponentReferences($, content, sourceUrl),
     relatedPatterns: getRelatedPatterns($, content, sourceUrl, patterns),
     guidance: {

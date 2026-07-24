@@ -7,6 +7,7 @@ const searchPatternPage = `
     <div>
       <div><nav>Product UI / Scenario patterns</nav><h1>Search</h1></div>
       <div>
+        <p><img alt="" src="/assets/search-anatomy.png" /></p>
         <p>Search finds things that match specific criteria without including navigation chrome.</p>
         <h2>Implementation guidelines</h2>
         <p>Use <a href="/product/components/text-input/">TextInput</a> for a simple query.</p>
