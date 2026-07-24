@@ -51,8 +51,24 @@ interface ComponentsMetadata {
   composition?: CompositionMetadata
 }
 
+type ComponentIntentTerm = string | {all: Array<string>}
+
 const metadata: ComponentsMetadata = componentsMetadata
 const maximumObservedRelationshipsPerKind = 3
+const componentIntentTerms = new Map<string, Array<ComponentIntentTerm>>([
+  ['counter_label', ['count', 'metric', 'stat', 'statistic', 'total']],
+  [
+    'page_layout',
+    [{all: ['sidebar', 'detail']}, {all: ['sidebar', 'pane']}, {all: ['master', 'detail']}, {all: ['split', 'pane']}],
+  ],
+  ['nav_list', [{all: ['sidebar', 'navigation']}, {all: ['sidebar', 'navigator']}]],
+  [
+    'action_list',
+    [{all: ['action', 'row']}, {all: ['action', 'list']}, {all: ['action', 'item']}, {all: ['action', 'choice']}],
+  ],
+  ['avatar', ['avatar', 'member', 'people', 'person']],
+  ['label', ['badge', 'category', 'tag']],
+])
 
 function idToSlug(id: string): string {
   if (id === 'actionbar') {
@@ -154,6 +170,10 @@ function getComponentCompositionSummary(id: string) {
       relatedComponents: relatedComponents.omittedCount,
     },
   }
+}
+
+function getComponentRecommendationTerms(id: string): Array<ComponentIntentTerm> {
+  return componentIntentTerms.get(id) ?? []
 }
 
 function summarizeObservedRelationships(relationships: Array<ComponentRelationship>) {
@@ -309,6 +329,7 @@ function listIcons(): Array<Icon> {
 export {
   getComponentComposition,
   getComponentCompositionSummary,
+  getComponentRecommendationTerms,
   getComponentDocsSource,
   getComponentDocument,
   getComponentSummary,

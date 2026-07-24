@@ -5,6 +5,7 @@ import {findInternalCatalogEntries, type InternalCatalogResult, type InternalCat
 
 const maximumEvidencePerCandidate = 3
 const maximumAuxiliaryEntriesPerResult = 3
+const minimumPatternScoreWithoutPublicComponent = 20
 const relationshipKeys = [
   'parent',
   'child',
@@ -36,8 +37,11 @@ export interface RecommendationComponent {
   status?: string
   sourceUrl: string
   searchTerms: Array<string>
+  intentTerms?: Array<RecommendationIntentTerm>
   composition?: RecommendationComposition
 }
+
+export type RecommendationIntentTerm = string | {all: Array<string>}
 
 export interface RecommendationComposition {
   apiParentChild: Array<RecommendationRelationship>
@@ -191,8 +195,11 @@ export function createRecommendation(
   const componentByName = new Map(components.map(component => [normalizeIdentifier(component.name), component]))
   const candidates = new Map<string, ComponentCandidate>()
   const internalCandidates = new Map<string, InternalComponentCandidate>()
+  const supportedPatternIds = new Set<string>()
   const exclusions: Array<Exclusion> = []
   const unresolvedReferences: Array<UnresolvedReference> = []
+
+  addIntentMetadataCandidates(candidates, components, input)
 
   for (const detail of selectedDetails) {
     const pattern = selectedPatterns.find(candidate => candidate.pattern.id === detail.pattern.id)
@@ -213,6 +220,7 @@ export function createRecommendation(
               detail: `${detail.pattern.name} links to documented internal ${entry.name}.`,
             },
           })
+          supportedPatternIds.add(pattern.pattern.id)
           continue
         }
 
@@ -265,6 +273,7 @@ export function createRecommendation(
           detail: `${detail.pattern.name} links to ${component.name}.`,
         },
       })
+      supportedPatternIds.add(pattern.pattern.id)
     }
   }
 
@@ -295,19 +304,8 @@ export function createRecommendation(
     }
   }
 
-  expandComposition(candidates, componentByName, exclusions)
+  expandComposition(candidates, componentByName, exclusions, input)
 
-  const patternCandidates = selectedPatterns.map(candidate => ({
-    pattern: {
-      id: candidate.pattern.id,
-      name: candidate.pattern.name,
-      category: candidate.pattern.category,
-      sourceUrl: getPatternUrl(candidate.pattern).toString(),
-    },
-    sourceKind: 'primer-style-pattern' as const,
-    score: candidate.score,
-    scoreBreakdown: candidate.scoreBreakdown,
-  }))
   const componentCandidates = [...candidates.values()]
     .map(candidate => ({
       ...candidate,
@@ -322,11 +320,27 @@ export function createRecommendation(
     }))
     .sort(compareInternalComponentCandidates)
     .slice(0, limit)
+  const patternCandidates = selectedPatterns
+    .filter(
+      candidate =>
+        candidate.score >= minimumPatternScoreWithoutPublicComponent || supportedPatternIds.has(candidate.pattern.id),
+    )
+    .map(candidate => ({
+      pattern: {
+        id: candidate.pattern.id,
+        name: candidate.pattern.name,
+        category: candidate.pattern.category,
+        sourceUrl: getPatternUrl(candidate.pattern).toString(),
+      },
+      sourceKind: 'primer-style-pattern' as const,
+      score: candidate.score,
+      scoreBreakdown: candidate.scoreBreakdown,
+    }))
   const matchedSignals = getMatchedSignals(input, patternCandidates, componentCandidates)
   const unmetSignals = getUnmetSignals(input, matchedSignals)
   const ambiguous = patternCandidates.length > 1 && patternCandidates[0].score === patternCandidates[1].score
   const status =
-    patternCandidates.length === 0
+    patternCandidates.length === 0 && componentCandidates.length === 0 && internalComponentCandidates.length === 0
       ? 'no-match'
       : ambiguous
         ? 'ambiguous'
@@ -405,6 +419,7 @@ function expandComposition(
   candidates: Map<string, ComponentCandidate>,
   componentByName: Map<string, RecommendationComponent>,
   exclusions: Array<Exclusion>,
+  input: RecommendationInput,
 ) {
   const expandedRelationships = new Set<string>()
 
@@ -417,6 +432,12 @@ function expandComposition(
         for (const relatedName of getRelatedComponentNames(relationship, source.name)) {
           const related = componentByName.get(normalizeIdentifier(relatedName))
           if (!related || related.name === source.name) continue
+          if (
+            candidate.evidence.every(evidence => evidence.sourceKind === 'component-metadata') &&
+            getIntentMetadataMatches(related, input).length === 0
+          ) {
+            continue
+          }
           const relationshipKey = `${source.name}:${kind}:${related.name}`
           if (expandedRelationships.has(relationshipKey)) continue
           expandedRelationships.add(relationshipKey)
@@ -443,6 +464,66 @@ function expandComposition(
       }
     }
   }
+}
+
+function addIntentMetadataCandidates(
+  candidates: Map<string, ComponentCandidate>,
+  components: Array<RecommendationComponent>,
+  input: RecommendationInput,
+) {
+  for (const component of components) {
+    if (!isCompatible(component)) continue
+
+    const matches = getIntentMetadataMatches(component, input)
+    if (matches.length === 0) continue
+
+    addCandidate(candidates, component, {
+      score: matches.length * 12,
+      scoreBreakdown: [{source: 'component-metadata', score: matches.length * 12, matches}],
+      evidence: {
+        sourceKind: 'component-metadata',
+        sourceUrl: component.sourceUrl,
+        detail: `${component.name} matches component intent metadata.`,
+      },
+    })
+  }
+}
+
+function getIntentMetadataMatches(component: RecommendationComponent, input: RecommendationInput): Array<string> {
+  const inputValues = [input.intent, input.surface, input.region, ...(input.states ?? []), ...(input.constraints ?? [])]
+  const inputTokens = tokens(inputValues)
+  const capabilityMatches = (component.intentTerms ?? []).flatMap(term => {
+    const requiredTerms = typeof term === 'string' ? [term] : term.all
+    const requiredTokens = tokens(requiredTerms)
+
+    return [...requiredTokens].every(token => inputTokens.has(token))
+      ? [typeof term === 'string' ? term : term.all.join(' + ')]
+      : []
+  })
+
+  return [...new Set([...getFullNameMatches(component, inputValues), ...capabilityMatches])]
+}
+
+function getFullNameMatches(component: RecommendationComponent, inputValues: Array<string | undefined>): Array<string> {
+  const inputPhrases = inputValues
+    .filter((value): value is string => Boolean(value))
+    .map(normalizePhrase)
+    .filter(Boolean)
+  const inputWords = new Set(
+    inputValues
+      .filter((value): value is string => Boolean(value))
+      .flatMap(value => value.toLowerCase().split(/[^a-z0-9]+/))
+      .filter(Boolean),
+  )
+
+  return [...new Set([component.id, component.name])]
+    .filter(name => {
+      const phrase = normalizePhrase(name)
+      const compactName = normalizeIdentifier(name)
+
+      return inputPhrases.some(inputPhrase => ` ${inputPhrase} `.includes(` ${phrase} `)) || inputWords.has(compactName)
+    })
+    .map(normalizePhrase)
 }
 
 function getRelationships(composition: RecommendationComposition): Array<[string, Array<RecommendationRelationship>]> {
@@ -598,7 +679,7 @@ function tokens(values: string | Array<string | undefined>): Set<string> {
 
 function stem(token: string): string {
   if (token.endsWith('ing') && token.length > 5) return token.slice(0, -3)
-  if (token.endsWith('es') && token.length > 4) return token.slice(0, -2)
+  if (token.endsWith('ies') && token.length > 4) return `${token.slice(0, -3)}y`
   if (token.endsWith('s') && token.length > 3) return token.slice(0, -1)
   return token
 }
@@ -609,6 +690,14 @@ function intersection(first: Set<string>, second: Set<string>): Array<string> {
 
 function normalizeIdentifier(value: string): string {
   return value.replace(/[^a-z0-9]/gi, '').toLowerCase()
+}
+
+function normalizePhrase(value: string): string {
+  return value
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
 }
 
 function isCompatible(component: RecommendationComponent): boolean {

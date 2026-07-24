@@ -2,7 +2,9 @@ import {Client} from '@modelcontextprotocol/sdk/client/index.js'
 import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js'
 import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
 import {getComponentDocsSource} from './primer'
-import {server} from './server'
+import {clearCssLintResultCacheForTesting, clearPatternDetailsCacheForTesting, server} from './server'
+// eslint-disable-next-line import/no-namespace
+import * as primitives from './primitives'
 
 const searchPatternPage = `
   <main>
@@ -37,6 +39,14 @@ const internalCatalogPage = JSON.stringify({
   ],
 })
 
+function createPatternPage(patternName: string, componentName: string, componentId: string): string {
+  return searchPatternPage
+    .replace('<h1>Search</h1>', `<h1>${patternName}</h1>`)
+    .replace('Search finds things that match specific criteria.', `${patternName} guidance.`)
+    .replace('/product/components/text-input/', `/product/components/${componentId}/`)
+    .replace('>TextInput<', `>${componentName}<`)
+}
+
 describe('component documentation sources', () => {
   it('uses hosted documentation by default and supports package metadata', () => {
     expect(getComponentDocsSource(undefined)).toBe('hosted')
@@ -57,11 +67,15 @@ describe('get_component_batch', () => {
   })
 
   beforeEach(() => {
+    clearCssLintResultCacheForTesting()
+    clearPatternDetailsCacheForTesting()
+    vi.spyOn(primitives, 'runStylelint')
     vi.stubGlobal('fetch', vi.fn<typeof fetch>())
   })
 
   afterEach(() => {
     vi.useRealTimers()
+    vi.restoreAllMocks()
     vi.unstubAllGlobals()
   })
 
@@ -382,6 +396,117 @@ describe('get_component_batch', () => {
       ]),
     })
     expect(getTextContent(result)).toContain('Public components')
+  })
+
+  it.each([
+    ['search', 'Search', 'TextInput', 'text-input', true],
+    ['forms', 'Forms', 'Button', 'button', true],
+    ['navigation', 'Navigation', 'NavList', 'nav-list', true],
+    ['saving', 'Saving', 'Banner', 'banner', true],
+    ['empty states', 'Empty States', 'Blankslate', 'blankslate', false],
+  ])(
+    'preserves %s recommendation candidates and content across a warm pattern cache',
+    async (intent, patternName, componentName, componentId, expectsComponent = true) => {
+      vi.mocked(fetch).mockResolvedValue(new Response(createPatternPage(patternName, componentName, componentId)))
+
+      const cold = await callRecommendation({intent})
+      const warm = await callRecommendation({intent})
+      const coldPayload = cold.structuredContent as {
+        patterns: Array<{pattern: {name: string}}>
+        components: Array<{component: {name: string}}>
+      }
+
+      expect(cold.structuredContent).toEqual(warm.structuredContent)
+      expect(getTextContent(cold)).toBe(getTextContent(warm))
+      expect(coldPayload.patterns.map(candidate => candidate.pattern.name)).toContain(patternName)
+      if (expectsComponent) {
+        expect(coldPayload.components.map(candidate => candidate.component.name)).toContain(componentName)
+      } else {
+        expect(coldPayload.components).toEqual([])
+      }
+      expect(fetch).toHaveBeenCalledOnce()
+    },
+  )
+
+  it('shares concurrent pattern enrichment and only fetches selected ranked patterns', async () => {
+    let resolveSearch: ((response: Response) => void) | undefined
+    let resolveFilter: ((response: Response) => void) | undefined
+    vi.mocked(fetch).mockImplementation(input => {
+      const path = new URL(input.toString()).pathname
+      return new Promise(resolve => {
+        if (path.includes('/search')) resolveSearch = resolve
+        else resolveFilter = resolve
+      })
+    })
+
+    const first = callRecommendation({intent: 'search filter'})
+    const second = callRecommendation({intent: 'search filter'})
+    await vi.waitFor(() => expect(fetch).toHaveBeenCalledTimes(2))
+    resolveSearch?.(new Response(searchPatternPage))
+    resolveFilter?.(new Response(searchPatternPage.replace('<h1>Search</h1>', '<h1>Filter</h1>')))
+
+    await expect(Promise.all([first, second])).resolves.toHaveLength(2)
+    expect(fetch).toHaveBeenCalledTimes(2)
+
+    clearPatternDetailsCacheForTesting()
+    vi.mocked(fetch).mockClear()
+    vi.mocked(fetch).mockResolvedValue(new Response(searchPatternPage))
+    await callRecommendation({intent: 'search filter', limit: 1})
+    expect(fetch).toHaveBeenCalledOnce()
+  })
+
+  it('does not cache failed pattern enrichment responses', async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(null, {status: 503, statusText: 'Service Unavailable'}))
+
+    const first = await callRecommendation({intent: 'search'})
+    const second = await callRecommendation({intent: 'search'})
+
+    expect(first.isError).toBe(true)
+    expect(second.isError).toBe(true)
+    expect(fetch).toHaveBeenCalledTimes(2)
+  })
+
+  it('runs CSS linting once for concurrent and unchanged final CSS', async () => {
+    vi.mocked(primitives.runStylelint).mockResolvedValue({stdout: '', stderr: ''})
+    const css = '.Component { color: var(--fgColor-default); }'
+
+    const [first, concurrent] = await Promise.all([callTool('lint_css', {css}), callTool('lint_css', {css})])
+    const warm = await callTool('lint_css', {css})
+    const changed = await callTool('lint_css', {css: `${css}\n.Component--selected { color: var(--fgColor-accent); }`})
+
+    expect(primitives.runStylelint).toHaveBeenCalledTimes(2)
+    expect(primitives.runStylelint).toHaveBeenNthCalledWith(1, css)
+    expect([getTextContent(first), getTextContent(concurrent)]).toEqual(
+      expect.arrayContaining([
+        '✅ Stylelint passed (or was successfully autofixed).',
+        '✅ Stylelint passed; CSS unchanged.',
+      ]),
+    )
+    expect(getTextContent(warm)).toBe('✅ Stylelint passed; CSS unchanged.')
+    expect(getTextContent(changed)).toBe('✅ Stylelint passed (or was successfully autofixed).')
+  })
+
+  it('does not retain failed CSS linting as a successful cached result', async () => {
+    vi.mocked(primitives.runStylelint).mockRejectedValue(
+      Object.assign(new Error('Stylelint exited with code 2'), {stdout: 'invalid CSS'}),
+    )
+    const css = '.Component { color: ; }'
+
+    const first = await callTool('lint_css', {css})
+    const second = await callTool('lint_css', {css})
+
+    expect(primitives.runStylelint).toHaveBeenCalledTimes(2)
+    expect(getTextContent(first)).toContain('❌ Errors without autofix remaining:')
+    expect(getTextContent(second)).toContain('❌ Errors without autofix remaining:')
+    expect(getTextContent(second)).not.toContain('CSS unchanged')
+  })
+
+  it('preserves the single-icon missing result', async () => {
+    const result = await callTool('get_icon', {name: 'missing'})
+
+    expect(getTextContent(result)).toBe(
+      'There is no icon named `missing` in the @primer/octicons-react package. For a full list of icons, use the `get_icon` tool.',
+    )
   })
 
   it('lists bounded documented internal components without presenting an import path', async () => {
