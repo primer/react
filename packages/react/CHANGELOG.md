@@ -1,5 +1,21 @@
 # @primer/react
 
+## 38.34.0
+
+### Minor Changes
+
+- [#8086](https://github.com/primer/react/pull/8086) [`81d4174`](https://github.com/primer/react/commit/81d4174150b37da95db23480574ddf8db5b20ca4) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Add a `hideDivider` prop to `NavList.Group` so consumers can opt out of rendering the divider before a group.
+
+### Patch Changes
+
+- [#8211](https://github.com/primer/react/pull/8211) [`a3e669f`](https://github.com/primer/react/commit/a3e669fa551a7d07841ce20224199d172905860f) Thanks [@francinelucca](https://github.com/francinelucca)! - Link: Remove unnecessary `data-hover-color` attribute from rendered DOM element
+
+- [#8196](https://github.com/primer/react/pull/8196) [`e24effd`](https://github.com/primer/react/commit/e24effd440d69f0068a89aba26bae9e39fb3254e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Use `aria-pressed` instead of `aria-current` on `SegmentedControl.Button` and `SegmentedControl.IconButton` so JAWS announces the selected state when a segment is activated.
+
+- [#8169](https://github.com/primer/react/pull/8169) [`1d6f559`](https://github.com/primer/react/commit/1d6f5593f5e482d1d03027522bc882560c7b1f06) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Timeline: `Timeline.Actions` now wraps onto a new row below `Timeline.Body`, left-aligned with the body content, when `Timeline.Item` is narrower than 480px.
+
+- [#8214](https://github.com/primer/react/pull/8214) [`41705f4`](https://github.com/primer/react/commit/41705f430ce0f64eb61c2665313f36a88cf6f16c) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - UnderlinePanels: The experimental `UnderlinePanels` component is now built on the experimental `Tabs` component instead of `@github/tab-container-element`. Its public API and behavior are unchanged.
+
 ## 38.33.0
 
 ### Minor Changes
