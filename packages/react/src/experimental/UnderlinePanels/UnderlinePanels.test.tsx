@@ -10,7 +10,7 @@ import {describe, it, afterEach, beforeEach, expect, vi} from 'vitest'
 import {CodeIcon, EyeIcon} from '@primer/octicons-react'
 import UnderlinePanels from './UnderlinePanels'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
-import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
+import {implementsClassName, withExpectedConsoleError, withExpectedConsoleWarning} from '../../utils/testing'
 import classes from './UnderlinePanels.module.css'
 
 const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-labelledby'?: string; id?: string}) => (
@@ -331,6 +331,86 @@ describe('UnderlinePanels', () => {
 
       expect(onChange).toHaveBeenCalledWith({value: '1'})
       expect(screen.getByRole('tab', {name: 'Tab 2'})).toHaveAttribute('aria-selected', 'true')
+    })
+
+    describe('dev validation and fallback', () => {
+      const RefTabsRaw = (props: {
+        value?: string
+        defaultValue?: string
+        tabs?: Array<{tab: string; panel: string}>
+      }) => {
+        const pairs = props.tabs ?? [
+          {tab: 'branch', panel: 'branch'},
+          {tab: 'tag', panel: 'tag'},
+        ]
+        return (
+          <UnderlinePanels aria-label="Ref type" value={props.value} defaultValue={props.defaultValue}>
+            {pairs.map((p, i) => (
+              <UnderlinePanels.Tab key={`tab-${i}`} value={p.tab}>
+                {p.tab}
+              </UnderlinePanels.Tab>
+            ))}
+            {pairs.map((p, i) => (
+              <UnderlinePanels.Panel key={`panel-${i}`} value={p.panel}>
+                {p.panel} panel
+              </UnderlinePanels.Panel>
+            ))}
+          </UnderlinePanels>
+        )
+      }
+
+      it('clamps to the first tab (and warns) when the selected value matches no tab', () => {
+        withExpectedConsoleWarning(() => {
+          render(<RefTabsRaw value="nonexistent" />)
+        })
+
+        const branch = screen.getByRole('tab', {name: 'branch'})
+        const tag = screen.getByRole('tab', {name: 'tag'})
+
+        // No keyboard trap: exactly one tab is the tab stop, and the first panel is shown.
+        expect(branch).toHaveAttribute('aria-selected', 'true')
+        expect(branch).toHaveAttribute('tabindex', '0')
+        expect(tag).toHaveAttribute('tabindex', '-1')
+        expect(screen.getByText('branch panel')).toBeVisible()
+      })
+
+      it('warns when `value` and `defaultValue` are combined, and `value` wins', () => {
+        withExpectedConsoleWarning(() => {
+          render(<RefTabsRaw value="branch" defaultValue="tag" />)
+        })
+
+        expect(screen.getByRole('tab', {name: 'branch'})).toHaveAttribute('aria-selected', 'true')
+      })
+
+      it('throws when two tabs share the same value', () => {
+        withExpectedConsoleError(() => {
+          expect(() => {
+            render(
+              <RefTabsRaw
+                tabs={[
+                  {tab: 'branch', panel: 'branch'},
+                  {tab: 'branch', panel: 'tag'},
+                ]}
+              />,
+            )
+          }).toThrow('Every tab must have a unique `value`. Found duplicate "branch".')
+        })
+      })
+
+      it('throws when a tab has no matching panel', () => {
+        withExpectedConsoleError(() => {
+          expect(() => {
+            render(
+              <RefTabsRaw
+                tabs={[
+                  {tab: 'branch', panel: 'branch'},
+                  {tab: 'tag', panel: 'mismatch'},
+                ]}
+              />,
+            )
+          }).toThrow('Tab with `value` "tag" has no matching panel')
+        })
+      })
     })
   })
 })

@@ -14,6 +14,7 @@ import type {IconProps} from '@primer/octicons-react'
 import {UnderlineItemList, UnderlineWrapper, UnderlineItem} from '../../internal/components/UnderlineTabbedInterface'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
+import {warning} from '../../utils/warning'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
@@ -149,7 +150,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   // called in the exact same order in every component render
   const parentId = useId(props.id)
 
-  const [tabs, tabPanels, tabsHaveIcons, selectedFromProps] = useMemo(() => {
+  const [tabs, tabPanels, tabsHaveIcons, selectedFromProps, tabValues, panelValues] = useMemo(() => {
     // Pair each Tab with its Panel by `value`. Consumers may provide an explicit `value` (domain
     // values like 'branch'); when omitted we inject a positional value so the Nth tab pairs with
     // the Nth panel. Derived in render (not an effect) to avoid an empty-tablist frame;
@@ -174,23 +175,29 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 
     const tabs: React.ReactNode[] = []
     const tabPanels: React.ReactNode[] = []
+    const tabValues: string[] = []
+    const panelValues: string[] = []
     let selectedFromProps: string | undefined
     for (const child of Children.toArray(childrenWithProps)) {
       if (!isValidElement(child)) continue
       if (child.type === Tab || isSlot(child, Tab)) {
+        const value = (child.props as WithValue).value
+        if (value !== undefined) tabValues.push(value)
         const ariaSelected = (child.props as {'aria-selected'?: boolean | string})['aria-selected']
         if (ariaSelected === true || ariaSelected === 'true') {
-          selectedFromProps = (child.props as WithValue).value
+          selectedFromProps = value
         }
         tabs.push(child)
       } else if (child.type === Panel || isSlot(child, Panel)) {
+        const value = (child.props as WithValue).value
+        if (value !== undefined) panelValues.push(value)
         tabPanels.push(child)
       }
     }
 
     const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
 
-    return [tabs, tabPanels, tabsHaveIcons, selectedFromProps] as const
+    return [tabs, tabPanels, tabsHaveIcons, selectedFromProps, tabValues, panelValues] as const
   }, [children])
 
   // Hybrid selection supporting three sources, in priority order:
@@ -211,6 +218,12 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   }
 
   const selectedValue = isControlled ? controlledValue : uncontrolledValue
+
+  // Safety net against a keyboard trap: if the selected value doesn't match any rendered tab
+  // (e.g. a controlled `value` that points at a nonexistent tab), fall back to the first tab so
+  // the tablist always has exactly one tabbable entry point. Unlike Base UI's uncontrolled
+  // auto-fallback, this does not fire `onChange` — it only clamps what the Tabs primitive renders.
+  const effectiveValue = tabValues.includes(selectedValue) ? selectedValue : (tabValues[0] ?? selectedValue)
 
   const handleValueChange = (value: string) => {
     if (!isControlled) {
@@ -278,16 +291,53 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       return ariaSelected === true || ariaSelected === 'true'
     })
 
+    // Structural problems produce invalid DOM/ARIA (duplicate ids, orphaned `aria-controls`), so
+    // they throw, matching the existing tab/panel-count invariant.
     invariant(selectedTabs.length <= 1, 'Only one tab can be selected at a time.')
-
-    invariant(
-      !(isControlled && selectedTabs.length > 0),
-      'Do not combine the controlled `value` prop with `aria-selected` on a tab. Use `value`/`onChange` (or `defaultValue`) to drive selection instead.',
-    )
 
     invariant(
       tabs.length === tabPanels.length,
       `The number of tabs and panels must be equal. Counted ${tabs.length} tabs and ${tabPanels.length} panels.`,
+    )
+
+    // Explicit `value`s must be unique across tabs (and across panels): tab and panel ids are
+    // derived from the value, so duplicates produce duplicate DOM ids and ambiguous ARIA wiring.
+    const duplicateTabValue = tabValues.find((value, index) => tabValues.indexOf(value) !== index)
+    invariant(
+      duplicateTabValue === undefined,
+      `Every tab must have a unique \`value\`. Found duplicate "${duplicateTabValue}".`,
+    )
+    const duplicatePanelValue = panelValues.find((value, index) => panelValues.indexOf(value) !== index)
+    invariant(
+      duplicatePanelValue === undefined,
+      `Every panel must have a unique \`value\`. Found duplicate "${duplicatePanelValue}".`,
+    )
+
+    // Each tab must have a panel with a matching `value` so the pairing (and `aria-controls`) resolves.
+    const unmatchedTabValue = tabValues.find(value => !panelValues.includes(value))
+    invariant(
+      unmatchedTabValue === undefined,
+      `Tab with \`value\` "${unmatchedTabValue}" has no matching panel. Give a \`UnderlinePanels.Panel\` the same \`value\`.`,
+    )
+
+    // Recoverable misconfigurations only warn: the component resolves them (see below), so throwing
+    // would crash consumers for a non-fatal mistake.
+    warning(
+      isControlled && selectedTabs.length > 0,
+      'UnderlinePanels: do not combine the controlled `value` prop with `aria-selected` on a tab. `value` takes precedence; use `value`/`onChange` (or `defaultValue`) to drive selection.',
+    )
+
+    warning(
+      controlledValue !== undefined && defaultValue !== undefined,
+      'UnderlinePanels: do not combine the controlled `value` prop with `defaultValue`. `value` takes precedence; use one or the other.',
+    )
+
+    // A provided `value`/`defaultValue` that matches no tab makes the component fall back to the
+    // first tab (see the `effectiveValue` clamp above) to avoid a keyboard trap.
+    const providedValue = controlledValue ?? defaultValue
+    warning(
+      providedValue !== undefined && tabValues.length > 0 && !tabValues.includes(providedValue),
+      `UnderlinePanels: the selected value "${providedValue}" does not match any tab, so the first tab is selected instead. Provide a \`value\`/\`defaultValue\` that matches a \`UnderlinePanels.Tab\` \`value\`.`,
     )
   }
 
@@ -295,7 +345,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     <UnderlinePanelsContext.Provider value={contextValue}>
       <Tabs
         id={parentId}
-        value={selectedValue}
+        value={effectiveValue}
         activationMode={activationMode}
         onValueChange={({value}) => handleValueChange(value)}
       >
