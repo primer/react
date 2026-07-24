@@ -4,7 +4,16 @@ import * as cheerio from 'cheerio'
 // eslint-disable-next-line import/no-namespace
 import * as z from 'zod'
 import TurndownService from 'turndown'
-import {listComponents, listPatterns, listIcons} from './primer'
+import {
+  getComponentComposition,
+  getComponentCompositionSummary,
+  getComponentDocsSource,
+  getComponentDocument,
+  getComponentSummary,
+  listComponents,
+  listPatterns,
+  listIcons,
+} from './primer'
 import {
   listTokenGroups,
   loadAllTokensWithGuidelines,
@@ -28,6 +37,7 @@ const server = new McpServer({
 })
 
 const turndownService = new TurndownService()
+const defaultComponentDocsSource = getComponentDocsSource()
 
 // Load all tokens with guidelines from primitives
 const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
@@ -106,7 +116,61 @@ server.registerTool(
 
 ${components.join('\n')}
 
-You can use the \`get_component\` tool to get more information about a specific component. You can use these components from the @primer/react package.`,
+You can use the \`get_component\` tool to get more information about a specific component and \`get_component_composition\` for source-derived composition metadata. You can use these components from the @primer/react package.`,
+        },
+      ],
+    }
+  },
+)
+
+server.registerTool(
+  'get_component_composition',
+  {
+    description:
+      'Retrieve source-derived composition metadata for a Primer React component, including documented compound APIs and observed static JSX relationships.',
+    inputSchema: {
+      name: z.string().describe('The name of the component to retrieve composition metadata for'),
+    },
+    annotations: {readOnlyHint: true},
+  },
+  async ({name}) => {
+    const component = listComponents().find(candidate => {
+      return candidate.name === name || candidate.name.toLowerCase() === name.toLowerCase()
+    })
+    if (!component) {
+      return {
+        isError: true,
+        errorMessage: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use \`list_components\` for valid names.`,
+        content: [],
+      }
+    }
+
+    const composition = getComponentComposition(component.id)
+    if (!composition) {
+      return {
+        isError: true,
+        errorMessage:
+          'The installed @primer/react package does not include composition metadata. Use a version that publishes generated/components.json with composition data.',
+        content: [],
+      }
+    }
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(
+            {
+              component: {
+                id: component.id,
+                name: component.name,
+                importPath: component.importPath,
+              },
+              composition,
+            },
+            null,
+            2,
+          ),
         },
       ],
     }
@@ -120,10 +184,14 @@ server.registerTool(
       'Retrieve documentation and usage details for a specific React component from the @primer/react package by its name. This tool provides the official Primer documentation for any listed component, making it easy to inspect, reuse, or integrate components in your project.',
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
+      source: z
+        .enum(['hosted', 'package'])
+        .optional()
+        .describe('Use hosted Primer Style documentation or metadata from the installed @primer/react package'),
     },
     annotations: {readOnlyHint: true},
   },
-  async ({name}) => {
+  async ({name, source}) => {
     const components = listComponents()
     const match = components.find(component => {
       return component.name === name || component.name.toLowerCase() === name.toLowerCase()
@@ -135,6 +203,21 @@ server.registerTool(
         content: [],
       }
     }
+    const docsSource = source ?? defaultComponentDocsSource
+    if (docsSource === 'package') {
+      const document = getComponentDocument(match.id)
+      const composition = getComponentComposition(match.id)
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify({source: 'package', component: document, composition}, null, 2),
+          },
+        ],
+      }
+    }
+
     try {
       const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
       const llmsResponse = await fetch(llmsUrl)
@@ -174,10 +257,14 @@ server.registerTool(
         .min(2)
         .max(10)
         .describe('Component names to retrieve (e.g. ["ActionMenu", "Button", "Pagination"])'),
+      source: z
+        .enum(['hosted', 'package'])
+        .optional()
+        .describe('Use hosted Primer Style documentation or metadata from the installed @primer/react package'),
     },
     annotations: {readOnlyHint: true},
   },
-  async ({names}) => {
+  async ({names, source}) => {
     const seenNames = new Set<string>()
     const deduped = names.filter(name => {
       const normalizedName = name.toLowerCase()
@@ -188,6 +275,7 @@ server.registerTool(
       return true
     })
     const components = listComponents()
+    const docsSource = source ?? defaultComponentDocsSource
 
     const results = await Promise.all(
       deduped.map(async name => {
@@ -198,6 +286,14 @@ server.registerTool(
           return {
             type: 'text' as const,
             text: `## ${name}\n\nStatus: not-found. No component named \`${name}\` exists in @primer/react. Use \`list_components\` for valid names.`,
+          }
+        }
+
+        if (docsSource === 'package') {
+          const composition = getComponentCompositionSummary(match.id)
+          return {
+            type: 'text' as const,
+            text: JSON.stringify({source: 'package', composition, component: getComponentSummary(match)}, null, 2),
           }
         }
 

@@ -16,7 +16,9 @@ import chalk from 'chalk'
 import type {LintError} from 'markdownlint'
 import {lint as mdLint} from 'markdownlint/sync'
 import componentSchema from './component.schema.json'
+import compositionSchema from './composition.schema.json'
 import outputSchema from './output.schema.json'
+import {buildComposition, getCompositionSources, type DocumentedComponent} from './composition'
 
 const args = parseArgs({
   options: {
@@ -43,6 +45,8 @@ type Component = {
 const ajv = new Ajv({
   allowUnionTypes: true,
 })
+
+ajv.compile(compositionSchema)
 
 function formatMDError(lintError: LintError): string {
   let range = ''
@@ -208,7 +212,15 @@ const components = docsFiles.map(docsFilepath => {
   }
 })
 
-const data = {schemaVersion: 2, components: keyBy(components, 'id')}
+const composition = buildComposition(
+  components.map((component, index) => ({
+    ...component,
+    sourcePath: docsFiles[index],
+  })) as Array<DocumentedComponent>,
+  getCompositionSources(docsFiles),
+)
+
+const data = {schemaVersion: 2, components: keyBy(components, 'id'), composition}
 
 // Validate output
 const validate = ajv.compile(outputSchema)
