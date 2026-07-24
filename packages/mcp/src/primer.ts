@@ -51,15 +51,23 @@ interface ComponentsMetadata {
   composition?: CompositionMetadata
 }
 
+type ComponentIntentTerm = string | {all: Array<string>}
+
 const metadata: ComponentsMetadata = componentsMetadata
 const maximumObservedRelationshipsPerKind = 3
-const componentIntentTerms = new Map<string, Array<string>>([
+const componentIntentTerms = new Map<string, Array<ComponentIntentTerm>>([
   ['counter_label', ['count', 'metric', 'stat', 'statistic', 'total']],
-  ['page_layout', ['sidebar', 'detail', 'master', 'pane', 'split']],
-  ['nav_list', ['navigation', 'navigator']],
-  ['action_list', ['action', 'choice', 'option', 'select', 'selection']],
-  ['avatar', ['avatar', 'member', 'people', 'person', 'user']],
-  ['label', ['badge', 'category', 'status', 'tag']],
+  [
+    'page_layout',
+    [{all: ['sidebar', 'detail']}, {all: ['sidebar', 'pane']}, {all: ['master', 'detail']}, {all: ['split', 'pane']}],
+  ],
+  ['nav_list', [{all: ['sidebar', 'navigation']}, {all: ['sidebar', 'navigator']}]],
+  [
+    'action_list',
+    [{all: ['action', 'row']}, {all: ['action', 'list']}, {all: ['action', 'item']}, {all: ['action', 'choice']}],
+  ],
+  ['avatar', ['avatar', 'member', 'people', 'person']],
+  ['label', ['badge', 'category', 'tag']],
 ])
 
 function idToSlug(id: string): string {
@@ -164,14 +172,8 @@ function getComponentCompositionSummary(id: string) {
   }
 }
 
-function getComponentRecommendationTerms(id: string): Array<string> {
-  const document = getComponentDocument(id)
-
-  return [
-    ...new Set(
-      [id, document?.name, ...(componentIntentTerms.get(id) ?? [])].filter((term): term is string => Boolean(term)),
-    ),
-  ]
+function getComponentRecommendationTerms(id: string): Array<ComponentIntentTerm> {
+  return componentIntentTerms.get(id) ?? []
 }
 
 function summarizeObservedRelationships(relationships: Array<ComponentRelationship>) {

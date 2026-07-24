@@ -37,9 +37,11 @@ export interface RecommendationComponent {
   status?: string
   sourceUrl: string
   searchTerms: Array<string>
-  intentTerms?: Array<string>
+  intentTerms?: Array<RecommendationIntentTerm>
   composition?: RecommendationComposition
 }
+
+export type RecommendationIntentTerm = string | {all: Array<string>}
 
 export interface RecommendationComposition {
   apiParentChild: Array<RecommendationRelationship>
@@ -469,7 +471,7 @@ function addIntentMetadataCandidates(
   input: RecommendationInput,
 ) {
   for (const component of components) {
-    if (!isCompatible(component) || !component.intentTerms?.length) continue
+    if (!isCompatible(component)) continue
 
     const matches = getIntentMetadataMatches(component, input)
     if (matches.length === 0) continue
@@ -487,10 +489,40 @@ function addIntentMetadataCandidates(
 }
 
 function getIntentMetadataMatches(component: RecommendationComponent, input: RecommendationInput): Array<string> {
-  return intersection(
-    tokens([input.intent, input.surface, input.region, ...(input.states ?? []), ...(input.constraints ?? [])]),
-    tokens(component.intentTerms ?? []),
+  const inputValues = [input.intent, input.surface, input.region, ...(input.states ?? []), ...(input.constraints ?? [])]
+  const inputTokens = tokens(inputValues)
+  const capabilityMatches = (component.intentTerms ?? []).flatMap(term => {
+    const requiredTerms = typeof term === 'string' ? [term] : term.all
+    const requiredTokens = tokens(requiredTerms)
+
+    return [...requiredTokens].every(token => inputTokens.has(token))
+      ? [typeof term === 'string' ? term : term.all.join(' + ')]
+      : []
+  })
+
+  return [...new Set([...getFullNameMatches(component, inputValues), ...capabilityMatches])]
+}
+
+function getFullNameMatches(component: RecommendationComponent, inputValues: Array<string | undefined>): Array<string> {
+  const inputPhrases = inputValues
+    .filter((value): value is string => Boolean(value))
+    .map(normalizePhrase)
+    .filter(Boolean)
+  const inputWords = new Set(
+    inputValues
+      .filter((value): value is string => Boolean(value))
+      .flatMap(value => value.toLowerCase().split(/[^a-z0-9]+/))
+      .filter(Boolean),
   )
+
+  return [...new Set([component.id, component.name])]
+    .filter(name => {
+      const phrase = normalizePhrase(name)
+      const compactName = normalizeIdentifier(name)
+
+      return inputPhrases.some(inputPhrase => ` ${inputPhrase} `.includes(` ${phrase} `)) || inputWords.has(compactName)
+    })
+    .map(normalizePhrase)
 }
 
 function getRelationships(composition: RecommendationComposition): Array<[string, Array<RecommendationRelationship>]> {
@@ -657,6 +689,14 @@ function intersection(first: Set<string>, second: Set<string>): Array<string> {
 
 function normalizeIdentifier(value: string): string {
   return value.replace(/[^a-z0-9]/gi, '').toLowerCase()
+}
+
+function normalizePhrase(value: string): string {
+  return value
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
 }
 
 function isCompatible(component: RecommendationComponent): boolean {

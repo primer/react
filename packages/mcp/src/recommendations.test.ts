@@ -1,6 +1,12 @@
 import {describe, expect, it} from 'vitest'
 import type {CompactPatternDetails} from './patterns'
-import {createRecommendation, formatRecommendation, rankPatterns, type RecommendationComponent} from './recommendations'
+import {
+  createRecommendation,
+  formatRecommendation,
+  rankPatterns,
+  type RecommendationComponent,
+  type RecommendationIntentTerm,
+} from './recommendations'
 
 const sourceUrl = 'https://primer.style/product/components/text-input'
 const availablePatterns = [
@@ -114,7 +120,7 @@ const internalCatalog = {
 function component(
   id: string,
   name: string,
-  intentTerms?: Array<string>,
+  intentTerms?: Array<RecommendationIntentTerm>,
   composition?: RecommendationComponent['composition'],
 ): RecommendationComponent {
   return {
@@ -135,26 +141,42 @@ const emptyComposition = {
 }
 const compositionComponents: Array<RecommendationComponent> = [
   component('counter_label', 'CounterLabel', ['count', 'metric', 'stat', 'statistic', 'total']),
-  component('page_layout', 'PageLayout', ['parent-detail', 'sidebar'], {
-    ...emptyComposition,
-    observed: {
-      ...emptyComposition.observed,
-      parentChild: [{parent: 'PageLayout.Pane', child: 'NavList', sourceCount: 3}],
+  component(
+    'page_layout',
+    'PageLayout',
+    [{all: ['sidebar', 'detail']}, {all: ['sidebar', 'pane']}, {all: ['master', 'detail']}, {all: ['split', 'pane']}],
+    {
+      ...emptyComposition,
+      observed: {
+        ...emptyComposition.observed,
+        parentChild: [{parent: 'PageLayout.Pane', child: 'NavList', sourceCount: 3}],
+      },
     },
-  }),
-  component('nav_list', 'NavList', ['navigation', 'navigator']),
-  component('action_list', 'ActionList', ['action', 'option'], {
-    ...emptyComposition,
-    observed: {
-      ...emptyComposition.observed,
-      parentChild: [
-        {parent: 'ActionList.LeadingVisual', child: 'Avatar', sourceCount: 3},
-        {parent: 'ActionList.TrailingVisual', child: 'Label', sourceCount: 3},
-      ],
+  ),
+  component('nav_list', 'NavList', [{all: ['sidebar', 'navigation']}, {all: ['sidebar', 'navigator']}]),
+  component(
+    'action_list',
+    'ActionList',
+    [{all: ['action', 'row']}, {all: ['action', 'list']}, {all: ['action', 'item']}, {all: ['action', 'choice']}],
+    {
+      ...emptyComposition,
+      observed: {
+        ...emptyComposition.observed,
+        parentChild: [
+          {parent: 'ActionList.LeadingVisual', child: 'Avatar', sourceCount: 3},
+          {parent: 'ActionList.TrailingVisual', child: 'Label', sourceCount: 3},
+        ],
+      },
     },
-  }),
-  component('avatar', 'Avatar', ['avatar']),
-  component('label', 'Label', ['badge', 'status', 'tag']),
+  ),
+  component('avatar', 'Avatar', ['avatar', 'member', 'people', 'person']),
+  component('label', 'Label', ['badge', 'category', 'tag']),
+  component('details', 'Details'),
+  component('text', 'Text'),
+  component('text_input', 'TextInput'),
+  component('action_menu', 'ActionMenu'),
+  component('pagination', 'Pagination'),
+  component('select', 'Select'),
 ]
 
 describe('component recommendations', () => {
@@ -192,7 +214,7 @@ describe('component recommendations', () => {
   it('recommends capability and composition metadata for generic assemblies', () => {
     const metricIntent = {intent: 'Show a stat summary strip'}
     const detailIntent = {intent: 'Build a parent detail navigation layout with a sidebar'}
-    const suggestionIntent = {intent: 'Show suggested people with avatars, actions, and badges'}
+    const suggestionIntent = {intent: 'Show suggested people in action rows with avatars and status tags'}
 
     const metric = createRecommendation(
       metricIntent,
@@ -215,12 +237,39 @@ describe('component recommendations', () => {
 
     expect(metric).toMatchObject({status: 'matched', patterns: []})
     expect(metric.components.map(candidate => candidate.component.name)).toContain('CounterLabel')
-    expect(detail.components.map(candidate => candidate.component.name)).toEqual(['PageLayout', 'NavList'])
+    expect(detail.components.map(candidate => candidate.component.name)).toEqual(
+      expect.arrayContaining(['PageLayout', 'NavList']),
+    )
     expect(suggestions.components.map(candidate => candidate.component.name)).toEqual(
       expect.arrayContaining(['ActionList', 'Avatar', 'Label']),
     )
     expect(suggestions.components.flatMap(candidate => candidate.evidence)).toContainEqual(
       expect.objectContaining({sourceKind: 'composition'}),
+    )
+  })
+
+  it('requires full component names and grouped capability signals for direct metadata matches', () => {
+    const noPatterns: Array<{id: string; name: string; category: 'scenario'}> = []
+    const getComponents = (intent: string) =>
+      createRecommendation({intent}, rankPatterns(noPatterns, {intent}), [], compositionComponents).components.map(
+        candidate => candidate.component.name,
+      )
+
+    expect(getComponents('Use ActionList for these commands')).toContain('ActionList')
+    expect(getComponents('Use an ActionMenu for these commands')).toContain('ActionMenu')
+    expect(getComponents('Show plain status text')).toEqual(['Text'])
+    expect(getComponents('Add tabs for navigation')).not.toContain('NavList')
+    expect(getComponents('Add pagination to this list')).toEqual(expect.arrayContaining(['Pagination']))
+    expect(getComponents('Add pagination to this list')).not.toEqual(expect.arrayContaining(['ActionList', 'NavList']))
+    expect(getComponents('Select a repository')).toEqual(expect.arrayContaining(['Select']))
+    expect(getComponents('Select a repository')).not.toContain('ActionList')
+    expect(getComponents('Show a user account menu')).not.toContain('Avatar')
+    expect(getComponents('Show a selected record detail')).not.toContain('Details')
+    expect(getComponents('Show sidebar navigation beside selected record detail')).toEqual(
+      expect.arrayContaining(['PageLayout', 'NavList']),
+    )
+    expect(getComponents('Show people in action rows with avatar images and status tags')).toEqual(
+      expect.arrayContaining(['ActionList', 'Avatar', 'Label']),
     )
   })
 
