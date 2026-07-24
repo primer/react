@@ -1,6 +1,7 @@
 import type {CompactPatternDetails, PatternComponentReference, PatternReference} from './patterns'
 import {getPatternUrl} from './patterns'
 import type {Pattern} from './primer'
+import {findInternalCatalogEntries, type InternalCatalogResult, type InternalCatalogEntry} from './internalCatalog'
 
 const maximumEvidencePerCandidate = 3
 const maximumAuxiliaryEntriesPerResult = 3
@@ -17,6 +18,7 @@ const relationshipKeys = [
 
 export interface RecommendationInput {
   intent: string
+  sourceScope?: 'public' | 'all'
   surface?: string
   region?: string
   patternHints?: Array<string>
@@ -60,7 +62,7 @@ export interface ScoreBreakdown {
 }
 
 export interface CandidateEvidence {
-  sourceKind: 'pattern' | 'component-metadata' | 'composition' | 'input'
+  sourceKind: 'pattern' | 'component-metadata' | 'composition' | 'input' | 'internal-catalog'
   sourceUrl?: string
   detail: string
   relationship?: RecommendationRelationship
@@ -92,6 +94,15 @@ export interface PatternCandidate {
   scoreBreakdown: Array<ScoreBreakdown>
 }
 
+export interface InternalComponentCandidate {
+  component: InternalCatalogEntry & {
+    installable: false
+  }
+  score: number
+  scoreBreakdown: Array<ScoreBreakdown>
+  evidence: Array<CandidateEvidence>
+}
+
 export interface Exclusion {
   name: string
   source: 'primer-public' | 'input'
@@ -104,7 +115,12 @@ export interface UnresolvedReference {
   source: PatternComponentReference['source']
   sourceUrl: string
   pattern: PatternReference
-  reason: 'internal-reference' | 'not-in-package'
+  reason:
+    | 'internal-reference'
+    | 'internal-catalog-no-match'
+    | 'internal-catalog-unavailable'
+    | 'internal-catalog-stale'
+    | 'not-in-package'
 }
 
 export interface RecommendationResult extends Record<string, unknown> {
@@ -112,6 +128,13 @@ export interface RecommendationResult extends Record<string, unknown> {
   intent: string
   patterns: Array<PatternCandidate>
   components: Array<ComponentCandidate>
+  internalComponents: Array<InternalComponentCandidate>
+  sourceScope: 'public' | 'all'
+  internalCatalog: {
+    status: InternalCatalogResult['status']
+    sourceRevision?: string
+    message?: string
+  }
   matchedSignals: Record<string, Array<string>>
   unmetSignals: Array<string>
   confidence: {
@@ -157,14 +180,17 @@ export function createRecommendation(
   rankedPatterns: Array<RankedPattern>,
   details: Array<CompactPatternDetails>,
   components: Array<RecommendationComponent>,
+  internalCatalog: InternalCatalogResult = {status: 'not-requested'},
 ): RecommendationResult {
   const limit = input.limit ?? 3
+  const sourceScope = input.sourceScope ?? 'public'
   const selectedPatterns = rankedPatterns.slice(0, limit)
   const selectedDetails = details.filter(detail =>
     selectedPatterns.some(candidate => candidate.pattern.id === detail.pattern.id),
   )
   const componentByName = new Map(components.map(component => [normalizeIdentifier(component.name), component]))
   const candidates = new Map<string, ComponentCandidate>()
+  const internalCandidates = new Map<string, InternalComponentCandidate>()
   const exclusions: Array<Exclusion> = []
   const unresolvedReferences: Array<UnresolvedReference> = []
 
@@ -174,10 +200,33 @@ export function createRecommendation(
 
     for (const reference of detail.components) {
       if (reference.source === 'primer-internal') {
+        const entry = internalCatalog.catalog
+          ? findInternalCatalogEntries(internalCatalog.catalog, [reference], limit).at(0)
+          : undefined
+        if (sourceScope === 'all' && internalCatalog.status === 'available' && entry) {
+          addInternalCandidate(internalCandidates, entry, {
+            score: pattern.score,
+            scoreBreakdown: pattern.scoreBreakdown,
+            evidence: {
+              sourceKind: 'internal-catalog',
+              sourceUrl: entry.sourceUrl,
+              detail: `${detail.pattern.name} links to documented internal ${entry.name}.`,
+            },
+          })
+          continue
+        }
+
         unresolvedReferences.push({
           ...reference,
           pattern: detail.pattern,
-          reason: 'internal-reference',
+          reason:
+            sourceScope !== 'all'
+              ? 'internal-reference'
+              : internalCatalog.status === 'stale'
+                ? 'internal-catalog-stale'
+                : internalCatalog.status === 'unavailable'
+                  ? 'internal-catalog-unavailable'
+                  : 'internal-catalog-no-match',
         })
         continue
       }
@@ -266,6 +315,13 @@ export function createRecommendation(
     }))
     .sort(compareComponentCandidates)
     .slice(0, limit)
+  const internalComponentCandidates = [...internalCandidates.values()]
+    .map(candidate => ({
+      ...candidate,
+      evidence: candidate.evidence.slice(0, maximumEvidencePerCandidate),
+    }))
+    .sort(compareInternalComponentCandidates)
+    .slice(0, limit)
   const matchedSignals = getMatchedSignals(input, patternCandidates, componentCandidates)
   const unmetSignals = getUnmetSignals(input, matchedSignals)
   const ambiguous = patternCandidates.length > 1 && patternCandidates[0].score === patternCandidates[1].score
@@ -283,6 +339,13 @@ export function createRecommendation(
     intent: input.intent,
     patterns: patternCandidates,
     components: componentCandidates,
+    internalComponents: internalComponentCandidates,
+    sourceScope,
+    internalCatalog: {
+      status: internalCatalog.status,
+      ...(internalCatalog.catalog ? {sourceRevision: internalCatalog.catalog.sourceRevision} : {}),
+      ...(internalCatalog.message ? {message: internalCatalog.message} : {}),
+    },
     matchedSignals,
     unmetSignals,
     confidence: getConfidence(status, patternCandidates, componentCandidates),
@@ -300,7 +363,9 @@ export function createRecommendation(
         : status === 'ambiguous'
           ? 'Add a pattern hint, surface, or state to choose between the equally ranked patterns.'
           : status === 'partial-match'
-            ? 'Review the matched pattern guidance; it does not link to a compatible public Primer component.'
+            ? internalComponentCandidates.length > 0
+              ? 'Review the documented GitHub-only internal candidates; they have no public installable import.'
+              : 'Review the matched pattern guidance; it does not link to a compatible public Primer component.'
             : undefined,
   }
 }
@@ -317,11 +382,18 @@ export function formatRecommendation(result: RecommendationResult): string {
   const unresolved = result.unresolvedReferences
     .map(reference => `- ${reference.name} (${reference.source}): ${reference.sourceUrl}`)
     .join('\n')
+  const internal = result.internalComponents
+    .map(
+      candidate =>
+        `- ${candidate.component.name} (${candidate.component.visibility}; not installable): ${candidate.component.sourceUrl}`,
+    )
+    .join('\n')
 
   return [
     `Recommendation confidence: ${result.confidence.level} (${result.confidence.score}/100).`,
     patterns && `Patterns:\n${patterns}`,
     components && `Public components:\n${components}`,
+    internal && `Documented internal candidates (GitHub-only; no public import):\n${internal}`,
     unresolved && `Unresolved references:\n${unresolved}`,
     result.nextAction,
   ]
@@ -413,6 +485,28 @@ function addCandidate(
       sourceKind: 'primer-public',
       sourceUrl: component.sourceUrl,
     },
+    score: contribution.score,
+    scoreBreakdown: contribution.scoreBreakdown,
+    evidence: [contribution.evidence],
+  })
+}
+
+function addInternalCandidate(
+  candidates: Map<string, InternalComponentCandidate>,
+  component: InternalCatalogEntry,
+  contribution: CandidateContribution,
+) {
+  const key = normalizeIdentifier(component.name)
+  const current = candidates.get(key)
+  if (current) {
+    current.score += contribution.score
+    current.scoreBreakdown.push(...contribution.scoreBreakdown)
+    current.evidence.push(contribution.evidence)
+    return
+  }
+
+  candidates.set(key, {
+    component: {...component, installable: false},
     score: contribution.score,
     scoreBreakdown: contribution.scoreBreakdown,
     evidence: [contribution.evidence],
@@ -526,6 +620,13 @@ function compareRankedPatterns(first: RankedPattern, second: RankedPattern): num
 }
 
 function compareComponentCandidates(first: ComponentCandidate, second: ComponentCandidate): number {
+  return second.score - first.score || first.component.name.localeCompare(second.component.name)
+}
+
+function compareInternalComponentCandidates(
+  first: InternalComponentCandidate,
+  second: InternalComponentCandidate,
+): number {
   return second.score - first.score || first.component.name.localeCompare(second.component.name)
 }
 

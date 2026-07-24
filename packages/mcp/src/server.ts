@@ -16,6 +16,7 @@ import {
 } from './primer'
 import {formatCompactPatternDetails, getPatternUrl, parseCompactPatternDetails, toFullPatternDetails} from './patterns'
 import {createRecommendation, formatRecommendation, rankPatterns, type RecommendationComponent} from './recommendations'
+import {fetchInternalCatalog} from './internalCatalog'
 import {
   listTokenGroups,
   loadAllTokensWithGuidelines,
@@ -540,6 +541,55 @@ ${text}`,
   },
 )
 
+server.registerTool(
+  'list_internal_components',
+  {
+    description:
+      'List documented Primer-internal components from Primer Style. Entries are GitHub-only documentation references, not public @primer/react components, and never include implementation source.',
+    inputSchema: {
+      query: z.string().optional().default('').describe('Optional internal component name or identifier to match'),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(20)
+        .optional()
+        .default(10)
+        .describe('Maximum documented internal components to return'),
+    },
+    annotations: {readOnlyHint: true},
+  },
+  async ({query, limit}) => {
+    const catalog = await fetchInternalCatalog()
+    const entries = (catalog.catalog?.entries ?? [])
+      .filter(entry => `${entry.id} ${entry.name}`.toLowerCase().includes(query.toLowerCase()))
+      .slice(0, limit)
+    const status = catalog.status === 'available' && entries.length === 0 ? 'no-match' : catalog.status
+
+    return {
+      structuredContent: {
+        status,
+        sourceKind: 'primer-internal',
+        implementationIncluded: false,
+        sourceRevision: catalog.catalog?.sourceRevision,
+        entries,
+        ...(catalog.message ? {message: catalog.message} : {}),
+      },
+      content: [
+        {
+          type: 'text',
+          text:
+            status === 'available'
+              ? `Documented internal components (GitHub-only; no public import): ${entries.map(entry => entry.name).join(', ')}`
+              : status === 'no-match'
+                ? `No documented internal component matches "${query}".`
+                : (catalog.message ?? 'The documented internal component catalog is unavailable.'),
+        },
+      ],
+    }
+  },
+)
+
 // -----------------------------------------------------------------------------
 // Patterns
 // -----------------------------------------------------------------------------
@@ -689,9 +739,16 @@ server.registerTool(
   'recommend_components',
   {
     description:
-      'Recommend public Primer patterns and components for product or UI intent. Deterministically ranks pattern names and hints, resolves authoritative pattern-linked public components, and expands with source-derived composition evidence. Deprecated, incompatible, and Primer-internal references are excluded from installable component candidates.',
+      'Recommend Primer patterns and public @primer/react components for product or UI intent. Defaults to public-only results. Set sourceScope to "all" to additionally return separate documented GitHub-only internal candidates; they are never public imports or installable components.',
     inputSchema: {
       intent: z.string().min(1).describe('The product or UI intent to match, in freeform language'),
+      sourceScope: z
+        .enum(['public', 'all'])
+        .optional()
+        .default('public')
+        .describe(
+          'Use "public" (default) for installable @primer/react candidates only, or "all" to add separate GitHub-only internal candidates',
+        ),
       surface: z.string().optional().describe('Optional product surface, such as issue list or settings page'),
       region: z.string().optional().describe('Optional UI region, such as toolbar, form, or sidebar'),
       patternHints: z
@@ -718,7 +775,7 @@ server.registerTool(
         .max(5)
         .optional()
         .default(3)
-        .describe('Maximum patterns and public components to return'),
+        .describe('Maximum patterns, public components, and separate internal candidates to return'),
     },
     outputSchema: recommendationOutputSchema,
     annotations: {readOnlyHint: true},
@@ -751,7 +808,9 @@ server.registerTool(
         composition,
       }
     })
-    const recommendation = createRecommendation(input, rankedPatterns, details, components)
+    const internalCatalog =
+      input.sourceScope === 'all' ? await fetchInternalCatalog() : {status: 'not-requested' as const}
+    const recommendation = createRecommendation(input, rankedPatterns, details, components, internalCatalog)
 
     return {
       structuredContent: recommendation,

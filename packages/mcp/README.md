@@ -82,13 +82,28 @@ guidance.
 ## Recommendations
 
 `recommend_components` maps freeform product or UI intent to a bounded set of
-Primer patterns and public `@primer/react` component candidates. Optional
+Primer patterns and public `@primer/react` component candidates. It defaults to
+`sourceScope: "public"` so external consumers receive only installable public
+candidates. Set `sourceScope: "all"` for a separate, bounded
+`internalComponents` collection of documented GitHub-only candidates. Internal
+candidates are explicitly non-installable, have no public import, and are never
+mixed into the `components` collection or returned from `get_component`.
+
+`list_internal_components` retrieves the documented internal catalog directly
+from Primer Style. It exposes only safe documentation metadata: ids, names,
+docs URLs, visibility, availability, and `implementationIncluded: false`. The
+catalog is generated from the docs source and includes a build timestamp plus a
+source-record `sourceRevision`; stale, missing, invalid, and unavailable
+endpoints are returned explicitly without a fallback catalog.
+
+Optional
 surface, region, pattern-hint, state, constraint, existing-component, and
 preferred-component signals refine deterministic lexical ranking. Results
 include the source URLs and kinds for pattern links and package-derived
-composition evidence. Deprecated, incompatible, and Primer-internal references
-are excluded from installable component candidates; unresolved internal links
-remain source-labeled evidence.
+composition evidence. Deprecated and incompatible components are excluded from
+installable candidates. Under the holistic scope, authored Primer-internal
+pattern links resolve through the catalog; otherwise they remain source-labeled
+unresolved evidence.
 
 ## 🙌 Contributing
 
