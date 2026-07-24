@@ -1,0 +1,56 @@
+import {
+  Table as TableRoot,
+  TableActions,
+  TableBody,
+  TableCell,
+  TableCellPlaceholder,
+  TableContainer,
+  TableDivider,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableSkeleton,
+  TableSortHeader,
+  TableSubtitle,
+  TableTitle,
+} from './Table'
+export {createColumnHelper} from './column'
+
+export const Table = Object.assign(TableRoot, {
+  Actions: TableActions,
+  Body: TableBody,
+  Cell: TableCell,
+  CellPlaceholder: TableCellPlaceholder,
+  Container: TableContainer,
+  Divider: TableDivider,
+  Head: TableHead,
+  Header: TableHeader,
+  Row: TableRow,
+  SortHeader: TableSortHeader,
+  Skeleton: TableSkeleton,
+  Subtitle: TableSubtitle,
+  Title: TableTitle,
+})
+
+export {
+  DataTable,
+  type DataTableProps,
+  type Column,
+  type UniqueRow,
+  type CellAlignment,
+  type SortStrategy,
+} from './DataTable'
+export {
+  type TableProps,
+  type TableHeadProps,
+  type TableBodyProps,
+  type TableRowProps,
+  type TableHeaderProps,
+  type TableSortHeaderProps,
+  type TableCellProps,
+  type TableContainerProps,
+  type TableTitleProps,
+  type TableSubtitleProps,
+  type TableSkeletonProps,
+  type SortDirection,
+} from './Table'
