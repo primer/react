@@ -301,7 +301,7 @@ export function createRecommendation(
     }
   }
 
-  expandComposition(candidates, componentByName, exclusions)
+  expandComposition(candidates, componentByName, exclusions, input)
 
   const componentCandidates = [...candidates.values()]
     .map(candidate => ({
@@ -416,6 +416,7 @@ function expandComposition(
   candidates: Map<string, ComponentCandidate>,
   componentByName: Map<string, RecommendationComponent>,
   exclusions: Array<Exclusion>,
+  input: RecommendationInput,
 ) {
   const expandedRelationships = new Set<string>()
 
@@ -428,6 +429,12 @@ function expandComposition(
         for (const relatedName of getRelatedComponentNames(relationship, source.name)) {
           const related = componentByName.get(normalizeIdentifier(relatedName))
           if (!related || related.name === source.name) continue
+          if (
+            candidate.evidence.every(evidence => evidence.sourceKind === 'component-metadata') &&
+            getIntentMetadataMatches(related, input).length === 0
+          ) {
+            continue
+          }
           const relationshipKey = `${source.name}:${kind}:${related.name}`
           if (expandedRelationships.has(relationshipKey)) continue
           expandedRelationships.add(relationshipKey)
@@ -461,18 +468,10 @@ function addIntentMetadataCandidates(
   components: Array<RecommendationComponent>,
   input: RecommendationInput,
 ) {
-  const inputTokens = tokens([
-    input.intent,
-    input.surface,
-    input.region,
-    ...(input.states ?? []),
-    ...(input.constraints ?? []),
-  ])
-
   for (const component of components) {
     if (!isCompatible(component) || !component.intentTerms?.length) continue
 
-    const matches = intersection(inputTokens, tokens(component.intentTerms))
+    const matches = getIntentMetadataMatches(component, input)
     if (matches.length === 0) continue
 
     addCandidate(candidates, component, {
@@ -485,6 +484,13 @@ function addIntentMetadataCandidates(
       },
     })
   }
+}
+
+function getIntentMetadataMatches(component: RecommendationComponent, input: RecommendationInput): Array<string> {
+  return intersection(
+    tokens([input.intent, input.surface, input.region, ...(input.states ?? []), ...(input.constraints ?? [])]),
+    tokens(component.intentTerms ?? []),
+  )
 }
 
 function getRelationships(composition: RecommendationComposition): Array<[string, Array<RecommendationRelationship>]> {

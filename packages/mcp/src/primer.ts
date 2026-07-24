@@ -17,7 +17,6 @@ type ComponentSummary = Pick<Component, 'id' | 'name' | 'importPath'> & {
 interface ComponentDocument {
   name: string
   importPath: string
-  stories?: Array<{id: string}>
   [key: string]: unknown
 }
 
@@ -55,8 +54,12 @@ interface ComponentsMetadata {
 const metadata: ComponentsMetadata = componentsMetadata
 const maximumObservedRelationshipsPerKind = 3
 const componentIntentTerms = new Map<string, Array<string>>([
-  ['counter_label', ['count', 'metric', 'stat', 'statistic', 'summary']],
-  ['label', ['badge', 'status', 'tag']],
+  ['counter_label', ['count', 'metric', 'stat', 'statistic', 'total']],
+  ['page_layout', ['sidebar', 'detail', 'master', 'pane', 'split']],
+  ['nav_list', ['navigation', 'navigator']],
+  ['action_list', ['action', 'choice', 'option', 'select', 'selection']],
+  ['avatar', ['avatar', 'member', 'people', 'person', 'user']],
+  ['label', ['badge', 'category', 'status', 'tag']],
 ])
 
 function idToSlug(id: string): string {
@@ -166,12 +169,7 @@ function getComponentRecommendationTerms(id: string): Array<string> {
 
   return [
     ...new Set(
-      [
-        id,
-        document?.name,
-        ...(document?.stories?.map(story => story.id) ?? []),
-        ...(componentIntentTerms.get(id) ?? []),
-      ].filter((term): term is string => Boolean(term)),
+      [id, document?.name, ...(componentIntentTerms.get(id) ?? [])].filter((term): term is string => Boolean(term)),
     ),
   ]
 }

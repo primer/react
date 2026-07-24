@@ -134,7 +134,7 @@ const emptyComposition = {
   observed: {parentChild: [], adjacentSibling: [], variants: [], relatedComponents: []},
 }
 const compositionComponents: Array<RecommendationComponent> = [
-  component('counter_label', 'CounterLabel', ['count', 'metric', 'stat', 'statistic', 'summary']),
+  component('counter_label', 'CounterLabel', ['count', 'metric', 'stat', 'statistic', 'total']),
   component('page_layout', 'PageLayout', ['parent-detail', 'sidebar'], {
     ...emptyComposition,
     observed: {
@@ -142,7 +142,7 @@ const compositionComponents: Array<RecommendationComponent> = [
       parentChild: [{parent: 'PageLayout.Pane', child: 'NavList', sourceCount: 3}],
     },
   }),
-  component('nav_list', 'NavList'),
+  component('nav_list', 'NavList', ['navigation', 'navigator']),
   component('action_list', 'ActionList', ['action', 'option'], {
     ...emptyComposition,
     observed: {
@@ -191,7 +191,7 @@ describe('component recommendations', () => {
 
   it('recommends capability and composition metadata for generic assemblies', () => {
     const metricIntent = {intent: 'Show a stat summary strip'}
-    const detailIntent = {intent: 'Build a parent detail layout with a sidebar'}
+    const detailIntent = {intent: 'Build a parent detail navigation layout with a sidebar'}
     const suggestionIntent = {intent: 'Show suggested people with avatars, actions, and badges'}
 
     const metric = createRecommendation(
