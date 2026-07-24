@@ -96,7 +96,6 @@ export interface PatternCandidate {
 
 export interface InternalComponentCandidate {
   component: InternalCatalogEntry & {
-    sourceUrl: string
     installable: false
   }
   score: number
@@ -133,7 +132,7 @@ export interface RecommendationResult extends Record<string, unknown> {
   sourceScope: 'public' | 'all'
   internalCatalog: {
     status: InternalCatalogResult['status']
-    revision?: string
+    sourceRevision?: string
     message?: string
   }
   matchedSignals: Record<string, Array<string>>
@@ -210,7 +209,7 @@ export function createRecommendation(
             scoreBreakdown: pattern.scoreBreakdown,
             evidence: {
               sourceKind: 'internal-catalog',
-              sourceUrl: entry.canonicalUrl,
+              sourceUrl: entry.sourceUrl,
               detail: `${detail.pattern.name} links to documented internal ${entry.name}.`,
             },
           })
@@ -344,7 +343,7 @@ export function createRecommendation(
     sourceScope,
     internalCatalog: {
       status: internalCatalog.status,
-      ...(internalCatalog.catalog ? {revision: internalCatalog.catalog.revision} : {}),
+      ...(internalCatalog.catalog ? {sourceRevision: internalCatalog.catalog.sourceRevision} : {}),
       ...(internalCatalog.message ? {message: internalCatalog.message} : {}),
     },
     matchedSignals,
@@ -507,7 +506,7 @@ function addInternalCandidate(
   }
 
   candidates.set(key, {
-    component: {...component, sourceUrl: component.canonicalUrl, installable: false},
+    component: {...component, installable: false},
     score: contribution.score,
     scoreBreakdown: contribution.scoreBreakdown,
     evidence: [contribution.evidence],

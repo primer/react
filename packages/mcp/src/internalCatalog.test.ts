@@ -8,29 +8,25 @@ import {
 
 const catalog = {
   schemaVersion: 1,
-  revision: 'internal-catalog-v1',
-  count: 2,
-  items: [
+  generatedAt: '2026-07-23T00:00:00.000Z',
+  sourceRevision: 'sha256:internal-catalog-v1',
+  entries: [
     {
       id: 'filter',
-      slug: 'filter',
       name: 'Filter',
       sourceKind: 'primer-internal',
-      canonicalUrl: 'https://primer.style/product/internal-components/filter',
+      sourceUrl: 'https://primer.style/product/internal-components/filter',
       visibility: 'github-only',
       availability: 'unavailable',
-      installability: 'non-installable',
       implementationIncluded: false,
     },
     {
       id: 'action-list-items',
-      slug: 'action-list-items',
       name: 'Action list items',
       sourceKind: 'primer-internal',
-      canonicalUrl: 'https://primer.style/product/internal-components/action-list-items',
+      sourceUrl: 'https://primer.style/product/internal-components/action-list-items',
       visibility: 'github-only',
       availability: 'unavailable',
-      installability: 'non-installable',
       implementationIncluded: false,
     },
   ],
@@ -40,7 +36,7 @@ describe('internal catalog', () => {
   it('parses safe documented entries with deterministic order and reference lookup', () => {
     const parsed = parseInternalCatalog(catalog)
 
-    expect(parsed?.items.map(entry => entry.name)).toEqual(['Action list items', 'Filter'])
+    expect(parsed?.entries.map(entry => entry.name)).toEqual(['Action list items', 'Filter'])
     expect(
       findInternalCatalogEntries(
         parsed!,
@@ -61,10 +57,10 @@ describe('internal catalog', () => {
     expect(
       parseInternalCatalog({
         ...catalog,
-        items: [
+        entries: [
           {
-            ...catalog.items[0],
-            canonicalUrl: 'https://github.com/github/github-ui',
+            ...catalog.entries[0],
+            sourceUrl: 'https://github.com/github/github-ui',
             implementation: 'private source',
           },
         ],
@@ -82,14 +78,14 @@ describe('internal catalog', () => {
     expect(fetcher).toHaveBeenCalledWith(getInternalCatalogUrl())
   })
 
-  it('marks unsupported catalog schemas as stale instead of silently trusting them', async () => {
+  it('marks old generated catalogs as stale instead of silently trusting them', async () => {
     const fetcher = vi
       .fn<typeof fetch>()
-      .mockResolvedValue(new Response(JSON.stringify({...catalog, schemaVersion: 2})))
+      .mockResolvedValue(new Response(JSON.stringify({...catalog, generatedAt: '2026-01-01T00:00:00.000Z'})))
 
-    await expect(fetchInternalCatalog(fetcher)).resolves.toMatchObject({
+    await expect(fetchInternalCatalog(fetcher, new Date('2026-07-23T00:00:00.000Z'))).resolves.toMatchObject({
       status: 'stale',
-      catalog: {revision: 'internal-catalog-v1'},
+      catalog: {sourceRevision: 'sha256:internal-catalog-v1'},
     })
   })
 })

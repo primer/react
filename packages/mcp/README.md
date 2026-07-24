@@ -91,11 +91,10 @@ mixed into the `components` collection or returned from `get_component`.
 
 `list_internal_components` retrieves the documented internal catalog directly
 from Primer Style. It exposes only safe documentation metadata: ids, names,
-canonical docs URLs, visibility, availability, installability, and
-`implementationIncluded: false`. The catalog is generated from the docs source
-and includes a source-record `revision`; an unsupported schema is reported as
-stale, while missing, invalid, and unavailable endpoints are returned
-explicitly without a fallback catalog.
+docs URLs, visibility, availability, and `implementationIncluded: false`. The
+catalog is generated from the docs source and includes a build timestamp plus a
+source-record `sourceRevision`; stale, missing, invalid, and unavailable
+endpoints are returned explicitly without a fallback catalog.
 
 Optional
 surface, region, pattern-hint, state, constraint, existing-component, and

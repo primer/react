@@ -93,18 +93,16 @@ const internalCatalog = {
   status: 'available' as const,
   catalog: {
     schemaVersion: 1,
-    revision: 'internal-catalog-v1',
-    count: 1,
-    items: [
+    generatedAt: '2026-07-23T00:00:00.000Z',
+    sourceRevision: 'sha256:internal-catalog-v1',
+    entries: [
       {
         id: 'filter',
-        slug: 'filter',
         name: 'Filter',
         sourceKind: 'primer-internal' as const,
-        canonicalUrl: 'https://primer.style/product/internal-components/filter',
+        sourceUrl: 'https://primer.style/product/internal-components/filter',
         visibility: 'github-only',
         availability: 'unavailable',
-        installability: 'non-installable' as const,
         implementationIncluded: false as const,
       },
     ],

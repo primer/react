@@ -561,7 +561,7 @@ server.registerTool(
   },
   async ({query, limit}) => {
     const catalog = await fetchInternalCatalog()
-    const entries = (catalog.catalog?.items ?? [])
+    const entries = (catalog.catalog?.entries ?? [])
       .filter(entry => `${entry.id} ${entry.name}`.toLowerCase().includes(query.toLowerCase()))
       .slice(0, limit)
     const status = catalog.status === 'available' && entries.length === 0 ? 'no-match' : catalog.status
@@ -571,7 +571,7 @@ server.registerTool(
         status,
         sourceKind: 'primer-internal',
         implementationIncluded: false,
-        revision: catalog.catalog?.revision,
+        sourceRevision: catalog.catalog?.sourceRevision,
         entries,
         ...(catalog.message ? {message: catalog.message} : {}),
       },

@@ -2,24 +2,23 @@ import type {ComponentSource, PatternComponentReference} from './patterns'
 
 const catalogUrl = new URL('/product/internal-components/catalog.json', 'https://primer.style')
 const maximumCatalogEntries = 100
+const maximumCatalogAgeMilliseconds = 30 * 24 * 60 * 60 * 1000
 
 export interface InternalCatalogEntry {
   id: string
-  slug: string
   name: string
   sourceKind: Extract<ComponentSource, 'primer-internal'>
-  canonicalUrl: string
+  sourceUrl: string
   visibility: string
   availability: string
-  installability: 'non-installable'
   implementationIncluded: false
 }
 
 export interface InternalCatalog {
   schemaVersion: number
-  revision: string
-  count: number
-  items: Array<InternalCatalogEntry>
+  generatedAt: string
+  sourceRevision: string
+  entries: Array<InternalCatalogEntry>
 }
 
 export interface InternalCatalogResult {
@@ -28,7 +27,10 @@ export interface InternalCatalogResult {
   message?: string
 }
 
-export async function fetchInternalCatalog(fetcher: typeof fetch = fetch): Promise<InternalCatalogResult> {
+export async function fetchInternalCatalog(
+  fetcher: typeof fetch = fetch,
+  now: Date = new Date(),
+): Promise<InternalCatalogResult> {
   let response: Response
   try {
     response = await fetcher(catalogUrl)
@@ -55,12 +57,11 @@ export async function fetchInternalCatalog(fetcher: typeof fetch = fetch): Promi
     return {status: 'unavailable', message: 'The Primer internal catalog endpoint returned an invalid catalog.'}
   }
 
-  if (isStale(catalog)) {
+  if (isStale(catalog, now)) {
     return {
       status: 'stale',
       catalog,
-      message:
-        'The Primer internal catalog uses an unsupported schema version; review its revision before relying on it.',
+      message: 'The Primer internal catalog is older than 30 days; review its source revision before relying on it.',
     }
   }
 
@@ -72,23 +73,21 @@ export function parseInternalCatalog(value: unknown): InternalCatalog | undefine
   if (
     typeof value.schemaVersion !== 'number' ||
     !Number.isInteger(value.schemaVersion) ||
-    typeof value.revision !== 'string' ||
-    typeof value.count !== 'number' ||
-    !Number.isInteger(value.count) ||
-    !Array.isArray(value.items)
+    typeof value.generatedAt !== 'string' ||
+    typeof value.sourceRevision !== 'string' ||
+    !Array.isArray(value.entries)
   ) {
     return undefined
   }
 
-  const items = value.items.map(parseInternalCatalogEntry)
-  if (items.some((entry): entry is undefined => entry === undefined)) return undefined
-  if (value.count !== items.length) return undefined
+  const entries = value.entries.map(parseInternalCatalogEntry)
+  if (entries.some((entry): entry is undefined => entry === undefined)) return undefined
 
   return {
     schemaVersion: value.schemaVersion,
-    revision: value.revision,
-    count: value.count,
-    items: items
+    generatedAt: value.generatedAt,
+    sourceRevision: value.sourceRevision,
+    entries: entries
       .filter((entry): entry is InternalCatalogEntry => entry !== undefined)
       .sort((first, second) => first.name.localeCompare(second.name))
       .slice(0, maximumCatalogEntries),
@@ -100,8 +99,8 @@ export function findInternalCatalogEntries(
   references: Array<PatternComponentReference>,
   limit: number,
 ): Array<InternalCatalogEntry> {
-  const entryById = new Map(catalog.items.map(entry => [normalize(entry.id), entry]))
-  const entryByName = new Map(catalog.items.map(entry => [normalize(entry.name), entry]))
+  const entryById = new Map(catalog.entries.map(entry => [normalize(entry.id), entry]))
+  const entryByName = new Map(catalog.entries.map(entry => [normalize(entry.name), entry]))
 
   return references
     .filter(reference => reference.source === 'primer-internal')
@@ -122,34 +121,36 @@ function parseInternalCatalogEntry(value: unknown): InternalCatalogEntry | undef
   if (!isRecord(value)) return undefined
   if (
     typeof value.id !== 'string' ||
-    typeof value.slug !== 'string' ||
     typeof value.name !== 'string' ||
     value.sourceKind !== 'primer-internal' ||
-    typeof value.canonicalUrl !== 'string' ||
+    typeof value.sourceUrl !== 'string' ||
     typeof value.visibility !== 'string' ||
     typeof value.availability !== 'string' ||
-    value.installability !== 'non-installable' ||
     value.implementationIncluded !== false ||
-    !isPrimerInternalUrl(value.canonicalUrl)
+    !isPrimerInternalUrl(value.sourceUrl)
   ) {
     return undefined
   }
 
   return {
     id: value.id,
-    slug: value.slug,
     name: value.name,
     sourceKind: value.sourceKind,
-    canonicalUrl: value.canonicalUrl,
+    sourceUrl: value.sourceUrl,
     visibility: value.visibility,
     availability: value.availability,
-    installability: value.installability,
     implementationIncluded: false,
   }
 }
 
-function isStale(catalog: InternalCatalog): boolean {
-  return catalog.schemaVersion !== 1
+function isStale(catalog: InternalCatalog, now: Date): boolean {
+  const generatedAt = Date.parse(catalog.generatedAt)
+  return (
+    catalog.schemaVersion !== 1 ||
+    Number.isNaN(generatedAt) ||
+    generatedAt > now.getTime() ||
+    now.getTime() - generatedAt > maximumCatalogAgeMilliseconds
+  )
 }
 
 function isPrimerInternalUrl(value: string): boolean {

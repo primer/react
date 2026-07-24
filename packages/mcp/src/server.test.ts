@@ -22,18 +22,16 @@ const searchPatternPage = `
 `
 const internalCatalogPage = JSON.stringify({
   schemaVersion: 1,
-  revision: 'internal-catalog-v1',
-  count: 1,
-  items: [
+  generatedAt: '2026-07-23T00:00:00.000Z',
+  sourceRevision: 'sha256:internal-catalog-v1',
+  entries: [
     {
       id: 'filter',
-      slug: 'filter',
       name: 'Filter',
       sourceKind: 'primer-internal',
-      canonicalUrl: 'https://primer.style/product/internal-components/filter',
+      sourceUrl: 'https://primer.style/product/internal-components/filter',
       visibility: 'github-only',
       availability: 'unavailable',
-      installability: 'non-installable',
       implementationIncluded: false,
     },
   ],
@@ -395,7 +393,7 @@ describe('get_component_batch', () => {
       status: 'available',
       sourceKind: 'primer-internal',
       implementationIncluded: false,
-      revision: 'internal-catalog-v1',
+      sourceRevision: 'sha256:internal-catalog-v1',
       entries: [
         {
           name: 'Filter',
@@ -428,7 +426,7 @@ describe('get_component_batch', () => {
 
     expect(result.structuredContent).toMatchObject({
       sourceScope: 'all',
-      internalCatalog: {status: 'available', revision: 'internal-catalog-v1'},
+      internalCatalog: {status: 'available', sourceRevision: 'sha256:internal-catalog-v1'},
       internalComponents: [
         {
           component: {
