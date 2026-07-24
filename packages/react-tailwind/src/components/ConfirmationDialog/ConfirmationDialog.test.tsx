@@ -51,6 +51,20 @@ describe('ConfirmationDialog', () => {
     await waitFor(() => expect(trigger).toHaveFocus())
   })
 
+  it('dismisses when pressing outside, like Primer Dialog', async () => {
+    const user = userEvent.setup()
+    render(
+      <>
+        <ConfirmationDialog title="Continue?" trigger={<button type="button">Open</button>} />
+      </>,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Open'}))
+    await user.click(document.querySelector('[data-component="ConfirmationDialog.Backdrop"]')!)
+
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
+  })
+
   it('uses semantic modal backdrop styles with high-contrast and reduced-motion support', () => {
     render(<ConfirmationDialog defaultOpen title="Continue?" />)
 

@@ -31,24 +31,24 @@ const icons = {
   closed: null,
 }
 
-const stateLabelVariants = cva('inline-flex items-center gap-1 rounded-full font-medium', {
+const stateLabelVariants = cva('inline-flex items-center gap-1 rounded-full font-semibold leading-4 text-on-emphasis', {
   variants: {
     status: {
-      issueOpened: 'bg-open-muted text-open',
-      pullOpened: 'bg-open-muted text-open',
-      issueClosed: 'bg-done-muted text-done',
-      issueClosedNotPlanned: 'bg-neutral-muted text-muted',
-      pullClosed: 'bg-closed-muted text-closed',
-      pullMerged: 'bg-done-muted text-done',
-      draft: 'bg-neutral-muted text-muted',
-      issueDraft: 'bg-neutral-muted text-muted',
-      pullQueued: 'bg-accent-muted text-accent',
-      unavailable: 'bg-attention-muted text-attention',
-      archived: 'bg-neutral-muted text-muted',
-      open: 'bg-open-muted text-open',
-      closed: 'bg-closed-muted text-closed',
+      issueOpened: 'bg-open-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
+      pullOpened: 'bg-open-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
+      issueClosed: 'bg-done-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
+      issueClosedNotPlanned: 'bg-neutral-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
+      pullClosed: 'bg-closed-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-closed-emphasis)]',
+      pullMerged: 'bg-done-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
+      draft: 'bg-draft-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-draft-emphasis)]',
+      issueDraft: 'bg-draft-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-draft-emphasis)]',
+      pullQueued: 'bg-attention-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-attention-emphasis)]',
+      unavailable: 'bg-neutral-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
+      archived: 'bg-neutral-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
+      open: 'bg-open-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
+      closed: 'bg-done-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
     },
-    size: {small: 'min-h-5 px-2 text-xs', medium: 'min-h-6 px-2 text-sm'},
+    size: {small: 'px-2 py-1 text-xs leading-4', medium: 'px-3 py-2 text-sm leading-4'},
   },
   defaultVariants: {size: 'medium'},
 })

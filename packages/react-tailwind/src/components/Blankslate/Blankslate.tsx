@@ -7,7 +7,7 @@ import {LinkButton} from '../LinkButton'
 const blankslate = cva('grid justify-items-center p-8 text-center', {
   variants: {
     size: {small: 'p-4', medium: 'p-8', large: 'p-8'},
-    border: {true: 'rounded-md border-thin border-default', false: ''},
+    border: {true: 'rounded-md border border-default', false: ''},
     narrow: {true: 'mx-auto max-w-[485px]', false: ''},
     spacious: {true: 'px-10 py-20 max-sm:px-7 max-sm:py-11', false: ''},
   },

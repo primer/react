@@ -10,9 +10,10 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
-    <SegmentedControl defaultValue={['list']}>
-      <SegmentedControl.Button value="list">List</SegmentedControl.Button>
-      <SegmentedControl.Button value="grid">Grid</SegmentedControl.Button>
+    <SegmentedControl defaultValue={['preview']} aria-label="File view">
+      <SegmentedControl.Button value="preview">Preview</SegmentedControl.Button>
+      <SegmentedControl.Button value="raw">Raw</SegmentedControl.Button>
+      <SegmentedControl.Button value="blame">Blame</SegmentedControl.Button>
     </SegmentedControl>
   ),
 }

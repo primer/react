@@ -39,9 +39,9 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
       data-gap={gap}
       onKeyDown={handleKeyDown}
       className={cn(
-        'group flex items-center rounded-md border border-default p-1',
-        flush && 'rounded-none border-x-0',
-        gap === 'condensed' && 'gap-1',
+        'group relative -mb-px flex h-8 items-start justify-end overflow-hidden px-4 data-[size=small]:h-7 data-[size=large]:h-10',
+        flush && 'px-0',
+        gap === 'condensed' && 'gap-2',
         className,
       )}
     />
@@ -108,7 +108,7 @@ const Divider = React.forwardRef<HTMLDivElement, ActionBarDividerProps>(function
       {...props}
       ref={ref}
       data-component="ActionBar.Divider"
-      className={cn('mx-1 h-5 w-px bg-default', className)}
+      className={cn('h-5 w-px bg-muted', className)}
     />
   )
 })

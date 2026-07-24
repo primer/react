@@ -9,5 +9,5 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-export const Default: Story = {args: {children: 'main', href: '#'}}
+export const Default: Story = {args: {children: 'branch_name', href: '#'}}
 export const Playground: Story = {args: {children: 'feature/a-long-branch-name', href: '#'}}

@@ -23,7 +23,7 @@ export interface PaginationProps extends React.ComponentPropsWithoutRef<'nav'> {
 }
 
 const pageClasses =
-  'inline-flex size-8 items-center justify-center rounded-md px-1 text-center text-sm text-default no-underline hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus aria-[current=page]:bg-accent-emphasis aria-[current=page]:text-on-emphasis aria-disabled:pointer-events-none aria-disabled:text-disabled'
+  'inline-flex h-8 min-w-[var(--control-medium-size)] items-center justify-center rounded-md px-1 text-center text-sm text-default no-underline hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus aria-[current=page]:bg-accent-emphasis aria-[current=page]:text-on-emphasis aria-disabled:pointer-events-none aria-disabled:text-disabled'
 
 export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(function Pagination(
   {
@@ -94,7 +94,7 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
             'aria-label':
               page.type === 'page' ? `Page ${page.number}${page.precedesBreak ? '...' : ''}` : `${pageLabel} page`,
             onClick: page.disabled ? undefined : event => onPageChange?.(event, page.number),
-            className: cn(pageClasses, responsiveVisibility),
+            className: cn(pageClasses, isEdge && 'text-accent', responsiveVisibility),
           }
           if (renderPage) {
             return <React.Fragment key={`${page.type}-${page.number}`}>{renderPage(props)}</React.Fragment>

@@ -2,8 +2,8 @@ import {cva, type VariantProps} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const progressVariants = cva('block w-full overflow-hidden rounded-full bg-neutral-muted', {
-  variants: {size: {small: 'h-1', default: 'h-2', large: 'h-3'}, inline: {true: 'inline-block', false: ''}},
+const progressVariants = cva('flex w-full gap-0.5 overflow-hidden rounded-sm bg-[var(--borderColor-default)]', {
+  variants: {size: {small: 'h-[5px]', default: 'h-2', large: 'h-2.5'}, inline: {true: 'inline-flex', false: ''}},
   defaultVariants: {size: 'default', inline: false},
 })
 

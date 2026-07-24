@@ -45,7 +45,7 @@ describe('ActionMenu', () => {
 
     expect(ref.current).toBe(screen.getByTestId('actions'))
     expect(ref.current).toHaveTextContent('+Actions')
-    expect(ref.current).toHaveClass('bg-danger-emphasis')
+    expect(ref.current).toHaveClass('bg-[var(--button-danger-bgColor-rest)]')
     await user.click(ref.current!)
     expect(await screen.findByRole('menuitem', {name: 'Archive'})).toBeVisible()
   })

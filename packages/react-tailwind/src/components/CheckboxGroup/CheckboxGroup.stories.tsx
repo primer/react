@@ -11,24 +11,29 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
-    <CheckboxGroup>
+    <CheckboxGroup aria-label="Choices">
       <span>
-        <Checkbox id="checkbox-one" value="one" />
-        <label htmlFor="checkbox-one"> One</label>
+        <Checkbox id="checkbox-one" value="one" defaultChecked />
+        <label htmlFor="checkbox-one">Choice one</label>
       </span>
       <span>
-        <Checkbox id="checkbox-two" value="two" />
-        <label htmlFor="checkbox-two"> Two</label>
+        <Checkbox id="checkbox-two" value="two" defaultChecked />
+        <label htmlFor="checkbox-two">Choice two</label>
+      </span>
+      <span>
+        <Checkbox id="checkbox-three" value="three" />
+        <label htmlFor="checkbox-three">Choice three</label>
       </span>
     </CheckboxGroup>
   ),
 }
 export const Playground: Story = {
-  args: {defaultValue: ['one'], disabled: false},
+  args: {defaultValue: ['one', 'two'], disabled: false},
   render: (args: React.ComponentProps<typeof CheckboxGroup>) => (
     <CheckboxGroup {...args}>
-      <Checkbox aria-label="One" value="one" />
-      <Checkbox aria-label="Two" value="two" />
+      <Checkbox aria-label="Choice one" value="one" />
+      <Checkbox aria-label="Choice two" value="two" />
+      <Checkbox aria-label="Choice three" value="three" />
     </CheckboxGroup>
   ),
 }

@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {createPortal} from 'react-dom'
+import {cn} from '../../internal/cn'
 
 type PortalContainer = HTMLElement | ShadowRoot
 type PortalContainerRef = React.RefObject<PortalContainer | null>
@@ -20,7 +21,7 @@ function resolveContainer(container: PortalProps['container']): PortalContainer 
     return container.current
   }
 
-  return container ?? document.body
+  return container ?? document.querySelector<HTMLElement>('[data-portal-root]') ?? document.body
 }
 
 export const Portal = React.forwardRef<HTMLDivElement, PortalProps>(function Portal(
@@ -58,7 +59,7 @@ export const Portal = React.forwardRef<HTMLDivElement, PortalProps>(function Por
   }
 
   return createPortal(
-    <div {...rest} ref={portalRef} data-component="Portal">
+    <div {...rest} ref={portalRef} className={cn('relative z-[1]', rest.className)} data-component="Portal">
       {children}
     </div>,
     target,

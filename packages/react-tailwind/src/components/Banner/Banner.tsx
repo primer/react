@@ -2,10 +2,11 @@ import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon, XIcon} from '@primer/oct
 import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {Button, ButtonBase, type ButtonProps} from '../Button'
 
 export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
-const banner = cva('grid grid-cols-[auto_minmax(0,1fr)_auto] items-start border-thin rounded-md p-2 text-default', {
+const banner = cva('grid grid-cols-[auto_minmax(0,1fr)_auto] items-start border rounded-md p-2 text-default', {
   variants: {
     variant: {
       critical: 'border-danger-muted bg-danger-muted',
@@ -43,7 +44,10 @@ export interface BannerProps extends Omit<React.ComponentPropsWithoutRef<'sectio
 }
 
 const BannerContext = React.createContext<string | undefined>(undefined)
-const BannerActionsLayoutContext = React.createContext<NonNullable<BannerProps['actionsLayout']>>('default')
+const BannerActionsLayoutContext = React.createContext<{
+  layout: NonNullable<BannerProps['actionsLayout']>
+  placeActionsBelowContent: boolean
+}>({layout: 'default', placeActionsBelowContent: false})
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
@@ -72,7 +76,12 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
 
   return (
     <BannerContext.Provider value={titleId}>
-      <BannerActionsLayoutContext.Provider value={actionsLayout}>
+      <BannerActionsLayoutContext.Provider
+        value={{
+          layout: actionsLayout,
+          placeActionsBelowContent: Boolean(onDismiss && !hideTitle && actionsLayout !== 'inline'),
+        }}
+      >
         <section
           {...rest}
           ref={ref}
@@ -90,13 +99,22 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
         >
           <span
             aria-hidden="true"
-            className={cn('grid place-items-center p-1', iconColor[variant])}
+            className={cn(
+              'grid place-items-center p-2 [&>svg]:h-5',
+              hideTitle && !primaryAction && !secondaryAction && '[&>svg]:h-4',
+              iconColor[variant],
+            )}
             data-component="Banner.Icon"
           >
             {visual}
           </span>
-          <div className="flex min-w-0 flex-wrap items-start justify-between gap-1">
-            <div className="my-1 grid min-w-0 gap-1">
+          <div
+            className={cn(
+              'min-w-0 items-start gap-1 text-sm leading-normal',
+              onDismiss && !hideTitle && actionsLayout !== 'inline' ? 'grid' : 'flex flex-wrap justify-between',
+            )}
+          >
+            <div className="my-2 grid min-w-0 gap-1">
               {title ? (
                 hideTitle ? (
                   <span className="sr-only">
@@ -114,14 +132,14 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
             ) : null}
           </div>
           {onDismiss ? (
-            <button
+            <ButtonBase
               aria-label="Dismiss banner"
-              className={cn('ml-1 grid size-8 place-items-center rounded-md', iconColor[variant])}
+              className={cn('ml-1 grid size-8 place-items-center border-0 bg-transparent p-2', iconColor[variant])}
               onClick={onDismiss}
               type="button"
             >
               <XIcon />
-            </button>
+            </ButtonBase>
           ) : null}
         </section>
       </BannerActionsLayoutContext.Provider>
@@ -146,7 +164,7 @@ export function BannerTitle({as: Heading = 'h2', className, id, ...rest}: Banner
   return (
     <Heading
       {...rest}
-      className={cn('m-0 text-base font-semibold', className)}
+      className={cn('m-0 text-sm font-semibold', className)}
       data-banner-title=""
       data-component="Banner.Title"
       id={id ?? titleId}
@@ -155,7 +173,7 @@ export function BannerTitle({as: Heading = 'h2', className, id, ...rest}: Banner
 }
 
 export function BannerDescription({className, ...rest}: React.ComponentPropsWithoutRef<'div'>) {
-  return <div {...rest} className={cn('text-base', className)} data-component="Banner.Description" />
+  return <div {...rest} className={className} data-component="Banner.Description" />
 }
 
 export interface BannerActionsProps {
@@ -164,19 +182,36 @@ export interface BannerActionsProps {
 }
 
 export function BannerActions({primaryAction, secondaryAction}: BannerActionsProps) {
-  const layout = React.useContext(BannerActionsLayoutContext)
+  const {layout, placeActionsBelowContent} = React.useContext(BannerActionsLayoutContext)
   return (
     <div
       className={cn(
-        'my-1 flex gap-3',
+        'flex gap-3',
+        placeActionsBelowContent ? 'mb-1' : 'my-0.5',
         layout === 'stacked' ? 'flex-col items-stretch' : 'items-center',
         layout === 'default' && 'max-sm:flex-col max-sm:items-stretch',
       )}
       data-component="Banner.Actions"
       data-layout={layout}
     >
-      {secondaryAction}
       {primaryAction}
+      {secondaryAction}
     </div>
   )
 }
+
+export type BannerPrimaryActionProps = Omit<ButtonProps, 'variant'>
+
+export const BannerPrimaryAction = React.forwardRef<HTMLElement, BannerPrimaryActionProps>(
+  function BannerPrimaryAction(props, ref) {
+    return <Button {...props} ref={ref} variant="default" data-component="Banner.PrimaryAction" />
+  },
+)
+
+export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
+
+export const BannerSecondaryAction = React.forwardRef<HTMLElement, BannerSecondaryActionProps>(
+  function BannerSecondaryAction(props, ref) {
+    return <Button {...props} ref={ref} variant="invisible" data-component="Banner.SecondaryAction" />
+  },
+)

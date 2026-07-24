@@ -9,7 +9,7 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-export const Default: Story = {args: {progress: 60, 'aria-label': 'Upload'}}
+export const Default: Story = {args: {'aria-label': 'Upload test.png'}}
 export const Playground: Story = {
-  args: {progress: 42, variant: 'accent', size: 'large', animated: true, 'aria-label': 'Upload'},
+  args: {progress: 66, size: 'default', inline: false, variant: 'success', 'aria-label': 'Upload test.png'},
 }

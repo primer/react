@@ -13,8 +13,26 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <LabelGroup>
-      <Label>bug</Label>
-      <Label>help wanted</Label>
+      {[
+        'One',
+        'Two',
+        'Three',
+        'Four',
+        'Five',
+        'Six',
+        'Seven',
+        'Eight',
+        'Nine',
+        'Ten',
+        'Eleven',
+        'Twelve',
+        'Thirteen',
+        'Fourteen',
+        'Fifteen',
+        'Sixteen',
+      ].map(label => (
+        <Label key={label}>{label}</Label>
+      ))}
     </LabelGroup>
   ),
 }

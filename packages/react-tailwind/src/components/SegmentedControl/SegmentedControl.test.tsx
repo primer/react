@@ -18,6 +18,6 @@ describe('SegmentedControl', () => {
     await user.click(screen.getByRole('button', {name: 'Grid'}))
     expect(onValueChange).toHaveBeenLastCalledWith(['grid'], expect.anything())
     expect(ref.current).toBe(screen.getByTestId('control'))
-    expect(screen.getByRole('button', {name: 'Grid'})).toHaveClass('font-semibold')
+    expect(screen.getByRole('button', {name: 'Grid'})).toHaveClass('font-medium')
   })
 })

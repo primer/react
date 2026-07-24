@@ -11,16 +11,20 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
-    <RadioGroup name="view">
+    <RadioGroup name="defaultRadioGroup" defaultValue="two">
       <span>
-        <Radio id="view-list" value="list" />
-        <label htmlFor="view-list"> List</label>
+        <Radio id="radio-one" value="one" />
+        <label htmlFor="radio-one">Choice one</label>
       </span>
       <span>
-        <Radio id="view-grid" value="grid" />
-        <label htmlFor="view-grid"> Grid</label>
+        <Radio id="radio-two" value="two" />
+        <label htmlFor="radio-two">Choice two</label>
+      </span>
+      <span>
+        <Radio id="radio-three" value="three" />
+        <label htmlFor="radio-three">Choice three</label>
       </span>
     </RadioGroup>
   ),
 }
-export const Playground: Story = {args: {name: 'view', defaultValue: 'list'}}
+export const Playground: Story = {args: {name: 'defaultRadioGroup', defaultValue: 'two'}}

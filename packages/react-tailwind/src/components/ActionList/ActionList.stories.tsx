@@ -12,15 +12,18 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <ActionList>
-      <ActionList.Item>Open</ActionList.Item>
-      <ActionList.Item>Close</ActionList.Item>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Quote reply</ActionList.Item>
+      <ActionList.Item>Edit comment</ActionList.Item>
     </ActionList>
   ),
 }
 export const Playground: Story = {
   render: () => (
     <ActionList role="listbox" aria-label="Options" selectionVariant="single">
-      <ActionList.Item selected>Selected option</ActionList.Item>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Quote reply</ActionList.Item>
+      <ActionList.Item>Edit comment</ActionList.Item>
     </ActionList>
   ),
 }

@@ -10,4 +10,4 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 export const Default: Story = {args: {children: 12}}
-export const Playground: Story = {args: {children: 99, variant: 'primary'}}
+export const Playground: Story = {args: {children: 12, variant: 'primary'}}

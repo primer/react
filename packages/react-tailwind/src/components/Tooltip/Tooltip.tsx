@@ -3,7 +3,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 const popupClassName =
-  'max-w-xs rounded-md bg-inset px-2 py-1 text-xs text-on-emphasis shadow-floating-sm outline-none contrast-more:outline contrast-more:outline-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-150 motion-reduce:transition-none'
+  'w-max max-w-64 overflow-visible text-balance rounded-md bg-[var(--tooltip-bgColor)] px-2 py-1 text-center text-xs text-[var(--tooltip-fgColor)] outline-none contrast-more:outline contrast-more:outline-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-100 motion-safe:ease-in motion-reduce:transition-none'
 
 function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
   return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)

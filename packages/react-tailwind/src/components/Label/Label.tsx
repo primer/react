@@ -2,21 +2,21 @@ import {cva, type VariantProps} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const labelVariants = cva('inline-flex items-center rounded-full font-medium whitespace-nowrap', {
+const labelVariants = cva('inline-flex items-center rounded-full border font-medium leading-none whitespace-nowrap', {
   variants: {
     variant: {
-      default: 'bg-muted text-default',
-      primary: 'bg-accent-muted text-accent',
-      secondary: 'bg-neutral-muted text-default',
-      accent: 'bg-accent-muted text-accent',
-      success: 'bg-success-muted text-success',
-      attention: 'bg-attention-muted text-attention',
-      severe: 'bg-severe-muted text-severe',
-      danger: 'bg-danger-muted text-danger',
-      done: 'bg-done-muted text-done',
-      sponsors: 'bg-sponsors-muted text-sponsors',
+      default: 'border-default bg-transparent text-default',
+      primary: 'border-default bg-transparent text-default',
+      secondary: 'border-muted bg-transparent text-muted',
+      accent: 'border-accent-emphasis bg-transparent text-accent',
+      success: 'border-success-emphasis bg-transparent text-success',
+      attention: 'border-attention-emphasis bg-transparent text-attention',
+      severe: 'border-severe-emphasis bg-transparent text-severe',
+      danger: 'border-danger-emphasis bg-transparent text-danger',
+      done: 'border-done-emphasis bg-transparent text-done',
+      sponsors: 'border-sponsors-emphasis bg-transparent text-sponsors',
     },
-    size: {small: 'min-h-5 px-2 text-xs', large: 'min-h-6 px-2 text-sm'},
+    size: {small: 'h-5 px-1.5 text-xs leading-none', large: 'h-6 px-2 text-sm leading-none'},
   },
   defaultVariants: {variant: 'default', size: 'small'},
 })

@@ -2,9 +2,9 @@ import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const card = cva('relative grid gap-4 overflow-hidden border-thin border-default bg-default shadow-resting-sm', {
+const card = cva('relative grid gap-4 overflow-hidden border border-default bg-default shadow-resting-sm', {
   variants: {
-    padding: {none: 'p-0', condensed: 'p-3', normal: 'p-4'},
+    padding: {none: 'p-0', condensed: 'p-4', normal: 'p-6'},
     borderRadius: {medium: 'rounded-md', large: 'rounded-lg'},
     layout: {default: '', compact: 'flex items-start gap-3'},
   },

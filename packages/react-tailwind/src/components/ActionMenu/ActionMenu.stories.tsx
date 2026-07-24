@@ -12,10 +12,12 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <ActionMenu>
-      <ActionMenu.Button>Actions</ActionMenu.Button>
+      <ActionMenu.Button>Open menu</ActionMenu.Button>
       <ActionMenu.Content>
         <ActionMenu.Item>Copy link</ActionMenu.Item>
-        <ActionMenu.Item variant="danger">Delete</ActionMenu.Item>
+        <ActionMenu.Item>Quote reply</ActionMenu.Item>
+        <ActionMenu.Item>Edit comment</ActionMenu.Item>
+        <ActionMenu.Item variant="danger">Delete file</ActionMenu.Item>
       </ActionMenu.Content>
     </ActionMenu>
   ),

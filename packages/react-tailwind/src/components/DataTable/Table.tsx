@@ -12,13 +12,16 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(function Tab
   ref,
 ) {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" data-component="Table.OverflowWrapper">
       <table
         {...props}
         ref={ref}
         data-component="Table"
         data-cell-padding={cellPadding}
-        className={cn('group w-full border-collapse text-left text-sm', className)}
+        className={cn(
+          'group w-full table-fixed border-separate border-spacing-0 text-left text-xs leading-[calc(20/12)]',
+          className,
+        )}
       />
     </div>
   )
@@ -29,7 +32,7 @@ export const TableHead = React.forwardRef<HTMLTableSectionElement, TableHeadProp
   {className, ...props},
   ref,
 ) {
-  return <thead {...props} ref={ref} data-component="Table.Head" className={cn('border-b border-default', className)} />
+  return <thead {...props} ref={ref} data-component="Table.Head" className={className} />
 })
 
 export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
@@ -37,7 +40,7 @@ export const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProp
   {className, ...props},
   ref,
 ) {
-  return <tbody {...props} ref={ref} data-component="Table.Body" className={cn('divide-y divide-default', className)} />
+  return <tbody {...props} ref={ref} data-component="Table.Body" className={className} />
 })
 
 export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
@@ -45,7 +48,7 @@ export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(fun
   {className, ...props},
   ref,
 ) {
-  return <tr {...props} ref={ref} data-component="Table.Row" className={cn('hover:bg-muted', className)} />
+  return <tr {...props} ref={ref} data-component="Table.Row" className={cn('group/row hover:bg-muted', className)} />
 })
 
 type Alignment = 'start' | 'end'
@@ -64,7 +67,7 @@ export const TableHeader = React.forwardRef<HTMLTableCellElement, TableHeaderPro
       data-component="Table.Header"
       data-align={align}
       className={cn(
-        'px-3 py-2 font-semibold text-default data-[align=end]:text-right group-data-[cell-padding=condensed]:px-2 group-data-[cell-padding=condensed]:py-1 group-data-[cell-padding=spacious]:px-4 group-data-[cell-padding=spacious]:py-3',
+        'border-y border-default bg-muted px-3 py-2 font-semibold text-muted first:rounded-tl-md first:border-l first:pl-4 last:rounded-tr-md last:border-r last:pr-4 aria-[sort=ascending]:text-default aria-[sort=descending]:text-default data-[align=end]:text-right group-data-[cell-padding=condensed]:px-2 group-data-[cell-padding=condensed]:py-1 group-data-[cell-padding=spacious]:px-4 group-data-[cell-padding=spacious]:py-3',
         className,
       )}
     />
@@ -91,7 +94,7 @@ export const TableSortHeader = React.forwardRef<HTMLTableCellElement, TableSortH
       <ButtonBase
         type="button"
         onClick={onToggleSort}
-        className="inline-flex items-center gap-1 rounded-sm focus-visible:outline-2 focus-visible:outline-focus"
+        className="inline-flex items-center gap-2 rounded-sm border-0 bg-transparent p-0 text-inherit shadow-none focus-visible:outline-2 focus-visible:outline-focus"
       >
         {children}
         {direction === 'DESC' ? <SortDescIcon aria-hidden="true" /> : <SortAscIcon aria-hidden="true" />}
@@ -120,7 +123,7 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
       data-component="Table.Cell"
       data-align={align}
       className={cn(
-        'px-3 py-2 data-[align=end]:text-right group-data-[cell-padding=condensed]:px-2 group-data-[cell-padding=condensed]:py-1 group-data-[cell-padding=spacious]:px-4 group-data-[cell-padding=spacious]:py-3',
+        'border-b border-default px-3 py-2 first:border-l first:pl-4 last:border-r last:pr-4 group-last/row:first:rounded-bl-md group-last/row:last:rounded-br-md data-[align=end]:text-right data-[scope=row]:font-semibold group-data-[cell-padding=condensed]:px-2 group-data-[cell-padding=condensed]:py-1 group-data-[cell-padding=spacious]:px-4 group-data-[cell-padding=spacious]:py-3',
         className,
       )}
     />
@@ -137,7 +140,10 @@ export const TableContainer = React.forwardRef<HTMLDivElement, TableContainerPro
       {...props}
       ref={ref}
       data-component="Table.Container"
-      className={cn('rounded-md border border-default', className)}
+      className={cn(
+        "grid grid-cols-2 gap-x-2 [&>[data-component='Table.OverflowWrapper']]:col-span-2 [&>[data-component='Table.OverflowWrapper']]:mt-1",
+        className,
+      )}
     />
   )
 })
@@ -152,7 +158,7 @@ export const TableTitle = React.forwardRef<HTMLHeadingElement, TableTitleProps>(
       {...props}
       ref={ref}
       data-component="Table.Title"
-      className={cn('px-3 pt-3 text-title-small font-display', className)}
+      className={cn('m-0 self-center text-sm font-semibold leading-5', className)}
     >
       {children}
     </h2>
@@ -164,7 +170,14 @@ export const TableSubtitle = React.forwardRef<HTMLParagraphElement, TableSubtitl
   {className, ...props},
   ref,
 ) {
-  return <p {...props} ref={ref} data-component="Table.Subtitle" className={cn('px-3 text-sm text-muted', className)} />
+  return (
+    <p
+      {...props}
+      ref={ref}
+      data-component="Table.Subtitle"
+      className={cn('col-span-2 m-0 text-xs leading-5', className)}
+    />
+  )
 })
 
 export const TableActions = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
@@ -174,13 +187,15 @@ export const TableActions = React.forwardRef<HTMLDivElement, React.ComponentProp
         {...props}
         ref={ref}
         data-component="Table.Actions"
-        className={cn('flex items-center gap-2 p-3', props.className)}
+        className={cn('col-start-2 row-start-1 flex items-center justify-self-end gap-2', props.className)}
       />
     )
   },
 )
 
-export const TableDivider = () => <hr data-component="Table.Divider" className="border-default" />
+export const TableDivider = () => (
+  <hr data-component="Table.Divider" className="col-span-2 my-2 w-full border-default" />
+)
 
 export const TableCellPlaceholder = ({className, ...props}: React.ComponentPropsWithoutRef<'span'>) => (
   <span {...props} data-component="Table.CellPlaceholder" className={cn('text-muted', className)} />

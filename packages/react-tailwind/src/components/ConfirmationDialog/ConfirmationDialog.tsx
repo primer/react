@@ -1,10 +1,10 @@
-import {AlertDialog} from '@base-ui/react/alert-dialog'
+import {Dialog as AlertDialog} from '@base-ui/react/dialog'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {Button, type ButtonProps} from '../Button'
 
 const popupClassName =
-  'w-full max-w-md rounded-md border border-default bg-default text-default shadow-floating-xl outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-150 motion-reduce:transition-none'
+  'flex w-full max-w-[var(--overlay-width-small)] flex-col overflow-hidden rounded-lg bg-default text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
 function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
   return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)
@@ -36,7 +36,7 @@ const Backdrop = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Backdrop.Prop
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'fixed inset-0 z-modal bg-neutral-emphasis/40 contrast-more:bg-neutral-emphasis motion-safe:transition-opacity motion-safe:duration-150 motion-reduce:transition-none',
+          'fixed inset-0 z-modal bg-neutral-emphasis/40 contrast-more:bg-neutral-emphasis data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition-opacity motion-safe:duration-200 motion-reduce:transition-none',
           className,
         )}
         data-component="ConfirmationDialog.Backdrop"
@@ -52,7 +52,7 @@ const Viewport = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Viewport.Prop
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'fixed inset-0 z-modal flex items-center justify-center overflow-y-auto p-4',
+          'fixed inset-0 z-modal flex items-center justify-center overflow-y-auto p-8',
           className,
         )}
         data-component="ConfirmationDialog.Viewport"
@@ -62,11 +62,12 @@ const Viewport = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Viewport.Prop
 )
 
 const Content = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Popup.Props, 'data-component'>>(
-  function ConfirmationDialogContent({className, ...rest}, ref) {
+  function ConfirmationDialogContent({className, role = 'alertdialog', ...rest}, ref) {
     return (
       <AlertDialog.Popup
         {...rest}
         ref={ref}
+        role={role}
         className={mergeClassName(popupClassName, className)}
         data-component="ConfirmationDialog.Content"
       />
@@ -80,7 +81,7 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<AlertDialog.Title.Props,
       <AlertDialog.Title
         {...rest}
         ref={ref}
-        className={mergeClassName('text-lg font-semibold text-default', className)}
+        className={mergeClassName('text-sm font-semibold text-default', className)}
         data-component="ConfirmationDialog.Title"
       />
     )
@@ -179,10 +180,7 @@ export const ConfirmationDialog = React.forwardRef<HTMLDivElement, ConfirmationD
               {description && <Description>{description}</Description>}
               {children && <div className="mt-4">{children}</div>}
             </div>
-            <div
-              className="flex flex-wrap justify-end gap-2 border-t border-default p-4"
-              data-component="ConfirmationDialog.Footer"
-            >
+            <div className="flex flex-wrap justify-end gap-2 p-4" data-component="ConfirmationDialog.Footer">
               <Close
                 render={
                   <Button

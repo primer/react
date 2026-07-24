@@ -9,5 +9,5 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-export const Default: Story = {args: {children: 'Body text'}}
-export const Playground: Story = {args: {children: 'Large semibold text', size: 'large', weight: 'semibold'}}
+export const Default: Story = {args: {children: 'Default Text'}}
+export const Playground: Story = {args: {children: 'Playground', as: 'span', size: 'medium', weight: 'normal'}}

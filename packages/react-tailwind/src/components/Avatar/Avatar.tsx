@@ -2,13 +2,16 @@ import {cva, type VariantProps} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const avatarVariants = cva('inline-block shrink-0 bg-muted object-cover', {
-  variants: {
-    size: {small: 'size-5', medium: 'size-8', large: 'size-10', xlarge: 'size-12'},
-    shape: {circle: 'rounded-full', square: 'rounded-md'},
+const avatarVariants = cva(
+  'inline-block shrink-0 overflow-hidden object-cover leading-none align-middle shadow-[0_0_0_1px_var(--avatar-borderColor)]',
+  {
+    variants: {
+      size: {small: 'size-5', medium: 'size-8', large: 'size-10', xlarge: 'size-12'},
+      shape: {circle: 'rounded-full', square: 'rounded-md'},
+    },
+    defaultVariants: {size: 'small', shape: 'circle'},
   },
-  defaultVariants: {size: 'small', shape: 'circle'},
-})
+)
 
 export interface AvatarProps
   extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'size'>,

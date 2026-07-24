@@ -3,7 +3,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 const topicTag = cva(
-  'inline-flex whitespace-nowrap rounded-full border-thin border-transparent bg-accent-muted px-3 py-0.5 text-sm font-semibold leading-5 text-accent no-underline',
+  'inline-flex whitespace-nowrap rounded-full border border-transparent bg-accent-muted px-3 py-0.5 text-sm font-semibold leading-5 text-accent no-underline',
   {
     variants: {interactive: {true: 'cursor-pointer hover:bg-accent-emphasis hover:text-on-emphasis', false: ''}},
     defaultVariants: {interactive: true},

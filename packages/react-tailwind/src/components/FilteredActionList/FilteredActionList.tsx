@@ -79,7 +79,7 @@ const Item = React.forwardRef<HTMLDivElement, Combobox.Item.Props>(function Filt
       {...rest}
       ref={ref}
       className={mergeClassName(
-        'flex w-full cursor-default items-center rounded-md px-2 py-1.5 text-sm text-default outline-none data-[highlighted]:bg-neutral-muted data-[selected]:bg-accent-muted data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled',
+        'flex w-full cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm text-default outline-none data-[highlighted]:bg-neutral-muted data-[selected]:bg-accent-muted data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled',
         className,
       )}
       data-component="FilteredActionList.Item"
@@ -166,30 +166,37 @@ const FilteredActionList = React.forwardRef<HTMLDivElement, FilteredActionListPr
         onSelectedChange?.(next, details)
       }}
     >
-      <div {...rest} ref={ref} className={cn('w-full', className)} data-component="FilteredActionList">
+      <div
+        {...rest}
+        ref={ref}
+        className={cn('w-full border border-default p-2', className)}
+        data-component="FilteredActionList"
+      >
         <Input aria-label={ariaLabel} placeholder={placeholderText} />
-        <Content>
-          {loading ? (
-            <div className="p-3 text-sm text-muted" role="status">
-              Loading
-            </div>
-          ) : null}
-          {!loading ? (
-            <>
-              <List>
-                {(value: ItemValue) => {
-                  const item = itemsById.get(value.value)
-                  return item ? (
-                    <Item key={item.id} disabled={item.disabled} value={value}>
-                      {item.text}
-                    </Item>
-                  ) : null
-                }}
-              </List>
-              <Combobox.Empty className="p-3 text-sm text-muted">{emptyStateText}</Combobox.Empty>
-            </>
-          ) : null}
-        </Content>
+        {loading ? (
+          <div className="p-3 text-sm text-muted" role="status">
+            Loading
+          </div>
+        ) : null}
+        {!loading ? (
+          <>
+            <List>
+              {(value: ItemValue) => {
+                const item = itemsById.get(value.value)
+                return item ? (
+                  <Item key={item.id} disabled={item.disabled} value={value}>
+                    {item.text}
+                  </Item>
+                ) : null
+              }}
+            </List>
+            {values.length === 0 ? (
+              <div className="p-3 text-sm text-muted" role="status">
+                {emptyStateText}
+              </div>
+            ) : null}
+          </>
+        ) : null}
       </div>
     </Combobox.Root>
   )

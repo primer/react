@@ -7,7 +7,7 @@ const meta = {
   render: args => (
     <PageHeader {...args}>
       <PageHeader.TitleArea>
-        <PageHeader.Title as="h1">Settings</PageHeader.Title>
+        <PageHeader.Title as="h1">Title</PageHeader.Title>
       </PageHeader.TitleArea>
     </PageHeader>
   ),

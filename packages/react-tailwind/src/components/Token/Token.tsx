@@ -3,7 +3,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 import {TokenBase, TokenRemoveButton, type TokenBaseProps} from './TokenBase'
 
-const token = cva('border-thin border-muted bg-neutral-muted text-muted', {
+const token = cva('border border-muted bg-neutral-muted text-muted', {
   variants: {selected: {true: 'border-emphasis text-default', false: ''}},
   defaultVariants: {selected: false},
 })

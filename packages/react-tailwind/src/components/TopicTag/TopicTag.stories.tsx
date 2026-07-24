@@ -3,10 +3,10 @@ import {TopicTag} from './TopicTag'
 const meta = {
   title: 'React Tailwind/Content/TopicTag',
   component: TopicTag,
-  args: {children: 'react', href: '#react'},
+  args: {children: 'react'},
 } satisfies Meta<typeof TopicTag>
 export default meta
 
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
-export const Playground: Story = {args: {as: 'button'}}
+export const Playground: Story = {}

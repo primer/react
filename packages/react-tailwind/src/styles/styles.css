@@ -6,3 +6,32 @@
 @import '@primer/tailwind-config';
 
 @source '../';
+
+@keyframes primer-skeleton-shimmer {
+  from {
+    mask-position: 200%;
+  }
+
+  to {
+    mask-position: 0%;
+  }
+}
+
+@layer base {
+  [data-component='BaseStyles'],
+  [data-component='BaseStyles'] *,
+  [data-component='BaseStyles'] *::before,
+  [data-component='BaseStyles'] *::after {
+    box-sizing: border-box;
+  }
+
+  /* stylelint-disable-next-line selector-max-type */
+  [data-component='BaseStyles'] :where(button, input, select, textarea) {
+    font-family: inherit;
+  }
+
+  [data-component='BaseStyles'] table {
+    /* stylelint-disable-next-line primer/borders */
+    border-collapse: collapse;
+  }
+}

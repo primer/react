@@ -9,7 +9,7 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-export const Default: Story = {args: {src: 'https://github.com/github.png', alt: 'GitHub'}}
+export const Default: Story = {args: {src: 'https://avatars.githubusercontent.com/u/7143434?v=4'}}
 export const Playground: Story = {
-  args: {src: 'https://github.com/github.png', alt: 'GitHub', size: 'large', square: true},
+  args: {src: 'https://avatars.githubusercontent.com/u/7143434?v=4', alt: 'mona', size: 32, square: false},
 }

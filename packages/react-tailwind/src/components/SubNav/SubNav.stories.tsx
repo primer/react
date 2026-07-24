@@ -5,12 +5,13 @@ const meta = {
   title: 'React Tailwind/Navigation/SubNav',
   component: SubNav,
   render: args => (
-    <SubNav {...args} label="Repository">
+    <SubNav {...args} aria-label="Main">
       <SubNav.Links>
-        <SubNav.Link href="/" selected>
-          Code
+        <SubNav.Link href="#home" selected>
+          Home
         </SubNav.Link>
-        <SubNav.Link href="/issues">Issues</SubNav.Link>
+        <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+        <SubNav.Link href="#support">Support</SubNav.Link>
       </SubNav.Links>
     </SubNav>
   ),
@@ -19,5 +20,5 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
-export const Playground: Story = {args: {actions: <button type="button">New issue</button>}}
+export const Playground: Story = {args: {'aria-label': 'Main'}}
 export const WithActions: Story = {args: {actions: <button type="button">New issue</button>}}

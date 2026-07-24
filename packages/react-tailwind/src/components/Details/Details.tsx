@@ -4,14 +4,7 @@ import {cn} from '../../internal/cn'
 export type DetailsProps = Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'data-component'>
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(function Details({className, ...rest}, ref) {
-  return (
-    <details
-      {...rest}
-      ref={ref}
-      data-component="Details"
-      className={cn('rounded-md border border-default p-3', className)}
-    />
-  )
+  return <details {...rest} ref={ref} data-component="Details" className={cn(className)} />
 })
 
 export type DetailsSummaryProps = Omit<React.HTMLAttributes<HTMLElement>, 'data-component'>
@@ -22,10 +15,10 @@ const Summary = React.forwardRef<HTMLElement, DetailsSummaryProps>(function Summ
       {...rest}
       ref={ref}
       data-component="Details.Summary"
-      className={cn('cursor-pointer font-medium', className)}
+      className={cn('list-none [&::-webkit-details-marker]:hidden', className)}
     />
   )
 })
 
-/** Native disclosure with a styled summary helper. Summary must be the first child. */
+/** Native disclosure. Summary must be the first child. */
 export const Details = Object.assign(Root, {Summary})

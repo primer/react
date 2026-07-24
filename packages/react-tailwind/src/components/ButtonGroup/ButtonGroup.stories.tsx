@@ -13,8 +13,9 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <ButtonGroup>
-      <Button>One</Button>
-      <Button>Two</Button>
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
     </ButtonGroup>
   ),
 }

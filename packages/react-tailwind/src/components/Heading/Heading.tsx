@@ -6,7 +6,7 @@ const headingVariants = cva('font-display text-default', {
   variants: {
     size: {small: 'text-title-small', medium: 'text-title-medium', large: 'text-title-large', display: 'text-display'},
   },
-  defaultVariants: {size: 'medium'},
+  defaultVariants: {size: 'large'},
 })
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof headingVariants> {

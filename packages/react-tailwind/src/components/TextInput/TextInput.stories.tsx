@@ -8,5 +8,5 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-export const Default: Story = {args: {placeholder: 'Repository name'}}
-export const Playground: Story = {args: {size: 'medium', disabled: false, placeholder: 'primer/react'}}
+export const Default: Story = {args: {placeholder: 'Default label'}}
+export const Playground: Story = {args: {size: 'medium', disabled: false, placeholder: ''}}

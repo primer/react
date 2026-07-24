@@ -10,13 +10,13 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
-  args: {children: 'A long branch name that truncates', title: 'A long branch name that truncates'},
+  args: {children: 'Some example text', title: 'Some example text'},
 }
 export const Playground: Story = {
   args: {
-    children: 'A long branch name that truncates',
-    title: 'A long branch name that truncates',
-    inline: true,
-    maxWidth: 180,
+    children: 'Some example text',
+    title: 'Some example text',
+    inline: false,
+    maxWidth: 125,
   },
 }

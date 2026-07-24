@@ -4,7 +4,7 @@ import {cn} from '../../internal/cn'
 import {Button, type ButtonProps} from '../Button'
 
 const popupClassName =
-  'min-w-48 rounded-md border border-default bg-default p-3 text-default shadow-floating-lg outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-150 motion-reduce:transition-none'
+  'min-w-[var(--overlay-width-small)] rounded-md bg-default p-6 text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden'
 
 function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
   return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)
@@ -153,7 +153,7 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<BasePopover.Title.Props,
       <BasePopover.Title
         {...rest}
         ref={ref}
-        className={mergeClassName('text-lg font-semibold text-default', className)}
+        className={mergeClassName('text-base font-semibold text-default', className)}
         data-component="Popover.Title"
       />
     )

@@ -11,9 +11,9 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <span className="flex gap-2">
-      <ToggleSwitch id="enable-notifications" />
-      <label htmlFor="enable-notifications">Enable notifications</label>
+      <span id="toggle">Toggle label</span>
+      <ToggleSwitch aria-labelledby="toggle" />
     </span>
   ),
 }
-export const Playground: Story = {args: {'aria-label': 'Enable notifications', size: 'medium', defaultChecked: false}}
+export const Playground: Story = {args: {'aria-labelledby': 'toggle', size: 'medium', defaultChecked: false}}

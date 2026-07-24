@@ -11,9 +11,9 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <span className="flex gap-2">
-      <Checkbox id="receive-updates" />
-      <label htmlFor="receive-updates">Receive updates</label>
+      <Checkbox id="default-checkbox" />
+      <label htmlFor="default-checkbox">Default label</label>
     </span>
   ),
 }
-export const Playground: Story = {args: {'aria-label': 'Receive updates', defaultChecked: true, disabled: false}}
+export const Playground: Story = {args: {'aria-label': 'Default checkbox', defaultChecked: false, disabled: false}}

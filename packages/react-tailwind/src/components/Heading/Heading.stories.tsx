@@ -9,5 +9,5 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-export const Default: Story = {args: {children: 'Heading'}}
-export const Playground: Story = {args: {children: 'Large heading', as: 'h1', size: 'large'}}
+export const Default: Story = {args: {children: 'Default H2 Heading'}}
+export const Playground: Story = {args: {children: 'Heading', as: 'h2'}}

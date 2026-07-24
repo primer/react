@@ -4,7 +4,10 @@ import {afterEach, describe, expect, it, vi} from 'vitest'
 import {Portal} from './Portal'
 
 describe('Portal', () => {
-  afterEach(cleanup)
+  afterEach(() => {
+    cleanup()
+    document.querySelector('[data-testid="portal-root"]')?.remove()
+  })
 
   it('renders into the document body after hydration', async () => {
     render(<Portal>Portaled content</Portal>)
@@ -33,5 +36,20 @@ describe('Portal', () => {
     expect(ref.current).toBe(screen.getByTestId('portal'))
     expect(screen.getByTestId('portal')).toHaveClass('portal-content')
     expect(onMount).toHaveBeenCalledTimes(1)
+  })
+
+  it('uses the nearest Primer portal root before falling back to the document body', async () => {
+    const portalRoot = document.createElement('div')
+    portalRoot.setAttribute('data-portal-root', 'true')
+    portalRoot.setAttribute('data-testid', 'portal-root')
+    document.body.append(portalRoot)
+
+    render(<Portal data-testid="portal">Portaled content</Portal>)
+
+    await waitFor(() => {
+      expect(portalRoot).toContainElement(screen.getByTestId('portal'))
+    })
+
+    expect(screen.getByTestId('portal')).toHaveClass('relative', 'z-[1]')
   })
 })

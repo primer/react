@@ -11,8 +11,8 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <Details>
-      <Details.Summary>More options</Details.Summary>
-      <p>Additional content</p>
+      <Details.Summary>See Details</Details.Summary>
+      This is some content
     </Details>
   ),
 }
@@ -20,8 +20,8 @@ export const Playground: Story = {
   args: {open: false},
   render: (args: React.ComponentProps<typeof Details>) => (
     <Details {...args}>
-      <Details.Summary>More options</Details.Summary>
-      <p>Additional content</p>
+      <Details.Summary>See Details</Details.Summary>
+      This is some content
     </Details>
   ),
 }

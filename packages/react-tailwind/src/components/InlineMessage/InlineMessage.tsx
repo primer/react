@@ -6,7 +6,7 @@ import {cn} from '../../internal/cn'
 export type InlineMessageVariant = 'critical' | 'success' | 'unavailable' | 'warning'
 const message = cva('grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2', {
   variants: {
-    size: {small: 'text-sm leading-5', medium: 'text-base leading-5'},
+    size: {small: 'text-sm leading-[21px]', medium: 'text-base leading-6'},
     variant: {
       critical: 'text-danger',
       success: 'text-success',

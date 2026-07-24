@@ -1,4 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import {MarkGithubIcon} from '@primer/octicons-react'
+import {Avatar} from '../Avatar'
 import {Header} from './Header'
 
 const meta = {
@@ -6,9 +8,16 @@ const meta = {
   component: Header,
   render: args => (
     <Header {...args}>
-      <Header.Link href="/">GitHub</Header.Link>
-      <Header.Item full>Search</Header.Item>
-      <Header.Item>Profile</Header.Item>
+      <Header.Item>
+        <Header.Link href="#">
+          <MarkGithubIcon size={32} />
+          <span>GitHub</span>
+        </Header.Link>
+      </Header.Item>
+      <Header.Item full>Menu</Header.Item>
+      <Header.Item>
+        <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
+      </Header.Item>
     </Header>
   ),
 } satisfies Meta<typeof Header>

@@ -9,5 +9,5 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-export const Default: Story = {args: {children: 'Button'}}
-export const Playground: Story = {args: {children: 'Save changes', variant: 'primary', size: 'medium'}}
+export const Default: Story = {args: {children: 'Default'}}
+export const Playground: Story = {args: {children: 'Button', variant: 'default', size: 'medium', disabled: false}}

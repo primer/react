@@ -3,7 +3,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 const contentClassName =
-  'min-w-48 rounded-md border border-default bg-default p-3 text-default shadow-floating-lg outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-150 motion-reduce:transition-none'
+  'min-w-48 max-w-[calc(100vw-var(--base-size-32))] max-h-dvh overflow-auto rounded-lg bg-default text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
 function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
   return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)
@@ -154,7 +154,7 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<BasePopover.Title.Props,
       <BasePopover.Title
         {...rest}
         ref={ref}
-        className={mergeClassName('text-lg font-semibold text-default', className)}
+        className={mergeClassName('text-base font-semibold text-default', className)}
         data-component="AnchoredOverlay.Title"
       />
     )

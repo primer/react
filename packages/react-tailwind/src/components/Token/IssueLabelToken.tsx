@@ -4,7 +4,7 @@ import {cn} from '../../internal/cn'
 import {TokenBase, TokenRemoveButton, type TokenBaseProps} from './TokenBase'
 
 const issueLabelToken = cva(
-  'border-thin border-[color:color-mix(in_srgb,var(--issue-label-color),transparent_70%)] bg-[var(--issue-label-color)] text-[var(--issue-label-fg)]',
+  'border border-[color:color-mix(in_srgb,var(--issue-label-color),transparent_70%)] bg-[var(--issue-label-color)] text-[var(--issue-label-fg)]',
   {
     variants: {selected: {true: 'outline-2 outline-offset-2 outline-[var(--issue-label-color)]', false: ''}},
     defaultVariants: {selected: false},

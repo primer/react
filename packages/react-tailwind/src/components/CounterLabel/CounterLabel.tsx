@@ -4,10 +4,10 @@ import {cn} from '../../internal/cn'
 import {VisuallyHidden} from '../VisuallyHidden'
 
 const counterVariants = cva(
-  'inline-flex min-w-5 items-center justify-center rounded-full px-1 text-xs font-medium tabular-nums',
+  'inline-block rounded-[20px] border border-transparent px-1.5 py-0.5 text-xs font-semibold leading-none tabular-nums empty:hidden',
   {
     variants: {
-      variant: {primary: 'bg-accent-emphasis text-on-emphasis', secondary: 'bg-neutral-muted text-default'},
+      variant: {primary: 'bg-neutral-emphasis text-on-emphasis', secondary: 'bg-neutral-muted text-default'},
     },
     defaultVariants: {variant: 'secondary'},
   },

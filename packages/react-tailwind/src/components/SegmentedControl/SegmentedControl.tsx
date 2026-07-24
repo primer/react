@@ -13,8 +13,8 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
   const mergedClassName =
     typeof className === 'function'
       ? (state: ToggleGroup.State) =>
-          cn('inline-flex rounded-md border border-default bg-muted p-0.5', className(state))
-      : cn('inline-flex rounded-md border border-default bg-muted p-0.5', className)
+          cn('inline-flex h-8 rounded-md border border-default bg-muted p-0.5', className(state))
+      : cn('inline-flex h-8 rounded-md border border-default bg-muted p-0.5', className)
 
   return <ToggleGroup {...rest} ref={ref} data-component="SegmentedControl" className={mergedClassName} />
 })

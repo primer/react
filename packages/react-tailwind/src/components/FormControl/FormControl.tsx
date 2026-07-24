@@ -15,8 +15,8 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
   const mergedClassName =
     typeof className === 'function'
       ? (state: Field.Root.State) =>
-          cn(layout === 'horizontal' ? 'flex items-start gap-2' : 'grid gap-2', className(state))
-      : cn(layout === 'horizontal' ? 'flex items-start gap-2' : 'grid gap-2', className)
+          cn(layout === 'horizontal' ? 'flex items-start gap-2' : 'flex flex-col items-start gap-1', className(state))
+      : cn(layout === 'horizontal' ? 'flex items-start gap-2' : 'flex flex-col items-start gap-1', className)
   const context = React.useMemo(() => ({disabled: rest.disabled, name: rest.name}), [rest.disabled, rest.name])
 
   return (
@@ -132,7 +132,17 @@ const LeadingVisual = React.forwardRef<HTMLDivElement, FormControlLeadingVisualP
 
 export type FormControlControlProps = Omit<Field.Control.Props, 'data-component'>
 const Control = React.forwardRef<HTMLElement, FormControlControlProps>(function Control(props, ref) {
-  return <Field.Control {...props} ref={ref} data-component="FormControl.Control" />
+  return (
+    <Field.Control
+      {...props}
+      ref={ref}
+      data-component="FormControl.Control"
+      className={cn(
+        'm-0 h-8 appearance-none rounded-md border border-[var(--control-borderColor-rest)] bg-default px-3 text-sm leading-5 text-default shadow-[var(--shadow-inset)] outline-none placeholder:text-muted disabled:cursor-not-allowed disabled:border-[var(--control-borderColor-disabled)] disabled:bg-[var(--control-bgColor-disabled)] disabled:text-disabled disabled:shadow-none focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-focus aria-invalid:border-danger-emphasis aria-invalid:focus:border-[var(--control-borderColor-danger)] aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
+        props.className,
+      )}
+    />
+  )
 })
 
 /**

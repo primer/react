@@ -9,16 +9,20 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 const Example = () => (
-  <Select>
-    <Select.Trigger aria-label="Branch">
-      <Select.Value placeholder="Choose a branch" />
+  <Select defaultValue="one">
+    <Select.Trigger aria-label="Default label">
+      <Select.Value placeholder="Choice one" />
     </Select.Trigger>
     <Select.Portal>
       <Select.Positioner>
         <Select.Popup>
           <Select.List>
-            <Select.Item value="main">main</Select.Item>
-            <Select.Item value="next">next</Select.Item>
+            <Select.Item value="one">Choice one</Select.Item>
+            <Select.Item value="two">Choice two</Select.Item>
+            <Select.Item value="three">Choice three</Select.Item>
+            <Select.Item value="four">Choice four</Select.Item>
+            <Select.Item value="five">Choice five</Select.Item>
+            <Select.Item value="six">Choice six</Select.Item>
           </Select.List>
         </Select.Popup>
       </Select.Positioner>

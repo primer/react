@@ -15,8 +15,10 @@ export const Default: Story = {
   render: () => (
     <span className="flex gap-2">
       <Radio id="one" value="one" />
-      <label htmlFor="one">One</label>
+      <label htmlFor="one">Label</label>
     </span>
   ),
 }
-export const Playground: Story = {args: {'aria-label': 'One', value: 'one', disabled: false}}
+export const Playground: Story = {
+  args: {'aria-label': 'Label', value: 'default', disabled: false},
+}

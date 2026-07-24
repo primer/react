@@ -2,7 +2,7 @@ import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const flash = cva('relative rounded-md border-thin p-3 text-default [&_p:last-child]:mb-0 [&_svg]:mr-2', {
+const flash = cva('relative rounded-md border p-4 text-default [&_p:last-child]:mb-0 [&_svg]:mr-2', {
   variants: {
     variant: {
       default: 'border-accent-muted bg-accent-muted [&_svg]:text-accent',

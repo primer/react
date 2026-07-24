@@ -7,9 +7,9 @@ const meta = {
   render: args => (
     <Breadcrumbs {...args}>
       <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="/settings">Settings</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="/settings/profile" selected>
-        Profile
+      <Breadcrumbs.Item href="#">About</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#" selected>
+        Team
       </Breadcrumbs.Item>
     </Breadcrumbs>
   ),

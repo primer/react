@@ -14,7 +14,11 @@ export const Default: Story = {
       <TreeView.Item id="src" defaultExpanded subtree={<TreeView.Item id="main">main.tsx</TreeView.Item>}>
         src
       </TreeView.Item>
-      <TreeView.Item id="readme">README.md</TreeView.Item>
+      <TreeView.Item id="avatar">Avatar.tsx</TreeView.Item>
+      <TreeView.Item id="button" current>
+        Button.tsx
+      </TreeView.Item>
+      <TreeView.Item id="package">package.json</TreeView.Item>
     </TreeView>
   ),
 }
