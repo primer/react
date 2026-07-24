@@ -263,7 +263,6 @@ describe('UnderlinePanels', () => {
 
       await user.click(screen.getByRole('tab', {name: 'Tags'}))
 
-      // Parent ignored onChange, so the controlled value pins selection on branch.
       expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'true')
 
       rerender(<RefTabs value="tag" onChange={onChange} />)
@@ -301,7 +300,6 @@ describe('UnderlinePanels', () => {
         expect(tag).toHaveFocus()
         expect(branch).toHaveAttribute('aria-selected', 'true')
         expect(onChange).not.toHaveBeenCalled()
-        // Roving tab stop follows focus in manual mode (APG manual activation pattern).
         expect(tag).toHaveAttribute('tabindex', '0')
         expect(branch).toHaveAttribute('tabindex', '-1')
       })
@@ -334,7 +332,6 @@ describe('UnderlinePanels', () => {
           await user.keyboard('{ArrowRight}')
         })
 
-        // Focus moved but selection has not committed yet.
         expect(tag).toHaveFocus()
         expect(branch).toHaveAttribute('aria-selected', 'true')
         expect(onChange).not.toHaveBeenCalled()
@@ -343,7 +340,6 @@ describe('UnderlinePanels', () => {
           await user.keyboard('{Enter}')
         })
 
-        // Uncontrolled selection updates internally on commit.
         expect(onChange).toHaveBeenCalledWith({value: 'tag'})
         expect(tag).toHaveAttribute('aria-selected', 'true')
         expect(screen.getByText('Tag panel')).toBeVisible()
@@ -405,7 +401,6 @@ describe('UnderlinePanels', () => {
         const branch = screen.getByRole('tab', {name: 'branch'})
         const tag = screen.getByRole('tab', {name: 'tag'})
 
-        // No keyboard trap: exactly one tab is the tab stop, and the first panel is shown.
         expect(branch).toHaveAttribute('aria-selected', 'true')
         expect(branch).toHaveAttribute('tabindex', '0')
         expect(tag).toHaveAttribute('tabindex', '-1')
@@ -638,8 +633,6 @@ describe('UnderlinePanels — list resize observation', () => {
 })
 
 describe('UnderlinePanels — AnchoredOverlay composition', () => {
-  // Regression coverage for the RefSelector issue: the overlay's focus zone is disabled so it
-  // doesn't fight the tablist's roving tabindex and trap keyboard users.
   const OverlayHarness = ({onChange}: {onChange?: ({value}: {value: string}) => void}) => {
     const [open, setOpen] = useState(true)
     return (
@@ -666,7 +659,6 @@ describe('UnderlinePanels — AnchoredOverlay composition', () => {
 
   it('keeps the tablist roving tabindex intact (exactly one tab is tabbable)', async () => {
     render(<OverlayHarness />)
-    // Flush AnchoredOverlay's async positioning updates inside act.
     await act(async () => {})
 
     const branch = screen.getByRole('tab', {name: 'Branches'})
@@ -692,7 +684,6 @@ describe('UnderlinePanels — AnchoredOverlay composition', () => {
 
     expect(tag).toHaveFocus()
     expect(onChange).toHaveBeenCalledWith({value: 'tag'})
-    // Roving tabindex still resolves to exactly one tab stop after selection moves.
     expect(tag).toHaveAttribute('tabindex', '0')
     expect(branch).toHaveAttribute('tabindex', '-1')
   })

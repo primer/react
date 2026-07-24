@@ -636,7 +636,6 @@ describe('Tabs', () => {
       expect(tabA).toHaveAttribute('aria-selected', 'true')
       expect(tabB).toHaveAttribute('aria-selected', 'false')
       expect(onValueChange).not.toHaveBeenCalled()
-      // Manual-mode tab stop follows focus (APG), so Tab out/in returns to the last-focused tab.
       expect(tabB).toHaveAttribute('tabindex', '0')
       expect(tabA).toHaveAttribute('tabindex', '-1')
     })
@@ -706,7 +705,6 @@ describe('Tabs', () => {
         await user.keyboard('{ArrowRight}')
       })
 
-      // Selection is still on A, but focus has advanced to C.
       expect(tabA).toHaveAttribute('aria-selected', 'true')
       expect(tabC).toHaveFocus()
       expect(tabB).not.toHaveFocus()
