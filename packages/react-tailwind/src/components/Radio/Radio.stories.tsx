@@ -19,4 +19,4 @@ export const Default: Story = {
     </span>
   ),
 }
-export const Playground: Story = {args: {value: 'one', disabled: false}}
+export const Playground: Story = {args: {'aria-label': 'One', value: 'one', disabled: false}}

@@ -12,12 +12,12 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    children: 'This content is rendered at the end of the document body.',
+    children: <span className="text-default">This content is rendered at the end of the document body.</span>,
   },
 }
 
 export const Playground: Story = {
   args: {
-    children: 'Portaled content',
+    children: <span className="text-default">Portaled content</span>,
   },
 }

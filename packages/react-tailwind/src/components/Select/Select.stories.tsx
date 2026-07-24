@@ -10,7 +10,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 const Example = () => (
   <Select>
-    <Select.Trigger>
+    <Select.Trigger aria-label="Branch">
       <Select.Value placeholder="Choose a branch" />
     </Select.Trigger>
     <Select.Portal>

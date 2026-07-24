@@ -65,7 +65,7 @@ export const Tab = React.forwardRef<HTMLElement, TabProps>(function Tab({classNa
       ref={ref}
       data-component={markers.tab}
       className={cn(
-        'relative inline-flex min-h-10 items-center gap-2 border-b-2 border-transparent px-3 text-sm text-muted hover:text-default focus-visible:z-10 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-focus data-[active]:border-accent-emphasis data-[active]:font-semibold data-[active]:text-default disabled:cursor-not-allowed disabled:text-disabled',
+        'relative inline-flex min-h-10 appearance-none items-center gap-2 border-b-2 border-transparent bg-transparent px-3 text-sm text-muted hover:text-default focus-visible:z-10 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-focus data-[active]:border-accent-emphasis data-[active]:font-semibold data-[active]:text-default disabled:cursor-not-allowed disabled:text-disabled',
         className,
       )}
     />

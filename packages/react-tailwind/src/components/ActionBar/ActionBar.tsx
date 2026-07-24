@@ -6,7 +6,7 @@ import {cn} from '../../internal/cn'
 import {ButtonBase} from '../Button'
 
 const actionClassName =
-  'inline-flex min-h-8 items-center justify-center gap-2 rounded-md px-2 text-sm font-semibold text-accent hover:bg-accent-muted focus-visible:outline-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:text-disabled'
+  'inline-flex min-h-8 appearance-none items-center justify-center gap-2 rounded-md bg-transparent px-2 text-sm font-semibold text-accent hover:bg-accent-muted focus-visible:outline-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:text-disabled'
 
 export interface ActionBarProps extends React.ComponentPropsWithoutRef<typeof Toolbar.Root> {
   size?: 'small' | 'medium' | 'large'

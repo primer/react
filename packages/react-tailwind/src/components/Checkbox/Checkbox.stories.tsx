@@ -16,4 +16,4 @@ export const Default: Story = {
     </span>
   ),
 }
-export const Playground: Story = {args: {defaultChecked: true, disabled: false}}
+export const Playground: Story = {args: {'aria-label': 'Receive updates', defaultChecked: true, disabled: false}}

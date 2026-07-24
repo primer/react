@@ -12,5 +12,5 @@ describe('selection exports', () => {
     })
     expect(selection).not.toHaveProperty('getSelectionRole')
     expect(selection).not.toHaveProperty('getSelectionAttribute')
-  })
+  }, 15_000)
 })

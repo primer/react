@@ -35,11 +35,11 @@ const Button = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(
     typeof className === 'function'
       ? (state: Toggle.State) =>
           cn(
-            'inline-flex h-7 items-center justify-center gap-1.5 rounded-sm px-2 text-sm text-default outline-none data-[pressed]:bg-default data-[pressed]:shadow-resting-xs data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 focus-visible:outline-2 focus-visible:outline-focus',
+            'inline-flex h-7 appearance-none items-center justify-center gap-1.5 rounded-sm bg-transparent px-2 text-sm text-default outline-none data-[pressed]:bg-default data-[pressed]:shadow-resting-xs data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 focus-visible:outline-2 focus-visible:outline-focus',
             className(state),
           )
       : cn(
-          'inline-flex h-7 items-center justify-center gap-1.5 rounded-sm px-2 text-sm text-default outline-none data-[pressed]:bg-default data-[pressed]:shadow-resting-xs data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 focus-visible:outline-2 focus-visible:outline-focus',
+          'inline-flex h-7 appearance-none items-center justify-center gap-1.5 rounded-sm bg-transparent px-2 text-sm text-default outline-none data-[pressed]:bg-default data-[pressed]:shadow-resting-xs data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 focus-visible:outline-2 focus-visible:outline-focus',
           className,
         )
 

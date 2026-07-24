@@ -19,7 +19,7 @@ export const Default: Story = {
 }
 export const Playground: Story = {
   render: () => (
-    <ActionList role="listbox" selectionVariant="single">
+    <ActionList role="listbox" aria-label="Options" selectionVariant="single">
       <ActionList.Item selected>Selected option</ActionList.Item>
     </ActionList>
   ),

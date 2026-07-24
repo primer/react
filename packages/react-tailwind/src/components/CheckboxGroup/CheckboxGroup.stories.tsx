@@ -27,8 +27,8 @@ export const Playground: Story = {
   args: {defaultValue: ['one'], disabled: false},
   render: (args: React.ComponentProps<typeof CheckboxGroup>) => (
     <CheckboxGroup {...args}>
-      <Checkbox value="one" />
-      <Checkbox value="two" />
+      <Checkbox aria-label="One" value="one" />
+      <Checkbox aria-label="Two" value="two" />
     </CheckboxGroup>
   ),
 }

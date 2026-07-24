@@ -24,7 +24,9 @@ export const WithNavigation: Story = {
         <PageHeader.Title>Repository</PageHeader.Title>
       </PageHeader.TitleArea>
       <PageHeader.Navigation as="nav" aria-label="Repository">
-        <a href="/">Code</a>
+        <a className="text-accent" href="/">
+          Code
+        </a>
       </PageHeader.Navigation>
     </PageHeader>
   ),

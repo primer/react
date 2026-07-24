@@ -9,4 +9,6 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 export const Default: Story = {args: {placeholder: 'Describe the change'}}
-export const Playground: Story = {args: {resize: 'vertical', rows: 4, disabled: false}}
+export const Playground: Story = {
+  args: {'aria-label': 'Description', resize: 'vertical', rows: 4, disabled: false},
+}

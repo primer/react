@@ -13,7 +13,7 @@ const ListContext = React.createContext<ListContextValue>({})
 
 const listClassName = 'm-0 list-none p-0 text-sm text-default'
 const itemClassName =
-  'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-default hover:bg-neutral-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emphasis data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled'
+  'flex w-full appearance-none items-center gap-2 rounded-md bg-transparent px-2 py-1.5 text-left text-default hover:bg-neutral-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emphasis data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled'
 
 export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'> {
   selectionVariant?: SelectionVariant
