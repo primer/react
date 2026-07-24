@@ -17,6 +17,7 @@ type ComponentSummary = Pick<Component, 'id' | 'name' | 'importPath'> & {
 interface ComponentDocument {
   name: string
   importPath: string
+  stories?: Array<{id: string}>
   [key: string]: unknown
 }
 
@@ -53,6 +54,10 @@ interface ComponentsMetadata {
 
 const metadata: ComponentsMetadata = componentsMetadata
 const maximumObservedRelationshipsPerKind = 3
+const componentIntentTerms = new Map<string, Array<string>>([
+  ['counter_label', ['count', 'metric', 'stat', 'statistic', 'summary']],
+  ['label', ['badge', 'status', 'tag']],
+])
 
 function idToSlug(id: string): string {
   if (id === 'actionbar') {
@@ -154,6 +159,21 @@ function getComponentCompositionSummary(id: string) {
       relatedComponents: relatedComponents.omittedCount,
     },
   }
+}
+
+function getComponentRecommendationTerms(id: string): Array<string> {
+  const document = getComponentDocument(id)
+
+  return [
+    ...new Set(
+      [
+        id,
+        document?.name,
+        ...(document?.stories?.map(story => story.id) ?? []),
+        ...(componentIntentTerms.get(id) ?? []),
+      ].filter((term): term is string => Boolean(term)),
+    ),
+  ]
 }
 
 function summarizeObservedRelationships(relationships: Array<ComponentRelationship>) {
@@ -309,6 +329,7 @@ function listIcons(): Array<Icon> {
 export {
   getComponentComposition,
   getComponentCompositionSummary,
+  getComponentRecommendationTerms,
   getComponentDocsSource,
   getComponentDocument,
   getComponentSummary,

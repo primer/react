@@ -9,6 +9,7 @@ import {
   getComponentCompositionSummary,
   getComponentDocsSource,
   getComponentDocument,
+  getComponentRecommendationTerms,
   getComponentSummary,
   listComponents,
   listPatterns,
@@ -805,6 +806,7 @@ server.registerTool(
         status,
         sourceUrl: new URL(`/product/components/${component.slug}`, 'https://primer.style').toString(),
         searchTerms,
+        intentTerms: getComponentRecommendationTerms(component.id),
         composition,
       }
     })

@@ -1,9 +1,12 @@
 import {describe, expect, it} from 'vitest'
 import type {CompactPatternDetails} from './patterns'
 import {createRecommendation, formatRecommendation, rankPatterns, type RecommendationComponent} from './recommendations'
-import {listPatterns} from './primer'
 
 const sourceUrl = 'https://primer.style/product/components/text-input'
+const availablePatterns = [
+  {id: 'filter', name: 'Filter', category: 'scenario' as const},
+  {id: 'search', name: 'Search', category: 'scenario' as const},
+]
 const searchDetails: CompactPatternDetails = {
   detail: 'compact',
   pattern: {
@@ -108,11 +111,56 @@ const internalCatalog = {
     ],
   },
 }
+function component(
+  id: string,
+  name: string,
+  intentTerms?: Array<string>,
+  composition?: RecommendationComponent['composition'],
+): RecommendationComponent {
+  return {
+    id,
+    name,
+    importPath: '@primer/react',
+    sourceUrl: `https://primer.style/product/components/${id.replaceAll('_', '-')}`,
+    searchTerms: [name],
+    ...(intentTerms ? {intentTerms} : {}),
+    ...(composition ? {composition} : {}),
+  }
+}
+
+const emptyComposition = {
+  apiParentChild: [],
+  apiSubcomponents: [],
+  observed: {parentChild: [], adjacentSibling: [], variants: [], relatedComponents: []},
+}
+const compositionComponents: Array<RecommendationComponent> = [
+  component('counter_label', 'CounterLabel', ['count', 'metric', 'stat', 'statistic', 'summary']),
+  component('page_layout', 'PageLayout', ['parent-detail', 'sidebar'], {
+    ...emptyComposition,
+    observed: {
+      ...emptyComposition.observed,
+      parentChild: [{parent: 'PageLayout.Pane', child: 'NavList', sourceCount: 3}],
+    },
+  }),
+  component('nav_list', 'NavList'),
+  component('action_list', 'ActionList', ['action', 'option'], {
+    ...emptyComposition,
+    observed: {
+      ...emptyComposition.observed,
+      parentChild: [
+        {parent: 'ActionList.LeadingVisual', child: 'Avatar', sourceCount: 3},
+        {parent: 'ActionList.TrailingVisual', child: 'Label', sourceCount: 3},
+      ],
+    },
+  }),
+  component('avatar', 'Avatar', ['avatar']),
+  component('label', 'Label', ['badge', 'status', 'tag']),
+]
 
 describe('component recommendations', () => {
   it('matches simple intent to authoritative pattern-linked public components', () => {
     const input = {intent: 'Add a search query'}
-    const result = createRecommendation(input, rankPatterns(listPatterns(), input), [searchDetails], components)
+    const result = createRecommendation(input, rankPatterns(availablePatterns, input), [searchDetails], components)
 
     expect(result.status).toBe('matched')
     expect(result.patterns[0]?.pattern.name).toBe('Search')
@@ -124,7 +172,7 @@ describe('component recommendations', () => {
     const input = {intent: 'search', patternHints: ['filter']}
     const result = createRecommendation(
       input,
-      rankPatterns(listPatterns(), input),
+      rankPatterns(availablePatterns, input),
       [searchDetails, filterDetails],
       components,
     )
@@ -135,10 +183,83 @@ describe('component recommendations', () => {
 
   it('expands source-derived composition relationships without inventing mappings', () => {
     const input = {intent: 'filter'}
-    const result = createRecommendation(input, rankPatterns(listPatterns(), input), [filterDetails], components)
+    const result = createRecommendation(input, rankPatterns(availablePatterns, input), [filterDetails], components)
 
     expect(result.components.map(candidate => candidate.component.name)).toEqual(['ActionMenu', 'ActionList'])
     expect(result.components[1]?.evidence[0]).toMatchObject({sourceKind: 'composition'})
+  })
+
+  it('recommends capability and composition metadata for generic assemblies', () => {
+    const metricIntent = {intent: 'Show a stat summary strip'}
+    const detailIntent = {intent: 'Build a parent detail layout with a sidebar'}
+    const suggestionIntent = {intent: 'Show suggested people with avatars, actions, and badges'}
+
+    const metric = createRecommendation(
+      metricIntent,
+      rankPatterns(availablePatterns, metricIntent),
+      [],
+      compositionComponents,
+    )
+    const detail = createRecommendation(
+      detailIntent,
+      rankPatterns(availablePatterns, detailIntent),
+      [],
+      compositionComponents,
+    )
+    const suggestions = createRecommendation(
+      suggestionIntent,
+      rankPatterns(availablePatterns, suggestionIntent),
+      [],
+      compositionComponents,
+    )
+
+    expect(metric).toMatchObject({status: 'matched', patterns: []})
+    expect(metric.components.map(candidate => candidate.component.name)).toContain('CounterLabel')
+    expect(detail.components.map(candidate => candidate.component.name)).toEqual(['PageLayout', 'NavList'])
+    expect(suggestions.components.map(candidate => candidate.component.name)).toEqual(
+      expect.arrayContaining(['ActionList', 'Avatar', 'Label']),
+    )
+    expect(suggestions.components.flatMap(candidate => candidate.evidence)).toContainEqual(
+      expect.objectContaining({sourceKind: 'composition'}),
+    )
+  })
+
+  it('does not treat partial tokens or weak pattern-only matches as useful recommendations', () => {
+    const emptyStates = [{id: 'empty-states', name: 'Empty States', category: 'ui' as const}]
+    const input = {intent: 'stat'}
+    const weakPatternInput = {intent: 'empty'}
+    const emptyStateDetails: CompactPatternDetails = {
+      ...searchDetails,
+      pattern: {
+        id: 'empty-states',
+        name: 'Empty States',
+        category: 'ui',
+        sourceUrl: 'https://primer.style/product/ui-patterns/empty-states',
+      },
+      components: [
+        {
+          id: 'internal-empty-state',
+          name: 'InternalEmptyState',
+          source: 'primer-internal',
+          sourceUrl: 'https://primer.style/product/internal-components/internal-empty-state',
+        },
+      ],
+    }
+
+    expect(rankPatterns(emptyStates, input)).toEqual([])
+    expect(createRecommendation(input, rankPatterns(emptyStates, input), [], components)).toMatchObject({
+      status: 'no-match',
+      patterns: [],
+      components: [],
+    })
+    expect(
+      createRecommendation(
+        weakPatternInput,
+        rankPatterns(emptyStates, weakPatternInput),
+        [emptyStateDetails],
+        components,
+      ),
+    ).toMatchObject({status: 'no-match', patterns: [], components: []})
   })
 
   it('reports ambiguous and no-match intent with actionable states', () => {
@@ -148,12 +269,12 @@ describe('component recommendations', () => {
     expect(
       createRecommendation(
         ambiguous,
-        rankPatterns(listPatterns(), ambiguous),
+        rankPatterns(availablePatterns, ambiguous),
         [searchDetails, filterDetails],
         components,
       ).status,
     ).toBe('ambiguous')
-    expect(createRecommendation(noMatch, rankPatterns(listPatterns(), noMatch), [], components)).toMatchObject({
+    expect(createRecommendation(noMatch, rankPatterns(availablePatterns, noMatch), [], components)).toMatchObject({
       status: 'no-match',
       nextAction: expect.stringContaining('pattern hint'),
     })
@@ -161,7 +282,7 @@ describe('component recommendations', () => {
 
   it('excludes deprecated candidates and retains internal references as unresolved evidence', () => {
     const input = {intent: 'search'}
-    const result = createRecommendation(input, rankPatterns(listPatterns(), input), [searchDetails], components)
+    const result = createRecommendation(input, rankPatterns(availablePatterns, input), [searchDetails], components)
 
     expect(result.components.map(candidate => candidate.component.name)).not.toContain('Octicon')
     expect(result.exclusions).toContainEqual({name: 'Octicon', source: 'primer-public', reason: 'deprecated'})
@@ -174,7 +295,7 @@ describe('component recommendations', () => {
     const input = {intent: 'search', sourceScope: 'all' as const}
     const result = createRecommendation(
       input,
-      rankPatterns(listPatterns(), input),
+      rankPatterns(availablePatterns, input),
       [searchDetails],
       components,
       internalCatalog,
@@ -199,13 +320,13 @@ describe('component recommendations', () => {
     const input = {intent: 'search filter', limit: 1}
     const first = createRecommendation(
       input,
-      rankPatterns(listPatterns(), input),
+      rankPatterns(availablePatterns, input),
       [searchDetails, filterDetails],
       components,
     )
     const second = createRecommendation(
       input,
-      rankPatterns(listPatterns(), input),
+      rankPatterns(availablePatterns, input),
       [searchDetails, filterDetails],
       components,
     )
