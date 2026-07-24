@@ -14,7 +14,6 @@ import {
   GitCommitIcon,
   GitPullRequestIcon,
   IssueClosedIcon,
-  IssueDraftIcon,
   IssueOpenedIcon,
   IssueReopenedIcon,
   IssueTrackedByIcon,
@@ -385,23 +384,6 @@ export const EventState = () => (
         </Timeline.Item>
       </Timeline>
     </VariantSection>
-
-    {/* Converted from draft */}
-    <VariantSection label="Converted from draft">
-      <Timeline aria-label="Issue timeline">
-        {/* Untagged: a metadata/auditOnly event that ISSUE_TAXONOMY does not yet enumerate as a distinct leaf (candidate leaf to add in a follow-up, not a defect). Emitting a data-event-type without a real catalog leaf would break the taxonomy single source of truth. */}
-        <Timeline.Item>
-          <Timeline.Badge>
-            <Octicon icon={IssueDraftIcon} />
-          </Timeline.Badge>
-          <Timeline.Body>
-            <UserActor href="#" muted />
-            {'converted this from a draft issue '}
-            <MutedTime date={new Date('2022-07-21T08:30:00Z')} href="#" />
-          </Timeline.Body>
-        </Timeline.Item>
-      </Timeline>
-    </VariantSection>
   </Examples>
 )
 
@@ -574,7 +556,7 @@ export const EventDuplicates = () => (
     {/* Marked <canonical> as a duplicate of this issue — no right controls. */}
     <VariantSection label="Marked as canonical">
       <Timeline aria-label="Issue timeline">
-        {/* Untagged: a metadata/auditOnly event that ISSUE_TAXONOMY does not yet enumerate as a distinct leaf (the catalog has only 'marked_as_duplicate'); candidate leaf to add in a follow-up, not a defect. */}
+        {/* Untagged: verified against the redesign prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional exclusion, this variant is not modeled as a distinct catalog leaf (the catalog has only 'marked_as_duplicate'); no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={DuplicateIcon} />
@@ -597,7 +579,7 @@ export const EventDuplicates = () => (
     {/* Unmarked this as a duplicate of <canonical>. */}
     <VariantSection label="Unmarked as duplicate">
       <Timeline aria-label="Issue timeline">
-        {/* Untagged: a metadata/auditOnly event that ISSUE_TAXONOMY does not yet enumerate as a distinct leaf (the catalog has only 'marked_as_duplicate'); candidate leaf to add in a follow-up, not a defect. */}
+        {/* Untagged: verified against the redesign prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional exclusion, this variant is not modeled as a distinct catalog leaf (the catalog has only 'marked_as_duplicate'); no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={DuplicateIcon} />
@@ -619,7 +601,7 @@ export const EventDuplicates = () => (
     {/* Unmarked <canonical> as a duplicate of this issue. */}
     <VariantSection label="Unmarked as canonical">
       <Timeline aria-label="Issue timeline">
-        {/* Untagged: a metadata/auditOnly event that ISSUE_TAXONOMY does not yet enumerate as a distinct leaf (the catalog has only 'marked_as_duplicate'); candidate leaf to add in a follow-up, not a defect. */}
+        {/* Untagged: verified against the redesign prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional exclusion, this variant is not modeled as a distinct catalog leaf (the catalog has only 'marked_as_duplicate'); no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={DuplicateIcon} />
@@ -1860,7 +1842,7 @@ export const EventLabels = () => (
         with "and" between them. */}
     <VariantSection label="Labels added and removed">
       <Timeline aria-label="Issue timeline">
-        {/* Untagged: a metadata/auditOnly rolled-up event (labeled + unlabeled in one row) that ISSUE_TAXONOMY does not yet enumerate as a distinct leaf; candidate leaf to add in a follow-up, not a defect. */}
+        {/* Untagged: a rolled-up event (labeled + unlabeled in one row) verified against the redesign prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional exclusion, not modeled as a distinct catalog leaf; no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={TagIcon} />

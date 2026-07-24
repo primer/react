@@ -154,10 +154,8 @@ export const EventCreated = () => (
     <VariantSection label="Created">
       <Timeline aria-label="Secret scanning alert timeline">
         {/* `detected` leaf. Renders the GitHub SYSTEM-IDENTITY actor
-            (`<UserActor login="GitHub" …>`); GitHub is not in the bot set, so
-            actorTypeForLogin('GitHub') classifies it as 'user' -> data-actor-type='user'.
-            FLAGGED: whether a system identity should classify as user vs bot is
-            worth confirming (see report). */}
+            (`<UserActor login="GitHub" …>`); `github` is in the bot set, so
+            actorTypeForLogin('GitHub') classifies it as 'bot' -> data-actor-type='bot'. */}
         <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'detected', 'GitHub')}>
           <Timeline.Badge variant="success">
             <Octicon icon={ShieldIcon} />
@@ -389,7 +387,9 @@ export const EventBypass = () => (
       <Timeline aria-label="Secret scanning alert timeline">
         {/* UNTAGGED: the delegated-BYPASS request/approve flow has no catalog
             leaf. The catalog's dismissal_requested / dismissal_reviewed cover the
-            delegated-CLOSURE flow, a different thing. No leaf -> no data-* tag. */}
+            delegated-CLOSURE flow, a different thing. Verified against the redesign
+            prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an
+            intentional exclusion. No leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} />
@@ -407,7 +407,8 @@ export const EventBypass = () => (
     <VariantSection label="Bypass approved (delegated bypass enabled)">
       <Timeline aria-label="Secret scanning alert timeline">
         {/* UNTAGGED: delegated-BYPASS flow, no catalog leaf (see the request
-            variant above). No leaf -> no data-* tag. */}
+            variant above), verified against the redesign prototype as an
+            intentional exclusion. No leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={CheckCircleIcon} />
@@ -440,7 +441,7 @@ export const EventValidityChange = () => (
     {/* Active — automated (GitHub), AlertIcon on danger (red) */}
     <VariantSection label="Validity: active (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
-        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'user'. */}
+        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'bot'. */}
         <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'GitHub')}>
           <Timeline.Badge variant="danger">
             <Octicon icon={AlertIcon} />
@@ -474,7 +475,7 @@ export const EventValidityChange = () => (
     {/* Inactive — automated (GitHub), SkipIcon on default (gray) */}
     <VariantSection label="Validity: inactive (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
-        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'user'. */}
+        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'bot'. */}
         <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'GitHub')}>
           <Timeline.Badge>
             <Octicon icon={SkipIcon} />
@@ -508,7 +509,7 @@ export const EventValidityChange = () => (
     {/* Unknown — automated (GitHub), AlertIcon on attention (amber) */}
     <VariantSection label="Validity: unknown (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
-        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'user'. */}
+        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'bot'. */}
         <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'GitHub')}>
           <Timeline.Badge variant="attention">
             <Octicon icon={AlertIcon} />
@@ -554,11 +555,10 @@ export const EventReport = () => (
     {/* Reported — ShieldCheckIcon, default (gray) badge, user actor */}
     <VariantSection label="Reported">
       <Timeline aria-label="Secret scanning alert timeline">
-        {/* UNTAGGED: the catalog maps Report -> validity_changed, but
-            github/primer#6888 lists that mapping as UNCONFIRMED (open item #2).
-            Emitting an unconfirmed value would bake in a guess, so leave untagged
-            until the docs confirm the leaf. */}
-        <Timeline.Item>
+        {/* `reported` leaf (findings). Live AlertTimeline.tsx `TimelineEventType.Report`
+            does NOT pass `isGitHubActor`, so the actor is the USER — resolves to
+            data-actor-type='user'. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'reported', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -745,7 +745,9 @@ export const EventClosureRequest = () => (
     <VariantSection label="Dismissal request cancelled">
       <Timeline aria-label="Secret scanning alert timeline">
         {/* UNTAGGED: Secret Scanning has NO dismissal_cancelled leaf (unlike
-            Dependabot). No leaf -> no data-* tag. */}
+            Dependabot); verified against the redesign prototype
+            (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an
+            intentional exclusion. No leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={SkipIcon} />
