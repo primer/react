@@ -66,6 +66,9 @@ describe('get_component_batch', () => {
       arguments: {name, detail},
     })
   }
+  const callTool = (name: string, args: Record<string, unknown> = {}) => {
+    return client.callTool({name, arguments: args})
+  }
 
   it('requires between 2 and 10 names', async () => {
     const tooFew = await callBatch(['Button'])
@@ -74,6 +77,46 @@ describe('get_component_batch', () => {
     expect(tooFew.isError).toBe(true)
     expect(tooMany.isError).toBe(true)
     expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it.each([
+    ['init', {}, '/product/getting-started/react/llms.txt'],
+    ['get_component_examples', {name: 'Button'}, '/product/components/button/llms.txt'],
+    ['get_component_usage_guidelines', {name: 'Button'}, '/product/components/button/guidelines/llms.txt'],
+    ['get_component_accessibility_guidelines', {name: 'Button'}, '/product/components/button/accessibility/llms.txt'],
+    ['get_color_usage', {}, '/product/getting-started/foundations/color-usage/llms.txt'],
+    ['get_typography_usage', {}, '/product/getting-started/foundations/typography/llms.txt'],
+    ['get_icon', {name: 'alert', size: '16'}, '/octicons/icon/alert-16/llms.txt'],
+  ])('prefers the text-only endpoint for %s', async (name, args, path) => {
+    vi.mocked(fetch).mockResolvedValue(new Response('Text-only documentation.'))
+
+    const result = await callTool(name, args)
+
+    expect(fetch).toHaveBeenCalledExactlyOnceWith(new URL(`https://primer.style${path}`))
+    expect(getTextContent(result)).toContain('Text-only documentation.')
+  })
+
+  it('falls back to HTML conversion only when a text-only endpoint is missing', async () => {
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(new Response(null, {status: 404}))
+      .mockResolvedValueOnce(new Response('<main><p>HTML fallback documentation.</p></main>'))
+
+    const result = await callTool('get_component_examples', {name: 'Button'})
+
+    expect(fetch).toHaveBeenNthCalledWith(1, new URL('https://primer.style/product/components/button/llms.txt'))
+    expect(fetch).toHaveBeenNthCalledWith(2, new URL('https://primer.style/product/components/button'))
+    expect(getTextContent(result)).toContain('HTML fallback documentation.')
+  })
+
+  it('surfaces non-404 text-only endpoint failures without requesting HTML', async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(null, {status: 503, statusText: 'Service Unavailable'}))
+
+    const result = await callTool('get_color_usage')
+
+    expect(result.isError).toBe(true)
+    expect(fetch).toHaveBeenCalledExactlyOnceWith(
+      new URL('https://primer.style/product/getting-started/foundations/color-usage/llms.txt'),
+    )
   })
 
   it('deduplicates names case-insensitively and preserves result order', async () => {

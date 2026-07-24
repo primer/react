@@ -56,6 +56,12 @@ observed relationship types are deterministically limited to the three strongest
 records and report omitted counts. `get_component` remains available when full
 package documentation or complete relationship provenance is needed.
 
+## Hosted documentation
+
+Documentation tools prefer the matching Primer Style text-only `llms.txt`
+endpoint. During the hosted rollout, a missing endpoint (HTTP 404) falls back
+to the existing HTML conversion; other endpoint failures are returned as errors.
+
 ## Pattern guidance
 
 `get_pattern` returns compact structured guidance by default. Its component and
