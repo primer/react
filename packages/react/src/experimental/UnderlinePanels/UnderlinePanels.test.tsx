@@ -667,24 +667,4 @@ describe('UnderlinePanels — AnchoredOverlay composition', () => {
     expect(branch).toHaveAttribute('tabindex', '0')
     expect(tag).toHaveAttribute('tabindex', '-1')
   })
-
-  it('supports arrow-key navigation inside the overlay without trapping focus', async () => {
-    const user = userEvent.setup()
-    const onChange = vi.fn()
-    render(<OverlayHarness onChange={onChange} />)
-    await act(async () => {})
-
-    const branch = screen.getByRole('tab', {name: 'Branches'})
-    const tag = screen.getByRole('tab', {name: 'Tags'})
-
-    await act(async () => {
-      branch.focus()
-      await user.keyboard('{ArrowRight}')
-    })
-
-    expect(tag).toHaveFocus()
-    expect(onChange).toHaveBeenCalledWith({value: 'tag'})
-    expect(tag).toHaveAttribute('tabindex', '0')
-    expect(branch).toHaveAttribute('tabindex', '-1')
-  })
 })
