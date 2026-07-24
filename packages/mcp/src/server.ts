@@ -49,6 +49,8 @@ const server = new McpServer({
 
 const maximumCachedPatternDetails = 24
 const compactPatternDetailsCache = new Map<string, Promise<CompactPatternDetails>>()
+const maximumCachedCssLintResults = 24
+const cssLintResultCache = new Map<string, Promise<CssLintResult>>()
 const turndownService = new TurndownService()
 const defaultComponentDocsSource = getComponentDocsSource()
 const patternReferenceOutputSchema = z.object({
@@ -83,6 +85,11 @@ const recommendationOutputSchema = z
     intent: z.string(),
   })
   .passthrough()
+
+interface CssLintResult {
+  passed: boolean
+  text: string
+}
 
 // Load all tokens with guidelines from primitives
 const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
@@ -142,6 +149,48 @@ function trimCompactPatternDetailsCache() {
 
 export function clearPatternDetailsCacheForTesting() {
   compactPatternDetailsCache.clear()
+}
+
+function lintCss(css: string): {result: Promise<CssLintResult>; cached: boolean} {
+  const cached = cssLintResultCache.get(css)
+  if (cached) {
+    cssLintResultCache.delete(css)
+    cssLintResultCache.set(css, cached)
+    return {result: cached, cached: true}
+  }
+
+  const result = (async (): Promise<CssLintResult> => {
+    try {
+      const {stdout} = await runStylelint(css)
+      return {passed: true, text: stdout || '✅ Stylelint passed (or was successfully autofixed).'}
+    } catch (error: unknown) {
+      const errorOutput =
+        error instanceof Error && 'stdout' in error ? (error as Error & {stdout: string}).stdout : String(error)
+      return {passed: false, text: `❌ Errors without autofix remaining:\n${errorOutput}`}
+    }
+  })()
+  cssLintResultCache.set(css, result)
+  trimCssLintResultCache()
+  void removeFailedCssLintResult(css, result)
+
+  return {result, cached: false}
+}
+
+async function removeFailedCssLintResult(css: string, result: Promise<CssLintResult>) {
+  const completed = await result
+  if (!completed.passed && cssLintResultCache.get(css) === result) cssLintResultCache.delete(css)
+}
+
+function trimCssLintResultCache() {
+  while (cssLintResultCache.size > maximumCachedCssLintResults) {
+    const oldestCss = cssLintResultCache.keys().next().value
+    if (oldestCss === undefined) return
+    cssLintResultCache.delete(oldestCss)
+  }
+}
+
+export function clearCssLintResultCacheForTesting() {
+  cssLintResultCache.clear()
 }
 
 function convertMainHtmlToMarkdown(html: string): string | undefined {
@@ -875,7 +924,7 @@ server.registerTool(
   'find_tokens',
   {
     description:
-      'Search for specific tokens. Tip: If you only provide a \'group\' and leave \'query\' empty, it returns all tokens in that category. Avoid property-by-property searching. COLOR RESOLUTION: If a user asks for "pink" or "blue", do not search for the color name. Use the semantic intent: blue->accent, red->danger, green->success. Always check both "emphasis" and "muted" variants for background colors. After identifying tokens and writing CSS, you MUST validate the result using lint_css.',
+      'Search for specific tokens. Tip: If you only provide a \'group\' and leave \'query\' empty, it returns all tokens in that category. Avoid property-by-property searching. COLOR RESOLUTION: If a user asks for "pink" or "blue", do not search for the color name. Use the semantic intent: blue->accent, red->danger, green->success. Always check both "emphasis" and "muted" variants for background colors. After finalizing combined CSS, validate it once with lint_css and rerun only when the CSS bytes change.',
     inputSchema: {
       query: z
         .string()
@@ -1084,36 +1133,16 @@ server.registerTool(
   'lint_css',
   {
     description:
-      'REQUIRED FINAL STEP. Use this to validate your CSS. You cannot complete a task involving CSS without a successful run of this tool.',
+      'REQUIRED ONCE AFTER FINAL COMBINED CSS. Run this after all CSS edits are complete; rerun only when the CSS bytes change. You cannot complete a task involving CSS without a successful run.',
     inputSchema: {css: z.string()},
     annotations: {readOnlyHint: true},
   },
   async ({css}) => {
-    try {
-      // --fix flag tells Stylelint to repair what it can
-      const {stdout} = await runStylelint(css)
+    const {result, cached} = lintCss(css)
+    const completed = await result
+    const text = cached && completed.passed ? '✅ Stylelint passed; CSS unchanged.' : completed.text
 
-      return {
-        content: [
-          {
-            type: 'text',
-            text: stdout || '✅ Stylelint passed (or was successfully autofixed).',
-          },
-        ],
-      }
-    } catch (error: unknown) {
-      // If Stylelint still has errors it CANNOT fix, it will land here
-      const errorOutput =
-        error instanceof Error && 'stdout' in error ? (error as Error & {stdout: string}).stdout : String(error)
-      return {
-        content: [
-          {
-            type: 'text',
-            text: `❌ Errors without autofix remaining:\n${errorOutput}`,
-          },
-        ],
-      }
-    }
+    return {content: [{type: 'text', text}]}
   },
 )
 
@@ -1223,44 +1252,50 @@ server.registerTool(
     annotations: {readOnlyHint: true},
   },
   async ({name, size}) => {
-    const icons = listIcons()
-    const match = icons.find(icon => {
-      return icon.name === name || icon.name.toLowerCase() === name.toLowerCase()
-    })
-    if (!match) {
-      return {
-        content: [
-          {
-            type: 'text',
-            text: `There is no icon named \`${name}\` in the @primer/octicons-react package. For a full list of icons, use the \`get_icon\` tool.`,
-          },
-        ],
-      }
-    }
-
-    const url = new URL(`/octicons/icon/${match.name}-${size}`, 'https://primer.style')
-    let text = await fetchTextOnlyContent(url)
-    if (text === undefined) {
-      const response = await fetch(url)
-      if (!response.ok) {
-        throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
-      }
-
-      text = convertMainHtmlToMarkdown(await response.text())
-    }
-    if (!text) return {content: []}
-
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `Here is the documentation for the \`${name}\` icon at size: \`${size}\`:
-${text}`,
-        },
-      ],
-    }
+    const text = await getIconDocumentation(name, size, 'get_icon')
+    return {content: text ? [{type: 'text', text}] : []}
   },
 )
+
+server.registerTool(
+  'get_icon_batch',
+  {
+    description: 'Get documentation for multiple Primer Octicons in one call',
+    inputSchema: {
+      names: z.array(z.string()).min(2).max(10).describe('Icon names to retrieve'),
+      size: z.string().optional().describe('The icon size to retrieve, e.g. "16"').default('16'),
+    },
+    annotations: {readOnlyHint: true},
+  },
+  async ({names, size}) => {
+    const documentation = await Promise.all(names.map(name => getIconDocumentation(name, size)))
+    return {content: documentation.filter((text): text is string => Boolean(text)).map(text => ({type: 'text', text}))}
+  },
+)
+
+async function getIconDocumentation(
+  name: string,
+  size: string,
+  missingIconTool = 'list_icons',
+): Promise<string | undefined> {
+  const match = listIcons().find(icon => icon.name === name || icon.name.toLowerCase() === name.toLowerCase())
+  if (!match) {
+    return `There is no icon named \`${name}\` in the @primer/octicons-react package. For a full list of icons, use the \`${missingIconTool}\` tool.`
+  }
+
+  const url = new URL(`/octicons/icon/${match.name}-${size}`, 'https://primer.style')
+  let text = await fetchTextOnlyContent(url)
+  if (text === undefined) {
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+
+    text = convertMainHtmlToMarkdown(await response.text())
+  }
+  if (!text) return undefined
+
+  return `Here is the documentation for the \`${name}\` icon at size: \`${size}\`:
+${text}`
+}
 
 // -----------------------------------------------------------------------------
 // Coding guidelines

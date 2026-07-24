@@ -2,7 +2,9 @@ import {Client} from '@modelcontextprotocol/sdk/client/index.js'
 import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js'
 import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
 import {getComponentDocsSource} from './primer'
-import {clearPatternDetailsCacheForTesting, server} from './server'
+import {clearCssLintResultCacheForTesting, clearPatternDetailsCacheForTesting, server} from './server'
+// eslint-disable-next-line import/no-namespace
+import * as primitives from './primitives'
 
 const searchPatternPage = `
   <main>
@@ -65,12 +67,15 @@ describe('get_component_batch', () => {
   })
 
   beforeEach(() => {
+    clearCssLintResultCacheForTesting()
     clearPatternDetailsCacheForTesting()
+    vi.spyOn(primitives, 'runStylelint')
     vi.stubGlobal('fetch', vi.fn<typeof fetch>())
   })
 
   afterEach(() => {
     vi.useRealTimers()
+    vi.restoreAllMocks()
     vi.unstubAllGlobals()
   })
 
@@ -459,6 +464,75 @@ describe('get_component_batch', () => {
     expect(first.isError).toBe(true)
     expect(second.isError).toBe(true)
     expect(fetch).toHaveBeenCalledTimes(2)
+  })
+
+  it('runs CSS linting once for concurrent and unchanged final CSS', async () => {
+    vi.mocked(primitives.runStylelint).mockResolvedValue({stdout: '', stderr: ''})
+    const css = '.Component { color: var(--fgColor-default); }'
+
+    const [first, concurrent] = await Promise.all([callTool('lint_css', {css}), callTool('lint_css', {css})])
+    const warm = await callTool('lint_css', {css})
+    const changed = await callTool('lint_css', {css: `${css}\n.Component--selected { color: var(--fgColor-accent); }`})
+
+    expect(primitives.runStylelint).toHaveBeenCalledTimes(2)
+    expect(primitives.runStylelint).toHaveBeenNthCalledWith(1, css)
+    expect([getTextContent(first), getTextContent(concurrent)]).toEqual(
+      expect.arrayContaining([
+        '✅ Stylelint passed (or was successfully autofixed).',
+        '✅ Stylelint passed; CSS unchanged.',
+      ]),
+    )
+    expect(getTextContent(warm)).toBe('✅ Stylelint passed; CSS unchanged.')
+    expect(getTextContent(changed)).toBe('✅ Stylelint passed (or was successfully autofixed).')
+  })
+
+  it('does not retain failed CSS linting as a successful cached result', async () => {
+    vi.mocked(primitives.runStylelint).mockRejectedValue(
+      Object.assign(new Error('Stylelint exited with code 2'), {stdout: 'invalid CSS'}),
+    )
+    const css = '.Component { color: ; }'
+
+    const first = await callTool('lint_css', {css})
+    const second = await callTool('lint_css', {css})
+
+    expect(primitives.runStylelint).toHaveBeenCalledTimes(2)
+    expect(getTextContent(first)).toContain('❌ Errors without autofix remaining:')
+    expect(getTextContent(second)).toContain('❌ Errors without autofix remaining:')
+    expect(getTextContent(second)).not.toContain('CSS unchanged')
+  })
+
+  it('retrieves batched icon documentation concurrently without changing get_icon', async () => {
+    const fetchMock = vi.mocked(fetch)
+    let resolveAlert: ((response: Response) => void) | undefined
+    let resolveBell: ((response: Response) => void) | undefined
+    fetchMock.mockImplementation(input => {
+      const path = new URL(input.toString()).pathname
+      return new Promise(resolve => {
+        if (path.includes('/alert-16/')) resolveAlert = resolve
+        else resolveBell = resolve
+      })
+    })
+
+    const result = callTool('get_icon_batch', {names: ['alert', 'bell'], size: '16'})
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2))
+    resolveAlert?.(new Response('Alert docs'))
+    resolveBell?.(new Response('Bell docs'))
+
+    await expect(result).resolves.toMatchObject({
+      content: [
+        {type: 'text', text: expect.stringContaining('Alert docs')},
+        {type: 'text', text: expect.stringContaining('Bell docs')},
+      ],
+    })
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('preserves the single-icon missing result', async () => {
+    const result = await callTool('get_icon', {name: 'missing'})
+
+    expect(getTextContent(result)).toBe(
+      'There is no icon named `missing` in the @primer/octicons-react package. For a full list of icons, use the `get_icon` tool.',
+    )
   })
 
   it('lists bounded documented internal components without presenting an import path', async () => {
