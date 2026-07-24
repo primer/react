@@ -20,6 +20,24 @@ const searchPatternPage = `
     </div>
   </main>
 `
+const internalCatalogPage = JSON.stringify({
+  schemaVersion: 1,
+  revision: 'internal-catalog-v1',
+  count: 1,
+  items: [
+    {
+      id: 'filter',
+      slug: 'filter',
+      name: 'Filter',
+      sourceKind: 'primer-internal',
+      canonicalUrl: 'https://primer.style/product/internal-components/filter',
+      visibility: 'github-only',
+      availability: 'unavailable',
+      installability: 'non-installable',
+      implementationIncluded: false,
+    },
+  ],
+})
 
 describe('component documentation sources', () => {
   it('uses hosted documentation by default and supports package metadata', () => {
@@ -366,6 +384,80 @@ describe('get_component_batch', () => {
       ]),
     })
     expect(getTextContent(result)).toContain('Public components')
+  })
+
+  it('lists bounded documented internal components without presenting an import path', async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(internalCatalogPage))
+
+    const result = await callTool('list_internal_components', {query: 'filter', limit: 1})
+
+    expect(result.structuredContent).toMatchObject({
+      status: 'available',
+      sourceKind: 'primer-internal',
+      implementationIncluded: false,
+      revision: 'internal-catalog-v1',
+      entries: [
+        {
+          name: 'Filter',
+          visibility: 'github-only',
+          availability: 'unavailable',
+          implementationIncluded: false,
+        },
+      ],
+    })
+    expect(getTextContent(result)).toContain('GitHub-only; no public import')
+    expect(JSON.stringify(result.structuredContent).length).toBeLessThan(2_000)
+  })
+
+  it('reports a catalog no-match without requesting a public component fallback', async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(internalCatalogPage))
+
+    const result = await callTool('list_internal_components', {query: 'missing'})
+
+    expect(result.structuredContent).toMatchObject({status: 'no-match', entries: []})
+    expect(getTextContent(result)).toContain('No documented internal component matches')
+  })
+
+  it('adds documented internal candidates only when the holistic source scope is requested', async () => {
+    vi.mocked(fetch).mockImplementation(async input => {
+      const url = new URL(input.toString())
+      return new Response(url.pathname.endsWith('/catalog.json') ? internalCatalogPage : searchPatternPage)
+    })
+
+    const result = await callRecommendation({intent: 'search', sourceScope: 'all'})
+
+    expect(result.structuredContent).toMatchObject({
+      sourceScope: 'all',
+      internalCatalog: {status: 'available', revision: 'internal-catalog-v1'},
+      internalComponents: [
+        {
+          component: {
+            name: 'Filter',
+            sourceKind: 'primer-internal',
+            installable: false,
+            implementationIncluded: false,
+          },
+        },
+      ],
+    })
+    expect(getTextContent(result)).toContain('GitHub-only; no public import')
+  })
+
+  it('reports an unavailable internal catalog without returning unresolved content as an installable component', async () => {
+    vi.mocked(fetch).mockImplementation(async input => {
+      const url = new URL(input.toString())
+      return url.pathname.endsWith('/catalog.json')
+        ? new Response(null, {status: 503})
+        : new Response(searchPatternPage)
+    })
+
+    const result = await callRecommendation({intent: 'search', sourceScope: 'all'})
+
+    expect(result.structuredContent).toMatchObject({
+      internalCatalog: {status: 'unavailable', message: expect.stringContaining('503')},
+      internalComponents: [],
+      unresolvedReferences: [expect.objectContaining({name: 'Filter', reason: 'internal-catalog-unavailable'})],
+    })
   })
 
   it('uses structured signals to distinguish patterns and expands composition evidence', async () => {

@@ -11,7 +11,7 @@ const maximumSummaryLength = 480
 const maximumGuidanceItemLength = 280
 const maximumImplementationLength = 900
 
-type ComponentSource = 'primer-public' | 'primer-internal'
+export type ComponentSource = 'primer-public' | 'primer-internal'
 
 export interface PatternReference {
   id: string

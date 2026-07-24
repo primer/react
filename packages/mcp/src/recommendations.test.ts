@@ -89,6 +89,27 @@ const components: Array<RecommendationComponent> = [
     searchTerms: ['Octicon'],
   },
 ]
+const internalCatalog = {
+  status: 'available' as const,
+  catalog: {
+    schemaVersion: 1,
+    revision: 'internal-catalog-v1',
+    count: 1,
+    items: [
+      {
+        id: 'filter',
+        slug: 'filter',
+        name: 'Filter',
+        sourceKind: 'primer-internal' as const,
+        canonicalUrl: 'https://primer.style/product/internal-components/filter',
+        visibility: 'github-only',
+        availability: 'unavailable',
+        installability: 'non-installable' as const,
+        implementationIncluded: false as const,
+      },
+    ],
+  },
+}
 
 describe('component recommendations', () => {
   it('matches simple intent to authoritative pattern-linked public components', () => {
@@ -149,6 +170,31 @@ describe('component recommendations', () => {
     expect(result.unresolvedReferences).toContainEqual(
       expect.objectContaining({name: 'Filter', source: 'primer-internal', reason: 'internal-reference'}),
     )
+  })
+
+  it('resolves documented internal references separately for the all source scope', () => {
+    const input = {intent: 'search', sourceScope: 'all' as const}
+    const result = createRecommendation(
+      input,
+      rankPatterns(listPatterns(), input),
+      [searchDetails],
+      components,
+      internalCatalog,
+    )
+
+    expect(result.components.map(candidate => candidate.component.name)).toEqual(['TextInput'])
+    expect(result.internalComponents).toEqual([
+      expect.objectContaining({
+        component: expect.objectContaining({
+          name: 'Filter',
+          sourceKind: 'primer-internal',
+          installable: false,
+          implementationIncluded: false,
+        }),
+      }),
+    ])
+    expect(result.unresolvedReferences).not.toContainEqual(expect.objectContaining({name: 'Filter'}))
+    expect(formatRecommendation(result)).toContain('GitHub-only; no public import')
   })
 
   it('uses stable lexical ordering and bounded payloads', () => {
