@@ -13,7 +13,7 @@ const HeaderRoot = React.forwardRef<HTMLElement, HeaderProps>(function Header(
     <Component
       {...rest}
       ref={ref}
-      className={cn('z-32 flex flex-nowrap items-center overflow-auto bg-inset p-4 text-default', className)}
+      className={cn('z-sticky flex flex-nowrap items-center overflow-auto bg-inset p-4 text-default', className)}
       data-component="Header"
     />
   )

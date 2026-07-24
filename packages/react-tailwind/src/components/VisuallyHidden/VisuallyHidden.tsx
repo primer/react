@@ -13,7 +13,7 @@ export const VisuallyHidden = React.forwardRef<HTMLSpanElement, VisuallyHiddenPr
       ref={ref}
       data-component="VisuallyHidden"
       className={cn(
-        'sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-1 focus:h-auto focus:w-auto focus:overflow-visible focus:whitespace-normal focus:rounded-sm focus:bg-default focus:p-2 focus:text-default focus:outline-2 focus:outline-focus',
+        'sr-only focus:not-sr-only focus:absolute focus:z-skip-link focus:m-1 focus:h-auto focus:w-auto focus:overflow-visible focus:whitespace-normal focus:rounded-sm focus:bg-default focus:p-2 focus:text-default focus:outline-2 focus:outline-focus',
         className,
       )}
     />

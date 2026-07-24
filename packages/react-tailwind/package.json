@@ -34,6 +34,7 @@
   "scripts": {
     "build": "npm run clean && rolldown -c && npm run build:css",
     "build:css": "tailwindcss -i ./src/styles/styles.css -o ./dist/styles.css --minify && node ./script/copy-css.mjs",
+    "check:exports": "node ./script/check-built-exports.mjs",
     "check:inventory": "node ./script/check-api-inventory.mjs",
     "clean": "rimraf dist",
     "lint:npm": "publint --types",

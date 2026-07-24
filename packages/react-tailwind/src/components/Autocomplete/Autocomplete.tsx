@@ -39,14 +39,14 @@ const Content = React.forwardRef<HTMLDivElement, AutocompleteContentProps>(funct
       align={align}
       side={side}
       sideOffset={sideOffset}
-      className="z-50"
+      className="z-popover"
       data-component="Autocomplete.Positioner"
     >
       <BaseAutocomplete.Popup
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'min-w-48 overflow-auto rounded-md border border-default bg-default p-1 shadow-lg outline-none',
+          'min-w-48 overflow-auto rounded-md border border-default bg-default p-1 shadow-floating-lg outline-none',
           className,
         )}
         data-component="Autocomplete.Content"

@@ -75,14 +75,14 @@ const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(functio
       align={align}
       side={side}
       sideOffset={sideOffset}
-      className={cn('z-50', positionerClassName)}
+      className={cn('z-popover', positionerClassName)}
       data-component="ActionMenu.Positioner"
     >
       <Menu.Popup
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'min-w-48 rounded-md border border-default bg-default p-1 shadow-lg outline-none data-[closed]:hidden',
+          'min-w-48 rounded-md border border-default bg-default p-1 shadow-floating-lg outline-none data-[closed]:hidden',
           className,
         )}
         data-component="ActionMenu.Content"

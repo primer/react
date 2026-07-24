@@ -38,14 +38,14 @@ const Content = React.forwardRef<HTMLDivElement, SelectPanelContentProps>(functi
       align={align}
       side={side}
       sideOffset={sideOffset}
-      className="z-50"
+      className="z-popover"
       data-component="SelectPanel.Positioner"
     >
       <Popover.Popup
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'w-80 overflow-hidden rounded-md border border-default bg-default shadow-lg outline-none',
+          'w-80 overflow-hidden rounded-md border border-default bg-default shadow-floating-lg outline-none',
           className,
         )}
         data-component="SelectPanel.Content"

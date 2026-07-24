@@ -141,7 +141,7 @@ const ActionBarMenu = ({'aria-label': ariaLabel, icon: Icon = KebabHorizontalIco
       </Toolbar.Button>
       <Menu.Portal>
         <Menu.Positioner sideOffset={4}>
-          <Menu.Popup className="z-50 min-w-40 rounded-md border border-default bg-default p-1 shadow-lg">
+          <Menu.Popup className="z-popover min-w-40 rounded-md border border-default bg-default p-1 shadow-floating-lg">
             {items.map(item => (
               <Menu.Item
                 key={item.label}

@@ -72,11 +72,11 @@ const Popup = React.forwardRef<HTMLDivElement, SelectPopupProps>(function Popup(
     typeof className === 'function'
       ? (state: BaseSelect.Popup.State) =>
           cn(
-            'z-50 min-w-[var(--anchor-width)] rounded-md border border-default bg-default p-1 shadow-floating-sm',
+            'z-popover min-w-[var(--anchor-width)] rounded-md border border-default bg-default p-1 shadow-floating-sm',
             className(state),
           )
       : cn(
-          'z-50 min-w-[var(--anchor-width)] rounded-md border border-default bg-default p-1 shadow-floating-sm',
+          'z-popover min-w-[var(--anchor-width)] rounded-md border border-default bg-default p-1 shadow-floating-sm',
           className,
         )
 

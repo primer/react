@@ -93,12 +93,12 @@ const Content = React.forwardRef<HTMLDivElement, Combobox.Popup.Props>(function 
 ) {
   return (
     <Combobox.Portal>
-      <Combobox.Positioner className="z-50" sideOffset={4} data-component="FilteredActionList.Positioner">
+      <Combobox.Positioner className="z-popover" sideOffset={4} data-component="FilteredActionList.Positioner">
         <Combobox.Popup
           {...rest}
           ref={ref}
           className={mergeClassName(
-            'overflow-hidden rounded-md border border-default bg-default shadow-lg outline-none',
+            'overflow-hidden rounded-md border border-default bg-default shadow-floating-lg outline-none',
             className,
           )}
           data-component="FilteredActionList.Content"
