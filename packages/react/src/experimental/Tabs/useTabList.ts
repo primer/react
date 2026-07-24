@@ -24,10 +24,7 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
 
     const tabs = getFocusableTabs(tablist)
 
-    // Determine the tab the user is navigating from. In automatic activation the
-    // focused tab is also the selected one, but in manual activation focus and
-    // selection diverge, so prefer the currently focused tab and fall back to the
-    // selected tab.
+    // Navigate relative to the focused tab, falling back to the selected tab.
     const getCurrentIndex = () => {
       const activeElement = tablist.ownerDocument.activeElement
       const focusedIndex = activeElement instanceof HTMLElement ? tabs.indexOf(activeElement) : -1

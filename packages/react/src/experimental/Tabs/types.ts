@@ -51,12 +51,9 @@ type CommonTabsProps = {
   id?: string
 
   /**
-   * Controls how tabs are activated when navigating with the keyboard.
-   * - `'automatic'` (default): selection follows focus, so Arrow/Home/End keys
-   *   immediately select the newly focused tab.
-   * - `'manual'`: Arrow/Home/End keys only move focus; selection is committed
-   *   with Enter, Space, or a pointer click. Prefer this when displaying a panel
-   *   is not instant (e.g. it triggers a network request).
+   * `'automatic'` (default) selects on focus, so Arrow/Home/End keys select immediately. `'manual'`
+   * only moves focus; selection commits on Enter/Space/click. Prefer `'manual'` when displaying a
+   * panel is not instant (e.g. it triggers a network request).
    */
   activationMode?: 'automatic' | 'manual'
 }
@@ -101,11 +98,9 @@ export type TabsContextValue = {
   selectedValue: string
   activationMode: 'automatic' | 'manual'
   /**
-   * In `'manual'` activation, the value of the most recently focused tab; the roving tab stop
-   * follows it so focus can diverge from selection. It is set on any focus within the tablist
-   * (including the initial focus, where it matches the selected tab). It is `undefined` before the
-   * first focus and after a selection commit, in which cases the tab stop falls back to the
-   * selected tab. Unused in `'automatic'` activation.
+   * In `'manual'` activation, the most recently focused tab; the roving tab stop follows it. Set on
+   * any focus (initially the selected tab); `undefined` before the first focus and after a commit,
+   * when the tab stop falls back to the selected tab.
    */
   focusedValue: string | undefined
   selectTab(value: string): void

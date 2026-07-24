@@ -600,9 +600,8 @@ describe('UnderlinePanels — list resize observation', () => {
 })
 
 describe('UnderlinePanels — AnchoredOverlay composition', () => {
-  // Regression coverage for the RefSelector issue: when UnderlinePanels lives inside an
-  // AnchoredOverlay, the overlay's focus zone must be disabled so it doesn't fight the tablist's
-  // own roving tabindex. Otherwise every tab can end up at tabindex="-1", trapping keyboard users.
+  // Regression coverage for the RefSelector issue: the overlay's focus zone is disabled so it
+  // doesn't fight the tablist's roving tabindex and trap keyboard users.
   const OverlayHarness = ({onChange}: {onChange?: ({value}: {value: string}) => void}) => {
     const [open, setOpen] = useState(true)
     return (

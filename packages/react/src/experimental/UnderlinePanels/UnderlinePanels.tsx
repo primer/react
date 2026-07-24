@@ -49,17 +49,13 @@ export type UnderlinePanelsProps = {
    */
   defaultValue?: string
   /**
-   * Callback fired whenever the selected tab changes, for *every* selection method — pointer,
-   * Enter/Space, and Arrow/Home/End keys. Unlike `UnderlinePanels.Tab`'s `onSelect` (which only
-   * fires on click and Enter/Space), this makes the selected value usable as a single source of
-   * truth for data-driven tabs.
+   * Fires whenever the selected tab changes, for every selection method including arrow keys.
+   * Unlike `UnderlinePanels.Tab`'s `onSelect`, which only fires on click and Enter/Space.
    */
   onChange?: ({value}: {value: string}) => void
   /**
-   * Controls how tabs are activated with the keyboard.
-   * - `'automatic'` (default): selection follows focus, so Arrow/Home/End keys select immediately.
-   * - `'manual'`: Arrow/Home/End keys only move focus; selection commits on Enter, Space, or click.
-   *   Prefer this when a panel is not instant to display (e.g. it triggers a network request).
+   * `'automatic'` (default) selects on focus/arrow keys; `'manual'` only moves focus until
+   * Enter/Space/click. Prefer `'manual'` when displaying a panel is not instant.
    */
   activationMode?: 'automatic' | 'manual'
   /**
@@ -113,8 +109,7 @@ export type PanelProps = React.HTMLAttributes<HTMLDivElement> & {
   value?: string
 }
 
-// Resolved per-tab/panel value. When a consumer provides an explicit `value`, it is used as-is;
-// otherwise a positional value is injected via cloneElement to pair the Nth tab with the Nth panel.
+// Explicit consumer `value`, or a positional fallback pairing the Nth tab with the Nth panel.
 type WithValue = {value?: string}
 
 // Carries flags that affect every Tab's rendering but that don't belong on the
@@ -151,10 +146,8 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   const parentId = useId(props.id)
 
   const [tabs, tabPanels, tabsHaveIcons, selectedFromProps, tabValues, panelValues] = useMemo(() => {
-    // Pair each Tab with its Panel by `value`. Consumers may provide an explicit `value` (domain
-    // values like 'branch'); when omitted we inject a positional value so the Nth tab pairs with
-    // the Nth panel. Derived in render (not an effect) to avoid an empty-tablist frame;
-    // iconsVisible/loadingCounters flow via context so this memo can stay keyed on [children].
+    // Pair each Tab with its Panel by `value`, injecting a positional value when none is given.
+    // Derived in render (not an effect) to avoid an empty-tablist frame.
     let tabIndex = 0
     let panelIndex = 0
 
@@ -200,13 +193,9 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     return [tabs, tabPanels, tabsHaveIcons, selectedFromProps, tabValues, panelValues] as const
   }, [children])
 
-  // Hybrid selection supporting three sources, in priority order:
-  //   1. Controlled `value` prop (domain value) — the container is fully controlled.
-  //   2. Uncontrolled `defaultValue` (initial only).
-  //   3. Back-compat `aria-selected` seed — initial value AND re-synced when it changes, via
-  //      React's "adjust state during render" pattern (mirrors the previous behavior).
-  // We hand-roll the controlled/uncontrolled branching (rather than using `useControllableState`)
-  // because of source #3: the `aria-selected` seed is a third input the shared hook doesn't model.
+  // Selection resolves from, in priority: controlled `value`, `defaultValue`, then the back-compat
+  // `aria-selected` seed (re-synced during render). Hand-rolled rather than `useControllableState`
+  // because of that third seed source.
   const isControlled = controlledValue !== undefined
   const [uncontrolledValue, setUncontrolledValue] = useState<string>(() => defaultValue ?? selectedFromProps ?? '0')
   const [prevSelectedFromProps, setPrevSelectedFromProps] = useState(selectedFromProps)
@@ -219,10 +208,8 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 
   const selectedValue = isControlled ? controlledValue : uncontrolledValue
 
-  // Safety net against a keyboard trap: if the selected value doesn't match any rendered tab
-  // (e.g. a controlled `value` that points at a nonexistent tab), fall back to the first tab so
-  // the tablist always has exactly one tabbable entry point. Unlike Base UI's uncontrolled
-  // auto-fallback, this does not fire `onChange` — it only clamps what the Tabs primitive renders.
+  // Keyboard-trap safety net: if the selected value matches no tab, fall back to the first tab so
+  // the tablist keeps a tabbable entry point. Does not fire `onChange`.
   const effectiveValue = tabValues.includes(selectedValue) ? selectedValue : (tabValues[0] ?? selectedValue)
 
   const handleValueChange = (value: string) => {
@@ -291,8 +278,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       return ariaSelected === true || ariaSelected === 'true'
     })
 
-    // Structural problems produce invalid DOM/ARIA (duplicate ids, orphaned `aria-controls`), so
-    // they throw, matching the existing tab/panel-count invariant.
+    // Structural problems (duplicate ids, orphaned `aria-controls`) throw; recoverable misconfig warns.
     invariant(selectedTabs.length <= 1, 'Only one tab can be selected at a time.')
 
     invariant(
@@ -300,8 +286,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       `The number of tabs and panels must be equal. Counted ${tabs.length} tabs and ${tabPanels.length} panels.`,
     )
 
-    // Explicit `value`s must be unique across tabs (and across panels): tab and panel ids are
-    // derived from the value, so duplicates produce duplicate DOM ids and ambiguous ARIA wiring.
+    // Values must be unique: tab/panel ids are derived from them, so duplicates collide.
     const duplicateTabValue = tabValues.find((value, index) => tabValues.indexOf(value) !== index)
     invariant(
       duplicateTabValue === undefined,
@@ -313,15 +298,13 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       `Every panel must have a unique \`value\`. Found duplicate "${duplicatePanelValue}".`,
     )
 
-    // Each tab must have a panel with a matching `value` so the pairing (and `aria-controls`) resolves.
+    // Each tab needs a panel with the same `value`.
     const unmatchedTabValue = tabValues.find(value => !panelValues.includes(value))
     invariant(
       unmatchedTabValue === undefined,
       `Tab with \`value\` "${unmatchedTabValue}" has no matching panel. Give a \`UnderlinePanels.Panel\` the same \`value\`.`,
     )
 
-    // Recoverable misconfigurations only warn: the component resolves them (see below), so throwing
-    // would crash consumers for a non-fatal mistake.
     warning(
       isControlled && selectedTabs.length > 0,
       'UnderlinePanels: do not combine the controlled `value` prop with `aria-selected` on a tab. `value` takes precedence; use `value`/`onChange` (or `defaultValue`) to drive selection.',
@@ -332,8 +315,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       'UnderlinePanels: do not combine the controlled `value` prop with `defaultValue`. `value` takes precedence; use one or the other.',
     )
 
-    // A provided `value`/`defaultValue` that matches no tab makes the component fall back to the
-    // first tab (see the `effectiveValue` clamp above) to avoid a keyboard trap.
+    // Clamped to the first tab above; warn since it's rarely intended.
     const providedValue = controlledValue ?? defaultValue
     warning(
       providedValue !== undefined && tabValues.length > 0 && !tabValues.includes(providedValue),

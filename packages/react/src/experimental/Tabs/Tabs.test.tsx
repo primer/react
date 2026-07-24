@@ -616,8 +616,7 @@ describe('Tabs', () => {
       expect(tabA).toHaveAttribute('aria-selected', 'true')
       expect(tabB).toHaveAttribute('aria-selected', 'false')
       expect(onValueChange).not.toHaveBeenCalled()
-      // The roving tab stop follows the focused tab in manual mode (APG manual activation),
-      // so Tabbing out and back returns focus to the last-focused tab, not the selected one.
+      // Manual-mode tab stop follows focus (APG), so Tab out/in returns to the last-focused tab.
       expect(tabB).toHaveAttribute('tabindex', '0')
       expect(tabA).toHaveAttribute('tabindex', '-1')
     })

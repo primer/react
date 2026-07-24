@@ -26,9 +26,7 @@ function Tabs(props: TabsProps) {
     value: props.value,
   })
 
-  // In manual activation, keyboard focus can move to a tab without selecting it, so we track the
-  // focused tab separately to keep the roving tab stop on the focused tab (per the APG manual
-  // activation pattern). Unused in automatic activation, where focus == selection.
+  // In manual activation the roving tab stop follows focus, not selection, so track it separately.
   const [focusedValue, setFocusedValue] = React.useState<string>()
 
   const savedOnValueChange = React.useRef(onValueChange)
@@ -40,8 +38,7 @@ function Tabs(props: TabsProps) {
       focusedValue,
       selectTab(value: string) {
         setSelectedValue(value)
-        // Selection and focus reconverge on commit; clearing the tracked focus value returns the
-        // roving tab stop to following selection until the next manual keyboard focus move.
+        // Focus and selection reconverge on commit.
         setFocusedValue(undefined)
         savedOnValueChange.current?.({value})
       },
