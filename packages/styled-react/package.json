@@ -50,6 +50,7 @@
     "@types/react-dom": "18.3.1",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^6.0.2",
+    "@typescript/typescript6": "^6.0.2",
     "babel-plugin-react-compiler": "^1.0.0",
     "babel-plugin-styled-components": "2.1.4",
     "postcss-preset-primer": "^0.0.0",
@@ -62,7 +63,7 @@
     "rolldown-plugin-dts": "^0.26.0",
     "rolldown-plugin-preserve-directives": "^0.0.0",
     "styled-components": "5.3.11",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "@primer/react": "*",

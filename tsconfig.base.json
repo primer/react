@@ -18,7 +18,6 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "erasableSyntaxOnly": true,
-    "stableTypeOrdering": true,
     "verbatimModuleSyntax": true
   }
 }
