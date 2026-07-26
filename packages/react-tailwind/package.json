@@ -73,7 +73,6 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
-    "@github/relative-time-element": "^5.3.0",
     "@primer/octicons-react": "^19.28.1",
     "@primer/primitives": "10.x || 11.x",
     "@primer/tailwind-config": "^1.0.0",

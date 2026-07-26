@@ -2,15 +2,16 @@
 
 ## From: `@primer/react`
 
-Legacy RelativeTime wraps `@github/relative-time-element` and supports localized relative, date-time, and duration formatting with configurable date parts, tense, precision, threshold, prefix, and time-zone behavior.
+Legacy RelativeTime wraps a GitHub custom element and supports localized relative, date-time, and duration formatting with configurable date parts, tense, precision, threshold, prefix, and time-zone behavior.
 
 ## To: `@primer/react-tailwind`
 
-RelativeTime preserves the same custom-element behavior through a typed React 19 wrapper around `@github/relative-time-element`. It forwards the formatting contract, custom update callback, DOM props, and ref while providing the localized absolute date as the server-rendered fallback.
+RelativeTime is a pure React 19 implementation that renders a semantic `time` element. It includes dependency-free duration and formatting logic, forwards DOM props and its root ref, and updates relative output with a React-managed timer.
 
 ## Migration notes
 
-- `date` and `datetime` are normalized onto the custom element's machine-readable `datetime` value.
-- The default and deprecated `auto`, `micro`, and `elapsed` formats remain compatible because the shared custom element still supports them; prefer `relative`, `datetime`, or `duration` in new code.
-- The component intentionally uses the behavior-focused GitHub custom element rather than Base UI because Base UI does not provide date localization or continuously updating relative-time semantics.
+- `date` and `datetime` are normalized onto the `time` element's machine-readable `datetime` value.
+- All formats, date-part controls, title handling, tense, precision, prefix, threshold, and time-zone props are formatted locally without a custom-element dependency.
+- The initial server-rendered value is an absolute localized date; the client enhances it to relative output after hydration to avoid time-dependent hydration mismatches.
+- Parent `lang`, `time-zone`, `hour-cycle`, and `data-prefers-absolute-time` DOM context are not read; use the component props and the runtime Intl defaults instead.
 - Use `className` instead of `sx` or styled-system props.

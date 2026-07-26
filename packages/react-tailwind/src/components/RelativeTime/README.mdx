@@ -115,7 +115,7 @@ The root exposes `data-component="RelativeTime"`, plus native `dateTime` and `ti
 
 ## Alignment
 
-The local API intentionally keeps the native `time` surface: stories cover `date`, `datetime`, `title`, `noTitle`, and child content. Upstream formatting callbacks and additional date-part controls are not represented because they are not local props.
+RelativeTime supports the upstream formatting contract locally, including format, style, date-part, tense, precision, threshold, prefix, and time-zone props. It renders a native `time` element without a custom-element dependency.
 
 ## Features and examples
 

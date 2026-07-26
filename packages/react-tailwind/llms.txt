@@ -514,7 +514,7 @@ Import: `import {RelativeTime} from '@primer/react-tailwind/RelativeTime'`
 `RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.
 
 Differences from `@primer/react`:
-- `date` and `datetime` are normalized onto the custom element's machine-readable `datetime` value.
+- `date` and `datetime` are normalized onto the `time` element's machine-readable `datetime` value.
 
 ### ScrollableRegion
 
