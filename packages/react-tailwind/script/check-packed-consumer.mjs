@@ -190,6 +190,23 @@ async function validateStyles(consumerDirectory) {
   }
 }
 
+async function validateAgentDocs(consumerDirectory) {
+  const resolveFromConsumer = createRequire(path.join(consumerDirectory, 'resolve.cjs'))
+
+  for (const file of ['llms.txt', 'api-inventory.json']) {
+    let resolved
+    try {
+      resolved = resolveFromConsumer.resolve(`@primer/react-tailwind/${file}`)
+    } catch (error) {
+      throw new Error(`Packed export ${file} could not be resolved: ${error.message}`, {cause: error})
+    }
+
+    if ((await stat(resolved)).size === 0) {
+      throw new Error(`Packed export ${file} is empty.`)
+    }
+  }
+}
+
 async function findTailwindCli() {
   const binaryName = process.platform === 'win32' ? 'tailwindcss.cmd' : 'tailwindcss'
 
@@ -272,6 +289,7 @@ async function validateConsumer(temporaryRoot, tarball, reactVersion) {
   )
   await writeFile(path.join(consumerDirectory, 'consumer.mjs'), consumerProgram())
   await validateStyles(consumerDirectory)
+  await validateAgentDocs(consumerDirectory)
   await validateTailwindConsumer(consumerDirectory)
   await run(process.execPath, [path.join(consumerDirectory, 'consumer.mjs')], {
     cwd: consumerDirectory,
@@ -305,7 +323,7 @@ async function main() {
   }
 
   process.stdout.write(
-    `Packed consumer validation passed (React ${reactVersions.join(', ')}; root and Button/TextInput/Overlay subpaths; SSR; styles; Tailwind v4).\n`,
+    `Packed consumer validation passed (React ${reactVersions.join(', ')}; root and Button/TextInput/Overlay subpaths; SSR; styles; agent docs; Tailwind v4).\n`,
   )
 }
 

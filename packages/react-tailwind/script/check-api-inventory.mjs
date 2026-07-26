@@ -1,10 +1,24 @@
 import {readFile} from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
+import Ajv from 'ajv'
 import ts from 'typescript'
 
 const packageRoot = path.resolve(import.meta.dirname, '..')
 const inventory = JSON.parse(await readFile(path.join(packageRoot, 'api-inventory.json'), 'utf8'))
+const schema = JSON.parse(await readFile(path.join(packageRoot, 'api-inventory.schema.json'), 'utf8'))
+
+const validate = new Ajv({allowUnionTypes: true}).compile(schema)
+if (!validate(inventory)) {
+  // eslint-disable-next-line no-console
+  console.error('api-inventory.json does not match its schema:')
+  for (const error of validate.errors ?? []) {
+    // eslint-disable-next-line no-console
+    console.error(`  ${error.instancePath || '/'} ${error.message}`)
+  }
+  process.exit(1)
+}
+
 const sourceFiles = Object.values(inventory.upstream).map(source => path.resolve(packageRoot, source))
 const program = ts.createProgram(sourceFiles, {
   allowJs: true,

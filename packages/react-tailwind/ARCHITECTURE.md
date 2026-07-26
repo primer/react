@@ -69,7 +69,7 @@ Components consume semantic variables rather than scheme-specific values. Intera
 
 ## Public API policy
 
-The machine-readable `api-inventory.json` is the inclusion boundary. It records the selected stable and experimental upstream sources, required root exports, intentional exclusions, and upstream implementation utilities that are not part of this package's public contract.
+The machine-readable `api-inventory.json` is the inclusion boundary, validated against `api-inventory.schema.json`. It records the selected stable and experimental upstream sources, required root exports, intentional exclusions and their replacements, and upstream implementation utilities that are not part of this package's public contract.
 
 The package:
 
@@ -85,6 +85,12 @@ Primer viewport ranges map to Tailwind statically: narrow uses unprefixed base u
 Before adding a direct Base UI integration, a component must check whether an existing package primitive can expose the required behavior. Before adding a helper, it must check `src/internal`, shared variants, and public utility types.
 
 Every component's `ALIGNMENT.md` explains the legacy source and the modern replacement, including normalized props, composition or semantic changes, unsupported behavior, and open parity gaps.
+
+## Agent-facing documentation
+
+`AGENTS.md` is the authored guidance for coding agents and LLMs that generate code against this package. It exists because guidance written for `@primer/react` is frequently wrong here, most often by reaching for `sx`, `Box`, or a deprecated name.
+
+`llms.txt` is generated from `AGENTS.md`, each component's `README.mdx` intent paragraph, each `ALIGNMENT.md` migration notes, and the API inventory's exclusions. Nothing in it is authored twice, so it cannot drift from the documentation it summarizes. The generator fails when a component has no intent paragraph, which keeps new components from shipping without one, and a check task fails when the committed file is stale.
 
 ## React 19 and React Compiler
 

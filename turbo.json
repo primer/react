@@ -2,23 +2,47 @@
   "$schema": "https://turborepo.com/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**", "generated/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**",
+        "dist/**",
+        "generated/**"
+      ]
+    },
+    "build:llms": {
+      "dependsOn": [],
+      "outputs": [
+        "llms.txt"
+      ]
     },
     "build:storybook": {
-      "dependsOn": ["^build"],
-      "outputs": ["storybook-static/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "storybook-static/**"
+      ]
     },
     "check:exports": {
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "outputs": []
     },
     "check:inventory": {
       "dependsOn": [],
       "outputs": []
     },
+    "check:llms": {
+      "dependsOn": [],
+      "outputs": []
+    },
     "check:packed-consumer": {
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "outputs": []
     },
     "lint:client-boundaries": {
@@ -26,7 +50,10 @@
       "outputs": []
     },
     "lint:npm": {
-      "dependsOn": ["^build", "build"],
+      "dependsOn": [
+        "^build",
+        "build"
+      ],
       "outputs": []
     },
     "lint:react-compiler": {
@@ -34,7 +61,9 @@
       "outputs": []
     },
     "type-check": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": []
     }
   }

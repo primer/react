@@ -57,7 +57,7 @@ jobs:
       - name: Check React client boundaries
         run: npx turbo run lint:client-boundaries
       - name: Check package consumer contracts
-        run: npx turbo run check:exports check:inventory check:packed-consumer
+        run: npx turbo run check:exports check:inventory check:packed-consumer check:llms
 
   test:
     runs-on: ubuntu-latest

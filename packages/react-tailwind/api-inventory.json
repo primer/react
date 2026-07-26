@@ -5,112 +5,531 @@
     "experimental": "../react/src/experimental/index.ts"
   },
   "included": [
-    {"name": "BaseStyles", "kind": "component", "family": "foundation"},
-    {"name": "ThemeProvider", "kind": "provider", "family": "foundation"},
-    {"name": "useTheme", "kind": "hook", "family": "foundation"},
-    {"name": "Button", "kind": "component", "family": "display"},
-    {"name": "ButtonBase", "kind": "component", "family": "display"},
-    {"name": "IconButton", "kind": "component", "family": "display"},
-    {"name": "LinkButton", "kind": "component", "family": "display"},
-    {"name": "ButtonGroup", "kind": "component", "family": "display"},
-    {"name": "Text", "kind": "component", "family": "display"},
-    {"name": "Heading", "kind": "component", "family": "display"},
-    {"name": "Link", "kind": "component", "family": "display"},
-    {"name": "Label", "kind": "component", "family": "display"},
-    {"name": "LabelGroup", "kind": "component", "family": "display"},
-    {"name": "VisuallyHidden", "kind": "component", "family": "display"},
-    {"name": "Avatar", "kind": "component", "family": "display"},
-    {"name": "AvatarStack", "kind": "component", "family": "display"},
-    {"name": "BranchName", "kind": "component", "family": "display"},
-    {"name": "Banner", "kind": "component", "family": "display"},
-    {"name": "CounterLabel", "kind": "component", "family": "display"},
-    {"name": "StateLabel", "kind": "component", "family": "display"},
-    {"name": "Spinner", "kind": "component", "family": "display"},
-    {"name": "ProgressBar", "kind": "component", "family": "display"},
-    {"name": "RelativeTime", "kind": "component", "family": "display"},
-    {"name": "Truncate", "kind": "component", "family": "display"},
-    {"name": "SkeletonBox", "kind": "component", "family": "display"},
-    {"name": "SkeletonText", "kind": "component", "family": "display"},
-    {"name": "SkeletonAvatar", "kind": "component", "family": "display"},
-    {"name": "Flash", "kind": "component", "family": "display"},
-    {"name": "InlineMessage", "kind": "component", "family": "display"},
-    {"name": "IssueLabel", "kind": "component", "family": "display"},
-    {"name": "IssueLabelToken", "kind": "component", "family": "display"},
-    {"name": "TopicTag", "kind": "component", "family": "display"},
-    {"name": "Token", "kind": "component", "family": "display"},
-    {"name": "KeybindingHint", "kind": "component", "family": "display"},
-    {"name": "Blankslate", "kind": "component", "family": "display"},
-    {"name": "Card", "kind": "component", "family": "display"},
-    {"name": "Checkbox", "kind": "component", "family": "forms"},
-    {"name": "CheckboxGroup", "kind": "component", "family": "forms"},
-    {"name": "Radio", "kind": "component", "family": "forms"},
-    {"name": "RadioGroup", "kind": "component", "family": "forms"},
-    {"name": "Textarea", "kind": "component", "family": "forms"},
-    {"name": "TextInput", "kind": "component", "family": "forms"},
-    {"name": "ToggleSwitch", "kind": "component", "family": "forms"},
-    {"name": "Select", "kind": "component", "family": "forms"},
-    {"name": "SegmentedControl", "kind": "component", "family": "forms"},
-    {"name": "FormControl", "kind": "component", "family": "forms"},
-    {"name": "useFormControlForwardedProps", "kind": "hook", "family": "forms"},
-    {"name": "Autocomplete", "kind": "component", "family": "selection"},
-    {"name": "ActionList", "kind": "component", "family": "selection"},
-    {"name": "FilteredActionList", "kind": "component", "family": "selection"},
-    {"name": "FilteredActionListLoadingTypes", "kind": "utility", "family": "selection"},
-    {"name": "SelectPanel", "kind": "component", "family": "selection"},
-    {"name": "ActionMenu", "kind": "component", "family": "selection"},
-    {"name": "Details", "kind": "component", "family": "selection"},
-    {"name": "Stack", "kind": "component", "family": "layout"},
-    {"name": "PageLayout", "kind": "component", "family": "layout"},
-    {"name": "DragHandle", "kind": "component", "family": "layout"},
-    {"name": "usePaneWidth", "kind": "hook", "family": "layout"},
-    {"name": "defaultPaneWidth", "kind": "utility", "family": "layout"},
-    {"name": "SplitPageLayout", "kind": "component", "family": "layout"},
-    {"name": "Header", "kind": "component", "family": "navigation"},
-    {"name": "PageHeader", "kind": "component", "family": "navigation"},
-    {"name": "Breadcrumbs", "kind": "component", "family": "navigation"},
-    {"name": "NavList", "kind": "component", "family": "navigation"},
-    {"name": "SubNav", "kind": "component", "family": "navigation"},
-    {"name": "UnderlineNav", "kind": "component", "family": "navigation"},
-    {"name": "UnderlinePanels", "kind": "component", "family": "navigation"},
-    {"name": "Pagination", "kind": "component", "family": "navigation"},
-    {"name": "TreeView", "kind": "component", "family": "navigation"},
-    {"name": "Timeline", "kind": "component", "family": "data"},
-    {"name": "ActionBar", "kind": "component", "family": "data"},
-    {"name": "DataTable", "kind": "component", "family": "data"},
-    {"name": "Table", "kind": "component", "family": "data"},
-    {"name": "Hidden", "kind": "component", "family": "layout"},
-    {"name": "ScrollableRegion", "kind": "component", "family": "layout"},
-    {"name": "useOverflow", "kind": "hook", "family": "layout"},
-    {"name": "Portal", "kind": "component", "family": "overlay"},
-    {"name": "AnchoredOverlay", "kind": "component", "family": "overlay"},
-    {"name": "Overlay", "kind": "component", "family": "overlay"},
-    {"name": "Popover", "kind": "component", "family": "overlay"},
-    {"name": "Tooltip", "kind": "component", "family": "overlay"},
-    {"name": "Dialog", "kind": "component", "family": "overlay"},
-    {"name": "ConfirmationDialog", "kind": "component", "family": "overlay"},
-    {"name": "Tabs", "kind": "component", "family": "navigation"},
-    {"name": "TabList", "kind": "component", "family": "navigation", "rootExport": false},
-    {"name": "Tab", "kind": "component", "family": "navigation", "rootExport": false},
-    {"name": "TabPanel", "kind": "component", "family": "navigation", "rootExport": false},
-    {"name": "useTabList", "kind": "hook", "family": "navigation"},
-    {"name": "useTab", "kind": "hook", "family": "navigation"},
-    {"name": "useTabPanel", "kind": "hook", "family": "navigation"},
-    {"name": "Announce", "kind": "component", "family": "accessibility"},
-    {"name": "AriaStatus", "kind": "component", "family": "accessibility"},
-    {"name": "AriaAlert", "kind": "component", "family": "accessibility"},
-    {"name": "getAccessibleKeybindingHintString", "kind": "utility", "family": "accessibility"},
-    {"name": "FeatureFlags", "kind": "provider", "family": "foundation"},
-    {"name": "DefaultFeatureFlags", "kind": "utility", "family": "foundation"},
-    {"name": "useFeatureFlag", "kind": "hook", "family": "foundation"}
+    {
+      "name": "BaseStyles",
+      "kind": "component",
+      "family": "foundation"
+    },
+    {
+      "name": "ThemeProvider",
+      "kind": "provider",
+      "family": "foundation"
+    },
+    {
+      "name": "useTheme",
+      "kind": "hook",
+      "family": "foundation"
+    },
+    {
+      "name": "Button",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "ButtonBase",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "IconButton",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "LinkButton",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "ButtonGroup",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Text",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Heading",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Link",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Label",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "LabelGroup",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "VisuallyHidden",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Avatar",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "AvatarStack",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "BranchName",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Banner",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "CounterLabel",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "StateLabel",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Spinner",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "ProgressBar",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "RelativeTime",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Truncate",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "SkeletonBox",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "SkeletonText",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "SkeletonAvatar",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Flash",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "InlineMessage",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "IssueLabel",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "IssueLabelToken",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "TopicTag",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Token",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "KeybindingHint",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Blankslate",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Card",
+      "kind": "component",
+      "family": "display"
+    },
+    {
+      "name": "Checkbox",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "CheckboxGroup",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "Radio",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "RadioGroup",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "Textarea",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "TextInput",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "ToggleSwitch",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "Select",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "SegmentedControl",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "FormControl",
+      "kind": "component",
+      "family": "forms"
+    },
+    {
+      "name": "useFormControlForwardedProps",
+      "kind": "hook",
+      "family": "forms"
+    },
+    {
+      "name": "Autocomplete",
+      "kind": "component",
+      "family": "selection"
+    },
+    {
+      "name": "ActionList",
+      "kind": "component",
+      "family": "selection"
+    },
+    {
+      "name": "FilteredActionList",
+      "kind": "component",
+      "family": "selection"
+    },
+    {
+      "name": "FilteredActionListLoadingTypes",
+      "kind": "utility",
+      "family": "selection"
+    },
+    {
+      "name": "SelectPanel",
+      "kind": "component",
+      "family": "selection"
+    },
+    {
+      "name": "ActionMenu",
+      "kind": "component",
+      "family": "selection"
+    },
+    {
+      "name": "Details",
+      "kind": "component",
+      "family": "selection"
+    },
+    {
+      "name": "Stack",
+      "kind": "component",
+      "family": "layout"
+    },
+    {
+      "name": "PageLayout",
+      "kind": "component",
+      "family": "layout"
+    },
+    {
+      "name": "DragHandle",
+      "kind": "component",
+      "family": "layout"
+    },
+    {
+      "name": "usePaneWidth",
+      "kind": "hook",
+      "family": "layout"
+    },
+    {
+      "name": "defaultPaneWidth",
+      "kind": "utility",
+      "family": "layout"
+    },
+    {
+      "name": "SplitPageLayout",
+      "kind": "component",
+      "family": "layout"
+    },
+    {
+      "name": "Header",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "PageHeader",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "Breadcrumbs",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "NavList",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "SubNav",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "UnderlineNav",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "UnderlinePanels",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "Pagination",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "TreeView",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "Timeline",
+      "kind": "component",
+      "family": "data"
+    },
+    {
+      "name": "ActionBar",
+      "kind": "component",
+      "family": "data"
+    },
+    {
+      "name": "DataTable",
+      "kind": "component",
+      "family": "data"
+    },
+    {
+      "name": "Table",
+      "kind": "component",
+      "family": "data"
+    },
+    {
+      "name": "Hidden",
+      "kind": "component",
+      "family": "layout"
+    },
+    {
+      "name": "ScrollableRegion",
+      "kind": "component",
+      "family": "layout"
+    },
+    {
+      "name": "useOverflow",
+      "kind": "hook",
+      "family": "layout"
+    },
+    {
+      "name": "Portal",
+      "kind": "component",
+      "family": "overlay"
+    },
+    {
+      "name": "AnchoredOverlay",
+      "kind": "component",
+      "family": "overlay"
+    },
+    {
+      "name": "Overlay",
+      "kind": "component",
+      "family": "overlay"
+    },
+    {
+      "name": "Popover",
+      "kind": "component",
+      "family": "overlay"
+    },
+    {
+      "name": "Tooltip",
+      "kind": "component",
+      "family": "overlay"
+    },
+    {
+      "name": "Dialog",
+      "kind": "component",
+      "family": "overlay"
+    },
+    {
+      "name": "ConfirmationDialog",
+      "kind": "component",
+      "family": "overlay"
+    },
+    {
+      "name": "Tabs",
+      "kind": "component",
+      "family": "navigation"
+    },
+    {
+      "name": "TabList",
+      "kind": "component",
+      "family": "navigation",
+      "rootExport": false
+    },
+    {
+      "name": "Tab",
+      "kind": "component",
+      "family": "navigation",
+      "rootExport": false
+    },
+    {
+      "name": "TabPanel",
+      "kind": "component",
+      "family": "navigation",
+      "rootExport": false
+    },
+    {
+      "name": "useTabList",
+      "kind": "hook",
+      "family": "navigation"
+    },
+    {
+      "name": "useTab",
+      "kind": "hook",
+      "family": "navigation"
+    },
+    {
+      "name": "useTabPanel",
+      "kind": "hook",
+      "family": "navigation"
+    },
+    {
+      "name": "Announce",
+      "kind": "component",
+      "family": "accessibility"
+    },
+    {
+      "name": "AriaStatus",
+      "kind": "component",
+      "family": "accessibility"
+    },
+    {
+      "name": "AriaAlert",
+      "kind": "component",
+      "family": "accessibility"
+    },
+    {
+      "name": "getAccessibleKeybindingHintString",
+      "kind": "utility",
+      "family": "accessibility"
+    },
+    {
+      "name": "FeatureFlags",
+      "kind": "provider",
+      "family": "foundation"
+    },
+    {
+      "name": "DefaultFeatureFlags",
+      "kind": "utility",
+      "family": "foundation"
+    },
+    {
+      "name": "useFeatureFlag",
+      "kind": "hook",
+      "family": "foundation"
+    }
   ],
   "excluded": [
-    {"name": "CircleBadge", "reason": "deprecated"},
-    {"name": "SideNav", "reason": "deprecated"},
-    {"name": "TextInputWithTokens", "reason": "deprecated"},
-    {"name": "Breadcrumb", "reason": "deprecated"},
-    {"name": "SelectPanel2", "reason": "deprecated"},
-    {"name": "useRefObjectAsForwardedRef", "reason": "deprecated"},
-    {"name": "useResponsiveValue", "reason": "deprecated"}
+    {
+      "name": "CircleBadge",
+      "reason": "deprecated",
+      "replacement": "Use an Octicon from @primer/octicons-react with your own styling."
+    },
+    {
+      "name": "SideNav",
+      "reason": "deprecated",
+      "replacement": "Use NavList."
+    },
+    {
+      "name": "TextInputWithTokens",
+      "reason": "deprecated",
+      "replacement": "Compose TextInput with Token."
+    },
+    {
+      "name": "Breadcrumb",
+      "reason": "deprecated",
+      "replacement": "Use Breadcrumbs."
+    },
+    {
+      "name": "SelectPanel2",
+      "reason": "deprecated",
+      "replacement": "Use SelectPanel, which is the promoted implementation."
+    },
+    {
+      "name": "useRefObjectAsForwardedRef",
+      "reason": "deprecated",
+      "replacement": "Pass ref as a prop; React 19 supports ref forwarding without a hook."
+    },
+    {
+      "name": "useResponsiveValue",
+      "reason": "deprecated",
+      "replacement": "Use responsive class names or CSS media queries."
+    }
   ],
   "notRequired": [
     "theme",

@@ -153,6 +153,18 @@ Selected newer/V2 or upstream experimental APIs are promoted under stable names 
 
 The package does not implement `sx` or Primer system/styled-system props. Use Tailwind `className` utilities, CSS, and standard HTML/Base UI props instead.
 
+## Using this package with AI tools
+
+[`AGENTS.md`](./AGENTS.md) documents the conventions an agent needs to generate correct code against this package, including what replaces `sx`, when to use `render` versus `as`, and which upstream names changed.
+
+`llms.txt` is a generated, machine-readable version of that guidance plus an index of every component, its intent, and its differences from `@primer/react`. Consumers can read it from the installed package:
+
+```tsx
+import guidance from '@primer/react-tailwind/llms.txt'
+```
+
+Because guidance written for `@primer/react` is often wrong here, point AI tooling at these files rather than at general Primer React documentation.
+
 ## Accessibility and SSR
 
 Base UI supplies interaction, focus, keyboard, and ARIA behavior for the primitives it provides. Consumers must still provide accessible names and semantic structure: label form controls, give dialogs and popovers titles where required, use meaningful button/link content, and provide navigation labels and `aria-current` state.
@@ -170,5 +182,6 @@ npm run type-check --workspace @primer/react-tailwind
 npm run check:exports --workspace @primer/react-tailwind
 npm run check:inventory --workspace @primer/react-tailwind
 npm run check:packed-consumer --workspace @primer/react-tailwind
+npm run check:llms --workspace @primer/react-tailwind
 npm run lint:npm --workspace @primer/react-tailwind
 ```

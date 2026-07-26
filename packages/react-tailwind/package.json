@@ -18,6 +18,7 @@
     "./base.css": "./dist/base.css",
     "./components.css": "./dist/components.css",
     "./api-inventory.json": "./api-inventory.json",
+    "./llms.txt": "./llms.txt",
     "./*": {
       "types": "./dist/components/*/index.d.ts",
       "default": "./dist/components/*/index.js"
@@ -28,21 +29,26 @@
     "dist",
     "api-inventory.json",
     "README.md",
-    "ARCHITECTURE.md"
+    "ARCHITECTURE.md",
+    "llms.txt",
+    "AGENTS.md",
+    "api-inventory.schema.json"
   ],
   "sideEffects": [
     "./dist/**/*.css"
   ],
   "scripts": {
-    "build": "npm run clean && rolldown -c && npm run build:css",
+    "build": "npm run clean && rolldown -c && npm run build:css && npm run build:llms",
     "build:css": "tailwindcss -i ./src/styles/styles.css -o ./dist/styles.css --minify && node ./script/copy-css.mjs",
     "build:css:storybook": "npm run build:css && tailwindcss -i ./src/styles/storybook.css -o ./.storybook/styles.css --minify",
+    "build:llms": "node ./script/generate-llms-txt.mjs",
     "check:exports": "node ./script/check-built-exports.mjs",
-    "check:packed-consumer": "npm run check:exports && node ./script/check-packed-consumer.mjs",
     "check:inventory": "node ./script/check-api-inventory.mjs",
+    "check:llms": "node ./script/check-llms-txt.mjs",
+    "check:packed-consumer": "npm run check:exports && node ./script/check-packed-consumer.mjs",
     "clean": "rimraf dist",
-    "lint:npm": "publint --types",
     "lint:client-boundaries": "node ./script/lint-client-boundaries.mjs",
+    "lint:npm": "publint --types",
     "lint:react-compiler": "node ./script/lint-react-compiler.mjs",
     "test": "vitest --run -c vitest.config.mts",
     "type-check": "tsc --noEmit"
@@ -89,6 +95,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
+    "ajv": "^8.18.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "fast-glob": "^3.3.3",
     "jsdom": "^27.4.0",
