@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {Avatar} from '../Avatar'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 
 const avatarSizes = {small: 20, medium: 32, large: 40, xlarge: 48} as const
@@ -44,7 +45,7 @@ function sizeInPixels(size: AvatarChildProps['size']) {
 function getChildSizes(children: React.ReactNode): ResponsiveAvatarSize {
   const childSizes: Record<(typeof viewports)[number], number[]> = {narrow: [], regular: [], wide: []}
 
-  return React.Children.toArray(children).reduce<ResponsiveAvatarSize>(
+  return flattenChildren(children).reduce<ResponsiveAvatarSize>(
     (smallestSizes, child) => {
       if (!React.isValidElement<AvatarChildProps>(child)) return smallestSizes
 

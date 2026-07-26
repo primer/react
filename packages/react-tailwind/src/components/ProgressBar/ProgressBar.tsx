@@ -5,8 +5,8 @@ import {cn} from '../../internal/cn'
 const progressVariants = cva(
   'flex w-full gap-0.5 overflow-hidden rounded-[var(--borderRadius-small)] bg-[var(--progressBar-track-bgColor)] [outline:solid_1px_var(--progressBar-track-borderColor)] [outline-offset:-1px]',
   {
-    variants: {size: {small: 'h-[5px]', default: 'h-2', large: 'h-2.5'}, inline: {true: 'inline-flex', false: ''}},
-    defaultVariants: {size: 'default', inline: false},
+    variants: {size: {small: 'h-[5px]', medium: 'h-2', large: 'h-2.5'}, inline: {true: 'inline-flex', false: ''}},
+    defaultVariants: {size: 'medium', inline: false},
   },
 )
 

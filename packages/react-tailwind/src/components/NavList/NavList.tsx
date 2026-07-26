@@ -3,6 +3,7 @@
 import {Collapsible} from '@base-ui/react/collapsible'
 import {ChevronDownIcon} from '@primer/octicons-react'
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 import {ActionList, type ActionListDescriptionProps, type ActionListTrailingActionProps} from '../ActionList/ActionList'
 import {Heading} from '../Heading'
@@ -20,7 +21,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
   ref,
 ) {
   const fallbackHeadingId = React.useId()
-  const childParts = React.Children.toArray(children)
+  const childParts = flattenChildren(children)
   const heading = childParts.find(
     child => React.isValidElement<NavListHeadingProps>(child) && child.type === NavListHeading,
   ) as React.ReactElement<NavListHeadingProps> | undefined
@@ -142,7 +143,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
   ref,
 ) {
   const depth = React.useContext(NavListDepthContext)
-  const childParts = React.Children.toArray(children)
+  const childParts = flattenChildren(children)
   const leadingVisualChild = childParts.find(child => React.isValidElement(child) && child.type === LeadingVisual) as
     | React.ReactElement<React.ComponentPropsWithoutRef<'span'>>
     | undefined

@@ -11,6 +11,7 @@ The stable compound API provides `Heading`, `Group`, `GroupHeading`, `List`, `It
 ## Migration notes
 
 - Use native `href` anchors; router adapters and reload-button APIs are unsupported.
+- `NavList.Heading` is recognized even when grouped in a fragment.
 - Compose extra actions with `NavList.TrailingAction`; it renders as a sibling of the primary link so interactive elements are never nested.
 - Keep PageLayout and other application chrome outside NavList.
 - Use `render` for Base UI trigger composition and `className` instead of `sx`.

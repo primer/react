@@ -2,6 +2,7 @@
 
 import {Field} from '@base-ui/react/field'
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 import {ValidationMessage} from '../../internal/ValidationMessage'
 import {FormControlContextProvider, useFormControlContext} from './useFormControlForwardedProps'
@@ -20,7 +21,7 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
 ) {
   const generatedId = React.useId()
   const controlId = idProp ?? generatedId
-  const childArray = React.Children.toArray(children)
+  const childArray = flattenChildren(children)
   const hasCaption = childArray.some(child => React.isValidElement(child) && child.type === Caption)
   const hasLeadingVisual = childArray.some(child => React.isValidElement(child) && child.type === LeadingVisual)
   const hasValidation = childArray.some(child => React.isValidElement(child) && child.type === Validation)

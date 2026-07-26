@@ -59,4 +59,17 @@ describe('NavList', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByRole('list')).toContainElement(screen.getByRole('link', {name: 'README'}))
   })
+
+  it('finds a heading that is grouped in a fragment', () => {
+    render(
+      <NavList>
+        <>
+          <NavList.Heading>Repository</NavList.Heading>
+          <NavList.Item href="#code">Code</NavList.Item>
+        </>
+      </NavList>,
+    )
+
+    expect(screen.getByRole('navigation')).toHaveAccessibleName('Repository')
+  })
 })

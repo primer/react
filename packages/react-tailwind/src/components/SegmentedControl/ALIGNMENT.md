@@ -11,6 +11,7 @@ The Base UI-backed control renders toggle buttons directly in a group. It preser
 ## Migration notes
 
 - Use `value`, `defaultValue`, and `onValueChange` for single-choice state.
+- Buttons may be grouped in fragments; only `SegmentedControl.Button` and `SegmentedControl.IconButton` children are rendered.
 - Responsive `hideLabels` and `dropdown` variants retain the Primer viewport-range API while composing the package ActionMenu for dropdown behavior.
 - Use real `disabled` controls instead of a legacy `aria-disabled` presentation example.
 - `sx` and styled-system props are unsupported.

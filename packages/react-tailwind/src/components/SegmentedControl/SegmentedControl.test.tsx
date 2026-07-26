@@ -81,4 +81,17 @@ describe('SegmentedControl', () => {
     expect(screen.getByRole('button', {name: 'Raw'})).toHaveAttribute('aria-pressed', 'true')
     expect(onValueChange).toHaveBeenCalledWith(['raw'], expect.any(Object))
   })
+
+  it('renders buttons that are grouped in a fragment', () => {
+    render(
+      <SegmentedControl aria-label="View">
+        <>
+          <SegmentedControl.Button value="preview">Preview</SegmentedControl.Button>
+          <SegmentedControl.Button value="raw">Raw</SegmentedControl.Button>
+        </>
+      </SegmentedControl>,
+    )
+
+    expect(screen.getAllByRole('button')).toHaveLength(2)
+  })
 })

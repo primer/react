@@ -7,6 +7,7 @@ import {
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 
 type TreeViewContextValue = {
@@ -156,7 +157,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
   const parentItem = React.useContext(TreeItemContext)
   if (!tree) throw new Error('TreeView.Item must be rendered within TreeView')
 
-  const childNodes = React.Children.toArray(children)
+  const childNodes = flattenChildren(children)
   const childSubTrees = childNodes.filter(child => isPart(child, SubTree))
   const compoundLeadingVisuals = childNodes.filter(child => isPart(child, LeadingVisual))
   const compoundTrailingVisuals = childNodes.filter(child => isPart(child, TrailingVisual))

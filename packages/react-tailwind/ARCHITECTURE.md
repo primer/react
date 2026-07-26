@@ -84,6 +84,17 @@ The package:
 
 Primer viewport ranges map to Tailwind statically: narrow uses unprefixed base utilities below `md`, regular uses `md:`, and wide uses `2xl:`. Primer React's compiled custom media and `@primer/tailwind-config` both place that wide range at 87.5rem / 1400px; the unrelated `lg` breakpoint at 63.25rem is not the Primer wide viewport range.
 
+### Shared vocabulary
+
+The same idea uses the same name everywhere, even where an upstream component named it differently:
+
+- Sizes are `small`, `medium`, and `large`. `ControlSize` covers interactive controls; `AvatarSize`, `TokenSize`, and `TextSize` cover scales with their own semantics. No component names its middle size `normal` or `default`.
+- The neutral variant is `default`.
+- Floating parts describe placement with `FloatingSide` and `FloatingAlignment`.
+- Compound parts discover their children through `flattenChildren`, so authors can group parts in fragments anywhere in the package.
+
+Where an upstream API is deliberately preserved instead of normalized, the component's `ALIGNMENT.md` says so. Notable preserved exceptions are `Pagination`'s event-first `onPageChange(event, page)`, `SelectPanel`'s `onOpenChange(open, gesture)`, and the opposing `SelectPanel.disableFullscreenOnNarrow` and `FilteredActionList.fullScreenOnNarrow` booleans.
+
 Before adding a direct Base UI integration, a component must check whether an existing package primitive can expose the required behavior. Before adding a helper, it must check `src/internal`, shared variants, and public utility types.
 
 Every component's `ALIGNMENT.md` explains the legacy source and the modern replacement, including normalized props, composition or semantic changes, unsupported behavior, and open parity gaps.

@@ -460,7 +460,7 @@ Import: `import {Pagination} from '@primer/react-tailwind/Pagination'`
 `Pagination` renders previous, next, and page links from a controlled current page and page count.
 
 Differences from `@primer/react`:
-- Existing page-state and link composition can generally be retained.
+- `onPageChange(event, page)` keeps upstream's event-first signature rather than the package's usual `(value, details)` order, so existing handlers port unchanged.
 
 ### Popover
 
@@ -487,7 +487,7 @@ Import: `import {ProgressBar} from '@primer/react-tailwind/ProgressBar'`
 `ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.
 
 Differences from `@primer/react`:
-- Rename `barSize` to `size` and `bg` to `variant`.
+- Rename `barSize` to `size` and `bg` to `variant`. The middle size is `medium` rather than upstream's `default`, matching the size vocabulary used across the package.
 
 ### Radio
 
@@ -550,7 +550,7 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 `SelectPanel` is a data-driven, filterable picker built with Base UI Combobox and Primer's Popover and Dialog primitives.
 
 Differences from `@primer/react`:
-- Use `renderAnchor={null}` with `anchorRef` for an external trigger; this configuration is type-checked.
+- `onOpenChange(open, gesture)` reports the gesture that caused the change rather than Base UI change details, and `disableFullscreenOnNarrow` stays opt-out where `FilteredActionList` uses the opt-in `fullScreenOnNarrow`. Both keep upstream's contract.
 
 ### SkeletonAvatar
 

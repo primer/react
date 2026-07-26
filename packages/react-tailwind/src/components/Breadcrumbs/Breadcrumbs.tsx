@@ -2,6 +2,7 @@
 
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 import {ActionMenu} from '../ActionMenu'
 
@@ -82,7 +83,7 @@ const BreadcrumbsRoot = React.forwardRef<HTMLElement, BreadcrumbsProps>(function
   forwardedRef,
 ) {
   const localRef = React.useRef<HTMLElement | null>(null)
-  const childrenArray = React.Children.toArray(children).filter(React.isValidElement)
+  const childrenArray = flattenChildren(children).filter(React.isValidElement)
   const keepRoot = overflow === 'menu-with-root' && childrenArray.length > 0
   const overflowCount = useOverflowCount(localRef, childrenArray.length, overflow !== 'wrap', keepRoot)
   const collapsed = overflowCount > 0 ? childrenArray.slice(0, overflowCount) : []

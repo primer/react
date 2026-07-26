@@ -7,8 +7,8 @@ import {getAccessibleKeybindingHintString, usePlatform} from './utils'
 export interface KeybindingHintProps {
   keys: string
   format?: 'condensed' | 'full'
-  variant?: 'normal' | 'onEmphasis' | 'onPrimary'
-  size?: 'small' | 'normal'
+  variant?: 'default' | 'onEmphasis' | 'onPrimary'
+  size?: 'small' | 'medium'
   className?: string
 }
 const condensedKeyNames: Record<string, string> = {
@@ -70,8 +70,8 @@ export const KeybindingHint = React.memo(function KeybindingHint({
   className,
   format = 'condensed',
   keys,
-  size = 'normal',
-  variant = 'normal',
+  size = 'medium',
+  variant = 'default',
 }: KeybindingHintProps) {
   const currentPlatform = usePlatform()
   const chords = keys.split(' ').filter(Boolean)
@@ -98,7 +98,7 @@ export const KeybindingHint = React.memo(function KeybindingHint({
               size === 'small'
                 ? 'min-w-4 rounded-sm p-0.5 text-[11px] leading-2'
                 : 'min-w-5 rounded-md p-1 text-xs leading-[10px]',
-              variant === 'normal' && 'border-default bg-transparent text-muted',
+              variant === 'default' && 'border-default bg-transparent text-muted',
               variant === 'onEmphasis' && 'border-transparent bg-[var(--counter-bgColor-emphasis)] text-on-emphasis',
               variant === 'onPrimary' &&
                 'border-transparent bg-[var(--button-primary-bgColor-active)] text-on-emphasis',

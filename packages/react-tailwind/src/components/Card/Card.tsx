@@ -2,6 +2,7 @@
 
 import {cva} from 'class-variance-authority'
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 
 const card = cva(
@@ -33,15 +34,6 @@ function isCardSlot(child: React.ReactNode, type: React.ElementType): child is C
   return React.isValidElement(child) && child.type === type
 }
 
-function flattenCardChildren(children: React.ReactNode): React.ReactNode[] {
-  return React.Children.toArray(children).flatMap(child => {
-    if (React.isValidElement<{children?: React.ReactNode}>(child) && child.type === React.Fragment) {
-      return flattenCardChildren(child.props.children)
-    }
-    return child
-  })
-}
-
 function CardComponent(
   {
     as: Component = 'div',
@@ -55,7 +47,7 @@ function CardComponent(
   ref: React.ForwardedRef<HTMLElement>,
 ) {
   const generatedTitleId = React.useId()
-  const childArray = flattenCardChildren(children)
+  const childArray = flattenChildren(children)
   const icon = childArray.find(child => isCardSlot(child, CardIcon))
   const image = childArray.find(child => isCardSlot(child, CardImage))
   const heading = childArray.find(child => isCardSlot(child, CardHeading))

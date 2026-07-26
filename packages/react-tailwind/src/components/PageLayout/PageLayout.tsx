@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 import {responsiveClasses} from '../../utils/responsive'
 import type {AsProp, CSSPropertiesWithCustomProperties, ResponsiveValue} from '../../utils/types'
@@ -150,7 +151,7 @@ const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayo
   ref,
 ) {
   const markers = React.useContext(PageLayoutMarkerContext)
-  const childArray = React.Children.toArray(children)
+  const childArray = flattenChildren(children)
   const header = childArray.find(
     child => React.isValidElement(child) && Boolean((child.type as PageLayoutHeaderComponent)[PAGE_LAYOUT_HEADER]),
   )

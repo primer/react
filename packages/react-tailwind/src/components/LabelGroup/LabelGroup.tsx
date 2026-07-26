@@ -3,6 +3,7 @@
 import {XIcon} from '@primer/octicons-react'
 import React from 'react'
 import {flushSync} from 'react-dom'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
@@ -49,7 +50,7 @@ export const LabelGroup = React.forwardRef<HTMLElement, LabelGroupProps>(functio
   const collapseButtonRef = React.useRef<HTMLElement>(null)
   const itemWidthsRef = React.useRef<number[]>([])
   const toggleWidthRef = React.useRef(0)
-  const childrenArray = React.Children.toArray(children)
+  const childrenArray = flattenChildren(children)
   const childCount = childrenArray.length
   const isList = Component === 'ul' || Component === 'ol'
   const ItemWrapper = isList ? 'li' : 'span'

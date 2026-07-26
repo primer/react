@@ -2,6 +2,7 @@
 
 import {AlertIcon, CheckIcon} from '@primer/octicons-react'
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 import {Button, ButtonBase, type ButtonBaseProps, type ButtonProps} from '../Button'
 import {IconButton} from '../IconButton'
@@ -189,7 +190,7 @@ export interface ActionListItemProps
 }
 
 function getItemParts(children: React.ReactNode) {
-  const childParts = React.Children.toArray(children)
+  const childParts = flattenChildren(children)
   const leadingVisual = childParts.find(child => React.isValidElement(child) && child.type === LeadingVisual)
   const trailingVisual = childParts.find(child => React.isValidElement(child) && child.type === TrailingVisual)
   const descriptions = childParts.filter(
@@ -313,7 +314,7 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
   const {role: listRole, selectionVariant, showDividers, variant: listVariant} = React.useContext(ListContext)
   const role = roleProp ?? getSelectionRole(listRole, selectionVariant)
   const selectionAttribute = getSelectionAttribute(role)
-  const childParts = React.Children.toArray(children)
+  const childParts = flattenChildren(children)
   const trailingAction = childParts.find(isTrailingAction)
   const itemChildren = childParts.filter(child => !isTrailingAction(child))
   const hasDescription = getItemParts(itemChildren).descriptions.length > 0
@@ -410,7 +411,7 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
   ref,
 ) {
   const context = React.useContext(ListContext)
-  const childParts = React.Children.toArray(children)
+  const childParts = flattenChildren(children)
   const trailingAction = childParts.find(isTrailingAction)
   const itemChildren = childParts.filter(child => !isTrailingAction(child))
   const hasDescription = getItemParts(itemChildren).descriptions.length > 0
@@ -455,7 +456,7 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
 ) {
   const context = React.useContext(ListContext)
   const generatedGroupLabelId = React.useId()
-  const childParts = React.Children.toArray(children)
+  const childParts = flattenChildren(children)
   const isGroupHeading = (child: React.ReactNode): child is React.ReactElement<ActionListGroupHeadingProps> =>
     React.isValidElement<ActionListGroupHeadingProps>(child) && child.type === GroupHeading
   const headingChildren = childParts.filter(isGroupHeading)
@@ -507,7 +508,7 @@ const GroupHeading = React.forwardRef<HTMLElement, ActionListGroupHeadingProps>(
   ref,
 ) {
   const {groupLabelId, role} = React.useContext(ListContext)
-  const childParts = React.Children.toArray(children)
+  const childParts = flattenChildren(children)
   const trailingAction = childParts.find(
     child => React.isValidElement(child) && child.type === GroupHeadingTrailingAction,
   )

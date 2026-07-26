@@ -4,6 +4,7 @@ import {ToggleGroup} from '@base-ui/react/toggle-group'
 import {Toggle} from '@base-ui/react/toggle'
 import {CheckIcon} from '@primer/octicons-react'
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
 import type {ResponsiveValue} from '../../utils/types'
 import {ActionMenu} from '../ActionMenu'
@@ -122,7 +123,7 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
 ) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState<readonly string[]>(defaultValue)
   const selectedValues = value ?? uncontrolledValue
-  const buttons = React.Children.toArray(children).filter(
+  const buttons = flattenChildren(children).filter(
     (child): child is React.ReactElement<SegmentedControlButtonProps> =>
       React.isValidElement<SegmentedControlButtonProps>(child) && (child.type === Button || child.type === IconButton),
   )

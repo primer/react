@@ -10,6 +10,8 @@ Tailwind preserves the `Pagination` API and `renderPage` composition while using
 
 ## Migration notes
 
+- `onPageChange(event, page)` keeps upstream's event-first signature rather than the package's usual `(value, details)` order, so existing handlers port unchanged.
+
 - Existing page-state and link composition can generally be retained.
 - Update custom `renderPage` code from legacy page metadata to `pageType`.
 - Keep data fetching and current-page state outside the component.

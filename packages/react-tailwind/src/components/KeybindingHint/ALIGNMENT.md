@@ -12,5 +12,6 @@ KeybindingHint remains a presentational shortcut hint with required `keys` and s
 
 - Pass the documented key tokens through `keys`; do not depend on a story platform override.
 - Use `format`, `variant`, and `size` rather than legacy styling props.
+- `size="normal"` is now `size="medium"` and `variant="normal"` is now `variant="default"`, matching the size and variant vocabulary used across the package.
 - Keep the shortcut hint supplemental to the control's accessible name.
 - `sx` and styled-system props are unsupported; use `className`.
