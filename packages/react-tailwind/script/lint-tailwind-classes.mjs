@@ -86,21 +86,51 @@ function isUnambiguousUtility(token) {
 const sourceFiles = await glob('src/**/*.{ts,tsx}', {
   cwd: packageRoot,
   absolute: true,
-  ignore: ['**/*.d.ts', '**/*.test.*', '**/*.stories.*', '**/*.storyHelpers.*', '**/test-setup.ts'],
+  ignore: [
+    '**/*.d.ts',
+    '**/*.test.*',
+    '**/*.stories.*',
+    '**/*.storyHelpers.*',
+    '**/test-setup.ts',
+    // Configures tailwind-merge class groups rather than emitting class names.
+    'src/internal/cn.ts',
+  ],
 })
 
-/** Every string literal in the package, with the location that produced it. */
+/** Markers that indicate a string literal is being used as a class name. */
+const CLASS_CONTEXT =
+  /(?:className|classNames|\bcn\(|\bcva\(|\bclsx\(|\bmergeClassName\(|ClassName\b|Classes\b|twMerge\()/
+
+/** Every string literal that sits in a class-name context, with the location that produced it. */
 const literals = []
 for (const file of sourceFiles) {
   const source = await readFile(file, 'utf8')
-  const lines = source.split('\n')
-  lines.forEach((line, index) => {
-    for (const match of line.matchAll(/['"]([^'"\n]{2,2000})['"]/g)) {
-      const value = match[1].trim()
-      if (!value || !value.includes('-') || value.includes('${')) continue
-      literals.push({file: path.relative(packageRoot, file), line: index + 1, value})
+  const lineStarts = []
+  let offset = 0
+  for (const line of source.split('\n')) {
+    lineStarts.push(offset)
+    offset += line.length + 1
+  }
+  const lineFor = index => {
+    let low = 0
+    let high = lineStarts.length - 1
+    while (low < high) {
+      const mid = Math.ceil((low + high) / 2)
+      if (lineStarts[mid] <= index) low = mid
+      else high = mid - 1
     }
-  })
+    return low + 1
+  }
+
+  for (const match of source.matchAll(/'([^'\n]{2,2000})'|"([^"\n]{2,2000})"/g)) {
+    const value = (match[1] ?? match[2]).trim()
+    if (!value || !value.includes('-') || value.includes('${')) continue
+    // A class list is always near the call or attribute that consumes it, including in
+    // multi-line cn() and cva() expressions.
+    const preceding = source.slice(Math.max(0, match.index - 600), match.index)
+    if (!CLASS_CONTEXT.test(preceding)) continue
+    literals.push({file: path.relative(packageRoot, file), line: lineFor(match.index), value})
+  }
 }
 
 const candidates = new Set()
@@ -151,10 +181,13 @@ try {
     const valid = tokens.filter(compiles)
     if (valid.length === tokens.length) continue
 
-    const corroborated = valid.length >= 2
     for (const token of tokens.filter(token => !compiles(token))) {
-      if (!corroborated && !isUnambiguousUtility(token)) continue
-      failures.push({...literal, token})
+      const base = token.split(VARIANT_SPLIT).pop() ?? token
+      // A token sitting beside a class that compiles is almost certainly meant to be one too,
+      // provided it also starts with a utility prefix.
+      if (UTILITY_PREFIX.test(base) || valid.length >= 2 || isUnambiguousUtility(token)) {
+        failures.push({...literal, token})
+      }
     }
   }
 

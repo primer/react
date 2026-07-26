@@ -137,7 +137,7 @@ const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionM
           actionItemClassName,
           'mx-2 !w-[calc(100%-1rem)]',
           'data-[highlighted]:bg-neutral-muted data-[highlighted]:text-default',
-          variant === 'danger' && 'text-danger-fg data-[highlighted]:bg-[var(--control-danger-bgColor-hover)]',
+          variant === 'danger' && 'text-danger data-[highlighted]:bg-[var(--control-danger-bgColor-hover)]',
         ),
         className,
       )}

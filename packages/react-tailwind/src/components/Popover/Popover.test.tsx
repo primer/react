@@ -91,6 +91,10 @@ describe('Popover', () => {
       </Popover>,
     )
 
-    expect(screen.getByTestId('arrow')).toHaveClass('fill-default', 'stroke-default', 'open')
+    expect(screen.getByTestId('arrow')).toHaveClass(
+      'fill-[var(--overlay-bgColor)]',
+      'stroke-[var(--borderColor-default)]',
+      'open',
+    )
   })
 })

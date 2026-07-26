@@ -114,7 +114,7 @@ const Arrow = React.forwardRef<HTMLDivElement, Omit<BaseTooltip.Arrow.Props, 'da
     <BaseTooltip.Arrow
       {...rest}
       ref={ref}
-      className={mergeClassName('fill-inset', className)}
+      className={mergeClassName('fill-[var(--tooltip-bgColor)]', className)}
       data-component="Tooltip.Arrow"
     />
   )

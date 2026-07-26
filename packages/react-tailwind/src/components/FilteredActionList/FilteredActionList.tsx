@@ -309,7 +309,7 @@ function FilteredActionListOption({
         'group cursor-default items-center outline-none data-[highlighted]:bg-neutral-muted',
         listVariant !== 'full' && 'mx-2 w-auto',
         descriptionVariant === 'block' && 'items-start',
-        optionVariant === 'danger' && 'text-danger-fg hover:bg-[var(--control-danger-bgColor-hover)]',
+        optionVariant === 'danger' && 'text-danger hover:bg-[var(--control-danger-bgColor-hover)]',
         virtualized && 'h-(--filtered-action-list-virtual-row-height) overflow-hidden',
         className,
         renderedActionListItem?.props.className,
@@ -410,7 +410,7 @@ function FilteredActionListDisabledOption({
         'cursor-not-allowed items-center text-disabled',
         listVariant !== 'full' && 'mx-2 w-auto',
         descriptionVariant === 'block' && 'items-start',
-        optionVariant === 'danger' && 'text-danger-fg',
+        optionVariant === 'danger' && 'text-danger',
         className,
         renderedActionListItem?.props.className,
       )}

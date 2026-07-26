@@ -16,5 +16,6 @@ A trailing action is a sibling of the primary item action, so the markup never n
 - Use `inactiveText` for supporting inactive status text, not a legacy inactive prop.
 - Multiple `Description` children are preserved in author order instead of being collapsed by the legacy slot extractor. Use one description when strict legacy rendering is required.
 - Use `size="large"` for the supported spacious item geometry and `GroupHeading variant="filled"` for a separated heading surface.
+- Item content inherits its colour from the item, so `variant="danger"` and inactive items tint their label, descriptions, and visuals together. The inactive warning keeps the attention colour. Custom item content that sets its own text colour will override this.
 - CSS-module-only variants remain unsupported.
 - Use `className` rather than `sx` or styled-system props.

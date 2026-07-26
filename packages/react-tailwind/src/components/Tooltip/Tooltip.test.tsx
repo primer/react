@@ -63,6 +63,6 @@ describe('Tooltip', () => {
     )
 
     expect(ref.current).toBe(screen.getByRole('link', {name: 'Save'}))
-    expect(screen.getByTestId('arrow')).toHaveClass('fill-inset', 'open')
+    expect(screen.getByTestId('arrow')).toHaveClass('fill-[var(--tooltip-bgColor)]', 'open')
   })
 })

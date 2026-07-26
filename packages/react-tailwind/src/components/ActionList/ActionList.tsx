@@ -271,7 +271,7 @@ export function ActionItemContent({
           <span className={cn('flex min-w-0 items-baseline', inlineDescriptions.length > 0 && 'gap-2')}>
             <span
               className={cn(
-                'relative text-sm leading-5 wrap-break-word text-default',
+                'relative text-sm leading-5 wrap-break-word',
                 descriptions.length === 0 && 'min-w-0 flex-1',
                 descriptions.length > 0 && 'font-semibold',
               )}
@@ -374,8 +374,9 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
           actionItemClassName,
           size === 'large' && 'py-2.5',
           renderedTrailingAction && 'min-w-0 flex-1',
-          variant === 'danger' && 'text-danger-fg hover:bg-[var(--control-danger-bgColor-hover)]',
-          active && 'ring-2 ring-accent-emphasis',
+          variant === 'danger' && 'text-danger hover:bg-[var(--control-danger-bgColor-hover)]',
+          inactiveText && 'text-muted',
+          active && 'bg-[var(--control-transparent-bgColor-selected)]',
           className,
         )}
         data-component="ActionList.Item.Action"
@@ -429,7 +430,7 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
         className={cn(
           actionItemClassName,
           trailingAction && 'min-w-0 flex-1',
-          variant === 'danger' && 'text-danger-fg hover:bg-[var(--control-danger-bgColor-hover)]',
+          variant === 'danger' && 'text-danger hover:bg-[var(--control-danger-bgColor-hover)]',
           selected && 'bg-accent-muted',
           className,
         )}

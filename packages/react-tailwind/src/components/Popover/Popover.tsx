@@ -129,7 +129,7 @@ const Arrow = React.forwardRef<HTMLDivElement, Omit<BasePopover.Arrow.Props, 'da
     <BasePopover.Arrow
       {...rest}
       ref={ref}
-      className={mergeClassName('fill-default stroke-default', className)}
+      className={mergeClassName('fill-[var(--overlay-bgColor)] stroke-[var(--borderColor-default)]', className)}
       data-component="Popover.Arrow"
     />
   )
