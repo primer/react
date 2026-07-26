@@ -13,8 +13,9 @@ import {ActionList} from '../ActionList'
 import {
   FilteredActionList,
   FilteredActionListLoadingTypes,
-  type GroupedListProps,
-  type RenderItemFn,
+  type FilteredActionListGroup,
+  type FilteredActionListItem,
+  type FilteredActionListRenderItem,
 } from '../FilteredActionList'
 import classes from './FilteredActionList.stories.module.css'
 
@@ -89,7 +90,7 @@ const labelItems = [
   },
 ]
 
-const groupedItems: GroupedListProps['items'] = [
+const groupedItems: ReadonlyArray<FilteredActionListItem & {groupId: string}> = [
   {
     id: 'repo-settings',
     leadingVisual: GearIcon,
@@ -140,7 +141,7 @@ const groupedItems: GroupedListProps['items'] = [
   },
 ]
 
-const groupMetadata: GroupedListProps['groupMetadata'] = [
+const groupMetadata: readonly FilteredActionListGroup[] = [
   {groupId: 'repositories', header: {title: 'Repositories', variant: 'filled'}},
   {groupId: 'planning', header: {title: 'Planning', variant: 'filled'}},
   {groupId: 'views', header: {title: 'Views', variant: 'filled'}},
@@ -161,7 +162,9 @@ const repositoryItems = Array.from({length: 150}, (_, index) => {
 
 const noop = () => undefined
 
-function getTrailingVisualContent(trailingVisual: Parameters<RenderItemFn>[0]['trailingVisual']): React.ReactNode {
+function getTrailingVisualContent(
+  trailingVisual: Parameters<FilteredActionListRenderItem>[0]['trailingVisual'],
+): React.ReactNode {
   if (
     typeof trailingVisual === 'string' ||
     typeof trailingVisual === 'number' ||
@@ -173,7 +176,7 @@ function getTrailingVisualContent(trailingVisual: Parameters<RenderItemFn>[0]['t
   return null
 }
 
-const customRenderItem: RenderItemFn = item => {
+const customRenderItem: FilteredActionListRenderItem = item => {
   const {
     description,
     leadingVisual,

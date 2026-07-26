@@ -42,6 +42,3 @@ export const Overlay = Object.assign(OverlayRoot, {
   Root: OverlayRoot,
   Content: OverlayContent,
 })
-
-/** @deprecated Use Overlay directly; it includes Root and Content. */
-export const OverlayParts = Overlay

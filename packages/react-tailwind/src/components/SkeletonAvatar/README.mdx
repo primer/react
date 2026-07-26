@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as SkeletonAvatarStories from './SkeletonAvatar.stories'
-import * as SkeletonAvatarFeatures from './SkeletonAvatar.features.stories'
-import * as SkeletonAvatarExamples from './SkeletonAvatar.examples.stories'
+import * as Stories from './SkeletonAvatar.stories'
+import * as Features from './SkeletonAvatar.features.stories'
+import * as Examples from './SkeletonAvatar.examples.stories'
 
-<Meta of={SkeletonAvatarStories} />
+<Meta of={Stories} />
 
 # SkeletonAvatar
 
 `SkeletonAvatar` reserves circular or square space for an avatar while the profile content is loading.
 
-<Canvas of={SkeletonAvatarStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -18,7 +18,7 @@ import {SkeletonAvatar} from '@primer/react-tailwind/SkeletonAvatar'
 ;<SkeletonAvatar size="medium" />
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -67,7 +67,7 @@ import {SkeletonAvatar} from '@primer/react-tailwind/SkeletonAvatar'
   </tbody>
 </table>
 
-<Controls of={SkeletonAvatarStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -91,6 +91,6 @@ The root exposes `data-component="SkeletonAvatar"` and `aria-busy="true"`. Prese
 
 ## Features and examples
 
-<Canvas of={SkeletonAvatarFeatures.Size} />
-<Canvas of={SkeletonAvatarFeatures.Square} />
-<Canvas of={SkeletonAvatarExamples.ProfileLoading} />
+<Canvas of={Features.Size} />
+<Canvas of={Features.Square} />
+<Canvas of={Examples.ProfileLoading} />

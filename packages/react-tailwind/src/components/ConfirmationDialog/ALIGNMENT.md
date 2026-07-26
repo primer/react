@@ -6,7 +6,9 @@ Legacy `ConfirmationDialog` is a single configuration component composed around 
 
 ## To: `@primer/react-tailwind`
 
-Tailwind `ConfirmationDialog` provides a configuration component plus `ConfirmationDialog.Root`, `Trigger`, `Portal`, `Backdrop`, `Viewport`, `Content`, `Title`, `Description`, and `Close` parts, backed by Base UI's alert-dialog behavior. Its config uses controlled state, `title`, `description`, `dangerous`, `onCancel`, `onConfirm`, optional `trigger`, and loading/disabled button props. Focus management, dismissal, portal/layer behavior, and confirmation layout are owned by the modern composition. Tailwind utilities and Primer semantic tokens provide presentation.
+Tailwind `ConfirmationDialog` provides a configuration component and `ConfirmationDialog.Root`, `Trigger`, `Portal`, `Backdrop`, `Viewport`, `Content`, `Title`, `Description`, and `Close` parts. Base UI provides alert-dialog behavior.
+
+Its config uses controlled state, `title`, `description`, `dangerous`, `onCancel`, `onConfirm`, an optional `trigger`, and loading or disabled button props. The composition owns focus management, dismissal, portal and layer behavior, and confirmation layout. Tailwind utilities and Primer semantic tokens provide presentation.
 
 ## Migration notes
 

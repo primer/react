@@ -1,3 +1,5 @@
+'use client'
+
 import {Dialog as AlertDialog} from '@base-ui/react/dialog'
 import React from 'react'
 import {mergeClassName} from '../../internal/mergeClassName'
@@ -228,7 +230,3 @@ export const ConfirmationDialog = Object.assign(ConfirmationDialogConfig, {
   Description,
   Close,
 })
-
-/** @deprecated Use ConfirmationDialog directly; it includes Root and Content. */
-export const ConfirmationDialogParts = ConfirmationDialog
-;('use client')

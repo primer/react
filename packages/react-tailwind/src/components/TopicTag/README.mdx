@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as TopicTagStories from './TopicTag.stories'
-import * as TopicTagFeatures from './TopicTag.features.stories'
-import * as TopicTagExamples from './TopicTag.examples.stories'
+import * as Stories from './TopicTag.stories'
+import * as Features from './TopicTag.features.stories'
+import * as Examples from './TopicTag.examples.stories'
 
-<Meta of={TopicTagStories} />
+<Meta of={Stories} />
 
 # TopicTag
 
 `TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTagGroup` wraps tags into a responsive row.
 
-<Canvas of={TopicTagStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -21,7 +21,7 @@ import {TopicTag, TopicTagGroup} from '@primer/react-tailwind/TopicTag'
 </TopicTagGroup>
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -78,7 +78,7 @@ import {TopicTag, TopicTagGroup} from '@primer/react-tailwind/TopicTag'
   </tbody>
 </table>
 
-<Controls of={TopicTagStories.Playground} />
+<Controls of={Stories.Playground} />
 
 `TopicTagGroup` accepts standard `div` props and lays out children with wrapping and a two-unit gap.
 
@@ -104,6 +104,6 @@ Topic tags use Primer accent tokens. Import package styles or compile Tailwind v
 
 ## Features and examples
 
-<Canvas of={TopicTagFeatures.AsGroup} />
-<Canvas of={TopicTagFeatures.AsButton} />
-<Canvas of={TopicTagExamples.RepositoryTopics} />
+<Canvas of={Features.AsGroup} />
+<Canvas of={Features.AsButton} />
+<Canvas of={Examples.RepositoryTopics} />

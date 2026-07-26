@@ -6,7 +6,7 @@ Legacy SegmentedControl renders a single-choice control in `ul`/`li` wrappers an
 
 ## To: `@primer/react-tailwind`
 
-The stable Base UI-backed control renders toggle buttons directly in a group. It preserves controlled/uncontrolled value selection, keyboard behavior, focus treatment, disabled buttons, icon-only buttons, icons, counters, small/medium sizes, responsive full-width behavior, responsive label hiding, and the responsive ActionMenu fallback. `Button` and `IconButton` parts provide the stable composition rather than legacy list wrappers.
+The Base UI-backed control renders toggle buttons directly in a group. It preserves controlled and uncontrolled value selection, keyboard behavior, focus treatment, disabled and icon-only buttons, icons, counters, small and medium sizes, responsive full-width behavior, responsive label hiding, and the responsive ActionMenu fallback. `Button` and `IconButton` replace legacy list wrappers.
 
 ## Migration notes
 

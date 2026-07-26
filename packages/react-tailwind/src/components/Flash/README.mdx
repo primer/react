@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as FlashStories from './Flash.stories'
-import * as FlashFeatures from './Flash.features.stories'
-import * as FlashExamples from './Flash.examples.stories'
+import * as Stories from './Flash.stories'
+import * as Features from './Flash.features.stories'
+import * as Examples from './Flash.examples.stories'
 
-<Meta of={FlashStories} />
+<Meta of={Stories} />
 
 # Flash
 
 `Flash` presents a prominent message with semantic visual variants and an optional full-width layout.
 
-<Canvas of={FlashStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -18,7 +18,7 @@ import {Flash} from '@primer/react-tailwind/Flash'
 ;<Flash variant="success">Your changes were saved.</Flash>
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -89,7 +89,7 @@ import {Flash} from '@primer/react-tailwind/Flash'
   </tbody>
 </table>
 
-<Controls of={FlashStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -111,12 +111,12 @@ Variants use Primer semantic accent, success, attention, and danger tokens. Impo
 
 The root exposes `data-component="Flash"`, `data-variant`, and `data-full` when `full` is true.
 
-## Upstream alignment
+## Alignment
 
 The local stories cover variants and full-width layout. The dismissible example models visibility with a local button and state because `Flash` itself has no dismiss callback or close-control prop.
 
 ## Features and examples
 
-<Canvas of={FlashFeatures.AllVariants} />
-<Canvas of={FlashFeatures.WithIconAndAction} />
-<Canvas of={FlashExamples.Dismissible} />
+<Canvas of={Features.AllVariants} />
+<Canvas of={Features.WithIconAndAction} />
+<Canvas of={Examples.Dismissible} />

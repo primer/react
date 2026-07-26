@@ -6,11 +6,11 @@ The upstream configured API provides filtering, item and list render callbacks, 
 
 ## To: `@primer/react-tailwind`
 
-The Tailwind configured component supports the non-deprecated data API: string and number IDs, item text/descriptions/visuals/children/class names, disabled/danger/selected states, groups and headings, item/group/list render precedence, modern controlled and uncontrolled filter and selected-ID state with Base UI change details, legacy item `selected`/`onAction`, all three selection variants, select-all, input/body spinner/body skeleton loading, custom messages, DOM props and refs, and uniform-list virtualization.
+The Tailwind configured component supports string and number IDs; item text, descriptions, visuals, children, and class names; disabled, danger, and selected states; groups and headings; and item, group, and list render precedence. It supports controlled and uncontrolled filter and selected-ID state with Base UI change details, legacy item `selected`/`onAction`, all three selection variants, select-all, loading states, custom messages, DOM props, refs, and uniform-list virtualization.
 
-The implementation is a config component because it owns filtering, ordering, selection, announcements, and the combobox/listbox contract. It composes Base UI combobox behavior with package primitives rather than duplicating focus, keyboard, or selection behavior. Consumers that need arbitrary markup or behavior can compose `TextInput` and `ActionList` without overriding FilteredActionList internals.
+The component owns filtering, ordering, selection, announcements, and the combobox/listbox contract. It composes Base UI combobox behavior with package primitives rather than duplicating focus, keyboard, or selection behavior. Consumers that need arbitrary markup or behavior can compose `TextInput` and `ActionList`.
 
-## Intentional API decisions
+## Migration notes
 
 - Deprecated `trailingIcon` and `trailingText` are not included; use `trailingVisual`.
 - The public focus behavior props from the upstream component are supported: `focusOutBehavior`, `onActiveDescendantChanged`, `disableSelectOnHover`, `setInitialFocus`, `focusPrependedElements`, `scrollBehavior`, and `fullScreenOnNarrow`.

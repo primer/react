@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as InlineMessageStories from './InlineMessage.stories'
-import * as InlineMessageFeatures from './InlineMessage.features.stories'
-import * as InlineMessageExamples from './InlineMessage.examples.stories'
+import * as Stories from './InlineMessage.stories'
+import * as Features from './InlineMessage.features.stories'
+import * as Examples from './InlineMessage.examples.stories'
 
-<Meta of={InlineMessageStories} />
+<Meta of={Stories} />
 
 # InlineMessage
 
 `InlineMessage` communicates validation, status, and availability inline with content or a form control.
 
-<Canvas of={InlineMessageStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -18,7 +18,7 @@ import {InlineMessage} from '@primer/react-tailwind/InlineMessage'
 ;<InlineMessage variant="success">Your changes were saved.</InlineMessage>
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -85,7 +85,7 @@ import {InlineMessage} from '@primer/react-tailwind/InlineMessage'
   </tbody>
 </table>
 
-<Controls of={InlineMessageStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -109,6 +109,6 @@ The root exposes `data-component="InlineMessage"`, `data-size`, and `data-varian
 
 ## Features and examples
 
-<Canvas of={InlineMessageFeatures.Multiline} />
-<Canvas of={InlineMessageFeatures.CustomLeadingVisual} />
-<Canvas of={InlineMessageExamples.FormValidation} />
+<Canvas of={Features.Multiline} />
+<Canvas of={Features.CustomLeadingVisual} />
+<Canvas of={Examples.FormValidation} />

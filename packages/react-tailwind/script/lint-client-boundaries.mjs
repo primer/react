@@ -9,10 +9,12 @@ const files = glob.sync('src/**/*.{ts,tsx}', {
   cwd: packageDirectory,
   ignore: ['**/*.d.ts', '**/*.stories.*', '**/*.storyHelpers.*', '**/*.test.*', '**/test-setup.ts'],
 })
-const clientRuntimePattern = /\b(?:React\.)?(?:createContext|use[A-Z][A-Za-z0-9]*)\s*\(/
+// Matches `useThing(`, `React.useThing(`, and `createContext(`, including calls
+// with explicit type arguments such as `useRef<HTMLElement>(`.
+const clientRuntimePattern = /\b(?:React\.)?(?:createContext|use[A-Z][A-Za-z0-9]*)\s*(?:<[^()]*>\s*)?\(/
 const failures = files.filter(filepath => {
   const source = fs.readFileSync(filepath, 'utf8')
-  return clientRuntimePattern.test(source) && !/^\s*['"]use client['"]/.test(source)
+  return clientRuntimePattern.test(source) && !/^['"]use client['"]/.test(source)
 })
 
 if (failures.length > 0) {

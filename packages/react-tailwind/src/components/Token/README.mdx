@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as TokenStories from './Token.stories'
-import * as TokenFeatures from './Token.features.stories'
-import * as TokenExamples from './Token.examples.stories'
+import * as Stories from './Token.stories'
+import * as Features from './Token.features.stories'
+import * as Examples from './Token.examples.stories'
 
-<Meta of={TokenStories} />
+<Meta of={Stories} />
 
 # Token
 
 `Token` displays compact filter or selection content with optional leading visuals, selection state, and removal behavior. `IssueLabelToken` provides the same token interaction model with a custom label color.
 
-<Canvas of={TokenStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -18,7 +18,7 @@ import {Token} from '@primer/react-tailwind/Token'
 ;<Token text="bug" isSelected onRemove={() => removeFilter('bug')} />
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -135,7 +135,7 @@ import {Token} from '@primer/react-tailwind/Token'
   </tbody>
 </table>
 
-<Controls of={TokenStories.Playground} />
+<Controls of={Stories.Playground} />
 
 `TokenBase` exposes the shared base API. `IssueLabelToken` adds `fillColor?: string` and derives light- and dark-theme backgrounds, foregrounds, borders, hover states, and selection treatment from that color.
 
@@ -159,12 +159,12 @@ Use `className` to extend token layout and Primer semantic border/background tok
 
 `Token` and `IssueLabelToken` expose `data-component="TokenBase"`, `data-cursor-is-interactive`, `data-is-selected`, and `data-size`. The remove affordance exposes `data-component="Token.RemoveButton"`.
 
-## Upstream alignment
+## Alignment
 
 Interactive removable tokens render their primary action and pointer removal affordance as siblings inside `TokenBase`, avoiding nested controls while preserving Backspace and Delete removal. Non-interactive tokens retain a labelled remove button.
 
 ## Features and examples
 
-<Canvas of={TokenFeatures.InteractiveToken} />
-<Canvas of={TokenFeatures.InteractiveIssueLabelToken} />
-<Canvas of={TokenExamples.FilterChips} />
+<Canvas of={Features.InteractiveToken} />
+<Canvas of={Features.InteractiveIssueLabelToken} />
+<Canvas of={Examples.FilterChips} />

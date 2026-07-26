@@ -1,20 +1,20 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as ActionBarStories from './ActionBar.stories'
-import * as ActionBarFeatures from './ActionBar.features.stories'
-import * as ActionBarExamples from './ActionBar.examples.stories'
+import * as Stories from './ActionBar.stories'
+import * as Features from './ActionBar.features.stories'
+import * as Examples from './ActionBar.examples.stories'
 
-<Meta of={ActionBarStories} />
+<Meta of={Stories} />
 
 # ActionBar
 
 `ActionBar` groups related actions with `Button`, `IconButton`, `Group`, `Divider`, and `Menu` parts.
 
-<Canvas of={ActionBarStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Props
 
-<Controls of={ActionBarStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Usage
 
@@ -28,6 +28,6 @@ import {ActionBar} from '@primer/react-tailwind'
 
 Give every icon-only action an accessible name. Arrow keys move between enabled actions; menus must retain their own keyboard dismissal path.
 
-<Canvas of={ActionBarFeatures.RovingFocus} />
+<Canvas of={Features.RovingFocus} />
 
-<Canvas of={ActionBarExamples.WithGroups} />
+<Canvas of={Examples.WithGroups} />

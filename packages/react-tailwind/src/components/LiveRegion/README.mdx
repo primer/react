@@ -1,20 +1,20 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as LiveRegionStories from './LiveRegion.stories'
-import * as LiveRegionFeatures from './LiveRegion.features.stories'
-import * as LiveRegionExamples from './LiveRegion.examples.stories'
+import * as Stories from './LiveRegion.stories'
+import * as Features from './LiveRegion.features.stories'
+import * as Examples from './LiveRegion.examples.stories'
 
-<Meta of={LiveRegionStories} />
+<Meta of={Stories} />
 
 # LiveRegion
 
 Use live regions to announce asynchronous changes without moving focus.
 
-<Canvas of={LiveRegionStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Props
 
-<Controls of={LiveRegionStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Usage
 
@@ -28,6 +28,6 @@ import {Announce, AriaAlert, AriaStatus} from '@primer/react-tailwind'
 
 `AriaStatus` is polite and `AriaAlert` is assertive. Keep messages concise and do not combine a live-region announcement with unexpected focus movement.
 
-<Canvas of={LiveRegionFeatures.WithDelay} />
+<Canvas of={Features.WithDelay} />
 
-<Canvas of={LiveRegionExamples.AsyncSave} />
+<Canvas of={Examples.AsyncSave} />

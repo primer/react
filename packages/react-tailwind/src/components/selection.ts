@@ -32,8 +32,6 @@ export {
   type FilteredActionListProps,
   type FilteredActionListRenderItem,
   type FilteredActionListTextInputProps,
-  type GroupedListProps,
-  type RenderItemFn,
 } from './FilteredActionList'
 export {
   SelectPanel,

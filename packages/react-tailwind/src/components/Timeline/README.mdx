@@ -1,20 +1,20 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as TimelineStories from './Timeline.stories'
-import * as TimelineFeatures from './Timeline.features.stories'
-import * as TimelineExamples from './Timeline.examples.stories'
+import * as Stories from './Timeline.stories'
+import * as Features from './Timeline.features.stories'
+import * as Examples from './Timeline.examples.stories'
 
-<Meta of={TimelineStories} />
+<Meta of={Stories} />
 
 # Timeline
 
 `Timeline` is a presentational compound activity stream built from `Item`, `Badge`, `Body`, `Actions`, `Avatar`, and `Break` parts.
 
-<Canvas of={TimelineStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Props
 
-<Controls of={TimelineStories.Default} />
+<Controls of={Stories.Default} />
 
 ## Usage
 
@@ -32,6 +32,6 @@ Use `Timeline.Item` for each event and preserve reading order when adding action
 
 Timeline does not prescribe event taxonomies. Compose package primitives such as `Avatar`, `Label`, `Link`, and `RelativeTime` inside its parts. The event stories demonstrate Issues, comments, Code Scanning, Dependabot, License Compliance, and Secret Scanning compositions without adding product-specific runtime APIs.
 
-<Canvas of={TimelineFeatures.WithActions} />
+<Canvas of={Features.WithActions} />
 
-<Canvas of={TimelineExamples.ActivityStream} />
+<Canvas of={Examples.ActivityStream} />

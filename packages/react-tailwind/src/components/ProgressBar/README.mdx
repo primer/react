@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as ProgressBarStories from './ProgressBar.stories'
-import * as ProgressBarFeatures from './ProgressBar.features.stories'
-import * as ProgressBarExamples from './ProgressBar.examples.stories'
+import * as Stories from './ProgressBar.stories'
+import * as Features from './ProgressBar.features.stories'
+import * as Examples from './ProgressBar.examples.stories'
 
-<Meta of={ProgressBarStories} />
+<Meta of={Stories} />
 
 # ProgressBar
 
 `ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.
 
-<Canvas of={ProgressBarStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -27,7 +27,7 @@ For multiple segments, pass items as children:
 </ProgressBar>
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -112,7 +112,7 @@ For multiple segments, pass items as children:
   </tbody>
 </table>
 
-<Controls of={ProgressBarStories.Playground} />
+<Controls of={Stories.Playground} />
 
 `ProgressBar.Item` accepts `progress`, `variant`, and `animated`, plus standard `span` attributes. Its progress is also clamped to 0–100.
 
@@ -138,6 +138,6 @@ The track exposes `data-component="ProgressBar"` and each segment exposes `data-
 
 ## Features and examples
 
-<Canvas of={ProgressBarFeatures.MultipleItems} />
-<Canvas of={ProgressBarFeatures.Animated} />
-<Canvas of={ProgressBarExamples.WithVisibleTextValue} />
+<Canvas of={Features.MultipleItems} />
+<Canvas of={Features.Animated} />
+<Canvas of={Examples.WithVisibleTextValue} />

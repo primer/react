@@ -1,12 +1,14 @@
 # Alignment
 
-## From (`@primer/react`)
+## From: `@primer/react`
 
 Legacy TreeView has nested items, selection, truncation, roving focus, expansion, async success/count/error fixtures, and drag-and-drop-oriented product extensions.
 
-## To (`@primer/react-tailwind`)
+## To: `@primer/react-tailwind`
 
-TreeView is a presentational compound API: `Item` accepts `LeadingVisual`, `TrailingVisual`, and `SubTree` children, while `DirectoryIcon` and visual render functions respond to expansion state. The convenience `subtree`, `leadingVisual`, and `trailingVisual` item props remain supported. It provides `flat`, `truncate`, current state, controlled/uncontrolled expansion, selection callbacks, optional `containIntrinsicSize`, APG tree keyboard navigation, and a native `as` escape hatch with valid list/tree markup.
+TreeView is a presentational compound API. `Item` accepts `LeadingVisual`, `TrailingVisual`, and `SubTree` children, while `DirectoryIcon` and visual render functions respond to expansion state. The convenience `subtree`, `leadingVisual`, and `trailingVisual` item props remain supported.
+
+It provides `flat`, `truncate`, current state, controlled and uncontrolled expansion, selection callbacks, optional `containIntrinsicSize`, APG tree keyboard navigation, and a native `as` escape hatch with valid list and tree markup.
 
 ## Migration notes
 

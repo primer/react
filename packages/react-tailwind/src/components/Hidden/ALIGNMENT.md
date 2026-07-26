@@ -6,7 +6,9 @@ Legacy Hidden suppresses content across named narrow, regular, and wide viewport
 
 ## To: `@primer/react-tailwind`
 
-Hidden remains a presentational responsive wrapper with a required `when` range. Static Tailwind utilities implement the named ranges exactly: narrow is below `md` (48rem/768px), regular is `md` through below `2xl` (87.5rem/1400px), and wide begins at `2xl`. Multiple requested ranges are additive, so hiding narrow and wide leaves content visible only in the regular range. It renders a `div`, forwards its ref and normal DOM props, does not use Base UI, and needs no behavior hook because it has no state or interaction.
+Hidden is a presentational responsive wrapper with a required `when` range. Static Tailwind utilities map narrow to below `md` (48rem/768px), regular to `md` through below `2xl` (87.5rem/1400px), and wide to `2xl` and above. Multiple requested ranges are additive, so hiding narrow and wide leaves content visible only in the regular range.
+
+It renders a `div` and forwards its ref and DOM props. It does not use Base UI or need a behavior hook because it has no state or interaction.
 
 ## Migration notes
 

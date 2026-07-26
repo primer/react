@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as IssueLabelStories from './IssueLabel.stories'
-import * as IssueLabelFeatures from './IssueLabel.features.stories'
-import * as IssueLabelExamples from './IssueLabel.examples.stories'
+import * as Stories from './IssueLabel.stories'
+import * as Features from './IssueLabel.features.stories'
+import * as Examples from './IssueLabel.examples.stories'
 
-<Meta of={IssueLabelStories} />
+<Meta of={Stories} />
 
 # IssueLabel
 
 `IssueLabel` displays a colored label and can render as a link, button, or custom element for interactive label workflows.
 
-<Canvas of={IssueLabelStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -20,7 +20,7 @@ import {IssueLabel} from '@primer/react-tailwind/IssueLabel'
 <IssueLabel href="/labels/bug" variant="red">bug</IssueLabel>
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -91,7 +91,7 @@ import {IssueLabel} from '@primer/react-tailwind/IssueLabel'
   </tbody>
 </table>
 
-<Controls of={IssueLabelStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -115,6 +115,6 @@ The root exposes `data-component="IssueLabel"` and `data-variant` for preset var
 
 ## Features and examples
 
-<Canvas of={IssueLabelFeatures.GroupOfLabels} />
-<Canvas of={IssueLabelFeatures.AsLink} />
-<Canvas of={IssueLabelExamples.LabelList} />
+<Canvas of={Features.GroupOfLabels} />
+<Canvas of={Features.AsLink} />
+<Canvas of={Examples.LabelList} />

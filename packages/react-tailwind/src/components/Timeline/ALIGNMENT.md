@@ -6,7 +6,9 @@ Legacy Timeline includes product-specific event-card stories that combine avatar
 
 ## To: `@primer/react-tailwind`
 
-Timeline exposes seven composable parts: root, item, avatar, badge, body, break, and actions. It retains `clipSidebar`, condensed items, badge variants, a semantic ordered-list root, and responsive action wrapping. `Timeline.Break` always renders a presentational list item. This is a presentational API: consumers retain control of event content, ordering, links, headings, and actions through normal React composition. It is not a Base UI primitive and does not absorb product taxonomies or application feature gates.
+Timeline exposes root, item, avatar, badge, body, break, and action parts. It retains `clipSidebar`, condensed items, badge variants, a semantic ordered-list root, and responsive action wrapping. `Timeline.Break` always renders a presentational list item.
+
+This is a presentational API. Consumers retain control of event content, ordering, links, headings, and actions through normal React composition. It is not a Base UI primitive and does not absorb product taxonomies or application feature gates.
 
 ## Migration notes
 

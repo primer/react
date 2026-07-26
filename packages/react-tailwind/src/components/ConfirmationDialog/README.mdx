@@ -1,20 +1,20 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as ConfirmationDialogStories from './ConfirmationDialog.stories'
-import * as ConfirmationDialogFeatures from './ConfirmationDialog.features.stories'
-import * as ConfirmationDialogExamples from './ConfirmationDialog.examples.stories'
+import * as Stories from './ConfirmationDialog.stories'
+import * as Features from './ConfirmationDialog.features.stories'
+import * as Examples from './ConfirmationDialog.examples.stories'
 
-<Meta of={ConfirmationDialogStories} />
+<Meta of={Stories} />
 
 # ConfirmationDialog
 
 `ConfirmationDialog` asks a user to confirm or cancel a consequential action.
 
-<Canvas of={ConfirmationDialogStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Props
 
-<Controls of={ConfirmationDialogStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Usage
 
@@ -30,6 +30,6 @@ import {ConfirmationDialog} from '@primer/react-tailwind'
 
 Use a concise title that describes the consequence. The confirm action should be specific and visibly distinct from cancel.
 
-<Canvas of={ConfirmationDialogFeatures.ShorthandHook} />
+<Canvas of={Features.ShorthandHook} />
 
-<Canvas of={ConfirmationDialogExamples.DestructiveConfirmation} />
+<Canvas of={Examples.DestructiveConfirmation} />

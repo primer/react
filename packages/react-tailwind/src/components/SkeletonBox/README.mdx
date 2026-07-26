@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as SkeletonBoxStories from './SkeletonBox.stories'
-import * as SkeletonBoxFeatures from './SkeletonBox.features.stories'
-import * as SkeletonBoxExamples from './SkeletonBox.examples.stories'
+import * as Stories from './SkeletonBox.stories'
+import * as Features from './SkeletonBox.features.stories'
+import * as Examples from './SkeletonBox.examples.stories'
 
-<Meta of={SkeletonBoxStories} />
+<Meta of={Stories} />
 
 # SkeletonBox
 
 `SkeletonBox` reserves space for content that is loading, using a shimmer placeholder that can be delayed until a request has taken long enough to show.
 
-<Canvas of={SkeletonBoxStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -20,7 +20,7 @@ import {SkeletonBox} from '@primer/react-tailwind/SkeletonBox'
 
 Use it in a loading composition with dimensions that match the eventual content. `as` changes the semantic element without changing the placeholder behavior.
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -87,7 +87,7 @@ Use it in a loading composition with dimensions that match the eventual content.
   </tbody>
 </table>
 
-<Controls of={SkeletonBoxStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -109,12 +109,12 @@ The default background uses the `--skeletonLoader-bgColor` Primer token. Import 
 
 The root exposes `data-component="SkeletonBox"` and `aria-busy="true"`. Dimensions and delay are represented by inline styles and mounting state.
 
-## Upstream alignment
+## Alignment
 
 Examples preserve the loading compositions using only local `SkeletonBox`, `SkeletonText`, and `SkeletonAvatar` primitives. Upstream data loading fixtures and Suspense helpers are not imported into this package.
 
 ## Features and examples
 
-<Canvas of={SkeletonBoxFeatures.CustomHeight} />
-<Canvas of={SkeletonBoxFeatures.ReducedMotion} />
-<Canvas of={SkeletonBoxExamples.CommentsLoading} />
+<Canvas of={Features.CustomHeight} />
+<Canvas of={Features.ReducedMotion} />
+<Canvas of={Examples.CommentsLoading} />

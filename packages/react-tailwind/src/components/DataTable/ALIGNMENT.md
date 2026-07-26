@@ -6,7 +6,7 @@ Legacy DataTable combines table rendering with query loading/error state, pagina
 
 ## To: `@primer/react-tailwind`
 
-DataTable preserves native table semantics, nested field paths, columns, caller-owned row identity, column widths, initial and external sorting, and `onToggleSort`. It also exposes composable parts for head, body, rows, headers, sortable headers, cells, container, title, subtitle, actions, skeletons, and pagination.
+DataTable preserves native table semantics, nested field paths, columns, caller-owned row identity, column widths, initial and external sorting, and `onToggleSort`. It exposes composable head, body, row, header, sortable header, cell, container, title, subtitle, action, skeleton, and pagination parts.
 
 ## Migration notes
 

@@ -6,7 +6,9 @@ Legacy PageLayout provides responsive slots, sticky and resizable panes, and app
 
 ## To: `@primer/react-tailwind`
 
-PageLayout keeps `Header`, `Content`, `Pane`, `Sidebar`, and `Footer` slots plus container, padding, gap, width, sticky, divider, hidden, responsive pane position, and resize configuration. `Sidebar` is extracted into a root-level region while the other regions remain in the content wrapper, matching the legacy responsive structure. Pane dividers are horizontal at narrow widths and vertical from the regular range. Sticky positioning and resize widths activate from the regular range; resize uses the local `widthStorageKey`, `currentWidth`, and `onResizeEnd` contract. It does not use Base UI.
+PageLayout keeps `Header`, `Content`, `Pane`, `Sidebar`, and `Footer` slots plus container, padding, gap, width, sticky, divider, hidden, responsive pane position, and resize configuration. `Sidebar` is a root-level region while the other regions remain in the content wrapper, matching the legacy responsive structure.
+
+Pane dividers are horizontal at narrow widths and vertical from the regular range. Sticky positioning and resize widths activate from the regular range. Resize uses the local `widthStorageKey`, `currentWidth`, and `onResizeEnd` contract. It does not use Base UI.
 
 ## Migration notes
 

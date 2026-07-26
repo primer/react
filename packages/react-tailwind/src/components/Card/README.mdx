@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as CardStories from './Card.stories'
-import * as CardFeatures from './Card.features.stories'
-import * as CardExamples from './Card.examples.stories'
+import * as Stories from './Card.stories'
+import * as Features from './Card.features.stories'
+import * as Examples from './Card.examples.stories'
 
-<Meta of={CardStories} />
+<Meta of={Stories} />
 
 # Card
 
 `Card` is a composable content container with heading, description, image, metadata, icon, and action parts.
 
-<Canvas of={CardStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -23,7 +23,7 @@ import {Card} from '@primer/react-tailwind/Card'
 
 The compound API is exposed as properties on `Card`; the named part exports are also available.
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -96,7 +96,7 @@ The compound API is exposed as properties on `Card`; the named part exports are 
   </tbody>
 </table>
 
-<Controls of={CardStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -120,6 +120,6 @@ The root exposes `data-component="Card"`, `data-layout`, `data-padding`, and `da
 
 ## Features and examples
 
-<Canvas of={CardFeatures.WithMetadata} />
-<Canvas of={CardFeatures.InteractiveContent} />
-<Canvas of={CardExamples.RepositorySummary} />
+<Canvas of={Features.WithMetadata} />
+<Canvas of={Features.InteractiveContent} />
+<Canvas of={Examples.RepositorySummary} />

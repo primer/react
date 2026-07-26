@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as BlankslateStories from './Blankslate.stories'
-import * as BlankslateFeatures from './Blankslate.features.stories'
-import * as BlankslateExamples from './Blankslate.examples.stories'
+import * as Stories from './Blankslate.stories'
+import * as Features from './Blankslate.features.stories'
+import * as Examples from './Blankslate.examples.stories'
 
-<Meta of={BlankslateStories} />
+<Meta of={Stories} />
 
 # Blankslate
 
 `Blankslate` provides a structured empty state with optional visual, heading, description, and primary or secondary actions.
 
-<Canvas of={BlankslateStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -31,7 +31,7 @@ import {
 </Blankslate>
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -104,7 +104,7 @@ import {
   </tbody>
 </table>
 
-<Controls of={BlankslateStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -128,6 +128,6 @@ The wrapper exposes `data-component="Blankslate.Container"`. The root exposes `d
 
 ## Features and examples
 
-<Canvas of={BlankslateFeatures.WithPrimaryActionAsLink} />
-<Canvas of={BlankslateFeatures.WithSecondaryAction} />
-<Canvas of={BlankslateExamples.EmptyRepository} />
+<Canvas of={Features.WithPrimaryActionAsLink} />
+<Canvas of={Features.WithSecondaryAction} />
+<Canvas of={Examples.EmptyRepository} />

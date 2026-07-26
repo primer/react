@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as TruncateStories from './Truncate.stories'
-import * as TruncateFeatures from './Truncate.features.stories'
-import * as TruncateExamples from './Truncate.examples.stories'
+import * as Stories from './Truncate.stories'
+import * as Features from './Truncate.features.stories'
+import * as Examples from './Truncate.examples.stories'
 
-<Meta of={TruncateStories} />
+<Meta of={Stories} />
 
 # Truncate
 
 `Truncate` applies single-line overflow truncation while preserving the full value in the native `title` tooltip.
 
-<Canvas of={TruncateStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -20,7 +20,7 @@ import {Truncate} from '@primer/react-tailwind/Truncate'
 
 The `title` prop is required and is also the accessible/native tooltip value. The component's content is supplied through standard `children`.
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -103,7 +103,7 @@ The `title` prop is required and is also the accessible/native tooltip value. Th
   </tbody>
 </table>
 
-<Controls of={TruncateStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -127,6 +127,6 @@ The root exposes `data-component="Truncate"` and `data-expandable` when `expanda
 
 ## Features and examples
 
-<Canvas of={TruncateFeatures.Expandable} />
-<Canvas of={TruncateFeatures.CustomElement} />
-<Canvas of={TruncateExamples.NavigationLabel} />
+<Canvas of={Features.Expandable} />
+<Canvas of={Features.CustomElement} />
+<Canvas of={Examples.NavigationLabel} />

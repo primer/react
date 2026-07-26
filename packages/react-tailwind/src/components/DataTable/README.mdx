@@ -1,20 +1,20 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as DataTableStories from './DataTable.stories'
-import * as DataTableFeatures from './DataTable.features.stories'
-import * as DataTableExamples from './DataTable.examples.stories'
+import * as Stories from './DataTable.stories'
+import * as Features from './DataTable.features.stories'
+import * as Examples from './DataTable.examples.stories'
 
-<Meta of={DataTableStories} />
+<Meta of={Stories} />
 
 # DataTable
 
 `DataTable` is a presentational, typed table for stable row data. It owns native table structure, sorting state, and column layout while `Table` exposes structural parts for custom composition.
 
-<Canvas of={DataTableStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Props
 
-<Controls of={DataTableStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Usage
 
@@ -38,6 +38,6 @@ Columns grow by default. Use `width="auto"`, `width="growCollapse"`, an explicit
 
 Sortable headers use native buttons and `aria-sort`; row headers render as `<th scope="row">`. `Table.Title` is an `h2` and `Table.Subtitle` is a paragraph by default, so use `Heading` or your own labelled content when another document structure is needed. Compose table pagination with `Table.Pagination`, which translates its zero-based page index contract onto the shared `Pagination` primitive. Compose loading and error UI and row actions with `Table.Skeleton`, `ActionMenu`, and `Blankslate`.
 
-<Canvas of={DataTableFeatures.WithSorting} />
+<Canvas of={Features.WithSorting} />
 
-<Canvas of={DataTableExamples.MinimalIssues} />
+<Canvas of={Examples.MinimalIssues} />

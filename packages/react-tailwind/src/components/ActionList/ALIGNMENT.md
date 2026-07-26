@@ -6,7 +6,9 @@ Legacy ActionList is a broad compound list surface with groups, headings, visual
 
 ## To: `@primer/react-tailwind`
 
-The stable compound API provides `Root`, `Item`, `LinkItem`, `Group`, `GroupHeading`, `Description`, and `TrailingAction`. It preserves disabled, inactive, loading, selected, active, size, description, divider, group, link, and visual composition. A trailing action is a sibling of the primary item action so the markup never nests interactive controls. Menu selection follows Primer's checkmark convention rather than a filled item background.
+The stable compound API provides `Root`, `Item`, `LinkItem`, `Group`, `GroupHeading`, `Description`, and `TrailingAction`. It preserves disabled, inactive, loading, selected, active, size, description, divider, group, link, and visual composition.
+
+A trailing action is a sibling of the primary item action, so the markup never nests interactive controls. Menu selection follows Primer's checkmark convention rather than a filled item background.
 
 ## Migration notes
 

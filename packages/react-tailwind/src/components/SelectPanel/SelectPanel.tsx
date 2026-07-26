@@ -4,6 +4,7 @@ import {Combobox} from '@base-ui/react/combobox'
 import {AlertIcon, CheckIcon, SearchIcon, StopIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {areItemsEqual, getItemRenderKey, getItemText, renderItemVisual} from '../../internal/collectionItem'
 import {assignRef} from '../../internal/refs'
 import type {CSSPropertiesWithCustomProperties} from '../../utils/types'
 import {ActionList, ActionItemContent} from '../ActionList/ActionList'
@@ -239,34 +240,12 @@ export interface SelectPanelMessageProps extends SelectPanelMessage {
   className?: string
 }
 
-function areItemsEqual(first: SelectPanelItem, second: SelectPanelItem) {
-  if (first.id !== undefined || second.id !== undefined) {
-    return (
-      first.id !== undefined &&
-      second.id !== undefined &&
-      typeof first.id === typeof second.id &&
-      first.id === second.id
-    )
-  }
-
-  return first === second
-}
-
 function isMultiSelection(selected: SelectPanelProps['selected']): selected is readonly SelectPanelItem[] {
   return Array.isArray(selected)
 }
 
 function getItemLabel(item: SelectPanelItem) {
-  if (item.filterValue !== undefined) return item.filterValue
-  if (typeof item.text === 'string') return item.text
-  if (typeof item.children === 'string') return item.children
-  return item.id === undefined ? '' : String(item.id)
-}
-
-function getRenderKey(item: SelectPanelItem, index: number) {
-  if (item.id !== undefined) return `id:${typeof item.id}:${String(item.id)}`
-  if (item.key !== undefined) return `key:${typeof item.key}:${String(item.key)}`
-  return `item:${index}`
+  return getItemText(item) || (item.id === undefined ? '' : String(item.id))
 }
 
 function supportsBuiltInVirtualization(items: readonly SelectPanelItem[], itemRenderer?: SelectPanelRenderItem) {
@@ -289,10 +268,6 @@ function supportsBuiltInVirtualization(items: readonly SelectPanelItem[], itemRe
 
 function isMessage(message: SelectPanelProps['message']): message is SelectPanelMessage {
   return Boolean(message && typeof message === 'object' && !React.isValidElement(message) && 'title' in message)
-}
-
-function renderVisual(visual: React.ElementType | React.ReactNode) {
-  return typeof visual === 'function' ? React.createElement(visual) : visual
 }
 
 function SelectPanelMessageComponent({
@@ -527,10 +502,10 @@ function renderSelectPanelOption({
         <ActionItemContent
           description={description}
           descriptionVariant={descriptionVariant}
-          leadingVisual={leadingVisual ? renderVisual(leadingVisual) : undefined}
+          leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
           selection={selection}
           supportingText={inactiveText}
-          trailingVisual={trailingVisual ? renderVisual(trailingVisual) : undefined}
+          trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
         >
           {children}
           {text}
@@ -1238,7 +1213,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
       visibleItems.map((item, index) => ({
         item,
         label: getItemLabel(item),
-        renderKey: getRenderKey(item, index),
+        renderKey: getItemRenderKey(item, index),
       })),
     [visibleItems],
   )
@@ -1263,7 +1238,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
       effectiveSelectedItems.map((item, index) => ({
         item,
         label: getItemLabel(item),
-        renderKey: getRenderKey(item, index),
+        renderKey: getItemRenderKey(item, index),
       })),
     [effectiveSelectedItems],
   )
@@ -1418,7 +1393,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
   const contentStyle = overlayStyle
   const triggerLabel = selectedItems.length
     ? selectedItems.map((item, index) => (
-        <React.Fragment key={getRenderKey(item, index)}>
+        <React.Fragment key={getItemRenderKey(item, index)}>
           {index > 0 ? ', ' : null}
           {item.text ?? item.children ?? getItemLabel(item)}
         </React.Fragment>

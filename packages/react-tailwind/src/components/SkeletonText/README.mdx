@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as SkeletonTextStories from './SkeletonText.stories'
-import * as SkeletonTextFeatures from './SkeletonText.features.stories'
-import * as SkeletonTextExamples from './SkeletonText.examples.stories'
+import * as Stories from './SkeletonText.stories'
+import * as Features from './SkeletonText.features.stories'
+import * as Examples from './SkeletonText.examples.stories'
 
-<Meta of={SkeletonTextStories} />
+<Meta of={Stories} />
 
 # SkeletonText
 
 `SkeletonText` creates one or more text-shaped loading lines with typography height presets and an optional maximum width.
 
-<Canvas of={SkeletonTextStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -18,7 +18,7 @@ import {SkeletonText} from '@primer/react-tailwind/SkeletonText'
 ;<SkeletonText size="bodyMedium" lines={3} maxWidth={420} />
 ```
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -80,7 +80,7 @@ import {SkeletonText} from '@primer/react-tailwind/SkeletonText'
   </tbody>
 </table>
 
-<Controls of={SkeletonTextStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -104,6 +104,6 @@ The root exposes `data-component="SkeletonText"` and `aria-busy="true"`. Individ
 
 ## Features and examples
 
-<Canvas of={SkeletonTextFeatures.WithMultipleLines} />
-<Canvas of={SkeletonTextFeatures.TitleMedium} />
-<Canvas of={SkeletonTextExamples.ArticleLoading} />
+<Canvas of={Features.WithMultipleLines} />
+<Canvas of={Features.TitleMedium} />
+<Canvas of={Examples.ArticleLoading} />

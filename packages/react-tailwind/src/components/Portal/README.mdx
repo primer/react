@@ -1,20 +1,20 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as PortalStories from './Portal.stories'
-import * as PortalFeatures from './Portal.features.stories'
-import * as PortalExamples from './Portal.examples.stories'
+import * as Stories from './Portal.stories'
+import * as Features from './Portal.features.stories'
+import * as Examples from './Portal.examples.stories'
 
-<Meta of={PortalStories} />
+<Meta of={Stories} />
 
 # Portal
 
 `Portal` renders children outside their React parent's DOM subtree while preserving React context.
 
-<Canvas of={PortalStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Props
 
-<Controls of={PortalStories.Default} />
+<Controls of={Stories.Default} />
 
 ## Usage
 
@@ -25,6 +25,6 @@ import {Portal} from '@primer/react-tailwind'
 
 Portal changes DOM placement, not reading order or focus behavior. Give its contents an appropriate role, accessible name, focus management, and dismissal behavior.
 
-<Canvas of={PortalFeatures.CustomPortalRootByRegistration} />
+<Canvas of={Features.CustomPortalRootByRegistration} />
 
-<Canvas of={PortalExamples.WithDialogContent} />
+<Canvas of={Examples.WithDialogContent} />

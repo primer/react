@@ -20,7 +20,7 @@ import {LabelGroup} from '@primer/react-tailwind/LabelGroup'
 
 <Controls of={Stories.Playground} />
 
-## Public props and defaults
+## Props
 
 - **`as`** (default: `ul`) — Any React element type. `ul` and `ol` receive list-item wrappers; use another element when list semantics are not appropriate.
 - **`visibleChildCount`** (default: undefined) — A number hides children after that position. Use `'auto'` to measure the available width and update truncation when the group resizes.
@@ -39,7 +39,7 @@ Give a meaningful group an accessible label, particularly when it summarizes fil
 
 Pass `className` to extend the component with Tailwind utilities. The root exposes stable `data-component="LabelGroup"`, `data-list`, and `data-overflow="inline"` attributes. Truncated item wrappers expose `data-index` and hidden wrappers expose `data-hidden`.
 
-## Intentional differences
+## Alignment
 
 [LabelGroup alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/LabelGroup/ALIGNMENT.md) document intentional differences from the upstream component.
 

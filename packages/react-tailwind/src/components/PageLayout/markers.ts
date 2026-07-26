@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 export type PageLayoutMarkers = {
@@ -43,4 +45,3 @@ export const markPageLayoutSidebar = <T extends React.ElementType>(component: T)
 
 export const markPageLayoutFooter = <T extends React.ElementType>(component: T): T =>
   Object.assign(component, {[PAGE_LAYOUT_FOOTER]: true})
-;('use client')

@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as KeybindingHintStories from './KeybindingHint.stories'
-import * as KeybindingHintFeatures from './KeybindingHint.features.stories'
-import * as KeybindingHintExamples from './KeybindingHint.examples.stories'
+import * as Stories from './KeybindingHint.stories'
+import * as Features from './KeybindingHint.features.stories'
+import * as Examples from './KeybindingHint.examples.stories'
 
-<Meta of={KeybindingHintStories} />
+<Meta of={Stories} />
 
 # KeybindingHint
 
 `KeybindingHint` renders a compact, screen-reader-friendly keyboard shortcut using the local key formatting rules.
 
-<Canvas of={KeybindingHintStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -20,7 +20,7 @@ import {KeybindingHint} from '@primer/react-tailwind/KeybindingHint'
 
 Separate chords with spaces. Use `+` inside a chord for simultaneous keys.
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -93,7 +93,7 @@ Separate chords with spaces. Use `+` inside a chord for simultaneous keys.
   </tbody>
 </table>
 
-<Controls of={KeybindingHintStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -115,12 +115,12 @@ Use `variant` for the intended text context and `className` for local alignment.
 
 The root exposes `data-component="KeybindingHint"` and the stable `data-testid="keybinding-hint"`.
 
-## Upstream alignment
+## Alignment
 
 Stories cover the local `keys`, `format`, `variant`, and `size` props with explicit shortcut strings. The local component has no platform override prop, so platform examples show representational strings rather than inventing one.
 
 ## Features and examples
 
-<Canvas of={KeybindingHintFeatures.SequenceFull} />
-<Canvas of={KeybindingHintFeatures.Platforms} />
-<Canvas of={KeybindingHintExamples.ButtonExample} />
+<Canvas of={Features.SequenceFull} />
+<Canvas of={Features.Platforms} />
+<Canvas of={Examples.ButtonExample} />

@@ -1,21 +1,21 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as TabsStories from './Tabs.stories'
-import * as TabsFeatures from './Tabs.features.stories'
-import * as TabsExamples from './Tabs.examples.stories'
+import * as Stories from './Tabs.stories'
+import * as Features from './Tabs.features.stories'
+import * as Examples from './Tabs.examples.stories'
 
-<Meta of={TabsStories} />
+<Meta of={Stories} />
 
 # Tabs
 
 `Tabs` provides unstyled tab, tab list, and tab panel behavior that can be composed into an application-specific presentation.
 
-<Canvas of={TabsStories.Default} />
-<Canvas of={TabsStories.Playground} />
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.Playground} />
 
 ## Props
 
-<Controls of={TabsStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Usage
 
@@ -33,6 +33,6 @@ import {Tab, TabList, TabPanel, Tabs} from '@primer/react-tailwind'
 
 Use `defaultValue` for uncontrolled tabs or `value` with `onValueChange` for controlled tabs. Give each tab list an accessible label, preserve the tab-to-panel value relationship, and style the parts with static Tailwind classes or `render` composition.
 
-<Canvas of={TabsFeatures.Controlled} />
+<Canvas of={Features.Controlled} />
 
-<Canvas of={TabsExamples.WithCustomComponents} />
+<Canvas of={Examples.WithCustomComponents} />

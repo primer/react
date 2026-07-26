@@ -6,7 +6,7 @@
 
 ## To: `@primer/react-tailwind`
 
-Tailwind exports the same `FeatureFlags` provider and `useFeatureFlag` hook with the same nearest-scope merge behavior. The implementation remains a React context abstraction and does not use Base UI or Tailwind styling. Feature-flag values are still booleans selected by name, and consumers can continue to place providers around any subtree. This is one of the closest alignments in the package.
+Tailwind exports the same `FeatureFlags` provider and `useFeatureFlag` hook with nearest-scope merge behavior. The implementation remains a React context abstraction and does not use Base UI or Tailwind styling. Feature-flag values remain booleans selected by name, and providers can wrap any subtree.
 
 ## Migration notes
 

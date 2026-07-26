@@ -6,7 +6,9 @@ Legacy `Dialog` is the styled-system modal with `Dialog.Header`, `Dialog.Body`, 
 
 ## To: `@primer/react-tailwind`
 
-Tailwind `Dialog` is the modern compound replacement built on Base UI. The root and named parts own open state, focus trapping, escape/outside dismissal, portal layering, positioning, and accessible title/description relationships. Tailwind classes and Primer semantic tokens provide the surface, backdrop, header, body, and footer presentation. Use exported `Dialog.Trigger`, `Content`, `Popup`, `Portal`, `Backdrop`, `Viewport`, `Header`, `Title`, `Description`, `Body`, `Footer`, `Close`, and `CloseButton` parts rather than depending on the legacy internal DOM. Controlled open state remains compatible, but legacy gesture callbacks and styled-system props do not.
+Tailwind `Dialog` is a Base UI compound replacement. The root and named parts own open state, focus trapping, escape and outside dismissal, portal layering, positioning, and accessible title and description relationships. Tailwind classes and Primer semantic tokens provide the surface, backdrop, header, body, and footer presentation.
+
+Use `Dialog.Trigger`, `Content`, `Popup`, `Portal`, `Backdrop`, `Viewport`, `Header`, `Title`, `Description`, `Body`, `Footer`, `Close`, and `CloseButton` rather than legacy internal DOM. Controlled open state remains compatible. Legacy gesture callbacks and styled-system props do not.
 
 ## Migration notes
 

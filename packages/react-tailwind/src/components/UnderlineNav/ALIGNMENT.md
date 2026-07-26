@@ -1,10 +1,10 @@
 # UnderlineNav alignment
 
-## From (`@primer/react`)
+## From: `@primer/react`
 
 The current non-deprecated UnderlineNav renders a navigation landmark containing an implicit list of polymorphic items. It supports `variant`, `loadingCounters`, `hideIconsBreakpoint`, `leadingVisual`, counters, `onSelect`, and `aria-current`. When items wrap, it moves clipped items into an ActionMenu.
 
-## To (`@primer/react-tailwind`)
+## To: `@primer/react-tailwind`
 
 The Tailwind implementation is a presentational `Root`/`List`/`Item` composition. `Root` accepts `variant`, `loadingCounters`, `hideIconsBreakpoint`, and simple presentational `as` replacement. `Item` renders an anchor by default, accepts `leadingVisual`, `counter`, `onSelect`, and `aria-current`, and can use `as` for route-link composition. `List` owns the native list reset, and the root owns single-row horizontal scrolling.
 

@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as SpinnerStories from './Spinner.stories'
-import * as SpinnerFeatures from './Spinner.features.stories'
-import * as SpinnerExamples from './Spinner.examples.stories'
+import * as Stories from './Spinner.stories'
+import * as Features from './Spinner.features.stories'
+import * as Examples from './Spinner.examples.stories'
 
-<Meta of={SpinnerStories} />
+<Meta of={Stories} />
 
 # Spinner
 
 `Spinner` communicates that work is in progress with an animated indicator and an optional screen-reader announcement.
 
-<Canvas of={SpinnerStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -20,7 +20,7 @@ import {Spinner} from '@primer/react-tailwind/Spinner'
 
 The component renders a `span` and forwards standard HTML attributes and `className`.
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -86,7 +86,7 @@ The component renders a `span` and forwards standard HTML attributes and `classN
   </tbody>
 </table>
 
-<Controls of={SpinnerStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Composition
 
@@ -110,6 +110,6 @@ The root exposes `data-component="Spinner"`. Size and delay are represented by c
 
 ## Features and examples
 
-<Canvas of={SpinnerFeatures.AllSizes} />
-<Canvas of={SpinnerFeatures.ReducedMotion} />
-<Canvas of={SpinnerExamples.FullLifecycle} />
+<Canvas of={Features.AllSizes} />
+<Canvas of={Features.ReducedMotion} />
+<Canvas of={Examples.FullLifecycle} />

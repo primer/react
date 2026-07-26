@@ -4,6 +4,8 @@ import {Combobox} from '@base-ui/react/combobox'
 import {CheckIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {areItemsEqual, getItemRenderKey, getItemText, itemIdKey, renderItemVisual} from '../../internal/collectionItem'
+import {mergeRefs} from '../../internal/refs'
 import type {CSSPropertiesWithCustomProperties} from '../../utils/types'
 import {ActionItemContent, ActionList, actionItemClassName, type ActionListRootProps} from '../ActionList/ActionList'
 import {Checkbox} from '../Checkbox'
@@ -45,8 +47,6 @@ export interface FilteredActionListItem {
 }
 
 export type FilteredActionListRenderItem = (item: FilteredActionListItem) => React.ReactElement | null
-/** @deprecated Use `FilteredActionListRenderItem`. */
-export type RenderItemFn = FilteredActionListRenderItem
 
 export interface FilteredActionListGroup {
   groupId: string
@@ -56,12 +56,6 @@ export interface FilteredActionListGroup {
   }
   renderItem?: FilteredActionListRenderItem
   renderGroup?: React.ElementType
-}
-
-/** @deprecated Use `FilteredActionListProps` with `groupMetadata`. */
-export interface GroupedListProps {
-  items: readonly (FilteredActionListItem & {groupId: string})[]
-  groupMetadata: readonly FilteredActionListGroup[]
 }
 
 export interface FilteredActionListTextInputProps
@@ -133,53 +127,6 @@ const skeletonRowHeight = 24
 const skeletonMinimumRows = 3
 const skeletonWidths = ['80%', '52.5%', '67.5%', '40%', '72.5%'] as const
 const getUndefinedSnapshot = () => undefined
-
-function idKey(id: FilteredActionListItemId) {
-  return `${typeof id}:${String(id)}`
-}
-
-function itemKey(item: FilteredActionListItem, index: number) {
-  return item.id === undefined ? `item:${index}` : idKey(item.id)
-}
-
-function areItemsEqual(first: FilteredActionListItem, second: FilteredActionListItem) {
-  if (first.id !== undefined || second.id !== undefined) {
-    return (
-      first.id !== undefined &&
-      second.id !== undefined &&
-      typeof first.id === typeof second.id &&
-      first.id === second.id
-    )
-  }
-
-  return first === second
-}
-
-function textFromNode(node: React.ReactNode): string {
-  if (typeof node === 'string' || typeof node === 'number') return String(node)
-  if (Array.isArray(node)) return node.map(textFromNode).join('')
-  if (React.isValidElement<{children?: React.ReactNode}>(node)) return textFromNode(node.props.children)
-  return ''
-}
-
-function getItemLabel(item: FilteredActionListItem) {
-  return item.filterValue ?? textFromNode(item.text ?? item.children)
-}
-
-function renderVisual(visual: ItemVisual | undefined) {
-  if (!visual) return null
-  if (typeof visual === 'string' || typeof visual === 'number' || React.isValidElement(visual)) return visual
-  return React.createElement(visual as React.ElementType)
-}
-
-function mergeRefs<T>(...refs: Array<React.Ref<T> | undefined>) {
-  return (node: T | null) => {
-    for (const ref of refs) {
-      if (typeof ref === 'function') ref(node)
-      else if (ref) (ref as React.RefObject<T | null>).current = node
-    }
-  }
-}
 
 function getVirtualRowHeight(
   items: readonly FilteredActionListItem[],
@@ -371,7 +318,7 @@ function FilteredActionListOption({
       data-filter-value={filterValue}
       data-group-id={groupId}
       data-index={optionIndex}
-      data-item-id={itemId === undefined ? undefined : idKey(itemId)}
+      data-item-id={itemId === undefined ? undefined : itemIdKey(itemId)}
       disabled={optionDisabled}
       index={virtualized ? behaviorIndex : undefined}
       onClick={event => {
@@ -392,10 +339,10 @@ function FilteredActionListOption({
         <ActionItemContent
           description={description}
           descriptionVariant={descriptionVariant}
-          leadingVisual={leadingVisual ? renderVisual(leadingVisual) : undefined}
+          leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
           selection={selection}
           showDivider={showItemDividers && optionIndex > 0}
-          trailingVisual={trailingVisual ? renderVisual(trailingVisual) : undefined}
+          trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
         >
           {children}
           {text}
@@ -471,16 +418,16 @@ function FilteredActionListDisabledOption({
       data-filter-value={filterValue}
       data-group-id={groupId}
       data-index={optionIndex}
-      data-item-id={itemId === undefined ? undefined : idKey(itemId)}
+      data-item-id={itemId === undefined ? undefined : itemIdKey(itemId)}
       role="option"
     >
       {renderedContent ?? (
         <ActionItemContent
           description={description}
           descriptionVariant={descriptionVariant}
-          leadingVisual={leadingVisual ? renderVisual(leadingVisual) : undefined}
+          leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
           showDivider={showItemDividers && optionIndex > 0}
-          trailingVisual={trailingVisual ? renderVisual(trailingVisual) : undefined}
+          trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
         >
           {children}
           {text}
@@ -571,7 +518,7 @@ function FilteredActionListVirtualizedOptions({
               optionIndex={index}
               radio={radio}
               selectable={selectable}
-              selected={value.item.id !== undefined && selectedKeys.has(idKey(value.item.id))}
+              selected={value.item.id !== undefined && selectedKeys.has(itemIdKey(value.item.id))}
               showItemDividers={showItemDividers}
               variant={variant}
               virtualized
@@ -673,18 +620,18 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
     (hasLegacySelectedItems
       ? items.flatMap(item => (item.selected && item.id !== undefined ? [item.id] : []))
       : uncontrolledSelectedItemIds)
-  const selectedKeys = React.useMemo(() => new Set(selectedIds.map(idKey)), [selectedIds])
+  const selectedKeys = React.useMemo(() => new Set(selectedIds.map(itemIdKey)), [selectedIds])
   const visibleItems = React.useMemo(() => {
     const query = filterValue.trim().toLocaleLowerCase()
     if (!query) return items
-    return items.filter(item => getItemLabel(item).toLocaleLowerCase().includes(query))
+    return items.filter(item => getItemText(item).toLocaleLowerCase().includes(query))
   }, [filterValue, items])
   const values = React.useMemo(
     () =>
       visibleItems.map((item, index) => ({
         item,
-        label: getItemLabel(item),
-        renderKey: itemKey(item, index),
+        label: getItemText(item),
+        renderKey: getItemRenderKey(item, index),
       })),
     [visibleItems],
   )
@@ -710,8 +657,8 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
   const selectedValues = React.useMemo(
     () =>
       items.flatMap((item, index) =>
-        item.id !== undefined && selectedKeys.has(idKey(item.id))
-          ? [{item, label: getItemLabel(item), renderKey: itemKey(item, index)}]
+        item.id !== undefined && selectedKeys.has(itemIdKey(item.id))
+          ? [{item, label: getItemText(item), renderKey: getItemRenderKey(item, index)}]
           : [],
       ),
     [items, selectedKeys],
@@ -776,13 +723,13 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
       const nextValues = Array.isArray(nextValue) ? nextValue : nextValue ? [nextValue] : []
       const nextIds = nextValues.flatMap(value => (value.item.id === undefined ? [] : [value.item.id]))
       const visibleItemKeys = new Set(
-        values.flatMap(value => (value.item.id === undefined ? [] : [idKey(value.item.id)])),
+        values.flatMap(value => (value.item.id === undefined ? [] : [itemIdKey(value.item.id)])),
       )
-      const preservedIds = multiple ? selectedIds.filter(id => !visibleItemKeys.has(idKey(id))) : []
+      const preservedIds = multiple ? selectedIds.filter(id => !visibleItemKeys.has(itemIdKey(id))) : []
       const nextSelectedIds =
-        !multiple && selectionVariant === 'single' && nextIds.length === 1 && selectedKeys.has(idKey(nextIds[0]))
+        !multiple && selectionVariant === 'single' && nextIds.length === 1 && selectedKeys.has(itemIdKey(nextIds[0]))
           ? []
-          : [...new Map([...preservedIds, ...nextIds].map(id => [idKey(id), id])).values()]
+          : [...new Map([...preservedIds, ...nextIds].map(id => [itemIdKey(id), id])).values()]
       updateSelectedIds(nextSelectedIds, details)
     },
     [multiple, selectedIds, selectedKeys, selectionVariant, updateSelectedIds, values],
@@ -807,8 +754,8 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
 
   const selectableVisibleItems = visibleItems.filter(item => !item.disabled && item.id !== undefined)
   const allSelected =
-    selectableVisibleItems.length > 0 && selectableVisibleItems.every(item => selectedKeys.has(idKey(item.id!)))
-  const someSelected = !allSelected && selectableVisibleItems.some(item => selectedKeys.has(idKey(item.id!)))
+    selectableVisibleItems.length > 0 && selectableVisibleItems.every(item => selectedKeys.has(itemIdKey(item.id!)))
+  const someSelected = !allSelected && selectableVisibleItems.some(item => selectedKeys.has(itemIdKey(item.id!)))
   const selectAllLabel = allSelected ? 'Deselect all' : 'Select all'
 
   return (
@@ -843,7 +790,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
         >
           {LeadingVisual ? (
             <span className="pointer-events-none absolute top-1/2 left-2.5 z-1 -translate-y-1/2 text-muted">
-              {renderVisual(LeadingVisual)}
+              {renderItemVisual(LeadingVisual)}
             </span>
           ) : null}
           <Combobox.Input
@@ -888,15 +835,15 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
               checked={allSelected}
               indeterminate={someSelected}
               onCheckedChange={checked => {
-                const visibleKeys = new Set(selectableVisibleItems.map(item => idKey(item.id!)))
+                const visibleKeys = new Set(selectableVisibleItems.map(item => itemIdKey(item.id!)))
                 const nextSelectedIds = checked
                   ? [
                       ...selectedIds,
                       ...selectableVisibleItems
-                        .filter(item => !selectedKeys.has(idKey(item.id!)))
+                        .filter(item => !selectedKeys.has(itemIdKey(item.id!)))
                         .map(item => item.id!),
                     ]
-                  : selectedIds.filter(id => !visibleKeys.has(idKey(id)))
+                  : selectedIds.filter(id => !visibleKeys.has(itemIdKey(id)))
                 updateSelectedIds(nextSelectedIds)
                 onSelectAllChange(checked)
               }}
@@ -983,7 +930,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
                         optionIndex={optionIndex}
                         radio={radio}
                         selectable={selectable}
-                        selected={value.item.id !== undefined && selectedKeys.has(idKey(value.item.id))}
+                        selected={value.item.id !== undefined && selectedKeys.has(itemIdKey(value.item.id))}
                         showItemDividers={showItemDividers}
                         variant={variant}
                       />
@@ -1052,7 +999,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
                           optionIndex={optionIndex}
                           radio={radio}
                           selectable={selectable}
-                          selected={value.item.id !== undefined && selectedKeys.has(idKey(value.item.id))}
+                          selected={value.item.id !== undefined && selectedKeys.has(itemIdKey(value.item.id))}
                           showItemDividers={showItemDividers}
                           variant={variant}
                         />
@@ -1074,7 +1021,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
                             optionIndex={optionIndex}
                             radio={radio}
                             selectable={selectable}
-                            selected={value.item.id !== undefined && selectedKeys.has(idKey(value.item.id))}
+                            selected={value.item.id !== undefined && selectedKeys.has(itemIdKey(value.item.id))}
                             showItemDividers={showItemDividers}
                             variant={variant}
                           />

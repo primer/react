@@ -1,15 +1,15 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
-import * as RelativeTimeStories from './RelativeTime.stories'
-import * as RelativeTimeFeatures from './RelativeTime.features.stories'
-import * as RelativeTimeExamples from './RelativeTime.examples.stories'
+import * as Stories from './RelativeTime.stories'
+import * as Features from './RelativeTime.features.stories'
+import * as Examples from './RelativeTime.examples.stories'
 
-<Meta of={RelativeTimeStories} />
+<Meta of={Stories} />
 
 # RelativeTime
 
 `RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.
 
-<Canvas of={RelativeTimeStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Import and usage
 
@@ -20,7 +20,7 @@ import {RelativeTime} from '@primer/react-tailwind/RelativeTime'
 
 Use `date` when a `Date` object is already available, or `datetime` for an ISO date string. `children` can replace the visible relative text while retaining the semantic `time` element.
 
-## Props and defaults
+## Props
 
 <table>
   <thead>
@@ -89,7 +89,7 @@ Use `date` when a `Date` object is already available, or `datetime` for an ISO d
   </tbody>
 </table>
 
-<Controls of={RelativeTimeStories.Playground} />
+<Controls of={Stories.Playground} />
 
 Other standard `time` attributes, including `className`, are forwarded.
 
@@ -113,12 +113,12 @@ Import the package styles once, or compile with Tailwind v4 and the package `dis
 
 The root exposes `data-component="RelativeTime"`, plus native `dateTime` and `title` values. The relative formatting is content, not a state attribute.
 
-## Upstream alignment
+## Alignment
 
 The local API intentionally keeps the native `time` surface: stories cover `date`, `datetime`, `title`, `noTitle`, and child content. Upstream formatting callbacks and additional date-part controls are not represented because they are not local props.
 
 ## Features and examples
 
-<Canvas of={RelativeTimeFeatures.CustomChildren} />
-<Canvas of={RelativeTimeFeatures.InvalidDate} />
-<Canvas of={RelativeTimeExamples.LongDate} />
+<Canvas of={Features.CustomChildren} />
+<Canvas of={Features.InvalidDate} />
+<Canvas of={Examples.LongDate} />

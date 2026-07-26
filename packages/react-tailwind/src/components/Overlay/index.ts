@@ -1,1 +1,1 @@
-export {Overlay, OverlayContent, OverlayParts, OverlayRoot, type OverlayProps} from './Overlay'
+export {Overlay, OverlayContent, OverlayRoot, type OverlayProps} from './Overlay'

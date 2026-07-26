@@ -1,20 +1,20 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as DialogStories from './Dialog.stories'
-import * as DialogFeatures from './Dialog.features.stories'
-import * as DialogExamples from './Dialog.examples.stories'
+import * as Stories from './Dialog.stories'
+import * as Features from './Dialog.features.stories'
+import * as Examples from './Dialog.examples.stories'
 
-<Meta of={DialogStories} />
+<Meta of={Stories} />
 
 # Dialog
 
 `Dialog` provides a modal surface with composable trigger and content parts.
 
-<Canvas of={DialogStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Props
 
-<Controls of={DialogStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Usage
 
@@ -31,6 +31,6 @@ import {Dialog} from '@primer/react-tailwind'
 
 Provide a title or accessible label, retain the keyboard close path, and return focus to the element that opened the dialog.
 
-<Canvas of={DialogFeatures.WithDirectSubcomponents} />
+<Canvas of={Features.WithDirectSubcomponents} />
 
-<Canvas of={DialogExamples.ControlledDialog} />
+<Canvas of={Examples.ControlledDialog} />

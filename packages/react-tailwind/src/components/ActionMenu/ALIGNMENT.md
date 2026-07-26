@@ -6,7 +6,9 @@ Legacy ActionMenu wraps an ActionList overlay and supports anchor variants, lega
 
 ## To: `@primer/react-tailwind`
 
-The stable compound API is `ActionMenu`, `Trigger`, `Button`, `Content` (also available as `Overlay`), `Item`, `CheckboxItem`, `RadioGroup`, `RadioItem`, `Submenu`, `SubmenuTrigger`, `Group`, `GroupLabel`, `Divider`, `LeadingVisual`, `TrailingVisual`, and `Description`. Content owns its Base UI portal and positioner. Base UI owns menu ARIA, keyboard navigation, focus, dismissal, positioning, nested-menu behavior, and controlled `open`/`defaultOpen`/`onOpenChange` state. Menu items and ActionList items share the same internal content, visual, description, selection, loading, and inactive-state presentation without nesting interactive elements.
+The stable compound API includes `ActionMenu`, `Trigger`, `Button`, `Content` (also available as `Overlay`), `Item`, `CheckboxItem`, `RadioGroup`, `RadioItem`, `Submenu`, `SubmenuTrigger`, `Group`, `GroupLabel`, `Divider`, `LeadingVisual`, `TrailingVisual`, and `Description`. Content owns its Base UI portal and positioner.
+
+Base UI owns menu ARIA, keyboard navigation, focus, dismissal, positioning, nested-menu behavior, and controlled `open`/`defaultOpen`/`onOpenChange` state. Menu and ActionList items share internal content, visuals, descriptions, selection, loading, and inactive-state presentation without nesting interactive elements.
 
 ## Migration notes
 

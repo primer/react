@@ -1,3 +1,5 @@
+'use client'
+
 import {createContext} from 'react'
 import {DefaultFeatureFlags} from './DefaultFeatureFlags'
 import type {FeatureFlagScope} from './FeatureFlagScope'
