@@ -1,0 +1,50 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Details.stories'
+import * as Features from './Details.features.stories'
+import * as Examples from './Details.examples.stories'
+
+<Meta of={Stories} />
+
+# Details
+
+A native disclosure element with a styled summary.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`DetailsProps` forwards native `<details>` attributes, including `open` and `onToggle`. `Details.Summary` forwards summary attributes. The summary must be the first child.
+
+## Import and composition
+
+```tsx
+import {Details} from '@primer/react-tailwind/Details'
+```
+
+Place `Details.Summary` first, followed by the disclosure content.
+
+Compose `Button` with `block`, `nativeButton={false}`, and `render={<Details.Summary />}` when the disclosure summary should use the legacy full-width Primer button styling. A direct native `<summary>` is also supported and has its browser marker removed.
+
+## Controlled and uncontrolled
+
+Use `open` with `onToggle` to synchronize the native disclosure state, or set the initial `open` attribute and let the browser manage it.
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, validation, and keyboard
+
+Native details/summary semantics expose expanded state and keyboard behavior. Enter or Space activates the focused summary. This is not a form field; use a nearby form control for validation or disabled field behavior.
+
+## Events and state attributes
+
+`onToggle` receives the native event after the `open` state changes. Stable selectors are `data-component="Details"` and `data-component="Details.Summary"`; use the native `[open]` attribute and `className` for state-dependent styles.
+
+<Canvas of={Features.WithCustomSummary} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) preserve the disclosure interaction through native details and local summary composition instead of the deprecated upstream outside-click hook.

@@ -1,0 +1,52 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Avatar.stories'
+import * as Features from './Avatar.features.stories'
+import * as Examples from './Avatar.examples.stories'
+
+<Meta of={Stories} />
+
+# Avatar
+
+`Avatar` is a Tailwind React component. Import it from `@primer/react-tailwind/Avatar`.
+
+```tsx
+import {Avatar} from '@primer/react-tailwind/Avatar'
+;<Avatar alt="GitHub" src="https://avatars.githubusercontent.com/github" />
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`src` / `alt`** (default: — / empty string) — Standard image source and alternative text.
+- **`size`** (default: `small`) — `small`, `medium`, `large`, `xlarge`, a numeric pixel size, or responsive viewport values.
+- **`shape` / `square`** (default: `circle` / `false`) — Use `square` as a shorthand for square shape.
+- **native image props** (default: none) — Includes dimensions, loading behavior, and `className`.
+
+## Composition
+
+Use as an image primitive, including as a child of an avatar stack.
+
+## Accessibility
+
+Provide meaningful `alt` text for informative avatars; leave it empty only for decorative images.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The image exposes `data-component="Avatar"` and `data-shape`.
+
+## Intentional differences
+
+[Avatar alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/Avatar/ALIGNMENT.md) document intentional differences from the upstream component. Responsive size objects are intentionally not supported; use Tailwind responsive classes for responsive styling.
+
+## Features and examples
+
+<Canvas of={Features.Square} />
+
+<Canvas of={Examples.RepositoryOwner} />

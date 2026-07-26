@@ -1,7 +1,7 @@
 import React from 'react'
 import {fireEvent, render, screen, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
-import {Pagination} from './Pagination'
+import {type PageProps, Pagination} from './Pagination'
 import {buildPaginationModel} from './model'
 
 describe('Pagination', () => {
@@ -28,8 +28,17 @@ describe('Pagination', () => {
     const pagination = within(container)
     expect(pagination.getByRole('navigation', {name: 'Search results'})).toBeVisible()
     expect(pagination.queryByRole('link', {name: 'Page 1'})).not.toBeInTheDocument()
-    fireEvent.click(pagination.getByLabelText('Previous page'))
+    const previousPage = pagination.getByLabelText('Previous page')
+    expect(previousPage).toHaveClass('mr-0')
+    fireEvent.click(previousPage)
     expect(onPageChange).not.toHaveBeenCalled()
+  })
+
+  it('renders page links for responsive visibility values', () => {
+    const {container} = render(<Pagination currentPage={2} pageCount={4} showPages={{narrow: false, regular: true}} />)
+
+    expect(within(container).getByRole('link', {name: 'Page 2'})).toHaveClass('hidden', 'md:inline-flex')
+    expect(within(container).getByRole('link', {name: 'Previous page'})).toHaveClass('mr-0', 'md:mr-1')
   })
 
   it('builds contiguous page windows with ellipses and supports zero margins', () => {
@@ -53,5 +62,50 @@ describe('Pagination', () => {
       'ellipsis:4',
       'next:4',
     ])
+    expect(buildPaginationModel(10, 5, true, 1, 2).map(page => `${page.type}:${page.number}`)).toEqual([
+      'previous:4',
+      'page:1',
+      'page:2',
+      'page:3',
+      'page:4',
+      'page:5',
+      'page:6',
+      'page:7',
+      'ellipsis:8',
+      'page:10',
+      'next:6',
+    ])
+  })
+
+  it('does not pass React keys to custom page renderers', () => {
+    const renderPage = vi.fn((props: PageProps) => <a href={props.href}>{props.children}</a>)
+    render(<Pagination currentPage={2} pageCount={4} renderPage={renderPage} />)
+
+    expect(renderPage).toHaveBeenCalled()
+    for (const [props] of renderPage.mock.calls) {
+      expect(props).not.toHaveProperty('key')
+    }
+  })
+
+  it('supports composed content and custom selection controls', () => {
+    const onPageChange = vi.fn()
+    render(
+      <Pagination
+        currentPage={1}
+        pageCount={3}
+        onPageChange={onPageChange}
+        renderPage={({children, onPageSelect}) => (
+          <button type="button" onClick={onPageSelect}>
+            {children}
+          </button>
+        )}
+      >
+        <span>Page range</span>
+      </Pagination>,
+    )
+
+    expect(screen.getByText('Page range')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', {name: '2'}))
+    expect(onPageChange).toHaveBeenCalledWith(expect.anything(), 2)
   })
 })

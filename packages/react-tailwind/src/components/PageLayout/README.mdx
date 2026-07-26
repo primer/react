@@ -1,0 +1,30 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './PageLayout.stories'
+import * as Features from './PageLayout.features.stories'
+import * as Examples from './PageLayout.examples.stories'
+
+<Meta of={Stories} />
+
+# PageLayout
+
+`PageLayout` composes page headers, navigation panes or sidebars, content, and footers into a responsive layout.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {PageLayout} from '@primer/react-tailwind/PageLayout'
+;<PageLayout>
+  <PageLayout.Pane aria-label="Repository navigation">Navigation</PageLayout.Pane>
+  <PageLayout.Content>
+    <h1>Overview</h1>
+  </PageLayout.Content>
+</PageLayout>
+```
+
+Use direct compound children and keep navigation before content in the DOM. Give independently scrollable panes an accessible name, and use the public slot props for responsive visibility, dividers, padding, and sticky behavior.
+
+<Canvas of={Features.StickyPane} />
+<Canvas of={Examples.ParentDetail} />

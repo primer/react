@@ -14,7 +14,7 @@ const HeaderRoot = React.forwardRef<HTMLElement, HeaderProps>(function Header(
       {...rest}
       ref={ref}
       className={cn(
-        'z-sticky flex flex-nowrap items-center overflow-auto bg-[var(--header-bgColor)] p-4 text-sm leading-[var(--text-title-lineHeight-large)] text-[var(--header-fgColor-default)]',
+        'z-sticky flex flex-nowrap items-center overflow-auto bg-[var(--header-bgColor)] p-4 text-sm leading-[var(--text-title-lineHeight-large)] text-[color:var(--header-fgColor-default)]',
         className,
       )}
       data-component="Header"
@@ -54,7 +54,7 @@ const HeaderLink = React.forwardRef<HTMLElement, HeaderLinkProps>(function Heade
       {...rest}
       ref={ref}
       className={cn(
-        'flex cursor-pointer items-center whitespace-nowrap font-semibold text-[var(--header-fgColor-logo)] no-underline hover:text-[var(--header-fgColor-default)] focus:text-[var(--header-fgColor-default)]',
+        'flex cursor-pointer items-center whitespace-nowrap font-semibold text-[color:var(--header-fgColor-logo)] no-underline hover:text-[color:var(--header-fgColor-default)] focus:text-[color:var(--header-fgColor-default)]',
         className,
       )}
       data-component="Header.Link"

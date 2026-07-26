@@ -29,7 +29,7 @@ describe('ScrollableRegion', () => {
 
   it('only adds region semantics when the element has overflow', () => {
     render(
-      <ScrollableRegion aria-label="Notifications" data-testid="region">
+      <ScrollableRegion aria-label="Notifications" data-testid="region" tabIndex={-1}>
         Content
       </ScrollableRegion>,
     )
@@ -39,6 +39,7 @@ describe('ScrollableRegion', () => {
     expect(region).not.toHaveAttribute('aria-label')
     expect(region).toHaveClass('relative', 'overflow-auto')
     expect(region).toHaveAttribute('data-component', 'ScrollableRegion')
+    expect(region).toHaveAttribute('tabindex', '-1')
 
     Object.defineProperties(region, {
       clientHeight: {configurable: true, value: 100},
@@ -52,17 +53,28 @@ describe('ScrollableRegion', () => {
     expect(region).toHaveAttribute('aria-label', 'Notifications')
     expect(region).toHaveAttribute('role', 'region')
     expect(region).toHaveAttribute('tabindex', '0')
+
+    Object.defineProperty(region, 'scrollHeight', {configurable: true, value: 100})
+
+    act(() => {
+      notifyResize?.()
+    })
+
+    expect(region).not.toHaveAttribute('role')
+    expect(region).not.toHaveAttribute('aria-label')
+    expect(region).toHaveAttribute('tabindex', '-1')
   })
 
   it('forwards its ref and root props', () => {
-    const ref = createRef<HTMLDivElement>()
+    const ref = createRef<HTMLElement>()
 
     render(
-      <ScrollableRegion aria-label="Notifications" data-testid="region" ref={ref}>
+      <ScrollableRegion aria-label="Notifications" data-testid="region" ref={ref} title="Notifications">
         Content
       </ScrollableRegion>,
     )
 
     expect(ref.current).toBe(screen.getByTestId('region'))
+    expect(ref.current).toHaveAttribute('title', 'Notifications')
   })
 })

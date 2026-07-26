@@ -1,0 +1,45 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './VisuallyHidden.stories'
+import * as Features from './VisuallyHidden.features.stories'
+import * as Examples from './VisuallyHidden.examples.stories'
+
+<Meta of={Stories} />
+
+# VisuallyHidden
+
+`VisuallyHidden` is a Tailwind React component. Import it from `@primer/react-tailwind/VisuallyHidden`.
+
+```tsx
+import {VisuallyHidden} from '@primer/react-tailwind/VisuallyHidden'
+;<VisuallyHidden>Close dialog</VisuallyHidden>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **native span props** (default: none) — Includes children, `className`, and ARIA attributes.
+
+## Composition
+
+Use inside an otherwise unlabeled local control, or as a focus-revealed skip-link label.
+
+## Accessibility
+
+Hidden text remains available to assistive technology. When focused, the component becomes visually available for keyboard users.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The span has `data-component="VisuallyHidden"`.
+
+## Features and examples
+
+<Canvas of={Features.FocusableSkipLink} />
+
+<Canvas of={Examples.IconOnlyControl} />

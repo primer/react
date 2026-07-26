@@ -34,4 +34,24 @@ describe('PageHeader', () => {
       '2xl:text-title-medium',
     )
   })
+
+  it('preserves title inheritance and flex layout for visible compound parts', () => {
+    render(
+      <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.Title data-testid="title">Settings</PageHeader.Title>
+        </PageHeader.TitleArea>
+        <PageHeader.Actions data-testid="actions">Actions</PageHeader.Actions>
+        <PageHeader.Description data-testid="description">Description</PageHeader.Description>
+      </PageHeader>,
+    )
+
+    expect(screen.getByTestId('title')).toHaveClass(
+      '[font-size:inherit]',
+      '[font-weight:inherit]',
+      '[line-height:inherit]',
+    )
+    expect(screen.getByTestId('actions')).toHaveClass('flex')
+    expect(screen.getByTestId('description')).toHaveClass('flex')
+  })
 })

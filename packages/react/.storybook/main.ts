@@ -18,12 +18,14 @@ const config: StorybookConfig = {
       ? [
           '../src/**/*.mdx',
           '../src/**/*.stories.@(js|jsx|ts|tsx)',
+          '../../react-tailwind/src/**/*.mdx',
           '../../react-tailwind/src/**/*.stories.@(js|jsx|ts|tsx)',
         ]
       : // Don't include dev stories in production
         [
           '../src/**/*.mdx',
           '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)',
+          '../../react-tailwind/src/**/*.mdx',
           '../../react-tailwind/src/**/!(*.dev).stories.@(js|jsx|ts|tsx)',
         ],
 
@@ -52,6 +54,10 @@ const config: StorybookConfig = {
     config.define = {
       ...config.define,
       __DEV__: JSON.stringify(true),
+    }
+    config.resolve = {
+      ...config.resolve,
+      dedupe: [...new Set([...(config.resolve?.dedupe ?? []), 'react', 'react-dom'])],
     }
 
     if (!config.css) {

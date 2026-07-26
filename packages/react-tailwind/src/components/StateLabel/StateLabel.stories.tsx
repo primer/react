@@ -10,4 +10,4 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 export const Default: Story = {args: {status: 'issueOpened', children: 'Open'}}
-export const Playground: Story = {args: {status: 'pullMerged', children: 'Merged', size: 'small'}}
+export const Playground: Story = {args: {status: 'issueOpened', children: 'Label'}}

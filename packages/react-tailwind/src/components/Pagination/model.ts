@@ -43,9 +43,9 @@ export function buildPaginationModel(
   }
 
   const current = Math.min(Math.max(currentPage, 1), pageCount)
-  const startGap = Math.max(0, current - standardGap - 1)
+  const startGap = current - standardGap - 1 > 1 ? current - standardGap - 1 : 0
   const startOffset = startGap ? 0 : current - standardGap - 2
-  const endGap = Math.max(0, pageCount - current - standardGap)
+  const endGap = pageCount - current - standardGap > 1 ? pageCount - current - standardGap : 0
   const endOffset = endGap ? 0 : pageCount - current - standardGap - 1
   const hasStartEllipsis = startGap > 0
   const hasEndEllipsis = endGap > 0

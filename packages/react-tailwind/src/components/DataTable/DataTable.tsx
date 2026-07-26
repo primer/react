@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import {
   Table,
@@ -9,22 +11,28 @@ import {
   TableSortHeader,
   type SortDirection,
 } from './Table'
+import {getGridTemplateColumns} from './layout'
 
 export type UniqueRow = {id: string | number}
 export type CellAlignment = 'start' | 'end'
-export type SortStrategy<Data> = boolean | ((a: Data, b: Data) => number)
+export type ColumnWidth = 'grow' | 'growCollapse' | 'auto' | React.CSSProperties['width']
+type SortKeyword = 'alphanumeric' | 'datetime'
+export type SortStrategy<Data> = boolean | SortKeyword | ((a: Data, b: Data) => number)
 
 interface ColumnBase<Data extends UniqueRow> {
   id?: string
   header: string | (() => React.ReactNode)
   align?: CellAlignment
+  maxWidth?: React.CSSProperties['maxWidth']
+  minWidth?: React.CSSProperties['minWidth']
   renderCell?: (data: Data) => React.ReactNode
   rowHeader?: boolean
+  width?: ColumnWidth
 }
 
 export type Column<Data extends UniqueRow> =
   | (ColumnBase<Data> & {
-      field: keyof Data & string
+      field: string
       sortBy?: SortStrategy<Data>
     })
   | (ColumnBase<Data> & {
@@ -49,6 +57,24 @@ function defaultGetRowId<Data extends UniqueRow>(row: Data) {
   return row.id
 }
 
+function getValue<Data>(row: Data, field: string) {
+  return field.split('.').reduce<unknown>((value, key) => {
+    return value && typeof value === 'object' ? (value as Record<string, unknown>)[key] : undefined
+  }, row)
+}
+
+function isBlank(value: unknown) {
+  return value === null || value === undefined || value === ''
+}
+
+function compareValues(valueA: unknown, valueB: unknown, strategy: SortKeyword) {
+  if (strategy === 'datetime') {
+    return new Date(valueA as string | number | Date).valueOf() - new Date(valueB as string | number | Date).valueOf()
+  }
+
+  return String(valueA).localeCompare(String(valueB), undefined, {numeric: true})
+}
+
 function DataTableInner<Data extends UniqueRow>(
   {
     columns,
@@ -56,38 +82,44 @@ function DataTableInner<Data extends UniqueRow>(
     externalSorting = false,
     getRowId = defaultGetRowId,
     initialSortColumn,
-    initialSortDirection = 'ASC',
+    initialSortDirection,
     onToggleSort,
     ...tableProps
   }: DataTableProps<Data>,
   ref: React.ForwardedRef<HTMLTableElement>,
 ) {
-  const [sort, setSort] = React.useState<{id: string; direction: Exclude<SortDirection, 'NONE'>} | null>(
-    initialSortColumn ? {id: initialSortColumn, direction: initialSortDirection} : null,
-  )
+  const [sort, setSort] = React.useState<{id: string; direction: Exclude<SortDirection, 'NONE'>} | null>(() => {
+    if (initialSortColumn) return {id: initialSortColumn, direction: initialSortDirection ?? 'ASC'}
+    if (!initialSortDirection) return null
+    const sortableColumn = columns.find(column => column.sortBy)
+    const id = sortableColumn && (sortableColumn.id ?? sortableColumn.field)
+    return id ? {id, direction: initialSortDirection} : null
+  })
   const rows = React.useMemo(() => {
     if (!sort || externalSorting) return data
     const column = columns.find(item => (item.id ?? item.field) === sort.id)
     if (!column?.sortBy) return data
     return [...data].sort((a, b) => {
+      const valueA = column.field ? getValue(a, column.field) : undefined
+      const valueB = column.field ? getValue(b, column.field) : undefined
+      if (!isBlank(valueA) && isBlank(valueB)) return -1
+      if (isBlank(valueA) && !isBlank(valueB)) return 1
+      if (isBlank(valueA) && isBlank(valueB)) return 0
       const comparison =
         typeof column.sortBy === 'function'
           ? column.sortBy(a, b)
-          : String(column.field ? (a[column.field] ?? '') : '').localeCompare(
-              String(column.field ? (b[column.field] ?? '') : ''),
-              undefined,
-              {numeric: true},
-            )
+          : compareValues(valueA, valueB, column.sortBy === 'datetime' ? 'datetime' : 'alphanumeric')
       return sort.direction === 'ASC' ? comparison : -comparison
     })
   }, [columns, data, externalSorting, sort])
+  const gridTemplateColumns = React.useMemo(() => getGridTemplateColumns(columns), [columns])
   const toggleSort = (id: string) => {
     const direction: Exclude<SortDirection, 'NONE'> = sort?.id === id && sort.direction === 'ASC' ? 'DESC' : 'ASC'
     setSort({id, direction})
     onToggleSort?.(id, direction)
   }
   return (
-    <Table {...tableProps} ref={ref}>
+    <Table {...tableProps} ref={ref} gridTemplateColumns={gridTemplateColumns}>
       <TableHead>
         <TableRow>
           {columns.map(column => {
@@ -118,7 +150,7 @@ function DataTableInner<Data extends UniqueRow>(
               const value = column.renderCell
                 ? column.renderCell(row)
                 : column.field
-                  ? (row[column.field] as React.ReactNode)
+                  ? (getValue(row, column.field) as React.ReactNode)
                   : null
               return (
                 <TableCell key={id} align={column.align} scope={column.rowHeader ? 'row' : undefined}>
@@ -136,3 +168,4 @@ function DataTableInner<Data extends UniqueRow>(
 export const DataTable = React.forwardRef(DataTableInner) as <Data extends UniqueRow>(
   props: DataTableProps<Data> & React.RefAttributes<HTMLTableElement>,
 ) => React.ReactElement | null
+;('use client')

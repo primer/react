@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './RadioGroup.stories'
+import * as Features from './RadioGroup.features.stories'
+import * as Examples from './RadioGroup.examples.stories'
+
+<Meta of={Stories} />
+
+# RadioGroup
+
+A Base UI radio group with roving focus and single-value selection.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`RadioGroupProps` forwards Base UI group props. Use `value`/`onValueChange` for controlled selection or `defaultValue` for initial-only selection; `name` provides native form semantics.
+
+## Import and composition
+
+```tsx
+import {Radio} from '@primer/react-tailwind/Radio'
+import {RadioGroup} from '@primer/react-tailwind/RadioGroup'
+```
+
+Compose `Radio` children in author order and wrap label, caption, or validation content with `FormControl` as needed.
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+Name the group with `aria-label` or `aria-labelledby`, and label every choice. The selected child submits its value under the group `name`. Disabled groups prevent selection; `FormControl.Validation` supplies associated feedback.
+
+## Keyboard, events, and state
+
+Arrow keys move roving focus and change the selected radio. `onValueChange` receives the next value and Base UI details. The root exposes `data-component="RadioGroup"`; child radios expose `data-checked` and `data-disabled`.
+
+<Canvas of={Features.KeyboardSelection} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) document the deliberate `FormControl` and ARIA composition that replaces upstream label, caption, and validation slots while preserving roving focus.

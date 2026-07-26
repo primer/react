@@ -1,0 +1,109 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as SkeletonTextStories from './SkeletonText.stories'
+import * as SkeletonTextFeatures from './SkeletonText.features.stories'
+import * as SkeletonTextExamples from './SkeletonText.examples.stories'
+
+<Meta of={SkeletonTextStories} />
+
+# SkeletonText
+
+`SkeletonText` creates one or more text-shaped loading lines with typography height presets and an optional maximum width.
+
+<Canvas of={SkeletonTextStories.Default} />
+
+## Import and usage
+
+```tsx
+import {SkeletonText} from '@primer/react-tailwind/SkeletonText'
+;<SkeletonText size="bodyMedium" lines={3} maxWidth={420} />
+```
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>lines</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>1</code>
+      </td>
+      <td>Number of lines; values are floored and at least one line is rendered.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>maxWidth</code>
+      </td>
+      <td>
+        <code>React.CSSProperties['maxWidth']</code>
+      </td>
+      <td>—</td>
+      <td>Maximum width of the group.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>
+        <code>
+          'display' | 'titleLarge' | 'titleMedium' | 'titleSmall' | 'bodyLarge' | 'bodyMedium' | 'bodySmall' |
+          'subtitle'
+        </code>
+      </td>
+      <td>
+        <code>'bodyMedium'</code>
+      </td>
+      <td>Height preset matching the intended text style.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Tailwind utilities or custom classes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={SkeletonTextStories.Playground} />
+
+## Composition
+
+Use one line for a single text placeholder and multiple lines for paragraphs. The final line of a multi-line group is intentionally shorter to resemble natural text wrapping. Pair with `SkeletonAvatar` or `SkeletonBox` for cards.
+
+## Accessibility
+
+The group and its single-line form expose `aria-busy="true"`. Treat skeletons as status-free layout placeholders and provide surrounding loading context; they should not replace a heading or label needed to understand the page.
+
+## Animation and reduced motion
+
+The loading pulse uses `animate-pulse` and `motion-reduce:animate-none`. Reduced-motion users see the same geometry without the pulse.
+
+## Theming and Tailwind
+
+Skeleton text uses the Primer `neutral-muted` and typography-height utilities. Import the package styles or use Tailwind v4 with the package `dist` path in `@source`; extend the result with `className` and standard CSS.
+
+### Data attributes
+
+The root exposes `data-component="SkeletonText"` and `aria-busy="true"`. Individual multi-line boxes are `SkeletonBox` children with `aria-hidden="true"`.
+
+## Features and examples
+
+<Canvas of={SkeletonTextFeatures.WithMultipleLines} />
+<Canvas of={SkeletonTextFeatures.TitleMedium} />
+<Canvas of={SkeletonTextExamples.ArticleLoading} />

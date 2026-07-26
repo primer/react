@@ -1,15 +1,14 @@
+'use client'
+
 import {XIcon} from '@primer/octicons-react'
 import {Dialog as BaseDialog} from '@base-ui/react/dialog'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {mergeClassName} from '../../internal/mergeClassName'
 import {IconButton} from '../IconButton'
 
 const popupClassName =
-  'flex w-full max-w-[var(--overlay-width-large)] flex-col overflow-hidden rounded-lg bg-default text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
-
-function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
-  return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)
-}
+  'flex w-full max-w-[var(--overlay-width-large)] flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] font-sans text-default leading-normal shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
 export type DialogRootProps = BaseDialog.Root.Props
 
@@ -86,7 +85,7 @@ const Backdrop = React.forwardRef<HTMLDivElement, Omit<BaseDialog.Backdrop.Props
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'fixed inset-0 z-modal bg-neutral-emphasis/40 contrast-more:bg-neutral-emphasis data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition-opacity motion-safe:duration-200 motion-reduce:transition-none',
+          'fixed inset-0 z-modal bg-[var(--overlay-backdrop-bgColor)] contrast-more:bg-neutral-emphasis data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition-opacity motion-safe:duration-200 motion-reduce:transition-none',
           className,
         )}
         data-component="Dialog.Backdrop"
@@ -122,7 +121,7 @@ const Header = React.forwardRef<HTMLDivElement, Omit<React.ComponentPropsWithout
         {...rest}
         ref={ref}
         className={cn(
-          'flex items-start justify-between gap-4 p-2 shadow-[0_1px_0_var(--borderColor-default)]',
+          'flex min-h-[49px] items-start justify-between gap-4 p-2 shadow-[0_1px_0_var(--borderColor-default)]',
           className,
         )}
         data-component="Dialog.Header"
@@ -139,7 +138,7 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<BaseDialog.Title.Props, 
     <BaseDialog.Title
       {...rest}
       ref={ref}
-      className={mergeClassName('text-sm font-semibold text-default', className)}
+      className={mergeClassName('m-0 mt-1.5 ml-2 flex-1 text-sm font-semibold text-default', className)}
       data-component="Dialog.Title"
     />
   )
@@ -151,7 +150,7 @@ const Description = React.forwardRef<HTMLParagraphElement, Omit<BaseDialog.Descr
       <BaseDialog.Description
         {...rest}
         ref={ref}
-        className={mergeClassName('mt-1 text-sm text-muted', className)}
+        className={mergeClassName('m-0 mb-3.5 text-sm text-default', className)}
         data-component="Dialog.Description"
       />
     )
@@ -232,3 +231,4 @@ export const Dialog = Object.assign(Root, {
   Footer,
 })
 ;(Dialog as {displayName?: string}).displayName = 'Dialog'
+;('use client')

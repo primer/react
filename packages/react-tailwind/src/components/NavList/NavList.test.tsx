@@ -9,8 +9,8 @@ afterEach(cleanup)
 describe('NavList', () => {
   it('preserves landmark, heading, list, and current-page semantics', () => {
     render(
-      <NavList aria-labelledby="nav-title">
-        <NavList.Heading id="nav-title">Repository</NavList.Heading>
+      <NavList>
+        <NavList.Heading>Repository</NavList.Heading>
         <NavList.List>
           <NavList.Item href="/" aria-current="page">
             Overview
@@ -21,6 +21,23 @@ describe('NavList', () => {
     expect(screen.getByRole('navigation', {name: 'Repository'})).toBeInTheDocument()
     expect(screen.getByRole('heading', {name: 'Repository'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Overview'})).toHaveAttribute('aria-current', 'page')
+  })
+
+  it('keeps a trailing action outside the navigation link', () => {
+    render(
+      <NavList aria-label="Repository">
+        <NavList.Item href="/issues">
+          Issues
+          <NavList.Description>Open issues</NavList.Description>
+          <NavList.TrailingAction label="Issue actions" />
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const link = screen.getByRole('link', {name: 'Issues,Open issues'})
+    const action = screen.getByRole('button', {name: 'Issue actions'})
+    expect(link).toContainElement(screen.getByText('Open issues'))
+    expect(link).not.toContainElement(action)
   })
 
   it('composes a disclosure trigger with a list panel', async () => {

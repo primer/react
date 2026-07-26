@@ -1,0 +1,46 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './SegmentedControl.stories'
+import * as Features from './SegmentedControl.features.stories'
+import * as Examples from './SegmentedControl.examples.stories'
+
+<Meta of={Stories} />
+
+# SegmentedControl
+
+A single-choice Base UI toggle group for related view or mode choices.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`SegmentedControlProps` forwards single-choice ToggleGroup props and adds responsive `fullWidth`, responsive `hideLabels` or `dropdown` variants, and `small` or `medium` sizing. `SegmentedControl.Button` accepts `value`, `leadingVisual`, `count`, disabled state, and a state-aware `className`; `IconButton` requires an `aria-label` and `icon`.
+
+## Import and composition
+
+```tsx
+import {SegmentedControl} from '@primer/react-tailwind/SegmentedControl'
+```
+
+Compose `Button` or `IconButton` children in author order. The root owns single selection; use `value`/`onValueChange` for controlled state or `defaultValue` for initial state.
+
+## Controlled and uncontrolled
+
+<Canvas of={Features.Controlled} />
+
+<Canvas of={Stories.Default} />
+
+## Accessibility, forms, and validation
+
+Give the group an accessible name. Icon-only choices require their explicit `aria-label`. Disabled buttons remain visible but cannot be activated. This is a mode chooser rather than a native field; use a form control only when its selected value must be modeled separately.
+
+## Keyboard, events, and state
+
+Arrow-key navigation follows Base UI ToggleGroup behavior; Space or Enter activates the focused choice. `onValueChange` receives the selected value and details. Stable selectors are `SegmentedControl` and `SegmentedControl.Button`; buttons expose `data-pressed` and `data-disabled`.
+
+<Canvas of={Examples.WithDisabledButtons} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) retain responsive full-width and display variants, sizing, icons, counters, controlled values, icon-only choices, disabled state, keyboard behavior, and focus styling without legacy `aria-disabled` behavior.

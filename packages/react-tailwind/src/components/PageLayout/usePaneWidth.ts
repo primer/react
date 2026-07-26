@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 const useIsomorphicLayoutEffect = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect
@@ -7,6 +9,16 @@ export type CustomWidthOptions = {min: `${number}px`; default: `${number}px`; ma
 export type PaneWidthValue = PaneWidth | CustomWidthOptions
 
 export const defaultPaneWidth: Record<PaneWidth, number> = {small: 256, medium: 296, large: 320}
+const regularPaneWidth: Record<PaneWidth, number> = {small: 240, medium: 256, large: 256}
+const WIDE_PANE_BREAKPOINT = 1012
+
+const subscribeToViewportWidth = (notify: () => void) => {
+  if (typeof ResizeObserver === 'undefined') return () => {}
+  const observer = new ResizeObserver(notify)
+  observer.observe(document.documentElement)
+  return () => observer.disconnect()
+}
+const getIsWideViewport = () => typeof window === 'undefined' || window.innerWidth >= WIDE_PANE_BREAKPOINT
 export const ARROW_KEY_STEP = 3
 export const SSR_DEFAULT_MAX_WIDTH = 600
 export const defaultFormatValueText = (value: number) => `Pane width ${value} pixels`
@@ -15,6 +27,19 @@ export const isPaneWidth = (value: PaneWidthValue): value is PaneWidth => typeof
 export const isCustomWidthOptions = (value: PaneWidthValue): value is CustomWidthOptions => typeof value === 'object'
 export const getDefaultPaneWidth = (value: PaneWidthValue) =>
   isPaneWidth(value) ? defaultPaneWidth[value] : Number.parseInt(value.default, 10)
+
+const getResponsivePaneWidth = (value: PaneWidthValue, isWide: boolean) =>
+  isPaneWidth(value) ? (isWide ? defaultPaneWidth[value] : regularPaneWidth[value]) : Number.parseInt(value.default, 10)
+
+function getStoredPaneWidth(widthStorageKey: string, defaultWidth: number) {
+  try {
+    const stored = Number(window.localStorage.getItem(widthStorageKey))
+    if (stored > 0) return stored
+  } catch {
+    // Storage may be unavailable (for example in private browsing).
+  }
+  return defaultWidth
+}
 
 export function updateAriaValues(
   handle: HTMLElement | null,
@@ -67,7 +92,9 @@ export function usePaneWidth({
 }: UsePaneWidthOptions): UsePaneWidthResult {
   const custom = isCustomWidthOptions(width)
   const minPaneWidth = custom ? Number.parseInt(width.min, 10) : minWidth
-  const defaultWidth = getDefaultPaneWidth(width)
+  const isWide = React.useSyncExternalStore(subscribeToViewportWidth, getIsWideViewport, () => true)
+  const defaultWidth =
+    isPaneWidth(width) && !resizable ? getResponsivePaneWidth(width, isWide) : getDefaultPaneWidth(width)
   const customMax = custom ? Number.parseInt(width.max, 10) : undefined
   const getMaxPaneWidth = React.useCallback(() => {
     if (typeof window === 'undefined') return customMax ?? SSR_DEFAULT_MAX_WIDTH
@@ -84,14 +111,9 @@ export function usePaneWidth({
     ) {
       return defaultWidth
     }
-    try {
-      const stored = Number(window.localStorage.getItem(widthStorageKey))
-      return stored > 0 ? stored : defaultWidth
-    } catch {
-      return defaultWidth
-    }
+    return getStoredPaneWidth(widthStorageKey, defaultWidth)
   })
-  const currentWidth = controlledWidth ?? uncontrolledWidth
+  const currentWidth = controlledWidth ?? (isPaneWidth(width) && !resizable ? defaultWidth : uncontrolledWidth)
   const currentWidthRef = React.useRef(currentWidth)
   const [maxPaneWidth, setMaxPaneWidth] = React.useState(customMax ?? SSR_DEFAULT_MAX_WIDTH)
 
@@ -158,3 +180,4 @@ export function usePaneWidth({
     getDefaultWidth: () => defaultWidth,
   }
 }
+;('use client')

@@ -1,0 +1,33 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as LiveRegionStories from './LiveRegion.stories'
+import * as LiveRegionFeatures from './LiveRegion.features.stories'
+import * as LiveRegionExamples from './LiveRegion.examples.stories'
+
+<Meta of={LiveRegionStories} />
+
+# LiveRegion
+
+Use live regions to announce asynchronous changes without moving focus.
+
+<Canvas of={LiveRegionStories.Default} />
+
+## Props
+
+<Controls of={LiveRegionStories.Playground} />
+
+## Usage
+
+```tsx
+import {Announce, AriaAlert, AriaStatus} from '@primer/react-tailwind'
+
+<AriaStatus>3 results loaded</AriaStatus>
+<AriaAlert>Could not save changes</AriaAlert>
+<Announce>Upload complete</Announce>
+```
+
+`AriaStatus` is polite and `AriaAlert` is assertive. Keep messages concise and do not combine a live-region announcement with unexpected focus movement.
+
+<Canvas of={LiveRegionFeatures.WithDelay} />
+
+<Canvas of={LiveRegionExamples.AsyncSave} />

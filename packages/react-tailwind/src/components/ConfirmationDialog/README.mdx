@@ -1,0 +1,35 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as ConfirmationDialogStories from './ConfirmationDialog.stories'
+import * as ConfirmationDialogFeatures from './ConfirmationDialog.features.stories'
+import * as ConfirmationDialogExamples from './ConfirmationDialog.examples.stories'
+
+<Meta of={ConfirmationDialogStories} />
+
+# ConfirmationDialog
+
+`ConfirmationDialog` asks a user to confirm or cancel a consequential action.
+
+<Canvas of={ConfirmationDialogStories.Default} />
+
+## Props
+
+<Controls of={ConfirmationDialogStories.Playground} />
+
+## Usage
+
+```tsx
+import {ConfirmationDialog} from '@primer/react-tailwind'
+;<ConfirmationDialog
+  dangerous
+  description="This action cannot be undone."
+  title="Delete issue?"
+  trigger={<button type="button">Delete</button>}
+/>
+```
+
+Use a concise title that describes the consequence. The confirm action should be specific and visibly distinct from cancel.
+
+<Canvas of={ConfirmationDialogFeatures.ShorthandHook} />
+
+<Canvas of={ConfirmationDialogExamples.DestructiveConfirmation} />

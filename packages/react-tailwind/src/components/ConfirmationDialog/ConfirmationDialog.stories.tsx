@@ -6,8 +6,8 @@ const meta = {
   title: 'React Tailwind/Components/ConfirmationDialog',
   component: ConfirmationDialog,
   args: {
-    title: 'Discard changes?',
-    trigger: <Button>Discard</Button>,
+    title: 'Delete universe?',
+    trigger: <Button>Show dialog</Button>,
   },
 } satisfies Meta<typeof ConfirmationDialog>
 
@@ -18,20 +18,25 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <ConfirmationDialog
-      title="Discard changes?"
-      description="Your unsaved changes will be lost."
-      trigger={<Button>Discard</Button>}
-    />
+      title="Delete universe?"
+      dangerous
+      confirmButtonContent="Delete it!"
+      trigger={<Button>Show dialog</Button>}
+    >
+      Deleting the universe could have disastrous effects, including but not limited to destroying all life on Earth.
+    </ConfirmationDialog>
   ),
 }
 export const Playground: Story = {
   render: () => (
     <ConfirmationDialog
       dangerous
-      title="Delete repository?"
-      description="This action cannot be undone."
-      trigger={<Button variant="danger">Delete</Button>}
-    />
+      title="Delete universe?"
+      confirmButtonContent="Delete it!"
+      trigger={<Button>Show dialog</Button>}
+    >
+      Deleting the universe could have disastrous effects, including but not limited to destroying all life on Earth.
+    </ConfirmationDialog>
   ),
 }
 export const LoadingConfirmation: Story = {

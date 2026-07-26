@@ -1,0 +1,43 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as DataTableStories from './DataTable.stories'
+import * as DataTableFeatures from './DataTable.features.stories'
+import * as DataTableExamples from './DataTable.examples.stories'
+
+<Meta of={DataTableStories} />
+
+# DataTable
+
+`DataTable` is a presentational, typed table for stable row data. It owns native table structure, sorting state, and column layout while `Table` exposes structural parts for custom composition.
+
+<Canvas of={DataTableStories.Default} />
+
+## Props
+
+<Controls of={DataTableStories.Playground} />
+
+## Usage
+
+```tsx
+import {DataTable, type Column} from '@primer/react-tailwind'
+
+const columns: Column<Issue>[] = [{field: 'title', header: 'Title', rowHeader: true}]
+
+<DataTable aria-label="Issues" columns={columns} data={issues} />
+```
+
+Use a stable row id and a `rowHeader` column. Preserve native table semantics and give every table an accessible label or caption. Column `field` values may address nested properties such as `securityFeatures.dependabot`; use `renderCell` when a cell needs custom content.
+
+## Sorting and layout
+
+Set `sortBy` to `true`, `'alphanumeric'`, `'datetime'`, or a row comparator to make a column sortable. `initialSortColumn` and `initialSortDirection` describe the initial uncontrolled sort state. Set `externalSorting` when the caller provides sorted rows, and use `onToggleSort` to request the next sort from that caller.
+
+Columns grow by default. Use `width="auto"`, `width="growCollapse"`, an explicit CSS width, and optional `minWidth` or `maxWidth` when the table needs a deliberate layout.
+
+## Accessibility and composition
+
+Sortable headers use native buttons and `aria-sort`; row headers render as `<th scope="row">`. `Table.Title` is an `h2` and `Table.Subtitle` is a paragraph by default, so use `Heading` or your own labelled content when another document structure is needed. Compose table pagination with `Table.Pagination`, which translates its zero-based page index contract onto the shared `Pagination` primitive. Compose loading and error UI and row actions with `Table.Skeleton`, `ActionMenu`, and `Blankslate`.
+
+<Canvas of={DataTableFeatures.WithSorting} />
+
+<Canvas of={DataTableExamples.MinimalIssues} />

@@ -1,6 +1,7 @@
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {responsiveClasses, type ResponsiveValue} from './responsive'
+import {responsiveClasses} from '../../utils/responsive'
+import type {AsProp, ResponsiveValue} from '../../utils/types'
 type Gap = 'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'
 
 const gap = {
@@ -36,8 +37,7 @@ const paddingInline = {
   spacious: 'px-6',
 }
 
-export interface StackProps extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType
+export interface StackProps extends React.HTMLAttributes<HTMLElement>, AsProp {
   gap?: ResponsiveValue<Gap>
   direction?: ResponsiveValue<'horizontal' | 'vertical'>
   align?: ResponsiveValue<'stretch' | 'start' | 'center' | 'end' | 'baseline'>
@@ -54,7 +54,7 @@ export const Stack = React.forwardRef<HTMLElement, StackProps>(function Stack(
     align = 'stretch',
     className,
     direction = 'vertical',
-    gap: gapValue,
+    gap: gapValue = 'normal',
     justify = 'start',
     padding: paddingValue = 'none',
     paddingBlock: paddingBlockValue,
@@ -105,8 +105,7 @@ export const Stack = React.forwardRef<HTMLElement, StackProps>(function Stack(
   )
 })
 
-export interface StackItemProps extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType
+export interface StackItemProps extends React.HTMLAttributes<HTMLElement>, AsProp {
   grow?: ResponsiveValue<boolean>
   shrink?: ResponsiveValue<boolean>
 }

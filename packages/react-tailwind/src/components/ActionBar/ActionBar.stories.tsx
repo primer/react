@@ -15,14 +15,14 @@ import {ActionBar} from './ActionBar'
 const meta = {
   title: 'React Tailwind/Data/ActionBar',
   component: ActionBar,
-} satisfies Meta<typeof ActionBar>
-
-export default meta
-
-type Story = StoryObj<typeof meta>
-export const Default: Story = {
-  render: () => (
-    <ActionBar aria-label="Toolbar">
+  args: {'aria-label': 'Toolbar', flush: false, gap: 'condensed', size: 'medium'},
+  argTypes: {
+    flush: {control: 'boolean'},
+    gap: {control: 'radio', options: ['none', 'condensed']},
+    size: {control: 'radio', options: ['small', 'medium', 'large']},
+  },
+  render: args => (
+    <ActionBar {...args}>
       <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
       <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
       <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
@@ -34,6 +34,22 @@ export const Default: Story = {
       <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List" />
       <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List" />
       <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List" />
+    </ActionBar>
+  ),
+} satisfies Meta<typeof ActionBar>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+
+export const Playground: Story = {
+  render: args => (
+    <ActionBar {...args}>
+      <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+      <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      <ActionBar.Divider />
+      <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
     </ActionBar>
   ),
 }

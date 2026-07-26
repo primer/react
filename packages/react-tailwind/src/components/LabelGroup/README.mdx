@@ -1,0 +1,50 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './LabelGroup.stories'
+import * as Features from './LabelGroup.features.stories'
+import * as Examples from './LabelGroup.examples.stories'
+
+<Meta of={Stories} />
+
+# LabelGroup
+
+`LabelGroup` is a Tailwind React component. Import it from `@primer/react-tailwind/LabelGroup`.
+
+```tsx
+import {LabelGroup} from '@primer/react-tailwind/LabelGroup'
+;<LabelGroup aria-label="Labels">…</LabelGroup>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`as`** (default: `ul`) — Any React element type. `ul` and `ol` receive list-item wrappers; use another element when list semantics are not appropriate.
+- **`visibleChildCount`** (default: undefined) — A number hides children after that position. Use `'auto'` to measure the available width and update truncation when the group resizes.
+- **`overflowStyle`** (default: `'overlay'`) — `'overlay'` opens hidden children in an accessible anchored dialog. `'inline'` reveals them in the group and provides a Show less control.
+- **native HTML props** — Includes children, accessible names, `className`, refs, and data attributes. `data-component` remains owned by Primer.
+
+## Composition
+
+Place `Label`, `Token`, or other label-like children directly in the group. The component preserves their order, creates semantic list items for list roots, and composes existing `Button`, `IconButton`, and `AnchoredOverlay` primitives for its overflow controls.
+
+## Accessibility
+
+Give a meaningful group an accessible label, particularly when it summarizes filters or metadata. Auto truncation progressively enhances after hydration through `ResizeObserver`; untruncated children remain available without JavaScript. Inline expansion moves focus to the first revealed focusable child (or Show less), and returns focus to the disclosure on collapse. Overlay expansion uses a modal dialog named “All N labels” and restores focus through Base UI on dismissal.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes stable `data-component="LabelGroup"`, `data-list`, and `data-overflow="inline"` attributes. Truncated item wrappers expose `data-index` and hidden wrappers expose `data-hidden`.
+
+## Intentional differences
+
+[LabelGroup alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/LabelGroup/ALIGNMENT.md) document intentional differences from the upstream component.
+
+## Features and examples
+
+<Canvas of={Features.TruncateAuto} />
+
+<Canvas of={Examples.FilterSummary} />

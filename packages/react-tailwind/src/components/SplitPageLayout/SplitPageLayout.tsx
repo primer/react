@@ -9,7 +9,12 @@ import {
   type PageLayoutProps,
   type PageLayoutSidebarProps,
 } from '../PageLayout/PageLayout'
-import {PageLayoutMarkerContext} from '../PageLayout/markers'
+import {
+  markPageLayoutFooter,
+  markPageLayoutHeader,
+  markPageLayoutSidebar,
+  PageLayoutMarkerContext,
+} from '../PageLayout/markers'
 
 export type SplitPageLayoutProps = PageLayoutProps
 const splitPageLayoutMarkers = {
@@ -40,13 +45,15 @@ const Root = React.forwardRef<HTMLDivElement, SplitPageLayoutProps>(function Spl
   )
 })
 
-const Header = React.forwardRef<HTMLElement, PageLayoutHeaderProps>(function SplitPageLayoutHeader(
-  {divider = 'line', padding = 'normal', ...rest},
-  ref,
-) {
-  // eslint-disable-next-line primer-react/direct-slot-children -- This config component composes the presentational part.
-  return <PageLayout.Header {...rest} ref={ref} divider={divider} padding={padding} />
-})
+const Header = markPageLayoutHeader(
+  React.forwardRef<HTMLElement, PageLayoutHeaderProps>(function SplitPageLayoutHeader(
+    {divider = 'line', padding = 'normal', ...rest},
+    ref,
+  ) {
+    // eslint-disable-next-line primer-react/direct-slot-children -- This config component composes the presentational part.
+    return <PageLayout.Header {...rest} ref={ref} divider={divider} padding={padding} />
+  }),
+)
 export type SplitPageLayoutHeaderProps = PageLayoutHeaderProps
 const Content = React.forwardRef<HTMLElement, PageLayoutContentProps>(function SplitPageLayoutContent(
   {padding = 'normal', width = 'large', ...rest},
@@ -62,20 +69,24 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function SplitPa
   return <PageLayout.Pane {...rest} ref={ref} divider={divider} padding={padding} position={position} sticky={sticky} />
 })
 export type SplitPageLayoutPaneProps = PageLayoutPaneProps
-const Sidebar = React.forwardRef<HTMLDivElement, PageLayoutSidebarProps>(function SplitPageLayoutSidebar(
-  {divider = 'line', padding = 'normal', position = 'start', ...rest},
-  ref,
-) {
-  return <PageLayout.Sidebar {...rest} ref={ref} divider={divider} padding={padding} position={position} />
-})
+const Sidebar = markPageLayoutSidebar(
+  React.forwardRef<HTMLDivElement, PageLayoutSidebarProps>(function SplitPageLayoutSidebar(
+    {divider = 'line', padding = 'none', position = 'start', ...rest},
+    ref,
+  ) {
+    return <PageLayout.Sidebar {...rest} ref={ref} divider={divider} padding={padding} position={position} />
+  }),
+)
 export type SplitPageLayoutSidebarProps = PageLayoutSidebarProps
-const Footer = React.forwardRef<HTMLElement, PageLayoutFooterProps>(function SplitPageLayoutFooter(
-  {divider = 'line', padding = 'normal', ...rest},
-  ref,
-) {
-  // eslint-disable-next-line primer-react/direct-slot-children -- This config component composes the presentational part.
-  return <PageLayout.Footer {...rest} ref={ref} divider={divider} padding={padding} />
-})
+const Footer = markPageLayoutFooter(
+  React.forwardRef<HTMLElement, PageLayoutFooterProps>(function SplitPageLayoutFooter(
+    {divider = 'line', padding = 'normal', ...rest},
+    ref,
+  ) {
+    // eslint-disable-next-line primer-react/direct-slot-children -- This config component composes the presentational part.
+    return <PageLayout.Footer {...rest} ref={ref} divider={divider} padding={padding} />
+  }),
+)
 export type SplitPageLayoutFooterProps = PageLayoutFooterProps
 
 Root.displayName = 'SplitPageLayout'

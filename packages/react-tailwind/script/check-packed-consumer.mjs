@@ -6,13 +6,16 @@ import {spawn} from 'node:child_process'
 
 const packageRoot = path.resolve(import.meta.dirname, '..')
 const distDirectory = path.join(packageRoot, 'dist')
-const requiredStyles = ['styles.css', 'theme.css', 'tailwind.css', 'base.css']
-const reactVersions = ['18.3.1', '19.2.0']
+const requiredStyles = ['styles.css', 'theme.css', 'tailwind.css', 'base.css', 'components.css']
+const reactVersions = ['19.2.0']
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm'
 
 function run(command, args, {cwd, label}) {
   return new Promise((resolve, reject) => {
-    const child = spawn(command, args, {cwd, stdio: ['ignore', 'pipe', 'pipe']})
+    const child = spawn(command, args, {
+      cwd,
+      stdio: ['ignore', 'pipe', 'pipe'],
+    })
     let stdout = ''
     let stderr = ''
 
@@ -203,27 +206,43 @@ async function findTailwindCli() {
   }
 }
 
-async function validateTailwindConsumer(consumerDirectory) {
-  const inputPath = path.join(consumerDirectory, 'consumer.css')
-  const outputPath = path.join(consumerDirectory, 'consumer.output.css')
+async function compileTailwindConsumer(consumerDirectory, name, source) {
+  const inputPath = path.join(consumerDirectory, `${name}.css`)
+  const outputPath = path.join(consumerDirectory, `${name}.output.css`)
   const tailwindCli = await findTailwindCli()
 
-  await writeFile(
-    inputPath,
-    `@import 'tailwindcss';
-@import '@primer/tailwind-config';
-@source './node_modules/@primer/react-tailwind/dist';
-`,
-  )
+  await writeFile(inputPath, source)
   await run(tailwindCli, ['--input', inputPath, '--output', outputPath], {
     cwd: consumerDirectory,
-    label: 'Tailwind v4 consumer compilation',
+    label: `Tailwind v4 ${name} consumer compilation`,
   })
 
   const css = await readFile(outputPath, 'utf8')
   if (!css.includes('.rounded-md')) {
-    throw new Error('Tailwind v4 did not emit utilities discovered in the packed package dist.')
+    throw new Error(`Tailwind v4 ${name} mode did not emit utilities discovered in the packed package dist.`)
   }
+  if (!css.includes('@keyframes primer-skeleton-shimmer') || !css.includes('data-token-kind')) {
+    throw new Error(`Tailwind v4 ${name} mode did not emit the package component CSS contract.`)
+  }
+}
+
+async function validateTailwindConsumer(consumerDirectory) {
+  await compileTailwindConsumer(
+    consumerDirectory,
+    'explicit',
+    `@import 'tailwindcss';
+@import '@primer/tailwind-config';
+@import '@primer/react-tailwind/components.css';
+@source './node_modules/@primer/react-tailwind/dist';
+`,
+  )
+  await compileTailwindConsumer(
+    consumerDirectory,
+    'convenience',
+    `@import 'tailwindcss';
+@import '@primer/react-tailwind/tailwind.css';
+`,
+  )
 }
 
 async function validateConsumer(temporaryRoot, tarball, reactVersion) {
@@ -231,7 +250,11 @@ async function validateConsumer(temporaryRoot, tarball, reactVersion) {
   await mkdir(consumerDirectory, {recursive: true})
   await writeFile(
     path.join(consumerDirectory, 'package.json'),
-    JSON.stringify({name: `packed-consumer-react-${reactVersion}`, private: true, type: 'module'}),
+    JSON.stringify({
+      name: `packed-consumer-react-${reactVersion}`,
+      private: true,
+      type: 'module',
+    }),
   )
   await run(
     npmCommand,

@@ -16,7 +16,7 @@ const labelVariants = cva('inline-flex items-center rounded-full border font-med
       done: 'border-done-emphasis bg-transparent text-done',
       sponsors: 'border-sponsors-emphasis bg-transparent text-sponsors',
     },
-    size: {small: 'h-5 px-1.5 text-xs leading-none', large: 'h-6 px-2 text-sm leading-none'},
+    size: {small: 'h-5 px-1.5 text-xs leading-none', large: 'h-[26px] px-2 text-sm leading-none'},
   },
   defaultVariants: {variant: 'default', size: 'small'},
 })

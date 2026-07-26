@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './CounterLabel.stories'
+import * as Features from './CounterLabel.features.stories'
+import * as Examples from './CounterLabel.examples.stories'
+
+<Meta of={Stories} />
+
+# CounterLabel
+
+`CounterLabel` is a Tailwind React component. Import it from `@primer/react-tailwind/CounterLabel`.
+
+```tsx
+import {CounterLabel} from '@primer/react-tailwind/CounterLabel'
+;<CounterLabel aria-label="12 unread notifications">12</CounterLabel>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`variant`** (default: `secondary`) — `primary` or `secondary`.
+- **`aria-label`** (default: `({children})`) — Screen-reader label; the visible count is hidden from assistive technology.
+- **native span props** (default: none) — Includes children and `className`.
+
+## Composition
+
+Use next to the control or label whose count it qualifies.
+
+## Accessibility
+
+Provide `aria-label` when the generated parenthesized count is not sufficient context.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The visible count has `data-component="CounterLabel"`.
+
+## Features and examples
+
+<Canvas of={Features.PrimaryTheme} />
+
+<Canvas of={Examples.NotificationCount} />

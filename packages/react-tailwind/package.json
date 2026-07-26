@@ -16,6 +16,7 @@
     "./theme.css": "./dist/theme.css",
     "./tailwind.css": "./dist/tailwind.css",
     "./base.css": "./dist/base.css",
+    "./components.css": "./dist/components.css",
     "./api-inventory.json": "./api-inventory.json",
     "./*": {
       "types": "./dist/components/*/index.d.ts",
@@ -26,7 +27,8 @@
   "files": [
     "dist",
     "api-inventory.json",
-    "README.md"
+    "README.md",
+    "ARCHITECTURE.md"
   ],
   "sideEffects": [
     "./dist/**/*.css"
@@ -34,11 +36,14 @@
   "scripts": {
     "build": "npm run clean && rolldown -c && npm run build:css",
     "build:css": "tailwindcss -i ./src/styles/styles.css -o ./dist/styles.css --minify && node ./script/copy-css.mjs",
+    "build:css:storybook": "npm run build:css && tailwindcss -i ./src/styles/storybook.css -o ./.storybook/styles.css --minify",
     "check:exports": "node ./script/check-built-exports.mjs",
     "check:packed-consumer": "npm run check:exports && node ./script/check-packed-consumer.mjs",
     "check:inventory": "node ./script/check-api-inventory.mjs",
     "clean": "rimraf dist",
     "lint:npm": "publint --types",
+    "lint:client-boundaries": "node ./script/lint-client-boundaries.mjs",
+    "lint:react-compiler": "node ./script/lint-react-compiler.mjs",
     "test": "vitest --run -c vitest.config.mts",
     "type-check": "tsc --noEmit"
   },
@@ -61,42 +66,49 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "@github/relative-time-element": "^5.3.0",
     "@primer/octicons-react": "^19.28.1",
     "@primer/primitives": "10.x || 11.x",
     "@primer/tailwind-config": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "color2k": "^2.0.4",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.28.5",
     "@babel/preset-typescript": "7.28.5",
+    "@primer/react-compiler-check": "^0.0.0",
     "@primer/vitest-config": "^0.0.0",
     "@rolldown/plugin-babel": "^0.2.3",
+    "@storybook/react-vite": "^10.5.0",
     "@tailwindcss/cli": "4.3.3",
     "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "^14.5.2",
-    "@types/react": "18.3.11",
-    "@types/react-dom": "18.3.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "fast-glob": "^3.3.3",
     "jsdom": "^27.4.0",
     "publint": "^0.3.15",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "rimraf": "^6.0.1",
     "rolldown": "^1.1.4",
     "rolldown-plugin-dts": "^0.26.0",
     "rolldown-plugin-preserve-directives": "^0.0.0",
+    "storybook": "^10.5.0",
     "tailwindcss": "4.3.3",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"
   },
   "peerDependencies": {
-    "@types/react": "18.x || 19.x",
-    "@types/react-dom": "18.x || 19.x",
-    "react": "18.x || 19.x",
-    "react-dom": "18.x || 19.x"
+    "@types/react": "19.x",
+    "@types/react-dom": "19.x",
+    "react": "19.x",
+    "react-dom": "19.x"
   },
   "peerDependenciesMeta": {
     "@types/react": {

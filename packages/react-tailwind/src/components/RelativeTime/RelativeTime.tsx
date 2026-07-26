@@ -1,50 +1,82 @@
-import React from 'react'
+'use client'
 
-export interface RelativeTimeProps extends React.ComponentPropsWithoutRef<'time'> {
+import '@github/relative-time-element'
+import type {Format, FormatStyle, RelativeTimeUpdatedEvent, Tense} from '@github/relative-time-element'
+import React from 'react'
+import {assignRef} from '../../internal/refs'
+
+type NumericDatePart = '' | 'numeric' | '2-digit'
+
+export interface RelativeTimeProps extends Omit<React.HTMLAttributes<HTMLElement>, 'prefix'> {
   date?: Date
   datetime?: string
+  day?: NumericDatePart
+  format?: Format
+  formatStyle?: FormatStyle
+  hour?: NumericDatePart
+  minute?: NumericDatePart
+  month?: NumericDatePart | 'short' | 'long' | 'narrow'
   noTitle?: boolean
+  onRelativeTimeUpdated?: (event: RelativeTimeUpdatedEvent) => void
+  precision?: 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second'
+  prefix?: string
+  second?: NumericDatePart
+  tense?: Tense
+  threshold?: string
+  timeZone?: string
+  timeZoneName?: '' | 'long' | 'short' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'
+  weekday?: '' | 'short' | 'long' | 'narrow'
+  year?: NumericDatePart
 }
+
 const localeOptions: Intl.DateTimeFormatOptions = {month: 'short', day: 'numeric', year: 'numeric'}
-
-function formatRelativeTime(value: Date, now: number) {
-  const seconds = Math.round((value.valueOf() - now) / 1000)
-  const absoluteSeconds = Math.abs(seconds)
-  const formatter = new Intl.RelativeTimeFormat('en', {numeric: 'auto'})
-
-  if (absoluteSeconds < 60) return formatter.format(0, 'second')
-  if (absoluteSeconds < 60 * 60) return formatter.format(Math.round(seconds / 60), 'minute')
-  if (absoluteSeconds < 24 * 60 * 60) return formatter.format(Math.round(seconds / (60 * 60)), 'hour')
-  if (absoluteSeconds < 7 * 24 * 60 * 60) return formatter.format(Math.round(seconds / (24 * 60 * 60)), 'day')
-  if (absoluteSeconds < 28 * 24 * 60 * 60) return formatter.format(Math.round(seconds / (7 * 24 * 60 * 60)), 'week')
-  if (absoluteSeconds < 8 * 7 * 24 * 60 * 60)
-    return formatter.format(Math.round(seconds / (28 * 24 * 60 * 60)), 'month')
-
-  const includeYear = value.getFullYear() !== new Date(now).getFullYear()
-  return `on ${value.toLocaleDateString('en', {
-    day: 'numeric',
-    month: 'short',
-    year: includeYear ? 'numeric' : undefined,
-  })}`
+type RelativeTimeElementProps = React.HTMLAttributes<HTMLElement> & {
+  datetime?: string
+  'format-style'?: FormatStyle
+  'no-title'?: string
+  'time-zone'?: string
+  'time-zone-name'?: RelativeTimeProps['timeZoneName']
 }
+const RelativeTimeElement = 'relative-time' as unknown as React.ForwardRefExoticComponent<
+  RelativeTimeElementProps & React.RefAttributes<HTMLElement>
+>
 
-export const RelativeTime = React.forwardRef<HTMLTimeElement, RelativeTimeProps>(function RelativeTime(
-  {children, date, datetime, noTitle = false, title, ...rest},
+export const RelativeTime = React.forwardRef<HTMLElement, RelativeTimeProps>(function RelativeTime(
+  {children, date, datetime, formatStyle, noTitle, onRelativeTimeUpdated, timeZone, timeZoneName, ...props},
   ref,
 ) {
   const value = datetime ? new Date(datetime) : date
-  const dateTime = datetime ?? value?.toISOString()
-  const fallback = value && !Number.isNaN(value.valueOf()) ? value.toLocaleDateString('en', localeOptions) : ''
-  const content = value && !Number.isNaN(value.valueOf()) ? formatRelativeTime(value, Date.now()) : fallback
+  const isValidDate = value && !Number.isNaN(value.valueOf())
+  const [element, setElement] = React.useState<HTMLElement | null>(null)
+  const composedRef = React.useCallback(
+    (node: HTMLElement | null) => {
+      setElement(node)
+      assignRef(ref, node)
+    },
+    [ref],
+  )
+  React.useEffect(() => {
+    if (!element || !onRelativeTimeUpdated) return
+
+    const handleUpdate = (event: Event) => {
+      onRelativeTimeUpdated(event as RelativeTimeUpdatedEvent)
+    }
+    element.addEventListener('relative-time-updated', handleUpdate)
+    return () => element.removeEventListener('relative-time-updated', handleUpdate)
+  }, [element, onRelativeTimeUpdated])
+
   return (
-    <time
-      {...rest}
-      ref={ref}
+    <RelativeTimeElement
+      {...props}
+      ref={composedRef}
+      datetime={isValidDate ? value.toISOString() : undefined}
+      format-style={formatStyle}
+      no-title={noTitle ? '' : undefined}
+      time-zone={timeZone}
+      time-zone-name={timeZoneName}
       data-component="RelativeTime"
-      dateTime={dateTime}
-      title={noTitle ? undefined : (title ?? fallback)}
     >
-      {children ?? content}
-    </time>
+      {children ?? (isValidDate ? value.toLocaleDateString('en', localeOptions) : '')}
+    </RelativeTimeElement>
   )
 })

@@ -1,5 +1,6 @@
 export {
-  ConfirmationDialogParts as ConfirmationDialog,
+  ConfirmationDialog,
+  ConfirmationDialogParts,
   type ConfirmationDialogButtonProps,
   type ConfirmationDialogProps,
 } from './ConfirmationDialog'

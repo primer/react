@@ -1,0 +1,30 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as BaseStylesStories from '../../BaseStyles.stories'
+import * as BaseStylesFeatures from '../../BaseStyles.features.stories'
+import * as BaseStylesExamples from '../../BaseStyles.examples.stories'
+
+<Meta of={BaseStylesStories} />
+
+# BaseStyles
+
+`BaseStyles` establishes Primer base typography and color variables for a subtree.
+
+<Canvas of={BaseStylesStories.Default} />
+
+## Props
+
+<Controls of={BaseStylesStories.Playground} />
+
+## Usage
+
+```tsx
+import {BaseStyles} from '@primer/react-tailwind'
+;<BaseStyles as="main">Repository settings</BaseStyles>
+```
+
+`as` selects the root element. Pair `BaseStyles` with `ThemeProvider` when the subtree needs a color scheme.
+
+<Canvas of={BaseStylesFeatures.AsMainLandmark} />
+
+<Canvas of={BaseStylesExamples.ThemedContent} />

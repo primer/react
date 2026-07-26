@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Heading.stories'
+import * as Features from './Heading.features.stories'
+import * as Examples from './Heading.examples.stories'
+
+<Meta of={Stories} />
+
+# Heading
+
+`Heading` is a Tailwind React component. Import it from `@primer/react-tailwind/Heading`.
+
+```tsx
+import {Heading} from '@primer/react-tailwind/Heading'
+;<Heading as="h2">General</Heading>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`as`** (default: `h2`) — One of `h1` through `h6`.
+- **`size`** (default: `large`) — `small`, `medium`, `large`, or `display`.
+- **native heading props** (default: none) — Includes children and `className`.
+
+## Composition
+
+Set `as` from the document outline independently from the visual `size`.
+
+## Accessibility
+
+Maintain a logical heading hierarchy; size is visual and does not change heading level.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The heading has `data-component="Heading"`.
+
+## Features and examples
+
+<Canvas of={Features.Small} />
+
+<Canvas of={Examples.PageOutline} />

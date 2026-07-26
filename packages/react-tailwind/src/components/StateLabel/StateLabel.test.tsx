@@ -13,5 +13,13 @@ describe('StateLabel', () => {
     )
     expect(screen.getByTestId('state')).toHaveAttribute('data-status', 'issueOpened')
     expect(screen.getByTestId('state')).toBe(ref.current)
+    expect(screen.getByRole('img', {name: 'Issue'})).toBeInTheDocument()
+  })
+
+  it('supports alert states with their corresponding accessible icon', () => {
+    render(<StateLabel status="alertClosed">Closed</StateLabel>)
+
+    expect(screen.getByRole('img', {name: 'Alert'})).toBeInTheDocument()
+    expect(screen.getByText('Closed')).toHaveAttribute('data-status', 'alertClosed')
   })
 })

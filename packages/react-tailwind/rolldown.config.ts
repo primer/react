@@ -38,7 +38,9 @@ export default defineConfig([
     plugins: [
       babel({
         include: /\.(?:ts|tsx)$/,
+        exclude: /node_modules/,
         presets: ['@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]],
+        plugins: [['babel-plugin-react-compiler', {target: '19'}]],
       }),
       preserveDirectives(),
     ],

@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './CheckboxGroup.stories'
+import * as Features from './CheckboxGroup.features.stories'
+import * as Examples from './CheckboxGroup.examples.stories'
+
+<Meta of={Stories} />
+
+# CheckboxGroup
+
+Groups checkbox primitives and supplies their shared controlled or uncontrolled values.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`CheckboxGroupProps` forwards Base UI group props. Its public value contract is `value`/`onValueChange` or `defaultValue`; `className` accepts a string or group-state callback.
+
+## Import and composition
+
+```tsx
+import {Checkbox} from '@primer/react-tailwind/Checkbox'
+import {CheckboxGroup} from '@primer/react-tailwind/CheckboxGroup'
+```
+
+Compose `Checkbox` children in author order. Use a surrounding `FormControl` for labels, captions, and validation rather than group slots.
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+Name the group with `aria-label` or `aria-labelledby`, and label each checkbox. Child `name` and `value` fields form-submit independently. Disabled state prevents selection; compose `FormControl.Validation` for error or success messages.
+
+## Keyboard, events, and state
+
+Space toggles the focused checkbox. `onValueChange` receives the selected value array and Base UI details. The root has `data-component="CheckboxGroup"`; children retain their checkbox `data-checked`, `data-indeterminate`, and `data-disabled` states.
+
+<Canvas of={Features.Checked} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) explain that upstream label, caption, and validation slots are deliberately composed with `FormControl` and ARIA attributes in this Base UI group primitive.

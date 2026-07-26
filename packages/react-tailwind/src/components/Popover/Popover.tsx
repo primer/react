@@ -1,14 +1,13 @@
+'use client'
+
 import {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
-import {cn} from '../../internal/cn'
+import {mergeClassName} from '../../internal/mergeClassName'
+import type {FloatingContentProps} from '../../utils/types'
 import {Button, type ButtonProps} from '../Button'
 
 const popupClassName =
-  'min-w-[var(--overlay-width-small)] rounded-md bg-default p-6 text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden'
-
-function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
-  return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)
-}
+  'min-w-[var(--overlay-width-small)] rounded-md bg-[var(--overlay-bgColor)] p-6 text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden'
 
 export type PopoverRootProps = BasePopover.Root.Props
 
@@ -59,14 +58,7 @@ const Popup = React.forwardRef<HTMLDivElement, PopoverPopupProps>(function Popov
   )
 })
 
-export interface PopoverContentProps extends PopoverPopupProps {
-  align?: BasePopover.Positioner.Props['align']
-  side?: BasePopover.Positioner.Props['side']
-  sideOffset?: BasePopover.Positioner.Props['sideOffset']
-  alignOffset?: BasePopover.Positioner.Props['alignOffset']
-  portal?: boolean
-  positionerClassName?: string
-}
+export interface PopoverContentProps extends PopoverPopupProps, FloatingContentProps {}
 
 const Content = React.forwardRef<HTMLDivElement, PopoverContentProps>(function PopoverContent(
   {
@@ -82,6 +74,7 @@ const Content = React.forwardRef<HTMLDivElement, PopoverContentProps>(function P
   },
   ref,
 ) {
+  const inlinePortalRef = React.useRef<HTMLDivElement>(null)
   const content = (
     <PopupMarkerContext.Provider value="Popover.Content">
       <Positioner
@@ -97,7 +90,15 @@ const Content = React.forwardRef<HTMLDivElement, PopoverContentProps>(function P
       </Positioner>
     </PopupMarkerContext.Provider>
   )
-  return portal ? <Portal>{content}</Portal> : content
+  if (portal) return <Portal>{content}</Portal>
+
+  return (
+    <div ref={inlinePortalRef} className="contents">
+      <Portal container={inlinePortalRef} className="contents">
+        {content}
+      </Portal>
+    </div>
+  )
 })
 
 export type PopoverPositionerProps = Omit<BasePopover.Positioner.Props, 'data-component'>
@@ -153,7 +154,7 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<BasePopover.Title.Props,
       <BasePopover.Title
         {...rest}
         ref={ref}
-        className={mergeClassName('text-base font-semibold text-default', className)}
+        className={mergeClassName('m-0 text-title-small font-semibold text-default', className)}
         data-component="Popover.Title"
       />
     )
@@ -216,3 +217,4 @@ export const Popover = Object.assign(Root, {
   Viewport,
 })
 ;(Popover as {displayName?: string}).displayName = 'Popover'
+;('use client')

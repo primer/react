@@ -1,13 +1,12 @@
+'use client'
+
 import {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
-import {cn} from '../../internal/cn'
+import {mergeClassName} from '../../internal/mergeClassName'
+import type {FloatingContentProps} from '../../utils/types'
 
 const contentClassName =
-  'min-w-48 max-w-[calc(100vw-var(--base-size-32))] max-h-dvh overflow-auto rounded-lg bg-default text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
-
-function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
-  return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)
-}
+  'min-w-48 max-w-[calc(100vw-var(--base-size-32))] max-h-dvh overflow-auto rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
 export type AnchoredOverlayRootProps = BasePopover.Root.Props
 
@@ -30,14 +29,9 @@ const Trigger = React.forwardRef<HTMLElement, AnchoredOverlayTriggerProps>(funct
   )
 })
 
-export interface AnchoredOverlayContentProps extends Omit<BasePopover.Popup.Props, 'data-component'> {
-  align?: BasePopover.Positioner.Props['align']
-  side?: BasePopover.Positioner.Props['side']
-  sideOffset?: BasePopover.Positioner.Props['sideOffset']
-  alignOffset?: BasePopover.Positioner.Props['alignOffset']
-  portal?: boolean
-  positionerClassName?: string
-}
+export interface AnchoredOverlayContentProps
+  extends Omit<BasePopover.Popup.Props, 'data-component'>,
+    FloatingContentProps {}
 
 const Content = React.forwardRef<HTMLDivElement, AnchoredOverlayContentProps>(function AnchoredOverlayContent(
   {
@@ -188,3 +182,4 @@ export const AnchoredOverlay = Object.assign(Root, {
   Description,
 })
 ;(AnchoredOverlay as {displayName?: string}).displayName = 'AnchoredOverlay'
+;('use client')

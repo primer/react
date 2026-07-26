@@ -1,0 +1,44 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './ToggleSwitch.stories'
+import * as Features from './ToggleSwitch.features.stories'
+import * as Examples from './ToggleSwitch.examples.stories'
+
+<Meta of={Stories} />
+
+# ToggleSwitch
+
+A form-associated binary switch with small and medium sizes.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`ToggleSwitchProps` forwards Base UI switch props and adds `size`. Use `checked`/`onCheckedChange` or `defaultChecked`, and native form fields such as `name`, `value`, `required`, and `disabled`.
+
+## Import
+
+```tsx
+import {ToggleSwitch} from '@primer/react-tailwind/ToggleSwitch'
+```
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+Provide an accessible name with a visible label, `aria-label`, or `aria-labelledby`. Checked switches participate in form submission through `name` and `value`. Compose captions and feedback with `FormControl`; disabled switches cannot be toggled.
+
+## Keyboard, events, and state
+
+Space toggles a focused switch. `onCheckedChange` receives the next value and Base UI details. The root exposes `data-component="ToggleSwitch"`, `data-size`, `data-checked`, and `data-disabled`; its thumb mirrors checked and disabled state.
+
+<Canvas of={Features.Controlled} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) retain checked, disabled, controlled, keyboard, focus, and form behavior while intentionally omitting upstream loading and status-label APIs.

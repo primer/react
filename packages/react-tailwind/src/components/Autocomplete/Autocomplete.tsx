@@ -1,6 +1,7 @@
 import {Autocomplete as BaseAutocomplete} from '@base-ui/react/autocomplete'
 import React from 'react'
-import {mergeClassName} from '../ActionList/selectionUtils'
+import {mergeClassName} from '../../internal/mergeClassName'
+import type {FloatingContentProps} from '../../utils/types'
 
 export type AutocompleteRootProps<ItemValue> = BaseAutocomplete.Root.Props<ItemValue>
 
@@ -16,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, AutocompleteInputProps>(functio
       {...rest}
       ref={ref}
       className={mergeClassName(
-        'block w-full rounded-md border border-default bg-default px-3 py-1.5 text-sm text-default placeholder:text-muted focus:border-accent-emphasis focus:outline-none focus:ring-2 focus:ring-accent-emphasis',
+        'm-0 block h-8 w-full rounded-md border border-default bg-default px-3 text-sm text-default placeholder:text-muted focus:border-accent-emphasis focus:outline-none focus:ring-2 focus:ring-accent-emphasis',
         className,
       )}
       data-component="Autocomplete.Input"
@@ -24,22 +25,20 @@ const Input = React.forwardRef<HTMLInputElement, AutocompleteInputProps>(functio
   )
 })
 
-export interface AutocompleteContentProps extends Omit<BaseAutocomplete.Popup.Props, 'data-component'> {
-  align?: BaseAutocomplete.Positioner.Props['align']
-  side?: BaseAutocomplete.Positioner.Props['side']
-  sideOffset?: BaseAutocomplete.Positioner.Props['sideOffset']
-  portal?: boolean
-}
+export interface AutocompleteContentProps
+  extends Omit<BaseAutocomplete.Popup.Props, 'data-component'>,
+    Omit<FloatingContentProps, 'portal'> {}
 const Content = React.forwardRef<HTMLDivElement, AutocompleteContentProps>(function AutocompleteContent(
-  {align = 'start', children, className, portal = true, side = 'bottom', sideOffset = 4, ...rest},
+  {align = 'start', alignOffset, children, className, positionerClassName, side = 'bottom', sideOffset = 4, ...rest},
   ref,
 ) {
   const popup = (
     <BaseAutocomplete.Positioner
       align={align}
+      alignOffset={alignOffset}
       side={side}
       sideOffset={sideOffset}
-      className="z-popover"
+      className={mergeClassName('z-popover', positionerClassName)}
       data-component="Autocomplete.Positioner"
     >
       <BaseAutocomplete.Popup
@@ -55,7 +54,9 @@ const Content = React.forwardRef<HTMLDivElement, AutocompleteContentProps>(funct
       </BaseAutocomplete.Popup>
     </BaseAutocomplete.Positioner>
   )
-  return portal ? <BaseAutocomplete.Portal>{popup}</BaseAutocomplete.Portal> : popup
+  // Base UI requires the Portal context for Positioner. Rendering through the
+  // portal also matches the original menu behavior outside overlay containers.
+  return <BaseAutocomplete.Portal>{popup}</BaseAutocomplete.Portal>
 })
 
 export type AutocompleteItemProps = Omit<BaseAutocomplete.Item.Props, 'data-component'>

@@ -1,0 +1,34 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './UnderlinePanels.stories'
+import * as Features from './UnderlinePanels.features.stories'
+import * as Examples from './UnderlinePanels.examples.stories'
+
+<Meta of={Stories} />
+
+# UnderlinePanels
+
+`UnderlinePanels` is a tab-and-panel composition with an underlined tab list.
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.Playground} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {UnderlinePanels} from '@primer/react-tailwind/UnderlinePanels'
+;<UnderlinePanels defaultValue="overview">
+  <UnderlinePanels.List aria-label="Repository sections">
+    <UnderlinePanels.Tab value="overview">Overview</UnderlinePanels.Tab>
+  </UnderlinePanels.List>
+  <UnderlinePanels.Panel value="overview">Repository activity.</UnderlinePanels.Panel>
+</UnderlinePanels>
+```
+
+Pair each tab and panel by `value`, provide an accessible name for the list, and use this pattern for local content switching rather than navigation.
+
+<Canvas of={Features.SelectedTab} />
+<Canvas of={Examples.RepositorySections} />

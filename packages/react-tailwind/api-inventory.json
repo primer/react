@@ -55,6 +55,7 @@
     {"name": "Autocomplete", "kind": "component", "family": "selection"},
     {"name": "ActionList", "kind": "component", "family": "selection"},
     {"name": "FilteredActionList", "kind": "component", "family": "selection"},
+    {"name": "FilteredActionListLoadingTypes", "kind": "utility", "family": "selection"},
     {"name": "SelectPanel", "kind": "component", "family": "selection"},
     {"name": "ActionMenu", "kind": "component", "family": "selection"},
     {"name": "Details", "kind": "component", "family": "selection"},
@@ -138,7 +139,6 @@
     "registerPortalRoot",
     "PortalContext",
     "useRovingTabIndex",
-    "createColumnHelper",
-    "FilteredActionListLoadingTypes"
+    "createColumnHelper"
   ]
 }

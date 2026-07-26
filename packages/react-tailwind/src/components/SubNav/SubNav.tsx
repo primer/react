@@ -25,7 +25,7 @@ const SubNavRoot = React.forwardRef<HTMLElement, SubNavProps>(function SubNav(
       )}
       data-component="SubNav"
     >
-      <div className="flex min-w-0 flex-wrap gap-2">{children}</div>
+      <div className="flex h-[33px] min-w-0 flex-wrap gap-2">{children}</div>
       {actions ? <div className="shrink-0 self-center">{actions}</div> : null}
     </nav>
   )
@@ -50,7 +50,7 @@ const SubNavLink = React.forwardRef<HTMLElement, SubNavLinkProps>(function SubNa
       ref={ref}
       aria-current={selected ? 'page' : undefined}
       className={cn(
-        'flex min-h-8 items-center border-y border-r border-default px-4 text-center text-sm font-medium text-default no-underline first:rounded-l-md first:border-l last:rounded-r-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-focus',
+        'flex min-h-[34px] items-center border-y border-r border-default px-4 text-center text-sm leading-5 font-medium text-default no-underline first:rounded-l-md first:border-l last:rounded-r-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-focus',
         selected && 'border-accent-emphasis bg-accent-emphasis text-on-emphasis hover:bg-accent-emphasis',
         className,
       )}

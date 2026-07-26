@@ -1,0 +1,52 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './IconButton.stories'
+import * as Features from './IconButton.features.stories'
+import * as Examples from './IconButton.examples.stories'
+
+<Meta of={Stories} />
+
+# IconButton
+
+`IconButton` is a Tailwind React component. Import it from `@primer/react-tailwind/IconButton`.
+
+```tsx
+import {IconButton} from '@primer/react-tailwind/IconButton'
+;<IconButton aria-label="Add item" icon={PlusIcon} />
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`icon`** (default: none) — Required React element type rendered as the visual.
+- **`aria-label`** (default: none) — Required accessible name.
+- **`size`** (default: `medium`) — `small`, `medium`, or `large`.
+- **button props** (default: none) — Supports Button variants, loading, and native button props except visual children.
+
+## Composition
+
+`IconButton` composes the local `Button` API and owns its icon visual.
+
+## Accessibility
+
+Always provide the required `aria-label`; the icon itself is hidden from assistive technology.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The root is identified as `data-component="IconButton"`.
+
+## Intentional differences
+
+[IconButton alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/IconButton/ALIGNMENT.md) document intentional differences from the upstream component. Tooltip and menu composition remain in local Tailwind primitives; the component uses native title, aria attributes, and loading state for equivalent fixtures.
+
+## Features and examples
+
+<Canvas of={Features.Primary} />
+
+<Canvas of={Examples.ItemActions} />

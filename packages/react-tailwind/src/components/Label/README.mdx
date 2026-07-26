@@ -1,0 +1,48 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Label.stories'
+import * as Features from './Label.features.stories'
+import * as Examples from './Label.examples.stories'
+
+<Meta of={Stories} />
+
+# Label
+
+`Label` is a Tailwind React component. Import it from `@primer/react-tailwind/Label`.
+
+```tsx
+import {Label} from '@primer/react-tailwind/Label'
+;<Label variant="success">ready for review</Label>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`as`** (default: `span`) — Any React element type.
+- **`variant`** (default: `default`) — `default`, `primary`, `secondary`, `accent`, `success`, `attention`, `severe`, `danger`, `done`, or `sponsors`.
+- **`size`** (default: `small`) — `small` or `large`.
+- **native HTML props** (default: none) — Includes children and `className`.
+
+## Composition
+
+Use labels as inline metadata and choose `as` when the surrounding structure needs a different element.
+
+## Accessibility
+
+Include text that communicates the state; color should not be the only cue.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The rendered element has `data-component="Label"`.
+
+## Features and examples
+
+<Canvas of={Features.Primary} />
+
+<Canvas of={Examples.IssueMetadata} />

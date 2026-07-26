@@ -8,6 +8,7 @@ import {
   TableDivider,
   TableHead,
   TableHeader,
+  TablePagination,
   TableRow,
   TableSkeleton,
   TableSortHeader,
@@ -25,6 +26,7 @@ export const Table = Object.assign(TableRoot, {
   Divider: TableDivider,
   Head: TableHead,
   Header: TableHeader,
+  Pagination: TablePagination,
   Row: TableRow,
   SortHeader: TableSortHeader,
   Skeleton: TableSkeleton,
@@ -38,6 +40,7 @@ export {
   type Column,
   type UniqueRow,
   type CellAlignment,
+  type ColumnWidth,
   type SortStrategy,
 } from './DataTable'
 export {
@@ -46,6 +49,7 @@ export {
   type TableBodyProps,
   type TableRowProps,
   type TableHeaderProps,
+  type TablePaginationProps,
   type TableSortHeaderProps,
   type TableCellProps,
   type TableContainerProps,

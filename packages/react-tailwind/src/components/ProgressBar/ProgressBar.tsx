@@ -2,20 +2,30 @@ import {cva, type VariantProps} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const progressVariants = cva('flex w-full gap-0.5 overflow-hidden rounded-sm bg-[var(--borderColor-default)]', {
-  variants: {size: {small: 'h-[5px]', default: 'h-2', large: 'h-2.5'}, inline: {true: 'inline-flex', false: ''}},
-  defaultVariants: {size: 'default', inline: false},
-})
+const progressVariants = cva(
+  'flex w-full gap-0.5 overflow-hidden rounded-[var(--borderRadius-small)] bg-[var(--progressBar-track-bgColor)] [outline:solid_1px_var(--progressBar-track-borderColor)] [outline-offset:-1px]',
+  {
+    variants: {size: {small: 'h-[5px]', default: 'h-2', large: 'h-2.5'}, inline: {true: 'inline-flex', false: ''}},
+    defaultVariants: {size: 'default', inline: false},
+  },
+)
 
-const itemVariants = cva('h-full rounded-full motion-reduce:transition-none', {
+const itemVariants = cva('h-full w-[var(--progress-width)] [background-color:var(--progress-bg)]', {
   variants: {
     variant: {
-      accent: 'bg-accent-emphasis',
-      success: 'bg-success-emphasis',
-      attention: 'bg-attention-emphasis',
-      danger: 'bg-danger-emphasis',
+      accent: '[--progress-bg:var(--bgColor-accent-emphasis)]',
+      success: '[--progress-bg:var(--bgColor-success-emphasis)]',
+      attention: '[--progress-bg:var(--bgColor-attention-emphasis)]',
+      danger: '[--progress-bg:var(--bgColor-danger-emphasis)]',
+      severe: '[--progress-bg:var(--bgColor-severe-emphasis)]',
+      done: '[--progress-bg:var(--bgColor-done-emphasis)]',
+      sponsors: '[--progress-bg:var(--bgColor-sponsors-emphasis)]',
+      neutral: '[--progress-bg:var(--bgColor-neutral-emphasis)]',
     },
-    animated: {true: 'transition-[width] duration-300 ease-in-out', false: ''},
+    animated: {
+      true: 'motion-safe:animate-[primer-skeleton-shimmer_var(--base-duration-1000)_infinite] motion-safe:[mask-image:linear-gradient(75deg,#000_30%,rgb(0_0_0/65%)_80%)] motion-safe:[mask-size:200%]',
+      false: '',
+    },
   },
   defaultVariants: {variant: 'success', animated: false},
 })
@@ -41,7 +51,7 @@ export const ProgressBarItem = React.forwardRef<HTMLSpanElement, ProgressBarItem
       aria-valuenow={value}
       data-component="ProgressBar.Item"
       className={cn(itemVariants({animated, variant}), className)}
-      style={{width: `${value ?? 0}%`, ...style}}
+      style={{'--progress-width': `${value ?? 0}%`, ...style} as React.CSSProperties}
     />
   )
 })

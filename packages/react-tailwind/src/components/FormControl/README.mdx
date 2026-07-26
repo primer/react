@@ -1,0 +1,48 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './FormControl.stories'
+import * as Features from './FormControl.features.stories'
+import * as Examples from './FormControl.examples.stories'
+
+<Meta of={Stories} />
+
+# FormControl
+
+A composable field wrapper that provides label, caption, validation, and control semantics.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`FormControlProps` forwards Base UI Field props and adds `layout: 'horizontal' | 'vertical'`. The public composition includes `Label`, `Caption`, `Validation`, `LeadingVisual`, and `Control`; `Validation` requires an `error` or `success` variant.
+
+## Import and composition
+
+```tsx
+import {FormControl} from '@primer/react-tailwind/FormControl'
+```
+
+Place `Label`, the native input or `Control`, optional `Caption`, and `Validation` in semantic order. Children are not extracted or reordered.
+
+## Controlled and uncontrolled
+
+`FormControl` does not own field values. Control the nested native input with `value`/`onChange`, or use its `defaultValue` for an uncontrolled field.
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+`Label` associates field text, `Caption` provides description, and error validation uses `Field.Error`; success validation announces with `role="status"`. Forward `disabled` and `name` through the field or child control. Set `aria-invalid` on invalid native controls.
+
+## Keyboard, events, and state
+
+Nested native controls own keyboard and input events. The root exposes `data-component="FormControl"` and `data-layout`; stable subcomponent selectors include `FormControl.Label`, `FormControl.Caption`, `FormControl.Validation`, and `FormControl.Control`.
+
+<Canvas of={Features.ValidationExample} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) retain local primitive integration, required indicators, labels, captions, validation, and disabled behavior while omitting unavailable legacy input integrations.

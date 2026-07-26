@@ -17,7 +17,7 @@ export function useOverflow(element: HTMLElement | null): boolean {
       resizeObserver?.observe(element)
 
       const mutationObserver = typeof MutationObserver === 'undefined' ? undefined : new MutationObserver(notify)
-      mutationObserver?.observe(element, {characterData: true, childList: true, subtree: true})
+      mutationObserver?.observe(element, {attributes: true, characterData: true, childList: true, subtree: true})
 
       return () => {
         mutationObserver?.disconnect()

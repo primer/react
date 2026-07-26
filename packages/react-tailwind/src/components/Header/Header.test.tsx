@@ -7,5 +7,6 @@ describe('Header', () => {
   it('uses a header landmark and forwards props to its root', () => {
     render(<Header data-testid="header">Content</Header>)
     expect(screen.getByTestId('header')).toHaveAttribute('data-component', 'Header')
+    expect(screen.getByTestId('header')).toHaveClass('text-sm', 'text-[color:var(--header-fgColor-default)]')
   })
 })

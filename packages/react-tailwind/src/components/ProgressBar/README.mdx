@@ -1,0 +1,143 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as ProgressBarStories from './ProgressBar.stories'
+import * as ProgressBarFeatures from './ProgressBar.features.stories'
+import * as ProgressBarExamples from './ProgressBar.examples.stories'
+
+<Meta of={ProgressBarStories} />
+
+# ProgressBar
+
+`ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.
+
+<Canvas of={ProgressBarStories.Default} />
+
+## Import and usage
+
+```tsx
+import {ProgressBar} from '@primer/react-tailwind/ProgressBar'
+;<ProgressBar progress={66} aria-label="Upload test.png" />
+```
+
+For multiple segments, pass items as children:
+
+```tsx
+<ProgressBar aria-label="Project completion">
+  <ProgressBar.Item progress={40} variant="accent" />
+  <ProgressBar.Item progress={26} variant="success" />
+</ProgressBar>
+```
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>progress</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>—</td>
+      <td>Single-segment percentage, clamped to 0–100. Do not use with children.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>variant</code>
+      </td>
+      <td>
+        <code>'accent' | 'success' | 'attention' | 'danger' | 'severe' | 'done' | 'sponsors' | 'neutral'</code>
+      </td>
+      <td>
+        <code>'success'</code>
+      </td>
+      <td>Color of the single segment.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>
+        <code>'small' | 'default' | 'large'</code>
+      </td>
+      <td>
+        <code>'default'</code>
+      </td>
+      <td>Track height.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>inline</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Uses an inline-flex track.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>animated</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Applies Primer's progress shimmer when reduced motion is not requested.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>—</td>
+      <td>
+        <code>ProgressBar.Item</code> segments; mutually exclusive with <code>progress</code>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={ProgressBarStories.Playground} />
+
+`ProgressBar.Item` accepts `progress`, `variant`, and `animated`, plus standard `span` attributes. Its progress is also clamped to 0–100.
+
+## Composition
+
+Use one `ProgressBar` for a single task. Use `ProgressBar.Item` children when the track needs to communicate distinct categories or phases. Give the root an accessible name with `aria-label` or `aria-labelledby`.
+
+## Accessibility
+
+Each item is a `progressbar` with `aria-valuemin="0"`, `aria-valuemax="100"`, and `aria-valuenow`. The root's `aria-label` is forwarded to the single item; provide an equivalent accessible name for composed segments.
+
+## Animation and reduced motion
+
+`animated` applies Primer's one-second progress shimmer when the user has not requested reduced motion. The item remains static under `prefers-reduced-motion: reduce`.
+
+## Theming and Tailwind
+
+Use the package compiled CSS or Tailwind v4 with the package `dist` path in `@source`. `className` can extend the track and item, while the component's semantic color utilities use Primer theme tokens. Do not load compiled and host-generated package utilities together.
+
+### Data attributes
+
+The track exposes `data-component="ProgressBar"` and each segment exposes `data-component="ProgressBar.Item"`. Size, inline state, variant, and progress are represented through classes and ARIA values rather than extra state attributes.
+
+## Features and examples
+
+<Canvas of={ProgressBarFeatures.MultipleItems} />
+<Canvas of={ProgressBarFeatures.Animated} />
+<Canvas of={ProgressBarExamples.WithVisibleTextValue} />

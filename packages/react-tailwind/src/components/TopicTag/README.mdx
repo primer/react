@@ -1,0 +1,109 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as TopicTagStories from './TopicTag.stories'
+import * as TopicTagFeatures from './TopicTag.features.stories'
+import * as TopicTagExamples from './TopicTag.examples.stories'
+
+<Meta of={TopicTagStories} />
+
+# TopicTag
+
+`TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTagGroup` wraps tags into a responsive row.
+
+<Canvas of={TopicTagStories.Default} />
+
+## Import and usage
+
+```tsx
+import {TopicTag, TopicTagGroup} from '@primer/react-tailwind/TopicTag'
+;<TopicTagGroup aria-label="Repository topics">
+  <TopicTag href="/topics/react">react</TopicTag>
+  <TopicTag href="/topics/typescript">typescript</TopicTag>
+</TopicTagGroup>
+```
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>as</code>
+      </td>
+      <td>
+        <code>React.ElementType</code>
+      </td>
+      <td>
+        <code>'a'</code>
+      </td>
+      <td>Element to render.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>href</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Destination when rendered as a link.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Tailwind utilities or custom classes.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>—</td>
+      <td>Topic text.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={TopicTagStories.Playground} />
+
+`TopicTagGroup` accepts standard `div` props and lays out children with wrapping and a two-unit gap.
+
+## Composition
+
+Use `TopicTagGroup` for a collection of topics and provide a group label when the surrounding heading does not already name them. Use `as="button"` for selection, with the selected state owned by the consumer.
+
+## Accessibility
+
+Links and buttons need meaningful topic text and appropriate destinations or actions. Add an accessible group label when topics are not otherwise named. The visual color is not the sole source of meaning.
+
+## Animation and reduced motion
+
+Interactive tags change background and text color on hover without animation. No reduced-motion override is required.
+
+## Theming and Tailwind
+
+Topic tags use Primer accent tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` for local spacing, wrapping, or color extensions.
+
+### Data attributes
+
+`TopicTag` exposes `data-component="TopicTag"` and `TopicTagGroup` exposes `data-component="TopicTagGroup"`.
+
+## Features and examples
+
+<Canvas of={TopicTagFeatures.AsGroup} />
+<Canvas of={TopicTagFeatures.AsButton} />
+<Canvas of={TopicTagExamples.RepositoryTopics} />

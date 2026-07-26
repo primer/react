@@ -2,10 +2,13 @@ import {render, screen} from '@testing-library/react'
 import {expect, it} from 'vitest'
 import {getAccessibleKeybindingHintString, KeybindingHint} from './index'
 
-it('announces sequence separators while rendering compact keys', () => {
+it('announces keys and sequence separators while hiding compact symbols', () => {
   render(<KeybindingHint keys="Mod+k g" />)
-  expect(screen.getByTestId('keybinding-hint')).toHaveTextContent('⌘/Ctrl+kthen g')
+  expect(screen.getByText('control')).toHaveClass('sr-only')
+  expect(screen.getByText('⌃')).toHaveAttribute('aria-hidden', 'true')
   expect(screen.getByText('then')).toHaveClass('sr-only')
+  expect(screen.getByText('K')).toHaveAttribute('aria-hidden', 'true')
+  expect(screen.getByText('G')).toHaveAttribute('aria-hidden', 'true')
 })
 
 it('returns readable names for punctuation', () => {

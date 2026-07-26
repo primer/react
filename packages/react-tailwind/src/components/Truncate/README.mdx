@@ -1,0 +1,132 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as TruncateStories from './Truncate.stories'
+import * as TruncateFeatures from './Truncate.features.stories'
+import * as TruncateExamples from './Truncate.examples.stories'
+
+<Meta of={TruncateStories} />
+
+# Truncate
+
+`Truncate` applies single-line overflow truncation while preserving the full value in the native `title` tooltip.
+
+<Canvas of={TruncateStories.Default} />
+
+## Import and usage
+
+```tsx
+import {Truncate} from '@primer/react-tailwind/Truncate'
+;<Truncate title="A long repository name">A long repository name</Truncate>
+```
+
+The `title` prop is required and is also the accessible/native tooltip value. The component's content is supplied through standard `children`.
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>title</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>required</td>
+      <td>Full text used for the native tooltip.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>as</code>
+      </td>
+      <td>
+        <code>React.ElementType</code>
+      </td>
+      <td>
+        <code>'span'</code>
+      </td>
+      <td>Element to render.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>inline</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Uses an inline-block instead of a block display.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>expandable</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Marks content as expandable for consumers that add expansion behavior.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>maxWidth</code>
+      </td>
+      <td>
+        <code>number | string</code>
+      </td>
+      <td>
+        <code>125</code>
+      </td>
+      <td>Maximum width in pixels or any CSS width value.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Tailwind utilities or custom classes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={TruncateStories.Playground} />
+
+## Composition
+
+Use `inline` when the truncated value is part of a sentence or compact row. Use `as` when the surrounding semantics require another element. The `expandable` flag is descriptive only; this component does not implement an expansion interaction.
+
+## Accessibility
+
+Keep the full value in `title`, even when children are visually truncated. Choose an appropriate `as` element and do not use a link or button element unless the corresponding interaction is provided by the consumer.
+
+## Animation and reduced motion
+
+`Truncate` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Use `className` to extend the generated `truncate` styles and layout. With Tailwind v4, include the package's compiled `dist` directory in `@source` and import Primer theme tokens. Do not combine compiled `styles.css` with generated package utilities.
+
+### Data attributes
+
+The root exposes `data-component="Truncate"` and `data-expandable` when `expandable` is true. The width is stored in the `--truncate-max-width` inline custom property.
+
+## Features and examples
+
+<Canvas of={TruncateFeatures.Expandable} />
+<Canvas of={TruncateFeatures.CustomElement} />
+<Canvas of={TruncateExamples.NavigationLabel} />

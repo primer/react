@@ -1,1 +1,9 @@
-export {TreeView, type TreeViewProps, type TreeViewItemProps, type TreeViewSubTreeProps} from './TreeView'
+export {
+  TreeView,
+  type TreeViewDirectoryIconProps,
+  type TreeViewItemProps,
+  type TreeViewProps,
+  type TreeViewSubTreeProps,
+  type TreeViewVisualProps,
+  type TreeViewVisualState,
+} from './TreeView'

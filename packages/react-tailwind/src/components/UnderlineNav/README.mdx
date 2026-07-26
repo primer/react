@@ -1,0 +1,54 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './UnderlineNav.stories'
+import * as Features from './UnderlineNav.features.stories'
+import * as Examples from './UnderlineNav.examples.stories'
+
+<Meta of={Stories} />
+
+# UnderlineNav
+
+`UnderlineNav` is a presentational navigation composition for sibling destinations. It keeps native link semantics, while consumers own route integration, item order, and selected state.
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.Playground} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {UnderlineNav} from '@primer/react-tailwind/UnderlineNav'
+;<UnderlineNav aria-label="Repository">
+  <UnderlineNav.List>
+    <UnderlineNav.Item href="/code" aria-current="page">
+      Code
+    </UnderlineNav.Item>
+  </UnderlineNav.List>
+</UnderlineNav>
+```
+
+Use `UnderlineNav.List` as the direct child of the root and place `UnderlineNav.Item` links in the list. Give the navigation landmark an accessible name and use one `aria-current="page"` item for the current destination. `Item` renders an anchor by default; use `as` to compose a router link when its props are compatible.
+
+<Canvas of={Features.WithIcons} />
+<Canvas of={Features.WithCounterLabels} />
+<Canvas of={Features.CountersLoadingState} />
+<Canvas of={Features.OverflowOnNarrowScreen} />
+<Canvas of={Examples.PullRequestPage} />
+
+## Responsive behavior
+
+The list keeps a single row and scrolls horizontally when it cannot fit. `hideIconsBreakpoint` hides leading visuals at the selected root container width; set it to `null` to always show them. The default is `xxlarge`, matching the established UnderlineNav density behavior.
+
+## Events and state
+
+`onSelect` is called after an unprevented native click, which makes it suitable for client-side navigation. Keep selected state in the consuming application and update `aria-current` in response. `loadingCounters` replaces every supplied counter with a skeleton to reserve counter space while data loads.
+
+## Accessibility
+
+This is navigation, not a tablist: use destination links rather than `role="tab"` or arrow-key tab behavior. `CounterLabel` supplies an accessible counter label, and a loading counter is hidden from the accessible name until its value is available. Native links retain standard keyboard activation and focus behavior.
+
+## Alignment
+
+See [legacy alignment notes](./ALIGNMENT.md) for composition and responsive-overflow differences from `@primer/react`.

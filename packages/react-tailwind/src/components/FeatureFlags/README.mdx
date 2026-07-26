@@ -1,0 +1,32 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as FeatureFlagsStories from './FeatureFlags.stories'
+import * as FeatureFlagsFeatures from './FeatureFlags.features.stories'
+import * as FeatureFlagsExamples from './FeatureFlags.examples.stories'
+
+<Meta of={FeatureFlagsStories} />
+
+# FeatureFlags
+
+`FeatureFlags` scopes boolean flags and `useFeatureFlag` reads one flag.
+
+<Canvas of={FeatureFlagsStories.Default} />
+
+## Props
+
+<Controls of={FeatureFlagsStories.Playground} />
+
+## Usage
+
+```tsx
+import {FeatureFlags, useFeatureFlag} from '@primer/react-tailwind'
+;<FeatureFlags flags={{newExperience: true}}>
+  <Example />
+</FeatureFlags>
+```
+
+Nested providers merge their flags with the nearest parent and override duplicate names. Flags are configuration, not an authorization boundary.
+
+<Canvas of={FeatureFlagsFeatures.NestedOverride} />
+
+<Canvas of={FeatureFlagsExamples.FlaggedContent} />

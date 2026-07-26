@@ -1,0 +1,115 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as SpinnerStories from './Spinner.stories'
+import * as SpinnerFeatures from './Spinner.features.stories'
+import * as SpinnerExamples from './Spinner.examples.stories'
+
+<Meta of={SpinnerStories} />
+
+# Spinner
+
+`Spinner` communicates that work is in progress with an animated indicator and an optional screen-reader announcement.
+
+<Canvas of={SpinnerStories.Default} />
+
+## Import and usage
+
+```tsx
+import {Spinner} from '@primer/react-tailwind/Spinner'
+;<Spinner size="small" srText="Loading results" />
+```
+
+The component renders a `span` and forwards standard HTML attributes and `className`.
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>
+        <code>'small' | 'medium' | 'large'</code>
+      </td>
+      <td>
+        <code>'medium'</code>
+      </td>
+      <td>Indicator size.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>srText</code>
+      </td>
+      <td>
+        <code>string | null</code>
+      </td>
+      <td>
+        <code>'Loading'</code>
+      </td>
+      <td>
+        Visually hidden status text. Set to <code>null</code> to suppress the status role and announcement.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>delay</code>
+      </td>
+      <td>
+        <code>boolean | 'short' | 'long' | number</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>
+        Delays rendering by 300 ms, 1,000 ms, or the supplied number of milliseconds. <code>true</code> uses the long
+        delay.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Tailwind utilities or custom classes for the root.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={SpinnerStories.Playground} />
+
+## Composition
+
+Place the spinner beside the content whose pending state it represents. Use a custom `srText` when the operation is specific, and do not add a second visible loading label unless it adds useful context.
+
+## Accessibility
+
+The default root has `role="status"` and includes visually hidden `srText`. Provide an accessible label when the surrounding content does not explain what is loading. Setting `srText={null}` is appropriate only when another accessible status already describes the operation.
+
+## Animation and reduced motion
+
+The indicator uses `animate-spin`; `motion-reduce:animate-none` disables the rotation for users who request reduced motion. Spinner instances synchronize their animation phase as they appear, and a delayed spinner is not mounted until its delay completes.
+
+## Theming and Tailwind
+
+Import `@primer/react-tailwind/styles.css` once, or compile the package classes with Tailwind v4 and `@source` the package `dist` directory. Use `className` to extend layout or sizing with Tailwind utilities; do not combine compiled `styles.css` with host-generated package utilities.
+
+### Data attributes
+
+The root exposes `data-component="Spinner"`. Size and delay are represented by classes rather than additional state attributes.
+
+## Features and examples
+
+<Canvas of={SpinnerFeatures.AllSizes} />
+<Canvas of={SpinnerFeatures.ReducedMotion} />
+<Canvas of={SpinnerExamples.FullLifecycle} />

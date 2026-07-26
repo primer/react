@@ -1,5 +1,13 @@
+'use client'
+
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {
+  UnderlineItemContent,
+  underlineItemClassName,
+  underlineListClassName,
+  underlineRootClassName,
+} from '../../internal/UnderlineItemContent'
 import {
   Tab,
   TabList,
@@ -12,20 +20,30 @@ import {
 } from '../Tabs'
 import {TabsMarkerProvider} from '../Tabs/Tabs'
 
-export type UnderlinePanelsProps = TabsProps
+type UnderlinePanelsContextValue = {loadingCounters: boolean}
+const UnderlinePanelsContext = React.createContext<UnderlinePanelsContextValue>({loadingCounters: false})
 
-const Root = React.forwardRef<HTMLElement, UnderlinePanelsProps>(function UnderlinePanels({className, ...props}, ref) {
+export interface UnderlinePanelsProps extends TabsProps {
+  loadingCounters?: boolean
+}
+
+const Root = React.forwardRef<HTMLElement, UnderlinePanelsProps>(function UnderlinePanels(
+  {className, loadingCounters = false, ...props},
+  ref,
+) {
   return (
-    <TabsMarkerProvider
-      markers={{
-        root: 'UnderlinePanels',
-        list: 'UnderlinePanels.List',
-        tab: 'UnderlinePanels.Tab',
-        panel: 'UnderlinePanels.Panel',
-      }}
-    >
-      <Tabs {...props} ref={ref} className={cn('w-full', className)} />
-    </TabsMarkerProvider>
+    <UnderlinePanelsContext.Provider value={{loadingCounters}}>
+      <TabsMarkerProvider
+        markers={{
+          root: 'UnderlinePanels',
+          list: 'UnderlinePanels.List',
+          tab: 'UnderlinePanels.Tab',
+          panel: 'UnderlinePanels.Panel',
+        }}
+      >
+        <Tabs {...props} ref={ref} className={cn('w-full', className)} />
+      </TabsMarkerProvider>
+    </UnderlinePanelsContext.Provider>
   )
 })
 
@@ -34,26 +52,33 @@ const List = React.forwardRef<HTMLElement, UnderlinePanelsListProps>(function Un
   {className, ...props},
   ref,
 ) {
-  return <TabList {...props} ref={ref} className={cn('overflow-x-auto', className)} />
+  return (
+    <div data-component="UnderlinePanels.ListWrapper" className={cn(underlineRootClassName, 'px-4')}>
+      <TabList {...props} ref={ref} className={cn(underlineListClassName, className)} />
+    </div>
+  )
 })
 
 export interface UnderlinePanelsTabProps extends TabProps {
+  icon?: React.ElementType
   leadingVisual?: React.ReactNode
   counter?: React.ReactNode
 }
 const PanelTab = React.forwardRef<HTMLElement, UnderlinePanelsTabProps>(function UnderlinePanelsTab(
-  {className, counter, leadingVisual, children, ...props},
+  {className, counter, icon: Icon, leadingVisual, children, ...props},
   ref,
 ) {
+  const {loadingCounters} = React.useContext(UnderlinePanelsContext)
   return (
-    <Tab {...props} ref={ref} className={cn('shrink-0', className)}>
-      {leadingVisual ? <span aria-hidden="true">{leadingVisual}</span> : null}
-      {children}
-      {counter === undefined ? null : (
-        <span className="rounded-full bg-neutral-muted px-1 text-xs" aria-hidden="true">
-          {counter}
-        </span>
-      )}
+    <Tab {...props} ref={ref} className={cn(underlineItemClassName, className)}>
+      <UnderlineItemContent
+        counter={counter}
+        leadingVisual={leadingVisual ?? (Icon ? <Icon /> : null)}
+        loadingCounters={loadingCounters}
+        marker="UnderlinePanels.Tab"
+      >
+        {children}
+      </UnderlineItemContent>
     </Tab>
   )
 })
@@ -68,3 +93,4 @@ Root.displayName = 'UnderlinePanels'
 List.displayName = 'UnderlinePanels.List'
 PanelTab.displayName = 'UnderlinePanels.Tab'
 Panel.displayName = 'UnderlinePanels.Panel'
+;('use client')

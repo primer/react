@@ -1,19 +1,124 @@
-import {CheckIcon} from '@primer/octicons-react'
+'use client'
+
+import {AlertIcon, CheckIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {ButtonBase, type ButtonBaseProps} from '../Button'
+import {Button, ButtonBase, type ButtonBaseProps, type ButtonProps} from '../Button'
+import {IconButton} from '../IconButton'
+import {LinkButton, type LinkButtonProps} from '../LinkButton'
 import {getSelectionAttribute, getSelectionRole, type SelectionVariant} from './selectionUtils'
 
 type ListContextValue = {
-  role?: 'list' | 'listbox' | 'menu'
+  groupLabelId?: string
+  role?: string
   selectionVariant?: SelectionVariant
+  showDividers?: boolean
+  variant?: 'inset' | 'horizontal-inset' | 'full'
 }
 
 const ListContext = React.createContext<ListContextValue>({})
 
-const listClassName = 'm-0 list-none p-0 text-sm text-default'
-const itemClassName =
-  'flex w-full appearance-none items-center gap-2 rounded-md bg-transparent px-2 py-1.5 text-left text-default hover:bg-neutral-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emphasis data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled'
+const listClassName = 'm-0 list-none p-0 text-default'
+export const actionItemClassName =
+  'flex !min-w-0 w-full !justify-start gap-2 appearance-none rounded-md !border-0 bg-transparent px-2 py-1.5 text-left text-sm font-normal ![line-height:20px] whitespace-normal text-default no-underline !shadow-none hover:bg-neutral-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emphasis data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled'
+
+interface ActionListTrailingActionBaseProps {
+  className?: string
+  icon?: React.ElementType
+  label: string
+  style?: React.CSSProperties
+}
+
+type ActionListTrailingActionButtonProps = {
+  as?: 'button'
+  href?: never
+} & Omit<
+  ButtonProps,
+  'children' | 'className' | 'data-component' | 'leadingVisual' | 'style' | 'trailingAction' | 'trailingVisual'
+>
+
+type ActionListTrailingActionLinkProps = {
+  as: 'a'
+} & Omit<LinkButtonProps, 'children' | 'className' | 'leadingVisual' | 'style' | 'trailingVisual' | 'variant'>
+
+export type ActionListTrailingActionProps = ActionListTrailingActionBaseProps &
+  (ActionListTrailingActionButtonProps | ActionListTrailingActionLinkProps)
+
+function getTrailingActionClassName(hasIcon: boolean) {
+  return cn(
+    'relative inline-flex h-8 min-h-8 min-w-8 items-center justify-center rounded-md !border-0 bg-transparent px-2 text-sm !shadow-none hover:bg-neutral-muted hover:text-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emphasis disabled:cursor-not-allowed',
+    hasIcon ? 'text-muted' : '!px-[13px] text-default',
+  )
+}
+
+function renderTrailingActionContainer(
+  action: React.ReactNode,
+  className: string | undefined,
+  style: React.CSSProperties | undefined,
+) {
+  return (
+    <span
+      className={cn('ml-auto shrink-0 self-stretch', className)}
+      data-component="ActionList.TrailingAction"
+      style={style}
+    >
+      {action}
+    </span>
+  )
+}
+
+const TrailingAction = React.forwardRef<HTMLElement, ActionListTrailingActionProps>(
+  function ActionListTrailingAction(props, ref) {
+    if (props.as === 'a') {
+      const {as: actionType, className, icon: Icon, label, style, ...linkProps} = props
+      void actionType
+      const action = (
+        <LinkButton
+          {...linkProps}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          aria-label={Icon ? label : linkProps['aria-label']}
+          className={getTrailingActionClassName(Boolean(Icon))}
+          data-component="ActionList.TrailingAction.Button"
+          leadingVisual={Icon ? <Icon aria-hidden="true" /> : undefined}
+          variant="invisible"
+        >
+          {Icon ? null : label}
+        </LinkButton>
+      )
+      return renderTrailingActionContainer(action, className, style)
+    }
+
+    const {as: actionType, className, icon: Icon, label, style, type = 'button', ...buttonProps} = props
+    void actionType
+    const action = Icon ? (
+      <IconButton
+        {...buttonProps}
+        ref={ref}
+        type={type}
+        aria-label={label}
+        className={getTrailingActionClassName(true)}
+        data-component="ActionList.TrailingAction.Button"
+        icon={Icon}
+        variant="invisible"
+      />
+    ) : (
+      <Button
+        {...buttonProps}
+        ref={ref}
+        type={type}
+        className={getTrailingActionClassName(false)}
+        data-component="ActionList.TrailingAction.Button"
+        variant="invisible"
+      >
+        {label}
+      </Button>
+    )
+    return renderTrailingActionContainer(action, className, style)
+  },
+)
+
+const isTrailingAction = (child: React.ReactNode): child is React.ReactElement<ActionListTrailingActionProps> =>
+  React.isValidElement(child) && child.type === TrailingAction
 
 export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'> {
   selectionVariant?: SelectionVariant
@@ -25,16 +130,39 @@ const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function Ac
   {children, className, role = 'list', selectionVariant, showDividers = false, variant = 'inset', ...rest},
   ref,
 ) {
-  const listRole = (
-    role === 'list' || role === 'listbox' || role === 'menu' ? role : undefined
-  ) as ListContextValue['role']
+  const listRole = role
+  const listRef = React.useRef<HTMLUListElement | null>(null)
+  const setListRef = React.useCallback(
+    (node: HTMLUListElement | null) => {
+      listRef.current = node
+      if (typeof ref === 'function') ref(node)
+      else if (ref) ref.current = node
+    },
+    [ref],
+  )
+
+  React.useEffect(() => {
+    const list = listRef.current
+    if (!list) return
+    const hasMixedDescriptions =
+      list.querySelector('[data-has-description="true"]') !== null &&
+      list.querySelector('[data-has-description="false"]') !== null
+    list.toggleAttribute('data-mixed-descriptions', hasMixedDescriptions)
+  })
+
   return (
-    <ListContext.Provider value={{role: listRole, selectionVariant}}>
+    <ListContext.Provider value={{role: listRole, selectionVariant, showDividers, variant}}>
       <ul
         {...rest}
-        ref={ref}
+        ref={setListRef}
         role={role}
-        className={cn(listClassName, variant !== 'full' && 'px-2', className)}
+        className={cn(
+          listClassName,
+          variant === 'inset' && 'py-2',
+          variant === 'horizontal-inset' && 'pb-2',
+          'data-[mixed-descriptions]:[&_[data-item-label]]:font-normal',
+          className,
+        )}
         data-component="ActionList"
         data-variant={variant}
         data-dividers={showDividers || undefined}
@@ -50,10 +178,119 @@ export interface ActionListItemProps
   children?: React.ReactNode
   className?: string
   disabled?: boolean
+  inactiveText?: React.ReactNode
+  loading?: boolean
+  loadingText?: string
   selected?: boolean
+  size?: 'medium' | 'large'
   active?: boolean
   variant?: 'default' | 'danger'
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+}
+
+function getItemParts(children: React.ReactNode) {
+  const childParts = React.Children.toArray(children)
+  const leadingVisual = childParts.find(child => React.isValidElement(child) && child.type === LeadingVisual)
+  const trailingVisual = childParts.find(child => React.isValidElement(child) && child.type === TrailingVisual)
+  const descriptions = childParts.filter(
+    (child): child is React.ReactElement<ActionListDescriptionProps> =>
+      React.isValidElement<ActionListDescriptionProps>(child) && child.type === Description,
+  )
+  const label = childParts.filter(
+    child =>
+      !React.isValidElement(child) ||
+      (child.type !== LeadingVisual &&
+        child.type !== TrailingVisual &&
+        child.type !== Description &&
+        child.type !== TrailingAction),
+  )
+  const blockDescriptions = descriptions.filter(description => description.props.variant === 'block')
+  const inlineDescriptions = descriptions.filter(description => description.props.variant !== 'block')
+
+  return {blockDescriptions, descriptions, inlineDescriptions, label, leadingVisual, trailingVisual}
+}
+
+export function ActionItemContent({
+  children,
+  description,
+  descriptionVariant,
+  leadingVisual,
+  selection,
+  showDivider,
+  supportingText,
+  trailingVisual,
+}: {
+  children: React.ReactNode
+  description?: React.ReactNode
+  descriptionVariant?: ActionListDescriptionProps['variant']
+  leadingVisual?: React.ReactNode
+  selection?: React.ReactNode
+  showDivider?: boolean
+  supportingText?: React.ReactNode
+  trailingVisual?: React.ReactNode
+}) {
+  const composedChildren = [
+    leadingVisual ? React.createElement(LeadingVisual, {key: 'leading-visual'}, leadingVisual) : null,
+    children,
+    description
+      ? React.createElement(Description, {key: 'description', variant: descriptionVariant}, description)
+      : null,
+    trailingVisual ? React.createElement(TrailingVisual, {key: 'trailing-visual'}, trailingVisual) : null,
+  ]
+  const {
+    blockDescriptions,
+    descriptions,
+    inlineDescriptions,
+    label,
+    leadingVisual: resolvedLeadingVisual,
+    trailingVisual: resolvedTrailingVisual,
+  } = getItemParts(composedChildren)
+  const hasBlockDescription = blockDescriptions.length > 0
+
+  return (
+    <>
+      {selection}
+      {resolvedLeadingVisual}
+      <span
+        className={cn(
+          'flex min-w-0 flex-1 items-start',
+          supportingText ? 'flex-wrap gap-x-2 gap-y-0' : 'gap-2',
+          showDivider &&
+            "relative before:absolute before:inset-x-0 before:-top-[7px] before:h-px before:bg-[var(--borderColor-muted)] before:content-['']",
+        )}
+        data-component="ActionList.Item--DividerContainer"
+      >
+        <span
+          className={cn(
+            'flex min-w-0 flex-1 gap-1',
+            supportingText && 'basis-full',
+            hasBlockDescription ? 'flex-col' : 'flex-row items-baseline gap-2',
+          )}
+          data-description-variant={hasBlockDescription ? 'block' : 'inline'}
+        >
+          <span className={cn('flex min-w-0 items-baseline', inlineDescriptions.length > 0 && 'gap-2')}>
+            <span
+              className={cn(
+                'relative text-sm leading-5 wrap-break-word text-default',
+                descriptions.length === 0 && 'min-w-0 flex-1',
+                descriptions.length > 0 && 'font-semibold',
+              )}
+              data-component="ActionList.Item.Label"
+              data-item-label=""
+            >
+              {label}
+            </span>
+            {inlineDescriptions}
+          </span>
+          {blockDescriptions}
+        </span>
+        {resolvedTrailingVisual}
+        {supportingText ? (
+          <span className="basis-full text-xs leading-4 text-attention-fg">{supportingText}</span>
+        ) : null}
+      </span>
+    </>
+  )
 }
 
 const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionListItem(
@@ -62,47 +299,104 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
     children,
     className,
     disabled,
+    inactiveText,
+    loading = false,
+    loadingText,
     onClick,
     onSelect: onSelectItem,
     role: roleProp,
     selected,
+    size = 'medium',
     variant = 'default',
     ...rest
   },
   ref,
 ) {
-  const {role: listRole, selectionVariant} = React.useContext(ListContext)
+  const {role: listRole, selectionVariant, showDividers, variant: listVariant} = React.useContext(ListContext)
   const role = roleProp ?? getSelectionRole(listRole, selectionVariant)
   const selectionAttribute = getSelectionAttribute(role)
+  const childParts = React.Children.toArray(children)
+  const trailingAction = childParts.find(isTrailingAction)
+  const itemChildren = childParts.filter(child => !isTrailingAction(child))
+  const hasDescription = getItemParts(itemChildren).descriptions.length > 0
+  const renderedTrailingAction = !inactiveText && !loading ? trailingAction : null
+  const showInactiveWarning = Boolean(inactiveText && (listRole === 'menu' || listRole === 'listbox'))
+  const selection =
+    selectionVariant === 'multiple' ? (
+      <span
+        aria-hidden="true"
+        className={cn(
+          'grid size-4 shrink-0 place-items-center rounded-sm border border-[var(--control-borderColor-emphasis)] bg-default',
+          selected &&
+            'border-[var(--control-checked-bgColor-rest)] bg-[var(--control-checked-bgColor-rest)] text-on-emphasis',
+        )}
+      >
+        <CheckIcon className={cn('size-3', !selected && 'invisible')} />
+      </span>
+    ) : selectionVariant === 'single' || selectionVariant === 'radio' ? (
+      <CheckIcon aria-hidden="true" className={cn('shrink-0', !selected && 'invisible')} />
+    ) : null
+  const statusIndicator = loading ? (
+    <span
+      aria-hidden="true"
+      className="size-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent"
+    />
+  ) : null
+  const inactiveIndicator =
+    inactiveText && !showInactiveWarning ? (
+      <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-muted" />
+    ) : null
 
   return (
-    <li role={listRole === 'menu' || listRole === 'listbox' ? 'none' : undefined} data-component="ActionList.Item">
+    <li
+      role={listRole === 'menu' || listRole === 'listbox' ? 'none' : undefined}
+      data-component="ActionList.Item"
+      className={cn(
+        'relative list-none rounded-md',
+        listVariant !== 'full' && 'mx-2',
+        showDividers &&
+          "after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-border-muted after:content-[''] last:after:hidden",
+        renderedTrailingAction && 'flex items-center',
+      )}
+    >
       <ButtonBase
         {...rest}
         ref={ref}
         role={role}
         disabled={disabled}
+        aria-disabled={inactiveText || loading ? true : undefined}
+        title={typeof inactiveText === 'string' ? inactiveText : undefined}
         aria-selected={selectionAttribute === 'aria-selected' ? selected : undefined}
         aria-checked={selectionAttribute === 'aria-checked' ? selected : undefined}
         onClick={event => {
           onClick?.(event)
-          if (!event.defaultPrevented) onSelectItem?.(event)
+          if (!event.defaultPrevented && !inactiveText && !loading) onSelectItem?.(event)
         }}
         className={cn(
-          itemClassName,
+          actionItemClassName,
+          size === 'large' && 'py-2.5',
+          renderedTrailingAction && 'min-w-0 flex-1',
           variant === 'danger' && 'text-danger-fg hover:bg-danger-subtle',
-          selected && 'bg-accent-muted',
           active && 'ring-2 ring-accent-emphasis',
           className,
         )}
         data-component="ActionList.Item.Action"
         data-active={active || undefined}
+        data-has-description={hasDescription}
         data-selected={selected || undefined}
         data-variant={variant === 'danger' ? variant : undefined}
       >
-        {selectionVariant && selected ? <CheckIcon aria-hidden="true" className="shrink-0" /> : null}
-        {children}
+        <ActionItemContent
+          selection={statusIndicator ?? selection}
+          supportingText={showInactiveWarning ? inactiveText : null}
+          trailingVisual={inactiveIndicator}
+        >
+          {itemChildren}
+        </ActionItemContent>
+        {inactiveText && !showInactiveWarning ? <span className="sr-only">{inactiveText}</span> : null}
+        {loading && loadingText ? <span className="sr-only">{loadingText}</span> : null}
       </ButtonBase>
+      {renderedTrailingAction}
     </li>
   )
 })
@@ -116,21 +410,37 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
   {children, className, selected, variant = 'default', ...rest},
   ref,
 ) {
+  const context = React.useContext(ListContext)
+  const childParts = React.Children.toArray(children)
+  const trailingAction = childParts.find(isTrailingAction)
+  const itemChildren = childParts.filter(child => !isTrailingAction(child))
+  const hasDescription = getItemParts(itemChildren).descriptions.length > 0
+
   return (
-    <li data-component="ActionList.LinkItem">
+    <li
+      data-component="ActionList.LinkItem"
+      className={cn(
+        'relative list-none rounded-md',
+        context.variant !== 'full' && 'mx-2',
+        trailingAction && 'flex items-center',
+      )}
+    >
       <a
         {...rest}
         ref={ref}
         className={cn(
-          itemClassName,
+          actionItemClassName,
+          trailingAction && 'min-w-0 flex-1',
           variant === 'danger' && 'text-danger-fg hover:bg-danger-subtle',
           selected && 'bg-accent-muted',
           className,
         )}
         data-selected={selected || undefined}
+        data-has-description={hasDescription}
       >
-        {children}
+        <ActionItemContent>{itemChildren}</ActionItemContent>
       </a>
+      {trailingAction}
     </li>
   )
 })
@@ -141,24 +451,44 @@ export interface ActionListGroupProps extends Omit<React.ComponentPropsWithoutRe
 }
 
 const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function ActionListGroup(
-  {children, selectionVariant, title, ...rest},
+  {children, className, selectionVariant, title, ...rest},
   ref,
 ) {
   const context = React.useContext(ListContext)
+  const generatedGroupLabelId = React.useId()
+  const childParts = React.Children.toArray(children)
+  const isGroupHeading = (child: React.ReactNode): child is React.ReactElement<ActionListGroupHeadingProps> =>
+    React.isValidElement<ActionListGroupHeadingProps>(child) && child.type === GroupHeading
+  const headingChildren = childParts.filter(isGroupHeading)
+  const listChildren = childParts.filter(child => !isGroupHeading(child))
+  const groupLabelId = title
+    ? generatedGroupLabelId
+    : (headingChildren[0]?.props.id ?? (headingChildren.length > 0 ? generatedGroupLabelId : undefined))
+  const hasFilledHeading = headingChildren.some(child => child.props.variant === 'filled')
   return (
     <li
       {...rest}
       ref={ref}
       role={context.role === 'menu' || context.role === 'listbox' ? 'none' : rest.role}
+      className={cn(!hasFilledHeading && '[&+&]:mt-2', className)}
       data-component="ActionList.Group"
     >
-      <ListContext.Provider value={{...context, selectionVariant: selectionVariant ?? context.selectionVariant}}>
-        {title ? <GroupHeading>{title}</GroupHeading> : null}
+      <ListContext.Provider
+        value={{...context, groupLabelId, selectionVariant: selectionVariant ?? context.selectionVariant}}
+      >
+        {title ? <GroupHeading id={groupLabelId}>{title}</GroupHeading> : null}
+        {headingChildren.map((heading, index) =>
+          React.cloneElement(heading, {
+            id:
+              heading.props.id ?? (!title && index === 0 ? groupLabelId : `${generatedGroupLabelId}-heading-${index}`),
+          }),
+        )}
         <ul
           className="m-0 list-none p-0"
+          aria-labelledby={groupLabelId}
           role={context.role === 'menu' || context.role === 'listbox' ? 'group' : undefined}
         >
-          {children}
+          {listChildren}
         </ul>
       </ListContext.Provider>
     </li>
@@ -167,23 +497,51 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
 
 export interface ActionListGroupHeadingProps extends React.ComponentPropsWithoutRef<'h3'> {
   as?: React.ElementType
+  variant?: 'subtle' | 'filled'
 }
 
+const groupHeadingWrapperClassName =
+  'flex min-h-[30px] items-center gap-2 px-4 py-1.5 text-xs leading-[18px] font-semibold text-muted'
+
 const GroupHeading = React.forwardRef<HTMLElement, ActionListGroupHeadingProps>(function ActionListGroupHeading(
-  {as: Component = 'h3', className, ...rest},
+  {as: Component = 'h3', children, className, id, variant = 'subtle', ...rest},
   ref,
 ) {
-  const {role} = React.useContext(ListContext)
+  const {groupLabelId, role} = React.useContext(ListContext)
+  const childParts = React.Children.toArray(children)
+  const trailingAction = childParts.find(
+    child => React.isValidElement(child) && child.type === GroupHeadingTrailingAction,
+  )
+  const headingChildren = childParts.filter(
+    child => !React.isValidElement(child) || child.type !== GroupHeadingTrailingAction,
+  )
   return (
-    <Component
-      {...rest}
-      ref={ref}
-      role={role === 'menu' || role === 'listbox' ? 'presentation' : undefined}
-      className={cn('px-2 pb-1 pt-3 text-xs font-semibold text-muted', className)}
+    <div
+      className={cn(groupHeadingWrapperClassName, variant === 'filled' && 'mb-2 border-y border-muted bg-muted')}
       data-component="ActionList.GroupHeading"
-    />
+      data-variant={variant}
+    >
+      <Component
+        {...rest}
+        ref={ref}
+        id={id ?? groupLabelId}
+        role={role === 'menu' || role === 'listbox' ? 'presentation' : undefined}
+        className={cn('m-0 text-xs leading-[18px] font-semibold text-muted', className)}
+      >
+        {headingChildren}
+      </Component>
+      {trailingAction}
+    </div>
   )
 })
+
+export type ActionListGroupHeadingTrailingActionProps = ActionListTrailingActionProps & {icon: React.ElementType}
+
+const GroupHeadingTrailingAction = React.forwardRef<HTMLElement, ActionListGroupHeadingTrailingActionProps>(
+  function ActionListGroupHeadingTrailingAction(props, ref) {
+    return <TrailingAction {...props} ref={ref} />
+  },
+)
 
 const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'li'>>(
   function ActionListDivider(props, ref) {
@@ -192,7 +550,10 @@ const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'
         {...props}
         ref={ref}
         role="separator"
-        className={cn('my-1 border-t border-default', props.className)}
+        className={cn(
+          "relative h-4 border-0 after:absolute after:inset-x-4 after:top-1/2 after:h-px after:bg-border-muted after:content-['']",
+          props.className,
+        )}
         data-component="ActionList.Divider"
       />
     )
@@ -200,22 +561,48 @@ const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'
 )
 
 const LeadingVisual = ({className, ...props}: React.ComponentPropsWithoutRef<'span'>) => (
-  <span {...props} className={cn('shrink-0 text-muted', className)} data-component="ActionList.LeadingVisual" />
+  <span
+    {...props}
+    className={cn('flex min-h-5 min-w-max shrink-0 items-center leading-5 text-muted', className)}
+    data-component="ActionList.LeadingVisual"
+  />
 )
 const TrailingVisual = ({className, ...props}: React.ComponentPropsWithoutRef<'span'>) => (
   <span
     {...props}
-    className={cn('ml-auto shrink-0 text-muted', className)}
+    className={cn('ml-auto flex min-h-5 min-w-max shrink-0 items-center text-sm leading-5 text-muted', className)}
     data-component="ActionList.TrailingVisual"
   />
 )
-const Description = ({className, ...props}: React.ComponentPropsWithoutRef<'span'>) => (
-  <span {...props} className={cn('block text-xs text-muted', className)} data-component="ActionList.Description" />
+export interface ActionListDescriptionProps extends React.ComponentPropsWithoutRef<'span'> {
+  truncate?: boolean
+  variant?: 'block' | 'inline'
+}
+const Description = ({className, truncate, variant = 'inline', ...props}: ActionListDescriptionProps) => (
+  <span
+    {...props}
+    className={cn(
+      'text-xs text-muted',
+      'leading-4',
+      variant === 'block' && 'block w-full basis-full',
+      truncate && 'overflow-hidden text-ellipsis whitespace-nowrap',
+      className,
+    )}
+    data-component="ActionList.Description"
+  />
 )
-const Heading = ({children, className, ...props}: React.ComponentPropsWithoutRef<'h2'>) => (
-  <h2 {...props} className={cn('px-2 py-1 text-sm font-semibold', className)} data-component="ActionList.Heading">
+export interface ActionListHeadingProps extends React.ComponentPropsWithoutRef<'h2'> {
+  as?: React.ElementType
+  size?: 'small' | 'medium'
+}
+const Heading = ({as: Component = 'h2', children, className, size = 'medium', ...props}: ActionListHeadingProps) => (
+  <Component
+    {...props}
+    className={cn('m-0 px-4 py-1.5 font-semibold', size === 'small' ? 'text-xs leading-[18px]' : 'text-sm', className)}
+    data-component="ActionList.Heading"
+  >
     {children}
-  </h2>
+  </Component>
 )
 
 export const ActionList = Object.assign(Root, {
@@ -223,12 +610,14 @@ export const ActionList = Object.assign(Root, {
   Item,
   LinkItem,
   Group,
-  GroupHeading,
+  GroupHeading: Object.assign(GroupHeading, {TrailingAction: GroupHeadingTrailingAction}),
   Divider,
   LeadingVisual,
   TrailingVisual,
   Description,
   Heading,
+  TrailingAction,
 })
 
 ActionList.displayName = 'ActionList'
+;('use client')

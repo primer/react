@@ -4,8 +4,14 @@ import {SubNav} from './SubNav'
 const meta = {
   title: 'React Tailwind/Navigation/SubNav',
   component: SubNav,
+  args: {'aria-label': 'Main', align: undefined, full: false},
+  argTypes: {
+    'aria-label': {control: 'text'},
+    align: {control: 'select', options: [undefined, 'right']},
+    full: {control: 'boolean'},
+  },
   render: args => (
-    <SubNav {...args} aria-label="Main">
+    <SubNav {...args}>
       <SubNav.Links>
         <SubNav.Link href="#home" selected>
           Home
@@ -20,5 +26,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
-export const Playground: Story = {args: {'aria-label': 'Main'}}
-export const WithActions: Story = {args: {actions: <button type="button">New issue</button>}}
+export const Playground: Story = {}
+export const WithActions: Story = {
+  args: {actions: <button type="button">New issue</button>},
+}

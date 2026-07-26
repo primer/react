@@ -13,5 +13,12 @@ describe('Overlay', () => {
     )
     expect(ref.current).toBe(screen.getByTestId('overlay'))
     expect(ref.current).toHaveAttribute('data-component', 'Overlay')
+    expect(ref.current).toHaveClass('bg-[var(--overlay-bgColor)]')
+  })
+
+  it('exposes its root and content through the primary namespace', () => {
+    expect(Overlay.Root).toBe(Overlay)
+    render(<Overlay.Content data-testid="content">Contents</Overlay.Content>)
+    expect(screen.getByTestId('content')).toHaveAttribute('data-component', 'Overlay.Content')
   })
 })

@@ -1,29 +1,112 @@
+'use client'
+
 import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const card = cva('relative grid gap-4 overflow-hidden border border-default bg-default shadow-resting-sm', {
-  variants: {
-    padding: {none: 'p-0', condensed: 'p-4', normal: 'p-6'},
-    borderRadius: {medium: 'rounded-md', large: 'rounded-lg'},
-    layout: {default: '', compact: 'flex items-start gap-3'},
+const card = cva(
+  'relative overflow-hidden border border-default bg-default shadow-[var(--shadow-resting-small)] auto-rows-[max-content_auto]',
+  {
+    variants: {
+      padding: {none: 'p-0', condensed: 'p-4', normal: 'p-6'},
+      borderRadius: {medium: 'rounded-md', large: 'rounded-lg'},
+      layout: {default: 'grid gap-4', compact: 'flex items-start gap-2'},
+    },
+    defaultVariants: {padding: 'normal', borderRadius: 'large', layout: 'default'},
+    compoundVariants: [{layout: 'compact', padding: 'normal', class: 'p-4'}],
   },
-  defaultVariants: {padding: 'normal', borderRadius: 'large', layout: 'default'},
-})
-const CardContext = React.createContext<{titleId?: string; layout: 'default' | 'compact'}>({layout: 'default'})
+)
+const CardContext = React.createContext<{
+  layout: 'default' | 'compact'
+}>({layout: 'default'})
 export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   as?: 'div' | 'section'
   padding?: 'none' | 'condensed' | 'normal'
   borderRadius?: 'medium' | 'large'
   layout?: 'default' | 'compact'
+  children: React.ReactNode
 }
-export const Card = React.forwardRef<HTMLElement, CardProps>(function Card(
-  {as: Component = 'div', borderRadius = 'large', className, layout = 'default', padding = 'normal', ...rest},
-  ref,
+
+type CardSlot = React.ReactElement
+
+function isCardSlot(child: React.ReactNode, type: React.ElementType): child is CardSlot {
+  return React.isValidElement(child) && child.type === type
+}
+
+function flattenCardChildren(children: React.ReactNode): React.ReactNode[] {
+  return React.Children.toArray(children).flatMap(child => {
+    if (React.isValidElement<{children?: React.ReactNode}>(child) && child.type === React.Fragment) {
+      return flattenCardChildren(child.props.children)
+    }
+    return child
+  })
+}
+
+function CardComponent(
+  {
+    as: Component = 'div',
+    borderRadius = 'large',
+    children,
+    className,
+    layout = 'default',
+    padding = 'normal',
+    ...rest
+  }: CardProps,
+  ref: React.ForwardedRef<HTMLElement>,
 ) {
-  const titleId = React.useId()
+  const generatedTitleId = React.useId()
+  const childArray = flattenCardChildren(children)
+  const icon = childArray.find(child => isCardSlot(child, CardIcon))
+  const image = childArray.find(child => isCardSlot(child, CardImage))
+  const heading = childArray.find(child => isCardSlot(child, CardHeading))
+  const description = childArray.find(child => isCardSlot(child, CardDescription))
+  const metadata = childArray.find(child => isCardSlot(child, CardMetadata))
+  const action = childArray.find(child => isCardSlot(child, CardAction))
+  const consumed = new Set<React.ReactNode>([icon, image, heading, description, metadata, action])
+  const customChildren = childArray.filter(child => !consumed.has(child))
+  const hasSlotChildren = icon || image || heading || description || metadata || action
+
+  if (!hasSlotChildren && childArray.length === 0) return null
+
+  const titleId =
+    Component === 'section' && React.isValidElement<{id?: string}>(heading)
+      ? (heading.props.id ?? generatedTitleId)
+      : undefined
+  const labelledHeading =
+    titleId && React.isValidElement<{id?: string}>(heading) && !heading.props.id
+      ? React.cloneElement(heading, {id: titleId})
+      : heading
+  const header = image || icon
+  const content = hasSlotChildren ? (
+    <>
+      {header ? (
+        <div
+          className={cn(
+            'block h-auto w-full',
+            layout === 'compact' && 'w-auto shrink-0',
+            image && padding === 'normal' && '-mx-6 -mt-6 w-[calc(100%+3rem)]',
+            image && padding === 'condensed' && '-mx-4 -mt-4 w-[calc(100%+2rem)]',
+          )}
+        >
+          {header}
+        </div>
+      ) : null}
+      <div className={cn('grid gap-4', layout === 'compact' && 'flex-1')}>
+        <div className="grid gap-2">
+          {labelledHeading}
+          {description}
+          {customChildren}
+        </div>
+        {metadata ? <div className="flex items-center gap-4 text-sm leading-[21px] text-muted">{metadata}</div> : null}
+      </div>
+      {action ? <div className="absolute right-4 top-4 z-1">{action}</div> : null}
+    </>
+  ) : (
+    children
+  )
+
   return (
-    <CardContext.Provider value={{titleId: Component === 'section' ? titleId : undefined, layout}}>
+    <CardContext.Provider value={{layout}}>
       <Component
         {...rest}
         ref={ref as React.Ref<never>}
@@ -32,10 +115,17 @@ export const Card = React.forwardRef<HTMLElement, CardProps>(function Card(
         data-component="Card"
         data-layout={layout}
         data-padding={padding}
-      />
+        {...(titleId && !rest['aria-label'] && !rest['aria-labelledby'] ? {'aria-labelledby': titleId} : {})}
+      >
+        {content}
+      </Component>
     </CardContext.Provider>
   )
-})
+}
+
+export const Card = React.forwardRef(CardComponent)
+Card.displayName = 'Card'
+
 export interface CardIconProps {
   icon: React.ElementType
   'aria-label'?: string
@@ -48,7 +138,7 @@ export function CardIcon({icon: Icon, className, 'aria-label': ariaLabel}: CardI
       aria-hidden={ariaLabel ? undefined : true}
       aria-label={ariaLabel}
       className={cn(
-        'flex shrink-0 items-center text-muted',
+        'flex items-center justify-start text-muted',
         layout === 'default' && 'size-8 justify-center rounded-md bg-muted',
         className,
       )}
@@ -77,34 +167,35 @@ export const CardHeading = React.forwardRef<HTMLHeadingElement, CardHeadingProps
   {as: Heading = 'h3', className, id, ...rest},
   ref,
 ) {
-  const {layout, titleId} = React.useContext(CardContext)
+  const {layout} = React.useContext(CardContext)
   return (
     <Heading
       {...rest}
       ref={ref}
       className={cn(
         'm-0 font-semibold text-default',
-        layout === 'compact' ? 'relative -top-1 text-base' : 'text-lg',
+        layout === 'compact' ? 'relative -top-1 text-sm leading-[21px]' : 'text-[16px] leading-6',
         className,
       )}
       data-component="Card.Heading"
-      id={id ?? titleId}
+      id={id}
     />
   )
 })
 export const CardDescription = React.forwardRef<HTMLParagraphElement, React.ComponentPropsWithoutRef<'p'>>(
   function CardDescription({className, ...rest}, ref) {
     return (
-      <p {...rest} ref={ref} className={cn('m-0 text-base text-muted', className)} data-component="Card.Description" />
+      <p
+        {...rest}
+        ref={ref}
+        className={cn('m-0 text-sm leading-[21px] text-muted', className)}
+        data-component="Card.Description"
+      />
     )
   },
 )
 export function CardAction({children}: React.PropsWithChildren) {
-  return (
-    <div className="absolute right-4 top-4 z-1" data-component="Card.Action">
-      {children}
-    </div>
-  )
+  return <div data-component="Card.Action">{children}</div>
 }
 export const CardMetadata = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
   function CardMetadata({className, ...rest}, ref) {
@@ -112,9 +203,10 @@ export const CardMetadata = React.forwardRef<HTMLDivElement, React.ComponentProp
       <div
         {...rest}
         ref={ref}
-        className={cn('flex items-center gap-2 text-sm text-muted', className)}
+        className={cn('flex items-center gap-2 text-xs leading-[19.5px]', className)}
         data-component="Card.Metadata"
       />
     )
   },
 )
+;('use client')

@@ -1,6 +1,9 @@
+'use client'
+
 import {Radio as BaseRadio} from '@base-ui/react/radio'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
 
 export interface RadioProps<Value = string>
   extends Omit<BaseRadio.Root.Props<Value>, 'className' | 'children' | 'data-component' | 'render'> {
@@ -9,6 +12,7 @@ export interface RadioProps<Value = string>
 
 /** A styled radio primitive for use inside RadioGroup. */
 export const Radio = React.forwardRef<HTMLElement, RadioProps>(function Radio({className, ...rest}, ref) {
+  const forwardedProps = useFormControlForwardedProps(rest)
   const mergedClassName =
     typeof className === 'function'
       ? (state: BaseRadio.Root.State) =>
@@ -22,7 +26,7 @@ export const Radio = React.forwardRef<HTMLElement, RadioProps>(function Radio({c
         )
 
   return (
-    <BaseRadio.Root {...rest} ref={ref} data-component="Radio" className={mergedClassName}>
+    <BaseRadio.Root {...forwardedProps} ref={ref} data-component="Radio" className={mergedClassName}>
       <BaseRadio.Indicator className="hidden" />
     </BaseRadio.Root>
   )

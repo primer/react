@@ -10,4 +10,4 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 export const Default: Story = {args: {}}
-export const Playground: Story = {args: {width: '240px', height: '48px'}}
+export const Playground: Story = {args: {}}

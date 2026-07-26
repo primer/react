@@ -10,7 +10,7 @@ import {ThemeProvider as TailwindThemeProvider} from '../../react-tailwind/src/T
 import './storybook.css'
 import './primitives-v8.css'
 import '@primer/react-tailwind/base.css'
-import '@primer/react-tailwind/styles.css'
+import '../../react-tailwind/.storybook/styles.css'
 
 // TODO: Update the hard-coded values when the primitives are ready
 const breakpoints = ['544px', '768px', '1012px', '1280px']
@@ -118,6 +118,10 @@ const preview = {
                 ],
               ],
             ],
+          ],
+          [
+            'React Tailwind',
+            [['*', [['*', ['README', 'Default', 'Playground', /Playground$/, '*', 'Features', 'Examples']]]]],
           ],
           '*',
         ]

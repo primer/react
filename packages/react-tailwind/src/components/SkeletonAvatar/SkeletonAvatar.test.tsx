@@ -9,5 +9,13 @@ describe('SkeletonAvatar', () => {
     render(<SkeletonAvatar ref={ref} data-testid="avatar-skeleton" />)
     expect(screen.getByTestId('avatar-skeleton')).toHaveAttribute('data-component', 'SkeletonAvatar')
     expect(screen.getByTestId('avatar-skeleton')).toBe(ref.current)
+    expect(screen.getByTestId('avatar-skeleton')).toHaveClass('inline-block', 'leading-none')
+  })
+
+  it('exposes responsive and square states', () => {
+    const {container} = render(<SkeletonAvatar size={{narrow: 20, regular: 32, wide: 40}} square />)
+
+    expect(container.querySelector('[data-component="SkeletonAvatar"]')).toHaveAttribute('data-responsive', '')
+    expect(container.querySelector('[data-component="SkeletonAvatar"]')).toHaveAttribute('data-square', '')
   })
 })

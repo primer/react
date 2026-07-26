@@ -23,6 +23,7 @@ import Octicon from '../Octicon'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {FeatureFlags} from '../FeatureFlags'
+import {expect, userEvent, within} from 'storybook/test'
 
 const meta: Meta = {
   title: 'Components/NavList/Features',
@@ -352,6 +353,12 @@ export const WithExpand: StoryFn = () => {
   )
 }
 
+WithExpand.play = async ({canvasElement}) => {
+  const canvas = within(canvasElement)
+  await userEvent.click(canvas.getByRole('button', {name: 'Show more'}))
+  await expect(canvas.getByRole('link', {name: 'Item 9'})).toBeVisible()
+}
+
 export const WithExpandAndIcons: StoryFn = () => {
   const items = [
     {href: '#', text: 'Item 4'},
@@ -378,6 +385,8 @@ export const WithExpandAndIcons: StoryFn = () => {
     </PageLayout>
   )
 }
+
+WithExpandAndIcons.play = WithExpand.play
 
 type CustomItemProps = {
   text: string

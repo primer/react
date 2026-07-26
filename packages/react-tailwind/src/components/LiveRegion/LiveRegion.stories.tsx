@@ -1,4 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import {expect, within} from 'storybook/test'
 import {useState} from 'react'
 import {Announce} from './LiveRegion'
 
@@ -13,6 +14,9 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => <Announce>Saved changes</Announce>,
+  play: async ({canvasElement}) => {
+    await expect(within(canvasElement).getByRole('status')).toHaveTextContent('Saved changes')
+  },
 }
 
 export const Playground: Story = {

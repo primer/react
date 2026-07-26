@@ -1,4 +1,26 @@
-type Platform = 'apple' | 'windows' | 'other'
+'use client'
+
+import {createContext, useContext, useSyncExternalStore} from 'react'
+
+export type Platform = 'apple' | 'windows' | 'other'
+
+const PlatformOverrideContext = createContext<Platform | null>(null)
+const subscribe = () => () => {}
+
+const getPlatform = (): Platform => {
+  if (typeof navigator === 'undefined') return 'other'
+  if (/mac|iphone|ipad|ipod/i.test(navigator.platform)) return 'apple'
+  if (/win/i.test(navigator.platform)) return 'windows'
+  return 'other'
+}
+
+export const PlatformOverrideProvider = PlatformOverrideContext.Provider
+
+export const usePlatform = (): Platform => {
+  const override = useContext(PlatformOverrideContext)
+  const detected: Platform = useSyncExternalStore(subscribe, getPlatform, (): Platform => 'other')
+  return override ?? detected
+}
 
 const keySortPriorities: Partial<Record<string, number>> = {
   control: 1,
@@ -86,3 +108,4 @@ export const getAccessibleKeybindingHintString = (sequence: string, platform: Pl
     .map(chord => accessibleChordString(chord, resolvedPlatform))
     .join(' then ')
 }
+;('use client')

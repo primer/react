@@ -1,0 +1,54 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './LinkButton.stories'
+import * as Features from './LinkButton.features.stories'
+import * as Examples from './LinkButton.examples.stories'
+
+<Meta of={Stories} />
+
+# LinkButton
+
+`LinkButton` is a Tailwind React component. Import it from `@primer/react-tailwind/LinkButton`.
+
+```tsx
+import {LinkButton} from '@primer/react-tailwind/LinkButton'
+;<LinkButton href="#settings">Settings</LinkButton>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`href`** (default: none) — Optional anchor destination.
+- **`variant`, `size`, `block`, `alignContent`, `labelWrap`, `inactive`** (default: Button defaults) — Shared Button presentation and layout.
+- **`leadingVisual`, `trailingVisual`, `trailingAction`, `count`** (default: none) — Shared Button content parts.
+- **`loading` / `loadingAnnouncement`** (default: — / `Loading`) — Prevents navigation and announces progress.
+- **`render`** (default: native anchor) — Base UI composition element for router links and other anchor implementations.
+- **native anchor props** (default: none) — Standard anchor attributes except `color`.
+
+## Composition
+
+This navigation primitive composes the shared Button presentation. Use `render={<RouterLink to="/settings" />}` for framework links and a real Button for actions that do not navigate.
+
+## Accessibility
+
+Give the link descriptive text. While loading it exposes `aria-busy` and `aria-disabled` and prevents navigation.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The anchor exposes `data-component="LinkButton"`.
+
+## Intentional differences
+
+[LinkButton alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/LinkButton/ALIGNMENT.md) describe the Base UI `render` replacement for the legacy `as` prop.
+
+## Features and examples
+
+<Canvas of={Features.Primary} />
+
+<Canvas of={Examples.SettingsNavigation} />

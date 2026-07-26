@@ -33,7 +33,9 @@ describe('FormControl', () => {
       </>,
     )
 
-    expect(screen.getByText('Enter a repository.')).toHaveAttribute('data-variant', 'error')
+    expect(
+      screen.getByText('Enter a repository.').closest('[data-component="FormControl.Validation"]'),
+    ).toHaveAttribute('data-variant', 'error')
     expect(screen.getByRole('status')).toHaveTextContent('Repository is available.')
     expect(screen.getByRole('status')).toHaveAttribute('data-variant', 'success')
   })
@@ -56,6 +58,27 @@ describe('FormControl', () => {
     expect(screen.getByTestId('external-control')).toHaveAttribute('name', 'external')
   })
 
+  it('associates custom controls with labels, requirements, and descriptions', () => {
+    function CustomControl(props: React.ComponentPropsWithoutRef<'input'>) {
+      return <input {...useFormControlForwardedProps(props)} />
+    }
+
+    render(
+      <FormControl id="repository" required>
+        <FormControl.Label>Repository</FormControl.Label>
+        <CustomControl data-testid="associated-control" />
+        <FormControl.Caption>Use the owner and repository name.</FormControl.Caption>
+      </FormControl>,
+    )
+
+    const control = screen.getByTestId('associated-control')
+    expect(control).toHaveAttribute('id', 'repository')
+    expect(control).toHaveAccessibleName('Repository*')
+    expect(control).toBeRequired()
+    expect(control).toHaveAccessibleDescription('Use the owner and repository name.')
+    expect(screen.getByText('Use the owner and repository name.')).toHaveAttribute('id', 'repository-caption')
+  })
+
   it('preserves state-aware Base UI class name callbacks', () => {
     const {container} = render(
       <FormControl
@@ -66,5 +89,32 @@ describe('FormControl', () => {
     )
 
     expect(container.firstElementChild).toHaveClass('custom-disabled')
+  })
+
+  it('uses visuallyHidden for styling without forwarding it to the label DOM node', () => {
+    render(
+      <FormControl>
+        <FormControl.Label data-testid="label" visuallyHidden>
+          Repository
+        </FormControl.Label>
+        <FormControl.Control />
+      </FormControl>,
+    )
+
+    expect(screen.getByTestId('label')).toHaveClass('sr-only')
+    expect(screen.getByTestId('label')).not.toHaveAttribute('visuallyhidden')
+  })
+
+  it('uses choice-control typography and contextual leading-visual colors in horizontal layouts', () => {
+    render(
+      <FormControl disabled layout="horizontal">
+        <FormControl.LeadingVisual data-testid="visual">Visual</FormControl.LeadingVisual>
+        <FormControl.Label data-testid="horizontal-label">Repository</FormControl.Label>
+      </FormControl>,
+    )
+
+    expect(screen.getByTestId('horizontal-label')).toHaveClass('font-normal')
+    expect(screen.getByTestId('visual')).toHaveClass('text-disabled')
+    expect(screen.getByTestId('visual')).toHaveAttribute('data-control-disabled', 'true')
   })
 })

@@ -1,0 +1,92 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './ScrollableRegion.stories'
+import * as Features from './ScrollableRegion.features.stories'
+import * as Examples from './ScrollableRegion.examples.stories'
+
+<Meta of={Stories} />
+
+# ScrollableRegion
+
+`ScrollableRegion` owns horizontal or vertical overflow and becomes a labelled, focusable region when its content overflows.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {ScrollableRegion} from '@primer/react-tailwind/ScrollableRegion'
+;<ScrollableRegion aria-label="Generated command">
+  <code>git checkout feature/long-branch-name</code>
+</ScrollableRegion>
+```
+
+Always provide exactly one of `aria-label` or `aria-labelledby`. When overflow is present, the root has `role="region"` and `tabIndex={0}`, so keyboard users can focus it and use the browser's native scrolling keys. The label and region semantics are omitted when there is no overflow.
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>aria-label</code> or <code>aria-labelledby</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>Required</td>
+      <td>Accessible name for the region. Provide exactly one.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Tailwind utilities or custom classes applied to the scroll container.</td>
+    </tr>
+    <tr>
+      <td>
+        Native <code>div</code> props
+      </td>
+      <td>
+        <code>ComponentPropsWithoutRef&lt;'div'&gt;</code>
+      </td>
+      <td>—</td>
+      <td>
+        Standard DOM props and children are forwarded to the root; the accessible-name props are applied when overflow
+        exists.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>ref</code>
+      </td>
+      <td>
+        <code>Ref&lt;HTMLElement&gt;</code>
+      </td>
+      <td>—</td>
+      <td>Forwarded to the scroll container.</td>
+    </tr>
+  </tbody>
+</table>
+
+Place the region in a bounded layout when page scrolling must remain independent. Use responsive width or height utilities in `className`; the component supports native horizontal and vertical scrolling without a direction prop.
+
+## Visual affordances
+
+The component intentionally does not add masks, shadows, or custom scrollbar styling. This matches `@primer/react`; consumers can add responsive presentation through `className` without replacing the component's overflow or focus behavior.
+
+<Canvas of={Features.HorizontalOverflow} />
+<Canvas of={Features.VerticalOverflow} />
+<Canvas of={Examples.CommitSummary} />

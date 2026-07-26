@@ -19,14 +19,7 @@ export {
   type SegmentedControlIconButtonProps,
   type SegmentedControlProps,
 } from './SegmentedControl'
-export {
-  Select,
-  type SelectItemProps,
-  type SelectPopupProps,
-  type SelectProps,
-  type SelectTriggerProps,
-  type SelectValueProps,
-} from './Select'
+export {Select, type SelectOptGroupProps, type SelectOptionProps, type SelectProps} from './Select'
 export {Textarea, type TextareaProps} from './Textarea'
 export {TextInput, type TextInputProps} from './TextInput'
 export {ToggleSwitch, type ToggleSwitchProps} from './ToggleSwitch'

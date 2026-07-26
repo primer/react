@@ -40,6 +40,7 @@ describe('AnchoredOverlay', () => {
     await user.click(trigger)
     expect(ref.current).toBe(screen.getByTestId('content'))
     expect(ref.current).toHaveAttribute('data-component', 'AnchoredOverlay.Content')
+    expect(ref.current).toHaveClass('bg-[var(--overlay-bgColor)]')
     expect(trigger).toHaveClass('open')
   })
 

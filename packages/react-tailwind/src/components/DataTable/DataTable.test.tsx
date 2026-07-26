@@ -37,6 +37,25 @@ describe('DataTable and Table', () => {
     expect(ref.current).toHaveAttribute('data-cell-padding', 'spacious')
     expect(ref.current?.className).toContain('group')
   })
+  it('renders nested fields, column widths, and an initial sort direction', () => {
+    render(
+      <DataTable
+        columns={[
+          {field: 'details.name', header: 'Name', rowHeader: true, sortBy: 'alphanumeric', width: '200px'},
+          {field: 'updatedAt', header: 'Updated', sortBy: 'datetime', minWidth: '100px'},
+        ]}
+        data={[
+          {id: 1, details: {name: 'Zebra'}, updatedAt: 2},
+          {id: 2, details: {name: 'Ant'}, updatedAt: 1},
+        ]}
+        initialSortColumn="details.name"
+        initialSortDirection="DESC"
+      />,
+    )
+    expect(screen.getByRole('columnheader', {name: /Name/})).toHaveAttribute('aria-sort', 'descending')
+    expect(screen.getAllByRole('rowheader')[0]).toHaveTextContent('Zebra')
+    expect(screen.getByRole('table').style.getPropertyValue('--grid-template-columns')).toBe('200px minmax(100px, 1fr)')
+  })
   it('exposes composable table parts', () => {
     render(
       <Table>
@@ -53,5 +72,22 @@ describe('DataTable and Table', () => {
       </Table>,
     )
     expect(screen.getAllByRole('table')).toHaveLength(1)
+  })
+  it('composes table pagination with a zero-based page index', async () => {
+    const user = userEvent.setup()
+    let pageIndex = -1
+    render(
+      <Table.Container>
+        <Table.Pagination pageSize={10} totalCount={30} onChange={details => (pageIndex = details.pageIndex)} />
+      </Table.Container>,
+    )
+
+    const pagination = screen.getByRole('navigation', {name: 'Pagination'})
+    expect(pagination).toHaveAttribute('data-component', 'Table.Pagination')
+    expect(screen.getByText(/1.*10 of 30/)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', {name: 'Page 2'}))
+    expect(pageIndex).toBe(1)
+    expect(screen.getByRole('button', {name: 'Page 2'})).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByText(/11.*20 of 30/)).toBeInTheDocument()
   })
 })

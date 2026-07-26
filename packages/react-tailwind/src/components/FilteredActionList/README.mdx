@@ -1,0 +1,42 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './FilteredActionList.stories'
+import * as Features from './FilteredActionList.features.stories'
+import * as Examples from './FilteredActionList.examples.stories'
+
+<Meta of={Stories} />
+
+# FilteredActionList
+
+`FilteredActionList` is a configured, data-driven filterable ActionList for established picker and command-list patterns. It composes shared `TextInput`, ActionList content layers, `Checkbox`, `Spinner`, and `SkeletonBox` with Base UI's combobox behavior. Use `ActionList` directly when consumer-owned markup needs a different structure.
+
+<Canvas of={Stories.Default} />
+
+## Import
+
+```tsx
+import {FilteredActionList} from '@primer/react-tailwind/FilteredActionList'
+```
+
+## API
+
+Pass `items` with a unique string or number `id`, `text`, and optional `filterValue`, `description`, `descriptionVariant`, `leadingVisual`, `trailingVisual`, `disabled`, `selected`, `groupId`, `variant`, `children`, `className`, and `onAction`. String and number IDs are distinct.
+
+Use `filterValue`/`onFilterChange` or `defaultFilterValue` for controlled and uncontrolled filtering. Use `selectedItemIds`/`onSelectedChange` or `defaultSelectedItemIds` for modern controlled and uncontrolled selection. These callbacks receive Base UI change details when an input or option changes. Item-level `selected` and `onAction` remain supported for legacy data-driven state. `selectionVariant` supports `single`, `multiple`, and `radio`; `onSelectAllChange` opts a multiple list into select-all.
+
+`groupMetadata` adds ordered, labelled groups. `renderItem` precedence is item, group, then list. `renderGroup` wraps a Base UI group’s labelled content. `message` renders custom body content, while `messageText` announces it. `loadingType` accepts `input`, `body-spinner`, or `body-skeleton`; the default is `body-spinner`.
+
+`textInputProps`, `actionListProps`, root DOM props, `inputRef`, `scrollContainerRef`, `onInputRefChanged`, and `onListContainerRefChanged` preserve integration points. `focusOutBehavior`, `onActiveDescendantChanged`, `disableSelectOnHover`, `setInitialFocus`, `focusPrependedElements`, `scrollBehavior`, and `fullScreenOnNarrow` configure the underlying combobox behavior. Set `virtualized` for large, ungrouped lists with simple enabled, uniform text rows; grouped, custom, disabled, and variable-height rows deliberately fall back to regular rendering.
+
+## Accessibility and keyboard behavior
+
+The input is a combobox associated with a listbox and retains DOM focus while Base UI exposes the highlighted option through `aria-activedescendant`. Arrow keys move between enabled options and Enter invokes selection and `onAction`. Groups use labelled `group` semantics, and a polite result count is announced unless `announcementsEnabled` is false. Body loading and custom-message states do not leave the input pointing to an absent listbox; empty-state status is outside the listbox. Provide an `aria-label` that names the filter input.
+
+<Canvas of={Features.MultiSelectWithSelectAll} />
+
+<Canvas of={Features.WithGroups} />
+
+<Canvas of={Examples.WithLongItems} />
+
+## Props
+
+<Controls of={Stories.Default} />

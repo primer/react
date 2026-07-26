@@ -3,10 +3,16 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 const linkVariants = cva(
-  'text-accent underline decoration-accent/50 underline-offset-2 hover:decoration-current focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+  'text-accent no-underline underline-offset-[0.05rem] hover:underline [&:is(button)]:inline-block [&:is(button)]:cursor-pointer [&:is(button)]:select-none [&:is(button)]:whitespace-nowrap [&:is(button)]:border-0 [&:is(button)]:bg-transparent [&:is(button)]:p-0 [&:is(button)]:text-[inherit] [&:is(button)]:appearance-none',
   {
-    variants: {muted: {true: 'text-muted', false: ''}, inline: {true: '', false: 'inline-block'}},
-    defaultVariants: {muted: false, inline: true},
+    variants: {
+      muted: {true: 'text-muted hover:text-accent hover:no-underline', false: ''},
+      inline: {
+        true: "[[data-a11y-link-underlines='true']_&]:underline [[data-a11y-link-underlines='true']_&]:hover:no-underline",
+        false: 'inline-block',
+      },
+    },
+    defaultVariants: {muted: false, inline: false},
   },
 )
 
@@ -19,7 +25,14 @@ export const Link = React.forwardRef<HTMLElement, LinkProps>(function Link(
   ref,
 ) {
   return (
-    <Component {...rest} ref={ref} data-component="Link" className={cn(linkVariants({inline, muted}), className)} />
+    <Component
+      {...rest}
+      ref={ref}
+      data-component="Link"
+      data-inline={inline || undefined}
+      data-muted={muted || undefined}
+      className={cn(linkVariants({inline, muted}), className)}
+    />
   )
 })
 

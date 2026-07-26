@@ -1,0 +1,54 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './AvatarStack.stories'
+import * as Features from './AvatarStack.features.stories'
+import * as Dev from './AvatarStack.dev.stories'
+
+<Meta of={Stories} />
+
+# AvatarStack
+
+`AvatarStack` is a presentational component for a compact, expandable group of avatars. Import it from `@primer/react-tailwind/AvatarStack`.
+
+```tsx
+import {Avatar} from '@primer/react-tailwind/Avatar'
+import {AvatarStack} from '@primer/react-tailwind/AvatarStack'
+;<AvatarStack aria-label="Reviewers">
+  <Avatar alt="Mona" src="/mona.png" />
+  <Avatar alt="Hubot" src="/hubot.png" />
+</AvatarStack>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`alignRight`** (default: `false`) — Align avatars right to left.
+- **`disableExpand`** (default: `false`) — Do not spread avatars on hover or focus.
+- **`variant`** (default: `cascade`) — `cascade` increases overlap from the third avatar; `stack` uses uniform overlap.
+- **`shape`** (default: `circle`) — Use `circle` or `square` avatar treatment.
+- **`size`** (default: the smallest child size, or `20`) — A pixel size or `{narrow, regular, wide}` responsive size.
+- **native HTML props** — Apply to the root, including `aria-label`, `className`, `data-*`, `style`, and `ref`.
+
+## Composition
+
+Compose `Avatar` children directly. The stack applies the canonical overlap, shape, truncation, and expansion treatment to each valid direct child; use `Link` as a direct child when an avatar needs link semantics.
+
+## Accessibility
+
+Give a non-interactive stack an accessible group label when it conveys people or ownership. Provide meaningful avatar `alt` text unless its linked wrapper has the accessible name. The stack body becomes keyboard focusable only when it can expand and has no interactive descendants; linked avatars keep their own focus target.
+
+## Tailwind extension
+
+Use `className` on the stack or children for supported visual extension. Primer owns `data-component="AvatarStack"` and the root state attributes `data-variant`, `data-shape`, `data-avatar-count`, `data-align-right`, and `data-responsive`; the body exposes `data-component="AvatarStack.Body"` and `data-disable-expand`.
+
+## Features
+
+<Canvas of={Features.AlignLeft} />
+
+<Canvas of={Features.WithSquareAvatars} />
+
+<Canvas of={Dev.WithLinkWrappers} />

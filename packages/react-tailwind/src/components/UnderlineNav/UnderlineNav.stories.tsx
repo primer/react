@@ -3,6 +3,17 @@ import {UnderlineNav} from './UnderlineNav'
 const meta = {
   title: 'React Tailwind/Navigation/UnderlineNav',
   component: UnderlineNav,
+  args: {'aria-label': 'Repository', hideIconsBreakpoint: 'xxlarge', loadingCounters: false, variant: 'inset'},
+  argTypes: {
+    'aria-label': {control: 'text'},
+    hideIconsBreakpoint: {
+      control: 'select',
+      options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge', null],
+    },
+    loadingCounters: {control: 'boolean'},
+    variant: {control: 'radio', options: ['inset', 'flush']},
+  },
+  parameters: {controls: {include: ['aria-label', 'hideIconsBreakpoint', 'loadingCounters', 'variant']}},
 } satisfies Meta<typeof UnderlineNav>
 
 export default meta
@@ -23,7 +34,7 @@ export const Default: Story = {
 }
 export const Playground: Story = {
   render: args => (
-    <UnderlineNav {...args} aria-label="Repository">
+    <UnderlineNav {...args}>
       <UnderlineNav.List>
         {['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki'].map((item, index) => (
           <UnderlineNav.Item key={item} href="#" aria-current={index === 0 ? 'page' : undefined}>

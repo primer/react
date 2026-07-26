@@ -1,0 +1,33 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as AnchoredOverlayStories from './AnchoredOverlay.stories'
+import * as AnchoredOverlayFeatures from './AnchoredOverlay.features.stories'
+import * as AnchoredOverlayExamples from './AnchoredOverlay.examples.stories'
+
+<Meta of={AnchoredOverlayStories} />
+
+# AnchoredOverlay
+
+`AnchoredOverlay` positions a dismissible overlay relative to a trigger.
+
+<Canvas of={AnchoredOverlayStories.Default} />
+
+## Props
+
+<Controls of={AnchoredOverlayStories.Playground} />
+
+## Usage
+
+```tsx
+import {AnchoredOverlay} from '@primer/react-tailwind'
+;<AnchoredOverlay>
+  <AnchoredOverlay.Trigger>Actions</AnchoredOverlay.Trigger>
+  <AnchoredOverlay.Content>Overlay content</AnchoredOverlay.Content>
+</AnchoredOverlay>
+```
+
+Keep the trigger mounted while the overlay is open. Give dialog content a role and accessible name, and retain a keyboard path to dismiss it.
+
+<Canvas of={AnchoredOverlayFeatures.AnchorAlignment} />
+
+<Canvas of={AnchoredOverlayExamples.ControlledMenu} />

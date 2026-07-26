@@ -1,14 +1,8 @@
-import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const topicTag = cva(
-  'inline-flex whitespace-nowrap rounded-full border border-transparent bg-accent-muted px-3 py-0.5 text-sm font-semibold leading-5 text-accent no-underline',
-  {
-    variants: {interactive: {true: 'cursor-pointer hover:bg-accent-emphasis hover:text-on-emphasis', false: ''}},
-    defaultVariants: {interactive: true},
-  },
-)
+const topicTagClassName =
+  'inline-flex whitespace-nowrap rounded-full border border-[var(--topicTag-borderColor,transparent)] bg-accent-muted px-3 py-0.5 text-xs font-semibold leading-[var(--text-body-lineHeight-small)] text-accent no-underline hover:bg-accent-emphasis hover:text-on-emphasis [&:is(a,button)]:cursor-pointer [&:is(a,button)]:select-none'
 export interface TopicTagProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType
   href?: string
@@ -19,13 +13,7 @@ export const TopicTag = React.forwardRef<HTMLElement, TopicTagProps>(function To
 ) {
   const Component = as ?? 'a'
   return (
-    <Component
-      {...rest}
-      ref={ref}
-      href={href}
-      className={cn(topicTag({interactive: Component === 'a' || Component === 'button'}), className)}
-      data-component="TopicTag"
-    />
+    <Component {...rest} ref={ref} href={href} className={cn(topicTagClassName, className)} data-component="TopicTag" />
   )
 })
 export type TopicTagGroupProps = React.ComponentPropsWithoutRef<'div'>
@@ -33,5 +21,12 @@ export const TopicTagGroup = React.forwardRef<HTMLDivElement, TopicTagGroupProps
   {className, ...rest},
   ref,
 ) {
-  return <div {...rest} ref={ref} className={cn('flex flex-wrap gap-2', className)} data-component="TopicTagGroup" />
+  return (
+    <div
+      {...rest}
+      ref={ref}
+      className={cn('flex flex-wrap gap-x-[var(--base-size-2)] gap-y-[var(--base-size-8)]', className)}
+      data-component="TopicTagGroup"
+    />
+  )
 })

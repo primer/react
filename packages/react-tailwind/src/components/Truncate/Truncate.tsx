@@ -20,7 +20,7 @@ export const Truncate = React.forwardRef<HTMLElement, TruncateProps>(function Tr
       title={rest.title}
       data-component="Truncate"
       data-expandable={expandable || undefined}
-      className={cn(inline ? 'inline-block' : 'block', 'max-w-(--truncate-max-width) truncate', className)}
+      className={cn(inline ? 'inline-block align-top' : 'block', 'max-w-(--truncate-max-width) truncate', className)}
       style={
         {
           '--truncate-max-width': typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,

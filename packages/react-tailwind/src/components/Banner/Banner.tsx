@@ -1,3 +1,5 @@
+'use client'
+
 import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon, XIcon} from '@primer/octicons-react'
 import {cva} from 'class-variance-authority'
 import React from 'react'
@@ -73,6 +75,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const titleId = React.useId()
   const DefaultIcon = iconForVariant[variant]
   const visual = variant === 'info' || variant === 'upsell' ? (leadingVisual ?? <DefaultIcon />) : <DefaultIcon />
+  const hasActions = Boolean(primaryAction || secondaryAction)
 
   return (
     <BannerContext.Provider value={titleId}>
@@ -87,11 +90,12 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
           ref={ref}
           aria-label={ariaLabelledBy ? undefined : ariaLabel}
           aria-labelledby={ariaLabelledBy ?? (ariaLabel || !title ? undefined : titleId)}
-          className={cn(banner({variant, layout, flush}), className)}
+          className={cn('@container/banner', banner({variant, layout, flush}), className)}
           data-actions-layout={actionsLayout}
           data-component="Banner"
           data-dismissible={onDismiss ? '' : undefined}
           data-flush={flush ? '' : undefined}
+          data-has-actions={hasActions ? '' : undefined}
           data-layout={layout}
           data-title-hidden={hideTitle ? '' : undefined}
           data-variant={variant}
@@ -111,10 +115,22 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
           <div
             className={cn(
               'min-w-0 items-start gap-1 text-sm leading-normal',
-              onDismiss && !hideTitle && actionsLayout !== 'inline' ? 'grid' : 'flex flex-wrap justify-between',
+              onDismiss && !hideTitle && actionsLayout !== 'inline'
+                ? 'grid'
+                : actionsLayout === 'stacked'
+                  ? 'flex flex-col'
+                  : actionsLayout === 'inline'
+                    ? 'flex flex-nowrap justify-between max-[767px]:grid max-[767px]:grid-rows-[auto_auto]'
+                    : cn(
+                        'flex flex-wrap justify-between @max-[500px]/banner:grid @min-[500px]/banner:grid @min-[500px]/banner:grid-cols-[auto_auto]',
+                        hasActions && '@max-[500px]/banner:grid-rows-[auto_auto]',
+                      ),
             )}
           >
-            <div className="my-2 grid min-w-0 gap-1">
+            <div
+              className={cn('my-2 grid min-w-0 gap-1', hideTitle && !hasActions && 'my-1.5')}
+              data-component="Banner.Content"
+            >
               {title ? (
                 hideTitle ? (
                   <span className="sr-only">
@@ -127,14 +143,16 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
               {description ? <BannerDescription>{description}</BannerDescription> : null}
               {children}
             </div>
-            {primaryAction || secondaryAction ? (
-              <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} />
-            ) : null}
+            {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
           </div>
           {onDismiss ? (
             <ButtonBase
               aria-label="Dismiss banner"
-              className={cn('ml-1 grid size-8 place-items-center border-0 bg-transparent p-2', iconColor[variant])}
+              className={cn(
+                'ml-1 grid size-8 place-items-center border-0 bg-transparent p-2',
+                hasActions && 'my-0.5',
+                iconColor[variant],
+              )}
               onClick={onDismiss}
               type="button"
             >
@@ -186,16 +204,23 @@ export function BannerActions({primaryAction, secondaryAction}: BannerActionsPro
   return (
     <div
       className={cn(
-        'flex gap-3',
-        placeActionsBelowContent ? 'mb-1' : 'my-0.5',
-        layout === 'stacked' ? 'flex-col items-stretch' : 'items-center',
-        layout === 'default' && 'max-sm:flex-col max-sm:items-stretch',
+        'shrink-0',
+        placeActionsBelowContent && 'mb-1.5',
+        layout === 'default' && '@max-[500px]/banner:mb-1.5',
       )}
       data-component="Banner.Actions"
       data-layout={layout}
     >
-      {primaryAction}
-      {secondaryAction}
+      <div
+        className={cn(
+          'flex items-center gap-3 py-0.5',
+          layout === 'inline' && 'flex-row-reverse max-[767px]:flex-row',
+          layout === 'default' && !placeActionsBelowContent && '@min-[500px]/banner:flex-row-reverse',
+        )}
+      >
+        {primaryAction}
+        {secondaryAction}
+      </div>
     </div>
   )
 }
@@ -215,3 +240,4 @@ export const BannerSecondaryAction = React.forwardRef<HTMLElement, BannerSeconda
     return <Button {...props} ref={ref} variant="invisible" data-component="Banner.SecondaryAction" />
   },
 )
+;('use client')

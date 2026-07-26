@@ -52,6 +52,7 @@ describe('Dialog', () => {
     await user.click(screen.getByRole('button', {name: 'Open dialog'}))
     expect(ref.current).toBe(screen.getByTestId('dialog'))
     expect(ref.current).toHaveAttribute('data-component', 'Dialog.Content')
+    expect(ref.current).toHaveClass('bg-[var(--overlay-bgColor)]')
   })
 
   it('suppresses its default backdrop for non-modal dialogs', () => {
@@ -90,7 +91,7 @@ describe('Dialog', () => {
     expect(backdrop).toHaveAttribute('data-component', 'Dialog.Backdrop')
     expect(backdrop).toHaveClass(
       'z-modal',
-      'bg-neutral-emphasis/40',
+      'bg-[var(--overlay-backdrop-bgColor)]',
       'contrast-more:bg-neutral-emphasis',
       'motion-reduce:transition-none',
     )

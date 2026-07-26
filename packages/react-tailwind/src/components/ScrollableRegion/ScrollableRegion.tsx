@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {assignRef} from '../../internal/refs'
 import {useOverflow} from './useOverflow'
 
 type Labelled =
@@ -17,22 +18,14 @@ type Labelled =
 export type ScrollableRegionProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'aria-label' | 'aria-labelledby'> &
   Labelled
 
-function assignRef<T>(ref: React.ForwardedRef<T>, value: T | null): void {
-  if (typeof ref === 'function') {
-    ref(value)
-  } else if (ref !== null) {
-    ;(ref as React.MutableRefObject<T | null>).current = value
-  }
-}
-
-export const ScrollableRegion = React.forwardRef<HTMLDivElement, ScrollableRegionProps>(function ScrollableRegion(
-  {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, className, ...rest},
+export const ScrollableRegion = React.forwardRef<HTMLElement, ScrollableRegionProps>(function ScrollableRegion(
+  {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, children, className, ...rest},
   forwardedRef,
 ) {
-  const [element, setElement] = React.useState<HTMLDivElement | null>(null)
+  const [element, setElement] = React.useState<HTMLElement | null>(null)
   const hasOverflow = useOverflow(element)
   const ref = React.useCallback(
-    (node: HTMLDivElement | null) => {
+    (node: HTMLElement | null) => {
       setElement(node)
       assignRef(forwardedRef, node)
     },
@@ -54,6 +47,8 @@ export const ScrollableRegion = React.forwardRef<HTMLDivElement, ScrollableRegio
       ref={ref}
       className={cn('relative overflow-auto', className)}
       data-component="ScrollableRegion"
-    />
+    >
+      {children}
+    </div>
   )
 })

@@ -8,7 +8,7 @@ export interface IconButtonProps extends Omit<ButtonProps, 'children' | 'leading
 }
 
 export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(function IconButton(
-  {className, icon: Icon, size = 'medium', ...rest},
+  {className, 'data-component': dataComponent = 'IconButton', icon: Icon, size = 'medium', ...rest},
   ref,
 ) {
   return (
@@ -16,14 +16,14 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
       {...rest}
       ref={ref}
       className={cn(
-        'min-w-0 justify-center p-0 text-muted',
+        'min-w-0 justify-center p-0 text-muted data-[disabled]:text-disabled disabled:text-disabled',
         size === 'small' ? 'size-7' : size === 'large' ? 'size-10' : 'size-8',
         className,
       )}
-      data-component="IconButton"
+      data-component={dataComponent}
       size={size}
     >
-      <Icon aria-hidden="true" />
+      <Icon aria-hidden="true" className="block" />
     </Button>
   )
 })

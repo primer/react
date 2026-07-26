@@ -1,8 +1,1 @@
-export {
-  Select,
-  type SelectItemProps,
-  type SelectPopupProps,
-  type SelectProps,
-  type SelectTriggerProps,
-  type SelectValueProps,
-} from './Select'
+export {default, Select, type SelectOptGroupProps, type SelectOptionProps, type SelectProps} from './Select'

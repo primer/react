@@ -1,0 +1,54 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './ButtonGroup.stories'
+import * as Features from './ButtonGroup.features.stories'
+import * as Examples from './ButtonGroup.examples.stories'
+
+<Meta of={Stories} />
+
+# ButtonGroup
+
+`ButtonGroup` is a Tailwind React component. Import it from `@primer/react-tailwind/ButtonGroup`.
+
+```tsx
+import {ButtonGroup} from '@primer/react-tailwind/ButtonGroup'
+;<ButtonGroup>
+  <button type="button">One</button>
+</ButtonGroup>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`orientation`** (default: `horizontal`) — `horizontal` or `vertical` flex direction.
+- **`role`** (default: `group`) — May be changed, for example to `toolbar`.
+- **`as`** (default: `div`) — Render a different element type.
+- **native HTML props** (default: none) — Includes `aria-label`, `className`, and children.
+
+## Composition
+
+Compose adjacent controls as children; the group does not clone or modify them.
+
+## Accessibility
+
+Label groups of controls with `aria-label`, and use `role="toolbar"` when appropriate.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The root exposes `data-component="ButtonGroup"` and `data-orientation`.
+
+## Intentional differences
+
+[ButtonGroup alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/ButtonGroup/ALIGNMENT.md) document intentional differences from the upstream component. Overlay behavior belongs to local tooltip and menu primitives rather than ButtonGroup.
+
+## Features and examples
+
+<Canvas of={Features.IconButtons} />
+
+<Canvas of={Examples.FormattingToolbar} />

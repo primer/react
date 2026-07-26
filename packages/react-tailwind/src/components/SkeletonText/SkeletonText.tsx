@@ -3,14 +3,14 @@ import {cn} from '../../internal/cn'
 import {SkeletonBox} from '../SkeletonBox'
 
 const sizeClasses = {
-  display: 'h-8',
-  titleLarge: 'h-7',
-  titleMedium: 'h-6',
-  titleSmall: 'h-5',
-  bodyLarge: 'h-5',
-  bodyMedium: 'h-4',
-  bodySmall: 'h-3',
-  subtitle: 'h-5',
+  display: '[--font-size:var(--text-display-size)] [--line-height:var(--text-display-lineHeight)]',
+  titleLarge: '[--font-size:var(--text-title-size-large)] [--line-height:var(--text-title-lineHeight-large)]',
+  titleMedium: '[--font-size:var(--text-title-size-medium)] [--line-height:var(--text-title-lineHeight-medium)]',
+  titleSmall: '[--font-size:var(--text-title-size-small)] [--line-height:var(--text-title-lineHeight-small)]',
+  bodyLarge: '[--font-size:var(--text-body-size-large)] [--line-height:var(--text-body-lineHeight-large)]',
+  bodyMedium: '[--font-size:var(--text-body-size-medium)] [--line-height:var(--text-body-lineHeight-medium)]',
+  bodySmall: '[--font-size:var(--text-body-size-small)] [--line-height:var(--text-body-lineHeight-small)]',
+  subtitle: '[--font-size:var(--text-subtitle-size)] [--line-height:var(--text-subtitle-lineHeight)]',
 }
 
 export interface SkeletonTextProps extends React.HTMLAttributes<HTMLElement> {
@@ -26,17 +26,18 @@ export const SkeletonText = React.forwardRef<HTMLElement, SkeletonTextProps>(fun
   const count = Math.max(1, Math.floor(lines))
   if (count === 1) {
     return (
-      <div
+      <SkeletonBox
         {...rest}
-        ref={ref as React.Ref<HTMLDivElement>}
+        ref={ref}
         data-component="SkeletonText"
-        aria-busy="true"
+        data-text-skeleton-size={size}
+        width="100%"
         className={cn(
-          'w-full animate-pulse rounded-md bg-neutral-muted motion-reduce:animate-none',
+          '[--leading:calc(var(--font-size)*var(--line-height)-var(--font-size))] h-4 rounded-[var(--borderRadius-small)] [margin-block:calc(var(--leading)/2)]',
           sizeClasses[size],
           className,
         )}
-        style={{maxWidth, ...style}}
+        style={{...style, maxWidth}}
       />
     )
   }
@@ -44,16 +45,24 @@ export const SkeletonText = React.forwardRef<HTMLElement, SkeletonTextProps>(fun
     <div
       {...rest}
       ref={ref as React.Ref<HTMLDivElement>}
-      data-component="SkeletonText"
       aria-busy="true"
-      className={cn('flex w-full flex-col gap-2', className)}
-      style={{maxWidth, ...style}}
+      data-component="SkeletonText"
+      data-text-skeleton-size={size}
+      className={cn('w-full py-[0.1px]', className)}
+      style={{...style, maxWidth}}
     >
       {Array.from({length: count}, (_, index) => (
         <SkeletonBox
           key={index}
           aria-hidden="true"
-          className={cn('w-full', sizeClasses[size], index === count - 1 && 'w-2/3')}
+          data-component="SkeletonText.Line"
+          data-in-multiline="true"
+          data-text-skeleton-size={size}
+          className={cn(
+            '[--leading:calc(var(--font-size)*var(--line-height)-var(--font-size))] h-4 w-full rounded-[var(--borderRadius-small)] [margin-block:calc(var(--leading)/2)] [margin-block-end:calc(var(--leading)*2)]',
+            sizeClasses[size],
+            index === count - 1 && 'max-w-[65%] min-w-[50px] [margin-block-end:0]',
+          )}
         />
       ))}
     </div>

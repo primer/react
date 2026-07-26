@@ -1,124 +1,132 @@
-import {Select as BaseSelect} from '@base-ui/react/select'
-import {CheckIcon, TriangleDownIcon} from '@primer/octicons-react'
+'use client'
+
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {ButtonBase} from '../Button'
+import type {ControlSize} from '../../utils/types'
+import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
 
-export type SelectProps<Value = string, Multiple extends boolean | undefined = false> = Omit<
-  BaseSelect.Root.Props<Value, Multiple>,
-  'data-component'
->
+type ValidationStatus = 'error' | 'success'
 
-/** The unstyled state root for a composable select. */
-function Root<Value, Multiple extends boolean | undefined = false>(props: SelectProps<Value, Multiple>) {
-  return <BaseSelect.Root {...props} />
+const selectWrapperClassName =
+  'relative inline-flex h-8 w-auto overflow-hidden align-middle rounded-md border border-[var(--control-borderColor-rest)] bg-default text-sm leading-5 text-default shadow-[var(--shadow-inset)] outline-none focus-within:border-accent-emphasis focus-within:outline-2 focus-within:outline-offset-[-1px] focus-within:outline-focus data-[block]:flex data-[block]:w-full data-[block]:self-stretch data-[contrast]:bg-[var(--control-bgColor-contrast,var(--bgColor-inset))] data-[disabled]:border-[var(--control-borderColor-disabled)] data-[disabled]:bg-[var(--control-bgColor-disabled)] data-[disabled]:text-disabled data-[disabled]:shadow-none data-[multiple]:h-auto data-[multiple]:min-h-8 data-[multiple]:overflow-visible data-[validation=error]:border-danger-emphasis data-[validation=error]:focus-within:border-[var(--control-borderColor-danger)] data-[validation=error]:focus-within:outline-[var(--control-borderColor-danger)] data-[validation=success]:border-[var(--bgColor-success-emphasis)] data-[size=small]:h-7 data-[size=large]:h-10 data-[size=small]:text-xs'
+
+const selectClassName =
+  'm-px w-full min-w-0 cursor-pointer appearance-none rounded-[inherit] border-0 bg-inherit px-3 pr-6 text-inherit outline-none disabled:cursor-not-allowed disabled:bg-transparent'
+
+export interface SelectProps
+  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'className' | 'data-component' | 'size'> {
+  /** Makes the visible control fill its container. */
+  block?: boolean
+  /** Uses the inset control background token. */
+  contrast?: boolean
+  /** Text rendered as an initially selected empty-value option. */
+  placeholder?: string
+  /** Primer control height and typography. */
+  size?: ControlSize
+  /** Applies error or success control styling. */
+  validationStatus?: ValidationStatus
+  /** Classes applied to the visible control wrapper. */
+  className?: string
 }
 
-export interface SelectTriggerProps
-  extends Omit<BaseSelect.Trigger.Props, 'className' | 'children' | 'data-component' | 'render'> {
-  className?: BaseSelect.Trigger.Props['className']
-  children?: React.ReactNode
+export type SelectOptionProps = Omit<React.OptionHTMLAttributes<HTMLOptionElement>, 'data-component'> & {
+  value: string
 }
 
-const Trigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(function Trigger(
-  {className, children, ...rest},
+const Option = ({children, ...rest}: SelectOptionProps) => (
+  <option {...rest} data-component="Select.Option">
+    {children}
+  </option>
+)
+
+export type SelectOptGroupProps = Omit<React.OptgroupHTMLAttributes<HTMLOptGroupElement>, 'data-component'>
+
+const OptGroup = ({children, ...rest}: SelectOptGroupProps) => (
+  <optgroup {...rest} data-component="Select.OptGroup">
+    {children}
+  </optgroup>
+)
+
+/**
+ * A styled native select. It preserves browser keyboard, focus, form, and option semantics.
+ * Compose native `option` and `optgroup` children directly, or use `Select.Option` and `Select.OptGroup`.
+ */
+const SelectRoot = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
+  {
+    block = false,
+    children,
+    className,
+    contrast = false,
+    defaultValue,
+    disabled,
+    multiple,
+    placeholder,
+    size,
+    validationStatus,
+    value,
+    ...rest
+  },
   ref,
 ) {
-  const mergedClassName =
-    typeof className === 'function'
-      ? (state: BaseSelect.Trigger.State) =>
-          cn(
-            'flex h-8 w-full items-center justify-between gap-2 rounded-md border border-default bg-default px-3 text-left text-sm text-default shadow-resting-xs outline-none data-[placeholder]:text-muted data-[disabled]:cursor-not-allowed data-[disabled]:bg-disabled data-[disabled]:text-muted focus-visible:border-accent-emphasis focus-visible:outline-2 focus-visible:outline-offset-[-1px] focus-visible:outline-focus',
-            className(state),
-          )
-      : cn(
-          'flex h-8 w-full items-center justify-between gap-2 rounded-md border border-default bg-default px-3 text-left text-sm text-default shadow-resting-xs outline-none data-[placeholder]:text-muted data-[disabled]:cursor-not-allowed data-[disabled]:bg-disabled data-[disabled]:text-muted focus-visible:border-accent-emphasis focus-visible:outline-2 focus-visible:outline-offset-[-1px] focus-visible:outline-focus',
-          className,
-        )
+  const forwardedProps = useFormControlForwardedProps(rest)
+  const effectiveValidation = forwardedProps['aria-invalid'] ? 'error' : validationStatus
+  const ariaInvalid = effectiveValidation === 'error' ? true : forwardedProps['aria-invalid']
+  const isDisabled = disabled ?? forwardedProps.disabled
+  const hasPlaceholder = Boolean(placeholder && !multiple)
 
   return (
-    <BaseSelect.Trigger
-      {...rest}
-      ref={ref}
-      data-component="Select.Trigger"
-      className={mergedClassName}
-      render={<ButtonBase data-component="Select.Trigger" />}
+    <span
+      className={cn(selectWrapperClassName, className)}
+      data-block={block || undefined}
+      data-contrast={contrast || undefined}
+      data-disabled={isDisabled || undefined}
+      data-multiple={multiple || undefined}
+      data-size={size}
+      data-validation={effectiveValidation}
     >
-      {children}
-      <BaseSelect.Icon>
-        <TriangleDownIcon aria-hidden="true" size={16} />
-      </BaseSelect.Icon>
-    </BaseSelect.Trigger>
+      <select
+        {...forwardedProps}
+        ref={ref}
+        aria-invalid={ariaInvalid}
+        className={selectClassName}
+        data-component="Select"
+        data-has-placeholder={hasPlaceholder ? '' : undefined}
+        defaultValue={value === undefined ? (defaultValue ?? (hasPlaceholder ? '' : undefined)) : undefined}
+        disabled={isDisabled}
+        multiple={multiple}
+        value={value}
+      >
+        {hasPlaceholder ? (
+          <option
+            disabled={forwardedProps.required}
+            hidden={forwardedProps.required}
+            value=""
+            data-component="Select.Option"
+          >
+            {placeholder}
+          </option>
+        ) : null}
+        {children}
+      </select>
+      {!multiple ? (
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 right-1 size-4 -translate-y-1/2"
+          fill="currentColor"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="m4.074 9.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.043 9H4.251a.25.25 0 0 0-.177.427ZM4.074 7.47 7.47 4.073a.25.25 0 0 1 .354 0L11.22 7.47a.25.25 0 0 1-.177.426H4.251a.25.25 0 0 1-.177-.426Z" />
+        </svg>
+      ) : null}
+    </span>
   )
 })
 
-export interface SelectValueProps extends Omit<BaseSelect.Value.Props, 'className' | 'data-component'> {
-  className?: BaseSelect.Value.Props['className']
-}
-const Value = React.forwardRef<HTMLSpanElement, SelectValueProps>(function Value({className, ...rest}, ref) {
-  const mergedClassName =
-    typeof className === 'function'
-      ? (state: BaseSelect.Value.State) => cn('min-w-0 truncate', className(state))
-      : cn('min-w-0 truncate', className)
+SelectRoot.displayName = 'Select'
 
-  return <BaseSelect.Value {...rest} ref={ref} data-component="Select.Value" className={mergedClassName} />
-})
+export const Select = Object.assign(SelectRoot, {Option, OptGroup})
 
-export interface SelectPopupProps extends Omit<BaseSelect.Popup.Props, 'className' | 'data-component'> {
-  className?: BaseSelect.Popup.Props['className']
-}
-const Popup = React.forwardRef<HTMLDivElement, SelectPopupProps>(function Popup({className, ...rest}, ref) {
-  const mergedClassName =
-    typeof className === 'function'
-      ? (state: BaseSelect.Popup.State) =>
-          cn(
-            'z-popover min-w-[var(--anchor-width)] rounded-md border border-default bg-default p-1 shadow-floating-sm',
-            className(state),
-          )
-      : cn(
-          'z-popover min-w-[var(--anchor-width)] rounded-md border border-default bg-default p-1 shadow-floating-sm',
-          className,
-        )
-
-  return <BaseSelect.Popup {...rest} ref={ref} data-component="Select.Popup" className={mergedClassName} />
-})
-
-export interface SelectItemProps extends Omit<BaseSelect.Item.Props, 'className' | 'children' | 'data-component'> {
-  className?: BaseSelect.Item.Props['className']
-  children?: React.ReactNode
-}
-const Item = React.forwardRef<HTMLElement, SelectItemProps>(function Item({className, children, ...rest}, ref) {
-  const mergedClassName =
-    typeof className === 'function'
-      ? (state: BaseSelect.Item.State) =>
-          cn(
-            'flex cursor-default items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-sm text-default outline-none data-[highlighted]:bg-accent-muted data-[disabled]:cursor-not-allowed data-[disabled]:text-muted',
-            className(state),
-          )
-      : cn(
-          'flex cursor-default items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-sm text-default outline-none data-[highlighted]:bg-accent-muted data-[disabled]:cursor-not-allowed data-[disabled]:text-muted',
-          className,
-        )
-
-  return (
-    <BaseSelect.Item {...rest} ref={ref} data-component="Select.Item" className={mergedClassName}>
-      <BaseSelect.ItemText>{children}</BaseSelect.ItemText>
-      <BaseSelect.ItemIndicator>
-        <CheckIcon aria-hidden="true" size={16} />
-      </BaseSelect.ItemIndicator>
-    </BaseSelect.Item>
-  )
-})
-
-/** A presentational, composable select built from Base UI's form-associated primitive. */
-export const Select = Object.assign(Root, {
-  Trigger,
-  Value,
-  Portal: BaseSelect.Portal,
-  Positioner: BaseSelect.Positioner,
-  Popup,
-  List: BaseSelect.List,
-  Item,
-  Group: BaseSelect.Group,
-  GroupLabel: BaseSelect.GroupLabel,
-})
+export default Select

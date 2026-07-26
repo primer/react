@@ -1,0 +1,50 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Banner.stories'
+import * as Features from './Banner.features.stories'
+import * as Examples from './Banner.examples.stories'
+
+<Meta of={Stories} />
+
+# Banner
+
+`Banner` is a Tailwind React component. Import it from `@primer/react-tailwind/Banner`.
+
+```tsx
+import {Banner} from '@primer/react-tailwind/Banner'
+;<Banner title="Info" description="A helpful message." />
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`title` / `description`** (default: none) — Banner heading and supporting content.
+- **`variant`** (default: `info`) — `critical`, `info`, `success`, `upsell`, or `warning`.
+- **`layout` / `actionsLayout`** (default: `default` / `default`) — Compact visual layout and action arrangement.
+- **`flush` / `hideTitle`** (default: `false` / `false`) — Remove outer side borders or visually hide the title.
+- **`leadingVisual`, `primaryAction`, `secondaryAction`** (default: none) — Slots for local composition.
+- **`onDismiss`** (default: none) — Shows a dismiss control.
+
+## Composition
+
+Use `Banner.Title`, `Banner.Description`, `Banner.Actions`, `Banner.PrimaryAction`, and `Banner.SecondaryAction` for local composition, or pass the corresponding content props.
+
+## Accessibility
+
+Give a banner an accessible name when its title is absent. Dismiss controls receive an accessible label, and a hidden title remains available to assistive technology.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The section exposes `data-component="Banner"`, `data-variant`, `data-layout`, `data-actions-layout`, and state attributes for dismissal, flush, and hidden titles.
+
+## Features and examples
+
+<Canvas of={Features.Critical} />
+
+<Canvas of={Examples.WithUserAction} />

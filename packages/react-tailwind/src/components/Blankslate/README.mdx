@@ -1,0 +1,133 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as BlankslateStories from './Blankslate.stories'
+import * as BlankslateFeatures from './Blankslate.features.stories'
+import * as BlankslateExamples from './Blankslate.examples.stories'
+
+<Meta of={BlankslateStories} />
+
+# Blankslate
+
+`Blankslate` provides a structured empty state with optional visual, heading, description, and primary or secondary actions.
+
+<Canvas of={BlankslateStories.Default} />
+
+## Import and usage
+
+```tsx
+import {
+  Blankslate,
+  BlankslateDescription,
+  BlankslateHeading,
+  BlankslatePrimaryAction,
+  BlankslateSecondaryAction,
+  BlankslateVisual,
+} from '@primer/react-tailwind/Blankslate'
+;<Blankslate border>
+  <BlankslateVisual aria-hidden="true">…</BlankslateVisual>
+  <BlankslateHeading>No results</BlankslateHeading>
+  <BlankslateDescription>Try a different search.</BlankslateDescription>
+  <BlankslatePrimaryAction href="/search">Search again</BlankslatePrimaryAction>
+  <BlankslateSecondaryAction href="/help">Learn more</BlankslateSecondaryAction>
+</Blankslate>
+```
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>
+        <code>'small' | 'medium' | 'large'</code>
+      </td>
+      <td>
+        <code>'medium'</code>
+      </td>
+      <td>Heading and spacing scale.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>border</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Adds a rounded border.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>narrow</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Constrains the slate to a narrow width.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>spacious</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Uses spacious vertical and horizontal padding.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Tailwind utilities or custom classes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={BlankslateStories.Playground} />
+
+## Composition
+
+Use the compound children in reading order: visual, heading, description, primary action, then secondary action. Primary actions accept either `href` or button props; secondary actions require an `href`.
+
+## Accessibility
+
+Use a heading that describes the empty state and actionable, meaningful labels. `BlankslateVisual` is decorative and is marked `aria-hidden`; do not put essential meaning only in the visual.
+
+## Animation and reduced motion
+
+`Blankslate` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+The component uses Primer spacing, border, and text tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` on each compound child for local extensions.
+
+### Data attributes
+
+The wrapper exposes `data-component="Blankslate.Container"`. The root exposes `data-component="Blankslate"` and `data-size`, plus `data-border`, `data-narrow`, and `data-spacious` when enabled. Compound parts expose their `Blankslate.*` component identifiers.
+
+## Features and examples
+
+<Canvas of={BlankslateFeatures.WithPrimaryActionAsLink} />
+<Canvas of={BlankslateFeatures.WithSecondaryAction} />
+<Canvas of={BlankslateExamples.EmptyRepository} />

@@ -1,0 +1,120 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as IssueLabelStories from './IssueLabel.stories'
+import * as IssueLabelFeatures from './IssueLabel.features.stories'
+import * as IssueLabelExamples from './IssueLabel.examples.stories'
+
+<Meta of={IssueLabelStories} />
+
+# IssueLabel
+
+`IssueLabel` displays a colored label and can render as a link, button, or custom element for interactive label workflows.
+
+<Canvas of={IssueLabelStories.Default} />
+
+## Import and usage
+
+```tsx
+import {IssueLabel} from '@primer/react-tailwind/IssueLabel'
+
+<IssueLabel variant="red">bug</IssueLabel>
+<IssueLabel href="/labels/bug" variant="red">bug</IssueLabel>
+```
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>variant</code>
+      </td>
+      <td>
+        <code>
+          'auburn' | 'blue' | 'brown' | 'coral' | 'cyan' | 'gray' | 'green' | 'indigo' | 'lemon' | 'lime' | 'olive' |
+          'orange' | 'pine' | 'pink' | 'plum' | 'purple' | 'red' | 'teal' | 'yellow'
+        </code>
+      </td>
+      <td>
+        <code>'gray'</code>
+      </td>
+      <td>Primer label color.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>fillColor</code>
+      </td>
+      <td>
+        `<code> </code>#${string}
+        <code> </code>`
+      </td>
+      <td>—</td>
+      <td>Custom hex background; foreground color is selected for contrast.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>href</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Renders an anchor by default and supplies its destination.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>as</code>
+      </td>
+      <td>
+        <code>React.ElementType</code>
+      </td>
+      <td>inferred</td>
+      <td>Overrides the rendered element.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Tailwind utilities or custom classes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={IssueLabelStories.Playground} />
+
+## Composition
+
+Use a text label that is short enough to scan in lists. Use `href` for navigation or `as="button"`/`onClick` for actions; do not rely on color alone to communicate the label meaning.
+
+## Accessibility
+
+Interactive labels must have meaningful text and an appropriate destination or action. Ensure a custom element receives the keyboard and focus behavior it needs. The chosen color is visual decoration and should be paired with text.
+
+## Animation and reduced motion
+
+Interactive labels use hover and active brightness changes, not motion. No reduced-motion override is required.
+
+## Theming and Tailwind
+
+Preset variants use Primer label color tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` for layout extensions. Custom `fillColor` uses inline background and foreground styles and takes precedence over the preset background.
+
+### Data attributes
+
+The root exposes `data-component="IssueLabel"` and `data-variant` for preset variants. `data-variant` is omitted when `fillColor` is supplied.
+
+## Features and examples
+
+<Canvas of={IssueLabelFeatures.GroupOfLabels} />
+<Canvas of={IssueLabelFeatures.AsLink} />
+<Canvas of={IssueLabelExamples.LabelList} />

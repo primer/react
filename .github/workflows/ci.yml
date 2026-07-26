@@ -54,6 +54,10 @@ jobs:
         run: npm run test:classname-coverage
       - name: Check react compiler coverage
         run: npx turbo run lint:react-compiler
+      - name: Check React client boundaries
+        run: npx turbo run lint:client-boundaries
+      - name: Check package consumer contracts
+        run: npx turbo run check:exports check:inventory check:packed-consumer
 
   test:
     runs-on: ubuntu-latest

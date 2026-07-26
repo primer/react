@@ -1,14 +1,10 @@
 import {Dialog as AlertDialog} from '@base-ui/react/dialog'
 import React from 'react'
-import {cn} from '../../internal/cn'
+import {mergeClassName} from '../../internal/mergeClassName'
 import {Button, type ButtonProps} from '../Button'
 
 const popupClassName =
-  'flex w-full max-w-[var(--overlay-width-small)] flex-col overflow-hidden rounded-lg bg-default text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
-
-function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
-  return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)
-}
+  'flex w-full max-w-[var(--overlay-width-small)] flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
 const Root = AlertDialog.Root
 
@@ -36,7 +32,7 @@ const Backdrop = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Backdrop.Prop
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'fixed inset-0 z-modal bg-neutral-emphasis/40 contrast-more:bg-neutral-emphasis data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition-opacity motion-safe:duration-200 motion-reduce:transition-none',
+          'fixed inset-0 z-modal bg-[var(--overlay-backdrop-bgColor)] contrast-more:bg-neutral-emphasis data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition-opacity motion-safe:duration-200 motion-reduce:transition-none',
           className,
         )}
         data-component="ConfirmationDialog.Backdrop"
@@ -137,7 +133,7 @@ export interface ConfirmationDialogProps extends Omit<AlertDialog.Root.Props, 'c
  * Compose its presentational parts directly when the content or action layout
  * differs from this common pattern.
  */
-export const ConfirmationDialog = React.forwardRef<HTMLDivElement, ConfirmationDialogProps>(function ConfirmationDialog(
+const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDialogProps>(function ConfirmationDialog(
   {
     cancelButtonContent = 'Cancel',
     cancelButtonDisabled = false,
@@ -216,11 +212,11 @@ export const ConfirmationDialog = React.forwardRef<HTMLDivElement, ConfirmationD
   )
 })
 
-ConfirmationDialog.displayName = 'ConfirmationDialog'
+ConfirmationDialogConfig.displayName = 'ConfirmationDialog'
 
 export type ConfirmationDialogButtonProps = Omit<ButtonProps, 'data-component'>
 
-export const ConfirmationDialogParts = Object.assign(ConfirmationDialog, {
+export const ConfirmationDialog = Object.assign(ConfirmationDialogConfig, {
   Root,
   Trigger,
   Portal,
@@ -232,3 +228,7 @@ export const ConfirmationDialogParts = Object.assign(ConfirmationDialog, {
   Description,
   Close,
 })
+
+/** @deprecated Use ConfirmationDialog directly; it includes Root and Content. */
+export const ConfirmationDialogParts = ConfirmationDialog
+;('use client')

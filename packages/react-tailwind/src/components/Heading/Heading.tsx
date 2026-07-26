@@ -2,7 +2,7 @@ import {cva, type VariantProps} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const headingVariants = cva('font-display text-default', {
+const headingVariants = cva('m-0 font-display text-default', {
   variants: {
     size: {small: 'text-title-small', medium: 'text-title-medium', large: 'text-title-large', display: 'text-display'},
   },

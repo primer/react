@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './TreeView.stories'
+import * as Features from './TreeView.features.stories'
+import * as Examples from './TreeView.examples.stories'
+
+<Meta of={Stories} />
+
+# TreeView
+
+`TreeView` is a presentational compound component for hierarchical files, folders, and nested resources. Compose its parts in author order to retain control of item content and visuals while TreeView owns tree semantics, expansion, roving focus, and typeahead.
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.Playground} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {TreeView} from '@primer/react-tailwind/TreeView'
+;<TreeView aria-label="Files">
+  <TreeView.Item id="src" defaultExpanded>
+    <TreeView.LeadingVisual>
+      <TreeView.DirectoryIcon />
+    </TreeView.LeadingVisual>
+    src
+    <TreeView.SubTree>
+      <TreeView.Item id="src/index.ts">index.ts</TreeView.Item>
+    </TreeView.SubTree>
+  </TreeView.Item>
+</TreeView>
+```
+
+Every item needs a stable `id`. Put `LeadingVisual`, item text, `TrailingVisual`, and `SubTree` directly inside `Item`; `SubTree` is rendered as the item’s nested tree group. Visual children can be a node or a function that receives `{expanded}`. Give a non-decorative visual a `label`; its label is exposed as the item description.
+
+`expanded` and `onExpandedChange` control expansion; use `defaultExpanded` for uncontrolled trees. The existing `subtree`, `leadingVisual`, and `trailingVisual` props remain available as convenience APIs, but compound composition is preferred when structure or visual state matters. Use `containIntrinsicSize` on very large trees to apply `content-visibility: auto` to each row without changing its accessible tree semantics.
+
+## Accessibility
+
+The root has `role="tree"`, items have `role="treeitem"`, and expanded descendants are in `role="group"` lists. TreeView keeps one roving tab stop. Arrow Up/Down moves among visible items, Right expands or enters a group, Left collapses or moves to the parent, Home/End move to the first/last visible item, and typeahead moves to a matching visible label. Keep controls that perform separate actions outside TreeView items so a treeitem never contains another interactive element.
+
+See [alignment decisions](./ALIGNMENT.md) for legacy async and secondary-action differences.
+
+<Canvas of={Features.Files} />
+<Canvas of={Examples.DraggableListItem} />

@@ -1,0 +1,48 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Link.stories'
+import * as Features from './Link.features.stories'
+import * as Examples from './Link.examples.stories'
+
+<Meta of={Stories} />
+
+# Link
+
+`Link` is a Tailwind React component. Import it from `@primer/react-tailwind/Link`.
+
+```tsx
+import {Link} from '@primer/react-tailwind/Link'
+;<Link href="#docs">Documentation</Link>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`as`** (default: `a`) — Any React element type.
+- **`muted`** (default: `false`) — Uses muted foreground styling.
+- **`inline`** (default: `true`) — Set false for an inline-block link.
+- **native anchor props** (default: none) — Includes `href`, children, and `className`.
+
+## Composition
+
+Use the default anchor for navigation, or `as` when composing with an element that owns navigation.
+
+## Accessibility
+
+Provide descriptive link text and a valid destination; do not rely only on surrounding context.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The rendered element has `data-component="Link"`.
+
+## Features and examples
+
+<Canvas of={Features.Muted} />
+
+<Canvas of={Examples.InlineDocumentation} />

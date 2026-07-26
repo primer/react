@@ -1,20 +1,33 @@
+'use client'
+
 import {KebabHorizontalIcon} from '@primer/octicons-react'
-import {Menu} from '@base-ui/react/menu'
 import {Toolbar} from '@base-ui/react/toolbar'
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {ButtonBase} from '../Button'
-
-const actionClassName =
-  'inline-flex min-h-8 appearance-none items-center justify-center gap-2 rounded-md bg-transparent px-2 text-sm font-semibold text-accent hover:bg-accent-muted focus-visible:outline-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:text-disabled'
+import type {ControlSize} from '../../utils/types'
+import {ActionMenu} from '../ActionMenu'
+import {Button as SharedButton, type ButtonProps} from '../Button'
+import {IconButton as SharedIconButton, type IconButtonProps} from '../IconButton'
 
 export interface ActionBarProps extends React.ComponentPropsWithoutRef<typeof Toolbar.Root> {
-  size?: 'small' | 'medium' | 'large'
+  size?: ControlSize
   flush?: boolean
   gap?: 'none' | 'condensed'
 }
+const ActionBarContext = React.createContext<ControlSize>('medium')
+
 const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar(
-  {className, size = 'medium', flush = false, gap = 'condensed', onKeyDown, ...props},
+  {
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    children,
+    className,
+    size = 'medium',
+    flush = false,
+    gap = 'condensed',
+    onKeyDown,
+    ...props
+  },
   ref,
 ) {
   const handleKeyDown: NonNullable<ActionBarProps['onKeyDown']> = event => {
@@ -30,56 +43,71 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
     }
   }
   return (
-    <Toolbar.Root
-      {...props}
-      ref={ref}
-      data-component="ActionBar"
-      data-size={size}
-      data-flush={flush || undefined}
-      data-gap={gap}
-      onKeyDown={handleKeyDown}
-      className={cn(
-        'group relative -mb-px flex h-8 items-start justify-end overflow-hidden px-4 data-[size=small]:h-7 data-[size=large]:h-10',
-        flush && 'px-0',
-        gap === 'condensed' && 'gap-2',
-        className,
-      )}
-    />
+    <ActionBarContext.Provider value={size}>
+      <div
+        ref={ref}
+        data-component="ActionBar"
+        data-flush={flush || undefined}
+        className={cn('flex items-center justify-end px-4', flush && 'px-0', className)}
+      >
+        <Toolbar.Root
+          {...props}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          data-size={size}
+          data-gap={gap}
+          onKeyDown={handleKeyDown}
+          className={cn(
+            'group relative -mb-px flex h-8 min-w-0 items-start overflow-hidden data-[size=small]:h-7 data-[size=large]:h-10',
+            gap === 'condensed' && 'gap-2',
+          )}
+        >
+          {children}
+        </Toolbar.Root>
+      </div>
+    </ActionBarContext.Provider>
   )
 })
 
-export type ActionBarButtonProps = React.ComponentPropsWithoutRef<typeof Toolbar.Button>
+export type ActionBarButtonProps = Omit<ButtonProps, 'data-component' | 'variant'>
 const Button = React.forwardRef<HTMLButtonElement, ActionBarButtonProps>(function ActionBarButton(
   {className, ...props},
   ref,
 ) {
+  const size = React.useContext(ActionBarContext)
   return (
     <Toolbar.Button
       {...props}
       ref={ref}
-      render={<ButtonBase />}
+      render={<SharedButton data-component="ActionBar.Button" size={size} variant="invisible" />}
       data-component="ActionBar.Button"
-      className={cn(
-        actionClassName,
-        'group-data-[size=small]:min-h-7 group-data-[size=small]:px-1.5 group-data-[size=large]:min-h-10 group-data-[size=large]:px-3',
-        className,
-      )}
+      className={className}
     />
   )
 })
 
-export interface ActionBarIconButtonProps extends Omit<ActionBarButtonProps, 'children'> {
-  icon: React.ElementType
-  'aria-label': string
-}
+export type ActionBarIconButtonProps = Omit<IconButtonProps, 'data-component' | 'variant'>
 const IconButton = React.forwardRef<HTMLButtonElement, ActionBarIconButtonProps>(function ActionBarIconButton(
-  {icon: Icon, ...props},
+  {className, icon, ...props},
   ref,
 ) {
+  const size = React.useContext(ActionBarContext)
   return (
-    <Button {...props} ref={ref} data-component="ActionBar.IconButton">
-      <Icon aria-hidden="true" />
-    </Button>
+    <Toolbar.Button
+      {...props}
+      ref={ref}
+      render={
+        <SharedIconButton
+          aria-label={props['aria-label']}
+          data-component="ActionBar.IconButton"
+          icon={icon}
+          size={size}
+          variant="invisible"
+        />
+      }
+      data-component="ActionBar.IconButton"
+      className={className}
+    />
   )
 })
 
@@ -93,7 +121,7 @@ const Group = React.forwardRef<HTMLDivElement, ActionBarGroupProps>(function Act
       {...props}
       ref={ref}
       data-component="ActionBar.Group"
-      className={cn('flex items-center gap-1', className)}
+      className={cn('flex gap-[inherit]', className)}
     />
   )
 })
@@ -125,40 +153,44 @@ export interface ActionBarMenuProps {
 }
 const ActionBarMenu = ({'aria-label': ariaLabel, icon: Icon = KebabHorizontalIcon, items}: ActionBarMenuProps) => {
   const [open, setOpen] = React.useState(false)
+  const size = React.useContext(ActionBarContext)
   return (
-    <Menu.Root open={open} onOpenChange={setOpen}>
+    <ActionMenu open={open} onOpenChange={setOpen}>
       <Toolbar.Button
         aria-label={ariaLabel}
-        render={<Menu.Trigger />}
+        render={
+          <ActionMenu.Trigger
+            render={
+              <SharedIconButton
+                aria-label={ariaLabel}
+                data-component="ActionBar.Menu"
+                icon={Icon}
+                size={size}
+                variant="invisible"
+              />
+            }
+          />
+        }
         data-component="ActionBar.Menu"
         onClick={() => setOpen(true)}
-        className={cn(
-          actionClassName,
-          'group-data-[size=small]:min-h-7 group-data-[size=small]:px-1.5 group-data-[size=large]:min-h-10 group-data-[size=large]:px-3',
-        )}
-      >
-        <Icon aria-hidden="true" />
-      </Toolbar.Button>
-      <Menu.Portal>
-        <Menu.Positioner sideOffset={4}>
-          <Menu.Popup className="z-popover min-w-40 rounded-md border border-default bg-default p-1 shadow-floating-lg">
-            {items.map(item => (
-              <Menu.Item
-                key={item.label}
-                label={item.label}
-                disabled={item.disabled}
-                onClick={item.onClick}
-                className="flex min-h-8 w-full items-center rounded-sm px-2 text-sm text-default data-[highlighted]:bg-muted data-[disabled]:text-disabled"
-              >
-                {item.label}
-              </Menu.Item>
-            ))}
-          </Menu.Popup>
-        </Menu.Positioner>
-      </Menu.Portal>
-    </Menu.Root>
+      />
+      <ActionMenu.Content sideOffset={4} className="min-w-40">
+        {items.map(item => (
+          <ActionMenu.Item
+            key={item.label}
+            label={item.label}
+            disabled={item.disabled}
+            onClick={item.onClick}
+            className="min-h-8 rounded-sm py-0 data-[highlighted]:bg-muted"
+          >
+            {item.label}
+          </ActionMenu.Item>
+        ))}
+      </ActionMenu.Content>
+    </ActionMenu>
   )
 }
 
 export const ActionBar = Object.assign(Root, {Button, IconButton, Group, Divider, Menu: ActionBarMenu})
 Root.displayName = 'ActionBar'
+;('use client')

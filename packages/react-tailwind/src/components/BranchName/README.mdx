@@ -1,0 +1,50 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './BranchName.stories'
+import * as Features from './BranchName.features.stories'
+import * as Examples from './BranchName.examples.stories'
+
+<Meta of={Stories} />
+
+# BranchName
+
+`BranchName` is a Tailwind React component. Import it from `@primer/react-tailwind/BranchName`.
+
+```tsx
+import {BranchName} from '@primer/react-tailwind/BranchName'
+;<BranchName href="#branch">feature/docs</BranchName>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`as`** (default: `a`) — Any React element type.
+- **native anchor props** (default: none) — Includes `href`, children, and `className`.
+
+## Composition
+
+Use the default anchor for navigable branch names or choose `as` for non-link presentation.
+
+## Accessibility
+
+Use `href` only when the branch name navigates. Keep the visible name specific enough to identify the branch.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The rendered element has `data-component="BranchName"`.
+
+## Intentional differences
+
+[BranchName alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/BranchName/ALIGNMENT.md) document intentional differences from the upstream component. Clipboard announcements and branch-picker overlays are provided by dedicated local primitives rather than BranchName.
+
+## Features and examples
+
+<Canvas of={Features.WithBranchIcon} />
+
+<Canvas of={Examples.PullRequestBranch} />

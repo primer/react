@@ -14,4 +14,15 @@ describe('Link', () => {
     expect(screen.getByRole('link', {name: 'Target'})).toHaveAttribute('href', '#target')
     expect(screen.getByTestId('link')).toBe(ref.current)
   })
+
+  it('exposes inline and muted state for preference-aware styling', () => {
+    render(
+      <Link href="#target" inline muted data-testid="state-link">
+        Target
+      </Link>,
+    )
+
+    expect(screen.getByTestId('state-link')).toHaveAttribute('data-inline', 'true')
+    expect(screen.getByTestId('state-link')).toHaveAttribute('data-muted', 'true')
+  })
 })

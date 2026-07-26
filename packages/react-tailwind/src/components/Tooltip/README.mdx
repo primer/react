@@ -1,0 +1,33 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as TooltipStories from './Tooltip.stories'
+import * as TooltipFeatures from './Tooltip.features.stories'
+import * as TooltipExamples from './Tooltip.examples.stories'
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+`Tooltip` provides supplementary text for a trigger.
+
+<Canvas of={TooltipStories.Default} />
+
+## Props
+
+<Controls of={TooltipStories.Playground} />
+
+## Usage
+
+```tsx
+import {Tooltip} from '@primer/react-tailwind'
+;<Tooltip>
+  <Tooltip.Trigger>Copy</Tooltip.Trigger>
+  <Tooltip.Content>Copy repository URL</Tooltip.Content>
+</Tooltip>
+```
+
+Tooltips supplement, never replace, the accessible name of their trigger. Do not put essential interactive controls in tooltip content.
+
+<Canvas of={TooltipFeatures.AllDirections} />
+
+<Canvas of={TooltipExamples.CustomId} />

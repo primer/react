@@ -1,0 +1,49 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Text.stories'
+import * as Features from './Text.features.stories'
+import * as Examples from './Text.examples.stories'
+
+<Meta of={Stories} />
+
+# Text
+
+`Text` is a Tailwind React component. Import it from `@primer/react-tailwind/Text`.
+
+```tsx
+import {Text} from '@primer/react-tailwind/Text'
+;<Text weight="semibold">octocat</Text>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`as`** (default: `span`) — Any React element type.
+- **`size`** (default: `medium`) — `small`, `medium`, or `large`.
+- **`weight`** (default: `normal`) — `light`, `normal`, `medium`, or `semibold`.
+- **`whiteSpace`** — `normal`, `nowrap`, `pre`, `pre-wrap`, or `pre-line`.
+- **native HTML props** (default: none) — Includes children and `className`.
+
+## Composition
+
+Use `as` to retain the semantic element required by the surrounding content.
+
+## Accessibility
+
+Choose semantic text elements through `as`; typography should not replace document structure.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The rendered element has `data-component="Text"`.
+
+## Features and examples
+
+<Canvas of={Features.Polymorphism} />
+
+<Canvas of={Examples.IssueMetadata} />

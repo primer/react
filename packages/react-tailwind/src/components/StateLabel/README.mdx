@@ -1,0 +1,51 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './StateLabel.stories'
+import * as Features from './StateLabel.features.stories'
+import * as Examples from './StateLabel.examples.stories'
+
+<Meta of={Stories} />
+
+# StateLabel
+
+`StateLabel` is a Tailwind React component. Import it from `@primer/react-tailwind/StateLabel`.
+
+```tsx
+import {StateLabel} from '@primer/react-tailwind/StateLabel'
+;<StateLabel status="pullMerged">Merged</StateLabel>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Public props and defaults
+
+- **`status`** (default: none) — Required: issue, pull request, alert, draft, queue, archived, unavailable, open, or closed status values.
+- **`size`** (default: `medium`) — `small` or `medium`.
+- **native span props** (default: none) — Includes children and `className`.
+
+## Composition
+
+Use the component-owned status icon with text children that name the state.
+
+## Accessibility
+
+Include visible state text. Component-owned issue, pull request, alert, and archived icons expose their artifact type to assistive technology; the unavailable icon is decorative because it does not identify an artifact type.
+
+## Tailwind extension
+
+Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+
+The root exposes `data-component="StateLabel"` and `data-status`.
+
+## Intentional differences
+
+[StateLabel alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/StateLabel/ALIGNMENT.md) document intentional differences from the upstream component.
+
+## Features and examples
+
+<Canvas of={Features.IssueOpened} />
+
+<Canvas of={Examples.PullRequestState} />

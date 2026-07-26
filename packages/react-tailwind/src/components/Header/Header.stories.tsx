@@ -20,6 +20,9 @@ const meta = {
       </Header.Item>
     </Header>
   ),
+  argTypes: {
+    as: {control: 'select', options: ['header', 'div', 'nav']},
+  },
 } satisfies Meta<typeof Header>
 export default meta
 

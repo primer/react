@@ -1,0 +1,27 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Stack.stories'
+import * as Features from './Stack.features.stories'
+import * as Examples from './Stack.examples.stories'
+
+<Meta of={Stories} />
+
+# Stack
+
+`Stack` arranges related content along one axis with token-based spacing, alignment, wrapping, and responsive direction.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {Stack, StackItem} from '@primer/react-tailwind/Stack'
+;<Stack direction="vertical" gap="normal">
+  <StackItem>Repository settings</StackItem>
+</Stack>
+```
+
+Use responsive values for `direction`, `gap`, and alignment without changing the DOM order. `Stack` adds no semantics; use appropriate landmarks, headings, and lists for its children.
+
+<Canvas of={Features.GapScale} />
+<Canvas of={Examples.SettingsSummary} />

@@ -2,18 +2,19 @@ import {XIcon} from '@primer/octicons-react'
 import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import type {TokenSize} from '../../utils/types'
 
-export type TokenSize = 'small' | 'medium' | 'large' | 'xlarge'
+export type {TokenSize} from '../../utils/types'
 
 const tokenBase = cva(
-  'relative inline-flex max-w-full items-center rounded-full font-semibold leading-none no-underline',
+  'relative inline-flex max-w-full items-center whitespace-nowrap rounded-full [font-family:inherit] font-semibold no-underline',
   {
     variants: {
       size: {
-        small: 'h-4 px-1 text-sm',
-        medium: 'h-5 px-1.5 text-sm',
-        large: 'h-6 px-2 text-base',
-        xlarge: 'h-8 px-3 text-base',
+        small: 'h-4 px-1 text-xs leading-none',
+        medium: 'h-5 px-1.5 text-xs leading-none',
+        large: 'h-6 px-2 text-sm leading-none',
+        xlarge: 'h-8 px-3 text-sm leading-none',
       },
       interactive: {true: 'cursor-pointer', false: 'cursor-auto'},
       hasRemoveButton: {true: 'pr-0', false: ''},
@@ -32,6 +33,39 @@ export interface TokenBaseProps extends Omit<React.HTMLAttributes<HTMLElement>, 
   isSelected?: boolean
   href?: string
   disabled?: boolean
+}
+
+interface TokenTextContainerProps extends React.HTMLAttributes<HTMLElement> {
+  as?: 'span' | 'a' | 'button'
+  disabled?: boolean
+  href?: string
+}
+
+export function TokenTextContainer({
+  as: Component = 'span',
+  children,
+  className,
+  disabled,
+  href,
+  ...rest
+}: TokenTextContainerProps) {
+  const interactive = Component !== 'span' || Boolean(rest.onClick || rest.tabIndex !== undefined)
+
+  return React.createElement(
+    Component,
+    {
+      ...rest,
+      className: cn(
+        'min-w-0 grow truncate border-0 bg-transparent p-0 [font-family:inherit] [font-size:inherit] [font-weight:inherit] leading-[var(--base-text-lineHeight-normal)] text-inherit no-underline appearance-none',
+        interactive && 'cursor-pointer after:absolute after:inset-0 after:content-[""]',
+        className,
+      ),
+      disabled: Component === 'button' ? disabled : undefined,
+      href: Component === 'a' && !disabled ? href : undefined,
+      type: Component === 'button' ? 'button' : undefined,
+    },
+    children,
+  )
 }
 
 export const TokenBase = React.forwardRef<HTMLElement, TokenBaseProps>(function TokenBase(
@@ -97,11 +131,52 @@ export const TokenBase = React.forwardRef<HTMLElement, TokenBaseProps>(function 
   )
 })
 
-export function TokenRemoveButton({onRemove, text}: {onRemove: () => void; text: React.ReactNode}) {
+export function TokenRemoveButton({
+  isParentInteractive = false,
+  onRemove,
+  size = 'medium',
+  text,
+}: {
+  isParentInteractive?: boolean
+  onRemove: () => void
+  size?: TokenSize
+  text: React.ReactNode
+}) {
+  const sizeClassName = {
+    small: 'ml-1 size-4',
+    medium: 'ml-1 size-5',
+    large: 'ml-1.5 size-6',
+    xlarge: 'ml-1.5 size-8',
+  }[size]
+  const iconSize = size === 'small' || size === 'medium' ? 12 : 16
+
+  if (isParentInteractive) {
+    return (
+      <span
+        aria-hidden="true"
+        className={cn(
+          'relative z-1 inline-flex self-baseline items-center justify-center rounded-full text-inherit [transform:translate(1px,-1px)]',
+          sizeClassName,
+        )}
+        data-component="Token.RemoveButton"
+        onClick={event => {
+          event.stopPropagation()
+          onRemove()
+        }}
+        tabIndex={-1}
+      >
+        <XIcon size={iconSize} />
+      </span>
+    )
+  }
+
   return (
     <button
       aria-label={`Remove ${typeof text === 'string' ? text : 'token'}`}
-      className="ml-1 grid size-5 place-items-center rounded-full text-muted hover:bg-neutral-muted focus-visible:outline-2 focus-visible:outline-accent-emphasis"
+      className={cn(
+        'inline-flex self-baseline items-center justify-center rounded-full border-0 bg-transparent p-0 [font-family:inherit] text-inherit [transform:translate(1px,-1px)] transition-colors hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-accent-emphasis active:bg-[var(--control-transparent-bgColor-active)]',
+        sizeClassName,
+      )}
       data-component="Token.RemoveButton"
       onClick={event => {
         event.stopPropagation()
@@ -109,7 +184,7 @@ export function TokenRemoveButton({onRemove, text}: {onRemove: () => void; text:
       }}
       type="button"
     >
-      <XIcon size={12} />
+      <XIcon size={iconSize} />
     </button>
   )
 }

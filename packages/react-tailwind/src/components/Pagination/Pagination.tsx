@@ -1,7 +1,8 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {responsiveClasses, type ResponsiveValue} from '../Stack/responsive'
+import {responsiveClasses} from '../../utils/responsive'
+import type {ResponsiveValue} from '../../utils/types'
 import {buildPaginationModel} from './model'
 
 type PageType = 'previous' | 'next' | 'page' | 'ellipsis'
@@ -9,9 +10,11 @@ type PageType = 'previous' | 'next' | 'page' | 'ellipsis'
 export interface PageProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode
   number: number
+  onPageSelect?: React.MouseEventHandler
   pageType: PageType
 }
 export interface PaginationProps extends React.ComponentPropsWithoutRef<'nav'> {
+  'data-component'?: string
   pageCount: number
   currentPage: number
   onPageChange?: (event: React.MouseEvent, page: number) => void
@@ -23,11 +26,12 @@ export interface PaginationProps extends React.ComponentPropsWithoutRef<'nav'> {
 }
 
 const pageClasses =
-  'inline-flex h-8 min-w-[var(--control-medium-size)] items-center justify-center rounded-md px-1 text-center text-sm text-default no-underline hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus aria-[current=page]:bg-accent-emphasis aria-[current=page]:text-on-emphasis aria-disabled:pointer-events-none aria-disabled:text-disabled'
+  'mr-1 inline-flex h-8 min-w-[var(--control-medium-size)] cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-md px-[6px] py-2 align-middle text-center text-base leading-none text-default no-underline transition-colors duration-200 last:mr-0 hover:bg-[var(--control-transparent-bgColor-hover)] hover:duration-100 focus:bg-[var(--control-transparent-bgColor-hover)] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--bgColor-accent-emphasis)] aria-[current=page]:bg-accent-emphasis aria-[current=page]:text-on-emphasis aria-disabled:pointer-events-none aria-disabled:cursor-default aria-disabled:bg-transparent aria-disabled:text-disabled'
 
 export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(function Pagination(
   {
     className,
+    children,
     currentPage,
     hrefBuilder = defaultHrefBuilder,
     marginPageCount = 1,
@@ -37,27 +41,30 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
     showPages = true,
     surroundingPageCount = 2,
     'aria-label': ariaLabel,
+    'data-component': dataComponent = 'Pagination',
     ...rest
   },
   ref,
 ) {
-  const shouldRenderPages =
-    typeof showPages === 'boolean' ? showPages : Object.values(showPages).some(viewportValue => viewportValue === true)
+  const shouldRenderPages = typeof showPages === 'boolean' ? showPages : true
   const pages = buildPaginationModel(pageCount, currentPage, shouldRenderPages, marginPageCount, surroundingPageCount)
   return (
     <nav
       {...rest}
       ref={ref}
       aria-label={ariaLabel ?? 'Pagination'}
-      className={cn('my-4 text-center', className)}
-      data-component="Pagination"
+      className={cn('mb-[15px] mt-5 text-center', className)}
+      data-component={dataComponent}
     >
-      <div className="inline-flex items-center gap-1">
+      {children}
+      <div className="inline-block">
         {pages.map(page => {
           const isEdge = page.type === 'previous' || page.type === 'next'
           const responsiveVisibility = isEdge
             ? ''
             : responsiveClasses(showPages, {true: 'inline-flex', false: 'hidden'}, true)
+          const previousPageSpacing =
+            page.type === 'previous' ? responsiveClasses(showPages, {true: 'mr-1', false: 'mr-0'}, true) : ''
           const pageLabel =
             page.type === 'previous'
               ? 'Previous'
@@ -80,9 +87,21 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
           const props: PageProps = {
             children: (
               <>
-                {page.type === 'previous' ? <ChevronLeftIcon aria-hidden="true" /> : null}
+                {page.type === 'previous' ? (
+                  <ChevronLeftIcon
+                    aria-hidden="true"
+                    className="mr-1 size-[1em]"
+                    data-component="Pagination.PreviousPageIcon"
+                  />
+                ) : null}
                 {pageLabel}
-                {page.type === 'next' ? <ChevronRightIcon aria-hidden="true" /> : null}
+                {page.type === 'next' ? (
+                  <ChevronRightIcon
+                    aria-hidden="true"
+                    className="ml-1 size-[1em]"
+                    data-component="Pagination.NextPageIcon"
+                  />
+                ) : null}
               </>
             ),
             number: page.number,
@@ -94,12 +113,14 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
             'aria-label':
               page.type === 'page' ? `Page ${page.number}${page.precedesBreak ? '...' : ''}` : `${pageLabel} page`,
             onClick: page.disabled ? undefined : event => onPageChange?.(event, page.number),
-            className: cn(pageClasses, isEdge && 'text-accent', responsiveVisibility),
+            onPageSelect: page.disabled ? undefined : event => onPageChange?.(event, page.number),
+            className: cn(pageClasses, isEdge && 'text-accent', responsiveVisibility, previousPageSpacing),
           }
           if (renderPage) {
             return <React.Fragment key={`${page.type}-${page.number}`}>{renderPage(props)}</React.Fragment>
           }
-          const {number, pageType, ...anchorProps} = props
+          const {number, onPageSelect: _onPageSelect, pageType, ...anchorProps} = props
+          void _onPageSelect
           return (
             <a
               {...anchorProps}
@@ -110,9 +131,21 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
               data-page={pageType}
               data-page-number={number}
             >
-              {page.type === 'previous' ? <ChevronLeftIcon aria-hidden="true" /> : null}
+              {page.type === 'previous' ? (
+                <ChevronLeftIcon
+                  aria-hidden="true"
+                  className="mr-1 size-[1em]"
+                  data-component="Pagination.PreviousPageIcon"
+                />
+              ) : null}
               {pageLabel}
-              {page.type === 'next' ? <ChevronRightIcon aria-hidden="true" /> : null}
+              {page.type === 'next' ? (
+                <ChevronRightIcon
+                  aria-hidden="true"
+                  className="ml-1 size-[1em]"
+                  data-component="Pagination.NextPageIcon"
+                />
+              ) : null}
             </a>
           )
         })}

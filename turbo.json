@@ -9,6 +9,22 @@
       "dependsOn": ["^build"],
       "outputs": ["storybook-static/**"]
     },
+    "check:exports": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "check:inventory": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "check:packed-consumer": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "lint:client-boundaries": {
+      "dependsOn": [],
+      "outputs": []
+    },
     "lint:npm": {
       "dependsOn": ["^build", "build"],
       "outputs": []

@@ -55,6 +55,18 @@ describe('Popover', () => {
     await user.click(screen.getByRole('button', {name: 'More'}))
     expect(ref.current).toBe(screen.getByTestId('content'))
     expect(ref.current).toHaveAttribute('data-component', 'Popover.Content')
+    expect(ref.current).toHaveClass('bg-[var(--overlay-bgColor)]')
+  })
+
+  it('renders through a local Base UI portal when portal is disabled', () => {
+    const {container} = render(
+      <Popover open>
+        <Popover.Trigger>More</Popover.Trigger>
+        <Popover.Content portal={false}>Details</Popover.Content>
+      </Popover>,
+    )
+
+    expect(container).toContainElement(screen.getByText('Details'))
   })
 
   it('supports HTMLElement refs for composed triggers', () => {

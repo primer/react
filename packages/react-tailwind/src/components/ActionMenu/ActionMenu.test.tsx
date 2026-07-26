@@ -46,6 +46,7 @@ describe('ActionMenu', () => {
     expect(ref.current).toBe(screen.getByTestId('actions'))
     expect(ref.current).toHaveTextContent('+Actions')
     expect(ref.current).toHaveClass('bg-[var(--button-danger-bgColor-rest)]')
+    expect(ref.current).toHaveClass('pr-2')
     await user.click(ref.current!)
     expect(await screen.findByRole('menuitem', {name: 'Archive'})).toBeVisible()
   })
@@ -67,5 +68,69 @@ describe('ActionMenu', () => {
     expect(trigger).toHaveClass('is-closed')
     await user.click(trigger)
     await waitFor(() => expect(trigger).toHaveClass('is-open'))
+  })
+
+  it('composes shared item content and exposes selection and unavailable states', () => {
+    render(
+      <ActionMenu defaultOpen>
+        <ActionMenu.Button>Actions</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.Group>
+            <ActionMenu.GroupLabel>Repository</ActionMenu.GroupLabel>
+            <ActionMenu.Item selected>
+              <ActionMenu.LeadingVisual>◆</ActionMenu.LeadingVisual>
+              Archive
+              <ActionMenu.Description variant="block">Move this repository out of active lists</ActionMenu.Description>
+              <ActionMenu.TrailingVisual>⌘A</ActionMenu.TrailingVisual>
+            </ActionMenu.Item>
+            <ActionMenu.Item inactiveText="Requires admin access">Transfer</ActionMenu.Item>
+            <ActionMenu.Item loading loadingText="Archiving repository">
+              Archive now
+            </ActionMenu.Item>
+          </ActionMenu.Group>
+          <ActionMenu.CheckboxItem checked>Watch</ActionMenu.CheckboxItem>
+          <ActionMenu.RadioGroup value="dark">
+            <ActionMenu.RadioItem value="light">Light</ActionMenu.RadioItem>
+            <ActionMenu.RadioItem value="dark">Dark</ActionMenu.RadioItem>
+          </ActionMenu.RadioGroup>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+
+    expect(screen.getByText('Repository')).toHaveAttribute('data-component', 'ActionMenu.GroupLabel')
+    expect(screen.getByRole('menuitem', {name: /Archive.*Move this repository/})).toHaveAttribute(
+      'data-selected',
+      'true',
+    )
+    expect(screen.getByRole('menuitem', {name: /Transfer.*Requires admin access/})).toHaveAttribute(
+      'aria-disabled',
+      'true',
+    )
+    expect(screen.getByText('Archiving repository')).toHaveClass('sr-only')
+    expect(screen.getByRole('menuitemcheckbox', {name: 'Watch'})).toHaveAttribute('aria-checked', 'true')
+    expect(screen.getByRole('menuitemradio', {name: 'Dark'})).toHaveAttribute('aria-checked', 'true')
+  })
+
+  it('opens nested menus with menu keyboard navigation', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionMenu defaultOpen>
+        <ActionMenu.Button>Edit</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.Item>Copy</ActionMenu.Item>
+          <ActionMenu.Submenu>
+            <ActionMenu.SubmenuTrigger>Paste special</ActionMenu.SubmenuTrigger>
+            <ActionMenu.Content side="right">
+              <ActionMenu.Item>Plain text</ActionMenu.Item>
+            </ActionMenu.Content>
+          </ActionMenu.Submenu>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+
+    const submenuTrigger = screen.getByRole('menuitem', {name: 'Paste special'})
+    submenuTrigger.focus()
+    await user.keyboard('{ArrowRight}')
+    expect(await screen.findByRole('menuitem', {name: 'Plain text'})).toBeVisible()
   })
 })

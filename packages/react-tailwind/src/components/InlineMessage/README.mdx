@@ -1,0 +1,114 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as InlineMessageStories from './InlineMessage.stories'
+import * as InlineMessageFeatures from './InlineMessage.features.stories'
+import * as InlineMessageExamples from './InlineMessage.examples.stories'
+
+<Meta of={InlineMessageStories} />
+
+# InlineMessage
+
+`InlineMessage` communicates validation, status, and availability inline with content or a form control.
+
+<Canvas of={InlineMessageStories.Default} />
+
+## Import and usage
+
+```tsx
+import {InlineMessage} from '@primer/react-tailwind/InlineMessage'
+;<InlineMessage variant="success">Your changes were saved.</InlineMessage>
+```
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>variant</code>
+      </td>
+      <td>
+        <code>'critical' | 'success' | 'unavailable' | 'warning'</code>
+      </td>
+      <td>—</td>
+      <td>Semantic message tone and default icon.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>
+        <code>'small' | 'medium'</code>
+      </td>
+      <td>
+        <code>'medium'</code>
+      </td>
+      <td>Text and icon size.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>leadingVisual</code>
+      </td>
+      <td>
+        <code>React.ElementType | ReactNode</code>
+      </td>
+      <td>variant icon</td>
+      <td>Replaces the default icon.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>—</td>
+      <td>Message content.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>Tailwind utilities or custom classes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={InlineMessageStories.Playground} />
+
+## Composition
+
+Place an inline message next to the field or content it describes. Use `leadingVisual` for a custom visual only when it reinforces the message; links and other inline content can be passed as children.
+
+## Accessibility
+
+The default icon is decorative. Give the message clear text and connect it to a form control with the consumer's `aria-describedby` when appropriate. `InlineMessage` does not add a live-region or alert role.
+
+## Animation and reduced motion
+
+`InlineMessage` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Variants use Primer semantic text tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` for spacing or typography extensions.
+
+### Data attributes
+
+The root exposes `data-component="InlineMessage"`, `data-size`, and `data-variant` when provided.
+
+## Features and examples
+
+<Canvas of={InlineMessageFeatures.Multiline} />
+<Canvas of={InlineMessageFeatures.CustomLeadingVisual} />
+<Canvas of={InlineMessageExamples.FormValidation} />

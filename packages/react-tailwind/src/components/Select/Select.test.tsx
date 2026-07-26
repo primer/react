@@ -1,67 +1,170 @@
 import React from 'react'
-import {render, screen} from '@testing-library/react'
+import {cleanup, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vitest'
+import {FormControl} from '../FormControl'
 import {Select} from './Select'
 
-describe('Select', () => {
-  it('supports keyboard selection, forms, and composable parts', async () => {
-    const user = userEvent.setup()
-    const inputRef = React.createRef<HTMLInputElement>()
-    render(
-      <form>
-        <Select name="branch" inputRef={inputRef}>
-          <Select.Trigger data-testid="trigger">
-            <Select.Value placeholder="Choose a branch" />
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popup>
-                <Select.List>
-                  <Select.Item value="main">main</Select.Item>
-                </Select.List>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
-        </Select>
-      </form>,
-    )
-    await user.click(screen.getByTestId('trigger'))
-    await user.keyboard('{ArrowDown}{Enter}')
-    expect(inputRef.current).toBeInstanceOf(HTMLInputElement)
-    expect(new FormData(screen.getByTestId('trigger').closest('form')!).get('branch')).toBe('main')
-  })
+const choices = (
+  <>
+    <Select.Option value="one">Choice one</Select.Option>
+    <Select.Option value="two">Choice two</Select.Option>
+    <Select.Option value="three">Choice three</Select.Option>
+  </>
+)
 
-  it('forwards refs for the trigger, value, popup, and item', async () => {
-    const user = userEvent.setup()
-    const triggerRef = React.createRef<HTMLButtonElement>()
-    const valueRef = React.createRef<HTMLSpanElement>()
-    const popupRef = React.createRef<HTMLDivElement>()
-    const itemRef = React.createRef<HTMLElement>()
+afterEach(cleanup)
+
+describe('Select', () => {
+  it('renders a native select with options and groups', () => {
     render(
-      <Select>
-        <Select.Trigger ref={triggerRef}>
-          <Select.Value ref={valueRef} placeholder="Choose a branch" />
-        </Select.Trigger>
-        <Select.Portal>
-          <Select.Positioner>
-            <Select.Popup ref={popupRef}>
-              <Select.List>
-                <Select.Item ref={itemRef} value="main">
-                  main
-                </Select.Item>
-              </Select.List>
-            </Select.Popup>
-          </Select.Positioner>
-        </Select.Portal>
+      <Select aria-label="Choice">
+        <Select.OptGroup label="Group one">{choices}</Select.OptGroup>
       </Select>,
     )
 
-    expect(triggerRef.current).toHaveAttribute('role', 'combobox')
-    expect(valueRef.current).toHaveTextContent('Choose a branch')
-    await user.click(triggerRef.current!)
-    expect(popupRef.current).toContainElement(itemRef.current)
-    expect(itemRef.current).toHaveAttribute('role', 'option')
-    expect(popupRef.current).toHaveClass('bg-default', 'shadow-floating-sm')
+    const select = screen.getByRole('combobox', {name: 'Choice'})
+    expect(select).toHaveAttribute('data-component', 'Select')
+    expect(select.querySelector('optgroup')).toHaveAttribute('data-component', 'Select.OptGroup')
+    expect(screen.getByRole('option', {name: 'Choice one'})).toHaveAttribute('data-component', 'Select.Option')
+  })
+
+  it('uses an enabled placeholder option by default and hides a required placeholder', () => {
+    const {rerender} = render(
+      <Select aria-label="Choice" placeholder="No choice selected">
+        {choices}
+      </Select>,
+    )
+
+    const select = screen.getByRole('combobox', {name: 'Choice'})
+    expect(select).toHaveValue('')
+    expect(screen.getByRole('option', {name: 'No choice selected'})).not.toBeDisabled()
+
+    rerender(
+      <Select aria-label="Choice" placeholder="No choice selected" required>
+        {choices}
+      </Select>,
+    )
+
+    expect(select).toBeRequired()
+    expect(screen.getByText('No choice selected')).toBeDisabled()
+    expect(screen.getByText('No choice selected')).toHaveAttribute('hidden')
+  })
+
+  it('supports controlled and uncontrolled native changes', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Select aria-label="Choice" defaultValue="one" onChange={onChange}>
+        {choices}
+      </Select>,
+    )
+
+    await user.selectOptions(screen.getByRole('combobox', {name: 'Choice'}), 'two')
+    expect(onChange).toHaveBeenCalledOnce()
+    expect(screen.getByRole('combobox', {name: 'Choice'})).toHaveValue('two')
+
+    rerender(
+      <Select aria-label="Choice" value="one" onChange={onChange}>
+        {choices}
+      </Select>,
+    )
+    await user.selectOptions(screen.getByRole('combobox', {name: 'Choice'}), 'three')
+    expect(screen.getByRole('combobox', {name: 'Choice'})).toHaveValue('one')
+  })
+
+  it('uses native keyboard focus', async () => {
+    const user = userEvent.setup()
+    render(<Select aria-label="Choice">{choices}</Select>)
+
+    await user.tab()
+    expect(screen.getByRole('combobox', {name: 'Choice'})).toHaveFocus()
+  })
+
+  it('preserves native multiple selection and form values', async () => {
+    const user = userEvent.setup()
+    render(
+      <form>
+        <Select aria-label="Choices" defaultValue={['one', 'three']} multiple name="choices">
+          {choices}
+        </Select>
+      </form>,
+    )
+
+    const select = screen.getByRole('listbox', {name: 'Choices'})
+    expect(select.parentElement).toHaveAttribute('data-multiple')
+    expect(select.parentElement).toHaveClass('data-[multiple]:h-auto', 'data-[multiple]:overflow-visible')
+    expect(select).toHaveValue(['one', 'three'])
+    await user.selectOptions(select, 'two')
+    expect(new FormData(select.closest('form')!).getAll('choices')).toEqual(['one', 'two', 'three'])
+  })
+
+  it('does not render a single-select placeholder in a multiple select', () => {
+    render(
+      <Select aria-label="Choices" multiple placeholder="Choose values">
+        {choices}
+      </Select>,
+    )
+
+    expect(screen.queryByRole('option', {name: 'Choose values'})).not.toBeInTheDocument()
+  })
+
+  it('forwards FormControl naming, descriptions, disabled state, and form name', () => {
+    render(
+      <form>
+        <FormControl disabled id="repository" name="repository" required>
+          <FormControl.Label>Repository</FormControl.Label>
+          <Select>{choices}</Select>
+          <FormControl.Caption>Choose the repository to clone.</FormControl.Caption>
+        </FormControl>
+      </form>,
+    )
+
+    const select = screen.getByRole('combobox', {name: 'Repository*'})
+    expect(select).toBeDisabled()
+    expect(select).toBeRequired()
+    expect(select).toHaveAccessibleDescription('Choose the repository to clone.')
+    expect(select).toHaveAttribute('name', 'repository')
+  })
+
+  it('styles validation, size, block, contrast, and disabled states without leaking custom props', () => {
+    const {container} = render(
+      <Select
+        aria-label="Choice"
+        block
+        className="custom-select w-64"
+        contrast
+        disabled
+        size="large"
+        validationStatus="error"
+      >
+        {choices}
+      </Select>,
+    )
+
+    const wrapper = container.firstElementChild
+    const select = screen.getByRole('combobox', {name: 'Choice'})
+    expect(wrapper).toHaveClass('custom-select', 'w-64')
+    expect(wrapper).toHaveAttribute('data-block')
+    expect(wrapper).toHaveAttribute('data-contrast')
+    expect(wrapper).toHaveAttribute('data-disabled')
+    expect(wrapper).toHaveAttribute('data-size', 'large')
+    expect(wrapper).toHaveAttribute('data-validation', 'error')
+    expect(select).toHaveAttribute('aria-invalid', 'true')
+    expect(select).not.toHaveAttribute('block')
+    expect(select).not.toHaveAttribute('validationstatus')
+  })
+
+  it('forwards select DOM props and its ref to the native control', () => {
+    const ref = React.createRef<HTMLSelectElement>()
+    render(
+      <Select aria-describedby="description" data-testid="choice" id="choice" ref={ref}>
+        {choices}
+      </Select>,
+    )
+
+    expect(ref.current).toBe(screen.getByTestId('choice'))
+    expect(ref.current).toHaveAttribute('id', 'choice')
+    expect(ref.current).toHaveAttribute('aria-describedby', 'description')
   })
 })

@@ -14,7 +14,7 @@ const TimelineRoot = React.forwardRef<HTMLOListElement, TimelineProps>(function 
       {...rest}
       ref={ref}
       className={cn(
-        'm-0 flex list-none flex-col p-0',
+        '@container/timeline m-0 flex list-none flex-col p-0',
         '[&[data-clip-sidebar=start]>li:first-child]:pt-0',
         '[&[data-clip-sidebar=both]>li:first-child]:pt-0',
         '[&[data-clip-sidebar=start]>li:first-child_[data-timeline-avatar]]:top-4',
@@ -27,8 +27,8 @@ const TimelineRoot = React.forwardRef<HTMLOListElement, TimelineProps>(function 
         '[&[data-clip-sidebar=both]>li:last-child[data-condensed]::before]:h-3',
         className,
       )}
-      data-clip-sidebar={clip || undefined}
       data-component="Timeline"
+      data-clip-sidebar={clip || undefined}
     />
   )
 })
@@ -46,11 +46,13 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(function
       ref={ref}
       className={cn(
         'relative ml-4 flex py-4 before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:bg-muted',
-        condensed && 'py-1 last:pb-4',
+        condensed &&
+          'pt-1 pb-0 last:pb-4 [&_[data-timeline-badge]]:my-2 [&_[data-timeline-badge]]:h-4 [&_[data-timeline-badge]]:border-0 [&_[data-timeline-badge]]:bg-default [&_[data-timeline-badge]]:text-muted [&_[data-timeline-avatar]]:top-5',
+        '@max-[479px]/timeline:grid @max-[479px]/timeline:grid-cols-[auto_minmax(0,1fr)] @max-[479px]/timeline:[grid-template-areas:"badge_body"_"._actions"]',
         className,
       )}
-      data-component="Timeline.Item"
       data-condensed={condensed || undefined}
+      data-component="Timeline.Item"
     />
   )
 })
@@ -90,7 +92,7 @@ const TimelineBadge = React.forwardRef<HTMLDivElement, TimelineBadgeProps>(funct
   ref,
 ) {
   return (
-    <div className="relative z-1" data-component="Timeline.BadgeWrapper">
+    <div className="relative z-1 @max-[479px]/timeline:[grid-area:badge]" data-component="Timeline.BadgeWrapper">
       <div
         {...rest}
         ref={ref}
@@ -100,6 +102,7 @@ const TimelineBadge = React.forwardRef<HTMLDivElement, TimelineBadgeProps>(funct
           className,
         )}
         data-component="Timeline.Badge"
+        data-timeline-badge=""
         data-variant={variant}
       />
     </div>
@@ -115,13 +118,16 @@ const TimelineBody = React.forwardRef<HTMLDivElement, TimelineBodyProps>(functio
     <div
       {...rest}
       ref={ref}
-      className={cn('mt-1 min-w-0 max-w-full flex-auto text-sm text-muted', className)}
+      className={cn(
+        'mt-[5px] min-w-0 max-w-full flex-auto text-sm text-muted @max-[479px]/timeline:[grid-area:body]',
+        className,
+      )}
       data-component="Timeline.Body"
     />
   )
 })
 
-export type TimelineBreakProps = React.ComponentPropsWithoutRef<'li'>
+export type TimelineBreakProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'role'>
 const TimelineBreak = React.forwardRef<HTMLLIElement, TimelineBreakProps>(function TimelineBreak(
   {className, ...rest},
   ref,
@@ -131,7 +137,10 @@ const TimelineBreak = React.forwardRef<HTMLLIElement, TimelineBreakProps>(functi
       {...rest}
       ref={ref}
       role="presentation"
-      className={cn('relative z-1 -mb-4 h-6 border-t-2 border-default bg-default', className)}
+      className={cn(
+        'relative z-1 -mb-4 h-6 border-t-2 border-default bg-default [&:has(+_[data-condensed])]:-mb-3',
+        className,
+      )}
       data-component="Timeline.Break"
     />
   )
@@ -146,7 +155,10 @@ const TimelineActions = React.forwardRef<HTMLDivElement, TimelineActionsProps>(f
     <div
       {...rest}
       ref={ref}
-      className={cn('ml-auto flex min-h-8 shrink-0 items-center gap-2 self-start', className)}
+      className={cn(
+        'ml-auto flex min-h-8 shrink-0 items-center gap-2 self-start @max-[479px]/timeline:mt-2 @max-[479px]/timeline:ml-0 @max-[479px]/timeline:min-h-0 @max-[479px]/timeline:[grid-area:actions]',
+        className,
+      )}
       data-component="Timeline.Actions"
     />
   )

@@ -10,6 +10,14 @@ const spinnerVariants = cva('inline-block animate-spin motion-reduce:animate-non
   defaultVariants: {size: 'medium'},
 })
 
+const spinnerSize = {
+  small: 16,
+  medium: 32,
+  large: 64,
+} as const
+
+const animationDurationMs = 1000
+
 export interface SpinnerProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof spinnerVariants> {
   srText?: string | null
   delay?: boolean | 'short' | 'long' | number
@@ -19,13 +27,23 @@ export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(function Spin
   {className, delay = false, size, srText = 'Loading', ...rest},
   ref,
 ) {
-  const [visible, setVisible] = React.useState(!delay)
+  const resolvedSize = size ?? 'medium'
+  const [{syncDelay, visible}, setVisibleState] = React.useState(() => ({
+    syncDelay: 0,
+    visible: !delay,
+  }))
+
   React.useEffect(() => {
-    if (!delay) return
-    const timeout = window.setTimeout(
-      () => setVisible(true),
-      typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000,
-    )
+    if (!delay) {
+      setVisibleState({syncDelay: computeSyncDelay(), visible: true})
+      return
+    }
+
+    const delayDuration = typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000
+    const timeout = window.setTimeout(() => {
+      setVisibleState({syncDelay: computeSyncDelay(), visible: true})
+    }, delayDuration)
+
     return () => window.clearTimeout(timeout)
   }, [delay])
 
@@ -38,7 +56,15 @@ export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(function Spin
       data-component="Spinner"
       className={cn('inline-flex leading-none', className)}
     >
-      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" className={spinnerVariants({size})}>
+      <svg
+        viewBox="0 0 16 16"
+        fill="none"
+        width={spinnerSize[resolvedSize]}
+        height={spinnerSize[resolvedSize]}
+        aria-hidden="true"
+        className={spinnerVariants({size: resolvedSize})}
+        style={{animationDelay: `${syncDelay}ms`}}
+      >
         <circle
           cx="8"
           cy="8"
@@ -49,7 +75,7 @@ export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(function Spin
           vectorEffect="non-scaling-stroke"
         />
         <path
-          d="M15 8a7 7 0 0 0-7-7"
+          d="M15 8a7.002 7.002 0 00-7-7"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
@@ -62,3 +88,8 @@ export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(function Spin
 })
 
 Spinner.displayName = 'Spinner'
+
+function computeSyncDelay() {
+  const now = typeof performance === 'undefined' ? 0 : performance.now()
+  return -(now % animationDurationMs)
+}

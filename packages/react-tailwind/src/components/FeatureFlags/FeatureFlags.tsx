@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import {FeatureFlagContext} from './FeatureFlagContext'
 import {FeatureFlagScope, type FeatureFlagValues} from './FeatureFlagScope'
@@ -13,3 +15,4 @@ export const FeatureFlags: React.FC<FeatureFlagsProps> = ({children, flags}) => 
 
   return <FeatureFlagContext.Provider value={scope}>{children}</FeatureFlagContext.Provider>
 }
+;('use client')

@@ -101,6 +101,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     () => 'light',
   )
   const resolvedColorMode = colorMode === 'auto' ? systemColorMode : normalizeColorMode(colorMode)
+  const activeScheme = resolvedColorMode === 'dark' ? nightScheme : dayScheme
+  const dataColorMode = colorMode === 'auto' ? 'auto' : activeScheme.includes('dark') ? 'dark' : 'light'
   const contextValue = React.useMemo<ThemeContextValue>(
     () => ({
       colorMode,
@@ -123,7 +125,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
       <div
         {...rest}
         data-component="ThemeProvider"
-        data-color-mode={colorMode === 'auto' ? 'auto' : resolvedColorMode}
+        data-color-mode={dataColorMode}
         data-light-theme={dayScheme}
         data-dark-theme={nightScheme}
         className={cn('contents', className)}

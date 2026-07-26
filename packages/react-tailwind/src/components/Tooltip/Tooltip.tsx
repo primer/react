@@ -1,13 +1,12 @@
+'use client'
+
 import {Tooltip as BaseTooltip} from '@base-ui/react/tooltip'
 import React from 'react'
-import {cn} from '../../internal/cn'
+import {mergeClassName} from '../../internal/mergeClassName'
+import type {FloatingContentProps} from '../../utils/types'
 
 const popupClassName =
   'w-max max-w-64 overflow-visible text-balance rounded-md bg-[var(--tooltip-bgColor)] px-2 py-1 text-center text-xs text-[var(--tooltip-fgColor)] outline-none contrast-more:outline contrast-more:outline-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-100 motion-safe:ease-in motion-reduce:transition-none'
-
-function mergeClassName<State>(base: string, className: string | ((state: State) => string | undefined) | undefined) {
-  return typeof className === 'function' ? (state: State) => cn(base, className(state)) : cn(base, className)
-}
 
 export type TooltipRootProps = BaseTooltip.Root.Props
 
@@ -55,14 +54,7 @@ const Popup = React.forwardRef<HTMLDivElement, TooltipPopupProps>(function Toolt
   )
 })
 
-export interface TooltipContentProps extends TooltipPopupProps {
-  align?: BaseTooltip.Positioner.Props['align']
-  side?: BaseTooltip.Positioner.Props['side']
-  sideOffset?: BaseTooltip.Positioner.Props['sideOffset']
-  alignOffset?: BaseTooltip.Positioner.Props['alignOffset']
-  portal?: boolean
-  positionerClassName?: string
-}
+export interface TooltipContentProps extends TooltipPopupProps, FloatingContentProps {}
 
 const Content = React.forwardRef<HTMLDivElement, TooltipContentProps>(function TooltipContent(
   {
@@ -153,3 +145,4 @@ export const Tooltip = Object.assign(Root, {
   Viewport,
 })
 ;(Tooltip as {displayName?: string}).displayName = 'Tooltip'
+;('use client')

@@ -4,7 +4,12 @@ import {cn} from '../../internal/cn'
 
 const groupVariants = cva('inline-flex', {
   variants: {
-    orientation: {horizontal: 'flex-row', vertical: 'flex-col'},
+    orientation: {
+      horizontal:
+        'flex-row [&>[data-component$="Button"]]:rounded-none [&>[data-component$="Button"]:first-child]:rounded-l-md [&>[data-component$="Button"]:last-child]:rounded-r-md [&>[data-component$="Button"]+[data-component$="Button"]]:-ml-px',
+      vertical:
+        'flex-col [&>[data-component$="Button"]]:rounded-none [&>[data-component$="Button"]:first-child]:rounded-t-md [&>[data-component$="Button"]:last-child]:rounded-b-md [&>[data-component$="Button"]+[data-component$="Button"]]:-mt-px',
+    },
   },
   defaultVariants: {orientation: 'horizontal'},
 })

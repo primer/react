@@ -1,0 +1,124 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as RelativeTimeStories from './RelativeTime.stories'
+import * as RelativeTimeFeatures from './RelativeTime.features.stories'
+import * as RelativeTimeExamples from './RelativeTime.examples.stories'
+
+<Meta of={RelativeTimeStories} />
+
+# RelativeTime
+
+`RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.
+
+<Canvas of={RelativeTimeStories.Default} />
+
+## Import and usage
+
+```tsx
+import {RelativeTime} from '@primer/react-tailwind/RelativeTime'
+;<RelativeTime datetime="2024-01-02T00:00:00.000Z" />
+```
+
+Use `date` when a `Date` object is already available, or `datetime` for an ISO date string. `children` can replace the visible relative text while retaining the semantic `time` element.
+
+## Props and defaults
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>date</code>
+      </td>
+      <td>
+        <code>Date</code>
+      </td>
+      <td>—</td>
+      <td>
+        Date object used when <code>datetime</code> is not supplied.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>datetime</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>—</td>
+      <td>ISO date string used for the machine-readable value.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>noTitle</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Omits the fallback absolute date tooltip.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>title</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>computed</td>
+      <td>Overrides the fallback absolute date tooltip.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>computed</td>
+      <td>Custom visible content.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Controls of={RelativeTimeStories.Playground} />
+
+Other standard `time` attributes, including `className`, are forwarded.
+
+## Composition
+
+Use `RelativeTime` in activity metadata, event lists, and prose where a machine-readable timestamp should remain available. Use custom children for short labels or links; use `title` or the default title for the precise date.
+
+## Accessibility
+
+The semantic `time` element preserves the date relationship for assistive technology and other consumers. Custom children should still describe the time meaningfully. Invalid dates render empty visible content and omit `dateTime`.
+
+## Animation and reduced motion
+
+`RelativeTime` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Import the package styles once, or compile with Tailwind v4 and the package `dist` `@source`. Use `className` and standard CSS to style the time element; the component does not add a typography-specific styling prop.
+
+### Data attributes
+
+The root exposes `data-component="RelativeTime"`, plus native `dateTime` and `title` values. The relative formatting is content, not a state attribute.
+
+## Upstream alignment
+
+The local API intentionally keeps the native `time` surface: stories cover `date`, `datetime`, `title`, `noTitle`, and child content. Upstream formatting callbacks and additional date-part controls are not represented because they are not local props.
+
+## Features and examples
+
+<Canvas of={RelativeTimeFeatures.CustomChildren} />
+<Canvas of={RelativeTimeFeatures.InvalidDate} />
+<Canvas of={RelativeTimeExamples.LongDate} />

@@ -1,64 +1,127 @@
+'use client'
+
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {
+  UnderlineItemContent,
+  underlineItemClassName,
+  underlineListClassName,
+  underlineRootClassName,
+} from '../../internal/UnderlineItemContent'
 
-export interface UnderlineNavProps extends React.ComponentPropsWithoutRef<'nav'> {
+type HideIconsBreakpoint = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | null
+
+interface UnderlineNavContextValue {
+  hideIconsBreakpoint: HideIconsBreakpoint
+  loadingCounters: boolean
+}
+
+const UnderlineNavContext = React.createContext<UnderlineNavContextValue>({
+  hideIconsBreakpoint: 'xxlarge',
+  loadingCounters: false,
+})
+
+const iconVisibilityClasses: Record<Exclude<HideIconsBreakpoint, null>, string> = {
+  xsmall: '@max-[320px]/underline-nav:hidden',
+  small: '@max-[544px]/underline-nav:hidden',
+  medium: '@max-[768px]/underline-nav:hidden',
+  large: '@max-[1012px]/underline-nav:hidden',
+  xlarge: '@max-[1280px]/underline-nav:hidden',
+  xxlarge: '@max-[1400px]/underline-nav:hidden',
+}
+
+export interface UnderlineNavProps
+  extends Omit<React.ComponentPropsWithoutRef<'nav'>, 'data-component' | 'data-variant'> {
+  as?: React.ElementType
+  hideIconsBreakpoint?: HideIconsBreakpoint
+  loadingCounters?: boolean
   variant?: 'inset' | 'flush'
 }
 
 const Root = React.forwardRef<HTMLElement, UnderlineNavProps>(function UnderlineNav(
-  {className, variant = 'inset', ...props},
+  {
+    as: Component = 'nav',
+    className,
+    hideIconsBreakpoint = 'xxlarge',
+    loadingCounters = false,
+    variant = 'inset',
+    ...props
+  },
   ref,
 ) {
   return (
-    <nav
-      {...props}
-      ref={ref}
-      data-component="UnderlineNav"
-      data-variant={variant}
-      className={cn('overflow-x-auto border-b border-default', variant === 'inset' ? 'px-2' : '', className)}
-    />
+    <UnderlineNavContext.Provider value={{hideIconsBreakpoint, loadingCounters}}>
+      <Component
+        {...props}
+        ref={ref}
+        data-component="UnderlineNav"
+        data-hide-icons-breakpoint={hideIconsBreakpoint ?? undefined}
+        data-variant={variant}
+        className={cn(underlineRootClassName, variant === 'inset' ? 'px-4' : '', className)}
+      />
+    </UnderlineNavContext.Provider>
   )
 })
 
-export type UnderlineNavListProps = React.ComponentPropsWithoutRef<'ul'>
+export type UnderlineNavListProps = Omit<React.ComponentPropsWithoutRef<'ul'>, 'data-component'>
 const List = React.forwardRef<HTMLUListElement, UnderlineNavListProps>(function UnderlineNavList(
   {className, ...props},
   ref,
 ) {
   return (
-    <ul {...props} ref={ref} data-component="UnderlineNav.List" className={cn('flex min-w-max list-none', className)} />
+    <ul {...props} ref={ref} data-component="UnderlineNav.List" className={cn(underlineListClassName, className)} />
   )
 })
 
-export interface UnderlineNavItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  counter?: React.ReactNode
+export interface UnderlineNavItemProps
+  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'data-component' | 'onSelect'> {
+  as?: React.ElementType
+  counter?: number | string
   leadingVisual?: React.ReactNode
+  onSelect?: (event: React.MouseEvent<HTMLElement>) => void
 }
-const Item = React.forwardRef<HTMLAnchorElement, UnderlineNavItemProps>(function UnderlineNavItem(
-  {className, children, counter, leadingVisual, 'aria-current': ariaCurrent, ...props},
+const Item = React.forwardRef<HTMLElement, UnderlineNavItemProps>(function UnderlineNavItem(
+  {
+    as: Component = 'a',
+    className,
+    children,
+    counter,
+    href = '#',
+    leadingVisual,
+    onClick,
+    onSelect,
+    'aria-current': ariaCurrent,
+    ...props
+  },
   ref,
 ) {
+  const {hideIconsBreakpoint, loadingCounters} = React.useContext(UnderlineNavContext)
   const current = ariaCurrent && ariaCurrent !== 'false'
+
   return (
-    <li data-component="UnderlineNav.Item">
-      <a
+    <li data-component="UnderlineNav.Item" className="flex flex-col items-center overflow-hidden">
+      <Component
         {...props}
+        href={href}
         ref={ref}
         aria-current={ariaCurrent}
         data-current={current || undefined}
-        className={cn(
-          'relative -mb-px inline-flex min-h-12 items-center gap-2 border-b-2 border-transparent px-3 text-sm text-muted hover:text-default focus-visible:z-10 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-focus data-[current]:border-accent-emphasis data-[current]:font-semibold data-[current]:text-default',
-          className,
-        )}
+        className={cn(underlineItemClassName, className)}
+        onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
+          onClick?.(event)
+          if (!event.defaultPrevented) onSelect?.(event)
+        }}
       >
-        {leadingVisual ? <span aria-hidden="true">{leadingVisual}</span> : null}
-        {children}
-        {counter === undefined ? null : (
-          <span className="rounded-full bg-neutral-muted px-1 text-xs" aria-hidden="true">
-            {counter}
-          </span>
-        )}
-      </a>
+        <UnderlineItemContent
+          counter={counter}
+          leadingVisual={leadingVisual}
+          leadingVisualClassName={hideIconsBreakpoint ? iconVisibilityClasses[hideIconsBreakpoint] : undefined}
+          loadingCounters={loadingCounters}
+          marker="UnderlineNav.Item"
+        >
+          {children}
+        </UnderlineItemContent>
+      </Component>
     </li>
   )
 })

@@ -1,3 +1,5 @@
+'use client'
+
 import {type Tabs as BaseTabs} from '@base-ui/react/tabs'
 import React from 'react'
 
@@ -7,3 +9,4 @@ export type TabPanelHookProps = React.ComponentPropsWithoutRef<typeof BaseTabs.P
 export function useTabPanel(props: TabPanelHookProps) {
   return React.useMemo(() => ({tabPanelProps: props}), [props])
 }
+;('use client')

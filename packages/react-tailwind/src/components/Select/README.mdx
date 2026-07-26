@@ -1,0 +1,58 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Select.stories'
+import * as Features from './Select.features.stories'
+import * as Examples from './Select.examples.stories'
+
+<Meta of={Stories} />
+
+# Select
+
+A styled native `<select>` with Primer control tokens. Native browser behavior owns option menus, keyboard operation, focus, form association, and controlled or uncontrolled values.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`Select` accepts native select attributes including `name`, `value`, `defaultValue`, `onChange`, `required`, `disabled`, `multiple`, accessible-name attributes, and DOM event handlers. `block`, `contrast`, `size`, and `validationStatus` apply Primer presentation. The `className` applies to the visible control wrapper; other DOM props and the ref apply to the native `<select>`.
+
+## Import and composition
+
+```tsx
+import Select from '@primer/react-tailwind/Select'
+
+// Named imports are also supported.
+import {Select} from '@primer/react-tailwind'
+```
+
+Use native `option` and `optgroup` elements, or `Select.Option` and `Select.OptGroup` when a stable Primer component identifier is useful. The children remain in authored order.
+
+```tsx
+<Select name="branch" placeholder="Choose a branch">
+  <Select.OptGroup label="Active">
+    <Select.Option value="main">main</Select.Option>
+    <Select.Option value="release">release</Select.Option>
+  </Select.OptGroup>
+</Select>
+```
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+Use native `value`/`onChange` for controlled selection or `defaultValue` for uncontrolled selection. `multiple` uses the native listbox and submits each selected value under the control name; `placeholder` applies only to the single-select presentation.
+
+## Accessibility, forms, and validation
+
+Give the select an accessible name with a visible `<label>`, `FormControl.Label`, or `aria-label`. `FormControl` forwards its id, required, disabled, name, and description to Select. Set `validationStatus="error"` or `validationStatus="success"` to style an externally validated control; error status also sets `aria-invalid`.
+
+<Canvas of={Features.WithOptionGroups} />
+
+<Canvas of={Features.Multiple} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) cover the native-select API and migration from the earlier Tailwind composable Base UI implementation.

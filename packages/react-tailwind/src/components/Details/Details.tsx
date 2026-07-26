@@ -4,7 +4,14 @@ import {cn} from '../../internal/cn'
 export type DetailsProps = Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'data-component'>
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(function Details({className, ...rest}, ref) {
-  return <details {...rest} ref={ref} data-component="Details" className={cn(className)} />
+  return (
+    <details
+      {...rest}
+      ref={ref}
+      data-component="Details"
+      className={cn('[&>summary]:list-none [&>summary::-webkit-details-marker]:hidden', className)}
+    />
+  )
 })
 
 export type DetailsSummaryProps = Omit<React.HTMLAttributes<HTMLElement>, 'data-component'>

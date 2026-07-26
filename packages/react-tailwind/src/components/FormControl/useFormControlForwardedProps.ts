@@ -1,11 +1,19 @@
+'use client'
+
 import type {Field} from '@base-ui/react/field'
 import React from 'react'
 
-type FormControlForwardedProps = Pick<Field.Root.Props, 'disabled' | 'name'>
+type FormControlForwardedProps = Pick<Field.Root.Props, 'disabled' | 'name'> & {
+  'aria-describedby'?: string
+  'aria-invalid'?: boolean
+  id?: string
+  required?: boolean
+}
 
 const FormControlContext = React.createContext<FormControlForwardedProps | null>(null)
 
 export const FormControlContextProvider = FormControlContext.Provider
+export const useFormControlContext = () => React.useContext(FormControlContext)
 
 /**
  * Applies form-level Base UI Field props to a custom control.
@@ -20,3 +28,4 @@ export function useFormControlForwardedProps<Props extends object>(
 
   return {...context, ...externalProps}
 }
+;('use client')

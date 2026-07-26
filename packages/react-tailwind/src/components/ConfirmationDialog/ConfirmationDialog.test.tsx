@@ -7,6 +7,12 @@ import {ConfirmationDialog} from './ConfirmationDialog'
 describe('ConfirmationDialog', () => {
   afterEach(cleanup)
 
+  it('exposes its composable parts on the configuration component', () => {
+    expect(ConfirmationDialog.Root).toBeDefined()
+    expect(ConfirmationDialog.Content).toBeDefined()
+    expect(ConfirmationDialog.Portal).toBeDefined()
+  })
+
   it('uses alert dialog semantics and focuses cancel for dangerous actions', async () => {
     const user = userEvent.setup()
     render(
@@ -21,6 +27,7 @@ describe('ConfirmationDialog', () => {
     expect(screen.getByRole('alertdialog', {name: 'Delete repository?'})).toHaveAccessibleDescription(
       'This cannot be undone.',
     )
+    expect(screen.getByRole('alertdialog', {name: 'Delete repository?'})).toHaveClass('bg-[var(--overlay-bgColor)]')
     await waitFor(() => expect(screen.getByRole('button', {name: 'Cancel'})).toHaveFocus())
   })
 
@@ -70,7 +77,7 @@ describe('ConfirmationDialog', () => {
 
     expect(document.querySelector('[data-component="ConfirmationDialog.Backdrop"]')).toHaveClass(
       'z-modal',
-      'bg-neutral-emphasis/40',
+      'bg-[var(--overlay-backdrop-bgColor)]',
       'contrast-more:bg-neutral-emphasis',
       'motion-reduce:transition-none',
     )

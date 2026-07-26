@@ -4,19 +4,27 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 export type InlineMessageVariant = 'critical' | 'success' | 'unavailable' | 'warning'
-const message = cva('grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2', {
-  variants: {
-    size: {small: 'text-sm leading-[21px]', medium: 'text-base leading-6'},
-    variant: {
-      critical: 'text-danger',
-      success: 'text-success',
-      unavailable: 'text-muted',
-      warning: 'text-attention',
-      undefined: 'text-default',
+const message = cva(
+  'grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2 text-[length:var(--inline-message-font-size)] leading-[var(--inline-message-line-height)]',
+  {
+    variants: {
+      size: {
+        small:
+          '[--inline-message-font-size:var(--text-body-size-small)] [--inline-message-line-height:var(--text-body-lineHeight-small)]',
+        medium:
+          '[--inline-message-font-size:var(--text-body-size-medium)] [--inline-message-line-height:var(--text-body-lineHeight-medium)]',
+      },
+      variant: {
+        critical: 'text-danger',
+        success: 'text-success',
+        unavailable: 'text-muted',
+        warning: 'text-attention',
+        undefined: 'text-default',
+      },
     },
+    defaultVariants: {size: 'medium'},
   },
-  defaultVariants: {size: 'medium'},
-})
+)
 const icons: Record<InlineMessageVariant, [React.ElementType, React.ElementType]> = {
   critical: [AlertIcon, AlertFillIcon],
   success: [CheckCircleIcon, CheckCircleFillIcon],
@@ -35,9 +43,14 @@ export const InlineMessage = React.forwardRef<HTMLDivElement, InlineMessageProps
   const DefaultIcon = variant ? icons[variant][size === 'small' ? 1 : 0] : InfoIcon
   const visual =
     leadingVisual === undefined ? (
-      <DefaultIcon size={size === 'small' ? 12 : 16} />
+      <DefaultIcon
+        className="min-h-[calc(var(--inline-message-line-height)*var(--inline-message-font-size))]"
+        size={size === 'small' ? 12 : 16}
+      />
     ) : typeof leadingVisual === 'function' ? (
-      React.createElement(leadingVisual)
+      React.createElement(leadingVisual, {
+        className: 'min-h-[calc(var(--inline-message-line-height)*var(--inline-message-font-size))]',
+      })
     ) : (
       leadingVisual
     )

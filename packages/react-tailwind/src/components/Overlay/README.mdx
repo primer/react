@@ -1,0 +1,32 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as OverlayStories from './Overlay.stories'
+import * as OverlayFeatures from './Overlay.features.stories'
+import * as OverlayExamples from './Overlay.examples.stories'
+
+<Meta of={OverlayStories} />
+
+# Overlay
+
+`Overlay` is a low-level surface for positioned content.
+
+<Canvas of={OverlayStories.Default} />
+
+## Props
+
+<Controls of={OverlayStories.Playground} />
+
+## Usage
+
+```tsx
+import {Overlay} from '@primer/react-tailwind'
+;<Overlay aria-label="Preview" role="dialog">
+  Overlay content
+</Overlay>
+```
+
+Select an appropriate role, give dialogs an accessible name, and provide focus management and dismissal when the surface is interactive.
+
+<Canvas of={OverlayFeatures.DropdownOverlay} />
+
+<Canvas of={OverlayExamples.ControlledDialog} />

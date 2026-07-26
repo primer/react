@@ -1,3 +1,5 @@
+'use client'
+
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
@@ -25,14 +27,16 @@ function useOverflowCount(
       // Include space for the overflow trigger before deciding which authored
       // items to move. Measuring a hidden duplicate keeps the calculation
       // stable as visible items are replaced by the menu.
-      const menuWidth = 48
+      const menuWidth = 44
       let width = items.reduce((total, item) => total + item.offsetWidth, 0)
       let hidden = 0
       const firstRemovable = keepRoot ? 1 : 0
       const lastRemovable = items.length - 2
+      const minimumVisibleItems = keepRoot ? 4 : container.clientWidth < 544 ? 1 : 4
       for (
         let index = firstRemovable;
-        index <= lastRemovable && width + menuWidth > container.clientWidth;
+        index <= lastRemovable &&
+        (items.length - hidden > minimumVisibleItems || width + menuWidth > container.clientWidth);
         index += 1
       ) {
         width -= items[index].offsetWidth
@@ -54,10 +58,21 @@ function useOverflowCount(
   return enabled ? overflowCount : 0
 }
 
-function Separator() {
+function Separator({compact = false}: {compact?: boolean}) {
+  if (compact) {
+    return (
+      <span
+        aria-hidden="true"
+        className="mx-[0.5em] inline-block h-[0.8em] translate-y-[0.0625em] rotate-[15deg] border-r-[0.1em] border-muted align-middle"
+      />
+    )
+  }
+
   return (
-    <span aria-hidden="true" className="mx-2 text-muted">
-      /
+    <span aria-hidden="true" className="inline-flex size-4 shrink-0 items-center justify-center text-muted">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.956 1.27994L6.06418 14.7201L5 14.7201L9.89181 1.27994L10.956 1.27994Z" fill="currentColor" />
+      </svg>
     </span>
   )
 }
@@ -74,6 +89,21 @@ const BreadcrumbsRoot = React.forwardRef<HTMLElement, BreadcrumbsProps>(function
   const visible = overflowCount > 0 ? childrenArray.slice(overflowCount) : childrenArray
   const menuItems = keepRoot ? collapsed.slice(1) : collapsed
   const displayItems = keepRoot && overflowCount > 0 ? [childrenArray[0], ...visible] : visible
+  const renderedItems = displayItems.map((item, index) => (
+    <li
+      key={index}
+      className={cn(
+        'min-w-0 list-none',
+        overflow === 'wrap'
+          ? 'inline-block text-[length:var(--text-body-size-medium)]'
+          : 'inline-grid shrink-0 auto-cols-max grid-flow-col items-center whitespace-nowrap',
+      )}
+    >
+      {item}
+      {index < displayItems.length - 1 ? <Separator compact={overflow === 'wrap'} /> : null}
+    </li>
+  ))
+  const preserveRootOrder = keepRoot && menuItems.length > 0
   const ref = (node: HTMLElement | null) => {
     localRef.current = node
     if (typeof forwardedRef === 'function') forwardedRef(node)
@@ -85,7 +115,7 @@ const BreadcrumbsRoot = React.forwardRef<HTMLElement, BreadcrumbsProps>(function
       {...rest}
       ref={ref}
       aria-label={rest['aria-label'] ?? 'Breadcrumbs'}
-      className={cn('min-w-0', variant === 'spacious' && 'py-2', className)}
+      className={cn('group flex min-w-0 w-full justify-between', className)}
       data-component="Breadcrumbs"
       data-overflow={overflow}
       data-variant={variant}
@@ -108,28 +138,27 @@ const BreadcrumbsRoot = React.forwardRef<HTMLElement, BreadcrumbsProps>(function
           ))}
         </ol>
       ) : null}
-      <ol className="m-0 flex list-none flex-wrap items-center p-0">
+      <ol className={cn('m-0 list-none p-0', overflow === 'wrap' ? 'block' : 'flex flex-nowrap whitespace-nowrap')}>
+        {preserveRootOrder ? renderedItems[0] : null}
         {menuItems.length ? (
-          <li className="flex items-center">
+          <li className="flex shrink-0 items-center">
             <ActionMenu>
-              <ActionMenu.Trigger aria-label={`${menuItems.length} more breadcrumb items`} className="size-8 px-0">
+              <ActionMenu.Trigger
+                aria-label={`${menuItems.length} more breadcrumb items`}
+                className="size-7 min-h-7 border-0 bg-transparent p-0 text-muted hover:bg-muted"
+              >
                 <KebabHorizontalIcon aria-hidden="true" />
               </ActionMenu.Trigger>
-              <ActionMenu.Content portal={false}>
+              <ActionMenu.Content className="overflow-hidden rounded-lg px-2 py-1.5 shadow-floating-sm">
                 {menuItems.map((item, index) => (
-                  <ActionMenu.Item key={index}>{item}</ActionMenu.Item>
+                  <ActionMenu.Item key={index} render={item} className="leading-5" />
                 ))}
               </ActionMenu.Content>
             </ActionMenu>
             <Separator />
           </li>
         ) : null}
-        {displayItems.map((item, index) => (
-          <li key={index} className="flex min-w-0 items-center">
-            {item}
-            {index < displayItems.length - 1 ? <Separator /> : null}
-          </li>
-        ))}
+        {preserveRootOrder ? renderedItems.slice(1) : renderedItems}
       </ol>
     </nav>
   )
@@ -149,8 +178,8 @@ const BreadcrumbsItem = React.forwardRef<HTMLElement, BreadcrumbsItemProps>(func
       ref={ref}
       aria-current={selected ? 'page' : undefined}
       className={cn(
-        'truncate text-sm text-accent no-underline hover:underline',
-        selected && 'font-medium text-default',
+        'inline-block text-[length:var(--text-body-size-medium)] leading-[var(--text-body-lineHeight-medium)] text-accent no-underline hover:underline group-data-[variant=spacious]:rounded-md group-data-[variant=spacious]:px-1.5 group-data-[variant=spacious]:py-1 group-data-[variant=spacious]:text-default group-data-[variant=spacious]:hover:bg-muted group-data-[variant=spacious]:hover:no-underline',
+        selected && 'text-default group-data-[variant=spacious]:font-semibold',
         className,
       )}
       data-component="Breadcrumbs.Item"
@@ -161,3 +190,4 @@ const BreadcrumbsItem = React.forwardRef<HTMLElement, BreadcrumbsItemProps>(func
 BreadcrumbsRoot.displayName = 'Breadcrumbs'
 BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
 export const Breadcrumbs = Object.assign(BreadcrumbsRoot, {Item: BreadcrumbsItem})
+;('use client')

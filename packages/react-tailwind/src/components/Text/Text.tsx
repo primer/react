@@ -1,6 +1,7 @@
-import {cva, type VariantProps} from 'class-variance-authority'
+import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import type {AsProp, TextSize} from '../../utils/types'
 
 const textVariants = cva('', {
   variants: {
@@ -10,15 +11,16 @@ const textVariants = cva('', {
       normal: 'whitespace-normal',
       nowrap: 'whitespace-nowrap',
       pre: 'whitespace-pre',
-      preWrap: 'whitespace-pre-wrap',
-      preLine: 'whitespace-pre-line',
+      'pre-wrap': 'whitespace-pre-wrap',
+      'pre-line': 'whitespace-pre-line',
     },
   },
-  defaultVariants: {size: 'medium', weight: 'normal', whiteSpace: 'normal'},
 })
 
-export interface TextProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof textVariants> {
-  as?: React.ElementType
+export interface TextProps extends React.HTMLAttributes<HTMLElement>, AsProp {
+  size?: TextSize
+  weight?: 'light' | 'normal' | 'medium' | 'semibold'
+  whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
 }
 
 export const Text = React.forwardRef<HTMLElement, TextProps>(function Text(

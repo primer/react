@@ -13,13 +13,27 @@ describe('SplitPageLayout', () => {
     )
     expect(screen.getByTestId('layout')).toHaveAttribute('data-layout', 'split')
     expect(screen.getByTestId('layout')).toHaveAttribute('data-component', 'SplitPageLayout')
-    expect(screen.getByRole('complementary')).toHaveAttribute('data-component', 'SplitPageLayout.Pane')
+    expect(screen.getByRole('complementary')).toContainElement(
+      document.querySelector('[data-component="SplitPageLayout.Pane"]'),
+    )
     expect(screen.getByRole('main')).toHaveAttribute('data-component', 'SplitPageLayout.Content')
     expect(screen.getByRole('main')).toHaveTextContent('Content')
   })
 
   it('defaults both root gaps to none', () => {
     const {container} = render(<SplitPageLayout />)
-    expect(container.querySelector('[data-component="SplitPageLayout"] > div')).toHaveClass('gap-x-0', 'gap-y-0')
+    const layout = container.querySelector('[data-component="SplitPageLayout"]')
+    const wrapper = layout?.firstElementChild
+    expect(wrapper).toHaveClass('gap-y-0')
+    expect(wrapper?.firstElementChild).toHaveClass('gap-x-0', 'gap-y-0')
+  })
+
+  it('keeps the default sidebar in normal flow', () => {
+    const {container} = render(
+      <SplitPageLayout>
+        <SplitPageLayout.Sidebar>Navigation</SplitPageLayout.Sidebar>
+      </SplitPageLayout>,
+    )
+    expect(container.querySelector('[data-component="SplitPageLayout.Sidebar"]')).not.toHaveClass('sticky', 'top-0')
   })
 })
