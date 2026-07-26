@@ -50,6 +50,7 @@
     "lint:client-boundaries": "node ./script/lint-client-boundaries.mjs",
     "lint:npm": "publint --types",
     "lint:react-compiler": "node ./script/lint-react-compiler.mjs",
+    "lint:tailwind": "node ./script/lint-tailwind-classes.mjs",
     "test": "vitest --run -c vitest.config.mts",
     "type-check": "tsc --noEmit"
   },

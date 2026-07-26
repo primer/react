@@ -20,7 +20,7 @@ const ListContext = React.createContext<ListContextValue>({})
 
 const listClassName = 'm-0 list-none p-0 text-default'
 export const actionItemClassName =
-  'flex !min-w-0 w-full !justify-start gap-2 appearance-none rounded-md !border-0 bg-transparent px-2 py-1.5 text-left text-sm font-normal ![line-height:20px] whitespace-normal text-default no-underline !shadow-none hover:bg-neutral-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emphasis data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled'
+  'flex !min-w-0 w-full !justify-start gap-2 appearance-none rounded-md !border-0 bg-transparent px-2 py-1.5 text-left text-sm font-normal ![line-height:20px] whitespace-normal text-default no-underline !shadow-none hover:bg-neutral-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled'
 
 interface ActionListTrailingActionBaseProps {
   className?: string
@@ -46,7 +46,7 @@ export type ActionListTrailingActionProps = ActionListTrailingActionBaseProps &
 
 function getTrailingActionClassName(hasIcon: boolean) {
   return cn(
-    'relative inline-flex h-8 min-h-8 min-w-8 items-center justify-center rounded-md !border-0 bg-transparent px-2 text-sm !shadow-none hover:bg-neutral-muted hover:text-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emphasis disabled:cursor-not-allowed',
+    'relative inline-flex h-8 min-h-8 min-w-8 items-center justify-center rounded-md !border-0 bg-transparent px-2 text-sm !shadow-none hover:bg-neutral-muted hover:text-default focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed',
     hasIcon ? 'text-muted' : '!px-[13px] text-default',
   )
 }
@@ -285,9 +285,7 @@ export function ActionItemContent({
           {blockDescriptions}
         </span>
         {resolvedTrailingVisual}
-        {supportingText ? (
-          <span className="basis-full text-xs leading-4 text-attention-fg">{supportingText}</span>
-        ) : null}
+        {supportingText ? <span className="basis-full text-xs leading-4 text-attention">{supportingText}</span> : null}
       </span>
     </>
   )
@@ -355,7 +353,7 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
         'relative list-none rounded-md',
         listVariant !== 'full' && 'mx-2',
         showDividers &&
-          "after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-border-muted after:content-[''] last:after:hidden",
+          "after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-[var(--borderColor-muted)] after:content-[''] last:after:hidden",
         renderedTrailingAction && 'flex items-center',
       )}
     >
@@ -376,7 +374,7 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
           actionItemClassName,
           size === 'large' && 'py-2.5',
           renderedTrailingAction && 'min-w-0 flex-1',
-          variant === 'danger' && 'text-danger-fg hover:bg-danger-subtle',
+          variant === 'danger' && 'text-danger-fg hover:bg-[var(--control-danger-bgColor-hover)]',
           active && 'ring-2 ring-accent-emphasis',
           className,
         )}
@@ -431,7 +429,7 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
         className={cn(
           actionItemClassName,
           trailingAction && 'min-w-0 flex-1',
-          variant === 'danger' && 'text-danger-fg hover:bg-danger-subtle',
+          variant === 'danger' && 'text-danger-fg hover:bg-[var(--control-danger-bgColor-hover)]',
           selected && 'bg-accent-muted',
           className,
         )}
@@ -551,7 +549,7 @@ const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'
         ref={ref}
         role="separator"
         className={cn(
-          "relative h-4 border-0 after:absolute after:inset-x-4 after:top-1/2 after:h-px after:bg-border-muted after:content-['']",
+          "relative h-4 border-0 after:absolute after:inset-x-4 after:top-1/2 after:h-px after:bg-[var(--borderColor-muted)] after:content-['']",
           props.className,
         )}
         data-component="ActionList.Divider"

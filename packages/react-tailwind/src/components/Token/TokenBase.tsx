@@ -174,7 +174,7 @@ export function TokenRemoveButton({
     <button
       aria-label={`Remove ${typeof text === 'string' ? text : 'token'}`}
       className={cn(
-        'inline-flex self-baseline items-center justify-center rounded-full border-0 bg-transparent p-0 [font-family:inherit] text-inherit [transform:translate(1px,-1px)] transition-colors hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-accent-emphasis active:bg-[var(--control-transparent-bgColor-active)]',
+        'inline-flex self-baseline items-center justify-center rounded-full border-0 bg-transparent p-0 [font-family:inherit] text-inherit [transform:translate(1px,-1px)] transition-colors hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-focus active:bg-[var(--control-transparent-bgColor-active)]',
         sizeClassName,
       )}
       data-component="Token.RemoveButton"

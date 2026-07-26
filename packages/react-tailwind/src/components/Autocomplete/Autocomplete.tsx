@@ -17,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, AutocompleteInputProps>(functio
       {...rest}
       ref={ref}
       className={mergeClassName(
-        'm-0 block h-8 w-full rounded-md border border-default bg-default px-3 text-sm text-default placeholder:text-muted focus:border-accent-emphasis focus:outline-none focus:ring-2 focus:ring-accent-emphasis',
+        'm-0 block h-8 w-full rounded-md border border-default bg-default px-3 text-sm text-default placeholder:text-muted focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-focus',
         className,
       )}
       data-component="Autocomplete.Input"

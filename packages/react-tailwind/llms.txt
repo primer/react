@@ -28,7 +28,9 @@ import {Button} from '@primer/react-tailwind/Button'
 ## Rules
 
 - Style with `className`. There is no `sx` prop and no styled-system props such as `m`, `p`, `bg`, or `color`. Reaching for `sx` is the most common mistake when adapting `@primer/react` code.
-- Use Primer semantic Tailwind utilities such as `text-default`, `bg-muted`, and `border-default` rather than raw palette values such as `text-gray-500`. Colors must resolve through Primer tokens so themes and high-contrast schemes keep working.
+- Use Primer semantic Tailwind utilities such as `text-default`, `bg-muted`, and `border-default` rather than raw palette values such as `text-gray-500`. Colors must resolve through Primer tokens so themes and high-contrast schemes keep working. A build check rejects hardcoded colors.
+- Not every default Tailwind utility exists. The Primer type scale replaces the default one, so `text-base` and `text-lg` generate nothing; use `text-body-medium`, `text-body-large`, or a title size. There are no `ring-*` or `bg-border-*` color utilities either. When no utility exists, use the token directly, as in `bg-[var(--borderColor-muted)]`.
+- Focus treatment is `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus`.
 - Change the rendered element with `render` on Base UI-backed components such as `Button`, `Dialog`, and `Tooltip`, and with `as` on presentational components such as `Text`, `Stack`, `Card`, and `PageLayout`. Check the component's props before choosing.
 - React 19 is the only supported peer. The package is compiled with React Compiler; do not add manual `memo`, `useMemo`, or `useCallback` wrappers around package components for performance alone.
 - Components forward their root ref and unrecognized DOM props to their root element. Prefer passing standard DOM props directly instead of wrapping components in extra elements.

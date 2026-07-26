@@ -183,5 +183,6 @@ npm run check:exports --workspace @primer/react-tailwind
 npm run check:inventory --workspace @primer/react-tailwind
 npm run check:packed-consumer --workspace @primer/react-tailwind
 npm run check:llms --workspace @primer/react-tailwind
+npm run lint:tailwind --workspace @primer/react-tailwind
 npm run lint:npm --workspace @primer/react-tailwind
 ```

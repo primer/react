@@ -77,7 +77,7 @@ describe('ActionList', () => {
     )
 
     expect(screen.getByRole('menuitemradio', {name: 'Active item'})).not.toHaveClass('bg-accent-muted')
-    expect(screen.getByText('Unavailable due to an outage')).toHaveClass('text-attention-fg')
+    expect(screen.getByText('Unavailable due to an outage')).toHaveClass('text-attention')
   })
 
   it('preserves selection semantics for custom tree roles', () => {

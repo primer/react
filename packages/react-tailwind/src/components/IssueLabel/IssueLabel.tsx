@@ -58,7 +58,7 @@ const issueLabel = cva(
           'bg-label-yellow-rest text-label-yellow-rest data-[interactive=true]:hover:bg-label-yellow-hover data-[interactive=true]:hover:text-label-yellow-hover data-[interactive=true]:active:bg-label-yellow-active data-[interactive=true]:active:text-label-yellow-active',
       },
       interactive: {
-        true: 'cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-emphasis',
+        true: 'cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
         false: '',
       },
     },

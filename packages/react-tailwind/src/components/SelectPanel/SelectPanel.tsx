@@ -999,7 +999,7 @@ function SelectPanelContent({
       <div className="contents" data-component="SelectPanel.Content">
         <header className="flex items-start justify-between gap-4 px-4 pt-4" data-component="SelectPanel.Header">
           <div className="min-w-0">
-            <h2 className="m-0 text-base font-semibold text-default" data-component="SelectPanel.Title" id={titleId}>
+            <h2 className="m-0 font-semibold text-default" data-component="SelectPanel.Title" id={titleId}>
               {title}
             </h2>
             {subtitle ? (

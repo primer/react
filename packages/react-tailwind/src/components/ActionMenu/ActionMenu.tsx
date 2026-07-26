@@ -137,7 +137,7 @@ const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionM
           actionItemClassName,
           'mx-2 !w-[calc(100%-1rem)]',
           'data-[highlighted]:bg-neutral-muted data-[highlighted]:text-default',
-          variant === 'danger' && 'text-danger-fg data-[highlighted]:bg-danger-subtle',
+          variant === 'danger' && 'text-danger-fg data-[highlighted]:bg-[var(--control-danger-bgColor-hover)]',
         ),
         className,
       )}
@@ -278,7 +278,7 @@ const Divider = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<
         {...props}
         ref={ref}
         className={cn(
-          "relative h-4 border-0 after:absolute after:inset-x-4 after:top-1/2 after:h-px after:bg-border-muted after:content-['']",
+          "relative h-4 border-0 after:absolute after:inset-x-4 after:top-1/2 after:h-px after:bg-[var(--borderColor-muted)] after:content-['']",
           props.className,
         )}
         data-component="ActionMenu.Divider"

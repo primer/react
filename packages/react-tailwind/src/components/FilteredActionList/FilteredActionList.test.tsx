@@ -346,7 +346,9 @@ describe('FilteredActionList', () => {
     expect(onListContainerRefChanged).toHaveBeenCalledWith(expect.any(HTMLDivElement))
     expect(listbox).toHaveAttribute('aria-label', 'Fruit options')
     expect(listbox).toHaveAttribute('title', 'listbox')
-    expect(input.closest('[data-component="TextInput"]')).toHaveClass('max-sm:text-base')
+    expect(input.closest('[data-component="TextInput"]')).toHaveClass(
+      'max-md:supports-[-webkit-touch-callout:none]:text-[var(--text-title-size-small)]',
+    )
     expect(input).toHaveClass('[font-size:inherit]')
 
     input.focus()

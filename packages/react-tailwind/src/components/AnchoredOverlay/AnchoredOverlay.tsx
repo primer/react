@@ -148,7 +148,7 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<BasePopover.Title.Props,
       <BasePopover.Title
         {...rest}
         ref={ref}
-        className={mergeClassName('text-base font-semibold text-default', className)}
+        className={mergeClassName('font-semibold text-default', className)}
         data-component="AnchoredOverlay.Title"
       />
     )

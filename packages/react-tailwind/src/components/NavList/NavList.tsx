@@ -34,7 +34,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby ?? (ariaLabel ? undefined : heading ? headingId : undefined)}
       data-component="NavList"
-      className={cn('text-base', className)}
+      className={cn(className)}
     >
       {heading ? React.cloneElement(heading, {id: headingId}) : null}
       <div className="p-2" data-component="NavList.Content">
@@ -57,7 +57,7 @@ const NavListHeading = React.forwardRef<HTMLHeadingElement, NavListHeadingProps>
       ref={ref}
       size={size}
       data-component="NavList.Heading"
-      className={cn('m-0 mb-2 ml-4 text-base font-semibold leading-6', visuallyHidden && 'sr-only', className)}
+      className={cn('m-0 mb-2 ml-4 font-semibold leading-6', visuallyHidden && 'sr-only', className)}
     />
   )
 })
@@ -197,7 +197,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
         data-current={isCurrent || undefined}
         data-inactive={isInactive || undefined}
         className={cn(
-          'relative grid min-h-8 w-full min-w-0 flex-1 items-start gap-x-2 rounded-md py-1.5 text-left text-base leading-6 text-default no-underline hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-focus',
+          'relative grid min-h-8 w-full min-w-0 flex-1 items-start gap-x-2 rounded-md py-1.5 text-left leading-6 text-default no-underline hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-focus',
           hasLeadingVisual
             ? 'grid-cols-[min-content_minmax(0,1fr)_min-content]'
             : 'grid-cols-[minmax(0,1fr)_min-content]',
@@ -271,7 +271,7 @@ const SubNavTrigger = React.forwardRef<HTMLButtonElement, NavListSubNavTriggerPr
       ref={ref}
       data-component="NavList.SubNav.Trigger"
       className={cn(
-        'group flex h-8 w-full appearance-none items-center gap-2 rounded-md border-0 bg-transparent py-1 text-left text-base font-normal leading-5 text-default hover:bg-muted focus-visible:outline-2 focus-visible:outline-focus',
+        'group flex h-8 w-full appearance-none items-center gap-2 rounded-md border-0 bg-transparent py-1 text-left font-normal leading-5 text-default hover:bg-muted focus-visible:outline-2 focus-visible:outline-focus',
         getItemPadding(depth),
         className,
       )}

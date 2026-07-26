@@ -309,7 +309,7 @@ function FilteredActionListOption({
         'group cursor-default items-center outline-none data-[highlighted]:bg-neutral-muted',
         listVariant !== 'full' && 'mx-2 w-auto',
         descriptionVariant === 'block' && 'items-start',
-        optionVariant === 'danger' && 'text-danger-fg hover:bg-danger-subtle',
+        optionVariant === 'danger' && 'text-danger-fg hover:bg-[var(--control-danger-bgColor-hover)]',
         virtualized && 'h-(--filtered-action-list-virtual-row-height) overflow-hidden',
         className,
         renderedActionListItem?.props.className,
@@ -805,7 +805,9 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
                 className={cn(
                   'min-w-0',
                   LeadingVisual && 'pl-8',
-                  fullScreenOnNarrow && 'max-sm:text-base',
+                  // Match upstream: keep iOS from zooming the viewport when focusing a narrow input.
+                  fullScreenOnNarrow &&
+                    'max-md:supports-[-webkit-touch-callout:none]:text-[var(--text-title-size-small)]',
                   inputClassName,
                 )}
               />

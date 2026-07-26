@@ -45,6 +45,8 @@ Tailwind v4 generates component utilities from complete static classes in the so
 
 The shared `cn` helper combines conditional classes and resolves Tailwind conflicts. Closed variant sets use static maps or class-variance-authority. CSS custom properties carry runtime geometry or values that cannot be represented as a static variant.
 
+An unknown utility is not an error in Tailwind; it simply produces no CSS, so a typo fails silently and survives review. `lint:tailwind` compiles every class found in the source and fails when one generates nothing, which catches both misspellings and utilities that the Primer configuration does not define. It also rejects hardcoded colors so presentation stays on Primer tokens.
+
 The component build does not include Tailwind Preflight. `BaseStyles` provides the component-scoped normalization boundary, and `base.css` is an opt-in small global normalization stylesheet for applications that want the same box-sizing, body-margin, and table-collapse defaults outside `BaseStyles`.
 
 ## CSS delivery

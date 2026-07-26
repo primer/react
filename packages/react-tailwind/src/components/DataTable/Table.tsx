@@ -279,7 +279,7 @@ export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProp
             aria-label={page['aria-label']}
             className={cn(
               pageClassName,
-              'mr-0 h-auto min-h-8 appearance-none border-0 bg-transparent font-inherit text-[14px] leading-5 aria-disabled:text-muted',
+              'mr-0 h-auto min-h-8 appearance-none border-0 bg-transparent [font-family:inherit] text-[14px] leading-5 aria-disabled:text-muted',
               pageType === 'previous' && 'mr-4 px-2',
               pageType === 'next' && 'ml-4 px-2',
             )}
