@@ -232,6 +232,37 @@ const SECTION = Symbol('MyLayout.Section')
 const withSectionMarker = <T,>(component: T): T => Object.assign(component as object, {[SECTION]: true}) as T
 ```
 
+### Moving children into a different position
+
+This is the case context cannot serve. `PanelList` in `github-ui` writes `Header`, `Rows`, and `Blankslate` as flat children and then renders the header above a box and the rows inside it. The parent is not reading a value off the child, it is relocating it, so it has to see the children.
+
+Read them during render. That is SSR-safe, unlike a portal, which renders nothing on the server — `renderToString` of a `Portal` produces an empty parent — so portals are not a way to reposition server-rendered content.
+
+```tsx
+const parts = flattenChildren(children)
+const header = parts.find(isHeader)
+const rest = parts.filter(child => child !== header)
+
+return (
+  <div>
+    {header}
+    <div className="body">{rest}</div>
+  </div>
+)
+```
+
+Match with identity when your parts are never wrapped, and with a `Symbol` marker when they are. `PageLayout` in this package uses markers for exactly that reason: `SplitPageLayout` wraps its `Header`, `Sidebar`, and `Footer`, and marker matching is what keeps those wrappers recognizable.
+
+Two things to know before relocating a child:
+
+- A relocated child reads context from where it is **rendered**, not where it was written. Moving it inside a provider changes what it sees, which is easy to miss when the move is only meant to be positional.
+- Relocation changes DOM order, and with it reading order and tab order.
+
+Because of that second point, prefer these when they fit:
+
+- **A prop**, when the part is a single value rather than free-form markup. `<Panel header={<Header />} />` is typed, SSR-safe, and wrapper-tolerant by construction, because the consumer hands you the element instead of you finding it.
+- **CSS**, when the move is only visual. Grid areas and `order` reposition a child without touching the tree, so the DOM keeps its authored reading and tab order. Reach for tree manipulation only when the child needs a different parent element, not merely a different position on screen.
+
 ## Suggested order
 
 1. Set up `ThemeProvider`, `BaseStyles`, and the stylesheet, as described in **Get started**.
