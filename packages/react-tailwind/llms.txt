@@ -451,7 +451,7 @@ Import: `import {PageLayout} from '@primer/react-tailwind/PageLayout'`
 `PageLayout` composes page headers, navigation panes or sidebars, content, and footers into a responsive layout.
 
 Differences from `@primer/react`:
-- Keep bottom sheets and filter/menu controls in application composition.
+- `header`, `sidebar`, and `footer` accept an element for the corresponding region and take precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
 
 ### Pagination
 

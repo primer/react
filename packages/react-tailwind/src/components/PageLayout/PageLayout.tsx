@@ -14,9 +14,7 @@ import {
   PAGE_LAYOUT_HEADER,
   PAGE_LAYOUT_SIDEBAR,
   PageLayoutMarkerContext,
-  type PageLayoutFooterComponent,
   type PageLayoutHeaderComponent,
-  type PageLayoutSidebarComponent,
 } from './markers'
 import {
   defaultFormatValueText,
@@ -136,6 +134,12 @@ export interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   padding?: Spacing
   rowGap?: Spacing
   columnGap?: Spacing
+  /** Supplies the header region. Takes precedence over a `PageLayout.Header` child. */
+  header?: React.ReactNode
+  /** Supplies the sidebar region. Takes precedence over a `PageLayout.Sidebar` child. */
+  sidebar?: React.ReactNode
+  /** Supplies the footer region. Takes precedence over a `PageLayout.Footer` child. */
+  footer?: React.ReactNode
 }
 
 const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayout(
@@ -144,24 +148,35 @@ const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayo
     className,
     columnGap = 'normal',
     containerWidth = 'xlarge',
+    footer: footerProp,
+    header: headerProp,
     padding = 'normal',
     rowGap = 'normal',
+    sidebar: sidebarProp,
     ...rest
   },
   ref,
 ) {
   const markers = React.useContext(PageLayoutMarkerContext)
   const childArray = flattenChildren(children)
-  const header = childArray.find(
-    child => React.isValidElement(child) && Boolean((child.type as PageLayoutHeaderComponent)[PAGE_LAYOUT_HEADER]),
-  )
-  const sidebar = childArray.find(
-    child => React.isValidElement(child) && Boolean((child.type as PageLayoutSidebarComponent)[PAGE_LAYOUT_SIDEBAR]),
-  )
-  const footer = childArray.find(
-    child => React.isValidElement(child) && Boolean((child.type as PageLayoutFooterComponent)[PAGE_LAYOUT_FOOTER]),
-  )
-  const content = childArray.filter(child => child !== header && child !== sidebar && child !== footer)
+  // A single pass instead of one scan per region, and an explicit prop wins over a
+  // matched child so consumers can supply their own implementation without a marker.
+  let matchedHeader: React.ReactNode
+  let matchedSidebar: React.ReactNode
+  let matchedFooter: React.ReactNode
+  const content: React.ReactNode[] = []
+
+  for (const child of childArray) {
+    const type = React.isValidElement(child) ? (child.type as PageLayoutHeaderComponent) : undefined
+    if (type?.[PAGE_LAYOUT_HEADER] && matchedHeader === undefined) matchedHeader = child
+    else if (type?.[PAGE_LAYOUT_SIDEBAR] && matchedSidebar === undefined) matchedSidebar = child
+    else if (type?.[PAGE_LAYOUT_FOOTER] && matchedFooter === undefined) matchedFooter = child
+    else content.push(child)
+  }
+
+  const header = headerProp ?? matchedHeader
+  const sidebar = sidebarProp ?? matchedSidebar
+  const footer = footerProp ?? matchedFooter
 
   return (
     <div

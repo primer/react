@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {fireEvent, render, screen} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import {PageLayout} from './PageLayout'
@@ -207,5 +207,30 @@ describe('PageLayout', () => {
     const dividers = pane?.parentElement?.querySelectorAll(':scope > div[aria-hidden="true"]') ?? []
     expect(dividers[0]).toHaveClass('self-stretch', 'md:block', 'md:w-2', 'md:border-x', '2xl:w-2')
     expect(dividers[0]).not.toHaveClass('md:h-px')
+  })
+
+  it('accepts a region prop so a custom component can fill a region without a marker', () => {
+    const CustomSidebar = ({children}: {children?: React.ReactNode}) => <div data-testid="custom">{children}</div>
+
+    render(
+      <PageLayout sidebar={<CustomSidebar>side</CustomSidebar>}>
+        <PageLayout.Content>content</PageLayout.Content>
+      </PageLayout>,
+    )
+
+    expect(screen.getByTestId('custom')).toHaveTextContent('side')
+    expect(screen.getByText('content')).toBeInTheDocument()
+  })
+
+  it('prefers a region prop over a matching child', () => {
+    render(
+      <PageLayout header={<div data-testid="from-prop">prop</div>}>
+        <PageLayout.Header>from child</PageLayout.Header>
+        <PageLayout.Content>content</PageLayout.Content>
+      </PageLayout>,
+    )
+
+    expect(screen.getByTestId('from-prop')).toBeInTheDocument()
+    expect(screen.queryByText('from child')).not.toBeInTheDocument()
   })
 })

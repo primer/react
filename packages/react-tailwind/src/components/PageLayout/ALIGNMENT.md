@@ -12,6 +12,8 @@ Pane dividers are horizontal at narrow widths and vertical from the regular rang
 
 ## Migration notes
 
+- `header`, `sidebar`, and `footer` accept an element for the corresponding region and take precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
+
 - Keep bottom sheets and filter/menu controls in application composition.
 - Use the documented width storage and resize callback contract; do not assume legacy persistence behavior.
 - Preserve start/end pane and Sidebar ordering across responsive ranges.
