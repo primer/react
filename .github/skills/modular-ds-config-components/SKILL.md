@@ -49,4 +49,4 @@ Prefer `HTMLElement` for default root refs and polymorphic component typing. Use
 
 ## Adoption surfaces
 
-When shipping or changing a config component's public API, include: source exports, tests, stories, docs metadata, and a changeset when published package behavior changes.
+When shipping or changing a config component's public API, include: source exports, tests, stories, docs metadata, and a changeset when published package behavior changes. New components and new public exports need a `minor` changeset for the affected package, and any matching export snapshots or tests must be updated in the same change.

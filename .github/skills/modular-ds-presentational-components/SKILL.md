@@ -40,10 +40,12 @@ State and interactions are usually provided separately through a behavior/state 
 
 ## Composition rules
 
-- Compose via children (slots). Never use render props or `React.Children` + `React.cloneElement`.
+- Compose via ordinary React children. Never use render props or `React.Children` + `React.cloneElement`.
+- Don't reach for the slots system by default. `useSlots` and `__SLOT__` markers are for the narrow case where a parent must identify a specific child part or extract a child out of the tree — not a general composition mechanism. Prefer plain children first, and only introduce slots when the requested API genuinely needs child extraction. See the `slots` skill for the mechanics if you do.
+- Preserve consumer-authored child order. A presentational component should never reorder the children it's given — document the recommended structure instead.
 - Use context (`use<Component>Context()`) for ARIA wiring between sub-components — never expose that context to consumers.
 - Keep sub-components composable — don't bake one sub-component into another. For example, `Header` should accept `Title` and `CloseButton` as children rather than rendering `CloseButton` internally, so consumers control placement and omission.
-- Use existing Primer components where appropriate (e.g. `Button`, `IconButton`, Octicons) instead of re-implementing native elements with custom styling.
+- Use existing Primer components where appropriate (e.g. `Button`, `IconButton`, Octicons) instead of re-implementing native elements with custom styling. Where a component needs Primer-owned button semantics, interaction behavior, and reset styling, build on a shared primitive such as `ButtonBase` rather than hand-rolling a button reset in CSS.
 - Use CSS Modules (`.module.css`) with Primer design tokens for styling, and `clsx` for className merging.
 
 ## `data-component` attributes

@@ -26,6 +26,8 @@ Where practical, write the test for a piece of behavior before extracting or cha
 
 - Use Vitest and `@testing-library/react`. Follow existing test patterns in the repo rather than introducing new testing conventions.
 - Prefer testing through the accessible API (roles, labels, keyboard interaction) over implementation details like class names or internal state.
+- When an accessibility pattern includes optional semantic tradeoffs, cover both the chosen default and the opt-in behavior — in tests, stories, or docs metadata — so the tradeoff is visible rather than implicit.
+- Changing the public export surface means updating any matching export snapshots or tests in the same change.
 - When backfilling tests for an existing component, check whether stories already exercise the accessibility-relevant states (open/closed, selected/unselected, error states) — these are often a faster path to a good test than writing scenarios from scratch.
 
 ## Validation order

@@ -40,6 +40,12 @@ Per ARIA APG, omit `aria-describedby` when content has complex semantic structur
 
 For components with complex semantic content, set an initial-focus ref to a static element at the top with `tabIndex={-1}` so assistive technology users can navigate the structure. For destructive actions, focus the least destructive control.
 
+### Optional APG semantics
+
+Not every semantic an APG pattern permits should be on by default. Where the guide marks something optional and it carries a cost at scale, make it opt-in and document the choice. Accordion panels are the worked example: `role="region"` is optional in the APG, and applying it to every panel floods the landmark list on a page rendering many accordions — so default it off and let consumers turn it on for the cases where a landmark genuinely helps.
+
+Whenever you make a call like this, cover both the default and the opt-in path in tests, stories, or docs metadata (see `modular-ds-tdd-a11y-test-backfill`) so the tradeoff is visible to the next person.
+
 ### Dev-mode warnings
 
 A component's compound hook (see `modular-ds-utilities`) should fire a dev-mode warning when no accessible name is provided (neither a title part used, nor `aria-label` passed) or when required structural elements are missing. Check after render, once prop-getters have been called:

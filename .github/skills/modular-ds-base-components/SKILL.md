@@ -29,6 +29,8 @@ Shown above with dot-notation for readability — ship flat named exports per th
 
 Use base components for accessibility primitives and low-level behaviors that need full markup and style control. Before adding custom behavior to a component, look for an existing base component, hook, or utility that can already provide the foundation — don't reimplement it.
 
+Prefer existing base primitives over recreating native elements and their reset styles. Where a component needs Primer-owned button semantics, interaction behavior, and reset styling, build on a shared primitive such as `ButtonBase` rather than hand-rolling a button reset in CSS. When you do build on a base primitive, don't pass opinionated layout props through to it unless the component's own API deliberately exposes that choice — the primitive should stay visually neutral.
+
 Accessibility primitives for established patterns (e.g. ARIA Authoring Practices Guide patterns) should be **consolidated and reused** rather than reimplemented across components. If you find yourself re-solving a pattern that already has a base component elsewhere in the repo, use it instead of writing a parallel implementation.
 
 ## What a base component covers
