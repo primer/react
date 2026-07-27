@@ -49,7 +49,9 @@ function useDialog(options: {
       // rendered *and* suppress the `aria-label` fallback.
       ...(hasTitle
         ? {'aria-labelledby': titleId}
-        : options['aria-label'] !== undefined && {'aria-label': options['aria-label']}),
+        : // Truthiness, not `!== undefined`: `aria-label=""` type-checks and renders an
+          // unnamed dialog, so an `undefined` check would let an empty name through.
+          options['aria-label'] && {'aria-label': options['aria-label']}),
     }),
     getTitleProps: () => ({id: titleId, ref: registerTitle}),
     getCloseProps: (userProps: {onClick?: React.MouseEventHandler} = {}) => ({
@@ -121,7 +123,7 @@ Components that render a **collection** may need per-item prop-getters keyed by 
 - It has **per-part hooks** (`useTab`, `useTabList`, `useTabPanel`) that each call `useTabs()` internally, rather than one compound hook whose getters descendants read from context.
 - Those hooks return **plain prop objects** (`tabProps`), not getter functions.
 - All three are **public** from `@primer/react/experimental` with no `hookDocs.json`, which is below the bar above on both counts.
-- `useTab.ts:38` returns `'aria-disabled': disabled ? true : undefined` and `Tabs.tsx:64-65` spreads it after `{...rest}` — a live instance of the clobber described above. `Tab` isn't exported, so nobody hits this through the public API directly; the problem is that building your own `Tab` from `useTab` **is** the documented usage, and the demo component is what you'd copy to do it.
+- `useTab` returns `'aria-disabled': disabled ? true : undefined`, and the `Tab` component in `Tabs.tsx` spreads that after `{...rest}` — a live instance of the clobber described above. `Tab` isn't exported, so nobody hits this through the public API directly; the problem is that building your own `Tab` from `useTab` **is** the documented usage, and the demo component is what you'd copy to do it.
 
 What Tabs does get right, and is worth copying: rest props before generated props, explicit `composeEventHandlers` for the handlers it needs to merge, and context rather than `cloneElement`.
 

@@ -74,7 +74,7 @@ useDevOnlyEffect(() => {
 
 A callback ref is not a render-phase side effect — it fires at commit and fires again with `null` on unmount, so the flag stays honest. What you must not do is mutate a ref from inside a prop-getter during render: that never resets when the title unmounts, and it's the version that looks obvious and is wrong.
 
-Where a hook has no registration mechanism, query the DOM from the root instead. `Banner.tsx:136-150` sets that precedent, querying `[data-banner-title]` from its own root ref. Be aware it costs you a root ref and a stable attribute to query for — presentational parts carry `data-component`, but base parts aren't required to, so check the part you're querying actually has one.
+Where a hook has no registration mechanism, query the DOM from the root instead. `Banner.tsx` sets that precedent, querying `[data-banner-title]` from its own root ref inside a dev-only effect. Be aware it costs you a root ref and a stable attribute to query for — presentational parts carry `data-component`, but base parts aren't required to, so check the part you're querying actually has one.
 
 Note `warning` fires when its first argument is **truthy** — it takes the failing condition, not the passing one. Test the name for falsiness rather than for `undefined`: `aria-label=""` type-checks, renders an unnamed component, and slips past an `=== undefined` check.
 
