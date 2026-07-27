@@ -59,7 +59,11 @@ Target entry points for each API type — check `packages/react/package.json`'s 
 
 New base components and utilities introduced under this model should be opt-in via their own entry point rather than added to the root barrel. This is a forward-looking convention, not a description of the current state — the root entry already exports a number of hooks, and existing exports shouldn't be moved as a side effect of unrelated work. All API types ship in one package version; stability is per-component (e.g. a hook can graduate to stable while its base component remains experimental).
 
-Create or update `index.ts` files to re-export the public API for each API type touched, and update the relevant experimental barrel files. Add or update package exports in `packages/react/package.json` only if the subpath doesn't already exist.
+Create or update `index.ts` files to re-export the public API for each API type touched, and update the relevant experimental barrel files.
+
+`foundations` and `hooks` do not exist as directories or export subpaths today. **Creating either is a package-level decision, not a step in building a component — surface it and stop.** Do not add an `exports` subpath to `packages/react/package.json`, a rolldown entry point, or an exports-snapshot update as part of a component change. Until one of those subpaths exists, ship base components and compound hooks under `packages/react/src/experimental/<Component>/` alongside the presentational parts, and note in the PR that they'll move once the entry point lands.
+
+The **Utilities** row above refers to generic, component-agnostic utilities. A component's own compound hook is not one of those — it ships from wherever that component's base parts ship, per `modular-ds-utilities`.
 
 ## Validation
 

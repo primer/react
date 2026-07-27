@@ -70,7 +70,9 @@ There's one rule rather than two on purpose — an agent shouldn't have to class
 
 Where a consumer legitimately needs to influence a generated value, make it a **hook option** (`role` and `aria-label` above), not something they override on the element. Where a consumer needs to _add to_ a getter-owned value rather than replace it — most commonly an `onClick` alongside the hook's own handler — give that getter a **merge signature** that composes the two, as `getCloseProps` does. There's no shared `composeEventHandlers` utility in the package today; `experimental/Tabs/Tabs.tsx` defines a local one, so follow that precedent or lift it into `packages/react/src/hooks/` if a second component needs it.
 
-**Generic, single-purpose, component-agnostic utilities** (e.g. `useFocusTrap`, `useFocusZone`, `useMergedRefs`, `useOnEscapePress`, `useResponsiveValue`) are not tied to any one component. They live in `packages/react/src/hooks/`, and a component's compound hook composes them internally as needed. Search `packages/react/src/hooks/` for an existing utility before writing a new one — don't duplicate behavior that already exists as a shared hook, and don't assume a plausibly-named hook exists without checking.
+**Generic, single-purpose, component-agnostic utilities** (e.g. `useFocusTrap`, `useFocusZone`, `useMergedRefs`, `useOnEscapePress`, `useResponsiveValue`) are not tied to any one component. They live in `packages/react/src/hooks/`, and a component's compound hook composes them internally as needed. Search `packages/react/src/hooks/` for an existing utility before writing a new one — don't duplicate behavior that already exists as a shared hook, and don't assume a plausibly-named hook exists without checking. Note in particular that for state a consumer can control or leave uncontrolled, `contributor-docs/style.md` calls for `useControllableState` — reach for it rather than hand-rolling the controlled/uncontrolled split, and rather than the older `useProvidedStateOrCreate` that appears in more of the existing codebase.
+
+Components that render a **collection** need per-item prop-getters keyed by a stable value (`getItemProps({value})`) rather than the argument-less getters above, which are shaped for singleton components. The key's shape is a decision to surface, not one to assume.
 
 ## Controlled component contract
 
@@ -95,7 +97,9 @@ Do not expose public hooks for sub-component internals unless there's a clear co
 
 ## Where utilities live
 
-- Component-specific compound hooks: alongside their component, e.g. `packages/react/src/experimental/<Component>/use<Component>.ts`. If the component's base parts end up under a `foundations/` directory, the hook goes with them — note that `packages/react/src/foundations/` does not exist yet and would need creating.
+- Component-specific compound hooks: alongside their component, e.g. `packages/react/src/experimental/<Component>/use<Component>.ts`. If the component's base parts end up under a `foundations/` directory, the hook goes with them and ships from wherever they ship — note that `packages/react/src/foundations/` does not exist yet, and creating it is not something to do as part of a component change (see below).
 - Generic, component-agnostic utilities: `packages/react/src/hooks/`, never inside one component's own directory.
+
+`foundations` and `hooks` do not exist as directories or export subpaths today. Creating either is a package-level decision, not part of building a component — **surface it and stop**, rather than adding an `exports` subpath, a rolldown entry point and an export snapshot as part of a component PR. Until one exists, ship base components and compound hooks under `packages/react/src/experimental/<Component>/` alongside the presentational parts, and note in the PR that they'll move.
 
 Presentational and config components currently live under `packages/react/src/experimental/<Component>/` until they graduate to stable — check where the component's area already sits before creating new directories.

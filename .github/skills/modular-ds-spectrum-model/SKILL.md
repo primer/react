@@ -39,6 +39,8 @@ Base components sit underneath presentational components as unstyled primitives 
 
 ### Worked example
 
+The `List` component below is **illustrative only** — neither it nor the hooks named in it exist in the repo today. Don't import them; verify any hook you plan to use, per `modular-ds-utilities`.
+
 A `List` config component might support selection as its default interaction:
 
 ```tsx

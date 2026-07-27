@@ -48,7 +48,9 @@ For components with complex semantic content, set an initial-focus ref to a stat
 
 ### Optional APG semantics
 
-Not every semantic an APG pattern permits should be on by default. Where the guide marks something optional and it carries a cost at scale, make it opt-in and document the choice. Accordion panels are the worked example: `role="region"` is optional in the APG, and applying it to every panel floods the landmark list on a page rendering many accordions — so default it off and let consumers turn it on for the cases where a landmark genuinely helps.
+Not every semantic an APG pattern permits should be on by default. When you build a component, go through the APG pattern and list **every** semantic and interaction it marks optional — not just the one named below. For each, make a deliberate call: default it on, or make it opt-in where defaulting would cause landmark proliferation or other semantic side effects. Document the call either way. An optional semantic that ships default-on without anyone recording the decision is the failure mode here, just as much as one that's wrongly defaulted.
+
+Accordion panels are one worked example, not the whole rule: `role="region"` is optional in the APG, and applying it to every panel floods the landmark list on a page rendering many accordions — so default it off and let consumers turn it on for the cases where a landmark genuinely helps. Arrow-key navigation between accordion headers is optional in the same pattern and needs its own recorded decision; so does every other optional semantic in whichever pattern you're building.
 
 Whenever you make a call like this, cover both the default and the opt-in path in tests, stories, or docs metadata (see `modular-ds-tdd-a11y-test-backfill`) so the tradeoff is visible to the next person.
 

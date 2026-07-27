@@ -45,7 +45,7 @@ State and interactions are usually provided separately through a behavior/state 
 - Preserve consumer-authored child order. A presentational component should never reorder the children it's given — document the recommended structure instead.
 - Use context (`use<Component>Context()`) for ARIA wiring between sub-components — never expose that context to consumers.
 - Keep sub-components composable — don't bake one sub-component into another. For example, `Header` should accept `Title` and `CloseButton` as children rather than rendering `CloseButton` internally, so consumers control placement and omission.
-- Use existing Primer components where appropriate (e.g. `Button`, `IconButton`, Octicons) instead of re-implementing native elements with custom styling. Where a component needs Primer-owned button semantics, interaction behavior, and reset styling, build on a shared primitive such as `ButtonBase` rather than hand-rolling a button reset in CSS.
+- Use existing Primer components where appropriate (e.g. `Button`, `IconButton`, Octicons) instead of re-implementing native elements with custom styling. Where a component needs Primer-owned button semantics, interaction behavior, and reset styling, build on a shared primitive such as `ButtonBase` rather than hand-rolling a button reset in CSS. When you do, don't pass opinionated layout or variant props through to that primitive unless the component's own API exposes the choice, or a concrete design reference requires it — otherwise you're hard-coding an appearance decision the consumer can't reach.
 - Use CSS Modules (`.module.css`) with Primer design tokens for styling, and `clsx` for className merging.
 
 ## `data-component` attributes
@@ -57,17 +57,21 @@ All presentational parts must include `data-component` attributes for stable sel
 
 `data-component` is owned by Primer as a component identifier — it must never be exposed as a customizable public prop.
 
+`data-component` is identity, not a styling hook. Never write CSS that selects on it — least of all another component's, which couples your styles to markup that component is free to change. Wrap `data-*` state and ARIA state selectors in `:where()` so they stay at zero specificity and don't outrank a base component's reset.
+
 ## Sub-component export conventions
 
-Flat exports (e.g. `DialogRoot`, `DialogHeader`, `DialogTitle`) are the goal for React Server Components compatibility — the `Object.assign` dot-notation pattern breaks in RSC (property access on a client reference returns `undefined`). Follow whichever convention existing components in the repo currently use for the area you're touching. If starting fresh, prefer flat named exports alongside a composed object for forward compatibility:
+Flat exports (e.g. `DialogRoot`, `DialogHeader`, `DialogTitle`) are the goal for React Server Components compatibility — the `Object.assign` dot-notation pattern breaks in RSC (property access on a client reference returns `undefined`). Follow whichever convention existing components in the repo currently use for the area you're touching. If starting fresh, ship flat named exports only — add a composed `Object.assign` object solely to preserve an existing dot-notation API, never on a new component, where it buys nothing and adds an RSC trap to the public surface permanently:
 
 ```ts
-// Flat exports (RSC-safe)
+// Flat exports (RSC-safe) — the default for anything new
 export {Root as DialogRoot, Content as DialogContent, Header as DialogHeader}
 
-// Composed export (convenience for non-RSC call sites)
+// Composed export — only to preserve an existing dot-notation API
 export const DialogParts = Object.assign(Root, {Content, Header, Title})
 ```
+
+Base and presentational parts for the same component intentionally share `<Component><Part>` names across their different entry points — don't prefix or rename base parts to avoid the clash. A file importing both aliases one at the import site. Note this applies to exported **types** as well as components: `AccordionItemProps` will mean structurally different things depending on the entry point, and TypeScript error messages won't disambiguate them, so alias deliberately.
 
 ## Accessibility semantics
 
