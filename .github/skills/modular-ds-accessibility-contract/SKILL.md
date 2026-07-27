@@ -13,22 +13,22 @@ Read the columns as **scenarios, not a mandatory stack**. Each column describes 
 
 "Hook only" means the consumer renders all the markup themselves and spreads the hook's prop-getters onto it. The cells in that column describe what the consumer must do **in addition to** spreading the getters — "Consumer wires" means placing `getTitleProps()` on their own title element, "Consumer handles" means responding to the `onClose` the hook fires. It doesn't mean the consumer owns everything: where the hook drives lifecycle — for a dialog it owns `showModal()`/`close()`, per the controlled component contract in `modular-ds-utilities` — the side effects of that lifecycle apply at every column, including this one.
 
-| Requirement                            | Hook only               | Base component                    | Presentational    | Config                  |
-| -------------------------------------- | ----------------------- | --------------------------------- | ----------------- | ----------------------- |
-| `role="dialog"` / `role="alertdialog"` | Consumer sets           | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| `aria-modal="true"`                    | Consumer sets           | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| `aria-labelledby` → title              | Consumer wires          | ✅ Auto-wired via context         | ✅ Auto-wired     | ✅ From `title` prop    |
-| `aria-describedby` → description       | Consumer wires          | ✅ Auto-wired if Description used | ✅ Auto-wired     | ✅ From `subtitle` prop |
-| Focus trapping                         | ✅ Native `showModal()` | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
-| Escape closes                          | Consumer handles        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Focus moves into component             | Consumer manages        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Focus returns on close                 | ✅ Automatic            | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Visible close control                  | Consumer provides       | ✅ Enforced by structure          | ✅ Built-in       | ✅ Built-in             |
-| Background inert                       | ✅ Native `showModal()` | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
-| Scroll lock                            | Consumer implements     | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Visible backdrop                       | Consumer provides       | ⚠️ Consumer must style            | ✅ Primer token   | ✅ Primer token         |
-| Appropriate heading level              | Consumer chooses        | ⚠️ Consumer must choose           | ✅ `<h2>` default | ✅ `<h2>` default       |
-| Colour contrast                        | Consumer responsible    | ⚠️ Consumer must ensure           | ✅ Primer tokens  | ✅ Primer tokens        |
+| Requirement                            | Hook only                | Base component                    | Presentational    | Config                  |
+| -------------------------------------- | ------------------------ | --------------------------------- | ----------------- | ----------------------- |
+| `role="dialog"` / `role="alertdialog"` | ✅ From `getRootProps()` | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| `aria-modal="true"`                    | ✅ From `getRootProps()` | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| `aria-labelledby` → title              | Consumer wires           | ✅ Auto-wired via context         | ✅ Auto-wired     | ✅ From `title` prop    |
+| `aria-describedby` → description       | Consumer wires           | ✅ Auto-wired if Description used | ✅ Auto-wired     | ✅ From `subtitle` prop |
+| Focus trapping                         | ✅ Native `showModal()`  | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
+| Escape closes                          | Consumer handles         | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Focus moves into component             | Consumer manages         | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Focus returns on close                 | ✅ Automatic             | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Visible close control                  | Consumer provides        | ✅ Enforced by structure          | ✅ Built-in       | ✅ Built-in             |
+| Background inert                       | ✅ Native `showModal()`  | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
+| Scroll lock                            | Consumer implements      | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Visible backdrop                       | Consumer provides        | ⚠️ Consumer must style            | ✅ Primer token   | ✅ Primer token         |
+| Appropriate heading level              | Consumer chooses         | ⚠️ Consumer must choose           | ✅ `<h2>` default | ✅ `<h2>` default       |
+| Colour contrast                        | Consumer responsible     | ⚠️ Consumer must ensure           | ✅ Primer tokens  | ✅ Primer tokens        |
 
 ## Key principles
 
