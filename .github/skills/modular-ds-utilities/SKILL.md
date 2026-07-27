@@ -33,6 +33,10 @@ function useDialog(options: {
   // A title part registers itself on mount, so the root knows whether
   // `aria-labelledby` has anything real to point at.
   const registerTitle = useCallback((node: HTMLElement | null) => setHasTitle(node !== null), [])
+  // Note this is a hydration difference: the server renders `aria-label` and the client
+  // swaps to `aria-labelledby` once the title commits. Both are valid names, so nothing
+  // is ever unnamed — but see `contributor-docs/style.md` on server-side rendering if the
+  // component needs its markup stable across hydration.
 
   return {
     getRootProps: () => ({
@@ -78,17 +82,22 @@ function DialogCloseButton({onClick, ...rest}: DialogCloseButtonProps) {
 }
 
 // Descendant parts read those getters — they never call useDialog() again.
-function DialogTitle(props: DialogTitleProps) {
+// `getTitleProps` returns a ref, and getters spread last, so this part has to merge
+// refs rather than let the getter's ref win — see "Spread prop-getters last" below.
+const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps>((props, ref) => {
   const {getTitleProps} = useDialogContext()
-  return <h2 {...props} {...getTitleProps()} />
-}
+  const {ref: titleRef, ...titleProps} = getTitleProps()
+  return <h2 {...props} {...titleProps} ref={useMergedRefs(ref, titleRef)} />
+})
 ```
 
 **Spread prop-getters last, everywhere.** A getter only returns the attributes it owns, so consumer rest props still reach the DOM — `className`, `data-testid` and the like are never in the getter's return value and pass straight through, satisfying `contributor-docs/style.md`'s rule about applying rest parameters to the root element. Putting the getter last additionally means a consumer can't silently overwrite generated ARIA: no stray `role`, `aria-modal`, `aria-labelledby` or `id` clobbering the wiring and leaving the component with an accessible name pointing at an element that doesn't exist.
 
 There's one rule rather than two on purpose — an agent shouldn't have to classify a component as "root" or "part" before it can pick a spread order.
 
-**The one exception is a merge-signature getter.** Where a getter takes the consumer's value as an argument, pass it in rather than spreading it beforehand — `{...rest} {...getCloseProps({onClick})}`, not `{...rest} {...getCloseProps()}` with `onClick` still in `rest`. A merge getter always returns the key it merges, so spreading the consumer's handler before it would let the getter's own handler overwrite theirs, which is the exact failure the spread-last rule exists to prevent. Destructure the merged prop out of `rest` explicitly, as `DialogCloseButton` does above, so it can't reach the element by both routes.
+**A merge-signature getter changes what's in `rest`, not the spread order.** Where a getter takes the consumer's value as an argument, destructure that prop out and pass it in — `{...rest} {...getCloseProps({onClick})}`, not `{...rest} {...getCloseProps()}` with `onClick` still sitting in `rest`. A merge getter always returns the key it merges, so leaving the consumer's handler in `rest` would let the getter's own handler overwrite theirs, which is the exact failure the spread-last rule exists to prevent. The getter still goes last; what changes is that the merged prop reaches the element by one route instead of two, as `DialogCloseButton` does above.
+
+**A getter that returns a `ref` needs merging too.** `getTitleProps` above returns one, and under React 19 `ref` is an ordinary prop — so spreading the getter last would silently drop a consumer's ref exactly as it would any other prop. Use `forwardRef` and `useMergedRefs`, as `DialogTitle` does.
 
 **Getters must not return keys they have no value for.** This is the other half of spreading last, and omitting it turns that rule into an accessibility bug. A key present with the value `undefined` still overwrites — `{...{'aria-labelledby': 'heading'}, ...{'aria-labelledby': undefined}}` leaves the key present and valueless, and React then omits the attribute entirely. So a getter that returns every optional attribute unconditionally will **delete** whatever the consumer put on the element, silently. Build optional attributes conditionally so a getter only ever owns attributes it actually sets:
 
@@ -111,9 +120,11 @@ Components that render a **collection** may need per-item prop-getters keyed by 
 - It has **per-part hooks** (`useTab`, `useTabList`, `useTabPanel`) that each call `useTabs()` internally, rather than one compound hook whose getters descendants read from context.
 - Those hooks return **plain prop objects** (`tabProps`), not getter functions.
 - All three are **public** from `@primer/react/experimental` with no `hookDocs.json`, which is below the bar above on both counts.
-- `useTab.ts:38` returns `'aria-disabled': disabled ? true : undefined` and `Tabs.tsx:64-65` spreads it last — a live instance of the clobber described above. A consumer passing `aria-disabled` to a `Tab` has it silently dropped.
+- `useTab.ts:38` returns `'aria-disabled': disabled ? true : undefined` and `Tabs.tsx:64-65` spreads it after `{...rest}` — a live instance of the clobber described above. `Tab` isn't exported, so nobody hits this through the public API directly; the problem is that building your own `Tab` from `useTab` **is** the documented usage, and the demo component is what you'd copy to do it.
 
 What Tabs does get right, and is worth copying: rest props before generated props, explicit `composeEventHandlers` for the handlers it needs to merge, and context rather than `cloneElement`.
+
+Note that `Tabs` is the only component exported from that directory. `Tab`, `TabList` and `TabPanel` exist in the source as demonstrations of the hooks, not as shipped API.
 
 ## Controlled component contract
 

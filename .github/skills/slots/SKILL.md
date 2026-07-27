@@ -29,8 +29,6 @@ All four primitives are exported publicly from `@primer/react`.
 
 ```ts
 import {useSlots, isSlot, asSlot, type SlotMarker, type WithSlotMarker, type FCWithSlotMarker} from '@primer/react'
-// or
-import {useSlots} from '@primer/react'
 ```
 
 ## When to use slots

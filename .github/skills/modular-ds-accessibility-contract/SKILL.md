@@ -42,6 +42,8 @@ Per ARIA APG, omit `aria-describedby` when content has complex semantic structur
 
 Where a description _is_ in play, have the compound hook always assign the generated description ID to `aria-describedby` rather than trying to set it conditionally based on whether `getDescriptionProps()` has been called. Prop-getter call order isn't guaranteed, so conditional wiring introduces a render-order dependency between getters; an `aria-describedby` pointing at an ID that was never rendered is silently ignored by assistive technology, so the unconditional version is both simpler and safe.
 
+Don't generalise that to `aria-labelledby`, which has to be gated on a title actually rendering. The difference is that a dangling `describedby` is merely ignored, whereas `labelledby` outranks `aria-label` in the accessible name computation — so assigning it unconditionally suppresses the `aria-label` fallback and leaves the component with no name at all. `modular-ds-utilities` shows the registration that makes that gate work.
+
 ### Initial focus guidance
 
 For components with complex semantic content, set an initial-focus ref to a static element at the top with `tabIndex={-1}` so assistive technology users can navigate the structure. For destructive actions, focus the least destructive control.
@@ -60,18 +62,17 @@ Whenever you make a call like this, cover both the default and the opt-in path i
 
 A component's compound hook (see `modular-ds-utilities`) should fire a dev-mode warning when no accessible name is provided (neither a title part used, nor `aria-label` passed) or when required structural elements are missing. Use the existing `useDevOnlyEffect` (`packages/react/src/internal/hooks/useDevOnlyEffect.ts`) and the shared `warning` utility rather than hand-rolling either. `useDevOnlyEffect` holds the `__DEV__` guard internally, around the `useEffect` rather than inside it — which is the point, per ADR-012: an inline `process.env.NODE_ENV` check inside a plain `useEffect` still registers and schedules that effect on every production render. Call `useDevOnlyEffect` unconditionally; don't wrap it in a `__DEV__` check of your own.
 
-To detect whether a title part rendered, query the DOM from the root ref rather than tracking a ref during render — mutating a ref inside a prop-getter is a render-phase side effect and never resets when the title unmounts. `Banner.tsx` sets the precedent, querying `[data-banner-title]` from its own root:
+If the hook already knows whether a title rendered, use that — don't go to the DOM for something you have in state. The `useDialog` sketch in `modular-ds-utilities` has a title part register itself through a callback ref, which gives the hook a `hasTitle` boolean directly:
 
 ```tsx
 useDevOnlyEffect(() => {
-  const {current: root} = rootRef
-  if (!root) return
-  warning(
-    !root.querySelector('[data-component="Component.Title"]') && !ariaLabel,
-    '<Component>: No accessible name provided. Render a title part, or pass aria-label.',
-  )
-}, [ariaLabel])
+  warning(!hasTitle && !ariaLabel, '<Component>: No accessible name provided. Render a title part, or pass aria-label.')
+}, [hasTitle, ariaLabel])
 ```
+
+A callback ref is not a render-phase side effect — it fires at commit and fires again with `null` on unmount, so the flag stays honest. What you must not do is mutate a ref from inside a prop-getter during render: that never resets when the title unmounts, and it's the version that looks obvious and is wrong.
+
+Where a hook has no registration mechanism, query the DOM from the root instead. `Banner.tsx:136-150` sets that precedent, querying `[data-banner-title]` from its own root ref. Be aware it costs you a root ref and a stable attribute to query for — presentational parts carry `data-component`, but base parts aren't required to, so check the part you're querying actually has one.
 
 Note `warning` fires when its first argument is **truthy** — it takes the failing condition, not the passing one. Test the name for falsiness rather than for `undefined`: `aria-label=""` type-checks, renders an unnamed component, and slips past an `=== undefined` check.
 
