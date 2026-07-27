@@ -57,7 +57,7 @@ All presentational parts must include `data-component` attributes for stable sel
 
 `data-component` is owned by Primer as a component identifier — it must never be exposed as a customizable public prop.
 
-`data-component` is identity, not a styling hook. Never write CSS that selects on it — least of all another component's, which couples your styles to markup that component is free to change. Wrap `data-*` state and ARIA state selectors in `:where()` so they stay at zero specificity and don't outrank a base component's reset.
+`data-component` is identity, not a styling hook. Never write CSS that selects on it — least of all another component's, which couples your styles to markup that component is free to change. Per ADR-023 (`contributor-docs/adrs/adr-023-stable-selectors-api.md`), the DOM around a `data-component` element — its parent, children, siblings and attributes — is explicitly **not** public API, so a component may target its own parts but never reach into another component's. Values are PascalCase `ComponentName.PartName`, not camelCase. Wrap `data-*` state and ARIA state selectors in `:where()` so they stay at zero specificity and don't outrank a base component's reset.
 
 ## Sub-component export conventions
 

@@ -56,21 +56,21 @@ Whenever you make a call like this, cover both the default and the opt-in path i
 
 ### Dev-mode warnings
 
-A component's compound hook (see `modular-ds-utilities`) should fire a dev-mode warning when no accessible name is provided (neither a title part used, nor `aria-label` passed) or when required structural elements are missing. Check after render, once prop-getters have been called:
+A component's compound hook (see `modular-ds-utilities`) should fire a dev-mode warning when no accessible name is provided (neither a title part used, nor `aria-label` passed) or when required structural elements are missing. Use the existing `useDevOnlyEffect` (`packages/react/src/internal/hooks/useDevOnlyEffect.ts`) and the shared `warning` utility rather than hand-rolling either — per ADR-012, the `__DEV__` guard belongs _outside_ the hook call so the whole thing is dropped in production, and an inline `process.env.NODE_ENV` check inside a plain `useEffect` still registers and schedules the effect on every production render. Check after render, once prop-getters have been called:
 
 ```tsx
-useEffect(() => {
-  if (process.env.NODE_ENV !== 'production' && open) {
-    queueMicrotask(() => {
-      if (!titleUsed.current && !ariaLabel) {
-        console.warn(
-          '<Component>: No accessible name provided. Use getTitleProps() on a title element, or pass aria-label.',
-        )
-      }
-    })
-  }
+useDevOnlyEffect(() => {
+  if (!open) return
+  queueMicrotask(() => {
+    warning(
+      !titleUsed.current && !ariaLabel,
+      '<Component>: No accessible name provided. Use getTitleProps() on a title element, or pass aria-label.',
+    )
+  })
 }, [open, ariaLabel])
 ```
+
+Note `warning` fires when its first argument is **truthy** — it takes the failing condition, not the passing one.
 
 ## Applying this to other ARIA patterns
 

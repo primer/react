@@ -76,7 +76,7 @@ There's no single mechanical test for this yet, but one useful signal: does the 
 - Bake selection into the `List` component (the config approach), or
 - Provide a `useSelection`/`useList` hook that composes with presentational `List` parts (the presentational + utility approach)
 
-When a decision isn't obvious — for example, whether a component needs a config API at all, or whether a sub-part needs its own base component — surface the decision explicitly rather than assuming an answer.
+When a decision isn't obvious — for example, whether a component needs a config API at all, or whether a sub-part needs its own base component — surface the decision explicitly rather than assuming an answer. Surfacing it means shipping the **narrower, reversible** option and asking, not shipping the expansive one and noting the question afterwards. Adding a public export, a new part, or a new entry point is easy to do and hard to undo; leaving it out costs nothing and can be granted the moment someone asks.
 
 ## Scope
 
