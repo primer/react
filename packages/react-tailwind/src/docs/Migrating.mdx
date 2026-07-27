@@ -175,30 +175,58 @@ The wrapped content still renders, but the parent places it with ordinary childr
 
 So, in order of preference:
 
-- Render the part directly and move your customization inside it. This is usually the smallest change and the one to reach for first.
-- Pass your content into the part rather than wrapping the part itself.
+- Use `render` on Base UI-backed parts to project them onto your own element instead of wrapping them. Components that pass Base UI's props through accept it, including `Button`, `LinkButton`, and the `Trigger` parts of `Dialog`, `Popover`, and `Tooltip`. Check the part's props if you are unsure.
+- Use `as` on presentational parts such as `Card.Heading` and `Text` to change the element without wrapping.
+- Render the part directly and move your customization inside it.
 - Lift the wrapper up so it renders around the whole compound component instead of around one of its parts.
 
 ### Wrapper tolerance in your own components
 
-The marker approach is still available, but only where you own **both** the parent that matches and the parts being matched. It cannot be retrofitted onto this package's components.
+Reach for Base UI's model before reaching for markers. Slots exist because a parent has to _find_ a child in order to position it or read something off it. Base UI inverts that: the child announces itself upward through context, and the parent never looks down. Its own `Dialog` works this way, with `Dialog.Title` publishing its id and `Dialog.Popup` reading it for `aria-labelledby`, and no child scanning anywhere.
+
+Applied to a compound component of your own:
+
+```tsx
+import {useRender} from '@base-ui/react/use-render'
+
+const PanelContext = React.createContext<{headingId?: string; setHeadingId: (id?: string) => void}>({
+  setHeadingId: () => {},
+})
+
+function Panel({children}: {children?: React.ReactNode}) {
+  const [headingId, setHeadingId] = React.useState<string>()
+  const value = React.useMemo(() => ({headingId, setHeadingId}), [headingId])
+  return (
+    <PanelContext.Provider value={value}>
+      <section aria-labelledby={headingId}>{children}</section>
+    </PanelContext.Provider>
+  )
+}
+
+function PanelHeading({render, ...props}: {render?: useRender.RenderProp} & React.ComponentPropsWithRef<'h2'>) {
+  const generated = React.useId()
+  const id = props.id ?? generated
+  const {setHeadingId} = React.useContext(PanelContext)
+
+  React.useEffect(() => {
+    setHeadingId(id)
+    return () => setHeadingId(undefined)
+  }, [id, setHeadingId])
+
+  return useRender({defaultTagName: 'h2', render, props: {...props, id}})
+}
+```
+
+This is strictly more capable than the slot system it replaces. The heading is still found when a consumer wraps it, when it is nested arbitrarily deep, and when it is projected onto another element with `render`. None of those survive a `child.type === Part` check or a `__SLOT__` marker. It also drops the single-match-per-key limit, since registration is ordinary state.
+
+`useRender` gives your part the same `render` contract Base UI parts have, so consumers compose instead of wrapping. `LinkButton` in this package is a worked example. Use `mergeProps` from `@base-ui/react/merge-props` when you need to combine your props with a consumer's by hand.
+
+The tradeoff is that registration cannot control _placement_: the child renders where the author put it. Use it for coordination such as ids, labelling, counts, ordering, and validity. When you genuinely need to hoist a child into a different position, you still have to read children, and identity matching is the simplest thing that works there. Reserve a `Symbol` marker for the narrow case where you both scan children and expect your own parts to be wrapped, remembering that the marker has to be copied onto each wrapper deliberately, since that is the job `asSlot` used to do:
 
 ```tsx
 const SECTION = Symbol('MyLayout.Section')
-
-// Apply the marker to the part, and to any wrapper that should still count as one.
 const withSectionMarker = <T,>(component: T): T => Object.assign(component as object, {[SECTION]: true}) as T
-
-const Section = withSectionMarker(MySection)
-const LoggedSection = withSectionMarker((props: SectionProps) => <Section {...props} />)
-
-const isSection = (child: React.ReactNode) =>
-  React.isValidElement(child) && Boolean((child.type as {[SECTION]?: true})[SECTION])
 ```
-
-Note that a marker does not travel through a wrapper on its own. `withSectionMarker` is doing the job `asSlot` used to do, and it has to be applied to each wrapper deliberately. What a marker buys you over `child.type === Part` is that it _can_ be copied at all; identity cannot.
-
-If you do not expect your parts to be wrapped, identity matching is simpler and needs no marker.
 
 ## Suggested order
 
