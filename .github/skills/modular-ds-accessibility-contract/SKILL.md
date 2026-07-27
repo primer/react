@@ -36,13 +36,15 @@ Read the columns as **scenarios, not a mandatory stack**. Each column describes 
 
 At the base component level, a foundation like a dialog ships a transparent backdrop by default. Per ARIA APG, `aria-modal="true"` should only be set when background content is **both** non-interactive and visually obscured — so consumers using a base component directly **must** provide visible backdrop styling to meet this requirement. Presentational components handle this automatically with Primer tokens.
 
-### `aria-describedby` guidance
+### Wiring `aria-labelledby` and `aria-describedby`
 
-Per ARIA APG, omit `aria-describedby` when content has complex semantic structure (lists, tables, multiple paragraphs) — screen readers announce it as a flat string. At the base-component level or above, don't render a Description part if content is complex. At the utility/hook level, don't call `getDescriptionProps()`.
+**A getter must not emit an ID reference to a part that may not have rendered.** Gate the reference on the referenced part registering itself, using the same callback-ref mechanism for both attributes — `modular-ds-utilities` shows one. Don't gate on whether a getter was called: prop-getter call order isn't guaranteed, so that introduces a render-order dependency between getters. A callback ref doesn't, because it fires at commit rather than during render.
 
-Where a description _is_ in play, have the compound hook always assign the generated description ID to `aria-describedby` rather than trying to set it conditionally based on whether `getDescriptionProps()` has been called. Prop-getter call order isn't guaranteed, so conditional wiring introduces a render-order dependency between getters; an `aria-describedby` pointing at an ID that was never rendered is silently ignored by assistive technology, so the unconditional version is both simpler and safe.
+Where a hook has no registration mechanism, `aria-describedby` **may** be assigned unconditionally. A dangling `describedby` is silently ignored by assistive technology, so the simpler version is safe.
 
-Don't generalise that to `aria-labelledby`, which has to be gated on a title actually rendering. The difference is that a dangling `describedby` is merely ignored, whereas `labelledby` outranks `aria-label` in the accessible name computation — so assigning it unconditionally suppresses the `aria-label` fallback and leaves the component with no name at all. `modular-ds-utilities` shows the registration that makes that gate work.
+`aria-labelledby` may not. It outranks `aria-label` in the accessible name computation, so a reference to an element that never rendered both fails to name the component _and_ suppresses the `aria-label` fallback — leaving it with no accessible name at all.
+
+Separately, per ARIA APG, omit `aria-describedby` entirely when content has complex semantic structure (lists, tables, multiple paragraphs) — screen readers announce it as a flat string. At the base-component level or above, don't render a Description part if content is complex. At the utility/hook level, don't call `getDescriptionProps()`.
 
 ### Initial focus guidance
 

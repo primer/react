@@ -72,10 +72,10 @@ function DialogRoot({children, open, onClose, role, 'aria-label': ariaLabel, ...
   )
 }
 
-// A merge-signature getter is the one exception to spreading rest props before the
-// getter: hand the consumer's value *to* the getter instead. Spreading `onClick`
-// before `getCloseProps()` would let the getter's own handler overwrite it, which is
-// the clobber this whole section exists to prevent.
+// A merge-signature getter changes what's in `rest`, not the spread order: destructure
+// the prop out and hand it to the getter. Leaving `onClick` in `rest` would let the
+// getter's own handler overwrite it, which is the clobber this whole section exists
+// to prevent.
 function DialogCloseButton({onClick, ...rest}: DialogCloseButtonProps) {
   const {getCloseProps} = useDialogContext()
   return <button {...rest} {...getCloseProps({onClick})} />
@@ -87,7 +87,8 @@ function DialogCloseButton({onClick, ...rest}: DialogCloseButtonProps) {
 const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps>((props, ref) => {
   const {getTitleProps} = useDialogContext()
   const {ref: titleRef, ...titleProps} = getTitleProps()
-  return <h2 {...props} {...titleProps} ref={useMergedRefs(ref, titleRef)} />
+  const mergedRef = useMergedRefs(ref, titleRef)
+  return <h2 {...props} {...titleProps} ref={mergedRef} />
 })
 ```
 
