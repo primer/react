@@ -92,6 +92,11 @@ The same idea uses the same name everywhere, even where an upstream component na
 - The neutral variant is `default`.
 - Floating parts describe placement with `FloatingSide` and `FloatingAlignment`.
 - Compound parts discover their children through `flattenChildren`, so authors can group parts in fragments anywhere in the package.
+- Every compound component that identifies a child by role also accepts an element prop of the same name for that region. `PageLayout` takes `header`, `sidebar`, and `footer`; `ActionList.Item` takes `leadingVisual`, `trailingVisual`, `description`, and `trailingAction`. The prop wins over a matching child. `src/internal/regions.ts` resolves every region in one render-phase pass, and `RegionProps<Names>` declares the props so each component's signature reads the same.
+
+Region props exist because identity matching cannot see through a consumer's wrapper. A wrapper around `PageLayout.Sidebar` is a different component type, so the parent cannot recognize it; passing it as `sidebar={<MySidebar />}` always works. Resolution happens during render rather than through effect-based registration, so it produces the same markup on the server as in the browser.
+
+Components that scan a uniform collection rather than named regions — `SegmentedControl`, `Breadcrumbs`, `LabelGroup`, `AvatarStack` — have no region props, because a prop there would only duplicate `children`.
 
 Where an upstream API is deliberately preserved instead of normalized, the component's `ALIGNMENT.md` says so. Notable preserved exceptions are `Pagination`'s event-first `onPageChange(event, page)`, `SelectPanel`'s `onOpenChange(open, gesture)`, and the opposing `SelectPanel.disableFullscreenOnNarrow` and `FilteredActionList.fullScreenOnNarrow` booleans.
 

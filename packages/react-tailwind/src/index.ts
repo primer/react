@@ -19,6 +19,7 @@ export type {
   FloatingOffset,
   FloatingOffsetData,
   FloatingSide,
+  RegionProps,
   ResponsiveValue,
   TextSize,
   TokenSize,

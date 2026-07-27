@@ -96,7 +96,6 @@ it('composes slots nested in fragments', () => {
 })
 
 it('does not render an empty card', () => {
-  // @ts-expect-error children is required, but runtime behavior is intentionally covered.
   const {container} = render(<Card />)
   expect(container).toBeEmptyDOMElement()
 })

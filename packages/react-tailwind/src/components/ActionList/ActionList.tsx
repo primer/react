@@ -2,8 +2,9 @@
 
 import {AlertIcon, CheckIcon} from '@primer/octicons-react'
 import React from 'react'
-import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
+import {isPartOf, regionElements, resolveRegions} from '../../internal/regions'
+import type {RegionProps} from '../../utils/types'
 import {Button, ButtonBase, type ButtonBaseProps, type ButtonProps} from '../Button'
 import {IconButton} from '../IconButton'
 import {LinkButton, type LinkButtonProps} from '../LinkButton'
@@ -118,9 +119,6 @@ const TrailingAction = React.forwardRef<HTMLElement, ActionListTrailingActionPro
   },
 )
 
-const isTrailingAction = (child: React.ReactNode): child is React.ReactElement<ActionListTrailingActionProps> =>
-  React.isValidElement(child) && child.type === TrailingAction
-
 export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'> {
   selectionVariant?: SelectionVariant
   variant?: 'inset' | 'horizontal-inset' | 'full'
@@ -175,7 +173,8 @@ const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function Ac
 })
 
 export interface ActionListItemProps
-  extends Omit<ButtonBaseProps, 'data-component' | 'children' | 'className' | 'disabled' | 'onSelect'> {
+  extends Omit<ButtonBaseProps, 'data-component' | 'children' | 'className' | 'disabled' | 'onSelect'>,
+    RegionProps<'leadingVisual' | 'trailingVisual' | 'description' | 'trailingAction'> {
   children?: React.ReactNode
   className?: string
   disabled?: boolean
@@ -190,25 +189,60 @@ export interface ActionListItemProps
 }
 
 function getItemParts(children: React.ReactNode) {
-  const childParts = flattenChildren(children)
-  const leadingVisual = childParts.find(child => React.isValidElement(child) && child.type === LeadingVisual)
-  const trailingVisual = childParts.find(child => React.isValidElement(child) && child.type === TrailingVisual)
-  const descriptions = childParts.filter(
-    (child): child is React.ReactElement<ActionListDescriptionProps> =>
-      React.isValidElement<ActionListDescriptionProps>(child) && child.type === Description,
-  )
-  const label = childParts.filter(
-    child =>
-      !React.isValidElement(child) ||
-      (child.type !== LeadingVisual &&
-        child.type !== TrailingVisual &&
-        child.type !== Description &&
-        child.type !== TrailingAction),
-  )
-  const blockDescriptions = descriptions.filter(description => description.props.variant === 'block')
-  const inlineDescriptions = descriptions.filter(description => description.props.variant !== 'block')
+  const {
+    regions: {leadingVisual, trailingVisual},
+    matched: {description: descriptions},
+    rest: label,
+  } = resolveRegions(children, {
+    leadingVisual: {match: isPartOf(LeadingVisual)},
+    trailingVisual: {match: isPartOf(TrailingVisual)},
+    description: {match: isPartOf(Description), multiple: true},
+    trailingAction: {match: isPartOf(TrailingAction)},
+  })
+  const typedDescriptions = descriptions as React.ReactElement<ActionListDescriptionProps>[]
+  const blockDescriptions = typedDescriptions.filter(description => description.props.variant === 'block')
+  const inlineDescriptions = typedDescriptions.filter(description => description.props.variant !== 'block')
 
-  return {blockDescriptions, descriptions, inlineDescriptions, label, leadingVisual, trailingVisual}
+  return {
+    blockDescriptions,
+    descriptions: typedDescriptions,
+    inlineDescriptions,
+    label,
+    leadingVisual,
+    trailingVisual,
+  }
+}
+
+/**
+ * Resolves the regions every action item shares, letting an element prop replace the matched
+ * child so a consumer's wrapper does not have to be recognizable by identity.
+ */
+function resolveItemRegions(
+  children: React.ReactNode,
+  overrides: RegionProps<'leadingVisual' | 'trailingVisual' | 'description' | 'trailingAction'>,
+) {
+  const {
+    regions: {leadingVisual, trailingVisual, description, trailingAction},
+    rest: label,
+  } = resolveRegions(
+    children,
+    {
+      leadingVisual: {match: isPartOf(LeadingVisual)},
+      trailingVisual: {match: isPartOf(TrailingVisual)},
+      description: {match: isPartOf(Description), multiple: true},
+      trailingAction: {match: isPartOf(TrailingAction)},
+    },
+    overrides,
+  )
+  const itemChildren = (
+    <>
+      {leadingVisual}
+      {label}
+      {description}
+      {trailingVisual}
+    </>
+  )
+  return {itemChildren, hasDescription: description !== undefined && description !== null, trailingAction}
 }
 
 export function ActionItemContent({
@@ -297,8 +331,10 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
     active,
     children,
     className,
+    description: descriptionProp,
     disabled,
     inactiveText,
+    leadingVisual: leadingVisualProp,
     loading = false,
     loadingText,
     onClick,
@@ -306,6 +342,8 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
     role: roleProp,
     selected,
     size = 'medium',
+    trailingAction: trailingActionProp,
+    trailingVisual: trailingVisualProp,
     variant = 'default',
     ...rest
   },
@@ -314,11 +352,17 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
   const {role: listRole, selectionVariant, showDividers, variant: listVariant} = React.useContext(ListContext)
   const role = roleProp ?? getSelectionRole(listRole, selectionVariant)
   const selectionAttribute = getSelectionAttribute(role)
-  const childParts = flattenChildren(children)
-  const trailingAction = childParts.find(isTrailingAction)
-  const itemChildren = childParts.filter(child => !isTrailingAction(child))
-  const hasDescription = getItemParts(itemChildren).descriptions.length > 0
-  const renderedTrailingAction = !inactiveText && !loading ? trailingAction : null
+  const {
+    itemChildren,
+    hasDescription,
+    trailingAction: resolvedTrailingAction,
+  } = resolveItemRegions(children, {
+    leadingVisual: leadingVisualProp,
+    trailingVisual: trailingVisualProp,
+    description: descriptionProp,
+    trailingAction: trailingActionProp,
+  })
+  const renderedTrailingAction = !inactiveText && !loading ? resolvedTrailingAction : null
   const showInactiveWarning = Boolean(inactiveText && (listRole === 'menu' || listRole === 'listbox'))
   const selection =
     selectionVariant === 'multiple' ? (
@@ -401,20 +445,34 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
   )
 })
 
-export interface ActionListLinkItemProps extends React.ComponentPropsWithoutRef<'a'> {
+export interface ActionListLinkItemProps
+  extends React.ComponentPropsWithoutRef<'a'>,
+    RegionProps<'leadingVisual' | 'trailingVisual' | 'description' | 'trailingAction'> {
   selected?: boolean
   variant?: 'default' | 'danger'
 }
 
 const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(function ActionListLinkItem(
-  {children, className, selected, variant = 'default', ...rest},
+  {
+    children,
+    className,
+    description: descriptionProp,
+    leadingVisual: leadingVisualProp,
+    selected,
+    trailingAction: trailingActionProp,
+    trailingVisual: trailingVisualProp,
+    variant = 'default',
+    ...rest
+  },
   ref,
 ) {
   const context = React.useContext(ListContext)
-  const childParts = flattenChildren(children)
-  const trailingAction = childParts.find(isTrailingAction)
-  const itemChildren = childParts.filter(child => !isTrailingAction(child))
-  const hasDescription = getItemParts(itemChildren).descriptions.length > 0
+  const {itemChildren, hasDescription, trailingAction} = resolveItemRegions(children, {
+    leadingVisual: leadingVisualProp,
+    trailingVisual: trailingVisualProp,
+    description: descriptionProp,
+    trailingAction: trailingActionProp,
+  })
 
   return (
     <li
@@ -445,22 +503,24 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
   )
 })
 
-export interface ActionListGroupProps extends Omit<React.ComponentPropsWithoutRef<'li'>, 'title'> {
+export interface ActionListGroupProps
+  extends Omit<React.ComponentPropsWithoutRef<'li'>, 'title'>,
+    RegionProps<'heading'> {
   title?: React.ReactNode
   selectionVariant?: SelectionVariant
 }
 
 const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function ActionListGroup(
-  {children, className, selectionVariant, title, ...rest},
+  {children, className, heading: headingProp, selectionVariant, title, ...rest},
   ref,
 ) {
   const context = React.useContext(ListContext)
   const generatedGroupLabelId = React.useId()
-  const childParts = flattenChildren(children)
-  const isGroupHeading = (child: React.ReactNode): child is React.ReactElement<ActionListGroupHeadingProps> =>
-    React.isValidElement<ActionListGroupHeadingProps>(child) && child.type === GroupHeading
-  const headingChildren = childParts.filter(isGroupHeading)
-  const listChildren = childParts.filter(child => !isGroupHeading(child))
+  const {
+    matched: {heading: matchedHeadings},
+    rest: listChildren,
+  } = resolveRegions(children, {heading: {match: isPartOf(GroupHeading), multiple: true}})
+  const headingChildren = regionElements<ActionListGroupHeadingProps>(headingProp, matchedHeadings)
   const groupLabelId = title
     ? generatedGroupLabelId
     : (headingChildren[0]?.props.id ?? (headingChildren.length > 0 ? generatedGroupLabelId : undefined))
@@ -495,7 +555,9 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
   )
 })
 
-export interface ActionListGroupHeadingProps extends React.ComponentPropsWithoutRef<'h3'> {
+export interface ActionListGroupHeadingProps
+  extends React.ComponentPropsWithoutRef<'h3'>,
+    RegionProps<'trailingAction'> {
   as?: React.ElementType
   variant?: 'subtle' | 'filled'
 }
@@ -504,16 +566,17 @@ const groupHeadingWrapperClassName =
   'flex min-h-[30px] items-center gap-2 px-4 py-1.5 text-xs leading-[18px] font-semibold text-muted'
 
 const GroupHeading = React.forwardRef<HTMLElement, ActionListGroupHeadingProps>(function ActionListGroupHeading(
-  {as: Component = 'h3', children, className, id, variant = 'subtle', ...rest},
+  {as: Component = 'h3', children, className, id, trailingAction: trailingActionProp, variant = 'subtle', ...rest},
   ref,
 ) {
   const {groupLabelId, role} = React.useContext(ListContext)
-  const childParts = flattenChildren(children)
-  const trailingAction = childParts.find(
-    child => React.isValidElement(child) && child.type === GroupHeadingTrailingAction,
-  )
-  const headingChildren = childParts.filter(
-    child => !React.isValidElement(child) || child.type !== GroupHeadingTrailingAction,
+  const {
+    regions: {trailingAction},
+    rest: headingChildren,
+  } = resolveRegions(
+    children,
+    {trailingAction: {match: isPartOf(GroupHeadingTrailingAction)}},
+    {trailingAction: trailingActionProp},
   )
   return (
     <div

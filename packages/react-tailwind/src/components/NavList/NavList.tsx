@@ -3,8 +3,9 @@
 import {Collapsible} from '@base-ui/react/collapsible'
 import {ChevronDownIcon} from '@primer/octicons-react'
 import React from 'react'
-import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
+import {isPartOf, regionElements, resolveRegions} from '../../internal/regions'
+import type {RegionProps} from '../../utils/types'
 import {ActionList, type ActionListDescriptionProps, type ActionListTrailingActionProps} from '../ActionList/ActionList'
 import {Heading} from '../Heading'
 
@@ -15,17 +16,17 @@ function getItemPadding(depth: number) {
   return itemPadding[Math.min(depth, itemPadding.length - 1)]
 }
 
-export type NavListProps = React.ComponentPropsWithoutRef<'nav'>
+export interface NavListProps extends React.ComponentPropsWithoutRef<'nav'>, RegionProps<'heading'> {}
 const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
-  {children, className, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props},
+  {children, className, heading: headingProp, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props},
   ref,
 ) {
   const fallbackHeadingId = React.useId()
-  const childParts = flattenChildren(children)
-  const heading = childParts.find(
-    child => React.isValidElement<NavListHeadingProps>(child) && child.type === NavListHeading,
-  ) as React.ReactElement<NavListHeadingProps> | undefined
-  const content = childParts.filter(child => !(React.isValidElement(child) && child.type === NavListHeading))
+  const {
+    regions: {heading: headingNode},
+    rest: content,
+  } = resolveRegions(children, {heading: {match: isPartOf(NavListHeading)}}, {heading: headingProp})
+  const heading = React.isValidElement<NavListHeadingProps>(headingNode) ? headingNode : undefined
   const headingId = heading?.props.id ?? fallbackHeadingId
 
   return (
@@ -123,19 +124,21 @@ export type NavListTrailingActionProps = ActionListTrailingActionProps
 export type NavListDescriptionProps = ActionListDescriptionProps
 const Description = ActionList.Description
 
-export interface NavListItemProps extends React.ComponentPropsWithoutRef<'a'> {
+export interface NavListItemProps
+  extends React.ComponentPropsWithoutRef<'a'>,
+    RegionProps<'leadingVisual' | 'trailingVisual' | 'trailingAction' | 'description'> {
   inactiveText?: React.ReactNode
-  leadingVisual?: React.ReactNode
-  trailingVisual?: React.ReactNode
 }
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavListItem(
   {
     className,
     children,
+    description: descriptionProp,
     href,
     inactiveText,
     leadingVisual,
     onClick,
+    trailingAction,
     trailingVisual,
     'aria-current': ariaCurrent,
     ...props
@@ -143,33 +146,33 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
   ref,
 ) {
   const depth = React.useContext(NavListDepthContext)
-  const childParts = flattenChildren(children)
-  const leadingVisualChild = childParts.find(child => React.isValidElement(child) && child.type === LeadingVisual) as
-    | React.ReactElement<React.ComponentPropsWithoutRef<'span'>>
-    | undefined
-  const trailingVisualChild = childParts.find(child => React.isValidElement(child) && child.type === TrailingVisual) as
-    | React.ReactElement<React.ComponentPropsWithoutRef<'span'>>
-    | undefined
-  const trailingActionChild = childParts.find(child => React.isValidElement(child) && child.type === TrailingAction) as
-    | React.ReactElement<ActionListTrailingActionProps>
-    | undefined
-  const descriptions = childParts.filter(
-    child => React.isValidElement(child) && child.type === Description,
-  ) as React.ReactElement<NavListDescriptionProps>[]
-  const label = childParts.filter(
-    child =>
-      !(
-        React.isValidElement(child) &&
-        (child.type === LeadingVisual ||
-          child.type === TrailingVisual ||
-          child.type === TrailingAction ||
-          child.type === Description)
-      ),
+  const {
+    regions: {leadingVisual: leadingVisualNode, trailingVisual: trailingVisualNode, trailingAction: trailingActionNode},
+    matched: {description: matchedDescriptions},
+    rest: label,
+  } = resolveRegions(
+    children,
+    {
+      leadingVisual: {match: isPartOf(LeadingVisual)},
+      trailingVisual: {match: isPartOf(TrailingVisual)},
+      trailingAction: {match: isPartOf(TrailingAction)},
+      description: {match: isPartOf(Description), multiple: true},
+    },
+    {
+      leadingVisual,
+      trailingVisual,
+      trailingAction,
+      description: descriptionProp,
+    },
   )
-  const resolvedLeadingVisual =
-    leadingVisualChild ?? (leadingVisual ? <LeadingVisual>{leadingVisual}</LeadingVisual> : null)
-  const resolvedTrailingVisual =
-    trailingVisualChild ?? (trailingVisual ? <TrailingVisual>{trailingVisual}</TrailingVisual> : null)
+  const descriptions = regionElements<NavListDescriptionProps>(descriptionProp, matchedDescriptions)
+  const resolvedLeadingVisual = React.isValidElement<React.ComponentPropsWithoutRef<'span'>>(leadingVisualNode)
+    ? leadingVisualNode
+    : null
+  const resolvedTrailingVisual = React.isValidElement<React.ComponentPropsWithoutRef<'span'>>(trailingVisualNode)
+    ? trailingVisualNode
+    : null
+  const trailingActionChild = trailingActionNode
   const hasLeadingVisual = Boolean(resolvedLeadingVisual)
   const hasBlockDescription = descriptions.some(description => description.props.variant === 'block')
   const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'

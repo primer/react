@@ -2,8 +2,9 @@
 
 import {cva} from 'class-variance-authority'
 import React from 'react'
-import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
+import {isPartOf, resolveRegions} from '../../internal/regions'
+import type {RegionProps} from '../../utils/types'
 
 const card = cva(
   'relative overflow-hidden border border-default bg-default shadow-[var(--shadow-resting-small)] auto-rows-[max-content_auto]',
@@ -20,45 +21,60 @@ const card = cva(
 const CardContext = React.createContext<{
   layout: 'default' | 'compact'
 }>({layout: 'default'})
-export interface CardProps extends React.HTMLAttributes<HTMLElement> {
+export interface CardProps
+  extends React.HTMLAttributes<HTMLElement>,
+    RegionProps<'icon' | 'image' | 'heading' | 'description' | 'metadata' | 'action'> {
   as?: 'div' | 'section'
   padding?: 'none' | 'condensed' | 'normal'
   borderRadius?: 'medium' | 'large'
   layout?: 'default' | 'compact'
-  children: React.ReactNode
-}
-
-type CardSlot = React.ReactElement
-
-function isCardSlot(child: React.ReactNode, type: React.ElementType): child is CardSlot {
-  return React.isValidElement(child) && child.type === type
+  children?: React.ReactNode
 }
 
 function CardComponent(
   {
+    action: actionProp,
     as: Component = 'div',
     borderRadius = 'large',
     children,
     className,
+    description: descriptionProp,
+    heading: headingProp,
+    icon: iconProp,
+    image: imageProp,
     layout = 'default',
+    metadata: metadataProp,
     padding = 'normal',
     ...rest
   }: CardProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
   const generatedTitleId = React.useId()
-  const childArray = flattenChildren(children)
-  const icon = childArray.find(child => isCardSlot(child, CardIcon))
-  const image = childArray.find(child => isCardSlot(child, CardImage))
-  const heading = childArray.find(child => isCardSlot(child, CardHeading))
-  const description = childArray.find(child => isCardSlot(child, CardDescription))
-  const metadata = childArray.find(child => isCardSlot(child, CardMetadata))
-  const action = childArray.find(child => isCardSlot(child, CardAction))
-  const consumed = new Set<React.ReactNode>([icon, image, heading, description, metadata, action])
-  const customChildren = childArray.filter(child => !consumed.has(child))
-  const hasSlotChildren = icon || image || heading || description || metadata || action
+  const {
+    regions: {icon, image, heading, description, metadata, action},
+    rest: customChildren,
+  } = resolveRegions(
+    children,
+    {
+      icon: {match: isPartOf(CardIcon)},
+      image: {match: isPartOf(CardImage)},
+      heading: {match: isPartOf(CardHeading)},
+      description: {match: isPartOf(CardDescription)},
+      metadata: {match: isPartOf(CardMetadata)},
+      action: {match: isPartOf(CardAction)},
+    },
+    {
+      icon: iconProp,
+      image: imageProp,
+      heading: headingProp,
+      description: descriptionProp,
+      metadata: metadataProp,
+      action: actionProp,
+    },
+  )
+  const hasSlotChildren = Boolean(icon || image || heading || description || metadata || action)
 
-  if (!hasSlotChildren && childArray.length === 0) return null
+  if (!hasSlotChildren && customChildren.length === 0) return null
 
   const titleId =
     Component === 'section' && React.isValidElement<{id?: string}>(heading)

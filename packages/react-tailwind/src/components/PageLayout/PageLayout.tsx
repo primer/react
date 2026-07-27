@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
+import {isMarkedWith, resolveRegions} from '../../internal/regions'
 import {responsiveClasses} from '../../utils/responsive'
-import type {AsProp, CSSPropertiesWithCustomProperties, ResponsiveValue} from '../../utils/types'
+import type {AsProp, CSSPropertiesWithCustomProperties, RegionProps, ResponsiveValue} from '../../utils/types'
 import {DragHandle} from './DragHandle'
 import {
   markPageLayoutFooter,
@@ -14,7 +14,6 @@ import {
   PAGE_LAYOUT_HEADER,
   PAGE_LAYOUT_SIDEBAR,
   PageLayoutMarkerContext,
-  type PageLayoutHeaderComponent,
 } from './markers'
 import {
   defaultFormatValueText,
@@ -129,17 +128,13 @@ function getActivePanePosition(value: ResponsiveValue<PanePosition>) {
   return position.narrow
 }
 
-export interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageLayoutProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    RegionProps<'header' | 'sidebar' | 'footer'> {
   containerWidth?: keyof typeof width
   padding?: Spacing
   rowGap?: Spacing
   columnGap?: Spacing
-  /** Supplies the header region. Takes precedence over a `PageLayout.Header` child. */
-  header?: React.ReactNode
-  /** Supplies the sidebar region. Takes precedence over a `PageLayout.Sidebar` child. */
-  sidebar?: React.ReactNode
-  /** Supplies the footer region. Takes precedence over a `PageLayout.Footer` child. */
-  footer?: React.ReactNode
 }
 
 const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayout(
@@ -158,25 +153,18 @@ const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayo
   ref,
 ) {
   const markers = React.useContext(PageLayoutMarkerContext)
-  const childArray = flattenChildren(children)
-  // A single pass instead of one scan per region, and an explicit prop wins over a
-  // matched child so consumers can supply their own implementation without a marker.
-  let matchedHeader: React.ReactNode
-  let matchedSidebar: React.ReactNode
-  let matchedFooter: React.ReactNode
-  const content: React.ReactNode[] = []
-
-  for (const child of childArray) {
-    const type = React.isValidElement(child) ? (child.type as PageLayoutHeaderComponent) : undefined
-    if (type?.[PAGE_LAYOUT_HEADER] && matchedHeader === undefined) matchedHeader = child
-    else if (type?.[PAGE_LAYOUT_SIDEBAR] && matchedSidebar === undefined) matchedSidebar = child
-    else if (type?.[PAGE_LAYOUT_FOOTER] && matchedFooter === undefined) matchedFooter = child
-    else content.push(child)
-  }
-
-  const header = headerProp ?? matchedHeader
-  const sidebar = sidebarProp ?? matchedSidebar
-  const footer = footerProp ?? matchedFooter
+  const {
+    regions: {header, sidebar, footer},
+    rest: content,
+  } = resolveRegions(
+    children,
+    {
+      header: {match: isMarkedWith(PAGE_LAYOUT_HEADER)},
+      sidebar: {match: isMarkedWith(PAGE_LAYOUT_SIDEBAR)},
+      footer: {match: isMarkedWith(PAGE_LAYOUT_FOOTER)},
+    },
+    {header: headerProp, sidebar: sidebarProp, footer: footerProp},
+  )
 
   return (
     <div

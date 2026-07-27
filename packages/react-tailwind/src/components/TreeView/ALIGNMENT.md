@@ -12,6 +12,7 @@ It provides `flat`, `truncate`, current state, controlled and uncontrolled expan
 
 ## Migration notes
 
+- `TreeView.Item` accepts `leadingVisual`, `trailingVisual`, and `subtree` for the corresponding regions, each taking precedence over a matching child. `leadingVisual` and `trailingVisual` also accept a `(state) => ReactNode` callback so a visual can respond to the item's expanded state.
 - Control expansion with `expanded`, `defaultExpanded`, and `onExpandedChange` where needed.
 - `SubTree` supports the upstream `state` and `count` loading fixture shape. Fetching, retry UI, loaded-content announcements, and error dialogs intentionally remain application composition rather than a TreeView data-loading API.
 - Dragging is native `draggable` markup only. Secondary actions intentionally remain outside the treeitem: the Tailwind examples use labelled, non-interactive trailing visuals to avoid nested interactive elements. This is an intentional accessibility-oriented divergence from legacy keyboard action dialogs.

@@ -10,6 +10,8 @@ The stable compound API provides `Heading`, `Group`, `GroupHeading`, `List`, `It
 
 ## Migration notes
 
+- `NavList` accepts `heading`, and `NavList.Item` accepts `leadingVisual`, `trailingVisual`, `description`, and `trailingAction`. Each takes an element for the corresponding region and takes precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
+- `NavList.Item`'s `leadingVisual` and `trailingVisual` supply the whole part rather than content to be wrapped, so pass `<NavList.LeadingVisual>` rather than a bare icon.
 - Use native `href` anchors; router adapters and reload-button APIs are unsupported.
 - `NavList.Heading` is recognized even when grouped in a fragment.
 - Compose extra actions with `NavList.TrailingAction`; it renders as a sibling of the primary link so interactive elements are never nested.

@@ -86,11 +86,17 @@ Upstream implementation utilities are not part of this package's contract, inclu
 
 `useSlots` is the removed utility most likely to affect you: it appears in roughly 28 places across `github/github-ui`. Those apps do not use it to consume Primer — they use it to build their **own** compound components on top of Primer.
 
-Separately, and more disruptively, `__SLOT__` is assigned directly in 13 places there. `asSlot` and `isSlot` are unused, but the marker itself is load-bearing. `CollapsibleSidebar` sets `__SLOT__: PageLayout.Sidebar.__SLOT__` so a completely custom component can be dropped into `PageLayout` as its sidebar; `BulkSelectorGroup` adopts `ActionList.Group.__SLOT__`; `ExpirationSelect` and `OrganizationSelect` adopt `Select.__SLOT__`. There are tests asserting this behaviour.
+Separately, `__SLOT__` is assigned directly in 13 places there. `asSlot` and `isSlot` are unused, but the marker itself is load-bearing. `CollapsibleSidebar` sets `__SLOT__: PageLayout.Sidebar.__SLOT__` so a completely custom component can be dropped into `PageLayout` as its sidebar; `BulkSelectorGroup` adopts `ActionList.Group.__SLOT__`; `ExpirationSelect` and `OrganizationSelect` adopt `Select.__SLOT__`. There are tests asserting this behaviour.
 
-**This package cannot support that today.** Its parts match children by identity, and where a marker does exist — `PageLayout` — the symbol is internal and not exported, so a consumer cannot opt into a slot. Anything relying on adopting or forwarding `__SLOT__` needs the owning component to grow a supported extension point before it can migrate. Treat that as a blocking dependency rather than something to work around in application code.
+Each of those adoptions has a supported replacement here, though not all the same one:
 
-The rest of this section covers the patterns that do carry over.
+- `CollapsibleSidebar` adopting `PageLayout.Sidebar.__SLOT__` becomes `<PageLayout sidebar={<CollapsibleSidebar />}>`. Every compound component that identifies a child by role exposes an element prop named for that region, so a custom component fills the region without adopting anything. See [wrapping a part](#wrapping-a-part-so-the-parent-still-recognizes-it) for the full list.
+- `ExpirationSelect` and `OrganizationSelect` adopting `Select.__SLOT__` need no replacement. `FormControl` here distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` down through context rather than finding its control among its children, so a custom control picks them up by calling `useFormControlForwardedProps`. It never has to be recognized.
+- `BulkSelectorGroup` adopting `ActionList.Group.__SLOT__` needs no replacement either, because `ActionList` does not scan for its groups.
+
+The marker itself does not port, and neither does relying on child order to place an adopted component.
+
+The rest of this section covers the patterns that carry over.
 
 ### Extract named children yourself
 
@@ -146,23 +152,47 @@ Reserve child extraction for cases where the parent genuinely needs to place aut
 
 ### Wrapping a part so the parent still recognizes it
 
-This is the one capability that does not carry over, and there is no workaround against this package's components. `asSlot` copied a `__SLOT__` marker onto a wrapper so the parent kept matching it. These components match children by component identity, so a wrapper around one of their parts is no longer matched as that part:
+`asSlot` copied a `__SLOT__` marker onto a wrapper so the parent kept matching it. These components match children by component identity, so a wrapper around one of their parts is not matched as that part:
 
 ```tsx
 // Card matches on identity, so this is not treated as the heading
-const CardHeadingWithTooltip = props => <Card.Heading {...props} />
+const CardHeadingWithTooltip = props => <CardHeading {...props} />
 ```
 
-The wrapped content still renders, but the parent places it with ordinary children rather than in the slot's position, so layout and any behavior keyed to that slot change. For `Card` specifically, a `section` card derives its `aria-labelledby` from the heading it matched, so a wrapped heading also loses that association.
+Instead of adopting a marker, pass the wrapper to the region prop of the same name. Every compound component that identifies a child by role accepts one, and the prop wins over a matching child:
 
-`PageLayout` matches its parts with an internal `Symbol` marker rather than identity, but that symbol is not exported, so its parts are no more wrappable than any other. Every part in this package is effectively wrap-intolerant.
+```tsx
+<Card heading={<CardHeadingWithTooltip>Alerts</CardHeadingWithTooltip>} />
+```
 
-So, in order of preference:
+This is the direct replacement for `asSlot`, and it is stronger: the parent never has to recognize your component at all, so the wrapper can be arbitrarily deep, memoized, or lazily imported. Because resolution happens during render rather than in an effect, the result is identical in server HTML. Anything the parent derives from the region keeps working — a `section` card still derives its `aria-labelledby` from the heading you supply this way.
+
+The regions are `header`, `sidebar`, and `footer` on `PageLayout`; `icon`, `image`, `heading`, `description`, `metadata`, and `action` on `Card`; `label`, `caption`, `validation`, and `leadingVisual` on `FormControl`; `heading` on `NavList` and `ActionList.Group`; `leadingVisual`, `trailingVisual`, `description`, and `trailingAction` on `NavList.Item`, `ActionList.Item`, and `ActionList.LinkItem`; `trailingAction` on `ActionList.GroupHeading`; and `leadingVisual`, `trailingVisual`, and `subtree` on `TreeView.Item`.
+
+Where you do not need a wrapper at all, these are still simpler:
 
 - Use `render` on Base UI-backed parts to project them onto your own element instead of wrapping them. Components that pass Base UI's props through accept it, including `Button`, `LinkButton`, and the `Trigger` parts of `Dialog`, `Popover`, and `Tooltip`. Check the part's props if you are unsure.
-- Use `as` on presentational parts such as `Card.Heading` and `Text` to change the element without wrapping.
+- Use `as` on presentational parts such as `CardHeading` and `Text` to change the element without wrapping.
 - Render the part directly and move your customization inside it.
-- Lift the wrapper up so it renders around the whole compound component instead of around one of its parts.
+
+#### Components that adopt a part's slot today
+
+`CollapsibleSidebar` and friends in `github-ui` adopt a part's `__SLOT__` so `PageLayout` hoists them. Those components port by dropping the marker and being passed to the region instead:
+
+```tsx
+// Before: CollapsibleSidebar.__SLOT__ = PageLayout.Sidebar.__SLOT__
+<PageLayout>
+  <CollapsibleSidebar />
+  <PageLayout.Content>{children}</PageLayout.Content>
+</PageLayout>
+
+// After
+<PageLayout sidebar={<CollapsibleSidebar />}>
+  <PageLayout.Content>{children}</PageLayout.Content>
+</PageLayout>
+```
+
+The call site changes, but the adopting component itself no longer needs to know anything about the parent, so it stops depending on an internal that was never part of the public API.
 
 ### Wrapper tolerance in your own components
 

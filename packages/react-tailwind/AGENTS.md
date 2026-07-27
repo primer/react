@@ -49,6 +49,17 @@ Compound components expose Base UI-style parts, commonly `Root`, `Trigger`, `Por
 
 Do not nest interactive elements. To make a component navigate, pass an anchor through `render` instead of placing an `<a>` inside a button.
 
+Compound components that identify a child by role also accept an element prop of the same name. Use the child form by default; use the prop when your own component wraps a part, because the parent cannot recognize a wrapper by type. The prop wins over a matching child, so do not supply both.
+
+```tsx
+// A wrapper the parent cannot recognize, handed to the region directly.
+<PageLayout sidebar={<RepoSidebar />}>
+  <PageLayout.Content>{children}</PageLayout.Content>
+</PageLayout>
+```
+
+The regions are `header`, `sidebar`, and `footer` on `PageLayout`; `icon`, `image`, `heading`, `description`, `metadata`, and `action` on `Card`; `label`, `caption`, `validation`, and `leadingVisual` on `FormControl`; `heading` on `NavList` and `ActionList.Group`; `leadingVisual`, `trailingVisual`, `description`, and `trailingAction` on `NavList.Item`, `ActionList.Item`, and `ActionList.LinkItem`; `trailingAction` on `ActionList.GroupHeading`; and `leadingVisual`, `trailingVisual`, and `subtree` on `TreeView.Item`.
+
 ## Choosing a component
 
 - Action in the current view: `Button`. Navigation: `Link`, or `LinkButton` for button styling. Icon-only: `IconButton` with a required `aria-label`.

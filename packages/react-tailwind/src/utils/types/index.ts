@@ -6,5 +6,6 @@ export type {
   FloatingOffsetData,
   FloatingSide,
 } from './positioning'
+export type {RegionProps} from './regions'
 export type {ResponsiveValue, Viewport} from './responsive'
 export type {AvatarSize, ControlSize, TextSize, TokenSize} from './size'

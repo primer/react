@@ -7,7 +7,7 @@ import {
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
 import React from 'react'
-import {flattenChildren} from '../../internal/children'
+import {isPartOf, resolveRegions} from '../../internal/regions'
 import {cn} from '../../internal/cn'
 
 type TreeViewContextValue = {
@@ -127,10 +127,6 @@ export interface TreeViewItemProps extends Omit<React.HTMLAttributes<HTMLElement
   trailingVisual?: React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)
 }
 
-function isPart(child: React.ReactNode, part: React.ElementType): child is React.ReactElement<{label?: string}> {
-  return React.isValidElement(child) && child.type === part
-}
-
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewItem(
   {
     as: Component = 'li',
@@ -157,13 +153,14 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
   const parentItem = React.useContext(TreeItemContext)
   if (!tree) throw new Error('TreeView.Item must be rendered within TreeView')
 
-  const childNodes = flattenChildren(children)
-  const childSubTrees = childNodes.filter(child => isPart(child, SubTree))
-  const compoundLeadingVisuals = childNodes.filter(child => isPart(child, LeadingVisual))
-  const compoundTrailingVisuals = childNodes.filter(child => isPart(child, TrailingVisual))
-  const content = childNodes.filter(
-    child => !isPart(child, SubTree) && !isPart(child, LeadingVisual) && !isPart(child, TrailingVisual),
-  )
+  const {
+    matched: {subTree: childSubTrees, leadingVisual: compoundLeadingVisuals, trailingVisual: compoundTrailingVisuals},
+    rest: content,
+  } = resolveRegions(children, {
+    subTree: {match: isPartOf(SubTree), multiple: true},
+    leadingVisual: {match: isPartOf(LeadingVisual), multiple: true},
+    trailingVisual: {match: isPartOf(TrailingVisual), multiple: true},
+  })
   const subTrees =
     childSubTrees.length > 0
       ? childSubTrees

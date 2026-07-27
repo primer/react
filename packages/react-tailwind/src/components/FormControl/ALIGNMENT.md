@@ -10,6 +10,7 @@ The stable compound API provides `Label`, `Caption`, `Validation`, `LeadingVisua
 
 ## Migration notes
 
+- `label`, `caption`, `validation`, and `leadingVisual` accept an element for the corresponding region and take precedence over a matching child. Regions render in place rather than being relocated, because horizontal layout positions parts by selector. A custom control does not need a region prop: `FormControl` distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` through context, so any control calling `useFormControlForwardedProps` is wired without being identified.
 - Package controls consume FormControl metadata automatically; use `FormControl.Control` for a native input or `useFormControlForwardedProps` when authoring a custom control.
 - Set `layout="horizontal"` explicitly for choice controls. The modern API does not infer layout from child component identity.
 - Use `visuallyHidden` only with another accessible name.

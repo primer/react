@@ -2,12 +2,15 @@
 
 import {Field} from '@base-ui/react/field'
 import React from 'react'
-import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
+import {isPartOf, resolveRegions} from '../../internal/regions'
 import {ValidationMessage} from '../../internal/ValidationMessage'
+import type {RegionProps} from '../../utils/types'
 import {FormControlContextProvider, useFormControlContext} from './useFormControlForwardedProps'
 
-export interface FormControlProps extends Omit<Field.Root.Props, 'className' | 'data-component'> {
+export interface FormControlProps
+  extends Omit<Field.Root.Props, 'className' | 'data-component'>,
+    RegionProps<'label' | 'caption' | 'validation' | 'leadingVisual'> {
   className?: Field.Root.Props['className']
   layout?: 'horizontal' | 'vertical'
   required?: boolean
@@ -16,21 +19,40 @@ export interface FormControlProps extends Omit<Field.Root.Props, 'className' | '
 const FormControlLayoutContext = React.createContext<FormControlProps['layout']>('vertical')
 
 const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormControl(
-  {children, className, id: idProp, layout = 'vertical', required = false, ...rest},
+  {
+    caption: captionProp,
+    children,
+    className,
+    id: idProp,
+    label: labelProp,
+    layout = 'vertical',
+    leadingVisual: leadingVisualProp,
+    required = false,
+    validation: validationProp,
+    ...rest
+  },
   ref,
 ) {
   const generatedId = React.useId()
   const controlId = idProp ?? generatedId
-  const childArray = flattenChildren(children)
-  const hasCaption = childArray.some(child => React.isValidElement(child) && child.type === Caption)
-  const hasLeadingVisual = childArray.some(child => React.isValidElement(child) && child.type === LeadingVisual)
-  const hasValidation = childArray.some(child => React.isValidElement(child) && child.type === Validation)
-  const hasErrorValidation = childArray.some(
-    child =>
-      React.isValidElement<FormControlValidationProps>(child) &&
-      child.type === Validation &&
-      child.props.variant === 'error',
+  // Regions stay in place because horizontal layout positions parts by `data-component`
+  // selector; resolving them only tells the field which parts are present so a consumer's
+  // wrapper still gets described-by wiring.
+  const {regions} = resolveRegions(
+    children,
+    {
+      label: {match: isPartOf(Label), keep: true},
+      caption: {match: isPartOf(Caption), keep: true},
+      validation: {match: isPartOf(Validation), keep: true},
+      leadingVisual: {match: isPartOf(LeadingVisual), keep: true},
+    },
+    {label: labelProp, caption: captionProp, validation: validationProp, leadingVisual: leadingVisualProp},
   )
+  const hasCaption = regions.caption !== undefined
+  const hasLeadingVisual = regions.leadingVisual !== undefined
+  const hasValidation = regions.validation !== undefined
+  const hasErrorValidation =
+    React.isValidElement<FormControlValidationProps>(regions.validation) && regions.validation.props.variant === 'error'
   const captionId = hasCaption ? `${controlId}-caption` : undefined
   const validationId = hasValidation ? `${controlId}-validation` : undefined
   const describedBy = [validationId, captionId].filter(Boolean).join(' ') || undefined
@@ -71,6 +93,23 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
     [controlId, describedBy, hasErrorValidation, required, rest.disabled, rest.name],
   )
 
+  // Only reshape the tree when a region prop is actually supplied, so the common compound
+  // form keeps the child positions React derives `useId` values from.
+  const hasRegionProp = [leadingVisualProp, labelProp, captionProp, validationProp].some(
+    region => region !== undefined && region !== null,
+  )
+  const content = hasRegionProp ? (
+    <>
+      {leadingVisualProp}
+      {labelProp}
+      {children}
+      {captionProp}
+      {validationProp}
+    </>
+  ) : (
+    children
+  )
+
   return (
     <FormControlLayoutContext.Provider value={layout}>
       <FormControlContextProvider value={context}>
@@ -82,7 +121,7 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
           data-required={required || undefined}
           className={mergedClassName}
         >
-          {children}
+          {content}
         </Field.Root>
       </FormControlContextProvider>
     </FormControlLayoutContext.Provider>

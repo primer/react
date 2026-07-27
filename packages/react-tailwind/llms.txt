@@ -51,6 +51,17 @@ Compound components expose Base UI-style parts, commonly `Root`, `Trigger`, `Por
 
 Do not nest interactive elements. To make a component navigate, pass an anchor through `render` instead of placing an `<a>` inside a button.
 
+Compound components that identify a child by role also accept an element prop of the same name. Use the child form by default; use the prop when your own component wraps a part, because the parent cannot recognize a wrapper by type. The prop wins over a matching child, so do not supply both.
+
+```tsx
+// A wrapper the parent cannot recognize, handed to the region directly.
+<PageLayout sidebar={<RepoSidebar />}>
+  <PageLayout.Content>{children}</PageLayout.Content>
+</PageLayout>
+```
+
+The regions are `header`, `sidebar`, and `footer` on `PageLayout`; `icon`, `image`, `heading`, `description`, `metadata`, and `action` on `Card`; `label`, `caption`, `validation`, and `leadingVisual` on `FormControl`; `heading` on `NavList` and `ActionList.Group`; `leadingVisual`, `trailingVisual`, `description`, and `trailingAction` on `NavList.Item`, `ActionList.Item`, and `ActionList.LinkItem`; `trailingAction` on `ActionList.GroupHeading`; and `leadingVisual`, `trailingVisual`, and `subtree` on `TreeView.Item`.
+
 ## Choosing a component
 
 - Action in the current view: `Button`. Navigation: `Link`, or `LinkButton` for button styling. Icon-only: `IconButton` with a required `aria-label`.
@@ -91,7 +102,7 @@ Import: `import {ActionList} from '@primer/react-tailwind/ActionList'`
 `ActionList` is a semantic action, menu, or listbox list composed from explicit child parts.
 
 Differences from `@primer/react`:
-- Use `loading` with `loadingText` for an unavailable item that is waiting on work. Loading items expose disabled semantics, render a shared spinner, and suppress trailing actions until ready.
+- `ActionList.Item` and `ActionList.LinkItem` accept `leadingVisual`, `trailingVisual`, `description`, and `trailingAction`; `ActionList.Group` accepts `heading`; `ActionList.GroupHeading` accepts `trailingAction`. Each takes an element for the corresponding region and takes precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
 
 ### ActionMenu
 
@@ -208,7 +219,7 @@ Import: `import {Card} from '@primer/react-tailwind/Card'`
 `Card` is a composable content container with heading, description, image, metadata, icon, and action parts.
 
 Differences from `@primer/react`:
-- Compose ActionMenu or native action controls inside `Card.Action` instead of relying on a Card-specific menu API.
+- `icon`, `image`, `heading`, `description`, `metadata`, and `action` accept an element for the corresponding region and take precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it. A `section` card still derives its `aria-labelledby` from a heading supplied this way.
 
 ### Checkbox
 
@@ -307,7 +318,7 @@ Import: `import {FormControl} from '@primer/react-tailwind/FormControl'`
 `FormControl` is a composable field wrapper that provides label, caption, validation, and control association.
 
 Differences from `@primer/react`:
-- Package controls consume FormControl metadata automatically; use `FormControl.Control` for a native input or `useFormControlForwardedProps` when authoring a custom control.
+- `label`, `caption`, `validation`, and `leadingVisual` accept an element for the corresponding region and take precedence over a matching child. Regions render in place rather than being relocated, because horizontal layout positions parts by selector. A custom control does not need a region prop: `FormControl` distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` through context, so any control calling `useFormControlForwardedProps` is wired without being identified.
 
 ### Header
 
@@ -424,7 +435,7 @@ Import: `import {NavList} from '@primer/react-tailwind/NavList'`
 `NavList` is a vertical navigation primitive for settings and page navigation.
 
 Differences from `@primer/react`:
-- Use native `href` anchors; router adapters and reload-button APIs are unsupported.
+- `NavList` accepts `heading`, and `NavList.Item` accepts `leadingVisual`, `trailingVisual`, `description`, and `trailingAction`. Each takes an element for the corresponding region and takes precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
 
 ### Overlay
 
@@ -712,7 +723,7 @@ Import: `import {TreeView} from '@primer/react-tailwind/TreeView'`
 `TreeView` is a presentational compound component for hierarchical files, folders, and nested resources. Compose its parts in author order to retain control of item content and visuals while TreeView owns tree semantics, expansion, roving focus, and typeahead.
 
 Differences from `@primer/react`:
-- Control expansion with `expanded`, `defaultExpanded`, and `onExpandedChange` where needed.
+- `TreeView.Item` accepts `leadingVisual`, `trailingVisual`, and `subtree` for the corresponding regions, each taking precedence over a matching child. `leadingVisual` and `trailingVisual` also accept a `(state) => ReactNode` callback so a visual can respond to the item's expanded state.
 
 ### Truncate
 
