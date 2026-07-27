@@ -1,0 +1,39 @@
+.Accordion {
+  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.Item:not(:last-child) {
+  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.Heading {
+  margin: 0;
+  font: inherit;
+}
+
+.Trigger {
+  width: 100%;
+  min-height: var(--control-medium-size);
+  padding-block: var(--base-size-8);
+  border-radius: 0;
+}
+
+.Icon {
+  flex-shrink: 0;
+  transition: transform 80ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.Item[data-expanded='true'] .Icon {
+  transform: rotate(90deg);
+}
+
+.Panel {
+  padding: var(--base-size-16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Icon {
+    transition: none;
+  }
+}

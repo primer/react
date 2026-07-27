@@ -2,6 +2,11 @@
 
 exports[`@primer/react > should not update exports without a semver change 1`] = `
 [
+  "Accordion",
+  "type AccordionHeadingProps",
+  "type AccordionItemProps",
+  "type AccordionPanelProps",
+  "type AccordionProps",
   "ActionBar",
   "type ActionBarProps",
   "ActionList",

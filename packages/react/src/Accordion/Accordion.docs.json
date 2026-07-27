@@ -1,0 +1,76 @@
+{
+  "id": "accordion",
+  "name": "Accordion",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-accordion--default"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "Compose Accordion.Item elements in the desired order."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Accordion.Item",
+      "props": [
+        {
+          "name": "defaultExpanded",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the item is expanded when initially rendered."
+        },
+        {
+          "name": "expanded",
+          "type": "boolean",
+          "description": "Whether the item is expanded. Providing this prop makes the item controlled."
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "(event: {expanded: boolean}) => void",
+          "description": "Called when the item requests a change to its expanded state."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the item cannot be expanded or collapsed."
+        }
+      ]
+    },
+    {
+      "name": "Accordion.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "h2",
+          "description": "The heading level to render."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The label for the accordion trigger."
+        }
+      ]
+    },
+    {
+      "name": "Accordion.Panel",
+      "props": [
+        {
+          "name": "role",
+          "type": "React.AriaRole",
+          "description": "Optionally set to region when the panel should be a landmark."
+        }
+      ]
+    }
+  ]
+}

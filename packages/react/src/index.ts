@@ -68,6 +68,8 @@ export {useSlots} from './hooks/useSlots'
 // Components
 export {default as Radio} from './Radio'
 export type {RadioProps} from './Radio'
+export {Accordion} from './Accordion'
+export type {AccordionProps, AccordionItemProps, AccordionHeadingProps, AccordionPanelProps} from './Accordion'
 export {ActionList} from './ActionList'
 export type {
   ActionListProps,
