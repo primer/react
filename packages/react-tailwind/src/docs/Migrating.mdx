@@ -1,0 +1,91 @@
+import {Meta} from '@storybook/addon-docs/blocks'
+
+<Meta title="React Tailwind/Migrating from Primer React" />
+
+# Migrating from Primer React
+
+This package keeps Primer's component names and, wherever it can, their props. Most of a migration is mechanical. What follows is what actually changes; each component's **Alignment** page records its own differences.
+
+## Styling
+
+`sx` and styled-system props are gone. Use `className` with Primer's semantic utilities, and a token when no utility exists.
+
+```tsx
+// Before
+<Button sx={{mt: 2, width: '100%'}}>Save</Button>
+<Box sx={{p: 3, bg: 'canvas.subtle'}} />
+
+// After
+<Button className="mt-2 w-full">Save</Button>
+<div className="rounded-md bg-muted p-4" />
+```
+
+There is no `Box`. Use a plain element with `className`, or `Stack` when you want gap and direction props.
+
+Because Tailwind silently ignores an unknown class, the package runs a build check that fails on any class generating no CSS. Watch for utilities that do not exist here, most commonly Tailwind's default type scale: `text-base` and `text-lg` are replaced by `text-body-medium`, `text-body-large`, and the title sizes.
+
+## Composition
+
+Interactive components are built on Base UI, so use `render` to project behavior onto another element rather than `as`.
+
+```tsx
+// Before
+<Button as="a" href="/settings">Settings</Button>
+
+// After
+<LinkButton href="/settings">Settings</LinkButton>
+<Button render={<a href="/settings" />}>Settings</Button>
+```
+
+Presentational components still take `as`, for example `<Stack as="section">`, `<Text as="span">`, and `<Card as="article">`.
+
+Compound parts follow Base UI naming: `Root`, `Trigger`, `Portal`, `Positioner`, `Popup` or `Content`, `Title`, `Description`, and `Close`. Parts may be grouped in fragments anywhere in the package.
+
+## Names that changed
+
+Experimental and versioned components are promoted to their stable names. Use `Dialog`, not `DialogV2`. Use `Tooltip`, not `TooltipV2`. Use `SelectPanel`, not `SelectPanel2`. Use `Breadcrumbs`, not `Breadcrumb`.
+
+Deprecated APIs are not included:
+
+| Removed                      | Use instead                                                    |
+| ---------------------------- | -------------------------------------------------------------- |
+| `CircleBadge`                | An Octicon from `@primer/octicons-react` with your own styling |
+| `SideNav`                    | `NavList`                                                      |
+| `TextInputWithTokens`        | `TextInput` composed with `Token`                              |
+| `Breadcrumb`                 | `Breadcrumbs`                                                  |
+| `SelectPanel2`               | `SelectPanel`                                                  |
+| `useRefObjectAsForwardedRef` | Pass `ref` as a prop; React 19 needs no hook                   |
+| `useResponsiveValue`         | Responsive class names or CSS media queries                    |
+
+## Values that changed
+
+Sizes read `small`, `medium`, and `large` everywhere. Two components inherited a different middle value upstream and were normalized:
+
+| Component        | Before                              | After                                |
+| ---------------- | ----------------------------------- | ------------------------------------ |
+| `KeybindingHint` | `size="normal"`, `variant="normal"` | `size="medium"`, `variant="default"` |
+| `ProgressBar`    | `barSize="default"`                 | `size="medium"`                      |
+
+`ProgressBar` also renames `barSize` to `size` and `bg` to `variant`.
+
+## Contracts deliberately kept
+
+A few APIs stay as they are upstream so existing handlers port unchanged, even though they differ from the package's usual conventions:
+
+- `Pagination`'s `onPageChange(event, page)` keeps its event-first argument order.
+- `SelectPanel`'s `onOpenChange(open, gesture)` reports a gesture rather than Base UI change details.
+- `SelectPanel.disableFullscreenOnNarrow` is opt-out while `FilteredActionList.fullScreenOnNarrow` is opt-in.
+
+## Internals that are no longer exported
+
+Upstream implementation utilities are not part of this package's contract, including `useSlots`, `isSlot`, `asSlot`, `useFocusZone`, `useAnchoredPosition`, `useOnOutsideClick`, `useMergedRefs`, and `createComponent`. Base UI provides the equivalent behavior inside the components that need it.
+
+`RelativeTime` no longer depends on a custom element; it renders a semantic `time` element, so tests can read its text directly.
+
+## Suggested order
+
+1. Set up `ThemeProvider`, `BaseStyles`, and the stylesheet, as described in **Get started**.
+2. Replace `sx` and `Box` first; that accounts for most of the diff.
+3. Swap deprecated components for their replacements.
+4. Run your build and check for classes that generate no CSS.
+5. Review the **Alignment** page of any component whose behavior looks different.

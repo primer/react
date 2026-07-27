@@ -1,20 +1,20 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as ThemeProviderStories from '../../ThemeProvider.stories'
-import * as ThemeProviderFeatures from '../../ThemeProvider.features.stories'
-import * as ThemeProviderExamples from '../../ThemeProvider.examples.stories'
+import * as Stories from '../../ThemeProvider.stories'
+import * as Features from '../../ThemeProvider.features.stories'
+import * as Examples from '../../ThemeProvider.examples.stories'
 
-<Meta of={ThemeProviderStories} />
+<Meta of={Stories} />
 
 # ThemeProvider
 
 `ThemeProvider` provides Primer theme context and applies color-scheme data attributes.
 
-<Canvas of={ThemeProviderStories.Default} />
+<Canvas of={Stories.Default} />
 
 ## Props
 
-<Controls of={ThemeProviderStories.Playground} />
+<Controls of={Stories.Playground} />
 
 ## Usage
 
@@ -27,6 +27,6 @@ import {BaseStyles, ThemeProvider} from '@primer/react-tailwind'
 
 Use `colorMode` with `dayScheme` and `nightScheme` to control a nested theme. `contextOnly` provides context without a wrapper.
 
-<Canvas of={ThemeProviderFeatures.ContextOnly} />
+<Canvas of={Features.ContextOnly} />
 
-<Canvas of={ThemeProviderExamples.NestedScheme} />
+<Canvas of={Examples.NestedScheme} />

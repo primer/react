@@ -121,7 +121,15 @@ const preview = {
           ],
           [
             'React Tailwind',
-            [['*', [['*', ['README', 'Default', 'Playground', /Playground$/, '*', 'Features', 'Examples']]]]],
+            [
+              [
+                'Get started',
+                'Foundations',
+                'Migrating from Primer React',
+                '*',
+                [['*', ['README', 'Default', 'Playground', /Playground$/, '*', 'Features', 'Examples']]],
+              ],
+            ],
           ],
           '*',
         ]
