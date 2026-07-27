@@ -40,7 +40,7 @@ State and interactions are usually provided separately through a behavior/state 
 
 ## Composition rules
 
-- Compose via ordinary React children. Never use render props or `React.Children` + `React.cloneElement`.
+- Prefer ordinary React children over render props or `React.Children` + `React.cloneElement` for presentational composition. `cloneElement` in particular is fragile and breaks when consumers wrap children. Render props remain a legitimate extension point where a config component genuinely needs them (see `modular-ds-config-components` and `contributor-docs/style.md`) — this is a default, not a prohibition.
 - Don't reach for the slots system by default. `useSlots` and `__SLOT__` markers are for the narrow case where a parent must identify a specific child part or extract a child out of the tree — not a general composition mechanism. Prefer plain children first, and only introduce slots when the requested API genuinely needs child extraction. See the `slots` skill for the mechanics if you do.
 - Preserve consumer-authored child order. A presentational component should never reorder the children it's given — document the recommended structure instead.
 - Use context (`use<Component>Context()`) for ARIA wiring between sub-components — never expose that context to consumers.
@@ -71,7 +71,7 @@ export const DialogParts = Object.assign(Root, {Content, Header, Title})
 
 ## Accessibility semantics
 
-Keep markup and accessibility semantics flexible. Preserve native semantics, including heading structure, and expose presentational pieces or slots when consumers need control over content, appearance, or semantics. Match the accessibility pattern to the component contract — for established ARIA Authoring Practices Guide patterns (e.g. accordions), prefer the APG semantics and structure over ad hoc native-element defaults. See `modular-ds-accessibility-contract` for the full responsibility matrix across API types.
+Keep markup and accessibility semantics flexible. Preserve native semantics, including heading structure, and expose presentational pieces when consumers need control over content, appearance, or semantics — via plain children composition, per the composition rules above. Match the accessibility pattern to the component contract — for established ARIA Authoring Practices Guide patterns (e.g. accordions), prefer the APG semantics and structure over ad hoc native-element defaults. See `modular-ds-accessibility-contract` for the full responsibility matrix across API types.
 
 ## Promoting to a config component
 

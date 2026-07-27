@@ -37,7 +37,7 @@ Check for:
 - Whether root refs and element types default to `HTMLElement` unless a narrower element type is required.
 - Whether exports, stories, tests, docs metadata, and changesets match the public API impact of the change — new components and new public exports need a `minor` changeset, and public export changes need matching export snapshot or test updates.
 - Whether slots (`useSlots`, `__SLOT__`) have been introduced where plain children composition would do, and whether any presentational component reorders consumer-authored children instead of preserving author order (`modular-ds-presentational-components`).
-- Whether optional semantics in an ARIA pattern — for example accordion panel `role="region"` — are opt-in rather than applied by default, and whether both paths are covered in tests, stories, or docs metadata (`modular-ds-accessibility-contract`).
+- Whether optional semantics in an ARIA pattern — for example accordion panel `role="region"` — are opt-in where defaulting them would cause landmark proliferation or other semantic side effects, and whether both paths are covered in tests, stories, or docs metadata (`modular-ds-accessibility-contract`).
 - If the change decomposes an existing component, whether the public API stayed identical and whether accessibility behavior that was previously implicit or untested has adequate test backfill (`modular-ds-decompose-existing-component`, `modular-ds-tdd-a11y-test-backfill`).
 
 Report only actionable findings that show a concrete mismatch with the spectrum of abstraction model. For each finding, cite the file and line, name the relevant API type or principle, explain the impact, and suggest the smallest design-level correction. If the change follows the model, say so directly.

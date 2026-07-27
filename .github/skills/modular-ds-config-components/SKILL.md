@@ -37,7 +37,7 @@ Don't reach for a config API for emerging or unstable patterns — see `modular-
 
 ## Customization surface
 
-Extension happens only through supported props, slots, render props, or configuration — never through arbitrary internal composition. When consumers need to change structure, semantics, or behavior beyond what the config API exposes, the clear escape boundary is to move to the presentational components and behavior hooks underneath (see `modular-ds-presentational-components`).
+Extension happens only through supported props, slots, render props, or configuration — never through arbitrary internal composition. That list mirrors `contributor-docs/style.md`; it describes what a config API may legitimately expose, not a menu to pick from freely. Slots in particular are the `useSlots`/`__SLOT__` mechanism documented in the `slots` skill and remain off by default (see `modular-ds-presentational-components`). When consumers need to change structure, semantics, or behavior beyond what the config API exposes, the clear escape boundary is to move to the presentational components and behavior hooks underneath (see `modular-ds-presentational-components`).
 
 ## Styling
 
