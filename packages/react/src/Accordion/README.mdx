@@ -1,0 +1,51 @@
+# Accordion
+
+Accordion is a presentational compound component for showing independently expandable sections. Each
+`AccordionItem` owns its expansion state; `AccordionRoot` provides only the shared container styling.
+
+```tsx
+import {AccordionHeading, AccordionItem, AccordionPanel, AccordionRoot, AccordionTrigger} from '@primer/react'
+
+function Example() {
+  return (
+    <AccordionRoot>
+      <AccordionItem defaultExpanded>
+        <AccordionHeading as="h2">
+          <AccordionTrigger>Account settings</AccordionTrigger>
+        </AccordionHeading>
+        <AccordionPanel>Update your profile and notification preferences.</AccordionPanel>
+      </AccordionItem>
+    </AccordionRoot>
+  )
+}
+```
+
+Use `expanded` with `onExpandedChange` to control an item, or `defaultExpanded` for an uncontrolled item.
+Items do not coordinate with one another, so multiple items may be expanded at the same time.
+
+## Accessibility
+
+The heading must contain its trigger. Choose the heading level that fits the page's existing heading structure,
+and give every trigger a meaningful text label. `AccordionHeading` renders an `h3` by default and supports `h2`
+through `h6`.
+
+Panel landmarks are opt-in with `<AccordionPanel role="region">`. They are off by default to avoid landmark
+proliferation when a page has many accordion items.
+
+The optional WAI-ARIA APG arrow-key, Home, and End navigation is intentionally not provided in this first API.
+Each trigger is a native button, so Enter and Space activation work automatically without changing the page's
+normal tab order.
+
+### Accessibility responsibility matrix
+
+| Requirement                           | Presentational Accordion API                                 | Consumer responsibility                          |
+| ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
+| Heading contains a native button      | ✅ Provided when `AccordionHeading` wraps `AccordionTrigger` | Keep the trigger inside its heading              |
+| Correct heading level                 | `h3` default; `h2`–`h6` supported                            | ⚠️ Choose the level that fits the page hierarchy |
+| Meaningful trigger label              | Consumer content is preserved                                | ⚠️ Provide descriptive trigger text              |
+| `aria-expanded` state                 | ✅ Automatic                                                 | None                                             |
+| `aria-controls` and trigger/panel IDs | ✅ Auto-wired within each item                               | None                                             |
+| Expanded panel visibility             | ✅ Native boolean `hidden`                                   | None                                             |
+| Panel region landmark and label       | ✅ Auto-labelled when `role="region"` is selected            | ⚠️ Opt in only when a region landmark is helpful |
+| Enter and Space activation            | ✅ Native button behavior                                    | None                                             |
+| Arrow keys, Home, and End             | Intentionally not implemented                                | ⚠️ Use normal Tab navigation                     |

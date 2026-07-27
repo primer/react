@@ -1,0 +1,109 @@
+{
+  "id": "accordion",
+  "name": "Accordion",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "importPath": "@primer/react",
+  "stories": [
+    {
+      "id": "components-accordion--default"
+    }
+  ],
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "description": "AccordionItem children to render in the styled container."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "CSS class name(s) for custom styling."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "AccordionItem",
+      "props": [
+        {
+          "name": "expanded",
+          "type": "boolean",
+          "description": "The controlled expanded state. Requires onExpandedChange."
+        },
+        {
+          "name": "defaultExpanded",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "The initial expanded state for an uncontrolled item."
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "({expanded}: {expanded: boolean}) => void",
+          "description": "Called when the item requests an expansion state change."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "CSS class name(s) for custom styling."
+        }
+      ]
+    },
+    {
+      "name": "AccordionHeading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "'h3'",
+          "description": "The heading level to render. Choose the level that fits the page hierarchy."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "CSS class name(s) for custom styling."
+        }
+      ]
+    },
+    {
+      "name": "AccordionTrigger",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "A meaningful label for the accordion item."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents the trigger from being activated."
+        },
+        {
+          "name": "onClick",
+          "type": "React.MouseEventHandler<HTMLButtonElement>",
+          "description": "Called before the expansion state changes. Prevent the event default to cancel the change."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "CSS class name(s) for custom styling."
+        }
+      ]
+    },
+    {
+      "name": "AccordionPanel",
+      "props": [
+        {
+          "name": "role",
+          "type": "'region'",
+          "description": "Opts the panel into a labelled region landmark. Omitted by default to avoid landmark proliferation."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "CSS class name(s) for custom styling."
+        }
+      ]
+    }
+  ]
+}

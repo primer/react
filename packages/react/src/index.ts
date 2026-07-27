@@ -66,6 +66,14 @@ export {isSlot} from './utils/is-slot'
 export {useSlots} from './hooks/useSlots'
 
 // Components
+export {AccordionHeading, AccordionItem, AccordionPanel, AccordionRoot, AccordionTrigger} from './Accordion'
+export type {
+  AccordionHeadingProps,
+  AccordionItemProps,
+  AccordionPanelProps,
+  AccordionRootProps,
+  AccordionTriggerProps,
+} from './Accordion'
 export {default as Radio} from './Radio'
 export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'

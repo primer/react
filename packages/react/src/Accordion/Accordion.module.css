@@ -1,0 +1,75 @@
+.Accordion {
+  overflow: hidden;
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.Item + .Item {
+  border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.Heading {
+  margin: 0;
+  font-size: inherit;
+}
+
+.Trigger {
+  display: flex;
+  width: 100%;
+  min-height: var(--base-size-44);
+  padding: var(--base-size-12) var(--base-size-16);
+  font-family: inherit;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--text-body-lineHeight-medium);
+  color: var(--fgColor-default);
+  text-align: start;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  appearance: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-8);
+
+  &:hover:not(:disabled) {
+    background-color: var(--bgColor-muted);
+  }
+
+  &:focus-visible {
+    @mixin focusOutline;
+  }
+
+  &:disabled {
+    color: var(--control-fgColor-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.TriggerContent {
+  min-width: 0;
+}
+
+.Chevron {
+  flex-shrink: 0;
+  color: var(--fgColor-muted);
+  pointer-events: none;
+}
+
+.Trigger:where([data-expanded]) .Chevron {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Chevron {
+    transition: transform 160ms ease;
+  }
+}
+
+.Panel {
+  padding: var(--base-size-16);
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-medium);
+}
