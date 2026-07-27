@@ -61,9 +61,9 @@ New base components and utilities introduced under this model should be opt-in v
 
 Create or update `index.ts` files to re-export the public API for each API type touched, and update the relevant experimental barrel files.
 
-`foundations` and `hooks` do not exist as directories or export subpaths today. **Creating either is a package-level decision, not a step in building a component — surface it and stop.** Do not add an `exports` subpath to `packages/react/package.json`, a rolldown entry point, or an exports-snapshot update as part of a component change. Until one of those subpaths exists, ship base components and compound hooks under `packages/react/src/experimental/<Component>/` alongside the presentational parts, and note in the PR that they'll move once the entry point lands.
+`foundations` and `hooks` do not exist as directories or export subpaths today, and creating either is a package-level decision rather than a step in building a component — **surface it and stop**. See "Where utilities live" in `modular-ds-utilities`, which is the single source of truth for this rule and says what to do instead.
 
-The **Utilities** row above refers to generic, component-agnostic utilities. A component's own compound hook is not one of those — it ships from wherever that component's base parts ship, per `modular-ds-utilities`.
+The **Utilities** row above refers to generic, component-agnostic utilities. A component's own compound hook is not one of those — it ships from wherever that component's parts ship, per `modular-ds-utilities`.
 
 ## Validation
 
