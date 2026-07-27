@@ -31,12 +31,15 @@ function useDialog(options: {open: boolean; onClose: () => void; 'aria-label'?: 
   }
 }
 
-// The root calls the hook once and publishes the getters via context.
-function DialogRoot({children, ...options}: DialogRootProps) {
-  const dialog = useDialog(options)
+// The root calls the hook once and publishes the getters via context. Destructure the
+// hook's options explicitly so everything else still reaches the DOM.
+function DialogRoot({children, open, onClose, 'aria-label': ariaLabel, ...rest}: DialogRootProps) {
+  const dialog = useDialog({open, onClose, 'aria-label': ariaLabel})
   return (
     <DialogContext.Provider value={dialog}>
-      <div {...dialog.getRootProps()}>{children}</div>
+      <div {...dialog.getRootProps()} {...rest}>
+        {children}
+      </div>
     </DialogContext.Provider>
   )
 }
@@ -44,9 +47,11 @@ function DialogRoot({children, ...options}: DialogRootProps) {
 // Descendant parts read those getters — they never call useDialog() again.
 function DialogTitle(props: DialogTitleProps) {
   const {getTitleProps} = useDialogContext()
-  return <h2 {...getTitleProps()} {...props} />
+  return <h2 {...props} {...getTitleProps()} />
 }
 ```
+
+**Spread order matters, and it isn't the same everywhere.** On the root, consumer rest props go _after_ `getRootProps()` so `className`, `data-testid` and similar reach the DOM — per `contributor-docs/style.md`, rest parameters should be applied to the root element. On parts that carry generated ARIA values, the getter goes _last_ so a consumer-supplied `id` can't silently overwrite the ID that `aria-labelledby` points at, which would leave the dialog with an accessible name referencing an element that doesn't exist. If a part genuinely needs both, give the getter a merge signature — `getTitleProps: (userProps = {}) => ({...userProps, id: titleId})` — rather than relying on spread order alone.
 
 **Generic, single-purpose, component-agnostic utilities** (e.g. `useFocusTrap`, `useFocusZone`, `useMergedRefs`, `useOnEscapePress`, `useResponsiveValue`) are not tied to any one component. They live in `packages/react/src/hooks/`, and a component's compound hook composes them internally as needed. Search `packages/react/src/hooks/` for an existing utility before writing a new one — don't duplicate behavior that already exists as a shared hook, and don't assume a plausibly-named hook exists without checking.
 

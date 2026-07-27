@@ -51,4 +51,4 @@ Where a base component needs to remove browser defaults (e.g. native `<dialog>`/
 
 ## Relationship to hooks
 
-Base components wrap the compound behavior hook for their component (see `modular-ds-utilities`) — they are the thin, JSX-shaped API most consumers reach for, while the hook itself stays available directly for the rarer "I need full markup control, no wrapping component at all" case. Both are first-class; a base component should not duplicate behavior that already lives in its hook.
+Base components wrap the compound behavior hook for their component (see `modular-ds-utilities`) — they are the thin, JSX-shaped API most consumers reach for, while the hook itself stays available directly for the rarer "I need full markup control, no wrapping component at all" case. Both are first-class; a base component should not duplicate behavior that already lives in its hook. Where the hook wraps a native element with its own built-in behavior, follow the controlled component contract in `modular-ds-utilities`.

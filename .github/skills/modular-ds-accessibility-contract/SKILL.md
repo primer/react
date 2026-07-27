@@ -11,22 +11,24 @@ Each API type in the spectrum of abstraction model shifts accessibility responsi
 
 Read the columns as **scenarios, not a mandatory stack**. Each column describes what a consumer gets when the highest API type they're working with is that one — it does not imply that every component populates every column, or that a presentational component must sit on top of a base component. Per `modular-ds-spectrum-model`, each API type earns its place independently. Where no base component exists for a given part, the presentational component owns the ✅ items directly.
 
-| Requirement                            | Hook only            | Base component                    | Presentational    | Config                  |
-| -------------------------------------- | -------------------- | --------------------------------- | ----------------- | ----------------------- |
-| `role="dialog"` / `role="alertdialog"` | Consumer sets        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| `aria-modal="true"`                    | Consumer sets        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| `aria-labelledby` → title              | Consumer wires       | ✅ Auto-wired via context         | ✅ Auto-wired     | ✅ From `title` prop    |
-| `aria-describedby` → description       | Consumer wires       | ✅ Auto-wired if Description used | ✅ Auto-wired     | ✅ From `subtitle` prop |
-| Focus trapping                         | Consumer implements  | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
-| Escape closes                          | Consumer handles     | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Focus moves into component             | Consumer manages     | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Focus returns on close                 | Consumer manages     | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Visible close control                  | Consumer provides    | ✅ Enforced by structure          | ✅ Built-in       | ✅ Built-in             |
-| Background inert                       | Consumer manages     | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
-| Scroll lock                            | Consumer implements  | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Visible backdrop                       | Consumer provides    | ⚠️ Consumer must style            | ✅ Primer token   | ✅ Primer token         |
-| Appropriate heading level              | Consumer chooses     | ⚠️ Consumer must choose           | ✅ `<h2>` default | ✅ `<h2>` default       |
-| Colour contrast                        | Consumer responsible | ⚠️ Consumer must ensure           | ✅ Primer tokens  | ✅ Primer tokens        |
+"Hook only" means the consumer renders all the markup themselves and spreads the hook's prop-getters onto it. It doesn't mean the consumer owns everything: where the hook drives lifecycle — for a dialog it owns `showModal()`/`close()`, per the controlled component contract in `modular-ds-utilities` — the side effects of that lifecycle apply at every column, including this one.
+
+| Requirement                            | Hook only               | Base component                    | Presentational    | Config                  |
+| -------------------------------------- | ----------------------- | --------------------------------- | ----------------- | ----------------------- |
+| `role="dialog"` / `role="alertdialog"` | Consumer sets           | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| `aria-modal="true"`                    | Consumer sets           | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| `aria-labelledby` → title              | Consumer wires          | ✅ Auto-wired via context         | ✅ Auto-wired     | ✅ From `title` prop    |
+| `aria-describedby` → description       | Consumer wires          | ✅ Auto-wired if Description used | ✅ Auto-wired     | ✅ From `subtitle` prop |
+| Focus trapping                         | ✅ Native `showModal()` | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
+| Escape closes                          | Consumer handles        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Focus moves into component             | Consumer manages        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Focus returns on close                 | Consumer manages        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Visible close control                  | Consumer provides       | ✅ Enforced by structure          | ✅ Built-in       | ✅ Built-in             |
+| Background inert                       | ✅ Native `showModal()` | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
+| Scroll lock                            | Consumer implements     | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Visible backdrop                       | Consumer provides       | ⚠️ Consumer must style            | ✅ Primer token   | ✅ Primer token         |
+| Appropriate heading level              | Consumer chooses        | ⚠️ Consumer must choose           | ✅ `<h2>` default | ✅ `<h2>` default       |
+| Colour contrast                        | Consumer responsible    | ⚠️ Consumer must ensure           | ✅ Primer tokens  | ✅ Primer tokens        |
 
 ## Key principles
 
@@ -75,7 +77,7 @@ When building a component with a different ARIA pattern (tabs, menu, listbox, et
 1. **Identify the ARIA APG pattern** — read the W3C ARIA Authoring Practices Guide for the relevant pattern.
 2. **List all requirements** — roles, states, properties, keyboard interaction, focus management.
 3. **Assign each requirement to the lowest API type that will actually exist for this component.** As a default: the consumer does everything at the hook-only level; a base component automates ARIA wiring, focus management, and keyboard interaction; a presentational component adds Primer-token styling on top; a config component maps props to its children. Don't assume all four exist — where a component has no base component, the presentational component owns the ARIA wiring directly.
-4. **Mark consumer responsibilities** (⚠️) — anything the base component does NOT handle automatically must be documented clearly.
+4. **Mark consumer responsibilities (⚠️)** — anything the highest API type this component actually ships does NOT handle automatically must be documented clearly. Where a component has no base component, its ⚠️ items belong in the lowest column that does exist, not in a base column invented to hold them.
 
 ### Tabs example (skeleton)
 
