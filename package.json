@@ -63,7 +63,7 @@
     "@size-limit/preset-big-lib": "11.2.0",
     "@types/node": "26.0.0",
     "@types/semver": "^7.7.1",
-    "@vitest/browser": "^4.1.9",
+    "@vitest/browser": "^4.1.10",
     "@vitest/browser-playwright": "^4.1.9",
     "@vitest/eslint-plugin": "^1.6.20",
     "babel-plugin-react-compiler": "^1.0.0",
