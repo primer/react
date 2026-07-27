@@ -182,20 +182,24 @@ So, in order of preference:
 
 ### Wrapper tolerance in your own components
 
-Reach for Base UI's model before reaching for markers. Slots exist because a parent has to _find_ a child in order to position it or read something off it. Base UI inverts that: the child announces itself upward through context, and the parent never looks down. Its own `Dialog` works this way, with `Dialog.Title` publishing its id and `Dialog.Popup` reading it for `aria-labelledby`, and no child scanning anywhere.
+Base UI's model is the place to start, but it has an SSR constraint that decides which form you want.
 
-Applied to a compound component of your own:
+Slots exist because a parent has to _find_ a child in order to position it or read something off it. Base UI inverts that: the child publishes what the parent needs through context. Its own `Dialog` works this way, with `Dialog.Title` publishing its id and `Dialog.Popup` reading it for `aria-labelledby`, and no child scanning anywhere.
+
+The catch is that publishing upward happens in an effect, and effects do not run on the server. A parent that reads a value registered by a child renders **without** it in server HTML, and only picks it up after hydration. That is fine for overlays, which are client-only regardless — Base UI's `Dialog` renders nothing at all on the server — but it is wrong for content that must be correct in the server response.
+
+#### Allocate the id downward, not upward
+
+When the coordination is server-rendered, have the parent allocate during render and pass the value down. The child claims it instead of announcing it:
 
 ```tsx
 import {useRender} from '@base-ui/react/use-render'
 
-const PanelContext = React.createContext<{headingId?: string; setHeadingId: (id?: string) => void}>({
-  setHeadingId: () => {},
-})
+const PanelContext = React.createContext<{headingId?: string}>({})
 
 function Panel({children}: {children?: React.ReactNode}) {
-  const [headingId, setHeadingId] = React.useState<string>()
-  const value = React.useMemo(() => ({headingId, setHeadingId}), [headingId])
+  const headingId = React.useId()
+  const value = React.useMemo(() => ({headingId}), [headingId])
   return (
     <PanelContext.Provider value={value}>
       <section aria-labelledby={headingId}>{children}</section>
@@ -204,24 +208,24 @@ function Panel({children}: {children?: React.ReactNode}) {
 }
 
 function PanelHeading({render, ...props}: {render?: useRender.RenderProp} & React.ComponentPropsWithRef<'h2'>) {
-  const generated = React.useId()
-  const id = props.id ?? generated
-  const {setHeadingId} = React.useContext(PanelContext)
-
-  React.useEffect(() => {
-    setHeadingId(id)
-    return () => setHeadingId(undefined)
-  }, [id, setHeadingId])
-
-  return useRender({defaultTagName: 'h2', render, props: {...props, id}})
+  const {headingId} = React.useContext(PanelContext)
+  return useRender({defaultTagName: 'h2', render, props: {...props, id: props.id ?? headingId}})
 }
 ```
 
-This is strictly more capable than the slot system it replaces. The heading is still found when a consumer wraps it, when it is nested arbitrarily deep, and when it is projected onto another element with `render`. None of those survive a `child.type === Part` check or a `__SLOT__` marker. It also drops the single-match-per-key limit, since registration is ordinary state.
+This renders `<section aria-labelledby="…"><h2 id="…">` on the server, and it still resolves when a consumer wraps the heading, nests it arbitrarily deep, or projects it onto another element with `render`. None of those survive a `child.type === Part` check or a `__SLOT__` marker, so you keep the wrapper tolerance without giving up SSR.
 
-`useRender` gives your part the same `render` contract Base UI parts have, so consumers compose instead of wrapping. `LinkButton` in this package is a worked example. Use `mergeProps` from `@base-ui/react/merge-props` when you need to combine your props with a consumer's by hand.
+Its limitation is that the parent cannot tell whether the child is actually present, so only label unconditionally when the part is required. Otherwise let the consumer opt in.
 
-The tradeoff is that registration cannot control _placement_: the child renders where the author put it. Use it for coordination such as ids, labelling, counts, ordering, and validity. When you genuinely need to hoist a child into a different position, you still have to read children, and identity matching is the simplest thing that works there. Reserve a `Symbol` marker for the narrow case where you both scan children and expect your own parts to be wrapped, remembering that the marker has to be copied onto each wrapper deliberately, since that is the job `asSlot` used to do:
+#### When to use which
+
+- **Server-rendered, and the parent must know a child exists.** Read children during render. Identity matching is correct here, and it is what `Card` does to decide whether to set `aria-labelledby` at all. This is the one case the old slot system served that context cannot.
+- **Server-rendered, and the child is required.** Allocate downward, as above. SSR-safe and wrapper-tolerant.
+- **Client-only and interactive**, such as overlays and menus. Effect-based upward registration is fine and is what Base UI does.
+
+`useRender` gives your part the same `render` contract Base UI parts have, so consumers compose instead of wrapping; `LinkButton` in this package is a worked example. Use `mergeProps` from `@base-ui/react/merge-props` to combine your props with a consumer's by hand.
+
+If you must both scan children and tolerate wrappers, a `Symbol` marker is the fallback. It has to be copied onto each wrapper deliberately, since that is the job `asSlot` used to do:
 
 ```tsx
 const SECTION = Symbol('MyLayout.Section')
