@@ -84,29 +84,13 @@ Upstream implementation utilities are not part of this package's contract, inclu
 
 ## Replacing the slot system
 
-`useSlots` is the removed utility most likely to affect you: it is used in roughly 28 places across `github/github-ui`, while `isSlot` and `asSlot` have no usages there. Those apps do not use it to consume Primer components — they use it to build their **own** compound components on top of Primer.
+`useSlots` is the removed utility most likely to affect you: it appears in roughly 28 places across `github/github-ui`. Those apps do not use it to consume Primer — they use it to build their **own** compound components on top of Primer.
 
-A typical caller looks like this:
+Separately, and more disruptively, `__SLOT__` is assigned directly in 13 places there. `asSlot` and `isSlot` are unused, but the marker itself is load-bearing. `CollapsibleSidebar` sets `__SLOT__: PageLayout.Sidebar.__SLOT__` so a completely custom component can be dropped into `PageLayout` as its sidebar; `BulkSelectorGroup` adopts `ActionList.Group.__SLOT__`; `ExpirationSelect` and `OrganizationSelect` adopt `Select.__SLOT__`. There are tests asserting this behaviour.
 
-```tsx
-// Before, with @primer/react
-const [{header, headerActions, blankslate, rows}, children] = useSlots(slottedChildren, {
-  header: PanelList.Header,
-  headerActions: PanelList.HeaderActions,
-  blankslate: PanelList.Blankslate,
-  rows: PanelList.Rows,
-})
+**This package cannot support that today.** Its parts match children by identity, and where a marker does exist — `PageLayout` — the symbol is internal and not exported, so a consumer cannot opt into a slot. Anything relying on adopting or forwarding `__SLOT__` needs the owning component to grow a supported extension point before it can migrate. Treat that as a blocking dependency rather than something to work around in application code.
 
-return (
-  <div>
-    {header ?? (title && <Header title={title}>{headerActions}</Header>)}
-    {isEmpty ? (blankslate ?? <Blankslate heading="No data" />) : rows}
-    {children}
-  </div>
-)
-```
-
-That pattern relies on three behaviors: extracting named children, falling back to a default when a slot is absent, and rendering everything else afterwards. All three are straightforward to keep.
+The rest of this section covers the patterns that do carry over.
 
 ### Extract named children yourself
 
@@ -148,7 +132,7 @@ const [{header, headerActions, blankslate, rows}, children] = useParts(slottedCh
 })
 ```
 
-The call site is unchanged, and the `?? default` fallback and trailing `children` behave as before. Flattening fragments matches how this package's own compound components read their children, so authors can group parts in a fragment without breaking matching.
+The call site is unchanged, and the `?? default` fallback and trailing `children` behave as before. It keeps `useSlots`'s ordering semantics too: the first element matching a key wins, later duplicates fall through to `rest`, and `rest` stays in author order. Flattening fragments matches how this package's own compound components read their children, so authors can group parts in a fragment without breaking matching.
 
 ### Prefer props for single values
 
