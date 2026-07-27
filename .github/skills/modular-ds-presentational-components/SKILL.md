@@ -7,6 +7,8 @@ description: 'Use when: building or evaluating flexible, composable Primer React
 
 Presentational components are styled pieces that consumers compose directly. Primer still owns the styling, accessibility expectations, data attributes, and component contracts for each piece — consumers control layout, ordering, conditional rendering, and content.
 
+The sample below is **illustrative only** — `useList` and the `List` parts don't exist in the repo, and it's shorthand for the shape, not code to copy. Verify any hook you plan to use, per `modular-ds-utilities`.
+
 ```tsx
 function Example({items}) {
   const [state, actions] = useList({defaultSelected: []})
@@ -61,7 +63,7 @@ Don't stamp `data-component` onto a composed Primer component. An existing compo
 
 Note that the `ComponentName.PartName` value and the flat export names above deliberately diverge: consumers write `<ToolbarSeparator>` while the DOM says `Toolbar.Separator`. ADR-023 asks the value to match the React API, and for a component using dot-notation it does. For a new component shipping flat exports it can't, and the dotted value is still the right one — it stays stable if the component later gains a composed object, and it groups the parts. Don't rename either to make them match.
 
-`data-component` is identity, not a styling hook. Never write CSS that selects on it — least of all another component's, which couples your styles to markup that component is free to change. Per ADR-023 (`contributor-docs/adrs/adr-023-stable-selectors-api.md`), the DOM around a `data-component` element — its parent, children, siblings and attributes — is explicitly **not** public API, so a component may target its own parts but never reach into another component's. Values are PascalCase `ComponentName.PartName`, not camelCase. Wrap `data-*` state and ARIA state selectors in `:where()` so they stay at zero specificity and don't outrank a base component's reset.
+`data-component` is identity, not a styling hook. Never write CSS that selects on it — least of all another component's, which couples your styles to markup that component is free to change. Per ADR-023 (`contributor-docs/adrs/adr-023-stable-selectors-api.md`), the DOM around a `data-component` element — its parent, children, siblings and attributes — is explicitly **not** public API, so a component may target its own parts but never reach into another component's. Values are PascalCase `ComponentName.PartName`, not camelCase. Wrap `data-*` state and ARIA state selectors in `:where()` so those parts add no specificity and don't outrank a base component's reset — see `modular-ds-base-components` for the ADR-021 caveat on this convention.
 
 A `data-*` state attribute must mean the same thing on every part of a component that carries it. If a part needs a derived or inverted value — a separator in a horizontal toolbar being drawn vertically, say — give it a differently-named attribute rather than reusing the parent's under an opposite meaning. These attributes are the stable selector surface, so two parts one DOM level apart disagreeing about what `data-orientation` means is a trap for every consumer who writes a descendant selector.
 
@@ -71,10 +73,11 @@ Flat exports (e.g. `DialogRoot`, `DialogHeader`, `DialogTitle`) are the goal for
 
 ```ts
 // Flat exports (RSC-safe) — the default for anything new
-export {Root as DialogRoot, Content as DialogContent, Header as DialogHeader}
+export {Root as DialogRoot, Content as DialogContent, Header as DialogHeader, Title as DialogTitle}
 
-// Composed export — only to preserve an existing dot-notation API
-export const DialogParts = Object.assign(Root, {Content, Header, Title})
+// Composed export — only to preserve an existing dot-notation API, and it has to keep
+// the name consumers already type (`Dialog`), or it preserves nothing.
+export const Dialog = Object.assign(Root, {Content, Header, Title})
 ```
 
 Base and presentational parts for the same component intentionally share `<Component><Part>` names across their different entry points — don't prefix or rename base parts to avoid the clash. A file importing both aliases one at the import site. Note this applies to exported **types** as well as components: `AccordionItemProps` will mean structurally different things depending on the entry point, and TypeScript error messages won't disambiguate them, so alias deliberately.

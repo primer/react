@@ -24,24 +24,33 @@ Shape of a compound hook returning prop-getters, consumed by a base component:
 ```tsx
 function useDialog(options: {
   open: boolean
-  onClose: () => void
+  onClose: (reason: 'escape' | 'close-button') => void
   role?: 'dialog' | 'alertdialog'
   'aria-label'?: string
 }) {
   const titleId = useId()
+  const [hasTitle, setHasTitle] = useState(false)
+  // A title part registers itself on mount, so the root knows whether
+  // `aria-labelledby` has anything real to point at.
+  const registerTitle = useCallback((node: HTMLElement | null) => setHasTitle(node !== null), [])
+
   return {
     getRootProps: () => ({
       role: options.role ?? 'dialog',
       'aria-modal': true,
-      // Conditional, not `'aria-label': options['aria-label']` — see "Getters must not
-      // return keys they have no value for" below.
-      ...(options['aria-label'] !== undefined && {'aria-label': options['aria-label']}),
-      'aria-labelledby': titleId,
+      // Only ever return keys you have a value for — see "Getters must not return keys
+      // they have no value for" below. `aria-labelledby` is gated on a title actually
+      // being registered: it outranks `aria-label` in the accessible name computation,
+      // so returning it unconditionally would point the name at an element that never
+      // rendered *and* suppress the `aria-label` fallback.
+      ...(hasTitle
+        ? {'aria-labelledby': titleId}
+        : options['aria-label'] !== undefined && {'aria-label': options['aria-label']}),
     }),
-    getTitleProps: () => ({id: titleId}),
+    getTitleProps: () => ({id: titleId, ref: registerTitle}),
     getCloseProps: (userProps: {onClick?: React.MouseEventHandler} = {}) => ({
       ...userProps,
-      onClick: composeEventHandlers(userProps.onClick, options.onClose),
+      onClick: composeEventHandlers(userProps.onClick, () => options.onClose('close-button')),
     }),
   }
 }
@@ -59,6 +68,15 @@ function DialogRoot({children, open, onClose, role, 'aria-label': ariaLabel, ...
   )
 }
 
+// A merge-signature getter is the one exception to spreading rest props before the
+// getter: hand the consumer's value *to* the getter instead. Spreading `onClick`
+// before `getCloseProps()` would let the getter's own handler overwrite it, which is
+// the clobber this whole section exists to prevent.
+function DialogCloseButton({onClick, ...rest}: DialogCloseButtonProps) {
+  const {getCloseProps} = useDialogContext()
+  return <button {...rest} {...getCloseProps({onClick})} />
+}
+
 // Descendant parts read those getters — they never call useDialog() again.
 function DialogTitle(props: DialogTitleProps) {
   const {getTitleProps} = useDialogContext()
@@ -69,6 +87,8 @@ function DialogTitle(props: DialogTitleProps) {
 **Spread prop-getters last, everywhere.** A getter only returns the attributes it owns, so consumer rest props still reach the DOM — `className`, `data-testid` and the like are never in the getter's return value and pass straight through, satisfying `contributor-docs/style.md`'s rule about applying rest parameters to the root element. Putting the getter last additionally means a consumer can't silently overwrite generated ARIA: no stray `role`, `aria-modal`, `aria-labelledby` or `id` clobbering the wiring and leaving the component with an accessible name pointing at an element that doesn't exist.
 
 There's one rule rather than two on purpose — an agent shouldn't have to classify a component as "root" or "part" before it can pick a spread order.
+
+**The one exception is a merge-signature getter.** Where a getter takes the consumer's value as an argument, pass it in rather than spreading it beforehand — `{...rest} {...getCloseProps({onClick})}`, not `{...rest} {...getCloseProps()}` with `onClick` still in `rest`. A merge getter always returns the key it merges, so spreading the consumer's handler before it would let the getter's own handler overwrite theirs, which is the exact failure the spread-last rule exists to prevent. Destructure the merged prop out of `rest` explicitly, as `DialogCloseButton` does above, so it can't reach the element by both routes.
 
 **Getters must not return keys they have no value for.** This is the other half of spreading last, and omitting it turns that rule into an accessibility bug. A key present with the value `undefined` still overwrites — `{...{'aria-labelledby': 'heading'}, ...{'aria-labelledby': undefined}}` leaves the key present and valueless, and React then omits the attribute entirely. So a getter that returns every optional attribute unconditionally will **delete** whatever the consumer put on the element, silently. Build optional attributes conditionally so a getter only ever owns attributes it actually sets:
 
@@ -83,6 +103,17 @@ Where a consumer legitimately needs to influence a generated value, make it a **
 **Generic, single-purpose, component-agnostic utilities** (e.g. `useFocusTrap`, `useFocusZone`, `useMergedRefs`, `useOnEscapePress`, `useResponsiveValue`) are not tied to any one component. They live in `packages/react/src/hooks/`, and a component's compound hook composes them internally as needed. Search `packages/react/src/hooks/` for an existing utility before writing a new one — don't duplicate behavior that already exists as a shared hook, and don't assume a plausibly-named hook exists without checking. Note in particular that for state a consumer can control or leave uncontrolled, `contributor-docs/style.md` calls for `useControllableState` — reach for it rather than hand-rolling the controlled/uncontrolled split, and rather than the older `useProvidedStateOrCreate` that appears in more of the existing codebase.
 
 Components that render a **collection** may need per-item prop-getters keyed by a stable value (`getItemProps({value})`) rather than the argument-less getters above, which are shaped for singleton components. The discriminator is what the hook owns: reach for per-item getters where it owns per-item state or identity (selection, expansion, active descendant), and don't where it owns only container-level behaviour such as focus management or orientation — there the items are the consumer's own controls and the hook should never address them individually. The key's shape is a decision to surface, not one to assume.
+
+## Precedent in the repo: `experimental/Tabs`
+
+`packages/react/src/experimental/Tabs/` is the closest existing implementation of this model and the thing you're most likely to copy. Copy its composition, not its hook shape — it predates the rules above and diverges from them in four ways:
+
+- It has **per-part hooks** (`useTab`, `useTabList`, `useTabPanel`) that each call `useTabs()` internally, rather than one compound hook whose getters descendants read from context.
+- Those hooks return **plain prop objects** (`tabProps`), not getter functions.
+- All three are **public** from `@primer/react/experimental` with no `hookDocs.json`, which is below the bar above on both counts.
+- `useTab.ts:38` returns `'aria-disabled': disabled ? true : undefined` and `Tabs.tsx:64-65` spreads it last — a live instance of the clobber described above. A consumer passing `aria-disabled` to a `Tab` has it silently dropped.
+
+What Tabs does get right, and is worth copying: rest props before generated props, explicit `composeEventHandlers` for the handlers it needs to merge, and context rather than `cloneElement`.
 
 ## Controlled component contract
 

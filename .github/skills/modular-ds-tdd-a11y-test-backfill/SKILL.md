@@ -37,5 +37,5 @@ Run validation in this order and fix any failures before reporting completion:
 1. `npx prettier --write <changed-files>`
 2. `npx eslint --fix <changed-files>`
 3. `npx stylelint -q --rd --fix <changed-css-files>`
-4. `npm run type-check`
+4. `npm run test:type-check` (plain `tsc --noEmit`; the bare `type-check` script also runs `turbo run type-check` across sibling workspaces)
 5. `npm test -- --run --reporter=verbose <test-files>` — `--run` matters: the `test` script is plain `vitest`, which watches rather than exits when run in an interactive terminal.

@@ -47,7 +47,7 @@ When it's not obvious whether a given part warrants its own base component, surf
 
 ## CSS reset convention
 
-Where a base component needs to remove browser defaults (e.g. native `<dialog>`/`<button>` styling) without adding visual opinion, ship a minimal CSS reset using `:where()` selectors so specificity stays at zero and consumer/presentational styles always win.
+Where a base component needs to remove browser defaults (e.g. native `<dialog>`/`<button>` styling) without adding visual opinion, ship a minimal CSS reset using `:where()` selectors so the state part of the selector contributes no specificity and consumer/presentational styles always win. Note `.Component:where([data-variant='x'])` is `0,1,0` overall, not zero — the class still counts; it's the wrapped part that stops escalating. ADR-021 proposes replacing this convention with CSS layers (`primer.components.<component-name>`, per ADR-022), but both are still 🚧 and only one `.module.css` file in the package uses `@layer` today against 60 using `:where()`. Follow `:where()` for now, and expect these files to be retrofitted if ADR-021 is adopted.
 
 ## Relationship to hooks
 

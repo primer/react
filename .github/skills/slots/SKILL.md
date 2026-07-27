@@ -30,7 +30,7 @@ All four primitives are exported publicly from `@primer/react`.
 ```ts
 import {useSlots, isSlot, asSlot, type SlotMarker, type WithSlotMarker, type FCWithSlotMarker} from '@primer/react'
 // or
-import {useSlots} from '@primer/react/hooks'
+import {useSlots} from '@primer/react'
 ```
 
 ## When to use slots
@@ -52,7 +52,7 @@ Slots are **not** the right tool when:
 Use `useSlots`. It returns `[slots, rest]`, where `slots` is keyed by your config and `rest` is everything else (in encounter order).
 
 ```tsx
-import {useSlots} from '@primer/react/hooks'
+import {useSlots} from '@primer/react'
 
 function MyCompound({children}: {children: React.ReactNode}) {
   const [slots, rest] = useSlots(children, {

@@ -58,18 +58,19 @@ Whenever you make a call like this, cover both the default and the opt-in path i
 
 ### Dev-mode warnings
 
-A component's compound hook (see `modular-ds-utilities`) should fire a dev-mode warning when no accessible name is provided (neither a title part used, nor `aria-label` passed) or when required structural elements are missing. Use the existing `useDevOnlyEffect` (`packages/react/src/internal/hooks/useDevOnlyEffect.ts`) and the shared `warning` utility rather than hand-rolling either — per ADR-012, the `__DEV__` guard belongs _outside_ the hook call so the whole thing is dropped in production, and an inline `process.env.NODE_ENV` check inside a plain `useEffect` still registers and schedules the effect on every production render. Check after render, once prop-getters have been called:
+A component's compound hook (see `modular-ds-utilities`) should fire a dev-mode warning when no accessible name is provided (neither a title part used, nor `aria-label` passed) or when required structural elements are missing. Use the existing `useDevOnlyEffect` (`packages/react/src/internal/hooks/useDevOnlyEffect.ts`) and the shared `warning` utility rather than hand-rolling either. `useDevOnlyEffect` holds the `__DEV__` guard internally, around the `useEffect` rather than inside it — which is the point, per ADR-012: an inline `process.env.NODE_ENV` check inside a plain `useEffect` still registers and schedules that effect on every production render. Call `useDevOnlyEffect` unconditionally; don't wrap it in a `__DEV__` check of your own.
+
+To detect whether a title part rendered, query the DOM from the root ref rather than tracking a ref during render — mutating a ref inside a prop-getter is a render-phase side effect and never resets when the title unmounts. `Banner.tsx` sets the precedent, querying `[data-banner-title]` from its own root:
 
 ```tsx
 useDevOnlyEffect(() => {
-  if (!open) return
-  queueMicrotask(() => {
-    warning(
-      !titleUsed.current && !ariaLabel,
-      '<Component>: No accessible name provided. Use getTitleProps() on a title element, or pass aria-label.',
-    )
-  })
-}, [open, ariaLabel])
+  const {current: root} = rootRef
+  if (!root) return
+  warning(
+    !root.querySelector('[data-component="Component.Title"]') && !ariaLabel,
+    '<Component>: No accessible name provided. Render a title part, or pass aria-label.',
+  )
+}, [ariaLabel])
 ```
 
 Note `warning` fires when its first argument is **truthy** — it takes the failing condition, not the passing one. Test the name for falsiness rather than for `undefined`: `aria-label=""` type-checks, renders an unnamed component, and slips past an `=== undefined` check.
@@ -81,7 +82,7 @@ When building a component with a different ARIA pattern (tabs, menu, listbox, et
 1. **Identify the ARIA APG pattern** — read the W3C ARIA Authoring Practices Guide for the relevant pattern.
 2. **List all requirements** — roles, states, properties, keyboard interaction, focus management.
 3. **Assign each requirement to the lowest API type that will actually exist for this component.** As a default: the consumer does everything at the hook-only level; a base component automates ARIA wiring, focus management, and keyboard interaction; a presentational component adds Primer-token styling on top; a config component maps props to its children. Don't assume all four exist — where a component has no base component, the presentational component owns the ARIA wiring directly.
-4. **Mark consumer responsibilities (⚠️)** in **every column** where someone working at that level must handle the requirement themselves, even if a higher API type handles it automatically — `Visible backdrop` below is ⚠️ for base-component consumers _and_ ✅ for presentational ones, and both facts matter. Where a component has no base component, its ⚠️ items belong in the lowest column that does exist, not in a base column invented to hold them.
+4. **Mark consumer responsibilities (⚠️)** in **every column** where someone working at that level must handle the requirement themselves, even if a higher API type handles it automatically — `Visible backdrop` in the Dialog matrix above is ⚠️ for base-component consumers _and_ ✅ for presentational ones, and both facts matter. Where a component has no base component, its ⚠️ items belong in the lowest column that does exist, not in a base column invented to hold them.
 5. **Commit the matrix.** It's a deliverable, not a thinking aid — put it in the component's docs metadata, a markdown file alongside the component, or its docs page. Every ⚠️ is something a consumer must be told; a matrix that only ever existed in a PR description tells nobody. This is where APG consumer-side caveats belong, such as a pattern warning against nesting controls that need the same arrow keys the component binds.
 
 ### Tabs example (skeleton)
