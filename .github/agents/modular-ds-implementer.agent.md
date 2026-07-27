@@ -48,7 +48,7 @@ Not every component needs every API type. Don't build a config component, a base
 
 ## Entry points
 
-Target entry points for each API type — check `packages/react/package.json`'s `exports` field first, since not all of these subpaths exist yet. The `foundations` and `hooks` subpaths do **not** exist today and must be added when a component first needs them, rather than assumed to already be shipped.
+Target entry points for each API type — check `packages/react/package.json`'s `exports` field first, since not all of these subpaths exist yet. The `foundations` and `hooks` subpaths do **not** exist today, and adding one is a package-level decision to escalate rather than something to do as part of a component change — see the note below and `modular-ds-utilities`.
 
 | API type       | Experimental import                      | Stable import               |
 | -------------- | ---------------------------------------- | --------------------------- |
@@ -61,7 +61,7 @@ New base components and utilities introduced under this model should be opt-in v
 
 Create or update `index.ts` files to re-export the public API for each API type touched, and update the relevant experimental barrel files.
 
-`foundations` and `hooks` do not exist as directories or export subpaths today, and creating either is a package-level decision rather than a step in building a component — **surface it and stop**. See "Where utilities live" in `modular-ds-utilities`, which is the single source of truth for this rule and says what to do instead.
+Neither `foundations` nor `hooks` exists as an **export subpath** today, and adding one is a package-level decision rather than a step in building a component — **surface it and stop**. See "Where utilities live" in `modular-ds-utilities`, which is the single source of truth for this rule and says what to do instead.
 
 The **Utilities** row above refers to generic, component-agnostic utilities. A component's own compound hook is not one of those — it ships from wherever that component's parts ship, per `modular-ds-utilities`.
 
