@@ -22,22 +22,35 @@ Utilities are not a layer or a wrapper in a stack — they're shared helpers tha
 Shape of a compound hook returning prop-getters, consumed by a base component:
 
 ```tsx
-function useDialog(options: {open: boolean; onClose: () => void; 'aria-label'?: string}) {
+function useDialog(options: {
+  open: boolean
+  onClose: () => void
+  role?: 'dialog' | 'alertdialog'
+  'aria-label'?: string
+}) {
   const titleId = useId()
   return {
-    getRootProps: () => ({role: 'dialog', 'aria-modal': true, 'aria-label': options['aria-label']}),
+    getRootProps: () => ({
+      role: options.role ?? 'dialog',
+      'aria-modal': true,
+      'aria-label': options['aria-label'],
+      'aria-labelledby': titleId,
+    }),
     getTitleProps: () => ({id: titleId}),
-    getCloseProps: () => ({onClick: options.onClose}),
+    getCloseProps: (userProps: {onClick?: React.MouseEventHandler} = {}) => ({
+      ...userProps,
+      onClick: composeEventHandlers(userProps.onClick, options.onClose),
+    }),
   }
 }
 
-// The root calls the hook once and publishes the getters via context. Destructure the
-// hook's options explicitly so everything else still reaches the DOM.
-function DialogRoot({children, open, onClose, 'aria-label': ariaLabel, ...rest}: DialogRootProps) {
-  const dialog = useDialog({open, onClose, 'aria-label': ariaLabel})
+// The root calls the hook once and publishes the getters via context. Hook options are
+// destructured explicitly so everything else still reaches the DOM.
+function DialogRoot({children, open, onClose, role, 'aria-label': ariaLabel, ...rest}: DialogRootProps) {
+  const dialog = useDialog({open, onClose, role, 'aria-label': ariaLabel})
   return (
     <DialogContext.Provider value={dialog}>
-      <div {...dialog.getRootProps()} {...rest}>
+      <div {...rest} {...dialog.getRootProps()}>
         {children}
       </div>
     </DialogContext.Provider>
@@ -51,7 +64,11 @@ function DialogTitle(props: DialogTitleProps) {
 }
 ```
 
-**Spread order matters, and it isn't the same everywhere.** On the root, consumer rest props go _after_ `getRootProps()` so `className`, `data-testid` and similar reach the DOM — per `contributor-docs/style.md`, rest parameters should be applied to the root element. On parts that carry generated ARIA values, the getter goes _last_ so a consumer-supplied `id` can't silently overwrite the ID that `aria-labelledby` points at, which would leave the dialog with an accessible name referencing an element that doesn't exist. If a part genuinely needs both, give the getter a merge signature — `getTitleProps: (userProps = {}) => ({...userProps, id: titleId})` — rather than relying on spread order alone.
+**Spread prop-getters last, everywhere.** A getter only returns the attributes it owns, so consumer rest props still reach the DOM — `className`, `data-testid` and the like are never in the getter's return value and pass straight through, satisfying `contributor-docs/style.md`'s rule about applying rest parameters to the root element. Putting the getter last additionally means a consumer can't silently overwrite generated ARIA: no stray `role`, `aria-modal`, `aria-labelledby` or `id` clobbering the wiring and leaving the component with an accessible name pointing at an element that doesn't exist.
+
+There's one rule rather than two on purpose — an agent shouldn't have to classify a component as "root" or "part" before it can pick a spread order.
+
+Where a consumer legitimately needs to influence a generated value, make it a **hook option** (`role` and `aria-label` above), not something they override on the element. Where a consumer needs to _add to_ a getter-owned value rather than replace it — most commonly an `onClick` alongside the hook's own handler — give that getter a **merge signature** that composes the two, as `getCloseProps` does. There's no shared `composeEventHandlers` utility in the package today; `experimental/Tabs/Tabs.tsx` defines a local one, so follow that precedent or lift it into `packages/react/src/hooks/` if a second component needs it.
 
 **Generic, single-purpose, component-agnostic utilities** (e.g. `useFocusTrap`, `useFocusZone`, `useMergedRefs`, `useOnEscapePress`, `useResponsiveValue`) are not tied to any one component. They live in `packages/react/src/hooks/`, and a component's compound hook composes them internally as needed. Search `packages/react/src/hooks/` for an existing utility before writing a new one — don't duplicate behavior that already exists as a shared hook, and don't assume a plausibly-named hook exists without checking.
 

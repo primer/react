@@ -11,7 +11,7 @@ Each API type in the spectrum of abstraction model shifts accessibility responsi
 
 Read the columns as **scenarios, not a mandatory stack**. Each column describes what a consumer gets when the highest API type they're working with is that one — it does not imply that every component populates every column, or that a presentational component must sit on top of a base component. Per `modular-ds-spectrum-model`, each API type earns its place independently. Where no base component exists for a given part, the presentational component owns the ✅ items directly.
 
-"Hook only" means the consumer renders all the markup themselves and spreads the hook's prop-getters onto it. It doesn't mean the consumer owns everything: where the hook drives lifecycle — for a dialog it owns `showModal()`/`close()`, per the controlled component contract in `modular-ds-utilities` — the side effects of that lifecycle apply at every column, including this one.
+"Hook only" means the consumer renders all the markup themselves and spreads the hook's prop-getters onto it. The cells in that column describe what the consumer must do **in addition to** spreading the getters — "Consumer wires" means placing `getTitleProps()` on their own title element, "Consumer handles" means responding to the `onClose` the hook fires. It doesn't mean the consumer owns everything: where the hook drives lifecycle — for a dialog it owns `showModal()`/`close()`, per the controlled component contract in `modular-ds-utilities` — the side effects of that lifecycle apply at every column, including this one.
 
 | Requirement                            | Hook only               | Base component                    | Presentational    | Config                  |
 | -------------------------------------- | ----------------------- | --------------------------------- | ----------------- | ----------------------- |
@@ -22,7 +22,7 @@ Read the columns as **scenarios, not a mandatory stack**. Each column describes 
 | Focus trapping                         | ✅ Native `showModal()` | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
 | Escape closes                          | Consumer handles        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
 | Focus moves into component             | Consumer manages        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
-| Focus returns on close                 | Consumer manages        | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
+| Focus returns on close                 | ✅ Automatic            | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
 | Visible close control                  | Consumer provides       | ✅ Enforced by structure          | ✅ Built-in       | ✅ Built-in             |
 | Background inert                       | ✅ Native `showModal()` | ✅ Native `showModal()`           | ✅ Automatic      | ✅ Automatic            |
 | Scroll lock                            | Consumer implements     | ✅ Automatic                      | ✅ Automatic      | ✅ Automatic            |
@@ -77,7 +77,7 @@ When building a component with a different ARIA pattern (tabs, menu, listbox, et
 1. **Identify the ARIA APG pattern** — read the W3C ARIA Authoring Practices Guide for the relevant pattern.
 2. **List all requirements** — roles, states, properties, keyboard interaction, focus management.
 3. **Assign each requirement to the lowest API type that will actually exist for this component.** As a default: the consumer does everything at the hook-only level; a base component automates ARIA wiring, focus management, and keyboard interaction; a presentational component adds Primer-token styling on top; a config component maps props to its children. Don't assume all four exist — where a component has no base component, the presentational component owns the ARIA wiring directly.
-4. **Mark consumer responsibilities (⚠️)** — anything the highest API type this component actually ships does NOT handle automatically must be documented clearly. Where a component has no base component, its ⚠️ items belong in the lowest column that does exist, not in a base column invented to hold them.
+4. **Mark consumer responsibilities (⚠️)** in **every column** where someone working at that level must handle the requirement themselves, even if a higher API type handles it automatically — `Visible backdrop` below is ⚠️ for base-component consumers _and_ ✅ for presentational ones, and both facts matter. Where a component has no base component, its ⚠️ items belong in the lowest column that does exist, not in a base column invented to hold them.
 
 ### Tabs example (skeleton)
 
