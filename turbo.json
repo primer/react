@@ -41,6 +41,10 @@
       "dependsOn": [],
       "outputs": []
     },
+    "lint:region-props": {
+      "dependsOn": [],
+      "outputs": []
+    },
     "lint:tailwind": {
       "dependsOn": [],
       "outputs": []

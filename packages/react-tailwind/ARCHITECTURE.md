@@ -98,6 +98,8 @@ Region props exist because identity matching cannot see through a consumer's wra
 
 Components that scan a uniform collection rather than named regions — `SegmentedControl`, `Breadcrumbs`, `LabelGroup`, `AvatarStack` — have no region props, because a prop there would only duplicate `children`.
 
+`lint:region-props` keeps this from drifting. It fails when a component resolves a region but does not declare it in `RegionProps<…>`, so a new compound component cannot ship a region that consumers have no way to fill.
+
 Where an upstream API is deliberately preserved instead of normalized, the component's `ALIGNMENT.md` says so. Notable preserved exceptions are `Pagination`'s event-first `onPageChange(event, page)`, `SelectPanel`'s `onOpenChange(open, gesture)`, and the opposing `SelectPanel.disableFullscreenOnNarrow` and `FilteredActionList.fullScreenOnNarrow` booleans.
 
 Before adding a direct Base UI integration, a component must check whether an existing package primitive can expose the required behavior. Before adding a helper, it must check `src/internal`, shared variants, and public utility types.

@@ -58,6 +58,8 @@ jobs:
         run: npx turbo run lint:client-boundaries
       - name: Check Tailwind class names
         run: npx turbo run lint:tailwind
+      - name: Check region props
+        run: npx turbo run lint:region-props
       - name: Check package consumer contracts
         run: npx turbo run check:exports check:inventory check:packed-consumer check:llms
 
