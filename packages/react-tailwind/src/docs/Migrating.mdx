@@ -82,6 +82,110 @@ Upstream implementation utilities are not part of this package's contract, inclu
 
 `RelativeTime` no longer depends on a custom element; it renders a semantic `time` element, so tests can read its text directly.
 
+## Replacing the slot system
+
+`useSlots` is the removed utility most likely to affect you: it is used in roughly 28 places across `github/github-ui`, while `isSlot` and `asSlot` have no usages there. Those apps do not use it to consume Primer components — they use it to build their **own** compound components on top of Primer.
+
+A typical caller looks like this:
+
+```tsx
+// Before, with @primer/react
+const [{header, headerActions, blankslate, rows}, children] = useSlots(slottedChildren, {
+  header: PanelList.Header,
+  headerActions: PanelList.HeaderActions,
+  blankslate: PanelList.Blankslate,
+  rows: PanelList.Rows,
+})
+
+return (
+  <div>
+    {header ?? (title && <Header title={title}>{headerActions}</Header>)}
+    {isEmpty ? (blankslate ?? <Blankslate heading="No data" />) : rows}
+    {children}
+  </div>
+)
+```
+
+That pattern relies on three behaviors: extracting named children, falling back to a default when a slot is absent, and rendering everything else afterwards. All three are straightforward to keep.
+
+### Extract named children yourself
+
+The replacement is a small local helper rather than a package import. It has no dependency on Primer internals, so it will not break again when a design system changes:
+
+```tsx
+function flattenChildren(children: React.ReactNode): React.ReactNode[] {
+  return React.Children.toArray(children).flatMap(child =>
+    React.isValidElement<{children?: React.ReactNode}>(child) && child.type === React.Fragment
+      ? flattenChildren(child.props.children)
+      : child,
+  )
+}
+
+function useParts<T extends Record<string, React.ElementType>>(children: React.ReactNode, config: T) {
+  const all = flattenChildren(children)
+  const parts = {} as {[K in keyof T]?: React.ReactNode}
+  const rest: React.ReactNode[] = []
+
+  for (const child of all) {
+    const key = React.isValidElement(child)
+      ? (Object.keys(config) as Array<keyof T>).find(name => child.type === config[name])
+      : undefined
+    if (key && parts[key] === undefined) parts[key] = child
+    else rest.push(child)
+  }
+
+  return [parts, rest] as const
+}
+```
+
+```tsx
+// After
+const [{header, headerActions, blankslate, rows}, children] = useParts(slottedChildren, {
+  header: PanelList.Header,
+  headerActions: PanelList.HeaderActions,
+  blankslate: PanelList.Blankslate,
+  rows: PanelList.Rows,
+})
+```
+
+The call site is unchanged, and the `?? default` fallback and trailing `children` behave as before. Flattening fragments matches how this package's own compound components read their children, so authors can group parts in a fragment without breaking matching.
+
+### Prefer props for single values
+
+If a slot only ever carries a value rather than markup, a prop is simpler than extraction and gives you types for free:
+
+```tsx
+<PanelList header={<Header title="Alerts" />} />
+```
+
+Reserve child extraction for cases where the parent genuinely needs to place authored markup in several positions.
+
+### Wrapping a part so the parent still recognizes it
+
+This is the one capability that does not carry over. `asSlot` copied a `__SLOT__` marker onto a wrapper so the parent kept matching it. This package's compound components match children by component identity, so a wrapper around one of its parts is no longer matched as that part:
+
+```tsx
+// Card matches on identity, so this is not treated as the heading
+const CardHeadingWithTooltip = props => <Card.Heading {...props} />
+```
+
+The wrapped content still renders, but the parent places it with ordinary children rather than in the slot's position, so layout and any behavior keyed to that slot change. For `Card` specifically, a `section` card derives its `aria-labelledby` from the heading it matched, so a wrapped heading also loses that association.
+
+Do one of these instead:
+
+- Render the part directly and move your customization inside it, which is usually the smallest change.
+- Pass your content into the part rather than wrapping the part itself.
+- Keep the wrapper for your own components, and give it a marker you control, which is how `SplitPageLayout` wraps `PageLayout` parts in this package:
+
+```tsx
+const SECTION = Symbol('MyLayout.Section')
+const Section = Object.assign(MySection, {[SECTION]: true})
+const isSection = (child: React.ReactNode) =>
+  React.isValidElement(child) && Boolean((child.type as {[SECTION]?: true})[SECTION])
+```
+
+A marker survives wrapping, where a `child.type === Part` check does not. Use one when you expect your own parts to be wrapped, and identity matching otherwise.
+
 ## Suggested order
 
 1. Set up `ThemeProvider`, `BaseStyles`, and the stylesheet, as described in **Get started**.
