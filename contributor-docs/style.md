@@ -315,31 +315,35 @@ Use the following conventions:
   by the component, do not expose it as a prop, or use types that only offer it
   in the scenarios where the consumer can control it.
 
-For example:
+Use the `mergeProps` utility with component props first and consumer props
+second:
 
 ```tsx
 type Props = React.ComponentPropsWithoutRef<'button'>
 
-function Example({className, onClick, style, ...rest}: Props) {
+function Example(props: Props) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     performInternalAction(event)
-
-    if (!event.defaultPrevented) {
-      onClick?.(event)
-    }
   }
 
   return (
     <button
-      data-component="Example"
-      {...rest}
-      className={clsx(classes.Example, className)}
-      onClick={handleClick}
-      style={{...defaultStyle, ...style}}
+      {...mergeProps(
+        {
+          'data-component': 'Example',
+          className: classes.Example,
+          onClick: handleClick,
+          style: defaultStyle,
+        },
+        props,
+      )}
     />
   )
 }
 ```
+
+See [ADR-025](./adrs/adr-025-prop-merging.md) for the full decision and
+additional scenarios that require separate handling.
 
 When a component requires an attribute for correct behavior, remove it from the
 consumer-facing type instead of silently overriding a value the API accepts:
