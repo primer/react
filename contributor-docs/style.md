@@ -68,6 +68,7 @@ row before the </tbody></table> line.
     - [Utilities](#utilities)
   - [Props](#props)
     - [Prefer applying component rest parameters to the root element rendered by a component](#prefer-applying-component-rest-parameters-to-the-root-element-rendered-by-a-component)
+    - [Merge shared props intentionally](#merge-shared-props-intentionally)
     - [Prefer authoring callback prop types with arguments that can be extended](#prefer-authoring-callback-prop-types-with-arguments-that-can-be-extended)
   - [Hooks](#hooks)
     - [Prefer authoring hooks that accept a `ref` instead of returning a `ref` to apply](#prefer-authoring-hooks-that-accept-a-ref-instead-of-returning-a-ref-to-apply)
@@ -298,6 +299,58 @@ function Example({children, ...rest}: Props) {
 
 </td></tr>
 </tbody></table>
+
+#### Merge shared props intentionally
+
+When a component and a consumer can both provide a prop, define how those values
+are merged instead of allowing the order of prop spreads to decide accidentally.
+Use the following conventions:
+
+- Event handlers run the component's handler first, then the consumer's handler
+  if the event has not been prevented.
+- Class names are merged with `clsx`.
+- Style objects apply the component's styles first and the consumer's styles
+  second so that the consumer can override them.
+- Other attributes use the consumer's value. If an attribute must be controlled
+  by the component, do not expose it as a prop, or use types that only offer it
+  in the scenarios where the consumer can control it.
+
+For example:
+
+```tsx
+type Props = React.ComponentPropsWithoutRef<'button'>
+
+function Example({className, onClick, style, ...rest}: Props) {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    performInternalAction(event)
+
+    if (!event.defaultPrevented) {
+      onClick?.(event)
+    }
+  }
+
+  return (
+    <button
+      data-component="Example"
+      {...rest}
+      className={clsx(classes.Example, className)}
+      onClick={handleClick}
+      style={{...defaultStyle, ...style}}
+    />
+  )
+}
+```
+
+When a component requires an attribute for correct behavior, remove it from the
+consumer-facing type instead of silently overriding a value the API accepts:
+
+```tsx
+type Props = Omit<React.ComponentPropsWithoutRef<'button'>, 'type'>
+
+function Example(props: Props) {
+  return <button {...props} type="button" />
+}
+```
 
 #### Prefer authoring callback prop types with arguments that can be extended
 
