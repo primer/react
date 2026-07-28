@@ -6,8 +6,8 @@
 
 | Stage          | State       |
 | -------------- | ----------- |
-| Status         | Accepted ✅ |
-| Implementation | Adopted ✅  |
+| Status         | Proposed ⚠️ |
+| Implementation | Pending ⚠️  |
 
 ## Context
 
