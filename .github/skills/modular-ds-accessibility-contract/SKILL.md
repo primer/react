@@ -56,7 +56,7 @@ Not every semantic an APG pattern permits should be on by default. When you buil
 
 Accordion panels are one worked example, not the whole rule: `role="region"` is optional in the APG, and applying it to every panel floods the landmark list on a page rendering many accordions — so default it off and let consumers turn it on for the cases where a landmark genuinely helps. Arrow-key navigation between accordion headers is optional in the same pattern and needs its own recorded decision; so does every other optional semantic in whichever pattern you're building.
 
-Whenever you make a call like this, cover both the default and the opt-in path in tests, stories, or docs metadata (see `modular-ds-tdd-a11y-test-backfill`) so the tradeoff is visible to the next person.
+Whenever you make a call like this, cover both the default and the opt-in path in tests, stories, or docs metadata (see `modular-ds-testing`) so the tradeoff is visible to the next person.
 
 **"Document the call" means a file in the repository.** Explaining your reasoning in a PR description, a chat response or a summary does not discharge this — those are read once and then lost, and the next person to touch the component sees only the code. The record has to land in a committed artifact: a test that names the behaviour, a story that demonstrates both paths, a docs metadata field, or a comment at the point of the decision. A component whose optional semantics were carefully reasoned about but only narrated has failed this rule exactly as much as one where nobody thought about them.
 

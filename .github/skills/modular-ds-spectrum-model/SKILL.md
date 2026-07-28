@@ -5,22 +5,9 @@ description: "Use when: deciding how to structure a new Primer React component, 
 
 # Modular DS — Spectrum of Abstraction Model
 
-Primer authors components across a spectrum of abstraction rather than a single fixed shape. Start with flexible presentational components and companion behavior hooks. As opinions or defaults become established, build config components that compose those presentational components and hooks instead of duplicating their behavior.
+`contributor-docs/style.md` is the source of truth for this model. Read "Prefer building components across a spectrum of abstraction" first — it defines the four API types (config, presentational, base, utilities) and when each one is appropriate. This skill and its siblings carry the operational detail for applying them, not a second definition of them. [ADR-024](../../../contributor-docs/adrs/adr-024-modular-ds.md) (`contributor-docs/adrs/adr-024-modular-ds.md`) carries the full context, rationale, and open questions behind both.
 
-This is deliberately **not** a mandatory layer stack every component must populate. Not every component needs its own config API, and not every component needs its own hooks — start with presentational components and add the other API types only when there's real demand for the control they expose.
-
-## Background
-
-This model is documented in [ADR-024](../../../contributor-docs/adrs/adr-024-modular-ds.md) (`contributor-docs/adrs/adr-024-modular-ds.md`), which carries the full context, rationale, and open questions behind the rules below. `contributor-docs/style.md` covers the same model in shorter, human-facing form alongside Primer's wider conventions.
-
-## The four API types
-
-| API type                  | Use for                                                                             |
-| ------------------------- | ----------------------------------------------------------------------------------- |
-| Config components         | Ready-made, props-based components for stable product patterns and common use-cases |
-| Presentational components | Styled pieces that consumers compose directly, often with companion behavior hooks  |
-| Base components           | Unstyled primitives, often for accessibility structure or low-level behavior        |
-| Utilities                 | Hooks, state management, behaviors, and functions used to build components          |
+One thing worth stating up front, because it's the most common way to misread the model: this is deliberately **not** a mandatory layer stack every component must populate. Not every component needs its own config API, and not every component needs its own hooks — start with presentational components and add the other API types only when there's real demand for the control they expose.
 
 See the dedicated skill for each API type for detailed rules:
 
@@ -29,7 +16,7 @@ See the dedicated skill for each API type for detailed rules:
 - `modular-ds-base-components`
 - `modular-ds-utilities`
 
-For accessibility ownership across API types, see `modular-ds-accessibility-contract`. For breaking an existing monolithic component into this model, see `modular-ds-decompose-existing-component`.
+For accessibility ownership across API types, see `modular-ds-accessibility-contract`. For what to test at each API type, see `modular-ds-testing`.
 
 ## How the API types relate
 
@@ -80,4 +67,4 @@ When a decision isn't obvious — for example, whether a component needs a confi
 
 ## Scope
 
-This applies to how Primer authors and extends components generally, not just brand-new ones. Existing components (e.g. SelectPanel, Dialog) may need changes to fit this model over time; see `modular-ds-decompose-existing-component` when working on an existing component rather than starting fresh.
+This applies to how Primer authors and extends components generally, not just brand-new ones. Existing components (e.g. SelectPanel, Dialog) may need changes to fit this model over time. Primer hasn't reshaped one under this model yet, so when the work is an existing component rather than a fresh start, keep the public API identical and surface the structural decisions rather than assuming a procedure.
