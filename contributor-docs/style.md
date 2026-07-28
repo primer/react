@@ -342,9 +342,6 @@ function Example(props: Props) {
 }
 ```
 
-See [ADR-025](./adrs/adr-025-prop-merging.md) for the full decision and
-additional scenarios that require separate handling.
-
 When a component requires an attribute for correct behavior, remove it from the
 consumer-facing type instead of silently overriding a value the API accepts:
 
