@@ -1,13 +1,11 @@
 ---
 name: modular-ds-spectrum-model
-description: "Use when: deciding how to structure a new Primer React component, evaluating whether an existing component's API is at the right level of abstraction, or orienting on the modular design system approach before using a more specific modular-ds-* skill. Covers the spectrum of abstraction model (config, presentational, base, utility components), when each API type is appropriate, and how they compose."
+description: "Use when: deciding how to structure a new Primer React component, evaluating whether an existing component's API is at the right level of abstraction, or orienting on the modular design system approach before using a more specific modular-ds-* skill. Covers how the four API types (config, presentational, base, utilities) relate and compose, and how to decide which ones a component needs. The model itself is defined in contributor-docs/style.md."
 ---
 
 # Modular DS — Spectrum of Abstraction Model
 
-`contributor-docs/style.md` is the source of truth for this model. Read "Prefer building components across a spectrum of abstraction" first — it defines the four API types (config, presentational, base, utilities) and when each one is appropriate. This skill and its siblings carry the operational detail for applying them, not a second definition of them. [ADR-024](../../../contributor-docs/adrs/adr-024-modular-ds.md) (`contributor-docs/adrs/adr-024-modular-ds.md`) carries the full context, rationale, and open questions behind both.
-
-One thing worth stating up front, because it's the most common way to misread the model: this is deliberately **not** a mandatory layer stack every component must populate. Not every component needs its own config API, and not every component needs its own hooks — start with presentational components and add the other API types only when there's real demand for the control they expose.
+`contributor-docs/style.md` is the source of truth for this model. Read "Prefer building components across a spectrum of abstraction" first — it defines the four API types (config, presentational, base, utilities), when each one is appropriate, and, importantly, that this is not a mandatory stack every component must populate. This skill and its siblings carry the operational detail for applying that model, not a second definition of it.
 
 See the dedicated skill for each API type for detailed rules:
 
@@ -58,10 +56,7 @@ The `List` parts continue to provide structure while the team layers filtering o
 
 ## Deciding which API types a component needs
 
-There's no single mechanical test for this yet, but one useful signal: does the state have a clear component that owns it? For a `List` with selection, there are two valid options:
-
-- Bake selection into the `List` component (the config approach), or
-- Provide a `useSelection`/`useList` hook that composes with presentational `List` parts (the presentational + utility approach)
+style.md gives the signal to start from: whether the state has a component that clearly owns it.
 
 When a decision isn't obvious — for example, whether a component needs a config API at all, or whether a sub-part needs its own base component — surface the decision explicitly rather than assuming an answer. Surfacing it means shipping the **narrower, reversible** option and asking, not shipping the expansive one and noting the question afterwards. Adding a public export, a new part, or a new entry point is easy to do and hard to undo; leaving it out costs nothing and can be granted the moment someone asks.
 
