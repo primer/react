@@ -14,7 +14,7 @@ See the dedicated skill for each API type for detailed rules:
 - `modular-ds-base-components`
 - `modular-ds-utilities`
 
-For accessibility ownership across API types, see `modular-ds-accessibility-contract`. For what to test at each API type, see `modular-ds-testing`.
+For accessibility ownership across API types, see `modular-ds-accessibility-contract`.
 
 ## How the API types relate
 

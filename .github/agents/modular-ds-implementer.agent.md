@@ -13,7 +13,6 @@ skills:
   - modular-ds-base-components
   - modular-ds-utilities
   - modular-ds-accessibility-contract
-  - modular-ds-testing
   - style-guide
 ---
 
@@ -43,7 +42,7 @@ Not every component needs every API type. Don't build a config component, a base
 - Do not expose `data-component` as a customizable prop at any API type — Primer owns `data-component` values as component identifiers.
 - Avoid inventing visual styling without a concrete design reference, image, or specification. If styling isn't specified, keep styles minimal and structural so the component API and accessibility model can be evaluated independently.
 - Prefer `HTMLElement` for default root refs and polymorphic component typing. Use narrower element types only when the API or behavior requires a specific element.
-- Include the surfaces needed for adoption: source exports, tests, stories, docs metadata, and changesets when published package behavior changes. New components and new public exports need a `minor` changeset for the affected package, and export snapshots or tests must be updated alongside any public export change. Use `modular-ds-testing` for what to test at each API type.
+- Include the surfaces needed for adoption: source exports, tests, stories, docs metadata, and changesets when published package behavior changes. New components and new public exports need a `minor` changeset for the affected package, and export snapshots or tests must be updated alongside any public export change.
 - Follow the repo-wide conventions in the `style-guide` skill and `contributor-docs/style.md` for anything these skills don't cover — prop naming, hook conventions, SSR safety, and CSS practices all still apply.
 
 ## Entry points
@@ -58,6 +57,12 @@ Create or update `index.ts` files to re-export the public API for each API type 
 
 ## Validation
 
-Follow the validation order in `modular-ds-testing` and fix any failures before reporting completion.
+Run validation in this order and fix any failures before reporting completion:
+
+1. `npx prettier --write <changed-files>`
+2. `npx eslint --fix <changed-files>`
+3. `npx stylelint -q --rd --fix <changed-css-files>`
+4. `npm run test:type-check` (plain `tsc --noEmit`; the bare `type-check` script also runs `turbo run type-check` across sibling workspaces)
+5. `npm test -- --run --reporter=verbose <test-files>` — `--run` matters: the `test` script is plain `vitest`, which watches rather than exits when run in an interactive terminal.
 
 When proposing or implementing work, explain which API type changed, why that level of abstraction is appropriate, and how the implementation can be extended without forking or overriding Primer internals.
