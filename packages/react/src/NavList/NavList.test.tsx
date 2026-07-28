@@ -752,4 +752,30 @@ describe('NavList.ShowMoreItem with pages', () => {
       expect(heading).toHaveAttribute('title', 'Section navigation')
     })
   })
+
+  describe('NavList.Group', () => {
+    it('renders a divider before the group by default', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Group title="Account">
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList.Divider"]')).toBeInTheDocument()
+    })
+
+    it('does not render a divider when hideDivider is set', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Group title="Account" hideDivider>
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList.Divider"]')).not.toBeInTheDocument()
+    })
+  })
 })

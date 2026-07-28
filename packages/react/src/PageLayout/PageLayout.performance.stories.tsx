@@ -125,6 +125,7 @@ export const MediumContent: Story = {
             {/* Large table with complex cells */}
             <h2 style={{marginTop: '16px', marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
             <div
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
               tabIndex={0}
               style={{
                 overflowY: 'auto',
@@ -253,6 +254,7 @@ export const HeavyContent: Story = {
         </PageLayout.Pane>
 
         <PageLayout.Content>
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
             <SearchInput />
             {/* Section 1: Large card grid */}

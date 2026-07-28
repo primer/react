@@ -16,7 +16,8 @@ import {useTabPanel} from './useTabPanel'
  */
 function Tabs(props: TabsProps) {
   const {children, onValueChange} = props
-  const groupId = useId()
+  const generatedId = useId()
+  const groupId = props.id ?? generatedId
 
   const [selectedValue, setSelectedValue] = useControllableState<string>({
     name: 'tab-selection',

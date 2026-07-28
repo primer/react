@@ -33,6 +33,28 @@ describe('get_component_batch', () => {
     })
   }
 
+  it('documents which component tool to use for each supported count', async () => {
+    const {tools} = await client.listTools()
+    const getComponent = tools.find(tool => tool.name === 'get_component')
+    const getComponentBatch = tools.find(tool => tool.name === 'get_component_batch')
+    const listResult = await client.callTool({name: 'list_components'})
+
+    expect(getComponent?.description).toBe(
+      'Retrieve official documentation and usage details for exactly one React component from the @primer/react package. Use get_component_batch for 2 to 10 components.',
+    )
+    expect(getComponentBatch?.description).toBe(
+      'Retrieve official documentation and usage details for 2 to 10 React components from the @primer/react package in one call. Use get_component for exactly one component.',
+    )
+    expect(listResult.content).toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining(
+          'Use `get_component` for exactly one component and `get_component_batch` for 2 to 10 components.',
+        ),
+      }),
+    )
+  })
+
   it('requires between 2 and 10 names', async () => {
     const tooFew = await callBatch(['Button'])
     const tooMany = await callBatch(Array.from({length: 11}, (_, index) => `Component${index}`))

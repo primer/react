@@ -43,7 +43,15 @@ type UncontrolledTabsProps = {
   onValueChange?: ({value}: {value: string}) => void
 }
 
-export type TabsProps = PropsWithChildren<ControlledTabsProps | UncontrolledTabsProps>
+type CommonTabsProps = {
+  /**
+   * Optional id used as the base for generated tab and panel ids. If omitted, a
+   * unique id is generated automatically.
+   */
+  id?: string
+}
+
+export type TabsProps = PropsWithChildren<(ControlledTabsProps | UncontrolledTabsProps) & CommonTabsProps>
 
 type Label = {
   'aria-label': string
@@ -86,7 +94,7 @@ export type TabsContextValue = {
 
 export type TabListHookProps<T extends HTMLElement> = TabListProps & {
   /** Optional ref to use for the tablist. If none is provided, one will be generated automatically */
-  ref?: React.RefObject<T>
+  ref?: React.Ref<T | null>
 }
 
 export type TabListHookResult<T extends HTMLElement> = {
@@ -96,7 +104,7 @@ export type TabListHookResult<T extends HTMLElement> = {
     'aria-orientation': AriaAttributes['aria-orientation']
     'aria-label': AriaAttributes['aria-label']
     'aria-labelledby': AriaAttributes['aria-labelledby']
-    ref: React.RefObject<T | null>
+    ref: React.Ref<T | null>
     role: 'tablist'
   }
 }

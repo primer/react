@@ -1,5 +1,16 @@
 # @primer/mcp
 
+## 0.5.0
+
+### Minor Changes
+
+- [#8150](https://github.com/primer/react/pull/8150) [`c261f95`](https://github.com/primer/react/commit/c261f9551a9f98e5414d3bab3ab53b61574ac4f7) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Components: Add a batch tool for retrieving documentation for multiple components in one call.
+
+### Patch Changes
+
+- Updated dependencies [[`eb447fe`](https://github.com/primer/react/commit/eb447fef0f1565934dc38d09df21d8063957aa9d), [`4045abe`](https://github.com/primer/react/commit/4045abea621d0940edcd1120fc70e6ed5f797205), [`f061bc4`](https://github.com/primer/react/commit/f061bc41483211bef1ec8b1dfe07937f20a9ddd6), [`2a67c19`](https://github.com/primer/react/commit/2a67c191a0038df64d2225c0bc11c020c2def03c), [`f8e7cf2`](https://github.com/primer/react/commit/f8e7cf2e1bd3eb02d4106b4932b487bb8ff108e6), [`cade4af`](https://github.com/primer/react/commit/cade4af9a70f3fd2622031af585dc07dccd79e11), [`f86e5a6`](https://github.com/primer/react/commit/f86e5a6420e857e7476c3954d419f4e228bdcf1a), [`d60d05b`](https://github.com/primer/react/commit/d60d05b2684056b653cb605418d6f1cae0ba38e2)]:
+  - @primer/react@38.33.0
+
 ## 0.4.0
 
 ### Minor Changes

@@ -2,6 +2,7 @@ import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {ActionList} from '.'
+import {createRef} from 'react'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionList.module.css'
@@ -605,4 +606,34 @@ describe('ActionList with role="tree"', () => {
 
     expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
   })
+})
+
+describe('ActionList forwarded ref (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      it('forwards a ref object to the element', () => {
+        const ref = createRef<HTMLUListElement>()
+        HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <ActionList ref={ref}>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList>
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLElement)
+      })
+
+      it('calls a callback ref with the element', () => {
+        const refCallback = vi.fn()
+        HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <ActionList ref={refCallback}>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList>
+          </FeatureFlags>,
+        )
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLElement)).toBe(true)
+      })
+    })
+  }
 })

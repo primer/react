@@ -1,5 +1,43 @@
 # @primer/react
 
+## 38.34.0
+
+### Minor Changes
+
+- [#8086](https://github.com/primer/react/pull/8086) [`81d4174`](https://github.com/primer/react/commit/81d4174150b37da95db23480574ddf8db5b20ca4) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Add a `hideDivider` prop to `NavList.Group` so consumers can opt out of rendering the divider before a group.
+
+### Patch Changes
+
+- [#8211](https://github.com/primer/react/pull/8211) [`a3e669f`](https://github.com/primer/react/commit/a3e669fa551a7d07841ce20224199d172905860f) Thanks [@francinelucca](https://github.com/francinelucca)! - Link: Remove unnecessary `data-hover-color` attribute from rendered DOM element
+
+- [#8196](https://github.com/primer/react/pull/8196) [`e24effd`](https://github.com/primer/react/commit/e24effd440d69f0068a89aba26bae9e39fb3254e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Use `aria-pressed` instead of `aria-current` on `SegmentedControl.Button` and `SegmentedControl.IconButton` so JAWS announces the selected state when a segment is activated.
+
+- [#8169](https://github.com/primer/react/pull/8169) [`1d6f559`](https://github.com/primer/react/commit/1d6f5593f5e482d1d03027522bc882560c7b1f06) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Timeline: `Timeline.Actions` now wraps onto a new row below `Timeline.Body`, left-aligned with the body content, when `Timeline.Item` is narrower than 480px.
+
+- [#8214](https://github.com/primer/react/pull/8214) [`41705f4`](https://github.com/primer/react/commit/41705f430ce0f64eb61c2665313f36a88cf6f16c) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - UnderlinePanels: The experimental `UnderlinePanels` component is now built on the experimental `Tabs` component instead of `@github/tab-container-element`. Its public API and behavior are unchanged.
+
+## 38.33.0
+
+### Minor Changes
+
+- [#8160](https://github.com/primer/react/pull/8160) [`f8e7cf2`](https://github.com/primer/react/commit/f8e7cf2e1bd3eb02d4106b4932b487bb8ff108e6) Thanks [@TylerJDev](https://github.com/TylerJDev)! - PageLayout: Export the resize primitives `usePaneWidth` and `DragHandle` (with `defaultPaneWidth` and related types) so pane-resize behavior can be reused outside of `PageLayout`.
+
+### Patch Changes
+
+- [#8064](https://github.com/primer/react/pull/8064) [`eb447fe`](https://github.com/primer/react/commit/eb447fef0f1565934dc38d09df21d8063957aa9d) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Update the ActionBar overflow menu anchor label to `More items`
+
+- [#8166](https://github.com/primer/react/pull/8166) [`4045abe`](https://github.com/primer/react/commit/4045abea621d0940edcd1120fc70e6ed5f797205) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Add `contain: layout` to high-churn overflow containers (`ActionBar`, `UnderlineNav`, `UnderlinePanels`, and `LabelGroup`) so their frequent reflows no longer invalidate ancestor layout.
+
+- [#8176](https://github.com/primer/react/pull/8176) [`f061bc4`](https://github.com/primer/react/commit/f061bc41483211bef1ec8b1dfe07937f20a9ddd6) Thanks [@francinelucca](https://github.com/francinelucca)! - FeatureFlags: Guard against missing context in `useFeatureFlag` so it returns `false` instead of throwing when used outside a provider
+
+- [#8188](https://github.com/primer/react/pull/8188) [`2a67c19`](https://github.com/primer/react/commit/2a67c191a0038df64d2225c0bc11c020c2def03c) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `UnderlineNav` items all being considered overflowing on Safari with text size overrides
+
+- [#8116](https://github.com/primer/react/pull/8116) [`cade4af`](https://github.com/primer/react/commit/cade4af9a70f3fd2622031af585dc07dccd79e11) Thanks [@mattcosta7](https://github.com/mattcosta7)! - `useAnchoredPosition`: improve performance by caching the scrollable-ancestor walk per anchor, reducing repositioning work for overlays, menus, and tooltips.
+
+- [#8164](https://github.com/primer/react/pull/8164) [`f86e5a6`](https://github.com/primer/react/commit/f86e5a6420e857e7476c3954d419f4e228bdcf1a) Thanks [@jonrohan](https://github.com/jonrohan)! - Fix `UnderlineNav` tab list not filling the full width of the underline nav in Safari
+
+- [#8165](https://github.com/primer/react/pull/8165) [`d60d05b`](https://github.com/primer/react/commit/d60d05b2684056b653cb605418d6f1cae0ba38e2) Thanks [@jonrohan](https://github.com/jonrohan)! - Pin the underline tabbed interface wrapper's vertical box model in wrap mode so external border and padding overrides can no longer offset its height and incorrectly trigger the overflow "more" menu
+
 ## 38.32.0
 
 ### Minor Changes

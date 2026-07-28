@@ -363,9 +363,10 @@ TrailingAction.displayName = 'NavList.TrailingAction'
 export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   children: React.ReactNode
   title?: string
+  hideDivider?: boolean
 }
 
-const Group: React.FC<NavListGroupProps> = ({title, children, ...props}) => {
+const Group: React.FC<NavListGroupProps> = ({title, children, hideDivider, ...props}) => {
   const headingLevel = React.useContext(NavListHeadingLevelContext)
   // Default the group heading to one level below the NavList.Heading (h3 under an
   // h2, h4 under an h3), falling back to h3 when there is no NavList.Heading. To
@@ -373,7 +374,7 @@ const Group: React.FC<NavListGroupProps> = ({title, children, ...props}) => {
   const groupHeadingAs = headingLevel ? levelToHeadingTag(headingLevel + 1) : 'h3'
   return (
     <>
-      <ActionList.Divider />
+      {!hideDivider && <ActionList.Divider />}
       <ActionList.Group {...props}>
         {title ? (
           <ActionList.GroupHeading as={groupHeadingAs} data-component="ActionList.GroupHeading">

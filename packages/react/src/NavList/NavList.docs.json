@@ -199,6 +199,12 @@
           "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\nIf both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
         },
         {
+          "name": "hideDivider",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether to hide the divider that is rendered before the group."
+        },
+        {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
         }
