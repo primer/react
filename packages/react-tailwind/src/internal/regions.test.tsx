@@ -228,8 +228,8 @@ describe('resolveRegions', () => {
   const A = ({children}: {children?: React.ReactNode}) => <i>{children}</i>
   const B = ({children}: {children?: React.ReactNode}) => <b>{children}</b>
 
-  it('keeps the first match for a singular region and lets duplicates fall to rest', () => {
-    const {regions, rest} = resolveRegions(
+  it('keeps the first match for a singular region and drops the duplicate', () => {
+    const {regions, matched, rest} = resolveRegions(
       <>
         <A>first</A>
         <A>second</A>
@@ -238,8 +238,27 @@ describe('resolveRegions', () => {
       {a: {match: isPartOf(A)}},
     )
 
-    expect(regions.a).toBeDefined()
-    expect(rest).toHaveLength(2)
+    expect(matched.a).toHaveLength(1)
+    expect((regions.a as React.ReactElement<{children: string}>).props.children).toBe('first')
+    // The duplicate must not reach `rest`, which for an item is the label.
+    expect(rest).toHaveLength(1)
+  })
+
+  it('does not leak a dropped duplicate into an item label', () => {
+    // ActionList.Item appends its own trailing visual for inactive items, so a duplicate that
+    // fell through to `rest` would render inline in the middle of the label.
+    const {container} = render(
+      <ActionList>
+        <ActionList.Item inactiveText="Unavailable">
+          Label
+          <ActionList.TrailingVisual>TV</ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const label = container.querySelector('[data-component="ActionList.Item.Label"]')
+    expect(label?.textContent).toBe('Label')
+    expect(label?.querySelector('[data-component="ActionList.TrailingVisual"]')).toBeNull()
   })
 
   it('collects every match for a multiple region in authored order', () => {

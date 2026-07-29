@@ -219,7 +219,7 @@ Import: `import {Card} from '@primer/react-tailwind/Card'`
 `Card` is a composable content container with heading, description, image, metadata, icon, and action parts.
 
 Differences from `@primer/react`:
-- `icon`, `image`, `heading`, `description`, `metadata`, and `action` accept an element for the corresponding region and take precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it. A `section` card still derives its `aria-labelledby` from a heading supplied this way.
+- A duplicate part is discarded rather than rendered among the custom children. Upstream keeps a single region too, though it takes the last match rather than the first.
 
 ### Checkbox
 

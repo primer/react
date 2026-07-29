@@ -65,7 +65,7 @@ it('composes slots into the upstream card structure', () => {
   )
 })
 
-it('preserves custom and duplicate children alongside composed slots', () => {
+it('preserves custom children and drops a duplicate slot', () => {
   const {container} = render(
     <Card as="section">
       <CardHeading>Primary project</CardHeading>
@@ -76,10 +76,12 @@ it('preserves custom and duplicate children alongside composed slots', () => {
   )
 
   expect(screen.getByText('Custom status')).toBeInTheDocument()
-  expect(screen.getByText('Additional project heading')).toBeInTheDocument()
+  // The first heading fills the region and the duplicate is discarded, as upstream does.
   const headings = container.querySelectorAll('[data-component="Card.Heading"]')
+  expect(headings).toHaveLength(1)
+  expect(headings[0]).toHaveTextContent('Primary project')
   expect(headings[0]).toHaveAttribute('id')
-  expect(headings[1]).not.toHaveAttribute('id')
+  expect(screen.queryByText('Additional project heading')).not.toBeInTheDocument()
 })
 
 it('composes slots nested in fragments', () => {

@@ -6,10 +6,10 @@ import {flattenChildren} from './children'
 /**
  * Describes how a parent recognizes one of its named regions among its children.
  *
- * `multiple` regions collect every match in authored order; singular regions keep only the
- * first match so a stray duplicate falls through to `rest` rather than silently rendering
- * twice. `keep` leaves matches in `rest` for parents that render children in place and only
- * need to know which regions are present.
+ * `multiple` regions collect every match in authored order; singular regions keep the first
+ * match and drop any duplicate, matching the slot system this replaces. `keep` leaves matches
+ * in `rest` for parents that render children in place and only need to know which regions are
+ * present.
  */
 export interface RegionSpec<Props = unknown> {
   match: RegionMatcher<Props>
@@ -57,9 +57,10 @@ export function resolveRegions<Specs extends AnySpecs>(
     if (React.isValidElement(child)) {
       for (const name of names) {
         const spec = specs[name]
-        if (!spec.multiple && matched[name].length > 0) continue
         if (!spec.match(child)) continue
-        matched[name].push(child)
+        // A duplicate is dropped rather than falling through to `rest`, because `rest` is
+        // often the label and a stray part would render inline in the middle of it.
+        if (spec.multiple || matched[name].length === 0) matched[name].push(child)
         consumed = !spec.keep
         break
       }

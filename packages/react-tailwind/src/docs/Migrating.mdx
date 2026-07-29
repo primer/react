@@ -111,7 +111,7 @@ Each of these has a replacement here:
 - **`ExpirationSelect` and `OrganizationSelect` need no replacement.** `FormControl` here distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` through context instead of finding its control among its children, so any control calling `useFormControlForwardedProps` is wired without being identified.
 - **`BulkSelectorGroup` needs no replacement either.** `ActionList` only ever matched a heading among its children, upstream included, so nothing read that marker.
 
-Two upstream behaviours genuinely do not carry over. A duplicate part is dropped upstream and rendered here in the leftover-children position, and the two development-only warnings — for a duplicate slot, and for a wrapper whose `displayName` matches a part but is missing the marker — have no equivalent.
+One upstream behaviour genuinely does not carry over: the two development-only warnings, for a duplicate slot and for a wrapper whose `displayName` matches a part but is missing the marker, have no equivalent, because this package has no warning convention. Duplicate parts behave as they do upstream — the first match wins and the rest are dropped.
 
 The rest of this section covers the patterns that carry over.
 
@@ -155,7 +155,7 @@ const [{header, headerActions, blankslate, rows}, children] = useParts(slottedCh
 })
 ```
 
-The call site is unchanged, and the `?? default` fallback and trailing `children` behave as before. It keeps `useSlots`'s ordering semantics too: the first element matching a key wins, later duplicates fall through to `rest`, and `rest` stays in author order. Flattening fragments matches how this package's own compound components read their children, so authors can group parts in a fragment without breaking matching.
+The call site is unchanged, and the `?? default` fallback and trailing `children` behave as before. It keeps `useSlots`'s ordering semantics too: the first element matching a key wins and `rest` stays in author order. Note that this sketch pushes a duplicate into `rest`, where `useSlots` drops it; drop it instead if `rest` is somewhere a stray part would be visible, such as a label. Flattening fragments matches how this package's own compound components read their children, so authors can group parts in a fragment without breaking matching.
 
 ### Prefer props for single values
 
