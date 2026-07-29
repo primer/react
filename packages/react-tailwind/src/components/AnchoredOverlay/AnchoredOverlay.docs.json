@@ -1,0 +1,84 @@
+{
+  "id": "anchoredoverlay",
+  "name": "AnchoredOverlay",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/AnchoredOverlay",
+  "description": "`AnchoredOverlay` positions a dismissible overlay relative to a trigger.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-anchoredoverlay-examples--controlled-menu"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-examples--focus-trap"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--portal-inside-scrolling-element"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--custom-anchor-id"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--height"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--width"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--anchor-alignment"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--anchor-side"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--offset-position-from-anchor"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--offset-alignment-from-anchor"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--focus-trap-overrides"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--focus-zone-overrides"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--overlay-props-overrides"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--fullscreen-variant"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--centered-on-page"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--anchor-position-grid"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--scroll-with-anchor"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--within-dialog"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--within-nested-dialog"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--within-dialog-overflowing"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--multiple-overlays"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--within-sticky-element"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay--default"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay--playground"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay--with-arrow"
+    }
+  ]
+}

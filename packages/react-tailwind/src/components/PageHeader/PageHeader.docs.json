@@ -1,0 +1,141 @@
+{
+  "id": "pageheader",
+  "name": "PageHeader",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/PageHeader",
+  "description": "`PageHeader` composes page context, a title, description, actions, and local navigation while preserving reading and focus order.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-pageheader-examples--webhooks"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--webhooks-on-narrow-viewport"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--pull-request-page"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--pull-request-page-on-narrow-viewport"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--files-page"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--files-page-on-narrow-viewport"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--with-page-layout"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--issues-page"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--has-title-only"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--has-large-title"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-leading-and-trailing-visuals"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-leading-visual-hidden-on-regular-viewport"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-actions"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-description-slot"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-navigation-slot"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-custom-navigation"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-leading-and-trailing-actions"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-parent-link-and-actions-of-context-area"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-context-bar-and-actions-of-context-area"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-actions-that-have-responsive-content"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--has-bottom-border"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--title-area-size-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader--default"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "hasBorder",
+      "type": "boolean"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "PageHeaderPart",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "Hidden"
+        }
+      ]
+    },
+    {
+      "name": "ParentLink",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "Hidden"
+        }
+      ]
+    },
+    {
+      "name": "TitleArea",
+      "props": [
+        {
+          "name": "variant",
+          "type": "ResponsiveValue<TitleVariant>",
+          "defaultValue": "'medium'"
+        }
+      ]
+    },
+    {
+      "name": "Title",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "'div'"
+        },
+        {
+          "name": "hidden",
+          "type": "Hidden"
+        }
+      ]
+    },
+    {
+      "name": "Navigation",
+      "props": [
+        {
+          "name": "as",
+          "type": "'nav' | 'div'",
+          "defaultValue": "'div'"
+        }
+      ]
+    }
+  ]
+}

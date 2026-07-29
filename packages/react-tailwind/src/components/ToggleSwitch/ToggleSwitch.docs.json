@@ -1,0 +1,56 @@
+{
+  "id": "toggleswitch",
+  "name": "ToggleSwitch",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ToggleSwitch",
+  "description": "`ToggleSwitch` is a form-associated binary switch with small and medium sizes.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-toggleswitch-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--small"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--disabled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--checked"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--checked-disabled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--with-custom-labels"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch--default"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "BaseSwitch.Root.Props['className']"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "defaultValue": "'medium'"
+    }
+  ]
+}

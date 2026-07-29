@@ -1,0 +1,62 @@
+{
+  "id": "flash",
+  "name": "Flash",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Flash",
+  "description": "`Flash` presents a prominent message with semantic visual variants and an optional full-width layout.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-flash-examples--dismissible"
+    },
+    {
+      "id": "react-tailwind-content-flash-examples--full-width-notice"
+    },
+    {
+      "id": "react-tailwind-content-flash-examples--custom-content"
+    },
+    {
+      "id": "react-tailwind-content-flash-features--success"
+    },
+    {
+      "id": "react-tailwind-content-flash-features--danger"
+    },
+    {
+      "id": "react-tailwind-content-flash-features--warning"
+    },
+    {
+      "id": "react-tailwind-content-flash-features--full"
+    },
+    {
+      "id": "react-tailwind-content-flash-features--with-icon-and-action"
+    },
+    {
+      "id": "react-tailwind-content-flash-features--with-icon-action-dismiss"
+    },
+    {
+      "id": "react-tailwind-content-flash-features--all-variants"
+    },
+    {
+      "id": "react-tailwind-content-flash--default"
+    },
+    {
+      "id": "react-tailwind-content-flash--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'"
+    },
+    {
+      "name": "full",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'warning' | 'success' | 'danger'",
+      "defaultValue": "'default'"
+    }
+  ]
+}

@@ -38,10 +38,12 @@
     "./dist/**/*.css"
   ],
   "scripts": {
-    "build": "npm run clean && rolldown -c && npm run build:css && npm run build:llms",
+    "build": "npm run clean && rolldown -c && npm run build:css && npm run build:docs-json && npm run build:llms",
     "build:css": "tailwindcss -i ./src/styles/styles.css -o ./dist/styles.css --minify && node ./script/copy-css.mjs",
     "build:css:storybook": "npm run build:css && tailwindcss -i ./src/styles/storybook.css -o ./.storybook/styles.css --minify",
+    "build:docs-json": "node ./script/generate-docs-json.mjs",
     "build:llms": "node ./script/generate-llms-txt.mjs",
+    "check:docs-json": "node ./script/check-docs-json.mjs",
     "check:exports": "node ./script/check-built-exports.mjs",
     "check:inventory": "node ./script/check-api-inventory.mjs",
     "check:llms": "node ./script/check-llms-txt.mjs",
@@ -49,6 +51,7 @@
     "clean": "rimraf dist",
     "lint:client-boundaries": "node ./script/lint-client-boundaries.mjs",
     "lint:npm": "publint --types",
+    "lint:prop-docs": "node ./script/lint-prop-docs.mjs",
     "lint:react-compiler": "node ./script/lint-react-compiler.mjs",
     "lint:region-props": "node ./script/lint-region-props.mjs",
     "lint:tailwind": "node ./script/lint-tailwind-classes.mjs",

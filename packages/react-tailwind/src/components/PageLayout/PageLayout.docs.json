@@ -1,0 +1,330 @@
+{
+  "id": "pagelayout",
+  "name": "PageLayout",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/PageLayout",
+  "description": "`PageLayout` composes page headers, navigation panes or sidebars, content, and footers into a responsive layout.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--parent-detail"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--parent-detail-breadcrumb"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--filter-bottom-sheet"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--filter-action-menu"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--filters-bottom-sheet-two-levels"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--parent-detail-plus-filters"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--pull-request-page"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sticky-pane"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--nested-scroll-container"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--custom-sticky-header"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--scroll-container-within-page-layout-pane"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--custom-pane-widths"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--with-custom-pane-heading"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sidebar-start"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sidebar-end"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sidebar-with-pane-resizable"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-sidebar-without-persistence"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-sidebar-with-custom-persistence"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sticky-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sidebar-fullscreen-responsive-variant"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane-without-persistence"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane-with-custom-persistence"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane-with-number-width"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane-with-controlled-width"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--header-divider-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--header-hidden-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--footer-divider-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--footer-hidden-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--content-hidden-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--pane-position-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--pane-divider-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--pane-hidden-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout--default"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout--playground"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout--resizable-pane"
+    }
+  ],
+  "props": [
+    {
+      "name": "columnGap",
+      "type": "Spacing",
+      "defaultValue": "'normal'",
+      "description": "Horizontal spacing between the sidebar, content, and pane."
+    },
+    {
+      "name": "containerWidth",
+      "type": "keyof typeof width",
+      "defaultValue": "'xlarge'",
+      "description": "Maximum width of the centered content column."
+    },
+    {
+      "name": "footer",
+      "type": "React.ReactNode",
+      "description": "Supplies the footer region. Takes precedence over a matching `PageLayout.Footer` child."
+    },
+    {
+      "name": "header",
+      "type": "React.ReactNode",
+      "description": "Supplies the header region. Takes precedence over a matching `PageLayout.Header` child."
+    },
+    {
+      "name": "padding",
+      "type": "Spacing",
+      "defaultValue": "'normal'",
+      "description": "Spacing between the page container's outer edges and the viewport."
+    },
+    {
+      "name": "rowGap",
+      "type": "Spacing",
+      "defaultValue": "'normal'",
+      "description": "Vertical spacing between the header, content, and footer."
+    },
+    {
+      "name": "sidebar",
+      "type": "React.ReactNode",
+      "description": "Supplies the sidebar region. Takes precedence over a matching `PageLayout.Sidebar` child."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "DragHandle",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string"
+        },
+        {
+          "name": "aria-valuemax",
+          "type": "number"
+        },
+        {
+          "name": "aria-valuemin",
+          "type": "number"
+        },
+        {
+          "name": "aria-valuenow",
+          "type": "number"
+        },
+        {
+          "name": "formatValueText",
+          "type": "(value: number) => string",
+          "defaultValue": "defaultFormatValueText"
+        },
+        {
+          "name": "handleRef",
+          "type": "React.RefObject<HTMLDivElement | null>"
+        },
+        {
+          "name": "onDoubleClick",
+          "type": "React.MouseEventHandler<HTMLDivElement>"
+        }
+      ]
+    },
+    {
+      "name": "PageLayoutHeader",
+      "props": [
+        {
+          "name": "divider",
+          "type": "'none' | 'line' | ResponsiveValue<'none' | 'line' | 'filled'>",
+          "defaultValue": "'none'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'"
+        }
+      ]
+    },
+    {
+      "name": "PageLayoutContent",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'"
+        },
+        {
+          "name": "width",
+          "type": "keyof typeof width",
+          "defaultValue": "'full'"
+        }
+      ]
+    },
+    {
+      "name": "PageLayoutPaneBase",
+      "props": [
+        {
+          "name": "currentWidth",
+          "type": "number"
+        },
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<PaneDivider>",
+          "defaultValue": "'none'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256"
+        },
+        {
+          "name": "offsetHeader",
+          "type": "string | number",
+          "defaultValue": "0"
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "(width: number) => void"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'"
+        },
+        {
+          "name": "position",
+          "type": "ResponsiveValue<PanePosition>",
+          "defaultValue": "'end'"
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "width",
+          "type": "PaneWidthValue",
+          "defaultValue": "'full'"
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "defaultValue": "'paneWidth'"
+        }
+      ]
+    },
+    {
+      "name": "PageLayoutSidebar",
+      "props": [
+        {
+          "name": "responsiveVariant",
+          "type": "'default' | 'fullscreen'",
+          "defaultValue": "'default'"
+        }
+      ]
+    },
+    {
+      "name": "PageLayoutFooter",
+      "props": [
+        {
+          "name": "divider",
+          "type": "'none' | 'line' | 'filled'",
+          "defaultValue": "'none'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "skeletonbox",
+  "name": "SkeletonBox",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SkeletonBox",
+  "description": "`SkeletonBox` reserves space for content that is loading, using a shimmer placeholder that can be delayed until a request has taken long enough to show.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-skeletonbox-examples--comments-loading"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox-examples--comments-loading-with-suspense"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox-examples--loading-card-with-custom-content"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox-features--custom-height"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox-features--custom-width"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox-features--with-delay"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox-features--custom-element"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox-features--reduced-motion"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox--default"
+    },
+    {
+      "id": "react-tailwind-display-skeletonbox--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'"
+    },
+    {
+      "name": "data-component",
+      "type": "string"
+    },
+    {
+      "name": "delay",
+      "type": "'short' | 'long' | number"
+    },
+    {
+      "name": "height",
+      "type": "React.CSSProperties['height']"
+    },
+    {
+      "name": "width",
+      "type": "React.CSSProperties['width']"
+    }
+  ]
+}

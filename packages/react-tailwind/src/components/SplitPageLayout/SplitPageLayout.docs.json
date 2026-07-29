@@ -1,0 +1,42 @@
+{
+  "id": "splitpagelayout",
+  "name": "SplitPageLayout",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SplitPageLayout",
+  "description": "`SplitPageLayout` is an opinionated full-width `PageLayout` composition for settings and detail pages with a navigation pane and content area.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-splitpagelayout-examples--settings-workspace"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--settings-page"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-sidebar-start"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-sidebar-end"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-resizable-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-sidebar-and-resizable-pane"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-sticky-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--sidebar-fullscreen-responsive-variant"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout--default"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout--playground"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout--with-sidebar"
+    }
+  ]
+}

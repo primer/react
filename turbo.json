@@ -5,6 +5,10 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**", "generated/**"]
     },
+    "build:docs-json": {
+      "dependsOn": [],
+      "outputs": []
+    },
     "build:llms": {
       "dependsOn": [],
       "outputs": ["llms.txt"]
@@ -12,6 +16,10 @@
     "build:storybook": {
       "dependsOn": ["^build"],
       "outputs": ["storybook-static/**"]
+    },
+    "check:docs-json": {
+      "dependsOn": [],
+      "outputs": []
     },
     "check:exports": {
       "dependsOn": ["build"],
@@ -35,6 +43,10 @@
     },
     "lint:npm": {
       "dependsOn": ["^build", "build"],
+      "outputs": []
+    },
+    "lint:prop-docs": {
+      "dependsOn": [],
       "outputs": []
     },
     "lint:react-compiler": {

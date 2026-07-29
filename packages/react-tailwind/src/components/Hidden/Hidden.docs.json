@@ -1,0 +1,43 @@
+{
+  "id": "hidden",
+  "name": "Hidden",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Hidden",
+  "description": "`Hidden` conditionally hides presentational content at Primer viewport ranges. It is not a permission or authorization mechanism.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-hidden-examples--webhooks"
+    },
+    {
+      "id": "react-tailwind-components-hidden-examples--webhooks-on-narrow-viewport"
+    },
+    {
+      "id": "react-tailwind-components-hidden-examples--pull-request-page"
+    },
+    {
+      "id": "react-tailwind-components-hidden-examples--pull-request-page-on-narrow-viewport"
+    },
+    {
+      "id": "react-tailwind-components-hidden-features--hide-content"
+    },
+    {
+      "id": "react-tailwind-components-hidden-features--render-content-responsively"
+    },
+    {
+      "id": "react-tailwind-components-hidden--default"
+    },
+    {
+      "id": "react-tailwind-components-hidden--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode"
+    },
+    {
+      "name": "when",
+      "type": "Viewport | readonly Viewport[]"
+    }
+  ]
+}

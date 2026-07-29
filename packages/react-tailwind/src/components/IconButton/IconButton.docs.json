@@ -1,0 +1,76 @@
+{
+  "id": "iconbutton",
+  "name": "IconButton",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/IconButton",
+  "description": "`IconButton` is a button whose only content is an icon. `aria-label` is required, because the control has no visible text.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-iconbutton-examples--item-actions"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--primary"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--danger"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--invisible"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--disabled"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--small"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--medium"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--large"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--with-description"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--external-tooltip"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--as-a-menu-anchor"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--loading"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--loading-trigger"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--keybinding-hint-on-description"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--keybinding-hint"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--multiple-keybinding-hints"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton-features--long-delayed-tooltip"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton--default"
+    },
+    {
+      "id": "react-tailwind-components-iconbutton--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string"
+    },
+    {
+      "name": "icon",
+      "type": "React.ElementType"
+    }
+  ]
+}

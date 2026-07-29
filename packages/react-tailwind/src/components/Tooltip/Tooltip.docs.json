@@ -1,0 +1,66 @@
+{
+  "id": "tooltip",
+  "name": "Tooltip",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Tooltip",
+  "description": "`Tooltip` provides supplementary text for a trigger.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-tooltip-examples--custom-id"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-examples--files-page"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-examples--dialog-trigger"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-examples--emoji-picker"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--anchor-has-margin"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--label-type"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--description-type"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--description-type-with-external-description"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--icon-button-with-description"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--all-directions"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--multiline-text"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--calculated-direction"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--on-action-menu-anchor"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--keybinding-hint"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--with-medium-delay"
+    },
+    {
+      "id": "react-tailwind-components-tooltip-features--with-long-delay"
+    },
+    {
+      "id": "react-tailwind-components-tooltip--default"
+    },
+    {
+      "id": "react-tailwind-components-tooltip--playground"
+    },
+    {
+      "id": "react-tailwind-components-tooltip--with-arrow"
+    }
+  ]
+}

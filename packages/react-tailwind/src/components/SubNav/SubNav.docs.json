@@ -1,0 +1,58 @@
+{
+  "id": "subnav",
+  "name": "SubNav",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SubNav",
+  "description": "`SubNav` is a horizontal secondary navigation bar composed from `SubNav.Links` and `SubNav.Link`.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-subnav-examples--project-sections"
+    },
+    {
+      "id": "react-tailwind-navigation-subnav-features--selected"
+    },
+    {
+      "id": "react-tailwind-navigation-subnav--default"
+    },
+    {
+      "id": "react-tailwind-navigation-subnav--playground"
+    },
+    {
+      "id": "react-tailwind-navigation-subnav--with-actions"
+    }
+  ],
+  "props": [
+    {
+      "name": "actions",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "align",
+      "type": "'right'"
+    },
+    {
+      "name": "full",
+      "type": "boolean"
+    },
+    {
+      "name": "label",
+      "type": "string"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SubNavLink",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'a'"
+        },
+        {
+          "name": "selected",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

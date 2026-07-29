@@ -1,0 +1,48 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Checkbox",
+  "description": "`Checkbox` is a form-associated binary control. Pair it with a native label or `FormControl.Label`.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-checkbox-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox-examples--form-submission"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox-features--with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox-features--disabled"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox-features--indeterminate"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox-features--checked"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox--default"
+    },
+    {
+      "id": "react-tailwind-forms-checkbox--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "BaseCheckbox.Root.Props['className']"
+    }
+  ]
+}

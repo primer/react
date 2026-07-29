@@ -1,0 +1,219 @@
+{
+  "id": "selectpanel",
+  "name": "SelectPanel",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SelectPanel",
+  "description": "`SelectPanel` is a data-driven, filterable picker built with Base UI Combobox and Primer's Popover and Dialog primitives.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-selectpanel-examples--height-initial-with-overflowing-items-story"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--height-initial-with-underflowing-items-story"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--above-tall-body"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--height-variations-and-scroll"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--custom-item-renderer"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--items-in-scope"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--reposition-after-loading"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--select-panel-reposition-inside-dialog"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--with-default-message"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--render-more-on-scroll"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--virtualized-consumer-side"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--virtualized-built-in"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-item-dividers"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-placeholder-for-search-input"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--single-select"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--multi-select"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-disabled-item"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-external-anchor"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-secondary-action-button"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-secondary-action-link"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-notice"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-groups"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-label-visually-hidden"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-label-internally"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--async-fetch"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--customised-no-initial-items"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--customised-no-results"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-on-cancel"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--multi-select-modal"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--single-select-modal"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-inactive-items"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-message"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-select-all"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel--default"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel--playground"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SelectPanelOverlay",
+      "props": [
+        {
+          "name": "alignOffset",
+          "type": "PopoverPositionerProps['alignOffset']"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "collisionBoundary",
+          "type": "PopoverPositionerProps['collisionBoundary']"
+        },
+        {
+          "name": "collisionPadding",
+          "type": "PopoverPositionerProps['collisionPadding']"
+        },
+        {
+          "name": "height",
+          "type": "PanelHeight"
+        },
+        {
+          "name": "maxHeight",
+          "type": "Exclude<PanelHeight, 'auto' | 'initial' | 'fit-content'>"
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string"
+        },
+        {
+          "name": "side",
+          "type": "PopoverPositionerProps['side']",
+          "defaultValue": "'bottom'"
+        },
+        {
+          "name": "sideOffset",
+          "type": "PopoverPositionerProps['sideOffset']",
+          "defaultValue": "4"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "width",
+          "type": "PanelWidth"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanelAnchor",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanelActionList",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanelMessage",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanelSecondaryActionLink",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "href",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

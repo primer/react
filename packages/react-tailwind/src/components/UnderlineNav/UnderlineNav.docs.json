@@ -1,0 +1,91 @@
+{
+  "id": "underlinenav",
+  "name": "UnderlineNav",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/UnderlineNav",
+  "description": "`UnderlineNav` is a presentational navigation composition for sibling destinations. It keeps native link semantics, while consumers own route integration, item order, and selected state.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-underlinenav-examples--pull-request-page"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-examples--repos-page"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-examples--profile-page"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--default"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--with-icons"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--with-counter-labels"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--overflow-template"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--overflow-on-narrow-screen"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--counters-loading-state"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--variant-flush"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav--default"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'nav'"
+    },
+    {
+      "name": "hideIconsBreakpoint",
+      "type": "HideIconsBreakpoint",
+      "defaultValue": "'xxlarge'"
+    },
+    {
+      "name": "loadingCounters",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "variant",
+      "type": "'inset' | 'flush'",
+      "defaultValue": "'inset'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "UnderlineNavItem",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'nav'"
+        },
+        {
+          "name": "counter",
+          "type": "number | string"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "onSelect",
+          "type": "(event: React.MouseEvent<HTMLElement>) => void"
+        }
+      ]
+    }
+  ]
+}

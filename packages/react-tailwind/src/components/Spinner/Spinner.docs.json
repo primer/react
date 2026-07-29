@@ -1,0 +1,57 @@
+{
+  "id": "spinner",
+  "name": "Spinner",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Spinner",
+  "description": "`Spinner` communicates that work is in progress with an animated indicator and an optional screen-reader announcement.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-spinner-examples--full-lifecycle"
+    },
+    {
+      "id": "react-tailwind-display-spinner-examples--full-lifecycle-visible-loading-text"
+    },
+    {
+      "id": "react-tailwind-display-spinner-examples--synchronized-spinners"
+    },
+    {
+      "id": "react-tailwind-display-spinner-features--small"
+    },
+    {
+      "id": "react-tailwind-display-spinner-features--large"
+    },
+    {
+      "id": "react-tailwind-display-spinner-features--suppress-screen-reader-text"
+    },
+    {
+      "id": "react-tailwind-display-spinner-features--with-delay"
+    },
+    {
+      "id": "react-tailwind-display-spinner-features--all-sizes"
+    },
+    {
+      "id": "react-tailwind-display-spinner-features--reduced-motion"
+    },
+    {
+      "id": "react-tailwind-display-spinner-features--loading-trigger"
+    },
+    {
+      "id": "react-tailwind-display-spinner--default"
+    },
+    {
+      "id": "react-tailwind-display-spinner--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "delay",
+      "type": "boolean | 'short' | 'long' | number",
+      "defaultValue": "false"
+    },
+    {
+      "name": "srText",
+      "type": "string | null",
+      "defaultValue": "'Loading'"
+    }
+  ]
+}

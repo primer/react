@@ -1,0 +1,171 @@
+{
+  "id": "treeview",
+  "name": "TreeView",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/TreeView",
+  "description": "`TreeView` is a presentational compound component for hierarchical files, folders, and nested resources. Compose its parts in author order to retain control of item content and visuals while TreeView owns tree semantics, expansion, roving focus, and typeahead.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-treeview-examples--draggable-list-item"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-examples--trailing-actions"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--files"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--files-changed"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--controlled"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--async-success"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--async-with-count"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--async-error"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--empty-directories"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--nested-trees"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--nested-scroll-container"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--stress-test"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--contain-intrinsic-size"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--current-item-with-contain-intrinsic-size"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--initial-focus"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--focus-management"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--without-indentation"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--multiline-items"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--as-prop"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview--default"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "flat",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "truncate",
+      "type": "boolean",
+      "defaultValue": "true"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TreeViewItem",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'li'"
+        },
+        {
+          "name": "containIntrinsicSize",
+          "type": "string"
+        },
+        {
+          "name": "current",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "defaultExpanded",
+          "type": "boolean"
+        },
+        {
+          "name": "expanded",
+          "type": "boolean | null"
+        },
+        {
+          "name": "href",
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)"
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "(expanded: boolean) => void"
+        },
+        {
+          "name": "onSelect",
+          "type": "(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+        },
+        {
+          "name": "subtree",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "to",
+          "type": "string"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)"
+        }
+      ]
+    },
+    {
+      "name": "TreeViewSubTree",
+      "props": [
+        {
+          "name": "count",
+          "type": "number"
+        },
+        {
+          "name": "state",
+          "type": "'initial' | 'loading' | 'done' | 'error'"
+        }
+      ]
+    },
+    {
+      "name": "TreeViewVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)"
+        },
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

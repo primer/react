@@ -1,0 +1,30 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Tabs",
+  "description": "`Tabs` provides unstyled tab, tab list, and tab panel behavior that can be composed into an application-specific presentation.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-tabs-examples--with-custom-components"
+    },
+    {
+      "id": "react-tailwind-navigation-tabs-examples--keyboard-interaction"
+    },
+    {
+      "id": "react-tailwind-navigation-tabs-features--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-navigation-tabs-features--controlled"
+    },
+    {
+      "id": "react-tailwind-navigation-tabs-features--vertical"
+    },
+    {
+      "id": "react-tailwind-navigation-tabs--default"
+    },
+    {
+      "id": "react-tailwind-navigation-tabs--playground"
+    }
+  ]
+}

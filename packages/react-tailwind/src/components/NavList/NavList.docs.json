@@ -1,0 +1,124 @@
+{
+  "id": "navlist",
+  "name": "NavList",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/NavList",
+  "description": "`NavList` is a vertical navigation primitive for settings and page navigation.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-navlist-examples--settings-navigation"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-sub-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-nested-sub-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-inactive-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-group"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-group-heading-links"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-trailing-action-in-sub-item"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-expand"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-expand-and-icons"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-description"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-item-gap"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--without-divider"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-heading"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-visually-hidden-heading"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--current-item"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist--default"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "heading",
+      "type": "React.ReactNode",
+      "description": "Supplies the heading region. Takes precedence over a matching `NavList.Heading` child."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "NavListHeading",
+      "props": [
+        {
+          "name": "visuallyHidden",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "NavListGroup",
+      "props": [
+        {
+          "name": "hideDivider",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "NavListItem",
+      "props": [
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "description": "Supplies the description region. Takes precedence over a matching `NavList.Description` child."
+        },
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `NavList.LeadingVisual` child."
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `NavList.TrailingAction` child."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `NavList.TrailingVisual` child."
+        }
+      ]
+    }
+  ]
+}

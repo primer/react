@@ -1,0 +1,65 @@
+{
+  "id": "checkboxgroup",
+  "name": "CheckboxGroup",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/CheckboxGroup",
+  "description": "`CheckboxGroup` groups checkbox primitives and supplies their shared controlled or uncontrolled state.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-checkboxgroup-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--visually-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--with-external-label"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--error"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--success"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--caption"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--checked"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup--default"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "BaseCheckboxGroup.Props['className']"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "CheckboxGroupLabel",
+      "props": [
+        {
+          "name": "visuallyHidden",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxGroupValidation",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'error' | 'success'"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "inlinemessage",
+  "name": "InlineMessage",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/InlineMessage",
+  "description": "`InlineMessage` communicates validation, status, and availability inline with content or a form control.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-inlinemessage-examples--form-validation"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-examples--with-link"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-examples--custom-content"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-features--critical"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-features--success"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-features--unavailable"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-features--warning"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-features--multiline"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-features--small"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage-features--custom-leading-visual"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage--default"
+    },
+    {
+      "id": "react-tailwind-content-inlinemessage--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "leadingVisual",
+      "type": "React.ElementType | React.ReactNode"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "defaultValue": "'medium'"
+    },
+    {
+      "name": "variant",
+      "type": "InlineMessageVariant"
+    }
+  ]
+}

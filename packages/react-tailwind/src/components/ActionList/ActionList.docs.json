@@ -1,0 +1,347 @@
+{
+  "id": "actionlist",
+  "name": "ActionList",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ActionList",
+  "description": "`ActionList` is a semantic action, menu, or listbox list composed from explicit child parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-actionlist-examples--list-link-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--mixed-selection"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--mixed-selection-interactive"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--async-list-with-spinner"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--async-list-with-spinner-interactive"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--all-combinations"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--all-combinations-interactive"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--custom-tree-role"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--simple-list"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-visual-list-heading"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-custom-heading"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-icons"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-avatars"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--item-dividers"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--single-divider"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inline-description"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--block-description"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--single-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inactive-single-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--multi-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--listbox-single-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--listbox-multi-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-dynamic-content"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--disabled-selected-multiselect"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--disabled-multiselect"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inactive-multiselect"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--disabled-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inactive-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--loading-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--links"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--custom-item-children"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--text-wrap-and-truncation"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--conditional-children"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--child-with-side-effects"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inside-overlay"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--group-with-subtle-title"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--group-with-filled-title"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-custom-trailing-visuals"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-keyboard-shortcuts"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-trailing-count"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-trailing-action-on-group-heading"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--full-variant"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--large-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--default"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "selectionVariant",
+      "type": "SelectionVariant"
+    },
+    {
+      "name": "showDividers",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "variant",
+      "type": "'inset' | 'horizontal-inset' | 'full'",
+      "defaultValue": "'inset'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionListItem",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Description` child."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "loadingText",
+          "type": "string"
+        },
+        {
+          "name": "onSelect",
+          "type": "(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+        },
+        {
+          "name": "selected",
+          "type": "boolean"
+        },
+        {
+          "name": "size",
+          "type": "'medium' | 'large'",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child."
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'danger'",
+          "defaultValue": "'inset'"
+        }
+      ]
+    },
+    {
+      "name": "ActionListLinkItem",
+      "props": [
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Description` child."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
+        },
+        {
+          "name": "selected",
+          "type": "boolean"
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child."
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'danger'",
+          "defaultValue": "'inset'"
+        }
+      ]
+    },
+    {
+      "name": "ActionListGroup",
+      "props": [
+        {
+          "name": "heading",
+          "type": "React.ReactNode",
+          "description": "Supplies the heading region. Takes precedence over a matching `ActionList.Heading` child."
+        },
+        {
+          "name": "selectionVariant",
+          "type": "SelectionVariant"
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "ActionListGroupHeading",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'h3'"
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
+        },
+        {
+          "name": "variant",
+          "type": "'subtle' | 'filled'",
+          "defaultValue": "'inset'"
+        }
+      ]
+    },
+    {
+      "name": "ActionListGroupHeadingTrailingAction",
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ElementType"
+        }
+      ]
+    },
+    {
+      "name": "ActionListDescription",
+      "props": [
+        {
+          "name": "truncate",
+          "type": "boolean"
+        },
+        {
+          "name": "variant",
+          "type": "'block' | 'inline'",
+          "defaultValue": "'inset'"
+        }
+      ]
+    },
+    {
+      "name": "ActionListHeading",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'h3'"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "defaultValue": "'medium'"
+        }
+      ]
+    }
+  ]
+}

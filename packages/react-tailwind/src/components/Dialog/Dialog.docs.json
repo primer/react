@@ -1,0 +1,102 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Dialog",
+  "description": "`Dialog` provides a modal surface with composable trigger and content parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-dialog-examples--controlled-dialog"
+    },
+    {
+      "id": "react-tailwind-components-dialog-examples--side-sheet-interaction"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--with-custom-renderers"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--with-direct-subcomponents"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--stress-test"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--repro-multistep-dialog-with-conditional-footer"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--bottom-sheet-narrow"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--full-screen-narrow"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--side-sheet"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--return-focus-ref"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--new-issues"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--retains-focus-trap-with-dynamic-content"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--loading-footer-buttons"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--loading-custom-footer-buttons-could"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--align-top"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--align-bottom"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--custom-width"
+    },
+    {
+      "id": "react-tailwind-components-dialog--default"
+    },
+    {
+      "id": "react-tailwind-components-dialog--playground"
+    },
+    {
+      "id": "react-tailwind-components-dialog--non-modal"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "DialogContent",
+      "props": [
+        {
+          "name": "backdrop",
+          "type": "boolean"
+        },
+        {
+          "name": "backdropClassName",
+          "type": "string"
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "name": "viewportClassName",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "DialogCloseButton",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

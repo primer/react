@@ -1,0 +1,111 @@
+{
+  "id": "relativetime",
+  "name": "RelativeTime",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/RelativeTime",
+  "description": "`RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-relativetime-examples--dynamic-relative-time"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-examples--long-date"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-examples--link-with-tooltip"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--micro-format"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--recent-time"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--count-down-timer"
+    },
+    {
+      "id": "react-tailwind-content-relativetime--default"
+    },
+    {
+      "id": "react-tailwind-content-relativetime--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "date",
+      "type": "Date"
+    },
+    {
+      "name": "datetime",
+      "type": "string"
+    },
+    {
+      "name": "day",
+      "type": "NumericDatePart"
+    },
+    {
+      "name": "format",
+      "type": "Format"
+    },
+    {
+      "name": "formatStyle",
+      "type": "FormatStyle"
+    },
+    {
+      "name": "hour",
+      "type": "NumericDatePart"
+    },
+    {
+      "name": "minute",
+      "type": "NumericDatePart"
+    },
+    {
+      "name": "month",
+      "type": "NumericDatePart | 'short' | 'long' | 'narrow'"
+    },
+    {
+      "name": "noTitle",
+      "type": "boolean"
+    },
+    {
+      "name": "onRelativeTimeUpdated",
+      "type": "(event: RelativeTimeUpdatedEvent) => void"
+    },
+    {
+      "name": "precision",
+      "type": "'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second'"
+    },
+    {
+      "name": "prefix",
+      "type": "string"
+    },
+    {
+      "name": "second",
+      "type": "NumericDatePart"
+    },
+    {
+      "name": "tense",
+      "type": "Tense"
+    },
+    {
+      "name": "threshold",
+      "type": "string"
+    },
+    {
+      "name": "timeZone",
+      "type": "string"
+    },
+    {
+      "name": "timeZoneName",
+      "type": "'' | 'long' | 'short' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'"
+    },
+    {
+      "name": "weekday",
+      "type": "'' | 'short' | 'long' | 'narrow'"
+    },
+    {
+      "name": "year",
+      "type": "NumericDatePart"
+    }
+  ]
+}

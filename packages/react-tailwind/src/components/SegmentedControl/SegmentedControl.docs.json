@@ -1,0 +1,111 @@
+{
+  "id": "segmentedcontrol",
+  "name": "SegmentedControl",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SegmentedControl",
+  "description": "`SegmentedControl` is a single-choice Base UI toggle group for related view or mode choices.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-examples--with-disabled-buttons"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--with-icons"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--with-counter-labels"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--icon-only"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--variant-narrow-hide-labels"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--variant-narrow-action-menu"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--fullwidth-narrow"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--fullwidth-regular"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--fullwidth-all"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--associated-with-a-label-and-caption"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol--default"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "ToggleGroup.Props<Value>['className']"
+    },
+    {
+      "name": "fullWidth",
+      "type": "ResponsiveValue<boolean>"
+    },
+    {
+      "name": "size",
+      "type": "SegmentedControlSize",
+      "defaultValue": "'medium'"
+    },
+    {
+      "name": "variant",
+      "type": "'default' | ResponsiveSegmentedControlVariant",
+      "defaultValue": "'default'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SegmentedControlButton",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "Toggle.Props<Value>['className']"
+        },
+        {
+          "name": "count",
+          "type": "number | string"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "value",
+          "type": "Value"
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControlIconButton",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType"
+        }
+      ]
+    }
+  ]
+}

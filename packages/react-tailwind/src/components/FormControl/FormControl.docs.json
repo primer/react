@@ -1,0 +1,142 @@
+{
+  "id": "formcontrol",
+  "name": "FormControl",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/FormControl",
+  "description": "`FormControl` is a composable field wrapper that provides label, caption, validation, and control association.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-formcontrol-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-complex-inputs"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-checkbox-and-radio-inputs"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--single-input"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--validation-example"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--disabled-inputs"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--custom-required"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-caption-and-disabled"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-required-indicator"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-success-validation"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-error-validation"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol--default"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "caption",
+      "type": "React.ReactNode",
+      "description": "Supplies the caption region. Takes precedence over a matching `FormControl.Caption` child."
+    },
+    {
+      "name": "className",
+      "type": "Field.Root.Props['className']"
+    },
+    {
+      "name": "label",
+      "type": "React.ReactNode",
+      "description": "Supplies the label region. Takes precedence over a matching `FormControl.Label` child."
+    },
+    {
+      "name": "layout",
+      "type": "'horizontal' | 'vertical'",
+      "defaultValue": "'vertical'"
+    },
+    {
+      "name": "leadingVisual",
+      "type": "React.ReactNode",
+      "description": "Supplies the leadingVisual region. Takes precedence over a matching `FormControl.LeadingVisual` child."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "validation",
+      "type": "React.ReactNode",
+      "description": "Supplies the validation region. Takes precedence over a matching `FormControl.Validation` child."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "FormControlLabel",
+      "props": [
+        {
+          "name": "className",
+          "type": "Field.Label.Props['className']"
+        },
+        {
+          "name": "requiredIndicator",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "name": "requiredText",
+          "type": "string"
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "FormControlCaption",
+      "props": [
+        {
+          "name": "className",
+          "type": "Field.Description.Props['className']"
+        }
+      ]
+    },
+    {
+      "name": "FormControlValidation",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "variant",
+          "type": "'error' | 'success'"
+        }
+      ]
+    }
+  ]
+}

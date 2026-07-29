@@ -1,0 +1,160 @@
+{
+  "id": "banner",
+  "name": "Banner",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Banner",
+  "description": "`Banner` announces a page-level status or message that needs attention but does not interrupt the user. Use `Dialog` instead when the message must block the task, and inline validation for a single field.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-banner-examples--with-user-action"
+    },
+    {
+      "id": "react-tailwind-content-banner-examples--with-announcement"
+    },
+    {
+      "id": "react-tailwind-content-banner-examples--with-custom-heading"
+    },
+    {
+      "id": "react-tailwind-content-banner-examples--in-sidebar"
+    },
+    {
+      "id": "react-tailwind-content-banner-examples--multiline"
+    },
+    {
+      "id": "react-tailwind-content-banner-examples--dismiss-banner"
+    },
+    {
+      "id": "react-tailwind-content-banner-examples--dismissal-interaction"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--critical"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--info"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--success"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--upsell"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--warning"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--dismiss"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--dismiss-with-actions"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--with-hidden-title"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--with-hidden-title-and-actions"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--dismissible-with-hidden-title-and-actions"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--dismissible-with-hidden-title-and-secondary-action"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--with-actions"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--custom-icon"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--flush-inside-dialog"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--actions-layout-stacked"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--actions-layout-inline"
+    },
+    {
+      "id": "react-tailwind-content-banner--default"
+    },
+    {
+      "id": "react-tailwind-content-banner--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "actionsLayout",
+      "type": "'inline' | 'stacked' | 'default'",
+      "defaultValue": "'default'"
+    },
+    {
+      "name": "description",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "flush",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "hideTitle",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "layout",
+      "type": "'default' | 'compact'",
+      "defaultValue": "'default'"
+    },
+    {
+      "name": "leadingVisual",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "onDismiss",
+      "type": "() => void"
+    },
+    {
+      "name": "primaryAction",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "secondaryAction",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "title",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "variant",
+      "type": "BannerVariant",
+      "defaultValue": "'info'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "BannerTitle",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "'h2'"
+        }
+      ]
+    },
+    {
+      "name": "BannerActions",
+      "props": [
+        {
+          "name": "primaryAction",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "secondaryAction",
+          "type": "React.ReactNode"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Pagination",
+  "description": "`Pagination` renders previous, next, and page links from a controlled current page and page count.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-pagination-examples--search-results"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--larger-page-count-margin"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--hide-page-numbers"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--hide-page-numbers-by-viewport"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--higher-surrounding-page-count"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--render-links"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination--default"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination--playground"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination--responsive"
+    }
+  ],
+  "props": [
+    {
+      "name": "currentPage",
+      "type": "number"
+    },
+    {
+      "name": "data-component",
+      "type": "string",
+      "defaultValue": "'Pagination'"
+    },
+    {
+      "name": "hrefBuilder",
+      "type": "(page: number) => string",
+      "defaultValue": "defaultHrefBuilder"
+    },
+    {
+      "name": "marginPageCount",
+      "type": "number",
+      "defaultValue": "1"
+    },
+    {
+      "name": "onPageChange",
+      "type": "(event: React.MouseEvent, page: number) => void"
+    },
+    {
+      "name": "pageCount",
+      "type": "number"
+    },
+    {
+      "name": "renderPage",
+      "type": "(props: PageProps) => React.ReactNode"
+    },
+    {
+      "name": "showPages",
+      "type": "boolean | ResponsiveValue<boolean>",
+      "defaultValue": "true"
+    },
+    {
+      "name": "surroundingPageCount",
+      "type": "number",
+      "defaultValue": "2"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Page",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "number",
+          "type": "number"
+        },
+        {
+          "name": "onPageSelect",
+          "type": "React.MouseEventHandler"
+        },
+        {
+          "name": "pageType",
+          "type": "PageType"
+        }
+      ]
+    }
+  ]
+}

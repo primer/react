@@ -1,0 +1,51 @@
+{
+  "id": "autocomplete",
+  "name": "Autocomplete",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Autocomplete",
+  "description": "`Autocomplete` is a composable Base UI autocomplete for filtering and choosing from a known set of options.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-autocomplete-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--with-token-input"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--add-new-item"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--custom-search-filter-fn"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--custom-sort-after-menu-close"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--with-callback-when-overlay-open-state-changes"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--async-loading-of-items"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--rendering-the-menu-outside-an-overlay"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--custom-overlay-menu-anchor"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--in-overlay-with-custom-scroll-container-ref"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--in-a-dialog"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete--default"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete--playground"
+    }
+  ]
+}

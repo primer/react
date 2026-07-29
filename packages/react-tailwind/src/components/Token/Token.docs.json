@@ -1,0 +1,122 @@
+{
+  "id": "token",
+  "name": "Token",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Token",
+  "description": "`Token` displays compact filter or selection content with optional leading visuals, selection state, and removal behavior. `IssueLabelToken` provides the same token interaction model with a custom label color.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-token-examples--filter-chips"
+    },
+    {
+      "id": "react-tailwind-content-token-examples--removable-filters"
+    },
+    {
+      "id": "react-tailwind-content-token-examples--long-token-content"
+    },
+    {
+      "id": "react-tailwind-content-token-features--interactive-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--token-with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-content-token-features--token-with-on-remove-fn"
+    },
+    {
+      "id": "react-tailwind-content-token-features--default-issue-label-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--interactive-issue-label-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--issue-label-token-with-on-remove-fn"
+    },
+    {
+      "id": "react-tailwind-content-token-features--small-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--mediuml-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--large-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--x-large-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--issue-label-token-custom-colors"
+    },
+    {
+      "id": "react-tailwind-content-token-features--dismissible-token"
+    },
+    {
+      "id": "react-tailwind-content-token--default"
+    },
+    {
+      "id": "react-tailwind-content-token--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "leadingVisual",
+      "type": "React.ElementType"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "IssueLabelToken",
+      "props": [
+        {
+          "name": "fillColor",
+          "type": "string",
+          "defaultValue": "'#999999'"
+        }
+      ]
+    },
+    {
+      "name": "TokenBase",
+      "props": [
+        {
+          "name": "as",
+          "type": "'span' | 'a' | 'button'",
+          "defaultValue": "'span'"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "hideRemoveButton",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "href",
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "type": "string | number"
+        },
+        {
+          "name": "isSelected",
+          "type": "boolean"
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void"
+        },
+        {
+          "name": "size",
+          "type": "TokenSize",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "text",
+          "type": "React.ReactNode"
+        }
+      ]
+    }
+  ]
+}

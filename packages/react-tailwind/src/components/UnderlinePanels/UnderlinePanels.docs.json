@@ -1,0 +1,62 @@
+{
+  "id": "underlinepanels",
+  "name": "UnderlinePanels",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/UnderlinePanels",
+  "description": "`UnderlinePanels` is a tab-and-panel composition with an underlined tab list.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-underlinepanels-examples--repository-sections"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--selected-tab"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--labelled-by-external-element"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--with-icons"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--with-icons-hidden-on-narrow-screen"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--with-counters"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--with-counters-in-loading-state"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels--default"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "loadingCounters",
+      "type": "boolean",
+      "defaultValue": "false"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "UnderlinePanelsTab",
+      "props": [
+        {
+          "name": "counter",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode"
+        }
+      ]
+    }
+  ]
+}

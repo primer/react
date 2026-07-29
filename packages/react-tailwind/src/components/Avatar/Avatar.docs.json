@@ -1,0 +1,41 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Avatar",
+  "description": "`Avatar` renders a user or organization image at a consistent size and shape. Use `square` for organizations and other non-person entities.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-avatar-examples--repository-owner"
+    },
+    {
+      "id": "react-tailwind-display-avatar-features--square"
+    },
+    {
+      "id": "react-tailwind-display-avatar-features--size"
+    },
+    {
+      "id": "react-tailwind-display-avatar-features--size-responsive"
+    },
+    {
+      "id": "react-tailwind-display-avatar--default"
+    },
+    {
+      "id": "react-tailwind-display-avatar--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "shape",
+      "type": "'circle' | 'square'"
+    },
+    {
+      "name": "size",
+      "type": "AvatarSize | number | ResponsiveValue<number>"
+    },
+    {
+      "name": "square",
+      "type": "boolean"
+    }
+  ]
+}

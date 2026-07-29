@@ -1,0 +1,65 @@
+{
+  "id": "radiogroup",
+  "name": "RadioGroup",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/RadioGroup",
+  "description": "`RadioGroup` is a Base UI radio group with roving focus and single-value selection.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-radiogroup-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--visually-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--with-external-label"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--error"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--success"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--caption"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--keyboard-selection"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup--default"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "BaseRadioGroup.Props<Value>['className']"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "RadioGroupLabel",
+      "props": [
+        {
+          "name": "visuallyHidden",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroupValidation",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'error' | 'success'"
+        }
+      ]
+    }
+  ]
+}

@@ -86,680 +86,83 @@ If a prop is uncertain, read the shipped TypeScript declarations rather than ass
 
 ## Components
 
-### ActionBar
-
-Import: `import {ActionBar} from '@primer/react-tailwind/ActionBar'`
-
-`ActionBar` groups related actions with `Button`, `IconButton`, `Group`, `Divider`, and `Menu` parts.
-
-Differences from `@primer/react`:
-- Replace `overflowIcon` with an explicit `ActionBar.Menu`; preserve the action order and focus behavior in consumer code.
-
-### ActionList
-
-Import: `import {ActionList} from '@primer/react-tailwind/ActionList'`
-
-`ActionList` is a semantic action, menu, or listbox list composed from explicit child parts.
-
-Differences from `@primer/react`:
-- `ActionList.Item` and `ActionList.LinkItem` accept `leadingVisual`, `trailingVisual`, `description`, and `trailingAction`; `ActionList.Group` accepts `heading`; `ActionList.GroupHeading` accepts `trailingAction`. Each takes an element for the corresponding region and takes precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
-
-### ActionMenu
-
-Import: `import {ActionMenu} from '@primer/react-tailwind/ActionMenu'`
-
-`ActionMenu` is a composable Base UI menu with button and low-level trigger options.
-
-Differences from `@primer/react`:
-- Compose branded triggers with `render`, not `as`, to avoid nested interactive elements. Use `className` when the composed control owns the visual treatment.
-
-### AnchoredOverlay
-
-Import: `import {AnchoredOverlay} from '@primer/react-tailwind/AnchoredOverlay'`
-
-`AnchoredOverlay` positions a dismissible overlay relative to a trigger.
-
-Differences from `@primer/react`:
-- Replace legacy `outside-*` placement names with `side` and `align`.
-
-### Autocomplete
-
-Import: `import {Autocomplete} from '@primer/react-tailwind/Autocomplete'`
-
-`Autocomplete` is a composable Base UI autocomplete for filtering and choosing from a known set of options.
-
-Differences from `@primer/react`:
-- Move legacy token, dialog, and TextInput integrations to composition with their local components.
-
-### Avatar
-
-Import: `import {Avatar} from '@primer/react-tailwind/Avatar'`
-
-`Avatar` renders a user or organization image at a consistent size and shape. Use `square` for organizations and other non-person entities.
-
-Differences from `@primer/react`:
-- Replace responsive size objects with responsive `className` utilities on the Avatar or its layout wrapper.
-
-### AvatarStack
-
-Import: `import {AvatarStack} from '@primer/react-tailwind/AvatarStack'`
-
-`AvatarStack` is a presentational component for a compact, expandable group of avatars. Import it from `@primer/react-tailwind/AvatarStack`.
-
-Differences from `@primer/react`:
-- Replace the import path with `@primer/react-tailwind/AvatarStack`.
-
-### Banner
-
-Import: `import {Banner} from '@primer/react-tailwind/Banner'`
-
-`Banner` announces a page-level status or message that needs attention but does not interrupt the user. Use `Dialog` instead when the message must block the task, and inline validation for a single field.
-
-Differences from `@primer/react`:
-- Prefer the compound parts for custom heading and action markup.
-
-### Blankslate
-
-Import: `import {Blankslate} from '@primer/react-tailwind/Blankslate'`
-
-`Blankslate` provides a structured empty state with optional visual, heading, description, and primary or secondary actions.
-
-Differences from `@primer/react`:
-- Existing composition and variant props can be retained.
-
-### BranchName
-
-Import: `import {BranchName} from '@primer/react-tailwind/BranchName'`
-
-`BranchName` renders a Git ref name in Primer's monospace branch treatment. It is presentational; pass `href` to make it navigable.
-
-Differences from `@primer/react`:
-- Compose Tooltip, live announcements, and selection controls around BranchName instead of expecting BranchName props for them.
-
-### Breadcrumbs
-
-Import: `import {Breadcrumbs} from '@primer/react-tailwind/Breadcrumbs'`
-
-`Breadcrumbs` communicates the current location within a hierarchy.
-
-Differences from `@primer/react`:
-- Normal breadcrumb and item composition is intended to be drop-in.
-
-### Button
-
-Import: `import {Button} from '@primer/react-tailwind/Button'`
-
-`Button` triggers an action in the current view. Use `LinkButton` when the control navigates to a URL, and `IconButton` when the control has no visible label.
-
-Differences from `@primer/react`:
-- Prefer LinkButton for navigation; the `link` Button variant remains available for semantic button actions rendered as inline links.
-
-### ButtonBase
-
-Import: `import {ButtonBase} from '@primer/react-tailwind/ButtonBase'`
-
-`ButtonBase` is the unstyled button primitive behind `Button`, `IconButton`, and `LinkButton`. Reach for it only when building a new button-like control; prefer `Button` for ordinary actions.
-
-Differences from `@primer/react`:
-- The component is a stable replacement for the experimental legacy export.
-
-### ButtonGroup
-
-Import: `import {ButtonGroup} from '@primer/react-tailwind/ButtonGroup'`
-
-`ButtonGroup` joins related buttons into a single segmented control. Use `SegmentedControl` instead when the buttons select between mutually exclusive views.
-
-Differences from `@primer/react`:
-- Compose a local Tooltip or ActionMenu around grouped controls rather than passing overlay behavior to ButtonGroup.
-
-### Card
-
-Import: `import {Card} from '@primer/react-tailwind/Card'`
-
-`Card` is a composable content container with heading, description, image, metadata, icon, and action parts.
-
-Differences from `@primer/react`:
-- A duplicate part is discarded rather than rendered among the custom children. Upstream keeps a single region too, though it takes the last match rather than the first.
-
-### Checkbox
-
-Import: `import {Checkbox} from '@primer/react-tailwind/Checkbox'`
-
-`Checkbox` is a form-associated binary control. Pair it with a native label or `FormControl.Label`.
-
-Differences from `@primer/react`:
-- Keep a native label or FormControl label associated with each checkbox.
-
-### CheckboxGroup
-
-Import: `import {CheckboxGroup} from '@primer/react-tailwind/CheckboxGroup'`
-
-`CheckboxGroup` groups checkbox primitives and supplies their shared controlled or uncontrolled state.
-
-Differences from `@primer/react`:
-- Use `Label`, `Caption`, and `Validation` parts for group metadata; set `visuallyHidden` only when another visible label exists.
-
-### ConfirmationDialog
-
-Import: `import {ConfirmationDialog} from '@primer/react-tailwind/ConfirmationDialog'`
-
-`ConfirmationDialog` asks a user to confirm or cancel a consequential action.
-
-Differences from `@primer/react`:
-- Migrate `onClose` gesture handling to `onCancel`/`onConfirm` and controlled Root state.
-
-### CounterLabel
-
-Import: `import {CounterLabel} from '@primer/react-tailwind/CounterLabel'`
-
-`CounterLabel` displays a numeric count alongside a label, such as an open-issue total. It is presentational and does not format or abbreviate the number.
-
-Differences from `@primer/react`:
-- Keep `variant`, children, and count-related content unchanged.
-
-### DataTable
-
-Import: `import {DataTable} from '@primer/react-tailwind/DataTable'`
-
-`DataTable` is a presentational, typed table for stable row data. It owns native table structure, sorting state, and column layout while `Table` exposes structural parts for custom composition.
-
-Differences from `@primer/react`:
-- **Intentional:** Fetching, error dialogs, and product action menus are not configuration props on the base table. Compose `Table.Skeleton`, `Table.Pagination`, `ActionMenu`, and error UI in the application instead.
-
-### Details
-
-Import: `import {Details} from '@primer/react-tailwind/Details'`
-
-`Details` is a native disclosure element with a styled summary.
-
-Differences from `@primer/react`:
-- Remove `useDetails`; use the native `open` attribute/event behavior or normal React state around Details when needed.
-
-### Dialog
-
-Import: `import {Dialog} from '@primer/react-tailwind/Dialog'`
-
-`Dialog` provides a modal surface with composable trigger and content parts.
-
-Differences from `@primer/react`:
-- Migrate custom structure to the Tailwind compound parts.
-
-### FeatureFlags
-
-Import: `import {FeatureFlags} from '@primer/react-tailwind/FeatureFlags'`
-
-`FeatureFlags` scopes boolean flags and `useFeatureFlag` reads one flag.
-
-Differences from `@primer/react`:
-- Provider and hook usage is intended to be drop-in.
-
-### FilteredActionList
-
-Import: `import {FilteredActionList} from '@primer/react-tailwind/FilteredActionList'`
-
-`FilteredActionList` is a configured, data-driven filterable ActionList for established picker and command-list patterns. It composes shared `TextInput`, ActionList content layers, `Checkbox`, `Spinner`, and `SkeletonBox` with Base UI's combobox behavior. Use `ActionList` directly when consumer-owned markup needs a different structure.
-
-Differences from `@primer/react`:
-- Deprecated `trailingIcon` and `trailingText` are not included; use `trailingVisual`.
-
-### Flash
-
-Import: `import {Flash} from '@primer/react-tailwind/Flash'`
-
-`Flash` presents a prominent message with semantic visual variants and an optional full-width layout.
-
-Differences from `@primer/react`:
-- Put a named close button and its state outside or inside Flash as ordinary composition.
-
-### FormControl
-
-Import: `import {FormControl} from '@primer/react-tailwind/FormControl'`
-
-`FormControl` is a composable field wrapper that provides label, caption, validation, and control association.
-
-Differences from `@primer/react`:
-- `label`, `caption`, `validation`, and `leadingVisual` accept an element for the corresponding region and take precedence over a matching child. Regions render in place rather than being relocated, because horizontal layout positions parts by selector. A custom control does not need a region prop: `FormControl` distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` through context, so any control calling `useFormControlForwardedProps` is wired without being identified.
-
-### Header
-
-Import: `import {Header} from '@primer/react-tailwind/Header'`
-
-`Header` is a compact horizontal header primitive. Use `Header.Item` for layout participants and `Header.Link` for consistently styled navigation.
-
-Differences from `@primer/react`:
-- Existing Header subcomponent composition can generally be retained.
-
-### Heading
-
-Import: `import {Heading} from '@primer/react-tailwind/Heading'`
-
-`Heading` renders a section heading. Choose the level with `as` for document structure and `variant` for visual size, so heading order stays correct independently of scale.
-
-Differences from `@primer/react`:
-- Rename `variant` to `size`.
-
-### Hidden
-
-Import: `import {Hidden} from '@primer/react-tailwind/Hidden'`
-
-`Hidden` conditionally hides presentational content at Primer viewport ranges. It is not a permission or authorization mechanism.
-
-Differences from `@primer/react`:
-- Keep range decisions in `when`; add visual styling with `className` on the wrapper.
-
-### IconButton
-
-Import: `import {IconButton} from '@primer/react-tailwind/IconButton'`
-
-`IconButton` is a button whose only content is an icon. `aria-label` is required, because the control has no visible text.
-
-Differences from `@primer/react`:
-- Supply an accessible name with `aria-label`; use native `title` only as supplemental text.
-
-### InlineMessage
-
-Import: `import {InlineMessage} from '@primer/react-tailwind/InlineMessage'`
-
-`InlineMessage` communicates validation, status, and availability inline with content or a form control.
-
-Differences from `@primer/react`:
-- Existing variant and content usage can be retained.
-
-### IssueLabel
-
-Import: `import {IssueLabel} from '@primer/react-tailwind/IssueLabel'`
-
-`IssueLabel` displays a colored label and can render as a link, button, or custom element for interactive label workflows.
-
-Differences from `@primer/react`:
-- Import the stable Tailwind `IssueLabel` instead of the experimental legacy entry point.
-
-### KeybindingHint
-
-Import: `import {KeybindingHint} from '@primer/react-tailwind/KeybindingHint'`
-
-`KeybindingHint` renders a compact, screen-reader-friendly keyboard shortcut using the local key formatting rules.
-
-Differences from `@primer/react`:
-- Pass the documented key tokens through `keys`; do not depend on a story platform override.
-
-### Label
-
-Import: `import {Label} from '@primer/react-tailwind/Label'`
-
-`Label` marks an item with a short piece of metadata, such as a status or category. It is presentational and does not label form fields; use `FormControl.Label` for that.
-
-Differences from `@primer/react`:
-- Existing `variant`, `size`, and semantic `as` usage can be retained.
-
-### LabelGroup
-
-Import: `import {LabelGroup} from '@primer/react-tailwind/LabelGroup'`
-
-`LabelGroup` lays out a collection of `Label` items and collapses overflow behind a toggle when they exceed the available width.
-
-Differences from `@primer/react`:
-- `visibleChildCount="auto"` uses `ResizeObserver` rather than the legacy `IntersectionObserver`. This produces deterministic counts on resize and avoids relying on clipping intersection behavior.
-
-### Link
-
-Import: `import {Link} from '@primer/react-tailwind/Link'`
-
-`Link` navigates to another location. Use `Button` when the control performs an action, and `LinkButton` when a navigation target needs button styling.
-
-Differences from `@primer/react`:
-- Preserve `muted`, `inline`, and `as` usage.
-
-### LinkButton
-
-Import: `import {LinkButton} from '@primer/react-tailwind/LinkButton'`
-
-`LinkButton` navigates to a URL while looking like a `Button`. It renders an anchor, so it requires `href` rather than `onClick`.
-
-Differences from `@primer/react`:
-- Replace `as={RouterLink}` with `render={<RouterLink to="/path" />}`.
-
-### LiveRegion
-
-Import: `import {LiveRegion} from '@primer/react-tailwind/LiveRegion'`
-
-`LiveRegion` announces asynchronous changes without moving focus.
-
-Differences from `@primer/react`:
-- Select `AriaStatus` for polite status updates and `AriaAlert` for urgent messages; do not duplicate the text in multiple regions.
-
-### NavList
-
-Import: `import {NavList} from '@primer/react-tailwind/NavList'`
-
-`NavList` is a vertical navigation primitive for settings and page navigation.
-
-Differences from `@primer/react`:
-- `NavList` accepts `heading`, and `NavList.Item` accepts `leadingVisual`, `trailingVisual`, `description`, and `trailingAction`. Each takes an element for the corresponding region and takes precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
-
-### Overlay
-
-Import: `import {Overlay} from '@primer/react-tailwind/Overlay'`
-
-`Overlay` is a low-level surface for positioned content.
-
-Differences from `@primer/react`:
-- Do not treat Tailwind `Overlay` as a drop-in modal/menu controller.
-
-### PageHeader
-
-Import: `import {PageHeader} from '@primer/react-tailwind/PageHeader'`
-
-`PageHeader` composes page context, a title, description, actions, and local navigation while preserving reading and focus order.
-
-Differences from `@primer/react`:
-- Compose Breadcrumbs, local Header, and product controls around the slots instead of extending PageHeader.
-
-### PageLayout
-
-Import: `import {PageLayout} from '@primer/react-tailwind/PageLayout'`
-
-`PageLayout` composes page headers, navigation panes or sidebars, content, and footers into a responsive layout.
-
-Differences from `@primer/react`:
-- `header`, `sidebar`, and `footer` accept an element for the corresponding region and take precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
-
-### Pagination
-
-Import: `import {Pagination} from '@primer/react-tailwind/Pagination'`
-
-`Pagination` renders previous, next, and page links from a controlled current page and page count.
-
-Differences from `@primer/react`:
-- `onPageChange(event, page)` keeps upstream's event-first signature rather than the package's usual `(value, details)` order, so existing handlers port unchanged.
-
-### Popover
-
-Import: `import {Popover} from '@primer/react-tailwind/Popover'`
-
-`Popover` pairs a trigger with positioned, dismissible content.
-
-Differences from `@primer/react`:
-- Recompose legacy anchor/content markup with the compound parts.
-
-### Portal
-
-Import: `import {Portal} from '@primer/react-tailwind/Portal'`
-
-`Portal` renders children outside their React parent's DOM subtree while preserving React context.
-
-Differences from `@primer/react`:
-- Replace `containerName` with a DOM `container` or ref.
-
-### ProgressBar
-
-Import: `import {ProgressBar} from '@primer/react-tailwind/ProgressBar'`
-
-`ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.
-
-Differences from `@primer/react`:
-- Rename `barSize` to `size` and `bg` to `variant`. The middle size is `medium` rather than upstream's `default`, matching the size vocabulary used across the package.
-
-### Radio
-
-Import: `import {Radio} from '@primer/react-tailwind/Radio'`
-
-`Radio` is a styled radio primitive for use in a `RadioGroup`.
-
-Differences from `@primer/react`:
-- Use a visible label or associated FormControl label for every radio.
-
-### RadioGroup
-
-Import: `import {RadioGroup} from '@primer/react-tailwind/RadioGroup'`
-
-`RadioGroup` is a Base UI radio group with roving focus and single-value selection.
-
-Differences from `@primer/react`:
-- Use `value`, `defaultValue`, and `onValueChange` for group selection; do not duplicate the primitive's state.
-
-### RelativeTime
-
-Import: `import {RelativeTime} from '@primer/react-tailwind/RelativeTime'`
-
-`RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.
-
-Differences from `@primer/react`:
-- `date` and `datetime` are normalized onto the `time` element's machine-readable `datetime` value.
-
-### ScrollableRegion
-
-Import: `import {ScrollableRegion} from '@primer/react-tailwind/ScrollableRegion'`
-
-`ScrollableRegion` owns horizontal or vertical overflow and becomes a labelled, focusable region when its content overflows.
-
-Differences from `@primer/react`:
-- Existing children, native scrolling props, accessible-name props, and scroll usage can generally be retained.
-
-### SegmentedControl
-
-Import: `import {SegmentedControl} from '@primer/react-tailwind/SegmentedControl'`
-
-`SegmentedControl` is a single-choice Base UI toggle group for related view or mode choices.
-
-Differences from `@primer/react`:
-- Use `value`, `defaultValue`, and `onValueChange` for single-choice state.
-
-### Select
-
-Import: `import {Select} from '@primer/react-tailwind/Select'`
-
-`Select` is a styled native `<select>` with Primer control tokens. Native browser behavior owns option menus, keyboard operation, focus, form association, and controlled or uncontrolled values.
-
-Differences from `@primer/react`:
-- Replace `Select.Trigger`, `Value`, `Portal`, `Positioner`, `Popup`, `List`, `Item`, `Group`, and `GroupLabel` with `Select`, native options, and optgroups.
-
-### SelectPanel
-
-Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
-
-`SelectPanel` is a data-driven, filterable picker built with Base UI Combobox and Primer's Popover and Dialog primitives.
-
-Differences from `@primer/react`:
-- `onOpenChange(open, gesture)` reports the gesture that caused the change rather than Base UI change details, and `disableFullscreenOnNarrow` stays opt-out where `FilteredActionList` uses the opt-in `fullScreenOnNarrow`. Both keep upstream's contract.
-
-### SkeletonAvatar
-
-Import: `import {SkeletonAvatar} from '@primer/react-tailwind/SkeletonAvatar'`
-
-`SkeletonAvatar` reserves circular or square space for an avatar while the profile content is loading.
-
-Differences from `@primer/react`:
-- Existing `size` and `square` usage can be retained.
-
-### SkeletonBox
-
-Import: `import {SkeletonBox} from '@primer/react-tailwind/SkeletonBox'`
-
-`SkeletonBox` reserves space for content that is loading, using a shimmer placeholder that can be delayed until a request has taken long enough to show.
-
-Differences from `@primer/react`:
-- Keep Suspense, data fetching, and loading transitions in the application.
-
-### SkeletonText
-
-Import: `import {SkeletonText} from '@primer/react-tailwind/SkeletonText'`
-
-`SkeletonText` creates one or more text-shaped loading lines with typography height presets and an optional maximum width.
-
-Differences from `@primer/react`:
-- Expect at least one line; fractional counts are floored.
-
-### Spinner
-
-Import: `import {Spinner} from '@primer/react-tailwind/Spinner'`
-
-`Spinner` communicates that work is in progress with an animated indicator and an optional screen-reader announcement.
-
-Differences from `@primer/react`:
-- Keep `size`, `srText`, and delay usage, but recheck selectors targeting the legacy SVG root.
-
-### SplitPageLayout
-
-Import: `import {SplitPageLayout} from '@primer/react-tailwind/SplitPageLayout'`
-
-`SplitPageLayout` is an opinionated full-width `PageLayout` composition for settings and detail pages with a navigation pane and content area.
-
-Differences from `@primer/react`:
-- Use the local PageLayout-compatible slot and responsive props rather than legacy styling wrappers.
-
-### Stack
-
-Import: `import {Stack} from '@primer/react-tailwind/Stack'`
-
-`Stack` arranges related content along one axis with token-based spacing, alignment, wrapping, and responsive direction.
-
-Differences from `@primer/react`:
-- Do not assume omitted `gap` means zero; it keeps the normal spacing default.
-
-### StateLabel
-
-Import: `import {StateLabel} from '@primer/react-tailwind/StateLabel'`
-
-`StateLabel` shows the lifecycle state of an issue or pull request, such as open, closed, or merged. Use `Label` for general-purpose metadata.
-
-Differences from `@primer/react`:
-- Keep the accessible text explicit rather than depending on color alone.
-
-### SubNav
-
-Import: `import {SubNav} from '@primer/react-tailwind/SubNav'`
-
-`SubNav` is a horizontal secondary navigation bar composed from `SubNav.Links` and `SubNav.Link`.
-
-Differences from `@primer/react`:
-- Existing navigation composition and state ownership can be retained.
-
-### Tabs
-
-Import: `import {Tabs} from '@primer/react-tailwind/Tabs'`
-
-`Tabs` provides unstyled tab, tab list, and tab panel behavior that can be composed into an application-specific presentation.
-
-Differences from `@primer/react`:
-- Use `value`, `defaultValue`, and `onValueChange` for selection state.
-
-### Text
-
-Import: `import {Text} from '@primer/react-tailwind/Text'`
-
-`Text` applies Primer typography to inline or block text. Use `Heading` for section headings so that structure is conveyed semantically.
-
-Differences from `@primer/react`:
-- Preserve core typography props and semantic `as` usage.
-
-### Textarea
-
-Import: `import {Textarea} from '@primer/react-tailwind/Textarea'`
-
-`Textarea` is a styled native multiline text control.
-
-Differences from `@primer/react`:
-- Replace `block` and pixel-height props with `className` sizing utilities or native rows/cols.
-
-### TextInput
-
-Import: `import {TextInput} from '@primer/react-tailwind/TextInput'`
-
-`TextInput` is a styled native single-line input with small, medium, and large visual sizes.
-
-Differences from `@primer/react`:
-- Continue using `leadingVisual`, `trailingVisual`, `trailingAction`, `loading`, and `characterLimit`.
-
-### Timeline
-
-Import: `import {Timeline} from '@primer/react-tailwind/Timeline'`
-
-`Timeline` is a presentational compound activity stream built from `Item`, `Badge`, `Body`, `Actions`, `Avatar`, and `Break` parts.
-
-Differences from `@primer/react`:
-- Compose local Avatar, StateLabel, links, and actions inside Timeline parts.
-
-### ToggleSwitch
-
-Import: `import {ToggleSwitch} from '@primer/react-tailwind/ToggleSwitch'`
-
-`ToggleSwitch` is a form-associated binary switch with small and medium sizes.
-
-Differences from `@primer/react`:
-- Use the checked-state contract; do not mirror Base UI state in a second React state source.
-
-### Token
-
-Import: `import {Token} from '@primer/react-tailwind/Token'`
-
-`Token` displays compact filter or selection content with optional leading visuals, selection state, and removal behavior. `IssueLabelToken` provides the same token interaction model with a custom label color.
-
-Differences from `@primer/react`:
-- Do not nest a remove button inside a link/button token.
-
-### Tooltip
-
-Import: `import {Tooltip} from '@primer/react-tailwind/Tooltip'`
-
-`Tooltip` provides supplementary text for a trigger.
-
-Differences from `@primer/react`:
-- Replace `direction` with physical `side` and use `align` where needed.
-
-### TopicTag
-
-Import: `import {TopicTag} from '@primer/react-tailwind/TopicTag'`
-
-`TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTagGroup` wraps tags into a responsive row.
-
-Differences from `@primer/react`:
-- Existing TopicTag and TopicTagGroup composition can generally be retained.
-
-### TreeView
-
-Import: `import {TreeView} from '@primer/react-tailwind/TreeView'`
-
-`TreeView` is a presentational compound component for hierarchical files, folders, and nested resources. Compose its parts in author order to retain control of item content and visuals while TreeView owns tree semantics, expansion, roving focus, and typeahead.
-
-Differences from `@primer/react`:
-- `TreeView.Item` accepts `leadingVisual`, `trailingVisual`, and `subtree` for the corresponding regions, each taking precedence over a matching child. `leadingVisual` and `trailingVisual` also accept a `(state) => ReactNode` callback so a visual can respond to the item's expanded state.
-
-### Truncate
-
-Import: `import {Truncate} from '@primer/react-tailwind/Truncate'`
-
-`Truncate` applies single-line overflow truncation while preserving the full value in the native `title` tooltip.
-
-Differences from `@primer/react`:
-- Keep expansion state and controls in the consumer.
-
-### UnderlineNav
-
-Import: `import {UnderlineNav} from '@primer/react-tailwind/UnderlineNav'`
-
-`UnderlineNav` is a presentational navigation composition for sibling destinations. It keeps native link semantics, while consumers own route integration, item order, and selected state.
-
-Differences from `@primer/react`:
-- **Intentional — composition:** Wrap items in `UnderlineNav.List`. This preserves native `nav`/`ul`/`li`/link semantics without extracting or reordering consumer children.
-
-### UnderlinePanels
-
-Import: `import {UnderlinePanels} from '@primer/react-tailwind/UnderlinePanels'`
-
-`UnderlinePanels` is a tab-and-panel composition with an underlined tab list.
-
-Differences from `@primer/react`:
-- Use the documented value/default-value callback contract for tab selection.
-
-### VisuallyHidden
-
-Import: `import {VisuallyHidden} from '@primer/react-tailwind/VisuallyHidden'`
-
-`VisuallyHidden` hides content visually while keeping it available to screen readers. Use it for context that is obvious visually but missing from the accessible name.
-
-Differences from `@primer/react`:
-- Existing `focusable` usage can be retained.
+Each component has a detail file with its props and migration notes. Load only the ones you need.
+
+- [ActionBar](llms/ActionBar.md): `ActionBar` groups related actions with `Button`, `IconButton`, `Group`, `Divider`, and `Menu` parts.
+- [ActionList](llms/ActionList.md): `ActionList` is a semantic action, menu, or listbox list composed from explicit child parts.
+- [ActionMenu](llms/ActionMenu.md): `ActionMenu` is a composable Base UI menu with button and low-level trigger options.
+- [AnchoredOverlay](llms/AnchoredOverlay.md): `AnchoredOverlay` positions a dismissible overlay relative to a trigger.
+- [Autocomplete](llms/Autocomplete.md): `Autocomplete` is a composable Base UI autocomplete for filtering and choosing from a known set of options.
+- [Avatar](llms/Avatar.md): `Avatar` renders a user or organization image at a consistent size and shape. Use `square` for organizations and other non-person entities.
+- [AvatarStack](llms/AvatarStack.md): `AvatarStack` is a presentational component for a compact, expandable group of avatars. Import it from `@primer/react-tailwind/AvatarStack`.
+- [Banner](llms/Banner.md): `Banner` announces a page-level status or message that needs attention but does not interrupt the user. Use `Dialog` instead when the message must block the task, and inline validation for a single field.
+- [Blankslate](llms/Blankslate.md): `Blankslate` provides a structured empty state with optional visual, heading, description, and primary or secondary actions.
+- [BranchName](llms/BranchName.md): `BranchName` renders a Git ref name in Primer's monospace branch treatment. It is presentational; pass `href` to make it navigable.
+- [Breadcrumbs](llms/Breadcrumbs.md): `Breadcrumbs` communicates the current location within a hierarchy.
+- [Button](llms/Button.md): `Button` triggers an action in the current view. Use `LinkButton` when the control navigates to a URL, and `IconButton` when the control has no visible label.
+- [ButtonBase](llms/ButtonBase.md): `ButtonBase` is the unstyled button primitive behind `Button`, `IconButton`, and `LinkButton`. Reach for it only when building a new button-like control; prefer `Button` for ordinary actions.
+- [ButtonGroup](llms/ButtonGroup.md): `ButtonGroup` joins related buttons into a single segmented control. Use `SegmentedControl` instead when the buttons select between mutually exclusive views.
+- [Card](llms/Card.md): `Card` is a composable content container with heading, description, image, metadata, icon, and action parts.
+- [Checkbox](llms/Checkbox.md): `Checkbox` is a form-associated binary control. Pair it with a native label or `FormControl.Label`.
+- [CheckboxGroup](llms/CheckboxGroup.md): `CheckboxGroup` groups checkbox primitives and supplies their shared controlled or uncontrolled state.
+- [ConfirmationDialog](llms/ConfirmationDialog.md): `ConfirmationDialog` asks a user to confirm or cancel a consequential action.
+- [CounterLabel](llms/CounterLabel.md): `CounterLabel` displays a numeric count alongside a label, such as an open-issue total. It is presentational and does not format or abbreviate the number.
+- [DataTable](llms/DataTable.md): `DataTable` is a presentational, typed table for stable row data. It owns native table structure, sorting state, and column layout while `Table` exposes structural parts for custom composition.
+- [Details](llms/Details.md): `Details` is a native disclosure element with a styled summary.
+- [Dialog](llms/Dialog.md): `Dialog` provides a modal surface with composable trigger and content parts.
+- [FeatureFlags](llms/FeatureFlags.md): `FeatureFlags` scopes boolean flags and `useFeatureFlag` reads one flag.
+- [FilteredActionList](llms/FilteredActionList.md): `FilteredActionList` is a configured, data-driven filterable ActionList for established picker and command-list patterns. It composes shared `TextInput`, ActionList content layers, `Checkbox`, `Spinner`, and `SkeletonBox` with Base UI's combobox behavior. Use `ActionList` directly when consumer-owned markup needs a different structure.
+- [Flash](llms/Flash.md): `Flash` presents a prominent message with semantic visual variants and an optional full-width layout.
+- [FormControl](llms/FormControl.md): `FormControl` is a composable field wrapper that provides label, caption, validation, and control association.
+- [Header](llms/Header.md): `Header` is a compact horizontal header primitive. Use `Header.Item` for layout participants and `Header.Link` for consistently styled navigation.
+- [Heading](llms/Heading.md): `Heading` renders a section heading. Choose the level with `as` for document structure and `variant` for visual size, so heading order stays correct independently of scale.
+- [Hidden](llms/Hidden.md): `Hidden` conditionally hides presentational content at Primer viewport ranges. It is not a permission or authorization mechanism.
+- [IconButton](llms/IconButton.md): `IconButton` is a button whose only content is an icon. `aria-label` is required, because the control has no visible text.
+- [InlineMessage](llms/InlineMessage.md): `InlineMessage` communicates validation, status, and availability inline with content or a form control.
+- [IssueLabel](llms/IssueLabel.md): `IssueLabel` displays a colored label and can render as a link, button, or custom element for interactive label workflows.
+- [KeybindingHint](llms/KeybindingHint.md): `KeybindingHint` renders a compact, screen-reader-friendly keyboard shortcut using the local key formatting rules.
+- [Label](llms/Label.md): `Label` marks an item with a short piece of metadata, such as a status or category. It is presentational and does not label form fields; use `FormControl.Label` for that.
+- [LabelGroup](llms/LabelGroup.md): `LabelGroup` lays out a collection of `Label` items and collapses overflow behind a toggle when they exceed the available width.
+- [Link](llms/Link.md): `Link` navigates to another location. Use `Button` when the control performs an action, and `LinkButton` when a navigation target needs button styling.
+- [LinkButton](llms/LinkButton.md): `LinkButton` navigates to a URL while looking like a `Button`. It renders an anchor, so it requires `href` rather than `onClick`.
+- [LiveRegion](llms/LiveRegion.md): `LiveRegion` announces asynchronous changes without moving focus.
+- [NavList](llms/NavList.md): `NavList` is a vertical navigation primitive for settings and page navigation.
+- [Overlay](llms/Overlay.md): `Overlay` is a low-level surface for positioned content.
+- [PageHeader](llms/PageHeader.md): `PageHeader` composes page context, a title, description, actions, and local navigation while preserving reading and focus order.
+- [PageLayout](llms/PageLayout.md): `PageLayout` composes page headers, navigation panes or sidebars, content, and footers into a responsive layout.
+- [Pagination](llms/Pagination.md): `Pagination` renders previous, next, and page links from a controlled current page and page count.
+- [Popover](llms/Popover.md): `Popover` pairs a trigger with positioned, dismissible content.
+- [Portal](llms/Portal.md): `Portal` renders children outside their React parent's DOM subtree while preserving React context.
+- [ProgressBar](llms/ProgressBar.md): `ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.
+- [Radio](llms/Radio.md): `Radio` is a styled radio primitive for use in a `RadioGroup`.
+- [RadioGroup](llms/RadioGroup.md): `RadioGroup` is a Base UI radio group with roving focus and single-value selection.
+- [RelativeTime](llms/RelativeTime.md): `RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.
+- [ScrollableRegion](llms/ScrollableRegion.md): `ScrollableRegion` owns horizontal or vertical overflow and becomes a labelled, focusable region when its content overflows.
+- [SegmentedControl](llms/SegmentedControl.md): `SegmentedControl` is a single-choice Base UI toggle group for related view or mode choices.
+- [Select](llms/Select.md): `Select` is a styled native `<select>` with Primer control tokens. Native browser behavior owns option menus, keyboard operation, focus, form association, and controlled or uncontrolled values.
+- [SelectPanel](llms/SelectPanel.md): `SelectPanel` is a data-driven, filterable picker built with Base UI Combobox and Primer's Popover and Dialog primitives.
+- [SkeletonAvatar](llms/SkeletonAvatar.md): `SkeletonAvatar` reserves circular or square space for an avatar while the profile content is loading.
+- [SkeletonBox](llms/SkeletonBox.md): `SkeletonBox` reserves space for content that is loading, using a shimmer placeholder that can be delayed until a request has taken long enough to show.
+- [SkeletonText](llms/SkeletonText.md): `SkeletonText` creates one or more text-shaped loading lines with typography height presets and an optional maximum width.
+- [Spinner](llms/Spinner.md): `Spinner` communicates that work is in progress with an animated indicator and an optional screen-reader announcement.
+- [SplitPageLayout](llms/SplitPageLayout.md): `SplitPageLayout` is an opinionated full-width `PageLayout` composition for settings and detail pages with a navigation pane and content area.
+- [Stack](llms/Stack.md): `Stack` arranges related content along one axis with token-based spacing, alignment, wrapping, and responsive direction.
+- [StateLabel](llms/StateLabel.md): `StateLabel` shows the lifecycle state of an issue or pull request, such as open, closed, or merged. Use `Label` for general-purpose metadata.
+- [SubNav](llms/SubNav.md): `SubNav` is a horizontal secondary navigation bar composed from `SubNav.Links` and `SubNav.Link`.
+- [Tabs](llms/Tabs.md): `Tabs` provides unstyled tab, tab list, and tab panel behavior that can be composed into an application-specific presentation.
+- [Text](llms/Text.md): `Text` applies Primer typography to inline or block text. Use `Heading` for section headings so that structure is conveyed semantically.
+- [Textarea](llms/Textarea.md): `Textarea` is a styled native multiline text control.
+- [TextInput](llms/TextInput.md): `TextInput` is a styled native single-line input with small, medium, and large visual sizes.
+- [Timeline](llms/Timeline.md): `Timeline` is a presentational compound activity stream built from `Item`, `Badge`, `Body`, `Actions`, `Avatar`, and `Break` parts.
+- [ToggleSwitch](llms/ToggleSwitch.md): `ToggleSwitch` is a form-associated binary switch with small and medium sizes.
+- [Token](llms/Token.md): `Token` displays compact filter or selection content with optional leading visuals, selection state, and removal behavior. `IssueLabelToken` provides the same token interaction model with a custom label color.
+- [Tooltip](llms/Tooltip.md): `Tooltip` provides supplementary text for a trigger.
+- [TopicTag](llms/TopicTag.md): `TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTagGroup` wraps tags into a responsive row.
+- [TreeView](llms/TreeView.md): `TreeView` is a presentational compound component for hierarchical files, folders, and nested resources. Compose its parts in author order to retain control of item content and visuals while TreeView owns tree semantics, expansion, roving focus, and typeahead.
+- [Truncate](llms/Truncate.md): `Truncate` applies single-line overflow truncation while preserving the full value in the native `title` tooltip.
+- [UnderlineNav](llms/UnderlineNav.md): `UnderlineNav` is a presentational navigation composition for sibling destinations. It keeps native link semantics, while consumers own route integration, item order, and selected state.
+- [UnderlinePanels](llms/UnderlinePanels.md): `UnderlinePanels` is a tab-and-panel composition with an underlined tab list.
+- [VisuallyHidden](llms/VisuallyHidden.md): `VisuallyHidden` hides content visually while keeping it available to screen readers. Use it for context that is obvious visually but missing from the accessible name.
 
 ## Not included
 

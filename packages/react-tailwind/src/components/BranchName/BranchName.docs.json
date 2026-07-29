@@ -1,0 +1,43 @@
+{
+  "id": "branchname",
+  "name": "BranchName",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/BranchName",
+  "description": "`BranchName` renders a Git ref name in Primer's monospace branch treatment. It is presentational; pass `href` to make it navigable.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-branchname-examples--pull-request-branch"
+    },
+    {
+      "id": "react-tailwind-display-branchname-features--with-branch-icon"
+    },
+    {
+      "id": "react-tailwind-display-branchname-features--not-a-link"
+    },
+    {
+      "id": "react-tailwind-display-branchname-features--link-without-href"
+    },
+    {
+      "id": "react-tailwind-display-branchname-features--no-props"
+    },
+    {
+      "id": "react-tailwind-display-branchname-features--with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-display-branchname-features--with-trailing-action-menu"
+    },
+    {
+      "id": "react-tailwind-display-branchname--default"
+    },
+    {
+      "id": "react-tailwind-display-branchname--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'a'"
+    }
+  ]
+}

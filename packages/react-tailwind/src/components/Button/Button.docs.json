@@ -1,0 +1,211 @@
+{
+  "id": "button",
+  "name": "Button",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Button",
+  "description": "`Button` triggers an action in the current view. Use `LinkButton` when the control navigates to a URL, and `IconButton` when the control has no visible label.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-button-examples--loading-status-announcement-successful"
+    },
+    {
+      "id": "react-tailwind-display-button-examples--loading-status-announcement-successful-interactive"
+    },
+    {
+      "id": "react-tailwind-display-button-examples--loading-status-announcement-error"
+    },
+    {
+      "id": "react-tailwind-display-button-examples--loading-status-announcement-error-interactive"
+    },
+    {
+      "id": "react-tailwind-display-button-features--primary"
+    },
+    {
+      "id": "react-tailwind-display-button-features--danger"
+    },
+    {
+      "id": "react-tailwind-display-button-features--invisible"
+    },
+    {
+      "id": "react-tailwind-display-button-features--link"
+    },
+    {
+      "id": "react-tailwind-display-button-features--leading-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-counter"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-counter-with-no-text"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-counter-with-human-format"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-counter-all-variants"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-action"
+    },
+    {
+      "id": "react-tailwind-display-button-features--block"
+    },
+    {
+      "id": "react-tailwind-display-button-features--disabled"
+    },
+    {
+      "id": "react-tailwind-display-button-features--inactive"
+    },
+    {
+      "id": "react-tailwind-display-button-features--small"
+    },
+    {
+      "id": "react-tailwind-display-button-features--medium"
+    },
+    {
+      "id": "react-tailwind-display-button-features--large"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-custom-announcement"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-with-trailing-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-trigger"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-trigger-interactive"
+    },
+    {
+      "id": "react-tailwind-display-button-features--label-wrap"
+    },
+    {
+      "id": "react-tailwind-display-button-features--inactive-button-with-tooltip"
+    },
+    {
+      "id": "react-tailwind-display-button-features--expanded-button"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-basic"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-all-variants"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-all-sizes"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-sequence"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-with-loading"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-with-loading-interactive"
+    },
+    {
+      "id": "react-tailwind-display-button--default"
+    },
+    {
+      "id": "react-tailwind-display-button--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "alignContent",
+      "type": "'start' | 'center'",
+      "defaultValue": "'center'"
+    },
+    {
+      "name": "block",
+      "type": "boolean"
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "className",
+      "type": "string"
+    },
+    {
+      "name": "count",
+      "type": "number | string"
+    },
+    {
+      "name": "data-component",
+      "type": "string",
+      "defaultValue": "'ButtonBase'"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean"
+    },
+    {
+      "name": "inactive",
+      "type": "boolean"
+    },
+    {
+      "name": "labelWrap",
+      "type": "boolean"
+    },
+    {
+      "name": "leadingVisual",
+      "type": "ButtonVisual"
+    },
+    {
+      "name": "loading",
+      "type": "boolean"
+    },
+    {
+      "name": "loadingAnnouncement",
+      "type": "string",
+      "defaultValue": "'Loading'"
+    },
+    {
+      "name": "size",
+      "type": "ControlSize"
+    },
+    {
+      "name": "trailingAction",
+      "type": "ButtonVisual"
+    },
+    {
+      "name": "trailingVisual",
+      "type": "ButtonVisual"
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'primary' | 'danger' | 'invisible' | 'link'",
+      "defaultValue": "'default'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ButtonBase",
+      "props": [
+        {
+          "name": "data-component",
+          "type": "string",
+          "defaultValue": "'ButtonBase'"
+        }
+      ]
+    }
+  ]
+}

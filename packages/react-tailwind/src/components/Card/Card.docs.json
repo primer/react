@@ -1,0 +1,145 @@
+{
+  "id": "card",
+  "name": "Card",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Card",
+  "description": "`Card` is a composable content container with heading, description, image, metadata, icon, and action parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-card-examples--repository-summary"
+    },
+    {
+      "id": "react-tailwind-content-card-examples--settings-card"
+    },
+    {
+      "id": "react-tailwind-content-card-examples--empty-card"
+    },
+    {
+      "id": "react-tailwind-content-card-features--with-image"
+    },
+    {
+      "id": "react-tailwind-content-card-features--compact"
+    },
+    {
+      "id": "react-tailwind-content-card-features--with-metadata"
+    },
+    {
+      "id": "react-tailwind-content-card-features--with-menu"
+    },
+    {
+      "id": "react-tailwind-content-card-features--custom-content"
+    },
+    {
+      "id": "react-tailwind-content-card-features--standalone-section"
+    },
+    {
+      "id": "react-tailwind-content-card-features--in-list"
+    },
+    {
+      "id": "react-tailwind-content-card-features--interactive-content"
+    },
+    {
+      "id": "react-tailwind-content-card-features--border-radius"
+    },
+    {
+      "id": "react-tailwind-content-card--default"
+    },
+    {
+      "id": "react-tailwind-content-card--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "action",
+      "type": "React.ReactNode",
+      "description": "Supplies the action region. Takes precedence over a matching `Card.Action` child."
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'section'",
+      "defaultValue": "'div'"
+    },
+    {
+      "name": "borderRadius",
+      "type": "'medium' | 'large'",
+      "defaultValue": "'large'"
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "description",
+      "type": "React.ReactNode",
+      "description": "Supplies the description region. Takes precedence over a matching `Card.Description` child."
+    },
+    {
+      "name": "heading",
+      "type": "React.ReactNode",
+      "description": "Supplies the heading region. Takes precedence over a matching `Card.Heading` child."
+    },
+    {
+      "name": "icon",
+      "type": "React.ReactNode",
+      "description": "Supplies the icon region. Takes precedence over a matching `Card.Icon` child."
+    },
+    {
+      "name": "image",
+      "type": "React.ReactNode",
+      "description": "Supplies the image region. Takes precedence over a matching `Card.Image` child."
+    },
+    {
+      "name": "layout",
+      "type": "'default' | 'compact'",
+      "defaultValue": "'default'"
+    },
+    {
+      "name": "metadata",
+      "type": "React.ReactNode",
+      "description": "Supplies the metadata region. Takes precedence over a matching `Card.Metadata` child."
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'condensed' | 'normal'",
+      "defaultValue": "'normal'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "CardIcon",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType"
+        }
+      ]
+    },
+    {
+      "name": "CardImage",
+      "props": [
+        {
+          "name": "src",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "CardHeading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "'div'"
+        }
+      ]
+    }
+  ]
+}

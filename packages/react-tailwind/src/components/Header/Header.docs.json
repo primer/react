@@ -1,0 +1,58 @@
+{
+  "id": "header",
+  "name": "Header",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Header",
+  "description": "`Header` is a compact horizontal header primitive. Use `Header.Item` for layout participants and `Header.Link` for consistently styled navigation.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-header-examples--repository-header"
+    },
+    {
+      "id": "react-tailwind-layout-header-features--with-full-size-item"
+    },
+    {
+      "id": "react-tailwind-layout-header-features--with-links"
+    },
+    {
+      "id": "react-tailwind-layout-header-features--with-many-items"
+    },
+    {
+      "id": "react-tailwind-layout-header--default"
+    },
+    {
+      "id": "react-tailwind-layout-header--playground"
+    },
+    {
+      "id": "react-tailwind-layout-header--items"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'header'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "HeaderItem",
+      "props": [
+        {
+          "name": "full",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "HeaderLink",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'header'"
+        }
+      ]
+    }
+  ]
+}

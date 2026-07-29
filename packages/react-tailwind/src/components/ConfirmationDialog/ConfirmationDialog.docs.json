@@ -1,0 +1,99 @@
+{
+  "id": "confirmationdialog",
+  "name": "ConfirmationDialog",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ConfirmationDialog",
+  "description": "`ConfirmationDialog` asks a user to confirm or cancel a consequential action.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-confirmationdialog-examples--destructive-confirmation"
+    },
+    {
+      "id": "react-tailwind-components-confirmationdialog-features--shorthand-hook"
+    },
+    {
+      "id": "react-tailwind-components-confirmationdialog-features--shorthand-hook-from-action-menu"
+    },
+    {
+      "id": "react-tailwind-components-confirmationdialog-features--loading-states"
+    },
+    {
+      "id": "react-tailwind-components-confirmationdialog--default"
+    },
+    {
+      "id": "react-tailwind-components-confirmationdialog--playground"
+    },
+    {
+      "id": "react-tailwind-components-confirmationdialog--loading-confirmation"
+    }
+  ],
+  "props": [
+    {
+      "name": "cancelButtonContent",
+      "type": "React.ReactNode",
+      "defaultValue": "'Cancel'"
+    },
+    {
+      "name": "cancelButtonDisabled",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "cancelButtonLoading",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "confirmButtonContent",
+      "type": "React.ReactNode",
+      "defaultValue": "'Confirm'"
+    },
+    {
+      "name": "confirmButtonDisabled",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "confirmButtonLoading",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "dangerous",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "description",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "finalFocus",
+      "type": "React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['finalFocus']"
+    },
+    {
+      "name": "initialFocus",
+      "type": "'cancel' | 'confirm' | React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['initialFocus']"
+    },
+    {
+      "name": "onCancel",
+      "type": "() => void"
+    },
+    {
+      "name": "onConfirm",
+      "type": "() => void"
+    },
+    {
+      "name": "title",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "trigger",
+      "type": "React.ReactElement"
+    }
+  ]
+}

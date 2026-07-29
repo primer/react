@@ -1,0 +1,79 @@
+{
+  "id": "progressbar",
+  "name": "ProgressBar",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ProgressBar",
+  "description": "`ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-progressbar-examples--with-visible-text-value"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-examples--multiple-segments"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-examples--empty-and-complete"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--progress-zero"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--progress-half"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--progress-done"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--size-small"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--size-large"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--inline"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--all-colors"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--multiple-items"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--animated"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--clamped-values"
+    },
+    {
+      "id": "react-tailwind-display-progressbar--default"
+    },
+    {
+      "id": "react-tailwind-display-progressbar--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "animated",
+      "type": "boolean"
+    },
+    {
+      "name": "progress",
+      "type": "number"
+    },
+    {
+      "name": "variant",
+      "type": "VariantProps<typeof itemVariants>['variant']"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ProgressBarItem",
+      "props": [
+        {
+          "name": "progress",
+          "type": "number"
+        }
+      ]
+    }
+  ]
+}

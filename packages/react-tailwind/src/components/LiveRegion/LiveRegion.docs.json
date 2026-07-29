@@ -1,0 +1,66 @@
+{
+  "id": "liveregion",
+  "name": "LiveRegion",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/LiveRegion",
+  "description": "`LiveRegion` announces asynchronous changes without moving focus.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-liveregion-examples--async-save"
+    },
+    {
+      "id": "react-tailwind-components-liveregion-examples--save-failed"
+    },
+    {
+      "id": "react-tailwind-components-liveregion-examples--results-loaded"
+    },
+    {
+      "id": "react-tailwind-components-liveregion-features--visually-hidden-story"
+    },
+    {
+      "id": "react-tailwind-components-liveregion-features--with-delay"
+    },
+    {
+      "id": "react-tailwind-components-liveregion--default"
+    },
+    {
+      "id": "react-tailwind-components-liveregion--playground"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Announce",
+      "props": [
+        {
+          "name": "announceOnShow",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'"
+        },
+        {
+          "name": "data-component",
+          "type": "string",
+          "defaultValue": "'Announce'"
+        },
+        {
+          "name": "delayMs",
+          "type": "number"
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "politeness",
+          "type": "Politeness",
+          "defaultValue": "'polite'"
+        }
+      ]
+    }
+  ]
+}

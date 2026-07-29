@@ -1,0 +1,128 @@
+{
+  "id": "actionmenu",
+  "name": "ActionMenu",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ActionMenu",
+  "description": "`ActionMenu` is a composable Base UI menu with button and low-level trigger options.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-actionmenu-examples--groups-and-descriptions"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--custom-overlay-props"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--full-screen"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--controlled-menu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--shortcut-menu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--context-menu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--custom-anchor"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--custom-anchor-id"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--mixed-selection"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--multiple-sections"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--delayed-menu-close"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--on-right-side"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--setting-max-height"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--only-inactive-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--dynamic-anchor-sides"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--inside-dialog"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--centered-on-page"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--two-action-menus"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--links-and-actions"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--single-select"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--multi-select"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--inactive-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--loading-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--submenus"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--disabled-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu--default"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu--playground"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionMenuButton",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "ActionMenuItem",
+      "props": [
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "loadingText",
+          "type": "string"
+        },
+        {
+          "name": "selected",
+          "type": "boolean"
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'danger'",
+          "defaultValue": "'default'"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "buttongroup",
+  "name": "ButtonGroup",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ButtonGroup",
+  "description": "`ButtonGroup` joins related buttons into a single segmented control. Use `SegmentedControl` instead when the buttons select between mutually exclusive views.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-buttongroup-examples--formatting-toolbar"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--icon-buttons"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--loading-buttons"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--icon-buttons-with-tooltip"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--button-and-link"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--links-with-tooltip"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--inactive-buttons-group"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--dropdown-split"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--as-toolbar"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup--default"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup--playground"
+    }
+  ]
+}

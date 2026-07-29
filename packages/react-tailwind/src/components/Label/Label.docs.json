@@ -1,0 +1,58 @@
+{
+  "id": "label",
+  "name": "Label",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Label",
+  "description": "`Label` marks an item with a short piece of metadata, such as a status or category. It is presentational and does not label form fields; use `FormControl.Label` for that.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-label-examples--issue-metadata"
+    },
+    {
+      "id": "react-tailwind-display-label-features--primary"
+    },
+    {
+      "id": "react-tailwind-display-label-features--secondary"
+    },
+    {
+      "id": "react-tailwind-display-label-features--accent"
+    },
+    {
+      "id": "react-tailwind-display-label-features--success"
+    },
+    {
+      "id": "react-tailwind-display-label-features--attention"
+    },
+    {
+      "id": "react-tailwind-display-label-features--severe"
+    },
+    {
+      "id": "react-tailwind-display-label-features--danger"
+    },
+    {
+      "id": "react-tailwind-display-label-features--done"
+    },
+    {
+      "id": "react-tailwind-display-label-features--sponsors"
+    },
+    {
+      "id": "react-tailwind-display-label-features--size-large"
+    },
+    {
+      "id": "react-tailwind-display-label-features--size-small"
+    },
+    {
+      "id": "react-tailwind-display-label--default"
+    },
+    {
+      "id": "react-tailwind-display-label--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'span'"
+    }
+  ]
+}

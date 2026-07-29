@@ -1,0 +1,93 @@
+{
+  "id": "stack",
+  "name": "Stack",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Stack",
+  "description": "`Stack` arranges related content along one axis with token-based spacing, alignment, wrapping, and responsive direction.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-stack-examples--settings-summary"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--gap-scale"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--directional-padding"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--padding-scale"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--shrinking-stack-items"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--responsive-direction"
+    },
+    {
+      "id": "react-tailwind-layout-stack--default"
+    },
+    {
+      "id": "react-tailwind-layout-stack--playground"
+    },
+    {
+      "id": "react-tailwind-layout-stack--responsive"
+    }
+  ],
+  "props": [
+    {
+      "name": "align",
+      "type": "ResponsiveValue<'stretch' | 'start' | 'center' | 'end' | 'baseline'>",
+      "defaultValue": "'stretch'"
+    },
+    {
+      "name": "direction",
+      "type": "ResponsiveValue<'horizontal' | 'vertical'>",
+      "defaultValue": "'vertical'"
+    },
+    {
+      "name": "gap",
+      "type": "ResponsiveValue<Gap>",
+      "defaultValue": "'normal'"
+    },
+    {
+      "name": "justify",
+      "type": "ResponsiveValue<'start' | 'center' | 'end' | 'space-between' | 'space-evenly'>",
+      "defaultValue": "'start'"
+    },
+    {
+      "name": "padding",
+      "type": "ResponsiveValue<Gap>",
+      "defaultValue": "'none'"
+    },
+    {
+      "name": "paddingBlock",
+      "type": "ResponsiveValue<Gap>"
+    },
+    {
+      "name": "paddingInline",
+      "type": "ResponsiveValue<Gap>"
+    },
+    {
+      "name": "wrap",
+      "type": "ResponsiveValue<'wrap' | 'nowrap'>",
+      "defaultValue": "'nowrap'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "StackItem",
+      "props": [
+        {
+          "name": "grow",
+          "type": "ResponsiveValue<boolean>",
+          "defaultValue": "false"
+        },
+        {
+          "name": "shrink",
+          "type": "ResponsiveValue<boolean>",
+          "defaultValue": "true"
+        }
+      ]
+    }
+  ]
+}

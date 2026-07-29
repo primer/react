@@ -1,0 +1,181 @@
+{
+  "id": "filteredactionlist",
+  "name": "FilteredActionList",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/FilteredActionList",
+  "description": "`FilteredActionList` is a configured, data-driven filterable ActionList for established picker and command-list patterns. It composes shared `TextInput`, ActionList content layers, `Checkbox`, `Spinner`, and `SkeletonBox` with Base UI's combobox behavior. Use `ActionList` directly when consumer-owned markup needs a different structure.",
+  "props": [
+    {
+      "name": "actionListProps",
+      "type": "Omit<Partial<ActionListRootProps>, 'children' | 'data-component'>"
+    },
+    {
+      "name": "announcementsEnabled",
+      "type": "boolean",
+      "defaultValue": "true"
+    },
+    {
+      "name": "defaultFilterValue",
+      "type": "string",
+      "defaultValue": "''"
+    },
+    {
+      "name": "defaultSelectedItemIds",
+      "type": "readonly FilteredActionListItemId[]"
+    },
+    {
+      "name": "disableSelectOnHover",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "emptyStateText",
+      "type": "React.ReactNode",
+      "defaultValue": "'No items found'"
+    },
+    {
+      "name": "filterValue",
+      "type": "string",
+      "description": "Controlled filter query."
+    },
+    {
+      "name": "focusOutBehavior",
+      "type": "'stop' | 'wrap'",
+      "defaultValue": "'wrap'",
+      "description": "Determines whether keyboard navigation stops or wraps at the first and\nlast enabled option."
+    },
+    {
+      "name": "focusPrependedElements",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "fullScreenOnNarrow",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Increases the input text size on narrow viewports to prevent iOS from\nzooming while the input is focused."
+    },
+    {
+      "name": "groupMetadata",
+      "type": "readonly FilteredActionListGroup[]"
+    },
+    {
+      "name": "inputRef",
+      "type": "React.Ref<HTMLInputElement>"
+    },
+    {
+      "name": "items",
+      "type": "readonly FilteredActionListItem[]"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "loadingType",
+      "type": "FilteredActionListLoadingType",
+      "defaultValue": "FilteredActionListLoadingTypes.bodySpinner"
+    },
+    {
+      "name": "message",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "messageText",
+      "type": "{title: string; description: string}"
+    },
+    {
+      "name": "onActiveDescendantChanged",
+      "type": "( current: HTMLElement | undefined, previous: HTMLElement | undefined, directlyActivated: boolean, ) => void"
+    },
+    {
+      "name": "onFilterChange",
+      "type": "(value: string, details: Combobox.Root.ChangeEventDetails) => void"
+    },
+    {
+      "name": "onInputRefChanged",
+      "type": "(ref: React.RefObject<HTMLInputElement | null>) => void"
+    },
+    {
+      "name": "onListContainerRefChanged",
+      "type": "(element: HTMLElement | null) => void"
+    },
+    {
+      "name": "onSelectAllChange",
+      "type": "(selected: boolean) => void",
+      "description": "Opts a multiple-selection list into a select-all control."
+    },
+    {
+      "name": "onSelectedChange",
+      "type": "(selectedItemIds: FilteredActionListItemId[], details?: Combobox.Root.ChangeEventDetails) => void"
+    },
+    {
+      "name": "placeholderText",
+      "type": "string",
+      "defaultValue": "'Filter items'"
+    },
+    {
+      "name": "renderGroup",
+      "type": "React.ElementType"
+    },
+    {
+      "name": "renderItem",
+      "type": "FilteredActionListRenderItem",
+      "description": "A list-level renderer used unless a group or item provides one."
+    },
+    {
+      "name": "scrollBehavior",
+      "type": "ScrollBehavior"
+    },
+    {
+      "name": "scrollContainerRef",
+      "type": "React.Ref<HTMLDivElement>"
+    },
+    {
+      "name": "selectedItemIds",
+      "type": "readonly FilteredActionListItemId[]",
+      "description": "Controlled selected IDs. Number and string IDs remain distinct."
+    },
+    {
+      "name": "selectionVariant",
+      "type": "'single' | 'multiple' | 'radio'"
+    },
+    {
+      "name": "setInitialFocus",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "showItemDividers",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "textInputProps",
+      "type": "FilteredActionListTextInputProps"
+    },
+    {
+      "name": "variant",
+      "type": "'inset' | 'horizontal-inset' | 'full'",
+      "defaultValue": "'inset'"
+    },
+    {
+      "name": "virtualized",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Enables fixed-row virtualization for ungrouped, uniform default items."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "FilteredActionListTextInput",
+      "props": [
+        {
+          "name": "leadingVisual",
+          "type": "ItemVisual"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "truncate",
+  "name": "Truncate",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Truncate",
+  "description": "`Truncate` applies single-line overflow truncation while preserving the full value in the native `title` tooltip.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-truncate-examples--navigation-label"
+    },
+    {
+      "id": "react-tailwind-display-truncate-examples--custom-content"
+    },
+    {
+      "id": "react-tailwind-display-truncate-examples--narrow-container"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--expandable"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--inline"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--max-width"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--overflow"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--custom-element"
+    },
+    {
+      "id": "react-tailwind-display-truncate--default"
+    },
+    {
+      "id": "react-tailwind-display-truncate--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'span'"
+    },
+    {
+      "name": "expandable",
+      "type": "boolean"
+    },
+    {
+      "name": "inline",
+      "type": "boolean"
+    },
+    {
+      "name": "maxWidth",
+      "type": "number | string",
+      "defaultValue": "125"
+    },
+    {
+      "name": "title",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "id": "textinput",
+  "name": "TextInput",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/TextInput",
+  "description": "`TextInput` is a styled native single-line input with small, medium, and large visual sizes.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-textinput-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--disabled"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--visually-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--error"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--success"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--block"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--small"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--large"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--required"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-trailing-icon"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-tooltip-direction"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-loading-indicator"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-autocomplete-attribute"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-character-limit"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-character-limit-and-caption"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-character-limit-exceeded"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-textinput--default"
+    },
+    {
+      "id": "react-tailwind-forms-textinput--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "block",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "characterLimit",
+      "type": "number"
+    },
+    {
+      "name": "contrast",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "leadingVisual",
+      "type": "TextInputVisual"
+    },
+    {
+      "name": "loaderPosition",
+      "type": "'auto' | 'leading' | 'trailing'",
+      "defaultValue": "'auto'"
+    },
+    {
+      "name": "loaderText",
+      "type": "string",
+      "defaultValue": "'Loading'"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "monospace",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "size",
+      "type": "ControlSize",
+      "defaultValue": "'medium'"
+    },
+    {
+      "name": "trailingAction",
+      "type": "React.ReactElement"
+    },
+    {
+      "name": "trailingVisual",
+      "type": "TextInputVisual"
+    },
+    {
+      "name": "validationStatus",
+      "type": "'error' | 'success'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TextInputAction",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TextInputActionDirection",
+          "defaultValue": "'s'"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "id": "actionbar",
+  "name": "ActionBar",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ActionBar",
+  "description": "`ActionBar` groups related actions with `Button`, `IconButton`, `Group`, `Divider`, and `Menu` parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-data-actionbar-examples--with-groups"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--small-action-bar"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--with-text-buttons"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--gap-scale"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--with-disabled-items"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--comment-box"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--action-bar-with-menu-trigger"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--actionbar-toggle"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--multiple-action-bars"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--with-menus"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-features--roving-focus"
+    },
+    {
+      "id": "react-tailwind-data-actionbar--default"
+    },
+    {
+      "id": "react-tailwind-data-actionbar--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "flush",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'condensed'",
+      "defaultValue": "'condensed'"
+    },
+    {
+      "name": "size",
+      "type": "ControlSize",
+      "defaultValue": "'medium'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionBarMenu",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "defaultValue": "KebabHorizontalIcon"
+        },
+        {
+          "name": "items",
+          "type": "ActionBarMenuItem[]"
+        }
+      ]
+    }
+  ]
+}

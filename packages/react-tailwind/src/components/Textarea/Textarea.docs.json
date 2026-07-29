@@ -1,0 +1,60 @@
+{
+  "id": "textarea",
+  "name": "Textarea",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Textarea",
+  "description": "`Textarea` is a styled native multiline text control.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-textarea-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--disabled"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--visually-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--error"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--success"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--block"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--custom-height"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--custom-width"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--custom-resize-behavior"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--minimum-height"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--maximum-height"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--required"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-textarea--default"
+    },
+    {
+      "id": "react-tailwind-forms-textarea--playground"
+    }
+  ]
+}

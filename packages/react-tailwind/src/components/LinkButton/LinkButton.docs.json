@@ -1,0 +1,137 @@
+{
+  "id": "linkbutton",
+  "name": "LinkButton",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/LinkButton",
+  "description": "`LinkButton` navigates to a URL while looking like a `Button`. It renders an anchor, so it requires `href` rather than `onClick`.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-linkbutton-examples--settings-navigation"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--primary"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--danger"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--invisible"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--link"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--leading-visual"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--trailing-visual"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--trailing-action"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--block"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--small"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--medium"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--large"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--with-react-router"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--loading"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--loading-custom-announcement"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--loading-with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton-features--loading-with-trailing-visual"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton--default"
+    },
+    {
+      "id": "react-tailwind-components-linkbutton--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "alignContent",
+      "type": "'start' | 'center'",
+      "defaultValue": "'center'"
+    },
+    {
+      "name": "block",
+      "type": "boolean"
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "count",
+      "type": "number | string"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "inactive",
+      "type": "boolean"
+    },
+    {
+      "name": "labelWrap",
+      "type": "boolean"
+    },
+    {
+      "name": "leadingVisual",
+      "type": "ButtonVisual"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "loadingAnnouncement",
+      "type": "string",
+      "defaultValue": "'Loading'"
+    },
+    {
+      "name": "onClick",
+      "type": "React.MouseEventHandler<HTMLAnchorElement>"
+    },
+    {
+      "name": "render",
+      "type": "useRender.RenderProp<LinkButtonState>"
+    },
+    {
+      "name": "size",
+      "type": "ControlSize"
+    },
+    {
+      "name": "trailingAction",
+      "type": "ButtonVisual"
+    },
+    {
+      "name": "trailingVisual",
+      "type": "ButtonVisual"
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'primary' | 'danger' | 'invisible' | 'link'",
+      "defaultValue": "'default'"
+    }
+  ]
+}

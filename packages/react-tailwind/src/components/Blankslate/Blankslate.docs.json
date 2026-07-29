@@ -1,0 +1,91 @@
+{
+  "id": "blankslate",
+  "name": "Blankslate",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Blankslate",
+  "description": "`Blankslate` provides a structured empty state with optional visual, heading, description, and primary or secondary actions.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-blankslate-examples--empty-repository"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-examples--no-search-results"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-examples--custom-empty-state"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-visual"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-primary-action-as-link"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-primary-action-as-button"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-primary-action-as-button-open"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-secondary-action"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-border"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--narrow"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--spacious"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--size-small"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--size-large"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--custom-content"
+    },
+    {
+      "id": "react-tailwind-content-blankslate--default"
+    },
+    {
+      "id": "react-tailwind-content-blankslate--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "border",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "narrow",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "defaultValue": "'medium'"
+    },
+    {
+      "name": "spacious",
+      "type": "boolean",
+      "defaultValue": "false"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "BlankslateHeading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "'h2'"
+        }
+      ]
+    }
+  ]
+}

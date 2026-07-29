@@ -1,0 +1,218 @@
+{
+  "id": "timeline",
+  "name": "Timeline",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Timeline",
+  "description": "`Timeline` is a presentational compound activity stream built from `Item`, `Badge`, `Body`, `Actions`, `Avatar`, and `Break` parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-timeline-features-code-scanning--event-detected"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-code-scanning--event-fixed"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-code-scanning--event-closed-by-user"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-code-scanning--event-reopened"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-code-scanning--event-dismissal-requested"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-code-scanning--event-dismissal-reviewed"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-internal--comment-cards"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-dependabot--event-opened"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-dependabot--event-fixed"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-dependabot--event-dismissed"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-dependabot--event-reopened"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-dependabot--event-dismissal-request"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-dependabot--event-assignment"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-dependabot--event-copilot-work"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-examples--activity-stream"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--clip-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--clip-sidebar-start"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--clip-sidebar-end"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--condensed-items"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--timeline-break"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--badge-variants"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--with-inline-links"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--with-actions"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--with-avatar"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features--with-list-semantics"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-closed"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-state"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-references"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-duplicates"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-moderation"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-issue-types"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-issue-hierarchy"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-dependencies"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-issue-fields"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-project"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-labels"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-title"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-milestones"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-assignments"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-lock-unlock"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-comment-deleted"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-issues--event-cross-references"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-opened"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-appeared-in-branch"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-review-requested"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-review-approved"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-review-denied"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-review-expired"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-exception-added"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-licenses-added"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-license-compliance--event-closed"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-secret-scanning--event-created"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-secret-scanning--event-resolution"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-secret-scanning--event-bypass"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-secret-scanning--event-validity-change"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-secret-scanning--event-report"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-secret-scanning--event-metadata"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-secret-scanning--event-closure-request"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-features-secret-scanning--event-assignment"
+    },
+    {
+      "id": "react-tailwind-layout-timeline--default"
+    },
+    {
+      "id": "react-tailwind-layout-timeline--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "clipSidebar",
+      "type": "boolean | 'start' | 'end' | 'both'"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TimelineItem",
+      "props": [
+        {
+          "name": "condensed",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "TimelineBadge",
+      "props": [
+        {
+          "name": "variant",
+          "type": "TimelineBadgeVariant"
+        }
+      ]
+    }
+  ]
+}

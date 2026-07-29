@@ -1,0 +1,52 @@
+{
+  "id": "labelgroup",
+  "name": "LabelGroup",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/LabelGroup",
+  "description": "`LabelGroup` lays out a collection of `Label` items and collapses overflow behind a toggle when they exceed the available width.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-labelgroup-examples--filter-summary"
+    },
+    {
+      "id": "react-tailwind-display-labelgroup-features--truncate-auto"
+    },
+    {
+      "id": "react-tailwind-display-labelgroup-features--truncate-auto-with-interactive-tokens"
+    },
+    {
+      "id": "react-tailwind-display-labelgroup-features--truncate-after-five"
+    },
+    {
+      "id": "react-tailwind-display-labelgroup-features--truncate-auto-expand-inline"
+    },
+    {
+      "id": "react-tailwind-display-labelgroup-features--truncate-auto-expand-inline-with-interactive-tokens"
+    },
+    {
+      "id": "react-tailwind-display-labelgroup--default"
+    },
+    {
+      "id": "react-tailwind-display-labelgroup--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'ul'",
+      "description": "Customize the element type of the rendered container."
+    },
+    {
+      "name": "overflowStyle",
+      "type": "'inline' | 'overlay'",
+      "defaultValue": "'overlay'",
+      "description": "How hidden children are shown."
+    },
+    {
+      "name": "visibleChildCount",
+      "type": "'auto' | number",
+      "description": "How many children to show. `'auto'` truncates children to fit the available width."
+    }
+  ]
+}

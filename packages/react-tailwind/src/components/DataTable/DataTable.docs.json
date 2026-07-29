@@ -1,0 +1,206 @@
+{
+  "id": "datatable",
+  "name": "DataTable",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/DataTable",
+  "description": "`DataTable` is a presentational, typed table for stable row data. It owns native table structure, sorting state, and column layout while `Table` exposes structural parts for custom composition.",
+  "stories": [
+    {
+      "id": "react-tailwind-data-datatable-examples--minimal-issues"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-title"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-title-and-subtitle"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-sorting"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-custom-sorting"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-action"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-action-only"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-actions"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-actions-only"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-row-action"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-row-actions"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-row-action-menu"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--mixed-column-widths"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-custom-heading"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-no-content"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-overflow"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-loading"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-placeholder-cells"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-right-aligned-columns"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-sort-events"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-pagination"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-pagination-using-default-page-index"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-network-error"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--selectable-rows"
+    },
+    {
+      "id": "react-tailwind-data-datatable--default"
+    },
+    {
+      "id": "react-tailwind-data-datatable--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "columns",
+      "type": "Column<Data>[]"
+    },
+    {
+      "name": "data",
+      "type": "Data[]"
+    },
+    {
+      "name": "externalSorting",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "getRowId",
+      "type": "(row: Data) => string | number",
+      "defaultValue": "defaultGetRowId"
+    },
+    {
+      "name": "initialSortColumn",
+      "type": "string"
+    },
+    {
+      "name": "initialSortDirection",
+      "type": "Exclude<SortDirection, 'NONE'>"
+    },
+    {
+      "name": "onToggleSort",
+      "type": "(columnId: string, direction: Exclude<SortDirection, 'NONE'>) => void"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Table",
+      "props": [
+        {
+          "name": "cellPadding",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "defaultValue": "'normal'"
+        },
+        {
+          "name": "gridTemplateColumns",
+          "type": "React.CSSProperties['gridTemplateColumns']"
+        }
+      ]
+    },
+    {
+      "name": "TableHeader",
+      "props": [
+        {
+          "name": "align",
+          "type": "Alignment"
+        }
+      ]
+    },
+    {
+      "name": "TableSortHeader",
+      "props": [
+        {
+          "name": "direction",
+          "type": "SortDirection"
+        },
+        {
+          "name": "onToggleSort",
+          "type": "() => void"
+        }
+      ]
+    },
+    {
+      "name": "TableCell",
+      "props": [
+        {
+          "name": "align",
+          "type": "Alignment"
+        },
+        {
+          "name": "scope",
+          "type": "'row'"
+        }
+      ]
+    },
+    {
+      "name": "TablePagination",
+      "props": [
+        {
+          "name": "defaultPageIndex",
+          "type": "number",
+          "defaultValue": "0"
+        },
+        {
+          "name": "onChange",
+          "type": "(details: {pageIndex: number}) => void"
+        },
+        {
+          "name": "pageSize",
+          "type": "number"
+        },
+        {
+          "name": "totalCount",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "TableSkeleton",
+      "props": [
+        {
+          "name": "columns",
+          "type": "Array<TableColumnLayout & {header: React.ReactNode}>"
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "defaultValue": "10"
+        }
+      ]
+    }
+  ]
+}

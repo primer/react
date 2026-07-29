@@ -131,9 +131,13 @@ function getActivePanePosition(value: ResponsiveValue<PanePosition>) {
 export interface PageLayoutProps
   extends React.HTMLAttributes<HTMLDivElement>,
     RegionProps<'header' | 'sidebar' | 'footer'> {
+  /** Maximum width of the centered content column. */
   containerWidth?: keyof typeof width
+  /** Spacing between the page container's outer edges and the viewport. */
   padding?: Spacing
+  /** Vertical spacing between the header, content, and footer. */
   rowGap?: Spacing
+  /** Horizontal spacing between the sidebar, content, and pane. */
   columnGap?: Spacing
 }
 

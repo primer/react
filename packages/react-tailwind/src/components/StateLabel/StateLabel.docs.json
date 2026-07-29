@@ -1,0 +1,78 @@
+{
+  "id": "statelabel",
+  "name": "StateLabel",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/StateLabel",
+  "description": "`StateLabel` shows the lifecycle state of an issue or pull request, such as open, closed, or merged. Use `Label` for general-purpose metadata.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-statelabel-examples--pull-request-state"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--issue-opened"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--issue-closed"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--issue-closed-not-planned"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--issue-draft"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--pull-opened"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--pull-closed"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--pull-merged"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--queued"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--draft"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--unavailable"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--alert-opened"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--alert-fixed"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--alert-dismissed"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--alert-closed"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--archived"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--open"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--closed"
+    },
+    {
+      "id": "react-tailwind-display-statelabel-features--small"
+    },
+    {
+      "id": "react-tailwind-display-statelabel--default"
+    },
+    {
+      "id": "react-tailwind-display-statelabel--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "status",
+      "type": "keyof typeof icons"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "featureflags",
+  "name": "FeatureFlags",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/FeatureFlags",
+  "description": "`FeatureFlags` scopes boolean flags and `useFeatureFlag` reads one flag.",
+  "stories": [
+    {
+      "id": "react-tailwind-utilities-featureflags-examples--flagged-content"
+    },
+    {
+      "id": "react-tailwind-utilities-featureflags-features--nested-override"
+    },
+    {
+      "id": "react-tailwind-utilities-featureflags--default"
+    },
+    {
+      "id": "react-tailwind-utilities-featureflags--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "flags",
+      "type": "FeatureFlagValues"
+    }
+  ]
+}
