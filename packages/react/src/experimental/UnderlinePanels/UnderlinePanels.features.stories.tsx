@@ -1,8 +1,9 @@
-import type {Meta} from '@storybook/react-vite'
+import type {Meta, Decorator} from '@storybook/react-vite'
 import {action} from 'storybook/actions'
 import {useState} from 'react'
 import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 import UnderlinePanels from './UnderlinePanels'
+import {FeatureFlags} from '../../FeatureFlags'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
 import {Button} from '../../Button'
 import type {ComponentProps} from '../../utils/types'
@@ -228,3 +229,16 @@ export const InOverlay = () => {
     </AnchoredOverlay>
   )
 }
+
+// The controlled API ships behind `primer_react_underline_panels_controlled`; enable it so these
+// stories demonstrate the feature regardless of the toolbar toggle.
+const withControlledApi: Decorator = Story => (
+  <FeatureFlags flags={{primer_react_underline_panels_controlled: true}}>
+    <Story />
+  </FeatureFlags>
+)
+
+Controlled.decorators = [withControlledApi]
+Uncontrolled.decorators = [withControlledApi]
+ManualActivation.decorators = [withControlledApi]
+InOverlay.decorators = [withControlledApi]

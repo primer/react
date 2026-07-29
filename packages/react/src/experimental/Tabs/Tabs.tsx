@@ -2,6 +2,7 @@ import React, {useId, useMemo, type ElementRef} from 'react'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {useControllableState} from '../../hooks/useControllableState'
 import {TabsContext} from './TabsContext'
+import {useFeatureFlag} from '../../FeatureFlags'
 import type {TabListProps, TabPanelProps, TabProps, TabsContextValue, TabsProps} from './types'
 import {useTab} from './useTab'
 import {useTabList} from './useTabList'
@@ -18,7 +19,10 @@ function Tabs(props: TabsProps) {
   const {children, onValueChange} = props
   const generatedId = useId()
   const groupId = props.id ?? generatedId
-  const activationMode = props.activationMode ?? 'automatic'
+  // Feature-flag scaffolding for `primer_react_underline_panels_controlled`.
+  // At graduation: drop `controlledApiEnabled` and the guards that read it.
+  const controlledApiEnabled = useFeatureFlag('primer_react_underline_panels_controlled')
+  const activationMode = controlledApiEnabled ? (props.activationMode ?? 'automatic') : 'automatic'
 
   const [selectedValue, setSelectedValue] = useControllableState<string>({
     name: 'tab-selection',
@@ -39,7 +43,7 @@ function Tabs(props: TabsProps) {
       selectTab(value: string) {
         // Focus and selection reconverge on commit.
         setFocusedValue(undefined)
-        if (value === selectedValue) {
+        if (controlledApiEnabled && value === selectedValue) {
           return
         }
         setSelectedValue(value)
@@ -49,7 +53,7 @@ function Tabs(props: TabsProps) {
         setFocusedValue(value)
       },
     }
-  }, [groupId, selectedValue, activationMode, focusedValue, setSelectedValue])
+  }, [groupId, selectedValue, activationMode, focusedValue, controlledApiEnabled, setSelectedValue])
 
   useIsomorphicLayoutEffect(() => {
     savedOnValueChange.current = onValueChange
