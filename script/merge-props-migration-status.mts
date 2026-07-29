@@ -34,11 +34,11 @@ const violationCount = affectedResults.reduce((count, result) => {
 write(`
 # mergeProps Migration
 
-This report tracks outermost JSX prop spreads that should migrate to \`mergeProps\`.
+This report tracks component root prop spreads that should migrate to \`mergeProps\`.
 
 ## Status
 
-**Outermost prop spreads to migrate:** ${violationCount}
+**Component root prop spreads to migrate:** ${violationCount}
 
 **Affected files:** ${affectedResults.length} of ${results.length}
 `)
