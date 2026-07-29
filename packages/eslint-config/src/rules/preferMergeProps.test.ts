@@ -1,4 +1,5 @@
 import {RuleTester} from 'eslint'
+import tsParser from '@typescript-eslint/parser'
 import {describe, it} from 'vitest'
 import {preferMergeProps} from './preferMergeProps.ts'
 
@@ -9,6 +10,7 @@ RuleTester.itOnly = it
 const ruleTester = new RuleTester({
   languageOptions: {
     ecmaVersion: 'latest',
+    parser: tsParser,
     sourceType: 'module',
     parserOptions: {
       ecmaFeatures: {
@@ -171,6 +173,24 @@ ruleTester.run('prefer-merge-props', preferMergeProps as unknown as Parameters<R
     {
       name: 'reports props on a forwardRef component root',
       code: `const Example = React.forwardRef((props, ref) => <button {...props} ref={ref} />)`,
+      errors: [{messageId: 'preferMergeProps'}],
+    },
+    {
+      name: 'reports props on an asserted forwardRef component root',
+      code: `
+        const Example = React.forwardRef(
+          (props, ref) => <button {...props} ref={ref} />
+        ) as PolymorphicForwardRefComponent
+      `,
+      errors: [{messageId: 'preferMergeProps'}],
+    },
+    {
+      name: 'reports props on a forwardRef component root using satisfies',
+      code: `
+        const Example = React.forwardRef(
+          (props, ref) => <button {...props} ref={ref} />
+        ) satisfies PolymorphicForwardRefComponent
+      `,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
