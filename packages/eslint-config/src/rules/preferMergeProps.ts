@@ -6,20 +6,24 @@ const preferMergeProps: TSESLint.RuleModule<MessageIds> = {
   meta: {
     type: 'suggestion',
     docs: {
-      description: 'Require spread props on outermost JSX elements to use mergeProps',
+      description: 'Require spread props on component root elements to use mergeProps',
     },
     messages: {
       preferMergeProps:
-        'Spread props on an outermost JSX element with mergeProps so component and consumer props are merged intentionally.',
+        'Spread props on a component root element with mergeProps so component and consumer props are merged intentionally.',
     },
     schema: [],
   },
   create(context) {
     const {sourceCode} = context
 
+    if (isTestOrStoryFile(context.filename)) {
+      return {}
+    }
+
     return {
       JSXOpeningElement(node) {
-        if (!isOutermostElement(node.parent)) {
+        if (!isComponentRoot(node.parent)) {
           return
         }
 
@@ -39,17 +43,174 @@ const preferMergeProps: TSESLint.RuleModule<MessageIds> = {
   },
 }
 
-function isOutermostElement(element: TSESTree.JSXElement): boolean {
-  let ancestor: TSESTree.Node | undefined = element.parent
+function isTestOrStoryFile(filename: string): boolean {
+  const normalizedFilename = filename.replaceAll('\\', '/')
+  return (
+    /(?:^|\/)__(?:tests|stories)__(?:\/|$)/u.test(normalizedFilename) ||
+    /\.(?:spec|test|stories|story)\.[cm]?[jt]sx?$/u.test(normalizedFilename)
+  )
+}
 
-  while (ancestor) {
-    if (ancestor.type === 'JSXElement' || ancestor.type === 'JSXFragment') {
+function isComponentRoot(element: TSESTree.JSXElement): boolean {
+  let expression: TSESTree.Node = element
+
+  for (;;) {
+    const parent: TSESTree.Node = expression.parent
+
+    if (
+      parent.type === 'ConditionalExpression' &&
+      (parent.consequent === expression || parent.alternate === expression)
+    ) {
+      expression = parent
+      continue
+    }
+
+    if (parent.type === 'LogicalExpression' && parent.right === expression) {
+      expression = parent
+      continue
+    }
+
+    if (
+      parent.type === 'TSAsExpression' ||
+      parent.type === 'TSNonNullExpression' ||
+      parent.type === 'TSSatisfiesExpression' ||
+      parent.type === 'TSTypeAssertion'
+    ) {
+      expression = parent
+      continue
+    }
+
+    if (parent.type === 'ReturnStatement' && parent.argument === expression) {
+      return isReturnedByComponent(parent)
+    }
+
+    if (parent.type === 'ArrowFunctionExpression' && parent.body === expression) {
+      return isComponentFunction(parent)
+    }
+
+    if (parent.type === 'JSXElement' || parent.type === 'JSXFragment') {
       return false
+    }
+
+    return false
+  }
+}
+
+function isReturnedByComponent(statement: TSESTree.ReturnStatement): boolean {
+  let ancestor = statement.parent
+
+  while (ancestor.type !== 'Program') {
+    if (isFunction(ancestor)) {
+      return isComponentFunction(ancestor)
     }
     ancestor = ancestor.parent
   }
 
-  return true
+  return false
+}
+
+function isFunction(node: TSESTree.Node): node is ComponentFunction {
+  return (
+    node.type === 'ArrowFunctionExpression' || node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression'
+  )
+}
+
+type ComponentFunction = TSESTree.ArrowFunctionExpression | TSESTree.FunctionDeclaration | TSESTree.FunctionExpression
+
+function isComponentFunction(node: ComponentFunction): boolean {
+  const name = getFunctionName(node)
+  if (name !== null) {
+    return isComponentName(name)
+  }
+
+  if (node.parent.type === 'ExportDefaultDeclaration') {
+    return true
+  }
+
+  return isWrappedComponent(node)
+}
+
+function getFunctionName(node: ComponentFunction): string | null {
+  if (node.parent.type === 'VariableDeclarator' && node.parent.init === node && node.parent.id.type === 'Identifier') {
+    return node.parent.id.name
+  }
+
+  if (
+    node.parent.type === 'AssignmentExpression' &&
+    node.parent.right === node &&
+    node.parent.left.type === 'Identifier'
+  ) {
+    return node.parent.left.name
+  }
+
+  if (node.type !== 'ArrowFunctionExpression' && node.id !== null) {
+    return node.id.name
+  }
+
+  if (
+    node.type === 'FunctionExpression' &&
+    node.parent.type === 'MethodDefinition' &&
+    node.parent.value === node &&
+    node.parent.key.type === 'Identifier' &&
+    node.parent.key.name === 'render'
+  ) {
+    return getClassName(node.parent.parent.parent)
+  }
+
+  return null
+}
+
+function getClassName(node: TSESTree.ClassDeclaration | TSESTree.ClassExpression): string | null {
+  if (node.id !== null) {
+    return node.id.name
+  }
+
+  if (node.parent.type === 'VariableDeclarator' && node.parent.init === node && node.parent.id.type === 'Identifier') {
+    return node.parent.id.name
+  }
+
+  if (node.parent.type === 'ExportDefaultDeclaration') {
+    return 'DefaultExport'
+  }
+
+  return null
+}
+
+function isWrappedComponent(node: ComponentFunction): boolean {
+  let expression: TSESTree.Node = node
+
+  while (
+    expression.parent.type === 'CallExpression' &&
+    expression.parent.arguments.includes(expression as TSESTree.Expression) &&
+    isComponentWrapper(expression.parent.callee)
+  ) {
+    expression = expression.parent
+  }
+
+  return (
+    (expression.parent.type === 'VariableDeclarator' &&
+      expression.parent.init === expression &&
+      expression.parent.id.type === 'Identifier' &&
+      isComponentName(expression.parent.id.name)) ||
+    expression.parent.type === 'ExportDefaultDeclaration'
+  )
+}
+
+function isComponentWrapper(callee: TSESTree.Expression): boolean {
+  if (callee.type === 'Identifier') {
+    return callee.name === 'forwardRef' || callee.name === 'fixedForwardRef' || callee.name === 'memo'
+  }
+
+  return (
+    callee.type === 'MemberExpression' &&
+    !callee.computed &&
+    callee.property.type === 'Identifier' &&
+    (callee.property.name === 'forwardRef' || callee.property.name === 'memo')
+  )
+}
+
+function isComponentName(name: string): boolean {
+  return /^[A-Z]/u.test(name)
 }
 
 function isMergedProps(argument: TSESTree.Expression, scope: TSESLint.Scope.Scope): boolean {
