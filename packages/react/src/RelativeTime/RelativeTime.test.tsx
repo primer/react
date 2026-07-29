@@ -1,8 +1,22 @@
 import {act, render} from '@testing-library/react'
 import {renderToString} from 'react-dom/server'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import RelativeTime from '.'
+import RelativeTime, {type RelativeTimeProps} from '.'
 import {implementsClassName} from '../utils/testing'
+
+const emptyDateTimeOptions = {
+  second: '',
+  minute: '',
+  hour: '',
+  weekday: '',
+  day: '',
+  month: '',
+  year: '',
+  timeZoneName: '',
+} as unknown as Pick<
+  RelativeTimeProps,
+  'second' | 'minute' | 'hour' | 'weekday' | 'day' | 'month' | 'year' | 'timeZoneName'
+>
 
 describe('RelativeTime', () => {
   afterEach(() => {
@@ -52,6 +66,18 @@ describe('RelativeTime', () => {
 
     rerender(<RelativeTime datetime="2024-03-07T12:23:18.123Z" format="datetime" />)
     expect(container).toHaveTextContent('Mar 7')
+  })
+
+  it('treats empty date-time formatting options as unset', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2024-03-07T12:22:48.123Z'))
+
+    const {container} = render(
+      <RelativeTime date={new Date('2024-03-07T12:23:18.123Z')} format="datetime" {...emptyDateTimeOptions} />,
+    )
+
+    expect(container).toHaveTextContent('Thu, Mar 7')
+    expect(container.firstChild).not.toHaveAttribute('timezonename')
   })
 
   it('formats elapsed durations', () => {
