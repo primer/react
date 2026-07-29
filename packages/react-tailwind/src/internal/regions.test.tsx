@@ -315,3 +315,59 @@ describe('regionElements', () => {
     expect(result.map(child => child.props.label)).toEqual(['one', 'two'])
   })
 })
+
+/**
+ * `github-ui` builds compound components on top of Primer that place their own part types into
+ * a Primer parent's regions. Upstream that needs `PageLayout`'s private `_slotsConfig` prop and
+ * a copied `__SLOT__` symbol; here the wrapper resolves its own parts and forwards them, which
+ * leaves consumer call sites unchanged.
+ */
+describe('wrapper forwarding', () => {
+  afterEach(cleanup)
+
+  // eslint-disable-next-line primer-react/direct-slot-children -- the wrapper owns the region, which is the pattern under test
+  const WrapperHeader = ({children}: {children?: React.ReactNode}) => <PageLayout.Header>{children}</PageLayout.Header>
+  const WrapperSidebar = ({children}: {children?: React.ReactNode}) => (
+    <PageLayout.Sidebar>{children}</PageLayout.Sidebar>
+  )
+
+  function WrapperLayout({children}: {children?: React.ReactNode}) {
+    const {
+      regions: {header, sidebar},
+      rest,
+    } = resolveRegions(children, {
+      header: {match: isPartOf(WrapperHeader)},
+      sidebar: {match: isPartOf(WrapperSidebar)},
+    })
+    return (
+      <PageLayout header={header} sidebar={sidebar}>
+        {rest}
+      </PageLayout>
+    )
+  }
+
+  const tree = (
+    <WrapperLayout>
+      <WrapperHeader>HEAD</WrapperHeader>
+      <WrapperSidebar>SIDE</WrapperSidebar>
+      <PageLayout.Content>BODY</PageLayout.Content>
+    </WrapperLayout>
+  )
+
+  it('places a wrapper’s own part types without a private config prop or a marker', () => {
+    const {container} = render(tree)
+    const root = container.querySelector('[data-component="PageLayout"]')
+
+    expect(root?.querySelector('[data-component="PageLayout.Sidebar"]')).not.toBeNull()
+    expect(root?.querySelector('[data-component="PageLayout.Header"]')).not.toBeNull()
+    expect(root?.getAttribute('data-has-sidebar')).toBe('true')
+    // PageLayout hoists the sidebar ahead of the header, as it does for its own parts.
+    expect(root?.textContent).toBe('SIDEHEADBODY')
+  })
+
+  it('hoists the same way during server rendering', () => {
+    const html = renderToString(tree)
+    expect(html).toContain('data-has-sidebar="true"')
+    expect(html.indexOf('SIDE')).toBeLessThan(html.indexOf('HEAD'))
+  })
+})

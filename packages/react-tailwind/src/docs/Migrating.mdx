@@ -84,17 +84,34 @@ Upstream implementation utilities are not part of this package's contract, inclu
 
 ## Replacing the slot system
 
-`useSlots` is the removed utility most likely to affect you: it appears in roughly 28 places across `github/github-ui`. Those apps do not use it to consume Primer — they use it to build their **own** compound components on top of Primer.
+`useSlots` is the removed utility most likely to affect you: it appears in 32 files across `github/github-ui`. Those apps do not use it to consume Primer — they use it to build their **own** compound components on top of Primer.
 
-Separately, `__SLOT__` is assigned directly in 13 places there. `asSlot` and `isSlot` are unused, but the marker itself is load-bearing. `CollapsibleSidebar` sets `__SLOT__: PageLayout.Sidebar.__SLOT__` so a completely custom component can be dropped into `PageLayout` as its sidebar; `BulkSelectorGroup` adopts `ActionList.Group.__SLOT__`; `ExpirationSelect` and `OrganizationSelect` adopt `Select.__SLOT__`. There are tests asserting this behaviour.
+Upstream offers three ways for a component that is not a Primer part to be placed in a Primer parent's slot. Only two are actually used, and `github-ui` uses each in exactly one way:
 
-Each of those adoptions has a supported replacement here, though not all the same one:
+- **A `__SLOT__` marker copied onto the component.** Five assignments exist. `SidebarPageLayout.Sidebar` takes `PageLayout.Sidebar.__SLOT__`, `BulkSelectorGroup` takes `ActionList.Group.__SLOT__`, and `ExpirationSelect` and `OrganizationSelect` take `Select.__SLOT__`. The fifth, `CollapsibleParentLink`, copies from `PageHeader.ParentLink`, which has no marker — its own comment notes the value is `undefined` today.
+- **`_slotsConfig`**, a private `PageLayout` prop that replaces the matcher set for one instance. `SidebarPageLayout` passes `{header: Header, footer: Footer, sidebar: Sidebar}` so consumers can author its parts while `PageLayout` still positions them.
+- **`asSlot`**, the helper for copying a marker onto a wrapper. It has no usages, and neither does `isSlot`.
 
-- `CollapsibleSidebar` adopting `PageLayout.Sidebar.__SLOT__` becomes `<PageLayout sidebar={<CollapsibleSidebar />}>`. Every compound component that identifies a child by role exposes an element prop named for that region, so a custom component fills the region without adopting anything. See [wrapping a part](#wrapping-a-part-so-the-parent-still-recognizes-it) for the full list.
-- `ExpirationSelect` and `OrganizationSelect` adopting `Select.__SLOT__` need no replacement. `FormControl` here distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` down through context rather than finding its control among its children, so a custom control picks them up by calling `useFormControlForwardedProps`. It never has to be recognized.
-- `BulkSelectorGroup` adopting `ActionList.Group.__SLOT__` needs no replacement either, because `ActionList` does not scan for its groups.
+Each of these has a replacement here:
 
-The marker itself does not port, and neither does relying on child order to place an adopted component.
+- **`_slotsConfig` becomes ordinary composition, and call sites do not change.** The wrapper resolves its own parts and forwards them to the region props. This is the important case: `github-ui` has 434 `SidebarPageLayout.Sidebar` call sites and 140 `CollapsibleSidebar` call sites, and all of them keep their current shape — only the wrapper's own file changes.
+
+  ```tsx
+  function SidebarPageLayout({children}) {
+    const [{header, sidebar}, rest] = useParts(children, {header: Header, sidebar: Sidebar})
+    return (
+      <PageLayout header={header} sidebar={sidebar} containerWidth="full" padding="none">
+        {rest}
+      </PageLayout>
+    )
+  }
+  ```
+
+- **A marker adopted so a custom component can be dropped in as a child becomes a region prop.** `<PageLayout sidebar={<MySidebar />}>` needs nothing copied onto `MySidebar`, so it also works for wrappers that are memoized, lazily imported, or arbitrarily deep — none of which a marker survives.
+- **`ExpirationSelect` and `OrganizationSelect` need no replacement.** `FormControl` here distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` through context instead of finding its control among its children, so any control calling `useFormControlForwardedProps` is wired without being identified.
+- **`BulkSelectorGroup` needs no replacement either.** `ActionList` only ever matched a heading among its children, upstream included, so nothing read that marker.
+
+Two upstream behaviours genuinely do not carry over. A duplicate part is dropped upstream and rendered here in the leftover-children position, and the two development-only warnings — for a duplicate slot, and for a wrapper whose `displayName` matches a part but is missing the marker — have no equivalent.
 
 The rest of this section covers the patterns that carry over.
 
@@ -177,22 +194,33 @@ Where you do not need a wrapper at all, these are still simpler:
 
 #### Components that adopt a part's slot today
 
-`CollapsibleSidebar` and friends in `github-ui` adopt a part's `__SLOT__` so `PageLayout` hoists them. Those components port by dropping the marker and being passed to the region instead:
+`SidebarPageLayout.Sidebar` in `github-ui` copies `PageLayout.Sidebar.__SLOT__` so `PageLayout` hoists it. A component like that ports by resolving its own parts and forwarding them, which leaves every call site untouched:
 
 ```tsx
-// Before: CollapsibleSidebar.__SLOT__ = PageLayout.Sidebar.__SLOT__
-<PageLayout>
-  <CollapsibleSidebar />
-  <PageLayout.Content>{children}</PageLayout.Content>
-</PageLayout>
+// Before: (Sidebar as {__SLOT__: symbol}).__SLOT__ = PageLayout.Sidebar.__SLOT__
+//         plus _slotsConfig={{header: Header, footer: Footer, sidebar: Sidebar}}
+function SidebarPageLayout({children}) {
+  const [{header, sidebar}, rest] = useParts(children, {header: Header, sidebar: Sidebar})
 
-// After
-<PageLayout sidebar={<CollapsibleSidebar />}>
+  return (
+    <PageLayout header={header} sidebar={sidebar}>
+      {rest}
+    </PageLayout>
+  )
+}
+```
+
+Consumers keep writing `<SidebarPageLayout.Sidebar>` exactly as before. The wrapper stops depending on a private prop and a marker, both of which were internals rather than public API.
+
+A wrapper that renders a Primer part outside a direct-child position still trips the `primer-react/direct-slot-children` rule, so it needs the same scoped inline disable it already carries today.
+
+Where a custom component really is dropped straight into a Primer parent, name it at the call site instead:
+
+```tsx
+<PageLayout sidebar={<MySidebar />}>
   <PageLayout.Content>{children}</PageLayout.Content>
 </PageLayout>
 ```
-
-The call site changes, but the adopting component itself no longer needs to know anything about the parent, so it stops depending on an internal that was never part of the public API.
 
 ### Wrapper tolerance in your own components
 
