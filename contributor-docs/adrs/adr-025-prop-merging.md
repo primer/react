@@ -60,8 +60,9 @@ and is not part of the package's public API.
 
 The general rules do not cover every form of composition:
 
-- **Refs are not composed.** Use `useMergedRefs` when both the component and
-  consumer need the same element reference.
+- **Refs are not composed.** In React 19, `ref` is passed as a prop, but it still
+  requires separate composition. Use `useMergedRefs` when both the component
+  and consumer need the same element reference.
 - **Styles are not deeply merged.** Nested objects and values such as CSS custom
   property maps are replaced at the first duplicate property.
 - **Cancellation is based on `defaultPrevented`.** The consumer handler is
