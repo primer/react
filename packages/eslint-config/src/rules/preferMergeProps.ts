@@ -70,12 +70,7 @@ function isComponentRoot(element: TSESTree.JSXElement): boolean {
       continue
     }
 
-    if (
-      parent.type === 'TSAsExpression' ||
-      parent.type === 'TSNonNullExpression' ||
-      parent.type === 'TSSatisfiesExpression' ||
-      parent.type === 'TSTypeAssertion'
-    ) {
+    if (isTypeScriptWrapper(parent)) {
       expression = parent
       continue
     }
@@ -94,6 +89,21 @@ function isComponentRoot(element: TSESTree.JSXElement): boolean {
 
     return false
   }
+}
+
+function isTypeScriptWrapper(
+  node: TSESTree.Node,
+): node is
+  | TSESTree.TSAsExpression
+  | TSESTree.TSNonNullExpression
+  | TSESTree.TSSatisfiesExpression
+  | TSESTree.TSTypeAssertion {
+  return (
+    node.type === 'TSAsExpression' ||
+    node.type === 'TSNonNullExpression' ||
+    node.type === 'TSSatisfiesExpression' ||
+    node.type === 'TSTypeAssertion'
+  )
 }
 
 function isReturnedByComponent(statement: TSESTree.ReturnStatement): boolean {
@@ -179,12 +189,24 @@ function getClassName(node: TSESTree.ClassDeclaration | TSESTree.ClassExpression
 function isWrappedComponent(node: ComponentFunction): boolean {
   let expression: TSESTree.Node = node
 
-  while (
-    expression.parent.type === 'CallExpression' &&
-    expression.parent.arguments.includes(expression as TSESTree.Expression) &&
-    isComponentWrapper(expression.parent.callee)
-  ) {
-    expression = expression.parent
+  for (;;) {
+    const parent: TSESTree.Node = expression.parent
+
+    if (isTypeScriptWrapper(parent)) {
+      expression = parent
+      continue
+    }
+
+    if (
+      parent.type === 'CallExpression' &&
+      parent.arguments.includes(expression as TSESTree.Expression) &&
+      isComponentWrapper(parent.callee)
+    ) {
+      expression = parent
+      continue
+    }
+
+    break
   }
 
   return (
