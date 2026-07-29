@@ -94,7 +94,7 @@ ruleTester.run('prefer-merge-props', preferMergeProps as unknown as Parameters<R
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
-      name: 'reports props returned from another utility',
+      name: 'reports spread props returned from a function call',
       code: `const example = <button {...getProps()} />`,
       errors: [{messageId: 'preferMergeProps'}],
     },
