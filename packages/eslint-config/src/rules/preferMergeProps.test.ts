@@ -47,6 +47,25 @@ ruleTester.run('prefer-merge-props', preferMergeProps as unknown as Parameters<R
       name: 'ignores spread props inside an outermost fragment',
       code: `const example = <><button {...props} /></>`,
     },
+    {
+      name: 'ignores spread props on elements nested in conditional content',
+      code: `const example = <div>{condition ? <button {...props} /> : null}</div>`,
+    },
+    {
+      name: 'ignores spread props on elements nested in mapped content',
+      code: `const example = <ul>{items.map(item => <li {...item} />)}</ul>`,
+    },
+    {
+      name: 'ignores spread props on elements nested in a render prop',
+      code: `const example = <Component render={() => <button {...props} />} />`,
+    },
+    {
+      name: 'ignores object spread expressions outside JSX',
+      code: `
+        const copiedProps = {...props}
+        const example = <button type="button" />
+      `,
+    },
   ],
   invalid: [
     {
@@ -63,6 +82,36 @@ ruleTester.run('prefer-merge-props', preferMergeProps as unknown as Parameters<R
       name: 'reports outermost elements in conditional branches',
       code: `const example = condition ? <button {...props} /> : <a {...props} />`,
       errors: [{messageId: 'preferMergeProps'}, {messageId: 'preferMergeProps'}],
+    },
+    {
+      name: 'reports unmerged props on an outermost custom component',
+      code: `const example = <Button {...props} />`,
+      errors: [{messageId: 'preferMergeProps'}],
+    },
+    {
+      name: 'reports unmerged props on an outermost member component',
+      code: `const example = <ActionList.Item {...props} />`,
+      errors: [{messageId: 'preferMergeProps'}],
+    },
+    {
+      name: 'reports props returned from another utility',
+      code: `const example = <button {...getProps()} />`,
+      errors: [{messageId: 'preferMergeProps'}],
+    },
+    {
+      name: 'reports props copied into an object expression',
+      code: `const example = <button {...{...props}} />`,
+      errors: [{messageId: 'preferMergeProps'}],
+    },
+    {
+      name: 'reports only the unmerged spread alongside merged props',
+      code: `const example = <button {...mergeProps(componentProps, props)} {...otherProps} />`,
+      errors: [{messageId: 'preferMergeProps'}],
+    },
+    {
+      name: 'reports props on outermost elements in logical expressions',
+      code: `const example = condition && <button {...props} />`,
+      errors: [{messageId: 'preferMergeProps'}],
     },
   ],
 })
