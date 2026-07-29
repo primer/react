@@ -207,14 +207,14 @@ function getDateTimeOptions({
   format: RelativeTimeFormat
 }): Intl.DateTimeFormatOptions {
   return {
-    second,
-    minute,
-    hour,
-    weekday: weekday ?? (format === 'datetime' ? 'short' : undefined),
-    day: day ?? 'numeric',
-    month: month ?? 'short',
-    year: year ?? (date.getUTCFullYear() === new Date(now).getUTCFullYear() ? undefined : 'numeric'),
-    timeZoneName,
+    second: second || undefined,
+    minute: minute || undefined,
+    hour: hour || undefined,
+    weekday: weekday || (format === 'datetime' ? 'short' : undefined),
+    day: day || 'numeric',
+    month: month || 'short',
+    year: year || (date.getUTCFullYear() === new Date(now).getUTCFullYear() ? undefined : 'numeric'),
+    timeZoneName: timeZoneName || undefined,
   }
 }
 
@@ -310,16 +310,56 @@ function getUpdateInterval(date: Date | undefined, format: RelativeTimeFormat, p
 }
 
 const RelativeTime = forwardRef<HTMLTimeElement, RelativeTimeProps>(function RelativeTime(
-  {children, date: dateProp, datetime, format = 'auto', noTitle, onRelativeTimeUpdated, title, ...props},
+  {
+    children,
+    date: dateProp,
+    datetime,
+    format = 'auto',
+    tense,
+    precision: precisionProp,
+    threshold,
+    prefix,
+    second,
+    minute,
+    hour,
+    weekday,
+    day,
+    month,
+    year,
+    timeZoneName,
+    noTitle,
+    onRelativeTimeUpdated,
+    title,
+    ...timeProps
+  },
   forwardedRef,
 ) {
   const date = useMemo(() => getDate(dateProp, datetime), [dateProp, datetime])
   const [now, setNow] = useState(() => Date.now())
   const [hasHydrated, setHasHydrated] = useState(false)
-  const precision = props.precision ?? (format === 'micro' ? 'minute' : 'second')
-  const formattedText = getFormattedText({...props, format}, date, now)
+  const precision = precisionProp ?? (format === 'micro' ? 'minute' : 'second')
+  const formattedText = getFormattedText(
+    {
+      format,
+      tense,
+      precision,
+      threshold,
+      prefix,
+      second,
+      minute,
+      hour,
+      weekday,
+      day,
+      month,
+      year,
+      timeZoneName,
+      lang: timeProps.lang,
+    },
+    date,
+    now,
+  )
   const displayedText = date && (hasHydrated || children === undefined) ? formattedText : children
-  const formattedTitle = title ?? (noTitle ? undefined : getTitle(date, props.lang ?? 'en'))
+  const formattedTitle = title ?? (noTitle ? undefined : getTitle(date, timeProps.lang ?? 'en'))
   const previous = useRef({text: displayedText?.toString() ?? '', title: formattedTitle ?? ''})
 
   useEffect(() => {
@@ -349,7 +389,7 @@ const RelativeTime = forwardRef<HTMLTimeElement, RelativeTimeProps>(function Rel
   return (
     <time
       ref={forwardedRef}
-      {...props}
+      {...timeProps}
       dateTime={datetime ?? date?.toISOString()}
       title={formattedTitle}
       data-component="RelativeTime"
