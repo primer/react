@@ -65,7 +65,7 @@
     },
     {
       "name": "className",
-      "type": "Field.Root.Props['className']"
+      "type": "string | ((state: FieldRootState) => string | undefined)"
     },
     {
       "name": "label",
@@ -74,7 +74,7 @@
     },
     {
       "name": "layout",
-      "type": "'horizontal' | 'vertical'",
+      "type": "\"horizontal\" | \"vertical\"",
       "defaultValue": "'vertical'"
     },
     {
@@ -95,11 +95,11 @@
   ],
   "subcomponents": [
     {
-      "name": "FormControlLabel",
+      "name": "Label",
       "props": [
         {
           "name": "className",
-          "type": "Field.Label.Props['className']"
+          "type": "string | ((state: FieldLabelState) => string | undefined)"
         },
         {
           "name": "requiredIndicator",
@@ -117,16 +117,16 @@
       ]
     },
     {
-      "name": "FormControlCaption",
+      "name": "Caption",
       "props": [
         {
           "name": "className",
-          "type": "Field.Description.Props['className']"
+          "type": "string | ((state: FieldDescriptionState) => string | undefined)"
         }
       ]
     },
     {
-      "name": "FormControlValidation",
+      "name": "Validation",
       "props": [
         {
           "name": "className",
@@ -134,7 +134,8 @@
         },
         {
           "name": "variant",
-          "type": "'error' | 'success'"
+          "type": "\"error\" | \"success\"",
+          "required": true
         }
       ]
     }

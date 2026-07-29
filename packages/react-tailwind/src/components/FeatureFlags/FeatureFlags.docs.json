@@ -21,11 +21,12 @@
   "props": [
     {
       "name": "children",
-      "type": "React.ReactNode"
+      "type": "React.ReactElement[]"
     },
     {
       "name": "flags",
-      "type": "FeatureFlagValues"
+      "type": "FeatureFlagValues",
+      "required": true
     }
   ]
 }

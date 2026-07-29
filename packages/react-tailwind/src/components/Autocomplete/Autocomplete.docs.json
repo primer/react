@@ -47,5 +47,63 @@
     {
       "id": "react-tailwind-components-autocomplete--playground"
     }
+  ],
+  "subcomponents": [
+    {
+      "name": "Content",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'start'"
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset"
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string"
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "defaultValue": "'bottom'"
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "4"
+        }
+      ]
+    },
+    {
+      "name": "Popup",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'start'"
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset"
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string"
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "defaultValue": "'bottom'"
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "4"
+        }
+      ]
+    }
   ]
 }

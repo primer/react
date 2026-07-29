@@ -39,12 +39,12 @@
   "props": [
     {
       "name": "className",
-      "type": "BaseRadioGroup.Props<Value>['className']"
+      "type": "string | ((state: RadioGroupState) => string | undefined)"
     }
   ],
   "subcomponents": [
     {
-      "name": "RadioGroupLabel",
+      "name": "Label",
       "props": [
         {
           "name": "visuallyHidden",
@@ -53,11 +53,12 @@
       ]
     },
     {
-      "name": "RadioGroupValidation",
+      "name": "Validation",
       "props": [
         {
           "name": "variant",
-          "type": "'error' | 'success'"
+          "type": "\"error\" | \"success\"",
+          "required": true
         }
       ]
     }

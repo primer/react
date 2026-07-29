@@ -39,12 +39,12 @@
   "props": [
     {
       "name": "className",
-      "type": "BaseCheckboxGroup.Props['className']"
+      "type": "string | ((state: CheckboxGroupState) => string | undefined)"
     }
   ],
   "subcomponents": [
     {
-      "name": "CheckboxGroupLabel",
+      "name": "Label",
       "props": [
         {
           "name": "visuallyHidden",
@@ -53,11 +53,12 @@
       ]
     },
     {
-      "name": "CheckboxGroupValidation",
+      "name": "Validation",
       "props": [
         {
           "name": "variant",
-          "type": "'error' | 'success'"
+          "type": "\"error\" | \"success\"",
+          "required": true
         }
       ]
     }

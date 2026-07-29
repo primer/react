@@ -89,16 +89,127 @@
   ],
   "subcomponents": [
     {
-      "name": "ActionMenuButton",
+      "name": "Button",
       "props": [
         {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
           "name": "children",
-          "type": "React.ReactNode"
+          "type": "React.ReactElement[]"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+          "defaultValue": "'default'"
         }
       ]
     },
     {
-      "name": "ActionMenuItem",
+      "name": "Content",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'start'"
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset"
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string"
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "defaultValue": "'bottom'"
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "4"
+        }
+      ]
+    },
+    {
+      "name": "Overlay",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'start'"
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset"
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string"
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "defaultValue": "'bottom'"
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "4"
+        }
+      ]
+    },
+    {
+      "name": "Item",
       "props": [
         {
           "name": "inactiveText",
@@ -119,7 +230,21 @@
         },
         {
           "name": "variant",
-          "type": "'default' | 'danger'",
+          "type": "\"danger\" | \"default\"",
+          "defaultValue": "'default'"
+        }
+      ]
+    },
+    {
+      "name": "Description",
+      "props": [
+        {
+          "name": "truncate",
+          "type": "boolean"
+        },
+        {
+          "name": "variant",
+          "type": "\"block\" | \"inline\"",
           "defaultValue": "'default'"
         }
       ]

@@ -12,4 +12,3 @@ Import: `import {TopicTag} from '@primer/react-tailwind/TopicTag'`
 ## Differences from `@primer/react`
 
 - Existing TopicTag and TopicTagGroup composition can generally be retained.
-

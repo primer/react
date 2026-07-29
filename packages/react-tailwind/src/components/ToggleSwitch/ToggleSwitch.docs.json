@@ -45,11 +45,11 @@
   "props": [
     {
       "name": "className",
-      "type": "BaseSwitch.Root.Props['className']"
+      "type": "string | ((state: SwitchRootState) => string | undefined)"
     },
     {
       "name": "size",
-      "type": "'small' | 'medium'",
+      "type": "\"medium\" | \"small\"",
       "defaultValue": "'medium'"
     }
   ]

@@ -62,5 +62,40 @@
     {
       "id": "react-tailwind-components-tooltip--with-arrow"
     }
+  ],
+  "subcomponents": [
+    {
+      "name": "Content",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'center'"
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset"
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string"
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "defaultValue": "'top'"
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "8"
+        }
+      ]
+    }
   ]
 }

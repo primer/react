@@ -84,7 +84,7 @@
   "props": [
     {
       "name": "actionsLayout",
-      "type": "'inline' | 'stacked' | 'default'",
+      "type": "\"default\" | \"inline\" | \"stacked\"",
       "defaultValue": "'default'"
     },
     {
@@ -103,7 +103,7 @@
     },
     {
       "name": "layout",
-      "type": "'default' | 'compact'",
+      "type": "\"compact\" | \"default\"",
       "defaultValue": "'default'"
     },
     {
@@ -112,7 +112,7 @@
     },
     {
       "name": "onDismiss",
-      "type": "() => void"
+      "type": "(() => void)"
     },
     {
       "name": "primaryAction",
@@ -134,17 +134,7 @@
   ],
   "subcomponents": [
     {
-      "name": "BannerTitle",
-      "props": [
-        {
-          "name": "as",
-          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
-          "defaultValue": "'h2'"
-        }
-      ]
-    },
-    {
-      "name": "BannerActions",
+      "name": "Actions",
       "props": [
         {
           "name": "primaryAction",
@@ -155,6 +145,150 @@
           "type": "React.ReactNode"
         }
       ]
+    },
+    {
+      "name": "PrimaryAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactElement[]"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "data-component",
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "loading",
+          "type": "boolean"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize"
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual"
+        }
+      ]
+    },
+    {
+      "name": "SecondaryAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactElement[]"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "data-component",
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "loading",
+          "type": "boolean"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize"
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual"
+        }
+      ]
+    },
+    {
+      "name": "Title",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+          "defaultValue": "'h2'"
+        }
+      ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "section",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section#attributes"
+  }
 }

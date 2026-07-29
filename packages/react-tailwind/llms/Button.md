@@ -6,11 +6,11 @@ Import: `import {Button} from '@primer/react-tailwind/Button'`
 
 ## Props
 
-- `alignContent`: `'start' | 'center'` — Default `'center'`.
+- `alignContent`: `"center" | "start"` — Default `'center'`.
 - `block`: `boolean`
-- `children`: `React.ReactNode`
+- `children`: `React.ReactElement[]`
 - `className`: `string`
-- `count`: `number | string`
+- `count`: `string | number`
 - `data-component`: `string` — Default `'ButtonBase'`.
 - `disabled`: `boolean`
 - `inactive`: `boolean`
@@ -21,13 +21,8 @@ Import: `import {Button} from '@primer/react-tailwind/Button'`
 - `size`: `ControlSize`
 - `trailingAction`: `ButtonVisual`
 - `trailingVisual`: `ButtonVisual`
-- `variant`: `'default' | 'primary' | 'danger' | 'invisible' | 'link'` — Default `'default'`.
-
-## ButtonBase props
-
-- `data-component`: `string` — Default `'ButtonBase'`.
+- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'default'`.
 
 ## Differences from `@primer/react`
 
 - Prefer LinkButton for navigation; the `link` Button variant remains available for semantic button actions rendered as inline links.
-

@@ -36,7 +36,7 @@
   ],
   "subcomponents": [
     {
-      "name": "HeaderItem",
+      "name": "Item",
       "props": [
         {
           "name": "full",
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "name": "HeaderLink",
+      "name": "Link",
       "props": [
         {
           "name": "as",

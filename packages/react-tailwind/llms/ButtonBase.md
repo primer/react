@@ -4,7 +4,10 @@
 
 Import: `import {ButtonBase} from '@primer/react-tailwind/ButtonBase'`
 
+## Props
+
+- `data-component`: `string`
+
 ## Differences from `@primer/react`
 
 - The component is a stable replacement for the experimental legacy export.
-

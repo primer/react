@@ -7,12 +7,11 @@ Import: `import {KeybindingHint} from '@primer/react-tailwind/KeybindingHint'`
 ## Props
 
 - `className`: `string`
-- `format`: `'condensed' | 'full'` — Default `'condensed'`.
+- `format`: `"condensed" | "full"` — Default `'condensed'`.
 - `keys`: `string`
-- `size`: `'small' | 'medium'` — Default `'medium'`.
-- `variant`: `'default' | 'onEmphasis' | 'onPrimary'` — Default `'default'`.
+- `size`: `"medium" | "small"` — Default `'medium'`.
+- `variant`: `"default" | "onEmphasis" | "onPrimary"` — Default `'default'`.
 
 ## Differences from `@primer/react`
 
 - Pass the documented key tokens through `keys`; do not depend on a story platform override.
-

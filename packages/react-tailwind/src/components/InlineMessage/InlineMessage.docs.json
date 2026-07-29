@@ -45,16 +45,20 @@
   "props": [
     {
       "name": "leadingVisual",
-      "type": "React.ElementType | React.ReactNode"
+      "type": "React.ReactNode | React.ElementType"
     },
     {
       "name": "size",
-      "type": "'small' | 'medium'",
+      "type": "\"medium\" | \"small\"",
       "defaultValue": "'medium'"
     },
     {
       "name": "variant",
       "type": "InlineMessageVariant"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

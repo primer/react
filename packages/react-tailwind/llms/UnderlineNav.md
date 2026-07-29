@@ -4,21 +4,22 @@
 
 Import: `import {UnderlineNav} from '@primer/react-tailwind/UnderlineNav'`
 
+Renders a `<nav>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `as`: `React.ElementType` — Default `'nav'`.
 - `hideIconsBreakpoint`: `HideIconsBreakpoint` — Default `'xxlarge'`.
 - `loadingCounters`: `boolean` — Default `false`.
-- `variant`: `'inset' | 'flush'` — Default `'inset'`.
+- `variant`: `"flush" | "inset"` — Default `'inset'`.
 
-## UnderlineNavItem props
+## Item props
 
 - `as`: `React.ElementType` — Default `'nav'`.
-- `counter`: `number | string`
+- `counter`: `string | number`
 - `leadingVisual`: `React.ReactNode`
-- `onSelect`: `(event: React.MouseEvent<HTMLElement>) => void`
+- `onSelect`: `((event: MouseEvent<HTMLElement, MouseEvent>) => void)`
 
 ## Differences from `@primer/react`
 
 - **Intentional — composition:** Wrap items in `UnderlineNav.List`. This preserves native `nav`/`ul`/`li`/link semantics without extracting or reordering consumer children.
-

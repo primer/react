@@ -6,21 +6,16 @@ Import: `import {Stack} from '@primer/react-tailwind/Stack'`
 
 ## Props
 
-- `align`: `ResponsiveValue<'stretch' | 'start' | 'center' | 'end' | 'baseline'>` — Default `'stretch'`.
-- `direction`: `ResponsiveValue<'horizontal' | 'vertical'>` — Default `'vertical'`.
+- `align`: `ResponsiveValue<"baseline" | "center" | "end" | "start" | "stretch">` — Default `'stretch'`.
+- `as`: `React.ElementType` — Default `'div'`.
+- `direction`: `ResponsiveValue<"horizontal" | "vertical">` — Default `'vertical'`.
 - `gap`: `ResponsiveValue<Gap>` — Default `'normal'`.
-- `justify`: `ResponsiveValue<'start' | 'center' | 'end' | 'space-between' | 'space-evenly'>` — Default `'start'`.
+- `justify`: `ResponsiveValue<"center" | "end" | "space-between" | "space-evenly" | "start">` — Default `'start'`.
 - `padding`: `ResponsiveValue<Gap>` — Default `'none'`.
 - `paddingBlock`: `ResponsiveValue<Gap>`
 - `paddingInline`: `ResponsiveValue<Gap>`
-- `wrap`: `ResponsiveValue<'wrap' | 'nowrap'>` — Default `'nowrap'`.
-
-## StackItem props
-
-- `grow`: `ResponsiveValue<boolean>` — Default `false`.
-- `shrink`: `ResponsiveValue<boolean>` — Default `true`.
+- `wrap`: `ResponsiveValue<"nowrap" | "wrap">` — Default `'nowrap'`.
 
 ## Differences from `@primer/react`
 
 - Do not assume omitted `gap` means zero; it keeps the normal spacing default.
-

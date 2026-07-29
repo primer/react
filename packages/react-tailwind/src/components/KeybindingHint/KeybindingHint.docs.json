@@ -58,21 +58,22 @@
     },
     {
       "name": "format",
-      "type": "'condensed' | 'full'",
+      "type": "\"condensed\" | \"full\"",
       "defaultValue": "'condensed'"
     },
     {
       "name": "keys",
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     {
       "name": "size",
-      "type": "'small' | 'medium'",
+      "type": "\"medium\" | \"small\"",
       "defaultValue": "'medium'"
     },
     {
       "name": "variant",
-      "type": "'default' | 'onEmphasis' | 'onPrimary'",
+      "type": "\"default\" | \"onEmphasis\" | \"onPrimary\"",
       "defaultValue": "'default'"
     }
   ]

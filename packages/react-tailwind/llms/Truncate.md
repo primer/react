@@ -9,10 +9,9 @@ Import: `import {Truncate} from '@primer/react-tailwind/Truncate'`
 - `as`: `React.ElementType` — Default `'span'`.
 - `expandable`: `boolean`
 - `inline`: `boolean`
-- `maxWidth`: `number | string` — Default `125`.
+- `maxWidth`: `string | number` — Default `125`.
 - `title`: `string`
 
 ## Differences from `@primer/react`
 
 - Keep expansion state and controls in the consumer.
-

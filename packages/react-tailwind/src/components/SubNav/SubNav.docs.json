@@ -28,7 +28,7 @@
     },
     {
       "name": "align",
-      "type": "'right'"
+      "type": "\"right\""
     },
     {
       "name": "full",
@@ -41,7 +41,7 @@
   ],
   "subcomponents": [
     {
-      "name": "SubNavLink",
+      "name": "Link",
       "props": [
         {
           "name": "as",
@@ -54,5 +54,9 @@
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
 }

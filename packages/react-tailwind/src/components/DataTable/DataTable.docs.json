@@ -86,12 +86,19 @@
   ],
   "props": [
     {
+      "name": "cellPadding",
+      "type": "\"condensed\" | \"normal\" | \"spacious\"",
+      "defaultValue": "'normal'"
+    },
+    {
       "name": "columns",
-      "type": "Column<Data>[]"
+      "type": "Column<Data>[]",
+      "required": true
     },
     {
       "name": "data",
-      "type": "Data[]"
+      "type": "Data[]",
+      "required": true
     },
     {
       "name": "externalSorting",
@@ -100,8 +107,12 @@
     },
     {
       "name": "getRowId",
-      "type": "(row: Data) => string | number",
+      "type": "((row: Data) => string | number)",
       "defaultValue": "defaultGetRowId"
+    },
+    {
+      "name": "gridTemplateColumns",
+      "type": "GridTemplateColumns<string | number>"
     },
     {
       "name": "initialSortColumn",
@@ -109,98 +120,11 @@
     },
     {
       "name": "initialSortDirection",
-      "type": "Exclude<SortDirection, 'NONE'>"
+      "type": "\"ASC\" | \"DESC\""
     },
     {
       "name": "onToggleSort",
-      "type": "(columnId: string, direction: Exclude<SortDirection, 'NONE'>) => void"
-    }
-  ],
-  "subcomponents": [
-    {
-      "name": "Table",
-      "props": [
-        {
-          "name": "cellPadding",
-          "type": "'condensed' | 'normal' | 'spacious'",
-          "defaultValue": "'normal'"
-        },
-        {
-          "name": "gridTemplateColumns",
-          "type": "React.CSSProperties['gridTemplateColumns']"
-        }
-      ]
-    },
-    {
-      "name": "TableHeader",
-      "props": [
-        {
-          "name": "align",
-          "type": "Alignment"
-        }
-      ]
-    },
-    {
-      "name": "TableSortHeader",
-      "props": [
-        {
-          "name": "direction",
-          "type": "SortDirection"
-        },
-        {
-          "name": "onToggleSort",
-          "type": "() => void"
-        }
-      ]
-    },
-    {
-      "name": "TableCell",
-      "props": [
-        {
-          "name": "align",
-          "type": "Alignment"
-        },
-        {
-          "name": "scope",
-          "type": "'row'"
-        }
-      ]
-    },
-    {
-      "name": "TablePagination",
-      "props": [
-        {
-          "name": "defaultPageIndex",
-          "type": "number",
-          "defaultValue": "0"
-        },
-        {
-          "name": "onChange",
-          "type": "(details: {pageIndex: number}) => void"
-        },
-        {
-          "name": "pageSize",
-          "type": "number"
-        },
-        {
-          "name": "totalCount",
-          "type": "number"
-        }
-      ]
-    },
-    {
-      "name": "TableSkeleton",
-      "props": [
-        {
-          "name": "columns",
-          "type": "Array<TableColumnLayout & {header: React.ReactNode}>"
-        },
-        {
-          "name": "rows",
-          "type": "number",
-          "defaultValue": "10"
-        }
-      ]
+      "type": "((columnId: string, direction: \"ASC\" | \"DESC\") => void)"
     }
   ]
 }

@@ -6,10 +6,10 @@ Import: `import {Spinner} from '@primer/react-tailwind/Spinner'`
 
 ## Props
 
-- `delay`: `boolean | 'short' | 'long' | number` — Default `false`.
+- `delay`: `number | "long" | "short" | boolean` — Default `false`.
+- `size`: `"large" | "medium" | "small" | null`
 - `srText`: `string | null` — Default `'Loading'`.
 
 ## Differences from `@primer/react`
 
 - Keep `size`, `srText`, and delay usage, but recheck selectors targeting the legacy SVG root.
-

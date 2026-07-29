@@ -4,13 +4,14 @@
 
 Import: `import {InlineMessage} from '@primer/react-tailwind/InlineMessage'`
 
+Renders a `<div>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
-- `leadingVisual`: `React.ElementType | React.ReactNode`
-- `size`: `'small' | 'medium'` — Default `'medium'`.
+- `leadingVisual`: `React.ReactNode | React.ElementType`
+- `size`: `"medium" | "small"` — Default `'medium'`.
 - `variant`: `InlineMessageVariant`
 
 ## Differences from `@primer/react`
 
 - Existing variant and content usage can be retained.
-

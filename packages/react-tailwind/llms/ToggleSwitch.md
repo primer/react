@@ -6,10 +6,9 @@ Import: `import {ToggleSwitch} from '@primer/react-tailwind/ToggleSwitch'`
 
 ## Props
 
-- `className`: `BaseSwitch.Root.Props['className']`
-- `size`: `'small' | 'medium'` — Default `'medium'`.
+- `className`: `string | ((state: SwitchRootState) => string | undefined)`
+- `size`: `"medium" | "small"` — Default `'medium'`.
 
 ## Differences from `@primer/react`
 
 - Use the checked-state contract; do not mirror Base UI state in a second React state source.
-

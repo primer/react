@@ -36,12 +36,17 @@
   "props": [
     {
       "name": "align",
-      "type": "ResponsiveValue<'stretch' | 'start' | 'center' | 'end' | 'baseline'>",
+      "type": "ResponsiveValue<\"baseline\" | \"center\" | \"end\" | \"start\" | \"stretch\">",
       "defaultValue": "'stretch'"
     },
     {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'"
+    },
+    {
       "name": "direction",
-      "type": "ResponsiveValue<'horizontal' | 'vertical'>",
+      "type": "ResponsiveValue<\"horizontal\" | \"vertical\">",
       "defaultValue": "'vertical'"
     },
     {
@@ -51,7 +56,7 @@
     },
     {
       "name": "justify",
-      "type": "ResponsiveValue<'start' | 'center' | 'end' | 'space-between' | 'space-evenly'>",
+      "type": "ResponsiveValue<\"center\" | \"end\" | \"space-between\" | \"space-evenly\" | \"start\">",
       "defaultValue": "'start'"
     },
     {
@@ -69,25 +74,8 @@
     },
     {
       "name": "wrap",
-      "type": "ResponsiveValue<'wrap' | 'nowrap'>",
+      "type": "ResponsiveValue<\"nowrap\" | \"wrap\">",
       "defaultValue": "'nowrap'"
-    }
-  ],
-  "subcomponents": [
-    {
-      "name": "StackItem",
-      "props": [
-        {
-          "name": "grow",
-          "type": "ResponsiveValue<boolean>",
-          "defaultValue": "false"
-        },
-        {
-          "name": "shrink",
-          "type": "ResponsiveValue<boolean>",
-          "defaultValue": "true"
-        }
-      ]
     }
   ]
 }

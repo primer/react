@@ -26,41 +26,5 @@
     {
       "id": "react-tailwind-components-liveregion--playground"
     }
-  ],
-  "subcomponents": [
-    {
-      "name": "Announce",
-      "props": [
-        {
-          "name": "announceOnShow",
-          "type": "boolean",
-          "defaultValue": "true"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "'div'"
-        },
-        {
-          "name": "data-component",
-          "type": "string",
-          "defaultValue": "'Announce'"
-        },
-        {
-          "name": "delayMs",
-          "type": "number"
-        },
-        {
-          "name": "hidden",
-          "type": "boolean",
-          "defaultValue": "false"
-        },
-        {
-          "name": "politeness",
-          "type": "Politeness",
-          "defaultValue": "'polite'"
-        }
-      ]
-    }
   ]
 }

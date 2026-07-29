@@ -4,12 +4,14 @@
 
 Import: `import {TreeView} from '@primer/react-tailwind/TreeView'`
 
+Renders an `<ul>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `flat`: `boolean` — Default `false`.
 - `truncate`: `boolean` — Default `true`.
 
-## TreeViewItem props
+## Item props
 
 - `as`: `React.ElementType` — Default `'li'`.
 - `containIntrinsicSize`: `string`
@@ -18,24 +20,28 @@ Import: `import {TreeView} from '@primer/react-tailwind/TreeView'`
 - `expanded`: `boolean | null`
 - `href`: `string`
 - `id`: `string`
-- `leadingVisual`: `React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)`
-- `onExpandedChange`: `(expanded: boolean) => void`
-- `onSelect`: `(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void`
+- `leadingVisual`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode`
+- `onExpandedChange`: `((expanded: boolean) => void)`
+- `onSelect`: `((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)`
 - `subtree`: `React.ReactNode`
 - `to`: `string`
-- `trailingVisual`: `React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)`
+- `trailingVisual`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode`
 
-## TreeViewSubTree props
+## LeadingVisual props
+
+- `children`: `React.ReactElement[]`
+- `label`: `string`
+
+## SubTree props
 
 - `count`: `number`
-- `state`: `'initial' | 'loading' | 'done' | 'error'`
+- `state`: `"done" | "error" | "initial" | "loading"`
 
-## TreeViewVisual props
+## TrailingVisual props
 
-- `children`: `React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)`
+- `children`: `React.ReactElement[]`
 - `label`: `string`
 
 ## Differences from `@primer/react`
 
 - `TreeView.Item` accepts `leadingVisual`, `trailingVisual`, and `subtree` for the corresponding regions, each taking precedence over a matching child. `leadingVisual` and `trailingVisual` also accept a `(state) => ReactNode` callback so a visual can respond to the item's expanded state.
-

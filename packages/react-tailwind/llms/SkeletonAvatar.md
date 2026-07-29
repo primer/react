@@ -6,10 +6,9 @@ Import: `import {SkeletonAvatar} from '@primer/react-tailwind/SkeletonAvatar'`
 
 ## Props
 
-- `size`: `AvatarSize | number | ResponsiveValue<number>` — Default `'small'`.
+- `size`: `AvatarSize | ResponsiveValue<number>` — Default `'small'`.
 - `square`: `boolean` — Default `false`.
 
 ## Differences from `@primer/react`
 
 - Existing `size` and `square` usage can be retained.
-

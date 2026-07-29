@@ -42,7 +42,7 @@
   ],
   "subcomponents": [
     {
-      "name": "UnderlinePanelsTab",
+      "name": "Tab",
       "props": [
         {
           "name": "counter",

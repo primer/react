@@ -6,25 +6,17 @@ Import: `import {Token} from '@primer/react-tailwind/Token'`
 
 ## Props
 
-- `leadingVisual`: `React.ElementType`
-
-## IssueLabelToken props
-
-- `fillColor`: `string` — Default `'#999999'`.
-
-## TokenBase props
-
-- `as`: `'span' | 'a' | 'button'` — Default `'span'`.
+- `as`: `"a" | "button" | "span"` — Default `'span'`.
 - `disabled`: `boolean`
 - `hideRemoveButton`: `boolean` — Default `false`.
 - `href`: `string`
 - `id`: `string | number`
 - `isSelected`: `boolean`
-- `onRemove`: `() => void`
+- `leadingVisual`: `React.ElementType`
+- `onRemove`: `(() => void)`
 - `size`: `TokenSize` — Default `'medium'`.
 - `text`: `React.ReactNode`
 
 ## Differences from `@primer/react`
 
 - Do not nest a remove button inside a link/button token.
-

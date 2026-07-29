@@ -6,9 +6,9 @@ Import: `import {Heading} from '@primer/react-tailwind/Heading'`
 
 ## Props
 
-- `as`: `'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'` — Default `'h2'`.
+- `as`: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`.
+- `size`: `"display" | "large" | "medium" | "small" | null`
 
 ## Differences from `@primer/react`
 
 - Rename `variant` to `size`.
-

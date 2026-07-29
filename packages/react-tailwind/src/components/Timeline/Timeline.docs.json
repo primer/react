@@ -192,12 +192,12 @@
   "props": [
     {
       "name": "clipSidebar",
-      "type": "boolean | 'start' | 'end' | 'both'"
+      "type": "\"both\" | \"end\" | \"start\" | boolean"
     }
   ],
   "subcomponents": [
     {
-      "name": "TimelineItem",
+      "name": "Item",
       "props": [
         {
           "name": "condensed",
@@ -206,13 +206,17 @@
       ]
     },
     {
-      "name": "TimelineBadge",
+      "name": "Badge",
       "props": [
         {
           "name": "variant",
-          "type": "TimelineBadgeVariant"
+          "type": "\"accent\" | \"attention\" | \"closed\" | \"danger\" | \"done\" | \"open\" | \"severe\" | \"sponsors\" | \"success\""
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "ol",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#attributes"
+  }
 }

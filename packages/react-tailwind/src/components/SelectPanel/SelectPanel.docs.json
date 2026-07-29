@@ -114,104 +114,408 @@
       "id": "react-tailwind-components-selectpanel--playground"
     }
   ],
+  "props": [
+    {
+      "name": "actionListProps",
+      "type": "SelectPanelActionListProps"
+    },
+    {
+      "name": "align",
+      "type": "Align",
+      "defaultValue": "'start'"
+    },
+    {
+      "name": "anchorId",
+      "type": "string"
+    },
+    {
+      "name": "anchorRef",
+      "type": "RefObject<HTMLElement | null>"
+    },
+    {
+      "name": "aria-label",
+      "type": "string"
+    },
+    {
+      "name": "className",
+      "type": "string"
+    },
+    {
+      "name": "cssAnchorPositioningSettings",
+      "type": "{ fallbackStrategy?: \"default\" | \"none\" | \"opposite-side\" | undefined; }"
+    },
+    {
+      "name": "defaultFilterValue",
+      "type": "string",
+      "defaultValue": "''"
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "disableFullscreenOnNarrow",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "disableSelectOnHover",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "displayInViewport",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "filterValue",
+      "type": "string"
+    },
+    {
+      "name": "focusOutBehavior",
+      "type": "\"start\" | \"stop\" | \"wrap\"",
+      "defaultValue": "'wrap'"
+    },
+    {
+      "name": "focusPrependedElements",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "groupMetadata",
+      "type": "readonly SelectPanelGroupMetadata[]"
+    },
+    {
+      "name": "height",
+      "type": "\"auto\" | \"fit-content\" | \"initial\" | \"large\" | \"medium\" | \"small\" | \"xlarge\" | \"xsmall\""
+    },
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "initialLoadingType",
+      "type": "\"skeleton\" | \"spinner\"",
+      "defaultValue": "'spinner'"
+    },
+    {
+      "name": "inputLabel",
+      "type": "string"
+    },
+    {
+      "name": "items",
+      "type": "readonly SelectPanelItem[]",
+      "required": true
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "message",
+      "type": "SelectPanelMessage | React.ReactNode"
+    },
+    {
+      "name": "notice",
+      "type": "SelectPanelNotice"
+    },
+    {
+      "name": "onActiveDescendantChanged",
+      "type": "((current: HTMLElement | undefined, previous: HTMLElement | undefined, directlyActivated: boolean) => void)"
+    },
+    {
+      "name": "onCancel",
+      "type": "(() => void) | (() => void)"
+    },
+    {
+      "name": "onFilterChange",
+      "type": "((filter: string, details: ChangeEventDetails) => void)"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean, gesture: SelectPanelOpenChangeGesture) => void)"
+    },
+    {
+      "name": "onScrollEnd",
+      "type": "(() => void)"
+    },
+    {
+      "name": "onSelectedChange",
+      "type": "(selected: SelectPanelItem[] | SelectPanelItem | undefined, details?: ChangeEventDetails | undefined) => void",
+      "required": true
+    },
+    {
+      "name": "open",
+      "type": "boolean"
+    },
+    {
+      "name": "overlayProps",
+      "type": "SelectPanelOverlayProps"
+    },
+    {
+      "name": "placeholder",
+      "type": "string"
+    },
+    {
+      "name": "placeholderText",
+      "type": "string",
+      "defaultValue": "'Filter items'"
+    },
+    {
+      "name": "renderAnchor",
+      "type": "((props: SelectPanelAnchorProps) => React.ReactElement) | null"
+    },
+    {
+      "name": "renderGroup",
+      "type": "SelectPanelRenderGroup"
+    },
+    {
+      "name": "renderItem",
+      "type": "SelectPanelRenderItem"
+    },
+    {
+      "name": "scrollContainerRef",
+      "type": "Ref<HTMLDivElement>"
+    },
+    {
+      "name": "secondaryAction",
+      "type": "React.ReactElement"
+    },
+    {
+      "name": "selected",
+      "type": "readonly SelectPanelItem[] | SelectPanelItem | undefined",
+      "required": true
+    },
+    {
+      "name": "selectionVariant",
+      "type": "\"multiple\" | \"single\""
+    },
+    {
+      "name": "setInitialFocus",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "showItemDividers",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "showSelectAll",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "showSelectedOptionsFirst",
+      "type": "boolean",
+      "defaultValue": "true"
+    },
+    {
+      "name": "subtitle",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "textInputProps",
+      "type": "Partial<Omit<TextInputProps, \"defaultValue\" | \"onChange\" | \"value\">>"
+    },
+    {
+      "name": "title",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "variant",
+      "type": "\"anchored\" | \"modal\"",
+      "defaultValue": "'empty'"
+    },
+    {
+      "name": "virtualized",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "width",
+      "type": "\"auto\" | \"large\" | \"medium\" | \"small\" | \"xlarge\" | \"xxlarge\""
+    }
+  ],
   "subcomponents": [
     {
-      "name": "SelectPanelOverlay",
+      "name": "Message",
       "props": [
         {
-          "name": "alignOffset",
-          "type": "PopoverPositionerProps['alignOffset']"
+          "name": "action",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "body",
+          "type": "React.ReactNode"
         },
         {
           "name": "className",
           "type": "string"
         },
         {
-          "name": "collisionBoundary",
-          "type": "PopoverPositionerProps['collisionBoundary']"
+          "name": "icon",
+          "type": "React.ElementType"
         },
         {
-          "name": "collisionPadding",
-          "type": "PopoverPositionerProps['collisionPadding']"
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true
         },
         {
-          "name": "height",
-          "type": "PanelHeight"
+          "name": "variant",
+          "type": "\"empty\" | \"error\" | \"warning\"",
+          "defaultValue": "'empty'"
+        }
+      ]
+    },
+    {
+      "name": "SecondaryActionButton",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
         },
         {
-          "name": "maxHeight",
-          "type": "Exclude<PanelHeight, 'auto' | 'initial' | 'fit-content'>"
+          "name": "block",
+          "type": "boolean"
         },
         {
-          "name": "portal",
+          "name": "children",
+          "type": "React.ReactElement[]"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "data-component",
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "loading",
           "type": "boolean",
-          "defaultValue": "true"
+          "defaultValue": "false"
         },
         {
-          "name": "positionerClassName",
+          "name": "loadingAnnouncement",
           "type": "string"
         },
         {
-          "name": "side",
-          "type": "PopoverPositionerProps['side']",
-          "defaultValue": "'bottom'"
+          "name": "size",
+          "type": "ControlSize"
         },
         {
-          "name": "sideOffset",
-          "type": "PopoverPositionerProps['sideOffset']",
-          "defaultValue": "4"
+          "name": "trailingAction",
+          "type": "ButtonVisual"
         },
         {
-          "name": "style",
-          "type": "React.CSSProperties"
+          "name": "trailingVisual",
+          "type": "ButtonVisual"
         },
         {
-          "name": "width",
-          "type": "PanelWidth"
+          "name": "variant",
+          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+          "defaultValue": "'empty'"
         }
       ]
     },
     {
-      "name": "SelectPanelAnchor",
+      "name": "SecondaryActionLink",
       "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
         {
           "name": "children",
-          "type": "React.ReactNode"
+          "type": "React.ReactElement[]"
         },
-        {
-          "name": "id",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SelectPanelActionList",
-      "props": [
         {
           "name": "className",
           "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SelectPanelMessage",
-      "props": [
+        },
         {
-          "name": "className",
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "data-component",
           "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SelectPanelSecondaryActionLink",
-      "props": [
+        },
         {
-          "name": "children",
-          "type": "React.ReactNode"
+          "name": "disabled",
+          "type": "boolean"
         },
         {
           "name": "href",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "loadingAnnouncement",
           "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize"
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+          "defaultValue": "'empty'"
         }
       ]
     }

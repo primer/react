@@ -8,7 +8,7 @@ Import: `import {UnderlinePanels} from '@primer/react-tailwind/UnderlinePanels'`
 
 - `loadingCounters`: `boolean` — Default `false`.
 
-## UnderlinePanelsTab props
+## Tab props
 
 - `counter`: `React.ReactNode`
 - `icon`: `React.ElementType`
@@ -17,4 +17,3 @@ Import: `import {UnderlinePanels} from '@primer/react-tailwind/UnderlinePanels'`
 ## Differences from `@primer/react`
 
 - Use the documented value/default-value callback contract for tab selection.
-

@@ -156,13 +156,32 @@
     },
     {
       "name": "variant",
-      "type": "'inset' | 'horizontal-inset' | 'full'",
+      "type": "\"full\" | \"horizontal-inset\" | \"inset\"",
       "defaultValue": "'inset'"
     }
   ],
   "subcomponents": [
     {
-      "name": "ActionListItem",
+      "name": "Root",
+      "props": [
+        {
+          "name": "selectionVariant",
+          "type": "SelectionVariant"
+        },
+        {
+          "name": "showDividers",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "variant",
+          "type": "\"full\" | \"horizontal-inset\" | \"inset\"",
+          "defaultValue": "'inset'"
+        }
+      ]
+    },
+    {
+      "name": "Item",
       "props": [
         {
           "name": "active",
@@ -170,7 +189,7 @@
         },
         {
           "name": "children",
-          "type": "React.ReactNode"
+          "type": "React.ReactElement[]"
         },
         {
           "name": "className",
@@ -178,8 +197,7 @@
         },
         {
           "name": "description",
-          "type": "React.ReactNode",
-          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Description` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "disabled",
@@ -191,8 +209,7 @@
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode",
-          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "loading",
@@ -205,7 +222,7 @@
         },
         {
           "name": "onSelect",
-          "type": "(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+          "type": "((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)"
         },
         {
           "name": "selected",
@@ -213,38 +230,34 @@
         },
         {
           "name": "size",
-          "type": "'medium' | 'large'",
+          "type": "\"large\" | \"medium\"",
           "defaultValue": "'medium'"
         },
         {
           "name": "trailingAction",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "trailingVisual",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "variant",
-          "type": "'default' | 'danger'",
+          "type": "\"danger\" | \"default\"",
           "defaultValue": "'inset'"
         }
       ]
     },
     {
-      "name": "ActionListLinkItem",
+      "name": "LinkItem",
       "props": [
         {
           "name": "description",
-          "type": "React.ReactNode",
-          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Description` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode",
-          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "selected",
@@ -252,28 +265,25 @@
         },
         {
           "name": "trailingAction",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "trailingVisual",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "variant",
-          "type": "'default' | 'danger'",
+          "type": "\"danger\" | \"default\"",
           "defaultValue": "'inset'"
         }
       ]
     },
     {
-      "name": "ActionListGroup",
+      "name": "Group",
       "props": [
         {
           "name": "heading",
-          "type": "React.ReactNode",
-          "description": "Supplies the heading region. Takes precedence over a matching `ActionList.Heading` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "selectionVariant",
@@ -286,7 +296,7 @@
       ]
     },
     {
-      "name": "ActionListGroupHeading",
+      "name": "GroupHeading",
       "props": [
         {
           "name": "as",
@@ -295,27 +305,17 @@
         },
         {
           "name": "trailingAction",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "variant",
-          "type": "'subtle' | 'filled'",
+          "type": "\"filled\" | \"subtle\"",
           "defaultValue": "'inset'"
         }
       ]
     },
     {
-      "name": "ActionListGroupHeadingTrailingAction",
-      "props": [
-        {
-          "name": "icon",
-          "type": "React.ElementType"
-        }
-      ]
-    },
-    {
-      "name": "ActionListDescription",
+      "name": "Description",
       "props": [
         {
           "name": "truncate",
@@ -323,13 +323,13 @@
         },
         {
           "name": "variant",
-          "type": "'block' | 'inline'",
+          "type": "\"block\" | \"inline\"",
           "defaultValue": "'inset'"
         }
       ]
     },
     {
-      "name": "ActionListHeading",
+      "name": "Heading",
       "props": [
         {
           "name": "as",
@@ -338,8 +338,77 @@
         },
         {
           "name": "size",
-          "type": "'small' | 'medium'",
+          "type": "\"medium\" | \"small\"",
           "defaultValue": "'medium'"
+        }
+      ]
+    },
+    {
+      "name": "TrailingAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\"",
+          "defaultValue": "'h3'"
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "href",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
         }
       ]
     }

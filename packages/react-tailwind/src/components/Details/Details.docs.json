@@ -20,5 +20,9 @@
     {
       "id": "react-tailwind-forms-details--playground"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "details",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#attributes"
+  }
 }

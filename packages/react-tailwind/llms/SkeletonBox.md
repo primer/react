@@ -8,11 +8,10 @@ Import: `import {SkeletonBox} from '@primer/react-tailwind/SkeletonBox'`
 
 - `as`: `React.ElementType` — Default `'div'`.
 - `data-component`: `string`
-- `delay`: `'short' | 'long' | number`
-- `height`: `React.CSSProperties['height']`
-- `width`: `React.CSSProperties['width']`
+- `delay`: `number | "long" | "short"`
+- `height`: `Height<string | number>`
+- `width`: `Width<string | number>`
 
 ## Differences from `@primer/react`
 
 - Keep Suspense, data fetching, and loading transitions in the application.
-

@@ -6,17 +6,16 @@ Import: `import {RadioGroup} from '@primer/react-tailwind/RadioGroup'`
 
 ## Props
 
-- `className`: `BaseRadioGroup.Props<Value>['className']`
+- `className`: `string | ((state: RadioGroupState) => string | undefined)`
 
-## RadioGroupLabel props
+## Label props
 
 - `visuallyHidden`: `boolean`
 
-## RadioGroupValidation props
+## Validation props
 
-- `variant`: `'error' | 'success'`
+- `variant`: `"error" | "success"`
 
 ## Differences from `@primer/react`
 
 - Use `value`, `defaultValue`, and `onValueChange` for group selection; do not duplicate the primitive's state.
-

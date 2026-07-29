@@ -45,8 +45,12 @@
   "props": [
     {
       "name": "delay",
-      "type": "boolean | 'short' | 'long' | number",
+      "type": "number | \"long\" | \"short\" | boolean",
       "defaultValue": "false"
+    },
+    {
+      "name": "size",
+      "type": "\"large\" | \"medium\" | \"small\" | null"
     },
     {
       "name": "srText",

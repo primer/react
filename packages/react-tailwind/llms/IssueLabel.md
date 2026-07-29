@@ -7,11 +7,10 @@ Import: `import {IssueLabel} from '@primer/react-tailwind/IssueLabel'`
 ## Props
 
 - `as`: `React.ElementType`
-- `fillColor`: ``#${string}``
+- `fillColor`: `` `#${string}` ``
 - `href`: `string`
 - `variant`: `IssueLabelVariant` — Default `'gray'`.
 
 ## Differences from `@primer/react`
 
 - Import the stable Tailwind `IssueLabel` instead of the experimental legacy entry point.
-

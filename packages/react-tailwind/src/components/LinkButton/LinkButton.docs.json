@@ -66,7 +66,7 @@
   "props": [
     {
       "name": "alignContent",
-      "type": "'start' | 'center'",
+      "type": "\"center\" | \"start\"",
       "defaultValue": "'center'"
     },
     {
@@ -75,11 +75,11 @@
     },
     {
       "name": "children",
-      "type": "React.ReactNode"
+      "type": "React.ReactElement[]"
     },
     {
       "name": "count",
-      "type": "number | string"
+      "type": "string | number"
     },
     {
       "name": "disabled",
@@ -110,11 +110,11 @@
     },
     {
       "name": "onClick",
-      "type": "React.MouseEventHandler<HTMLAnchorElement>"
+      "type": "MouseEventHandler<HTMLAnchorElement>"
     },
     {
       "name": "render",
-      "type": "useRender.RenderProp<LinkButtonState>"
+      "type": "RenderProp<LinkButtonState>"
     },
     {
       "name": "size",
@@ -130,8 +130,12 @@
     },
     {
       "name": "variant",
-      "type": "'default' | 'primary' | 'danger' | 'invisible' | 'link'",
+      "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
       "defaultValue": "'default'"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "a",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+  }
 }

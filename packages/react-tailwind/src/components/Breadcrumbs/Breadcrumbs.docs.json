@@ -45,18 +45,18 @@
   "props": [
     {
       "name": "overflow",
-      "type": "'wrap' | 'menu' | 'menu-with-root'",
+      "type": "\"menu\" | \"menu-with-root\" | \"wrap\"",
       "defaultValue": "'wrap'"
     },
     {
       "name": "variant",
-      "type": "'normal' | 'spacious'",
+      "type": "\"normal\" | \"spacious\"",
       "defaultValue": "'normal'"
     }
   ],
   "subcomponents": [
     {
-      "name": "BreadcrumbsItem",
+      "name": "Item",
       "props": [
         {
           "name": "as",
@@ -69,5 +69,9 @@
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
 }

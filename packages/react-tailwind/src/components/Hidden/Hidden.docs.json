@@ -33,11 +33,17 @@
   "props": [
     {
       "name": "children",
-      "type": "ReactNode"
+      "type": "React.ReactElement[]",
+      "required": true
     },
     {
       "name": "when",
-      "type": "Viewport | readonly Viewport[]"
+      "type": "readonly Viewport[] | Viewport",
+      "required": true
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

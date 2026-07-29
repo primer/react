@@ -48,15 +48,15 @@
     },
     {
       "name": "delay",
-      "type": "'short' | 'long' | number"
+      "type": "number | \"long\" | \"short\""
     },
     {
       "name": "height",
-      "type": "React.CSSProperties['height']"
+      "type": "Height<string | number>"
     },
     {
       "name": "width",
-      "type": "React.CSSProperties['width']"
+      "type": "Width<string | number>"
     }
   ]
 }

@@ -4,22 +4,24 @@
 
 Import: `import {TextInput} from '@primer/react-tailwind/TextInput'`
 
+Renders an `<input>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `block`: `boolean` — Default `false`.
 - `characterLimit`: `number`
 - `contrast`: `boolean` — Default `false`.
 - `leadingVisual`: `TextInputVisual`
-- `loaderPosition`: `'auto' | 'leading' | 'trailing'` — Default `'auto'`.
+- `loaderPosition`: `"auto" | "leading" | "trailing"` — Default `'auto'`.
 - `loaderText`: `string` — Default `'Loading'`.
 - `loading`: `boolean` — Default `false`.
 - `monospace`: `boolean` — Default `false`.
 - `size`: `ControlSize` — Default `'medium'`.
 - `trailingAction`: `React.ReactElement`
 - `trailingVisual`: `TextInputVisual`
-- `validationStatus`: `'error' | 'success'`
+- `validationStatus`: `"error" | "success"`
 
-## TextInputAction props
+## Action props
 
 - `aria-label`: `string`
 - `icon`: `React.ElementType`
@@ -28,4 +30,3 @@ Import: `import {TextInput} from '@primer/react-tailwind/TextInput'`
 ## Differences from `@primer/react`
 
 - Continue using `leadingVisual`, `trailingVisual`, `trailingAction`, `loading`, and `characterLimit`.
-

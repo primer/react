@@ -60,13 +60,13 @@
     },
     {
       "name": "variant",
-      "type": "'inset' | 'flush'",
+      "type": "\"flush\" | \"inset\"",
       "defaultValue": "'inset'"
     }
   ],
   "subcomponents": [
     {
-      "name": "UnderlineNavItem",
+      "name": "Item",
       "props": [
         {
           "name": "as",
@@ -75,7 +75,7 @@
         },
         {
           "name": "counter",
-          "type": "number | string"
+          "type": "string | number"
         },
         {
           "name": "leadingVisual",
@@ -83,9 +83,13 @@
         },
         {
           "name": "onSelect",
-          "type": "(event: React.MouseEvent<HTMLElement>) => void"
+          "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void)"
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
 }

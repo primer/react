@@ -45,7 +45,7 @@
     },
     {
       "name": "children",
-      "type": "React.ReactNode"
+      "type": "React.ReactElement[]"
     },
     {
       "name": "confirmButtonContent",
@@ -73,23 +73,24 @@
     },
     {
       "name": "finalFocus",
-      "type": "React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['finalFocus']"
+      "type": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => void | boolean | HTMLElement | null)"
     },
     {
       "name": "initialFocus",
-      "type": "'cancel' | 'confirm' | React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['initialFocus']"
+      "type": "\"cancel\" | \"confirm\" | boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => void | boolean | HTMLElement | null)"
     },
     {
       "name": "onCancel",
-      "type": "() => void"
+      "type": "(() => void)"
     },
     {
       "name": "onConfirm",
-      "type": "() => void"
+      "type": "(() => void)"
     },
     {
       "name": "title",
-      "type": "React.ReactNode"
+      "type": "React.ReactNode",
+      "required": true
     },
     {
       "name": "trigger",

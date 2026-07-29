@@ -38,5 +38,226 @@
     {
       "id": "react-tailwind-layout-splitpagelayout--with-sidebar"
     }
+  ],
+  "props": [
+    {
+      "name": "columnGap",
+      "type": "Spacing",
+      "defaultValue": "'none'",
+      "description": "Horizontal spacing between the sidebar, content, and pane."
+    },
+    {
+      "name": "containerWidth",
+      "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
+      "defaultValue": "'full'",
+      "description": "Maximum width of the centered content column."
+    },
+    {
+      "name": "footer",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "header",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "padding",
+      "type": "Spacing",
+      "defaultValue": "'none'",
+      "description": "Spacing between the page container's outer edges and the viewport."
+    },
+    {
+      "name": "rowGap",
+      "type": "Spacing",
+      "defaultValue": "'none'",
+      "description": "Vertical spacing between the header, content, and footer."
+    },
+    {
+      "name": "sidebar",
+      "type": "React.ReactNode"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Header",
+      "props": [
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<\"filled\" | \"line\" | \"none\">",
+          "defaultValue": "'line'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'"
+        }
+      ]
+    },
+    {
+      "name": "Content",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'"
+        },
+        {
+          "name": "width",
+          "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
+          "defaultValue": "'large'"
+        }
+      ]
+    },
+    {
+      "name": "Pane",
+      "props": [
+        {
+          "name": "currentWidth",
+          "type": "number"
+        },
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<PaneDivider>",
+          "defaultValue": "'line'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "minWidth",
+          "type": "number"
+        },
+        {
+          "name": "offsetHeader",
+          "type": "string | number"
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "((width: number) => void)"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'"
+        },
+        {
+          "name": "position",
+          "type": "ResponsiveValue<PanePosition>",
+          "defaultValue": "'start'"
+        },
+        {
+          "name": "resizable",
+          "type": "boolean"
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "name": "width",
+          "type": "PaneWidthValue",
+          "defaultValue": "'large'"
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Sidebar",
+      "props": [
+        {
+          "name": "currentWidth",
+          "type": "number"
+        },
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<PaneDivider>",
+          "defaultValue": "'line'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "minWidth",
+          "type": "number"
+        },
+        {
+          "name": "offsetHeader",
+          "type": "string | number"
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "((width: number) => void)"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'"
+        },
+        {
+          "name": "position",
+          "type": "ResponsiveValue<PanePosition>",
+          "defaultValue": "'start'"
+        },
+        {
+          "name": "resizable",
+          "type": "boolean"
+        },
+        {
+          "name": "responsiveVariant",
+          "type": "\"default\" | \"fullscreen\""
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "name": "width",
+          "type": "PaneWidthValue",
+          "defaultValue": "'large'"
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Footer",
+      "props": [
+        {
+          "name": "divider",
+          "type": "\"filled\" | \"line\" | \"none\"",
+          "defaultValue": "'line'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'"
+        }
+      ]
+    }
   ]
 }

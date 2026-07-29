@@ -4,7 +4,8 @@
 
 Import: `import {VisuallyHidden} from '@primer/react-tailwind/VisuallyHidden'`
 
+Renders a `<span>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Differences from `@primer/react`
 
 - Existing `focusable` usage can be retained.
-

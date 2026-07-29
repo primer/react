@@ -56,17 +56,17 @@
     },
     {
       "name": "as",
-      "type": "'div' | 'section'",
+      "type": "\"div\" | \"section\"",
       "defaultValue": "'div'"
     },
     {
       "name": "borderRadius",
-      "type": "'medium' | 'large'",
+      "type": "\"large\" | \"medium\"",
       "defaultValue": "'large'"
     },
     {
       "name": "children",
-      "type": "React.ReactNode"
+      "type": "React.ReactElement[]"
     },
     {
       "name": "description",
@@ -90,7 +90,7 @@
     },
     {
       "name": "layout",
-      "type": "'default' | 'compact'",
+      "type": "\"compact\" | \"default\"",
       "defaultValue": "'default'"
     },
     {
@@ -100,13 +100,23 @@
     },
     {
       "name": "padding",
-      "type": "'none' | 'condensed' | 'normal'",
+      "type": "\"condensed\" | \"none\" | \"normal\"",
       "defaultValue": "'normal'"
     }
   ],
   "subcomponents": [
     {
-      "name": "CardIcon",
+      "name": "Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+          "defaultValue": "'div'"
+        }
+      ]
+    },
+    {
+      "name": "Icon",
       "props": [
         {
           "name": "aria-label",
@@ -118,26 +128,18 @@
         },
         {
           "name": "icon",
-          "type": "React.ElementType"
+          "type": "React.ElementType",
+          "required": true
         }
       ]
     },
     {
-      "name": "CardImage",
+      "name": "Image",
       "props": [
         {
           "name": "src",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "CardHeading",
-      "props": [
-        {
-          "name": "as",
-          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
-          "defaultValue": "'div'"
+          "type": "string",
+          "required": true
         }
       ]
     }

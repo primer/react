@@ -59,64 +59,48 @@
   ],
   "props": [
     {
-      "name": "leadingVisual",
-      "type": "React.ElementType"
-    }
-  ],
-  "subcomponents": [
-    {
-      "name": "IssueLabelToken",
-      "props": [
-        {
-          "name": "fillColor",
-          "type": "string",
-          "defaultValue": "'#999999'"
-        }
-      ]
+      "name": "as",
+      "type": "\"a\" | \"button\" | \"span\"",
+      "defaultValue": "'span'"
     },
     {
-      "name": "TokenBase",
-      "props": [
-        {
-          "name": "as",
-          "type": "'span' | 'a' | 'button'",
-          "defaultValue": "'span'"
-        },
-        {
-          "name": "disabled",
-          "type": "boolean"
-        },
-        {
-          "name": "hideRemoveButton",
-          "type": "boolean",
-          "defaultValue": "false"
-        },
-        {
-          "name": "href",
-          "type": "string"
-        },
-        {
-          "name": "id",
-          "type": "string | number"
-        },
-        {
-          "name": "isSelected",
-          "type": "boolean"
-        },
-        {
-          "name": "onRemove",
-          "type": "() => void"
-        },
-        {
-          "name": "size",
-          "type": "TokenSize",
-          "defaultValue": "'medium'"
-        },
-        {
-          "name": "text",
-          "type": "React.ReactNode"
-        }
-      ]
+      "name": "disabled",
+      "type": "boolean"
+    },
+    {
+      "name": "hideRemoveButton",
+      "type": "boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "href",
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "type": "string | number"
+    },
+    {
+      "name": "isSelected",
+      "type": "boolean"
+    },
+    {
+      "name": "leadingVisual",
+      "type": "React.ElementType"
+    },
+    {
+      "name": "onRemove",
+      "type": "(() => void)"
+    },
+    {
+      "name": "size",
+      "type": "TokenSize",
+      "defaultValue": "'medium'"
+    },
+    {
+      "name": "text",
+      "type": "React.ReactNode",
+      "required": true
     }
   ]
 }

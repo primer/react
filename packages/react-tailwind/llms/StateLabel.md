@@ -4,11 +4,13 @@
 
 Import: `import {StateLabel} from '@primer/react-tailwind/StateLabel'`
 
+Renders a `<span>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
-- `status`: `keyof typeof icons`
+- `size`: `"medium" | "small" | null`
+- `status`: `"alertClosed" | "alertDismissed" | "alertFixed" | "alertOpened" | "archived" | "closed" | "draft" | "issueClosed" | "issueClosedNotPlanned" | "issueDraft" | "issueOpened" | ... 5 more ... | "unavailable"`
 
 ## Differences from `@primer/react`
 
 - Keep the accessible text explicit rather than depending on color alone.
-

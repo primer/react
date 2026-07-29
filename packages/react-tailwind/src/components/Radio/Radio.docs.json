@@ -36,7 +36,7 @@
   "props": [
     {
       "name": "className",
-      "type": "BaseRadio.Root.Props<Value>['className']"
+      "type": "string | ((state: RadioRootState) => string | undefined)"
     }
   ]
 }

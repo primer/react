@@ -53,6 +53,14 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "'span'"
+    },
+    {
+      "name": "size",
+      "type": "\"large\" | \"small\" | null"
+    },
+    {
+      "name": "variant",
+      "type": "\"accent\" | \"attention\" | \"danger\" | \"default\" | \"done\" | \"primary\" | \"secondary\" | \"severe\" | \"sponsors\" | \"success\" | null"
     }
   ]
 }

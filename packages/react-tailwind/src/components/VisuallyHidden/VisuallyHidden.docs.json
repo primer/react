@@ -17,5 +17,9 @@
     {
       "id": "react-tailwind-display-visuallyhidden--playground"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
 }

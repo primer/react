@@ -4,14 +4,16 @@
 
 Import: `import {SubNav} from '@primer/react-tailwind/SubNav'`
 
+Renders a `<nav>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `actions`: `React.ReactNode`
-- `align`: `'right'`
+- `align`: `"right"`
 - `full`: `boolean`
 - `label`: `string`
 
-## SubNavLink props
+## Link props
 
 - `as`: `React.ElementType` — Default `'a'`.
 - `selected`: `boolean`
@@ -19,4 +21,3 @@ Import: `import {SubNav} from '@primer/react-tailwind/SubNav'`
 ## Differences from `@primer/react`
 
 - Existing navigation composition and state ownership can be retained.
-

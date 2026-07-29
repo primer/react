@@ -4,13 +4,16 @@ import {cn} from '../../internal/cn'
 import {responsiveClasses} from '../../utils/responsive'
 import type {AsProp, ResponsiveValue} from '../../utils/types'
 
-type Hidden = ResponsiveValue<boolean>
 type TitleVariant = 'subtitle' | 'medium' | 'large'
 
 const hiddenOnNarrow = {narrow: true, regular: false, wide: false}
 const hiddenOnRegularAndWide = {narrow: false, regular: true, wide: true}
 
-function hiddenClasses(hidden: Hidden | undefined, visibleClass = 'block', defaultHidden: Hidden = false) {
+function hiddenClasses(
+  hidden: ResponsiveValue<boolean> | undefined,
+  visibleClass = 'block',
+  defaultHidden: ResponsiveValue<boolean> = false,
+) {
   return responsiveClasses(hidden, {true: 'hidden', false: visibleClass}, defaultHidden)
 }
 
@@ -36,7 +39,7 @@ const Root = React.forwardRef<HTMLElement, PageHeaderProps>(function PageHeader(
 })
 
 export interface PageHeaderPartProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'hidden'> {
-  hidden?: Hidden
+  hidden?: ResponsiveValue<boolean>
 }
 const ContextArea = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(function ContextArea(
   {className, hidden, ...rest},
@@ -56,7 +59,7 @@ const ContextArea = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functi
   )
 })
 export interface ParentLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'hidden'>, AsProp {
-  hidden?: Hidden
+  hidden?: ResponsiveValue<boolean>
 }
 const ParentLink = React.forwardRef<HTMLElement, ParentLinkProps>(function ParentLink(
   {as: Component = 'a', className, hidden, ...rest},
@@ -187,7 +190,7 @@ const LeadingVisual = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(func
 })
 export interface TitleProps extends Omit<React.HTMLAttributes<HTMLHeadingElement>, 'hidden'> {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  hidden?: Hidden
+  hidden?: ResponsiveValue<boolean>
 }
 const Title = React.forwardRef<HTMLHeadingElement, TitleProps>(function Title(
   {as: Component = 'h2', className, hidden, ...rest},

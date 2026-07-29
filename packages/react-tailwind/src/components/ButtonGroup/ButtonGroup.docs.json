@@ -38,5 +38,11 @@
     {
       "id": "react-tailwind-display-buttongroup--playground"
     }
+  ],
+  "props": [
+    {
+      "name": "orientation",
+      "type": "\"horizontal\" | \"vertical\" | null"
+    }
   ]
 }

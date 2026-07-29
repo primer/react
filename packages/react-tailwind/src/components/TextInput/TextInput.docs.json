@@ -96,7 +96,7 @@
     },
     {
       "name": "loaderPosition",
-      "type": "'auto' | 'leading' | 'trailing'",
+      "type": "\"auto\" | \"leading\" | \"trailing\"",
       "defaultValue": "'auto'"
     },
     {
@@ -129,20 +129,22 @@
     },
     {
       "name": "validationStatus",
-      "type": "'error' | 'success'"
+      "type": "\"error\" | \"success\""
     }
   ],
   "subcomponents": [
     {
-      "name": "TextInputAction",
+      "name": "Action",
       "props": [
         {
           "name": "aria-label",
-          "type": "string"
+          "type": "string",
+          "required": true
         },
         {
           "name": "icon",
-          "type": "React.ElementType"
+          "type": "React.ElementType",
+          "required": true
         },
         {
           "name": "tooltipDirection",
@@ -151,5 +153,9 @@
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "input",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attributes"
+  }
 }

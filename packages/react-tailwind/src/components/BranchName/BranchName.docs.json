@@ -39,5 +39,9 @@
       "type": "React.ElementType",
       "defaultValue": "'a'"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "a",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+  }
 }

@@ -4,11 +4,14 @@
 
 Import: `import {Link} from '@primer/react-tailwind/Link'`
 
+Renders an `<a>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `as`: `React.ElementType` — Default `'a'`.
+- `inline`: `boolean | null`
+- `muted`: `boolean | null`
 
 ## Differences from `@primer/react`
 
 - Preserve `muted`, `inline`, and `as` usage.
-

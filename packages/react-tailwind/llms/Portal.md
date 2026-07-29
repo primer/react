@@ -4,12 +4,13 @@
 
 Import: `import {Portal} from '@primer/react-tailwind/Portal'`
 
+Renders a `<div>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
-- `container`: `PortalContainer | PortalContainerRef | null`
-- `onMount`: `() => void`
+- `container`: `PortalContainerRef | PortalContainer | null`
+- `onMount`: `(() => void)`
 
 ## Differences from `@primer/react`
 
 - Replace `containerName` with a DOM `container` or ref.
-

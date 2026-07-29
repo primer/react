@@ -23,5 +23,105 @@
     {
       "id": "react-tailwind-components-popover--with-arrow"
     }
+  ],
+  "subcomponents": [
+    {
+      "name": "Button",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactElement[]"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "loading",
+          "type": "boolean"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize"
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\""
+        }
+      ]
+    },
+    {
+      "name": "Content",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'center'"
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset"
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string"
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "defaultValue": "'bottom'"
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "8"
+        }
+      ]
+    }
   ]
 }

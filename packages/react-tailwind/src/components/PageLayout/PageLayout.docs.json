@@ -126,7 +126,7 @@
     },
     {
       "name": "containerWidth",
-      "type": "keyof typeof width",
+      "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
       "defaultValue": "'xlarge'",
       "description": "Maximum width of the centered content column."
     },
@@ -160,49 +160,11 @@
   ],
   "subcomponents": [
     {
-      "name": "DragHandle",
-      "props": [
-        {
-          "name": "aria-label",
-          "type": "string"
-        },
-        {
-          "name": "aria-labelledby",
-          "type": "string"
-        },
-        {
-          "name": "aria-valuemax",
-          "type": "number"
-        },
-        {
-          "name": "aria-valuemin",
-          "type": "number"
-        },
-        {
-          "name": "aria-valuenow",
-          "type": "number"
-        },
-        {
-          "name": "formatValueText",
-          "type": "(value: number) => string",
-          "defaultValue": "defaultFormatValueText"
-        },
-        {
-          "name": "handleRef",
-          "type": "React.RefObject<HTMLDivElement | null>"
-        },
-        {
-          "name": "onDoubleClick",
-          "type": "React.MouseEventHandler<HTMLDivElement>"
-        }
-      ]
-    },
-    {
-      "name": "PageLayoutHeader",
+      "name": "Header",
       "props": [
         {
           "name": "divider",
-          "type": "'none' | 'line' | ResponsiveValue<'none' | 'line' | 'filled'>",
+          "type": "ResponsiveValue<\"filled\" | \"line\" | \"none\">",
           "defaultValue": "'none'"
         },
         {
@@ -217,8 +179,13 @@
       ]
     },
     {
-      "name": "PageLayoutContent",
+      "name": "Content",
       "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'main'"
+        },
         {
           "name": "hidden",
           "type": "ResponsiveValue<boolean>"
@@ -230,13 +197,13 @@
         },
         {
           "name": "width",
-          "type": "keyof typeof width",
+          "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
           "defaultValue": "'full'"
         }
       ]
     },
     {
-      "name": "PageLayoutPaneBase",
+      "name": "Pane",
       "props": [
         {
           "name": "currentWidth",
@@ -263,7 +230,7 @@
         },
         {
           "name": "onResizeEnd",
-          "type": "(width: number) => void"
+          "type": "((width: number) => void)"
         },
         {
           "name": "padding",
@@ -298,21 +265,78 @@
       ]
     },
     {
-      "name": "PageLayoutSidebar",
+      "name": "Sidebar",
       "props": [
         {
+          "name": "currentWidth",
+          "type": "number"
+        },
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<PaneDivider>",
+          "defaultValue": "'none'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256"
+        },
+        {
+          "name": "offsetHeader",
+          "type": "string | number",
+          "defaultValue": "0"
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "((width: number) => void)"
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'"
+        },
+        {
+          "name": "position",
+          "type": "ResponsiveValue<PanePosition>",
+          "defaultValue": "'end'"
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
           "name": "responsiveVariant",
-          "type": "'default' | 'fullscreen'",
+          "type": "\"default\" | \"fullscreen\"",
           "defaultValue": "'default'"
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "name": "width",
+          "type": "PaneWidthValue",
+          "defaultValue": "'full'"
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "defaultValue": "'paneWidth'"
         }
       ]
     },
     {
-      "name": "PageLayoutFooter",
+      "name": "Footer",
       "props": [
         {
           "name": "divider",
-          "type": "'none' | 'line' | 'filled'",
+          "type": "\"filled\" | \"line\" | \"none\"",
           "defaultValue": "'none'"
         },
         {
@@ -326,5 +350,9 @@
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

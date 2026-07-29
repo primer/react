@@ -55,8 +55,12 @@
     },
     {
       "name": "variant",
-      "type": "'default' | 'warning' | 'success' | 'danger'",
+      "type": "\"danger\" | \"default\" | \"success\" | \"warning\"",
       "defaultValue": "'default'"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

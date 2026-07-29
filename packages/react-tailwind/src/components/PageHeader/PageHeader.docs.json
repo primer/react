@@ -80,17 +80,22 @@
   ],
   "props": [
     {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'"
+    },
+    {
       "name": "hasBorder",
       "type": "boolean"
     }
   ],
   "subcomponents": [
     {
-      "name": "PageHeaderPart",
+      "name": "ContextArea",
       "props": [
         {
           "name": "hidden",
-          "type": "Hidden"
+          "type": "ResponsiveValue<boolean>"
         }
       ]
     },
@@ -98,14 +103,41 @@
       "name": "ParentLink",
       "props": [
         {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'"
+        },
+        {
           "name": "hidden",
-          "type": "Hidden"
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "ContextBar",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "ContextAreaActions",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
         }
       ]
     },
     {
       "name": "TitleArea",
       "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        },
         {
           "name": "variant",
           "type": "ResponsiveValue<TitleVariant>",
@@ -114,16 +146,79 @@
       ]
     },
     {
+      "name": "LeadingAction",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "Breadcrumbs",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "LeadingVisual",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
       "name": "Title",
       "props": [
         {
           "name": "as",
-          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
           "defaultValue": "'div'"
         },
         {
           "name": "hidden",
-          "type": "Hidden"
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "TrailingVisual",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "TrailingAction",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "Actions",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "Description",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
         }
       ]
     },
@@ -132,8 +227,12 @@
       "props": [
         {
           "name": "as",
-          "type": "'nav' | 'div'",
+          "type": "\"div\" | \"nav\"",
           "defaultValue": "'div'"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>"
         }
       ]
     }

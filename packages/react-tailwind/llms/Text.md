@@ -6,11 +6,11 @@ Import: `import {Text} from '@primer/react-tailwind/Text'`
 
 ## Props
 
+- `as`: `React.ElementType` — Default `'span'`.
 - `size`: `TextSize`
-- `weight`: `'light' | 'normal' | 'medium' | 'semibold'`
-- `whiteSpace`: `'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'`
+- `weight`: `"light" | "medium" | "normal" | "semibold"`
+- `whiteSpace`: `"normal" | "nowrap" | "pre" | "pre-line" | "pre-wrap"`
 
 ## Differences from `@primer/react`
 
 - Preserve core typography props and semantic `as` usage.
-

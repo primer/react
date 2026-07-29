@@ -91,15 +91,8 @@
       "description": "Applies error or success control styling."
     }
   ],
-  "subcomponents": [
-    {
-      "name": "SelectOption",
-      "props": [
-        {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    }
-  ]
+  "passthrough": {
+    "element": "select",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attributes"
+  }
 }

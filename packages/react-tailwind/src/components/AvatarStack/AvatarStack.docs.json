@@ -50,7 +50,8 @@
     },
     {
       "name": "children",
-      "type": "React.ReactNode",
+      "type": "React.ReactElement[]",
+      "required": true,
       "description": "A set of Avatar components to stack."
     },
     {
@@ -60,18 +61,18 @@
     },
     {
       "name": "shape",
-      "type": "'circle' | 'square'",
+      "type": "\"circle\" | \"square\"",
       "defaultValue": "'circle'",
       "description": "The shape of the avatars."
     },
     {
       "name": "size",
-      "type": "number | ResponsiveAvatarSize",
+      "type": "number | Partial<Record<\"narrow\" | \"regular\" | \"wide\", number>>",
       "description": "The size of the avatar children in pixels."
     },
     {
       "name": "variant",
-      "type": "'cascade' | 'stack'",
+      "type": "\"cascade\" | \"stack\"",
       "defaultValue": "'cascade'",
       "description": "The style of overlapping avatars."
     }

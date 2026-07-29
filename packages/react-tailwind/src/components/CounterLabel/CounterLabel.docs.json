@@ -24,12 +24,21 @@
   "props": [
     {
       "name": "aria-label",
-      "type": "string"
+      "type": "string",
+      "description": "Defines a string value that labels the current element."
     },
     {
       "name": "data-component",
       "type": "string",
       "defaultValue": "'CounterLabel'"
+    },
+    {
+      "name": "variant",
+      "type": "\"primary\" | \"secondary\" | null"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
 }

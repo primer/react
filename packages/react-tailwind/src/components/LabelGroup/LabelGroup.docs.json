@@ -39,13 +39,13 @@
     },
     {
       "name": "overflowStyle",
-      "type": "'inline' | 'overlay'",
+      "type": "\"inline\" | \"overlay\"",
       "defaultValue": "'overlay'",
       "description": "How hidden children are shown."
     },
     {
       "name": "visibleChildCount",
-      "type": "'auto' | number",
+      "type": "number | \"auto\"",
       "description": "How many children to show. `'auto'` truncates children to fit the available width."
     }
   ]

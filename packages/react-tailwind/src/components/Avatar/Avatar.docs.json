@@ -27,15 +27,19 @@
   "props": [
     {
       "name": "shape",
-      "type": "'circle' | 'square'"
+      "type": "\"circle\" | \"square\""
     },
     {
       "name": "size",
-      "type": "AvatarSize | number | ResponsiveValue<number>"
+      "type": "AvatarSize | ResponsiveValue<number>"
     },
     {
       "name": "square",
       "type": "boolean"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "img",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes"
+  }
 }

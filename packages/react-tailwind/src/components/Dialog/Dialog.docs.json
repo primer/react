@@ -68,7 +68,7 @@
   ],
   "subcomponents": [
     {
-      "name": "DialogContent",
+      "name": "Content",
       "props": [
         {
           "name": "backdrop",
@@ -90,11 +90,59 @@
       ]
     },
     {
-      "name": "DialogCloseButton",
+      "name": "CloseButton",
       "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
         {
           "name": "aria-label",
           "type": "string"
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "loading",
+          "type": "boolean"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize"
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\""
         }
       ]
     }

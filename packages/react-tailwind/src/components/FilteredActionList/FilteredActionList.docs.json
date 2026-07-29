@@ -7,7 +7,7 @@
   "props": [
     {
       "name": "actionListProps",
-      "type": "Omit<Partial<ActionListRootProps>, 'children' | 'data-component'>"
+      "type": "Omit<Partial<ActionListRootProps>, \"children\" | \"data-component\">"
     },
     {
       "name": "announcementsEnabled",
@@ -40,7 +40,7 @@
     },
     {
       "name": "focusOutBehavior",
-      "type": "'stop' | 'wrap'",
+      "type": "\"stop\" | \"wrap\"",
       "defaultValue": "'wrap'",
       "description": "Determines whether keyboard navigation stops or wraps at the first and\nlast enabled option."
     },
@@ -61,11 +61,12 @@
     },
     {
       "name": "inputRef",
-      "type": "React.Ref<HTMLInputElement>"
+      "type": "Ref<HTMLInputElement>"
     },
     {
       "name": "items",
-      "type": "readonly FilteredActionListItem[]"
+      "type": "readonly FilteredActionListItem[]",
+      "required": true
     },
     {
       "name": "loading",
@@ -83,32 +84,32 @@
     },
     {
       "name": "messageText",
-      "type": "{title: string; description: string}"
+      "type": "{ title: string; description: string; }"
     },
     {
       "name": "onActiveDescendantChanged",
-      "type": "( current: HTMLElement | undefined, previous: HTMLElement | undefined, directlyActivated: boolean, ) => void"
+      "type": "((current: HTMLElement | undefined, previous: HTMLElement | undefined, directlyActivated: boolean) => void)"
     },
     {
       "name": "onFilterChange",
-      "type": "(value: string, details: Combobox.Root.ChangeEventDetails) => void"
+      "type": "((value: string, details: ChangeEventDetails) => void)"
     },
     {
       "name": "onInputRefChanged",
-      "type": "(ref: React.RefObject<HTMLInputElement | null>) => void"
+      "type": "((ref: RefObject<HTMLInputElement | null>) => void)"
     },
     {
       "name": "onListContainerRefChanged",
-      "type": "(element: HTMLElement | null) => void"
+      "type": "((element: HTMLElement | null) => void)"
     },
     {
       "name": "onSelectAllChange",
-      "type": "(selected: boolean) => void",
+      "type": "((selected: boolean) => void)",
       "description": "Opts a multiple-selection list into a select-all control."
     },
     {
       "name": "onSelectedChange",
-      "type": "(selectedItemIds: FilteredActionListItemId[], details?: Combobox.Root.ChangeEventDetails) => void"
+      "type": "((selectedItemIds: FilteredActionListItemId[], details?: ChangeEventDetails | undefined) => void)"
     },
     {
       "name": "placeholderText",
@@ -130,7 +131,7 @@
     },
     {
       "name": "scrollContainerRef",
-      "type": "React.Ref<HTMLDivElement>"
+      "type": "Ref<HTMLDivElement>"
     },
     {
       "name": "selectedItemIds",
@@ -139,7 +140,7 @@
     },
     {
       "name": "selectionVariant",
-      "type": "'single' | 'multiple' | 'radio'"
+      "type": "\"multiple\" | \"radio\" | \"single\""
     },
     {
       "name": "setInitialFocus",
@@ -157,7 +158,7 @@
     },
     {
       "name": "variant",
-      "type": "'inset' | 'horizontal-inset' | 'full'",
+      "type": "\"full\" | \"horizontal-inset\" | \"inset\"",
       "defaultValue": "'inset'"
     },
     {
@@ -167,15 +168,8 @@
       "description": "Enables fixed-row virtualization for ungrouped, uniform default items."
     }
   ],
-  "subcomponents": [
-    {
-      "name": "FilteredActionListTextInput",
-      "props": [
-        {
-          "name": "leadingVisual",
-          "type": "ItemVisual"
-        }
-      ]
-    }
-  ]
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

@@ -8,15 +8,14 @@ Import: `import {Header} from '@primer/react-tailwind/Header'`
 
 - `as`: `React.ElementType` — Default `'header'`.
 
-## HeaderItem props
+## Item props
 
 - `full`: `boolean`
 
-## HeaderLink props
+## Link props
 
 - `as`: `React.ElementType` — Default `'header'`.
 
 ## Differences from `@primer/react`
 
 - Existing Header subcomponent composition can generally be retained.
-

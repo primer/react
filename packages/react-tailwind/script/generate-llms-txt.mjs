@@ -70,13 +70,25 @@ await mkdir(detailDirectory, {recursive: true})
 
 /** Renders one prop row, keeping the table narrow enough to stay readable as plain text. */
 function propLine({name, type, defaultValue, description}) {
-  const head = `- \`${name}\`: \`${type}\``
-  const tail = [defaultValue ? `Default \`${defaultValue}\`.` : undefined, description].filter(Boolean).join(' ')
+  // A template-literal type contains backticks, so the code span needs a longer padded fence.
+  const fence = type.includes('`') ? '``' : '`'
+  const pad = type.includes('`') ? ' ' : ''
+  const head = `- \`${name}\`: ${fence}${pad}${type}${pad}${fence}`
+  // A description keeps its source line wrapping, which would break the bullet it renders into.
+  const prose = description?.replace(/\s+/g, ' ').trim()
+  const tail = [defaultValue ? `Default \`${defaultValue}\`.` : undefined, prose].filter(Boolean).join(' ')
   return tail ? `${head} — ${tail}` : head
 }
 
 function renderComponent({name, intent, notes, docs}) {
   const lines = [`# ${name}`, '', intent, '', `Import: \`import {${name}} from '@primer/react-tailwind/${name}'\``, '']
+
+  if (docs?.passthrough) {
+    lines.push(
+      `Renders ${/^[aeiou]/.test(docs.passthrough.element) ? 'an' : 'a'} \`<${docs.passthrough.element}>\` and forwards unrecognized props to it, so it also accepts that element's native attributes.`,
+      '',
+    )
+  }
 
   if (docs?.props?.length) {
     lines.push('## Props', '', ...docs.props.map(propLine), '')
@@ -91,7 +103,8 @@ function renderComponent({name, intent, notes, docs}) {
     lines.push('## Differences from `@primer/react`', '', ...notes.map(note => `- ${note}`), '')
   }
 
-  return `${lines.join('\n')}\n`
+  // Trimmed so generated output already matches Prettier and check:llms cannot fight format:diff.
+  return `${lines.join('\n').trimEnd()}\n`
 }
 
 for (const component of components) {

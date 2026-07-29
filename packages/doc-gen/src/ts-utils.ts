@@ -359,3 +359,134 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
     fs.writeFileSync(sourceFile.fileName, updatedText, 'utf-8')
   }
 }
+
+/** Splits a union at depth zero so nested generics keep their own `|` separators. */
+function splitUnion(type: string): string[] {
+  const members: string[] = []
+  let depth = 0
+  let current = ''
+  for (const character of type) {
+    if ('<([{'.includes(character)) depth += 1
+    if ('>)]}'.includes(character)) depth -= 1
+    if (character === '|' && depth === 0) {
+      members.push(current.trim())
+      current = ''
+      continue
+    }
+    current += character
+  }
+  if (current.trim()) members.push(current.trim())
+  return members
+}
+
+/** Constituents TypeScript produces when it expands `React.ReactNode`. */
+const REACT_NODE_MEMBER =
+  /^(string|number|bigint|boolean|null|undefined|ReactPortal|ReactNode|Iterable<[^>]*ReactNode[^>]*>|Promise<.*>|ReactElement<.*>|Omit<ReactElement.*>)$/
+
+/** Constituents TypeScript produces when it expands `React.ElementType`. */
+const REACT_ELEMENT_TYPE_MEMBER =
+  /^(ComponentClass<.*>|FunctionComponent<.*>|ComponentType<.*>|JSXElementConstructor<.*>|keyof IntrinsicElements)$/
+
+/**
+ * A token that only appears once TypeScript has walked into React's own types. Matched
+ * anywhere in a member, so a boundary nested in a callback return type is still found.
+ */
+const REACT_BOUNDARY = /\b(ReactPortal|ReactNode|ReactElement<|JSXElementConstructor<)/
+
+/** `ReactElement<unknown, ...>` carries no useful element information. */
+const OPAQUE_REACT_ELEMENT = /^ReactElement<\s*unknown\s*,/
+
+/**
+ * Stops type expansion at React's own node types.
+ *
+ * TypeScript resolves `React.ReactNode` into a fifteen-member union and `React.ReactElement`
+ * into `ReactElement<unknown, string | JSXElementConstructor<any>>`. Neither tells a reader
+ * anything they did not already know, and both crowd out the part of a signature that does
+ * carry meaning. This collapses those expansions back to the names an author writes, and
+ * leaves every other union member untouched.
+ */
+export function simplifyReactType(type: string): string {
+  const members = splitUnion(type)
+  if (!members.some(member => REACT_BOUNDARY.test(member))) return qualifyReactNames(type)
+
+  // A lone element type keeps its own name; only a full node expansion becomes ReactNode.
+  if (members.length === 1 && OPAQUE_REACT_ELEMENT.test(members[0])) return 'React.ReactElement'
+
+  const simplified: string[] = []
+  for (const member of members) {
+    let replacement = member
+    if (REACT_NODE_MEMBER.test(member)) replacement = 'React.ReactNode'
+    else if (REACT_ELEMENT_TYPE_MEMBER.test(member)) replacement = 'React.ElementType'
+    else if (member.includes('ReactElement<') || member.includes('ReactNode')) {
+      replacement = simplifyNested(member)
+    }
+    if (!simplified.includes(replacement)) simplified.push(replacement)
+  }
+
+  return qualifyReactNames(simplified.join(' | '))
+}
+
+/**
+ * React types arrive from the checker without their namespace, so `ElementType` reads as a
+ * local type a consumer could import. Qualifying them keeps their origin obvious.
+ */
+const BARE_REACT_NAMES = /(?<!\.)\b(ElementType|ComponentType|ReactNode|ReactElement|ReactPortal|CSSProperties)\b/g
+
+/** Default type arguments the checker spells out but an author never writes. */
+const DEFAULTED_TYPE_ARGUMENTS = /\bElementType<\s*any\s*,\s*keyof IntrinsicElements\s*>/g
+
+function qualifyReactNames(type: string): string {
+  return type.replace(DEFAULTED_TYPE_ARGUMENTS, 'ElementType').replace(BARE_REACT_NAMES, 'React.$1')
+}
+
+/** Applies the same boundary inside a wrapper such as a callback return type. */
+function simplifyNested(member: string): string {
+  return member
+    .replace(/ReactElement<\s*unknown\s*,\s*string\s*\|\s*JSXElementConstructor<any>\s*>/g, 'React.ReactElement')
+    .replace(/(?<!React\.)\bReactNode\b/g, 'React.ReactNode')
+}
+
+/**
+ * DOM interfaces that name exactly one tag. Interfaces shared by several tags — `HTMLElement`,
+ * `HTMLHeadingElement`, `HTMLTableCellElement` — are deliberately absent, because reporting one
+ * of their tags would be a guess.
+ */
+const ELEMENT_INTERFACE_TAGS: Record<string, string> = {
+  HTMLAnchorElement: 'a',
+  HTMLButtonElement: 'button',
+  HTMLDetailsElement: 'details',
+  HTMLDialogElement: 'dialog',
+  HTMLDivElement: 'div',
+  HTMLFieldSetElement: 'fieldset',
+  HTMLFormElement: 'form',
+  HTMLHRElement: 'hr',
+  HTMLImageElement: 'img',
+  HTMLInputElement: 'input',
+  HTMLLIElement: 'li',
+  HTMLLabelElement: 'label',
+  HTMLLegendElement: 'legend',
+  HTMLOListElement: 'ol',
+  HTMLOptionElement: 'option',
+  HTMLParagraphElement: 'p',
+  HTMLPreElement: 'pre',
+  HTMLSelectElement: 'select',
+  HTMLSpanElement: 'span',
+  HTMLTableElement: 'table',
+  HTMLTextAreaElement: 'textarea',
+  HTMLUListElement: 'ul',
+}
+
+/**
+ * Reads the DOM element a props type passes through to, so documentation can say which element
+ * a component renders and which native attributes it therefore accepts.
+ *
+ * Returns nothing when the base is a component reference or an interface shared by several
+ * tags, because in both cases the element is genuinely not determined by the type.
+ */
+export function readPassthroughElement(heritageText: string): string | undefined {
+  const tag = /ComponentPropsWith(?:out)?Ref<\s*'([a-z][a-z0-9]*)'\s*>/.exec(heritageText)?.[1]
+  if (tag) return tag
+
+  const interfaceName = /HTMLAttributes<\s*(HTML\w*Element)\s*>/.exec(heritageText)?.[1]
+  return interfaceName ? ELEMENT_INTERFACE_TAGS[interfaceName] : undefined
+}

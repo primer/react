@@ -62,11 +62,11 @@
     },
     {
       "name": "maxWidth",
-      "type": "React.CSSProperties['maxWidth']"
+      "type": "MaxWidth<string | number>"
     },
     {
       "name": "size",
-      "type": "keyof typeof sizeClasses",
+      "type": "\"bodyLarge\" | \"bodyMedium\" | \"bodySmall\" | \"display\" | \"subtitle\" | \"titleLarge\" | \"titleMedium\" | \"titleSmall\"",
       "defaultValue": "'bodyMedium'"
     }
   ]

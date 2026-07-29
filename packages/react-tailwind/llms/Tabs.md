@@ -7,4 +7,3 @@ Import: `import {Tabs} from '@primer/react-tailwind/Tabs'`
 ## Differences from `@primer/react`
 
 - Use `value`, `defaultValue`, and `onValueChange` for selection state.
-

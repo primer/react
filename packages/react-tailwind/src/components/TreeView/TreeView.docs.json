@@ -83,7 +83,7 @@
   ],
   "subcomponents": [
     {
-      "name": "TreeViewItem",
+      "name": "Item",
       "props": [
         {
           "name": "as",
@@ -113,19 +113,20 @@
         },
         {
           "name": "id",
-          "type": "string"
+          "type": "string",
+          "required": true
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)"
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode"
         },
         {
           "name": "onExpandedChange",
-          "type": "(expanded: boolean) => void"
+          "type": "((expanded: boolean) => void)"
         },
         {
           "name": "onSelect",
-          "type": "(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+          "type": "((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)"
         },
         {
           "name": "subtree",
@@ -137,12 +138,26 @@
         },
         {
           "name": "trailingVisual",
-          "type": "React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)"
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode"
         }
       ]
     },
     {
-      "name": "TreeViewSubTree",
+      "name": "LeadingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement[]",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SubTree",
       "props": [
         {
           "name": "count",
@@ -150,16 +165,17 @@
         },
         {
           "name": "state",
-          "type": "'initial' | 'loading' | 'done' | 'error'"
+          "type": "\"done\" | \"error\" | \"initial\" | \"loading\""
         }
       ]
     },
     {
-      "name": "TreeViewVisual",
+      "name": "TrailingVisual",
       "props": [
         {
           "name": "children",
-          "type": "React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)"
+          "type": "React.ReactElement[]",
+          "required": true
         },
         {
           "name": "label",
@@ -167,5 +183,9 @@
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "ul",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+  }
 }

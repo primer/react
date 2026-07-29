@@ -69,8 +69,17 @@
   ],
   "subcomponents": [
     {
-      "name": "NavListHeading",
+      "name": "Heading",
       "props": [
+        {
+          "name": "as",
+          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\""
+        },
+        {
+          "name": "size",
+          "type": "\"display\" | \"large\" | \"medium\" | \"small\" | null",
+          "defaultValue": "'small'"
+        },
         {
           "name": "visuallyHidden",
           "type": "boolean"
@@ -78,7 +87,7 @@
       ]
     },
     {
-      "name": "NavListGroup",
+      "name": "Group",
       "props": [
         {
           "name": "hideDivider",
@@ -92,12 +101,11 @@
       ]
     },
     {
-      "name": "NavListItem",
+      "name": "Item",
       "props": [
         {
           "name": "description",
-          "type": "React.ReactNode",
-          "description": "Supplies the description region. Takes precedence over a matching `NavList.Description` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "inactiveText",
@@ -105,20 +113,101 @@
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode",
-          "description": "Supplies the leadingVisual region. Takes precedence over a matching `NavList.LeadingVisual` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "trailingAction",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingAction region. Takes precedence over a matching `NavList.TrailingAction` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "trailingVisual",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingVisual region. Takes precedence over a matching `NavList.TrailingVisual` child."
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "TrailingAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\""
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "href",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "loading",
+          "type": "boolean"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'small'"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        }
+      ]
+    },
+    {
+      "name": "Description",
+      "props": [
+        {
+          "name": "truncate",
+          "type": "boolean"
+        },
+        {
+          "name": "variant",
+          "type": "\"block\" | \"inline\""
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
 }

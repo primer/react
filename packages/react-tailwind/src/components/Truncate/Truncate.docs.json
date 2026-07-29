@@ -52,12 +52,13 @@
     },
     {
       "name": "maxWidth",
-      "type": "number | string",
+      "type": "string | number",
       "defaultValue": "125"
     },
     {
       "name": "title",
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   ]
 }

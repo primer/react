@@ -4,6 +4,8 @@
 
 Import: `import {Select} from '@primer/react-tailwind/Select'`
 
+Renders a `<select>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `block`: `boolean` — Default `false`. Makes the visible control fill its container.
@@ -13,11 +15,6 @@ Import: `import {Select} from '@primer/react-tailwind/Select'`
 - `size`: `ControlSize` — Primer control height and typography.
 - `validationStatus`: `ValidationStatus` — Applies error or success control styling.
 
-## SelectOption props
-
-- `value`: `string`
-
 ## Differences from `@primer/react`
 
 - Replace `Select.Trigger`, `Value`, `Portal`, `Positioner`, `Popup`, `List`, `Item`, `Group`, and `GroupLabel` with `Select`, native options, and optgroups.
-

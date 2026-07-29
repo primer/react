@@ -4,12 +4,14 @@
 
 Import: `import {Breadcrumbs} from '@primer/react-tailwind/Breadcrumbs'`
 
+Renders a `<nav>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
-- `overflow`: `'wrap' | 'menu' | 'menu-with-root'` — Default `'wrap'`.
-- `variant`: `'normal' | 'spacious'` — Default `'normal'`.
+- `overflow`: `"menu" | "menu-with-root" | "wrap"` — Default `'wrap'`.
+- `variant`: `"normal" | "spacious"` — Default `'normal'`.
 
-## BreadcrumbsItem props
+## Item props
 
 - `as`: `React.ElementType` — Default `'a'`.
 - `selected`: `boolean`
@@ -17,4 +19,3 @@ Import: `import {Breadcrumbs} from '@primer/react-tailwind/Breadcrumbs'`
 ## Differences from `@primer/react`
 
 - Normal breadcrumb and item composition is intended to be drop-in.
-

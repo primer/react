@@ -20,5 +20,11 @@
     {
       "id": "react-tailwind-display-buttonbase--playground"
     }
+  ],
+  "props": [
+    {
+      "name": "data-component",
+      "type": "string"
+    }
   ]
 }

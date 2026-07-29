@@ -71,8 +71,17 @@
   ],
   "props": [
     {
+      "name": "size",
+      "type": "\"medium\" | \"small\" | null"
+    },
+    {
       "name": "status",
-      "type": "keyof typeof icons"
+      "type": "\"alertClosed\" | \"alertDismissed\" | \"alertFixed\" | \"alertOpened\" | \"archived\" | \"closed\" | \"draft\" | \"issueClosed\" | \"issueClosedNotPlanned\" | \"issueDraft\" | \"issueOpened\" | ... 5 more ... | \"unavailable\"",
+      "required": true
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
 }

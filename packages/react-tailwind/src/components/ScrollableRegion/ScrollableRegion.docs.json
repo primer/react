@@ -20,5 +20,19 @@
     {
       "id": "react-tailwind-components-scrollableregion--playground"
     }
-  ]
+  ],
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string"
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string"
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

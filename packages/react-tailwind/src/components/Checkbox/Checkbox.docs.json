@@ -42,7 +42,7 @@
   "props": [
     {
       "name": "className",
-      "type": "BaseCheckbox.Root.Props['className']"
+      "type": "string | ((state: CheckboxRootState) => string | undefined)"
     }
   ]
 }

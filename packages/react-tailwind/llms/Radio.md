@@ -6,9 +6,8 @@ Import: `import {Radio} from '@primer/react-tailwind/Radio'`
 
 ## Props
 
-- `className`: `BaseRadio.Root.Props<Value>['className']`
+- `className`: `string | ((state: RadioRootState) => string | undefined)`
 
 ## Differences from `@primer/react`
 
 - Use a visible label or associated FormControl label for every radio.
-

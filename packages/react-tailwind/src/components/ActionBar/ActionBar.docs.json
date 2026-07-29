@@ -53,7 +53,7 @@
     },
     {
       "name": "gap",
-      "type": "'none' | 'condensed'",
+      "type": "\"condensed\" | \"none\"",
       "defaultValue": "'condensed'"
     },
     {
@@ -64,11 +64,136 @@
   ],
   "subcomponents": [
     {
-      "name": "ActionBarMenu",
+      "name": "Button",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactElement[]"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "loading",
+          "type": "boolean"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual"
+        }
+      ]
+    },
+    {
+      "name": "IconButton",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\""
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "block",
+          "type": "boolean"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "defaultValue": "KebabHorizontalIcon",
+          "required": true
+        },
+        {
+          "name": "inactive",
+          "type": "boolean"
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean"
+        },
+        {
+          "name": "loading",
+          "type": "boolean"
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual"
+        }
+      ]
+    },
+    {
+      "name": "Menu",
       "props": [
         {
           "name": "aria-label",
-          "type": "string"
+          "type": "string",
+          "required": true
         },
         {
           "name": "icon",
@@ -77,7 +202,8 @@
         },
         {
           "name": "items",
-          "type": "ActionBarMenuItem[]"
+          "type": "ActionBarMenuItem[]",
+          "required": true
         }
       ]
     }

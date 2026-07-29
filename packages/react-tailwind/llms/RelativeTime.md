@@ -13,20 +13,19 @@ Import: `import {RelativeTime} from '@primer/react-tailwind/RelativeTime'`
 - `formatStyle`: `FormatStyle`
 - `hour`: `NumericDatePart`
 - `minute`: `NumericDatePart`
-- `month`: `NumericDatePart | 'short' | 'long' | 'narrow'`
+- `month`: `"long" | "narrow" | "short" | NumericDatePart`
 - `noTitle`: `boolean`
-- `onRelativeTimeUpdated`: `(event: RelativeTimeUpdatedEvent) => void`
-- `precision`: `'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second'`
+- `onRelativeTimeUpdated`: `((event: RelativeTimeUpdatedEvent) => void)`
+- `precision`: `"day" | "hour" | "minute" | "month" | "second" | "week" | "year"`
 - `prefix`: `string`
 - `second`: `NumericDatePart`
 - `tense`: `Tense`
 - `threshold`: `string`
 - `timeZone`: `string`
-- `timeZoneName`: `'' | 'long' | 'short' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'`
-- `weekday`: `'' | 'short' | 'long' | 'narrow'`
+- `timeZoneName`: `"" | "long" | "longGeneric" | "longOffset" | "short" | "shortGeneric" | "shortOffset"`
+- `weekday`: `"" | "long" | "narrow" | "short"`
 - `year`: `NumericDatePart`
 
 ## Differences from `@primer/react`
 
 - `date` and `datetime` are normalized onto the `time` element's machine-readable `datetime` value.
-

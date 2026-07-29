@@ -36,7 +36,8 @@
   "props": [
     {
       "name": "currentPage",
-      "type": "number"
+      "type": "number",
+      "required": true
     },
     {
       "name": "data-component",
@@ -45,7 +46,7 @@
     },
     {
       "name": "hrefBuilder",
-      "type": "(page: number) => string",
+      "type": "((page: number) => string)",
       "defaultValue": "defaultHrefBuilder"
     },
     {
@@ -55,19 +56,20 @@
     },
     {
       "name": "onPageChange",
-      "type": "(event: React.MouseEvent, page: number) => void"
+      "type": "((event: MouseEvent<Element, MouseEvent>, page: number) => void)"
     },
     {
       "name": "pageCount",
-      "type": "number"
+      "type": "number",
+      "required": true
     },
     {
       "name": "renderPage",
-      "type": "(props: PageProps) => React.ReactNode"
+      "type": "((props: PageProps) => React.ReactNode)"
     },
     {
       "name": "showPages",
-      "type": "boolean | ResponsiveValue<boolean>",
+      "type": "ResponsiveValue<boolean>",
       "defaultValue": "true"
     },
     {
@@ -76,27 +78,8 @@
       "defaultValue": "2"
     }
   ],
-  "subcomponents": [
-    {
-      "name": "Page",
-      "props": [
-        {
-          "name": "children",
-          "type": "React.ReactNode"
-        },
-        {
-          "name": "number",
-          "type": "number"
-        },
-        {
-          "name": "onPageSelect",
-          "type": "React.MouseEventHandler"
-        },
-        {
-          "name": "pageType",
-          "type": "PageType"
-        }
-      ]
-    }
-  ]
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
 }

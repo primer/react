@@ -67,7 +67,7 @@
     },
     {
       "name": "size",
-      "type": "'small' | 'medium' | 'large'",
+      "type": "\"large\" | \"medium\" | \"small\"",
       "defaultValue": "'medium'"
     },
     {
@@ -78,14 +78,41 @@
   ],
   "subcomponents": [
     {
-      "name": "BlankslateHeading",
+      "name": "Heading",
       "props": [
         {
           "name": "as",
-          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
           "defaultValue": "'h2'"
         }
       ]
+    },
+    {
+      "name": "PrimaryAction",
+      "props": [
+        {
+          "name": "href",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SecondaryAction",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": true
+        }
+      ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

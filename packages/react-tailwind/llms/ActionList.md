@@ -8,62 +8,81 @@ Import: `import {ActionList} from '@primer/react-tailwind/ActionList'`
 
 - `selectionVariant`: `SelectionVariant`
 - `showDividers`: `boolean` — Default `false`.
-- `variant`: `'inset' | 'horizontal-inset' | 'full'` — Default `'inset'`.
+- `variant`: `"full" | "horizontal-inset" | "inset"` — Default `'inset'`.
 
-## ActionListItem props
+## Root props
+
+- `selectionVariant`: `SelectionVariant`
+- `showDividers`: `boolean` — Default `false`.
+- `variant`: `"full" | "horizontal-inset" | "inset"` — Default `'inset'`.
+
+## Item props
 
 - `active`: `boolean`
-- `children`: `React.ReactNode`
+- `children`: `React.ReactElement[]`
 - `className`: `string`
-- `description`: `React.ReactNode` — Supplies the description region. Takes precedence over a matching `ActionList.Description` child.
+- `description`: `React.ReactNode`
 - `disabled`: `boolean`
 - `inactiveText`: `React.ReactNode`
-- `leadingVisual`: `React.ReactNode` — Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child.
+- `leadingVisual`: `React.ReactNode`
 - `loading`: `boolean` — Default `false`.
 - `loadingText`: `string`
-- `onSelect`: `(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void`
+- `onSelect`: `((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)`
 - `selected`: `boolean`
-- `size`: `'medium' | 'large'` — Default `'medium'`.
-- `trailingAction`: `React.ReactNode` — Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child.
-- `trailingVisual`: `React.ReactNode` — Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child.
-- `variant`: `'default' | 'danger'` — Default `'inset'`.
+- `size`: `"large" | "medium"` — Default `'medium'`.
+- `trailingAction`: `React.ReactNode`
+- `trailingVisual`: `React.ReactNode`
+- `variant`: `"danger" | "default"` — Default `'inset'`.
 
-## ActionListLinkItem props
+## LinkItem props
 
-- `description`: `React.ReactNode` — Supplies the description region. Takes precedence over a matching `ActionList.Description` child.
-- `leadingVisual`: `React.ReactNode` — Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child.
+- `description`: `React.ReactNode`
+- `leadingVisual`: `React.ReactNode`
 - `selected`: `boolean`
-- `trailingAction`: `React.ReactNode` — Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child.
-- `trailingVisual`: `React.ReactNode` — Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child.
-- `variant`: `'default' | 'danger'` — Default `'inset'`.
+- `trailingAction`: `React.ReactNode`
+- `trailingVisual`: `React.ReactNode`
+- `variant`: `"danger" | "default"` — Default `'inset'`.
 
-## ActionListGroup props
+## Group props
 
-- `heading`: `React.ReactNode` — Supplies the heading region. Takes precedence over a matching `ActionList.Heading` child.
+- `heading`: `React.ReactNode`
 - `selectionVariant`: `SelectionVariant`
 - `title`: `React.ReactNode`
 
-## ActionListGroupHeading props
+## GroupHeading props
 
 - `as`: `React.ElementType` — Default `'h3'`.
-- `trailingAction`: `React.ReactNode` — Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child.
-- `variant`: `'subtle' | 'filled'` — Default `'inset'`.
+- `trailingAction`: `React.ReactNode`
+- `variant`: `"filled" | "subtle"` — Default `'inset'`.
 
-## ActionListGroupHeadingTrailingAction props
-
-- `icon`: `React.ElementType`
-
-## ActionListDescription props
+## Description props
 
 - `truncate`: `boolean`
-- `variant`: `'block' | 'inline'` — Default `'inset'`.
+- `variant`: `"block" | "inline"` — Default `'inset'`.
 
-## ActionListHeading props
+## Heading props
 
 - `as`: `React.ElementType` — Default `'h3'`.
-- `size`: `'small' | 'medium'` — Default `'medium'`.
+- `size`: `"medium" | "small"` — Default `'medium'`.
+
+## TrailingAction props
+
+- `alignContent`: `"center" | "start"`
+- `as`: `"a" | "button"` — Default `'h3'`.
+- `block`: `boolean`
+- `className`: `string`
+- `count`: `string | number`
+- `disabled`: `boolean`
+- `href`: `string`
+- `icon`: `React.ElementType`
+- `inactive`: `boolean`
+- `label`: `string`
+- `labelWrap`: `boolean`
+- `loading`: `boolean` — Default `false`.
+- `loadingAnnouncement`: `string`
+- `size`: `ControlSize` — Default `'medium'`.
+- `style`: `React.CSSProperties`
 
 ## Differences from `@primer/react`
 
 - `ActionList.Item` and `ActionList.LinkItem` accept `leadingVisual`, `trailingVisual`, `description`, and `trailingAction`; `ActionList.Group` accepts `heading`; `ActionList.GroupHeading` accepts `trailingAction`. Each takes an element for the corresponding region and takes precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it.
-

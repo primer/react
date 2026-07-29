@@ -6,9 +6,8 @@ Import: `import {Checkbox} from '@primer/react-tailwind/Checkbox'`
 
 ## Props
 
-- `className`: `BaseCheckbox.Root.Props['className']`
+- `className`: `string | ((state: CheckboxRootState) => string | undefined)`
 
 ## Differences from `@primer/react`
 
 - Keep a native label or FormControl label associated with each checkbox.
-

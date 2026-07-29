@@ -56,5 +56,15 @@
     {
       "id": "react-tailwind-forms-textarea--playground"
     }
-  ]
+  ],
+  "props": [
+    {
+      "name": "resize",
+      "type": "\"both\" | \"horizontal\" | \"none\" | \"vertical\" | null"
+    }
+  ],
+  "passthrough": {
+    "element": "textarea",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attributes"
+  }
 }

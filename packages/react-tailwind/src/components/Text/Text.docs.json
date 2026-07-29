@@ -59,16 +59,21 @@
   ],
   "props": [
     {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'span'"
+    },
+    {
       "name": "size",
       "type": "TextSize"
     },
     {
       "name": "weight",
-      "type": "'light' | 'normal' | 'medium' | 'semibold'"
+      "type": "\"light\" | \"medium\" | \"normal\" | \"semibold\""
     },
     {
       "name": "whiteSpace",
-      "type": "'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'"
+      "type": "\"normal\" | \"nowrap\" | \"pre\" | \"pre-line\" | \"pre-wrap\""
     }
   ]
 }

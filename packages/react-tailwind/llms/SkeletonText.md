@@ -7,10 +7,9 @@ Import: `import {SkeletonText} from '@primer/react-tailwind/SkeletonText'`
 ## Props
 
 - `lines`: `number` — Default `1`.
-- `maxWidth`: `React.CSSProperties['maxWidth']`
-- `size`: `keyof typeof sizeClasses` — Default `'bodyMedium'`.
+- `maxWidth`: `MaxWidth<string | number>`
+- `size`: `"bodyLarge" | "bodyMedium" | "bodySmall" | "display" | "subtitle" | "titleLarge" | "titleMedium" | "titleSmall"` — Default `'bodyMedium'`.
 
 ## Differences from `@primer/react`
 
 - Expect at least one line; fractional counts are floored.
-

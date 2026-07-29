@@ -65,12 +65,69 @@
   ],
   "props": [
     {
+      "name": "alignContent",
+      "type": "\"center\" | \"start\""
+    },
+    {
       "name": "aria-label",
+      "type": "string",
+      "required": true,
+      "description": "Defines a string value that labels the current element."
+    },
+    {
+      "name": "block",
+      "type": "boolean"
+    },
+    {
+      "name": "className",
       "type": "string"
     },
     {
+      "name": "count",
+      "type": "string | number"
+    },
+    {
+      "name": "data-component",
+      "type": "string",
+      "defaultValue": "'IconButton'"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean"
+    },
+    {
       "name": "icon",
-      "type": "React.ElementType"
+      "type": "React.ElementType",
+      "required": true
+    },
+    {
+      "name": "inactive",
+      "type": "boolean"
+    },
+    {
+      "name": "labelWrap",
+      "type": "boolean"
+    },
+    {
+      "name": "loading",
+      "type": "boolean"
+    },
+    {
+      "name": "loadingAnnouncement",
+      "type": "string"
+    },
+    {
+      "name": "size",
+      "type": "ControlSize",
+      "defaultValue": "'medium'"
+    },
+    {
+      "name": "trailingAction",
+      "type": "ButtonVisual"
+    },
+    {
+      "name": "variant",
+      "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\""
     }
   ]
 }

@@ -6,17 +6,16 @@ Import: `import {CheckboxGroup} from '@primer/react-tailwind/CheckboxGroup'`
 
 ## Props
 
-- `className`: `BaseCheckboxGroup.Props['className']`
+- `className`: `string | ((state: CheckboxGroupState) => string | undefined)`
 
-## CheckboxGroupLabel props
+## Label props
 
 - `visuallyHidden`: `boolean`
 
-## CheckboxGroupValidation props
+## Validation props
 
-- `variant`: `'error' | 'success'`
+- `variant`: `"error" | "success"`
 
 ## Differences from `@primer/react`
 
 - Use `Label`, `Caption`, and `Validation` parts for group metadata; set `visuallyHidden` only when another visible label exists.
-

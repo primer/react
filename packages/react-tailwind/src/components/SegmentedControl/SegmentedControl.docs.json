@@ -51,7 +51,7 @@
   "props": [
     {
       "name": "className",
-      "type": "ToggleGroup.Props<Value>['className']"
+      "type": "string | ((state: ToggleGroupState) => string | undefined)"
     },
     {
       "name": "fullWidth",
@@ -64,25 +64,25 @@
     },
     {
       "name": "variant",
-      "type": "'default' | ResponsiveSegmentedControlVariant",
+      "type": "\"default\" | Partial<Record<\"narrow\" | \"regular\" | \"wide\", SegmentedControlVariant>>",
       "defaultValue": "'default'"
     }
   ],
   "subcomponents": [
     {
-      "name": "SegmentedControlButton",
+      "name": "Button",
       "props": [
         {
           "name": "children",
-          "type": "React.ReactNode"
+          "type": "React.ReactElement[]"
         },
         {
           "name": "className",
-          "type": "Toggle.Props<Value>['className']"
+          "type": "string | ((state: ToggleState) => string | undefined)"
         },
         {
           "name": "count",
-          "type": "number | string"
+          "type": "string | number"
         },
         {
           "name": "leadingVisual",
@@ -90,20 +90,37 @@
         },
         {
           "name": "value",
-          "type": "Value"
+          "type": "string",
+          "required": true
         }
       ]
     },
     {
-      "name": "SegmentedControlIconButton",
+      "name": "IconButton",
       "props": [
         {
           "name": "aria-label",
-          "type": "string"
+          "type": "string",
+          "required": true,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "className",
+          "type": "string | ((state: ToggleState) => string | undefined)"
+        },
+        {
+          "name": "count",
+          "type": "string | number"
         },
         {
           "name": "icon",
-          "type": "React.ElementType"
+          "type": "React.ElementType",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true
         }
       ]
     }
