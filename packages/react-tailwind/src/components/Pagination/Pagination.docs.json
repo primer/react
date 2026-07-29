@@ -37,45 +37,54 @@
     {
       "name": "currentPage",
       "type": "number",
-      "required": true
+      "required": true,
+      "description": "Page currently being viewed, counting from one."
     },
     {
       "name": "data-component",
       "type": "string",
-      "defaultValue": "'Pagination'"
+      "defaultValue": "'Pagination'",
+      "description": "Overrides the marker used to identify this element in tests and styling."
     },
     {
       "name": "hrefBuilder",
       "type": "((page: number) => string)",
-      "defaultValue": "defaultHrefBuilder"
+      "defaultValue": "defaultHrefBuilder",
+      "description": "Builds the URL for a page, so pagination works without JavaScript."
     },
     {
       "name": "marginPageCount",
       "type": "number",
-      "defaultValue": "1"
+      "defaultValue": "1",
+      "description": "How many pages stay visible at each end of the range."
     },
     {
       "name": "onPageChange",
-      "type": "((event: MouseEvent<Element, MouseEvent>, page: number) => void)"
+      "type": "((event: MouseEvent<Element, MouseEvent>, page: number) => void)",
+      "description": "Called with the event and the requested page when a page is selected."
     },
     {
       "name": "pageCount",
       "type": "number",
-      "required": true
+      "required": true,
+      "description": "Total number of pages."
     },
     {
       "name": "renderPage",
-      "type": "((props: PageProps) => React.ReactNode)"
+      "type": "((props: PageProps) => React.ReactNode)",
+      "description": "Renders each page link yourself, for integrating with a router."
     },
     {
       "name": "showPages",
       "type": "ResponsiveValue<boolean>",
-      "defaultValue": "true"
+      "defaultValue": "true",
+      "description": "Shows the numbered pages. Accepts a responsive object to hide them on narrow viewports."
     },
     {
       "name": "surroundingPageCount",
       "type": "number",
-      "defaultValue": "2"
+      "defaultValue": "2",
+      "description": "How many pages stay visible on each side of the current one."
     }
   ],
   "passthrough": {

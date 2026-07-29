@@ -33,7 +33,9 @@ const TreeViewContext = React.createContext<TreeViewContextValue | null>(null)
 const TreeItemContext = React.createContext<TreeItemContextValue | null>(null)
 
 export interface TreeViewProps extends Omit<React.ComponentPropsWithoutRef<'ul'>, 'data-component'> {
+  /** Removes the indentation guides, for a tree that is only one level deep. */
   flat?: boolean
+  /** Clips long item labels to one line instead of wrapping them. */
   truncate?: boolean
 }
 
@@ -112,18 +114,31 @@ const Root = React.forwardRef<HTMLElement, TreeViewProps>(function TreeView(
 })
 
 export interface TreeViewItemProps extends Omit<React.HTMLAttributes<HTMLElement>, 'data-component' | 'onSelect'> {
+  /** Stable identity for the item, used to track focus and expansion. */
   id: string
+  /** Element to render. */
   as?: React.ElementType
+  /** Reserves a size for off-screen items so a long tree can skip rendering them. */
   containIntrinsicSize?: string
+  /** Marks the item as the one currently being viewed. */
   current?: boolean
+  /** Whether the item starts expanded when it owns its own expansion state. */
   defaultExpanded?: boolean
+  /** Controls whether the item is expanded. Supply it with `onExpandedChange` to own the state. */
   expanded?: boolean | null
+  /** Makes the item a link to the given URL. */
   href?: string
+  /** Called with the new state when the item is expanded or collapsed. */
   onExpandedChange?: (expanded: boolean) => void
+  /** Called when the item is activated by click or keyboard. */
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  /** Nested items, as an alternative to supplying a subtree child. */
   subtree?: React.ReactNode
+  /** Visual shown before the label. Accepts a callback to vary it with the item's expanded state. */
   leadingVisual?: React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)
+  /** Route the item links to, for integration with a router. */
   to?: string
+  /** Visual shown after the label. Accepts a callback to vary it with the item's expanded state. */
   trailingVisual?: React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)
 }
 
@@ -323,7 +338,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
 })
 
 export interface TreeViewSubTreeProps extends Omit<React.ComponentPropsWithoutRef<'ul'>, 'data-component'> {
+  /** Number of placeholder rows to show while the subtree loads. */
   count?: number
+  /** Loading state of the subtree, which decides whether items, placeholders, or an error are shown. */
   state?: 'initial' | 'loading' | 'done' | 'error'
 }
 
@@ -368,6 +385,7 @@ const SubTree = React.forwardRef<HTMLUListElement, TreeViewSubTreeProps>(functio
 export interface TreeViewVisualProps
   extends Omit<React.ComponentPropsWithoutRef<'span'>, 'children' | 'data-component'> {
   children: React.ReactNode | ((state: TreeViewVisualState) => React.ReactNode)
+  /** Accessible name for the visual, which is announced as part of the item. */
   label?: string
 }
 

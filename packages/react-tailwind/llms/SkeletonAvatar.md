@@ -6,8 +6,8 @@ Import: `import {SkeletonAvatar} from '@primer/react-tailwind/SkeletonAvatar'`
 
 ## Props
 
-- `size`: `AvatarSize | ResponsiveValue<number>` — Default `'small'`.
-- `square`: `boolean` — Default `false`.
+- `size`: `AvatarSize | ResponsiveValue<number>` — Default `'small'`. Width and height in pixels, matching the avatar it stands in for.
+- `square`: `boolean` — Default `false`. Renders square corners, matching a square avatar.
 
 ## Differences from `@primer/react`
 

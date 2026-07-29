@@ -15,24 +15,43 @@ export interface RelativeTimeUpdatedEvent extends Event {
 }
 
 export interface RelativeTimeProps extends Omit<React.HTMLAttributes<HTMLElement>, 'prefix'> {
+  /** Instant being described. */
   date?: Date
+  /** Instant being described, as an ISO 8601 string. An alternative to `date`. */
   datetime?: string
+  /** How the day of the month is rendered in an absolute date. */
   day?: NumericDatePart
+  /** Which formatting scheme to use, such as a relative phrase, an elapsed duration, or a plain date. */
   format?: Format
+  /** How verbose the formatted output is. */
   formatStyle?: FormatStyle
+  /** How the hour is rendered in an absolute date. */
   hour?: NumericDatePart
+  /** How the minutes are rendered in an absolute date. */
   minute?: NumericDatePart
+  /** How the month is rendered in an absolute date. */
   month?: NumericDatePart | 'short' | 'long' | 'narrow'
+  /** Stops the full date being set as the element's `title`. */
   noTitle?: boolean
+  /** Called whenever the rendered text changes as time passes. */
   onRelativeTimeUpdated?: (event: RelativeTimeUpdatedEvent) => void
+  /** Smallest unit the output distinguishes, which also sets how often it refreshes. */
   precision?: 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second'
+  /** Text placed before an absolute date, such as `on`. */
   prefix?: string
+  /** How the seconds are rendered in an absolute date. */
   second?: NumericDatePart
+  /** Forces past or future phrasing rather than deriving it from the date. */
   tense?: Tense
+  /** Duration past which the output switches from a relative phrase to an absolute date. */
   threshold?: string
+  /** IANA time zone the date is presented in. */
   timeZone?: string
+  /** How the time zone is named in the output, if at all. */
   timeZoneName?: '' | 'long' | 'short' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'
+  /** How the weekday is rendered in an absolute date, if at all. */
   weekday?: '' | 'short' | 'long' | 'narrow'
+  /** How the year is rendered in an absolute date. */
   year?: NumericDatePart
 }
 

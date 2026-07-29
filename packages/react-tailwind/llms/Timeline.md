@@ -8,15 +8,15 @@ Renders an `<ol>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `clipSidebar`: `"both" | "end" | "start" | boolean`
+- `clipSidebar`: `"both" | "end" | "start" | boolean` — Trims the connecting line at the start, the end, or both, where the timeline meets other content.
 
 ## Item props
 
-- `condensed`: `boolean`
+- `condensed`: `boolean` — Reduces the item's vertical spacing, for a minor event in the timeline.
 
 ## Badge props
 
-- `variant`: `"accent" | "attention" | "closed" | "danger" | "done" | "open" | "severe" | "sponsors" | "success"`
+- `variant`: `"accent" | "attention" | "closed" | "danger" | "done" | "open" | "severe" | "sponsors" | "success"` — Colour of the badge, conveying what kind of event it marks.
 
 ## Differences from `@primer/react`
 

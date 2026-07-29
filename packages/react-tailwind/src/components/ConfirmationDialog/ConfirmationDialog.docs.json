@@ -31,17 +31,20 @@
     {
       "name": "cancelButtonContent",
       "type": "React.ReactNode",
-      "defaultValue": "'Cancel'"
+      "defaultValue": "'Cancel'",
+      "description": "Label for the cancel button."
     },
     {
       "name": "cancelButtonDisabled",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Prevents cancelling."
     },
     {
       "name": "cancelButtonLoading",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Shows a spinner on the cancel button."
     },
     {
       "name": "children",
@@ -50,51 +53,62 @@
     {
       "name": "confirmButtonContent",
       "type": "React.ReactNode",
-      "defaultValue": "'Confirm'"
+      "defaultValue": "'Confirm'",
+      "description": "Label for the confirm button. Name the action rather than saying `OK`."
     },
     {
       "name": "confirmButtonDisabled",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Prevents confirming, for when a precondition is not yet met."
     },
     {
       "name": "confirmButtonLoading",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Shows a spinner on the confirm button while the action is in flight."
     },
     {
       "name": "dangerous",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Styles confirmation as destructive and makes cancel the default focus."
     },
     {
       "name": "description",
-      "type": "React.ReactNode"
+      "type": "React.ReactNode",
+      "description": "Supporting detail about what confirming will do."
     },
     {
       "name": "finalFocus",
-      "type": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => void | boolean | HTMLElement | null)"
+      "type": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => void | boolean | HTMLElement | null)",
+      "description": "What receives focus when the dialog closes."
     },
     {
       "name": "initialFocus",
-      "type": "\"cancel\" | \"confirm\" | boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => void | boolean | HTMLElement | null)"
+      "type": "\"cancel\" | \"confirm\" | boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => void | boolean | HTMLElement | null)",
+      "description": "What receives focus when the dialog opens."
     },
     {
       "name": "onCancel",
-      "type": "(() => void)"
+      "type": "(() => void)",
+      "description": "Called when the dialog is dismissed or the cancel button is activated."
     },
     {
       "name": "onConfirm",
-      "type": "(() => void)"
+      "type": "(() => void)",
+      "description": "Called when the confirm button is activated."
     },
     {
       "name": "title",
       "type": "React.ReactNode",
-      "required": true
+      "required": true,
+      "description": "Question or statement the reader is confirming."
     },
     {
       "name": "trigger",
-      "type": "React.ReactElement"
+      "type": "React.ReactElement",
+      "description": "Element that opens the dialog."
     }
   ]
 }

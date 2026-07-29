@@ -32,16 +32,27 @@ const iconForVariant: Record<BannerVariant, React.ElementType> = {
 }
 
 export interface BannerProps extends Omit<React.ComponentPropsWithoutRef<'section'>, 'title'> {
+  /** Short summary of the banner's message. */
   title?: React.ReactNode
+  /** Supporting detail shown below the title. */
   description?: React.ReactNode
+  /** Replaces the icon the variant would otherwise choose. */
   leadingVisual?: React.ReactNode
+  /** Shows a dismiss button and is called when it is pressed. */
   onDismiss?: () => void
+  /** Most important action, rendered first. */
   primaryAction?: React.ReactNode
+  /** Supporting action, rendered after the primary one. */
   secondaryAction?: React.ReactNode
+  /** Severity of the message, which also sets the colour and default icon. */
   variant?: BannerVariant
+  /** Use `compact` to reduce the banner's spacing. */
   layout?: 'default' | 'compact'
+  /** Whether actions sit inline with the message or stack below it. */
   actionsLayout?: 'inline' | 'stacked' | 'default'
+  /** Removes the outer border and radius so the banner can span a container edge to edge. */
   flush?: boolean
+  /** Hides the title visually while keeping it available to assistive technology. */
   hideTitle?: boolean
 }
 
@@ -174,6 +185,7 @@ const iconColor: Record<BannerVariant, string> = {
 }
 
 export interface BannerTitleProps extends React.ComponentPropsWithoutRef<'h2'> {
+  /** Heading element to render, so the title fits the surrounding document outline. */
   as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
@@ -195,7 +207,9 @@ export function BannerDescription({className, ...rest}: React.ComponentPropsWith
 }
 
 export interface BannerActionsProps {
+  /** Most important action, rendered first. */
   primaryAction?: React.ReactNode
+  /** Supporting action, rendered after the primary one. */
   secondaryAction?: React.ReactNode
 }
 

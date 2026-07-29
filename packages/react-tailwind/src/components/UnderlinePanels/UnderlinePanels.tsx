@@ -24,6 +24,7 @@ type UnderlinePanelsContextValue = {loadingCounters: boolean}
 const UnderlinePanelsContext = React.createContext<UnderlinePanelsContextValue>({loadingCounters: false})
 
 export interface UnderlinePanelsProps extends TabsProps {
+  /** Shows placeholders in place of tab counters while their values load. */
   loadingCounters?: boolean
 }
 
@@ -60,8 +61,11 @@ const List = React.forwardRef<HTMLElement, UnderlinePanelsListProps>(function Un
 })
 
 export interface UnderlinePanelsTabProps extends TabProps {
+  /** Icon component shown before the tab's label. */
   icon?: React.ElementType
+  /** Visual shown before the tab's label, as an alternative to `icon`. */
   leadingVisual?: React.ReactNode
+  /** Number shown after the tab's label. */
   counter?: React.ReactNode
 }
 const PanelTab = React.forwardRef<HTMLElement, UnderlinePanelsTabProps>(function UnderlinePanelsTab(

@@ -27,15 +27,18 @@
   "props": [
     {
       "name": "shape",
-      "type": "\"circle\" | \"square\""
+      "type": "\"circle\" | \"square\"",
+      "description": "Corner treatment. `circle` suits a person, `square` suits an organization or other entity."
     },
     {
       "name": "size",
-      "type": "AvatarSize | ResponsiveValue<number>"
+      "type": "AvatarSize | ResponsiveValue<number>",
+      "description": "Rendered width and height in pixels. Accepts a responsive object to vary the size per viewport."
     },
     {
       "name": "square",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Forces the square shape, taking precedence over `shape`. Kept for compatibility with `@primer/react`."
     }
   ],
   "passthrough": {

@@ -18,8 +18,11 @@ const textVariants = cva('', {
 })
 
 export interface TextProps extends React.HTMLAttributes<HTMLElement>, AsProp {
+  /** Size from the Primer type scale. */
   size?: TextSize
+  /** Font weight. */
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
+  /** How whitespace and line breaks in the content are treated. */
   whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
 }
 

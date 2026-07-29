@@ -50,7 +50,8 @@
     {
       "name": "size",
       "type": "\"medium\" | \"small\"",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Size of the switch."
     }
   ]
 }

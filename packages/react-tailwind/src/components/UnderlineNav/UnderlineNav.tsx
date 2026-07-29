@@ -32,9 +32,13 @@ const iconVisibilityClasses: Record<Exclude<HideIconsBreakpoint, null>, string> 
 
 export interface UnderlineNavProps
   extends Omit<React.ComponentPropsWithoutRef<'nav'>, 'data-component' | 'data-variant'> {
+  /** Element to render. */
   as?: React.ElementType
+  /** Viewport below which item icons are hidden to save space. */
   hideIconsBreakpoint?: HideIconsBreakpoint
+  /** Shows placeholders in place of item counters while their values load. */
   loadingCounters?: boolean
+  /** Whether the bar is inset from its container or sits flush against it. */
   variant?: 'inset' | 'flush'
 }
 
@@ -75,9 +79,13 @@ const List = React.forwardRef<HTMLUListElement, UnderlineNavListProps>(function 
 
 export interface UnderlineNavItemProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'data-component' | 'onSelect'> {
+  /** Element to render. Use a non-anchor element when the link is handled by a router. */
   as?: React.ElementType
+  /** Number shown after the label. */
   counter?: number | string
+  /** Icon shown before the label. */
   leadingVisual?: React.ReactNode
+  /** Called when the item is activated. */
   onSelect?: (event: React.MouseEvent<HTMLElement>) => void
 }
 const Item = React.forwardRef<HTMLElement, UnderlineNavItemProps>(function UnderlineNavItem(

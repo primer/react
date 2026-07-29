@@ -52,7 +52,8 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'span'"
+      "defaultValue": "'span'",
+      "description": "Element to render."
     },
     {
       "name": "size",

@@ -37,12 +37,14 @@
     {
       "name": "size",
       "type": "AvatarSize | ResponsiveValue<number>",
-      "defaultValue": "'small'"
+      "defaultValue": "'small'",
+      "description": "Width and height in pixels, matching the avatar it stands in for."
     },
     {
       "name": "square",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Renders square corners, matching a square avatar."
     }
   ]
 }

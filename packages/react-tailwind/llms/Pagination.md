@@ -8,15 +8,15 @@ Renders a `<nav>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `currentPage`: `number`
-- `data-component`: `string` — Default `'Pagination'`.
-- `hrefBuilder`: `((page: number) => string)` — Default `defaultHrefBuilder`.
-- `marginPageCount`: `number` — Default `1`.
-- `onPageChange`: `((event: MouseEvent<Element, MouseEvent>, page: number) => void)`
-- `pageCount`: `number`
-- `renderPage`: `((props: PageProps) => React.ReactNode)`
-- `showPages`: `ResponsiveValue<boolean>` — Default `true`.
-- `surroundingPageCount`: `number` — Default `2`.
+- `currentPage`: `number` — Page currently being viewed, counting from one.
+- `data-component`: `string` — Default `'Pagination'`. Overrides the marker used to identify this element in tests and styling.
+- `hrefBuilder`: `((page: number) => string)` — Default `defaultHrefBuilder`. Builds the URL for a page, so pagination works without JavaScript.
+- `marginPageCount`: `number` — Default `1`. How many pages stay visible at each end of the range.
+- `onPageChange`: `((event: MouseEvent<Element, MouseEvent>, page: number) => void)` — Called with the event and the requested page when a page is selected.
+- `pageCount`: `number` — Total number of pages.
+- `renderPage`: `((props: PageProps) => React.ReactNode)` — Renders each page link yourself, for integrating with a router.
+- `showPages`: `ResponsiveValue<boolean>` — Default `true`. Shows the numbered pages. Accepts a responsive object to hide them on narrow viewports.
+- `surroundingPageCount`: `number` — Default `2`. How many pages stay visible on each side of the current one.
 
 ## Differences from `@primer/react`
 

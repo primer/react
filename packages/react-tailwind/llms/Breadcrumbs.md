@@ -8,13 +8,13 @@ Renders a `<nav>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `overflow`: `"menu" | "menu-with-root" | "wrap"` — Default `'wrap'`.
-- `variant`: `"normal" | "spacious"` — Default `'normal'`.
+- `overflow`: `"menu" | "menu-with-root" | "wrap"` — Default `'wrap'`. How the trail behaves when it is too wide: wrap onto another line, or collapse the middle into a menu.
+- `variant`: `"normal" | "spacious"` — Default `'normal'`. Use `spacious` to increase the spacing between items.
 
 ## Item props
 
-- `as`: `React.ElementType` — Default `'a'`.
-- `selected`: `boolean`
+- `as`: `React.ElementType` — Default `'a'`. Element to render. Use a non-anchor element for an item that does not link anywhere.
+- `selected`: `boolean` — Marks the item as the current page, which is announced to assistive technology.
 
 ## Differences from `@primer/react`
 

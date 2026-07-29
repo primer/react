@@ -46,7 +46,8 @@
     {
       "name": "delay",
       "type": "number | \"long\" | \"short\" | boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Waits before showing the spinner, so a fast response never flashes one."
     },
     {
       "name": "size",
@@ -55,7 +56,8 @@
     {
       "name": "srText",
       "type": "string | null",
-      "defaultValue": "'Loading'"
+      "defaultValue": "'Loading'",
+      "description": "Text announced to assistive technology while loading. Set to null when a nearby live region already announces it."
     }
   ]
 }

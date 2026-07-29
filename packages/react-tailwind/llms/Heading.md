@@ -6,7 +6,7 @@ Import: `import {Heading} from '@primer/react-tailwind/Heading'`
 
 ## Props
 
-- `as`: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`.
+- `as`: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`. Heading element to render, so the level fits the surrounding document outline independently of its size.
 - `size`: `"display" | "large" | "medium" | "small" | null`
 
 ## Differences from `@primer/react`

@@ -66,9 +66,13 @@ const issueLabel = cva(
   },
 )
 export interface IssueLabelProps extends React.HTMLAttributes<HTMLElement> {
+  /** Element to render. */
   as?: React.ElementType
+  /** Custom hex colour, for a label whose colour is chosen by the user rather than from `variant`. */
   fillColor?: `#${string}`
+  /** Named colour for the label. */
   variant?: IssueLabelVariant
+  /** Makes the label a link to the given URL. */
   href?: string
 }
 function readableColor(color: string) {

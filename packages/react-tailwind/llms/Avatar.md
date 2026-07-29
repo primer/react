@@ -8,9 +8,9 @@ Renders an `<img>` and forwards unrecognized props to it, so it also accepts tha
 
 ## Props
 
-- `shape`: `"circle" | "square"`
-- `size`: `AvatarSize | ResponsiveValue<number>`
-- `square`: `boolean`
+- `shape`: `"circle" | "square"` — Corner treatment. `circle` suits a person, `square` suits an organization or other entity.
+- `size`: `AvatarSize | ResponsiveValue<number>` — Rendered width and height in pixels. Accepts a responsive object to vary the size per viewport.
+- `square`: `boolean` — Forces the square shape, taking precedence over `shape`. Kept for compatibility with `@primer/react`.
 
 ## Differences from `@primer/react`
 

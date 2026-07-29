@@ -51,9 +51,13 @@ const Popup = React.forwardRef<HTMLDivElement, DialogPopupProps>(function Dialog
 })
 
 export interface DialogContentProps extends DialogPopupProps {
+  /** Replaces the default backdrop element. */
   backdrop?: boolean
+  /** Classes applied to the backdrop. */
   backdropClassName?: string
+  /** Where the dialog is rendered in the DOM. Set `false` to keep it in place. */
   portal?: boolean
+  /** Classes applied to the element that positions the dialog within the viewport. */
   viewportClassName?: string
 }
 
@@ -180,6 +184,7 @@ const Footer = React.forwardRef<HTMLDivElement, Omit<React.ComponentPropsWithout
 
 export interface DialogCloseButtonProps
   extends Omit<React.ComponentPropsWithoutRef<typeof IconButton>, 'aria-label' | 'icon' | 'data-component'> {
+  /** Accessible name for the close button. */
   'aria-label'?: string
 }
 

@@ -2,10 +2,15 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 export interface TruncateProps extends React.HTMLAttributes<HTMLElement> {
+  /** Element to render. */
   as?: React.ElementType
+  /** Full text, shown on hover and kept available to assistive technology when the text is clipped. */
   title: string
+  /** Renders inline rather than as a block. */
   inline?: boolean
+  /** Reveals the full text on hover and focus. */
   expandable?: boolean
+  /** Width past which the text is clipped. */
   maxWidth?: number | string
 }
 

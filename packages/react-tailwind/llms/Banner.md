@@ -8,62 +8,62 @@ Renders a `<section>` and forwards unrecognized props to it, so it also accepts 
 
 ## Props
 
-- `actionsLayout`: `"default" | "inline" | "stacked"` — Default `'default'`.
-- `description`: `React.ReactNode`
-- `flush`: `boolean` — Default `false`.
-- `hideTitle`: `boolean` — Default `false`.
-- `layout`: `"compact" | "default"` — Default `'default'`.
-- `leadingVisual`: `React.ReactNode`
-- `onDismiss`: `(() => void)`
-- `primaryAction`: `React.ReactNode`
-- `secondaryAction`: `React.ReactNode`
-- `title`: `React.ReactNode`
-- `variant`: `BannerVariant` — Default `'info'`.
+- `actionsLayout`: `"default" | "inline" | "stacked"` — Default `'default'`. Whether actions sit inline with the message or stack below it.
+- `description`: `React.ReactNode` — Supporting detail shown below the title.
+- `flush`: `boolean` — Default `false`. Removes the outer border and radius so the banner can span a container edge to edge.
+- `hideTitle`: `boolean` — Default `false`. Hides the title visually while keeping it available to assistive technology.
+- `layout`: `"compact" | "default"` — Default `'default'`. Use `compact` to reduce the banner's spacing.
+- `leadingVisual`: `React.ReactNode` — Replaces the icon the variant would otherwise choose.
+- `onDismiss`: `(() => void)` — Shows a dismiss button and is called when it is pressed.
+- `primaryAction`: `React.ReactNode` — Most important action, rendered first.
+- `secondaryAction`: `React.ReactNode` — Supporting action, rendered after the primary one.
+- `title`: `React.ReactNode` — Short summary of the banner's message.
+- `variant`: `BannerVariant` — Default `'info'`. Severity of the message, which also sets the colour and default icon.
 
 ## Actions props
 
-- `primaryAction`: `React.ReactNode`
-- `secondaryAction`: `React.ReactNode`
+- `primaryAction`: `React.ReactNode` — Most important action, rendered first.
+- `secondaryAction`: `React.ReactNode` — Supporting action, rendered after the primary one.
 
 ## PrimaryAction props
 
-- `alignContent`: `"center" | "start"`
-- `block`: `boolean`
+- `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
+- `block`: `boolean` — Stretches the button to fill the width of its container.
 - `children`: `React.ReactElement[]`
 - `className`: `string`
-- `count`: `string | number`
-- `data-component`: `string`
-- `disabled`: `boolean`
-- `inactive`: `boolean`
-- `labelWrap`: `boolean`
-- `leadingVisual`: `ButtonVisual`
-- `loading`: `boolean`
-- `loadingAnnouncement`: `string`
-- `size`: `ControlSize`
-- `trailingAction`: `ButtonVisual`
-- `trailingVisual`: `ButtonVisual`
+- `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
+- `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
+- `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
+- `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
+- `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
+- `leadingVisual`: `ButtonVisual` — Icon shown before the label.
+- `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
+- `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
+- `size`: `ControlSize` — Height and text size of the button.
+- `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `trailingVisual`: `ButtonVisual` — Icon shown after the label.
 
 ## SecondaryAction props
 
-- `alignContent`: `"center" | "start"`
-- `block`: `boolean`
+- `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
+- `block`: `boolean` — Stretches the button to fill the width of its container.
 - `children`: `React.ReactElement[]`
 - `className`: `string`
-- `count`: `string | number`
-- `data-component`: `string`
-- `disabled`: `boolean`
-- `inactive`: `boolean`
-- `labelWrap`: `boolean`
-- `leadingVisual`: `ButtonVisual`
-- `loading`: `boolean`
-- `loadingAnnouncement`: `string`
-- `size`: `ControlSize`
-- `trailingAction`: `ButtonVisual`
-- `trailingVisual`: `ButtonVisual`
+- `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
+- `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
+- `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
+- `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
+- `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
+- `leadingVisual`: `ButtonVisual` — Icon shown before the label.
+- `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
+- `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
+- `size`: `ControlSize` — Height and text size of the button.
+- `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `trailingVisual`: `ButtonVisual` — Icon shown after the label.
 
 ## Title props
 
-- `as`: `"h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`.
+- `as`: `"h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`. Heading element to render, so the title fits the surrounding document outline.
 
 ## Differences from `@primer/react`
 

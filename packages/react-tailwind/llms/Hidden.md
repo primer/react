@@ -9,7 +9,7 @@ Renders a `<div>` and forwards unrecognized props to it, so it also accepts that
 ## Props
 
 - `children`: `React.ReactElement[]`
-- `when`: `readonly Viewport[] | Viewport`
+- `when`: `readonly Viewport[] | Viewport` — Viewports at which the children are hidden.
 
 ## Differences from `@primer/react`
 

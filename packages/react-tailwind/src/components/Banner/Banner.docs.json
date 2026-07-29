@@ -85,51 +85,62 @@
     {
       "name": "actionsLayout",
       "type": "\"default\" | \"inline\" | \"stacked\"",
-      "defaultValue": "'default'"
+      "defaultValue": "'default'",
+      "description": "Whether actions sit inline with the message or stack below it."
     },
     {
       "name": "description",
-      "type": "React.ReactNode"
+      "type": "React.ReactNode",
+      "description": "Supporting detail shown below the title."
     },
     {
       "name": "flush",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Removes the outer border and radius so the banner can span a container edge to edge."
     },
     {
       "name": "hideTitle",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Hides the title visually while keeping it available to assistive technology."
     },
     {
       "name": "layout",
       "type": "\"compact\" | \"default\"",
-      "defaultValue": "'default'"
+      "defaultValue": "'default'",
+      "description": "Use `compact` to reduce the banner's spacing."
     },
     {
       "name": "leadingVisual",
-      "type": "React.ReactNode"
+      "type": "React.ReactNode",
+      "description": "Replaces the icon the variant would otherwise choose."
     },
     {
       "name": "onDismiss",
-      "type": "(() => void)"
+      "type": "(() => void)",
+      "description": "Shows a dismiss button and is called when it is pressed."
     },
     {
       "name": "primaryAction",
-      "type": "React.ReactNode"
+      "type": "React.ReactNode",
+      "description": "Most important action, rendered first."
     },
     {
       "name": "secondaryAction",
-      "type": "React.ReactNode"
+      "type": "React.ReactNode",
+      "description": "Supporting action, rendered after the primary one."
     },
     {
       "name": "title",
-      "type": "React.ReactNode"
+      "type": "React.ReactNode",
+      "description": "Short summary of the banner's message."
     },
     {
       "name": "variant",
       "type": "BannerVariant",
-      "defaultValue": "'info'"
+      "defaultValue": "'info'",
+      "description": "Severity of the message, which also sets the colour and default icon."
     }
   ],
   "subcomponents": [
@@ -138,11 +149,13 @@
       "props": [
         {
           "name": "primaryAction",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Most important action, rendered first."
         },
         {
           "name": "secondaryAction",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Supporting action, rendered after the primary one."
         }
       ]
     },
@@ -151,11 +164,13 @@
       "props": [
         {
           "name": "alignContent",
-          "type": "\"center\" | \"start\""
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
         },
         {
           "name": "block",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
         },
         {
           "name": "children",
@@ -167,47 +182,58 @@
         },
         {
           "name": "count",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
         },
         {
           "name": "data-component",
-          "type": "string"
+          "type": "string",
+          "description": "Overrides the marker used to identify this element in tests and styling."
         },
         {
           "name": "disabled",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
         },
         {
           "name": "inactive",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
         },
         {
           "name": "labelWrap",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
         },
         {
           "name": "leadingVisual",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
         },
         {
           "name": "loading",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
         },
         {
           "name": "loadingAnnouncement",
-          "type": "string"
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
         },
         {
           "name": "size",
-          "type": "ControlSize"
+          "type": "ControlSize",
+          "description": "Height and text size of the button."
         },
         {
           "name": "trailingAction",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
         },
         {
           "name": "trailingVisual",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
         }
       ]
     },
@@ -216,11 +242,13 @@
       "props": [
         {
           "name": "alignContent",
-          "type": "\"center\" | \"start\""
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
         },
         {
           "name": "block",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
         },
         {
           "name": "children",
@@ -232,47 +260,58 @@
         },
         {
           "name": "count",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
         },
         {
           "name": "data-component",
-          "type": "string"
+          "type": "string",
+          "description": "Overrides the marker used to identify this element in tests and styling."
         },
         {
           "name": "disabled",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
         },
         {
           "name": "inactive",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
         },
         {
           "name": "labelWrap",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
         },
         {
           "name": "leadingVisual",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
         },
         {
           "name": "loading",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
         },
         {
           "name": "loadingAnnouncement",
-          "type": "string"
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
         },
         {
           "name": "size",
-          "type": "ControlSize"
+          "type": "ControlSize",
+          "description": "Height and text size of the button."
         },
         {
           "name": "trailingAction",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
         },
         {
           "name": "trailingVisual",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
         }
       ]
     },
@@ -282,7 +321,8 @@
         {
           "name": "as",
           "type": "\"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
-          "defaultValue": "'h2'"
+          "defaultValue": "'h2'",
+          "description": "Heading element to render, so the title fits the surrounding document outline."
         }
       ]
     }

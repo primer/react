@@ -40,25 +40,30 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'span'"
+      "defaultValue": "'span'",
+      "description": "Element to render."
     },
     {
       "name": "expandable",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Reveals the full text on hover and focus."
     },
     {
       "name": "inline",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Renders inline rather than as a block."
     },
     {
       "name": "maxWidth",
       "type": "string | number",
-      "defaultValue": "125"
+      "defaultValue": "125",
+      "description": "Width past which the text is clipped."
     },
     {
       "name": "title",
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Full text, shown on hover and kept available to assistive technology when the text is clipped."
     }
   ]
 }

@@ -5,6 +5,7 @@ const branchNameClassName =
   'inline-block max-w-full rounded-md bg-accent-muted px-1.5 py-0.5 font-mono text-xs leading-[18px] text-accent no-underline [&:not(a)]:text-muted'
 
 export interface BranchNameProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Element to render. Use a non-anchor element when the branch name does not link anywhere. */
   as?: React.ElementType
 }
 

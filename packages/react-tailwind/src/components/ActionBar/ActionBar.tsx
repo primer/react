@@ -10,8 +10,11 @@ import {Button as SharedButton, type ButtonProps} from '../Button'
 import {IconButton as SharedIconButton, type IconButtonProps} from '../IconButton'
 
 export interface ActionBarProps extends React.ComponentPropsWithoutRef<typeof Toolbar.Root> {
+  /** Size of the bar's controls. */
   size?: ControlSize
+  /** Removes the bar's outer padding so it aligns with surrounding content. */
   flush?: boolean
+  /** Spacing between items. */
   gap?: 'none' | 'condensed'
 }
 const ActionBarContext = React.createContext<ControlSize>('medium')
@@ -147,8 +150,11 @@ export interface ActionBarMenuItem {
   onClick?: React.MouseEventHandler<HTMLElement>
 }
 export interface ActionBarMenuProps {
+  /** Accessible name for the overflow menu trigger. */
   'aria-label': string
+  /** Icon rendered on the overflow menu's trigger. */
   icon?: React.ElementType
+  /** Items shown in the overflow menu. */
   items: ActionBarMenuItem[]
 }
 const ActionBarMenu = ({'aria-label': ariaLabel, icon: Icon = KebabHorizontalIcon, items}: ActionBarMenuProps) => {

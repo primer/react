@@ -33,6 +33,7 @@ const itemVariants = cva('h-full w-[var(--progress-width)] [background-color:var
 export interface ProgressBarItemProps
   extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'children'>,
     VariantProps<typeof itemVariants> {
+  /** Percentage of the bar this segment fills, from 0 to 100. */
   progress?: number
 }
 
@@ -59,8 +60,11 @@ export const ProgressBarItem = React.forwardRef<HTMLSpanElement, ProgressBarItem
 ProgressBarItem.displayName = 'ProgressBar.Item'
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof progressVariants> {
+  /** Percentage complete, from 0 to 100. */
   progress?: number
+  /** Animates the bar to suggest indeterminate progress. */
   animated?: boolean
+  /** Height of the bar. */
   variant?: VariantProps<typeof itemVariants>['variant']
 }
 

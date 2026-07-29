@@ -14,8 +14,11 @@ const sizeClasses = {
 }
 
 export interface SkeletonTextProps extends React.HTMLAttributes<HTMLElement> {
+  /** Number of placeholder lines to render. */
   lines?: number
+  /** Largest width the placeholder lines may reach. */
   maxWidth?: React.CSSProperties['maxWidth']
+  /** Line height, matching the text size it stands in for. */
   size?: keyof typeof sizeClasses
 }
 

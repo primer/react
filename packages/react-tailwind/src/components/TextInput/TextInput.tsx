@@ -41,17 +41,29 @@ const inputVariants = cva(
 export type TextInputVisual = React.ElementType | React.ReactNode
 
 export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'data-component'> {
+  /** Stretches the input to fill the width of its container. */
   block?: boolean
+  /** Shows a remaining-character count and announces when the limit is near. */
   characterLimit?: number
+  /** Gives the input a filled background, for use on a matching surface. */
   contrast?: boolean
+  /** Icon or text shown inside the input, before the value. */
   leadingVisual?: TextInputVisual
+  /** Shows a spinner inside the input while a value is being resolved. */
   loading?: boolean
+  /** Which end the spinner appears at, or `auto` to take the place of an existing visual. */
   loaderPosition?: 'auto' | 'leading' | 'trailing'
+  /** Text announced to assistive technology while the input is loading. */
   loaderText?: string
+  /** Renders the value in a monospace face, for code or identifiers. */
   monospace?: boolean
+  /** Height and text size of the input. */
   size?: ControlSize
+  /** Interactive control shown at the end of the input, such as a clear button. */
   trailingAction?: React.ReactElement
+  /** Icon or text shown inside the input, after the value. */
   trailingVisual?: TextInputVisual
+  /** Marks the value invalid or confirmed, which sets the border colour and `aria-invalid`. */
   validationStatus?: 'error' | 'success'
 }
 

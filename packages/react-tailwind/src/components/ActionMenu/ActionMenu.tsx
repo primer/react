@@ -108,10 +108,15 @@ const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(functio
 })
 
 export interface ActionMenuItemProps extends Omit<Menu.Item.Props, 'data-component'> {
+  /** Marks the item temporarily unavailable and explains why. */
   inactiveText?: React.ReactNode
+  /** Shows a spinner and suppresses activation. */
   loading?: boolean
+  /** Text announced to assistive technology while the item is loading. */
   loadingText?: string
+  /** Marks the item as the current choice. */
   selected?: boolean
+  /** Use `danger` for a destructive action. */
   variant?: 'default' | 'danger'
 }
 

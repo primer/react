@@ -37,45 +37,54 @@
     {
       "name": "align",
       "type": "ResponsiveValue<\"baseline\" | \"center\" | \"end\" | \"start\" | \"stretch\">",
-      "defaultValue": "'stretch'"
+      "defaultValue": "'stretch'",
+      "description": "Alignment of children across the stack's direction."
     },
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'div'"
+      "defaultValue": "'div'",
+      "description": "Element to render."
     },
     {
       "name": "direction",
       "type": "ResponsiveValue<\"horizontal\" | \"vertical\">",
-      "defaultValue": "'vertical'"
+      "defaultValue": "'vertical'",
+      "description": "Whether children are laid out in a row or a column."
     },
     {
       "name": "gap",
       "type": "ResponsiveValue<Gap>",
-      "defaultValue": "'normal'"
+      "defaultValue": "'normal'",
+      "description": "Spacing between children. Accepts a responsive object to vary it per viewport."
     },
     {
       "name": "justify",
       "type": "ResponsiveValue<\"center\" | \"end\" | \"space-between\" | \"space-evenly\" | \"start\">",
-      "defaultValue": "'start'"
+      "defaultValue": "'start'",
+      "description": "Distribution of children along the stack's direction."
     },
     {
       "name": "padding",
       "type": "ResponsiveValue<Gap>",
-      "defaultValue": "'none'"
+      "defaultValue": "'none'",
+      "description": "Inner spacing on all sides."
     },
     {
       "name": "paddingBlock",
-      "type": "ResponsiveValue<Gap>"
+      "type": "ResponsiveValue<Gap>",
+      "description": "Inner spacing at the top and bottom, overriding `padding`."
     },
     {
       "name": "paddingInline",
-      "type": "ResponsiveValue<Gap>"
+      "type": "ResponsiveValue<Gap>",
+      "description": "Inner spacing at the start and end, overriding `padding`."
     },
     {
       "name": "wrap",
       "type": "ResponsiveValue<\"nowrap\" | \"wrap\">",
-      "defaultValue": "'nowrap'"
+      "defaultValue": "'nowrap'",
+      "description": "Whether children may wrap onto another line."
     }
   ]
 }

@@ -24,9 +24,13 @@ const CardContext = React.createContext<{
 export interface CardProps
   extends React.HTMLAttributes<HTMLElement>,
     RegionProps<'icon' | 'image' | 'heading' | 'description' | 'metadata' | 'action'> {
+  /** Element to render. Use `section` when the card is a labelled region of the page. */
   as?: 'div' | 'section'
+  /** Inner spacing of the card. */
   padding?: 'none' | 'condensed' | 'normal'
+  /** Corner radius of the card. */
   borderRadius?: 'medium' | 'large'
+  /** Use `compact` to lay the card out in a row rather than stacked. */
   layout?: 'default' | 'compact'
   children?: React.ReactNode
 }
@@ -135,7 +139,9 @@ export const Card = React.forwardRef(CardComponent)
 Card.displayName = 'Card'
 
 export interface CardIconProps {
+  /** Icon component to render. */
   icon: React.ElementType
+  /** Accessible name for the icon. Leave unset when the icon is decorative. */
   'aria-label'?: string
   className?: string
 }
@@ -158,6 +164,7 @@ export function CardIcon({icon: Icon, className, 'aria-label': ariaLabel}: CardI
   )
 }
 export interface CardImageProps extends React.ComponentPropsWithoutRef<'img'> {
+  /** Source of the image. */
   src: string
 }
 export const CardImage = React.forwardRef<HTMLImageElement, CardImageProps>(function CardImage(
@@ -169,6 +176,7 @@ export const CardImage = React.forwardRef<HTMLImageElement, CardImageProps>(func
   )
 })
 export interface CardHeadingProps extends React.ComponentPropsWithoutRef<'h3'> {
+  /** Heading element to render, so the card heading fits the surrounding document outline. */
   as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 export const CardHeading = React.forwardRef<HTMLHeadingElement, CardHeadingProps>(function CardHeading(

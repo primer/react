@@ -10,7 +10,9 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import {getGridTemplateColumns, type TableColumnLayout} from './layout'
 
 export interface TableProps extends React.ComponentPropsWithoutRef<'table'> {
+  /** Vertical spacing inside cells, which sets the density of the table. */
   cellPadding?: 'condensed' | 'normal' | 'spacious'
+  /** Explicit column track sizes, as a CSS grid template. */
   gridTemplateColumns?: React.CSSProperties['gridTemplateColumns']
 }
 export const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
@@ -87,6 +89,7 @@ export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(fun
 
 type Alignment = 'start' | 'end'
 export interface TableHeaderProps extends Omit<React.ComponentPropsWithoutRef<'th'>, 'align'> {
+  /** Horizontal alignment of the header's content. */
   align?: Alignment
 }
 export const TableHeader = React.forwardRef<HTMLTableCellElement, TableHeaderProps>(function TableHeader(
@@ -110,7 +113,9 @@ export const TableHeader = React.forwardRef<HTMLTableCellElement, TableHeaderPro
 
 export type SortDirection = 'ASC' | 'DESC' | 'NONE'
 export interface TableSortHeaderProps extends TableHeaderProps {
+  /** Current sort direction for this column. */
   direction: SortDirection
+  /** Called when the header is activated to change the sort. */
   onToggleSort: () => void
 }
 export const TableSortHeader = React.forwardRef<HTMLTableCellElement, TableSortHeaderProps>(function TableSortHeader(
@@ -147,7 +152,9 @@ export const TableSortHeader = React.forwardRef<HTMLTableCellElement, TableSortH
 })
 
 export interface TableCellProps extends Omit<React.ComponentPropsWithoutRef<'td'>, 'align'> {
+  /** Horizontal alignment of the cell's content. */
   align?: Alignment
+  /** Marks the cell as a header for its row or column, which assistive technology uses to describe other cells. */
   scope?: 'row'
 }
 export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(function TableCell(
@@ -244,9 +251,13 @@ export const TableCellPlaceholder = ({className, ...props}: React.ComponentProps
 
 export interface TablePaginationProps
   extends Omit<PaginationProps, 'currentPage' | 'pageCount' | 'onChange' | 'onPageChange'> {
+  /** Zero-based page shown on first render. */
   defaultPageIndex?: number
+  /** Number of rows shown per page. */
   pageSize: number
+  /** Total number of rows across all pages. */
   totalCount: number
+  /** Called with the new page index when the reader pages through the table. */
   onChange?: (details: {pageIndex: number}) => void
 }
 export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProps>(function TablePagination(
@@ -332,7 +343,9 @@ export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProp
 })
 
 export interface TableSkeletonProps extends Omit<TableProps, 'children'> {
+  /** Column definitions the placeholder should mirror. */
   columns: Array<TableColumnLayout & {header: React.ReactNode}>
+  /** Number of placeholder rows to render while data loads. */
   rows?: number
 }
 export function TableSkeleton({columns, rows = 10, ...props}: TableSkeletonProps) {

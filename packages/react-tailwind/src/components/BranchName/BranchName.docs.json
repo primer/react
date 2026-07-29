@@ -37,7 +37,8 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'a'"
+      "defaultValue": "'a'",
+      "description": "Element to render. Use a non-anchor element when the branch name does not link anywhere."
     }
   ],
   "passthrough": {

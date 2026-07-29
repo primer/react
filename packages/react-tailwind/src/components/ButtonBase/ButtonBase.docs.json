@@ -24,7 +24,8 @@
   "props": [
     {
       "name": "data-component",
-      "type": "string"
+      "type": "string",
+      "description": "Overrides the marker used to identify this element in tests and styling."
     }
   ]
 }

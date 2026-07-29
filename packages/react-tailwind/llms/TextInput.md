@@ -8,24 +8,24 @@ Renders an `<input>` and forwards unrecognized props to it, so it also accepts t
 
 ## Props
 
-- `block`: `boolean` — Default `false`.
-- `characterLimit`: `number`
-- `contrast`: `boolean` — Default `false`.
-- `leadingVisual`: `TextInputVisual`
-- `loaderPosition`: `"auto" | "leading" | "trailing"` — Default `'auto'`.
-- `loaderText`: `string` — Default `'Loading'`.
-- `loading`: `boolean` — Default `false`.
-- `monospace`: `boolean` — Default `false`.
-- `size`: `ControlSize` — Default `'medium'`.
-- `trailingAction`: `React.ReactElement`
-- `trailingVisual`: `TextInputVisual`
-- `validationStatus`: `"error" | "success"`
+- `block`: `boolean` — Default `false`. Stretches the input to fill the width of its container.
+- `characterLimit`: `number` — Shows a remaining-character count and announces when the limit is near.
+- `contrast`: `boolean` — Default `false`. Gives the input a filled background, for use on a matching surface.
+- `leadingVisual`: `TextInputVisual` — Icon or text shown inside the input, before the value.
+- `loaderPosition`: `"auto" | "leading" | "trailing"` — Default `'auto'`. Which end the spinner appears at, or `auto` to take the place of an existing visual.
+- `loaderText`: `string` — Default `'Loading'`. Text announced to assistive technology while the input is loading.
+- `loading`: `boolean` — Default `false`. Shows a spinner inside the input while a value is being resolved.
+- `monospace`: `boolean` — Default `false`. Renders the value in a monospace face, for code or identifiers.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the input.
+- `trailingAction`: `React.ReactElement` — Interactive control shown at the end of the input, such as a clear button.
+- `trailingVisual`: `TextInputVisual` — Icon or text shown inside the input, after the value.
+- `validationStatus`: `"error" | "success"` — Marks the value invalid or confirmed, which sets the border colour and `aria-invalid`.
 
 ## Action props
 
-- `aria-label`: `string`
-- `icon`: `React.ElementType`
-- `tooltipDirection`: `TextInputActionDirection` — Default `'s'`.
+- `aria-label`: `string` — Accessible name for the action, since the icon alone conveys nothing.
+- `icon`: `React.ElementType` — Icon component to render.
+- `tooltipDirection`: `TextInputActionDirection` — Default `'s'`. Side the tooltip appears on.
 
 ## Differences from `@primer/react`
 

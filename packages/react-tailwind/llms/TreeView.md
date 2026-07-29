@@ -8,39 +8,39 @@ Renders an `<ul>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `flat`: `boolean` — Default `false`.
-- `truncate`: `boolean` — Default `true`.
+- `flat`: `boolean` — Default `false`. Removes the indentation guides, for a tree that is only one level deep.
+- `truncate`: `boolean` — Default `true`. Clips long item labels to one line instead of wrapping them.
 
 ## Item props
 
-- `as`: `React.ElementType` — Default `'li'`.
-- `containIntrinsicSize`: `string`
-- `current`: `boolean` — Default `false`.
-- `defaultExpanded`: `boolean`
-- `expanded`: `boolean | null`
-- `href`: `string`
-- `id`: `string`
-- `leadingVisual`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode`
-- `onExpandedChange`: `((expanded: boolean) => void)`
-- `onSelect`: `((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)`
-- `subtree`: `React.ReactNode`
-- `to`: `string`
-- `trailingVisual`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode`
+- `as`: `React.ElementType` — Default `'li'`. Element to render.
+- `containIntrinsicSize`: `string` — Reserves a size for off-screen items so a long tree can skip rendering them.
+- `current`: `boolean` — Default `false`. Marks the item as the one currently being viewed.
+- `defaultExpanded`: `boolean` — Whether the item starts expanded when it owns its own expansion state.
+- `expanded`: `boolean | null` — Controls whether the item is expanded. Supply it with `onExpandedChange` to own the state.
+- `href`: `string` — Makes the item a link to the given URL.
+- `id`: `string` — Stable identity for the item, used to track focus and expansion.
+- `leadingVisual`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode` — Visual shown before the label. Accepts a callback to vary it with the item's expanded state.
+- `onExpandedChange`: `((expanded: boolean) => void)` — Called with the new state when the item is expanded or collapsed.
+- `onSelect`: `((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)` — Called when the item is activated by click or keyboard.
+- `subtree`: `React.ReactNode` — Nested items, as an alternative to supplying a subtree child.
+- `to`: `string` — Route the item links to, for integration with a router.
+- `trailingVisual`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode` — Visual shown after the label. Accepts a callback to vary it with the item's expanded state.
 
 ## LeadingVisual props
 
 - `children`: `React.ReactElement[]`
-- `label`: `string`
+- `label`: `string` — Accessible name for the visual, which is announced as part of the item.
 
 ## SubTree props
 
-- `count`: `number`
-- `state`: `"done" | "error" | "initial" | "loading"`
+- `count`: `number` — Number of placeholder rows to show while the subtree loads.
+- `state`: `"done" | "error" | "initial" | "loading"` — Loading state of the subtree, which decides whether items, placeholders, or an error are shown.
 
 ## TrailingVisual props
 
 - `children`: `React.ReactElement[]`
-- `label`: `string`
+- `label`: `string` — Accessible name for the visual, which is announced as part of the item.
 
 ## Differences from `@primer/react`
 

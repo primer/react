@@ -19,8 +19,11 @@ const emptyValues: readonly string[] = []
 export interface SegmentedControlProps<Value extends string = string>
   extends Omit<ToggleGroup.Props<Value>, 'className' | 'data-component' | 'multiple'> {
   className?: ToggleGroup.Props<Value>['className']
+  /** Stretches the control to fill its container, sharing the width between segments. */
   fullWidth?: ResponsiveValue<boolean>
+  /** Height and text size of the segments. */
   size?: SegmentedControlSize
+  /** How the control adapts on narrow viewports, such as collapsing into a menu or hiding labels. */
   variant?: 'default' | ResponsiveSegmentedControlVariant
 }
 
@@ -210,8 +213,11 @@ export interface SegmentedControlButtonProps<Value extends string = string>
   extends Omit<Toggle.Props<Value>, 'className' | 'children' | 'data-component' | 'render' | 'value'> {
   className?: Toggle.Props<Value>['className']
   children?: React.ReactNode
+  /** Icon shown before the segment's label. */
   leadingVisual?: React.ReactNode
+  /** Number shown after the segment's label. */
   count?: number | string
+  /** Value this segment selects, matched against the control's value. */
   value: Value
 }
 
@@ -268,7 +274,9 @@ const Button = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(
 
 export interface SegmentedControlIconButtonProps<Value extends string = string>
   extends Omit<SegmentedControlButtonProps<Value>, 'children' | 'leadingVisual'> {
+  /** Accessible name for the segment, since the icon alone conveys nothing. */
   'aria-label': string
+  /** Icon component to render. */
   icon: React.ElementType
 }
 

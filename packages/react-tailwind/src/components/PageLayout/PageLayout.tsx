@@ -211,8 +211,11 @@ const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayo
 })
 
 export interface PageLayoutHeaderProps extends Omit<React.ComponentPropsWithoutRef<'header'>, 'hidden'> {
+  /** Inner spacing of the header region. */
   padding?: Spacing
+  /** Divider drawn below the header. Accepts a responsive object to vary it per viewport. */
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line' | 'filled'>
+  /** Hides the header. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
 }
 const Header = markPageLayoutHeader(
@@ -239,8 +242,11 @@ const Header = markPageLayoutHeader(
 )
 
 export interface PageLayoutContentProps extends Omit<React.HTMLAttributes<HTMLElement>, 'hidden'>, AsProp {
+  /** Maximum width of the content column. */
   width?: keyof typeof width
+  /** Inner spacing of the content region. */
   padding?: Spacing
+  /** Hides the content. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
 }
 const Content = React.forwardRef<HTMLElement, PageLayoutContentProps>(function PageLayoutContent(
@@ -269,17 +275,29 @@ const Content = React.forwardRef<HTMLElement, PageLayoutContentProps>(function P
 })
 
 export interface PageLayoutPaneBaseProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'hidden'> {
+  /** Which side of the content the pane sits on. Accepts a responsive object to move it per viewport. */
   position?: ResponsiveValue<PanePosition>
+  /** Pane width, either a named size or a custom min/default/max triple. */
   width?: PaneWidthValue
+  /** Smallest width in pixels the pane may be resized to. */
   minWidth?: number
+  /** Key under which a resized width is persisted, so the pane reopens at the user's chosen size. */
   widthStorageKey?: string
+  /** Inner spacing of the pane. */
   padding?: Spacing
+  /** Divider drawn between the pane and the content. Accepts a responsive object to vary it per viewport. */
   divider?: ResponsiveValue<PaneDivider>
+  /** Keeps the pane in view as the content scrolls. */
   sticky?: boolean
+  /** Distance a sticky pane is offset from the top, to clear a fixed header above it. */
   offsetHeader?: string | number
+  /** Hides the pane. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
+  /** Lets the user drag the pane's edge to resize it. */
   resizable?: boolean
+  /** Controls the pane width in pixels. Supply it with `onResizeEnd` to own the width yourself. */
   currentWidth?: number
+  /** Called with the new width when a resize finishes. */
   onResizeEnd?: (width: number) => void
 }
 export type PageLayoutPaneProps = PageLayoutPaneBaseProps
@@ -446,6 +464,7 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
 })
 
 export interface PageLayoutSidebarProps extends PageLayoutPaneBaseProps {
+  /** How the sidebar behaves on narrow viewports: inline by default, or as a fullscreen overlay. */
   responsiveVariant?: 'default' | 'fullscreen'
 }
 const Sidebar = markPageLayoutSidebar(
@@ -516,8 +535,11 @@ const Sidebar = markPageLayoutSidebar(
 )
 
 export interface PageLayoutFooterProps extends Omit<React.ComponentPropsWithoutRef<'footer'>, 'hidden'> {
+  /** Inner spacing of the footer region. */
   padding?: Spacing
+  /** Divider drawn above the footer. Accepts a responsive object to vary it per viewport. */
   divider?: 'none' | 'line' | 'filled'
+  /** Hides the footer. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
 }
 const Footer = markPageLayoutFooter(

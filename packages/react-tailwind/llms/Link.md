@@ -8,7 +8,7 @@ Renders an `<a>` and forwards unrecognized props to it, so it also accepts that 
 
 ## Props
 
-- `as`: `React.ElementType` — Default `'a'`.
+- `as`: `React.ElementType` — Default `'a'`. Element to render. Use a non-anchor element when the link is handled by a router.
 - `inline`: `boolean | null`
 - `muted`: `boolean | null`
 

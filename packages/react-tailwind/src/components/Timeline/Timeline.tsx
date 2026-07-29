@@ -2,6 +2,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 import {type TimelineBadgeVariant} from './constants'
 export interface TimelineProps extends Omit<React.ComponentPropsWithoutRef<'ol'>, 'role'> {
+  /** Trims the connecting line at the start, the end, or both, where the timeline meets other content. */
   clipSidebar?: boolean | 'start' | 'end' | 'both'
 }
 const TimelineRoot = React.forwardRef<HTMLOListElement, TimelineProps>(function Timeline(
@@ -34,6 +35,7 @@ const TimelineRoot = React.forwardRef<HTMLOListElement, TimelineProps>(function 
 })
 
 export interface TimelineItemProps extends React.ComponentPropsWithoutRef<'li'> {
+  /** Reduces the item's vertical spacing, for a minor event in the timeline. */
   condensed?: boolean
 }
 const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(function TimelineItem(
@@ -74,6 +76,7 @@ const TimelineAvatar = React.forwardRef<HTMLDivElement, TimelineAvatarProps>(fun
 })
 
 export interface TimelineBadgeProps extends React.ComponentPropsWithoutRef<'div'> {
+  /** Colour of the badge, conveying what kind of event it marks. */
   variant?: TimelineBadgeVariant
 }
 const badgeColors: Record<TimelineBadgeVariant, string> = {

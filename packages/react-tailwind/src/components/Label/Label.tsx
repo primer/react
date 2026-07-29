@@ -22,6 +22,7 @@ const labelVariants = cva('inline-flex items-center rounded-full border font-med
 })
 
 export interface LabelProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof labelVariants> {
+  /** Element to render. */
   as?: React.ElementType
 }
 

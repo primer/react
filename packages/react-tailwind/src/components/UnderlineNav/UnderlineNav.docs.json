@@ -46,22 +46,26 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'nav'"
+      "defaultValue": "'nav'",
+      "description": "Element to render."
     },
     {
       "name": "hideIconsBreakpoint",
       "type": "HideIconsBreakpoint",
-      "defaultValue": "'xxlarge'"
+      "defaultValue": "'xxlarge'",
+      "description": "Viewport below which item icons are hidden to save space."
     },
     {
       "name": "loadingCounters",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Shows placeholders in place of item counters while their values load."
     },
     {
       "name": "variant",
       "type": "\"flush\" | \"inset\"",
-      "defaultValue": "'inset'"
+      "defaultValue": "'inset'",
+      "description": "Whether the bar is inset from its container or sits flush against it."
     }
   ],
   "subcomponents": [
@@ -71,19 +75,23 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'nav'"
+          "defaultValue": "'nav'",
+          "description": "Element to render. Use a non-anchor element when the link is handled by a router."
         },
         {
           "name": "counter",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown after the label."
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Icon shown before the label."
         },
         {
           "name": "onSelect",
-          "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void)"
+          "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void)",
+          "description": "Called when the item is activated."
         }
       ]
     }

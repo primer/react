@@ -8,8 +8,8 @@ Renders a `<span>` and forwards unrecognized props to it, so it also accepts tha
 
 ## Props
 
-- `aria-label`: `string` — Defines a string value that labels the current element.
-- `data-component`: `string` — Default `'CounterLabel'`.
+- `aria-label`: `string` — Accessible name giving the count meaning, since the number alone rarely explains itself.
+- `data-component`: `string` — Default `'CounterLabel'`. Overrides the marker used to identify this element in tests and styling.
 - `variant`: `"primary" | "secondary" | null`
 
 ## Differences from `@primer/react`

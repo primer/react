@@ -49,17 +49,20 @@
     {
       "name": "flush",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Removes the bar's outer padding so it aligns with surrounding content."
     },
     {
       "name": "gap",
       "type": "\"condensed\" | \"none\"",
-      "defaultValue": "'condensed'"
+      "defaultValue": "'condensed'",
+      "description": "Spacing between items."
     },
     {
       "name": "size",
       "type": "ControlSize",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Size of the bar's controls."
     }
   ],
   "subcomponents": [
@@ -68,11 +71,13 @@
       "props": [
         {
           "name": "alignContent",
-          "type": "\"center\" | \"start\""
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
         },
         {
           "name": "block",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
         },
         {
           "name": "children",
@@ -84,44 +89,54 @@
         },
         {
           "name": "count",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
         },
         {
           "name": "disabled",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
         },
         {
           "name": "inactive",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
         },
         {
           "name": "labelWrap",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
         },
         {
           "name": "leadingVisual",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
         },
         {
           "name": "loading",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
         },
         {
           "name": "loadingAnnouncement",
-          "type": "string"
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
         },
         {
           "name": "size",
           "type": "ControlSize",
-          "defaultValue": "'medium'"
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the button."
         },
         {
           "name": "trailingAction",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
         },
         {
           "name": "trailingVisual",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
         }
       ]
     },
@@ -130,17 +145,19 @@
       "props": [
         {
           "name": "alignContent",
-          "type": "\"center\" | \"start\""
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
         },
         {
           "name": "aria-label",
           "type": "string",
           "required": true,
-          "description": "Defines a string value that labels the current element."
+          "description": "Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology."
         },
         {
           "name": "block",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
         },
         {
           "name": "className",
@@ -148,42 +165,51 @@
         },
         {
           "name": "count",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
         },
         {
           "name": "disabled",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
         },
         {
           "name": "icon",
           "type": "React.ElementType",
           "defaultValue": "KebabHorizontalIcon",
-          "required": true
+          "required": true,
+          "description": "Icon component to render."
         },
         {
           "name": "inactive",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
         },
         {
           "name": "labelWrap",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
         },
         {
           "name": "loading",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
         },
         {
           "name": "loadingAnnouncement",
-          "type": "string"
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
         },
         {
           "name": "size",
           "type": "ControlSize",
-          "defaultValue": "'medium'"
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the button."
         },
         {
           "name": "trailingAction",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
         }
       ]
     },
@@ -193,17 +219,20 @@
         {
           "name": "aria-label",
           "type": "string",
-          "required": true
+          "required": true,
+          "description": "Accessible name for the overflow menu trigger."
         },
         {
           "name": "icon",
           "type": "React.ElementType",
-          "defaultValue": "KebabHorizontalIcon"
+          "defaultValue": "KebabHorizontalIcon",
+          "description": "Icon rendered on the overflow menu's trigger."
         },
         {
           "name": "items",
           "type": "ActionBarMenuItem[]",
-          "required": true
+          "required": true,
+          "description": "Items shown in the overflow menu."
         }
       ]
     }

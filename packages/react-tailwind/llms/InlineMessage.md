@@ -8,9 +8,9 @@ Renders a `<div>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `leadingVisual`: `React.ReactNode | React.ElementType`
-- `size`: `"medium" | "small"` — Default `'medium'`.
-- `variant`: `InlineMessageVariant`
+- `leadingVisual`: `React.ReactNode | React.ElementType` — Replaces the icon the variant would otherwise choose.
+- `size`: `"medium" | "small"` — Default `'medium'`. Text size of the message.
+- `variant`: `InlineMessageVariant` — Severity of the message, which sets its colour and default icon.
 
 ## Differences from `@primer/react`
 

@@ -6,6 +6,7 @@ import {FeatureFlagScope, type FeatureFlagValues} from './FeatureFlagScope'
 
 export interface FeatureFlagsProps {
   children?: React.ReactNode
+  /** Flags to enable or disable for everything rendered inside, merged over any flags from an enclosing provider. */
   flags: FeatureFlagValues
 }
 

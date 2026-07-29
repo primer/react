@@ -5,9 +5,13 @@ import {cn} from '../../internal/cn'
 import {getAccessibleKeybindingHintString, usePlatform} from './utils'
 
 export interface KeybindingHintProps {
+  /** Shortcut to render, written in the platform-independent chord syntax such as `Mod+s`. */
   keys: string
+  /** Whether modifiers render as symbols or as full words. */
   format?: 'condensed' | 'full'
+  /** Colour treatment, for hints shown on an emphasized or primary background. */
   variant?: 'default' | 'onEmphasis' | 'onPrimary'
+  /** Text size of the hint. */
   size?: 'small' | 'medium'
   className?: string
 }

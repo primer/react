@@ -48,7 +48,8 @@
       "props": [
         {
           "name": "visuallyHidden",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Hides the label visually while keeping it available to assistive technology."
         }
       ]
     },
@@ -58,7 +59,8 @@
         {
           "name": "variant",
           "type": "\"error\" | \"success\"",
-          "required": true
+          "required": true,
+          "description": "Whether the message reports a problem or confirms success."
         }
       ]
     }

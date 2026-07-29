@@ -14,8 +14,11 @@ const avatarVariants = cva('', {
 })
 
 export interface AvatarProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'size'> {
+  /** Corner treatment. `circle` suits a person, `square` suits an organization or other entity. */
   shape?: 'circle' | 'square'
+  /** Rendered width and height in pixels. Accepts a responsive object to vary the size per viewport. */
   size?: AvatarSize | number | ResponsiveValue<number>
+  /** Forces the square shape, taking precedence over `shape`. Kept for compatibility with `@primer/react`. */
   square?: boolean
 }
 

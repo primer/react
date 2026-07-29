@@ -7,7 +7,7 @@ Import: `import {ToggleSwitch} from '@primer/react-tailwind/ToggleSwitch'`
 ## Props
 
 - `className`: `string | ((state: SwitchRootState) => string | undefined)`
-- `size`: `"medium" | "small"` — Default `'medium'`.
+- `size`: `"medium" | "small"` — Default `'medium'`. Size of the switch.
 
 ## Differences from `@primer/react`
 

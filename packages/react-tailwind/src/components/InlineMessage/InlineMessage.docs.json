@@ -45,16 +45,19 @@
   "props": [
     {
       "name": "leadingVisual",
-      "type": "React.ReactNode | React.ElementType"
+      "type": "React.ReactNode | React.ElementType",
+      "description": "Replaces the icon the variant would otherwise choose."
     },
     {
       "name": "size",
       "type": "\"medium\" | \"small\"",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Text size of the message."
     },
     {
       "name": "variant",
-      "type": "InlineMessageVariant"
+      "type": "InlineMessageVariant",
+      "description": "Severity of the message, which sets its colour and default icon."
     }
   ],
   "passthrough": {

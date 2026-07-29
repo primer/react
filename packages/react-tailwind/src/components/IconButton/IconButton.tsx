@@ -3,7 +3,9 @@ import {cn} from '../../internal/cn'
 import {Button, type ButtonProps} from '../Button'
 
 export interface IconButtonProps extends Omit<ButtonProps, 'children' | 'leadingVisual' | 'trailingVisual'> {
+  /** Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology. */
   'aria-label': string
+  /** Icon component to render. */
   icon: React.ElementType
 }
 

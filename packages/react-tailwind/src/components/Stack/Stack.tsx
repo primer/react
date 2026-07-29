@@ -38,13 +38,21 @@ const paddingInline = {
 }
 
 export interface StackProps extends React.HTMLAttributes<HTMLElement>, AsProp {
+  /** Spacing between children. Accepts a responsive object to vary it per viewport. */
   gap?: ResponsiveValue<Gap>
+  /** Whether children are laid out in a row or a column. */
   direction?: ResponsiveValue<'horizontal' | 'vertical'>
+  /** Alignment of children across the stack's direction. */
   align?: ResponsiveValue<'stretch' | 'start' | 'center' | 'end' | 'baseline'>
+  /** Whether children may wrap onto another line. */
   wrap?: ResponsiveValue<'wrap' | 'nowrap'>
+  /** Distribution of children along the stack's direction. */
   justify?: ResponsiveValue<'start' | 'center' | 'end' | 'space-between' | 'space-evenly'>
+  /** Inner spacing on all sides. */
   padding?: ResponsiveValue<Gap>
+  /** Inner spacing at the top and bottom, overriding `padding`. */
   paddingBlock?: ResponsiveValue<Gap>
+  /** Inner spacing at the start and end, overriding `padding`. */
   paddingInline?: ResponsiveValue<Gap>
 }
 
@@ -106,7 +114,9 @@ export const Stack = React.forwardRef<HTMLElement, StackProps>(function Stack(
 })
 
 export interface StackItemProps extends React.HTMLAttributes<HTMLElement>, AsProp {
+  /** Lets the item take up any remaining space. */
   grow?: ResponsiveValue<boolean>
+  /** Lets the item shrink below its content size when space is tight. */
   shrink?: ResponsiveValue<boolean>
 }
 

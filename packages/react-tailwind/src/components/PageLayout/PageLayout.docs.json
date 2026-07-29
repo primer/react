@@ -165,16 +165,19 @@
         {
           "name": "divider",
           "type": "ResponsiveValue<\"filled\" | \"line\" | \"none\">",
-          "defaultValue": "'none'"
+          "defaultValue": "'none'",
+          "description": "Divider drawn below the header. Accepts a responsive object to vary it per viewport."
         },
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the header. Accepts a responsive object to hide it only at some viewports."
         },
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'normal'"
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the header region."
         }
       ]
     },
@@ -184,21 +187,25 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'main'"
+          "defaultValue": "'main'",
+          "description": "Element to render."
         },
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the content. Accepts a responsive object to hide it only at some viewports."
         },
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'normal'"
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the content region."
         },
         {
           "name": "width",
           "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
-          "defaultValue": "'full'"
+          "defaultValue": "'full'",
+          "description": "Maximum width of the content column."
         }
       ]
     },
@@ -207,60 +214,72 @@
       "props": [
         {
           "name": "currentWidth",
-          "type": "number"
+          "type": "number",
+          "description": "Controls the pane width in pixels. Supply it with `onResizeEnd` to own the width yourself."
         },
         {
           "name": "divider",
           "type": "ResponsiveValue<PaneDivider>",
-          "defaultValue": "'none'"
+          "defaultValue": "'none'",
+          "description": "Divider drawn between the pane and the content. Accepts a responsive object to vary it per viewport."
         },
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the pane. Accepts a responsive object to hide it only at some viewports."
         },
         {
           "name": "minWidth",
           "type": "number",
-          "defaultValue": "256"
+          "defaultValue": "256",
+          "description": "Smallest width in pixels the pane may be resized to."
         },
         {
           "name": "offsetHeader",
           "type": "string | number",
-          "defaultValue": "0"
+          "defaultValue": "0",
+          "description": "Distance a sticky pane is offset from the top, to clear a fixed header above it."
         },
         {
           "name": "onResizeEnd",
-          "type": "((width: number) => void)"
+          "type": "((width: number) => void)",
+          "description": "Called with the new width when a resize finishes."
         },
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'normal'"
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the pane."
         },
         {
           "name": "position",
           "type": "ResponsiveValue<PanePosition>",
-          "defaultValue": "'end'"
+          "defaultValue": "'end'",
+          "description": "Which side of the content the pane sits on. Accepts a responsive object to move it per viewport."
         },
         {
           "name": "resizable",
           "type": "boolean",
-          "defaultValue": "false"
+          "defaultValue": "false",
+          "description": "Lets the user drag the pane's edge to resize it."
         },
         {
           "name": "sticky",
           "type": "boolean",
-          "defaultValue": "false"
+          "defaultValue": "false",
+          "description": "Keeps the pane in view as the content scrolls."
         },
         {
           "name": "width",
           "type": "PaneWidthValue",
-          "defaultValue": "'full'"
+          "defaultValue": "'full'",
+          "description": "Pane width, either a named size or a custom min/default/max triple."
         },
         {
           "name": "widthStorageKey",
           "type": "string",
-          "defaultValue": "'paneWidth'"
+          "defaultValue": "'paneWidth'",
+          "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
         }
       ]
     },
@@ -269,65 +288,78 @@
       "props": [
         {
           "name": "currentWidth",
-          "type": "number"
+          "type": "number",
+          "description": "Controls the pane width in pixels. Supply it with `onResizeEnd` to own the width yourself."
         },
         {
           "name": "divider",
           "type": "ResponsiveValue<PaneDivider>",
-          "defaultValue": "'none'"
+          "defaultValue": "'none'",
+          "description": "Divider drawn between the pane and the content. Accepts a responsive object to vary it per viewport."
         },
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the pane. Accepts a responsive object to hide it only at some viewports."
         },
         {
           "name": "minWidth",
           "type": "number",
-          "defaultValue": "256"
+          "defaultValue": "256",
+          "description": "Smallest width in pixels the pane may be resized to."
         },
         {
           "name": "offsetHeader",
           "type": "string | number",
-          "defaultValue": "0"
+          "defaultValue": "0",
+          "description": "Distance a sticky pane is offset from the top, to clear a fixed header above it."
         },
         {
           "name": "onResizeEnd",
-          "type": "((width: number) => void)"
+          "type": "((width: number) => void)",
+          "description": "Called with the new width when a resize finishes."
         },
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'normal'"
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the pane."
         },
         {
           "name": "position",
           "type": "ResponsiveValue<PanePosition>",
-          "defaultValue": "'end'"
+          "defaultValue": "'end'",
+          "description": "Which side of the content the pane sits on. Accepts a responsive object to move it per viewport."
         },
         {
           "name": "resizable",
           "type": "boolean",
-          "defaultValue": "false"
+          "defaultValue": "false",
+          "description": "Lets the user drag the pane's edge to resize it."
         },
         {
           "name": "responsiveVariant",
           "type": "\"default\" | \"fullscreen\"",
-          "defaultValue": "'default'"
+          "defaultValue": "'default'",
+          "description": "How the sidebar behaves on narrow viewports: inline by default, or as a fullscreen overlay."
         },
         {
           "name": "sticky",
           "type": "boolean",
-          "defaultValue": "false"
+          "defaultValue": "false",
+          "description": "Keeps the pane in view as the content scrolls."
         },
         {
           "name": "width",
           "type": "PaneWidthValue",
-          "defaultValue": "'full'"
+          "defaultValue": "'full'",
+          "description": "Pane width, either a named size or a custom min/default/max triple."
         },
         {
           "name": "widthStorageKey",
           "type": "string",
-          "defaultValue": "'paneWidth'"
+          "defaultValue": "'paneWidth'",
+          "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
         }
       ]
     },
@@ -337,16 +369,19 @@
         {
           "name": "divider",
           "type": "\"filled\" | \"line\" | \"none\"",
-          "defaultValue": "'none'"
+          "defaultValue": "'none'",
+          "description": "Divider drawn above the footer. Accepts a responsive object to vary it per viewport."
         },
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the footer. Accepts a responsive object to hide it only at some viewports."
         },
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'normal'"
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the footer region."
         }
       ]
     }

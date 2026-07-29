@@ -61,46 +61,56 @@
     {
       "name": "as",
       "type": "\"a\" | \"button\" | \"span\"",
-      "defaultValue": "'span'"
+      "defaultValue": "'span'",
+      "description": "Element to render. Use `a` or `button` when the token is interactive."
     },
     {
       "name": "disabled",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Prevents interaction with the token and its remove button."
     },
     {
       "name": "hideRemoveButton",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Hides the remove button while `onRemove` still handles removal by keyboard."
     },
     {
       "name": "href",
-      "type": "string"
+      "type": "string",
+      "description": "Makes the token a link to the given URL."
     },
     {
       "name": "id",
-      "type": "string | number"
+      "type": "string | number",
+      "description": "Identifier passed back to `onRemove`, so a caller can tell which token was removed."
     },
     {
       "name": "isSelected",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Marks the token as the current one in a list of tokens."
     },
     {
       "name": "leadingVisual",
-      "type": "React.ElementType"
+      "type": "React.ElementType",
+      "description": "Icon shown before the token's text."
     },
     {
       "name": "onRemove",
-      "type": "(() => void)"
+      "type": "(() => void)",
+      "description": "Shows a remove button and is called when it is activated."
     },
     {
       "name": "size",
       "type": "TokenSize",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Height and text size of the token."
     },
     {
       "name": "text",
       "type": "React.ReactNode",
-      "required": true
+      "required": true,
+      "description": "Label shown on the token."
     }
   ]
 }

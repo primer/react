@@ -16,8 +16,11 @@ const flash = cva('relative rounded-md border p-4 text-default [&_p:last-child]:
 })
 
 export interface FlashProps extends React.ComponentPropsWithoutRef<'div'> {
+  /** Element to render. */
   as?: React.ElementType
+  /** Severity of the message, which sets its colour. */
   variant?: 'default' | 'warning' | 'success' | 'danger'
+  /** Removes the border and radius so the message can span a container edge to edge. */
   full?: boolean
 }
 

@@ -88,43 +88,52 @@
     {
       "name": "cellPadding",
       "type": "\"condensed\" | \"normal\" | \"spacious\"",
-      "defaultValue": "'normal'"
+      "defaultValue": "'normal'",
+      "description": "Vertical spacing inside cells, which sets the density of the table."
     },
     {
       "name": "columns",
       "type": "Column<Data>[]",
-      "required": true
+      "required": true,
+      "description": "Column definitions, giving each column its header, width, and how to read a cell from a row."
     },
     {
       "name": "data",
       "type": "Data[]",
-      "required": true
+      "required": true,
+      "description": "Rows to render."
     },
     {
       "name": "externalSorting",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Stops the table sorting `data` itself, for when rows arrive already sorted by a server."
     },
     {
       "name": "getRowId",
       "type": "((row: Data) => string | number)",
-      "defaultValue": "defaultGetRowId"
+      "defaultValue": "defaultGetRowId",
+      "description": "Reads a stable identity from a row. Supply it when rows have no `id` field."
     },
     {
       "name": "gridTemplateColumns",
-      "type": "GridTemplateColumns<string | number>"
+      "type": "GridTemplateColumns<string | number>",
+      "description": "Explicit column track sizes, as a CSS grid template."
     },
     {
       "name": "initialSortColumn",
-      "type": "string"
+      "type": "string",
+      "description": "Column sorted on first render."
     },
     {
       "name": "initialSortDirection",
-      "type": "\"ASC\" | \"DESC\""
+      "type": "\"ASC\" | \"DESC\"",
+      "description": "Direction sorted on first render."
     },
     {
       "name": "onToggleSort",
-      "type": "((columnId: string, direction: \"ASC\" | \"DESC\") => void)"
+      "type": "((columnId: string, direction: \"ASC\" | \"DESC\") => void)",
+      "description": "Called with the column and new direction when a sortable header is activated."
     }
   ]
 }

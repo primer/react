@@ -9,6 +9,7 @@ export interface RadioGroupProps<Value = string>
 }
 
 export interface RadioGroupLabelProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Hides the label visually while keeping it available to assistive technology. */
   visuallyHidden?: boolean
 }
 
@@ -45,6 +46,7 @@ const Caption = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTML
 })
 
 export interface RadioGroupValidationProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Whether the message reports a problem or confirms success. */
   variant: 'error' | 'success'
 }
 

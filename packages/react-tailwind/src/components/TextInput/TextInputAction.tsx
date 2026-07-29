@@ -7,8 +7,11 @@ export type TextInputActionDirection = 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w
 
 export interface TextInputActionProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label' | 'children'> {
+  /** Accessible name for the action, since the icon alone conveys nothing. */
   'aria-label': string
+  /** Icon component to render. */
   icon: React.ElementType
+  /** Side the tooltip appears on. */
   tooltipDirection?: TextInputActionDirection
 }
 

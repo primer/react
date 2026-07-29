@@ -4,7 +4,9 @@ import {cn} from '../../internal/cn'
 const topicTagClassName =
   'inline-flex whitespace-nowrap rounded-full border border-[var(--topicTag-borderColor,transparent)] bg-accent-muted px-3 py-0.5 text-xs font-semibold leading-[var(--text-body-lineHeight-small)] text-accent no-underline hover:bg-accent-emphasis hover:text-on-emphasis [&:is(a,button)]:cursor-pointer [&:is(a,button)]:select-none'
 export interface TopicTagProps extends React.HTMLAttributes<HTMLElement> {
+  /** Element to render. Use a non-anchor element when the tag does not link anywhere. */
   as?: React.ElementType
+  /** URL the tag navigates to. */
   href?: string
 }
 export const TopicTag = React.forwardRef<HTMLElement, TopicTagProps>(function TopicTag(

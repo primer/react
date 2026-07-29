@@ -66,17 +66,19 @@
   "props": [
     {
       "name": "alignContent",
-      "type": "\"center\" | \"start\""
+      "type": "\"center\" | \"start\"",
+      "description": "Whether the label sits centred or hugs the start edge when visuals are present."
     },
     {
       "name": "aria-label",
       "type": "string",
       "required": true,
-      "description": "Defines a string value that labels the current element."
+      "description": "Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology."
     },
     {
       "name": "block",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Stretches the button to fill the width of its container."
     },
     {
       "name": "className",
@@ -84,50 +86,61 @@
     },
     {
       "name": "count",
-      "type": "string | number"
+      "type": "string | number",
+      "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
     },
     {
       "name": "data-component",
       "type": "string",
-      "defaultValue": "'IconButton'"
+      "defaultValue": "'IconButton'",
+      "description": "Overrides the marker used to identify this element in tests and styling."
     },
     {
       "name": "disabled",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Prevents activation and removes the button from the keyboard order."
     },
     {
       "name": "icon",
       "type": "React.ElementType",
-      "required": true
+      "required": true,
+      "description": "Icon component to render."
     },
     {
       "name": "inactive",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
     },
     {
       "name": "labelWrap",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Lets a long label wrap onto more than one line instead of being clipped."
     },
     {
       "name": "loading",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Replaces the leading visual with a spinner and suppresses activation."
     },
     {
       "name": "loadingAnnouncement",
-      "type": "string"
+      "type": "string",
+      "description": "Text announced to assistive technology while the button is loading."
     },
     {
       "name": "size",
       "type": "ControlSize",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Height and text size of the button."
     },
     {
       "name": "trailingAction",
-      "type": "ButtonVisual"
+      "type": "ButtonVisual",
+      "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
     },
     {
       "name": "variant",
-      "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\""
+      "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+      "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
     }
   ]
 }

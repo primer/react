@@ -46,12 +46,14 @@
     {
       "name": "overflow",
       "type": "\"menu\" | \"menu-with-root\" | \"wrap\"",
-      "defaultValue": "'wrap'"
+      "defaultValue": "'wrap'",
+      "description": "How the trail behaves when it is too wide: wrap onto another line, or collapse the middle into a menu."
     },
     {
       "name": "variant",
       "type": "\"normal\" | \"spacious\"",
-      "defaultValue": "'normal'"
+      "defaultValue": "'normal'",
+      "description": "Use `spacious` to increase the spacing between items."
     }
   ],
   "subcomponents": [
@@ -61,11 +63,13 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'a'"
+          "defaultValue": "'a'",
+          "description": "Element to render. Use a non-anchor element for an item that does not link anywhere."
         },
         {
           "name": "selected",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Marks the item as the current page, which is announced to assistive technology."
         }
       ]
     }

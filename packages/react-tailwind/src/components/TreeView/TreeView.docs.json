@@ -73,12 +73,14 @@
     {
       "name": "flat",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Removes the indentation guides, for a tree that is only one level deep."
     },
     {
       "name": "truncate",
       "type": "boolean",
-      "defaultValue": "true"
+      "defaultValue": "true",
+      "description": "Clips long item labels to one line instead of wrapping them."
     }
   ],
   "subcomponents": [
@@ -88,57 +90,70 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'li'"
+          "defaultValue": "'li'",
+          "description": "Element to render."
         },
         {
           "name": "containIntrinsicSize",
-          "type": "string"
+          "type": "string",
+          "description": "Reserves a size for off-screen items so a long tree can skip rendering them."
         },
         {
           "name": "current",
           "type": "boolean",
-          "defaultValue": "false"
+          "defaultValue": "false",
+          "description": "Marks the item as the one currently being viewed."
         },
         {
           "name": "defaultExpanded",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether the item starts expanded when it owns its own expansion state."
         },
         {
           "name": "expanded",
-          "type": "boolean | null"
+          "type": "boolean | null",
+          "description": "Controls whether the item is expanded. Supply it with `onExpandedChange` to own the state."
         },
         {
           "name": "href",
-          "type": "string"
+          "type": "string",
+          "description": "Makes the item a link to the given URL."
         },
         {
           "name": "id",
           "type": "string",
-          "required": true
+          "required": true,
+          "description": "Stable identity for the item, used to track focus and expansion."
         },
         {
           "name": "leadingVisual",
-          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode"
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "description": "Visual shown before the label. Accepts a callback to vary it with the item's expanded state."
         },
         {
           "name": "onExpandedChange",
-          "type": "((expanded: boolean) => void)"
+          "type": "((expanded: boolean) => void)",
+          "description": "Called with the new state when the item is expanded or collapsed."
         },
         {
           "name": "onSelect",
-          "type": "((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)"
+          "type": "((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)",
+          "description": "Called when the item is activated by click or keyboard."
         },
         {
           "name": "subtree",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Nested items, as an alternative to supplying a subtree child."
         },
         {
           "name": "to",
-          "type": "string"
+          "type": "string",
+          "description": "Route the item links to, for integration with a router."
         },
         {
           "name": "trailingVisual",
-          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode"
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "description": "Visual shown after the label. Accepts a callback to vary it with the item's expanded state."
         }
       ]
     },
@@ -152,7 +167,8 @@
         },
         {
           "name": "label",
-          "type": "string"
+          "type": "string",
+          "description": "Accessible name for the visual, which is announced as part of the item."
         }
       ]
     },
@@ -161,11 +177,13 @@
       "props": [
         {
           "name": "count",
-          "type": "number"
+          "type": "number",
+          "description": "Number of placeholder rows to show while the subtree loads."
         },
         {
           "name": "state",
-          "type": "\"done\" | \"error\" | \"initial\" | \"loading\""
+          "type": "\"done\" | \"error\" | \"initial\" | \"loading\"",
+          "description": "Loading state of the subtree, which decides whether items, placeholders, or an error are shown."
         }
       ]
     },
@@ -179,7 +197,8 @@
         },
         {
           "name": "label",
-          "type": "string"
+          "type": "string",
+          "description": "Accessible name for the visual, which is announced as part of the item."
         }
       ]
     }

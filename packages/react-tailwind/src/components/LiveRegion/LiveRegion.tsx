@@ -6,11 +6,17 @@ export type Politeness = 'assertive' | 'polite'
 
 export interface AnnounceProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'aria-atomic' | 'aria-live' | 'hidden' | 'role'> {
+  /** Announces the content when the region first becomes visible, rather than only on later changes. */
   announceOnShow?: boolean
+  /** Element to render. */
   as?: React.ElementType
+  /** Overrides the marker used to identify this element in tests and styling. */
   'data-component'?: string
+  /** Delay before announcing, which lets rapidly changing content settle first. */
   delayMs?: number
+  /** Hides the region visually while it keeps announcing to assistive technology. */
   hidden?: boolean
+  /** Whether the announcement waits for a pause or interrupts immediately. */
   politeness?: Politeness
 }
 

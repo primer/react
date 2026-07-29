@@ -25,9 +25,13 @@ const blankslate = cva('grid justify-items-center p-8 text-center', {
 })
 const BlankslateSizeContext = React.createContext<'small' | 'medium' | 'large'>('medium')
 export interface BlankslateProps extends React.ComponentPropsWithoutRef<'div'> {
+  /** Draws a border around the blankslate. */
   border?: boolean
+  /** Constrains the content to a narrower column. */
   narrow?: boolean
+  /** Increases the vertical padding, for a blankslate that fills a large empty region. */
   spacious?: boolean
+  /** Overall scale of the visual, heading, and spacing. */
   size?: 'small' | 'medium' | 'large'
 }
 export const Blankslate = React.forwardRef<HTMLDivElement, BlankslateProps>(function Blankslate(
@@ -70,6 +74,7 @@ export const BlankslateVisual = React.forwardRef<HTMLSpanElement, React.Componen
   },
 )
 export interface BlankslateHeadingProps extends React.ComponentPropsWithoutRef<'h2'> {
+  /** Heading element to render, so the heading fits the surrounding document outline. */
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 export function BlankslateHeading({as: Heading = 'h2', className, ...rest}: BlankslateHeadingProps) {

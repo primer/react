@@ -9,6 +9,7 @@ const token = cva('border border-muted bg-neutral-muted text-muted', {
   defaultVariants: {selected: false},
 })
 export interface TokenProps extends TokenBaseProps {
+  /** Icon shown before the token's text. */
   leadingVisual?: React.ElementType
 }
 export const Token = React.forwardRef<HTMLElement, TokenProps>(function Token(

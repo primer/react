@@ -55,58 +55,104 @@ function hasDescription(member, source) {
 }
 
 /** Collects every own property declared by an exported `*Props` type in one file. */
+/** Collects the `*Props` type declarations in a file, keyed by name. */
+function readPropsDeclarations(source) {
+  const declarations = new Map()
+  const visit = node => {
+    if ((ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node)) && isPropsTypeName(node.name.text)) {
+      declarations.set(node.name.text, node)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(source)
+  return declarations
+}
+
+/**
+ * A props type reaches consumers when it is exported, or when an exported type composes it.
+ * `SelectPanelProps` is an intersection over a local `SelectPanelBaseProps`, so requiring
+ * `export` alone would let that whole surface skip the check; conversely an internal helper
+ * component's props are not public and should not be required to carry documentation.
+ */
+function findPublicTypes(declarations) {
+  const isExported = node => node.modifiers?.some(modifier => modifier.kind === ts.SyntaxKind.ExportKeyword)
+  const publicNames = new Set()
+  const queue = []
+
+  for (const [name, node] of declarations) {
+    if (isExported(node)) {
+      publicNames.add(name)
+      queue.push(node)
+    }
+  }
+
+  while (queue.length > 0) {
+    const node = queue.pop()
+    const referenced = []
+    const collect = child => {
+      if (ts.isTypeReferenceNode(child) && ts.isIdentifier(child.typeName)) referenced.push(child.typeName.text)
+      if (ts.isExpressionWithTypeArguments(child) && ts.isIdentifier(child.expression)) {
+        referenced.push(child.expression.text)
+      }
+      ts.forEachChild(child, collect)
+    }
+    ts.forEachChild(node, collect)
+
+    for (const name of referenced) {
+      if (publicNames.has(name) || !declarations.has(name)) continue
+      publicNames.add(name)
+      queue.push(declarations.get(name))
+    }
+  }
+
+  return publicNames
+}
+
+/** Collects every own property declared by a publicly reachable `*Props` type in one file. */
 export function readProps(filePath) {
   const text = fs.readFileSync(filePath, 'utf8')
   const source = ts.createSourceFile(filePath, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
+  const declarations = readPropsDeclarations(source)
+  const publicNames = findPublicTypes(declarations)
   const results = []
 
-  const visit = node => {
-    const isExported = node.modifiers?.some(modifier => modifier.kind === ts.SyntaxKind.ExportKeyword)
+  for (const name of publicNames) {
+    const node = declarations.get(name)
+    if (!node) continue
 
-    if (ts.isInterfaceDeclaration(node) && isExported && isPropsTypeName(node.name.text)) {
-      const regions = readRegionNames(node)
-      for (const name of regions) {
-        results.push({type: node.name.text, name, documented: true, viaRegionHelper: true})
-      }
-      for (const member of node.members) {
-        if (!ts.isPropertySignature(member) || !member.name) continue
-        const name = member.name.getText().replace(/['"]/g, '')
-        results.push({
-          type: node.name.text,
-          name,
-          documented: hasDescription(member, source) || INHERENTLY_DOCUMENTED.has(name),
-          viaRegionHelper: false,
-        })
+    if (ts.isInterfaceDeclaration(node)) {
+      for (const region of readRegionNames(node)) {
+        results.push({type: name, name: region, documented: true, viaRegionHelper: true})
       }
     }
 
-    if (ts.isTypeAliasDeclaration(node) && isExported && isPropsTypeName(node.name.text)) {
-      const members = ts.isTypeLiteralNode(node.type)
+    const members = ts.isInterfaceDeclaration(node)
+      ? node.members
+      : ts.isTypeLiteralNode(node.type)
         ? node.type.members
-        : ts.isIntersectionTypeNode(node.type)
+        : ts.isIntersectionTypeNode(node.type) || ts.isUnionTypeNode(node.type)
           ? node.type.types.flatMap(part => (ts.isTypeLiteralNode(part) ? part.members : []))
           : []
-      for (const member of members) {
-        if (!ts.isPropertySignature(member) || !member.name) continue
-        const name = member.name.getText().replace(/['"]/g, '')
-        results.push({
-          type: node.name.text,
-          name,
-          documented: hasDescription(member, source) || INHERENTLY_DOCUMENTED.has(name),
-          viaRegionHelper: false,
-        })
-      }
-    }
 
-    ts.forEachChild(node, visit)
+    for (const member of members) {
+      if (!ts.isPropertySignature(member) || !member.name) continue
+      const propName = member.name.getText().replace(/['"]/g, '')
+      results.push({
+        type: name,
+        name: propName,
+        documented: hasDescription(member, source) || INHERENTLY_DOCUMENTED.has(propName),
+        viaRegionHelper: false,
+      })
+    }
   }
 
-  visit(source)
   return results
 }
 
 export function collect() {
-  const files = glob.sync('src/components/**/*.{ts,tsx}', {
+  // Shared vocabulary types are part of the public surface too, and they appear inlined in
+  // many components' generated docs.
+  const files = glob.sync('src/{components,utils/types}/**/*.{ts,tsx}', {
     absolute: true,
     cwd: packageDirectory,
     ignore: ['**/*.d.ts', '**/*.stories.*', '**/*.storyHelpers.*', '**/*.test.*'],
@@ -127,50 +173,18 @@ export function collect() {
 }
 
 if (import.meta.filename === process.argv[1]) {
-  const baselinePath = path.join(packageDirectory, 'prop-docs-baseline.json')
   const {total, undocumented} = collect()
-  const baseline = fs.existsSync(baselinePath) ? JSON.parse(fs.readFileSync(baselinePath, 'utf8')).undocumented : []
-  const known = new Set(baseline)
 
-  const added = undocumented.filter(entry => !known.has(entry))
-  const fixed = baseline.filter(entry => !undocumented.includes(entry))
-
-  if (process.argv.includes('--update-baseline')) {
-    fs.writeFileSync(
-      baselinePath,
-      `${JSON.stringify(
-        {
-          $comment:
-            'Props still missing a JSDoc description. This list may only shrink; lint:prop-docs fails on additions and on stale entries.',
-          undocumented,
-        },
-        null,
-        2,
-      )}\n`,
-    )
+  if (undocumented.length > 0) {
     // eslint-disable-next-line no-console
-    console.log(`Recorded ${undocumented.length} undocumented props of ${total}.`)
-    process.exit(0)
+    console.error(`${undocumented.length} prop(s) are missing a JSDoc description:`)
+    for (const entry of undocumented) {
+      // eslint-disable-next-line no-console
+      console.error(`  ${entry}`)
+    }
+    process.exitCode = 1
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(`Every prop is documented (${total} checked).`)
   }
-
-  if (added.length > 0) {
-    // eslint-disable-next-line no-console
-    console.error(`${added.length} prop(s) added without a JSDoc description:`)
-    // eslint-disable-next-line no-console
-    for (const entry of added) console.error(`  ${entry}`)
-  }
-
-  if (fixed.length > 0) {
-    // eslint-disable-next-line no-console
-    console.error(`${fixed.length} baseline entr(ies) are now documented. Run with --update-baseline to record it:`)
-    // eslint-disable-next-line no-console
-    for (const entry of fixed) console.error(`  ${entry}`)
-  }
-
-  if (added.length > 0 || fixed.length > 0) process.exit(1)
-
-  // eslint-disable-next-line no-console
-  console.log(
-    `Prop descriptions checked: ${total - undocumented.length}/${total} documented, ${baseline.length} known gaps.`,
-  )
 }

@@ -30,11 +30,13 @@
   "props": [
     {
       "name": "container",
-      "type": "PortalContainerRef | PortalContainer | null"
+      "type": "PortalContainerRef | PortalContainer | null",
+      "description": "Where the children are rendered. Defaults to the shared portal root."
     },
     {
       "name": "onMount",
-      "type": "(() => void)"
+      "type": "(() => void)",
+      "description": "Called once the children have been rendered into the container."
     }
   ],
   "passthrough": {

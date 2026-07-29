@@ -10,11 +10,11 @@ Import: `import {CheckboxGroup} from '@primer/react-tailwind/CheckboxGroup'`
 
 ## Label props
 
-- `visuallyHidden`: `boolean`
+- `visuallyHidden`: `boolean` — Hides the label visually while keeping it available to assistive technology.
 
 ## Validation props
 
-- `variant`: `"error" | "success"`
+- `variant`: `"error" | "success"` — Whether the message reports a problem or confirms success.
 
 ## Differences from `@primer/react`
 

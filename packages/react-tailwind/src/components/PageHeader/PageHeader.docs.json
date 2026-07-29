@@ -82,11 +82,13 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'div'"
+      "defaultValue": "'div'",
+      "description": "Element to render."
     },
     {
       "name": "hasBorder",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Draws a border below the header, separating it from the content."
     }
   ],
   "subcomponents": [
@@ -95,7 +97,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -105,11 +108,13 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'div'"
+          "defaultValue": "'div'",
+          "description": "Element to render."
         },
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the parent link. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -118,7 +123,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -127,7 +133,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -136,12 +143,14 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         },
         {
           "name": "variant",
           "type": "ResponsiveValue<TitleVariant>",
-          "defaultValue": "'medium'"
+          "defaultValue": "'medium'",
+          "description": "Size of the title area. Accepts a responsive object to vary it per viewport."
         }
       ]
     },
@@ -150,7 +159,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -159,7 +169,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -168,7 +179,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -178,11 +190,13 @@
         {
           "name": "as",
           "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
-          "defaultValue": "'div'"
+          "defaultValue": "'div'",
+          "description": "Heading element to render, so the title fits the surrounding document outline."
         },
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the title. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -191,7 +205,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -200,7 +215,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -209,7 +225,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -218,7 +235,8 @@
       "props": [
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     },
@@ -228,11 +246,13 @@
         {
           "name": "as",
           "type": "\"div\" | \"nav\"",
-          "defaultValue": "'div'"
+          "defaultValue": "'div'",
+          "description": "Element to render. Use `nav` only when the navigation has an accessible name."
         },
         {
           "name": "hidden",
-          "type": "ResponsiveValue<boolean>"
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
         }
       ]
     }

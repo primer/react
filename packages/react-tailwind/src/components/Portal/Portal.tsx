@@ -8,7 +8,9 @@ type PortalContainer = HTMLElement | ShadowRoot
 type PortalContainerRef = React.RefObject<PortalContainer | null>
 
 export interface PortalProps extends React.ComponentPropsWithoutRef<'div'> {
+  /** Where the children are rendered. Defaults to the shared portal root. */
   container?: PortalContainer | PortalContainerRef | null
+  /** Called once the children have been rendered into the container. */
   onMount?: () => void
 }
 

@@ -6,10 +6,10 @@ Import: `import {IssueLabel} from '@primer/react-tailwind/IssueLabel'`
 
 ## Props
 
-- `as`: `React.ElementType`
-- `fillColor`: `` `#${string}` ``
-- `href`: `string`
-- `variant`: `IssueLabelVariant` — Default `'gray'`.
+- `as`: `React.ElementType` — Element to render.
+- `fillColor`: `` `#${string}` `` — Custom hex colour, for a label whose colour is chosen by the user rather than from `variant`.
+- `href`: `string` — Makes the label a link to the given URL.
+- `variant`: `IssueLabelVariant` — Default `'gray'`. Named colour for the label.
 
 ## Differences from `@primer/react`
 

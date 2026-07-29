@@ -26,13 +26,17 @@ export const actionItemClassName =
 
 interface ActionListTrailingActionBaseProps {
   className?: string
+  /** Icon component to render. */
   icon?: React.ElementType
+  /** Accessible name for the action, since the icon alone conveys nothing. */
   label: string
   style?: React.CSSProperties
 }
 
 type ActionListTrailingActionButtonProps = {
+  /** Renders the action as a button. */
   as?: 'button'
+  /** Not available on a button action. Use `as="a"` to make the action navigate. */
   href?: never
 } & Omit<
   ButtonProps,
@@ -40,6 +44,7 @@ type ActionListTrailingActionButtonProps = {
 >
 
 type ActionListTrailingActionLinkProps = {
+  /** Renders the action as a link. */
   as: 'a'
 } & Omit<LinkButtonProps, 'children' | 'className' | 'leadingVisual' | 'style' | 'trailingVisual' | 'variant'>
 
@@ -120,8 +125,11 @@ const TrailingAction = React.forwardRef<HTMLElement, ActionListTrailingActionPro
 )
 
 export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'> {
+  /** How many items may be selected, which also decides the list's ARIA role. */
   selectionVariant?: SelectionVariant
+  /** Density and inset treatment of the list. */
   variant?: 'inset' | 'horizontal-inset' | 'full'
+  /** Draws a divider between items. */
   showDividers?: boolean
 }
 
@@ -177,14 +185,23 @@ export interface ActionListItemProps
     RegionProps<'leadingVisual' | 'trailingVisual' | 'description' | 'trailingAction'> {
   children?: React.ReactNode
   className?: string
+  /** Prevents activation and removes the item from the keyboard order. */
   disabled?: boolean
+  /** Marks the item temporarily unavailable and explains why. Unlike `disabled`, the item stays reachable. */
   inactiveText?: React.ReactNode
+  /** Shows a spinner in place of the leading visual and suppresses activation. */
   loading?: boolean
+  /** Text announced to assistive technology while the item is loading. */
   loadingText?: string
+  /** Marks the item selected, reported through the role's selection attribute. */
   selected?: boolean
+  /** Row height. Use `large` for a more comfortable touch target. */
   size?: 'medium' | 'large'
+  /** Highlights the item as the current one, without marking it selected. */
   active?: boolean
+  /** Use `danger` for a destructive action. */
   variant?: 'default' | 'danger'
+  /** Called when the item is activated by click or keyboard. */
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
 }
 
@@ -448,7 +465,9 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
 export interface ActionListLinkItemProps
   extends React.ComponentPropsWithoutRef<'a'>,
     RegionProps<'leadingVisual' | 'trailingVisual' | 'description' | 'trailingAction'> {
+  /** Marks the link as the current one. */
   selected?: boolean
+  /** Use `danger` for a destructive navigation. */
   variant?: 'default' | 'danger'
 }
 
@@ -506,7 +525,9 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
 export interface ActionListGroupProps
   extends Omit<React.ComponentPropsWithoutRef<'li'>, 'title'>,
     RegionProps<'heading'> {
+  /** Heading text for the group, as an alternative to supplying a heading child. */
   title?: React.ReactNode
+  /** Overrides the list's selection behaviour for this group. */
   selectionVariant?: SelectionVariant
 }
 
@@ -558,7 +579,9 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
 export interface ActionListGroupHeadingProps
   extends React.ComponentPropsWithoutRef<'h3'>,
     RegionProps<'trailingAction'> {
+  /** Heading element to render, so the group heading fits the surrounding document outline. */
   as?: React.ElementType
+  /** Use `filled` to give the heading a background and separate it from the items above. */
   variant?: 'subtle' | 'filled'
 }
 
@@ -598,7 +621,10 @@ const GroupHeading = React.forwardRef<HTMLElement, ActionListGroupHeadingProps>(
   )
 })
 
-export type ActionListGroupHeadingTrailingActionProps = ActionListTrailingActionProps & {icon: React.ElementType}
+export type ActionListGroupHeadingTrailingActionProps = ActionListTrailingActionProps & {
+  /** Icon rendered inside the heading's trailing action. */
+  icon: React.ElementType
+}
 
 const GroupHeadingTrailingAction = React.forwardRef<HTMLElement, ActionListGroupHeadingTrailingActionProps>(
   function ActionListGroupHeadingTrailingAction(props, ref) {
@@ -638,7 +664,9 @@ const TrailingVisual = ({className, ...props}: React.ComponentPropsWithoutRef<'s
   />
 )
 export interface ActionListDescriptionProps extends React.ComponentPropsWithoutRef<'span'> {
+  /** Clips the description to one line instead of wrapping. */
   truncate?: boolean
+  /** Whether the description sits beside the label or on its own line. */
   variant?: 'block' | 'inline'
 }
 const Description = ({className, truncate, variant = 'inline', ...props}: ActionListDescriptionProps) => (
@@ -655,7 +683,9 @@ const Description = ({className, truncate, variant = 'inline', ...props}: Action
   />
 )
 export interface ActionListHeadingProps extends React.ComponentPropsWithoutRef<'h2'> {
+  /** Heading element to render, so the list heading fits the surrounding document outline. */
   as?: React.ElementType
+  /** Visual size of the heading. */
   size?: 'small' | 'medium'
 }
 const Heading = ({as: Component = 'h2', children, className, size = 'medium', ...props}: ActionListHeadingProps) => (

@@ -75,7 +75,8 @@
     {
       "name": "layout",
       "type": "\"horizontal\" | \"vertical\"",
-      "defaultValue": "'vertical'"
+      "defaultValue": "'vertical'",
+      "description": "Whether the label sits above the control or beside it, as it does for a checkbox or radio."
     },
     {
       "name": "leadingVisual",
@@ -85,7 +86,8 @@
     {
       "name": "required",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Marks the field required, which is reflected on the control and shown on the label."
     },
     {
       "name": "validation",
@@ -104,15 +106,18 @@
         {
           "name": "requiredIndicator",
           "type": "boolean",
-          "defaultValue": "true"
+          "defaultValue": "true",
+          "description": "Shows the required marker. Set `false` to keep the field required without marking it."
         },
         {
           "name": "requiredText",
-          "type": "string"
+          "type": "string",
+          "description": "Text used for the required marker in place of the default."
         },
         {
           "name": "visuallyHidden",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Hides the label visually while keeping it available to assistive technology."
         }
       ]
     },
@@ -135,7 +140,8 @@
         {
           "name": "variant",
           "type": "\"error\" | \"success\"",
-          "required": true
+          "required": true,
+          "description": "Whether the message reports a problem or confirms success."
         }
       ]
     }

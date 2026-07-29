@@ -17,6 +17,7 @@ const linkVariants = cva(
 )
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof linkVariants> {
+  /** Element to render. Use a non-anchor element when the link is handled by a router. */
   as?: React.ElementType
 }
 

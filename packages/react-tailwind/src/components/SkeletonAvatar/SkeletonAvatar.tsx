@@ -6,7 +6,9 @@ import {SkeletonBox} from '../SkeletonBox'
 const sizeClasses = {small: 'size-5', medium: 'size-8', large: 'size-10', xlarge: 'size-12'}
 
 export interface SkeletonAvatarProps extends React.HTMLAttributes<HTMLElement> {
+  /** Width and height in pixels, matching the avatar it stands in for. */
   size?: AvatarSize | number | ResponsiveValue<number>
+  /** Renders square corners, matching a square avatar. */
   square?: boolean
 }
 

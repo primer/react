@@ -39,7 +39,8 @@
     {
       "name": "when",
       "type": "readonly Viewport[] | Viewport",
-      "required": true
+      "required": true,
+      "description": "Viewports at which the children are hidden."
     }
   ],
   "passthrough": {

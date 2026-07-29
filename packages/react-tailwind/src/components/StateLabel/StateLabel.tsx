@@ -91,6 +91,7 @@ const stateLabelVariants = cva(
 export interface StateLabelProps
   extends React.HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof stateLabelVariants> {
+  /** State being reported, which sets the label's colour, icon, and default text. */
   status: keyof typeof icons
 }
 

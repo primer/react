@@ -67,11 +67,13 @@
     {
       "name": "alignContent",
       "type": "\"center\" | \"start\"",
-      "defaultValue": "'center'"
+      "defaultValue": "'center'",
+      "description": "Whether the label sits centred or hugs the start edge when visuals are present."
     },
     {
       "name": "block",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Stretches the link to fill the width of its container."
     },
     {
       "name": "children",
@@ -79,59 +81,72 @@
     },
     {
       "name": "count",
-      "type": "string | number"
+      "type": "string | number",
+      "description": "Number shown in a trailing counter."
     },
     {
       "name": "disabled",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Prevents navigation and removes the link from the keyboard order."
     },
     {
       "name": "inactive",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Marks the link temporarily unavailable while keeping it focusable."
     },
     {
       "name": "labelWrap",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Lets a long label wrap onto more than one line instead of being clipped."
     },
     {
       "name": "leadingVisual",
-      "type": "ButtonVisual"
+      "type": "ButtonVisual",
+      "description": "Icon shown before the label."
     },
     {
       "name": "loading",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Replaces the leading visual with a spinner and suppresses navigation."
     },
     {
       "name": "loadingAnnouncement",
       "type": "string",
-      "defaultValue": "'Loading'"
+      "defaultValue": "'Loading'",
+      "description": "Text announced to assistive technology while the link is loading."
     },
     {
       "name": "onClick",
-      "type": "MouseEventHandler<HTMLAnchorElement>"
+      "type": "MouseEventHandler<HTMLAnchorElement>",
+      "description": "Called when the link is activated."
     },
     {
       "name": "render",
-      "type": "RenderProp<LinkButtonState>"
+      "type": "RenderProp<LinkButtonState>",
+      "description": "Renders the link as your own element, for a router link that still needs button styling."
     },
     {
       "name": "size",
-      "type": "ControlSize"
+      "type": "ControlSize",
+      "description": "Height and text size of the link."
     },
     {
       "name": "trailingAction",
-      "type": "ButtonVisual"
+      "type": "ButtonVisual",
+      "description": "Icon shown at the far end, conventionally a chevron."
     },
     {
       "name": "trailingVisual",
-      "type": "ButtonVisual"
+      "type": "ButtonVisual",
+      "description": "Icon shown after the label."
     },
     {
       "name": "variant",
       "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
-      "defaultValue": "'default'"
+      "defaultValue": "'default'",
+      "description": "Visual weight of the link. Use `primary` for the main action and `danger` for a destructive one."
     }
   ],
   "passthrough": {

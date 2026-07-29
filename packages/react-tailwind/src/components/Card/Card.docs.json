@@ -57,12 +57,14 @@
     {
       "name": "as",
       "type": "\"div\" | \"section\"",
-      "defaultValue": "'div'"
+      "defaultValue": "'div'",
+      "description": "Element to render. Use `section` when the card is a labelled region of the page."
     },
     {
       "name": "borderRadius",
       "type": "\"large\" | \"medium\"",
-      "defaultValue": "'large'"
+      "defaultValue": "'large'",
+      "description": "Corner radius of the card."
     },
     {
       "name": "children",
@@ -91,7 +93,8 @@
     {
       "name": "layout",
       "type": "\"compact\" | \"default\"",
-      "defaultValue": "'default'"
+      "defaultValue": "'default'",
+      "description": "Use `compact` to lay the card out in a row rather than stacked."
     },
     {
       "name": "metadata",
@@ -101,7 +104,8 @@
     {
       "name": "padding",
       "type": "\"condensed\" | \"none\" | \"normal\"",
-      "defaultValue": "'normal'"
+      "defaultValue": "'normal'",
+      "description": "Inner spacing of the card."
     }
   ],
   "subcomponents": [
@@ -111,7 +115,8 @@
         {
           "name": "as",
           "type": "\"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
-          "defaultValue": "'div'"
+          "defaultValue": "'div'",
+          "description": "Heading element to render, so the card heading fits the surrounding document outline."
         }
       ]
     },
@@ -120,7 +125,8 @@
       "props": [
         {
           "name": "aria-label",
-          "type": "string"
+          "type": "string",
+          "description": "Accessible name for the icon. Leave unset when the icon is decorative."
         },
         {
           "name": "className",
@@ -129,7 +135,8 @@
         {
           "name": "icon",
           "type": "React.ElementType",
-          "required": true
+          "required": true,
+          "description": "Icon component to render."
         }
       ]
     },
@@ -139,7 +146,8 @@
         {
           "name": "src",
           "type": "string",
-          "required": true
+          "required": true,
+          "description": "Source of the image."
         }
       ]
     }

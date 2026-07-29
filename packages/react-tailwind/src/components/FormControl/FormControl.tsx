@@ -12,7 +12,9 @@ export interface FormControlProps
   extends Omit<Field.Root.Props, 'className' | 'data-component'>,
     RegionProps<'label' | 'caption' | 'validation' | 'leadingVisual'> {
   className?: Field.Root.Props['className']
+  /** Whether the label sits above the control or beside it, as it does for a checkbox or radio. */
   layout?: 'horizontal' | 'vertical'
+  /** Marks the field required, which is reflected on the control and shown on the label. */
   required?: boolean
 }
 
@@ -130,8 +132,11 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
 
 export interface FormControlLabelProps extends Omit<Field.Label.Props, 'className' | 'data-component'> {
   className?: Field.Label.Props['className']
+  /** Hides the label visually while keeping it available to assistive technology. */
   visuallyHidden?: boolean
+  /** Shows the required marker. Set `false` to keep the field required without marking it. */
   requiredIndicator?: boolean
+  /** Text used for the required marker in place of the default. */
   requiredText?: string
 }
 
@@ -224,6 +229,7 @@ const Caption = React.forwardRef<HTMLParagraphElement, FormControlCaptionProps>(
 export interface FormControlValidationProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'data-component'> {
   className?: string
+  /** Whether the message reports a problem or confirms success. */
   variant: 'error' | 'success'
 }
 const Validation = React.forwardRef<HTMLDivElement, FormControlValidationProps>(function Validation(

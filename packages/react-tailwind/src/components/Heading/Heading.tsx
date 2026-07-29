@@ -10,6 +10,7 @@ const headingVariants = cva('m-0 font-display text-default', {
 })
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof headingVariants> {
+  /** Heading element to render, so the level fits the surrounding document outline independently of its size. */
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 

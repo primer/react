@@ -61,19 +61,23 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'span'"
+      "defaultValue": "'span'",
+      "description": "Element to render."
     },
     {
       "name": "size",
-      "type": "TextSize"
+      "type": "TextSize",
+      "description": "Size from the Primer type scale."
     },
     {
       "name": "weight",
-      "type": "\"light\" | \"medium\" | \"normal\" | \"semibold\""
+      "type": "\"light\" | \"medium\" | \"normal\" | \"semibold\"",
+      "description": "Font weight."
     },
     {
       "name": "whiteSpace",
-      "type": "\"normal\" | \"nowrap\" | \"pre\" | \"pre-line\" | \"pre-wrap\""
+      "type": "\"normal\" | \"nowrap\" | \"pre\" | \"pre-line\" | \"pre-wrap\"",
+      "description": "How whitespace and line breaks in the content are treated."
     }
   ]
 }

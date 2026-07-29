@@ -6,7 +6,7 @@ Import: `import {Label} from '@primer/react-tailwind/Label'`
 
 ## Props
 
-- `as`: `React.ElementType` — Default `'span'`.
+- `as`: `React.ElementType` — Default `'span'`. Element to render.
 - `size`: `"large" | "small" | null`
 - `variant`: `"accent" | "attention" | "danger" | "default" | "done" | "primary" | "secondary" | "severe" | "sponsors" | "success" | null`
 

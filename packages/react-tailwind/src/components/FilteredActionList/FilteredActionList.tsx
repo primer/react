@@ -25,76 +25,116 @@ type FilteredActionListValue = {
 }
 
 export interface FilteredActionListItem {
+  /** Stable identity used for selection. Number and string ids stay distinct. */
   id?: FilteredActionListItemId
+  /** Primary label for the item. */
   text?: React.ReactNode
   /** Text used to filter an item whose label is not plain text. */
   filterValue?: string
+  /** Secondary text shown with the label. */
   description?: React.ReactNode
+  /** Whether the description sits beside the label or on its own line. */
   descriptionVariant?: 'inline' | 'block'
+  /** Visual shown before the label. */
   leadingVisual?: ItemVisual
+  /** Visual shown after the label. */
   trailingVisual?: ItemVisual
+  /** Marks the item selected in an uncontrolled list. */
   selected?: boolean
+  /** Prevents the item being activated or selected. */
   disabled?: boolean
+  /** Group this item belongs to, matched against `groupMetadata`. */
   groupId?: string
+  /** Use `danger` for a destructive action. */
   variant?: 'default' | 'danger'
   children?: React.ReactNode
   className?: string
+  /** Called when the item is activated by click or keyboard. */
   onAction?: (
     item: FilteredActionListItem,
     event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => void
+  /** Renderer for this item, taking precedence over the group and list renderers. */
   renderItem?: FilteredActionListRenderItem
 }
 
 export type FilteredActionListRenderItem = (item: FilteredActionListItem) => React.ReactElement | null
 
 export interface FilteredActionListGroup {
+  /** Identifier items reference through their own `groupId`. */
   groupId: string
+  /** Heading shown above the group. */
   header?: {
     title?: React.ReactNode
     variant?: 'subtle' | 'filled'
   }
+  /** Renderer for items in this group, taking precedence over the list renderer. */
   renderItem?: FilteredActionListRenderItem
+  /** Component used to render this group, replacing the default group element. */
   renderGroup?: React.ElementType
 }
 
 export interface FilteredActionListTextInputProps
   extends Omit<TextInputProps, 'aria-label' | 'onChange' | 'placeholder' | 'value'> {
+  /** Visual shown inside the filter input, before the text. */
   leadingVisual?: ItemVisual
 }
 
 export interface FilteredActionListProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'data-component' | 'onChange'> {
+  /** Items to list. Filtering, selection, and virtualization all operate on this array. */
   items: readonly FilteredActionListItem[]
+  /** Group headers and per-group renderers, matched to items by `groupId`. */
   groupMetadata?: readonly FilteredActionListGroup[]
   /** A list-level renderer used unless a group or item provides one. */
   renderItem?: FilteredActionListRenderItem
+  /** Component used to render each group, replacing the default group element. */
   renderGroup?: React.ElementType
+  /** Density and inset treatment of the underlying list. */
   variant?: 'inset' | 'horizontal-inset' | 'full'
+  /** How many items may be selected and which selection semantics the list reports. */
   selectionVariant?: 'single' | 'multiple' | 'radio'
+  /** Draws a divider between items. */
   showItemDividers?: boolean
   /** Controlled filter query. */
   filterValue?: string
+  /** Initial filter query for an uncontrolled list. */
   defaultFilterValue?: string
+  /** Called with the new query whenever the filter input changes. */
   onFilterChange?: (value: string, details: Combobox.Root.ChangeEventDetails) => void
   /** Controlled selected IDs. Number and string IDs remain distinct. */
   selectedItemIds?: readonly FilteredActionListItemId[]
+  /** Initially selected ids for an uncontrolled list. */
   defaultSelectedItemIds?: readonly FilteredActionListItemId[]
+  /** Called with the full set of selected ids whenever selection changes. */
   onSelectedChange?: (selectedItemIds: FilteredActionListItemId[], details?: Combobox.Root.ChangeEventDetails) => void
   /** Opts a multiple-selection list into a select-all control. */
   onSelectAllChange?: (selected: boolean) => void
+  /** Shows a loading affordance in place of results. */
   loading?: boolean
+  /** Which loading affordance to show, and whether it replaces the list or sits beside it. */
   loadingType?: FilteredActionListLoadingType
+  /** Placeholder shown in the filter input. */
   placeholderText?: string
+  /** Extra props forwarded to the filter input. */
   textInputProps?: FilteredActionListTextInputProps
+  /** Content shown in place of the list, for an error or other terminal state. */
   message?: React.ReactNode
+  /** Title and description for the built-in message, as an alternative to supplying `message`. */
   messageText?: {title: string; description: string}
+  /** Content shown when the filter matches no items. */
   emptyStateText?: React.ReactNode
+  /** Extra props forwarded to the underlying list. */
   actionListProps?: Omit<Partial<ActionListRootProps>, 'children' | 'data-component'>
+  /** Ref to the filter input, for focusing it from outside. */
   inputRef?: React.Ref<HTMLInputElement>
+  /** Ref to the scrolling results container. */
   scrollContainerRef?: React.Ref<HTMLDivElement>
+  /** Called when the filter input element is attached or replaced. */
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement | null>) => void
+  /** Called when the results container element is attached or replaced. */
   onListContainerRefChanged?: (element: HTMLElement | null) => void
+  /** Announces result counts and selection changes to assistive technology. */
   announcementsEnabled?: boolean
   /**
    * Increases the input text size on narrow viewports to prevent iOS from
@@ -107,14 +147,19 @@ export interface FilteredActionListProps
    * @default 'wrap'
    */
   focusOutBehavior?: 'stop' | 'wrap'
+  /** Called when keyboard focus moves to a different option. */
   onActiveDescendantChanged?: (
     current: HTMLElement | undefined,
     previous: HTMLElement | undefined,
     directlyActivated: boolean,
   ) => void
+  /** Stops hovering an option from making it the active descendant. */
   disableSelectOnHover?: boolean
+  /** Moves focus to the filter input when the list mounts. */
   setInitialFocus?: boolean
+  /** Includes elements rendered before the list in the keyboard focus order. */
   focusPrependedElements?: boolean
+  /** Scrolling behavior used when bringing the active option into view. */
   scrollBehavior?: ScrollBehavior
   /** Enables fixed-row virtualization for ungrouped, uniform default items. */
   virtualized?: boolean

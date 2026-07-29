@@ -15,21 +15,36 @@ type LinkButtonState = {
 }
 
 export interface LinkButtonProps extends Omit<React.ComponentPropsWithoutRef<'a'>, 'children' | 'color' | 'onClick'> {
+  /** Whether the label sits centred or hugs the start edge when visuals are present. */
   alignContent?: 'start' | 'center'
+  /** Stretches the link to fill the width of its container. */
   block?: boolean
   children?: React.ReactNode
+  /** Number shown in a trailing counter. */
   count?: number | string
+  /** Prevents navigation and removes the link from the keyboard order. */
   disabled?: boolean
+  /** Marks the link temporarily unavailable while keeping it focusable. */
   inactive?: boolean
+  /** Lets a long label wrap onto more than one line instead of being clipped. */
   labelWrap?: boolean
+  /** Icon shown before the label. */
   leadingVisual?: ButtonVisual
+  /** Replaces the leading visual with a spinner and suppresses navigation. */
   loading?: boolean
+  /** Text announced to assistive technology while the link is loading. */
   loadingAnnouncement?: string
+  /** Called when the link is activated. */
   onClick?: React.MouseEventHandler<HTMLAnchorElement>
+  /** Renders the link as your own element, for a router link that still needs button styling. */
   render?: useRender.RenderProp<LinkButtonState>
+  /** Height and text size of the link. */
   size?: ControlSize
+  /** Icon shown at the far end, conventionally a chevron. */
   trailingAction?: ButtonVisual
+  /** Icon shown after the label. */
   trailingVisual?: ButtonVisual
+  /** Visual weight of the link. Use `primary` for the main action and `danger` for a destructive one. */
   variant?: 'default' | 'primary' | 'danger' | 'invisible' | 'link'
 }
 

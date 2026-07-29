@@ -44,12 +44,19 @@ export type Column<Data extends UniqueRow> =
 
 export interface DataTableProps<Data extends UniqueRow>
   extends Omit<React.ComponentPropsWithoutRef<typeof Table>, 'children'> {
+  /** Rows to render. */
   data: Data[]
+  /** Column definitions, giving each column its header, width, and how to read a cell from a row. */
   columns: Column<Data>[]
+  /** Column sorted on first render. */
   initialSortColumn?: string
+  /** Direction sorted on first render. */
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
+  /** Stops the table sorting `data` itself, for when rows arrive already sorted by a server. */
   externalSorting?: boolean
+  /** Reads a stable identity from a row. Supply it when rows have no `id` field. */
   getRowId?: (row: Data) => string | number
+  /** Called with the column and new direction when a sortable header is activated. */
   onToggleSort?: (columnId: string, direction: Exclude<SortDirection, 'NONE'>) => void
 }
 

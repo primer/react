@@ -6,11 +6,11 @@ Import: `import {SkeletonBox} from '@primer/react-tailwind/SkeletonBox'`
 
 ## Props
 
-- `as`: `React.ElementType` — Default `'div'`.
-- `data-component`: `string`
-- `delay`: `number | "long" | "short"`
-- `height`: `Height<string | number>`
-- `width`: `Width<string | number>`
+- `as`: `React.ElementType` — Default `'div'`. Element to render.
+- `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
+- `delay`: `number | "long" | "short"` — Waits before showing the placeholder, so a fast response never flashes one. Accepts a named delay or milliseconds.
+- `height`: `Height<string | number>` — Height of the placeholder.
+- `width`: `Width<string | number>` — Width of the placeholder.
 
 ## Differences from `@primer/react`
 

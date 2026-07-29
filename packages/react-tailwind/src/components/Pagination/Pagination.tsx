@@ -9,19 +9,31 @@ type PageType = 'previous' | 'next' | 'page' | 'ellipsis'
 
 export interface PageProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode
+  /** Page this link points at. */
   number: number
+  /** Called when the page link is activated. */
   onPageSelect?: React.MouseEventHandler
+  /** What the link represents: a numbered page, a previous or next step, or a gap in the range. */
   pageType: PageType
 }
 export interface PaginationProps extends React.ComponentPropsWithoutRef<'nav'> {
+  /** Overrides the marker used to identify this element in tests and styling. */
   'data-component'?: string
+  /** Total number of pages. */
   pageCount: number
+  /** Page currently being viewed, counting from one. */
   currentPage: number
+  /** Called with the event and the requested page when a page is selected. */
   onPageChange?: (event: React.MouseEvent, page: number) => void
+  /** Builds the URL for a page, so pagination works without JavaScript. */
   hrefBuilder?: (page: number) => string
+  /** How many pages stay visible at each end of the range. */
   marginPageCount?: number
+  /** Shows the numbered pages. Accepts a responsive object to hide them on narrow viewports. */
   showPages?: boolean | ResponsiveValue<boolean>
+  /** How many pages stay visible on each side of the current one. */
   surroundingPageCount?: number
+  /** Renders each page link yourself, for integrating with a router. */
   renderPage?: (props: PageProps) => React.ReactNode
 }
 

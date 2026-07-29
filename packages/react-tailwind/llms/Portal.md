@@ -8,8 +8,8 @@ Renders a `<div>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `container`: `PortalContainerRef | PortalContainer | null`
-- `onMount`: `(() => void)`
+- `container`: `PortalContainerRef | PortalContainer | null` — Where the children are rendered. Defaults to the shared portal root.
+- `onMount`: `(() => void)` — Called once the children have been rendered into the container.
 
 ## Differences from `@primer/react`
 

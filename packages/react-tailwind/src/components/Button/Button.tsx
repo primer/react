@@ -10,6 +10,7 @@ import {ButtonContent} from './ButtonPresentation'
 import {buttonBaseClassName} from './styles'
 
 export interface ButtonBaseProps extends React.ComponentPropsWithoutRef<typeof BaseButton> {
+  /** Overrides the marker used to identify this element in tests and styling. */
   'data-component'?: string
 }
 
@@ -28,21 +29,35 @@ export const ButtonBase = React.forwardRef<HTMLElement, ButtonBaseProps>(functio
 })
 
 export interface ButtonProps extends Omit<ButtonBaseProps, 'className' | 'children' | 'data-component' | 'disabled'> {
+  /** Whether the label sits centred or hugs the start edge when visuals are present. */
   alignContent?: 'start' | 'center'
+  /** Stretches the button to fill the width of its container. */
   block?: boolean
+  /** Overrides the marker used to identify this element in tests and styling. */
   'data-component'?: string
   children?: React.ReactNode
   className?: string
+  /** Number shown in a trailing counter, for a button that acts on a known quantity. */
   count?: number | string
+  /** Prevents activation and removes the button from the keyboard order. */
   disabled?: boolean
+  /** Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced. */
   inactive?: boolean
+  /** Lets a long label wrap onto more than one line instead of being clipped. */
   labelWrap?: boolean
+  /** Icon shown before the label. */
   leadingVisual?: ButtonVisual
+  /** Icon shown at the far end, conventionally a chevron for a button that opens something. */
   trailingAction?: ButtonVisual
+  /** Icon shown after the label. */
   trailingVisual?: ButtonVisual
+  /** Replaces the leading visual with a spinner and suppresses activation. */
   loading?: boolean
+  /** Text announced to assistive technology while the button is loading. */
   loadingAnnouncement?: string
+  /** Height and text size of the button. */
   size?: ControlSize
+  /** Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one. */
   variant?: 'default' | 'primary' | 'danger' | 'invisible' | 'link'
 }
 

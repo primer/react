@@ -47,6 +47,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
 })
 
 export interface NavListHeadingProps extends React.ComponentPropsWithoutRef<typeof Heading> {
+  /** Hides the heading visually while keeping it available to assistive technology. */
   visuallyHidden?: boolean
 }
 const NavListHeading = React.forwardRef<HTMLHeadingElement, NavListHeadingProps>(function NavListHeading(
@@ -65,7 +66,9 @@ const NavListHeading = React.forwardRef<HTMLHeadingElement, NavListHeadingProps>
 })
 
 export interface NavListGroupProps extends Omit<React.ComponentPropsWithoutRef<'section'>, 'title'> {
+  /** Removes the divider drawn above the group. */
   hideDivider?: boolean
+  /** Heading text for the group. */
   title?: React.ReactNode
 }
 const Group = React.forwardRef<HTMLElement, NavListGroupProps>(function NavListGroup(
@@ -127,6 +130,7 @@ const Description = ActionList.Description
 export interface NavListItemProps
   extends React.ComponentPropsWithoutRef<'a'>,
     RegionProps<'leadingVisual' | 'trailingVisual' | 'trailingAction' | 'description'> {
+  /** Marks the item temporarily unavailable and explains why. The item stays reachable. */
   inactiveText?: React.ReactNode
 }
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavListItem(

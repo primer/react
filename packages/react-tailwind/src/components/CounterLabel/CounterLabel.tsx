@@ -14,7 +14,9 @@ const counterVariants = cva(
 )
 
 export interface CounterLabelProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof counterVariants> {
+  /** Accessible name giving the count meaning, since the number alone rarely explains itself. */
   'aria-label'?: string
+  /** Overrides the marker used to identify this element in tests and styling. */
   'data-component'?: string
 }
 

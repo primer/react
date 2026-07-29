@@ -9,7 +9,7 @@ Renders a `<span>` and forwards unrecognized props to it, so it also accepts tha
 ## Props
 
 - `size`: `"medium" | "small" | null`
-- `status`: `"alertClosed" | "alertDismissed" | "alertFixed" | "alertOpened" | "archived" | "closed" | "draft" | "issueClosed" | "issueClosedNotPlanned" | "issueDraft" | "issueOpened" | ... 5 more ... | "unavailable"`
+- `status`: `"alertClosed" | "alertDismissed" | "alertFixed" | "alertOpened" | "archived" | "closed" | "draft" | "issueClosed" | "issueClosedNotPlanned" | "issueDraft" | "issueOpened" | ... 5 more ... | "unavailable"` — State being reported, which sets the label's colour, icon, and default text.
 
 ## Differences from `@primer/react`
 

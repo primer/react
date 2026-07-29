@@ -2,9 +2,13 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 export interface SubNavProps extends React.ComponentPropsWithoutRef<'nav'> {
+  /** Controls shown at the end of the bar, beside the links. */
   actions?: React.ReactNode
+  /** Aligns the links to the end of the bar. */
   align?: 'right'
+  /** Stretches the bar to fill the width of its container. */
   full?: boolean
+  /** Accessible name for the navigation region. */
   label?: string
 }
 
@@ -37,7 +41,9 @@ const SubNavLinks = React.forwardRef<HTMLDivElement, SubNavLinksProps>(function 
 })
 
 export interface SubNavLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Element to render. Use a non-anchor element when the link is handled by a router. */
   as?: React.ElementType
+  /** Marks the link as the current page. */
   selected?: boolean
 }
 const SubNavLink = React.forwardRef<HTMLElement, SubNavLinkProps>(function SubNavLink(

@@ -2,6 +2,7 @@ import type {CSSProperties, ElementType} from 'react'
 
 /** Allows a presentational component to select its rendered element. */
 export interface AsProp {
+  /** Element to render. */
   as?: ElementType
 }
 

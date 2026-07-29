@@ -77,7 +77,8 @@
     {
       "name": "status",
       "type": "\"alertClosed\" | \"alertDismissed\" | \"alertFixed\" | \"alertOpened\" | \"archived\" | \"closed\" | \"draft\" | \"issueClosed\" | \"issueClosedNotPlanned\" | \"issueDraft\" | \"issueOpened\" | ... 5 more ... | \"unavailable\"",
-      "required": true
+      "required": true,
+      "description": "State being reported, which sets the label's colour, icon, and default text."
     }
   ],
   "passthrough": {

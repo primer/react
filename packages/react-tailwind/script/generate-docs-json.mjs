@@ -148,13 +148,22 @@ export function buildDocs(componentName) {
     if (props.length > 0) docs.props = props.sort(byName)
 
     const subcomponents = Object.entries(parsed.subComponents ?? {})
-      .map(([name, info]) => ({
-        name,
-        props: Object.entries(info.props)
+      .map(([name, info]) => {
+        const props = Object.entries(info.props)
           .map(([propName, propInfo]) => toProp(propName, propInfo, defaults))
           .filter(prop => prop.name !== 'key')
-          .sort(byName),
-      }))
+
+        // A part declares its own regions, so look them up under the part's props type.
+        const owner = `${componentName}.${name}`
+        for (const region of regions.get(`${componentName}${name}Props`) ?? regions.get(`${name}Props`) ?? []) {
+          const description = regionDescription(owner, region)
+          const existing = props.find(prop => prop.name === region)
+          if (existing) existing.description ||= description
+          else props.push({name: region, type: 'React.ReactNode', description})
+        }
+
+        return {name, props: props.sort(byName)}
+      })
       .filter(entry => entry.props.length > 0)
     if (subcomponents.length > 0) docs.subcomponents = subcomponents
   }

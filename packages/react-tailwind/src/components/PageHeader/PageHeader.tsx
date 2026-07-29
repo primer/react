@@ -18,6 +18,7 @@ function hiddenClasses(
 }
 
 export interface PageHeaderProps extends React.HTMLAttributes<HTMLElement>, AsProp {
+  /** Draws a border below the header, separating it from the content. */
   hasBorder?: boolean
 }
 const Root = React.forwardRef<HTMLElement, PageHeaderProps>(function PageHeader(
@@ -39,6 +40,7 @@ const Root = React.forwardRef<HTMLElement, PageHeaderProps>(function PageHeader(
 })
 
 export interface PageHeaderPartProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'hidden'> {
+  /** Hides the part. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
 }
 const ContextArea = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(function ContextArea(
@@ -59,6 +61,7 @@ const ContextArea = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functi
   )
 })
 export interface ParentLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'hidden'>, AsProp {
+  /** Hides the parent link. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
 }
 const ParentLink = React.forwardRef<HTMLElement, ParentLinkProps>(function ParentLink(
@@ -112,6 +115,7 @@ const ContextAreaActions = React.forwardRef<HTMLDivElement, PageHeaderPartProps>
   )
 })
 export interface TitleAreaProps extends PageHeaderPartProps {
+  /** Size of the title area. Accepts a responsive object to vary it per viewport. */
   variant?: ResponsiveValue<TitleVariant>
 }
 const TitleArea = React.forwardRef<HTMLDivElement, TitleAreaProps>(function TitleArea(
@@ -189,7 +193,9 @@ const LeadingVisual = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(func
   )
 })
 export interface TitleProps extends Omit<React.HTMLAttributes<HTMLHeadingElement>, 'hidden'> {
+  /** Heading element to render, so the title fits the surrounding document outline. */
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  /** Hides the title. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
 }
 const Title = React.forwardRef<HTMLHeadingElement, TitleProps>(function Title(
@@ -274,6 +280,7 @@ const Description = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functi
   )
 })
 export interface NavigationProps extends PageHeaderPartProps {
+  /** Element to render. Use `nav` only when the navigation has an accessible name. */
   as?: 'nav' | 'div'
 }
 const Navigation = React.forwardRef<HTMLElement, NavigationProps>(function Navigation(

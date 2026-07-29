@@ -46,17 +46,20 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'div'"
+      "defaultValue": "'div'",
+      "description": "Element to render."
     },
     {
       "name": "full",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Removes the border and radius so the message can span a container edge to edge."
     },
     {
       "name": "variant",
       "type": "\"danger\" | \"default\" | \"success\" | \"warning\"",
-      "defaultValue": "'default'"
+      "defaultValue": "'default'",
+      "description": "Severity of the message, which sets its colour."
     }
   ],
   "passthrough": {

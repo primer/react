@@ -24,14 +24,23 @@ const tokenBase = cva(
 )
 
 export interface TokenBaseProps extends Omit<React.HTMLAttributes<HTMLElement>, 'id'> {
+  /** Element to render. Use `a` or `button` when the token is interactive. */
   as?: 'span' | 'a' | 'button'
+  /** Identifier passed back to `onRemove`, so a caller can tell which token was removed. */
   id?: string | number
+  /** Label shown on the token. */
   text: React.ReactNode
+  /** Height and text size of the token. */
   size?: TokenSize
+  /** Shows a remove button and is called when it is activated. */
   onRemove?: () => void
+  /** Hides the remove button while `onRemove` still handles removal by keyboard. */
   hideRemoveButton?: boolean
+  /** Marks the token as the current one in a list of tokens. */
   isSelected?: boolean
+  /** Makes the token a link to the given URL. */
   href?: string
+  /** Prevents interaction with the token and its remove button. */
   disabled?: boolean
 }
 

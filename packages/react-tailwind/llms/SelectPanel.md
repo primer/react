@@ -6,57 +6,57 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 
 ## Props
 
-- `actionListProps`: `SelectPanelActionListProps`
-- `align`: `Align` — Default `'start'`.
-- `anchorId`: `string`
-- `anchorRef`: `RefObject<HTMLElement | null>`
-- `aria-label`: `string`
+- `actionListProps`: `SelectPanelActionListProps` — Extra props forwarded to the underlying list.
+- `align`: `Align` — Default `'start'`. Alignment of the panel along the anchor's edge.
+- `anchorId`: `string` — Id of the element the panel is anchored to.
+- `anchorRef`: `RefObject<HTMLElement | null>` — Ref to your own anchor element, when you render the anchor yourself. Ref to the anchor element the panel renders.
+- `aria-label`: `string` — Accessible name for the panel.
 - `className`: `string`
-- `cssAnchorPositioningSettings`: `{ fallbackStrategy?: "default" | "none" | "opposite-side" | undefined; }`
-- `defaultFilterValue`: `string` — Default `''`.
-- `defaultOpen`: `boolean` — Default `false`.
-- `disableFullscreenOnNarrow`: `boolean` — Default `false`.
-- `disableSelectOnHover`: `boolean` — Default `false`.
-- `displayInViewport`: `boolean` — Default `false`.
-- `filterValue`: `string`
-- `focusOutBehavior`: `"start" | "stop" | "wrap"` — Default `'wrap'`.
-- `focusPrependedElements`: `boolean` — Default `false`.
-- `groupMetadata`: `readonly SelectPanelGroupMetadata[]`
-- `height`: `"auto" | "fit-content" | "initial" | "large" | "medium" | "small" | "xlarge" | "xsmall"`
-- `id`: `string`
-- `initialLoadingType`: `"skeleton" | "spinner"` — Default `'spinner'`.
-- `inputLabel`: `string`
-- `items`: `readonly SelectPanelItem[]`
-- `loading`: `boolean` — Default `false`.
-- `message`: `SelectPanelMessage | React.ReactNode`
-- `notice`: `SelectPanelNotice`
-- `onActiveDescendantChanged`: `((current: HTMLElement | undefined, previous: HTMLElement | undefined, directlyActivated: boolean) => void)`
-- `onCancel`: `(() => void) | (() => void)`
-- `onFilterChange`: `((filter: string, details: ChangeEventDetails) => void)`
-- `onOpenChange`: `((open: boolean, gesture: SelectPanelOpenChangeGesture) => void)`
-- `onScrollEnd`: `(() => void)`
-- `onSelectedChange`: `(selected: SelectPanelItem[] | SelectPanelItem | undefined, details?: ChangeEventDetails | undefined) => void`
-- `open`: `boolean`
-- `overlayProps`: `SelectPanelOverlayProps`
-- `placeholder`: `string`
-- `placeholderText`: `string` — Default `'Filter items'`.
-- `renderAnchor`: `((props: SelectPanelAnchorProps) => React.ReactElement) | null`
-- `renderGroup`: `SelectPanelRenderGroup`
-- `renderItem`: `SelectPanelRenderItem`
-- `scrollContainerRef`: `Ref<HTMLDivElement>`
-- `secondaryAction`: `React.ReactElement`
-- `selected`: `readonly SelectPanelItem[] | SelectPanelItem | undefined`
-- `selectionVariant`: `"multiple" | "single"`
-- `setInitialFocus`: `boolean` — Default `false`.
-- `showItemDividers`: `boolean` — Default `false`.
-- `showSelectAll`: `boolean` — Default `false`.
-- `showSelectedOptionsFirst`: `boolean` — Default `true`.
-- `subtitle`: `React.ReactNode`
-- `textInputProps`: `Partial<Omit<TextInputProps, "defaultValue" | "onChange" | "value">>`
-- `title`: `React.ReactNode`
-- `variant`: `"anchored" | "modal"` — Default `'empty'`.
-- `virtualized`: `boolean` — Default `false`.
-- `width`: `"auto" | "large" | "medium" | "small" | "xlarge" | "xxlarge"`
+- `cssAnchorPositioningSettings`: `{ fallbackStrategy?: "default" | "none" | "opposite-side" | undefined; }` — How the panel falls back when CSS anchor positioning cannot place it.
+- `defaultFilterValue`: `string` — Default `''`. Initial filter query when the panel owns its own state.
+- `defaultOpen`: `boolean` — Default `false`. Whether the panel starts open when it owns its own state.
+- `disableFullscreenOnNarrow`: `boolean` — Default `false`. Keeps the panel anchored on narrow viewports instead of filling the screen.
+- `disableSelectOnHover`: `boolean` — Default `false`. Stops hovering an option from making it the active descendant.
+- `displayInViewport`: `boolean` — Default `false`. Keeps the panel within the viewport rather than its nearest scrolling ancestor.
+- `filterValue`: `string` — Controls the filter query. Supply it with `onFilterChange` to own the state.
+- `focusOutBehavior`: `"start" | "stop" | "wrap"` — Default `'wrap'`. Whether keyboard navigation stops or wraps at the first and last option.
+- `focusPrependedElements`: `boolean` — Default `false`. Includes elements rendered before the list in the keyboard focus order.
+- `groupMetadata`: `readonly SelectPanelGroupMetadata[]` — Group headers, matched to options by their group id.
+- `height`: `"auto" | "fit-content" | "initial" | "large" | "medium" | "small" | "xlarge" | "xsmall"` — Height of the panel.
+- `id`: `string` — Identifier for the panel, used to associate it with its anchor.
+- `initialLoadingType`: `"skeleton" | "spinner"` — Default `'spinner'`. Which affordance the first load shows.
+- `inputLabel`: `string` — Accessible name for the filter input.
+- `items`: `readonly SelectPanelItem[]` — Options to choose from.
+- `loading`: `boolean` — Default `false`. Shows a loading affordance in place of the options.
+- `message`: `SelectPanelMessage | React.ReactNode` — Content shown in place of the options, for an error or other terminal state.
+- `notice`: `SelectPanelNotice` — Banner shown above the options, for a warning that does not replace them.
+- `onActiveDescendantChanged`: `((current: HTMLElement | undefined, previous: HTMLElement | undefined, directlyActivated: boolean) => void)` — Called when keyboard focus moves to a different option.
+- `onCancel`: `(() => void) | (() => void)` — Called when the panel is dismissed without a selection. Called when the panel is dismissed without a selection. Required for a modal panel.
+- `onFilterChange`: `((filter: string, details: ChangeEventDetails) => void)` — Called with the new query whenever the filter input changes.
+- `onOpenChange`: `((open: boolean, gesture: SelectPanelOpenChangeGesture) => void)` — Called when the panel opens or closes, with the gesture that caused it.
+- `onScrollEnd`: `(() => void)` — Called when the options are scrolled to the end, for loading another page.
+- `onSelectedChange`: `(selected: SelectPanelItem[] | SelectPanelItem | undefined, details?: ChangeEventDetails | undefined) => void` — Called with the new selection whenever it changes.
+- `open`: `boolean` — Controls whether the panel is open. Supply it with `onOpenChange` to own the state.
+- `overlayProps`: `SelectPanelOverlayProps` — Size and positioning of the panel overlay.
+- `placeholder`: `string` — Text shown on the anchor when nothing is selected.
+- `placeholderText`: `string` — Default `'Filter items'`. Placeholder shown in the filter input.
+- `renderAnchor`: `((props: SelectPanelAnchorProps) => React.ReactElement) | null` — Set to null when the anchor is rendered outside the panel and referenced by `anchorRef`. Renders the anchor yourself, receiving the props that make it control the panel.
+- `renderGroup`: `SelectPanelRenderGroup` — Renders each group yourself.
+- `renderItem`: `SelectPanelRenderItem` — Renders each option yourself.
+- `scrollContainerRef`: `Ref<HTMLDivElement>` — Ref to the scrolling options container.
+- `secondaryAction`: `React.ReactElement` — Extra control shown in the panel's footer.
+- `selected`: `readonly SelectPanelItem[] | SelectPanelItem | undefined` — Currently selected option or options.
+- `selectionVariant`: `"multiple" | "single"` — Whether one option or several may be selected.
+- `setInitialFocus`: `boolean` — Default `false`. Moves focus to the filter input when the panel opens.
+- `showItemDividers`: `boolean` — Default `false`. Draws a divider between options.
+- `showSelectAll`: `boolean` — Default `false`. Shows a control that selects or clears every option at once.
+- `showSelectedOptionsFirst`: `boolean` — Default `true`. Moves selected options to the top of the list.
+- `subtitle`: `React.ReactNode` — Supporting text shown below the title.
+- `textInputProps`: `Partial<Omit<TextInputProps, "defaultValue" | "onChange" | "value">>` — Extra props forwarded to the filter input.
+- `title`: `React.ReactNode` — Heading shown at the top of the panel.
+- `variant`: `"anchored" | "modal"` — Default `'empty'`. How the panel presents itself. `anchored` attaches it to its anchor. How the panel presents itself. `modal` presents it over the page and requires `onCancel`.
+- `virtualized`: `boolean` — Default `false`. Renders only the visible options, for a long uniform list.
+- `width`: `"auto" | "large" | "medium" | "small" | "xlarge" | "xxlarge"` — Width of the panel.
 
 ## Message props
 
@@ -69,42 +69,42 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 
 ## SecondaryActionButton props
 
-- `alignContent`: `"center" | "start"`
-- `block`: `boolean`
+- `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
+- `block`: `boolean` — Stretches the button to fill the width of its container.
 - `children`: `React.ReactElement[]`
 - `className`: `string`
-- `count`: `string | number`
-- `data-component`: `string`
-- `disabled`: `boolean`
-- `inactive`: `boolean`
-- `labelWrap`: `boolean`
-- `leadingVisual`: `ButtonVisual`
-- `loading`: `boolean` — Default `false`.
-- `loadingAnnouncement`: `string`
-- `size`: `ControlSize`
-- `trailingAction`: `ButtonVisual`
-- `trailingVisual`: `ButtonVisual`
-- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'empty'`.
+- `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
+- `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
+- `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
+- `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
+- `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
+- `leadingVisual`: `ButtonVisual` — Icon shown before the label.
+- `loading`: `boolean` — Default `false`. Replaces the leading visual with a spinner and suppresses activation.
+- `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
+- `size`: `ControlSize` — Height and text size of the button.
+- `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `trailingVisual`: `ButtonVisual` — Icon shown after the label.
+- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'empty'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
 
 ## SecondaryActionLink props
 
-- `alignContent`: `"center" | "start"`
-- `block`: `boolean`
+- `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
+- `block`: `boolean` — Stretches the button to fill the width of its container.
 - `children`: `React.ReactElement[]`
 - `className`: `string`
-- `count`: `string | number`
-- `data-component`: `string`
-- `disabled`: `boolean`
-- `href`: `string`
-- `inactive`: `boolean`
-- `labelWrap`: `boolean`
-- `leadingVisual`: `ButtonVisual`
-- `loading`: `boolean` — Default `false`.
-- `loadingAnnouncement`: `string`
-- `size`: `ControlSize`
-- `trailingAction`: `ButtonVisual`
-- `trailingVisual`: `ButtonVisual`
-- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'empty'`.
+- `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
+- `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
+- `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
+- `href`: `string` — URL the secondary action navigates to.
+- `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
+- `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
+- `leadingVisual`: `ButtonVisual` — Icon shown before the label.
+- `loading`: `boolean` — Default `false`. Replaces the leading visual with a spinner and suppresses activation.
+- `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
+- `size`: `ControlSize` — Height and text size of the button.
+- `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `trailingVisual`: `ButtonVisual` — Icon shown after the label.
+- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'empty'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
 
 ## Differences from `@primer/react`
 

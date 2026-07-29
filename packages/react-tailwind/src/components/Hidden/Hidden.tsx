@@ -14,6 +14,7 @@ const hiddenAtViewport: Record<Viewport, string> = {
 
 export interface HiddenProps extends Omit<ComponentPropsWithoutRef<'div'>, 'data-component'> {
   children: ReactNode
+  /** Viewports at which the children are hidden. */
   when: Viewport | readonly Viewport[]
 }
 

@@ -28,7 +28,8 @@
     {
       "name": "as",
       "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
-      "defaultValue": "'h2'"
+      "defaultValue": "'h2'",
+      "description": "Heading element to render, so the level fits the surrounding document outline independently of its size."
     },
     {
       "name": "size",

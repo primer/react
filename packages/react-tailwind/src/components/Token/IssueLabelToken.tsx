@@ -9,6 +9,7 @@ const issueLabelToken = cva('border border-solid', {
   defaultVariants: {selected: false},
 })
 export interface IssueLabelTokenProps extends TokenBaseProps {
+  /** Custom hex colour for the token, matching the label it represents. */
   fillColor?: string
 }
 

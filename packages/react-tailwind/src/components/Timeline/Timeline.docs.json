@@ -192,7 +192,8 @@
   "props": [
     {
       "name": "clipSidebar",
-      "type": "\"both\" | \"end\" | \"start\" | boolean"
+      "type": "\"both\" | \"end\" | \"start\" | boolean",
+      "description": "Trims the connecting line at the start, the end, or both, where the timeline meets other content."
     }
   ],
   "subcomponents": [
@@ -201,7 +202,8 @@
       "props": [
         {
           "name": "condensed",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Reduces the item's vertical spacing, for a minor event in the timeline."
         }
       ]
     },
@@ -210,7 +212,8 @@
       "props": [
         {
           "name": "variant",
-          "type": "\"accent\" | \"attention\" | \"closed\" | \"danger\" | \"done\" | \"open\" | \"severe\" | \"sponsors\" | \"success\""
+          "type": "\"accent\" | \"attention\" | \"closed\" | \"danger\" | \"done\" | \"open\" | \"severe\" | \"sponsors\" | \"success\"",
+          "description": "Colour of the badge, conveying what kind of event it marks."
         }
       ]
     }

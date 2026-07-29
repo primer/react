@@ -24,19 +24,23 @@
   "props": [
     {
       "name": "actions",
-      "type": "React.ReactNode"
+      "type": "React.ReactNode",
+      "description": "Controls shown at the end of the bar, beside the links."
     },
     {
       "name": "align",
-      "type": "\"right\""
+      "type": "\"right\"",
+      "description": "Aligns the links to the end of the bar."
     },
     {
       "name": "full",
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Stretches the bar to fill the width of its container."
     },
     {
       "name": "label",
-      "type": "string"
+      "type": "string",
+      "description": "Accessible name for the navigation region."
     }
   ],
   "subcomponents": [
@@ -46,11 +50,13 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'a'"
+          "defaultValue": "'a'",
+          "description": "Element to render. Use a non-anchor element when the link is handled by a router."
         },
         {
           "name": "selected",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Marks the link as the current page."
         }
       ]
     }

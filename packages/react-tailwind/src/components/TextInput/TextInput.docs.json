@@ -79,57 +79,69 @@
     {
       "name": "block",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Stretches the input to fill the width of its container."
     },
     {
       "name": "characterLimit",
-      "type": "number"
+      "type": "number",
+      "description": "Shows a remaining-character count and announces when the limit is near."
     },
     {
       "name": "contrast",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Gives the input a filled background, for use on a matching surface."
     },
     {
       "name": "leadingVisual",
-      "type": "TextInputVisual"
+      "type": "TextInputVisual",
+      "description": "Icon or text shown inside the input, before the value."
     },
     {
       "name": "loaderPosition",
       "type": "\"auto\" | \"leading\" | \"trailing\"",
-      "defaultValue": "'auto'"
+      "defaultValue": "'auto'",
+      "description": "Which end the spinner appears at, or `auto` to take the place of an existing visual."
     },
     {
       "name": "loaderText",
       "type": "string",
-      "defaultValue": "'Loading'"
+      "defaultValue": "'Loading'",
+      "description": "Text announced to assistive technology while the input is loading."
     },
     {
       "name": "loading",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Shows a spinner inside the input while a value is being resolved."
     },
     {
       "name": "monospace",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Renders the value in a monospace face, for code or identifiers."
     },
     {
       "name": "size",
       "type": "ControlSize",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Height and text size of the input."
     },
     {
       "name": "trailingAction",
-      "type": "React.ReactElement"
+      "type": "React.ReactElement",
+      "description": "Interactive control shown at the end of the input, such as a clear button."
     },
     {
       "name": "trailingVisual",
-      "type": "TextInputVisual"
+      "type": "TextInputVisual",
+      "description": "Icon or text shown inside the input, after the value."
     },
     {
       "name": "validationStatus",
-      "type": "\"error\" | \"success\""
+      "type": "\"error\" | \"success\"",
+      "description": "Marks the value invalid or confirmed, which sets the border colour and `aria-invalid`."
     }
   ],
   "subcomponents": [
@@ -139,17 +151,20 @@
         {
           "name": "aria-label",
           "type": "string",
-          "required": true
+          "required": true,
+          "description": "Accessible name for the action, since the icon alone conveys nothing."
         },
         {
           "name": "icon",
           "type": "React.ElementType",
-          "required": true
+          "required": true,
+          "description": "Icon component to render."
         },
         {
           "name": "tooltipDirection",
           "type": "TextInputActionDirection",
-          "defaultValue": "'s'"
+          "defaultValue": "'s'",
+          "description": "Side the tooltip appears on."
         }
       ]
     }

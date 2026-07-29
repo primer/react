@@ -6,7 +6,7 @@ Import: `import {ButtonBase} from '@primer/react-tailwind/ButtonBase'`
 
 ## Props
 
-- `data-component`: `string`
+- `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
 
 ## Differences from `@primer/react`
 

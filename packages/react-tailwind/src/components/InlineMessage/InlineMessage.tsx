@@ -32,8 +32,11 @@ const icons: Record<InlineMessageVariant, [React.ElementType, React.ElementType]
   warning: [AlertIcon, AlertFillIcon],
 }
 export interface InlineMessageProps extends React.ComponentPropsWithoutRef<'div'> {
+  /** Text size of the message. */
   size?: 'small' | 'medium'
+  /** Severity of the message, which sets its colour and default icon. */
   variant?: InlineMessageVariant
+  /** Replaces the icon the variant would otherwise choose. */
   leadingVisual?: React.ElementType | React.ReactNode
 }
 export const InlineMessage = React.forwardRef<HTMLDivElement, InlineMessageProps>(function InlineMessage(

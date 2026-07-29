@@ -59,22 +59,26 @@
     {
       "name": "format",
       "type": "\"condensed\" | \"full\"",
-      "defaultValue": "'condensed'"
+      "defaultValue": "'condensed'",
+      "description": "Whether modifiers render as symbols or as full words."
     },
     {
       "name": "keys",
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Shortcut to render, written in the platform-independent chord syntax such as `Mod+s`."
     },
     {
       "name": "size",
       "type": "\"medium\" | \"small\"",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Text size of the hint."
     },
     {
       "name": "variant",
       "type": "\"default\" | \"onEmphasis\" | \"onPrimary\"",
-      "defaultValue": "'default'"
+      "defaultValue": "'default'",
+      "description": "Colour treatment, for hints shown on an emphasized or primary background."
     }
   ]
 }

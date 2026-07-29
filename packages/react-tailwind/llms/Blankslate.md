@@ -8,14 +8,14 @@ Renders a `<div>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `border`: `boolean` — Default `false`.
-- `narrow`: `boolean` — Default `false`.
-- `size`: `"large" | "medium" | "small"` — Default `'medium'`.
-- `spacious`: `boolean` — Default `false`.
+- `border`: `boolean` — Default `false`. Draws a border around the blankslate.
+- `narrow`: `boolean` — Default `false`. Constrains the content to a narrower column.
+- `size`: `"large" | "medium" | "small"` — Default `'medium'`. Overall scale of the visual, heading, and spacing.
+- `spacious`: `boolean` — Default `false`. Increases the vertical padding, for a blankslate that fills a large empty region.
 
 ## Heading props
 
-- `as`: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`.
+- `as`: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`. Heading element to render, so the heading fits the surrounding document outline.
 
 ## PrimaryAction props
 

@@ -113,20 +113,34 @@ const Close = React.forwardRef<HTMLElement, Omit<AlertDialog.Close.Props, 'data-
 )
 
 export interface ConfirmationDialogProps extends Omit<AlertDialog.Root.Props, 'children'> {
+  /** Label for the cancel button. */
   cancelButtonContent?: React.ReactNode
+  /** Prevents cancelling. */
   cancelButtonDisabled?: boolean
+  /** Shows a spinner on the cancel button. */
   cancelButtonLoading?: boolean
   children?: React.ReactNode
+  /** Label for the confirm button. Name the action rather than saying `OK`. */
   confirmButtonContent?: React.ReactNode
+  /** Prevents confirming, for when a precondition is not yet met. */
   confirmButtonDisabled?: boolean
+  /** Shows a spinner on the confirm button while the action is in flight. */
   confirmButtonLoading?: boolean
+  /** Styles confirmation as destructive and makes cancel the default focus. */
   dangerous?: boolean
+  /** Supporting detail about what confirming will do. */
   description?: React.ReactNode
+  /** What receives focus when the dialog closes. */
   finalFocus?: React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['finalFocus']
+  /** What receives focus when the dialog opens. */
   initialFocus?: 'cancel' | 'confirm' | React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['initialFocus']
+  /** Called when the dialog is dismissed or the cancel button is activated. */
   onCancel?: () => void
+  /** Called when the confirm button is activated. */
   onConfirm?: () => void
+  /** Question or statement the reader is confirming. */
   title: React.ReactNode
+  /** Element that opens the dialog. */
   trigger?: React.ReactElement
 }
 

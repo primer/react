@@ -8,6 +8,7 @@ export interface CheckboxGroupProps extends Omit<BaseCheckboxGroup.Props, 'class
 }
 
 export interface CheckboxGroupLabelProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Hides the label visually while keeping it available to assistive technology. */
   visuallyHidden?: boolean
 }
 
@@ -44,6 +45,7 @@ const Caption = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTML
 })
 
 export interface CheckboxGroupValidationProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Whether the message reports a problem or confirms success. */
   variant: 'error' | 'success'
 }
 

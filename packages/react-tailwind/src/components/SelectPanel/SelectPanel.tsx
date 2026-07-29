@@ -133,22 +133,33 @@ export interface SelectPanelMessage {
 export interface SelectPanelOverlayProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className' | 'style'> {
   [dataAttribute: `data-${string}`]: string | number | boolean | undefined
+  /** Shift in pixels along the anchor's edge. */
   alignOffset?: PopoverPositionerProps['alignOffset']
   className?: string
+  /** Element the panel stays within when it would otherwise overflow. */
   collisionBoundary?: PopoverPositionerProps['collisionBoundary']
+  /** Gap kept between the panel and the edge of its collision boundary. */
   collisionPadding?: PopoverPositionerProps['collisionPadding']
+  /** Height of the panel. */
   height?: PanelHeight
+  /** Largest height the panel may grow to before its list scrolls. */
   maxHeight?: Exclude<PanelHeight, 'auto' | 'initial' | 'fit-content'>
+  /** Where the panel is rendered in the DOM. Set `false` to keep it in place. */
   portal?: boolean
+  /** Classes applied to the element that positions the panel. */
   positionerClassName?: string
+  /** Side of the anchor the panel opens on. */
   side?: PopoverPositionerProps['side']
+  /** Distance in pixels between the panel and its anchor. */
   sideOffset?: PopoverPositionerProps['sideOffset']
   style?: React.CSSProperties
+  /** Width of the panel. */
   width?: PanelWidth
 }
 
 export interface SelectPanelAnchorProps extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'children' | 'id'> {
   children: React.ReactNode
+  /** Identifier for the anchor, used to associate it with the panel. */
   id?: string
 }
 
@@ -162,75 +173,137 @@ export interface SelectPanelActionListProps
 }
 
 interface SelectPanelBaseProps {
+  /** Options to choose from. */
   items: readonly SelectPanelItem[]
+  /** Currently selected option or options. */
   selected: SelectPanelItem | readonly SelectPanelItem[] | undefined
+  /** Called with the new selection whenever it changes. */
   onSelectedChange: (
     selected: SelectPanelItem | SelectPanelItem[] | undefined,
     details?: Combobox.Root.ChangeEventDetails,
   ) => void
+  /** Called when the panel opens or closes, with the gesture that caused it. */
   onOpenChange?: (open: boolean, gesture: SelectPanelOpenChangeGesture) => void
+  /** Controls whether the panel is open. Supply it with `onOpenChange` to own the state. */
   open?: boolean
+  /** Whether the panel starts open when it owns its own state. */
   defaultOpen?: boolean
+  /** Heading shown at the top of the panel. */
   title?: React.ReactNode
+  /** Supporting text shown below the title. */
   subtitle?: React.ReactNode
+  /** Text shown on the anchor when nothing is selected. */
   placeholder?: string
+  /** Placeholder shown in the filter input. */
   placeholderText?: string
+  /** Accessible name for the filter input. */
   inputLabel?: string
+  /** Whether one option or several may be selected. */
   selectionVariant?: 'single' | 'multiple'
+  /** Controls the filter query. Supply it with `onFilterChange` to own the state. */
   filterValue?: string
+  /** Initial filter query when the panel owns its own state. */
   defaultFilterValue?: string
+  /** Called with the new query whenever the filter input changes. */
   onFilterChange?: (filter: string, details: Combobox.Root.ChangeEventDetails) => void
   className?: string
+  /** Size and positioning of the panel overlay. */
   overlayProps?: SelectPanelOverlayProps
+  /** Extra props forwarded to the filter input. */
   textInputProps?: Partial<Omit<TextInputProps, 'onChange' | 'value' | 'defaultValue'>>
+  /** Accessible name for the panel. */
   'aria-label'?: string
+  /** Alignment of the panel along the anchor's edge. */
   align?: PopoverPositionerProps['align']
+  /** Id of the element the panel is anchored to. */
   anchorId?: string
+  /** Identifier for the panel, used to associate it with its anchor. */
   id?: string
+  /** Shows a loading affordance in place of the options. */
   loading?: boolean
+  /** Which affordance the first load shows. */
   initialLoadingType?: 'spinner' | 'skeleton'
+  /** Content shown in place of the options, for an error or other terminal state. */
   message?: React.ReactNode | SelectPanelMessage
+  /** Banner shown above the options, for a warning that does not replace them. */
   notice?: SelectPanelNotice
+  /** Extra control shown in the panel's footer. */
   secondaryAction?: React.ReactElement
+  /** Shows a control that selects or clears every option at once. */
   showSelectAll?: boolean
+  /** Moves selected options to the top of the list. */
   showSelectedOptionsFirst?: boolean
+  /** Draws a divider between options. */
   showItemDividers?: boolean
+  /** Group headers, matched to options by their group id. */
   groupMetadata?: readonly SelectPanelGroupMetadata[]
+  /** Renders each group yourself. */
   renderGroup?: SelectPanelRenderGroup
+  /** Height of the panel. */
   height?: PanelHeight
+  /** Renders each option yourself. */
   renderItem?: SelectPanelRenderItem
+  /** Renders only the visible options, for a long uniform list. */
   virtualized?: boolean
+  /** Width of the panel. */
   width?: PanelWidth
+  /** Ref to the scrolling options container. */
   scrollContainerRef?: React.Ref<HTMLDivElement>
+  /** Extra props forwarded to the underlying list. */
   actionListProps?: SelectPanelActionListProps
+  /** Called when the options are scrolled to the end, for loading another page. */
   onScrollEnd?: () => void
+  /** Called when keyboard focus moves to a different option. */
   onActiveDescendantChanged?: (
     current: HTMLElement | undefined,
     previous: HTMLElement | undefined,
     directlyActivated: boolean,
   ) => void
+  /** Whether keyboard navigation stops or wraps at the first and last option. */
   focusOutBehavior?: 'start' | 'stop' | 'wrap'
+  /** Includes elements rendered before the list in the keyboard focus order. */
   focusPrependedElements?: boolean
+  /** Stops hovering an option from making it the active descendant. */
   disableSelectOnHover?: boolean
+  /** Moves focus to the filter input when the panel opens. */
   setInitialFocus?: boolean
+  /** Keeps the panel within the viewport rather than its nearest scrolling ancestor. */
   displayInViewport?: boolean
+  /** Keeps the panel anchored on narrow viewports instead of filling the screen. */
   disableFullscreenOnNarrow?: boolean
+  /** How the panel falls back when CSS anchor positioning cannot place it. */
   cssAnchorPositioningSettings?: {
     fallbackStrategy?: 'default' | 'none' | 'opposite-side'
   }
 }
 
 type SelectPanelExternalAnchorProps = {
+  /** Ref to your own anchor element, when you render the anchor yourself. */
   anchorRef: React.RefObject<HTMLElement | null>
+  /** Set to null when the anchor is rendered outside the panel and referenced by `anchorRef`. */
   renderAnchor: null
 }
 
 type SelectPanelInternalAnchorProps = {
+  /** Ref to the anchor element the panel renders. */
   anchorRef?: React.RefObject<HTMLElement | null>
+  /** Renders the anchor yourself, receiving the props that make it control the panel. */
   renderAnchor?: (props: SelectPanelAnchorProps) => React.ReactElement
 }
 
-type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {variant: 'modal'; onCancel: () => void}
+type SelectPanelVariantProps =
+  | {
+      /** How the panel presents itself. `anchored` attaches it to its anchor. */
+      variant?: 'anchored'
+      /** Called when the panel is dismissed without a selection. */
+      onCancel?: () => void
+    }
+  | {
+      /** How the panel presents itself. `modal` presents it over the page and requires `onCancel`. */
+      variant: 'modal'
+      /** Called when the panel is dismissed without a selection. Required for a modal panel. */
+      onCancel: () => void
+    }
 
 export type SelectPanelProps = SelectPanelBaseProps &
   (SelectPanelExternalAnchorProps | SelectPanelInternalAnchorProps) &
@@ -326,6 +399,7 @@ function SelectPanelSecondaryActionButton({children, ...props}: ButtonProps) {
 
 export interface SelectPanelSecondaryActionLinkProps extends Omit<ButtonProps, 'children' | 'render' | 'nativeButton'> {
   children?: React.ReactNode
+  /** URL the secondary action navigates to. */
   href: string
 }
 

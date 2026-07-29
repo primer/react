@@ -96,20 +96,24 @@
   "props": [
     {
       "name": "as",
-      "type": "React.ElementType"
+      "type": "React.ElementType",
+      "description": "Element to render."
     },
     {
       "name": "fillColor",
-      "type": "`#${string}`"
+      "type": "`#${string}`",
+      "description": "Custom hex colour, for a label whose colour is chosen by the user rather than from `variant`."
     },
     {
       "name": "href",
-      "type": "string"
+      "type": "string",
+      "description": "Makes the label a link to the given URL."
     },
     {
       "name": "variant",
       "type": "IssueLabelVariant",
-      "defaultValue": "'gray'"
+      "defaultValue": "'gray'",
+      "description": "Named colour for the label."
     }
   ]
 }

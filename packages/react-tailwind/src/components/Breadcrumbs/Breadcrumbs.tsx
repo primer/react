@@ -7,7 +7,9 @@ import {cn} from '../../internal/cn'
 import {ActionMenu} from '../ActionMenu'
 
 export interface BreadcrumbsProps extends React.ComponentPropsWithoutRef<'nav'> {
+  /** How the trail behaves when it is too wide: wrap onto another line, or collapse the middle into a menu. */
   overflow?: 'wrap' | 'menu' | 'menu-with-root'
+  /** Use `spacious` to increase the spacing between items. */
   variant?: 'normal' | 'spacious'
 }
 
@@ -166,7 +168,9 @@ const BreadcrumbsRoot = React.forwardRef<HTMLElement, BreadcrumbsProps>(function
 })
 
 export interface BreadcrumbsItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Element to render. Use a non-anchor element for an item that does not link anywhere. */
   as?: React.ElementType
+  /** Marks the item as the current page, which is announced to assistive technology. */
   selected?: boolean
 }
 const BreadcrumbsItem = React.forwardRef<HTMLElement, BreadcrumbsItemProps>(function BreadcrumbsItem(

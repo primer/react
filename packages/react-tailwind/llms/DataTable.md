@@ -6,15 +6,15 @@ Import: `import {DataTable} from '@primer/react-tailwind/DataTable'`
 
 ## Props
 
-- `cellPadding`: `"condensed" | "normal" | "spacious"` — Default `'normal'`.
-- `columns`: `Column<Data>[]`
-- `data`: `Data[]`
-- `externalSorting`: `boolean` — Default `false`.
-- `getRowId`: `((row: Data) => string | number)` — Default `defaultGetRowId`.
-- `gridTemplateColumns`: `GridTemplateColumns<string | number>`
-- `initialSortColumn`: `string`
-- `initialSortDirection`: `"ASC" | "DESC"`
-- `onToggleSort`: `((columnId: string, direction: "ASC" | "DESC") => void)`
+- `cellPadding`: `"condensed" | "normal" | "spacious"` — Default `'normal'`. Vertical spacing inside cells, which sets the density of the table.
+- `columns`: `Column<Data>[]` — Column definitions, giving each column its header, width, and how to read a cell from a row.
+- `data`: `Data[]` — Rows to render.
+- `externalSorting`: `boolean` — Default `false`. Stops the table sorting `data` itself, for when rows arrive already sorted by a server.
+- `getRowId`: `((row: Data) => string | number)` — Default `defaultGetRowId`. Reads a stable identity from a row. Supply it when rows have no `id` field.
+- `gridTemplateColumns`: `GridTemplateColumns<string | number>` — Explicit column track sizes, as a CSS grid template.
+- `initialSortColumn`: `string` — Column sorted on first render.
+- `initialSortDirection`: `"ASC" | "DESC"` — Direction sorted on first render.
+- `onToggleSort`: `((columnId: string, direction: "ASC" | "DESC") => void)` — Called with the column and new direction when a sortable header is activated.
 
 ## Differences from `@primer/react`
 

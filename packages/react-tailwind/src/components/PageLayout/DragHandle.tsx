@@ -6,16 +6,24 @@ import {ARROW_KEY_STEP, defaultFormatValueText} from './usePaneWidth'
 
 export interface DragHandleProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragStart' | 'onDoubleClick'> {
+  /** Ref to the drag handle element, so the pane can measure and focus it. */
   handleRef: React.RefObject<HTMLDivElement | null>
   onDragStart(clientX: number): void
   onDrag(value: number, isKeyboard: boolean): void
   onDragEnd(): void
+  /** Called when the handle is double-clicked, conventionally to reset the pane to its default width. */
   onDoubleClick?: React.MouseEventHandler<HTMLDivElement>
+  /** Accessible name for the separator, describing what it resizes. */
   'aria-label'?: string
+  /** Id of an element naming the separator, as an alternative to `aria-label`. */
   'aria-labelledby'?: string
+  /** Smallest width the separator can be dragged to, announced by assistive technology. */
   'aria-valuemin'?: number
+  /** Largest width the separator can be dragged to, announced by assistive technology. */
   'aria-valuemax'?: number
+  /** Current width of the pane, announced by assistive technology. */
   'aria-valuenow'?: number
+  /** Turns the current width into the text announced while resizing. */
   formatValueText?: (value: number) => string
 }
 

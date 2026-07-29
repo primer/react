@@ -73,7 +73,8 @@
       "props": [
         {
           "name": "as",
-          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\""
+          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+          "description": "Heading element to render, so the level fits the surrounding document outline independently of its size."
         },
         {
           "name": "size",
@@ -82,7 +83,8 @@
         },
         {
           "name": "visuallyHidden",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Hides the heading visually while keeping it available to assistive technology."
         }
       ]
     },
@@ -92,11 +94,13 @@
         {
           "name": "hideDivider",
           "type": "boolean",
-          "defaultValue": "false"
+          "defaultValue": "false",
+          "description": "Removes the divider drawn above the group."
         },
         {
           "name": "title",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Heading text for the group."
         }
       ]
     },
@@ -105,23 +109,28 @@
       "props": [
         {
           "name": "description",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Supplies the description region. Takes precedence over a matching `NavList.Item.Description` child."
         },
         {
           "name": "inactiveText",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Marks the item temporarily unavailable and explains why. The item stays reachable."
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `NavList.Item.LeadingVisual` child."
         },
         {
           "name": "trailingAction",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `NavList.Item.TrailingAction` child."
         },
         {
           "name": "trailingVisual",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `NavList.Item.TrailingVisual` child."
         }
       ]
     },
@@ -130,15 +139,18 @@
       "props": [
         {
           "name": "alignContent",
-          "type": "\"center\" | \"start\""
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
         },
         {
           "name": "as",
-          "type": "\"a\" | \"button\""
+          "type": "\"a\" | \"button\"",
+          "description": "Renders the action as a button.\nRenders the action as a link."
         },
         {
           "name": "block",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container.\nStretches the link to fill the width of its container."
         },
         {
           "name": "className",
@@ -146,45 +158,55 @@
         },
         {
           "name": "count",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity.\nNumber shown in a trailing counter."
         },
         {
           "name": "disabled",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order.\nPrevents navigation and removes the link from the keyboard order."
         },
         {
           "name": "href",
-          "type": "string"
+          "type": "string",
+          "description": "Not available on a button action. Use `as=\"a\"` to make the action navigate."
         },
         {
           "name": "icon",
-          "type": "React.ElementType"
+          "type": "React.ElementType",
+          "description": "Icon component to render."
         },
         {
           "name": "inactive",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.\nMarks the link temporarily unavailable while keeping it focusable."
         },
         {
           "name": "label",
           "type": "string",
-          "required": true
+          "required": true,
+          "description": "Accessible name for the action, since the icon alone conveys nothing."
         },
         {
           "name": "labelWrap",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
         },
         {
           "name": "loading",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses navigation."
         },
         {
           "name": "loadingAnnouncement",
-          "type": "string"
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading.\nText announced to assistive technology while the link is loading."
         },
         {
           "name": "size",
           "type": "ControlSize",
-          "defaultValue": "'small'"
+          "defaultValue": "'small'",
+          "description": "Height and text size of the button.\nHeight and text size of the link."
         },
         {
           "name": "style",
@@ -197,11 +219,13 @@
       "props": [
         {
           "name": "truncate",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Clips the description to one line instead of wrapping."
         },
         {
           "name": "variant",
-          "type": "\"block\" | \"inline\""
+          "type": "\"block\" | \"inline\"",
+          "description": "Whether the description sits beside the label or on its own line."
         }
       ]
     }

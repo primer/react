@@ -36,11 +36,13 @@
   "props": [
     {
       "name": "as",
-      "type": "React.ElementType"
+      "type": "React.ElementType",
+      "description": "Element to render. Use a non-anchor element when the tag does not link anywhere."
     },
     {
       "name": "href",
-      "type": "string"
+      "type": "string",
+      "description": "URL the tag navigates to."
     }
   ]
 }

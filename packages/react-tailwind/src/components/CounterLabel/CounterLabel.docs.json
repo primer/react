@@ -25,12 +25,13 @@
     {
       "name": "aria-label",
       "type": "string",
-      "description": "Defines a string value that labels the current element."
+      "description": "Accessible name giving the count meaning, since the number alone rarely explains itself."
     },
     {
       "name": "data-component",
       "type": "string",
-      "defaultValue": "'CounterLabel'"
+      "defaultValue": "'CounterLabel'",
+      "description": "Overrides the marker used to identify this element in tests and styling."
     },
     {
       "name": "variant",

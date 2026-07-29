@@ -43,6 +43,7 @@ function CircleIcon({size}: {size: 'small' | 'medium'}) {
 export interface ToggleSwitchProps
   extends Omit<BaseSwitch.Root.Props, 'className' | 'children' | 'data-component' | 'render'> {
   className?: BaseSwitch.Root.Props['className']
+  /** Size of the switch. */
   size?: 'small' | 'medium'
 }
 

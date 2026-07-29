@@ -58,22 +58,26 @@
     {
       "name": "border",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Draws a border around the blankslate."
     },
     {
       "name": "narrow",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Constrains the content to a narrower column."
     },
     {
       "name": "size",
       "type": "\"large\" | \"medium\" | \"small\"",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Overall scale of the visual, heading, and spacing."
     },
     {
       "name": "spacious",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Increases the vertical padding, for a blankslate that fills a large empty region."
     }
   ],
   "subcomponents": [
@@ -83,7 +87,8 @@
         {
           "name": "as",
           "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
-          "defaultValue": "'h2'"
+          "defaultValue": "'h2'",
+          "description": "Heading element to render, so the heading fits the surrounding document outline."
         }
       ]
     },

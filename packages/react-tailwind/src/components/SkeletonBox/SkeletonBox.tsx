@@ -4,10 +4,15 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 export interface SkeletonBoxProps extends React.HTMLAttributes<HTMLElement> {
+  /** Element to render. */
   as?: React.ElementType
+  /** Overrides the marker used to identify this element in tests and styling. */
   'data-component'?: string
+  /** Height of the placeholder. */
   height?: React.CSSProperties['height']
+  /** Width of the placeholder. */
   width?: React.CSSProperties['width']
+  /** Waits before showing the placeholder, so a fast response never flashes one. Accepts a named delay or milliseconds. */
   delay?: 'short' | 'long' | number
 }
 

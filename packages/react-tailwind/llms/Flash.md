@@ -8,9 +8,9 @@ Renders a `<div>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `as`: `React.ElementType` — Default `'div'`.
-- `full`: `boolean` — Default `false`.
-- `variant`: `"danger" | "default" | "success" | "warning"` — Default `'default'`.
+- `as`: `React.ElementType` — Default `'div'`. Element to render.
+- `full`: `boolean` — Default `false`. Removes the border and radius so the message can span a container edge to edge.
+- `variant`: `"danger" | "default" | "success" | "warning"` — Default `'default'`. Severity of the message, which sets its colour.
 
 ## Differences from `@primer/react`
 

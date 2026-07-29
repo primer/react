@@ -30,6 +30,7 @@ export interface SelectProps
 }
 
 export type SelectOptionProps = Omit<React.OptionHTMLAttributes<HTMLOptionElement>, 'data-component'> & {
+  /** Value submitted when this option is chosen. */
   value: string
 }
 

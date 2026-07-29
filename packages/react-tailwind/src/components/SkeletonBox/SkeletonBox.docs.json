@@ -40,23 +40,28 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'div'"
+      "defaultValue": "'div'",
+      "description": "Element to render."
     },
     {
       "name": "data-component",
-      "type": "string"
+      "type": "string",
+      "description": "Overrides the marker used to identify this element in tests and styling."
     },
     {
       "name": "delay",
-      "type": "number | \"long\" | \"short\""
+      "type": "number | \"long\" | \"short\"",
+      "description": "Waits before showing the placeholder, so a fast response never flashes one. Accepts a named delay or milliseconds."
     },
     {
       "name": "height",
-      "type": "Height<string | number>"
+      "type": "Height<string | number>",
+      "description": "Height of the placeholder."
     },
     {
       "name": "width",
-      "type": "Width<string | number>"
+      "type": "Width<string | number>",
+      "description": "Width of the placeholder."
     }
   ]
 }

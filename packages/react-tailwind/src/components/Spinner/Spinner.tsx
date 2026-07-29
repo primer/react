@@ -19,7 +19,9 @@ const spinnerSize = {
 const animationDurationMs = 1000
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof spinnerVariants> {
+  /** Text announced to assistive technology while loading. Set to null when a nearby live region already announces it. */
   srText?: string | null
+  /** Waits before showing the spinner, so a fast response never flashes one. */
   delay?: boolean | 'short' | 'long' | number
 }
 

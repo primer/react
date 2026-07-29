@@ -31,7 +31,8 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'header'"
+      "defaultValue": "'header'",
+      "description": "Element to render."
     }
   ],
   "subcomponents": [
@@ -40,7 +41,8 @@
       "props": [
         {
           "name": "full",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Lets the item grow to fill the remaining space, pushing later items to the end."
         }
       ]
     },
@@ -50,7 +52,8 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'header'"
+          "defaultValue": "'header'",
+          "description": "Element to render. Use a non-anchor element when the item does not link anywhere."
         }
       ]
     }

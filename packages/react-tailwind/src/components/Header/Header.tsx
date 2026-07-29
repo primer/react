@@ -2,6 +2,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
+  /** Element to render. */
   as?: React.ElementType
 }
 
@@ -23,6 +24,7 @@ const HeaderRoot = React.forwardRef<HTMLElement, HeaderProps>(function Header(
 })
 
 export interface HeaderItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Lets the item grow to fill the remaining space, pushing later items to the end. */
   full?: boolean
 }
 
@@ -42,6 +44,7 @@ const HeaderItem = React.forwardRef<HTMLDivElement, HeaderItemProps>(function He
 })
 
 export interface HeaderLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  /** Element to render. Use a non-anchor element when the item does not link anywhere. */
   as?: React.ElementType
 }
 

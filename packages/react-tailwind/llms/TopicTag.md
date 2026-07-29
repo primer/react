@@ -6,8 +6,8 @@ Import: `import {TopicTag} from '@primer/react-tailwind/TopicTag'`
 
 ## Props
 
-- `as`: `React.ElementType`
-- `href`: `string`
+- `as`: `React.ElementType` — Element to render. Use a non-anchor element when the tag does not link anywhere.
+- `href`: `string` — URL the tag navigates to.
 
 ## Differences from `@primer/react`
 

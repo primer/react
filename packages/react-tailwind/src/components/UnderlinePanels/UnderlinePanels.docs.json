@@ -37,7 +37,8 @@
     {
       "name": "loadingCounters",
       "type": "boolean",
-      "defaultValue": "false"
+      "defaultValue": "false",
+      "description": "Shows placeholders in place of tab counters while their values load."
     }
   ],
   "subcomponents": [
@@ -46,15 +47,18 @@
       "props": [
         {
           "name": "counter",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Number shown after the tab's label."
         },
         {
           "name": "icon",
-          "type": "React.ElementType"
+          "type": "React.ElementType",
+          "description": "Icon component shown before the tab's label."
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Visual shown before the tab's label, as an alternative to `icon`."
         }
       ]
     }

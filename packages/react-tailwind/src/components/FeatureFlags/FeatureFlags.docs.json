@@ -26,7 +26,8 @@
     {
       "name": "flags",
       "type": "FeatureFlagValues",
-      "required": true
+      "required": true,
+      "description": "Flags to enable or disable for everything rendered inside, merged over any flags from an enclosing provider."
     }
   ]
 }

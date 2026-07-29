@@ -30,11 +30,13 @@
       "props": [
         {
           "name": "alignContent",
-          "type": "\"center\" | \"start\""
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
         },
         {
           "name": "block",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
         },
         {
           "name": "children",
@@ -46,47 +48,58 @@
         },
         {
           "name": "count",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
         },
         {
           "name": "disabled",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
         },
         {
           "name": "inactive",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
         },
         {
           "name": "labelWrap",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
         },
         {
           "name": "leadingVisual",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
         },
         {
           "name": "loading",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
         },
         {
           "name": "loadingAnnouncement",
-          "type": "string"
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
         },
         {
           "name": "size",
-          "type": "ControlSize"
+          "type": "ControlSize",
+          "description": "Height and text size of the button."
         },
         {
           "name": "trailingAction",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
         },
         {
           "name": "trailingVisual",
-          "type": "ButtonVisual"
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
         },
         {
           "name": "variant",
-          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\""
+          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+          "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
         }
       ]
     },
@@ -96,30 +109,36 @@
         {
           "name": "align",
           "type": "FloatingAlignment",
-          "defaultValue": "'center'"
+          "defaultValue": "'center'",
+          "description": "Alignment of the content along the anchor's edge."
         },
         {
           "name": "alignOffset",
-          "type": "FloatingOffset"
+          "type": "FloatingOffset",
+          "description": "Shift in pixels along the anchor's edge, or a callback that computes it from the measured sizes."
         },
         {
           "name": "portal",
           "type": "boolean",
-          "defaultValue": "true"
+          "defaultValue": "true",
+          "description": "Where the content is rendered in the DOM. Set `false` to keep it in place."
         },
         {
           "name": "positionerClassName",
-          "type": "string"
+          "type": "string",
+          "description": "Classes applied to the element that positions the content."
         },
         {
           "name": "side",
           "type": "FloatingSide",
-          "defaultValue": "'bottom'"
+          "defaultValue": "'bottom'",
+          "description": "Side of the anchor the content opens on."
         },
         {
           "name": "sideOffset",
           "type": "FloatingOffset",
-          "defaultValue": "8"
+          "defaultValue": "8",
+          "description": "Distance in pixels between the content and its anchor, or a callback that computes it."
         }
       ]
     }

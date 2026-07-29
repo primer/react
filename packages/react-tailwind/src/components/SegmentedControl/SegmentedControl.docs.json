@@ -55,17 +55,20 @@
     },
     {
       "name": "fullWidth",
-      "type": "ResponsiveValue<boolean>"
+      "type": "ResponsiveValue<boolean>",
+      "description": "Stretches the control to fill its container, sharing the width between segments."
     },
     {
       "name": "size",
       "type": "SegmentedControlSize",
-      "defaultValue": "'medium'"
+      "defaultValue": "'medium'",
+      "description": "Height and text size of the segments."
     },
     {
       "name": "variant",
       "type": "\"default\" | Partial<Record<\"narrow\" | \"regular\" | \"wide\", SegmentedControlVariant>>",
-      "defaultValue": "'default'"
+      "defaultValue": "'default'",
+      "description": "How the control adapts on narrow viewports, such as collapsing into a menu or hiding labels."
     }
   ],
   "subcomponents": [
@@ -82,16 +85,19 @@
         },
         {
           "name": "count",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown after the segment's label."
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode"
+          "type": "React.ReactNode",
+          "description": "Icon shown before the segment's label."
         },
         {
           "name": "value",
           "type": "string",
-          "required": true
+          "required": true,
+          "description": "Value this segment selects, matched against the control's value."
         }
       ]
     },
@@ -102,7 +108,7 @@
           "name": "aria-label",
           "type": "string",
           "required": true,
-          "description": "Defines a string value that labels the current element."
+          "description": "Accessible name for the segment, since the icon alone conveys nothing."
         },
         {
           "name": "className",
@@ -110,17 +116,20 @@
         },
         {
           "name": "count",
-          "type": "string | number"
+          "type": "string | number",
+          "description": "Number shown after the segment's label."
         },
         {
           "name": "icon",
           "type": "React.ElementType",
-          "required": true
+          "required": true,
+          "description": "Icon component to render."
         },
         {
           "name": "value",
           "type": "string",
-          "required": true
+          "required": true,
+          "description": "Value this segment selects, matched against the control's value."
         }
       ]
     }

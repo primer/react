@@ -8,17 +8,17 @@ Renders a `<nav>` and forwards unrecognized props to it, so it also accepts that
 
 ## Props
 
-- `as`: `React.ElementType` — Default `'nav'`.
-- `hideIconsBreakpoint`: `HideIconsBreakpoint` — Default `'xxlarge'`.
-- `loadingCounters`: `boolean` — Default `false`.
-- `variant`: `"flush" | "inset"` — Default `'inset'`.
+- `as`: `React.ElementType` — Default `'nav'`. Element to render.
+- `hideIconsBreakpoint`: `HideIconsBreakpoint` — Default `'xxlarge'`. Viewport below which item icons are hidden to save space.
+- `loadingCounters`: `boolean` — Default `false`. Shows placeholders in place of item counters while their values load.
+- `variant`: `"flush" | "inset"` — Default `'inset'`. Whether the bar is inset from its container or sits flush against it.
 
 ## Item props
 
-- `as`: `React.ElementType` — Default `'nav'`.
-- `counter`: `string | number`
-- `leadingVisual`: `React.ReactNode`
-- `onSelect`: `((event: MouseEvent<HTMLElement, MouseEvent>) => void)`
+- `as`: `React.ElementType` — Default `'nav'`. Element to render. Use a non-anchor element when the link is handled by a router.
+- `counter`: `string | number` — Number shown after the label.
+- `leadingVisual`: `React.ReactNode` — Icon shown before the label.
+- `onSelect`: `((event: MouseEvent<HTMLElement, MouseEvent>) => void)` — Called when the item is activated.
 
 ## Differences from `@primer/react`
 
