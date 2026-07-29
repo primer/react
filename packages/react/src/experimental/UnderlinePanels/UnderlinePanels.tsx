@@ -139,8 +139,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   activationMode = 'automatic',
   ...props
 }) => {
-  // Feature-flag scaffolding for `primer_react_underline_panels_controlled`.
-  // At graduation: remove the four declarations below and use the props directly.
+  // Feature-flag scaffolding: at graduation, drop these three and use the props directly.
   const controlledApiEnabled = useFeatureFlag('primer_react_underline_panels_controlled')
   const controlledValue = controlledApiEnabled ? valueProp : undefined
   const defaultValue = controlledApiEnabled ? defaultValueProp : undefined
@@ -154,7 +153,6 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   const parentId = useId(props.id)
 
   const [tabs, tabPanels, tabsHaveIcons, selectedFromProps, tabValues, panelValues] = useMemo(() => {
-    // Pair each Tab with its Panel by `value`, injecting a positional value when none is given.
     // Derived in render (not an effect) to avoid an empty-tablist frame.
     let tabIndex = 0
     let panelIndex = 0
@@ -201,9 +199,8 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     return [tabs, tabPanels, tabsHaveIcons, selectedFromProps, tabValues, panelValues] as const
   }, [children, controlledApiEnabled])
 
-  // Selection resolves from, in priority: controlled `value`, `defaultValue`, then the back-compat
-  // `aria-selected` seed (re-synced during render). Hand-rolled rather than `useControllableState`
-  // because of that third seed source.
+  // Hand-rolled rather than `useControllableState` because of the third, back-compat
+  // `aria-selected` seed, which is re-synced during render.
   const isControlled = controlledValue !== undefined
   const [uncontrolledValue, setUncontrolledValue] = useState<string>(() => defaultValue ?? selectedFromProps ?? '0')
   const [prevSelectedFromProps, setPrevSelectedFromProps] = useState(selectedFromProps)
@@ -216,8 +213,8 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 
   const selectedValue = isControlled ? controlledValue : uncontrolledValue
 
-  // Keyboard-trap safety net: if the selected value matches no tab, fall back to the first tab so
-  // the tablist keeps a tabbable entry point. Does not fire `onChange`.
+  // Fall back to the first tab when the value matches none, so the tablist keeps a tabbable
+  // entry point. Does not fire `onChange`.
   const effectiveValue = tabValues.includes(selectedValue) ? selectedValue : (tabValues[0] ?? selectedValue)
 
   const handleValueChange = (value: string) => {
@@ -286,7 +283,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       return ariaSelected === true || ariaSelected === 'true'
     })
 
-    // Structural problems (duplicate ids, orphaned `aria-controls`) throw; recoverable misconfig warns.
+    // Structural problems throw; recoverable misconfiguration warns.
     invariant(selectedTabs.length <= 1, 'Only one tab can be selected at a time.')
 
     invariant(
@@ -294,7 +291,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       `The number of tabs and panels must be equal. Counted ${tabs.length} tabs and ${tabPanels.length} panels.`,
     )
 
-    // Values must be unique: tab/panel ids are derived from them, so duplicates collide.
+    // Tab and panel ids are derived from `value`, so duplicates would collide.
     const duplicateTabValue = tabValues.find((value, index) => tabValues.indexOf(value) !== index)
     invariant(
       duplicateTabValue === undefined,
@@ -306,7 +303,6 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       `Every panel must have a unique \`value\`. Found duplicate "${duplicatePanelValue}".`,
     )
 
-    // Each tab needs a panel with the same `value`.
     const unmatchedTabValue = tabValues.find(value => !panelValues.includes(value))
     invariant(
       unmatchedTabValue === undefined,
@@ -323,7 +319,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       'UnderlinePanels: do not combine the controlled `value` prop with `defaultValue`. `value` takes precedence; use one or the other.',
     )
 
-    // Clamped to the first tab above; warn since it's rarely intended.
+    // Already clamped to the first tab above; warn since it's rarely intended.
     const providedValue = controlledValue ?? defaultValue
     warning(
       providedValue !== undefined && tabValues.length > 0 && !tabValues.includes(providedValue),

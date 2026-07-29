@@ -25,7 +25,6 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
 
     const tabs = getFocusableTabs(tablist)
 
-    // Navigate relative to the focused tab, falling back to the selected tab.
     const getCurrentIndex = () => {
       if (controlledApiEnabled) {
         const activeElement = tablist.ownerDocument.activeElement

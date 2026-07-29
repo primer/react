@@ -194,12 +194,9 @@ export const ManualActivation = () => {
   )
 }
 
-// When `UnderlinePanels` lives inside an `AnchoredOverlay` (or any container with its own
-// `FocusZone`), disable the overlay's focus zone so the two don't both manage `tabindex`. The
-// tablist already implements its own roving tabindex (a single tab stop with internal Arrow
-// navigation); a competing focus zone can leave every tab at `tabindex="-1"` and trap keyboard
-// users. Disabling it via `focusZoneSettings={{disabled: true}}` lets the tablist own keyboard
-// navigation for the tabs.
+// The tablist implements its own roving tabindex, so disable the overlay's focus zone to stop the
+// two from both managing `tabindex` — a competing focus zone can leave every tab at `tabindex="-1"`
+// and trap keyboard users.
 export const InOverlay = () => {
   const [open, setOpen] = useState(false)
   const [refType, setRefType] = useState('branch')
@@ -230,8 +227,7 @@ export const InOverlay = () => {
   )
 }
 
-// The controlled API ships behind `primer_react_underline_panels_controlled`; enable it so these
-// stories demonstrate the feature regardless of the toolbar toggle.
+// Enabled here so the stories demonstrate the feature regardless of the toolbar toggle.
 const withControlledApi: Decorator = Story => (
   <FeatureFlags flags={{primer_react_underline_panels_controlled: true}}>
     <Story />

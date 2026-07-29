@@ -19,8 +19,7 @@ function Tabs(props: TabsProps) {
   const {children, onValueChange} = props
   const generatedId = useId()
   const groupId = props.id ?? generatedId
-  // Feature-flag scaffolding for `primer_react_underline_panels_controlled`.
-  // At graduation: drop `controlledApiEnabled` and the guards that read it.
+  // Feature-flag scaffolding: at graduation, drop this and the guards that read it.
   const controlledApiEnabled = useFeatureFlag('primer_react_underline_panels_controlled')
   const activationMode = controlledApiEnabled ? (props.activationMode ?? 'automatic') : 'automatic'
 
@@ -41,7 +40,6 @@ function Tabs(props: TabsProps) {
       activationMode,
       focusedValue,
       selectTab(value: string) {
-        // Focus and selection reconverge on commit.
         setFocusedValue(undefined)
         if (controlledApiEnabled && value === selectedValue) {
           return
