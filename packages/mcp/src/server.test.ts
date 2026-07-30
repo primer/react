@@ -1,12 +1,29 @@
-import {Client} from '@modelcontextprotocol/sdk/client/index.js'
-import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js'
+import {Client, InMemoryTransport} from '@modelcontextprotocol/client'
 import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
 import {server} from './server'
 
-describe('get_component_batch', () => {
-  const client = new Client({name: 'mcp-server-test', version: '1.0.0'})
+describe('MCP server', () => {
+  const client = new Client(
+    {name: 'mcp-server-test', version: '1.0.0'},
+    {
+      capabilities: {
+        sampling: {},
+      },
+    },
+  )
 
   beforeAll(async () => {
+    client.setRequestHandler('sampling/createMessage', async () => {
+      return {
+        model: 'test-model',
+        role: 'assistant',
+        content: {
+          type: 'text',
+          text: 'The alt text is descriptive and relevant.',
+        },
+      }
+    })
+
     const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair()
     await server.connect(serverTransport)
     await client.connect(clientTransport)
@@ -143,5 +160,21 @@ describe('get_component_batch', () => {
       ],
     })
     expect(vi.getTimerCount()).toBe(0)
+  })
+
+  it('reviews alt text through the multi-round-trip sampling flow', async () => {
+    const result = await client.callTool({
+      name: 'review_alt_text',
+      arguments: {
+        surroundingText: 'A pull request description',
+        alt: 'Screenshot of a successful test run',
+        image: 'test-results.png',
+      },
+    })
+
+    expect(result.content).toContainEqual({
+      type: 'text',
+      text: 'The alt text is descriptive and relevant.',
+    })
   })
 })

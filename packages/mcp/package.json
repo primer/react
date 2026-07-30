@@ -26,6 +26,9 @@
     "type": "git",
     "url": "git+https://github.com/primer/react.git"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "rolldown -c",
@@ -34,7 +37,8 @@
     "watch": "rolldown -c -w"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.0.0",
     "@primer/octicons": "^19.15.5",
     "@primer/primitives": "10.x || 11.x",
     "@primer/react": "^38.33.0",
