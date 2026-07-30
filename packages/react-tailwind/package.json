@@ -26,13 +26,14 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist",
-    "api-inventory.json",
-    "README.md",
-    "ARCHITECTURE.md",
-    "llms.txt",
     "AGENTS.md",
-    "api-inventory.schema.json"
+    "ARCHITECTURE.md",
+    "README.md",
+    "api-inventory.json",
+    "api-inventory.schema.json",
+    "dist",
+    "llms",
+    "llms.txt"
   ],
   "sideEffects": [
     "./dist/**/*.css"
