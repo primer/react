@@ -381,7 +381,7 @@ function splitUnion(type: string): string[] {
 
 /** Constituents TypeScript produces when it expands `React.ReactNode`. */
 const REACT_NODE_MEMBER =
-  /^(string|number|bigint|boolean|null|undefined|ReactPortal|ReactNode|Iterable<[^>]*ReactNode[^>]*>|Promise<.*>|ReactElement<.*>|Omit<ReactElement.*>)$/
+  /^(string|number|bigint|boolean|null|undefined|ReactPortal|ReactNode|Iterable<[^>]*ReactNode[^>]*>|Promise<.*>|ReactElement<\s*unknown\s*,.*>|ReactElement<\.\.\.>|Omit<ReactElement<\s*unknown\s*,.*>)$/
 
 /** Constituents TypeScript produces when it expands `React.ElementType`. */
 const REACT_ELEMENT_TYPE_MEMBER =
@@ -395,6 +395,14 @@ const REACT_BOUNDARY = /\b(ReactPortal|ReactNode|ReactElement<|JSXElementConstru
 
 /** `ReactElement<unknown, ...>` carries no useful element information. */
 const OPAQUE_REACT_ELEMENT = /^ReactElement<\s*unknown\s*,/
+
+/** `ReactElement<Props, ...>` carries props a reader wants, unlike the opaque form. */
+const TYPED_REACT_ELEMENT = /^ReactElement<(?!\s*unknown\s*,)(?!\.\.\.>)/
+
+/** Removes the element-constructor argument TypeScript appends to every `ReactElement`. */
+function dropElementConstructorArgument(member: string): string {
+  return member.replace(/,\s*string \| JSXElementConstructor<any>\s*>$/, '>')
+}
 
 /**
  * Stops type expansion at React's own node types.
@@ -411,6 +419,9 @@ export function simplifyReactType(type: string): string {
 
   // A lone element type keeps its own name; only a full node expansion becomes ReactNode.
   if (members.length === 1 && OPAQUE_REACT_ELEMENT.test(members[0])) return 'React.ReactElement'
+  if (members.length === 1 && TYPED_REACT_ELEMENT.test(members[0])) {
+    return `React.${dropElementConstructorArgument(members[0])}`
+  }
 
   const simplified: string[] = []
   for (const member of members) {

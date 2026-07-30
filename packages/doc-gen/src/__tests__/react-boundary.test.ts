@@ -8,6 +8,14 @@ describe('simplifyReactType', () => {
     expect(simplifyReactType('ReactElement<unknown, string | JSXElementConstructor<any>>')).toBe('React.ReactElement')
   })
 
+  it('keeps the props argument of a typed element', () => {
+    // Only the opaque form is noise. Flattening this to ReactNode would lose the fact that
+    // the element must be a button, which is exactly what the reader needs.
+    expect(simplifyReactType('ReactElement<HTMLProps<HTMLButtonElement>, string | JSXElementConstructor<any>>')).toBe(
+      'React.ReactElement<HTMLProps<HTMLButtonElement>>',
+    )
+  })
+
   it('collapses a fully expanded node union', () => {
     const expanded =
       'string | number | bigint | boolean | Iterable<ReactNode> | Promise<AwaitedReactNode> | ReactElement<unknown, string | JSXElementConstructor<any>> | ReactPortal | null | undefined'
