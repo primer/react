@@ -53,6 +53,24 @@ expose that attribute unconditionally. Omit it from the public prop type, or use
 a discriminated union that only exposes it in supported scenarios, rather than
 accepting and silently overriding the consumer value.
 
+For example:
+
+```tsx
+// Component-owned attribute: `type` is fixed internally and is not public API.
+type IconButtonProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'type'>
+```
+
+```tsx
+// Conditional attributes: only expose anchor-only props when `as: 'a'`.
+type ButtonLikeProps =
+  | ({
+      as?: 'button'
+    } & Omit<React.ComponentPropsWithoutRef<'button'>, 'href' | 'target' | 'rel'>)
+  | ({
+      as: 'a'
+    } & React.ComponentPropsWithoutRef<'a'>)
+```
+
 The utility is an implementation detail for building Primer React components
 and is not part of the package's public API.
 
