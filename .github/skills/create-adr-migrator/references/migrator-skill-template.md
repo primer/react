@@ -1,166 +1,254 @@
-# ADR Migrator Skill Template
+# ADR Migrator Artifact Templates
 
-Use this template to create `.github/skills/<migration-name>/SKILL.md`. Replace
-all angle-bracket placeholders and remove instructions that do not apply.
+Use these templates to create the temporary coordinator skill and batch
+sub-agent for an ADR migration. Replace all angle-bracket placeholders and
+remove instructions that do not apply.
+
+## Coordinator skill
+
+Create `.github/skills/<migration-name>/SKILL.md`:
 
 ````markdown
 ---
 name: <migration-name>
-description: 'Use when: fixing or assessing code covered by <ADR topic>. Applies <ESLint rule> in bounded batches and uses <report name> to measure remaining migration work.'
+description: 'Use when: coordinating adoption of <ADR topic> through measured batches in a stacked migration. Plans batches, invokes <batch-agent-name>, verifies report progress, and removes temporary migration tooling at completion.'
 ---
 
 # <Migration title>
 
-Migrate code to the architecture defined by [`<ADR title>`](<ADR path>).
+Coordinate migration to the architecture defined by
+[`<ADR title>`](<ADR path>).
 
-## Sources of truth
+## Sources of truth and migration artifacts
 
-| Source           | Location                             | Role                                                     |
-| ---------------- | ------------------------------------ | -------------------------------------------------------- |
-| ADR              | `<ADR path>`                         | Defines the intended architecture and rationale          |
-| ESLint rule      | `<rule identifier>` in `<rule path>` | Detects known violations and provides local feedback     |
-| Migration report | `<report command>`                   | Measures repository-wide progress and remaining findings |
+| Artifact           | Location                                     | Role                                        | Lifetime   |
+| ------------------ | -------------------------------------------- | ------------------------------------------- | ---------- |
+| ADR                | `<ADR path>`                                 | Defines intended architecture and rationale | Permanent  |
+| Adoption mechanism | `<rule identifier and path or soft rules>`   | Identifies or explains non-compliance       | <lifetime> |
+| Migration report   | `<report command and output>`                | Measures remaining findings                 | <lifetime> |
+| Batch agent        | `.github/agents/<batch-agent-name>.agent.md` | Implements one assigned batch               | Temporary  |
 
-The ADR defines correctness. The ESLint rule and report are detection and
-measurement tools; passing them does not justify behavior that conflicts with
-the ADR.
+The ADR defines correctness. Adoption rules and the report are detection and
+measurement tools; satisfying them does not justify behavior that conflicts
+with the ADR.
 
 ## Scope
 
 - Included: <directories, file types, or finding categories>
 - Excluded: <generated code, compatibility layers, or documented exceptions>
 - Relevant prior art: `<path to compliant example>`, `<additional example>`
+- Default maximum batch size: <default batch size>
 
-## Workflow
+## Adoption contract
 
-### 1. Establish a baseline
+<Describe deterministic diagnostics and any soft rules the batch agent must
+apply. Link to implementations instead of copying them.>
+
+## Stack contract
+
+Use a linear stack in this order:
+
+1. `<foundation branch>`: ADR, adoption mechanism, migration report,
+   coordinator skill, and batch agent.
+2. `<batch branch prefix>-01` through `<batch branch prefix>-NN`: one bounded
+   migration batch per entry.
+3. `<cleanup branch>`: remove temporary migration artifacts after the report has
+   no in-scope findings.
+
+Use non-interactive `gh stack` commands:
+
+```shell
+gh stack init <foundation branch>
+gh stack add <batch branch>
+gh stack add <cleanup branch>
+gh stack submit --auto
+gh stack view --json
+```
+
+Do not add the cleanup entry while in-scope findings remain. Keep permanent
+enforcement such as ESLint rules and tests.
+
+## Coordinator workflow
+
+### 1. Establish or resume the stack
+
+Inspect the current branch and `gh stack view --json`.
+
+- If the foundation entry does not exist, create it and commit all migration
+  assistance artifacts there.
+- If the migration is already in progress, resume from the top entry.
+- Regenerate the report before planning new work.
+
+### 2. Establish the baseline
 
 Run:
-
-```shell
-<baseline or report command>
-```
-````
-
-Record:
-
-- Total findings.
-- Findings in the requested scope.
-- Stable finding IDs, file paths, or categories used to track the batch.
-
-Do not edit report output manually.
-
-### 2. Select a bounded batch
-
-Choose no more than <default batch size> findings that:
-
-- Share the same remediation pattern.
-- Are located in non-overlapping files.
-- Can be validated with the same targeted commands.
-
-If the user provides an explicit scope or finding list, use that instead.
-
-### 3. Understand the intended architecture
-
-Before editing:
-
-1. Read the relevant ADR sections.
-2. Inspect the ESLint diagnostic and rule implementation when its meaning is
-   unclear.
-3. Inspect at least one compliant implementation from the repository.
-4. Identify behavior and public API that must remain unchanged.
-
-Do not mechanically silence the diagnostic when the correct design requires
-judgment.
-
-### 4. Implement the migration
-
-- Follow the ADR and existing compliant patterns.
-- Preserve consumer-visible behavior unless the ADR explicitly changes it.
-- Keep changes limited to the selected batch and tightly coupled tests or
-  documentation.
-- Reuse existing helpers and abstractions.
-- Add or update tests when behavior, contracts, or important structure changes.
-
-Do not:
-
-- Disable the rule globally or add blanket inline suppressions.
-- Change the rule or report solely to make findings disappear.
-- Introduce broad compatibility fallbacks that conceal an incomplete migration.
-- Fix unrelated findings.
-
-If a finding cannot be migrated without an architectural or API decision, leave
-it unresolved and report the blocker with evidence.
-
-### 5. Validate the batch
-
-Format changed files:
-
-```shell
-<format command>
-```
-
-Run the smallest relevant checks:
-
-```shell
-<targeted lint command>
-<targeted test command>
-<targeted type-check or build command>
-```
-
-Use existing repository commands. Do not add new validation tooling for the
-migration.
-
-### 6. Measure progress
-
-Regenerate the report:
 
 ```shell
 <report command>
 ```
 
-Confirm:
+Record:
 
-- Every selected finding is gone or explicitly documented as blocked.
-- No new findings were introduced.
-- The total or scoped count changed by the expected amount.
-- The generated report was not modified independently of its source data.
+- Total and in-scope findings.
+- Stable finding IDs or file paths.
+- Findings already assigned to existing stack entries.
+- Blocked findings.
 
-Passing tests without resolving the selected report findings is not completion.
+Never edit generated report output to change the count.
 
-## Delegating batches
+### 3. Plan non-overlapping batches
 
-This workflow may be delegated to sub-agents when batches do not overlap.
+Group findings that:
 
-- Partition work by explicit files, directories, or stable finding IDs.
-- Give each agent the ADR path, rule identifier, report command, validation
-  commands, and assigned findings.
-- Do not assign the same file to multiple agents.
-- Each agent validates its own batch.
-- One coordinating agent regenerates the final report and validates the
-  combined result.
+- Share a remediation pattern.
+- Fit within the selected maximum batch size.
+- Do not assign the same file to different batches.
+- Can be reviewed and validated as one coherent stack entry.
 
-## Completion report
+Calculate the total number of remaining batches.
+
+### 4. Ask how much work to run
+
+Before invoking the batch agent, prompt the user for:
+
+1. Maximum findings per batch, defaulting to <default batch size>.
+2. Whether to run all remaining batches or only a specific number.
+
+Show the baseline count, calculated total batches, selected batch count, and
+finding IDs or paths that will be assigned. Running only several batches is the
+prototype mode; stop after that number and leave the stack resumable.
+
+### 5. Run each selected batch
+
+For each batch, sequentially:
+
+1. Create a stack entry with `gh stack add <batch branch>`.
+2. Invoke `<batch-agent-name>` with:
+   - The exact finding IDs or paths.
+   - The maximum batch size.
+   - The current stack branch.
+   - Required validation commands.
+   - The before count.
+3. Require the agent to implement only its assigned batch.
+4. Review the agent result and changed files.
+5. Commit the batch on its stack entry.
+6. Regenerate the report.
+7. Confirm the assigned findings disappeared, no new findings appeared, and the
+   count changed by the expected amount.
+8. Stop before creating another entry if validation or report evidence fails.
+
+Run code-editing batch agents sequentially because every stack entry depends on
+the previous entry. Analysis may be parallelized only when it cannot create
+overlapping edits or stale batch assignments.
+
+### 6. Finish or pause
+
+If prototype mode was selected, stop after the requested number of entries and
+report the remaining batch plan.
+
+If no in-scope findings remain:
+
+1. Add `<cleanup branch>` as the final stack entry.
+2. Remove:
+   - `.github/skills/<migration-name>/`
+   - `.github/agents/<batch-agent-name>.agent.md`
+   - Migration-only reports and scripts.
+3. Keep the ADR and enforcement artifacts needed to prevent regressions.
+4. Run final aggregate validation and confirm the report remains clear.
+
+### 7. Submit and report
+
+Submit or update the stack with:
+
+```shell
+gh stack submit --auto
+gh stack view --json
+```
 
 Return:
 
-| Field      | Content                                                        |
-| ---------- | -------------------------------------------------------------- |
-| Batch      | Assigned finding IDs, paths, or category                       |
-| Resolved   | Findings removed from the regenerated report                   |
-| Remaining  | Updated scoped and total counts                                |
-| Validation | Commands that failed and relevant error summaries, or `Passed` |
-| Blockers   | Findings requiring an ADR, API, or ownership decision          |
+| Field         | Content                                                        |
+| ------------- | -------------------------------------------------------------- |
+| Stack entries | Foundation, batch entries created this run, and cleanup status |
+| Batches       | Requested, completed, and remaining batch counts               |
+| Resolved      | Finding IDs or paths removed from the regenerated report       |
+| Remaining     | Updated scoped and total counts                                |
+| Validation    | Failed commands and summaries, or `Passed`                     |
+| Blockers      | Findings requiring an ADR, API, or ownership decision          |
 
-Do not claim the whole migration is complete unless the regenerated report has
-no in-scope findings.
+Do not claim the migration is complete unless the regenerated report has no
+in-scope findings and the cleanup entry is present.
 
 ## Example invocation
 
-> Use the `/<migration-name>` skill. Resolve up to <batch size> related findings
-> in `<scope>`. Regenerate the migration report and return the before and after
-> counts.
+> Use the `/<migration-name>` skill. Use at most <batch size> findings per stack
+> entry and run <all remaining batches | number of batches> in this pass.
+> Delegate each batch to `<batch-agent-name>`, regenerate the report after every
+> entry, and stop on unexpected results.
+````
 
-```
+## Batch sub-agent
 
+Create `.github/agents/<batch-agent-name>.agent.md`:
+
+```markdown
+---
+name: <batch-agent-name>
+description: Performs one bounded batch for <migration title> and returns validation and migration-report evidence to the coordinator.
+tools:
+  - read
+  - search
+  - edit
+  - execute
+skills:
+  - <migration-name>
+---
+
+You implement exactly one batch assigned by the `<migration-name>` coordinator.
+Use that skill for the ADR, adoption contract, report command, scope, and
+validation requirements.
+
+## Required input
+
+Do not begin without:
+
+- The current stack branch.
+- Stable finding IDs or exact file paths.
+- The maximum batch size.
+- The report count before the batch.
+- Targeted validation commands.
+
+If the assignment exceeds the maximum size, overlaps unassigned files, or
+requires an unresolved architecture decision, stop and return a blocker.
+
+## Workflow
+
+1. Read the ADR sections and inspect compliant prior art.
+2. Confirm the assigned findings still exist in the report.
+3. Implement only the assigned findings and tightly coupled tests or
+   documentation.
+4. Preserve public behavior unless the ADR explicitly requires a change.
+5. Run formatting and the smallest targeted lint, test, type-check, or build
+   commands supplied by the coordinator.
+6. Regenerate or query the report and confirm:
+   - Every assigned finding is gone or explicitly blocked.
+   - No new findings were introduced.
+   - The count changed by the expected amount.
+7. Return the result to the coordinator. Do not select another batch, create a
+   cleanup entry, or change stack structure.
+
+Do not disable enforcement, add blanket suppressions, manipulate report output,
+or fix unrelated findings.
+
+## Result format
+
+| Field         | Content                                               |
+| ------------- | ----------------------------------------------------- |
+| Branch        | Current stack branch                                  |
+| Assigned      | Finding IDs or paths received                         |
+| Resolved      | Findings removed from the regenerated report          |
+| Files changed | Files edited for the assigned batch                   |
+| Remaining     | Updated scoped and total counts                       |
+| Validation    | Failed commands and summaries, or `Passed`            |
+| Blockers      | Findings requiring an ADR, API, or ownership decision |
 ```
