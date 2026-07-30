@@ -67,7 +67,7 @@ test.describe('DataTable', () => {
               await page.screenshot({
                 mask: await page
                   .locator('td', {
-                    has: page.locator('time[data-component="RelativeTime"]'),
+                    has: page.locator('relative-time, time[data-component="RelativeTime"]'),
                   })
                   .all(),
               }),
