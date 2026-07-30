@@ -1,7 +1,9 @@
 import {act, render} from '@testing-library/react'
+import type {ReactElement} from 'react'
 import {renderToString} from 'react-dom/server'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import RelativeTime, {type RelativeTimeProps} from '.'
+import RelativeTime, {type ExperimentalRelativeTimeProps} from '.'
+import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 
 const emptyDateTimeOptions = {
@@ -14,9 +16,17 @@ const emptyDateTimeOptions = {
   year: '',
   timeZoneName: '',
 } as unknown as Pick<
-  RelativeTimeProps,
+  ExperimentalRelativeTimeProps,
   'second' | 'minute' | 'hour' | 'weekday' | 'day' | 'month' | 'year' | 'timeZoneName'
 >
+
+function renderWithReactRelativeTime(ui: ReactElement) {
+  return render(<FeatureFlags flags={{primer_react_relative_time: true}}>{ui}</FeatureFlags>)
+}
+
+function renderReactRelativeTimeToString(ui: ReactElement) {
+  return renderToString(<FeatureFlags flags={{primer_react_relative_time: true}}>{ui}</FeatureFlags>)
+}
 
 describe('RelativeTime', () => {
   afterEach(() => {
@@ -25,27 +35,47 @@ describe('RelativeTime', () => {
 
   implementsClassName(RelativeTime)
 
-  it('renders a <time>', () => {
+  it('preserves the custom-element output by default', () => {
     const {container} = render(<RelativeTime />)
-    expect(container.firstChild?.nodeName.toLowerCase()).toEqual('time')
+    expect(container.firstChild?.nodeName.toLowerCase()).toEqual('relative-time')
   })
 
-  it('renders data-component and datetime attributes', () => {
-    const date = new Date('2024-03-07T12:22:48.123Z')
-    const {container} = render(<RelativeTime date={date} />)
+  it('preserves custom-element formatting attributes by default', () => {
+    const {container} = render(<RelativeTime date={null} format="micro" precision="week" />)
 
+    expect(container.firstChild).toHaveAttribute('format', 'micro')
+    expect(container.firstChild).toHaveAttribute('precision', 'week')
+  })
+
+  it('renders the React implementation when the feature flag is enabled', () => {
+    const date = new Date('2024-03-07T12:22:48.123Z')
+    const {container} = renderWithReactRelativeTime(<RelativeTime date={date} />)
+
+    expect(container.firstChild?.nodeName.toLowerCase()).toEqual('time')
     expect(container.firstChild).toHaveAttribute('data-component', 'RelativeTime')
     expect(container.firstChild).toHaveAttribute('datetime', date.toISOString())
+  })
+
+  it('keeps legacy output for precision values not supported by the experiment', () => {
+    const {container} = renderWithReactRelativeTime(<RelativeTime precision="week" />)
+
+    expect(container.firstChild?.nodeName.toLowerCase()).toEqual('relative-time')
   })
 
   it('formats relative dates with tense and precision', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:23:48.123Z'))
 
-    const {rerender, container} = render(<RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} />)
+    const {rerender, container} = renderWithReactRelativeTime(
+      <RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} />,
+    )
     expect(container).toHaveTextContent('1 minute ago')
 
-    rerender(<RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} tense="future" precision="minute" />)
+    rerender(
+      <FeatureFlags flags={{primer_react_relative_time: true}}>
+        <RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} tense="future" precision="minute" />
+      </FeatureFlags>,
+    )
     expect(container).toHaveTextContent('now')
   })
 
@@ -53,7 +83,9 @@ describe('RelativeTime', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:22:48.123Z'))
 
-    const {container} = render(<RelativeTime date={new Date('2024-01-01T12:00:00.000Z')} threshold="P0S" />)
+    const {container} = renderWithReactRelativeTime(
+      <RelativeTime date={new Date('2024-01-01T12:00:00.000Z')} threshold="P0S" />,
+    )
     expect(container).toHaveTextContent('on Jan 1')
   })
 
@@ -61,10 +93,16 @@ describe('RelativeTime', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:22:48.123Z'))
 
-    const {rerender, container} = render(<RelativeTime datetime="2024-03-07T12:23:18.123Z" format="micro" />)
+    const {rerender, container} = renderWithReactRelativeTime(
+      <RelativeTime datetime="2024-03-07T12:23:18.123Z" format="micro" />,
+    )
     expect(container).toHaveTextContent('1m')
 
-    rerender(<RelativeTime datetime="2024-03-07T12:23:18.123Z" format="datetime" />)
+    rerender(
+      <FeatureFlags flags={{primer_react_relative_time: true}}>
+        <RelativeTime datetime="2024-03-07T12:23:18.123Z" format="datetime" />
+      </FeatureFlags>,
+    )
     expect(container).toHaveTextContent('Mar 7')
   })
 
@@ -72,7 +110,7 @@ describe('RelativeTime', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:22:48.123Z'))
 
-    const {container} = render(
+    const {container} = renderWithReactRelativeTime(
       <RelativeTime date={new Date('2024-03-07T12:23:18.123Z')} format="datetime" {...emptyDateTimeOptions} />,
     )
 
@@ -84,7 +122,9 @@ describe('RelativeTime', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:22:48.123Z'))
 
-    const {container} = render(<RelativeTime date={new Date('2024-03-07T11:20:48.123Z')} format="elapsed" />)
+    const {container} = renderWithReactRelativeTime(
+      <RelativeTime date={new Date('2024-03-07T11:20:48.123Z')} format="elapsed" />,
+    )
 
     expect(container).toHaveTextContent('1h 2m')
   })
@@ -92,7 +132,7 @@ describe('RelativeTime', () => {
   it('updates relative text as time passes', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:22:48.123Z'))
-    const {container} = render(<RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} />)
+    const {container} = renderWithReactRelativeTime(<RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} />)
 
     expect(container).toHaveTextContent('now')
     act(() => vi.advanceTimersByTime(10_000))
@@ -103,20 +143,26 @@ describe('RelativeTime', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:22:48.123Z'))
     const onRelativeTimeUpdated = vi.fn()
-    render(<RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} onRelativeTimeUpdated={onRelativeTimeUpdated} />)
+    renderWithReactRelativeTime(
+      <RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} onRelativeTimeUpdated={onRelativeTimeUpdated} />,
+    )
 
     act(() => vi.advanceTimersByTime(10_000))
 
-    expect(onRelativeTimeUpdated).toHaveBeenCalledWith({
-      oldText: 'now',
-      newText: '10 seconds ago',
-      oldTitle: expect.any(String),
-      newTitle: expect.any(String),
-    })
+    expect(onRelativeTimeUpdated).toHaveBeenCalledWith(
+      expect.objectContaining({
+        oldText: 'now',
+        newText: '10 seconds ago',
+        oldTitle: expect.any(String),
+        newTitle: expect.any(String),
+      }),
+    )
   })
 
   it('honors noTitle', () => {
-    const {container} = render(<RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} noTitle />)
+    const {container} = renderWithReactRelativeTime(
+      <RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} noTitle />,
+    )
     expect(container.firstChild).not.toHaveAttribute('title')
   })
 
@@ -124,7 +170,7 @@ describe('RelativeTime', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:23:48.123Z'))
 
-    const markup = renderToString(<RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} />)
+    const markup = renderReactRelativeTimeToString(<RelativeTime date={new Date('2024-03-07T12:22:48.123Z')} />)
 
     expect(markup).toMatch(/<time/)
     expect(markup).toContain('dateTime="2024-03-07T12:22:48.123Z"')
@@ -135,7 +181,7 @@ describe('RelativeTime', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2024-03-07T12:23:48.123Z'))
 
-    const {container} = render(
+    const {container} = renderWithReactRelativeTime(
       <RelativeTime date={new Date('2024-03-07T12:22:48.123Z')}>server rendered date</RelativeTime>,
     )
 

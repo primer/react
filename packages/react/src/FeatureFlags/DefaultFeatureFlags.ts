@@ -10,4 +10,5 @@ export const DefaultFeatureFlags = FeatureFlagScope.create({
   primer_react_timeline_list_semantics: false,
   primer_react_merged_forwarded_refs: false,
   primer_react_underline_panels_controlled: false,
+  primer_react_relative_time: false,
 })
