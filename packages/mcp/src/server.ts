@@ -247,7 +247,7 @@ Use \`get_component\` for exactly one component and \`get_component_batch\` for 
           content: [
             {
               type: 'text',
-              text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
+              text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
             },
           ],
         }
