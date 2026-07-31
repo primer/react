@@ -5,7 +5,6 @@ import {clsx} from 'clsx'
 import sharedClasses from '../Checkbox/shared.module.css'
 import classes from './Radio.module.css'
 import type {WithSlotMarker} from '../utils/types'
-import {mergeProps} from '../utils/mergeProps'
 
 export type RadioProps = {
   /**
@@ -33,7 +32,7 @@ export type RadioProps = {
    * Indicates whether the radio button must be checked before the form can be submitted
    */
   required?: boolean
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
+} & InputHTMLAttributes<HTMLInputElement>
 
 /**
  * An accessible, native radio component for selecting one option from a list.
@@ -57,6 +56,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     const radioGroupContext = useContext(RadioGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       radioGroupContext?.onChange && radioGroupContext.onChange(e)
+      onChange && onChange(e)
     }
     const name = nameProp || radioGroupContext?.name
 
@@ -69,25 +69,17 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
     return (
       <input
-        {...mergeProps(
-          {
-            onChange: handleOnChange,
-            className: clsx(sharedClasses.Input, classes.Radio),
-            'aria-checked': checked ? ('true' as const) : ('false' as const),
-          },
-          {
-            ...rest,
-            ...(onChange ? {onChange} : {}),
-            value,
-            name,
-            disabled,
-            checked,
-            required,
-            className,
-          },
-        )}
-        ref={ref}
         type="radio"
+        value={value}
+        name={name}
+        ref={ref}
+        disabled={disabled}
+        checked={checked}
+        aria-checked={checked ? 'true' : 'false'}
+        required={required}
+        onChange={handleOnChange}
+        className={clsx(className, sharedClasses.Input, classes.Radio)}
+        {...rest}
         data-component="Radio"
       />
     )
