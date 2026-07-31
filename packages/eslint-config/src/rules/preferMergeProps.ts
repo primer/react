@@ -23,7 +23,7 @@ const preferMergeProps: TSESLint.RuleModule<MessageIds> = {
 
     return {
       JSXOpeningElement(node) {
-        if (!isComponentRoot(node.parent)) {
+        if (!isComponentRoot(node.parent) || !hasPropsToMerge(node)) {
           return
         }
 
@@ -41,6 +41,22 @@ const preferMergeProps: TSESLint.RuleModule<MessageIds> = {
       },
     }
   },
+}
+
+function hasPropsToMerge(node: TSESTree.JSXOpeningElement): boolean {
+  const spreadCount = node.attributes.filter(attribute => attribute.type === 'JSXSpreadAttribute').length
+  if (spreadCount > 1) {
+    return true
+  }
+
+  return node.attributes.some(attribute => {
+    return (
+      attribute.type === 'JSXAttribute' &&
+      attribute.name.type === 'JSXIdentifier' &&
+      attribute.name.name !== 'key' &&
+      attribute.name.name !== 'ref'
+    )
+  })
 }
 
 function isTestOrStoryFile(filename: string): boolean {

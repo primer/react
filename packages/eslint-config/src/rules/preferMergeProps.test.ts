@@ -44,6 +44,18 @@ ruleTester.run('prefer-merge-props', preferMergeProps as unknown as Parameters<R
       code: `function Example() { return <button type="button" /> }`,
     },
     {
+      name: 'ignores a component that only forwards consumer props',
+      code: `function Example(props) { return <button {...props} /> }`,
+    },
+    {
+      name: 'ignores a component that forwards consumer props and composes a ref separately',
+      code: `const Example = React.forwardRef((props, ref) => <button {...props} ref={ref} />)`,
+    },
+    {
+      name: 'ignores a component that only forwards props to a custom component',
+      code: `function Example(props) { return <Button {...props} /> }`,
+    },
+    {
       name: 'ignores spread props on nested elements',
       code: `function Example() { return <div><button {...props} /></div> }`,
     },
@@ -132,27 +144,27 @@ ruleTester.run('prefer-merge-props', preferMergeProps as unknown as Parameters<R
     },
     {
       name: 'reports component roots in conditional expression branches',
-      code: `function Example() { return condition ? <button {...props} /> : <a {...props} /> }`,
+      code: `function Example() { return condition ? <button type="button" {...props} /> : <a href="#" {...props} /> }`,
       errors: [{messageId: 'preferMergeProps'}, {messageId: 'preferMergeProps'}],
     },
     {
       name: 'reports unmerged props on a root custom component',
-      code: `function Example() { return <Button {...props} /> }`,
+      code: `function Example() { return <Button variant="primary" {...props} /> }`,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
       name: 'reports unmerged props on a root member component',
-      code: `function Example() { return <ActionList.Item {...props} /> }`,
+      code: `function Example() { return <ActionList.Item role="menuitem" {...props} /> }`,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
       name: 'reports spread props returned from a function call',
-      code: `function Example() { return <button {...getProps()} /> }`,
+      code: `function Example() { return <button type="button" {...getProps()} /> }`,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
       name: 'reports props copied into an object expression',
-      code: `function Example() { return <button {...{...props}} /> }`,
+      code: `function Example() { return <button type="button" {...{...props}} /> }`,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
@@ -162,24 +174,24 @@ ruleTester.run('prefer-merge-props', preferMergeProps as unknown as Parameters<R
     },
     {
       name: 'reports props on component roots in logical expressions',
-      code: `function Example() { return condition && <button {...props} /> }`,
+      code: `function Example() { return condition && <button type="button" {...props} /> }`,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
       name: 'reports props on a concise arrow component root',
-      code: `const Example = props => <button {...props} />`,
+      code: `const Example = props => <button type="button" {...props} />`,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
       name: 'reports props on a forwardRef component root',
-      code: `const Example = React.forwardRef((props, ref) => <button {...props} ref={ref} />)`,
+      code: `const Example = React.forwardRef((props, ref) => <button type="button" {...props} ref={ref} />)`,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
       name: 'reports props on an asserted forwardRef component root',
       code: `
         const Example = React.forwardRef(
-          (props, ref) => <button {...props} ref={ref} />
+          (props, ref) => <button type="button" {...props} ref={ref} />
         ) as PolymorphicForwardRefComponent
       `,
       errors: [{messageId: 'preferMergeProps'}],
@@ -188,14 +200,14 @@ ruleTester.run('prefer-merge-props', preferMergeProps as unknown as Parameters<R
       name: 'reports props on a forwardRef component root using satisfies',
       code: `
         const Example = React.forwardRef(
-          (props, ref) => <button {...props} ref={ref} />
+          (props, ref) => <button type="button" {...props} ref={ref} />
         ) satisfies PolymorphicForwardRefComponent
       `,
       errors: [{messageId: 'preferMergeProps'}],
     },
     {
       name: 'reports props on a class component root',
-      code: `class Example extends React.Component { render() { return <button {...this.props} /> } }`,
+      code: `class Example extends React.Component { render() { return <button type="button" {...this.props} /> } }`,
       errors: [{messageId: 'preferMergeProps'}],
     },
   ],
