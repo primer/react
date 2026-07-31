@@ -37,16 +37,17 @@ class names, and styles according to the ADR.
 - Default run size: two sequential batches per invocation.
 - Never split one source file across separate batches.
 
-## Validated migration patterns
+## Migration rules and prior art
 
-Use these production examples as prior art:
+Before the first implementation batch, inspect:
 
-- `packages/react/src/VisuallyHidden/VisuallyHidden.tsx`: class-name-only
-  merging.
-- `packages/react/src/Token/TokenBase.tsx`: internal behavior first, optional
-  consumer event handler second, and ref composition outside `mergeProps`.
-- `packages/react/src/Radio/Radio.tsx`: a component-owned attribute omitted
-  from the public type and applied after merged props.
+- The component example in `contributor-docs/style.md`.
+- `packages/react/src/utils/mergeProps.ts`.
+- `packages/react/src/utils/__tests__/mergeProps.test.ts`.
+
+After implementation batches exist, inspect a relevant migrated component from
+a lower stack entry as prior art. Do not add reference component migrations to
+the driver entry.
 
 Apply these rules:
 
@@ -64,16 +65,44 @@ Apply these rules:
 7. Add tests for event order, cancellation, controlled attributes, type
    exclusions, or other behavior that is not already covered.
 
+## Stack ownership contract
+
+Every change must live in the entry that owns its concern:
+
+- `copilot/update-style-docs-prop-merging` owns ADR-025, `mergeProps`, the
+  adoption rule, rule tests, report script, and migration-status workflow.
+  Refinements to any of those artifacts must be committed to this foundation
+  entry.
+- `migrate/merge-props-migrator` owns only the coordinator skill and batch
+  agent. It must not contain component migrations, migration changesets, or
+  adoption-tool refinements.
+- `migrate/merge-props-batch-NN` owns only its assigned component
+  implementation, tightly coupled tests or stories, and required changesets.
+- `migrate/merge-props-cleanup` owns final temporary-artifact removal and the
+  ADR status update.
+
+If batch work exposes a problem in the adoption rule, report, utility, or
+workflow:
+
+1. Stop the batch without working around the problem.
+2. Navigate to `copilot/update-style-docs-prop-merging`.
+3. Commit the refinement there.
+4. Rebase every upstack entry.
+5. Regenerate the report before resuming the batch.
+
+If the coordinator or agent instructions need refinement, update
+`migrate/merge-props-migrator` and rebase the batch entries above it.
+
 ## Stack contract
 
 Use one linear stack:
 
-1. `copilot/update-style-docs-prop-merging`: ADR, utility, adoption rule, and
-   report foundation.
-2. `migrate/merge-props-migrator`: validated examples, tooling refinements,
-   coordinator skill, and batch agent.
+1. `copilot/update-style-docs-prop-merging`: ADR, utility, adoption mechanism,
+   report, workflow, and all refinements to those artifacts.
+2. `migrate/merge-props-migrator`: coordinator skill and batch agent only.
 3. `migrate/merge-props-batch-01` through
-   `migrate/merge-props-batch-NN`: one bounded migration batch per entry.
+   `migrate/merge-props-batch-NN`: one bounded component implementation batch
+   per entry.
 4. `migrate/merge-props-cleanup`: temporary artifact removal after the report
    reaches zero.
 
@@ -101,6 +130,9 @@ gh stack view --json
 Confirm the current branch is the top active entry. If a lower entry changed,
 rebase the upstack before selecting findings. Do not mix unrelated worktree
 changes into a migration entry.
+
+Inspect the diff for each existing stack entry and confirm it still follows the
+stack ownership contract before creating another batch.
 
 ### 2. Establish the baseline
 
@@ -149,11 +181,12 @@ For each batch:
    locations, maximum size, before counts, and targeted validation commands.
 3. Review the returned diff and evidence.
 4. Add or update changesets for consumer-facing behavior or type changes.
-5. Commit only the assigned batch.
-6. Regenerate the report.
-7. Confirm assigned findings disappeared, no new findings appeared, and counts
+5. Confirm the entry contains no adoption-tool or driver changes.
+6. Commit only the assigned batch.
+7. Regenerate the report.
+8. Confirm assigned findings disappeared, no new findings appeared, and counts
    changed by the expected amount.
-8. Stop before another entry if validation or report evidence fails.
+9. Stop before another entry if validation or report evidence fails.
 
 Run code-editing batch agents sequentially because every branch depends on the
 previous branch.
