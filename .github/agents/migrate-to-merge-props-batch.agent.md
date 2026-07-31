@@ -33,8 +33,8 @@ unresolved architecture, accessibility, or public API decision.
 
 ## Workflow
 
-1. Read ADR-025, the repository instructions, `mergeProps`, and the validated
-   production examples named by the coordinator skill.
+1. Read ADR-025, the repository instructions, `mergeProps`, its tests, and any
+   relevant migrated component from a lower batch entry.
 2. Confirm every assigned finding still appears in the report.
 3. Inspect public props, spread order, handlers, styles, class names, refs,
    invariant attributes, tests, stories, and nearby prior art.
@@ -53,7 +53,10 @@ unresolved architecture, accessibility, or public API decision.
 
 Do not disable enforcement, add blanket suppressions, manipulate report output,
 expose `mergeProps` publicly, fix unrelated findings, select another batch,
-create stack entries, commit, or change stack structure.
+create stack entries, commit, or change stack structure. Do not refine the
+adoption rule, report, utility, workflow, coordinator, or agent in a batch
+entry. Return those issues as blockers so the coordinator can update the owning
+lower stack entry and rebase.
 
 ## Result format
 

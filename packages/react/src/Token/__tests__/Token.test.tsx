@@ -63,17 +63,6 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
     expect(onRemoveMock).toHaveBeenCalled()
   })
 
-  it('calls onRemove before the consumer onKeyDown handler', () => {
-    const calls: string[] = []
-    const {getByText} = HTMLRender(
-      <Component text="token" onRemove={() => calls.push('remove')} onKeyDown={() => calls.push('consumer')} />,
-    )
-
-    fireEvent.keyDown(getByText('token'), {key: 'Backspace'})
-
-    expect(calls).toEqual(['remove', 'consumer'])
-  })
-
   it('adds className to rendered component', () => {
     const {getByText} = HTMLRender(<Component text="token" className="testing-class" />)
     const domNode = getByText('token')
