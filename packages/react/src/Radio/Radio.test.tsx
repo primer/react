@@ -21,6 +21,7 @@ describe('Radio', () => {
     const radio = getByRole('radio')
 
     expect(radio).toBeDefined()
+    expect(radio).toHaveAttribute('type', 'radio')
   })
 
   it('renders data-component attribute', () => {
