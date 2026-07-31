@@ -4,7 +4,7 @@ import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
 import type {UniqueRow} from './row'
 import type {ObjectPaths} from './utils'
-import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
+import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell, TableFilterRow} from './Table'
 
 // ----------------------------------------------------------------------------
 // DataTable
@@ -73,6 +73,44 @@ export type DataTableProps<Data extends UniqueRow> = {
    * (never `"NONE"`).
    */
   onToggleSort?: (columnId: ObjectPaths<Data> | string | number, direction: Exclude<SortDirection, 'NONE'>) => void
+
+  /**
+   * When true, render a per-column filter row beneath the column headers.
+   * Only columns that opt in via `Column.filterBy` will get an input. The
+   * row is hidden entirely when no column is filterable.
+   */
+  filterable?: boolean
+
+  /**
+   * Controlled column filter state: a map of `columnId` → query string.
+   * When provided, `defaultFilters` is ignored and the parent owns the
+   * state. Pair with `onFilterChange` to handle updates.
+   */
+  filters?: Record<string, string>
+
+  /**
+   * Uncontrolled initial filter state. Ignored when `filters` is provided.
+   */
+  defaultFilters?: Record<string, string>
+
+  /**
+   * Called whenever any column's filter query changes. Receives the next
+   * full filter map (controlled and uncontrolled mode both fire this).
+   */
+  onFilterChange?: (filters: Record<string, string>) => void
+
+  /**
+   * When true, disables client-side filtering. The filter row continues to
+   * render and `onFilterChange` still fires, but the displayed rows come
+   * straight from `data`. Use this for server-driven filtering.
+   */
+  externalFiltering?: boolean
+
+  /**
+   * Placeholder text shown inside each filter input.
+   * @default 'Filter'
+   */
+  filterPlaceholder?: string
 }
 
 function defaultGetRowId<D extends UniqueRow>(row: D) {
@@ -88,17 +126,39 @@ function DataTable<Data extends UniqueRow>({
   initialSortColumn,
   initialSortDirection,
   externalSorting,
+  externalFiltering,
+  filterable,
+  filters,
+  defaultFilters,
+  onFilterChange,
+  filterPlaceholder,
   getRowId = defaultGetRowId,
   onToggleSort,
 }: DataTableProps<Data>) {
-  const {headers, rows, actions, gridTemplateColumns} = useTable({
+  const {
+    headers,
+    rows,
+    actions,
+    gridTemplateColumns,
+    filters: tableFilters,
+  } = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
     getRowId,
     externalSorting,
+    externalFiltering,
+    filters,
+    defaultFilters,
+    onFilterChange,
   })
+
+  // Only render the filter row when both the consumer opted in and at least
+  // one column declared `filterBy`. This keeps the markup absent when nothing
+  // is filterable instead of leaving an empty band of cells.
+  const anyFilterable = headers.some(header => header.isFilterable())
+  const showFilterRow = Boolean(filterable && anyFilterable)
 
   return (
     <Table
@@ -134,6 +194,14 @@ function DataTable<Data extends UniqueRow>({
             )
           })}
         </TableRow>
+        {showFilterRow ? (
+          <TableFilterRow
+            headers={headers}
+            filters={tableFilters}
+            onChange={actions.setFilter}
+            placeholder={filterPlaceholder}
+          />
+        ) : null}
       </TableHead>
       <TableBody>
         {rows.map(row => {
