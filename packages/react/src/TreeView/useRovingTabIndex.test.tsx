@@ -55,6 +55,7 @@ describe('getElementState', () => {
 
 describe('getFirstChildElement', () => {
   it('returns the first child treeitem', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="true" id="parent">
@@ -74,6 +75,7 @@ describe('getFirstChildElement', () => {
   })
 
   it('returns undefined when there are no children', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="leaf">Leaf</li>
@@ -88,6 +90,7 @@ describe('getFirstChildElement', () => {
 
 describe('getParentElement', () => {
   it('returns the parent treeitem', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="true" id="parent">
@@ -106,6 +109,7 @@ describe('getParentElement', () => {
   })
 
   it('returns undefined for top-level treeitems', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item">Item</li>
@@ -120,6 +124,7 @@ describe('getParentElement', () => {
 
 describe('getFirstElement', () => {
   it('returns the first treeitem in the tree', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="first">First</li>
@@ -137,6 +142,7 @@ describe('getFirstElement', () => {
 
 describe('getLastElement', () => {
   it('returns the last visible treeitem in the tree', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="first">First</li>
@@ -152,6 +158,7 @@ describe('getLastElement', () => {
   })
 
   it('skips treeitems inside collapsed subtrees', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="first">First</li>
@@ -174,6 +181,7 @@ describe('getLastElement', () => {
 
 describe('getVisibleElement', () => {
   it('returns the next visible treeitem', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -189,6 +197,7 @@ describe('getVisibleElement', () => {
   })
 
   it('returns the previous visible treeitem', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -204,6 +213,7 @@ describe('getVisibleElement', () => {
   })
 
   it('returns undefined at the end of the tree', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -217,6 +227,7 @@ describe('getVisibleElement', () => {
   })
 
   it('returns undefined at the start of the tree', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -230,6 +241,7 @@ describe('getVisibleElement', () => {
   })
 
   it('skips treeitems inside collapsed subtrees', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -264,6 +276,7 @@ describe('getVisibleElement', () => {
 
 describe('getNextFocusableElement', () => {
   it('focuses first child on ArrowRight from open node', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="true" id="parent">
@@ -283,6 +296,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('returns undefined on ArrowRight from closed node (node should open)', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="false" id="closed">
@@ -301,6 +315,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('returns undefined on ArrowLeft from open node (node should close)', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="true" id="open">
@@ -319,6 +334,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('focuses parent on ArrowLeft from closed node', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="true" id="parent">
@@ -337,6 +353,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('focuses parent on ArrowLeft from end node', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="true" id="parent">
@@ -355,6 +372,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('focuses next visible element on ArrowDown', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -369,6 +387,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('focuses previous visible element on ArrowUp', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -383,6 +402,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('focuses first element on Home', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -398,6 +418,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('focuses last element on End', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -413,6 +434,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('focuses parent on Backspace', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="true" id="parent">
@@ -431,6 +453,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('does nothing on ArrowRight from end node', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="end-node">End node</li>
@@ -444,6 +467,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('returns undefined on ArrowDown at the end of the tree', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -458,6 +482,7 @@ describe('getNextFocusableElement', () => {
   })
 
   it('navigates into expanded children on ArrowDown', () => {
+    // eslint-disable-next-line github/unescaped-html-literal
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" aria-expanded="true" id="parent">
@@ -518,12 +543,15 @@ describe('useRovingTabIndex hook', () => {
   it('moves focus with keyboard navigation', () => {
     const {getByRole} = render(
       <TreeWithRovingTabIndex>
+        {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
         <li role="treeitem" tabIndex={0} id="item-1">
           Item 1
         </li>
+        {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
         <li role="treeitem" tabIndex={0} id="item-2">
           Item 2
         </li>
+        {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
         <li role="treeitem" tabIndex={0} id="item-3">
           Item 3
         </li>
@@ -550,9 +578,11 @@ describe('useRovingTabIndex hook', () => {
 
       const {getByRole} = render(
         <TreeWithRovingTabIndex>
+          {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-1">
             Item 1
           </li>
+          {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-2">
             Item 2
           </li>
@@ -583,9 +613,11 @@ describe('useRovingTabIndex hook', () => {
 
       const {getByRole} = render(
         <TreeWithRovingTabIndex preventScroll={false}>
+          {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-1">
             Item 1
           </li>
+          {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-2">
             Item 2
           </li>
@@ -616,9 +648,11 @@ describe('useRovingTabIndex hook', () => {
     it('does not redirect focus when mouseDownRef is true (click scenario)', () => {
       const {getByRole} = render(
         <TreeWithRovingTabIndex>
+          {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-1">
             Item 1
           </li>
+          {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-2" aria-current="true">
             Item 2
           </li>

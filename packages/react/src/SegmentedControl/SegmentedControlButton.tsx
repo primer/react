@@ -50,7 +50,7 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
       data-component="SegmentedControl.Button"
     >
       <button
-        aria-current={selected}
+        aria-pressed={selected}
         aria-disabled={disabled || ariaDisabled || undefined}
         className={clsx(classes.Button, className)}
         type="button"

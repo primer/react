@@ -7,3 +7,7 @@ docs/.cache
 docs/public
 **/.next/**
 packages/react/src/legacy-theme/ts/color-schemes.ts
+
+# gh-aw generated files (produced by `gh aw compile`; not hand-editable)
+.github/workflows/*.lock.yml
+.github/workflows/agentics-maintenance.yml

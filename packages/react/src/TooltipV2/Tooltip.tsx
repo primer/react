@@ -1,5 +1,6 @@
-import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
-import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
+import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
+import {useId, useOnEscapePress, useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -52,7 +53,7 @@ type TriggerPropsType = Pick<
   | 'onTouchCancel'
   | 'onTouchEnd'
 > & {
-  ref?: React.RefObject<HTMLElement>
+  ref?: React.Ref<HTMLElement>
 }
 
 // map tooltip direction to anchoredPosition props
@@ -126,7 +127,14 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
-    const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const triggerRef = useRef<HTMLElement>(null)
+    const mergedTriggerRef = useMergedRefs(triggerRef, forwardedRef)
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the three declarations below, and replace all instances of `readTriggerRef` with `triggerRef` and `appliedTriggerRef` with `mergedTriggerRef`.
+    const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    const readTriggerRef = mergedRefEnabled ? triggerRef : providedOrCreatedRef
+    const appliedTriggerRef = mergedRefEnabled ? mergedTriggerRef : providedOrCreatedRef
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
@@ -141,13 +149,13 @@ export const Tooltip: ForwardRefExoticComponent<
       try {
         if (
           tooltipElRef.current &&
-          triggerRef.current &&
+          readTriggerRef.current &&
           tooltipElRef.current.hasAttribute('popover') &&
           !tooltipElRef.current.matches(':popover-open') &&
           !_privateDisableTooltip
         ) {
           const tooltip = tooltipElRef.current
-          const trigger = triggerRef.current
+          const trigger = readTriggerRef.current
           tooltip.showPopover()
           setIsPopoverOpen(true)
           /*
@@ -188,7 +196,7 @@ export const Tooltip: ForwardRefExoticComponent<
       try {
         if (
           tooltipElRef.current &&
-          triggerRef.current &&
+          readTriggerRef.current &&
           tooltipElRef.current.hasAttribute('popover') &&
           tooltipElRef.current.matches(':popover-open')
         ) {
@@ -218,13 +226,13 @@ export const Tooltip: ForwardRefExoticComponent<
     const value = useMemo(() => ({tooltipId}), [tooltipId])
 
     useEffect(() => {
-      if (!tooltipElRef.current || !triggerRef.current) return
+      if (!tooltipElRef.current || !readTriggerRef.current) return
       /*
        * ACCESSIBILITY CHECKS
        */
       // Has trigger element or any of its children interactive elements?
-      const isTriggerInteractive = isInteractive(triggerRef.current)
-      const triggerChildren = triggerRef.current.childNodes
+      const isTriggerInteractive = isInteractive(readTriggerRef.current)
+      const triggerChildren = readTriggerRef.current.childNodes
       // two levels deep
       const hasInteractiveDescendant = Array.from(triggerChildren).some(child => {
         return (
@@ -241,8 +249,8 @@ export const Tooltip: ForwardRefExoticComponent<
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (type === 'label') {
-        const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
-        const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
+        const hasAriaLabel = readTriggerRef.current.hasAttribute('aria-label')
+        const hasAriaLabelInChildren = Array.from(readTriggerRef.current.childNodes).some(
           child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
         )
         warning(
@@ -260,7 +268,7 @@ export const Tooltip: ForwardRefExoticComponent<
 
       const tooltip = tooltipElRef.current
       tooltip.setAttribute('popover', 'auto')
-    }, [tooltipElRef, triggerRef, direction, type])
+    }, [tooltipElRef, readTriggerRef, direction, type])
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
@@ -284,8 +292,8 @@ export const Tooltip: ForwardRefExoticComponent<
         <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              // @ts-expect-error it needs a non nullable ref
-              ref: triggerRef,
+              // @ts-expect-error the provided-or-created ref path needs a non nullable ref
+              ref: appliedTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
                 // If tooltip is not a description type, keep the original aria-describedby

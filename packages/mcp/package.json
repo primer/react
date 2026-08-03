@@ -1,7 +1,7 @@
 {
   "name": "@primer/mcp",
   "description": "An MCP server that connects AI tools to the Primer Design System",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "type": "module",
   "bin": {
     "mcp": "./bin/mcp.js"
@@ -26,6 +26,9 @@
     "type": "git",
     "url": "git+https://github.com/primer/react.git"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "rolldown -c",
@@ -34,10 +37,11 @@
     "watch": "rolldown -c -w"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.24.0",
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.0.0",
     "@primer/octicons": "^19.15.5",
     "@primer/primitives": "10.x || 11.x",
-    "@primer/react": "^38.30.0",
+    "@primer/react": "^38.33.0",
     "cheerio": "^1.0.0",
     "turndown": "^7.2.0",
     "zod": "^4.3.5"
@@ -47,7 +51,7 @@
     "@primer/vitest-config": "^0.0.0",
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
-    "rolldown": "^1.1.4",
+    "rolldown": "^1.2.0",
     "rolldown-plugin-dts": "^0.26.0",
     "typescript": "^6.0.3"
   }

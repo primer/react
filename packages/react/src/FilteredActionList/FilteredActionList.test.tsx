@@ -2,6 +2,7 @@ import {render} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import {FilteredActionList} from '../FilteredActionList'
+import {FeatureFlags} from '../FeatureFlags'
 import {FilteredActionListBodyLoader, FilteredActionListLoadingTypes} from './FilteredActionListLoaders'
 import {implementsClassName} from '../utils/testing'
 import classes from './FilteredActionList.module.css'
@@ -119,4 +120,40 @@ describe('FilteredActionListBodyLoader', () => {
       expect(container.querySelector('[data-component="FilteredActionList.Skeleton"]')).toBeInTheDocument()
     })
   })
+})
+
+describe('FilteredActionList forwarded refs (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      it('forwards the input ref object', () => {
+        const ref = React.createRef<HTMLInputElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList items={items} onFilterChange={vi.fn()} inputRef={ref} />
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLInputElement)
+      })
+
+      it('forwards the scroll container ref object', () => {
+        const ref = React.createRef<HTMLDivElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={ref} />
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLDivElement)
+      })
+
+      it('calls a scroll container callback ref', () => {
+        const refCallback = vi.fn()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={refCallback} />
+          </FeatureFlags>,
+        )
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+      })
+    })
+  }
 })
