@@ -252,7 +252,7 @@
   width: auto;
 
   .AvatarItem {
-    --mask-size: 100%; /* reset size of the mask to prevent unintentially clipping due to the additional size created by the border width */
+    --mask-size: 100%; /* reset size of the mask to prevent unintentionally clipping due to the additional size created by the border width */
 
     position: relative;
     margin-inline-start: var(--base-size-4);
