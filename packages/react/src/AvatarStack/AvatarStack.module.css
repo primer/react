@@ -241,7 +241,8 @@
   }
 
   &:nth-child(n + 6) {
-    display: none;
+    position: absolute;
+    visibility: hidden;
     opacity: 0;
   }
 }
@@ -253,7 +254,7 @@
   .AvatarItem {
     --mask-size: 100%; /* reset size of the mask to prevent unintentially clipping due to the additional size created by the border width */
 
-    display: flex;
+    position: relative;
     margin-inline-start: var(--base-size-4);
     visibility: visible;
     opacity: 1;
