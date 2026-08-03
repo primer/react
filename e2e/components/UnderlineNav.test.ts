@@ -210,8 +210,11 @@ test.describe('UnderlineNav', () => {
           await page.getByRole('button', {name: 'More items'}).click()
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot()
 
-          await page.getByRole('menuitem', {name: 'Settings (10)'}).click()
-          expect(await page.screenshot()).toMatchSnapshot()
+          const settingsMenuItem = page.getByRole('menuitem', {name: 'Settings (10)'})
+          await settingsMenuItem.click()
+          await settingsMenuItem.waitFor({state: 'hidden'})
+          await page.getByRole('button', {name: 'More items, including current item'}).waitFor()
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot()
         })
 
         test('Hide icons when there is not enough space to display all list items @vrt', async ({page}) => {
