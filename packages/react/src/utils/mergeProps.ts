@@ -4,6 +4,15 @@ import type {Merge} from './types'
 type EventHandler = (...args: unknown[]) => void
 type ClassValue = Parameters<typeof clsx>[number]
 
+/**
+ * Applies our rules for merging props between two objects. This utility handles the following scenarios:
+ * 
+ * - Merging `className` values
+ * - Merging event handlers
+ * - Merging `style` values
+ *
+ * In other cases, if a key exists in both `A` and `B` then the value in `B` will be used in the final result
+ */
 function mergeProps<A extends object, B extends object = A>(a: A, b: B): Merge<A, B> {
   const merged = {...a} as Record<string, unknown>
 
