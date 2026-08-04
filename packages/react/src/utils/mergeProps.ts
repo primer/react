@@ -6,7 +6,7 @@ type ClassValue = Parameters<typeof clsx>[number]
 
 /**
  * Applies our rules for merging props between two objects. This utility handles the following scenarios:
- * 
+ *
  * - Merging `className` values
  * - Merging event handlers
  * - Merging `style` values
