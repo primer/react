@@ -1,12 +1,29 @@
-import {Client} from '@modelcontextprotocol/sdk/client/index.js'
-import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js'
+import {Client, InMemoryTransport} from '@modelcontextprotocol/client'
 import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
 import {server} from './server'
 
-describe('get_component_batch', () => {
-  const client = new Client({name: 'mcp-server-test', version: '1.0.0'})
+describe('MCP server', () => {
+  const client = new Client(
+    {name: 'mcp-server-test', version: '1.0.0'},
+    {
+      capabilities: {
+        sampling: {},
+      },
+    },
+  )
 
   beforeAll(async () => {
+    client.setRequestHandler('sampling/createMessage', async () => {
+      return {
+        model: 'test-model',
+        role: 'assistant',
+        content: {
+          type: 'text',
+          text: 'The alt text is descriptive and relevant.',
+        },
+      }
+    })
+
     const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair()
     await server.connect(serverTransport)
     await client.connect(clientTransport)
@@ -32,6 +49,28 @@ describe('get_component_batch', () => {
       arguments: {names},
     })
   }
+
+  it('documents which component tool to use for each supported count', async () => {
+    const {tools} = await client.listTools()
+    const getComponent = tools.find(tool => tool.name === 'get_component')
+    const getComponentBatch = tools.find(tool => tool.name === 'get_component_batch')
+    const listResult = await client.callTool({name: 'list_components'})
+
+    expect(getComponent?.description).toBe(
+      'Retrieve official documentation and usage details for exactly one React component from the @primer/react package. Use get_component_batch for 2 to 10 components.',
+    )
+    expect(getComponentBatch?.description).toBe(
+      'Retrieve official documentation and usage details for 2 to 10 React components from the @primer/react package in one call. Use get_component for exactly one component.',
+    )
+    expect(listResult.content).toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining(
+          'Use `get_component` for exactly one component and `get_component_batch` for 2 to 10 components.',
+        ),
+      }),
+    )
+  })
 
   it('requires between 2 and 10 names', async () => {
     const tooFew = await callBatch(['Button'])
@@ -121,5 +160,21 @@ describe('get_component_batch', () => {
       ],
     })
     expect(vi.getTimerCount()).toBe(0)
+  })
+
+  it('reviews alt text through the multi-round-trip sampling flow', async () => {
+    const result = await client.callTool({
+      name: 'review_alt_text',
+      arguments: {
+        surroundingText: 'A pull request description',
+        alt: 'Screenshot of a successful test run',
+        image: 'test-results.png',
+      },
+    })
+
+    expect(result.content).toContainEqual({
+      type: 'text',
+      text: 'The alt text is descriptive and relevant.',
+    })
   })
 })

@@ -1,5 +1,11 @@
 # @primer/mcp
 
+## 0.5.1
+
+### Patch Changes
+
+- [#8231](https://github.com/primer/react/pull/8231) [`c2110e0`](https://github.com/primer/react/commit/c2110e0e6e3eea565b39ef16dfba25e8d43f8f7d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Components: Clarify when agents should use single-component and batch documentation tools.
+
 ## 0.5.0
 
 ### Minor Changes
