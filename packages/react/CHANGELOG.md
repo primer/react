@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.35.0
+
+### Minor Changes
+
+- [#8253](https://github.com/primer/react/pull/8253) [`da3df9a`](https://github.com/primer/react/commit/da3df9aba582c7bcedbe69f1bdc5ab64ac90d32b) Thanks [@llastflowers](https://github.com/llastflowers)! - Add default Esc-to-dismiss support to `Popover` component
+
 ## 38.34.0
 
 ### Minor Changes

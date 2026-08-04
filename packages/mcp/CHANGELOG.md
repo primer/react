@@ -1,5 +1,16 @@
 # @primer/mcp
 
+## 1.0.0
+
+### Major Changes
+
+- [#8249](https://github.com/primer/react/pull/8249) [`2cbe47d`](https://github.com/primer/react/commit/2cbe47d4cab232677c3ac65a6acca98b468823df) Thanks [@joshblack](https://github.com/joshblack)! - MCP server: Upgrade to the MCP TypeScript SDK v2 and support the 2026-07-28 protocol over stdio.
+
+### Patch Changes
+
+- Updated dependencies [[`da3df9a`](https://github.com/primer/react/commit/da3df9aba582c7bcedbe69f1bdc5ab64ac90d32b)]:
+  - @primer/react@38.35.0
+
 ## 0.5.1
 
 ### Patch Changes
