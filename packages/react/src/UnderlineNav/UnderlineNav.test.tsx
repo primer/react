@@ -83,9 +83,9 @@ describe('UnderlineNav', () => {
     expect(list.getElementsByTagName('svg').length).toEqual(7)
   })
 
-  it('hides icons below the xsmall breakpoint by default', () => {
+  it('hides icons below the medium breakpoint by default', () => {
     render(<ResponsiveUnderlineNav />)
-    expect(screen.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'xsmall')
+    expect(screen.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
   })
 
   it('supports customizing when icons are hidden', () => {
