@@ -22,6 +22,7 @@ import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphi
 import HeadingComponent from '../Heading'
 import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
+import {asSlot} from '../utils/as-slot'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
@@ -368,6 +369,9 @@ export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
 
 const Group: React.FC<NavListGroupProps> = ({title, children, hideDivider, ...props}) => {
   const headingLevel = React.useContext(NavListHeadingLevelContext)
+  const [slots, childrenWithoutHeading] = useSlots(children, {
+    groupHeading: GroupHeading,
+  })
   // Default the group heading to one level below the NavList.Heading (h3 under an
   // h2, h4 under an h3), falling back to h3 when there is no NavList.Heading. To
   // use a different level, pass NavList.GroupHeading with an explicit `as` instead.
@@ -376,12 +380,14 @@ const Group: React.FC<NavListGroupProps> = ({title, children, hideDivider, ...pr
     <>
       {!hideDivider && <ActionList.Divider />}
       <ActionList.Group {...props}>
-        {title ? (
+        {slots.groupHeading ? (
+          React.cloneElement(slots.groupHeading, {headingWrapElement: 'div'})
+        ) : title ? (
           <ActionList.GroupHeading as={groupHeadingAs} data-component="ActionList.GroupHeading">
             {title}
           </ActionList.GroupHeading>
         ) : null}
-        {children}
+        {childrenWithoutHeading}
       </ActionList.Group>
     </>
   )
@@ -495,7 +501,7 @@ export type NavListGroupHeadingProps = ActionListGroupHeadingProps
  * This is an alternative to the `title` prop on `NavList.Group`.
  * It was primarily added to allow links in group headings.
  */
-const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as, className, ...rest}) => {
+const GroupHeadingImpl: React.FC<NavListGroupHeadingProps> = ({as, className, ...rest}) => {
   const headingLevel = React.useContext(NavListHeadingLevelContext)
   const resolvedAs = as ?? (headingLevel ? levelToHeadingTag(headingLevel + 1) : 'h3')
   return (
@@ -508,6 +514,8 @@ const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as, className, ...res
     />
   )
 }
+
+const GroupHeading = asSlot(GroupHeadingImpl, ActionList.GroupHeading)
 
 // ----------------------------------------------------------------------------
 // Export

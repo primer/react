@@ -2,10 +2,11 @@ import {describe, it, expect, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
-import {NavList} from './NavList'
+import {NavList, type NavListGroupHeadingProps} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
 import {FeatureFlags} from '../FeatureFlags'
+import {asSlot} from '../utils/as-slot'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -754,6 +755,85 @@ describe('NavList.ShowMoreItem with pages', () => {
   })
 
   describe('NavList.Group', () => {
+    it('renders the group heading outside of the nested list', () => {
+      const {container, getByRole} = render(
+        <NavList>
+          <NavList.Group aria-label="Project templates" data-testid="group">
+            <NavList.GroupHeading as="h2">Project templates</NavList.GroupHeading>
+            <NavList.Item href="#featured">Featured</NavList.Item>
+            <NavList.Item href="#recent">Recent</NavList.Item>
+            <NavList.Item href="#mine">Mine</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      const group = container.querySelector('[data-testid="group"]')
+      const list = group?.querySelector(':scope > ul')
+      const heading = getByRole('heading', {level: 2, name: 'Project templates'})
+
+      expect(group).not.toBeNull()
+      expect(list).not.toBeNull()
+      expect(list?.children).toHaveLength(3)
+      expect(list).not.toContainElement(heading)
+      expect(heading.parentElement?.parentElement).toBe(group)
+      expect(list).toHaveAttribute('aria-labelledby', heading.id)
+    })
+
+    it('keeps a fragment-wrapped group heading as a valid list item', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Group data-testid="group">
+            <>
+              <NavList.GroupHeading>Project templates</NavList.GroupHeading>
+            </>
+            <NavList.Item href="#featured">Featured</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      const list = container.querySelector('[data-testid="group"] > ul')
+      expect(Array.from(list?.children ?? []).every(child => child.tagName === 'LI')).toBe(true)
+    })
+
+    it('prefers an explicit group heading over the title prop', () => {
+      const {getByRole, queryByText} = render(
+        <NavList>
+          <NavList.Group title="Overview">
+            <NavList.GroupHeading>Project templates</NavList.GroupHeading>
+            <NavList.Item href="#featured">Featured</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 3, name: 'Project templates'})).toBeInTheDocument()
+      expect(queryByText('Overview')).not.toBeInTheDocument()
+    })
+
+    it('recognizes a group heading wrapper created with asSlot', () => {
+      const WrappedGroupHeading = asSlot(
+        ({children, ...props}: NavListGroupHeadingProps) => (
+          <NavList.GroupHeading {...props}>{children}</NavList.GroupHeading>
+        ),
+        NavList.GroupHeading,
+      )
+      const {container, getByRole, queryByText} = render(
+        <NavList>
+          <NavList.Group title="Overview" data-testid="group">
+            <WrappedGroupHeading id="project-templates-heading">Project templates</WrappedGroupHeading>
+            <NavList.Item href="#featured">Featured</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      const group = container.querySelector('[data-testid="group"]')
+      const list = group?.querySelector(':scope > ul')
+      const heading = getByRole('heading', {level: 3, name: 'Project templates'})
+
+      expect(queryByText('Overview')).not.toBeInTheDocument()
+      expect(heading.parentElement?.parentElement).toBe(group)
+      expect(list).toHaveAttribute('aria-labelledby', 'project-templates-heading')
+    })
+
     it('renders a divider before the group by default', () => {
       const {container} = render(
         <NavList>
