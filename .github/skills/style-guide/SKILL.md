@@ -20,6 +20,6 @@ deviates from the style guide, call out the reason.
 In addition, there are a set of topics below that may be used for guidance on a
 specific topic. Consult this to see if any apply to the task at hand.
 
-| Topic                 | Description                                                    | Link                                                     |
-| :-------------------- | :------------------------------------------------------------- | :------------------------------------------------------- |
-| Component prop naming | Use when deciding or evaluating the name for a component prop. | [component-prop-naming](./docs/component-prop-naming.md) |
+| Topic                 | Description                                                               | Link                                                     |
+| :-------------------- | :------------------------------------------------------------------------ | :------------------------------------------------------- |
+| Component prop naming | Use when deciding or evaluating the name for a prop in a React component. | [component-prop-naming](./docs/component-prop-naming.md) |
