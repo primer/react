@@ -47,9 +47,9 @@ title, name the prop after the non-default action a consumer takes. For example:
 - Use `showDivider` when the divider is hidden by default
 - Use `hideCloseButton` when the close button is visible by default
 
-This helps to avoid scenarios with inverted naming. For example, if the prop is
-called `showTitle` but you would only ever call it with `false` or `hideTitle`
-but you would only ever call it with `true`.
+This helps avoid inverted naming. For example, a prop named `showTitle` may end up
+being passed as `false` in most usage, whereas a prop named `hideTitle` would
+typically be passed as `true`.
 
 A default is durable when:
 
