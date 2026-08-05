@@ -578,7 +578,10 @@ export const EventDuplicates = () => (
     {/* Marked <canonical> as a duplicate of this issue — no right controls. */}
     <VariantSection label="Marked as canonical">
       <Timeline aria-label="Issue timeline">
-        {/* Untagged: verified against the redesign prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional exclusion, this variant is not modeled as a distinct catalog leaf (the catalog has only 'marked_as_duplicate'); no leaf -> no data-* tag. */}
+        {/* Untagged: verified against the redesign prototype
+            (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional
+            exclusion. This variant is not modeled as a distinct catalog leaf (the
+            catalog has only 'marked_as_duplicate'); no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={DuplicateIcon} />
