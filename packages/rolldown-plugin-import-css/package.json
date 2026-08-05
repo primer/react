@@ -11,11 +11,11 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "postcss": "^8.4.38",
+    "postcss": "^8.5.25",
     "postcss-modules": "^6.0.0"
   },
   "devDependencies": {
-    "postcss": "^8.4.38",
+    "postcss": "^8.5.25",
     "postcss-modules": "^6.0.0",
     "rolldown": "^1.2.0",
     "typescript": "^6.0.3"

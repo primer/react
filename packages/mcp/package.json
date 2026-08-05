@@ -1,7 +1,7 @@
 {
   "name": "@primer/mcp",
   "description": "An MCP server that connects AI tools to the Primer Design System",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "type": "module",
   "bin": {
     "mcp": "./bin/mcp.js"
@@ -41,7 +41,7 @@
     "@modelcontextprotocol/server": "^2.0.0",
     "@primer/octicons": "^19.15.5",
     "@primer/primitives": "10.x || 11.x",
-    "@primer/react": "^38.33.0",
+    "@primer/react": "^38.35.0",
     "cheerio": "^1.0.0",
     "turndown": "^7.2.0",
     "zod": "^4.3.5"
