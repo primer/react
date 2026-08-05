@@ -1,4 +1,6 @@
+import type {KeyPaths} from './utils/types/KeyPaths'
 import {fontStack} from './utils/theme'
+import {colorSchemes} from './legacy-theme/ts/color-schemes'
 
 const animation = {
   easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',
@@ -67,6 +69,62 @@ const theme = {
   radii,
   sizes,
   space,
+  colorSchemes,
 }
 
+/** @deprecated Use `ThemeProvider` from `@primer/react/next` to migrate away from JavaScript theme values. */
 export default theme
+
+type ThemeColors = {
+  fg: {
+    default: string
+    muted: string
+    subtle: string
+    onEmphasis: string
+  }
+  canvas: {
+    default: string
+    overlay: string
+    inset: string
+    subtle: string
+  }
+  border: {
+    default: string
+    muted: string
+    subtle: string
+  }
+  neutral: {
+    emphasisPlus: string
+    emphasis: string
+    muted: string
+    subtle: string
+  }
+  accent: ThemeRole
+  success: ThemeRole
+  attention: ThemeRole
+  severe: ThemeRole
+  danger: ThemeRole
+  open: ThemeRole
+  closed: ThemeRole
+  done: ThemeRole
+  sponsors: ThemeRole
+}
+
+type ThemeRole = {
+  fg: string
+  emphasis: string
+  muted: string
+  subtle: string
+}
+
+type ThemeShadows = {
+  shadow: {
+    small: string
+    medium: string
+    large: string
+    extraLarge: string
+  }
+}
+
+export type ThemeColorPaths = KeyPaths<ThemeColors>
+export type ThemeShadowPaths = KeyPaths<ThemeShadows>

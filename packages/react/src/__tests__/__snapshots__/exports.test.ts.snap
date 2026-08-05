@@ -193,8 +193,10 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "type TextInputWithTokensProps",
   "type TextProps",
   "theme",
+  "ThemeColorPaths",
   "ThemeProvider",
   "type ThemeProviderProps",
+  "ThemeShadowPaths",
   "Timeline",
   "type TimelineActionsProps",
   "type TimelineAvatarProps",
@@ -402,5 +404,16 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "useTab",
   "useTabList",
   "useTabPanel",
+]
+`;
+
+exports[`@primer/react/next > should not update exports without a semver change 1`] = `
+[
+  "ThemeProvider",
+  "type ThemeProviderProps",
+  "Tooltip",
+  "type TooltipProps",
+  "useColorSchemeVar",
+  "useTheme",
 ]
 `;

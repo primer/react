@@ -1,9 +1,6 @@
 ---
-'@primer/react': major
+'@primer/react': minor
 ---
 
-ThemeProvider: Remove `colorSchemes` from the default `theme` and stop merging
-color scheme values into the theme context. Color schemes are applied via CSS
-variables instead, and passing an unknown color scheme no longer logs an error.
-`useTheme()` no longer returns `theme` or `resolvedColorScheme`. The
-`ThemeColorPaths` and `ThemeShadowPaths` types are also no longer exported.
+ThemeProvider: Add a CSS-variable-based implementation to `@primer/react/next`
+and deprecate the legacy JavaScript theme implementation.

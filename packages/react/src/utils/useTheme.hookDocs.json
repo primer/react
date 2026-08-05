@@ -36,6 +36,11 @@
       "name": "ThemeData",
       "properties": [
         {
+          "name": "theme",
+          "type": "Theme",
+          "description": "Deprecated: Use `ThemeProvider` from `@primer/react/next` to migrate away from JavaScript theme values."
+        },
+        {
           "name": "colorScheme",
           "type": "string",
           "description": "The color scheme (for example: \"light\", \"dark\") that is applied."
@@ -44,6 +49,11 @@
           "name": "colorMode",
           "type": "'auto' | 'day' | 'night' | 'light' | 'dark'",
           "description": "The color mode (for example: \"day\", \"night\") that is applied. If the color mode is \"auto\", the color mode is determined by the user's system preference."
+        },
+        {
+          "name": "resolvedColorScheme",
+          "type": "string",
+          "description": "Deprecated: Use `colorScheme` with `ThemeProvider` from `@primer/react/next`."
         },
         {
           "name": "resolvedColorMode",
