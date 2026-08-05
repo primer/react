@@ -14,6 +14,7 @@ import {
   GitCommitIcon,
   GitPullRequestIcon,
   IssueClosedIcon,
+  IssueDraftIcon,
   IssueOpenedIcon,
   IssueReopenedIcon,
   IssueTrackedByIcon,
@@ -380,6 +381,27 @@ export const EventState = () => (
             <UserActor href="#" muted />
             {'converted this issue into a discussion '}
             <BoldLink href="#">#123</BoldLink> <MutedTime date={new Date('2022-07-22T14:20:00Z')} href="#" />
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline>
+    </VariantSection>
+
+    {/* Converted from draft */}
+    <VariantSection label="Converted from draft">
+      <Timeline aria-label="Issue timeline">
+        {/* Untagged: this IS a real issue-timeline event (github/github
+            app/platform/unions/issue_timeline_items.rb lists ConvertedFromDraftEvent;
+            it is the Projects v2 draft-issue -> issue conversion), but the taxonomy
+            catalog has no 'converted_from_draft' leaf yet, so no leaf -> no data-* tag.
+            Kept as a coverage example pending a catalog-leaf decision. */}
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={IssueDraftIcon} />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <UserActor href="#" muted />
+            {'converted this from a draft issue '}
+            <MutedTime date={new Date('2022-07-21T08:30:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
       </Timeline>
