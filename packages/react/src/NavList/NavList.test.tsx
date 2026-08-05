@@ -779,10 +779,10 @@ describe('NavList.ShowMoreItem with pages', () => {
       expect(list).toHaveAttribute('aria-labelledby', heading.id)
     })
 
-    it('keeps a fragment-wrapped group heading as a valid list item', () => {
-      const {container} = render(
+    it('prefers a fragment-wrapped group heading over the title prop', () => {
+      const {container, getByRole, queryByText} = render(
         <NavList>
-          <NavList.Group data-testid="group">
+          <NavList.Group title="Overview" data-testid="group">
             <>
               <NavList.GroupHeading>Project templates</NavList.GroupHeading>
             </>
@@ -791,8 +791,16 @@ describe('NavList.ShowMoreItem with pages', () => {
         </NavList>,
       )
 
+      const group = container.querySelector('[data-testid="group"]')
       const list = container.querySelector('[data-testid="group"] > ul')
-      expect(Array.from(list?.children ?? []).every(child => child.tagName === 'LI')).toBe(true)
+      const heading = getByRole('heading', {level: 3, name: 'Project templates'})
+
+      expect(queryByText('Overview')).not.toBeInTheDocument()
+      expect(getByRole('heading')).toBe(heading)
+      expect(container.querySelectorAll(`#${CSS.escape(heading.id)}`)).toHaveLength(1)
+      expect(heading.parentElement?.parentElement).toBe(group)
+      expect(list).toHaveAttribute('aria-labelledby', heading.id)
+      expect(list?.children).toHaveLength(1)
     })
 
     it('prefers an explicit group heading over the title prop', () => {

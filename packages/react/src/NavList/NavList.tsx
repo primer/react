@@ -367,11 +367,39 @@ export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   hideDivider?: boolean
 }
 
+function flattenFragmentChildren(children: React.ReactNode): React.ReactNode[] {
+  const flattenedChildren: React.ReactNode[] = []
+  // eslint-disable-next-line github/array-foreach -- React.Children.toArray changes element identity, which is needed to remove the slotted child from its fragment.
+  React.Children.forEach(children, child => {
+    if (React.isValidElement(child) && child.type === React.Fragment) {
+      flattenedChildren.push(...flattenFragmentChildren((child.props as {children?: React.ReactNode}).children))
+    } else {
+      flattenedChildren.push(child)
+    }
+  })
+  return flattenedChildren
+}
+
+function removeChildFromFragments(children: React.ReactNode, childToRemove: React.ReactElement): React.ReactNode {
+  return React.Children.map(children, child => {
+    if (child === childToRemove) return null
+    if (React.isValidElement(child) && child.type === React.Fragment) {
+      return React.cloneElement(
+        child,
+        undefined,
+        removeChildFromFragments((child.props as {children?: React.ReactNode}).children, childToRemove),
+      )
+    }
+    return child
+  })
+}
+
 const Group: React.FC<NavListGroupProps> = ({title, children, hideDivider, ...props}) => {
   const headingLevel = React.useContext(NavListHeadingLevelContext)
-  const [slots, childrenWithoutHeading] = useSlots(children, {
+  const [slots] = useSlots(flattenFragmentChildren(children), {
     groupHeading: GroupHeading,
   })
+  const childrenWithoutHeading = slots.groupHeading ? removeChildFromFragments(children, slots.groupHeading) : children
   // Default the group heading to one level below the NavList.Heading (h3 under an
   // h2, h4 under an h3), falling back to h3 when there is no NavList.Heading. To
   // use a different level, pass NavList.GroupHeading with an explicit `as` instead.
