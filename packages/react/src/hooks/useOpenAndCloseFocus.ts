@@ -16,13 +16,16 @@ export function useOpenAndCloseFocus({
   preventFocusOnOpen,
 }: UseOpenAndCloseFocusSettings): void {
   useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
     // If focus should be applied on open, apply focus to correct element,
     // either the initialFocusRef if given, otherwise the first focusable element
     if (!preventFocusOnOpen) {
       if (initialFocusRef && initialFocusRef.current) {
         initialFocusRef.current.focus()
-      } else if (containerRef.current) {
-        const firstItem = iterateFocusableElements(containerRef.current).next().value
+      } else {
+        const firstItem = iterateFocusableElements(container).next().value
         firstItem?.focus()
       }
     }
