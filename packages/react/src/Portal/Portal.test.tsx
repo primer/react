@@ -1,11 +1,72 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
 
 import {render} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
-import React from 'react'
+import React, {act} from 'react'
+import {hydrateRoot, type Root} from 'react-dom/client'
+import {renderToString} from 'react-dom/server'
+
+const renderOnServer = (children: React.ReactNode) => {
+  const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+  try {
+    return renderToString(children)
+  } finally {
+    consoleErrorSpy.mockRestore()
+  }
+}
 
 describe('Portal', () => {
+  it('renders nothing without creating a DOM element during server rendering', () => {
+    const createElementSpy = vi.spyOn(document, 'createElement')
+
+    try {
+      expect(renderOnServer(<Portal>portal content</Portal>)).toEqual('')
+      expect(createElementSpy).not.toHaveBeenCalled()
+    } finally {
+      createElementSpy.mockRestore()
+    }
+  })
+
+  it('preserves generated IDs during hydration', async () => {
+    const Id = ({name}: {name: string}) => {
+      const id = React.useId()
+      return <div id={id} data-name={name} />
+    }
+    const App = () => (
+      <>
+        <Id name="before" />
+        <Portal>
+          <Id name="portal" />
+        </Portal>
+        <Id name="after" />
+      </>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderOnServer(<App />)
+    document.body.appendChild(container)
+
+    const serverIds = Array.from(container.querySelectorAll('[data-name]'), element => element.id)
+    const recoverableErrors: unknown[] = []
+    let root: Root | undefined
+
+    try {
+      await act(async () => {
+        root = hydrateRoot(container, <App />, {
+          onRecoverableError: error => recoverableErrors.push(error),
+        })
+      })
+
+      expect(recoverableErrors).toEqual([])
+      expect(Array.from(container.querySelectorAll('[data-name]'), element => element.id)).toEqual(serverIds)
+      expect(document.querySelector('[data-name="portal"]')).toBeInstanceOf(HTMLElement)
+    } finally {
+      await act(async () => root?.unmount())
+      container.remove()
+    }
+  })
+
   it('renders a default portal into document.body (no BaseStyles present)', () => {
     const {baseElement} = render(<Portal>123test123</Portal>)
     const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')

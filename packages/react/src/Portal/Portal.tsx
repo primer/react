@@ -28,9 +28,9 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
-  const elementRef = React.useRef<HTMLDivElement | null>(null)
-  // eslint-disable-next-line react-hooks/refs
-  if (!elementRef.current) {
+  const [element, setElement] = React.useState<HTMLDivElement | null>(null)
+
+  useLayoutEffect(() => {
     const div = document.createElement('div')
     div.setAttribute('data-component', 'Portal')
     // Portaled content should get their own stacking context so they don't interfere
@@ -38,13 +38,12 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     // to change the zIndex to a value other than "1".
     div.style.position = 'relative'
     div.style.zIndex = '1'
-    elementRef.current = div
-  }
-
-  // eslint-disable-next-line react-hooks/refs
-  const element = elementRef.current
+    setElement(div)
+  }, [])
 
   useLayoutEffect(() => {
+    if (!element) return
+
     let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
@@ -66,5 +65,5 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, _containerName, portalContainerName])
 
-  return createPortal(children, element)
+  return element ? createPortal(children, element) : null
 }
