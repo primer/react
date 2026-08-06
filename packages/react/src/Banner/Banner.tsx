@@ -202,7 +202,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   )
 })
 
-type TitleElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
+type TitleElement = 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 
 export type BannerTitleProps<As extends TitleElement = 'h2'> = {
   as?: As

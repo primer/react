@@ -319,14 +319,11 @@ describe('Banner', () => {
       expect(screen.getByRole('heading', {level: 2, name: 'test'})).toBeInTheDocument()
     })
 
-    it('should support rendering as any heading element', () => {
-      const levels = [1, 2, 3, 4, 5, 6] as const
+    it('should support rendering as any supported heading element', () => {
+      const levels = [2, 3, 4, 5, 6] as const
 
       render(
         <>
-          <Banner>
-            <Banner.Title as="h1">test level 1</Banner.Title>
-          </Banner>
           <Banner>
             <Banner.Title as="h2">test level 2</Banner.Title>
           </Banner>
