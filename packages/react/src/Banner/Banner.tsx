@@ -204,13 +204,13 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
 
 type TitleElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 
-export type BannerTitleProps<As extends TitleElement = 'h1'> = {
+export type BannerTitleProps<As extends TitleElement = 'h2'> = {
   as?: As
   className?: string
 } & React.ComponentPropsWithoutRef<As>
 
-export function BannerTitle<As extends TitleElement = 'h1'>(props: BannerTitleProps<As>) {
-  const {as: Element = 'h1', className, children, id, ...rest} = props
+export function BannerTitle<As extends TitleElement = 'h2'>(props: BannerTitleProps<As>) {
+  const {as: Element = 'h2', className, children, id, ...rest} = props
   const context = React.useContext(BannerContext)
   const titleId = id ?? context?.titleId
 

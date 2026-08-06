@@ -1,5 +1,5 @@
 ---
-'@primer/react': major
+'@primer/react': minor
 ---
 
-Banner: Allow `Banner.Title` to render as a paragraph or any heading level, and change its default element to `h1`.
+Banner: Add support for rendering `Banner.Title` as a paragraph or `h1` heading.
