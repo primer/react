@@ -131,7 +131,8 @@
       "props": [
         {
           "name": "as",
-          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'",
+          "defaultValue": "'h1'"
         }
       ]
     },

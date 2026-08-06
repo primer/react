@@ -129,10 +129,10 @@ describe('Banner', () => {
     expect(screen.getByRole('heading')).toHaveAttribute('id', 'custom-title-id')
   })
 
-  it('should default the title to a h2', () => {
+  it('should default the title to a h1', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('heading', {level: 2})).toBeInTheDocument()
-    expect(screen.getByRole('heading', {level: 2})).toEqual(screen.getByText('test'))
+    expect(screen.getByRole('heading', {level: 1})).toBeInTheDocument()
+    expect(screen.getByRole('heading', {level: 1})).toEqual(screen.getByText('test'))
   })
 
   it('should throw an error if no title is provided', () => {
@@ -310,20 +310,23 @@ describe('Banner', () => {
   })
 
   describe('Banner.Title', () => {
-    it('should render as a h2 element by default', () => {
+    it('should render as a h1 element by default', () => {
       render(
         <Banner>
           <Banner.Title>test</Banner.Title>
         </Banner>,
       )
-      expect(screen.getByRole('heading', {level: 2, name: 'test'})).toBeInTheDocument()
+      expect(screen.getByRole('heading', {level: 1, name: 'test'})).toBeInTheDocument()
     })
 
-    it('should support rendering as any heading element above level 2', () => {
-      const levels = [2, 3, 4, 5, 6] as const
+    it('should support rendering as any heading element', () => {
+      const levels = [1, 2, 3, 4, 5, 6] as const
 
       render(
         <>
+          <Banner>
+            <Banner.Title as="h1">test level 1</Banner.Title>
+          </Banner>
           <Banner>
             <Banner.Title as="h2">test level 2</Banner.Title>
           </Banner>
@@ -345,6 +348,15 @@ describe('Banner', () => {
       for (const level of levels) {
         expect(screen.getByRole('heading', {level, name: `test level ${level}`})).toBeInTheDocument()
       }
+    })
+
+    it('should support rendering as a paragraph element', () => {
+      render(
+        <Banner>
+          <Banner.Title as="p">test paragraph</Banner.Title>
+        </Banner>,
+      )
+      expect(screen.getByText('test paragraph')).toHaveRole('paragraph')
     })
 
     it('should support a custom `className` on the container element', () => {
