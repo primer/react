@@ -1,5 +1,5 @@
 import type {ComponentPropsWithRef, ReactElement} from 'react'
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
@@ -173,12 +173,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const [overlayElement, setOverlayElement] = React.useState<HTMLDivElement | null>(null)
-    const overlayRef = React.useMemo<React.RefObject<HTMLDivElement | null>>(
-      () => ({current: overlayElement}),
-      [overlayElement],
-    )
-    const mergedOverlayRef = useMergedRefs(forwardedRef, setOverlayElement)
+    const overlayRef = useRef<HTMLDivElement>(null)
+    const mergedOverlayRef = useMergedRefs(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
     const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
@@ -194,27 +190,26 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     })
 
     useEffect(() => {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-      if (height === 'initial' && overlayElement?.clientHeight) {
-        overlayElement.style.height = `${overlayElement.clientHeight}px`
+      if (height === 'initial' && overlayRef.current?.clientHeight) {
+        overlayRef.current.style.height = `${overlayRef.current.clientHeight}px`
       }
-    }, [height, overlayElement])
+    }, [height])
 
     useLayoutEffect(() => {
       const {x, y} = getSlideAnimationStartingVector(anchorSide)
-      if ((!x && !y) || !overlayElement?.animate || visibility === 'hidden') {
+      if ((!x && !y) || !overlayRef.current?.animate || visibility === 'hidden') {
         return
       }
 
       // JS animation is required because Safari does not allow css animations to start paused and then run
-      overlayElement.animate(
+      overlayRef.current.animate(
         {transform: [`translate(${slideAnimationDistance * x}px, ${slideAnimationDistance * y}px)`, `translate(0, 0)`]},
         {
           duration: animationDuration,
           easing: slideAnimationEasing,
         },
       )
-    }, [anchorSide, overlayElement, slideAnimationDistance, slideAnimationEasing, visibility])
+    }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left

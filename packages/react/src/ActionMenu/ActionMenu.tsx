@@ -296,11 +296,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     isSubmenu = false,
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
-  const [containerElement, setContainerElement] = useState<HTMLDivElement | null>(null)
-  const containerRef = useMemo<React.RefObject<HTMLDivElement | null>>(
-    () => ({current: containerElement}),
-    [containerElement],
-  )
+  const containerRef = React.useRef<HTMLDivElement>(null)
   const isNarrow = useResponsiveValue({narrow: true}, false)
 
   const isNarrowFullscreen = !!isNarrow && variant.narrow === 'fullscreen'
@@ -369,7 +365,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       displayInViewport={displayInViewport !== undefined ? displayInViewport : isInsideDialog}
     >
       <div
-        ref={setContainerElement}
+        ref={containerRef}
         className={styles.ActionMenuContainer}
         data-variant={responsiveVariant}
         {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}

@@ -70,6 +70,8 @@ export const useMenuInitialFocus = (
         setTimeout(() => firstElement?.focus())
       }
     },
+    // `containerRef` is a ref object, so its identity is stable across re-renders and
+    // including it here cannot re-fire the initial focus while the menu stays open.
     [open, openingGesture, anchorRef, containerRef],
   )
 }

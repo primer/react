@@ -226,7 +226,7 @@ function Panel({
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
   const initialHeightRef = useRef(0)
   const initialScaleRef = useRef(1)
-  const [noticeElement, setNoticeElement] = useState<HTMLDivElement | null>(null)
+  const noticeRef = useRef<HTMLDivElement>(null)
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
   const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
   const KEYBOARD_VISIBILITY_THRESHOLD = 10
@@ -522,13 +522,12 @@ function Panel({
 
   useEffect(() => {
     const announceNotice = async () => {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-      if (!noticeElement) return
+      if (!noticeRef.current) return
       const liveRegion = document.querySelector('live-region')
 
       liveRegion?.clear()
 
-      await announceFromElement(noticeElement, {
+      await announceFromElement(noticeRef.current, {
         from: liveRegion ? liveRegion : undefined,
       })
     }
@@ -537,7 +536,7 @@ function Panel({
     if (open && notice) {
       announceNotice()
     }
-  }, [notice, noticeElement, open])
+  }, [notice, open])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -942,7 +941,7 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div ref={setNoticeElement} data-component="SelectPanel.Notice">
+            <div ref={noticeRef} data-component="SelectPanel.Notice">
               <Banner
                 variant={notice.variant === 'error' ? 'critical' : notice.variant}
                 description={notice.text}

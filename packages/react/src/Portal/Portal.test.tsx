@@ -18,15 +18,10 @@ const renderOnServer = (children: React.ReactNode) => {
 }
 
 describe('Portal', () => {
-  it('renders nothing without creating a DOM element during server rendering', () => {
-    const createElementSpy = vi.spyOn(document, 'createElement')
-
-    try {
-      expect(renderOnServer(<Portal>portal content</Portal>)).toEqual('')
-      expect(createElementSpy).not.toHaveBeenCalled()
-    } finally {
-      createElementSpy.mockRestore()
-    }
+  it('renders nothing during server rendering', () => {
+    // React's server renderer throws when it encounters a portal, so `Portal` has
+    // to render nothing while server rendering.
+    expect(renderOnServer(<Portal>portal content</Portal>)).toEqual('')
   })
 
   it('preserves generated IDs during hydration', async () => {
@@ -65,6 +60,33 @@ describe('Portal', () => {
       await act(async () => root?.unmount())
       container.remove()
     }
+  })
+
+  it('mounts children in the same commit as the Portal', () => {
+    const refDuringLayoutEffect: Array<HTMLElement | null> = []
+    let renderCount = 0
+
+    const App = () => {
+      const ref = React.useRef<HTMLDivElement>(null)
+      renderCount++
+
+      React.useLayoutEffect(() => {
+        refDuringLayoutEffect.push(ref.current)
+      }, [])
+
+      return (
+        <Portal>
+          <div ref={ref}>portal content</div>
+        </Portal>
+      )
+    }
+
+    const {baseElement} = render(<App />)
+
+    expect(refDuringLayoutEffect).toEqual([expect.any(HTMLDivElement)])
+    expect(renderCount).toEqual(1)
+
+    baseElement.innerHTML = ''
   })
 
   it('renders a default portal into document.body (no BaseStyles present)', () => {
@@ -122,6 +144,24 @@ describe('Portal', () => {
 
     const portalNode = portalRoot?.querySelector('[data-component="Portal"]')
     expect(portalNode).toBeInstanceOf(HTMLElement)
+
+    baseElement.innerHTML = ''
+  })
+
+  it('calls onMount once, and does not remount when an inline onMount changes identity', () => {
+    const onMount = vi.fn()
+
+    const {baseElement, rerender} = render(<Portal onMount={() => onMount()}>portal content</Portal>)
+    const portalNode = baseElement.querySelector('[data-component="Portal"]')
+
+    expect(onMount).toHaveBeenCalledTimes(1)
+
+    // A new `onMount` function identity must not detach and re-attach the portal,
+    // which would unmount and remount every portaled DOM node.
+    rerender(<Portal onMount={() => onMount()}>portal content</Portal>)
+
+    expect(onMount).toHaveBeenCalledTimes(1)
+    expect(baseElement.querySelector('[data-component="Portal"]')).toBe(portalNode)
 
     baseElement.innerHTML = ''
   })

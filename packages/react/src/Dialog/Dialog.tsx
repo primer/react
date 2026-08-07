@@ -320,12 +320,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     footer: Dialog.Footer,
   })
 
-  const [dialogElement, setDialogElement] = useState<HTMLDivElement | null>(null)
-  const dialogRef = React.useMemo<React.RefObject<HTMLDivElement | null>>(
-    () => ({current: dialogElement}),
-    [dialogElement],
-  )
-  const mergedDialogRef = useMergedRefs(forwardedRef, setDialogElement)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const mergedDialogRef = useMergedRefs(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
@@ -388,7 +384,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     dialogElement.setAttribute('data-footer-button-layout', newLayout)
 
     setFooterButtonLayout(newLayout)
-  }, [dialogRef, hasFooter])
+  }, [hasFooter])
 
   useResizeObserver(updateFooterButtonLayout, backdropRef)
 
