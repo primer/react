@@ -63,16 +63,16 @@ describe('Portal', () => {
   })
 
   it('mounts children in the same commit as the Portal', () => {
-    const refDuringLayoutEffect: Array<HTMLElement | null> = []
-    let renderCount = 0
+    const refPerCommit: Array<HTMLElement | null> = []
 
     const App = () => {
       const ref = React.useRef<HTMLDivElement>(null)
-      renderCount++
 
+      // Intentionally no dependency array, so this runs after every commit and the
+      // length of `refPerCommit` is also the number of commits.
       React.useLayoutEffect(() => {
-        refDuringLayoutEffect.push(ref.current)
-      }, [])
+        refPerCommit.push(ref.current)
+      })
 
       return (
         <Portal>
@@ -83,8 +83,9 @@ describe('Portal', () => {
 
     const {baseElement} = render(<App />)
 
-    expect(refDuringLayoutEffect).toEqual([expect.any(HTMLDivElement)])
-    expect(renderCount).toEqual(1)
+    // A single entry proves the Portal did not need a second pass, and a populated
+    // ref proves the children mounted in the same commit as the Portal itself.
+    expect(refPerCommit).toEqual([expect.any(HTMLDivElement)])
 
     baseElement.innerHTML = ''
   })
