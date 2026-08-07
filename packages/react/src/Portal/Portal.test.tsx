@@ -89,6 +89,58 @@ describe('Portal', () => {
     baseElement.innerHTML = ''
   })
 
+  it('removes its host element from the portal root when unmounted', () => {
+    const {baseElement, unmount} = render(<Portal>portal content</Portal>)
+    const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+
+    expect(generatedRoot?.querySelectorAll('[data-component="Portal"]')).toHaveLength(1)
+
+    unmount()
+
+    expect(generatedRoot?.querySelectorAll('[data-component="Portal"]')).toHaveLength(0)
+
+    baseElement.innerHTML = ''
+  })
+
+  it('attaches a single host element under StrictMode, which remounts effects', () => {
+    const {baseElement} = render(
+      <React.StrictMode>
+        <Portal>portal content</Portal>
+      </React.StrictMode>,
+    )
+    const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+
+    expect(generatedRoot?.querySelectorAll('[data-component="Portal"]')).toHaveLength(1)
+    expect(generatedRoot?.textContent.trim()).toEqual('portal content')
+
+    baseElement.innerHTML = ''
+  })
+
+  it('moves the portal when containerName changes', () => {
+    const {baseElement} = render(
+      <main>
+        <div id="rootA" />
+        <div id="rootB" />
+      </main>,
+    )
+    const rootA = baseElement.querySelector('#rootA')!
+    const rootB = baseElement.querySelector('#rootB')!
+    registerPortalRoot(rootA, 'rootA')
+    registerPortalRoot(rootB, 'rootB')
+
+    const {rerender} = render(<Portal containerName="rootA">portal content</Portal>)
+
+    expect(rootA.textContent.trim()).toEqual('portal content')
+    expect(rootB.textContent.trim()).toEqual('')
+
+    rerender(<Portal containerName="rootB">portal content</Portal>)
+
+    expect(rootA.querySelectorAll('[data-component="Portal"]')).toHaveLength(0)
+    expect(rootB.textContent.trim()).toEqual('portal content')
+
+    baseElement.innerHTML = ''
+  })
+
   it('renders a default portal into document.body (no BaseStyles present)', () => {
     const {baseElement} = render(<Portal>123test123</Portal>)
     const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
