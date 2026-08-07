@@ -317,6 +317,14 @@ describe('Button', () => {
     const triggerEl = getByRole('button', {name: 'Heart'})
     expect(triggerEl).toHaveAccessibleDescription('Love is all around (command h)')
   })
+  it('should render a TriangleDownIcon when hasTriangleDownIcon is passed', () => {
+    const {container} = render(<IconButton icon={HeartIcon} aria-label="Heart" hasTriangleDownIcon />)
+    expect(container.querySelector('[data-component="triangleDownIcon"]')).toBeInTheDocument()
+  })
+  it('should not render a TriangleDownIcon by default', () => {
+    const {container} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
+    expect(container.querySelector('[data-component="triangleDownIcon"]')).not.toBeInTheDocument()
+  })
 })
 
 describe('data-component attributes', () => {
@@ -387,6 +395,21 @@ describe('data-component attributes', () => {
     it('should have data-component="IconButton" on the button element', () => {
       const {container} = render(<IconButton icon={SearchIcon} aria-label="Search" />)
       expect(container.querySelector('[data-component="IconButton"]')).toBeInTheDocument()
+    })
+
+    it('should set data-has-triangle-down-icon when hasTriangleDownIcon is passed', () => {
+      const {container} = render(<IconButton icon={SearchIcon} aria-label="Search" hasTriangleDownIcon />)
+      expect(container.querySelector('[data-component="IconButton"]')).toHaveAttribute(
+        'data-has-triangle-down-icon',
+        'true',
+      )
+    })
+
+    it('should not set data-has-triangle-down-icon by default', () => {
+      const {container} = render(<IconButton icon={SearchIcon} aria-label="Search" />)
+      expect(container.querySelector('[data-component="IconButton"]')).not.toHaveAttribute(
+        'data-has-triangle-down-icon',
+      )
     })
   })
 

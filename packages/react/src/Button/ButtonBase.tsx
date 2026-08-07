@@ -11,6 +11,7 @@ import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
 import {isElement} from 'react-is'
+import {TriangleDownIcon} from '@primer/octicons-react'
 
 const renderModuleVisual = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,6 +37,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
     ['aria-labelledby']: ariaLabelledBy,
     count,
     icon: Icon,
+    hasTriangleDownIcon,
     id,
     variant = 'default',
     size = 'medium',
@@ -99,6 +101,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-variant={variant}
         data-label-wrap={labelWrap}
         data-has-count={count !== undefined ? true : undefined}
+        data-has-triangle-down-icon={Icon && hasTriangleDownIcon ? true : undefined}
         data-icon-only-counter={count !== undefined && LeadingVisual && !children ? true : undefined}
         aria-describedby={ariaDescribedByIds.filter(descriptionID => Boolean(descriptionID)).join(' ') || undefined}
         // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
@@ -114,10 +117,11 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         {Icon ? (
           loading ? (
             <Spinner size="small" />
-          ) : isElement(Icon) ? (
-            Icon
           ) : (
-            <Icon />
+            <>
+              {isElement(Icon) ? Icon : <Icon />}
+              {hasTriangleDownIcon ? <TriangleDownIcon data-component="triangleDownIcon" /> : null}
+            </>
           )
         ) : (
           <>
