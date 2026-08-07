@@ -42,6 +42,21 @@
     },
     {
       "id": "experimental-components-datatable-features--with-pagination"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-integrated-pagination"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-integrated-pagination-controlled"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-integrated-pagination-external"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-integrated-pagination-page-size"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-integrated-pagination-page-size-controlled"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -112,6 +127,48 @@
       "required": false,
       "description": "Fires every time the user clicks a sortable column header. It reports the column id that is now sorted and the direction after the toggle (never 'NONE').",
       "defaultValue": ""
+    },
+    {
+      "name": "pagination",
+      "type": "false | true | IntegratedPaginationOptions",
+      "required": false,
+      "description": "Render an integrated pagination control beneath the table. Pass `true` for defaults, an `IntegratedPaginationOptions` object to customize (`pageSize`, `pageSizeOptions`, `pageSizeLabel`, `defaultPageIndex`, `aria-label`, `showPages`), or omit to opt out and continue composing `<Table.Pagination>` manually.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "pageIndex",
+      "type": "number",
+      "required": false,
+      "description": "Controlled page index. When provided, the parent owns the page state and `pagination.defaultPageIndex` is ignored. Pair with `onPageChange`.",
+      "defaultValue": ""
+    },
+    {
+      "name": "onPageChange",
+      "type": "(pageIndex: number) => void",
+      "required": false,
+      "description": "Called whenever the page index changes (controlled or uncontrolled).",
+      "defaultValue": ""
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "required": false,
+      "description": "Controlled page size. When provided, the parent owns the rows-per-page selection and `pagination.pageSize` becomes the initial value only. Pair with `onPageSizeChange`.",
+      "defaultValue": ""
+    },
+    {
+      "name": "onPageSizeChange",
+      "type": "(pageSize: number) => void",
+      "required": false,
+      "description": "Called whenever the user picks a new page size from the rows-per-page dropdown. The page index is always reset to 0 when the page size changes, so `onPageChange(0)` will also fire if the previous page index was non-zero.",
+      "defaultValue": ""
+    },
+    {
+      "name": "externalPagination",
+      "type": "boolean",
+      "required": false,
+      "description": "When `true`, disables client-side row slicing. The pagination control still renders and `onPageChange` still fires, but `data` is rendered as-is. Use for server-driven pagination.",
+      "defaultValue": "false"
     }
   ],
   "subcomponents": [
@@ -310,6 +367,22 @@
           "type": "number",
           "description": "Optionally specify the number of items within a page",
           "defaultValue": "25"
+        },
+        {
+          "name": "pageSizeOptions",
+          "type": "ReadonlyArray<number>",
+          "description": "When provided, renders a rows-per-page `<select>` dropdown to the left of the range. Selecting a value resets `pageIndex` to `0` and fires both `onPageSizeChange` and `onChange`."
+        },
+        {
+          "name": "pageSizeLabel",
+          "type": "string",
+          "description": "Visible label for the rows-per-page dropdown. Only used when `pageSizeOptions` is provided.",
+          "defaultValue": "'Rows per page'"
+        },
+        {
+          "name": "onPageSizeChange",
+          "type": "(pageSize: number) => void",
+          "description": "Called whenever the user selects a new page size from the rows-per-page dropdown."
         },
         {
           "name": "totalCount",

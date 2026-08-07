@@ -12,6 +12,26 @@
   border-end-end-radius: var(--borderRadius-medium);
 }
 
+.TablePaginationStart {
+  display: flex;
+  align-items: center;
+  column-gap: var(--base-size-16);
+  flex-wrap: wrap;
+  row-gap: var(--base-size-4);
+}
+
+.TablePaginationPageSize {
+  display: flex;
+  align-items: center;
+  column-gap: var(--base-size-8);
+}
+
+.TablePaginationPageSizeLabel {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  white-space: nowrap;
+}
+
 @media ((max-width: calc(768px - 0.02px))) {
   /* stylelint-disable-next-line selector-max-specificity -- li type subject keeps the selector bucketable for style-recalc perf (github/github-ui#23654) */
   .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > li:not(:first-child):not(:last-child) {
