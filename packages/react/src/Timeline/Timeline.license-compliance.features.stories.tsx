@@ -19,6 +19,7 @@ import {Button} from '../Button'
 import Link from '../Link'
 import Octicon from '../Octicon'
 import {EventSubRow, Examples, MutedTime, UserActor, VariantSection} from './internal/timelineStoryHelpers'
+import {eventDataAttributesFor} from './taxonomy'
 import classes from './Timeline.license-compliance.features.stories.module.css'
 
 /**
@@ -67,10 +68,21 @@ import classes from './Timeline.license-compliance.features.stories.module.css'
  * base `Timeline` component's own stories, and any docs-site representation is a
  * Phase 3 consideration via base-component story changes, out of scope here.
  *
- * FUTURE FILTERING (taxonomy still open — github/primer#6663): category
- * `data-*` attributes (e.g. `data-event-category="created"`) will attach to each
- * `Timeline.Item` below so stories can be filtered/grouped by event family. We
- * intentionally do NOT add them yet to avoid baking in a taxonomy.
+ * TAXONOMY `data-*` CONTRACT (proof-of-pattern pilot): every `Timeline.Item`
+ * below now carries the event `data-*` attributes projected from the merged
+ * taxonomy module (`./taxonomy`, primer/react#8180) — the single source of truth
+ * for Timeline event categorization (github/primer#6664, docs github/primer#6888).
+ * Each row spreads the output of the shared `eventDataAttributesFor` helper,
+ * which derives `category` / `visibility` FROM the catalog entry so the stories
+ * stay in sync with the catalog, and resolves `data-actor-type` at runtime from
+ * each row's rendered actor login. The contract per rendered `<li>`: `data-event-scope`,
+ * `data-event-type` (the UNSCOPED leaf), `data-event-category`,
+ * `data-event-visibility` (defaults `primary`), and `data-actor-type` (OMITTED
+ * when the row renders no actor, e.g. the synthetic `appeared_in_branch`).
+ * License Compliance is fully cataloged (all nine leaves), so nothing here is
+ * left untagged — there are no parked or shared events on this surface. This is
+ * the proof-of-pattern surface; the same approach fans out to the other four
+ * timeline surfaces next.
  *
  * PROOF-OF-PATTERN HISTORY: this file landed first as an `opened`-only
  * scaffold to validate the template, then grew to the full nine-group set. All
@@ -140,6 +152,14 @@ const PolicyLink = ({href = '../../settings/security_analysis'}: {href?: string}
   </Link>
 )
 
+/**
+ * The stories below project each row's `data-*` via the shared
+ * `eventDataAttributesFor('license-compliance', <leaf>, login?)` helper (see
+ * `./taxonomy`). `category` and `visibility` come from the catalog entry;
+ * `data-actor-type` resolves from the login and is omitted for actor-less rows.
+ * See github/primer#6664 and the taxonomy docs (github/primer#6888).
+ */
+
 export default {
   title: 'Components/Timeline/Events/License Compliance',
   component: Timeline,
@@ -186,7 +206,7 @@ export const EventOpened = () => (
     {/* Opened — license-compliance system bot, ShieldIcon on success (green) */}
     <VariantSection label="Opened">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'opened', 'github-license-compliance[bot]')}>
           <Timeline.Badge variant="success">
             <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
@@ -222,7 +242,7 @@ export const EventAppearedInBranch = () => (
         badge, with a BranchName pill. PR sub-row is dormant (see group doc). */}
     <VariantSection label="Appeared in branch">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'appeared_in_branch')}>
           <Timeline.Badge>
             <Octicon icon={GitBranchIcon} />
           </Timeline.Badge>
@@ -262,7 +282,7 @@ export const EventReviewRequested = () => (
     {/* Requested to close — no reason, no PR, no comment */}
     <VariantSection label="Requested to close">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'review_requested', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
@@ -278,7 +298,7 @@ export const EventReviewRequested = () => (
     {/* Requested to close as {reason}, with a requester comment sub-row */}
     <VariantSection label="Requested to close as a specific reason (with comment)">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'review_requested', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
@@ -296,7 +316,7 @@ export const EventReviewRequested = () => (
         "Review request" button (latest request only) in Timeline.Actions. */}
     <VariantSection label="Requested to close with a pull request (latest — shows Review request)">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'review_requested', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
@@ -330,7 +350,7 @@ export const EventReviewApproved = () => (
     {/* Approved closure request */}
     <VariantSection label="Approved closure request">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'review_approved', 'hubot')}>
           <Timeline.Badge>
             <Octicon icon={CheckIcon} />
           </Timeline.Badge>
@@ -346,7 +366,7 @@ export const EventReviewApproved = () => (
     {/* Approved closure request — with reviewer comment */}
     <VariantSection label="Approved closure request (with comment)">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'review_approved', 'hubot')}>
           <Timeline.Badge>
             <Octicon icon={CheckIcon} />
           </Timeline.Badge>
@@ -374,7 +394,7 @@ export const EventReviewDenied = () => (
     {/* Denied closure request */}
     <VariantSection label="Denied closure request">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'review_denied', 'hubot')}>
           <Timeline.Badge>
             <Octicon icon={XIcon} />
           </Timeline.Badge>
@@ -390,7 +410,7 @@ export const EventReviewDenied = () => (
     {/* Denied closure request — with reviewer comment */}
     <VariantSection label="Denied closure request (with comment)">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'review_denied', 'hubot')}>
           <Timeline.Badge>
             <Octicon icon={XIcon} />
           </Timeline.Badge>
@@ -422,7 +442,9 @@ export const EventReviewExpired = () => (
     {/* Request to close expired — license-compliance system bot, automatic expiry */}
     <VariantSection label="Request to close expired">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item
+          {...eventDataAttributesFor('license-compliance', 'review_expired', 'github-license-compliance[bot]')}
+        >
           <Timeline.Badge>
             <Octicon icon={CircleSlashIcon} />
           </Timeline.Badge>
@@ -452,7 +474,7 @@ export const EventExceptionAdded = () => (
     {/* Full shape — package + policy link + repo name */}
     <VariantSection label="Added a package exception to the license policy">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'exception_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LawIcon} />
           </Timeline.Badge>
@@ -470,7 +492,7 @@ export const EventExceptionAdded = () => (
     {/* Fallback shape — body missing package info */}
     <VariantSection label="Created exception (fallback)">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'exception_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LawIcon} />
           </Timeline.Badge>
@@ -499,7 +521,7 @@ export const EventLicensesAdded = () => (
     {/* Full shape — licenses list + policy link + repo name */}
     <VariantSection label="Added licenses to the license policy">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'licenses_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LawIcon} />
           </Timeline.Badge>
@@ -517,7 +539,7 @@ export const EventLicensesAdded = () => (
     {/* Fallback shape — body missing licenses array */}
     <VariantSection label="Added to approved licenses (fallback)">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'licenses_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LawIcon} />
           </Timeline.Badge>
@@ -550,7 +572,7 @@ export const EventClosed = () => (
     {/* Closed as amendment — with a closing comment */}
     <VariantSection label="Closed as amendment (with comment)">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -567,7 +589,7 @@ export const EventClosed = () => (
     {/* Closed as private package */}
     <VariantSection label="Closed as private package">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -583,7 +605,7 @@ export const EventClosed = () => (
     {/* Closed as inaccurate license */}
     <VariantSection label="Closed as inaccurate license">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -599,7 +621,7 @@ export const EventClosed = () => (
     {/* Closed as policy edited */}
     <VariantSection label="Closed as policy edited">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -615,7 +637,7 @@ export const EventClosed = () => (
     {/* Closed as fixed */}
     <VariantSection label="Closed as fixed">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -631,7 +653,7 @@ export const EventClosed = () => (
     {/* Closed as outdated — resolution Outdated */}
     <VariantSection label="Closed as outdated">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -647,7 +669,7 @@ export const EventClosed = () => (
     {/* Closed this alert — default (no reason / resolution) */}
     <VariantSection label="Closed this alert (default)">
       <Timeline aria-label="License compliance alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('license-compliance', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>

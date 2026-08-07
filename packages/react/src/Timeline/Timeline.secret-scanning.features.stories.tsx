@@ -20,6 +20,7 @@ import {
 import {Button} from '../Button'
 import Octicon from '../Octicon'
 import {EventSubRow, MutedTime, RealisticTimeline, UserActor, VariantSection} from './internal/timelineStoryHelpers'
+import {eventDataAttributesFor} from './taxonomy'
 
 /**
  * Secret Scanning alert Timeline event examples (Phase 2 of github/primer#6663).
@@ -53,10 +54,19 @@ import {EventSubRow, MutedTime, RealisticTimeline, UserActor, VariantSection} fr
  * base `Timeline` component's own stories, and any docs-site representation is a
  * Phase 3 consideration via base-component story changes, out of scope here.
  *
- * FUTURE FILTERING (taxonomy still open — github/primer#6663): category
- * `data-*` attributes (e.g. `data-event-category="created"`) will attach to each
- * `Timeline.Item` below so stories can be filtered/grouped by event family. We
- * intentionally do NOT add them yet to avoid baking in a taxonomy.
+ * EVENT TAXONOMY TAGGING (github/primer#6664, Phase 3): each cataloged
+ * `Timeline.Item` below carries the `data-*` event contract
+ * (`data-event-scope` / `data-event-type` / `data-event-category` /
+ * `data-event-visibility` / `data-actor-type`), projected from the shared
+ * `SECRET_SCANNING_TAXONOMY` catalog via the `eventDataAttributesFor` helper.
+ * This mirrors
+ * the License Compliance pilot (primer/react#8216) and consumes the merged
+ * taxonomy module (#8180) documented in github/primer#6888.
+ *
+ * The catalog was scoped to the five live `switch (event.type)` cases and is
+ * NARROWER than this story set, so MANY variants have no catalog leaf and are
+ * left UNTAGGED on purpose (each such item carries a comment explaining why).
+ * We tag ONLY the seven cataloged leaves and never invent a value.
  *
  * SLOT USAGE (Phase 1 slots — same convention as the Issues / Dependabot groups):
  * - `Timeline.Avatar` (gutter slot, #6677): the 40px LEFT-GUTTER avatar.
@@ -96,6 +106,12 @@ import {EventSubRow, MutedTime, RealisticTimeline, UserActor, VariantSection} fr
 // the shared `UserActor` default avatar (monalisa).
 const SIX7_AVATAR = 'https://avatars.githubusercontent.com/u/4548309?v=4'
 const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/u/480938?v=4'
+
+// The stories below project each row's `data-*` via the shared
+// `eventDataAttributesFor('secret-scanning', <leaf>, login?)` helper: `category`
+// and `visibility` are read FROM the catalog so the story never re-declares the
+// taxonomy; `login` is the actor rendered in the row, resolved to
+// `data-actor-type`. Omit `login` for actor-less rows so none is emitted.
 
 export default {
   title: 'Components/Timeline/Events/Secret Scanning',
@@ -137,7 +153,10 @@ export const EventCreated = () => (
     {/* Created — GitHub system actor, ShieldIcon on success (green) */}
     <VariantSection label="Created">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `detected` leaf. Renders the GitHub SYSTEM-IDENTITY actor
+            (`<UserActor login="GitHub" …>`); `github` is in the bot set, so
+            actorTypeForLogin('GitHub') classifies it as 'bot' -> data-actor-type='bot'. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'detected', 'GitHub')}>
           <Timeline.Badge variant="success">
             <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
@@ -177,7 +196,8 @@ export const EventResolution = () => (
         badge. Shown WITH an optional resolution-comment sub-row. */}
     <VariantSection label="Closed as revoked">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `closed` leaf (Resolution, any non-reopened resolution.type); user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -196,7 +216,8 @@ export const EventResolution = () => (
     {/* Closed as false positive — gray (default) ShieldSlash badge. */}
     <VariantSection label="Closed as false positive">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `closed` leaf; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -212,7 +233,8 @@ export const EventResolution = () => (
     {/* Closed as won't fix */}
     <VariantSection label="Closed as won't fix">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `closed` leaf; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -228,7 +250,8 @@ export const EventResolution = () => (
     {/* Closed as used in tests */}
     <VariantSection label="Closed as used in tests">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `closed` leaf; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -244,7 +267,8 @@ export const EventResolution = () => (
     {/* Closed as pattern deleted */}
     <VariantSection label="Closed as pattern deleted">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `closed` leaf; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -260,7 +284,8 @@ export const EventResolution = () => (
     {/* Closed as pattern edited */}
     <VariantSection label="Closed as pattern edited">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `closed` leaf; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -276,7 +301,8 @@ export const EventResolution = () => (
     {/* Closed as ignored by configuration (resolution type `hidden_by_config`) */}
     <VariantSection label="Closed as ignored by configuration">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `closed` leaf; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -297,7 +323,9 @@ export const EventResolution = () => (
         placement rather than leaving the Break as a stray first child. */}
     <VariantSection label="Reopened">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* Context row: a `closed` leaf preceding the reopen, tagged in place
+            like the seven dedicated "Closed as …" variants; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldSlashIcon} />
           </Timeline.Badge>
@@ -308,7 +336,8 @@ export const EventResolution = () => (
           </Timeline.Body>
         </Timeline.Item>
         <Timeline.Break />
-        <Timeline.Item>
+        {/* `reopened` leaf (Resolution, resolution.type === 'reopened'); user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'reopened', 'monalisa')}>
           <Timeline.Badge variant="success">
             <Octicon icon={SyncIcon} />
           </Timeline.Badge>
@@ -338,7 +367,8 @@ export const EventBypass = () => (
     {/* Bypassed — AlertIcon, default (gray) badge */}
     <VariantSection label="Bypassed push protection">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `bypassed` leaf; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'bypassed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
@@ -355,6 +385,11 @@ export const EventBypass = () => (
         repo has delegated bypass enabled. */}
     <VariantSection label="Bypass requested (delegated bypass enabled)">
       <Timeline aria-label="Secret scanning alert timeline">
+        {/* UNTAGGED: the delegated-BYPASS request/approve flow has no catalog
+            leaf. The catalog's dismissal_requested / dismissal_reviewed cover the
+            delegated-CLOSURE flow, a different thing. Verified against the redesign
+            prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an
+            intentional exclusion. No leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} />
@@ -371,6 +406,9 @@ export const EventBypass = () => (
     {/* Bypass approved — CheckCircleIcon. Delegated bypass: gated as above. */}
     <VariantSection label="Bypass approved (delegated bypass enabled)">
       <Timeline aria-label="Secret scanning alert timeline">
+        {/* UNTAGGED: delegated-BYPASS flow, no catalog leaf (see the request
+            variant above), verified against the redesign prototype as an
+            intentional exclusion. No leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={CheckCircleIcon} />
@@ -403,7 +441,8 @@ export const EventValidityChange = () => (
     {/* Active — automated (GitHub), AlertIcon on danger (red) */}
     <VariantSection label="Validity: active (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'bot'. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'GitHub')}>
           <Timeline.Badge variant="danger">
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
@@ -419,7 +458,8 @@ export const EventValidityChange = () => (
     {/* Active — manual (user), same danger badge */}
     <VariantSection label="Validity: active (manual)">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `validity_changed` leaf; manual -> user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'monalisa')}>
           <Timeline.Badge variant="danger">
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
@@ -435,7 +475,8 @@ export const EventValidityChange = () => (
     {/* Inactive — automated (GitHub), SkipIcon on default (gray) */}
     <VariantSection label="Validity: inactive (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'bot'. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'GitHub')}>
           <Timeline.Badge>
             <Octicon icon={SkipIcon} />
           </Timeline.Badge>
@@ -451,7 +492,8 @@ export const EventValidityChange = () => (
     {/* Inactive — manual (user) */}
     <VariantSection label="Validity: inactive (manual)">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `validity_changed` leaf; manual -> user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={SkipIcon} />
           </Timeline.Badge>
@@ -467,7 +509,8 @@ export const EventValidityChange = () => (
     {/* Unknown — automated (GitHub), AlertIcon on attention (amber) */}
     <VariantSection label="Validity: unknown (automated)">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `validity_changed` leaf; automated -> GitHub system actor -> 'bot'. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'GitHub')}>
           <Timeline.Badge variant="attention">
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
@@ -483,7 +526,8 @@ export const EventValidityChange = () => (
     {/* Unknown — manual (user) */}
     <VariantSection label="Validity: unknown (manual)">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `validity_changed` leaf; manual -> user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'validity_changed', 'monalisa')}>
           <Timeline.Badge variant="attention">
             <Octicon icon={AlertIcon} />
           </Timeline.Badge>
@@ -511,7 +555,10 @@ export const EventReport = () => (
     {/* Reported — ShieldCheckIcon, default (gray) badge, user actor */}
     <VariantSection label="Reported">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `reported` leaf (findings). Live AlertTimeline.tsx `TimelineEventType.Report`
+            does NOT pass `isGitHubActor`, so the actor is the USER — resolves to
+            data-actor-type='user'. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'reported', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -545,6 +592,8 @@ export const EventMetadata = () => (
     {/* Metadata created — GitHub system actor, FileAddedIcon, default (gray) badge */}
     <VariantSection label="Extended metadata found">
       <Timeline aria-label="Secret scanning alert timeline">
+        {/* UNTAGGED: MetadataCreated is PARKED per github/primer#6888 ('Parked'
+            section), no catalog leaf. No leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={FileAddedIcon} />
@@ -561,6 +610,8 @@ export const EventMetadata = () => (
     {/* Metadata removed — GitHub system actor, FileRemovedIcon, default (gray) badge */}
     <VariantSection label="Extended metadata removed">
       <Timeline aria-label="Secret scanning alert timeline">
+        {/* UNTAGGED: MetadataRemoved is PARKED per github/primer#6888 ('Parked'
+            section), no catalog leaf. No leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={FileRemovedIcon} />
@@ -606,7 +657,8 @@ export const EventClosureRequest = () => (
         un-bolded `resolutionText(exemption_request.reason)`. */}
     <VariantSection label="Dismissal requested (reviewer view)">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `dismissal_requested` leaf (DelegatedClosureRequestOpened); user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'dismissal_requested', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
@@ -630,7 +682,8 @@ export const EventClosureRequest = () => (
     {/* Requested — requester view: the invisible "Cancel request" button. */}
     <VariantSection label="Dismissal requested (requester view)">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `dismissal_requested` leaf; user actor. */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'dismissal_requested', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
@@ -651,7 +704,8 @@ export const EventClosureRequest = () => (
     {/* Approved — CheckCircleIcon, with a reviewer comment sub-row. */}
     <VariantSection label="Dismissal approved">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `dismissal_reviewed` leaf; reviewer user actor (six7). */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'dismissal_reviewed', 'six7')}>
           <Timeline.Badge>
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
@@ -670,7 +724,8 @@ export const EventClosureRequest = () => (
     {/* Denied — XIcon */}
     <VariantSection label="Dismissal denied">
       <Timeline aria-label="Secret scanning alert timeline">
-        <Timeline.Item>
+        {/* `dismissal_reviewed` leaf; reviewer user actor (six7). */}
+        <Timeline.Item {...eventDataAttributesFor('secret-scanning', 'dismissal_reviewed', 'six7')}>
           <Timeline.Badge>
             <Octicon icon={XIcon} />
           </Timeline.Badge>
@@ -689,6 +744,10 @@ export const EventClosureRequest = () => (
     {/* Cancelled — SkipIcon */}
     <VariantSection label="Dismissal request cancelled">
       <Timeline aria-label="Secret scanning alert timeline">
+        {/* UNTAGGED: Secret Scanning has NO dismissal_cancelled leaf (unlike
+            Dependabot); verified against the redesign prototype
+            (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an
+            intentional exclusion. No leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={SkipIcon} />
@@ -717,6 +776,9 @@ export const EventClosureRequest = () => (
  */
 export const EventAssignment = () => (
   <RealisticTimeline>
+    {/* UNTAGGED (whole group): Assignment is a cross-surface SHARED event,
+        deliberately kept OUT of the per-surface Secret Scanning catalog. All five
+        variants below carry no data-* event tag. */}
     {/* Self-assigned — actor === assignee */}
     <VariantSection label="Self-assigned">
       <Timeline aria-label="Secret scanning alert timeline">

@@ -151,6 +151,7 @@ export const LICENSE_COMPLIANCE_TAXONOMY: Record<LicenseComplianceEventType, Eve
 export type SecretScanningEventType =
   | 'detected'
   | 'validity_changed'
+  | 'reported'
   | 'bypassed'
   | 'dismissal_requested'
   | 'dismissal_reviewed'
@@ -159,7 +160,8 @@ export type SecretScanningEventType =
 
 export const SECRET_SCANNING_TAXONOMY: Record<SecretScanningEventType, EventTaxonomyEntry> = {
   detected: {category: 'findings', hasActor: true}, // `Creation`; system GitHub actor (isGitHubActor), rendered
-  validity_changed: {category: 'findings', hasActor: true}, // `Report` path; user actor
+  validity_changed: {category: 'findings', hasActor: true}, // `ValidityChange` (token verification status); system 'GitHub' actor when automated, user when manual
+  reported: {category: 'findings', hasActor: true}, // live AlertTimeline.tsx `TimelineEventType.Report`: "reported this secret"; user actor
   bypassed: {category: 'status', hasActor: true},
   dismissal_requested: {category: 'reviews', hasActor: true}, // `DelegatedClosureRequestOpened`
   dismissal_reviewed: {category: 'reviews', hasActor: true},

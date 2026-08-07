@@ -24,6 +24,11 @@ const BOT_LOGINS: ReadonlySet<string> = new Set([
   'dependabot-preview',
   'github-actions',
   'github-license-compliance',
+  // `github` is the platform system identity (e.g. Secret Scanning's automated
+  // detection/validity events). Classified as a bot so automated-vs-human
+  // filtering treats system activity like other automation; a distinct
+  // 'system' actor type is a possible future refinement.
+  'github',
   'copilot',
   'hubot',
 ])

@@ -26,6 +26,7 @@ import {
   UserActor,
   VariantSection,
 } from './internal/timelineStoryHelpers'
+import {eventDataAttributesFor} from './taxonomy'
 import classes from './Timeline.code-scanning.features.stories.module.css'
 
 /**
@@ -172,6 +173,17 @@ const ConfigPill = ({category}: {category: string}) => (
  */
 const SubRow = ({children}: {children: React.ReactNode}) => <div className={classes.SubRow}>{children}</div>
 
+/**
+ * Per-row taxonomy `data-*` attributes (Phase 3 tagging, github/primer#6664,
+ * epic #6654). Each `Timeline.Item` below projects its Code Scanning leaf event
+ * type through the shared `eventDataAttributesFor('code-scanning', <leaf>,
+ * login?)` helper (`./taxonomy`, primer/react#8180), mirroring the License
+ * Compliance pilot (primer/react#8216). `category` and `visibility` are derived
+ * FROM the catalog so the story never hand-maintains them. Pass the row's
+ * rendered `UserActor` login for USER events (resolves `data-actor-type`); omit
+ * it for SYSTEM rows so `data-actor-type` is left off entirely.
+ */
+
 export default {
   title: 'Components/Timeline/Events/Code Scanning',
   component: Timeline,
@@ -219,7 +231,7 @@ export const EventDetected = () => (
         sub-row, and a right-aligned tool-version Label (Timeline.Actions). */}
     <VariantSection label="First detected in commit">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'detected')}>
           <Timeline.Badge>
             <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
@@ -253,7 +265,7 @@ export const EventDetected = () => (
         card — `show_timeline_commit?` is false for this event). */}
     <VariantSection label="Appeared in branch">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'appeared')}>
           <Timeline.Badge>
             <Octicon icon={GitBranchIcon} />
           </Timeline.Badge>
@@ -283,7 +295,7 @@ export const EventDetected = () => (
         {category}" pill (rendered when the alert has more than one category). */}
     <VariantSection label="Reappeared in branch">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'reappeared')}>
           <Timeline.Badge>
             <Octicon icon={ShieldIcon} />
           </Timeline.Badge>
@@ -314,13 +326,20 @@ export const EventDetected = () => (
  * Config-deleted renders the analysis category as an inline subtle mono pill
  * (`MonoPill`); when the category is empty the live ERB substitutes "API
  * Upload".
+ *
+ * TAXONOMY (github/primer#6664): the two "Fixed in branch" rows are the
+ * ALERT_CLOSED_BECAME_FIXED wire event and carry `data-event-type="fixed"`. The
+ * two "Configuration deleted" rows are visually grouped under Fixed here, but the
+ * taxonomy catalog folds their ALERT_CLOSED_BECAME_OUTDATED wire event into
+ * `closed` (a SYSTEM closure), so those rows carry `data-event-type="closed"`.
+ * Both are system events with no actor, so neither emits `data-actor-type`.
  */
 export const EventFixed = () => (
   <RealisticTimeline>
     {/* Fixed — selected ref → SOLID purple shield-check */}
     <VariantSection label="Fixed in branch (current ref)">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'fixed')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -335,7 +354,7 @@ export const EventFixed = () => (
     {/* Fixed — non-selected ref → bare default check */}
     <VariantSection label="Fixed in branch (other ref)">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'fixed')}>
           <Timeline.Badge>
             <Octicon icon={CheckIcon} />
           </Timeline.Badge>
@@ -348,9 +367,12 @@ export const EventFixed = () => (
     </VariantSection>
 
     {/* Config deleted — selected ref → SOLID purple shield-check */}
+    {/* Config-deletion is the ALERT_CLOSED_BECAME_OUTDATED wire event, which the
+        taxonomy folds into `closed` (system closure), not `fixed` — so this row
+        carries data-event-type="closed" despite its visual "Fixed" grouping. */}
     <VariantSection label="Configuration deleted (current ref)">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'closed')}>
           <Timeline.Badge variant="done">
             <Octicon icon={ShieldCheckIcon} />
           </Timeline.Badge>
@@ -366,7 +388,7 @@ export const EventFixed = () => (
     {/* Config deleted — non-selected ref → bare default check */}
     <VariantSection label="Configuration deleted (other ref)">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'closed')}>
           <Timeline.Badge>
             <Octicon icon={CheckIcon} />
           </Timeline.Badge>
@@ -398,7 +420,7 @@ export const EventClosedByUser = () => (
     {/* Closed as false positive — with a resolution-note sub-row */}
     <VariantSection label="Closed as false positive">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge variant="danger">
             <Octicon icon={ShieldXIcon} />
           </Timeline.Badge>
@@ -415,7 +437,7 @@ export const EventClosedByUser = () => (
     {/* Closed as used in tests */}
     <VariantSection label="Closed as used in tests">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge variant="danger">
             <Octicon icon={ShieldXIcon} />
           </Timeline.Badge>
@@ -431,7 +453,7 @@ export const EventClosedByUser = () => (
     {/* Closed as won't fix */}
     <VariantSection label="Closed as won't fix">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge variant="danger">
             <Octicon icon={ShieldXIcon} />
           </Timeline.Badge>
@@ -448,7 +470,7 @@ export const EventClosedByUser = () => (
         `resolution == :NO_RESOLUTION`. */}
     <VariantSection label="Closed (no resolution)">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'closed', 'monalisa')}>
           <Timeline.Badge variant="danger">
             <Octicon icon={ShieldXIcon} />
           </Timeline.Badge>
@@ -475,7 +497,7 @@ export const EventReopened = () => (
   <Examples>
     <VariantSection label="Reopened">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'reopened', 'monalisa')}>
           <Timeline.Badge variant="success">
             <Octicon icon={DotFillIcon} />
           </Timeline.Badge>
@@ -510,7 +532,7 @@ export const EventDismissalRequested = () => (
   <Examples>
     <VariantSection label="Requested to dismiss">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'dismissal_requested', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CommentIcon} />
           </Timeline.Badge>
@@ -550,7 +572,7 @@ export const EventDismissalReviewed = () => (
     {/* Approved — check icon + reviewer-comment sub-row */}
     <VariantSection label="Approved dismissal">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'dismissal_reviewed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CheckIcon} />
           </Timeline.Badge>
@@ -567,7 +589,7 @@ export const EventDismissalReviewed = () => (
     {/* Denied — x icon */}
     <VariantSection label="Denied dismissal">
       <Timeline aria-label="Code scanning alert timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('code-scanning', 'dismissal_reviewed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={XIcon} />
           </Timeline.Badge>

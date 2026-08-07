@@ -270,7 +270,7 @@ describe('actorTypeForLogin', () => {
   })
 
   it('classifies known first-party automation logins as bots', () => {
-    for (const login of ['dependabot', 'github-actions', 'github-license-compliance', 'copilot', 'hubot']) {
+    for (const login of ['dependabot', 'github-actions', 'github-license-compliance', 'github', 'copilot', 'hubot']) {
       expect(actorTypeForLogin(login)).toBe('bot')
       expect(actorTypeForLogin(login.toUpperCase())).toBe('bot')
     }

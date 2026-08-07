@@ -40,6 +40,7 @@ import Octicon from '../Octicon'
 import Token from '../Token'
 import classes from './Timeline.issues.features.stories.module.css'
 import {BoldLink, Examples, MutedTime, UserActor, VariantSection} from './internal/timelineStoryHelpers'
+import {eventDataAttributesFor} from './taxonomy'
 
 /**
  * Issue Timeline event examples (Phase 2 of github/primer#6663).
@@ -105,6 +106,16 @@ export default {
 } as Meta<ComponentProps<typeof Timeline>>
 
 /**
+ * The stories below serialize each Issues row's `data-*` contract
+ * (github/primer#6664) via the shared `eventDataAttributesFor('issue', <leaf>,
+ * login?)` helper (`./taxonomy`). `category` + `visibility` are read from the
+ * catalog, so metadata leaves (labels, assignees, milestones, project fields,
+ * issue types, rename) pick up `visibility: 'auditOnly'` automatically. Pass the
+ * row's rendered actor login so `data-actor-type` resolves (every Issues event
+ * carries an actor).
+ */
+
+/**
  * The Closed event group — `IssueTimeline.eventClosed` (audit § 2).
  *
  * All seven variants are stacked in a single `<Timeline>` so they can be
@@ -118,7 +129,7 @@ export const EventClosed = () => (
     {/* Closed as completed */}
     <VariantSection label="Closed as completed">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
@@ -139,7 +150,7 @@ export const EventClosed = () => (
           (portable for docs copy-paste; matches production `TimelineRow`). */}
     <VariantSection label="Closed as not planned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'closed', 'monalisa')}>
           <Timeline.Badge
             style={
               {
@@ -165,7 +176,7 @@ export const EventClosed = () => (
     {/* Closed via pull request */}
     <VariantSection label="Closed via pull request">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
@@ -185,7 +196,7 @@ export const EventClosed = () => (
     {/* Closed via commit */}
     <VariantSection label="Closed via commit">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
@@ -210,7 +221,7 @@ export const EventClosed = () => (
           equivalent for github-ui's `ProjectV2` closer link. */}
     <VariantSection label="Closed via project">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
@@ -233,7 +244,7 @@ export const EventClosed = () => (
           composed here from Primer primitives. */}
     <VariantSection label="Closed as duplicate">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'closed', 'monalisa')}>
           <Timeline.Badge
             style={
               {
@@ -265,7 +276,7 @@ export const EventClosed = () => (
     {/* Closed with no state reason */}
     <VariantSection label="Closed (no reason)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'closed', 'monalisa')}>
           <Timeline.Badge variant="done">
             <Octicon icon={CheckCircleIcon} />
           </Timeline.Badge>
@@ -293,7 +304,7 @@ export const EventState = () => (
     {/* Reopened — open (green) badge via useIssueState (ReopenedEvent.tsx) */}
     <VariantSection label="Reopened">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'reopened', 'monalisa')}>
           <Timeline.Badge variant="open">
             <Octicon icon={IssueReopenedIcon} />
           </Timeline.Badge>
@@ -310,7 +321,7 @@ export const EventState = () => (
           plain inline Link (the audit shows it bold; live code is canonical). */}
     <VariantSection label="Transferred">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'transferred', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
@@ -329,7 +340,7 @@ export const EventState = () => (
     {/* Pinned */}
     <VariantSection label="Pinned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'pinned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PinIcon} />
           </Timeline.Badge>
@@ -345,7 +356,7 @@ export const EventState = () => (
     {/* Unpinned */}
     <VariantSection label="Unpinned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'unpinned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PinIcon} />
           </Timeline.Badge>
@@ -362,7 +373,7 @@ export const EventState = () => (
           the resulting discussion by number. */}
     <VariantSection label="Converted to discussion">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'converted_to_discussion', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CommentDiscussionIcon} />
           </Timeline.Badge>
@@ -378,6 +389,11 @@ export const EventState = () => (
     {/* Converted from draft */}
     <VariantSection label="Converted from draft">
       <Timeline aria-label="Issue timeline">
+        {/* Untagged: this IS a real issue-timeline event (github/github
+            app/platform/unions/issue_timeline_items.rb lists ConvertedFromDraftEvent;
+            it is the Projects v2 draft-issue -> issue conversion), but the taxonomy
+            catalog has no 'converted_from_draft' leaf yet, so no leaf -> no data-* tag.
+            Kept as a coverage example pending a catalog-leaf decision. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={IssueDraftIcon} />
@@ -407,7 +423,7 @@ export const EventReferences = () => (
           open PR state icon inline before the PR title). */}
     <VariantSection label="Linked pull request">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'connected', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CrossReferenceIcon} />
           </Timeline.Badge>
@@ -431,7 +447,7 @@ export const EventReferences = () => (
           icon is behind the live code here. */}
     <VariantSection label="Unlinked pull request">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'disconnected', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={GitPullRequestIcon} className={classes.BadgeIconOpen} />
           </Timeline.Badge>
@@ -451,7 +467,7 @@ export const EventReferences = () => (
           inline (showAgoTimestamp={false}) and the commit card is sub-content. */}
     <VariantSection label="Single commit reference">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'referenced', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={GitCommitIcon} />
           </Timeline.Badge>
@@ -482,7 +498,7 @@ export const EventReferences = () => (
     {/* Multiple commit references — same event, pluralized copy + N cards. */}
     <VariantSection label="Multiple commit references">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'referenced', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={GitCommitIcon} />
           </Timeline.Badge>
@@ -538,7 +554,7 @@ export const EventDuplicates = () => (
           IssueLink uses the open (green) state icon. */}
     <VariantSection label="Marked as duplicate">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'marked_as_duplicate', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={DuplicateIcon} />
           </Timeline.Badge>
@@ -562,6 +578,10 @@ export const EventDuplicates = () => (
     {/* Marked <canonical> as a duplicate of this issue — no right controls. */}
     <VariantSection label="Marked as canonical">
       <Timeline aria-label="Issue timeline">
+        {/* Untagged: verified against the redesign prototype
+            (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional
+            exclusion. This variant is not modeled as a distinct catalog leaf (the
+            catalog has only 'marked_as_duplicate'); no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={DuplicateIcon} />
@@ -584,6 +604,7 @@ export const EventDuplicates = () => (
     {/* Unmarked this as a duplicate of <canonical>. */}
     <VariantSection label="Unmarked as duplicate">
       <Timeline aria-label="Issue timeline">
+        {/* Untagged: verified against the redesign prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional exclusion, this variant is not modeled as a distinct catalog leaf (the catalog has only 'marked_as_duplicate'); no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={DuplicateIcon} />
@@ -605,6 +626,7 @@ export const EventDuplicates = () => (
     {/* Unmarked <canonical> as a duplicate of this issue. */}
     <VariantSection label="Unmarked as canonical">
       <Timeline aria-label="Issue timeline">
+        {/* Untagged: verified against the redesign prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional exclusion, this variant is not modeled as a distinct catalog leaf (the catalog has only 'marked_as_duplicate'); no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={DuplicateIcon} />
@@ -638,7 +660,7 @@ export const EventModeration = () => (
     {/* User blocked (permanent) */}
     <VariantSection label="User blocked">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'user_blocked', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -654,7 +676,7 @@ export const EventModeration = () => (
     {/* User temporarily blocked */}
     <VariantSection label="User temporarily blocked">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'user_blocked', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -670,7 +692,7 @@ export const EventModeration = () => (
     {/* Comment pinned — IssueCommentPinnedEvent.tsx links the pinned comment. */}
     <VariantSection label="Comment pinned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'comment_pinned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PinIcon} />
           </Timeline.Badge>
@@ -689,7 +711,7 @@ export const EventModeration = () => (
     {/* Comment unpinned */}
     <VariantSection label="Comment unpinned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'comment_unpinned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PinIcon} />
           </Timeline.Badge>
@@ -720,7 +742,7 @@ export const EventIssueTypes = () => (
     {/* Type added */}
     <VariantSection label="Issue type added">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'issue_type_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
@@ -750,7 +772,7 @@ export const EventIssueTypes = () => (
     {/* Type removed */}
     <VariantSection label="Issue type removed">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'issue_type_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
@@ -780,7 +802,7 @@ export const EventIssueTypes = () => (
     {/* Type changed */}
     <VariantSection label="Issue type changed">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'issue_type_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueOpenedIcon} />
           </Timeline.Badge>
@@ -840,7 +862,7 @@ export const EventIssueHierarchy = () => (
     {/* Sub-issue added (single) */}
     <VariantSection label="Sub-issue added (single)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'sub_issue_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
@@ -865,7 +887,7 @@ export const EventIssueHierarchy = () => (
     {/* Sub-issue added (multiple) — plural copy + N reference rows */}
     <VariantSection label="Sub-issues added (multiple)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'sub_issue_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
@@ -897,7 +919,7 @@ export const EventIssueHierarchy = () => (
     {/* Sub-issue removed (single) */}
     <VariantSection label="Sub-issue removed (single)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'sub_issue_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
@@ -922,7 +944,7 @@ export const EventIssueHierarchy = () => (
     {/* Sub-issues removed (multiple) */}
     <VariantSection label="Sub-issues removed (multiple)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'sub_issue_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueTracksIcon} />
           </Timeline.Badge>
@@ -954,7 +976,7 @@ export const EventIssueHierarchy = () => (
     {/* Parent issue added (single) */}
     <VariantSection label="Parent issue added (single)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'parent_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
@@ -979,7 +1001,7 @@ export const EventIssueHierarchy = () => (
     {/* Parent issues added (multiple) */}
     <VariantSection label="Parent issues added (multiple)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'parent_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
@@ -1011,7 +1033,7 @@ export const EventIssueHierarchy = () => (
     {/* Parent issue removed (single) */}
     <VariantSection label="Parent issue removed (single)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'parent_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
@@ -1036,7 +1058,7 @@ export const EventIssueHierarchy = () => (
     {/* Parent issues removed (multiple) */}
     <VariantSection label="Parent issues removed (multiple)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'parent_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={IssueTrackedByIcon} />
           </Timeline.Badge>
@@ -1084,7 +1106,7 @@ export const EventDependencies = () => (
     {/* Blocked by (single) */}
     <VariantSection label="Blocked by (single)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'blocked_by_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -1109,7 +1131,7 @@ export const EventDependencies = () => (
     {/* Blocked by (multiple) — count in copy + N rows */}
     <VariantSection label="Blocked by (multiple)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'blocked_by_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -1141,7 +1163,7 @@ export const EventDependencies = () => (
     {/* Blocked by removed (single) */}
     <VariantSection label="Blocked by removed (single)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'blocked_by_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -1166,7 +1188,7 @@ export const EventDependencies = () => (
     {/* Blocked by removed (multiple) */}
     <VariantSection label="Blocked by removed (multiple)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'blocked_by_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -1198,7 +1220,7 @@ export const EventDependencies = () => (
     {/* Blocking (single) */}
     <VariantSection label="Blocking (single)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'blocking_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -1223,7 +1245,7 @@ export const EventDependencies = () => (
     {/* Blocking (multiple) */}
     <VariantSection label="Blocking (multiple)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'blocking_added', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -1255,7 +1277,7 @@ export const EventDependencies = () => (
     {/* Blocking removed (single) */}
     <VariantSection label="Blocking removed (single)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'blocking_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -1280,7 +1302,7 @@ export const EventDependencies = () => (
     {/* Blocking removed (multiple) */}
     <VariantSection label="Blocking removed (multiple)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'blocking_removed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={BlockedIcon} />
           </Timeline.Badge>
@@ -1332,7 +1354,7 @@ export const EventIssueFields = () => (
     {/* Set text field */}
     <VariantSection label="Set · text">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
@@ -1353,7 +1375,7 @@ export const EventIssueFields = () => (
     {/* Set number field */}
     <VariantSection label="Set · number">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={NumberIcon} />
           </Timeline.Badge>
@@ -1374,7 +1396,7 @@ export const EventIssueFields = () => (
     {/* Set date field */}
     <VariantSection label="Set · date">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
@@ -1395,7 +1417,7 @@ export const EventIssueFields = () => (
     {/* Set single-select field — value is a colored token */}
     <VariantSection label="Set · single select">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
@@ -1429,7 +1451,7 @@ export const EventIssueFields = () => (
     {/* Changed text field */}
     <VariantSection label="Changed · text">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
@@ -1450,7 +1472,7 @@ export const EventIssueFields = () => (
     {/* Changed number field */}
     <VariantSection label="Changed · number">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={NumberIcon} />
           </Timeline.Badge>
@@ -1471,7 +1493,7 @@ export const EventIssueFields = () => (
     {/* Changed date field */}
     <VariantSection label="Changed · date">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
@@ -1492,7 +1514,7 @@ export const EventIssueFields = () => (
     {/* Changed single-select field */}
     <VariantSection label="Changed · single select">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
@@ -1523,7 +1545,7 @@ export const EventIssueFields = () => (
     {/* Cleared text field — no value */}
     <VariantSection label="Cleared · text">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
@@ -1540,7 +1562,7 @@ export const EventIssueFields = () => (
     {/* Cleared number field */}
     <VariantSection label="Cleared · number">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={NumberIcon} />
           </Timeline.Badge>
@@ -1557,7 +1579,7 @@ export const EventIssueFields = () => (
     {/* Cleared date field */}
     <VariantSection label="Cleared · date">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={CalendarIcon} />
           </Timeline.Badge>
@@ -1574,7 +1596,7 @@ export const EventIssueFields = () => (
     {/* Cleared single-select field */}
     <VariantSection label="Cleared · single select">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={SingleSelectIcon} />
           </Timeline.Badge>
@@ -1591,7 +1613,7 @@ export const EventIssueFields = () => (
     {/* Rollup: updated only — multiple field updates collapsed into one row */}
     <VariantSection label="Rollup · updated">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
@@ -1616,7 +1638,7 @@ export const EventIssueFields = () => (
     {/* Rollup: removed only */}
     <VariantSection label="Rollup · removed">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
@@ -1635,7 +1657,7 @@ export const EventIssueFields = () => (
     {/* Rollup: updated and also removed — combined row joined by "and also" */}
     <VariantSection label="Rollup · updated and removed">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TypographyIcon} />
           </Timeline.Badge>
@@ -1687,7 +1709,7 @@ export const EventProject = () => (
     {/* Added to project */}
     <VariantSection label="Added to project">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'added_to_project', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TableIcon} />
           </Timeline.Badge>
@@ -1708,7 +1730,7 @@ export const EventProject = () => (
     {/* Removed from project */}
     <VariantSection label="Removed from project">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'removed_from_project', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TableIcon} />
           </Timeline.Badge>
@@ -1732,7 +1754,7 @@ export const EventProject = () => (
         strings are PLAIN TEXT (not bold). Both forms shown under one caption. */}
     <VariantSection label="Project status changed">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TableIcon} />
           </Timeline.Badge>
@@ -1746,7 +1768,7 @@ export const EventProject = () => (
             <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'project_field_changed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TableIcon} />
           </Timeline.Badge>
@@ -1786,7 +1808,7 @@ export const EventLabels = () => (
     {/* Label added */}
     <VariantSection label="Label added">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'labeled', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TagIcon} />
           </Timeline.Badge>
@@ -1815,7 +1837,7 @@ export const EventLabels = () => (
     {/* Label removed */}
     <VariantSection label="Label removed">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'unlabeled', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TagIcon} />
           </Timeline.Badge>
@@ -1845,6 +1867,7 @@ export const EventLabels = () => (
         with "and" between them. */}
     <VariantSection label="Labels added and removed">
       <Timeline aria-label="Issue timeline">
+        {/* Untagged: a rolled-up event (labeled + unlabeled in one row) verified against the redesign prototype (github/prototyping janmaarten-a11y/timeline-redesign-v1) as an intentional exclusion, not modeled as a distinct catalog leaf; no leaf -> no data-* tag. */}
         <Timeline.Item>
           <Timeline.Badge>
             <Octicon icon={TagIcon} />
@@ -1905,7 +1928,7 @@ export const EventTitle = () => (
     {/* Title changed */}
     <VariantSection label="Title changed">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'renamed', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PencilIcon} />
           </Timeline.Badge>
@@ -1940,7 +1963,7 @@ export const EventMilestones = () => (
     {/* Added to milestone */}
     <VariantSection label="Added to milestone">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'milestoned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={MilestoneIcon} />
           </Timeline.Badge>
@@ -1960,7 +1983,7 @@ export const EventMilestones = () => (
     {/* Removed from milestone */}
     <VariantSection label="Removed from milestone">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'demilestoned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={MilestoneIcon} />
           </Timeline.Badge>
@@ -1999,7 +2022,7 @@ export const EventAssignments = () => (
     {/* Self-assigned */}
     <VariantSection label="Self-assigned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'assigned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
@@ -2015,7 +2038,7 @@ export const EventAssignments = () => (
     {/* Assigned someone else — assignee is a bold link, no avatar. */}
     <VariantSection label="Assigned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'assigned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
@@ -2031,7 +2054,7 @@ export const EventAssignments = () => (
     {/* Assigned multiple — joined with "and". */}
     <VariantSection label="Assigned multiple">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'assigned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
@@ -2049,7 +2072,7 @@ export const EventAssignments = () => (
     {/* Self-unassigned */}
     <VariantSection label="Self-unassigned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'unassigned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
@@ -2065,7 +2088,7 @@ export const EventAssignments = () => (
     {/* Unassigned someone else */}
     <VariantSection label="Unassigned">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'unassigned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
@@ -2081,7 +2104,7 @@ export const EventAssignments = () => (
     {/* Unassigned multiple — joined with "and". */}
     <VariantSection label="Unassigned multiple">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'unassigned', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={PersonIcon} />
           </Timeline.Badge>
@@ -2118,7 +2141,7 @@ export const EventLockUnlock = () => (
         too heated). */}
     <VariantSection label="Locked (with reason)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'locked', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
@@ -2128,7 +2151,7 @@ export const EventLockUnlock = () => (
             <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'locked', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
@@ -2138,7 +2161,7 @@ export const EventLockUnlock = () => (
             <MutedTime date={new Date('2022-07-26T11:47:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'locked', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
@@ -2148,7 +2171,7 @@ export const EventLockUnlock = () => (
             <MutedTime date={new Date('2022-07-26T11:48:00Z')} href="#" />
           </Timeline.Body>
         </Timeline.Item>
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'locked', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
@@ -2164,7 +2187,7 @@ export const EventLockUnlock = () => (
     {/* Locked (no reason) */}
     <VariantSection label="Locked (no reason)">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'locked', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LockIcon} />
           </Timeline.Badge>
@@ -2180,7 +2203,7 @@ export const EventLockUnlock = () => (
     {/* Unlocked — UnlockIcon badge (not LockIcon). */}
     <VariantSection label="Unlocked">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'unlocked', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={UnlockIcon} />
           </Timeline.Badge>
@@ -2211,7 +2234,7 @@ export const EventCommentDeleted = () => (
     {/* Comment deleted */}
     <VariantSection label="Comment deleted">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'comment_deleted', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={TrashIcon} />
           </Timeline.Badge>
@@ -2249,7 +2272,7 @@ export const EventCrossReferences = () => (
     {/* Mentioned from an issue */}
     <VariantSection label="Mentioned in an issue">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'cross_referenced', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
@@ -2274,7 +2297,7 @@ export const EventCrossReferences = () => (
     {/* Mentioned from a pull request */}
     <VariantSection label="Mentioned in a pull request">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'cross_referenced', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
@@ -2299,7 +2322,7 @@ export const EventCrossReferences = () => (
     {/* Linked a closing pull request */}
     <VariantSection label="Linked a closing pull request">
       <Timeline aria-label="Issue timeline">
-        <Timeline.Item>
+        <Timeline.Item {...eventDataAttributesFor('issue', 'cross_referenced', 'monalisa')}>
           <Timeline.Badge>
             <Octicon icon={LinkExternalIcon} />
           </Timeline.Badge>
