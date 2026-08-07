@@ -49,6 +49,13 @@ type CommonTabsProps = {
    * unique id is generated automatically.
    */
   id?: string
+
+  /**
+   * `'automatic'` (default) selects on focus, so Arrow/Home/End keys select immediately. `'manual'`
+   * only moves focus; selection commits on Enter/Space/click. Prefer `'manual'` when displaying a
+   * panel is not instant (e.g. it triggers a network request).
+   */
+  activationMode?: 'automatic' | 'manual'
 }
 
 export type TabsProps = PropsWithChildren<(ControlledTabsProps | UncontrolledTabsProps) & CommonTabsProps>
@@ -89,7 +96,15 @@ export type TabPanelProps = {
 export type TabsContextValue = {
   groupId: string
   selectedValue: string
+  activationMode: 'automatic' | 'manual'
+  /**
+   * In `'manual'` activation, the most recently focused tab; the roving tab stop follows it. Set on
+   * any focus (initially the selected tab); `undefined` before the first focus and after a commit,
+   * when the tab stop falls back to the selected tab.
+   */
+  focusedValue: string | undefined
   selectTab(value: string): void
+  focusTab(value: string): void
 }
 
 export type TabListHookProps<T extends HTMLElement> = TabListProps & {
