@@ -3,6 +3,7 @@ import {fileURLToPath} from 'node:url'
 import {fixupConfigRules, fixupPluginRules} from '@eslint/compat'
 import {FlatCompat} from '@eslint/eslintrc'
 import js from '@eslint/js'
+import primerConfig from '@primer/eslint-config'
 import eslintReact from '@eslint-react/eslint-plugin'
 import vitest from '@vitest/eslint-plugin'
 import {defineConfig, globalIgnores} from 'eslint/config'
@@ -58,6 +59,7 @@ const config = defineConfig([
   ]),
 
   js.configs.recommended,
+  primerConfig,
 
   ...fixupConfigRules([react.configs.flat.recommended, react.configs.flat['jsx-runtime']]),
   reactHooks.configs.flat['recommended-latest'],
