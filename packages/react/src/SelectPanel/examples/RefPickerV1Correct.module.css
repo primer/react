@@ -1,0 +1,140 @@
+.Panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+}
+
+.Header {
+  padding: var(--base-size-12, var(--base-size-12)) var(--base-size-12, var(--base-size-12))
+    var(--base-size-8, var(--base-size-8));
+}
+
+.Title {
+  font-size: var(--text-body-size-medium, 14px);
+  font-weight: var(--base-text-weight-semibold, 600);
+  margin: 0;
+}
+
+.Search {
+  padding: 0 var(--base-size-12, var(--base-size-12)) var(--base-size-8, var(--base-size-8));
+}
+
+.TabList {
+  display: flex;
+  gap: var(--base-size-4, 4px);
+  padding: 0 var(--base-size-12, var(--base-size-12));
+  border-bottom: var(--borderWidth-thin, var(--borderWidth-thin)) solid var(--borderColor-default, #d1d9e0);
+}
+
+.Tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-bottom: var(--borderWidth-thick) solid transparent;
+  margin-bottom: -1px;
+  padding: var(--base-size-8, var(--base-size-8)) var(--base-size-8, var(--base-size-8));
+  font: inherit;
+  font-size: var(--text-body-size-small, 12px);
+  color: var(--fgColor-muted, #59636e);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-size-4, 4px);
+  border-radius: var(--borderRadius-medium, var(--borderRadius-default))
+    var(--borderRadius-medium, var(--borderRadius-default)) 0 0;
+}
+
+.Tab:hover {
+  color: var(--fgColor-default, #1f2328);
+}
+
+.Tab[aria-selected='true'] {
+  color: var(--fgColor-default, #1f2328);
+  border-bottom-color: var(--underlineNav-borderColor-active, #fd8c73);
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.Tab:focus-visible {
+  outline: 2px solid var(--focus-outlineColor, #0969da);
+  outline-offset: -2px;
+}
+
+.Count {
+  color: var(--fgColor-muted, #59636e);
+  font-weight: var(--base-text-weight-normal, 400);
+}
+
+.TabPanel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.TabPanel:focus-visible {
+  outline: none;
+}
+
+.ListContainer {
+  overflow-y: auto;
+  max-height: 280px;
+  padding: var(--base-size-8, var(--base-size-8));
+}
+
+.Listbox {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Option {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8, 8px);
+  padding: var(--base-size-6, var(--base-size-6)) var(--base-size-8, var(--base-size-8));
+  border-radius: var(--borderRadius-medium, var(--borderRadius-default));
+  cursor: pointer;
+  color: var(--fgColor-default, #1f2328);
+  font-size: var(--text-body-size-medium, 14px);
+  user-select: none;
+}
+
+.Option:hover {
+  background-color: var(--control-transparent-bgColor-hover, rgb(101 108 133 / 0.08));
+}
+
+.Option[data-is-active-descendant] {
+  background-color: var(--control-transparent-bgColor-active, rgb(101 108 133 / 0.14));
+}
+
+.OptionLeading {
+  display: inline-flex;
+  color: var(--fgColor-muted, #59636e);
+  flex-shrink: 0;
+}
+
+.OptionText {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.OptionCheck {
+  display: inline-flex;
+  color: var(--fgColor-accent, #0969da);
+  flex-shrink: 0;
+  visibility: hidden;
+}
+
+.Option[aria-selected='true'] .OptionCheck {
+  visibility: visible;
+}
+
+.Empty {
+  padding: var(--base-size-16, var(--base-size-16));
+  text-align: center;
+  color: var(--fgColor-muted, #59636e);
+  font-size: var(--text-body-size-small, 12px);
+}
