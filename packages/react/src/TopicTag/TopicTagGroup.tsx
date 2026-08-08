@@ -14,3 +14,5 @@ function TopicTagGroup({children, className, ...rest}: TopicTagGroupProps) {
 
 export {TopicTagGroup}
 export type {TopicTagGroupProps}
+
+TopicTagGroup.displayName = 'TopicTag.Group'

@@ -76,4 +76,5 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
 
 export default SegmentedControlButton
 
+SegmentedControlButton.displayName = 'SegmentedControl.Button'
 SegmentedControlButton.__SLOT__ = Symbol('SegmentedControl.Button')

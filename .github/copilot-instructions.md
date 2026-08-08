@@ -162,6 +162,10 @@ When working on UI components, always use the `primer-storybook` MCP tools to ac
 
 When building, modifying, or wrapping compound components that use child-component "slots" (anything involving `__SLOT__`, `useSlots`, `isSlot`, or `asSlot`), reference the `.github/skills/slots/SKILL.md` file. It documents when to add slot markers, naming conventions for `Symbol(...)` descriptions, the public slot APIs, and common pitfalls.
 
+## `displayName`
+
+When authoring or reviewing a component and deciding whether to set `displayName`, reference the `.github/skills/display-name/SKILL.md` file. It covers when `displayName` is needed (compound sub-components, anonymous `forwardRef` wrappers, slot sub-components) vs when modern React's `Function.name` inference makes it redundant, plus the canonical `Parent.Slot` naming convention.
+
 ## Known Issues and Workarounds
 
 **Timing Expectations:**
