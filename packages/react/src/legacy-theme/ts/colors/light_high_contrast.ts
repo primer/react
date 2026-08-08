@@ -38,36 +38,55 @@ const colors = {
   },
   prettylights: {
     syntax: {
-      comment: 'var(--color-prettylights-syntax-comment, #4b535d)',
-      constant: 'var(--color-prettylights-syntax-constant, #023b95)',
-      entity: 'var(--color-prettylights-syntax-entity, #512598)',
-      storageModifierImport: 'var(--color-prettylights-syntax-storage-modifier-import, #0e1116)',
-      entityTag: 'var(--color-prettylights-syntax-entity-tag, #024c1a)',
-      keyword: 'var(--color-prettylights-syntax-keyword, #a0111f)',
-      string: 'var(--color-prettylights-syntax-string, #032563)',
-      variable: 'var(--color-prettylights-syntax-variable, #702c00)',
-      brackethighlighterUnmatched: 'var(--color-prettylights-syntax-brackethighlighter-unmatched, #6e011a)',
-      invalidIllegalText: 'var(--color-prettylights-syntax-invalid-illegal-text, #ffffff)',
-      invalidIllegalBg: 'var(--color-prettylights-syntax-invalid-illegal-bg, #6e011a)',
-      carriageReturnText: 'var(--color-prettylights-syntax-carriage-return-text, #ffffff)',
-      carriageReturnBg: 'var(--color-prettylights-syntax-carriage-return-bg, #a0111f)',
-      stringRegexp: 'var(--color-prettylights-syntax-string-regexp, #024c1a)',
-      markupList: 'var(--color-prettylights-syntax-markup-list, #2e1800)',
-      markupHeading: 'var(--color-prettylights-syntax-markup-heading, #023b95)',
-      markupItalic: 'var(--color-prettylights-syntax-markup-italic, #0e1116)',
-      markupBold: 'var(--color-prettylights-syntax-markup-bold, #0e1116)',
-      markupDeletedText: 'var(--color-prettylights-syntax-markup-deleted-text, #6e011a)',
-      markupDeletedBg: 'var(--color-prettylights-syntax-markup-deleted-bg, #fff0ee)',
-      markupInsertedText: 'var(--color-prettylights-syntax-markup-inserted-text, #024c1a)',
-      markupInsertedBg: 'var(--color-prettylights-syntax-markup-inserted-bg, #d2fedb)',
-      markupChangedText: 'var(--color-prettylights-syntax-markup-changed-text, #702c00)',
-      markupChangedBg: 'var(--color-prettylights-syntax-markup-changed-bg, #ffc67b)',
-      markupIgnoredText: 'var(--color-prettylights-syntax-markup-ignored-text, #e7ecf0)',
-      markupIgnoredBg: 'var(--color-prettylights-syntax-markup-ignored-bg, #023b95)',
-      metaDiffRange: 'var(--color-prettylights-syntax-meta-diff-range, #622cbc)',
-      brackethighlighterAngle: 'var(--color-prettylights-syntax-brackethighlighter-angle, #4b535d)',
-      sublimelinterGutterMark: 'var(--color-prettylights-syntax-sublimelinter-gutter-mark, #88929d)',
-      constantOtherReferenceLink: 'var(--color-prettylights-syntax-constant-other-reference-link, #032563)',
+      comment: 'var(--prettylights-syntax-comment, var(--color-prettylights-syntax-comment, #4b535d))',
+      constant: 'var(--prettylights-syntax-constant, var(--color-prettylights-syntax-constant, #023b95))',
+      entity: 'var(--prettylights-syntax-entity, var(--color-prettylights-syntax-entity, #512598))',
+      storageModifierImport:
+        'var(--prettylights-syntax-storageModifierImport, var(--color-prettylights-syntax-storage-modifier-import, #0e1116))',
+      entityTag: 'var(--prettylights-syntax-entityTag, var(--color-prettylights-syntax-entity-tag, #024c1a))',
+      keyword: 'var(--prettylights-syntax-keyword, var(--color-prettylights-syntax-keyword, #a0111f))',
+      string: 'var(--prettylights-syntax-string, var(--color-prettylights-syntax-string, #032563))',
+      variable: 'var(--prettylights-syntax-variable, var(--color-prettylights-syntax-variable, #702c00))',
+      brackethighlighterUnmatched:
+        'var(--prettylights-syntax-bracketHighlighterUnmatched, var(--color-prettylights-syntax-brackethighlighter-unmatched, #6e011a))',
+      invalidIllegalText:
+        'var(--prettylights-syntax-invalidIllegal-text, var(--color-prettylights-syntax-invalid-illegal-text, #ffffff))',
+      invalidIllegalBg:
+        'var(--prettylights-syntax-invalidIllegal-bg, var(--color-prettylights-syntax-invalid-illegal-bg, #6e011a))',
+      carriageReturnText:
+        'var(--prettylights-syntax-carriageReturn-text, var(--color-prettylights-syntax-carriage-return-text, #ffffff))',
+      carriageReturnBg:
+        'var(--prettylights-syntax-carriageReturn-bg, var(--color-prettylights-syntax-carriage-return-bg, #a0111f))',
+      stringRegexp: 'var(--prettylights-syntax-stringRegexp, var(--color-prettylights-syntax-string-regexp, #024c1a))',
+      markupList: 'var(--prettylights-syntax-markupList, var(--color-prettylights-syntax-markup-list, #2e1800))',
+      markupHeading:
+        'var(--prettylights-syntax-markupHeading, var(--color-prettylights-syntax-markup-heading, #023b95))',
+      markupItalic: 'var(--prettylights-syntax-markupItalic, var(--color-prettylights-syntax-markup-italic, #0e1116))',
+      markupBold: 'var(--prettylights-syntax-markupBold, var(--color-prettylights-syntax-markup-bold, #0e1116))',
+      markupDeletedText:
+        'var(--prettylights-syntax-markupDeleted-text, var(--color-prettylights-syntax-markup-deleted-text, #6e011a))',
+      markupDeletedBg:
+        'var(--prettylights-syntax-markupDeleted-bg, var(--color-prettylights-syntax-markup-deleted-bg, #fff0ee))',
+      markupInsertedText:
+        'var(--prettylights-syntax-markupInserted-text, var(--color-prettylights-syntax-markup-inserted-text, #024c1a))',
+      markupInsertedBg:
+        'var(--prettylights-syntax-markupInserted-bg, var(--color-prettylights-syntax-markup-inserted-bg, #d2fedb))',
+      markupChangedText:
+        'var(--prettylights-syntax-markupChanged-text, var(--color-prettylights-syntax-markup-changed-text, #702c00))',
+      markupChangedBg:
+        'var(--prettylights-syntax-markupChanged-bg, var(--color-prettylights-syntax-markup-changed-bg, #ffc67b))',
+      markupIgnoredText:
+        'var(--prettylights-syntax-markupIgnored-text, var(--color-prettylights-syntax-markup-ignored-text, #e7ecf0))',
+      markupIgnoredBg:
+        'var(--prettylights-syntax-markupIgnored-bg, var(--color-prettylights-syntax-markup-ignored-bg, #023b95))',
+      metaDiffRange:
+        'var(--prettylights-syntax-metaDiffRange, var(--color-prettylights-syntax-meta-diff-range, #622cbc))',
+      brackethighlighterAngle:
+        'var(--prettylights-syntax-bracketHighlighterAngle, var(--color-prettylights-syntax-brackethighlighter-angle, #4b535d))',
+      sublimelinterGutterMark:
+        'var(--prettylights-syntax-sublimeLinterGutterMark, var(--color-prettylights-syntax-sublimelinter-gutter-mark, #88929d))',
+      constantOtherReferenceLink:
+        'var(--prettylights-syntax-constantOtherReferenceLink, var(--color-prettylights-syntax-constant-other-reference-link, #032563))',
     },
   },
   codemirror: {
@@ -242,23 +261,23 @@ const colors = {
     badgeBg: 'var(--timelineBadge-bgColor, var(--color-timeline-badge-bg, #e7ecf0))',
   },
   ansi: {
-    black: 'var(--color-ansi-black, #0e1116)',
-    blackBright: 'var(--color-ansi-black-bright, #4b535d)',
-    white: 'var(--color-ansi-white, #66707b)',
-    whiteBright: 'var(--color-ansi-white-bright, #88929d)',
-    gray: 'var(--color-ansi-gray, #66707b)',
-    red: 'var(--color-ansi-red, #a0111f)',
-    redBright: 'var(--color-ansi-red-bright, #86061d)',
-    green: 'var(--color-ansi-green, #024c1a)',
-    greenBright: 'var(--color-ansi-green-bright, #055d20)',
-    yellow: 'var(--color-ansi-yellow, #3f2200)',
-    yellowBright: 'var(--color-ansi-yellow-bright, #4e2c00)',
-    blue: 'var(--color-ansi-blue, #0349b4)',
-    blueBright: 'var(--color-ansi-blue-bright, #1168e3)',
-    magenta: 'var(--color-ansi-magenta, #622cbc)',
-    magentaBright: 'var(--color-ansi-magenta-bright, #844ae7)',
-    cyan: 'var(--color-ansi-cyan, #1b7c83)',
-    cyanBright: 'var(--color-ansi-cyan-bright, #3192aa)',
+    black: 'var(--ansi-black, var(--color-ansi-black, #0e1116))',
+    blackBright: 'var(--ansi-blackBright, var(--color-ansi-black-bright, #4b535d))',
+    white: 'var(--ansi-white, var(--color-ansi-white, #66707b))',
+    whiteBright: 'var(--ansi-whiteBright, var(--color-ansi-white-bright, #88929d))',
+    gray: 'var(--ansi-gray, var(--color-ansi-gray, #66707b))',
+    red: 'var(--ansi-red, var(--color-ansi-red, #a0111f))',
+    redBright: 'var(--ansi-redBright, var(--color-ansi-red-bright, #86061d))',
+    green: 'var(--ansi-green, var(--color-ansi-green, #024c1a))',
+    greenBright: 'var(--ansi-greenBright, var(--color-ansi-green-bright, #055d20))',
+    yellow: 'var(--ansi-yellow, var(--color-ansi-yellow, #3f2200))',
+    yellowBright: 'var(--ansi-yellowBright, var(--color-ansi-yellow-bright, #4e2c00))',
+    blue: 'var(--ansi-blue, var(--color-ansi-blue, #0349b4))',
+    blueBright: 'var(--ansi-blueBright, var(--color-ansi-blue-bright, #1168e3))',
+    magenta: 'var(--ansi-magenta, var(--color-ansi-magenta, #622cbc))',
+    magentaBright: 'var(--ansi-magentaBright, var(--color-ansi-magenta-bright, #844ae7))',
+    cyan: 'var(--ansi-cyan, var(--color-ansi-cyan, #1b7c83))',
+    cyanBright: 'var(--ansi-cyanBright, var(--color-ansi-cyan-bright, #3192aa))',
   },
   btn: {
     text: 'var(--button-default-fgColor-rest, var(--color-btn-text, #0e1116))',
