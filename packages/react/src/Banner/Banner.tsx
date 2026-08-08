@@ -10,6 +10,7 @@ import classes from './Banner.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
+type BannerVariantsWithCustomVisual = 'info' | 'upsell'
 
 type BannerContextValue = {
   titleId: string
@@ -17,7 +18,7 @@ type BannerContextValue = {
 
 const BannerContext = React.createContext<BannerContextValue | undefined>(undefined)
 
-export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
+type BannerBaseProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
    * Provide an optional label to override the default name for the Banner
    * landmark region
@@ -42,17 +43,6 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   hideTitle?: boolean
 
   /**
-   * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
-   * @deprecated Use `leadingVisual` instead
-   */
-  icon?: React.ReactNode
-
-  /**
-   * Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`
-   */
-  leadingVisual?: React.ReactNode
-
-  /**
    * Optionally provide a handler to be called when the banner is dismissed.
    * Providing this prop will show a dismiss button.
    */
@@ -75,11 +65,6 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   title?: React.ReactNode
 
   /**
-   * Specify the type of the Banner
-   */
-  variant?: BannerVariant
-
-  /**
    * Specify the layout of the Banner. Compact layout will reduce the padding.
    */
   layout?: 'default' | 'compact'
@@ -95,7 +80,33 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   flush?: boolean
 }
 
-const iconForVariant: Record<BannerVariant, React.ReactNode> = {
+type VariantAndLeadingVisualProps =
+  | {
+      /**
+       * Specify the type of the Banner, default = info
+       */
+      variant?: BannerVariantsWithCustomVisual
+
+      /**
+       * Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`
+       */
+      leadingVisual?: React.ReactNode
+
+      /**
+       * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
+       * @deprecated Use `leadingVisual` instead
+       */
+      icon?: React.ReactNode
+    }
+  | {
+      variant: Exclude<BannerVariant, BannerVariantsWithCustomVisual>
+      icon?: never
+      leadingVisual?: never
+    }
+
+export type BannerProps = BannerBaseProps & VariantAndLeadingVisualProps
+
+const defaultIconForVariant: Record<BannerVariant, React.ReactNode> = {
   critical: <StopIcon />,
   info: <InfoIcon />,
   success: <CheckCircleIcon />,
@@ -170,7 +181,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
         data-flush={flush ? '' : undefined}
       >
         <div data-component="Banner.Icon" className={classes.BannerIcon}>
-          {visual && supportsCustomIcon ? visual : iconForVariant[variant]}
+          {visual && supportsCustomIcon ? visual : defaultIconForVariant[variant]}
         </div>
         <div className={classes.BannerContainer}>
           <div data-component="Banner.Content" className={classes.BannerContent}>
