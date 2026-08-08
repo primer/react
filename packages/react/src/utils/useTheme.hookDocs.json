@@ -11,11 +11,6 @@
       "name": "ThemeProviderProps",
       "properties": [
         {
-          "name": "theme",
-          "type": "{[key: string]: any}",
-          "description": "The theme object to be applied."
-        },
-        {
           "name": "colorMode",
           "type": "'auto' | 'day' | 'night' | 'light' | 'dark'",
           "description": "The color mode to be applied."
@@ -43,7 +38,7 @@
         {
           "name": "theme",
           "type": "Theme",
-          "description": "The theme object that is applied."
+          "description": "Deprecated: Use `ThemeProvider` from `@primer/react/next` to migrate away from JavaScript theme values."
         },
         {
           "name": "colorScheme",
@@ -58,7 +53,7 @@
         {
           "name": "resolvedColorScheme",
           "type": "string",
-          "description": "The name of the current color scheme."
+          "description": "Deprecated: Use `colorScheme` with `ThemeProvider` from `@primer/react/next`."
         },
         {
           "name": "resolvedColorMode",
