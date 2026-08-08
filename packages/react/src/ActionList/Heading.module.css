@@ -1,11 +1,11 @@
 .ActionListHeader {
   margin-block-end: var(--base-size-8);
 
-  &:where([data-list-variant='full']) {
+  &:where([data-list-variant='full'], [data-list-variant='vertical-inset'], [data-list-variant='end']) {
     margin-inline-start: var(--base-size-8);
   }
 
-  &:where([data-list-variant='inset'], [data-list-variant='horizontal-inset']) {
+  &:where([data-list-variant='inset'], [data-list-variant='horizontal-inset'], [data-list-variant='start']) {
     /* stylelint-disable-next-line primer/spacing */
     margin-inline-start: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
   }

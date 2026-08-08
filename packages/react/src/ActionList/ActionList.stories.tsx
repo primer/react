@@ -44,7 +44,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['inset', 'horizontal-inset', 'full'],
+    options: ['inset', 'horizontal-inset', 'vertical-inset', 'full', 'start', 'end'],
   },
   selectionVariant: {
     control: {
