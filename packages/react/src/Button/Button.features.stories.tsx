@@ -154,12 +154,28 @@ export const Medium = () => <Button size="medium">Default</Button>
 export const Large = () => <Button size="large">Default</Button>
 
 export const Loading = () => <Button loading>Default</Button>
+Loading.parameters = {
+  docs: {
+    description: {
+      story:
+        'When `loading` is set, the button automatically renders a visually hidden live region that announces "Loading" to screen readers. Because this announcement is built in, do not add your own separate `aria-live` loading message for the button — doing so would cause a duplicate announcement.',
+    },
+  },
+}
 
 export const LoadingCustomAnnouncement = () => (
   <Button loading loadingAnnouncement="This is a custom loading announcement">
     Default
   </Button>
 )
+LoadingCustomAnnouncement.parameters = {
+  docs: {
+    description: {
+      story:
+        'Use the `loadingAnnouncement` prop to customize the text announced to screen readers when the button enters its loading state. This replaces the default "Loading" announcement.',
+    },
+  },
+}
 
 export const LoadingWithLeadingVisual = () => (
   <Button loading leadingVisual={DownloadIcon}>
