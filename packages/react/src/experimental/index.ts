@@ -60,6 +60,8 @@ export type {
 
 export * from '../Hidden'
 
+export {getResponsiveAttributes} from '../utils/getResponsiveAttributes'
+
 export * from './hooks'
 
 export {NavList} from '../NavList'
