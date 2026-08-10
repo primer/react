@@ -1,0 +1,26 @@
+{
+  "name": "@primer/cli",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "bin": "./bin/primer-cli.js",
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "rolldown -c",
+    "type-check": "tsc --noEmit",
+    "watch": "rolldown -c -w"
+  },
+  "devDependencies": {
+    "@primer/vitest-config": "^0.0.0",
+    "rimraf": "^6.0.1",
+    "rolldown": "^1.2.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "citty": "^0.2.2"
+  }
+}
