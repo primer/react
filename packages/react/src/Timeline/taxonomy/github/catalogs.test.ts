@@ -13,12 +13,12 @@ import {
   taxonomyCategoriesMatchSurface,
   qualifyEventType,
   unqualifyEventType,
-  toEventDataAttributes,
   eventTypesByCategory,
   type LicenseComplianceEventType,
   type CodeScanningEventType,
   type CatalogedScope,
-} from './eventTaxonomy'
+} from './catalogs'
+import {toEventDataAttributes} from '../core'
 import {
   SURFACE_CATEGORIES,
   ALL_TOGGLEABLE_CATEGORIES,

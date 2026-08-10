@@ -27,6 +27,13 @@ export type TimelineSurface =
   | 'license-compliance'
 
 /**
+ * Owning surface of an event — axis L1. Identical to {@link TimelineSurface}:
+ * scope IS the surface. Aliased so taxonomy consumers read intent (`EventScope`)
+ * without coupling to the rendering-context type name.
+ */
+export type EventScope = TimelineSurface
+
+/**
  * The security-alert surfaces — Dependabot alerts and the three scanning
  * surfaces (code scanning, secret scanning, license compliance). They share a
  * family of behaviours (no audit split, flat single-list record) that

@@ -424,7 +424,7 @@ const config = defineConfig([
   // Timeline event taxonomy: catalog keys are REST `event.type` wire values
   // (snake_case), not code identifiers.
   {
-    files: ['packages/react/src/Timeline/taxonomy/eventTaxonomy.ts'],
+    files: ['packages/react/src/Timeline/taxonomy/github/catalogs.ts'],
     rules: {
       camelcase: 'off',
     },

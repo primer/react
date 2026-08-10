@@ -69,16 +69,6 @@ export type ToggleableCategory = 'reviews' | 'merging' | 'status' | 'findings' |
 export type EventCategory = ToggleableCategory | 'conversation' | 'metadata'
 
 /**
- * How prominently an event surfaces by default.
- *
- * - `primary`   — renders in the main timeline when its category is toggled on
- * - `auditOnly` — never in the main timeline; only in the audit view
- *
- * (Conversation items are implicitly "always" — shown regardless of toggles.)
- */
-export type EventVisibility = 'primary' | 'auditOnly'
-
-/**
  * Which toggleable categories apply to each surface, in menu display order.
  * The Viewing menu only renders categories applicable to the current surface
  * (6 for PRs, 3 for issues, 3 for Dependabot). Every listed category is a real

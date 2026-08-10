@@ -12,10 +12,13 @@
  * source beside the Timeline component so stories and the playground can consume
  * it. Promoting the projections (`toEventDataAttributes`, the catalogs) to the
  * package's public API is deferred until the model is ratified.
+ *
+ * The module is split into a generic, product-agnostic `./core` (the `data-*`
+ * schema, serializer, and factory) and a GitHub-specific `./github` (surfaces,
+ * categories, catalogs, actor rules, and the bound `eventDataAttributesFor`
+ * helper). This barrel re-exports both, so the full symbol set — including
+ * `eventDataAttributesFor` — stays available from `./taxonomy`.
  */
 
-export * from './surfaces'
-export * from './actorType'
-export * from './eventCategories'
-export * from './eventTaxonomy'
-export * from './eventDataAttributes'
+export * from './core'
+export * from './github'

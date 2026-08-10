@@ -6,7 +6,7 @@
  */
 
 import {describe, it, expect} from 'vitest'
-import {eventDataAttributesFor} from './eventDataAttributes'
+import {eventDataAttributesFor} from './eventDataAttributesFor'
 
 describe('eventDataAttributesFor', () => {
   it('resolves a bot login to data-actor-type "bot"', () => {

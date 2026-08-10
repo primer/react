@@ -41,17 +41,10 @@
  * the values the surfaces emit today rather than forking casing unilaterally.
  */
 
-import type {EventCategory, EventVisibility, ToggleableCategory} from './eventCategories'
+import type {EventCategory, ToggleableCategory} from './eventCategories'
 import {SURFACE_CATEGORIES, isToggleableCategory} from './eventCategories'
-import type {ActorType} from './actorType'
-import type {TimelineSurface} from './surfaces'
-
-/**
- * Owning surface of an event — axis L1. Identical to {@link TimelineSurface}:
- * scope IS the surface. Aliased so taxonomy consumers read intent (`EventScope`)
- * without coupling to the rendering-context type name.
- */
-export type EventScope = TimelineSurface
+import type {EventScope} from './surfaces'
+import type {EventTaxonomyEntry} from '../core'
 
 /**
  * License Compliance leaf event types — axis L3, **unscoped** (the real
@@ -75,38 +68,6 @@ export type LicenseComplianceEventType =
   | 'licenses_added'
   | 'closed'
 
-/** Placement of one event on the non-identity axes (category + facets). */
-export interface EventTaxonomyEntry {
-  /**
-   * Category family — axis L2. Drives `data-event-category` and the Viewing-menu
-   * grouping. A {@link ToggleableCategory} the surface offers (see
-   * `SURFACE_CATEGORIES`), OR the always-audit `metadata` family (never
-   * toggleable, always `auditOnly` — labels, assignees, project fields). Use
-   * {@link taxonomyCategoriesMatchSurface} to assert a catalog only uses
-   * categories its surface actually offers.
-   */
-  category: EventCategory
-  /**
-   * Default density facet — `data-event-visibility`. Omit for `primary` (the
-   * common case; every License Compliance event is primary because the audit-log
-   * surface renders one flat list with no curated/audit split).
-   */
-  visibility?: EventVisibility
-  /**
-   * Whether the event renders through the **actor-capable** path. `false` only
-   * for structurally actor-less events (the synthetic `appeared_in_branch`,
-   * which upstream renders through `TimelineEventWithoutActor`) — these emit no
-   * `data-actor-type`. `true` means the row can carry an actor, but PRESENCE is
-   * data-driven: upstream `TimelineEventWithActor` renders the avatar only when
-   * `event.actor` exists, so a time-triggered event like `review_expired` is
-   * `true` yet renders actor-less when the payload has no actor. The concrete
-   * `user | bot` value is resolved at runtime from the actor login (see
-   * `actorTypeForLogin`), never fixed by event type; `data-actor-type` is omitted
-   * whenever no actor is present.
-   */
-  hasActor: boolean
-}
-
 /** Convenience handle for the pilot surface. */
 export const LICENSE_COMPLIANCE_SCOPE: EventScope = 'license-compliance'
 
@@ -119,7 +80,7 @@ export const LICENSE_COMPLIANCE_SCOPE: EventScope = 'license-compliance'
  * pinned by the renderer as lifecycle bookends so filtering never empties the
  * record — a guarantee that lives in the renderer, not in this catalog.
  */
-export const LICENSE_COMPLIANCE_TAXONOMY: Record<LicenseComplianceEventType, EventTaxonomyEntry> = {
+export const LICENSE_COMPLIANCE_TAXONOMY: Record<LicenseComplianceEventType, EventTaxonomyEntry<EventCategory>> = {
   opened: {category: 'findings', hasActor: true}, // synthetic; system-identity actor, rendered linked (no "bot" Label)
   appeared_in_branch: {category: 'findings', hasActor: false}, // synthetic; system, no actor
   review_requested: {category: 'reviews', hasActor: true},
@@ -158,7 +119,7 @@ export type SecretScanningEventType =
   | 'reopened'
   | 'closed'
 
-export const SECRET_SCANNING_TAXONOMY: Record<SecretScanningEventType, EventTaxonomyEntry> = {
+export const SECRET_SCANNING_TAXONOMY: Record<SecretScanningEventType, EventTaxonomyEntry<EventCategory>> = {
   detected: {category: 'findings', hasActor: true}, // `Creation`; system GitHub actor (isGitHubActor), rendered
   validity_changed: {category: 'findings', hasActor: true}, // `ValidityChange` (token verification status); system 'GitHub' actor when automated, user when manual
   reported: {category: 'findings', hasActor: true}, // live AlertTimeline.tsx `TimelineEventType.Report`: "reported this secret"; user actor
@@ -200,7 +161,7 @@ export type CodeScanningEventType =
   | 'dismissal_requested'
   | 'dismissal_reviewed'
 
-export const CODE_SCANNING_TAXONOMY: Record<CodeScanningEventType, EventTaxonomyEntry> = {
+export const CODE_SCANNING_TAXONOMY: Record<CodeScanningEventType, EventTaxonomyEntry<EventCategory>> = {
   detected: {category: 'findings', hasActor: false}, // ALERT_CREATED; system, no actor
   appeared: {category: 'findings', hasActor: false}, // ALERT_APPEARED_IN_BRANCH; system, no actor
   reappeared: {category: 'findings', hasActor: false}, // ALERT_REAPPEARED; system, no actor
@@ -247,7 +208,7 @@ export type DependabotEventType =
   | 'dismissal_reviewed'
   | 'dismissal_cancelled'
 
-export const DEPENDABOT_TAXONOMY: Record<DependabotEventType, EventTaxonomyEntry> = {
+export const DEPENDABOT_TAXONOMY: Record<DependabotEventType, EventTaxonomyEntry<EventCategory>> = {
   opened: {category: 'findings', hasActor: true}, // Dependabot bot actor (source/PR/push variants)
   fixed: {category: 'findings', hasActor: true}, // Dependabot bot actor
   dismissed: {category: 'status', hasActor: true}, // folds manual (user) + auto/rule-based (Dependabot bot)
@@ -319,7 +280,7 @@ export type IssueEventType =
   | 'removed_from_project'
   | 'project_field_changed'
 
-export const ISSUE_TAXONOMY: Record<IssueEventType, EventTaxonomyEntry> = {
+export const ISSUE_TAXONOMY: Record<IssueEventType, EventTaxonomyEntry<EventCategory>> = {
   closed: {category: 'status', hasActor: true},
   reopened: {category: 'status', hasActor: true},
   pinned: {category: 'status', hasActor: true},
@@ -419,52 +380,6 @@ export function unqualifyEventType(scope: EventScope, flattenedType: string): st
   return remainder
 }
 
-/** Input for the `data-*` projection. */
-export interface EventDataAttributeInput {
-  scope: EventScope
-  /** Unscoped leaf type (e.g. `opened`). */
-  type: string
-  category: EventCategory
-  visibility?: EventVisibility
-  /** Omit for actor-less events. */
-  actorType?: ActorType
-}
-
-/** The `data-*` attribute set emitted on a timeline event row. */
-export interface EventDataAttributes {
-  'data-event-scope': string
-  'data-event-type': string
-  'data-event-category': string
-  'data-event-visibility': EventVisibility
-  'data-actor-type'?: ActorType
-}
-
-/**
- * Canonical serializer for the event `data-*` contract (primer#6664). The single
- * place that turns the five axes into attribute strings; a row renderer can
- * delegate here so the contract has exactly one implementation. `data-event-type`
- * is the **unscoped** leaf; the surface travels in `data-event-scope`. `data-actor-type`
- * is omitted entirely for actor-less events rather than emitted empty.
- */
-export function toEventDataAttributes({
-  scope,
-  type,
-  category,
-  visibility,
-  actorType,
-}: EventDataAttributeInput): EventDataAttributes {
-  const attributes: EventDataAttributes = {
-    'data-event-scope': scope,
-    'data-event-type': type,
-    'data-event-category': category,
-    'data-event-visibility': visibility ?? 'primary',
-  }
-  if (actorType) {
-    attributes['data-actor-type'] = actorType
-  }
-  return attributes
-}
-
 /**
  * Group a catalog's leaf types by category, preserving catalog order. This is
  * the projection that regroups the surface-level Storybook stories by category
@@ -473,7 +388,7 @@ export function toEventDataAttributes({
  * the catalog, never hand-maintained.
  */
 export function eventTypesByCategory<T extends string>(
-  taxonomy: Record<T, EventTaxonomyEntry>,
+  taxonomy: Record<T, EventTaxonomyEntry<EventCategory>>,
 ): Partial<Record<EventCategory, T[]>> {
   const groups: Partial<Record<EventCategory, T[]>> = {}
   for (const type of Object.keys(taxonomy) as T[]) {
@@ -494,7 +409,7 @@ export function eventTypesByCategory<T extends string>(
  */
 export function taxonomyCategoriesMatchSurface(
   scope: CatalogedScope,
-  taxonomy: Record<string, EventTaxonomyEntry>,
+  taxonomy: Record<string, EventTaxonomyEntry<EventCategory>>,
 ): string[] {
   const offered = new Set<ToggleableCategory>(SURFACE_CATEGORIES[scope])
   const mismatches: string[] = []
