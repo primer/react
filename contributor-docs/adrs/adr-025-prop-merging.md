@@ -51,16 +51,24 @@ consumer can provide. Pass component props first and consumer props second to th
 
 Keep forwardable consumer props together and pass them directly as the second
 argument. Do not conditionally add optional event handlers before calling
-`mergeProps`; the utility handles omitted handlers:
+`mergeProps`; the utility handles omitted handlers. If a component must read or
+normalize a consumer prop, destructure it and include the forwarded or derived
+value in the first object instead of reconstructing the second object.
+
+Use conventional prop values in the first object. For example, combine multiple
+internal class names with `clsx` before calling `mergeProps` instead of passing
+array or object shorthand:
 
 ```tsx
-function Example({componentOnlyProp, ...rest}: Props) {
+function Example({checked, ...rest}: Props) {
   return (
-    <button
+    <input
       {...mergeProps(
         {
-          className: classes.Example,
-          onClick: handleClick,
+          className: clsx(classes.Control, classes.Example),
+          onChange: handleChange,
+          'aria-checked': checked ? 'true' : 'false',
+          checked,
         },
         rest,
       )}
