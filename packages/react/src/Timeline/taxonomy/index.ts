@@ -1,5 +1,5 @@
 /**
- * Timeline event taxonomy — public entry point.
+ * Timeline event taxonomy — module entry point.
  *
  * The single categorization model for the redesigned Primer Timeline, ported
  * from the Timeline redesign prototype (github/prototyping,

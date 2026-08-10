@@ -1,9 +1,10 @@
 /**
  * Generic `data-*` serializer for the Timeline event contract (github/primer#6664).
  *
- * This is the product-agnostic core: it turns the five taxonomy axes into the
- * `data-*` attribute strings, and offers a factory that binds a concrete catalog
- * (and an optional login → actor resolver) into a per-catalog projection. The
+ * This is the product-agnostic core: it serializes an already-projected event
+ * input into the `data-*` attribute set, and offers a factory that binds a
+ * concrete catalog (and an optional login → actor resolver) into a per-catalog
+ * projection. The
  * GitHub-specific values live in `../github`; nothing here knows about GitHub
  * surfaces, categories, or bot logins.
  *
@@ -36,10 +37,11 @@ export interface EventDataAttributes {
 
 /**
  * Canonical serializer for the event `data-*` contract (primer#6664). The single
- * place that turns the five axes into attribute strings; a row renderer can
- * delegate here so the contract has exactly one implementation. `data-event-type`
- * is the **unscoped** leaf; the surface travels in `data-event-scope`. `data-actor-type`
- * is omitted entirely for actor-less events rather than emitted empty.
+ * place that turns an already-projected input object into the attribute set; a
+ * row renderer can delegate here so the contract has exactly one implementation.
+ * `data-event-type` is the **unscoped** leaf; the surface travels in
+ * `data-event-scope`. `data-actor-type` is omitted entirely for actor-less events
+ * rather than emitted empty.
  */
 export function toEventDataAttributes({
   scope,
@@ -79,17 +81,13 @@ export function toEventDataAttributes({
 export function createEventDataAttributesFor<Catalog extends Record<string, Record<string, EventTaxonomyEntry>>>(
   catalog: Catalog,
   resolveActor?: (login: string | undefined) => ActorType,
-): <S extends keyof Catalog & string>(
-  scope: S,
-  type: keyof Catalog[S] & string,
-  login?: string,
-) => EventDataAttributes {
+) {
   return <S extends keyof Catalog & string>(
     scope: S,
     type: keyof Catalog[S] & string,
     login?: string,
   ): EventDataAttributes => {
-    const entry = catalog[scope][type] as EventTaxonomyEntry
+    const entry = catalog[scope][type]
     return toEventDataAttributes({
       scope,
       type,

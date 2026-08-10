@@ -7,8 +7,13 @@
  */
 
 /**
- * Timeline event taxonomy — the single source of truth for the redesigned
+ * GitHub Timeline event catalogs — the single source of truth for the redesigned
  * Primer Timeline event categorization, keyed by the `(scope, type)` composite.
+ * This file holds the GitHub per-surface event catalogs (the five `*_TAXONOMY`
+ * records and their combined {@link SURFACE_TAXONOMIES} view) together with the
+ * projections derived from them (`qualifyEventType`, `eventTypesByCategory`,
+ * `taxonomyCategoriesMatchSurface`), so the `catalogs` filename and the contents
+ * read consistently.
  *
  * The taxonomy has **five axes**. Three are hierarchical (the Figma
  * surface → category → event nesting, and the `data-*` spine):
