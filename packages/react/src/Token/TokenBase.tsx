@@ -42,24 +42,18 @@ export interface TokenBaseProps
 }
 
 const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
-  (
-    {
-      onRemove,
-      onKeyDown,
-      id,
-      className,
-      size = defaultTokenSize,
-      isSelected: _isSelected,
-      as: Component = 'span',
-      ...rest
-    },
-    forwardedRef,
-  ) => {
+  ({onRemove, id, size = defaultTokenSize, isSelected: _isSelected, as: Component = 'span', ...rest}, forwardedRef) => {
     const handleKeyDown = (event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
       if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
         onRemove()
       }
     }
+    const consumerProps =
+      Component === 'button'
+        ? (rest as React.ButtonHTMLAttributes<HTMLButtonElement>)
+        : Component === 'a'
+          ? (rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)
+          : (rest as React.HTMLAttributes<HTMLSpanElement>)
 
     return (
       <Component
@@ -75,17 +69,9 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
               disabled: rest.disabled,
             }),
             'data-size': size,
-          },
-          {
-            ...(Component === 'button'
-              ? (rest as React.ButtonHTMLAttributes<HTMLButtonElement>)
-              : Component === 'a'
-                ? (rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)
-                : (rest as React.HTMLAttributes<HTMLSpanElement>)),
-            ...(onKeyDown ? {onKeyDown} : {}),
-            className,
             id: id?.toString(),
           },
+          consumerProps,
         )}
         // TypeScript cannot resolve polymorphic ref types at compile time
         // This assertion is safe because the ref will match the actual rendered element
