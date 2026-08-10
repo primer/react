@@ -4,9 +4,8 @@
  * This is the product-agnostic core: it serializes an already-projected event
  * input into the `data-*` attribute set, and offers a factory that binds a
  * concrete catalog (and an optional login → actor resolver) into a per-catalog
- * projection. The
- * GitHub-specific values live in `../github`; nothing here knows about GitHub
- * surfaces, categories, or bot logins.
+ * projection. The GitHub-specific values live in `../github`; nothing here knows
+ * about GitHub surfaces, categories, or bot logins.
  *
  * Not part of the public `@primer/react` export surface.
  */
