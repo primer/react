@@ -22,8 +22,12 @@ function mergeProps<A extends object, B extends object = A>(a: A, b: B): Merge<A
 
       if (key === 'className') {
         merged[key] = clsx(existing as ClassValue, value as ClassValue)
-      } else if (isEventHandlerKey(key) && isEventHandler(existing) && isEventHandler(value)) {
-        merged[key] = composeEventHandlers(existing, value)
+      } else if (isEventHandlerKey(key) && isEventHandler(existing)) {
+        if (isEventHandler(value)) {
+          merged[key] = composeEventHandlers(existing, value)
+        } else if (value !== undefined) {
+          merged[key] = value
+        }
       } else if (key === 'style') {
         merged[key] = mergeStyle(existing, value)
       } else {

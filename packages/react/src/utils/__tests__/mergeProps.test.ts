@@ -52,6 +52,14 @@ describe('mergeProps', () => {
     expect(consumerHandler).toHaveBeenCalledWith(event, 'value')
   })
 
+  test('preserves the first event handler when the second is undefined', () => {
+    const componentHandler = vi.fn()
+
+    const merged = mergeProps({onClick: componentHandler}, {onClick: undefined})
+
+    expect(merged.onClick).toBe(componentHandler)
+  })
+
   test('does not run the second event handler when the first prevents the event', () => {
     const event = {
       defaultPrevented: false,
