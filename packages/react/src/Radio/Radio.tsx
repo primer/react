@@ -40,17 +40,7 @@ export type RadioProps = {
  */
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
-    {
-      checked,
-      disabled,
-      name: nameProp,
-      onChange,
-      required,
-      value,
-      className,
-      'aria-hidden': ariaHidden = false,
-      ...rest
-    }: RadioProps,
+    {checked, name: nameProp, 'aria-hidden': ariaHidden, ...rest}: RadioProps,
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
@@ -74,17 +64,11 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             onChange: handleOnChange,
             className: clsx(sharedClasses.Input, classes.Radio),
             'aria-checked': checked ? ('true' as const) : ('false' as const),
-          },
-          {
-            ...rest,
-            ...(onChange ? {onChange} : {}),
-            value,
-            name,
-            disabled,
+            'aria-hidden': ariaHidden,
             checked,
-            required,
-            className,
+            name,
           },
+          rest,
         )}
         ref={ref}
         type="radio"
