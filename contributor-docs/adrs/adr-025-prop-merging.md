@@ -42,11 +42,32 @@ consumer can provide. Pass component props first and consumer props second to th
 
 - Event handlers are composed in argument order. The component handler runs
   first. The consumer handler runs only if the component handler does not set
-  `event.defaultPrevented`.
+  `event.defaultPrevented`. An `undefined` consumer handler is treated as absent
+  and does not replace the component handler.
 - `className` values are combined with `clsx`, with the component value first.
 - `style` objects are shallowly merged, with the consumer value taking
   precedence for duplicate properties.
 - All other duplicate props use the consumer value.
+
+Keep forwardable consumer props together and pass them directly as the second
+argument. Do not conditionally add optional event handlers before calling
+`mergeProps`; the utility handles omitted handlers:
+
+```tsx
+function Example({componentOnlyProp, ...rest}: Props) {
+  return (
+    <button
+      {...mergeProps(
+        {
+          className: classes.Example,
+          onClick: handleClick,
+        },
+        rest,
+      )}
+    />
+  )
+}
+```
 
 If a component must control an attribute for correct behavior, it must not
 expose that attribute unconditionally. Omit it from the public prop type, or use
