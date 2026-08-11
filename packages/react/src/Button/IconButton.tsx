@@ -6,7 +6,7 @@ import {Tooltip} from '../TooltipV2/Tooltip'
 import {TooltipContext} from '../TooltipV2/TooltipContext'
 import {TooltipContext as TooltipContextV1} from '../Tooltip/TooltipContext'
 import classes from './ButtonBase.module.css'
-import {clsx} from 'clsx'
+import {mergeProps} from '../utils/mergeProps'
 
 const IconButton = forwardRef(
   (
@@ -20,7 +20,6 @@ const IconButton = forwardRef(
       unsafeDisableTooltip = false,
       keyshortcuts,
       keybindingHint,
-      className,
       ...props
     },
     forwardedRef,
@@ -43,13 +42,17 @@ const IconButton = forwardRef(
     if (withoutTooltip) {
       return (
         <ButtonBase
-          icon={Icon}
-          className={clsx(className, classes.IconButton)}
-          data-component="IconButton"
-          type="button"
-          aria-label={ariaLabel}
-          disabled={disabled}
-          {...props}
+          {...mergeProps(
+            {
+              icon: Icon,
+              className: classes.IconButton,
+              'data-component': 'IconButton',
+              type: 'button',
+              'aria-label': ariaLabel,
+              disabled,
+            },
+            props,
+          )}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
           ref={forwardedRef}
         />
@@ -66,14 +69,18 @@ const IconButton = forwardRef(
           _privateDisableTooltip={hasActivePopup}
         >
           <ButtonBase
-            icon={Icon}
-            className={clsx(className, classes.IconButton)}
-            data-component="IconButton"
-            type="button"
-            aria-keyshortcuts={keyshortcuts ?? undefined}
-            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
-            aria-label={description ? ariaLabel : undefined}
-            {...props}
+            {...mergeProps(
+              {
+                icon: Icon,
+                className: classes.IconButton,
+                'data-component': 'IconButton',
+                type: 'button',
+                'aria-keyshortcuts': keyshortcuts ?? undefined,
+                // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
+                'aria-label': description ? ariaLabel : undefined,
+              },
+              props,
+            )}
           />
         </Tooltip>
       )
