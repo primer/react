@@ -20,7 +20,7 @@ export type ActionListHeadingProps = {
   style?: React.CSSProperties
 }
 
-export const Heading = forwardRef(({as, size, children, visuallyHidden = false, ...props}, forwardedRef) => {
+export const Heading = forwardRef(({as, size, children, visuallyHidden = false, className, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   const mergedRef = useMergedRefs(forwardedRef, innerRef)
 
@@ -35,6 +35,7 @@ export const Heading = forwardRef(({as, size, children, visuallyHidden = false, 
 
   return (
     <HeadingComponent
+      ref={mergedRef}
       as={as}
       {...mergeProps(
         {
@@ -43,15 +44,18 @@ export const Heading = forwardRef(({as, size, children, visuallyHidden = false, 
           id: props.id ?? headingId,
           // Apply the visually-hidden styles directly to the heading rather than wrapping
           // it in a span (a heading isn't valid phrasing content inside a span).
-          className: clsx(classes.ActionListHeader, {
-            [visuallyHiddenClasses.InternalVisuallyHidden]: visuallyHidden,
-          }),
+          className: clsx(
+            classes.ActionListHeader,
+            {
+              [visuallyHiddenClasses.InternalVisuallyHidden]: visuallyHidden,
+            },
+            className,
+          ),
           'data-component': 'ActionList.Heading',
           'data-list-variant': listVariant,
         },
         props,
       )}
-      ref={mergedRef}
     >
       {children}
     </HeadingComponent>

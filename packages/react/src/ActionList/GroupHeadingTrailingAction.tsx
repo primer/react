@@ -22,6 +22,8 @@ export type ActionListGroupHeadingTrailingActionProps = Omit<ActionListTrailingA
 const GroupHeadingTrailingActionImpl = forwardRef(
   ({as = 'button', icon, label, href = null, tooltipDirection = 'w', ...props}, forwardedRef) => (
     <IconButton
+      // @ts-expect-error StyledButton wants both Anchor and Button refs
+      ref={forwardedRef}
       {...mergeProps(
         {
           as,
@@ -35,8 +37,6 @@ const GroupHeadingTrailingActionImpl = forwardRef(
         },
         props,
       )}
-      // @ts-expect-error StyledButton wants both Anchor and Button refs
-      ref={forwardedRef}
     />
   ),
 ) as PolymorphicForwardRefComponent<'button' | 'a', ActionListGroupHeadingTrailingActionProps> & {
