@@ -52,15 +52,18 @@ the driver entry.
 Apply these rules:
 
 1. Pass component-authored props first and consumer-authored props second.
-2. Keep the component-authored `className` as a string. Let `mergeProps` use
-   `clsx` to combine it with consumer class values.
+2. Destructure the consumer `className` and combine it with component class
+   names inline using `clsx`. Omit `className` from the consumer props passed to
+   `mergeProps`; do not delegate class-name composition to the utility.
 3. Do not add an optional consumer handler to the second argument when it is
    absent. An explicit `undefined` entry would replace the internal handler
    instead of composing it.
 4. Keep refs outside `mergeProps`.
 5. Put invariant attributes after the merged spread and omit them from the
-   public prop type. Use a discriminated union when ownership depends on the
-   rendered element.
+   public prop type. Only treat an attribute as invariant when the component
+   already owns it; preserve existing consumer precedence for historically
+   overridable attributes. Use a discriminated union when ownership depends on
+   the rendered element.
 6. Preserve intentional consumer `undefined` precedence for ordinary props.
 7. Add tests for event order, cancellation, controlled attributes, type
    exclusions, or other behavior that is not already covered.
