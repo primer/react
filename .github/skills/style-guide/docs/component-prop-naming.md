@@ -16,6 +16,9 @@ Use these conventions when creating, editing, or evaluating props for Primer Rea
   - [Use a single mode prop instead of mutually exclusive boolean props](#use-a-single-mode-prop-instead-of-mutually-exclusive-boolean-props)
 - [Use the variant prop to communicate purpose](#use-the-variant-prop-to-communicate-purpose)
 - [Avoid using the variant prop to communicate appearance](#avoid-using-the-variant-prop-to-communicate-appearance)
+- [Use the size prop to communicate scale](#use-the-size-prop-to-communicate-scale)
+  - [Prefer small, medium, and large](#prefer-small-medium-and-large)
+  - [Use numeric sizes when precise dimensions are part of the API](#use-numeric-sizes-when-precise-dimensions-are-part-of-the-api)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
@@ -205,5 +208,45 @@ type ExampleAppearanceProps = {
 // Prefer
 type ExampleAppearanceProps = {
   shape?: 'square' | 'rounded'
+}
+```
+
+## Use the size prop to communicate scale
+
+Use a `size` prop when a component offers multiple visual scales. Do not use
+`variant` to represent size because `variant` communicates semantic purpose.
+
+### Prefer small, medium, and large
+
+Use `small`, `medium`, and `large` as the standard named size values, with
+`medium` as the default. Components do not need to support every value when a
+size is not meaningful for their design.
+
+```tsx
+// Prefer
+type ExampleProps = {
+  size?: 'small' | 'medium' | 'large'
+}
+
+// Avoid
+type ExampleProps = {
+  size?: 'small' | 'normal' | 'large' | 'xlarge'
+}
+```
+
+Only introduce an additional size name when the standard scale cannot describe
+a distinct, supported use case. Keep shared size names visually compatible when
+components are designed to be used together.
+
+### Use numeric sizes when precise dimensions are part of the API
+
+Numeric sizes are appropriate when consumers need precise dimensions, such as
+for avatars or icons. Prefer named sizes for components that are expected to
+align with other controls without requiring consumers to coordinate pixel
+values.
+
+```tsx
+type AvatarProps = {
+  size?: number | ResponsiveValue<number>
 }
 ```
