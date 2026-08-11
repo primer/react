@@ -41,11 +41,13 @@ unresolved architecture, accessibility, or public API decision.
 4. Implement only the assigned findings and tightly coupled tests, type tests,
    or changesets.
 5. Pass component props first and consumer props second.
-6. Keep component class names as strings.
+6. Destructure consumer class names and merge them inline with component class
+   names using `clsx`; omit `className` from the second `mergeProps` argument.
 7. Omit absent optional consumer handlers from the second argument.
 8. Compose refs separately.
 9. Omit or gate invariant attributes in public types and apply them after the
-   merged spread.
+   merged spread. Preserve existing consumer precedence for attributes that
+   were historically overridable.
 10. Format, lint, test, type-check, and run any requested Storybook,
     accessibility, visual, or build validation.
 11. Regenerate the report and confirm the assigned findings disappeared with
