@@ -51,10 +51,10 @@ export const SubItem: React.FC<ActionListSubItemProps> = ({children}) => {
 
 SubItem.displayName = 'ActionList.SubItem'
 
-const ButtonItemContainer = React.forwardRef<HTMLButtonElement, React.HTMLAttributes<HTMLButtonElement>>(
+const ButtonItemContainer = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
   ({children, ...props}, forwardedRef) => {
     return (
-      <button {...mergeProps({}, props)} ref={forwardedRef as React.Ref<HTMLButtonElement>} type="button">
+      <button ref={forwardedRef as React.Ref<HTMLButtonElement>} type="button" {...mergeProps({}, props)}>
         {children}
       </button>
     )

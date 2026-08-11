@@ -70,6 +70,7 @@ export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProp
   auxiliaryText,
   selectionVariant,
   role,
+  className,
   'aria-label': ariaLabel,
   ...props
 }) => {
@@ -96,7 +97,7 @@ export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProp
     <li
       {...mergeProps(
         {
-          className: groupClasses.Group,
+          className: clsx(groupClasses.Group, className),
           'data-component': 'ActionList.Group',
           role: listRole ? 'none' : undefined,
         },
