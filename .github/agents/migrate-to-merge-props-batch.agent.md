@@ -23,13 +23,14 @@ Do not begin without:
 
 - The current stack branch.
 - Exact component names, file paths, and report locations.
-- The maximum batch size.
+- The target changed LOC and acceptable fuzz.
 - Total and affected-file counts before the batch.
 - Targeted validation commands.
 
 Confirm the branch and findings still match the assignment. Stop if the batch
-is too large, overlaps another entry, includes unassigned files, or requires an
-unresolved architecture, accessibility, or public API decision.
+is materially larger than the target, overlaps another entry, splits an
+assigned component family without justification, includes unassigned files, or
+requires an unresolved architecture, accessibility, or public API decision.
 
 ## Workflow
 
@@ -57,6 +58,9 @@ unresolved architecture, accessibility, or public API decision.
     accessibility, visual, or build validation.
 12. Regenerate the report and confirm the assigned findings disappeared with
     no new findings.
+13. Measure additions plus deletions relative to the preceding entry. Treat the
+    LOC target as a planning guide rather than a hard cap when the assigned
+    component-family boundary is coherent.
 
 Do not disable enforcement, add blanket suppressions, manipulate report output,
 expose `mergeProps` publicly, fix unrelated findings, select another batch,
