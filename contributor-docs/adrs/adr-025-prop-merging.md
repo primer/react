@@ -109,7 +109,14 @@ The general rules do not cover every form of composition:
 
 - **Refs are not composed.** In React 19, `ref` is passed as a prop, but it still
   requires separate composition. Use `useMergedRefs` when both the component
-  and consumer need the same element reference.
+  and consumer need the same element reference. Keep `ref` before the
+  `mergeProps` spread so ref handling is visibly separate and merged props are
+  applied last:
+
+  ```tsx
+  <button ref={mergedRef} {...mergeProps(componentProps, consumerProps)} />
+  ```
+
 - **Styles are not deeply merged.** Nested objects and values such as CSS custom
   property maps are replaced at the first duplicate property.
 - **Cancellation is based on `defaultPrevented`.** The consumer handler is
