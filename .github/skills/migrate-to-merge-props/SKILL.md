@@ -58,7 +58,8 @@ Apply these rules:
 3. Do not add an optional consumer handler to the second argument when it is
    absent. An explicit `undefined` entry would replace the internal handler
    instead of composing it.
-4. Keep refs outside `mergeProps`.
+4. Keep refs outside `mergeProps` and place the `ref` prop before the merged
+   spread.
 5. Put invariant attributes after the merged spread and omit them from the
    public prop type. Only treat an attribute as invariant when the component
    already owns it; preserve existing consumer precedence for historically
