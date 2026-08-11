@@ -83,6 +83,29 @@ describe('UnderlineNav', () => {
     expect(list.getElementsByTagName('svg').length).toEqual(7)
   })
 
+  it('hides icons below the medium breakpoint by default', () => {
+    render(<ResponsiveUnderlineNav />)
+    expect(screen.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
+  })
+
+  it('supports customizing when icons are hidden', () => {
+    render(
+      <UnderlineNav aria-label="Repository" hideIconsBreakpoint="medium">
+        <UnderlineNav.Item>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    expect(screen.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
+  })
+
+  it('supports always showing icons', () => {
+    render(
+      <UnderlineNav aria-label="Repository" hideIconsBreakpoint={null}>
+        <UnderlineNav.Item>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    expect(screen.getByRole('navigation')).not.toHaveAttribute('data-hide-icons-breakpoint')
+  })
+
   it('fires onSelect on click', async () => {
     const onSelect = vi.fn()
     const {getByRole} = render(
