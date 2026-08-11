@@ -67,6 +67,10 @@ Apply these rules:
 6. Preserve intentional consumer `undefined` precedence for ordinary props.
 7. Add tests for event order, cancellation, controlled attributes, type
    exclusions, or other behavior that is not already covered.
+8. Treat component migrations as behavior-preserving refactors and do not add a
+   changeset by default. Add one only when correctness requires a genuine public
+   contract change, such as updating a type to communicate that an accepted prop
+   was never applied.
 
 ## Stack ownership contract
 
@@ -80,7 +84,8 @@ Every change must live in the entry that owns its concern:
   agent. It must not contain component migrations, migration changesets, or
   adoption-tool refinements.
 - `migrate/merge-props-batch-NN` owns only its assigned component
-  implementation, tightly coupled tests or stories, and required changesets.
+  implementation, tightly coupled tests or stories, and changesets required by
+  unavoidable public contract changes.
 - `migrate/merge-props-cleanup` owns final temporary-artifact removal and the
   ADR status update.
 
@@ -157,7 +162,8 @@ Group findings by component family and remediation pattern. Each batch must:
 - Own complete files rather than splitting a file between entries.
 - Be reviewable as one coherent change.
 - Avoid files already assigned to an existing stack entry.
-- Include tightly coupled tests and changesets.
+- Include tightly coupled tests and only the changesets required by genuine
+  public contract changes.
 
 Calculate the remaining batch count using the selected limit.
 
@@ -183,7 +189,8 @@ For each batch:
 2. Invoke `migrate-to-merge-props-batch` with the branch, exact paths and
    locations, maximum size, before counts, and targeted validation commands.
 3. Review the returned diff and evidence.
-4. Add or update changesets for consumer-facing behavior or type changes.
+4. Do not add a changeset for a behavior-preserving migration. Add or update one
+   only when the batch requires a genuine public behavior or type change.
 5. Confirm the entry contains no adoption-tool or driver changes.
 6. Commit only the assigned batch.
 7. Regenerate the report.
