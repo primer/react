@@ -1,7 +1,7 @@
 {
   "name": "@primer/react",
   "type": "module",
-  "version": "38.35.0",
+  "version": "38.35.1",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -45,7 +45,6 @@
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "tsx script/components-json/build.ts",
     "build:hooks.json": "tsx script/hooks-json/build.ts",
-    "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "lint:npm": "publint --types",
     "lint:react-compiler": "node script/lint-react-compiler.ts",
     "storybook": "storybook",
@@ -64,7 +63,6 @@
   ],
   "files": [
     "dist",
-    "!dist/legacy-theme/ts/colors",
     "generated",
     "CHANGELOG.md"
   ],
@@ -168,7 +166,7 @@
     "react-is": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
-    "rolldown": "^1.2.0",
+    "rolldown": "^1.2.2",
     "rolldown-plugin-dts": "^0.26.0",
     "rolldown-plugin-import-css": "^0.0.0",
     "rolldown-plugin-preserve-directives": "^0.0.0",
