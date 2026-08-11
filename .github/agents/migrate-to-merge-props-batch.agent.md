@@ -44,7 +44,8 @@ unresolved architecture, accessibility, or public API decision.
 6. Destructure consumer class names and merge them inline with component class
    names using `clsx`; omit `className` from the second `mergeProps` argument.
 7. Omit absent optional consumer handlers from the second argument.
-8. Compose refs separately.
+8. Compose refs separately and place the `ref` prop before the `mergeProps`
+   spread.
 9. Omit or gate invariant attributes in public types and apply them after the
    merged spread. Preserve existing consumer precedence for attributes that
    were historically overridable.
