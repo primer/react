@@ -308,7 +308,7 @@ Use the following conventions:
 
 - Event handlers run the component's handler first, then the consumer's handler
   if the event has not been prevented.
-- Class names are merged with `clsx`.
+- Class names are merged inline by the component with `clsx`.
 - Style objects apply the component's styles first and the consumer's styles
   second so that the consumer can override them.
 - Other attributes use the consumer's value. If an attribute must be controlled
@@ -321,7 +321,7 @@ second:
 ```tsx
 type Props = React.ComponentPropsWithoutRef<'button'>
 
-function Example(props: Props) {
+function Example({className, ...props}: Props) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     performInternalAction(event)
   }
@@ -331,7 +331,7 @@ function Example(props: Props) {
       {...mergeProps(
         {
           'data-component': 'Example',
-          className: classes.Example,
+          className: clsx(classes.Example, className),
           onClick: handleClick,
           style: defaultStyle,
         },
@@ -341,6 +341,9 @@ function Example(props: Props) {
   )
 }
 ```
+
+Destructure the consumer's `className` and keep the `clsx` call at the component
+call site. Do not rely on `mergeProps` to add the consumer class name later.
 
 When a component requires an attribute for correct behavior, remove it from the
 consumer-facing type instead of silently overriding a value the API accepts:
@@ -352,6 +355,10 @@ function Example(props: Props) {
   return <button {...props} type="button" />
 }
 ```
+
+Only move an attribute after the merged spread when the component already owns
+that attribute. Preserve existing consumer precedence when the attribute has
+historically been overridable.
 
 #### Prefer authoring callback prop types with arguments that can be extended
 
