@@ -19,6 +19,7 @@ Use these conventions when creating, editing, or evaluating props for Primer Rea
 - [Use the size prop to communicate scale](#use-the-size-prop-to-communicate-scale)
   - [Prefer small, medium, and large](#prefer-small-medium-and-large)
   - [Use numeric sizes when precise dimensions are part of the API](#use-numeric-sizes-when-precise-dimensions-are-part-of-the-api)
+  - [Extend the scale with `xsmall` and `xlarge` when needed](#extend-the-scale-with-xsmall-and-xlarge-when-needed)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
@@ -230,7 +231,7 @@ type ExampleProps = {
 
 // Avoid
 type ExampleProps = {
-  size?: 'small' | 'normal' | 'large' | 'xlarge'
+  size?: 'small' | 'normal' | 'extra-large'
 }
 ```
 
@@ -250,3 +251,9 @@ type AvatarProps = {
   size?: number | ResponsiveValue<number>
 }
 ```
+
+### Extend the scale with `xsmall` and `xlarge` when needed
+
+When a component needs to support a size smaller than `small` or larger than
+`large`, use `xsmall` and `xlarge` to extend the scale. Avoid introducing
+additional size names unless they are necessary for a distinct use case.
