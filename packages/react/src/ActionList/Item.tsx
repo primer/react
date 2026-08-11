@@ -17,6 +17,7 @@ import {clsx} from 'clsx'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {Tooltip} from '../TooltipV2'
 import {TooltipContext} from '../TooltipV2/TooltipContext'
+import {mergeProps} from '../utils/mergeProps'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
@@ -51,9 +52,9 @@ export const SubItem: React.FC<ActionListSubItemProps> = ({children}) => {
 SubItem.displayName = 'ActionList.SubItem'
 
 const ButtonItemContainer = React.forwardRef<HTMLButtonElement, React.HTMLAttributes<HTMLButtonElement>>(
-  ({children, style, ...props}, forwardedRef) => {
+  ({children, ...props}, forwardedRef) => {
     return (
-      <button type="button" ref={forwardedRef as React.Ref<HTMLButtonElement>} style={style} {...props}>
+      <button {...mergeProps({}, props)} ref={forwardedRef as React.Ref<HTMLButtonElement>} type="button">
         {children}
       </button>
     )

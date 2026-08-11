@@ -208,6 +208,7 @@ describe('ActionList.Item', () => {
     )
     const button = container.querySelector('button')
     expect(button).toHaveTextContent('Item 1')
+    expect(button).toHaveAttribute('type', 'button')
     // Ensure passed prop "disabled" is applied to the button
     expect(button).toHaveAttribute('aria-disabled', 'true')
     const listItems = container.querySelectorAll('li')

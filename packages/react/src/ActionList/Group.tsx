@@ -11,6 +11,7 @@ import type {FCWithSlotMarker} from '../utils/types/Slots'
 import {GroupHeadingTrailingAction} from './GroupHeadingTrailingAction'
 import {useFeatureFlag} from '../FeatureFlags'
 import {GroupContext} from './GroupContext'
+import {mergeProps} from '../utils/mergeProps'
 
 const GROUP_HEADING_TRAILING_ACTION_FEATURE_FLAG = 'primer_react_action_list_group_heading_trailing_action'
 
@@ -28,11 +29,7 @@ const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>>
   id,
   ...rest
 }) => {
-  return (
-    <Component className={className} id={id} {...rest}>
-      {children}
-    </Component>
-  )
+  return <Component {...mergeProps({className, id}, rest)}>{children}</Component>
 }
 
 type HeadingWrapProps = {
@@ -73,7 +70,6 @@ export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProp
   auxiliaryText,
   selectionVariant,
   role,
-  className,
   'aria-label': ariaLabel,
   ...props
 }) => {
@@ -98,10 +94,14 @@ export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProp
 
   return (
     <li
-      className={clsx(className, groupClasses.Group)}
-      data-component="ActionList.Group"
-      role={listRole ? 'none' : undefined}
-      {...props}
+      {...mergeProps(
+        {
+          className: groupClasses.Group,
+          'data-component': 'ActionList.Group',
+          role: listRole ? 'none' : undefined,
+        },
+        props,
+      )}
     >
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
         {title && !slots.groupHeading ? (

@@ -8,6 +8,7 @@ import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import classes from './Heading.module.css'
 import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
+import {mergeProps} from '../utils/mergeProps'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type HeadingVariants = 'large' | 'medium' | 'small'
@@ -19,7 +20,7 @@ export type ActionListHeadingProps = {
   style?: React.CSSProperties
 }
 
-export const Heading = forwardRef(({as, size, children, visuallyHidden = false, className, ...props}, forwardedRef) => {
+export const Heading = forwardRef(({as, size, children, visuallyHidden = false, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   const mergedRef = useMergedRefs(forwardedRef, innerRef)
 
@@ -35,18 +36,22 @@ export const Heading = forwardRef(({as, size, children, visuallyHidden = false, 
   return (
     <HeadingComponent
       as={as}
-      variant={size}
+      {...mergeProps(
+        {
+          variant: size,
+          // use custom id if it is provided. Otherwise, use the id from the context
+          id: props.id ?? headingId,
+          // Apply the visually-hidden styles directly to the heading rather than wrapping
+          // it in a span (a heading isn't valid phrasing content inside a span).
+          className: clsx(classes.ActionListHeader, {
+            [visuallyHiddenClasses.InternalVisuallyHidden]: visuallyHidden,
+          }),
+          'data-component': 'ActionList.Heading',
+          'data-list-variant': listVariant,
+        },
+        props,
+      )}
       ref={mergedRef}
-      // use custom id if it is provided. Otherwise, use the id from the context
-      id={props.id ?? headingId}
-      // Apply the visually-hidden styles directly to the heading rather than wrapping
-      // it in a span (a heading isn't valid phrasing content inside a span).
-      className={clsx(className, classes.ActionListHeader, {
-        [visuallyHiddenClasses.InternalVisuallyHidden]: visuallyHidden,
-      })}
-      data-component="ActionList.Heading"
-      data-list-variant={listVariant}
-      {...props}
     >
       {children}
     </HeadingComponent>
