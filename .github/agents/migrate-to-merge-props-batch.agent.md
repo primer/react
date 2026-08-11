@@ -39,7 +39,7 @@ unresolved architecture, accessibility, or public API decision.
 3. Inspect public props, spread order, handlers, styles, class names, refs,
    invariant attributes, tests, stories, and nearby prior art.
 4. Implement only the assigned findings and tightly coupled tests, type tests,
-   or changesets.
+   or changesets required by genuine public contract changes.
 5. Pass component props first and consumer props second.
 6. Destructure consumer class names and merge them inline with component class
    names using `clsx`; omit `className` from the second `mergeProps` argument.
@@ -48,9 +48,13 @@ unresolved architecture, accessibility, or public API decision.
 9. Omit or gate invariant attributes in public types and apply them after the
    merged spread. Preserve existing consumer precedence for attributes that
    were historically overridable.
-10. Format, lint, test, type-check, and run any requested Storybook,
+10. Treat the migration as a behavior-preserving refactor and do not add a
+    changeset by default. Add one only when correctness requires a public
+    behavior or type change, such as documenting through types that an accepted
+    prop was never applied.
+11. Format, lint, test, type-check, and run any requested Storybook,
     accessibility, visual, or build validation.
-11. Regenerate the report and confirm the assigned findings disappeared with
+12. Regenerate the report and confirm the assigned findings disappeared with
     no new findings.
 
 Do not disable enforcement, add blanket suppressions, manipulate report output,
