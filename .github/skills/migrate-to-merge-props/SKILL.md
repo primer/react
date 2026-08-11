@@ -33,7 +33,10 @@ class names, and styles according to the ADR.
   pure pass-through roots that have one spread and no component-authored prop
   other than `ref` or `key`.
 - Refs are always composed separately with `useMergedRefs`.
-- Default maximum batch size: five findings.
+- Default batch target: roughly 500 changed lines, measured as additions plus
+  deletions relative to the preceding stack entry.
+- The LOC target is intentionally fuzzy. Component families are the dominant
+  boundary, so a coherent batch may land below or moderately above 500 lines.
 - Default run size: two sequential batches per invocation.
 - Never split one source file across separate batches.
 
@@ -157,30 +160,41 @@ output or exclusions to lower the count.
 
 ### 3. Plan non-overlapping batches
 
-Group findings by component family and remediation pattern. Each batch must:
+Use the `/primer-query` skill to query current `@primer/react` JSX usage for the
+affected component families before assigning batches. Give a high-volume
+component its own entry so review and rollout risk remain isolated. As a
+default, treat 500 or more JSX uses as high volume, but adjust at an obvious
+break in the current usage distribution.
 
-- Contain at most the selected finding limit.
+Group the remaining findings by component family and remediation pattern. Pack
+multiple lower-volume component families into an entry until its estimated diff
+approaches the selected changed-LOC target. Prefer keeping a family together
+over hitting the target exactly. Each batch must:
+
 - Own complete files rather than splitting a file between entries.
+- Keep a component family together unless the family is independently too large
+  or contains distinct remediation risks.
 - Be reviewable as one coherent change.
 - Avoid files already assigned to an existing stack entry.
 - Include tightly coupled tests and only the changesets required by genuine
   public contract changes.
 
-Calculate the remaining batch count using the selected limit.
+Estimate the remaining batch count from the planned family groupings and changed
+LOC target. Recalculate after each completed entry using its actual diff size.
 
 ### 4. Ask how much work to run
 
 Use a structured prompt containing:
 
-| Field       | Default | Constraint                               |
-| ----------- | ------- | ---------------------------------------- |
-| Batch size  | `5`     | Integer greater than or equal to `1`     |
-| Run mode    | Limited | Limited batches or all remaining batches |
-| Batch count | `2`     | Integer greater than or equal to `1`     |
+| Field              | Default | Constraint                               |
+| ------------------ | ------- | ---------------------------------------- |
+| Target changed LOC | `500`   | Integer greater than or equal to `1`     |
+| Run mode           | Limited | Limited batches or all remaining batches |
+| Batch count        | `2`     | Integer greater than or equal to `1`     |
 
-Show the baseline, calculated remaining batches, and exact assignments before
-editing. Prefer a small set of sequential batches over running the full
-migration at once.
+Show the baseline, usage-based high-volume classification, estimated remaining
+batches, and exact assignments before editing. Prefer a small set of sequential
+batches over running the full migration at once.
 
 ### 5. Run each selected batch
 
@@ -188,7 +202,8 @@ For each batch:
 
 1. Create `migrate/merge-props-batch-NN` with `gh stack add`.
 2. Invoke `migrate-to-merge-props-batch` with the branch, exact paths and
-   locations, maximum size, before counts, and targeted validation commands.
+   locations, target changed LOC and acceptable fuzz, before counts, and
+   targeted validation commands.
 3. Review the returned diff and evidence.
 4. Do not add a changeset for a behavior-preserving migration. Add or update one
    only when the batch requires a genuine public behavior or type change.
@@ -197,7 +212,10 @@ For each batch:
 7. Regenerate the report.
 8. Confirm assigned findings disappeared, no new findings appeared, and counts
    changed by the expected amount.
-9. Stop before another entry if validation or report evidence fails.
+9. Measure additions plus deletions relative to the preceding entry. Accept
+   moderate variance from the target when the component boundary is coherent;
+   stop and re-plan if the batch is materially larger than estimated.
+10. Stop before another entry if validation or report evidence fails.
 
 Run code-editing batch agents sequentially because every branch depends on the
 previous branch.
