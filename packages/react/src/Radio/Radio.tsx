@@ -40,7 +40,7 @@ export type RadioProps = {
  */
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
-    {checked, name: nameProp, 'aria-hidden': ariaHidden, ...rest}: RadioProps,
+    {checked, name: nameProp, className, 'aria-hidden': ariaHidden, ...rest}: RadioProps,
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
@@ -59,10 +59,11 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
     return (
       <input
+        ref={ref}
         {...mergeProps(
           {
             onChange: handleOnChange,
-            className: clsx(sharedClasses.Input, classes.Radio),
+            className: clsx(sharedClasses.Input, classes.Radio, className),
             'aria-checked': checked ? ('true' as const) : ('false' as const),
             'aria-hidden': ariaHidden,
             checked,
@@ -70,7 +71,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           },
           rest,
         )}
-        ref={ref}
         type="radio"
         data-component="Radio"
       />
