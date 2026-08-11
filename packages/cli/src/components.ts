@@ -31,8 +31,19 @@ const ComponentSchema = z.object({
 
 type Component = z.output<typeof ComponentSchema>
 
-async function list(): Promise<Array<Component>> {
-  throw new Error('unimplemented')
+async function list(directory: string): Promise<Array<Component>> {
+  const entries = await discover(directory)
+  return entries
+    .flatMap(entry => {
+      const parsed = parse(entry.data)
+      if (parsed.success) {
+        return parsed.data
+      }
+      return []
+    })
+    .sort((a, b) => {
+      return a.name.localeCompare(b.name)
+    })
 }
 
 type PaginateOptions = {

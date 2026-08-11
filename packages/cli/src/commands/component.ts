@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import {defineCommand} from 'citty'
 import {prettifyError, treeifyError} from 'zod/mini'
-import {discover, parse} from '../components'
+import {list, discover, parse} from '../components'
 import {createTable} from '../table'
 
 export const command = defineCommand({
@@ -22,7 +22,33 @@ export const command = defineCommand({
         name: 'list',
       },
       async run(ctx) {
-        // const {json} = ctx.args
+        const cwd = process.cwd()
+        const components = await list(cwd)
+
+        if (ctx.args.json) {
+          console.log(JSON.stringify({components}, null, 2))
+        } else {
+          const table = createTable({
+            columns: ['ID', 'Name', 'Status', 'A11y Reviewed', 'Import Path'],
+            rows: components.flatMap(component => {
+              const rows = [
+                [component.id, component.name, component.status, component.a11yReviewed + '', component.importPath],
+              ]
+
+              const subcomponents = component.subcomponents?.map(subcomponent => {
+                return ['', `  ${subcomponent.name}`, '', '', '']
+              })
+
+              if (Array.isArray(subcomponents)) {
+                rows.push(...subcomponents)
+              }
+
+              return rows
+            }),
+          })
+
+          console.log(table.toString())
+        }
       },
     }),
     validate: defineCommand({
