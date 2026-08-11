@@ -6,7 +6,7 @@ import {mergeProps} from '../utils/mergeProps'
 
 const ButtonComponent = forwardRef(({children, ...props}, forwardedRef): JSX.Element => {
   return (
-    <ButtonBase {...mergeProps({as: 'button', type: 'button'}, props)} ref={forwardedRef}>
+    <ButtonBase ref={forwardedRef} {...mergeProps({as: 'button', type: 'button'}, props)}>
       {children}
     </ButtonBase>
   )

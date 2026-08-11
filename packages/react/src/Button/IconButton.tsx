@@ -7,6 +7,7 @@ import {TooltipContext} from '../TooltipV2/TooltipContext'
 import {TooltipContext as TooltipContextV1} from '../Tooltip/TooltipContext'
 import classes from './ButtonBase.module.css'
 import {mergeProps} from '../utils/mergeProps'
+import {clsx} from 'clsx'
 
 const IconButton = forwardRef(
   (
@@ -20,6 +21,7 @@ const IconButton = forwardRef(
       unsafeDisableTooltip = false,
       keyshortcuts,
       keybindingHint,
+      className,
       ...props
     },
     forwardedRef,
@@ -42,10 +44,12 @@ const IconButton = forwardRef(
     if (withoutTooltip) {
       return (
         <ButtonBase
+          // @ts-expect-error StyledButton wants both Anchor and Button refs
+          ref={forwardedRef}
           {...mergeProps(
             {
               icon: Icon,
-              className: classes.IconButton,
+              className: clsx(classes.IconButton, className),
               'data-component': 'IconButton',
               type: 'button',
               'aria-label': ariaLabel,
@@ -53,8 +57,6 @@ const IconButton = forwardRef(
             },
             props,
           )}
-          // @ts-expect-error StyledButton wants both Anchor and Button refs
-          ref={forwardedRef}
         />
       )
     } else {
@@ -72,7 +74,7 @@ const IconButton = forwardRef(
             {...mergeProps(
               {
                 icon: Icon,
-                className: classes.IconButton,
+                className: clsx(classes.IconButton, className),
                 'data-component': 'IconButton',
                 type: 'button',
                 'aria-keyshortcuts': keyshortcuts ?? undefined,
