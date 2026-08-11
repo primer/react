@@ -56,8 +56,16 @@ type Paginate<T> = {
   totalCount: number
 }
 
-async function paginate(options: PaginateOptions): Promise<Paginate<Component>> {
-  throw new Error('unimplemented')
+async function paginate(directory: string, options: PaginateOptions): Promise<Paginate<Component>> {
+  const rows = await list(directory)
+  const totalCount = rows.length
+  const startIndex = (options.page - 1) * options.pageSize
+  const endIndex = startIndex + options.pageSize
+  const paginatedRows = rows.slice(startIndex, endIndex)
+  return {
+    rows: paginatedRows,
+    totalCount,
+  }
 }
 
 async function find(): Promise<Component | null> {

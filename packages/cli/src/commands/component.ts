@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import {defineCommand} from 'citty'
 import {prettifyError, treeifyError} from 'zod/mini'
-import {list, discover, parse} from '../components'
+import {list, paginate, discover, parse} from '../components'
 import {createTable} from '../table'
 
 export const command = defineCommand({
@@ -31,6 +31,55 @@ export const command = defineCommand({
           const table = createTable({
             columns: ['ID', 'Name', 'Status', 'A11y Reviewed', 'Import Path'],
             rows: components.flatMap(component => {
+              const rows = [
+                [component.id, component.name, component.status, component.a11yReviewed + '', component.importPath],
+              ]
+
+              const subcomponents = component.subcomponents?.map(subcomponent => {
+                return ['', `  ${subcomponent.name}`, '', '', '']
+              })
+
+              if (Array.isArray(subcomponents)) {
+                rows.push(...subcomponents)
+              }
+
+              return rows
+            }),
+          })
+
+          console.log(table.toString())
+        }
+      },
+    }),
+    paginate: defineCommand({
+      meta: {
+        name: 'paginate',
+      },
+      args: {
+        page: {
+          type: 'string',
+          description: 'The page to retrieve',
+          default: '1',
+        },
+        pageSize: {
+          type: 'string',
+          description: 'The number of components per page',
+          default: '20',
+        },
+      },
+      async run(ctx) {
+        const cwd = process.cwd()
+        const result = await paginate(cwd, {
+          page: Number(ctx.args.page),
+          pageSize: Number(ctx.args.pageSize),
+        })
+
+        if (ctx.args.json) {
+          console.log(JSON.stringify(result, null, 2))
+        } else {
+          const table = createTable({
+            columns: ['ID', 'Name', 'Status', 'A11y Reviewed', 'Import Path'],
+            rows: result.rows.flatMap(component => {
               const rows = [
                 [component.id, component.name, component.status, component.a11yReviewed + '', component.importPath],
               ]
