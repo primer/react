@@ -406,3 +406,14 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "useTabPanel",
 ]
 `;
+
+exports[`@primer/react/next > should not update exports without a semver change 1`] = `
+[
+  "ThemeProvider",
+  "type ThemeProviderProps",
+  "Tooltip",
+  "type TooltipProps",
+  "useColorSchemeVar",
+  "useTheme",
+]
+`;
