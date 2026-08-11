@@ -1,5 +1,6 @@
 import type {KeyboardEvent} from 'react'
 import React from 'react'
+import {clsx} from 'clsx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './TokenBase.module.css'
 import {defaultTokenSize, type TokenSizeKeys} from './constants'
@@ -42,7 +43,10 @@ export interface TokenBaseProps
 }
 
 const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
-  ({onRemove, id, size = defaultTokenSize, isSelected: _isSelected, as: Component = 'span', ...rest}, forwardedRef) => {
+  (
+    {onRemove, id, className, size = defaultTokenSize, isSelected: _isSelected, as: Component = 'span', ...rest},
+    forwardedRef,
+  ) => {
     const handleKeyDown = (event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
       if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
         onRemove()
@@ -57,10 +61,14 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
 
     return (
       <Component
+        // TypeScript cannot resolve polymorphic ref types at compile time
+        // This assertion is safe because the ref will match the actual rendered element
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ref={forwardedRef as any}
         {...mergeProps(
           {
             onKeyDown: handleKeyDown,
-            className: classes.TokenBase,
+            className: clsx(classes.TokenBase, className),
             'data-cursor-is-interactive': isTokenInteractive({
               as: Component,
               onClick: rest.onClick,
@@ -73,10 +81,6 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
           },
           consumerProps,
         )}
-        // TypeScript cannot resolve polymorphic ref types at compile time
-        // This assertion is safe because the ref will match the actual rendered element
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ref={forwardedRef as any}
       />
     )
   },
