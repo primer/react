@@ -1076,7 +1076,7 @@ const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
   const {className, ...rest} = props
   return (
     <LinkButton
-      {...mergeProps({className: clsx(className)}, rest)}
+      {...mergeProps({className}, rest)}
       variant="invisible"
       block
       data-component="SelectPanel.SecondaryActionLink"

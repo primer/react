@@ -648,7 +648,7 @@ const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?:
               onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
           },
           'data-id': id,
-          className: clsx(className),
+          className,
         },
         rest,
       ) as React.ComponentProps<typeof ActionList.Item>)}
