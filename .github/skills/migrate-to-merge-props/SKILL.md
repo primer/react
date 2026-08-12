@@ -55,9 +55,11 @@ the driver entry.
 Apply these rules:
 
 1. Pass component-authored props first and consumer-authored props second.
-2. Destructure the consumer `className` and combine it with component class
-   names inline using `clsx`. Omit `className` from the consumer props passed to
-   `mergeProps`; do not delegate class-name composition to the utility.
+2. Destructure the consumer `className`. Combine component and consumer class
+   names inline using `clsx` only when there are multiple values to combine. If
+   only one class name remains, pass it directly instead of wrapping it in
+   `clsx`. Omit `className` from the consumer props passed to `mergeProps`; do
+   not delegate class-name composition to the utility.
 3. Do not add an optional consumer handler to the second argument when it is
    absent. An explicit `undefined` entry would replace the internal handler
    instead of composing it.
