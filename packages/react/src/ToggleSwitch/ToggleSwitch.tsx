@@ -8,6 +8,7 @@ import type {CellAlignment} from '../DataTable/column'
 import {AriaStatus} from '../live-region'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import classes from './ToggleSwitch.module.css'
+import {mergeProps} from '../utils/mergeProps'
 
 export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** The id of the DOM node that labels the switch */
@@ -140,7 +141,15 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
   if (ariaDescribedby) switchButtonDescribedBy = `${switchButtonDescribedBy} ${ariaDescribedby}`
 
   return (
-    <div className={clsx(classes.ToggleSwitch, className)} data-status-label-position={statusLabelPosition} {...rest}>
+    <div
+      {...mergeProps(
+        {
+          className: clsx(classes.ToggleSwitch, className),
+          'data-status-label-position': statusLabelPosition,
+        },
+        rest,
+      )}
+    >
       <VisuallyHidden>
         <AriaStatus announceOnShow id={loadingLabelId}>
           {isLoadingLabelVisible && loadingLabel}

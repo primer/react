@@ -10,6 +10,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 
 import classes from './AutocompleteOverlay.module.css'
 import {clsx} from 'clsx'
+import {mergeProps} from '../utils/mergeProps'
 
 type AutocompleteOverlayInternalProps = {
   /**
@@ -36,6 +37,12 @@ function AutocompleteOverlay({
     throw new Error('AutocompleteContext returned null values')
   }
   const overlayProps = {...oldOverlayProps, ...newOverlayProps}
+  const {
+    className: overlayClassName,
+    onClickOutside: consumerOnClickOutside,
+    onEscape: consumerOnEscape,
+    ...overlayRest
+  } = overlayProps
   const {inputRef, scrollContainerRef, selectedItemLength, setShowMenu, showMenu = false} = autocompleteContext
 
   const computedAnchorRef = useRef<HTMLElement | null>(null)
@@ -62,6 +69,12 @@ function AutocompleteOverlay({
   const closeOptionList = useCallback(() => {
     setShowMenu(false)
   }, [setShowMenu])
+  const onClickOutside = consumerOnClickOutside
+    ? mergeProps({onClickOutside: closeOptionList}, {onClickOutside: consumerOnClickOutside}).onClickOutside
+    : closeOptionList
+  const onEscape = consumerOnEscape
+    ? mergeProps({onEscape: closeOptionList}, {onEscape: consumerOnEscape}).onEscape
+    : closeOptionList
 
   if (typeof window === 'undefined') {
     return null
@@ -69,15 +82,19 @@ function AutocompleteOverlay({
 
   return showMenu ? (
     <Overlay
-      returnFocusRef={inputRef}
-      preventFocusOnOpen={true}
-      onClickOutside={closeOptionList}
-      onEscape={closeOptionList}
       ref={mergedScrollContainerRef}
-      top={position?.top}
-      left={position?.left}
-      className={clsx(classes.Overlay, className)}
-      {...overlayProps}
+      returnFocusRef={inputRef}
+      {...mergeProps(
+        {
+          preventFocusOnOpen: true,
+          onClickOutside,
+          onEscape,
+          top: position?.top,
+          left: position?.left,
+          className: clsx(classes.Overlay, className, overlayClassName),
+        },
+        overlayRest,
+      )}
       data-component="Autocomplete.Overlay"
     >
       {children}

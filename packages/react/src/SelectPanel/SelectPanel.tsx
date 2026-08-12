@@ -29,6 +29,7 @@ import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
 import {isAlphabetKey} from '../hooks/useMnemonics'
 import {useFormControlContext} from '../FormControl/_FormControlContext'
+import {mergeProps} from '../utils/mergeProps'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -1065,15 +1066,21 @@ function Panel({
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   return (
-    <Button block data-component="SelectPanel.SecondaryActionButton" {...props}>
+    <Button {...mergeProps({block: true, 'data-component': 'SelectPanel.SecondaryActionButton'}, props)}>
       {props.children}
     </Button>
   )
 }
 
 const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
+  const {className, ...rest} = props
   return (
-    <LinkButton {...props} variant="invisible" block data-component="SelectPanel.SecondaryActionLink">
+    <LinkButton
+      {...mergeProps({className: clsx(className)}, rest)}
+      variant="invisible"
+      block
+      data-component="SelectPanel.SecondaryActionLink"
+    >
       {props.children}
     </LinkButton>
   )

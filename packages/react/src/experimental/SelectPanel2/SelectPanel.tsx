@@ -30,6 +30,7 @@ import classes from './SelectPanel.module.css'
 import type {PositionSettings} from '@primer/behaviors'
 import type {FCWithSlotMarker, WithSlotMarker} from '../../utils/types'
 import {isSlot} from '../../utils/is-slot'
+import {mergeProps} from '../../utils/mergeProps'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -338,9 +339,13 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
     return (
       <Button
         ref={anchorRef}
-        // eslint-disable-next-line react-hooks/refs
-        aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
-        {...inputProps}
+        {...mergeProps(
+          {
+            // eslint-disable-next-line react-hooks/refs
+            'aria-label': `${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`,
+          },
+          inputProps,
+        )}
       />
     )
   } else {
@@ -363,7 +368,7 @@ const SelectPanelHeader: FCWithSlotMarker<React.ComponentPropsWithoutRef<'div'> 
   const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
-    <div className={clsx(classes.Header, className)} {...props}>
+    <div {...mergeProps({className: clsx(classes.Header, className)}, props)}>
       <div
         className={classes.HeaderContent}
         data-description={description ? true : undefined}
@@ -451,28 +456,32 @@ const SelectPanelSearchInput: FCWithSlotMarker<TextInputProps> = ({
   return (
     <TextInput
       ref={inputRef}
-      block
-      leadingVisual={SearchIcon}
-      placeholder="Search"
-      trailingAction={
-        <TextInput.Action
-          icon={XCircleFillIcon}
-          aria-label="Clear"
-          tooltipDirection="w"
-          className={classes.ClearAction}
-          onClick={() => {
-            if (inputRef.current) inputRef.current.value = ''
-            if (typeof propsOnChange === 'function') {
-              // @ts-ignore TODO this is a hacky solution to clear
-              propsOnChange({target: inputRef.current, currentTarget: inputRef.current})
-            }
-          }}
-        />
-      }
-      className={clsx(classes.TextInput, className)}
-      onChange={internalOnChange}
-      onKeyDown={internalKeyDown}
-      {...props}
+      {...mergeProps(
+        {
+          block: true,
+          leadingVisual: SearchIcon,
+          placeholder: 'Search',
+          trailingAction: (
+            <TextInput.Action
+              icon={XCircleFillIcon}
+              aria-label="Clear"
+              tooltipDirection="w"
+              className={classes.ClearAction}
+              onClick={() => {
+                if (inputRef.current) inputRef.current.value = ''
+                if (typeof propsOnChange === 'function') {
+                  // @ts-ignore TODO this is a hacky solution to clear
+                  propsOnChange({target: inputRef.current, currentTarget: inputRef.current})
+                }
+              }}
+            />
+          ),
+          className: clsx(classes.TextInput, className),
+          onChange: internalOnChange,
+          onKeyDown: internalKeyDown,
+        },
+        props,
+      )}
     />
   )
 }
@@ -518,7 +527,7 @@ SelectPanelFooter.__SLOT__ = Symbol('SelectPanel.Footer')
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')
-  return <Button type="button" size={size} block {...props} />
+  return <Button {...mergeProps({type: 'button', size, block: true}, props)} />
 }
 
 const SecondaryLink: React.FC<LinkProps> = ({className, ...props}) => {
@@ -526,7 +535,18 @@ const SecondaryLink: React.FC<LinkProps> = ({className, ...props}) => {
 
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
-    <Button as={Link} size={size} variant="invisible" block {...props} className={clsx(classes.SmallText, className)}>
+    <Button
+      {...mergeProps(
+        {
+          as: Link,
+          size,
+          variant: 'invisible',
+          block: true,
+          className: clsx(classes.SmallText, className),
+        },
+        props,
+      )}
+    >
       {props.children}
     </Button>
   )

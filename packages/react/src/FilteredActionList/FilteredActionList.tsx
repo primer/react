@@ -23,6 +23,7 @@ import {useVirtualizer} from '@tanstack/react-virtual'
 import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
 import {useFeatureFlag} from '../FeatureFlags'
 import {FilteredActionListInput} from './FilteredActionListInput'
+import {mergeProps} from '../utils/mergeProps'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -631,21 +632,26 @@ const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?:
     trailingText,
     trailingIcon: TrailingIcon,
     onAction,
+    className,
     children,
     ...rest
   } = item
 
   return (
     <ActionList.Item
-      role="option"
-      // @ts-ignore - for now
-      onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-        if (typeof onAction === 'function')
-          onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
-      }}
-      data-id={id}
       ref={ref}
-      {...rest}
+      {...(mergeProps(
+        {
+          role: 'option',
+          onSelect: (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+            if (typeof onAction === 'function')
+              onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
+          },
+          'data-id': id,
+          className: clsx(className),
+        },
+        rest,
+      ) as React.ComponentProps<typeof ActionList.Item>)}
     >
       {LeadingVisual ? (
         <ActionList.LeadingVisual>

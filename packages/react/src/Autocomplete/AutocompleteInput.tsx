@@ -6,6 +6,7 @@ import TextInput from '../TextInput'
 import {useMergedRefs} from '../hooks/useMergedRefs'
 import type {ComponentProps} from '../utils/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import {mergeProps} from '../utils/mergeProps'
 
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -170,22 +171,26 @@ const AutocompleteInput = React.forwardRef(
 
     return (
       <Component
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        onChange={handleInputChange}
-        onKeyDown={handleInputKeyDown}
-        onKeyPress={onInputKeyPress}
-        onKeyUp={handleInputKeyUp}
         ref={mergedRef}
-        aria-controls={`${id}-listbox`}
-        aria-autocomplete="both"
-        role="combobox"
-        aria-expanded={showMenu}
-        aria-haspopup="listbox"
-        aria-owns={`${id}-listbox`}
-        autoComplete="off"
-        id={id}
-        {...props}
+        {...mergeProps(
+          {
+            onFocus: handleInputFocus,
+            onBlur: handleInputBlur,
+            onChange: handleInputChange,
+            onKeyDown: handleInputKeyDown,
+            onKeyPress: onInputKeyPress,
+            onKeyUp: handleInputKeyUp,
+            'aria-controls': `${id}-listbox`,
+            'aria-autocomplete': 'both' as const,
+            role: 'combobox',
+            'aria-expanded': showMenu,
+            'aria-haspopup': 'listbox',
+            'aria-owns': `${id}-listbox`,
+            autoComplete: 'off',
+            id,
+          },
+          props,
+        )}
         data-component="Autocomplete.Input"
       />
     )

@@ -3,6 +3,7 @@ import {warning} from '../utils/warning'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
 import {useMergedRefs} from '../hooks/useMergedRefs'
+import {mergeProps} from '../utils/mergeProps'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,9 +29,8 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
 
     return (
       <details
-        className={clsx(className, classes.Details)}
-        {...rest}
         ref={ref}
+        {...mergeProps({className: clsx(className, classes.Details)}, rest)}
         data-component={dataComponent ?? 'Details'}
       >
         {children}
@@ -52,7 +52,10 @@ export type SummaryProps<As extends React.ElementType> = {
 function Summary<As extends React.ElementType>({as, children, ...props}: SummaryProps<As>) {
   const Component = as ?? 'summary'
   return (
-    <Component as={Component === 'summary' ? null : 'summary'} {...props} data-component="Details.Summary">
+    <Component
+      {...mergeProps({as: Component === 'summary' ? null : 'summary'}, props)}
+      data-component="Details.Summary"
+    >
       {children}
     </Component>
   )

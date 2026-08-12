@@ -5,6 +5,7 @@ import TextInputWrapper from '../internal/components/TextInputWrapper'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 import classes from './Select.module.css'
+import {mergeProps} from '../utils/mergeProps'
 
 export type SelectProps = Omit<
   Omit<React.ComponentProps<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant' | 'contrast'>,
@@ -81,11 +82,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 ) as PolymorphicForwardRefComponent<'select', SelectProps>
 
 const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
-  <option {...props} data-component="Select.Option" />
+  <option {...mergeProps({}, props)} data-component="Select.Option" />
 )
 
 const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => (
-  <optgroup {...props} data-component="Select.OptGroup" />
+  <optgroup {...mergeProps({}, props)} data-component="Select.OptGroup" />
 )
 
 export default Object.assign(Select, {

@@ -54,11 +54,11 @@ describe('Checkbox', () => {
     expect(checkbox.checked).toEqual(false)
 
     await user.click(checkbox)
-    expect(handleChange).toHaveBeenCalled()
+    expect(handleChange).toHaveBeenCalledTimes(1)
     expect(checkbox.checked).toEqual(true)
 
     await user.click(checkbox)
-    expect(handleChange).toHaveBeenCalled()
+    expect(handleChange).toHaveBeenCalledTimes(2)
     expect(checkbox.checked).toEqual(false)
   })
 

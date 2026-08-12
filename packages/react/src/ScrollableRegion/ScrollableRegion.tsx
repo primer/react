@@ -2,6 +2,7 @@ import React from 'react'
 import {clsx} from 'clsx'
 import {useOverflow} from '../hooks/useOverflow'
 import classes from './ScrollableRegion.module.css'
+import {mergeProps} from '../utils/mergeProps'
 
 type Labelled =
   | {
@@ -24,21 +25,14 @@ function ScrollableRegion({
 }: ScrollableRegionProps) {
   const ref = React.useRef(null)
   const hasOverflow = useOverflow(ref)
-  const regionProps = hasOverflow
-    ? {
-        'aria-label': label,
-        'aria-labelledby': labelledby,
-        role: 'region',
-        tabIndex: 0,
-      }
-    : {}
-
   return (
     <div
-      {...rest}
-      {...regionProps}
       ref={ref}
-      className={clsx(classes.ScrollableRegion, className)}
+      {...mergeProps({className: clsx(classes.ScrollableRegion, className)}, rest)}
+      aria-label={hasOverflow ? label : undefined}
+      aria-labelledby={hasOverflow ? labelledby : undefined}
+      role={hasOverflow ? 'region' : rest.role}
+      tabIndex={hasOverflow ? 0 : rest.tabIndex}
       data-component="ScrollableRegion"
     >
       {children}

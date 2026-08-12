@@ -11,6 +11,7 @@ import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import type {heightMap, widthMap} from './constants'
+import {mergeProps} from '../utils/mergeProps'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -91,27 +92,31 @@ export const BaseOverlay = React.forwardRef(
   ): ReactElement<any> => {
     return (
       <Component
-        {...rest}
         ref={forwardedRef}
-        style={
+        {...mergeProps(
           {
-            '--top': typeof top === 'number' ? `${top}px` : top,
-            '--left': typeof left === 'number' ? `${left}px` : left,
-            '--right': typeof right === 'number' ? `${right}px` : right,
-            '--bottom': typeof bottom === 'number' ? `${bottom}px` : bottom,
-            position,
-            ...styleFromProps,
-          } as React.CSSProperties
-        }
-        {...{
-          [`data-width-${width}`]: '',
-          [`data-max-width-${maxWidth}`]: maxWidth ? '' : undefined,
-          [`data-height-${height}`]: '',
-          [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
-          [`data-visibility-${visibility}`]: '',
-          [`data-overflow-${rest.overflow}`]: rest.overflow ? '' : undefined,
-        }}
-        className={clsx(className, classes.Overlay)}
+            className: clsx(className, classes.Overlay),
+            style: {
+              '--top': typeof top === 'number' ? `${top}px` : top,
+              '--left': typeof left === 'number' ? `${left}px` : left,
+              '--right': typeof right === 'number' ? `${right}px` : right,
+              '--bottom': typeof bottom === 'number' ? `${bottom}px` : bottom,
+              position,
+            } as React.CSSProperties,
+          },
+          {...rest, style: styleFromProps},
+        )}
+        {...mergeProps(
+          {},
+          {
+            [`data-width-${width}`]: '',
+            [`data-max-width-${maxWidth}`]: maxWidth ? '' : undefined,
+            [`data-height-${height}`]: '',
+            [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
+            [`data-visibility-${visibility}`]: '',
+            [`data-overflow-${rest.overflow}`]: rest.overflow ? '' : undefined,
+          },
+        )}
       />
     )
   },
@@ -216,16 +221,20 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
 
     const overlayContent = (
       <BaseOverlay
-        role={role}
-        width={width}
-        data-reflow-container={!preventOverflow ? true : undefined}
         ref={mergedOverlayRef}
-        left={leftPosition}
-        right={right}
-        height={height}
-        visibility={visibility}
-        data-responsive={responsiveVariant}
-        {...props}
+        {...mergeProps(
+          {
+            role,
+            width,
+            'data-reflow-container': !preventOverflow ? true : undefined,
+            left: leftPosition,
+            right,
+            height,
+            visibility,
+            'data-responsive': responsiveVariant,
+          },
+          props,
+        )}
       />
     )
 

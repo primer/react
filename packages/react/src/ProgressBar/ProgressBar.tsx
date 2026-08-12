@@ -1,6 +1,7 @@
 import React, {forwardRef} from 'react'
 import {clsx} from 'clsx'
 import classes from './ProgressBar.module.css'
+import {mergeProps} from '../utils/mergeProps'
 
 type ProgressProp = {
   className?: string
@@ -35,14 +36,6 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
   ) => {
     const progressAsNumber = typeof progress === 'string' ? parseInt(progress, 10) : progress
 
-    const ariaAttributes = {
-      'aria-valuenow':
-        ariaValueNow ?? (progressAsNumber !== undefined && progressAsNumber >= 0 ? Math.round(progressAsNumber) : 0),
-      'aria-valuemin': 0,
-      'aria-valuemax': 100,
-      'aria-valuetext': ariaValueText,
-    }
-
     const progressBarWidth = '--progress-width'
     const progressBarBg = '--progress-bg'
     const styles: {[key: string]: string} = {}
@@ -54,14 +47,23 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
 
     return (
       <span
-        data-component="ProgressBar.Item"
-        className={clsx(className, classes.ProgressBarItem)}
-        {...rest}
+        ref={forwardRef}
+        {...mergeProps(
+          {
+            'data-component': 'ProgressBar.Item',
+            className: clsx(className, classes.ProgressBarItem),
+          },
+          rest,
+        )}
         role="progressbar"
         aria-label={ariaLabel}
-        ref={forwardRef}
         style={{...styles, ...style}}
-        {...ariaAttributes}
+        aria-valuenow={
+          ariaValueNow ?? (progressAsNumber !== undefined && progressAsNumber >= 0 ? Math.round(progressAsNumber) : 0)
+        }
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuetext={ariaValueText}
       />
     )
   },
@@ -103,11 +105,15 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     return (
       <span
         ref={forwardRef}
-        data-component="ProgressBar"
-        className={clsx(className, classes.ProgressBarContainer)}
-        data-progress-display={inline ? 'inline' : 'block'}
-        data-progress-bar-size={barSize}
-        {...rest}
+        {...mergeProps(
+          {
+            'data-component': 'ProgressBar',
+            className: clsx(className, classes.ProgressBarContainer),
+            'data-progress-display': inline ? 'inline' : 'block',
+            'data-progress-bar-size': barSize,
+          },
+          rest,
+        )}
       >
         {validChildren ? (
           children
