@@ -104,14 +104,14 @@ describe('Textarea', () => {
     expect(hasResizeDeclaration).toBe(true)
   })
 
-  it('enables field sizing without changing resize behavior', () => {
-    render(<Textarea fieldSizing resize="vertical" />)
+  it('enables automatic sizing without changing resize behavior', () => {
+    render(<Textarea autoSize resize="vertical" />)
     const textareaElement = screen.getByRole('textbox')
 
-    expect(textareaElement).toHaveAttribute('data-field-sizing', 'true')
+    expect(textareaElement).toHaveAttribute('data-auto-size', 'true')
     expect(textareaElement).toHaveAttribute('data-resize', 'vertical')
 
-    const rules = getCSSRules(`.${classes.TextArea}[data-field-sizing="true"]`)
+    const rules = getCSSRules(`.${classes.TextArea}[data-auto-size="true"]`)
     expect(rules.some(rule => rule.style.minHeight === '1lh' && rule.style.fieldSizing === 'content')).toBe(true)
   })
 

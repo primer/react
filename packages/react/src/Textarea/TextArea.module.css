@@ -29,7 +29,7 @@
   resize: vertical;
 }
 
-.TextArea[data-field-sizing='true'] {
+.TextArea[data-auto-size='true'] {
   min-height: 1lh;
   field-sizing: content;
 }

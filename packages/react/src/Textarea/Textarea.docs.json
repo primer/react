@@ -68,7 +68,7 @@
       "description": "Changes the resize behavior"
     },
     {
-      "name": "fieldSizing",
+      "name": "autoSize",
       "type": "boolean",
       "defaultValue": "false",
       "description": "Allows the textarea to grow to fit its content"
