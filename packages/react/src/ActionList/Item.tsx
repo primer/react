@@ -96,6 +96,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     role,
     loading,
     _PrivateItemWrapper,
+    _PrivateTooltipText,
     className,
     groupId: _groupId,
     renderItem: _renderItem,
@@ -333,7 +334,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-trailing-action-loading={trailingActionRendered && slots.trailingAction?.props.loading ? true : undefined}
         className={clsx(classes.ActionListItem, className)}
       >
-        <ConditionalTooltip ref={forwardedRef} text={truncatedText} enabled={buttonSemantics}>
+        <ConditionalTooltip
+          ref={forwardedRef}
+          text={_PrivateTooltipText ?? truncatedText}
+          enabled={buttonSemantics}
+        >
           <ItemWrapper
             {...wrapperProps}
             className={classes.ActionListContent}

@@ -5,6 +5,7 @@ import Link from '../Link'
 import {Item} from './Item'
 import type {ActionListItemProps} from './shared'
 import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
+import {Tooltip} from '../TooltipV2'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -27,11 +28,13 @@ export type ActionListLinkItemProps = Pick<
 > &
   LinkProps
 
-type LinkItemProps<As extends React.ElementType = 'a'> = PolymorphicProps<As, 'a', ActionListLinkItemProps>
+type LinkItemProps<As extends React.ElementType = 'a'> = PolymorphicProps<As, 'a', ActionListLinkItemProps> & {
+  _PrivateTooltipText?: string
+}
 
 const LinkItemComponent = fixedForwardRef(
   <As extends React.ElementType = 'a'>(
-    {active, inactiveText, variant, size, as: Component, className, ...props}: LinkItemProps<As>,
+    {active, inactiveText, variant, size, as: Component, className, _PrivateTooltipText, ...props}: LinkItemProps<As>,
     forwardedRef: ForwardedRef<unknown>,
   ) => {
     return (
@@ -56,10 +59,18 @@ const LinkItemComponent = fixedForwardRef(
           // Link's type so TypeScript doesn't re-check the generic
           // constraint across two polymorphic layers.
           const InternalLink: React.ElementType = Link
-          return (
+          const link = (
             <InternalLink as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
               {children}
             </InternalLink>
+          )
+
+          return _PrivateTooltipText ? (
+            <Tooltip ref={forwardedRef as React.ForwardedRef<HTMLElement>} text={_PrivateTooltipText} direction="e">
+              {link}
+            </Tooltip>
+          ) : (
+            link
           )
         }}
       >
