@@ -42,8 +42,10 @@ requires an unresolved architecture, accessibility, or public API decision.
 4. Implement only the assigned findings and tightly coupled tests, type tests,
    or changesets required by genuine public contract changes.
 5. Pass component props first and consumer props second.
-6. Destructure consumer class names and merge them inline with component class
-   names using `clsx`; omit `className` from the second `mergeProps` argument.
+6. Destructure consumer class names. Merge component and consumer class names
+   inline using `clsx` only when there are multiple values to combine; pass a
+   single class name directly. Omit `className` from the second `mergeProps`
+   argument.
 7. Omit absent optional consumer handlers from the second argument.
 8. Compose refs separately and place the `ref` prop before the `mergeProps`
    spread.
