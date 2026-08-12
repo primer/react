@@ -4,6 +4,7 @@
   "status": "alpha",
   "a11yReviewed": false,
   "importPath": "@primer/react",
+  "stories": [],
   "props": [
     {
       "name": "announceOnShow",
