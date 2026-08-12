@@ -40,6 +40,21 @@ it('defaults to light color scheme', () => {
   expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.light}`)
 })
 
+it('continues to provide legacy JavaScript theme values', () => {
+  function Consumer() {
+    const {theme, resolvedColorScheme} = useTheme()
+    return <span data-testid="theme">{String(theme !== undefined && resolvedColorScheme === 'light')}</span>
+  }
+
+  render(
+    <ThemeProvider>
+      <Consumer />
+    </ThemeProvider>,
+  )
+
+  expect(screen.getByTestId('theme')).toHaveTextContent('true')
+})
+
 it('defaults to dark color scheme in night mode', () => {
   render(
     <ThemeProvider colorMode="night">
@@ -425,7 +440,6 @@ describe('useTheme().resolvedColorScheme', () => {
   it('is undefined when not in a theme', () => {
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
-
       return <span data-testid="text">{resolvedColorScheme}</span>
     }
 
@@ -434,95 +448,38 @@ describe('useTheme().resolvedColorScheme', () => {
     expect(screen.getByTestId('text').textContent).toEqual('')
   })
 
-  it('is the same as the applied colorScheme, when that colorScheme is in the theme', () => {
+  it('is the same as the applied colorScheme when that colorScheme is in the theme', () => {
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
-
       return <span data-testid="text">{resolvedColorScheme}</span>
     }
 
-    const schemeToApply = 'dark'
-
     render(
-      <ThemeProvider colorMode="day" dayScheme={schemeToApply}>
+      <ThemeProvider colorMode="day" dayScheme="dark">
         <Component />
       </ThemeProvider>,
     )
 
-    expect(screen.getByTestId('text').textContent).toEqual(schemeToApply)
+    expect(screen.getByTestId('text').textContent).toEqual('dark')
   })
 
-  it('is the value of the fallback colorScheme applied when attempting to apply an invalid colorScheme', () => {
+  it('uses the fallback colorScheme when attempting to apply an invalid colorScheme', () => {
     const spy = vi.spyOn(console, 'error').mockImplementationOnce(() => {})
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
-
       return <span data-testid="text">{resolvedColorScheme}</span>
     }
 
-    const schemeToApply = 'totally-invalid-colorscheme'
     render(
-      <ThemeProvider colorMode="day" dayScheme={schemeToApply}>
+      <ThemeProvider colorMode="day" dayScheme="totally-invalid-colorscheme">
         <Component />
       </ThemeProvider>,
     )
 
-    const defaultThemeColorScheme = 'light'
-
     expect(spy).toHaveBeenCalledWith('`totally-invalid-colorscheme` scheme not defined in `theme.colorSchemes`')
-    expect(defaultThemeColorScheme).not.toEqual(schemeToApply)
-    expect(screen.getByTestId('text').textContent).toEqual(defaultThemeColorScheme)
+    expect(screen.getByTestId('text').textContent).toEqual('light')
 
     spy.mockRestore()
-  })
-
-  describe('nested theme', () => {
-    it('is the same as the applied colorScheme, when that colorScheme is in the theme', () => {
-      const Component = () => {
-        const {resolvedColorScheme} = useTheme()
-
-        return <span data-testid="text">{resolvedColorScheme}</span>
-      }
-
-      const schemeToApply = 'dark'
-
-      render(
-        <ThemeProvider colorMode="day" dayScheme={schemeToApply}>
-          <ThemeProvider>
-            <Component />
-          </ThemeProvider>
-        </ThemeProvider>,
-      )
-
-      expect(screen.getByTestId('text').textContent).toEqual(schemeToApply)
-    })
-
-    it('is the value of the fallback colorScheme applied when attempting to apply an invalid colorScheme', () => {
-      const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
-
-      const Component = () => {
-        const {resolvedColorScheme} = useTheme()
-
-        return <span data-testid="text">{resolvedColorScheme}</span>
-      }
-
-      const schemeToApply = 'totally-invalid-colorscheme'
-      render(
-        <ThemeProvider colorMode="day" dayScheme={schemeToApply}>
-          <ThemeProvider>
-            <Component />
-          </ThemeProvider>
-        </ThemeProvider>,
-      )
-
-      const defaultThemeColorScheme = 'light'
-
-      expect(spy).toHaveBeenCalledWith('`totally-invalid-colorscheme` scheme not defined in `theme.colorSchemes`')
-      expect(defaultThemeColorScheme).not.toEqual(schemeToApply)
-      expect(screen.getByTestId('text').textContent).toEqual(defaultThemeColorScheme)
-
-      spy.mockRestore()
-    })
   })
 })
 

@@ -72,10 +72,8 @@ const theme = {
   colorSchemes,
 }
 
+/** @deprecated Use `ThemeProvider` from `@primer/react/next` to migrate away from JavaScript theme values. */
 export default theme
-
-// NOTE: for now, ThemeColors and ThemeShadows are handcrafted types. It would be nice if these
-// were exports from primitives (or a different shape but derived from those exports).
 
 type ThemeColors = {
   fg: {
@@ -95,68 +93,28 @@ type ThemeColors = {
     muted: string
     subtle: string
   }
-
-  // Roles
   neutral: {
     emphasisPlus: string
     emphasis: string
     muted: string
     subtle: string
   }
-  accent: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
-  success: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
-  attention: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
-  severe: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
-  danger: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
-  open: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
-  closed: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
-  done: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
-  sponsors: {
-    fg: string
-    emphasis: string
-    muted: string
-    subtle: string
-  }
+  accent: ThemeRole
+  success: ThemeRole
+  attention: ThemeRole
+  severe: ThemeRole
+  danger: ThemeRole
+  open: ThemeRole
+  closed: ThemeRole
+  done: ThemeRole
+  sponsors: ThemeRole
+}
+
+type ThemeRole = {
+  fg: string
+  emphasis: string
+  muted: string
+  subtle: string
 }
 
 type ThemeShadows = {
