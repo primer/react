@@ -12,6 +12,7 @@ import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
+import {mergeProps} from '../utils/mergeProps'
 
 export type BreadcrumbsProps = React.PropsWithChildren<{
   /**
@@ -389,11 +390,15 @@ const BreadcrumbsItem = fixedForwardRef(
     const {as: Component = 'a', selected, className, ...rest} = props
     return (
       <Component
-        className={clsx(className, classes.Item, selected && 'selected')}
-        aria-current={selected ? 'page' : undefined}
         ref={ref}
-        data-component="Breadcrumbs.Item"
-        {...rest}
+        {...mergeProps(
+          {
+            className: clsx(classes.Item, selected && 'selected', className),
+            'aria-current': selected ? 'page' : undefined,
+            'data-component': 'Breadcrumbs.Item',
+          },
+          rest,
+        )}
       />
     )
   },

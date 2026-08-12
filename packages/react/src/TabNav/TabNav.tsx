@@ -5,6 +5,7 @@ import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 import styles from './TabNav.module.css'
+import {mergeProps} from '../utils/mergeProps'
 
 /**
  * @deprecated
@@ -14,7 +15,7 @@ export type TabNavProps = React.HTMLProps<HTMLDivElement>
 /**
  * @deprecated
  */
-function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
+function TabNav({children, className, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   const customContainerRef = useRef<HTMLElement>(null)
 
   // Detect if the TabNav is inside an ActionMenu.
@@ -51,7 +52,11 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 
   return (
-    <div {...rest} ref={navRef as React.RefObject<HTMLDivElement>} data-component="TabNav">
+    <div
+      ref={navRef as React.RefObject<HTMLDivElement>}
+      {...mergeProps({className: clsx(className)}, rest)}
+      data-component="TabNav"
+    >
       <nav aria-label={ariaLabel} className={styles.TabNavNav}>
         <div role="tablist" className={styles.TabNavTabList}>
           {children}
@@ -83,11 +88,21 @@ const TabNavLink = React.forwardRef(function TabNavLink(
   return (
     <Component
       ref={ref}
-      role="tab"
-      tabIndex={-1}
-      aria-selected={selected ? true : undefined}
-      className={clsx('TabNav-item', styles.TabNavLink, selected && 'selected', selected && styles.Selected, className)}
-      {...rest}
+      {...mergeProps(
+        {
+          role: 'tab',
+          tabIndex: -1,
+          'aria-selected': selected ? true : undefined,
+          className: clsx(
+            'TabNav-item',
+            styles.TabNavLink,
+            selected && 'selected',
+            selected && styles.Selected,
+            className,
+          ),
+        },
+        rest,
+      )}
       data-component="TabNav.Link"
     />
   )

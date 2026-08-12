@@ -4,6 +4,7 @@ import React from 'react'
 
 import styles from './SubNav.module.css'
 import type {WithSlotMarker} from '../utils/types'
+import {mergeProps} from '../utils/mergeProps'
 
 export type SubNavProps = React.ComponentProps<'nav'> & {
   actions?: React.ReactNode
@@ -21,9 +22,13 @@ const SubNav = React.forwardRef<HTMLElement, SubNavProps>(function SubNav(
   return (
     <nav
       ref={forwardRef}
-      className={clsx(className, 'SubNav', styles.SubNav)}
-      aria-label={label}
-      {...rest}
+      {...mergeProps(
+        {
+          className: clsx('SubNav', styles.SubNav, className),
+          'aria-label': label,
+        },
+        rest,
+      )}
       data-component="SubNav"
     >
       <div className={clsx('SubNav-body', styles.Body)}>{children}</div>
@@ -37,7 +42,11 @@ SubNav.displayName = 'SubNav'
 
 const SubNavLinks = React.forwardRef<HTMLDivElement, SubNavLinksProps>(({children, className, ...rest}, forwardRef) => {
   return (
-    <div ref={forwardRef} className={clsx(className, styles.Links)} {...rest} data-component="SubNav.Links">
+    <div
+      ref={forwardRef}
+      {...mergeProps({className: clsx(styles.Links, className)}, rest)}
+      data-component="SubNav.Links"
+    >
       {children}
     </div>
   )
@@ -51,10 +60,14 @@ const SubNavLink = React.forwardRef<HTMLAnchorElement, SubNavLinkProps>(
     return (
       <a
         ref={forwardRef}
-        className={clsx(className, styles.Link)}
-        data-selected={rest.selected}
-        aria-current={rest.selected}
-        {...rest}
+        {...mergeProps(
+          {
+            className: clsx(styles.Link, className),
+            'data-selected': rest.selected,
+            'aria-current': rest.selected,
+          },
+          rest,
+        )}
         data-component="SubNav.Link"
       >
         {children}

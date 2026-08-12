@@ -5,6 +5,7 @@ import type React from 'react'
 import {type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
 import classes from './SideNav.module.css'
+import {mergeProps} from './utils/mergeProps'
 
 type SideNavBaseProps = {
   as?: React.ElementType
@@ -56,9 +57,13 @@ const SideNavLink = ({selected, to, variant, className, children, ...rest}: Styl
   // https://reacttraining.com/react-router/web/api/NavLink/aria-current-string
   return (
     <Link
-      aria-current={isReactRouter || selected ? 'page' : undefined}
-      className={newClassName}
-      {...rest}
+      {...mergeProps(
+        {
+          'aria-current': isReactRouter || selected ? 'page' : undefined,
+          className: newClassName,
+        },
+        rest,
+      )}
       data-component="SideNav.Link"
     >
       {children}

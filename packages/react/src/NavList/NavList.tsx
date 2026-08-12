@@ -23,6 +23,7 @@ import HeadingComponent from '../Heading'
 import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
 import {asSlot} from '../utils/as-slot'
+import {mergeProps} from '../utils/mergeProps'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
@@ -54,7 +55,7 @@ export type NavListProps = {
 } & React.ComponentProps<'nav'>
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(
-  ({children, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props}, ref) => {
+  ({children, className, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props}, ref) => {
     const [slots, childrenWithoutHeading] = useSlots(children, {
       heading: Heading,
     })
@@ -69,7 +70,18 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(
     const navLabelledby = ariaLabelledby ?? (ariaLabel ? undefined : headingId)
 
     return (
-      <nav {...props} aria-label={ariaLabel} aria-labelledby={navLabelledby} ref={ref} data-component="NavList">
+      <nav
+        ref={ref}
+        {...mergeProps(
+          {
+            className: clsx(className),
+            'aria-label': ariaLabel,
+            'aria-labelledby': navLabelledby,
+          },
+          props,
+        )}
+        data-component="NavList"
+      >
         <NavListHeadingLevelContext.Provider value={headingLevel}>
           {heading ? React.cloneElement(heading, {id: headingId}) : null}
           <ActionListContainerContext.Provider
@@ -106,16 +118,20 @@ const Heading: FCWithSlotMarker<NavListHeadingProps> = ({
 }) => {
   return (
     <HeadingComponent
-      as={as}
-      variant="small"
-      className={clsx(
-        // Apply the visually-hidden styles directly to the heading rather than wrapping
-        // it in a span (a heading isn't valid phrasing content inside a span).
-        visuallyHidden ? visuallyHiddenClasses.InternalVisuallyHidden : navListClasses.Heading,
-        className,
+      {...mergeProps(
+        {
+          as,
+          variant: 'small' as const,
+          className: clsx(
+            // Apply the visually-hidden styles directly to the heading rather than wrapping
+            // it in a span (a heading isn't valid phrasing content inside a span).
+            visuallyHidden ? visuallyHiddenClasses.InternalVisuallyHidden : navListClasses.Heading,
+            className,
+          ),
+          'data-component': 'NavList.Heading',
+        },
+        props,
       )}
-      data-component="NavList.Heading"
-      {...props}
     >
       {children}
     </HeadingComponent>
@@ -143,7 +159,15 @@ export type NavListItemProps<As extends React.ElementType = React.ElementType> =
 
 const ItemComponent = fixedForwardRef(
   <As extends React.ElementType = 'a'>(
-    {'aria-current': ariaCurrent, children, defaultOpen, tooltipText, as: Component, ...props}: NavListItemProps<As>,
+    {
+      'aria-current': ariaCurrent,
+      children,
+      defaultOpen,
+      tooltipText,
+      as: Component,
+      className,
+      ...props
+    }: NavListItemProps<As>,
     ref: React.ForwardedRef<unknown>,
   ) => {
     const {depth} = React.useContext(SubNavContext)
@@ -182,13 +206,18 @@ const ItemComponent = fixedForwardRef(
     return (
       <InternalLinkItem
         ref={ref}
-        as={Component}
-        aria-current={ariaCurrent}
-        active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
-        style={{'--subitem-depth': depth} as React.CSSProperties}
-        data-component="NavList.Item"
-        _PrivateTooltipText={tooltipText}
-        {...props}
+        {...mergeProps(
+          {
+            as: Component,
+            className: clsx(className),
+            'aria-current': ariaCurrent,
+            active: Boolean(ariaCurrent) && ariaCurrent !== 'false',
+            style: {'--subitem-depth': depth} as React.CSSProperties,
+            'data-component': 'NavList.Item',
+            _PrivateTooltipText: tooltipText,
+          },
+          props,
+        )}
       >
         {children}
       </InternalLinkItem>
@@ -539,11 +568,15 @@ const GroupHeadingImpl: React.FC<NavListGroupHeadingProps> = ({as, className, ..
   const resolvedAs = as ?? (headingLevel ? levelToHeadingTag(headingLevel + 1) : 'h3')
   return (
     <ActionList.GroupHeading
-      as={resolvedAs}
-      className={clsx(navListClasses.GroupHeading, className)}
-      data-component="NavList.GroupHeading"
-      headingWrapElement="li"
-      {...rest}
+      {...mergeProps(
+        {
+          as: resolvedAs,
+          className: clsx(navListClasses.GroupHeading, className),
+          'data-component': 'NavList.GroupHeading',
+          headingWrapElement: 'li',
+        },
+        rest,
+      )}
     />
   )
 }

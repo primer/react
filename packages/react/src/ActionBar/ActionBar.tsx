@@ -13,6 +13,7 @@ import {useMergedRefs} from '../hooks'
 import {createDescendantRegistry} from '../utils/descendant-registry'
 import {OverflowObserverProvider} from '../internal/components/OverflowObserverProvider'
 import {useIsClipped} from '../internal/hooks/useOverflowObserver'
+import {mergeProps} from '../utils/mergeProps'
 
 type ChildProps =
   | {
@@ -332,12 +333,11 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
 }
 
 export const ActionBarIconButton = forwardRef(
-  ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
+  ({disabled, onClick, className, ...props}: ActionBarIconButtonProps, forwardedRef) => {
     const ref = useRef<HTMLButtonElement>(null)
     const mergedRef = useMergedRefs(forwardedRef, ref)
 
     const {size} = React.useContext(ActionBarContext)
-
     const {['aria-label']: ariaLabel, icon} = props
 
     const {dataOverflowingAttr} = useActionBarItem(
@@ -364,11 +364,16 @@ export const ActionBarIconButton = forwardRef(
 
     return (
       <IconButton
-        aria-disabled={disabled}
         ref={mergedRef}
-        size={size}
-        onClick={clickHandler}
-        {...props}
+        {...mergeProps(
+          {
+            'aria-disabled': disabled,
+            className: clsx(className),
+            size,
+            onClick: clickHandler,
+          },
+          props,
+        )}
         variant="invisible"
         data-overflowing={dataOverflowingAttr}
       />
@@ -376,50 +381,57 @@ export const ActionBarIconButton = forwardRef(
   },
 )
 
-export const ActionBarButton = forwardRef(({disabled, onClick, ...props}: ActionBarButtonProps, forwardedRef) => {
-  const ref = useRef<HTMLButtonElement>(null)
-  const mergedRef = useMergedRefs(forwardedRef, ref)
+export const ActionBarButton = forwardRef(
+  ({disabled, onClick, className, children, leadingVisual, ...props}: ActionBarButtonProps, forwardedRef) => {
+    const ref = useRef<HTMLButtonElement>(null)
+    const mergedRef = useMergedRefs(forwardedRef, ref)
 
-  const {size} = React.useContext(ActionBarContext)
+    const {size} = React.useContext(ActionBarContext)
 
-  const {children, leadingVisual} = props
+    const {dataOverflowingAttr} = useActionBarItem(
+      ref,
+      useMemo(
+        (): ChildProps => ({
+          type: 'action',
+          label: children,
+          // Only forward the leading visual to the overflow menu when it is a component
+          // that can be rendered as an icon (e.g. an octicon), matching ActionBar.IconButton.
+          icon: typeof leadingVisual === 'function' ? (leadingVisual as ActionBarIconButtonProps['icon']) : undefined,
+          disabled: !!disabled,
+          onClick: onClick as MouseEventHandler,
+        }),
+        [children, leadingVisual, disabled, onClick],
+      ),
+    )
 
-  const {dataOverflowingAttr} = useActionBarItem(
-    ref,
-    useMemo(
-      (): ChildProps => ({
-        type: 'action',
-        label: children,
-        // Only forward the leading visual to the overflow menu when it is a component
-        // that can be rendered as an icon (e.g. an octicon), matching ActionBar.IconButton.
-        icon: typeof leadingVisual === 'function' ? (leadingVisual as ActionBarIconButtonProps['icon']) : undefined,
-        disabled: !!disabled,
-        onClick: onClick as MouseEventHandler,
-      }),
-      [children, leadingVisual, disabled, onClick],
-    ),
-  )
+    const clickHandler = useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (disabled) return
+        onClick?.(event)
+      },
+      [disabled, onClick],
+    )
 
-  const clickHandler = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (disabled) return
-      onClick?.(event)
-    },
-    [disabled, onClick],
-  )
-
-  return (
-    <Button
-      aria-disabled={disabled}
-      ref={mergedRef}
-      size={size}
-      onClick={clickHandler}
-      {...props}
-      variant="invisible"
-      data-overflowing={dataOverflowingAttr}
-    />
-  )
-})
+    return (
+      <Button
+        ref={mergedRef}
+        {...mergeProps(
+          {
+            'aria-disabled': disabled,
+            className: clsx(className),
+            children,
+            leadingVisual,
+            size,
+            onClick: clickHandler,
+          },
+          props,
+        )}
+        variant="invisible"
+        data-overflowing={dataOverflowingAttr}
+      />
+    )
+  },
+)
 
 const ActionBarGroupContext = React.createContext<{
   isOverflowing: boolean

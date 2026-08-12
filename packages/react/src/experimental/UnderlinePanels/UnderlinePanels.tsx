@@ -22,6 +22,7 @@ import {isSlot} from '../../utils/is-slot'
 import type {FCWithSlotMarker} from '../../utils/types'
 import {Tabs, useTab, useTabList, useTabPanel} from '../Tabs'
 import type {TabListHookProps} from '../Tabs/types'
+import {mergeProps} from '../../utils/mergeProps'
 
 export type UnderlinePanelsProps = {
   /**
@@ -73,7 +74,13 @@ export type TabProps = PropsWithChildren<{
   icon?: FC<IconProps>
 }>
 
-export type PanelProps = React.HTMLAttributes<HTMLDivElement>
+export type PanelProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'aria-labelledby' | 'data-selected' | 'hidden' | 'id' | 'role'
+> & {
+  'aria-labelledby'?: never
+  'data-selected'?: never
+}
 
 // Internal-only positional value injected via cloneElement to pair the Nth tab
 // with the Nth panel. Not part of the public Tab/Panel API.
@@ -233,9 +240,13 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       <Tabs id={parentId} value={selectedValue} onValueChange={({value}) => setSelectedValue(value)}>
         <UnderlineWrapper
           ref={wrapperRef}
-          data-icons-visible={iconsVisible}
-          className={clsx(className, classes.StyledUnderlineWrapper)}
-          {...props}
+          {...mergeProps(
+            {
+              'data-icons-visible': iconsVisible,
+              className: clsx(classes.StyledUnderlineWrapper, className),
+            },
+            props,
+          )}
         >
           <UnderlineItemList
             ref={listRef}
@@ -262,9 +273,14 @@ const TabImpl: FC<TabProps & WithValue> = ({onSelect, value, ...itemProps}) => {
   return (
     <UnderlineItem
       as="button"
-      {...itemProps}
-      {...restTabProps}
+      {...mergeProps(restTabProps, itemProps)}
       type="button"
+      aria-controls={restTabProps['aria-controls']}
+      aria-disabled={restTabProps['aria-disabled']}
+      aria-selected={restTabProps['aria-selected']}
+      id={restTabProps.id}
+      role={restTabProps.role}
+      tabIndex={restTabProps.tabIndex}
       onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
         if (!event.defaultPrevented && typeof onSelect === 'function') {
           onSelect(event)
@@ -295,7 +311,14 @@ const PanelImpl: FC<PanelProps & WithValue> = ({children, value, ...panelRest}) 
   const {tabPanelProps} = useTabPanel<HTMLDivElement>({value: value ?? ''})
 
   return (
-    <div {...panelRest} {...tabPanelProps}>
+    <div
+      {...mergeProps(tabPanelProps, panelRest)}
+      aria-labelledby={tabPanelProps['aria-labelledby']}
+      data-selected={tabPanelProps['data-selected']}
+      hidden={tabPanelProps.hidden}
+      id={tabPanelProps.id}
+      role={tabPanelProps.role}
+    >
       {children}
     </div>
   )
