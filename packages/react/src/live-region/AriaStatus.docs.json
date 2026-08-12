@@ -1,0 +1,26 @@
+{
+  "id": "aria-status",
+  "name": "AriaStatus",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "announceOnShow",
+      "type": "boolean",
+      "description": "Specify if the content of the element should be announced when this component is rendered and is not hidden",
+      "defaultValue": "false"
+    },
+    {
+      "name": "hidden",
+      "type": "boolean",
+      "description": "Specify if the element is hidden",
+      "defaultValue": "false"
+    },
+    {
+      "name": "delayMs",
+      "type": "number",
+      "description": "Provide a delay in milliseconds before the announcement is made"
+    }
+  ]
+}
