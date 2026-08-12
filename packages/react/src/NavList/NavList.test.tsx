@@ -95,7 +95,7 @@ describe('NavList.Item', () => {
     const list = container.querySelector('[data-component="ActionList"]')
 
     expect(tooltip).not.toBeNull()
-  expect(ref.current).toBe(link)
+    expect(ref.current).toBe(link)
     expect(link).toHaveAttribute('aria-describedby', (tooltip as HTMLElement).id)
     expect(tooltip).toHaveTextContent('Tooltip for item 1')
     expect(tooltip?.closest('li')).toBe(link.closest('li'))
