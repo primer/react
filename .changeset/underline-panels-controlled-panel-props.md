@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-UnderlinePanels: Remove unsupported panel attributes that are controlled by the component.
+UnderlinePanels: Correct Panel types to exclude attributes controlled by the component.
