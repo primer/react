@@ -1,5 +1,13 @@
 # @primer/react
 
+## 38.35.1
+
+### Patch Changes
+
+- [#8258](https://github.com/primer/react/pull/8258) [`edbcd94`](https://github.com/primer/react/commit/edbcd942354ff45148c2623be8b543ef8789a20f) Thanks [@llastflowers](https://github.com/llastflowers)! - Update `AvatarStack` to not reserve space when collapsed
+
+- [#8273](https://github.com/primer/react/pull/8273) [`0c1e401`](https://github.com/primer/react/commit/0c1e401b6b0d57f95f8115ea90af78281751a766) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - NavList: Exclude group headings from navigation list item counts
+
 ## 38.35.0
 
 ### Minor Changes
