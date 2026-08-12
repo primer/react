@@ -52,11 +52,7 @@ function TabNav({children, className, 'aria-label': ariaLabel, ...rest}: TabNavP
   )
 
   return (
-    <div
-      ref={navRef as React.RefObject<HTMLDivElement>}
-      {...mergeProps({className: clsx(className)}, rest)}
-      data-component="TabNav"
-    >
+    <div ref={navRef as React.RefObject<HTMLDivElement>} {...mergeProps({className}, rest)} data-component="TabNav">
       <nav aria-label={ariaLabel} className={styles.TabNavNav}>
         <div role="tablist" className={styles.TabNavTabList}>
           {children}

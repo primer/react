@@ -74,7 +74,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(
         ref={ref}
         {...mergeProps(
           {
-            className: clsx(className),
+            className,
             'aria-label': ariaLabel,
             'aria-labelledby': navLabelledby,
           },
@@ -209,7 +209,7 @@ const ItemComponent = fixedForwardRef(
         {...mergeProps(
           {
             as: Component,
-            className: clsx(className),
+            className,
             'aria-current': ariaCurrent,
             active: Boolean(ariaCurrent) && ariaCurrent !== 'false',
             style: {'--subitem-depth': depth} as React.CSSProperties,

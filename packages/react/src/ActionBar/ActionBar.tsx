@@ -368,7 +368,7 @@ export const ActionBarIconButton = forwardRef(
         {...mergeProps(
           {
             'aria-disabled': disabled,
-            className: clsx(className),
+            className,
             size,
             onClick: clickHandler,
           },
@@ -418,7 +418,7 @@ export const ActionBarButton = forwardRef(
         {...mergeProps(
           {
             'aria-disabled': disabled,
-            className: clsx(className),
+            className,
             children,
             leadingVisual,
             size,

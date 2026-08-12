@@ -9,7 +9,6 @@ import type {
 import {PageLayout} from '../PageLayout'
 import type {WithSlotMarker} from '../utils/types'
 import {mergeProps} from '../utils/mergeProps'
-import {clsx} from 'clsx'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout
@@ -21,7 +20,7 @@ export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = ({c
     <PageLayout
       {...mergeProps(
         {
-          className: clsx(className),
+          className,
           'data-component': 'SplitPageLayout',
           containerWidth: 'full' as const,
           padding: 'none' as const,
@@ -57,7 +56,7 @@ export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps
     <PageLayout.Header
       {...mergeProps(
         {
-          className: clsx(className),
+          className,
           'data-component': 'SplitPageLayout.Header',
           padding,
           divider,
@@ -85,7 +84,7 @@ export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentPro
     <PageLayout.Content
       {...mergeProps(
         {
-          className: clsx(className),
+          className,
           'data-component': 'SplitPageLayout.Content',
           width,
           padding,
@@ -115,7 +114,7 @@ export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> =
     <PageLayout.Pane
       {...mergeProps(
         {
-          className: clsx(className),
+          className,
           'data-component': 'SplitPageLayout.Pane',
           position,
           sticky,
@@ -145,7 +144,7 @@ export const Sidebar: React.FC<React.PropsWithChildren<SplitPageLayoutSidebarPro
     <PageLayout.Sidebar
       {...mergeProps(
         {
-          className: clsx(className),
+          className,
           'data-component': 'SplitPageLayout.Sidebar',
           position,
           padding,
@@ -175,7 +174,7 @@ export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps
     <PageLayout.Footer
       {...mergeProps(
         {
-          className: clsx(className),
+          className,
           'data-component': 'SplitPageLayout.Footer',
           padding,
           divider,
