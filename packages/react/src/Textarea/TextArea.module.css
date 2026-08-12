@@ -30,7 +30,6 @@
 }
 
 .TextArea[data-auto-size='true'] {
-  min-height: 1lh;
   field-sizing: content;
 }
 

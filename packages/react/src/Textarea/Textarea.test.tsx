@@ -112,7 +112,7 @@ describe('Textarea', () => {
     expect(textareaElement).toHaveAttribute('data-resize', 'vertical')
 
     const rules = getCSSRules(`.${classes.TextArea}[data-auto-size="true"]`)
-    expect(rules.some(rule => rule.style.minHeight === '1lh' && rule.style.fieldSizing === 'content')).toBe(true)
+    expect(rules.some(rule => rule.style.getPropertyValue('field-sizing') === 'content')).toBe(true)
   })
 
   it('renders a value in the textarea', () => {
