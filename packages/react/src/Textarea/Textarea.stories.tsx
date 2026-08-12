@@ -30,6 +30,7 @@ Playground.args = {
   block: false,
   cols: DEFAULT_TEXTAREA_COLS,
   disabled: false,
+  fieldSizing: false,
   resize: DEFAULT_TEXTAREA_RESIZE,
   contrast: false,
   rows: DEFAULT_TEXTAREA_ROWS,
@@ -43,6 +44,9 @@ Playground.argTypes = {
     control: {type: 'number'},
   },
   disabled: {
+    control: {type: 'boolean'},
+  },
+  fieldSizing: {
     control: {type: 'boolean'},
   },
   resize: {

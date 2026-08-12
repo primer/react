@@ -104,6 +104,17 @@ describe('Textarea', () => {
     expect(hasResizeDeclaration).toBe(true)
   })
 
+  it('enables field sizing without changing resize behavior', () => {
+    render(<Textarea fieldSizing resize="vertical" />)
+    const textareaElement = screen.getByRole('textbox')
+
+    expect(textareaElement).toHaveAttribute('data-field-sizing', 'true')
+    expect(textareaElement).toHaveAttribute('data-resize', 'vertical')
+
+    const rules = getCSSRules(`.${classes.TextArea}[data-field-sizing="true"]`)
+    expect(rules.some(rule => rule.style.minHeight === '1lh' && rule.style.fieldSizing === 'content')).toBe(true)
+  })
+
   it('renders a value in the textarea', () => {
     const mockValue = 'mock value'
     const onChange = vi.fn()

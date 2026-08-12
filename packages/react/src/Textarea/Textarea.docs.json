@@ -68,6 +68,12 @@
       "description": "Changes the resize behavior"
     },
     {
+      "name": "fieldSizing",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Allows the textarea to grow to fit its content"
+    },
+    {
       "name": "characterLimit",
       "type": "number",
       "description": "The maximum number of characters allowed in the textarea"

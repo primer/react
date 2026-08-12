@@ -29,6 +29,11 @@
   resize: vertical;
 }
 
+.TextArea[data-field-sizing='true'] {
+  min-height: 1lh;
+  field-sizing: content;
+}
+
 .TextArea:disabled {
   resize: none;
 }
