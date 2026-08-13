@@ -1,11 +1,9 @@
 ---
 emoji: 🔎
 description: |
-  Runs a weekly review of Primer React component APIs against the repository
+  Runs a manual review of Primer React component APIs against the repository
   style guide and maintains one ongoing issue with unresolved findings.
 on:
-  schedule:
-    - cron: '0 9 * * 1'
   workflow_dispatch:
 permissions:
   contents: read
