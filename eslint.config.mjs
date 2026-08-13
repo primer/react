@@ -429,6 +429,12 @@ const config = defineConfig([
       camelcase: 'off',
     },
   },
+  {
+    files: ['packages/cli/**/*.{ts,tsx}'],
+    rules: {
+      'import/no-namespace': 'off',
+    },
+  },
 ])
 
 export default tseslint.config(config)
