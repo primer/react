@@ -20,6 +20,20 @@ describe('ActionList.LinkItem', () => {
     expect(link.tagName).toBe('A')
   })
 
+  it('forwards its ref to the link when wrapped in a tooltip', () => {
+    const ref = React.createRef<HTMLAnchorElement>()
+
+    render(
+      <ActionList>
+        <ActionList.LinkItem ref={ref} href="#home" _PrivateTooltipText="Go home">
+          Home
+        </ActionList.LinkItem>
+      </ActionList>,
+    )
+
+    expect(ref.current).toBe(screen.getByRole('link', {name: 'Home'}))
+  })
+
   it('calls onClick handler', () => {
     const onClick = vi.fn()
 
