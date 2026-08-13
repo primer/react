@@ -60,13 +60,24 @@ const LinkItemComponent = fixedForwardRef(
           // constraint across two polymorphic layers.
           const InternalLink: React.ElementType = Link
           const link = (
-            <InternalLink as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
+            <InternalLink
+              as={Component}
+              {...rest}
+              {...props}
+              onClick={clickHandler}
+              ref={_PrivateTooltipText ? undefined : forwardedRef}
+            >
               {children}
             </InternalLink>
           )
 
           return _PrivateTooltipText ? (
-            <Tooltip ref={forwardedRef as React.ForwardedRef<HTMLElement>} text={_PrivateTooltipText} direction="e">
+            <Tooltip
+              ref={forwardedRef as React.ForwardedRef<HTMLElement>}
+              text={_PrivateTooltipText}
+              direction="e"
+              delay="medium"
+            >
               {link}
             </Tooltip>
           ) : (
