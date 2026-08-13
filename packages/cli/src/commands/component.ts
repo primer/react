@@ -32,7 +32,7 @@ export const command = defineCommand({
             columns: ['ID', 'Name', 'Status', 'A11y Reviewed', 'Import Path'],
             rows: components.flatMap(component => {
               const rows = [
-                [component.id, component.name, component.status, component.a11yReviewed + '', component.importPath],
+                [component.id, component.name, component.status, `${component.a11yReviewed}`, component.importPath],
               ]
 
               const subcomponents = component.subcomponents?.map(subcomponent => {
@@ -81,7 +81,7 @@ export const command = defineCommand({
             columns: ['ID', 'Name', 'Status', 'A11y Reviewed', 'Import Path'],
             rows: result.rows.flatMap(component => {
               const rows = [
-                [component.id, component.name, component.status, component.a11yReviewed + '', component.importPath],
+                [component.id, component.name, component.status, `${component.a11yReviewed}`, component.importPath],
               ]
 
               const subcomponents = component.subcomponents?.map(subcomponent => {
