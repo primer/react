@@ -1,7 +1,7 @@
 {
   "id": "flash",
   "name": "Flash",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": "2025-01-08",
   "stories": [
     {
@@ -26,7 +26,7 @@
       "id": "components-flash-features--with-icon-action-dismiss"
     }
   ],
-  "importPath": "@primer/react",
+  "importPath": "@primer/react/deprecated",
   "props": [
     {
       "name": "full",
