@@ -5,23 +5,23 @@ import {themes} from '../test-helpers/themes'
 const stories = [
   {
     title: 'Default',
-    id: 'deprecated-flash--default',
+    id: 'deprecated-components-flash--default',
   },
   {
     title: 'Danger',
-    id: 'deprecated-flash-features--danger',
+    id: 'deprecated-components-flash-features--danger',
   },
   {
     title: 'Full',
-    id: 'deprecated-flash-features--full',
+    id: 'deprecated-components-flash-features--full',
   },
   {
     title: 'Success',
-    id: 'deprecated-flash-features--success',
+    id: 'deprecated-components-flash-features--success',
   },
   {
     title: 'Warning',
-    id: 'deprecated-flash-features--warning',
+    id: 'deprecated-components-flash-features--warning',
   },
 ] as const
 

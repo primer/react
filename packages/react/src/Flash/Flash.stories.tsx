@@ -2,7 +2,7 @@ import type {Meta, StoryFn} from '@storybook/react-vite'
 import Flash from './Flash'
 
 export default {
-  title: 'Deprecated/Flash',
+  title: 'Deprecated/Components/Flash',
   component: Flash,
 } as Meta<typeof Flash>
 

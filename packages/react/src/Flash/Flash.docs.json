@@ -5,25 +5,25 @@
   "a11yReviewed": "2025-01-08",
   "stories": [
     {
-      "id": "deprecated-flash--default"
+      "id": "deprecated-components-flash--default"
     },
     {
-      "id": "deprecated-flash-features--success"
+      "id": "deprecated-components-flash-features--success"
     },
     {
-      "id": "deprecated-flash-features--danger"
+      "id": "deprecated-components-flash-features--danger"
     },
     {
-      "id": "deprecated-flash-features--warning"
+      "id": "deprecated-components-flash-features--warning"
     },
     {
-      "id": "deprecated-flash-features--full"
+      "id": "deprecated-components-flash-features--full"
     },
     {
-      "id": "deprecated-flash-features--with-icon-and-action"
+      "id": "deprecated-components-flash-features--with-icon-and-action"
     },
     {
-      "id": "deprecated-flash-features--with-icon-action-dismiss"
+      "id": "deprecated-components-flash-features--with-icon-action-dismiss"
     }
   ],
   "importPath": "@primer/react/deprecated",
