@@ -1,7 +1,8 @@
 import React from 'react'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
-import {theme as defaultTheme, useId, useSyncedState} from '@primer/react'
+import {useId, useSyncedState} from '@primer/react'
 import deepmerge from 'deepmerge'
+import {theme as defaultTheme} from '../theme'
 import {ThemeContext} from './ThemeContext'
 import {useTheme} from './useTheme'
 

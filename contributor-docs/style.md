@@ -175,6 +175,20 @@ Use the following API types when designing component APIs:
 | Base components           | Unstyled primitives, often for accessibility structure or low-level behavior        |
 | Utilities                 | Hooks, state management, behaviors, and functions used to build components          |
 
+Not every component needs every API type. Some components will never warrant
+their own config API, and not all components need their own hooks. Start with
+presentational components — markup and styles first, then behavior and state.
+For some components that behavior can stay inside the component; for others it
+should be extracted into a hook.
+
+There is no mechanical test for when to extract yet, but one signal that works
+is whether the state has a component that clearly owns it. For a `List` that
+needs to manage selection, there are two reasonable options:
+
+- Bake selection into the `List` component, which is the config approach
+- Provide a `useSelection` hook, or bake selection into a `useList` hook, that
+  composes with `List` components
+
 #### Config components
 
 Config components are "all-in-one" APIs that let consumers describe intent

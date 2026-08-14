@@ -22,6 +22,7 @@ import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphi
 import HeadingComponent from '../Heading'
 import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
+import {asSlot} from '../utils/as-slot'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
@@ -136,12 +137,13 @@ export type NavListItemProps<As extends React.ElementType = React.ElementType> =
     href?: string
     'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
     inactiveText?: string
+    tooltipText?: string
   }
 >
 
 const ItemComponent = fixedForwardRef(
   <As extends React.ElementType = 'a'>(
-    {'aria-current': ariaCurrent, children, defaultOpen, as: Component, ...props}: NavListItemProps<As>,
+    {'aria-current': ariaCurrent, children, defaultOpen, tooltipText, as: Component, ...props}: NavListItemProps<As>,
     ref: React.ForwardedRef<unknown>,
   ) => {
     const {depth} = React.useContext(SubNavContext)
@@ -164,6 +166,7 @@ const ItemComponent = fixedForwardRef(
           subNav={subNav}
           depth={depth}
           defaultOpen={defaultOpen}
+          tooltipText={tooltipText}
           style={{'--subitem-depth': depth} as React.CSSProperties}
         >
           {childrenWithoutSubNavOrTrailingAction}
@@ -184,6 +187,7 @@ const ItemComponent = fixedForwardRef(
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         style={{'--subitem-depth': depth} as React.CSSProperties}
         data-component="NavList.Item"
+        _PrivateTooltipText={tooltipText}
         {...props}
       >
         {children}
@@ -202,6 +206,7 @@ type ItemWithSubNavProps = {
   subNav: React.ReactNode
   depth: number
   defaultOpen?: boolean
+  tooltipText?: string
   style: React.CSSProperties
 }
 
@@ -233,7 +238,7 @@ function hasCurrentNavItem(node: React.ReactNode): boolean {
   return React.Children.toArray(node.props.children).some(hasCurrentNavItem)
 }
 
-function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, tooltipText, style}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
 
@@ -267,6 +272,7 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
         onSelect={() => setIsOpen(open => !open)}
         style={style}
         data-component="NavList.Item"
+        _PrivateTooltipText={tooltipText}
       >
         {children}
         {/* What happens if the user provides a TrailingVisual? */}
@@ -366,8 +372,39 @@ export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   hideDivider?: boolean
 }
 
+function flattenFragmentChildren(children: React.ReactNode): React.ReactNode[] {
+  const flattenedChildren: React.ReactNode[] = []
+  // eslint-disable-next-line github/array-foreach -- React.Children.toArray changes element identity, which is needed to remove the slotted child from its fragment.
+  React.Children.forEach(children, child => {
+    if (React.isValidElement(child) && child.type === React.Fragment) {
+      flattenedChildren.push(...flattenFragmentChildren((child.props as {children?: React.ReactNode}).children))
+    } else {
+      flattenedChildren.push(child)
+    }
+  })
+  return flattenedChildren
+}
+
+function removeChildFromFragments(children: React.ReactNode, childToRemove: React.ReactElement): React.ReactNode {
+  return React.Children.map(children, child => {
+    if (child === childToRemove) return null
+    if (React.isValidElement(child) && child.type === React.Fragment) {
+      return React.cloneElement(
+        child,
+        undefined,
+        removeChildFromFragments((child.props as {children?: React.ReactNode}).children, childToRemove),
+      )
+    }
+    return child
+  })
+}
+
 const Group: React.FC<NavListGroupProps> = ({title, children, hideDivider, ...props}) => {
   const headingLevel = React.useContext(NavListHeadingLevelContext)
+  const [slots] = useSlots(flattenFragmentChildren(children), {
+    groupHeading: GroupHeading,
+  })
+  const childrenWithoutHeading = slots.groupHeading ? removeChildFromFragments(children, slots.groupHeading) : children
   // Default the group heading to one level below the NavList.Heading (h3 under an
   // h2, h4 under an h3), falling back to h3 when there is no NavList.Heading. To
   // use a different level, pass NavList.GroupHeading with an explicit `as` instead.
@@ -376,12 +413,14 @@ const Group: React.FC<NavListGroupProps> = ({title, children, hideDivider, ...pr
     <>
       {!hideDivider && <ActionList.Divider />}
       <ActionList.Group {...props}>
-        {title ? (
+        {slots.groupHeading ? (
+          React.cloneElement(slots.groupHeading, {headingWrapElement: 'div'})
+        ) : title ? (
           <ActionList.GroupHeading as={groupHeadingAs} data-component="ActionList.GroupHeading">
             {title}
           </ActionList.GroupHeading>
         ) : null}
-        {children}
+        {childrenWithoutHeading}
       </ActionList.Group>
     </>
   )
@@ -495,7 +534,7 @@ export type NavListGroupHeadingProps = ActionListGroupHeadingProps
  * This is an alternative to the `title` prop on `NavList.Group`.
  * It was primarily added to allow links in group headings.
  */
-const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as, className, ...rest}) => {
+const GroupHeadingImpl: React.FC<NavListGroupHeadingProps> = ({as, className, ...rest}) => {
   const headingLevel = React.useContext(NavListHeadingLevelContext)
   const resolvedAs = as ?? (headingLevel ? levelToHeadingTag(headingLevel + 1) : 'h3')
   return (
@@ -508,6 +547,8 @@ const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as, className, ...res
     />
   )
 }
+
+const GroupHeading = asSlot(GroupHeadingImpl, ActionList.GroupHeading)
 
 // ----------------------------------------------------------------------------
 // Export
