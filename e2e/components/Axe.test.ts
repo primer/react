@@ -11,8 +11,8 @@ import {themes} from '../test-helpers/themes'
 const SKIPPED_TESTS = [
   'components-treeview-features--stress-test',
   'components-treeview-features--contain-intrinsic-size',
-  'components-flash-features--with-icon-action-dismiss', // TODO: Remove once color-contrast issues have been resolved
-  'components-flash-features--with-icon-and-action', // TODO: Remove once color-contrast issues have been resolved
+  'deprecated-flash-features--with-icon-action-dismiss', // TODO: Remove once color-contrast issues have been resolved
+  'deprecated-flash-features--with-icon-and-action', // TODO: Remove once color-contrast issues have been resolved
   'components-filteredactionlist--default',
   // TODO: Remove these once FilteredActionList feature stories no longer trigger label/nested-interactive axe violations.
   'components-filteredactionlist-features--loading-with-body-skeleton',

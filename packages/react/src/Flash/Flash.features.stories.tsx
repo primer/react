@@ -6,7 +6,7 @@ import Link from '../Link'
 import classes from './Flash.features.stories.module.css'
 
 export default {
-  title: 'Components/Flash/Features',
+  title: 'Deprecated/Flash/Features',
   component: Flash,
 } as Meta<typeof Flash>
 
