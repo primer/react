@@ -64,7 +64,6 @@ export type {SlotMarker, WithSlotMarker, FCWithSlotMarker} from './utils/types'
 export {asSlot} from './utils/as-slot'
 export {isSlot} from './utils/is-slot'
 export {useSlots} from './hooks/useSlots'
-export {notificationIndicator} from './NotificationIndicator'
 
 // Components
 export {default as Radio} from './Radio'

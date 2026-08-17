@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Utilities: Add a reusable notification indicator for interactive controls
+Button: Add configurable notification indicators to Button and IconButton

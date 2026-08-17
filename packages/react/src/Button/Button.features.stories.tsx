@@ -1,11 +1,19 @@
-import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon, CommentIcon} from '@primer/octicons-react'
+import {
+  EyeIcon,
+  TriangleDownIcon,
+  HeartIcon,
+  DownloadIcon,
+  CommentIcon,
+  GearIcon,
+  InboxIcon,
+  KebabHorizontalIcon,
+} from '@primer/octicons-react'
 import {useState} from 'react'
 import {Button, IconButton} from '.'
 import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'
 import {Tooltip} from '../TooltipV2/Tooltip'
 import {KeybindingHint} from '../KeybindingHint'
-import {notificationIndicator} from '../NotificationIndicator'
 import VisuallyHidden from '../_VisuallyHidden'
 
 export default {
@@ -25,11 +33,32 @@ export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading vis
 export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>
 
 export const NotificationIndicator = () => (
-  <Stack direction="horizontal" gap="normal">
-    <IconButton icon={HeartIcon} aria-label="Favorite (new activity)" className={notificationIndicator} />
-    <Button aria-label="Customize view (new activity)" className={notificationIndicator}>
-      Customize view
-    </Button>
+  <Stack gap="spacious">
+    <Stack gap="condensed">
+      <div>
+        <strong>Indicator on button boundary</strong>
+        <div>Use when the notification applies to the whole control.</div>
+      </div>
+      <Stack direction="horizontal" gap="normal">
+        <IconButton icon={InboxIcon} aria-label="Inbox (new activity)" notificationIndicator="button" />
+      </Stack>
+    </Stack>
+    <Stack gap="condensed">
+      <div>
+        <strong>Indicator on icon or leading visual</strong>
+        <div>Use the leading visual for Button and the icon for IconButton.</div>
+      </div>
+      <Stack direction="horizontal" gap="normal">
+        <Button
+          leadingVisual={GearIcon}
+          aria-label="Saved view menu (update available)"
+          notificationIndicator="leadingVisual"
+        >
+          View
+        </Button>
+        <IconButton icon={KebabHorizontalIcon} aria-label="More options (new activity)" notificationIndicator="icon" />
+      </Stack>
+    </Stack>
   </Stack>
 )
 
