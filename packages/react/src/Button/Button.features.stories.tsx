@@ -1,10 +1,11 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon, CommentIcon} from '@primer/octicons-react'
 import {useState} from 'react'
-import {Button} from '.'
+import {Button, IconButton} from '.'
 import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'
 import {Tooltip} from '../TooltipV2/Tooltip'
 import {KeybindingHint} from '../KeybindingHint'
+import {notificationIndicator} from '../NotificationIndicator'
 import VisuallyHidden from '../_VisuallyHidden'
 
 export default {
@@ -22,6 +23,15 @@ export const Link = () => <Button variant="link">Button that looks like a link</
 export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
 
 export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>
+
+export const NotificationIndicator = () => (
+  <Stack direction="horizontal" gap="normal">
+    <IconButton icon={HeartIcon} aria-label="Favorite (new activity)" className={notificationIndicator} />
+    <Button aria-label="Customize view (new activity)" className={notificationIndicator}>
+      Customize view
+    </Button>
+  </Stack>
+)
 
 const AccessibilityNote = () => {
   {
