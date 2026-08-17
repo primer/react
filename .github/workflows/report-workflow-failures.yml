@@ -123,6 +123,7 @@ jobs:
               repo: context.repo.repo,
               title,
               body,
+              type: 'Bug',
             };
 
             let issueNumber;
@@ -148,6 +149,13 @@ jobs:
               const createdIssue = await github.rest.issues.create(issue);
               issueNumber = createdIssue.data.number;
             }
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: ['area: actions'],
+            });
 
             core.setOutput('issue_number', issueNumber);
 
