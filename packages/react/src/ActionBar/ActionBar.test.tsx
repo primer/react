@@ -95,6 +95,8 @@ describe('ActionBar', () => {
   implementsClassName(ActionBar, classes.Nav)
   afterEach(() => {
     vi.clearAllMocks()
+    vi.unstubAllGlobals()
+    MockIntersectionObserver.instances = []
   })
 
   it('should not trigger disabled button', () => {
