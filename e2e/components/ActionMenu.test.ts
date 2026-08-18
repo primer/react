@@ -8,6 +8,7 @@ const stories: Array<{
   buttonName?: string
   buttonNames?: string[]
   skipOpen?: boolean
+  opensDialog?: boolean
 }> = [
   {
     title: 'Default',
@@ -62,6 +63,7 @@ const stories: Array<{
     title: 'Dev: Within Dialog',
     id: 'components-actionmenu-dev--within-dialog',
     buttonNames: ['Open Dialog', 'Open ActionMenu'],
+    opensDialog: true,
   },
 ] as const
 
@@ -98,7 +100,13 @@ test.describe('ActionMenu', () => {
                   await page.getByRole('button', {name: buttonName}).click()
                 }
               }
-              await expect(page).toHaveScreenshot(`ActionMenu.${story.title}.${theme}${suffix}.png`)
+              await expect(page).toHaveScreenshot(`ActionMenu.${story.title}.${theme}${suffix}.png`, {
+                // Stories that open a `Dialog` before opening the `ActionMenu` (e.g. `Dev: Within Dialog`)
+                // can produce a handful of anti-aliased pixels around freshly-mounted text due to font
+                // rendering nondeterminism in headless Chromium. Allow a small tolerance for these cases
+                // instead of the full repo, to avoid masking real regressions elsewhere.
+                maxDiffPixelRatio: story.opensDialog ? 0.02 : undefined,
+              })
             })
           }
         })
