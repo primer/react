@@ -80,6 +80,31 @@ const AnchoredOverlayTestComponent = ({
   return content
 }
 
+it('preserves the object ref in renderAnchor props while providing a reactive callback ref', () => {
+  let propsRef: unknown
+  let reactiveAnchorRef: React.RefCallback<HTMLElement> | undefined
+
+  render(
+    <AnchoredOverlay
+      open={false}
+      renderAnchor={(props, anchorRef) => {
+        propsRef = (props as React.RefAttributes<HTMLElement>).ref
+        reactiveAnchorRef = anchorRef
+        return (
+          <button {...props} type="button">
+            Anchor
+          </button>
+        )
+      }}
+    >
+      Overlay
+    </AnchoredOverlay>,
+  )
+
+  expect(propsRef).toEqual({current: expect.any(HTMLButtonElement)})
+  expect(reactiveAnchorRef).toEqual(expect.any(Function))
+})
+
 describe.each([true, false])(
   'AnchoredOverlay (primer_react_css_anchor_positioning=%s)',
   (withCSSAnchorPositioningFeatureFlag: boolean) => {

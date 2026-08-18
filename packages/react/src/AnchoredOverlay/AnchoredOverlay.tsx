@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, useState, type JSX} from 'react'
+import {useCallback, useEffect, useMemo, useState, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -223,6 +223,18 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
   const mergedAnchorRef = useMergedRefs(anchorRef, setAnchorElement)
+  // Keep the legacy object-ref shape while making assignments reactive for positioning.
+  const renderAnchorRef = useMemo(
+    () => ({
+      get current() {
+        return anchorRef.current
+      },
+      set current(value: HTMLElement | null) {
+        mergedAnchorRef(value)
+      },
+    }),
+    [anchorRef, mergedAnchorRef],
+  )
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
@@ -432,7 +444,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       {renderAnchor &&
         renderAnchor(
           {
-            ref: mergedAnchorRef,
+            ref: renderAnchorRef,
             id: anchorId,
             'aria-haspopup': 'true',
             'aria-expanded': open,
