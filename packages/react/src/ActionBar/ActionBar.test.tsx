@@ -1,11 +1,95 @@
 import {describe, expect, it, afterEach, vi} from 'vitest'
 import {render, screen, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {createRef, useState} from 'react'
+import type React from 'react'
+import {createRef, useState} from 'react'
 import ActionBar from './'
 import {BoldIcon, ItalicIcon, CodeIcon} from '@primer/octicons-react'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionBar.module.css'
+import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
+
+type IntersectionEntry = Pick<IntersectionObserverEntry, 'target' | 'isIntersecting' | 'intersectionRatio'>
+
+class MockIntersectionObserver {
+  static instances: MockIntersectionObserver[] = []
+  readonly observed = new Set<Element>()
+  callback: (entries: IntersectionEntry[]) => void
+
+  constructor(callback: (entries: IntersectionEntry[]) => void) {
+    this.callback = callback
+    MockIntersectionObserver.instances.push(this)
+  }
+
+  observe(element: Element) {
+    this.observed.add(element)
+  }
+
+  unobserve(element: Element) {
+    this.observed.delete(element)
+  }
+
+  disconnect() {
+    this.observed.clear()
+  }
+
+  trigger(entries: IntersectionEntry[]) {
+    act(() => this.callback(entries))
+  }
+}
+
+const selectPanelItems: SelectPanelProps['items'] = [{text: 'Alpha'}, {text: 'Beta'}]
+
+function ActionBarSelectPanel({
+  disabled = false,
+  grouped = false,
+  onOpenChange = () => {},
+}: {
+  disabled?: boolean
+  grouped?: boolean
+  onOpenChange?: (open: boolean) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState<SelectPanelProps['items']>([])
+  const [filterValue, setFilterValue] = useState('')
+
+  const panel = (
+    <SelectPanel
+      title="Projects"
+      placeholder="Projects"
+      open={open}
+      onOpenChange={nextOpen => {
+        onOpenChange(nextOpen)
+        setOpen(nextOpen)
+      }}
+      items={selectPanelItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      filterValue={filterValue}
+      onFilterChange={setFilterValue}
+      renderAnchor={(anchorProps, activeAnchorRef) => (
+        <ActionBar.Button {...anchorProps} activeAnchorRef={activeAnchorRef} disabled={disabled}>
+          Projects
+        </ActionBar.Button>
+      )}
+    />
+  )
+
+  return <ActionBar aria-label="Toolbar">{grouped ? <ActionBar.Group>{panel}</ActionBar.Group> : panel}</ActionBar>
+}
+
+function overflowElement(element: Element, overflowing: boolean) {
+  const observer = MockIntersectionObserver.instances.find(instance => instance.observed.has(element))
+  if (!observer) throw new Error('Expected element to be observed for overflow')
+
+  observer.trigger([
+    {
+      target: element,
+      isIntersecting: !overflowing,
+      intersectionRatio: overflowing ? 0 : 1,
+    },
+  ])
+}
 
 describe('ActionBar', () => {
   implementsClassName(ActionBar, classes.Nav)
@@ -80,11 +164,30 @@ describe('ActionBar', () => {
 
     expect(onClick).toHaveBeenCalled()
   })
+
+  it('updates IconButton activeAnchorRef when the action overflows', () => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+    const activeAnchorRef = createRef<HTMLButtonElement>()
+
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.IconButton activeAnchorRef={activeAnchorRef} icon={BoldIcon} aria-label="Bold" />
+      </ActionBar>,
+    )
+
+    const inlineButton = screen.getByRole('button', {name: 'Bold'})
+    expect(activeAnchorRef.current).toBe(inlineButton)
+
+    overflowElement(inlineButton, true)
+    expect(activeAnchorRef.current).toBe(screen.getByRole('button', {name: 'More items'}))
+  })
 })
 
 describe('ActionBar.Button', () => {
   afterEach(() => {
     vi.clearAllMocks()
+    vi.unstubAllGlobals()
+    MockIntersectionObserver.instances = []
   })
 
   it('renders a text button with its children as the accessible name', () => {
@@ -145,6 +248,169 @@ describe('ActionBar.Button', () => {
     await user.keyboard('{Enter}')
 
     expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('updates activeAnchorRef when the button moves into and out of overflow', () => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+
+    const activeAnchorRef = createRef<HTMLButtonElement>()
+    const forwardedRef = createRef<HTMLButtonElement>()
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Button ref={forwardedRef} activeAnchorRef={activeAnchorRef}>
+          Save
+        </ActionBar.Button>
+      </ActionBar>,
+    )
+
+    const inlineButton = screen.getByRole('button', {name: 'Save'})
+    expect(forwardedRef.current).toBe(inlineButton)
+    expect(activeAnchorRef.current).toBe(inlineButton)
+
+    const observer = MockIntersectionObserver.instances.at(-1)!
+    observer.trigger([{target: inlineButton, isIntersecting: false, intersectionRatio: 0}])
+
+    expect(activeAnchorRef.current).toBe(screen.getByRole('button', {name: 'More items'}))
+    expect(forwardedRef.current).toBe(inlineButton)
+
+    observer.trigger([{target: inlineButton, isIntersecting: true, intersectionRatio: 1}])
+    expect(activeAnchorRef.current).toBe(inlineButton)
+  })
+
+  it('clears callback activeAnchorRef when the button unmounts', async () => {
+    const user = userEvent.setup()
+    const activeAnchors: Array<HTMLButtonElement | null> = []
+    const activeAnchorRef = (anchor: HTMLButtonElement | null) => {
+      activeAnchors.push(anchor)
+    }
+
+    const Test = () => {
+      const [visible, setVisible] = useState(true)
+      return (
+        <>
+          <ActionBar aria-label="Toolbar">
+            {visible ? <ActionBar.Button activeAnchorRef={activeAnchorRef}>Save</ActionBar.Button> : null}
+          </ActionBar>
+          <button type="button" onClick={() => setVisible(false)}>
+            Unmount action
+          </button>
+        </>
+      )
+    }
+
+    render(<Test />)
+    await user.click(screen.getByRole('button', {name: 'Unmount action'}))
+
+    expect(activeAnchors.at(-1)).toBeNull()
+  })
+
+  it.each([
+    ['pointer', async (user: ReturnType<typeof userEvent.setup>, item: HTMLElement) => user.click(item)],
+    [
+      'Enter',
+      async (user: ReturnType<typeof userEvent.setup>, item: HTMLElement) => {
+        item.focus()
+        await user.keyboard('{Enter}')
+      },
+    ],
+    [
+      'Space',
+      async (user: ReturnType<typeof userEvent.setup>, item: HTMLElement) => {
+        item.focus()
+        await user.keyboard(' ')
+      },
+    ],
+  ])('opens a SelectPanel once from overflow with %s activation', async (_name, activate) => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+    render(<ActionBarSelectPanel onOpenChange={onOpenChange} />)
+
+    const inlineButton = screen.getByRole('button', {name: 'Projects'})
+    overflowElement(inlineButton, true)
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    await activate(user, screen.getByRole('menuitem', {name: 'Projects'}))
+
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+    expect(screen.getByRole('dialog', {name: 'Projects'})).toBeInTheDocument()
+    expect(onOpenChange).toHaveBeenCalledTimes(1)
+    expect(onOpenChange).toHaveBeenCalledWith(true)
+  })
+
+  it('returns focus to the overflow button when the SelectPanel closes', async () => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+    const user = userEvent.setup()
+    render(<ActionBarSelectPanel />)
+
+    const inlineButton = screen.getByRole('button', {name: 'Projects'})
+    overflowElement(inlineButton, true)
+    const overflowButton = screen.getByRole('button', {name: 'More items'})
+    await user.click(overflowButton)
+    await user.click(screen.getByRole('menuitem', {name: 'Projects'}))
+    await user.keyboard('{Escape}')
+
+    expect(overflowButton).toHaveFocus()
+  })
+
+  it('returns focus to the inline button when it becomes visible while the SelectPanel is open', async () => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+    const user = userEvent.setup()
+    render(<ActionBarSelectPanel />)
+
+    const inlineButton = screen.getByRole('button', {name: 'Projects'})
+    overflowElement(inlineButton, true)
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    await user.click(screen.getByRole('menuitem', {name: 'Projects'}))
+    overflowElement(inlineButton, false)
+    await user.keyboard('{Escape}')
+
+    expect(inlineButton).toHaveFocus()
+  })
+
+  it('returns focus to the overflow button when the action overflows while the SelectPanel is open', async () => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+    const user = userEvent.setup()
+    render(<ActionBarSelectPanel />)
+
+    const inlineButton = screen.getByRole('button', {name: 'Projects'})
+    await user.click(inlineButton)
+    overflowElement(inlineButton, true)
+    const overflowButton = screen.getByRole('button', {name: 'More items'})
+    await user.keyboard('{Escape}')
+
+    expect(overflowButton).toHaveFocus()
+  })
+
+  it('uses the overflow button as the active anchor when a group overflows', async () => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+    const user = userEvent.setup()
+    const {container} = render(<ActionBarSelectPanel grouped />)
+
+    const group = container.querySelector('[data-component="ActionBar.Group"]')
+    if (!group) throw new Error('Expected ActionBar group')
+    overflowElement(group, true)
+
+    const overflowButton = screen.getByRole('button', {name: 'More items'})
+    await user.click(overflowButton)
+    await user.click(screen.getByRole('menuitem', {name: 'Projects'}))
+    await user.keyboard('{Escape}')
+
+    expect(overflowButton).toHaveFocus()
+  })
+
+  it('does not activate a disabled action from overflow', async () => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+    render(<ActionBarSelectPanel disabled onOpenChange={onOpenChange} />)
+
+    const inlineButton = screen.getByRole('button', {name: 'Projects'})
+    overflowElement(inlineButton, true)
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    await user.click(screen.getByRole('menuitem', {name: 'Projects'}))
+
+    expect(onOpenChange).not.toHaveBeenCalled()
+    expect(screen.queryByRole('dialog', {name: 'Projects'})).not.toBeInTheDocument()
   })
 })
 

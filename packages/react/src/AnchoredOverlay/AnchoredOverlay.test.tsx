@@ -706,6 +706,40 @@ describe('AnchoredOverlay CSS anchor positioning viewport handling', () => {
 })
 
 describe('AnchoredOverlay anchor element replacement', () => {
+  it('repositions when renderAnchor changes the physical anchor while open', () => {
+    const onPositionChange = vi.fn()
+
+    function TestComponent() {
+      const [alternate, setAlternate] = useState(false)
+      return (
+        <>
+          <button type="button" onClick={() => setAlternate(value => !value)}>
+            Switch
+          </button>
+          <AnchoredOverlay
+            open
+            onOpen={() => {}}
+            onClose={() => {}}
+            onPositionChange={onPositionChange}
+            renderAnchor={(props, ref) => (
+              <button key={String(alternate)} {...props} ref={ref as React.Ref<HTMLButtonElement>} type="button">
+                Anchor
+              </button>
+            )}
+          >
+            <button type="button">Content</button>
+          </AnchoredOverlay>
+        </>
+      )
+    }
+
+    const {getByRole} = render(<TestComponent />)
+    const initialCalls = onPositionChange.mock.calls.length
+    act(() => getByRole('button', {name: 'Switch'}).click())
+
+    expect(onPositionChange.mock.calls.length).toBeGreaterThan(initialCalls)
+  })
+
   it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', () => {
     function TestComponent() {
       const anchorRef = useRef<HTMLButtonElement>(null)

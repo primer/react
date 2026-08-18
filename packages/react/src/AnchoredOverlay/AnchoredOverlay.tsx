@@ -17,6 +17,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -25,6 +26,7 @@ interface AnchoredOverlayPropsWithAnchor {
    */
   renderAnchor: <T extends Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'>>(
     props: T,
+    anchorRef: React.RefCallback<HTMLElement>,
   ) => JSX.Element
 
   /**
@@ -150,6 +152,24 @@ const defaultVariant = {
 
 const defaultCloseButtonProps: Partial<IconButtonProps> = {}
 
+function DetachedAnchorObserver({
+  anchorRef,
+  anchorElement,
+  onAnchorElementChange,
+}: {
+  anchorRef: React.RefObject<HTMLElement | null>
+  anchorElement: HTMLElement | null
+  onAnchorElementChange: React.Dispatch<React.SetStateAction<HTMLElement | null>>
+}) {
+  // Detached object refs do not notify when their element changes, so check after each parent-driven render.
+  useLayoutEffect(() => {
+    if (anchorRef.current !== anchorElement) {
+      onAnchorElementChange(anchorRef.current)
+    }
+  })
+  return null
+}
+
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
  * The overlay can be opened and navigated using keyboard or mouse.
@@ -202,10 +222,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
-  // eslint-disable-next-line react-hooks/refs
-  if (anchorRef.current !== anchorElement) {
-    setAnchorElement(anchorRef.current)
-  }
+  const mergedAnchorRef = useMergedRefs(anchorRef, setAnchorElement)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
@@ -271,7 +288,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       enabled: open && !cssAnchorPositioning,
     },
 
-    [overlayElement],
+    [overlayElement, anchorElement],
   )
 
   useEffect(() => {
@@ -405,18 +422,27 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   return (
     <>
+      {renderAnchor === null ? (
+        <DetachedAnchorObserver
+          anchorRef={anchorRef}
+          anchorElement={anchorElement}
+          onAnchorElementChange={setAnchorElement}
+        />
+      ) : null}
       {renderAnchor &&
-        // eslint-disable-next-line react-hooks/refs
-        renderAnchor({
-          ref: anchorRef,
-          id: anchorId,
-          'aria-haspopup': 'true',
-          'aria-expanded': open,
-          tabIndex: 0,
-          onClick: onAnchorClick,
-          onKeyDown: onAnchorKeyDown,
-          ...popoverTargetProps,
-        })}
+        renderAnchor(
+          {
+            ref: mergedAnchorRef,
+            id: anchorId,
+            'aria-haspopup': 'true',
+            'aria-expanded': open,
+            tabIndex: 0,
+            onClick: onAnchorClick,
+            onKeyDown: onAnchorKeyDown,
+            ...popoverTargetProps,
+          },
+          mergedAnchorRef,
+        )}
       {open ? (
         <Overlay
           returnFocusRef={anchorRef}

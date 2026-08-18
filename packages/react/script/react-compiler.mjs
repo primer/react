@@ -12,7 +12,6 @@ const files = glob
     return path.join(PACKAGE_DIR, match)
   })
 const unsupportedPatterns = [
-  'src/ActionBar/ActionBar.tsx',
   'src/ActionList/ActionList.examples.stories.tsx',
   'src/ActionMenu/ActionMenu.test.tsx',
   'src/ActionMenu/ActionMenu.tsx',

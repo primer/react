@@ -4,7 +4,10 @@ import {IconButton} from '../Button'
 
 export function itemWithIconElements() {
   return (
-    <AnchoredOverlay open={true} renderAnchor={props => <IconButton {...props} icon={InfoIcon} aria-label="Info" />}>
+    <AnchoredOverlay
+      open={true}
+      renderAnchor={(props, anchorRef) => <IconButton {...props} ref={anchorRef} icon={InfoIcon} aria-label="Info" />}
+    >
       <p>GitHub</p>
     </AnchoredOverlay>
   )
