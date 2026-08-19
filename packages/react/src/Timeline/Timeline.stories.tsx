@@ -58,7 +58,6 @@ import {
   XIcon,
 } from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
-import Octicon from '../Octicon'
 import Text from '../Text'
 import {BoldLink, EventSubRow, Examples, MONALISA_AVATAR, MutedTime, UserActor} from './internal/timelineStoryHelpers'
 import classes from './Timeline.stories.module.css'
@@ -556,19 +555,22 @@ EventPlayground.argTypes = {
  * The `PLAYGROUND_SURFACES` map below is a small, hardcoded, story-local sample of
  * github-flavored events (a handful per surface, NOT the full ~160-row catalog). Its
  * surface/category/type shape and every copy string are ILLUSTRATIVE examples for this demo
- * only. The AUTHORITATIVE, per-surface timeline taxonomy lives in `github-ui` (the product
- * repositories that render these timelines), NOT in Primer. Do not treat this inline map as
- * the real catalog, do not export it, and do not promote it into a reusable module — it is
- * intentionally confined to this story file.
+ * only. The AUTHORITATIVE, per-surface timeline taxonomy is a GitHub product concern owned by
+ * `github-ui` (the product repositories that render these timelines). Primer does not host an
+ * authoritative taxonomy; any internal Primer taxonomy code is non-authoritative and not public
+ * API. Do not treat this inline map as the real catalog, do not export it, and do not promote it
+ * into a reusable module — it is intentionally confined to this story file.
  *
  * The picker is structured so a future `Timeline.Filter` can drive it: the render pipeline
  * derives `visibleRows` from the selected categories and types, then maps each row to a
  * `<Timeline.Item>`.
  */
 
-type PlaygroundSurfaceId = 'code-scanning' | 'secret-scanning' | 'dependabot' | 'license-compliance' | 'issues'
+type PlaygroundSurfaceId = 'code-scanning' | 'secret-scanning' | 'dependabot' | 'license-compliance' | 'issue'
 type PlaygroundCategoryId = 'findings' | 'status' | 'reviews' | 'references' | 'moderation' | 'metadata'
-type PlaygroundActorType = 'user' | 'bot' | 'system'
+// Actor classification, mirrors the authoritative `ActorType` value space (`user | bot`):
+// first-party automation such as the GitHub secret-scanning system actor is `bot`.
+type PlaygroundActorType = 'user' | 'bot'
 
 type PlaygroundEvent = {
   /** `data-event-type` value */
@@ -735,7 +737,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             category: 'findings',
             label: 'Created',
             visibility: 'primary',
-            actorType: 'system',
+            actorType: 'bot',
             badge: {icon: ShieldIcon, variant: 'success'},
             body: (
               <>
@@ -750,7 +752,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             category: 'findings',
             label: 'Validity: active',
             visibility: 'primary',
-            actorType: 'system',
+            actorType: 'bot',
             badge: {icon: AlertIcon, variant: 'danger'},
             body: (
               <>
@@ -1061,7 +1063,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
       },
     },
   },
-  issues: {
+  issue: {
     label: 'Issues',
     ariaLabel: 'Issue timeline',
     categories: {
@@ -1248,7 +1250,7 @@ const PLAYGROUND_ARG_KEYS: Record<
   'secret-scanning': {categories: 'secretScanningCategories', types: 'secretScanningTypes'},
   dependabot: {categories: 'dependabotCategories', types: 'dependabotTypes'},
   'license-compliance': {categories: 'licenseComplianceCategories', types: 'licenseComplianceTypes'},
-  issues: {categories: 'issueCategories', types: 'issueTypes'},
+  issue: {categories: 'issueCategories', types: 'issueTypes'},
 }
 
 const playgroundTypeIds = (surface: PlaygroundSurfaceId): string[] =>
@@ -1317,23 +1319,26 @@ export const TimelinePlayground: StoryFn<TimelinePlaygroundArgs> = args => {
       <Examples>
         {visibleRows.length > 0 ? (
           <Timeline aria-label={surfaceDef.ariaLabel}>
-            {visibleRows.map(event => (
-              <Timeline.Item
-                key={`${surface}-${event.type}`}
-                data-event-scope={surface}
-                data-event-type={event.type}
-                data-event-category={event.category}
-                data-event-visibility={event.visibility}
-                data-actor-type={event.actorType}
-              >
-                <Timeline.Badge variant={event.badge.variant}>
-                  {/* Decorative: the summary text in Timeline.Body is the accessible description. */}
-                  <Octicon icon={event.badge.icon} />
-                </Timeline.Badge>
-                <Timeline.Body>{event.body}</Timeline.Body>
-                {event.actions ? <Timeline.Actions>{event.actions}</Timeline.Actions> : null}
-              </Timeline.Item>
-            ))}
+            {visibleRows.map(event => {
+              const BadgeIcon = event.badge.icon
+              return (
+                <Timeline.Item
+                  key={`${surface}-${event.type}`}
+                  data-event-scope={surface}
+                  data-event-type={event.type}
+                  data-event-category={event.category}
+                  data-event-visibility={event.visibility}
+                  data-actor-type={event.actorType}
+                >
+                  <Timeline.Badge variant={event.badge.variant}>
+                    {/* Decorative: the summary text in Timeline.Body is the accessible description. */}
+                    <BadgeIcon />
+                  </Timeline.Badge>
+                  <Timeline.Body>{event.body}</Timeline.Body>
+                  {event.actions ? <Timeline.Actions>{event.actions}</Timeline.Actions> : null}
+                </Timeline.Item>
+              )
+            })}
           </Timeline>
         ) : (
           <Text className={classes.PlaygroundEmpty}>
@@ -1380,6 +1385,6 @@ TimelinePlayground.argTypes = {
   dependabotTypes: playgroundTypeControl('dependabot'),
   licenseComplianceCategories: playgroundCategoryControl('license-compliance'),
   licenseComplianceTypes: playgroundTypeControl('license-compliance'),
-  issueCategories: playgroundCategoryControl('issues'),
-  issueTypes: playgroundTypeControl('issues'),
+  issueCategories: playgroundCategoryControl('issue'),
+  issueTypes: playgroundTypeControl('issue'),
 }
