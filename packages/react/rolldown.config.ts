@@ -44,9 +44,13 @@ const dependencies = [
   ...Object.keys(packageMetadata.peerDependencies ?? {}),
   ...Object.keys(packageMetadata.dependencies ?? {}),
   ...Object.keys(packageMetadata.devDependencies ?? {}),
-].map(name => {
-  return new RegExp(`^${name}(/.*)?`)
-})
+]
+  // Bundle the React Compiler runtime into dist instead of externalizing it, so
+  // consumers never depend on their own environment resolving a callable `c`.
+  .filter(name => name !== 'react-compiler-runtime')
+  .map(name => {
+    return new RegExp(`^${name}(/.*)?`)
+  })
 
 const external = [
   // Exclude package dependencies
