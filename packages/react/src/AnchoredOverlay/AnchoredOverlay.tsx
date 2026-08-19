@@ -22,11 +22,12 @@ import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 interface AnchoredOverlayPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
+   * The optional second argument is a reactive ref for the current anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
   renderAnchor: <T extends Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'>>(
     props: T,
-    anchorRef: React.RefCallback<HTMLElement>,
+    anchorRef?: React.RefCallback<HTMLElement>,
   ) => JSX.Element
 
   /**
