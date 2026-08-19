@@ -1088,7 +1088,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
             </span>
           </span>
           <span
-            class="prc-TextInputWithTokens-OverflowCountXLarge-zydSJ prc-Text-Text-jAl-N"
+            class="prc-Text-Text-jAl-N prc-TextInputWithTokens-OverflowCountXLarge-zydSJ"
             data-component="TextInputWithTokens.OverflowCount"
           >
             +
@@ -1217,7 +1217,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
           </span>
         </span>
         <span
-          class="prc-TextInputWithTokens-OverflowCountXLarge-zydSJ prc-Text-Text-jAl-N"
+          class="prc-Text-Text-jAl-N prc-TextInputWithTokens-OverflowCountXLarge-zydSJ"
           data-component="TextInputWithTokens.OverflowCount"
         >
           +
