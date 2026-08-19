@@ -115,6 +115,16 @@
       background-color: transparent;
     }
 
+    .Item[data-divider-after]::after {
+      position: absolute;
+      inset-block: var(--base-size-8);
+      inset-inline-end: calc(-1 * var(--base-size-2));
+      width: 1px;
+      content: '';
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
     .Button {
       padding: 0;
       color: var(--fgColor-muted);

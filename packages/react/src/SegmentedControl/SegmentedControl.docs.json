@@ -126,6 +126,12 @@
           "description": "The number to display in the counter label."
         },
         {
+          "name": "dividerAfter",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether to render a divider after the button."
+        },
+        {
           "name": "ref",
           "type": "React.RefObject<HTMLButtonElement>"
         }
@@ -181,6 +187,12 @@
           "required": false,
           "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
           "defaultValue": ""
+        },
+        {
+          "name": "dividerAfter",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether to render a divider after the button."
         }
       ]
     },
