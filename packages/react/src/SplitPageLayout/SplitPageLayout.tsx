@@ -8,26 +8,32 @@ import type {
 } from '../PageLayout'
 import {PageLayout} from '../PageLayout'
 import type {WithSlotMarker} from '../utils/types'
+import {mergeProps} from '../utils/mergeProps'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout
 
 export type SplitPageLayoutProps = {className?: string}
 
-export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
+export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = ({className, ...props}) => {
   return (
     <PageLayout
-      data-component="SplitPageLayout"
-      containerWidth="full"
-      padding="none"
-      columnGap="none"
-      rowGap="none"
-      _slotsConfig={{
-        header: Header,
-        footer: Footer,
-        sidebar: Sidebar,
-      }}
-      {...props}
+      {...mergeProps(
+        {
+          className,
+          'data-component': 'SplitPageLayout',
+          containerWidth: 'full' as const,
+          padding: 'none' as const,
+          columnGap: 'none' as const,
+          rowGap: 'none' as const,
+          _slotsConfig: {
+            header: Header,
+            footer: Footer,
+            sidebar: Sidebar,
+          },
+        },
+        props,
+      )}
     />
   )
 }
@@ -42,10 +48,23 @@ export type SplitPageLayoutHeaderProps = PageLayoutHeaderProps
 export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
   padding = 'normal',
   divider = 'line',
+  className,
   ...props
 }) => {
-  // eslint-disable-next-line primer-react/direct-slot-children
-  return <PageLayout.Header data-component="SplitPageLayout.Header" padding={padding} divider={divider} {...props} />
+  return (
+    // eslint-disable-next-line primer-react/direct-slot-children
+    <PageLayout.Header
+      {...mergeProps(
+        {
+          className,
+          'data-component': 'SplitPageLayout.Header',
+          padding,
+          divider,
+        },
+        props,
+      )}
+    />
+  )
 }
 
 Header.displayName = 'SplitPageLayout.Header'
@@ -58,9 +77,22 @@ export type SplitPageLayoutContentProps = PageLayoutContentProps
 export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentProps>> = ({
   width = 'large',
   padding = 'normal',
+  className,
   ...props
 }) => {
-  return <PageLayout.Content data-component="SplitPageLayout.Content" width={width} padding={padding} {...props} />
+  return (
+    <PageLayout.Content
+      {...mergeProps(
+        {
+          className,
+          'data-component': 'SplitPageLayout.Content',
+          width,
+          padding,
+        },
+        props,
+      )}
+    />
+  )
 }
 
 Content.displayName = 'SplitPageLayout.Content'
@@ -75,16 +107,22 @@ export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> =
   sticky = true,
   padding = 'normal',
   divider = 'line',
+  className,
   ...props
 }) => {
   return (
     <PageLayout.Pane
-      data-component="SplitPageLayout.Pane"
-      position={position}
-      sticky={sticky}
-      padding={padding}
-      divider={divider}
-      {...props}
+      {...mergeProps(
+        {
+          className,
+          'data-component': 'SplitPageLayout.Pane',
+          position,
+          sticky,
+          padding,
+          divider,
+        },
+        props,
+      )}
     ></PageLayout.Pane>
   )
 }
@@ -99,15 +137,21 @@ export const Sidebar: React.FC<React.PropsWithChildren<SplitPageLayoutSidebarPro
   position = 'start',
   padding = 'normal',
   divider = 'line',
+  className,
   ...props
 }) => {
   return (
     <PageLayout.Sidebar
-      data-component="SplitPageLayout.Sidebar"
-      position={position}
-      padding={padding}
-      divider={divider}
-      {...props}
+      {...mergeProps(
+        {
+          className,
+          'data-component': 'SplitPageLayout.Sidebar',
+          position,
+          padding,
+          divider,
+        },
+        props,
+      )}
     />
   )
 }
@@ -122,10 +166,23 @@ export type SplitPageLayoutFooterProps = PageLayoutFooterProps
 export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps>> = ({
   padding = 'normal',
   divider = 'line',
+  className,
   ...props
 }) => {
-  // eslint-disable-next-line primer-react/direct-slot-children
-  return <PageLayout.Footer data-component="SplitPageLayout.Footer" padding={padding} divider={divider} {...props} />
+  return (
+    // eslint-disable-next-line primer-react/direct-slot-children
+    <PageLayout.Footer
+      {...mergeProps(
+        {
+          className,
+          'data-component': 'SplitPageLayout.Footer',
+          padding,
+          divider,
+        },
+        props,
+      )}
+    />
+  )
 }
 
 Footer.displayName = 'SplitPageLayout.Footer'

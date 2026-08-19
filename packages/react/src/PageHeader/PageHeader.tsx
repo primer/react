@@ -17,6 +17,7 @@ import {clsx} from 'clsx'
 
 import classes from './PageHeader.module.css'
 import {isSlot} from '../utils/is-slot'
+import {mergeProps} from '../utils/mergeProps'
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
@@ -164,12 +165,18 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
     return (
       <BaseComponent
         ref={appliedRef}
-        className={clsx(classes.PageHeader, className)}
-        data-component="PageHeader"
-        data-has-border={hasBorder ? 'true' : undefined}
-        data-has-nav={hasNavigation ? '' : undefined}
-        {...getResponsiveAttributes('title-size-variant', titleVariant)}
-        {...getNavHiddenDataAttributes(navigationHidden)}
+        {...mergeProps(
+          {
+            className: clsx(classes.PageHeader, className),
+            'data-component': 'PageHeader',
+            'data-has-border': hasBorder ? 'true' : undefined,
+            'data-has-nav': hasNavigation ? '' : undefined,
+          },
+          {
+            ...getResponsiveAttributes('title-size-variant', titleVariant),
+            ...getNavHiddenDataAttributes(navigationHidden),
+          },
+        )}
         aria-label={ariaLabel}
         role={role}
       >
@@ -190,9 +197,13 @@ const ContextArea: FCWithSlotMarker<React.PropsWithChildren<ChildrenPropTypes>> 
 }) => {
   return (
     <div
-      className={clsx(classes.ContextArea, className)}
-      data-component="PageHeader.ContextArea"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.ContextArea, className),
+          'data-component': 'PageHeader.ContextArea',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -216,14 +227,18 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
       <>
         <Link
           ref={ref}
-          as={as}
-          aria-label={ariaLabel}
-          muted
-          className={clsx(classes.ParentLink, className)}
-          data-component="PageHeader.ParentLink"
-          {...getHiddenDataAttributes(hidden)}
-          href={href}
-          {...rest}
+          {...mergeProps(
+            {
+              as,
+              'aria-label': ariaLabel,
+              muted: true,
+              className: clsx(classes.ParentLink, className),
+              'data-component': 'PageHeader.ParentLink',
+              ...getHiddenDataAttributes(hidden),
+              href,
+            },
+            rest,
+          )}
         >
           <ArrowLeftIcon />
           <div>{children}</div>
@@ -245,9 +260,13 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   return (
     <div
-      className={clsx(classes.ContextBar, className)}
-      data-component="PageHeader.ContextBar"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.ContextBar, className),
+          'data-component': 'PageHeader.ContextBar',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -263,9 +282,13 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
 }) => {
   return (
     <div
-      className={clsx(classes.ContextAreaActions, className)}
-      data-component="PageHeader.ContextAreaActions"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.ContextAreaActions, className),
+          'data-component': 'PageHeader.ContextAreaActions',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -288,12 +311,18 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
     const appliedRef = mergedRefEnabled ? forwardedRef : providedOrCreatedRef
     return (
       <div
-        className={clsx(classes.TitleArea, className)}
         // @ts-expect-error it needs a non nullable ref
         ref={appliedRef}
-        data-component="TitleArea"
-        {...getResponsiveAttributes('size-variant', variant)}
-        {...getHiddenDataAttributes(hidden)}
+        {...mergeProps(
+          {
+            className: clsx(classes.TitleArea, className),
+            'data-component': 'TitleArea',
+          },
+          {
+            ...getResponsiveAttributes('size-variant', variant),
+            ...getHiddenDataAttributes(hidden),
+          },
+        )}
       >
         {children}
       </div>
@@ -311,9 +340,13 @@ const LeadingAction: FCWithSlotMarker<React.PropsWithChildren<ChildrenPropTypes>
 }) => {
   return (
     <div
-      className={clsx(classes.LeadingAction, className)}
-      data-component="PH_LeadingAction"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.LeadingAction, className),
+          'data-component': 'PH_LeadingAction',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -326,9 +359,13 @@ LeadingAction.__SLOT__ = Symbol('PageHeader.LeadingAction')
 const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
     <div
-      className={clsx(classes.Breadcrumbs, className)}
-      data-component="PH_Breadcrumbs"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.Breadcrumbs, className),
+          'data-component': 'PH_Breadcrumbs',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -339,9 +376,13 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
     <div
-      className={clsx(classes.LeadingVisual, className)}
-      data-component="PH_LeadingVisual"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.LeadingVisual, className),
+          'data-component': 'PH_LeadingVisual',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -355,11 +396,15 @@ export type TitleProps = {
 const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2'}) => {
   return (
     <Heading
-      className={clsx(classes.Title, className)}
-      data-component="PH_Title"
-      data-hidden={hidden}
-      as={as}
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.Title, className),
+          'data-component': 'PH_Title',
+          'data-hidden': hidden,
+          as,
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </Heading>
@@ -374,9 +419,13 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   return (
     <div
-      className={clsx(classes.TrailingVisual, className)}
-      data-component="PH_TrailingVisual"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.TrailingVisual, className),
+          'data-component': 'PH_TrailingVisual',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -390,9 +439,13 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   return (
     <div
-      className={clsx(classes.TrailingAction, className)}
-      data-component="PH_TrailingAction"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.TrailingAction, className),
+          'data-component': 'PH_TrailingAction',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -403,7 +456,15 @@ export type ActionsProps = React.PropsWithChildren<ChildrenPropTypes>
 
 const Actions = ({children, className, hidden = false}: ActionsProps) => {
   return (
-    <div className={clsx(classes.Actions, className)} data-component="PH_Actions" {...getHiddenDataAttributes(hidden)}>
+    <div
+      {...mergeProps(
+        {
+          className: clsx(classes.Actions, className),
+          'data-component': 'PH_Actions',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
+    >
       {children}
     </div>
   )
@@ -413,9 +474,13 @@ const Actions = ({children, className, hidden = false}: ActionsProps) => {
 const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
     <div
-      className={clsx(classes.Description, className)}
-      data-component="PageHeader.Description"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          className: clsx(classes.Description, className),
+          'data-component': 'PageHeader.Description',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </div>
@@ -444,12 +509,16 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
 
   return (
     <BaseComponent
-      // Render `aria-label` and `aria-labelledby` only on `nav` elements
-      aria-label={BaseComponent === 'nav' ? ariaLabel : undefined}
-      aria-labelledby={BaseComponent === 'nav' ? ariaLabelledBy : undefined}
-      className={clsx(classes.Navigation, className)}
-      data-component="PH_Navigation"
-      {...getHiddenDataAttributes(hidden)}
+      {...mergeProps(
+        {
+          // Render `aria-label` and `aria-labelledby` only on `nav` elements
+          'aria-label': BaseComponent === 'nav' ? ariaLabel : undefined,
+          'aria-labelledby': BaseComponent === 'nav' ? ariaLabelledBy : undefined,
+          className: clsx(classes.Navigation, className),
+          'data-component': 'PH_Navigation',
+        },
+        getHiddenDataAttributes(hidden),
+      )}
     >
       {children}
     </BaseComponent>

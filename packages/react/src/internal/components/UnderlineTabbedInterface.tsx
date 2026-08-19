@@ -9,6 +9,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../
 
 import classes from './UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
+import {mergeProps} from '../../utils/mergeProps'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
@@ -39,9 +40,8 @@ export const UnderlineWrapper = forwardRef((props, ref) => {
 
   return (
     <Component
-      className={clsx(classes.UnderlineWrapper, className)}
       ref={ref as ForwardedRef<HTMLDivElement>}
-      {...rest}
+      {...mergeProps({className: clsx(classes.UnderlineWrapper, className)}, rest)}
     >
       {children}
     </Component>
@@ -50,7 +50,7 @@ export const UnderlineWrapper = forwardRef((props, ref) => {
 
 export const UnderlineItemList = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <ul className={clsx(className, classes.UnderlineItemList)} ref={forwardedRef} {...rest}>
+    <ul ref={forwardedRef} {...mergeProps({className: clsx(classes.UnderlineItemList, className)}, rest)}>
       {children}
     </ul>
   )
@@ -75,7 +75,7 @@ export const UnderlineItem = React.forwardRef((props, ref) => {
   const {as: Component = 'a', children, counter, icon: Icon, loadingCounters, className, ...rest} = props
   const textContent = getTextContent(children)
   return (
-    <Component {...rest} ref={ref} className={clsx(classes.UnderlineItem, className)}>
+    <Component ref={ref} {...mergeProps({className: clsx(classes.UnderlineItem, className)}, rest)}>
       {Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
       {children && (
         <span data-component="text" data-content={textContent || undefined}>

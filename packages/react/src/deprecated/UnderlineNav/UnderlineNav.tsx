@@ -2,6 +2,7 @@ import {clsx} from 'clsx'
 import type {To} from 'history'
 import React from 'react'
 import classes from './UnderlineNav.module.css'
+import {mergeProps} from '../../utils/mergeProps'
 
 export type UnderlineNavProps = {
   actions?: React.ReactNode
@@ -18,7 +19,7 @@ function UnderlineNav({actions, className, align, children, full, label, ...rest
     'PRC-UnderlineNav--right': align,
   })
   return (
-    <nav className={navClasses} aria-label={label} {...rest}>
+    <nav {...mergeProps({className: navClasses, 'aria-label': label}, rest)}>
       <div className={clsx(classes.UnderlineNavBody, 'PRC-UnderlineNav-body')}>{children}</div>
       {actions && <div className={clsx(classes.UnderlineNavActions, 'PRC-UnderlineNav-actions')}>{actions}</div>}
     </nav>
@@ -37,8 +38,20 @@ const UnderlineNavLink = React.forwardRef<HTMLAnchorElement, UnderlineNavLinkPro
   forwardRef,
 ) {
   const linkClasses = clsx(classes.UnderlineNavItem, className, classes.UnderlineNavLink)
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  return <a ref={forwardRef} data-selected={selected ? '' : undefined} className={linkClasses} {...props} />
+
+  return (
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    <a
+      ref={forwardRef}
+      {...mergeProps(
+        {
+          'data-selected': selected ? '' : undefined,
+          className: linkClasses,
+        },
+        props,
+      )}
+    />
+  )
 })
 
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
