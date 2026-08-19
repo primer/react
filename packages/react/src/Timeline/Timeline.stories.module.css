@@ -50,3 +50,31 @@
   margin-top: var(--base-size-4);
   color: var(--fgColor-muted);
 }
+
+/*
+ * Timeline Playground: story-local styles for the in-canvas control panel and the
+ * representative event bodies rendered by the `TimelinePlayground` story.
+ */
+
+.PlaygroundPanel {
+  max-width: 1012px;
+  margin-bottom: var(--base-size-24);
+  padding: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.PanelHeading {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+.PlaygroundEmpty {
+  max-width: 1012px;
+  color: var(--fgColor-muted);
+}
+
+.Strong {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}

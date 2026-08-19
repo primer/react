@@ -41,7 +41,30 @@ import {
   TrashIcon,
   UnlockIcon,
   XCircleIcon,
+  // Additional badge icons used by the Timeline Playground story below.
+  BlockedIcon,
+  CheckIcon,
+  CommentIcon,
+  DotFillIcon,
+  type Icon,
+  LinkExternalIcon,
+  MarkGithubIcon,
+  NoteIcon,
+  ShieldCheckIcon,
+  ShieldSlashIcon,
+  ShieldXIcon,
+  SyncIcon,
+  XIcon,
 } from '@primer/octicons-react'
+import Checkbox from '../Checkbox'
+import CheckboxGroup from '../CheckboxGroup'
+import {FeatureFlags} from '../FeatureFlags'
+import FormControl from '../FormControl'
+import Octicon from '../Octicon'
+import {SegmentedControl} from '../SegmentedControl'
+import {Stack} from '../Stack'
+import Text from '../Text'
+import {BoldLink, EventSubRow, Examples, MONALISA_AVATAR, MutedTime, UserActor} from './internal/timelineStoryHelpers'
 import classes from './Timeline.stories.module.css'
 
 export default {
@@ -86,8 +109,8 @@ export const Default = () => (
   </Timeline>
 )
 
-// Helpers for the Custom Event playground (declared above the story export).
-// The story-level JSDoc lives on the `Playground` export so Storybook attaches it
+// Helpers for the Event Playground (declared above the story export).
+// The story-level JSDoc lives on the `EventPlayground` export so Storybook attaches it
 // to the Docs tab.
 const BADGE_ICONS = {
   alert: AlertIcon,
@@ -235,8 +258,9 @@ type TimestampPreset =
   | 'Absolute (full timestamp)'
 
 /**
- * Recreates the Figma "Custom event" component (Primer-Web library, node `46191-13560`)
- * as a compositional Storybook playground. Every slot is built from existing public primitives
+ * The **Event Playground**: recreates the Figma "Custom event" component (Primer-Web
+ * library, node `46191-13560`) as a compositional Storybook playground for a SINGLE
+ * configurable Timeline event. Every slot is built from existing public primitives
  * (`Timeline`, `Timeline.Item`, `Timeline.Badge`, `Timeline.Body`, `Timeline.Avatar`,
  * `Timeline.Actions`, `Avatar`, `Link`, `RelativeTime`) — no public API changes.
  *
@@ -260,7 +284,7 @@ type TimestampPreset =
 // avatar (via `Timeline.Avatar`) has room to display. The gutter wrapper is only
 // needed because the playground is a standalone demo — in product code the page
 // layout typically provides the gutter already.
-export const Playground: StoryFn<PlaygroundArgs> = args => {
+export const EventPlayground: StoryFn<PlaygroundArgs> = args => {
   const Icon = BADGE_ICONS[args.badgeIcon]
   const isAppLike = args.actorType === 'bot' || args.actorType === 'app'
   // Allow the `actorAvatarSrc` control to override the default user avatar; for
@@ -366,9 +390,9 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
   )
 }
 
-Playground.parameters = {
+EventPlayground.parameters = {
   // Compact Controls panel (no inline Description / Default columns). The story-level
-  // JSDoc on the Playground export plus the auto-generated props table on the Docs tab
+  // JSDoc on the EventPlayground export plus the auto-generated props table on the Docs tab
   // cover the longer-form context.
   controls: {expanded: false},
 }
@@ -386,7 +410,7 @@ const DEFAULT_ACTOR_NAMES: Record<PlaygroundArgs['actorType'], string> = {
 // Sync the visible `actorName` field whenever `actorType` changes, so the field
 // reflects a sensible default for the new type rather than carrying over a value
 // from the previous type. Users can still edit the field from there.
-Playground.decorators = [
+EventPlayground.decorators = [
   (Story, context) => {
     const [args, updateArgs] = useArgs<PlaygroundArgs>()
     const previousActorType = React.useRef(args.actorType)
@@ -400,7 +424,7 @@ Playground.decorators = [
   },
 ]
 
-Playground.args = {
+EventPlayground.args = {
   actorSize: 'small',
   actorType: 'user',
   actorAvatarSrc: 'https://avatars.githubusercontent.com/u/92997159?v=4',
@@ -421,7 +445,7 @@ Playground.args = {
   eventType: '',
 }
 
-Playground.argTypes = {
+EventPlayground.argTypes = {
   actorSize: {
     control: {type: 'inline-radio'},
     options: ['small', 'large'],
@@ -516,4 +540,792 @@ Playground.argTypes = {
       'Sets `data-event-type` on the Timeline.Item (e.g. `assigned`, `merged`, `subscribed`). Reserved for Phase 4 filtering and summary-event rollups.',
     table: {category: 'DOM attributes'},
   },
+}
+
+// ============================================================================
+// Timeline Playground
+// ============================================================================
+
+/**
+ * ILLUSTRATIVE, REPRESENTATIVE DATA — read this before treating anything below as canonical.
+ *
+ * The **Timeline Playground** demonstrates how filtering `data-*` attributes
+ * (`data-event-scope`, `data-event-type`, `data-event-category`, `data-event-visibility`,
+ * `data-actor-type`) are embedded on each `Timeline.Item` across GitHub surfaces. It mirrors
+ * the Figma prototype: an in-canvas control panel picks a surface, filters by the categories
+ * that surface offers, and then selects which event types render. Changing the surface changes
+ * the categories on offer, which changes the event types available.
+ *
+ * The `PLAYGROUND_SURFACES` map below is a small, hardcoded, story-local sample of
+ * github-flavored events (a handful per surface, NOT the full ~160-row catalog). Its
+ * surface/category/type shape and every copy string are ILLUSTRATIVE examples for this demo
+ * only. The AUTHORITATIVE, per-surface timeline taxonomy lives in `github-ui` (the product
+ * repositories that render these timelines), NOT in Primer. Do not treat this inline map as
+ * the real catalog, do not export it, and do not promote it into a reusable module — it is
+ * intentionally confined to this story file.
+ *
+ * The picker is structured so a future `Timeline.Filter` can drive it: the render pipeline
+ * derives `visibleRows` from the selected categories and types, then maps each row to a
+ * `<Timeline.Item>`.
+ */
+
+type PlaygroundSurfaceId = 'code-scanning' | 'secret-scanning' | 'dependabot' | 'license-compliance' | 'issues'
+type PlaygroundCategoryId = 'findings' | 'status' | 'reviews' | 'references' | 'moderation'
+type PlaygroundActorType = 'user' | 'bot' | 'system'
+
+type PlaygroundEvent = {
+  /** `data-event-type` value */
+  type: string
+  /** `data-event-category` value */
+  category: PlaygroundCategoryId
+  /** Human-readable label shown in the event-type picker */
+  label: string
+  /** `data-event-visibility` value */
+  visibility: 'public' | 'private'
+  /** `data-actor-type` value; omit for actor-less rows so no `data-actor-type` attribute renders */
+  actorType?: PlaygroundActorType
+  badge: {icon: Icon; variant?: TimelineBadgeVariant}
+  /** Contents of `Timeline.Body` */
+  body: React.ReactNode
+  /** Optional contents of the right-aligned `Timeline.Actions` slot */
+  actions?: React.ReactNode
+}
+
+type PlaygroundSurface = {
+  label: string
+  /** Accessible name for the rendered `<Timeline>` */
+  ariaLabel: string
+  categories: Partial<Record<PlaygroundCategoryId, {label: string; events: PlaygroundEvent[]}>>
+}
+
+// Story-local demo avatars (MONALISA_AVATAR is imported from the shared helpers).
+const DEPENDABOT_BOT_AVATAR = 'https://avatars.githubusercontent.com/u/27347476?v=4'
+const LICENSE_BOT_AVATAR = 'https://avatars.githubusercontent.com/u/9919?s=40&v=4'
+const HUBOT_AVATAR = 'https://avatars.githubusercontent.com/u/480938?v=4'
+
+// ILLUSTRATIVE representative data (see the canon note above). Each event mirrors the
+// badge/icon/copy/actor of the matching VariantSection in that surface's existing
+// `Timeline.<surface>.features.stories.tsx`, reduced to a demonstrative subset. The four
+// security surfaces offer findings/status/reviews; issues offers status/references/moderation.
+const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
+  'code-scanning': {
+    label: 'Code scanning',
+    ariaLabel: 'Code scanning alert timeline',
+    categories: {
+      findings: {
+        label: 'Findings',
+        events: [
+          {
+            type: 'detected',
+            category: 'findings',
+            label: 'First detected in commit',
+            visibility: 'public',
+            badge: {icon: ShieldIcon},
+            body: (
+              <>
+                <span className={classes.Strong}>First detected in commit</span>{' '}
+                <MutedTime date={new Date('2024-01-08T11:46:07Z')} />
+              </>
+            ),
+          },
+          {
+            type: 'fixed',
+            category: 'findings',
+            label: 'Fixed in branch',
+            visibility: 'public',
+            badge: {icon: ShieldCheckIcon, variant: 'done'},
+            body: (
+              <>
+                <span className={classes.Strong}>Fixed in branch</span> <span className={classes.Strong}>main</span>{' '}
+                <MutedTime date={new Date('2024-01-12T10:15:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+      status: {
+        label: 'Status',
+        events: [
+          {
+            type: 'closed',
+            category: 'status',
+            label: 'Closed as false positive',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: ShieldXIcon, variant: 'danger'},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'closed this as '}
+                <span className={classes.Strong}>false positive</span>{' '}
+                <MutedTime date={new Date('2024-01-14T08:20:00Z')} />
+              </>
+            ),
+          },
+          {
+            type: 'reopened',
+            category: 'status',
+            label: 'Reopened',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: DotFillIcon, variant: 'success'},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'reopened this '}
+                <MutedTime date={new Date('2024-01-15T11:05:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+      reviews: {
+        label: 'Reviews',
+        events: [
+          {
+            type: 'dismissal_requested',
+            category: 'reviews',
+            label: 'Requested to dismiss',
+            visibility: 'private',
+            actorType: 'user',
+            badge: {icon: CommentIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'requested to dismiss this as false positive '}
+                <MutedTime date={new Date('2024-01-16T09:00:00Z')} />
+                <EventSubRow icon={NoteIcon}>This finding is a test-only helper, safe to dismiss.</EventSubRow>
+              </>
+            ),
+            actions: (
+              <Button size="small" variant="primary">
+                Review request
+              </Button>
+            ),
+          },
+          {
+            type: 'dismissal_reviewed',
+            category: 'reviews',
+            label: 'Approved dismissal',
+            visibility: 'private',
+            actorType: 'user',
+            badge: {icon: CheckIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'approved dismissal '}
+                <MutedTime date={new Date('2024-01-17T13:30:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+    },
+  },
+  'secret-scanning': {
+    label: 'Secret scanning',
+    ariaLabel: 'Secret scanning alert timeline',
+    categories: {
+      findings: {
+        label: 'Findings',
+        events: [
+          {
+            type: 'detected',
+            category: 'findings',
+            label: 'Created',
+            visibility: 'public',
+            actorType: 'system',
+            badge: {icon: ShieldIcon, variant: 'success'},
+            body: (
+              <>
+                <UserActor login="GitHub" icon={MarkGithubIcon} />
+                {'opened this alert '}
+                <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
+              </>
+            ),
+          },
+          {
+            type: 'validity_active',
+            category: 'findings',
+            label: 'Validity: active',
+            visibility: 'public',
+            actorType: 'system',
+            badge: {icon: AlertIcon, variant: 'danger'},
+            body: (
+              <>
+                <UserActor login="GitHub" icon={MarkGithubIcon} />
+                {'verified this secret is active '}
+                <MutedTime date={new Date('2022-07-26T13:00:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+      status: {
+        label: 'Status',
+        events: [
+          {
+            type: 'closed',
+            category: 'status',
+            label: 'Closed as revoked',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: ShieldCheckIcon, variant: 'done'},
+            body: (
+              <>
+                <UserActor size={16} />
+                {'closed this as '}
+                <span className={classes.Strong}>revoked</span> <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
+                <EventSubRow icon={CommentIcon} iconSize={12}>
+                  Rotated the leaked token and confirmed the provider revoked it.
+                </EventSubRow>
+              </>
+            ),
+          },
+          {
+            type: 'reopened',
+            category: 'status',
+            label: 'Reopened',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: SyncIcon, variant: 'success'},
+            body: (
+              <>
+                <UserActor size={16} />
+                {'reopened this '}
+                <MutedTime date={new Date('2022-07-27T09:10:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+      reviews: {
+        label: 'Reviews',
+        events: [
+          {
+            type: 'closure_requested',
+            category: 'reviews',
+            label: 'Requested to dismiss',
+            visibility: 'private',
+            actorType: 'user',
+            badge: {icon: CommentIcon},
+            body: (
+              <>
+                <UserActor size={16} />
+                {'requested to dismiss this as false positive '}
+                <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
+              </>
+            ),
+            actions: (
+              <Button size="small" variant="primary">
+                Review request
+              </Button>
+            ),
+          },
+          {
+            type: 'bypass_approved',
+            category: 'reviews',
+            label: 'Bypass approved',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: CheckCircleIcon},
+            body: (
+              <>
+                <UserActor size={16} />
+                {'approved a bypass '}
+                <MutedTime date={new Date('2022-07-26T12:10:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+    },
+  },
+  dependabot: {
+    label: 'Dependabot',
+    ariaLabel: 'Dependabot alert timeline',
+    categories: {
+      findings: {
+        label: 'Findings',
+        events: [
+          {
+            type: 'opened',
+            category: 'findings',
+            label: 'Opened',
+            visibility: 'public',
+            actorType: 'bot',
+            badge: {icon: ShieldIcon, variant: 'success'},
+            body: (
+              <>
+                <UserActor login="dependabot[bot]" src={DEPENDABOT_BOT_AVATAR} />
+                {'opened this '}
+                <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
+              </>
+            ),
+          },
+          {
+            type: 'fixed',
+            category: 'findings',
+            label: 'Fixed',
+            visibility: 'public',
+            actorType: 'bot',
+            badge: {icon: ShieldCheckIcon, variant: 'done'},
+            body: (
+              <>
+                <UserActor login="dependabot[bot]" src={DEPENDABOT_BOT_AVATAR} />
+                {'closed this as completed '}
+                <MutedTime date={new Date('2022-08-01T09:30:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+      status: {
+        label: 'Status',
+        events: [
+          {
+            type: 'reopened',
+            category: 'status',
+            label: 'Reopened',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: SyncIcon, variant: 'success'},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'reopened this '}
+                <MutedTime date={new Date('2022-08-04T10:15:00Z')} />
+              </>
+            ),
+          },
+          {
+            type: 'dismissed',
+            category: 'status',
+            label: 'Dismissed',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: ShieldSlashIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'dismissed this as '}
+                <span className={classes.Strong}>risk is tolerable</span>{' '}
+                <MutedTime date={new Date('2022-08-02T14:00:00Z')} />
+                <EventSubRow icon={NoteIcon}>Only reachable from a dev-only script we do not ship.</EventSubRow>
+              </>
+            ),
+          },
+        ],
+      },
+      reviews: {
+        label: 'Reviews',
+        events: [
+          {
+            type: 'dismissal_requested',
+            category: 'reviews',
+            label: 'Dismissal requested',
+            visibility: 'private',
+            actorType: 'user',
+            badge: {icon: CommentIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'requested to dismiss this '}
+                <MutedTime date={new Date('2022-08-03T08:45:00Z')} />
+              </>
+            ),
+            actions: (
+              <Button size="small" variant="primary">
+                Review request
+              </Button>
+            ),
+          },
+        ],
+      },
+    },
+  },
+  'license-compliance': {
+    label: 'License compliance',
+    ariaLabel: 'License compliance alert timeline',
+    categories: {
+      findings: {
+        label: 'Findings',
+        events: [
+          {
+            type: 'opened',
+            category: 'findings',
+            label: 'Opened',
+            visibility: 'public',
+            actorType: 'bot',
+            badge: {icon: ShieldIcon, variant: 'success'},
+            body: (
+              <>
+                <UserActor login="github-license-compliance[bot]" src={LICENSE_BOT_AVATAR} />
+                {' opened this alert '}
+                <MutedTime date={new Date('2025-10-20T10:00:00Z')} />
+              </>
+            ),
+          },
+          {
+            type: 'appeared_in_branch',
+            category: 'findings',
+            label: 'Appeared in branch',
+            visibility: 'public',
+            badge: {icon: GitBranchIcon},
+            body: (
+              <>
+                {'Appeared in branch '}
+                <span className={classes.Strong}>feature-branch</span>{' '}
+                <MutedTime date={new Date('2025-10-20T10:01:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+      status: {
+        label: 'Status',
+        events: [
+          {
+            type: 'closed',
+            category: 'status',
+            label: 'Closed as amendment',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: ShieldCheckIcon, variant: 'done'},
+            body: (
+              <>
+                <UserActor login="monalisa" src={MONALISA_AVATAR} href="#" />
+                {' closed as amendment '}
+                <MutedTime date={new Date('2025-10-25T10:00:00Z')} />
+                <EventSubRow icon={NoteIcon}>Added a policy exception covering this package.</EventSubRow>
+              </>
+            ),
+          },
+        ],
+      },
+      reviews: {
+        label: 'Reviews',
+        events: [
+          {
+            type: 'review_requested',
+            category: 'reviews',
+            label: 'Requested to close',
+            visibility: 'private',
+            actorType: 'user',
+            badge: {icon: CommentIcon},
+            body: (
+              <>
+                <UserActor login="monalisa" src={MONALISA_AVATAR} href="#" />
+                {' requested to close '}
+                <MutedTime date={new Date('2025-10-21T09:00:00Z')} />
+              </>
+            ),
+            actions: (
+              <Button size="small" variant="primary">
+                Review request
+              </Button>
+            ),
+          },
+          {
+            type: 'review_approved',
+            category: 'reviews',
+            label: 'Approved closure request',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: CheckIcon},
+            body: (
+              <>
+                <UserActor login="hubot" src={HUBOT_AVATAR} href="#" />
+                {' approved closure request '}
+                <MutedTime date={new Date('2025-10-22T10:00:00Z')} />
+              </>
+            ),
+          },
+          {
+            type: 'review_denied',
+            category: 'reviews',
+            label: 'Denied closure request',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: XIcon},
+            body: (
+              <>
+                <UserActor login="hubot" src={HUBOT_AVATAR} href="#" />
+                {' denied closure request '}
+                <MutedTime date={new Date('2025-10-22T11:00:00Z')} />
+              </>
+            ),
+          },
+        ],
+      },
+    },
+  },
+  issues: {
+    label: 'Issues',
+    ariaLabel: 'Issue timeline',
+    categories: {
+      status: {
+        label: 'Status',
+        events: [
+          {
+            type: 'closed',
+            category: 'status',
+            label: 'Closed as completed',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: CheckCircleIcon, variant: 'done'},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'closed this as '}
+                <Link href="#" inline>
+                  completed
+                </Link>{' '}
+                <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
+              </>
+            ),
+          },
+          {
+            type: 'reopened',
+            category: 'status',
+            label: 'Reopened',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: IssueReopenedIcon, variant: 'open'},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'reopened this '}
+                <MutedTime date={new Date('2022-07-27T09:30:00Z')} href="#" />
+              </>
+            ),
+          },
+        ],
+      },
+      references: {
+        label: 'References',
+        events: [
+          {
+            type: 'connected',
+            category: 'references',
+            label: 'Linked pull request',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: CrossReferenceIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'linked a pull request that will close this issue '}
+                <BoldLink href="#">Add retry logic to the uploader</BoldLink>
+                {' #42 '}
+                <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
+              </>
+            ),
+          },
+          {
+            type: 'cross_referenced',
+            category: 'references',
+            label: 'Mentioned in an issue',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: LinkExternalIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'mentioned this '}
+                <MutedTime date={new Date('2022-07-25T09:12:00Z')} href="#" />
+                <EventSubRow icon={IssueOpenedIcon}>
+                  <Link href="#" inline>
+                    Track flaky upload retries
+                  </Link>
+                  {' #128'}
+                </EventSubRow>
+              </>
+            ),
+          },
+        ],
+      },
+      moderation: {
+        label: 'Moderation',
+        events: [
+          {
+            type: 'user_blocked',
+            category: 'moderation',
+            label: 'User blocked',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: BlockedIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'blocked '}
+                <BoldLink href="#">six7</BoldLink> <MutedTime date={new Date('2022-07-26T11:46:07Z')} href="#" />
+              </>
+            ),
+          },
+          {
+            type: 'comment_pinned',
+            category: 'moderation',
+            label: 'Comment pinned',
+            visibility: 'public',
+            actorType: 'user',
+            badge: {icon: PinIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'pinned a '}
+                <Link href="#" inline>
+                  comment
+                </Link>{' '}
+                <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
+              </>
+            ),
+          },
+        ],
+      },
+    },
+  },
+}
+
+const PLAYGROUND_SURFACE_IDS = Object.keys(PLAYGROUND_SURFACES) as PlaygroundSurfaceId[]
+
+const playgroundCategoryIds = (surface: PlaygroundSurfaceId): PlaygroundCategoryId[] =>
+  Object.keys(PLAYGROUND_SURFACES[surface].categories) as PlaygroundCategoryId[]
+
+const playgroundEvents = (surface: PlaygroundSurfaceId, categories: PlaygroundCategoryId[]): PlaygroundEvent[] =>
+  categories.flatMap(category => PLAYGROUND_SURFACES[surface].categories[category]?.events ?? [])
+
+/**
+ * The **Timeline Playground** (see the canon note above for the illustrative-data caveat).
+ *
+ * An in-canvas control panel (real Primer controls, NOT Storybook args) drives three
+ * dependent pickers: a surface picker, a category multi-select, and an event-type
+ * multi-select. Storybook args cannot repopulate one control's options from another
+ * control's value, so the dependent surface -> category -> type chain is built as live
+ * component state. The filtering is structured as `visibleRows = events for the selected
+ * categories and types`, then mapped to `<Timeline.Item>` rows carrying the `data-*` event
+ * contract — the same shape a future `Timeline.Filter` would consume.
+ */
+export const TimelinePlayground = () => {
+  const [surface, setSurface] = React.useState<PlaygroundSurfaceId>('code-scanning')
+  const [selectedCategories, setSelectedCategories] = React.useState<PlaygroundCategoryId[]>(() =>
+    playgroundCategoryIds('code-scanning'),
+  )
+  const [selectedTypes, setSelectedTypes] = React.useState<string[]>(() =>
+    playgroundEvents('code-scanning', playgroundCategoryIds('code-scanning')).map(event => event.type),
+  )
+
+  const surfaceDef = PLAYGROUND_SURFACES[surface]
+  const availableCategories = playgroundCategoryIds(surface)
+  const activeCategories = selectedCategories.filter(category => availableCategories.includes(category))
+  const typeChoices = playgroundEvents(surface, activeCategories)
+  const visibleRows = typeChoices.filter(event => selectedTypes.includes(event.type))
+
+  const selectSurface = (next: PlaygroundSurfaceId) => {
+    const categories = playgroundCategoryIds(next)
+    setSurface(next)
+    setSelectedCategories(categories)
+    setSelectedTypes(playgroundEvents(next, categories).map(event => event.type))
+  }
+
+  const toggleCategory = (category: PlaygroundCategoryId) => {
+    const next = selectedCategories.includes(category)
+      ? selectedCategories.filter(item => item !== category)
+      : [...selectedCategories, category]
+    setSelectedCategories(next)
+    // Reset the type selection to everything the new category set offers so the dependent
+    // event-type picker always reflects the categories currently in scope.
+    setSelectedTypes(playgroundEvents(surface, next).map(event => event.type))
+  }
+
+  const toggleType = (type: string) => {
+    setSelectedTypes(previous =>
+      previous.includes(type) ? previous.filter(item => item !== type) : [...previous, type],
+    )
+  }
+
+  return (
+    <FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
+      <Stack gap="normal">
+        <div className={classes.PlaygroundPanel}>
+          <Stack gap="normal">
+            {/* (a) Surface picker — single-select that drives the categories and types on offer. */}
+            <Stack gap="condensed">
+              <Text className={classes.PanelHeading}>Surface</Text>
+              <SegmentedControl
+                aria-label="Timeline surface"
+                onChange={selectedIndex => selectSurface(PLAYGROUND_SURFACE_IDS[selectedIndex])}
+              >
+                {PLAYGROUND_SURFACE_IDS.map(id => (
+                  <SegmentedControl.Button key={id} selected={surface === id}>
+                    {PLAYGROUND_SURFACES[id].label}
+                  </SegmentedControl.Button>
+                ))}
+              </SegmentedControl>
+            </Stack>
+
+            {/* (b) Category filter — multi-select of the categories this surface offers. */}
+            <CheckboxGroup>
+              <CheckboxGroup.Label>Categories</CheckboxGroup.Label>
+              {availableCategories.map(category => (
+                <FormControl key={category}>
+                  <Checkbox
+                    value={category}
+                    checked={selectedCategories.includes(category)}
+                    onChange={() => toggleCategory(category)}
+                  />
+                  <FormControl.Label>{surfaceDef.categories[category]?.label}</FormControl.Label>
+                </FormControl>
+              ))}
+            </CheckboxGroup>
+
+            {/* (c) Event types — dependent on the selected categories. */}
+            {typeChoices.length > 0 ? (
+              <CheckboxGroup>
+                <CheckboxGroup.Label>Event types</CheckboxGroup.Label>
+                {typeChoices.map(event => (
+                  <FormControl key={event.type}>
+                    <Checkbox
+                      value={event.type}
+                      checked={selectedTypes.includes(event.type)}
+                      onChange={() => toggleType(event.type)}
+                    />
+                    <FormControl.Label>{event.label}</FormControl.Label>
+                  </FormControl>
+                ))}
+              </CheckboxGroup>
+            ) : null}
+          </Stack>
+        </div>
+
+        <Examples>
+          {visibleRows.length > 0 ? (
+            <Timeline aria-label={surfaceDef.ariaLabel}>
+              {visibleRows.map(event => (
+                <Timeline.Item
+                  key={`${surface}-${event.type}`}
+                  data-event-scope={surface}
+                  data-event-type={event.type}
+                  data-event-category={event.category}
+                  data-event-visibility={event.visibility}
+                  data-actor-type={event.actorType}
+                >
+                  <Timeline.Badge variant={event.badge.variant}>
+                    {/* Decorative: the summary text in Timeline.Body is the accessible description. */}
+                    <Octicon icon={event.badge.icon} />
+                  </Timeline.Badge>
+                  <Timeline.Body>{event.body}</Timeline.Body>
+                  {event.actions ? <Timeline.Actions>{event.actions}</Timeline.Actions> : null}
+                </Timeline.Item>
+              ))}
+            </Timeline>
+          ) : (
+            <Text className={classes.PlaygroundEmpty}>
+              No event types selected. Choose a category and event type above.
+            </Text>
+          )}
+        </Examples>
+      </Stack>
+    </FeatureFlags>
+  )
 }
