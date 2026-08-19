@@ -30,6 +30,7 @@ const unsupportedPatterns = [
   'src/hooks/useResizeObserver.ts',
   'src/hooks/useSafeTimeout.ts',
   'src/TooltipV2/Tooltip.tsx',
+  'src/utils/react-compiler-runtime.ts',
 ]
 
 const unsupported = new Set(

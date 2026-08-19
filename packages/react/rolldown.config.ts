@@ -40,16 +40,36 @@ function getEntrypointsFromInput(input: ReadonlySet<string>) {
   )
 }
 
+// The React Compiler emits `import {c} from 'react-compiler-runtime'`. Alias it
+// to a local ESM shim that is bundled into the output, so the memo helper is
+// self-contained instead of an external CommonJS dependency that can fail to
+// resolve a callable `c` in a consumer's bundle.
+const reactCompilerRuntimeShim = path.resolve('src/utils/react-compiler-runtime.ts')
+
+function reactCompilerRuntimeAlias() {
+  return {
+    name: 'react-compiler-runtime-alias',
+    resolveId(source: string) {
+      if (source === 'react-compiler-runtime') {
+        return {id: reactCompilerRuntimeShim, external: false}
+      }
+      return null
+    },
+  }
+}
+
 const dependencies = [
   ...Object.keys(packageMetadata.peerDependencies ?? {}),
   ...Object.keys(packageMetadata.dependencies ?? {}),
   ...Object.keys(packageMetadata.devDependencies ?? {}),
 ]
-  // Bundle the React Compiler runtime into dist instead of externalizing it, so
-  // consumers never depend on their own environment resolving a callable `c`.
+  // `react-compiler-runtime` is aliased to a local shim and bundled, so it must
+  // not be external.
   .filter(name => name !== 'react-compiler-runtime')
+  // Anchor to a package-name boundary so a name isn't treated as a prefix of
+  // another (e.g. `react` must not match `react-compiler-runtime`).
   .map(name => {
-    return new RegExp(`^${name}(/.*)?`)
+    return new RegExp(`^${name}($|/)`)
   })
 
 const external = [
@@ -70,6 +90,7 @@ export default defineConfig([
   {
     input,
     plugins: [
+      reactCompilerRuntimeAlias(),
       babel({
         include: /\.(?:js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
