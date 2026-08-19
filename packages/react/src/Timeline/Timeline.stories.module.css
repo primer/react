@@ -52,22 +52,9 @@
 }
 
 /*
- * Timeline Playground: story-local styles for the in-canvas control panel and the
- * representative event bodies rendered by the `TimelinePlayground` story.
+ * Timeline Playground: story-local styles for the representative event bodies and the empty
+ * state rendered by the `TimelinePlayground` story (its controls are Storybook argTypes).
  */
-
-.PlaygroundPanel {
-  max-width: 1012px;
-  margin-bottom: var(--base-size-24);
-  padding: var(--base-size-16);
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-radius: var(--borderRadius-medium);
-}
-
-.PanelHeading {
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
-}
 
 .PlaygroundEmpty {
   max-width: 1012px;

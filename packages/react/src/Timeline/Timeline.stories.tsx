@@ -56,13 +56,8 @@ import {
   SyncIcon,
   XIcon,
 } from '@primer/octicons-react'
-import Checkbox from '../Checkbox'
-import CheckboxGroup from '../CheckboxGroup'
 import {FeatureFlags} from '../FeatureFlags'
-import FormControl from '../FormControl'
 import Octicon from '../Octicon'
-import {SegmentedControl} from '../SegmentedControl'
-import {Stack} from '../Stack'
 import Text from '../Text'
 import {BoldLink, EventSubRow, Examples, MONALISA_AVATAR, MutedTime, UserActor} from './internal/timelineStoryHelpers'
 import classes from './Timeline.stories.module.css'
@@ -552,9 +547,10 @@ EventPlayground.argTypes = {
  * The **Timeline Playground** demonstrates how filtering `data-*` attributes
  * (`data-event-scope`, `data-event-type`, `data-event-category`, `data-event-visibility`,
  * `data-actor-type`) are embedded on each `Timeline.Item` across GitHub surfaces. It mirrors
- * the Figma prototype: an in-canvas control panel picks a surface, filters by the categories
- * that surface offers, and then selects which event types render. Changing the surface changes
- * the categories on offer, which changes the event types available.
+ * the Figma prototype: a `surface` control picks a surface, a categories control filters by the
+ * categories that surface offers, and an event-types control selects which event types render.
+ * Changing the surface reveals that surface's category and event-type controls and hides the
+ * others.
  *
  * The `PLAYGROUND_SURFACES` map below is a small, hardcoded, story-local sample of
  * github-flavored events (a handful per surface, NOT the full ~160-row catalog). Its
@@ -1196,136 +1192,168 @@ const playgroundEvents = (surface: PlaygroundSurfaceId, categories: PlaygroundCa
   categories.flatMap(category => PLAYGROUND_SURFACES[surface].categories[category]?.events ?? [])
 
 /**
+ * Args for the {@link TimelinePlayground} story. A single `surface` selector, plus a categories
+ * multi-select and an event-types multi-select for each of the five surfaces. Only the selected
+ * surface's two controls are shown (see the surface-gated `argTypes` below); the render reads the
+ * active surface's two arrays and filters the representative rows by them.
+ */
+type TimelinePlaygroundArgs = {
+  surface: PlaygroundSurfaceId
+  codeScanningCategories: PlaygroundCategoryId[]
+  codeScanningTypes: string[]
+  secretScanningCategories: PlaygroundCategoryId[]
+  secretScanningTypes: string[]
+  dependabotCategories: PlaygroundCategoryId[]
+  dependabotTypes: string[]
+  licenseComplianceCategories: PlaygroundCategoryId[]
+  licenseComplianceTypes: string[]
+  issueCategories: PlaygroundCategoryId[]
+  issueTypes: string[]
+}
+
+// Storybook args share a single flat namespace, so each surface needs distinctly named
+// category/type args. This maps a surface to its two arg names for both the render and defaults.
+const PLAYGROUND_ARG_KEYS: Record<
+  PlaygroundSurfaceId,
+  {categories: keyof TimelinePlaygroundArgs; types: keyof TimelinePlaygroundArgs}
+> = {
+  'code-scanning': {categories: 'codeScanningCategories', types: 'codeScanningTypes'},
+  'secret-scanning': {categories: 'secretScanningCategories', types: 'secretScanningTypes'},
+  dependabot: {categories: 'dependabotCategories', types: 'dependabotTypes'},
+  'license-compliance': {categories: 'licenseComplianceCategories', types: 'licenseComplianceTypes'},
+  issues: {categories: 'issueCategories', types: 'issueTypes'},
+}
+
+const playgroundTypeIds = (surface: PlaygroundSurfaceId): string[] =>
+  playgroundEvents(surface, playgroundCategoryIds(surface)).map(event => event.type)
+
+// Surface-gated `check` control for a surface's categories. Gated with `if: {arg: 'surface',
+// eq: id}` so it only shows when that surface is selected.
+const playgroundCategoryControl = (surface: PlaygroundSurfaceId) => {
+  const categoryIds = playgroundCategoryIds(surface)
+  return {
+    control: {
+      type: 'check' as const,
+      labels: Object.fromEntries(
+        categoryIds.map(category => [category, PLAYGROUND_SURFACES[surface].categories[category]!.label]),
+      ),
+    },
+    options: categoryIds,
+    if: {arg: 'surface', eq: surface},
+    table: {category: PLAYGROUND_SURFACES[surface].label},
+  }
+}
+
+// Surface-gated `check` control for a surface's representative event types.
+const playgroundTypeControl = (surface: PlaygroundSurfaceId) => {
+  const events = playgroundEvents(surface, playgroundCategoryIds(surface))
+  return {
+    control: {
+      type: 'check' as const,
+      labels: Object.fromEntries(events.map(event => [event.type, event.label])),
+    },
+    options: events.map(event => event.type),
+    if: {arg: 'surface', eq: surface},
+    table: {category: PLAYGROUND_SURFACES[surface].label},
+  }
+}
+
+/**
  * The **Timeline Playground** (see the canon note above for the illustrative-data caveat).
  *
- * An in-canvas control panel (real Primer controls, NOT Storybook args) drives three
- * dependent pickers: a surface picker, a category multi-select, and an event-type
- * multi-select. Storybook args cannot repopulate one control's options from another
- * control's value, so the dependent surface -> category -> type chain is built as live
- * component state. The filtering is structured as `visibleRows = events for the selected
- * categories and types`, then mapped to `<Timeline.Item>` rows carrying the `data-*` event
- * contract — the same shape a future `Timeline.Filter` would consume.
+ * The picker is built from real Storybook controls, not in-canvas form elements. Storybook cannot
+ * repopulate one control's options from another control's value, so instead of a single dependent
+ * surface -> category -> type chain, every surface's category and event-type controls are declared
+ * up front and each is gated with `if: {arg: 'surface', eq: '<surface>'}`. Only the selected
+ * surface's two controls are shown; the other four surfaces' pairs are hidden, faking the dynamic
+ * swap. The render then reads the active surface's selected categories and types and filters the
+ * representative rows, mapping each to a `<Timeline.Item>` carrying the `data-*` event contract,
+ * the same shape a future `Timeline.Filter` would consume.
  */
-export const TimelinePlayground = () => {
-  const [surface, setSurface] = React.useState<PlaygroundSurfaceId>('code-scanning')
-  const [selectedCategories, setSelectedCategories] = React.useState<PlaygroundCategoryId[]>(() =>
-    playgroundCategoryIds('code-scanning'),
-  )
-  const [selectedTypes, setSelectedTypes] = React.useState<string[]>(() =>
-    playgroundEvents('code-scanning', playgroundCategoryIds('code-scanning')).map(event => event.type),
-  )
-
+export const TimelinePlayground: StoryFn<TimelinePlaygroundArgs> = args => {
+  // Defensive fallback in case Storybook restores a stale/empty `surface` from the URL.
+  const surface = args.surface in PLAYGROUND_SURFACES ? args.surface : 'code-scanning'
   const surfaceDef = PLAYGROUND_SURFACES[surface]
-  const availableCategories = playgroundCategoryIds(surface)
-  const activeCategories = selectedCategories.filter(category => availableCategories.includes(category))
-  const typeChoices = playgroundEvents(surface, activeCategories)
-  const visibleRows = typeChoices.filter(event => selectedTypes.includes(event.type))
+  const argKeys = PLAYGROUND_ARG_KEYS[surface]
+  const selectedCategories = (args[argKeys.categories] as PlaygroundCategoryId[] | undefined) ?? []
+  const selectedTypes = (args[argKeys.types] as string[] | undefined) ?? []
 
-  const selectSurface = (next: PlaygroundSurfaceId) => {
-    const categories = playgroundCategoryIds(next)
-    setSurface(next)
-    setSelectedCategories(categories)
-    setSelectedTypes(playgroundEvents(next, categories).map(event => event.type))
-  }
-
-  const toggleCategory = (category: PlaygroundCategoryId) => {
-    const next = selectedCategories.includes(category)
-      ? selectedCategories.filter(item => item !== category)
-      : [...selectedCategories, category]
-    setSelectedCategories(next)
-    // Reset the type selection to everything the new category set offers so the dependent
-    // event-type picker always reflects the categories currently in scope.
-    setSelectedTypes(playgroundEvents(surface, next).map(event => event.type))
-  }
-
-  const toggleType = (type: string) => {
-    setSelectedTypes(previous =>
-      previous.includes(type) ? previous.filter(item => item !== type) : [...previous, type],
-    )
-  }
+  // Category -> type filtering lives here because `if:` gates a control on one arg's scalar
+  // value, not on array membership. Keep rows whose category and type are both selected for the
+  // active surface, then map to Timeline.Item rows (the future Timeline.Filter shape).
+  const visibleRows = playgroundEvents(surface, playgroundCategoryIds(surface)).filter(
+    event => selectedCategories.includes(event.category) && selectedTypes.includes(event.type),
+  )
 
   return (
     <FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
-      <Stack gap="normal">
-        <div className={classes.PlaygroundPanel}>
-          <Stack gap="normal">
-            {/* (a) Surface picker — single-select that drives the categories and types on offer. */}
-            <Stack gap="condensed">
-              <Text className={classes.PanelHeading}>Surface</Text>
-              <SegmentedControl
-                aria-label="Timeline surface"
-                onChange={selectedIndex => selectSurface(PLAYGROUND_SURFACE_IDS[selectedIndex])}
+      <Examples>
+        {visibleRows.length > 0 ? (
+          <Timeline aria-label={surfaceDef.ariaLabel}>
+            {visibleRows.map(event => (
+              <Timeline.Item
+                key={`${surface}-${event.type}`}
+                data-event-scope={surface}
+                data-event-type={event.type}
+                data-event-category={event.category}
+                data-event-visibility={event.visibility}
+                data-actor-type={event.actorType}
               >
-                {PLAYGROUND_SURFACE_IDS.map(id => (
-                  <SegmentedControl.Button key={id} selected={surface === id}>
-                    {PLAYGROUND_SURFACES[id].label}
-                  </SegmentedControl.Button>
-                ))}
-              </SegmentedControl>
-            </Stack>
-
-            {/* (b) Category filter — multi-select of the categories this surface offers. */}
-            <CheckboxGroup>
-              <CheckboxGroup.Label>Categories</CheckboxGroup.Label>
-              {availableCategories.map(category => (
-                <FormControl key={category}>
-                  <Checkbox
-                    value={category}
-                    checked={selectedCategories.includes(category)}
-                    onChange={() => toggleCategory(category)}
-                  />
-                  <FormControl.Label>{surfaceDef.categories[category]?.label}</FormControl.Label>
-                </FormControl>
-              ))}
-            </CheckboxGroup>
-
-            {/* (c) Event types — dependent on the selected categories. */}
-            {typeChoices.length > 0 ? (
-              <CheckboxGroup>
-                <CheckboxGroup.Label>Event types</CheckboxGroup.Label>
-                {typeChoices.map(event => (
-                  <FormControl key={event.type}>
-                    <Checkbox
-                      value={event.type}
-                      checked={selectedTypes.includes(event.type)}
-                      onChange={() => toggleType(event.type)}
-                    />
-                    <FormControl.Label>{event.label}</FormControl.Label>
-                  </FormControl>
-                ))}
-              </CheckboxGroup>
-            ) : null}
-          </Stack>
-        </div>
-
-        <Examples>
-          {visibleRows.length > 0 ? (
-            <Timeline aria-label={surfaceDef.ariaLabel}>
-              {visibleRows.map(event => (
-                <Timeline.Item
-                  key={`${surface}-${event.type}`}
-                  data-event-scope={surface}
-                  data-event-type={event.type}
-                  data-event-category={event.category}
-                  data-event-visibility={event.visibility}
-                  data-actor-type={event.actorType}
-                >
-                  <Timeline.Badge variant={event.badge.variant}>
-                    {/* Decorative: the summary text in Timeline.Body is the accessible description. */}
-                    <Octicon icon={event.badge.icon} />
-                  </Timeline.Badge>
-                  <Timeline.Body>{event.body}</Timeline.Body>
-                  {event.actions ? <Timeline.Actions>{event.actions}</Timeline.Actions> : null}
-                </Timeline.Item>
-              ))}
-            </Timeline>
-          ) : (
-            <Text className={classes.PlaygroundEmpty}>
-              No event types selected. Choose a category and event type above.
-            </Text>
-          )}
-        </Examples>
-      </Stack>
+                <Timeline.Badge variant={event.badge.variant}>
+                  {/* Decorative: the summary text in Timeline.Body is the accessible description. */}
+                  <Octicon icon={event.badge.icon} />
+                </Timeline.Badge>
+                <Timeline.Body>{event.body}</Timeline.Body>
+                {event.actions ? <Timeline.Actions>{event.actions}</Timeline.Actions> : null}
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        ) : (
+          <Text className={classes.PlaygroundEmpty}>
+            No rows match. In the Controls panel, pick a surface then check its categories and event types.
+          </Text>
+        )}
+      </Examples>
     </FeatureFlags>
   )
+}
+
+TimelinePlayground.parameters = {
+  controls: {expanded: false},
+}
+
+// Default to the first surface with all of its categories and event types checked, so the story
+// renders a populated timeline on load.
+TimelinePlayground.args = {
+  surface: 'code-scanning',
+  codeScanningCategories: playgroundCategoryIds('code-scanning'),
+  codeScanningTypes: playgroundTypeIds('code-scanning'),
+  secretScanningCategories: playgroundCategoryIds('secret-scanning'),
+  secretScanningTypes: playgroundTypeIds('secret-scanning'),
+  dependabotCategories: playgroundCategoryIds('dependabot'),
+  dependabotTypes: playgroundTypeIds('dependabot'),
+  licenseComplianceCategories: playgroundCategoryIds('license-compliance'),
+  licenseComplianceTypes: playgroundTypeIds('license-compliance'),
+  issueCategories: playgroundCategoryIds('issues'),
+  issueTypes: playgroundTypeIds('issues'),
+}
+
+TimelinePlayground.argTypes = {
+  surface: {
+    control: {type: 'inline-radio'},
+    options: PLAYGROUND_SURFACE_IDS,
+    description:
+      "Which surface's events to show. Switching it reveals that surface's category and event-type controls and hides the others.",
+    table: {category: 'Surface'},
+  },
+  codeScanningCategories: playgroundCategoryControl('code-scanning'),
+  codeScanningTypes: playgroundTypeControl('code-scanning'),
+  secretScanningCategories: playgroundCategoryControl('secret-scanning'),
+  secretScanningTypes: playgroundTypeControl('secret-scanning'),
+  dependabotCategories: playgroundCategoryControl('dependabot'),
+  dependabotTypes: playgroundTypeControl('dependabot'),
+  licenseComplianceCategories: playgroundCategoryControl('license-compliance'),
+  licenseComplianceTypes: playgroundTypeControl('license-compliance'),
+  issueCategories: playgroundCategoryControl('issues'),
+  issueTypes: playgroundTypeControl('issues'),
 }
