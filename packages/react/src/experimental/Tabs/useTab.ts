@@ -13,6 +13,9 @@ export function useTab<T extends HTMLElement>(props: Pick<TabProps, 'disabled' |
   const id = `${tabs.groupId}-tab-${value}`
   const panelId = `${tabs.groupId}-panel-${value}`
 
+  const isTabStop =
+    tabs.activationMode === 'manual' && tabs.focusedValue !== undefined ? tabs.focusedValue === value : selected
+
   function onKeyDown(event: React.KeyboardEvent<T>) {
     if (event.key === ' ' || event.key === 'Enter') {
       tabs.selectTab(value)
@@ -28,6 +31,12 @@ export function useTab<T extends HTMLElement>(props: Pick<TabProps, 'disabled' |
   }
 
   function onFocus() {
+    if (tabs.activationMode === 'manual') {
+      if (!disabled) {
+        tabs.focusTab(value)
+      }
+      return
+    }
     if (!selected && !disabled) {
       tabs.selectTab(value)
     }
@@ -43,7 +52,7 @@ export function useTab<T extends HTMLElement>(props: Pick<TabProps, 'disabled' |
       onFocus,
       id,
       role: 'tab',
-      tabIndex: selected ? 0 : -1,
+      tabIndex: isTabStop ? 0 : -1,
     },
   }
 }
