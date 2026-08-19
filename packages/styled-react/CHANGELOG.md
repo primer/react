@@ -1,12 +1,5 @@
 # @primer/styled-react
 
-## 1.1.1
-
-### Patch Changes
-
-- [#8212](https://github.com/primer/react/pull/8212) [`9ac9343`](https://github.com/primer/react/commit/9ac9343a70fd0f70413a42cd27baf562a74dd4fc) Thanks [@mattcosta7](https://github.com/mattcosta7)! - ThemeProvider: Vendor the legacy `colorSchemes` object so styled theming keeps
-  working after `@primer/react` removed it from its default theme.
-
 ## 1.1.0
 
 ### Minor Changes
