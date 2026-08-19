@@ -1,5 +1,20 @@
 # @primer/react
 
+## 38.36.0
+
+### Minor Changes
+
+- [#8212](https://github.com/primer/react/pull/8212) [`9ac9343`](https://github.com/primer/react/commit/9ac9343a70fd0f70413a42cd27baf562a74dd4fc) Thanks [@mattcosta7](https://github.com/mattcosta7)! - ThemeProvider: Add a CSS-variable-based implementation to `@primer/react/next`
+  and deprecate the legacy JavaScript theme implementation.
+
+- [#8303](https://github.com/primer/react/pull/8303) [`a88cc69`](https://github.com/primer/react/commit/a88cc693539e2b9aa836623c737e860e7203e73a) Thanks [@TylerJDev](https://github.com/TylerJDev)! - NavList: Add a `tooltipText` prop to items
+
+### Patch Changes
+
+- [#8276](https://github.com/primer/react/pull/8276) [`5069f8a`](https://github.com/primer/react/commit/5069f8a7cb95544ce14122e97d67c8a1279f8a08) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Portal: Render nothing while server rendering and during hydration instead of accessing the DOM during render, fixing server rendering support. Client-only renders are unchanged and still mount portaled content in the same commit.
+
+- [#8260](https://github.com/primer/react/pull/8260) [`24d0831`](https://github.com/primer/react/commit/24d0831d34b13e3b4bac8afcfa2ccd5795cd9a9d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - UnderlineNav: Keep item icons visible by default at the medium breakpoint and above
+
 ## 38.35.1
 
 ### Patch Changes
