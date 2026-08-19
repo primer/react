@@ -7,6 +7,7 @@ import {TimelineBadgeVariants} from './constants'
 import Avatar from '../Avatar'
 import {Button} from '../Button'
 import Link from '../Link'
+import Label from '../Label'
 import RelativeTime from '../RelativeTime'
 import {
   AlertIcon,
@@ -566,7 +567,7 @@ EventPlayground.argTypes = {
  */
 
 type PlaygroundSurfaceId = 'code-scanning' | 'secret-scanning' | 'dependabot' | 'license-compliance' | 'issues'
-type PlaygroundCategoryId = 'findings' | 'status' | 'reviews' | 'references' | 'moderation'
+type PlaygroundCategoryId = 'findings' | 'status' | 'reviews' | 'references' | 'moderation' | 'metadata'
 type PlaygroundActorType = 'user' | 'bot' | 'system'
 
 type PlaygroundEvent = {
@@ -576,8 +577,12 @@ type PlaygroundEvent = {
   category: PlaygroundCategoryId
   /** Human-readable label shown in the event-type picker */
   label: string
-  /** `data-event-visibility` value */
-  visibility: 'public' | 'private'
+  /**
+   * `data-event-visibility` value. Matches the authoritative `EventVisibility` value space
+   * (`@github-ui/timeline-taxonomy`): `primary` rows render in the main timeline; `auditOnly`
+   * rows are metadata-only.
+   */
+  visibility: 'primary' | 'auditOnly'
   /** `data-actor-type` value; omit for actor-less rows so no `data-actor-type` attribute renders */
   actorType?: PlaygroundActorType
   badge: {icon: Icon; variant?: TimelineBadgeVariant}
@@ -615,7 +620,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'detected',
             category: 'findings',
             label: 'First detected in commit',
-            visibility: 'public',
+            visibility: 'primary',
             badge: {icon: ShieldIcon},
             body: (
               <>
@@ -628,7 +633,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'fixed',
             category: 'findings',
             label: 'Fixed in branch',
-            visibility: 'public',
+            visibility: 'primary',
             badge: {icon: ShieldCheckIcon, variant: 'done'},
             body: (
               <>
@@ -646,7 +651,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'closed',
             category: 'status',
             label: 'Closed as false positive',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: ShieldXIcon, variant: 'danger'},
             body: (
@@ -662,7 +667,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'reopened',
             category: 'status',
             label: 'Reopened',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: DotFillIcon, variant: 'success'},
             body: (
@@ -682,7 +687,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'dismissal_requested',
             category: 'reviews',
             label: 'Requested to dismiss',
-            visibility: 'private',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CommentIcon},
             body: (
@@ -703,7 +708,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'dismissal_reviewed',
             category: 'reviews',
             label: 'Approved dismissal',
-            visibility: 'private',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CheckIcon},
             body: (
@@ -729,7 +734,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'detected',
             category: 'findings',
             label: 'Created',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'system',
             badge: {icon: ShieldIcon, variant: 'success'},
             body: (
@@ -744,7 +749,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'validity_active',
             category: 'findings',
             label: 'Validity: active',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'system',
             badge: {icon: AlertIcon, variant: 'danger'},
             body: (
@@ -764,7 +769,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'closed',
             category: 'status',
             label: 'Closed as revoked',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: ShieldCheckIcon, variant: 'done'},
             body: (
@@ -782,7 +787,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'reopened',
             category: 'status',
             label: 'Reopened',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: SyncIcon, variant: 'success'},
             body: (
@@ -802,7 +807,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'closure_requested',
             category: 'reviews',
             label: 'Requested to dismiss',
-            visibility: 'private',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CommentIcon},
             body: (
@@ -822,7 +827,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'bypass_approved',
             category: 'reviews',
             label: 'Bypass approved',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CheckCircleIcon},
             body: (
@@ -848,7 +853,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'opened',
             category: 'findings',
             label: 'Opened',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'bot',
             badge: {icon: ShieldIcon, variant: 'success'},
             body: (
@@ -863,7 +868,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'fixed',
             category: 'findings',
             label: 'Fixed',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'bot',
             badge: {icon: ShieldCheckIcon, variant: 'done'},
             body: (
@@ -883,7 +888,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'reopened',
             category: 'status',
             label: 'Reopened',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: SyncIcon, variant: 'success'},
             body: (
@@ -898,7 +903,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'dismissed',
             category: 'status',
             label: 'Dismissed',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: ShieldSlashIcon},
             body: (
@@ -920,7 +925,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'dismissal_requested',
             category: 'reviews',
             label: 'Dismissal requested',
-            visibility: 'private',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CommentIcon},
             body: (
@@ -951,7 +956,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'opened',
             category: 'findings',
             label: 'Opened',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'bot',
             badge: {icon: ShieldIcon, variant: 'success'},
             body: (
@@ -966,7 +971,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'appeared_in_branch',
             category: 'findings',
             label: 'Appeared in branch',
-            visibility: 'public',
+            visibility: 'primary',
             badge: {icon: GitBranchIcon},
             body: (
               <>
@@ -985,7 +990,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'closed',
             category: 'status',
             label: 'Closed as amendment',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: ShieldCheckIcon, variant: 'done'},
             body: (
@@ -1006,7 +1011,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'review_requested',
             category: 'reviews',
             label: 'Requested to close',
-            visibility: 'private',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CommentIcon},
             body: (
@@ -1026,7 +1031,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'review_approved',
             category: 'reviews',
             label: 'Approved closure request',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CheckIcon},
             body: (
@@ -1041,7 +1046,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'review_denied',
             category: 'reviews',
             label: 'Denied closure request',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: XIcon},
             body: (
@@ -1067,7 +1072,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'closed',
             category: 'status',
             label: 'Closed as completed',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CheckCircleIcon, variant: 'done'},
             body: (
@@ -1085,7 +1090,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'reopened',
             category: 'status',
             label: 'Reopened',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: IssueReopenedIcon, variant: 'open'},
             body: (
@@ -1105,7 +1110,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'connected',
             category: 'references',
             label: 'Linked pull request',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: CrossReferenceIcon},
             body: (
@@ -1122,7 +1127,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'cross_referenced',
             category: 'references',
             label: 'Mentioned in an issue',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: LinkExternalIcon},
             body: (
@@ -1148,7 +1153,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'user_blocked',
             category: 'moderation',
             label: 'User blocked',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: BlockedIcon},
             body: (
@@ -1163,7 +1168,7 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
             type: 'comment_pinned',
             category: 'moderation',
             label: 'Comment pinned',
-            visibility: 'public',
+            visibility: 'primary',
             actorType: 'user',
             badge: {icon: PinIcon},
             body: (
@@ -1174,6 +1179,28 @@ const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface> = {
                   comment
                 </Link>{' '}
                 <MutedTime date={new Date('2022-07-24T16:40:00Z')} href="#" />
+              </>
+            ),
+          },
+        ],
+      },
+      metadata: {
+        label: 'Metadata',
+        events: [
+          {
+            type: 'labeled',
+            category: 'metadata',
+            label: 'Labeled (audit only)',
+            visibility: 'auditOnly',
+            actorType: 'user',
+            badge: {icon: TagIcon},
+            body: (
+              <>
+                <UserActor href="#" muted />
+                {'added the '}
+                <Label>bug</Label>
+                {' label '}
+                <MutedTime date={new Date('2022-07-23T08:15:00Z')} href="#" />
               </>
             ),
           },
@@ -1323,20 +1350,19 @@ TimelinePlayground.parameters = {
 }
 
 // Default to the first surface with all of its categories and event types checked, so the story
-// renders a populated timeline on load.
-TimelinePlayground.args = {
-  surface: 'code-scanning',
-  codeScanningCategories: playgroundCategoryIds('code-scanning'),
-  codeScanningTypes: playgroundTypeIds('code-scanning'),
-  secretScanningCategories: playgroundCategoryIds('secret-scanning'),
-  secretScanningTypes: playgroundTypeIds('secret-scanning'),
-  dependabotCategories: playgroundCategoryIds('dependabot'),
-  dependabotTypes: playgroundTypeIds('dependabot'),
-  licenseComplianceCategories: playgroundCategoryIds('license-compliance'),
-  licenseComplianceTypes: playgroundTypeIds('license-compliance'),
-  issueCategories: playgroundCategoryIds('issues'),
-  issueTypes: playgroundTypeIds('issues'),
+// renders a populated timeline on load. Generated from the surface ids so the per-surface
+// defaults can't drift from PLAYGROUND_SURFACES.
+const buildPlaygroundDefaults = (): TimelinePlaygroundArgs => {
+  const perSurface: Record<string, PlaygroundCategoryId[] | string[]> = {}
+  for (const id of PLAYGROUND_SURFACE_IDS) {
+    const argKeys = PLAYGROUND_ARG_KEYS[id]
+    perSurface[argKeys.categories] = playgroundCategoryIds(id)
+    perSurface[argKeys.types] = playgroundTypeIds(id)
+  }
+  return {surface: 'code-scanning', ...perSurface} as TimelinePlaygroundArgs
 }
+
+TimelinePlayground.args = buildPlaygroundDefaults()
 
 TimelinePlayground.argTypes = {
   surface: {
