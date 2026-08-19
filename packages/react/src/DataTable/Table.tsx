@@ -12,6 +12,7 @@ import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
+import {mergeProps} from '../utils/mergeProps'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -52,12 +53,11 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
       className={clsx('TableOverflowWrapper', classes.TableOverflowWrapper)}
     >
       <table
-        {...rest}
+        ref={ref}
+        {...mergeProps({className: clsx(className, 'Table', classes.Table)}, rest)}
         aria-labelledby={labelledby}
         data-cell-padding={cellPadding}
-        className={clsx(className, 'Table', classes.Table)}
         role="table"
-        ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
         data-component="Table"
       />
@@ -108,12 +108,13 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
   align?: CellAlignment
 }
 
-function TableHeader({align, children, ...rest}: TableHeaderProps) {
+function TableHeader({align, children, className, ...rest}: TableHeaderProps) {
   return (
     <th
-      data-component="Table.Header"
-      {...rest}
-      className={clsx('TableHeader', classes.TableHeader)}
+      {...mergeProps(
+        {'data-component': 'Table.Header', className: clsx('TableHeader', classes.TableHeader, className)},
+        rest,
+      )}
       role="columnheader"
       scope="col"
       data-cell-align={align}
@@ -140,7 +141,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
 
   return (
-    <TableHeader {...rest} aria-sort={ariaSort} align={align} data-component="Table.SortHeader">
+    <TableHeader {...mergeProps({}, rest)} aria-sort={ariaSort} align={align} data-component="Table.SortHeader">
       <Button
         type="button"
         className={clsx('TableSortButton', classes.TableSortButton)}
@@ -184,9 +185,13 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
 
 export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
-function TableRow({children, ...rest}: TableRowProps) {
+function TableRow({children, className, ...rest}: TableRowProps) {
   return (
-    <tr {...rest} className={clsx('TableRow', classes.TableRow)} role="row" data-component="Table.Row">
+    <tr
+      {...mergeProps({className: clsx('TableRow', classes.TableRow, className)}, rest)}
+      role="row"
+      data-component="Table.Row"
+    >
       {children}
     </tr>
   )
@@ -215,8 +220,7 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
 
   return (
     <BaseComponent
-      {...rest}
-      className={clsx('TableCell', className, classes.TableCell)}
+      {...mergeProps({className: clsx('TableCell', className, classes.TableCell)}, rest)}
       scope={scope}
       role={role}
       data-cell-align={align}
@@ -251,7 +255,10 @@ function TableContainer<As extends React.ElementType = 'div'>({
 }: TableContainerProps<As>) {
   const Component = as || 'div'
   return (
-    <Component {...rest} className={clsx(className, classes.TableContainer)} data-component="Table.Container">
+    <Component
+      {...mergeProps({className: clsx(className, classes.TableContainer)}, rest)}
+      data-component="Table.Container"
+    >
       {children}
     </Component>
   )
@@ -354,7 +361,7 @@ export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWit
 function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
   const {gridTemplateColumns} = useTableLayout(columns)
   return (
-    <Table {...rest} cellPadding={cellPadding} gridTemplateColumns={gridTemplateColumns}>
+    <Table {...mergeProps({cellPadding, gridTemplateColumns}, rest)}>
       <TableHead>
         <TableRow>
           {Array.isArray(columns)

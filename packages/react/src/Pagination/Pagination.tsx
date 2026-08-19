@@ -5,6 +5,7 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {clsx} from 'clsx'
 import classes from './Pagination.module.css'
+import {mergeProps} from '../utils/mergeProps'
 
 const getViewportRangesToHidePages = (showPages: PaginationProps['showPages']) => {
   if (showPages && typeof showPages !== 'boolean') {
@@ -144,10 +145,14 @@ function Pagination({
 
   return (
     <nav
-      className={clsx(classes.PaginationContainer, className)}
-      aria-label="Pagination"
-      data-component="Pagination"
-      {...rest}
+      {...mergeProps(
+        {
+          className: clsx(classes.PaginationContainer, className),
+          'aria-label': 'Pagination',
+          'data-component': 'Pagination',
+        },
+        rest,
+      )}
     >
       <div
         className={classes.TablePaginationSteps}

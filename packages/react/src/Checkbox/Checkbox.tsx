@@ -15,6 +15,7 @@ import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import classes from './Checkbox.module.css'
 import sharedClasses from './shared.module.css'
 import type {WithSlotMarker} from '../utils/types'
+import {mergeProps} from '../utils/mergeProps'
 
 export type CheckboxProps = {
   /**
@@ -87,7 +88,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const inputProps = {
       type: 'checkbox',
       disabled,
-      ref: appliedRef,
       checked: indeterminate ? false : checked,
       defaultChecked,
       required,
@@ -96,7 +96,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       onChange: handleOnChange,
       value,
       name: value,
-      ...rest,
     }
 
     useLayoutEffect(() => {
@@ -118,9 +117,10 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     })
     return (
-      // @ts-expect-error inputProp needs a non nullable ref
       <input
-        {...inputProps}
+        // @ts-expect-error input requires a non-nullable ref
+        ref={appliedRef}
+        {...mergeProps(inputProps, rest)}
         data-component={dataComponent ?? 'Checkbox'}
         className={clsx(className, sharedClasses.Input, classes.Checkbox)}
       />

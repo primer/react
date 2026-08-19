@@ -3,6 +3,7 @@ import React from 'react'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Timeline.module.css'
 import type {TimelineBadgeVariants} from './constants'
+import {mergeProps} from '../utils/mergeProps'
 
 type StyledTimelineProps = {clipSidebar?: boolean | 'start' | 'end' | 'both'; className?: string}
 
@@ -25,10 +26,9 @@ const Timeline = React.forwardRef<HTMLDivElement | HTMLOListElement, TimelinePro
         // them when list-style: none is applied (WebKit intentional behaviour).
         // eslint-disable-next-line jsx-a11y/no-redundant-roles
         <ol
-          {...props}
-          role="list"
-          className={clsx(className, classes.Timeline)}
           ref={forwardRef as React.ForwardedRef<HTMLOListElement>}
+          {...mergeProps({className: clsx(className, classes.Timeline)}, props)}
+          role="list"
           data-clip-sidebar={resolvedClipSidebar}
         />
       )
@@ -36,9 +36,8 @@ const Timeline = React.forwardRef<HTMLDivElement | HTMLOListElement, TimelinePro
 
     return (
       <div
-        {...(props as React.ComponentPropsWithoutRef<'div'>)}
-        className={clsx(className, classes.Timeline)}
         ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
+        {...mergeProps({className: clsx(className, classes.Timeline)}, props as React.ComponentPropsWithoutRef<'div'>)}
         data-clip-sidebar={resolvedClipSidebar}
       />
     )
@@ -63,9 +62,8 @@ const TimelineItem = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineIt
     if (useListSemantics) {
       return (
         <li
-          {...props}
-          className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
           ref={forwardRef as React.ForwardedRef<HTMLLIElement>}
+          {...mergeProps({className: clsx(className, 'Timeline-Item', classes.TimelineItem)}, props)}
           data-condensed={condensed ? '' : undefined}
         />
       )
@@ -73,9 +71,11 @@ const TimelineItem = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineIt
 
     return (
       <div
-        {...(props as React.ComponentPropsWithoutRef<'div'>)}
-        className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
         ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
+        {...mergeProps(
+          {className: clsx(className, 'Timeline-Item', classes.TimelineItem)},
+          props as React.ComponentPropsWithoutRef<'div'>,
+        )}
         data-condensed={condensed ? '' : undefined}
       />
     )
@@ -96,7 +96,7 @@ export type TimelineBadgeProps = {
 const TimelineBadge = ({className, variant, ...props}: TimelineBadgeProps) => {
   return (
     <div className={classes.TimelineBadgeWrapper}>
-      <div {...props} className={clsx(className, classes.TimelineBadge)} data-variant={variant} />
+      <div {...mergeProps({className: clsx(className, classes.TimelineBadge)}, props)} data-variant={variant} />
     </div>
   )
 }
@@ -109,7 +109,7 @@ export type TimelineBodyProps = {
 } & React.ComponentPropsWithoutRef<'div'>
 
 const TimelineBody = React.forwardRef<HTMLDivElement, TimelineBodyProps>(({className, ...props}, forwardRef) => {
-  return <div {...props} className={clsx(className, classes.TimelineBody)} ref={forwardRef} />
+  return <div ref={forwardRef} {...mergeProps({className: clsx(className, classes.TimelineBody)}, props)} />
 })
 
 TimelineBody.displayName = 'TimelineBody'
@@ -126,9 +126,8 @@ const TimelineBreak = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineB
     if (useListSemantics) {
       return (
         <li
-          {...props}
-          className={clsx(className, classes.TimelineBreak)}
           ref={forwardRef as React.ForwardedRef<HTMLLIElement>}
+          {...mergeProps({className: clsx(className, classes.TimelineBreak)}, props)}
           role="presentation"
         />
       )
@@ -136,9 +135,11 @@ const TimelineBreak = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineB
 
     return (
       <div
-        {...(props as React.ComponentPropsWithoutRef<'div'>)}
-        className={clsx(className, classes.TimelineBreak)}
         ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
+        {...mergeProps(
+          {className: clsx(className, classes.TimelineBreak)},
+          props as React.ComponentPropsWithoutRef<'div'>,
+        )}
       />
     )
   },
@@ -152,7 +153,7 @@ export type TimelineActionsProps = {
 } & React.ComponentPropsWithoutRef<'div'>
 
 const TimelineActions = React.forwardRef<HTMLDivElement, TimelineActionsProps>(({className, ...props}, forwardRef) => {
-  return <div {...props} className={clsx(className, classes.TimelineItemActions)} ref={forwardRef} />
+  return <div ref={forwardRef} {...mergeProps({className: clsx(className, classes.TimelineItemActions)}, props)} />
 })
 
 TimelineActions.displayName = 'Timeline.Actions'
@@ -163,7 +164,7 @@ export type TimelineAvatarProps = {
 } & React.ComponentPropsWithoutRef<'div'>
 
 const TimelineAvatar = React.forwardRef<HTMLDivElement, TimelineAvatarProps>(({className, ...props}, forwardRef) => {
-  return <div {...props} className={clsx(className, classes.TimelineItemAvatar)} ref={forwardRef} />
+  return <div ref={forwardRef} {...mergeProps({className: clsx(className, classes.TimelineItemAvatar)}, props)} />
 })
 
 TimelineAvatar.displayName = 'Timeline.Avatar'

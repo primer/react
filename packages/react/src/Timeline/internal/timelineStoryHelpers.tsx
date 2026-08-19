@@ -6,6 +6,7 @@ import Link from '../../Link'
 import Octicon from '../../Octicon'
 import RelativeTime from '../../RelativeTime'
 import classes from './timelineStoryHelpers.module.css'
+import {mergeProps} from '../../utils/mergeProps'
 
 /**
  * Internal, story-only Timeline helpers. Not part of the public API (stories don't
@@ -59,12 +60,12 @@ export const Examples = ({children}: {children: React.ReactNode}) => (
 
 // TODO(github/primer#6826): remove when Primer Link ships a bold/actor weight affordance
 export const BoldLink = ({className, ...props}: React.ComponentProps<typeof Link>) => (
-  <Link {...props} className={clsx(classes.BoldLink, className)} />
+  <Link {...mergeProps({className: clsx(classes.BoldLink, className)}, props)} />
 )
 
 // TODO(github/primer#6827): remove when Primer ships an inline (in-text) avatar treatment
 export const InlineAvatar = ({className, size = 20, alt = '', ...props}: React.ComponentProps<typeof Avatar>) => (
-  <Avatar {...props} size={size} alt={alt} className={clsx(classes.InlineAvatar, className)} />
+  <Avatar {...mergeProps({size, alt, className: clsx(classes.InlineAvatar, className)}, props)} />
 )
 
 export const MONALISA_AVATAR = 'https://avatars.githubusercontent.com/u/583231?v=4'

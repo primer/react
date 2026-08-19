@@ -3,6 +3,7 @@ import classes from './Popover.module.css'
 import type {HTMLProps} from 'react'
 import React, {useRef} from 'react'
 import {useOnEscapePress, useOnOutsideClick} from '../hooks'
+import {mergeProps} from '../utils/mergeProps'
 
 // Stable empty array reference to avoid unnecessary re-renders
 const EMPTY_IGNORE_CLICK_REFS: React.RefObject<HTMLElement>[] = []
@@ -106,11 +107,15 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
   return (
     <div
       ref={divRef}
-      data-component="Popover.Content"
-      data-width={width}
-      data-height={height}
-      className={clsx(className, classes.PopoverContent)}
-      {...props}
+      {...mergeProps(
+        {
+          'data-component': 'Popover.Content',
+          'data-width': width,
+          'data-height': height,
+          className: clsx(className, classes.PopoverContent),
+        },
+        props,
+      )}
     />
   )
 }
