@@ -33,6 +33,12 @@
     },
     {
       "id": "components-segmentedcontrol-features--associated-with-a-label-and-caption"
+    },
+    {
+      "id": "components-segmentedcontrol-features--variant-subtle"
+    },
+    {
+      "id": "components-segmentedcontrol-features--with-add-view-button"
     }
   ],
   "importPath": "@primer/react",
@@ -69,7 +75,7 @@
     },
     {
       "name": "variant",
-      "type": "| 'default' | { narrow?: 'hideLabels' | 'dropdown' | 'default' regular?: 'hideLabels' | 'dropdown' | 'default' wide?: 'hideLabels' | 'dropdown' | 'default' }",
+      "type": "| 'default' | 'subtle' | { narrow?: 'hideLabels' | 'dropdown' | 'default' regular?: 'hideLabels' | 'dropdown' | 'default' wide?: 'hideLabels' | 'dropdown' | 'default' }",
       "defaultValue": "'default'",
       "description": "Configure alternative ways to render the control when it gets rendered in tight spaces"
     },
@@ -175,6 +181,28 @@
           "required": false,
           "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
           "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControl.Action",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible label for the action button."
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "description": "The icon for the action button.",
+          "defaultValue": "PlusIcon"
+        },
+        {
+          "name": "onClick",
+          "type": "(event: React.MouseEvent<HTMLButtonElement>) => void",
+          "description": "The handler that gets called when the action button is clicked."
         }
       ]
     }

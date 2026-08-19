@@ -107,6 +107,34 @@
     display: none;
   }
 
+  &:where([data-variant='subtle']) {
+    background-color: transparent;
+    border-color: transparent;
+
+    .Item:not(:last-child)::after {
+      background-color: transparent;
+    }
+
+    .Button {
+      padding: 0;
+      color: var(--fgColor-muted);
+
+      .Content {
+        padding-inline: var(--base-size-12);
+        border-color: transparent;
+      }
+    }
+
+    .Button[aria-pressed='true'] {
+      color: var(--fgColor-default);
+
+      .Content {
+        background-color: var(--bgColor-muted);
+        border-color: transparent;
+      }
+    }
+  }
+
   /* Handle hideLabels variant - hide button text */
   &[data-variant='hideLabels'] .Text {
     display: none;
@@ -222,6 +250,18 @@
     display: flex;
     align-items: center;
   }
+}
+
+.PlusItem {
+  display: flex;
+  align-items: center;
+  margin-inline-start: var(--base-size-4);
+}
+
+.PlusItem button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
 }
 
 .Button {
@@ -353,6 +393,10 @@
   &:active .Content {
     background-color: var(--controlTrack-bgColor-active);
   }
+}
+
+.SegmentedControl:where([data-variant='subtle']) .Button:where(:not([aria-pressed='true'])):hover .Content {
+  background-color: color-mix(in srgb, var(--bgColor-muted) 50%, transparent);
 }
 
 .Text::after {

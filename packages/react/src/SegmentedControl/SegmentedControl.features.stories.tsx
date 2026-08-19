@@ -2,6 +2,7 @@ import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {Button} from '../Button'
 import Text from '../Text'
 import classes from './SegmentedControl.features.stories.module.css'
 
@@ -33,6 +34,48 @@ export const WithCounterLabels = () => (
     <SegmentedControl.Button count={10}>Good first issue</SegmentedControl.Button>
   </SegmentedControl>
 )
+
+export const VariantSubtle = () => (
+  <SegmentedControl aria-label="View" variant="subtle">
+    <SegmentedControl.Button defaultSelected count={5}>
+      All
+    </SegmentedControl.Button>
+    <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
+    <SegmentedControl.Button count={10}>Review requests</SegmentedControl.Button>
+    <SegmentedControl.Button count={2}>Done</SegmentedControl.Button>
+  </SegmentedControl>
+)
+VariantSubtle.storyName = '[variant: subtle]'
+
+export const WithAddViewButton = () => {
+  const initialViews = [
+    {label: 'All', count: 5},
+    {label: 'Active', count: 3},
+    {label: 'Review requests', count: 10},
+    {label: 'Done', count: 2},
+  ]
+  const [views, setViews] = useState(initialViews)
+
+  const handleAddView = () => {
+    setViews(currentViews => [...currentViews, {label: `New view ${currentViews.length - 3}`, count: 0}])
+  }
+
+  return (
+    <>
+      <SegmentedControl aria-label="View" variant="subtle">
+        {views.map((view, index) => (
+          <SegmentedControl.Button key={view.label} defaultSelected={index === 0} count={view.count}>
+            {view.label}
+          </SegmentedControl.Button>
+        ))}
+        <SegmentedControl.Action aria-label="Add view" onClick={handleAddView} />
+      </SegmentedControl>
+      <Button className={classes.ResetButton} size="small" onClick={() => setViews(initialViews)}>
+        Reset views
+      </Button>
+    </>
+  )
+}
 
 export const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)

@@ -4,6 +4,10 @@
   gap: var(--base-size-4);
 }
 
+.ResetButton {
+  margin-top: var(--base-size-24);
+}
+
 @media screen and (min-width: 768px) {
   .LabelAndCaptionContainer {
     flex-direction: row;

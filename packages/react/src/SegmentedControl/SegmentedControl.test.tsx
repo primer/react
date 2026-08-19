@@ -46,6 +46,16 @@ describe('SegmentedControl', () => {
     expect(getByRole('list')).toHaveAttribute('data-component', 'SegmentedControl')
   })
 
+  it('renders the subtle variant', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view" variant="subtle">
+        <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('list')).toHaveAttribute('data-variant', 'subtle')
+  })
+
   it('renders data-component attribute on segmented control buttons', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="File view">
@@ -338,6 +348,32 @@ describe('SegmentedControl', () => {
     fireEvent.click(menuItems[1])
 
     expect(handleClick).toHaveBeenCalled()
+  })
+
+  it('calls the action from the plus button', async () => {
+    const user = userEvent.setup()
+    const handleAddView = vi.fn()
+    const {getByRole} = render(
+      <BaseStyles>
+        <SegmentedControl aria-label="File view">
+          <SegmentedControl.Button defaultSelected count={5}>
+            All
+          </SegmentedControl.Button>
+          <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
+          <SegmentedControl.Button count={10}>Review requests</SegmentedControl.Button>
+          <SegmentedControl.Action aria-label="Add view" onClick={handleAddView} />
+        </SegmentedControl>
+      </BaseStyles>,
+    )
+
+    const plusButton = getByRole('button', {name: 'Add view'})
+    expect(plusButton.querySelectorAll('svg')).toHaveLength(1)
+    expect(plusButton).not.toHaveAttribute('aria-pressed')
+    expect(plusButton.querySelector('[data-component="trailingAction"]')).not.toBeInTheDocument()
+
+    await user.click(plusButton)
+
+    expect(handleAddView).toHaveBeenCalledOnce()
   })
 
   it('supports deprecated leadingIcon prop for backward compatibility', () => {

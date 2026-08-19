@@ -3,9 +3,11 @@ import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 import Button from './SegmentedControlButton'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
+import Action from './SegmentedControlAction'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {useSlots} from '../hooks/useSlots'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import {isElement} from 'react-is'
@@ -24,7 +26,7 @@ export type SegmentedControlProps = {
   /** The size of the buttons */
   size?: 'small' | 'medium'
   /** Configure alternative ways to render the control when it gets rendered in tight spaces */
-  variant?: 'default' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
+  variant?: 'default' | 'subtle' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
   className?: string
 }
 
@@ -40,13 +42,15 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   ...rest
 }) => {
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
+  const [slots, segmentChildren] = useSlots(children, {action: Action})
+  const actionChild = slots.action
   const isUncontrolled =
     onChange === undefined ||
-    React.Children.toArray(children).some(
+    segmentChildren.some(
       child => React.isValidElement<SegmentedControlButtonProps>(child) && child.props.defaultSelected !== undefined,
     )
 
-  const selectedSegments = React.Children.toArray(children).map(
+  const selectedSegments = segmentChildren.map(
     child =>
       React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) &&
       (child.props.defaultSelected || child.props.selected),
@@ -56,9 +60,9 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const [selectedIndexInternalState, setSelectedIndexInternalState] = useState<number>(selectedIndexExternal)
   const selectedIndex = isUncontrolled ? selectedIndexInternalState : selectedIndexExternal
   const selectedChild = React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(
-    React.Children.toArray(children)[selectedIndex],
+    segmentChildren[selectedIndex],
   )
-    ? React.Children.toArray(children)[selectedIndex]
+    ? segmentChildren[selectedIndex]
     : undefined
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getChildIcon = (childArg: React.ReactNode): React.ReactElement<any> | null => {
@@ -130,7 +134,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         </ActionMenu.Button>
         <ActionMenu.Overlay aria-labelledby={ariaLabelledby}>
           <ActionList selectionVariant="single">
-            {React.Children.map(children, (child, index) => {
+            {segmentChildren.map((child, index) => {
               const ChildIcon = getChildIcon(child)
               // Not a valid child element - skip rendering
               if (!React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
@@ -170,7 +174,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       {...rest}
       data-component="SegmentedControl"
     >
-      {React.Children.map(children, (child, index) => {
+      {segmentChildren.map((child, index) => {
         // Not a valid child element - skip rendering child
         if (!React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
           return null
@@ -207,8 +211,9 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         }
 
         // Render the children as-is and add the shared child props
-        return React.cloneElement(child, sharedChildProps)
+        return React.cloneElement(child, {key: child.key ?? `segmented-control-item-${index}`, ...sharedChildProps})
       })}
+      {actionChild}
     </ul>
   )
 
@@ -228,4 +233,5 @@ Root.displayName = 'SegmentedControl'
 export const SegmentedControl = Object.assign(Root, {
   Button,
   IconButton: SegmentedControlIconButton,
+  Action,
 })
