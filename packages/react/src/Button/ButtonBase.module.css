@@ -89,6 +89,35 @@
     &:where([data-size='large']) {
       width: var(--control-large-size);
     }
+
+    /* Dropdown affordance: the icon is followed by a TriangleDownIcon, so the
+       button is no longer a fixed square. */
+    &:where([data-has-triangle-down-icon]) {
+      width: auto;
+      grid-auto-flow: column;
+      align-items: center;
+      gap: var(--control-medium-gap);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-inline: var(--control-medium-paddingInline-condensed);
+
+      &:where([data-size='small']) {
+        gap: var(--control-small-gap);
+        /* stylelint-disable-next-line primer/spacing */
+        padding-inline: var(--control-small-paddingInline-condensed);
+      }
+
+      &:where([data-size='large']) {
+        gap: var(--control-large-gap);
+        /* stylelint-disable-next-line primer/spacing */
+        padding-inline: var(--control-large-paddingInline-condensed);
+      }
+
+      & :where([data-component='triangleDownIcon']) {
+        /* Pull the caret slightly tighter to the icon, matching the
+           `trailingAction` treatment on text buttons. */
+        margin-inline-start: calc(var(--base-size-4) * -1);
+      }
+    }
   }
 
   /* LinkButton */

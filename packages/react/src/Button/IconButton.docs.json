@@ -93,6 +93,12 @@
       "description": "provide an octicon. It will be placed in the center of the button"
     },
     {
+      "name": "hasTriangleDownIcon",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether to render a `TriangleDownIcon` after the icon to indicate the button opens a dropdown or menu."
+    },
+    {
       "name": "aria-label",
       "type": "string",
       "defaultValue": "",
