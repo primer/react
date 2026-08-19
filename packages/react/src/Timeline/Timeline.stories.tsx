@@ -156,7 +156,7 @@ type PlaygroundArgs = {
   appPreset: AppPreset
   customAppName: string
   customAppAvatar: string
-  eventScope: 'shared' | 'pr' | 'issue' | 'dependabot' | 'custom'
+  eventScope: 'pull' | 'issue' | 'dependabot' | 'code-scanning' | 'secret-scanning' | 'license-compliance'
   eventType: string
   badgeIcon: BadgeIconName
   badgeVariant: TimelineBadgeVariant | 'none'
@@ -177,6 +177,19 @@ const ACTOR_AVATARS: Record<PlaygroundArgs['actorType'], string> = {
   bot: 'https://avatars.githubusercontent.com/in/29110?v=4',
   app: 'https://avatars.githubusercontent.com/in/15368?v=4',
   copilot: 'https://avatars.githubusercontent.com/in/1143301?v=4',
+}
+
+// `data-actor-type` distinguishes only human (`user`) from automated (`bot`)
+// actors, matching the authoritative @github-ui/timeline-taxonomy `ActorType`.
+// The four actor presets above are a visual convenience (distinct avatars and
+// names). `app` and `copilot` are automated identities, so they serialize to
+// `bot`, mirroring how `actorTypeForLogin` collapses GitHub Apps and Copilot to
+// `bot`. The playground never emits `data-actor-type="app"` or `"copilot"`.
+const DATA_ACTOR_TYPE: Record<PlaygroundArgs['actorType'], 'user' | 'bot'> = {
+  user: 'user',
+  bot: 'bot',
+  app: 'bot',
+  copilot: 'bot',
 }
 
 // Apps that can be appended via the PR `viaApp` slot. Avatar and name are paired
@@ -261,9 +274,9 @@ type TimestampPreset =
  *
  * **`data-*` filtering convention** (applied to `Timeline.Item`):
  *
- * - `data-event-scope` — `'shared' | 'pr' | 'issue' | 'dependabot' | 'custom'`
+ * - `data-event-scope` — `'pull' | 'issue' | 'dependabot' | 'code-scanning' | 'secret-scanning' | 'license-compliance'`
  * - `data-event-type` — short identifier (e.g. `assigned`, `merged`, `subscribed`)
- * - `data-actor-type` — `'user' | 'bot' | 'app' | 'copilot'`
+ * - `data-actor-type` — `'user' | 'bot'` (app and Copilot actor presets serialize to `bot`)
  *
  * These have no visual effect today; they're reserved for Phase 4 filtering work
  * (e.g. "hide all `subscribed` rows", or the planned summary-events rollup).
@@ -329,7 +342,7 @@ export const EventPlayground: StoryFn<PlaygroundArgs> = args => {
         <Timeline.Item
           data-event-scope={args.eventScope}
           data-event-type={args.eventType || undefined}
-          data-actor-type={args.actorType}
+          data-actor-type={DATA_ACTOR_TYPE[args.actorType]}
         >
           {args.actorSize === 'large' && (
             <Timeline.Avatar>
@@ -436,7 +449,7 @@ EventPlayground.args = {
   noteText: 'Additional context or details',
   showActions: false,
   actionsPreset: 'Single button' as ActionsPreset,
-  eventScope: 'custom',
+  eventScope: 'issue',
   eventType: '',
 }
 
@@ -450,7 +463,7 @@ EventPlayground.argTypes = {
     control: {type: 'select'},
     options: ['user', 'bot', 'app', 'copilot'],
     description:
-      '`bot` and `copilot` use baked-in canonical names (`dependabot`, `Copilot`); `user` and `app` allow a custom name and avatar.',
+      '`bot` and `copilot` use baked-in canonical names (`dependabot`, `Copilot`); `user` and `app` allow a custom name and avatar. Emitted `data-actor-type` is `user` for the user preset, otherwise `bot`.',
     table: {category: 'Actor'},
   },
   actorAvatarSrc: {
@@ -524,7 +537,7 @@ EventPlayground.argTypes = {
   // Descriptions are useful here because the controls' purpose isn't visually obvious.
   eventScope: {
     control: {type: 'select'},
-    options: ['shared', 'pr', 'issue', 'dependabot', 'custom'],
+    options: ['pull', 'issue', 'dependabot', 'code-scanning', 'secret-scanning', 'license-compliance'],
     description:
       'Sets `data-event-scope` on the Timeline.Item. Identifies which timeline an event belongs to. Reserved for Phase 4 filtering work.',
     table: {category: 'DOM attributes'},
