@@ -2,10 +2,11 @@ import {describe, it, expect, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
-import {NavList} from './NavList'
+import {NavList, type NavListGroupHeadingProps} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
 import {FeatureFlags} from '../FeatureFlags'
+import {asSlot} from '../utils/as-slot'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -77,6 +78,52 @@ describe('NavList', () => {
 
 describe('NavList.Item', () => {
   implementsClassName(NavList.Item)
+
+  it('renders a tooltip inside a link item when tooltipText is provided', () => {
+    const ref = React.createRef<HTMLAnchorElement>()
+    const {container, getByRole} = render(
+      <NavList>
+        <NavList.Item ref={ref} href="#" tooltipText="Tooltip for item 1">
+          Item 1
+        </NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+      </NavList>,
+    )
+
+    const link = getByRole('link', {name: 'Item 1'})
+    const tooltip = container.querySelector('[data-component="Tooltip"]')
+    const list = container.querySelector('[data-component="ActionList"]')
+
+    expect(tooltip).not.toBeNull()
+    expect(ref.current).toBe(link)
+    expect(link).toHaveAttribute('aria-describedby', (tooltip as HTMLElement).id)
+    expect(tooltip).toHaveTextContent('Tooltip for item 1')
+    expect(tooltip?.closest('li')).toBe(link.closest('li'))
+    expect(list?.children).toHaveLength(2)
+    expect(container.querySelectorAll('[data-component="Tooltip"]')).toHaveLength(1)
+  })
+
+  it('renders a tooltip inside an expandable item when tooltipText is provided', () => {
+    const {container, getByRole} = render(
+      <NavList>
+        <NavList.Item tooltipText="Tooltip for parent item">
+          Parent item
+          <NavList.SubNav>
+            <NavList.Item href="#">Child item</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const button = getByRole('button', {name: 'Parent item'})
+    const tooltip = container.querySelector('[data-component="Tooltip"]')
+
+    expect(tooltip).not.toBeNull()
+    expect(button).toHaveAttribute('aria-describedby', (tooltip as HTMLElement).id)
+    expect(tooltip).toHaveTextContent('Tooltip for parent item')
+    expect(tooltip?.closest('li')).toBe(button.closest('li'))
+  })
+
   it('passes aria-current prop to the underlying link', () => {
     const {getByRole} = render(
       <NavList>
@@ -750,6 +797,119 @@ describe('NavList.ShowMoreItem with pages', () => {
       const heading = getByRole('heading', {level: 2, name: 'Settings'})
       expect(heading).toHaveAttribute('data-testid', 'nav-heading')
       expect(heading).toHaveAttribute('title', 'Section navigation')
+    })
+  })
+
+  describe('NavList.Group', () => {
+    it('renders the group heading outside of the nested list', () => {
+      const {container, getByRole} = render(
+        <NavList>
+          <NavList.Group aria-label="Project templates" data-testid="group">
+            <NavList.GroupHeading as="h2">Project templates</NavList.GroupHeading>
+            <NavList.Item href="#featured">Featured</NavList.Item>
+            <NavList.Item href="#recent">Recent</NavList.Item>
+            <NavList.Item href="#mine">Mine</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      const group = container.querySelector('[data-testid="group"]')
+      const list = group?.querySelector(':scope > ul')
+      const heading = getByRole('heading', {level: 2, name: 'Project templates'})
+
+      expect(group).not.toBeNull()
+      expect(list).not.toBeNull()
+      expect(list?.children).toHaveLength(3)
+      expect(list).not.toContainElement(heading)
+      expect(heading.parentElement?.parentElement).toBe(group)
+      expect(list).toHaveAttribute('aria-labelledby', heading.id)
+    })
+
+    it('prefers a fragment-wrapped group heading over the title prop', () => {
+      const {container, getByRole, queryByText} = render(
+        <NavList>
+          <NavList.Group title="Overview" data-testid="group">
+            <>
+              <NavList.GroupHeading>Project templates</NavList.GroupHeading>
+            </>
+            <NavList.Item href="#featured">Featured</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      const group = container.querySelector('[data-testid="group"]')
+      const list = container.querySelector('[data-testid="group"] > ul')
+      const heading = getByRole('heading', {level: 3, name: 'Project templates'})
+
+      expect(queryByText('Overview')).not.toBeInTheDocument()
+      expect(getByRole('heading')).toBe(heading)
+      expect(container.querySelectorAll(`#${CSS.escape(heading.id)}`)).toHaveLength(1)
+      expect(heading.parentElement?.parentElement).toBe(group)
+      expect(list).toHaveAttribute('aria-labelledby', heading.id)
+      expect(list?.children).toHaveLength(1)
+    })
+
+    it('prefers an explicit group heading over the title prop', () => {
+      const {getByRole, queryByText} = render(
+        <NavList>
+          <NavList.Group title="Overview">
+            <NavList.GroupHeading>Project templates</NavList.GroupHeading>
+            <NavList.Item href="#featured">Featured</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(getByRole('heading', {level: 3, name: 'Project templates'})).toBeInTheDocument()
+      expect(queryByText('Overview')).not.toBeInTheDocument()
+    })
+
+    it('recognizes a group heading wrapper created with asSlot', () => {
+      const WrappedGroupHeading = asSlot(
+        ({children, ...props}: NavListGroupHeadingProps) => (
+          <NavList.GroupHeading {...props}>{children}</NavList.GroupHeading>
+        ),
+        NavList.GroupHeading,
+      )
+      const {container, getByRole, queryByText} = render(
+        <NavList>
+          <NavList.Group title="Overview" data-testid="group">
+            <WrappedGroupHeading id="project-templates-heading">Project templates</WrappedGroupHeading>
+            <NavList.Item href="#featured">Featured</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      const group = container.querySelector('[data-testid="group"]')
+      const list = group?.querySelector(':scope > ul')
+      const heading = getByRole('heading', {level: 3, name: 'Project templates'})
+
+      expect(queryByText('Overview')).not.toBeInTheDocument()
+      expect(heading.parentElement?.parentElement).toBe(group)
+      expect(list).toHaveAttribute('aria-labelledby', 'project-templates-heading')
+    })
+
+    it('renders a divider before the group by default', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Group title="Account">
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList.Divider"]')).toBeInTheDocument()
+    })
+
+    it('does not render a divider when hideDivider is set', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Group title="Account" hideDivider>
+            <NavList.Item href="#">Profile</NavList.Item>
+          </NavList.Group>
+        </NavList>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList.Divider"]')).not.toBeInTheDocument()
     })
   })
 })

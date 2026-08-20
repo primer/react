@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {describe, test, expect, vi} from 'vitest'
 import {Tabs, TabList, Tab, TabPanel} from './Tabs'
+import {useTabList} from './useTabList'
+import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName} from '../../utils/testing'
 
 describe('Tabs', () => {
@@ -85,6 +87,28 @@ describe('Tabs', () => {
 
     expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
     expect(onValueChange).toHaveBeenCalledTimes(1)
+  })
+
+  test('onValueChange is not called when the selected tab is re-selected', async () => {
+    const user = userEvent.setup()
+    const onValueChange = vi.fn()
+
+    render(
+      <FeatureFlags flags={{primer_react_underline_panels_controlled: true}}>
+        <Tabs defaultValue="a" onValueChange={onValueChange}>
+          <TabList aria-label="Test tabs">
+            <Tab value="a">Tab A</Tab>
+            <Tab value="b">Tab B</Tab>
+          </TabList>
+          <TabPanel value="a">Panel A</TabPanel>
+          <TabPanel value="b">Panel B</TabPanel>
+        </Tabs>
+      </FeatureFlags>,
+    )
+
+    await user.click(screen.getByRole('tab', {name: 'Tab A'}))
+
+    expect(onValueChange).not.toHaveBeenCalled()
   })
 
   describe('TabList', () => {
@@ -581,4 +605,147 @@ describe('Tabs', () => {
     expect(tabB).toHaveAttribute('tabindex', '0')
     expect(tabC).toHaveAttribute('tabindex', '-1')
   })
+
+  describe('manual activation', () => {
+    const renderManualTabs = (onValueChange?: (args: {value: string}) => void) =>
+      render(
+        <FeatureFlags flags={{primer_react_underline_panels_controlled: true}}>
+          <Tabs defaultValue="a" activationMode="manual" onValueChange={onValueChange}>
+            <TabList aria-label="Test tabs">
+              <Tab value="a">Tab A</Tab>
+              <Tab value="b">Tab B</Tab>
+              <Tab value="c">Tab C</Tab>
+            </TabList>
+            <TabPanel value="a">Panel A</TabPanel>
+            <TabPanel value="b">Panel B</TabPanel>
+            <TabPanel value="c">Panel C</TabPanel>
+          </Tabs>
+        </FeatureFlags>,
+      )
+
+    test('arrow keys move focus without changing selection', async () => {
+      const user = userEvent.setup()
+      const onValueChange = vi.fn()
+      renderManualTabs(onValueChange)
+
+      const tabA = screen.getByRole('tab', {name: 'Tab A'})
+      const tabB = screen.getByRole('tab', {name: 'Tab B'})
+
+      await act(async () => {
+        tabA.focus()
+        await user.keyboard('{ArrowRight}')
+      })
+
+      expect(tabB).toHaveFocus()
+      expect(tabA).toHaveAttribute('aria-selected', 'true')
+      expect(tabB).toHaveAttribute('aria-selected', 'false')
+      expect(onValueChange).not.toHaveBeenCalled()
+      expect(tabB).toHaveAttribute('tabindex', '0')
+      expect(tabA).toHaveAttribute('tabindex', '-1')
+    })
+
+    test('Enter commits the focused tab', async () => {
+      const user = userEvent.setup()
+      const onValueChange = vi.fn()
+      renderManualTabs(onValueChange)
+
+      const tabA = screen.getByRole('tab', {name: 'Tab A'})
+      const tabB = screen.getByRole('tab', {name: 'Tab B'})
+
+      await act(async () => {
+        tabA.focus()
+        await user.keyboard('{ArrowRight}')
+        await user.keyboard('{Enter}')
+      })
+
+      expect(tabB).toHaveAttribute('aria-selected', 'true')
+      expect(onValueChange).toHaveBeenCalledTimes(1)
+      expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
+    })
+
+    test('Space commits the focused tab', async () => {
+      const user = userEvent.setup()
+      const onValueChange = vi.fn()
+      renderManualTabs(onValueChange)
+
+      const tabA = screen.getByRole('tab', {name: 'Tab A'})
+      const tabC = screen.getByRole('tab', {name: 'Tab C'})
+
+      await act(async () => {
+        tabA.focus()
+        await user.keyboard('{ArrowLeft}')
+        await user.keyboard(' ')
+      })
+
+      expect(tabC).toHaveAttribute('aria-selected', 'true')
+      expect(onValueChange).toHaveBeenCalledWith({value: 'c'})
+    })
+
+    test('clicking commits selection', async () => {
+      const onValueChange = vi.fn()
+      renderManualTabs(onValueChange)
+
+      const tabB = screen.getByRole('tab', {name: 'Tab B'})
+
+      await act(() => {
+        fireEvent.mouseDown(tabB)
+      })
+
+      expect(tabB).toHaveAttribute('aria-selected', 'true')
+      expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
+    })
+
+    test('subsequent arrow keys move relative to the focused tab, not the selected tab', async () => {
+      const user = userEvent.setup()
+      renderManualTabs()
+
+      const tabA = screen.getByRole('tab', {name: 'Tab A'})
+      const tabB = screen.getByRole('tab', {name: 'Tab B'})
+      const tabC = screen.getByRole('tab', {name: 'Tab C'})
+
+      await act(async () => {
+        tabA.focus()
+        await user.keyboard('{ArrowRight}')
+        await user.keyboard('{ArrowRight}')
+      })
+
+      expect(tabA).toHaveAttribute('aria-selected', 'true')
+      expect(tabC).toHaveFocus()
+      expect(tabB).not.toHaveFocus()
+    })
+  })
+})
+
+function TabListRefHarness({tabRef}: {tabRef: React.Ref<HTMLDivElement | null>}) {
+  const {tabListProps} = useTabList<HTMLDivElement>({'aria-label': 'Test tabs', ref: tabRef})
+  return (
+    // @ts-expect-error it needs a non nullable ref
+    <div {...tabListProps} />
+  )
+}
+
+describe('useTabList forwarded ref (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      test('forwards a ref object to the tablist', () => {
+        const ref = React.createRef<HTMLDivElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <TabListRefHarness tabRef={ref} />
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLDivElement)
+      })
+
+      test('calls a callback ref with the tablist', () => {
+        const refCallback = vi.fn()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <TabListRefHarness tabRef={refCallback} />
+          </FeatureFlags>,
+        )
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+      })
+    })
+  }
 })

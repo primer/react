@@ -1,6 +1,7 @@
 .SegmentedControl {
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
+  --segmented-control-outer-radius: var(--borderRadius-medium);
 
   display: inline-flex;
 
@@ -12,6 +13,24 @@
   background-color: var(--controlTrack-bgColor-rest);
   border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
   border-radius: var(--borderRadius-medium);
+  position: relative;
+
+  @supports (anchor-name: --value) {
+    &::before {
+      position-anchor: --segmented-control-current-item;
+      content: '';
+      position: absolute;
+      inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
+      background-color: var(--controlKnob-bgColor-rest);
+      border: var(--borderWidth-thin) solid var(--controlKnob-borderColor-rest);
+      /* stylelint-disable-next-line primer/borders */
+      border-radius: var(--segmented-control-outer-radius);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: inset var(--base-duration-200) var(--base-easing-easeInOut);
+      }
+    }
+  }
 
   /* Responsive full-width */
   &[data-full-width='true'] {
@@ -209,7 +228,6 @@
   /* TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available */
   --segmented-control-button-inner-padding: 12px;
   --segmented-control-button-bg-inset: 4px;
-  --segmented-control-outer-radius: var(--borderRadius-medium);
 
   width: 100%;
   height: 100%;
@@ -256,7 +274,7 @@
     width: 0;
   }
 
-  &[aria-disabled='true']:not([aria-current='true']) {
+  &[aria-disabled='true']:not([aria-pressed='true']) {
     cursor: not-allowed;
     color: var(--fgColor-disabled);
     background-color: transparent;
@@ -294,6 +312,8 @@
   border-color: transparent;
   border-style: solid;
   border-width: var(--borderWidth-thin);
+  background-color: transparent;
+  transition: background-color var(--base-duration-200) var(--base-easing-easeInOut);
 
   /*
     innerRadius = outerRadius - distance/2
@@ -305,7 +325,7 @@
   justify-content: center;
 }
 
-.Button[aria-current='true'] {
+.Button[aria-pressed='true'] {
   padding: 0;
   font-weight: var(--base-text-weight-semibold);
 
@@ -314,14 +334,18 @@
     padding-right: var(--segmented-control-button-inner-padding);
     /* stylelint-disable-next-line primer/spacing */
     padding-left: var(--segmented-control-button-inner-padding);
-    background-color: var(--controlKnob-bgColor-rest);
-    border-color: var(--controlKnob-borderColor-rest);
-    /* stylelint-disable-next-line primer/borders */
-    border-radius: var(--segmented-control-outer-radius);
+    anchor-name: --segmented-control-current-item;
+
+    @supports not (anchor-name: --value) {
+      background-color: var(--controlKnob-bgColor-rest);
+      border-color: var(--controlKnob-borderColor-rest);
+      /* stylelint-disable-next-line primer/borders */
+      border-radius: var(--segmented-control-outer-radius);
+    }
   }
 }
 
-.Button:not([aria-current='true'], [aria-disabled='true']) {
+.Button:not([aria-pressed='true'], [aria-disabled='true']) {
   &:hover .Content {
     background-color: var(--controlTrack-bgColor-hover);
   }

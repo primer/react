@@ -77,7 +77,7 @@ const items: {navigation: string; icon: React.ReactElement; counter?: number | s
 export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(initialSelectedIndex)
   return (
-    <UnderlineNav aria-label="Repository">
+    <UnderlineNav aria-label="Repository" hideIconsBreakpoint="medium">
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}

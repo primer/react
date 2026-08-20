@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState, useId} from 'react'
+import React, {useCallback, useState, useId, useRef} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -7,7 +7,6 @@ import {AlertFillIcon} from '@primer/octicons-react'
 
 import classes from './TextInput.module.css'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
-import {useProvidedRefOrCreate} from '../hooks'
 import type {Merge} from '../utils/types'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
@@ -18,6 +17,8 @@ import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
 import {AriaStatus} from '../live-region'
 import Text from '../Text'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -112,7 +113,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
-    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const inputRef = useRef<HTMLInputElement>(null)
+    const mergedRef = useMergedRefs(inputRef, ref)
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the three declarations below, and replace all instances of `readRef` with `inputRef` and `appliedRef` with `mergedRef`.
+    const providedOrCreatedRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
+    const readRef = mergedRefEnabled ? inputRef : providedOrCreatedRef
+    const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
 
     // For uncontrolled usage we track the length of the input's content so the
     // character counter can be derived during render rather than synced from an
@@ -141,8 +149,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
     const focusInput: MouseEventHandler = e => {
       // Don't call focus() if the input itself was clicked on date/time inputs.
-      if (e.target !== inputRef.current || !isSegmentedInputType) {
-        inputRef.current?.focus()
+      if (e.target !== readRef.current || !isSegmentedInputType) {
+        readRef.current?.focus()
       }
     }
     const leadingVisualId = useId()
@@ -220,7 +228,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           </TextInputInnerVisualSlot>
           <UnstyledTextInput
             // @ts-expect-error it needs a non nullable ref
-            ref={inputRef}
+            ref={appliedRef}
             disabled={disabled}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}

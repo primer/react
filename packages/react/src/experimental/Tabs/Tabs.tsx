@@ -2,6 +2,7 @@ import React, {useId, useMemo, type ElementRef} from 'react'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {useControllableState} from '../../hooks/useControllableState'
 import {TabsContext} from './TabsContext'
+import {useFeatureFlag} from '../../FeatureFlags'
 import type {TabListProps, TabPanelProps, TabProps, TabsContextValue, TabsProps} from './types'
 import {useTab} from './useTab'
 import {useTabList} from './useTabList'
@@ -16,7 +17,11 @@ import {useTabPanel} from './useTabPanel'
  */
 function Tabs(props: TabsProps) {
   const {children, onValueChange} = props
-  const groupId = useId()
+  const generatedId = useId()
+  const groupId = props.id ?? generatedId
+  // Feature-flag scaffolding: at graduation, drop this and the guards that read it.
+  const controlledApiEnabled = useFeatureFlag('primer_react_underline_panels_controlled')
+  const activationMode = controlledApiEnabled ? (props.activationMode ?? 'automatic') : 'automatic'
 
   const [selectedValue, setSelectedValue] = useControllableState<string>({
     name: 'tab-selection',
@@ -24,17 +29,29 @@ function Tabs(props: TabsProps) {
     value: props.value,
   })
 
+  // In manual activation the roving tab stop follows focus, not selection, so track it separately.
+  const [focusedValue, setFocusedValue] = React.useState<string>()
+
   const savedOnValueChange = React.useRef(onValueChange)
   const contextValue: TabsContextValue = useMemo(() => {
     return {
       groupId,
       selectedValue,
+      activationMode,
+      focusedValue,
       selectTab(value: string) {
+        setFocusedValue(undefined)
+        if (controlledApiEnabled && value === selectedValue) {
+          return
+        }
         setSelectedValue(value)
         savedOnValueChange.current?.({value})
       },
+      focusTab(value: string) {
+        setFocusedValue(value)
+      },
     }
-  }, [groupId, selectedValue, setSelectedValue])
+  }, [groupId, selectedValue, activationMode, focusedValue, controlledApiEnabled, setSelectedValue])
 
   useIsomorphicLayoutEffect(() => {
     savedOnValueChange.current = onValueChange

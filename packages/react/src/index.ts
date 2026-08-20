@@ -17,6 +17,15 @@ export type {
   PageLayoutPaneProps,
   PageLayoutFooterProps,
 } from './PageLayout'
+export {usePaneWidth, defaultPaneWidth, DragHandle} from './PageLayout'
+export type {
+  DragHandleProps,
+  UsePaneWidthOptions,
+  UsePaneWidthResult,
+  PaneWidth,
+  PaneWidthValue,
+  CustomWidthOptions,
+} from './PageLayout'
 export {SplitPageLayout} from './SplitPageLayout'
 export type {
   SplitPageLayoutProps,

@@ -49,7 +49,7 @@ export function OverflowObserverProvider({
           for (const cb of callbacks) cb(isOverflowing)
         }
       },
-      {root, threshold: [0, 1]},
+      {root, threshold: [0, 0.95]},
     )
     observerRootRef.current = root
     return observerRef.current
@@ -112,12 +112,12 @@ export function OverflowObserverProvider({
 }
 
 /**
- * Treat any target that is not fully visible within the observer root as overflowing. Wrapped items should be fully
- * clipped (`isIntersecting: false`, `intersectionRatio: 0`), but partial ratios also count as overflowing to guard
- * against sub-pixel boundary cases.
+ * Treat any target that is not fully visible within the observer root as overflowing. Unwrapped items should be fully
+ * visible, but in some scenarios the layout isn't perfectly accurate (ie, in Safari with extra-large text size) so we
+ * allow for up to 5% to be clipped before hiding the item.
  */
 function getIsOverflowing(entry: Pick<IntersectionObserverEntry, 'intersectionRatio' | 'isIntersecting'>) {
-  return !entry.isIntersecting || entry.intersectionRatio < 1
+  return !entry.isIntersecting || entry.intersectionRatio < 0.95
 }
 
 function supportsIntersectionObserver() {

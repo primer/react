@@ -21,8 +21,11 @@ const IGNORED_FILES = [
   'packages/react/src/FormControl/__tests__/useFormControlForwardedProps.test.tsx',
   'packages/react/src/experimental/SelectPanel2/__tests__/SelectPanelLoading.test.tsx',
   'packages/react/src/__tests__/ThemeProvider.test.tsx',
+  'packages/react/src/__tests__/next/ThemeProvider.test.tsx',
   'packages/react/src/__tests__/deprecated/ActionMenu.test.tsx',
   'packages/react/src/__tests__/Caret.test.tsx',
+  // Asserts server rendering behavior, not rendered markup
+  'packages/react/src/__tests__/ssr.test.tsx',
   'packages/react/src/TreeView/useRovingTabIndex.test.tsx',
 ]
 
