@@ -37,14 +37,16 @@ export const WithCounterLabels = () => (
 
 export const VariantSubtle = () => (
   <SegmentedControl aria-label="View" variant="subtle">
-    <SegmentedControl.Button defaultSelected count={5} dividerAfter>
+    <SegmentedControl.Button defaultSelected count={5}>
       All
     </SegmentedControl.Button>
-    <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
-    <SegmentedControl.Button count={10} dividerAfter>
-      Review requests
+    <SegmentedControl.Button count={3} dividerBefore>
+      Active
     </SegmentedControl.Button>
-    <SegmentedControl.Button count={2}> Done</SegmentedControl.Button>
+    <SegmentedControl.Button count={10}>Review requests</SegmentedControl.Button>
+    <SegmentedControl.Button count={2} dividerBefore>
+      Done
+    </SegmentedControl.Button>
   </SegmentedControl>
 )
 VariantSubtle.storyName = '[variant: subtle]'
@@ -70,7 +72,7 @@ export const WithAddViewButton = () => {
             key={view.label}
             defaultSelected={index === 0}
             count={view.count}
-            dividerAfter={view.label === 'All'}
+            dividerBefore={view.label === 'Active'}
           >
             {view.label}
           </SegmentedControl.Button>

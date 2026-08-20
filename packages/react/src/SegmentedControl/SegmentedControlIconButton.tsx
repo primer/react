@@ -23,8 +23,8 @@ export type SegmentedControlIconButtonProps = {
   tooltipDirection?: TooltipDirection
   /** Whether the button is disabled. */
   disabled?: boolean
-  /** Whether to render a divider after the button */
-  dividerAfter?: boolean
+  /** Whether to render a divider before the button */
+  dividerBefore?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
@@ -35,7 +35,7 @@ export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildre
   description,
   tooltipDirection,
   disabled,
-  dividerAfter,
+  dividerBefore,
   ...props
 }) => {
   const {'aria-disabled': ariaDisabled, ...rest} = props
@@ -44,7 +44,7 @@ export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildre
     <li
       className={clsx(classes.Item, className)}
       data-selected={selected || undefined}
-      data-divider-after={dividerAfter ? '' : undefined}
+      data-divider-before={dividerBefore ? '' : undefined}
       data-component="SegmentedControl.IconButton"
     >
       <Tooltip

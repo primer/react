@@ -69,14 +69,14 @@ describe('SegmentedControl', () => {
     )
   })
 
-  it('renders a divider after a button when requested', () => {
+  it('renders a divider before a button when requested', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="File view">
-        <SegmentedControl.Button dividerAfter>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button dividerBefore>Preview</SegmentedControl.Button>
       </SegmentedControl>,
     )
 
-    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute('data-divider-after', '')
+    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute('data-divider-before', '')
   })
 
   it('renders data-component attribute on segmented control icon buttons', () => {

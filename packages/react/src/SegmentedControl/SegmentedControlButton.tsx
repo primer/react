@@ -25,8 +25,8 @@ export type SegmentedControlButtonProps = {
   disabled?: boolean
   /** Optional counter to display on the right side of the button */
   count?: number | string
-  /** Whether to render a divider after the button */
-  dividerAfter?: boolean
+  /** Whether to render a divider before the button */
+  dividerBefore?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
@@ -39,7 +39,7 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
   count,
-  dividerAfter,
+  dividerBefore,
   ...props
 }) => {
   const {'aria-disabled': ariaDisabled, ...rest} = props
@@ -50,7 +50,7 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
     <li
       className={clsx(classes.Item)}
       data-selected={selected ? '' : undefined}
-      data-divider-after={dividerAfter ? '' : undefined}
+      data-divider-before={dividerBefore ? '' : undefined}
       data-component="SegmentedControl.Button"
     >
       <button

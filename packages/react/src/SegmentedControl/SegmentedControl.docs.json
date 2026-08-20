@@ -77,7 +77,7 @@
       "name": "variant",
       "type": "| 'default' | 'subtle' | { narrow?: 'hideLabels' | 'dropdown' | 'default' regular?: 'hideLabels' | 'dropdown' | 'default' wide?: 'hideLabels' | 'dropdown' | 'default' }",
       "defaultValue": "'default'",
-      "description": "Configure alternative ways to render the control when it gets rendered in tight spaces"
+      "description": "Configure the control's visual treatment or responsive behavior in tight spaces."
     },
     {
       "name": "size",
@@ -126,10 +126,10 @@
           "description": "The number to display in the counter label."
         },
         {
-          "name": "dividerAfter",
+          "name": "dividerBefore",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "Whether to render a divider after the button."
+          "description": "Whether to render a group divider before the button in the subtle variant."
         },
         {
           "name": "ref",
@@ -189,10 +189,10 @@
           "defaultValue": ""
         },
         {
-          "name": "dividerAfter",
+          "name": "dividerBefore",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "Whether to render a divider after the button."
+          "description": "Whether to render a group divider before the button in the subtle variant."
         }
       ]
     },
@@ -203,7 +203,7 @@
           "name": "aria-label",
           "type": "string",
           "required": true,
-          "description": "Accessible label for the action button."
+          "description": "Accessible label for the non-selectable trailing action button."
         },
         {
           "name": "icon",
