@@ -3,6 +3,7 @@ import {render, fireEvent, waitFor} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
+import {FeatureFlags} from '../FeatureFlags'
 import {Button} from '../Button'
 import {implementsClassName} from '../utils/testing'
 import classes from './Dialog.module.css'
@@ -565,4 +566,22 @@ describe('Footer button loading states', () => {
       expect(dialog.style.getPropertyValue('--dialog-width')).toBe('400px')
     })
   })
+})
+
+describe('Dialog auto-focus button forwarded ref (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    it(`focuses the auto-focus footer button via the gated ref with the flag ${enabled ? 'enabled' : 'disabled'}`, async () => {
+      const {getByRole} = render(
+        <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+          <Dialog
+            onClose={() => {}}
+            footerButtons={[{buttonType: 'primary', content: 'Footer button', autoFocus: true}]}
+          >
+            Body
+          </Dialog>
+        </FeatureFlags>,
+      )
+      await waitFor(() => expect(getByRole('button', {name: 'Footer button'})).toHaveFocus())
+    })
+  }
 })

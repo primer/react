@@ -37,6 +37,11 @@ describe('Textarea', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument()
   })
 
+  it('renders data-component attribute', () => {
+    render(<Textarea />)
+    expect(screen.getByRole('textbox')).toHaveAttribute('data-component', 'Textarea')
+  })
+
   it('renders an empty textarea by default', () => {
     render(<Textarea />)
     const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
@@ -97,6 +102,17 @@ describe('Textarea', () => {
       return rule.style.resize && rule.style.resize === 'none'
     })
     expect(hasResizeDeclaration).toBe(true)
+  })
+
+  it('enables automatic sizing without changing resize behavior', () => {
+    render(<Textarea autoSize resize="vertical" />)
+    const textareaElement = screen.getByRole('textbox')
+
+    expect(textareaElement).toHaveAttribute('data-auto-size', 'true')
+    expect(textareaElement).toHaveAttribute('data-resize', 'vertical')
+
+    const rules = getCSSRules(`.${classes.TextArea}[data-auto-size="true"]`)
+    expect(rules.some(rule => rule.style.getPropertyValue('field-sizing') === 'content')).toBe(true)
   })
 
   it('renders a value in the textarea', () => {

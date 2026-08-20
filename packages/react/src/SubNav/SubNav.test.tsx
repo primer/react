@@ -8,6 +8,20 @@ describe('SubNav', () => {
   implementsClassName(SubNav, classes.SubNav)
   implementsClassName(SubNav.Links, classes.Links)
 
+  it('renders data-component attributes', () => {
+    const {container} = HTMLRender(
+      <SubNav>
+        <SubNav.Links>
+          <SubNav.Link data-testid="link">Link</SubNav.Link>
+        </SubNav.Links>
+      </SubNav>,
+    )
+
+    expect(container.firstChild).toHaveAttribute('data-component', 'SubNav')
+    expect(container.querySelector('[data-component="SubNav.Links"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="SubNav.Link"]')).toBeInTheDocument()
+  })
+
   it('renders a <nav>', () => {
     const {container} = HTMLRender(<SubNav />)
     expect(container.firstChild?.nodeName).toEqual('NAV')

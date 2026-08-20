@@ -59,6 +59,10 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
+  /**
+   * Private API for use internally only. Adds a tooltip to the interactive item.
+   */
+  _PrivateTooltipText?: string
   className?: string
   groupId?: string
   renderItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => React.ReactNode

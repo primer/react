@@ -108,6 +108,15 @@ export const CustomResizeBehavior = () => (
   </Stack>
 )
 
+export const AutoSize = () => (
+  <form>
+    <FormControl>
+      <FormControl.Label>Automatically growing textarea</FormControl.Label>
+      <Textarea autoSize />
+    </FormControl>
+  </form>
+)
+
 export const MinimumHeight = () => (
   <form>
     <FormControl>

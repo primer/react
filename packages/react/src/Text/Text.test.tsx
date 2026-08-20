@@ -12,6 +12,11 @@ describe('Text', () => {
     expect(container.firstChild?.nodeName).toEqual('SPAN')
   })
 
+  it('renders data-component attribute', () => {
+    const {container} = render(<Text />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'Text')
+  })
+
   it('renders children', () => {
     const {getByText} = render(<Text>Hello World</Text>)
     expect(getByText('Hello World')).toBeInTheDocument()

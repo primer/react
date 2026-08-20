@@ -1,13 +1,10 @@
 import React from 'react'
-import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
-import {useSyncedState} from './hooks/useSyncedState'
-import {ThemeContext} from './ThemeContext'
-import {useTheme} from './useTheme'
+import {ThemeProviderBase} from './internal/components/ThemeProviderBase'
+import {useThemeProvider} from './internal/hooks/useThemeProvider'
+import defaultTheme from './theme'
 
 export const defaultColorMode = 'day'
-const defaultDayScheme = 'light'
-const defaultNightScheme = 'dark'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Theme = {[key: string]: any}
@@ -30,109 +27,31 @@ export type ThemeProviderProps = {
   contextOnly?: boolean
 }
 
+/**
+ * @deprecated Use `ThemeProvider` from `@primer/react/next` to migrate away from JavaScript theme values.
+ */
 export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
-  // Get fallback values from parent ThemeProvider (if exists)
-  const {
-    theme: fallbackTheme,
-    colorMode: fallbackColorMode,
-    dayScheme: fallbackDayScheme,
-    nightScheme: fallbackNightScheme,
-  } = useTheme()
-
-  // Initialize state
-  const theme = fallbackTheme ?? defaultTheme
-
-  const [colorMode, setColorMode] = useSyncedState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
-  const [dayScheme, setDayScheme] = useSyncedState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
-  const [nightScheme, setNightScheme] = useSyncedState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
-  const systemColorMode = useSystemColorMode()
-  const resolvedColorMode = resolveColorMode(colorMode, systemColorMode)
-  const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
+  const {parentValue, value} = useThemeProvider(props)
+  const theme = parentValue.theme ?? defaultTheme
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
-    () => applyColorScheme(theme, colorScheme),
-    [theme, colorScheme],
+    () => applyColorScheme(theme, value.colorScheme),
+    [theme, value.colorScheme],
   )
 
   const contextValue = React.useMemo(
     () => ({
+      ...value,
       theme: resolvedTheme,
-      colorScheme,
-      colorMode,
-      resolvedColorMode,
       resolvedColorScheme,
-      dayScheme,
-      nightScheme,
-      setColorMode,
-      setDayScheme,
-      setNightScheme,
     }),
-    [
-      resolvedTheme,
-      colorScheme,
-      colorMode,
-      resolvedColorMode,
-      resolvedColorScheme,
-      dayScheme,
-      nightScheme,
-      setColorMode,
-      setDayScheme,
-      setNightScheme,
-    ],
+    [value, resolvedTheme, resolvedColorScheme],
   )
-
-  if (props.contextOnly) {
-    return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>
-  }
 
   return (
-    <ThemeContext.Provider value={contextValue}>
-      <div
-        data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme.includes('dark') ? 'dark' : 'light'}
-        data-light-theme={dayScheme}
-        data-dark-theme={nightScheme}
-      >
-        {children}
-      </div>
-    </ThemeContext.Provider>
+    <ThemeProviderBase contextOnly={props.contextOnly} value={contextValue}>
+      {children}
+    </ThemeProviderBase>
   )
-}
-
-function subscribeToSystemColorMode(callback: () => void) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  const media = window?.matchMedia?.('(prefers-color-scheme: dark)')
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  media?.addEventListener('change', callback)
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return () => media?.removeEventListener('change', callback)
-}
-
-function useSystemColorMode() {
-  return React.useSyncExternalStore<ColorMode>(subscribeToSystemColorMode, getSystemColorMode, () => 'day')
-}
-
-function getSystemColorMode(): ColorMode {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return window?.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? 'night' : 'day'
-}
-
-function resolveColorMode(colorMode: ColorModeWithAuto, systemColorMode: ColorMode) {
-  switch (colorMode) {
-    case 'auto':
-      return systemColorMode
-    default:
-      return colorMode
-  }
-}
-
-function chooseColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme: string) {
-  switch (colorMode) {
-    case 'day':
-    case 'light':
-      return dayScheme
-    case 'dark':
-    case 'night':
-      return nightScheme
-  }
 }
 
 function applyColorScheme(
@@ -140,17 +59,12 @@ function applyColorScheme(
   colorScheme: string,
 ): {resolvedTheme: Theme; resolvedColorScheme: string | undefined} {
   if (!theme.colorSchemes) {
-    return {
-      resolvedTheme: theme,
-      resolvedColorScheme: undefined,
-    }
+    return {resolvedTheme: theme, resolvedColorScheme: undefined}
   }
 
   if (!theme.colorSchemes[colorScheme]) {
     // eslint-disable-next-line no-console
     console.error(`\`${colorScheme}\` scheme not defined in \`theme.colorSchemes\``)
-
-    // Apply the first defined color scheme
     const defaultColorScheme = Object.keys(theme.colorSchemes)[0]
     return {
       resolvedTheme: deepmerge(theme, theme.colorSchemes[defaultColorScheme]),

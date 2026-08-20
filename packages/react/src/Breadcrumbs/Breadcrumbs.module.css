@@ -117,8 +117,9 @@
   list-style: none;
 
   /* allow menu items to wrap line */
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:has(.MenuOverlay) {
+  /* The overflow-menu item is marked in React (`data-overflow-menu`) instead of using
+     `:has(.MenuOverlay)`, avoiding Safari's `:has()` invalidation cost. */
+  &[data-overflow-menu] {
     white-space: normal;
   }
 

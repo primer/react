@@ -40,6 +40,7 @@ export function Header({
 }: HeaderProps): JSX.Element {
   return (
     <div
+      // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
       role="heading"
       className={clsx(className, classes.Header)}
       data-filled={variant === 'filled' ? '' : undefined}

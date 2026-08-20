@@ -1,5 +1,121 @@
 # @primer/react
 
+## 38.36.0
+
+### Minor Changes
+
+- [#8212](https://github.com/primer/react/pull/8212) [`9ac9343`](https://github.com/primer/react/commit/9ac9343a70fd0f70413a42cd27baf562a74dd4fc) Thanks [@mattcosta7](https://github.com/mattcosta7)! - ThemeProvider: Add a CSS-variable-based implementation to `@primer/react/next`
+  and deprecate the legacy JavaScript theme implementation.
+
+- [#8303](https://github.com/primer/react/pull/8303) [`a88cc69`](https://github.com/primer/react/commit/a88cc693539e2b9aa836623c737e860e7203e73a) Thanks [@TylerJDev](https://github.com/TylerJDev)! - NavList: Add a `tooltipText` prop to items
+
+### Patch Changes
+
+- [#8276](https://github.com/primer/react/pull/8276) [`5069f8a`](https://github.com/primer/react/commit/5069f8a7cb95544ce14122e97d67c8a1279f8a08) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Portal: Render nothing while server rendering and during hydration instead of accessing the DOM during render, fixing server rendering support. Client-only renders are unchanged and still mount portaled content in the same commit.
+
+- [#8260](https://github.com/primer/react/pull/8260) [`24d0831`](https://github.com/primer/react/commit/24d0831d34b13e3b4bac8afcfa2ccd5795cd9a9d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - UnderlineNav: Keep item icons visible by default at the medium breakpoint and above
+
+## 38.35.1
+
+### Patch Changes
+
+- [#8258](https://github.com/primer/react/pull/8258) [`edbcd94`](https://github.com/primer/react/commit/edbcd942354ff45148c2623be8b543ef8789a20f) Thanks [@llastflowers](https://github.com/llastflowers)! - Update `AvatarStack` to not reserve space when collapsed
+
+- [#8273](https://github.com/primer/react/pull/8273) [`0c1e401`](https://github.com/primer/react/commit/0c1e401b6b0d57f95f8115ea90af78281751a766) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - NavList: Exclude group headings from navigation list item counts
+
+## 38.35.0
+
+### Minor Changes
+
+- [#8253](https://github.com/primer/react/pull/8253) [`da3df9a`](https://github.com/primer/react/commit/da3df9aba582c7bcedbe69f1bdc5ab64ac90d32b) Thanks [@llastflowers](https://github.com/llastflowers)! - Add default Esc-to-dismiss support to `Popover` component
+
+## 38.34.0
+
+### Minor Changes
+
+- [#8086](https://github.com/primer/react/pull/8086) [`81d4174`](https://github.com/primer/react/commit/81d4174150b37da95db23480574ddf8db5b20ca4) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Add a `hideDivider` prop to `NavList.Group` so consumers can opt out of rendering the divider before a group.
+
+### Patch Changes
+
+- [#8211](https://github.com/primer/react/pull/8211) [`a3e669f`](https://github.com/primer/react/commit/a3e669fa551a7d07841ce20224199d172905860f) Thanks [@francinelucca](https://github.com/francinelucca)! - Link: Remove unnecessary `data-hover-color` attribute from rendered DOM element
+
+- [#8196](https://github.com/primer/react/pull/8196) [`e24effd`](https://github.com/primer/react/commit/e24effd440d69f0068a89aba26bae9e39fb3254e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Use `aria-pressed` instead of `aria-current` on `SegmentedControl.Button` and `SegmentedControl.IconButton` so JAWS announces the selected state when a segment is activated.
+
+- [#8169](https://github.com/primer/react/pull/8169) [`1d6f559`](https://github.com/primer/react/commit/1d6f5593f5e482d1d03027522bc882560c7b1f06) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Timeline: `Timeline.Actions` now wraps onto a new row below `Timeline.Body`, left-aligned with the body content, when `Timeline.Item` is narrower than 480px.
+
+- [#8214](https://github.com/primer/react/pull/8214) [`41705f4`](https://github.com/primer/react/commit/41705f430ce0f64eb61c2665313f36a88cf6f16c) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - UnderlinePanels: The experimental `UnderlinePanels` component is now built on the experimental `Tabs` component instead of `@github/tab-container-element`. Its public API and behavior are unchanged.
+
+## 38.33.0
+
+### Minor Changes
+
+- [#8160](https://github.com/primer/react/pull/8160) [`f8e7cf2`](https://github.com/primer/react/commit/f8e7cf2e1bd3eb02d4106b4932b487bb8ff108e6) Thanks [@TylerJDev](https://github.com/TylerJDev)! - PageLayout: Export the resize primitives `usePaneWidth` and `DragHandle` (with `defaultPaneWidth` and related types) so pane-resize behavior can be reused outside of `PageLayout`.
+
+### Patch Changes
+
+- [#8064](https://github.com/primer/react/pull/8064) [`eb447fe`](https://github.com/primer/react/commit/eb447fef0f1565934dc38d09df21d8063957aa9d) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Update the ActionBar overflow menu anchor label to `More items`
+
+- [#8166](https://github.com/primer/react/pull/8166) [`4045abe`](https://github.com/primer/react/commit/4045abea621d0940edcd1120fc70e6ed5f797205) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Add `contain: layout` to high-churn overflow containers (`ActionBar`, `UnderlineNav`, `UnderlinePanels`, and `LabelGroup`) so their frequent reflows no longer invalidate ancestor layout.
+
+- [#8176](https://github.com/primer/react/pull/8176) [`f061bc4`](https://github.com/primer/react/commit/f061bc41483211bef1ec8b1dfe07937f20a9ddd6) Thanks [@francinelucca](https://github.com/francinelucca)! - FeatureFlags: Guard against missing context in `useFeatureFlag` so it returns `false` instead of throwing when used outside a provider
+
+- [#8188](https://github.com/primer/react/pull/8188) [`2a67c19`](https://github.com/primer/react/commit/2a67c191a0038df64d2225c0bc11c020c2def03c) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `UnderlineNav` items all being considered overflowing on Safari with text size overrides
+
+- [#8116](https://github.com/primer/react/pull/8116) [`cade4af`](https://github.com/primer/react/commit/cade4af9a70f3fd2622031af585dc07dccd79e11) Thanks [@mattcosta7](https://github.com/mattcosta7)! - `useAnchoredPosition`: improve performance by caching the scrollable-ancestor walk per anchor, reducing repositioning work for overlays, menus, and tooltips.
+
+- [#8164](https://github.com/primer/react/pull/8164) [`f86e5a6`](https://github.com/primer/react/commit/f86e5a6420e857e7476c3954d419f4e228bdcf1a) Thanks [@jonrohan](https://github.com/jonrohan)! - Fix `UnderlineNav` tab list not filling the full width of the underline nav in Safari
+
+- [#8165](https://github.com/primer/react/pull/8165) [`d60d05b`](https://github.com/primer/react/commit/d60d05b2684056b653cb605418d6f1cae0ba38e2) Thanks [@jonrohan](https://github.com/jonrohan)! - Pin the underline tabbed interface wrapper's vertical box model in wrap mode so external border and padding overrides can no longer offset its height and incorrectly trigger the overflow "more" menu
+
+## 38.32.0
+
+### Minor Changes
+
+- [#8133](https://github.com/primer/react/pull/8133) [`0cb8e17`](https://github.com/primer/react/commit/0cb8e17219f61f853fcf06ce9ee09c755c9ef5ff) Thanks [@iansan5653](https://github.com/iansan5653)! - `UnderlineNav`: Replaced dynamic icon visibility with static breakpoints to avoid flickering. Breakpoints customizable via the `hideIconsBreakpoint` prop.
+
+- [#8112](https://github.com/primer/react/pull/8112) [`50face0`](https://github.com/primer/react/commit/50face041d55eb800d643b0d264d23fc12fd4121) Thanks [@llastflowers](https://github.com/llastflowers)! - Add data-component attributes and associated tests for:
+
+  SplitPageLayout
+  Stack
+  StateLabel
+  SubNav
+  TabNav
+  Text
+  TextArea
+  ThemeProvider
+
+### Patch Changes
+
+- [#7901](https://github.com/primer/react/pull/7901) [`8288ed9`](https://github.com/primer/react/commit/8288ed9d88668f93cf3b1eb70ee61edac6217367) Thanks [@mattcosta7](https://github.com/mattcosta7)! - PageHeader: improve rendering performance by removing expensive `:has()` selectors. No visual or API changes.
+
+- [#8115](https://github.com/primer/react/pull/8115) [`07c530a`](https://github.com/primer/react/commit/07c530a1686ef16b68b2f2fe692b7a3327bdc02b) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Improve rendering performance in Safari by removing expensive `:has()` selectors from ActionList/NavList, Breadcrumbs, SelectPanel, and SegmentedControl. No visual or API changes.
+
+- [#8024](https://github.com/primer/react/pull/8024) [`18e3b7d`](https://github.com/primer/react/commit/18e3b7d7a7b54275b99d2562eb279722f5cdd60e) Thanks [@mattcosta7](https://github.com/mattcosta7)! - ToggleSwitch: Fire `onChange` from the user interaction instead of an effect, so it no longer fires on mount or when a controlled `checked` value changes externally.
+
+- [#8035](https://github.com/primer/react/pull/8035) [`723f4d6`](https://github.com/primer/react/commit/723f4d6db12710e2b94f56b945a937158fcbb127) Thanks [@mattcosta7](https://github.com/mattcosta7)! - UnderlineNav, ActionBar: Detect item overflow with a single shared IntersectionObserver per component instead of one observer per item, reducing observer churn during resize. No public API changes.
+
+- [#8001](https://github.com/primer/react/pull/8001) [`4edc824`](https://github.com/primer/react/commit/4edc8242da557eedd41d71b242674b33254029ec) Thanks [@mattcosta7](https://github.com/mattcosta7)! - `useMedia` now reads the live `matchMedia` value on the first client render instead of after an effect, removing a redundant render pass. `defaultState` is only used for the SSR/hydration snapshot (no public API changes).
+
+- [#8023](https://github.com/primer/react/pull/8023) [`71fa75c`](https://github.com/primer/react/commit/71fa75c861c55bf29dd30ddf4a83549bf81369f8) Thanks [@mattcosta7](https://github.com/mattcosta7)! - FormControl: Avoid an extra re-render when showing a validation message.
+
+## 38.31.0
+
+### Minor Changes
+
+- [#8057](https://github.com/primer/react/pull/8057) [`0b9c81e`](https://github.com/primer/react/commit/0b9c81e7e8fef1dfc98f3b86b5a375d4ec7fe204) Thanks [@francinelucca](https://github.com/francinelucca)! - ThemeProvider: Remove `primer_react_theme_provider_remove_ssr_handoff` feature flag.
+
+- [#8105](https://github.com/primer/react/pull/8105) [`be2950f`](https://github.com/primer/react/commit/be2950fd1ac268dd4e79258ab2cfe9241dd9e1c6) Thanks [@joshblack](https://github.com/joshblack)! - React Compiler: Enable compiler output for Banner, ConfirmationDialog, PageLayout, Pagination, UnderlineNav, `useMergedRefs`, and `useScrollFlash`
+
+### Patch Changes
+
+- [#8066](https://github.com/primer/react/pull/8066) [`dd66aa2`](https://github.com/primer/react/commit/dd66aa27611f7ad56adb7429b50813d6af5a01d7) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Fix invalid HTML nesting in `ActionList.Heading` by applying the visually-hidden styles directly to the heading element instead of wrapping it in a `span`.
+
+- [#8054](https://github.com/primer/react/pull/8054) [`1775f2e`](https://github.com/primer/react/commit/1775f2e8b968d59a1189456b14cff15e527937cb) Thanks [@joshblack](https://github.com/joshblack)! - AvatarStack: Improve rendering performance with React Compiler support
+
+- [#8053](https://github.com/primer/react/pull/8053) [`b2151ae`](https://github.com/primer/react/commit/b2151ae2d5719f09efb0b89731e52e4ca50e8bf1) Thanks [@joshblack](https://github.com/joshblack)! - Checkbox, CheckboxGroup, and RadioGroup: Improve rendering performance with React Compiler support
+
+- [#8052](https://github.com/primer/react/pull/8052) [`a1b24cf`](https://github.com/primer/react/commit/a1b24cf3411566641aeb846e62069dc26505da6b) Thanks [@joshblack](https://github.com/joshblack)! - Heading, Link, Pagehead, Portal, and SideNav: Improve rendering performance with React Compiler support
+
 ## 38.30.0
 
 ### Minor Changes

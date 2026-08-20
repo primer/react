@@ -1,9 +1,6 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import {transformFileSync} from '@babel/core'
-import type {TransformOptions} from '@babel/core'
-import {CompilerError} from 'babel-plugin-react-compiler'
-import type {PluginOptions, Logger, LoggerEvent} from 'babel-plugin-react-compiler'
+import {checkFile} from '@primer/react-compiler-check'
 import {files as compilerFiles, notMigrated as notMigratedFiles} from '../packages/react/script/react-compiler.mjs'
 
 const directory = path.resolve(import.meta.dirname, '..')
@@ -15,18 +12,6 @@ interface CompilerFile {
 interface CompilerFailure {
   readonly line: number | null
   readonly reason: string
-}
-type CompilerErrorDetail = CompilerError['details'][number]
-
-type BabelReactPresetOptions = {
-  readonly modules: false
-  readonly runtime: 'automatic'
-}
-type BabelTransformPlugin = [string, PluginOptions | Record<string, never>] | string
-type BabelTransformPreset = [string, BabelReactPresetOptions] | string
-interface BabelTransformOptions extends TransformOptions {
-  readonly presets: Array<BabelTransformPreset>
-  readonly plugins: Array<BabelTransformPlugin>
 }
 
 const files: Array<CompilerFile> = compilerFiles.map(filepath => {
@@ -118,92 +103,44 @@ function round(value: number): number {
 }
 
 function getCompilerFailures(filepath: string): Array<CompilerFailure> {
-  const failures: Array<CompilerFailure> = []
-  const logger: Logger = {
-    logEvent(_filename: string | null, event: LoggerEvent) {
-      if (event.kind === 'CompileError') {
-        addCompilerFailure(failures, formatCompilerError(event))
-      }
-
-      if (event.kind === 'CompileSkip') {
-        addCompilerFailure(failures, {
-          line: getLocationLine(event.loc ?? event.fnLoc),
-          reason: event.reason,
-        })
-      }
-    },
-  }
-
+  let result
   try {
-    transformFileSync(filepath, getBabelTransformOptions(logger))
-  } catch (error: unknown) {
-    if (!(error instanceof CompilerError)) {
-      throw error
+    result = checkFile(filepath, fs.readFileSync(filepath, 'utf8'))
+  } catch (error) {
+    return [
+      {
+        line: getErrorLine(error),
+        reason: error instanceof Error ? error.message : String(error),
+      },
+    ]
+  }
+
+  if (result.ok) {
+    return []
+  }
+
+  return result.errors.map(error => {
+    return {
+      line: getLocationLine(error.location),
+      reason: error.reason,
     }
-
-    for (const detail of error.details) {
-      addCompilerFailure(failures, formatCompilerErrorDetail(detail))
-    }
-  }
-
-  return failures
-}
-
-function getBabelTransformOptions(logger: Logger): BabelTransformOptions {
-  return {
-    babelrc: false,
-    configFile: false,
-    presets: [
-      '@babel/preset-typescript',
-      [
-        '@babel/preset-react',
-        {
-          modules: false,
-          runtime: 'automatic',
-        },
-      ],
-    ],
-    plugins: [
-      [
-        'babel-plugin-react-compiler',
-        {
-          target: '18',
-          panicThreshold: 'all_errors',
-          logger,
-        },
-      ],
-      'macros',
-      'add-react-displayname',
-      'dev-expression',
-      '@babel/plugin-proposal-nullish-coalescing-operator',
-      '@babel/plugin-proposal-optional-chaining',
-    ],
-  }
-}
-
-function formatCompilerError(event: Extract<LoggerEvent, {kind: 'CompileError'}>): CompilerFailure {
-  return formatCompilerErrorDetail(event.detail)
-}
-
-function formatCompilerErrorDetail(detail: CompilerErrorDetail): CompilerFailure {
-  return {
-    line: getLocationLine(detail.primaryLocation()),
-    reason: detail.reason,
-  }
-}
-
-function addCompilerFailure(failures: Array<CompilerFailure>, failure: CompilerFailure): void {
-  const hasFailure = failures.some(existingFailure => {
-    return existingFailure.line === failure.line && existingFailure.reason === failure.reason
   })
-
-  if (!hasFailure) {
-    failures.push(failure)
-  }
 }
 
 function getLocationLine(location: {start: {line: number}} | null): number | null {
   return location?.start.line ?? null
+}
+
+function getErrorLine(error: unknown): number | null {
+  if (error !== null && typeof error === 'object' && 'loc' in error) {
+    const loc = error.loc
+
+    if (loc !== null && typeof loc === 'object' && 'line' in loc && typeof loc.line === 'number') {
+      return loc.line
+    }
+  }
+
+  return null
 }
 
 function formatCompilerFailures(failures: Array<CompilerFailure>): string {

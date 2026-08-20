@@ -2,6 +2,7 @@ import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
+import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 import classes from './PageHeader.module.css'
 
@@ -162,6 +163,106 @@ describe('PageHeader', () => {
     expect(container.firstChild).toHaveAttribute('aria-label', 'Custom aria-label')
   })
 
+  describe('hoisted root data attributes', () => {
+    it('hoists the TitleArea variant onto the root as "data-title-size-variant"', () => {
+      const {container} = render(
+        <PageHeader role="banner">
+          <PageHeader.TitleArea variant="large">
+            <PageHeader.Title>Title</PageHeader.Title>
+          </PageHeader.TitleArea>
+        </PageHeader>,
+      )
+      expect(container.firstChild).toHaveAttribute('data-title-size-variant', 'large')
+    })
+
+    it('defaults the hoisted "data-title-size-variant" to "medium" when TitleArea has no variant', () => {
+      const {container} = render(
+        <PageHeader role="banner">
+          <PageHeader.TitleArea>
+            <PageHeader.Title>Title</PageHeader.Title>
+          </PageHeader.TitleArea>
+        </PageHeader>,
+      )
+      expect(container.firstChild).toHaveAttribute('data-title-size-variant', 'medium')
+    })
+
+    it('hoists the TitleArea variant through fragment wrappers', () => {
+      const {container} = render(
+        <PageHeader role="banner">
+          <>
+            <PageHeader.TitleArea variant="large">
+              <PageHeader.Title>Title</PageHeader.Title>
+            </PageHeader.TitleArea>
+          </>
+        </PageHeader>,
+      )
+      expect(container.firstChild).toHaveAttribute('data-title-size-variant', 'large')
+    })
+
+    it('does not emit "data-title-size-variant" when no TitleArea is rendered', () => {
+      const {container} = render(
+        <PageHeader role="banner">
+          <PageHeader.Navigation as="nav" aria-label="Custom">
+            Navigation
+          </PageHeader.Navigation>
+        </PageHeader>,
+      )
+      expect(container.firstChild).not.toHaveAttribute('data-title-size-variant')
+    })
+
+    it('emits "data-has-nav" on the root when a Navigation child is rendered', () => {
+      const {container} = render(
+        <PageHeader role="banner">
+          <PageHeader.TitleArea>
+            <PageHeader.Title>Title</PageHeader.Title>
+          </PageHeader.TitleArea>
+          <PageHeader.Navigation as="nav" aria-label="Custom">
+            Navigation
+          </PageHeader.Navigation>
+        </PageHeader>,
+      )
+      expect(container.firstChild).toHaveAttribute('data-has-nav')
+    })
+
+    it('hoists a Navigation child through fragment wrappers', () => {
+      const {container} = render(
+        <PageHeader role="banner">
+          <>
+            <PageHeader.Navigation as="nav" aria-label="Custom">
+              Navigation
+            </PageHeader.Navigation>
+          </>
+        </PageHeader>,
+      )
+      expect(container.firstChild).toHaveAttribute('data-has-nav')
+    })
+
+    it('does not emit "data-has-nav" on the root when no Navigation child is rendered', () => {
+      const {container} = render(
+        <PageHeader role="banner">
+          <PageHeader.TitleArea>
+            <PageHeader.Title>Title</PageHeader.Title>
+          </PageHeader.TitleArea>
+        </PageHeader>,
+      )
+      expect(container.firstChild).not.toHaveAttribute('data-has-nav')
+    })
+
+    it('hoists the Navigation hidden state onto the root as "data-nav-hidden-*"', () => {
+      const {container} = render(
+        <PageHeader role="banner">
+          <PageHeader.TitleArea>
+            <PageHeader.Title>Title</PageHeader.Title>
+          </PageHeader.TitleArea>
+          <PageHeader.Navigation as="nav" aria-label="Custom" hidden={{narrow: true, regular: false, wide: false}}>
+            Navigation
+          </PageHeader.Navigation>
+        </PageHeader>,
+      )
+      expect(container.firstChild).toHaveAttribute('data-nav-hidden-narrow', 'true')
+    })
+  })
+
   it('forwards rest props to the underlying element in ParentLink', () => {
     const {getByTestId} = render(
       <PageHeader role="banner" aria-label="Title">
@@ -205,4 +306,46 @@ describe('PageHeader', () => {
     )
     expect(getByRole('link', {name: /parent/i})).toHaveAttribute('href', '/somewhere')
   })
+})
+
+describe('PageHeader forwarded ref (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      it('forwards the Root ref object', () => {
+        const ref = React.createRef<HTMLDivElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <PageHeader ref={ref} aria-label="Title">
+              Content
+            </PageHeader>
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLDivElement)
+      })
+
+      it('calls a Root callback ref', () => {
+        const refCallback = vi.fn()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <PageHeader ref={refCallback} aria-label="Title">
+              Content
+            </PageHeader>
+          </FeatureFlags>,
+        )
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+      })
+
+      it('forwards the TitleArea ref object', () => {
+        const ref = React.createRef<HTMLDivElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <PageHeader aria-label="Title">
+              <PageHeader.TitleArea ref={ref}>Heading</PageHeader.TitleArea>
+            </PageHeader>
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLDivElement)
+      })
+    })
+  }
 })

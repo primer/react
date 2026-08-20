@@ -1,0 +1,77 @@
+.RealisticTimeline {
+  /* GitHub renders the timeline at most 1012px wide in product surfaces. */
+  max-width: 1012px;
+}
+
+.VariantSection {
+  margin-bottom: var(--base-size-24);
+}
+
+.VariantLabel {
+  margin: 0 0 var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* TODO(github/primer#6826): remove when Primer Link ships a bold/actor weight affordance */
+.BoldLink {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+}
+
+.BoldLink:hover {
+  color: var(--fgColor-accent);
+}
+
+/* TODO(github/primer#6827): remove when Primer ships an inline (in-text) avatar treatment */
+.InlineAvatar {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+/* TODO(github/primer#6828): remove when Timeline provides a muted relative-time treatment */
+.MutedTime {
+  color: var(--fgColor-muted);
+}
+
+/* Underline treatment when MutedTime renders as a permalink to the event. */
+.MutedTimeLink {
+  text-decoration: underline;
+}
+
+/* Span-branch actor name (UserActor without an href, and bot names). No hover-accent:
+   live-GitHub bold actor text doesn't hover-color — only real links (BoldLink) do. */
+.BoldName {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+}
+
+/* Trailing "bot" Label spacing in UserActor. */
+.BotLabel {
+  margin-left: var(--base-size-4);
+}
+
+/* Glyph rendered by UserActor for system actors (in place of an avatar). */
+.ActorIcon {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+/* Muted "icon + small text" sub-row rendered below an event body. */
+.EventSubRow {
+  display: flex;
+  align-items: center;
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.EventSubRowIcon {
+  margin-right: var(--base-size-4);
+  color: var(--fgColor-muted);
+}

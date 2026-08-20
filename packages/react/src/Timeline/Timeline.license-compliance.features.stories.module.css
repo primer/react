@@ -1,0 +1,31 @@
+/* Surface-specific classes for the License Compliance event stories. The generic
+   scaffolding (RealisticTimeline / VariantSection width + caption), the inline
+   avatar, the bold actor name/link, the "bot" Label, the muted timestamp, and the
+   note sub-row now come from the shared `./internal/timelineStoryHelpers` module. */
+
+/* Muted action verb (e.g. "opened this alert"). Live `shared.tsx` renders it as
+   `<span className="color-fg-muted ml-1">`. */
+.ActionText {
+  color: var(--fgColor-muted);
+}
+
+/* PR-link sub-row — live `PullRequestLink` (`events/shared.tsx`) renders a 16px
+   success-green `GitPullRequestIcon` + an `f6` `<Link>`. */
+.PrRow {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+}
+
+.PrIcon {
+  margin-right: var(--base-size-8);
+  color: var(--fgColor-success);
+}
+
+/* Sub-row link forced to the default foreground color, matching live
+   `defaultColorLink`. Rendered with the `inline` prop (underline) at the call
+   site so it stays distinguishable for the axe `link-in-text-block` rule. */
+.SubRowLink {
+  color: var(--fgColor-default) !important;
+}
