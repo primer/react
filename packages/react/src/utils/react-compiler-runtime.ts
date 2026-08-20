@@ -26,7 +26,9 @@ type ReactCompilerRuntime = {
   c?: (size: number) => MemoCache
 }
 
-function useMemoCache(size: number): MemoCache {
+// Exported for testing: the `useMemo`-backed fallback used when React does not
+// provide a built-in compiler runtime.
+export function useMemoCache(size: number): MemoCache {
   return useMemo(() => {
     const cache = new Array(size) as MemoCache & Record<symbol, unknown>
     for (let index = 0; index < size; index++) {
