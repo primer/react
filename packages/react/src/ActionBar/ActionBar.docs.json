@@ -80,6 +80,12 @@
           "type": "boolean",
           "defaultValue": "",
           "description": "Provides a disabled state for the button. The button will remain focusable, and have `aria-disabled` applied."
+        },
+        {
+          "name": "activeAnchorRef",
+          "type": "React.Ref<HTMLButtonElement>",
+          "required": false,
+          "description": "Receives the visible trigger representing this action. Points to this button while inline and the ActionBar overflow button while this action is overflowing."
         }
       ],
       "passthrough": {
@@ -108,6 +114,12 @@
           "type": "boolean",
           "defaultValue": "",
           "description": "Provides a disabled state for the button. The button will remain focusable, and have `aria-disabled` applied."
+        },
+        {
+          "name": "activeAnchorRef",
+          "type": "React.Ref<HTMLButtonElement>",
+          "required": false,
+          "description": "Receives the visible trigger representing this action. Points to this button while inline and the ActionBar overflow button while this action is overflowing."
         }
       ],
       "passthrough": {
