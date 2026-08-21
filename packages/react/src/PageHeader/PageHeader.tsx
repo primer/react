@@ -5,7 +5,7 @@ import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import type {LinkProps as BaseLinkProps} from '../Link'
 import Link from '../Link'
-import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
+import {getResponsiveAttributes} from '../utils/getResponsiveAttributes'
 
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'

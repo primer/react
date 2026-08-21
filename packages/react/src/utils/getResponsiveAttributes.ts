@@ -1,4 +1,4 @@
-import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 /**
  * Transform the given property and values in to corresponding data attributes
