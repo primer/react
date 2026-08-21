@@ -364,7 +364,9 @@ describe('SegmentedControl', () => {
     const {getByRole, container} = render(
       <BaseStyles>
         <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
-          <SegmentedControl.Button defaultSelected count={5}>All</SegmentedControl.Button>
+          <SegmentedControl.Button defaultSelected count={5}>
+            All
+          </SegmentedControl.Button>
           <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
           <SegmentedControl.Action aria-label="Add view" />
         </SegmentedControl>
