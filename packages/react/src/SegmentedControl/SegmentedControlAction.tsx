@@ -10,7 +10,7 @@ type SegmentedControlActionBaseProps = {
 }
 
 type SegmentedControlIconActionProps = SegmentedControlActionBaseProps &
-  DistributiveOmit<IconButtonProps, 'icon' | 'children' | 'aria-label'> & {
+  DistributiveOmit<IconButtonProps, 'icon' | 'children' | 'aria-label' | 'aria-labelledby'> & {
     icon: ElementType
   }
 export type SegmentedControlActionProps = SegmentedControlIconActionProps

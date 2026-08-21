@@ -66,7 +66,6 @@ export const WithAddViewButton = () => {
           <SegmentedControl.Button
             key={view.label}
             defaultSelected={index === 0}
-            count={view.count}
             dividerBefore={view.label === 'Active'}
           >
             {view.label}
