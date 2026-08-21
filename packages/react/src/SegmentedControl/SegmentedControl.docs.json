@@ -200,16 +200,16 @@
       "name": "SegmentedControl.Action",
       "props": [
         {
-          "name": "aria-label",
+          "name": "label",
           "type": "string",
           "required": true,
-          "description": "Accessible label for the non-selectable trailing action button."
+          "description": "Accessible label for the action icon button."
         },
         {
           "name": "icon",
           "type": "Component",
-          "description": "The icon for the action button.",
-          "defaultValue": "PlusIcon"
+          "required": true,
+          "description": "The icon rendered by the action button."
         },
         {
           "name": "onClick",

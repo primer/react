@@ -64,8 +64,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   )
     ? segmentChildren[selectedIndex]
     : undefined
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getChildIcon = (childArg: React.ReactNode): React.ReactElement<any> | null => {
+  const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
       (childArg.type === Button || isSlot(childArg, Button))
@@ -73,12 +72,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
       const leadingVisual = childArg.props.leadingVisual ?? childArg.props.leadingIcon
       if (leadingVisual) {
-        if (isElement(leadingVisual)) {
-          return leadingVisual
-        } else {
-          const LeadingVisual = leadingVisual
-          return <LeadingVisual />
-        }
+        if (isElement(leadingVisual)) return leadingVisual
+
+        const LeadingVisual = leadingVisual
+        return <LeadingVisual />
       }
     }
 
@@ -86,12 +83,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       React.isValidElement<SegmentedControlIconButtonProps>(childArg) &&
       (childArg.type === SegmentedControlIconButton || isSlot(childArg, SegmentedControlIconButton))
     ) {
-      if (isElement(childArg.props.icon)) {
-        childArg.props.icon
-      } else {
-        const Icon = childArg.props.icon
-        return <Icon />
-      }
+      if (isElement(childArg.props.icon)) return childArg.props.icon
+
+      const Icon = childArg.props.icon
+      return <Icon />
     }
 
     return null
@@ -213,17 +208,16 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         // Render the children as-is and add the shared child props
         return React.cloneElement(child, {key: child.key ?? `segmented-control-item-${index}`, ...sharedChildProps})
       })}
-      {!hasDropdownVariant && actionChild}
     </ul>
   )
 
-  // Return both variants when dropdown is used, otherwise just the segmented control
-  return hasDropdownVariant ? (
-    <>
+  // Action is always a sibling of the segmented control; only the dropdown trigger depends on the variant.
+  return hasDropdownVariant || actionChild ? (
+    <div className={classes.DropdownGroup}>
       {dropdownContent}
-      {actionChild && <div className={classes.DropdownAction}>{actionChild}</div>}
       {segmentedControlContent}
-    </>
+      {actionChild}
+    </div>
   ) : (
     segmentedControlContent
   )

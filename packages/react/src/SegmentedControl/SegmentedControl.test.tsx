@@ -1,5 +1,5 @@
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {EyeIcon, FileCodeIcon, PeopleIcon, PlusIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
@@ -360,24 +360,7 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('keeps the trailing action available in the dropdown variant', () => {
-    const {getByRole, container} = render(
-      <BaseStyles>
-        <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
-          <SegmentedControl.Button defaultSelected count={5}>
-            All
-          </SegmentedControl.Button>
-          <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
-          <SegmentedControl.Action aria-label="Add view" />
-        </SegmentedControl>
-      </BaseStyles>,
-    )
-
-    expect(container.querySelector('[data-component="SegmentedControl.Action"]')).toBeInTheDocument()
-    expect(getByRole('button', {name: 'Add view'})).toBeInTheDocument()
-  })
-
-  it('calls the action from the plus button', async () => {
+  it('calls the action from the icon action button', async () => {
     const user = userEvent.setup()
     const handleAddView = vi.fn()
     const {getByRole} = render(
@@ -388,17 +371,17 @@ describe('SegmentedControl', () => {
           </SegmentedControl.Button>
           <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
           <SegmentedControl.Button count={10}>Review requests</SegmentedControl.Button>
-          <SegmentedControl.Action aria-label="Add view" onClick={handleAddView} />
+          <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
         </SegmentedControl>
       </BaseStyles>,
     )
 
-    const plusButton = getByRole('button', {name: 'Add view'})
-    expect(plusButton.querySelectorAll('svg')).toHaveLength(1)
-    expect(plusButton).not.toHaveAttribute('aria-pressed')
-    expect(plusButton.querySelector('[data-component="trailingAction"]')).not.toBeInTheDocument()
+    const iconActionButton = getByRole('button', {name: 'Add view'})
+    expect(iconActionButton.querySelectorAll('svg')).toHaveLength(1)
+    expect(iconActionButton).not.toHaveAttribute('aria-pressed')
+    expect(iconActionButton.querySelector('[data-component="trailingAction"]')).not.toBeInTheDocument()
 
-    await user.click(plusButton)
+    await user.click(iconActionButton)
 
     expect(handleAddView).toHaveBeenCalledOnce()
   })

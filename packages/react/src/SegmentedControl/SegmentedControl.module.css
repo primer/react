@@ -203,6 +203,12 @@
   }
 }
 
+.DropdownGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-size-4);
+}
+
 .DropdownContainer {
   display: none;
 
@@ -278,22 +284,16 @@
   }
 }
 
-.PlusItem {
+.ActionItem {
   display: flex;
   align-items: center;
-  margin-inline-start: var(--base-size-4);
+  margin-inline-start: 0;
 }
 
-.PlusItem [data-component='IconButton'] {
+.ActionItem [data-component='IconButton'] {
   width: var(--segmented-control-action-size);
   height: var(--segmented-control-action-size);
   padding: 0;
-}
-
-.DropdownAction {
-  display: inline-flex;
-  align-items: center;
-  margin-inline-start: var(--base-size-4);
 }
 
 .Button {

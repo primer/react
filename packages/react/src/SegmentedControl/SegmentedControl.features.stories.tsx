@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
+import {PlusIcon, EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import {SegmentedControl} from '.'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import {Button} from '../Button'
 import Text from '../Text'
 import classes from './SegmentedControl.features.stories.module.css'
@@ -52,16 +52,11 @@ export const VariantSubtle = () => (
 VariantSubtle.storyName = '[variant: subtle]'
 
 export const WithAddViewButton = () => {
-  const initialViews = [
-    {label: 'All', count: 5},
-    {label: 'Active', count: 3},
-    {label: 'Review requests', count: 10},
-    {label: 'Done', count: 2},
-  ]
+  const initialViews = [{label: 'All'}, {label: 'Active'}, {label: 'Review requests'}, {label: 'Done'}]
   const [views, setViews] = useState(initialViews)
 
   const handleAddView = () => {
-    setViews(currentViews => [...currentViews, {label: `New view ${currentViews.length - 3}`, count: 0}])
+    setViews(currentViews => [...currentViews, {label: `New view ${currentViews.length - 3}`}])
   }
 
   return (
@@ -77,7 +72,7 @@ export const WithAddViewButton = () => {
             {view.label}
           </SegmentedControl.Button>
         ))}
-        <SegmentedControl.Action aria-label="Add view" onClick={handleAddView} />
+        <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
       </SegmentedControl>
       <Button className={classes.ResetButton} size="small" onClick={() => setViews(initialViews)}>
         Reset views
