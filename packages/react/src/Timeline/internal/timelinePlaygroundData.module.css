@@ -1,0 +1,10 @@
+/*
+ * Story-local styles for the representative Timeline event bodies in
+ * `timelinePlaygroundData.tsx`. Shared by the Timeline Playground story and the
+ * Timeline "Viewing" filter story so the emphasized inline text renders identically.
+ */
+
+.Strong {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
