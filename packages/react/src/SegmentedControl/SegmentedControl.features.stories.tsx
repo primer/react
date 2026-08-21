@@ -1,7 +1,8 @@
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
+import {PlusIcon, EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import {SegmentedControl} from '.'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {Button} from '../Button'
 import Text from '../Text'
 import classes from './SegmentedControl.features.stories.module.css'
 
@@ -33,6 +34,51 @@ export const WithCounterLabels = () => (
     <SegmentedControl.Button count={10}>Good first issue</SegmentedControl.Button>
   </SegmentedControl>
 )
+
+export const VariantSubtle = () => (
+  <SegmentedControl aria-label="View" variant="subtle">
+    <SegmentedControl.Button defaultSelected count={5}>
+      All
+    </SegmentedControl.Button>
+    <SegmentedControl.Button count={3} dividerBefore>
+      Active
+    </SegmentedControl.Button>
+    <SegmentedControl.Button count={10}>Review requests</SegmentedControl.Button>
+    <SegmentedControl.Button count={2} dividerBefore>
+      Done
+    </SegmentedControl.Button>
+  </SegmentedControl>
+)
+VariantSubtle.storyName = '[variant: subtle]'
+
+export const WithAddViewButton = () => {
+  const initialViews = [{label: 'All'}, {label: 'Active'}, {label: 'Review requests'}, {label: 'Done'}]
+  const [views, setViews] = useState(initialViews)
+
+  const handleAddView = () => {
+    setViews(currentViews => [...currentViews, {label: `New view ${currentViews.length - 3}`}])
+  }
+
+  return (
+    <>
+      <SegmentedControl aria-label="View" variant="subtle">
+        {views.map((view, index) => (
+          <SegmentedControl.Button
+            key={view.label}
+            defaultSelected={index === 0}
+            dividerBefore={view.label === 'Active'}
+          >
+            {view.label}
+          </SegmentedControl.Button>
+        ))}
+        <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
+      </SegmentedControl>
+      <Button className={classes.ResetButton} size="small" onClick={() => setViews(initialViews)}>
+        Reset views
+      </Button>
+    </>
+  )
+}
 
 export const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)

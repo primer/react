@@ -1,6 +1,7 @@
 .SegmentedControl {
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
+  --segmented-control-action-size: 32px;
   --segmented-control-outer-radius: var(--borderRadius-medium);
 
   display: inline-flex;
@@ -107,6 +108,57 @@
     display: none;
   }
 
+  &:where([data-variant='subtle']) {
+    --segmented-control-outer-radius: var(--borderRadius-large);
+    --segmented-control-button-bg-inset: 0px;
+
+    background-color: transparent;
+    border: 0;
+
+    &::before {
+      display: none;
+    }
+
+    .Item:not(:last-child)::after {
+      background-color: transparent;
+    }
+
+    .Item[data-divider-before] {
+      margin-inline-start: var(--base-size-16);
+    }
+
+    .Item[data-divider-before]::before {
+      position: absolute;
+      inset-block: var(--base-size-8);
+      inset-inline-start: calc(-1 * var(--base-size-8));
+      width: 1px;
+      content: '';
+      z-index: 1;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
+    .Button {
+      padding: 0;
+      color: var(--fgColor-muted);
+      border: 0;
+      border-radius: var(--borderRadius-large);
+
+      .Content {
+        padding-inline: var(--base-size-12);
+        border: 0;
+      }
+    }
+
+    .Button[aria-pressed='true'] {
+      color: var(--fgColor-default);
+
+      .Content {
+        background-color: var(--bgColor-muted);
+      }
+    }
+  }
+
   /* Handle hideLabels variant - hide button text */
   &[data-variant='hideLabels'] .Text {
     display: none;
@@ -144,9 +196,17 @@
 
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
+    --segmented-control-action-size: 28px;
+
     height: 28px;
     font-size: var(--text-body-size-small);
   }
+}
+
+.DropdownGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-size-4);
 }
 
 .DropdownContainer {
@@ -222,6 +282,18 @@
     display: flex;
     align-items: center;
   }
+}
+
+.ActionItem {
+  display: flex;
+  align-items: center;
+  margin-inline-start: 0;
+}
+
+.ActionItem [data-component='IconButton'] {
+  width: var(--segmented-control-action-size);
+  height: var(--segmented-control-action-size);
+  padding: 0;
 }
 
 .Button {
@@ -353,6 +425,11 @@
   &:active .Content {
     background-color: var(--controlTrack-bgColor-active);
   }
+}
+
+.SegmentedControl:where([data-variant='subtle']) .Button:where(:not([aria-pressed='true'])):hover .Content {
+  background-color: var(--bgColor-muted);
+  background-color: color-mix(in srgb, var(--bgColor-muted) 50%, transparent);
 }
 
 .Text::after {
