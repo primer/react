@@ -77,9 +77,14 @@ function ViewingFilterMenu({
               <ActionList.Item
                 key={option.id}
                 selected={isSelected}
-                onSelect={() =>
+                onSelect={event => {
+                  // Keep the multi-select Viewing menu open across toggles: ActionMenu
+                  // closes its overlay on item-select unless the handler prevents the
+                  // default. This works for mouse and keyboard (the Space path resets
+                  // `defaultPrevented` before calling this handler).
+                  event.preventDefault()
                   onSelectedChange(isSelected ? selected.filter(id => id !== option.id) : [...selected, option.id])
-                }
+                }}
               >
                 {option.label}
                 {option.description ? (
