@@ -43,8 +43,7 @@ import {Button} from '../../Button'
 import Label from '../../Label'
 import Link from '../../Link'
 import {type TimelineBadgeVariant} from '../Timeline'
-import {BoldLink, EventSubRow, MONALISA_AVATAR, MutedTime, UserActor} from './timelineStoryHelpers'
-import classes from './timelinePlaygroundData.module.css'
+import {BoldLink, EventSubRow, MONALISA_AVATAR, MutedTime, Strong, UserActor} from './timelineStoryHelpers'
 
 export type PlaygroundSurfaceId = 'code-scanning' | 'secret-scanning' | 'dependabot' | 'license-compliance' | 'issue'
 export type PlaygroundCategoryId = 'findings' | 'status' | 'reviews' | 'references' | 'moderation' | 'metadata'
@@ -78,7 +77,7 @@ export type PlaygroundSurface = {
   label: string
   /** Accessible name for the rendered `<Timeline>` */
   ariaLabel: string
-  categories: Partial<Record<PlaygroundCategoryId, {label: string; events: PlaygroundEvent[]}>>
+  categories: Partial<Record<PlaygroundCategoryId, {label: string; description?: string; events: PlaygroundEvent[]}>>
 }
 
 // Story-local demo avatars (MONALISA_AVATAR is imported from the shared helpers).
@@ -106,8 +105,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
             badge: {icon: ShieldIcon},
             body: (
               <>
-                <span className={classes.Strong}>First detected in commit</span>{' '}
-                <MutedTime date={new Date('2024-01-08T11:46:07Z')} />
+                <Strong>First detected in commit</Strong> <MutedTime date={new Date('2024-01-08T11:46:07Z')} />
               </>
             ),
           },
@@ -119,7 +117,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
             badge: {icon: ShieldCheckIcon, variant: 'done'},
             body: (
               <>
-                <span className={classes.Strong}>Fixed in branch</span> <span className={classes.Strong}>main</span>{' '}
+                <Strong>Fixed in branch</Strong> <Strong>main</Strong>{' '}
                 <MutedTime date={new Date('2024-01-12T10:15:00Z')} />
               </>
             ),
@@ -140,8 +138,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
               <>
                 <UserActor href="#" muted />
                 {'closed this as '}
-                <span className={classes.Strong}>false positive</span>{' '}
-                <MutedTime date={new Date('2024-01-14T08:20:00Z')} />
+                <Strong>false positive</Strong> <MutedTime date={new Date('2024-01-14T08:20:00Z')} />
               </>
             ),
           },
@@ -258,7 +255,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
               <>
                 <UserActor size={16} />
                 {'closed this as '}
-                <span className={classes.Strong}>revoked</span> <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
+                <Strong>revoked</Strong> <MutedTime date={new Date('2022-07-26T11:46:07Z')} />
                 <EventSubRow icon={CommentIcon} iconSize={12}>
                   Rotated the leaked token and confirmed the provider revoked it.
                 </EventSubRow>
@@ -392,8 +389,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
               <>
                 <UserActor href="#" muted />
                 {'dismissed this as '}
-                <span className={classes.Strong}>risk is tolerable</span>{' '}
-                <MutedTime date={new Date('2022-08-02T14:00:00Z')} />
+                <Strong>risk is tolerable</Strong> <MutedTime date={new Date('2022-08-02T14:00:00Z')} />
                 <EventSubRow icon={NoteIcon}>Only reachable from a dev-only script we do not ship.</EventSubRow>
               </>
             ),
@@ -458,8 +454,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
             body: (
               <>
                 {'Appeared in branch '}
-                <span className={classes.Strong}>feature-branch</span>{' '}
-                <MutedTime date={new Date('2025-10-20T10:01:00Z')} />
+                <Strong>feature-branch</Strong> <MutedTime date={new Date('2025-10-20T10:01:00Z')} />
               </>
             ),
           },
@@ -546,9 +541,15 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
   issue: {
     label: 'Issues',
     ariaLabel: 'Issue timeline',
+    // Per-category `description` strings below are REPRESENTATIVE one-liners, surfaced by
+    // the Viewing menu via `ActionList.Description`. They are NOT authoritative: the
+    // canonical per-category descriptions (and cross-surface consistency) belong to
+    // `@github-ui/timeline-taxonomy` (event-categories.ts). Primer renders the slot but
+    // does not own the category semantics.
     categories: {
       status: {
         label: 'Status',
+        description: 'Opened, closed, and reopened lifecycle events.',
         events: [
           {
             type: 'closed',
@@ -587,6 +588,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
       },
       references: {
         label: 'References',
+        description: 'Cross-links to pull requests, commits, and other issues.',
         events: [
           {
             type: 'connected',
@@ -630,6 +632,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
       },
       moderation: {
         label: 'Moderation',
+        description: 'Blocks, hides, and other moderation actions.',
         events: [
           {
             type: 'user_blocked',
@@ -668,6 +671,7 @@ export const PLAYGROUND_SURFACES: Record<PlaygroundSurfaceId, PlaygroundSurface>
       },
       metadata: {
         label: 'Metadata',
+        description: 'Labels, milestones, and other bookkeeping changes.',
         events: [
           {
             type: 'labeled',

@@ -16,7 +16,7 @@ import {
 import classes from './Timeline.filter.features.stories.module.css'
 
 export default {
-  title: 'Components/Timeline/Filter',
+  title: 'Components/Timeline/Features',
   component: Timeline,
   subcomponents: {
     'Timeline.Item': Timeline.Item,
@@ -43,17 +43,19 @@ const SURFACE_ID = 'issue' as const
 // category never renders a duplicate opening/closing row.
 const BOOKEND_LIFECYCLE_TYPES = new Set(['opened', 'closed'])
 
-type ViewingOption = {id: PlaygroundCategoryId; label: string}
+type ViewingOption = {id: PlaygroundCategoryId; label: string; description?: string}
 
 /**
  * Presentational "Viewing" control. Its entire contract is `options` /
  * `selected` / `onSelectedChange`; it reads NO `data-*` attributes and knows
  * nothing about the Timeline it filters. The consumer owns the predicate and
- * decides which rows render. This mirrors the prototype's per-surface Viewing
- * menu: a Primer `ActionMenu` multi-select (`selectionVariant="multiple"`) whose
- * checklist items stay open on select and expose `role="menuitemcheckbox"` /
- * `aria-checked` for screen readers. The trigger's accessible name is its text
- * ("Viewing"); the eye icon is decorative.
+ * decides which rows render. Each option may also carry an optional
+ * consumer-supplied `description`, rendered as an `ActionList.Description` block
+ * under the label; the control authors none of this text. This mirrors the
+ * prototype's per-surface Viewing menu: a Primer `ActionMenu` multi-select
+ * (`selectionVariant="multiple"`) whose checklist items stay open on select and
+ * expose `role="menuitemcheckbox"` / `aria-checked` for screen readers. The
+ * trigger's accessible name is its text ("Viewing"); the eye icon is decorative.
  */
 function ViewingFilterMenu({
   options,
@@ -80,6 +82,9 @@ function ViewingFilterMenu({
                 }
               >
                 {option.label}
+                {option.description ? (
+                  <ActionList.Description variant="block">{option.description}</ActionList.Description>
+                ) : null}
               </ActionList.Item>
             )
           })}
@@ -119,12 +124,13 @@ function ViewingFilterMenu({
  * authoritative Timeline event taxonomy lives in github-ui as
  * `@github-ui/timeline-taxonomy`; primer/react is taxonomy-agnostic.
  */
-export const ViewingMenu = () => {
+export const WithFiltering = () => {
   const surface = PLAYGROUND_SURFACES[SURFACE_ID]
   const categoryIds = playgroundCategoryIds(SURFACE_ID)
   const options: ViewingOption[] = categoryIds.map(id => ({
     id,
     label: surface.categories[id]?.label ?? id,
+    description: surface.categories[id]?.description,
   }))
 
   // All categories start selected: nothing is filtered out initially.

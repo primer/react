@@ -51,6 +51,13 @@
   margin-right: var(--base-size-4);
 }
 
+/* Inline semibold emphasis in event bodies. Timeline.Body is muted, so the explicit
+   default color lifts the emphasized phrase out of the muted run. */
+.Strong {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
 /* Trailing "bot" Label spacing in UserActor. */
 .BotLabel {
   margin-left: var(--base-size-4);
