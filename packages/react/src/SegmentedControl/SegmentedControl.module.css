@@ -197,6 +197,7 @@
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
     --segmented-control-action-size: 28px;
+
     height: 28px;
     font-size: var(--text-body-size-small);
   }
