@@ -97,6 +97,8 @@ export {SkeletonAvatar} from '../SkeletonAvatar'
 export type {SkeletonAvatarProps} from '../SkeletonAvatar'
 export {FeatureFlags, DefaultFeatureFlags, useFeatureFlag} from '../FeatureFlags'
 export type {FeatureFlagsProps} from '../FeatureFlags'
+export {ExperimentalRelativeTime} from '../RelativeTime'
+export type {ExperimentalRelativeTimeProps} from '../RelativeTime'
 
 export {FilteredActionList, FilteredActionListLoadingTypes} from '../FilteredActionList'
 export type {FilteredActionListProps, FilteredActionListInputProps} from '../FilteredActionList'
