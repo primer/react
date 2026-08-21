@@ -208,10 +208,21 @@ describe('ActionList.Item', () => {
     )
     const button = container.querySelector('button')
     expect(button).toHaveTextContent('Item 1')
+    expect(button).toHaveAttribute('type', 'button')
     // Ensure passed prop "disabled" is applied to the button
     expect(button).toHaveAttribute('aria-disabled', 'true')
     const listItems = container.querySelectorAll('li')
     expect(listItems.length).toBe(2)
+  })
+  it('allows consumers to override the button type', async () => {
+    const props = {type: 'submit'} as const
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item {...props}>Item 1</ActionList.Item>
+      </ActionList>,
+    )
+
+    expect(container.querySelector('button')).toHaveAttribute('type', 'submit')
   })
   it('should render ActionList.Item as li when item has proper aria role', async () => {
     const {container} = HTMLRender(

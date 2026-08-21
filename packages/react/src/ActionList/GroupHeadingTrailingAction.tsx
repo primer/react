@@ -4,6 +4,7 @@ import {IconButton} from '../Button'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {SlotMarker} from '../utils/types/Slots'
 import type {ActionListTrailingActionProps} from './TrailingAction'
+import {mergeProps} from '../utils/mergeProps'
 
 /**
  * Props for `ActionList.GroupHeading.TrailingAction`.
@@ -21,17 +22,21 @@ export type ActionListGroupHeadingTrailingActionProps = Omit<ActionListTrailingA
 const GroupHeadingTrailingActionImpl = forwardRef(
   ({as = 'button', icon, label, href = null, tooltipDirection = 'w', ...props}, forwardedRef) => (
     <IconButton
-      as={as}
-      aria-label={label}
-      icon={icon}
-      variant="invisible"
-      size="small"
-      tooltipDirection={tooltipDirection}
-      href={href}
       // @ts-expect-error StyledButton wants both Anchor and Button refs
       ref={forwardedRef}
-      data-component="ActionList.GroupHeading.TrailingAction"
-      {...props}
+      {...mergeProps(
+        {
+          as,
+          'aria-label': label,
+          icon,
+          variant: 'invisible' as const,
+          size: 'small' as const,
+          tooltipDirection,
+          href,
+          'data-component': 'ActionList.GroupHeading.TrailingAction',
+        },
+        props,
+      )}
     />
   ),
 ) as PolymorphicForwardRefComponent<'button' | 'a', ActionListGroupHeadingTrailingActionProps> & {
