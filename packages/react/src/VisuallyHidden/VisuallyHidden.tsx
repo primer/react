@@ -1,6 +1,7 @@
 import {clsx} from 'clsx'
 import type React from 'react'
 import {type HTMLAttributes} from 'react'
+import {mergeProps} from '../utils/mergeProps'
 import classes from './VisuallyHidden.module.css'
 
 /**
@@ -14,11 +15,7 @@ import classes from './VisuallyHidden.module.css'
  * @see https://www.scottohara.me/blog/2023/03/21/visually-hidden-hack.html
  */
 export const VisuallyHidden = ({className, children, ...rest}: VisuallyHiddenProps) => {
-  return (
-    <span className={clsx(className, classes.VisuallyHidden)} {...rest}>
-      {children}
-    </span>
-  )
+  return <span {...mergeProps({className: clsx(classes.VisuallyHidden, className)}, rest)}>{children}</span>
 }
 
 export type VisuallyHiddenProps = React.PropsWithChildren<

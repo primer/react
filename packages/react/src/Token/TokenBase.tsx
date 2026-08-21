@@ -5,6 +5,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './TokenBase.module.css'
 import {defaultTokenSize, type TokenSizeKeys} from './constants'
 import {isTokenInteractive} from './utils'
+import {mergeProps} from '../utils/mergeProps'
 
 export type {TokenSizeKeys}
 
@@ -43,46 +44,43 @@ export interface TokenBaseProps
 
 const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
   (
-    {
-      onRemove,
-      onKeyDown,
-      id,
-      className,
-      size = defaultTokenSize,
-      isSelected: _isSelected,
-      as: Component = 'span',
-      ...rest
-    },
+    {onRemove, id, className, size = defaultTokenSize, isSelected: _isSelected, as: Component = 'span', ...rest},
     forwardedRef,
   ) => {
+    const handleKeyDown = (event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
+      if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+        onRemove()
+      }
+    }
+    const consumerProps =
+      Component === 'button'
+        ? (rest as React.ButtonHTMLAttributes<HTMLButtonElement>)
+        : Component === 'a'
+          ? (rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)
+          : (rest as React.HTMLAttributes<HTMLSpanElement>)
+
     return (
       <Component
-        onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
-          onKeyDown && onKeyDown(event)
-
-          if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
-            onRemove()
-          }
-        }}
-        className={clsx(classes.TokenBase, className)}
-        data-cursor-is-interactive={isTokenInteractive({
-          as: Component,
-          onClick: rest.onClick,
-          onFocus: rest.onFocus,
-          tabIndex: rest.tabIndex,
-          disabled: rest.disabled,
-        })}
-        data-size={size}
-        id={id?.toString()}
-        {...(Component === 'button'
-          ? (rest as React.ButtonHTMLAttributes<HTMLButtonElement>)
-          : Component === 'a'
-            ? (rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)
-            : (rest as React.HTMLAttributes<HTMLSpanElement>))}
         // TypeScript cannot resolve polymorphic ref types at compile time
         // This assertion is safe because the ref will match the actual rendered element
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ref={forwardedRef as any}
+        {...mergeProps(
+          {
+            onKeyDown: handleKeyDown,
+            className: clsx(classes.TokenBase, className),
+            'data-cursor-is-interactive': isTokenInteractive({
+              as: Component,
+              onClick: rest.onClick,
+              onFocus: rest.onFocus,
+              tabIndex: rest.tabIndex,
+              disabled: rest.disabled,
+            }),
+            'data-size': size,
+            id: id?.toString(),
+          },
+          consumerProps,
+        )}
       />
     )
   },
