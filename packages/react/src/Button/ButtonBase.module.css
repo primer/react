@@ -41,6 +41,44 @@
     transition: none;
   }
 
+  &:where([data-notification-indicator='button'], [data-notification-indicator='icon'].IconButton) {
+    position: relative;
+  }
+
+  &:where([data-notification-indicator='leadingVisual']) .LeadingVisual {
+    position: relative;
+  }
+
+  &:where([data-notification-indicator='button'])::before,
+  &:where([data-notification-indicator='icon'].IconButton)::before,
+  &:where([data-notification-indicator='leadingVisual']) .LeadingVisual::before {
+    position: absolute;
+    display: block;
+    width: var(--base-size-8);
+    height: var(--base-size-8);
+    content: '';
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--fgColor-accent);
+    border-radius: var(--borderRadius-full);
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 0 0 calc(var(--base-size-4) / 2) var(--bgColor-inset);
+  }
+
+  &:where([data-notification-indicator='button'])::before {
+    top: calc(var(--base-size-4) / -2);
+    right: calc(var(--base-size-4) / -2);
+  }
+
+  &:where([data-notification-indicator='icon'].IconButton)::before {
+    top: calc(50% - var(--base-size-12));
+    right: calc(50% - var(--base-size-12));
+  }
+
+  &:where([data-notification-indicator='leadingVisual']) .LeadingVisual::before {
+    top: calc(var(--base-size-4) * -1);
+    right: calc(var(--base-size-4) * -1);
+  }
+
   &:disabled,
   &[aria-disabled='true']:not([data-loading='true']) {
     cursor: not-allowed;

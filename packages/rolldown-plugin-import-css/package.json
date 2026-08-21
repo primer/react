@@ -17,7 +17,7 @@
   "devDependencies": {
     "postcss": "^8.5.25",
     "postcss-modules": "^6.0.0",
-    "rolldown": "^1.2.2",
+    "rolldown": "^1.2.3",
     "typescript": "^6.0.3"
   },
   "sideEffects": false
