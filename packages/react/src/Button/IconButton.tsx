@@ -6,6 +6,7 @@ import {Tooltip} from '../TooltipV2/Tooltip'
 import {TooltipContext} from '../TooltipV2/TooltipContext'
 import {TooltipContext as TooltipContextV1} from '../Tooltip/TooltipContext'
 import classes from './ButtonBase.module.css'
+import {mergeProps} from '../utils/mergeProps'
 import {clsx} from 'clsx'
 
 const IconButton = forwardRef(
@@ -43,15 +44,19 @@ const IconButton = forwardRef(
     if (withoutTooltip) {
       return (
         <ButtonBase
-          icon={Icon}
-          className={clsx(className, classes.IconButton)}
-          data-component="IconButton"
-          type="button"
-          aria-label={ariaLabel}
-          disabled={disabled}
-          {...props}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
           ref={forwardedRef}
+          {...mergeProps(
+            {
+              icon: Icon,
+              className: clsx(classes.IconButton, className),
+              'data-component': 'IconButton',
+              type: 'button',
+              'aria-label': ariaLabel,
+              disabled,
+            },
+            props,
+          )}
         />
       )
     } else {
@@ -66,14 +71,18 @@ const IconButton = forwardRef(
           _privateDisableTooltip={hasActivePopup}
         >
           <ButtonBase
-            icon={Icon}
-            className={clsx(className, classes.IconButton)}
-            data-component="IconButton"
-            type="button"
-            aria-keyshortcuts={keyshortcuts ?? undefined}
-            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
-            aria-label={description ? ariaLabel : undefined}
-            {...props}
+            {...mergeProps(
+              {
+                icon: Icon,
+                className: clsx(classes.IconButton, className),
+                'data-component': 'IconButton',
+                type: 'button',
+                'aria-keyshortcuts': keyshortcuts ?? undefined,
+                // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
+                'aria-label': description ? ariaLabel : undefined,
+              },
+              props,
+            )}
           />
         </Tooltip>
       )

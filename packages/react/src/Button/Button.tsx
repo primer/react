@@ -2,10 +2,11 @@ import {forwardRef, type JSX} from 'react'
 import type {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {mergeProps} from '../utils/mergeProps'
 
 const ButtonComponent = forwardRef(({children, ...props}, forwardedRef): JSX.Element => {
   return (
-    <ButtonBase ref={forwardedRef} as="button" type="button" {...props}>
+    <ButtonBase ref={forwardedRef} {...mergeProps({as: 'button', type: 'button'}, props)}>
       {children}
     </ButtonBase>
   )
