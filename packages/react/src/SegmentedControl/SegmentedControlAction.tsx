@@ -5,9 +5,7 @@ import type {IconButtonProps} from '../Button'
 import type {FCWithSlotMarker} from '../utils/types'
 import classes from './SegmentedControl.module.css'
 
-type DistributiveOmit<Type, Key extends PropertyKey> = Type extends unknown ? Omit<Type, Key> : never
-
-export type SegmentedControlActionProps = DistributiveOmit<IconButtonProps, 'icon'> & {
+export type SegmentedControlActionProps = Omit<IconButtonProps, 'icon'> & {
   icon?: ElementType
 }
 
@@ -18,6 +16,8 @@ const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = ({
     </li>
   )
 }
+
+SegmentedControlAction.displayName = 'SegmentedControl.Action'
 
 export default SegmentedControlAction
 

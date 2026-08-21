@@ -1,6 +1,7 @@
 .SegmentedControl {
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
+  --segmented-control-action-size: 32px;
   --segmented-control-outer-radius: var(--borderRadius-medium);
 
   display: inline-flex;
@@ -195,6 +196,7 @@
 
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
+    --segmented-control-action-size: 28px;
     height: 28px;
     font-size: var(--text-body-size-small);
   }
@@ -281,10 +283,16 @@
   margin-inline-start: var(--base-size-4);
 }
 
-.PlusItem button {
-  width: 32px;
-  height: 32px;
+.PlusItem [data-component='IconButton'] {
+  width: var(--segmented-control-action-size);
+  height: var(--segmented-control-action-size);
   padding: 0;
+}
+
+.DropdownAction {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: var(--base-size-4);
 }
 
 .Button {
@@ -419,6 +427,7 @@
 }
 
 .SegmentedControl:where([data-variant='subtle']) .Button:where(:not([aria-pressed='true'])):hover .Content {
+  background-color: var(--bgColor-muted);
   background-color: color-mix(in srgb, var(--bgColor-muted) 50%, transparent);
 }
 

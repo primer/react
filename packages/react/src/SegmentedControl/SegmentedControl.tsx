@@ -213,7 +213,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         // Render the children as-is and add the shared child props
         return React.cloneElement(child, {key: child.key ?? `segmented-control-item-${index}`, ...sharedChildProps})
       })}
-      {actionChild}
+      {!hasDropdownVariant && actionChild}
     </ul>
   )
 
@@ -221,6 +221,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   return hasDropdownVariant ? (
     <>
       {dropdownContent}
+      {actionChild && <div className={classes.DropdownAction}>{actionChild}</div>}
       {segmentedControlContent}
     </>
   ) : (

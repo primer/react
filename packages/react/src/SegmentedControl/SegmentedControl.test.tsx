@@ -360,6 +360,21 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
+  it('keeps the trailing action available in the dropdown variant', () => {
+    const {getByRole, container} = render(
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+          <SegmentedControl.Button defaultSelected count={5}>All</SegmentedControl.Button>
+          <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
+          <SegmentedControl.Action aria-label="Add view" />
+        </SegmentedControl>
+      </BaseStyles>,
+    )
+
+    expect(container.querySelector('[data-component="SegmentedControl.Action"]')).toBeInTheDocument()
+    expect(getByRole('button', {name: 'Add view'})).toBeInTheDocument()
+  })
+
   it('calls the action from the plus button', async () => {
     const user = userEvent.setup()
     const handleAddView = vi.fn()
