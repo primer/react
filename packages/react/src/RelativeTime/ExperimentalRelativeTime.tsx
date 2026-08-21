@@ -52,6 +52,26 @@ interface Duration {
 }
 
 const units: RelativeTimePrecision[] = ['year', 'month', 'day', 'hour', 'minute', 'second']
+const formatterCache = new Map<
+  string,
+  Intl.DateTimeFormat | Intl.RelativeTimeFormat | Intl.NumberFormat | Intl.ListFormat
+>()
+const serverFallbackTimeZone = 'UTC'
+
+function getCachedFormatter<
+  T extends Intl.DateTimeFormat | Intl.RelativeTimeFormat | Intl.NumberFormat | Intl.ListFormat,
+>(key: string, createFormatter: () => T): T {
+  const cached = formatterCache.get(key)
+  if (cached) return cached as T
+
+  const formatter = createFormatter()
+  formatterCache.set(key, formatter)
+  return formatter
+}
+
+function getFormatterCacheKey(locale: string, options: unknown) {
+  return `${locale}|${JSON.stringify(options)}`
+}
 
 function getDate(date: Date | null | undefined, datetime: string | undefined) {
   if (datetime !== undefined) {
@@ -227,6 +247,7 @@ function getDateTimeOptions({
     month: month || 'short',
     year: year || (date.getUTCFullYear() === new Date(now).getUTCFullYear() ? undefined : 'numeric'),
     timeZoneName: timeZoneName || undefined,
+    timeZone: typeof window === 'undefined' ? serverFallbackTimeZone : undefined,
   }
 }
 
@@ -243,14 +264,24 @@ function getDurationText(duration: Duration, locale: string, style: 'long' | 'na
     return new Intl.DurationFormat(locale, {style}).format(values)
   }
 
-  const parts = Object.entries(values).map(([unit, value]) =>
-    new Intl.NumberFormat(locale, {
+  const parts = Object.entries(values).map(([unit, value]) => {
+    const options = {
       style: 'unit',
       unit: unit.slice(0, -1) as Intl.NumberFormatOptions['unit'],
       unitDisplay: style,
-    }).format(value as number),
+    } satisfies Intl.NumberFormatOptions
+    const formatter = getCachedFormatter(
+      `number:${getFormatterCacheKey(locale, options)}`,
+      () => new Intl.NumberFormat(locale, options),
+    )
+    return formatter.format(value as number)
+  })
+  const listOptions = {style: 'short', type: 'unit'} as const
+  const listFormatter = getCachedFormatter(
+    `list:${getFormatterCacheKey(locale, listOptions)}`,
+    () => new Intl.ListFormat(locale, listOptions),
   )
-  return new Intl.ListFormat(locale, {style: 'short', type: 'unit'}).format(parts)
+  return listFormatter.format(parts)
 }
 
 function getFormattedText(props: ExperimentalRelativeTimeProps, date: Date | undefined, now: number) {
@@ -276,9 +307,12 @@ function getFormattedText(props: ExperimentalRelativeTimeProps, date: Date | und
 
     if (format === 'micro') {
       const microUnit = value === 0 ? 'minute' : unit
-      return new Intl.NumberFormat(lang, {style: 'unit', unit: microUnit, unitDisplay: 'narrow'}).format(
-        Math.max(1, Math.abs(value)),
+      const numberOptions = {style: 'unit', unit: microUnit, unitDisplay: 'narrow'} as const
+      const formatter = getCachedFormatter(
+        `number:${getFormatterCacheKey(lang, numberOptions)}`,
+        () => new Intl.NumberFormat(lang, numberOptions),
       )
+      return formatter.format(Math.max(1, Math.abs(value)))
     }
 
     return getDurationText(constrainedDuration, lang, format === 'elapsed' ? 'narrow' : 'long')
@@ -291,23 +325,38 @@ function getFormattedText(props: ExperimentalRelativeTimeProps, date: Date | und
         : duration
     const [value, unit] = getRelativeTimeUnit(constrainedDuration, now)
     const relativeValue = unit === 'second' && Math.abs(value) < 10 ? 0 : value
-    return new Intl.RelativeTimeFormat(lang, {numeric: 'auto', style: 'long'}).format(relativeValue, unit)
+    const relativeOptions = {numeric: 'auto', style: 'long'} as const
+    const formatter = getCachedFormatter(
+      `relative:${getFormatterCacheKey(lang, relativeOptions)}`,
+      () => new Intl.RelativeTimeFormat(lang, relativeOptions),
+    )
+    return formatter.format(relativeValue, unit)
   }
 
-  const formatter = new Intl.DateTimeFormat(lang, getDateTimeOptions({...props, date, now, format}))
+  const dateTimeOptions = getDateTimeOptions({...props, date, now, format})
+  const formatter = getCachedFormatter(
+    `datetime:${getFormatterCacheKey(lang, dateTimeOptions)}`,
+    () => new Intl.DateTimeFormat(lang, dateTimeOptions),
+  )
   return `${prefix} ${formatter.format(date)}`.trim()
 }
 
 function getTitle(date: Date | undefined, lang: string) {
   if (!date) return undefined
-  return new Intl.DateTimeFormat(lang, {
+  const options = {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
     timeZoneName: 'short',
-  }).format(date)
+    timeZone: typeof window === 'undefined' ? serverFallbackTimeZone : undefined,
+  } satisfies Intl.DateTimeFormatOptions
+  const formatter = getCachedFormatter(
+    `datetime:${getFormatterCacheKey(lang, options)}`,
+    () => new Intl.DateTimeFormat(lang, options),
+  )
+  return formatter.format(date)
 }
 
 function getUpdateInterval(date: Date | undefined, format: RelativeTimeFormat, precision: RelativeTimePrecision) {
