@@ -5,6 +5,7 @@ import {useMergedRefs} from '../hooks'
 import classes from './Link.module.css'
 import type {ComponentProps} from '../utils/types'
 import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
+import {mergeProps} from '../utils/mergeProps'
 
 type StyledLinkProps<As extends React.ElementType = 'a'> = {
   as?: As
@@ -41,13 +42,17 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
 
   return (
     <Component
-      className={clsx(className, classes.Link)}
-      data-component="Link"
-      data-muted={muted}
-      data-inline={inline}
-      {...restProps}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={mergedRef as any}
+      {...mergeProps(
+        {
+          className: clsx(classes.Link, className),
+          'data-component': 'Link',
+          'data-muted': muted,
+          'data-inline': inline,
+        },
+        restProps,
+      )}
     />
   )
 }
