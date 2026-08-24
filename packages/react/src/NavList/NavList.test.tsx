@@ -78,6 +78,52 @@ describe('NavList', () => {
 
 describe('NavList.Item', () => {
   implementsClassName(NavList.Item)
+
+  it('renders a tooltip inside a link item when tooltipText is provided', () => {
+    const ref = React.createRef<HTMLAnchorElement>()
+    const {container, getByRole} = render(
+      <NavList>
+        <NavList.Item ref={ref} href="#" tooltipText="Tooltip for item 1">
+          Item 1
+        </NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+      </NavList>,
+    )
+
+    const link = getByRole('link', {name: 'Item 1'})
+    const tooltip = container.querySelector('[data-component="Tooltip"]')
+    const list = container.querySelector('[data-component="ActionList"]')
+
+    expect(tooltip).not.toBeNull()
+    expect(ref.current).toBe(link)
+    expect(link).toHaveAttribute('aria-describedby', (tooltip as HTMLElement).id)
+    expect(tooltip).toHaveTextContent('Tooltip for item 1')
+    expect(tooltip?.closest('li')).toBe(link.closest('li'))
+    expect(list?.children).toHaveLength(2)
+    expect(container.querySelectorAll('[data-component="Tooltip"]')).toHaveLength(1)
+  })
+
+  it('renders a tooltip inside an expandable item when tooltipText is provided', () => {
+    const {container, getByRole} = render(
+      <NavList>
+        <NavList.Item tooltipText="Tooltip for parent item">
+          Parent item
+          <NavList.SubNav>
+            <NavList.Item href="#">Child item</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const button = getByRole('button', {name: 'Parent item'})
+    const tooltip = container.querySelector('[data-component="Tooltip"]')
+
+    expect(tooltip).not.toBeNull()
+    expect(button).toHaveAttribute('aria-describedby', (tooltip as HTMLElement).id)
+    expect(tooltip).toHaveTextContent('Tooltip for parent item')
+    expect(tooltip?.closest('li')).toBe(button.closest('li'))
+  })
+
   it('passes aria-current prop to the underlying link', () => {
     const {getByRole} = render(
       <NavList>

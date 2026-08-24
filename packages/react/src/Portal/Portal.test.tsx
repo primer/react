@@ -1,11 +1,147 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
 
 import {render} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
-import React from 'react'
+import React, {act} from 'react'
+import {hydrateRoot, type Root} from 'react-dom/client'
+import {renderToString} from 'react-dom/server'
+
+const renderOnServer = (children: React.ReactNode) => {
+  const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+  try {
+    return renderToString(children)
+  } finally {
+    consoleErrorSpy.mockRestore()
+  }
+}
 
 describe('Portal', () => {
+  it('renders nothing during server rendering', () => {
+    // React's server renderer throws when it encounters a portal, so `Portal` has
+    // to render nothing while server rendering.
+    expect(renderOnServer(<Portal>portal content</Portal>)).toEqual('')
+  })
+
+  it('preserves generated IDs during hydration', async () => {
+    const Id = ({name}: {name: string}) => {
+      const id = React.useId()
+      return <div id={id} data-name={name} />
+    }
+    const App = () => (
+      <>
+        <Id name="before" />
+        <Portal>
+          <Id name="portal" />
+        </Portal>
+        <Id name="after" />
+      </>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderOnServer(<App />)
+    document.body.appendChild(container)
+
+    const serverIds = Array.from(container.querySelectorAll('[data-name]'), element => element.id)
+    const recoverableErrors: unknown[] = []
+    let root: Root | undefined
+
+    try {
+      await act(async () => {
+        root = hydrateRoot(container, <App />, {
+          onRecoverableError: error => recoverableErrors.push(error),
+        })
+      })
+
+      expect(recoverableErrors).toEqual([])
+      expect(Array.from(container.querySelectorAll('[data-name]'), element => element.id)).toEqual(serverIds)
+      expect(document.querySelector('[data-name="portal"]')).toBeInstanceOf(HTMLElement)
+    } finally {
+      await act(async () => root?.unmount())
+      container.remove()
+    }
+  })
+
+  it('mounts children in the same commit as the Portal', () => {
+    const refPerCommit: Array<HTMLElement | null> = []
+
+    const App = () => {
+      const ref = React.useRef<HTMLDivElement>(null)
+
+      // Intentionally no dependency array, so this runs after every commit and the
+      // length of `refPerCommit` is also the number of commits.
+      React.useLayoutEffect(() => {
+        refPerCommit.push(ref.current)
+      })
+
+      return (
+        <Portal>
+          <div ref={ref}>portal content</div>
+        </Portal>
+      )
+    }
+
+    const {baseElement} = render(<App />)
+
+    // A single entry proves the Portal did not need a second pass, and a populated
+    // ref proves the children mounted in the same commit as the Portal itself.
+    expect(refPerCommit).toEqual([expect.any(HTMLDivElement)])
+
+    baseElement.innerHTML = ''
+  })
+
+  it('removes its host element from the portal root when unmounted', () => {
+    const {baseElement, unmount} = render(<Portal>portal content</Portal>)
+    const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+
+    expect(generatedRoot?.querySelectorAll('[data-component="Portal"]')).toHaveLength(1)
+
+    unmount()
+
+    expect(generatedRoot?.querySelectorAll('[data-component="Portal"]')).toHaveLength(0)
+
+    baseElement.innerHTML = ''
+  })
+
+  it('attaches a single host element under StrictMode, which remounts effects', () => {
+    const {baseElement} = render(
+      <React.StrictMode>
+        <Portal>portal content</Portal>
+      </React.StrictMode>,
+    )
+    const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+
+    expect(generatedRoot?.querySelectorAll('[data-component="Portal"]')).toHaveLength(1)
+    expect(generatedRoot?.textContent.trim()).toEqual('portal content')
+
+    baseElement.innerHTML = ''
+  })
+
+  it('moves the portal when containerName changes', () => {
+    const {baseElement} = render(
+      <main>
+        <div id="rootA" />
+        <div id="rootB" />
+      </main>,
+    )
+    const rootA = baseElement.querySelector('#rootA')!
+    const rootB = baseElement.querySelector('#rootB')!
+    registerPortalRoot(rootA, 'rootA')
+    registerPortalRoot(rootB, 'rootB')
+
+    const {rerender} = render(<Portal containerName="rootA">portal content</Portal>)
+
+    expect(rootA.textContent.trim()).toEqual('portal content')
+    expect(rootB.textContent.trim()).toEqual('')
+
+    rerender(<Portal containerName="rootB">portal content</Portal>)
+
+    expect(rootA.querySelectorAll('[data-component="Portal"]')).toHaveLength(0)
+    expect(rootB.textContent.trim()).toEqual('portal content')
+
+    baseElement.innerHTML = ''
+  })
+
   it('renders a default portal into document.body (no BaseStyles present)', () => {
     const {baseElement} = render(<Portal>123test123</Portal>)
     const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
@@ -61,6 +197,24 @@ describe('Portal', () => {
 
     const portalNode = portalRoot?.querySelector('[data-component="Portal"]')
     expect(portalNode).toBeInstanceOf(HTMLElement)
+
+    baseElement.innerHTML = ''
+  })
+
+  it('calls onMount once, and does not remount when an inline onMount changes identity', () => {
+    const onMount = vi.fn()
+
+    const {baseElement, rerender} = render(<Portal onMount={() => onMount()}>portal content</Portal>)
+    const portalNode = baseElement.querySelector('[data-component="Portal"]')
+
+    expect(onMount).toHaveBeenCalledTimes(1)
+
+    // A new `onMount` function identity must not detach and re-attach the portal,
+    // which would unmount and remount every portaled DOM node.
+    rerender(<Portal onMount={() => onMount()}>portal content</Portal>)
+
+    expect(onMount).toHaveBeenCalledTimes(1)
+    expect(baseElement.querySelector('[data-component="Portal"]')).toBe(portalNode)
 
     baseElement.innerHTML = ''
   })

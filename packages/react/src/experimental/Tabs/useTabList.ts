@@ -8,6 +8,7 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+  const controlledApiEnabled = useFeatureFlag('primer_react_underline_panels_controlled')
   const tabListRef = useRef<T>(null)
   const mergedRef = useMergedRefs(tabListRef, props.ref)
   // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
@@ -24,6 +25,19 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
 
     const tabs = getFocusableTabs(tablist)
 
+    const getCurrentIndex = () => {
+      if (controlledApiEnabled) {
+        const activeElement = tablist.ownerDocument.activeElement
+        const focusedIndex = activeElement instanceof HTMLElement ? tabs.indexOf(activeElement) : -1
+        if (focusedIndex !== -1) {
+          return focusedIndex
+        }
+      }
+      return tabs.findIndex(tab => {
+        return tab.getAttribute('aria-selected') === 'true'
+      })
+    }
+
     const isVertical = ariaOrientation === 'vertical'
     const nextKey = isVertical ? 'ArrowDown' : 'ArrowRight'
     const prevKey = isVertical ? 'ArrowUp' : 'ArrowLeft'
@@ -34,24 +48,20 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
     }
 
     if (event.key === nextKey) {
-      const selectedTabIndex = tabs.findIndex(tab => {
-        return tab.getAttribute('aria-selected') === 'true'
-      })
-      if (selectedTabIndex === -1) {
+      const currentTabIndex = getCurrentIndex()
+      if (currentTabIndex === -1) {
         return
       }
 
-      const nextTabIndex = (selectedTabIndex + 1) % tabs.length
+      const nextTabIndex = (currentTabIndex + 1) % tabs.length
       tabs[nextTabIndex].focus()
     } else if (event.key === prevKey) {
-      const selectedTabIndex = tabs.findIndex(tab => {
-        return tab.getAttribute('aria-selected') === 'true'
-      })
-      if (selectedTabIndex === -1) {
+      const currentTabIndex = getCurrentIndex()
+      if (currentTabIndex === -1) {
         return
       }
 
-      const nextTabIndex = (tabs.length + selectedTabIndex - 1) % tabs.length
+      const nextTabIndex = (tabs.length + currentTabIndex - 1) % tabs.length
       tabs[nextTabIndex].focus()
     } else if (event.key === 'Home') {
       if (tabs[0]) {
