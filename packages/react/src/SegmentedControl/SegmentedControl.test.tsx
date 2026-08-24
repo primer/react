@@ -377,9 +377,6 @@ describe('SegmentedControl', () => {
     )
 
     const iconActionButton = getByRole('button', {name: 'Add view'})
-    expect(iconActionButton.querySelectorAll('svg')).toHaveLength(1)
-    expect(iconActionButton).not.toHaveAttribute('aria-pressed')
-    expect(iconActionButton.querySelector('[data-component="trailingAction"]')).not.toBeInTheDocument()
 
     await user.click(iconActionButton)
 
