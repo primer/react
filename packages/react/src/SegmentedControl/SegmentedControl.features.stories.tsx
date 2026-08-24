@@ -49,7 +49,7 @@ export const VariantSubtle = () => (
     </SegmentedControl.Button>
   </SegmentedControl>
 )
-VariantSubtle.storyName = '[variant: subtle]'
+VariantSubtle.storyName = '[variant: subtle] Low emphasis'
 
 export const WithAddViewButton = () => {
   const initialViews = [{label: 'All'}, {label: 'Active'}, {label: 'Review requests'}, {label: 'Done'}]
