@@ -51,7 +51,7 @@ export const VariantSubtle = () => (
 )
 VariantSubtle.storyName = '[variant: subtle] Low emphasis'
 
-export const WithAddViewButton = () => {
+export const WithAction = () => {
   const initialViews = [{label: 'All'}, {label: 'Active'}, {label: 'Review requests'}, {label: 'Done'}]
   const [views, setViews] = useState(initialViews)
 
@@ -79,6 +79,7 @@ export const WithAddViewButton = () => {
     </>
   )
 }
+WithAction.storyName = '[Example] With trailing action'
 
 export const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)

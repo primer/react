@@ -1,7 +1,6 @@
 .SegmentedControl {
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
-  --segmented-control-action-size: 32px;
   --segmented-control-outer-radius: var(--borderRadius-medium);
 
   display: inline-flex;
@@ -196,17 +195,21 @@
 
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
-    --segmented-control-action-size: 28px;
-
     height: 28px;
     font-size: var(--text-body-size-small);
   }
 }
 
 .DropdownGroup {
+  --segmented-control-action-size: 32px;
+
   display: inline-flex;
   align-items: center;
   gap: var(--base-size-4);
+
+  &[data-size='small'] {
+    --segmented-control-action-size: 28px;
+  }
 }
 
 .DropdownContainer {

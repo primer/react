@@ -2,7 +2,7 @@ import type {StoryFn, Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {EyeIcon, FileCodeIcon, PeopleIcon, PlusIcon} from '@primer/octicons-react'
 
 type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default'
 type Args = {
@@ -11,20 +11,24 @@ type Args = {
   fullWidthAtRegular?: boolean
   fullWidthAtWide?: boolean
   size?: 'small' | 'medium'
+  showAction?: boolean
+  dividerBefore?: boolean
+  variant: 'default' | 'subtle'
   variantAtNarrow: ResponsiveVariantOptions
   variantAtRegular: ResponsiveVariantOptions
   variantAtWide: ResponsiveVariantOptions
 }
 
-const excludedControlKeys = ['variant']
-
 const variantOptions = ['dropdown', 'hideLabels', 'default']
 
-const parseVariantFromArgs = ({variantAtNarrow, variantAtRegular, variantAtWide}: Args) => ({
-  narrow: variantAtNarrow,
-  regular: variantAtRegular,
-  wide: variantAtWide,
-})
+const parseVariantFromArgs = ({variant, variantAtNarrow, variantAtRegular, variantAtWide}: Args) =>
+  variant === 'subtle'
+    ? variant
+    : {
+        narrow: variantAtNarrow,
+        regular: variantAtRegular,
+        wide: variantAtWide,
+      }
 
 const parseFullWidthFromArgs = ({fullWidth, fullWidthAtNarrow, fullWidthAtRegular, fullWidthAtWide}: Args) =>
   fullWidth
@@ -45,6 +49,9 @@ export default {
     fullWidthAtRegular: false,
     fullWidthAtWide: false,
     size: 'medium',
+    showAction: false,
+    dividerBefore: false,
+    variant: 'default',
     variantAtNarrow: 'default',
     variantAtRegular: 'default',
     variantAtWide: 'default',
@@ -79,6 +86,23 @@ export default {
       },
       options: ['small', 'medium'],
     },
+    showAction: {
+      control: {
+        type: 'boolean',
+      },
+      name: 'action',
+    },
+    dividerBefore: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    variant: {
+      control: {
+        type: 'radio',
+      },
+      options: ['default', 'subtle'],
+    },
     variantAtNarrow: {
       name: 'variant.narrow',
       control: {
@@ -101,7 +125,6 @@ export default {
       options: variantOptions,
     },
   },
-  parameters: {controls: {exclude: excludedControlKeys}},
 } as Meta<typeof SegmentedControl>
 
 export const Playground: StoryFn<Args> = args => (
@@ -114,12 +137,13 @@ export const Playground: StoryFn<Args> = args => (
     <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon} dividerBefore={args.dividerBefore}>
       Raw
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
+    {args.showAction && <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={() => undefined} />}
   </SegmentedControl>
 )
 

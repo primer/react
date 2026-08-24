@@ -213,7 +213,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
   // Action is always a sibling of the segmented control; only the dropdown trigger depends on the variant.
   return hasDropdownVariant || actionChild ? (
-    <div className={classes.DropdownGroup}>
+    <div className={classes.DropdownGroup} data-size={size}>
       {dropdownContent}
       {segmentedControlContent}
       {actionChild}
