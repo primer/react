@@ -38,7 +38,7 @@
       "id": "components-segmentedcontrol-features--variant-subtle"
     },
     {
-      "id": "components-segmentedcontrol-features--with-add-view-button"
+      "id": "components-segmentedcontrol-features--with-action"
     }
   ],
   "importPath": "@primer/react",
