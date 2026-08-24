@@ -49,7 +49,6 @@ test.describe('TooltipV2', () => {
 
             // Default state
             await page.keyboard.press('Tab')
-            await page.emulateMedia({reducedMotion: 'reduce'})
             await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`)
           })
         })
