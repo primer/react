@@ -165,6 +165,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_AW_AGENT_TOKEN }}
           ISSUE_NUMBER: ${{ steps.report.outputs.issue_number }}
+        run: |
           assigned="$(
             gh api \
               --method POST \
