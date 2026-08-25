@@ -48,6 +48,7 @@ const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = pr
   return (
     <div className={classes.ActionItem} data-component="SegmentedControl.Action">
       <IconButton
+        {...iconButtonProps}
         aria-label={label}
         className={clsx(classes.ActionButton, className)}
         disabled={disabled}
@@ -55,7 +56,6 @@ const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = pr
         loading={loading}
         onClick={() => onClick?.()}
         variant="invisible"
-        {...iconButtonProps}
       />
     </div>
   )
