@@ -1,6 +1,6 @@
 import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import type {ButtonProps} from './types'
+import type {ButtonProps, NotificationIndicatorPlacement} from './types'
 import {useMergedRefs} from '../hooks/useMergedRefs'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
@@ -21,11 +21,19 @@ const renderModuleVisual = (
 ) => (
   <span
     data-component={visualName}
-    className={clsx(!counterLabel && classes.Visual, loading ? classes.LoadingSpinner : classes.VisualWrap)}
+    className={clsx(
+      !counterLabel && classes.Visual,
+      visualName === 'leadingVisual' && classes.LeadingVisual,
+      loading ? classes.LoadingSpinner : classes.VisualWrap,
+    )}
   >
     {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
   </span>
 )
+
+type ButtonBaseComponentProps = Omit<ButtonProps, 'notificationIndicator'> & {
+  notificationIndicator?: NotificationIndicatorPlacement
+}
 
 const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, forwardedRef): JSX.Element => {
   const {
@@ -46,6 +54,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
     inactive,
     onClick,
     labelWrap,
+    notificationIndicator,
     className,
     ...rest
   } = props
@@ -60,6 +69,11 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
 
   if (__DEV__) {
+    if (notificationIndicator === 'leadingVisual' && !LeadingVisual) {
+      // eslint-disable-next-line no-console
+      console.warn('Button: `notificationIndicator="leadingVisual"` requires a `leadingVisual` prop.')
+    }
+
     // Validate that the element is a semantic button/anchor.
     // This runs during render (not in an effect) to avoid a conditional hook call
     // that prevents React Compiler from optimizing this component.
@@ -98,6 +112,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-size={size}
         data-variant={variant}
         data-label-wrap={labelWrap}
+        data-notification-indicator={notificationIndicator}
         data-has-count={count !== undefined ? true : undefined}
         data-icon-only-counter={count !== undefined && LeadingVisual && !children ? true : undefined}
         aria-describedby={ariaDescribedByIds.filter(descriptionID => Boolean(descriptionID)).join(' ') || undefined}
@@ -184,6 +199,6 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       )}
     </ConditionalWrapper>
   )
-}) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
+}) as PolymorphicForwardRefComponent<'button' | 'a', ButtonBaseComponentProps>
 
 export {ButtonBase}
