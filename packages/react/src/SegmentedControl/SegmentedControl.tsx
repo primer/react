@@ -4,6 +4,7 @@ import Button from './SegmentedControlButton'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import Action from './SegmentedControlAction'
+import {SegmentedControlActionContext} from './SegmentedControlActionContext'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -14,6 +15,7 @@ import {isElement} from 'react-is'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import {isSlot} from '../utils/is-slot'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export type SegmentedControlProps = {
   'aria-label'?: string
@@ -44,6 +46,23 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
   const [slots, segmentChildren] = useSlots(children, {action: Action})
   const actionChild = slots.action
+  const segmentCount = segmentChildren.filter(React.isValidElement).length
+  const previousSegmentCount = useRef(segmentCount)
+
+  useIsomorphicLayoutEffect(() => {
+    if (previousSegmentCount.current === segmentCount) return
+
+    const segmentedControl = segmentedControlContainerRef.current
+    segmentedControl?.setAttribute('data-disable-knob-transition', '')
+    previousSegmentCount.current = segmentCount
+
+    const animationFrame = requestAnimationFrame(() => {
+      segmentedControl?.removeAttribute('data-disable-knob-transition')
+    })
+
+    return () => cancelAnimationFrame(animationFrame)
+  }, [segmentCount])
+
   const isUncontrolled =
     onChange === undefined ||
     segmentChildren.some(
@@ -150,6 +169,11 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                 </ActionList.Item>
               )
             })}
+            {actionChild && (
+              <SegmentedControlActionContext.Provider value="menu">
+                {actionChild}
+              </SegmentedControlActionContext.Provider>
+            )}
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
@@ -211,12 +235,17 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     </ul>
   )
 
-  // Action is always a sibling of the segmented control; only the dropdown trigger depends on the variant.
+  const inlineActionContent = actionChild && (
+    <div className={classes.InlineAction} {...getResponsiveAttributes('variant', variant)}>
+      <SegmentedControlActionContext.Provider value="inline">{actionChild}</SegmentedControlActionContext.Provider>
+    </div>
+  )
+
   return hasDropdownVariant || actionChild ? (
-    <div className={classes.DropdownGroup} data-size={size}>
+    <div className={classes.DropdownGroup} data-size={size} {...getResponsiveAttributes('full-width', fullWidth)}>
       {dropdownContent}
       {segmentedControlContent}
-      {actionChild}
+      {inlineActionContent}
     </div>
   ) : (
     segmentedControlContent

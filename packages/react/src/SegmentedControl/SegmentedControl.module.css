@@ -30,6 +30,10 @@
         transition: inset var(--base-duration-200) var(--base-easing-easeInOut);
       }
     }
+
+    &[data-disable-knob-transition]::before {
+      transition: none;
+    }
   }
 
   /* Responsive full-width */
@@ -202,13 +206,97 @@
 
 .DropdownGroup {
   --segmented-control-action-size: 32px;
+  --segmented-control-list-flex: 0 1 auto;
 
   display: inline-flex;
   align-items: center;
   gap: var(--base-size-4);
 
+  &[data-full-width='true'] {
+    width: 100%;
+
+    --segmented-control-list-flex: 1 1 auto;
+  }
+
+  &[data-full-width='false'] {
+    width: auto;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-full-width-narrow='true'] {
+      width: 100%;
+
+      --segmented-control-list-flex: 1 1 auto;
+    }
+
+    &[data-full-width-narrow='false'] {
+      width: auto;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-full-width-regular='true'] {
+      width: 100%;
+
+      --segmented-control-list-flex: 1 1 auto;
+    }
+
+    &[data-full-width-regular='false'] {
+      width: auto;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-full-width-wide='true'] {
+      width: 100%;
+
+      --segmented-control-list-flex: 1 1 auto;
+    }
+
+    &[data-full-width-wide='false'] {
+      width: auto;
+    }
+
+    &[data-full-width-regular='true']:not([data-full-width-wide='true']) {
+      width: auto;
+
+      --segmented-control-list-flex: 0 1 auto;
+    }
+  }
+
   &[data-size='small'] {
     --segmented-control-action-size: 28px;
+  }
+
+  > .SegmentedControl {
+    min-width: 0;
+    flex: var(--segmented-control-list-flex);
+  }
+}
+
+.InlineAction {
+  display: flex;
+
+  &[data-variant='dropdown'] {
+    display: none;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-variant-narrow='dropdown'] {
+      display: none;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-variant-regular='dropdown'] {
+      display: none;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-variant-wide='dropdown'] {
+      display: none;
+    }
   }
 }
 
@@ -293,7 +381,7 @@
   margin-inline-start: 0;
 }
 
-.ActionItem [data-component='IconButton'] {
+.ActionButton {
   width: var(--segmented-control-action-size);
   height: var(--segmented-control-action-size);
   padding: 0;

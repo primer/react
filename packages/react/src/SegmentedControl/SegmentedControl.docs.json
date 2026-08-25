@@ -20,6 +20,9 @@
       "id": "components-segmentedcontrol-features--variant-narrow-action-menu"
     },
     {
+      "id": "components-segmentedcontrol-features--variant-narrow-action-menu-with-action"
+    },
+    {
       "id": "components-segmentedcontrol-features--fullwidth-narrow"
     },
     {
@@ -213,7 +216,7 @@
         },
         {
           "name": "onClick",
-          "type": "(event: React.MouseEvent<HTMLButtonElement>) => void",
+          "type": "() => void",
           "description": "The handler that gets called when the action button is clicked."
         }
       ]

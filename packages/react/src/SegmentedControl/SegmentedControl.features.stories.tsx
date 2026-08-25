@@ -125,6 +125,32 @@ export const VariantNarrowActionMenu = () => (
 )
 VariantNarrowActionMenu.storyName = '[variant: narrow] Action menu'
 
+export const VariantNarrowActionMenuWithAction = () => {
+  const initialViews = [{label: 'All'}, {label: 'Active'}, {label: 'Review requests'}, {label: 'Done'}]
+  const [views, setViews] = useState(initialViews)
+
+  const handleAddView = () => {
+    setViews(currentViews => [...currentViews, {label: `New view ${currentViews.length - 3}`}])
+  }
+
+  return (
+    <>
+      <SegmentedControl aria-label="View" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
+        {views.map((view, index) => (
+          <SegmentedControl.Button key={view.label} defaultSelected={index === 0}>
+            {view.label}
+          </SegmentedControl.Button>
+        ))}
+        <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
+      </SegmentedControl>
+      <Button className={classes.ResetButton} size="small" onClick={() => setViews(initialViews)}>
+        Reset views
+      </Button>
+    </>
+  )
+}
+VariantNarrowActionMenuWithAction.storyName = '[variant: narrow] Action menu with trailing action'
+
 export const FullwidthNarrow = () => (
   <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
     <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
