@@ -1,27 +1,39 @@
 import React, {useContext} from 'react'
 import type {ElementType} from 'react'
-import {clsx} from 'clsx'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button'
-import type {IconButtonProps} from '../Button'
-import type {DistributiveOmit} from '../utils/modern-polymorphic'
 import type {FCWithSlotMarker} from '../utils/types'
 import classes from './SegmentedControl.module.css'
 import {SegmentedControlActionContext} from './SegmentedControlActionContext'
 
-type SegmentedControlActionBaseProps = {
+export interface SegmentedControlActionProps {
   label: string
+  icon: ElementType
+  onClick?: () => void
+  disabled?: boolean
+  loading?: boolean
 }
 
-type SegmentedControlIconActionProps = SegmentedControlActionBaseProps &
-  DistributiveOmit<IconButtonProps, 'icon' | 'children' | 'aria-label' | 'aria-labelledby' | 'onClick'> & {
-    icon: ElementType
-    onClick?: () => void
-  }
-export type SegmentedControlActionProps = SegmentedControlIconActionProps
+interface SegmentedControlMenuActionProps {
+  children?: React.ReactNode
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void
+  onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void
+  'aria-disabled'?: boolean
+  'aria-labelledby'?: string
+  'aria-describedby'?: string
+  className?: string
+  role?: string
+  tabIndex?: number
+}
+
+const SegmentedControlMenuAction: React.FC<SegmentedControlMenuActionProps> = ({children, ...props}) => (
+  <div {...props} data-component="SegmentedControl.Action">
+    {children}
+  </div>
+)
 
 const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = props => {
-  const {className, disabled, icon, label, loading, onClick, ...iconButtonProps} = props
+  const {disabled, icon, label, loading, onClick} = props
   const variant = useContext(SegmentedControlActionContext)
 
   if (variant === 'menu') {
@@ -30,9 +42,9 @@ const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = pr
         <ActionList.Divider />
         <ActionList.Item
           role="menuitem"
-          className={className}
           disabled={disabled}
           loading={loading}
+          _PrivateItemWrapper={SegmentedControlMenuAction}
           onSelect={event => {
             event.preventDefault()
             onClick?.()
@@ -50,7 +62,7 @@ const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = pr
       <IconButton
         {...iconButtonProps}
         aria-label={label}
-        className={clsx(classes.ActionButton, className)}
+        className={classes.ActionButton}
         disabled={disabled}
         icon={icon}
         loading={loading}

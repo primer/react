@@ -29,8 +29,16 @@ const stories = [
     id: 'components-segmentedcontrol-features--variant-narrow-action-menu',
   },
   {
+    title: 'Variant Narrow Action Menu With Action',
+    id: 'components-segmentedcontrol-features--variant-narrow-action-menu-with-action',
+  },
+  {
     title: 'Variant Narrow Hide Labels',
     id: 'components-segmentedcontrol-features--variant-narrow-hide-labels',
+  },
+  {
+    title: 'Variant Subtle',
+    id: 'components-segmentedcontrol-features--variant-subtle',
   },
   {
     title: 'Controlled',
@@ -84,8 +92,7 @@ test.describe('SegmentedControl', () => {
             })
 
             if (story.title.includes('Narrow')) {
-              // Set viewport to narrow
-              await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
+              await page.setViewportSize({width: viewports['primer.breakpoint.sm'] - 1, height: 768})
             }
 
             // Default state
@@ -101,6 +108,11 @@ test.describe('SegmentedControl', () => {
               await page.keyboard.press('Enter')
               await page.keyboard.press('Shift+Tab')
               await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.middle.selected.focus.png`)
+            }
+
+            if (story.title === 'Variant Narrow Action Menu With Action') {
+              await page.locator('[data-component="ActionMenu.Button"]').click()
+              await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.menu.png`)
             }
           })
         })

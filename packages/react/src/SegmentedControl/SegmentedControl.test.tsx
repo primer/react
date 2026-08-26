@@ -57,6 +57,19 @@ describe('SegmentedControl', () => {
     expect(getByRole('list')).toHaveAttribute('data-variant', 'subtle')
   })
 
+  it('renders the subtle variant responsively', () => {
+    const {container} = render(
+      <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}>
+        <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+    const list = container.querySelector('[data-component="SegmentedControl"]')
+
+    expect(list).toHaveAttribute('data-variant-narrow', 'dropdown')
+    expect(list).toHaveAttribute('data-variant-regular', 'subtle')
+    expect(list).toHaveAttribute('data-variant-wide', 'subtle')
+  })
+
   it('renders data-component attribute on segmented control buttons', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="File view">
@@ -376,7 +389,11 @@ describe('SegmentedControl', () => {
     fireEvent.click(component.getByRole('button', {name: 'Preview, File view'}))
 
     const menuAction = await waitFor(() => component.getByRole('menuitem', {name: 'Add view'}))
-    expect(menuAction.previousElementSibling).toHaveAttribute('data-component', 'ActionList.Divider')
+    expect(menuAction.closest('[data-component="ActionList.Item"]')?.previousElementSibling).toHaveAttribute(
+      'data-component',
+      'ActionList.Divider',
+    )
+    expect(menuAction).toHaveAttribute('data-component', 'SegmentedControl.Action')
 
     fireEvent.click(menuAction)
 
@@ -434,6 +451,11 @@ describe('SegmentedControl', () => {
     )
 
     const iconActionButton = getByRole('button', {name: 'Add view'})
+
+    expect(iconActionButton.parentElement?.closest('[data-component]')).toHaveAttribute(
+      'data-component',
+      'SegmentedControl.Action',
+    )
 
     await user.click(iconActionButton)
 

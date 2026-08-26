@@ -28,7 +28,10 @@ export type SegmentedControlProps = {
   /** The size of the buttons */
   size?: 'small' | 'medium'
   /** Configure alternative ways to render the control when it gets rendered in tight spaces */
-  variant?: 'default' | 'subtle' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
+  variant?:
+    | 'default'
+    | 'subtle'
+    | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default' | 'subtle'>>
   className?: string
 }
 

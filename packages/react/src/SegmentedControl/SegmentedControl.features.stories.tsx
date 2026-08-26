@@ -51,36 +51,6 @@ export const VariantSubtle = () => (
 )
 VariantSubtle.storyName = '[variant: subtle] Low emphasis'
 
-export const WithAction = () => {
-  const initialViews = [{label: 'All'}, {label: 'Active'}, {label: 'Review requests'}, {label: 'Done'}]
-  const [views, setViews] = useState(initialViews)
-
-  const handleAddView = () => {
-    setViews(currentViews => [...currentViews, {label: `New view ${currentViews.length - 3}`}])
-  }
-
-  return (
-    <>
-      <SegmentedControl aria-label="View" variant="subtle">
-        {views.map((view, index) => (
-          <SegmentedControl.Button
-            key={view.label}
-            defaultSelected={index === 0}
-            dividerBefore={view.label === 'Active'}
-          >
-            {view.label}
-          </SegmentedControl.Button>
-        ))}
-        <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
-      </SegmentedControl>
-      <Button className={classes.ResetButton} size="small" onClick={() => setViews(initialViews)}>
-        Reset views
-      </Button>
-    </>
-  )
-}
-WithAction.storyName = '[Example] With trailing action'
-
 export const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const handleChange = (i: number) => {
@@ -135,9 +105,13 @@ export const VariantNarrowActionMenuWithAction = () => {
 
   return (
     <>
-      <SegmentedControl aria-label="View" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
+      <SegmentedControl aria-label="View" variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}>
         {views.map((view, index) => (
-          <SegmentedControl.Button key={view.label} defaultSelected={index === 0}>
+          <SegmentedControl.Button
+            key={view.label}
+            defaultSelected={index === 0}
+            dividerBefore={view.label === 'Active'}
+          >
             {view.label}
           </SegmentedControl.Button>
         ))}

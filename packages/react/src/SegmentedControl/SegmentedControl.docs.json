@@ -39,9 +39,6 @@
     },
     {
       "id": "components-segmentedcontrol-features--variant-subtle"
-    },
-    {
-      "id": "components-segmentedcontrol-features--with-action"
     }
   ],
   "importPath": "@primer/react",
@@ -78,7 +75,7 @@
     },
     {
       "name": "variant",
-      "type": "| 'default' | 'subtle' | { narrow?: 'hideLabels' | 'dropdown' | 'default' regular?: 'hideLabels' | 'dropdown' | 'default' wide?: 'hideLabels' | 'dropdown' | 'default' }",
+      "type": "| 'default' | 'subtle' | { narrow?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' regular?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' wide?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' }",
       "defaultValue": "'default'",
       "description": "Configure the control's visual treatment or responsive behavior in tight spaces."
     },
@@ -218,6 +215,16 @@
           "name": "onClick",
           "type": "() => void",
           "description": "The handler that gets called when the action button is clicked."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Whether the action is disabled."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Whether the action is in a loading state."
         }
       ]
     }

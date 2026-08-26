@@ -4,22 +4,22 @@ import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
 import {EyeIcon, FileCodeIcon, PeopleIcon, PlusIcon} from '@primer/octicons-react'
 
-type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default'
+type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default' | 'subtle'
 type Args = {
-  fullWidth?: boolean
-  fullWidthAtNarrow?: boolean
-  fullWidthAtRegular?: boolean
-  fullWidthAtWide?: boolean
   size?: 'small' | 'medium'
-  showAction?: boolean
-  dividerBefore?: boolean
   variant: 'default' | 'subtle'
   variantAtNarrow: ResponsiveVariantOptions
   variantAtRegular: ResponsiveVariantOptions
   variantAtWide: ResponsiveVariantOptions
+  fullWidth?: boolean
+  fullWidthAtNarrow?: boolean
+  fullWidthAtRegular?: boolean
+  fullWidthAtWide?: boolean
+  dividerBefore?: boolean
+  showAction?: boolean
 }
 
-const variantOptions = ['dropdown', 'hideLabels', 'default']
+const variantOptions = ['dropdown', 'hideLabels', 'default', 'subtle']
 
 const parseVariantFromArgs = ({variant, variantAtNarrow, variantAtRegular, variantAtWide}: Args) =>
   variant === 'subtle'
@@ -44,58 +44,24 @@ export default {
   component: SegmentedControl,
   subcomponents: {SegmentedControlButton, SegmentedControlIconButton},
   args: {
-    fullWidth: false,
-    fullWidthAtNarrow: false,
-    fullWidthAtRegular: false,
-    fullWidthAtWide: false,
     size: 'medium',
-    showAction: false,
-    dividerBefore: false,
     variant: 'default',
     variantAtNarrow: 'default',
     variantAtRegular: 'default',
     variantAtWide: 'default',
+    fullWidth: false,
+    fullWidthAtNarrow: false,
+    fullWidthAtRegular: false,
+    fullWidthAtWide: false,
+    dividerBefore: false,
+    showAction: false,
   },
   argTypes: {
-    fullWidth: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    fullWidthAtNarrow: {
-      name: 'fullWidth.narrow',
-      control: {
-        type: 'boolean',
-      },
-    },
-    fullWidthAtRegular: {
-      name: 'fullWidth.regular',
-      control: {
-        type: 'boolean',
-      },
-    },
-    fullWidthAtWide: {
-      name: 'fullWidth.wide',
-      control: {
-        type: 'boolean',
-      },
-    },
     size: {
       control: {
         type: 'radio',
       },
       options: ['small', 'medium'],
-    },
-    showAction: {
-      control: {
-        type: 'boolean',
-      },
-      name: 'action',
-    },
-    dividerBefore: {
-      control: {
-        type: 'boolean',
-      },
     },
     variant: {
       control: {
@@ -123,6 +89,40 @@ export default {
         type: 'radio',
       },
       options: variantOptions,
+    },
+    fullWidth: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    fullWidthAtNarrow: {
+      name: 'fullWidth.narrow',
+      control: {
+        type: 'boolean',
+      },
+    },
+    fullWidthAtRegular: {
+      name: 'fullWidth.regular',
+      control: {
+        type: 'boolean',
+      },
+    },
+    fullWidthAtWide: {
+      name: 'fullWidth.wide',
+      control: {
+        type: 'boolean',
+      },
+    },
+    dividerBefore: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    showAction: {
+      control: {
+        type: 'boolean',
+      },
+      name: 'action',
     },
   },
 } as Meta<typeof SegmentedControl>
