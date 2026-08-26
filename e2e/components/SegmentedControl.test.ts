@@ -92,7 +92,8 @@ test.describe('SegmentedControl', () => {
             })
 
             if (story.title.includes('Narrow')) {
-              await page.setViewportSize({width: viewports['primer.breakpoint.sm'] - 1, height: 768})
+              // Set viewport to narrow
+              await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
             }
 
             // Default state
@@ -111,6 +112,7 @@ test.describe('SegmentedControl', () => {
             }
 
             if (story.title === 'Variant Narrow Action Menu With Action') {
+              await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
               await page.locator('[data-component="ActionMenu.Button"]').click()
               await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.menu.png`)
             }
