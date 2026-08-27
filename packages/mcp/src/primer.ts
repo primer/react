@@ -57,6 +57,11 @@ const patterns: Array<Pattern> = [
     category: 'scenario',
   },
   {
+    id: 'customize',
+    name: 'Customize',
+    category: 'scenario',
+  },
+  {
     id: 'delegate',
     name: 'Delegate',
     category: 'scenario',

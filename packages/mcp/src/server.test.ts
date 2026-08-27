@@ -74,7 +74,7 @@ describe('MCP server', () => {
 
   it('lists every published scenario pattern', async () => {
     const result = await client.callTool({name: 'list_patterns'})
-    const scenarioPatterns = ['Copy', 'Create', 'Delegate', 'Delete', 'Edit', 'Filter', 'Search', 'View']
+    const scenarioPatterns = ['Copy', 'Create', 'Customize', 'Delegate', 'Delete', 'Edit', 'Filter', 'Search', 'View']
 
     expect(result.content).toContainEqual(
       expect.objectContaining({
@@ -88,6 +88,7 @@ describe('MCP server', () => {
 
   it.each([
     {name: 'Create', id: 'create'},
+    {name: 'Customize', id: 'customize'},
     {name: 'Delegate', id: 'delegate'},
     {name: 'Edit', id: 'edit'},
     {name: 'View', id: 'view'},
