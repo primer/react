@@ -355,7 +355,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   }
 
   return (
-    <VisuallyHidden isVisible={showMenu}>
+    <VisuallyHidden isVisible={showMenu} hidden={!showMenu}>
       {loading ? (
         <div className={classes.SpinnerWrapper}>
           <Spinner />

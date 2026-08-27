@@ -294,6 +294,9 @@ describe('Autocomplete', () => {
       const inputNode = screen.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
       ancestorRef.current?.addEventListener('keydown', handleAncestorKeyDown)
 
+      expect(inputNode).toHaveAttribute('aria-expanded', 'false')
+      expect(screen.getByRole('listbox', {hidden: true}).closest('[hidden]')).toBeInTheDocument()
+
       await user.click(inputNode)
       expect(inputNode).not.toHaveAttribute('aria-activedescendant')
 
