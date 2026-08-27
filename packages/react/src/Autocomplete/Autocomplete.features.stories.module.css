@@ -36,8 +36,8 @@
 }
 
 .OverlayInputBar {
+  padding: var(--borderWidth-default);
   border-width: 0;
-  border-bottom-width: var(--borderWidth-default);
   border-color: var(--borderColor-default);
   border-style: solid;
 }
@@ -45,6 +45,7 @@
 .OverlayInput {
   display: flex;
   border: 0;
+  border-radius: 10px;
   padding-left: var(--base-size-16);
   padding-right: var(--base-size-16);
   padding-top: var(--base-size-4);
