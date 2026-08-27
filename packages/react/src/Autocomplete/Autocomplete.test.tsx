@@ -269,6 +269,32 @@ describe('Autocomplete', () => {
   })
 
   describe('Autocomplete.Menu', () => {
+    it('only sets an active descendant while a menu rendered without an overlay is open', async () => {
+      const user = userEvent.setup()
+      render(
+        <BaseStyles>
+          <label htmlFor="autocompleteInput" id="autocompleteLabel">
+            Autocomplete field
+          </label>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input id="autocompleteInput" />
+            <Autocomplete.Menu items={mockItems} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+          </Autocomplete>
+        </BaseStyles>,
+      )
+      const inputNode = screen.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
+
+      await user.click(inputNode)
+      expect(inputNode).not.toHaveAttribute('aria-activedescendant')
+
+      await user.keyboard('{ArrowDown}')
+      await waitFor(() => expect(inputNode).toHaveAttribute('aria-activedescendant', mockItems[0].id))
+
+      // eslint-disable-next-line github/no-blur
+      fireEvent.blur(inputNode)
+      await waitFor(() => expect(inputNode).not.toHaveAttribute('aria-activedescendant'))
+    })
+
     it('calls a custom filter function', async () => {
       const user = userEvent.setup()
       const filterFnMock = vi.fn()

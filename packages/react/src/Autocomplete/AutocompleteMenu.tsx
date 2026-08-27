@@ -287,6 +287,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   useFocusZone(
     {
       containerRef: listContainerRef,
+      disabled: !showMenu,
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
         return !(element instanceof HTMLInputElement)
