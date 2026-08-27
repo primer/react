@@ -1,7 +1,6 @@
 import {render, fireEvent, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {createRef} from 'react'
-import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import type {AutocompleteInputProps} from '../Autocomplete'
 import Autocomplete from '../Autocomplete'
