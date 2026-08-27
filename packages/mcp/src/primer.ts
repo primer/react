@@ -52,8 +52,23 @@ const patterns: Array<Pattern> = [
     category: 'scenario',
   },
   {
+    id: 'create',
+    name: 'Create',
+    category: 'scenario',
+  },
+  {
+    id: 'delegate',
+    name: 'Delegate',
+    category: 'scenario',
+  },
+  {
     id: 'delete',
     name: 'Delete',
+    category: 'scenario',
+  },
+  {
+    id: 'edit',
+    name: 'Edit',
     category: 'scenario',
   },
   {
@@ -64,6 +79,11 @@ const patterns: Array<Pattern> = [
   {
     id: 'search',
     name: 'Search',
+    category: 'scenario',
+  },
+  {
+    id: 'view',
+    name: 'View',
     category: 'scenario',
   },
   {

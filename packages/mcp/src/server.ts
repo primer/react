@@ -441,7 +441,7 @@ ${text}`,
     'list_patterns',
     {
       description:
-        'List all of the patterns available from Primer React. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
+        'List all of the patterns available from Primer React. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
       annotations: {readOnlyHint: true},
     },
     async () => {
@@ -471,7 +471,7 @@ ${ui.join('\n')}`,
     'get_pattern',
     {
       description:
-        'Get a specific pattern by name. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
+        'Get a specific pattern by name. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
       inputSchema: z.object({
         name: z.string().describe('The name of the pattern to retrieve'),
       }),

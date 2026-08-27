@@ -72,6 +72,43 @@ describe('MCP server', () => {
     )
   })
 
+  it('lists every published scenario pattern', async () => {
+    const result = await client.callTool({name: 'list_patterns'})
+    const scenarioPatterns = ['Copy', 'Create', 'Delegate', 'Delete', 'Edit', 'Filter', 'Search', 'View']
+
+    expect(result.content).toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining(
+          `## Scenario patterns\n\n${scenarioPatterns.map(name => `- ${name}`).join('\n')}`,
+        ),
+      }),
+    )
+  })
+
+  it.each([
+    {name: 'Create', id: 'create'},
+    {name: 'Delegate', id: 'delegate'},
+    {name: 'Edit', id: 'edit'},
+    {name: 'View', id: 'view'},
+  ])('retrieves the $name scenario pattern from its published URL', async ({name, id}) => {
+    vi.mocked(fetch).mockResolvedValue(new Response(`<main><h1>${name}</h1></main>`))
+
+    const result = await client.callTool({
+      name: 'get_pattern',
+      arguments: {name},
+    })
+
+    expect(fetch).toHaveBeenCalledTimes(1)
+    expect(vi.mocked(fetch).mock.calls[0]?.[0].toString()).toBe(`https://primer.style/product/scenario-patterns/${id}`)
+    expect(result.content).toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining(`Here are the guidelines for the \`${name}\` pattern for Primer:`),
+      }),
+    )
+  })
+
   it('requires between 2 and 10 names', async () => {
     const tooFew = await callBatch(['Button'])
     const tooMany = await callBatch(Array.from({length: 11}, (_, index) => `Component${index}`))
