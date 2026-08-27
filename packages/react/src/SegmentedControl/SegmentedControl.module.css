@@ -432,6 +432,8 @@
 
     /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has(+ [data-selected])::after,
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- account for a hidden divider in the default variant */
+    &:has(+ :where([data-component='SegmentedControl.Divider']) + :where([data-selected]))::after,
     &:where([data-selected])::after {
       background-color: transparent;
     }
