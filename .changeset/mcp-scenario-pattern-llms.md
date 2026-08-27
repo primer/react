@@ -1,5 +1,5 @@
 ---
-'@primer/mcp': patch
+'@primer/mcp': minor
 ---
 
-MCP server: Load scenario pattern listings and guidance from Primer's dedicated LLM endpoints.
+Load scenario pattern listings and guidance from Primer's dedicated LLM endpoints.
