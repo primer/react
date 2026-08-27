@@ -45,9 +45,7 @@
 .OverlayInput {
   display: flex;
   border: 0;
-  border-radius: 10px;
-  padding-left: var(--base-size-16);
-  padding-right: var(--base-size-16);
+  border-radius: calc(var(--borderRadius-large) - 1px);
   padding-top: var(--base-size-4);
   padding-bottom: var(--base-size-4);
   box-shadow: none;
