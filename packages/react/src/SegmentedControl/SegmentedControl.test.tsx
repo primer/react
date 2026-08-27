@@ -83,14 +83,41 @@ describe('SegmentedControl', () => {
     )
   })
 
-  it('renders a divider before a button when requested', () => {
-    const {getByRole} = render(
-      <SegmentedControl aria-label="File view">
-        <SegmentedControl.Button dividerBefore>Preview</SegmentedControl.Button>
+  it('renders dividers without including them in selection indices', async () => {
+    const onChange = vi.fn()
+    const {container, getByRole} = render(
+      <SegmentedControl aria-label="File view" variant="subtle" onChange={onChange}>
+        <SegmentedControl.Button>Preview</SegmentedControl.Button>
+        <SegmentedControl.Divider />
+        <SegmentedControl.Button>Raw</SegmentedControl.Button>
       </SegmentedControl>,
     )
 
-    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute('data-divider-before', '')
+    expect(container.querySelector('[data-component="SegmentedControl.Divider"]')).toBeInTheDocument()
+    await userEvent.click(getByRole('button', {name: 'Raw'}))
+    expect(onChange).toHaveBeenCalledWith(1)
+  })
+
+  it('renders wrapped dividers in the segmented control and dropdown', async () => {
+    const onChange = vi.fn()
+    const WrappedDivider = asSlot(() => <SegmentedControl.Divider />, SegmentedControl.Divider)
+    const {container, getAllByRole} = render(
+      <SegmentedControl
+        aria-label="File view"
+        variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}
+        onChange={onChange}
+      >
+        <SegmentedControl.Button>Preview</SegmentedControl.Button>
+        <WrappedDivider />
+        <SegmentedControl.Button>Raw</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    expect(container.querySelector('[data-component="SegmentedControl.Divider"]')).toBeInTheDocument()
+    await userEvent.click(document.querySelector('[data-component="ActionMenu.Button"]')!)
+    expect(document.querySelector('[data-component="ActionList.Divider"]')).toBeInTheDocument()
+    await userEvent.click(getAllByRole('menuitemradio')[1])
+    expect(onChange).toHaveBeenCalledWith(1)
   })
 
   it('renders data-component attribute on segmented control icon buttons', () => {

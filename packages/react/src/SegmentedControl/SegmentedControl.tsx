@@ -4,6 +4,7 @@ import Button from './SegmentedControlButton'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import Action from './SegmentedControlAction'
+import Divider from './SegmentedControlDivider'
 import {SegmentedControlActionContext} from './SegmentedControlActionContext'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
@@ -49,7 +50,11 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
   const [slots, segmentChildren] = useSlots(children, {action: Action})
   const actionChild = slots.action
-  const segmentCount = segmentChildren.filter(React.isValidElement).length
+  const segments = segmentChildren.filter(
+    child => React.isValidElement(child) && !isSlot(child, Divider),
+  ) as React.ReactElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>[]
+  const segmentIndices = new Map(segments.map((segment, index) => [segment, index]))
+  const segmentCount = segments.length
   const previousSegmentCount = useRef(segmentCount)
 
   useIsomorphicLayoutEffect(() => {
@@ -68,11 +73,11 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
   const isUncontrolled =
     onChange === undefined ||
-    segmentChildren.some(
+    segments.some(
       child => React.isValidElement<SegmentedControlButtonProps>(child) && child.props.defaultSelected !== undefined,
     )
 
-  const selectedSegments = segmentChildren.map(
+  const selectedSegments = segments.map(
     child =>
       React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) &&
       (child.props.defaultSelected || child.props.selected),
@@ -82,9 +87,9 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const [selectedIndexInternalState, setSelectedIndexInternalState] = useState<number>(selectedIndexExternal)
   const selectedIndex = isUncontrolled ? selectedIndexInternalState : selectedIndexExternal
   const selectedChild = React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(
-    segmentChildren[selectedIndex],
+    segments[selectedIndex],
   )
-    ? segmentChildren[selectedIndex]
+    ? segments[selectedIndex]
     : undefined
   const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
     if (
@@ -152,19 +157,30 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         <ActionMenu.Overlay aria-labelledby={ariaLabelledby}>
           <ActionList selectionVariant="single">
             {segmentChildren.map((child, index) => {
+              if (React.isValidElement(child) && isSlot(child, Divider)) {
+                return (
+                  <ActionList.Divider
+                    key={child.key ?? `segmented-control-divider-${index}`}
+                    className={child.props.className}
+                    style={child.props.style}
+                  />
+                )
+              }
+
               const ChildIcon = getChildIcon(child)
               // Not a valid child element - skip rendering
               if (!React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
                 return null
               }
 
+              const segmentIndex = segmentIndices.get(child) ?? -1
               return (
                 <ActionList.Item
                   key={`segmented-control-action-btn-${index}`}
-                  selected={index === selectedIndex}
+                  selected={segmentIndex === selectedIndex}
                   onSelect={event => {
-                    isUncontrolled && setSelectedIndexInternalState(index)
-                    onChange && onChange(index)
+                    isUncontrolled && setSelectedIndexInternalState(segmentIndex)
+                    onChange && onChange(segmentIndex)
                     child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
                   }}
                 >
@@ -197,10 +213,15 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       data-component="SegmentedControl"
     >
       {segmentChildren.map((child, index) => {
+        if (React.isValidElement(child) && isSlot(child, Divider)) {
+          return React.cloneElement(child, {key: child.key ?? `segmented-control-divider-${index}`})
+        }
+
         // Not a valid child element - skip rendering child
         if (!React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
           return null
         }
+        const segmentIndex = segmentIndices.get(child) ?? -1
         const sharedChildProps = {
           onClick: onChange
             ? (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -209,8 +230,8 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                   child.props['aria-disabled'] === 'true' ||
                   child.props['aria-disabled'] === true
                 if (!isDisabled) {
-                  onChange(index)
-                  isUncontrolled && setSelectedIndexInternalState(index)
+                  onChange(segmentIndex)
+                  isUncontrolled && setSelectedIndexInternalState(segmentIndex)
                   child.props.onClick && child.props.onClick(event)
                 }
               }
@@ -221,13 +242,15 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                   child.props['aria-disabled'] === true
                 if (!isDisabled) {
                   child.props.onClick && child.props.onClick(event)
-                  isUncontrolled && setSelectedIndexInternalState(index)
+                  isUncontrolled && setSelectedIndexInternalState(segmentIndex)
                 }
               },
-          selected: index === selectedIndex,
+          selected: segmentIndex === selectedIndex,
           style: {
             '--separator-color':
-              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : 'var(--borderColor-default)',
+              segmentIndex === selectedIndex || segmentIndex === selectedIndex - 1
+                ? 'transparent'
+                : 'var(--borderColor-default)',
             ...child.props.style,
           },
         }
@@ -260,5 +283,6 @@ Root.displayName = 'SegmentedControl'
 export const SegmentedControl = Object.assign(Root, {
   Button,
   IconButton: SegmentedControlIconButton,
+  Divider,
   Action,
 })

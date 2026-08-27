@@ -1,4 +1,5 @@
-import React, {useContext} from 'react'
+import type React from 'react'
+import {useContext} from 'react'
 import type {ElementType} from 'react'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button'
@@ -33,7 +34,7 @@ const SegmentedControlMenuAction: React.FC<SegmentedControlMenuActionProps> = ({
 )
 
 const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = props => {
-  const {disabled, icon, label, loading, onClick} = props
+  const {disabled, icon: Icon, label, loading, onClick} = props
   const variant = useContext(SegmentedControlActionContext)
 
   if (variant === 'menu') {
@@ -50,7 +51,9 @@ const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = pr
             onClick?.()
           }}
         >
-          <ActionList.LeadingVisual>{React.createElement(icon)}</ActionList.LeadingVisual>
+          <ActionList.LeadingVisual>
+            <Icon />
+          </ActionList.LeadingVisual>
           {label}
         </ActionList.Item>
       </>
@@ -63,7 +66,7 @@ const SegmentedControlAction: FCWithSlotMarker<SegmentedControlActionProps> = pr
         aria-label={label}
         className={classes.ActionButton}
         disabled={disabled}
-        icon={icon}
+        icon={Icon}
         loading={loading}
         onClick={() => onClick?.()}
         variant="invisible"

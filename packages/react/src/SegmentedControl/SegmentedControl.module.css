@@ -14,19 +14,8 @@
     background-color: transparent;
   }
 
-  .Item[data-divider-before] {
-    margin-inline-start: var(--base-size-16);
-  }
-
-  .Item[data-divider-before]::before {
-    position: absolute;
-    inset-block: var(--base-size-8);
-    inset-inline-start: calc(-1 * var(--base-size-8));
-    width: 1px;
-    content: '';
-    z-index: 1;
-    /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-default);
+  > [data-component='SegmentedControl.Divider'] {
+    display: block;
   }
 
   .Button {
@@ -72,11 +61,7 @@
     background-color: var(--borderColor-default);
   }
 
-  .Item[data-divider-before] {
-    margin-inline-start: 0;
-  }
-
-  .Item[data-divider-before]::before {
+  > [data-component='SegmentedControl.Divider'] {
     display: none;
   }
 
@@ -161,6 +146,19 @@
     width: auto;
 
     --segmented-control-icon-width: 32px;
+  }
+
+  > [data-component='SegmentedControl.Divider'] {
+    display: none;
+    align-self: stretch;
+    width: 1px;
+    margin-block: var(--base-size-8);
+    margin-inline-start: var(--base-size-8);
+    /* stylelint-disable-next-line primer/spacing -- preserve the previous divider's 16px layout footprint */
+    margin-inline-end: calc(var(--base-size-8) - 1px);
+    list-style: none;
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--borderColor-default);
   }
 
   @media (--viewportRange-narrow) {

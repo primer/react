@@ -40,13 +40,11 @@ export const VariantSubtle = () => (
     <SegmentedControl.Button defaultSelected count={5}>
       All
     </SegmentedControl.Button>
-    <SegmentedControl.Button count={3} dividerBefore>
-      Active
-    </SegmentedControl.Button>
+    <SegmentedControl.Divider />
+    <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
     <SegmentedControl.Button count={10}>Review requests</SegmentedControl.Button>
-    <SegmentedControl.Button count={2} dividerBefore>
-      Done
-    </SegmentedControl.Button>
+    <SegmentedControl.Divider />
+    <SegmentedControl.Button count={2}>Done</SegmentedControl.Button>
   </SegmentedControl>
 )
 VariantSubtle.storyName = '[variant: subtle] Low emphasis'
@@ -106,15 +104,12 @@ export const VariantNarrowActionMenuWithAction = () => {
   return (
     <>
       <SegmentedControl aria-label="View" variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}>
-        {views.map((view, index) => (
-          <SegmentedControl.Button
-            key={view.label}
-            defaultSelected={index === 0}
-            dividerBefore={view.label === 'Active'}
-          >
+        {views.flatMap((view, index) => [
+          ...(view.label === 'Active' ? [<SegmentedControl.Divider key={`${view.label}-divider`} />] : []),
+          <SegmentedControl.Button key={view.label} defaultSelected={index === 0}>
             {view.label}
-          </SegmentedControl.Button>
-        ))}
+          </SegmentedControl.Button>,
+        ])}
         <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
       </SegmentedControl>
       <Button className={classes.ResetButton} size="small" onClick={() => setViews(initialViews)}>

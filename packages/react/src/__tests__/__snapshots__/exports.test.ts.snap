@@ -152,6 +152,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "SegmentedControl",
   "type SegmentedControlActionProps",
   "type SegmentedControlButtonProps",
+  "type SegmentedControlDividerProps",
   "type SegmentedControlIconButtonProps",
   "type SegmentedControlProps",
   "Select",

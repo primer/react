@@ -15,7 +15,7 @@ type Args = {
   fullWidthAtNarrow?: boolean
   fullWidthAtRegular?: boolean
   fullWidthAtWide?: boolean
-  dividerBefore?: boolean
+  showDivider?: boolean
   showAction?: boolean
 }
 
@@ -53,7 +53,7 @@ export default {
     fullWidthAtNarrow: false,
     fullWidthAtRegular: false,
     fullWidthAtWide: false,
-    dividerBefore: false,
+    showDivider: false,
     showAction: false,
   },
   argTypes: {
@@ -113,10 +113,11 @@ export default {
         type: 'boolean',
       },
     },
-    dividerBefore: {
+    showDivider: {
       control: {
         type: 'boolean',
       },
+      name: 'divider',
     },
     showAction: {
       control: {
@@ -137,7 +138,8 @@ export const Playground: StoryFn<Args> = args => (
     <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon} dividerBefore={args.dividerBefore}>
+    {args.showDivider && <SegmentedControl.Divider />}
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
