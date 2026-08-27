@@ -1,0 +1,5 @@
+---
+'@primer/mcp': patch
+---
+
+MCP server: Load scenario pattern listings and guidance from Primer's dedicated LLM endpoints.

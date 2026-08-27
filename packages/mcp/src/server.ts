@@ -441,13 +441,19 @@ ${text}`,
     'list_patterns',
     {
       description:
-        'List all of the patterns available from Primer React. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
+        'List all of the patterns available from Primer React. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
       annotations: {readOnlyHint: true},
     },
     async () => {
       const all = listPatterns()
-      const scenario = all.filter(pattern => pattern.category === 'scenario').map(pattern => `- ${pattern.name}`)
       const ui = all.filter(pattern => pattern.category === 'ui').map(pattern => `- ${pattern.name}`)
+      const url = new URL('/product/scenario-patterns/llms.txt', 'https://primer.style')
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
+      }
+
+      const scenario = await response.text()
       return {
         content: [
           {
@@ -456,7 +462,7 @@ ${text}`,
 
 ## Scenario patterns
 
-${scenario.join('\n')}
+${scenario}
 
 ## UI patterns
 
@@ -471,7 +477,7 @@ ${ui.join('\n')}`,
     'get_pattern',
     {
       description:
-        'Get a specific pattern by name. Scenario patterns describe specific user tasks (copy, delete, filter, search). Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
+        'Get a specific pattern by name. Scenario patterns describe specific user tasks. Prefer a scenario pattern when one fits the task, and fall back to the more generic UI patterns otherwise.',
       inputSchema: z.object({
         name: z.string().describe('The name of the pattern to retrieve'),
       }),
@@ -495,20 +501,32 @@ ${ui.join('\n')}`,
       }
 
       const basePath = match.category === 'scenario' ? 'scenario-patterns' : 'ui-patterns'
-      const url = new URL(`/product/${basePath}/${match.id}`, 'https://primer.style')
+      const suffix = match.category === 'scenario' ? '/llms.txt' : ''
+      const url = new URL(`/product/${basePath}/${match.id}${suffix}`, 'https://primer.style')
       const response = await fetch(url)
       if (!response.ok) {
         throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
       }
 
-      const html = await response.text()
-      if (!html) {
+      const body = await response.text()
+      if (!body) {
         return {
           content: [],
         }
       }
 
-      const $ = cheerio.load(html)
+      if (match.category === 'scenario') {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: body,
+            },
+          ],
+        }
+      }
+
+      const $ = cheerio.load(body)
       const source = $('main').html()
       if (!source) {
         return {

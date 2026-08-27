@@ -162,6 +162,34 @@ describe('MCP server', () => {
     expect(vi.getTimerCount()).toBe(0)
   })
 
+  it('lists scenario patterns from the scenario patterns llms.txt endpoint', async () => {
+    const fetchMock = vi.mocked(fetch)
+    fetchMock.mockResolvedValue(new Response('# Scenario patterns\n\n- [Copy](./copy)'))
+
+    const result = await client.callTool({name: 'list_patterns'})
+
+    expect(fetchMock).toHaveBeenCalledWith(new URL('https://primer.style/product/scenario-patterns/llms.txt'))
+    expect(result.content).toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining('# Scenario patterns\n\n- [Copy](./copy)'),
+      }),
+    )
+  })
+
+  it('gets scenario patterns from their llms.txt endpoints', async () => {
+    const fetchMock = vi.mocked(fetch)
+    fetchMock.mockResolvedValue(new Response('# Copy\n\nCopy guidance'))
+
+    const result = await client.callTool({
+      name: 'get_pattern',
+      arguments: {name: 'Copy'},
+    })
+
+    expect(fetchMock).toHaveBeenCalledWith(new URL('https://primer.style/product/scenario-patterns/copy/llms.txt'))
+    expect(result.content).toEqual([{type: 'text', text: '# Copy\n\nCopy guidance'}])
+  })
+
   it('reviews alt text through the multi-round-trip sampling flow', async () => {
     const result = await client.callTool({
       name: 'review_alt_text',
