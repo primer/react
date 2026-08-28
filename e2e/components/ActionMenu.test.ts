@@ -98,12 +98,12 @@ test.describe('ActionMenu', () => {
                   await page.getByRole('button', {name: buttonName}).click()
                 }
               }
-              await expect(page).toHaveScreenshot(`ActionMenu.${story.title}.${theme}${suffix}.png`, {
-                style:
-                  story.title === 'Dev: Within Dialog'
-                    ? '[data-component="ActionMenu.Button"] [data-component="text"] { visibility: hidden !important; }'
-                    : undefined,
-              })
+              if (story.title === 'Dev: Within Dialog') {
+                await page
+                  .locator('[data-component="ActionMenu.Button"] [data-component="text"]')
+                  .evaluate(element => element.setAttribute('style', 'visibility: hidden !important'))
+              }
+              await expect(page).toHaveScreenshot(`ActionMenu.${story.title}.${theme}${suffix}.png`)
             })
           }
         })
