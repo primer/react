@@ -36,33 +36,49 @@ jobs:
 
             if (existingIntegrationLabels.includes(INTEGRATION_LABEL_NAMES.skipped)) return;
 
-            const result = await github.rest.issues.listComments(issue);
-            const integrationComments = result.data.filter(
-              comment =>
-                comment.user.login == 'primer-integration[bot]' &&
-                comment.body.includes('<!-- test-result')
-            );
-            if (integrationComments.length === 0) {
-              console.log('Integration comment with test-result not found');
-              return; // CI should pass if there's nothing to do
+            const comment = context.payload.comment;
+            if (comment.user.login !== 'primer-integration[bot]') return;
+
+            let newIntegrationLabel;
+            if (comment.body.includes('<!-- statuses:')) {
+              const statusMatch = comment.body.match(/<!-- statuses: (.+?) -->/);
+              if (!statusMatch) {
+                core.setFailed('Could not parse integration statuses');
+                return;
+              }
+
+              const workflowStatuses = JSON.parse(statusMatch[1]);
+              const hasFailure = Object.values(workflowStatuses).some(
+                status => status.conclusion && status.conclusion !== 'success'
+              );
+              const allChecksPassed = comment.body.includes('All checks passed!');
+
+              if (!allChecksPassed && !hasFailure) {
+                console.log('Integration checks are still running');
+                return;
+              }
+
+              newIntegrationLabel = allChecksPassed
+                ? INTEGRATION_LABEL_NAMES.passing
+                : INTEGRATION_LABEL_NAMES.failing;
+            } else if (comment.body.includes('<!-- test-result')) {
+              // Preserve support for integration results reported by github/github.
+              newIntegrationLabel = comment.body.includes('🟢')
+                ? INTEGRATION_LABEL_NAMES.passing
+                : INTEGRATION_LABEL_NAMES.failing;
+            } else {
+              console.log('Integration result comment not found');
+              return;
             }
 
-            const latestComment = integrationComments.pop();
-            console.log(latestComment.body);
-
-            // based on comment message in github/github: https://github.com/github/github/blob/fe7fe9072fd913ec04255ce7403ae764e6c33d5f/.github/workflows/github-ci.yml#L664-L692
-            const pass = latestComment.body.includes('🟢');
-            console.log({ pass });
-
-            const newIntegrationLabel = pass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
             console.log({existingIntegrationLabels, newIntegrationLabel})
 
-            Object.values(INTEGRATION_LABEL_NAMES).map(async (name) => {
+            await Promise.all(Object.values(INTEGRATION_LABEL_NAMES).map(async (name) => {
               if (name === newIntegrationLabel) {
-                if (existingIntegrationLabels.includes(name)); // already added, nothing to do here
-                else await github.rest.issues.addLabels({...issue, labels: [newIntegrationLabel]});
+                if (!existingIntegrationLabels.includes(name)) {
+                  await github.rest.issues.addLabels({...issue, labels: [newIntegrationLabel]});
+                }
               } else if (existingIntegrationLabels.includes(name)) {
-                // remove outdated labels
                 await github.rest.issues.removeLabel({ ...issue, name });
               }
-            });
+            }));
