@@ -43,23 +43,25 @@ jobs:
                 (comment.body.includes('<!-- test-result') || comment.body.includes('<!-- statuses:'))
             );
             if (integrationComments.length === 0) {
-              console.log('Integration result comment not found');
+              console.log('Integration comment with test-result not found');
               return; // CI should pass if there's nothing to do
             }
 
             const latestComment = integrationComments.pop();
             console.log(latestComment.body);
 
-            const isGithubUiResult = latestComment.body.includes('<!-- statuses:');
-            const pass = latestComment.body.includes('🟢') || latestComment.body.includes('All checks passed!');
-            const fail = latestComment.body.includes('fail.svg');
+            // based on comment message in github/github: https://github.com/github/github/blob/fe7fe9072fd913ec04255ce7403ae764e6c33d5f/.github/workflows/github-ci.yml#L664-L692
+            const pass = latestComment.body.includes('🟢');
+            console.log({ pass });
 
-            if (isGithubUiResult && !pass && !fail) {
+            const githubUiPass = latestComment.body.includes('All checks passed!');
+            const githubUiFail = latestComment.body.includes('fail.svg');
+            if (latestComment.body.includes('<!-- statuses:') && !githubUiPass && !githubUiFail) {
               console.log('Integration checks are still running');
               return;
             }
 
-            const newIntegrationLabel = pass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
+            const newIntegrationLabel = pass || githubUiPass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
             console.log({existingIntegrationLabels, newIntegrationLabel})
 
             Object.values(INTEGRATION_LABEL_NAMES).map(async (name) => {
