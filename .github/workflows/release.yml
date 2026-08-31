@@ -52,14 +52,14 @@ jobs:
       - name: Create release pull request or publish to npm
         id: changesets
         # Uses SHA for security hardening
-        # Currently pointing at a commit for the v1.4.1 tag
+        # Currently pointing at a commit for the v2.0.0 tag
         # Please keep this up-to-date if you're changing the SHA below
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
+        uses: changesets/action@22ccf9aa43179fe9e27dc62e575971d28cce197c
         with:
-          title: Release tracking
-          commitMode: github-api
+          github-token: ${{ steps.app-token.outputs.token }}
+          pr-title: Release tracking
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
+          publish-script: npm run release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
