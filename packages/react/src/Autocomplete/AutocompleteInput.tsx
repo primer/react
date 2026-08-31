@@ -28,6 +28,7 @@ const AutocompleteInput = React.forwardRef(
       onBlur,
       onChange,
       onKeyDown,
+      onKeyDownCapture,
       onKeyUp,
       onKeyPress,
       value,
@@ -111,6 +112,14 @@ const AutocompleteInput = React.forwardRef(
       [inputRef, setInputValue, setHighlightRemainingText, onKeyDown, showMenu, setShowMenu],
     )
 
+    const handleInputKeyDownCapture: KeyboardEventHandler<HTMLInputElement> = event => {
+      onKeyDownCapture?.(event)
+
+      if (!showMenu && ARROW_KEYS_NAV.has(event.key) && !event.altKey) {
+        event.preventDefault()
+      }
+    }
+
     const handleInputKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
         onKeyUp?.(event)
@@ -174,6 +183,7 @@ const AutocompleteInput = React.forwardRef(
         onBlur={handleInputBlur}
         onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
+        onKeyDownCapture={handleInputKeyDownCapture}
         onKeyPress={onInputKeyPress}
         onKeyUp={handleInputKeyUp}
         ref={mergedRef}
