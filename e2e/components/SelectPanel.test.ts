@@ -55,7 +55,6 @@ test.describe('SelectPanel', () => {
     if (scenario.story.visual !== false) {
       test(`${name} @vrt ${theme}`, async ({page}) => {
         await visit(page, {id: scenario.story.id, globals})
-        await page.emulateMedia({reducedMotion: 'reduce'})
 
         // Open select panel
         const isPanelOpen = await page.locator('[role="listbox"]').isVisible()
@@ -95,7 +94,7 @@ test.describe('SelectPanel', () => {
     }
 
     // windows high contrast mode: light
-    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light', reducedMotion: 'reduce'})
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
     await page.getByRole('listbox').waitFor({state: 'visible'})
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
 
@@ -104,7 +103,7 @@ test.describe('SelectPanel', () => {
     )
 
     // windows high contrast mode: dark
-    await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark', reducedMotion: 'reduce'})
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark'})
     await page.getByRole('listbox').waitFor({state: 'visible'})
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)')
 
