@@ -62,6 +62,15 @@ export const BoldLink = ({className, ...props}: React.ComponentProps<typeof Link
   <Link {...props} className={clsx(classes.BoldLink, className)} />
 )
 
+/**
+ * Inline semibold emphasis for event-body text. `Timeline.Body` renders muted, so this
+ * also restores the default foreground color to lift the emphasized phrase out of the
+ * muted run (the two-tone event sentences live-GitHub uses).
+ */
+export const Strong = ({className, ...props}: React.ComponentProps<'span'>) => (
+  <span {...props} className={clsx(classes.Strong, className)} />
+)
+
 // TODO(github/primer#6827): remove when Primer ships an inline (in-text) avatar treatment
 export const InlineAvatar = ({className, size = 20, alt = '', ...props}: React.ComponentProps<typeof Avatar>) => (
   <Avatar {...props} size={size} alt={alt} className={clsx(classes.InlineAvatar, className)} />
