@@ -23,18 +23,18 @@
       "name": "datetime",
       "type": "string",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "description": "An ISO8601 time representing the time"
     },
     {
       "name": "date",
-      "type": "string",
+      "type": "Date",
       "defaultValue": "",
       "description": "Instead of passing the `datetime`, it is possible to pass a full `Date` object into the `date` prop"
     },
     {
       "name": "format",
-      "type": "'auto' | 'micro' | 'elapsed'",
+      "type": "'auto' | 'datetime' | 'duration' | 'elapsed' | 'micro' | 'relative'",
       "defaultValue": "'auto'",
       "description": "The format with which to display the time"
     },
@@ -111,43 +111,16 @@
       "description": "The format with which to render the time zone"
     },
     {
-      "name": "ref",
-      "type": "React.RefObject<RelativeTimeElement>"
-    },
-    {
       "name": "noTitle",
       "type": "boolean",
       "defaultValue": "",
       "description": "Removes the `title` attribute provided on the element by default"
     },
     {
-      "name": "attributeChangedCallback",
-      "type": "(attrName: string, oldValue: unknown, newValue: unknown) => void",
-      "description": "",
-      "defaultValue": ""
-    },
-    {
-      "name": "connectedCallback",
-      "type": "() => void",
-      "description": "",
-      "defaultValue": ""
-    },
-    {
       "name": "onRelativeTimeUpdated",
-      "type": "null | (event: RelativeTimeUpdatedEvent) => void",
-      "description": "",
+      "type": "(event: RelativeTimeUpdatedEvent) => void",
+      "description": "Called after the rendered time text or title changes",
       "defaultValue": ""
-    },
-    {
-      "name": "update",
-      "type": "() => void",
-      "description": "",
-      "defaultValue": ""
-    },
-    {
-      "name": "as",
-      "type": "React.ElementType",
-      "defaultValue": "\"relative-time\""
     }
   ],
   "subcomponents": []

@@ -329,6 +329,8 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "type DialogHeight",
   "type DialogProps",
   "type DialogWidth",
+  "ExperimentalRelativeTime",
+  "type ExperimentalRelativeTimeProps",
   "FeatureFlags",
   "type FeatureFlagsProps",
   "FilteredActionList",
