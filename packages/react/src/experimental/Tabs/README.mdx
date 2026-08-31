@@ -60,6 +60,18 @@ All styling and layout is left up to you!
 
 This approach provides maximum flexibility, allowing you to create tabbed interfaces that fit seamlessly into your application's design while leveraging the robust functionality provided by the `Tabs` component.
 
+### Activation mode
+
+By default, selection follows focus: navigating with the Arrow, Home, and End keys immediately selects the newly focused tab (`activationMode="automatic"`). Set `activationMode="manual"` to move focus without changing selection — selection is then committed with Enter, Space, or a pointer click. Prefer manual activation when displaying a panel is not instant (for example, it triggers a network request), per the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/).
+
+```tsx
+<Tabs defaultValue="tab1" activationMode="manual">
+  {/* ... */}
+</Tabs>
+```
+
+Manual activation is behind the `primer_react_underline_panels_controlled` feature flag; with the flag off, `activationMode` is always `'automatic'`.
+
 ### Example: `ActionList`
 
 <Canvas of={TabsExamples.WithCustomComponents} />

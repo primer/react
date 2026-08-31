@@ -1,6 +1,6 @@
 ---
 name: style-guide
-description: 'Use when: authoring, modifying, or reviewing Primer React components, hooks, utilities, or component APIs. Covers applying contributor-docs/style.md, including the spectrum of abstraction, presentational components, behavior hooks, config components, accessibility primitives, props, hooks, SSR, and CSS conventions.'
+description: 'Use when: authoring, modifying, or reviewing Primer React components, hooks, utilities, or component APIs.'
 ---
 
 # Primer React Style Guide
@@ -16,3 +16,10 @@ repository.
 When proposing, implementing, or reviewing a component change, explicitly apply
 the relevant style-guide principles to the design. If a change intentionally
 deviates from the style guide, call out the reason.
+
+In addition, there are a set of topics below that may be used for guidance on a
+specific topic. Consult this to see if any apply to the task at hand.
+
+| Topic                 | Description                                                               | Link                                                     |
+| :-------------------- | :------------------------------------------------------------------------ | :------------------------------------------------------- |
+| Component prop naming | Use when deciding or evaluating the name for a prop in a React component. | [component-prop-naming](./docs/component-prop-naming.md) |

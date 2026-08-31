@@ -137,12 +137,13 @@ export type NavListItemProps<As extends React.ElementType = React.ElementType> =
     href?: string
     'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
     inactiveText?: string
+    tooltipText?: string
   }
 >
 
 const ItemComponent = fixedForwardRef(
   <As extends React.ElementType = 'a'>(
-    {'aria-current': ariaCurrent, children, defaultOpen, as: Component, ...props}: NavListItemProps<As>,
+    {'aria-current': ariaCurrent, children, defaultOpen, tooltipText, as: Component, ...props}: NavListItemProps<As>,
     ref: React.ForwardedRef<unknown>,
   ) => {
     const {depth} = React.useContext(SubNavContext)
@@ -165,6 +166,7 @@ const ItemComponent = fixedForwardRef(
           subNav={subNav}
           depth={depth}
           defaultOpen={defaultOpen}
+          tooltipText={tooltipText}
           style={{'--subitem-depth': depth} as React.CSSProperties}
         >
           {childrenWithoutSubNavOrTrailingAction}
@@ -185,6 +187,7 @@ const ItemComponent = fixedForwardRef(
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         style={{'--subitem-depth': depth} as React.CSSProperties}
         data-component="NavList.Item"
+        _PrivateTooltipText={tooltipText}
         {...props}
       >
         {children}
@@ -203,6 +206,7 @@ type ItemWithSubNavProps = {
   subNav: React.ReactNode
   depth: number
   defaultOpen?: boolean
+  tooltipText?: string
   style: React.CSSProperties
 }
 
@@ -234,7 +238,7 @@ function hasCurrentNavItem(node: React.ReactNode): boolean {
   return React.Children.toArray(node.props.children).some(hasCurrentNavItem)
 }
 
-function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, tooltipText, style}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
 
@@ -268,6 +272,7 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
         onSelect={() => setIsOpen(open => !open)}
         style={style}
         data-component="NavList.Item"
+        _PrivateTooltipText={tooltipText}
       >
         {children}
         {/* What happens if the user provides a TrailingVisual? */}
