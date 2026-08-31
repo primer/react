@@ -11,7 +11,6 @@
       "type": "boolean",
       "description": "Specify if the content of the element should be announced when this component is rendered and is not hidden",
       "defaultValue": "true"
-    }
     },
     {
       "name": "hidden",
