@@ -272,6 +272,8 @@ exports[`@primer/react/deprecated > should not update exports without a semver c
   "type DialogProps",
   "FilteredSearch",
   "type FilteredSearchProps",
+  "Flash",
+  "type FlashProps",
   "Octicon",
   "type OcticonProps",
   "Pagehead",

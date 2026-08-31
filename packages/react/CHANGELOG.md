@@ -1,5 +1,36 @@
 # @primer/react
 
+## 38.37.0
+
+### Minor Changes
+
+- [#8311](https://github.com/primer/react/pull/8311) [`b111781`](https://github.com/primer/react/commit/b1117811cebfb9463f20fe76f77cdf13917ae6b2) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Button: Add configurable notification indicators to Button and IconButton
+
+- [#8306](https://github.com/primer/react/pull/8306) [`a3afd7b`](https://github.com/primer/react/commit/a3afd7baf05ea6c4a272a40ccb636f20a48f87dc) Thanks [@llastflowers](https://github.com/llastflowers)! - Deprecate the `Flash` component and move to `@primer/react/deprecated`
+
+- [#8295](https://github.com/primer/react/pull/8295) [`bfebb8a`](https://github.com/primer/react/commit/bfebb8a538e6f068a457722b154799876bda3ab4) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Textarea: Add an `autoSize` option that allows the field to grow with its content
+
+- [#8233](https://github.com/primer/react/pull/8233) [`80a68cf`](https://github.com/primer/react/commit/80a68cf05226323ad8cbc0531f244d60ea6747e3) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - UnderlinePanels: add controlled `value`/`defaultValue`/`onChange` and `activationMode` props, keyed to a per-`Tab`/`Panel` `value`, for data-driven tabs. Behind the `primer_react_underline_panels_controlled` feature flag; the existing `aria-selected`/`onSelect` API is unchanged.
+
+### Patch Changes
+
+- [#8304](https://github.com/primer/react/pull/8304) [`88feb65`](https://github.com/primer/react/commit/88feb658c13fec154da1a8aa199250514f4fdba3) Thanks [@iansan5653](https://github.com/iansan5653)! - Animate `SegmentedControl` when switching between items
+
+## 38.36.0
+
+### Minor Changes
+
+- [#8212](https://github.com/primer/react/pull/8212) [`9ac9343`](https://github.com/primer/react/commit/9ac9343a70fd0f70413a42cd27baf562a74dd4fc) Thanks [@mattcosta7](https://github.com/mattcosta7)! - ThemeProvider: Add a CSS-variable-based implementation to `@primer/react/next`
+  and deprecate the legacy JavaScript theme implementation.
+
+- [#8303](https://github.com/primer/react/pull/8303) [`a88cc69`](https://github.com/primer/react/commit/a88cc693539e2b9aa836623c737e860e7203e73a) Thanks [@TylerJDev](https://github.com/TylerJDev)! - NavList: Add a `tooltipText` prop to items
+
+### Patch Changes
+
+- [#8276](https://github.com/primer/react/pull/8276) [`5069f8a`](https://github.com/primer/react/commit/5069f8a7cb95544ce14122e97d67c8a1279f8a08) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Portal: Render nothing while server rendering and during hydration instead of accessing the DOM during render, fixing server rendering support. Client-only renders are unchanged and still mount portaled content in the same commit.
+
+- [#8260](https://github.com/primer/react/pull/8260) [`24d0831`](https://github.com/primer/react/commit/24d0831d34b13e3b4bac8afcfa2ccd5795cd9a9d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - UnderlineNav: Keep item icons visible by default at the medium breakpoint and above
+
 ## 38.35.1
 
 ### Patch Changes

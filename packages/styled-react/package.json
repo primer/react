@@ -1,6 +1,6 @@
 {
   "name": "@primer/styled-react",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "exports": {
     ".": {
@@ -44,9 +44,9 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@primer/primitives": "10.x || 11.x",
-    "@primer/react": "^38.26.0",
+    "@primer/react": "^38.36.0",
     "@rolldown/plugin-babel": "^0.2.3",
-    "@storybook/react-vite": "10.5.5",
+    "@storybook/react-vite": "10.5.8",
     "@types/babel__core": "^7.20.5",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
@@ -60,7 +60,7 @@
     "react-compiler-runtime": "^1.0.0",
     "react-dom": "18.3.1",
     "rimraf": "^6.0.1",
-    "rolldown": "^1.2.2",
+    "rolldown": "^1.2.5",
     "rolldown-plugin-dts": "^0.26.0",
     "rolldown-plugin-preserve-directives": "^0.0.0",
     "styled-components": "5.3.11",

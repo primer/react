@@ -3,13 +3,15 @@
 // public API and its integration with Tabs.
 
 import type React from 'react'
-import {act} from 'react'
+import {act, useState} from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, it, afterEach, beforeEach, expect, vi} from 'vitest'
 import {CodeIcon, EyeIcon} from '@primer/octicons-react'
 import UnderlinePanels from './UnderlinePanels'
-import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
+import {AnchoredOverlay} from '../../AnchoredOverlay'
+import {implementsClassName, withExpectedConsoleError, withExpectedConsoleWarning} from '../../utils/testing'
+import {FeatureFlags} from '../../FeatureFlags'
 import classes from './UnderlinePanels.module.css'
 
 const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-labelledby'?: string; id?: string}) => (
@@ -197,6 +199,310 @@ describe('UnderlinePanels', () => {
       }).toThrow('Only one tab can be selected at a time.')
     })
   })
+
+  describe('controlled value / onChange / activationMode', () => {
+    const Flagged = ({children}: {children: React.ReactNode}) => (
+      <FeatureFlags flags={{primer_react_underline_panels_controlled: true}}>{children}</FeatureFlags>
+    )
+
+    const RefTabs = (props: {
+      value?: string
+      defaultValue?: string
+      activationMode?: 'automatic' | 'manual'
+      onChange?: ({value}: {value: string}) => void
+    }) => (
+      <Flagged>
+        <UnderlinePanels aria-label="Ref type" {...props}>
+          <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+          <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+          <UnderlinePanels.Panel value="branch">Branch panel</UnderlinePanels.Panel>
+          <UnderlinePanels.Panel value="tag">Tag panel</UnderlinePanels.Panel>
+        </UnderlinePanels>
+      </Flagged>
+    )
+
+    it('`value` selects the matching tab and shows its panel', () => {
+      render(<RefTabs value="tag" onChange={vi.fn()} />)
+
+      expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
+      expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'false')
+      expect(screen.getByText('Tag panel')).toBeVisible()
+      expect(screen.getByText('Branch panel')).not.toBeVisible()
+    })
+
+    it('calls onChange with the domain value when a tab is clicked', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(<RefTabs value="branch" onChange={onChange} />)
+
+      await user.click(screen.getByRole('tab', {name: 'Tags'}))
+
+      expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+    })
+
+    it('does not call onChange when the selected tab is re-clicked', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(<RefTabs value="branch" onChange={onChange} />)
+
+      await user.click(screen.getByRole('tab', {name: 'Branches'}))
+
+      expect(onChange).not.toHaveBeenCalled()
+    })
+
+    it('calls onChange on arrow-key navigation (automatic activation)', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(<RefTabs value="branch" onChange={onChange} />)
+
+      await act(async () => {
+        screen.getByRole('tab', {name: 'Branches'}).focus()
+        await user.keyboard('{ArrowRight}')
+      })
+
+      expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+    })
+
+    it('does not update selection while controlled unless `value` changes', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      const {rerender} = render(<RefTabs value="branch" onChange={onChange} />)
+
+      await user.click(screen.getByRole('tab', {name: 'Tags'}))
+
+      expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'true')
+
+      rerender(<RefTabs value="tag" onChange={onChange} />)
+      expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
+    })
+
+    it('`defaultValue` sets the initial selection and updates internally (uncontrolled)', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(<RefTabs defaultValue="tag" onChange={onChange} />)
+
+      expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
+
+      await user.click(screen.getByRole('tab', {name: 'Branches'}))
+
+      expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'true')
+      expect(onChange).toHaveBeenCalledWith({value: 'branch'})
+      expect(screen.getByText('Branch panel')).toBeVisible()
+    })
+
+    describe('manual activation', () => {
+      it('arrow keys move focus without selecting or firing onChange', async () => {
+        const user = userEvent.setup()
+        const onChange = vi.fn()
+        render(<RefTabs value="branch" activationMode="manual" onChange={onChange} />)
+
+        const branch = screen.getByRole('tab', {name: 'Branches'})
+        const tag = screen.getByRole('tab', {name: 'Tags'})
+
+        await act(async () => {
+          branch.focus()
+          await user.keyboard('{ArrowRight}')
+        })
+
+        expect(tag).toHaveFocus()
+        expect(branch).toHaveAttribute('aria-selected', 'true')
+        expect(onChange).not.toHaveBeenCalled()
+        expect(tag).toHaveAttribute('tabindex', '0')
+        expect(branch).toHaveAttribute('tabindex', '-1')
+      })
+
+      it('commits selection with Enter', async () => {
+        const user = userEvent.setup()
+        const onChange = vi.fn()
+        render(<RefTabs value="branch" activationMode="manual" onChange={onChange} />)
+
+        await act(async () => {
+          screen.getByRole('tab', {name: 'Branches'}).focus()
+          await user.keyboard('{ArrowRight}')
+          await user.keyboard('{Enter}')
+        })
+
+        expect(onChange).toHaveBeenCalledTimes(1)
+        expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+      })
+
+      it('commits selection with Enter when uncontrolled (defaultValue)', async () => {
+        const user = userEvent.setup()
+        const onChange = vi.fn()
+        render(<RefTabs defaultValue="branch" activationMode="manual" onChange={onChange} />)
+
+        const branch = screen.getByRole('tab', {name: 'Branches'})
+        const tag = screen.getByRole('tab', {name: 'Tags'})
+
+        await act(async () => {
+          branch.focus()
+          await user.keyboard('{ArrowRight}')
+        })
+
+        expect(tag).toHaveFocus()
+        expect(branch).toHaveAttribute('aria-selected', 'true')
+        expect(onChange).not.toHaveBeenCalled()
+
+        await act(async () => {
+          await user.keyboard('{Enter}')
+        })
+
+        expect(onChange).toHaveBeenCalledWith({value: 'tag'})
+        expect(tag).toHaveAttribute('aria-selected', 'true')
+        expect(screen.getByText('Tag panel')).toBeVisible()
+      })
+    })
+
+    it('fires onChange on arrow keys even without explicit values (positional back-compat)', async () => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      render(
+        <Flagged>
+          <UnderlinePanels aria-label="Select a tab" onChange={onChange}>
+            <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
+            <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
+            <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+            <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+          </UnderlinePanels>
+        </Flagged>,
+      )
+
+      await act(async () => {
+        screen.getByRole('tab', {name: 'Tab 1'}).focus()
+        await user.keyboard('{ArrowRight}')
+      })
+
+      expect(onChange).toHaveBeenCalledWith({value: '1'})
+      expect(screen.getByRole('tab', {name: 'Tab 2'})).toHaveAttribute('aria-selected', 'true')
+    })
+
+    describe('dev validation and fallback', () => {
+      const RefTabsRaw = (props: {
+        value?: string
+        defaultValue?: string
+        tabs?: Array<{tab: string; panel: string}>
+      }) => {
+        const pairs = props.tabs ?? [
+          {tab: 'branch', panel: 'branch'},
+          {tab: 'tag', panel: 'tag'},
+        ]
+        return (
+          <Flagged>
+            <UnderlinePanels aria-label="Ref type" value={props.value} defaultValue={props.defaultValue}>
+              {pairs.map((p, i) => (
+                <UnderlinePanels.Tab key={`tab-${i}`} value={p.tab}>
+                  {p.tab}
+                </UnderlinePanels.Tab>
+              ))}
+              {pairs.map((p, i) => (
+                <UnderlinePanels.Panel key={`panel-${i}`} value={p.panel}>
+                  {p.panel} panel
+                </UnderlinePanels.Panel>
+              ))}
+            </UnderlinePanels>
+          </Flagged>
+        )
+      }
+
+      it('clamps to the first tab (and warns) when the selected value matches no tab', () => {
+        withExpectedConsoleWarning(() => {
+          render(<RefTabsRaw value="nonexistent" />)
+        })
+
+        const branch = screen.getByRole('tab', {name: 'branch'})
+        const tag = screen.getByRole('tab', {name: 'tag'})
+
+        expect(branch).toHaveAttribute('aria-selected', 'true')
+        expect(branch).toHaveAttribute('tabindex', '0')
+        expect(tag).toHaveAttribute('tabindex', '-1')
+        expect(screen.getByText('branch panel')).toBeVisible()
+      })
+
+      it('warns when `value` and `defaultValue` are combined, and `value` wins', () => {
+        withExpectedConsoleWarning(() => {
+          render(<RefTabsRaw value="branch" defaultValue="tag" />)
+        })
+
+        expect(screen.getByRole('tab', {name: 'branch'})).toHaveAttribute('aria-selected', 'true')
+      })
+
+      it('throws when two tabs share the same value', () => {
+        withExpectedConsoleError(() => {
+          expect(() => {
+            render(
+              <RefTabsRaw
+                tabs={[
+                  {tab: 'branch', panel: 'branch'},
+                  {tab: 'branch', panel: 'tag'},
+                ]}
+              />,
+            )
+          }).toThrow('Every tab must have a unique `value`. Found duplicate "branch".')
+        })
+      })
+
+      it('throws when a tab has no matching panel', () => {
+        withExpectedConsoleError(() => {
+          expect(() => {
+            render(
+              <RefTabsRaw
+                tabs={[
+                  {tab: 'branch', panel: 'branch'},
+                  {tab: 'tag', panel: 'mismatch'},
+                ]}
+              />,
+            )
+          }).toThrow('Tab with `value` "tag" has no matching panel')
+        })
+      })
+    })
+
+    describe('with the feature flag disabled', () => {
+      const UnflaggedRefTabs = (props: {
+        value?: string
+        activationMode?: 'automatic' | 'manual'
+        onChange?: ({value}: {value: string}) => void
+      }) => (
+        <UnderlinePanels aria-label="Ref type" {...props}>
+          <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+          <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+          <UnderlinePanels.Panel value="branch">Branch panel</UnderlinePanels.Panel>
+          <UnderlinePanels.Panel value="tag">Tag panel</UnderlinePanels.Panel>
+        </UnderlinePanels>
+      )
+
+      it('ignores `value` and falls back to positional selection', () => {
+        render(<UnflaggedRefTabs value="tag" />)
+
+        expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'true')
+        expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'false')
+        expect(screen.getByText('Branch panel')).toBeVisible()
+      })
+
+      it('does not call onChange', async () => {
+        const user = userEvent.setup()
+        const onChange = vi.fn()
+        render(<UnflaggedRefTabs onChange={onChange} />)
+
+        await user.click(screen.getByRole('tab', {name: 'Tags'}))
+
+        expect(onChange).not.toHaveBeenCalled()
+        expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
+      })
+
+      it('ignores `activationMode="manual"` and still selects on arrow keys', async () => {
+        const user = userEvent.setup()
+        render(<UnflaggedRefTabs activationMode="manual" />)
+
+        await act(async () => {
+          screen.getByRole('tab', {name: 'Branches'}).focus()
+          await user.keyboard('{ArrowRight}')
+        })
+
+        expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
+      })
+    })
+  })
 })
 
 describe('UnderlinePanels — render architecture', () => {
@@ -380,5 +686,42 @@ describe('UnderlinePanels — list resize observation', () => {
     // icons would (incorrectly) stay visible.
     fireResize(wrapper, 250)
     expect(wrapper).toHaveAttribute('data-icons-visible', 'false')
+  })
+})
+
+describe('UnderlinePanels — AnchoredOverlay composition', () => {
+  const OverlayHarness = ({onChange}: {onChange?: ({value}: {value: string}) => void}) => {
+    const [open, setOpen] = useState(true)
+    return (
+      <AnchoredOverlay
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderAnchor={props => (
+          <button type="button" {...props}>
+            Open
+          </button>
+        )}
+        focusZoneSettings={{disabled: true}}
+      >
+        <UnderlinePanels aria-label="Ref type" defaultValue="branch" onChange={onChange}>
+          <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+          <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+          <UnderlinePanels.Panel value="branch">Branch panel</UnderlinePanels.Panel>
+          <UnderlinePanels.Panel value="tag">Tag panel</UnderlinePanels.Panel>
+        </UnderlinePanels>
+      </AnchoredOverlay>
+    )
+  }
+
+  it('keeps the tablist roving tabindex intact (exactly one tab is tabbable)', async () => {
+    render(<OverlayHarness />)
+    await act(async () => {})
+
+    const branch = screen.getByRole('tab', {name: 'Branches'})
+    const tag = screen.getByRole('tab', {name: 'Tags'})
+
+    expect(branch).toHaveAttribute('tabindex', '0')
+    expect(tag).toHaveAttribute('tabindex', '-1')
   })
 })

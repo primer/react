@@ -42,6 +42,17 @@ import {
   UnlockIcon,
   XCircleIcon,
 } from '@primer/octicons-react'
+import {FeatureFlags} from '../FeatureFlags'
+import Text from '../Text'
+import {Examples} from './internal/timelineStoryHelpers'
+import {
+  PLAYGROUND_SURFACES,
+  PLAYGROUND_SURFACE_IDS,
+  playgroundCategoryIds,
+  playgroundEvents,
+  type PlaygroundCategoryId,
+  type PlaygroundSurfaceId,
+} from './internal/timelinePlaygroundData'
 import classes from './Timeline.stories.module.css'
 
 export default {
@@ -86,8 +97,8 @@ export const Default = () => (
   </Timeline>
 )
 
-// Helpers for the Custom Event playground (declared above the story export).
-// The story-level JSDoc lives on the `Playground` export so Storybook attaches it
+// Helpers for the Event Playground (declared above the story export).
+// The story-level JSDoc lives on the `EventPlayground` export so Storybook attaches it
 // to the Docs tab.
 const BADGE_ICONS = {
   alert: AlertIcon,
@@ -138,7 +149,7 @@ type PlaygroundArgs = {
   appPreset: AppPreset
   customAppName: string
   customAppAvatar: string
-  eventScope: 'shared' | 'pr' | 'issue' | 'dependabot' | 'custom'
+  eventScope: 'pull' | 'issue' | 'dependabot' | 'code-scanning' | 'secret-scanning' | 'license-compliance'
   eventType: string
   badgeIcon: BadgeIconName
   badgeVariant: TimelineBadgeVariant | 'none'
@@ -159,6 +170,19 @@ const ACTOR_AVATARS: Record<PlaygroundArgs['actorType'], string> = {
   bot: 'https://avatars.githubusercontent.com/in/29110?v=4',
   app: 'https://avatars.githubusercontent.com/in/15368?v=4',
   copilot: 'https://avatars.githubusercontent.com/in/1143301?v=4',
+}
+
+// `data-actor-type` distinguishes only human (`user`) from automated (`bot`)
+// actors, matching the authoritative @github-ui/timeline-taxonomy `ActorType`.
+// The four actor presets above are a visual convenience (distinct avatars and
+// names). `app` and `copilot` are automated identities, so they serialize to
+// `bot`, mirroring how `actorTypeForLogin` collapses GitHub Apps and Copilot to
+// `bot`. The playground never emits `data-actor-type="app"` or `"copilot"`.
+const DATA_ACTOR_TYPE: Record<PlaygroundArgs['actorType'], 'user' | 'bot'> = {
+  user: 'user',
+  bot: 'bot',
+  app: 'bot',
+  copilot: 'bot',
 }
 
 // Apps that can be appended via the PR `viaApp` slot. Avatar and name are paired
@@ -235,16 +259,17 @@ type TimestampPreset =
   | 'Absolute (full timestamp)'
 
 /**
- * Recreates the Figma "Custom event" component (Primer-Web library, node `46191-13560`)
- * as a compositional Storybook playground. Every slot is built from existing public primitives
+ * The **Event Playground**: recreates the Figma "Custom event" component (Primer-Web
+ * library, node `46191-13560`) as a compositional Storybook playground for a SINGLE
+ * configurable Timeline event. Every slot is built from existing public primitives
  * (`Timeline`, `Timeline.Item`, `Timeline.Badge`, `Timeline.Body`, `Timeline.Avatar`,
  * `Timeline.Actions`, `Avatar`, `Link`, `RelativeTime`) — no public API changes.
  *
  * **`data-*` filtering convention** (applied to `Timeline.Item`):
  *
- * - `data-event-scope` — `'shared' | 'pr' | 'issue' | 'dependabot' | 'custom'`
+ * - `data-event-scope` — `'pull' | 'issue' | 'dependabot' | 'code-scanning' | 'secret-scanning' | 'license-compliance'`
  * - `data-event-type` — short identifier (e.g. `assigned`, `merged`, `subscribed`)
- * - `data-actor-type` — `'user' | 'bot' | 'app' | 'copilot'`
+ * - `data-actor-type` — `'user' | 'bot'` (app and Copilot actor presets serialize to `bot`)
  *
  * These have no visual effect today; they're reserved for Phase 4 filtering work
  * (e.g. "hide all `subscribed` rows", or the planned summary-events rollup).
@@ -260,7 +285,7 @@ type TimestampPreset =
 // avatar (via `Timeline.Avatar`) has room to display. The gutter wrapper is only
 // needed because the playground is a standalone demo — in product code the page
 // layout typically provides the gutter already.
-export const Playground: StoryFn<PlaygroundArgs> = args => {
+export const EventPlayground: StoryFn<PlaygroundArgs> = args => {
   const Icon = BADGE_ICONS[args.badgeIcon]
   const isAppLike = args.actorType === 'bot' || args.actorType === 'app'
   // Allow the `actorAvatarSrc` control to override the default user avatar; for
@@ -310,7 +335,7 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
         <Timeline.Item
           data-event-scope={args.eventScope}
           data-event-type={args.eventType || undefined}
-          data-actor-type={args.actorType}
+          data-actor-type={DATA_ACTOR_TYPE[args.actorType]}
         >
           {args.actorSize === 'large' && (
             <Timeline.Avatar>
@@ -366,9 +391,9 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
   )
 }
 
-Playground.parameters = {
+EventPlayground.parameters = {
   // Compact Controls panel (no inline Description / Default columns). The story-level
-  // JSDoc on the Playground export plus the auto-generated props table on the Docs tab
+  // JSDoc on the EventPlayground export plus the auto-generated props table on the Docs tab
   // cover the longer-form context.
   controls: {expanded: false},
 }
@@ -386,7 +411,7 @@ const DEFAULT_ACTOR_NAMES: Record<PlaygroundArgs['actorType'], string> = {
 // Sync the visible `actorName` field whenever `actorType` changes, so the field
 // reflects a sensible default for the new type rather than carrying over a value
 // from the previous type. Users can still edit the field from there.
-Playground.decorators = [
+EventPlayground.decorators = [
   (Story, context) => {
     const [args, updateArgs] = useArgs<PlaygroundArgs>()
     const previousActorType = React.useRef(args.actorType)
@@ -400,7 +425,7 @@ Playground.decorators = [
   },
 ]
 
-Playground.args = {
+EventPlayground.args = {
   actorSize: 'small',
   actorType: 'user',
   actorAvatarSrc: 'https://avatars.githubusercontent.com/u/92997159?v=4',
@@ -417,11 +442,11 @@ Playground.args = {
   noteText: 'Additional context or details',
   showActions: false,
   actionsPreset: 'Single button' as ActionsPreset,
-  eventScope: 'custom',
+  eventScope: 'issue',
   eventType: '',
 }
 
-Playground.argTypes = {
+EventPlayground.argTypes = {
   actorSize: {
     control: {type: 'inline-radio'},
     options: ['small', 'large'],
@@ -431,7 +456,7 @@ Playground.argTypes = {
     control: {type: 'select'},
     options: ['user', 'bot', 'app', 'copilot'],
     description:
-      '`bot` and `copilot` use baked-in canonical names (`dependabot`, `Copilot`); `user` and `app` allow a custom name and avatar.',
+      '`bot` and `copilot` use baked-in canonical names (`dependabot`, `Copilot`); `user` and `app` allow a custom name and avatar. Emitted `data-actor-type` is `user` for the user preset, otherwise `bot`.',
     table: {category: 'Actor'},
   },
   actorAvatarSrc: {
@@ -505,7 +530,7 @@ Playground.argTypes = {
   // Descriptions are useful here because the controls' purpose isn't visually obvious.
   eventScope: {
     control: {type: 'select'},
-    options: ['shared', 'pr', 'issue', 'dependabot', 'custom'],
+    options: ['pull', 'issue', 'dependabot', 'code-scanning', 'secret-scanning', 'license-compliance'],
     description:
       'Sets `data-event-scope` on the Timeline.Item. Identifies which timeline an event belongs to. Reserved for Phase 4 filtering work.',
     table: {category: 'DOM attributes'},
@@ -516,4 +541,177 @@ Playground.argTypes = {
       'Sets `data-event-type` on the Timeline.Item (e.g. `assigned`, `merged`, `subscribed`). Reserved for Phase 4 filtering and summary-event rollups.',
     table: {category: 'DOM attributes'},
   },
+}
+
+// ============================================================================
+// Timeline Playground
+// ============================================================================
+
+/**
+ * Args for the {@link TimelinePlayground} story. A single `surface` selector, plus a categories
+ * multi-select and an event-types multi-select for each of the five surfaces. Only the selected
+ * surface's two controls are shown (see the surface-gated `argTypes` below); the render reads the
+ * active surface's two arrays and filters the representative rows by them.
+ */
+type TimelinePlaygroundArgs = {
+  surface: PlaygroundSurfaceId
+  codeScanningCategories: PlaygroundCategoryId[]
+  codeScanningTypes: string[]
+  secretScanningCategories: PlaygroundCategoryId[]
+  secretScanningTypes: string[]
+  dependabotCategories: PlaygroundCategoryId[]
+  dependabotTypes: string[]
+  licenseComplianceCategories: PlaygroundCategoryId[]
+  licenseComplianceTypes: string[]
+  issueCategories: PlaygroundCategoryId[]
+  issueTypes: string[]
+}
+
+// Storybook args share a single flat namespace, so each surface needs distinctly named
+// category/type args. This maps a surface to its two arg names for both the render and defaults.
+const PLAYGROUND_ARG_KEYS: Record<
+  PlaygroundSurfaceId,
+  {categories: keyof TimelinePlaygroundArgs; types: keyof TimelinePlaygroundArgs}
+> = {
+  'code-scanning': {categories: 'codeScanningCategories', types: 'codeScanningTypes'},
+  'secret-scanning': {categories: 'secretScanningCategories', types: 'secretScanningTypes'},
+  dependabot: {categories: 'dependabotCategories', types: 'dependabotTypes'},
+  'license-compliance': {categories: 'licenseComplianceCategories', types: 'licenseComplianceTypes'},
+  issue: {categories: 'issueCategories', types: 'issueTypes'},
+}
+
+const playgroundTypeIds = (surface: PlaygroundSurfaceId): string[] =>
+  playgroundEvents(surface, playgroundCategoryIds(surface)).map(event => event.type)
+
+// Surface-gated `check` control for a surface's categories. Gated with `if: {arg: 'surface',
+// eq: id}` so it only shows when that surface is selected.
+const playgroundCategoryControl = (surface: PlaygroundSurfaceId) => {
+  const categoryIds = playgroundCategoryIds(surface)
+  return {
+    control: {
+      type: 'check' as const,
+      labels: Object.fromEntries(
+        categoryIds.map(category => [category, PLAYGROUND_SURFACES[surface].categories[category]!.label]),
+      ),
+    },
+    options: categoryIds,
+    if: {arg: 'surface', eq: surface},
+    table: {category: PLAYGROUND_SURFACES[surface].label},
+  }
+}
+
+// Surface-gated `check` control for a surface's representative event types.
+const playgroundTypeControl = (surface: PlaygroundSurfaceId) => {
+  const events = playgroundEvents(surface, playgroundCategoryIds(surface))
+  return {
+    control: {
+      type: 'check' as const,
+      labels: Object.fromEntries(events.map(event => [event.type, event.label])),
+    },
+    options: events.map(event => event.type),
+    if: {arg: 'surface', eq: surface},
+    table: {category: PLAYGROUND_SURFACES[surface].label},
+  }
+}
+
+/**
+ * The **Timeline Playground** (see the illustrative-data note in `internal/timelinePlaygroundData.tsx`).
+ *
+ * The picker is built from real Storybook controls, not in-canvas form elements. Storybook cannot
+ * repopulate one control's options from another control's value, so instead of a single dependent
+ * surface -> category -> type chain, every surface's category and event-type controls are declared
+ * up front and each is gated with `if: {arg: 'surface', eq: '<surface>'}`. Only the selected
+ * surface's two controls are shown; the other four surfaces' pairs are hidden, faking the dynamic
+ * swap. The render then reads the active surface's selected categories and types and filters the
+ * representative rows, mapping each to a `<Timeline.Item>` carrying the `data-*` event contract,
+ * the same shape a future `Timeline.Filter` would consume.
+ */
+export const TimelinePlayground: StoryFn<TimelinePlaygroundArgs> = args => {
+  // Defensive fallback in case Storybook restores a stale/empty `surface` from the URL.
+  const surface = args.surface in PLAYGROUND_SURFACES ? args.surface : 'code-scanning'
+  const surfaceDef = PLAYGROUND_SURFACES[surface]
+  const argKeys = PLAYGROUND_ARG_KEYS[surface]
+  const selectedCategories = (args[argKeys.categories] as PlaygroundCategoryId[] | undefined) ?? []
+  const selectedTypes = (args[argKeys.types] as string[] | undefined) ?? []
+
+  // Category -> type filtering lives here because `if:` gates a control on one arg's scalar
+  // value, not on array membership. Keep rows whose category and type are both selected for the
+  // active surface, then map to Timeline.Item rows (the future Timeline.Filter shape).
+  const visibleRows = playgroundEvents(surface, playgroundCategoryIds(surface)).filter(
+    event => selectedCategories.includes(event.category) && selectedTypes.includes(event.type),
+  )
+
+  return (
+    <FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
+      <Examples>
+        {visibleRows.length > 0 ? (
+          <Timeline aria-label={surfaceDef.ariaLabel}>
+            {visibleRows.map(event => {
+              const BadgeIcon = event.badge.icon
+              return (
+                <Timeline.Item
+                  key={`${surface}-${event.type}`}
+                  data-event-scope={surface}
+                  data-event-type={event.type}
+                  data-event-category={event.category}
+                  data-event-visibility={event.visibility}
+                  data-actor-type={event.actorType}
+                >
+                  <Timeline.Badge variant={event.badge.variant}>
+                    {/* Decorative: the summary text in Timeline.Body is the accessible description. */}
+                    <BadgeIcon />
+                  </Timeline.Badge>
+                  <Timeline.Body>{event.body}</Timeline.Body>
+                  {event.actions ? <Timeline.Actions>{event.actions}</Timeline.Actions> : null}
+                </Timeline.Item>
+              )
+            })}
+          </Timeline>
+        ) : (
+          <Text className={classes.PlaygroundEmpty}>
+            No rows match. In the Controls panel, pick a surface then check its categories and event types.
+          </Text>
+        )}
+      </Examples>
+    </FeatureFlags>
+  )
+}
+
+TimelinePlayground.parameters = {
+  controls: {expanded: false},
+}
+
+// Default to the first surface with all of its categories and event types checked, so the story
+// renders a populated timeline on load. Generated from the surface ids so the per-surface
+// defaults can't drift from PLAYGROUND_SURFACES.
+const buildPlaygroundDefaults = (): TimelinePlaygroundArgs => {
+  const perSurface: Record<string, PlaygroundCategoryId[] | string[]> = {}
+  for (const id of PLAYGROUND_SURFACE_IDS) {
+    const argKeys = PLAYGROUND_ARG_KEYS[id]
+    perSurface[argKeys.categories] = playgroundCategoryIds(id)
+    perSurface[argKeys.types] = playgroundTypeIds(id)
+  }
+  return {surface: 'code-scanning', ...perSurface} as TimelinePlaygroundArgs
+}
+
+TimelinePlayground.args = buildPlaygroundDefaults()
+
+TimelinePlayground.argTypes = {
+  surface: {
+    control: {type: 'inline-radio'},
+    options: PLAYGROUND_SURFACE_IDS,
+    description:
+      "Which surface's events to show. Switching it reveals that surface's category and event-type controls and hides the others.",
+    table: {category: 'Surface'},
+  },
+  codeScanningCategories: playgroundCategoryControl('code-scanning'),
+  codeScanningTypes: playgroundTypeControl('code-scanning'),
+  secretScanningCategories: playgroundCategoryControl('secret-scanning'),
+  secretScanningTypes: playgroundTypeControl('secret-scanning'),
+  dependabotCategories: playgroundCategoryControl('dependabot'),
+  dependabotTypes: playgroundTypeControl('dependabot'),
+  licenseComplianceCategories: playgroundCategoryControl('license-compliance'),
+  licenseComplianceTypes: playgroundTypeControl('license-compliance'),
+  issueCategories: playgroundCategoryControl('issue'),
+  issueTypes: playgroundTypeControl('issue'),
 }

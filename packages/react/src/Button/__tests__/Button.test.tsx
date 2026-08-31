@@ -57,6 +57,38 @@ describe('Button', () => {
     expect(button).toMatchSnapshot()
   })
 
+  it('displays a notification indicator on the button boundary', () => {
+    const {getByRole} = render(<Button notificationIndicator="button">Notifications</Button>)
+    expect(getByRole('button')).toHaveAttribute('data-notification-indicator', 'button')
+  })
+
+  it('displays a notification indicator on the leading visual', () => {
+    const {getByRole} = render(
+      <Button leadingVisual={HeartIcon} notificationIndicator="leadingVisual">
+        Favorite
+      </Button>,
+    )
+    expect(getByRole('button')).toHaveAttribute('data-notification-indicator', 'leadingVisual')
+  })
+
+  it('displays a notification indicator on an icon button icon', () => {
+    const {getByRole} = render(
+      <IconButton icon={HeartIcon} aria-label="Favorite (new activity)" notificationIndicator="icon" />,
+    )
+    expect(getByRole('button')).toHaveAttribute('data-notification-indicator', 'icon')
+  })
+
+  it('warns when a leading visual notification indicator has no leading visual', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    render(<Button notificationIndicator="leadingVisual">Favorite</Button>)
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Button: `notificationIndicator="leadingVisual"` requires a `leadingVisual` prop.',
+    )
+    consoleSpy.mockRestore()
+  })
+
   it('respects the "disabled" prop', () => {
     const onClick = vi.fn()
     const container = render(
