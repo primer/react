@@ -11,7 +11,6 @@ import {CodeIcon, EyeIcon} from '@primer/octicons-react'
 import UnderlinePanels from './UnderlinePanels'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
 import {implementsClassName, withExpectedConsoleError, withExpectedConsoleWarning} from '../../utils/testing'
-import {FeatureFlags} from '../../FeatureFlags'
 import classes from './UnderlinePanels.module.css'
 
 const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-labelledby'?: string; id?: string}) => (
@@ -201,24 +200,18 @@ describe('UnderlinePanels', () => {
   })
 
   describe('controlled value / onChange / activationMode', () => {
-    const Flagged = ({children}: {children: React.ReactNode}) => (
-      <FeatureFlags flags={{primer_react_underline_panels_controlled: true}}>{children}</FeatureFlags>
-    )
-
     const RefTabs = (props: {
       value?: string
       defaultValue?: string
       activationMode?: 'automatic' | 'manual'
       onChange?: ({value}: {value: string}) => void
     }) => (
-      <Flagged>
-        <UnderlinePanels aria-label="Ref type" {...props}>
-          <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
-          <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
-          <UnderlinePanels.Panel value="branch">Branch panel</UnderlinePanels.Panel>
-          <UnderlinePanels.Panel value="tag">Tag panel</UnderlinePanels.Panel>
-        </UnderlinePanels>
-      </Flagged>
+      <UnderlinePanels aria-label="Ref type" {...props}>
+        <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel value="branch">Branch panel</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel value="tag">Tag panel</UnderlinePanels.Panel>
+      </UnderlinePanels>
     )
 
     it('`value` selects the matching tab and shows its panel', () => {
@@ -357,14 +350,12 @@ describe('UnderlinePanels', () => {
       const user = userEvent.setup()
       const onChange = vi.fn()
       render(
-        <Flagged>
-          <UnderlinePanels aria-label="Select a tab" onChange={onChange}>
-            <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
-            <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
-            <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
-            <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
-          </UnderlinePanels>
-        </Flagged>,
+        <UnderlinePanels aria-label="Select a tab" onChange={onChange}>
+          <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
+          <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
+          <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+          <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+        </UnderlinePanels>,
       )
 
       await act(async () => {
@@ -387,20 +378,18 @@ describe('UnderlinePanels', () => {
           {tab: 'tag', panel: 'tag'},
         ]
         return (
-          <Flagged>
-            <UnderlinePanels aria-label="Ref type" value={props.value} defaultValue={props.defaultValue}>
-              {pairs.map((p, i) => (
-                <UnderlinePanels.Tab key={`tab-${i}`} value={p.tab}>
-                  {p.tab}
-                </UnderlinePanels.Tab>
-              ))}
-              {pairs.map((p, i) => (
-                <UnderlinePanels.Panel key={`panel-${i}`} value={p.panel}>
-                  {p.panel} panel
-                </UnderlinePanels.Panel>
-              ))}
-            </UnderlinePanels>
-          </Flagged>
+          <UnderlinePanels aria-label="Ref type" value={props.value} defaultValue={props.defaultValue}>
+            {pairs.map((p, i) => (
+              <UnderlinePanels.Tab key={`tab-${i}`} value={p.tab}>
+                {p.tab}
+              </UnderlinePanels.Tab>
+            ))}
+            {pairs.map((p, i) => (
+              <UnderlinePanels.Panel key={`panel-${i}`} value={p.panel}>
+                {p.panel} panel
+              </UnderlinePanels.Panel>
+            ))}
+          </UnderlinePanels>
         )
       }
 
@@ -454,52 +443,6 @@ describe('UnderlinePanels', () => {
             )
           }).toThrow('Tab with `value` "tag" has no matching panel')
         })
-      })
-    })
-
-    describe('with the feature flag disabled', () => {
-      const UnflaggedRefTabs = (props: {
-        value?: string
-        activationMode?: 'automatic' | 'manual'
-        onChange?: ({value}: {value: string}) => void
-      }) => (
-        <UnderlinePanels aria-label="Ref type" {...props}>
-          <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
-          <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
-          <UnderlinePanels.Panel value="branch">Branch panel</UnderlinePanels.Panel>
-          <UnderlinePanels.Panel value="tag">Tag panel</UnderlinePanels.Panel>
-        </UnderlinePanels>
-      )
-
-      it('ignores `value` and falls back to positional selection', () => {
-        render(<UnflaggedRefTabs value="tag" />)
-
-        expect(screen.getByRole('tab', {name: 'Branches'})).toHaveAttribute('aria-selected', 'true')
-        expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'false')
-        expect(screen.getByText('Branch panel')).toBeVisible()
-      })
-
-      it('does not call onChange', async () => {
-        const user = userEvent.setup()
-        const onChange = vi.fn()
-        render(<UnflaggedRefTabs onChange={onChange} />)
-
-        await user.click(screen.getByRole('tab', {name: 'Tags'}))
-
-        expect(onChange).not.toHaveBeenCalled()
-        expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
-      })
-
-      it('ignores `activationMode="manual"` and still selects on arrow keys', async () => {
-        const user = userEvent.setup()
-        render(<UnflaggedRefTabs activationMode="manual" />)
-
-        await act(async () => {
-          screen.getByRole('tab', {name: 'Branches'}).focus()
-          await user.keyboard('{ArrowRight}')
-        })
-
-        expect(screen.getByRole('tab', {name: 'Tags'})).toHaveAttribute('aria-selected', 'true')
       })
     })
   })
