@@ -8,9 +8,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@babel/core": "7.29.6",
-    "@babel/preset-react": "7.28.5",
-    "@babel/preset-typescript": "7.28.5",
+    "@babel/core": "8.0.1",
+    "@babel/preset-react": "8.0.1",
+    "@babel/preset-typescript": "8.0.1",
     "babel-plugin-react-compiler": "^1.0.0"
   },
   "devDependencies": {
