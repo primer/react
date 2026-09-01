@@ -31,9 +31,58 @@ const stories = [
     title: 'Badge Variants',
     id: 'components-timeline-features--badge-variants',
   },
+  {
+    title: 'With Actions',
+    id: 'components-timeline-features--with-actions',
+  },
 ] as const
 
 test.describe('Timeline', () => {
+  test('retains its intrinsic width inside a shrink-to-fit container', async ({page}) => {
+    await visit(page, {
+      id: 'components-timeline--default',
+    })
+
+    const body = page.getByText('This is a message').first()
+    const timeline = body.locator('../..')
+
+    await timeline.evaluate(element => {
+      const outer = document.createElement('div')
+      const inner = document.createElement('div')
+      outer.style.display = 'flex'
+      outer.style.justifyContent = 'center'
+      element.parentElement?.insertBefore(outer, element)
+      outer.appendChild(inner)
+      inner.appendChild(element)
+    })
+
+    await expect.poll(async () => (await timeline.boundingBox())?.width).toBeGreaterThan(0)
+    await expect.poll(async () => (await body.boundingBox())?.width).toBeGreaterThan(0)
+  })
+
+  test('wraps Actions below Body only when narrower than 480px', async ({page}) => {
+    await visit(page, {
+      id: 'components-timeline-features--with-actions',
+    })
+
+    const actions = page.getByRole('button', {name: 'View details'}).first().locator('..')
+    const item = actions.locator('..')
+    const timeline = item.locator('..')
+    const body = item.locator('[class*="TimelineBody"]')
+
+    await timeline.evaluate(element => {
+      element.style.width = '479px'
+    })
+    await expect(timeline).toHaveAttribute('data-timeline-narrow', '')
+    await expect.poll(async () => (await actions.boundingBox())?.y).toBeGreaterThan((await body.boundingBox())?.y ?? 0)
+
+    await timeline.evaluate(element => {
+      element.style.width = '480px'
+    })
+    await expect(timeline).not.toHaveAttribute('data-timeline-narrow')
+    await expect.poll(async () => (await actions.boundingBox())?.y).toBeLessThan((await body.boundingBox())?.y ?? 0)
+  })
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {

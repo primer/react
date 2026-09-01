@@ -1,5 +1,5 @@
 import {render} from '@testing-library/react'
-import type {ReactElement} from 'react'
+import {createRef, type ReactElement} from 'react'
 import {describe, expect, it} from 'vitest'
 import Timeline from '..'
 import {FeatureFlags} from '../../FeatureFlags'
@@ -21,6 +21,14 @@ describe('Timeline', () => {
   it('does not set role="list" by default (flag off)', () => {
     const {container} = render(<Timeline />)
     expect(container.firstChild).not.toHaveAttribute('role')
+  })
+
+  it('forwards its ref to the root div', () => {
+    const ref = createRef<HTMLDivElement | HTMLOListElement>()
+
+    render(<Timeline ref={ref} />)
+
+    expect(ref.current).toBeInstanceOf(HTMLDivElement)
   })
 
   it('renders with clipSidebar prop (boolean)', () => {
@@ -63,6 +71,14 @@ describe('Timeline with primer_react_timeline_list_semantics flag', () => {
   it('has role="list" to restore semantics in Safari/VoiceOver', () => {
     const {container} = renderWithListSemantics(<Timeline />)
     expect(container.firstChild).toHaveAttribute('role', 'list')
+  })
+
+  it('forwards its ref to the root ordered list', () => {
+    const ref = createRef<HTMLDivElement | HTMLOListElement>()
+
+    renderWithListSemantics(<Timeline ref={ref} />)
+
+    expect(ref.current).toBeInstanceOf(HTMLOListElement)
   })
 
   it('renders items as list items', () => {

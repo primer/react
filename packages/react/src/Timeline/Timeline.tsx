@@ -1,6 +1,8 @@
 import {clsx} from 'clsx'
 import React from 'react'
 import {useFeatureFlag} from '../FeatureFlags'
+import {useMergedRefs} from '../hooks'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 import classes from './Timeline.module.css'
 import type {TimelineBadgeVariants} from './constants'
 
@@ -18,6 +20,13 @@ const Timeline = React.forwardRef<HTMLDivElement | HTMLOListElement, TimelinePro
   ({clipSidebar, className, ...props}, forwardRef) => {
     const useListSemantics = useFeatureFlag('primer_react_timeline_list_semantics')
     const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
+    const [isNarrow, setIsNarrow] = React.useState(false)
+    const timelineRef = React.useRef<HTMLDivElement | HTMLOListElement>(null)
+    const mergedRef = useMergedRefs(forwardRef, timelineRef)
+
+    useResizeObserver(entries => {
+      setIsNarrow(entries[0]?.contentRect.width < 480)
+    }, timelineRef)
 
     if (useListSemantics) {
       return (
@@ -28,8 +37,9 @@ const Timeline = React.forwardRef<HTMLDivElement | HTMLOListElement, TimelinePro
           {...props}
           role="list"
           className={clsx(className, classes.Timeline)}
-          ref={forwardRef as React.ForwardedRef<HTMLOListElement>}
+          ref={mergedRef as React.Ref<HTMLOListElement>}
           data-clip-sidebar={resolvedClipSidebar}
+          data-timeline-narrow={isNarrow ? '' : undefined}
         />
       )
     }
@@ -38,8 +48,9 @@ const Timeline = React.forwardRef<HTMLDivElement | HTMLOListElement, TimelinePro
       <div
         {...(props as React.ComponentPropsWithoutRef<'div'>)}
         className={clsx(className, classes.Timeline)}
-        ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
+        ref={mergedRef as React.Ref<HTMLDivElement>}
         data-clip-sidebar={resolvedClipSidebar}
+        data-timeline-narrow={isNarrow ? '' : undefined}
       />
     )
   },
