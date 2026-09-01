@@ -1,7 +1,7 @@
 import type React from 'react'
 import {forwardRef, type ElementType} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
+import {getResponsiveAttributes} from '../utils/getResponsiveAttributes'
 import classes from './Stack.module.css'
 import {clsx} from 'clsx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
