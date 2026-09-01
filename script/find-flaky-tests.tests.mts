@@ -11,7 +11,7 @@ const run = {
 describe('parseFlakyTests', () => {
   it('extracts flaky test summaries from AAT and VRT runner logs', () => {
     const log = [
-      'aat-reports / aat-runner (1)\tRun AAT\t2026-09-01T12:00:00Z   1 flaky',
+      'aat-reports / aat-runner (1)\tRun AAT\t2026-09-01T12:00:00Z \u001B[31m  1 flaky\u001B[39m',
       'aat-reports / aat-runner (1)\tRun AAT\t2026-09-01T12:00:00Z     e2e/Axe.test.ts:10:2 › Axe › @aat test',
       'vrt-reports / vrt-runner (8)\tRun VRT\t2026-09-01T12:00:00Z   1 flaky',
       'vrt-reports / vrt-runner (8)\tRun VRT\t2026-09-01T12:00:00Z     [chromium] › e2e/Visual.test.ts:20:4 › @vrt test',

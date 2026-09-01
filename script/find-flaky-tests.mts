@@ -7,7 +7,7 @@ const execFile = promisify(execFileCallback)
 const defaultWorkflows = ['reports.yml', 'deploy_preview.yml', 'deploy_preview_forks.yml']
 const workflowPattern = /^(aat|vrt)-reports \/ (?:aat|vrt)-runner \(\d+\)$/
 const testPattern = /(?:\[[^\]]+\]\s+›\s+)?(\S+\.test\.[cm]?[jt]sx?:\d+:\d+\s+›\s+.+)$/
-const ansiPattern = new RegExp('\\\\x1B(?:[@-_][0-?]*[ -/]*[@-~]|\\\\][^\\\\x07]*(?:\\\\x07|\\\\x1B\\\\\\\\))', 'g')
+const escapeCharacter = String.fromCharCode(27)
 
 interface Run {
   readonly databaseId: number
@@ -204,7 +204,11 @@ async function parseOptions(args: Array<string>): Promise<Options> {
 }
 
 function cleanLogLine(line: string): string {
-  return line.replace(ansiPattern, '').replace(/^\d{4}-\d{2}-\d{2}T\S+\s/, '')
+  return line
+    .split(escapeCharacter)
+    .map((part, index) => (index === 0 ? part : part.replace(/^\[[0-?]*[ -/]*[@-~]/, '')))
+    .join('')
+    .replace(/^\d{4}-\d{2}-\d{2}T\S+\s/, '')
 }
 
 function escapeMarkdown(value: string): string {
