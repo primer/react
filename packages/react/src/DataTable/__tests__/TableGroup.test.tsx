@@ -2,6 +2,8 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen, within} from '@testing-library/react'
 import {renderToString} from 'react-dom/server'
 import {Table} from '../../DataTable'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Table.module.css'
 
 const columnHeaderIds = ['col-name', 'col-role']
 
@@ -17,6 +19,15 @@ function ColumnHeaders() {
 }
 
 describe('Table.Group', () => {
+  implementsClassName(
+    props => (
+      <Table>
+        <Table.Group id="admins" label="Admins" rowCount={0} columnHeaderIds={columnHeaderIds} {...props} />
+      </Table>
+    ),
+    classes.TableGroupHeaderBody,
+  )
+
   it('renders the group header and member rows as two sibling <tbody> elements', () => {
     const {container} = render(
       <Table>

@@ -11,6 +11,11 @@ import classes from './Table.module.css'
 
 export type TableGroupProps = {
   /**
+   * A custom class applied to the group's header section.
+   */
+  className?: string
+
+  /**
    * A stable identifier exposed on both group sections as `data-group-id`.
    * The group header's DOM id is generated separately so it is safe for use
    * in `headers`.
@@ -48,7 +53,15 @@ export type TableGroupProps = {
   children?: React.ReactNode
 }
 
-function TableGroup({id, label, rowCount, columnHeaderIds, children, 'aria-label': ariaLabel}: TableGroupProps) {
+function TableGroup({
+  className,
+  id,
+  label,
+  rowCount,
+  columnHeaderIds,
+  children,
+  'aria-label': ariaLabel,
+}: TableGroupProps) {
   const headerId = useId()
   const accessibleName = ariaLabel ?? `${label}, ${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`
   const contextValue = useMemo(() => ({headerId, columnHeaderIds}), [headerId, columnHeaderIds])
@@ -56,7 +69,7 @@ function TableGroup({id, label, rowCount, columnHeaderIds, children, 'aria-label
   return (
     <>
       <tbody
-        className={clsx('TableGroupHeaderBody', classes.TableGroupHeaderBody)}
+        className={clsx('TableGroupHeaderBody', classes.TableGroupHeaderBody, className)}
         role="rowgroup"
         data-component="Table.Group"
         data-group-id={id}
