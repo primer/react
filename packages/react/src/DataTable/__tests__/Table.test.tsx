@@ -240,7 +240,7 @@ describe('Table', () => {
       expect(sortButton).toHaveAccessibleDescription('Sort descending')
     })
 
-    it('should preserve a consumer-provided aria-labelledby without adding aria-label', () => {
+    it('should preserve a consumer-provided aria-labelledby', () => {
       render(
         <>
           <span id="custom-column-name">Custom column name</span>
@@ -263,25 +263,7 @@ describe('Table', () => {
       const header = screen.getByRole('columnheader', {name: 'Custom column name'})
 
       expect(header).toHaveAttribute('aria-labelledby', 'custom-column-name')
-      expect(header).not.toHaveAttribute('aria-label')
       expect(screen.getByRole('button', {name: 'Visible column name'})).toHaveAccessibleDescription('Sort descending')
-    })
-
-    it('should use a consumer-provided aria-label for an icon-only sort button', () => {
-      render(
-        <Table>
-          <Table.Head>
-            <Table.Row>
-              <TableSortHeader aria-label="Custom column name" direction={SortDirection.ASC} onToggleSort={() => {}}>
-                <span aria-hidden="true" />
-              </TableSortHeader>
-            </Table.Row>
-          </Table.Head>
-        </Table>,
-      )
-
-      expect(screen.getByRole('columnheader', {name: 'Custom column name'})).toBeInTheDocument()
-      expect(screen.getByRole('button', {name: 'Custom column name'})).toHaveAccessibleDescription('Sort descending')
     })
   })
 
