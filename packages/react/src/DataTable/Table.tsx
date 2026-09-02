@@ -136,15 +136,41 @@ type TableSortHeaderProps = TableHeaderProps & {
   onToggleSort: () => void
 }
 
-function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
+function getTextContent(node: React.ReactNode): string {
+  if (node === null || node === undefined || typeof node === 'boolean') {
+    return ''
+  }
+  if (typeof node === 'string' || typeof node === 'number') {
+    return String(node)
+  }
+  if (Array.isArray(node)) {
+    return node.map(getTextContent).join('')
+  }
+  if (React.isValidElement(node)) {
+    return getTextContent((node.props as {children?: React.ReactNode}).children)
+  }
+  return ''
+}
+
+function TableSortHeader({
+  align,
+  'aria-label': ariaLabel,
+  children,
+  direction,
+  onToggleSort,
+  ...rest
+}: TableSortHeaderProps) {
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
+  const columnName = ariaLabel ?? (getTextContent(children).trim() || undefined)
+  const sortAction = direction === SortDirection.ASC ? 'Sort descending' : 'Sort ascending'
 
   return (
-    <TableHeader {...rest} aria-sort={ariaSort} align={align} data-component="Table.SortHeader">
+    <TableHeader {...rest} aria-label={columnName} aria-sort={ariaSort} align={align} data-component="Table.SortHeader">
       <Button
         type="button"
         className={clsx('TableSortButton', classes.TableSortButton)}
         data-component="Table.SortHeader.Button"
+        aria-description={sortAction}
         onClick={() => {
           onToggleSort()
         }}
@@ -160,7 +186,6 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
                 classes['TableSortIcon--ascending'],
               )}
             />
-            {direction === SortDirection.NONE ? <VisuallyHidden>sort ascending</VisuallyHidden> : null}
           </>
         ) : null}
         {direction === SortDirection.DESC ? (
