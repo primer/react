@@ -1,10 +1,11 @@
-import {render, fireEvent, waitFor} from '@testing-library/react'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {act, render, fireEvent, waitFor} from '@testing-library/react'
+import {EyeIcon, FileCodeIcon, PeopleIcon, PlusIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import {SegmentedControl} from '../SegmentedControl'
 import {implementsClassName} from '../utils/testing'
+import {asSlot} from '../utils/as-slot'
 import classes from './SegmentedControl.module.css'
 
 const segmentData = [
@@ -46,6 +47,29 @@ describe('SegmentedControl', () => {
     expect(getByRole('list')).toHaveAttribute('data-component', 'SegmentedControl')
   })
 
+  it('renders the subtle variant', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view" variant="subtle">
+        <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('list')).toHaveAttribute('data-variant', 'subtle')
+  })
+
+  it('renders the subtle variant responsively', () => {
+    const {container} = render(
+      <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}>
+        <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+    const list = container.querySelector('[data-component="SegmentedControl"]')
+
+    expect(list).toHaveAttribute('data-variant-narrow', 'dropdown')
+    expect(list).toHaveAttribute('data-variant-regular', 'subtle')
+    expect(list).toHaveAttribute('data-variant-wide', 'subtle')
+  })
+
   it('renders data-component attribute on segmented control buttons', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="File view">
@@ -57,6 +81,43 @@ describe('SegmentedControl', () => {
       'data-component',
       'SegmentedControl.Button',
     )
+  })
+
+  it('renders dividers without including them in selection indices', async () => {
+    const onChange = vi.fn()
+    const {container, getByRole} = render(
+      <SegmentedControl aria-label="File view" variant="subtle" onChange={onChange}>
+        <SegmentedControl.Button>Preview</SegmentedControl.Button>
+        <SegmentedControl.Divider />
+        <SegmentedControl.Button>Raw</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    expect(container.querySelector('[data-component="SegmentedControl.Divider"]')).toBeInTheDocument()
+    await userEvent.click(getByRole('button', {name: 'Raw'}))
+    expect(onChange).toHaveBeenCalledWith(1)
+  })
+
+  it('renders wrapped dividers in the segmented control and dropdown', async () => {
+    const onChange = vi.fn()
+    const WrappedDivider = asSlot(() => <SegmentedControl.Divider />, SegmentedControl.Divider)
+    const {container, getAllByRole} = render(
+      <SegmentedControl
+        aria-label="File view"
+        variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}
+        onChange={onChange}
+      >
+        <SegmentedControl.Button>Preview</SegmentedControl.Button>
+        <WrappedDivider />
+        <SegmentedControl.Button>Raw</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    expect(container.querySelector('[data-component="SegmentedControl.Divider"]')).toBeInTheDocument()
+    await userEvent.click(document.querySelector('[data-component="ActionMenu.Button"]')!)
+    expect(document.querySelector('[data-component="ActionList.Divider"]')).toBeInTheDocument()
+    await userEvent.click(getAllByRole('menuitemradio')[1])
+    expect(onChange).toHaveBeenCalledWith(1)
   })
 
   it('renders data-component attribute on segmented control icon buttons', () => {
@@ -338,6 +399,124 @@ describe('SegmentedControl', () => {
     fireEvent.click(menuItems[1])
 
     expect(handleClick).toHaveBeenCalled()
+  })
+
+  it('renders the action as a labeled menu item after a divider in the dropdown', async () => {
+    const handleAddView = vi.fn()
+    const component = render(
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+          <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+          <SegmentedControl.Button>Raw</SegmentedControl.Button>
+          <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
+        </SegmentedControl>
+      </BaseStyles>,
+    )
+
+    fireEvent.click(component.getByRole('button', {name: 'Preview, File view'}))
+
+    const menuAction = await waitFor(() => component.getByRole('menuitem', {name: 'Add view'}))
+    expect(menuAction.closest('[data-component="ActionList.Item"]')?.previousElementSibling).toHaveAttribute(
+      'data-component',
+      'ActionList.Divider',
+    )
+    expect(menuAction).toHaveAttribute('data-component', 'SegmentedControl.Action')
+
+    fireEvent.click(menuAction)
+
+    expect(handleAddView).toHaveBeenCalledExactlyOnceWith()
+    expect(component.getByRole('menu')).toBeInTheDocument()
+  })
+
+  it('renders a wrapped action slot in the dropdown', async () => {
+    const handleAddView = vi.fn()
+    const AddViewAction = asSlot(
+      () => <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />,
+      SegmentedControl.Action,
+    )
+    const component = render(
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+          <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+          <AddViewAction />
+        </SegmentedControl>
+      </BaseStyles>,
+    )
+
+    fireEvent.click(component.getByRole('button', {name: 'Preview, File view'}))
+    fireEvent.click(await component.findByRole('menuitem', {name: 'Add view'}))
+
+    expect(handleAddView).toHaveBeenCalledOnce()
+  })
+
+  it('applies responsive full-width attributes to the layout wrapper', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false}}>
+        <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+        <SegmentedControl.Action label="Add view" icon={PlusIcon} />
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('list').parentElement).toHaveAttribute('data-full-width-narrow', 'true')
+    expect(getByRole('list').parentElement).toHaveAttribute('data-full-width-regular', 'false')
+  })
+
+  it('calls the action from the icon action button', async () => {
+    const user = userEvent.setup()
+    const handleAddView = vi.fn()
+    const {getByRole} = render(
+      <BaseStyles>
+        <SegmentedControl aria-label="File view">
+          <SegmentedControl.Button defaultSelected count={5}>
+            All
+          </SegmentedControl.Button>
+          <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
+          <SegmentedControl.Button count={10}>Review requests</SegmentedControl.Button>
+          <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
+        </SegmentedControl>
+      </BaseStyles>,
+    )
+
+    const iconActionButton = getByRole('button', {name: 'Add view'})
+
+    expect(iconActionButton.parentElement?.closest('[data-component]')).toHaveAttribute(
+      'data-component',
+      'SegmentedControl.Action',
+    )
+
+    await user.click(iconActionButton)
+
+    expect(handleAddView).toHaveBeenCalledExactlyOnceWith()
+  })
+
+  it('disables the knob transition while the number of rendered segments changes', () => {
+    let animationFrameCallback: FrameRequestCallback | undefined
+    const requestAnimationFrameSpy = vi.spyOn(globalThis, 'requestAnimationFrame').mockImplementation(callback => {
+      animationFrameCallback = callback
+      return 1
+    })
+    const {getByRole, rerender} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button defaultSelected>All</SegmentedControl.Button>
+        <SegmentedControl.Button>Active</SegmentedControl.Button>
+        {false}
+      </SegmentedControl>,
+    )
+
+    rerender(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button defaultSelected>All</SegmentedControl.Button>
+        <SegmentedControl.Button>Active</SegmentedControl.Button>
+        <SegmentedControl.Button>New view</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    expect(getByRole('list')).toHaveAttribute('data-disable-knob-transition', '')
+
+    act(() => animationFrameCallback?.(0))
+
+    expect(getByRole('list')).not.toHaveAttribute('data-disable-knob-transition')
+    requestAnimationFrameSpy.mockRestore()
   })
 
   it('supports deprecated leadingIcon prop for backward compatibility', () => {

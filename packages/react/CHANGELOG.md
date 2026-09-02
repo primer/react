@@ -1,5 +1,21 @@
 # @primer/react
 
+## 38.37.0
+
+### Minor Changes
+
+- [#8311](https://github.com/primer/react/pull/8311) [`b111781`](https://github.com/primer/react/commit/b1117811cebfb9463f20fe76f77cdf13917ae6b2) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Button: Add configurable notification indicators to Button and IconButton
+
+- [#8306](https://github.com/primer/react/pull/8306) [`a3afd7b`](https://github.com/primer/react/commit/a3afd7baf05ea6c4a272a40ccb636f20a48f87dc) Thanks [@llastflowers](https://github.com/llastflowers)! - Deprecate the `Flash` component and move to `@primer/react/deprecated`
+
+- [#8295](https://github.com/primer/react/pull/8295) [`bfebb8a`](https://github.com/primer/react/commit/bfebb8a538e6f068a457722b154799876bda3ab4) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Textarea: Add an `autoSize` option that allows the field to grow with its content
+
+- [#8233](https://github.com/primer/react/pull/8233) [`80a68cf`](https://github.com/primer/react/commit/80a68cf05226323ad8cbc0531f244d60ea6747e3) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - UnderlinePanels: add controlled `value`/`defaultValue`/`onChange` and `activationMode` props, keyed to a per-`Tab`/`Panel` `value`, for data-driven tabs. Behind the `primer_react_underline_panels_controlled` feature flag; the existing `aria-selected`/`onSelect` API is unchanged.
+
+### Patch Changes
+
+- [#8304](https://github.com/primer/react/pull/8304) [`88feb65`](https://github.com/primer/react/commit/88feb658c13fec154da1a8aa199250514f4fdba3) Thanks [@iansan5653](https://github.com/iansan5653)! - Animate `SegmentedControl` when switching between items
+
 ## 38.36.0
 
 ### Minor Changes
