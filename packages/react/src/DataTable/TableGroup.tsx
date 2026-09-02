@@ -71,7 +71,7 @@ function TableGroup({id, label, rowCount, columnHeaderIds, children, 'aria-label
             aria-label={accessibleName}
             data-component="Table.Group.Header"
           >
-            <span aria-hidden="true" className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}>
+            <span className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}>
               <span className={clsx('TableGroupHeaderLabel', classes.TableGroupHeaderLabel)}>{label}</span>
               <span className={clsx('TableGroupHeaderCount', classes.TableGroupHeaderCount)}>{rowCount}</span>
             </span>

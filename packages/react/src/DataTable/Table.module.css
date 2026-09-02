@@ -294,24 +294,14 @@
   grid-column: 1 / -1;
   align-items: baseline;
   column-gap: var(--base-size-8);
-  padding-block: var(--base-size-8);
-  padding-inline: var(--base-size-12);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--table-cell-padding);
   text-align: start;
   color: var(--fgColor-muted);
   background-color: var(--bgColor-muted);
   border-inline-start: var(--borderWidth-thin) solid var(--borderColor-default);
   border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
   border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-}
-
-.Table:where([data-cell-padding='condensed']) .TableGroupHeaderCell {
-  padding-block: var(--base-size-4);
-  padding-inline: var(--base-size-8);
-}
-
-.Table:where([data-cell-padding='spacious']) .TableGroupHeaderCell {
-  padding-block: var(--base-size-12);
-  padding-inline: var(--base-size-16);
 }
 
 .TableGroupHeaderContent {

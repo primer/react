@@ -82,7 +82,7 @@ describe('Table.Group', () => {
     expect(screen.getByRole('columnheader', {name: expectedName})).toBeInTheDocument()
   })
 
-  it('does not expose the visible label/count text as separate accessible content', () => {
+  it('exposes visible label/count text while keeping the group header name concise', () => {
     render(
       <Table>
         <ColumnHeaders />
@@ -96,12 +96,9 @@ describe('Table.Group', () => {
     )
 
     const groupHeader = screen.getByRole('columnheader', {name: 'Admins, 2 rows'})
-    // The visible label/count content is still rendered for sighted users...
     expect(within(groupHeader).getByText('Admins')).toBeInTheDocument()
     expect(within(groupHeader).getByText('2')).toBeInTheDocument()
-    // ...but is hidden from the accessibility tree so it isn't announced a
-    // second time alongside the `aria-label`.
-    expect(groupHeader.firstElementChild).toHaveAttribute('aria-hidden', 'true')
+    expect(groupHeader.firstElementChild).not.toHaveAttribute('aria-hidden')
   })
 
   it("associates member cells with both the group header and their column's header", () => {
