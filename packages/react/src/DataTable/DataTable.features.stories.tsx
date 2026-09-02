@@ -1715,3 +1715,43 @@ export const WithNetworkError = () => {
     </Table.Container>
   )
 }
+
+const groupedColumnHeaderIds = ['grouped-repositories-column-name', 'grouped-repositories-column-updated']
+const repoGroups = [
+  {id: 'internal', label: 'Internal', repos: data.filter(repo => repo.type === 'internal')},
+  {id: 'public', label: 'Public', repos: data.filter(repo => repo.type === 'public')},
+]
+
+export const WithGroups = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories-by-visibility">
+      Repositories by visibility
+    </Table.Title>
+    <Table aria-labelledby="repositories-by-visibility" gridTemplateColumns="minmax(0, 1fr) auto">
+      <Table.Head>
+        <Table.Row>
+          <Table.Header id={groupedColumnHeaderIds[0]}>Name</Table.Header>
+          <Table.Header id={groupedColumnHeaderIds[1]}>Updated</Table.Header>
+        </Table.Row>
+      </Table.Head>
+      {repoGroups.map(group => (
+        <Table.Group
+          key={group.id}
+          id={group.id}
+          label={group.label}
+          rowCount={group.repos.length}
+          columnHeaderIds={groupedColumnHeaderIds}
+        >
+          {group.repos.map(repo => (
+            <Table.Row key={repo.id}>
+              <Table.Cell scope="row">{repo.name}</Table.Cell>
+              <Table.Cell>
+                <RelativeTime date={new Date(repo.updatedAt)} />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Group>
+      ))}
+    </Table>
+  </Table.Container>
+)

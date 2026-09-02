@@ -1,6 +1,6 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import React, {type JSX} from 'react'
+import React, {type JSX, useContext} from 'react'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {Column, CellAlignment} from './column'
@@ -10,8 +10,11 @@ import {useTableLayout} from './useTable'
 import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
+import {TableGroupContext, TableRowColumnIndexContext} from './TableGroupContext'
 import classes from './Table.module.css'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
+import {warning} from '../utils/warning'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -44,7 +47,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
-  return (
+  const inheritedGroup = useContext(TableGroupContext)
+  const table = (
     // TODO update type to be non-optional in next major release
     // @ts-expect-error this type should be required in the next major version
     <ScrollableRegion
@@ -62,6 +66,14 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
         data-component="Table"
       />
     </ScrollableRegion>
+  )
+
+  return inheritedGroup ? (
+    <TableGroupContext.Provider value={undefined}>
+      <TableRowColumnIndexContext.Provider value={undefined}>{table}</TableRowColumnIndexContext.Provider>
+    </TableGroupContext.Provider>
+  ) : (
+    table
   )
 })
 
@@ -184,10 +196,45 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
 
 export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
+function getTableRowCells(children: React.ReactNode): Array<React.ReactElement<{children?: React.ReactNode}>> {
+  const cells: Array<React.ReactElement<{children?: React.ReactNode}>> = []
+
+  for (const child of React.Children.toArray(children)) {
+    if (!React.isValidElement<{children?: React.ReactNode}>(child)) continue
+
+    if (child.type === React.Fragment) {
+      cells.push(...getTableRowCells(child.props.children))
+    } else {
+      cells.push(child)
+    }
+  }
+
+  return cells
+}
+
 function TableRow({children, ...rest}: TableRowProps) {
+  const group = useContext(TableGroupContext)
+  const cells = group ? getTableRowCells(children) : undefined
+  const cellCount = cells?.length
+
+  useDevOnlyEffect(() => {
+    if (group && cellCount !== undefined) {
+      warning(
+        cellCount !== group.columnHeaderIds.length,
+        `Table.Group member rows must render the same number of direct cell children as columnHeaderIds. Expected ${group.columnHeaderIds.length}, received ${cellCount}.`,
+      )
+    }
+  }, [cellCount, group])
+
   return (
     <tr {...rest} className={clsx('TableRow', classes.TableRow)} role="row" data-component="Table.Row">
-      {children}
+      {group && cells
+        ? cells.map((child, index) => (
+            <TableRowColumnIndexContext.Provider key={child.key ?? index} value={index}>
+              {child}
+            </TableRowColumnIndexContext.Provider>
+          ))
+        : children}
     </tr>
   )
 }
@@ -209,9 +256,20 @@ export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'>
   scope?: 'row'
 }
 
-function TableCell({align, className, children, scope, ...rest}: TableCellProps) {
+function TableCell({align, className, children, scope, headers, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
+
+  // Grouped cells explicitly reference both levels of column heading because
+  // CSS grid can prevent assistive technologies from deriving the association.
+  const group = useContext(TableGroupContext)
+  const columnIndex = useContext(TableRowColumnIndexContext)
+
+  let resolvedHeaders = headers
+  if (group) {
+    const columnHeaderId = columnIndex !== undefined ? group.columnHeaderIds[columnIndex] : undefined
+    resolvedHeaders = [group.headerId, columnHeaderId, headers].filter(Boolean).join(' ') || undefined
+  }
 
   return (
     <BaseComponent
@@ -221,6 +279,7 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
       role={role}
       data-cell-align={align}
       data-component="Table.Cell"
+      headers={resolvedHeaders}
     >
       {children}
     </BaseComponent>
