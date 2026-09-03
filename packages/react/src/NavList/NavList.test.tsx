@@ -276,7 +276,10 @@ describe('NavList.Item with NavList.SubNav', () => {
       <NavList>
         <NavList.Item
           href="/overview"
+          id="overview-link"
           aria-current="page"
+          className="custom-class"
+          style={{color: 'red'}}
           subNavToggleLabel="Toggle overview pages"
           onClick={event => event.preventDefault()}
         >
@@ -291,7 +294,10 @@ describe('NavList.Item with NavList.SubNav', () => {
     const toggle = getByRole('button', {name: 'Toggle overview pages'})
 
     expect(link).toHaveAttribute('href', '/overview')
+    expect(link).toHaveAttribute('id', 'overview-link')
     expect(link).toHaveAttribute('aria-current', 'page')
+    expect(link).toHaveStyle({color: 'rgb(255, 0, 0)'})
+    expect(link.closest('li')).toHaveClass('custom-class')
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
     expect(queryByRole('list', {name: 'Overview'})).toBeNull()
 
@@ -318,12 +324,12 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(getByRole('link', {name: 'Overview'})).toHaveAttribute('href', '/overview')
   })
 
-  it('requires a link target when using a separate SubNav toggle', () => {
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => null)
+  it('warns when a linked SubNav parent does not render an anchor', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => null)
 
-    const {getByRole, queryByRole} = render(
+    const {getByRole} = render(
       <NavList>
-        <NavList.Item subNavToggleLabel="Toggle overview pages">
+        <NavList.Item as="button" subNavToggleLabel="Toggle overview pages">
           Overview
           <NavList.SubNav>
             <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
@@ -333,9 +339,33 @@ describe('NavList.Item with NavList.SubNav', () => {
     )
 
     expect(getByRole('button', {name: 'Overview'})).toBeInTheDocument()
-    expect(queryByRole('link', {name: 'Overview'})).toBeNull()
     expect(consoleSpy).toHaveBeenCalledWith(
-      'NavList.Item must have an href or custom link component to use subNavToggleLabel.',
+      'Warning:',
+      'NavList.Item with subNavToggleLabel must render an anchor with an href.',
+    )
+    consoleSpy.mockRestore()
+  })
+
+  it('warns when a custom linked SubNav parent does not forward its ref', () => {
+    const CustomLink = React.forwardRef<HTMLAnchorElement, {children?: React.ReactNode; href?: string}>(
+      ({children}, _ref) => <div>{children}</div>,
+    )
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => null)
+
+    render(
+      <NavList>
+        <NavList.Item as={CustomLink} href="/overview" subNavToggleLabel="Toggle overview pages">
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Warning:',
+      'NavList.Item with subNavToggleLabel must render an anchor with an href.',
     )
     consoleSpy.mockRestore()
   })

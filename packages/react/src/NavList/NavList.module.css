@@ -13,22 +13,19 @@
   text-decoration: underline;
 }
 
-.SubNavToggle > [aria-expanded='true'] svg {
-  transform: scaleY(-1);
-}
-
-.LinkedSubNavItem[data-component='ActionList.Item'] {
+/* Match ActionList's attribute-selector specificity without depending on its DOM attributes. */
+.LinkedSubNavItem.LinkedSubNavItem {
   display: grid;
   grid-template-columns: minmax(0, 1fr) min-content;
+}
 
-  & > [data-component='ActionList.TrailingAction'] {
-    grid-area: auto;
-    grid-row: 1;
-    grid-column: 2;
-  }
+.SubNavToggle.SubNavToggle {
+  grid-area: auto;
+  grid-row: 1;
+  grid-column: 2;
+}
 
-  & > [data-component='NavList.SubNav'] {
-    grid-row: 2;
-    grid-column: 1 / -1;
-  }
+.LinkedSubNav.LinkedSubNav {
+  grid-row: 2;
+  grid-column: 1 / -1;
 }
