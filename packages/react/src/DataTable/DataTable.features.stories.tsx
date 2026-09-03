@@ -1740,12 +1740,14 @@ export const WithGroups = () => (
           id={group.id}
           label={group.label}
           rowCount={group.repos.length}
-          columnHeaderIds={groupedColumnHeaderIds}
+          colSpan={groupedColumnHeaderIds.length}
         >
           {group.repos.map(repo => (
             <Table.Row key={repo.id}>
-              <Table.Cell scope="row">{repo.name}</Table.Cell>
-              <Table.Cell>
+              <Table.Cell scope="row" headers={groupedColumnHeaderIds[0]}>
+                {repo.name}
+              </Table.Cell>
+              <Table.Cell headers={groupedColumnHeaderIds[1]}>
                 <RelativeTime date={new Date(repo.updatedAt)} />
               </Table.Cell>
             </Table.Row>

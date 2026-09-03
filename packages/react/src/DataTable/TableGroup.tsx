@@ -41,30 +41,23 @@ export type TableGroupProps = {
   'aria-label'?: string
 
   /**
-   * The DOM ids assigned to the table's `Table.Header` elements, in the same
-   * order as each member row's direct `Table.Cell` children. Supplying the
-   * ids explicitly keeps the associations available during server rendering.
+   * The number of columns spanned by the group header.
    */
-  columnHeaderIds: ReadonlyArray<string>
+  colSpan: number
 
   /**
-   * The group's member rows, typically a list of `Table.Row` elements.
+   * The group's member rows, typically a list of `Table.Row` elements. When
+   * composing a grouped table directly, use each `Table.Cell`'s native
+   * `headers` prop to reference the corresponding `Table.Header` id. The group
+   * header association is added automatically.
    */
   children?: React.ReactNode
 }
 
-function TableGroup({
-  className,
-  id,
-  label,
-  rowCount,
-  columnHeaderIds,
-  children,
-  'aria-label': ariaLabel,
-}: TableGroupProps) {
+function TableGroup({className, id, label, rowCount, colSpan, children, 'aria-label': ariaLabel}: TableGroupProps) {
   const headerId = useId()
   const accessibleName = ariaLabel ?? `${label}, ${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`
-  const contextValue = useMemo(() => ({headerId, columnHeaderIds}), [headerId, columnHeaderIds])
+  const contextValue = useMemo(() => ({headerId}), [headerId])
 
   return (
     <>
@@ -79,7 +72,7 @@ function TableGroup({
             id={headerId}
             className={clsx('TableGroupHeaderCell', classes.TableGroupHeaderCell)}
             scope="colgroup"
-            colSpan={columnHeaderIds.length}
+            colSpan={colSpan}
             role="columnheader"
             aria-label={accessibleName}
             data-component="Table.Group.Header"

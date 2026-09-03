@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it} from 'vitest'
 import {render, screen, within} from '@testing-library/react'
 import {renderToString} from 'react-dom/server'
 import {Table} from '../../DataTable'
@@ -18,11 +18,21 @@ function ColumnHeaders() {
   )
 }
 
+function MemberCells() {
+  return (
+    <>
+      {null}
+      <Table.Cell headers={columnHeaderIds[0]}>Mona</Table.Cell>
+      <Table.Cell headers={columnHeaderIds[1]}>Admin</Table.Cell>
+    </>
+  )
+}
+
 describe('Table.Group', () => {
   implementsClassName(
     props => (
       <Table>
-        <Table.Group id="admins" label="Admins" rowCount={0} columnHeaderIds={columnHeaderIds} {...props} />
+        <Table.Group id="admins" label="Admins" rowCount={0} colSpan={columnHeaderIds.length} {...props} />
       </Table>
     ),
     classes.TableGroupHeaderBody,
@@ -32,7 +42,7 @@ describe('Table.Group', () => {
     const {container} = render(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={1} colSpan={columnHeaderIds.length}>
           <Table.Row>
             <Table.Cell>Mona</Table.Cell>
             <Table.Cell>Admin</Table.Cell>
@@ -54,7 +64,7 @@ describe('Table.Group', () => {
     render(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={2} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={2} colSpan={columnHeaderIds.length}>
           <Table.Row>
             <Table.Cell>Mona</Table.Cell>
             <Table.Cell>Admin</Table.Cell>
@@ -81,7 +91,7 @@ describe('Table.Group', () => {
     render(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={rowCount} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={rowCount} colSpan={columnHeaderIds.length}>
           <Table.Row>
             <Table.Cell>Mona</Table.Cell>
             <Table.Cell>Admin</Table.Cell>
@@ -97,7 +107,7 @@ describe('Table.Group', () => {
     render(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={2} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={2} colSpan={columnHeaderIds.length}>
           <Table.Row>
             <Table.Cell>Mona</Table.Cell>
             <Table.Cell>Admin</Table.Cell>
@@ -116,10 +126,10 @@ describe('Table.Group', () => {
     render(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={1} colSpan={columnHeaderIds.length}>
           <Table.Row>
-            <Table.Cell>Mona</Table.Cell>
-            <Table.Cell>Admin</Table.Cell>
+            <Table.Cell headers={columnHeaderIds[0]}>Mona</Table.Cell>
+            <Table.Cell headers={columnHeaderIds[1]}>Admin</Table.Cell>
           </Table.Row>
         </Table.Group>
       </Table>,
@@ -133,17 +143,13 @@ describe('Table.Group', () => {
     expect(roleCell).toHaveAttribute('headers', `${groupHeader.id} col-role`)
   })
 
-  it('assigns column headers by rendered cell position through fragments and empty children', () => {
+  it('preserves explicit header associations for cells rendered by wrapper components', () => {
     render(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={1} colSpan={columnHeaderIds.length}>
           <Table.Row>
-            <>
-              {null}
-              <Table.Cell>Mona</Table.Cell>
-              <Table.Cell>Admin</Table.Cell>
-            </>
+            <MemberCells />
           </Table.Row>
         </Table.Group>
       </Table>,
@@ -158,9 +164,9 @@ describe('Table.Group', () => {
     const {container} = render(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={1} colSpan={columnHeaderIds.length}>
           <Table.Row>
-            <Table.Cell>
+            <Table.Cell headers={columnHeaderIds[0]}>
               <Table>
                 <Table.Head>
                   <Table.Row>
@@ -174,7 +180,7 @@ describe('Table.Group', () => {
                 </Table.Body>
               </Table>
             </Table.Cell>
-            <Table.Cell>Admin</Table.Cell>
+            <Table.Cell headers={columnHeaderIds[1]}>Admin</Table.Cell>
           </Table.Row>
         </Table.Group>
       </Table>,
@@ -195,7 +201,7 @@ describe('Table.Group', () => {
           label="Administrateurs"
           rowCount={2}
           aria-label="Administrateurs, 2 lignes"
-          columnHeaderIds={columnHeaderIds}
+          colSpan={columnHeaderIds.length}
         />
       </Table>,
     )
@@ -203,13 +209,13 @@ describe('Table.Group', () => {
     expect(screen.getByRole('columnheader', {name: 'Administrateurs, 2 lignes'})).toBeInTheDocument()
   })
 
-  it('preserves consumer-supplied `headers` alongside the group/column associations', () => {
+  it('prepends the group header to consumer-supplied `headers` associations', () => {
     render(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={1} colSpan={columnHeaderIds.length}>
           <Table.Row>
-            <Table.Cell headers="extra-ref">Mona</Table.Cell>
+            <Table.Cell headers={`${columnHeaderIds[0]} extra-ref`}>Mona</Table.Cell>
             <Table.Cell>Admin</Table.Cell>
           </Table.Row>
         </Table.Group>
@@ -226,13 +232,13 @@ describe('Table.Group', () => {
       <>
         <Table>
           <ColumnHeaders />
-          <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
+          <Table.Group id="admins" label="Admins" rowCount={1} colSpan={columnHeaderIds.length}>
             <Table.Row>
               <Table.Cell>Mona</Table.Cell>
               <Table.Cell>Admin</Table.Cell>
             </Table.Row>
           </Table.Group>
-          <Table.Group id="admins" label="Owners" rowCount={1} columnHeaderIds={columnHeaderIds}>
+          <Table.Group id="admins" label="Owners" rowCount={1} colSpan={columnHeaderIds.length}>
             <Table.Row>
               <Table.Cell>Hubot</Table.Cell>
               <Table.Cell>Owner</Table.Cell>
@@ -241,7 +247,7 @@ describe('Table.Group', () => {
         </Table>
         <Table>
           <ColumnHeaders />
-          <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
+          <Table.Group id="admins" label="Admins" rowCount={1} colSpan={columnHeaderIds.length}>
             <Table.Row>
               <Table.Cell>Octocat</Table.Cell>
               <Table.Cell>Admin</Table.Cell>
@@ -281,10 +287,10 @@ describe('Table.Group', () => {
     const markup = renderToString(
       <Table>
         <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
+        <Table.Group id="admins" label="Admins" rowCount={1} colSpan={columnHeaderIds.length}>
           <Table.Row>
-            <Table.Cell>Mona</Table.Cell>
-            <Table.Cell>Admin</Table.Cell>
+            <Table.Cell headers={columnHeaderIds[0]}>Mona</Table.Cell>
+            <Table.Cell headers={columnHeaderIds[1]}>Admin</Table.Cell>
           </Table.Row>
         </Table.Group>
       </Table>,
@@ -300,26 +306,5 @@ describe('Table.Group', () => {
     expect(groupHeader?.id).toBeTruthy()
     expect(cells[0]).toHaveAttribute('headers', `${groupHeader?.id} ${columnHeaderIds[0]}`)
     expect(cells[1]).toHaveAttribute('headers', `${groupHeader?.id} ${columnHeaderIds[1]}`)
-  })
-
-  it('warns when a member row does not match the declared column header order', () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
-
-    render(
-      <Table>
-        <ColumnHeaders />
-        <Table.Group id="admins" label="Admins" rowCount={1} columnHeaderIds={columnHeaderIds}>
-          <Table.Row>
-            <Table.Cell>Mona</Table.Cell>
-          </Table.Row>
-        </Table.Group>
-      </Table>,
-    )
-
-    expect(warn).toHaveBeenCalledWith(
-      'Warning:',
-      'Table.Group member rows must render the same number of direct cell children as columnHeaderIds. Expected 2, received 1.',
-    )
-    warn.mockRestore()
   })
 })

@@ -193,14 +193,14 @@
           "description": "Override the group header's accessible name, for example to localize its row count description."
         },
         {
-          "name": "columnHeaderIds",
-          "type": "ReadonlyArray<string>",
-          "description": "The DOM ids assigned to the table's `Table.Header` elements, in the same order as each member row's direct `Table.Cell` children. Supplying the ids explicitly keeps the associations available during server rendering."
+          "name": "colSpan",
+          "type": "number",
+          "description": "The number of columns spanned by the group header."
         },
         {
           "name": "children",
           "type": "React.ReactNode",
-          "description": "The group's member rows, typically a list of `Table.Row` elements."
+          "description": "The group's member rows, typically a list of `Table.Row` elements. When composing a grouped table directly, use each `Table.Cell`'s native `headers` prop to reference the corresponding `Table.Header` id. The group header association is added automatically."
         }
       ]
     },
