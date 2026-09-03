@@ -217,8 +217,6 @@ function TableCell({align, className, children, scope, headers, ...rest}: TableC
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
 
-  // Grouped cells reference their group header while preserving any explicit
-  // column header associations supplied through the native `headers` prop.
   const group = useContext(TableGroupContext)
   const resolvedHeaders = [group?.headerId, headers].filter(Boolean).join(' ') || undefined
 

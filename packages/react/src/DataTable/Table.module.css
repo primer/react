@@ -288,7 +288,6 @@
   }
 }
 
-/* TableGroup ----------------------------------------------------------------- */
 .TableGroupHeaderCell {
   display: flex;
   grid-column: 1 / -1;

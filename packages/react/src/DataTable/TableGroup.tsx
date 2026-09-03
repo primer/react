@@ -5,52 +5,37 @@ import {TableRow} from './Table'
 import {TableGroupContext} from './TableGroupContext'
 import classes from './Table.module.css'
 
-// ----------------------------------------------------------------------------
-// TableGroup
-// ----------------------------------------------------------------------------
-
 export type TableGroupProps = {
   /**
-   * A custom class applied to the group's header section.
+   * Provide a custom class name for the group header section
    */
   className?: string
 
   /**
-   * A stable identifier exposed on both group sections as `data-group-id`.
-   * The group header's DOM id is generated separately so it is safe for use
-   * in `headers`.
+   * Provide a stable identifier exposed on both group sections as `data-group-id`
    */
   id: string | number
 
   /**
-   * The visible label for the group, shown in the group header and included
-   * in its accessible name along with the row count.
+   * Provide a label for the group header
    */
   label: string
 
   /**
-   * The number of member rows in the group. Combined with `label` to build
-   * the group header's accessible name, for example "Admins, 2 rows".
+   * Specify the number of member rows in the group
    */
   rowCount: number
 
   /**
-   * Override the group header's accessible name, for example to localize its
-   * row count description.
+   * Provide an accessible name for the group header
    */
   'aria-label'?: string
 
   /**
-   * The number of columns spanned by the group header.
+   * Specify the number of columns spanned by the group header
    */
   colSpan: number
 
-  /**
-   * The group's member rows, typically a list of `Table.Row` elements. When
-   * composing a grouped table directly, use each `Table.Cell`'s native
-   * `headers` prop to reference the corresponding `Table.Header` id. The group
-   * header association is added automatically.
-   */
   children?: React.ReactNode
 }
 
