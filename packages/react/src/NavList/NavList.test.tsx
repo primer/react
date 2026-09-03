@@ -272,6 +272,7 @@ describe('NavList.Item with NavList.SubNav', () => {
   })
 
   it('supports a link with a separate SubNav toggle', () => {
+    const onClick = vi.fn((event: React.MouseEvent) => event.preventDefault())
     const {getByRole, queryByRole} = render(
       <NavList>
         <NavList.Item
@@ -281,7 +282,7 @@ describe('NavList.Item with NavList.SubNav', () => {
           className="custom-class"
           style={{color: 'red'}}
           subNavToggleLabel="Toggle overview pages"
-          onClick={event => event.preventDefault()}
+          onClick={onClick}
         >
           Overview
           <NavList.SubNav>
@@ -302,11 +303,36 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(queryByRole('list', {name: 'Overview'})).toBeNull()
 
     fireEvent.click(link)
+    expect(onClick).toHaveBeenCalledOnce()
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
 
+    onClick.mockClear()
     fireEvent.click(toggle)
+    expect(onClick).not.toHaveBeenCalled()
     expect(toggle).toHaveAttribute('aria-expanded', 'true')
     expect(getByRole('list', {name: 'Overview'})).toBeVisible()
+  })
+
+  it('supports tooltipText on a linked SubNav parent', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => null)
+
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item href="/overview" subNavToggleLabel="Toggle overview pages" tooltipText="Go to overview">
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    expect(getByRole('link', {name: 'Overview'})).toHaveAttribute('href', '/overview')
+    expect(consoleSpy).not.toHaveBeenCalledWith(
+      'Warning:',
+      'NavList.Item with subNavToggleLabel must render an anchor with an href.',
+    )
+    consoleSpy.mockRestore()
   })
 
   it('forwards custom link props when using a separate SubNav toggle', () => {

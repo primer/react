@@ -327,10 +327,10 @@ function ItemWithSubNav<As extends React.ElementType = 'a'>({
   useDevOnlyEffect(() => {
     if (!linked) return
 
-    warning(
-      !linkRef.current || !(linkRef.current instanceof HTMLAnchorElement) || !linkRef.current.hasAttribute('href'),
-      'NavList.Item with subNavToggleLabel must render an anchor with an href.',
-    )
+    const link = linkRef.current
+    const anchor = link instanceof HTMLAnchorElement ? link : link?.querySelector('a[href]')
+
+    warning(!anchor, 'NavList.Item with subNavToggleLabel must render an anchor with an href.')
   }, [linked])
 
   return (
