@@ -1,4 +1,4 @@
-import {ChevronDownIcon, PlusIcon, type Icon} from '@primer/octicons-react'
+import {ChevronDownIcon, ChevronUpIcon, PlusIcon, type Icon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import {clsx} from 'clsx'
@@ -23,6 +23,9 @@ import HeadingComponent from '../Heading'
 import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
 import {asSlot} from '../utils/as-slot'
+import {useMergedRefs} from '../hooks'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
+import {warning} from '../utils/warning'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
@@ -158,7 +161,6 @@ const ItemComponent = fixedForwardRef(
     ref: React.ForwardedRef<unknown>,
   ) => {
     const {depth} = React.useContext(SubNavContext)
-    const hasLinkTarget = Boolean(props.href || (Component && Component !== 'a'))
 
     // Extract SubNav from children; useSlots also returns `rest` with TrailingAction filtered out.
     const [slots, childrenWithoutSubNavOrTrailingAction] = useSlots(children, {
@@ -171,27 +173,19 @@ const ItemComponent = fixedForwardRef(
       // eslint-disable-next-line no-console
       console.error('NavList.Item must have a NavList.SubNav to use defaultOpen.')
 
-    if (subNavToggleLabel && !hasLinkTarget)
-      // eslint-disable-next-line no-console
-      console.error('NavList.Item must have an href or custom link component to use subNavToggleLabel.')
-
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
       return (
-        <ItemWithSubNav
+        <ItemWithSubNav<As>
           subNav={subNav}
           depth={depth}
           defaultOpen={defaultOpen}
-          subNavToggleLabel={hasLinkTarget ? subNavToggleLabel : undefined}
+          subNavToggleLabel={subNavToggleLabel}
           tooltipText={tooltipText}
           ariaCurrent={ariaCurrent}
-          style={{'--subitem-depth': depth} as React.CSSProperties}
-          linkProps={{
-            ref,
-            as: Component,
-            'aria-current': ariaCurrent,
-            ...props,
-          }}
+          as={Component}
+          forwardedRef={ref}
+          linkProps={props}
         >
           {childrenWithoutSubNavOrTrailingAction}
         </ItemWithSubNav>
@@ -225,7 +219,16 @@ const Item = Object.assign(ItemComponent, {displayName: 'NavList.Item'})
 // ----------------------------------------------------------------------------
 // ItemWithSubNav (internal)
 
-type ItemWithSubNavProps = {
+type ItemWithSubNavLinkProps<As extends React.ElementType> = Omit<
+  NavListItemProps<As>,
+  'aria-current' | 'as' | 'children' | 'defaultOpen' | 'subNavToggleLabel' | 'tooltipText'
+> & {
+  className?: string
+  id?: string
+  style?: React.CSSProperties
+}
+
+type ItemWithSubNavProps<As extends React.ElementType> = {
   children: React.ReactNode
   subNav: React.ReactNode
   depth: number
@@ -233,14 +236,21 @@ type ItemWithSubNavProps = {
   subNavToggleLabel?: string
   tooltipText?: string
   ariaCurrent?: NavListItemProps['aria-current']
-  style: React.CSSProperties
-  linkProps: Record<string, unknown>
+  as?: As
+  forwardedRef: React.ForwardedRef<unknown>
+  linkProps: ItemWithSubNavLinkProps<As>
 }
 
-const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
+const ItemWithSubNavContext = React.createContext<{
+  buttonId: string
+  subNavId: string
+  isOpen: boolean
+  linked: boolean
+}>({
   buttonId: '',
   subNavId: '',
   isOpen: false,
+  linked: false,
 })
 
 function hasCurrentNavItem(node: React.ReactNode): boolean {
@@ -265,19 +275,23 @@ function hasCurrentNavItem(node: React.ReactNode): boolean {
   return React.Children.toArray(node.props.children).some(hasCurrentNavItem)
 }
 
-function ItemWithSubNav({
+function ItemWithSubNav<As extends React.ElementType = 'a'>({
   children,
   subNav,
-  depth: _depth,
+  depth,
   defaultOpen,
   subNavToggleLabel,
   tooltipText,
   ariaCurrent,
-  style,
+  as: Component,
+  forwardedRef,
   linkProps,
-}: ItemWithSubNavProps) {
-  const buttonId = useId()
+}: ItemWithSubNavProps<As>) {
+  const {className, id, style, ...restLinkProps} = linkProps
+  const buttonId = useId(id)
   const subNavId = useId()
+  const linkRef = React.useRef<HTMLElement>(null)
+  const mergedLinkRef = useMergedRefs(forwardedRef, linkRef)
 
   // We have to use recursion to check if the current nav item is part of the subnav before initial render
   // which is why we can't use the querySelector on the ref as it will cause the parent item to blink during first render.
@@ -309,16 +323,30 @@ function ItemWithSubNav({
   )
 
   const toggleSubNav = () => setIsOpen(open => !open)
+  const linked = Boolean(subNavToggleLabel)
+  const InternalLinkItem: React.ElementType = ActionList.LinkItem
+
+  useDevOnlyEffect(() => {
+    if (!linked) return
+
+    warning(
+      !linkRef.current || !(linkRef.current instanceof HTMLAnchorElement) || !linkRef.current.hasAttribute('href'),
+      'NavList.Item with subNavToggleLabel must render an anchor with an href.',
+    )
+  }, [linked])
 
   return (
-    <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
+    <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen, linked}}>
       {subNavToggleLabel ? (
-        <ActionList.LinkItem
-          {...linkProps}
+        <InternalLinkItem
+          {...restLinkProps}
+          ref={mergedLinkRef}
+          as={Component}
+          aria-current={ariaCurrent}
           id={buttonId}
           active={(Boolean(ariaCurrent) && ariaCurrent !== 'false') || (!isOpen && containsCurrentItem)}
-          className={clsx(linkProps.className as string | undefined, navListClasses.LinkedSubNavItem)}
-          style={style}
+          className={clsx(className, navListClasses.LinkedSubNavItem)}
+          style={{'--subitem-depth': depth, ...style} as React.CSSProperties}
           data-component="NavList.Item"
           _PrivateTooltipText={tooltipText}
         >
@@ -327,12 +355,12 @@ function ItemWithSubNav({
             aria-controls={subNavId}
             aria-expanded={isOpen}
             className={navListClasses.SubNavToggle}
-            icon={ChevronDownIcon}
+            icon={isOpen ? ChevronUpIcon : ChevronDownIcon}
             label={subNavToggleLabel}
             onClick={toggleSubNav}
           />
           {subItem}
-        </ActionList.LinkItem>
+        </InternalLinkItem>
       ) : (
         <ActionList.Item
           id={buttonId}
@@ -340,7 +368,7 @@ function ItemWithSubNav({
           aria-controls={subNavId}
           active={!isOpen && containsCurrentItem}
           onSelect={toggleSubNav}
-          style={style}
+          style={{'--subitem-depth': depth} as React.CSSProperties}
           data-component="NavList.Item"
           _PrivateTooltipText={tooltipText}
         >
@@ -366,7 +394,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
 // NOTE: SubNav must be a direct child of an Item
 const SubNav = React.forwardRef<HTMLUListElement, NavListSubNavProps>(({children}, forwardedRef) => {
-  const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
+  const {buttonId, subNavId, isOpen, linked} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
   if (!buttonId || !subNavId) {
     // eslint-disable-next-line no-console
@@ -383,7 +411,7 @@ const SubNav = React.forwardRef<HTMLUListElement, NavListSubNavProps>(({children
   return (
     <SubNavContext.Provider value={{depth: depth + 1}}>
       <ul
-        className={classes.SubGroup}
+        className={clsx(classes.SubGroup, linked && navListClasses.LinkedSubNav)}
         id={subNavId}
         aria-labelledby={buttonId}
         hidden={!isOpen}
