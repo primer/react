@@ -334,67 +334,69 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-trailing-action-loading={trailingActionRendered && slots.trailingAction?.props.loading ? true : undefined}
         className={clsx(classes.ActionListItem, className)}
       >
-        <ConditionalTooltip ref={forwardedRef} text={_PrivateTooltipText ?? truncatedText} enabled={buttonSemantics}>
-          <ItemWrapper
-            {...wrapperProps}
-            className={classes.ActionListContent}
-            data-size={size}
-            // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
-            ref={forwardedRef}
-          >
-            {/* Reset TooltipContext so that child components don't detect
-                the ConditionalTooltip and suppress their own internal tooltips. */}
-            <TooltipContext.Provider value={{}}>
-              <span className={classes.Spacer} />
-              <Selection selected={selected} className={classes.LeadingAction} />
-              <VisualOrIndicator
-                inactiveText={showInactiveIndicator ? inactiveText : undefined}
-                itemHasLeadingVisual={Boolean(slots.leadingVisual)}
-                labelId={labelId}
-                loading={loading}
-                position="leading"
-              >
-                {slots.leadingVisual}
-              </VisualOrIndicator>
-              {/* TODO: next-major: change to data-component="ActionList.Item.DividerContainer" next major version */}
-              <span className={classes.ActionListSubContent} data-component="ActionList.Item--DividerContainer">
-                <ConditionalWrapper
-                  if={!!slots.description}
-                  className={classes.ItemDescriptionWrap}
-                  data-description-variant={descriptionVariant}
-                >
-                  <span id={labelId} className={classes.ItemLabel} data-component="ActionList.Item.Label">
-                    {childrenWithoutSlots}
-                    {/* Loading message needs to be in here so it is read with the label */}
-                    {/* If the item is inactive, we do not simultaneously announce that it is loading */}
-                    {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
-                  </span>
-                  {slots.description}
-                </ConditionalWrapper>
+        <ConditionalWrapper if={Boolean(slots.subItem && trailingActionRendered)} className={classes.ActionListItemRow}>
+          <ConditionalTooltip ref={forwardedRef} text={_PrivateTooltipText ?? truncatedText} enabled={buttonSemantics}>
+            <ItemWrapper
+              {...wrapperProps}
+              className={classes.ActionListContent}
+              data-size={size}
+              // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
+              ref={forwardedRef}
+            >
+              {/* Reset TooltipContext so that child components don't detect
+                  the ConditionalTooltip and suppress their own internal tooltips. */}
+              <TooltipContext.Provider value={{}}>
+                <span className={classes.Spacer} />
+                <Selection selected={selected} className={classes.LeadingAction} />
                 <VisualOrIndicator
                   inactiveText={showInactiveIndicator ? inactiveText : undefined}
                   itemHasLeadingVisual={Boolean(slots.leadingVisual)}
                   labelId={labelId}
                   loading={loading}
-                  position="trailing"
+                  position="leading"
                 >
-                  {trailingVisual}
+                  {slots.leadingVisual}
                 </VisualOrIndicator>
-
-                {
-                  // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
-                  // render the inactive warning message directly in the item.
-                  !showInactiveIndicator && inactiveText ? (
-                    <span className={classes.InactiveWarning} id={inactiveWarningId}>
-                      {inactiveText}
+                {/* TODO: next-major: change to data-component="ActionList.Item.DividerContainer" next major version */}
+                <span className={classes.ActionListSubContent} data-component="ActionList.Item--DividerContainer">
+                  <ConditionalWrapper
+                    if={!!slots.description}
+                    className={classes.ItemDescriptionWrap}
+                    data-description-variant={descriptionVariant}
+                  >
+                    <span id={labelId} className={classes.ItemLabel} data-component="ActionList.Item.Label">
+                      {childrenWithoutSlots}
+                      {/* Loading message needs to be in here so it is read with the label */}
+                      {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+                      {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
                     </span>
-                  ) : null
-                }
-              </span>
-            </TooltipContext.Provider>
-          </ItemWrapper>
-        </ConditionalTooltip>
-        {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+                    {slots.description}
+                  </ConditionalWrapper>
+                  <VisualOrIndicator
+                    inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                    itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                    labelId={labelId}
+                    loading={loading}
+                    position="trailing"
+                  >
+                    {trailingVisual}
+                  </VisualOrIndicator>
+
+                  {
+                    // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
+                    // render the inactive warning message directly in the item.
+                    !showInactiveIndicator && inactiveText ? (
+                      <span className={classes.InactiveWarning} id={inactiveWarningId}>
+                        {inactiveText}
+                      </span>
+                    ) : null
+                  }
+                </span>
+              </TooltipContext.Provider>
+            </ItemWrapper>
+          </ConditionalTooltip>
+          {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+        </ConditionalWrapper>
         {slots.subItem}
       </li>
     </ItemContext.Provider>
