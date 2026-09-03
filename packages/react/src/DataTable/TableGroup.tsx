@@ -1,6 +1,7 @@
 import {clsx} from 'clsx'
 import type React from 'react'
 import {useId, useMemo} from 'react'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {TableRow} from './Table'
 import {TableGroupContext} from './TableGroupContext'
 import classes from './Table.module.css'
@@ -41,7 +42,7 @@ export type TableGroupProps = {
 
 function TableGroup({className, id, label, rowCount, colSpan, children, 'aria-label': ariaLabel}: TableGroupProps) {
   const headerId = useId()
-  const accessibleName = ariaLabel ?? `${label}, ${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`
+  const accessibleName = `${label}, ${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`
   const contextValue = useMemo(() => ({headerId}), [headerId])
 
   return (
@@ -59,10 +60,11 @@ function TableGroup({className, id, label, rowCount, colSpan, children, 'aria-la
             scope="colgroup"
             colSpan={colSpan}
             role="columnheader"
-            aria-label={accessibleName}
+            aria-label={ariaLabel}
             data-component="Table.Group.Header"
           >
-            <span className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}>
+            <VisuallyHidden>{accessibleName}</VisuallyHidden>
+            <span aria-hidden="true" className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}>
               <span className={clsx('TableGroupHeaderLabel', classes.TableGroupHeaderLabel)}>{label}</span>
               <span className={clsx('TableGroupHeaderCount', classes.TableGroupHeaderCount)}>{rowCount}</span>
             </span>

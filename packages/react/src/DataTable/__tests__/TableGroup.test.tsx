@@ -100,7 +100,7 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    expect(screen.getByRole('columnheader', {name: expectedName})).toBeInTheDocument()
+    expect(screen.getByRole('columnheader', {name: expectedName})).not.toHaveAttribute('aria-label')
   })
 
   it('exposes visible label/count text while keeping the group header name concise', () => {
@@ -117,9 +117,8 @@ describe('Table.Group', () => {
     )
 
     const groupHeader = screen.getByRole('columnheader', {name: 'Admins, 2 rows'})
-    expect(within(groupHeader).getByText('Admins')).toBeInTheDocument()
-    expect(within(groupHeader).getByText('2')).toBeInTheDocument()
-    expect(groupHeader.firstElementChild).not.toHaveAttribute('aria-hidden')
+    expect(within(groupHeader).getByText('Admins')).toBeVisible()
+    expect(within(groupHeader).getByText('2')).toBeVisible()
   })
 
   it("associates member cells with both the group header and their column's header", () => {
