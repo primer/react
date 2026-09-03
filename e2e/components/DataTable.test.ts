@@ -47,6 +47,10 @@ const stories = [
     title: 'With Overflow',
     id: 'experimental-components-datatable-features--with-overflow',
   },
+  {
+    title: 'With Groups',
+    id: 'experimental-components-datatable-features--with-groups',
+  },
 ] as const
 
 test.describe('DataTable', () => {
