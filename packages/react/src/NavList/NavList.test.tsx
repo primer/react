@@ -271,6 +271,75 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
   })
 
+  it('supports a link with a separate SubNav toggle', () => {
+    const {getByRole, queryByRole} = render(
+      <NavList>
+        <NavList.Item
+          href="/overview"
+          aria-current="page"
+          subNavToggleLabel="Toggle overview pages"
+          onClick={event => event.preventDefault()}
+        >
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+    const link = getByRole('link', {name: 'Overview'})
+    const toggle = getByRole('button', {name: 'Toggle overview pages'})
+
+    expect(link).toHaveAttribute('href', '/overview')
+    expect(link).toHaveAttribute('aria-current', 'page')
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(queryByRole('list', {name: 'Overview'})).toBeNull()
+
+    fireEvent.click(link)
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+
+    fireEvent.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(getByRole('list', {name: 'Overview'})).toBeVisible()
+  })
+
+  it('forwards custom link props when using a separate SubNav toggle', () => {
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item as={ReactRouterLikeLink} to="/overview" subNavToggleLabel="Toggle overview pages">
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    expect(getByRole('link', {name: 'Overview'})).toHaveAttribute('href', '/overview')
+  })
+
+  it('requires a link target when using a separate SubNav toggle', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => null)
+
+    const {getByRole, queryByRole} = render(
+      <NavList>
+        <NavList.Item subNavToggleLabel="Toggle overview pages">
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    expect(getByRole('button', {name: 'Overview'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Overview'})).toBeNull()
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'NavList.Item must have an href or custom link component to use subNavToggleLabel.',
+    )
+    consoleSpy.mockRestore()
+  })
+
   it('prevents more than 4 levels of nested SubNavs', () => {
     const consoleSpy = vi
       .spyOn(console, 'error')

@@ -135,6 +135,7 @@ export type NavListItemProps<As extends React.ElementType = React.ElementType> =
     children: React.ReactNode
     defaultOpen?: boolean
     href?: string
+    subNavToggleLabel?: string
     'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
     inactiveText?: string
     tooltipText?: string
@@ -143,10 +144,19 @@ export type NavListItemProps<As extends React.ElementType = React.ElementType> =
 
 const ItemComponent = fixedForwardRef(
   <As extends React.ElementType = 'a'>(
-    {'aria-current': ariaCurrent, children, defaultOpen, tooltipText, as: Component, ...props}: NavListItemProps<As>,
+    {
+      'aria-current': ariaCurrent,
+      children,
+      defaultOpen,
+      subNavToggleLabel,
+      tooltipText,
+      as: Component,
+      ...props
+    }: NavListItemProps<As>,
     ref: React.ForwardedRef<unknown>,
   ) => {
     const {depth} = React.useContext(SubNavContext)
+    const hasLinkTarget = Boolean(props.href || (Component && Component !== 'a'))
 
     // Extract SubNav from children; useSlots also returns `rest` with TrailingAction filtered out.
     const [slots, childrenWithoutSubNavOrTrailingAction] = useSlots(children, {
@@ -159,6 +169,10 @@ const ItemComponent = fixedForwardRef(
       // eslint-disable-next-line no-console
       console.error('NavList.Item must have a NavList.SubNav to use defaultOpen.')
 
+    if (subNavToggleLabel && !hasLinkTarget)
+      // eslint-disable-next-line no-console
+      console.error('NavList.Item must have an href or custom link component to use subNavToggleLabel.')
+
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
       return (
@@ -166,8 +180,16 @@ const ItemComponent = fixedForwardRef(
           subNav={subNav}
           depth={depth}
           defaultOpen={defaultOpen}
+          subNavToggleLabel={hasLinkTarget ? subNavToggleLabel : undefined}
           tooltipText={tooltipText}
+          ariaCurrent={ariaCurrent}
           style={{'--subitem-depth': depth} as React.CSSProperties}
+          linkProps={{
+            ref,
+            as: Component,
+            'aria-current': ariaCurrent,
+            ...props,
+          }}
         >
           {childrenWithoutSubNavOrTrailingAction}
         </ItemWithSubNav>
@@ -206,8 +228,11 @@ type ItemWithSubNavProps = {
   subNav: React.ReactNode
   depth: number
   defaultOpen?: boolean
+  subNavToggleLabel?: string
   tooltipText?: string
+  ariaCurrent?: NavListItemProps['aria-current']
   style: React.CSSProperties
+  linkProps: Record<string, unknown>
 }
 
 const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
@@ -238,7 +263,17 @@ function hasCurrentNavItem(node: React.ReactNode): boolean {
   return React.Children.toArray(node.props.children).some(hasCurrentNavItem)
 }
 
-function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, tooltipText, style}: ItemWithSubNavProps) {
+function ItemWithSubNav({
+  children,
+  subNav,
+  depth: _depth,
+  defaultOpen,
+  subNavToggleLabel,
+  tooltipText,
+  ariaCurrent,
+  style,
+  linkProps,
+}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
 
@@ -262,26 +297,58 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, tooltipTe
     }
   }, [subNav, buttonId])
 
+  const subItem = (
+    <SubItem>
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      {React.cloneElement(subNav as React.ReactElement<any>, {
+        ref: subNavRef,
+      })}
+    </SubItem>
+  )
+
+  const toggleSubNav = () => setIsOpen(open => !open)
+
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
-      <ActionList.Item
-        id={buttonId}
-        aria-expanded={isOpen}
-        aria-controls={subNavId}
-        active={!isOpen && containsCurrentItem}
-        onSelect={() => setIsOpen(open => !open)}
-        style={style}
-        data-component="NavList.Item"
-        _PrivateTooltipText={tooltipText}
-      >
-        {children}
-        {/* What happens if the user provides a TrailingVisual? */}
-        <ActionList.TrailingVisual>
-          <ChevronDownIcon className={classes.ExpandIcon} />
-        </ActionList.TrailingVisual>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <SubItem>{React.cloneElement(subNav as React.ReactElement<any>, {ref: subNavRef})}</SubItem>
-      </ActionList.Item>
+      {subNavToggleLabel ? (
+        <ActionList.LinkItem
+          {...linkProps}
+          id={buttonId}
+          active={(Boolean(ariaCurrent) && ariaCurrent !== 'false') || (!isOpen && containsCurrentItem)}
+          className={clsx(linkProps.className as string | undefined, navListClasses.LinkedSubNavItem)}
+          style={style}
+          data-component="NavList.Item"
+          _PrivateTooltipText={tooltipText}
+        >
+          {children}
+          <ActionList.TrailingAction
+            aria-controls={subNavId}
+            aria-expanded={isOpen}
+            className={navListClasses.SubNavToggle}
+            icon={ChevronDownIcon}
+            label={subNavToggleLabel}
+            onClick={toggleSubNav}
+          />
+          {subItem}
+        </ActionList.LinkItem>
+      ) : (
+        <ActionList.Item
+          id={buttonId}
+          aria-expanded={isOpen}
+          aria-controls={subNavId}
+          active={!isOpen && containsCurrentItem}
+          onSelect={toggleSubNav}
+          style={style}
+          data-component="NavList.Item"
+          _PrivateTooltipText={tooltipText}
+        >
+          {children}
+          <ActionList.TrailingVisual>
+            <ChevronDownIcon className={classes.ExpandIcon} />
+          </ActionList.TrailingVisual>
+          {subItem}
+        </ActionList.Item>
+      )}
     </ItemWithSubNavContext.Provider>
   )
 }
@@ -297,7 +364,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
 // NOTE: SubNav must be a direct child of an Item
 const SubNav = React.forwardRef<HTMLUListElement, NavListSubNavProps>(({children}, forwardedRef) => {
-  const {buttonId, subNavId} = React.useContext(ItemWithSubNavContext)
+  const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
   if (!buttonId || !subNavId) {
     // eslint-disable-next-line no-console
@@ -317,6 +384,7 @@ const SubNav = React.forwardRef<HTMLUListElement, NavListSubNavProps>(({children
         className={classes.SubGroup}
         id={subNavId}
         aria-labelledby={buttonId}
+        hidden={!isOpen}
         ref={forwardedRef}
         data-component="NavList.SubNav"
       >
