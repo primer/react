@@ -53,6 +53,23 @@ export const WithSubItems: StoryFn = () => (
   </PageLayout>
 )
 
+export const WithLinkedSubNavParent: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item href="#" subNavToggleLabel="Toggle overview pages">
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="#">Review requested</NavList.Item>
+            <NavList.Item href="#">Your drafts</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
 export const WithNestedSubItems: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
