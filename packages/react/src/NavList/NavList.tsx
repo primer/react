@@ -23,9 +23,6 @@ import HeadingComponent from '../Heading'
 import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
 import {asSlot} from '../utils/as-slot'
-import {useMergedRefs} from '../hooks'
-import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
-import {warning} from '../utils/warning'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
@@ -282,8 +279,6 @@ function ItemWithSubNav<As extends React.ElementType = 'a'>({
   const {className, id, style, ...restLinkProps} = linkProps
   const buttonId = useId(id)
   const subNavId = useId()
-  const linkRef = React.useRef<HTMLElement>(null)
-  const mergedLinkRef = useMergedRefs(forwardedRef, linkRef)
 
   // We have to use recursion to check if the current nav item is part of the subnav before initial render
   // which is why we can't use the querySelector on the ref as it will cause the parent item to blink during first render.
@@ -315,24 +310,14 @@ function ItemWithSubNav<As extends React.ElementType = 'a'>({
   )
 
   const toggleSubNav = () => setIsOpen(open => !open)
-  const linked = Boolean(subNavToggleLabel)
   const InternalLinkItem: React.ElementType = ActionList.LinkItem
-
-  useDevOnlyEffect(() => {
-    if (!linked) return
-
-    const link = linkRef.current
-    const anchor = link instanceof HTMLAnchorElement ? link : link?.querySelector('a[href]')
-
-    warning(!anchor, 'NavList.Item with subNavToggleLabel must render an anchor with an href.')
-  }, [linked])
 
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
       {subNavToggleLabel ? (
         <InternalLinkItem
           {...restLinkProps}
-          ref={mergedLinkRef}
+          ref={forwardedRef}
           as={Component}
           aria-current={ariaCurrent}
           id={buttonId}
