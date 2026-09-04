@@ -142,6 +142,7 @@ type TableSortHeaderProps = TableHeaderProps & {
 
 function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
+  const sortAction = direction === SortDirection.ASC ? 'Sort descending' : 'Sort ascending'
 
   return (
     <TableHeader {...rest} aria-sort={ariaSort} align={align} data-component="Table.SortHeader">
@@ -149,6 +150,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
         type="button"
         className={clsx('TableSortButton', classes.TableSortButton)}
         data-component="Table.SortHeader.Button"
+        aria-description={sortAction}
         onClick={() => {
           onToggleSort()
         }}
@@ -164,7 +166,6 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
                 classes['TableSortIcon--ascending'],
               )}
             />
-            {direction === SortDirection.NONE ? <VisuallyHidden>sort ascending</VisuallyHidden> : null}
           </>
         ) : null}
         {direction === SortDirection.DESC ? (

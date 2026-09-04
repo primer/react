@@ -2,7 +2,8 @@ import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import {DataTable, Table} from '../../DataTable'
 import {createColumnHelper} from '../column'
-import type {TableProps} from '../Table'
+import {TableSortHeader, type TableProps} from '../Table'
+import {SortDirection} from '../sorting'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../Table.module.css'
 
@@ -215,6 +216,54 @@ describe('Table', () => {
 
       expect(screen.getByRole('columnheader', {name: 'Column'})).toBeInTheDocument()
       expect(screen.getByRole('columnheader', {name: 'Column'})).toHaveAttribute('scope', 'col')
+    })
+  })
+
+  describe('Table.SortHeader', () => {
+    it('should preserve a consumer-provided aria-label', () => {
+      render(
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <TableSortHeader aria-label="Custom column name" direction={SortDirection.ASC} onToggleSort={() => {}}>
+                Visible column name
+              </TableSortHeader>
+            </Table.Row>
+          </Table.Head>
+        </Table>,
+      )
+
+      const header = screen.getByRole('columnheader', {name: 'Custom column name'})
+      const sortButton = screen.getByRole('button', {name: 'Visible column name'})
+
+      expect(header).toHaveAttribute('aria-sort', 'ascending')
+      expect(sortButton).toHaveAccessibleDescription('Sort descending')
+    })
+
+    it('should preserve a consumer-provided aria-labelledby', () => {
+      render(
+        <>
+          <span id="custom-column-name">Custom column name</span>
+          <Table>
+            <Table.Head>
+              <Table.Row>
+                <TableSortHeader
+                  aria-labelledby="custom-column-name"
+                  direction={SortDirection.ASC}
+                  onToggleSort={() => {}}
+                >
+                  Visible column name
+                </TableSortHeader>
+              </Table.Row>
+            </Table.Head>
+          </Table>
+        </>,
+      )
+
+      const header = screen.getByRole('columnheader', {name: 'Custom column name'})
+
+      expect(header).toHaveAttribute('aria-labelledby', 'custom-column-name')
+      expect(screen.getByRole('button', {name: 'Visible column name'})).toHaveAccessibleDescription('Sort descending')
     })
   })
 
