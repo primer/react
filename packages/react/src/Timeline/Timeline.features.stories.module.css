@@ -64,11 +64,9 @@
   margin-top: var(--base-size-4);
 }
 
-@container (width < 480px) {
-  .CrossReferenceRow {
-    flex-direction: column;
-    gap: var(--base-size-4);
-  }
+:where([data-timeline-narrow]) .CrossReferenceRow {
+  flex-direction: column;
+  gap: var(--base-size-4);
 }
 
 .CrossReferenceTitle {
@@ -116,10 +114,8 @@
 /* Hides Timeline.Actions children (Verified / Unverified signature labels
    on commit rows) when Timeline is narrow, so only the compact icon + SHA
    cluster remains after the Actions row wraps beneath Body. */
-@container (width < 480px) {
-  .HideAtNarrow {
-    display: none;
-  }
+:where([data-timeline-narrow]) .HideAtNarrow {
+  display: none;
 }
 
 .Timestamp {
