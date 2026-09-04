@@ -267,7 +267,6 @@ function isDataTableRowGroup<Data extends UniqueRow>(
   item: Data | DataTableRowGroup<Data>,
 ): item is DataTableRowGroup<Data> {
   return (
-    !Reflect.has(item, 'id') &&
     Reflect.get(item, 'type') === 'row-group' &&
     Reflect.has(item, 'groupId') &&
     Array.isArray(Reflect.get(item, 'rows'))

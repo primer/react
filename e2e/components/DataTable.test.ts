@@ -2,7 +2,11 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories = [
+const stories: ReadonlyArray<{
+  title: string
+  id: string
+  aat?: boolean
+}> = [
   {
     title: 'Default',
     id: 'experimental-components-datatable--default',
@@ -52,7 +56,7 @@ const stories = [
     id: 'experimental-components-datatable-features--with-groups',
     aat: true,
   },
-] as const
+]
 
 test.describe('DataTable', () => {
   for (const story of stories) {
@@ -79,7 +83,7 @@ test.describe('DataTable', () => {
             ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
           })
 
-          if ('aat' in story) {
+          if (story.aat) {
             test('axe @aat', async ({page}) => {
               await visit(page, {
                 id: story.id,

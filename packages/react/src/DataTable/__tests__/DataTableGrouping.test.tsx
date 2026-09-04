@@ -92,6 +92,21 @@ describe('DataTable grouping', () => {
     expect(screen.getAllByRole('row')).toHaveLength(2)
   })
 
+  it('recognizes row groups with additional properties', () => {
+    const groupWithId: DataTableRowGroup<Repository> & {id: string} = {
+      id: 'consumer-defined-id',
+      type: 'row-group',
+      groupId: 'internal',
+      label: 'Internal',
+      rows: [{id: 1, name: 'primer/react', visibility: 'internal'}],
+    }
+
+    render(<DataTable data={[groupWithId]} columns={columns} />)
+
+    expect(screen.getByRole('columnheader', {name: 'Internal, 1 row'})).toBeInTheDocument()
+    expect(screen.getByRole('rowheader', {name: 'primer/react'})).toBeInTheDocument()
+  })
+
   it('sorts rows within each group while preserving group order', async () => {
     const user = userEvent.setup()
     render(<DataTable data={groups} columns={columns} />)
