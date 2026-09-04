@@ -1,5 +1,16 @@
 # @primer/mcp
 
+## 1.1.0
+
+### Minor Changes
+
+- [#8342](https://github.com/primer/react/pull/8342) [`fbe2a70`](https://github.com/primer/react/commit/fbe2a709b93661cc5944f3652f9504214b1f4311) Thanks [@mattobee](https://github.com/mattobee)! - MCP server: Add Create, Customize, Delegate, Edit and View scenario patterns to the `list_patterns` and `get_pattern` tools.
+
+### Patch Changes
+
+- Updated dependencies [[`7034e1f`](https://github.com/primer/react/commit/7034e1fbb754883b29a05fdf75eea8704359e7bb), [`3a32d6f`](https://github.com/primer/react/commit/3a32d6ff015b11dd2ac9bf299f8f558bb1e46ef5), [`f7329dc`](https://github.com/primer/react/commit/f7329dc8224166fad2698ae7d6c518dc97d89754), [`4266cab`](https://github.com/primer/react/commit/4266cab4cb9e744f70cc13a8904c3b29a6499284), [`1f5b99e`](https://github.com/primer/react/commit/1f5b99edc63e3989eb470d258c4d7b8703540f6b), [`a79d6c6`](https://github.com/primer/react/commit/a79d6c60ca23abce6f85502e1db78458f5fc3e90)]:
+  - @primer/react@38.38.0
+
 ## 1.0.0
 
 ### Major Changes

@@ -31,7 +31,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-${{ github.job }}-shard-${{ matrix.shard }}-
             ${{ runner.os }}-turbo-${{ github.job }}-
-            ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
       - name: Build storybook

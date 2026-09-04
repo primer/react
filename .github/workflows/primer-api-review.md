@@ -10,6 +10,7 @@ on:
 permissions:
   contents: read
   issues: read
+  copilot-requests: write
 concurrency: primer-api-review
 timeout-minutes: 60
 network: defaults

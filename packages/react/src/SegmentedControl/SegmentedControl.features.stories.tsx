@@ -1,7 +1,8 @@
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
+import {PlusIcon, EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import {SegmentedControl} from '.'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {Button} from '../Button'
 import Text from '../Text'
 import classes from './SegmentedControl.features.stories.module.css'
 
@@ -33,6 +34,20 @@ export const WithCounterLabels = () => (
     <SegmentedControl.Button count={10}>Good first issue</SegmentedControl.Button>
   </SegmentedControl>
 )
+
+export const VariantSubtle = () => (
+  <SegmentedControl aria-label="View" variant="subtle">
+    <SegmentedControl.Button defaultSelected count={5}>
+      All
+    </SegmentedControl.Button>
+    <SegmentedControl.Divider />
+    <SegmentedControl.Button count={3}>Active</SegmentedControl.Button>
+    <SegmentedControl.Button count={10}>Review requests</SegmentedControl.Button>
+    <SegmentedControl.Divider />
+    <SegmentedControl.Button count={2}>Done</SegmentedControl.Button>
+  </SegmentedControl>
+)
+VariantSubtle.storyName = '[variant: subtle] Low emphasis'
 
 export const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -77,6 +92,56 @@ export const VariantNarrowActionMenu = () => (
   </SegmentedControl>
 )
 VariantNarrowActionMenu.storyName = '[variant: narrow] Action menu'
+
+export const VariantNarrowActionMenuWithAction = () => {
+  const initialViews = [
+    {id: 'all', label: 'All'},
+    {id: 'active', label: 'Active'},
+    {id: 'review-requests', label: 'Review requests'},
+    {id: 'done', label: 'Done'},
+  ]
+  const [views, setViews] = useState(initialViews)
+  const [selectedViewId, setSelectedViewId] = useState(initialViews[0].id)
+
+  const handleAddView = () => {
+    setViews(currentViews => {
+      const viewNumber = currentViews.length - 3
+      return [...currentViews, {id: `new-view-${viewNumber}`, label: `New view ${viewNumber}`}]
+    })
+  }
+
+  const handleChange = (index: number) => {
+    const nextSelectedViewId = views.at(index)?.id
+    if (nextSelectedViewId) setSelectedViewId(nextSelectedViewId)
+  }
+
+  const handleReset = () => {
+    setViews(initialViews)
+    setSelectedViewId(initialViews[0].id)
+  }
+
+  return (
+    <>
+      <SegmentedControl
+        aria-label="View"
+        onChange={handleChange}
+        variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}
+      >
+        {views.flatMap(view => [
+          ...(view.label === 'Active' ? [<SegmentedControl.Divider key={`${view.label}-divider`} />] : []),
+          <SegmentedControl.Button key={view.id} selected={view.id === selectedViewId}>
+            {view.label}
+          </SegmentedControl.Button>,
+        ])}
+        <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />
+      </SegmentedControl>
+      <Button className={classes.ResetButton} size="small" onClick={handleReset}>
+        Reset views
+      </Button>
+    </>
+  )
+}
+VariantNarrowActionMenuWithAction.storyName = '[variant: narrow] Action menu with trailing action'
 
 export const FullwidthNarrow = () => (
   <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
