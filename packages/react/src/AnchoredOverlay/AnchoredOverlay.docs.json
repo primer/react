@@ -64,9 +64,9 @@
     },
     {
       "name": "renderAnchor",
-      "type": "<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element",
+      "type": "<T extends React.HTMLAttributes<HTMLElement>>(props: T, anchorRef?: React.RefCallback<HTMLElement>) => JSX.Element",
       "defaultValue": "",
-      "description": "A custom function component used to render the anchor element. When renderAnchor is null, an anchorRef is required."
+      "description": "A custom function component used to render the anchor element. The optional second argument is a reactive ref for the current anchor element. When renderAnchor is null, an anchorRef is required."
     },
     {
       "name": "anchorRef",

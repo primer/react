@@ -80,6 +80,31 @@ const AnchoredOverlayTestComponent = ({
   return content
 }
 
+it('preserves the object ref in renderAnchor props while providing a reactive callback ref', () => {
+  let propsRef: unknown
+  let reactiveAnchorRef: React.RefCallback<HTMLElement> | undefined
+
+  render(
+    <AnchoredOverlay
+      open={false}
+      renderAnchor={(props, anchorRef) => {
+        propsRef = (props as React.RefAttributes<HTMLElement>).ref
+        reactiveAnchorRef = anchorRef
+        return (
+          <button {...props} type="button">
+            Anchor
+          </button>
+        )
+      }}
+    >
+      Overlay
+    </AnchoredOverlay>,
+  )
+
+  expect(propsRef).toEqual({current: expect.any(HTMLButtonElement)})
+  expect(reactiveAnchorRef).toEqual(expect.any(Function))
+})
+
 describe.each([true, false])(
   'AnchoredOverlay (primer_react_css_anchor_positioning=%s)',
   (withCSSAnchorPositioningFeatureFlag: boolean) => {
@@ -706,6 +731,40 @@ describe('AnchoredOverlay CSS anchor positioning viewport handling', () => {
 })
 
 describe('AnchoredOverlay anchor element replacement', () => {
+  it('repositions when renderAnchor changes the physical anchor while open', () => {
+    const onPositionChange = vi.fn()
+
+    function TestComponent() {
+      const [alternate, setAlternate] = useState(false)
+      return (
+        <>
+          <button type="button" onClick={() => setAlternate(value => !value)}>
+            Switch
+          </button>
+          <AnchoredOverlay
+            open
+            onOpen={() => {}}
+            onClose={() => {}}
+            onPositionChange={onPositionChange}
+            renderAnchor={(props, ref) => (
+              <button key={String(alternate)} {...props} ref={ref as React.Ref<HTMLButtonElement>} type="button">
+                Anchor
+              </button>
+            )}
+          >
+            <button type="button">Content</button>
+          </AnchoredOverlay>
+        </>
+      )
+    }
+
+    const {getByRole} = render(<TestComponent />)
+    const initialCalls = onPositionChange.mock.calls.length
+    act(() => getByRole('button', {name: 'Switch'}).click())
+
+    expect(onPositionChange.mock.calls.length).toBeGreaterThan(initialCalls)
+  })
+
   it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', () => {
     function TestComponent() {
       const anchorRef = useRef<HTMLButtonElement>(null)
