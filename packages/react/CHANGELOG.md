@@ -1,5 +1,17 @@
 # @primer/react
 
+## 38.39.0
+
+### Minor Changes
+
+- [#8372](https://github.com/primer/react/pull/8372) [`23185b7`](https://github.com/primer/react/commit/23185b7a6d457d8d8a2161d804bb36da5e62e301) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add `Table.Group` for rendering accessible groups of table rows.
+
+### Patch Changes
+
+- [#8370](https://github.com/primer/react/pull/8370) [`56ebdc4`](https://github.com/primer/react/commit/56ebdc49f8f6c862288ee653a4cdc7a70afe829c) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - ScrollableRegion: Remove focusability when content no longer overflows
+
+- [#8371](https://github.com/primer/react/pull/8371) [`dc8387f`](https://github.com/primer/react/commit/dc8387f4fa07cf00887cb2412d358fb7eb54be63) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Keep sortable column names concise and convey the next sort action as an accessible description
+
 ## 38.38.0
 
 ### Minor Changes
