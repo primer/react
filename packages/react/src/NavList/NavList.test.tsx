@@ -5,7 +5,6 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import {NavList, type NavListGroupHeadingProps} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
-import {FeatureFlags} from '../FeatureFlags'
 import {asSlot} from '../utils/as-slot'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
@@ -601,8 +600,8 @@ describe('NavList.ShowMoreItem with pages', () => {
     expect(queryByRole('link', {name: 'Item 4'})).toHaveAttribute('href', '#item4')
   })
 
-  describe('item gap feature flag', () => {
-    it('does not set data-item-gap on the underlying ActionList by default', () => {
+  describe('item gaps', () => {
+    it('sets data-item-gap on the underlying ActionList by default', () => {
       const {container} = render(
         <NavList>
           <NavList.Item href="#" aria-current="page">
@@ -612,44 +611,10 @@ describe('NavList.ShowMoreItem with pages', () => {
         </NavList>,
       )
 
-      expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
-    })
-
-    it('sets data-item-gap on the underlying ActionList when the primer_react_action_list_item_gap feature flag is enabled', () => {
-      const {container} = render(
-        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
-          <NavList>
-            <NavList.Item href="#" aria-current="page">
-              Home
-            </NavList.Item>
-            <NavList.Item href="#">About</NavList.Item>
-          </NavList>
-        </FeatureFlags>,
-      )
-
       expect(container.querySelector('[data-component="ActionList"]')).toHaveAttribute('data-item-gap', '')
     })
 
-    it('adds a gap between a parent item and the first item of its expanded sub-nav when the feature flag is enabled', () => {
-      const {container} = render(
-        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
-          <NavList>
-            <NavList.Item defaultOpen href="#">
-              Item 1
-              <NavList.SubNav>
-                <NavList.Item href="#">Sub item 1</NavList.Item>
-              </NavList.SubNav>
-            </NavList.Item>
-          </NavList>
-        </FeatureFlags>,
-      )
-
-      const subGroup = container.querySelector('ul[aria-labelledby]')
-      expect(subGroup).not.toBeNull()
-      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('2px')
-    })
-
-    it('does not add a gap before a sub-nav when the feature flag is disabled', () => {
+    it('adds a gap between a parent item and the first item of its expanded sub-nav by default', () => {
       const {container} = render(
         <NavList>
           <NavList.Item defaultOpen href="#">
@@ -663,7 +628,7 @@ describe('NavList.ShowMoreItem with pages', () => {
 
       const subGroup = container.querySelector('ul[aria-labelledby]')
       expect(subGroup).not.toBeNull()
-      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('0px')
+      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('2px')
     })
   })
 
