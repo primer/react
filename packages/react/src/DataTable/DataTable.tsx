@@ -82,10 +82,16 @@ function defaultGetRowId<D extends UniqueRow>(row: D) {
   return row.id
 }
 
-function DataTable<
-  Data extends UniqueRow,
-  Item extends Data | DataTableRowGroup<Data> = Data | DataTableRowGroup<Data>,
->({
+type DataFromInput<Input extends DataTableData<UniqueRow>> =
+  Input extends Array<infer Item>
+    ? Item extends DataTableRowGroup<infer Data>
+      ? Data
+      : Item extends UniqueRow
+        ? Item
+        : never
+    : never
+
+function DataTable<Input extends DataTableData<UniqueRow>>({
   'aria-labelledby': labelledby,
   'aria-describedby': describedby,
   cellPadding,
@@ -96,8 +102,8 @@ function DataTable<
   externalSorting,
   getRowId = defaultGetRowId,
   onToggleSort,
-}: DataTableBaseProps<Data> & {
-  data: Array<Item> & DataTableData<Data>
+}: DataTableBaseProps<DataFromInput<Input>> & {
+  data: Input & DataTableData<DataFromInput<Input>>
 }) {
   const tableId = useId()
   const {headers, rows, rowGroups, actions, gridTemplateColumns} = useTable({
@@ -109,17 +115,32 @@ function DataTable<
     externalSorting,
   })
   const columnHeaderIds = headers.map((_, index) => `${tableId}-column-${index}`)
+  const allRows = rowGroups === null ? rows : rowGroups.flatMap(group => group.rows)
+  const rowIndexes = new Map(allRows.map((row, index) => [row, index]))
 
   const renderRow = (row: (typeof rows)[number]) => {
+    const cells = row.getCells()
+    const rowIndex = rowIndexes.get(row)
+    if (rowIndex === undefined) {
+      throw new Error(`Unable to find row index for row: ${row.id}`)
+    }
+    const rowHeaderIds = cells.flatMap((cell, index) =>
+      cell.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : [],
+    )
+
     return (
       <TableRow key={row.id}>
-        {row.getCells().map((cell, index) => {
+        {cells.map((cell, index) => {
+          const rowHeaderId = cell.rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined
+          const cellHeaderIds = cell.rowHeader ? [columnHeaderIds[index]] : [...rowHeaderIds, columnHeaderIds[index]]
+
           return (
             <TableCell
               key={cell.id}
+              id={rowHeaderId}
               scope={cell.rowHeader ? 'row' : undefined}
               align={cell.column.align}
-              headers={columnHeaderIds[index]}
+              headers={cellHeaderIds.join(' ')}
             >
               {cell.column.renderCell ? cell.column.renderCell(row.getValue()) : (cell.getValue() as ReactNode)}
             </TableCell>

@@ -72,7 +72,7 @@ describe('DataTable grouping', () => {
     const cell = screen.getAllByRole('cell', {name: 'internal'})[0]
 
     expect(rowHeader).toHaveAttribute('headers', `${groupHeader.id} ${columnHeaders[0].id}`)
-    expect(cell).toHaveAttribute('headers', `${groupHeader.id} ${columnHeaders[1].id}`)
+    expect(cell).toHaveAttribute('headers', `${groupHeader.id} ${rowHeader.id} ${columnHeaders[1].id}`)
   })
 
   it('renders empty groups and localized group names', () => {

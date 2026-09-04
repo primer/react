@@ -21,14 +21,14 @@ import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
-import type {DataTableRowGroup} from './row'
+import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 import classes from './DataTable.features.stories.module.css'
 
 export default {
   title: 'Experimental/Components/DataTable/Features',
-  component: DataTable,
-} as Meta<typeof DataTable>
+  component: DataTable<DataTableData<UniqueRow>>,
+} as Meta<typeof DataTable<DataTableData<UniqueRow>>>
 
 const now = Date.now()
 const Second = 1000

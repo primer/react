@@ -275,6 +275,30 @@ describe('DataTable', () => {
     }
   })
 
+  it('should associate cells with their row and column headers', () => {
+    const columns: Array<Column<{id: number; name: string; visibility: string}>> = [
+      {
+        header: 'Name',
+        field: 'name',
+        rowHeader: true,
+      },
+      {
+        header: 'Visibility',
+        field: 'visibility',
+      },
+    ]
+    render(<DataTable data={[{id: 1, name: 'one', visibility: 'public'}]} columns={columns} />)
+
+    const columnHeaders = screen.getAllByRole('columnheader')
+    const rowHeader = screen.getByRole('rowheader', {name: 'one'})
+
+    expect(rowHeader).toHaveAttribute('headers', columnHeaders[0].id)
+    expect(screen.getByRole('cell', {name: 'public'})).toHaveAttribute(
+      'headers',
+      `${rowHeader.id} ${columnHeaders[1].id}`,
+    )
+  })
+
   describe('sorting', () => {
     describe('initial state', () => {
       it('should set the default sort state of a sortable table', () => {
