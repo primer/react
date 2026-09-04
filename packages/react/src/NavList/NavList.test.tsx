@@ -271,6 +271,63 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
   })
 
+  it('supports a link with a separate SubNav toggle', () => {
+    const onClick = vi.fn((event: React.MouseEvent) => event.preventDefault())
+    const {getByRole, queryByRole} = render(
+      <NavList>
+        <NavList.Item
+          href="/overview"
+          id="overview-link"
+          aria-current="page"
+          className="custom-class"
+          style={{color: 'red'}}
+          subNavToggleLabel="Toggle overview pages"
+          onClick={onClick}
+        >
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+    const link = getByRole('link', {name: 'Overview'})
+    const toggle = getByRole('button', {name: 'Toggle overview pages'})
+
+    expect(link).toHaveAttribute('href', '/overview')
+    expect(link).toHaveAttribute('id', 'overview-link')
+    expect(link).toHaveAttribute('aria-current', 'page')
+    expect(link).toHaveStyle({color: 'rgb(255, 0, 0)'})
+    expect(link.closest('li')).toHaveClass('custom-class')
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(queryByRole('list', {name: 'Overview'})).toBeNull()
+
+    fireEvent.click(link)
+    expect(onClick).toHaveBeenCalledOnce()
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+
+    onClick.mockClear()
+    fireEvent.click(toggle)
+    expect(onClick).not.toHaveBeenCalled()
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(getByRole('list', {name: 'Overview'})).toBeVisible()
+  })
+
+  it('forwards custom link props when using a separate SubNav toggle', () => {
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item as={ReactRouterLikeLink} to="/overview" subNavToggleLabel="Toggle overview pages">
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    expect(getByRole('link', {name: 'Overview'})).toHaveAttribute('href', '/overview')
+  })
+
   it('prevents more than 4 levels of nested SubNavs', () => {
     const consoleSpy = vi
       .spyOn(console, 'error')
