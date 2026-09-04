@@ -1,12 +1,12 @@
 import {useState} from 'react'
 import type {Column} from './column'
-import type {UniqueRow} from './row'
+import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
 import type {ObjectPathValue} from './utils'
 
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>
-  data: Array<Data>
+  data: DataTableData<Data>
   initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
   externalSorting?: boolean
@@ -16,6 +16,7 @@ interface TableConfig<Data extends UniqueRow> {
 interface Table<Data extends UniqueRow> {
   headers: Array<Header<Data>>
   rows: Array<Row<Data>>
+  rowGroups: Array<RowGroup<Data>> | null
   actions: {
     sortBy: (header: Header<Data>) => void
   }
@@ -35,6 +36,13 @@ interface Row<Data extends UniqueRow> {
   getValue: () => Data
 }
 
+interface RowGroup<Data extends UniqueRow> {
+  id: string | number
+  label: string
+  rows: Array<Row<Data>>
+  'aria-label'?: string
+}
+
 interface Cell<Data extends UniqueRow> {
   id: string
   column: Column<Data>
@@ -52,7 +60,8 @@ export function useTable<Data extends UniqueRow>({
   externalSorting,
   getRowId,
 }: TableConfig<Data>): Table<Data> {
-  const [rowOrder, setRowOrder] = useState(data)
+  validateData(data)
+  const [rowOrder, setRowOrder] = useState<DataTableData<Data>>(data)
   const [prevData, setPrevData] = useState(data)
   const [prevColumns, setPrevColumns] = useState(columns)
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
@@ -100,10 +109,7 @@ export function useTable<Data extends UniqueRow>({
   // Update the row order and apply the current sort column to the incoming data
   if (data !== prevData) {
     setPrevData(data)
-    setRowOrder(data)
-    if (sortByColumn) {
-      sortRows(sortByColumn)
-    }
+    setRowOrder(sortByColumn && !externalSorting ? getSortedRowOrder(data, sortByColumn) : data)
   }
 
   /**
@@ -124,6 +130,18 @@ export function useTable<Data extends UniqueRow>({
    * blank values will be ordered last regardless of the sort direction.
    */
   function sortRows(state: Exclude<ColumnSortState, null>) {
+    if (externalSorting) {
+      // Don't sort the rows if external sorting is enabled. We expect the consumer to provide new sorted data instead.
+      return
+    }
+
+    setRowOrder(rowOrder => getSortedRowOrder(rowOrder, state))
+  }
+
+  function getSortedRowOrder(
+    currentRowOrder: DataTableData<Data>,
+    state: Exclude<ColumnSortState, null>,
+  ): DataTableData<Data> {
     const header = headers.find(header => {
       return header.id === state.id
     })
@@ -134,27 +152,23 @@ export function useTable<Data extends UniqueRow>({
     if (header.column.sortBy === false || header.column.sortBy === undefined) {
       throw new Error(`The column for this header is not sortable`)
     }
-
-    if (externalSorting) {
-      // Don't sort the rows if external sorting is enabled. We expect the consumer to provide new sorted data instead.
-      return
-    }
+    const column = header.column
 
     const sortMethod =
-      header.column.sortBy === true
+      column.sortBy === true
         ? strategies.basic
-        : typeof header.column.sortBy === 'string'
-          ? strategies[header.column.sortBy]
-          : header.column.sortBy
+        : typeof column.sortBy === 'string'
+          ? strategies[column.sortBy]
+          : column.sortBy
 
-    setRowOrder(rowOrder => {
-      return rowOrder.slice().sort((a, b) => {
-        if (header.column.field === undefined) {
+    function sortData(rows: Array<Data>) {
+      return rows.slice().sort((a, b) => {
+        if (column.field === undefined) {
           return 0
         }
 
         // Custom sort functions operate on the row versus the field
-        if (typeof header.column.sortBy === 'function') {
+        if (typeof column.sortBy === 'function') {
           if (state.direction === SortDirection.ASC) {
             // @ts-ignore todo
             return sortMethod(a, b)
@@ -163,8 +177,8 @@ export function useTable<Data extends UniqueRow>({
           return sortMethod(b, a)
         }
 
-        const valueA = get(a, header.column.field)
-        const valueB = get(b, header.column.field)
+        const valueA = get(a, column.field)
+        const valueB = get(b, column.field)
 
         const valueAIsBlank = isBlankValue(valueA)
         const valueBIsBlank = isBlankValue(valueB)
@@ -187,39 +201,86 @@ export function useTable<Data extends UniqueRow>({
         }
         return 0
       })
-    })
+    }
+
+    if (isGroupedData(currentRowOrder)) {
+      return currentRowOrder.map(group => {
+        return {
+          ...group,
+          rows: sortData(group.rows),
+        }
+      })
+    }
+
+    return sortData(currentRowOrder)
   }
+
+  function createRow(row: Data): Row<Data> {
+    const rowId = getRowId(row)
+    return {
+      id: `${rowId}`,
+      getValue() {
+        return row
+      },
+      getCells() {
+        return headers.map(header => {
+          return {
+            id: `${rowId}:${header.id}`,
+            column: header.column,
+            rowHeader: header.column.rowHeader ?? false,
+            getValue() {
+              if (header.column.field !== undefined) {
+                return get(row, header.column.field)
+              }
+              throw new Error(`Unable to get value for column header ${header.id}`)
+            },
+          }
+        })
+      },
+    }
+  }
+
+  const grouped = isGroupedData(rowOrder)
+  const rowGroups = grouped
+    ? rowOrder.map(group => {
+        return {
+          id: group.groupId,
+          label: group.label,
+          rows: group.rows.map(createRow),
+          'aria-label': group['aria-label'],
+        }
+      })
+    : null
 
   return {
     headers,
-    rows: rowOrder.map(row => {
-      const rowId = getRowId(row)
-      return {
-        id: `${rowId}`,
-        getValue() {
-          return row
-        },
-        getCells() {
-          return headers.map(header => {
-            return {
-              id: `${rowId}:${header.id}`,
-              column: header.column,
-              rowHeader: header.column.rowHeader ?? false,
-              getValue() {
-                if (header.column.field !== undefined) {
-                  return get(row, header.column.field)
-                }
-                throw new Error(`Unable to get value for column header ${header.id}`)
-              },
-            }
-          })
-        },
-      }
-    }),
+    rows: grouped ? [] : rowOrder.map(createRow),
+    rowGroups,
     actions: {
       sortBy,
     },
     gridTemplateColumns,
+  }
+}
+
+function isDataTableRowGroup<Data extends UniqueRow>(
+  item: Data | DataTableRowGroup<Data>,
+): item is DataTableRowGroup<Data> {
+  return (
+    Reflect.get(item, 'type') === 'row-group' &&
+    Reflect.has(item, 'groupId') &&
+    Array.isArray(Reflect.get(item, 'rows'))
+  )
+}
+
+function isGroupedData<Data extends UniqueRow>(data: DataTableData<Data>): data is Array<DataTableRowGroup<Data>> {
+  return data.length > 0 && data.every(isDataTableRowGroup)
+}
+
+function validateData<Data extends UniqueRow>(data: DataTableData<Data>) {
+  const groupCount = data.filter(isDataTableRowGroup).length
+  if (groupCount > 0 && groupCount !== data.length) {
+    throw new Error('DataTable `data` must contain either rows or row groups, not both.')
   }
 }
 

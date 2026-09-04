@@ -14,20 +14,25 @@ import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {Blankslate} from '../Blankslate'
 import {Button, IconButton} from '../Button'
-import {DataTable, Table} from '../DataTable'
+import {DataTable, type DataTableProps, Table} from '../DataTable'
 import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
+import type {DataTableRowGroup, UniqueRow} from './row'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 import classes from './DataTable.features.stories.module.css'
 
+function DataTableStoryComponent(props: DataTableProps<UniqueRow>) {
+  return <DataTable {...props} />
+}
+
 export default {
   title: 'Experimental/Components/DataTable/Features',
-  component: DataTable,
-} as Meta<typeof DataTable>
+  component: DataTableStoryComponent,
+} as Meta<typeof DataTableStoryComponent>
 
 const now = Date.now()
 const Second = 1000
@@ -1716,10 +1721,33 @@ export const WithNetworkError = () => {
   )
 }
 
-const groupedColumnHeaderIds = ['grouped-repositories-column-name', 'grouped-repositories-column-updated']
-const repoGroups = [
-  {id: 'internal', label: 'Internal', repos: data.filter(repo => repo.type === 'internal')},
-  {id: 'public', label: 'Public', repos: data.filter(repo => repo.type === 'public')},
+const repoGroups: Array<DataTableRowGroup<Repo>> = [
+  {
+    type: 'row-group',
+    groupId: 'internal',
+    label: 'Internal',
+    rows: data.filter(repo => repo.type === 'internal'),
+  },
+  {
+    type: 'row-group',
+    groupId: 'public',
+    label: 'Public',
+    rows: data.filter(repo => repo.type === 'public'),
+  },
+]
+const groupedColumns = [
+  columnHelper.column({
+    header: 'Name',
+    field: 'name',
+    rowHeader: true,
+    width: 'growCollapse',
+  }),
+  columnHelper.column({
+    header: 'Updated',
+    field: 'updatedAt',
+    width: 'auto',
+    renderCell: repo => <RelativeTime date={new Date(repo.updatedAt)} />,
+  }),
 ]
 
 export const WithGroups = () => (
@@ -1727,33 +1755,70 @@ export const WithGroups = () => (
     <Table.Title as="h2" id="repositories-by-visibility">
       Repositories by visibility
     </Table.Title>
-    <Table aria-labelledby="repositories-by-visibility" gridTemplateColumns="minmax(0, 1fr) auto">
-      <Table.Head>
-        <Table.Row>
-          <Table.Header id={groupedColumnHeaderIds[0]}>Name</Table.Header>
-          <Table.Header id={groupedColumnHeaderIds[1]}>Updated</Table.Header>
-        </Table.Row>
-      </Table.Head>
-      {repoGroups.map(group => (
-        <Table.Group
-          key={group.id}
-          id={group.id}
-          label={group.label}
-          rowCount={group.repos.length}
-          colSpan={groupedColumnHeaderIds.length}
-        >
-          {group.repos.map(repo => (
-            <Table.Row key={repo.id}>
-              <Table.Cell scope="row" headers={groupedColumnHeaderIds[0]}>
-                {repo.name}
-              </Table.Cell>
-              <Table.Cell headers={groupedColumnHeaderIds[1]}>
-                <RelativeTime date={new Date(repo.updatedAt)} />
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Group>
-      ))}
-    </Table>
+    <DataTable aria-labelledby="repositories-by-visibility" data={repoGroups} columns={groupedColumns} />
   </Table.Container>
 )
+
+const sortableGroupedColumns = [
+  columnHelper.column({
+    header: 'Name',
+    field: 'name',
+    rowHeader: true,
+    sortBy: true,
+    width: 'growCollapse',
+  }),
+  groupedColumns[1],
+]
+
+export const WithSortableGroups = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="sortable-repositories-by-visibility">
+      Sortable repositories by visibility
+    </Table.Title>
+    <DataTable
+      aria-labelledby="sortable-repositories-by-visibility"
+      data={repoGroups}
+      columns={sortableGroupedColumns}
+    />
+  </Table.Container>
+)
+
+export const WithComposedGroups = () => {
+  const groupedColumnHeaderIds = ['grouped-repositories-column-name', 'grouped-repositories-column-updated']
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="composed-repositories-by-visibility">
+        Repositories by visibility
+      </Table.Title>
+      <Table aria-labelledby="composed-repositories-by-visibility" gridTemplateColumns="minmax(0, 1fr) auto">
+        <Table.Head>
+          <Table.Row>
+            <Table.Header id={groupedColumnHeaderIds[0]}>Name</Table.Header>
+            <Table.Header id={groupedColumnHeaderIds[1]}>Updated</Table.Header>
+          </Table.Row>
+        </Table.Head>
+        {repoGroups.map(group => (
+          <Table.Group
+            key={group.groupId}
+            id={group.groupId}
+            label={group.label}
+            rowCount={group.rows.length}
+            colSpan={groupedColumnHeaderIds.length}
+          >
+            {group.rows.map(repo => (
+              <Table.Row key={repo.id}>
+                <Table.Cell scope="row" headers={groupedColumnHeaderIds[0]}>
+                  {repo.name}
+                </Table.Cell>
+                <Table.Cell headers={groupedColumnHeaderIds[1]}>
+                  <RelativeTime date={new Date(repo.updatedAt)} />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Group>
+        ))}
+      </Table>
+    </Table.Container>
+  )
+}

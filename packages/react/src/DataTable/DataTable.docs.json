@@ -45,6 +45,12 @@
     },
     {
       "id": "experimental-components-datatable-features--with-groups"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-sortable-groups"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-composed-groups"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -61,8 +67,8 @@
     },
     {
       "name": "data",
-      "type": "Array<Data>",
-      "description": "Provide a collection of the rows which will be rendered inside of the table"
+      "type": "Array<Data> | Array<DataTableRowGroup<Data>>",
+      "description": "Provide either a collection of rows or a collection of row groups shaped as `{type: 'row-group', groupId, label, rows, 'aria-label'?}`. Row groups render through `Table.Group`; DataTable automatically associates each member cell with its group, row, and column headers. Consumers provide each group's visible `label` and may provide `aria-label` to localize the generated accessible name. Ungrouped tables continue to use native `scope` associations without explicit header ID references."
     },
     {
       "name": "columns",

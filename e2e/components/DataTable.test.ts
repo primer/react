@@ -2,7 +2,12 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories = [
+const stories: ReadonlyArray<{
+  title: string
+  id: string
+  aat?: boolean
+  vrt?: boolean
+}> = [
   {
     title: 'Default',
     id: 'experimental-components-datatable--default',
@@ -50,33 +55,55 @@ const stories = [
   {
     title: 'With Groups',
     id: 'experimental-components-datatable-features--with-groups',
+    aat: true,
   },
-] as const
+  {
+    title: 'With Sortable Groups',
+    id: 'experimental-components-datatable-features--with-sortable-groups',
+    aat: true,
+    vrt: false,
+  },
+]
 
 test.describe('DataTable', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test('default @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
+          if (story.vrt !== false) {
+            test('default @vrt', async ({page}) => {
+              await visit(page, {
+                id: story.id,
+                globals: {
+                  colorScheme: theme,
+                },
+              })
 
-            // Default state
-            expect(
-              await page.screenshot({
-                mask: await page
-                  .locator('td', {
-                    has: page.locator('relative-time'),
-                  })
-                  .all(),
-              }),
-            ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
-          })
+              // Default state
+              expect(
+                await page.screenshot({
+                  mask: await page
+                    .locator('td', {
+                      has: page.locator('relative-time'),
+                    })
+                    .all(),
+                }),
+              ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
+            })
+          }
+
+          if (story.aat) {
+            test('axe @aat', async ({page}) => {
+              await visit(page, {
+                id: story.id,
+                globals: {
+                  colorScheme: theme,
+                },
+              })
+
+              await expect(page).toHaveNoViolations()
+            })
+          }
         })
       }
     })

@@ -72,5 +72,5 @@ export type {
 export type {TableGroupProps} from './TableGroup'
 export {createColumnHelper} from './column'
 export type {Column, CellAlignment, ColumnWidth} from './column'
-export type {UniqueRow} from './row'
+export type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
 export type {ObjectPaths} from './utils'
