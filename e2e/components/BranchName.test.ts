@@ -14,9 +14,26 @@ const stories = [
     focus: false,
   },
   {
+    // Note: the story was renamed to "With Leading Visual" but we keep the
+    // snapshot title as "With A Branch Icon" so the VRT diff stays usable.
     title: 'With A Branch Icon',
-    id: 'components-branchname-features--with-branch-icon',
+    id: 'components-branchname-features--with-leading-visual',
     focus: false,
+  },
+  {
+    title: 'Link Without Href',
+    id: 'components-branchname-features--link-without-href',
+    focus: true,
+  },
+  {
+    title: 'No Props',
+    id: 'components-branchname-features--no-props',
+    focus: false,
+  },
+  {
+    title: 'With Description',
+    id: 'components-branchname-features--with-description',
+    focus: true,
   },
   {
     title: 'With Trailing Action',
@@ -26,6 +43,11 @@ const stories = [
   {
     title: 'With Trailing Action Menu',
     id: 'components-branchname-features--with-trailing-action-menu',
+    focus: false,
+  },
+  {
+    title: 'Kitchen Sink',
+    id: 'components-branchname-features--kitchen-sink',
     focus: false,
   },
 ] as const
