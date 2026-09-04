@@ -161,17 +161,6 @@ export function useTable<Data extends UniqueRow>({
           ? strategies[column.sortBy]
           : column.sortBy
 
-    if (isGroupedData(currentRowOrder)) {
-      return currentRowOrder.map(group => {
-        return {
-          ...group,
-          rows: sortData(group.rows),
-        }
-      })
-    }
-
-    return sortData(currentRowOrder)
-
     function sortData(rows: Array<Data>) {
       return rows.slice().sort((a, b) => {
         if (column.field === undefined) {
@@ -213,28 +202,17 @@ export function useTable<Data extends UniqueRow>({
         return 0
       })
     }
-  }
 
-  const grouped = isGroupedData(rowOrder)
-  const rowGroups = grouped
-    ? rowOrder.map(group => {
+    if (isGroupedData(currentRowOrder)) {
+      return currentRowOrder.map(group => {
         return {
-          id: group.groupId,
-          label: group.label,
-          rows: group.rows.map(createRow),
-          'aria-label': group['aria-label'],
+          ...group,
+          rows: sortData(group.rows),
         }
       })
-    : null
+    }
 
-  return {
-    headers,
-    rows: grouped ? [] : rowOrder.map(createRow),
-    rowGroups,
-    actions: {
-      sortBy,
-    },
-    gridTemplateColumns,
+    return sortData(currentRowOrder)
   }
 
   function createRow(row: Data): Row<Data> {
@@ -260,6 +238,28 @@ export function useTable<Data extends UniqueRow>({
         })
       },
     }
+  }
+
+  const grouped = isGroupedData(rowOrder)
+  const rowGroups = grouped
+    ? rowOrder.map(group => {
+        return {
+          id: group.groupId,
+          label: group.label,
+          rows: group.rows.map(createRow),
+          'aria-label': group['aria-label'],
+        }
+      })
+    : null
+
+  return {
+    headers,
+    rows: grouped ? [] : rowOrder.map(createRow),
+    rowGroups,
+    actions: {
+      sortBy,
+    },
+    gridTemplateColumns,
   }
 }
 

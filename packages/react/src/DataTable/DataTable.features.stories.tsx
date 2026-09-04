@@ -14,21 +14,25 @@ import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {Blankslate} from '../Blankslate'
 import {Button, IconButton} from '../Button'
-import {DataTable, Table} from '../DataTable'
+import {DataTable, type DataTableProps, Table} from '../DataTable'
 import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
-import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
+import type {DataTableRowGroup, UniqueRow} from './row'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 import classes from './DataTable.features.stories.module.css'
 
+function DataTableStoryComponent(props: DataTableProps<UniqueRow>) {
+  return <DataTable {...props} />
+}
+
 export default {
   title: 'Experimental/Components/DataTable/Features',
-  component: DataTable<DataTableData<UniqueRow>>,
-} as Meta<typeof DataTable<DataTableData<UniqueRow>>>
+  component: DataTableStoryComponent,
+} as Meta<typeof DataTableStoryComponent>
 
 const now = Date.now()
 const Second = 1000

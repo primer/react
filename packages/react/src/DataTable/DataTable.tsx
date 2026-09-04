@@ -1,4 +1,4 @@
-import {useId, type ReactNode} from 'react'
+import {useId, type ReactElement, type ReactNode} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -91,7 +91,16 @@ type DataFromInput<Input extends DataTableData<UniqueRow>> =
         : never
     : never
 
-function DataTable<Input extends DataTableData<UniqueRow>>({
+type InferredDataTableProps<Input extends DataTableData<UniqueRow>> = DataTableBaseProps<DataFromInput<Input>> & {
+  data: Input & DataTableData<DataFromInput<Input>>
+}
+
+interface DataTableComponent {
+  <Data extends UniqueRow>(props: DataTableProps<Data>): ReactElement
+  <Input extends DataTableData<UniqueRow>>(props: InferredDataTableProps<Input>): ReactElement
+}
+
+function DataTableImplementation<Data extends UniqueRow>({
   'aria-labelledby': labelledby,
   'aria-describedby': describedby,
   cellPadding,
@@ -102,9 +111,7 @@ function DataTable<Input extends DataTableData<UniqueRow>>({
   externalSorting,
   getRowId = defaultGetRowId,
   onToggleSort,
-}: DataTableBaseProps<DataFromInput<Input>> & {
-  data: Input & DataTableData<DataFromInput<Input>>
-}) {
+}: DataTableProps<Data>) {
   const tableId = useId()
   const {headers, rows, rowGroups, actions, gridTemplateColumns} = useTable({
     data,
@@ -204,5 +211,7 @@ function DataTable<Input extends DataTableData<UniqueRow>>({
     </Table>
   )
 }
+
+const DataTable = DataTableImplementation as DataTableComponent
 
 export {DataTable}

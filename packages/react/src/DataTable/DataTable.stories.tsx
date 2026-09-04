@@ -6,14 +6,18 @@ import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import type {CellAlignment} from './column'
-import type {DataTableData, UniqueRow} from './row'
+import type {UniqueRow} from './row'
 import type {ColWidthArgTypes} from './storyHelpers'
 import {getColumnWidthArgTypes} from './storyHelpers'
 
+function DataTableStoryComponent(props: DataTableProps<UniqueRow>) {
+  return <DataTable {...props} />
+}
+
 export default {
   title: 'Experimental/Components/DataTable',
-  component: DataTable<DataTableData<UniqueRow>>,
-} as Meta<typeof DataTable<DataTableData<UniqueRow>>>
+  component: DataTableStoryComponent,
+} as Meta<typeof DataTableStoryComponent>
 
 const now = Date.now()
 const Second = 1000

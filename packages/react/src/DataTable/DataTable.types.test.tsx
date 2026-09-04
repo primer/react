@@ -32,6 +32,10 @@ export function shouldAcceptGroupedDataTableProps() {
   return <DataTable {...props} />
 }
 
+export function shouldAcceptExplicitRowType() {
+  return <DataTable<Repository> data={groups} columns={columns} />
+}
+
 export function shouldInferRowTypeFromInlineGroups() {
   return (
     <DataTable
