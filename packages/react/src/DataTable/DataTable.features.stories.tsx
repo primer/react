@@ -1759,6 +1759,30 @@ export const WithGroups = () => (
   </Table.Container>
 )
 
+const sortableGroupedColumns = [
+  columnHelper.column({
+    header: 'Name',
+    field: 'name',
+    rowHeader: true,
+    sortBy: true,
+    width: 'growCollapse',
+  }),
+  groupedColumns[1],
+]
+
+export const WithSortableGroups = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="sortable-repositories-by-visibility">
+      Sortable repositories by visibility
+    </Table.Title>
+    <DataTable
+      aria-labelledby="sortable-repositories-by-visibility"
+      data={repoGroups}
+      columns={sortableGroupedColumns}
+    />
+  </Table.Container>
+)
+
 export const WithComposedGroups = () => {
   const groupedColumnHeaderIds = ['grouped-repositories-column-name', 'grouped-repositories-column-updated']
 

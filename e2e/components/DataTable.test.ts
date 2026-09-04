@@ -6,6 +6,7 @@ const stories: ReadonlyArray<{
   title: string
   id: string
   aat?: boolean
+  vrt?: boolean
 }> = [
   {
     title: 'Default',
@@ -56,6 +57,12 @@ const stories: ReadonlyArray<{
     id: 'experimental-components-datatable-features--with-groups',
     aat: true,
   },
+  {
+    title: 'With Sortable Groups',
+    id: 'experimental-components-datatable-features--with-sortable-groups',
+    aat: true,
+    vrt: false,
+  },
 ]
 
 test.describe('DataTable', () => {
@@ -63,25 +70,27 @@ test.describe('DataTable', () => {
     test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test('default @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
+          if (story.vrt !== false) {
+            test('default @vrt', async ({page}) => {
+              await visit(page, {
+                id: story.id,
+                globals: {
+                  colorScheme: theme,
+                },
+              })
 
-            // Default state
-            expect(
-              await page.screenshot({
-                mask: await page
-                  .locator('td', {
-                    has: page.locator('relative-time'),
-                  })
-                  .all(),
-              }),
-            ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
-          })
+              // Default state
+              expect(
+                await page.screenshot({
+                  mask: await page
+                    .locator('td', {
+                      has: page.locator('relative-time'),
+                    })
+                    .all(),
+                }),
+              ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
+            })
+          }
 
           if (story.aat) {
             test('axe @aat', async ({page}) => {

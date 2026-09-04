@@ -1,7 +1,9 @@
 import {render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {act} from 'react'
+import {hydrateRoot, type Root} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {DataTable} from '../DataTable'
 import type {Column} from '../column'
 import type {DataTableRowGroup} from '../row'
@@ -86,10 +88,15 @@ describe('DataTable grouping', () => {
       },
     ]
 
-    render(<DataTable data={data} columns={columns} />)
+    const {container} = render(<DataTable data={data} columns={columns} />)
 
     expect(screen.getByRole('columnheader', {name: 'Administrateurs, aucune ligne'})).toHaveAttribute('colspan', '2')
     expect(screen.getAllByRole('row')).toHaveLength(2)
+    const groupSections = container.querySelectorAll<HTMLTableSectionElement>('tbody[data-group-id="empty"]')
+    expect(groupSections).toHaveLength(2)
+    expect(groupSections[0]).toHaveAttribute('data-component', 'Table.Group')
+    expect(groupSections[1]).toHaveAttribute('data-component', 'Table.Group.Body')
+    expect(groupSections[1].querySelectorAll('tr')).toHaveLength(0)
   })
 
   it('recognizes row groups with additional properties', () => {
@@ -111,7 +118,13 @@ describe('DataTable grouping', () => {
     const user = userEvent.setup()
     render(<DataTable data={groups} columns={columns} />)
 
-    await user.click(screen.getByRole('button', {name: /Repository/}))
+    const sortButton = screen.getByRole('button', {name: 'Repository'})
+    const repositoryHeader = screen.getByRole('columnheader', {name: 'Repository'})
+    expect(repositoryHeader).not.toHaveAttribute('aria-sort')
+    expect(sortButton).toHaveAccessibleDescription('Sort ascending')
+    expectGroupedHeaderAssociations('zeta')
+
+    await user.click(sortButton)
 
     const groupBodies = screen
       .getByRole('table')
@@ -131,6 +144,28 @@ describe('DataTable grouping', () => {
         .getAllByRole('columnheader', {name: /Internal|Public/})
         .map(header => header.closest('tbody')?.getAttribute('data-group-id')),
     ).toEqual(['internal', 'public'])
+    expect(repositoryHeader).toHaveAccessibleName('Repository')
+    expect(repositoryHeader).toHaveAttribute('aria-sort', 'ascending')
+    expect(sortButton).toHaveAccessibleDescription('Sort descending')
+    expectGroupedHeaderAssociations('alpha')
+
+    await user.click(sortButton)
+
+    expect(repositoryHeader).toHaveAccessibleName('Repository')
+    expect(repositoryHeader).toHaveAttribute('aria-sort', 'descending')
+    expect(sortButton).toHaveAccessibleDescription('Sort ascending')
+    expectGroupedHeaderAssociations('zeta')
+
+    function expectGroupedHeaderAssociations(rowHeaderName: string) {
+      const columnHeaders = screen.getAllByRole('columnheader').filter(header => header.getAttribute('scope') === 'col')
+      const groupHeader = screen.getByRole('columnheader', {name: 'Internal, 2 rows'})
+      const rowHeader = screen.getByRole('rowheader', {name: rowHeaderName})
+      const row = rowHeader.closest('tr')
+      const cell = within(row as HTMLTableRowElement).getByRole('cell')
+
+      expect(rowHeader).toHaveAttribute('headers', `${groupHeader.id} ${columnHeaders[0].id}`)
+      expect(cell).toHaveAttribute('headers', `${groupHeader.id} ${rowHeader.id} ${columnHeaders[1].id}`)
+    }
   })
 
   it('preserves grouped row order when sorting is external', async () => {
@@ -197,16 +232,75 @@ describe('DataTable grouping', () => {
     )
   })
 
-  it('generates non-colliding header IDs across tables during server rendering', () => {
-    const markup = renderToString(
+  it('preserves complete, non-colliding header associations through server rendering and hydration', async () => {
+    const tables = (
       <>
         <DataTable data={groups} columns={columns} />
         <DataTable data={groups} columns={columns} />
-      </>,
+      </>
     )
-    const ids = Array.from(markup.matchAll(/\sid="([^"]+)"/g), match => match[1])
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(tables)
+    document.body.appendChild(container)
+    const recoverableErrors: unknown[] = []
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    let root: Root | undefined
 
-    expect(ids.length).toBeGreaterThan(0)
-    expect(new Set(ids).size).toBe(ids.length)
+    try {
+      const serverAssociations = getAssociationGraph(container)
+      expectCompleteAssociationGraph(container)
+
+      await act(async () => {
+        root = hydrateRoot(container, tables, {
+          onRecoverableError: error => recoverableErrors.push(error),
+        })
+      })
+
+      expect(recoverableErrors).toEqual([])
+      expect(consoleErrorSpy).not.toHaveBeenCalled()
+      expect(getAssociationGraph(container)).toEqual(serverAssociations)
+      expectCompleteAssociationGraph(container)
+    } finally {
+      consoleErrorSpy.mockRestore()
+      await act(async () => root?.unmount())
+      container.remove()
+    }
   })
 })
+
+function getAssociationGraph(container: HTMLElement) {
+  return Array.from(container.querySelectorAll<HTMLElement>('[id], [headers]')).map(element => ({
+    id: element.id,
+    headers: element.getAttribute('headers'),
+  }))
+}
+
+function expectCompleteAssociationGraph(container: HTMLElement) {
+  const allIds = Array.from(container.querySelectorAll<HTMLElement>('[id]'), element => element.id)
+  expect(new Set(allIds).size).toBe(allIds.length)
+
+  for (const table of container.querySelectorAll('table')) {
+    const columnHeaders = table.querySelectorAll<HTMLElement>('thead th[scope="col"]')
+
+    for (const groupBody of table.querySelectorAll<HTMLElement>('tbody[data-component="Table.Group.Body"]')) {
+      const groupId = groupBody.getAttribute('data-group-id')
+      const groupHeader = table.querySelector<HTMLElement>(
+        `tbody[data-component="Table.Group"][data-group-id="${groupId}"] th[scope="colgroup"]`,
+      )
+      expect(groupHeader?.id).toBeTruthy()
+
+      for (const row of groupBody.querySelectorAll('tr')) {
+        const rowHeaders = Array.from(row.querySelectorAll<HTMLElement>('th[scope="row"]'))
+
+        for (const [index, cell] of Array.from(row.children).entries()) {
+          const expectedHeaders =
+            cell.getAttribute('scope') === 'row'
+              ? [groupHeader?.id, columnHeaders[index].id]
+              : [groupHeader?.id, ...rowHeaders.map(header => header.id), columnHeaders[index].id]
+          expect(cell.getAttribute('headers')?.split(' ')).toEqual(expectedHeaders)
+          expect(expectedHeaders.every(id => id && allIds.includes(id))).toBe(true)
+        }
+      }
+    }
+  }
+}

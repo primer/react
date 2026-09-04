@@ -275,7 +275,7 @@ describe('DataTable', () => {
     }
   })
 
-  it('should associate cells with their row and column headers', () => {
+  it('should rely on native scope associations for ungrouped cells', () => {
     const columns: Array<Column<{id: number; name: string; visibility: string}>> = [
       {
         header: 'Name',
@@ -292,11 +292,11 @@ describe('DataTable', () => {
     const columnHeaders = screen.getAllByRole('columnheader')
     const rowHeader = screen.getByRole('rowheader', {name: 'one'})
 
-    expect(rowHeader).toHaveAttribute('headers', columnHeaders[0].id)
-    expect(screen.getByRole('cell', {name: 'public'})).toHaveAttribute(
-      'headers',
-      `${rowHeader.id} ${columnHeaders[1].id}`,
-    )
+    expect(columnHeaders[0]).not.toHaveAttribute('id')
+    expect(columnHeaders[1]).not.toHaveAttribute('id')
+    expect(rowHeader).not.toHaveAttribute('id')
+    expect(rowHeader).not.toHaveAttribute('headers')
+    expect(screen.getByRole('cell', {name: 'public'})).not.toHaveAttribute('headers')
   })
 
   describe('sorting', () => {

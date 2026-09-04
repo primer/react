@@ -121,24 +121,25 @@ function DataTableImplementation<Data extends UniqueRow>({
     getRowId,
     externalSorting,
   })
-  const columnHeaderIds = headers.map((_, index) => `${tableId}-column-${index}`)
-  const allRows = rowGroups === null ? rows : rowGroups.flatMap(group => group.rows)
+  const grouped = rowGroups !== null
+  const columnHeaderIds = grouped ? headers.map((_, index) => `${tableId}-column-${index}`) : []
+  const allRows = rowGroups?.flatMap(group => group.rows) ?? []
   const rowIndexes = new Map(allRows.map((row, index) => [row, index]))
 
   const renderRow = (row: (typeof rows)[number]) => {
     const cells = row.getCells()
     const rowIndex = rowIndexes.get(row)
-    if (rowIndex === undefined) {
+    if (grouped && rowIndex === undefined) {
       throw new Error(`Unable to find row index for row: ${row.id}`)
     }
-    const rowHeaderIds = cells.flatMap((cell, index) =>
-      cell.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : [],
-    )
+    const rowHeaderIds = grouped
+      ? cells.flatMap((cell, index) => (cell.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : []))
+      : []
 
     return (
       <TableRow key={row.id}>
         {cells.map((cell, index) => {
-          const rowHeaderId = cell.rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined
+          const rowHeaderId = grouped && cell.rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined
           const cellHeaderIds = cell.rowHeader ? [columnHeaderIds[index]] : [...rowHeaderIds, columnHeaderIds[index]]
 
           return (
@@ -147,7 +148,7 @@ function DataTableImplementation<Data extends UniqueRow>({
               id={rowHeaderId}
               scope={cell.rowHeader ? 'row' : undefined}
               align={cell.column.align}
-              headers={cellHeaderIds.join(' ')}
+              headers={grouped ? cellHeaderIds.join(' ') : undefined}
             >
               {cell.column.renderCell ? cell.column.renderCell(row.getValue()) : (cell.getValue() as ReactNode)}
             </TableCell>
@@ -171,7 +172,7 @@ function DataTableImplementation<Data extends UniqueRow>({
               return (
                 <TableSortHeader
                   key={header.id}
-                  id={columnHeaderIds[index]}
+                  id={grouped ? columnHeaderIds[index] : undefined}
                   align={header.column.align}
                   direction={header.getSortDirection()}
                   onToggleSort={() => {
@@ -186,7 +187,11 @@ function DataTableImplementation<Data extends UniqueRow>({
               )
             }
             return (
-              <TableHeader key={header.id} id={columnHeaderIds[index]} align={header.column.align}>
+              <TableHeader
+                key={header.id}
+                id={grouped ? columnHeaderIds[index] : undefined}
+                align={header.column.align}
+              >
                 {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
               </TableHeader>
             )
