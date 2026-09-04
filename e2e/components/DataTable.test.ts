@@ -50,6 +50,7 @@ const stories = [
   {
     title: 'With Groups',
     id: 'experimental-components-datatable-features--with-groups',
+    aat: true,
   },
 ] as const
 
@@ -77,6 +78,19 @@ test.describe('DataTable', () => {
               }),
             ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
           })
+
+          if ('aat' in story) {
+            test('axe @aat', async ({page}) => {
+              await visit(page, {
+                id: story.id,
+                globals: {
+                  colorScheme: theme,
+                },
+              })
+
+              await expect(page).toHaveNoViolations()
+            })
+          }
         })
       }
     })

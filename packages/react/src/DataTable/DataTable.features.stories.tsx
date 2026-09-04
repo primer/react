@@ -21,6 +21,7 @@ import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
+import type {DataTableRowGroup} from './row'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 import classes from './DataTable.features.stories.module.css'
 
@@ -1716,10 +1717,33 @@ export const WithNetworkError = () => {
   )
 }
 
-const groupedColumnHeaderIds = ['grouped-repositories-column-name', 'grouped-repositories-column-updated']
-const repoGroups = [
-  {id: 'internal', label: 'Internal', repos: data.filter(repo => repo.type === 'internal')},
-  {id: 'public', label: 'Public', repos: data.filter(repo => repo.type === 'public')},
+const repoGroups: Array<DataTableRowGroup<Repo>> = [
+  {
+    type: 'row-group',
+    groupId: 'internal',
+    label: 'Internal',
+    rows: data.filter(repo => repo.type === 'internal'),
+  },
+  {
+    type: 'row-group',
+    groupId: 'public',
+    label: 'Public',
+    rows: data.filter(repo => repo.type === 'public'),
+  },
+]
+const groupedColumns = [
+  columnHelper.column({
+    header: 'Name',
+    field: 'name',
+    rowHeader: true,
+    width: 'growCollapse',
+  }),
+  columnHelper.column({
+    header: 'Updated',
+    field: 'updatedAt',
+    width: 'auto',
+    renderCell: repo => <RelativeTime date={new Date(repo.updatedAt)} />,
+  }),
 ]
 
 export const WithGroups = () => (
@@ -1727,33 +1751,46 @@ export const WithGroups = () => (
     <Table.Title as="h2" id="repositories-by-visibility">
       Repositories by visibility
     </Table.Title>
-    <Table aria-labelledby="repositories-by-visibility" gridTemplateColumns="minmax(0, 1fr) auto">
-      <Table.Head>
-        <Table.Row>
-          <Table.Header id={groupedColumnHeaderIds[0]}>Name</Table.Header>
-          <Table.Header id={groupedColumnHeaderIds[1]}>Updated</Table.Header>
-        </Table.Row>
-      </Table.Head>
-      {repoGroups.map(group => (
-        <Table.Group
-          key={group.id}
-          id={group.id}
-          label={group.label}
-          rowCount={group.repos.length}
-          colSpan={groupedColumnHeaderIds.length}
-        >
-          {group.repos.map(repo => (
-            <Table.Row key={repo.id}>
-              <Table.Cell scope="row" headers={groupedColumnHeaderIds[0]}>
-                {repo.name}
-              </Table.Cell>
-              <Table.Cell headers={groupedColumnHeaderIds[1]}>
-                <RelativeTime date={new Date(repo.updatedAt)} />
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Group>
-      ))}
-    </Table>
+    <DataTable aria-labelledby="repositories-by-visibility" data={repoGroups} columns={groupedColumns} />
   </Table.Container>
 )
+
+export const WithComposedGroups = () => {
+  const groupedColumnHeaderIds = ['grouped-repositories-column-name', 'grouped-repositories-column-updated']
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="composed-repositories-by-visibility">
+        Repositories by visibility
+      </Table.Title>
+      <Table aria-labelledby="composed-repositories-by-visibility" gridTemplateColumns="minmax(0, 1fr) auto">
+        <Table.Head>
+          <Table.Row>
+            <Table.Header id={groupedColumnHeaderIds[0]}>Name</Table.Header>
+            <Table.Header id={groupedColumnHeaderIds[1]}>Updated</Table.Header>
+          </Table.Row>
+        </Table.Head>
+        {repoGroups.map(group => (
+          <Table.Group
+            key={group.groupId}
+            id={group.groupId}
+            label={group.label}
+            rowCount={group.rows.length}
+            colSpan={groupedColumnHeaderIds.length}
+          >
+            {group.rows.map(repo => (
+              <Table.Row key={repo.id}>
+                <Table.Cell scope="row" headers={groupedColumnHeaderIds[0]}>
+                  {repo.name}
+                </Table.Cell>
+                <Table.Cell headers={groupedColumnHeaderIds[1]}>
+                  <RelativeTime date={new Date(repo.updatedAt)} />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Group>
+        ))}
+      </Table>
+    </Table.Container>
+  )
+}
