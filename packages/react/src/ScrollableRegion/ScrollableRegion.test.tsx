@@ -7,10 +7,52 @@ import classes from './ScrollableRegion.module.css'
 
 const originalResizeObserver = window.ResizeObserver
 
+interface ElementDimensions {
+  scrollHeight: number
+  clientHeight: number
+  scrollWidth: number
+  clientWidth: number
+}
+
 describe('ScrollableRegion', () => {
   implementsClassName(ScrollableRegion, classes.ScrollableRegion)
 
   let mockResizeCallback: (entries: Array<ResizeObserverEntry>) => void
+
+  function triggerResize(target: HTMLElement, dimensions: Partial<ElementDimensions> = {}) {
+    const {scrollHeight = 100, clientHeight = 100, scrollWidth = 100, clientWidth = 100} = dimensions
+
+    Object.defineProperties(target, {
+      scrollHeight: {configurable: true, value: scrollHeight},
+      clientHeight: {configurable: true, value: clientHeight},
+      scrollWidth: {configurable: true, value: scrollWidth},
+      clientWidth: {configurable: true, value: clientWidth},
+    })
+
+    act(() => {
+      mockResizeCallback([
+        {
+          target,
+          borderBoxSize: [],
+          contentBoxSize: [],
+          contentRect: {
+            width: 0,
+            height: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            x: 0,
+            y: 0,
+            toJSON() {
+              return {}
+            },
+          },
+          devicePixelContentBoxSize: [],
+        },
+      ])
+    })
+  }
 
   beforeEach(() => {
     window.ResizeObserver = class ResizeObserver {
@@ -40,64 +82,59 @@ describe('ScrollableRegion', () => {
     expect(screen.getByTestId('container')).toHaveAttribute('data-component', 'ScrollableRegion')
   })
 
-  test('does not render with region props by default', () => {
+  test('does not render with region props when overflow is absent', () => {
     render(
       <ScrollableRegion aria-label="Example label" data-testid="container">
         Example content
       </ScrollableRegion>,
     )
 
-    expect(screen.getByTestId('container')).not.toHaveAttribute('role')
-    expect(screen.getByTestId('container')).not.toHaveAttribute('tabindex')
-    expect(screen.getByTestId('container')).not.toHaveAttribute('aria-labelledby')
-    expect(screen.getByTestId('container')).not.toHaveAttribute('aria-label')
+    const container = screen.getByTestId('container')
+    triggerResize(container)
 
-    expect(screen.getByTestId('container')).toHaveStyle('overflow: auto')
-    expect(screen.getByTestId('container')).toHaveStyle('position: relative')
+    expect(container).not.toHaveAttribute('role')
+    expect(container).not.toHaveAttribute('tabindex')
+    expect(container).not.toHaveAttribute('aria-labelledby')
+    expect(container).not.toHaveAttribute('aria-label')
+
+    expect(container).toHaveStyle('overflow: auto')
+    expect(container).toHaveStyle('position: relative')
   })
 
-  test('does render with region props when overflow is present', () => {
+  test.each([
+    {direction: 'vertical', dimensions: {scrollHeight: 500}},
+    {direction: 'horizontal', dimensions: {scrollWidth: 500}},
+  ])('renders with region props when $direction overflow appears', ({dimensions}) => {
     render(
       <ScrollableRegion aria-label="Example label" data-testid="container">
         Example content
       </ScrollableRegion>,
     )
 
-    act(() => {
-      // Mock a resize occurring when the scroll height is greater than the
-      // client height
-      const target = document.createElement('div')
-      mockResizeCallback([
-        {
-          target: {
-            ...target,
-            scrollHeight: 500,
-            clientHeight: 100,
-          },
-          borderBoxSize: [],
-          contentBoxSize: [],
-          contentRect: {
-            width: 0,
-            height: 0,
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-            x: 0,
-            y: 0,
-            toJSON() {
-              return {}
-            },
-          },
-          devicePixelContentBoxSize: [],
-        },
-      ])
-    })
+    const container = screen.getByTestId('container')
+    triggerResize(container, dimensions)
 
-    expect(screen.getByLabelText('Example label')).toBeVisible()
+    expect(container).toBeVisible()
+    expect(container).toHaveAttribute('role', 'region')
+    expect(container).toHaveAttribute('tabindex', '0')
+    expect(container).toHaveAttribute('aria-label', 'Example label')
+  })
 
-    expect(screen.getByLabelText('Example label')).toHaveAttribute('role', 'region')
-    expect(screen.getByLabelText('Example label')).toHaveAttribute('tabindex', '0')
-    expect(screen.getByLabelText('Example label')).toHaveAttribute('aria-label')
+  test('removes region props when overflow disappears', () => {
+    render(
+      <ScrollableRegion aria-label="Example label" data-testid="container">
+        Example content
+      </ScrollableRegion>,
+    )
+
+    const container = screen.getByTestId('container')
+    triggerResize(container, {scrollWidth: 500})
+    expect(container).toHaveAttribute('role', 'region')
+    expect(container).toHaveAttribute('tabindex', '0')
+
+    triggerResize(container)
+    expect(container).not.toHaveAttribute('role')
+    expect(container).not.toHaveAttribute('tabindex')
+    expect(container).not.toHaveAttribute('aria-label')
   })
 })
