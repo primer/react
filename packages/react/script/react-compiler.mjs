@@ -58,6 +58,7 @@ const unsupportedPatterns = [
   'src/internal/hooks/useDevOnlyEffect.ts',
   'src/stories/deprecated/ActionList.stories.tsx',
   'src/utils/StressTest.tsx',
+  'src/utils/react-compiler-runtime.ts',
   'src/utils/use-force-update.ts',
 ]
 
