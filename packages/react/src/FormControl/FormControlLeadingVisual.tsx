@@ -21,6 +21,7 @@ const FormControlLeadingVisual: FCWithSlotMarker<React.PropsWithChildren<{style?
   )
 }
 
+FormControlLeadingVisual.displayName = 'FormControl.LeadingVisual'
 FormControlLeadingVisual.__SLOT__ = Symbol('FormControl.LeadingVisual')
 
 export default FormControlLeadingVisual
