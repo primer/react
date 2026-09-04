@@ -202,20 +202,20 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   )
 })
 
-type HeadingElement = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+type TitleElement = 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 
-export type BannerTitleProps<As extends HeadingElement> = {
+export type BannerTitleProps<As extends TitleElement = 'h2'> = {
   as?: As
   className?: string
-} & React.ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
+} & React.ComponentPropsWithoutRef<As>
 
-export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
-  const {as: Heading = 'h2', className, children, id, ...rest} = props
+export function BannerTitle<As extends TitleElement = 'h2'>(props: BannerTitleProps<As>) {
+  const {as: Element = 'h2', className, children, id, ...rest} = props
   const context = React.useContext(BannerContext)
   const titleId = id ?? context?.titleId
 
   return (
-    <Heading
+    <Element
       {...rest}
       id={titleId}
       className={clsx(className, classes.BannerTitle)}
@@ -223,7 +223,7 @@ export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<A
       data-banner-title=""
     >
       {children}
-    </Heading>
+    </Element>
   )
 }
 
