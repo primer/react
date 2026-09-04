@@ -14,7 +14,6 @@ import type {IconProps} from '@primer/octicons-react'
 import {UnderlineItemList, UnderlineWrapper, UnderlineItem} from '../../internal/components/UnderlineTabbedInterface'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
-import {useFeatureFlag} from '../../FeatureFlags'
 import {warning} from '../../utils/warning'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
@@ -133,18 +132,12 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   children,
   loadingCounters,
   className,
-  value: valueProp,
-  defaultValue: defaultValueProp,
-  onChange: onChangeProp,
+  value: controlledValue,
+  defaultValue,
+  onChange,
   activationMode = 'automatic',
   ...props
 }) => {
-  // Feature-flag scaffolding: at graduation, drop these three and use the props directly.
-  const controlledApiEnabled = useFeatureFlag('primer_react_underline_panels_controlled')
-  const controlledValue = controlledApiEnabled ? valueProp : undefined
-  const defaultValue = controlledApiEnabled ? defaultValueProp : undefined
-  const onChange = controlledApiEnabled ? onChangeProp : undefined
-
   const [iconsVisible, setIconsVisible] = useState(true)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
@@ -159,13 +152,13 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 
     const childrenWithProps = Children.map(children, child => {
       if (isValidElement<TabProps & WithValue>(child) && (child.type === Tab || isSlot(child, Tab))) {
-        const value = (controlledApiEnabled ? child.props.value : undefined) ?? `${tabIndex}`
+        const value = child.props.value ?? `${tabIndex}`
         tabIndex++
         return cloneElement(child, {value})
       }
 
       if (isValidElement<PanelProps & WithValue>(child) && (child.type === Panel || isSlot(child, Panel))) {
-        const value = (controlledApiEnabled ? child.props.value : undefined) ?? `${panelIndex}`
+        const value = child.props.value ?? `${panelIndex}`
         panelIndex++
         return cloneElement(child, {value})
       }
@@ -197,7 +190,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
 
     return [tabs, tabPanels, tabsHaveIcons, selectedFromProps, tabValues, panelValues] as const
-  }, [children, controlledApiEnabled])
+  }, [children])
 
   // Hand-rolled rather than `useControllableState` because of the third, back-compat
   // `aria-selected` seed, which is re-synced during render.
