@@ -1,6 +1,6 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import React, {type JSX} from 'react'
+import React, {type JSX, useContext} from 'react'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {Column, CellAlignment} from './column'
@@ -10,6 +10,7 @@ import {useTableLayout} from './useTable'
 import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
+import {TableGroupContext} from './TableGroupContext'
 import classes from './Table.module.css'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
@@ -44,7 +45,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
-  return (
+  const inheritedGroup = useContext(TableGroupContext)
+  const table = (
     // TODO update type to be non-optional in next major release
     // @ts-expect-error this type should be required in the next major version
     <ScrollableRegion
@@ -63,6 +65,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
       />
     </ScrollableRegion>
   )
+
+  return inheritedGroup ? <TableGroupContext.Provider value={undefined}>{table}</TableGroupContext.Provider> : table
 })
 
 // ----------------------------------------------------------------------------
@@ -209,9 +213,12 @@ export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'>
   scope?: 'row'
 }
 
-function TableCell({align, className, children, scope, ...rest}: TableCellProps) {
+function TableCell({align, className, children, scope, headers, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
+
+  const group = useContext(TableGroupContext)
+  const resolvedHeaders = [group?.headerId, headers].filter(Boolean).join(' ') || undefined
 
   return (
     <BaseComponent
@@ -221,6 +228,7 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
       role={role}
       data-cell-align={align}
       data-component="Table.Cell"
+      headers={resolvedHeaders}
     >
       {children}
     </BaseComponent>
