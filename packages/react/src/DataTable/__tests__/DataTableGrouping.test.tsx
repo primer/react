@@ -50,13 +50,6 @@ const groups: Array<DataTableRowGroup<Repository>> = [
 ]
 
 describe('DataTable grouping', () => {
-  it('rejects mixed data at runtime for untyped callers', () => {
-    expect(() =>
-      // @ts-expect-error Simulate JavaScript input that bypasses the public type contract.
-      renderToString(<DataTable data={[groups[0], groups[0].rows[0]]} columns={columns} />),
-    ).toThrow('DataTable `data` must contain either rows or row groups, not both.')
-  })
-
   it('narrows the shared rows model and supports changes between flat, grouped, and empty data', () => {
     const getRowId = (row: Repository) => row.id
     const initialProps: {data: DataTableData<Repository>} = {data: groups}

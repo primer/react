@@ -61,7 +61,6 @@ export function useTable<Data extends UniqueRow>({
   externalSorting,
   getRowId,
 }: TableConfig<Data>): Table<Data> {
-  validateData(data)
   const [rowOrder, setRowOrder] = useState<DataTableData<Data>>(data)
   const [prevData, setPrevData] = useState(data)
   const [prevColumns, setPrevColumns] = useState(columns)
@@ -127,8 +126,12 @@ export function useTable<Data extends UniqueRow>({
   }
 
   function updateRowOrder(rows: DataTableData<Data>, state: ColumnSortState) {
-    // External sorting still needs to adopt replacement data from the consumer.
-    setRowOrder(state && !externalSorting ? getSortedRowOrder(rows, state) : rows)
+    if (externalSorting || state === null) {
+      setRowOrder(rows)
+    } else {
+      const sortedRows = getSortedRowOrder(rows, state)
+      setRowOrder(sortedRows)
+    }
   }
 
   /**
@@ -276,13 +279,6 @@ function isDataTableRowGroup<Data extends UniqueRow>(
 
 function isGroupedData<Data extends UniqueRow>(data: DataTableData<Data>): data is Array<DataTableRowGroup<Data>> {
   return data.length > 0 && data.every(isDataTableRowGroup)
-}
-
-function validateData<Data extends UniqueRow>(data: DataTableData<Data>) {
-  const groupCount = data.filter(isDataTableRowGroup).length
-  if (groupCount > 0 && groupCount !== data.length) {
-    throw new Error('DataTable `data` must contain either rows or row groups, not both.')
-  }
 }
 
 function getInitialSortState<Data extends UniqueRow>(
