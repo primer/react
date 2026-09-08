@@ -11,7 +11,22 @@ on:
     types: [opened, reopened]
   reaction: eyes
 
-permissions: read-all
+permissions:
+  copilot-requests: write
+  # Explicitly list all standard "read-all" scopes
+  actions: read
+  attestations: read
+  checks: read
+  contents: read
+  deployments: read
+  issues: read
+  discussions: read
+  packages: read
+  pages: read
+  pull-requests: read
+  repository-projects: read
+  security-events: read
+  statuses: read
 
 network: defaults
 
