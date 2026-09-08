@@ -25,6 +25,8 @@ import type {DataTableRowGroup, UniqueRow} from './row'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 import classes from './DataTable.features.stories.module.css'
 
+// Storybook's Meta type cannot resolve DataTable's overloads without TS2589.
+// Keep a concrete props signature here without changing consumer type inference.
 function DataTableStoryComponent(props: DataTableProps<UniqueRow>) {
   return <DataTable {...props} />
 }
@@ -1750,15 +1752,6 @@ const groupedColumns = [
   }),
 ]
 
-export const WithGroups = () => (
-  <Table.Container>
-    <Table.Title as="h2" id="repositories-by-visibility">
-      Repositories by visibility
-    </Table.Title>
-    <DataTable aria-labelledby="repositories-by-visibility" data={repoGroups} columns={groupedColumns} />
-  </Table.Container>
-)
-
 const sortableGroupedColumns = [
   columnHelper.column({
     header: 'Name',
@@ -1783,42 +1776,65 @@ export const WithSortableGroups = () => (
   </Table.Container>
 )
 
-export const WithComposedGroups = () => {
-  const groupedColumnHeaderIds = ['grouped-repositories-column-name', 'grouped-repositories-column-updated']
+interface PaginatedRepository {
+  id: number
+  name: string
+  visibility: string
+}
+
+const paginationGroups: Array<DataTableRowGroup<PaginatedRepository>> = [
+  {
+    type: 'row-group',
+    groupId: 'public',
+    label: 'Public',
+    rows: Array.from({length: 12}, (_, index) => ({
+      id: index,
+      name: `public/repository-${index + 1}`,
+      visibility: 'Public',
+    })),
+  },
+  {
+    type: 'row-group',
+    groupId: 'internal',
+    label: 'Internal',
+    rows: Array.from({length: 3}, (_, index) => ({
+      id: index + 12,
+      name: `internal/repository-${index + 1}`,
+      visibility: 'Internal',
+    })),
+  },
+]
+
+export const WithGroups = () => {
+  const titleId = React.useId()
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const pageSize = 10
+  const allRows = paginationGroups.flatMap(group => group.rows)
+  const pageRows = new Set(allRows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(row => row.id))
+  // Page size counts member rows, not headings; retain only this page's groups.
+  const groups = paginationGroups
+    .map(group => ({...group, rows: group.rows.filter(row => pageRows.has(row.id))}))
+    .filter(group => group.rows.length > 0)
 
   return (
     <Table.Container>
-      <Table.Title as="h2" id="composed-repositories-by-visibility">
-        Repositories by visibility
+      <Table.Title as="h2" id={titleId}>
+        Paginated repositories by visibility
       </Table.Title>
-      <Table aria-labelledby="composed-repositories-by-visibility" gridTemplateColumns="minmax(0, 1fr) auto">
-        <Table.Head>
-          <Table.Row>
-            <Table.Header id={groupedColumnHeaderIds[0]}>Name</Table.Header>
-            <Table.Header id={groupedColumnHeaderIds[1]}>Updated</Table.Header>
-          </Table.Row>
-        </Table.Head>
-        {repoGroups.map(group => (
-          <Table.Group
-            key={group.groupId}
-            id={group.groupId}
-            label={group.label}
-            rowCount={group.rows.length}
-            colSpan={groupedColumnHeaderIds.length}
-          >
-            {group.rows.map(repo => (
-              <Table.Row key={repo.id}>
-                <Table.Cell scope="row" headers={groupedColumnHeaderIds[0]}>
-                  {repo.name}
-                </Table.Cell>
-                <Table.Cell headers={groupedColumnHeaderIds[1]}>
-                  <RelativeTime date={new Date(repo.updatedAt)} />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Group>
-        ))}
-      </Table>
+      <DataTable
+        aria-labelledby={titleId}
+        data={groups}
+        columns={[
+          {header: 'Name', field: 'name', rowHeader: true},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
+      />
+      <Table.Pagination
+        aria-label="Pagination for grouped repositories"
+        pageSize={pageSize}
+        totalCount={allRows.length}
+        onChange={({pageIndex}) => setPageIndex(pageIndex)}
+      />
     </Table.Container>
   )
 }

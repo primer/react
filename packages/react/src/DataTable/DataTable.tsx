@@ -113,7 +113,7 @@ function DataTableImplementation<Data extends UniqueRow>({
   onToggleSort,
 }: DataTableProps<Data>) {
   const tableId = useId()
-  const {headers, rows, rowGroups, actions, gridTemplateColumns} = useTable({
+  const table = useTable({
     data,
     columns,
     initialSortColumn,
@@ -121,12 +121,12 @@ function DataTableImplementation<Data extends UniqueRow>({
     getRowId,
     externalSorting,
   })
-  const grouped = rowGroups !== null
+  const {headers, actions, gridTemplateColumns, isGrouped: grouped} = table
   const columnHeaderIds = grouped ? headers.map((_, index) => `${tableId}-column-${index}`) : []
-  const allRows = rowGroups?.flatMap(group => group.rows) ?? []
-  const rowIndexes = new Map(allRows.map((row, index) => [row, index]))
+  const allRows = table.isGrouped ? table.rows.flatMap(group => group.rows) : table.rows
+  const rowIndexes = new Map((grouped ? allRows : []).map((row, index) => [row, index]))
 
-  const renderRow = (row: (typeof rows)[number]) => {
+  const renderRow = (row: (typeof allRows)[number]) => {
     const cells = row.getCells()
     const rowIndex = rowIndexes.get(row)
     if (grouped && rowIndex === undefined) {
@@ -198,21 +198,24 @@ function DataTableImplementation<Data extends UniqueRow>({
           })}
         </TableRow>
       </TableHead>
-      {rowGroups === null ? <TableBody>{rows.map(renderRow)}</TableBody> : null}
-      {rowGroups?.map(group => {
-        return (
-          <TableGroup
-            key={group.id}
-            id={group.id}
-            label={group.label}
-            rowCount={group.rows.length}
-            colSpan={headers.length}
-            aria-label={group['aria-label']}
-          >
-            {group.rows.map(renderRow)}
-          </TableGroup>
-        )
-      })}
+      {!table.isGrouped ? (
+        <TableBody>{table.rows.map(renderRow)}</TableBody>
+      ) : (
+        table.rows.map(group => {
+          return (
+            <TableGroup
+              key={group.id}
+              id={group.id}
+              label={group.label}
+              rowCount={group.rows.length}
+              colSpan={headers.length}
+              aria-label={group['aria-label']}
+            >
+              {group.rows.map(renderRow)}
+            </TableGroup>
+          )
+        })
+      )}
     </Table>
   )
 }

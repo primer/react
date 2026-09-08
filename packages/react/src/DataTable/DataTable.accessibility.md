@@ -3,6 +3,8 @@
 The config and presentational APIs support the same native table semantics while
 assigning different responsibilities to consumers.
 
+## Responsibility summary
+
 | Requirement              | Presentational `Table.Group`                                                        | Config `DataTable`                                                        |
 | ------------------------ | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | Group structure          | Renders sibling header and member `<tbody>` elements                                | Composes `Table.Group` for each group                                     |
@@ -23,3 +25,191 @@ assigning different responsibilities to consumers.
 
 The config API accepts either only rows or only row groups. It does not accept
 rows and groups in the same `data` array.
+
+## Requirements
+
+The HTML below illustrates the semantic contract, not the full rendered markup.
+Classes, icons, and redundant roles are omitted; IDs are illustrative.
+
+### Name the table and preserve native table navigation
+
+Consumers associate the table with a visible title using `aria-labelledby`.
+An optional subtitle may be referenced by `aria-describedby`. These references
+must point to rendered elements. Use the native table structure rather than
+turning the table into an interactive grid.
+
+Ungrouped tables continue to use native column and row `scope` associations.
+Grouping must not add explicit `headers` attributes to the ungrouped path.
+
+```html
+<h2 id="repositories-title">Repositories</h2>
+<table aria-labelledby="repositories-title">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Visibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">primer/react</th>
+      <td>Public</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+### Give each group a native spanning header
+
+Each group consists of two sibling `<tbody>` elements: one for the heading and
+one for its member rows. The heading uses `<th scope="colgroup" colspan="N">`,
+where `N` is the number of rendered columns. An empty group still renders both
+sections, with an empty member `<tbody>`.
+
+Use native `colspan`, not `aria-colspan` as a substitute. The
+[multi-level header investigation](https://github.com/github/accessibility/issues/10885)
+found that this distinction affects NVDA and JAWS cell-by-cell navigation,
+including crossing group boundaries in columns other than the first.
+The same investigation records a VoiceOver limitation even with native
+`colspan`; do not claim identical announcements across screen readers.
+
+### Keep group names concise and localizable
+
+The default accessible name is the label followed by the member count, such as
+`Public, 2 rows` or `Internal, 1 row`. Visually hidden text supplies this name;
+the visible label and count are hidden from the accessibility tree to avoid
+duplication. Consumers can override the name through the group's `aria-label`,
+including for localization.
+
+A group heading is not a button. Selection and expansion actions are not part
+of this contract and must not be included in its accessible name.
+
+```html
+<tbody>
+  <tr>
+    <th id="public-group" scope="colgroup" colspan="2">
+      <span class="visually-hidden">Public, 1 row</span>
+      <span aria-hidden="true"><span>Public</span><span>1</span></span>
+    </th>
+  </tr>
+</tbody>
+```
+
+### Associate grouped cells with group, row, and column headers
+
+Explicit `headers` references must resolve to headers within the same table.
+For grouped tables, `DataTable` generates column and row-header IDs and supplies
+the associations. Consumers identify row-header columns with `rowHeader`.
+
+With direct composition, consumers supply column IDs, row-header IDs, and the
+corresponding `headers` references. `Table.Group` generates its own header ID
+and prepends it to member cells' references. A row header references its group
+and column; a data cell additionally references the row header.
+
+```html
+<table aria-label="Repositories by visibility">
+  <thead>
+    <tr>
+      <th id="name-column" scope="col">Name</th>
+      <th id="visibility-column" scope="col">Visibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="public-group" scope="colgroup" colspan="2">Public, 1 row</th>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th id="react-row" scope="row" headers="public-group name-column">primer/react</th>
+      <td headers="public-group react-row visibility-column">Public</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Nested tables clear the surrounding group context. They must not reference a
+group header from their containing table.
+
+### Separate the column name, sorting state, and next action
+
+A sortable header's accessible name remains the column name, such as `Name`,
+not `Sort by Name`. `aria-sort` on the header communicates the current direction.
+The button's `aria-description` communicates the next action. Sort icons are
+decorative. For an unsorted column, `aria-sort` is omitted.
+
+```html
+<th id="name-column" scope="col" aria-sort="ascending">
+  <button type="button" aria-description="Sort descending">Name</button>
+</th>
+```
+
+Client-side sorting preserves group order and sorts member rows within each
+group. Header associations must remain valid after either sort direction or
+replacement data. With `externalSorting`, consumers own ordering; replacement
+data must be displayed without being re-sorted locally.
+
+### Preserve the group context across pagination
+
+Pagination is consumer-owned. `Table.Pagination` reports the selected page;
+`DataTable` renders the supplied data and does not split groups or slice rows.
+Consumers supply the current page's member rows, grouped for display.
+
+- Page size and pagination totals count member rows, not group headings.
+- If a group crosses a page boundary, repeat its heading on the next page.
+- The generated group count is the number of supplied member rows on that page,
+  not the group's total across all pages.
+- Omit groups without members on the page unless an empty group is intentionally
+  part of the UI. Explicit empty groups remain supported.
+- If an `aria-label` includes a localized count, the consumer updates that count
+  to match the supplied page.
+- To sort across the entire result set, sort before pagination and use
+  `externalSorting`. Local sorting only sees the supplied page.
+
+For example, 12 Public repositories followed by 3 Internal repositories with a
+page size of 10 produce:
+
+| Page | Group headings                   | Member rows |
+| ---- | -------------------------------- | ----------- |
+| 1    | Public, 10 rows                  | 10          |
+| 2    | Public, 2 rows; Internal, 3 rows | 5           |
+
+The `WithGroups` story in
+[DataTable features](./DataTable.features.stories.tsx) demonstrates this split.
+This does not define cross-page selection or bulk-action behavior.
+
+### Keep IDs valid through server rendering and hydration
+
+Group header IDs are generated independently from business `groupId` values.
+Generated IDs must not collide between table instances, and every `headers`
+reference must resolve before and after hydration. Direct-composition consumers
+must likewise provide instance-scoped, SSR-safe IDs.
+
+## Verification
+
+- [Grouping tests](./__tests__/DataTableGrouping.test.tsx) cover sorting,
+  replacement data, empty groups, and the server-rendered/hydrated ID-reference
+  graph across multiple tables.
+- [Presentational group tests](./__tests__/TableGroup.test.tsx) cover native
+  spanning headers, accessible names, and nested-table isolation.
+- [DataTable browser tests](../../../../e2e/components/DataTable.test.ts) cover
+  themed axe checks, visual snapshots, and a group split across pages.
+- [Table browser tests](../../../../e2e/components/Table.test.ts) cover explicit
+  group/row/column associations in the direct-composition example.
+
+DOM assertions and axe checks do not replace manual assistive-technology
+testing. For changes to these semantics, verify cell navigation through group
+boundaries with NVDA and JAWS, and check VoiceOver while accounting for its
+documented spanning-header limitation. Verify that sorting controls announce
+their name, state, and next action without polluting cell header names.
+
+## Links and resources
+
+- [Tetralogical audit: verbose interactive header names](https://github.com/github/accessibility/issues/10272)
+- [Multi-level headers and native colspan investigation](https://github.com/github/accessibility/issues/10885)
+- [Follow-up accessibility audit tracking](https://github.com/github/accessibility/issues/10807)
+- [Grouping requirements and implementation discussion](https://github.com/github/primer/issues/6720)
+- [Presentational grouping implementation](https://github.com/primer/react/pull/8372)
+- [Sortable-header name and description implementation](https://github.com/primer/react/pull/8371)
+- [HTML table content model](https://html.spec.whatwg.org/multipage/tables.html#the-table-element)
+- [WAI-ARIA APG table pattern](https://www.w3.org/WAI/ARIA/apg/patterns/table/)

@@ -1,4 +1,4 @@
-import {render, screen, within} from '@testing-library/react'
+import {render, renderHook, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {act} from 'react'
 import {hydrateRoot, type Root} from 'react-dom/client'
@@ -6,7 +6,8 @@ import {renderToString} from 'react-dom/server'
 import {describe, expect, it, vi} from 'vitest'
 import {DataTable} from '../DataTable'
 import type {Column} from '../column'
-import type {DataTableRowGroup} from '../row'
+import type {DataTableData, DataTableRowGroup} from '../row'
+import {useTable} from '../useTable'
 
 interface Repository {
   id: number
@@ -49,6 +50,82 @@ const groups: Array<DataTableRowGroup<Repository>> = [
 ]
 
 describe('DataTable grouping', () => {
+  it('rejects mixed data at runtime for untyped callers', () => {
+    expect(() =>
+      // @ts-expect-error Simulate JavaScript input that bypasses the public type contract.
+      renderToString(<DataTable data={[groups[0], groups[0].rows[0]]} columns={columns} />),
+    ).toThrow('DataTable `data` must contain either rows or row groups, not both.')
+  })
+
+  it('narrows the shared rows model and supports changes between flat, grouped, and empty data', () => {
+    const getRowId = (row: Repository) => row.id
+    const initialProps: {data: DataTableData<Repository>} = {data: groups}
+    const {result, rerender} = renderHook(
+      ({data}: {data: DataTableData<Repository>}) => useTable({data, columns, getRowId}),
+      {initialProps},
+    )
+    const groupedModel = result.current
+    expect(groupedModel.isGrouped).toBe(true)
+    if (!groupedModel.isGrouped) throw new Error('Expected grouped row models')
+    expect(groupedModel.rows[0].rows[0].getValue().name).toBe('zeta')
+
+    rerender({data: groups[0].rows})
+    const flatModel = result.current
+    expect(flatModel.isGrouped).toBe(false)
+    if (flatModel.isGrouped) throw new Error('Expected flat row models')
+    expect(flatModel.rows[0].getValue().name).toBe('zeta')
+
+    rerender({data: []})
+    expect(result.current.isGrouped).toBe(false)
+    expect(result.current.rows).toEqual([])
+
+    rerender({data: [{...groups[0], rows: []}]})
+    expect(result.current.isGrouped).toBe(true)
+    if (!result.current.isGrouped) throw new Error('Expected an empty group')
+    expect(result.current.rows[0].rows).toEqual([])
+  })
+
+  it.each([
+    {grouped: false, externalSorting: false, direction: 'ASC'},
+    {grouped: false, externalSorting: false, direction: 'DESC'},
+    {grouped: false, externalSorting: true, direction: 'ASC'},
+    {grouped: false, externalSorting: true, direction: 'DESC'},
+    {grouped: true, externalSorting: false, direction: 'ASC'},
+    {grouped: true, externalSorting: false, direction: 'DESC'},
+    {grouped: true, externalSorting: true, direction: 'ASC'},
+    {grouped: true, externalSorting: true, direction: 'DESC'},
+  ])(
+    'adopts replacement data ($grouped grouped, $externalSorting external, $direction)',
+    async ({grouped, externalSorting, direction}) => {
+      const user = userEvent.setup()
+      const data = grouped ? groups : groups.flatMap(group => group.rows)
+      const {rerender} = render(<DataTable data={data} columns={columns} externalSorting={externalSorting} />)
+      await user.click(screen.getByRole('button', {name: 'Repository'}))
+      if (direction === 'DESC') await user.click(screen.getByRole('button', {name: 'Repository'}))
+
+      const rows: Repository[] = [
+        {id: 5, name: 'omega', visibility: 'private'},
+        {id: 6, name: 'alpha', visibility: 'private'},
+        {id: 7, name: 'delta', visibility: 'private'},
+      ]
+      const replacement = grouped ? [{...groups[0], rows}] : rows
+      rerender(<DataTable data={replacement} columns={columns} externalSorting={externalSorting} />)
+
+      expect(screen.getAllByRole('rowheader').map(cell => cell.textContent)).toEqual(
+        externalSorting
+          ? ['omega', 'alpha', 'delta']
+          : direction === 'ASC'
+            ? ['alpha', 'delta', 'omega']
+            : ['omega', 'delta', 'alpha'],
+      )
+      expect(rows.map(row => row.name)).toEqual(['omega', 'alpha', 'delta'])
+      expect(screen.getByRole('columnheader', {name: 'Repository'})).toHaveAttribute(
+        'aria-sort',
+        direction === 'ASC' ? 'ascending' : 'descending',
+      )
+    },
+  )
+
   it('renders config-driven groups through Table.Group', () => {
     const {container} = render(<DataTable data={groups} columns={columns} />)
 

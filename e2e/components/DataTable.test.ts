@@ -6,7 +6,6 @@ const stories: ReadonlyArray<{
   title: string
   id: string
   aat?: boolean
-  vrt?: boolean
 }> = [
   {
     title: 'Default',
@@ -61,7 +60,6 @@ const stories: ReadonlyArray<{
     title: 'With Sortable Groups',
     id: 'experimental-components-datatable-features--with-sortable-groups',
     aat: true,
-    vrt: false,
   },
 ]
 
@@ -70,27 +68,25 @@ test.describe('DataTable', () => {
     test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          if (story.vrt !== false) {
-            test('default @vrt', async ({page}) => {
-              await visit(page, {
-                id: story.id,
-                globals: {
-                  colorScheme: theme,
-                },
-              })
-
-              // Default state
-              expect(
-                await page.screenshot({
-                  mask: await page
-                    .locator('td', {
-                      has: page.locator('relative-time'),
-                    })
-                    .all(),
-                }),
-              ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
             })
-          }
+
+            // Default state
+            expect(
+              await page.screenshot({
+                mask: await page
+                  .locator('td', {
+                    has: page.locator('relative-time'),
+                  })
+                  .all(),
+              }),
+            ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
+          })
 
           if (story.aat) {
             test('axe @aat', async ({page}) => {
@@ -102,6 +98,47 @@ test.describe('DataTable', () => {
               })
 
               await expect(page).toHaveNoViolations()
+            })
+          }
+
+          if (story.id === 'experimental-components-datatable-features--with-groups') {
+            test('continued group on next page @vrt', async ({page}) => {
+              await visit(page, {id: story.id, globals: {colorScheme: theme}})
+              await page.getByRole('button', {name: 'Next page', exact: true}).click()
+              await expect(page.getByRole('columnheader', {name: 'Public, 2 rows', exact: true})).toBeVisible()
+              expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Groups.Next Page.${theme}.png`)
+            })
+
+            test('pagination across a group boundary @aat', async ({page}) => {
+              await visit(page, {id: story.id, globals: {colorScheme: theme}})
+              const table = page.getByRole('table', {name: 'Paginated repositories by visibility'})
+              await expect(table.getByRole('rowheader')).toHaveCount(10)
+              await expect(table.getByRole('columnheader', {name: 'Public, 10 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('columnheader', {name: 'Internal, 3 rows', exact: true})).toHaveCount(0)
+
+              await page.getByRole('button', {name: 'Next page', exact: true}).click()
+              await expect(table.getByRole('rowheader')).toHaveCount(5)
+              await expect(table.getByRole('columnheader', {name: 'Public, 2 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('columnheader', {name: 'Internal, 3 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('rowheader', {name: 'public/repository-11', exact: true})).toBeVisible()
+              await expect(table.getByRole('rowheader', {name: 'public/repository-1', exact: true})).toHaveCount(0)
+
+              const unresolvedHeaders = await table
+                .locator('[headers]')
+                .evaluateAll(cells =>
+                  cells.flatMap(cell =>
+                    (cell.getAttribute('headers') ?? '')
+                      .split(' ')
+                      .filter(id => !cell.closest('table')?.querySelector(`[id="${id}"]`)),
+                  ),
+                )
+              expect(unresolvedHeaders).toEqual([])
+              await expect(page).toHaveNoViolations()
+
+              await page.getByRole('button', {name: 'Previous page', exact: true}).click()
+              await expect(table.getByRole('rowheader')).toHaveCount(10)
+              await expect(table.getByRole('columnheader', {name: 'Public, 10 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('rowheader', {name: 'public/repository-1', exact: true})).toBeVisible()
             })
           }
         })

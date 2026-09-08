@@ -13,15 +13,16 @@ interface TableConfig<Data extends UniqueRow> {
   getRowId: (rowData: Data) => string | number
 }
 
-interface Table<Data extends UniqueRow> {
+interface TableModel<Data extends UniqueRow> {
   headers: Array<Header<Data>>
-  rows: Array<Row<Data>>
-  rowGroups: Array<RowGroup<Data>> | null
   actions: {
     sortBy: (header: Header<Data>) => void
   }
   gridTemplateColumns: React.CSSProperties['gridTemplateColumns']
 }
+
+type Table<Data extends UniqueRow> = TableModel<Data> &
+  ({isGrouped: false; rows: Array<Row<Data>>} | {isGrouped: true; rows: Array<RowGroup<Data>>})
 
 interface Header<Data extends UniqueRow> {
   id: string
@@ -109,7 +110,7 @@ export function useTable<Data extends UniqueRow>({
   // Update the row order and apply the current sort column to the incoming data
   if (data !== prevData) {
     setPrevData(data)
-    setRowOrder(sortByColumn && !externalSorting ? getSortedRowOrder(data, sortByColumn) : data)
+    updateRowOrder(data, sortByColumn)
   }
 
   /**
@@ -122,22 +123,17 @@ export function useTable<Data extends UniqueRow>({
         sortByColumn && sortByColumn.id === header.id ? transition(sortByColumn.direction) : DEFAULT_SORT_DIRECTION,
     }
     setSortByColumn(sortState)
-    sortRows(sortState)
+    updateRowOrder(rowOrder, sortState)
+  }
+
+  function updateRowOrder(rows: DataTableData<Data>, state: ColumnSortState) {
+    // External sorting still needs to adopt replacement data from the consumer.
+    setRowOrder(state && !externalSorting ? getSortedRowOrder(rows, state) : rows)
   }
 
   /**
-   * Sort the rows of a table with the given column sort state. If the data in the table is sparse,
-   * blank values will be ordered last regardless of the sort direction.
+   * Blank values are ordered last regardless of the sort direction.
    */
-  function sortRows(state: Exclude<ColumnSortState, null>) {
-    if (externalSorting) {
-      // Don't sort the rows if external sorting is enabled. We expect the consumer to provide new sorted data instead.
-      return
-    }
-
-    setRowOrder(rowOrder => getSortedRowOrder(rowOrder, state))
-  }
-
   function getSortedRowOrder(
     currentRowOrder: DataTableData<Data>,
     state: Exclude<ColumnSortState, null>,
@@ -240,26 +236,31 @@ export function useTable<Data extends UniqueRow>({
     }
   }
 
-  const grouped = isGroupedData(rowOrder)
-  const rowGroups = grouped
-    ? rowOrder.map(group => {
+  const model = {
+    headers,
+    actions: {sortBy},
+    gridTemplateColumns,
+  }
+
+  if (isGroupedData(rowOrder)) {
+    return {
+      ...model,
+      isGrouped: true,
+      rows: rowOrder.map(group => {
         return {
           id: group.groupId,
           label: group.label,
           rows: group.rows.map(createRow),
           'aria-label': group['aria-label'],
         }
-      })
-    : null
+      }),
+    }
+  }
 
   return {
-    headers,
-    rows: grouped ? [] : rowOrder.map(createRow),
-    rowGroups,
-    actions: {
-      sortBy,
-    },
-    gridTemplateColumns,
+    ...model,
+    isGrouped: false,
+    rows: rowOrder.map(createRow),
   }
 }
 
