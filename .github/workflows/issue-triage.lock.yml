@@ -418,7 +418,22 @@ jobs:
     needs: activation
     if: needs.activation.outputs.daily_ai_credits_exceeded != 'true'
     runs-on: ubuntu-latest
-    permissions: read-all
+    permissions:
+      actions: read
+      attestations: read
+      checks: read
+      contents: read
+      copilot-requests: write
+      deployments: read
+      id-token: read
+      issues: read
+      discussions: read
+      packages: read
+      pages: read
+      pull-requests: read
+      repository-projects: read
+      security-events: read
+      statuses: read
     env:
       DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
       GH_AW_ASSETS_ALLOWED_EXTS: ""
