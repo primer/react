@@ -79,15 +79,20 @@ unresolved component API deviations from the Primer React style guide.
    outside the component directory. Do not skip a component because it is
    deprecated, experimental, or complex.
 3. Track a coverage matrix for every component and checklist principle. Each cell
-   starts as `not-reviewed` and must end as `pass`, `finding`, or `not-applicable`.
+   starts as `not-reviewed`; change it to `pass`, `finding`, or `not-applicable`
+   only after inspection.
    Record inspected file paths and line ranges for passes and findings, and a
    source-backed reason for each not-applicable judgment. A component is fully
-   reviewed only when no cell remains `not-reviewed`.
+   reviewed only when no cell remains `not-reviewed`. Read the existing issue's
+   remaining-coverage list and prioritize those pairs so successive runs do not
+   repeat only the same callback, boolean-name, and variant/size checks. Prior
+   coverage is historical context, not proof of a pass against current source.
 4. Partition the inventory into batches of no more than five directories.
    Delegate one pilot batch to `component-api-auditor` with the exact component
    list, principle checklist, and coverage contract below. Validate its returned
-   coverage before dispatching the remaining batches. Keep delegation one level
-   deep and at most two batches in flight.
+   coverage before dispatching the remaining batches: wait for the pilot result,
+   not just an agent ID or idle status. Keep delegation one level deep and at
+   most two batches in flight.
    - Treat empty, malformed, errored, or findings-only responses as missing
      coverage, not as evidence of no deviations. A bare `none` is insufficient.
    - Accept only source-backed cells for assigned components and principles;
@@ -97,11 +102,16 @@ unresolved component API deviations from the Primer React style guide.
      component). Inspect the rest of that batch directly. After two consecutive
      unusable responses, stop dispatching sub-agents for this run and switch to
      direct review of all remaining cells. Do not repeat the same failed fan-out.
+     For a model/pricing or authentication error, skip the retry and switch to
+     direct inspection immediately; a smaller assignment cannot fix that error.
    - On any unresolved delegation failure, inspect the missing coverage directly
      using the same checklist and evidence requirements. Read the relevant
      source, types, render paths, and hooks for every component/principle pair.
      Grep-based sweeps are navigation aids, not proof of full coverage or of the
      absence of a deviation.
+   - Continue direct inspection in bounded batches while time and context allow,
+     reserving time to publish the verified results and remaining coverage. Do
+     not stop solely because the entire inventory is too large for one run.
 5. Require evidence for every finding:
    - identify the component and public API
    - cite the exact style-guide principle
@@ -115,11 +125,13 @@ unresolved component API deviations from the Primer React style guide.
 7. Merge duplicate findings and discard anything speculative, stylistic but not
    covered by the guide, or unsupported by source evidence.
 8. Reconcile the coverage matrix against the complete inventory and checklist
-   before writing the issue. If any cell is still `not-reviewed`, use `noop` and
-   identify the missing components/principles and delegation failures in its
-   reason. Do not replace the existing issue with a partial audit, remove prior
-   findings merely because they were not rechecked, or claim full coverage based
-   on the number of dispatched batches.
+   before writing the issue. Publish useful, evidence-backed progress even if
+   some cells remain `not-reviewed`; label the audit partial and list the
+   remaining component/principle pairs. Merge verified findings with the existing
+   issue, retaining prior findings not rechecked and labeling them as such. Remove
+   a prior finding only when current source disproves it or an issue comment
+   supplies the documented rationale described above. Never claim full coverage
+   based on the number of dispatched batches.
 
 ## Issue output
 
@@ -127,16 +139,23 @@ Build a complete replacement body using GitHub-flavored Markdown:
 
 - Start sections at `###`.
 - Include a short summary with the review date and fully reviewed component count
-  out of the total inventory.
+  out of the total inventory. Distinguish a full audit from a partial audit.
 - Include a compact coverage table by principle with counts of `pass`, `finding`,
-  and `not-applicable` components. Each row must account for the entire inventory.
+  `not-applicable`, and `not-reviewed` components for this run. Each row must
+  account for the entire inventory; retained historical findings do not count
+  as reviewed cells.
   State whether sub-agents, direct inspection, or both supplied the evidence,
   including any failed batches and recovery performed.
+- For a partial audit, include a remaining-coverage list grouped by principle
+  with component names and the next bounded batch to inspect. Prioritize gaps
+  from the previous run that remain unreviewed before newly introduced gaps.
 - Group findings by style-guide principle.
 - For each finding, include the component/API, evidence, impact, and recommended
   change.
-- If there are no unresolved findings, state that the full review found no
-  unexplained deviations.
+- State that the full review found no unexplained deviations only when coverage
+  is complete and there are no unresolved findings. When a partial audit has no
+  new findings, state that no new deviations were found in the inspected subset
+  without implying the unreviewed APIs passed.
 - Include the workflow run as
   `[§${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`.
 - Do not include findings that have a documented rationale in issue comments.
@@ -154,14 +173,17 @@ Otherwise, create one issue with `create_issue`, the exact title
 
 Perform exactly one visible issue action per run. Never create a second review
 issue when an exact-title issue exists. Use `noop` with a short reason only when
-the review cannot be completed well enough to produce a trustworthy issue body.
+no trustworthy progress can be published (for example, source or prior issue
+data is unavailable and no safe update is possible). Incomplete coverage or
+failed delegation alone is not a reason to use `noop`: verified existing
+findings, new findings, or newly completed coverage can support a partial update.
 
 ## agent: `component-api-auditor`
 
 ---
 
 description: Audits a bounded batch of Primer React component APIs against the style guide
-model: inherited
+model: claude-sonnet-5
 
 ---
 
