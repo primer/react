@@ -278,7 +278,7 @@ function isDataTableRowGroup<Data extends UniqueRow>(
 }
 
 function isGroupedData<Data extends UniqueRow>(data: DataTableData<Data>): data is Array<DataTableRowGroup<Data>> {
-  return data.length > 0 && data.every(isDataTableRowGroup)
+  return data.length > 0 && isDataTableRowGroup(data[0])
 }
 
 function getInitialSortState<Data extends UniqueRow>(
