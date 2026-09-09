@@ -121,7 +121,7 @@ test.describe('Button', () => {
     await expect(preferenceOnButton).toHaveCSS('text-decoration-line', 'none')
     await expect(preferenceOnButton).toHaveCSS('background-image', 'none')
     await expect(preferenceOnLabel).toHaveCSS('text-decoration-line', 'underline')
-    await expect(preferenceOnLabel).toHaveCSS('text-underline-offset', '0.8px')
+    await expect(preferenceOnLabel).toHaveCSS('text-underline-offset', '2px')
 
     await preferenceOnButton.hover()
     await expect(preferenceOnButton).toHaveCSS('text-decoration-line', 'none')

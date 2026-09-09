@@ -607,7 +607,7 @@
     }
 
     & .Label {
-      text-underline-offset: 0.05rem;
+      text-underline-offset: 0.125rem;
       white-space: unset;
     }
 
