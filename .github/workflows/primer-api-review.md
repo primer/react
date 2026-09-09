@@ -58,26 +58,18 @@ safe-outputs:
     required-title-prefix: 'Primer API Review'
   scripts:
     publish-component-findings:
-      description: Upsert one component finding comment and resolve its checklist links on the Primer API Review issue
+      description: Publish one batch of up to 100 component finding comments and resolve their checklist links
       inputs:
         issue_number:
           type: string
           required: true
           description: Review issue number, or aw_review for the issue created in this run
-        component:
+        comments:
           type: string
           required: true
-          description: Component name used in the api-review-comment-COMPONENT checklist link
-        body:
-          type: string
-          required: true
-          description: Complete component comment with findings grouped under headings and evidence tables
+          description: Base64-encoded UTF-8 JSON array of objects with component (name) and body (complete finding comment), at most 100 unique components
       script: |
         const {matchesWorkflowId, generateWorkflowIdMarker} = require('./generate_footer.cjs')
-        config.publishCount = (config.publishCount || 0) + 1
-        if (config.publishCount > 100) {
-          throw new Error('At most 100 component comments may be published per run')
-        }
         const repo = context.repo
         const resolved = resolvedTemporaryIds[item.issue_number]
         const issueNumber = Number(resolved ? resolved.number : item.issue_number)
@@ -87,42 +79,62 @@ safe-outputs:
           throw new Error('Cross-repository review targets are not allowed')
         }
         if ((!pendingStagedIssue && (!Number.isSafeInteger(issueNumber) || issueNumber <= 0)) ||
-            typeof item.component !== 'string' || !/^[A-Za-z][A-Za-z0-9.]*$/.test(item.component) ||
-            typeof item.body !== 'string' || item.body.length < 20 || item.body.length > 60000) {
+            typeof item.comments !== 'string' || item.comments.length > 500000) {
           throw new Error('Invalid component review payload')
         }
+        const decoded = Buffer.from(item.comments, 'base64')
+        if (decoded.toString('base64') !== item.comments) {
+          throw new Error('Invalid base64 component review payload')
+        }
+        const entries = JSON.parse(decoded.toString('utf8'))
+        if (!Array.isArray(entries) || entries.length === 0 || entries.length > 100) {
+          throw new Error('Batch must contain between 1 and 100 component comments')
+        }
+        const components = new Set()
+        const batch = entries.map(entry => {
+          if (!entry || typeof entry.component !== 'string' ||
+              !/^[A-Za-z][A-Za-z0-9.]*$/.test(entry.component) || components.has(entry.component) ||
+              typeof entry.body !== 'string' || entry.body.length < 20 || entry.body.length > 60000) {
+            throw new Error('Invalid or duplicate component review entry')
+          }
+          components.add(entry.component)
+          return {component: entry.component, body: sanitizeContent(entry.body)}
+        })
         if (staged) {
-          core.info(`Would publish findings for ${item.component} on issue ${item.issue_number}`)
+          core.info(`Would publish ${batch.length} component comments on issue ${item.issue_number}`)
           return {success: true, staged: true}
         }
         const {data: issue} = await github.rest.issues.get({...repo, issue_number: issueNumber})
         if (issue.pull_request || issue.title !== 'Primer API Review') {
           throw new Error('Target must be the Primer API Review issue')
         }
-        const marker = `<!-- primer-api-review-component: ${item.component} -->`
         const comments = await github.paginate(github.rest.issues.listComments, {
           ...repo, issue_number: issueNumber, per_page: 100,
         })
-        const previous = comments.find(comment =>
-          comment.user?.login === 'github-actions[bot]' &&
-          matchesWorkflowId(comment.body || '', 'primer-api-review') &&
-          (comment.body || '').includes(marker),
-        )
-        const body = `${sanitizeContent(item.body)}\n\n${marker}\n${generateWorkflowIdMarker('primer-api-review')}`
-        let comment = previous
-        if (!previous || previous.body !== body) {
-          const result = previous
-            ? await github.rest.issues.updateComment({...repo, comment_id: previous.id, body})
-            : await github.rest.issues.createComment({...repo, issue_number: issueNumber, body})
-          comment = result.data
+        let updatedBody = issue.body || ''
+        for (const entry of batch) {
+          const marker = `<!-- primer-api-review-component: ${entry.component} -->`
+          const previous = comments.find(comment =>
+            comment.user?.login === 'github-actions[bot]' &&
+            matchesWorkflowId(comment.body || '', 'primer-api-review') &&
+            (comment.body || '').includes(marker),
+          )
+          const body = `${entry.body}\n\n${marker}\n${generateWorkflowIdMarker('primer-api-review')}`
+          let comment = previous
+          if (!previous || previous.body !== body) {
+            const result = previous
+              ? await github.rest.issues.updateComment({...repo, comment_id: previous.id, body})
+              : await github.rest.issues.createComment({...repo, issue_number: issueNumber, body})
+            comment = result.data
+          }
+          updatedBody = updatedBody.replaceAll(
+            `(#api-review-comment-${entry.component})`, `(${comment.html_url})`,
+          )
         }
-        const updatedBody = (issue.body || '').replaceAll(
-          `(#api-review-comment-${item.component})`, `(${comment.html_url})`,
-        )
         if (updatedBody !== issue.body) {
           await github.rest.issues.update({...repo, issue_number: issueNumber, body: updatedBody})
         }
-        return {success: true, url: comment.html_url}
+        return {success: true, url: issue.html_url}
 ---
 
 # Primer API Review
@@ -262,8 +274,15 @@ active recommendation. Omit findings with a documented rationale as described
 above. Never modify human comments or publish comments for components with no
 current or previously published findings.
 
-Use `publish_component_findings` with the component name and its complete comment
-body; the safe-output handler maintains the component marker, reuses the managed
+Use one `publish_component_findings` call with `comments` containing a
+base64-encoded UTF-8 JSON array of objects, each containing `component` and its
+complete comment `body`. Use
+`Buffer.from(JSON.stringify(comments), 'utf8').toString('base64')` or an equivalent
+encoder; do not hand-escape Markdown. This keeps ingestion's Markdown sanitizer
+from corrupting the JSON transport; each decoded comment is still sanitized
+before publication. Keep the encoded batch under 500,000 characters.
+The safe-output
+handler maintains the component marker, reuses the managed
 comment, skips unchanged content, and inserts its real URL into the checklist.
 Do not supply comment IDs or invent comment URLs. For a new or updated component
 comment, use `(#api-review-comment-ComponentName)` as the checklist link target.
@@ -280,13 +299,15 @@ If `/tmp/gh-aw/data/existing-review.json` contains an issue:
 Otherwise, first queue one issue with `create_issue`, the exact title
 `Primer API Review`, `temporary_id: aw_review`, and the overview body.
 
-Then queue `publish_component_findings` for each new or changed component comment
-(at most one per component and 100 per run), using the existing issue number as
-a string or `aw_review` for the newly created issue. Also queue it for any
-component whose checklist links use placeholders, even if its comment is
-unchanged. Safe outputs execute after the agent finishes, so do not try to read
-back newly queued comments during this run. Queue the overview before the
-component publishers; do not queue another overview update afterward that would
+Then queue exactly one `publish_component_findings` call containing all new or
+changed component comments (at most one entry per component and 100 per batch),
+using the existing issue number as a string or `aw_review` for the newly created
+issue. Include any component whose checklist links use placeholders, even if
+its comment is unchanged. Skip the call when there are no comments to publish.
+The ingestion layer allows only one publishing output per run: never emit one
+call per component or split the array across calls. Safe outputs execute after
+the agent finishes, so do not try to read back newly queued comments during this
+run. Queue the overview before the batch publisher; do not queue another overview update afterward that would
 overwrite resolved links. If the publication cap is reached, retain existing
 links and list unpublished components in the collapsed remaining-coverage block
 without emitting dangling placeholders.
