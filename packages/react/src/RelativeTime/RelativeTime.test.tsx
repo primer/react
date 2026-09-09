@@ -1,4 +1,7 @@
-import {describe, expect, it} from 'vitest'
+import {act} from 'react'
+import {hydrateRoot, type Root} from 'react-dom/client'
+import {renderToString} from 'react-dom/server'
+import {describe, expect, it, vi} from 'vitest'
 import RelativeTime from '.'
 import {render} from '@testing-library/react'
 import {implementsClassName} from '../utils/testing'
@@ -33,6 +36,42 @@ describe('RelativeTime', () => {
     const date = new Date('2024-03-07T12:22:48.123Z')
     const {container} = render(<RelativeTime date={date}>server rendered date</RelativeTime>)
     expect(container.textContent).toEqual('server rendered date')
+  })
+
+  it('hydrates the fallback without errors when server and client time zones differ', async () => {
+    const date = new Date('2024-03-07T00:30:00.000Z')
+    const relativeTime = <RelativeTime date={date} />
+    const toLocaleDateStringSpy = vi.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue('Mar 7, 2024')
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(relativeTime)
+    document.body.appendChild(container)
+
+    toLocaleDateStringSpy.mockImplementation((_locales, options) =>
+      options?.timeZone === 'UTC' ? 'Mar 7, 2024' : 'Mar 6, 2024',
+    )
+
+    const recoverableErrors: unknown[] = []
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    let root: Root | undefined
+
+    try {
+      expect(container.firstChild).toHaveTextContent('Mar 7, 2024')
+
+      await act(async () => {
+        root = hydrateRoot(container, relativeTime, {
+          onRecoverableError: error => recoverableErrors.push(error),
+        })
+      })
+
+      expect(recoverableErrors).toEqual([])
+      expect(consoleErrorSpy).not.toHaveBeenCalled()
+      expect(container.firstChild).toHaveTextContent('Mar 7, 2024')
+    } finally {
+      toLocaleDateStringSpy.mockRestore()
+      consoleErrorSpy.mockRestore()
+      await act(async () => root?.unmount())
+      container.remove()
+    }
   })
 
   it('does not render no-title attribute by default', () => {

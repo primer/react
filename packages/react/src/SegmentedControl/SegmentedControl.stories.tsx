@@ -2,29 +2,33 @@ import type {StoryFn, Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {EyeIcon, FileCodeIcon, PeopleIcon, PlusIcon} from '@primer/octicons-react'
 
-type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default'
+type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default' | 'subtle'
 type Args = {
+  size?: 'small' | 'medium'
+  variant: 'default' | 'subtle'
+  variantAtNarrow: ResponsiveVariantOptions
+  variantAtRegular: ResponsiveVariantOptions
+  variantAtWide: ResponsiveVariantOptions
   fullWidth?: boolean
   fullWidthAtNarrow?: boolean
   fullWidthAtRegular?: boolean
   fullWidthAtWide?: boolean
-  size?: 'small' | 'medium'
-  variantAtNarrow: ResponsiveVariantOptions
-  variantAtRegular: ResponsiveVariantOptions
-  variantAtWide: ResponsiveVariantOptions
+  showDivider?: boolean
+  showAction?: boolean
 }
 
-const excludedControlKeys = ['variant']
+const variantOptions = ['dropdown', 'hideLabels', 'default', 'subtle']
 
-const variantOptions = ['dropdown', 'hideLabels', 'default']
-
-const parseVariantFromArgs = ({variantAtNarrow, variantAtRegular, variantAtWide}: Args) => ({
-  narrow: variantAtNarrow,
-  regular: variantAtRegular,
-  wide: variantAtWide,
-})
+const parseVariantFromArgs = ({variant, variantAtNarrow, variantAtRegular, variantAtWide}: Args) =>
+  variant === 'subtle'
+    ? variant
+    : {
+        narrow: variantAtNarrow,
+        regular: variantAtRegular,
+        wide: variantAtWide,
+      }
 
 const parseFullWidthFromArgs = ({fullWidth, fullWidthAtNarrow, fullWidthAtRegular, fullWidthAtWide}: Args) =>
   fullWidth
@@ -40,16 +44,52 @@ export default {
   component: SegmentedControl,
   subcomponents: {SegmentedControlButton, SegmentedControlIconButton},
   args: {
+    size: 'medium',
+    variant: 'default',
+    variantAtNarrow: 'default',
+    variantAtRegular: 'default',
+    variantAtWide: 'default',
     fullWidth: false,
     fullWidthAtNarrow: false,
     fullWidthAtRegular: false,
     fullWidthAtWide: false,
-    size: 'medium',
-    variantAtNarrow: 'default',
-    variantAtRegular: 'default',
-    variantAtWide: 'default',
+    showDivider: false,
+    showAction: false,
   },
   argTypes: {
+    size: {
+      control: {
+        type: 'radio',
+      },
+      options: ['small', 'medium'],
+    },
+    variant: {
+      control: {
+        type: 'radio',
+      },
+      options: ['default', 'subtle'],
+    },
+    variantAtNarrow: {
+      name: 'variant.narrow',
+      control: {
+        type: 'radio',
+      },
+      options: variantOptions,
+    },
+    variantAtRegular: {
+      name: 'variant.regular',
+      control: {
+        type: 'radio',
+      },
+      options: variantOptions,
+    },
+    variantAtWide: {
+      name: 'variant.wide',
+      control: {
+        type: 'radio',
+      },
+      options: variantOptions,
+    },
     fullWidth: {
       control: {
         type: 'boolean',
@@ -73,35 +113,19 @@ export default {
         type: 'boolean',
       },
     },
-    size: {
+    showDivider: {
       control: {
-        type: 'radio',
+        type: 'boolean',
       },
-      options: ['small', 'medium'],
+      name: 'divider',
     },
-    variantAtNarrow: {
-      name: 'variant.narrow',
+    showAction: {
       control: {
-        type: 'radio',
+        type: 'boolean',
       },
-      options: variantOptions,
-    },
-    variantAtRegular: {
-      name: 'variant.regular',
-      control: {
-        type: 'radio',
-      },
-      options: variantOptions,
-    },
-    variantAtWide: {
-      name: 'variant.wide',
-      control: {
-        type: 'radio',
-      },
-      options: variantOptions,
+      name: 'action',
     },
   },
-  parameters: {controls: {exclude: excludedControlKeys}},
 } as Meta<typeof SegmentedControl>
 
 export const Playground: StoryFn<Args> = args => (
@@ -114,12 +138,14 @@ export const Playground: StoryFn<Args> = args => (
     <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
+    {args.showDivider && <SegmentedControl.Divider />}
     <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
+    {args.showAction && <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={() => undefined} />}
   </SegmentedControl>
 )
 

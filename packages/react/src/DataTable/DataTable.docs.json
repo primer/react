@@ -42,6 +42,9 @@
     },
     {
       "id": "experimental-components-datatable-features--with-pagination"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-groups"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -163,6 +166,41 @@
         {
           "name": "children",
           "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Table.Group",
+      "props": [
+        {
+          "name": "id",
+          "type": "string | number",
+          "description": "A stable identifier exposed on both group sections as `data-group-id`. The group header's DOM id is generated separately so it is safe for use in `headers`."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "The visible label for the group, shown in the group header and included in its accessible name along with the row count."
+        },
+        {
+          "name": "rowCount",
+          "type": "number",
+          "description": "The number of member rows in the group. Combined with `label` to build the group header's accessible name, for example \"Admins, 2 rows\"."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Override the group header's accessible name, for example to localize its row count description."
+        },
+        {
+          "name": "colSpan",
+          "type": "number",
+          "description": "The number of columns spanned by the group header."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The group's member rows, typically a list of `Table.Row` elements. When composing a grouped table directly, use each `Table.Cell`'s native `headers` prop to reference the corresponding `Table.Header` id. The group header association is added automatically."
         }
       ]
     },

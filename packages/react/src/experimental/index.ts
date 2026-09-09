@@ -38,6 +38,7 @@ export type {
   TableTitleProps,
   TableSubtitleProps,
   TableActionsProps,
+  TableGroupProps,
   Column,
   CellAlignment,
   ColumnWidth,

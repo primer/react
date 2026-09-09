@@ -3,7 +3,7 @@ import {type ElementType} from 'react'
 import {Announce} from './Announce'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
-export type AriaAlertProps<As extends ElementType> = PolymorphicProps<
+export type AriaAlertProps<As extends ElementType = 'div'> = PolymorphicProps<
   As,
   'div',
   {

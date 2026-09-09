@@ -1,5 +1,23 @@
 # @primer/react
 
+## 38.38.0
+
+### Minor Changes
+
+- [#8300](https://github.com/primer/react/pull/8300) [`3a32d6f`](https://github.com/primer/react/commit/3a32d6ff015b11dd2ac9bf299f8f558bb1e46ef5) Thanks [@joshblack](https://github.com/joshblack)! - Promote AriaStatus and AriaAlert from experimental to stable
+
+- [#8325](https://github.com/primer/react/pull/8325) [`4266cab`](https://github.com/primer/react/commit/4266cab4cb9e744f70cc13a8904c3b29a6499284) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - SegmentedControl: Add a subtle visual variant with group dividers and an optional trailing action child.
+
+### Patch Changes
+
+- [#8343](https://github.com/primer/react/pull/8343) [`7034e1f`](https://github.com/primer/react/commit/7034e1fbb754883b29a05fdf75eea8704359e7bb) Thanks [@llastflowers](https://github.com/llastflowers)! - Don't focus Autocomplete menu items while menu is closed: fix SR announcement bug and menu item skipping bug
+
+- [#8330](https://github.com/primer/react/pull/8330) [`f7329dc`](https://github.com/primer/react/commit/f7329dc8224166fad2698ae7d6c518dc97d89754) Thanks [@mattcosta7](https://github.com/mattcosta7)! - RelativeTime: Prevent hydration errors when the server and client use different time zones
+
+- [#8339](https://github.com/primer/react/pull/8339) [`1f5b99e`](https://github.com/primer/react/commit/1f5b99edc63e3989eb470d258c4d7b8703540f6b) Thanks [@ShiyunXu](https://github.com/ShiyunXu)! - Pin `box-sizing` with `!important` on the underline tabbed interface wrapper in wrap mode so external overrides can no longer offset its height budget and incorrectly trigger the overflow "more" menu
+
+- [#8340](https://github.com/primer/react/pull/8340) [`a79d6c6`](https://github.com/primer/react/commit/a79d6c60ca23abce6f85502e1db78458f5fc3e90) Thanks [@ShiyunXu](https://github.com/ShiyunXu)! - UnderlineNav: Prevent external borders from incorrectly triggering the overflow menu
+
 ## 38.37.0
 
 ### Minor Changes
