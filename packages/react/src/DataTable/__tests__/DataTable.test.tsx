@@ -1299,8 +1299,8 @@ describe('DataTable', () => {
       }),
     )
 
-    expect(result.current.rows[0].id).toBe('abc123')
-    expect(result.current.rows[1].id).toBe('abc12334')
+    expect(result.current.bodies[0].rows[0].id).toBe('abc123')
+    expect(result.current.bodies[0].rows[1].id).toBe('abc12334')
   })
 
   it('uses default row.id when getRowId is not provided', () => {
@@ -1319,7 +1319,7 @@ describe('DataTable', () => {
       }),
     )
 
-    expect(result.current.rows[0].id).toBe('1')
-    expect(result.current.rows[1].id).toBe('2')
+    expect(result.current.bodies[0].rows[0].id).toBe('1')
+    expect(result.current.bodies[0].rows[1].id).toBe('2')
   })
 })

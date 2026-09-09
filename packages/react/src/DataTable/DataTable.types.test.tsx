@@ -71,16 +71,16 @@ export function shouldAcceptMixedData() {
 export function useTableModelTypeChecks() {
   useTable({data: [{id: 2, name: 'primer/css'}, ...groups], columns, getRowId: row => row.id})
   const table = useTable({data: groups, columns, getRowId: row => row.id})
-  const item = table.rows[0]
+  const item = table.bodies[0]
   if (item.type === 'row-group') {
     const name: string = item.rows[0].getValue().name
     // @ts-expect-error Group models are not member row models.
     item.getCells()
     return name
   }
-  const name: string = item.getValue().name
-  // @ts-expect-error Flat row models do not contain member rows.
-  item.rows
+  const name: string = item.rows[0].getValue().name
+  // @ts-expect-error Ungrouped bodies do not have group labels.
+  item.label
   return name
 }
 

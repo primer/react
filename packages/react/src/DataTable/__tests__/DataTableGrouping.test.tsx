@@ -70,10 +70,10 @@ describe('DataTable grouping', () => {
       useTable({data, columns: [{header: 'Type', field: 'type'}], getRowId: row => row.id}),
     )
 
-    expect(result.current.hasGroups).toBe(false)
-    for (const [index, model] of result.current.rows.entries()) {
+    expect(result.current.bodies).toHaveLength(1)
+    expect(result.current.bodies[0].type).toBe('row-body')
+    for (const [index, model] of result.current.bodies[0].rows.entries()) {
       expect(model.type).toBe('row')
-      if (model.type !== 'row') throw new Error('Expected a standalone row')
       expect(model.getValue()).toBe(data[index])
       expect(model.getValue().type).toBe(data[index].type)
     }
@@ -195,7 +195,7 @@ describe('DataTable grouping', () => {
     expect(container.querySelectorAll('table > tbody')).toHaveLength(1)
   })
 
-  it('narrows the shared rows model and supports changes between flat, grouped, and empty data', () => {
+  it('prepares bodies and header associations for flat, grouped, mixed, and empty data', () => {
     const getRowId = (row: Repository) => row.id
     const initialProps: {data: DataTableData<Repository>} = {data: groups}
     const {result, rerender} = renderHook(
@@ -203,38 +203,58 @@ describe('DataTable grouping', () => {
       {initialProps},
     )
     const groupedModel = result.current
-    expect(groupedModel.hasGroups).toBe(true)
-    if (groupedModel.rows[0].type !== 'row-group') throw new Error('Expected grouped row models')
-    expect(groupedModel.rows[0].rows[0].getValue().name).toBe('zeta')
+    expect(groupedModel.bodies[0].type).toBe('row-group')
+    expect(groupedModel.bodies[0].rows[0].getValue().name).toBe('zeta')
+    expect(groupedModel.headers.every(header => header.domId)).toBe(true)
 
     rerender({data: mixedData})
-    expect(result.current.hasGroups).toBe(true)
-    expect(result.current.rows.map(row => row.type)).toEqual([
-      'row',
-      'row',
+    expect(result.current.bodies.map(body => body.type)).toEqual([
+      'row-body',
       'row-group',
       'row-group',
-      'row',
-      'row',
+      'row-body',
       'row-group',
-      'row',
-      'row',
+      'row-body',
     ])
+    expect(result.current.bodies.map(body => body.key)).toEqual([
+      'rows:start',
+      'group:5',
+      'group:public',
+      'rows:after:public',
+      'group:empty',
+      'rows:after:empty',
+    ])
+    expect(result.current.bodies.map(body => body.rows.length)).toEqual([2, 2, 2, 2, 0, 2])
+    const rowHeaderIds: string[] = []
+    for (const body of result.current.bodies) {
+      for (const row of body.rows) {
+        const [rowHeader, cell] = row.getCells()
+        expect(rowHeader.domId).toBeTruthy()
+        expect(rowHeader.headers).toBe(result.current.headers[0].domId)
+        expect(cell.domId).toBeUndefined()
+        expect(cell.headers).toBe(`${rowHeader.domId} ${result.current.headers[1].domId}`)
+        if (rowHeader.domId) rowHeaderIds.push(rowHeader.domId)
+      }
+    }
+    expect(new Set(rowHeaderIds).size).toBe(10)
 
     rerender({data: groups[0].rows})
     const flatModel = result.current
-    expect(flatModel.hasGroups).toBe(false)
-    if (flatModel.rows[0].type !== 'row') throw new Error('Expected flat row models')
-    expect(flatModel.rows[0].getValue().name).toBe('zeta')
+    expect(flatModel.bodies[0].type).toBe('row-body')
+    expect(flatModel.bodies[0].rows[0].getValue().name).toBe('zeta')
+    expect(flatModel.headers.every(header => header.domId === undefined)).toBe(true)
+    for (const cell of flatModel.bodies[0].rows[0].getCells()) {
+      expect(cell.domId).toBeUndefined()
+      expect(cell.headers).toBeUndefined()
+    }
 
     rerender({data: []})
-    expect(result.current.hasGroups).toBe(false)
-    expect(result.current.rows).toEqual([])
+    expect(result.current.bodies).toEqual([{type: 'row-body', key: 'rows:start', rows: []}])
 
     rerender({data: [{...groups[0], rows: []}]})
-    expect(result.current.hasGroups).toBe(true)
-    if (result.current.rows[0].type !== 'row-group') throw new Error('Expected an empty group')
-    expect(result.current.rows[0].rows).toEqual([])
+    expect(result.current.bodies[0].type).toBe('row-group')
+    expect(result.current.bodies[0].rows).toEqual([])
+    expect(result.current.headers.every(header => header.domId)).toBe(true)
   })
 
   it.each([
@@ -457,6 +477,17 @@ describe('DataTable grouping', () => {
       'headers',
       expect.stringContaining(repositoryHeader.id),
     )
+  })
+
+  it.each([0, 2])('prepares complete mixed-table associations with %s row-header columns', rowHeaderCount => {
+    const mixedColumns: Array<Column<Repository>> = [
+      ...columns.map((column, index) => ({...column, rowHeader: index < rowHeaderCount})),
+      {header: 'ID', field: 'id'},
+    ]
+    const {container} = render(<DataTable data={mixedData} columns={mixedColumns} />)
+
+    expect(screen.queryAllByRole('rowheader')).toHaveLength(10 * rowHeaderCount)
+    expectCompleteAssociationGraph(container)
   })
 
   it.each([

@@ -1,4 +1,4 @@
-import {useId, type ReactElement, type ReactNode} from 'react'
+import type {ReactElement, ReactNode} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -112,7 +112,6 @@ function DataTableImplementation<Data extends UniqueRow>({
   getRowId = defaultGetRowId,
   onToggleSort,
 }: DataTableProps<Data>) {
-  const tableId = useId()
   const table = useTable({
     data,
     columns,
@@ -121,75 +120,23 @@ function DataTableImplementation<Data extends UniqueRow>({
     getRowId,
     externalSorting,
   })
-  const {headers, actions, gridTemplateColumns, hasGroups} = table
-  const columnHeaderIds = hasGroups ? headers.map((_, index) => `${tableId}-column-${index}`) : []
-  const allRows = table.rows.flatMap(item => (item.type === 'row-group' ? item.rows : [item]))
-  const rowIndexes = new Map((hasGroups ? allRows : []).map((row, index) => [row, index]))
+  const {headers, bodies, actions, gridTemplateColumns} = table
 
-  const renderRow = (row: (typeof allRows)[number]) => {
-    const cells = row.getCells()
-    const rowIndex = rowIndexes.get(row)
-    if (hasGroups && rowIndex === undefined) {
-      throw new Error(`Unable to find row index for row: ${row.id}`)
-    }
-    const rowHeaderIds = hasGroups
-      ? cells.flatMap((cell, index) => (cell.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : []))
-      : []
-
-    return (
-      <TableRow key={row.id}>
-        {cells.map((cell, index) => {
-          const rowHeaderId = hasGroups && cell.rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined
-          const cellHeaderIds = cell.rowHeader ? [columnHeaderIds[index]] : [...rowHeaderIds, columnHeaderIds[index]]
-
-          return (
-            <TableCell
-              key={cell.id}
-              id={rowHeaderId}
-              scope={cell.rowHeader ? 'row' : undefined}
-              align={cell.column.align}
-              headers={hasGroups ? cellHeaderIds.join(' ') : undefined}
-            >
-              {cell.column.renderCell ? cell.column.renderCell(row.getValue()) : (cell.getValue() as ReactNode)}
-            </TableCell>
-          )
-        })}
-      </TableRow>
-    )
-  }
-
-  const bodies: Array<ReactElement> = []
-  let ungroupedRows: typeof allRows = []
-  let bodyKey = 'rows:start'
-
-  function appendUngroupedBody() {
-    if (ungroupedRows.length > 0) {
-      bodies.push(<TableBody key={bodyKey}>{ungroupedRows.map(renderRow)}</TableBody>)
-      ungroupedRows = []
-    }
-  }
-
-  for (const item of table.rows) {
-    if (item.type === 'row-group') {
-      appendUngroupedBody()
-      bodies.push(
-        <TableGroup
-          key={`group:${item.id}`}
-          id={item.id}
-          label={item.label}
-          rowCount={item.rows.length}
-          colSpan={headers.length}
-          aria-label={item['aria-label']}
+  const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
+    <TableRow key={row.id}>
+      {row.getCells().map(cell => (
+        <TableCell
+          key={cell.id}
+          id={cell.domId}
+          scope={cell.rowHeader ? 'row' : undefined}
+          align={cell.column.align}
+          headers={cell.headers}
         >
-          {item.rows.map(renderRow)}
-        </TableGroup>,
-      )
-      bodyKey = `rows:after:${item.id}`
-    } else {
-      ungroupedRows.push(item)
-    }
-  }
-  appendUngroupedBody()
+          {cell.column.renderCell ? cell.column.renderCell(row.getValue()) : (cell.getValue() as ReactNode)}
+        </TableCell>
+      ))}
+    </TableRow>
+  )
 
   return (
     <Table
@@ -200,12 +147,12 @@ function DataTableImplementation<Data extends UniqueRow>({
     >
       <TableHead>
         <TableRow>
-          {headers.map((header, index) => {
+          {headers.map(header => {
             if (header.isSortable()) {
               return (
                 <TableSortHeader
                   key={header.id}
-                  id={hasGroups ? columnHeaderIds[index] : undefined}
+                  id={header.domId}
                   align={header.column.align}
                   direction={header.getSortDirection()}
                   onToggleSort={() => {
@@ -220,18 +167,29 @@ function DataTableImplementation<Data extends UniqueRow>({
               )
             }
             return (
-              <TableHeader
-                key={header.id}
-                id={hasGroups ? columnHeaderIds[index] : undefined}
-                align={header.column.align}
-              >
+              <TableHeader key={header.id} id={header.domId} align={header.column.align}>
                 {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
               </TableHeader>
             )
           })}
         </TableRow>
       </TableHead>
-      {bodies.length > 0 ? bodies : <TableBody />}
+      {bodies.map(body =>
+        body.type === 'row-group' ? (
+          <TableGroup
+            key={body.key}
+            id={body.id}
+            label={body.label}
+            rowCount={body.rows.length}
+            colSpan={headers.length}
+            aria-label={body['aria-label']}
+          >
+            {body.rows.map(renderRow)}
+          </TableGroup>
+        ) : (
+          <TableBody key={body.key}>{body.rows.map(renderRow)}</TableBody>
+        ),
+      )}
     </Table>
   )
 }

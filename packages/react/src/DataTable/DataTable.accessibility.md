@@ -104,6 +104,11 @@ Explicit `headers` references must resolve to headers within the same table.
 For grouped tables, `DataTable` generates column and row-header IDs and supplies
 the associations. Consumers identify row-header columns with `rowHeader`.
 
+The internal `useTable` model prepares ordered bodies, column-header IDs, and
+cell IDs and header references. `DataTable` maps that model onto the
+presentational components; `Table.Group` still owns its group-header ID and
+prepends it to member cells' references.
+
 In mixed tables, each contiguous run of standalone rows renders in its own
 `<tbody>`, as a sibling of the group sections. Standalone cells reference only
 their row and column headers, never an adjacent group's header. Entirely

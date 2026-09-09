@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useId, useState} from 'react'
 import type {Column} from './column'
 import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
@@ -15,8 +15,7 @@ interface TableConfig<Data extends UniqueRow> {
 
 interface Table<Data extends UniqueRow> {
   headers: Array<Header<Data>>
-  rows: Array<Row<Data> | RowGroup<Data>>
-  hasGroups: boolean
+  bodies: Array<RowBody<Data> | RowGroup<Data>>
   actions: {
     sortBy: (header: Header<Data>) => void
   }
@@ -25,6 +24,7 @@ interface Table<Data extends UniqueRow> {
 
 interface Header<Data extends UniqueRow> {
   id: string
+  domId: string | undefined
   column: Column<Data>
   isSortable: () => boolean
   getSortDirection: () => SortDirection | Exclude<SortDirection, 'NONE'>
@@ -39,14 +39,23 @@ interface Row<Data extends UniqueRow> {
 
 interface RowGroup<Data extends UniqueRow> {
   type: 'row-group'
+  key: string
   id: string | number
   label: string
   rows: Array<Row<Data>>
   'aria-label'?: string
 }
 
+interface RowBody<Data extends UniqueRow> {
+  type: 'row-body'
+  key: string
+  rows: Array<Row<Data>>
+}
+
 interface Cell<Data extends UniqueRow> {
   id: string
+  domId: string | undefined
+  headers: string | undefined
   column: Column<Data>
   getValue: () => Data[keyof Data]
   rowHeader: boolean
@@ -62,6 +71,7 @@ export function useTable<Data extends UniqueRow>({
   externalSorting,
   getRowId,
 }: TableConfig<Data>): Table<Data> {
+  const tableId = useId()
   const [rowOrder, setRowOrder] = useState<DataTableData<Data>>(data)
   const [prevData, setPrevData] = useState(data)
   const [prevColumns, setPrevColumns] = useState(columns)
@@ -85,7 +95,8 @@ export function useTable<Data extends UniqueRow>({
     }
   }
 
-  const headers = columns.map(column => {
+  const hasGroups = rowOrder.some(isDataTableRowGroup)
+  const headers = columns.map((column, index) => {
     const id = column.id ?? column.field
     if (id === undefined) {
       throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
@@ -94,6 +105,7 @@ export function useTable<Data extends UniqueRow>({
     const sortable = column.sortBy !== undefined && column.sortBy !== false
     return {
       id,
+      domId: hasGroups ? `${tableId}-column-${index}` : undefined,
       column,
       isSortable() {
         return sortable
@@ -225,8 +237,13 @@ export function useTable<Data extends UniqueRow>({
     return sorted
   }
 
-  function createRow(row: Data): Row<Data> {
+  function createRow(row: Data, rowIndex: number): Row<Data> {
     const rowId = getRowId(row)
+    const rowHeaderIds = hasGroups
+      ? headers.flatMap((header, index) =>
+          header.column.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : [],
+        )
+      : []
     return {
       type: 'row',
       id: `${rowId}`,
@@ -234,11 +251,14 @@ export function useTable<Data extends UniqueRow>({
         return row
       },
       getCells() {
-        return headers.map(header => {
+        return headers.map((header, index) => {
+          const rowHeader = header.column.rowHeader ?? false
           return {
             id: `${rowId}:${header.id}`,
+            domId: hasGroups && rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined,
+            headers: hasGroups ? (rowHeader ? [header.domId] : [...rowHeaderIds, header.domId]).join(' ') : undefined,
             column: header.column,
-            rowHeader: header.column.rowHeader ?? false,
+            rowHeader,
             getValue() {
               if (header.column.field !== undefined) {
                 return get(row, header.column.field)
@@ -251,29 +271,39 @@ export function useTable<Data extends UniqueRow>({
     }
   }
 
-  const rows: Table<Data>['rows'] = []
-  let hasGroups = false
+  const bodies: Table<Data>['bodies'] = []
+  let rowIndex = 0
+  let body: RowBody<Data> = {type: 'row-body', key: 'rows:start', rows: []}
   for (const item of rowOrder) {
     if (isDataTableRowGroup(item)) {
-      hasGroups = true
-      rows.push({
+      if (body.rows.length > 0) {
+        bodies.push(body)
+      }
+      const groupStartIndex = rowIndex
+      bodies.push({
         type: 'row-group',
+        key: `group:${item.groupId}`,
         id: item.groupId,
         label: item.label,
-        rows: item.rows.map(createRow),
+        rows: item.rows.map((row, index) => createRow(row, groupStartIndex + index)),
         'aria-label': item['aria-label'],
       })
+      rowIndex += item.rows.length
+      body = {type: 'row-body', key: `rows:after:${item.groupId}`, rows: []}
     } else {
-      rows.push(createRow(item))
+      body.rows.push(createRow(item, rowIndex))
+      rowIndex += 1
     }
+  }
+  if (body.rows.length > 0 || bodies.length === 0) {
+    bodies.push(body)
   }
 
   return {
     headers,
     actions: {sortBy},
     gridTemplateColumns,
-    rows,
-    hasGroups,
+    bodies,
   }
 }
 
