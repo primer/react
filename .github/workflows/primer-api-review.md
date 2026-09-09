@@ -49,12 +49,78 @@ skills:
   - .github/skills/style-guide
 safe-outputs:
   mentions: false
+  footer: false
   create-issue:
     deduplicate-by-title: true
     max: 1
   update-issue:
     target: '*'
     required-title-prefix: 'Primer API Review'
+  scripts:
+    publish-component-findings:
+      description: Upsert one component finding comment and resolve its checklist links on the Primer API Review issue
+      inputs:
+        issue_number:
+          type: string
+          required: true
+          description: Review issue number, or aw_review for the issue created in this run
+        component:
+          type: string
+          required: true
+          description: Component name used in the api-review-comment-COMPONENT checklist link
+        body:
+          type: string
+          required: true
+          description: Complete component comment with findings grouped under headings and evidence tables
+      script: |
+        const {matchesWorkflowId, generateWorkflowIdMarker} = require('./generate_footer.cjs')
+        config.publishCount = (config.publishCount || 0) + 1
+        if (config.publishCount > 100) {
+          throw new Error('At most 100 component comments may be published per run')
+        }
+        const repo = context.repo
+        const resolved = resolvedTemporaryIds[item.issue_number]
+        const issueNumber = Number(resolved ? resolved.number : item.issue_number)
+        if (resolved && resolved.repo !== `${repo.owner}/${repo.repo}`) {
+          throw new Error('Cross-repository review targets are not allowed')
+        }
+        if (!Number.isSafeInteger(issueNumber) || issueNumber <= 0 ||
+            typeof item.component !== 'string' || !/^[A-Za-z][A-Za-z0-9.]*$/.test(item.component) ||
+            typeof item.body !== 'string' || item.body.length < 20 || item.body.length > 60000) {
+          throw new Error('Invalid component review payload')
+        }
+        if (process.env.GH_AW_SAFE_OUTPUTS_STAGED === 'true') {
+          core.info(`Would publish findings for ${item.component} on issue ${issueNumber}`)
+          return {success: true}
+        }
+        const {data: issue} = await github.rest.issues.get({...repo, issue_number: issueNumber})
+        if (issue.pull_request || issue.title !== 'Primer API Review') {
+          throw new Error('Target must be the Primer API Review issue')
+        }
+        const marker = `<!-- primer-api-review-component: ${item.component} -->`
+        const comments = await github.paginate(github.rest.issues.listComments, {
+          ...repo, issue_number: issueNumber, per_page: 100,
+        })
+        const previous = comments.find(comment =>
+          comment.user?.login === 'github-actions[bot]' &&
+          matchesWorkflowId(comment.body || '', 'primer-api-review') &&
+          (comment.body || '').includes(marker),
+        )
+        const body = `${sanitizeContent(item.body)}\n\n${marker}\n${generateWorkflowIdMarker('primer-api-review')}`
+        let comment = previous
+        if (!previous || previous.body !== body) {
+          const result = previous
+            ? await github.rest.issues.updateComment({...repo, comment_id: previous.id, body})
+            : await github.rest.issues.createComment({...repo, issue_number: issueNumber, body})
+          comment = result.data
+        }
+        const updatedBody = (issue.body || '').replaceAll(
+          `(#api-review-comment-${item.component})`, `(${comment.html_url})`,
+        )
+        if (updatedBody !== issue.body) {
+          await github.rest.issues.update({...repo, issue_number: issueNumber, body: updatedBody})
+        }
+        return {success: true, url: comment.html_url}
 ---
 
 # Primer API Review
@@ -117,11 +183,14 @@ unresolved component API deviations from the Primer React style guide.
    - cite the exact style-guide principle
    - cite repository file paths and line numbers
    - describe the smallest consumer-facing API change that would resolve it
-6. Read `/tmp/gh-aw/data/existing-review.json`. When a prior finding appears in
-   the existing issue, inspect the issue comments for a clear, substantive
+6. Read `/tmp/gh-aw/data/existing-review.json` and all comments on that issue,
+   paginating if needed. Findings may be in the legacy issue body or in managed
+   component comments. When a prior finding appears, inspect the other issue
+   comments for a clear, substantive
    explanation of why that API intentionally exists. If a comment is tied to
    that finding and provides a reason, omit the finding entirely. Do not treat
-   an acknowledgement, question, or unrelated comment as a reason.
+   an acknowledgement, question, unrelated comment, or the workflow's own
+   finding/recommendation text as a reason.
 7. Merge duplicate findings and discard anything speculative, stylistic but not
    covered by the guide, or unsupported by source evidence.
 8. Reconcile the coverage matrix against the complete inventory and checklist
@@ -135,44 +204,93 @@ unresolved component API deviations from the Primer React style guide.
 
 ## Issue output
 
-Build a complete replacement body using GitHub-flavored Markdown:
+Build the issue body as an overview, not a dump of findings. Use GitHub-flavored
+Markdown and start sections at `###`:
 
-- Start sections at `###`.
-- Include a short summary with the review date and fully reviewed component count
-  out of the total inventory. Distinguish a full audit from a partial audit.
-- Include a compact coverage table by principle with counts of `pass`, `finding`,
+- Limit the summary to at most two sentences, including the review date, fully
+  reviewed component count out of the inventory, and whether the audit is partial
+  or complete.
+- Under `### Proposed API changes`, include an unchecked task-list item for each
+  proposed API change, naming the component/API and linking to its finding
+  comment. Use the finding heading as the link text when a component has multiple
+  findings. Do not check a proposal merely because it was reviewed.
+- Keep evidence, impact, and recommendation details in the component comments,
+  not in the overview checklist.
+- Put run details and the coverage table inside
+  `<details><summary>Run details and coverage</summary>`. Include counts of `pass`, `finding`,
   `not-applicable`, and `not-reviewed` components for this run. Each row must
   account for the entire inventory; retained historical findings do not count
   as reviewed cells.
   State whether sub-agents, direct inspection, or both supplied the evidence,
   including any failed batches and recovery performed.
-- For a partial audit, include a remaining-coverage list grouped by principle
+- For a partial audit, put the remaining-coverage list inside
+  `<details><summary>Remaining coverage</summary>`, grouped by principle
   with component names and the next bounded batch to inspect. Prioritize gaps
   from the previous run that remain unreviewed before newly introduced gaps.
-- Group findings by style-guide principle.
-- For each finding, include the component/API, evidence, impact, and recommended
-  change.
+- Put retained findings not rechecked in this run behind
+  `<details><summary>Past findings not rechecked</summary>`, preserving their
+  comment links and unresolved status rather than silently dropping them.
 - State that the full review found no unexplained deviations only when coverage
   is complete and there are no unresolved findings. When a partial audit has no
   new findings, state that no new deviations were found in the inspected subset
   without implying the unreviewed APIs passed.
-- Include the workflow run as
+- Inside the run-details disclosure, include the workflow run as
   `[§${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`.
 - Do not include findings that have a documented rationale in issue comments.
+- Close every disclosure with `</details>` and leave blank lines around its
+  Markdown content so GitHub renders tables and lists correctly.
 - Do not append an unbounded run history or copy comment discussions into the
-  issue body.
+  issue body or component comments.
+
+### Component finding comments
+
+Maintain one managed comment per component with findings, grouping its findings
+under separate `####` headings below `### ComponentName`. Every finding must
+belong to that component, identify its public API and style-guide principle, and
+use a table with `Evidence`, `Impact`, and `Recommendation` columns. Evidence
+must link to the source file and line range and the exact style-guide principle;
+recommendations must describe the proposed consumer-facing API change.
+
+Keep active findings visible. Place retained findings not rechecked this run in
+a `<details><summary>Past findings not rechecked</summary>` block within the
+component comment. When source inspection resolves a previously published
+finding, move a brief status and its evidence into
+`<details><summary>Resolved findings</summary>` rather than presenting it as an
+active recommendation. Omit findings with a documented rationale as described
+above. Never modify human comments or publish comments for components with no
+current or previously published findings.
+
+Use `publish_component_findings` with the component name and its complete comment
+body; the safe-output handler maintains the component marker, reuses the managed
+comment, skips unchanged content, and inserts its real URL into the checklist.
+Do not supply comment IDs or invent comment URLs. For a new or updated component
+comment, use `(#api-review-comment-ComponentName)` as the checklist link target.
+Use actual existing comment URLs for unchanged comments. Multiple findings for
+one component may link to the same comment, with distinct finding labels.
 
 If `/tmp/gh-aw/data/existing-review.json` contains an issue:
 
-- update that issue's body with `update_issue`
+- first queue that issue's complete replacement overview body with `update_issue`
+  and `operation: replace` (never append a second checklist)
 - keep the title exactly `Primer API Review`
 - reopen it if it is closed
 
-Otherwise, create one issue with `create_issue`, the exact title
-`Primer API Review`, and the generated body.
+Otherwise, first queue one issue with `create_issue`, the exact title
+`Primer API Review`, `temporary_id: aw_review`, and the overview body.
 
-Perform exactly one visible issue action per run. Never create a second review
-issue when an exact-title issue exists. Use `noop` with a short reason only when
+Then queue `publish_component_findings` for each new or changed component comment
+(at most one per component and 100 per run), using the existing issue number as
+a string or `aw_review` for the newly created issue. Also queue it for any
+component whose checklist links use placeholders, even if its comment is
+unchanged. Safe outputs execute after the agent finishes, so do not try to read
+back newly queued comments during this run. Queue the overview before the
+component publishers; do not queue another overview update afterward that would
+overwrite resolved links. If the publication cap is reached, retain existing
+links and list unpublished components in the collapsed remaining-coverage block
+without emitting dangling placeholders.
+
+Never create a second review issue when an exact-title issue exists. Use `noop`
+with a short reason only when
 no trustworthy progress can be published (for example, source or prior issue
 data is unavailable and no safe update is possible). Incomplete coverage or
 failed delegation alone is not a reason to use `noop`: verified existing
