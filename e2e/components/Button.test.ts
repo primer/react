@@ -110,6 +110,36 @@ const stories = [
 ] as const
 
 test.describe('Button', () => {
+  test('link variant underlines only the label', async ({page}) => {
+    await visit(page, {
+      id: 'components-button-dev--link-variant-with-underline-preference',
+    })
+
+    const preferenceOnButton = page.locator('[data-a11y-link-underlines="true"]').getByRole('button').nth(1)
+    const preferenceOnLabel = preferenceOnButton.locator('[data-component="text"]')
+
+    await expect(preferenceOnButton).toHaveCSS('text-decoration-line', 'none')
+    await expect(preferenceOnButton).toHaveCSS('background-image', 'none')
+    await expect(preferenceOnLabel).toHaveCSS('text-decoration-line', 'underline')
+
+    await preferenceOnButton.hover()
+    await expect(preferenceOnButton).toHaveCSS('text-decoration-line', 'none')
+    await expect(preferenceOnButton).toHaveCSS('background-image', 'none')
+    await expect(preferenceOnLabel).toHaveCSS('text-decoration-line', 'none')
+
+    const preferenceOffButton = page.locator('[data-a11y-link-underlines="false"]').getByRole('button').nth(1)
+    const preferenceOffLabel = preferenceOffButton.locator('[data-component="text"]')
+
+    await expect(preferenceOffButton).toHaveCSS('text-decoration-line', 'none')
+    await expect(preferenceOffButton).toHaveCSS('background-image', 'none')
+    await expect(preferenceOffLabel).toHaveCSS('text-decoration-line', 'none')
+
+    await preferenceOffButton.hover()
+    await expect(preferenceOffButton).toHaveCSS('text-decoration-line', 'none')
+    await expect(preferenceOffButton).toHaveCSS('background-image', 'none')
+    await expect(preferenceOffLabel).toHaveCSS('text-decoration-line', 'underline')
+  })
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {

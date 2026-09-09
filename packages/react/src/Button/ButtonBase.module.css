@@ -590,7 +590,7 @@
     border: unset;
     border-radius: 0;
 
-    &:hover:not(:disabled, [data-inactive]) {
+    &:where(:hover:not(:disabled, [data-inactive])) .Label {
       text-decoration: underline;
     }
 
@@ -621,34 +621,22 @@
   }
 
   [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
-    &[data-no-visuals] {
+    & .Label {
       text-decoration: underline;
-
-      &:hover {
-        text-decoration: none;
-      }
     }
 
-    &:not([data-no-visuals]) {
-      background-image: linear-gradient(to right, currentColor, currentColor);
-      background-size: 100% 1.5px;
-      background-position: 0 calc(100% - 2px);
-      background-repeat: no-repeat;
-
-      &:hover {
-        text-decoration: none;
-      }
+    &:where(:hover) .Label {
+      text-decoration: none;
     }
   }
 
   [data-a11y-link-underlines='false'] &:where([data-variant='link']) {
-    &[data-no-visuals] {
+    & .Label {
       text-decoration: none;
-      background-image: none;
     }
 
-    &:not([data-no-visuals]) {
-      background-image: none;
+    &:where(:hover:not(:disabled, [data-inactive])) .Label {
+      text-decoration: underline;
     }
   }
 
