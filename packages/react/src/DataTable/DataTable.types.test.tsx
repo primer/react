@@ -58,32 +58,70 @@ export function shouldInferRowTypeFromInlineGroups() {
   )
 }
 
-export function shouldRejectMixedData() {
+export function shouldAcceptMixedData() {
   const mixed = [{id: 2, name: 'primer/css'}, ...groups]
   const props: DataTableProps<Repository> = {
     columns,
-    // @ts-expect-error Rows and groups cannot be mixed in a single array.
     data: mixed,
   }
-  // @ts-expect-error Explicit row generics must reject mixed arrays.
   const explicit = <DataTable<Repository> data={mixed} columns={columns} />
-  // @ts-expect-error Inferred row generics must also reject mixed arrays.
   const inferred = <DataTable data={mixed} columns={columns} />
-  return {props, explicit, inferred}
+  const spread = <DataTable {...props} />
+  return {props, explicit, inferred, spread}
 }
 
 export function useTableModelTypeChecks() {
-  // @ts-expect-error The hook also rejects arrays mixing rows and groups.
   useTable({data: [{id: 2, name: 'primer/css'}, ...groups], columns, getRowId: row => row.id})
   const table = useTable({data: groups, columns, getRowId: row => row.id})
-  if (table.isGrouped) {
-    const name: string = table.rows[0].rows[0].getValue().name
+  const item = table.rows[0]
+  if (item.type === 'row-group') {
+    const name: string = item.rows[0].getValue().name
     // @ts-expect-error Group models are not member row models.
-    table.rows[0].getCells()
+    item.getCells()
     return name
   }
-  const name: string = table.rows[0].getValue().name
+  const name: string = item.getValue().name
   // @ts-expect-error Flat row models do not contain member rows.
-  table.rows[0].rows
+  item.rows
   return name
+}
+
+export function shouldInferInlineMixedData() {
+  return (
+    <DataTable
+      data={[
+        {id: 1, name: 'Standalone', owner: {login: 'primer'}},
+        {
+          type: 'row-group',
+          groupId: 'public',
+          label: 'Public',
+          rows: [{id: 2, name: 'primer/react', owner: {login: 'primer'}}],
+        },
+      ]}
+      columns={[
+        {header: 'Name', field: 'name', renderCell: row => row.name.toUpperCase()},
+        {header: 'Owner', field: 'owner.login', renderCell: row => row.owner.login},
+      ]}
+      getRowId={row => row.id}
+    />
+  )
+}
+
+export function shouldRejectInvalidData() {
+  const invalidProps: DataTableProps<Repository> = {
+    columns,
+    // @ts-expect-error Group members must have the required row fields.
+    data: [{...groups[0], rows: [{id: 3}]}],
+  }
+  const nestedGroups: DataTableProps<Repository> = {
+    columns,
+    // @ts-expect-error Nested groups are not supported.
+    data: [{...groups[0], rows: groups}],
+  }
+  const invalidColumns: DataTableProps<Repository> = {
+    data: [{id: 2, name: 'Standalone'}, ...groups],
+    // @ts-expect-error Column fields must refer to row data, not group metadata.
+    columns: [{header: 'Group', field: 'groupId'}],
+  }
+  return {invalidProps, nestedGroups, invalidColumns}
 }

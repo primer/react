@@ -67,8 +67,8 @@
     },
     {
       "name": "data",
-      "type": "Array<Data> | Array<DataTableRowGroup<Data>>",
-      "description": "Provide either a collection of rows or a collection of row groups shaped as `{type: 'row-group', groupId, label, rows, 'aria-label'?}`. Row groups render through `Table.Group`; DataTable automatically associates each member cell with its group, row, and column headers. Consumers provide each group's visible `label` and may provide `aria-label` to localize the generated accessible name. For pagination, supply only the current page's member rows; a split group's heading repeats on each page and its count reflects the supplied rows, not the total across pages. DataTable does not slice or paginate data. Ungrouped tables continue to use native `scope` associations without explicit header ID references."
+      "type": "Array<Data | DataTableRowGroup<Data>>",
+      "description": "Provide rows, row groups, or a mixture of both in display order. Groups have the shape `{type: 'row-group', groupId, label, rows, 'aria-label'?}` and contain only data rows, not nested groups. DataTable associates grouped cells with group, row, and column headers; standalone cells do not reference a group. Client-side sorting sorts each group and each contiguous run of standalone rows independently, without moving rows across group boundaries. For pagination, supply only the current page's rows while preserving their group membership; a split group's heading repeats and its count reflects the supplied page, not the total across pages. DataTable does not paginate data. Entirely ungrouped tables retain native `scope` associations without explicit header ID references."
     },
     {
       "name": "columns",

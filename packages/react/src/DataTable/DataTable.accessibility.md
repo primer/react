@@ -18,13 +18,15 @@ assigning different responsibilities to consumers.
 | Row header               | Consumer renders `Table.Cell scope="row"`                                           | Consumer marks a column with `rowHeader`                                  |
 | Cell header associations | Consumer references column and row headers; `Table.Group` prepends the group header | Automatically references group, row, and column headers                   |
 | Ungrouped tables         | Native `scope` associations                                                         | Preserves native `scope` associations without explicit ID references      |
-| Sorting                  | Consumer manages row order                                                          | Preserves group order and sorts rows within each group                    |
+| Sorting                  | Consumer manages row order                                                          | Sorts each group and contiguous standalone-row run independently          |
 | Empty groups             | Always renders the member `<tbody>`                                                 | Preserves the empty member `<tbody>`                                      |
 | Nested tables            | Clears inherited group context                                                      | Inherited from the presentational API                                     |
 | Server rendering         | Consumer-provided IDs must be SSR-safe                                              | Generates collision-free IDs and preserves associations through hydration |
 
-The config API accepts either only rows or only row groups. It does not accept
-rows and groups in the same `data` array.
+The config API accepts rows, row groups, or a mixture of both in display order.
+Each group contains only data rows; nested groups are not supported. The
+`{type: 'row-group', groupId, rows}` shape identifies group entries and should
+not be used for standalone row data.
 
 ## Requirements
 
@@ -101,6 +103,11 @@ Explicit `headers` references must resolve to headers within the same table.
 For grouped tables, `DataTable` generates column and row-header IDs and supplies
 the associations. Consumers identify row-header columns with `rowHeader`.
 
+In mixed tables, each contiguous run of standalone rows renders in its own
+`<tbody>`, as a sibling of the group sections. Standalone cells reference only
+their row and column headers, never an adjacent group's header. Entirely
+ungrouped tables retain native `scope` associations without generated IDs.
+
 With direct composition, consumers supply column IDs, row-header IDs, and the
 corresponding `headers` references. `Table.Group` generates its own header ID
 and prepends it to member cells' references. A row header references its group
@@ -125,6 +132,12 @@ and column; a data cell additionally references the row header.
       <td headers="public-group react-row visibility-column">Public</td>
     </tr>
   </tbody>
+  <tbody>
+    <tr>
+      <th id="standalone-row" scope="row" headers="name-column">standalone/repository</th>
+      <td headers="standalone-row visibility-column">Unassigned</td>
+    </tr>
+  </tbody>
 </table>
 ```
 
@@ -144,18 +157,21 @@ decorative. For an unsorted column, `aria-sort` is omitted.
 </th>
 ```
 
-Client-side sorting preserves group order and sorts member rows within each
-group. Header associations must remain valid after either sort direction or
-replacement data. With `externalSorting`, consumers own ordering; replacement
-data must be displayed without being re-sorted locally.
+Client-side sorting preserves group boundaries and sorts each group and each
+contiguous run of standalone rows independently. Rows never move across a group,
+including an empty group. For entirely flat data, this still sorts the whole
+collection. Header associations and row identity must remain valid after either
+sort direction or replacement data. With `externalSorting`, consumers own
+ordering; replacement data must be displayed without being re-sorted locally.
 
 ### Preserve the group context across pagination
 
 Pagination is consumer-owned. `Table.Pagination` reports the selected page;
 `DataTable` renders the supplied data and does not split groups or slice rows.
-Consumers supply the current page's member rows, grouped for display.
+Consumers supply the current page's data rows in display order, preserving
+whether each row is standalone or belongs to a group.
 
-- Page size and pagination totals count member rows, not group headings.
+- Page size and pagination totals count standalone rows and group members, not headings.
 - If a group crosses a page boundary, repeat its heading on the next page.
 - The generated group count is the number of supplied member rows on that page,
   not the group's total across all pages.
@@ -166,13 +182,13 @@ Consumers supply the current page's member rows, grouped for display.
 - To sort across the entire result set, sort before pagination and use
   `externalSorting`. Local sorting only sees the supplied page.
 
-For example, 12 Public repositories followed by 3 Internal repositories with a
-page size of 10 produce:
+For example, one standalone row, 12 Public repositories, 3 Internal repositories,
+and a final standalone row with a page size of 10 produce:
 
-| Page | Group headings                   | Member rows |
-| ---- | -------------------------------- | ----------- |
-| 1    | Public, 10 rows                  | 10          |
-| 2    | Public, 2 rows; Internal, 3 rows | 5           |
+| Page | Display order                                    | Data rows |
+| ---- | ------------------------------------------------ | --------- |
+| 1    | Standalone row; Public, 9 rows                   | 10        |
+| 2    | Public, 3 rows; Internal, 3 rows; standalone row | 7         |
 
 The `WithGroups` story in
 [DataTable features](./DataTable.features.stories.tsx) demonstrates this split.
@@ -187,9 +203,9 @@ must likewise provide instance-scoped, SSR-safe IDs.
 
 ## Verification
 
-- [Grouping tests](./__tests__/DataTableGrouping.test.tsx) cover sorting,
-  replacement data, empty groups, and the server-rendered/hydrated ID-reference
-  graph across multiple tables.
+- [Grouping tests](./__tests__/DataTableGrouping.test.tsx) cover mixed body
+  structure, independent sorting runs, row identity, replacement data, empty
+  groups, and the server-rendered/hydrated ID-reference graph across multiple tables.
 - [Presentational group tests](./__tests__/TableGroup.test.tsx) cover native
   spanning headers, accessible names, and nested-table isolation.
 - [DataTable browser tests](../../../../e2e/components/DataTable.test.ts) cover

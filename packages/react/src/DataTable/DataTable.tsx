@@ -73,7 +73,7 @@ type DataTableBaseProps<Data extends UniqueRow> = {
 
 export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
   /**
-   * Provide either a collection of rows or a collection of row groups.
+   * Provide a collection of rows, row groups, or a mixture of both.
    */
   data: DataTableData<Data>
 }
@@ -121,25 +121,25 @@ function DataTableImplementation<Data extends UniqueRow>({
     getRowId,
     externalSorting,
   })
-  const {headers, actions, gridTemplateColumns, isGrouped: grouped} = table
-  const columnHeaderIds = grouped ? headers.map((_, index) => `${tableId}-column-${index}`) : []
-  const allRows = table.isGrouped ? table.rows.flatMap(group => group.rows) : table.rows
-  const rowIndexes = new Map((grouped ? allRows : []).map((row, index) => [row, index]))
+  const {headers, actions, gridTemplateColumns, hasGroups} = table
+  const columnHeaderIds = hasGroups ? headers.map((_, index) => `${tableId}-column-${index}`) : []
+  const allRows = table.rows.flatMap(item => (item.type === 'row-group' ? item.rows : [item]))
+  const rowIndexes = new Map((hasGroups ? allRows : []).map((row, index) => [row, index]))
 
   const renderRow = (row: (typeof allRows)[number]) => {
     const cells = row.getCells()
     const rowIndex = rowIndexes.get(row)
-    if (grouped && rowIndex === undefined) {
+    if (hasGroups && rowIndex === undefined) {
       throw new Error(`Unable to find row index for row: ${row.id}`)
     }
-    const rowHeaderIds = grouped
+    const rowHeaderIds = hasGroups
       ? cells.flatMap((cell, index) => (cell.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : []))
       : []
 
     return (
       <TableRow key={row.id}>
         {cells.map((cell, index) => {
-          const rowHeaderId = grouped && cell.rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined
+          const rowHeaderId = hasGroups && cell.rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined
           const cellHeaderIds = cell.rowHeader ? [columnHeaderIds[index]] : [...rowHeaderIds, columnHeaderIds[index]]
 
           return (
@@ -148,7 +148,7 @@ function DataTableImplementation<Data extends UniqueRow>({
               id={rowHeaderId}
               scope={cell.rowHeader ? 'row' : undefined}
               align={cell.column.align}
-              headers={grouped ? cellHeaderIds.join(' ') : undefined}
+              headers={hasGroups ? cellHeaderIds.join(' ') : undefined}
             >
               {cell.column.renderCell ? cell.column.renderCell(row.getValue()) : (cell.getValue() as ReactNode)}
             </TableCell>
@@ -157,6 +157,39 @@ function DataTableImplementation<Data extends UniqueRow>({
       </TableRow>
     )
   }
+
+  const bodies: Array<ReactElement> = []
+  let ungroupedRows: typeof allRows = []
+  let bodyKey = 'rows:start'
+
+  function appendUngroupedBody() {
+    if (ungroupedRows.length > 0) {
+      bodies.push(<TableBody key={bodyKey}>{ungroupedRows.map(renderRow)}</TableBody>)
+      ungroupedRows = []
+    }
+  }
+
+  for (const item of table.rows) {
+    if (item.type === 'row-group') {
+      appendUngroupedBody()
+      bodies.push(
+        <TableGroup
+          key={`group:${item.id}`}
+          id={item.id}
+          label={item.label}
+          rowCount={item.rows.length}
+          colSpan={headers.length}
+          aria-label={item['aria-label']}
+        >
+          {item.rows.map(renderRow)}
+        </TableGroup>,
+      )
+      bodyKey = `rows:after:${item.id}`
+    } else {
+      ungroupedRows.push(item)
+    }
+  }
+  appendUngroupedBody()
 
   return (
     <Table
@@ -172,7 +205,7 @@ function DataTableImplementation<Data extends UniqueRow>({
               return (
                 <TableSortHeader
                   key={header.id}
-                  id={grouped ? columnHeaderIds[index] : undefined}
+                  id={hasGroups ? columnHeaderIds[index] : undefined}
                   align={header.column.align}
                   direction={header.getSortDirection()}
                   onToggleSort={() => {
@@ -189,7 +222,7 @@ function DataTableImplementation<Data extends UniqueRow>({
             return (
               <TableHeader
                 key={header.id}
-                id={grouped ? columnHeaderIds[index] : undefined}
+                id={hasGroups ? columnHeaderIds[index] : undefined}
                 align={header.column.align}
               >
                 {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
@@ -198,24 +231,7 @@ function DataTableImplementation<Data extends UniqueRow>({
           })}
         </TableRow>
       </TableHead>
-      {!table.isGrouped ? (
-        <TableBody>{table.rows.map(renderRow)}</TableBody>
-      ) : (
-        table.rows.map(group => {
-          return (
-            <TableGroup
-              key={group.id}
-              id={group.id}
-              label={group.label}
-              rowCount={group.rows.length}
-              colSpan={headers.length}
-              aria-label={group['aria-label']}
-            >
-              {group.rows.map(renderRow)}
-            </TableGroup>
-          )
-        })
-      )}
+      {bodies.length > 0 ? bodies : <TableBody />}
     </Table>
   )
 }

@@ -29,4 +29,4 @@ export interface DataTableRowGroup<Data extends UniqueRow> {
   'aria-label'?: string
 }
 
-export type DataTableData<Data extends UniqueRow> = Array<Data> | Array<DataTableRowGroup<Data>>
+export type DataTableData<Data extends UniqueRow> = Array<Data | DataTableRowGroup<Data>>

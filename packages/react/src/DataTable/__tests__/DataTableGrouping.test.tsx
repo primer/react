@@ -49,7 +49,102 @@ const groups: Array<DataTableRowGroup<Repository>> = [
   },
 ]
 
+const mixedData: DataTableData<Repository> = [
+  {id: 5, name: 'outside-z', visibility: 'standalone'},
+  {id: 6, name: 'outside-a', visibility: 'standalone'},
+  {...groups[0], groupId: 5},
+  groups[1],
+  {id: 7, name: 'middle-z', visibility: 'standalone'},
+  {id: 8, name: 'middle-a', visibility: 'standalone'},
+  {type: 'row-group', groupId: 'empty', label: 'Empty', rows: []},
+  {id: 9, name: 'tail-z', visibility: 'standalone'},
+  {id: 10, name: 'tail-a', visibility: 'standalone'},
+]
+
 describe('DataTable grouping', () => {
+  it('renders mixed rows and adjacent or empty groups as sibling bodies without leaking group headers', () => {
+    const {container} = render(<DataTable data={mixedData} columns={columns} />)
+    const bodies = container.querySelectorAll('table > tbody')
+    expect(Array.from(bodies, body => body.getAttribute('data-component'))).toEqual([
+      'Table.Body',
+      'Table.Group',
+      'Table.Group.Body',
+      'Table.Group',
+      'Table.Group.Body',
+      'Table.Body',
+      'Table.Group',
+      'Table.Group.Body',
+      'Table.Body',
+    ])
+    expect(bodies[0].querySelectorAll('tr')).toHaveLength(2)
+    expect(bodies[7].querySelectorAll('tr')).toHaveLength(0)
+    expect(container.querySelector('tbody tbody')).toBeNull()
+    expectCompleteAssociationGraph(container)
+  })
+
+  it('sorts each contiguous row run and each group independently without remounting rows', async () => {
+    const user = userEvent.setup()
+    const {container} = render(<DataTable data={mixedData} columns={columns} />)
+    const originalRows = new Map(screen.getAllByRole('rowheader').map(header => [header.textContent, header]))
+    const sortButton = screen.getByRole('button', {name: 'Repository'})
+    await user.click(sortButton)
+    expect(screen.getAllByRole('rowheader').map(header => header.textContent)).toEqual([
+      'outside-a',
+      'outside-z',
+      'alpha',
+      'zeta',
+      'beta',
+      'gamma',
+      'middle-a',
+      'middle-z',
+      'tail-a',
+      'tail-z',
+    ])
+    expectCompleteAssociationGraph(container)
+    await user.click(sortButton)
+    expect(screen.getAllByRole('rowheader').map(header => header.textContent)).toEqual([
+      'outside-z',
+      'outside-a',
+      'zeta',
+      'alpha',
+      'gamma',
+      'beta',
+      'middle-z',
+      'middle-a',
+      'tail-z',
+      'tail-a',
+    ])
+    expectCompleteAssociationGraph(container)
+    for (const header of screen.getAllByRole('rowheader')) {
+      expect(header).toBe(originalRows.get(header.textContent))
+    }
+    expect(
+      screen
+        .getAllByRole('columnheader', {name: /Internal|Public|Empty/})
+        .map(header => header.closest('tbody')?.getAttribute('data-group-id')),
+    ).toEqual(['5', 'public', 'empty'])
+  })
+
+  it.each([false, true])('adopts replacement mixed data with externalSorting=%s', async externalSorting => {
+    const user = userEvent.setup()
+    const {container, rerender} = render(
+      <DataTable data={groups} columns={columns} externalSorting={externalSorting} />,
+    )
+    await user.click(screen.getByRole('button', {name: 'Repository'}))
+    rerender(<DataTable data={mixedData} columns={columns} externalSorting={externalSorting} />)
+    expect(screen.getAllByRole('rowheader').map(header => header.textContent)).toEqual(
+      externalSorting
+        ? ['outside-z', 'outside-a', 'zeta', 'alpha', 'gamma', 'beta', 'middle-z', 'middle-a', 'tail-z', 'tail-a']
+        : ['outside-a', 'outside-z', 'alpha', 'zeta', 'beta', 'gamma', 'middle-a', 'middle-z', 'tail-a', 'tail-z'],
+    )
+    expectCompleteAssociationGraph(container)
+    const flatRows = groups[0].rows
+    rerender(<DataTable data={flatRows} columns={columns} externalSorting={externalSorting} />)
+    expect(container.querySelector('[headers]')).toBeNull()
+    expect(container.querySelector('th[id]')).toBeNull()
+    expect(container.querySelectorAll('table > tbody')).toHaveLength(1)
+  })
+
   it('narrows the shared rows model and supports changes between flat, grouped, and empty data', () => {
     const getRowId = (row: Repository) => row.id
     const initialProps: {data: DataTableData<Repository>} = {data: groups}
@@ -58,23 +153,37 @@ describe('DataTable grouping', () => {
       {initialProps},
     )
     const groupedModel = result.current
-    expect(groupedModel.isGrouped).toBe(true)
-    if (!groupedModel.isGrouped) throw new Error('Expected grouped row models')
+    expect(groupedModel.hasGroups).toBe(true)
+    if (groupedModel.rows[0].type !== 'row-group') throw new Error('Expected grouped row models')
     expect(groupedModel.rows[0].rows[0].getValue().name).toBe('zeta')
+
+    rerender({data: mixedData})
+    expect(result.current.hasGroups).toBe(true)
+    expect(result.current.rows.map(row => row.type)).toEqual([
+      'row',
+      'row',
+      'row-group',
+      'row-group',
+      'row',
+      'row',
+      'row-group',
+      'row',
+      'row',
+    ])
 
     rerender({data: groups[0].rows})
     const flatModel = result.current
-    expect(flatModel.isGrouped).toBe(false)
-    if (flatModel.isGrouped) throw new Error('Expected flat row models')
+    expect(flatModel.hasGroups).toBe(false)
+    if (flatModel.rows[0].type !== 'row') throw new Error('Expected flat row models')
     expect(flatModel.rows[0].getValue().name).toBe('zeta')
 
     rerender({data: []})
-    expect(result.current.isGrouped).toBe(false)
+    expect(result.current.hasGroups).toBe(false)
     expect(result.current.rows).toEqual([])
 
     rerender({data: [{...groups[0], rows: []}]})
-    expect(result.current.isGrouped).toBe(true)
-    if (!result.current.isGrouped) throw new Error('Expected an empty group')
+    expect(result.current.hasGroups).toBe(true)
+    if (result.current.rows[0].type !== 'row-group') throw new Error('Expected an empty group')
     expect(result.current.rows[0].rows).toEqual([])
   })
 
@@ -302,11 +411,14 @@ describe('DataTable grouping', () => {
     )
   })
 
-  it('preserves complete, non-colliding header associations through server rendering and hydration', async () => {
+  it.each([
+    {name: 'groups', data: groups},
+    {name: 'mixed rows and groups', data: mixedData},
+  ])('preserves complete header associations through server rendering and hydration for $name', async ({data}) => {
     const tables = (
       <>
-        <DataTable data={groups} columns={columns} />
-        <DataTable data={groups} columns={columns} />
+        <DataTable data={data} columns={columns} />
+        <DataTable data={data} columns={columns} />
       </>
     )
     const container = document.createElement('div')
@@ -352,12 +464,18 @@ function expectCompleteAssociationGraph(container: HTMLElement) {
   for (const table of container.querySelectorAll('table')) {
     const columnHeaders = table.querySelectorAll<HTMLElement>('thead th[scope="col"]')
 
-    for (const groupBody of table.querySelectorAll<HTMLElement>('tbody[data-component="Table.Group.Body"]')) {
+    for (const groupBody of table.querySelectorAll<HTMLElement>(
+      'tbody[data-component="Table.Group.Body"], tbody[data-component="Table.Body"]',
+    )) {
       const groupId = groupBody.getAttribute('data-group-id')
-      const groupHeader = table.querySelector<HTMLElement>(
-        `tbody[data-component="Table.Group"][data-group-id="${groupId}"] th[scope="colgroup"]`,
-      )
-      expect(groupHeader?.id).toBeTruthy()
+      const groupHeader =
+        groupId === null
+          ? null
+          : table.querySelector<HTMLElement>(
+              `tbody[data-component="Table.Group"][data-group-id="${groupId}"] th[scope="colgroup"]`,
+            )
+      if (groupId !== null) expect(groupHeader?.id).toBeTruthy()
+      const groupHeaders = groupHeader ? [groupHeader.id] : []
 
       for (const row of groupBody.querySelectorAll('tr')) {
         const rowHeaders = Array.from(row.querySelectorAll<HTMLElement>('th[scope="row"]'))
@@ -365,8 +483,8 @@ function expectCompleteAssociationGraph(container: HTMLElement) {
         for (const [index, cell] of Array.from(row.children).entries()) {
           const expectedHeaders =
             cell.getAttribute('scope') === 'row'
-              ? [groupHeader?.id, columnHeaders[index].id]
-              : [groupHeader?.id, ...rowHeaders.map(header => header.id), columnHeaders[index].id]
+              ? [...groupHeaders, columnHeaders[index].id]
+              : [...groupHeaders, ...rowHeaders.map(header => header.id), columnHeaders[index].id]
           expect(cell.getAttribute('headers')?.split(' ')).toEqual(expectedHeaders)
           expect(expectedHeaders.every(id => id && allIds.includes(id))).toBe(true)
         }

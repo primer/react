@@ -105,7 +105,7 @@ test.describe('DataTable', () => {
             test('continued group on next page @vrt', async ({page}) => {
               await visit(page, {id: story.id, globals: {colorScheme: theme}})
               await page.getByRole('button', {name: 'Next page', exact: true}).click()
-              await expect(page.getByRole('columnheader', {name: 'Public, 2 rows', exact: true})).toBeVisible()
+              await expect(page.getByRole('columnheader', {name: 'Public, 3 rows', exact: true})).toBeVisible()
               expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Groups.Next Page.${theme}.png`)
             })
 
@@ -113,15 +113,25 @@ test.describe('DataTable', () => {
               await visit(page, {id: story.id, globals: {colorScheme: theme}})
               const table = page.getByRole('table', {name: 'Paginated repositories by visibility'})
               await expect(table.getByRole('rowheader')).toHaveCount(10)
-              await expect(table.getByRole('columnheader', {name: 'Public, 10 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('columnheader', {name: 'Public, 9 rows', exact: true})).toBeVisible()
               await expect(table.getByRole('columnheader', {name: 'Internal, 3 rows', exact: true})).toHaveCount(0)
+              await expect(table.getByRole('rowheader').first()).toHaveText('standalone/before')
 
               await page.getByRole('button', {name: 'Next page', exact: true}).click()
-              await expect(table.getByRole('rowheader')).toHaveCount(5)
-              await expect(table.getByRole('columnheader', {name: 'Public, 2 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('rowheader')).toHaveCount(7)
+              await expect(table.getByRole('columnheader', {name: 'Public, 3 rows', exact: true})).toBeVisible()
               await expect(table.getByRole('columnheader', {name: 'Internal, 3 rows', exact: true})).toBeVisible()
-              await expect(table.getByRole('rowheader', {name: 'public/repository-11', exact: true})).toBeVisible()
+              await expect(table.getByRole('rowheader', {name: 'public/repository-10', exact: true})).toBeVisible()
               await expect(table.getByRole('rowheader', {name: 'public/repository-1', exact: true})).toHaveCount(0)
+              await expect(table.getByRole('rowheader').last()).toHaveText('standalone/after')
+              const standalone = table.getByRole('rowheader', {name: 'standalone/after', exact: true})
+              const rowHeaderId = await standalone.getAttribute('id')
+              const columnId = await table
+                .getByRole('columnheader', {name: 'Visibility', exact: true})
+                .getAttribute('id')
+              await expect(
+                table.getByRole('row', {name: 'standalone/after Unassigned'}).getByRole('cell'),
+              ).toHaveAttribute('headers', `${rowHeaderId} ${columnId}`)
 
               const unresolvedHeaders = await table
                 .locator('[headers]')
@@ -135,9 +145,29 @@ test.describe('DataTable', () => {
               expect(unresolvedHeaders).toEqual([])
               await expect(page).toHaveNoViolations()
 
+              const sortButton = table.getByRole('button', {name: 'Name', exact: true})
+              await sortButton.click()
+              await sortButton.click()
+              await expect(table.getByRole('rowheader')).toHaveText([
+                'public/repository-12',
+                'public/repository-11',
+                'public/repository-10',
+                'internal/repository-3',
+                'internal/repository-2',
+                'internal/repository-1',
+                'standalone/after',
+              ])
+              await expect(table.getByRole('columnheader', {name: 'Name', exact: true})).toHaveAttribute(
+                'aria-sort',
+                'descending',
+              )
+              await expect(
+                table.getByRole('row', {name: 'standalone/after Unassigned'}).getByRole('cell'),
+              ).toHaveAttribute('headers', `${rowHeaderId} ${columnId}`)
+
               await page.getByRole('button', {name: 'Previous page', exact: true}).click()
               await expect(table.getByRole('rowheader')).toHaveCount(10)
-              await expect(table.getByRole('columnheader', {name: 'Public, 10 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('columnheader', {name: 'Public, 9 rows', exact: true})).toBeVisible()
               await expect(table.getByRole('rowheader', {name: 'public/repository-1', exact: true})).toBeVisible()
             })
           }

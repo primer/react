@@ -13,16 +13,15 @@ interface TableConfig<Data extends UniqueRow> {
   getRowId: (rowData: Data) => string | number
 }
 
-interface TableModel<Data extends UniqueRow> {
+interface Table<Data extends UniqueRow> {
   headers: Array<Header<Data>>
+  rows: Array<Row<Data> | RowGroup<Data>>
+  hasGroups: boolean
   actions: {
     sortBy: (header: Header<Data>) => void
   }
   gridTemplateColumns: React.CSSProperties['gridTemplateColumns']
 }
-
-type Table<Data extends UniqueRow> = TableModel<Data> &
-  ({isGrouped: false; rows: Array<Row<Data>>} | {isGrouped: true; rows: Array<RowGroup<Data>>})
 
 interface Header<Data extends UniqueRow> {
   id: string
@@ -32,12 +31,14 @@ interface Header<Data extends UniqueRow> {
 }
 
 interface Row<Data extends UniqueRow> {
+  type: 'row'
   id: string | number
   getCells: () => Array<Cell<Data>>
   getValue: () => Data
 }
 
 interface RowGroup<Data extends UniqueRow> {
+  type: 'row-group'
   id: string | number
   label: string
   rows: Array<Row<Data>>
@@ -202,21 +203,32 @@ export function useTable<Data extends UniqueRow>({
       })
     }
 
-    if (isGroupedData(currentRowOrder)) {
-      return currentRowOrder.map(group => {
-        return {
-          ...group,
-          rows: sortData(group.rows),
-        }
-      })
+    const sorted: DataTableData<Data> = []
+    let ungroupedRows: Array<Data> = []
+
+    function appendUngroupedRows() {
+      for (const row of sortData(ungroupedRows)) {
+        sorted.push(row)
+      }
+      ungroupedRows = []
     }
 
-    return sortData(currentRowOrder)
+    for (const item of currentRowOrder) {
+      if (isDataTableRowGroup(item)) {
+        appendUngroupedRows()
+        sorted.push({...item, rows: sortData(item.rows)})
+      } else {
+        ungroupedRows.push(item)
+      }
+    }
+    appendUngroupedRows()
+    return sorted
   }
 
   function createRow(row: Data): Row<Data> {
     const rowId = getRowId(row)
     return {
+      type: 'row',
       id: `${rowId}`,
       getValue() {
         return row
@@ -239,31 +251,29 @@ export function useTable<Data extends UniqueRow>({
     }
   }
 
-  const model = {
-    headers,
-    actions: {sortBy},
-    gridTemplateColumns,
-  }
-
-  if (isGroupedData(rowOrder)) {
-    return {
-      ...model,
-      isGrouped: true,
-      rows: rowOrder.map(group => {
-        return {
-          id: group.groupId,
-          label: group.label,
-          rows: group.rows.map(createRow),
-          'aria-label': group['aria-label'],
-        }
-      }),
+  const rows: Table<Data>['rows'] = []
+  let hasGroups = false
+  for (const item of rowOrder) {
+    if (isDataTableRowGroup(item)) {
+      hasGroups = true
+      rows.push({
+        type: 'row-group',
+        id: item.groupId,
+        label: item.label,
+        rows: item.rows.map(createRow),
+        'aria-label': item['aria-label'],
+      })
+    } else {
+      rows.push(createRow(item))
     }
   }
 
   return {
-    ...model,
-    isGrouped: false,
-    rows: rowOrder.map(createRow),
+    headers,
+    actions: {sortBy},
+    gridTemplateColumns,
+    rows,
+    hasGroups,
   }
 }
 
@@ -275,10 +285,6 @@ function isDataTableRowGroup<Data extends UniqueRow>(
     Reflect.has(item, 'groupId') &&
     Array.isArray(Reflect.get(item, 'rows'))
   )
-}
-
-function isGroupedData<Data extends UniqueRow>(data: DataTableData<Data>): data is Array<DataTableRowGroup<Data>> {
-  return data.length > 0 && isDataTableRowGroup(data[0])
 }
 
 function getInitialSortState<Data extends UniqueRow>(

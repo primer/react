@@ -21,7 +21,7 @@ import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
-import type {DataTableRowGroup, UniqueRow} from './row'
+import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 import classes from './DataTable.features.stories.module.css'
 
@@ -1782,7 +1782,8 @@ interface PaginatedRepository {
   visibility: string
 }
 
-const paginationGroups: Array<DataTableRowGroup<PaginatedRepository>> = [
+const paginationData: DataTableData<PaginatedRepository> = [
+  {id: 100, name: 'standalone/before', visibility: 'Unassigned'},
   {
     type: 'row-group',
     groupId: 'public',
@@ -1803,18 +1804,23 @@ const paginationGroups: Array<DataTableRowGroup<PaginatedRepository>> = [
       visibility: 'Internal',
     })),
   },
+  {id: 101, name: 'standalone/after', visibility: 'Unassigned'},
 ]
 
 export const WithGroups = () => {
   const titleId = React.useId()
   const [pageIndex, setPageIndex] = React.useState(0)
   const pageSize = 10
-  const allRows = paginationGroups.flatMap(group => group.rows)
+  const allRows = paginationData.flatMap(item => ('rows' in item ? item.rows : [item]))
   const pageRows = new Set(allRows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(row => row.id))
-  // Page size counts member rows, not headings; retain only this page's groups.
-  const groups = paginationGroups
-    .map(group => ({...group, rows: group.rows.filter(row => pageRows.has(row.id))}))
-    .filter(group => group.rows.length > 0)
+  // Count data rows, not headings, and preserve each item's position and group membership.
+  const data = paginationData.flatMap((item): DataTableData<PaginatedRepository> => {
+    if ('rows' in item) {
+      const rows = item.rows.filter(row => pageRows.has(row.id))
+      return rows.length > 0 ? [{...item, rows}] : []
+    }
+    return pageRows.has(item.id) ? [item] : []
+  })
 
   return (
     <Table.Container>
@@ -1823,9 +1829,9 @@ export const WithGroups = () => {
       </Table.Title>
       <DataTable
         aria-labelledby={titleId}
-        data={groups}
+        data={data}
         columns={[
-          {header: 'Name', field: 'name', rowHeader: true},
+          {header: 'Name', field: 'name', rowHeader: true, sortBy: true},
           {header: 'Visibility', field: 'visibility'},
         ]}
       />
