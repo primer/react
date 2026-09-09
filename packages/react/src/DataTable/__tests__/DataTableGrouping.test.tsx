@@ -30,7 +30,6 @@ const columns: Array<Column<Repository>> = [
 
 const groups: Array<DataTableRowGroup<Repository>> = [
   {
-    type: 'row-group',
     groupId: 'internal',
     label: 'Internal',
     rows: [
@@ -39,7 +38,6 @@ const groups: Array<DataTableRowGroup<Repository>> = [
     ],
   },
   {
-    type: 'row-group',
     groupId: 'public',
     label: 'Public',
     rows: [
@@ -56,12 +54,64 @@ const mixedData: DataTableData<Repository> = [
   groups[1],
   {id: 7, name: 'middle-z', visibility: 'standalone'},
   {id: 8, name: 'middle-a', visibility: 'standalone'},
-  {type: 'row-group', groupId: 'empty', label: 'Empty', rows: []},
+  {groupId: 'empty', label: 'Empty', rows: []},
   {id: 9, name: 'tail-z', visibility: 'standalone'},
   {id: 10, name: 'tail-a', visibility: 'standalone'},
 ]
 
 describe('DataTable grouping', () => {
+  it('requires both groupId and array-valued rows to classify an input as a group', () => {
+    const data = [
+      {id: 1, type: 'row-group', groupId: 'business-group'},
+      {id: 2, type: 'repository', rows: []},
+      {id: 3, type: 'report', groupId: 'business-group', rows: 12},
+    ]
+    const {result} = renderHook(() =>
+      useTable({data, columns: [{header: 'Type', field: 'type'}], getRowId: row => row.id}),
+    )
+
+    expect(result.current.hasGroups).toBe(false)
+    for (const [index, model] of result.current.rows.entries()) {
+      expect(model.type).toBe('row')
+      if (model.type !== 'row') throw new Error('Expected a standalone row')
+      expect(model.getValue()).toBe(data[index])
+      expect(model.getValue().type).toBe(data[index].type)
+    }
+  })
+
+  it('preserves business type fields through mixed rendering and sorting without modifying input', async () => {
+    const user = userEvent.setup()
+    const standalone = Object.freeze({id: 1, type: 'standalone', name: 'outside'})
+    const members = [
+      Object.freeze({id: 2, type: 'repository', name: 'zeta'}),
+      Object.freeze({id: 3, type: 'report', name: 'alpha'}),
+    ]
+    Object.freeze(members)
+    const group = Object.freeze({groupId: 'public', label: 'Public', type: 'business-group', rows: members})
+    const data = [standalone, group]
+    Object.freeze(data)
+    const renderCell = vi.fn((row: {id: number; type: string; name: string}) => row.type)
+    render(
+      <DataTable
+        data={data}
+        columns={[
+          {header: 'Name', field: 'name', rowHeader: true, sortBy: true},
+          {header: 'Type', field: 'type', renderCell},
+        ]}
+      />,
+    )
+
+    expect(screen.getAllByRole('cell').map(cell => cell.textContent)).toEqual(['standalone', 'repository', 'report'])
+    await user.click(screen.getByRole('button', {name: 'Name'}))
+    expect(screen.getAllByRole('cell').map(cell => cell.textContent)).toEqual(['standalone', 'report', 'repository'])
+    expect(renderCell.mock.calls.some(([row]) => row === standalone)).toBe(true)
+    for (const member of members) {
+      expect(renderCell.mock.calls.some(([row]) => row === member)).toBe(true)
+    }
+    expect(group.type).toBe('business-group')
+    expect(group.rows.map(row => row.name)).toEqual(['zeta', 'alpha'])
+  })
+
   it('renders mixed rows and adjacent or empty groups as sibling bodies without leaking group headers', () => {
     const {container} = render(<DataTable data={mixedData} columns={columns} />)
     const bodies = container.querySelectorAll('table > tbody')
@@ -259,7 +309,6 @@ describe('DataTable grouping', () => {
   it('renders empty groups and localized group names', () => {
     const data: Array<DataTableRowGroup<Repository>> = [
       {
-        type: 'row-group',
         groupId: 'empty',
         label: 'Administrateurs',
         'aria-label': 'Administrateurs, aucune ligne',
@@ -279,9 +328,9 @@ describe('DataTable grouping', () => {
   })
 
   it('recognizes row groups with additional properties', () => {
-    const groupWithId: DataTableRowGroup<Repository> & {id: string} = {
+    const groupWithId: DataTableRowGroup<Repository> & {id: string; type: string} = {
       id: 'consumer-defined-id',
-      type: 'row-group',
+      type: 'consumer-group',
       groupId: 'internal',
       label: 'Internal',
       rows: [{id: 1, name: 'primer/react', visibility: 'internal'}],
@@ -375,7 +424,6 @@ describe('DataTable grouping', () => {
 
     const replacementGroups: Array<DataTableRowGroup<Repository>> = [
       {
-        type: 'row-group',
         groupId: 'private',
         label: 'Private',
         rows: [

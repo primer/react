@@ -17,7 +17,6 @@ const columns: Array<Column<Repository>> = [
 
 const groups: Array<DataTableRowGroup<Repository>> = [
   {
-    type: 'row-group',
     groupId: 'public',
     label: 'Public',
     rows: [{id: 1, name: 'primer/react'}],
@@ -42,7 +41,6 @@ export function shouldInferRowTypeFromInlineGroups() {
     <DataTable
       data={[
         {
-          type: 'row-group',
           groupId: 'public',
           label: 'Public',
           rows: [{id: 1, name: 'primer/react'}],
@@ -92,7 +90,6 @@ export function shouldInferInlineMixedData() {
       data={[
         {id: 1, name: 'Standalone', owner: {login: 'primer'}},
         {
-          type: 'row-group',
           groupId: 'public',
           label: 'Public',
           rows: [{id: 2, name: 'primer/react', owner: {login: 'primer'}}],
@@ -124,4 +121,30 @@ export function shouldRejectInvalidData() {
     columns: [{header: 'Group', field: 'groupId'}],
   }
   return {invalidProps, nestedGroups, invalidColumns}
+}
+
+export function shouldPreserveBusinessTypeInference() {
+  const data = [
+    {id: 1, type: 'repository', name: 'Standalone'},
+    {
+      id: 'extra-group-id',
+      type: 'business-group',
+      groupId: 'public',
+      label: 'Public',
+      rows: [{id: 2, type: 'repository', name: 'primer/react'}],
+    },
+  ]
+  return (
+    <DataTable
+      data={data}
+      columns={[
+        {header: 'Type', field: 'type', renderCell: row => row.type.toUpperCase()},
+        {header: 'Name', field: 'name', renderCell: row => row.name.toUpperCase()},
+      ]}
+      getRowId={row => {
+        const id: number = row.id
+        return id
+      }}
+    />
+  )
 }

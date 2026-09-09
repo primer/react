@@ -25,8 +25,10 @@ assigning different responsibilities to consumers.
 
 The config API accepts rows, row groups, or a mixture of both in display order.
 Each group contains only data rows; nested groups are not supported. The
-`{type: 'row-group', groupId, rows}` shape identifies group entries and should
-not be used for standalone row data.
+presence of `groupId` together with an array-valued `rows` identifies group
+entries. This combination is reserved for groups and should not be used for
+standalone row data. A consumer's `type` field does not affect this detection
+and is preserved in the original data.
 
 ## Requirements
 

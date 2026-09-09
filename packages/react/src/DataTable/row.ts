@@ -4,11 +4,6 @@ export interface UniqueRow {
 
 export interface DataTableRowGroup<Data extends UniqueRow> {
   /**
-   * Identify this item as a group of rows.
-   */
-  type: 'row-group'
-
-  /**
    * Provide a stable identifier for the group.
    */
   groupId: string | number
@@ -29,4 +24,8 @@ export interface DataTableRowGroup<Data extends UniqueRow> {
   'aria-label'?: string
 }
 
+/**
+ * Items with both `groupId` and an array-valued `rows` are treated as groups.
+ * This combination is reserved and must not be used for standalone row data.
+ */
 export type DataTableData<Data extends UniqueRow> = Array<Data | DataTableRowGroup<Data>>

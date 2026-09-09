@@ -1725,13 +1725,11 @@ export const WithNetworkError = () => {
 
 const repoGroups: Array<DataTableRowGroup<Repo>> = [
   {
-    type: 'row-group',
     groupId: 'internal',
     label: 'Internal',
     rows: data.filter(repo => repo.type === 'internal'),
   },
   {
-    type: 'row-group',
     groupId: 'public',
     label: 'Public',
     rows: data.filter(repo => repo.type === 'public'),
@@ -1785,7 +1783,6 @@ interface PaginatedRepository {
 const paginationData: DataTableData<PaginatedRepository> = [
   {id: 100, name: 'standalone/before', visibility: 'Unassigned'},
   {
-    type: 'row-group',
     groupId: 'public',
     label: 'Public',
     rows: Array.from({length: 12}, (_, index) => ({
@@ -1795,7 +1792,6 @@ const paginationData: DataTableData<PaginatedRepository> = [
     })),
   },
   {
-    type: 'row-group',
     groupId: 'internal',
     label: 'Internal',
     rows: Array.from({length: 3}, (_, index) => ({

@@ -280,11 +280,7 @@ export function useTable<Data extends UniqueRow>({
 function isDataTableRowGroup<Data extends UniqueRow>(
   item: Data | DataTableRowGroup<Data>,
 ): item is DataTableRowGroup<Data> {
-  return (
-    Reflect.get(item, 'type') === 'row-group' &&
-    Reflect.has(item, 'groupId') &&
-    Array.isArray(Reflect.get(item, 'rows'))
-  )
+  return Reflect.has(item, 'groupId') && Array.isArray(Reflect.get(item, 'rows'))
 }
 
 function getInitialSortState<Data extends UniqueRow>(
