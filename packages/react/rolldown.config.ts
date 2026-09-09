@@ -40,13 +40,40 @@ function getEntrypointsFromInput(input: ReadonlySet<string>) {
   )
 }
 
+// The React Compiler emits imports of the memo helper `c` from
+// `react-compiler-runtime`. That package is CommonJS and, left external, ships a
+// bare cross-chunk import that crashes ("(0, t.c) is not a function") when a
+// consumer's bundle resolves a skewed/duplicate copy across independently-cached
+// chunks. Instead we resolve those imports to a small local ESM shim that is
+// bundled into the output, so the helper is always self-contained and imports
+// `react` as a normal ES module (no CommonJS `require` interop).
+const reactCompilerRuntimeShim = path.resolve('src/utils/react-compiler-runtime.ts')
+
+function reactCompilerRuntimeAlias() {
+  return {
+    name: 'react-compiler-runtime-alias',
+    resolveId(source: string) {
+      if (source === 'react-compiler-runtime') {
+        return {id: reactCompilerRuntimeShim, external: false}
+      }
+      return null
+    },
+  }
+}
+
 const dependencies = [
   ...Object.keys(packageMetadata.peerDependencies ?? {}),
   ...Object.keys(packageMetadata.dependencies ?? {}),
   ...Object.keys(packageMetadata.devDependencies ?? {}),
-].map(name => {
-  return new RegExp(`^${name}(/.*)?`)
-})
+]
+  // `react-compiler-runtime` is intentionally not external: it is aliased to a
+  // local shim (see `reactCompilerRuntimeAlias`) and bundled into the output.
+  .filter(name => name !== 'react-compiler-runtime')
+  .map(name => {
+    // Anchor the package-name boundary so a dependency name is not treated as a
+    // prefix of another (e.g. `react` must not match `react-compiler-runtime`).
+    return new RegExp(`^${name}($|/)`)
+  })
 
 const external = [
   // Exclude package dependencies
@@ -66,6 +93,7 @@ export default defineConfig([
   {
     input,
     plugins: [
+      reactCompilerRuntimeAlias(),
       babel({
         include: /\.(?:js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
