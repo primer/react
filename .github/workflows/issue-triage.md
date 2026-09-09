@@ -17,6 +17,7 @@ permissions:
   # Explicitly list read scopes (equivalent to `read-all`) so we can also grant copilot-requests: write
   actions: read
   attestations: read
+  checks: read
   contents: read
   deployments: read
   issues: read
