@@ -138,6 +138,7 @@ test('rejects invalid targets and payloads without writing', async () => {
 test('respects staged mode and the per-run publication cap', async () => {
   const fixture = setup({staged: true})
   await fixture.run()
+  await fixture.run({issue_number: 'aw_review'})
   assert.equal(fixture.calls.length, 0)
   fixture.config.publishCount = 100
   await assert.rejects(fixture.run(), /At most 100/)

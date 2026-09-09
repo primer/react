@@ -81,17 +81,19 @@ safe-outputs:
         const repo = context.repo
         const resolved = resolvedTemporaryIds[item.issue_number]
         const issueNumber = Number(resolved ? resolved.number : item.issue_number)
+        const staged = process.env.GH_AW_SAFE_OUTPUTS_STAGED === 'true'
+        const pendingStagedIssue = staged && !resolved && item.issue_number === 'aw_review'
         if (resolved && resolved.repo !== `${repo.owner}/${repo.repo}`) {
           throw new Error('Cross-repository review targets are not allowed')
         }
-        if (!Number.isSafeInteger(issueNumber) || issueNumber <= 0 ||
+        if ((!pendingStagedIssue && (!Number.isSafeInteger(issueNumber) || issueNumber <= 0)) ||
             typeof item.component !== 'string' || !/^[A-Za-z][A-Za-z0-9.]*$/.test(item.component) ||
             typeof item.body !== 'string' || item.body.length < 20 || item.body.length > 60000) {
           throw new Error('Invalid component review payload')
         }
-        if (process.env.GH_AW_SAFE_OUTPUTS_STAGED === 'true') {
-          core.info(`Would publish findings for ${item.component} on issue ${issueNumber}`)
-          return {success: true}
+        if (staged) {
+          core.info(`Would publish findings for ${item.component} on issue ${item.issue_number}`)
+          return {success: true, staged: true}
         }
         const {data: issue} = await github.rest.issues.get({...repo, issue_number: issueNumber})
         if (issue.pull_request || issue.title !== 'Primer API Review') {
