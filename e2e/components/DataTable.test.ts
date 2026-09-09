@@ -105,7 +105,7 @@ test.describe('DataTable', () => {
             test('continued group on next page @vrt', async ({page}) => {
               await visit(page, {id: story.id, globals: {colorScheme: theme}})
               await page.getByRole('button', {name: 'Next page', exact: true}).click()
-              await expect(page.getByRole('columnheader', {name: 'Public, 3 rows', exact: true})).toBeVisible()
+              await expect(page.getByRole('columnheader', {name: /^Public\s*, 3 rows$/})).toBeVisible()
               expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Groups.Next Page.${theme}.png`)
             })
 
@@ -113,14 +113,14 @@ test.describe('DataTable', () => {
               await visit(page, {id: story.id, globals: {colorScheme: theme}})
               const table = page.getByRole('table', {name: 'Paginated repositories by visibility'})
               await expect(table.getByRole('rowheader')).toHaveCount(10)
-              await expect(table.getByRole('columnheader', {name: 'Public, 9 rows', exact: true})).toBeVisible()
-              await expect(table.getByRole('columnheader', {name: 'Internal, 3 rows', exact: true})).toHaveCount(0)
+              await expect(table.getByRole('columnheader', {name: /^Public\s*, 9 rows$/})).toBeVisible()
+              await expect(table.getByRole('columnheader', {name: /^Internal\s*, 3 rows$/})).toHaveCount(0)
               await expect(table.getByRole('rowheader').first()).toHaveText('standalone/before')
 
               await page.getByRole('button', {name: 'Next page', exact: true}).click()
               await expect(table.getByRole('rowheader')).toHaveCount(7)
-              await expect(table.getByRole('columnheader', {name: 'Public, 3 rows', exact: true})).toBeVisible()
-              await expect(table.getByRole('columnheader', {name: 'Internal, 3 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('columnheader', {name: /^Public\s*, 3 rows$/})).toBeVisible()
+              await expect(table.getByRole('columnheader', {name: /^Internal\s*, 3 rows$/})).toBeVisible()
               await expect(table.getByRole('rowheader', {name: 'public/repository-10', exact: true})).toBeVisible()
               await expect(table.getByRole('rowheader', {name: 'public/repository-1', exact: true})).toHaveCount(0)
               await expect(table.getByRole('rowheader').last()).toHaveText('standalone/after')
@@ -167,7 +167,7 @@ test.describe('DataTable', () => {
 
               await page.getByRole('button', {name: 'Previous page', exact: true}).click()
               await expect(table.getByRole('rowheader')).toHaveCount(10)
-              await expect(table.getByRole('columnheader', {name: 'Public, 9 rows', exact: true})).toBeVisible()
+              await expect(table.getByRole('columnheader', {name: /^Public\s*, 9 rows$/})).toBeVisible()
               await expect(table.getByRole('rowheader', {name: 'public/repository-1', exact: true})).toBeVisible()
             })
           }

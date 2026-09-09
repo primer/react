@@ -78,10 +78,10 @@ The same investigation records a VoiceOver limitation even with native
 ### Keep group names concise and localizable
 
 The default accessible name is the label followed by the member count, such as
-`Public, 2 rows` or `Internal, 1 row`. Visually hidden text supplies this name;
-the visible label and count are hidden from the accessibility tree to avoid
-duplication. Consumers can override the name through the group's `aria-label`,
-including for localization.
+`Public, 2 rows` or `Internal, 1 row`. The visible label and count also supply
+the accessible name, with visually hidden text adding the comma and `row` or
+`rows` suffix. This avoids duplicating the label and count. Consumers can
+override the name through the group's `aria-label`, including for localization.
 
 A group heading is not a button. Selection and expansion actions are not part
 of this contract and must not be included in its accessible name.
@@ -90,8 +90,7 @@ of this contract and must not be included in its accessible name.
 <tbody>
   <tr>
     <th id="public-group" scope="colgroup" colspan="2">
-      <span class="visually-hidden">Public, 1 row</span>
-      <span aria-hidden="true"><span>Public</span><span>1</span></span>
+      Public<span class="visually-hidden">,</span> 1<span class="visually-hidden"> row</span>
     </th>
   </tr>
 </tbody>

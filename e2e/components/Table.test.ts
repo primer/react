@@ -24,8 +24,8 @@ test.describe('Table With Groups', () => {
         .getAttribute('id')
 
       for (const group of [
-        {name: 'Internal, 1 row', rows: ['github/github']},
-        {name: 'Public, 2 rows', rows: ['primer/react', 'primer/css']},
+        {name: /^Internal\s*, 1 row$/, rows: ['github/github']},
+        {name: /^Public\s*, 2 rows$/, rows: ['primer/react', 'primer/css']},
       ]) {
         const groupHeader = table.getByRole('columnheader', {name: group.name, exact: true})
         await expect(groupHeader).toHaveAttribute('scope', 'colgroup')

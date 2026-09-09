@@ -239,7 +239,7 @@ describe('DataTable grouping', () => {
 
     expect(groupHeaders).toHaveLength(2)
     expect(groupBodies).toHaveLength(2)
-    expect(groupHeaders[0]).toHaveAccessibleName('Internal, 2 rows')
+    expect(groupHeaders[0]).toHaveAccessibleName(/^Internal\s*, 2 rows$/)
     expect(groupHeaders[0]).toHaveAttribute('colspan', '2')
     expect(container.querySelector(':scope tbody[data-component="Table.Body"]')).not.toBeInTheDocument()
   })
@@ -248,7 +248,7 @@ describe('DataTable grouping', () => {
     render(<DataTable data={groups} columns={columns} />)
 
     const columnHeaders = screen.getAllByRole('columnheader').filter(header => header.getAttribute('scope') === 'col')
-    const groupHeader = screen.getByRole('columnheader', {name: 'Internal, 2 rows'})
+    const groupHeader = screen.getByRole('columnheader', {name: /^Internal\s*, 2 rows$/})
     const rowHeader = screen.getByRole('rowheader', {name: 'zeta'})
     const cell = screen.getAllByRole('cell', {name: 'internal'})[0]
 
@@ -289,7 +289,7 @@ describe('DataTable grouping', () => {
 
     render(<DataTable data={[groupWithId]} columns={columns} />)
 
-    expect(screen.getByRole('columnheader', {name: 'Internal, 1 row'})).toBeInTheDocument()
+    expect(screen.getByRole('columnheader', {name: /^Internal\s*, 1 row$/})).toBeInTheDocument()
     expect(screen.getByRole('rowheader', {name: 'primer/react'})).toBeInTheDocument()
   })
 
@@ -337,7 +337,7 @@ describe('DataTable grouping', () => {
 
     function expectGroupedHeaderAssociations(rowHeaderName: string) {
       const columnHeaders = screen.getAllByRole('columnheader').filter(header => header.getAttribute('scope') === 'col')
-      const groupHeader = screen.getByRole('columnheader', {name: 'Internal, 2 rows'})
+      const groupHeader = screen.getByRole('columnheader', {name: /^Internal\s*, 2 rows$/})
       const rowHeader = screen.getByRole('rowheader', {name: rowHeaderName})
       const row = rowHeader.closest('tr')
       const cell = within(row as HTMLTableRowElement).getByRole('cell')
