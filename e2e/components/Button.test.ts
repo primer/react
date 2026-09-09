@@ -115,7 +115,12 @@ test.describe('Button', () => {
       id: 'components-button-dev--link-variant-with-underline-preference',
     })
 
-    const preferenceOnButton = page.locator('[data-a11y-link-underlines="true"]').getByRole('button').nth(1)
+    const buttonWithVisual = (preference: 'on' | 'off') =>
+      page
+        .getByRole('button', {name: `Underline pref ${preference}`})
+        .filter({has: page.locator('[data-component="leadingVisual"]')})
+
+    const preferenceOnButton = buttonWithVisual('on')
     const preferenceOnLabel = preferenceOnButton.locator('[data-component="text"]')
 
     await expect(preferenceOnButton).toHaveCSS('text-decoration-line', 'none')
@@ -128,7 +133,16 @@ test.describe('Button', () => {
     await expect(preferenceOnButton).toHaveCSS('background-image', 'none')
     await expect(preferenceOnLabel).toHaveCSS('text-decoration-line', 'none')
 
-    const preferenceOffButton = page.locator('[data-a11y-link-underlines="false"]').getByRole('button').nth(1)
+    await preferenceOnButton.evaluate(element => element.setAttribute('aria-disabled', 'true'))
+    await expect(preferenceOnLabel).toHaveCSS('text-decoration-line', 'underline')
+
+    await preferenceOnButton.evaluate(element => {
+      element.removeAttribute('aria-disabled')
+      element.setAttribute('data-inactive', 'true')
+    })
+    await expect(preferenceOnLabel).toHaveCSS('text-decoration-line', 'underline')
+
+    const preferenceOffButton = buttonWithVisual('off')
     const preferenceOffLabel = preferenceOffButton.locator('[data-component="text"]')
 
     await expect(preferenceOffButton).toHaveCSS('text-decoration-line', 'none')
@@ -139,6 +153,15 @@ test.describe('Button', () => {
     await expect(preferenceOffButton).toHaveCSS('text-decoration-line', 'none')
     await expect(preferenceOffButton).toHaveCSS('background-image', 'none')
     await expect(preferenceOffLabel).toHaveCSS('text-decoration-line', 'underline')
+
+    await preferenceOffButton.evaluate(element => element.setAttribute('aria-disabled', 'true'))
+    await expect(preferenceOffLabel).toHaveCSS('text-decoration-line', 'none')
+
+    await preferenceOffButton.evaluate(element => {
+      element.removeAttribute('aria-disabled')
+      element.setAttribute('data-inactive', 'true')
+    })
+    await expect(preferenceOffLabel).toHaveCSS('text-decoration-line', 'none')
   })
 
   for (const story of stories) {

@@ -590,7 +590,7 @@
     border: unset;
     border-radius: 0;
 
-    &:where(:hover:not(:disabled, [data-inactive])) .Label {
+    &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
       text-decoration: underline;
     }
 
@@ -626,7 +626,7 @@
       text-decoration: underline;
     }
 
-    &:where(:hover) .Label {
+    &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
       text-decoration: none;
     }
   }
@@ -636,7 +636,7 @@
       text-decoration: none;
     }
 
-    &:where(:hover:not(:disabled, [data-inactive])) .Label {
+    &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
       text-decoration: underline;
     }
   }
