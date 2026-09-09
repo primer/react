@@ -68,7 +68,7 @@
     {
       "name": "data",
       "type": "Array<Data | DataTableRowGroup<Data>>",
-      "description": "Provide rows, row groups, or a mixture of both in display order. Groups have the shape `{type: 'row-group', groupId, label, rows, 'aria-label'?}` and contain only data rows, not nested groups. DataTable associates grouped cells with group, row, and column headers; standalone cells do not reference a group. Client-side sorting sorts each group and each contiguous run of standalone rows independently, without moving rows across group boundaries. For pagination, supply only the current page's rows while preserving their group membership; a split group's heading repeats and its count reflects the supplied page, not the total across pages. DataTable does not paginate data. Entirely ungrouped tables retain native `scope` associations without explicit header ID references."
+      "description": "Provide rows, row groups, or a mixture of both to render in the table, in display order."
     },
     {
       "name": "columns",
