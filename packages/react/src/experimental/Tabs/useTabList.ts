@@ -8,7 +8,6 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-  const controlledApiEnabled = useFeatureFlag('primer_react_underline_panels_controlled')
   const tabListRef = useRef<T>(null)
   const mergedRef = useMergedRefs(tabListRef, props.ref)
   // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
@@ -26,12 +25,10 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
     const tabs = getFocusableTabs(tablist)
 
     const getCurrentIndex = () => {
-      if (controlledApiEnabled) {
-        const activeElement = tablist.ownerDocument.activeElement
-        const focusedIndex = activeElement instanceof HTMLElement ? tabs.indexOf(activeElement) : -1
-        if (focusedIndex !== -1) {
-          return focusedIndex
-        }
+      const activeElement = tablist.ownerDocument.activeElement
+      const focusedIndex = activeElement instanceof HTMLElement ? tabs.indexOf(activeElement) : -1
+      if (focusedIndex !== -1) {
+        return focusedIndex
       }
       return tabs.findIndex(tab => {
         return tab.getAttribute('aria-selected') === 'true'
