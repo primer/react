@@ -205,8 +205,10 @@ describe('Overlay', () => {
     // hitting escape on input should close the second menu but not the first
     fireEvent.keyDown(container.getByPlaceholderText('Name this list'), {key: 'Escape', code: 'Escape'})
     expect(container.queryByPlaceholderText('Name this list')).not.toBeInTheDocument()
-    // this breaks:
     expect(container.getByText('Add to list')).toBeInTheDocument()
+
+    // Focus is returned to button which opens tooltip, close that first:
+    fireEvent.keyDown(container.getByText('Add to list'), {key: 'Escape', code: 'Escape'})
 
     // hitting escape again in first overlay should close it
     fireEvent.keyDown(container.getByText('Add to list'), {key: 'Escape', code: 'Escape'})
