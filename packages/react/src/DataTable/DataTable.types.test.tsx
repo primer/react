@@ -1,3 +1,4 @@
+import {lazy} from 'react'
 import type {Column} from './column'
 import {DataTable, type DataTableProps} from './DataTable'
 import type {DataTableRowGroup} from './row'
@@ -22,6 +23,50 @@ const groups: Array<DataTableRowGroup<Repository>> = [
     rows: [{id: 1, name: 'primer/react'}],
   },
 ]
+
+const LazyDataTable = lazy(async () => ({
+  default: (await import('../experimental')).DataTable,
+})) as typeof DataTable
+
+export function shouldAcceptLazyDataTable() {
+  const flat = <LazyDataTable data={[{id: 1, name: 'primer/react'}]} columns={columns} />
+  const grouped = <LazyDataTable data={groups} columns={columns} />
+  const mixed = <LazyDataTable data={[{id: 2, name: 'primer/css'}, ...groups]} columns={columns} />
+  const explicit = <LazyDataTable<Repository> data={groups} columns={columns} />
+  const props: DataTableProps<Repository> = {data: groups, columns}
+  const spread = <LazyDataTable {...props} />
+  return {flat, grouped, mixed, explicit, spread}
+}
+
+export function shouldInferLazyDataTableRows() {
+  return (
+    <LazyDataTable
+      data={[
+        {id: 1, name: 'Standalone', owner: {login: 'primer'}},
+        {
+          groupId: 'public',
+          label: 'Public',
+          rows: [{id: 2, name: 'primer/react', owner: {login: 'primer'}}],
+        },
+      ]}
+      columns={[
+        {header: 'Name', field: 'name', renderCell: row => row.name.toUpperCase()},
+        {header: 'Owner', field: 'owner.login', renderCell: row => row.owner.login},
+      ]}
+      getRowId={row => row.id}
+    />
+  )
+}
+
+export function shouldRejectInvalidLazyDataTableProps() {
+  // @ts-expect-error Column fields must refer to row data, not group metadata.
+  const invalidField = <LazyDataTable<Repository> data={groups} columns={[{header: 'Group', field: 'groupId'}]} />
+  // @ts-expect-error Group members must have the required row fields.
+  const invalidRow = <LazyDataTable<Repository> data={[{...groups[0], rows: [{id: 3}]}]} columns={columns} />
+  // @ts-expect-error Nested groups are not supported.
+  const nestedGroups = <LazyDataTable<Repository> data={[{...groups[0], rows: groups}]} columns={columns} />
+  return {invalidField, invalidRow, nestedGroups}
+}
 
 export function shouldAcceptGroupedDataTableProps() {
   const props: DataTableProps<Repository> = {

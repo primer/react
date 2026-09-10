@@ -3,7 +3,7 @@ import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
 import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
-import type {ObjectPaths} from './utils'
+import type {IsAny, ObjectPaths} from './utils'
 import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
 import {TableGroup} from './TableGroup'
 
@@ -82,14 +82,10 @@ function defaultGetRowId<D extends UniqueRow>(row: D) {
   return row.id
 }
 
+type DataFromItem<Item> = Item extends DataTableRowGroup<infer Data> ? Data : Item extends UniqueRow ? Item : never
+
 type DataFromInput<Input extends DataTableData<UniqueRow>> =
-  Input extends Array<infer Item>
-    ? Item extends DataTableRowGroup<infer Data>
-      ? Data
-      : Item extends UniqueRow
-        ? Item
-        : never
-    : never
+  IsAny<Input> extends true ? UniqueRow : DataFromItem<Input[number]>
 
 type InferredDataTableProps<Input extends DataTableData<UniqueRow>> = DataTableBaseProps<DataFromInput<Input>> & {
   data: Input & DataTableData<DataFromInput<Input>>
