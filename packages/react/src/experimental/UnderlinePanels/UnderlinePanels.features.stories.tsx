@@ -3,7 +3,6 @@ import {action} from 'storybook/actions'
 import {useState} from 'react'
 import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 import UnderlinePanels from './UnderlinePanels'
-import {useFeatureFlag} from '../../FeatureFlags'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
 import {Button} from '../../Button'
 import type {ComponentProps} from '../../utils/types'
@@ -123,26 +122,11 @@ export const WithCountersInLoadingState = () => {
   )
 }
 
-// These stories exercise the controlled API, which is gated. Rather than force the flag on (which
-// would override the toolbar), surface its state so the toolbar can be used to compare on vs off.
-const FlagState = () => {
-  const enabled = useFeatureFlag('primer_react_underline_panels_controlled')
-
-  return enabled ? null : (
-    <p>
-      <code>primer_react_underline_panels_controlled</code> is <strong>off</strong>, so <code>value</code>,{' '}
-      <code>defaultValue</code>, <code>onChange</code>, and <code>activationMode</code> are ignored and tabs fall back
-      to positional selection. Toggle the flag in the Storybook toolbar to compare.
-    </p>
-  )
-}
-
 export const Controlled = () => {
   const [refType, setRefType] = useState('branch')
 
   return (
     <>
-      <FlagState />
       <UnderlinePanels
         aria-label="Ref type"
         value={refType}
@@ -169,7 +153,6 @@ export const Controlled = () => {
 
 export const Uncontrolled = () => (
   <>
-    <FlagState />
     <UnderlinePanels
       aria-label="Ref type"
       defaultValue="tag"
@@ -190,7 +173,6 @@ export const ManualActivation = () => {
 
   return (
     <>
-      <FlagState />
       <p>
         With <code>activationMode=&quot;manual&quot;</code>, arrow keys only move focus; press Enter or Space (or click)
         to commit selection. Prefer this when switching tabs triggers async work like a fetch.
@@ -222,7 +204,6 @@ export const InOverlay = () => {
 
   return (
     <>
-      <FlagState />
       <AnchoredOverlay
         open={open}
         onOpen={() => setOpen(true)}
