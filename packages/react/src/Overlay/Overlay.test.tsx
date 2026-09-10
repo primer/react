@@ -208,7 +208,7 @@ describe('Overlay', () => {
     expect(container.getByText('Add to list')).toBeInTheDocument()
 
     // Focus is returned to button which opens tooltip, close that first:
-    fireEvent.keyDown(container.getByText('Add to list'), {key: 'Escape', code: 'Escape'})
+    fireEvent.keyDown(container.getByRole('button', {name: 'Create list'}), {key: 'Escape', code: 'Escape'})
 
     // hitting escape again in first overlay should close it
     fireEvent.keyDown(container.getByText('Add to list'), {key: 'Escape', code: 'Escape'})
