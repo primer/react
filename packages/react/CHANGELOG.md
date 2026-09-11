@@ -1,5 +1,15 @@
 # @primer/react
 
+## 38.40.0
+
+### Minor Changes
+
+- [#8386](https://github.com/primer/react/pull/8386) [`6c64598`](https://github.com/primer/react/commit/6c645987c5ad27d5c23f57190a10b8707b29c58c) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add config-driven row groups that can be interleaved with standalone rows.
+
+### Patch Changes
+
+- [#8408](https://github.com/primer/react/pull/8408) [`c880319`](https://github.com/primer/react/commit/c8803199ddb0e669596f6e2370fd4117a055cfc3) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Button and LinkButton: Limit link variant underlines to the text label when visuals are present
+
 ## 38.39.0
 
 ### Minor Changes
