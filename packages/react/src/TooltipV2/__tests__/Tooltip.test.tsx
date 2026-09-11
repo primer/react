@@ -2,7 +2,7 @@ import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {render as HTMLRender} from '@testing-library/react'
+import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
@@ -12,9 +12,9 @@ import {XIcon} from '@primer/octicons-react'
 import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
-import {createRef} from 'react'
+import {createRef, forwardRef, useImperativeHandle} from 'react'
 import {FeatureFlags} from '../../FeatureFlags'
-import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
+import {implementsClassName, withExpectedConsoleError, withExpectedConsoleWarning} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -29,6 +29,17 @@ const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text
       <Button aria-describedby="external-description">Button Text</Button>
     </Tooltip>
   </>
+)
+
+const InvalidRefTrigger = forwardRef<HTMLElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
+  ({children, ...props}, forwardedRef) => {
+    useImperativeHandle(forwardedRef, () => ({}) as HTMLElement, [])
+    return (
+      <button type="button" {...props}>
+        {children}
+      </button>
+    )
+  },
 )
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -146,6 +157,20 @@ describe('Tooltip', () => {
       )
     })
   })
+  it('should warn and render the trigger unchanged if it is a React Fragment', () => {
+    withExpectedConsoleWarning(() => {
+      const {getByRole, queryByText} = HTMLRender(
+        <Tooltip text="Tooltip text">
+          <>
+            <Button>Button Text</Button>
+          </>
+        </Tooltip>,
+      )
+
+      expect(getByRole('button', {name: 'Button Text'})).toBeInTheDocument()
+      expect(queryByText('Tooltip text')).not.toBeInTheDocument()
+    })
+  })
   it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(
       <fieldset>
@@ -255,6 +280,20 @@ describe('Tooltip forwarded ref (primer_react_merged_forwarded_refs)', () => {
         )
         expect(refCallback).toHaveBeenCalled()
         expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLButtonElement)).toBe(true)
+      })
+
+      it('warns without crashing when a custom trigger ref does not resolve to an HTML element', () => {
+        withExpectedConsoleWarning(() => {
+          const {getByRole} = HTMLRender(
+            <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+              <Tooltip text="Tooltip text">
+                <InvalidRefTrigger>Button Text</InvalidRefTrigger>
+              </Tooltip>
+            </FeatureFlags>,
+          )
+
+          expect(() => fireEvent.focus(getByRole('button', {name: 'Button Text'}))).not.toThrow()
+        })
       })
     })
   }
