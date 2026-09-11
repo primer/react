@@ -4,10 +4,6 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  /* Container for the narrow-viewport rules at the end of this file. Uses
-     an inline-size container so behavior tracks the timeline's own width,
-     not the viewport (works inside narrow side panels and split views). */
-  container-type: inline-size;
 
   &:where([data-clip-sidebar='start']),
   &:where([data-clip-sidebar='both']) {
@@ -199,10 +195,10 @@
   flex-shrink: 0;
 }
 
-/* Below 480px inline size, wrap Timeline.Actions onto its own row under
-   Timeline.Body via a 2-column grid. The badge keeps the left column so
-   the vertical rule stays consistent. */
-@container (width < 480px) {
+/* Below 480px, wrap Timeline.Actions onto its own row under Timeline.Body
+   via a 2-column grid. The badge keeps the left column so the vertical rule
+   stays consistent. */
+.Timeline:where([data-timeline-narrow]) {
   .TimelineItem {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -221,7 +217,6 @@
 
   .TimelineItemActions {
     grid-area: actions;
-    /* Reset flex-row auto-push; the wrapped row sits under Body. */
     margin-top: var(--base-size-8);
     margin-left: 0;
     justify-content: flex-start;
