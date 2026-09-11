@@ -9,6 +9,14 @@
 | Status         | Proposed ❓ OR Accepted ✅ OR Superseded by [LINK](https://) ⚠️ OR Deprecated ⛔ |
 | Implementation | Not planned ⛔ OR Adoption awaiting in [LINK](https://) ⏸️ OR Adopted ✅         |
 
+## Review impact
+
+<!--
+If this decision changes how components are reviewed, update
+contributor-docs/review-guidance/policy.json and run
+`npm run build:review-guidance`. Otherwise, state: None.
+-->
+
 ## Context
 
 <!-- Provide background information and the reasons for this decision. What are the business, technical, or other drivers that motivated this decision? -->
