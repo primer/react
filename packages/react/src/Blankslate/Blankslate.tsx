@@ -1,9 +1,7 @@
 import {clsx} from 'clsx'
-import {useMemo} from 'react'
 import type React from 'react'
 import {Button} from '../Button'
 import Link from '../Link'
-import {Provider, useBlankslate} from './BlankslateContext'
 import classes from './Blankslate.module.css'
 
 type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
@@ -30,31 +28,23 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
   /**
    * Specify the size of this component
    */
-  size?: 'small' | 'medium' | 'large'
+  size?: 'medium' | 'large'
 }
 
 function Blankslate({border, children, narrow, spacious, className, size = 'medium', ...rest}: BlankslateProps) {
-  const value = useMemo(() => {
-    return {
-      size,
-    }
-  }, [size])
-
   return (
-    <Provider value={value}>
-      <div {...rest} className={classes.Container}>
-        <div
-          className={clsx(classes.Blankslate, className)}
-          data-component="Blankslate"
-          data-border={border ? '' : undefined}
-          data-narrow={narrow ? '' : undefined}
-          data-spacious={spacious ? '' : undefined}
-          data-size={size}
-        >
-          {children}
-        </div>
+    <div {...rest} className={classes.Container}>
+      <div
+        className={clsx(classes.Blankslate, className)}
+        data-component="Blankslate"
+        data-border={border ? '' : undefined}
+        data-narrow={narrow ? '' : undefined}
+        data-spacious={spacious ? '' : undefined}
+        data-size={size}
+      >
+        {children}
       </div>
-    </Provider>
+    </div>
   )
 }
 
@@ -108,16 +98,9 @@ type BlankslatePrimaryActionProps =
     }>
 
 function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps) {
-  const {size} = useBlankslate()
   return (
     <div className={clsx('Blankslate-Action', classes.Action)} data-component="Blankslate.PrimaryAction">
-      <Button
-        {...props}
-        as={href ? 'a' : 'button'}
-        href={href}
-        variant="primary"
-        size={size === 'small' ? 'small' : undefined}
-      >
+      <Button {...props} as={href ? 'a' : 'button'} href={href} variant="primary">
         {children}
       </Button>
     </div>
