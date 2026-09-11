@@ -1,5 +1,5 @@
-# gh-aw-metadata: {"schema_version":"v4","frontmatter_hash":"52efa6af926e1af676d737798ec49d1d15da528f2613da1467779d0974b37fe4","body_hash":"cc63dce1a77a407e7e3568c748edc9570742f51b2f3070dfd76951a1d3b100b4","compiler_version":"v0.88.2","strict":true,"agent_id":"copilot","engine_versions":{"copilot":"1.0.80"}}
-# gh-aw-manifest: {"version":1,"secrets":["GH_AW_DEFAULT_OTLP_HEADERS","GH_AW_GITHUB_MCP_SERVER_TOKEN","GH_AW_GITHUB_TOKEN","GITHUB_TOKEN"],"actions":[{"repo":"actions/cache/restore","sha":"55cc8345863c7cc4c66a329aec7e433d2d1c52a9","version":"v6.1.0"},{"repo":"actions/cache/save","sha":"55cc8345863c7cc4c66a329aec7e433d2d1c52a9","version":"v6.1.0"},{"repo":"actions/checkout","sha":"3d3c42e5aac5ba805825da76410c181273ba90b1","version":"v7.0.1"},{"repo":"actions/download-artifact","sha":"3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c","version":"v8.0.1"},{"repo":"actions/github-script","sha":"3a2844b7e9c422d3c10d287c895573f7108da1b3","version":"v9.0.0"},{"repo":"actions/upload-artifact","sha":"043fb46d1a93c77aae656e7c1c64a875d1fc6a0a","version":"v7.0.1"},{"repo":"github/gh-aw-actions/setup","sha":"9271a1804551c0dc4fb0085a97979950aa2f8489","version":"v0.88.2"}],"skills":[".github/skills/style-guide"],"containers":[{"image":"ghcr.io/github/gh-aw-firewall/agent:0.28.12","digest":"sha256:390051be4ed1847f774fd8980b61d3a3523574c0175d00c3fc7cdf2002a88202","pinned_image":"ghcr.io/github/gh-aw-firewall/agent:0.28.12@sha256:390051be4ed1847f774fd8980b61d3a3523574c0175d00c3fc7cdf2002a88202"},{"image":"ghcr.io/github/gh-aw-firewall/api-proxy:0.28.12","digest":"sha256:d7d533d87c80d87ff91ac0e21e9299055c3beedff1536262b97ed700fb065a32","pinned_image":"ghcr.io/github/gh-aw-firewall/api-proxy:0.28.12@sha256:d7d533d87c80d87ff91ac0e21e9299055c3beedff1536262b97ed700fb065a32"},{"image":"ghcr.io/github/gh-aw-firewall/cli-proxy:0.28.12","digest":"sha256:5250629d48eaedfedf2e948785228e8da29eec2a83cbab58ea0751c14a7b021d","pinned_image":"ghcr.io/github/gh-aw-firewall/cli-proxy:0.28.12@sha256:5250629d48eaedfedf2e948785228e8da29eec2a83cbab58ea0751c14a7b021d"},{"image":"ghcr.io/github/gh-aw-firewall/squid:0.28.12","digest":"sha256:52c34aca98d2a6833c329f1505912a6949c4fda16618c010c979bd59ea99254f","pinned_image":"ghcr.io/github/gh-aw-firewall/squid:0.28.12@sha256:52c34aca98d2a6833c329f1505912a6949c4fda16618c010c979bd59ea99254f"},{"image":"ghcr.io/github/gh-aw-mcpg:v0.4.15","digest":"sha256:60cd97533e93d8e7be36b979c0f08a70846189bda6190f28bbd6d427bc0d9b6e","pinned_image":"ghcr.io/github/gh-aw-mcpg:v0.4.15@sha256:60cd97533e93d8e7be36b979c0f08a70846189bda6190f28bbd6d427bc0d9b6e"},{"image":"ghcr.io/github/gh-aw-node","digest":"sha256:bac2192f6374d6262116399b34fc5e143d576f82719e90a18261cae7480f4d4e","pinned_image":"ghcr.io/github/gh-aw-node@sha256:bac2192f6374d6262116399b34fc5e143d576f82719e90a18261cae7480f4d4e"},{"image":"ghcr.io/github/github-mcp-server:v1.11.0","digest":"sha256:fbec75de11c255213fa08d80fb166abe73d851fff631c51c0079872967720699","pinned_image":"ghcr.io/github/github-mcp-server:v1.11.0@sha256:fbec75de11c255213fa08d80fb166abe73d851fff631c51c0079872967720699"}],"mcp_servers":[{"name":"safeoutputs","tools":["create_issue","missing_data","missing_tool","noop","update_issue"]}]}
+# gh-aw-metadata: {"schema_version":"v4","frontmatter_hash":"149c1b91ae1410c0e9cd931a0773a390482432f4a0b17bac7d1e4cf7b4353a5f","body_hash":"d851a45338e8ee3368c9dfec3e1d7b5d9c7ac3c41008817b4b7b040858c53907","compiler_version":"v0.88.2","strict":true,"agent_id":"copilot","engine_versions":{"copilot":"1.0.80"}}
+# gh-aw-manifest: {"version":1,"secrets":["GH_AW_DEFAULT_OTLP_HEADERS","GH_AW_GITHUB_MCP_SERVER_TOKEN","GH_AW_GITHUB_TOKEN","GITHUB_TOKEN"],"actions":[{"repo":"actions/cache/restore","sha":"55cc8345863c7cc4c66a329aec7e433d2d1c52a9","version":"v6.1.0"},{"repo":"actions/cache/save","sha":"55cc8345863c7cc4c66a329aec7e433d2d1c52a9","version":"v6.1.0"},{"repo":"actions/checkout","sha":"3d3c42e5aac5ba805825da76410c181273ba90b1","version":"v7.0.1"},{"repo":"actions/download-artifact","sha":"3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c","version":"v8.0.1"},{"repo":"actions/github-script","sha":"3a2844b7e9c422d3c10d287c895573f7108da1b3","version":"v9.0.0"},{"repo":"actions/upload-artifact","sha":"043fb46d1a93c77aae656e7c1c64a875d1fc6a0a","version":"v7.0.1"},{"repo":"github/gh-aw-actions/setup","sha":"9271a1804551c0dc4fb0085a97979950aa2f8489","version":"v0.88.2"}],"skills":[".github/skills/style-guide"],"containers":[{"image":"ghcr.io/github/gh-aw-firewall/agent:0.28.12","digest":"sha256:390051be4ed1847f774fd8980b61d3a3523574c0175d00c3fc7cdf2002a88202","pinned_image":"ghcr.io/github/gh-aw-firewall/agent:0.28.12@sha256:390051be4ed1847f774fd8980b61d3a3523574c0175d00c3fc7cdf2002a88202"},{"image":"ghcr.io/github/gh-aw-firewall/api-proxy:0.28.12","digest":"sha256:d7d533d87c80d87ff91ac0e21e9299055c3beedff1536262b97ed700fb065a32","pinned_image":"ghcr.io/github/gh-aw-firewall/api-proxy:0.28.12@sha256:d7d533d87c80d87ff91ac0e21e9299055c3beedff1536262b97ed700fb065a32"},{"image":"ghcr.io/github/gh-aw-firewall/cli-proxy:0.28.12","digest":"sha256:5250629d48eaedfedf2e948785228e8da29eec2a83cbab58ea0751c14a7b021d","pinned_image":"ghcr.io/github/gh-aw-firewall/cli-proxy:0.28.12@sha256:5250629d48eaedfedf2e948785228e8da29eec2a83cbab58ea0751c14a7b021d"},{"image":"ghcr.io/github/gh-aw-firewall/squid:0.28.12","digest":"sha256:52c34aca98d2a6833c329f1505912a6949c4fda16618c010c979bd59ea99254f","pinned_image":"ghcr.io/github/gh-aw-firewall/squid:0.28.12@sha256:52c34aca98d2a6833c329f1505912a6949c4fda16618c010c979bd59ea99254f"},{"image":"ghcr.io/github/gh-aw-mcpg:v0.4.15","digest":"sha256:60cd97533e93d8e7be36b979c0f08a70846189bda6190f28bbd6d427bc0d9b6e","pinned_image":"ghcr.io/github/gh-aw-mcpg:v0.4.15@sha256:60cd97533e93d8e7be36b979c0f08a70846189bda6190f28bbd6d427bc0d9b6e"},{"image":"ghcr.io/github/gh-aw-node","digest":"sha256:bac2192f6374d6262116399b34fc5e143d576f82719e90a18261cae7480f4d4e","pinned_image":"ghcr.io/github/gh-aw-node@sha256:bac2192f6374d6262116399b34fc5e143d576f82719e90a18261cae7480f4d4e"},{"image":"ghcr.io/github/github-mcp-server:v1.11.0","digest":"sha256:fbec75de11c255213fa08d80fb166abe73d851fff631c51c0079872967720699","pinned_image":"ghcr.io/github/github-mcp-server:v1.11.0@sha256:fbec75de11c255213fa08d80fb166abe73d851fff631c51c0079872967720699"}],"mcp_servers":[{"name":"safeoutputs","tools":["create_issue","missing_data","missing_tool","noop","publish_component_findings","update_issue"]}]}
 # This file was automatically generated by gh-aw (v0.88.2). DO NOT EDIT. To debug this workflow, load the skill at https://github.com/github/gh-aw/blob/main/debug.md
 #
 #    ___                   _   _
@@ -298,7 +298,7 @@ jobs:
           GH_AW_GITHUB_RUN_ID: ${{ github.run_id }}
           GH_AW_GITHUB_WORKSPACE: ${{ github.workspace }}
           GH_AW_PROMPT_CONTENT_0000: "<system>\n"
-          GH_AW_PROMPT_CONTENT_0001: "<safe-output-tools>\nTools: create_issue, update_issue, missing_tool, missing_data, noop\n"
+          GH_AW_PROMPT_CONTENT_0001: "<safe-output-tools>\nTools: create_issue, update_issue, missing_tool, missing_data, noop, publish_component_findings\n"
           GH_AW_PROMPT_CONTENT_0002: "</safe-output-tools>\n"
           GH_AW_PROMPT_CONTENT_0003: "<github-context>\nThe following GitHub context information is available for this workflow:\n{{#if github.actor}}\n- **actor**: __GH_AW_GITHUB_ACTOR__\n{{/if}}\n{{#if github.repository}}\n- **repository**: __GH_AW_GITHUB_REPOSITORY__\n{{/if}}\n{{#if github.workspace}}\n- **workspace**: __GH_AW_GITHUB_WORKSPACE__\n{{/if}}\n{{#if github.event.issue.number || (github.aw.context.item_type == 'issue' && github.aw.context.item_number)}}\n- **issue-number**: #__GH_AW_EXPR_802A9F6A__\n{{/if}}\n{{#if github.event.discussion.number || (github.aw.context.item_type == 'discussion' && github.aw.context.item_number)}}\n- **discussion-number**: #__GH_AW_EXPR_1A3A194A__\n{{/if}}\n{{#if github.event.pull_request.number || (github.aw.context.item_type == 'pull_request' && github.aw.context.item_number)}}\n- **pull-request-number**: #__GH_AW_EXPR_463A214A__\n{{/if}}\n{{#if github.event.comment.id || github.aw.context.comment_id}}\n- **comment-id**: __GH_AW_EXPR_FF1D34CE__\n{{/if}}\n{{#if github.run_id}}\n- **workflow-run-id**: __GH_AW_GITHUB_RUN_ID__\n{{/if}}\n</github-context>\n\n"
           GH_AW_PROMPT_CONTENT_0004: "</system>\n"
@@ -564,7 +564,7 @@ jobs:
         env:
           GH_AW_FILE_ROOT: "${{ runner.temp }}/gh-aw"
           GH_AW_FILE_CONFIG: "{\"files\":[{\"path\":\"safeoutputs/config.json\",\"content_env\":\"GH_AW_SAFE_OUTPUTS_CONFIG\"}]}"
-          GH_AW_SAFE_OUTPUTS_CONFIG: "{\"create_issue\":{\"deduplicate_by_title\":true,\"max\":1},\"create_report_incomplete_issue\":{},\"mentions\":{\"enabled\":false},\"missing_data\":{},\"missing_tool\":{},\"noop\":{\"max\":1,\"report-as-issue\":\"false\"},\"report_incomplete\":{},\"update_issue\":{\"allow_body\":true,\"max\":1,\"required_title_prefix\":\"Primer API Review\",\"target\":\"*\"}}"
+          GH_AW_SAFE_OUTPUTS_CONFIG: "{\"create_issue\":{\"deduplicate_by_title\":true,\"footer\":false,\"max\":1},\"create_report_incomplete_issue\":{},\"mentions\":{\"enabled\":false},\"missing_data\":{},\"missing_tool\":{},\"noop\":{\"max\":1,\"report-as-issue\":\"false\"},\"publish_component_findings\":{\"description\":\"Publish one batch of up to 100 component finding comments and resolve their checklist links\",\"inputs\":{\"comments\":{\"default\":null,\"description\":\"Base64-encoded UTF-8 JSON array of objects with component (name) and body (complete finding comment), at most 100 unique components\",\"required\":true,\"type\":\"string\"},\"issue_number\":{\"default\":null,\"description\":\"Review issue number, or aw_review for the issue created in this run\",\"required\":true,\"type\":\"string\"}}},\"report_incomplete\":{},\"update_issue\":{\"allow_body\":true,\"footer\":false,\"max\":1,\"required_title_prefix\":\"Primer API Review\",\"target\":\"*\"}}"
         with:
           script: |
             const path = require('path');
@@ -582,7 +582,30 @@ jobs:
                 "update_issue": " CONSTRAINTS: Maximum 1 issue(s) can be updated. Target: *. The target issue title must start with \"Primer API Review\"."
               },
               "repo_params": {},
-              "dynamic_tools": []
+              "dynamic_tools": [
+                {
+                  "description": "Publish one batch of up to 100 component finding comments and resolve their checklist links",
+                  "inputSchema": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "comments": {
+                        "description": "Base64-encoded UTF-8 JSON array of objects with component (name) and body (complete finding comment), at most 100 unique components",
+                        "type": "string"
+                      },
+                      "issue_number": {
+                        "description": "Review issue number, or aw_review for the issue created in this run",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "comments",
+                      "issue_number"
+                    ],
+                    "type": "object"
+                  },
+                  "name": "publish_component_findings"
+                }
+              ]
             }
           GH_AW_VALIDATION_JSON: |
             {
@@ -1819,6 +1842,91 @@ jobs:
           GH_HOST="${GITHUB_SERVER_URL#https://}"
           GH_HOST="${GH_HOST#http://}"
           echo "GH_HOST=${GH_HOST}" >> "$GITHUB_ENV"
+      - name: Configure Safe Output Scripts
+        run: |
+          cat > "${RUNNER_TEMP}/gh-aw/actions/safe_output_script_publish_component_findings.cjs" << 'GH_AW_SAFE_OUTPUT_SCRIPT_PUBLISH_COMPONENT_FINDINGS_75faeab9d5765245_EOF'
+          // @ts-check
+          /// <reference types="./safe-output-script" />
+          // Auto-generated safe-output script handler: publish-component-findings
+
+          const { sanitizeContent } = require("./sanitize_content.cjs");
+
+          /** @type {import('./types/safe-output-script').SafeOutputScriptMain} */
+          async function main(config = {}) {
+            const { comments, issue_number } = config;
+            return async function handlePublishComponentFindings(item, resolvedTemporaryIds, temporaryIdMap) {
+              const {matchesWorkflowId, generateWorkflowIdMarker} = require('./generate_footer.cjs')
+              const repo = context.repo
+              const resolved = resolvedTemporaryIds[item.issue_number]
+              const issueNumber = Number(resolved ? resolved.number : item.issue_number)
+              const staged = process.env.GH_AW_SAFE_OUTPUTS_STAGED === 'true'
+              const pendingStagedIssue = staged && !resolved && item.issue_number === 'aw_review'
+              if (resolved && resolved.repo !== `${repo.owner}/${repo.repo}`) {
+                throw new Error('Cross-repository review targets are not allowed')
+              }
+              if ((!pendingStagedIssue && (!Number.isSafeInteger(issueNumber) || issueNumber <= 0)) ||
+                  typeof item.comments !== 'string' || item.comments.length > 500000) {
+                throw new Error('Invalid component review payload')
+              }
+              const decoded = Buffer.from(item.comments, 'base64')
+              if (decoded.toString('base64') !== item.comments) {
+                throw new Error('Invalid base64 component review payload')
+              }
+              const entries = JSON.parse(decoded.toString('utf8'))
+              if (!Array.isArray(entries) || entries.length === 0 || entries.length > 100) {
+                throw new Error('Batch must contain between 1 and 100 component comments')
+              }
+              const components = new Set()
+              const batch = entries.map(entry => {
+                if (!entry || typeof entry.component !== 'string' ||
+                    !/^[A-Za-z][A-Za-z0-9.]*$/.test(entry.component) || components.has(entry.component) ||
+                    typeof entry.body !== 'string' || entry.body.length < 20 || entry.body.length > 60000) {
+                  throw new Error('Invalid or duplicate component review entry')
+                }
+                components.add(entry.component)
+                return {component: entry.component, body: sanitizeContent(entry.body)}
+              })
+              if (staged) {
+                core.info(`Would publish ${batch.length} component comments on issue ${item.issue_number}`)
+                return {success: true, staged: true}
+              }
+              const {data: issue} = await github.rest.issues.get({...repo, issue_number: issueNumber})
+              if (issue.pull_request || issue.title !== 'Primer API Review') {
+                throw new Error('Target must be the Primer API Review issue')
+              }
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                ...repo, issue_number: issueNumber, per_page: 100,
+              })
+              let updatedBody = issue.body || ''
+              for (const entry of batch) {
+                const marker = `<!-- primer-api-review-component: ${entry.component} -->`
+                const previous = comments.find(comment =>
+                  comment.user?.login === 'github-actions[bot]' &&
+                  matchesWorkflowId(comment.body || '', 'primer-api-review') &&
+                  (comment.body || '').includes(marker),
+                )
+                const body = `${entry.body}\n\n${marker}\n${generateWorkflowIdMarker('primer-api-review')}`
+                let comment = previous
+                if (!previous || previous.body !== body) {
+                  const result = previous
+                    ? await github.rest.issues.updateComment({...repo, comment_id: previous.id, body})
+                    : await github.rest.issues.createComment({...repo, issue_number: issueNumber, body})
+                  comment = result.data
+                }
+                updatedBody = updatedBody.replaceAll(
+                  `(#api-review-comment-${entry.component})`, `(${comment.html_url})`,
+                )
+              }
+              if (updatedBody !== issue.body) {
+                await github.rest.issues.update({...repo, issue_number: issueNumber, body: updatedBody})
+              }
+              return {success: true, url: issue.html_url}
+
+            };
+          }
+          module.exports = { main };
+
+          GH_AW_SAFE_OUTPUT_SCRIPT_PUBLISH_COMPONENT_FINDINGS_75faeab9d5765245_EOF
       - name: Process Safe Outputs
         id: process_safe_outputs
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -1828,7 +1936,8 @@ jobs:
           GH_AW_ALLOWED_DOMAINS: "api.snapcraft.io,archive.ubuntu.com,azure.archive.ubuntu.com,crl.geotrust.com,crl.globalsign.com,crl.identrust.com,crl.sectigo.com,crl.thawte.com,crl.usertrust.com,crl.verisign.com,crl3.digicert.com,crl4.digicert.com,crls.ssl.com,json-schema.org,json.schemastore.org,keyserver.ubuntu.com,ocsp.digicert.com,ocsp.geotrust.com,ocsp.globalsign.com,ocsp.identrust.com,ocsp.sectigo.com,ocsp.ssl.com,ocsp.thawte.com,ocsp.usertrust.com,ocsp.verisign.com,packagecloud.io,packages.cloud.google.com,packages.microsoft.com,ppa.launchpad.net,s.symcb.com,s.symcd.com,security.ubuntu.com,ts-crl.ws.symantec.com,ts-ocsp.ws.symantec.com,www.googleapis.com"
           GITHUB_SERVER_URL: ${{ github.server_url }}
           GITHUB_API_URL: ${{ github.api_url }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"create_issue\":{\"deduplicate_by_title\":true,\"max\":1},\"create_report_incomplete_issue\":{},\"mentions\":{\"enabled\":false},\"missing_data\":{},\"missing_tool\":{},\"noop\":{\"max\":1,\"report-as-issue\":\"false\"},\"report_incomplete\":{},\"update_issue\":{\"allow_body\":true,\"max\":1,\"required_title_prefix\":\"Primer API Review\",\"target\":\"*\"}}"
+          GH_AW_SAFE_OUTPUT_SCRIPTS: "{\"publish_component_findings\":\"safe_output_script_publish_component_findings.cjs\"}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"create_issue\":{\"deduplicate_by_title\":true,\"footer\":false,\"max\":1},\"create_report_incomplete_issue\":{},\"mentions\":{\"enabled\":false},\"missing_data\":{},\"missing_tool\":{},\"noop\":{\"max\":1,\"report-as-issue\":\"false\"},\"report_incomplete\":{},\"update_issue\":{\"allow_body\":true,\"footer\":false,\"max\":1,\"required_title_prefix\":\"Primer API Review\",\"target\":\"*\"}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
