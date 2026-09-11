@@ -732,6 +732,49 @@ describe('DataTable', () => {
       expect(getRowOrder()).toEqual(['1', '2', '3'])
     })
 
+    it('should keep the sort action in the button description', async () => {
+      const user = userEvent.setup()
+      render(
+        <DataTable
+          data={[
+            {
+              id: 1,
+              value: 1,
+            },
+          ]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+
+      const header = screen.getByRole('columnheader', {name: 'Value'})
+      const sortButton = screen.getByRole('button', {name: 'Value'})
+
+      expect(header).toHaveAccessibleName('Value')
+      expect(header).not.toHaveAttribute('aria-sort')
+      expect(sortButton).toHaveAccessibleName('Value')
+      expect(sortButton).toHaveAccessibleDescription('Sort ascending')
+
+      await user.click(sortButton)
+
+      expect(header).toHaveAccessibleName('Value')
+      expect(header).toHaveAttribute('aria-sort', 'ascending')
+      expect(sortButton).toHaveAccessibleName('Value')
+      expect(sortButton).toHaveAccessibleDescription('Sort descending')
+
+      await user.click(sortButton)
+
+      expect(header).toHaveAccessibleName('Value')
+      expect(header).toHaveAttribute('aria-sort', 'descending')
+      expect(sortButton).toHaveAccessibleName('Value')
+      expect(sortButton).toHaveAccessibleDescription('Sort ascending')
+    })
+
     it('should change the sort direction on keyboard Enter or Space', async () => {
       const user = userEvent.setup()
       render(
@@ -878,7 +921,7 @@ describe('DataTable', () => {
 
       // When interacting with Column B, sort order should reset to ASC
       await user.click(screen.getByText('Column B'))
-      expect(getSortHeader('Column A sort ascending')).not.toHaveAttribute('aria-sort')
+      expect(getSortHeader('Column A')).not.toHaveAttribute('aria-sort')
       expect(getSortHeader('Column B')).toHaveAttribute('aria-sort', 'ascending')
       expect(getRowOrder()).toEqual([
         [3, 1],

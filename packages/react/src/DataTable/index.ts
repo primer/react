@@ -15,6 +15,7 @@ import {
   TableDivider,
   TableSkeleton,
 } from './Table'
+import {TableGroup} from './TableGroup'
 import {Pagination} from './Pagination'
 import type {SlotMarker} from '../utils/types/Slots'
 
@@ -28,6 +29,7 @@ const Table: typeof TableImpl &
     Skeleton: typeof TableSkeleton
     Head: typeof TableHead
     Body: typeof TableBody
+    Group: typeof TableGroup
     Header: typeof TableHeader
     Row: typeof TableRow
     Cell: typeof TableCell
@@ -43,6 +45,7 @@ const Table: typeof TableImpl &
   Skeleton: TableSkeleton,
   Head: TableHead,
   Body: TableBody,
+  Group: TableGroup,
   Header: TableHeader,
   Row: TableRow,
   Cell: TableCell,
@@ -66,6 +69,7 @@ export type {
   TableActionsProps,
   TableSkeletonProps,
 } from './Table'
+export type {TableGroupProps} from './TableGroup'
 export {createColumnHelper} from './column'
 export type {Column, CellAlignment, ColumnWidth} from './column'
 export type {UniqueRow} from './row'

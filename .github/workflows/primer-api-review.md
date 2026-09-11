@@ -53,6 +53,7 @@ safe-outputs:
     deduplicate-by-title: true
     max: 1
   update-issue:
+    target: '*'
     required-title-prefix: 'Primer API Review'
 ---
 
