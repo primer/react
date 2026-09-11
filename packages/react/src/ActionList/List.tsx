@@ -51,7 +51,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
   const readRef = mergedRefEnabled ? listRef : providedOrCreatedRef
   const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
-  const itemGapEnabled = useFeatureFlag('primer_react_action_list_item_gap') && container === 'NavList'
+  const itemGapEnabled = container === 'NavList'
 
   let enableFocusZone = false
   if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
