@@ -12,4 +12,5 @@ const Pagehead = ({as: BaseComponent = 'div', className, ...rest}: PageheadProps
 export type PageheadProps = React.ComponentPropsWithoutRef<'div'> & {
   as?: React.ElementType
 }
+
 export default Pagehead

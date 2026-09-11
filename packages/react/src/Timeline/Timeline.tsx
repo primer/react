@@ -82,7 +82,7 @@ const TimelineItem = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineIt
   },
 )
 
-TimelineItem.displayName = 'TimelineItem'
+TimelineItem.displayName = 'Timeline.Item'
 
 export type TimelineBadgeVariant = (typeof TimelineBadgeVariants)[number]
 
@@ -112,7 +112,7 @@ const TimelineBody = React.forwardRef<HTMLDivElement, TimelineBodyProps>(({class
   return <div {...props} className={clsx(className, classes.TimelineBody)} ref={forwardRef} />
 })
 
-TimelineBody.displayName = 'TimelineBody'
+TimelineBody.displayName = 'Timeline.Body'
 
 export type TimelineBreakProps = {
   /** Class name for custom styling */
@@ -144,7 +144,7 @@ const TimelineBreak = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineB
   },
 )
 
-TimelineBreak.displayName = 'TimelineBreak'
+TimelineBreak.displayName = 'Timeline.Break'
 
 export type TimelineActionsProps = {
   /** Class name for custom styling */

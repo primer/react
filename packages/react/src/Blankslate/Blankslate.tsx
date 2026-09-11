@@ -145,3 +145,8 @@ export type {
   BlankslatePrimaryActionProps,
   BlankslateSecondaryActionProps,
 }
+Visual.displayName = 'Blankslate.Visual'
+Heading.displayName = 'Blankslate.Heading'
+Description.displayName = 'Blankslate.Description'
+PrimaryAction.displayName = 'Blankslate.PrimaryAction'
+SecondaryAction.displayName = 'Blankslate.SecondaryAction'

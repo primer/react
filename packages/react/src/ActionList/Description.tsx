@@ -84,4 +84,5 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
   }
 }
 
+Description.displayName = 'ActionList.Description'
 Description.__SLOT__ = Symbol('ActionList.Description')

@@ -52,3 +52,5 @@ function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
     </div>
   )
 }
+
+FilteredActionListBodyLoader.displayName = 'FilteredActionList.BodyLoader'
