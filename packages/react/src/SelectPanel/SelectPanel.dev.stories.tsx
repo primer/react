@@ -446,7 +446,7 @@ export const WithInitialFocusEnabled = ({onCancel, secondaryAction}: ParamProps)
   )
 }
 
-export const WithSearchInputAnnouncementBug = () => {
+export const WithSearchInputAnnouncement = () => {
   const issueFields: ItemInput[] = [
     {text: 'Start date', description: 'Date when work on issue will begin', id: 1},
     {text: 'Priority', description: 'Level of importance for this issue', id: 2},
@@ -460,8 +460,8 @@ export const WithSearchInputAnnouncementBug = () => {
   return (
     <>
       <p>
-        Turn on a screen reader, then open the SelectPanel. Focus moves to the Filter fields input, but the first option
-        is announced instead of the input&apos;s name and role.
+        Turn on a screen reader, then open the SelectPanel. The announcement identifies the Filter fields input before
+        the initially focused option.
       </p>
       <SelectPanel
         title="Pin issue field"
