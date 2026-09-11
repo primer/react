@@ -731,7 +731,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
             } else {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
-                'List updated, Focused item: item one, not selected, 1 of 3',
+                'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
               )
             }
           },
@@ -797,7 +797,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
             } else {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
-                'List updated, Focused item: item one, not selected, 1 of 3',
+                'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
               )
             }
           },

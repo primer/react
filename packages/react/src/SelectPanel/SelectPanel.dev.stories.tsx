@@ -445,3 +445,42 @@ export const WithInitialFocusEnabled = ({onCancel, secondaryAction}: ParamProps)
     />
   )
 }
+
+export const WithSearchInputAnnouncement = () => {
+  const issueFields: ItemInput[] = [
+    {text: 'Start date', description: 'Date when work on issue will begin', id: 1},
+    {text: 'Priority', description: 'Level of importance for this issue', id: 2},
+    {text: 'Size', description: 'Estimated effort for this issue', id: 3},
+  ]
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const filteredItems = issueFields.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <p>
+        Turn on a screen reader, then open the SelectPanel. The announcement identifies the Filter fields input before
+        the initially focused option.
+      </p>
+      <SelectPanel
+        title="Pin issue field"
+        placeholder="Add pinned issue field"
+        placeholderText="Filter fields"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </>
+  )
+}
