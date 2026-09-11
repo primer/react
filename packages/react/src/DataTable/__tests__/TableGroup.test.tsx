@@ -77,16 +77,16 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: 'Admins, 2 rows'})
+    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 2 rows$/})
     expect(groupHeader.tagName).toBe('TH')
     expect(groupHeader).toHaveAttribute('scope', 'colgroup')
     expect(groupHeader).toHaveAttribute('colspan', '2')
   })
 
   it.each([
-    [1, 'Admins, 1 row'],
-    [2, 'Admins, 2 rows'],
-    [0, 'Admins, 0 rows'],
+    [1, /^Admins\s*, 1 row$/],
+    [2, /^Admins\s*, 2 rows$/],
+    [0, /^Admins\s*, 0 rows$/],
   ])('builds an accessible name from the label and row count (rowCount=%s)', (rowCount, expectedName) => {
     render(
       <Table>
@@ -100,7 +100,10 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    expect(screen.getByRole('columnheader', {name: expectedName})).not.toHaveAttribute('aria-label')
+    const groupHeader = screen.getByRole('columnheader', {name: expectedName})
+    expect(groupHeader).not.toHaveAttribute('aria-label')
+    expect(groupHeader).toHaveTextContent(`Admins,${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`)
+    expect(groupHeader.querySelector('[aria-hidden="true"]')).toBeNull()
   })
 
   it('exposes visible label/count text while keeping the group header name concise', () => {
@@ -116,7 +119,7 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: 'Admins, 2 rows'})
+    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 2 rows$/})
     expect(within(groupHeader).getByText('Admins')).toBeVisible()
     expect(within(groupHeader).getByText('2')).toBeVisible()
   })
@@ -134,7 +137,7 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: 'Admins, 1 row'})
+    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
     const nameCell = screen.getByRole('cell', {name: 'Mona'})
     const roleCell = screen.getByRole('cell', {name: 'Admin'})
 
@@ -154,7 +157,7 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: 'Admins, 1 row'})
+    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
     expect(screen.getByRole('cell', {name: 'Mona'})).toHaveAttribute('headers', `${groupHeader.id} col-name`)
     expect(screen.getByRole('cell', {name: 'Admin'})).toHaveAttribute('headers', `${groupHeader.id} col-role`)
   })
@@ -221,7 +224,7 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: 'Admins, 1 row'})
+    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
     const nameCell = screen.getByRole('cell', {name: 'Mona'})
     expect(nameCell).toHaveAttribute('headers', `${groupHeader.id} col-name extra-ref`)
   })
