@@ -1,5 +1,21 @@
 # @primer/react
 
+## 38.39.0
+
+### Minor Changes
+
+- [#8372](https://github.com/primer/react/pull/8372) [`23185b7`](https://github.com/primer/react/commit/23185b7a6d457d8d8a2161d804bb36da5e62e301) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add `Table.Group` for rendering accessible groups of table rows.
+
+### Patch Changes
+
+- [#8234](https://github.com/primer/react/pull/8234) [`fd1a26a`](https://github.com/primer/react/commit/fd1a26ad9af3fcde69dddb8eb1b161465e94e3ca) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Bundle the React Compiler memo helper (`c`) into `@primer/react` instead of importing it from an external `react-compiler-runtime` module. This prevents a runtime crash (`TypeError: (0, t.c) is not a function`) that could occur when a consumer's bundle resolved a skewed or stale `react-compiler-runtime` across independently-cached chunks.
+
+- [#8370](https://github.com/primer/react/pull/8370) [`56ebdc4`](https://github.com/primer/react/commit/56ebdc49f8f6c862288ee653a4cdc7a70afe829c) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - ScrollableRegion: Remove focusability when content no longer overflows
+
+- [#8371](https://github.com/primer/react/pull/8371) [`dc8387f`](https://github.com/primer/react/commit/dc8387f4fa07cf00887cb2412d358fb7eb54be63) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Keep sortable column names concise and convey the next sort action as an accessible description
+
+- [#8352](https://github.com/primer/react/pull/8352) [`4dc92ec`](https://github.com/primer/react/commit/4dc92ecc5014f4c5f7675ec64d11cd0e0d5aa83e) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - Tabs and UnderlinePanels: Make the controlled selection and manual activation APIs available without a feature flag. Re-selecting the active tab no longer fires the value change callback.
+
 ## 38.38.0
 
 ### Minor Changes
