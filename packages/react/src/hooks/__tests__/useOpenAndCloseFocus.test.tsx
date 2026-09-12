@@ -97,3 +97,43 @@ it('should focus returnFocusRef element when rendered', async () => {
 
   expect(document.activeElement).toEqual(toggleButton)
 })
+
+it('focuses the current returnFocusRef element when the target changes before cleanup', async () => {
+  const user = userEvent.setup()
+
+  const FocusManager = ({returnFocusRef}: {returnFocusRef: React.RefObject<HTMLButtonElement | null>}) => {
+    const containerRef = useRef<HTMLDivElement>(null)
+    useOpenAndCloseFocus({containerRef, returnFocusRef})
+    return <div ref={containerRef} />
+  }
+
+  const Component = () => {
+    const [open, setOpen] = useState(true)
+    const [useSecondTarget, setUseSecondTarget] = useState(false)
+    const returnFocusRef = useRef<HTMLButtonElement>(null)
+
+    return (
+      <>
+        <button type="button" ref={useSecondTarget ? undefined : returnFocusRef}>
+          first target
+        </button>
+        <button type="button" ref={useSecondTarget ? returnFocusRef : undefined}>
+          second target
+        </button>
+        <button type="button" onClick={() => setUseSecondTarget(true)}>
+          switch target
+        </button>
+        <button type="button" onClick={() => setOpen(false)}>
+          close
+        </button>
+        {open ? <FocusManager returnFocusRef={returnFocusRef} /> : null}
+      </>
+    )
+  }
+
+  const {getByText} = render(<Component />)
+  await user.click(getByText('switch target'))
+  await user.click(getByText('close'))
+
+  expect(getByText('second target')).toHaveFocus()
+})

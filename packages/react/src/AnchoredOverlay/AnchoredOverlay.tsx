@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, useState, type JSX} from 'react'
+import {useCallback, useEffect, useMemo, useState, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -17,14 +17,17 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
+   * The optional second argument is a reactive ref for the current anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
   renderAnchor: <T extends Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'>>(
     props: T,
+    anchorRef?: React.RefCallback<HTMLElement>,
   ) => JSX.Element
 
   /**
@@ -150,6 +153,24 @@ const defaultVariant = {
 
 const defaultCloseButtonProps: Partial<IconButtonProps> = {}
 
+function DetachedAnchorObserver({
+  anchorRef,
+  anchorElement,
+  onAnchorElementChange,
+}: {
+  anchorRef: React.RefObject<HTMLElement | null>
+  anchorElement: HTMLElement | null
+  onAnchorElementChange: React.Dispatch<React.SetStateAction<HTMLElement | null>>
+}) {
+  // Detached object refs do not notify when their element changes, so check after each parent-driven render.
+  useLayoutEffect(() => {
+    if (anchorRef.current !== anchorElement) {
+      onAnchorElementChange(anchorRef.current)
+    }
+  })
+  return null
+}
+
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
  * The overlay can be opened and navigated using keyboard or mouse.
@@ -202,10 +223,19 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
-  // eslint-disable-next-line react-hooks/refs
-  if (anchorRef.current !== anchorElement) {
-    setAnchorElement(anchorRef.current)
-  }
+  const mergedAnchorRef = useMergedRefs(anchorRef, setAnchorElement)
+  // Keep the legacy object-ref shape while making assignments reactive for positioning.
+  const renderAnchorRef = useMemo(
+    () => ({
+      get current() {
+        return anchorRef.current
+      },
+      set current(value: HTMLElement | null) {
+        mergedAnchorRef(value)
+      },
+    }),
+    [anchorRef, mergedAnchorRef],
+  )
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
@@ -271,7 +301,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       enabled: open && !cssAnchorPositioning,
     },
 
-    [overlayElement],
+    [overlayElement, anchorElement],
   )
 
   useEffect(() => {
@@ -405,18 +435,27 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   return (
     <>
+      {renderAnchor === null ? (
+        <DetachedAnchorObserver
+          anchorRef={anchorRef}
+          anchorElement={anchorElement}
+          onAnchorElementChange={setAnchorElement}
+        />
+      ) : null}
       {renderAnchor &&
-        // eslint-disable-next-line react-hooks/refs
-        renderAnchor({
-          ref: anchorRef,
-          id: anchorId,
-          'aria-haspopup': 'true',
-          'aria-expanded': open,
-          tabIndex: 0,
-          onClick: onAnchorClick,
-          onKeyDown: onAnchorKeyDown,
-          ...popoverTargetProps,
-        })}
+        renderAnchor(
+          {
+            ref: renderAnchorRef,
+            id: anchorId,
+            'aria-haspopup': 'true',
+            'aria-expanded': open,
+            tabIndex: 0,
+            onClick: onAnchorClick,
+            onKeyDown: onAnchorKeyDown,
+            ...popoverTargetProps,
+          },
+          mergedAnchorRef,
+        )}
       {open ? (
         <Overlay
           returnFocusRef={anchorRef}
