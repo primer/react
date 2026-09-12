@@ -115,7 +115,7 @@
   border-radius: var(--borderRadius-medium);
 
   /* apply flex if trailing action exists as an immediate child */
-  &[data-has-trailing-action] {
+  &[data-has-trailing-action]:not([data-has-subitem='true']) {
     display: flex;
     flex-wrap: nowrap;
   }
@@ -496,6 +496,24 @@
 }
 
 /* button or a tag */
+
+.ActionListItemRow {
+  display: flex;
+  border-radius: var(--borderRadius-medium);
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--control-transparent-bgColor-hover);
+      outline: solid var(--borderWidth-thin) transparent;
+      outline-offset: calc(-1 * var(--borderWidth-thin));
+      box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+    }
+  }
+
+  &:active {
+    background-color: var(--control-transparent-bgColor-active);
+  }
+}
 
 /* [ [spacer] [leadingAction] [leadingVisual] [content] ] */
 .ActionListContent {
