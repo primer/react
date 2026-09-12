@@ -59,7 +59,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
 /**
  * Props to customize the rendering of the Dialog.
  */
-export interface DialogProps {
+export interface DialogProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'title' | 'role' | 'onClose'> {
   'data-component'?: string
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
@@ -293,6 +293,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     initialFocusRef,
     className,
     style,
+    children,
+    ...rest
   } = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
@@ -314,7 +316,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     },
     [onClose, lastMouseDownIsBackdrop],
   )
-  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+  const [slots, childrenWithoutSlots] = useSlots(children, {
     body: Dialog.Body,
     header: Dialog.Header,
     footer: Dialog.Footer,
@@ -418,6 +420,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
+            {...rest}
             {...positionDataAttributes}
             {...(align && {'data-align': align})}
             data-width={isWidthMapKey(width) ? width : undefined}
