@@ -161,6 +161,7 @@ export function FilteredActionList({
   focusPrependedElements,
   scrollBehavior,
   virtualized = false,
+  renderItem: listRenderItem,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   if (__DEV__) {
@@ -467,7 +468,7 @@ export function FilteredActionList({
                     data-input-focused={isInputFocused ? '' : undefined}
                     data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
                     {...item}
-                    renderItem={listProps.renderItem}
+                    renderItem={'renderItem' in item ? item.renderItem : listRenderItem}
                   />
                 )
               })}
@@ -499,7 +500,7 @@ export function FilteredActionList({
                 transform: `translateY(${virtualItem.start}px)`,
               }}
               {...item}
-              renderItem={listProps.renderItem}
+              renderItem={'renderItem' in item ? item.renderItem : listRenderItem}
             />
           )
         })
@@ -514,7 +515,7 @@ export function FilteredActionList({
             data-input-focused={isInputFocused ? '' : undefined}
             data-first-child={index === 0 ? '' : undefined}
             {...item}
-            renderItem={listProps.renderItem}
+            renderItem={'renderItem' in item ? item.renderItem : listRenderItem}
           />
         )
       })
