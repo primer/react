@@ -6,6 +6,7 @@ const stories: ReadonlyArray<{
   title: string
   id: string
   aat?: boolean
+  vrt?: boolean
 }> = [
   {
     title: 'Default',
@@ -57,36 +58,98 @@ const stories: ReadonlyArray<{
     aat: true,
   },
   {
+    title: 'With Row Selection',
+    id: 'experimental-components-datatable-features--with-row-selection',
+    aat: true,
+    vrt: false,
+  },
+  {
+    title: 'With Grouped Row Selection',
+    id: 'experimental-components-datatable-features--with-grouped-row-selection',
+    aat: true,
+    vrt: false,
+  },
+  {
     title: 'With Sortable Groups',
     id: 'experimental-components-datatable-features--with-sortable-groups',
     aat: true,
   },
+  {
+    title: 'With Mixed Row Selection',
+    id: 'experimental-components-datatable-features--with-mixed-row-selection',
+    aat: true,
+    vrt: false,
+  },
 ]
 
 test.describe('DataTable', () => {
+  for (const id of [
+    'experimental-components-datatable-features--with-row-selection',
+    'experimental-components-datatable-features--with-grouped-row-selection',
+    'experimental-components-datatable-features--with-mixed-row-selection',
+  ]) {
+    test(`controlled selection round-trip ${id} @aat`, async ({page}) => {
+      await visit(page, {id})
+      const rowCheckbox = page.getByRole('checkbox', {name: 'Select strapi', exact: true})
+      const otherCheckbox = page.getByRole('checkbox', {name: 'Select bootstrap', exact: true})
+      const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+
+      await expect(rowCheckbox).not.toBeChecked()
+      await rowCheckbox.click()
+      await expect(rowCheckbox).toBeChecked()
+      await rowCheckbox.click()
+      await expect(rowCheckbox).not.toBeChecked()
+      await expect(rowCheckbox).toBeFocused()
+
+      await rowCheckbox.press('Space')
+      await otherCheckbox.click()
+      await expect(rowCheckbox).toBeChecked()
+      await expect(otherCheckbox).toBeChecked()
+      await selectAll.click()
+      await expect(selectAll).toBeChecked()
+      await rowCheckbox.click()
+      await expect(rowCheckbox).not.toBeChecked()
+      await expect(otherCheckbox).toBeChecked()
+      await expect(selectAll).toBeChecked({indeterminate: true})
+      if (id === 'experimental-components-datatable-features--with-mixed-row-selection') {
+        await page.getByRole('button', {name: 'Name', exact: true}).click()
+        await expect(rowCheckbox).not.toBeChecked()
+        await expect(otherCheckbox).toBeChecked()
+        await expect(selectAll).toBeChecked({indeterminate: true})
+      }
+      await selectAll.click()
+      await selectAll.click()
+      await expect(selectAll).not.toBeChecked()
+      await expect(selectAll).toBeFocused()
+      await expect(page).toHaveNoViolations()
+    })
+  }
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test('default @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
+          if (story.vrt !== false) {
+            test('default @vrt', async ({page}) => {
+              await visit(page, {
+                id: story.id,
+                globals: {
+                  colorScheme: theme,
+                },
+              })
 
-            // Default state
-            expect(
-              await page.screenshot({
-                mask: await page
-                  .locator('td', {
-                    has: page.locator('relative-time'),
-                  })
-                  .all(),
-              }),
-            ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
-          })
+              // Default state
+              expect(
+                await page.screenshot({
+                  mask: await page
+                    .locator('td', {
+                      has: page.locator('relative-time'),
+                    })
+                    .all(),
+                }),
+              ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
+            })
+          }
 
           if (story.aat) {
             test('axe @aat', async ({page}) => {

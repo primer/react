@@ -1750,6 +1750,51 @@ const groupedColumns = [
   }),
 ]
 
+export const WithRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set([2]))
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-repositories">
+        Selectable repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-repositories"
+        data={data}
+        columns={groupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+export const WithGroupedRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set())
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-repositories-by-visibility">
+        Selectable repositories by visibility
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-repositories-by-visibility"
+        data={repoGroups}
+        columns={groupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        isRowSelectable={repo => repo.id !== 1}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
 const sortableGroupedColumns = [
   columnHelper.column({
     header: 'Name',
@@ -1760,6 +1805,29 @@ const sortableGroupedColumns = [
   }),
   groupedColumns[1],
 ]
+
+export const WithMixedRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set())
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-mixed-repositories">
+        Selectable standalone and grouped repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-mixed-repositories"
+        data={[...data.filter(repo => repo.type === 'internal'), repoGroups[1]]}
+        columns={sortableGroupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        isRowSelectable={repo => repo.id !== 1}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
 
 export const WithSortableGroups = () => (
   <Table.Container>

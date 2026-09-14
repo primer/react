@@ -193,3 +193,48 @@ export function shouldPreserveBusinessTypeInference() {
     />
   )
 }
+
+export function shouldAcceptRowSelectionProps() {
+  const selectedRows: ReadonlySet<string | number> = new Set([1, 'repository'])
+
+  return (
+    <DataTable
+      data={[{id: 1, name: 'primer/react'}]}
+      columns={columns}
+      rowSelection
+      selectedRows={selectedRows}
+      defaultSelectedRows={new Set([1])}
+      isRowSelectable={row => row.name !== ''}
+      onSelectionChange={({selectedRows: nextSelectedRows}) => {
+        nextSelectedRows.add('repository')
+      }}
+    />
+  )
+}
+
+export function shouldInferMixedSelectionCallbacks() {
+  return (
+    <DataTable
+      data={[
+        {id: 1, name: 'Standalone'},
+        {groupId: 'public', label: 'Public', rows: [{id: 2, name: 'primer/react'}]},
+      ]}
+      columns={columns}
+      rowSelection
+      getRowId={row => {
+        const id: number = row.id
+        return id
+      }}
+      isRowSelectable={row => {
+        const name: string = row.name
+        // @ts-expect-error Selection predicates receive member rows, not group metadata.
+        row.groupId
+        return name !== ''
+      }}
+      onSelectionChange={({selectedRows}) => {
+        const ids: Set<string | number> = selectedRows
+        return ids
+      }}
+    />
+  )
+}

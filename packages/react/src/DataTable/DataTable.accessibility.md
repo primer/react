@@ -235,3 +235,37 @@ their name, state, and next action without polluting cell header names.
 - [Sortable-header name and description implementation](https://github.com/primer/react/pull/8371)
 - [HTML table content model](https://html.spec.whatwg.org/multipage/tables.html#the-table-element)
 - [WAI-ARIA APG table pattern](https://www.w3.org/WAI/ARIA/apg/patterns/table/)
+
+## Row selection
+
+| Requirement             | Presentational `Table` parts                                                         | Config `DataTable`                                                    |
+| ----------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| Selection column        | Consumer composes `Table.SelectionHeader` and `Table.RowSelection` first in each row | Rendered first when `rowSelection` is enabled                         |
+| Selection state         | Consumer controls each checkbox and mixed state                                      | Controlled or uncontrolled by stable row ID                           |
+| Header checkbox name    | Defaults to `Select rows`; consumer provides scope details with `aria-description`   | `Select rows`, described by the current selectable row count          |
+| Row checkbox name       | Consumer references its row header with `aria-labelledby`, or provides `aria-label`  | References the actual row header, with a stable row-ID fallback       |
+| Checkbox keyboard input | Native checkbox behavior                                                             | Inherited from the presentational API                                 |
+| Select-all scope        | Consumer defines the supplied rows                                                   | Every selectable supplied row, across all groups and scroll positions |
+| Mixed-state activation  | Consumer handles the state update                                                    | Selects all remaining selectable rows                                 |
+| Non-selectable rows     | Consumer disables and excludes them from totals                                      | Disabled and excluded from totals and select-all                      |
+| Zero selectable rows    | Consumer disables the header checkbox                                                | Keeps a disabled, unchecked, non-mixed selection column               |
+
+Selection covers both standalone rows and group members in mixed data. Group
+headers are not selectable. Group `colSpan` includes the selection column.
+The model owns selection-header IDs and row-label associations, including row
+header IDs for flat selection tables; ordinary flat cells retain native scope
+associations.
+
+Selection is scoped to the rows currently supplied to `DataTable`. Pagination
+and filtering owners must clear controlled `selectedRows` when that scope
+changes. Uncontrolled selection is intended for static, single-page data.
+Permanent row removals are also owner-reconciled: missing and non-selectable IDs
+remain in the stored set, but they do not affect the rendered selection, counts,
+select-all state, or future bulk-action input. An ID becomes effective again if
+the same selectable stable ID returns.
+
+The selection controls remain native checkboxes. DataTable does not add
+row-level `aria-selected`, arrow-key navigation, or group-level select-all
+controls; those optional interaction models are intentionally outside this
+stage. The focused select-all checkbox remains mounted while its checked and
+mixed states change, preserving native keyboard behavior and focus.
