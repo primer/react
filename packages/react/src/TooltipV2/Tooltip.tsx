@@ -14,6 +14,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
 import {TooltipContext} from './TooltipContext'
+import {reactMajorVersion} from '../utils/environment'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -127,12 +128,15 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
+    const elementChild = React.isValidElement(child) ? child : undefined
+    const childRef =
+      reactMajorVersion > 18 ? elementChild?.props.ref : (elementChild as {ref?: React.Ref<unknown>} | undefined)?.ref
     const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
     const triggerRef = useRef<HTMLElement>(null)
-    const mergedTriggerRef = useMergedRefs(triggerRef, forwardedRef)
+    const mergedTriggerRef = useMergedRefs(triggerRef, useMergedRefs(forwardedRef, childRef))
     // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
     // At graduation: remove the three declarations below, and replace all instances of `readTriggerRef` with `triggerRef` and `appliedTriggerRef` with `mergedTriggerRef`.
-    const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    const providedOrCreatedRef = useProvidedRefOrCreate((forwardedRef ?? childRef) as React.RefObject<HTMLElement>)
     const readTriggerRef = mergedRefEnabled ? triggerRef : providedOrCreatedRef
     const appliedTriggerRef = mergedRefEnabled ? mergedTriggerRef : providedOrCreatedRef
     const tooltipElRef = useRef<HTMLDivElement>(null)
