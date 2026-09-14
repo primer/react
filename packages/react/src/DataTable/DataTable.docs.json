@@ -56,10 +56,16 @@
       "id": "experimental-components-datatable-features--with-mixed-row-selection"
     },
     {
+      "id": "experimental-components-datatable-features--with-paginated-row-selection"
+    },
+    {
       "id": "experimental-components-datatable-features--with-sortable-groups"
     },
     {
       "id": "experimental-components-table-features--with-groups"
+    },
+    {
+      "id": "experimental-components-table-features--with-row-selection"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -87,27 +93,27 @@
     {
       "name": "rowSelection",
       "type": "boolean",
-      "description": "Render a leading selection column for the current supplied rows. Select all includes every selectable row across groups."
+      "description": "Render row checkboxes and a select-all checkbox for the current page."
     },
     {
       "name": "selectedRows",
       "type": "ReadonlySet<string | number>",
-      "description": "Control selected rows by the stable IDs returned from `getRowId`. IDs that are missing or currently non-selectable are retained but excluded from the effective selection."
+      "description": "Control selection using stable IDs from `getRowId`. Missing or non-selectable IDs stay stored but do not count as selected."
     },
     {
       "name": "defaultSelectedRows",
       "type": "ReadonlySet<string | number>",
-      "description": "Provide the initial selected row IDs for uncontrolled, static, single-page data. Pagination and filtering owners must clear controlled selection when the scope changes."
+      "description": "Set the initial selection for an uncontrolled, static, single-page table."
     },
     {
       "name": "onSelectionChange",
       "type": "({ selectedRows }: { selectedRows: Set<string | number> }) => void",
-      "description": "Handle an immutable selection update. DataTable does not emit this callback merely because the supplied data changes."
+      "description": "Receive a new selection set when a checkbox is toggled. Data changes alone do not trigger this callback."
     },
     {
       "name": "isRowSelectable",
       "type": "(row: Data) => boolean",
-      "description": "Determine whether a row can be selected. Non-selectable rows are excluded from selection totals and select-all."
+      "description": "Determine which rows can be selected and counted by select-all."
     },
     {
       "name": "cellPadding",
@@ -307,7 +313,7 @@
         {
           "name": "aria-description",
           "type": "string",
-          "description": "Provide dynamic selection scope details without lengthening the accessible name."
+          "description": "Describe the select-all scope, for example \"Select all 10 rows\"."
         }
       ]
     },
@@ -344,12 +350,12 @@
           "name": "aria-label",
           "type": "string",
           "defaultValue": "'Select row'",
-          "description": "Provide a safe accessible name when no row header labels the checkbox."
+          "description": "Name the row checkbox when `aria-labelledby` is not provided."
         },
         {
           "name": "aria-labelledby",
           "type": "string",
-          "description": "Reference the actual row header or headers. The selection action is automatically prepended to their accessible text."
+          "description": "Reference the row header IDs. The checkbox name adds \"Select\" before their text."
         }
       ]
     },
