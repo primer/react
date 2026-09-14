@@ -57,32 +57,32 @@ describe('Tooltip', () => {
     const {getByText} = HTMLRender(<TooltipComponent direction="n" />)
     expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 'n')
   })
-  it('should label the trigger element by its tooltip when the tooltip type is label', () => {
+  it('labels the trigger element by its tooltip when the tooltip type is label', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent type="label" />)
     const triggerEL = getByRole('button')
     const tooltipEl = getByText('Tooltip text')
     expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
   })
-  it('should render aria-hidden on the tooltip element when the tooltip is label type', () => {
+  it('renders aria-hidden on the tooltip element when the tooltip is label type', () => {
     const {getByText} = HTMLRender(<TooltipComponent type="label" />)
     expect(getByText('Tooltip text')).toHaveAttribute('aria-hidden', 'true')
   })
-  it('should render aria-hidden on the tooltip element when the tooltip is description type', () => {
+  it('renders aria-hidden on the tooltip element when the tooltip is description type', () => {
     const {getByText} = HTMLRender(<TooltipComponent type="description" />)
     expect(getByText('Tooltip text')).toHaveAttribute('aria-hidden', 'true')
   })
-  it('should describe the trigger element by its tooltip when the tooltip type is description (by default)', () => {
+  it('describes the trigger element by its tooltip when the tooltip type is description (by default)', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')
     const tooltipEl = getByText('Tooltip text')
     expect(triggerEL.getAttribute('aria-describedby')).toContain(tooltipEl.id)
   })
-  it('should render the tooltip element with role="tooltip" when the tooltip type is description (by default)', () => {
+  it('renders the tooltip element with role="tooltip" when the tooltip type is description (by default)', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
     expect(getByText('Tooltip text')).toHaveAttribute('role', 'tooltip')
   })
 
-  it('should spread the accessibility attributes correctly on the trigger (ActionMenu.Button) when tooltip is used in an action menu', () => {
+  it('spreads the accessibility attributes correctly on the trigger (ActionMenu.Button) when tooltip is used in an action menu', () => {
     const {getByRole, getByText} = HTMLRender(
       <ExampleWithActionMenu
         actionMenuTrigger={
@@ -98,7 +98,7 @@ describe('Tooltip', () => {
     expect(menuButton).toHaveAttribute('aria-haspopup', 'true')
   })
 
-  it('should spread the accessibility attributes correctly on the trigger (Button) when tooltip is used in an action menu', () => {
+  it('spreads the accessibility attributes correctly on the trigger (Button) when tooltip is used in an action menu', () => {
     const {getByRole, getByText} = HTMLRender(
       <ExampleWithActionMenu
         actionMenuTrigger={
@@ -115,7 +115,7 @@ describe('Tooltip', () => {
     expect(menuButton.getAttribute('aria-describedby')).toContain(tooltip.id)
     expect(menuButton).toHaveAttribute('aria-haspopup', 'true')
   })
-  it('should use the custom tooltip id (if present) to label the trigger element', () => {
+  it('uses the custom tooltip id (if present) to label the trigger element', () => {
     const {getByRole} = HTMLRender(
       <Tooltip id="custom-tooltip-id" text="Close feedback form" direction="nw" type="label">
         <IconButton aria-labelledby="custom-tooltip-id" icon={XIcon} variant="invisible" onClick={() => {}} />
@@ -124,7 +124,7 @@ describe('Tooltip', () => {
     const triggerEL = getByRole('button')
     expect(triggerEL).toHaveAttribute('aria-labelledby', 'custom-tooltip-id')
   })
-  it('should use the custom tooltip id (if present) to described the trigger element', () => {
+  it('uses the custom tooltip id (if present) to described the trigger element', () => {
     const {getByRole} = HTMLRender(
       <Tooltip text="This operation cannot be reverted" id="custom-tooltip-id">
         <Button>Delete</Button>
@@ -133,7 +133,7 @@ describe('Tooltip', () => {
     const triggerEL = getByRole('button')
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
-  it('should throw an error if the trigger element is disabled', () => {
+  it('throws an error if the trigger element is disabled', () => {
     withExpectedConsoleError(() => {
       expect(() => {
         HTMLRender(
@@ -146,7 +146,7 @@ describe('Tooltip', () => {
       )
     })
   })
-  it('should not throw an error when the trigger element is a button in a fieldset', () => {
+  it('does not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(
       <fieldset>
         <legend>Legend</legend>
@@ -159,7 +159,7 @@ describe('Tooltip', () => {
     const triggerEL = getByRole('button')
     expect(triggerEL).toBeInTheDocument()
   })
-  it('should allow for two-level deep interactive elements', () => {
+  it('allows for two-level deep interactive elements', () => {
     const {getByText} = HTMLRender(
       <Tooltip text="Tooltip text">
         <ButtonGroup>
@@ -246,15 +246,47 @@ describe('Tooltip forwarded ref (primer_react_merged_forwarded_refs)', () => {
 
       it('calls a callback ref with the trigger element', () => {
         const refCallback = vi.fn()
-        HTMLRender(
+        const {getByRole} = HTMLRender(
           <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
             <Tooltip text="Tooltip text" ref={refCallback}>
               <Button>Button Text</Button>
             </Tooltip>
           </FeatureFlags>,
         )
-        expect(refCallback).toHaveBeenCalled()
-        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLButtonElement)).toBe(true)
+        const button = getByRole('button')
+        expect(refCallback).toHaveBeenCalledWith(button)
+      })
+
+      it("preserves trigger element's own ref", () => {
+        const buttonRefCallback = vi.fn()
+
+        const {getByRole} = HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <Tooltip text="Tooltip text">
+              <Button ref={buttonRefCallback}>Button Text</Button>
+            </Tooltip>
+          </FeatureFlags>,
+        )
+
+        const button = getByRole('button')
+        expect(buttonRefCallback).toHaveBeenCalledWith(button)
+      })
+
+      it.skipIf(!enabled)("merges trigger's own ref with tooltip ref", () => {
+        const buttonRefCallback = vi.fn()
+        const tooltipRefCallback = vi.fn()
+
+        const {getByRole} = HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <Tooltip text="Tooltip text" ref={tooltipRefCallback}>
+              <Button ref={buttonRefCallback}>Button Text</Button>
+            </Tooltip>
+          </FeatureFlags>,
+        )
+
+        const button = getByRole('button')
+        expect(buttonRefCallback).toHaveBeenCalledWith(button)
+        expect(tooltipRefCallback).toHaveBeenCalledWith(button)
       })
     })
   }
