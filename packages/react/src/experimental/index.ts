@@ -28,6 +28,8 @@ export type {
 export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
+  DataTableData,
+  DataTableRowGroup,
   TableProps,
   TableHeadProps,
   TableBodyProps,
@@ -38,6 +40,7 @@ export type {
   TableTitleProps,
   TableSubtitleProps,
   TableActionsProps,
+  TableGroupProps,
   Column,
   CellAlignment,
   ColumnWidth,

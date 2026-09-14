@@ -94,16 +94,14 @@ describe('Tabs', () => {
     const onValueChange = vi.fn()
 
     render(
-      <FeatureFlags flags={{primer_react_underline_panels_controlled: true}}>
-        <Tabs defaultValue="a" onValueChange={onValueChange}>
-          <TabList aria-label="Test tabs">
-            <Tab value="a">Tab A</Tab>
-            <Tab value="b">Tab B</Tab>
-          </TabList>
-          <TabPanel value="a">Panel A</TabPanel>
-          <TabPanel value="b">Panel B</TabPanel>
-        </Tabs>
-      </FeatureFlags>,
+      <Tabs defaultValue="a" onValueChange={onValueChange}>
+        <TabList aria-label="Test tabs">
+          <Tab value="a">Tab A</Tab>
+          <Tab value="b">Tab B</Tab>
+        </TabList>
+        <TabPanel value="a">Panel A</TabPanel>
+        <TabPanel value="b">Panel B</TabPanel>
+      </Tabs>,
     )
 
     await user.click(screen.getByRole('tab', {name: 'Tab A'}))
@@ -609,18 +607,16 @@ describe('Tabs', () => {
   describe('manual activation', () => {
     const renderManualTabs = (onValueChange?: (args: {value: string}) => void) =>
       render(
-        <FeatureFlags flags={{primer_react_underline_panels_controlled: true}}>
-          <Tabs defaultValue="a" activationMode="manual" onValueChange={onValueChange}>
-            <TabList aria-label="Test tabs">
-              <Tab value="a">Tab A</Tab>
-              <Tab value="b">Tab B</Tab>
-              <Tab value="c">Tab C</Tab>
-            </TabList>
-            <TabPanel value="a">Panel A</TabPanel>
-            <TabPanel value="b">Panel B</TabPanel>
-            <TabPanel value="c">Panel C</TabPanel>
-          </Tabs>
-        </FeatureFlags>,
+        <Tabs defaultValue="a" activationMode="manual" onValueChange={onValueChange}>
+          <TabList aria-label="Test tabs">
+            <Tab value="a">Tab A</Tab>
+            <Tab value="b">Tab B</Tab>
+            <Tab value="c">Tab C</Tab>
+          </TabList>
+          <TabPanel value="a">Panel A</TabPanel>
+          <TabPanel value="b">Panel B</TabPanel>
+          <TabPanel value="c">Panel C</TabPanel>
+        </Tabs>,
       )
 
     test('arrow keys move focus without changing selection', async () => {

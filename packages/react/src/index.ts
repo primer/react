@@ -165,6 +165,8 @@ export type {
   SegmentedControlProps,
   SegmentedControlButtonProps,
   SegmentedControlIconButtonProps,
+  SegmentedControlActionProps,
+  SegmentedControlDividerProps,
 } from './SegmentedControl'
 // Currently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
 export {default as Select} from './Select'

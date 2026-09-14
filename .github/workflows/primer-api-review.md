@@ -10,6 +10,7 @@ on:
 permissions:
   contents: read
   issues: read
+  copilot-requests: write
 concurrency: primer-api-review
 timeout-minutes: 60
 network: defaults
@@ -52,6 +53,7 @@ safe-outputs:
     deduplicate-by-title: true
     max: 1
   update-issue:
+    target: '*'
     required-title-prefix: 'Primer API Review'
 ---
 

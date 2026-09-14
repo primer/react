@@ -275,6 +275,30 @@ describe('DataTable', () => {
     }
   })
 
+  it('should rely on native scope associations for ungrouped cells', () => {
+    const columns: Array<Column<{id: number; name: string; visibility: string}>> = [
+      {
+        header: 'Name',
+        field: 'name',
+        rowHeader: true,
+      },
+      {
+        header: 'Visibility',
+        field: 'visibility',
+      },
+    ]
+    render(<DataTable data={[{id: 1, name: 'one', visibility: 'public'}]} columns={columns} />)
+
+    const columnHeaders = screen.getAllByRole('columnheader')
+    const rowHeader = screen.getByRole('rowheader', {name: 'one'})
+
+    expect(columnHeaders[0]).not.toHaveAttribute('id')
+    expect(columnHeaders[1]).not.toHaveAttribute('id')
+    expect(rowHeader).not.toHaveAttribute('id')
+    expect(rowHeader).not.toHaveAttribute('headers')
+    expect(screen.getByRole('cell', {name: 'public'})).not.toHaveAttribute('headers')
+  })
+
   describe('sorting', () => {
     describe('initial state', () => {
       it('should set the default sort state of a sortable table', () => {
@@ -732,6 +756,49 @@ describe('DataTable', () => {
       expect(getRowOrder()).toEqual(['1', '2', '3'])
     })
 
+    it('should keep the sort action in the button description', async () => {
+      const user = userEvent.setup()
+      render(
+        <DataTable
+          data={[
+            {
+              id: 1,
+              value: 1,
+            },
+          ]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+
+      const header = screen.getByRole('columnheader', {name: 'Value'})
+      const sortButton = screen.getByRole('button', {name: 'Value'})
+
+      expect(header).toHaveAccessibleName('Value')
+      expect(header).not.toHaveAttribute('aria-sort')
+      expect(sortButton).toHaveAccessibleName('Value')
+      expect(sortButton).toHaveAccessibleDescription('Sort ascending')
+
+      await user.click(sortButton)
+
+      expect(header).toHaveAccessibleName('Value')
+      expect(header).toHaveAttribute('aria-sort', 'ascending')
+      expect(sortButton).toHaveAccessibleName('Value')
+      expect(sortButton).toHaveAccessibleDescription('Sort descending')
+
+      await user.click(sortButton)
+
+      expect(header).toHaveAccessibleName('Value')
+      expect(header).toHaveAttribute('aria-sort', 'descending')
+      expect(sortButton).toHaveAccessibleName('Value')
+      expect(sortButton).toHaveAccessibleDescription('Sort ascending')
+    })
+
     it('should change the sort direction on keyboard Enter or Space', async () => {
       const user = userEvent.setup()
       render(
@@ -878,7 +945,7 @@ describe('DataTable', () => {
 
       // When interacting with Column B, sort order should reset to ASC
       await user.click(screen.getByText('Column B'))
-      expect(getSortHeader('Column A sort ascending')).not.toHaveAttribute('aria-sort')
+      expect(getSortHeader('Column A')).not.toHaveAttribute('aria-sort')
       expect(getSortHeader('Column B')).toHaveAttribute('aria-sort', 'ascending')
       expect(getRowOrder()).toEqual([
         [3, 1],
@@ -1232,8 +1299,8 @@ describe('DataTable', () => {
       }),
     )
 
-    expect(result.current.rows[0].id).toBe('abc123')
-    expect(result.current.rows[1].id).toBe('abc12334')
+    expect(result.current.bodies[0].rows[0].id).toBe('abc123')
+    expect(result.current.bodies[0].rows[1].id).toBe('abc12334')
   })
 
   it('uses default row.id when getRowId is not provided', () => {
@@ -1252,7 +1319,7 @@ describe('DataTable', () => {
       }),
     )
 
-    expect(result.current.rows[0].id).toBe('1')
-    expect(result.current.rows[1].id).toBe('2')
+    expect(result.current.bodies[0].rows[0].id).toBe('1')
+    expect(result.current.bodies[0].rows[1].id).toBe('2')
   })
 })

@@ -20,6 +20,9 @@
       "id": "components-segmentedcontrol-features--variant-narrow-action-menu"
     },
     {
+      "id": "components-segmentedcontrol-features--variant-narrow-action-menu-with-action"
+    },
+    {
       "id": "components-segmentedcontrol-features--fullwidth-narrow"
     },
     {
@@ -33,6 +36,9 @@
     },
     {
       "id": "components-segmentedcontrol-features--associated-with-a-label-and-caption"
+    },
+    {
+      "id": "components-segmentedcontrol-features--variant-subtle"
     }
   ],
   "importPath": "@primer/react",
@@ -69,9 +75,9 @@
     },
     {
       "name": "variant",
-      "type": "| 'default' | { narrow?: 'hideLabels' | 'dropdown' | 'default' regular?: 'hideLabels' | 'dropdown' | 'default' wide?: 'hideLabels' | 'dropdown' | 'default' }",
+      "type": "| 'default' | 'subtle' | { narrow?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' regular?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' wide?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' }",
       "defaultValue": "'default'",
-      "description": "Configure alternative ways to render the control when it gets rendered in tight spaces"
+      "description": "Configure the control's visual treatment or responsive behavior in tight spaces."
     },
     {
       "name": "size",
@@ -175,6 +181,53 @@
           "required": false,
           "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
           "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControl.Divider",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControl.Action",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible label for the action icon button."
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "required": true,
+          "description": "The icon rendered by the action button."
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "description": "The handler that gets called when the action button is clicked."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Whether the action is disabled."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Whether the action is in a loading state."
         }
       ]
     }
