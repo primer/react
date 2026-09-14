@@ -275,6 +275,30 @@ describe('DataTable', () => {
     }
   })
 
+  it('should rely on native scope associations for ungrouped cells', () => {
+    const columns: Array<Column<{id: number; name: string; visibility: string}>> = [
+      {
+        header: 'Name',
+        field: 'name',
+        rowHeader: true,
+      },
+      {
+        header: 'Visibility',
+        field: 'visibility',
+      },
+    ]
+    render(<DataTable data={[{id: 1, name: 'one', visibility: 'public'}]} columns={columns} />)
+
+    const columnHeaders = screen.getAllByRole('columnheader')
+    const rowHeader = screen.getByRole('rowheader', {name: 'one'})
+
+    expect(columnHeaders[0]).not.toHaveAttribute('id')
+    expect(columnHeaders[1]).not.toHaveAttribute('id')
+    expect(rowHeader).not.toHaveAttribute('id')
+    expect(rowHeader).not.toHaveAttribute('headers')
+    expect(screen.getByRole('cell', {name: 'public'})).not.toHaveAttribute('headers')
+  })
+
   describe('sorting', () => {
     describe('initial state', () => {
       it('should set the default sort state of a sortable table', () => {
@@ -1275,8 +1299,8 @@ describe('DataTable', () => {
       }),
     )
 
-    expect(result.current.rows[0].id).toBe('abc123')
-    expect(result.current.rows[1].id).toBe('abc12334')
+    expect(result.current.bodies[0].rows[0].id).toBe('abc123')
+    expect(result.current.bodies[0].rows[1].id).toBe('abc12334')
   })
 
   it('uses default row.id when getRowId is not provided', () => {
@@ -1295,7 +1319,7 @@ describe('DataTable', () => {
       }),
     )
 
-    expect(result.current.rows[0].id).toBe('1')
-    expect(result.current.rows[1].id).toBe('2')
+    expect(result.current.bodies[0].rows[0].id).toBe('1')
+    expect(result.current.bodies[0].rows[1].id).toBe('2')
   })
 })

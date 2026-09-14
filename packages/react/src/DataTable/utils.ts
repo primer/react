@@ -1,3 +1,5 @@
+export type IsAny<T> = 0 extends 1 & T ? true : false
+
 // Utility type to generate an array with a given length. Each member of the
 // array type is the length of the array
 type ArrayOfLength<Length extends number, SizedArray extends Array<unknown> = []> = SizedArray['length'] extends Length
@@ -39,7 +41,9 @@ export type ObjectPaths<T> = T extends readonly any[] & ArrayWithinBounds<T>
         : never
 
 type PrefixPath<T, Prefix> =
-  Prefix extends Extract<keyof T, number | string> ? `${Prefix}.${ObjectPaths<T[Prefix]>}` : never
+  Prefix extends Extract<keyof T, number | string> ? `${Prefix}.${NestedObjectPaths<T[Prefix]>}` : never
+
+type NestedObjectPaths<T> = IsAny<T> extends true ? string : ObjectPaths<T>
 
 // Get the value of a given path within an object
 export type ObjectPathValue<ObjectType extends object, Path extends string | number> =

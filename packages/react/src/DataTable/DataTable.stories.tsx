@@ -10,10 +10,16 @@ import type {UniqueRow} from './row'
 import type {ColWidthArgTypes} from './storyHelpers'
 import {getColumnWidthArgTypes} from './storyHelpers'
 
+// Storybook's Meta type cannot resolve DataTable's overloads without TS2589.
+// Keep a concrete props signature here without changing consumer type inference.
+function DataTableStoryComponent(props: DataTableProps<UniqueRow>) {
+  return <DataTable {...props} />
+}
+
 export default {
   title: 'Experimental/Components/DataTable',
-  component: DataTable,
-} as Meta<typeof DataTable>
+  component: DataTableStoryComponent,
+} as Meta<typeof DataTableStoryComponent>
 
 const now = Date.now()
 const Second = 1000
