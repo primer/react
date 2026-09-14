@@ -1,11 +1,13 @@
-import {render, fireEvent, screen, waitFor} from '@testing-library/react'
+import {act, render, fireEvent, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {createRef} from 'react'
+import {userEvent as browserUserEvent} from 'vitest/browser'
+import {createRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import type {AutocompleteInputProps} from '../Autocomplete'
 import Autocomplete from '../Autocomplete'
 import type {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autocomplete/AutocompleteMenu'
 import BaseStyles from '../BaseStyles'
+import TextInputWithTokens from '../TextInputWithTokens'
 import {implementsClassName} from '../utils/testing'
 import classes from './AutocompleteOverlay.module.css'
 import {AutocompleteContext} from './AutocompleteContext'
@@ -22,6 +24,13 @@ const mockItems = [
   {text: 'twenty', id: '20'},
   {text: 'twentyone', id: '21'},
 ]
+
+// Use native keyboard events so React's input value tracking behaves as it does for real typing.
+async function typeWithNativeKeyboard(text: string) {
+  for (const character of text) {
+    await act(() => browserUserEvent.keyboard(character))
+  }
+}
 
 const AUTOCOMPLETE_LABEL = 'Autocomplete field'
 const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
@@ -254,6 +263,97 @@ describe('Autocomplete', () => {
 
       // The input should retain the text the user typed rather than the full suggestion
       await waitFor(() => expect(inputNode.value).toBe('ze'))
+    })
+
+    it.each([
+      {prefix: 'zer', suffix: 'o', expected: 'zero'},
+      {prefix: 'ze', suffix: 'ro', expected: 'zero'},
+      {prefix: 'zer', suffix: 'x', expected: 'zerx'},
+      {prefix: 'zer', suffix: 'O', expected: 'zerO'},
+      {prefix: 'topi', suffix: 'c', expected: 'topic'},
+    ])(
+      'reports and retains $expected after typing $prefix + $suffix and blurring',
+      async ({prefix, suffix, expected}) => {
+        const onChange = vi.fn()
+        render(
+          <>
+            <LabelledAutocomplete
+              inputProps={{onChange: event => onChange(event.currentTarget.value)}}
+              menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+            />
+            <button type="button">outside</button>
+          </>,
+        )
+        const input = screen.getByRole('combobox') as HTMLInputElement
+
+        await act(() => browserUserEvent.click(input))
+        await typeWithNativeKeyboard(prefix)
+        if (prefix.startsWith('ze')) {
+          expect(input).toHaveValue('zero')
+          expect(input.selectionStart).toBe(prefix.length)
+          expect(input.selectionEnd).toBe(4)
+        }
+        onChange.mockClear()
+        await typeWithNativeKeyboard(suffix)
+        expect.soft(onChange).toHaveBeenLastCalledWith(expected)
+
+        await act(() => browserUserEvent.click(screen.getByRole('button', {name: 'outside'})))
+        await waitFor(() => expect(input).toHaveAttribute('aria-expanded', 'false'))
+        expect(input).toHaveValue(expected)
+      },
+    )
+
+    it('commits an exactly completed suggestion from controlled state on Space and clears the token input', async () => {
+      function TokenAutocomplete() {
+        const [value, setValue] = useState('')
+        const [tokens, setTokens] = useState<Array<{id: string; text: string}>>([])
+        return (
+          <BaseStyles>
+            <label id="topics-label" htmlFor="topics-input">
+              Topics
+            </label>
+            <Autocomplete>
+              <Autocomplete.Input
+                as={TextInputWithTokens}
+                id="topics-input"
+                value={value}
+                tokens={tokens}
+                onTokenRemove={id => setTokens(tokens.filter(token => token.id !== id))}
+                onChange={event => setValue(event.currentTarget.value)}
+                onKeyDown={event => {
+                  if (event.key === ' ' && value) {
+                    event.preventDefault()
+                    setTokens([...tokens, {id: value, text: value}])
+                    setValue('')
+                  }
+                }}
+              />
+              <Autocomplete.Overlay>
+                <Autocomplete.Menu
+                  items={[{id: 'nikon', text: 'nikon'}]}
+                  selectedItemIds={tokens.map(token => token.id)}
+                  selectionVariant="multiple"
+                  aria-labelledby="topics-label"
+                />
+              </Autocomplete.Overlay>
+            </Autocomplete>
+          </BaseStyles>
+        )
+      }
+      render(<TokenAutocomplete />)
+      const input = screen.getByRole('combobox') as HTMLInputElement
+
+      await act(() => browserUserEvent.click(input))
+      await typeWithNativeKeyboard('niko')
+      expect(input).toHaveValue('nikon')
+      expect(input.selectionStart).toBe(4)
+      expect(input.selectionEnd).toBe(5)
+      await typeWithNativeKeyboard('n ')
+
+      expect(
+        screen.getByText('nikon', {selector: '[data-component="TextInputWithTokens.Token"] *'}),
+      ).toBeInTheDocument()
+      expect(input).toHaveValue('')
     })
 
     it('allows the value to be 0', () => {
