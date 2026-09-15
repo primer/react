@@ -23,7 +23,15 @@ const getInputLabel = (input: HTMLInputElement | null) => {
     if (label) return label
   }
 
-  return input.getAttribute('aria-label') ?? undefined
+  const ariaLabel = input.getAttribute('aria-label')
+  if (ariaLabel) return ariaLabel
+
+  const label = Array.from(input.labels ?? [])
+    .map(label => label.textContent?.trim())
+    .filter(Boolean)
+    .join(' ')
+
+  return label || undefined
 }
 
 const getItemWithActiveDescendant = (
