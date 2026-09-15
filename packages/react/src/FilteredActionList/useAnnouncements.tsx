@@ -9,13 +9,29 @@ import type {ItemInput} from '../SelectPanel'
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 
-const useFirstRender = () => {
-  const firstRender = useRef(true)
-  useEffect(() => {
-    firstRender.current = false
-  }, [])
-  // eslint-disable-next-line react-hooks/refs
-  return firstRender.current
+const getInputLabel = (input: HTMLInputElement | null) => {
+  if (!input) return
+
+  const labelledBy = input.getAttribute('aria-labelledby')
+  if (labelledBy) {
+    const label = labelledBy
+      .split(/\s+/)
+      .map(id => input.ownerDocument.getElementById(id)?.textContent.trim())
+      .filter(Boolean)
+      .join(' ')
+
+    if (label) return label
+  }
+
+  const ariaLabel = input.getAttribute('aria-label')
+  if (ariaLabel) return ariaLabel
+
+  const label = Array.from(input.labels ?? [])
+    .map(label => label.textContent.trim())
+    .filter(Boolean)
+    .join(' ')
+
+  return label || undefined
 }
 
 const getItemWithActiveDescendant = (
@@ -38,6 +54,19 @@ const getItemWithActiveDescendant = (
   return {index, text, selected}
 }
 
+const getAnnouncementState = (
+  items: FilteredActionListProps['items'],
+  loading: boolean,
+  message?: {title: string; description: string},
+  filterValue?: string,
+) =>
+  JSON.stringify({
+    items: items.map((item, index) => [item.id ?? item.text ?? index, item.text, item.selected]),
+    loading,
+    message,
+    filterValue,
+  })
+
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
   listContainerRef: React.RefObject<HTMLUListElement | null>,
@@ -46,6 +75,7 @@ export const useAnnouncements = (
   loading: boolean = false,
   message?: {title: string; description: string},
   focusManagement?: 'active-descendant' | 'roving-tabindex',
+  filterValue?: string,
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
 
@@ -78,9 +108,12 @@ export const useAnnouncements = (
             const activeItem = getItemWithActiveDescendant(listContainerRef, items)
             if (!activeItem) return
             const {index, text, selected} = activeItem
+            const inputLabel = getInputLabel(inputElement)
 
             const announcementText = [
-              `Focus on filter text box and list of items`,
+              inputLabel
+                ? `${inputLabel}, filter text box and list of items`
+                : 'Focus on filter text box and list of items',
               `Focused item: ${text}`,
               `${selected ? 'selected' : 'not selected'}`,
               `${index + 1} of ${items.length}`,
@@ -100,10 +133,12 @@ export const useAnnouncements = (
     [listContainerRef, inputRef, items, liveRegion, announce, usingRovingTabindex, selectedItems],
   )
 
-  const isFirstRender = useFirstRender()
+  const announcementState = getAnnouncementState(items, loading, message, filterValue)
+  const previousAnnouncementState = useRef(announcementState)
   useEffect(
     function announceListUpdates() {
-      if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
+      if (previousAnnouncementState.current === announcementState) return
+      previousAnnouncementState.current = announcementState
 
       liveRegion?.clear() // clear previous announcements
 
@@ -143,7 +178,7 @@ export const useAnnouncements = (
     },
     [
       announce,
-      isFirstRender,
+      announcementState,
       items,
       listContainerRef,
       liveRegion,
