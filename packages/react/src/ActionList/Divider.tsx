@@ -22,4 +22,5 @@ export const Divider: FCWithSlotMarker<React.PropsWithChildren<ActionListDivider
   )
 }
 
+Divider.displayName = 'ActionList.Divider'
 Divider.__SLOT__ = Symbol('ActionList.Divider')

@@ -37,3 +37,5 @@ export function ErrorDialog({title = 'Error', children, onRetry, onDismiss}: Tab
     </ConfirmationDialog>
   )
 }
+
+ErrorDialog.displayName = 'Table.ErrorDialog'

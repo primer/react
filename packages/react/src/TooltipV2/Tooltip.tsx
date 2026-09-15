@@ -413,4 +413,5 @@ export const Tooltip: ForwardRefExoticComponent<
   },
 )
 
+Tooltip.displayName = 'Tooltip'
 Tooltip.__SLOT__ = Symbol('Tooltip')

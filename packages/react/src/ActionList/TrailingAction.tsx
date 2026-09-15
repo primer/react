@@ -76,4 +76,5 @@ export const TrailingAction = forwardRef(
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
 
+TrailingAction.displayName = 'ActionList.TrailingAction'
 TrailingAction.__SLOT__ = Symbol('ActionList.TrailingAction')
