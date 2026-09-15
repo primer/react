@@ -27,7 +27,7 @@ const getInputLabel = (input: HTMLInputElement | null) => {
   if (ariaLabel) return ariaLabel
 
   const label = Array.from(input.labels ?? [])
-    .map(label => label.textContent?.trim())
+    .map(label => label.textContent.trim())
     .filter(Boolean)
     .join(' ')
 
