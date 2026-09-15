@@ -1750,6 +1750,51 @@ const groupedColumns = [
   }),
 ]
 
+export const WithRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set([2]))
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-repositories">
+        Selectable repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-repositories"
+        data={data}
+        columns={groupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+export const WithGroupedRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set())
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-repositories-by-visibility">
+        Selectable repositories by visibility
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-repositories-by-visibility"
+        data={repoGroups}
+        columns={groupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        isRowSelectable={repo => repo.id !== 1}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
 const sortableGroupedColumns = [
   columnHelper.column({
     header: 'Name',
@@ -1760,6 +1805,29 @@ const sortableGroupedColumns = [
   }),
   groupedColumns[1],
 ]
+
+export const WithMixedRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set())
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-mixed-repositories">
+        Selectable standalone and grouped repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-mixed-repositories"
+        data={[...data.filter(repo => repo.type === 'internal'), repoGroups[1]]}
+        columns={sortableGroupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        isRowSelectable={repo => repo.id !== 1}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
 
 export const WithSortableGroups = () => (
   <Table.Container>
@@ -1803,20 +1871,24 @@ const paginationData: DataTableData<PaginatedRepository> = [
   {id: 101, name: 'standalone/after', visibility: 'Unassigned'},
 ]
 
-export const WithGroups = () => {
-  const titleId = React.useId()
-  const [pageIndex, setPageIndex] = React.useState(0)
-  const pageSize = 10
-  const allRows = paginationData.flatMap(item => ('rows' in item ? item.rows : [item]))
-  const pageRows = new Set(allRows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(row => row.id))
+function getPageData(source: DataTableData<PaginatedRepository>, pageRows: ReadonlySet<number>) {
   // Count data rows, not headings, and preserve each item's position and group membership.
-  const data = paginationData.flatMap((item): DataTableData<PaginatedRepository> => {
+  return source.flatMap((item): DataTableData<PaginatedRepository> => {
     if ('rows' in item) {
       const rows = item.rows.filter(row => pageRows.has(row.id))
       return rows.length > 0 ? [{...item, rows}] : []
     }
     return pageRows.has(item.id) ? [item] : []
   })
+}
+
+export const WithGroups = () => {
+  const titleId = React.useId()
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const pageSize = 10
+  const allRows = paginationData.flatMap(item => ('rows' in item ? item.rows : [item]))
+  const pageRows = new Set(allRows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(row => row.id))
+  const data = getPageData(paginationData, pageRows)
 
   return (
     <Table.Container>
@@ -1838,5 +1910,73 @@ export const WithGroups = () => {
         onChange={({pageIndex}) => setPageIndex(pageIndex)}
       />
     </Table.Container>
+  )
+}
+
+export const WithPaginatedRowSelection = () => {
+  const titleId = React.useId()
+  const [source, setSource] = React.useState(paginationData)
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const [publicOnly, setPublicOnly] = React.useState(false)
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set())
+  const pageSize = 10
+  const allRows = source
+    .flatMap(item => ('rows' in item ? item.rows : [item]))
+    .filter(row => !publicOnly || row.visibility === 'Public')
+  const pageRows = new Set(allRows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(row => row.id))
+  const data = getPageData(source, pageRows)
+
+  return (
+    <>
+      <p>
+        Changing the page or filter clears selection. Refreshing row objects or sorting the current page preserves it.
+      </p>
+      <Button
+        aria-pressed={publicOnly}
+        onClick={() => {
+          setPublicOnly(!publicOnly)
+          setPageIndex(0)
+          setSelectedRows(new Set())
+        }}
+      >
+        Public only
+      </Button>{' '}
+      <Button
+        onClick={() => {
+          setSource(
+            source.map(item => ('rows' in item ? {...item, rows: item.rows.map(row => ({...row}))} : {...item})),
+          )
+        }}
+      >
+        Refresh rows
+      </Button>
+      <Table.Container>
+        <Table.Title as="h2" id={titleId}>
+          Selectable paginated repositories
+        </Table.Title>
+        <DataTable
+          aria-labelledby={titleId}
+          data={data}
+          columns={[
+            {header: 'Name', field: 'name', rowHeader: true, sortBy: true},
+            {header: 'Visibility', field: 'visibility'},
+          ]}
+          rowSelection
+          selectedRows={selectedRows}
+          onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
+        />
+        <Table.Pagination
+          // Pagination has an uncontrolled page index; a new filter starts it at page zero.
+          key={String(publicOnly)}
+          aria-label="Pagination for selectable repositories"
+          pageSize={pageSize}
+          totalCount={allRows.length}
+          onChange={({pageIndex}) => {
+            setPageIndex(pageIndex)
+            setSelectedRows(new Set())
+          }}
+        />
+      </Table.Container>
+    </>
   )
 }

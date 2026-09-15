@@ -193,3 +193,169 @@ export function shouldPreserveBusinessTypeInference() {
     />
   )
 }
+
+export function shouldAcceptRowSelectionProps() {
+  const selectedRows: ReadonlySet<string | number> = new Set([1, 'repository'])
+
+  return (
+    <DataTable
+      data={[{id: 1, name: 'primer/react'}]}
+      columns={columns}
+      rowSelection
+      selectedRows={selectedRows}
+      defaultSelectedRows={new Set([1])}
+      isRowSelectable={row => row.name !== ''}
+      onSelectionChange={({selectedRows: nextSelectedRows}) => {
+        nextSelectedRows.add('repository')
+      }}
+    />
+  )
+}
+
+export function shouldInferMixedSelectionCallbacks() {
+  return (
+    <DataTable
+      data={[
+        {id: 1, name: 'Standalone'},
+        {groupId: 'public', label: 'Public', rows: [{id: 2, name: 'primer/react'}]},
+      ]}
+      columns={columns}
+      rowSelection
+      getRowId={row => {
+        const id: number = row.id
+        return id
+      }}
+      isRowSelectable={row => {
+        const name: string = row.name
+        // @ts-expect-error Selection predicates receive member rows, not group metadata.
+        row.groupId
+        return name !== ''
+      }}
+      onSelectionChange={({selectedRows}) => {
+        const ids: Set<string | number> = selectedRows
+        return ids
+      }}
+    />
+  )
+}
+
+export function shouldInferLazyFlatSelectionCallbacks() {
+  return (
+    <LazyDataTable
+      data={[{id: 1, name: 'primer/react'}]}
+      columns={[{header: 'Name', field: 'name', renderCell: row => row.name.toUpperCase()}]}
+      rowSelection
+      selectedRows={new Set<string | number>([1, 'repository'])}
+      getRowId={row => {
+        const id: number = row.id
+        return id
+      }}
+      isRowSelectable={row => {
+        // @ts-expect-error Selection predicates must retain the inferred row type.
+        row.missing
+        return row.name !== ''
+      }}
+      onSelectionChange={({selectedRows}) => {
+        const ids: Set<string | number> = selectedRows
+        // @ts-expect-error Selected IDs cannot contain objects.
+        selectedRows.add({id: 1})
+        return ids
+      }}
+    />
+  )
+}
+
+export function shouldInferLazyGroupedSelectionCallbacks() {
+  return (
+    <LazyDataTable
+      data={[{groupId: 'public', label: 'Public', rows: [{id: 1, name: 'primer/react'}]}]}
+      columns={[{header: 'Name', field: 'name', renderCell: row => row.name.toUpperCase()}]}
+      rowSelection
+      defaultSelectedRows={new Set([1])}
+      getRowId={row => {
+        const id: number = row.id
+        return id
+      }}
+      isRowSelectable={row => {
+        // @ts-expect-error Selection predicates receive rows, not group metadata.
+        row.groupId
+        return row.name !== ''
+      }}
+      onSelectionChange={({selectedRows}) => {
+        const ids: Set<string | number> = selectedRows
+        // @ts-expect-error Selected IDs cannot contain booleans.
+        selectedRows.add(true)
+        return ids
+      }}
+    />
+  )
+}
+
+export function shouldInferLazyMixedSelectionCallbacks() {
+  return (
+    <LazyDataTable
+      data={[
+        {id: 1, name: 'Standalone'},
+        {groupId: 'public', label: 'Public', rows: [{id: 2, name: 'primer/react'}]},
+      ]}
+      columns={[{header: 'Name', field: 'name', renderCell: row => row.name.toUpperCase()}]}
+      rowSelection
+      selectedRows={new Set([1])}
+      getRowId={row => {
+        const id: number = row.id
+        return id
+      }}
+      isRowSelectable={row => {
+        // @ts-expect-error Selection predicates receive rows, not group metadata.
+        row.rows
+        return row.name !== ''
+      }}
+      onSelectionChange={({selectedRows}) => {
+        const ids: Set<string | number> = selectedRows
+        // @ts-expect-error The callback provides a Set, not an array.
+        selectedRows.push(1)
+        return ids
+      }}
+    />
+  )
+}
+
+export function shouldAcceptLazySelectionProps() {
+  const selectedRows: ReadonlySet<string | number> = new Set([1])
+  const props: DataTableProps<Repository> = {
+    data: groups,
+    columns,
+    rowSelection: true,
+    selectedRows,
+    isRowSelectable: row => row.name !== '',
+    onSelectionChange: ({selectedRows: next}) => {
+      const ids: Set<string | number> = next
+      return ids
+    },
+  }
+  const explicit = <LazyDataTable<Repository> {...props} />
+  const spread = <LazyDataTable {...props} />
+  return {explicit, spread}
+}
+
+export function shouldRejectInvalidLazySelectionProps() {
+  // @ts-expect-error Selection values must be sets of string or number IDs.
+  const invalidSelectedRows = <LazyDataTable<Repository> data={groups} columns={columns} selectedRows={[1]} />
+  const invalidDefault = (
+    // @ts-expect-error Default selection cannot contain boolean IDs.
+    <LazyDataTable<Repository> data={groups} columns={columns} defaultSelectedRows={new Set([true])} />
+  )
+  const invalidCallback = (
+    // @ts-expect-error The callback receives an object containing a Set, not an array.
+    <LazyDataTable<Repository> data={groups} columns={columns} onSelectionChange={(_rows: number[]) => {}} />
+  )
+  const invalidPredicate = (
+    <LazyDataTable<Repository>
+      data={groups}
+      columns={columns}
+      // @ts-expect-error Selection predicates receive member rows, not groups.
+      isRowSelectable={(_group: DataTableRowGroup<Repository>) => true}
+    />
+  )
+  return {invalidSelectedRows, invalidDefault, invalidCallback, invalidPredicate}
+}

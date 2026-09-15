@@ -6,7 +6,9 @@ import {
   TableBody,
   TableRow,
   TableHeader,
+  TableSelectionHeader,
   TableCell,
+  TableRowSelection,
   TableCellPlaceholder,
   TableContainer,
   TableTitle,
@@ -31,7 +33,9 @@ const Table: typeof TableImpl &
     Body: typeof TableBody
     Group: typeof TableGroup
     Header: typeof TableHeader
+    SelectionHeader: typeof TableSelectionHeader
     Row: typeof TableRow
+    RowSelection: typeof TableRowSelection
     Cell: typeof TableCell
     CellPlaceholder: typeof TableCellPlaceholder
     Pagination: typeof Pagination
@@ -47,7 +51,9 @@ const Table: typeof TableImpl &
   Body: TableBody,
   Group: TableGroup,
   Header: TableHeader,
+  SelectionHeader: TableSelectionHeader,
   Row: TableRow,
+  RowSelection: TableRowSelection,
   Cell: TableCell,
   CellPlaceholder: TableCellPlaceholder,
   Pagination,
@@ -62,7 +68,9 @@ export type {
   TableBodyProps,
   TableRowProps,
   TableHeaderProps,
+  TableSelectionHeaderProps,
   TableCellProps,
+  TableRowSelectionProps,
   TableContainerProps,
   TableTitleProps,
   TableSubtitleProps,

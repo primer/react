@@ -3,6 +3,9 @@ import type {Column} from './column'
 import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
 import type {ObjectPathValue} from './utils'
+import {useControllableState} from '../hooks/useControllableState'
+
+type RowId = string | number
 
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>
@@ -11,6 +14,11 @@ interface TableConfig<Data extends UniqueRow> {
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
   externalSorting?: boolean
   getRowId: (rowData: Data) => string | number
+  rowSelection?: boolean
+  selectedRows?: ReadonlySet<RowId>
+  defaultSelectedRows?: ReadonlySet<RowId>
+  onSelectionChange?: ({selectedRows}: {selectedRows: Set<RowId>}) => void
+  isRowSelectable?: (row: Data) => boolean
 }
 
 interface Table<Data extends UniqueRow> {
@@ -18,6 +26,16 @@ interface Table<Data extends UniqueRow> {
   bodies: Array<RowBody<Data> | RowGroup<Data>>
   actions: {
     sortBy: (header: Header<Data>) => void
+    toggleRowSelection: (row: Row<Data>) => void
+    toggleAllRows: () => void
+  }
+  selection: {
+    headerId: string
+    selectedRows: Set<RowId>
+    allSelected: boolean
+    someSelected: boolean
+    selectableCount: number
+    selectedCount: number
   }
   gridTemplateColumns: React.CSSProperties['gridTemplateColumns']
 }
@@ -33,6 +51,10 @@ interface Header<Data extends UniqueRow> {
 interface Row<Data extends UniqueRow> {
   type: 'row'
   id: string | number
+  selectionId: RowId
+  selectionLabelledBy: string | undefined
+  selected: boolean
+  selectable: boolean
   getCells: () => Array<Cell<Data>>
   getValue: () => Data
 }
@@ -70,6 +92,11 @@ export function useTable<Data extends UniqueRow>({
   initialSortDirection,
   externalSorting,
   getRowId,
+  rowSelection = false,
+  selectedRows: controlledSelectedRows,
+  defaultSelectedRows,
+  onSelectionChange,
+  isRowSelectable,
 }: TableConfig<Data>): Table<Data> {
   const tableId = useId()
   const [rowOrder, setRowOrder] = useState<DataTableData<Data>>(data)
@@ -78,7 +105,15 @@ export function useTable<Data extends UniqueRow>({
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
-  const {gridTemplateColumns} = useTableLayout(columns)
+  const [selectedRows, setSelectedRows] = useControllableState<ReadonlySet<RowId>>({
+    name: 'DataTable selectedRows',
+    value: controlledSelectedRows,
+    defaultValue: () => defaultSelectedRows ?? new Set<RowId>(),
+    onChange: nextSelectedRows => {
+      onSelectionChange?.({selectedRows: new Set(nextSelectedRows)})
+    },
+  })
+  const {gridTemplateColumns} = useTableLayout(columns, rowSelection)
 
   // Reset the `sortByColumn` state if the columns change and that column is no
   // longer provided
@@ -239,14 +274,20 @@ export function useTable<Data extends UniqueRow>({
 
   function createRow(row: Data, rowIndex: number): Row<Data> {
     const rowId = getRowId(row)
-    const rowHeaderIds = hasGroups
-      ? headers.flatMap((header, index) =>
-          header.column.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : [],
-        )
-      : []
+    const rowHeaderIds =
+      hasGroups || rowSelection
+        ? headers.flatMap((header, index) =>
+            header.column.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : [],
+          )
+        : []
+    const selectable = rowSelection && (isRowSelectable?.(row) ?? true)
     return {
       type: 'row',
       id: `${rowId}`,
+      selectionId: rowId,
+      selectionLabelledBy: rowHeaderIds.length > 0 ? rowHeaderIds.join(' ') : undefined,
+      selected: selectable && selectedRows.has(rowId),
+      selectable,
       getValue() {
         return row
       },
@@ -255,7 +296,7 @@ export function useTable<Data extends UniqueRow>({
           const rowHeader = header.column.rowHeader ?? false
           return {
             id: `${rowId}:${header.id}`,
-            domId: hasGroups && rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined,
+            domId: (hasGroups || rowSelection) && rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined,
             headers: hasGroups ? (rowHeader ? [header.domId] : [...rowHeaderIds, header.domId]).join(' ') : undefined,
             column: header.column,
             rowHeader,
@@ -298,10 +339,59 @@ export function useTable<Data extends UniqueRow>({
   if (body.rows.length > 0 || bodies.length === 0) {
     bodies.push(body)
   }
+  const allRows = bodies.flatMap(body => body.rows)
+  const selectableRows = allRows.filter(row => row.selectable)
+  const effectiveSelectedRows = new Set(selectableRows.filter(row => row.selected).map(row => row.selectionId))
+  const selectedCount = effectiveSelectedRows.size
+  const selectableCount = selectableRows.length
+  const allSelected = selectableCount > 0 && selectedCount === selectableCount
+  const someSelected = selectedCount > 0 && !allSelected
+
+  function toggleRowSelection(row: Row<Data>) {
+    if (!row.selectable) {
+      return
+    }
+
+    const nextSelectedRows = new Set(selectedRows)
+    if (nextSelectedRows.has(row.selectionId)) {
+      nextSelectedRows.delete(row.selectionId)
+    } else {
+      nextSelectedRows.add(row.selectionId)
+    }
+    setSelectedRows(nextSelectedRows)
+  }
+
+  function toggleAllRows() {
+    if (selectableRows.length === 0) {
+      return
+    }
+
+    const nextSelectedRows = new Set(selectedRows)
+    for (const row of selectableRows) {
+      if (allSelected) {
+        nextSelectedRows.delete(row.selectionId)
+      } else {
+        nextSelectedRows.add(row.selectionId)
+      }
+    }
+    setSelectedRows(nextSelectedRows)
+  }
 
   return {
     headers,
-    actions: {sortBy},
+    actions: {
+      sortBy,
+      toggleRowSelection,
+      toggleAllRows,
+    },
+    selection: {
+      headerId: `${tableId}-selection-column`,
+      selectedRows: effectiveSelectedRows,
+      allSelected,
+      someSelected,
+      selectableCount,
+      selectedCount,
+    },
     gridTemplateColumns,
     bodies,
   }
@@ -384,9 +474,12 @@ function getInitialSortState<Data extends UniqueRow>(
   return null
 }
 
-export function useTableLayout<Data extends UniqueRow>(columns: Array<Column<Data>>): {gridTemplateColumns: string} {
+export function useTableLayout<Data extends UniqueRow>(
+  columns: Array<Column<Data>>,
+  rowSelection = false,
+): {gridTemplateColumns: string} {
   return {
-    gridTemplateColumns: getGridTemplateFromColumns(columns).join(' '),
+    gridTemplateColumns: [...(rowSelection ? ['min-content'] : []), ...getGridTemplateFromColumns(columns)].join(' '),
   }
 }
 

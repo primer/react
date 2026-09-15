@@ -391,6 +391,8 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "type TableHeadProps",
   "type TableProps",
   "type TableRowProps",
+  "type TableRowSelectionProps",
+  "type TableSelectionHeaderProps",
   "type TableSubtitleProps",
   "type TableTitleProps",
   "type TabListProps",

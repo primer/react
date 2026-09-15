@@ -57,13 +57,127 @@ const stories: ReadonlyArray<{
     aat: true,
   },
   {
+    title: 'With Row Selection',
+    id: 'experimental-components-datatable-features--with-row-selection',
+    aat: true,
+  },
+  {
+    title: 'With Grouped Row Selection',
+    id: 'experimental-components-datatable-features--with-grouped-row-selection',
+    aat: true,
+  },
+  {
     title: 'With Sortable Groups',
     id: 'experimental-components-datatable-features--with-sortable-groups',
+    aat: true,
+  },
+  {
+    title: 'With Mixed Row Selection',
+    id: 'experimental-components-datatable-features--with-mixed-row-selection',
+    aat: true,
+  },
+  {
+    title: 'With Paginated Row Selection',
+    id: 'experimental-components-datatable-features--with-paginated-row-selection',
     aat: true,
   },
 ]
 
 test.describe('DataTable', () => {
+  test('selection scope is owned by pagination and filtering @aat', async ({page}) => {
+    await visit(page, {id: 'experimental-components-datatable-features--with-paginated-row-selection'})
+    const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+    const firstRepository = page.getByRole('checkbox', {name: 'Select public/repository-1', exact: true})
+    const secondRepository = page.getByRole('checkbox', {name: 'Select public/repository-2', exact: true})
+    const checkedRows = page.locator('tbody input[type="checkbox"]:checked')
+
+    await expect(selectAll).toHaveAccessibleDescription('Select all 10 rows')
+    await firstRepository.click()
+    await expect(selectAll).toBeChecked({indeterminate: true})
+    await page.getByRole('button', {name: 'Name', exact: true}).click()
+    await page.getByRole('button', {name: 'Refresh rows', exact: true}).click()
+    await expect(firstRepository).toBeChecked()
+    await expect(selectAll).toBeChecked({indeterminate: true})
+    await secondRepository.click()
+    await expect(firstRepository).toBeChecked()
+    await expect(secondRepository).toBeChecked()
+
+    await page.getByRole('button', {name: 'Next page', exact: true}).click()
+    await expect(page.getByRole('rowheader')).toHaveCount(7)
+    await expect(checkedRows).toHaveCount(0)
+    await expect(selectAll).not.toBeChecked()
+    await expect(selectAll).not.toBeChecked({indeterminate: true})
+    await selectAll.click()
+    await expect(checkedRows).toHaveCount(7)
+    await expect(selectAll).toBeFocused()
+
+    await page.getByRole('button', {name: 'Previous page', exact: true}).click()
+    await expect(checkedRows).toHaveCount(0)
+    await expect(firstRepository).not.toBeChecked()
+    await expect(secondRepository).not.toBeChecked()
+    await page.getByRole('button', {name: 'Next page', exact: true}).click()
+    const retainedRepository = page.getByRole('checkbox', {name: 'Select public/repository-10', exact: true})
+    await retainedRepository.click()
+
+    const filter = page.getByRole('button', {name: 'Public only', exact: true})
+    await filter.click()
+    await expect(filter).toHaveAttribute('aria-pressed', 'true')
+    await expect(page.getByRole('rowheader')).toHaveCount(10)
+    await expect(retainedRepository).not.toBeChecked()
+    await expect(checkedRows).toHaveCount(0)
+    await firstRepository.click()
+    await page.getByRole('button', {name: 'Refresh rows', exact: true}).click()
+    await expect(firstRepository).toBeChecked()
+
+    await filter.click()
+    await expect(firstRepository).not.toBeChecked()
+    await expect(checkedRows).toHaveCount(0)
+    await expect(selectAll).not.toBeChecked({indeterminate: true})
+    await expect(page).toHaveNoViolations()
+  })
+
+  for (const id of [
+    'experimental-components-datatable-features--with-row-selection',
+    'experimental-components-datatable-features--with-grouped-row-selection',
+    'experimental-components-datatable-features--with-mixed-row-selection',
+  ]) {
+    test(`controlled selection round-trip ${id} @aat`, async ({page}) => {
+      await visit(page, {id})
+      const rowCheckbox = page.getByRole('checkbox', {name: 'Select strapi', exact: true})
+      const otherCheckbox = page.getByRole('checkbox', {name: 'Select bootstrap', exact: true})
+      const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+
+      await expect(rowCheckbox).not.toBeChecked()
+      await rowCheckbox.click()
+      await expect(rowCheckbox).toBeChecked()
+      await rowCheckbox.click()
+      await expect(rowCheckbox).not.toBeChecked()
+      await expect(rowCheckbox).toBeFocused()
+
+      await rowCheckbox.press('Space')
+      await otherCheckbox.click()
+      await expect(rowCheckbox).toBeChecked()
+      await expect(otherCheckbox).toBeChecked()
+      await selectAll.click()
+      await expect(selectAll).toBeChecked()
+      await rowCheckbox.click()
+      await expect(rowCheckbox).not.toBeChecked()
+      await expect(otherCheckbox).toBeChecked()
+      await expect(selectAll).toBeChecked({indeterminate: true})
+      if (id === 'experimental-components-datatable-features--with-mixed-row-selection') {
+        await page.getByRole('button', {name: 'Name', exact: true}).click()
+        await expect(rowCheckbox).not.toBeChecked()
+        await expect(otherCheckbox).toBeChecked()
+        await expect(selectAll).toBeChecked({indeterminate: true})
+      }
+      await selectAll.click()
+      await selectAll.click()
+      await expect(selectAll).not.toBeChecked()
+      await expect(selectAll).toBeFocused()
+      await expect(page).toHaveNoViolations()
+    })
+  }
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
@@ -79,6 +193,7 @@ test.describe('DataTable', () => {
             // Default state
             expect(
               await page.screenshot({
+                animations: 'disabled',
                 mask: await page
                   .locator('td', {
                     has: page.locator('relative-time'),
@@ -87,6 +202,29 @@ test.describe('DataTable', () => {
               }),
             ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
           })
+
+          if (story.id === 'experimental-components-datatable-features--with-grouped-row-selection') {
+            for (const state of ['mixed', 'all selected'] as const) {
+              test(`${state} @vrt`, async ({page}) => {
+                await visit(page, {id: story.id, globals: {colorScheme: theme}})
+                const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+                if (state === 'mixed') {
+                  await page.getByRole('checkbox', {name: 'Select strapi', exact: true}).click()
+                  await expect(selectAll).toBeChecked({indeterminate: true})
+                } else {
+                  await selectAll.click()
+                  await expect(selectAll).toBeChecked()
+                }
+                await expect(page.getByRole('checkbox', {name: 'Select codeql-dca-worker'})).toBeDisabled()
+                expect(
+                  await page.screenshot({
+                    animations: 'disabled',
+                    mask: await page.locator('td', {has: page.locator('relative-time')}).all(),
+                  }),
+                ).toMatchSnapshot(`DataTable.${story.title}.${state}.${theme}.png`)
+              })
+            }
+          }
 
           if (story.aat) {
             test('axe @aat', async ({page}) => {
