@@ -101,6 +101,10 @@ jobs:
         if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
         run: npm ci
 
+      - name: Regenerate component review guidance
+        if: steps.check_jobs.outputs.format_failed == 'true' && steps.pr.outputs.head_ref != ''
+        run: npm run build:review-guidance
+
       - name: Run format auto-fix
         if: steps.check_jobs.outputs.format_failed == 'true' && steps.pr.outputs.head_ref != ''
         run: npm run format
