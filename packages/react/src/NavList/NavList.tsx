@@ -51,10 +51,12 @@ function levelToHeadingTag(level: number): HeadingLevels {
 
 export type NavListProps = {
   children: React.ReactNode
+  /** Disable the gap between items when the item gap feature is enabled. */
+  disableItemGap?: boolean
 } & React.ComponentProps<'nav'>
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(
-  ({children, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props}, ref) => {
+  ({children, disableItemGap, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props}, ref) => {
     const [slots, childrenWithoutHeading] = useSlots(children, {
       heading: Heading,
     })
@@ -77,7 +79,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(
               container: 'NavList',
             }}
           >
-            <ActionList>{childrenWithoutHeading}</ActionList>
+            <ActionList disableItemGap={disableItemGap}>{childrenWithoutHeading}</ActionList>
           </ActionListContainerContext.Provider>
         </NavListHeadingLevelContext.Provider>
       </nav>

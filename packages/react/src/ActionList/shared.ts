@@ -160,6 +160,10 @@ export type ActionListProps<As extends React.ElementType = 'ul'> = PolymorphicPr
      */
     disableFocusZone?: boolean
     className?: string
+    /**
+     * Disable the gap between items when this `ActionList` is rendered in a `NavList`.
+     */
+    disableItemGap?: boolean
   }>
 >
 
