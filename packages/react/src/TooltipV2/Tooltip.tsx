@@ -274,6 +274,17 @@ export const Tooltip: ForwardRefExoticComponent<
       tooltip.setAttribute('popover', 'auto')
     }, [tooltipElRef, readTriggerRef, direction, type])
 
+    // If the tooltip gets disabled while it is open (e.g. because the trigger opened a popup),
+    // close it so it does not linger on top of the popup or swallow the Escape key press.
+    useEffect(() => {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (_privateDisableTooltip && isPopoverOpen) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state, react-you-might-not-need-an-effect/no-chain-state-updates
+        closeTooltip()
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [_privateDisableTooltip, isPopoverOpen])
+
     useOnEscapePress(
       (event: KeyboardEvent) => {
         if (isPopoverOpen) {
