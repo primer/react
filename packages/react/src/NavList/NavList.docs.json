@@ -15,6 +15,7 @@
     {"id": "components-navlist-features--with-group-expand"},
     {"id": "components-navlist-features--with-group-heading-links"},
     {"id": "components-navlist-features--with-inactive-items"},
+    {"id": "components-navlist-features--with-linked-sub-nav-parent"},
     {"id": "components-navlist-features--with-nested-sub-items"},
     {"id": "components-navlist-features--with-next-js-link"},
     {"id": "components-navlist-features--with-react-router-link"},
@@ -95,7 +96,7 @@
           "name": "href",
           "type": "string",
           "defaultValue": "",
-          "description": "The URL that the item navigates to. `href` is passed to the underlying `<a>` element. If `as` is specified, the component may need different props. If the item contains a sub-nav, the item is rendered as a `<button>` and `href` is ignored."
+          "description": "The URL that the item navigates to. `href` is passed to the underlying `<a>` element. If `as` is specified, the component may need different props. If the item contains a sub-nav, the item is rendered as a `<button>` and `href` is ignored unless `subNavToggleLabel` is also set."
         },
         {
           "name": "aria-current",
@@ -107,6 +108,11 @@
           "name": "defaultOpen",
           "type": "boolean",
           "description": "The open state of the item when it is initially rendered if the item has a SubNav."
+        },
+        {
+          "name": "subNavToggleLabel",
+          "type": "string",
+          "description": "Renders an item with a SubNav as a link with a separate toggle button. The value is used as the toggle button's accessible name."
         },
         {
           "name": "inactiveText",
