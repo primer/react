@@ -45,6 +45,12 @@
     },
     {
       "id": "experimental-components-datatable-features--with-groups"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-sortable-groups"
+    },
+    {
+      "id": "experimental-components-table-features--with-groups"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -61,8 +67,8 @@
     },
     {
       "name": "data",
-      "type": "Array<Data>",
-      "description": "Provide a collection of the rows which will be rendered inside of the table"
+      "type": "Array<Data | DataTableRowGroup<Data>>",
+      "description": "Provide rows, row groups, or a mixture of both to render in the table, in display order."
     },
     {
       "name": "columns",
