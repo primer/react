@@ -105,4 +105,23 @@ describe('useAnnouncements', () => {
       }),
     )
   })
+
+  it('does not announce a list update when items are recreated with the same state', () => {
+    const list = document.createElement('ul')
+    const activeOption = document.createElement('li')
+    activeOption.setAttribute('role', 'option')
+    activeOption.setAttribute('data-is-active-descendant', 'true')
+    activeOption.textContent = 'Start date'
+    list.append(activeOption)
+
+    const {rerender} = renderHook(
+      ({items}) =>
+        useAnnouncements(items, {current: list}, {current: null}, true, false, undefined, 'active-descendant'),
+      {initialProps: {items: [{id: 'start-date', text: 'Start date', selected: false}]}},
+    )
+
+    rerender({items: [{id: 'start-date', text: 'Start date', selected: false}]})
+
+    expect(announce).not.toHaveBeenCalled()
+  })
 })
