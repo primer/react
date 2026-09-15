@@ -36,6 +36,12 @@
       "type": "AriaRole",
       "defaultValue": "",
       "description": "ARIA role describing the function of the list. `listbox` and `menu` are a common values."
+    },
+    {
+      "name": "disableItemGap",
+      "type": "boolean",
+      "description": "Disable the gap between items when this `ActionList` is rendered in a `NavList`.",
+      "defaultValue": "false"
     }
   ],
   "subcomponents": [
