@@ -17,6 +17,7 @@ describe('useAnnouncements', () => {
     input.setAttribute('aria-label', 'Filter fields')
 
     const list = document.createElement('ul')
+    list.setAttribute('role', 'listbox')
     const activeOption = document.createElement('li')
     activeOption.setAttribute('role', 'option')
     activeOption.setAttribute('data-is-active-descendant', 'true')
@@ -24,12 +25,12 @@ describe('useAnnouncements', () => {
     list.append(activeOption)
     const listRef: {current: HTMLUListElement | null} = {current: null}
 
-    renderHook(() =>
+    const {result} = renderHook(() =>
       useAnnouncements([{text: 'Start date'}], listRef, {current: input}, true, false, undefined, 'active-descendant'),
     )
 
     act(() => {
-      input.dispatchEvent(new FocusEvent('focus'))
+      result.current()
       listRef.current = list
     })
 
@@ -52,13 +53,14 @@ describe('useAnnouncements', () => {
     input.setAttribute('aria-labelledby', label.id)
 
     const list = document.createElement('ul')
+    list.setAttribute('role', 'listbox')
     const activeOption = document.createElement('li')
     activeOption.setAttribute('role', 'option')
     activeOption.setAttribute('data-is-active-descendant', 'true')
     activeOption.textContent = 'Start date'
     list.append(activeOption)
 
-    renderHook(() =>
+    const {result} = renderHook(() =>
       useAnnouncements(
         [{text: 'Start date'}],
         {current: list},
@@ -70,7 +72,7 @@ describe('useAnnouncements', () => {
       ),
     )
 
-    act(() => input.dispatchEvent(new FocusEvent('focus')))
+    act(() => result.current())
 
     await waitFor(() =>
       expect(announce).toHaveBeenCalledWith(
@@ -92,13 +94,14 @@ describe('useAnnouncements', () => {
     document.body.append(label, input)
 
     const list = document.createElement('ul')
+    list.setAttribute('role', 'listbox')
     const activeOption = document.createElement('li')
     activeOption.setAttribute('role', 'option')
     activeOption.setAttribute('data-is-active-descendant', 'true')
     activeOption.textContent = 'Start date'
     list.append(activeOption)
 
-    renderHook(() =>
+    const {result} = renderHook(() =>
       useAnnouncements(
         [{text: 'Start date'}],
         {current: list},
@@ -110,7 +113,7 @@ describe('useAnnouncements', () => {
       ),
     )
 
-    act(() => input.dispatchEvent(new FocusEvent('focus')))
+    act(() => result.current())
 
     await waitFor(() =>
       expect(announce).toHaveBeenCalledWith(

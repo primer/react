@@ -9,15 +9,6 @@ import type {ItemInput} from '../SelectPanel'
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 
-const useFirstRender = () => {
-  const firstRender = useRef(true)
-  useEffect(() => {
-    firstRender.current = false
-  }, [])
-  // eslint-disable-next-line react-hooks/refs
-  return firstRender.current
-}
-
 const getInputLabel = (input: HTMLInputElement | null) => {
   if (!input) return
 
@@ -63,6 +54,19 @@ const getItemWithActiveDescendant = (
   return {index, text, selected}
 }
 
+const getAnnouncementState = (
+  items: FilteredActionListProps['items'],
+  loading: boolean,
+  message?: {title: string; description: string},
+  filterValue?: string,
+) =>
+  JSON.stringify({
+    items: items.map((item, index) => [item.id ?? item.text ?? index, item.text, item.selected]),
+    loading,
+    message,
+    filterValue,
+  })
+
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
   listContainerRef: React.RefObject<HTMLUListElement | null>,
@@ -71,6 +75,7 @@ export const useAnnouncements = (
   loading: boolean = false,
   message?: {title: string; description: string},
   focusManagement?: 'active-descendant' | 'roving-tabindex',
+  filterValue?: string,
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
 
@@ -88,50 +93,41 @@ export const useAnnouncements = (
     [enabled],
   )
 
-  useEffect(
-    function announceInitialFocus() {
-      const focusHandler = () => {
-        if (usingRovingTabindex) {
-          const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
-          announce(announcementText, {
-            delayMs,
-            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-          })
-        } else {
-          // give @primer/behaviors a moment to apply active-descendant
-          window.requestAnimationFrame(() => {
-            const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-            if (!activeItem) return
-            const {index, text, selected} = activeItem
-            const inputLabel = getInputLabel(inputElement)
+  const onInputFocus = useCallback(() => {
+    if (usingRovingTabindex) {
+      const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
+      announce(announcementText, {
+        delayMs,
+        from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+      })
+      return
+    }
 
-            const announcementText = [
-              inputLabel
-                ? `${inputLabel}, filter text box and list of items`
-                : 'Focus on filter text box and list of items',
-              `Focused item: ${text}`,
-              `${selected ? 'selected' : 'not selected'}`,
-              `${index + 1} of ${items.length}`,
-            ].join(', ')
-            announce(announcementText, {
-              delayMs,
-              from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-            })
-          })
-        }
-      }
+    window.setTimeout(() => {
+      const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+      if (!activeItem) return
+      const {index, text, selected} = activeItem
+      const inputLabel = getInputLabel(inputRef.current)
 
-      const inputElement = inputRef.current
-      inputElement?.addEventListener('focus', focusHandler)
-      return () => inputElement?.removeEventListener('focus', focusHandler)
-    },
-    [listContainerRef, inputRef, items, liveRegion, announce, usingRovingTabindex, selectedItems],
-  )
+      const announcementText = [
+        inputLabel ? `${inputLabel}, filter text box and list of items` : 'Focus on filter text box and list of items',
+        `Focused item: ${text}`,
+        `${selected ? 'selected' : 'not selected'}`,
+        `${index + 1} of ${items.length}`,
+      ].join(', ')
+      announce(announcementText, {
+        delayMs,
+        from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+      })
+    })
+  }, [announce, inputRef, items, listContainerRef, liveRegion, selectedItems, usingRovingTabindex])
 
-  const isFirstRender = useFirstRender()
+  const announcementState = getAnnouncementState(items, loading, message, filterValue)
+  const previousAnnouncementState = useRef(announcementState)
   useEffect(
     function announceListUpdates() {
-      if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
+      if (previousAnnouncementState.current === announcementState) return
+      previousAnnouncementState.current = announcementState
 
       liveRegion?.clear() // clear previous announcements
 
@@ -171,7 +167,7 @@ export const useAnnouncements = (
     },
     [
       announce,
-      isFirstRender,
+      announcementState,
       items,
       listContainerRef,
       liveRegion,
@@ -182,4 +178,6 @@ export const useAnnouncements = (
       selectedItems,
     ],
   )
+
+  return onInputFocus
 }
