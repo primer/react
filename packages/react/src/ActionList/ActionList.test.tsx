@@ -593,19 +593,6 @@ describe('ActionList with role="tree"', () => {
 
     expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
   })
-
-  it('does not set data-item-gap on a standalone ActionList even when the primer_react_action_list_item_gap feature flag is enabled', () => {
-    const {container} = HTMLRender(
-      <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
-        <ActionList aria-label="Links">
-          <ActionList.LinkItem href="#">Home</ActionList.LinkItem>
-          <ActionList.LinkItem href="#">About</ActionList.LinkItem>
-        </ActionList>
-      </FeatureFlags>,
-    )
-
-    expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
-  })
 })
 
 describe('ActionList forwarded ref (primer_react_merged_forwarded_refs)', () => {
