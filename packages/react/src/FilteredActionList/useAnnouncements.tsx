@@ -9,6 +9,15 @@ import type {ItemInput} from '../SelectPanel'
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 
+const useFirstRender = () => {
+  const firstRender = useRef(true)
+  useEffect(() => {
+    firstRender.current = false
+  }, [])
+  // eslint-disable-next-line react-hooks/refs
+  return firstRender.current
+}
+
 const getInputLabel = (input: HTMLInputElement | null) => {
   if (!input) return
 
@@ -54,19 +63,6 @@ const getItemWithActiveDescendant = (
   return {index, text, selected}
 }
 
-const getAnnouncementState = (
-  items: FilteredActionListProps['items'],
-  loading: boolean,
-  message?: {title: string; description: string},
-  filterValue?: string,
-) =>
-  JSON.stringify({
-    items: items.map((item, index) => [item.id ?? item.text ?? index, item.text, item.selected]),
-    loading,
-    message,
-    filterValue,
-  })
-
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
   listContainerRef: React.RefObject<HTMLUListElement | null>,
@@ -75,7 +71,6 @@ export const useAnnouncements = (
   loading: boolean = false,
   message?: {title: string; description: string},
   focusManagement?: 'active-descendant' | 'roving-tabindex',
-  filterValue?: string,
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
 
@@ -133,12 +128,10 @@ export const useAnnouncements = (
     [listContainerRef, inputRef, items, liveRegion, announce, usingRovingTabindex, selectedItems],
   )
 
-  const announcementState = getAnnouncementState(items, loading, message, filterValue)
-  const previousAnnouncementState = useRef(announcementState)
+  const isFirstRender = useFirstRender()
   useEffect(
     function announceListUpdates() {
-      if (previousAnnouncementState.current === announcementState) return
-      previousAnnouncementState.current = announcementState
+      if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
 
       liveRegion?.clear() // clear previous announcements
 
@@ -178,7 +171,7 @@ export const useAnnouncements = (
     },
     [
       announce,
-      announcementState,
+      isFirstRender,
       items,
       listContainerRef,
       liveRegion,

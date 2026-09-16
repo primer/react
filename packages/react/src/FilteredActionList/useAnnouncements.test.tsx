@@ -82,7 +82,15 @@ describe('useAnnouncements', () => {
     label.remove()
   })
 
-  it('does not invent an input label when the input is unavailable', async () => {
+  it('uses an associated native label in the initial focus announcement', async () => {
+    const label = document.createElement('label')
+    label.htmlFor = 'filter-input'
+    label.textContent = 'Filter fields'
+
+    const input = document.createElement('input')
+    input.id = 'filter-input'
+    document.body.append(label, input)
+
     const list = document.createElement('ul')
     const activeOption = document.createElement('li')
     activeOption.setAttribute('role', 'option')
@@ -90,38 +98,28 @@ describe('useAnnouncements', () => {
     activeOption.textContent = 'Start date'
     list.append(activeOption)
 
-    const inputRef = {current: null}
-    const {rerender} = renderHook(
-      ({items}) => useAnnouncements(items, {current: list}, inputRef, true, false, undefined, 'active-descendant'),
-      {initialProps: {items: [{text: 'Start date'}]}},
+    renderHook(() =>
+      useAnnouncements(
+        [{text: 'Start date'}],
+        {current: list},
+        {current: input},
+        true,
+        false,
+        undefined,
+        'active-descendant',
+      ),
     )
 
-    rerender({items: [{text: 'Start date'}, {text: 'Priority'}]})
+    act(() => input.dispatchEvent(new FocusEvent('focus')))
 
     await waitFor(() =>
-      expect(announce).toHaveBeenCalledWith('List updated, Focused item: Start date, not selected, 1 of 2', {
-        delayMs: 500,
-        from: undefined,
-      }),
-    )
-  })
-
-  it('does not announce a list update when items are recreated with the same state', () => {
-    const list = document.createElement('ul')
-    const activeOption = document.createElement('li')
-    activeOption.setAttribute('role', 'option')
-    activeOption.setAttribute('data-is-active-descendant', 'true')
-    activeOption.textContent = 'Start date'
-    list.append(activeOption)
-
-    const {rerender} = renderHook(
-      ({items}) =>
-        useAnnouncements(items, {current: list}, {current: null}, true, false, undefined, 'active-descendant'),
-      {initialProps: {items: [{id: 'start-date', text: 'Start date', selected: false}]}},
+      expect(announce).toHaveBeenCalledWith(
+        'Filter fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
+        {delayMs: 500, from: undefined},
+      ),
     )
 
-    rerender({items: [{id: 'start-date', text: 'Start date', selected: false}]})
-
-    expect(announce).not.toHaveBeenCalled()
+    label.remove()
+    input.remove()
   })
 })

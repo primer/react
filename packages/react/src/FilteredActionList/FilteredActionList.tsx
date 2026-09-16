@@ -212,17 +212,6 @@ export function FilteredActionList({
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
-  const [activeDescendantListRef] = useState(() => {
-    let current: HTMLUListElement | null = null
-    return {
-      get current() {
-        return current
-      },
-      setCurrent(node: HTMLUListElement | null) {
-        current = node
-      },
-    }
-  })
   const activeDescendantRef = useRef<HTMLElement>()
 
   const listId = useId(actionListProps?.id)
@@ -302,11 +291,10 @@ export function FilteredActionList({
 
   const listContainerRefCallback = useCallback(
     (node: HTMLUListElement | null) => {
-      activeDescendantListRef.setCurrent(node)
       setListContainerElement(node)
       onListContainerRefChanged?.(node)
     },
-    [activeDescendantListRef, onListContainerRefChanged],
+    [onListContainerRefChanged],
   )
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
@@ -430,13 +418,12 @@ export function FilteredActionList({
 
   useAnnouncements(
     items,
-    usingRovingTabindex ? listRef : activeDescendantListRef,
+    usingRovingTabindex ? listRef : {current: listContainerElement},
     readInputRef,
     announcementsEnabled,
     loading,
     messageText,
     _PrivateFocusManagement,
-    filterValue,
   )
   useScrollFlash(readScrollContainerRef)
 
