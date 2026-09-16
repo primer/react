@@ -125,4 +125,35 @@ describe('useAnnouncements', () => {
     label.remove()
     input.remove()
   })
+
+  it('does not announce when items are recreated with the same announcement state', () => {
+    const list = document.createElement('ul')
+    const activeOption = document.createElement('li')
+    activeOption.setAttribute('role', 'option')
+    activeOption.setAttribute('data-is-active-descendant', 'true')
+    list.append(activeOption)
+
+    const {rerender} = renderHook(
+      ({items}) =>
+        useAnnouncements(items, {current: list}, {current: null}, true, false, undefined, 'active-descendant'),
+      {initialProps: {items: [{id: 'start-date', text: 'Start date', selected: false}]}},
+    )
+
+    rerender({items: [{id: 'start-date', text: 'Start date', selected: false}]})
+
+    expect(announce).not.toHaveBeenCalled()
+  })
+
+  it('announces an unchanged empty state when the filter value changes', async () => {
+    const message = {title: 'Nothing found', description: "There's nothing here."}
+    const {rerender} = renderHook(
+      ({filterValue}) =>
+        useAnnouncements([], {current: null}, {current: null}, true, false, message, 'active-descendant', filterValue),
+      {initialProps: {filterValue: ''}},
+    )
+
+    rerender({filterValue: 'zero'})
+
+    await waitFor(() => expect(announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {delayMs: 500}))
+  })
 })
