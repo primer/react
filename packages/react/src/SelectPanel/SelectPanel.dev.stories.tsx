@@ -6,11 +6,21 @@ import {useState, useEffect, useRef} from 'react'
 import {Button} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '.'
+import Checkbox from '../Checkbox'
 import FormControl from '../FormControl'
 import Text from '../Text'
 import Select from '../Select/Select'
 import type {SelectPanelSecondaryAction} from './SelectPanel'
 import classes from './SelectPanel.stories.module.css'
+
+declare module 'react' {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      'live-region': React.HTMLAttributes<HTMLElement>
+    }
+  }
+}
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -443,5 +453,50 @@ export const WithInitialFocusEnabled = ({onCancel, secondaryAction}: ParamProps)
       secondaryAction={secondaryAction}
       setInitialFocus={true}
     />
+  )
+}
+
+export const WithLiveRegionInsideClosedDialog = ({onCancel, secondaryAction}: ParamProps) => {
+  const [selected, setSelected] = useState<ItemInput[]>(simpleItems.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = simpleItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  const [liveRegionInsideClosedDialog, setLiveRegionInsideClosedDialog] = useState(true)
+
+  return (
+    <>
+      <p>
+        Open the SelectPanel and enter a query with no results. With the checkbox enabled, the empty-state message is
+        not announced. Disable the checkbox and repeat; the message is announced through a body-level live region.
+      </p>
+      <FormControl>
+        <FormControl.Label>Render a live region inside a closed dialog</FormControl.Label>
+        <Checkbox
+          checked={liveRegionInsideClosedDialog}
+          onChange={() => setLiveRegionInsideClosedDialog(!liveRegionInsideClosedDialog)}
+        />
+      </FormControl>
+      <dialog>{liveRegionInsideClosedDialog ? <live-region /> : null}</dialog>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        onCancel={onCancel}
+        secondaryAction={secondaryAction}
+      />
+    </>
   )
 }
