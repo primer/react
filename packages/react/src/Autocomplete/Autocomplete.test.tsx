@@ -303,58 +303,130 @@ describe('Autocomplete', () => {
       },
     )
 
-    it('commits an exactly completed suggestion from controlled state on Space and clears the token input', async () => {
-      function TokenAutocomplete() {
-        const [value, setValue] = useState('')
-        const [tokens, setTokens] = useState<Array<{id: string; text: string}>>([])
-        return (
-          <BaseStyles>
-            <label id="topics-label" htmlFor="topics-input">
-              Topics
-            </label>
-            <Autocomplete>
-              <Autocomplete.Input
-                as={TextInputWithTokens}
-                id="topics-input"
-                value={value}
-                tokens={tokens}
-                onTokenRemove={id => setTokens(tokens.filter(token => token.id !== id))}
-                onChange={event => setValue(event.currentTarget.value)}
-                onKeyDown={event => {
-                  if (event.key === ' ' && value) {
-                    event.preventDefault()
-                    setTokens([...tokens, {id: value, text: value}])
-                    setValue('')
-                  }
-                }}
-              />
-              <Autocomplete.Overlay>
-                <Autocomplete.Menu
-                  items={[{id: 'nikon', text: 'nikon'}]}
-                  selectedItemIds={tokens.map(token => token.id)}
-                  selectionVariant="multiple"
-                  aria-labelledby="topics-label"
-                />
-              </Autocomplete.Overlay>
-            </Autocomplete>
-          </BaseStyles>
-        )
-      }
-      render(<TokenAutocomplete />)
+    it.each([
+      {
+        name: 'identical suggestion text with distinct IDs',
+        items: [
+          {id: 'nikon-1', text: 'nikon'},
+          {id: 'nikon-2', text: 'nikon'},
+        ],
+      },
+      {
+        name: 'overlapping suggestions',
+        items: [
+          {id: 'nikon', text: 'nikon'},
+          {id: 'nikon-camera', text: 'nikon-camera'},
+        ],
+      },
+    ])('reports exact completion once with $name', async ({items}) => {
+      const onChange = vi.fn()
+      render(
+        <LabelledAutocomplete
+          inputProps={{onChange: event => onChange(event.currentTarget.value)}}
+          menuProps={{items, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
+      )
       const input = screen.getByRole('combobox') as HTMLInputElement
 
       await act(() => browserUserEvent.click(input))
       await typeWithNativeKeyboard('niko')
+      expect(screen.getAllByRole('option')).toHaveLength(2)
       expect(input).toHaveValue('nikon')
       expect(input.selectionStart).toBe(4)
       expect(input.selectionEnd).toBe(5)
-      await typeWithNativeKeyboard('n ')
+      onChange.mockClear()
 
-      expect(
-        screen.getByText('nikon', {selector: '[data-component="TextInputWithTokens.Token"] *'}),
-      ).toBeInTheDocument()
-      expect(input).toHaveValue('')
+      await typeWithNativeKeyboard('n')
+
+      expect(onChange).toHaveBeenCalledExactlyOnceWith('nikon')
+      expect(input).toHaveValue('nikon')
+      expect(input.selectionStart).toBe(5)
+      expect(input.selectionEnd).toBe(5)
     })
+
+    it.each(['nikon', `${'topic-'.repeat(8)}ab`])(
+      'commits the first token %s from controlled state on Space and keeps the input cleared',
+      async topic => {
+        const onChange = vi.fn()
+        const onCommit = vi.fn()
+        function TokenAutocomplete() {
+          const [value, setValue] = useState('')
+          const [tokens, setTokens] = useState<Array<{id: string; text: string}>>([])
+          return (
+            <BaseStyles>
+              <div>
+                <button type="button">outside</button>
+              </div>
+              <label id="topics-label" htmlFor="topics-input">
+                Topics
+              </label>
+              <Autocomplete>
+                <Autocomplete.Input
+                  as={TextInputWithTokens}
+                  id="topics-input"
+                  value={value}
+                  maxLength={50}
+                  tokens={tokens}
+                  onTokenRemove={id => setTokens(tokens.filter(token => token.id !== id))}
+                  onChange={event => {
+                    onChange(event.currentTarget.value)
+                    setValue(event.currentTarget.value)
+                  }}
+                  onKeyDown={event => {
+                    if (event.key === ' ' && value) {
+                      event.preventDefault()
+                      onCommit(value, event.currentTarget.value)
+                      setTokens([...tokens, {id: value, text: value}])
+                      setValue('')
+                    }
+                  }}
+                />
+                <Autocomplete.Overlay>
+                  <Autocomplete.Menu
+                    items={[{id: topic, text: topic}]}
+                    selectedItemIds={tokens.map(token => token.id)}
+                    selectionVariant="multiple"
+                    aria-labelledby="topics-label"
+                  />
+                </Autocomplete.Overlay>
+              </Autocomplete>
+            </BaseStyles>
+          )
+        }
+        render(<TokenAutocomplete />)
+        const input = screen.getByRole('combobox') as HTMLInputElement
+
+        await act(() => browserUserEvent.click(input))
+        await typeWithNativeKeyboard(topic.slice(0, -1))
+        await waitFor(() => {
+          expect(onChange).toHaveBeenLastCalledWith(topic.slice(0, -1))
+          expect(input).toHaveFocus()
+          expect(input).toHaveValue(topic)
+          expect(input.selectionStart).toBe(topic.length - 1)
+          expect(input.selectionEnd).toBe(topic.length)
+        })
+        await typeWithNativeKeyboard(`${topic.slice(-1)} `)
+
+        expect(onChange).toHaveBeenLastCalledWith(topic)
+        expect(onCommit).toHaveBeenCalledExactlyOnceWith(topic, topic)
+        expect(onChange.mock.invocationCallOrder.at(-1)).toBeLessThan(onCommit.mock.invocationCallOrder[0])
+        expect(screen.getAllByText(topic, {selector: '[data-component="TextInputWithTokens.Token"] *'})).toHaveLength(1)
+        expect(input).toHaveValue('')
+
+        await act(() => browserUserEvent.click(screen.getByRole('button', {name: 'outside'})))
+        await waitFor(() => expect(input).toHaveAttribute('aria-expanded', 'false'))
+        expect(input).toHaveValue('')
+        // Closing the overlay restores input focus; move focus outside again before refocusing.
+        await act(() => browserUserEvent.click(screen.getByRole('button', {name: 'outside'})))
+        expect(screen.getByRole('button', {name: 'outside'})).toHaveFocus()
+        await act(() => browserUserEvent.click(input))
+        expect(input).toHaveValue('')
+        await typeWithNativeKeyboard('next')
+        expect(input).toHaveValue('next')
+        expect(onChange).toHaveBeenLastCalledWith('next')
+        expect(onCommit).toHaveBeenCalledTimes(1)
+      },
+    )
 
     it('allows the value to be 0', () => {
       const {getByDisplayValue} = render(
