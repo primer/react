@@ -590,7 +590,7 @@
     border: unset;
     border-radius: 0;
 
-    &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
+    &:hover:not(:disabled, [data-inactive]) {
       text-decoration: underline;
     }
 
@@ -607,7 +607,6 @@
     }
 
     & .Label {
-      text-underline-offset: 0.125rem;
       white-space: unset;
     }
 
@@ -622,22 +621,34 @@
   }
 
   [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
-    & .Label {
+    &[data-no-visuals] {
       text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
 
-    &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
-      text-decoration: none;
+    &:not([data-no-visuals]) {
+      background-image: linear-gradient(to right, currentColor, currentColor);
+      background-size: 100% 1.5px;
+      background-position: 0 calc(100% - 2px);
+      background-repeat: no-repeat;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
   [data-a11y-link-underlines='false'] &:where([data-variant='link']) {
-    & .Label {
+    &[data-no-visuals] {
       text-decoration: none;
+      background-image: none;
     }
 
-    &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
-      text-decoration: underline;
+    &:not([data-no-visuals]) {
+      background-image: none;
     }
   }
 
