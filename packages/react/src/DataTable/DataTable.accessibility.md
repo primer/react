@@ -211,8 +211,10 @@ must likewise provide instance-scoped, SSR-safe IDs.
 
 ## Row selection
 
-`DataTable` manages selection by stable row ID. With `Table.SelectionHeader`
-and `Table.RowSelection`, consumers own state, counts, and header references.
+`DataTable` manages selection by stable row ID (`DataTableRowId`, a string or number).
+With `Table.SelectionHeader` and `Table.RowSelection`, consumers own state, counts,
+and header references. The header uses `selection` (`all`, `some`, or `none`); each row
+uses `selected`. Both parts request changes through `onToggleSelect`.
 
 ### Names and associations
 

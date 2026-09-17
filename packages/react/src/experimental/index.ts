@@ -30,6 +30,7 @@ export type {
   DataTableProps,
   DataTableData,
   DataTableRowGroup,
+  DataTableRowId,
   TableProps,
   TableHeadProps,
   TableBodyProps,

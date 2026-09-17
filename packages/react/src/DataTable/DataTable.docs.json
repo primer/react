@@ -53,7 +53,7 @@
       "id": "experimental-components-datatable-features--with-grouped-row-selection"
     },
     {
-      "id": "experimental-components-datatable-features--with-mixed-row-selection"
+      "id": "experimental-components-datatable-features--with-standalone-and-grouped-row-selection"
     },
     {
       "id": "experimental-components-datatable-features--with-paginated-row-selection"
@@ -91,23 +91,28 @@
       "description": "Provide the columns for the table and the fields in `data` to which they correspond"
     },
     {
+      "name": "getRowId",
+      "type": "(row: Data) => DataTableRowId",
+      "description": "Provide a stable row ID. Defaults to row.id. DataTableRowId is an exported string | number type."
+    },
+    {
       "name": "rowSelection",
       "type": "boolean",
       "description": "Render row checkboxes and a select-all checkbox for the current page."
     },
     {
       "name": "selectedRows",
-      "type": "ReadonlySet<string | number>",
+      "type": "ReadonlySet<DataTableRowId>",
       "description": "Control selection using stable IDs from `getRowId`. Missing or non-selectable IDs stay stored but do not count as selected."
     },
     {
       "name": "defaultSelectedRows",
-      "type": "ReadonlySet<string | number>",
+      "type": "ReadonlySet<DataTableRowId>",
       "description": "Set the initial selection for an uncontrolled, static, single-page table."
     },
     {
       "name": "onSelectionChange",
-      "type": "({ selectedRows }: { selectedRows: Set<string | number> }) => void",
+      "type": "({ selectedRows }: { selectedRows: Set<DataTableRowId> }) => void",
       "description": "Receive a new selection set when a checkbox is toggled. Data changes alone do not trigger this callback."
     },
     {
@@ -279,15 +284,10 @@
       "name": "Table.SelectionHeader",
       "props": [
         {
-          "name": "checked",
-          "type": "boolean",
+          "name": "selection",
+          "type": "'all' | 'some' | 'none'",
           "required": true,
-          "description": "Whether every selectable row is selected."
-        },
-        {
-          "name": "indeterminate",
-          "type": "boolean",
-          "description": "Whether some, but not all, selectable rows are selected."
+          "description": "Whether all, some, or none of the selectable rows are selected."
         },
         {
           "name": "disabled",
@@ -295,9 +295,9 @@
           "description": "Whether row selection is unavailable."
         },
         {
-          "name": "onChange",
-          "type": "React.ChangeEventHandler<HTMLInputElement>",
-          "description": "Handle changes to the native selection checkbox."
+          "name": "onToggleSelect",
+          "type": "() => void",
+          "description": "Request toggling selection for all selectable rows."
         },
         {
           "name": "checkboxRef",
@@ -321,15 +321,10 @@
       "name": "Table.RowSelection",
       "props": [
         {
-          "name": "checked",
+          "name": "selected",
           "type": "boolean",
           "required": true,
           "description": "Whether the row is selected."
-        },
-        {
-          "name": "indeterminate",
-          "type": "boolean",
-          "description": "Whether the row is in a mixed selection state."
         },
         {
           "name": "disabled",
@@ -337,9 +332,9 @@
           "description": "Whether the row cannot be selected."
         },
         {
-          "name": "onChange",
-          "type": "React.ChangeEventHandler<HTMLInputElement>",
-          "description": "Handle changes to the native row checkbox."
+          "name": "onToggleSelect",
+          "type": "() => void",
+          "description": "Request toggling selection for the row."
         },
         {
           "name": "checkboxRef",

@@ -113,12 +113,12 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
   align?: CellAlignment
 }
 
-function TableHeader({align, children, ...rest}: TableHeaderProps) {
+function TableHeader({align, className, children, ...rest}: TableHeaderProps) {
   return (
     <th
       data-component="Table.Header"
       {...rest}
-      className={clsx('TableHeader', classes.TableHeader)}
+      className={clsx('TableHeader', className, classes.TableHeader)}
       role="columnheader"
       scope="col"
       data-cell-align={align}
@@ -193,14 +193,9 @@ export type TableSelectionHeaderProps = Omit<
   'align' | 'children' | 'onChange'
 > & {
   /**
-   * Whether every selectable row is selected.
+   * Whether all, some, or none of the selectable rows are selected.
    */
-  checked: boolean
-
-  /**
-   * Whether some, but not all, selectable rows are selected.
-   */
-  indeterminate?: boolean
+  selection: 'all' | 'some' | 'none'
 
   /**
    * Whether row selection is unavailable.
@@ -208,9 +203,9 @@ export type TableSelectionHeaderProps = Omit<
   disabled?: boolean
 
   /**
-   * Handles changes to the selection checkbox.
+   * Requests toggling selection for all selectable rows.
    */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onToggleSelect?: () => void
 
   /**
    * Forwards a ref to the selection checkbox.
@@ -229,40 +224,31 @@ export type TableSelectionHeaderProps = Omit<
 }
 
 function TableSelectionHeader({
-  checked,
+  selection,
   checkboxRef,
   className,
   disabled,
-  indeterminate,
-  onChange,
+  onToggleSelect,
   'aria-label': ariaLabel = 'Select rows',
   'aria-description': ariaDescription,
   ...rest
 }: TableSelectionHeaderProps) {
   return (
-    <th
+    <TableHeader
       {...rest}
-      className={clsx(
-        'TableHeader',
-        'TableSelectionHeader',
-        className,
-        classes.TableHeader,
-        classes.TableSelectionHeader,
-      )}
-      role="columnheader"
-      scope="col"
+      className={clsx('TableSelectionHeader', className, classes.TableSelectionHeader)}
       data-component="Table.SelectionHeader"
     >
       <Checkbox
         ref={checkboxRef}
-        checked={checked}
-        indeterminate={indeterminate}
+        checked={selection === 'all'}
+        indeterminate={selection === 'some'}
         disabled={disabled}
-        onChange={onChange}
+        onChange={() => onToggleSelect?.()}
         aria-label={ariaLabel}
         aria-description={ariaDescription}
       />
-    </th>
+    </TableHeader>
   )
 }
 
@@ -327,12 +313,7 @@ export type TableRowSelectionProps = Omit<React.ComponentPropsWithoutRef<'td'>, 
   /**
    * Whether the row is selected.
    */
-  checked: boolean
-
-  /**
-   * Whether the row is in a mixed selection state.
-   */
-  indeterminate?: boolean
+  selected: boolean
 
   /**
    * Whether the row cannot be selected.
@@ -340,9 +321,9 @@ export type TableRowSelectionProps = Omit<React.ComponentPropsWithoutRef<'td'>, 
   disabled?: boolean
 
   /**
-   * Handles changes to the row selection checkbox.
+   * Requests toggling selection for the row.
    */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onToggleSelect?: () => void
 
   /**
    * Forwards a ref to the row selection checkbox.
@@ -362,13 +343,12 @@ export type TableRowSelectionProps = Omit<React.ComponentPropsWithoutRef<'td'>, 
 }
 
 function TableRowSelection({
-  checked,
+  selected,
   checkboxRef,
   className,
   disabled,
   headers,
-  indeterminate,
-  onChange,
+  onToggleSelect,
   'aria-label': ariaLabel = 'Select row',
   'aria-labelledby': ariaLabelledBy,
   ...rest
@@ -388,10 +368,9 @@ function TableRowSelection({
       {ariaLabelledBy ? <VisuallyHidden id={actionLabelId}>Select</VisuallyHidden> : null}
       <Checkbox
         ref={checkboxRef}
-        checked={checked}
-        indeterminate={indeterminate}
+        checked={selected}
         disabled={disabled}
-        onChange={onChange}
+        onChange={() => onToggleSelect?.()}
         aria-label={ariaLabelledBy ? undefined : ariaLabel}
         aria-labelledby={ariaLabelledBy ? `${actionLabelId} ${ariaLabelledBy}` : undefined}
       />

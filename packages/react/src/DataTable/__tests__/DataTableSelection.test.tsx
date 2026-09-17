@@ -482,7 +482,8 @@ function expectSelectionAssociationsToBeComplete(container: HTMLElement) {
 }
 
 describe('Table selection parts', () => {
-  it('renders controlled, composable selection controls with stable identifiers and refs', () => {
+  it('renders controlled, composable selection controls with stable identifiers and refs', async () => {
+    const user = userEvent.setup()
     const headerCheckboxRef = React.createRef<HTMLInputElement>()
     const rowCheckboxRef = React.createRef<HTMLInputElement>()
     const onHeaderChange = vi.fn()
@@ -493,22 +494,24 @@ describe('Table selection parts', () => {
           <Table.Row>
             <Table.SelectionHeader
               id="selection"
-              checked={false}
-              indeterminate
+              selection="some"
+              className="custom-selection-header"
               checkboxRef={headerCheckboxRef}
-              onChange={onHeaderChange}
+              onToggleSelect={onHeaderChange}
             />
-            <Table.Header id="name">Name</Table.Header>
+            <Table.Header id="name" className="custom-header">
+              Name
+            </Table.Header>
           </Table.Row>
         </Table.Head>
         <Table.Body>
           <Table.Row>
             <Table.RowSelection
-              checked
+              selected
               headers="selection"
               aria-labelledby="row-name"
               checkboxRef={rowCheckboxRef}
-              onChange={onRowChange}
+              onToggleSelect={onRowChange}
             />
             <Table.Cell id="row-name" scope="row" headers="name">
               Primer
@@ -520,6 +523,12 @@ describe('Table selection parts', () => {
 
     expect(container.querySelector('[data-component="Table.SelectionHeader"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="Table.RowSelection"]')).toBeInTheDocument()
+    expect(screen.getByRole('columnheader', {name: 'Select rows'})).toHaveClass(
+      'TableHeader',
+      'custom-selection-header',
+    )
+    expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveClass('TableHeader', 'custom-header')
+    expect(screen.getByRole('columnheader', {name: 'Select rows'})).toHaveAttribute('scope', 'col')
     expect(screen.getByRole('checkbox', {name: 'Select rows'})).toHaveProperty('indeterminate', true)
     expect(screen.getByRole('checkbox', {name: 'Select Primer'})).toBeChecked()
     expect(headerCheckboxRef.current).toBe(screen.getByRole('checkbox', {name: 'Select rows'}))
@@ -528,5 +537,50 @@ describe('Table selection parts', () => {
       'data-component',
       'Checkbox',
     )
+    await user.click(screen.getByRole('checkbox', {name: 'Select rows'}))
+    await user.click(screen.getByRole('checkbox', {name: 'Select Primer'}))
+    expect(onHeaderChange).toHaveBeenCalledExactlyOnceWith()
+    expect(onRowChange).toHaveBeenCalledExactlyOnceWith()
+  })
+
+  it.each(['all', 'some', 'none'] as const)('maps header selection "%s" to native checkbox state', selection => {
+    render(
+      <Table>
+        <Table.Head>
+          <Table.Row>
+            <Table.SelectionHeader selection={selection} />
+          </Table.Row>
+        </Table.Head>
+      </Table>,
+    )
+    const checkbox = screen.getByRole('checkbox', {name: 'Select rows'})
+    expect(checkbox).toHaveProperty('checked', selection === 'all')
+    expect(checkbox).toHaveProperty('indeterminate', selection === 'some')
+  })
+
+  it('does not request toggles for disabled selection parts', async () => {
+    const user = userEvent.setup()
+    const onToggleSelect = vi.fn()
+    render(
+      <Table>
+        <Table.Head>
+          <Table.Row>
+            <Table.SelectionHeader selection="none" disabled onToggleSelect={onToggleSelect} />
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          <Table.Row>
+            <Table.RowSelection selected={false} disabled onToggleSelect={onToggleSelect} />
+          </Table.Row>
+        </Table.Body>
+      </Table>,
+    )
+    for (const checkbox of screen.getAllByRole('checkbox')) {
+      expect(checkbox).toBeDisabled()
+      expect(checkbox).not.toBeChecked()
+      expect(checkbox).toHaveProperty('indeterminate', false)
+      await user.click(checkbox)
+    }
+    expect(onToggleSelect).not.toHaveBeenCalled()
   })
 })

@@ -328,6 +328,7 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "type DataTableData",
   "type DataTableProps",
   "type DataTableRowGroup",
+  "type DataTableRowId",
   "default",
   "default",
   "DefaultFeatureFlags",

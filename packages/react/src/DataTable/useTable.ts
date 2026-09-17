@@ -1,11 +1,9 @@
 import {useId, useState} from 'react'
 import type {Column} from './column'
-import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
+import type {DataTableData, DataTableRowGroup, DataTableRowId, UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
 import type {ObjectPathValue} from './utils'
 import {useControllableState} from '../hooks/useControllableState'
-
-type RowId = string | number
 
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>
@@ -13,11 +11,11 @@ interface TableConfig<Data extends UniqueRow> {
   initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
   externalSorting?: boolean
-  getRowId: (rowData: Data) => string | number
+  getRowId: (rowData: Data) => DataTableRowId
   rowSelection?: boolean
-  selectedRows?: ReadonlySet<RowId>
-  defaultSelectedRows?: ReadonlySet<RowId>
-  onSelectionChange?: ({selectedRows}: {selectedRows: Set<RowId>}) => void
+  selectedRows?: ReadonlySet<DataTableRowId>
+  defaultSelectedRows?: ReadonlySet<DataTableRowId>
+  onSelectionChange?: ({selectedRows}: {selectedRows: Set<DataTableRowId>}) => void
   isRowSelectable?: (row: Data) => boolean
 }
 
@@ -31,7 +29,7 @@ interface Table<Data extends UniqueRow> {
   }
   selection: {
     headerId: string
-    selectedRows: Set<RowId>
+    selectedRows: Set<DataTableRowId>
     allSelected: boolean
     someSelected: boolean
     selectableCount: number
@@ -50,8 +48,8 @@ interface Header<Data extends UniqueRow> {
 
 interface Row<Data extends UniqueRow> {
   type: 'row'
-  id: string | number
-  selectionId: RowId
+  id: DataTableRowId
+  selectionId: DataTableRowId
   selectionLabelledBy: string | undefined
   selected: boolean
   selectable: boolean
@@ -105,10 +103,10 @@ export function useTable<Data extends UniqueRow>({
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
-  const [selectedRows, setSelectedRows] = useControllableState<ReadonlySet<RowId>>({
+  const [selectedRows, setSelectedRows] = useControllableState<ReadonlySet<DataTableRowId>>({
     name: 'DataTable selectedRows',
     value: controlledSelectedRows,
-    defaultValue: () => defaultSelectedRows ?? new Set<RowId>(),
+    defaultValue: () => defaultSelectedRows ?? new Set<DataTableRowId>(),
     onChange: nextSelectedRows => {
       onSelectionChange?.({selectedRows: new Set(nextSelectedRows)})
     },

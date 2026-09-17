@@ -2,7 +2,7 @@ import type {ReactElement, ReactNode} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
-import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
+import type {DataTableData, DataTableRowGroup, DataTableRowId, UniqueRow} from './row'
 import type {IsAny, ObjectPaths} from './utils'
 import {
   Table,
@@ -71,7 +71,7 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    * @param rowData The row data object for which the ID is being retrieved.
    * @returns The unique identifier for the row, which can be a string or number.
    */
-  getRowId?: (rowData: Data) => string | number
+  getRowId?: (rowData: Data) => DataTableRowId
 
   /**
    * Fires every time the user clicks a sortable column header. It reports
@@ -88,18 +88,18 @@ type DataTableBaseProps<Data extends UniqueRow> = {
   /**
    * Controls the selected row IDs.
    */
-  selectedRows?: ReadonlySet<string | number>
+  selectedRows?: ReadonlySet<DataTableRowId>
 
   /**
    * Provides the initially selected row IDs for an uncontrolled table.
    * Uncontrolled selection is intended for static, single-page data.
    */
-  defaultSelectedRows?: ReadonlySet<string | number>
+  defaultSelectedRows?: ReadonlySet<DataTableRowId>
 
   /**
    * Handles changes to the selected row IDs.
    */
-  onSelectionChange?: ({selectedRows}: {selectedRows: Set<string | number>}) => void
+  onSelectionChange?: ({selectedRows}: {selectedRows: Set<DataTableRowId>}) => void
 
   /**
    * Determines whether a row can be selected.
@@ -168,12 +168,12 @@ function DataTableImplementation<Data extends UniqueRow>({
     <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
       {rowSelection ? (
         <TableRowSelection
-          checked={row.selected}
+          selected={row.selected}
           disabled={!row.selectable}
           headers={selection.headerId}
           aria-label={row.selectionLabelledBy ? undefined : `Select row ${row.selectionId}`}
           aria-labelledby={row.selectionLabelledBy}
-          onChange={() => {
+          onToggleSelect={() => {
             actions.toggleRowSelection(row)
           }}
         />
@@ -204,8 +204,7 @@ function DataTableImplementation<Data extends UniqueRow>({
           {rowSelection ? (
             <TableSelectionHeader
               id={selection.headerId}
-              checked={selection.allSelected}
-              indeterminate={selection.someSelected}
+              selection={selection.allSelected ? 'all' : selection.someSelected ? 'some' : 'none'}
               disabled={selection.selectableCount === 0}
               aria-label="Select rows"
               aria-description={
@@ -213,7 +212,7 @@ function DataTableImplementation<Data extends UniqueRow>({
                   ? `Select all ${selection.selectableCount} ${selection.selectableCount === 1 ? 'row' : 'rows'}`
                   : undefined
               }
-              onChange={() => {
+              onToggleSelect={() => {
                 actions.toggleAllRows()
               }}
             />

@@ -1,6 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import {useId, useState} from 'react'
-import {Table} from '../DataTable'
+import {Table, type DataTableRowId} from '../DataTable'
 
 export default {
   title: 'Experimental/Components/Table/Features',
@@ -68,7 +68,7 @@ export const WithRowSelection = () => {
   const selectionColumnId = `${id}-selection`
   const nameColumnId = `${id}-name`
   const visibilityColumnId = `${id}-visibility`
-  const [selectedRows, setSelectedRows] = useState(() => new Set([2]))
+  const [selectedRows, setSelectedRows] = useState<ReadonlySet<DataTableRowId>>(() => new Set([2]))
   const selectableRows = groups.flatMap(group => group.rows).filter(row => row.id !== 1)
   const selectedCount = selectableRows.filter(row => selectedRows.has(row.id)).length
   const allSelected = selectableRows.length > 0 && selectedCount === selectableRows.length
@@ -83,8 +83,7 @@ export const WithRowSelection = () => {
           <Table.Row>
             <Table.SelectionHeader
               id={selectionColumnId}
-              checked={allSelected}
-              indeterminate={selectedCount > 0 && !allSelected}
+              selection={allSelected ? 'all' : selectedCount > 0 ? 'some' : 'none'}
               disabled={selectableRows.length === 0}
               aria-label="Select rows"
               aria-description={
@@ -92,8 +91,8 @@ export const WithRowSelection = () => {
                   ? `Select all ${selectableRows.length} ${selectableRows.length === 1 ? 'row' : 'rows'}`
                   : undefined
               }
-              onChange={event => {
-                setSelectedRows(event.target.checked ? new Set(selectableRows.map(row => row.id)) : new Set())
+              onToggleSelect={() => {
+                setSelectedRows(allSelected ? new Set() : new Set(selectableRows.map(row => row.id)))
               }}
             />
             <Table.Header id={nameColumnId}>Name</Table.Header>
@@ -109,18 +108,17 @@ export const WithRowSelection = () => {
               return (
                 <Table.Row key={repo.id}>
                   <Table.RowSelection
-                    checked={selectable && selectedRows.has(repo.id)}
+                    selected={selectable && selectedRows.has(repo.id)}
                     disabled={!selectable}
                     headers={selectionColumnId}
                     aria-labelledby={rowHeaderId}
-                    onChange={event => {
-                      const checked = event.target.checked
+                    onToggleSelect={() => {
                       setSelectedRows(previous => {
                         const next = new Set(previous)
-                        if (checked) {
-                          next.add(repo.id)
-                        } else {
+                        if (next.has(repo.id)) {
                           next.delete(repo.id)
+                        } else {
+                          next.add(repo.id)
                         }
                         return next
                       })

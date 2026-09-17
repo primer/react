@@ -14,7 +14,7 @@ import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {Blankslate} from '../Blankslate'
 import {Button, IconButton} from '../Button'
-import {DataTable, type DataTableProps, Table} from '../DataTable'
+import {DataTable, type DataTableProps, type DataTableRowId, Table} from '../DataTable'
 import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
@@ -1751,7 +1751,7 @@ const groupedColumns = [
 ]
 
 export const WithRowSelection = () => {
-  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set([2]))
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set([2]))
 
   return (
     <Table.Container>
@@ -1773,7 +1773,7 @@ export const WithRowSelection = () => {
 }
 
 export const WithGroupedRowSelection = () => {
-  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set())
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
 
   return (
     <Table.Container>
@@ -1795,6 +1795,14 @@ export const WithGroupedRowSelection = () => {
   )
 }
 
+WithGroupedRowSelection.parameters = {
+  docs: {
+    description: {
+      story: '`codeql-dca-worker` is not selectable and is excluded from select-all.',
+    },
+  },
+}
+
 const sortableGroupedColumns = [
   columnHelper.column({
     header: 'Name',
@@ -1806,8 +1814,8 @@ const sortableGroupedColumns = [
   groupedColumns[1],
 ]
 
-export const WithMixedRowSelection = () => {
-  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set())
+export const WithStandaloneAndGroupedRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
 
   return (
     <Table.Container>
@@ -1820,7 +1828,6 @@ export const WithMixedRowSelection = () => {
         columns={sortableGroupedColumns}
         rowSelection
         selectedRows={selectedRows}
-        isRowSelectable={repo => repo.id !== 1}
         onSelectionChange={({selectedRows: nextSelectedRows}) => {
           setSelectedRows(nextSelectedRows)
         }}
@@ -1871,7 +1878,7 @@ const paginationData: DataTableData<PaginatedRepository> = [
   {id: 101, name: 'standalone/after', visibility: 'Unassigned'},
 ]
 
-function getPageData(source: DataTableData<PaginatedRepository>, pageRows: ReadonlySet<number>) {
+function getPageData(source: DataTableData<PaginatedRepository>, pageRows: ReadonlySet<DataTableRowId>) {
   // Count data rows, not headings, and preserve each item's position and group membership.
   return source.flatMap((item): DataTableData<PaginatedRepository> => {
     if ('rows' in item) {
@@ -1915,68 +1922,39 @@ export const WithGroups = () => {
 
 export const WithPaginatedRowSelection = () => {
   const titleId = React.useId()
-  const [source, setSource] = React.useState(paginationData)
   const [pageIndex, setPageIndex] = React.useState(0)
-  const [publicOnly, setPublicOnly] = React.useState(false)
-  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<string | number>>(() => new Set())
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
   const pageSize = 10
-  const allRows = source
-    .flatMap(item => ('rows' in item ? item.rows : [item]))
-    .filter(row => !publicOnly || row.visibility === 'Public')
+  const allRows = paginationData.flatMap(item => ('rows' in item ? item.rows : [item]))
   const pageRows = new Set(allRows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(row => row.id))
-  const data = getPageData(source, pageRows)
+  const data = getPageData(paginationData, pageRows)
 
   return (
-    <>
-      <p>
-        Changing the page or filter clears selection. Refreshing row objects or sorting the current page preserves it.
-      </p>
-      <Button
-        aria-pressed={publicOnly}
-        onClick={() => {
-          setPublicOnly(!publicOnly)
-          setPageIndex(0)
+    <Table.Container>
+      <Table.Title as="h2" id={titleId}>
+        Selectable paginated repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby={titleId}
+        data={data}
+        columns={[
+          {header: 'Name', field: 'name', rowHeader: true},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
+      />
+      <Table.Pagination
+        aria-label="Pagination for selectable repositories"
+        pageSize={pageSize}
+        totalCount={allRows.length}
+        onChange={({pageIndex}) => {
+          setPageIndex(pageIndex)
+          // Selection applies only to the current page.
           setSelectedRows(new Set())
         }}
-      >
-        Public only
-      </Button>{' '}
-      <Button
-        onClick={() => {
-          setSource(
-            source.map(item => ('rows' in item ? {...item, rows: item.rows.map(row => ({...row}))} : {...item})),
-          )
-        }}
-      >
-        Refresh rows
-      </Button>
-      <Table.Container>
-        <Table.Title as="h2" id={titleId}>
-          Selectable paginated repositories
-        </Table.Title>
-        <DataTable
-          aria-labelledby={titleId}
-          data={data}
-          columns={[
-            {header: 'Name', field: 'name', rowHeader: true, sortBy: true},
-            {header: 'Visibility', field: 'visibility'},
-          ]}
-          rowSelection
-          selectedRows={selectedRows}
-          onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
-        />
-        <Table.Pagination
-          // Pagination has an uncontrolled page index; a new filter starts it at page zero.
-          key={String(publicOnly)}
-          aria-label="Pagination for selectable repositories"
-          pageSize={pageSize}
-          totalCount={allRows.length}
-          onChange={({pageIndex}) => {
-            setPageIndex(pageIndex)
-            setSelectedRows(new Set())
-          }}
-        />
-      </Table.Container>
-    </>
+      />
+    </Table.Container>
   )
 }

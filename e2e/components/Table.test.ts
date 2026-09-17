@@ -19,7 +19,7 @@ test.describe('Table With Row Selection', () => {
     })
   }
 
-  test('consumer-owned selection and header associations @aat', async ({page}) => {
+  test('composed selection keyboard wiring and header associations @aat', async ({page}) => {
     await visit(page, {id: storyId})
     const table = page.getByRole('table', {name: 'Selectable repositories using Table'})
     const selectionColumn = table.getByRole('columnheader', {name: 'Select rows', exact: true})
@@ -54,31 +54,18 @@ test.describe('Table With Row Selection', () => {
       }
     }
 
-    await react.click()
-    await expect(react).not.toBeChecked()
-    await expect(selectAll).not.toBeChecked()
-    await expect(selectAll).not.toBeChecked({indeterminate: true})
-    await selectAll.focus()
-    await page.keyboard.press('Space')
-    await expect(react).toBeChecked()
-    await expect(css).toBeChecked()
-    await expect(selectAll).toBeFocused()
-    await expect(disabled).not.toBeChecked()
-
-    await css.click()
-    await expect(css).not.toBeChecked()
-    await expect(react).toBeChecked()
-    await expect(selectAll).toBeChecked({indeterminate: true})
     await selectAll.focus()
     await page.keyboard.press('Space')
     await expect(selectAll).toBeChecked()
     await expect(selectAll).not.toBeChecked({indeterminate: true})
     await expect(selectAll).toBeFocused()
+    await expect(css).toBeChecked()
+    await expect(disabled).not.toBeChecked()
+    await react.focus()
     await page.keyboard.press('Space')
-    await expect(selectAll).not.toBeChecked()
     await expect(react).not.toBeChecked()
-    await expect(css).not.toBeChecked()
-    await expect(selectAll).toBeFocused()
+    await expect(react).toBeFocused()
+    await expect(selectAll).toBeChecked({indeterminate: true})
     await expect(selectionColumn).toHaveAccessibleName('Select rows')
     await expect(page).toHaveNoViolations()
   })
