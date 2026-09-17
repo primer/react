@@ -110,6 +110,69 @@ const stories = [
 ] as const
 
 test.describe('Button', () => {
+  test('link variant limits visual button underlines to the label', async ({page}) => {
+    await visit(page, {
+      id: 'components-button-dev--link-variant-with-underline-preference',
+    })
+
+    const button = (preference: 'on' | 'off', hasVisual: boolean) => {
+      const visual = page.locator('[data-component="leadingVisual"]')
+      const preferenceButton = page
+        .locator(`[data-a11y-link-underlines="${preference === 'on'}"]`)
+        .getByRole('button', {name: `Underline pref ${preference}`})
+
+      return preferenceButton.filter(hasVisual ? {has: visual} : {hasNot: visual})
+    }
+
+    const preferenceOnTextButton = button('on', false)
+    await expect(preferenceOnTextButton).toHaveCSS('text-decoration-line', 'underline')
+    await preferenceOnTextButton.hover()
+    await expect(preferenceOnTextButton).toHaveCSS('text-decoration-line', 'none')
+    await page.mouse.move(0, 0)
+
+    const preferenceOnVisualButton = button('on', true)
+    const preferenceOnVisualLabel = preferenceOnVisualButton.locator('[data-component="text"]')
+    await expect(preferenceOnVisualButton).toHaveCSS('text-decoration-line', 'none')
+    await expect(preferenceOnVisualButton).toHaveCSS('background-image', 'none')
+    await expect(preferenceOnVisualLabel).toHaveCSS('text-decoration-line', 'underline')
+    await expect(preferenceOnVisualLabel).toHaveCSS('text-underline-offset', '2px')
+    await preferenceOnVisualButton.hover()
+    await expect(preferenceOnVisualLabel).toHaveCSS('text-decoration-line', 'none')
+
+    await preferenceOnVisualButton.evaluate(element => element.setAttribute('aria-disabled', 'true'))
+    await expect(preferenceOnVisualLabel).toHaveCSS('text-decoration-line', 'underline')
+
+    await preferenceOnVisualButton.evaluate(element => {
+      element.removeAttribute('aria-disabled')
+      element.setAttribute('data-inactive', 'true')
+    })
+    await expect(preferenceOnVisualLabel).toHaveCSS('text-decoration-line', 'underline')
+    await page.mouse.move(0, 0)
+
+    const preferenceOffTextButton = button('off', false)
+    await expect(preferenceOffTextButton).toHaveCSS('text-decoration-line', 'none')
+    await preferenceOffTextButton.hover()
+    await expect(preferenceOffTextButton).toHaveCSS('text-decoration-line', 'underline')
+    await page.mouse.move(0, 0)
+
+    const preferenceOffVisualButton = button('off', true)
+    const preferenceOffVisualLabel = preferenceOffVisualButton.locator('[data-component="text"]')
+    await expect(preferenceOffVisualButton).toHaveCSS('text-decoration-line', 'none')
+    await expect(preferenceOffVisualButton).toHaveCSS('background-image', 'none')
+    await expect(preferenceOffVisualLabel).toHaveCSS('text-decoration-line', 'none')
+    await preferenceOffVisualButton.hover()
+    await expect(preferenceOffVisualLabel).toHaveCSS('text-decoration-line', 'underline')
+
+    await preferenceOffVisualButton.evaluate(element => element.setAttribute('aria-disabled', 'true'))
+    await expect(preferenceOffVisualLabel).toHaveCSS('text-decoration-line', 'none')
+
+    await preferenceOffVisualButton.evaluate(element => {
+      element.removeAttribute('aria-disabled')
+      element.setAttribute('data-inactive', 'true')
+    })
+    await expect(preferenceOffVisualLabel).toHaveCSS('text-decoration-line', 'none')
+  })
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
