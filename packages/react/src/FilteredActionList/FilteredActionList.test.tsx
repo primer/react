@@ -100,6 +100,21 @@ describe('FilteredActionList', () => {
       ).toBeInTheDocument()
     })
   })
+
+  it('does not warn when measuring virtualized items', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    try {
+      const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} virtualized />)
+
+      expect(container.querySelector('[data-index]')).toBeInTheDocument()
+      expect(warnSpy.mock.calls.flat().join(' ')).not.toContain(
+        "Missing attribute name 'data-index={index}' on measured element.",
+      )
+    } finally {
+      warnSpy.mockRestore()
+    }
+  })
 })
 
 describe('FilteredActionListBodyLoader', () => {
