@@ -59,3 +59,5 @@ export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
     </div>
   )
 }
+
+SelectPanelMessage.displayName = 'SelectPanel.Message'
