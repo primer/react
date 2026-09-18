@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.40.1
+
+### Patch Changes
+
+- [#8413](https://github.com/primer/react/pull/8413) [`d4e30ed`](https://github.com/primer/react/commit/d4e30ed186af6ae781b3adcf83278e0c2001a834) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - SelectPanel: Announce the filter input label when focus moves into the panel
+
 ## 38.40.0
 
 ### Minor Changes
