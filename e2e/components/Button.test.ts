@@ -116,7 +116,9 @@ test.describe('Button', () => {
     })
 
     const button = (preference: 'on' | 'off', hasVisual: boolean) => {
-      const visual = page.locator('[data-component="leadingVisual"]')
+      const visual = page.locator(
+        '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]',
+      )
       const preferenceButton = page
         .locator(`[data-a11y-link-underlines="${preference === 'on'}"]`)
         .getByRole('button', {name: `Underline pref ${preference}`})
