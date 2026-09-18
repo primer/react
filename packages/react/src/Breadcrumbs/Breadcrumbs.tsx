@@ -109,6 +109,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
           ref={menuButtonRef}
           aria-label={ariaLabel || `${items.length} more breadcrumb items`}
           aria-expanded={isOpen ? 'true' : 'false'}
+          aria-haspopup="true"
           onClick={handleSummaryClick}
           variant="invisible"
           size="small"
