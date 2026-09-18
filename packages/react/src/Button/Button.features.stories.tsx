@@ -194,6 +194,12 @@ export const Large = () => <Button size="large">Default</Button>
 
 export const Loading = () => <Button loading>Default</Button>
 
+export const LoadingPrimary = () => (
+  <Button variant="primary" loading>
+    Submit
+  </Button>
+)
+
 export const LoadingCustomAnnouncement = () => (
   <Button loading loadingAnnouncement="This is a custom loading announcement">
     Default
