@@ -67,6 +67,19 @@ describe('Dialog', () => {
     expect(getByRole('dialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
   })
 
+  it('forwards id, data-testid, and other unknown attributes to the root dialog element', () => {
+    const {getByRole, getByTestId} = render(
+      <Dialog id="my-dialog" data-testid="my-dialog" data-custom="value" aria-keyshortcuts="Escape" onClose={() => {}}>
+        Content
+      </Dialog>,
+    )
+    const dialog = getByRole('dialog')
+    expect(dialog).toHaveAttribute('id', 'my-dialog')
+    expect(dialog).toHaveAttribute('data-custom', 'value')
+    expect(dialog).toHaveAttribute('aria-keyshortcuts', 'Escape')
+    expect(getByTestId('my-dialog')).toBe(dialog)
+  })
+
   it('renders data-component hooks for Dialog subcomponents', () => {
     const {getByRole} = render(
       <Dialog
