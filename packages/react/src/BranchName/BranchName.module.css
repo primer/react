@@ -1,5 +1,6 @@
 .BranchName {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: var(--base-size-2) var(--base-size-6);
   font-family: var(--fontStack-monospace);
   font-size: var(--text-body-size-small);
@@ -10,5 +11,64 @@
 
   &:is(:not(a)) {
     color: var(--fgColor-muted);
+  }
+
+  [data-component='BranchName.LeadingVisual'] {
+    display: inline-flex;
+    align-items: center;
+    margin-inline-end: var(--base-size-4);
+  }
+}
+
+/* Container for BranchName with trailing actions */
+.BranchNameWithTrailingAction {
+  display: inline-flex;
+  align-items: stretch;
+
+  /* Create room for pseudo-border divider */
+  gap: var(--borderWidth-default);
+  flex-wrap: nowrap;
+  /* Moving the background to the container allows stacking the button hover background over it */
+  background-color: var(--bgColor-accent-muted);
+  border-radius: var(--borderRadius-medium);
+
+  [data-component='BranchName'] {
+    background-color: transparent;
+  }
+
+  [data-component='BranchName.TrailingAction'] {
+    display: inline-flex;
+    align-items: stretch;
+  }
+
+  [data-component='IconButton'] {
+    /* Make the size auto calculated based on icon size and padding */
+    height: auto;
+    width: auto;
+    padding: var(--base-size-2) var(--base-size-6);
+    position: relative;
+    align-items: center;
+
+    &:not(:disabled, [aria-disabled='true']) {
+      --button-invisible-iconColor-rest: var(--fgColor-link);
+    }
+
+    [data-component='Octicon'] {
+      /* Set icon size to text size to exactly match the branch name component */
+      height: var(--text-body-size-small);
+      width: var(--text-body-size-small);
+    }
+
+    /* Dividing line between button and name. */
+    &::before {
+      content: '';
+      position: absolute;
+      width: var(--borderWidth-default);
+      /* Position _between_ items (offsetting by width) to avoid overlapping with the real button border on hover/focus */
+      inset: var(--base-size-4) auto var(--base-size-4) calc(-1 * var(--borderWidth-default));
+      /* we want a divider/border but are using background color to make that happen */
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-accent-muted);
+    }
   }
 }
