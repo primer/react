@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-AvatarStack: Prevent overlapping avatars from rendering over preceding avatars
+AvatarStack: Prevent a thin edge from a masked avatar from bleeding over the preceding avatar
