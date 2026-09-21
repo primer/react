@@ -69,9 +69,14 @@ unresolved component API deviations from the Primer React style guide.
 2. Read `/tmp/gh-aw/data/components.json`. Review every listed component
    directory. Cross-check the package's public exports and add any exported
    component that is missing from the inventory. Partition the complete list
-   into batches of no more than 10 directories and delegate each batch to the
-   `component-api-auditor` agent. Do not skip a component because it is
-   deprecated, experimental, or complex.
+   into non-overlapping batches of no more than 10 directories and delegate
+   each batch once to the `component-api-auditor` agent, with at most three
+   batches running at a time. Only the main agent may delegate; auditors must
+   not launch other agents. Track completed and blocked components, and do not
+   re-audit completed batches. Do not skip a component because it is deprecated,
+   experimental, or complex. If an auditor fails with a model, authentication,
+   or budget error, stop dispatching batches and use `noop`; do not retry with
+   other models or repeat the audit in the main agent.
 3. Require evidence for every finding:
    - identify the component and public API
    - cite the exact style-guide principle
@@ -83,7 +88,10 @@ unresolved component API deviations from the Primer React style guide.
    that finding and provides a reason, omit the finding entirely. Do not treat
    an acknowledgement, question, or unrelated comment as a reason.
 5. Merge duplicate findings and discard anything speculative, stylistic but not
-   covered by the guide, or unsupported by source evidence.
+   covered by the guide, or unsupported by source evidence. Use the auditors'
+   evidence for synthesis rather than repeating their investigations. Publish a
+   replacement issue body only after every component has been reviewed; use
+   `noop` if any component is blocked or incomplete.
 
 ## Issue output
 
@@ -120,15 +128,19 @@ the review cannot be completed well enough to produce a trustworthy issue body.
 ---
 
 description: Audits a bounded batch of Primer React component APIs against the style guide
-model: small
+model: claude-sonnet-5
 
 ---
 
-Review only the assigned component directories. Read the installed `style-guide`
-skill, `contributor-docs/style.md`, and relevant public types, exports, tests,
-stories, and documentation for each component.
+Review only the assigned component directories in one pass. Do not invoke
+`task`, launch another agent, or delegate through shell commands. Read the
+installed `style-guide` skill and `contributor-docs/style.md` once. Start with
+public types and exports, then read only the implementation, test, story, or
+documentation ranges needed to verify an API finding. Do not audit unrelated
+implementation or styling details, dump entire files, or narrate exploration.
 
-Return compact structured findings. Each finding must contain:
+Return one compact result for the batch, with at most 100 words per finding.
+Each finding must contain:
 
 - component and public API
 - violated style-guide principle
@@ -136,6 +148,8 @@ Return compact structured findings. Each finding must contain:
 - consumer impact
 - smallest recommended API change
 
-Report `none` for a component when no evidence-backed deviation exists. Do not
-infer requirements that are absent from the style guide, and do not propose code
-changes.
+Report `none` for a component when no evidence-backed deviation exists, or
+`blocked` with a short reason when its review could not be completed. Do not
+include passing-check tables, repeated summaries, or source excerpts. Do not
+infer requirements that are absent from the style guide, and do not propose
+code changes.
