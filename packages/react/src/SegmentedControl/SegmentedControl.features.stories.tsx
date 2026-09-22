@@ -35,6 +35,85 @@ export const WithCounterLabels = () => (
   </SegmentedControl>
 )
 
+type MultilineLabelsExampleProps = {
+  label: string
+  testId: string
+  size?: 'small' | 'medium'
+  variant?: 'default' | 'subtle'
+  selectedIndex?: 0 | 1
+  withVisuals?: boolean
+}
+
+const MultilineLabelsExample = ({
+  label,
+  testId,
+  size = 'medium',
+  variant = 'default',
+  selectedIndex = 0,
+  withVisuals = false,
+}: MultilineLabelsExampleProps) => (
+  <div className={classes.MultilineLabelsExample} data-testid={testId}>
+    <span className={classes.MultilineLabelsTitle}>{label}</span>
+    <SegmentedControl aria-label={label} fullWidth size={size} variant={variant}>
+      <SegmentedControl.Button
+        count={withVisuals ? 12 : undefined}
+        defaultSelected={selectedIndex === 0}
+        leadingVisual={withVisuals ? EyeIcon : undefined}
+      >
+        All industries
+      </SegmentedControl.Button>
+      <SegmentedControl.Button defaultSelected={selectedIndex === 1}>
+        Information &amp; technology
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+const SingleLineLabelsExample = ({
+  label,
+  testId,
+  size = 'medium',
+  variant = 'default',
+}: Omit<MultilineLabelsExampleProps, 'selectedIndex' | 'withVisuals'>) => (
+  <div className={classes.MultilineLabelsExample} data-testid={testId}>
+    <span className={classes.MultilineLabelsTitle}>{label}</span>
+    <SegmentedControl aria-label={label} fullWidth size={size} variant={variant}>
+      <SegmentedControl.Button defaultSelected>All</SegmentedControl.Button>
+      <SegmentedControl.Button>Active</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+export const MultilineLabels = () => (
+  <div className={classes.MultilineLabelsGrid}>
+    <MultilineLabelsExample label="Default, medium, first selected" testId="multiline-default-medium" />
+    <MultilineLabelsExample
+      label="Default, small, second selected"
+      selectedIndex={1}
+      size="small"
+      testId="multiline-default-small"
+    />
+    <MultilineLabelsExample label="Subtle, medium, first selected" testId="multiline-subtle-medium" variant="subtle" />
+    <MultilineLabelsExample
+      label="Subtle, small, second selected"
+      selectedIndex={1}
+      size="small"
+      testId="multiline-subtle-small"
+      variant="subtle"
+    />
+    <MultilineLabelsExample label="Default with icons and counters" testId="multiline-icons-counters" withVisuals />
+    <SingleLineLabelsExample label="Single line, default, medium" testId="single-line-default-medium" />
+    <SingleLineLabelsExample label="Single line, default, small" size="small" testId="single-line-default-small" />
+    <SingleLineLabelsExample label="Single line, subtle, medium" testId="single-line-subtle-medium" variant="subtle" />
+    <SingleLineLabelsExample
+      label="Single line, subtle, small"
+      size="small"
+      testId="single-line-subtle-small"
+      variant="subtle"
+    />
+  </div>
+)
+
 export const VariantSubtle = () => (
   <SegmentedControl aria-label="View" variant="subtle">
     <SegmentedControl.Button defaultSelected count={5}>

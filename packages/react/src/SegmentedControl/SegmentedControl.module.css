@@ -103,7 +103,7 @@
   display: inline-flex;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
-  height: 32px;
+  min-height: 32px;
   padding: 0;
   margin: 0;
   font-size: var(--text-body-size-medium);
@@ -278,7 +278,7 @@
 
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
-    height: 28px;
+    min-height: 28px;
     font-size: var(--text-body-size-small);
   }
 }

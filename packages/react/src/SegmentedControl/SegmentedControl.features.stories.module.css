@@ -8,6 +8,24 @@
   margin-top: var(--base-size-24);
 }
 
+.MultilineLabelsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 240px);
+  gap: var(--base-size-24);
+  align-items: start;
+}
+
+.MultilineLabelsExample {
+  width: 240px;
+}
+
+.MultilineLabelsTitle {
+  display: block;
+  margin-bottom: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+}
+
 @media screen and (min-width: 768px) {
   .LabelAndCaptionContainer {
     flex-direction: row;
