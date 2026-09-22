@@ -11,10 +11,10 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "rolldown": "^1.2.6"
+    "rolldown": "^1.2.8"
   },
   "devDependencies": {
-    "rolldown": "^1.2.6",
+    "rolldown": "^1.2.8",
     "typescript": "^6.0.3"
   },
   "sideEffects": false
