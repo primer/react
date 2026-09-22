@@ -196,9 +196,6 @@ test.describe('SegmentedControl', () => {
     })
 
     const control = page.getByTestId('multiline-default-medium').locator('[data-component="SegmentedControl"]')
-    const hasHorizontalPageOverflow = await page.evaluate(
-      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
-    )
 
     await control.evaluate(element => {
       const htmlElement = element as HTMLElement
@@ -208,13 +205,18 @@ test.describe('SegmentedControl', () => {
       htmlElement.style.wordSpacing = '0.16em'
     })
 
-    const contentFits = await control.evaluate(element =>
-      [...element.querySelectorAll<HTMLElement>('.segmentedControl-content')].every(
-        content => content.scrollHeight <= content.clientHeight + 1,
-      ),
-    )
+    const layout = await control.evaluate(element => {
+      const contents = [...element.querySelectorAll<HTMLElement>('.segmentedControl-content')]
 
-    expect(hasHorizontalPageOverflow).toBe(false)
-    expect(contentFits).toBe(true)
+      return {
+        hasHorizontalPageOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+        contentFits: contents.every(
+          content => content.scrollWidth <= content.clientWidth + 1 && content.scrollHeight <= content.clientHeight + 1,
+        ),
+      }
+    })
+
+    expect(layout.hasHorizontalPageOverflow).toBe(false)
+    expect(layout.contentFits).toBe(true)
   })
 })

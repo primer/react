@@ -409,6 +409,7 @@
 .Item {
   position: relative;
   display: block;
+  min-width: 0;
   /* stylelint-disable-next-line primer/spacing */
   margin-top: -1px;
   /* stylelint-disable-next-line primer/spacing */
@@ -599,15 +600,20 @@
   }
 }
 
-.Text::after {
-  display: block;
-  height: 0;
-  overflow: hidden;
-  font-weight: var(--base-text-weight-semibold);
-  pointer-events: none;
-  visibility: hidden;
-  content: attr(data-text);
-  user-select: none;
+.Text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+
+  &::after {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    font-weight: var(--base-text-weight-semibold);
+    pointer-events: none;
+    visibility: hidden;
+    content: attr(data-text);
+    user-select: none;
+  }
 }
 
 .LeadingIcon {
