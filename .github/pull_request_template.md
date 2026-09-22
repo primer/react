@@ -25,9 +25,8 @@ Closes #
 <!-- How do you recommend this change to be rolled out? Refer to [contributor docs on Versioning](https://github.com/primer/react/blob/main/contributor-docs/versioning.md) for details. -->
 
 - [ ] No changes needed in github/github-ui
-- [ ] Needs changes in github/github-ui <!-- if selected, include the commits -->
+- [ ] Needs changes in github/github-ui <!-- if selected, include the commits or link to migration plan -->
 - [ ] Ships with feature flag(s) <!-- if selected, include the flags -->
-- [ ] Migration plan <!-- if selected, include link to migration plan -->
 - [ ] None <!-- if selected, include a brief description as to why -->
 
 ### Testing & Reviewing
