@@ -26,7 +26,7 @@ Closes #
 
 - [ ] No changes needed in github/github-ui
 - [ ] Needs changes in github/github-ui <!-- if selected, include the commits or link to migration plan -->
-- [ ] Ships with feature flag(s) <!-- if selected, include the flags -->
+- [ ] Ships with feature flag(s) <!-- if selected, include the names of the feature flag(s) -->
 - [ ] None <!-- if selected, include a brief description as to why -->
 
 ### Testing & Reviewing
