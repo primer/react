@@ -414,6 +414,7 @@
   margin-top: -1px;
   /* stylelint-disable-next-line primer/spacing */
   margin-bottom: -1px;
+  flex-basis: min-content;
   flex-grow: 1;
 
   &:not(:last-child) {
@@ -602,7 +603,7 @@
 
 .Text {
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 
   &::after {
     display: block;
