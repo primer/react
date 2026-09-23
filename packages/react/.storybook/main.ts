@@ -18,7 +18,11 @@ const config: StorybookConfig = {
     DEPLOY_ENV === 'development'
       ? ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)']
       : // Don't include dev stories in production
-        ['../src/**/*.mdx', '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)'],
+        [
+          '../src/**/*.mdx',
+          '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)',
+          '../src/SelectPanel/SelectPanel.live-region-bug.dev.stories.tsx',
+        ],
 
   staticDirs: ['../static'],
 
