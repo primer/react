@@ -37,7 +37,7 @@ vi.mock('@primer/behaviors', async () => {
 
 // Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
 export function getLiveRegion(): LiveRegionElement {
-  const liveRegion = document.querySelector('live-region')
+  const liveRegion = document.querySelector('[data-testid="filtered-action-list"] live-region, live-region')
   if (liveRegion) {
     return liveRegion as LiveRegionElement
   }
@@ -856,6 +856,34 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           },
           {timeout: 3000},
         )
+      })
+
+      it('should not use a live region inside an unrelated closed dialog', async () => {
+        document.querySelector('live-region')?.remove()
+
+        const closedDialog = document.createElement('dialog')
+        const hiddenLiveRegion = document.createElement('live-region') as LiveRegionElement
+        closedDialog.appendChild(hiddenLiveRegion)
+        document.body.appendChild(closedDialog)
+
+        const user = userEvent.setup()
+        renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+        await user.type(document.activeElement!, 'zero')
+
+        await waitFor(
+          () => {
+            const activeLiveRegion = screen
+              .getByTestId('filtered-action-list')
+              .querySelector('live-region') as LiveRegionElement | null
+            expect(activeLiveRegion?.getMessage('polite')?.trim()).toBe('No items available.')
+          },
+          {timeout: 3000},
+        )
+
+        expect(hiddenLiveRegion.getMessage('polite')).toBe('')
+        closedDialog.remove()
       })
 
       it('should announce custom empty message when no results are available', async () => {

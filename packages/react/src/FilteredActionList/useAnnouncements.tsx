@@ -1,7 +1,7 @@
 // Announcements for FilteredActionList (and SelectPanel) based
 // on https://github.com/github/multi-select-user-testing
 
-import {announce as liveRegionAnnounce} from '@primer/live-region-element'
+import {announce as liveRegionAnnounce, type LiveRegionElement} from '@primer/live-region-element'
 import {useCallback, useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './index'
 import type {ItemInput} from '../SelectPanel'
@@ -78,8 +78,7 @@ export const useAnnouncements = (
   filterValue?: string,
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
-
-  const liveRegion = document.querySelector('live-region')
+  const liveRegionRef = useRef<LiveRegionElement | null>(null)
 
   // Notify user of the number of items available
   const selectedItems = items.filter(item => item.selected).length
@@ -93,12 +92,33 @@ export const useAnnouncements = (
     [enabled],
   )
 
+  useEffect(
+    function addLocalLiveRegion() {
+      if (!enabled) return
+
+      const container = inputRef.current?.parentElement
+      if (!container) return
+
+      const liveRegion = document.createElement('live-region') as LiveRegionElement
+      container.appendChild(liveRegion)
+      liveRegionRef.current = liveRegion
+
+      return () => {
+        liveRegionRef.current = null
+        liveRegion.remove()
+      }
+    },
+    [enabled, inputRef],
+  )
+
   const onInputFocus = useCallback(() => {
+    const inputElement = inputRef.current
+
     if (usingRovingTabindex) {
       const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
       announce(announcementText, {
         delayMs,
-        from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+        from: inputElement ?? undefined,
       })
       return
     }
@@ -117,10 +137,10 @@ export const useAnnouncements = (
       ].join(', ')
       announce(announcementText, {
         delayMs,
-        from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+        from: inputElement ?? undefined,
       })
     })
-  }, [announce, inputRef, items, listContainerRef, liveRegion, selectedItems, usingRovingTabindex])
+  }, [announce, inputRef, items, listContainerRef, selectedItems, usingRovingTabindex])
 
   const announcementState = getAnnouncementState(items, loading, message, filterValue)
   const previousAnnouncementState = useRef(announcementState)
@@ -129,11 +149,15 @@ export const useAnnouncements = (
       if (previousAnnouncementState.current === announcementState) return
       previousAnnouncementState.current = announcementState
 
-      liveRegion?.clear() // clear previous announcements
+      const inputElement = inputRef.current
+      liveRegionRef.current?.clear() // clear previous announcements
 
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !loading) {
-        announce(`${message?.title}. ${message?.description}`, {delayMs})
+        announce(`${message?.title}. ${message?.description}`, {
+          delayMs,
+          from: inputElement ?? undefined,
+        })
         return
       }
 
@@ -142,7 +166,7 @@ export const useAnnouncements = (
 
         announce(announcementText, {
           delayMs,
-          from: liveRegion ? liveRegion : undefined,
+          from: inputElement ?? undefined,
         })
       } else {
         // give @primer/behaviors a moment to update active-descendant
@@ -160,7 +184,7 @@ export const useAnnouncements = (
 
           announce(announcementText, {
             delayMs,
-            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+            from: inputElement ?? undefined,
           })
         })
       }
@@ -168,9 +192,9 @@ export const useAnnouncements = (
     [
       announce,
       announcementState,
+      inputRef,
       items,
       listContainerRef,
-      liveRegion,
       usingRovingTabindex,
       message?.title,
       message?.description,
