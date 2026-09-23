@@ -210,6 +210,18 @@ test.describe('SegmentedControl', () => {
     }
   })
 
+  test('single-line controls do not stretch to adjacent label and caption content', async ({page}) => {
+    await visit(page, {
+      id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
+    })
+
+    const controlHeight = await page
+      .locator('[data-component="SegmentedControl"]')
+      .evaluate(control => control.getBoundingClientRect().height)
+
+    expect(controlHeight).toBe(32)
+  })
+
   test('icon and counter labels remain unclipped without unnecessary wrapping', async ({page}) => {
     await visit(page, {
       id: 'components-segmentedcontrol-features--multiline-labels',

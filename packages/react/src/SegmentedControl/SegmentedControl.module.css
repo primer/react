@@ -103,6 +103,7 @@
   display: inline-flex;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
+  height: fit-content;
   min-height: 32px;
   padding: 0;
   margin: 0;
