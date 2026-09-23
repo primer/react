@@ -144,7 +144,16 @@ test.describe('SegmentedControl', () => {
 
         const textLayouts = texts.map(text => {
           const textNode = text.firstChild
-          if (!(textNode instanceof Text)) return {lineCount: 0, splitWords: []}
+          const style = getComputedStyle(text)
+          if (!(textNode instanceof Text)) {
+            return {
+              lineCount: 0,
+              splitWords: [],
+              whiteSpace: style.whiteSpace,
+              overflowWrap: style.overflowWrap,
+              wordBreak: style.wordBreak,
+            }
+          }
 
           const textRange = document.createRange()
           textRange.selectNodeContents(textNode)
@@ -162,6 +171,9 @@ test.describe('SegmentedControl', () => {
           return {
             lineCount: textRange.getClientRects().length,
             splitWords,
+            whiteSpace: style.whiteSpace,
+            overflowWrap: style.overflowWrap,
+            wordBreak: style.wordBreak,
           }
         })
 
@@ -183,6 +195,11 @@ test.describe('SegmentedControl', () => {
     expect(layout.contentFits).toBe(true)
     expect(layout.textLayouts.every(text => text.lineCount > 1)).toBe(true)
     expect(layout.textLayouts.flatMap(text => text.splitWords)).toEqual([])
+    expect(
+      layout.textLayouts.every(
+        text => text.whiteSpace === 'normal' && text.overflowWrap === 'normal' && text.wordBreak === 'normal',
+      ),
+    ).toBe(true)
     expect(layout.selectedContentHeight).toBeDefined()
     expect(layout.selectedButtonHeight).toBeDefined()
     expect(layout.selectedContentHeight ?? 0).toBeCloseTo(layout.selectedButtonHeight ?? 0, 1)
@@ -237,7 +254,17 @@ test.describe('SegmentedControl', () => {
         const texts = [...control.querySelectorAll<HTMLElement>('.segmentedControl-text')]
         const textLayouts = texts.map(text => {
           const textNode = text.firstChild
-          if (!(textNode instanceof Text)) return {lineCount: 0, splitWords: []}
+          const style = getComputedStyle(text)
+          if (!(textNode instanceof Text)) {
+            return {
+              lineCount: 0,
+              splitWords: [],
+              whiteSpace: style.whiteSpace,
+              overflowWrap: style.overflowWrap,
+              wordBreak: style.wordBreak,
+              fits: false,
+            }
+          }
 
           const textRange = document.createRange()
           textRange.selectNodeContents(textNode)
@@ -255,6 +282,10 @@ test.describe('SegmentedControl', () => {
           return {
             lineCount: textRange.getClientRects().length,
             splitWords,
+            whiteSpace: style.whiteSpace,
+            overflowWrap: style.overflowWrap,
+            wordBreak: style.wordBreak,
+            fits: text.scrollWidth <= text.clientWidth + 1 && text.scrollHeight <= text.clientHeight + 1,
           }
         })
 
@@ -272,6 +303,12 @@ test.describe('SegmentedControl', () => {
     expect(layout.contentFits).toBe(true)
     expect(layout.textLayouts.every(text => text.lineCount === 1)).toBe(true)
     expect(layout.textLayouts.flatMap(text => text.splitWords)).toEqual([])
+    expect(layout.textLayouts.every(text => text.fits)).toBe(true)
+    expect(
+      layout.textLayouts.every(
+        text => text.whiteSpace === 'normal' && text.overflowWrap === 'normal' && text.wordBreak === 'normal',
+      ),
+    ).toBe(true)
   })
 
   test('multiline labels reflow at 320px and preserve enlarged and spaced text', async ({page}) => {
