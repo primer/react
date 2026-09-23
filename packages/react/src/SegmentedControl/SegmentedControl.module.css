@@ -95,24 +95,10 @@
   }
 }
 
-@define-mixin intrinsicWidth {
-  --segmented-control-item-flex-basis: auto;
-  --segmented-control-content-min-width: auto;
-  --segmented-control-text-overflow-wrap: normal;
-}
-
-@define-mixin constrainedWidth {
-  --segmented-control-item-flex-basis: min-content;
-  --segmented-control-content-min-width: 0;
-  --segmented-control-text-overflow-wrap: break-word;
-}
-
 .SegmentedControl {
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
   --segmented-control-outer-radius: var(--borderRadius-medium);
-
-  @mixin intrinsicWidth;
 
   display: inline-flex;
 
@@ -149,8 +135,6 @@
 
   /* Responsive full-width */
   &[data-full-width='true'] {
-    @mixin constrainedWidth;
-
     display: flex;
     width: 100%;
 
@@ -158,8 +142,6 @@
   }
 
   &[data-full-width='false'] {
-    @mixin intrinsicWidth;
-
     display: inline-flex;
     width: auto;
 
@@ -181,8 +163,6 @@
 
   @media (--viewportRange-narrow) {
     &[data-full-width-narrow='true'] {
-      @mixin constrainedWidth;
-
       display: flex;
       width: 100%;
 
@@ -190,8 +170,6 @@
     }
 
     &[data-full-width-narrow='false'] {
-      @mixin intrinsicWidth;
-
       display: inline-flex;
       width: auto;
 
@@ -201,8 +179,6 @@
 
   @media (--viewportRange-regular) {
     &[data-full-width-regular='true'] {
-      @mixin constrainedWidth;
-
       display: flex;
       width: 100%;
 
@@ -210,8 +186,6 @@
     }
 
     &[data-full-width-regular='false'] {
-      @mixin intrinsicWidth;
-
       display: inline-flex;
       width: auto;
 
@@ -221,8 +195,6 @@
 
   @media (--viewportRange-wide) {
     &[data-full-width-wide='true'] {
-      @mixin constrainedWidth;
-
       display: flex;
       width: 100%;
 
@@ -230,8 +202,6 @@
     }
 
     &[data-full-width-wide='false'] {
-      @mixin intrinsicWidth;
-
       display: inline-flex;
       width: auto;
 
@@ -239,8 +209,6 @@
     }
 
     &[data-full-width-regular='true']:not([data-full-width-wide='true']) {
-      @mixin intrinsicWidth;
-
       display: inline-flex;
       width: auto;
 
@@ -441,12 +409,10 @@
 .Item {
   position: relative;
   display: block;
-  min-width: var(--segmented-control-content-min-width);
   /* stylelint-disable-next-line primer/spacing */
   margin-top: -1px;
   /* stylelint-disable-next-line primer/spacing */
   margin-bottom: -1px;
-  flex-basis: var(--segmented-control-item-flex-basis);
   flex-grow: 1;
 
   &:not(:last-child) {
@@ -633,20 +599,15 @@
   }
 }
 
-.Text {
-  min-width: var(--segmented-control-content-min-width);
-  overflow-wrap: var(--segmented-control-text-overflow-wrap);
-
-  &::after {
-    display: block;
-    height: 0;
-    overflow: hidden;
-    font-weight: var(--base-text-weight-semibold);
-    pointer-events: none;
-    visibility: hidden;
-    content: attr(data-text);
-    user-select: none;
-  }
+.Text::after {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  font-weight: var(--base-text-weight-semibold);
+  pointer-events: none;
+  visibility: hidden;
+  content: attr(data-text);
+  user-select: none;
 }
 
 .LeadingIcon {

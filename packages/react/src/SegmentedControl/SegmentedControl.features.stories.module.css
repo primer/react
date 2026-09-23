@@ -9,14 +9,26 @@
 }
 
 .MultilineLabelsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 240px);
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--base-size-24);
   align-items: start;
 }
 
 .MultilineLabelsExample {
   width: 240px;
+}
+
+.MultilineLabelsExampleWide {
+  flex-basis: 352px;
+}
+
+.MultilineLabelsExampleVisuals {
+  flex-basis: 480px;
+}
+
+.MultilineLabelsExampleReflow {
+  width: min(288px, 100%);
 }
 
 .MultilineLabelsTitle {

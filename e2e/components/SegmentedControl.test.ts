@@ -126,45 +126,66 @@ test.describe('SegmentedControl', () => {
     })
   }
 
-  test('multiline labels grow to the tallest segment', async ({page}) => {
+  test('naturally wrapped labels grow to the tallest segment without splitting words', async ({page}) => {
     await visit(page, {
       id: 'components-segmentedcontrol-features--multiline-labels',
     })
 
-    const multilineCases = [
-      {testId: 'multiline-default-medium', minimumHeight: 32},
-      {testId: 'multiline-default-small', minimumHeight: 28},
-      {testId: 'multiline-subtle-medium', minimumHeight: 32},
-      {testId: 'multiline-subtle-small', minimumHeight: 28},
-    ]
+    const layout = await page
+      .getByTestId('multiline-natural-wrap')
+      .locator('[data-component="SegmentedControl"]')
+      .evaluate(control => {
+        const buttons = [...control.querySelectorAll<HTMLButtonElement>('button')]
+        const buttonHeights = buttons.map(button => button.getBoundingClientRect().height)
+        const contents = [...control.querySelectorAll<HTMLElement>('.segmentedControl-content')]
+        const texts = [...control.querySelectorAll<HTMLElement>('.segmentedControl-text')]
+        const selectedButton = control.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')
+        const selectedContent = selectedButton?.querySelector<HTMLElement>('.segmentedControl-content')
 
-    for (const {testId, minimumHeight} of multilineCases) {
-      const layout = await page
-        .getByTestId(testId)
-        .locator('[data-component="SegmentedControl"]')
-        .evaluate(control => {
-          const buttons = [...control.querySelectorAll<HTMLButtonElement>('button')]
-          const buttonHeights = buttons.map(button => button.getBoundingClientRect().height)
-          const contents = [...control.querySelectorAll<HTMLElement>('.segmentedControl-content')]
-          const selectedButton = control.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')
-          const selectedContent = selectedButton?.querySelector<HTMLElement>('.segmentedControl-content')
+        const textLayouts = texts.map(text => {
+          const textNode = text.firstChild
+          if (!(textNode instanceof Text)) return {lineCount: 0, splitWords: []}
+
+          const textRange = document.createRange()
+          textRange.selectNodeContents(textNode)
+
+          const splitWords = [...textNode.data.matchAll(/\S+/g)]
+            .filter(match => {
+              const wordRange = document.createRange()
+              const start = match.index
+              wordRange.setStart(textNode, start)
+              wordRange.setEnd(textNode, start + match[0].length)
+              return wordRange.getClientRects().length > 1
+            })
+            .map(match => match[0])
 
           return {
-            controlHeight: control.getBoundingClientRect().height,
-            buttonHeightSpread: Math.max(...buttonHeights) - Math.min(...buttonHeights),
-            contentFits: contents.every(content => content.scrollHeight <= content.clientHeight + 1),
-            selectedContentHeight: selectedContent?.getBoundingClientRect().height,
-            selectedButtonHeight: selectedButton?.getBoundingClientRect().height,
+            lineCount: textRange.getClientRects().length,
+            splitWords,
           }
         })
 
-      expect(layout.controlHeight).toBeGreaterThan(minimumHeight)
-      expect(layout.buttonHeightSpread).toBeLessThanOrEqual(0.5)
-      expect(layout.contentFits).toBe(true)
-      expect(layout.selectedContentHeight).toBeDefined()
-      expect(layout.selectedButtonHeight).toBeDefined()
-      expect(layout.selectedContentHeight ?? 0).toBeCloseTo(layout.selectedButtonHeight ?? 0, 1)
-    }
+        return {
+          controlHeight: control.getBoundingClientRect().height,
+          buttonHeightSpread: Math.max(...buttonHeights) - Math.min(...buttonHeights),
+          contentFits: contents.every(
+            content =>
+              content.scrollWidth <= content.clientWidth + 1 && content.scrollHeight <= content.clientHeight + 1,
+          ),
+          selectedContentHeight: selectedContent?.getBoundingClientRect().height,
+          selectedButtonHeight: selectedButton?.getBoundingClientRect().height,
+          textLayouts,
+        }
+      })
+
+    expect(layout.controlHeight).toBeGreaterThan(32)
+    expect(layout.buttonHeightSpread).toBeLessThanOrEqual(0.5)
+    expect(layout.contentFits).toBe(true)
+    expect(layout.textLayouts.every(text => text.lineCount > 1)).toBe(true)
+    expect(layout.textLayouts.flatMap(text => text.splitWords)).toEqual([])
+    expect(layout.selectedContentHeight).toBeDefined()
+    expect(layout.selectedButtonHeight).toBeDefined()
+    expect(layout.selectedContentHeight ?? 0).toBeCloseTo(layout.selectedButtonHeight ?? 0, 1)
   })
 
   test('single-line labels preserve the existing control heights', async ({page}) => {
@@ -189,13 +210,65 @@ test.describe('SegmentedControl', () => {
     }
   })
 
+  test('icon and counter labels remain unclipped without unnecessary wrapping', async ({page}) => {
+    await visit(page, {
+      id: 'components-segmentedcontrol-features--multiline-labels',
+    })
+
+    const layout = await page
+      .getByTestId('long-label-icons-counters')
+      .locator('[data-component="SegmentedControl"]')
+      .evaluate(control => {
+        const buttons = [...control.querySelectorAll<HTMLButtonElement>('button')]
+        const buttonHeights = buttons.map(button => button.getBoundingClientRect().height)
+        const contents = [...control.querySelectorAll<HTMLElement>('.segmentedControl-content')]
+        const texts = [...control.querySelectorAll<HTMLElement>('.segmentedControl-text')]
+        const textLayouts = texts.map(text => {
+          const textNode = text.firstChild
+          if (!(textNode instanceof Text)) return {lineCount: 0, splitWords: []}
+
+          const textRange = document.createRange()
+          textRange.selectNodeContents(textNode)
+
+          const splitWords = [...textNode.data.matchAll(/\S+/g)]
+            .filter(match => {
+              const wordRange = document.createRange()
+              const start = match.index
+              wordRange.setStart(textNode, start)
+              wordRange.setEnd(textNode, start + match[0].length)
+              return wordRange.getClientRects().length > 1
+            })
+            .map(match => match[0])
+
+          return {
+            lineCount: textRange.getClientRects().length,
+            splitWords,
+          }
+        })
+
+        return {
+          buttonHeightSpread: Math.max(...buttonHeights) - Math.min(...buttonHeights),
+          contentFits: contents.every(
+            content =>
+              content.scrollWidth <= content.clientWidth + 1 && content.scrollHeight <= content.clientHeight + 1,
+          ),
+          textLayouts,
+        }
+      })
+
+    expect(layout.buttonHeightSpread).toBeLessThanOrEqual(0.5)
+    expect(layout.contentFits).toBe(true)
+    expect(layout.textLayouts.every(text => text.lineCount === 1)).toBe(true)
+    expect(layout.textLayouts.flatMap(text => text.splitWords)).toEqual([])
+  })
+
   test('multiline labels reflow at 320px and preserve enlarged and spaced text', async ({page}) => {
     await page.setViewportSize({width: 320, height: 768})
     await visit(page, {
       id: 'components-segmentedcontrol-features--multiline-labels',
     })
 
-    const control = page.getByTestId('multiline-default-medium').locator('[data-component="SegmentedControl"]')
+    const control = page.getByTestId('reflow-stress').locator('[data-component="SegmentedControl"]')
 
     await control.evaluate(element => {
       const htmlElement = element as HTMLElement
@@ -207,16 +280,33 @@ test.describe('SegmentedControl', () => {
 
     const layout = await control.evaluate(element => {
       const contents = [...element.querySelectorAll<HTMLElement>('.segmentedControl-content')]
+      const texts = [...element.querySelectorAll<HTMLElement>('.segmentedControl-text')]
+      const splitWords = texts.flatMap(text => {
+        const textNode = text.firstChild
+        if (!(textNode instanceof Text)) return []
+
+        return [...textNode.data.matchAll(/\S+/g)]
+          .filter(match => {
+            const wordRange = document.createRange()
+            const start = match.index
+            wordRange.setStart(textNode, start)
+            wordRange.setEnd(textNode, start + match[0].length)
+            return wordRange.getClientRects().length > 1
+          })
+          .map(match => match[0])
+      })
 
       return {
         hasHorizontalPageOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
         contentFits: contents.every(
           content => content.scrollWidth <= content.clientWidth + 1 && content.scrollHeight <= content.clientHeight + 1,
         ),
+        splitWords,
       }
     })
 
     expect(layout.hasHorizontalPageOverflow).toBe(false)
     expect(layout.contentFits).toBe(true)
+    expect(layout.splitWords).toEqual([])
   })
 })

@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {PlusIcon, EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {clsx} from 'clsx'
 import {SegmentedControl} from '.'
 import {Button} from '../Button'
 import Text from '../Text'
@@ -42,6 +43,7 @@ type MultilineLabelsExampleProps = {
   variant?: 'default' | 'subtle'
   selectedIndex?: 0 | 1
   withVisuals?: boolean
+  wide?: boolean
 }
 
 const MultilineLabelsExample = ({
@@ -51,8 +53,15 @@ const MultilineLabelsExample = ({
   variant = 'default',
   selectedIndex = 0,
   withVisuals = false,
+  wide = false,
 }: MultilineLabelsExampleProps) => (
-  <div className={classes.MultilineLabelsExample} data-testid={testId}>
+  <div
+    className={clsx(classes.MultilineLabelsExample, {
+      [classes.MultilineLabelsExampleVisuals]: withVisuals,
+      [classes.MultilineLabelsExampleWide]: wide,
+    })}
+    data-testid={testId}
+  >
     <span className={classes.MultilineLabelsTitle}>{label}</span>
     <SegmentedControl aria-label={label} fullWidth size={size} variant={variant}>
       <SegmentedControl.Button
@@ -65,6 +74,16 @@ const MultilineLabelsExample = ({
       <SegmentedControl.Button defaultSelected={selectedIndex === 1}>
         Information &amp; technology
       </SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+const ReflowLabelsExample = () => (
+  <div className={classes.MultilineLabelsExampleReflow} data-testid="reflow-stress">
+    <span className={classes.MultilineLabelsTitle}>320px enlarged and spaced text</span>
+    <SegmentedControl aria-label="Reflow stress" fullWidth>
+      <SegmentedControl.Button defaultSelected>All sectors</SegmentedControl.Button>
+      <SegmentedControl.Button>Tech services</SegmentedControl.Button>
     </SegmentedControl>
   </div>
 )
@@ -86,22 +105,35 @@ const SingleLineLabelsExample = ({
 
 export const MultilineLabels = () => (
   <div className={classes.MultilineLabelsGrid}>
-    <MultilineLabelsExample label="Default, medium, first selected" testId="multiline-default-medium" />
+    <MultilineLabelsExample label="Constrained, natural wrapping" testId="multiline-natural-wrap" />
     <MultilineLabelsExample
-      label="Default, small, second selected"
+      label="Default, small, unconstrained"
       selectedIndex={1}
       size="small"
-      testId="multiline-default-small"
+      testId="long-label-default-small"
+      wide
     />
-    <MultilineLabelsExample label="Subtle, medium, first selected" testId="multiline-subtle-medium" variant="subtle" />
     <MultilineLabelsExample
-      label="Subtle, small, second selected"
-      selectedIndex={1}
-      size="small"
-      testId="multiline-subtle-small"
+      label="Subtle, medium, unconstrained"
+      testId="long-label-subtle-medium"
       variant="subtle"
+      wide
     />
-    <MultilineLabelsExample label="Default with icons and counters" testId="multiline-icons-counters" withVisuals />
+    <MultilineLabelsExample
+      label="Subtle, small, unconstrained"
+      selectedIndex={1}
+      size="small"
+      testId="long-label-subtle-small"
+      variant="subtle"
+      wide
+    />
+    <MultilineLabelsExample
+      label="Icons and counters, unconstrained"
+      testId="long-label-icons-counters"
+      wide
+      withVisuals
+    />
+    <ReflowLabelsExample />
     <SingleLineLabelsExample label="Single line, default, medium" testId="single-line-default-medium" />
     <SingleLineLabelsExample label="Single line, default, small" size="small" testId="single-line-default-small" />
     <SingleLineLabelsExample label="Single line, subtle, medium" testId="single-line-subtle-medium" variant="subtle" />
