@@ -590,7 +590,7 @@
     border: unset;
     border-radius: 0;
 
-    &:hover:not(:disabled, [data-inactive]) {
+    &:hover:not(:disabled, [data-inactive], [aria-disabled='true']) {
       text-decoration: underline;
     }
 

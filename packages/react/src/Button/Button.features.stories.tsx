@@ -192,12 +192,19 @@ export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
 
-export const Loading = () => <Button loading>Default</Button>
-
-export const LoadingPrimary = () => (
-  <Button variant="primary" loading>
-    Submit
-  </Button>
+export const Loading = () => (
+  <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+    <Button loading>Default</Button>
+    <Button variant="primary" loading>
+      Primary
+    </Button>
+    <Button variant="danger" loading>
+      Danger
+    </Button>
+    <Button variant="invisible" loading>
+      Invisible
+    </Button>
+  </div>
 )
 
 export const LoadingCustomAnnouncement = () => (

@@ -60,10 +60,6 @@ const stories = [
     id: 'components-button-features--loading',
   },
   {
-    title: 'Loading Primary',
-    id: 'components-button-features--loading-primary',
-  },
-  {
     title: 'Loading With Leading Visual',
     id: 'components-button-features--loading-with-leading-visual',
   },
