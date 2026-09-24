@@ -17,6 +17,7 @@ import {implementsClassName, withExpectedConsoleError} from '../utils/testing'
 import classes from '../internal/components/UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
 import {page} from 'vitest/browser'
+import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
@@ -63,6 +64,29 @@ const ResponsiveUnderlineNav = ({
 describe('UnderlineNav', () => {
   implementsClassName(ResponsiveUnderlineNav, classes.UnderlineWrapper)
   implementsClassName(props => <UnderlineNav.Item {...props}>Hi</UnderlineNav.Item>)
+
+  it('defaults href for native anchor items', () => {
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Code'})).toHaveAttribute('href', '#')
+  })
+
+  it('does not default href for custom link components', () => {
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item as={ReactRouterLikeLink} to="/issues">
+          Issues
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Issues'})).toHaveAttribute('href', '/issues')
+  })
+
   it('renders aria-current attribute to be pages when an item is selected', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const selectedNavLink = getByRole('link', {name: 'Code'})
