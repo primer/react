@@ -20,6 +20,10 @@ export default meta
 
 type Story = StoryObj
 type RegionRoute = 'closed-dialog' | 'available' | 'missing'
+type AnnouncementTarget = {
+  message: string
+  route: RegionRoute
+}
 
 const items: ItemInput[] = [
   {id: 1, text: 'JavaScript'},
@@ -34,7 +38,19 @@ const getRegionRoute = (region: Element | undefined): RegionRoute => {
   return region.closest('dialog:not([open])') ? 'closed-dialog' : 'available'
 }
 
-const getCurrentRoute = () => getRegionRoute(document.querySelector('live-region') ?? undefined)
+const findAnnouncementTarget = (expectedMessage: string): AnnouncementTarget => {
+  for (const region of document.querySelectorAll('live-region')) {
+    const message = Array.from(region.shadowRoot?.querySelectorAll('[aria-live]') ?? [])
+      .map(element => element.textContent.trim())
+      .find(text => text.includes(expectedMessage))
+
+    if (message) {
+      return {message, route: getRegionRoute(region)}
+    }
+  }
+
+  return {message: '', route: 'missing'}
+}
 
 const matchedNodeLabels: Record<RegionRoute, string> = {
   'closed-dialog': 'dialog:not([open]) > live-region',
@@ -47,23 +63,31 @@ const InteractiveExplainer = () => {
   const [filter, setFilter] = useState('')
   const [open, setOpen] = useState(false)
   const [renderConflict, setRenderConflict] = useState(true)
-  const [currentRoute, setCurrentRoute] = useState(getCurrentRoute)
+  const [announcementTarget, setAnnouncementTarget] = useState<AnnouncementTarget>({message: '', route: 'missing'})
 
   const filteredItems = useMemo(
     () => items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase())),
     [filter],
   )
 
-  useEffect(() => {
-    const timeout = window.setTimeout(() => setCurrentRoute(getCurrentRoute()), 700)
-    return () => window.clearTimeout(timeout)
-  }, [filter, open, renderConflict])
-
   const hasNoResults = filter.length > 0 && filteredItems.length === 0
-  const currentRouteIsHidden = currentRoute === 'closed-dialog'
-  const messageStatus = hasNoResults ? 'Written' : 'Waiting for a no-results query'
+  const expectedMessage = `No language found for “${filter}”. Adjust your search term to find another language.`
+
+  useEffect(() => {
+    const timeout = window.setTimeout(
+      () =>
+        setAnnouncementTarget(hasNoResults ? findAnnouncementTarget(expectedMessage) : {message: '', route: 'missing'}),
+      1200,
+    )
+    return () => window.clearTimeout(timeout)
+  }, [expectedMessage, hasNoResults, open, renderConflict])
+
+  const currentRouteIsHidden = announcementTarget.route === 'closed-dialog'
+  const messageStatus = !hasNoResults
+    ? 'Waiting for a no-results query'
+    : announcementTarget.message || 'No matching announcement found'
   const availableToScreenReader =
-    !hasNoResults || currentRoute === 'missing' ? 'Not determined' : currentRouteIsHidden ? 'No' : 'Yes'
+    !hasNoResults || announcementTarget.route === 'missing' ? 'Not determined' : currentRouteIsHidden ? 'No' : 'Yes'
 
   return (
     <main className={classes.Page}>
@@ -123,23 +147,25 @@ const InteractiveExplainer = () => {
           </div>
 
           <div className={classes.Diagnostics}>
-            <h3>Current lookup</h3>
+            <h3>Announcement destination</h3>
             <dl>
               <div className={classes.DiagnosticRow}>
-                <dt>Selector</dt>
+                <dt>Inspection</dt>
                 <dd>
-                  <code>{"document.querySelector('live-region')"}</code>
+                  <code>Matching shadow-root message</code>
                 </dd>
               </div>
               <div className={classes.DiagnosticRow}>
                 <dt>Matched node</dt>
                 <dd>
-                  <code>{matchedNodeLabels[currentRoute]}</code>
+                  <code>{matchedNodeLabels[announcementTarget.route]}</code>
                 </dd>
               </div>
               <div className={classes.DiagnosticRow}>
                 <dt>Inside a closed dialog</dt>
-                <dd>{currentRoute === 'missing' ? 'Not determined' : currentRouteIsHidden ? 'Yes' : 'No'}</dd>
+                <dd>
+                  {announcementTarget.route === 'missing' ? 'Not determined' : currentRouteIsHidden ? 'Yes' : 'No'}
+                </dd>
               </div>
               <div className={classes.DiagnosticRow}>
                 <dt>Message</dt>
@@ -153,9 +179,11 @@ const InteractiveExplainer = () => {
             <div className={classes.Result} data-state={hasNoResults && currentRouteIsHidden ? 'broken' : 'normal'}>
               {!hasNoResults
                 ? 'Run the steps above to observe the announcement target.'
-                : currentRouteIsHidden
-                  ? 'Bug reproduced: the message is inside a closed dialog.'
-                  : 'Control case: the message is in an available live region.'}
+                : announcementTarget.route === 'missing'
+                  ? 'No matching announcement was found.'
+                  : currentRouteIsHidden
+                    ? 'Bug reproduced: the message is inside a closed dialog.'
+                    : 'Fix verified: the message is in an available live region.'}
             </div>
           </div>
         </div>
