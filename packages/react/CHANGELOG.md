@@ -1,5 +1,19 @@
 # @primer/react
 
+## 38.40.1
+
+### Patch Changes
+
+- [#8413](https://github.com/primer/react/pull/8413) [`d4e30ed`](https://github.com/primer/react/commit/d4e30ed186af6ae781b3adcf83278e0c2001a834) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - SelectPanel: Announce the filter input label when focus moves into the panel
+
+- [#8434](https://github.com/primer/react/pull/8434) [`6794582`](https://github.com/primer/react/commit/67945828439898ace865bd5f7417c562033bcbc2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - AvatarStack: Prevent a thin edge from a masked avatar over the next avatar
+
+- [#8443](https://github.com/primer/react/pull/8443) [`e2d6cb9`](https://github.com/primer/react/commit/e2d6cb931bbde9446701056f204b055789b16dd9) Thanks [@siddharthkp](https://github.com/siddharthkp)! - UnderlineNav: Avoid adding a default `href` when items render as custom link components
+
+- [#8429](https://github.com/primer/react/pull/8429) [`f2c075a`](https://github.com/primer/react/commit/f2c075a5d4d0b51a279c39effa18226ad909929d) Thanks [@tay1orjones](https://github.com/tay1orjones)! - SelectPanel: Prevent console warnings when measuring virtualized items
+
+- [#8442](https://github.com/primer/react/pull/8442) [`68019e8`](https://github.com/primer/react/commit/68019e8945a754bb0f97c9e963b90e2a9ccaaf85) Thanks [@joshfarrant](https://github.com/joshfarrant)! - SegmentedControl: Allow controls to grow vertically and preserve visible labels when they wrap
+
 ## 38.40.0
 
 ### Minor Changes
