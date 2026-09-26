@@ -6,7 +6,6 @@ const props = {
     item: figma.children('leadingVisual'),
   }),
   size: figma.enum('size', {
-    small: 'small',
     medium: 'medium',
     large: 'large',
   }),
