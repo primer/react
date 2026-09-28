@@ -88,9 +88,9 @@
     },
     {
       "name": "icon",
-      "type": "Component",
+      "type": "React.ElementType | React.ReactElement",
       "defaultValue": "",
-      "description": "provide an octicon. It will be placed in the center of the button"
+      "description": "Provide an icon component or React element. It will be placed in the center of the button. Use a React element when passing an icon from a Server Component."
     },
     {
       "name": "aria-label",

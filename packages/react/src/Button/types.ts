@@ -97,7 +97,7 @@ export type ButtonProps = {
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.ElementType
+  icon: React.ElementType | React.ReactElement
   /**
    * Displays a visual indicator for new activity on the button boundary or icon. Consumers are
    * responsible for communicating the indicator's meaning through an accessible label or description.

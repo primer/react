@@ -1,5 +1,6 @@
 import {type RefObject, type MouseEventHandler, useContext} from 'react'
 import React, {useState, useCallback, useRef, forwardRef, useMemo} from 'react'
+import {isElement} from 'react-is'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 
@@ -162,13 +163,19 @@ const renderMenuItem = (item: ActionBarMenuItemProps, index: number): React.Reac
           <ActionList.Item disabled={disabled} variant={variant}>
             {LeadingIcon ? (
               <ActionList.LeadingVisual>
-                <LeadingIcon />
+                {isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}
               </ActionList.LeadingVisual>
             ) : null}
             {label}
             {TrailingIcon ? (
               <ActionList.TrailingVisual>
-                {typeof TrailingIcon === 'string' ? <span>{TrailingIcon}</span> : <TrailingIcon />}
+                {typeof TrailingIcon === 'string' ? (
+                  <span>{TrailingIcon}</span>
+                ) : isElement(TrailingIcon) ? (
+                  TrailingIcon
+                ) : (
+                  <TrailingIcon />
+                )}
               </ActionList.TrailingVisual>
             ) : null}
           </ActionList.Item>
@@ -183,14 +190,18 @@ const renderMenuItem = (item: ActionBarMenuItemProps, index: number): React.Reac
   return (
     <ActionList.Item key={label} onSelect={onClick} disabled={disabled} variant={variant}>
       {LeadingIcon ? (
-        <ActionList.LeadingVisual>
-          <LeadingIcon />
-        </ActionList.LeadingVisual>
+        <ActionList.LeadingVisual>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</ActionList.LeadingVisual>
       ) : null}
       {label}
       {TrailingIcon ? (
         <ActionList.TrailingVisual>
-          {typeof TrailingIcon === 'string' ? <span>{TrailingIcon}</span> : <TrailingIcon />}
+          {typeof TrailingIcon === 'string' ? (
+            <span>{TrailingIcon}</span>
+          ) : isElement(TrailingIcon) ? (
+            TrailingIcon
+          ) : (
+            <TrailingIcon />
+          )}
         </ActionList.TrailingVisual>
       ) : null}
     </ActionList.Item>
@@ -275,9 +286,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
                         disabled={disabled}
                       >
                         {Icon ? (
-                          <ActionList.LeadingVisual>
-                            <Icon />
-                          </ActionList.LeadingVisual>
+                          <ActionList.LeadingVisual>{isElement(Icon) ? Icon : <Icon />}</ActionList.LeadingVisual>
                         ) : null}
                         {label}
                       </ActionList.Item>
@@ -293,9 +302,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
                         <ActionMenu.Anchor>
                           <ActionList.Item>
                             {Icon !== 'none' ? (
-                              <ActionList.LeadingVisual>
-                                <Icon />
-                              </ActionList.LeadingVisual>
+                              <ActionList.LeadingVisual>{isElement(Icon) ? Icon : <Icon />}</ActionList.LeadingVisual>
                             ) : null}
                             {label}
                           </ActionList.Item>
