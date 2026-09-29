@@ -36,6 +36,10 @@ safe-outputs:
     title-prefix: '[feature-flag-cleanup] '
     draft: true
     max: 1
+    protected-files:
+      policy: request_review
+      exclude:
+        - .changeset/
     allowed-files:
       - packages/react/src/FeatureFlags/DefaultFeatureFlags.ts
       - packages/*/.storybook/**
