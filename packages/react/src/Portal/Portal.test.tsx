@@ -7,6 +7,7 @@ import React, {act} from 'react'
 import {hydrateRoot, type Root} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {Dialog} from '../Dialog'
+import {FeatureFlags} from '../FeatureFlags'
 
 const renderOnServer = (children: React.ReactNode) => {
   const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
@@ -22,9 +23,11 @@ describe('Portal', () => {
   it('opens a native Dialog after hydration', async () => {
     const ref = React.createRef<HTMLDialogElement>()
     const app = (
-      <Dialog ref={ref} onClose={() => {}}>
-        Dialog content
-      </Dialog>
+      <FeatureFlags flags={{primer_react_use_native_dialog: true}}>
+        <Dialog ref={ref} onClose={() => {}}>
+          Dialog content
+        </Dialog>
+      </FeatureFlags>
     )
     const container = document.createElement('div')
     container.innerHTML = renderOnServer(app)

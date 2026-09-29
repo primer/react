@@ -1,5 +1,5 @@
 import React from 'react'
-import {act, render, fireEvent, waitFor, within} from '@testing-library/react'
+import {act, render as renderReact, fireEvent, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
@@ -10,8 +10,17 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {implementsClassName} from '../utils/testing'
 import classes from './Dialog.module.css'
+import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 
-describe('Dialog', () => {
+function NativeDialogFlags({children}: React.PropsWithChildren) {
+  return <FeatureFlags flags={{primer_react_use_native_dialog: true}}>{children}</FeatureFlags>
+}
+
+function render(ui: React.ReactNode) {
+  return renderReact(ui, {wrapper: NativeDialogFlags})
+}
+
+describe('Dialog with primer_react_use_native_dialog enabled', () => {
   implementsClassName(Dialog, classes.Dialog)
   it.each([undefined, 'dialog'] as const)('uses native dialog semantics with role=%s', role => {
     const {getByRole} = render(
@@ -25,6 +34,163 @@ describe('Dialog', () => {
     expect(getByRole('dialog').matches(':modal')).toBe(true)
     expect(getByRole('dialog')).not.toHaveAttribute('role')
     expect(getByRole('dialog')).not.toHaveAttribute('aria-modal')
+  })
+
+  describe('Dialog feature flag', () => {
+    it('uses the original div-based dialog by default and accepts a div ref', () => {
+      const ref = React.createRef<HTMLDivElement>()
+      const {getByRole} = renderReact(<Dialog ref={ref} onClose={() => {}} />)
+      const dialog = getByRole('dialog')
+      expect(dialog).toBeInstanceOf(HTMLDivElement)
+      expect(ref.current).toBe(dialog)
+      expect(dialog).toHaveAttribute('role', 'dialog')
+      expect(dialog).toHaveAttribute('aria-modal', 'true')
+      expect(dialog).not.toHaveAttribute('data-native-dialog')
+      expect(dialog.parentElement).toHaveClass(classes.Backdrop)
+    })
+
+    describe.each([false, true])('primer_react_use_native_dialog=%s', enabled => {
+      function renderWithFlag(ui: React.ReactNode) {
+        return renderReact(ui, {
+          wrapper: ({children}) => {
+            return <FeatureFlags flags={{primer_react_use_native_dialog: enabled}}>{children}</FeatureFlags>
+          },
+        })
+      }
+
+      it('selects the appropriate root and modal semantics', () => {
+        const {getByRole} = renderWithFlag(<Dialog onClose={() => {}} />)
+        const dialog = getByRole('dialog')
+        expect(dialog).toBeInstanceOf(enabled ? HTMLDialogElement : HTMLDivElement)
+        expect(dialog.matches(':modal')).toBe(enabled)
+        if (enabled) {
+          expect(dialog).not.toHaveAttribute('role')
+          expect(dialog).not.toHaveAttribute('aria-modal')
+        } else {
+          expect(dialog).toHaveAttribute('role', 'dialog')
+          expect(dialog).toHaveAttribute('aria-modal', 'true')
+        }
+      })
+
+      it('focuses the requested element and restores focus on dismissal', async () => {
+        const user = userEvent.setup()
+        const inputRef = React.createRef<HTMLInputElement>()
+        function Fixture() {
+          const [open, setOpen] = React.useState(false)
+          return (
+            <>
+              <Button
+                onClick={() => {
+                  setOpen(true)
+                }}
+              >
+                Open dialog
+              </Button>
+              {open && (
+                <Dialog
+                  initialFocusRef={inputRef}
+                  onClose={() => {
+                    setOpen(false)
+                  }}
+                >
+                  <input ref={inputRef} aria-label="Name" />
+                </Dialog>
+              )}
+            </>
+          )
+        }
+        const {getByRole, queryByRole} = renderWithFlag(<Fixture />)
+        const trigger = getByRole('button', {name: 'Open dialog'})
+        await user.click(trigger)
+        expect(getByRole('textbox', {name: 'Name'})).toHaveFocus()
+        await user.click(getByRole('button', {name: 'Close'}))
+        expect(queryByRole('dialog')).not.toBeInTheDocument()
+        expect(trigger).toHaveFocus()
+      })
+
+      it('requests dismissal for Escape without closing independently', async () => {
+        const user = userEvent.setup()
+        const onClose = vi.fn()
+        const inputRef = React.createRef<HTMLInputElement>()
+        const {getByRole} = renderWithFlag(
+          <Dialog onClose={onClose} initialFocusRef={inputRef}>
+            <input ref={inputRef} aria-label="Name" />
+          </Dialog>,
+        )
+        if (enabled) {
+          fireEvent(getByRole('dialog'), new Event('cancel', {cancelable: true}))
+        } else {
+          await user.keyboard('{Escape}')
+        }
+        expect(onClose).toHaveBeenCalledExactlyOnceWith('escape')
+        expect(getByRole('dialog')).toBeVisible()
+      })
+
+      it('dismisses for backdrop clicks but not drags from content', () => {
+        const onClose = vi.fn()
+        const {getByRole} = renderWithFlag(<Dialog onClose={onClose}>Content</Dialog>)
+        const dialog = getByRole('dialog')
+        if (enabled) {
+          const {left, top} = dialog.getBoundingClientRect()
+          fireEvent.pointerDown(dialog, {clientX: left + 1, clientY: top + 1})
+          fireEvent.click(dialog, {clientX: left - 1, clientY: top - 1})
+          expect(onClose).not.toHaveBeenCalled()
+          fireEvent.pointerDown(dialog, {clientX: left - 1, clientY: top - 1})
+          fireEvent.click(dialog, {clientX: left - 1, clientY: top - 1})
+        } else {
+          const backdrop = dialog.parentElement!
+          fireEvent.mouseDown(dialog)
+          fireEvent.click(backdrop)
+          expect(onClose).not.toHaveBeenCalled()
+          fireEvent.mouseDown(backdrop)
+          fireEvent.click(backdrop)
+        }
+        expect(onClose).toHaveBeenCalledExactlyOnceWith('escape')
+      })
+
+      it('only redirects descendant portals for the native modal', () => {
+        const {getByRole} = renderWithFlag(
+          <Dialog onClose={() => {}}>
+            <Portal>
+              <button type="button">Portaled action</button>
+            </Portal>
+          </Dialog>,
+        )
+        const dialog = getByRole('dialog')
+        const action = getByRole('button', {name: 'Portaled action'})
+        expect(dialog.contains(action)).toBe(enabled)
+      })
+
+      it('dismisses only the innermost dialog when both mount together', async () => {
+        const user = userEvent.setup()
+        const onOuterClose = vi.fn()
+        const onInnerClose = vi.fn()
+        const inputRef = React.createRef<HTMLInputElement>()
+        const {getByRole} = renderWithFlag(
+          <Dialog title="Outer" onClose={onOuterClose}>
+            <Dialog title="Inner" onClose={onInnerClose} initialFocusRef={inputRef}>
+              <input ref={inputRef} aria-label="Name" />
+            </Dialog>
+          </Dialog>,
+        )
+        expect(getByRole('textbox', {name: 'Name'})).toHaveFocus()
+        if (enabled) {
+          fireEvent(getByRole('dialog', {name: 'Inner'}), new Event('cancel', {cancelable: true}))
+        } else {
+          await user.keyboard('{Escape}')
+        }
+        expect(onInnerClose).toHaveBeenCalledExactlyOnceWith('escape')
+        expect(onOuterClose).not.toHaveBeenCalled()
+      })
+
+      it('preserves ConfirmationDialog semantics and initial focus', () => {
+        const {getByRole} = renderWithFlag(
+          <ConfirmationDialog title="Delete item?" confirmButtonType="danger" onClose={() => {}} />,
+        )
+        expect(getByRole('alertdialog')).toBeInstanceOf(enabled ? HTMLDialogElement : HTMLDivElement)
+        expect(getByRole('button', {name: 'Cancel'})).toHaveFocus()
+      })
+    })
   })
 
   it('keeps the accessible name and description associated with the native dialog', () => {

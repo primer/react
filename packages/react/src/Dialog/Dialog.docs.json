@@ -77,7 +77,7 @@
     {
       "name": "onClose",
       "type": "(gesture: 'close-button' | 'escape') => void",
-      "description": "Requests dismissal when Escape is pressed, the backdrop is clicked ('escape'), or the close button is clicked ('close-button'). Dialog uses a native modal dialog and remains open until unmounted, even if the callback does not dismiss it."
+      "description": "Requests dismissal when Escape is pressed, the backdrop is clicked ('escape'), or the close button is clicked ('close-button'). Dialog remains open until unmounted. The primer_react_use_native_dialog feature flag opts into a native modal dialog and is disabled by default."
     },
     {
       "name": "width",
