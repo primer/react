@@ -439,6 +439,28 @@ describe('Tooltip forwarded ref', () => {
     await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(true))
   })
 
+  it('supports callback ref with side effects without interfering with tooltip trigger', async () => {
+    let sideEffectExecuted = false
+    const callbackRefWithSideEffect = (node: HTMLButtonElement | null) => {
+      if (node) {
+        sideEffectExecuted = true
+      }
+    }
+
+    const {getByRole, getByText} = HTMLRender(
+      <Tooltip text="Tooltip text" ref={callbackRefWithSideEffect}>
+        <Button>Button Text</Button>
+      </Tooltip>,
+    )
+    const button = getByRole('button')
+    const tooltip = getByText('Tooltip text')
+
+    expect(sideEffectExecuted).toBe(true)
+    expect(tooltip.matches(':popover-open')).toBe(false)
+    fireEvent.mouseOver(button)
+    await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(true))
+  })
+
   it("preserves trigger element's own ref", () => {
     const buttonRefCallback = vi.fn()
 
