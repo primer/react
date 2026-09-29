@@ -8,6 +8,36 @@
   margin-top: var(--base-size-24);
 }
 
+.MultilineLabelsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-24);
+  align-items: start;
+}
+
+.MultilineLabelsExample {
+  width: 240px;
+}
+
+.MultilineLabelsExampleWide {
+  flex-basis: 352px;
+}
+
+.MultilineLabelsExampleVisuals {
+  flex-basis: 480px;
+}
+
+.MultilineLabelsExampleReflow {
+  width: min(288px, 100%);
+}
+
+.MultilineLabelsTitle {
+  display: block;
+  margin-bottom: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+}
+
 @media screen and (min-width: 768px) {
   .LabelAndCaptionContainer {
     flex-direction: row;

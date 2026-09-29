@@ -188,7 +188,7 @@ export function FilteredActionList({
   )
 
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
+  const listRef = useRef<HTMLUListElement | null>(null)
 
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
 
@@ -291,6 +291,7 @@ export function FilteredActionList({
 
   const listContainerRefCallback = useCallback(
     (node: HTMLUListElement | null) => {
+      listRef.current = node
       setListContainerElement(node)
       onListContainerRefChanged?.(node)
     },
@@ -416,14 +417,15 @@ export function FilteredActionList({
     }
   }, [loading, readInputRef, usingRovingTabindex])
 
-  useAnnouncements(
+  const onInputFocus = useAnnouncements(
     items,
-    usingRovingTabindex ? listRef : {current: listContainerElement},
+    listRef,
     readInputRef,
     announcementsEnabled,
     loading,
     messageText,
     _PrivateFocusManagement,
+    filterValue,
   )
   useScrollFlash(readScrollContainerRef)
 
@@ -578,6 +580,7 @@ export function FilteredActionList({
     >
       <FilteredActionListInput
         inputRef={appliedInputRef}
+        onInputFocus={onInputFocus}
         value={filterValue}
         onInputChange={onInputChange}
         onInputKeyPress={onInputKeyPress}

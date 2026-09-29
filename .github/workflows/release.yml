@@ -54,7 +54,7 @@ jobs:
         # Uses SHA for security hardening
         # Currently pointing at a commit for the v2.0.0 tag
         # Please keep this up-to-date if you're changing the SHA below
-        uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           pr-title: Release tracking

@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {PlusIcon, EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {clsx} from 'clsx'
 import {SegmentedControl} from '.'
 import {Button} from '../Button'
 import Text from '../Text'
@@ -33,6 +34,116 @@ export const WithCounterLabels = () => (
     <SegmentedControl.Button count={3}>Bug</SegmentedControl.Button>
     <SegmentedControl.Button count={10}>Good first issue</SegmentedControl.Button>
   </SegmentedControl>
+)
+
+type MultilineLabelsExampleProps = {
+  label: string
+  testId: string
+  size?: 'small' | 'medium'
+  variant?: 'default' | 'subtle'
+  selectedIndex?: 0 | 1
+  withVisuals?: boolean
+  wide?: boolean
+}
+
+const MultilineLabelsExample = ({
+  label,
+  testId,
+  size = 'medium',
+  variant = 'default',
+  selectedIndex = 0,
+  withVisuals = false,
+  wide = false,
+}: MultilineLabelsExampleProps) => (
+  <div
+    className={clsx(classes.MultilineLabelsExample, {
+      [classes.MultilineLabelsExampleVisuals]: withVisuals,
+      [classes.MultilineLabelsExampleWide]: wide,
+    })}
+    data-testid={testId}
+  >
+    <span className={classes.MultilineLabelsTitle}>{label}</span>
+    <SegmentedControl aria-label={label} fullWidth size={size} variant={variant}>
+      <SegmentedControl.Button
+        count={withVisuals ? 12 : undefined}
+        defaultSelected={selectedIndex === 0}
+        leadingVisual={withVisuals ? EyeIcon : undefined}
+      >
+        All industries
+      </SegmentedControl.Button>
+      <SegmentedControl.Button defaultSelected={selectedIndex === 1}>
+        Information &amp; technology
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+const ReflowLabelsExample = () => (
+  <div className={classes.MultilineLabelsExampleReflow} data-testid="reflow-stress">
+    <span className={classes.MultilineLabelsTitle}>320px enlarged and spaced text</span>
+    <SegmentedControl aria-label="Reflow stress" fullWidth>
+      <SegmentedControl.Button defaultSelected>All sectors</SegmentedControl.Button>
+      <SegmentedControl.Button>Tech services</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+const SingleLineLabelsExample = ({
+  label,
+  testId,
+  size = 'medium',
+  variant = 'default',
+}: Omit<MultilineLabelsExampleProps, 'selectedIndex' | 'withVisuals'>) => (
+  <div className={classes.MultilineLabelsExample} data-testid={testId}>
+    <span className={classes.MultilineLabelsTitle}>{label}</span>
+    <SegmentedControl aria-label={label} fullWidth size={size} variant={variant}>
+      <SegmentedControl.Button defaultSelected>All</SegmentedControl.Button>
+      <SegmentedControl.Button>Active</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+export const MultilineLabels = () => (
+  <div className={classes.MultilineLabelsGrid}>
+    <MultilineLabelsExample label="Constrained, natural wrapping" testId="multiline-natural-wrap" />
+    <MultilineLabelsExample
+      label="Default, small, unconstrained"
+      selectedIndex={1}
+      size="small"
+      testId="long-label-default-small"
+      wide
+    />
+    <MultilineLabelsExample
+      label="Subtle, medium, unconstrained"
+      testId="long-label-subtle-medium"
+      variant="subtle"
+      wide
+    />
+    <MultilineLabelsExample
+      label="Subtle, small, unconstrained"
+      selectedIndex={1}
+      size="small"
+      testId="long-label-subtle-small"
+      variant="subtle"
+      wide
+    />
+    <MultilineLabelsExample
+      label="Icons and counters, unconstrained"
+      testId="long-label-icons-counters"
+      wide
+      withVisuals
+    />
+    <ReflowLabelsExample />
+    <SingleLineLabelsExample label="Single line, default, medium" testId="single-line-default-medium" />
+    <SingleLineLabelsExample label="Single line, default, small" size="small" testId="single-line-default-small" />
+    <SingleLineLabelsExample label="Single line, subtle, medium" testId="single-line-subtle-medium" variant="subtle" />
+    <SingleLineLabelsExample
+      label="Single line, subtle, small"
+      size="small"
+      testId="single-line-subtle-small"
+      variant="subtle"
+    />
+  </div>
 )
 
 export const VariantSubtle = () => (

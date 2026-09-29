@@ -61,6 +61,10 @@ const stories = [
     id: 'components-segmentedcontrol-features--with-counter-labels',
   },
   {
+    title: 'Multiline Labels',
+    id: 'components-segmentedcontrol-features--multiline-labels',
+  },
+  {
     title: 'SegmentedControlButton Playground',
     id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
   },
@@ -121,4 +125,237 @@ test.describe('SegmentedControl', () => {
       }
     })
   }
+
+  test('naturally wrapped labels grow to the tallest segment without splitting words', async ({page}) => {
+    await visit(page, {
+      id: 'components-segmentedcontrol-features--multiline-labels',
+    })
+
+    const layout = await page
+      .getByTestId('multiline-natural-wrap')
+      .locator('[data-component="SegmentedControl"]')
+      .evaluate(control => {
+        const buttons = [...control.querySelectorAll<HTMLButtonElement>('button')]
+        const buttonHeights = buttons.map(button => button.getBoundingClientRect().height)
+        const contents = [...control.querySelectorAll<HTMLElement>('.segmentedControl-content')]
+        const texts = [...control.querySelectorAll<HTMLElement>('.segmentedControl-text')]
+        const selectedButton = control.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')
+        const selectedContent = selectedButton?.querySelector<HTMLElement>('.segmentedControl-content')
+
+        const textLayouts = texts.map(text => {
+          const textNode = text.firstChild
+          const style = getComputedStyle(text)
+          if (!(textNode instanceof Text)) {
+            return {
+              lineCount: 0,
+              splitWords: [],
+              whiteSpace: style.whiteSpace,
+              overflowWrap: style.overflowWrap,
+              wordBreak: style.wordBreak,
+            }
+          }
+
+          const textRange = document.createRange()
+          textRange.selectNodeContents(textNode)
+
+          const splitWords = [...textNode.data.matchAll(/\S+/g)]
+            .filter(match => {
+              const wordRange = document.createRange()
+              const start = match.index
+              wordRange.setStart(textNode, start)
+              wordRange.setEnd(textNode, start + match[0].length)
+              return wordRange.getClientRects().length > 1
+            })
+            .map(match => match[0])
+
+          return {
+            lineCount: textRange.getClientRects().length,
+            splitWords,
+            whiteSpace: style.whiteSpace,
+            overflowWrap: style.overflowWrap,
+            wordBreak: style.wordBreak,
+          }
+        })
+
+        return {
+          controlHeight: control.getBoundingClientRect().height,
+          buttonHeightSpread: Math.max(...buttonHeights) - Math.min(...buttonHeights),
+          contentFits: contents.every(
+            content =>
+              content.scrollWidth <= content.clientWidth + 1 && content.scrollHeight <= content.clientHeight + 1,
+          ),
+          selectedContentHeight: selectedContent?.getBoundingClientRect().height,
+          selectedButtonHeight: selectedButton?.getBoundingClientRect().height,
+          textLayouts,
+        }
+      })
+
+    expect(layout.controlHeight).toBeGreaterThan(32)
+    expect(layout.buttonHeightSpread).toBeLessThanOrEqual(0.5)
+    expect(layout.contentFits).toBe(true)
+    expect(layout.textLayouts.every(text => text.lineCount > 1)).toBe(true)
+    expect(layout.textLayouts.flatMap(text => text.splitWords)).toEqual([])
+    expect(
+      layout.textLayouts.every(
+        text => text.whiteSpace === 'normal' && text.overflowWrap === 'normal' && text.wordBreak === 'normal',
+      ),
+    ).toBe(true)
+    expect(layout.selectedContentHeight).toBeDefined()
+    expect(layout.selectedButtonHeight).toBeDefined()
+    expect(layout.selectedContentHeight ?? 0).toBeCloseTo(layout.selectedButtonHeight ?? 0, 1)
+  })
+
+  test('single-line labels preserve the existing control heights', async ({page}) => {
+    await visit(page, {
+      id: 'components-segmentedcontrol-features--multiline-labels',
+    })
+
+    const singleLineCases = [
+      {testId: 'single-line-default-medium', height: 32},
+      {testId: 'single-line-default-small', height: 28},
+      {testId: 'single-line-subtle-medium', height: 32},
+      {testId: 'single-line-subtle-small', height: 28},
+    ]
+
+    for (const {testId, height} of singleLineCases) {
+      const controlHeight = await page
+        .getByTestId(testId)
+        .locator('[data-component="SegmentedControl"]')
+        .evaluate(control => control.getBoundingClientRect().height)
+
+      expect(controlHeight).toBe(height)
+    }
+  })
+
+  test('single-line controls do not stretch to adjacent label and caption content', async ({page}) => {
+    await visit(page, {
+      id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
+    })
+
+    const controlHeight = await page
+      .locator('[data-component="SegmentedControl"]')
+      .evaluate(control => control.getBoundingClientRect().height)
+
+    expect(controlHeight).toBe(32)
+  })
+
+  test('icon and counter labels remain unclipped without unnecessary wrapping', async ({page}) => {
+    await visit(page, {
+      id: 'components-segmentedcontrol-features--multiline-labels',
+    })
+
+    const layout = await page
+      .getByTestId('long-label-icons-counters')
+      .locator('[data-component="SegmentedControl"]')
+      .evaluate(control => {
+        const buttons = [...control.querySelectorAll<HTMLButtonElement>('button')]
+        const buttonHeights = buttons.map(button => button.getBoundingClientRect().height)
+        const contents = [...control.querySelectorAll<HTMLElement>('.segmentedControl-content')]
+        const texts = [...control.querySelectorAll<HTMLElement>('.segmentedControl-text')]
+        const textLayouts = texts.map(text => {
+          const textNode = text.firstChild
+          const style = getComputedStyle(text)
+          if (!(textNode instanceof Text)) {
+            return {
+              lineCount: 0,
+              splitWords: [],
+              whiteSpace: style.whiteSpace,
+              overflowWrap: style.overflowWrap,
+              wordBreak: style.wordBreak,
+              fits: false,
+            }
+          }
+
+          const textRange = document.createRange()
+          textRange.selectNodeContents(textNode)
+
+          const splitWords = [...textNode.data.matchAll(/\S+/g)]
+            .filter(match => {
+              const wordRange = document.createRange()
+              const start = match.index
+              wordRange.setStart(textNode, start)
+              wordRange.setEnd(textNode, start + match[0].length)
+              return wordRange.getClientRects().length > 1
+            })
+            .map(match => match[0])
+
+          return {
+            lineCount: textRange.getClientRects().length,
+            splitWords,
+            whiteSpace: style.whiteSpace,
+            overflowWrap: style.overflowWrap,
+            wordBreak: style.wordBreak,
+            fits: text.scrollWidth <= text.clientWidth + 1 && text.scrollHeight <= text.clientHeight + 1,
+          }
+        })
+
+        return {
+          buttonHeightSpread: Math.max(...buttonHeights) - Math.min(...buttonHeights),
+          contentFits: contents.every(
+            content =>
+              content.scrollWidth <= content.clientWidth + 1 && content.scrollHeight <= content.clientHeight + 1,
+          ),
+          textLayouts,
+        }
+      })
+
+    expect(layout.buttonHeightSpread).toBeLessThanOrEqual(0.5)
+    expect(layout.contentFits).toBe(true)
+    expect(layout.textLayouts.every(text => text.lineCount === 1)).toBe(true)
+    expect(layout.textLayouts.flatMap(text => text.splitWords)).toEqual([])
+    expect(layout.textLayouts.every(text => text.fits)).toBe(true)
+    expect(
+      layout.textLayouts.every(
+        text => text.whiteSpace === 'normal' && text.overflowWrap === 'normal' && text.wordBreak === 'normal',
+      ),
+    ).toBe(true)
+  })
+
+  test('multiline labels reflow at 320px and preserve enlarged and spaced text', async ({page}) => {
+    await page.setViewportSize({width: 320, height: 768})
+    await visit(page, {
+      id: 'components-segmentedcontrol-features--multiline-labels',
+    })
+
+    const control = page.getByTestId('reflow-stress').locator('[data-component="SegmentedControl"]')
+
+    await control.evaluate(element => {
+      const htmlElement = element as HTMLElement
+      htmlElement.style.setProperty('--text-body-size-medium', '28px')
+      htmlElement.style.lineHeight = '1.5'
+      htmlElement.style.letterSpacing = '0.12em'
+      htmlElement.style.wordSpacing = '0.16em'
+    })
+
+    const layout = await control.evaluate(element => {
+      const contents = [...element.querySelectorAll<HTMLElement>('.segmentedControl-content')]
+      const texts = [...element.querySelectorAll<HTMLElement>('.segmentedControl-text')]
+      const splitWords = texts.flatMap(text => {
+        const textNode = text.firstChild
+        if (!(textNode instanceof Text)) return []
+
+        return [...textNode.data.matchAll(/\S+/g)]
+          .filter(match => {
+            const wordRange = document.createRange()
+            const start = match.index
+            wordRange.setStart(textNode, start)
+            wordRange.setEnd(textNode, start + match[0].length)
+            return wordRange.getClientRects().length > 1
+          })
+          .map(match => match[0])
+      })
+
+      return {
+        hasHorizontalPageOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+        contentFits: contents.every(
+          content => content.scrollWidth <= content.clientWidth + 1 && content.scrollHeight <= content.clientHeight + 1,
+        ),
+        splitWords,
+      }
+    })
+
+    expect(layout.hasHorizontalPageOverflow).toBe(false)
+    expect(layout.contentFits).toBe(true)
+    expect(layout.splitWords).toEqual([])
+  })
 })

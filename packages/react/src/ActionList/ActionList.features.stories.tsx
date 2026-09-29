@@ -212,6 +212,26 @@ export const ItemDividers = () => (
   </ActionList>
 )
 
+export const DisableItemGap = () => (
+  <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+    <ActionList.ContainerContext.Provider value={{container: 'NavList'}}>
+      <Heading as="h3">Default item gap</Heading>
+      <ActionList>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Quote reply</ActionList.Item>
+        <ActionList.Item>Edit comment</ActionList.Item>
+      </ActionList>
+
+      <Heading as="h3">Item gap disabled</Heading>
+      <ActionList disableItemGap>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Quote reply</ActionList.Item>
+        <ActionList.Item>Edit comment</ActionList.Item>
+      </ActionList>
+    </ActionList.ContainerContext.Provider>
+  </FeatureFlags>
+)
+
 export const SingleDivider = () => (
   <ActionList>
     <ActionList.Item>Copy link</ActionList.Item>
