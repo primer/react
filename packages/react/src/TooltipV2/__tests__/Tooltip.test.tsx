@@ -301,6 +301,30 @@ describe('Tooltip forwarded ref (primer_react_merged_forwarded_refs)', () => {
         await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(true))
       })
 
+      it('supports callback ref with side effects without interfering with tooltip trigger', async () => {
+        let sideEffectExecuted = false
+        const callbackRefWithSideEffect = (node: HTMLButtonElement | null) => {
+          if (node) {
+            sideEffectExecuted = true
+          }
+        }
+
+        const {getByRole, getByText} = HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <Tooltip text="Tooltip text" ref={callbackRefWithSideEffect}>
+              <Button>Button Text</Button>
+            </Tooltip>
+          </FeatureFlags>,
+        )
+        const button = getByRole('button')
+        const tooltip = getByText('Tooltip text')
+
+        expect(sideEffectExecuted).toBe(true)
+        expect(tooltip.matches(':popover-open')).toBe(false)
+        fireEvent.mouseOver(button)
+        await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(true))
+      })
+
       it("preserves trigger element's own ref", () => {
         const buttonRefCallback = vi.fn()
 
