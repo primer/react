@@ -1,19 +1,237 @@
 import React from 'react'
-import {render, fireEvent, waitFor} from '@testing-library/react'
+import {act, render, fireEvent, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import {FeatureFlags} from '../FeatureFlags'
 import {Button} from '../Button'
+import Portal, {registerPortalRoot} from '../Portal'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
 import {implementsClassName} from '../utils/testing'
 import classes from './Dialog.module.css'
 
 describe('Dialog', () => {
   implementsClassName(Dialog, classes.Dialog)
-  it('renders with role "dialog" by default', () => {
-    const {getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
+  it.each([undefined, 'dialog'] as const)('uses native dialog semantics with role=%s', role => {
+    const {getByRole} = render(
+      <Dialog role={role} onClose={() => {}}>
+        Pay attention to me
+      </Dialog>,
+    )
 
     expect(getByRole('dialog')).toBeInTheDocument()
+    expect(getByRole('dialog')).toBeInstanceOf(HTMLDialogElement)
+    expect(getByRole('dialog').matches(':modal')).toBe(true)
+    expect(getByRole('dialog')).not.toHaveAttribute('role')
+    expect(getByRole('dialog')).not.toHaveAttribute('aria-modal')
+  })
+
+  it('keeps the accessible name and description associated with the native dialog', () => {
+    const {getByRole} = render(<Dialog title="Settings" subtitle="Edit your preferences" onClose={() => {}} />)
+    expect(getByRole('dialog')).toHaveAccessibleName('Settings')
+    expect(getByRole('dialog')).toHaveAccessibleDescription('Edit your preferences')
+  })
+
+  it('forwards the native dialog ref', () => {
+    const ref = React.createRef<HTMLDialogElement>()
+    const {getByRole} = render(<Dialog ref={ref} onClose={() => {}} />)
+    expect(ref.current).toBe(getByRole('dialog'))
+    expect(ref.current?.open).toBe(true)
+  })
+
+  it('prevents native cancellation until the owner unmounts the dialog', () => {
+    const onClose = vi.fn()
+    const {getByRole} = render(<Dialog onClose={onClose} />)
+    const dialog = getByRole('dialog')
+    const event = new Event('cancel', {cancelable: true})
+    fireEvent(dialog, event)
+    expect(event.defaultPrevented).toBe(true)
+    expect(onClose).toHaveBeenCalledExactlyOnceWith('escape')
+    expect(dialog.matches(':modal')).toBe(true)
+  })
+
+  it('reopens after an imperative native close while still mounted', async () => {
+    const ref = React.createRef<HTMLDialogElement>()
+    const onClose = vi.fn()
+    render(<Dialog ref={ref} onClose={onClose} />)
+    ref.current?.close()
+    await waitFor(() => {
+      expect(ref.current?.matches(':modal')).toBe(true)
+    })
+    expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('reopens after a method="dialog" form submission', async () => {
+    const user = userEvent.setup()
+    const {getByRole} = render(
+      <Dialog onClose={() => {}}>
+        <form method="dialog">
+          <button type="submit">Submit</button>
+        </form>
+      </Dialog>,
+    )
+    await user.click(getByRole('button', {name: 'Submit'}))
+    await waitFor(() => {
+      expect(getByRole('dialog').matches(':modal')).toBe(true)
+    })
+  })
+
+  it('does not reopen or steal focus when focus options change', () => {
+    const firstRef = React.createRef<HTMLButtonElement>()
+    const secondRef = React.createRef<HTMLButtonElement>()
+    const {rerender} = render(
+      <Dialog onClose={() => {}} initialFocusRef={firstRef}>
+        <button type="button" ref={firstRef}>
+          First
+        </button>
+        <button type="button" ref={secondRef}>
+          Second
+        </button>
+      </Dialog>,
+    )
+    secondRef.current?.focus()
+    rerender(
+      <Dialog onClose={() => {}} initialFocusRef={React.createRef<HTMLButtonElement>()}>
+        <button type="button" ref={firstRef}>
+          First
+        </button>
+        <button type="button" ref={secondRef}>
+          Second
+        </button>
+      </Dialog>,
+    )
+    expect(secondRef.current).toHaveFocus()
+  })
+
+  it('keeps the dialog modal in StrictMode and closes it on unmount', () => {
+    const ref = React.createRef<HTMLDialogElement>()
+    const {unmount} = render(
+      <React.StrictMode>
+        <Dialog ref={ref} onClose={() => {}} />
+      </React.StrictMode>,
+    )
+    const dialog = ref.current
+    expect(dialog?.matches(':modal')).toBe(true)
+    unmount()
+    expect(dialog?.open).toBe(false)
+    expect(document.body).not.toHaveAttribute('data-dialog-scroll-disabled')
+  })
+
+  it('keeps descendant portals inside the modal', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}}>
+        <Portal>
+          <button type="button">Portaled action</button>
+        </Portal>
+      </Dialog>,
+    )
+    const action = getByRole('button', {name: 'Portaled action'})
+    expect(getByRole('dialog')).toContainElement(action)
+    act(() => {
+      action.focus()
+    })
+    expect(action).toHaveFocus()
+  })
+
+  it('keeps named portals inside the modal even when their registered root is outside', () => {
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    registerPortalRoot(container, 'dialog-external-portal')
+    try {
+      const {getByRole, unmount} = render(
+        <Dialog onClose={() => {}}>
+          <Portal containerName="dialog-external-portal">
+            <button type="button">Portaled action</button>
+          </Portal>
+        </Dialog>,
+      )
+      const action = getByRole('button', {name: 'Portaled action'})
+      expect(getByRole('dialog')).toContainElement(action)
+      expect(container).toBeEmptyDOMElement()
+      unmount()
+    } finally {
+      container.remove()
+    }
+  })
+
+  it('puts initially mounted nested dialogs above their parent', () => {
+    const {getByRole} = render(
+      <Dialog title="Outer" onClose={() => {}}>
+        <Dialog title="Inner" onClose={() => {}}>
+          Inner content
+        </Dialog>
+      </Dialog>,
+    )
+    const inner = getByRole('dialog', {name: 'Inner'})
+    const closeButton = within(inner).getByRole('button', {name: 'Close'})
+    expect(closeButton).toHaveFocus()
+    expect(inner.matches(':modal')).toBe(true)
+    const {left, top, width, height} = closeButton.getBoundingClientRect()
+    expect(closeButton.contains(document.elementFromPoint(left + width / 2, top + height / 2))).toBe(true)
+  })
+
+  it('keeps menus inside the modal interactive', async () => {
+    const user = userEvent.setup()
+    const onSelect = vi.fn()
+    const onClose = vi.fn()
+    const {getByRole} = render(
+      <Dialog onClose={onClose}>
+        <ActionMenu>
+          <ActionMenu.Button>Actions</ActionMenu.Button>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item onSelect={onSelect}>Edit</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </Dialog>,
+    )
+    await user.click(getByRole('button', {name: 'Actions'}))
+    const item = getByRole('menuitem', {name: 'Edit'})
+    expect(getByRole('dialog')).toContainElement(item)
+    expect(item).toHaveFocus()
+    await user.click(item)
+    expect(onSelect).toHaveBeenCalledTimes(1)
+    expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('dismisses only the nested dialog and restores focus to its trigger', async () => {
+    const user = userEvent.setup()
+    const onOuterClose = vi.fn()
+    function Fixture() {
+      const [open, setOpen] = React.useState(false)
+      return (
+        <Dialog title="Outer" onClose={onOuterClose}>
+          <Button
+            onClick={() => {
+              setOpen(true)
+            }}
+          >
+            Open inner
+          </Button>
+          {open && (
+            <Dialog
+              title="Inner"
+              onClose={() => {
+                setOpen(false)
+              }}
+            >
+              Inner content
+            </Dialog>
+          )}
+        </Dialog>
+      )
+    }
+    const {getByRole, queryByRole} = render(<Fixture />)
+    const trigger = getByRole('button', {name: 'Open inner'})
+    await user.click(trigger)
+    const inner = getByRole('dialog', {name: 'Inner'})
+    expect(inner.matches(':modal')).toBe(true)
+    await user.click(within(inner).getByRole('button', {name: 'Close'}))
+    expect(queryByRole('dialog', {name: 'Inner'})).not.toBeInTheDocument()
+    expect(onOuterClose).not.toHaveBeenCalled()
+    expect(trigger).toHaveFocus()
   })
 
   it('renders with role "alertdialog" when passed', () => {
@@ -24,6 +242,9 @@ describe('Dialog', () => {
     )
 
     expect(getByRole('alertdialog')).toBeInTheDocument()
+    expect(getByRole('alertdialog')).toHaveAttribute('role', 'alertdialog')
+    expect(getByRole('alertdialog')).not.toHaveAttribute('aria-modal')
+    expect(getByRole('alertdialog').matches(':modal')).toBe(true)
   })
   it('automatically focuses the footer button when `autoFocus` is true', async () => {
     const {getByRole} = render(
@@ -137,21 +358,21 @@ describe('Dialog', () => {
     expect(onClose).toHaveBeenCalledTimes(1) // Ensure it's not called with a backdrop gesture as well
   })
 
-  it('calls `onClose` when clicking the backdrop', async () => {
-    const user = userEvent.setup()
+  it('calls `onClose` when clicking the backdrop', () => {
     const onClose = vi.fn()
     const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
     const dialog = getByRole('dialog')
-    const backdrop = dialog.parentElement!
-    await user.click(backdrop)
+    const {left, top} = dialog.getBoundingClientRect()
+    fireEvent.pointerDown(dialog, {clientX: left - 1, clientY: top - 1})
+    fireEvent.click(dialog, {clientX: left - 1, clientY: top - 1})
 
-    expect(onClose).toHaveBeenCalledWith('escape')
+    expect(onClose).toHaveBeenCalledExactlyOnceWith('escape')
   })
 
-  it('does not call `onClose` when click was not originated from backdrop', async () => {
+  it('does not call `onClose` when click was not originated from backdrop', () => {
     const onClose = vi.fn()
 
     const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
@@ -159,13 +380,23 @@ describe('Dialog', () => {
     expect(onClose).not.toHaveBeenCalled()
 
     const dialog = getByRole('dialog')
-    const backdrop = dialog.parentElement!
+    const {left, top} = dialog.getBoundingClientRect()
+    fireEvent.pointerDown(dialog, {clientX: left + 1, clientY: top + 1})
+    fireEvent.click(dialog, {clientX: left - 1, clientY: top - 1})
 
-    fireEvent.mouseDown(dialog)
-    fireEvent.mouseUp(backdrop)
-    // trigger the click on the backdrop, mouseUp doesn't do it for us
-    fireEvent.click(backdrop)
+    expect(onClose).not.toHaveBeenCalled()
+  })
 
+  it('does not dismiss for clicks inside the dialog bounds or cancelled pointers', () => {
+    const onClose = vi.fn()
+    const {getByRole} = render(<Dialog onClose={onClose} />)
+    const dialog = getByRole('dialog')
+    const {left, top} = dialog.getBoundingClientRect()
+    fireEvent.pointerDown(dialog, {clientX: left + 1, clientY: top + 1})
+    fireEvent.click(dialog, {clientX: left + 1, clientY: top + 1})
+    fireEvent.pointerDown(dialog, {clientX: left - 1, clientY: top - 1})
+    fireEvent.pointerCancel(dialog)
+    fireEvent.click(dialog, {clientX: left - 1, clientY: top - 1})
     expect(onClose).not.toHaveBeenCalled()
   })
 
@@ -263,11 +494,10 @@ describe('Dialog', () => {
   })
 
   describe('align prop', () => {
-    it('sets data-align="top" on both dialog and backdrop', () => {
+    it('sets data-align="top" on the native dialog', () => {
       const {getByRole} = render(<Dialog onClose={() => {}} align="top" />)
       const dialog = getByRole('dialog')
       expect(dialog).toHaveAttribute('data-align', 'top')
-      expect(dialog.parentElement).toHaveAttribute('data-align', 'top')
     })
 
     it('sets data-align="bottom" when align is bottom', () => {

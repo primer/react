@@ -77,12 +77,12 @@
     {
       "name": "onClose",
       "type": "(gesture: 'close-button' | 'escape') => void",
-      "description": "This method is invoked when a gesture to close the dialog is used (either an Escape key press or clicking the 'X' in the top-right corner). The gesture argument indicates the gesture that was used to close the dialog (either 'close-button' or 'escape')."
+      "description": "Requests dismissal when Escape is pressed, the backdrop is clicked ('escape'), or the close button is clicked ('close-button'). Dialog uses a native modal dialog and remains open until unmounted, even if the callback does not dismiss it."
     },
     {
       "name": "role",
       "type": "'dialog' | 'alertdialog'",
-      "description": "The ARIA role to assign to this dialog. See [dialog modal](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal) and [alert dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog)"
+      "description": "Defaults to the native dialog role without an explicit role attribute. Use 'alertdialog' to override it. Modal semantics are provided by the native dialog. See [dialog modal](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal) and [alert dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog)"
     },
     {
       "name": "width",
@@ -117,6 +117,11 @@
       "required": false,
       "description": "The vertical alignment of the dialog. Only applies when position is 'center' (the default). 'top' positions the Dialog ~4rem from the top of the screen, 'center' (default) vertically centers the Dialog, 'bottom' positions the Dialog near the bottom of the screen.",
       "defaultValue": ""
+    },
+    {
+      "name": "ref",
+      "type": "React.Ref<HTMLDialogElement>",
+      "description": "A ref to the native dialog element. Unmount Dialog to close it instead of calling close()."
     },
     {
       "name": "className",
@@ -192,7 +197,7 @@
         {
           "name": "ref",
           "type": "React.RefObject<HTMLButtonElement>",
-          "description": " A reference to the rendered Button’s DOM node, used together with `autoFocus` for `focusTrap`’s `initialFocus`."
+          "description": "A reference to the rendered Button's DOM node, used together with autoFocus to set the initial focus."
         }
       ]
     }

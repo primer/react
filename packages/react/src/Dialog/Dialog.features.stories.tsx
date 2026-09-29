@@ -4,6 +4,8 @@ import TextInput from '../TextInput'
 import Text from '../Text'
 import {Button} from '../Button'
 import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import {expect, userEvent, within} from 'storybook/test'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
 import classes from './Dialog.stories.module.css'
@@ -12,6 +14,55 @@ import classes from './Dialog.stories.module.css'
 
 export default {
   title: 'Components/Dialog/Features',
+}
+
+export const WithPortaledMenu = () => {
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Show dialog
+      </Button>
+      {open && (
+        <Dialog
+          title="Project settings"
+          onClose={() => {
+            setOpen(false)
+          }}
+        >
+          <ActionMenu>
+            <ActionMenu.Button>Project actions</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item
+                  onSelect={() => {
+                    setSelected(true)
+                  }}
+                >
+                  Archive project
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+          {selected && <p>Project archived</p>}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+WithPortaledMenu.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const body = within(canvasElement.ownerDocument.body)
+  await userEvent.click(canvas.getByRole('button', {name: 'Show dialog'}))
+  await userEvent.click(body.getByRole('button', {name: 'Project actions'}))
+  await userEvent.click(body.getByRole('menuitem', {name: 'Archive project'}))
+  await expect(body.getByText('Project archived')).toBeVisible()
 }
 
 const lipsum = (
@@ -202,7 +253,7 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
 
   const [inputText, setInputText] = React.useState('')
 
-  const dialogRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
   const renderFooterConditionally = () => {
     if (step === 1) return null

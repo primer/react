@@ -1,3 +1,3 @@
 import React from 'react'
 
-export const DialogContext = React.createContext<object | undefined>(undefined)
+export const DialogContext = React.createContext<{portalContainer: HTMLDialogElement | null} | undefined>(undefined)
