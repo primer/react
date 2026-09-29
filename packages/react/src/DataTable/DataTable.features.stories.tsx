@@ -1772,6 +1772,11 @@ export const WithRowSelection = () => {
   )
 }
 
+const repoGroupsWithDisabledRow = repoGroups.map(group => ({
+  ...group,
+  rows: group.rows.map(repo => (repo.id === 1 ? {...repo, name: `${repo.name} (not selectable)`} : repo)),
+}))
+
 export const WithGroupedRowSelection = () => {
   const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
 
@@ -1782,7 +1787,7 @@ export const WithGroupedRowSelection = () => {
       </Table.Title>
       <DataTable
         aria-labelledby="selectable-repositories-by-visibility"
-        data={repoGroups}
+        data={repoGroupsWithDisabledRow}
         columns={groupedColumns}
         rowSelection
         selectedRows={selectedRows}

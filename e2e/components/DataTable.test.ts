@@ -116,7 +116,9 @@ test.describe('DataTable', () => {
                   await selectAll.click()
                   await expect(selectAll).toBeChecked()
                 }
-                await expect(page.getByRole('checkbox', {name: 'Select codeql-dca-worker'})).toBeDisabled()
+                await expect(
+                  page.getByRole('checkbox', {name: 'Select codeql-dca-worker (not selectable)', exact: true}),
+                ).toBeDisabled()
                 expect(
                   await page.screenshot({
                     animations: 'disabled',
