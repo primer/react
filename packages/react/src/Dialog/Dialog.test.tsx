@@ -72,6 +72,59 @@ describe('Dialog with primer_react_use_native_dialog enabled', () => {
         }
       })
 
+      it('forwards props, children, and the ref to the selected implementation', async () => {
+        const user = userEvent.setup()
+        const ref = React.createRef<HTMLDivElement | HTMLDialogElement>()
+        const onClose = vi.fn()
+        const {getByRole, getByText} = renderWithFlag(
+          <Dialog
+            ref={ref}
+            title="Settings"
+            subtitle="Edit your preferences"
+            width="small"
+            height="large"
+            position="center"
+            align="top"
+            className="custom-dialog"
+            style={{opacity: 0.9}}
+            data-component="CustomDialog"
+            footerButtons={[{content: 'Save', autoFocus: true}]}
+            onClose={onClose}
+          >
+            Dialog content
+          </Dialog>,
+        )
+        const dialog = getByRole('dialog', {name: 'Settings'})
+        expect(ref.current).toBe(dialog)
+        expect(dialog).toHaveAccessibleDescription('Edit your preferences')
+        expect(dialog).toHaveAttribute('data-width', 'small')
+        expect(dialog).toHaveAttribute('data-height', 'large')
+        expect(dialog).toHaveAttribute('data-position-regular', 'center')
+        expect(dialog).toHaveAttribute('data-align', 'top')
+        expect(dialog).toHaveAttribute('data-component', 'CustomDialog')
+        expect(dialog).toHaveClass('custom-dialog')
+        expect(dialog).toHaveStyle({opacity: '0.9'})
+        expect(dialog).toContainElement(getByText('Dialog content'))
+        expect(getByRole('button', {name: 'Save'})).toHaveFocus()
+        await user.click(getByRole('button', {name: 'Close'}))
+        expect(onClose).toHaveBeenCalledExactlyOnceWith('close-button')
+      })
+
+      it('preserves shared compound slots in both implementations', () => {
+        const {getByRole, getByText} = renderWithFlag(
+          <Dialog onClose={() => {}}>
+            <Dialog.Header>Custom header</Dialog.Header>
+            <Dialog.Body>Custom body</Dialog.Body>
+            <Dialog.Footer>Custom footer</Dialog.Footer>
+          </Dialog>,
+        )
+        const dialog = getByRole('dialog')
+        expect(dialog).toContainElement(getByText('Custom header'))
+        expect(dialog).toContainElement(getByText('Custom body'))
+        expect(dialog).toContainElement(getByText('Custom footer'))
+        expect(dialog).toHaveAttribute('data-has-footer')
+      })
+
       it('focuses the requested element and restores focus on dismissal', async () => {
         const user = userEvent.setup()
         const inputRef = React.createRef<HTMLInputElement>()

@@ -302,9 +302,11 @@ function LegacyDialogFocus({
   return null
 }
 
-const _Dialog = React.forwardRef<DialogElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
-  const nativeDialogEnabled = useFeatureFlag('primer_react_use_native_dialog')
-  const parentDialogContext = React.useContext(DialogContext)
+function useDialogContent(
+  props: React.PropsWithChildren<DialogProps>,
+  dialogRef: React.RefObject<DialogElement | null>,
+  resizeRef: React.RefObject<DialogElement | null>,
+) {
   const {
     'data-component': dataComponentProp,
     title = 'Dialog',
@@ -312,15 +314,12 @@ const _Dialog = React.forwardRef<DialogElement, React.PropsWithChildren<DialogPr
     renderHeader,
     renderBody,
     renderFooter,
-    onClose,
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
     footerButtons = defaultFooterButtons,
     position = defaultPosition,
     align,
-    returnFocusRef,
-    initialFocusRef,
     className,
     style,
   } = props
@@ -333,58 +332,13 @@ const _Dialog = React.forwardRef<DialogElement, React.PropsWithChildren<DialogPr
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
-  const lastPointerDownIsBackdrop = useRef(false)
-  const lastMouseDownIsBackdrop = useRef(false)
   const [footerButtonLayout, setFooterButtonLayout] = useState<'scroll' | 'wrap'>('wrap')
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
-  const isBackdropEvent = (event: React.MouseEvent<HTMLDialogElement>) => {
-    if (event.target !== event.currentTarget) {
-      return false
-    }
-    const {left, right, top, bottom} = event.currentTarget.getBoundingClientRect()
-    return event.clientX < left || event.clientX > right || event.clientY < top || event.clientY > bottom
-  }
   const [slots, childrenWithoutSlots] = useSlots(props.children, {
     body: Dialog.Body,
     header: Dialog.Header,
     footer: Dialog.Footer,
   })
-
-  const dialogRef = useRef<DialogElement>(null)
-  const backdropRef = useRef<HTMLDivElement>(null)
-  const [dialogElement, setDialogElement] = useState<HTMLDialogElement | null>(null)
-  const mergedDialogRef = useMergedRefs(forwardedRef, dialogRef)
-  const nativeDialogRef = useMergedRefs<HTMLDialogElement>(mergedDialogRef, setDialogElement)
-  const dialogContext = React.useMemo(() => {
-    return nativeDialogEnabled ? {portalContainer: dialogElement} : (parentDialogContext ?? LEGACY_DIALOG_CONTEXT)
-  }, [nativeDialogEnabled, dialogElement, parentDialogContext])
-  const focusOptions = useRef({initialFocusRef, returnFocusRef})
-  useLayoutEffect(() => {
-    focusOptions.current = {initialFocusRef, returnFocusRef}
-  })
-
-  useEffect(() => {
-    if (!nativeDialogEnabled || !dialogElement) {
-      return
-    }
-
-    const previousFocus = dialogElement.ownerDocument.activeElement
-    if (!dialogElement.open) {
-      dialogElement.showModal()
-    }
-    const initialFocus = focusOptions.current.initialFocusRef?.current ?? autoFocusedFooterButtonRef.current
-    initialFocus?.focus()
-
-    return () => {
-      if (dialogElement.open) {
-        dialogElement.close()
-      }
-      const returnFocus = focusOptions.current.returnFocusRef?.current ?? previousFocus
-      if (returnFocus instanceof HTMLElement && returnFocus.isConnected) {
-        returnFocus.focus()
-      }
-    }
-  }, [nativeDialogEnabled, dialogElement])
 
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
@@ -430,9 +384,9 @@ const _Dialog = React.forwardRef<DialogElement, React.PropsWithChildren<DialogPr
     dialogElement.setAttribute('data-footer-button-layout', newLayout)
 
     setFooterButtonLayout(newLayout)
-  }, [hasFooter])
+  }, [hasFooter, dialogRef])
 
-  useResizeObserver(updateFooterButtonLayout, nativeDialogEnabled ? dialogRef : backdropRef)
+  useResizeObserver(updateFooterButtonLayout, resizeRef)
 
   const positionDataAttributes =
     typeof position === 'string'
@@ -469,79 +423,153 @@ const _Dialog = React.forwardRef<DialogElement, React.PropsWithChildren<DialogPr
       {footer}
     </>
   )
+  return {dialogProps, content, positionDataAttributes, autoFocusedFooterButtonRef}
+}
+
+const LegacyDialog = React.forwardRef<DialogElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+  const {onClose, role = 'dialog', align, initialFocusRef, returnFocusRef} = props
+  const parentDialogContext = React.useContext(DialogContext)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const backdropRef = useRef<HTMLDivElement>(null)
+  const mergedDialogRef = useMergedRefs(forwardedRef, dialogRef)
+  const lastMouseDownIsBackdrop = useRef(false)
+  const {dialogProps, content, positionDataAttributes, autoFocusedFooterButtonRef} = useDialogContent(
+    props,
+    dialogRef,
+    backdropRef,
+  )
+
   return (
     <Portal>
-      <DialogContext.Provider value={dialogContext}>
-        {nativeDialogEnabled ? (
-          // Native cancel handles keyboard dismissal; pointer handlers only detect backdrop gestures.
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-          <dialog
-            {...dialogProps}
-            ref={nativeDialogRef}
-            data-native-dialog=""
-            role={role === 'alertdialog' ? role : undefined}
-            onCancel={event => {
-              if (event.target === event.currentTarget) {
-                event.preventDefault()
-                onClose('escape')
-              }
-            }}
-            onClose={event => {
-              // Mounting controls visibility, including after method="dialog" or an imperative close().
-              if (
-                event.target === event.currentTarget &&
-                event.currentTarget.isConnected &&
-                !event.currentTarget.open
-              ) {
-                event.currentTarget.showModal()
-              }
-            }}
-            onPointerDown={event => {
-              lastPointerDownIsBackdrop.current = isBackdropEvent(event)
-            }}
-            onPointerCancel={() => {
-              lastPointerDownIsBackdrop.current = false
-            }}
-            onClick={event => {
-              const dismiss = lastPointerDownIsBackdrop.current && isBackdropEvent(event)
-              lastPointerDownIsBackdrop.current = false
-              if (dismiss) {
-                onClose('escape')
-              }
-            }}
-          >
+      <DialogContext.Provider value={parentDialogContext ?? LEGACY_DIALOG_CONTEXT}>
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+        <div
+          ref={backdropRef}
+          className={classes.Backdrop}
+          {...positionDataAttributes}
+          {...(align && {'data-align': align})}
+          onMouseDown={event => {
+            lastMouseDownIsBackdrop.current = event.target === event.currentTarget
+          }}
+          onClick={event => {
+            if (event.target === event.currentTarget && lastMouseDownIsBackdrop.current) {
+              onClose('escape')
+            }
+          }}
+        >
+          <LegacyDialogFocus
+            containerRef={dialogRef}
+            initialFocusRef={initialFocusRef ?? autoFocusedFooterButtonRef}
+            returnFocusRef={returnFocusRef}
+            onClose={onClose}
+          />
+          <div {...dialogProps} ref={mergedDialogRef} role={role} aria-modal>
             {content}
-          </dialog>
-        ) : (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-          <div
-            ref={backdropRef}
-            className={classes.Backdrop}
-            {...positionDataAttributes}
-            {...(align && {'data-align': align})}
-            onMouseDown={event => {
-              lastMouseDownIsBackdrop.current = event.target === event.currentTarget
-            }}
-            onClick={event => {
-              if (event.target === event.currentTarget && lastMouseDownIsBackdrop.current) {
-                onClose('escape')
-              }
-            }}
-          >
-            <LegacyDialogFocus
-              containerRef={dialogRef}
-              initialFocusRef={initialFocusRef ?? autoFocusedFooterButtonRef}
-              returnFocusRef={returnFocusRef}
-              onClose={onClose}
-            />
-            <div {...dialogProps} ref={mergedDialogRef} role={role} aria-modal>
-              {content}
-            </div>
           </div>
-        )}
+        </div>
       </DialogContext.Provider>
     </Portal>
   )
+})
+LegacyDialog.displayName = 'LegacyDialog'
+
+const NativeDialog = React.forwardRef<DialogElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+  const {onClose, role = 'dialog', initialFocusRef, returnFocusRef} = props
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const [dialogElement, setDialogElement] = useState<HTMLDialogElement | null>(null)
+  const mergedDialogRef = useMergedRefs(forwardedRef, dialogRef)
+  const nativeDialogRef = useMergedRefs<HTMLDialogElement>(mergedDialogRef, setDialogElement)
+  const lastPointerDownIsBackdrop = useRef(false)
+  const {dialogProps, content, autoFocusedFooterButtonRef} = useDialogContent(props, dialogRef, dialogRef)
+  const dialogContext = React.useMemo(() => {
+    return {portalContainer: dialogElement}
+  }, [dialogElement])
+  const focusOptions = useRef({initialFocusRef, returnFocusRef})
+  useLayoutEffect(() => {
+    focusOptions.current = {initialFocusRef, returnFocusRef}
+  })
+
+  useEffect(() => {
+    if (!dialogElement) {
+      return
+    }
+
+    const previousFocus = dialogElement.ownerDocument.activeElement
+    if (!dialogElement.open) {
+      dialogElement.showModal()
+    }
+    const initialFocus = focusOptions.current.initialFocusRef?.current ?? autoFocusedFooterButtonRef.current
+    initialFocus?.focus()
+
+    return () => {
+      if (dialogElement.open) {
+        dialogElement.close()
+      }
+      const returnFocus = focusOptions.current.returnFocusRef?.current ?? previousFocus
+      if (returnFocus instanceof HTMLElement && returnFocus.isConnected) {
+        returnFocus.focus()
+      }
+    }
+  }, [dialogElement, autoFocusedFooterButtonRef])
+
+  const isBackdropEvent = (event: React.MouseEvent<HTMLDialogElement>) => {
+    if (event.target !== event.currentTarget) {
+      return false
+    }
+    const {left, right, top, bottom} = event.currentTarget.getBoundingClientRect()
+    return event.clientX < left || event.clientX > right || event.clientY < top || event.clientY > bottom
+  }
+
+  return (
+    <Portal>
+      <DialogContext.Provider value={dialogContext}>
+        {/* Native cancel handles keyboard dismissal; pointer handlers only detect backdrop gestures. */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+        <dialog
+          {...dialogProps}
+          ref={nativeDialogRef}
+          data-native-dialog=""
+          role={role === 'alertdialog' ? role : undefined}
+          onCancel={event => {
+            if (event.target === event.currentTarget) {
+              event.preventDefault()
+              onClose('escape')
+            }
+          }}
+          onClose={event => {
+            // Mounting controls visibility, including after method="dialog" or an imperative close().
+            if (event.target === event.currentTarget && event.currentTarget.isConnected && !event.currentTarget.open) {
+              event.currentTarget.showModal()
+            }
+          }}
+          onPointerDown={event => {
+            lastPointerDownIsBackdrop.current = isBackdropEvent(event)
+          }}
+          onPointerCancel={() => {
+            lastPointerDownIsBackdrop.current = false
+          }}
+          onClick={event => {
+            const dismiss = lastPointerDownIsBackdrop.current && isBackdropEvent(event)
+            lastPointerDownIsBackdrop.current = false
+            if (dismiss) {
+              onClose('escape')
+            }
+          }}
+        >
+          {content}
+        </dialog>
+      </DialogContext.Provider>
+    </Portal>
+  )
+})
+NativeDialog.displayName = 'NativeDialog'
+
+const _Dialog = React.forwardRef<DialogElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+  const nativeDialogEnabled = useFeatureFlag('primer_react_use_native_dialog')
+  if (nativeDialogEnabled) {
+    return <NativeDialog {...props} ref={forwardedRef} />
+  }
+  return <LegacyDialog {...props} ref={forwardedRef} />
 })
 _Dialog.displayName = 'Dialog'
 
