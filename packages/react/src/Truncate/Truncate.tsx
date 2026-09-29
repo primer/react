@@ -14,8 +14,12 @@ const Truncate = React.forwardRef(function Truncate(
   {as: Component = 'div', children, className, title, inline, expandable, maxWidth = 125, style, ...rest},
   ref,
 ) {
+  // Forward `inline` to custom components (e.g. `Link`) that also accept it, but not to DOM elements
+  const passthroughProps = typeof Component === 'string' ? {} : {inline}
+
   return (
     <Component
+      {...passthroughProps}
       {...rest}
       ref={ref}
       className={clsx(className, classes.Truncate)}
