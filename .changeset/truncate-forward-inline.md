@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Truncate: Forward the `inline` prop to custom `as` components (e.g. `Link`).
+Truncate: Infer accepted props from the `as` prop and forward `inline` to custom `as` components (e.g. `Link`).
