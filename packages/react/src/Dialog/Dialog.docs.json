@@ -80,11 +80,6 @@
       "description": "Requests dismissal when Escape is pressed, the backdrop is clicked ('escape'), or the close button is clicked ('close-button'). Dialog uses a native modal dialog and remains open until unmounted, even if the callback does not dismiss it."
     },
     {
-      "name": "role",
-      "type": "'dialog' | 'alertdialog'",
-      "description": "Defaults to the native dialog role without an explicit role attribute. Use 'alertdialog' to override it. Modal semantics are provided by the native dialog. See [dialog modal](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal) and [alert dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog)"
-    },
-    {
       "name": "width",
       "type": "'small' | 'medium' | 'large' | 'xlarge' | string | number",
       "description": "The width of the dialog.\nsmall: 296px\nmedium: 320px\nlarge: 480px\nxlarge: 640px\n\nAlso accepts any valid CSS width value (e.g. '400px', '80rem') or a number, which is interpreted as a pixel width."
@@ -117,11 +112,6 @@
       "required": false,
       "description": "The vertical alignment of the dialog. Only applies when position is 'center' (the default). 'top' positions the Dialog ~4rem from the top of the screen, 'center' (default) vertically centers the Dialog, 'bottom' positions the Dialog near the bottom of the screen.",
       "defaultValue": ""
-    },
-    {
-      "name": "ref",
-      "type": "React.Ref<HTMLDialogElement>",
-      "description": "A ref to the native dialog element. Unmount Dialog to close it instead of calling close()."
     },
     {
       "name": "className",
