@@ -59,7 +59,7 @@ function Summary<As extends React.ElementType>({as, children, ...props}: Summary
 }
 Summary.displayName = 'Summary'
 
-export {Summary}
+export {Root, Summary}
 
 const Details = Object.assign(Root, {
   Summary,

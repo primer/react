@@ -11,7 +11,7 @@ export type {ThemeProviderProps} from './ThemeProvider'
 
 // Layout
 export * from './Button'
-export {PageLayout} from './PageLayout'
+export * as PageLayout from './PageLayout/PageLayout.namespace'
 export type {
   PageLayoutProps,
   PageLayoutHeaderProps,
@@ -28,7 +28,7 @@ export type {
   PaneWidthValue,
   CustomWidthOptions,
 } from './PageLayout'
-export {SplitPageLayout} from './SplitPageLayout'
+export * as SplitPageLayout from './SplitPageLayout/SplitPageLayout.namespace'
 export type {
   SplitPageLayoutProps,
   SplitPageLayoutHeaderProps,
@@ -70,7 +70,7 @@ export {useSlots} from './hooks/useSlots'
 // Components
 export {default as Radio} from './Radio'
 export type {RadioProps} from './Radio'
-export {ActionList} from './ActionList'
+export * as ActionList from './ActionList/ActionList.namespace'
 export type {
   ActionListProps,
   ActionListGroupProps,
@@ -84,40 +84,41 @@ export type {
   ActionListTrailingActionProps,
   ActionListTrailingVisualProps,
 } from './ActionList'
-export {ActionMenu} from './ActionMenu'
+export * as ActionMenu from './ActionMenu/ActionMenu.namespace'
 export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
 export {AnchoredOverlay} from './AnchoredOverlay'
 export type {AnchoredOverlayProps} from './AnchoredOverlay'
-export {default as Autocomplete} from './Autocomplete'
+export * as Autocomplete from './Autocomplete/Autocomplete.namespace'
 export type {AutocompleteMenuProps, AutocompleteInputProps, AutocompleteOverlayProps} from './Autocomplete'
 export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarStack} from './AvatarStack'
 export type {AvatarStackProps} from './AvatarStack'
-export {Banner} from './Banner'
+export * as Banner from './Banner/Banner.namespace'
 export type {BannerProps} from './Banner'
 
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'
-export {default as Breadcrumbs, Breadcrumb} from './Breadcrumbs'
+export * as Breadcrumbs from './Breadcrumbs/Breadcrumbs.namespace'
+export * as Breadcrumb from './Breadcrumbs/Breadcrumbs.namespace'
 export type {BreadcrumbsProps, BreadcrumbsItemProps, BreadcrumbProps, BreadcrumbItemProps} from './Breadcrumbs'
 export {default as ButtonGroup} from './ButtonGroup'
 export type {ButtonGroupProps} from './ButtonGroup'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
-export {default as CheckboxGroup} from './CheckboxGroup'
+export * as CheckboxGroup from './CheckboxGroup/CheckboxGroup.namespace'
 export type {CheckboxGroupProps} from './CheckboxGroup'
-export {default as CircleBadge} from './CircleBadge'
+export * as CircleBadge from './CircleBadge/CircleBadge.namespace'
 export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
-export {default as Details} from './Details'
+export * as Details from './Details/Details.namespace'
 export type {DetailsProps} from './Details'
-export {Dialog} from './Dialog'
+export * as Dialog from './Dialog/Dialog.namespace'
 export type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from './Dialog'
 export type {ConfirmationDialogProps} from './ConfirmationDialog/ConfirmationDialog'
 export {ConfirmationDialog} from './ConfirmationDialog/ConfirmationDialog'
 export {default as Flash} from './Flash'
 export type {FlashProps} from './Flash'
-export {default as FormControl} from './FormControl'
+export * as FormControl from './FormControl/FormControl.namespace'
 export type {
   FormControlProps,
   FormControlCaptionProps,
@@ -125,7 +126,7 @@ export type {
   FormControlValidationProps,
 } from './FormControl'
 export {useFormControlForwardedProps} from './FormControl'
-export {default as Header} from './Header'
+export * as Header from './Header/Header.namespace'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
 export {default as Heading} from './Heading'
 export type {HeadingProps} from './Heading'
@@ -135,7 +136,7 @@ export {default as LabelGroup} from './LabelGroup'
 export type {LabelGroupProps} from './LabelGroup'
 export {default as Link} from './Link'
 export type {LinkProps} from './Link'
-export {NavList} from './NavList'
+export * as NavList from './NavList/NavList.namespace'
 export type {
   NavListProps,
   NavListItemProps,
@@ -150,17 +151,17 @@ export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
 export {default as Pagination} from './Pagination'
 export type {PaginationProps} from './Pagination'
-export {default as Popover} from './Popover'
+export * as Popover from './Popover/Popover.namespace'
 export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as Portal, registerPortalRoot, PortalContext} from './Portal'
 export type {PortalProps} from './Portal'
-export {ProgressBar} from './ProgressBar'
+export * as ProgressBar from './ProgressBar/ProgressBar.namespace'
 export type {ProgressBarProps, ProgressBarItemProps} from './ProgressBar'
-export {default as RadioGroup} from './RadioGroup'
+export * as RadioGroup from './RadioGroup/RadioGroup.namespace'
 export type {RadioGroupProps} from './RadioGroup'
 export type {RelativeTimeProps} from './RelativeTime'
 export {default as RelativeTime} from './RelativeTime'
-export {SegmentedControl} from './SegmentedControl'
+export * as SegmentedControl from './SegmentedControl/SegmentedControl.namespace'
 export type {
   SegmentedControlProps,
   SegmentedControlButtonProps,
@@ -169,32 +170,32 @@ export type {
   SegmentedControlDividerProps,
 } from './SegmentedControl'
 // Currently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
-export {default as Select} from './Select'
+export * as Select from './Select/Select.namespace'
 export type {SelectProps} from './Select'
-export {SelectPanel} from './SelectPanel'
+export * as SelectPanel from './SelectPanel/SelectPanel.namespace'
 export type {
   SelectPanelProps,
   ItemProps as SelectPanelItemProps,
   GroupedListProps as SelectPanelGroupedListProps,
   ItemInput as SelectPanelItemInput,
 } from './SelectPanel'
-export {default as SideNav} from './SideNav'
+export * as SideNav from './SideNav.namespace'
 export type {SideNavProps, SideNavLinkProps} from './SideNav'
 export {default as Spinner} from './Spinner'
 export type {SpinnerProps} from './Spinner'
 export {default as StateLabel} from './StateLabel'
 export type {StateLabelProps} from './StateLabel'
-export {default as SubNav} from './SubNav'
+export * as SubNav from './SubNav/SubNav.namespace'
 export type {SubNavProps, SubNavLinkProps, SubNavLinksProps} from './SubNav'
 export {default as ToggleSwitch} from './ToggleSwitch'
 export type {ToggleSwitchProps} from './ToggleSwitch'
-export {default as TextInput} from './TextInput'
+export * as TextInput from './TextInput/TextInput.namespace'
 export type {TextInputProps, TextInputActionProps} from './TextInput'
 export {default as TextInputWithTokens} from './TextInputWithTokens'
 export type {TextInputWithTokensProps} from './TextInputWithTokens'
 export {default as Text} from './Text'
 export type {TextProps} from './Text'
-export {default as Timeline} from './Timeline'
+export * as Timeline from './Timeline/Timeline.namespace'
 export type {
   TimelineProps,
   TimelineActionsProps,
@@ -219,7 +220,7 @@ export type {CheckboxProps} from './Checkbox'
 export {default as Textarea} from './Textarea'
 export type {TextareaProps} from './Textarea'
 
-export {TreeView} from './TreeView'
+export * as TreeView from './TreeView/TreeView.namespace'
 export {useRovingTabIndex} from './TreeView/useRovingTabIndex'
 export type {
   TreeViewProps,
@@ -232,16 +233,16 @@ export type {
 export {VisuallyHidden} from './VisuallyHidden'
 export type {VisuallyHiddenProps} from './VisuallyHidden'
 
-export {UnderlineNav} from './UnderlineNav'
+export * as UnderlineNav from './UnderlineNav/UnderlineNav.namespace'
 export type {UnderlineNavProps, UnderlineNavItemProps} from './UnderlineNav'
 
-export {ActionBar} from './ActionBar'
+export * as ActionBar from './ActionBar/ActionBar.namespace'
 export type {ActionBarProps} from './ActionBar'
 
-export {Stack} from './Stack'
+export * as Stack from './Stack/Stack.namespace'
 export type {StackProps, StackItemProps} from './Stack'
 
-export {PageHeader} from './PageHeader'
+export * as PageHeader from './PageHeader/PageHeader.namespace'
 export type {
   PageHeaderProps,
   TitleProps as PageHeaderTitleProps,

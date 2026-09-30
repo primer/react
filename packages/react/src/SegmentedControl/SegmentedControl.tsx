@@ -280,6 +280,8 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
 Root.displayName = 'SegmentedControl'
 
+export {Root}
+
 export const SegmentedControl = Object.assign(Root, {
   Button,
   IconButton: SegmentedControlIconButton,

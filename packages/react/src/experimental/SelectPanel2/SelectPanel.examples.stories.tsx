@@ -702,7 +702,13 @@ export const InsideSidebar = () => {
 
       <Button onClick={() => setSidebarOpen(true)}>Open sidebar</Button>
       {sidebarOpen && (
-        <Dialog position="right" title="Sidebar" onClose={() => setSidebarOpen(false)}>
+        <Dialog.Root
+          position="right"
+          title="Sidebar"
+          onClose={() => {
+            setSidebarOpen(false)
+          }}
+        >
           <div className={classes.ContentBox}>
             <SelectPanel
               title="Choose a tag"
@@ -727,7 +733,7 @@ export const InsideSidebar = () => {
               </ActionList>
             </SelectPanel>
           </div>
-        </Dialog>
+        </Dialog.Root>
       )}
     </>
   )
@@ -1073,7 +1079,7 @@ const CreateNewLabelDialog = ({
   }
 
   return (
-    <Dialog
+    <Dialog.Root
       title="Create new Label"
       onClose={onCancel}
       width="medium"
@@ -1100,7 +1106,7 @@ const CreateNewLabelDialog = ({
         </FormControl>
         <button type="submit" hidden ref={formSubmitRef}></button>
       </form>
-    </Dialog>
+    </Dialog.Root>
   )
 }
 

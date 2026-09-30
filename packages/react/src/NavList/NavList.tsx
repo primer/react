@@ -555,6 +555,8 @@ const GroupHeading = asSlot(GroupHeadingImpl, ActionList.GroupHeading)
 // ----------------------------------------------------------------------------
 // Export
 
+export {Root, Heading, Item, SubNav, Group, GroupHeading}
+
 export const NavList = Object.assign(Root, {
   Description: ActionList.Description,
   Heading,

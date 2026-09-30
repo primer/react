@@ -427,7 +427,7 @@ export const SelectPanelRepositionInsideDialog = () => {
   }, [filter])
 
   return (
-    <Dialog title="SelectPanel reposition after loading inside Dialog" onClose={() => {}}>
+    <Dialog.Root title="SelectPanel reposition after loading inside Dialog" onClose={() => {}}>
       <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 500px)', width: 'fit-content'}}>
         <p>other content</p>
         <SelectPanel
@@ -444,7 +444,7 @@ export const SelectPanelRepositionInsideDialog = () => {
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </Stack>
-    </Dialog>
+    </Dialog.Root>
   )
 }
 

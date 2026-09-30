@@ -520,6 +520,24 @@ function getNavHiddenDataAttributes(isHidden: boolean | ResponsiveValue<boolean>
   return getHiddenDataAttributes(isHidden, 'nav-hidden')
 }
 
+export {
+  Root,
+  ContextArea,
+  ParentLink,
+  ContextBar,
+  TitleArea,
+  ContextAreaActions,
+  LeadingAction,
+  Breadcrumbs,
+  LeadingVisual,
+  Title,
+  TrailingVisual,
+  TrailingAction,
+  Actions,
+  Description,
+  Navigation,
+}
+
 export const PageHeader = Object.assign(Root, {
   ContextArea,
   ParentLink,

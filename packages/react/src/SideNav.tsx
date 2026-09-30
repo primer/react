@@ -72,4 +72,6 @@ export type SideNavProps = ComponentProps<typeof SideNav>
 export type SideNavLinkProps = ComponentProps<typeof SideNavLink>
 
 /** @deprecated Use [NavList](https://primer.style/react/NavList) instead */
+export {SideNav, SideNavLink}
+
 export default Object.assign(SideNav, {Link: SideNavLink})

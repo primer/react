@@ -274,7 +274,7 @@ const MIN_BODY_HEIGHT = 48
 
 const DIALOG_CONTEXT_VALUE = Object.freeze({})
 
-const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+const DialogRoot = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     'data-component': dataComponentProp,
     title = 'Dialog',
@@ -442,7 +442,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     </DialogContext.Provider>
   )
 })
-_Dialog.displayName = 'Dialog'
+DialogRoot.displayName = 'Dialog'
 
 type StyledHeaderProps = React.ComponentProps<'div'>
 
@@ -573,7 +573,9 @@ Header.__SLOT__ = Symbol('Dialog.Header')
 Footer.__SLOT__ = Symbol('Dialog.Footer')
 Body.__SLOT__ = Symbol('Dialog.Body')
 
-export const Dialog = Object.assign(_Dialog, {
+export {DialogRoot, Header, Title, Subtitle, Body, Footer, Buttons, CloseButton}
+
+export const Dialog = Object.assign(DialogRoot, {
   Header,
   Title,
   Subtitle,

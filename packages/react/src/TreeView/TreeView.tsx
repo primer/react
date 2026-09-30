@@ -1012,6 +1012,8 @@ ErrorDialog.displayName = 'TreeView.ErrorDialog'
 // ----------------------------------------------------------------------------
 // Export
 
+export {Root, Item, SubTree, LeadingAction, LeadingVisual, TrailingVisual, DirectoryIcon, ErrorDialog}
+
 export const TreeView = Object.assign(Root, {
   Item,
   SubTree,

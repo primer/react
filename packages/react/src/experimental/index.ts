@@ -8,13 +8,13 @@
 
 'use client'
 
-export {Blankslate} from '../Blankslate'
+export * as Blankslate from '../Blankslate/Blankslate.namespace'
 export type {BlankslateProps} from '../Blankslate'
 
 export {ButtonBase} from '../Button'
 export type {ButtonBaseProps} from '../Button'
 
-export {Card} from '../Card'
+export * as Card from '../Card/Card.namespace'
 export type {
   CardProps,
   CardIconProps,
@@ -25,7 +25,8 @@ export type {
   CardMetadataProps,
 } from '../Card'
 
-export {DataTable, Table, createColumnHelper} from '../DataTable'
+export {DataTable, createColumnHelper} from '../DataTable'
+export * as Table from '../DataTable/Table.namespace'
 export type {
   DataTableProps,
   DataTableData,
@@ -48,12 +49,13 @@ export type {
   ObjectPaths,
 } from '../DataTable'
 
-export * from '../Dialog'
+export * as Dialog from '../Dialog/Dialog.namespace'
+export type {DialogButtonProps, DialogHeaderProps, DialogHeight, DialogProps, DialogWidth} from '../Dialog'
 
 export {InlineMessage} from '../InlineMessage'
 export type {InlineMessageProps} from '../InlineMessage'
 
-export {PageHeader} from '../PageHeader'
+export * as PageHeader from '../PageHeader/PageHeader.namespace'
 export type {
   PageHeaderProps,
   TitleProps,
@@ -65,7 +67,7 @@ export * from '../Hidden'
 
 export * from './hooks'
 
-export {NavList} from '../NavList'
+export * as NavList from '../NavList/NavList.namespace'
 export type {
   NavListProps,
   NavListItemProps,
@@ -75,21 +77,23 @@ export type {
   NavListTrailingVisualProps,
   NavListDividerProps,
 } from '../NavList'
-export * from './SelectPanel2'
+export * as SelectPanel from './SelectPanel2/SelectPanel.namespace'
+export type {SelectPanelMessageProps, SelectPanelProps, SelectPanelSecondaryActionProps} from './SelectPanel2'
 export {Tooltip} from '../TooltipV2'
 export type {TooltipProps} from '../TooltipV2'
-export * from '../ActionBar'
+export * as ActionBar from '../ActionBar/ActionBar.namespace'
+export type {ActionBarProps, ActionBarButtonProps, ActionBarMenuProps, ActionBarMenuItemProps} from '../ActionBar'
 
 export {ScrollableRegion} from '../ScrollableRegion'
 export type {ScrollableRegionProps} from '../ScrollableRegion'
 
-export {Stack} from '../Stack'
+export * as Stack from '../Stack/Stack.namespace'
 export type {StackProps, StackItemProps} from '../Stack'
 
 export {Announce, AriaStatus, AriaAlert} from '../live-region'
 export type {AnnounceProps, AriaStatusProps, AriaAlertProps} from '../live-region'
 
-export {UnderlinePanels} from './UnderlinePanels'
+export * as UnderlinePanels from './UnderlinePanels/UnderlinePanels.namespace'
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
 export {SkeletonBox} from '../Skeleton'
@@ -101,7 +105,8 @@ export type {SkeletonAvatarProps} from '../SkeletonAvatar'
 export {FeatureFlags, DefaultFeatureFlags, useFeatureFlag} from '../FeatureFlags'
 export type {FeatureFlagsProps} from '../FeatureFlags'
 
-export {FilteredActionList, FilteredActionListLoadingTypes} from '../FilteredActionList'
+export * as FilteredActionList from '../FilteredActionList/FilteredActionList.namespace'
+export {FilteredActionListLoadingTypes} from '../FilteredActionList'
 export type {FilteredActionListProps, FilteredActionListInputProps} from '../FilteredActionList'
 export {IssueLabel} from './IssueLabel'
 export type {IssueLabelProps} from './IssueLabel'
@@ -109,5 +114,5 @@ export type {IssueLabelProps} from './IssueLabel'
 export * from '../KeybindingHint'
 export * from './Tabs'
 
-export {TopicTag} from '../TopicTag'
+export * as TopicTag from '../TopicTag/TopicTag.namespace'
 export type {TopicTagProps, TopicTagGroupProps} from '../TopicTag'

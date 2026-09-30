@@ -6,6 +6,8 @@ import {beforeAll, describe, expect, it} from 'vitest'
 import * as parser from '@babel/parser'
 import {traverse} from '@babel/core'
 import {createHash} from 'node:crypto'
+import {rolldown} from 'rolldown'
+import {preserveNamespaceExports} from '../../script/preserve-namespace-exports'
 
 const ROOT_DIR = path.resolve(__dirname, '..', '..')
 
@@ -70,6 +72,151 @@ describe('@primer/react/next', () => {
     ).toMatchSnapshot()
   })
 })
+
+describe('static compound component exports', () => {
+  it('preserves native namespace imports in the published JavaScript', async () => {
+    const sources: Record<string, string> = {
+      '/src/index.js': "export * as Example from './Example/Example.namespace'",
+      '/src/experimental/index.js': "export * as Example from '../Example/Example.namespace'",
+      '/src/Example/Example.namespace.js':
+        "export {Root, Item} from './Example'; export * as Group from './Group.namespace'",
+      '/src/Example/Group.namespace.js': "export {Root} from './Example'",
+      '/src/Example/Example.js': 'export function Root() {} export function Item() {}',
+    }
+    const bundle = await rolldown({
+      input: Object.keys(sources),
+      plugins: [
+        preserveNamespaceExports(),
+        {
+          name: 'namespace-export-fixture',
+          resolveId(source, importer) {
+            const id = importer ? path.posix.resolve(path.posix.dirname(importer), source) : source
+            if (id in sources) {
+              return id
+            }
+            if (`${id}.js` in sources) {
+              return `${id}.js`
+            }
+            return null
+          },
+          load(id) {
+            return sources[id] ?? null
+          },
+        },
+      ],
+    })
+
+    try {
+      const {output} = await bundle.generate({
+        format: 'esm',
+        preserveModules: true,
+        preserveModulesRoot: '/src',
+      })
+      const namespaceImports: Array<string> = []
+
+      for (const chunk of output) {
+        if (chunk.type !== 'chunk') {
+          continue
+        }
+        expect(chunk.code).not.toContain('__exportAll')
+        const ast = parser.parse(chunk.code, {sourceType: 'module'})
+        for (const statement of ast.program.body) {
+          if (
+            statement.type === 'ImportDeclaration' &&
+            statement.specifiers.some(specifier => {
+              return specifier.type === 'ImportNamespaceSpecifier'
+            })
+          ) {
+            const target = path.posix.normalize(
+              path.posix.join(path.posix.dirname(chunk.fileName), statement.source.value),
+            )
+            expect(
+              output.some(file => {
+                return file.fileName === target
+              }),
+            ).toBe(true)
+            namespaceImports.push(`${chunk.fileName}: ${statement.source.value}`)
+          }
+        }
+      }
+
+      expect(namespaceImports.sort()).toEqual([
+        'Example/Example.namespace.js: ./Group.namespace.js',
+        'experimental/index.js: ../Example/Example.namespace.js',
+        'index.js: ./Example/Example.namespace.js',
+      ])
+    } finally {
+      await bundle.close()
+    }
+  })
+
+  it.each(['index.ts', 'experimental/index.ts'])('%s re-exports namespace members directly', async entrypoint => {
+    const filepath = path.join(ROOT_DIR, 'src', entrypoint)
+    const ast = parser.parse(await fs.readFile(filepath, 'utf8'), {
+      sourceType: 'module',
+      plugins: ['typescript'],
+    })
+    const members: Array<string> = []
+
+    for (const statement of ast.program.body) {
+      if (statement.type !== 'ExportNamedDeclaration' || !statement.source) {
+        continue
+      }
+
+      for (const specifier of statement.specifiers) {
+        if (specifier.type !== 'ExportNamespaceSpecifier') {
+          continue
+        }
+
+        const resolved = resolve(statement.source.value, filepath)
+        if (resolved.type !== 'relative') {
+          throw new Error(`Expected a local namespace module: ${statement.source.value}`)
+        }
+
+        members.push(...(await getNamespaceMembers(resolved.value, specifier.exported.name)))
+      }
+    }
+
+    expect(members.length).toBeGreaterThan(0)
+    expect(members.sort()).toMatchSnapshot()
+  })
+})
+
+async function getNamespaceMembers(filepath: string, name: string): Promise<Array<string>> {
+  const ast = parser.parse(await fs.readFile(filepath, 'utf8'), {
+    sourceType: 'module',
+    plugins: ['typescript'],
+  })
+  const members: Array<string> = []
+
+  for (const statement of ast.program.body) {
+    if (statement.type !== 'ExportNamedDeclaration' || !statement.source || statement.declaration) {
+      throw new Error(`Namespace ${name} must contain only direct re-exports`)
+    }
+
+    for (const specifier of statement.specifiers) {
+      if (specifier.exported.type !== 'Identifier') {
+        throw new Error(`Namespace ${name} must use identifier exports`)
+      }
+
+      const member = `${name}.${specifier.exported.name}`
+      if (specifier.type === 'ExportNamespaceSpecifier') {
+        const resolved = resolve(statement.source.value, filepath)
+        if (resolved.type !== 'relative') {
+          throw new Error(`Expected a local namespace module: ${statement.source.value}`)
+        }
+        members.push(...(await getNamespaceMembers(resolved.value, member)))
+      } else {
+        expect(specifier.type).toBe('ExportSpecifier')
+        members.push(member)
+      }
+    }
+  }
+
+  expect(members).toContain(`${name}.Root`)
+  expect(members).not.toContain(`${name}.default`)
+  return members
+}
 
 interface Project {
   getEntrypointExports(filepath: string): Array<EntrypointExport>
@@ -168,11 +315,15 @@ async function setup(): Promise<Project> {
           }
 
           const extension = path.extname(source)
-          if (extension !== '' && !extensions.includes(extension)) {
+          const resolved = resolve(source, mod.filepath)
+          if (
+            extension !== '' &&
+            !extensions.includes(extension) &&
+            (resolved.type !== 'relative' || !extensions.includes(path.extname(resolved.value)))
+          ) {
             return null
           }
 
-          const resolved = resolve(source, mod.filepath)
           if (resolved.type === 'error') {
             // eslint-disable-next-line no-console
             console.log('Unable to resolve source')
@@ -400,6 +551,17 @@ async function setup(): Promise<Project> {
       ExportNamedDeclaration(path) {
         for (const specifier of path.node.specifiers) {
           const source = path.node.source?.value
+
+          if (specifier.type === 'ExportNamespaceSpecifier') {
+            exports.push({
+              type: 'ExportSpecifier',
+              local: '*',
+              exported: specifier.exported.name,
+              exportKind: path.node.exportKind,
+              source,
+            })
+            continue
+          }
 
           exports.push({
             type: 'ExportSpecifier',

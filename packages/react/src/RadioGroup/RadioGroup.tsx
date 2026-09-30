@@ -51,6 +51,8 @@ const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, dis
   )
 }
 
+export {RadioGroup}
+
 export default Object.assign(RadioGroup, {
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,

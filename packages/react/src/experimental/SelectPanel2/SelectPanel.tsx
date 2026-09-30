@@ -628,6 +628,17 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   }
 }
 
+export {
+  Panel,
+  SelectPanelButton,
+  SelectPanelHeader,
+  SelectPanelSearchInput,
+  SelectPanelFooter,
+  SelectPanelLoading,
+  SelectPanelMessage,
+  SelectPanelSecondaryAction,
+}
+
 export const SelectPanel = Object.assign(Panel, {
   Button: SelectPanelButton,
   Header: SelectPanelHeader,

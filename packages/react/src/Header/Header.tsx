@@ -58,4 +58,6 @@ const HeaderLink = React.forwardRef<HTMLAnchorElement, HeaderLinkProps>(function
 
 HeaderLink.displayName = 'Header.Link'
 
+export {Header, HeaderLink, HeaderItem}
+
 export default Object.assign(Header, {Link: HeaderLink, Item: HeaderItem})

@@ -128,6 +128,8 @@ export type AutocompleteProps = ComponentProps<typeof Autocomplete>
 export type {AutocompleteInputProps} from './AutocompleteInput'
 export type {AutocompleteMenuProps} from './AutocompleteMenu'
 export type {AutocompleteOverlayProps} from './AutocompleteOverlay'
+export {Autocomplete}
+
 export default Object.assign(Autocomplete, {
   __SLOT__: Symbol('Autocomplete'),
   Context: AutocompleteContext,

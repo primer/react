@@ -20,6 +20,7 @@ import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
 import classes from './FormControl.module.css'
 import {isSlot} from '../utils/is-slot'
+import type {WithSlotMarker} from '../utils/types'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -236,6 +237,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     )
   },
 )
+
+export const Root: WithSlotMarker<typeof FormControl> = FormControl
 
 export default Object.assign(FormControl, {
   __SLOT__: Symbol('FormControl'),

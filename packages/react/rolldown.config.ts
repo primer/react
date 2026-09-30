@@ -6,6 +6,8 @@ import {dts} from 'rolldown-plugin-dts'
 import {importCSS} from 'rolldown-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import {isSupported} from './script/react-compiler.mjs'
+import glob from 'fast-glob'
+import {preserveNamespaceExports} from './script/preserve-namespace-exports'
 import packageJson from './package.json' with {type: 'json'}
 
 interface PackageMetadata {
@@ -83,7 +85,7 @@ const external = [
 ]
 
 const input = {
-  ...getEntrypointsFromInput(entrypoints),
+  ...getEntrypointsFromInput(new Set([...entrypoints, ...glob.sync('src/**/*.namespace.ts')])),
   // "./test-helpers"
   'test-helpers': 'src/utils/test-helpers.tsx',
 }
@@ -93,6 +95,7 @@ export default defineConfig([
   {
     input,
     plugins: [
+      preserveNamespaceExports(),
       reactCompilerRuntimeAlias(),
       babel({
         include: /\.(?:js|jsx|ts|tsx)$/,

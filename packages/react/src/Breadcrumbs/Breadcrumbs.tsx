@@ -404,6 +404,8 @@ Breadcrumbs.displayName = 'Breadcrumbs'
 export type BreadcrumbsItemProps<As extends React.ElementType = 'a'> = StyledBreadcrumbsItemProps<As>
 
 const BreadcrumbsItemWithDisplayName = Object.assign(BreadcrumbsItem, {displayName: 'Breadcrumbs.Item'})
+export {Breadcrumbs, BreadcrumbsItem}
+
 export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItemWithDisplayName})
 
 /**

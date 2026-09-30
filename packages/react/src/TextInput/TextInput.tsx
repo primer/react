@@ -6,8 +6,8 @@ import {clsx} from 'clsx'
 import {AlertFillIcon} from '@primer/octicons-react'
 
 import classes from './TextInput.module.css'
+import type {WithSlotMarker, Merge} from '../utils/types'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
-import type {Merge} from '../utils/types'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
@@ -296,6 +296,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 ) as PolymorphicForwardRefComponent<'input', TextInputProps>
 
 TextInput.displayName = 'TextInput'
+
+export const Root: WithSlotMarker<typeof TextInput> = TextInput
 
 export default Object.assign(TextInput, {
   __SLOT__: Symbol('TextInput'),

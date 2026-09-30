@@ -73,7 +73,7 @@ const config = defineConfig([
         {
           allowConstantExport: true,
           allowExportNames: ['metadata'],
-          extraHOCs: ['assign', 'fixedForwardRef'],
+          extraHOCs: ['assign', 'fixedForwardRef', 'asSlot'],
         },
       ],
     },

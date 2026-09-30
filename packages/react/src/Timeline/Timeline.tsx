@@ -168,6 +168,8 @@ const TimelineAvatar = React.forwardRef<HTMLDivElement, TimelineAvatarProps>(({c
 
 TimelineAvatar.displayName = 'Timeline.Avatar'
 
+export {Timeline, TimelineItem, TimelineAvatar, TimelineBadge, TimelineBody, TimelineBreak, TimelineActions}
+
 export default Object.assign(Timeline, {
   Item: TimelineItem,
   Avatar: TimelineAvatar,

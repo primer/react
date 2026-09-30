@@ -1184,6 +1184,10 @@ Footer.displayName = 'PageLayout.Footer'
 // ----------------------------------------------------------------------------
 // Export
 
+export {Root, Header, Content, Footer}
+export const PaneWithSlotMarker: WithSlotMarker<typeof Pane> = Pane
+export const SidebarWithSlotMarker: WithSlotMarker<typeof Sidebar> = Sidebar
+
 export const PageLayout = Object.assign(Root, {
   Header,
   Content,

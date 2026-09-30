@@ -22,6 +22,7 @@ import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActi
 import {useFeatureFlag} from '../FeatureFlags'
 import {announce, announceFromElement} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
+import type {WithSlotMarker} from '../utils/types'
 import {clsx} from 'clsx'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -1078,6 +1079,9 @@ const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
     </LinkButton>
   )
 }
+
+export const Root: WithSlotMarker<typeof Panel> = Panel
+export {SecondaryButton, SecondaryLink}
 
 export const SelectPanel = Object.assign(Panel, {
   __SLOT__: Symbol('SelectPanel'),

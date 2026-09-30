@@ -3,6 +3,7 @@ import {clsx} from 'clsx'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {WithSlotMarker} from '../utils/types'
 
 import classes from './Select.module.css'
 
@@ -87,6 +88,9 @@ const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement
 const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => (
   <optgroup {...props} data-component="Select.OptGroup" />
 )
+
+export const Root: WithSlotMarker<typeof Select> = Select
+export {Option, OptGroup}
 
 export default Object.assign(Select, {
   __SLOT__: Symbol('Select'),

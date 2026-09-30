@@ -167,7 +167,7 @@ export const DialogTrigger = () => {
         <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Merge" />
       </Tooltip>
       {isOpen && (
-        <Dialog
+        <Dialog.Root
           title="My Dialog"
           onClose={onDialogClose}
           footerButtons={[
@@ -179,11 +179,11 @@ export const DialogTrigger = () => {
           The icon button that triggers the dialog, takes the focus back when the dialog is closed however the tooltip
           is not shown again if the dialog is closed with a mouse. Because the tooltip is shown only on focus-visible.
           {secondOpen && (
-            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
+            <Dialog.Root title="Inner dialog!" onClose={onSecondDialogClose} width="small">
               Hello world
-            </Dialog>
+            </Dialog.Root>
           )}
-        </Dialog>
+        </Dialog.Root>
       )}
     </>
   )

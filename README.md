@@ -42,6 +42,29 @@ yarn add @primer/react
 
 The fastest way to make a prototype or try Primer React without setting up a new project is by using our [react template](https://github.com/primer/react-template).
 
+## Compound component namespaces
+
+Compound components in `@primer/react` and `@primer/react/experimental` use ES module namespace exports. Render the root with `Component.Root`; subcomponents remain named members:
+
+```tsx
+import {ActionList} from '@primer/react'
+
+function Example() {
+  return (
+    <ActionList.Root>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Edit comment</ActionList.Item>
+    </ActionList.Root>
+  )
+}
+```
+
+This is a breaking change: replace `<ActionList>` with `<ActionList.Root>` and `typeof ActionList` with `typeof ActionList.Root`. Apply the same migration to other compound components, such as `Dialog`, `FormControl`, `TextInput`, and experimental `Table`. Nested compounds follow the same convention: use `ActionList.GroupHeading.Root` with `ActionList.GroupHeading.TrailingAction`. Pass the component member, not the namespace, to helpers such as `asSlot`.
+
+Existing top-level prop-type exports, non-compound components, DOM identifiers, and deprecated entrypoint APIs are unchanged. Namespace members are direct module exports rather than properties attached to a component at runtime. This prototype retains legacy compound objects for internal imports and does not change the package's existing client boundaries.
+
+Before rollout, the `primer-react/direct-slot-children` ESLint rule also needs to recognize `Component.Root` as a slot parent.
+
 ## Contributing
 
 We love collaborating with folks inside and outside of GitHub and welcome contributions!

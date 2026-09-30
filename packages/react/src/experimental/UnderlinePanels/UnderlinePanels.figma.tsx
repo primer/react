@@ -5,12 +5,18 @@ import {UnderlinePanels} from '../'
 import figma from '@figma/code-connect'
 import type {IconProps} from '@primer/octicons-react'
 
-figma.connect(UnderlinePanels, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=39456%3A2213', {
-  props: {
-    items: figma.children('UnderlinePanels.Tab*'),
+figma.connect(
+  UnderlinePanels.Root,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=39456%3A2213',
+  {
+    props: {
+      items: figma.children('UnderlinePanels.Tab*'),
+    },
+    example: ({items}) => {
+      return <UnderlinePanels.Root>{items}</UnderlinePanels.Root>
+    },
   },
-  example: ({items}) => <UnderlinePanels>{items}</UnderlinePanels>,
-})
+)
 
 const UnderlinePanelsTabProps = {
   selected: figma.boolean('selected'),

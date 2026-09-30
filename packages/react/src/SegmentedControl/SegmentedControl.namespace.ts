@@ -1,0 +1,5 @@
+export {Root} from './SegmentedControl'
+export {default as Button} from './SegmentedControlButton'
+export {default as IconButton} from './SegmentedControlIconButton'
+export {default as Divider} from './SegmentedControlDivider'
+export {default as Action} from './SegmentedControlAction'

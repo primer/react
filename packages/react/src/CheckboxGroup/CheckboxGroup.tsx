@@ -73,7 +73,7 @@ const CheckboxGroup: FCWithSlotMarker<React.PropsWithChildren<CheckboxGroupProps
   )
 }
 
-export {CheckboxGroupContext}
+export {CheckboxGroup, CheckboxGroupContext}
 
 export default Object.assign(CheckboxGroup, {
   Caption: CheckboxOrRadioGroupCaption,

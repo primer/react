@@ -403,6 +403,8 @@ const Panel = PanelImpl as unknown as FCWithSlotMarker<PanelProps>
 
 Panel.displayName = 'UnderlinePanels.Panel'
 
+export {UnderlinePanels, Panel, Tab}
+
 export default Object.assign(UnderlinePanels, {Panel, Tab})
 
 Tab.__SLOT__ = Symbol('UnderlinePanels.Tab')

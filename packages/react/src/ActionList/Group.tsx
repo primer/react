@@ -143,7 +143,7 @@ export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' |
  * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
  * groups under menu or listbox are labelled by `aria-label`
  */
-const GroupHeadingImpl: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupHeadingProps>> = ({
+export const GroupHeadingImpl: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupHeadingProps>> = ({
   as,
   variant = 'subtle',
   // We are not recommending this prop to be used, it should only be used internally for incremental rollout.

@@ -117,4 +117,6 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
 
 PopoverContent.displayName = 'Popover.Content'
 
+export {Popover, PopoverContent}
+
 export default Object.assign(Popover, {Content: PopoverContent})

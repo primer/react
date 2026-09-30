@@ -50,4 +50,6 @@ export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>
  * @deprecated This component is deprecated.
  * Replace component with specific icon imports from `@primer/octicons-react` and customized styling.
  */
+export {CircleBadge, CircleBadgeIcon}
+
 export default Object.assign(CircleBadge, {Icon: CircleBadgeIcon})

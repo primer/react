@@ -1,6 +1,6 @@
 import type {StoryFn, Meta} from '@storybook/react-vite'
 import type {ActionListProps, ActionListGroupProps} from '.'
-import {ActionList} from '.'
+import {ActionList} from '../index'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
 import {Group} from './Group'
@@ -10,25 +10,29 @@ import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon}
 
 export default {
   title: 'Components/ActionList',
-  component: ActionList,
+  component: ActionList.Root,
   subcomponents: {Item, LinkItem, Group, Divider, Description},
-} as Meta<typeof ActionList>
+} as Meta<typeof ActionList.Root>
 
-export const Default = () => (
-  <ActionList>
-    <ActionList.Item>Copy link</ActionList.Item>
-    <ActionList.Item>Quote reply</ActionList.Item>
-    <ActionList.Item>Edit comment</ActionList.Item>
-  </ActionList>
-)
+export const Default = () => {
+  return (
+    <ActionList.Root>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Quote reply</ActionList.Item>
+      <ActionList.Item>Edit comment</ActionList.Item>
+    </ActionList.Root>
+  )
+}
 
-export const Playground: StoryFn<ActionListProps> = args => (
-  <ActionList {...args}>
-    <ActionList.Item>Copy link</ActionList.Item>
-    <ActionList.Item>Quote reply</ActionList.Item>
-    <ActionList.Item>Edit comment</ActionList.Item>
-  </ActionList>
-)
+export const Playground: StoryFn<ActionListProps> = args => {
+  return (
+    <ActionList.Root {...args}>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Quote reply</ActionList.Item>
+      <ActionList.Item>Edit comment</ActionList.Item>
+    </ActionList.Root>
+  )
+}
 Playground.args = {
   showDividers: false,
   selectionVariant: undefined,
@@ -94,13 +98,13 @@ export const ItemPlayground = args => {
   }
 
   return (
-    <ActionList selectionVariant={args.selectionVariant}>
+    <ActionList.Root selectionVariant={args.selectionVariant}>
       <ActionList.Item {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
       </ActionList.Item>
-    </ActionList>
+    </ActionList.Root>
   )
 }
 ItemPlayground.argTypes = {
@@ -213,13 +217,13 @@ export const LinkItemPlayground = args => {
   }
 
   return (
-    <ActionList>
+    <ActionList.Root>
       <ActionList.LinkItem {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
       </ActionList.LinkItem>
-    </ActionList>
+    </ActionList.Root>
   )
 }
 LinkItemPlayground.args = {
@@ -282,14 +286,16 @@ LinkItemPlayground.argTypes = {
   },
 }
 
-export const GroupPlayground: StoryFn<ActionListGroupProps> = args => (
-  <ActionList>
-    <ActionList.Group {...args}>
-      <ActionList.Item>Item 1</ActionList.Item>
-      <ActionList.Item>Item 2</ActionList.Item>
-    </ActionList.Group>
-  </ActionList>
-)
+export const GroupPlayground: StoryFn<ActionListGroupProps> = args => {
+  return (
+    <ActionList.Root>
+      <ActionList.Group {...args}>
+        <ActionList.Item>Item 1</ActionList.Item>
+        <ActionList.Item>Item 2</ActionList.Item>
+      </ActionList.Group>
+    </ActionList.Root>
+  )
+}
 GroupPlayground.argTypes = {
   variant: {
     control: {

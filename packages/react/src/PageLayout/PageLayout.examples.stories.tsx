@@ -245,13 +245,13 @@ export const FilterBottomSheet: StoryFn = () => {
             Filter
           </Button>
           {isOpen && (
-            <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
+            <Dialog.Root title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
                 <ActionList.LinkItem href="#red">Red</ActionList.LinkItem>
                 <ActionList.LinkItem href="#blue">Vegetables</ActionList.LinkItem>
                 <ActionList.LinkItem href="#green">Animals</ActionList.LinkItem>
               </ActionList>
-            </Dialog>
+            </Dialog.Root>
           )}
         </PageLayout.Header>
         <PageLayout.Pane
@@ -328,13 +328,13 @@ export const FilterActionMenu: StoryFn = () => {
             Filter
           </Button>
           {isOpen && (
-            <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
+            <Dialog.Root title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
                 <ActionList.LinkItem href="#red">Red</ActionList.LinkItem>
                 <ActionList.LinkItem href="#blue">Vegetables</ActionList.LinkItem>
                 <ActionList.LinkItem href="#green">Animals</ActionList.LinkItem>
               </ActionList>
-            </Dialog>
+            </Dialog.Root>
           )}
         </PageLayout.Header>
         <PageLayout.Pane
@@ -544,7 +544,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
             Filter
           </Button>
           {isOpen && (
-            <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
+            <Dialog.Root title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
                 <ActionList.Group>
                   <ActionList.GroupHeading>Categories</ActionList.GroupHeading>
@@ -591,7 +591,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
                   </ActionList.Item>
                 </ActionList.Group>
               </ActionList>
-            </Dialog>
+            </Dialog.Root>
           )}
         </PageLayout.Header>
         <PageLayout.Pane
@@ -846,7 +846,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
               Filter
             </Button>
             {isOpen && (
-              <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
+              <Dialog.Root title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
                 <ActionList selectionVariant="single">
                   <ActionList.Item
                     onSelect={() => {
@@ -873,7 +873,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
                     Green
                   </ActionList.Item>
                 </ActionList>
-              </Dialog>
+              </Dialog.Root>
             )}
           </div>
         </PageLayout.Header>
