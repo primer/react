@@ -1,5 +1,5 @@
 import {render, screen, waitFor} from '@testing-library/react'
-import {describe, expect, it, beforeEach, vi} from 'vitest'
+import {describe, expect, it, beforeEach, afterEach, vi} from 'vitest'
 import {page} from 'vitest/browser'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
@@ -653,6 +653,10 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         document.body.appendChild(liveRegion)
       })
 
+      afterEach(() => {
+        document.querySelector('[data-test-stale-live-region]')?.remove()
+      })
+
       function LoadingSelectPanel({
         initialLoadingType = 'spinner',
         items = [],
@@ -740,8 +744,14 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         )
       })
 
-      it('should scope initial focus announcements to the current dialog when reopened', async () => {
+      it('should ignore a live region in a closed dialog when reopened', async () => {
         const user = userEvent.setup()
+        const staleDialog = document.createElement('dialog')
+        staleDialog.setAttribute('data-test-stale-live-region', '')
+        const staleLiveRegion = document.createElement('live-region')
+        staleDialog.appendChild(staleLiveRegion)
+        document.body.prepend(staleDialog)
+
         renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         const expectedAnnouncement = usingRemoveActiveDescendant
@@ -755,12 +765,14 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.click(screen.getByText('Select items'))
 
         await waitFor(expectDialogAnnouncement, {timeout: 3000})
+        expect(staleLiveRegion.getMessage('polite')).toBe('')
 
         await user.keyboard('{Escape}')
         await user.click(screen.getByText('Select items'))
 
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
         await waitFor(expectDialogAnnouncement, {timeout: 3000})
+        expect(staleLiveRegion.getMessage('polite')).toBe('')
       })
 
       it('should announce notice text', async () => {
