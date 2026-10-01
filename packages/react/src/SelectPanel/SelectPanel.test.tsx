@@ -806,6 +806,8 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
         expect(getLiveRegion().getMessage('polite').trim()).toContain('This is a notice')
+        const globalLiveRegion = document.body.querySelector(':scope > live-region') as LiveRegionElement
+        expect(globalLiveRegion.getMessage('polite')).toBe('')
       })
 
       it('should announce filtered results', async () => {
