@@ -37,7 +37,8 @@ vi.mock('@primer/behaviors', async () => {
 
 // Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
 export function getLiveRegion(): LiveRegionElement {
-  const liveRegion = document.querySelector('live-region')
+  const liveRegion =
+    document.querySelector('[data-component="FilteredActionList"] live-region') ?? document.querySelector('live-region')
   if (liveRegion) {
     return liveRegion as LiveRegionElement
   }
@@ -737,6 +738,29 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           },
           {timeout: 3000},
         )
+      })
+
+      it('should scope initial focus announcements to the current dialog when reopened', async () => {
+        const user = userEvent.setup()
+        renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
+
+        const expectedAnnouncement = usingRemoveActiveDescendant
+          ? '3 items available, 0 selected.'
+          : 'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3'
+        const expectDialogAnnouncement = () => {
+          const liveRegion = screen.getByRole('dialog').querySelector('live-region') as LiveRegionElement | null
+          expect(liveRegion?.getMessage('polite').trim()).toBe(expectedAnnouncement)
+        }
+
+        await user.click(screen.getByText('Select items'))
+
+        await waitFor(expectDialogAnnouncement, {timeout: 3000})
+
+        await user.keyboard('{Escape}')
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByLabelText('Filter items')).toHaveFocus()
+        await waitFor(expectDialogAnnouncement, {timeout: 3000})
       })
 
       it('should announce notice text', async () => {
