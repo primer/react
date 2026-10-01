@@ -1,5 +1,5 @@
 import {render, screen, waitFor} from '@testing-library/react'
-import {describe, expect, it, beforeEach, afterEach, vi} from 'vitest'
+import {describe, expect, it, beforeEach, vi} from 'vitest'
 import {page} from 'vitest/browser'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
@@ -650,10 +650,6 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       beforeEach(() => {
         const liveRegion = document.createElement('live-region')
         document.body.appendChild(liveRegion)
-      })
-
-      afterEach(() => {
-        document.querySelector('[data-test-stale-live-region]')?.remove()
       })
 
       function LoadingSelectPanel({
