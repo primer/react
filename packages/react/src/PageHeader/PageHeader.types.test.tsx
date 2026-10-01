@@ -1,22 +1,16 @@
 import {PageHeader} from '../PageHeader'
 
-export function titleAcceptsNativeHeadingAttributes() {
+export function titleAcceptsId() {
   return (
-    <PageHeader.Title
-      as="h1"
-      id="page-title"
-      title="Project overview"
-      tabIndex={-1}
-      aria-describedby="description"
-      hidden={{narrow: true}}
-      onFocus={event => {
-        const heading: HTMLHeadingElement = event.currentTarget
-        heading.setAttribute('data-focused', 'true')
-      }}
-    >
+    <PageHeader.Title as="h1" id="page-title" hidden={{narrow: true}}>
       Project
     </PageHeader.Title>
   )
+}
+
+export function titleDoesNotAcceptOtherNativeHeadingAttributes() {
+  // @ts-expect-error title only adds support for id, not all native heading attributes
+  return <PageHeader.Title tabIndex={-1}>Project</PageHeader.Title>
 }
 
 export function titleOnlyAcceptsHeadingElements() {

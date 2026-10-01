@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Allow native heading attributes such as `id` on `PageHeader.Title` and forward them to the rendered heading.
+Allow an `id` on `PageHeader.Title` so the rendered heading can label another element with `aria-labelledby`.
