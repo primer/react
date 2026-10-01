@@ -1,5 +1,29 @@
 import {PageHeader} from '../PageHeader'
 
+export function titleAcceptsNativeHeadingAttributes() {
+  return (
+    <PageHeader.Title
+      as="h1"
+      id="page-title"
+      title="Project overview"
+      tabIndex={-1}
+      aria-describedby="description"
+      hidden={{narrow: true}}
+      onFocus={event => {
+        const heading: HTMLHeadingElement = event.currentTarget
+        heading.setAttribute('data-focused', 'true')
+      }}
+    >
+      Project
+    </PageHeader.Title>
+  )
+}
+
+export function titleOnlyAcceptsHeadingElements() {
+  // @ts-expect-error titles must render a heading
+  return <PageHeader.Title as="button">Project</PageHeader.Title>
+}
+
 // PageHeader
 export function acceptsAsProp() {
   return <PageHeader role="banner" as="header"></PageHeader>
