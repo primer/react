@@ -65,7 +65,7 @@
           "name": "size",
           "type": "'small' | 'medium' | 'large'",
           "defaultValue": "'medium'",
-          "description": "The block size and text size of the ActionList items."
+          "description": "The block size of the ActionList item. The `small` size also uses small body text."
         },
         {
           "name": "onSelect",
@@ -163,7 +163,7 @@
           "name": "size",
           "type": "'small' | 'medium' | 'large'",
           "defaultValue": "'medium'",
-          "description": "The block size and text size of the ActionList items."
+          "description": "The block size of the ActionList item. The `small` size also uses small body text."
         },
         {
           "name": "ref",
