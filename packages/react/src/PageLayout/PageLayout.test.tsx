@@ -330,6 +330,40 @@ describe('PageLayout', async () => {
   })
 
   describe('PageLayout.Sidebar', () => {
+    it.each([
+      {padding: 'none', viewport: 1280, expected: '0px'},
+      {padding: 'condensed', viewport: 1280, expected: '16px'},
+      {padding: 'normal', viewport: 1280, expected: '24px'},
+      {padding: 'condensed', viewport: 375, expected: '16px'},
+      {padding: 'normal', viewport: 375, expected: '16px'},
+      {padding: 'normal', viewport: 800, expected: '16px'},
+    ] as const)('applies $padding padding at a $viewport px viewport', async ({padding, viewport, expected}) => {
+      await page.viewport(viewport, 800)
+      try {
+        const {rerender} = render(
+          <PageLayout padding="none">
+            <PageLayout.Sidebar padding={padding}>Sidebar</PageLayout.Sidebar>
+            <PageLayout.Content>Content</PageLayout.Content>
+          </PageLayout>,
+        )
+
+        expect(screen.getByText('Sidebar')).toHaveStyle({padding: expected})
+
+        rerender(
+          <PageLayout padding="normal">
+            <PageLayout.Sidebar padding={padding} position="end" resizable sticky>
+              Sidebar
+            </PageLayout.Sidebar>
+            <PageLayout.Content>Content</PageLayout.Content>
+          </PageLayout>,
+        )
+
+        expect(screen.getByText('Sidebar')).toHaveStyle({padding: expected})
+      } finally {
+        await page.viewport(1280, 800)
+      }
+    })
+
     it('SidebarWrapper should prevent shrinking', () => {
       const {container} = render(
         <PageLayout>
