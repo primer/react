@@ -1,5 +1,13 @@
 # @primer/react
 
+## 38.40.2
+
+### Patch Changes
+
+- [#8473](https://github.com/primer/react/pull/8473) [`53ed545`](https://github.com/primer/react/commit/53ed54524aac9c3e829c239afdb4f63de160f873) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - LiveRegion: Upgrade `@primer/live-region-element` to 0.8.1
+
+- [#8463](https://github.com/primer/react/pull/8463) [`f710336`](https://github.com/primer/react/commit/f7103363ce5c916b8aa27a3fd5d4c9d564d3a13f) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Truncate: Infer accepted props from the `as` prop and forward `inline` to custom `as` components (e.g. `Link`).
+
 ## 38.40.1
 
 ### Patch Changes
