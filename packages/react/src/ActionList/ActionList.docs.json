@@ -160,6 +160,12 @@
           "description": "Indicate whether the item is active. There should never be more than one active item."
         },
         {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "'medium'",
+          "description": "The block size and text size of the ActionList items."
+        },
+        {
           "name": "ref",
           "type": "React.RefObject<HTMLAnchorElement>"
         },

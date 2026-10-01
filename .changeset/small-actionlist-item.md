@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-ActionList.Item: Add a small size variant with smaller text.
+ActionList.Item and ActionList.LinkItem: Add a small size variant with smaller text.
