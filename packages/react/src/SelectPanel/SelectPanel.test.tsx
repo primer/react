@@ -37,8 +37,7 @@ vi.mock('@primer/behaviors', async () => {
 
 // Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
 export function getLiveRegion(): LiveRegionElement {
-  const liveRegion =
-    document.querySelector('[data-component="FilteredActionList"] live-region') ?? document.querySelector('live-region')
+  const liveRegion = document.querySelector('live-region')
   if (liveRegion) {
     return liveRegion as LiveRegionElement
   }
@@ -744,37 +743,6 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         )
       })
 
-      it('should ignore a live region in a closed dialog when reopened', async () => {
-        const user = userEvent.setup()
-        const staleDialog = document.createElement('dialog')
-        staleDialog.setAttribute('data-test-stale-live-region', '')
-        const staleLiveRegion = document.createElement('live-region')
-        staleDialog.appendChild(staleLiveRegion)
-        document.body.prepend(staleDialog)
-
-        renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
-
-        const expectedAnnouncement = usingRemoveActiveDescendant
-          ? '3 items available, 0 selected.'
-          : 'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3'
-        const expectDialogAnnouncement = () => {
-          const liveRegion = screen.getByRole('dialog').querySelector('live-region') as LiveRegionElement | null
-          expect(liveRegion?.getMessage('polite').trim()).toBe(expectedAnnouncement)
-        }
-
-        await user.click(screen.getByText('Select items'))
-
-        await waitFor(expectDialogAnnouncement, {timeout: 3000})
-        expect(staleLiveRegion.getMessage('polite')).toBe('')
-
-        await user.keyboard('{Escape}')
-        await user.click(screen.getByText('Select items'))
-
-        expect(screen.getByLabelText('Filter items')).toHaveFocus()
-        await waitFor(expectDialogAnnouncement, {timeout: 3000})
-        expect(staleLiveRegion.getMessage('polite')).toBe('')
-      })
-
       it('should announce notice text', async () => {
         const user = userEvent.setup()
 
@@ -818,8 +786,6 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
         expect(getLiveRegion().getMessage('polite').trim()).toContain('This is a notice')
-        const globalLiveRegion = document.body.querySelector(':scope > live-region') as LiveRegionElement
-        expect(globalLiveRegion.getMessage('polite')).toBe('')
       })
 
       it('should announce filtered results', async () => {

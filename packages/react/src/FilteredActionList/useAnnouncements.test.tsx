@@ -37,7 +37,7 @@ describe('useAnnouncements', () => {
     await waitFor(() =>
       expect(announce).toHaveBeenCalledWith(
         'Filter fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
-        {delayMs: 500, from: input},
+        {delayMs: 500, from: undefined},
       ),
     )
   })
@@ -77,7 +77,7 @@ describe('useAnnouncements', () => {
     await waitFor(() =>
       expect(announce).toHaveBeenCalledWith(
         'Issue fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
-        {delayMs: 500, from: input},
+        {delayMs: 500, from: undefined},
       ),
     )
 
@@ -118,7 +118,7 @@ describe('useAnnouncements', () => {
     await waitFor(() =>
       expect(announce).toHaveBeenCalledWith(
         'Filter fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
-        {delayMs: 500, from: input},
+        {delayMs: 500, from: undefined},
       ),
     )
 
@@ -145,21 +145,15 @@ describe('useAnnouncements', () => {
   })
 
   it('announces an unchanged empty state when the filter value changes', async () => {
-    const input = document.createElement('input')
     const message = {title: 'Nothing found', description: "There's nothing here."}
     const {rerender} = renderHook(
       ({filterValue}) =>
-        useAnnouncements([], {current: null}, {current: input}, true, false, message, 'active-descendant', filterValue),
+        useAnnouncements([], {current: null}, {current: null}, true, false, message, 'active-descendant', filterValue),
       {initialProps: {filterValue: ''}},
     )
 
     rerender({filterValue: 'zero'})
 
-    await waitFor(() =>
-      expect(announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {
-        delayMs: 500,
-        from: input,
-      }),
-    )
+    await waitFor(() => expect(announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {delayMs: 500}))
   })
 })

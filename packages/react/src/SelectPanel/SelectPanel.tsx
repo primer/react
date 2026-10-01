@@ -44,23 +44,19 @@ const DefaultEmptyMessage = (
   </SelectPanelMessage>
 )
 
-function clearScopedLiveRegion(from: HTMLElement | null) {
-  const filteredActionList = from?.closest('[data-component="FilteredActionList"]')
-  const liveRegion = filteredActionList?.querySelector('live-region')
+async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
+  const liveRegion = document.querySelector('live-region')
 
-  liveRegion?.clear()
-}
+  liveRegion?.clear() // clear previous announcements
 
-async function announceText(text: string, from: HTMLElement | null, delayMs = SHORT_DELAY_MS) {
-  clearScopedLiveRegion(from)
   await announce(text, {
     delayMs,
-    from: from ?? undefined,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
   })
 }
 
-async function announceLoading(from: HTMLElement | null) {
-  await announceText('Loading.', from)
+async function announceLoading() {
+  await announceText('Loading.')
 }
 
 interface SelectPanelSingleSelection {
@@ -224,7 +220,6 @@ function Panel({
   const loadingManagedInternally = loading === undefined
   const loadingManagedExternally = !loadingManagedInternally
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
-  const announcementOriginRef = useRef<HTMLInputElement | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
@@ -268,7 +263,6 @@ function Panel({
 
   const onInputRefChanged = useCallback(
     (ref: React.RefObject<HTMLInputElement>) => {
-      announcementOriginRef.current = ref.current
       setInputRef(ref)
     },
     [setInputRef],
@@ -298,7 +292,7 @@ function Panel({
 
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             setIsLoading(true)
-            announceLoading(announcementOriginRef.current)
+            announceLoading()
           }, LONG_DELAY_MS)
         } else {
           // If this is the first data load and there are no items, show the loading spinner
@@ -310,7 +304,7 @@ function Panel({
 
           // We still want to announce if loading is taking too long
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
-            announceLoading(announcementOriginRef.current)
+            announceLoading()
           }, LONG_DELAY_MS)
         }
       }
@@ -453,7 +447,7 @@ function Panel({
       if (isLoading) {
         // Delay the announcement a bit, just in case the loading is quick
         loadingDelayTimeoutId.current = safeSetTimeout(() => {
-          announceLoading(announcementOriginRef.current)
+          announceLoading()
         }, LONG_DELAY_MS)
       } else {
         // If loading is done, we can clear the loading announcement
@@ -529,11 +523,12 @@ function Panel({
   useEffect(() => {
     const announceNotice = async () => {
       if (!noticeRef.current) return
-      const inputElement = announcementOriginRef.current
+      const liveRegion = document.querySelector('live-region')
 
-      clearScopedLiveRegion(inputElement)
+      liveRegion?.clear()
+
       await announceFromElement(noticeRef.current, {
-        from: inputElement ?? undefined,
+        from: liveRegion ? liveRegion : undefined,
       })
     }
 
