@@ -79,8 +79,6 @@ export const useAnnouncements = (
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
   const activeAnnouncement = useRef<ReturnType<typeof liveRegionAnnounce>>()
-  const focusAnnouncementTimeout = useRef<number>()
-  const listUpdateAnimationFrame = useRef<number>()
 
   // Notify user of the number of items available
   const selectedItems = items.filter(item => item.selected).length
@@ -95,15 +93,7 @@ export const useAnnouncements = (
   )
 
   useEffect(() => {
-    return () => {
-      if (focusAnnouncementTimeout.current !== undefined) {
-        window.clearTimeout(focusAnnouncementTimeout.current)
-      }
-      if (listUpdateAnimationFrame.current !== undefined) {
-        window.cancelAnimationFrame(listUpdateAnimationFrame.current)
-      }
-      activeAnnouncement.current?.cancel()
-    }
+    return () => activeAnnouncement.current?.cancel()
   }, [])
 
   const onInputFocus = useCallback(() => {
@@ -118,11 +108,7 @@ export const useAnnouncements = (
       return
     }
 
-    if (focusAnnouncementTimeout.current !== undefined) {
-      window.clearTimeout(focusAnnouncementTimeout.current)
-    }
-    focusAnnouncementTimeout.current = window.setTimeout(() => {
-      focusAnnouncementTimeout.current = undefined
+    window.setTimeout(() => {
       const activeItem = getItemWithActiveDescendant(listContainerRef, items)
       if (!activeItem) return
       const {index, text, selected} = activeItem
@@ -169,11 +155,7 @@ export const useAnnouncements = (
         })
       } else {
         // give @primer/behaviors a moment to update active-descendant
-        if (listUpdateAnimationFrame.current !== undefined) {
-          window.cancelAnimationFrame(listUpdateAnimationFrame.current)
-        }
-        listUpdateAnimationFrame.current = window.requestAnimationFrame(() => {
-          listUpdateAnimationFrame.current = undefined
+        window.requestAnimationFrame(() => {
           const activeItem = getItemWithActiveDescendant(listContainerRef, items)
           if (!activeItem) return
           const {index, text, selected} = activeItem
