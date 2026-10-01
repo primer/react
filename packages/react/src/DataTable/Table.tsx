@@ -10,6 +10,7 @@ import {useTableLayout} from './useTable'
 import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
+import Checkbox from '../Checkbox'
 import {TableGroupContext} from './TableGroupContext'
 import classes from './Table.module.css'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
@@ -112,12 +113,12 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
   align?: CellAlignment
 }
 
-function TableHeader({align, children, ...rest}: TableHeaderProps) {
+function TableHeader({align, className, children, ...rest}: TableHeaderProps) {
   return (
     <th
       data-component="Table.Header"
       {...rest}
-      className={clsx('TableHeader', classes.TableHeader)}
+      className={clsx('TableHeader', className, classes.TableHeader)}
       role="columnheader"
       scope="col"
       data-cell-align={align}
@@ -184,6 +185,74 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
 }
 
 // ----------------------------------------------------------------------------
+// TableSelectionHeader
+// ----------------------------------------------------------------------------
+
+export type TableSelectionHeaderProps = Omit<
+  React.ComponentPropsWithoutRef<'th'>,
+  'align' | 'children' | 'onChange'
+> & {
+  /**
+   * Whether all, some, or none of the selectable rows are selected.
+   */
+  selection: 'all' | 'some' | 'none'
+
+  /**
+   * Whether row selection is unavailable.
+   */
+  disabled?: boolean
+
+  /**
+   * Requests toggling selection for all selectable rows.
+   */
+  onToggleSelect?: () => void
+
+  /**
+   * Forwards a ref to the selection checkbox.
+   */
+  checkboxRef?: React.Ref<HTMLInputElement>
+
+  /**
+   * Provides an accessible name for the selection checkbox.
+   */
+  'aria-label'?: string
+
+  /**
+   * Provides an accessible description for the selection checkbox.
+   */
+  'aria-description'?: string
+}
+
+function TableSelectionHeader({
+  selection,
+  checkboxRef,
+  className,
+  disabled,
+  onToggleSelect,
+  'aria-label': ariaLabel = 'Select rows',
+  'aria-description': ariaDescription,
+  ...rest
+}: TableSelectionHeaderProps) {
+  return (
+    <TableHeader
+      {...rest}
+      className={clsx('TableSelectionHeader', className, classes.TableSelectionHeader)}
+      data-component="Table.SelectionHeader"
+    >
+      <Checkbox
+        ref={checkboxRef}
+        checked={selection === 'all'}
+        indeterminate={selection === 'some'}
+        disabled={disabled}
+        onChange={() => onToggleSelect?.()}
+        aria-label={ariaLabel}
+        aria-description={ariaDescription}
+      />
+    </TableHeader>
+  )
+}
+
+// ----------------------------------------------------------------------------
 // TableRow
 // ----------------------------------------------------------------------------
 
@@ -233,6 +302,79 @@ function TableCell({align, className, children, scope, headers, ...rest}: TableC
     >
       {children}
     </BaseComponent>
+  )
+}
+
+// ----------------------------------------------------------------------------
+// TableRowSelection
+// ----------------------------------------------------------------------------
+
+export type TableRowSelectionProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align' | 'children' | 'onChange'> & {
+  /**
+   * Whether the row is selected.
+   */
+  selected: boolean
+
+  /**
+   * Whether the row cannot be selected.
+   */
+  disabled?: boolean
+
+  /**
+   * Requests toggling selection for the row.
+   */
+  onToggleSelect?: () => void
+
+  /**
+   * Forwards a ref to the row selection checkbox.
+   */
+  checkboxRef?: React.Ref<HTMLInputElement>
+
+  /**
+   * Provides an accessible name when no row header labels the checkbox.
+   */
+  'aria-label'?: string
+
+  /**
+   * References the row header or headers that label the checkbox. The
+   * selection action is automatically prepended to the referenced labels.
+   */
+  'aria-labelledby'?: string
+}
+
+function TableRowSelection({
+  selected,
+  checkboxRef,
+  className,
+  disabled,
+  headers,
+  onToggleSelect,
+  'aria-label': ariaLabel = 'Select row',
+  'aria-labelledby': ariaLabelledBy,
+  ...rest
+}: TableRowSelectionProps) {
+  const actionLabelId = React.useId()
+  const group = useContext(TableGroupContext)
+  const resolvedHeaders = [group?.headerId, headers].filter(Boolean).join(' ') || undefined
+
+  return (
+    <td
+      {...rest}
+      className={clsx('TableCell', 'TableRowSelection', className, classes.TableCell, classes.TableRowSelection)}
+      role="cell"
+      headers={resolvedHeaders}
+      data-component="Table.RowSelection"
+    >
+      {ariaLabelledBy ? <VisuallyHidden id={actionLabelId}>Select</VisuallyHidden> : null}
+      <Checkbox
+        ref={checkboxRef}
+        checked={selected}
+        disabled={disabled}
+        onChange={() => onToggleSelect?.()}
+        aria-label={ariaLabelledBy ? undefined : ariaLabel}
+        aria-labelledby={ariaLabelledBy ? `${actionLabelId} ${ariaLabelledBy}` : undefined}
+      />
+    </td>
   )
 }
 
@@ -413,7 +555,9 @@ export {
   TableRow,
   TableHeader,
   TableSortHeader,
+  TableSelectionHeader,
   TableCell,
+  TableRowSelection,
   TableCellPlaceholder,
   TableSkeleton,
 }
