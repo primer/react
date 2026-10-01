@@ -15,6 +15,9 @@
     },
     {
       "id": "components-truncate-features--max-width"
+    },
+    {
+      "id": "components-truncate-features--as-link"
     }
   ],
   "importPath": "@primer/react",
