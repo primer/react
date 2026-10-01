@@ -238,12 +238,15 @@ describe('Banner', () => {
     rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
     expect(screen.getByTestId('icon')).toBeInTheDocument()
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="critical" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="success" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
   })
@@ -258,12 +261,15 @@ describe('Banner', () => {
     rerender(<Banner title="test" description="test-description" variant="upsell" leadingVisual={<CustomIcon />} />)
     expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="critical" leadingVisual={<CustomIcon />} />)
     expect(screen.queryByTestId('leading-visual')).toBe(null)
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="success" leadingVisual={<CustomIcon />} />)
     expect(screen.queryByTestId('leading-visual')).toBe(null)
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="warning" leadingVisual={<CustomIcon />} />)
     expect(screen.queryByTestId('leading-visual')).toBe(null)
   })
