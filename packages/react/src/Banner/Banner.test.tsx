@@ -319,7 +319,7 @@ describe('Banner', () => {
       expect(screen.getByRole('heading', {level: 2, name: 'test'})).toBeInTheDocument()
     })
 
-    it('should support rendering as any heading element above level 2', () => {
+    it('should support rendering as any supported heading element', () => {
       const levels = [2, 3, 4, 5, 6] as const
 
       render(
@@ -345,6 +345,15 @@ describe('Banner', () => {
       for (const level of levels) {
         expect(screen.getByRole('heading', {level, name: `test level ${level}`})).toBeInTheDocument()
       }
+    })
+
+    it('should support rendering as a paragraph element', () => {
+      render(
+        <Banner>
+          <Banner.Title as="p">test paragraph</Banner.Title>
+        </Banner>,
+      )
+      expect(screen.getByText('test paragraph')).toHaveRole('paragraph')
     })
 
     it('should support a custom `className` on the container element', () => {
