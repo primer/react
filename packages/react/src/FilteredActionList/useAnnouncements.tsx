@@ -92,14 +92,6 @@ export const useAnnouncements = (
     [enabled],
   )
 
-  const announceLatest = useCallback(
-    (...args: Parameters<typeof liveRegionAnnounce>) => {
-      activeAnnouncement.current?.cancel()
-      activeAnnouncement.current = announce(...args)
-    },
-    [announce],
-  )
-
   useEffect(() => {
     return () => activeAnnouncement.current?.cancel()
   }, [])
@@ -109,7 +101,7 @@ export const useAnnouncements = (
 
     if (usingRovingTabindex) {
       const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
-      announceLatest(announcementText, {
+      activeAnnouncement.current = announce(announcementText, {
         delayMs,
         from: inputElement ?? undefined,
       })
@@ -128,12 +120,12 @@ export const useAnnouncements = (
         `${selected ? 'selected' : 'not selected'}`,
         `${index + 1} of ${items.length}`,
       ].join(', ')
-      announceLatest(announcementText, {
+      activeAnnouncement.current = announce(announcementText, {
         delayMs,
         from: inputElement ?? undefined,
       })
     })
-  }, [announceLatest, inputRef, items, listContainerRef, selectedItems, usingRovingTabindex])
+  }, [announce, inputRef, items, listContainerRef, selectedItems, usingRovingTabindex])
 
   const announcementState = getAnnouncementState(items, loading, message, filterValue)
   const previousAnnouncementState = useRef(announcementState)
@@ -142,11 +134,12 @@ export const useAnnouncements = (
       if (previousAnnouncementState.current === announcementState) return
       previousAnnouncementState.current = announcementState
 
+      activeAnnouncement.current?.cancel()
       const inputElement = inputRef.current
 
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !loading) {
-        announceLatest(`${message?.title}. ${message?.description}`, {
+        activeAnnouncement.current = announce(`${message?.title}. ${message?.description}`, {
           delayMs,
           from: inputElement ?? undefined,
         })
@@ -156,7 +149,7 @@ export const useAnnouncements = (
       if (usingRovingTabindex) {
         const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
 
-        announceLatest(announcementText, {
+        activeAnnouncement.current = announce(announcementText, {
           delayMs,
           from: inputElement ?? undefined,
         })
@@ -174,7 +167,7 @@ export const useAnnouncements = (
             `${index + 1} of ${items.length}`,
           ].join(', ')
 
-          announceLatest(announcementText, {
+          activeAnnouncement.current = announce(announcementText, {
             delayMs,
             from: inputElement ?? undefined,
           })
@@ -182,7 +175,7 @@ export const useAnnouncements = (
       }
     },
     [
-      announceLatest,
+      announce,
       announcementState,
       inputRef,
       items,

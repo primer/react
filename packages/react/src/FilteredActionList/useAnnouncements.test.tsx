@@ -9,7 +9,7 @@ vi.mock('@primer/live-region-element', () => ({
 
 describe('useAnnouncements', () => {
   beforeEach(() => {
-    vi.mocked(announce).mockReset()
+    vi.mocked(announce).mockClear()
   })
 
   it('includes the input label in the initial focus announcement', async () => {
@@ -161,44 +161,5 @@ describe('useAnnouncements', () => {
         from: input,
       }),
     )
-  })
-
-  it('cancels a pending list update before assigning the focus announcement', () => {
-    vi.useFakeTimers()
-
-    try {
-      const listUpdateCancel = vi.fn()
-      const focusCancel = vi.fn()
-      vi.mocked(announce)
-        .mockReturnValueOnce(Object.assign(Promise.resolve(), {cancel: listUpdateCancel}))
-        .mockReturnValueOnce(Object.assign(Promise.resolve(), {cancel: focusCancel}))
-
-      const input = document.createElement('input')
-      const list = document.createElement('ul')
-      const activeOption = document.createElement('li')
-      activeOption.setAttribute('role', 'option')
-      activeOption.setAttribute('data-is-active-descendant', 'true')
-      activeOption.textContent = 'Start date'
-      list.append(activeOption)
-
-      const {result, rerender, unmount} = renderHook(
-        ({items}) =>
-          useAnnouncements(items, {current: list}, {current: input}, true, false, undefined, 'active-descendant'),
-        {initialProps: {items: [{text: 'Start date'}]}},
-      )
-
-      rerender({items: [{text: 'Start date'}, {text: 'End date'}]})
-      act(() => vi.advanceTimersByTime(16))
-
-      act(() => result.current())
-      act(() => vi.runOnlyPendingTimers())
-
-      expect(listUpdateCancel).toHaveBeenCalledOnce()
-
-      unmount()
-      expect(focusCancel).toHaveBeenCalledOnce()
-    } finally {
-      vi.useRealTimers()
-    }
   })
 })
