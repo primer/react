@@ -24,3 +24,17 @@ export const WithLinkWrappers = () => (
     </Link>
   </AvatarStack>
 )
+
+export const BugRepro = () => (
+  <>
+    <AvatarStack size={128}>
+      <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
+      <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
+    </AvatarStack>
+    <br />
+    <AvatarStack size={128} alignRight>
+      <Avatar alt="Renee" src="https://avatars.githubusercontent.com/u/13259331?v=4&size=40" />
+      <Avatar alt="Copilot logo" src="https://avatars.githubusercontent.com/in/1143301?v=4&size=40" />
+    </AvatarStack>
+  </>
+)

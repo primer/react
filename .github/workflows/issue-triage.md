@@ -11,7 +11,23 @@ on:
     types: [opened, reopened]
   reaction: eyes
 
-permissions: read-all
+permissions:
+  copilot-requests: write
+  id-token: none
+  # Explicitly list read scopes (equivalent to `read-all`) so we can also grant copilot-requests: write
+  actions: read
+  attestations: read
+  checks: read
+  contents: read
+  deployments: read
+  issues: read
+  discussions: read
+  packages: read
+  pages: read
+  pull-requests: read
+  repository-projects: read
+  security-events: read
+  statuses: read
 
 network: defaults
 

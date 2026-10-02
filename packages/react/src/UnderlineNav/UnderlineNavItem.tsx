@@ -9,7 +9,7 @@ import {useIsClipped} from '../internal/hooks/useOverflowObserver'
 export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
   const {
     as: Component = 'a',
-    href = '#',
+    href,
     children,
     counter,
     onSelect,
@@ -18,6 +18,7 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
     leadingVisual,
     ...props
   } = allProps
+  const hrefProps = Component === 'a' ? {href: href ?? '#'} : href === undefined ? {} : {href}
 
   const ref = useRef<HTMLLIElement>(null)
 
@@ -51,7 +52,7 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
       <UnderlineItem
         ref={forwardedRef}
         as={Component}
-        href={href}
+        {...hrefProps}
         aria-current={ariaCurrent}
         onKeyDown={keyDownHandler}
         onClick={clickHandler}

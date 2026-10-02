@@ -731,7 +731,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
             } else {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
-                'List updated, Focused item: item one, not selected, 1 of 3',
+                'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
               )
             }
           },
@@ -781,7 +781,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-        expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+        expect(getLiveRegion().getMessage('polite').trim()).toContain('This is a notice')
       })
 
       it('should announce filtered results', async () => {
@@ -797,7 +797,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
             } else {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
-                'List updated, Focused item: item one, not selected, 1 of 3',
+                'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
               )
             }
           },
@@ -828,7 +828,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe('1 item available, 0 selected.')
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
+              expect(getLiveRegion().getMessage('polite').trim()).toBe(
                 'List updated, Focused item: item one, not selected, 1 of 1',
               )
             }
@@ -851,7 +851,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe('No items available.')
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe('No items available.')
+              expect(getLiveRegion().getMessage('polite').trim()).toBe('No items available.')
             }
           },
           {timeout: 3000},
@@ -903,7 +903,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe("Nothing found. There's nothing here.")
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe("Nothing found. There's nothing here.")
+              expect(getLiveRegion().getMessage('polite').trim()).toBe("Nothing found. There's nothing here.")
             }
           },
           {timeout: 3000},
@@ -1673,11 +1673,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         const input = screen.getByPlaceholderText('Filter items')
         const options = screen.getAllByRole('option')
 
-        // Wait a tick for the effect to run
-        await new Promise(resolve => setTimeout(resolve, 0))
-
-        // aria-activedescendant should be set to the first item
-        expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id)
+        await waitFor(() => {
+          expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id)
+        })
       })
 
       it('should not set aria-activedescendant on mouse hover until after first interaction when setInitialFocus is true', async () => {

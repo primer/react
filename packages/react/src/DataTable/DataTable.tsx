@@ -1,16 +1,17 @@
-import type React from 'react'
+import type {ReactElement, ReactNode} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
-import type {UniqueRow} from './row'
-import type {ObjectPaths} from './utils'
+import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
+import type {IsAny, ObjectPaths} from './utils'
 import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
+import {TableGroup} from './TableGroup'
 
 // ----------------------------------------------------------------------------
 // DataTable
 // ----------------------------------------------------------------------------
 
-export type DataTableProps<Data extends UniqueRow> = {
+type DataTableBaseProps<Data extends UniqueRow> = {
   /**
    * Provide an id to an element which uniquely describes this table
    */
@@ -26,11 +27,6 @@ export type DataTableProps<Data extends UniqueRow> = {
    * a cell
    */
   cellPadding?: 'condensed' | 'normal' | 'spacious'
-
-  /**
-   * Provide a collection of the rows which will be rendered inside of the table
-   */
-  data: Array<Data>
 
   /**
    * Provide the columns for the table and the fields in `data` to which they
@@ -75,11 +71,32 @@ export type DataTableProps<Data extends UniqueRow> = {
   onToggleSort?: (columnId: ObjectPaths<Data> | string | number, direction: Exclude<SortDirection, 'NONE'>) => void
 }
 
+export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
+  /**
+   * Provide a collection of rows, row groups, or a mixture of both.
+   */
+  data: DataTableData<Data>
+}
+
 function defaultGetRowId<D extends UniqueRow>(row: D) {
   return row.id
 }
 
-function DataTable<Data extends UniqueRow>({
+type DataFromItem<Item> = Item extends DataTableRowGroup<infer Data> ? Data : Item extends UniqueRow ? Item : never
+
+type DataFromInput<Input extends DataTableData<UniqueRow>> =
+  IsAny<Input> extends true ? UniqueRow : DataFromItem<Input[number]>
+
+type InferredDataTableProps<Input extends DataTableData<UniqueRow>> = DataTableBaseProps<DataFromInput<Input>> & {
+  data: Input & DataTableData<DataFromInput<Input>>
+}
+
+interface DataTableComponent {
+  <Data extends UniqueRow>(props: DataTableProps<Data>): ReactElement
+  <Input extends DataTableData<UniqueRow>>(props: InferredDataTableProps<Input>): ReactElement
+}
+
+function DataTableImplementation<Data extends UniqueRow>({
   'aria-labelledby': labelledby,
   'aria-describedby': describedby,
   cellPadding,
@@ -91,7 +108,7 @@ function DataTable<Data extends UniqueRow>({
   getRowId = defaultGetRowId,
   onToggleSort,
 }: DataTableProps<Data>) {
-  const {headers, rows, actions, gridTemplateColumns} = useTable({
+  const table = useTable({
     data,
     columns,
     initialSortColumn,
@@ -99,6 +116,23 @@ function DataTable<Data extends UniqueRow>({
     getRowId,
     externalSorting,
   })
+  const {headers, bodies, actions, gridTemplateColumns} = table
+
+  const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
+    <TableRow key={row.id}>
+      {row.getCells().map(cell => (
+        <TableCell
+          key={cell.id}
+          id={cell.domId}
+          scope={cell.rowHeader ? 'row' : undefined}
+          align={cell.column.align}
+          headers={cell.headers}
+        >
+          {cell.column.renderCell ? cell.column.renderCell(row.getValue()) : (cell.getValue() as ReactNode)}
+        </TableCell>
+      ))}
+    </TableRow>
+  )
 
   return (
     <Table
@@ -114,6 +148,7 @@ function DataTable<Data extends UniqueRow>({
               return (
                 <TableSortHeader
                   key={header.id}
+                  id={header.domId}
                   align={header.column.align}
                   direction={header.getSortDirection()}
                   onToggleSort={() => {
@@ -128,32 +163,33 @@ function DataTable<Data extends UniqueRow>({
               )
             }
             return (
-              <TableHeader key={header.id} align={header.column.align}>
+              <TableHeader key={header.id} id={header.domId} align={header.column.align}>
                 {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
               </TableHeader>
             )
           })}
         </TableRow>
       </TableHead>
-      <TableBody>
-        {rows.map(row => {
-          return (
-            <TableRow key={row.id}>
-              {row.getCells().map(cell => {
-                return (
-                  <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
-                    {cell.column.renderCell
-                      ? cell.column.renderCell(row.getValue())
-                      : (cell.getValue() as React.ReactNode)}
-                  </TableCell>
-                )
-              })}
-            </TableRow>
-          )
-        })}
-      </TableBody>
+      {bodies.map(body =>
+        body.type === 'row-group' ? (
+          <TableGroup
+            key={body.key}
+            id={body.id}
+            label={body.label}
+            rowCount={body.rows.length}
+            colSpan={headers.length}
+            aria-label={body['aria-label']}
+          >
+            {body.rows.map(renderRow)}
+          </TableGroup>
+        ) : (
+          <TableBody key={body.key}>{body.rows.map(renderRow)}</TableBody>
+        ),
+      )}
     </Table>
   )
 }
+
+const DataTable = DataTableImplementation as DataTableComponent
 
 export {DataTable}

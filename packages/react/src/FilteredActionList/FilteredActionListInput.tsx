@@ -7,6 +7,7 @@ import classes from './FilteredActionList.module.css'
 export interface FilteredActionListInputProps extends Partial<Omit<TextInputProps, 'onChange' | 'onKeyDown'>> {
   inputRef: React.Ref<HTMLInputElement | null>
   onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onInputFocus?: React.FocusEventHandler<HTMLInputElement>
   onInputKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
   onInputKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
   placeholderText?: string
@@ -20,6 +21,7 @@ export function FilteredActionListInput({
   inputRef,
   value,
   onInputChange,
+  onInputFocus,
   onInputKeyPress,
   onInputKeyDown,
   placeholderText,
@@ -28,6 +30,7 @@ export function FilteredActionListInput({
   loading,
   fullScreenOnNarrow,
   className,
+  onFocus,
   ...restTextInputProps
 }: FilteredActionListInputProps): React.JSX.Element {
   return (
@@ -40,6 +43,10 @@ export function FilteredActionListInput({
         color="fg.default"
         value={value}
         onChange={onInputChange}
+        onFocus={event => {
+          onInputFocus?.(event)
+          onFocus?.(event)
+        }}
         onKeyPress={onInputKeyPress}
         onKeyDown={onInputKeyDown}
         placeholder={placeholderText}

@@ -42,7 +42,6 @@ export type TableGroupProps = {
 
 function TableGroup({className, id, label, rowCount, colSpan, children, 'aria-label': ariaLabel}: TableGroupProps) {
   const headerId = useId()
-  const accessibleName = `${label}, ${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`
   const contextValue = useMemo(() => ({headerId}), [headerId])
 
   return (
@@ -63,10 +62,15 @@ function TableGroup({className, id, label, rowCount, colSpan, children, 'aria-la
             aria-label={ariaLabel}
             data-component="Table.Group.Header"
           >
-            <VisuallyHidden>{accessibleName}</VisuallyHidden>
-            <span aria-hidden="true" className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}>
-              <span className={clsx('TableGroupHeaderLabel', classes.TableGroupHeaderLabel)}>{label}</span>
-              <span className={clsx('TableGroupHeaderCount', classes.TableGroupHeaderCount)}>{rowCount}</span>
+            <span className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}>
+              <span className={clsx('TableGroupHeaderLabel', classes.TableGroupHeaderLabel)}>
+                {label}
+                <VisuallyHidden>,</VisuallyHidden>
+              </span>
+              <span className={clsx('TableGroupHeaderCount', classes.TableGroupHeaderCount)}>
+                {rowCount}
+                <VisuallyHidden>{rowCount === 1 ? ' row' : ' rows'}</VisuallyHidden>
+              </span>
             </span>
           </th>
         </TableRow>

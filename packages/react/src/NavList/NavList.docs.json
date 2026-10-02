@@ -38,6 +38,12 @@
       "description": ""
     },
     {
+      "name": "disableItemGap",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Disable the gap between items when the item gap feature is enabled."
+    },
+    {
       "name": "ref",
       "type": "React.RefObject<HTMLElement>"
     },

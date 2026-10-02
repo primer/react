@@ -15,6 +15,7 @@ const IGNORED_FILES = [
   'packages/react/src/ActionMenu/ActionMenu.test.tsx',
   'packages/react/src/Pagination/PaginationModel.test.tsx',
   'packages/react/src/DataTable/__tests__/DataTable.test.tsx',
+  'packages/react/src/DataTable/__tests__/DataTableGrouping.test.tsx',
   'packages/react/src/DataTable/__tests__/ErrorDialog.test.tsx',
   'packages/react/src/DataTable/__tests__/Pagination.test.tsx',
   'packages/react/src/FeatureFlags/__tests__/FeatureFlags.test.tsx',
@@ -26,6 +27,7 @@ const IGNORED_FILES = [
   'packages/react/src/__tests__/Caret.test.tsx',
   // Asserts server rendering behavior, not rendered markup
   'packages/react/src/__tests__/ssr.test.tsx',
+  'packages/react/src/FilteredActionList/useAnnouncements.test.tsx',
   'packages/react/src/TreeView/useRovingTabIndex.test.tsx',
 ]
 

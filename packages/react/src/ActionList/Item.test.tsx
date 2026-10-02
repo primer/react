@@ -387,6 +387,21 @@ describe('ActionList.Item', () => {
     expect(tabs).toHaveLength(3)
   })
 
+  it('should forward a list-semantic item ref only to the outer list item', () => {
+    const ref = vi.fn<(node: HTMLLIElement | null) => void>()
+    const {getByRole} = HTMLRender(
+      <ActionList role="listbox" aria-label="Projects">
+        <ActionList.Item ref={ref} role="option">
+          Primer React
+        </ActionList.Item>
+      </ActionList>,
+    )
+    const option = getByRole('option')
+
+    expect(ref.mock.calls.filter(([node]) => node !== null)).toEqual([[option]])
+    expect(option.tagName).toBe('LI')
+  })
+
   it('should preserve consumer ref when tooltip wraps trigger', async () => {
     const user = userEvent.setup()
 
