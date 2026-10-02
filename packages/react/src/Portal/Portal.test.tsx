@@ -6,6 +6,8 @@ import BaseStyles from '../BaseStyles'
 import React, {act} from 'react'
 import {hydrateRoot, type Root} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
+import {Dialog} from '../Dialog'
+import {FeatureFlags} from '../FeatureFlags'
 
 const renderOnServer = (children: React.ReactNode) => {
   const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
@@ -18,6 +20,38 @@ const renderOnServer = (children: React.ReactNode) => {
 }
 
 describe('Portal', () => {
+  it('opens a native Dialog after hydration', async () => {
+    const ref = React.createRef<HTMLDialogElement>()
+    const app = (
+      <FeatureFlags flags={{primer_react_use_native_dialog: true}}>
+        <Dialog ref={ref} onClose={() => {}}>
+          Dialog content
+        </Dialog>
+      </FeatureFlags>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderOnServer(app)
+    document.body.appendChild(container)
+    const recoverableErrors: Array<unknown> = []
+    let root: Root | undefined
+    try {
+      await act(async () => {
+        root = hydrateRoot(container, app, {
+          onRecoverableError: error => {
+            recoverableErrors.push(error)
+          },
+        })
+      })
+      expect(recoverableErrors).toEqual([])
+      expect(ref.current?.matches(':modal')).toBe(true)
+    } finally {
+      await act(async () => {
+        root?.unmount()
+      })
+      container.remove()
+    }
+  })
+
   it('renders nothing during server rendering', () => {
     // React's server renderer throws when it encounters a portal, so `Portal` has
     // to render nothing while server rendering.

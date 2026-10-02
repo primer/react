@@ -3,6 +3,7 @@ import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {PortalContext} from './PortalContext'
 import {DEFAULT_PORTAL_CONTAINER_NAME, ensureDefaultPortal, getPortalRoot} from './portalRoot'
+import {DialogContext} from '../Dialog/DialogContext'
 
 const subscribe = () => () => {}
 const getSnapshot = () => true
@@ -38,6 +39,8 @@ export interface PortalProps {
    * Optional. Mount this portal at the container specified
    * by this name. The container must be previously registered
    * with `registerPortal`.
+   * Inside a Dialog, containers outside the modal are replaced by the dialog
+   * itself so portaled content remains interactive.
    */
   containerName?: string
 }
@@ -52,6 +55,8 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
+  const dialogContext = useContext(DialogContext)
+  const dialogContainer = dialogContext?.portalContainer
   const isClientRender = useIsClientRender()
 
   // `onMount` is read from a ref so that it is not part of the effect below's
@@ -88,20 +93,27 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
       ensureDefaultPortal()
     }
-    const parentElement = getPortalRoot(containerName)
+    // Native modal dialogs make content outside their DOM subtree inert.
+    // Wait for the dialog ref before attaching its descendant portals.
+    if (dialogContainer === null) {
+      return
+    }
+    const registeredContainer = getPortalRoot(containerName)
 
-    if (!parentElement) {
+    if (!registeredContainer) {
       throw new Error(
         `Portal container '${containerName}' is not yet registered. Container must be registered with registerPortalRoot before use.`,
       )
     }
+    const parentElement =
+      dialogContainer && !dialogContainer.contains(registeredContainer) ? dialogContainer : registeredContainer
     parentElement.appendChild(element)
     onMountRef.current?.()
 
     return () => {
       parentElement.removeChild(element)
     }
-  }, [element, isClientRender, _containerName, portalContainerName])
+  }, [element, isClientRender, _containerName, portalContainerName, dialogContainer])
 
-  return element && isClientRender ? createPortal(children, element) : null
+  return element && isClientRender && dialogContainer !== null ? createPortal(children, element) : null
 }
