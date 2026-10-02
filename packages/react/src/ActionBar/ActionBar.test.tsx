@@ -1,5 +1,5 @@
 import {describe, expect, it, afterEach, vi} from 'vitest'
-import {render, screen, act} from '@testing-library/react'
+import {render, screen, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, {createRef, useState} from 'react'
 import ActionBar from './'
@@ -11,6 +11,62 @@ describe('ActionBar', () => {
   implementsClassName(ActionBar, classes.Nav)
   afterEach(() => {
     vi.clearAllMocks()
+  })
+
+  it('renders icon elements in the overflow menu', async () => {
+    const user = userEvent.setup()
+    render(
+      <div style={{width: 0}}>
+        <ActionBar aria-label="Toolbar">
+          <ActionBar.IconButton icon={<BoldIcon data-testid="action-icon" />} aria-label="Bold" />
+          <ActionBar.Menu
+            icon={<ItalicIcon />}
+            overflowIcon={<CodeIcon data-testid="menu-icon" />}
+            aria-label="Formatting"
+            items={[{label: 'Code'}]}
+          />
+        </ActionBar>
+      </div>,
+    )
+
+    await user.click(await screen.findByRole('button', {name: 'More items'}))
+
+    expect(within(screen.getByRole('menuitem', {name: 'Bold'})).getByTestId('action-icon')).toBeInTheDocument()
+    expect(within(screen.getByRole('menuitem', {name: 'Formatting'})).getByTestId('menu-icon')).toBeInTheDocument()
+  })
+
+  it('renders icon elements in menu items and submenu triggers', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Menu
+          icon={<BoldIcon />}
+          aria-label="Formatting"
+          items={[
+            {
+              label: 'Bold',
+              leadingVisual: <BoldIcon data-testid="item-leading-icon" />,
+              trailingVisual: <ItalicIcon data-testid="item-trailing-icon" />,
+            },
+            {
+              label: 'More formatting',
+              leadingVisual: <BoldIcon data-testid="submenu-leading-icon" />,
+              trailingVisual: <ItalicIcon data-testid="submenu-trailing-icon" />,
+              items: [{label: 'Code'}],
+            },
+          ]}
+        />
+      </ActionBar>,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Formatting'}))
+
+    const item = within(screen.getByRole('menuitem', {name: 'Bold'}))
+    expect(item.getByTestId('item-leading-icon')).toBeInTheDocument()
+    expect(item.getByTestId('item-trailing-icon')).toBeInTheDocument()
+    const submenu = within(screen.getByRole('menuitem', {name: 'More formatting'}))
+    expect(submenu.getByTestId('submenu-leading-icon')).toBeInTheDocument()
+    expect(submenu.getByTestId('submenu-trailing-icon')).toBeInTheDocument()
   })
 
   it('should not trigger disabled button', () => {

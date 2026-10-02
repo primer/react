@@ -24,6 +24,37 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
 
 describe('IconButton', () => {
   implementsClassName(IconButton, classes.IconButton)
+
+  it.each([false, true])('renders an icon element with disabled=%s', disabled => {
+    render(
+      <IconButton
+        icon={<HeartIcon data-testid="icon" size={24} className="custom-icon" />}
+        aria-label="Favorite"
+        disabled={disabled}
+      />,
+    )
+
+    const button = screen.getByRole('button', {name: 'Favorite'})
+    const icon = screen.getByTestId('icon')
+    expect(button).toContainElement(icon)
+    expect(icon).toHaveAttribute('width', '24')
+    expect(icon).toHaveClass('custom-icon')
+  })
+
+  it('replaces an icon element with a spinner while loading', () => {
+    const {rerender} = render(<IconButton icon={<HeartIcon data-testid="icon" />} aria-label="Favorite" loading />)
+
+    const button = screen.getByRole('button', {name: 'Favorite'})
+    expect(screen.queryByTestId('icon')).not.toBeInTheDocument()
+    expect(button.querySelector('[data-component="Spinner"]')).toBeInTheDocument()
+    expect(button).toHaveAttribute('aria-disabled', 'true')
+
+    rerender(<IconButton icon={<HeartIcon data-testid="icon" />} aria-label="Favorite" loading={false} />)
+
+    expect(button).toContainElement(screen.getByTestId('icon'))
+    expect(button.querySelector('[data-component="Spinner"]')).not.toBeInTheDocument()
+    expect(button).not.toHaveAttribute('aria-disabled')
+  })
 })
 
 describe('LinkButton', () => {
