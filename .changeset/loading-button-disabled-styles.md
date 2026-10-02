@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Button: Apply disabled styles while loading so the button looks non-interactive but stays focusable
+Button: Add opt-in disabled styling for loading buttons so they look non-interactive while staying focusable
