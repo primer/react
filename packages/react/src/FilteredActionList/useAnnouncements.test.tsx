@@ -37,7 +37,7 @@ describe('useAnnouncements', () => {
     await waitFor(() =>
       expect(announce).toHaveBeenCalledWith(
         'Filter fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
-        {delayMs: 500, from: undefined},
+        {delayMs: 500, from: input},
       ),
     )
   })
@@ -77,7 +77,7 @@ describe('useAnnouncements', () => {
     await waitFor(() =>
       expect(announce).toHaveBeenCalledWith(
         'Issue fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
-        {delayMs: 500, from: undefined},
+        {delayMs: 500, from: input},
       ),
     )
 
@@ -118,7 +118,7 @@ describe('useAnnouncements', () => {
     await waitFor(() =>
       expect(announce).toHaveBeenCalledWith(
         'Filter fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
-        {delayMs: 500, from: undefined},
+        {delayMs: 500, from: input},
       ),
     )
 
@@ -145,15 +145,56 @@ describe('useAnnouncements', () => {
   })
 
   it('announces an unchanged empty state when the filter value changes', async () => {
+    const input = document.createElement('input')
     const message = {title: 'Nothing found', description: "There's nothing here."}
     const {rerender} = renderHook(
       ({filterValue}) =>
-        useAnnouncements([], {current: null}, {current: null}, true, false, message, 'active-descendant', filterValue),
+        useAnnouncements([], {current: null}, {current: input}, true, false, message, 'active-descendant', filterValue),
       {initialProps: {filterValue: ''}},
     )
 
     rerender({filterValue: 'zero'})
 
-    await waitFor(() => expect(announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {delayMs: 500}))
+    await waitFor(() =>
+      expect(announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {
+        delayMs: 500,
+        from: input,
+      }),
+    )
+  })
+
+  it('cancels a pending list update before replacing it with a focus announcement', async () => {
+    const listUpdateCancel = vi.fn()
+    const focusCancel = vi.fn()
+    vi.mocked(announce)
+      .mockReturnValueOnce(Object.assign(Promise.resolve(), {cancel: listUpdateCancel}))
+      .mockReturnValueOnce(Object.assign(Promise.resolve(), {cancel: focusCancel}))
+
+    const input = document.createElement('input')
+    const list = document.createElement('ul')
+    const activeOption = document.createElement('li')
+    activeOption.setAttribute('role', 'option')
+    activeOption.setAttribute('data-is-active-descendant', 'true')
+    activeOption.textContent = 'Start date'
+    list.append(activeOption)
+
+    const {result, rerender, unmount} = renderHook(
+      ({items}) =>
+        useAnnouncements(items, {current: list}, {current: input}, true, false, undefined, 'active-descendant'),
+      {initialProps: {items: [{text: 'Start date'}]}},
+    )
+
+    rerender({items: [{text: 'Start date'}, {text: 'End date'}]})
+    await waitFor(() => expect(announce).toHaveBeenCalledTimes(1))
+
+    act(() => result.current())
+    await waitFor(() => expect(announce).toHaveBeenCalledTimes(2))
+
+    expect(listUpdateCancel).toHaveBeenCalledOnce()
+    expect(listUpdateCancel.mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(announce).mock.invocationCallOrder[1]!)
+    expect(focusCancel).not.toHaveBeenCalled()
+
+    unmount()
+    expect(focusCancel).toHaveBeenCalledOnce()
   })
 })

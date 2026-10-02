@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {forwardRef, useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import {createElement, forwardRef, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
@@ -578,6 +578,7 @@ export function FilteredActionList({
       data-testid="filtered-action-list"
       data-component="FilteredActionList"
     >
+      {announcementsEnabled ? createElement('live-region') : null}
       <FilteredActionListInput
         inputRef={appliedInputRef}
         onInputFocus={onInputFocus}

@@ -78,8 +78,7 @@ export const useAnnouncements = (
   filterValue?: string,
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
-
-  const liveRegion = document.querySelector('live-region')
+  const activeAnnouncement = useRef<ReturnType<typeof liveRegionAnnounce>>()
 
   // Notify user of the number of items available
   const selectedItems = items.filter(item => item.selected).length
@@ -93,12 +92,18 @@ export const useAnnouncements = (
     [enabled],
   )
 
+  useEffect(() => {
+    return () => activeAnnouncement.current?.cancel()
+  }, [])
+
   const onInputFocus = useCallback(() => {
+    const inputElement = inputRef.current
+
     if (usingRovingTabindex) {
       const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
-      announce(announcementText, {
+      activeAnnouncement.current = announce(announcementText, {
         delayMs,
-        from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+        from: inputElement ?? undefined,
       })
       return
     }
@@ -107,7 +112,7 @@ export const useAnnouncements = (
       const activeItem = getItemWithActiveDescendant(listContainerRef, items)
       if (!activeItem) return
       const {index, text, selected} = activeItem
-      const inputLabel = getInputLabel(inputRef.current)
+      const inputLabel = getInputLabel(inputElement)
 
       const announcementText = [
         inputLabel ? `${inputLabel}, filter text box and list of items` : 'Focus on filter text box and list of items',
@@ -115,12 +120,13 @@ export const useAnnouncements = (
         `${selected ? 'selected' : 'not selected'}`,
         `${index + 1} of ${items.length}`,
       ].join(', ')
-      announce(announcementText, {
+      activeAnnouncement.current?.cancel()
+      activeAnnouncement.current = announce(announcementText, {
         delayMs,
-        from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+        from: inputElement ?? undefined,
       })
     })
-  }, [announce, inputRef, items, listContainerRef, liveRegion, selectedItems, usingRovingTabindex])
+  }, [announce, inputRef, items, listContainerRef, selectedItems, usingRovingTabindex])
 
   const announcementState = getAnnouncementState(items, loading, message, filterValue)
   const previousAnnouncementState = useRef(announcementState)
@@ -129,20 +135,24 @@ export const useAnnouncements = (
       if (previousAnnouncementState.current === announcementState) return
       previousAnnouncementState.current = announcementState
 
-      liveRegion?.clear() // clear previous announcements
+      activeAnnouncement.current?.cancel()
+      const inputElement = inputRef.current
 
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !loading) {
-        announce(`${message?.title}. ${message?.description}`, {delayMs})
+        activeAnnouncement.current = announce(`${message?.title}. ${message?.description}`, {
+          delayMs,
+          from: inputElement ?? undefined,
+        })
         return
       }
 
       if (usingRovingTabindex) {
         const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
 
-        announce(announcementText, {
+        activeAnnouncement.current = announce(announcementText, {
           delayMs,
-          from: liveRegion ? liveRegion : undefined,
+          from: inputElement ?? undefined,
         })
       } else {
         // give @primer/behaviors a moment to update active-descendant
@@ -158,9 +168,9 @@ export const useAnnouncements = (
             `${index + 1} of ${items.length}`,
           ].join(', ')
 
-          announce(announcementText, {
+          activeAnnouncement.current = announce(announcementText, {
             delayMs,
-            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+            from: inputElement ?? undefined,
           })
         })
       }
@@ -168,9 +178,9 @@ export const useAnnouncements = (
     [
       announce,
       announcementState,
+      inputRef,
       items,
       listContainerRef,
-      liveRegion,
       usingRovingTabindex,
       message?.title,
       message?.description,
