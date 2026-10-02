@@ -162,4 +162,39 @@ describe('useAnnouncements', () => {
       }),
     )
   })
+
+  it('cancels a pending list update before replacing it with a focus announcement', async () => {
+    const listUpdateCancel = vi.fn()
+    const focusCancel = vi.fn()
+    vi.mocked(announce)
+      .mockReturnValueOnce(Object.assign(Promise.resolve(), {cancel: listUpdateCancel}))
+      .mockReturnValueOnce(Object.assign(Promise.resolve(), {cancel: focusCancel}))
+
+    const input = document.createElement('input')
+    const list = document.createElement('ul')
+    const activeOption = document.createElement('li')
+    activeOption.setAttribute('role', 'option')
+    activeOption.setAttribute('data-is-active-descendant', 'true')
+    activeOption.textContent = 'Start date'
+    list.append(activeOption)
+
+    const {result, rerender, unmount} = renderHook(
+      ({items}) =>
+        useAnnouncements(items, {current: list}, {current: input}, true, false, undefined, 'active-descendant'),
+      {initialProps: {items: [{text: 'Start date'}]}},
+    )
+
+    rerender({items: [{text: 'Start date'}, {text: 'End date'}]})
+    await waitFor(() => expect(announce).toHaveBeenCalledTimes(1))
+
+    act(() => result.current())
+    await waitFor(() => expect(announce).toHaveBeenCalledTimes(2))
+
+    expect(listUpdateCancel).toHaveBeenCalledOnce()
+    expect(listUpdateCancel.mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(announce).mock.invocationCallOrder[1]!)
+    expect(focusCancel).not.toHaveBeenCalled()
+
+    unmount()
+    expect(focusCancel).toHaveBeenCalledOnce()
+  })
 })

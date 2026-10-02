@@ -120,6 +120,7 @@ export const useAnnouncements = (
         `${selected ? 'selected' : 'not selected'}`,
         `${index + 1} of ${items.length}`,
       ].join(', ')
+      activeAnnouncement.current?.cancel()
       activeAnnouncement.current = announce(announcementText, {
         delayMs,
         from: inputElement ?? undefined,
