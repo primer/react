@@ -293,9 +293,7 @@ describe('Button', () => {
     }
 
     const renderWithLoadingDisabledStyles = (children: React.ReactNode) =>
-      render(
-        <FeatureFlags flags={{primer_react_button_loading_disabled_styles: true}}>{children}</FeatureFlags>,
-      )
+      render(<FeatureFlags flags={{primer_react_button_loading_disabled_styles: true}}>{children}</FeatureFlags>)
 
     it('applies disabled styles to a loading primary button without using native disabled', () => {
       renderWithLoadingDisabledStyles(
