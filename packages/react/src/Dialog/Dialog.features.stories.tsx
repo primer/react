@@ -202,7 +202,7 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
 
   const [inputText, setInputText] = React.useState('')
 
-  const dialogRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
   const renderFooterConditionally = () => {
     if (step === 1) return null

@@ -86,9 +86,6 @@
     justify-content: flex-end;
   }
 
-  /* align only applies when regular position is center (or absent).
-   * :where() zeroes out the :not() specificity so narrow-position rules (coming later)
-   * always win when data-position-narrow is bottom or fullscreen. */
   &:where(:not([data-position-regular='left']):not([data-position-regular='right'])) {
     &[data-align='top'] {
       align-items: flex-start;
@@ -108,7 +105,6 @@
       align-items: center;
       justify-content: center;
 
-      /* align still applies when narrow position is center */
       &[data-align='top'] {
         align-items: flex-start;
       }
@@ -130,12 +126,14 @@
 }
 
 .Dialog {
+  --dialog-auto-height: auto;
+
   display: flex;
   /* stylelint-disable-next-line primer/responsive-widths */
   width: var(--dialog-width, 640px);
   min-width: 296px;
   max-width: calc(100dvw - 64px);
-  height: auto;
+  height: var(--dialog-auto-height, auto);
   max-height: calc(100dvh - 64px);
   flex-direction: column;
   background-color: var(--overlay-bgColor);
@@ -176,7 +174,6 @@
       animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
     }
 
-    /* align margins only apply when regular position is center */
     &[data-align='top'] {
       margin-top: var(--base-size-64);
     }
@@ -214,7 +211,7 @@
     &[data-position-narrow='center'] {
       /* stylelint-disable-next-line primer/responsive-widths */
       width: var(--dialog-width, 640px);
-      height: auto;
+      height: var(--dialog-auto-height, auto);
       border-radius: var(--borderRadius-large, var(--borderRadius-large));
 
       &:where([data-width='small']) {
@@ -247,7 +244,7 @@
     &[data-position-narrow='bottom'] {
       width: 100dvw;
       max-width: 100dvw;
-      height: auto;
+      height: var(--dialog-auto-height, auto);
       max-height: calc(100dvh - 64px);
       border-radius: var(--borderRadius-large, var(--borderRadius-large));
       border-bottom-right-radius: 0;
@@ -281,6 +278,77 @@
       @media screen and (prefers-reduced-motion: no-preference) {
         animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
       }
+    }
+  }
+}
+
+.Dialog[data-native-dialog] {
+  --dialog-auto-height: fit-content;
+
+  position: fixed;
+  inset: 0;
+  display: none;
+  margin: auto;
+  padding: 0;
+  overflow: visible;
+  color: inherit;
+  border: 0;
+
+  &[open] {
+    display: flex;
+  }
+
+  &::backdrop {
+    background-color: var(--overlay-backdrop-bgColor);
+    animation: dialog-backdrop-appear 200ms cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  &:where(:not([data-position-regular='left']):not([data-position-regular='right'])) {
+    &[data-align='top'] {
+      margin-top: var(--base-size-64);
+      margin-bottom: auto;
+    }
+
+    &[data-align='bottom'] {
+      margin-top: auto;
+      margin-bottom: var(--base-size-64);
+    }
+  }
+
+  &[data-position-regular='left'] {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  &[data-position-regular='right'] {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  @media (max-width: 767px) {
+    &[data-position-narrow='center'] {
+      margin: auto;
+      max-height: calc(100dvh - 64px);
+
+      &[data-align='top'] {
+        margin-top: var(--base-size-64);
+      }
+
+      &[data-align='bottom'] {
+        margin-bottom: var(--base-size-64);
+      }
+
+      @media (max-height: 280px) {
+        max-height: calc(100dvh - 12px);
+      }
+    }
+
+    &[data-position-narrow='bottom'] {
+      margin: auto auto 0;
+    }
+
+    &[data-position-narrow='fullscreen'] {
+      margin: 0;
     }
   }
 }

@@ -5,6 +5,7 @@
 import {describe, expect, it} from 'vitest'
 import {renderToString} from 'react-dom/server'
 import Portal from '../Portal'
+import {Dialog} from '../Dialog'
 
 describe('server rendering', () => {
   it('has no DOM available', () => {
@@ -15,5 +16,9 @@ describe('server rendering', () => {
     // React's server renderer throws when it encounters a portal, so `Portal` must
     // render nothing, and must not create its host element, while server rendering.
     expect(renderToString(<Portal>portal content</Portal>)).toEqual('')
+  })
+
+  it('renders Dialog without touching the DOM', () => {
+    expect(renderToString(<Dialog onClose={() => {}}>Dialog content</Dialog>)).toEqual('')
   })
 })
