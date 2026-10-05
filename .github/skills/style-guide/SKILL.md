@@ -20,57 +20,15 @@ deviates from the style guide, call out the reason.
 In addition, there are a set of topics below that may be used for guidance on a
 specific topic. Consult this to see if any apply to the task at hand.
 
-| Topic                 | Description                                                               | Link                                                     |
-| :-------------------- | :------------------------------------------------------------------------ | :------------------------------------------------------- |
-| Component prop naming | Use when deciding or evaluating the name for a prop in a React component. | [component-prop-naming](./docs/component-prop-naming.md) |
+| Topic                 | Description                                                                       | Link                                                     |
+| :-------------------- | :-------------------------------------------------------------------------------- | :------------------------------------------------------- |
+| Component prop naming | Use when deciding or evaluating the name for a prop in a React component.         | [component-prop-naming](./docs/component-prop-naming.md) |
+| Component prop types  | Use when designing or reviewing component prop types, including slot-based props. | [component-prop-types](./docs/component-prop-types.md)   |
 
-## Prefer accepting React elements for slot-based props
+## Updating this skill
 
-When designing props that fill a content slot, such as `leadingVisual`,
-`trailingVisual`, or `icon`, prefer accepting React elements rather than component
-types or functions that return elements. Render the supplied element directly.
-Use `React.ReactElement` for element-only slots, or `React.ReactNode` when the slot
-also supports other renderable content, such as text.
-
-This lets consumers configure the element through its own props without wrapping
-it in an inline component. It also allows Server Components to pass JSX through
-these props to Client Components, whereas component functions cannot be passed
-across that boundary. See [#8450](https://github.com/primer/react/pull/8450) for the
-`IconButton` example that motivated this guidance.
-
-<table>
-<thead><tr><th>Unpreferred</th><th>Preferred</th></tr></thead>
-<tbody>
-<tr><td>
-
-```tsx
-type Props = {
-  leadingVisual?: React.ElementType
-  trailingVisual?: React.ElementType
-}
-
-function Usage() {
-  return <Example leadingVisual={SearchIcon} trailingVisual={() => <ChevronDownIcon size={16} />} />
-}
-```
-
-</td><td>
-
-```tsx
-type Props = {
-  leadingVisual?: React.ReactElement
-  trailingVisual?: React.ReactElement
-}
-
-function Usage() {
-  return <Example leadingVisual={<SearchIcon />} trailingVisual={<ChevronDownIcon size={16} />} />
-}
-```
-
-</td></tr>
-</tbody></table>
-
-Reserve render props for cases where the consumer needs state or other values
-from the component to determine what to render. When extending an existing
-component-type slot API to accept elements, preserve the existing form for
-backwards compatibility and prefer the element form in documentation and stories.
+Keep `SKILL.md` minimal: usage instructions and a table linking to topics.
+When adding or updating guidance, edit the relevant topic under `docs/`.
+If no existing topic fits, create a new topic file under `docs/` and add a row
+to the table with a link and a description of when to consult it. Keep detailed
+guidance and examples in topic files rather than in `SKILL.md`.
