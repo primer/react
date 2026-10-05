@@ -32,6 +32,8 @@
   "typings": "dist/index.d.ts",
   "sideEffects": [
     "dist/**/*.css",
+    "src/polyfills/*.ts",
+    "dist/polyfills/*.js",
     "src/**/test-helpers.tsx",
     "dist/**/test-helpers.js"
   ],
@@ -88,6 +90,7 @@
     "focus-visible": "^5.2.1",
     "history": "^5.0.0",
     "hsluv": "1.0.1",
+    "invokers-polyfill": "^1.0.4",
     "lodash.isempty": "^4.4.0",
     "lodash.isobject": "^3.0.2",
     "react-intersection-observer": "^10.0.3"
