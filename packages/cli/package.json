@@ -1,0 +1,40 @@
+{
+  "name": "@primer/cli",
+  "description": "Command-line tools for the Primer Design System",
+  "version": "0.0.0",
+  "type": "module",
+  "bin": {
+    "primer": "./bin/primer.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/react.git",
+    "directory": "packages/cli"
+  },
+  "scripts": {
+    "build": "rolldown -c",
+    "clean": "rimraf dist",
+    "prepack": "npm run build",
+    "type-check": "tsc --noEmit",
+    "watch": "rolldown -c -w"
+  },
+  "dependencies": {
+    "citty": "^0.2.2"
+  },
+  "devDependencies": {
+    "@primer/vitest-config": "^0.0.0",
+    "@types/node": "26.0.0",
+    "rimraf": "5.0.5",
+    "rolldown": "^1.2.11",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
