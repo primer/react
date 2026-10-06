@@ -1,6 +1,6 @@
 import {runCommand} from 'citty'
 import componentsMetadata from '@primer/react/generated/components.json' with {type: 'json'}
-import {afterEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {component} from './component'
 import {log} from './console'
 
@@ -140,6 +140,86 @@ describe('component list', () => {
 
     await expect(runCommand(component, {rawArgs: ['list', `--${flag}`]})).rejects.toThrow(
       `--${flag} must be a positive safe integer`,
+    )
+    expect(emit).not.toHaveBeenCalled()
+  })
+})
+
+describe('component get', () => {
+  const emit = vi.mocked(log)
+  const fetchMock = vi.fn<typeof fetch>()
+
+  beforeEach(() => {
+    vi.stubGlobal('fetch', fetchMock)
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    fetchMock.mockReset()
+    emit.mockClear()
+  })
+
+  it.each([
+    {identifier: 'button', slug: 'button'},
+    {identifier: 'Button', slug: 'button'},
+    {identifier: 'bUtToN', slug: 'button'},
+    {identifier: 'action_list', slug: 'action-list'},
+    {identifier: 'ActionList', slug: 'action-list'},
+    {identifier: 'ACTION_LIST', slug: 'action-list'},
+    {identifier: 'actionbar', slug: 'action-bar'},
+    {identifier: 'dialog_v2', slug: 'dialog'},
+    {identifier: 'tooltip_v2', slug: 'tooltip'},
+    {identifier: 'select_panel_v2', slug: 'select-panel'},
+  ])('fetches documentation for $identifier from $slug', async ({identifier, slug}) => {
+    fetchMock.mockResolvedValue(new Response('# Component\n\nOfficial documentation.\n'))
+
+    await runCommand(component, {rawArgs: ['get', identifier]})
+
+    expect(fetchMock).toHaveBeenCalledExactlyOnceWith(
+      new URL(`/product/components/${slug}/llms.txt`, 'https://primer.style'),
+      {signal: expect.any(AbortSignal)},
+    )
+    expect(emit).toHaveBeenCalledExactlyOnceWith('# Component\n\nOfficial documentation.')
+  })
+
+  it('rejects unknown components without fetching or emitting output', async () => {
+    await expect(runCommand(component, {rawArgs: ['get', 'UnknownComponent']})).rejects.toThrow(
+      'No component found for "UnknownComponent". Use "primer component list" to see available components.',
+    )
+
+    expect(fetchMock).not.toHaveBeenCalled()
+    expect(emit).not.toHaveBeenCalled()
+  })
+
+  it('requires a component ID or name', async () => {
+    await expect(runCommand(component, {rawArgs: ['get']})).rejects.toThrow('Missing required positional argument')
+
+    expect(fetchMock).not.toHaveBeenCalled()
+    expect(emit).not.toHaveBeenCalled()
+  })
+
+  it.each([404, 500])('reports HTTP %s without emitting output', async status => {
+    fetchMock.mockResolvedValue(new Response('Failed to load documentation', {status}))
+
+    await expect(runCommand(component, {rawArgs: ['get', 'Button']})).rejects.toThrow(
+      `Failed to fetch documentation for Button: HTTP ${status}`,
+    )
+    expect(emit).not.toHaveBeenCalled()
+  })
+
+  it('propagates network failures without emitting output', async () => {
+    const error = new TypeError('fetch failed')
+    fetchMock.mockRejectedValue(error)
+
+    await expect(runCommand(component, {rawArgs: ['get', 'Button']})).rejects.toBe(error)
+    expect(emit).not.toHaveBeenCalled()
+  })
+
+  it('rejects empty documentation without emitting output', async () => {
+    fetchMock.mockResolvedValue(new Response(' \n'))
+
+    await expect(runCommand(component, {rawArgs: ['get', 'Button']})).rejects.toThrow(
+      'Documentation for Button is empty',
     )
     expect(emit).not.toHaveBeenCalled()
   })

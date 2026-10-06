@@ -16,6 +16,53 @@ function parsePositiveInteger(value: string | undefined, name: string, fallback:
   return number
 }
 
+function idToSlug(id: string): string {
+  if (id === 'actionbar') {
+    return 'action-bar'
+  }
+
+  return id.replaceAll('_', '-')
+}
+
+const get = defineCommand({
+  meta: {
+    name: 'get',
+    description: 'Get official documentation for a Primer React component by ID or name',
+  },
+  args: {
+    component: {
+      type: 'positional',
+      description: 'Component ID or name',
+      required: true,
+    },
+  },
+  async run({args}) {
+    const identifier = args.component.toLowerCase()
+    const match = Object.values(componentsMetadata.components).find(component => {
+      return component.id.toLowerCase() === identifier || component.name.toLowerCase() === identifier
+    })
+    if (!match) {
+      throw new Error(
+        `No component found for "${args.component}". Use "primer component list" to see available components.`,
+      )
+    }
+
+    const docsId = 'docsId' in match ? match.docsId : match.id
+    const url = new URL(`/product/components/${idToSlug(docsId)}/llms.txt`, 'https://primer.style')
+    const response = await fetch(url, {signal: AbortSignal.timeout(10_000)})
+    if (!response.ok) {
+      throw new Error(`Failed to fetch documentation for ${match.name}: HTTP ${response.status} ${response.statusText}`)
+    }
+
+    const documentation = (await response.text()).trimEnd()
+    if (!documentation) {
+      throw new Error(`Documentation for ${match.name} is empty`)
+    }
+
+    log(documentation)
+  },
+})
+
 const list = defineCommand({
   meta: {
     name: 'list',
@@ -80,6 +127,7 @@ export const component = defineCommand({
     description: 'Explore Primer React components',
   },
   subCommands: {
+    get,
     list,
   },
 })
