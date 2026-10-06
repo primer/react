@@ -4,8 +4,8 @@ import * as cheerio from 'cheerio'
 import {tablemark} from 'tablemark'
 import TurndownService from 'turndown'
 import octicons from '@primer/octicons/build/data.json' with {type: 'json'}
-import {log} from './console'
-import {paginate} from './pagination'
+import {log} from '../console'
+import {paginate} from '../pagination'
 
 const icons = Object.values(octicons)
   .map(icon => {

@@ -1,8 +1,8 @@
 import {defineCommand} from 'citty'
 import {tablemark} from 'tablemark'
 import componentsMetadata from '@primer/react/generated/components.json' with {type: 'json'}
-import {log} from './console'
-import {paginate} from './pagination'
+import {log} from '../console'
+import {paginate} from '../pagination'
 
 function idToSlug(id: string): string {
   if (id === 'actionbar') {

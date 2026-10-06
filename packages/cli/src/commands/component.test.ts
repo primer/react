@@ -2,9 +2,9 @@ import {runCommand} from 'citty'
 import componentsMetadata from '@primer/react/generated/components.json' with {type: 'json'}
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {component} from './component'
-import {log} from './console'
+import {log} from '../console'
 
-vi.mock('./console')
+vi.mock('../console')
 
 const components = Object.values(componentsMetadata.components)
   .map(metadata => {

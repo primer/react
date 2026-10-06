@@ -2,9 +2,9 @@ import {runCommand} from 'citty'
 import octicons from '@primer/octicons/build/data.json' with {type: 'json'}
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {icon} from './icon'
-import {log} from './console'
+import {log} from '../console'
 
-vi.mock('./console')
+vi.mock('../console')
 
 const icons = Object.values(octicons)
   .map(metadata => {
