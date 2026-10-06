@@ -10,6 +10,10 @@ permissions:
   pull-requests: read
   statuses: read
 
+concurrency:
+  group: integration-result-${{ github.event.sha || github.event.issue.number }}
+  cancel-in-progress: false
+
 jobs:
   # note: this workflow always passes, it does not fail when integration tests are failing
   check-for-integration-result-comment:
@@ -73,7 +77,11 @@ jobs:
               }
               for (const name of Object.values(INTEGRATION_LABEL_NAMES)) {
                 if (name !== newIntegrationLabel && existingIntegrationLabels.includes(name)) {
-                  await github.rest.issues.removeLabel({ ...issue, name });
+                  try {
+                    await github.rest.issues.removeLabel({ ...issue, name });
+                  } catch (error) {
+                    if (error.status !== 404) throw error;
+                  }
                 }
               }
             }
