@@ -8,10 +8,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@babel/core": "7.29.6",
-    "@babel/preset-react": "7.28.5",
-    "@babel/preset-typescript": "7.28.5",
-    "babel-plugin-react-compiler": "^1.0.0"
+    "oxc-parser": "^0.152.0",
+    "oxc-transform-react": "^0.152.0"
   },
   "devDependencies": {
     "@primer/vitest-config": "^0.0.0",
