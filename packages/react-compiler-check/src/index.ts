@@ -104,7 +104,10 @@ function getLocation(contents: string, start: number, end: number): CheckLocatio
   const source = Buffer.from(contents)
 
   function getPosition(offset: number) {
-    const lines = source.subarray(0, offset).toString('utf8').split(/\r\n|[\n\r\u2028\u2029]/)
+    const lines = source
+      .subarray(0, offset)
+      .toString('utf8')
+      .split(/\r\n|[\n\r\u2028\u2029]/)
     return {
       line: lines.length,
       column: lines[lines.length - 1].length,
