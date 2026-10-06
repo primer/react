@@ -41,12 +41,12 @@ vi.mock('@primer/behaviors', async () => {
   }
 })
 
-function Example(): JSX.Element {
+function Example({preventFocusOnClose}: {preventFocusOnClose?: boolean} = {}): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>
         <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-        <ActionMenu.Overlay>
+        <ActionMenu.Overlay preventFocusOnClose={preventFocusOnClose}>
           <ActionList>
             <ActionList.Item>New file</ActionList.Item>
             <ActionList.Divider />
@@ -242,6 +242,123 @@ describe('ActionMenu', () => {
     await user.keyboard('{Enter}')
 
     expect(component.queryByRole('menu')).toBeNull()
+  })
+
+  describe('preventFocusOnClose', () => {
+    it.each([
+      {gesture: 'item-click', preventFocusOnClose: undefined},
+      {gesture: 'item-click', preventFocusOnClose: false},
+      {gesture: 'item-click', preventFocusOnClose: true},
+      {gesture: 'Enter', preventFocusOnClose: true},
+      {gesture: 'Space', preventFocusOnClose: true},
+      {gesture: 'Escape', preventFocusOnClose: undefined},
+      {gesture: 'Escape', preventFocusOnClose: false},
+      {gesture: 'Escape', preventFocusOnClose: true},
+      {gesture: 'outside-click', preventFocusOnClose: true},
+    ])('handles $gesture with preventFocusOnClose=$preventFocusOnClose', async ({gesture, preventFocusOnClose}) => {
+      const component = HTMLRender(
+        <>
+          <Example preventFocusOnClose={preventFocusOnClose} />
+          <Button>Outside</Button>
+        </>,
+      )
+      const user = userEvent.setup()
+      const trigger = component.getByRole('button', {name: 'Toggle Menu'})
+      await user.click(trigger)
+      const item = component.getByRole('menuitem', {name: 'New file'})
+      item.focus()
+
+      const focus = vi.spyOn(trigger, 'focus')
+      if (gesture === 'item-click') {
+        await user.click(item)
+      } else if (gesture === 'outside-click') {
+        await user.click(component.getByRole('button', {name: 'Outside'}))
+      } else {
+        await user.keyboard(gesture === 'Space' ? ' ' : `{${gesture}}`)
+      }
+
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      if (preventFocusOnClose) {
+        expect(focus).not.toHaveBeenCalled()
+        expect(trigger).not.toHaveFocus()
+      } else {
+        expect(focus).toHaveBeenCalled()
+        expect(trigger).toHaveFocus()
+      }
+      if (gesture === 'outside-click') {
+        expect(component.getByRole('button', {name: 'Outside'})).toHaveFocus()
+      }
+    })
+
+    it('skips focus restoration when the anchor is clicked to close the menu', async () => {
+      const component = HTMLRender(<Example preventFocusOnClose />)
+      const user = userEvent.setup()
+      const trigger = component.getByRole('button', {name: 'Toggle Menu'})
+
+      await user.click(trigger)
+      await user.click(trigger)
+
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      expect(trigger).not.toHaveFocus()
+    })
+
+    it('skips restoration to a custom returnFocusRef on controlled closure', async () => {
+      const returnFocusRef = {current: document.createElement('button')}
+      const example = (open: boolean) => (
+        <BaseStyles>
+          <ActionMenu open={open} onOpenChange={() => {}}>
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay preventFocusOnClose returnFocusRef={returnFocusRef}>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>
+      )
+      const component = HTMLRender(example(true))
+      const focus = vi.spyOn(returnFocusRef.current, 'focus')
+
+      await waitFor(() => expect(component.getByRole('menuitem', {name: 'New file'})).toHaveFocus())
+      component.rerender(example(false))
+
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      expect(focus).not.toHaveBeenCalled()
+      expect(component.getByRole('button', {name: 'Toggle Menu'})).not.toHaveFocus()
+    })
+
+    it('does not focus a captured anchor that an action replaces', async () => {
+      function ReplaceableAnchor() {
+        const [preview, setPreview] = useState(false)
+
+        return (
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <Button key={preview ? 'preview' : 'link'}>{preview ? 'Preview' : 'Link'}</Button>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay preventFocusOnClose>
+                <ActionList>
+                  <ActionList.Item onSelect={() => setPreview(true)}>Convert to preview</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        )
+      }
+      const component = HTMLRender(<ReplaceableAnchor />)
+      const user = userEvent.setup()
+      const trigger = component.getByRole('button', {name: 'Link'})
+      await user.click(trigger)
+      const focus = vi.spyOn(trigger, 'focus')
+
+      await user.click(component.getByRole('menuitem', {name: 'Convert to preview'}))
+
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      expect(trigger).not.toBeInTheDocument()
+      expect(component.getByRole('button', {name: 'Preview'})).not.toHaveFocus()
+      expect(focus).not.toHaveBeenCalled()
+    })
   })
 
   it('should not close Menu if event is prevented', async () => {
