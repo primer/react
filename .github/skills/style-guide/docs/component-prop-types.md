@@ -5,10 +5,10 @@ Use these conventions when designing or reviewing prop types for Primer React co
 ## Prefer accepting React elements for slot-based props
 
 When designing props that fill a content slot, such as `leadingVisual`,
-`trailingVisual`, or `icon`, prefer accepting React elements rather than component
-types or functions that return elements. Render the supplied element directly.
-Use `React.ReactElement` for element-only slots, or `React.ReactNode` when the slot
-also supports other renderable content, such as text.
+`trailingVisual`, or `icon`, prefer `React.ReactNode` rather than component types
+or functions that return elements. This accepts JSX as well as other renderable
+content and conditional values such as `showIcon && <SearchIcon />`. Use
+`React.ReactElement` only when the API specifically requires a single element.
 
 This lets consumers configure the element through its own props without wrapping
 it in an inline component. It also allows Server Components to pass JSX through
@@ -36,12 +36,12 @@ function Usage() {
 
 ```tsx
 type Props = {
-  leadingVisual?: React.ReactElement
-  trailingVisual?: React.ReactElement
+  leadingVisual?: React.ReactNode
+  trailingVisual?: React.ReactNode
 }
 
-function Usage() {
-  return <Example leadingVisual={<SearchIcon />} trailingVisual={<ChevronDownIcon size={16} />} />
+function Usage({showSearch}: {showSearch: boolean}) {
+  return <Example leadingVisual={showSearch && <SearchIcon />} trailingVisual={<ChevronDownIcon size={16} />} />
 }
 ```
 
