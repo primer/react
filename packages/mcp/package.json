@@ -37,7 +37,7 @@
     "watch": "rolldown -c -w"
   },
   "dependencies": {
-    "@modelcontextprotocol/client": "^2.0.0",
+    "@modelcontextprotocol/client": "^2.2.0",
     "@modelcontextprotocol/server": "^2.0.0",
     "@primer/octicons": "^19.15.5",
     "@primer/primitives": "10.x || 11.x",
