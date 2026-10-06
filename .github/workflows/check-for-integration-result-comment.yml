@@ -3,14 +3,20 @@ name: Check for integration result comment
 on:
   issue_comment:
     types: [created, edited]
+  status:
+
+permissions:
+  issues: write
+  pull-requests: read
+  statuses: read
 
 jobs:
   # note: this workflow always passes, it does not fail when integration tests are failing
   check-for-integration-result-comment:
-    if: github.event.issue.pull_request
+    if: ${{ (github.event_name == 'issue_comment' && github.event.issue.pull_request && github.event.comment.user.login == 'primer-integration[bot]') || (github.event_name == 'status' && startsWith(github.event.context, 'github-ui / ')) }}
     runs-on: ubuntu-latest
     steps:
-      - name: Get integration result comment
+      - name: Update integration result labels
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -23,53 +29,51 @@ jobs:
               passing: 'integration-tests: passing'
             };
 
-            const issue = {
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            };
+            const requiredContexts = ['github-ui / ci', 'github-ui / projects', 'github-ui / vrt'];
+            const { owner, repo } = context.repo;
+            const pullRequests = context.eventName === 'status'
+              ? await github.paginate(github.rest.repos.listPullRequestsAssociatedWithCommit, {
+                  owner, repo, commit_sha: context.payload.sha
+                })
+              : [(await github.rest.pulls.get({ owner, repo, pull_number: context.issue.number })).data];
 
-            const { data: currentLabels } = await github.rest.issues.listLabelsOnIssue(issue);
-            const existingIntegrationLabels = currentLabels
-              .map(label => label.name)
-              .filter(label => label.startsWith('integration-tests:'));
+            for (const pullRequest of pullRequests) {
+              const sha = context.eventName === 'status' ? context.payload.sha : pullRequest.head.sha;
+              if (pullRequest.head.sha !== sha || pullRequest.state !== 'open') continue;
 
-            if (existingIntegrationLabels.includes(INTEGRATION_LABEL_NAMES.skipped)) return;
+              const issue = { owner, repo, issue_number: pullRequest.number };
+              const labels = await github.paginate(github.rest.issues.listLabelsOnIssue, issue);
+              const existingIntegrationLabels = labels
+                .map(label => label.name)
+                .filter(name => name.startsWith('integration-tests:'));
+              if (existingIntegrationLabels.includes(INTEGRATION_LABEL_NAMES.skipped)) continue;
 
-            const result = await github.rest.issues.listComments(issue);
-            const integrationComments = result.data.filter(
-              comment =>
-                comment.user.login == 'primer-integration[bot]' &&
-                (comment.body.includes('<!-- test-result') || comment.body.includes('<!-- statuses:'))
-            );
-            if (integrationComments.length === 0) {
-              console.log('Integration comment with test-result not found');
-              return; // CI should pass if there's nothing to do
-            }
-
-            const latestComment = integrationComments.pop();
-            console.log(latestComment.body);
-
-            // based on comment message in github/github: https://github.com/github/github/blob/fe7fe9072fd913ec04255ce7403ae764e6c33d5f/.github/workflows/github-ci.yml#L664-L692
-            const pass = latestComment.body.includes('🟢');
-            console.log({ pass });
-
-            const githubUiPass = latestComment.body.includes('All checks passed!');
-            const githubUiFail = latestComment.body.includes('fail.svg');
-            if (latestComment.body.includes('<!-- statuses:') && !githubUiPass && !githubUiFail) {
-              console.log('Integration checks are still running');
-              return;
-            }
-
-            const newIntegrationLabel = pass || githubUiPass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
-            console.log({existingIntegrationLabels, newIntegrationLabel})
-
-            Object.values(INTEGRATION_LABEL_NAMES).map(async (name) => {
-              if (name === newIntegrationLabel) {
-                if (existingIntegrationLabels.includes(name)); // already added, nothing to do here
-                else await github.rest.issues.addLabels({...issue, labels: [newIntegrationLabel]});
-              } else if (existingIntegrationLabels.includes(name)) {
-                // remove outdated labels
-                await github.rest.issues.removeLabel({ ...issue, name });
+              const statuses = await github.paginate(github.rest.repos.listCommitStatusesForRef, {
+                owner, repo, ref: sha
+              });
+              const integrationStatuses = new Map();
+              for (const status of statuses) {
+                if (status.context.startsWith('github-ui / ') && !integrationStatuses.has(status.context)) {
+                  integrationStatuses.set(status.context, status.state);
+                }
               }
-            });
+
+              if (requiredContexts.some(name => !integrationStatuses.has(name))) continue;
+
+              const states = [...integrationStatuses.values()];
+              const newIntegrationLabel = states.some(state => state === 'failure' || state === 'error')
+                ? INTEGRATION_LABEL_NAMES.failing
+                : states.every(state => state === 'success')
+                  ? INTEGRATION_LABEL_NAMES.passing
+                  : null;
+              if (!newIntegrationLabel) continue;
+
+              if (!existingIntegrationLabels.includes(newIntegrationLabel)) {
+                await github.rest.issues.addLabels({ ...issue, labels: [newIntegrationLabel] });
+              }
+              for (const name of Object.values(INTEGRATION_LABEL_NAMES)) {
+                if (name !== newIntegrationLabel && existingIntegrationLabels.includes(name)) {
+                  await github.rest.issues.removeLabel({ ...issue, name });
+                }
+              }
+            }
