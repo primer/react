@@ -1,4 +1,3 @@
-// @ts-expect-error there seems to be a mismatch in the types for this package
 import {generate} from '@babel/generator'
 import {parse} from '@babel/parser'
 import {traverse} from '@babel/core'
