@@ -88,6 +88,8 @@ describe('guidelines coding get', () => {
     expect(output).toContain('Do not use the sx prop for styling components. Instead, use CSS Modules.')
     expect(output).toContain('Do not use the Box component for styling components. Instead, use CSS Modules.')
     expect(output).toContain('`primer icons list`')
+    expect(output).toContain('`primer scenarios list`')
+    expect(output).toContain('`primer patterns list`')
     expect(output).toContain('`primer components usage get <id|name>`')
     expect(output).toContain('`primer components accessibility get <id|name>`')
   })

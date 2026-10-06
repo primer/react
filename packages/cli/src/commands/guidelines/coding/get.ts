@@ -19,7 +19,7 @@ export const get = defineCommand({
 - Prefer re-using a component from Primer when possible over writing a new component.
 - Prefer using existing props for a component for styling instead of adding styling to a component.
 - Prefer using icons from Primer instead of creating new icons. Use \`primer icons list\` to find the icon you need.
-- Follow patterns from Primer when creating new components. Use the Primer MCP \`list_patterns\` tool to find the pattern you need, if one exists.
+- Follow patterns from Primer when creating new components. Prefer a scenario pattern when one fits the task, and fall back to generic UI patterns otherwise. Use \`primer scenarios list\` and \`primer patterns list\` to find the pattern you need.
 - When using a component from Primer, follow its usage and accessibility guidelines. Use \`primer components usage get <id|name>\` and \`primer components accessibility get <id|name>\` to retrieve them.
 
 ## Coding guidelines

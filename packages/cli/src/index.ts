@@ -20,6 +20,14 @@ const main = defineCommand({
       const mod = await import('./commands/icons')
       return mod.icons
     },
+    async patterns() {
+      const mod = await import('./commands/patterns')
+      return mod.patterns
+    },
+    async scenarios() {
+      const mod = await import('./commands/scenarios')
+      return mod.scenarios
+    },
   },
 })
 
