@@ -5,7 +5,7 @@ export default defineConfig({
   input: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
   platform: 'node',
   output: {
-    file: fileURLToPath(new URL('./dist/index.js', import.meta.url)),
+    dir: fileURLToPath(new URL('./dist', import.meta.url)),
     format: 'esm',
   },
 })

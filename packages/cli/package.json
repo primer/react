@@ -24,9 +24,11 @@
     "watch": "rolldown -c -w"
   },
   "dependencies": {
-    "citty": "^0.2.2"
+    "citty": "^0.2.2",
+    "tablemark": "^4.1.0"
   },
   "devDependencies": {
+    "@primer/react": "^38.40.1",
     "@primer/vitest-config": "^0.0.0",
     "@types/node": "26.0.0",
     "rimraf": "5.0.5",
