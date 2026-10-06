@@ -16,7 +16,7 @@ type CheckError = {
 type CheckResult = {ok: true; errors?: never} | {ok: false; errors: Array<CheckError>}
 
 function checkFile(filename: string, contents: string): CheckResult {
-  const parsed = parseSync(filename, contents)
+  const parsed = parseSync(filename, contents, {showSemanticErrors: true})
 
   if (parsed.errors.length > 0) {
     throw new SyntaxError(
