@@ -24,13 +24,17 @@
     "watch": "rolldown -c -w"
   },
   "dependencies": {
+    "cheerio": "^1.0.0",
     "citty": "^0.2.2",
-    "tablemark": "^4.1.0"
+    "tablemark": "^4.1.0",
+    "turndown": "^7.2.0"
   },
   "devDependencies": {
+    "@primer/octicons": "^19.15.5",
     "@primer/react": "^38.40.1",
     "@primer/vitest-config": "^0.0.0",
     "@types/node": "26.0.0",
+    "@types/turndown": "^5.0.5",
     "rimraf": "5.0.5",
     "rolldown": "^1.2.11",
     "typescript": "^6.0.3",

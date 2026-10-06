@@ -2,19 +2,7 @@ import {defineCommand} from 'citty'
 import {tablemark} from 'tablemark'
 import componentsMetadata from '@primer/react/generated/components.json' with {type: 'json'}
 import {log} from './console'
-
-function parsePositiveInteger(value: string | undefined, name: string, fallback: number): number {
-  if (value === undefined) {
-    return fallback
-  }
-
-  const number = Number(value)
-  if (!/^[0-9]+$/.test(value) || !Number.isSafeInteger(number) || number < 1) {
-    throw new Error(`--${name} must be a positive safe integer`)
-  }
-
-  return number
-}
+import {paginate} from './pagination'
 
 function idToSlug(id: string): string {
   if (id === 'actionbar') {
@@ -89,8 +77,6 @@ const list = defineCommand({
     },
   },
   run({args}) {
-    const limit = parsePositiveInteger(args.limit, 'limit', 10)
-    const page = parsePositiveInteger(args.page, 'page', 1)
     const components = Object.values(componentsMetadata.components)
       .map(component => {
         return {
@@ -101,20 +87,14 @@ const list = defineCommand({
       .toSorted((a, b) => {
         return a.name.localeCompare(b.name)
       })
-    const paginate = args.paginate || args.limit !== undefined || args.page !== undefined
-    const start = (page - 1) * limit
-    const results = paginate ? components.slice(start, start + limit) : components
-    const pagination = {
-      page,
-      limit,
-      total: components.length,
-      totalPages: Math.ceil(components.length / limit),
-    }
+    const {results, pagination} = paginate(components, args)
     const output = args.json
-      ? JSON.stringify(paginate ? {components: results, pagination} : results, null, 2)
+      ? JSON.stringify(pagination ? {components: results, pagination} : results, null, 2)
       : [
           results.length > 0 ? tablemark(results, {columns: ['ID', 'Name']}).trimEnd() : '| ID | Name |\n| --- | --- |',
-          ...(paginate ? ['', `Page ${page} of ${pagination.totalPages} (${pagination.total} components)`] : []),
+          ...(pagination
+            ? ['', `Page ${pagination.page} of ${pagination.totalPages} (${pagination.total} components)`]
+            : []),
         ].join('\n')
 
     log(output)

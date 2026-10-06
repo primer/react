@@ -12,6 +12,10 @@ const main = defineCommand({
       const mod = await import('./component')
       return mod.component
     },
+    async icon() {
+      const mod = await import('./icon')
+      return mod.icon
+    },
   },
 })
 
