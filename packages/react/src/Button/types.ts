@@ -63,8 +63,7 @@ export type ButtonProps = {
   /**
    * The icon for the IconButton
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  icon?: React.FunctionComponent<IconProps> | React.ElementType | React.ReactElement<any> | null
+  icon?: React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>
 
   /**
    * The leading visual which comes before the button content
@@ -97,7 +96,7 @@ export type ButtonProps = {
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.ElementType | React.ReactElement
+  icon: React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>
   /**
    * Displays a visual indicator for new activity on the button boundary or icon. Consumers are
    * responsible for communicating the indicator's meaning through an accessible label or description.

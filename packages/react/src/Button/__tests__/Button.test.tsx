@@ -41,6 +41,12 @@ describe('IconButton', () => {
     expect(icon).toHaveClass('custom-icon')
   })
 
+  it('renders a ReactNode icon', () => {
+    render(<IconButton icon="icon" aria-label="Text icon" />)
+
+    expect(screen.getByRole('button', {name: 'Text icon'})).toHaveTextContent('icon')
+  })
+
   it('replaces an icon element with a spinner while loading', () => {
     const {rerender} = render(<IconButton icon={<HeartIcon data-testid="icon" />} aria-label="Favorite" loading />)
 

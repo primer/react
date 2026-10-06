@@ -88,9 +88,9 @@
     },
     {
       "name": "icon",
-      "type": "React.ElementType | React.ReactElement",
+      "type": "React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>",
       "defaultValue": "",
-      "description": "Provide an icon component or React element. It will be placed in the center of the button. Use a React element when passing an icon from a Server Component."
+      "description": "Provide an icon component or React node. It will be placed in the center of the button. Use a React element when passing an icon from a Server Component."
     },
     {
       "name": "aria-label",
