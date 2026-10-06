@@ -1,7 +1,7 @@
 import {runCommand} from 'citty'
 import octicons from '@primer/octicons/build/data.json' with {type: 'json'}
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
-import {icon} from './icon'
+import {icons as icon} from './icons'
 import {log} from '../console'
 
 vi.mock('../console')
@@ -20,7 +20,7 @@ afterEach(() => {
   emit.mockClear()
 })
 
-describe('icon list', () => {
+describe('icons list', () => {
   it('lists sorted icon names, keywords, and sizes as a Markdown table', async () => {
     await runCommand(icon, {rawArgs: ['list']})
 
@@ -104,7 +104,7 @@ describe('icon list', () => {
   })
 })
 
-describe('icon get', () => {
+describe('icons get', () => {
   const fetchMock = vi.fn<typeof fetch>()
 
   beforeEach(() => {
@@ -150,7 +150,7 @@ describe('icon get', () => {
 
   it('rejects unknown icons before fetching', async () => {
     await expect(runCommand(icon, {rawArgs: ['get', 'unknown-icon']})).rejects.toThrow(
-      'No icon found for "unknown-icon". Use "primer icon list" to see available icons.',
+      'No icon found for "unknown-icon". Use "primer icons list" to see available icons.',
     )
 
     expect(fetchMock).not.toHaveBeenCalled()

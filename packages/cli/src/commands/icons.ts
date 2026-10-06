@@ -1,13 +1,11 @@
 import {defineCommand} from 'citty'
-// eslint-disable-next-line import/no-namespace
-import * as cheerio from 'cheerio'
 import {tablemark} from 'tablemark'
-import TurndownService from 'turndown'
 import octicons from '@primer/octicons/build/data.json' with {type: 'json'}
 import {log} from '../console'
+import {fetchMarkdown} from '../documentation'
 import {paginate} from '../pagination'
 
-const icons = Object.values(octicons)
+const availableIcons = Object.values(octicons)
   .map(icon => {
     return {
       name: icon.name,
@@ -38,11 +36,11 @@ const get = defineCommand({
     },
   },
   async run({args}) {
-    const match = icons.find(icon => {
+    const match = availableIcons.find(icon => {
       return icon.name.toLowerCase() === args.name.toLowerCase()
     })
     if (!match) {
-      throw new Error(`No icon found for "${args.name}". Use "primer icon list" to see available icons.`)
+      throw new Error(`No icon found for "${args.name}". Use "primer icons list" to see available icons.`)
     }
     if (!match.heights.includes(args.size)) {
       throw new Error(
@@ -51,22 +49,7 @@ const get = defineCommand({
     }
 
     const url = new URL(`/octicons/icon/${match.name}-${args.size}`, 'https://primer.style')
-    const response = await fetch(url, {signal: AbortSignal.timeout(10_000)})
-    if (!response.ok) {
-      throw new Error(`Failed to fetch documentation for ${match.name}: HTTP ${response.status} ${response.statusText}`)
-    }
-
-    const html = await response.text()
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      throw new Error(`Documentation for ${match.name} is missing its main content`)
-    }
-
-    const documentation = new TurndownService().turndown(source).trimEnd()
-    if (!documentation) {
-      throw new Error(`Documentation for ${match.name} is empty`)
-    }
+    const documentation = await fetchMarkdown(url, match.name)
 
     log(`Here is the documentation for the \`${match.name}\` icon at size: \`${args.size}\`:\n${documentation}`)
   },
@@ -98,7 +81,7 @@ const list = defineCommand({
     },
   },
   run({args}) {
-    const {results, pagination} = paginate(icons, args)
+    const {results, pagination} = paginate(availableIcons, args)
     const output = args.json
       ? JSON.stringify(pagination ? {icons: results, pagination} : results, null, 2)
       : [
@@ -119,9 +102,9 @@ const list = defineCommand({
   },
 })
 
-export const icon = defineCommand({
+export const icons = defineCommand({
   meta: {
-    name: 'icon',
+    name: 'icons',
     description: 'Explore Primer Octicons',
   },
   subCommands: {

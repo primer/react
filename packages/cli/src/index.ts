@@ -1,5 +1,4 @@
-import {runMain} from 'citty'
-import {defineCommand} from 'citty'
+import {defineCommand, runMain} from 'citty'
 import packageJson from '../package.json' with {type: 'json'}
 
 const main = defineCommand({
@@ -9,13 +8,17 @@ const main = defineCommand({
     description: packageJson.description,
   },
   subCommands: {
-    async component() {
-      const mod = await import('./commands/component')
-      return mod.component
+    async components() {
+      const mod = await import('./commands/components')
+      return mod.components
     },
-    async icon() {
-      const mod = await import('./commands/icon')
-      return mod.icon
+    async guidelines() {
+      const mod = await import('./commands/guidelines')
+      return mod.guidelines
+    },
+    async icons() {
+      const mod = await import('./commands/icons')
+      return mod.icons
     },
   },
 })
