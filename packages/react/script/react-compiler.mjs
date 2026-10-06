@@ -12,7 +12,6 @@ const files = glob
     return path.join(PACKAGE_DIR, match)
   })
 const unsupportedPatterns = [
-  'src/ActionBar/ActionBar.tsx',
   'src/ActionMenu/ActionMenu.test.tsx',
   'src/ActionMenu/ActionMenu.tsx',
   'src/AnchoredOverlay/AnchoredOverlay.tsx',
@@ -20,17 +19,13 @@ const unsupportedPatterns = [
   'src/Button/ButtonBase.tsx',
   'src/Dialog/Dialog.tsx',
   'src/FilteredActionList/FilteredActionList.tsx',
-  'src/FilteredActionList/useAnnouncements.tsx',
   'src/LabelGroup/LabelGroup.tsx',
   'src/Overlay/Overlay.figma.tsx',
-  'src/Overlay/Overlay.tsx',
   'src/SelectPanel/SelectPanel.examples.stories.tsx',
   'src/SelectPanel/SelectPanel.test.tsx',
   'src/SelectPanel/SelectPanel.tsx',
   'src/Skeleton/SkeletonBox.figma.tsx',
-  'src/TextInput/TextInput.tsx',
   'src/Token/_RemoveTokenButton.tsx',
-  'src/TooltipV2/Tooltip.tsx',
   'src/TreeView/TreeView.features.stories.tsx',
   'src/TreeView/TreeView.tsx',
   'src/deprecated/utils/create-slots.tsx',
