@@ -1,14 +1,15 @@
 import {runCommand} from 'citty'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
-import {components as component} from './index'
+import {get as getUsage} from './usage/get'
+import {get as getAccessibility} from './accessibility/get'
 import {log} from '../../console'
 
 vi.mock('../../console')
 
 describe.each([
-  {kind: 'usage', path: 'guidelines'},
-  {kind: 'accessibility', path: 'accessibility'},
-])('components $kind get', ({kind, path}) => {
+  {kind: 'usage', path: 'guidelines', command: getUsage},
+  {kind: 'accessibility', path: 'accessibility', command: getAccessibility},
+])('components $kind get', ({kind, path, command}) => {
   const emit = vi.mocked(log)
   const fetchMock = vi.fn<typeof fetch>()
   const html = String.raw
@@ -40,7 +41,7 @@ describe.each([
       ),
     )
 
-    await runCommand(component, {rawArgs: [kind, 'get', identifier]})
+    await runCommand(command, {rawArgs: [identifier]})
 
     expect(fetchMock).toHaveBeenCalledExactlyOnceWith(
       new URL(`/product/components/${slug}/${path}`, 'https://primer.style'),
@@ -52,16 +53,14 @@ describe.each([
   })
 
   it('requires a component ID or name', async () => {
-    await expect(runCommand(component, {rawArgs: [kind, 'get']})).rejects.toThrow(
-      'Missing required positional argument',
-    )
+    await expect(runCommand(command, {rawArgs: []})).rejects.toThrow('Missing required positional argument')
 
     expect(fetchMock).not.toHaveBeenCalled()
     expect(emit).not.toHaveBeenCalled()
   })
 
   it('rejects unknown components without fetching or emitting output', async () => {
-    await expect(runCommand(component, {rawArgs: [kind, 'get', 'UnknownComponent']})).rejects.toThrow(
+    await expect(runCommand(command, {rawArgs: ['UnknownComponent']})).rejects.toThrow(
       'No component found for "UnknownComponent". Use "primer components list" to see available components.',
     )
 
@@ -72,7 +71,7 @@ describe.each([
   it('explicitly reports unavailable guidelines on HTTP 404', async () => {
     fetchMock.mockResolvedValue(new Response('Not found', {status: 404}))
 
-    await runCommand(component, {rawArgs: [kind, 'get', 'Button']})
+    await runCommand(command, {rawArgs: ['Button']})
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(
       `There are no ${kind} guidelines for the \`Button\` component in the @primer/react package.`,
@@ -82,7 +81,7 @@ describe.each([
   it.each([302, 401, 403, 500])('fails on HTTP %s instead of reporting missing guidelines', async status => {
     fetchMock.mockResolvedValue(new Response('Request failed', {status}))
 
-    await expect(runCommand(component, {rawArgs: [kind, 'get', 'Button']})).rejects.toThrow(
+    await expect(runCommand(command, {rawArgs: ['Button']})).rejects.toThrow(
       `Failed to fetch documentation for Button: HTTP ${status}`,
     )
     expect(emit).not.toHaveBeenCalled()
@@ -92,14 +91,14 @@ describe.each([
     const error = new TypeError('fetch failed')
     fetchMock.mockRejectedValue(error)
 
-    await expect(runCommand(component, {rawArgs: [kind, 'get', 'Button']})).rejects.toBe(error)
+    await expect(runCommand(command, {rawArgs: ['Button']})).rejects.toBe(error)
     expect(emit).not.toHaveBeenCalled()
   })
 
   it('fails if the guidelines page has no main content', async () => {
     fetchMock.mockResolvedValue(new Response(html`<h1>Missing documentation</h1>`))
 
-    await expect(runCommand(component, {rawArgs: [kind, 'get', 'Button']})).rejects.toThrow(
+    await expect(runCommand(command, {rawArgs: ['Button']})).rejects.toThrow(
       'Documentation for Button is missing its main content',
     )
     expect(emit).not.toHaveBeenCalled()

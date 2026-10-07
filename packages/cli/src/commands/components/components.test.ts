@@ -1,7 +1,9 @@
 import {runCommand} from 'citty'
 import componentsMetadata from '@primer/react/generated/components.json' with {type: 'json'}
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
-import {components as component} from './index'
+import {list} from './list'
+import {get} from './get'
+import {get as getExamples} from './examples/get'
 import {log} from '../../console'
 
 vi.mock('../../console')
@@ -22,7 +24,7 @@ describe('components list', () => {
   })
 
   it('lists all components in a Markdown table by default', async () => {
-    await runCommand(component, {rawArgs: ['list']})
+    await runCommand(list, {rawArgs: []})
 
     expect(emit).toHaveBeenCalledTimes(1)
     const output = emit.mock.calls[0][0]
@@ -53,13 +55,13 @@ describe('components list', () => {
   })
 
   it('outputs component IDs and names as a JSON array', async () => {
-    await runCommand(component, {rawArgs: ['list', '--json']})
+    await runCommand(list, {rawArgs: ['--json']})
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(JSON.stringify(components, null, 2))
   })
 
   it('uses the first page of 10 components and includes page info when pagination is enabled', async () => {
-    await runCommand(component, {rawArgs: ['list', '--json', '--paginate']})
+    await runCommand(list, {rawArgs: ['--json', '--paginate']})
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(
       JSON.stringify(
@@ -100,7 +102,7 @@ describe('components list', () => {
       end: components.length,
     },
   ])('paginates JSON with $flags', async ({flags, page, limit, start, end}) => {
-    await runCommand(component, {rawArgs: ['list', '--json', ...flags]})
+    await runCommand(list, {rawArgs: ['--json', ...flags]})
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(
       JSON.stringify(
@@ -115,7 +117,7 @@ describe('components list', () => {
   })
 
   it('paginates Markdown output', async () => {
-    await runCommand(component, {rawArgs: ['list', '--limit', '1', '--page', '2']})
+    await runCommand(list, {rawArgs: ['--limit', '1', '--page', '2']})
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(
       `| ID          | Name       |\n| :---------- | :--------- |\n| action_list | ActionList |\n\nPage 2 of ${components.length} (${components.length} components)`,
@@ -124,7 +126,7 @@ describe('components list', () => {
 
   it('includes page info for an empty Markdown page', async () => {
     const page = components.length + 1
-    await runCommand(component, {rawArgs: ['list', '--page', String(page)]})
+    await runCommand(list, {rawArgs: ['--page', String(page)]})
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(
       `| ID | Name |\n| --- | --- |\n\nPage ${page} of ${Math.ceil(components.length / 10)} (${components.length} components)`,
@@ -133,12 +135,12 @@ describe('components list', () => {
 
   it.each(['limit', 'page'])('rejects invalid --%s values without writing output', async flag => {
     for (const value of ['0', '-1', '1.5', 'abc', '1e2', 'Infinity', '9007199254740992', '']) {
-      await expect(runCommand(component, {rawArgs: ['list', `--${flag}=${value}`]})).rejects.toThrow(
+      await expect(runCommand(list, {rawArgs: [`--${flag}=${value}`]})).rejects.toThrow(
         `--${flag} must be a positive safe integer`,
       )
     }
 
-    await expect(runCommand(component, {rawArgs: ['list', `--${flag}`]})).rejects.toThrow(
+    await expect(runCommand(list, {rawArgs: [`--${flag}`]})).rejects.toThrow(
       `--${flag} must be a positive safe integer`,
     )
     expect(emit).not.toHaveBeenCalled()
@@ -173,7 +175,7 @@ describe('components get', () => {
   ])('fetches documentation for $identifier from $slug', async ({identifier, slug}) => {
     fetchMock.mockResolvedValue(new Response('# Component\n\nOfficial documentation.\n'))
 
-    await runCommand(component, {rawArgs: ['get', identifier]})
+    await runCommand(get, {rawArgs: [identifier]})
 
     expect(fetchMock).toHaveBeenCalledExactlyOnceWith(
       new URL(`/product/components/${slug}/llms.txt`, 'https://primer.style'),
@@ -183,7 +185,7 @@ describe('components get', () => {
   })
 
   it('rejects unknown components without fetching or emitting output', async () => {
-    await expect(runCommand(component, {rawArgs: ['get', 'UnknownComponent']})).rejects.toThrow(
+    await expect(runCommand(get, {rawArgs: ['UnknownComponent']})).rejects.toThrow(
       'No component found for "UnknownComponent". Use "primer components list" to see available components.',
     )
 
@@ -192,7 +194,7 @@ describe('components get', () => {
   })
 
   it('requires a component ID or name', async () => {
-    await expect(runCommand(component, {rawArgs: ['get']})).rejects.toThrow('Missing required positional argument')
+    await expect(runCommand(get, {rawArgs: []})).rejects.toThrow('Missing required positional argument')
 
     expect(fetchMock).not.toHaveBeenCalled()
     expect(emit).not.toHaveBeenCalled()
@@ -201,7 +203,7 @@ describe('components get', () => {
   it.each([404, 500])('reports HTTP %s without emitting output', async status => {
     fetchMock.mockResolvedValue(new Response('Failed to load documentation', {status}))
 
-    await expect(runCommand(component, {rawArgs: ['get', 'Button']})).rejects.toThrow(
+    await expect(runCommand(get, {rawArgs: ['Button']})).rejects.toThrow(
       `Failed to fetch documentation for Button: HTTP ${status}`,
     )
     expect(emit).not.toHaveBeenCalled()
@@ -211,16 +213,14 @@ describe('components get', () => {
     const error = new TypeError('fetch failed')
     fetchMock.mockRejectedValue(error)
 
-    await expect(runCommand(component, {rawArgs: ['get', 'Button']})).rejects.toBe(error)
+    await expect(runCommand(get, {rawArgs: ['Button']})).rejects.toBe(error)
     expect(emit).not.toHaveBeenCalled()
   })
 
   it('rejects empty documentation without emitting output', async () => {
     fetchMock.mockResolvedValue(new Response(' \n'))
 
-    await expect(runCommand(component, {rawArgs: ['get', 'Button']})).rejects.toThrow(
-      'Documentation for Button is empty',
-    )
+    await expect(runCommand(get, {rawArgs: ['Button']})).rejects.toThrow('Documentation for Button is empty')
     expect(emit).not.toHaveBeenCalled()
   })
 })
@@ -259,7 +259,7 @@ describe('components examples get', () => {
       ),
     )
 
-    await runCommand(component, {rawArgs: ['examples', 'get', identifier]})
+    await runCommand(getExamples, {rawArgs: [identifier]})
 
     expect(fetchMock).toHaveBeenCalledExactlyOnceWith(new URL(`/product/components/${slug}`, 'https://primer.style'), {
       signal: expect.any(AbortSignal),
@@ -270,16 +270,14 @@ describe('components examples get', () => {
   })
 
   it('requires a component ID or name', async () => {
-    await expect(runCommand(component, {rawArgs: ['examples', 'get']})).rejects.toThrow(
-      'Missing required positional argument',
-    )
+    await expect(runCommand(getExamples, {rawArgs: []})).rejects.toThrow('Missing required positional argument')
 
     expect(fetchMock).not.toHaveBeenCalled()
     expect(emit).not.toHaveBeenCalled()
   })
 
   it('rejects unknown components without fetching or emitting output', async () => {
-    await expect(runCommand(component, {rawArgs: ['examples', 'get', 'UnknownComponent']})).rejects.toThrow(
+    await expect(runCommand(getExamples, {rawArgs: ['UnknownComponent']})).rejects.toThrow(
       'No component found for "UnknownComponent". Use "primer components list" to see available components.',
     )
 
@@ -290,7 +288,7 @@ describe('components examples get', () => {
   it('reports HTTP errors without emitting output', async () => {
     fetchMock.mockResolvedValue(new Response('Not found', {status: 404}))
 
-    await expect(runCommand(component, {rawArgs: ['examples', 'get', 'Button']})).rejects.toThrow(
+    await expect(runCommand(getExamples, {rawArgs: ['Button']})).rejects.toThrow(
       'Failed to fetch documentation for Button: HTTP 404',
     )
     expect(emit).not.toHaveBeenCalled()
@@ -300,7 +298,7 @@ describe('components examples get', () => {
     const error = new TypeError('fetch failed')
     fetchMock.mockRejectedValue(error)
 
-    await expect(runCommand(component, {rawArgs: ['examples', 'get', 'Button']})).rejects.toBe(error)
+    await expect(runCommand(getExamples, {rawArgs: ['Button']})).rejects.toBe(error)
     expect(emit).not.toHaveBeenCalled()
   })
 
@@ -309,9 +307,7 @@ describe('components examples get', () => {
     async source => {
       fetchMock.mockResolvedValue(new Response(source))
 
-      await expect(runCommand(component, {rawArgs: ['examples', 'get', 'Button']})).rejects.toThrow(
-        /Documentation for Button is/,
-      )
+      await expect(runCommand(getExamples, {rawArgs: ['Button']})).rejects.toThrow(/Documentation for Button is/)
       expect(emit).not.toHaveBeenCalled()
     },
   )

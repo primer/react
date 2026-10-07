@@ -1,6 +1,8 @@
 import {runCommand} from 'citty'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
-import {guidelines} from './index'
+import {get as getColor} from './color/get'
+import {get as getTypography} from './typography/get'
+import {get as getCoding} from './coding/get'
 import {log} from '../../console'
 
 vi.mock('../../console')
@@ -20,9 +22,9 @@ afterEach(() => {
 })
 
 describe.each([
-  {kind: 'color', path: 'color-usage'},
-  {kind: 'typography', path: 'typography'},
-])('guidelines $kind get', ({kind, path}) => {
+  {kind: 'color', path: 'color-usage', command: getColor},
+  {kind: 'typography', path: 'typography', command: getTypography},
+])('guidelines $kind get', ({kind, path, command}) => {
   it('fetches the official foundation page and emits its main content as Markdown', async () => {
     fetchMock.mockResolvedValue(
       new Response(
@@ -35,7 +37,7 @@ describe.each([
       ),
     )
 
-    await runCommand(guidelines, {rawArgs: [kind, 'get']})
+    await runCommand(command, {rawArgs: []})
 
     expect(fetchMock).toHaveBeenCalledExactlyOnceWith(
       new URL(`/product/getting-started/foundations/${path}`, 'https://primer.style'),
@@ -49,7 +51,7 @@ describe.each([
   it.each([404, 500])('reports HTTP %s without emitting output', async status => {
     fetchMock.mockResolvedValue(new Response('Failed to load documentation', {status}))
 
-    await expect(runCommand(guidelines, {rawArgs: [kind, 'get']})).rejects.toThrow(
+    await expect(runCommand(command, {rawArgs: []})).rejects.toThrow(
       `Failed to fetch documentation for ${kind} usage: HTTP ${status}`,
     )
     expect(emit).not.toHaveBeenCalled()
@@ -59,7 +61,7 @@ describe.each([
     const error = new TypeError('fetch failed')
     fetchMock.mockRejectedValue(error)
 
-    await expect(runCommand(guidelines, {rawArgs: [kind, 'get']})).rejects.toBe(error)
+    await expect(runCommand(command, {rawArgs: []})).rejects.toBe(error)
     expect(emit).not.toHaveBeenCalled()
   })
 
@@ -68,9 +70,7 @@ describe.each([
     async source => {
       fetchMock.mockResolvedValue(new Response(source))
 
-      await expect(runCommand(guidelines, {rawArgs: [kind, 'get']})).rejects.toThrow(
-        `Documentation for ${kind} usage is`,
-      )
+      await expect(runCommand(command, {rawArgs: []})).rejects.toThrow(`Documentation for ${kind} usage is`)
       expect(emit).not.toHaveBeenCalled()
     },
   )
@@ -78,7 +78,7 @@ describe.each([
 
 describe('guidelines coding get', () => {
   it('emits the Primer coding guidance locally with supported CLI references', async () => {
-    await runCommand(guidelines, {rawArgs: ['coding', 'get']})
+    await runCommand(getCoding, {rawArgs: []})
 
     expect(fetchMock).not.toHaveBeenCalled()
     expect(emit).toHaveBeenCalledTimes(1)

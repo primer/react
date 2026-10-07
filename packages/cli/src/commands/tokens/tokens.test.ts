@@ -2,7 +2,12 @@ import {runCommand} from 'citty'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import sizeCoarse from '@primer/primitives/dist/docs/functional/size/size-coarse.json' with {type: 'json'}
 import light from '@primer/primitives/dist/docs/functional/themes/light.json' with {type: 'json'}
-import {tokens as command} from './index'
+import {list} from './list'
+import {get} from './get'
+import {search} from './search'
+import {list as listGroups} from './group/list'
+import {specs} from './specs'
+import {get as getUsage} from './usage/get'
 import {log} from '../../console'
 import {getGroupTokens, getToken, loadTokenGuide, tokens} from '../../token-metadata'
 
@@ -19,7 +24,7 @@ afterEach(() => {
 
 describe('tokens list', () => {
   it('lists the complete deduplicated catalog in a Markdown table', async () => {
-    await runCommand(command, {rawArgs: ['list']})
+    await runCommand(list, {rawArgs: []})
 
     const rows = emit.mock.calls[0][0].split('\n').map(line => {
       return line
@@ -45,7 +50,7 @@ describe('tokens list', () => {
   })
 
   it('returns token values, types, and guidance as JSON', async () => {
-    await runCommand(command, {rawArgs: ['list', '--json']})
+    await runCommand(list, {rawArgs: ['--json']})
 
     expect(JSON.parse(emit.mock.calls[0][0])).toEqual(sorted)
     expect(JSON.parse(emit.mock.calls[0][0])).toContainEqual(
@@ -64,7 +69,7 @@ describe('tokens list', () => {
     {flags: ['--page', '2'], page: 2, limit: 10},
     {flags: ['--limit', '3', '--page', '2'], page: 2, limit: 3},
   ])('includes page information with $flags', async ({flags, page, limit}) => {
-    await runCommand(command, {rawArgs: ['list', '--json', ...flags]})
+    await runCommand(list, {rawArgs: ['--json', ...flags]})
 
     expect(JSON.parse(emit.mock.calls[0][0])).toEqual({
       tokens: sorted.slice((page - 1) * limit, page * limit),
@@ -74,7 +79,7 @@ describe('tokens list', () => {
 
   it('retains table headers and page information beyond the last page', async () => {
     const page = tokens.length + 1
-    await runCommand(command, {rawArgs: ['list', '--page', String(page)]})
+    await runCommand(list, {rawArgs: ['--page', String(page)]})
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(
       `| Name | Value | Group |\n| --- | --- | --- |\n\nPage ${page} of ${Math.ceil(tokens.length / 10)} (${tokens.length} tokens)`,
@@ -86,7 +91,7 @@ describe('tokens get', () => {
   it.each(['bgColor-default', 'BGCOLOR-DEFAULT', 'var( --bgColor-default )'])(
     'resolves %s to an exact token and includes upstream guidance',
     async name => {
-      await runCommand(command, {rawArgs: ['get', name, '--json']})
+      await runCommand(get, {rawArgs: [name, '--json']})
 
       expect(JSON.parse(emit.mock.calls[0][0])).toEqual(getToken('bgColor-default'))
       expect(getToken('bgColor-default').useCase).toContain('card-background')
@@ -95,13 +100,13 @@ describe('tokens get', () => {
   )
 
   it('accepts a CSS custom property following the end-of-options marker', async () => {
-    await runCommand(command, {rawArgs: ['get', '--json', '--', '--bgColor-default']})
+    await runCommand(get, {rawArgs: ['--json', '--', '--bgColor-default']})
 
     expect(JSON.parse(emit.mock.calls[0][0]).name).toBe('bgColor-default')
   })
 
   it('formats Markdown with value, type, group, usage, and rules', async () => {
-    await runCommand(command, {rawArgs: ['get', 'bgColor-default']})
+    await runCommand(get, {rawArgs: ['bgColor-default']})
 
     const output = emit.mock.calls[0][0]
     expect(output).toContain('### bgColor-default')
@@ -118,13 +123,13 @@ describe('tokens get', () => {
     {name: 'base-text-weight-light', value: '300'},
     {name: 'base-text-lineHeight-loose', value: '1.75'},
   ])('serializes structured and numeric values for $name', async ({name, value}) => {
-    await runCommand(command, {rawArgs: ['get', name, '--json']})
+    await runCommand(get, {rawArgs: [name, '--json']})
 
     expect(JSON.parse(emit.mock.calls[0][0]).value).toBe(value)
   })
 
   it('uses JSON extension guidance where the Markdown spec has no entry', async () => {
-    await runCommand(command, {rawArgs: ['get', 'base-easing-ease', '--json']})
+    await runCommand(get, {rawArgs: ['base-easing-ease', '--json']})
 
     expect(JSON.parse(emit.mock.calls[0][0])).toMatchObject({
       useCase: expect.stringContaining('hover-state'),
@@ -133,25 +138,25 @@ describe('tokens get', () => {
   })
 
   it('preserves the MCP source precedence for duplicate coarse/fine tokens', async () => {
-    await runCommand(command, {rawArgs: ['get', 'control-minTarget-auto', '--json']})
+    await runCommand(get, {rawArgs: ['control-minTarget-auto', '--json']})
 
     expect(JSON.parse(emit.mock.calls[0][0]).value).toBe(sizeCoarse['control-minTarget-auto'].value)
   })
 
   it.each(['unknown-token', 'default'])('rejects unknown or partial names (%s)', async name => {
-    await expect(runCommand(command, {rawArgs: ['get', name]})).rejects.toThrow(`No token found for "${name}"`)
+    await expect(runCommand(get, {rawArgs: [name]})).rejects.toThrow(`No token found for "${name}"`)
     expect(emit).not.toHaveBeenCalled()
   })
 
   it('requires a token name', async () => {
-    await expect(runCommand(command, {rawArgs: ['get']})).rejects.toThrow('Missing required positional argument')
+    await expect(runCommand(get, {rawArgs: []})).rejects.toThrow('Missing required positional argument')
     expect(emit).not.toHaveBeenCalled()
   })
 })
 
 describe('tokens search', () => {
   it('defaults to 15 results and includes page information', async () => {
-    await runCommand(command, {rawArgs: ['search', '--group', 'bgColor', '--json']})
+    await runCommand(search, {rawArgs: ['--group', 'bgColor', '--json']})
 
     const matches = getGroupTokens(['bgColor'])
     expect(matches.length).toBeGreaterThan(15)
@@ -162,7 +167,7 @@ describe('tokens search', () => {
   })
 
   it('supports quoted keyword AND searches and aliases in an explicit group', async () => {
-    await runCommand(command, {rawArgs: ['search', 'body medium', '--group', 'typography', '--json']})
+    await runCommand(search, {rawArgs: ['body medium', '--group', 'typography', '--json']})
 
     const result = JSON.parse(emit.mock.calls[0][0])
     expect(result.tokens.length).toBeGreaterThan(0)
@@ -175,7 +180,7 @@ describe('tokens search', () => {
   })
 
   it('extracts group aliases from unquoted words and resolves semantic color intent', async () => {
-    await runCommand(command, {rawArgs: ['search', 'red', 'bordercolor', '--json']})
+    await runCommand(search, {rawArgs: ['red', 'bordercolor', '--json']})
 
     const result = JSON.parse(emit.mock.calls[0][0])
     expect(result.tokens.length).toBeGreaterThan(0)
@@ -186,20 +191,20 @@ describe('tokens search', () => {
   })
 
   it('accepts a group alias as the whole query', async () => {
-    await runCommand(command, {rawArgs: ['search', 'spacing', '--json']})
+    await runCommand(search, {rawArgs: ['spacing', '--json']})
 
     expect(JSON.parse(emit.mock.calls[0][0]).tokens).toEqual(getGroupTokens(['stack']).slice(0, 15))
   })
 
   it('searches guidance as well as names', async () => {
-    await runCommand(command, {rawArgs: ['search', 'card-background', '--json']})
+    await runCommand(search, {rawArgs: ['card-background', '--json']})
 
     expect(JSON.parse(emit.mock.calls[0][0]).tokens).toContainEqual(getToken('bgColor-default'))
   })
 
   it('allows another page and an explicit result limit', async () => {
-    await runCommand(command, {
-      rawArgs: ['search', '--group', 'background color', '--limit', '2', '--page', '2', '--json'],
+    await runCommand(search, {
+      rawArgs: ['--group', 'background color', '--limit', '2', '--page', '2', '--json'],
     })
 
     const matches = getGroupTokens(['bgColor'])
@@ -210,7 +215,7 @@ describe('tokens search', () => {
   })
 
   it('returns an empty paginated JSON result for no matches', async () => {
-    await runCommand(command, {rawArgs: ['search', 'danger nonexistent-keyword', '--json']})
+    await runCommand(search, {rawArgs: ['danger nonexistent-keyword', '--json']})
 
     expect(JSON.parse(emit.mock.calls[0][0])).toEqual({
       tokens: [],
@@ -219,7 +224,7 @@ describe('tokens search', () => {
   })
 
   it('includes usage and rules in Markdown search results', async () => {
-    await runCommand(command, {rawArgs: ['search', 'card-background']})
+    await runCommand(search, {rawArgs: ['card-background']})
 
     const output = emit.mock.calls[0][0]
     expect(output).toContain('### bgColor-default')
@@ -229,7 +234,7 @@ describe('tokens search', () => {
   })
 
   it('reports no matches explicitly in Markdown', async () => {
-    await runCommand(command, {rawArgs: ['search', 'nonexistent-keyword']})
+    await runCommand(search, {rawArgs: ['nonexistent-keyword']})
 
     expect(emit.mock.calls[0][0]).toContain('No tokens found.')
   })
@@ -237,7 +242,7 @@ describe('tokens search', () => {
   it.each([{flags: []}, {flags: ['--group', 'nonexistent-group']}])(
     'rejects missing input or unknown groups ($flags)',
     async ({flags}) => {
-      await expect(runCommand(command, {rawArgs: ['search', ...flags]})).rejects.toThrow()
+      await expect(runCommand(search, {rawArgs: [...flags]})).rejects.toThrow()
       expect(emit).not.toHaveBeenCalled()
     },
   )
@@ -245,7 +250,7 @@ describe('tokens search', () => {
   it.each(['0', '-1', '1.5', '101', 'invalid', '9007199254740992'])(
     'rejects invalid search limits (%s)',
     async limit => {
-      await expect(runCommand(command, {rawArgs: ['search', 'spacing', '--limit', limit]})).rejects.toThrow('--limit')
+      await expect(runCommand(search, {rawArgs: ['spacing', '--limit', limit]})).rejects.toThrow('--limit')
       expect(emit).not.toHaveBeenCalled()
     },
   )
@@ -253,7 +258,7 @@ describe('tokens search', () => {
 
 describe('tokens group list', () => {
   it('bundles multiple groups without duplicates and includes group usage hints', async () => {
-    await runCommand(command, {rawArgs: ['group', 'list', 'typography', 'text', 'background', '--json']})
+    await runCommand(listGroups, {rawArgs: ['typography', 'text', 'background', '--json']})
 
     expect(JSON.parse(emit.mock.calls[0][0])).toEqual({
       tokens: getGroupTokens(['text', 'bgColor']),
@@ -263,7 +268,7 @@ describe('tokens group list', () => {
   })
 
   it('paginates JSON bundles with 10 items by default', async () => {
-    await runCommand(command, {rawArgs: ['group', 'list', 'control', 'button', '--paginate', '--json']})
+    await runCommand(listGroups, {rawArgs: ['control', 'button', '--paginate', '--json']})
 
     const matches = getGroupTokens(['control', 'button'])
     expect(JSON.parse(emit.mock.calls[0][0])).toMatchObject({
@@ -273,7 +278,7 @@ describe('tokens group list', () => {
   })
 
   it('emits Markdown bundles with value, rules, and usage hints', async () => {
-    await runCommand(command, {rawArgs: ['group', 'list', 'control', 'focus', '--limit', '2']})
+    await runCommand(listGroups, {rawArgs: ['control', 'focus', '--limit', '2']})
 
     const output = emit.mock.calls[0][0]
     expect(output).toContain('**Value:**')
@@ -286,7 +291,7 @@ describe('tokens group list', () => {
   it.each([{groups: []}, {groups: ['control', 'unknown-group']}])(
     'rejects missing or unknown groups ($groups)',
     async ({groups}) => {
-      await expect(runCommand(command, {rawArgs: ['group', 'list', ...groups]})).rejects.toThrow()
+      await expect(runCommand(listGroups, {rawArgs: [...groups]})).rejects.toThrow()
       expect(emit).not.toHaveBeenCalled()
     },
   )
@@ -294,7 +299,7 @@ describe('tokens group list', () => {
 
 describe('token specifications and usage', () => {
   it('includes current groups, semantic mapping, recipes, and the full upstream guide', async () => {
-    await runCommand(command, {rawArgs: ['specs']})
+    await runCommand(specs, {rawArgs: []})
 
     const output = emit.mock.calls[0][0]
     expect(output).toContain('# Design Token Specifications')
@@ -307,7 +312,7 @@ describe('token specifications and usage', () => {
   })
 
   it('includes Button/Stack examples and the upstream Golden Example', async () => {
-    await runCommand(command, {rawArgs: ['usage', 'get']})
+    await runCommand(getUsage, {rawArgs: []})
 
     const output = emit.mock.calls[0][0]
     expect(output).toContain('## Interaction Pattern: Button')

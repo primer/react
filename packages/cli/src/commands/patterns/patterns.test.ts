@@ -1,15 +1,24 @@
-import {runCommand} from 'citty'
+import {runCommand, type ArgsDef, type CommandDef} from 'citty'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
-import {patterns as patternsCommand} from './index'
-import {scenarios as scenariosCommand} from '../scenarios'
+import {list as listPatterns} from './list'
+import {get as getPattern} from './get'
+import {list as listScenarios} from '../scenarios/list'
+import {get as getScenario} from '../scenarios/get'
 import {patterns, scenarios} from '../../pattern-metadata'
 import {log} from '../../console'
 
 vi.mock('../../console')
 
+function commandRunner<T extends ArgsDef>(command: CommandDef<T>) {
+  return (rawArgs: Array<string>) => {
+    return runCommand(command, {rawArgs})
+  }
+}
+
 describe.each([
   {
-    command: patternsCommand,
+    runList: commandRunner(listPatterns),
+    runGet: commandRunner(getPattern),
     kind: 'patterns',
     label: 'pattern',
     path: 'ui-patterns',
@@ -20,7 +29,8 @@ describe.each([
     wrongCategory: 'create',
   },
   {
-    command: scenariosCommand,
+    runList: commandRunner(listScenarios),
+    runGet: commandRunner(getScenario),
     kind: 'scenarios',
     label: 'scenario',
     path: 'scenario-patterns',
@@ -30,7 +40,7 @@ describe.each([
     id: 'create',
     wrongCategory: 'data-visualization',
   },
-])('$kind commands', ({command, kind, label, path, entries, identifiers, name, id, wrongCategory}) => {
+])('$kind commands', ({runList, runGet, kind, label, path, entries, identifiers, name, id, wrongCategory}) => {
   const emit = vi.mocked(log)
   const fetchMock = vi.fn<typeof fetch>()
   const html = String.raw
@@ -46,7 +56,7 @@ describe.each([
   })
 
   it('lists only its own catalog in an aligned Markdown table without fetching', async () => {
-    await runCommand(command, {rawArgs: ['list']})
+    await runList([])
 
     expect(fetchMock).not.toHaveBeenCalled()
     expect(emit).toHaveBeenCalledTimes(1)
@@ -67,7 +77,7 @@ describe.each([
   })
 
   it('lists IDs and names as a JSON array without pagination', async () => {
-    await runCommand(command, {rawArgs: ['list', '--json']})
+    await runList(['--json'])
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(JSON.stringify(entries, null, 2))
   })
@@ -83,7 +93,7 @@ describe.each([
       limit: 4,
     },
   ])('includes the correct JSON envelope and page info for $flags', async ({flags, page, limit}) => {
-    await runCommand(command, {rawArgs: ['list', '--json', ...flags]})
+    await runList(['--json', ...flags])
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(
       JSON.stringify(
@@ -98,7 +108,7 @@ describe.each([
   })
 
   it('includes a page summary below paginated Markdown', async () => {
-    await runCommand(command, {rawArgs: ['list', '--limit', '1', '--page', '2']})
+    await runList(['--limit', '1', '--page', '2'])
 
     expect(emit).toHaveBeenCalledTimes(1)
     const lines = emit.mock.calls[0][0].split('\n')
@@ -108,7 +118,7 @@ describe.each([
   })
 
   it('retains Markdown headers and page info for an empty page', async () => {
-    await runCommand(command, {rawArgs: ['list', '--page', '2']})
+    await runList(['--page', '2'])
 
     expect(emit).toHaveBeenCalledExactlyOnceWith(
       `| ID | Name |\n| --- | --- |\n\nPage 2 of 1 (${entries.length} ${kind})`,
@@ -116,16 +126,14 @@ describe.each([
   })
 
   it.each(['limit', 'page'])('rejects invalid --%s without emitting output', async flag => {
-    await expect(runCommand(command, {rawArgs: ['list', `--${flag}`, '0']})).rejects.toThrow(
-      `--${flag} must be a positive safe integer`,
-    )
+    await expect(runList([`--${flag}`, '0'])).rejects.toThrow(`--${flag} must be a positive safe integer`)
     expect(emit).not.toHaveBeenCalled()
   })
 
   it.each(identifiers)('gets "%s" from its own documentation route', async identifier => {
     fetchMock.mockResolvedValue(new Response('Guidelines\n----------\n\nUse **Primer**.\n'))
 
-    await runCommand(command, {rawArgs: ['get', identifier]})
+    await runGet([identifier])
 
     expect(fetchMock).toHaveBeenCalledExactlyOnceWith(
       new URL(`/product/${path}/${id}/llms.txt`, 'https://primer.style'),
@@ -148,7 +156,7 @@ describe.each([
       ),
     )
 
-    await runCommand(command, {rawArgs: ['get', id]})
+    await runGet([id])
 
     expect(fetchMock).toHaveBeenCalledTimes(2)
     expect(fetchMock).toHaveBeenNthCalledWith(1, new URL(`/product/${path}/${id}/llms.txt`, 'https://primer.style'), {
@@ -163,14 +171,14 @@ describe.each([
   })
 
   it('requires an ID or name', async () => {
-    await expect(runCommand(command, {rawArgs: ['get']})).rejects.toThrow('Missing required positional argument')
+    await expect(runGet([])).rejects.toThrow('Missing required positional argument')
 
     expect(fetchMock).not.toHaveBeenCalled()
     expect(emit).not.toHaveBeenCalled()
   })
 
   it.each(['unknown', wrongCategory])('rejects "%s" instead of searching the other category', async identifier => {
-    await expect(runCommand(command, {rawArgs: ['get', identifier]})).rejects.toThrow(
+    await expect(runGet([identifier])).rejects.toThrow(
       `No ${label} found for "${identifier}". Use "primer ${kind} list" to see available ${kind}.`,
     )
     expect(fetchMock).not.toHaveBeenCalled()
@@ -180,9 +188,7 @@ describe.each([
   it.each([401, 403, 500])('reports HTTP %s without falling back or emitting output', async status => {
     fetchMock.mockResolvedValue(new Response('Request failed', {status}))
 
-    await expect(runCommand(command, {rawArgs: ['get', id]})).rejects.toThrow(
-      `Failed to fetch documentation for ${name}: HTTP ${status}`,
-    )
+    await expect(runGet([id])).rejects.toThrow(`Failed to fetch documentation for ${name}: HTTP ${status}`)
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(emit).not.toHaveBeenCalled()
   })
@@ -190,9 +196,7 @@ describe.each([
   it('reports an unavailable HTML fallback rather than emitting output', async () => {
     fetchMock.mockResolvedValue(new Response('Not found', {status: 404}))
 
-    await expect(runCommand(command, {rawArgs: ['get', id]})).rejects.toThrow(
-      `Failed to fetch documentation for ${name}: HTTP 404`,
-    )
+    await expect(runGet([id])).rejects.toThrow(`Failed to fetch documentation for ${name}: HTTP 404`)
     expect(fetchMock).toHaveBeenCalledTimes(2)
     expect(emit).not.toHaveBeenCalled()
   })
@@ -201,14 +205,14 @@ describe.each([
     const error = new TypeError('fetch failed')
     fetchMock.mockRejectedValue(error)
 
-    await expect(runCommand(command, {rawArgs: ['get', id]})).rejects.toBe(error)
+    await expect(runGet([id])).rejects.toBe(error)
     expect(emit).not.toHaveBeenCalled()
   })
 
   it('rejects empty llms.txt content without falling back or emitting output', async () => {
     fetchMock.mockResolvedValue(new Response(' \n'))
 
-    await expect(runCommand(command, {rawArgs: ['get', id]})).rejects.toThrow(`Documentation for ${name} is empty`)
+    await expect(runGet([id])).rejects.toThrow(`Documentation for ${name} is empty`)
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(emit).not.toHaveBeenCalled()
   })
