@@ -1,4 +1,7 @@
 import React, {useState, useCallback} from 'react'
+import {flushSync} from 'react-dom'
+import type {StoryObj} from '@storybook/react-vite'
+import {expect, userEvent, within} from 'storybook/test'
 import {ActionMenu} from '.'
 import {ActionList} from '../ActionList'
 import {Button, IconButton} from '../Button'
@@ -198,6 +201,66 @@ export const ControlledMenu = () => {
       </ActionMenu>
     </>
   )
+}
+
+export const PreventFocusOnClose: StoryObj = {
+  render: function PreventFocusOnCloseExample() {
+    const [open, setOpen] = React.useState(false)
+    const [preview, setPreview] = React.useState(false)
+    const editorRef = React.useRef<HTMLInputElement>(null)
+    const selectionRef = React.useRef({start: 0, end: 0})
+
+    const onOpenChange = (nextOpen: boolean) => {
+      const editor = editorRef.current
+      if (nextOpen) {
+        selectionRef.current = {start: editor?.selectionStart ?? 0, end: editor?.selectionEnd ?? 0}
+        setOpen(true)
+      } else {
+        // Unmount the menu and its focus trap before restoring the editor selection.
+        flushSync(() => setOpen(false))
+        editor?.focus()
+        editor?.setSelectionRange(selectionRef.current.start, selectionRef.current.end)
+      }
+    }
+
+    return (
+      <>
+        <FormControl>
+          <FormControl.Label>Document</FormControl.Label>
+          <TextInput ref={editorRef} defaultValue="Edit this document, then change the link presentation." />
+        </FormControl>
+        <ActionMenu open={open} onOpenChange={onOpenChange}>
+          <ActionMenu.Button key={preview ? 'preview' : 'link'}>
+            {preview ? 'Preview actions' : 'Link actions'}
+          </ActionMenu.Button>
+          <ActionMenu.Overlay preventFocusOnClose>
+            <ActionList>
+              <ActionList.Item onSelect={() => setPreview(true)}>Convert to preview</ActionList.Item>
+              <ActionList.Item onSelect={() => setPreview(false)}>Convert to link</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </>
+    )
+  },
+  play: async ({canvasElement}) => {
+    const canvas = within(canvasElement)
+    const editor = canvas.getByRole<HTMLInputElement>('textbox', {name: 'Document'})
+    await userEvent.click(editor)
+    await userEvent.keyboard('{Home}{ArrowRight}{ArrowRight}{ArrowRight}')
+    const selectionStart = editor.selectionStart
+    const selectionEnd = editor.selectionEnd
+    const anchor = canvas.getByRole('button', {name: 'Link actions'})
+
+    await userEvent.click(anchor)
+    await userEvent.click(within(canvasElement.ownerDocument.body).getByRole('menuitem', {name: 'Convert to preview'}))
+
+    await expect(anchor).not.toBeInTheDocument()
+    await expect(canvas.getByRole('button', {name: 'Preview actions'})).not.toHaveFocus()
+    await expect(editor).toHaveFocus()
+    await expect(editor.selectionStart).toBe(selectionStart)
+    await expect(editor.selectionEnd).toBe(selectionEnd)
+  },
 }
 
 export const ShortcutMenu = () => {

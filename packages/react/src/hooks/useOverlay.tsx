@@ -12,6 +12,7 @@ export type UseOverlaySettings = {
   onClickOutside: (e: TouchOrMouseEvent) => void
   overlayRef?: React.RefObject<HTMLDivElement | null>
   preventFocusOnOpen?: boolean
+  preventFocusOnClose?: boolean
 }
 
 export type OverlayReturnProps = {
@@ -26,9 +27,16 @@ export const useOverlay = ({
   ignoreClickRefs,
   onClickOutside,
   preventFocusOnOpen,
+  preventFocusOnClose,
 }: UseOverlaySettings): OverlayReturnProps => {
   const overlayRef = useProvidedRefOrCreate<HTMLDivElement | null>(_overlayRef)
-  useOpenAndCloseFocus({containerRef: overlayRef, returnFocusRef, initialFocusRef, preventFocusOnOpen})
+  useOpenAndCloseFocus({
+    containerRef: overlayRef,
+    returnFocusRef,
+    initialFocusRef,
+    preventFocusOnOpen,
+    preventFocusOnClose,
+  })
   useOnOutsideClick({containerRef: overlayRef, ignoreClickRefs, onClickOutside})
 
   // We only want one overlay to close at a time
