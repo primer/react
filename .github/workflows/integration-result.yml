@@ -11,9 +11,35 @@ jobs:
       github.event.description != 'Skipped' &&
       github.event.description != 'Manual override'
     runs-on: ubuntu-latest
+    permissions:
+      statuses: read
+      pull-requests: write
     steps:
+      - name: Find pull request for status commit
+        id: pull-request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SHA: ${{ github.event.sha }}
+        shell: bash
+        run: |
+          pull_requests=$(gh api --paginate --slurp \
+            "repos/$GH_REPO/commits/$SHA/pulls?per_page=100")
+
+          number=$(jq -r --arg sha "$SHA" '
+            [ .[][] | select(.state == "open" and .head.sha == $sha) | .number ]
+            | unique
+            | if length > 1 then
+                error("Multiple open pull requests match the status commit")
+              else
+                .[0] // empty
+              end
+          ' <<< "$pull_requests")
+
+          echo "number=$number" >> "$GITHUB_OUTPUT"
       - name: Get status check results
         id: integration
+        if: ${{ steps.pull-request.outputs.number != '' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -28,44 +54,44 @@ jobs:
             | length > 0 and all(.[]; .state == "success")
           ' <<< "$statuses")
 
+          failing=$(jq '
+            [.[].statuses[] | select(.context | startswith("github-ui"))]
+            | any(.[]; .state == "failure" or .state == "error")
+          ' <<< "$statuses")
+
           echo "passing=$passing" >> "$GITHUB_OUTPUT"
-      - name: Add passing integration label
-        if: ${{ steps.integration.outputs.passing == 'true' }}
+          echo "failing=$failing" >> "$GITHUB_OUTPUT"
+      - name: Update integration labels
+        if: ${{ steps.integration.outputs.passing == 'true' || steps.integration.outputs.failing == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.sha }}
+          PR_NUMBER: ${{ steps.pull-request.outputs.number }}
+          PASSING: ${{ steps.integration.outputs.passing }}
+        shell: bash
         run: |
-          LABELS=$(gh pr -R "$GH_REPO" view ${{ github.event.pull_request.number }} --json labels | jq -r '.labels | map(.name) | join(",")')
-          HAS_PASSING_LABEL=$(echo "$LABELS" | grep -c "integration-tests: passing")
-          HAS_FAILING_LABEL=$(echo "$LABELS" | grep -c "integration-tests: failing")
-
-          if [ "$HAS_PASSING_LABEL" -eq 0 ]; then
-            echo "Adding 'integration-tests: passing' label"
-            gh pr -R "$GH_REPO" edit "$PR_NUMBER" --add-label "integration-tests: passing"
+          if [ "$PASSING" = "true" ]; then
+            ADD_LABEL="integration-tests: passing"
+            REMOVE_LABEL="integration-tests: failing"
+          else
+            ADD_LABEL="integration-tests: failing"
+            REMOVE_LABEL="integration-tests: passing"
           fi
 
-          if [ "$HAS_FAILING_LABEL" -gt 0 ]; then
-            echo "Removing 'integration-tests: failing' label"
-            gh pr -R "$GH_REPO" edit "$PR_NUMBER" --remove-label "integration-tests: failing"
-          fi
-      - name: Add failing integration label
-        if: ${{ steps.integration.outputs.passing != 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          LABELS=$(gh pr -R "$GH_REPO" view ${{ github.event.pull_request.number }} --json labels | jq -r '.labels | map(.name) | join(",")')
-          HAS_PASSING_LABEL=$(echo "$LABELS" | grep -c "integration-tests: passing")
-          HAS_FAILING_LABEL=$(echo "$LABELS" | grep -c "integration-tests: failing")
+          pull_request=$(gh pr view -R "$GH_REPO" "$PR_NUMBER" \
+            --json labels,headRefOid,state)
 
-          if [ "$HAS_FAILING_LABEL" -eq 0 ]; then
-            echo "Adding 'integration-tests: failing' label"
-            gh pr -R "$GH_REPO" edit "$PR_NUMBER" --add-label "integration-tests: failing"
+          eligible=$(jq --arg sha "$SHA" '
+            .state == "OPEN" and .headRefOid == $sha and
+            all(.labels[]; .name != "integration-tests: skipped manually")
+          ' <<< "$pull_request")
+
+          if [ "$eligible" != "true" ]; then
+            echo "Skipping PR #$PR_NUMBER: closed, outdated commit, or manually skipped"
+            exit 0
           fi
 
-          if [ "$HAS_PASSING_LABEL" -gt 0 ]; then
-            echo "Removing 'integration-tests: passing' label"
-            gh pr -R "$GH_REPO" edit "$PR_NUMBER" --remove-label "integration-tests: passing"
-          fi
+          gh pr edit -R "$GH_REPO" "$PR_NUMBER" \
+            --add-label "$ADD_LABEL" \
+            --remove-label "$REMOVE_LABEL"
