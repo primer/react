@@ -1,4 +1,5 @@
 import {fireEvent, render, act, screen, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
@@ -1282,6 +1283,94 @@ describe('Keyboard interactions', () => {
   })
 
   describe('Typeahead', () => {
+    it.each(['z', 'c'])('ignores rapid "%s" key presses from a nested button', key => {
+      vi.useFakeTimers()
+      const onKeyDown = vi.fn()
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="apple" aria-label="Apple">
+            Apple
+            <button type="button" tabIndex={-1} onKeyDown={onKeyDown}>
+              Nested action
+            </button>
+          </TreeView.Item>
+          <TreeView.Item id="banana">Banana</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+        </TreeView>,
+      )
+
+      const apple = screen.getByRole('treeitem', {name: 'Apple'})
+      const button = screen.getByRole('button', {name: 'Nested action'})
+      const cherry = screen.getByRole('treeitem', {name: 'Cherry'})
+
+      act(() => apple.focus())
+      act(() => button.focus())
+      expect(button).toHaveFocus()
+
+      expect(fireEvent.keyDown(button, {key})).toBe(true)
+      expect(fireEvent.keyDown(button, {key})).toBe(true)
+      expect(button).toHaveFocus()
+      expect(onKeyDown).toHaveBeenCalledTimes(2)
+
+      act(() => apple.focus())
+      fireEvent.keyDown(apple, {key: 'c'})
+      expect(cherry).toHaveFocus()
+    })
+
+    it('allows typing in a nested input without moving focus', async () => {
+      const user = userEvent.setup()
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="apple" aria-label="Apple">
+            Apple
+            <input aria-label="Filter" />
+          </TreeView.Item>
+          <TreeView.Item id="banana">Banana</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+        </TreeView>,
+      )
+
+      const input = screen.getByRole('textbox', {name: 'Filter'})
+
+      await user.type(input, 'ch')
+
+      expect(input).toHaveValue('ch')
+      expect(input).toHaveFocus()
+    })
+
+    it('does not add nested-control keystrokes to an ongoing search', () => {
+      vi.useFakeTimers()
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="apple" aria-label="Apple">
+            Apple
+            <button type="button" tabIndex={-1}>
+              Nested action
+            </button>
+          </TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+          <TreeView.Item id="cantalope">Cantalope</TreeView.Item>
+        </TreeView>,
+      )
+
+      const apple = screen.getByRole('treeitem', {name: 'Apple'})
+      const button = screen.getByRole('button', {name: 'Nested action'})
+      const cherry = screen.getByRole('treeitem', {name: 'Cherry'})
+      const cantalope = screen.getByRole('treeitem', {name: 'Cantalope'})
+
+      act(() => apple.focus())
+      fireEvent.keyDown(apple, {key: 'c'})
+      expect(cherry).toHaveFocus()
+
+      act(() => button.focus())
+      expect(fireEvent.keyDown(button, {key: 'z'})).toBe(true)
+      expect(button).toHaveFocus()
+
+      act(() => cherry.focus())
+      fireEvent.keyDown(cherry, {key: 'a'})
+      expect(cantalope).toHaveFocus()
+    })
+
     it('moves focus to the next item that matches the typed character', () => {
       render(
         <TreeView aria-label="Test tree">
