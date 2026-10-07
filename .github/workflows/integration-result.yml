@@ -1,0 +1,68 @@
+name: integration-result
+
+on:
+  status:
+
+jobs:
+  label:
+    if: ${{ startsWith(github.event.context, 'github-ui') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get status check results
+        id: integration
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SHA: ${{ github.event.sha }}
+        shell: bash
+        run: |
+          statuses=$(gh api --paginate --slurp \
+            "repos/$GH_REPO/commits/$SHA/status?per_page=100")
+
+          passing=$(jq '
+            [.[].statuses[] | select(.context | startswith("github-ui"))]
+            | length > 0 and all(.[]; .state == "success")
+          ' <<< "$statuses")
+
+          echo "passing=$passing" >> "$GITHUB_OUTPUT"
+      - name: Add passing integration label
+        if: ${{ steps.integration.outputs.passing == 'true' }
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          LABELS=$(gh pr -R "$GH_REPO" view ${{ github.event.pull_request.number }} --json labels | jq -r '.labels | map(.name) | join(",")')
+          HAS_PASSING_LABEL=$(echo "$LABELS" | grep -c "integration-tests: passing")
+          HAS_FAILING_LABEL=$(echo "$LABELS" | grep -c "integration-tests: failing")
+
+          if [ "$HAS_PASSING_LABEL" -eq 0 ]; then
+            echo "Adding 'integration-tests: passing' label"
+            gh pr -R "$GH_REPO" edit "$PR_NUMBER" --add-label "integration-tests: passing"
+          fi
+
+          if [ "$HAS_FAILING_LABEL" -gt 0 ]; then
+            echo "Removing 'integration-tests: failing' label"
+            gh pr -R "$GH_REPO" edit "$PR_NUMBER" --remove-label "integration-tests: failing"
+          fi
+        run:
+      - name: Add failing integration label
+        if: ${{ steps.integration.outputs.passing != 'true' }
+        env: 
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          LABELS=$(gh pr -R "$GH_REPO" view ${{ github.event.pull_request.number }} --json labels | jq -r '.labels | map(.name) | join(",")')
+          HAS_PASSING_LABEL=$(echo "$LABELS" | grep -c "integration-tests: passing")
+          HAS_FAILING_LABEL=$(echo "$LABELS" | grep -c "integration-tests: failing")
+
+          if [ "$HAS_FAILING_LABEL" -eq 0 ]; then
+            echo "Adding 'integration-tests: failing' label"
+            gh pr -R "$GH_REPO" edit "$PR_NUMBER" --add-label "integration-tests: failing"
+          fi
+
+          if [ "$HAS_PASSING_LABEL" -gt 0 ]; then
+            echo "Removing 'integration-tests: passing' label"
+            gh pr -R "$GH_REPO" edit "$PR_NUMBER" --remove-label "integration-tests: passing"
+          fi
