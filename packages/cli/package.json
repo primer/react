@@ -24,6 +24,7 @@
     "watch": "rolldown -c -w"
   },
   "dependencies": {
+    "@primer/primitives": "^11.5.1",
     "cheerio": "^1.0.0",
     "citty": "^0.2.2",
     "tablemark": "^4.1.0",

@@ -28,6 +28,10 @@ const main = defineCommand({
       const mod = await import('./commands/scenarios')
       return mod.scenarios
     },
+    async tokens() {
+      const mod = await import('./commands/tokens')
+      return mod.tokens
+    },
   },
 })
 

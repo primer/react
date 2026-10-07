@@ -123,7 +123,21 @@ describe.each([
   })
 
   it.each(identifiers)('gets "%s" from its own documentation route', async identifier => {
-    fetchMock.mockResolvedValue(
+    fetchMock.mockResolvedValue(new Response('Guidelines\n----------\n\nUse **Primer**.\n'))
+
+    await runCommand(command, {rawArgs: ['get', identifier]})
+
+    expect(fetchMock).toHaveBeenCalledExactlyOnceWith(
+      new URL(`/product/${path}/${id}/llms.txt`, 'https://primer.style'),
+      {signal: expect.any(AbortSignal)},
+    )
+    expect(emit).toHaveBeenCalledExactlyOnceWith(
+      `Here are the guidelines for the \`${name}\` ${label} for Primer:\n\nGuidelines\n----------\n\nUse **Primer**.`,
+    )
+  })
+
+  it('falls back to HTML only when the llms.txt endpoint is missing', async () => {
+    fetchMock.mockResolvedValueOnce(new Response('Not found', {status: 404})).mockResolvedValueOnce(
       new Response(
         html`<nav>Navigation</nav>
           <main>
@@ -134,9 +148,13 @@ describe.each([
       ),
     )
 
-    await runCommand(command, {rawArgs: ['get', identifier]})
+    await runCommand(command, {rawArgs: ['get', id]})
 
-    expect(fetchMock).toHaveBeenCalledExactlyOnceWith(new URL(`/product/${path}/${id}`, 'https://primer.style'), {
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(fetchMock).toHaveBeenNthCalledWith(1, new URL(`/product/${path}/${id}/llms.txt`, 'https://primer.style'), {
+      signal: expect.any(AbortSignal),
+    })
+    expect(fetchMock).toHaveBeenNthCalledWith(2, new URL(`/product/${path}/${id}`, 'https://primer.style'), {
       signal: expect.any(AbortSignal),
     })
     expect(emit).toHaveBeenCalledExactlyOnceWith(
@@ -159,12 +177,23 @@ describe.each([
     expect(emit).not.toHaveBeenCalled()
   })
 
-  it.each([404, 500])('reports HTTP %s without emitting output', async status => {
+  it.each([401, 403, 500])('reports HTTP %s without falling back or emitting output', async status => {
     fetchMock.mockResolvedValue(new Response('Request failed', {status}))
 
     await expect(runCommand(command, {rawArgs: ['get', id]})).rejects.toThrow(
       `Failed to fetch documentation for ${name}: HTTP ${status}`,
     )
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(emit).not.toHaveBeenCalled()
+  })
+
+  it('reports an unavailable HTML fallback rather than emitting output', async () => {
+    fetchMock.mockResolvedValue(new Response('Not found', {status: 404}))
+
+    await expect(runCommand(command, {rawArgs: ['get', id]})).rejects.toThrow(
+      `Failed to fetch documentation for ${name}: HTTP 404`,
+    )
+    expect(fetchMock).toHaveBeenCalledTimes(2)
     expect(emit).not.toHaveBeenCalled()
   })
 
@@ -176,12 +205,11 @@ describe.each([
     expect(emit).not.toHaveBeenCalled()
   })
 
-  it('rejects an empty documentation page without emitting output', async () => {
-    fetchMock.mockResolvedValue(new Response(html`<main></main>`))
+  it('rejects empty llms.txt content without falling back or emitting output', async () => {
+    fetchMock.mockResolvedValue(new Response(' \n'))
 
-    await expect(runCommand(command, {rawArgs: ['get', id]})).rejects.toThrow(
-      `Documentation for ${name} is missing its main content`,
-    )
+    await expect(runCommand(command, {rawArgs: ['get', id]})).rejects.toThrow(`Documentation for ${name} is empty`)
+    expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(emit).not.toHaveBeenCalled()
   })
 })

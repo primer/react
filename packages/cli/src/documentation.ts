@@ -12,6 +12,25 @@ export class DocumentationFetchError extends Error {
   }
 }
 
+export async function fetchPreferredMarkdown(url: URL, name: string): Promise<string> {
+  const llmsUrl = new URL(url)
+  llmsUrl.pathname = `${url.pathname.replace(/\/$/, '')}/llms.txt`
+  const response = await fetch(llmsUrl, {signal: AbortSignal.timeout(10_000)})
+  if (response.status === 404) {
+    return fetchMarkdown(url, name)
+  }
+  if (!response.ok) {
+    throw new DocumentationFetchError(response.status, name, response.statusText)
+  }
+
+  const documentation = (await response.text()).trimEnd()
+  if (!documentation) {
+    throw new Error(`Documentation for ${name} is empty`)
+  }
+
+  return documentation
+}
+
 export async function fetchMarkdown(url: URL, name: string): Promise<string> {
   const response = await fetch(url, {signal: AbortSignal.timeout(10_000)})
   if (!response.ok) {

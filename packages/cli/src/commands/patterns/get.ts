@@ -1,6 +1,6 @@
 import {defineCommand} from 'citty'
 import {log} from '../../console'
-import {fetchMarkdown} from '../../documentation'
+import {fetchPreferredMarkdown} from '../../documentation'
 import {getPattern} from '../../pattern-metadata'
 
 export const get = defineCommand({
@@ -18,7 +18,7 @@ export const get = defineCommand({
   async run({args}) {
     const match = getPattern(args.pattern, 'patterns')
     const url = new URL(`/product/ui-patterns/${match.id}`, 'https://primer.style')
-    const documentation = await fetchMarkdown(url, match.name)
+    const documentation = await fetchPreferredMarkdown(url, match.name)
 
     log(`Here are the guidelines for the \`${match.name}\` pattern for Primer:\n\n${documentation}`)
   },
