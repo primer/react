@@ -5,7 +5,9 @@ on:
 
 jobs:
   label:
-    if: ${{ startsWith(github.event.context, 'github-ui') }}
+    if: >-
+      startsWith(github.event.context, 'github-ui') &&
+      contains(fromJSON('["success", "failure", "error"]'), github.event.state)
     runs-on: ubuntu-latest
     steps:
       - name: Get status check results
