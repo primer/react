@@ -19,7 +19,6 @@
   "scripts": {
     "build": "rolldown -c",
     "clean": "rimraf dist",
-    "prepack": "npm run build",
     "type-check": "tsc --noEmit",
     "watch": "rolldown -c -w"
   },
