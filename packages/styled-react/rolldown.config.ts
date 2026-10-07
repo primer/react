@@ -44,7 +44,10 @@ export default defineConfig([
     external,
     plugins: [
       babel({
-        presets: ['@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]],
+        presets: [
+          ['@babel/preset-typescript', {onlyRemoveTypeImports: false}],
+          ['@babel/preset-react', {runtime: 'automatic'}],
+        ],
         plugins: ['babel-plugin-styled-components'],
         include: /\.(?:ts|tsx)$/,
       }),
