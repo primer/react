@@ -16,10 +16,8 @@ const unsupportedPatterns = [
   'src/ActionMenu/ActionMenu.test.tsx',
   'src/ActionMenu/ActionMenu.tsx',
   'src/AnchoredOverlay/AnchoredOverlay.tsx',
-  'src/Autocomplete/Autocomplete.test.tsx',
   'src/Autocomplete/AutocompleteInput.tsx',
   'src/Button/ButtonBase.tsx',
-  'src/Checkbox/Checkbox.tsx',
   'src/Dialog/Dialog.tsx',
   'src/FilteredActionList/FilteredActionList.tsx',
   'src/FilteredActionList/useAnnouncements.tsx',
@@ -32,7 +30,6 @@ const unsupportedPatterns = [
   'src/Skeleton/SkeletonBox.figma.tsx',
   'src/TextInput/TextInput.tsx',
   'src/Token/_RemoveTokenButton.tsx',
-  'src/Tooltip/Tooltip.tsx',
   'src/TooltipV2/Tooltip.tsx',
   'src/TreeView/TreeView.features.stories.tsx',
   'src/TreeView/TreeView.tsx',
@@ -52,7 +49,6 @@ const unsupportedPatterns = [
   'src/internal/hooks/useDevOnlyEffect.ts',
   'src/utils/StressTest.tsx',
   'src/utils/react-compiler-runtime.ts',
-  'src/utils/use-force-update.ts',
 ]
 
 const unsupported = new Set(
