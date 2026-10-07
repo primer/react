@@ -339,14 +339,14 @@ describe('PageLayout', async () => {
       {padding: 'normal', viewport: 800, expected: '16px'},
     ] as const)('applies $padding padding at a $viewport px viewport', async ({padding, viewport, expected}) => {
       await page.viewport(viewport, 800)
-      try {
-        const {rerender} = render(
-          <PageLayout padding="none">
-            <PageLayout.Sidebar padding={padding}>Sidebar</PageLayout.Sidebar>
-            <PageLayout.Content>Content</PageLayout.Content>
-          </PageLayout>,
-        )
+      const {rerender, unmount} = render(
+        <PageLayout padding="none">
+          <PageLayout.Sidebar padding={padding}>Sidebar</PageLayout.Sidebar>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
 
+      try {
         expect(screen.getByText('Sidebar')).toHaveStyle({padding: expected})
 
         rerender(
@@ -360,6 +360,7 @@ describe('PageLayout', async () => {
 
         expect(screen.getByText('Sidebar')).toHaveStyle({padding: expected})
       } finally {
+        unmount()
         await page.viewport(1280, 800)
       }
     })
