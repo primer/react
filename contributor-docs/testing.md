@@ -88,8 +88,6 @@ We are slowly moving away from using snapshots as a way to test visual changes o
 
 By default, Vitest fails when tests emit unexpected console output in CI. For local debugging, it is disabled unless you opt in with `VITEST_FAIL_ON_CONSOLE=true`.
 
-For `@primer/cli`, statically import leaf commands in behavior tests and call `runCommand` with only that command's arguments. Keep network requests and output mocked. This preserves argument parsing and validation coverage without counting cold lazy imports against the test timeout. Keep command-tree routing coverage separate, with leaf handlers stubbed so those tests only exercise dispatch. Run the CLI suite with `npm test -- --run --project=@primer/cli`.
-
 ## Interaction Tests
 
 ### As A Part Of Unit Tests
