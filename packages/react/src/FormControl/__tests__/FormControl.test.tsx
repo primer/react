@@ -686,4 +686,17 @@ describe('FormControl', () => {
       })
     })
   })
+
+  describe('horizontal layout', () => {
+    it('renders only one input when layout is horizontal with a non-choice input', () => {
+      const {getAllByRole} = render(
+        <FormControl layout="horizontal">
+          <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+          <TextInput />
+        </FormControl>,
+      )
+
+      expect(getAllByRole('textbox')).toHaveLength(1)
+    })
+  })
 })
