@@ -290,17 +290,41 @@ describe('ActionMenu', () => {
       }
     })
 
-    it('skips focus restoration when the anchor is clicked to close the menu', async () => {
-      const component = HTMLRender(<Example preventFocusOnClose />)
-      const user = userEvent.setup()
-      const trigger = component.getByRole('button', {name: 'Toggle Menu'})
+    it.each([undefined, false, true])(
+      'handles anchor-click closure with preventFocusOnClose=%s',
+      async preventFocusOnClose => {
+        const returnFocusRef = {current: null as HTMLButtonElement | null}
+        const component = HTMLRender(
+          <BaseStyles>
+            <Button ref={returnFocusRef}>Return focus</Button>
+            <ActionMenu>
+              <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay preventFocusOnClose={preventFocusOnClose} returnFocusRef={returnFocusRef}>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>,
+        )
+        const user = userEvent.setup()
+        const trigger = component.getByRole('button', {name: 'Toggle Menu'})
+        const returnFocusTarget = component.getByRole('button', {name: 'Return focus'})
 
-      await user.click(trigger)
-      await user.click(trigger)
+        await user.click(trigger)
+        const focus = vi.spyOn(returnFocusTarget, 'focus')
+        await user.click(trigger)
 
-      expect(component.queryByRole('menu')).not.toBeInTheDocument()
-      expect(trigger).not.toHaveFocus()
-    })
+        expect(component.queryByRole('menu')).not.toBeInTheDocument()
+        if (preventFocusOnClose) {
+          expect(focus).not.toHaveBeenCalled()
+          expect(returnFocusTarget).not.toHaveFocus()
+        } else {
+          expect(focus).toHaveBeenCalled()
+          expect(returnFocusTarget).toHaveFocus()
+        }
+      },
+    )
 
     it('skips restoration to a custom returnFocusRef on controlled closure', async () => {
       const returnFocusRef = {current: document.createElement('button')}

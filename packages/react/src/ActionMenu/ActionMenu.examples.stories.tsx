@@ -243,7 +243,8 @@ export const PreventFocusOnClose: StoryObj = {
       </>
     )
   },
-  play: async ({canvas, canvasElement}) => {
+  play: async ({canvasElement}) => {
+    const canvas = within(canvasElement)
     const editor = canvas.getByRole<HTMLInputElement>('textbox', {name: 'Document'})
     await userEvent.click(editor)
     await userEvent.keyboard('{Home}{ArrowRight}{ArrowRight}{ArrowRight}')
