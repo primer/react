@@ -7,7 +7,9 @@ jobs:
   label:
     if: >-
       startsWith(github.event.context, 'github-ui') &&
-      contains(fromJSON('["success", "failure", "error"]'), github.event.state)
+      contains(fromJSON('["success", "failure", "error"]'), github.event.state) &&
+      github.event.description != 'Skipped' &&
+      github.event.description != 'Manual override'
     runs-on: ubuntu-latest
     steps:
       - name: Get status check results
@@ -28,7 +30,7 @@ jobs:
 
           echo "passing=$passing" >> "$GITHUB_OUTPUT"
       - name: Add passing integration label
-        if: ${{ steps.integration.outputs.passing == 'true' }
+        if: ${{ steps.integration.outputs.passing == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -47,10 +49,9 @@ jobs:
             echo "Removing 'integration-tests: failing' label"
             gh pr -R "$GH_REPO" edit "$PR_NUMBER" --remove-label "integration-tests: failing"
           fi
-        run:
       - name: Add failing integration label
-        if: ${{ steps.integration.outputs.passing != 'true' }
-        env: 
+        if: ${{ steps.integration.outputs.passing != 'true' }}
+        env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
