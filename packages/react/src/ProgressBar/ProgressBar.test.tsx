@@ -82,6 +82,14 @@ describe('ProgressBar', () => {
     expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '50')
   })
 
+  it.each([33.8, '33.8'])('rounds decimal progress %j consistently for `aria-valuenow`', progress => {
+    const {getByRole} = render(<ProgressBar progress={progress} aria-label="Upload test.png" />)
+    const progressBar = getByRole('progressbar')
+
+    expect(progressBar).toHaveAttribute('aria-valuenow', '34')
+    expect(progressBar.style.getPropertyValue('--progress-width')).toBe('33.8%')
+  })
+
   it('applies `0` as a value for `aria-valuenow`', () => {
     const {getByRole} = render(<ProgressBar progress={0} aria-valuenow={0} aria-label="Upload text.png" />)
 
