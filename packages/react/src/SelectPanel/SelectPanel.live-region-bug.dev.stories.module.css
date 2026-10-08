@@ -1,0 +1,151 @@
+.Page {
+  max-width: 1200px;
+  padding: var(--base-size-48) var(--base-size-32);
+  margin: 0 auto;
+  color: var(--fgColor-default);
+}
+
+.Header {
+  max-width: 880px;
+  padding-bottom: var(--base-size-40);
+}
+
+.Title {
+  margin: 0 0 var(--base-size-16);
+  font-size: var(--text-title-size-large);
+  line-height: var(--text-title-lineHeight-large);
+}
+
+.Summary {
+  margin: 0;
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-large);
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+.Section {
+  padding: var(--base-size-32) 0;
+  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.Section:last-child {
+  padding-bottom: 0;
+}
+
+.Section h2 {
+  margin: 0 0 var(--base-size-16);
+  font-size: var(--text-title-size-medium);
+  line-height: var(--text-title-lineHeight-medium);
+}
+
+.Section h3 {
+  margin: var(--base-size-20) 0 var(--base-size-8);
+  font-size: var(--text-body-size-medium);
+}
+
+.Section p {
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+.Steps {
+  padding-left: var(--base-size-24);
+  margin: 0 0 var(--base-size-24);
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+.Demo {
+  display: grid;
+  gap: var(--base-size-20);
+  align-content: start;
+  min-width: 0;
+  min-height: 280px;
+  padding: var(--base-size-32);
+  background: var(--bgColor-default);
+}
+
+.Demo h3 {
+  margin-top: 0;
+}
+
+.Example {
+  overflow: hidden;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  box-shadow: var(--shadow-resting-small);
+}
+
+.Diagnostics {
+  overflow: hidden;
+  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+  background: var(--bgColor-muted);
+}
+
+.Diagnostics h3 {
+  padding: var(--base-size-16) var(--base-size-20);
+  margin: 0;
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.Diagnostics dl {
+  margin: 0;
+}
+
+.DiagnosticRow {
+  display: grid;
+  padding: var(--base-size-12) var(--base-size-20);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+  grid-template-columns: minmax(160px, 0.6fr) minmax(0, 1fr);
+}
+
+.DiagnosticRow dt {
+  color: var(--fgColor-muted);
+}
+
+.DiagnosticRow dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.Result {
+  padding: var(--base-size-16) var(--base-size-20);
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.Result[data-state='broken'] {
+  color: var(--fgColor-danger);
+}
+
+.Code {
+  padding: var(--base-size-20);
+  margin: var(--base-size-20) 0;
+  overflow-x: auto;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  background: var(--bgColor-neutral-emphasis);
+  box-shadow: var(--shadow-resting-small);
+  color: var(--fgColor-onEmphasis);
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-codeBlock-lineHeight-default);
+}
+
+.FixList {
+  padding-left: var(--base-size-24);
+  margin: 0;
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+@media (max-width: 899px) {
+  .Page {
+    padding: var(--base-size-24) var(--base-size-16);
+  }
+
+  .DiagnosticRow {
+    gap: var(--base-size-4);
+    grid-template-columns: 1fr;
+  }
+
+  .Demo {
+    min-height: auto;
+  }
+}
