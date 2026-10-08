@@ -54,8 +54,8 @@
     },
     {
       "name": "size",
-      "type": "'small' | 'medium' | 'large'",
-      "description": "The size of the componeont",
+      "type": "'medium' | 'large'",
+      "description": "The size of the component",
       "defaultValue": "'medium'"
     }
   ],
