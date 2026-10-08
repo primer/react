@@ -111,6 +111,18 @@
       "description": "The format with which to render the time zone"
     },
     {
+      "name": "formatStyle",
+      "type": "'long' | 'short' | 'narrow'",
+      "defaultValue": "",
+      "description": "The style with which to render the formatted value. Defaults depend on `format`"
+    },
+    {
+      "name": "timeZone",
+      "type": "string",
+      "defaultValue": "",
+      "description": "The IANA time zone used to format the date. Defaults to the nearest ancestor's `time-zone` attribute"
+    },
+    {
       "name": "ref",
       "type": "React.RefObject<RelativeTimeElement>"
     },
@@ -121,26 +133,8 @@
       "description": "Removes the `title` attribute provided on the element by default"
     },
     {
-      "name": "attributeChangedCallback",
-      "type": "(attrName: string, oldValue: unknown, newValue: unknown) => void",
-      "description": "",
-      "defaultValue": ""
-    },
-    {
-      "name": "connectedCallback",
-      "type": "() => void",
-      "description": "",
-      "defaultValue": ""
-    },
-    {
       "name": "onRelativeTimeUpdated",
       "type": "null | (event: RelativeTimeUpdatedEvent) => void",
-      "description": "",
-      "defaultValue": ""
-    },
-    {
-      "name": "update",
-      "type": "() => void",
       "description": "",
       "defaultValue": ""
     },
