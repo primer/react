@@ -22,7 +22,7 @@
     --inline-start-center,
     --fit-block-bottom,
     --fit-block-top;
-  position-visibility: anchors-visible;
+  position-visibility: always;
   z-index: 100;
   position: fixed !important;
 
