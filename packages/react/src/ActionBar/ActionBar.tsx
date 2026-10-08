@@ -1,4 +1,4 @@
-import {type RefObject, type MouseEventHandler, useContext} from 'react'
+import {type RefObject, useContext} from 'react'
 import React, {useState, useCallback, useRef, forwardRef, useMemo} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
@@ -20,7 +20,7 @@ type ChildProps =
       label: React.ReactNode
       disabled: boolean
       icon?: ActionBarIconButtonProps['icon']
-      onClick: MouseEventHandler
+      onActivate: () => void
     }
   | {type: 'divider' | 'group'}
   | {
@@ -33,8 +33,10 @@ type ChildProps =
 
 const ActionBarContext = React.createContext<{
   size: Size
+  overflowButtonRef: React.RefObject<HTMLButtonElement | null>
 }>({
   size: 'medium',
+  overflowButtonRef: {current: null},
 })
 
 /*
@@ -84,9 +86,18 @@ export type ActionBarProps = {
   gap?: GapScale
 } & A11yProps
 
-export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
+type ActiveAnchorProps = {
+  disabled?: boolean
+  /**
+   * Receives the visible trigger representing this action. Points to this button while inline and the ActionBar
+   * overflow button while this action is overflowing.
+   */
+  activeAnchorRef?: React.Ref<HTMLButtonElement>
+}
 
-export type ActionBarButtonProps = {disabled?: boolean} & ButtonProps
+export type ActionBarIconButtonProps = ActiveAnchorProps & IconButtonProps
+
+export type ActionBarButtonProps = ActiveAnchorProps & ButtonProps
 
 export type ActionBarMenuItemProps =
   | ({
@@ -207,6 +218,8 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
   gap = 'condensed',
 }) => {
   const [childRegistry, setChildRegistry] = ActionBarItemsRegistry.useRegistryState()
+  const [overflowMenuOpen, setOverflowMenuOpen] = useState(false)
+  const overflowButtonRef = useRef<HTMLButtonElement>(null)
 
   const overflowItems = useMemo(
     () =>
@@ -225,7 +238,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
   )
 
   return (
-    <ActionBarContext.Provider value={{size}}>
+    <ActionBarContext.Provider value={{size, overflowButtonRef}}>
       <div className={clsx(className, styles.Nav)} data-component="ActionBar" data-flush={flush}>
         <div
           ref={containerRef as RefObject<HTMLDivElement>}
@@ -246,7 +259,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
               </ActionBarItemsRegistry.Provider>
             </OverflowObserverProvider>
           </div>
-          <ActionMenu>
+          <ActionMenu anchorRef={overflowButtonRef} open={overflowMenuOpen} onOpenChange={setOverflowMenuOpen}>
             <ActionMenu.Anchor>
               <IconButton
                 variant="invisible"
@@ -265,12 +278,14 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
                   }
 
                   if (menuItem.type === 'action') {
-                    const {onClick, icon: Icon, label, disabled} = menuItem
+                    const {onActivate, icon: Icon, label, disabled} = menuItem
                     return (
                       <ActionList.Item
                         key={id}
                         onSelect={event => {
-                          typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
+                          event.preventDefault()
+                          setOverflowMenuOpen(false)
+                          onActivate()
                         }}
                         disabled={disabled}
                       >
@@ -316,8 +331,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
   )
 }
 
-function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProps: ChildProps) {
+function useActionBarItem(
+  ref: React.RefObject<HTMLElement | null>,
+  registryProps: ChildProps,
+  activeAnchorRef?: React.Ref<HTMLButtonElement>,
+) {
   const isGroupOverflowing = useContext(ActionBarGroupContext)?.isOverflowing
+  const {overflowButtonRef} = useContext(ActionBarContext)
   const isInGroup = isGroupOverflowing !== undefined
 
   // There's no need to observe items inside of a group since the entire group overflows at once, so `disabled` skips
@@ -325,22 +345,33 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
   const isItemOverflowing = useIsClipped(ref, {disabled: isInGroup})
 
   const isOverflowing = isGroupOverflowing || isItemOverflowing
+  const setActiveAnchorRef = useMergedRefs(activeAnchorRef, undefined)
+  const publishActiveAnchor = useCallback(
+    (button: HTMLButtonElement | null) => {
+      if (!activeAnchorRef || button === null) return setActiveAnchorRef(null)
+      return setActiveAnchorRef(isOverflowing ? overflowButtonRef.current : button)
+    },
+    [activeAnchorRef, isOverflowing, overflowButtonRef, setActiveAnchorRef],
+  )
 
   ActionBarItemsRegistry.useRegisterDescendant(isOverflowing ? registryProps : null)
 
-  return {isOverflowing, dataOverflowingAttr: isOverflowing ? '' : undefined}
+  return {isOverflowing, dataOverflowingAttr: isOverflowing ? '' : undefined, publishActiveAnchor}
 }
 
 export const ActionBarIconButton = forwardRef(
-  ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
+  ({disabled, onClick, activeAnchorRef, ...props}: ActionBarIconButtonProps, forwardedRef) => {
     const ref = useRef<HTMLButtonElement>(null)
-    const mergedRef = useMergedRefs(forwardedRef, ref)
+    const forwardedAndInternalRef = useMergedRefs(forwardedRef, ref)
 
     const {size} = React.useContext(ActionBarContext)
 
-    const {['aria-label']: ariaLabel, icon} = props
+    const ariaLabel = props['aria-label']
+    const {icon} = props
 
-    const {dataOverflowingAttr} = useActionBarItem(
+    const activate = useCallback(() => ref.current?.click(), [])
+
+    const {dataOverflowingAttr, publishActiveAnchor} = useActionBarItem(
       ref,
       useMemo(
         (): ChildProps => ({
@@ -348,11 +379,13 @@ export const ActionBarIconButton = forwardRef(
           label: ariaLabel ?? '',
           icon,
           disabled: !!disabled,
-          onClick: onClick as MouseEventHandler,
+          onActivate: activate,
         }),
-        [ariaLabel, icon, disabled, onClick],
+        [ariaLabel, icon, disabled, activate],
       ),
+      activeAnchorRef,
     )
+    const mergedRef = useMergedRefs(forwardedAndInternalRef, publishActiveAnchor)
 
     const clickHandler = useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -376,50 +409,56 @@ export const ActionBarIconButton = forwardRef(
   },
 )
 
-export const ActionBarButton = forwardRef(({disabled, onClick, ...props}: ActionBarButtonProps, forwardedRef) => {
-  const ref = useRef<HTMLButtonElement>(null)
-  const mergedRef = useMergedRefs(forwardedRef, ref)
+export const ActionBarButton = forwardRef(
+  ({disabled, onClick, activeAnchorRef, ...props}: ActionBarButtonProps, forwardedRef) => {
+    const ref = useRef<HTMLButtonElement>(null)
+    const forwardedAndInternalRef = useMergedRefs(forwardedRef, ref)
 
-  const {size} = React.useContext(ActionBarContext)
+    const {size} = React.useContext(ActionBarContext)
 
-  const {children, leadingVisual} = props
+    const {children, leadingVisual} = props
 
-  const {dataOverflowingAttr} = useActionBarItem(
-    ref,
-    useMemo(
-      (): ChildProps => ({
-        type: 'action',
-        label: children,
-        // Only forward the leading visual to the overflow menu when it is a component
-        // that can be rendered as an icon (e.g. an octicon), matching ActionBar.IconButton.
-        icon: typeof leadingVisual === 'function' ? (leadingVisual as ActionBarIconButtonProps['icon']) : undefined,
-        disabled: !!disabled,
-        onClick: onClick as MouseEventHandler,
-      }),
-      [children, leadingVisual, disabled, onClick],
-    ),
-  )
+    const activate = useCallback(() => ref.current?.click(), [])
 
-  const clickHandler = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (disabled) return
-      onClick?.(event)
-    },
-    [disabled, onClick],
-  )
+    const {dataOverflowingAttr, publishActiveAnchor} = useActionBarItem(
+      ref,
+      useMemo(
+        (): ChildProps => ({
+          type: 'action',
+          label: children,
+          // Only forward the leading visual to the overflow menu when it is a component
+          // that can be rendered as an icon (e.g. an octicon), matching ActionBar.IconButton.
+          icon: typeof leadingVisual === 'function' ? (leadingVisual as ActionBarIconButtonProps['icon']) : undefined,
+          disabled: !!disabled,
+          onActivate: activate,
+        }),
+        [children, leadingVisual, disabled, activate],
+      ),
+      activeAnchorRef,
+    )
+    const mergedRef = useMergedRefs(forwardedAndInternalRef, publishActiveAnchor)
 
-  return (
-    <Button
-      aria-disabled={disabled}
-      ref={mergedRef}
-      size={size}
-      onClick={clickHandler}
-      {...props}
-      variant="invisible"
-      data-overflowing={dataOverflowingAttr}
-    />
-  )
-})
+    const clickHandler = useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (disabled) return
+        onClick?.(event)
+      },
+      [disabled, onClick],
+    )
+
+    return (
+      <Button
+        aria-disabled={disabled}
+        ref={mergedRef}
+        size={size}
+        onClick={clickHandler}
+        {...props}
+        variant="invisible"
+        data-overflowing={dataOverflowingAttr}
+      />
+    )
+  },
+)
 
 const ActionBarGroupContext = React.createContext<{
   isOverflowing: boolean

@@ -9,6 +9,11 @@ export type UseOpenAndCloseFocusSettings = {
   preventFocusOnOpen?: boolean
 }
 
+function focusCurrentTarget(ref: React.RefObject<HTMLElement | null>) {
+  // The return target may change while an overlay is open, such as when an ActionBar action moves into overflow.
+  ref.current?.focus()
+}
+
 export function useOpenAndCloseFocus({
   initialFocusRef,
   returnFocusRef,
@@ -27,10 +32,8 @@ export function useOpenAndCloseFocus({
       }
     }
 
-    // If returnFocusRef element is rendered, apply focus
-    const returnFocusRefCurrent = returnFocusRef.current
     return function () {
-      returnFocusRefCurrent?.focus()
+      focusCurrentTarget(returnFocusRef)
     }
   }, [initialFocusRef, returnFocusRef, containerRef, preventFocusOnOpen])
 }
