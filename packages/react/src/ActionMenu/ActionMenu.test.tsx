@@ -813,6 +813,93 @@ describe('ActionMenu', () => {
     })
   })
 
+  describe('cssAnchorPositioningSettings', () => {
+    it.each([
+      {enabled: true, disable: undefined, expected: 'true'},
+      {enabled: true, disable: false, expected: 'true'},
+      {enabled: true, disable: true, expected: 'false'},
+      {enabled: false, disable: false, expected: 'false'},
+    ])(
+      'uses data-anchor-position=$expected when enabled=$enabled and disable=$disable',
+      ({enabled, disable, expected}) => {
+        const component = HTMLRender(
+          <FeatureFlags flags={{primer_react_css_anchor_positioning: enabled}}>
+            <BaseStyles>
+              <ActionMenu open onOpenChange={() => {}}>
+                <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+                <ActionMenu.Overlay cssAnchorPositioningSettings={disable === undefined ? undefined : {disable}}>
+                  <ActionList>
+                    <ActionList.Item>New file</ActionList.Item>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </BaseStyles>
+          </FeatureFlags>,
+        )
+
+        const overlay = component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]')
+        expect(overlay).toHaveAttribute('data-anchor-position', expected)
+        expect(overlay).not.toHaveAttribute('cssAnchorPositioningSettings')
+        const anchor = component.getByRole('button', {name: 'Toggle Menu'})
+        if (expected === 'true') {
+          expect(anchor.style.getPropertyValue('anchor-name')).not.toBe('')
+        } else {
+          expect(anchor.style.getPropertyValue('anchor-name')).toBe('')
+        }
+      },
+    )
+
+    it.each([
+      {fallbackStrategy: 'default', expected: ''},
+      {fallbackStrategy: 'none', expected: 'none'},
+      {fallbackStrategy: 'opposite-side', expected: 'flip-block'},
+    ] as const)('applies the $fallbackStrategy fallback strategy', ({fallbackStrategy, expected}) => {
+      const component = HTMLRender(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <ActionMenu open onOpenChange={() => {}}>
+              <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay side="outside-bottom" cssAnchorPositioningSettings={{fallbackStrategy}}>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+
+      const overlay = component.baseElement.querySelector<HTMLElement>('[data-component="ActionMenu.Overlay"]')
+      expect(overlay?.style.getPropertyValue('position-try-fallbacks')).toBe(expected)
+    })
+
+    it('preserves keyboard focus and dismissal when CSS anchor positioning is disabled', async () => {
+      const component = HTMLRender(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay cssAnchorPositioningSettings={{disable: true}}>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      const user = userEvent.setup()
+      const anchor = component.getByRole('button', {name: 'Toggle Menu'})
+      anchor.focus()
+      await user.keyboard('{ArrowDown}')
+      await waitFor(() => expect(component.getByRole('menuitem', {name: 'New file'})).toHaveFocus())
+
+      await user.keyboard('{Escape}')
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      expect(anchor).toHaveFocus()
+    })
+  })
+
   describe('calls event handlers on trigger', () => {
     it('should call onClick and onKeyDown passed to ActionMenu.Button', async () => {
       const mockOnClick = vi.fn()

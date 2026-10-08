@@ -267,7 +267,7 @@ const defaultVariant: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'> = {
 }
 
 type MenuOverlayProps = Partial<OverlayProps> &
-  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant' | 'displayInViewport'> & {
+  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant' | 'displayInViewport' | 'cssAnchorPositioningSettings'> & {
     /**
      * Recommended: `ActionList`
      */
@@ -280,6 +280,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   side,
   onPositionChange,
   displayInViewport,
+  cssAnchorPositioningSettings,
   'aria-labelledby': ariaLabelledby,
   variant = defaultVariant,
   ...overlayProps
@@ -363,6 +364,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onPositionChange={onPositionChange}
       variant={variant}
       displayInViewport={displayInViewport !== undefined ? displayInViewport : isInsideDialog}
+      cssAnchorPositioningSettings={cssAnchorPositioningSettings}
     >
       <div
         ref={containerRef}

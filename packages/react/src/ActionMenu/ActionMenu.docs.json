@@ -118,6 +118,12 @@
           "description": "Callback that is called when the position of the overlay changes"
         },
         {
+          "name": "cssAnchorPositioningSettings",
+          "type": "{fallbackStrategy?: 'default' | 'none' | 'opposite-side'; disable?: boolean}",
+          "defaultValue": "",
+          "description": "Controls CSS anchor positioning fallbacks. Set disable to true to use JavaScript positioning for this overlay."
+        },
+        {
           "name": "data-test-id",
           "type": "unknown",
           "required": false,
