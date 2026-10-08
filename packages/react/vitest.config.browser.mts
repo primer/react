@@ -1,10 +1,8 @@
-import babel from '@rolldown/plugin-babel'
-
-import react, {reactCompilerPreset} from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
 import {defineConfig} from '@primer/vitest-config/config'
 import postcssPresetPrimer from 'postcss-preset-primer'
-import {isSupported} from './script/react-compiler.mjs'
+import {files, isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
   css: {
@@ -16,14 +14,11 @@ export default defineConfig({
     },
   },
   plugins: [
-    react(),
-    babel({
-      presets: [
-        reactCompilerPreset({
-          target: '18',
-          sources: isSupported,
-        }),
-      ],
+    react({
+      compiler: {
+        target: '18',
+        sources: files.filter(isSupported),
+      },
     }),
   ],
   resolve: {

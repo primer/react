@@ -129,6 +129,10 @@ const stories = [
     id: 'components-actionlist-features--large-item',
   },
   {
+    title: 'Small Item',
+    id: 'components-actionlist-features--small-item',
+  },
+  {
     title: 'Trailing count',
     id: 'components-actionlist-features--with-trailing-count',
   },

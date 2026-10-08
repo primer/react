@@ -63,9 +63,9 @@
         },
         {
           "name": "size",
-          "type": "'medium' | 'large'",
+          "type": "'small' | 'medium' | 'large'",
           "defaultValue": "'medium'",
-          "description": "The block size of the ActionList items."
+          "description": "The block size of the ActionList item. The `small` size also uses small body text."
         },
         {
           "name": "onSelect",
@@ -158,6 +158,12 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "Indicate whether the item is active. There should never be more than one active item."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "'medium'",
+          "description": "The block size of the ActionList item. The `small` size also uses small body text."
         },
         {
           "name": "ref",

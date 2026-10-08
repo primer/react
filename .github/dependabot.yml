@@ -25,6 +25,11 @@ updates:
           - '@eslint/*'
           - 'eslint'
           - 'eslint-plugin-*'
+      oxc:
+        patterns:
+          - 'oxc'
+          - 'oxc-*'
+          - '@oxc/*'
       react:
         patterns:
           - 'react'

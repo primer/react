@@ -781,7 +781,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-        expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+        expect(getLiveRegion().getMessage('polite').trim()).toContain('This is a notice')
       })
 
       it('should announce filtered results', async () => {
@@ -828,7 +828,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe('1 item available, 0 selected.')
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
+              expect(getLiveRegion().getMessage('polite').trim()).toBe(
                 'List updated, Focused item: item one, not selected, 1 of 1',
               )
             }
@@ -851,7 +851,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe('No items available.')
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe('No items available.')
+              expect(getLiveRegion().getMessage('polite').trim()).toBe('No items available.')
             }
           },
           {timeout: 3000},
@@ -903,7 +903,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe("Nothing found. There's nothing here.")
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe("Nothing found. There's nothing here.")
+              expect(getLiveRegion().getMessage('polite').trim()).toBe("Nothing found. There's nothing here.")
             }
           },
           {timeout: 3000},
