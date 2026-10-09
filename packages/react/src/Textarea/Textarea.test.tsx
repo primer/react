@@ -37,6 +37,24 @@ describe('Textarea', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument()
   })
 
+  it.each([
+    {label: 'true', props: {contrast: true}},
+    {label: 'false', props: {contrast: false}},
+    {label: 'omitted', props: {}},
+  ])('preserves deprecated contrast behavior when $label', ({props}) => {
+    const {container} = render(<Textarea {...props} />)
+    const textarea = screen.getByRole('textbox')
+
+    if (props.contrast) {
+      expect(container.firstElementChild).toHaveAttribute('data-contrast', 'true')
+    } else {
+      expect(container.firstElementChild).not.toHaveAttribute('data-contrast')
+    }
+
+    expect(textarea).not.toHaveAttribute('contrast')
+    expect(textarea).toBeEnabled()
+  })
+
   it('renders data-component attribute', () => {
     render(<Textarea />)
     expect(screen.getByRole('textbox')).toHaveAttribute('data-component', 'Textarea')
