@@ -236,7 +236,7 @@ function TableSelectionHeader({
   return (
     <TableHeader
       {...rest}
-      className={clsx('TableSelectionHeader', className, classes.TableSelectionHeader)}
+      className={clsx(className, classes.TableSelectionHeader)}
       data-component="Table.SelectionHeader"
     >
       <Checkbox
@@ -360,7 +360,7 @@ function TableRowSelection({
   return (
     <td
       {...rest}
-      className={clsx('TableCell', 'TableRowSelection', className, classes.TableCell, classes.TableRowSelection)}
+      className={clsx(className, classes.TableCell, classes.TableRowSelection)}
       role="cell"
       headers={resolvedHeaders}
       data-component="Table.RowSelection"

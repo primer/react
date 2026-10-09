@@ -508,6 +508,7 @@ describe('Table selection parts', () => {
           <Table.Row>
             <Table.RowSelection
               selected
+              className="custom-row-selection"
               headers="selection"
               aria-labelledby="row-name"
               checkboxRef={rowCheckboxRef}
@@ -528,6 +529,14 @@ describe('Table selection parts', () => {
       'custom-selection-header',
     )
     expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveClass('TableHeader', 'custom-header')
+    expect(screen.getByRole('columnheader', {name: 'Select rows'})).not.toHaveClass('TableSelectionHeader')
+    expect(screen.getByRole('cell', {name: 'Select Primer'})).toHaveClass(
+      'custom-row-selection',
+      classes.TableCell,
+      classes.TableRowSelection,
+    )
+    expect(screen.getByRole('cell', {name: 'Select Primer'})).not.toHaveClass('TableCell')
+    expect(screen.getByRole('cell', {name: 'Select Primer'})).not.toHaveClass('TableRowSelection')
     expect(screen.getByRole('columnheader', {name: 'Select rows'})).toHaveAttribute('scope', 'col')
     expect(screen.getByRole('checkbox', {name: 'Select rows'})).toHaveProperty('indeterminate', true)
     expect(screen.getByRole('checkbox', {name: 'Select Primer'})).toBeChecked()

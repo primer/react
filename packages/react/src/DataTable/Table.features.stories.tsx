@@ -85,7 +85,6 @@ export const WithRowSelection = () => {
               id={selectionColumnId}
               selection={allSelected ? 'all' : selectedCount > 0 ? 'some' : 'none'}
               disabled={selectableRows.length === 0}
-              aria-label="Select rows"
               aria-description={
                 selectableRows.length > 0
                   ? `Select all ${selectableRows.length} ${selectableRows.length === 1 ? 'row' : 'rows'}`

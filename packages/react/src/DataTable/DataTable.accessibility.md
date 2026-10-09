@@ -218,8 +218,10 @@ uses `selected`. Both parts request changes through `onToggleSelect`.
 
 ### Names and associations
 
-Use `Select rows` as the header name and put the count in its description,
-per the [follow-up audit](https://github.com/github/accessibility/issues/10807).
+The header checkbox needs an accessible name; `Table.SelectionHeader` defaults to
+`Select rows`. A count description provides additional context, per the
+[follow-up audit](https://github.com/github/accessibility/issues/10807), but is not
+required for naming.
 Row checkboxes reference the visible row header, not a duplicated hidden name.
 The fragments below show these associations; `sr-only` denotes hidden text.
 
