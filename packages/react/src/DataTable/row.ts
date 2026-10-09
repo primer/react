@@ -1,5 +1,7 @@
+export type DataTableRowId = string | number
+
 export interface UniqueRow {
-  id: string | number
+  id: DataTableRowId
 }
 
 export interface DataTableRowGroup<Data extends UniqueRow> {
