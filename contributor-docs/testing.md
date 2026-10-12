@@ -5,22 +5,23 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-* [Strategy](#strategy)
-* [Unit Tests](#unit-tests)
-  * [Overview](#overview)
-  * [Running Tests](#running-tests)
-* [Visual Regression Tests](#visual-regression-tests)
-  * [Overview](#overview)
-  * [Prerequisites](#prerequisites)
-  * [Components](#components)
-    * [Visual Regression Testing](#visual-regression-testing)
-    * [Accessibility Verification Testing](#accessibility-verification-testing)
-* [Interaction Tests](#interaction-tests)
-  * [As A Part Of Unit Tests](#as-a-part-of-unit-tests)
-  * [Storybook Interaction Tests](#storybook-interaction-tests)
-* [Continuous Integration](#continuous-integration)
-* [FAQ](#faq)
-  * [Why am I seeing `browserType.launch: Executable doesn't exist at ../path`?](#why-am-i-seeing-browsertypelaunch-executable-doesnt-exist-at-path)
+- [Strategy](#strategy)
+- [Unit Tests](#unit-tests)
+  - [Overview](#overview)
+  - [Browser locator pilot](#browser-locator-pilot)
+  - [Snapshots](#snapshots)
+  - [Running Tests](#running-tests)
+- [Interaction Tests](#interaction-tests)
+  - [As A Part Of Unit Tests](#as-a-part-of-unit-tests)
+  - [Storybook Interaction Tests](#storybook-interaction-tests)
+- [Visual Regression Tests](#visual-regression-tests)
+  - [Prerequisites](#prerequisites)
+  - [Components](#components)
+    - [Visual Regression Testing](#visual-regression-testing)
+    - [Accessibility Verification Testing](#accessibility-verification-testing)
+- [Continuous Integration](#continuous-integration)
+- [FAQ](#faq)
+  - [Why am I seeing `browserType.launch: Executable doesn't exist at ../path`?](#why-am-i-seeing-browsertypelaunch-executable-doesnt-exist-at-path)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
@@ -74,6 +75,39 @@ To make assertions about the elements we use [Vitest](https://vitest.dev/) and [
 
 \*: Read about the [differences between `fireEvent` and `UserEvent`](https://testing-library.com/docs/user-event/intro/#differences-from-fireevent).
 
+### Browser locator pilot
+
+The Button and TreeView suites pilot [Vitest Browser locators](https://vitest.dev/api/browser/locators.html) and browser-backed interactions. Component tests already run in Chromium through Vitest's Playwright provider; this pilot changes the test APIs, not the runner or browser environment.
+
+Keep RTL for `render`, `rerender`, `unmount`, `renderHook`, cleanup, and explicit React `act` boundaries. Import browser queries and interactions from `vitest/browser`:
+
+```tsx
+import {render} from '@testing-library/react'
+import {expect, it, vi} from 'vitest'
+import {page, userEvent} from 'vitest/browser'
+import {Button} from '@primer/react'
+
+it('calls onClick', async () => {
+  const onClick = vi.fn()
+  render(<Button onClick={onClick}>Submit</Button>)
+
+  const button = page.getByRole('button', {name: 'Submit', exact: true})
+  await expect.element(button).toBeVisible()
+  await userEvent.click(button)
+  expect(onClick).toHaveBeenCalledTimes(1)
+})
+```
+
+Use `expect.element` for eventual DOM assertions and `expect.poll` for eventual computed values, such as live-region messages. Keep ordinary `expect` for synchronous contracts. Prefer role and accessible-name queries, but don't change what a test asserts just to remove a DOM lookup:
+
+- Locators resolve again when used. An expanded TreeView can make a previously unique partial name match several items. Use an exact name or scope the locator; don't hide ambiguity with `.first()`.
+- DOM presence and visibility are different contracts. Button's loading announcement is checked by its exact ID and text because the spinner also contains "Loading".
+- Keep intentional synthetic events for disabled-click suppression, event cancellation, and specific event payloads. Browser actions wait for actionable elements and don't expose the result of `dispatchEvent`.
+- Keep programmatic focus in `act` when testing focus redirection. Preserve fake timers and synchronous assertions after explicit timer advancement.
+- Use `.element()` for snapshots, computed styles, structural checks, or capturing a particular node before it unmounts. A locator follows current DOM state; it doesn't retain the identity of a detached node.
+
+The pilot leaves shared helpers, Node/SSR tests, and the separate Playwright visual and accessibility suites unchanged. It doesn't require removing RTL dependencies.
+
 ### Snapshots
 
 We are slowly moving away from using snapshots as a way to test visual changes of our components. You can read more about the decision in this [ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md). We are in the process of migrating our existing snapshot tests to use [Playwright](https://playwright.dev/) for visual regression testing. If you are writing a new test and you need to test the visual changes of the component, please refer to the [Visual Regression Tests](#visual-regression-tests) section.
@@ -98,7 +132,7 @@ We write user interaction tests leveraging [@testing-library/react](https://test
 
 ### Storybook Interaction Tests
 
-We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests is not practical due to the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
+We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test complex user interactions in story scenarios. For example, testing a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
 
 Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
 

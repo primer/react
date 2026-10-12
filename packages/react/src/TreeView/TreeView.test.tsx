@@ -1,4 +1,5 @@
-import {fireEvent, render, act, screen, waitFor} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
+import {fireEvent, render, act} from '@testing-library/react'
 import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
@@ -16,7 +17,7 @@ describe('Markup', () => {
   implementsClassName(TreeView, classes.TreeViewRootUlStyles)
   implementsClassName(TreeView.Item, classes.TreeViewItem)
 
-  it('uses tree role', () => {
+  it('uses tree role', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
@@ -25,9 +26,9 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    const root = screen.queryByRole('tree')
+    const root = page.getByRole('tree')
 
-    expect(root).toHaveAccessibleName('Test tree')
+    await expect.element(root).toHaveAccessibleName('Test tree')
   })
 
   it('uses treeitem role', () => {
@@ -39,12 +40,12 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    const items = screen.queryAllByRole('treeitem')
+    const items = page.getByRole('treeitem').elements()
 
     expect(items).toHaveLength(3)
   })
 
-  it('uses treeitem aria label', () => {
+  it('uses treeitem aria label', async () => {
     render(
       <>
         <TreeView>
@@ -60,15 +61,15 @@ describe('Markup', () => {
       </>,
     )
 
-    const items = screen.queryAllByRole('treeitem')
+    const items = page.getByRole('treeitem').elements()
     expect(items).toHaveLength(3)
-    expect(items[0]).toHaveAccessibleName('Test tree item 1')
-    expect(items[1]).toHaveAccessibleName('Tree item 2 description')
-    expect(items[2]).toHaveAttribute('aria-labelledby')
-    expect(items[2]).toHaveAccessibleName('Item 3')
+    await expect.element(items[0]).toHaveAccessibleName('Test tree item 1')
+    await expect.element(items[1]).toHaveAccessibleName('Tree item 2 description')
+    await expect.element(items[2]).toHaveAttribute('aria-labelledby')
+    await expect.element(items[2]).toHaveAccessibleName('Item 3')
   })
 
-  it('hides subtrees by default', () => {
+  it('hides subtrees by default', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="parent">
@@ -80,14 +81,17 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    const parentItem = screen.queryByRole('treeitem', {name: 'Parent'})
-    const subtree = screen.queryByRole('group')
+    const parentItem = page.getByRole('treeitem', {
+      name: 'Parent',
+      exact: true,
+    })
+    const subtree = page.getByRole('group')
 
-    expect(parentItem).toHaveAttribute('aria-expanded', 'false')
-    expect(subtree).toBeNull()
+    await expect.element(parentItem).toHaveAttribute('aria-expanded', 'false')
+    await expect.element(subtree).not.toBeInTheDocument()
   })
 
-  it('uses aria-current', () => {
+  it('uses aria-current', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
@@ -98,12 +102,15 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    const currentItem = screen.getByRole('treeitem', {name: 'Item 2'})
+    const currentItem = page.getByRole('treeitem', {
+      name: 'Item 2',
+      exact: true,
+    })
 
-    expect(currentItem).toHaveAttribute('aria-current', 'true')
+    await expect.element(currentItem).toHaveAttribute('aria-current', 'true')
   })
 
-  it('should be described by leading visuals', () => {
+  it('should be described by leading visuals', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
@@ -120,14 +127,14 @@ describe('Markup', () => {
         </TreeView.Item>
       </TreeView>,
     )
-    const item = screen.getByLabelText(/Item 1/)
-    expect(item).toHaveAccessibleDescription('leading')
+    const item = page.getByLabelText(/Item 1/)
+    await expect.element(item).toHaveAccessibleDescription('leading')
 
-    const noDescription = screen.getByLabelText(/Item 2/)
-    expect(noDescription).not.toHaveAccessibleDescription()
+    const noDescription = page.getByLabelText(/Item 2/)
+    await expect.element(noDescription).not.toHaveAccessibleDescription()
   })
 
-  it('should be described by trailing visuals', () => {
+  it('should be described by trailing visuals', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
@@ -144,14 +151,14 @@ describe('Markup', () => {
         </TreeView.Item>
       </TreeView>,
     )
-    const item = screen.getByLabelText(/Item 1/)
-    expect(item).toHaveAccessibleDescription('trailing')
+    const item = page.getByLabelText(/Item 1/)
+    await expect.element(item).toHaveAccessibleDescription('trailing')
 
-    const noDescription = screen.getByLabelText(/Item 2/)
-    expect(noDescription).not.toHaveAccessibleDescription()
+    const noDescription = page.getByLabelText(/Item 2/)
+    await expect.element(noDescription).not.toHaveAccessibleDescription()
   })
 
-  it('should be described by leading and trailing visuals', () => {
+  it('should be described by leading and trailing visuals', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
@@ -174,19 +181,19 @@ describe('Markup', () => {
         </TreeView.Item>
       </TreeView>,
     )
-    const item = screen.getByLabelText(/Item 1/)
-    expect(item).toHaveAccessibleDescription('leading trailing')
+    const item = page.getByLabelText(/Item 1/)
+    await expect.element(item).toHaveAccessibleDescription('leading trailing')
 
-    const noDescription = screen.getByLabelText(/Item 2/)
+    const noDescription = page.getByLabelText(/Item 2/)
     // Note: it seems the computed description here is a string with a single
     // space due to the implementation of `aria-describedby`. We currently set
     // both trailing and visual and when the nodes are not found in
     // `aria-describedby="uuid-leading uuid-trailing"` then it computes to a
     // space
-    expect(noDescription).toHaveAccessibleDescription(' ')
+    await expect.element(noDescription).toHaveAccessibleDescription(' ')
   })
 
-  it('should not have aria-describedby when no leading or trailing visual', () => {
+  it('should not have aria-describedby when no leading or trailing visual', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
@@ -194,12 +201,12 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    const noDescription = screen.getByLabelText(/Item 1/)
-    expect(noDescription).not.toHaveAccessibleDescription()
-    expect(noDescription).not.toHaveAttribute('aria-describedby')
+    const noDescription = page.getByLabelText(/Item 1/)
+    await expect.element(noDescription).not.toHaveAccessibleDescription()
+    await expect.element(noDescription).not.toHaveAttribute('aria-describedby')
   })
 
-  it('should include `aria-expanded` when a SubTree contains content', () => {
+  it('should include `aria-expanded` when a SubTree contains content', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
@@ -217,24 +224,20 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    let treeitem = screen.getByRole('treeitem', {name: /Item 1/})
-    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
+    let treeitem = page.getByRole('treeitem', {name: 'Item 1', exact: true})
+    await expect.element(treeitem).toHaveAttribute('aria-expanded', 'false')
 
-    act(() => {
-      fireEvent.click(treeitem)
-    })
-    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    await userEvent.click(treeitem)
+    await expect.element(treeitem).toHaveAttribute('aria-expanded', 'true')
 
-    treeitem = screen.getByLabelText(/Item 2/)
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    treeitem = page.getByRole('treeitem', {name: 'Item 2', exact: true})
+    await expect.element(treeitem).not.toHaveAttribute('aria-expanded')
 
-    act(() => {
-      fireEvent.click(treeitem)
-    })
-    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    await userEvent.click(treeitem)
+    await expect.element(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('should render with containIntrinsicSize', () => {
+  it('should render with containIntrinsicSize', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="parent" containIntrinsicSize="2rem" defaultExpanded>
@@ -250,13 +253,13 @@ describe('Markup', () => {
 
     // The test runner removes the contain-intrinsic-size and content-visibility
     // properties, so we can only test that the elements are still rendering.
-    const childItem = screen.getByText(/Child/)
-    expect(childItem).toBeInTheDocument()
-    const parentItem = screen.getByText(/Parent/)
-    expect(parentItem).toBeInTheDocument()
+    const childItem = page.getByText(/Child/)
+    await expect.element(childItem).toBeInTheDocument()
+    const parentItem = page.getByText(/Parent/)
+    await expect.element(parentItem).toBeInTheDocument()
   })
 
-  it('should move focus to current treeitem by default', () => {
+  it('should move focus to current treeitem by default', async () => {
     render(
       <div>
         <button type="button">Focusable element</button>
@@ -271,24 +274,24 @@ describe('Markup', () => {
     )
 
     // Focus button
-    const button = screen.getByRole('button', {name: /Focusable element/})
+    const button = page.getByRole('button', {name: /Focusable element/})
     act(() => {
-      button.focus()
+      button.element().focus()
     })
-    expect(button).toHaveFocus()
+    expect(button.element()).toHaveFocus()
 
     // Move focus to tree
-    const item1 = screen.getByRole('treeitem', {name: /Item 1/})
+    const item1 = page.getByRole('treeitem', {name: /Item 1/})
     act(() => {
-      item1.focus()
+      item1.element().focus()
     })
 
     // Focus should be on current treeitem
-    const item2 = screen.getByRole('treeitem', {name: /Item 2/})
-    expect(item2).toHaveFocus()
+    const item2 = page.getByRole('treeitem', {name: /Item 2/})
+    expect(item2.element()).toHaveFocus()
   })
 
-  it('should toggle when receiving focus from chevron click', () => {
+  it('should toggle when receiving focus from chevron click', async () => {
     render(
       <div>
         <button type="button">Focusable element</button>
@@ -310,28 +313,23 @@ describe('Markup', () => {
     )
 
     // Focus button
-    const button = screen.getByRole('button', {name: /Focusable element/})
+    const button = page.getByRole('button', {name: /Focusable element/})
     act(() => {
-      button.focus()
+      button.element().focus()
     })
-    expect(button).toHaveFocus()
+    expect(button.element()).toHaveFocus()
 
     // Move focus to tree
-    const item1 = screen.getByRole('treeitem', {name: /Item 1/})
-    const toggle = item1.querySelector('.PRIVATE_TreeView-item-toggle') as HTMLElement
-    act(() => {
-      // Note: calling `.click()` directly here since the userEvent.click()
-      // warns about it not being a known focusable element. This should be a
-      // valid pattern based on our TreeView guidelines.
-      toggle.click()
-    })
+    const item1 = page.getByRole('treeitem', {name: /Item 1/})
+    const toggle = item1.element().querySelector('.PRIVATE_TreeView-item-toggle') as HTMLElement
+    await userEvent.click(toggle)
 
     // Focus should be on current treeitem
-    const subItem1 = screen.getByRole('treeitem', {name: /SubItem 1/})
-    expect(subItem1).toBeInTheDocument()
+    const subItem1 = page.getByRole('treeitem', {name: /SubItem 1/})
+    await expect.element(subItem1).toBeInTheDocument()
   })
 
-  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", () => {
+  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
     render(
       <div>
         <TreeView aria-label="Test tree">
@@ -349,28 +347,28 @@ describe('Markup', () => {
     )
 
     // Click on treeitem's secondary action
-    const item2Button = screen.getByText(/Link in Item 2/i)
+    const item2Button = page.getByText(/Link in Item 2/i)
     act(() => {
-      item2Button.focus()
+      item2Button.element().focus()
     })
-    expect(item2Button).toHaveFocus()
+    expect(item2Button.element()).toHaveFocus()
 
     // Move focus to button outside of TreeView
-    const outerButton = screen.getByRole('button', {name: /Focusable element/})
+    const outerButton = page.getByRole('button', {name: /Focusable element/})
     act(() => {
-      outerButton.focus()
+      outerButton.element().focus()
     })
-    expect(outerButton).toHaveFocus()
+    expect(outerButton.element()).toHaveFocus()
 
     // Move focus into TreeView. Focus should be on first treeitem
-    const item1 = screen.getByRole('treeitem', {name: /Item 1/})
+    const item1 = page.getByRole('treeitem', {name: /Item 1/})
     act(() => {
-      item1.focus()
+      item1.element().focus()
     })
-    expect(item1).toHaveFocus()
+    expect(item1.element()).toHaveFocus()
   })
 
-  it('keeps focus on a nested control when pressing ArrowDown', () => {
+  it('keeps focus on a nested control when pressing ArrowDown', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
@@ -384,15 +382,20 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    const item = screen.getByRole('treeitem', {name: 'Item 2'})
-    const button = screen.getByText('Nested action')
+    const item = page.getByRole('treeitem', {
+      name: 'Item 2',
+      exact: true,
+    })
+    const button = page.getByText('Nested action', {
+      exact: true,
+    })
 
-    act(() => item.focus())
-    act(() => button.focus())
-    expect(button).toHaveFocus()
+    act(() => item.element().focus())
+    act(() => button.element().focus())
+    expect(button.element()).toHaveFocus()
 
-    expect(fireEvent.keyDown(button, {key: 'ArrowDown'})).toBe(false)
-    expect(button).toHaveFocus()
+    expect(fireEvent.keyDown(button.element(), {key: 'ArrowDown'})).toBe(false)
+    expect(button.element()).toHaveFocus()
   })
 
   describe('as prop', () => {
@@ -403,11 +406,11 @@ describe('Markup', () => {
         </TreeView>,
       )
 
-      const item = screen.getByRole('treeitem', {name: /Item 1/})
-      expect(item.tagName).toBe('LI')
+      const item = page.getByRole('treeitem', {name: /Item 1/})
+      expect(item.element().tagName).toBe('LI')
     })
 
-    it('renders as the element specified by `as`', () => {
+    it('renders as the element specified by `as`', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item as="a" href="#item-1" id="item-1">
@@ -416,12 +419,12 @@ describe('Markup', () => {
         </TreeView>,
       )
 
-      const item = screen.getByRole('treeitem', {name: /Item 1/})
-      expect(item.tagName).toBe('A')
-      expect(item).toHaveAttribute('href', '#item-1')
+      const item = page.getByRole('treeitem', {name: /Item 1/})
+      expect(item.element().tagName).toBe('A')
+      await expect.element(item).toHaveAttribute('href', '#item-1')
     })
 
-    it('wraps the polymorphic element in an `li role="none"` to keep markup valid', () => {
+    it('wraps the polymorphic element in an `li role="none"` to keep markup valid', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item as="a" href="#item-1" id="item-1">
@@ -430,13 +433,13 @@ describe('Markup', () => {
         </TreeView>,
       )
 
-      const item = screen.getByRole('treeitem', {name: /Item 1/})
-      const wrapper = item.parentElement
+      const item = page.getByRole('treeitem', {name: /Item 1/})
+      const wrapper = item.element().parentElement
       expect(wrapper?.tagName).toBe('LI')
-      expect(wrapper).toHaveAttribute('role', 'none')
+      await expect.element(wrapper).toHaveAttribute('role', 'none')
     })
 
-    it('does not add an extra `li role="none"` wrapper when `as="li"`', () => {
+    it('does not add an extra `li role="none"` wrapper when `as="li"`', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item as="li" id="item-1">
@@ -445,14 +448,14 @@ describe('Markup', () => {
         </TreeView>,
       )
 
-      const item = screen.getByRole('treeitem', {name: /Item 1/})
-      expect(item.tagName).toBe('LI')
+      const item = page.getByRole('treeitem', {name: /Item 1/})
+      expect(item.element().tagName).toBe('LI')
       // The treeitem should be a direct child of the tree (`<ul>`), not wrapped
       // in an outer `<li role="none">`.
-      expect(item.parentElement).toHaveAttribute('role', 'tree')
+      await expect.element(item.element().parentElement).toHaveAttribute('role', 'tree')
     })
 
-    it('supports polymorphic Item with custom component via `as`', () => {
+    it('supports polymorphic Item with custom component via `as`', async () => {
       const CustomLink = React.forwardRef<
         HTMLAnchorElement,
         React.AnchorHTMLAttributes<HTMLAnchorElement> & {custom: boolean}
@@ -471,13 +474,13 @@ describe('Markup', () => {
         </TreeView>,
       )
 
-      const item = screen.getByRole('treeitem', {name: /Docs/})
-      expect(item.tagName).toBe('A')
-      expect(item).toHaveAttribute('href', '#docs')
-      expect(item).toHaveAttribute('data-custom-link', 'true')
+      const item = page.getByRole('treeitem', {name: /Docs/})
+      expect(item.element().tagName).toBe('A')
+      await expect.element(item).toHaveAttribute('href', '#docs')
+      await expect.element(item).toHaveAttribute('data-custom-link', 'true')
     })
 
-    it('preserves treeitem role, tabIndex, and aria attributes when `as` is provided', () => {
+    it('preserves treeitem role, tabIndex, and aria attributes when `as` is provided', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item as="a" href="#item-1" id="item-1" current>
@@ -486,11 +489,11 @@ describe('Markup', () => {
         </TreeView>,
       )
 
-      const item = screen.getByRole('treeitem', {name: /Item 1/})
-      expect(item).toHaveAttribute('role', 'treeitem')
-      expect(item).toHaveAttribute('tabindex', '0')
-      expect(item).toHaveAttribute('aria-current', 'true')
-      expect(item).toHaveAttribute('aria-level', '1')
+      const item = page.getByRole('treeitem', {name: /Item 1/})
+      await expect.element(item).toHaveAttribute('role', 'treeitem')
+      await expect.element(item).toHaveAttribute('tabindex', '0')
+      await expect.element(item).toHaveAttribute('aria-current', 'true')
+      await expect.element(item).toHaveAttribute('aria-level', '1')
     })
 
     it('forwards ref to the element specified by `as`', () => {
@@ -507,7 +510,7 @@ describe('Markup', () => {
       expect(ref.current?.tagName).toBe('A')
     })
 
-    it('calls onSelect when the polymorphic element is clicked', () => {
+    it('calls onSelect when the polymorphic element is clicked', async () => {
       const onSelect = vi.fn()
       render(
         <TreeView aria-label="Test tree">
@@ -517,8 +520,8 @@ describe('Markup', () => {
         </TreeView>,
       )
 
-      const item = screen.getByRole('treeitem', {name: /Item 1/})
-      fireEvent.click(item)
+      const item = page.getByRole('treeitem', {name: /Item 1/})
+      await userEvent.click(item)
       expect(onSelect).toHaveBeenCalledTimes(1)
     })
   })
@@ -526,7 +529,7 @@ describe('Markup', () => {
 
 describe('Keyboard interactions', () => {
   describe('ArrowDown', () => {
-    it('moves focus to the next visible treeitem', () => {
+    it('moves focus to the next visible treeitem', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1" defaultExpanded>
@@ -546,44 +549,56 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const item1 = screen.getByRole('treeitem', {name: 'Item 1'})
-      const item11 = screen.getByRole('treeitem', {name: 'Item 1.1'})
-      const item2 = screen.getByRole('treeitem', {name: 'Item 2'})
-      const item3 = screen.getByRole('treeitem', {name: 'Item 3'})
+      const item1 = page.getByRole('treeitem', {
+        name: 'Item 1',
+        exact: true,
+      })
+      const item11 = page.getByRole('treeitem', {
+        name: 'Item 1.1',
+        exact: true,
+      })
+      const item2 = page.getByRole('treeitem', {
+        name: 'Item 2',
+        exact: true,
+      })
+      const item3 = page.getByRole('treeitem', {
+        name: 'Item 3',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        item1.focus()
+        item1.element().focus()
       })
 
       // Press ↓
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // item 1.1 should be focused
-      expect(item11).toHaveFocus()
+      await expect.element(item11).toHaveFocus()
 
       // Press ↓
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // item 2 should be focused
-      expect(item2).toHaveFocus()
+      await expect.element(item2).toHaveFocus()
 
       // Press ↓
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // item 3 should have focus (skips item 2.1 and item 2.2 because they are hidden)
-      expect(item3).toHaveFocus()
+      await expect.element(item3).toHaveFocus()
 
       // Press ↓
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // focus should not change (item 3 is the last visible treeitem)
-      expect(item3).toHaveFocus()
+      await expect.element(item3).toHaveFocus()
     })
   })
 
   describe('ArrowUp', () => {
-    it('moves focus to the previous visible treeitem', () => {
+    it('moves focus to the previous visible treeitem', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1" defaultExpanded>
@@ -603,53 +618,65 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const item1 = screen.getByRole('treeitem', {name: 'Item 1'})
-      const item11 = screen.getByRole('treeitem', {name: 'Item 1.1'})
-      const item2 = screen.getByRole('treeitem', {name: 'Item 2'})
-      const item3 = screen.getByRole('treeitem', {name: 'Item 3'})
+      const item1 = page.getByRole('treeitem', {
+        name: 'Item 1',
+        exact: true,
+      })
+      const item11 = page.getByRole('treeitem', {
+        name: 'Item 1.1',
+        exact: true,
+      })
+      const item2 = page.getByRole('treeitem', {
+        name: 'Item 2',
+        exact: true,
+      })
+      const item3 = page.getByRole('treeitem', {
+        name: 'Item 3',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        item1.focus()
+        item1.element().focus()
       })
 
       // Press ↓ 4 times to move aria-activedescendant to item 3
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
 
       // item 3 should be focused
-      expect(item3).toHaveFocus()
+      await expect.element(item3).toHaveFocus()
 
       // Press ↑
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      await userEvent.keyboard('{ArrowUp}')
 
       // Item 2 should have focus (skips item 2.1 and item 2.2 because they are hidden)
-      expect(item2).toHaveFocus()
+      await expect.element(item2).toHaveFocus()
 
       // Press ↑
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      await userEvent.keyboard('{ArrowUp}')
 
       // Item 1.1 should be focused
-      expect(item11).toHaveFocus()
+      await expect.element(item11).toHaveFocus()
 
       // Press ↑
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      await userEvent.keyboard('{ArrowUp}')
 
       // Item 1 should be focused
-      expect(item1).toHaveFocus()
+      await expect.element(item1).toHaveFocus()
 
       // Press ↑
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      await userEvent.keyboard('{ArrowUp}')
 
       // Focus should not change (item 1 is the first visible treeitem)
-      expect(item1).toHaveFocus()
+      await expect.element(item1).toHaveFocus()
     })
   })
 
   describe('ArrowLeft', () => {
-    it('collapses an expanded item', () => {
+    it('collapses an expanded item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
@@ -661,36 +688,39 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
-      let subtree = screen.queryByRole('group')
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
+      let subtree = page.getByRole('group')
 
       // aria-expanded should be true
-      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
       // Subtree should be visible
-      expect(subtree).toBeVisible()
+      await expect.element(subtree).toBeVisible()
 
       act(() => {
         // Focus first item
-        parentItem.focus()
+        parentItem.element().focus()
       })
 
       // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      await userEvent.keyboard('{ArrowLeft}')
 
       // aria-expanded should now be false
-      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'false')
 
       // Parent item should still be focused
-      expect(parentItem).toHaveFocus()
+      await expect.element(parentItem).toHaveFocus()
 
-      subtree = screen.queryByRole('group')
+      subtree = page.getByRole('group')
 
       // Subtree should now be hidden
-      expect(subtree).toBeNull()
+      await expect.element(subtree).not.toBeInTheDocument()
     })
 
-    it('does nothing on a root-level collapsed item', () => {
+    it('does nothing on a root-level collapsed item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent">
@@ -702,48 +732,54 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
 
       // aria-expanded should be false by default
-      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'false')
 
       act(() => {
         // Focus first item
-        parentItem.focus()
+        parentItem.element().focus()
       })
 
       // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      await userEvent.keyboard('{ArrowLeft}')
 
       // aria-expanded should still be false
-      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'false')
 
       // Focus should not change
-      expect(parentItem).toHaveFocus()
+      await expect.element(parentItem).toHaveFocus()
     })
 
-    it('does nothing on a root-level end item', () => {
+    it('does nothing on a root-level end item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item">Item</TreeView.Item>
         </TreeView>,
       )
 
-      const item = screen.getByRole('treeitem', {name: 'Item'})
+      const item = page.getByRole('treeitem', {
+        name: 'Item',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        item.focus()
+        item.element().focus()
       })
 
       // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      await userEvent.keyboard('{ArrowLeft}')
 
       // Focus should not change
-      expect(item).toHaveFocus()
+      await expect.element(item).toHaveFocus()
     })
 
-    it('moves focus to parent of end item', () => {
+    it('moves focus to parent of end item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
@@ -756,29 +792,35 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
-      const child2 = screen.getByRole('treeitem', {name: 'Child 2'})
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
+      const child2 = page.getByRole('treeitem', {
+        name: 'Child 2',
+        exact: true,
+      })
 
       act(() => {
         // Focus fist item
-        parentItem.focus()
+        parentItem.element().focus()
       })
 
       // Press ↓ 2 times to move focus to child 2
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
 
       // Child 2 should be focused
-      expect(child2).toHaveFocus()
+      await expect.element(child2).toHaveFocus()
 
       // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      await userEvent.keyboard('{ArrowLeft}')
 
       // Parent item should be focused
-      expect(parentItem).toHaveFocus()
+      await expect.element(parentItem).toHaveFocus()
     })
 
-    it('moves focus to parent of collapsed item', () => {
+    it('moves focus to parent of collapsed item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
@@ -796,31 +838,37 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
-      const nestedParentItem = screen.getByRole('treeitem', {name: 'Nested parent'})
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
+      const nestedParentItem = page.getByRole('treeitem', {
+        name: 'Nested parent',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        parentItem.focus()
+        parentItem.element().focus()
       })
 
       // Press ↓ 2 times to move focus to nested parent
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
 
       // Nested parent item should be focused
-      expect(nestedParentItem).toHaveFocus()
+      await expect.element(nestedParentItem).toHaveFocus()
 
       // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      await userEvent.keyboard('{ArrowLeft}')
 
       // Parent item should be focused
-      expect(parentItem).toHaveFocus()
+      await expect.element(parentItem).toHaveFocus()
     })
   })
 
   describe('ArrowRight', () => {
-    it('expands a collapsed item', () => {
+    it('expands a collapsed item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent">
@@ -832,32 +880,35 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
 
       // aria-expanded should be false by default
-      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'false')
 
       act(() => {
         // Focus first item
-        parentItem.focus()
+        parentItem.element().focus()
       })
 
       // Press →
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      await userEvent.keyboard('{ArrowRight}')
 
       // aria-expanded should now be true
-      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
       // Parent item should still be focused
-      expect(parentItem).toHaveFocus()
+      await expect.element(parentItem).toHaveFocus()
 
-      const subtree = screen.getByRole('group')
+      const subtree = page.getByRole('group')
 
       // Subtree should now be visible
-      expect(subtree).toBeVisible()
+      await expect.element(subtree).toBeVisible()
     })
 
-    it('moves focus to first child of an expanded item', () => {
+    it('moves focus to first child of an expanded item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
@@ -869,30 +920,34 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
 
       // aria-expanded should be true
-      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
       act(() => {
-        parentItem.focus()
+        parentItem.element().focus()
       })
-      expect(parentItem).toHaveFocus()
+      await expect.element(parentItem).toHaveFocus()
 
-      act(() => {
-        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      await userEvent.keyboard('{ArrowRight}')
+
+      const childItem = page.getByRole('treeitem', {
+        name: 'Child',
+        exact: true,
       })
-
-      const childItem = screen.getByRole('treeitem', {name: 'Child'})
 
       // Child item should be focused
-      expect(childItem).toHaveFocus()
+      await expect.element(childItem).toHaveFocus()
 
       // aria-expanded should still be true
-      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
     })
 
-    it('does nothing on an end item', () => {
+    it('does nothing on an end item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
@@ -905,30 +960,36 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
-      const child1 = screen.getByRole('treeitem', {name: 'Child 1'})
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
+      const child1 = page.getByRole('treeitem', {
+        name: 'Child 1',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        parentItem.focus()
+        parentItem.element().focus()
       })
 
       // Press ↓ to move focus to child 1
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // Child 1 should be focused
-      expect(child1).toHaveFocus()
+      await expect.element(child1).toHaveFocus()
 
       // Press →
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      await userEvent.keyboard('{ArrowRight}')
 
       // Focus should not change
-      expect(child1).toHaveFocus()
+      await expect.element(child1).toHaveFocus()
     })
   })
 
   describe('Backspace', () => {
-    it('should move focus to the parent item', () => {
+    it('should move focus to the parent item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
@@ -940,20 +1001,25 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
-      const child = screen.getByRole('treeitem', {name: 'Child'})
-
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
+      const child = page.getByRole('treeitem', {
+        name: 'Child',
+        exact: true,
+      })
       act(() => {
-        child.focus()
+        child.element().focus()
       })
 
       // Press Backspace
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+      await userEvent.keyboard('{Backspace}')
 
-      expect(parentItem).toHaveFocus()
+      await expect.element(parentItem).toHaveFocus()
     })
 
-    it('should not collapse an expanded item', () => {
+    it('should not collapse an expanded item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
@@ -965,33 +1031,36 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
-      const subtree = screen.queryByRole('group')
+      const parentItem = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
+      const subtree = page.getByRole('group')
 
       // aria-expanded should be true
-      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
       // Subtree should be visible
-      expect(subtree).toBeVisible()
+      await expect.element(subtree).toBeVisible()
 
       act(() => {
         // Focus first item
-        parentItem.focus()
+        parentItem.element().focus()
       })
 
       // Press Backspace
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+      await userEvent.keyboard('{Backspace}')
 
       // aria-expanded should stay set as true
-      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
       // Parent item should still be focused
-      expect(parentItem).toHaveFocus()
+      await expect.element(parentItem).toHaveFocus()
     })
   })
 
   describe('Home', () => {
-    it('moves focus to first visible item', () => {
+    it('moves focus to first visible item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1">
@@ -1015,30 +1084,36 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parent1 = screen.getByRole('treeitem', {name: 'Parent 1'})
-      const parent3 = screen.getByRole('treeitem', {name: 'Parent 2'})
+      const parent1 = page.getByRole('treeitem', {
+        name: 'Parent 1',
+        exact: true,
+      })
+      const parent3 = page.getByRole('treeitem', {
+        name: 'Parent 2',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        parent1.focus()
+        parent1.element().focus()
       })
 
       // Press ↓ 2 times to move focus to parent 3
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // Parent 3 should be focused
-      expect(parent3).toHaveFocus()
+      await expect.element(parent3).toHaveFocus()
 
       // Press Home
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Home'})
+      await userEvent.keyboard('{Home}')
 
       // Parent 1 should be focused
-      expect(parent1).toHaveFocus()
+      await expect.element(parent1).toHaveFocus()
     })
   })
 
   describe('End', () => {
-    it('moves focus to last visible item', () => {
+    it('moves focus to last visible item', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1">
@@ -1062,35 +1137,44 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parent1 = screen.getByRole('treeitem', {name: 'Parent 1'})
-      const parent3 = screen.getByRole('treeitem', {name: 'Parent 3'})
+      const parent1 = page.getByRole('treeitem', {
+        name: 'Parent 1',
+        exact: true,
+      })
+      const parent3 = page.getByRole('treeitem', {
+        name: 'Parent 3',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        parent1.focus()
+        parent1.element().focus()
       })
 
       // Press End
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
+      await userEvent.keyboard('{End}')
 
       // Parent 3 should be focused
-      expect(parent3).toHaveFocus()
+      await expect.element(parent3).toHaveFocus()
 
       // Press → to expand parent 3
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      await userEvent.keyboard('{ArrowRight}')
 
       // Press End
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
+      await userEvent.keyboard('{End}')
 
-      const child3 = screen.getByRole('treeitem', {name: 'Child 3'})
+      const child3 = page.getByRole('treeitem', {
+        name: 'Child 3',
+        exact: true,
+      })
 
       // Child 3 should be focused
-      expect(child3).toHaveFocus()
+      await expect.element(child3).toHaveFocus()
     })
   })
 
   describe('Enter', () => {
-    it('calls onSelect function if provided and checks if the item has been selected', () => {
+    it('calls onSelect function if provided and checks if the item has been selected', async () => {
       const onSelect = vi.fn()
       render(
         <TreeView aria-label="Test tree">
@@ -1120,15 +1204,18 @@ describe('Keyboard interactions', () => {
           </TreeView.Item>
         </TreeView>,
       )
-      const itemChild = screen.getByRole('treeitem', {name: 'Child2'})
+      const itemChild = page.getByRole('treeitem', {
+        name: 'Child2',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        itemChild.focus()
+        itemChild.element().focus()
       })
 
       // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      await userEvent.keyboard('{Enter}')
 
       // onSelect should have been called
       expect(onSelect).toHaveBeenCalledTimes(1)
@@ -1142,7 +1229,7 @@ describe('Keyboard interactions', () => {
       expect(onSelect).toHaveBeenCalledTimes(1)
     })
 
-    it('toggles expanded state if no onSelect function is provided', () => {
+    it('toggles expanded state if no onSelect function is provided', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent">
@@ -1155,38 +1242,41 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parent = screen.getByRole('treeitem', {name: 'Parent'})
+      const parent = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        parent.focus()
+        parent.element().focus()
       })
 
       // aria-expanded should be false
-      expect(parent).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
 
       // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      await userEvent.keyboard('{Enter}')
 
       // aria-expanded should now be true
-      expect(parent).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(parent).toHaveAttribute('aria-expanded', 'true')
 
       // Subtree should be visible
-      expect(screen.queryByRole('group')).toBeVisible()
+      await expect.element(page.getByRole('group')).toBeVisible()
 
       // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      await userEvent.keyboard('{Enter}')
 
       // aria-expanded should now be false
-      expect(parent).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
 
       // Subtree should no longer be visible
-      expect(screen.queryByRole('group')).not.toBeInTheDocument()
+      await expect.element(page.getByRole('group')).not.toBeInTheDocument()
     })
   })
 
   describe('Space', () => {
-    it('calls onSelect function if provided and checks if the item has been selected', () => {
+    it('calls onSelect function if provided and checks if the item has been selected', async () => {
       const onSelect = vi.fn()
       render(
         <TreeView aria-label="Test tree">
@@ -1216,15 +1306,18 @@ describe('Keyboard interactions', () => {
           </TreeView.Item>
         </TreeView>,
       )
-      const itemChild = screen.getByRole('treeitem', {name: 'Child2'})
+      const itemChild = page.getByRole('treeitem', {
+        name: 'Child2',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        itemChild.focus()
+        itemChild.element().focus()
       })
 
       // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: ' '})
+      await userEvent.keyboard(' ')
 
       // onSelect should have been called
       expect(onSelect).toHaveBeenCalledTimes(1)
@@ -1238,7 +1331,7 @@ describe('Keyboard interactions', () => {
       expect(onSelect).toHaveBeenCalledTimes(1)
     })
 
-    it('toggles expanded state if no onSelect function is provided', () => {
+    it('toggles expanded state if no onSelect function is provided', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent">
@@ -1251,38 +1344,41 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const parent = screen.getByRole('treeitem', {name: 'Parent'})
+      const parent = page.getByRole('treeitem', {
+        name: 'Parent',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        parent.focus()
+        parent.element().focus()
       })
 
       // aria-expanded should be false
-      expect(parent).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
 
       // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      await userEvent.keyboard('{Enter}')
 
       // aria-expanded should now be true
-      expect(parent).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(parent).toHaveAttribute('aria-expanded', 'true')
 
       // Subtree should be visible
-      expect(screen.queryByRole('group')).toBeVisible()
+      await expect.element(page.getByRole('group')).toBeVisible()
 
       // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      await userEvent.keyboard('{Enter}')
 
       // aria-expanded should now be false
-      expect(parent).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
 
       // Subtree should no longer be visible
-      expect(screen.queryByRole('group')).not.toBeInTheDocument()
+      await expect.element(page.getByRole('group')).not.toBeInTheDocument()
     })
   })
 
   describe('Typeahead', () => {
-    it('moves focus to the next item that matches the typed character', () => {
+    it('moves focus to the next item that matches the typed character', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">
@@ -1297,25 +1393,31 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const apple = screen.getByRole('treeitem', {name: 'Apple'})
-      const cherry = screen.getByRole('treeitem', {name: 'Cherry'})
+      const apple = page.getByRole('treeitem', {
+        name: 'Apple',
+        exact: true,
+      })
+      const cherry = page.getByRole('treeitem', {
+        name: 'Cherry',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        apple.focus()
+        apple.element().focus()
       })
 
       // Press C
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      await userEvent.keyboard('c')
 
       // Cherry should be focused
-      expect(cherry).toHaveFocus()
+      await expect.element(cherry).toHaveFocus()
 
       // Notice that the focus is not set to cantalope because
       // it is a child of apple and apple is collapsed.
     })
 
-    it('does nothing if no items match the typed character', () => {
+    it('does nothing if no items match the typed character', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">Apple</TreeView.Item>
@@ -1325,24 +1427,27 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const apple = screen.getByRole('treeitem', {name: 'Apple'})
+      const apple = page.getByRole('treeitem', {
+        name: 'Apple',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        apple.focus()
+        apple.element().focus()
       })
 
       // Apple should be focused
-      expect(apple).toHaveFocus()
+      await expect.element(apple).toHaveFocus()
 
       // Press Z
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'z'})
+      await userEvent.keyboard('z')
 
       // Apple should still be focused
-      expect(apple).toHaveFocus()
+      await expect.element(apple).toHaveFocus()
     })
 
-    it('supports multiple typed characters', () => {
+    it('supports multiple typed characters', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">Apple</TreeView.Item>
@@ -1353,24 +1458,30 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const apple = screen.getByRole('treeitem', {name: 'Apple'})
-      const cantalope = screen.getByRole('treeitem', {name: 'Cantalope 1'})
+      const apple = page.getByRole('treeitem', {
+        name: 'Apple',
+        exact: true,
+      })
+      const cantalope = page.getByRole('treeitem', {
+        name: 'Cantalope 1',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        apple.focus()
+        apple.element().focus()
       })
 
       // Press C + A + N
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'a'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'n'})
+      await userEvent.keyboard('c')
+      await userEvent.keyboard('a')
+      await userEvent.keyboard('n')
 
       // Cantalope should be focused
-      expect(cantalope).toHaveFocus()
+      await expect.element(cantalope).toHaveFocus()
     })
 
-    it('prioritizes items following the current aria-activedescendant', () => {
+    it('prioritizes items following the current aria-activedescendant', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="cucumber">Cucumber</TreeView.Item>
@@ -1381,29 +1492,38 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const cucumber = screen.getByRole('treeitem', {name: 'Cucumber'})
-      const cherry = screen.getByRole('treeitem', {name: 'Cherry'})
-      const cantalope = screen.getByRole('treeitem', {name: 'Cantalope'})
+      const cucumber = page.getByRole('treeitem', {
+        name: 'Cucumber',
+        exact: true,
+      })
+      const cherry = page.getByRole('treeitem', {
+        name: 'Cherry',
+        exact: true,
+      })
+      const cantalope = page.getByRole('treeitem', {
+        name: 'Cantalope',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        cucumber.focus()
+        cucumber.element().focus()
       })
 
       // Press ↓ to move focus to cherry
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // Cherry should be focused
-      expect(cherry).toHaveFocus()
+      await expect.element(cherry).toHaveFocus()
 
       // Press C
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      await userEvent.keyboard('c')
 
       // Cantalope should be focused
-      expect(cantalope).toHaveFocus()
+      await expect.element(cantalope).toHaveFocus()
     })
 
-    it('wraps around to the beginning if no items match after the current aria-activedescendant', () => {
+    it('wraps around to the beginning if no items match after the current aria-activedescendant', async () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="cucumber">Cucumber</TreeView.Item>
@@ -1415,32 +1535,38 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const cantalope = screen.getByRole('treeitem', {name: 'Cantalope'})
-      const cucumber = screen.getByRole('treeitem', {name: 'Cucumber'})
+      const cantalope = page.getByRole('treeitem', {
+        name: 'Cantalope',
+        exact: true,
+      })
+      const cucumber = page.getByRole('treeitem', {
+        name: 'Cucumber',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
-        cucumber.focus()
+        cucumber.element().focus()
       })
 
       // Press ↓ 2 times to move focus to cantalope
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
 
       // Cantalope should be focused
-      expect(cantalope).toHaveFocus()
+      await expect.element(cantalope).toHaveFocus()
 
       // Press C
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      await userEvent.keyboard('c')
 
       // Cucumber should be focused
-      expect(cucumber).toHaveFocus()
+      await expect.element(cucumber).toHaveFocus()
     })
   })
 })
 
 describe('State', () => {
-  it('persists expanded state of nested items', () => {
+  it('persists expanded state of nested items', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1" defaultExpanded>
@@ -1457,43 +1583,56 @@ describe('State', () => {
       </TreeView>,
     )
 
-    const item1 = screen.getByRole('treeitem', {name: 'Item 1'})
-    const item2 = screen.getByRole('treeitem', {name: 'Item 2'})
+    const item1 = page.getByRole('treeitem', {
+      name: 'Item 1',
+      exact: true,
+    })
+    const item2 = page.getByRole('treeitem', {
+      name: 'Item 2',
+      exact: true,
+    })
 
     // Item 2 should be collapsed by default
-    expect(item2).toHaveAttribute('aria-expanded', 'false')
+    await expect.element(item2).toHaveAttribute('aria-expanded', 'false')
 
     act(() => {
       // Focus item 2
-      item2.focus()
+      item2.element().focus()
     })
 
     // Press Enter to expand item 2
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+    await userEvent.keyboard('{Enter}')
 
     // Item 2 should be expanded
-    expect(item2).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(item2).toHaveAttribute('aria-expanded', 'true')
 
     // Press ↑ to move focus to item 1
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+    await userEvent.keyboard('{ArrowUp}')
 
     // Press Enter to collapse item 1
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+    await userEvent.keyboard('{Enter}')
 
     // Item 1 should be collapsed
-    expect(item1).toHaveAttribute('aria-expanded', 'false')
+    await expect.element(item1).toHaveAttribute('aria-expanded', 'false')
 
     // Press Enter again to expand item 1
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+    await userEvent.keyboard('{Enter}')
 
     // Item 1 should be expanded
-    expect(item1).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(item1).toHaveAttribute('aria-expanded', 'true')
 
     // Item 2 should still be expanded
-    expect(screen.getByRole('treeitem', {name: 'Item 2'})).toHaveAttribute('aria-expanded', 'true')
+    await expect
+      .element(
+        page.getByRole('treeitem', {
+          name: 'Item 2',
+          exact: true,
+        }),
+      )
+      .toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('can be controlled', () => {
+  it('can be controlled', async () => {
     function TestTree() {
       const [expanded, setExpanded] = React.useState(true)
       return (
@@ -1510,24 +1649,32 @@ describe('State', () => {
 
     render(<TestTree />)
 
-    const parent = screen.getByRole('treeitem', {name: 'Parent'})
-    const child = screen.getByRole('treeitem', {name: 'Child'})
+    const parent = page.getByRole('treeitem', {
+      name: 'Parent',
+      exact: true,
+    })
+    const child = page.getByRole('treeitem', {
+      name: 'Child',
+      exact: true,
+    })
+
+    const childElement = child.element()
 
     // Parent should be expanded
-    expect(parent).toHaveAttribute('aria-expanded', 'true')
-    expect(child).toBeVisible()
+    await expect.element(parent).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(child).toBeVisible()
 
     act(() => {
       // Focus first item
-      parent.focus()
+      parent.element().focus()
     })
 
     // Press ← to collapse the parent
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+    await userEvent.keyboard('{ArrowLeft}')
 
     // Parent should be collapsed
-    expect(parent).toHaveAttribute('aria-expanded', 'false')
-    expect(child).not.toBeVisible()
+    await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
+    expect(childElement).not.toBeVisible()
   })
 })
 
@@ -1574,29 +1721,20 @@ describe('Asynchronous loading', () => {
 
     render(<TestTree />)
 
-    const doneButton = screen.getByRole('button', {name: 'Load'})
-
-    // Click load button to mimic async loading
-    act(() => {
-      fireEvent.click(doneButton)
+    const doneButton = page.getByRole('button', {
+      name: 'Load',
+      exact: true,
     })
+
+    await userEvent.click(doneButton)
 
     // Get live region after the first announcement creates it
-    const liveRegion = await waitFor(() => {
-      const region = getLiveRegion()
-      expect(region.getMessage('polite')).toBe('Parent content loading')
-      return region
-    })
+    await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('Parent content loading')
+    const liveRegion = getLiveRegion()
 
-    // Click done button to mimic the completion of async loading
-    act(() => {
-      fireEvent.click(doneButton)
-    })
+    await userEvent.click(doneButton)
 
-    await waitFor(() => {
-      // Live region should be updated
-      expect(liveRegion.getMessage('polite')).toBe('Parent content loaded')
-    })
+    await expect.poll(() => liveRegion.getMessage('polite')).toBe('Parent content loaded')
   })
 
   it('moves focus from loading item to first child', async () => {
@@ -1625,21 +1763,24 @@ describe('Asynchronous loading', () => {
 
     render(<TestTree />)
 
-    const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
-    const loadingItem = screen.getByRole('treeitem', {name: 'Loading...'})
+    const parentItem = page.getByRole('treeitem', {
+      name: 'Parent',
+      exact: true,
+    })
+    const loadingItem = page.getByRole('treeitem', {
+      name: 'Loading...',
+      exact: true,
+    })
 
     act(() => {
       // Focus first item
-      parentItem.focus()
+      parentItem.element().focus()
     })
 
-    // Press ↓ to move focus to loading item
-    act(() => {
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-    })
+    await userEvent.keyboard('{ArrowDown}')
 
     // Loading item should be focused
-    expect(loadingItem).toHaveFocus()
+    await expect.element(loadingItem).toHaveFocus()
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(400)
@@ -1650,10 +1791,13 @@ describe('Asynchronous loading', () => {
     })
 
     // Wait for async loading to complete
-    const firstChild = screen.getByRole('treeitem', {name: 'Child 1'})
+    const firstChild = page.getByRole('treeitem', {
+      name: 'Child 1',
+      exact: true,
+    })
 
     // First child should be focused
-    expect(firstChild).toHaveFocus()
+    expect(firstChild.element()).toHaveFocus()
   })
 
   it('moves focus to parent item after closing error dialog', async () => {
@@ -1684,34 +1828,33 @@ describe('Asynchronous loading', () => {
     }
 
     render(<TestTree />)
-    const dialog = screen.getByRole('alertdialog')
-    const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
+    const dialog = page.getByRole('alertdialog')
+    const parentItem = page.getByRole('treeitem', {
+      name: 'Parent',
+      exact: true,
+    })
 
     // Parent item should not be focused
-    expect(parentItem).not.toHaveFocus()
+    await expect.element(parentItem).not.toHaveFocus()
 
     // Dialog should be visible
-    await vi.waitFor(() => {
-      expect(dialog).toBeVisible()
-    })
+    await expect.element(dialog).toBeVisible()
+    const dialogElement = dialog.element()
 
-    // Press esc to close error dialog
-    act(() => {
-      fireEvent.keyDown(document, {key: 'Escape'})
-    })
+    await userEvent.keyboard('{Escape}')
 
     // Dialog should not be visible
-    expect(dialog).not.toBeVisible()
+    expect(dialogElement).not.toBeVisible()
 
     await act(async () => {
       await vi.runAllTimersAsync()
     })
 
     // Parent item should be focused
-    expect(parentItem).toHaveFocus()
+    expect(parentItem.element()).toHaveFocus()
   })
 
-  it('ignores arrow keys when error dialog is open', () => {
+  it('ignores arrow keys when error dialog is open', async () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="parent" defaultExpanded>
@@ -1724,29 +1867,29 @@ describe('Asynchronous loading', () => {
       </TreeView>,
     )
 
-    const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
+    const parentItem = page.getByRole('treeitem', {
+      name: 'Parent',
+      exact: true,
+    })
 
     // Parent item should be expanded
-    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-    const retryButton = screen.getByRole('button', {name: 'Retry'})
-    expect(retryButton).toHaveFocus()
-
-    // Press ←
-    act(() => {
-      fireEvent.keyDown(retryButton, {key: 'ArrowLeft'})
+    const retryButton = page.getByRole('button', {
+      name: 'Retry',
+      exact: true,
     })
+    await expect.element(retryButton).toHaveFocus()
+
+    await userEvent.keyboard('{ArrowLeft}')
 
     // Parent item should still be expanded
-    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-    // Press Backspace
-    act(() => {
-      fireEvent.keyDown(retryButton, {key: 'Backspace'})
-    })
+    await userEvent.keyboard('{Backspace}')
 
     // Parent item should still be expanded
-    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
   it('should update `aria-expanded` if no content is loaded in', async () => {
@@ -1786,20 +1929,25 @@ describe('Asynchronous loading', () => {
 
     render(<Example />)
 
-    const treeitem = screen.getByLabelText('Item 1')
-    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
-    act(() => {
-      fireEvent.click(screen.getByText('Item 1'))
+    const treeitem = page.getByRole('treeitem', {
+      name: 'Item 1',
+      exact: true,
     })
+    await expect.element(treeitem).toHaveAttribute('aria-expanded', 'false')
+    await userEvent.click(
+      page.getByText('Item 1', {
+        exact: true,
+      }),
+    )
 
-    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(1000)
     })
 
-    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
-    expect(screen.getByLabelText('No items found')).toBeInTheDocument()
+    expect(treeitem.element()).toHaveAttribute('aria-expanded', 'true')
+    expect(page.getByLabelText('No items found', {exact: true}).element()).toBeInTheDocument()
   })
 
   it('should have `aria-expanded` when directory is empty', async () => {
@@ -1824,21 +1972,50 @@ describe('Asynchronous loading', () => {
       </TreeView>,
     )
 
-    const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
+    const parentItem = page.getByRole('treeitem', {
+      name: 'Parent',
+      exact: true,
+    })
 
     // Parent item should be expanded
-    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
     // Current child should not have `aria-expanded`
-    expect(screen.getByRole('treeitem', {name: 'child current'})).not.toHaveAttribute('aria-expanded')
+    await expect
+      .element(
+        page.getByRole('treeitem', {
+          name: 'child current',
+          exact: true,
+        }),
+      )
+      .not.toHaveAttribute('aria-expanded')
 
     // Empty child should not have `aria-expanded` when closed
-    expect(screen.getByRole('treeitem', {name: 'empty child'})).not.toHaveAttribute('aria-expanded')
+    await expect
+      .element(
+        page.getByRole('treeitem', {
+          name: 'empty child',
+          exact: true,
+        }),
+      )
+      .not.toHaveAttribute('aria-expanded')
 
-    fireEvent.click(screen.getByRole('treeitem', {name: 'empty child'}))
+    await userEvent.click(
+      page.getByRole('treeitem', {
+        name: 'empty child',
+        exact: true,
+      }),
+    )
 
     // Empty child should have `aria-expanded` when opened
-    expect(screen.getByRole('treeitem', {name: 'empty child'})).toHaveAttribute('aria-expanded')
+    await expect
+      .element(
+        page.getByRole('treeitem', {
+          name: 'empty child',
+          exact: true,
+        }),
+      )
+      .toHaveAttribute('aria-expanded')
   })
 })
 
@@ -1868,10 +2045,10 @@ it('should render `TrailingAction`', async () => {
     </TreeView>,
   )
 
-  expect(screen.getByRole('button', {hidden: true})).toHaveAttribute('aria-labelledby')
+  await expect.element(page.getByRole('button', {includeHidden: true})).toHaveAttribute('aria-labelledby')
 })
 
-it('should have keyboard shortcut command as part of accessible name when using `TrailingAction`', () => {
+it('should have keyboard shortcut command as part of accessible name when using `TrailingAction`', async () => {
   render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
@@ -1897,10 +2074,10 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
+  await expect.element(page.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
-it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', () => {
+it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', async () => {
   render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
@@ -1917,10 +2094,10 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
+  await expect.element(page.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
-it('should activate the dialog for trailing action when keyboard shortcut is used', () => {
+it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
   render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
@@ -1949,20 +2126,18 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
     </TreeView>,
   )
 
-  const treeItem = screen.getByRole('treeitem', {
+  const treeItem = page.getByRole('treeitem', {
     name: /for more actions\.$/,
   })
 
   act(() => {
-    treeItem.focus()
+    treeItem.element().focus()
   })
-  expect(treeItem).toHaveFocus()
+  await expect.element(treeItem).toHaveFocus()
 
-  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
 
-  act(() => {
-    fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
-  })
+  await userEvent.keyboard('{Meta>}{Shift>}u{/Shift}{/Meta}')
 
-  expect(screen.getByRole('dialog')).toBeInTheDocument()
+  await expect.element(page.getByRole('dialog')).toBeInTheDocument()
 })

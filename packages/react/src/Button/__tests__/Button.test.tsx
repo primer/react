@@ -1,5 +1,6 @@
+import {page, userEvent} from 'vitest/browser'
 import {SearchIcon, HeartIcon} from '@primer/octicons-react'
-import {render, screen, fireEvent} from '@testing-library/react'
+import {render, fireEvent} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
@@ -35,48 +36,49 @@ describe('Button', () => {
   implementsClassName(Button, classes.ButtonBase)
 
   it('renders a <button>', () => {
-    const container = render(<Button id="test-button">Default</Button>)
-    const button = container.getByRole('button')
-    expect(button.textContent).toEqual('Default')
+    render(<Button id="test-button">Default</Button>)
+    const button = page.getByRole('button')
+    expect(button.element().textContent).toEqual('Default')
   })
 
-  it('preserves "onClick" prop', () => {
+  it('preserves "onClick" prop', async () => {
     const onClick = vi.fn()
-    const container = render(<Button onClick={onClick}>Noop</Button>)
-    const button = container.getByRole('button')
-    fireEvent.click(button)
+    render(<Button onClick={onClick}>Noop</Button>)
+    const button = page.getByRole('button')
+    await userEvent.click(button)
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
   it('respects block prop', () => {
-    const container = render(
+    render(
       <Button block id="test-button">
         Block
       </Button>,
     )
-    const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+
+    const button = page.getByRole('button')
+    expect(button.element()).toMatchSnapshot()
   })
 
-  it('displays a notification indicator on the button boundary', () => {
-    const {getByRole} = render(<Button notificationIndicator="button">Notifications</Button>)
-    expect(getByRole('button')).toHaveAttribute('data-notification-indicator', 'button')
+  it('displays a notification indicator on the button boundary', async () => {
+    render(<Button notificationIndicator="button">Notifications</Button>)
+    await expect.element(page.getByRole('button')).toHaveAttribute('data-notification-indicator', 'button')
   })
 
-  it('displays a notification indicator on the leading visual', () => {
-    const {getByRole} = render(
+  it('displays a notification indicator on the leading visual', async () => {
+    render(
       <Button leadingVisual={HeartIcon} notificationIndicator="leadingVisual">
         Favorite
       </Button>,
     )
-    expect(getByRole('button')).toHaveAttribute('data-notification-indicator', 'leadingVisual')
+
+    await expect.element(page.getByRole('button')).toHaveAttribute('data-notification-indicator', 'leadingVisual')
   })
 
-  it('displays a notification indicator on an icon button icon', () => {
-    const {getByRole} = render(
-      <IconButton icon={HeartIcon} aria-label="Favorite (new activity)" notificationIndicator="icon" />,
-    )
-    expect(getByRole('button')).toHaveAttribute('data-notification-indicator', 'icon')
+  it('displays a notification indicator on an icon button icon', async () => {
+    render(<IconButton icon={HeartIcon} aria-label="Favorite (new activity)" notificationIndicator="icon" />)
+
+    await expect.element(page.getByRole('button')).toHaveAttribute('data-notification-indicator', 'icon')
   })
 
   it('warns when a leading visual notification indicator has no leading visual', () => {
@@ -92,169 +94,185 @@ describe('Button', () => {
 
   it('respects the "disabled" prop', () => {
     const onClick = vi.fn()
-    const container = render(
+
+    render(
       <Button onClick={onClick} disabled>
         Disabled
       </Button>,
     )
-    const button = container.getByRole('button')
-    expect(button.hasAttribute('disabled')).toEqual(true)
-    fireEvent.click(button)
+
+    const button = page.getByRole('button')
+    expect(button.element().hasAttribute('disabled')).toEqual(true)
+    fireEvent.click(button.element())
     expect(onClick).toHaveBeenCalledTimes(0)
   })
 
   it('respects the small size prop', () => {
-    const container = render(
+    render(
       <Button size="small" id="test-button">
         Smol
       </Button>,
     )
-    const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+
+    const button = page.getByRole('button')
+    expect(button.element()).toMatchSnapshot()
   })
 
   it('respects the large size prop', () => {
-    const container = render(
+    render(
       <Button size="large" id="test-button">
         Smol
       </Button>,
     )
-    const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+
+    const button = page.getByRole('button')
+    expect(button.element()).toMatchSnapshot()
   })
 
   it('styles primary button appropriately', () => {
-    const container = render(
+    render(
       <Button variant="primary" id="test-button">
         Primary
       </Button>,
     )
-    const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+
+    const button = page.getByRole('button')
+    expect(button.element()).toMatchSnapshot()
   })
 
   it('styles invisible button appropriately', () => {
-    const container = render(
+    render(
       <Button variant="invisible" id="test-button">
         Invisible
       </Button>,
     )
-    const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+
+    const button = page.getByRole('button')
+    expect(button.element()).toMatchSnapshot()
   })
 
   it('styles danger button appropriately', () => {
-    const container = render(
+    render(
       <Button variant="danger" id="test-button">
         Danger
       </Button>,
     )
-    const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+
+    const button = page.getByRole('button')
+    expect(button.element()).toMatchSnapshot()
   })
 
-  it('makes sure icon button has an aria-label', () => {
-    const container = render(<IconButton icon={SearchIcon} aria-label="Search button" />)
-    const IconOnlyButton = container.getByLabelText('Search button')
-    expect(IconOnlyButton).toBeTruthy()
+  it('makes sure icon button has an aria-label', async () => {
+    render(<IconButton icon={SearchIcon} aria-label="Search button" />)
+    const IconOnlyButton = page.getByLabelText('Search button', {
+      exact: true,
+    })
+    await expect.element(IconOnlyButton).toBeInTheDocument()
   })
 
   it('respects the alignContent prop', () => {
-    const container = render(
+    render(
       <Button alignContent="start" id="test-button">
         Align start
       </Button>,
     )
-    const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+
+    const button = page.getByRole('button')
+    expect(button.element()).toMatchSnapshot()
   })
 
-  it('should render the leadingVisual prop before the button content', () => {
+  it('should render the leadingVisual prop before the button content', async () => {
     render(
       <Button leadingVisual={() => <span data-testid="leadingVisual" />}>
         <span>content</span>
       </Button>,
     )
 
-    expect(screen.getByTestId('leadingVisual')).toBeInTheDocument()
+    await expect.element(page.getByTestId('leadingVisual')).toBeInTheDocument()
 
-    const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('leadingVisual'))
+    const position = page
+      .getByText('content', {
+        exact: true,
+      })
+      .element()
+      .compareDocumentPosition(page.getByTestId('leadingVisual').element())
     expect(position).toBe(Node.DOCUMENT_POSITION_PRECEDING)
   })
 
-  it('should render the trailingVisual prop after the button content', () => {
+  it('should render the trailingVisual prop after the button content', async () => {
     render(
       <Button trailingVisual={() => <span data-testid="trailingVisual" />}>
         <span>content</span>
       </Button>,
     )
-    expect(screen.getByTestId('trailingVisual')).toBeInTheDocument()
+    await expect.element(page.getByTestId('trailingVisual')).toBeInTheDocument()
 
-    const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('trailingVisual'))
+    const position = page
+      .getByText('content', {
+        exact: true,
+      })
+      .element()
+      .compareDocumentPosition(page.getByTestId('trailingVisual').element())
     expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
   })
 
   it('should describe the button with a default loading announcement, and only when the button is in a loading state', async () => {
     const buttonId = 'loading-button'
-    const container = render(
+
+    render(
       <StatefulLoadingButton id={buttonId}>
         <span>content</span>
       </StatefulLoadingButton>,
     )
-    const buttonNode = container.getByRole('button')
 
-    fireEvent.click(buttonNode)
+    const buttonNode = page.getByRole('button')
 
-    expect(buttonNode.getAttribute('aria-describedby')).toBe(`${buttonId}-loading-announcement`)
+    await userEvent.click(buttonNode)
 
-    fireEvent.click(buttonNode)
+    await expect.element(buttonNode).toHaveAttribute('aria-describedby', `${buttonId}-loading-announcement`)
 
-    // Wait for the loading state to be set
-    await new Promise(resolve => setTimeout(resolve, 10))
+    fireEvent.click(buttonNode.element())
 
-    // Check that the loading announcement element is present
-    const loadingAnnouncement = document.getElementById(`${buttonId}-loading-announcement`)
-    expect(loadingAnnouncement).toBeInTheDocument()
-    expect(loadingAnnouncement?.textContent).toBe('Loading')
+    await expect.poll(() => document.getElementById(`${buttonId}-loading-announcement`)?.textContent).toBe('Loading')
   })
 
   it('should render a custom loading announcement, and only when the button is in a loading state', async () => {
     const buttonId = 'loading-button'
-    const container = render(
+
+    render(
       <StatefulLoadingButton id={buttonId} loadingAnnouncement="Action loading">
         <span>content</span>
       </StatefulLoadingButton>,
     )
-    const buttonNode = container.getByRole('button')
 
-    fireEvent.click(buttonNode)
+    const buttonNode = page.getByRole('button')
 
-    expect(buttonNode.getAttribute('aria-describedby')).toBe(`${buttonId}-loading-announcement`)
+    await userEvent.click(buttonNode)
 
-    fireEvent.click(buttonNode)
+    await expect.element(buttonNode).toHaveAttribute('aria-describedby', `${buttonId}-loading-announcement`)
 
-    // Wait for the loading state to be set
-    await new Promise(resolve => setTimeout(resolve, 10))
+    fireEvent.click(buttonNode.element())
 
-    // Check that the loading announcement element is present with custom text
-    const loadingAnnouncement = document.getElementById(`${buttonId}-loading-announcement`)
-    expect(loadingAnnouncement).toBeInTheDocument()
-    expect(loadingAnnouncement?.textContent).toBe('Action loading')
+    await expect
+      .poll(() => document.getElementById(`${buttonId}-loading-announcement`)?.textContent)
+      .toBe('Action loading')
   })
 
-  it('should be described by loading announcement AND whatever is passed to aria-describedby', () => {
+  it('should be described by loading announcement AND whatever is passed to aria-describedby', async () => {
     const buttonDescriptionId = 'button-description'
     const buttonId = 'loading-button'
-    const container = render(
+
+    render(
       <StatefulLoadingButton id={buttonId} aria-describedby={buttonDescriptionId}>
         <span>content</span>
       </StatefulLoadingButton>,
     )
-    const buttonNode = container.getByRole('button')
 
-    fireEvent.click(buttonNode)
+    const buttonNode = page.getByRole('button')
 
-    const buttonDescribedBy = container.getByRole('button').getAttribute('aria-describedby')
+    await userEvent.click(buttonNode)
+
+    const buttonDescribedBy = page.getByRole('button').element().getAttribute('aria-describedby')
     const loadingAnnouncementId = `${buttonId}-loading-announcement`
 
     expect(buttonDescribedBy).toContain(loadingAnnouncementId)
@@ -263,31 +281,29 @@ describe('Button', () => {
   })
 
   it('should only set aria-disabled to "true" when the button is in a loading state', async () => {
-    const container = render(
+    render(
       <StatefulLoadingButton>
         <span>content</span>
       </StatefulLoadingButton>,
     )
-    const buttonNode = container.getByRole('button')
 
-    expect(buttonNode.getAttribute('aria-disabled')).not.toBe('true')
+    const buttonNode = page.getByRole('button')
 
-    fireEvent.click(buttonNode)
+    expect(buttonNode.element().getAttribute('aria-disabled')).not.toBe('true')
 
-    // Wait for the loading state to be set
-    await new Promise(resolve => setTimeout(resolve, 10))
+    await userEvent.click(buttonNode)
 
-    expect(buttonNode.getAttribute('aria-disabled')).toBe('true')
+    await expect.element(buttonNode).toHaveAttribute('aria-disabled', 'true')
   })
 
-  it('allows the consumer to override `aria-disabled`', () => {
-    const container = render(<Button aria-disabled>content</Button>)
+  it('allows the consumer to override `aria-disabled`', async () => {
+    render(<Button aria-disabled>content</Button>)
 
-    expect(container.getByRole('button')).toHaveAttribute('aria-disabled', 'true')
+    await expect.element(page.getByRole('button')).toHaveAttribute('aria-disabled', 'true')
   })
 
   describe('accessible loading disabled styles', () => {
-    const visualStyles = (element: HTMLElement) => {
+    const visualStyles = (element: Element) => {
       const {backgroundColor, borderColor, color, cursor} = getComputedStyle(element)
       return {backgroundColor, borderColor, color, cursor}
     }
@@ -295,7 +311,7 @@ describe('Button', () => {
     const renderWithLoadingDisabledStyles = (children: React.ReactNode) =>
       render(<FeatureFlags flags={{primer_react_button_loading_disabled_styles: true}}>{children}</FeatureFlags>)
 
-    it('applies disabled styles to a loading primary button without using native disabled', () => {
+    it('applies disabled styles to a loading primary button without using native disabled', async () => {
       renderWithLoadingDisabledStyles(
         <>
           <Button variant="primary" loading>
@@ -308,20 +324,31 @@ describe('Button', () => {
         </>,
       )
 
-      const loadingButton = screen.getByRole('button', {name: 'Loading'})
-      const disabledButton = screen.getByRole('button', {name: 'Disabled'})
-      const enabledButton = screen.getByRole('button', {name: 'Enabled'})
+      const loadingButton = page.getByRole('button', {
+        name: 'Loading',
+        exact: true,
+      })
+      const disabledButton = page.getByRole('button', {
+        name: 'Disabled',
+        exact: true,
+      })
+      const enabledButton = page.getByRole('button', {
+        name: 'Enabled',
+        exact: true,
+      })
 
-      expect(loadingButton).toHaveAttribute('aria-disabled', 'true')
-      expect(loadingButton).toHaveAttribute('data-loading', 'true')
-      expect(loadingButton).toHaveAttribute('data-loading-disabled-styles', 'true')
-      expect(loadingButton).not.toBeDisabled()
-      expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
-      expect(visualStyles(loadingButton).backgroundColor).not.toBe(visualStyles(enabledButton).backgroundColor)
-      expect(visualStyles(loadingButton).cursor).toBe('not-allowed')
+      await expect.element(loadingButton).toHaveAttribute('aria-disabled', 'true')
+      await expect.element(loadingButton).toHaveAttribute('data-loading', 'true')
+      await expect.element(loadingButton).toHaveAttribute('data-loading-disabled-styles', 'true')
+      await expect.element(loadingButton).not.toBeDisabled()
+      expect(visualStyles(loadingButton.element())).toEqual(visualStyles(disabledButton.element()))
+      expect(visualStyles(loadingButton.element()).backgroundColor).not.toBe(
+        visualStyles(enabledButton.element()).backgroundColor,
+      )
+      expect(visualStyles(loadingButton.element()).cursor).toBe('not-allowed')
     })
 
-    it('applies disabled styles when loading is combined with aria-disabled', () => {
+    it('applies disabled styles when loading is combined with aria-disabled', async () => {
       renderWithLoadingDisabledStyles(
         <>
           <Button variant="primary" loading aria-disabled>
@@ -333,15 +360,21 @@ describe('Button', () => {
         </>,
       )
 
-      const loadingButton = screen.getByRole('button', {name: 'Loading'})
-      const disabledButton = screen.getByRole('button', {name: 'Disabled'})
+      const loadingButton = page.getByRole('button', {
+        name: 'Loading',
+        exact: true,
+      })
+      const disabledButton = page.getByRole('button', {
+        name: 'Disabled',
+        exact: true,
+      })
 
-      expect(loadingButton).toHaveAttribute('aria-disabled', 'true')
-      expect(loadingButton).not.toBeDisabled()
-      expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
+      await expect.element(loadingButton).toHaveAttribute('aria-disabled', 'true')
+      await expect.element(loadingButton).not.toBeDisabled()
+      expect(visualStyles(loadingButton.element())).toEqual(visualStyles(disabledButton.element()))
     })
 
-    it('preserves existing loading styles when the feature flag is disabled', () => {
+    it('preserves existing loading styles when the feature flag is disabled', async () => {
       render(
         <>
           <Button variant="primary" loading>
@@ -353,11 +386,17 @@ describe('Button', () => {
         </>,
       )
 
-      const loadingButton = screen.getByRole('button', {name: 'Loading'})
-      const disabledButton = screen.getByRole('button', {name: 'Disabled'})
+      const loadingButton = page.getByRole('button', {
+        name: 'Loading',
+        exact: true,
+      })
+      const disabledButton = page.getByRole('button', {
+        name: 'Disabled',
+        exact: true,
+      })
 
-      expect(loadingButton).not.toHaveAttribute('data-loading-disabled-styles')
-      expect(visualStyles(loadingButton)).not.toEqual(visualStyles(disabledButton))
+      await expect.element(loadingButton).not.toHaveAttribute('data-loading-disabled-styles')
+      expect(visualStyles(loadingButton.element())).not.toEqual(visualStyles(disabledButton.element()))
     })
 
     it('does not call onClick while loading', () => {
@@ -368,20 +407,30 @@ describe('Button', () => {
         </Button>,
       )
 
-      fireEvent.click(screen.getByRole('button', {name: 'Submit'}))
+      fireEvent.click(
+        page
+          .getByRole('button', {
+            name: 'Submit',
+            exact: true,
+          })
+          .element(),
+      )
       expect(onClick).not.toHaveBeenCalled()
     })
 
-    it('remains focusable while loading', () => {
+    it('remains focusable while loading', async () => {
       render(
         <Button variant="primary" loading>
           Submit
         </Button>,
       )
 
-      const button = screen.getByRole('button', {name: 'Submit'})
-      button.focus()
-      expect(button).toHaveFocus()
+      const button = page.getByRole('button', {
+        name: 'Submit',
+        exact: true,
+      })
+      button.element().focus()
+      expect(button.element()).toHaveFocus()
     })
 
     it('still applies disabled styles for aria-disabled without loading', () => {
@@ -396,8 +445,24 @@ describe('Button', () => {
         </>,
       )
 
-      expect(visualStyles(screen.getByRole('button', {name: 'Aria disabled'}))).toEqual(
-        visualStyles(screen.getByRole('button', {name: 'Disabled'})),
+      expect(
+        visualStyles(
+          page
+            .getByRole('button', {
+              name: 'Aria disabled',
+              exact: true,
+            })
+            .element(),
+        ),
+      ).toEqual(
+        visualStyles(
+          page
+            .getByRole('button', {
+              name: 'Disabled',
+              exact: true,
+            })
+            .element(),
+        ),
       )
     })
 
@@ -413,160 +478,197 @@ describe('Button', () => {
         </>,
       )
 
-      expect(visualStyles(screen.getByRole('button', {name: 'Inactive'}))).not.toEqual(
-        visualStyles(screen.getByRole('button', {name: 'Disabled'})),
+      expect(
+        visualStyles(
+          page
+            .getByRole('button', {
+              name: 'Inactive',
+              exact: true,
+            })
+            .element(),
+        ),
+      ).not.toEqual(
+        visualStyles(
+          page
+            .getByRole('button', {
+              name: 'Disabled',
+              exact: true,
+            })
+            .element(),
+        ),
       )
     })
   })
 
-  it('should preserve the accessible button name when the button is in a loading state', () => {
-    const container = render(<Button loading>content</Button>)
+  it('should preserve the accessible button name when the button is in a loading state', async () => {
+    render(<Button loading>content</Button>)
 
-    expect(container.getByRole('button')).toHaveAccessibleName('content')
+    await expect.element(page.getByRole('button')).toHaveAccessibleName('content')
   })
 
-  it('should apply inline-flex display to loading wrapper when variant is link', () => {
+  it('should apply inline-flex display to loading wrapper when variant is link', async () => {
     const {container} = render(
       <Button variant="link" loading>
         content
       </Button>,
     )
 
-    const wrapper = container.querySelector('[data-loading-wrapper]')
-    expect(wrapper).toBeInTheDocument()
-    expect(wrapper).toHaveClass(classes.ConditionalWrapperLink)
+    const wrapper = container.querySelector<HTMLElement>('[data-loading-wrapper]')
+    await expect.element(wrapper).toBeInTheDocument()
+    await expect.element(wrapper).toHaveClass(classes.ConditionalWrapperLink)
   })
 
-  it('should render tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
-    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
-    const triggerEL = getByRole('button')
-    const tooltipEl = getByText('Heart')
-    expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
+  it('should render tooltip on an icon button when unsafeDisableTooltip prop is passed as false', async () => {
+    render(<IconButton icon={HeartIcon} aria-label="Heart" />)
+    const triggerEL = page.getByRole('button')
+    const tooltipEl = page.getByText('Heart', {
+      exact: true,
+    })
+    await expect.element(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.element().id)
   })
-  it('should render description type tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
-    const {getByRole, getByText} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" />,
-    )
-    const triggerEL = getByRole('button')
-    expect(triggerEL).toHaveAttribute('aria-label', 'Heart')
-    const tooltipEl = getByText('Love is all around')
-    expect(triggerEL.getAttribute('aria-describedby')).toContain(tooltipEl.id)
+  it('should render description type tooltip on an icon button when unsafeDisableTooltip prop is passed as false', async () => {
+    render(<IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" />)
+
+    const triggerEL = page.getByRole('button')
+    await expect.element(triggerEL).toHaveAttribute('aria-label', 'Heart')
+    const tooltipEl = page.getByText('Love is all around', {
+      exact: true,
+    })
+    expect(triggerEL.element().getAttribute('aria-describedby')).toContain(tooltipEl.element().id)
   })
-  it('should render tooltip on an icon button by default', () => {
-    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
-    const triggerEl = getByRole('button')
-    const tooltipEl = getByText('Heart')
-    expect(triggerEl).toHaveAttribute('aria-labelledby', tooltipEl.id)
-    expect(triggerEl).not.toHaveAttribute('aria-label')
+  it('should render tooltip on an icon button by default', async () => {
+    render(<IconButton icon={HeartIcon} aria-label="Heart" />)
+    const triggerEl = page.getByRole('button')
+    const tooltipEl = page.getByText('Heart', {
+      exact: true,
+    })
+    await expect.element(triggerEl).toHaveAttribute('aria-labelledby', tooltipEl.element().id)
+    await expect.element(triggerEl).not.toHaveAttribute('aria-label')
   })
-  it('should render aria-keyshorts on an icon button when keyshortcuts prop is passed', () => {
-    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
-    const triggerEl = getByRole('button')
-    expect(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
+  it('should render aria-keyshorts on an icon button when keyshortcuts prop is passed', async () => {
+    render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
+    const triggerEl = page.getByRole('button')
+    await expect.element(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
   })
-  it('should append the keyshortcuts to the tooltip text that labels the icon button when keyshortcuts prop is passed', () => {
-    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
-    const triggerEl = getByRole('button', {name: 'Heart (command h)'})
-    expect(triggerEl).toBeInTheDocument()
+  it('should append the keyshortcuts to the tooltip text that labels the icon button when keyshortcuts prop is passed', async () => {
+    render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
+    const triggerEl = page.getByRole('button', {
+      name: 'Heart (command h)',
+      exact: true,
+    })
+    await expect.element(triggerEl).toBeInTheDocument()
   })
-  it('should render aria-keyshortcuts on an icon button when keyshortcuts prop is passed (Description Type)', () => {
-    const {getByRole} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
-    )
-    const triggerEl = getByRole('button')
-    expect(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
+  it('should render aria-keyshortcuts on an icon button when keyshortcuts prop is passed (Description Type)', async () => {
+    render(<IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />)
+
+    const triggerEl = page.getByRole('button')
+    await expect.element(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
   })
-  it('should append the keyshortcuts to the tooltip text that describes the icon button when keyshortcuts prop is passed (Description Type)', () => {
-    const {getByRole} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
-    )
-    const triggerEl = getByRole('button', {name: 'Heart'})
-    expect(triggerEl).toHaveAccessibleDescription('Love is all around (command h)')
+  it('should append the keyshortcuts to the tooltip text that describes the icon button when keyshortcuts prop is passed (Description Type)', async () => {
+    render(<IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />)
+
+    const triggerEl = page.getByRole('button', {
+      name: 'Heart',
+      exact: true,
+    })
+    await expect.element(triggerEl).toHaveAccessibleDescription('Love is all around (command h)')
   })
 })
 
 describe('data-component attributes', () => {
   describe('Button', () => {
-    it('should have data-component="Button" on the button element', () => {
+    it('should have data-component="Button" on the button element', async () => {
       const {container} = render(<Button>Click me</Button>)
-      expect(container.querySelector('[data-component="Button"]')).toBeInTheDocument()
+      await expect.element(container.querySelector<HTMLElement>('[data-component="Button"]')).toBeInTheDocument()
     })
 
-    it('should have data-component="buttonContent" on the content wrapper', () => {
+    it('should have data-component="buttonContent" on the content wrapper', async () => {
       const {container} = render(<Button>Click me</Button>)
-      expect(container.querySelector('[data-component="buttonContent"]')).toBeInTheDocument()
+      await expect.element(container.querySelector<HTMLElement>('[data-component="buttonContent"]')).toBeInTheDocument()
     })
 
-    it('should have data-component="text" on the text element', () => {
+    it('should have data-component="text" on the text element', async () => {
       const {container} = render(<Button>Click me</Button>)
-      expect(container.querySelector('[data-component="text"]')).toBeInTheDocument()
+      await expect.element(container.querySelector<HTMLElement>('[data-component="text"]')).toBeInTheDocument()
     })
 
-    it('should have data-component="leadingVisual" on leading visual', () => {
+    it('should have data-component="leadingVisual" on leading visual', async () => {
       const {container} = render(<Button leadingVisual={SearchIcon}>Search</Button>)
-      expect(container.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
+      await expect.element(container.querySelector<HTMLElement>('[data-component="leadingVisual"]')).toBeInTheDocument()
     })
 
-    it('should have data-component="trailingVisual" on trailing visual', () => {
+    it('should have data-component="trailingVisual" on trailing visual', async () => {
       const {container} = render(<Button trailingVisual={HeartIcon}>Like</Button>)
-      expect(container.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="trailingVisual"]'))
+        .toBeInTheDocument()
     })
 
-    it('should have data-component="ButtonCounter" on count element', () => {
+    it('should have data-component="ButtonCounter" on count element', async () => {
       const {container} = render(<Button count={5}>Notifications</Button>)
-      expect(container.querySelector('[data-component="ButtonCounter"]')).toBeInTheDocument()
+      await expect.element(container.querySelector<HTMLElement>('[data-component="ButtonCounter"]')).toBeInTheDocument()
     })
 
-    it('should have data-component="loadingSpinner" when loading without visuals', () => {
+    it('should have data-component="loadingSpinner" when loading without visuals', async () => {
       const {container} = render(<Button loading>Loading</Button>)
-      expect(container.querySelector('[data-component="loadingSpinner"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="loadingSpinner"]'))
+        .toBeInTheDocument()
     })
   })
 
   describe('data-icon-only-counter', () => {
-    it('is set when count, leadingVisual, and no children are present', () => {
+    it('is set when count, leadingVisual, and no children are present', async () => {
       const {container} = render(<Button leadingVisual={SearchIcon} count={5} aria-label="Search notifications" />)
-      expect(container.querySelector('[data-component="Button"]')).toHaveAttribute('data-icon-only-counter', 'true')
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="Button"]'))
+        .toHaveAttribute('data-icon-only-counter', 'true')
     })
 
-    it('is not set when children are present', () => {
+    it('is not set when children are present', async () => {
       const {container} = render(
         <Button leadingVisual={SearchIcon} count={5}>
           Search
         </Button>,
       )
-      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="Button"]'))
+        .not.toHaveAttribute('data-icon-only-counter')
     })
 
-    it('is not set when leadingVisual is missing', () => {
+    it('is not set when leadingVisual is missing', async () => {
       const {container} = render(<Button count={5} aria-label="Notifications" />)
-      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="Button"]'))
+        .not.toHaveAttribute('data-icon-only-counter')
     })
 
-    it('is not set when count is missing', () => {
+    it('is not set when count is missing', async () => {
       const {container} = render(<Button leadingVisual={SearchIcon} aria-label="Search" />)
-      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="Button"]'))
+        .not.toHaveAttribute('data-icon-only-counter')
     })
   })
 
   describe('IconButton', () => {
-    it('should have data-component="IconButton" on the button element', () => {
+    it('should have data-component="IconButton" on the button element', async () => {
       const {container} = render(<IconButton icon={SearchIcon} aria-label="Search" />)
-      expect(container.querySelector('[data-component="IconButton"]')).toBeInTheDocument()
+      await expect.element(container.querySelector<HTMLElement>('[data-component="IconButton"]')).toBeInTheDocument()
     })
   })
 
   describe('LinkButton', () => {
-    it('should have data-component="LinkButton" on the link element', () => {
+    it('should have data-component="LinkButton" on the link element', async () => {
       const {container} = render(<LinkButton href="#">Link</LinkButton>)
-      expect(container.querySelector('[data-component="LinkButton"]')).toBeInTheDocument()
+      await expect.element(container.querySelector<HTMLElement>('[data-component="LinkButton"]')).toBeInTheDocument()
     })
 
-    it('should have data-component="buttonContent" on the content wrapper', () => {
+    it('should have data-component="buttonContent" on the content wrapper', async () => {
       const {container} = render(<LinkButton href="#">Link</LinkButton>)
-      expect(
-        container.querySelector('[data-component="LinkButton"] [data-component="buttonContent"]'),
-      ).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="LinkButton"] [data-component="buttonContent"]'))
+        .toBeInTheDocument()
     })
   })
 })
