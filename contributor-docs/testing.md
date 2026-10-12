@@ -82,7 +82,7 @@ The Button and TreeView suites pilot [Vitest Browser locators](https://vitest.de
 Keep RTL for `render`, `rerender`, `unmount`, `renderHook`, cleanup, and explicit React `act` boundaries. Import browser queries and interactions from `vitest/browser`:
 
 ```tsx
-import {render} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import {expect, it, vi} from 'vitest'
 import {page, userEvent} from 'vitest/browser'
 import {Button} from '@primer/react'
@@ -93,7 +93,7 @@ it('calls onClick', async () => {
 
   const button = page.getByRole('button', {name: 'Submit', exact: true})
   await expect.element(button).toBeVisible()
-  await userEvent.click(button)
+  await act(async () => userEvent.click(button))
   expect(onClick).toHaveBeenCalledTimes(1)
 })
 ```
@@ -103,6 +103,8 @@ Use `expect.element` for eventual DOM assertions and `expect.poll` for eventual 
 - Locators resolve again when used. An expanded TreeView can make a previously unique partial name match several items. Use an exact name or scope the locator; don't hide ambiguity with `.first()`.
 - DOM presence and visibility are different contracts. Button's loading announcement is checked by its exact ID and text because the spinner also contains "Loading".
 - Keep intentional synthetic events for disabled-click suppression, event cancellation, and specific event payloads. Browser actions wait for actionable elements and don't expose the result of `dispatchEvent`.
+- Keep the pointer-only TreeView chevron's programmatic `.click()` exception inside `act`; browser pointer focus on it emits a known focus-zone warning.
+- Wrap browser-backed interactions in awaited async `act` boundaries. Vitest's browser `userEvent` doesn't wrap React state updates in `act`; eventual assertions don't replace that boundary.
 - Keep programmatic focus in `act` when testing focus redirection. Preserve fake timers and synchronous assertions after explicit timer advancement.
 - Use `.element()` for snapshots, computed styles, structural checks, or capturing a particular node before it unmounts. A locator follows current DOM state; it doesn't retain the identity of a detached node.
 
