@@ -1,5 +1,6 @@
 import {describe, expect, it, beforeEach, afterEach} from 'vitest'
 import {render, screen, act, waitFor} from '@testing-library/react'
+import {StrictMode} from 'react'
 import {Announce} from '../Announce'
 import {getLiveRegion} from './test-helpers'
 import {implementsClassName} from '../../utils/testing'
@@ -32,6 +33,29 @@ describe('Announce', () => {
     const liveRegion = getLiveRegion()
     expect(liveRegion.getMessage('assertive')).toBe('test')
     expect(liveRegion.getMessage('polite')).toBe('')
+  })
+
+  it('announces delayed content when rendered in StrictMode', async () => {
+    render(
+      <StrictMode>
+        <Announce delayMs={50}>test</Announce>
+      </StrictMode>,
+    )
+
+    await waitFor(() => {
+      expect(getLiveRegion().getMessage('polite')).toBe('test')
+    })
+  })
+
+  it('cancels delayed content after unmounting', async () => {
+    const {unmount} = render(<Announce delayMs={50}>test</Announce>)
+
+    unmount()
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 75))
+    })
+
+    expect(getLiveRegion().getMessage('polite')).toBe('')
   })
 
   it('should pass additional props to the container element', () => {

@@ -6,6 +6,7 @@ import {IconButton, Button, LinkButton} from '../../Button'
 import classes from '../ButtonBase.module.css'
 import {implementsClassName} from '../../utils/testing'
 import {FeatureFlags} from '../../FeatureFlags'
+import {getLiveRegion} from '../../live-region/__tests__/test-helpers'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -240,6 +241,26 @@ describe('Button', () => {
     const loadingAnnouncement = document.getElementById(`${buttonId}-loading-announcement`)
     expect(loadingAnnouncement).toBeInTheDocument()
     expect(loadingAnnouncement?.textContent).toBe('Action loading')
+  })
+
+  it('announces the loading announcement when entering the loading state', () => {
+    for (const region of document.querySelectorAll('live-region')) {
+      region.remove()
+    }
+    const liveRegion = document.createElement('live-region')
+    document.body.appendChild(liveRegion)
+
+    render(
+      <StatefulLoadingButton loadingAnnouncement="Action loading">
+        <span>content</span>
+      </StatefulLoadingButton>,
+    )
+
+    fireEvent.click(screen.getByRole('button'))
+
+    const message = getLiveRegion().getMessage('polite')
+    liveRegion.remove()
+    expect(message).toBe('Action loading')
   })
 
   it('should be described by loading announcement AND whatever is passed to aria-describedby', () => {
