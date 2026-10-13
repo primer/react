@@ -121,6 +121,21 @@
       "description": "Determine which rows can be selected and counted by select-all."
     },
     {
+      "name": "renderBulkActions",
+      "type": "(context: DataTableBulkActionsContext) => React.ReactNode",
+      "description": "Render actions for effectively selected rows when rowSelection is enabled. The context contains readonly selectedRows IDs, selectedCount, and clearSelection. Counts and action IDs exclude missing and non-selectable rows. Business operations and their outcomes are consumer-owned."
+    },
+    {
+      "name": "bulkActionsProps",
+      "type": "Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel' | 'clearSelectionLabel'>",
+      "description": "Localize the bulk-action group name, selected-count announcement (including zero), and clear-selection label."
+    },
+    {
+      "name": "bulkActionsReturnFocusRef",
+      "type": "React.RefObject<HTMLElement>",
+      "description": "Override focus recovery when a focused action disappears. Defaults to select-all, or the table when no selectable rows remain. Does not override focus already moved by the consumer."
+    },
+    {
       "name": "cellPadding",
       "type": "'condensed' | 'normal' | 'spacious'",
       "description": "Specify the amount of space that should be available around the contents of a cell"
@@ -169,6 +184,50 @@
     }
   ],
   "subcomponents": [
+    {
+      "name": "Table.BulkActions",
+      "props": [
+        {
+          "name": "selectedCount",
+          "type": "number",
+          "required": true,
+          "description": "The effectively selected row count. Keep the component mounted at zero so count announcements and focus recovery can complete."
+        },
+        {
+          "name": "onClearSelection",
+          "type": "() => void",
+          "required": true,
+          "description": "Request clearing selection. The consumer owns selection state."
+        },
+        {
+          "name": "onFocusReturn",
+          "type": "() => void",
+          "description": "Choose the recovery destination when a focused action disappears and focus has not moved elsewhere."
+        },
+        {
+          "name": "getSelectedCountLabel",
+          "type": "(selectedCount: number) => string",
+          "description": "Localize the visible and announced selected count, including zero."
+        },
+        {
+          "name": "clearSelectionLabel",
+          "type": "string",
+          "defaultValue": "'Clear selection'",
+          "description": "Localize the clear-selection button."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "'Bulk actions'",
+          "description": "Name the action group."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Consumer-owned action elements in native Tab order, rendered only when selectedCount is positive."
+        }
+      ]
+    },
     {
       "name": "Table",
       "props": [

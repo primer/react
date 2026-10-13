@@ -1,4 +1,4 @@
-import type {ReactElement, ReactNode} from 'react'
+import {useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -16,6 +16,14 @@ import {
   TableRowSelection,
 } from './Table'
 import {TableGroup} from './TableGroup'
+import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
+import classes from './TableBulkActions.module.css'
+
+export interface DataTableBulkActionsContext {
+  selectedRows: ReadonlySet<DataTableRowId>
+  selectedCount: number
+  clearSelection: () => void
+}
 
 // ----------------------------------------------------------------------------
 // DataTable
@@ -105,6 +113,23 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    * Determines whether a row can be selected.
    */
   isRowSelectable?: (row: Data) => boolean
+
+  /**
+   * Renders actions for effectively selected rows, excluding missing and
+   * non-selectable IDs. Requires rowSelection. Consumers own business operations.
+   */
+  renderBulkActions?: (context: DataTableBulkActionsContext) => ReactNode
+
+  /**
+   * Localizes bulk-action labels and the selected-count announcement.
+   */
+  bulkActionsProps?: Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel' | 'clearSelectionLabel'>
+
+  /**
+   * Overrides the focus recovery target when a focused bulk action disappears.
+   * Defaults to select-all, or the table when no selectable rows remain.
+   */
+  bulkActionsReturnFocusRef?: RefObject<HTMLElement>
 }
 
 export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
@@ -148,7 +173,12 @@ function DataTableImplementation<Data extends UniqueRow>({
   defaultSelectedRows,
   onSelectionChange,
   isRowSelectable,
+  renderBulkActions,
+  bulkActionsProps,
+  bulkActionsReturnFocusRef,
 }: DataTableProps<Data>) {
+  const selectionCheckboxRef = useRef<HTMLInputElement>(null)
+  const tableRef = useRef<HTMLTableElement>(null)
   const table = useTable({
     data,
     columns,
@@ -192,8 +222,10 @@ function DataTableImplementation<Data extends UniqueRow>({
     </TableRow>
   )
 
-  return (
+  const renderedTable = (
     <Table
+      ref={tableRef}
+      tabIndex={rowSelection && renderBulkActions ? -1 : undefined}
       aria-labelledby={labelledby}
       aria-describedby={describedby}
       cellPadding={cellPadding}
@@ -203,6 +235,7 @@ function DataTableImplementation<Data extends UniqueRow>({
         <TableRow>
           {rowSelection ? (
             <TableSelectionHeader
+              checkboxRef={selectionCheckboxRef}
               id={selection.headerId}
               selection={selection.allSelected ? 'all' : selection.someSelected ? 'some' : 'none'}
               disabled={selection.selectableCount === 0}
@@ -261,6 +294,39 @@ function DataTableImplementation<Data extends UniqueRow>({
         ),
       )}
     </Table>
+  )
+
+  if (!rowSelection || !renderBulkActions) {
+    return renderedTable
+  }
+
+  return (
+    <div className={classes.DataTableWithBulkActions}>
+      <TableBulkActions
+        {...bulkActionsProps}
+        selectedCount={selection.selectedCount}
+        onClearSelection={actions.clearSelection}
+        onFocusReturn={() => {
+          const target = bulkActionsReturnFocusRef?.current
+          if (target?.isConnected) {
+            target.focus()
+          } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
+            selectionCheckboxRef.current.focus()
+          } else {
+            tableRef.current?.focus()
+          }
+        }}
+      >
+        {selection.selectedCount > 0
+          ? renderBulkActions({
+              selectedRows: new Set(selection.selectedRows),
+              selectedCount: selection.selectedCount,
+              clearSelection: actions.clearSelection,
+            })
+          : null}
+      </TableBulkActions>
+      {renderedTable}
+    </div>
   )
 }
 
