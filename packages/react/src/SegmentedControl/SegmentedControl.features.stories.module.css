@@ -29,3 +29,31 @@
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-muted);
 }
+
+.CompactToolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+}
+
+.ConsumerTypography {
+  font-size: var(--text-body-size-medium);
+}
+
+.ConsumerTypography button,
+.AbsoluteTypography button {
+  line-height: inherit;
+}
+
+.AbsoluteTypography {
+  /* stylelint-disable-next-line primer/typography -- downstream absolute inherited line height */
+  line-height: 21px;
+}
+
+.SizingExamples {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base-size-16);
+  width: 240px;
+}

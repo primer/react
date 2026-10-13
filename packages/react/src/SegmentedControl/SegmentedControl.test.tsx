@@ -83,6 +83,24 @@ describe('SegmentedControl', () => {
     )
   })
 
+  it('preserves the visible label and counter accessible name across selection', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view" size="small">
+        <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon} count={5}>
+          Preview
+        </SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const preview = getByRole('button', {name: 'Preview (5)'})
+    expect(preview.querySelector('.segmentedControl-text')).toHaveAttribute('data-text', 'Preview')
+    expect(preview).toHaveAccessibleName('Preview (5)')
+    fireEvent.click(getByRole('button', {name: 'Code'}))
+    expect(preview).toHaveAttribute('aria-pressed', 'false')
+    expect(preview).toHaveAccessibleName('Preview (5)')
+  })
+
   it('renders dividers without including them in selection indices', async () => {
     const onChange = vi.fn()
     const {container, getByRole} = render(
