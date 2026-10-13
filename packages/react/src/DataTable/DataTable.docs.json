@@ -147,7 +147,7 @@
     {
       "name": "renderBulkActions",
       "type": "(context: DataTableBulkActionsContext) => React.ReactNode",
-      "description": "Render actions for effectively selected rows when rowSelection is enabled. The context contains readonly selectedRows IDs, selectedCount, and clearSelection. Counts and action IDs exclude missing and non-selectable rows. Business operations and their outcomes are consumer-owned."
+      "description": "Render actions when rowSelection is enabled and selectable rows are selected. Receives selectedRows IDs, selectedCount, and clearSelection, excluding missing and non-selectable rows."
     },
     {
       "name": "bulkActionsProps",
