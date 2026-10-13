@@ -40,14 +40,8 @@
   font-size: var(--text-body-size-medium);
 }
 
-.ConsumerTypography button,
-.AbsoluteTypography button {
+.ConsumerTypography button {
   line-height: inherit;
-}
-
-.AbsoluteTypography {
-  /* stylelint-disable-next-line primer/typography -- downstream absolute inherited line height */
-  line-height: 21px;
 }
 
 .SizingExamples {
