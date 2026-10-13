@@ -1,9 +1,8 @@
 import {fileURLToPath} from 'node:url'
 import {dirname} from 'node:path'
 import type {StorybookConfig} from '@storybook/react-vite'
-import babel from '@rolldown/plugin-babel'
 
-import react, {reactCompilerPreset} from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 
 const {DEPLOY_ENV = 'development'} = process.env
@@ -43,13 +42,10 @@ const config: StorybookConfig = {
 
     config.plugins = [
       ...(config.plugins ?? []),
-      react(),
-      babel({
-        presets: [
-          reactCompilerPreset({
-            target: '18',
-          }),
-        ],
+      react({
+        compiler: {
+          target: '18',
+        },
       }),
     ]
 

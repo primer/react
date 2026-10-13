@@ -66,7 +66,6 @@
     "@vitest/browser": "^5.0.0",
     "@vitest/browser-playwright": "^5.0.0",
     "@vitest/eslint-plugin": "^1.6.27",
-    "babel-plugin-react-compiler": "^1.0.0",
     "change-case": "^5.4.4",
     "doctoc": "^2.5.0",
     "eslint": "^10.11.0",
