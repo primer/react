@@ -5,6 +5,8 @@ import {hydrateRoot} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {describe, expect, it, vi} from 'vitest'
 import {DataTable, Table} from '../../DataTable'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Table.module.css'
 import type {Column} from '../column'
 import type {DataTableData, DataTableRowId} from '../row'
 import {useTable} from '../useTable'
@@ -134,7 +136,9 @@ describe('DataTable group expansion', () => {
     expect(result.current.selection.selectableCount).toBe(3)
     const group = result.current.bodies.find(body => body.type === 'row-group' && body.id === 1)
     expect(group).toMatchObject({expanded: false})
-    if (group?.type !== 'row-group') throw new Error('Expected row group')
+    if (group?.type !== 'row-group') {
+      throw new Error('Expected row group')
+    }
     act(() => result.current.actions.toggleGroupExpansion(group))
     expect(result.current.selection.selectedRows).toEqual(new Set([1]))
   })
@@ -212,21 +216,52 @@ describe('DataTable group expansion', () => {
     const buttons = [...container.querySelectorAll<HTMLButtonElement>('[aria-controls]')]
     const controls = buttons.map(button => button.getAttribute('aria-controls'))
     expect(new Set(controls).size).toBe(buttons.length)
-    for (const id of controls) expect(container.querySelector(`[id="${id}"]`)).not.toBeNull()
+    for (const id of controls) {
+      expect(container.querySelector(`[id="${id}"]`)).not.toBeNull()
+    }
     expect(container.querySelectorAll('tbody[hidden]')).toHaveLength(3)
     let root: ReturnType<typeof hydrateRoot> | undefined
-    await act(() => {
-      root = hydrateRoot(container, ui)
-    })
-    expect(
-      [...container.querySelectorAll('[aria-controls]')].map(button => button.getAttribute('aria-controls')),
-    ).toEqual(controls)
-    await act(() => root?.unmount())
-    container.remove()
+    const onRecoverableError = vi.fn()
+    try {
+      await act(() => {
+        root = hydrateRoot(container, ui, {onRecoverableError})
+      })
+      expect(onRecoverableError).not.toHaveBeenCalled()
+      expect(
+        [...container.querySelectorAll('[aria-controls]')].map(button => button.getAttribute('aria-controls')),
+      ).toEqual(controls)
+      expect(container.querySelectorAll('tbody[hidden]')).toHaveLength(3)
+    } finally {
+      await act(() => root?.unmount())
+      container.remove()
+    }
   })
 })
 
 describe('Table.Group expansion', () => {
+  implementsClassName(
+    props => (
+      <Table>
+        <Table.Group id="group" label="Group" rowCount={0} colSpan={1} collapsible {...props} />
+      </Table>
+    ),
+    classes.TableGroupHeaderBody,
+  )
+
+  it('preserves the disclosure target size when the group label wraps', () => {
+    const label = 'Repositories with access inherited from organizational policies and permissions'
+    render(
+      <div style={{width: 200}}>
+        <Table gridTemplateColumns="minmax(0, 1fr)">
+          <Table.Group id="group" label={label} rowCount={0} colSpan={1} collapsible />
+        </Table>
+      </div>,
+    )
+    const button = screen.getByRole('button', {name: label})
+    expect(button.getBoundingClientRect().width).toBeGreaterThanOrEqual(24)
+    expect(button.getBoundingClientRect().height).toBeGreaterThanOrEqual(24)
+  })
+
   it('requests controlled changes and always shows non-collapsible members', async () => {
     const user = userEvent.setup()
     const onExpandedChange = vi.fn()

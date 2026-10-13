@@ -335,6 +335,7 @@
   align-items: center;
   justify-content: center;
   align-self: center;
+  flex-shrink: 0;
   border-radius: var(--borderRadius-small);
 
   &:hover {

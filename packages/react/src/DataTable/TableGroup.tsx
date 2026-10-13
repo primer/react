@@ -1,11 +1,10 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {useId, useMemo, useRef} from 'react'
+import {useCallback, useId, useMemo, useRef} from 'react'
 import {ChevronRightIcon} from '@primer/octicons-react'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {Button} from '../internal/components/ButtonReset'
 import {useControllableState} from '../hooks/useControllableState'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {TableRow} from './Table'
 import {TableGroupContext} from './TableGroupContext'
 import classes from './Table.module.css'
@@ -42,13 +41,25 @@ export type TableGroupProps = {
   colSpan: number
 
   children?: React.ReactNode
-  /** Whether the group has a disclosure control. Defaults to false. */
+
+  /**
+   * Whether the group has a disclosure control. Defaults to false.
+   */
   collapsible?: boolean
-  /** Controls whether member rows are displayed. */
+
+  /**
+   * Controls whether member rows are displayed.
+   */
   expanded?: boolean
-  /** Initial expanded state. Defaults to true. */
+
+  /**
+   * Initial expanded state. Defaults to true.
+   */
   defaultExpanded?: boolean
-  /** Handles requests to change the expanded state. */
+
+  /**
+   * Handles requests to change the expanded state.
+   */
   onExpandedChange?: ({expanded}: {expanded: boolean}) => void
 }
 
@@ -68,7 +79,6 @@ function TableGroup({
   const headerId = useId()
   const bodyId = useId()
   const headerRef = useRef<HTMLTableCellElement>(null)
-  const bodyRef = useRef<HTMLTableSectionElement>(null)
   const [expanded, setExpanded] = useControllableState({
     name: 'Table.Group expanded',
     value: controlledExpanded,
@@ -78,13 +88,15 @@ function TableGroup({
   const isExpanded = !collapsible || expanded
   const contextValue = useMemo(() => ({headerId}), [headerId])
 
-  // Controlled changes can hide a focused member without activating the disclosure.
-  useIsomorphicLayoutEffect(() => {
-    const body = bodyRef.current
-    if (!isExpanded && body?.contains(body.ownerDocument.activeElement)) {
-      headerRef.current?.querySelector('button')?.focus()
-    }
-  }, [isExpanded])
+  // Restore focus during the collapse commit, including externally controlled changes.
+  const bodyRef = useCallback(
+    (body: HTMLTableSectionElement | null) => {
+      if (!isExpanded && body?.contains(body.ownerDocument.activeElement)) {
+        headerRef.current?.querySelector('button')?.focus()
+      }
+    },
+    [isExpanded],
+  )
 
   return (
     <>
