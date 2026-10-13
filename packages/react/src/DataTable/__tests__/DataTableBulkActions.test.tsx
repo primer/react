@@ -3,10 +3,11 @@ import {render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {renderToString} from 'react-dom/server'
 import {hydrateRoot, type Root} from 'react-dom/client'
-import {createPortal} from 'react-dom'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {DataTable, Table, type DataTableBulkActionsContext, type DataTableData, type DataTableRowId} from '..'
 import {Button} from '../../Button'
+import {ActionMenu} from '../../ActionMenu'
+import {ActionList} from '../../ActionList'
 import {getLiveRegion} from '../../live-region/__tests__/test-helpers'
 import {implementsClassName} from '../../utils/testing'
 import type {Column} from '../column'
@@ -212,28 +213,55 @@ describe('DataTable bulk actions', () => {
     expect(screen.getByRole('button', {name: 'Confirmation'})).toHaveFocus()
   })
 
-  it('recovers focus from portalled actions in the same React subtree', async () => {
+  it('does not recover focus after the user leaves the actions for non-interactive content', async () => {
     const user = userEvent.setup()
-    function PortalAction({clearSelection}: {clearSelection: () => void}) {
-      const [open, setOpen] = React.useState(false)
-      return (
-        <>
-          <Button onClick={() => setOpen(true)}>Open actions</Button>
-          {open ? createPortal(<Button onClick={clearSelection}>Apply from portal</Button>, document.body) : null}
-        </>
-      )
-    }
+    const renderExample = (data: Array<Row>) => (
+      <>
+        <p>Outside the table</p>
+        <DataTable
+          data={data}
+          columns={columns}
+          rowSelection
+          defaultSelectedRows={new Set([1])}
+          renderBulkActions={renderActions}
+        />
+      </>
+    )
+    const {rerender} = render(renderExample(rows))
+    screen.getByRole('button', {name: 'Apply to 1'}).focus()
+    await user.click(screen.getByText('Outside the table'))
+    expect(document.body).toHaveFocus()
+
+    rerender(renderExample(rows.slice(1)))
+
+    expect(document.body).toHaveFocus()
+    expect(screen.queryByRole('group', {name: 'Bulk actions'})).not.toBeInTheDocument()
+  })
+
+  it('recovers focus when a Primer menu action clears selection', async () => {
+    const user = userEvent.setup()
     render(
       <DataTable
         data={rows}
         columns={columns}
         rowSelection
         defaultSelectedRows={new Set([1])}
-        renderBulkActions={({clearSelection}) => <PortalAction clearSelection={clearSelection} />}
+        renderBulkActions={({clearSelection}) => (
+          <ActionMenu>
+            <ActionMenu.Button>More actions</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item onSelect={clearSelection}>Archive selected</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        )}
       />,
     )
-    await user.click(screen.getByRole('button', {name: 'Open actions'}))
-    await user.click(screen.getByRole('button', {name: 'Apply from portal'}))
+    screen.getByRole('button', {name: 'More actions'}).focus()
+    await user.keyboard(' ')
+    expect(screen.getByRole('menuitem', {name: 'Archive selected'})).toHaveFocus()
+    await user.keyboard('{Enter}')
     expect(screen.getByRole('checkbox', {name: 'Select rows'})).toHaveFocus()
   })
 

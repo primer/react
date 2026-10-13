@@ -261,84 +261,27 @@ and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.sto
 
 ## Bulk actions
 
-`DataTable` composes `Table.BulkActions` when `rowSelection` and
-`renderBulkActions` are provided. The render callback receives
-`{selectedRows, selectedCount, clearSelection}`. The IDs and count are the same
-effective selection: only currently supplied, selectable rows qualify. Missing
-and non-selectable IDs remain in the owner's set but never reach business actions.
-Sorting and refreshes preserve the contract; collapsing groups must only change
-presentation, not remove their members from the selection model.
+With `rowSelection`, `renderBulkActions` receives effective `selectedRows`,
+`selectedCount`, and `clearSelection`. Use these IDs for operations, not the
+unfiltered controlled selection. `clearSelection` requests an empty selection,
+including retained IDs; controlled consumers apply `onSelectionChange`.
 
-`clearSelection` requests an empty selection, including previously retained IDs.
-Controlled owners must apply `onSelectionChange` for it to take effect. No second
-selection state is introduced. Page/filter owners still clear selection on scope
-changes; query-wide and group-level select-all are not supported.
+Actions appear above the table header in a named group with native Tab/Shift+Tab
+navigation. Count changes are announced, including zero. Use `bulkActionsProps`
+to localize the group name, clear button, and count label.
 
-The action group sits **above**, not over, the table header, following the
-[focus-obscured finding](https://github.com/github/accessibility/issues/10267).
-Sorting and selection controls remain visible and usable. It is a named
-`role="group"`, not an ARIA toolbar: actions use native Tab/Shift+Tab navigation,
-and the component does not impose arrow-key navigation on consumer children.
-Use Primer buttons and menus with visible, non-color-only focus indicators.
+Showing actions preserves checkbox focus. When clearing selection or updating
+rows removes the focused action, `DataTable` restores focus to select-all, or to
+the table when no selectable rows remain. `bulkActionsReturnFocusRef` overrides
+that destination. Focus is not restored after the user leaves the actions or
+moves into a consumer-owned dialog. When composing `Table.BulkActions` directly,
+keep it mounted at zero and provide `onFocusReturn` for recovery.
 
-The selection tally stays mounted at zero (visually hidden), and uses the shared
-`AriaStatus` announcement primitive. Count changes include deselection to zero.
-`bulkActionsProps` localizes the action group's `aria-label`, clear button label,
-and `getSelectedCountLabel(count)` (including zero).
-The [follow-up audit](https://github.com/github/accessibility/issues/10807)
-reports historical VoiceOver/Safari failures with Shadow DOM live regions in
-IndexTable. This implementation reuses Primer's current announcement primitive;
-automated announcement assertions do not establish VoiceOver support. Manual
-VoiceOver/Safari verification remains required alongside NVDA and JAWS.
-
-### Focus and operation ownership
-
-- Showing actions does not move focus from the activating checkbox.
-- Hiding actions only recovers focus if the focused action was removed and focus
-  fell back to the document body. It does not steal focus from a dialog, toast
-  action, or other consumer-selected destination.
-- Config recovery targets select-all; with no selectable rows, it targets the
-  table programmatically without adding a Tab stop. `bulkActionsReturnFocusRef`
-  overrides this target, for example with an Add button for an empty table.
-- `Table.BulkActions` consumers keep the component mounted at zero and supply
-  `onFocusReturn` to choose their recovery target. Consumers supply the effective
-  count, clear callback, and children in their intended order.
-- Consumers own requests, pending/error states, success/failure announcements,
-  permanent removal reconciliation, and business-specific focus (including
-  closing dialogs or replacing the entire table). Clearing is explicit, not
-  automatic after an action. Failed operations should retain selection for retry.
-- For asynchronous actions, snapshot the callback's effective IDs at activation.
-  Apply success/failure to that operation's IDs, not a subsequently changed
-  selection. Disabling actions while pending does not disable row checkboxes;
-  consumers decide whether to allow additional selection during the request.
-
-For example:
-
-```tsx
-<DataTable
-  data={rows}
-  columns={columns}
-  rowSelection
-  selectedRows={selectedRows}
-  onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
-  renderBulkActions={({selectedRows: effectiveIds, selectedCount, clearSelection}) => (
-    <Button
-      onClick={() => {
-        archiveRepositories(effectiveIds)
-        // Clear only after the operation succeeds; report errors in the owner.
-        clearSelection()
-      }}
-    >
-      Archive {selectedCount}
-    </Button>
-  )}
-/>
-```
-
-The snippet illustrates synchronous success. An asynchronous owner awaits success
-before clearing, retains selection on failure, and announces the result itself.
-The [bulk-action stories](./DataTable.bulk-actions.stories.tsx) demonstrate flat,
-grouped, mixed, asynchronous failure/retry, and direct composition.
+Consumers own pending states, result announcements, and focus when closing
+dialogs or replacing the table. For asynchronous operations, capture the effective
+IDs at activation and reconcile only those IDs on success; preserve selection on
+failure and do not clear selections added while waiting.
+See the [bulk-action examples](./DataTable.bulk-actions.stories.tsx).
 
 ## Verification
 

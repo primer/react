@@ -83,7 +83,9 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
         }
       }}
       onBlurCapture={event => {
-        if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
+        // A blur to non-focusable content has no relatedTarget. Only retain a
+        // detached target, whose removal may require focus recovery.
+        if (event.target.isConnected) {
           focusedAction.current = null
         }
         if (!event.defaultPrevented) {
