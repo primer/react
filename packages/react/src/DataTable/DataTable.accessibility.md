@@ -281,7 +281,7 @@ Consumers own pending states, result announcements, and focus when closing
 dialogs or replacing the table. For asynchronous operations, capture the effective
 IDs at activation and reconcile only those IDs on success; preserve selection on
 failure and do not clear selections added while waiting.
-See the [bulk-action examples](./DataTable.bulk-actions.stories.tsx).
+See `WithBulkActions` in [DataTable features](./DataTable.features.stories.tsx).
 
 ## Verification
 
