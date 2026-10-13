@@ -2,4 +2,4 @@
 '@primer/mcp': patch
 ---
 
-MCP: Correct usage guideline URLs for components such as ActionBar and ActionList.
+MCP: Correct component usage-guideline routes and ConfirmationDialog documentation URLs.

@@ -4,250 +4,299 @@ import {server} from './server'
 
 interface UsageGuidelineRoute {
   name: string
-  canonicalPath: string
+  expectedPath: string
   rawIdPath?: string
+  publication: 'published' | 'unpublished'
 }
 
+// Publication was checked against the sitemap and live pages on 2026-10-13.
+// Unpublished cases protect routing under controlled responses, not the existence of guidance.
 const usageGuidelineRoutes: ReadonlyArray<UsageGuidelineRoute> = [
   {
     name: 'ActionBar',
-    canonicalPath: '/product/components/action-bar/guidelines',
+    expectedPath: '/product/components/action-bar/guidelines',
     rawIdPath: '/product/components/actionbar/guidelines',
+    publication: 'published',
   },
   {
     name: 'ActionList',
-    canonicalPath: '/product/components/action-list/guidelines',
+    expectedPath: '/product/components/action-list/guidelines',
     rawIdPath: '/product/components/action_list/guidelines',
+    publication: 'published',
   },
   {
     name: 'ActionMenu',
-    canonicalPath: '/product/components/action-menu/guidelines',
+    expectedPath: '/product/components/action-menu/guidelines',
     rawIdPath: '/product/components/action_menu/guidelines',
+    publication: 'published',
   },
   {
     name: 'AnchoredOverlay',
-    canonicalPath: '/product/components/anchored-overlay/guidelines',
+    expectedPath: '/product/components/anchored-overlay/guidelines',
     rawIdPath: '/product/components/anchored_overlay/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Autocomplete', canonicalPath: '/product/components/autocomplete/guidelines'},
-  {name: 'Avatar', canonicalPath: '/product/components/avatar/guidelines'},
+  {name: 'Autocomplete', expectedPath: '/product/components/autocomplete/guidelines', publication: 'published'},
+  {name: 'Avatar', expectedPath: '/product/components/avatar/guidelines', publication: 'unpublished'},
   {
     name: 'AvatarStack',
-    canonicalPath: '/product/components/avatar-stack/guidelines',
+    expectedPath: '/product/components/avatar-stack/guidelines',
     rawIdPath: '/product/components/avatar_stack/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Banner', canonicalPath: '/product/components/banner/guidelines'},
-  {name: 'Blankslate', canonicalPath: '/product/components/blankslate/guidelines'},
+  {name: 'Banner', expectedPath: '/product/components/banner/guidelines', publication: 'published'},
+  {name: 'Blankslate', expectedPath: '/product/components/blankslate/guidelines', publication: 'published'},
   {
     name: 'BranchName',
-    canonicalPath: '/product/components/branch-name/guidelines',
+    expectedPath: '/product/components/branch-name/guidelines',
     rawIdPath: '/product/components/branch_name/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Breadcrumbs', canonicalPath: '/product/components/breadcrumbs/guidelines'},
-  {name: 'Button', canonicalPath: '/product/components/button/guidelines'},
+  {name: 'Breadcrumbs', expectedPath: '/product/components/breadcrumbs/guidelines', publication: 'published'},
+  {name: 'Button', expectedPath: '/product/components/button/guidelines', publication: 'published'},
   {
     name: 'IconButton',
-    canonicalPath: '/product/components/icon-button/guidelines',
+    expectedPath: '/product/components/icon-button/guidelines',
     rawIdPath: '/product/components/icon_button/guidelines',
+    publication: 'published',
   },
   {
     name: 'ButtonGroup',
-    canonicalPath: '/product/components/button-group/guidelines',
+    expectedPath: '/product/components/button-group/guidelines',
     rawIdPath: '/product/components/button_group/guidelines',
+    publication: 'published',
   },
-  {name: 'Card', canonicalPath: '/product/components/card/guidelines'},
-  {name: 'Checkbox', canonicalPath: '/product/components/checkbox/guidelines'},
+  {name: 'Card', expectedPath: '/product/components/card/guidelines', publication: 'unpublished'},
+  {name: 'Checkbox', expectedPath: '/product/components/checkbox/guidelines', publication: 'unpublished'},
   {
     name: 'CheckboxGroup',
-    canonicalPath: '/product/components/checkbox-group/guidelines',
+    expectedPath: '/product/components/checkbox-group/guidelines',
     rawIdPath: '/product/components/checkbox_group/guidelines',
+    publication: 'published',
   },
   {
     name: 'CircleBadge',
-    canonicalPath: '/product/components/circle-badge/guidelines',
+    expectedPath: '/product/components/circle-badge/guidelines',
     rawIdPath: '/product/components/circle_badge/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'ConfirmationDialog', canonicalPath: '/product/components/confirmationdialog/guidelines'},
+  {
+    name: 'ConfirmationDialog',
+    expectedPath: '/product/components/confirmation-dialog/guidelines',
+    rawIdPath: '/product/components/confirmationdialog/guidelines',
+    publication: 'published',
+  },
   {
     name: 'CounterLabel',
-    canonicalPath: '/product/components/counter-label/guidelines',
+    expectedPath: '/product/components/counter-label/guidelines',
     rawIdPath: '/product/components/counter_label/guidelines',
+    publication: 'unpublished',
   },
   {
     name: 'DataTable',
-    canonicalPath: '/product/components/data-table/guidelines',
+    expectedPath: '/product/components/data-table/guidelines',
     rawIdPath: '/product/components/data_table/guidelines',
+    publication: 'published',
   },
-  {name: 'Details', canonicalPath: '/product/components/details/guidelines'},
+  {name: 'Details', expectedPath: '/product/components/details/guidelines', publication: 'unpublished'},
   {
     name: 'Dialog',
-    canonicalPath: '/product/components/dialog/guidelines',
+    expectedPath: '/product/components/dialog/guidelines',
     rawIdPath: '/product/components/dialog_v2/guidelines',
+    publication: 'published',
   },
   {
     name: 'FeatureFlags',
-    canonicalPath: '/product/components/feature-flags/guidelines',
+    expectedPath: '/product/components/feature-flags/guidelines',
     rawIdPath: '/product/components/feature_flags/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Flash', canonicalPath: '/product/components/flash/guidelines'},
+  {name: 'Flash', expectedPath: '/product/components/flash/guidelines', publication: 'unpublished'},
   {
     name: 'FormControl',
-    canonicalPath: '/product/components/form-control/guidelines',
+    expectedPath: '/product/components/form-control/guidelines',
     rawIdPath: '/product/components/form_control/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Header', canonicalPath: '/product/components/header/guidelines'},
-  {name: 'Heading', canonicalPath: '/product/components/heading/guidelines'},
-  {name: 'Hidden', canonicalPath: '/product/components/hidden/guidelines'},
+  {name: 'Header', expectedPath: '/product/components/header/guidelines', publication: 'unpublished'},
+  {name: 'Heading', expectedPath: '/product/components/heading/guidelines', publication: 'unpublished'},
+  {name: 'Hidden', expectedPath: '/product/components/hidden/guidelines', publication: 'unpublished'},
   {
     name: 'InlineMessage',
-    canonicalPath: '/product/components/inline-message/guidelines',
+    expectedPath: '/product/components/inline-message/guidelines',
     rawIdPath: '/product/components/inline_message/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'KeybindingHint', canonicalPath: '/product/components/KeybindingHint/guidelines'},
-  {name: 'Label', canonicalPath: '/product/components/label/guidelines'},
+  {name: 'KeybindingHint', expectedPath: '/product/components/KeybindingHint/guidelines', publication: 'unpublished'},
+  {name: 'Label', expectedPath: '/product/components/label/guidelines', publication: 'unpublished'},
   {
     name: 'LabelGroup',
-    canonicalPath: '/product/components/label-group/guidelines',
+    expectedPath: '/product/components/label-group/guidelines',
     rawIdPath: '/product/components/label_group/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Link', canonicalPath: '/product/components/link/guidelines'},
+  {name: 'Link', expectedPath: '/product/components/link/guidelines', publication: 'published'},
   {
     name: 'NavList',
-    canonicalPath: '/product/components/nav-list/guidelines',
+    expectedPath: '/product/components/nav-list/guidelines',
     rawIdPath: '/product/components/nav_list/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Octicon', canonicalPath: '/product/components/octicon/guidelines'},
-  {name: 'Overlay', canonicalPath: '/product/components/overlay/guidelines'},
+  {name: 'Octicon', expectedPath: '/product/components/octicon/guidelines', publication: 'unpublished'},
+  {name: 'Overlay', expectedPath: '/product/components/overlay/guidelines', publication: 'unpublished'},
   {
     name: 'PageHeader',
-    canonicalPath: '/product/components/page-header/guidelines',
+    expectedPath: '/product/components/page-header/guidelines',
     rawIdPath: '/product/components/page_header/guidelines',
+    publication: 'published',
   },
   {
     name: 'PageLayout',
-    canonicalPath: '/product/components/page-layout/guidelines',
+    expectedPath: '/product/components/page-layout/guidelines',
     rawIdPath: '/product/components/page_layout/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Pagehead', canonicalPath: '/product/components/pagehead/guidelines'},
-  {name: 'Pagination', canonicalPath: '/product/components/pagination/guidelines'},
-  {name: 'Popover', canonicalPath: '/product/components/popover/guidelines'},
-  {name: 'Portal', canonicalPath: '/product/components/portal/guidelines'},
+  {name: 'Pagehead', expectedPath: '/product/components/pagehead/guidelines', publication: 'unpublished'},
+  {name: 'Pagination', expectedPath: '/product/components/pagination/guidelines', publication: 'published'},
+  {name: 'Popover', expectedPath: '/product/components/popover/guidelines', publication: 'published'},
+  {name: 'Portal', expectedPath: '/product/components/portal/guidelines', publication: 'unpublished'},
   {
     name: 'ProgressBar',
-    canonicalPath: '/product/components/progress-bar/guidelines',
+    expectedPath: '/product/components/progress-bar/guidelines',
     rawIdPath: '/product/components/progress_bar/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Radio', canonicalPath: '/product/components/radio/guidelines'},
+  {name: 'Radio', expectedPath: '/product/components/radio/guidelines', publication: 'unpublished'},
   {
     name: 'RadioGroup',
-    canonicalPath: '/product/components/radio-group/guidelines',
+    expectedPath: '/product/components/radio-group/guidelines',
     rawIdPath: '/product/components/radio_group/guidelines',
+    publication: 'published',
   },
   {
     name: 'RelativeTime',
-    canonicalPath: '/product/components/relative-time/guidelines',
+    expectedPath: '/product/components/relative-time/guidelines',
     rawIdPath: '/product/components/relative_time/guidelines',
+    publication: 'published',
   },
   {
     name: 'SegmentedControl',
-    canonicalPath: '/product/components/segmented-control/guidelines',
+    expectedPath: '/product/components/segmented-control/guidelines',
     rawIdPath: '/product/components/segmented_control/guidelines',
+    publication: 'published',
   },
-  {name: 'Select', canonicalPath: '/product/components/select/guidelines'},
+  {name: 'Select', expectedPath: '/product/components/select/guidelines', publication: 'published'},
   {
     name: 'SelectPanel',
-    canonicalPath: '/product/components/select-panel/guidelines',
+    expectedPath: '/product/components/select-panel/guidelines',
     rawIdPath: '/product/components/select_panel/guidelines',
+    publication: 'published',
   },
   {
     name: 'SkeletonBox',
-    canonicalPath: '/product/components/skeleton-box/guidelines',
+    expectedPath: '/product/components/skeleton-box/guidelines',
     rawIdPath: '/product/components/skeleton_box/guidelines',
+    publication: 'unpublished',
   },
   {
     name: 'SkeletonAvatar',
-    canonicalPath: '/product/components/skeleton-avatar/guidelines',
+    expectedPath: '/product/components/skeleton-avatar/guidelines',
     rawIdPath: '/product/components/skeleton_avatar/guidelines',
+    publication: 'unpublished',
   },
   {
     name: 'SkeletonText',
-    canonicalPath: '/product/components/skeleton-text/guidelines',
+    expectedPath: '/product/components/skeleton-text/guidelines',
     rawIdPath: '/product/components/skeleton_text/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Spinner', canonicalPath: '/product/components/spinner/guidelines'},
+  {name: 'Spinner', expectedPath: '/product/components/spinner/guidelines', publication: 'unpublished'},
   {
     name: 'SplitPageLayout',
-    canonicalPath: '/product/components/split-page-layout/guidelines',
+    expectedPath: '/product/components/split-page-layout/guidelines',
     rawIdPath: '/product/components/split_page_layout/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Stack', canonicalPath: '/product/components/stack/guidelines'},
+  {name: 'Stack', expectedPath: '/product/components/stack/guidelines', publication: 'unpublished'},
   {
     name: 'StateLabel',
-    canonicalPath: '/product/components/state-label/guidelines',
+    expectedPath: '/product/components/state-label/guidelines',
     rawIdPath: '/product/components/state_label/guidelines',
+    publication: 'unpublished',
   },
   {
     name: 'SubNav',
-    canonicalPath: '/product/components/sub-nav/guidelines',
+    expectedPath: '/product/components/sub-nav/guidelines',
     rawIdPath: '/product/components/sub_nav/guidelines',
+    publication: 'unpublished',
   },
   {
     name: 'TabNav',
-    canonicalPath: '/product/components/tab-nav/guidelines',
+    expectedPath: '/product/components/tab-nav/guidelines',
     rawIdPath: '/product/components/tab_nav/guidelines',
+    publication: 'unpublished',
   },
-  {name: 'Text', canonicalPath: '/product/components/text/guidelines'},
+  {name: 'Text', expectedPath: '/product/components/text/guidelines', publication: 'unpublished'},
   {
     name: 'TextInput',
-    canonicalPath: '/product/components/text-input/guidelines',
+    expectedPath: '/product/components/text-input/guidelines',
     rawIdPath: '/product/components/text_input/guidelines',
+    publication: 'published',
   },
   {
     name: 'TextInputWithTokens',
-    canonicalPath: '/product/components/text-input-with-tokens/guidelines',
+    expectedPath: '/product/components/text-input-with-tokens/guidelines',
     rawIdPath: '/product/components/text_input_with_tokens/guidelines',
+    publication: 'published',
   },
-  {name: 'Textarea', canonicalPath: '/product/components/textarea/guidelines'},
-  {name: 'Timeline', canonicalPath: '/product/components/timeline/guidelines'},
+  {name: 'Textarea', expectedPath: '/product/components/textarea/guidelines', publication: 'published'},
+  {name: 'Timeline', expectedPath: '/product/components/timeline/guidelines', publication: 'unpublished'},
   {
     name: 'ToggleSwitch',
-    canonicalPath: '/product/components/toggle-switch/guidelines',
+    expectedPath: '/product/components/toggle-switch/guidelines',
     rawIdPath: '/product/components/toggle_switch/guidelines',
+    publication: 'published',
   },
-  {name: 'Token', canonicalPath: '/product/components/token/guidelines'},
-  {name: 'Tooltip', canonicalPath: '/product/components/tooltip/guidelines'},
+  {name: 'Token', expectedPath: '/product/components/token/guidelines', publication: 'published'},
+  {name: 'Tooltip', expectedPath: '/product/components/tooltip/guidelines', publication: 'published'},
   {
     name: 'TopicTag',
-    canonicalPath: '/product/components/topic-tag/guidelines',
+    expectedPath: '/product/components/topic-tag/guidelines',
     rawIdPath: '/product/components/topic_tag/guidelines',
+    publication: 'unpublished',
   },
   {
     name: 'TreeView',
-    canonicalPath: '/product/components/tree-view/guidelines',
+    expectedPath: '/product/components/tree-view/guidelines',
     rawIdPath: '/product/components/tree_view/guidelines',
+    publication: 'published',
   },
-  {name: 'Truncate', canonicalPath: '/product/components/truncate/guidelines'},
+  {name: 'Truncate', expectedPath: '/product/components/truncate/guidelines', publication: 'unpublished'},
   {
     name: 'UnderlineNav',
-    canonicalPath: '/product/components/underline-nav/guidelines',
+    expectedPath: '/product/components/underline-nav/guidelines',
     rawIdPath: '/product/components/underline_nav/guidelines',
+    publication: 'published',
   },
-  {name: 'AriaAlert', canonicalPath: '/product/components/aria-alert/guidelines'},
-  {name: 'AriaStatus', canonicalPath: '/product/components/aria-status/guidelines'},
+  {name: 'AriaAlert', expectedPath: '/product/components/aria-alert/guidelines', publication: 'unpublished'},
+  {name: 'AriaStatus', expectedPath: '/product/components/aria-status/guidelines', publication: 'unpublished'},
   {
     name: 'FilteredSearch',
-    canonicalPath: '/product/components/filtered-search/guidelines',
+    expectedPath: '/product/components/filtered-search/guidelines',
     rawIdPath: '/product/components/filtered_search/guidelines',
+    publication: 'unpublished',
   },
   {
     name: 'IssueLabel',
-    canonicalPath: '/product/components/issue-label/guidelines',
+    expectedPath: '/product/components/issue-label/guidelines',
     rawIdPath: '/product/components/issue_label/guidelines',
+    publication: 'unpublished',
   },
   {
     name: 'UnderlinePanels',
-    canonicalPath: '/product/components/underline-panels/guidelines',
+    expectedPath: '/product/components/underline-panels/guidelines',
     rawIdPath: '/product/components/underline_panels/guidelines',
+    publication: 'published',
   },
 ]
 
@@ -391,18 +440,18 @@ describe('MCP server', () => {
   })
 
   it.each(usageGuidelineRoutes)(
-    'retrieves $name usage guidelines from its canonical document',
-    async ({name, canonicalPath, rawIdPath}) => {
-      const canonicalUrl = `https://primer.style${canonicalPath}`
+    '$name usage request follows its expected route (guidelines $publication)',
+    async ({name, expectedPath, rawIdPath}) => {
+      const expectedUrl = `https://primer.style${expectedPath}`
       const rawIdUrl = rawIdPath ? `https://primer.style${rawIdPath}` : undefined
-      const guidanceBody = `approved-${name.toLowerCase()}-guidance-body`
+      const responseBody = `synthetic-${name.toLowerCase()}-usage-body`
       const homepageBody = `homepage-body-not-${name.toLowerCase()}-guidance`
       const fetchMock = vi.mocked(fetch)
       fetchMock.mockImplementation(async input => {
         const url = input.toString()
 
-        if (url === canonicalUrl) {
-          return responseWithFinalUrl(`<main><p>${guidanceBody}</p></main>`, canonicalUrl)
+        if (url === expectedUrl) {
+          return responseWithFinalUrl(`<main><p>${responseBody}</p></main>`, expectedUrl)
         }
 
         if (url === rawIdUrl) {
@@ -421,7 +470,7 @@ describe('MCP server', () => {
       expect(result.content).toContainEqual(
         expect.objectContaining({
           type: 'text',
-          text: expect.stringContaining(guidanceBody),
+          text: expect.stringContaining(responseBody),
         }),
       )
       expect(result.content).not.toContainEqual(
@@ -431,7 +480,73 @@ describe('MCP server', () => {
         }),
       )
       expect(fetchMock).toHaveBeenCalledTimes(1)
-      expect(fetchMock.mock.calls[0]?.[0].toString()).toBe(canonicalUrl)
+      expect(fetchMock.mock.calls[0]?.[0].toString()).toBe(expectedUrl)
+    },
+  )
+
+  it.each(['ConfirmationDialog', 'confirmationdialog'])(
+    'retrieves ConfirmationDialog documentation for %s from its published URL',
+    async name => {
+      const url = 'https://primer.style/product/components/confirmation-dialog/llms.txt'
+      const body = '# ConfirmationDialog\n\nSynthetic component documentation.'
+      const fetchMock = vi.mocked(fetch)
+      fetchMock.mockImplementation(async input => {
+        if (input.toString() === url) {
+          return new Response(body)
+        }
+
+        if (input.toString() === 'https://primer.style/product/components/confirmationdialog/llms.txt') {
+          return new Response(null, {status: 404})
+        }
+
+        throw new Error(`Unexpected fetch request: ${input}`)
+      })
+
+      const result = await client.callTool({name: 'get_component', arguments: {name}})
+
+      expect(result.isError).not.toBe(true)
+      expect(result.content).toEqual([{type: 'text', text: body}])
+      expect(fetchMock).toHaveBeenCalledTimes(1)
+      expect(fetchMock.mock.calls[0]?.[0].toString()).toBe(url)
+    },
+  )
+
+  it.each(['ConfirmationDialog', 'confirmationdialog'])(
+    'retrieves ConfirmationDialog documentation in a mixed batch for %s from its published URL',
+    async name => {
+      const confirmationUrl = 'https://primer.style/product/components/confirmation-dialog/llms.txt'
+      const buttonUrl = 'https://primer.style/product/components/button/llms.txt'
+      const confirmationBody = '# ConfirmationDialog\n\nSynthetic component documentation.'
+      const buttonBody = '# Button\n\nSynthetic component documentation.'
+      const fetchMock = vi.mocked(fetch)
+      fetchMock.mockImplementation(async input => {
+        const url = input.toString()
+        if (url === confirmationUrl) {
+          return new Response(confirmationBody)
+        }
+
+        if (url === buttonUrl) {
+          return new Response(buttonBody)
+        }
+
+        if (url === 'https://primer.style/product/components/confirmationdialog/llms.txt') {
+          return new Response(null, {status: 404})
+        }
+
+        throw new Error(`Unexpected fetch request: ${url}`)
+      })
+
+      const result = await callBatch([name, 'Button'])
+
+      expect(result.isError).not.toBe(true)
+      expect(result.content).toEqual([
+        {type: 'text', text: confirmationBody},
+        {type: 'text', text: buttonBody},
+      ])
+      expect(fetchMock).toHaveBeenCalledTimes(2)
+      expect(fetchMock.mock.calls.map(([input]) => input.toString()).sort()).toEqual(
+        [confirmationUrl, buttonUrl].sort(),
+      )
     },
   )
 
