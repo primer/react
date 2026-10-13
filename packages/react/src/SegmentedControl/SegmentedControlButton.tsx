@@ -61,7 +61,7 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
             <div className={classes.LeadingIcon}>{isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}</div>
           )}
           <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
-            {children}
+            <span className={classes.TextContent}>{children}</span>
           </div>
           {count !== undefined && (
             <span className={classes.Counter}>

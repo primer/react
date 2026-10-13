@@ -82,7 +82,7 @@
     {
       "name": "size",
       "type": "'small' | 'medium'",
-      "description": "The size of the buttons",
+      "description": "The minimum height of the control: 28px for small, 32px for medium. Labels wrap naturally when constrained, and all segments grow to fit the tallest label without shifting height on selection.",
       "defaultValue": ""
     },
     {

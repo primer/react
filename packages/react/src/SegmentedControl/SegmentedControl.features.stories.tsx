@@ -215,3 +215,74 @@ export const AssociatedWithALabelAndCaption = () => (
   </div>
 )
 AssociatedWithALabelAndCaption.storyName = '[Example] Associated with a label and caption'
+
+export const CompactToolbar = () => (
+  <div className={classes.CompactToolbar}>
+    <SegmentedControl aria-label="File view" size="small" className={classes.ConsumerTypography}>
+      <SegmentedControl.Button defaultSelected>Code</SegmentedControl.Button>
+      <SegmentedControl.Button>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+    <Button size="small">Raw</Button>
+  </div>
+)
+
+export const MultilineLabels = () => (
+  <div className={classes.SizingExamples}>
+    {(['small', 'medium'] as const).flatMap(size =>
+      (['default', 'subtle'] as const).map(variant => (
+        <SegmentedControl
+          key={`${size}-${variant}`}
+          aria-label={`${size} ${variant}`}
+          size={size}
+          variant={variant}
+          fullWidth
+        >
+          <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon} count={5}>
+            Preview changes before publishing
+          </SegmentedControl.Button>
+          <SegmentedControl.Button>Code</SegmentedControl.Button>
+          <SegmentedControl.IconButton aria-label="Blame" icon={PeopleIcon} />
+        </SegmentedControl>
+      )),
+    )}
+  </div>
+)
+
+export const ContentSizing = () => (
+  <div className={classes.SizingExamples}>
+    {(['small', 'medium'] as const).flatMap(size =>
+      (['default', 'subtle'] as const).flatMap(variant =>
+        (['ordinary', 'consumer', 'absolute'] as const).map(typography => (
+          <div
+            key={`${size}-${variant}-${typography}`}
+            className={typography === 'absolute' ? classes.AbsoluteTypography : undefined}
+          >
+            <SegmentedControl
+              aria-label={`${size} ${variant} ${typography}`}
+              size={size}
+              variant={variant}
+              className={typography === 'consumer' ? classes.ConsumerTypography : undefined}
+            >
+              <SegmentedControl.Button defaultSelected>Code</SegmentedControl.Button>
+              <SegmentedControl.Button>Blame</SegmentedControl.Button>
+            </SegmentedControl>
+          </div>
+        )),
+      ),
+    )}
+    {(['small', 'medium'] as const).map(size => (
+      <SegmentedControl key={size} aria-label={`${size} icons`} size={size}>
+        <SegmentedControl.IconButton defaultSelected aria-label="Preview" icon={EyeIcon} />
+        <SegmentedControl.IconButton aria-label="Code" icon={FileCodeIcon} />
+      </SegmentedControl>
+    ))}
+    {(['small', 'medium'] as const).map(size => (
+      <SegmentedControl key={size} aria-label={`${size} icons and counters`} size={size}>
+        <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon} count={5}>
+          Preview
+        </SegmentedControl.Button>
+        <SegmentedControl.Button count={3}>Code</SegmentedControl.Button>
+      </SegmentedControl>
+    ))}
+  </div>
+)
