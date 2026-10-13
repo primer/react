@@ -227,13 +227,13 @@ describe('Markup', () => {
     let treeitem = page.getByRole('treeitem', {name: 'Item 1', exact: true})
     await expect.element(treeitem).toHaveAttribute('aria-expanded', 'false')
 
-    await act(async () => userEvent.click(treeitem))
+    await userEvent.click(treeitem)
     await expect.element(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     treeitem = page.getByRole('treeitem', {name: 'Item 2', exact: true})
     await expect.element(treeitem).not.toHaveAttribute('aria-expanded')
 
-    await act(async () => userEvent.click(treeitem))
+    await userEvent.click(treeitem)
     await expect.element(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
@@ -525,7 +525,7 @@ describe('Markup', () => {
       )
 
       const item = page.getByRole('treeitem', {name: /Item 1/})
-      await act(async () => userEvent.click(item))
+      await userEvent.click(item)
       expect(onSelect).toHaveBeenCalledTimes(1)
     })
   })
@@ -576,25 +576,25 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ↓
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
 
       // item 1.1 should be focused
       await expect.element(item11).toHaveFocus()
 
       // Press ↓
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
 
       // item 2 should be focused
       await expect.element(item2).toHaveFocus()
 
       // Press ↓
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
 
       // item 3 should have focus (skips item 2.1 and item 2.2 because they are hidden)
       await expect.element(item3).toHaveFocus()
 
       // Press ↓
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
 
       // focus should not change (item 3 is the last visible treeitem)
       await expect.element(item3).toHaveFocus()
@@ -645,34 +645,34 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ↓ 4 times to move aria-activedescendant to item 3
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
 
       // item 3 should be focused
       await expect.element(item3).toHaveFocus()
 
       // Press ↑
-      await act(async () => userEvent.keyboard('{ArrowUp}'))
+      await userEvent.keyboard('{ArrowUp}')
 
       // Item 2 should have focus (skips item 2.1 and item 2.2 because they are hidden)
       await expect.element(item2).toHaveFocus()
 
       // Press ↑
-      await act(async () => userEvent.keyboard('{ArrowUp}'))
+      await userEvent.keyboard('{ArrowUp}')
 
       // Item 1.1 should be focused
       await expect.element(item11).toHaveFocus()
 
       // Press ↑
-      await act(async () => userEvent.keyboard('{ArrowUp}'))
+      await userEvent.keyboard('{ArrowUp}')
 
       // Item 1 should be focused
       await expect.element(item1).toHaveFocus()
 
       // Press ↑
-      await act(async () => userEvent.keyboard('{ArrowUp}'))
+      await userEvent.keyboard('{ArrowUp}')
 
       // Focus should not change (item 1 is the first visible treeitem)
       await expect.element(item1).toHaveFocus()
@@ -710,7 +710,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ←
-      await act(async () => userEvent.keyboard('{ArrowLeft}'))
+      await userEvent.keyboard('{ArrowLeft}')
 
       // aria-expanded should now be false
       await expect.element(parentItem).toHaveAttribute('aria-expanded', 'false')
@@ -750,7 +750,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ←
-      await act(async () => userEvent.keyboard('{ArrowLeft}'))
+      await userEvent.keyboard('{ArrowLeft}')
 
       // aria-expanded should still be false
       await expect.element(parentItem).toHaveAttribute('aria-expanded', 'false')
@@ -777,7 +777,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ←
-      await act(async () => userEvent.keyboard('{ArrowLeft}'))
+      await userEvent.keyboard('{ArrowLeft}')
 
       // Focus should not change
       await expect.element(item).toHaveFocus()
@@ -811,14 +811,14 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ↓ 2 times to move focus to child 2
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
 
       // Child 2 should be focused
       await expect.element(child2).toHaveFocus()
 
       // Press ←
-      await act(async () => userEvent.keyboard('{ArrowLeft}'))
+      await userEvent.keyboard('{ArrowLeft}')
 
       // Parent item should be focused
       await expect.element(parentItem).toHaveFocus()
@@ -857,14 +857,14 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ↓ 2 times to move focus to nested parent
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
 
       // Nested parent item should be focused
       await expect.element(nestedParentItem).toHaveFocus()
 
       // Press ←
-      await act(async () => userEvent.keyboard('{ArrowLeft}'))
+      await userEvent.keyboard('{ArrowLeft}')
 
       // Parent item should be focused
       await expect.element(parentItem).toHaveFocus()
@@ -898,7 +898,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press →
-      await act(async () => userEvent.keyboard('{ArrowRight}'))
+      await userEvent.keyboard('{ArrowRight}')
 
       // aria-expanded should now be true
       await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
@@ -937,7 +937,7 @@ describe('Keyboard interactions', () => {
       })
       await expect.element(parentItem).toHaveFocus()
 
-      await act(async () => userEvent.keyboard('{ArrowRight}'))
+      await userEvent.keyboard('{ArrowRight}')
 
       const childItem = page.getByRole('treeitem', {
         name: 'Child',
@@ -979,13 +979,13 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ↓ to move focus to child 1
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
 
       // Child 1 should be focused
       await expect.element(child1).toHaveFocus()
 
       // Press →
-      await act(async () => userEvent.keyboard('{ArrowRight}'))
+      await userEvent.keyboard('{ArrowRight}')
 
       // Focus should not change
       await expect.element(child1).toHaveFocus()
@@ -1018,7 +1018,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press Backspace
-      await act(async () => userEvent.keyboard('{Backspace}'))
+      await userEvent.keyboard('{Backspace}')
 
       await expect.element(parentItem).toHaveFocus()
     })
@@ -1053,7 +1053,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press Backspace
-      await act(async () => userEvent.keyboard('{Backspace}'))
+      await userEvent.keyboard('{Backspace}')
 
       // aria-expanded should stay set as true
       await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
@@ -1103,13 +1103,13 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ↓ 2 times to move focus to parent 3
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
 
       // Parent 3 should be focused
       await expect.element(parent3).toHaveFocus()
 
       // Press Home
-      await act(async () => userEvent.keyboard('{Home}'))
+      await userEvent.keyboard('{Home}')
 
       // Parent 1 should be focused
       await expect.element(parent1).toHaveFocus()
@@ -1156,16 +1156,16 @@ describe('Keyboard interactions', () => {
       })
 
       // Press End
-      await act(async () => userEvent.keyboard('{End}'))
+      await userEvent.keyboard('{End}')
 
       // Parent 3 should be focused
       await expect.element(parent3).toHaveFocus()
 
       // Press → to expand parent 3
-      await act(async () => userEvent.keyboard('{ArrowRight}'))
+      await userEvent.keyboard('{ArrowRight}')
 
       // Press End
-      await act(async () => userEvent.keyboard('{End}'))
+      await userEvent.keyboard('{End}')
 
       const child3 = page.getByRole('treeitem', {
         name: 'Child 3',
@@ -1219,7 +1219,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press Enter
-      await act(async () => userEvent.keyboard('{Enter}'))
+      await userEvent.keyboard('{Enter}')
 
       // onSelect should have been called
       expect(onSelect).toHaveBeenCalledTimes(1)
@@ -1260,7 +1260,7 @@ describe('Keyboard interactions', () => {
       await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
 
       // Press Enter
-      await act(async () => userEvent.keyboard('{Enter}'))
+      await userEvent.keyboard('{Enter}')
 
       // aria-expanded should now be true
       await expect.element(parent).toHaveAttribute('aria-expanded', 'true')
@@ -1269,7 +1269,7 @@ describe('Keyboard interactions', () => {
       await expect.element(page.getByRole('group')).toBeVisible()
 
       // Press Enter
-      await act(async () => userEvent.keyboard('{Enter}'))
+      await userEvent.keyboard('{Enter}')
 
       // aria-expanded should now be false
       await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
@@ -1321,7 +1321,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press Enter
-      await act(async () => userEvent.keyboard(' '))
+      await userEvent.keyboard(' ')
 
       // onSelect should have been called
       expect(onSelect).toHaveBeenCalledTimes(1)
@@ -1362,7 +1362,7 @@ describe('Keyboard interactions', () => {
       await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
 
       // Press Enter
-      await act(async () => userEvent.keyboard('{Enter}'))
+      await userEvent.keyboard('{Enter}')
 
       // aria-expanded should now be true
       await expect.element(parent).toHaveAttribute('aria-expanded', 'true')
@@ -1371,7 +1371,7 @@ describe('Keyboard interactions', () => {
       await expect.element(page.getByRole('group')).toBeVisible()
 
       // Press Enter
-      await act(async () => userEvent.keyboard('{Enter}'))
+      await userEvent.keyboard('{Enter}')
 
       // aria-expanded should now be false
       await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
@@ -1412,7 +1412,7 @@ describe('Keyboard interactions', () => {
       })
 
       // Press C
-      await act(async () => userEvent.keyboard('c'))
+      await userEvent.keyboard('c')
 
       // Cherry should be focused
       await expect.element(cherry).toHaveFocus()
@@ -1445,7 +1445,7 @@ describe('Keyboard interactions', () => {
       await expect.element(apple).toHaveFocus()
 
       // Press Z
-      await act(async () => userEvent.keyboard('z'))
+      await userEvent.keyboard('z')
 
       // Apple should still be focused
       await expect.element(apple).toHaveFocus()
@@ -1477,9 +1477,9 @@ describe('Keyboard interactions', () => {
       })
 
       // Press C + A + N
-      await act(async () => userEvent.keyboard('c'))
-      await act(async () => userEvent.keyboard('a'))
-      await act(async () => userEvent.keyboard('n'))
+      await userEvent.keyboard('c')
+      await userEvent.keyboard('a')
+      await userEvent.keyboard('n')
 
       // Cantalope should be focused
       await expect.element(cantalope).toHaveFocus()
@@ -1515,13 +1515,13 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ↓ to move focus to cherry
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
 
       // Cherry should be focused
       await expect.element(cherry).toHaveFocus()
 
       // Press C
-      await act(async () => userEvent.keyboard('c'))
+      await userEvent.keyboard('c')
 
       // Cantalope should be focused
       await expect.element(cantalope).toHaveFocus()
@@ -1554,14 +1554,14 @@ describe('Keyboard interactions', () => {
       })
 
       // Press ↓ 2 times to move focus to cantalope
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
-      await act(async () => userEvent.keyboard('{ArrowDown}'))
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.keyboard('{ArrowDown}')
 
       // Cantalope should be focused
       await expect.element(cantalope).toHaveFocus()
 
       // Press C
-      await act(async () => userEvent.keyboard('c'))
+      await userEvent.keyboard('c')
 
       // Cucumber should be focused
       await expect.element(cucumber).toHaveFocus()
@@ -1605,22 +1605,22 @@ describe('State', () => {
     })
 
     // Press Enter to expand item 2
-    await act(async () => userEvent.keyboard('{Enter}'))
+    await userEvent.keyboard('{Enter}')
 
     // Item 2 should be expanded
     await expect.element(item2).toHaveAttribute('aria-expanded', 'true')
 
     // Press ↑ to move focus to item 1
-    await act(async () => userEvent.keyboard('{ArrowUp}'))
+    await userEvent.keyboard('{ArrowUp}')
 
     // Press Enter to collapse item 1
-    await act(async () => userEvent.keyboard('{Enter}'))
+    await userEvent.keyboard('{Enter}')
 
     // Item 1 should be collapsed
     await expect.element(item1).toHaveAttribute('aria-expanded', 'false')
 
     // Press Enter again to expand item 1
-    await act(async () => userEvent.keyboard('{Enter}'))
+    await userEvent.keyboard('{Enter}')
 
     // Item 1 should be expanded
     await expect.element(item1).toHaveAttribute('aria-expanded', 'true')
@@ -1674,7 +1674,7 @@ describe('State', () => {
     })
 
     // Press ← to collapse the parent
-    await act(async () => userEvent.keyboard('{ArrowLeft}'))
+    await userEvent.keyboard('{ArrowLeft}')
 
     // Parent should be collapsed
     await expect.element(parent).toHaveAttribute('aria-expanded', 'false')
@@ -1730,13 +1730,13 @@ describe('Asynchronous loading', () => {
       exact: true,
     })
 
-    await act(async () => userEvent.click(doneButton))
+    await userEvent.click(doneButton)
 
     // Get live region after the first announcement creates it
     await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('Parent content loading')
     const liveRegion = getLiveRegion()
 
-    await act(async () => userEvent.click(doneButton))
+    await userEvent.click(doneButton)
 
     await expect.poll(() => liveRegion.getMessage('polite')).toBe('Parent content loaded')
   })
@@ -1781,7 +1781,7 @@ describe('Asynchronous loading', () => {
       parentItem.element().focus()
     })
 
-    await act(async () => userEvent.keyboard('{ArrowDown}'))
+    await userEvent.keyboard('{ArrowDown}')
 
     // Loading item should be focused
     await expect.element(loadingItem).toHaveFocus()
@@ -1845,7 +1845,7 @@ describe('Asynchronous loading', () => {
     await expect.element(dialog).toBeVisible()
     const dialogElement = dialog.element()
 
-    await act(async () => userEvent.keyboard('{Escape}'))
+    await userEvent.keyboard('{Escape}')
 
     // Dialog should not be visible
     expect(dialogElement).not.toBeVisible()
@@ -1885,12 +1885,12 @@ describe('Asynchronous loading', () => {
     })
     await expect.element(retryButton).toHaveFocus()
 
-    await act(async () => userEvent.keyboard('{ArrowLeft}'))
+    await userEvent.keyboard('{ArrowLeft}')
 
     // Parent item should still be expanded
     await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-    await act(async () => userEvent.keyboard('{Backspace}'))
+    await userEvent.keyboard('{Backspace}')
 
     // Parent item should still be expanded
     await expect.element(parentItem).toHaveAttribute('aria-expanded', 'true')
@@ -1938,12 +1938,10 @@ describe('Asynchronous loading', () => {
       exact: true,
     })
     await expect.element(treeitem).toHaveAttribute('aria-expanded', 'false')
-    await act(async () =>
-      userEvent.click(
-        page.getByText('Item 1', {
-          exact: true,
-        }),
-      ),
+    await userEvent.click(
+      page.getByText('Item 1', {
+        exact: true,
+      }),
     )
 
     await expect.element(treeitem).toHaveAttribute('aria-expanded', 'true')
@@ -2006,13 +2004,11 @@ describe('Asynchronous loading', () => {
       )
       .not.toHaveAttribute('aria-expanded')
 
-    await act(async () =>
-      userEvent.click(
-        page.getByRole('treeitem', {
-          name: 'empty child',
-          exact: true,
-        }),
-      ),
+    await userEvent.click(
+      page.getByRole('treeitem', {
+        name: 'empty child',
+        exact: true,
+      }),
     )
 
     // Empty child should have `aria-expanded` when opened
@@ -2145,7 +2141,7 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
 
   await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
 
-  await act(async () => userEvent.keyboard('{Meta>}{Shift>}u{/Shift}{/Meta}'))
+  await userEvent.keyboard('{Meta>}{Shift>}u{/Shift}{/Meta}')
 
   await expect.element(page.getByRole('dialog')).toBeInTheDocument()
 })

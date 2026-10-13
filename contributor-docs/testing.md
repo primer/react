@@ -82,7 +82,7 @@ The Button and TreeView suites pilot [Vitest Browser locators](https://vitest.de
 Keep RTL for `render`, `rerender`, `unmount`, `renderHook`, cleanup, and explicit React `act` boundaries. Import browser queries and interactions from `vitest/browser`:
 
 ```tsx
-import {act, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {expect, it, vi} from 'vitest'
 import {page, userEvent} from 'vitest/browser'
 import {Button} from '@primer/react'
@@ -93,7 +93,7 @@ it('calls onClick', async () => {
 
   const button = page.getByRole('button', {name: 'Submit', exact: true})
   await expect.element(button).toBeVisible()
-  await act(async () => userEvent.click(button))
+  await userEvent.click(button)
   expect(onClick).toHaveBeenCalledTimes(1)
 })
 ```
@@ -104,8 +104,9 @@ Use `expect.element` for eventual DOM assertions and `expect.poll` for eventual 
 - DOM presence and visibility are different contracts. Button's loading announcement is checked by its exact ID and text because the spinner also contains "Loading".
 - Keep intentional synthetic events for disabled-click suppression, event cancellation, and specific event payloads. Browser actions wait for actionable elements and don't expose the result of `dispatchEvent`.
 - Keep the pointer-only TreeView chevron's programmatic `.click()` exception inside `act`; browser pointer focus on it emits a known focus-zone warning.
-- Wrap browser-backed interactions in awaited async `act` boundaries. Vitest's browser `userEvent` doesn't wrap React state updates in `act`; eventual assertions don't replace that boundary.
+- Await browser interactions directly, without wrapping them in `act`. The browser setup leaves React's act environment to RTL instead of forcing `IS_REACT_ACT_ENVIRONMENT` on for the whole suite.
 - Keep programmatic focus in `act` when testing focus redirection. Preserve fake timers and synchronous assertions after explicit timer advancement.
+- Import `act` from `@testing-library/react` for manual updates, including focus, timers, hooks, and hydration. RTL scopes the act environment to that operation and restores it afterward.
 - Use `.element()` for snapshots, computed styles, structural checks, or capturing a particular node before it unmounts. A locator follows current DOM state; it doesn't retain the identity of a detached node.
 
 The pilot leaves shared helpers, Node/SSR tests, and the separate Playwright visual and accessibility suites unchanged. It doesn't require removing RTL dependencies.

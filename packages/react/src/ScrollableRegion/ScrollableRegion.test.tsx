@@ -1,6 +1,5 @@
 import {describe, expect, test, beforeEach, afterEach} from 'vitest'
-import {render, screen} from '@testing-library/react'
-import {act} from 'react'
+import {act, render, screen} from '@testing-library/react'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {implementsClassName} from '../utils/testing'
 import classes from './ScrollableRegion.module.css'

@@ -1,9 +1,8 @@
-import {render} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import {beforeEach, afterEach, describe, expect, it, vi} from 'vitest'
 import {SkeletonBox} from '../SkeletonBox'
 import classes from '../SkeletonBox.module.css'
 import {implementsClassName} from '../../utils/testing'
-import {act} from 'react'
 
 describe('SkeletonBox', () => {
   implementsClassName(SkeletonBox, classes.SkeletonBox)

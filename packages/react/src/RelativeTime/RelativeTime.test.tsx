@@ -1,9 +1,8 @@
-import {act} from 'react'
 import {hydrateRoot, type Root} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {describe, expect, it, vi} from 'vitest'
 import RelativeTime from '.'
-import {render} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import {implementsClassName} from '../utils/testing'
 
 describe('RelativeTime', () => {

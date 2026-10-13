@@ -3,8 +3,8 @@
 // public API and its integration with Tabs.
 
 import type React from 'react'
-import {act, useState} from 'react'
-import {render, screen} from '@testing-library/react'
+import {useState} from 'react'
+import {act, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, it, afterEach, beforeEach, expect, vi} from 'vitest'
 import {CodeIcon, EyeIcon} from '@primer/octicons-react'

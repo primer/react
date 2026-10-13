@@ -1,6 +1,6 @@
 import {page, userEvent} from 'vitest/browser'
 import {SearchIcon, HeartIcon} from '@primer/octicons-react'
-import {render, fireEvent, act} from '@testing-library/react'
+import {render, fireEvent} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
@@ -45,7 +45,7 @@ describe('Button', () => {
     const onClick = vi.fn()
     render(<Button onClick={onClick}>Noop</Button>)
     const button = page.getByRole('button')
-    await act(async () => userEvent.click(button))
+    await userEvent.click(button)
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -227,7 +227,7 @@ describe('Button', () => {
 
     const buttonNode = page.getByRole('button')
 
-    await act(async () => userEvent.click(buttonNode))
+    await userEvent.click(buttonNode)
 
     await expect.element(buttonNode).toHaveAttribute('aria-describedby', `${buttonId}-loading-announcement`)
 
@@ -247,7 +247,7 @@ describe('Button', () => {
 
     const buttonNode = page.getByRole('button')
 
-    await act(async () => userEvent.click(buttonNode))
+    await userEvent.click(buttonNode)
 
     await expect.element(buttonNode).toHaveAttribute('aria-describedby', `${buttonId}-loading-announcement`)
 
@@ -270,7 +270,7 @@ describe('Button', () => {
 
     const buttonNode = page.getByRole('button')
 
-    await act(async () => userEvent.click(buttonNode))
+    await userEvent.click(buttonNode)
 
     const buttonDescribedBy = page.getByRole('button').element().getAttribute('aria-describedby')
     const loadingAnnouncementId = `${buttonId}-loading-announcement`
@@ -291,7 +291,7 @@ describe('Button', () => {
 
     expect(buttonNode.element().getAttribute('aria-disabled')).not.toBe('true')
 
-    await act(async () => userEvent.click(buttonNode))
+    await userEvent.click(buttonNode)
 
     await expect.element(buttonNode).toHaveAttribute('aria-disabled', 'true')
   })
