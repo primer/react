@@ -1,0 +1,30 @@
+.TableBulkActions {
+  grid-area: bulk-actions;
+
+  &:where([data-active]) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--base-size-8);
+    padding: var(--base-size-12) var(--base-size-16);
+    margin-block-start: var(--base-size-8);
+    margin-block-end: var(--base-size-8);
+    background-color: var(--bgColor-muted);
+    border: var(--borderWidth-thin) solid var(--borderColor-default);
+    border-radius: var(--borderRadius-medium);
+    font-size: var(--text-body-size-small);
+  }
+}
+
+.Actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-size-8);
+  margin-inline-start: auto;
+}
+
+.DataTableWithBulkActions {
+  grid-area: table;
+  min-width: 0;
+}

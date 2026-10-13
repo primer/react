@@ -31,6 +31,7 @@ interface Table<Data extends UniqueRow> {
     toggleRowSelection: (row: Row<Data>) => void
     toggleAllRows: () => void
     toggleGroupExpansion: (group: RowGroup<Data>) => void
+    clearSelection: () => void
   }
   selection: {
     headerId: string
@@ -414,6 +415,9 @@ export function useTable<Data extends UniqueRow>({
       toggleRowSelection,
       toggleAllRows,
       toggleGroupExpansion,
+      clearSelection: () => {
+        setSelectedRows(new Set<DataTableRowId>())
+      },
     },
     selection: {
       headerId: `${tableId}-selection-column`,
