@@ -155,7 +155,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           {childrenWithoutSlots.filter(
             child =>
               React.isValidElement(child) &&
-              ![Checkbox, Radio].some(inputComponent => child.type === inputComponent || isSlot(child, inputComponent)),
+              !expectedInputComponents.some(
+                inputComponent => child.type === inputComponent || isSlot(child, inputComponent),
+              ),
           )}
         </div>
         {slots.leadingVisual ? (
