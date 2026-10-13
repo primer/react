@@ -9,8 +9,6 @@ interface UsageGuidelineRoute {
   publication: 'published' | 'unpublished'
 }
 
-// Publication was checked against the sitemap and live pages on 2026-10-13.
-// Unpublished cases protect routing under controlled responses, not the existence of guidance.
 const usageGuidelineRoutes: ReadonlyArray<UsageGuidelineRoute> = [
   {
     name: 'ActionBar',
