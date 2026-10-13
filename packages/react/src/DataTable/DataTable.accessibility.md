@@ -86,8 +86,8 @@ the accessible name, with visually hidden text adding the comma and `row` or
 `rows` suffix. This avoids duplicating the label and count. Consumers can
 override the name through the group's `aria-label`, including for localization.
 
-A group heading is not a button. Selection and expansion actions are not part
-of this contract and must not be included in its accessible name.
+A group heading retains its native header role, even when it contains a
+disclosure button. Action verbs must not be included in its accessible name.
 
 ```html
 <tbody>
@@ -259,6 +259,55 @@ its header ID to selection cells' `headers`; group headings have no checkbox.
 Examples: `WithRowSelection` in [Table features](./Table.features.stories.tsx)
 and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.stories.tsx).
 
+## Group expansion
+
+`DataTable` enables disclosure controls with `collapsibleGroups`. Its
+`expandedGroups` / `defaultExpandedGroups` sets address stable `groupId` values
+(string and numeric IDs remain distinct). `onExpandedGroupsChange({expandedGroups})`
+requests an immutable update. When uncontrolled, all groups in the initial data
+are expanded by default; newly introduced IDs are collapsed. Sorting, reordering,
+pagination, and replacement data retain stored expansion IDs without emitting
+callbacks. Consumers may control the set to choose how new groups should open.
+
+`Table.Group` supports the equivalent single-group contract with `collapsible`,
+`expanded`, `defaultExpanded` (true), and `onExpandedChange({expanded})`.
+Non-collapsible groups always show their members, regardless of expansion state.
+Neither API adds group-level selection.
+
+- The disclosure is a native button, activated by Enter or Space, with
+  `aria-expanded` and `aria-controls` referencing the always-mounted member
+  `<tbody>`. Generated IDs are instance-scoped and safe for server rendering.
+- Following the audited reference, the header and disclosure names remain the
+  group label; the disclosure's `aria-description` supplies the member count.
+  The existing group `aria-label` overrides both names. Localize this label as
+  needed; the generated count description currently uses English.
+- The collapsed member body uses `hidden` and an explicit CSS display override
+  so grid/subgrid styles cannot expose hidden rows. Its children stay mounted,
+  preserving local input state, but are absent from table navigation and the
+  keyboard Tab order.
+- Activating a disclosure keeps focus on it. A controlled collapse returns
+  focus to that group's disclosure only if focus was inside the hidden body;
+  it never moves focus from another group or an outside control. A narrowly
+  guarded layout effect handles this external state change, which has no
+  disclosure event handler.
+- Collapsing never removes members from the table model or clears selection.
+  Current-page select-all includes every selectable supplied row, even inside
+  collapsed groups. Effective selected IDs/count still exclude missing or
+  non-selectable rows, not hidden rows. Expansion does not emit selection changes.
+
+```tsx
+<DataTable
+  data={groups}
+  columns={columns}
+  collapsibleGroups
+  expandedGroups={expandedGroups}
+  onExpandedGroupsChange={({expandedGroups}) => setExpandedGroups(expandedGroups)}
+  rowSelection
+  selectedRows={selectedRows}
+  onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
+/>
+```
+
 ## Verification
 
 - [Grouping tests](./__tests__/DataTableGrouping.test.tsx) cover mixed body
@@ -268,6 +317,9 @@ and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.sto
   spanning headers, accessible names, and nested-table isolation.
 - [Selection tests](./__tests__/DataTableSelection.test.tsx) cover controlled
   updates, disabled rows, focus, and hydration.
+- [Expansion tests](./__tests__/DataTableExpansion.test.tsx) cover controlled
+  requests, keyboard activation, hidden member state, conditional focus recovery,
+  unchanged selection scope, stable identity, sorting, and hydration.
 - [DataTable browser tests](../../../../e2e/components/DataTable.test.ts) cover
   themed axe checks, visual snapshots, and a group split across pages.
 - [Table browser tests](../../../../e2e/components/Table.test.ts) cover explicit

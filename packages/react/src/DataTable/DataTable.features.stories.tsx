@@ -8,6 +8,7 @@ import {
   TrashIcon,
 } from '@primer/octicons-react'
 import {action} from 'storybook/actions'
+import {expect, userEvent, within} from 'storybook/test'
 import type {Meta} from '@storybook/react-vite'
 import React from 'react'
 import {ActionList} from '../ActionList'
@@ -1818,6 +1819,46 @@ const sortableGroupedColumns = [
   }),
   groupedColumns[1],
 ]
+
+export const WithCollapsibleGroups = () => {
+  const titleId = React.useId()
+  const [expandedGroups, setExpandedGroups] = React.useState<ReadonlySet<DataTableRowId>>(
+    () => new Set(['internal', 'public']),
+  )
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id={titleId}>
+        Collapsible repositories by visibility
+      </Table.Title>
+      <Table.Actions>
+        <Button onClick={() => setExpandedGroups(new Set())}>Collapse all groups</Button>
+        <Button onClick={() => setExpandedGroups(new Set(['internal', 'public']))}>Expand all groups</Button>
+      </Table.Actions>
+      <DataTable
+        aria-labelledby={titleId}
+        data={repoGroupsWithDisabledRow}
+        columns={sortableGroupedColumns}
+        collapsibleGroups
+        expandedGroups={expandedGroups}
+        onExpandedGroupsChange={({expandedGroups}) => setExpandedGroups(expandedGroups)}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
+        isRowSelectable={repo => repo.id !== 1}
+      />
+    </Table.Container>
+  )
+}
+
+WithCollapsibleGroups.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const publicGroup = canvas.getByRole('button', {name: 'Public'})
+  await userEvent.click(publicGroup)
+  await expect(publicGroup).toHaveAttribute('aria-expanded', 'false')
+  await userEvent.keyboard('{Enter}')
+  await expect(publicGroup).toHaveAttribute('aria-expanded', 'true')
+}
 
 export const WithStandaloneAndGroupedRowSelection = () => {
   const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())

@@ -323,6 +323,29 @@
   color: var(--fgColor-muted);
 }
 
+.TableBody:where([hidden]) {
+  display: none;
+}
+
+.TableGroupToggle {
+  display: inline-flex;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  color: var(--fgColor-default);
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  border-radius: var(--borderRadius-small);
+
+  &:hover {
+    background-color: var(--bgColor-neutral-muted);
+  }
+
+  &:where([aria-expanded='true']) svg {
+    transform: rotate(90deg);
+  }
+}
+
 .PlaceholderText {
   color: var(--fgColor-muted);
 }
