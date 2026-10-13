@@ -20,6 +20,7 @@ import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
+import {AriaStatus} from '../live-region'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
 import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
@@ -1769,6 +1770,65 @@ export const WithRowSelection = () => {
           setSelectedRows(nextSelectedRows)
         }}
       />
+    </Table.Container>
+  )
+}
+
+export const WithBulkActions = () => {
+  const repositories = [
+    {id: 1, name: 'primer/react', visibility: 'Public'},
+    {id: 2, name: 'primer/css', visibility: 'Public'},
+    {id: 3, name: 'github/github', visibility: 'Internal'},
+  ]
+  const titleId = React.useId()
+  const [rows, setRows] = React.useState(repositories)
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set([1]))
+  const [message, setMessage] = React.useState('')
+  const resetButtonRef = React.useRef<HTMLButtonElement>(null)
+
+  return (
+    <Table.Container>
+      <Table.Title id={titleId}>Repositories</Table.Title>
+      <Table.Actions>
+        <Button
+          ref={resetButtonRef}
+          onClick={() => {
+            setRows(repositories)
+            setSelectedRows(new Set())
+            setMessage('')
+          }}
+        >
+          Reset repositories
+        </Button>
+      </Table.Actions>
+      <DataTable
+        aria-labelledby={titleId}
+        data={[
+          ...rows.filter(row => row.visibility === 'Internal'),
+          {groupId: 'public', label: 'Public', rows: rows.filter(row => row.visibility === 'Public')},
+        ]}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true, sortBy: 'alphanumeric'},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows: next}) => setSelectedRows(next)}
+        bulkActionsReturnFocusRef={rows.length === 0 ? resetButtonRef : undefined}
+        renderBulkActions={({selectedRows: effectiveIds, selectedCount, clearSelection}) => (
+          <Button
+            variant="danger"
+            onClick={() => {
+              setRows(current => current.filter(row => !effectiveIds.has(row.id)))
+              clearSelection()
+              setMessage(`${selectedCount} ${selectedCount === 1 ? 'repository' : 'repositories'} deleted`)
+            }}
+          >
+            Delete selected
+          </Button>
+        )}
+      />
+      <AriaStatus>{message}</AriaStatus>
     </Table.Container>
   )
 }
