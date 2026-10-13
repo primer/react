@@ -301,6 +301,7 @@ describe('DataTable bulk actions', () => {
       />
     )
     const container = document.createElement('div')
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     container.innerHTML = renderToString(element)
     document.body.appendChild(container)
     const serverTable = within(container).getByRole('table')
@@ -312,9 +313,15 @@ describe('DataTable bulk actions', () => {
         root = hydrateRoot(container, element, {onRecoverableError})
       })
       expect(onRecoverableError).not.toHaveBeenCalled()
+      expect(
+        consoleErrorSpy.mock.calls.every(([message]) =>
+          String(message).includes('useLayoutEffect does nothing on the server'),
+        ),
+      ).toBe(true)
       expect(within(container).getByRole('table')).toBe(serverTable)
       expect(within(container).getByText('1 row selected')).toBeVisible()
     } finally {
+      consoleErrorSpy.mockRestore()
       await act(async () => root?.unmount())
       container.remove()
     }
@@ -331,8 +338,17 @@ describe('Table.BulkActions', () => {
     const user = userEvent.setup()
     const ref = React.createRef<HTMLDivElement>()
     const onClearSelection = vi.fn()
+    const onFocusCapture = vi.fn()
+    const onBlurCapture = vi.fn()
     render(
-      <Table.BulkActions ref={ref} data-testid="actions" selectedCount={2} onClearSelection={onClearSelection}>
+      <Table.BulkActions
+        ref={ref}
+        data-testid="actions"
+        selectedCount={2}
+        onClearSelection={onClearSelection}
+        onFocusCapture={onFocusCapture}
+        onBlurCapture={onBlurCapture}
+      >
         <Button>First</Button>
         <Button>Second</Button>
       </Table.BulkActions>,
@@ -343,10 +359,12 @@ describe('Table.BulkActions', () => {
     expect(group).toHaveAttribute('data-component', 'Table.BulkActions')
     await user.tab()
     expect(screen.getByRole('button', {name: 'Clear selection'})).toHaveFocus()
+    expect(onFocusCapture).toHaveBeenCalledOnce()
     await user.keyboard('{Enter}')
     expect(onClearSelection).toHaveBeenCalledOnce()
     await user.tab()
     expect(screen.getByRole('button', {name: 'First'})).toHaveFocus()
+    expect(onBlurCapture).toHaveBeenCalledOnce()
     await user.tab()
     expect(screen.getByRole('button', {name: 'Second'})).toHaveFocus()
   })
