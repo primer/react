@@ -3,7 +3,6 @@ import {clsx} from 'clsx'
 import {Button} from '../Button'
 import {AriaStatus} from '../live-region'
 import VisuallyHidden from '../_VisuallyHidden'
-import {mergeProps} from '../utils/mergeProps'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import classes from './TableBulkActions.module.css'
 
@@ -46,6 +45,8 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
     'aria-label': ariaLabel = 'Bulk actions',
     className,
     children,
+    onFocusCapture,
+    onBlurCapture,
     ...rest
   },
   ref,
@@ -74,19 +75,21 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
 
   return (
     <div
-      {...mergeProps(
-        {
-          onFocusCapture: (event: React.FocusEvent<HTMLDivElement>) => {
-            focusedAction.current = event.target
-          },
-          onBlurCapture: (event: React.FocusEvent<HTMLDivElement>) => {
-            if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
-              focusedAction.current = null
-            }
-          },
-        },
-        rest,
-      )}
+      {...rest}
+      onFocusCapture={event => {
+        focusedAction.current = event.target
+        if (!event.defaultPrevented) {
+          onFocusCapture?.(event)
+        }
+      }}
+      onBlurCapture={event => {
+        if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
+          focusedAction.current = null
+        }
+        if (!event.defaultPrevented) {
+          onBlurCapture?.(event)
+        }
+      }}
       ref={ref}
       role={active ? 'group' : undefined}
       aria-label={active ? ariaLabel : undefined}
