@@ -296,8 +296,9 @@
 .TableGroupHeaderCell {
   display: flex;
   grid-column: 1 / -1;
-  align-items: baseline;
-  column-gap: var(--base-size-8);
+  align-items: center;
+  /* Match the padding on either side of the selection/data column boundary. */
+  column-gap: calc(2 * var(--cell-padding-inline));
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--table-cell-padding);
   text-align: start;
@@ -331,6 +332,8 @@
   display: inline-flex;
   width: var(--base-size-24);
   height: var(--base-size-24);
+  /* Center the hit target over the same 16px slot as a selection checkbox. */
+  margin-inline: calc((var(--base-size-16) - var(--base-size-24)) / 2);
   color: var(--fgColor-default);
   align-items: center;
   justify-content: center;

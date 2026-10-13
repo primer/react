@@ -143,6 +143,53 @@ describe('DataTable group expansion', () => {
     expect(result.current.selection.selectedRows).toEqual(new Set([1]))
   })
 
+  describe.each(['ltr', 'rtl'] as const)('alignment (%s)', dir => {
+    it.each(['condensed', 'normal', 'spacious'] as const)(
+      'aligns disclosures, checkboxes and text with %s cell padding',
+      async cellPadding => {
+        const user = userEvent.setup()
+        render(
+          <div dir={dir}>
+            <DataTable
+              data={data}
+              columns={[{header: 'Name', field: 'name', rowHeader: true}]}
+              cellPadding={cellPadding}
+              collapsibleGroups
+              rowSelection
+            />
+          </div>,
+        )
+        const disclosure = screen.getByRole('button', {name: 'First'})
+        const label = screen.getByText('First')
+        const textRange = document.createRange()
+        textRange.selectNodeContents(screen.getByRole('rowheader', {name: 'Beta'}))
+        const rowText = textRange.getBoundingClientRect()
+        textRange.selectNodeContents(screen.getByRole('columnheader', {name: 'Name'}))
+        const columnText = textRange.getBoundingClientRect()
+        const inlineStart = (rect: DOMRect) => (dir === 'rtl' ? rect.right : rect.left)
+
+        for (const expanded of [true, false]) {
+          if (!expanded) {
+            await user.click(disclosure)
+          }
+          const buttonRect = disclosure.getBoundingClientRect()
+          const labelRect = label.getBoundingClientRect()
+          for (const checkbox of screen.getAllByRole('checkbox')) {
+            const checkboxRect = checkbox.getBoundingClientRect()
+            expect(
+              Math.abs(buttonRect.x + buttonRect.width / 2 - checkboxRect.x - checkboxRect.width / 2),
+            ).toBeLessThan(0.5)
+          }
+          expect(Math.abs(inlineStart(labelRect) - inlineStart(rowText))).toBeLessThan(0.5)
+          expect(Math.abs(inlineStart(labelRect) - inlineStart(columnText))).toBeLessThan(0.5)
+          expect(Math.abs(buttonRect.y + buttonRect.height / 2 - labelRect.y - labelRect.height / 2)).toBeLessThan(0.5)
+          expect(buttonRect.width).toBeGreaterThanOrEqual(24)
+          expect(buttonRect.height).toBeGreaterThanOrEqual(24)
+        }
+      },
+    )
+  })
+
   it('preserves expansion across sorting, reordering, removal and reintroduction', async () => {
     const user = userEvent.setup()
     const onExpandedGroupsChange = vi.fn()
