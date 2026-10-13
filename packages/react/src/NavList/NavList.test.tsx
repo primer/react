@@ -614,6 +614,20 @@ describe('NavList.ShowMoreItem with pages', () => {
       expect(container.querySelector('[data-component="ActionList"]')).toHaveAttribute('data-item-gap', '')
     })
 
+    it('does not set data-item-gap when disableItemGap is set', () => {
+      const {container} = render(
+        <NavList disableItemGap>
+          <NavList.Item href="#" aria-current="page">
+            Home
+          </NavList.Item>
+          <NavList.Item href="#">About</NavList.Item>
+        </NavList>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
+      expect(container.querySelector('nav')).not.toHaveAttribute('disableitemgap')
+    })
+
     it('adds a gap between a parent item and the first item of its expanded sub-nav by default', () => {
       const {container} = render(
         <NavList>
@@ -629,6 +643,25 @@ describe('NavList.ShowMoreItem with pages', () => {
       const subGroup = container.querySelector('ul[aria-labelledby]')
       expect(subGroup).not.toBeNull()
       expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('2px')
+    })
+
+    it('does not add a gap before a sub-nav when disableItemGap is set and the feature flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <NavList disableItemGap>
+            <NavList.Item defaultOpen href="#">
+              Item 1
+              <NavList.SubNav>
+                <NavList.Item href="#">Sub item 1</NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList>
+        </FeatureFlags>,
+      )
+
+      const subGroup = container.querySelector('ul[aria-labelledby]')
+      expect(subGroup).not.toBeNull()
+      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('0px')
     })
   })
 

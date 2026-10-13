@@ -340,7 +340,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
             className={classes.ActionListContent}
             data-size={size}
             // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
-            ref={forwardedRef}
+            ref={listSemantics ? null : forwardedRef}
           >
             {/* Reset TooltipContext so that child components don't detect
                 the ConditionalTooltip and suppress their own internal tooltips. */}

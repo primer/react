@@ -5,6 +5,7 @@ import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
 import classes from '../ButtonBase.module.css'
 import {implementsClassName} from '../../utils/testing'
+import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -283,6 +284,139 @@ describe('Button', () => {
     const container = render(<Button aria-disabled>content</Button>)
 
     expect(container.getByRole('button')).toHaveAttribute('aria-disabled', 'true')
+  })
+
+  describe('accessible loading disabled styles', () => {
+    const visualStyles = (element: HTMLElement) => {
+      const {backgroundColor, borderColor, color, cursor} = getComputedStyle(element)
+      return {backgroundColor, borderColor, color, cursor}
+    }
+
+    const renderWithLoadingDisabledStyles = (children: React.ReactNode) =>
+      render(<FeatureFlags flags={{primer_react_button_loading_disabled_styles: true}}>{children}</FeatureFlags>)
+
+    it('applies disabled styles to a loading primary button without using native disabled', () => {
+      renderWithLoadingDisabledStyles(
+        <>
+          <Button variant="primary" loading>
+            Loading
+          </Button>
+          <Button variant="primary" disabled>
+            Disabled
+          </Button>
+          <Button variant="primary">Enabled</Button>
+        </>,
+      )
+
+      const loadingButton = screen.getByRole('button', {name: 'Loading'})
+      const disabledButton = screen.getByRole('button', {name: 'Disabled'})
+      const enabledButton = screen.getByRole('button', {name: 'Enabled'})
+
+      expect(loadingButton).toHaveAttribute('aria-disabled', 'true')
+      expect(loadingButton).toHaveAttribute('data-loading', 'true')
+      expect(loadingButton).toHaveAttribute('data-loading-disabled-styles', 'true')
+      expect(loadingButton).not.toBeDisabled()
+      expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
+      expect(visualStyles(loadingButton).backgroundColor).not.toBe(visualStyles(enabledButton).backgroundColor)
+      expect(visualStyles(loadingButton).cursor).toBe('not-allowed')
+    })
+
+    it('applies disabled styles when loading is combined with aria-disabled', () => {
+      renderWithLoadingDisabledStyles(
+        <>
+          <Button variant="primary" loading aria-disabled>
+            Loading
+          </Button>
+          <Button variant="primary" disabled>
+            Disabled
+          </Button>
+        </>,
+      )
+
+      const loadingButton = screen.getByRole('button', {name: 'Loading'})
+      const disabledButton = screen.getByRole('button', {name: 'Disabled'})
+
+      expect(loadingButton).toHaveAttribute('aria-disabled', 'true')
+      expect(loadingButton).not.toBeDisabled()
+      expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
+    })
+
+    it('preserves existing loading styles when the feature flag is disabled', () => {
+      render(
+        <>
+          <Button variant="primary" loading>
+            Loading
+          </Button>
+          <Button variant="primary" disabled>
+            Disabled
+          </Button>
+        </>,
+      )
+
+      const loadingButton = screen.getByRole('button', {name: 'Loading'})
+      const disabledButton = screen.getByRole('button', {name: 'Disabled'})
+
+      expect(loadingButton).not.toHaveAttribute('data-loading-disabled-styles')
+      expect(visualStyles(loadingButton)).not.toEqual(visualStyles(disabledButton))
+    })
+
+    it('does not call onClick while loading', () => {
+      const onClick = vi.fn()
+      render(
+        <Button variant="primary" loading onClick={onClick}>
+          Submit
+        </Button>,
+      )
+
+      fireEvent.click(screen.getByRole('button', {name: 'Submit'}))
+      expect(onClick).not.toHaveBeenCalled()
+    })
+
+    it('remains focusable while loading', () => {
+      render(
+        <Button variant="primary" loading>
+          Submit
+        </Button>,
+      )
+
+      const button = screen.getByRole('button', {name: 'Submit'})
+      button.focus()
+      expect(button).toHaveFocus()
+    })
+
+    it('still applies disabled styles for aria-disabled without loading', () => {
+      render(
+        <>
+          <Button variant="primary" aria-disabled>
+            Aria disabled
+          </Button>
+          <Button variant="primary" disabled>
+            Disabled
+          </Button>
+        </>,
+      )
+
+      expect(visualStyles(screen.getByRole('button', {name: 'Aria disabled'}))).toEqual(
+        visualStyles(screen.getByRole('button', {name: 'Disabled'})),
+      )
+    })
+
+    it('does not let inactive override primary the same way disabled styles do', () => {
+      render(
+        <>
+          <Button variant="primary" inactive>
+            Inactive
+          </Button>
+          <Button variant="primary" disabled>
+            Disabled
+          </Button>
+        </>,
+      )
+
+      expect(visualStyles(screen.getByRole('button', {name: 'Inactive'}))).not.toEqual(
+        visualStyles(screen.getByRole('button', {name: 'Disabled'})),
+      )
+    })
   })
 
   it('should preserve the accessible button name when the button is in a loading state', () => {

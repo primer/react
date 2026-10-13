@@ -33,7 +33,7 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
    * - `"danger"` - A destructive action `Item`.
    */
   variant?: 'default' | 'danger'
-  size?: 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large'
   /**
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
@@ -160,6 +160,10 @@ export type ActionListProps<As extends React.ElementType = 'ul'> = PolymorphicPr
      */
     disableFocusZone?: boolean
     className?: string
+    /**
+     * Disable the gap between items when this `ActionList` is rendered in a `NavList`.
+     */
+    disableItemGap?: boolean
   }>
 >
 

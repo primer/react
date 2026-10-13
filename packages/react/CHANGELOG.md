@@ -1,5 +1,33 @@
 # @primer/react
 
+## 38.40.1
+
+### Patch Changes
+
+- [#8413](https://github.com/primer/react/pull/8413) [`d4e30ed`](https://github.com/primer/react/commit/d4e30ed186af6ae781b3adcf83278e0c2001a834) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - SelectPanel: Announce the filter input label when focus moves into the panel
+
+- [#8434](https://github.com/primer/react/pull/8434) [`6794582`](https://github.com/primer/react/commit/67945828439898ace865bd5f7417c562033bcbc2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - AvatarStack: Prevent a thin edge from a masked avatar over the next avatar
+
+- [#8443](https://github.com/primer/react/pull/8443) [`e2d6cb9`](https://github.com/primer/react/commit/e2d6cb931bbde9446701056f204b055789b16dd9) Thanks [@siddharthkp](https://github.com/siddharthkp)! - UnderlineNav: Avoid adding a default `href` when items render as custom link components
+
+- [#8429](https://github.com/primer/react/pull/8429) [`f2c075a`](https://github.com/primer/react/commit/f2c075a5d4d0b51a279c39effa18226ad909929d) Thanks [@tay1orjones](https://github.com/tay1orjones)! - SelectPanel: Prevent console warnings when measuring virtualized items
+
+## 38.40.0
+
+### Minor Changes
+
+- [#8422](https://github.com/primer/react/pull/8422) [`2909f19`](https://github.com/primer/react/commit/2909f19f64dbbc12aefb3455139596d88e5098b2) Thanks [@tay1orjones](https://github.com/tay1orjones)! - NavList, ActionList: Add a `disableItemGap` prop to render navigation items edge-to-edge.
+
+- [#8386](https://github.com/primer/react/pull/8386) [`6c64598`](https://github.com/primer/react/commit/6c645987c5ad27d5c23f57190a10b8707b29c58c) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add config-driven row groups that can be interleaved with standalone rows.
+
+### Patch Changes
+
+- [#8427](https://github.com/primer/react/pull/8427) [`2749f42`](https://github.com/primer/react/commit/2749f420d8ae882a4ee2fbdc79a3068cc4dbf355) Thanks [@llastflowers](https://github.com/llastflowers)! - Button, LinkButton: Limit link underlines to the label when the button includes a visual.
+
+- [#8411](https://github.com/primer/react/pull/8411) [`8c52029`](https://github.com/primer/react/commit/8c520293151054fd39e5094f4740e97e89ce18d8) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Tooltip: Prevent React Fragment triggers from crashing and provide a clear development warning
+
+- [#8409](https://github.com/primer/react/pull/8409) [`9d0632c`](https://github.com/primer/react/commit/9d0632ccc6c23e92cbbe786ce922795c92931b04) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix Tooltip ref handling to preserve child element ref
+
 ## 38.39.0
 
 ### Minor Changes

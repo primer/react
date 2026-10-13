@@ -643,6 +643,30 @@ export const WithGapBetweenItems: StoryFn = () => (
 
 WithGapBetweenItems.storyName = 'With gap between items'
 
+export const WithoutItemGap: StoryFn = () => (
+  <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+    <PageLayout>
+      <PageLayout.Pane position="start">
+        <NavList disableItemGap>
+          <NavList.Item href="#" aria-current="page">
+            Home
+          </NavList.Item>
+          <NavList.Item defaultOpen href="#">
+            About
+            <NavList.SubNav>
+              <NavList.Item href="#">Team</NavList.Item>
+              <NavList.Item href="#">History</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+          <NavList.Item href="#">Contact</NavList.Item>
+        </NavList>
+      </PageLayout.Pane>
+    </PageLayout>
+  </FeatureFlags>
+)
+
+WithoutItemGap.storyName = 'Without gap between items (opt out)'
+
 export const WithoutDivider: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
