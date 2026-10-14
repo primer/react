@@ -2,9 +2,19 @@ import type {ReactElement, ReactNode} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
-import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
+import type {DataTableData, DataTableRowGroup, DataTableRowId, UniqueRow} from './row'
 import type {IsAny, ObjectPaths} from './utils'
-import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableSortHeader,
+  TableSelectionHeader,
+  TableCell,
+  TableRowSelection,
+} from './Table'
 import {TableGroup} from './TableGroup'
 
 // ----------------------------------------------------------------------------
@@ -61,7 +71,7 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    * @param rowData The row data object for which the ID is being retrieved.
    * @returns The unique identifier for the row, which can be a string or number.
    */
-  getRowId?: (rowData: Data) => string | number
+  getRowId?: (rowData: Data) => DataTableRowId
 
   /**
    * Fires every time the user clicks a sortable column header. It reports
@@ -69,6 +79,32 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    * (never `"NONE"`).
    */
   onToggleSort?: (columnId: ObjectPaths<Data> | string | number, direction: Exclude<SortDirection, 'NONE'>) => void
+
+  /**
+   * Whether to render controls for selecting rows.
+   */
+  rowSelection?: boolean
+
+  /**
+   * Controls the selected row IDs.
+   */
+  selectedRows?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Provides the initially selected row IDs for an uncontrolled table.
+   * Uncontrolled selection is intended for static, single-page data.
+   */
+  defaultSelectedRows?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Handles changes to the selected row IDs.
+   */
+  onSelectionChange?: ({selectedRows}: {selectedRows: Set<DataTableRowId>}) => void
+
+  /**
+   * Determines whether a row can be selected.
+   */
+  isRowSelectable?: (row: Data) => boolean
 }
 
 export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
@@ -107,6 +143,11 @@ function DataTableImplementation<Data extends UniqueRow>({
   externalSorting,
   getRowId = defaultGetRowId,
   onToggleSort,
+  rowSelection = false,
+  selectedRows,
+  defaultSelectedRows,
+  onSelectionChange,
+  isRowSelectable,
 }: DataTableProps<Data>) {
   const table = useTable({
     data,
@@ -115,11 +156,28 @@ function DataTableImplementation<Data extends UniqueRow>({
     initialSortDirection,
     getRowId,
     externalSorting,
+    rowSelection,
+    selectedRows,
+    defaultSelectedRows,
+    onSelectionChange,
+    isRowSelectable,
   })
-  const {headers, bodies, actions, gridTemplateColumns} = table
+  const {headers, bodies, actions, selection, gridTemplateColumns} = table
 
   const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
-    <TableRow key={row.id}>
+    <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
+      {rowSelection ? (
+        <TableRowSelection
+          selected={row.selected}
+          disabled={!row.selectable}
+          headers={selection.headerId}
+          aria-label={row.selectionLabelledBy ? undefined : `Select row ${row.selectionId}`}
+          aria-labelledby={row.selectionLabelledBy}
+          onToggleSelect={() => {
+            actions.toggleRowSelection(row)
+          }}
+        />
+      ) : null}
       {row.getCells().map(cell => (
         <TableCell
           key={cell.id}
@@ -143,6 +201,22 @@ function DataTableImplementation<Data extends UniqueRow>({
     >
       <TableHead>
         <TableRow>
+          {rowSelection ? (
+            <TableSelectionHeader
+              id={selection.headerId}
+              selection={selection.allSelected ? 'all' : selection.someSelected ? 'some' : 'none'}
+              disabled={selection.selectableCount === 0}
+              aria-label="Select rows"
+              aria-description={
+                selection.selectableCount > 0
+                  ? `Select all ${selection.selectableCount} ${selection.selectableCount === 1 ? 'row' : 'rows'}`
+                  : undefined
+              }
+              onToggleSelect={() => {
+                actions.toggleAllRows()
+              }}
+            />
+          ) : null}
           {headers.map(header => {
             if (header.isSortable()) {
               return (
@@ -177,7 +251,7 @@ function DataTableImplementation<Data extends UniqueRow>({
             id={body.id}
             label={body.label}
             rowCount={body.rows.length}
-            colSpan={headers.length}
+            colSpan={headers.length + (rowSelection ? 1 : 0)}
             aria-label={body['aria-label']}
           >
             {body.rows.map(renderRow)}

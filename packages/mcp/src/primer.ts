@@ -13,6 +13,10 @@ function idToSlug(id: string): string {
     return 'action-bar'
   }
 
+  if (id === 'confirmationdialog') {
+    return 'confirmation-dialog'
+  }
+
   if (id === 'tooltip-v2') {
     return 'tooltip'
   }
