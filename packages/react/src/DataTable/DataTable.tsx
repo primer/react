@@ -18,6 +18,7 @@ import {
 import {TableGroup} from './TableGroup'
 import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
 import classes from './TableBulkActions.module.css'
+import VisuallyHidden from '../_VisuallyHidden'
 
 export interface DataTableBulkActionsContext {
   selectedRows: ReadonlySet<DataTableRowId>
@@ -221,6 +222,8 @@ function DataTableImplementation<Data extends UniqueRow>({
     onExpandedGroupsChange,
   })
   const {headers, bodies, actions, selection, gridTemplateColumns} = table
+  const hasBulkActions = Boolean(rowSelection && renderBulkActions)
+  const bulkActionsActive = hasBulkActions && selection.selectedCount > 0
 
   const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
     <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
@@ -250,7 +253,7 @@ function DataTableImplementation<Data extends UniqueRow>({
     </TableRow>
   )
 
-  const renderedTable = (
+  return (
     <Table
       ref={tableRef}
       tabIndex={rowSelection && renderBulkActions ? -1 : undefined}
@@ -260,7 +263,7 @@ function DataTableImplementation<Data extends UniqueRow>({
       gridTemplateColumns={gridTemplateColumns}
     >
       <TableHead>
-        <TableRow>
+        <TableRow className={hasBulkActions ? classes.HeaderRow : undefined}>
           {rowSelection ? (
             <TableSelectionHeader
               checkboxRef={selectionCheckboxRef}
@@ -279,6 +282,26 @@ function DataTableImplementation<Data extends UniqueRow>({
             />
           ) : null}
           {headers.map(header => {
+            if (bulkActionsActive) {
+              return (
+                <TableHeader
+                  key={header.id}
+                  id={header.domId}
+                  align={header.column.align}
+                  aria-sort={
+                    header.getSortDirection() === 'ASC'
+                      ? 'ascending'
+                      : header.getSortDirection() === 'DESC'
+                        ? 'descending'
+                        : undefined
+                  }
+                >
+                  <VisuallyHidden>
+                    {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
+                  </VisuallyHidden>
+                </TableHeader>
+              )
+            }
             if (header.isSortable()) {
               return (
                 <TableSortHeader
@@ -304,6 +327,43 @@ function DataTableImplementation<Data extends UniqueRow>({
             )
           })}
         </TableRow>
+        {hasBulkActions ? (
+          // Share the visual header row without putting action names in column
+          // headers or removing their associations with the table body.
+          <TableRow className={classes.HeaderRow}>
+            <VisuallyHidden
+              as="td"
+              isVisible={bulkActionsActive}
+              colSpan={headers.length + 1}
+              role="cell"
+              className={bulkActionsActive ? classes.BulkActionsCell : undefined}
+            >
+              <TableBulkActions
+                {...bulkActionsProps}
+                selectedCount={selection.selectedCount}
+                onClearSelection={actions.clearSelection}
+                onFocusReturn={() => {
+                  const target = bulkActionsReturnFocusRef?.current
+                  if (target?.isConnected) {
+                    target.focus()
+                  } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
+                    selectionCheckboxRef.current.focus()
+                  } else {
+                    tableRef.current?.focus()
+                  }
+                }}
+              >
+                {bulkActionsActive
+                  ? renderBulkActions?.({
+                      selectedRows: new Set(selection.selectedRows),
+                      selectedCount: selection.selectedCount,
+                      clearSelection: actions.clearSelection,
+                    })
+                  : null}
+              </TableBulkActions>
+            </VisuallyHidden>
+          </TableRow>
+        ) : null}
       </TableHead>
       {bodies.map(body =>
         body.type === 'row-group' ? (
@@ -327,39 +387,6 @@ function DataTableImplementation<Data extends UniqueRow>({
         ),
       )}
     </Table>
-  )
-
-  if (!rowSelection || !renderBulkActions) {
-    return renderedTable
-  }
-
-  return (
-    <div className={classes.DataTableWithBulkActions}>
-      <TableBulkActions
-        {...bulkActionsProps}
-        selectedCount={selection.selectedCount}
-        onClearSelection={actions.clearSelection}
-        onFocusReturn={() => {
-          const target = bulkActionsReturnFocusRef?.current
-          if (target?.isConnected) {
-            target.focus()
-          } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
-            selectionCheckboxRef.current.focus()
-          } else {
-            tableRef.current?.focus()
-          }
-        }}
-      >
-        {selection.selectedCount > 0
-          ? renderBulkActions({
-              selectedRows: new Set(selection.selectedRows),
-              selectedCount: selection.selectedCount,
-              clearSelection: actions.clearSelection,
-            })
-          : null}
-      </TableBulkActions>
-      {renderedTable}
-    </div>
   )
 }
 

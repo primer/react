@@ -279,8 +279,11 @@ With `rowSelection`, `renderBulkActions` receives effective `selectedRows`,
 unfiltered controlled selection. `clearSelection` requests an empty selection,
 including retained IDs; controlled consumers apply `onSelectionChange`.
 
-Actions appear above the table header in a named group with native Tab/Shift+Tab
-navigation. Count changes are announced, including zero. Use `bulkActionsProps`
+Actions occupy the table header beside select-all, replacing the visible column
+labels while rows are selected. Column labels remain available to assistive
+technology, but sorting controls are removed until selection is cleared. The
+named action group uses native Tab/Shift+Tab navigation. Count changes are
+announced, including zero. Use `bulkActionsProps`
 to localize the group name, clear button, and count label.
 
 Showing actions preserves checkbox focus. When clearing selection or updating

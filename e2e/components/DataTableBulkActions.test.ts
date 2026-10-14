@@ -15,24 +15,30 @@ test.describe('DataTable bulk actions', () => {
     })
   }
 
-  test('keyboard focus and unobscured header @avt', async ({page}) => {
+  test('bulk actions replace column labels beside the header checkbox @avt', async ({page}) => {
     await visit(page, {id: storyId})
     const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
     await selectAll.focus()
     await page.keyboard.press('Space')
     await expect(selectAll).toBeFocused()
-    const actions = page.getByRole('group', {name: 'Bulk actions'})
+    const actions = page.getByRole('table').getByRole('group', {name: 'Bulk actions'})
+    await expect(page.getByRole('button', {name: 'Repository', exact: true})).toHaveCount(0)
+    await expect(page.getByRole('columnheader', {name: 'Repository', exact: true})).toHaveCount(1)
     await expect(actions.getByText('3 rows selected')).toBeVisible()
     const actionsBox = await actions.boundingBox()
     const headerBox = await selectAll.boundingBox()
     expect(actionsBox).not.toBeNull()
     expect(headerBox).not.toBeNull()
-    expect(actionsBox!.y + actionsBox!.height).toBeLessThanOrEqual(headerBox!.y)
+    expect(headerBox!.y).toBeGreaterThanOrEqual(actionsBox!.y)
+    expect(headerBox!.y + headerBox!.height).toBeLessThanOrEqual(actionsBox!.y + actionsBox!.height)
+    expect(headerBox!.x + headerBox!.width).toBeLessThan(actionsBox!.x)
 
-    await actions.getByRole('button', {name: 'Clear selection'}).focus()
+    await page.keyboard.press('Tab')
+    await expect(actions.getByRole('button', {name: 'Clear selection'})).toBeFocused()
     await page.keyboard.press('Enter')
     await expect(selectAll).toBeFocused()
     await expect(actions).toHaveCount(0)
+    await expect(page.getByRole('button', {name: 'Repository', exact: true})).toBeVisible()
     await expect(page).toHaveNoViolations()
   })
 
@@ -61,7 +67,9 @@ test.describe('DataTable bulk actions', () => {
     })
   }
 
-  test('actions reflow without clipping at a narrow viewport and with text-spacing overrides @avt', async ({page}) => {
+  test('header actions remain reachable in a narrow scrolling table with text-spacing overrides @avt', async ({
+    page,
+  }) => {
     await page.setViewportSize({width: 320, height: 256})
     await visit(page, {id: storyId})
     await page.addStyleTag({
@@ -74,10 +82,14 @@ test.describe('DataTable bulk actions', () => {
     const dimensions = await actions.evaluate(element => ({
       width: element.clientWidth,
       scrollWidth: element.scrollWidth,
-      right: element.getBoundingClientRect().right,
     }))
     expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.width)
-    expect(dimensions.right).toBeLessThanOrEqual(320)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320)
+    const deleteButton = actions.getByRole('button', {name: 'Delete selected'})
+    await deleteButton.focus()
+    await expect(deleteButton).toBeInViewport({ratio: 1})
+    const buttonBox = await deleteButton.boundingBox()
+    expect(buttonBox!.width).toBeLessThanOrEqual(320)
     await actions.getByRole('button', {name: 'Clear selection'}).click()
     await expect(page.getByRole('checkbox', {name: 'Select rows', exact: true})).toBeFocused()
   })
