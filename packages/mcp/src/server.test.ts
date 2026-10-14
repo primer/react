@@ -69,13 +69,17 @@ describe('MCP server', () => {
       },
     }
 
-    it('provides low-interruption guidance when the client connects', () => {
-      expect(client.getInstructions()).toContain('offer once at a natural stopping point')
-      expect(client.getInstructions()).toContain('Do not repeat an offer the user has declined')
-      expect(client.getInstructions()).toContain('Never submit feedback without explicit user approval')
-      expect(client.getInstructions()).toContain('Default all feedback to github/primer')
-      expect(client.getInstructions()).toContain('Skip reproduction only when the user says they do not want to wait')
-      expect(client.getInstructions()).toContain(
+    it('keeps feedback guidance in the tool description rather than server initialization', async () => {
+      const {tools} = await client.listTools()
+      const description = tools.find(tool => tool.name === 'prepare_feedback')?.description
+
+      expect(client.getInstructions()).toBeUndefined()
+      expect(description).toContain('offer once at a natural stopping point')
+      expect(description).toContain('Do not repeat an offer the user has declined')
+      expect(description).toContain('Never submit feedback without explicit user approval')
+      expect(description).toContain('Default all feedback to github/primer')
+      expect(description).toContain('Skip reproduction only when the user says they do not want to wait')
+      expect(description).toContain(
         'Only include an agent-session link if the user explicitly shares it or approves including it',
       )
     })

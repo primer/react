@@ -2,7 +2,7 @@ import type {McpServer} from '@modelcontextprotocol/server'
 // eslint-disable-next-line import/no-namespace
 import * as z from 'zod'
 
-const feedbackInstructions = `Capture Primer feedback only when there is a concrete bug, documentation gap or mismatch, feature gap, discovery gap, performance gap, accessibility gap, or migration gap.
+const feedbackDescription = `Prepare an agent-feedback issue draft without submitting it. Capture Primer feedback only when there is a concrete bug, documentation gap or mismatch, feature gap, discovery gap, performance gap, accessibility gap, or migration gap.
 Do not interrupt normal work or offer feedback after every tool call. Keep track of meaningful user corrections, blockers, and workarounds, then offer once at a natural stopping point, usually after completing the task. If the user explicitly asks to capture feedback, do so immediately.
 Do not ask the user to repeat information already available in the conversation. Do not repeat an offer the user has declined, and do not prepare duplicate reports for the same problem.
 Before drafting feedback, attempt the smallest safe reproduction of the problem and record the steps and actual result. For documentation or discovery feedback, recheck the relevant source or lookup rather than building an unrelated code example. Do not invent evidence or claim successful reproduction when the attempt did not reproduce the problem. Skip reproduction only when the user says they do not want to wait, and record that explicitly. If reproduction would take substantial time, ask whether the user wants to wait before starting it.
@@ -56,8 +56,7 @@ function registerFeedbackTool(server: McpServer) {
   server.registerTool(
     'prepare_feedback',
     {
-      description:
-        'Prepare an agent-feedback draft without submitting it. Default to github/primer; only offer primer/react when the user cannot create an issue in github/primer. Attempt a minimal reproduction first unless the user does not want to wait. Offer once at a natural stopping point after meaningful friction, not after routine tool calls; respect declined offers. Handle explicit feedback requests immediately. Review sharing permissions and the draft before opening the link or filing.',
+      description: feedbackDescription,
       inputSchema: z
         .object({
           repository: z
@@ -222,4 +221,4 @@ Issue link: ${issueUrl}`,
   )
 }
 
-export {feedbackDraftSchema, feedbackInstructions, registerFeedbackTool}
+export {feedbackDraftSchema, registerFeedbackTool}
