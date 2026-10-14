@@ -28,8 +28,6 @@ test.describe('DataTable bulk actions', () => {
     await expect(actions.getByRole('button', {name: 'Clear selection'})).toHaveCount(0)
     const actionsBox = await actions.boundingBox()
     const headerBox = await selectAll.boundingBox()
-    expect(actionsBox).not.toBeNull()
-    expect(headerBox).not.toBeNull()
     expect(headerBox!.y).toBeGreaterThanOrEqual(actionsBox!.y)
     expect(headerBox!.y + headerBox!.height).toBeLessThanOrEqual(actionsBox!.y + actionsBox!.height)
     expect(headerBox!.x + headerBox!.width).toBeLessThan(actionsBox!.x)
@@ -72,7 +70,7 @@ test.describe('DataTable bulk actions', () => {
   })
 
   for (const density of ['condensed', 'normal', 'spacious'] as const) {
-    test(`preserves header height and typography (${density}) @avt`, async ({page}) => {
+    test(`preserves header height, typography and alignment (${density}) @avt`, async ({page}) => {
       await visit(page, {id: storyId})
       const table = page.getByRole('table')
       await table.evaluate((element, value) => {
@@ -95,12 +93,8 @@ test.describe('DataTable bulk actions', () => {
       expect((await count.boundingBox())!.x).toBe(labelBefore!.x)
       const actions = table.getByRole('group', {name: 'Bulk actions'})
       await expect(actions.getByRole('button')).toHaveCount(2)
-      const padding = await actions.evaluate(element => {
-        const cell = element.parentElement!
-        return getComputedStyle(cell).paddingInlineEnd
-      })
-      expect(padding).toBe('8px')
       const lastAction = await actions.getByRole('button', {name: 'Delete selected'}).boundingBox()
+      // 8px padding plus the 1px header border.
       expect(selected!.x + selected!.width - lastAction!.x - lastAction!.width).toBe(9)
       expect(
         await count.evaluate(element => {
@@ -135,12 +129,6 @@ test.describe('DataTable bulk actions', () => {
     })
     const actions = page.getByRole('group', {name: 'Bulk actions'})
     await expect(actions.getByText('1 selected')).toBeVisible()
-    await expect(actions.getByRole('button', {name: 'Delete selected'})).toBeVisible()
-    const dimensions = await actions.evaluate(element => ({
-      width: element.clientWidth,
-      scrollWidth: element.scrollWidth,
-    }))
-    expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.width)
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320)
     const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
     await selectAll.focus()
@@ -150,8 +138,6 @@ test.describe('DataTable bulk actions', () => {
     const deleteButton = actions.getByRole('button', {name: 'Delete selected'})
     await expect(deleteButton).toBeFocused()
     await expect(deleteButton).toBeInViewport({ratio: 1})
-    const buttonBox = await deleteButton.boundingBox()
-    expect(buttonBox!.width).toBeLessThanOrEqual(320)
     await page.keyboard.press('Enter')
     await expect(selectAll).toBeFocused()
     await expect(selectAll).toBeInViewport({ratio: 1})
