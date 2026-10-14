@@ -10,13 +10,13 @@
 ## Context
 
 > **Note**
-> This ADR supercedes [`ADR 009`](./adr-009-interaction-tests.md)
+> This ADR supersedes [`ADR 008`](./adr-008-interaction-tests.md)
 
 We author tests using a combination of Jest and Playwright. Typically, Jest is
 used for unit and integration tests and Playwright is used for Visual Regression
 Tests against our Storybook.
 
-In `ADR 009`, we proposed using Storybook's [`play`
+In `ADR 008`, we proposed using Storybook's [`play`
 functions](https://storybook.js.org/docs/react/writing-stories/play-function) as
 the recommended way to author tests that require tests based on user
 interactions. In this ADR, we would like to revisit this decision.
