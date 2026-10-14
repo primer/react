@@ -80,6 +80,85 @@ test.describe('SelectPanel', () => {
     })
   }
 
+  const contrastThemes = ['light', 'dark', 'light_high_contrast', 'dark_high_contrast']
+  const contrastScenarios = matrix({
+    theme: contrastThemes,
+    legacyContrast: [false, true],
+    panel: [
+      {name: 'anchored', id: 'components-selectpanel--default', narrow: false},
+      {name: 'modal', id: 'components-selectpanel-features--multi-select-modal', narrow: false},
+      {name: 'fullscreen', id: 'components-selectpanel--default', narrow: true},
+    ],
+  })
+
+  for (const {theme, legacyContrast, panel} of contrastScenarios) {
+    test(`Filter input ${panel.name} legacy contrast ${legacyContrast} @aat ${theme}`, async ({page}) => {
+      if (panel.narrow) {
+        await page.setViewportSize({width: 375, height: 667})
+      }
+      await visit(page, {
+        id: panel.id,
+        globals: {
+          colorScheme: theme,
+          featureFlags: {
+            primer_react_select_panel_legacy_contrast: legacyContrast,
+            primer_react_select_panel_fullscreen_on_narrow: panel.narrow,
+          },
+        },
+      })
+
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+
+      const input = page.getByRole('combobox', {name: 'Filter items'})
+      const wrapper = page.locator('[data-component="TextInput"]').filter({has: input})
+      await expect(input).toBeVisible()
+      await expect(input).toBeEnabled()
+      await expect(input).toBeFocused()
+      if (legacyContrast) {
+        await expect(wrapper).toHaveAttribute('data-contrast')
+      } else {
+        await expect(wrapper).not.toHaveAttribute('data-contrast')
+      }
+
+      const expectedBackground = await wrapper.evaluate((element, contrast) => {
+        const probe = document.createElement('span')
+        probe.style.backgroundColor = contrast
+          ? 'var(--control-bgColor-contrast, var(--bgColor-inset))'
+          : 'var(--bgColor-default)'
+        element.appendChild(probe)
+        const background = getComputedStyle(probe).backgroundColor
+        probe.remove()
+        return background
+      }, legacyContrast)
+      expect(expectedBackground).not.toBe('rgba(0, 0, 0, 0)')
+      await expect(wrapper).toHaveCSS('background-color', expectedBackground)
+      await expect(page).toHaveNoViolations({rules: {'color-contrast': {enabled: true}}})
+
+      await input.fill('bug')
+      await expect(input).toHaveValue('bug')
+      await expect(page.getByRole('option')).toHaveCount(1)
+      await expect(page.getByRole('option', {name: /bug/})).toBeVisible()
+      await page.keyboard.press('Escape')
+      await expect(input).toBeHidden()
+      await expect(page.getByRole('button', {name: /bug/})).toBeFocused()
+    })
+  }
+
+  for (const theme of contrastThemes) {
+    test(`Legacy contrast @vrt ${theme}`, async ({page}) => {
+      await visit(page, {
+        id: 'components-selectpanel-features--legacy-contrast',
+        globals: {colorScheme: theme},
+      })
+      await expect(page.getByRole('combobox', {name: 'Filter items'})).toHaveValue('')
+      await expect(page.getByRole('option')).toHaveCount(7)
+      expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
+        `SelectPanel.Legacy Contrast.${theme}.png`,
+      )
+    })
+  }
+
   // eslint-disable-next-line playwright/no-skipped-test
   test.skip(`Default @vrt forced-colors`, async ({page}) => {
     await visit(page, {

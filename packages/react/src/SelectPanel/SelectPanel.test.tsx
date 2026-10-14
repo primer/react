@@ -502,7 +502,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       })
     })
 
-    function FilterableSelectPanel() {
+    function FilterableSelectPanel({textInputProps}: Pick<SelectPanelProps, 'textInputProps'>) {
       const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
       const [filter, setFilter] = React.useState('')
       const [open, setOpen] = React.useState(false)
@@ -518,6 +518,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           items={items.filter(item => item.text?.includes(filter))}
           placeholder="Select items"
           placeholderText="Filter items"
+          textInputProps={textInputProps}
           selected={selected}
           onSelectedChange={onSelectedChange}
           filterValue={filter}
@@ -644,6 +645,92 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.type(document.activeElement!, 'two')
         expect(screen.getAllByRole('option')).toHaveLength(1)
       })
+    })
+
+    describe.each([
+      {name: 'absent', flags: {}, contrast: false},
+      {name: 'false', flags: {primer_react_select_panel_legacy_contrast: false}, contrast: false},
+      {name: 'true', flags: {primer_react_select_panel_legacy_contrast: true}, contrast: true},
+    ])('legacy contrast flag $name', ({flags, contrast}) => {
+      it('should set the default background without changing filtering or focus', async () => {
+        const user = userEvent.setup()
+        render(
+          <FeatureFlags flags={flags}>
+            <FilterableSelectPanel />
+          </FeatureFlags>,
+        )
+
+        await user.click(screen.getByRole('button', {name: 'Select items'}))
+
+        const input = screen.getByLabelText('Filter items')
+        const wrapper = input.closest('[data-component="TextInput"]')
+        expect(wrapper).toBeInTheDocument()
+        expect(wrapper?.hasAttribute('data-contrast')).toBe(contrast)
+        expect(input).toBeEnabled()
+        expect(input).toHaveFocus()
+
+        await user.type(input, 'two')
+        expect(input).toHaveValue('two')
+        expect(screen.getAllByRole('option')).toHaveLength(1)
+        expect(screen.getByRole('option', {name: 'item two'})).toBeInTheDocument()
+
+        await user.keyboard('{Escape}')
+        expect(screen.getByRole('button', {name: 'Select items'})).toHaveFocus()
+      })
+
+      it.each([true, false, undefined])('should preserve explicit contrast=%s', async explicitContrast => {
+        const user = userEvent.setup()
+        render(
+          <FeatureFlags flags={flags}>
+            <FilterableSelectPanel textInputProps={{contrast: explicitContrast}} />
+          </FeatureFlags>,
+        )
+
+        await user.click(screen.getByRole('button', {name: 'Select items'}))
+
+        const input = screen.getByLabelText('Filter items')
+        const wrapper = input.closest('[data-component="TextInput"]')
+        expect(wrapper).toBeInTheDocument()
+        expect(wrapper?.hasAttribute('data-contrast')).toBe(explicitContrast === true)
+        expect(input).toBeEnabled()
+        expect(input).toHaveFocus()
+        await user.type(input, 'two')
+        expect(input).toHaveValue('two')
+        expect(screen.getByRole('option', {name: 'item two'})).toBeInTheDocument()
+      })
+    })
+
+    it('should update contrast with the flag while preserving the input, filter, and focus', async () => {
+      const user = userEvent.setup()
+      const textInputProps = {'aria-label': 'Search items'}
+      const panel = <FilterableSelectPanel textInputProps={textInputProps} />
+      const {rerender} = render(
+        <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: false}}>{panel}</FeatureFlags>,
+      )
+
+      await user.click(screen.getByRole('button', {name: 'Select items'}))
+      const input = screen.getByLabelText('Search items')
+      const wrapper = input.closest('[data-component="TextInput"]')
+      expect(wrapper).toBeInTheDocument()
+      expect(wrapper).not.toHaveAttribute('data-contrast')
+      await user.type(input, 'two')
+
+      for (const legacyContrast of [true, false]) {
+        rerender(
+          <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: legacyContrast}}>{panel}</FeatureFlags>,
+        )
+
+        expect(screen.getByLabelText('Search items')).toBe(input)
+        expect(wrapper?.hasAttribute('data-contrast')).toBe(legacyContrast)
+        expect(input).toBeEnabled()
+        expect(input).toHaveValue('two')
+        expect(input).toHaveFocus()
+        expect(screen.getAllByRole('option')).toHaveLength(1)
+        expect(screen.getByRole('option', {name: 'item two'})).toBeInTheDocument()
+      }
+
+      await user.clear(input)
+      expect(screen.getAllByRole('option')).toHaveLength(3)
     })
 
     describe('screen reader announcements', () => {
