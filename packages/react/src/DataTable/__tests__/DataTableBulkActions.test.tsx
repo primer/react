@@ -62,10 +62,15 @@ describe('DataTable bulk actions', () => {
     expect(screen.getByText('2 rows selected')).toBeVisible()
     await user.click(screen.getByRole('button', {name: 'Archive'}))
     expect(onAction).toHaveBeenLastCalledWith({selectedRows: new Set<DataTableRowId>([1, '1']), selectedCount: 2})
+    expect(screen.queryByRole('button', {name: 'Name'})).not.toBeInTheDocument()
+    expect(screen.getByRole('columnheader', {name: 'Name'})).toBeInTheDocument()
+    await user.click(screen.getByRole('button', {name: 'Clear selection'}))
     await user.click(screen.getByRole('button', {name: 'Name'}))
+    expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveAttribute('aria-sort', 'ascending')
+    await user.click(screen.getByRole('checkbox', {name: 'Select rows'}))
+    expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveAttribute('aria-sort', 'ascending')
     await user.click(screen.getByRole('button', {name: 'Archive'}))
     expect(onAction).toHaveBeenLastCalledWith({selectedRows: new Set<DataTableRowId>([1, '1']), selectedCount: 2})
-    expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveAttribute('aria-sort', 'ascending')
   })
 
   it('does not render actions without enabled selection or effectively selected rows', () => {
@@ -333,7 +338,7 @@ describe('DataTable bulk actions', () => {
     container.innerHTML = renderToString(element)
     document.body.appendChild(container)
     const serverTable = within(container).getByRole('table')
-    expect(within(serverTable).queryByRole('group')).not.toBeInTheDocument()
+    expect(within(serverTable).getByRole('group', {name: 'Bulk actions'})).toBeInTheDocument()
     const onRecoverableError = vi.fn()
     let root: Root | undefined
     try {

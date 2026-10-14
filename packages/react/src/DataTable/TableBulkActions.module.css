@@ -1,17 +1,9 @@
 .TableBulkActions {
-  grid-area: bulk-actions;
-
   &:where([data-active]) {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--base-size-8);
-    padding: var(--base-size-12) var(--base-size-16);
-    margin-block-start: var(--base-size-8);
-    margin-block-end: var(--base-size-8);
-    background-color: var(--bgColor-muted);
-    border: var(--borderWidth-thin) solid var(--borderColor-default);
-    border-radius: var(--borderRadius-medium);
     font-size: var(--text-body-size-small);
   }
 }
@@ -24,7 +16,24 @@
   margin-inline-start: auto;
 }
 
-.DataTableWithBulkActions {
-  grid-area: table;
+.HeaderRow,
+.HeaderRow > * {
+  grid-row: 1;
+}
+
+.BulkActionsCell {
+  grid-row: 1;
+  grid-column: 2 / -1;
+  z-index: 1;
   min-width: 0;
+  align-content: center;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--table-cell-padding);
+  padding-inline-end: var(--base-size-16);
+  background-color: var(--bgColor-muted);
+  border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  /* stylelint-disable-next-line primer/borders */
+  border-start-end-radius: var(--table-border-radius);
 }

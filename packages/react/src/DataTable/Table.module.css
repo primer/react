@@ -7,7 +7,6 @@
     'divider divider'
     'subtitle subtitle'
     'filter filter'
-    'bulk-actions bulk-actions'
     'table table'
     'footer footer';
   column-gap: var(--base-size-8);
