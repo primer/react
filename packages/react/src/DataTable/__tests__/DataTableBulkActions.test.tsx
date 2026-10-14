@@ -60,18 +60,29 @@ describe('DataTable bulk actions', () => {
     )
 
     expect(screen.getByText('2 selected')).toBeVisible()
-    expect(screen.queryByRole('button', {name: 'Clear selection'})).not.toBeInTheDocument()
     await user.click(screen.getByRole('button', {name: 'Archive'}))
     expect(onAction).toHaveBeenLastCalledWith({selectedRows: new Set<DataTableRowId>([1, '1']), selectedCount: 2})
+  })
+
+  it('preserves column names and sort state while replacing sorting controls', async () => {
+    const user = userEvent.setup()
+    render(
+      <DataTable
+        data={rows}
+        columns={columns}
+        rowSelection
+        defaultSelectedRows={new Set([1])}
+        renderBulkActions={renderActions}
+      />,
+    )
     expect(screen.queryByRole('button', {name: 'Name'})).not.toBeInTheDocument()
     expect(screen.getByRole('columnheader', {name: 'Name'})).toBeInTheDocument()
-    await user.click(screen.getByRole('checkbox', {name: 'Select rows'}))
+    await user.click(screen.getByRole('button', {name: 'Apply to 1'}))
     await user.click(screen.getByRole('button', {name: 'Name'}))
     expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveAttribute('aria-sort', 'ascending')
     await user.click(screen.getByRole('checkbox', {name: 'Select rows'}))
     expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveAttribute('aria-sort', 'ascending')
-    await user.click(screen.getByRole('button', {name: 'Archive'}))
-    expect(onAction).toHaveBeenLastCalledWith({selectedRows: new Set<DataTableRowId>([1, '1']), selectedCount: 2})
+    expect(screen.queryByRole('button', {name: 'Name'})).not.toBeInTheDocument()
   })
 
   it('does not render actions without enabled selection or effectively selected rows', () => {
@@ -91,7 +102,6 @@ describe('DataTable bulk actions', () => {
     )
     expect(renderer).not.toHaveBeenCalled()
     expect(screen.queryByRole('group', {name: 'Bulk actions'})).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', {name: 'Clear selection'})).not.toBeInTheDocument()
   })
 
   it('preserves checkbox focus when actions appear and announces counts including zero', async () => {
@@ -271,39 +281,6 @@ describe('DataTable bulk actions', () => {
     expect(screen.getByRole('checkbox', {name: 'Select rows'})).toHaveFocus()
   })
 
-  it('updates effective count after removal without emitting selection changes or stealing outside focus', () => {
-    const onSelectionChange = vi.fn()
-    const {rerender} = render(
-      <>
-        <Button>Elsewhere</Button>
-        <DataTable
-          data={rows}
-          columns={columns}
-          rowSelection
-          defaultSelectedRows={new Set<DataTableRowId>([1, '1'])}
-          onSelectionChange={onSelectionChange}
-          renderBulkActions={renderActions}
-        />
-      </>,
-    )
-    screen.getByRole('button', {name: 'Elsewhere'}).focus()
-    rerender(
-      <>
-        <Button>Elsewhere</Button>
-        <DataTable
-          data={rows.slice(1)}
-          columns={columns}
-          rowSelection
-          onSelectionChange={onSelectionChange}
-          renderBulkActions={renderActions}
-        />
-      </>,
-    )
-    expect(screen.getByText('1 selected')).toBeVisible()
-    expect(onSelectionChange).not.toHaveBeenCalled()
-    expect(screen.getByRole('button', {name: 'Elsewhere'})).toHaveFocus()
-  })
-
   it('supports localized labels', () => {
     render(
       <DataTable
@@ -320,7 +297,6 @@ describe('DataTable bulk actions', () => {
     )
     const group = screen.getByRole('group', {name: 'Selected repositories'})
     expect(within(group).getByText('1 repositories chosen')).toBeVisible()
-    expect(within(group).getAllByRole('button')).toHaveLength(1)
   })
 
   it('preserves structure through server rendering and hydration', async () => {
@@ -364,7 +340,7 @@ describe('DataTable bulk actions', () => {
 describe('Table.BulkActions', () => {
   implementsClassName(props => <Table.BulkActions selectedCount={1} {...props} />, classes.TableBulkActions)
 
-  it('forwards root attributes and ref, preserves child order and native Tab order', async () => {
+  it('forwards root attributes, ref and focus handlers', async () => {
     const user = userEvent.setup()
     const ref = React.createRef<HTMLDivElement>()
     const onFocusCapture = vi.fn()

@@ -1,6 +1,6 @@
 import {lazy} from 'react'
 import type {Column} from './column'
-import {DataTable, type DataTableProps, type DataTableBulkActionsContext} from './DataTable'
+import {DataTable, type DataTableProps} from './DataTable'
 import type {DataTableRowGroup} from './row'
 import {useTable} from './useTable'
 import {Table, type DataTableRowId} from '../experimental'
@@ -214,11 +214,6 @@ export function shouldAcceptRowSelectionProps() {
 }
 
 export function shouldAcceptBulkActions() {
-  const context: DataTableBulkActionsContext = {
-    selectedRows: new Set([1]),
-    selectedCount: 1,
-    clearSelection: () => {},
-  }
   const config = (
     <LazyDataTable
       data={groups}
@@ -237,7 +232,7 @@ export function shouldAcceptBulkActions() {
       bulkActionsProps={{getSelectedCountLabel: count => `${count} selected`}}
     />
   )
-  const composed = <Table.BulkActions selectedCount={context.selectedCount}>Actions</Table.BulkActions>
+  const composed = <Table.BulkActions selectedCount={1}>Actions</Table.BulkActions>
   return {config, composed}
 }
 

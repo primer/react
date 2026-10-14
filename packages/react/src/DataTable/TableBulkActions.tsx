@@ -43,8 +43,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
   const focusedAction = useRef<HTMLElement | null>(null)
   const active = selectedCount > 0
 
-  // Recover only focus lost to removed actions, never steal it from a dialog or
-  // another control. The action owner decides where focus should return.
+  // Controlled updates can remove the focused action after its event has finished.
   useLayoutEffect(() => {
     const element = focusedAction.current
     if (element && !element.isConnected) {
@@ -76,8 +75,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
         }
       }}
       onBlurCapture={event => {
-        // A blur to non-focusable content has no relatedTarget. Only retain a
-        // detached target, whose removal may require focus recovery.
+        // Clicking non-focusable content blurs with a null relatedTarget.
         if (event.target.isConnected) {
           focusedAction.current = null
         }
