@@ -67,6 +67,10 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
       {...rest}
       onFocusCapture={event => {
         focusedAction.current = event.target
+        // Native focus scrolling can miss controls in the grid-overlaid header.
+        if (event.currentTarget.contains(event.target)) {
+          event.target.scrollIntoView({block: 'nearest', inline: 'nearest'})
+        }
         if (!event.defaultPrevented) {
           onFocusCapture?.(event)
         }

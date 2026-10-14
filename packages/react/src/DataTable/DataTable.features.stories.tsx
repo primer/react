@@ -19,7 +19,6 @@ import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
-import {AriaStatus} from '../live-region'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
 import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
@@ -1782,7 +1781,6 @@ export const WithBulkActions = () => {
   const titleId = React.useId()
   const [rows, setRows] = React.useState(repositories)
   const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set([1]))
-  const [message, setMessage] = React.useState('')
   const resetButtonRef = React.useRef<HTMLButtonElement>(null)
 
   return (
@@ -1794,7 +1792,6 @@ export const WithBulkActions = () => {
           onClick={() => {
             setRows(repositories)
             setSelectedRows(new Set())
-            setMessage('')
           }}
         >
           Reset repositories
@@ -1814,21 +1811,32 @@ export const WithBulkActions = () => {
         selectedRows={selectedRows}
         onSelectionChange={({selectedRows: next}) => setSelectedRows(next)}
         bulkActionsReturnFocusRef={rows.length === 0 ? resetButtonRef : undefined}
-        renderBulkActions={({selectedRows: effectiveIds, selectedCount, clearSelection}) => (
-          <Button
-            size="small"
-            variant="danger"
-            onClick={() => {
-              setRows(current => current.filter(row => !effectiveIds.has(row.id)))
-              clearSelection()
-              setMessage(`${selectedCount} ${selectedCount === 1 ? 'repository' : 'repositories'} deleted`)
-            }}
-          >
-            Delete selected
-          </Button>
+        renderBulkActions={({selectedRows: effectiveIds, clearSelection}) => (
+          <>
+            <Button
+              size="small"
+              onClick={() => {
+                setRows(current =>
+                  current.map(row => (effectiveIds.has(row.id) ? {...row, visibility: 'Internal'} : row)),
+                )
+                clearSelection()
+              }}
+            >
+              Make internal
+            </Button>
+            <Button
+              size="small"
+              variant="danger"
+              onClick={() => {
+                setRows(current => current.filter(row => !effectiveIds.has(row.id)))
+                clearSelection()
+              }}
+            >
+              Delete selected
+            </Button>
+          </>
         )}
       />
-      <AriaStatus>{message}</AriaStatus>
     </Table.Container>
   )
 }
