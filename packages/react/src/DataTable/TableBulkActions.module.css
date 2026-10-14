@@ -39,11 +39,17 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--table-cell-padding);
   padding-block: 0;
-  padding-inline-end: var(--base-size-16);
   background-color: var(--bgColor-muted);
   border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
   border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
   border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
   /* stylelint-disable-next-line primer/borders */
   border-start-end-radius: var(--table-border-radius);
+}
+
+/* This spans data columns, despite being the first cell in its DOM row. */
+.HeaderRow > .BulkActionsCell:first-child:last-child {
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline-start: var(--cell-padding-inline, var(--base-size-12));
+  padding-inline-end: var(--base-size-8);
 }

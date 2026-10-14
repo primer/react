@@ -35,7 +35,10 @@ test.describe('DataTable bulk actions', () => {
     expect(headerBox!.x + headerBox!.width).toBeLessThan(actionsBox!.x)
 
     await page.keyboard.press('Tab')
+    await expect(actions.getByRole('button', {name: 'Make internal'})).toBeFocused()
+    await page.keyboard.press('Tab')
     await expect(actions.getByRole('button', {name: 'Delete selected'})).toBeFocused()
+    await page.keyboard.press('Shift+Tab')
     await page.keyboard.press('Shift+Tab')
     await page.keyboard.press('Space')
     await expect(selectAll).toBeFocused()
@@ -47,7 +50,7 @@ test.describe('DataTable bulk actions', () => {
   test('deletion and final-record focus @avt', async ({page}) => {
     await visit(page, {id: storyId})
     await page.getByRole('button', {name: 'Delete selected'}).click()
-    await expect(page.locator('#storybook-root').getByText('1 repository deleted')).toBeVisible()
+    await expect(page.getByRole('rowheader', {name: 'primer/react', exact: true})).toHaveCount(0)
     const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
     await expect(selectAll).toBeFocused()
 
@@ -57,6 +60,15 @@ test.describe('DataTable bulk actions', () => {
     await expect(page.getByRole('button', {name: 'Reset repositories'})).toBeFocused()
     await expect(selectAll).toBeDisabled()
     await expect(page).toHaveNoViolations()
+  })
+
+  test('makes only selected repositories internal @avt', async ({page}) => {
+    await visit(page, {id: storyId})
+    await page.getByRole('button', {name: 'Make internal'}).click()
+    await expect(page.getByRole('row', {name: /primer\/react/}).getByRole('cell', {name: 'Internal'})).toBeVisible()
+    await expect(page.getByRole('row', {name: /primer\/css/}).getByRole('cell', {name: 'Public'})).toBeVisible()
+    await expect(page.getByRole('checkbox', {name: 'Select rows', exact: true})).toBeFocused()
+    await expect(page.getByRole('group', {name: 'Bulk actions'})).toHaveCount(0)
   })
 
   for (const density of ['condensed', 'normal', 'spacious'] as const) {
@@ -69,6 +81,7 @@ test.describe('DataTable bulk actions', () => {
       await page.getByRole('button', {name: 'Reset repositories'}).click()
       const head = table.locator('thead')
       const before = await head.boundingBox()
+      const labelBefore = await page.getByRole('button', {name: 'Repository', exact: true}).boundingBox()
       const columnStyle = await page.getByRole('columnheader', {name: 'Repository', exact: true}).evaluate(element => {
         const style = getComputedStyle(element)
         return [style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.color]
@@ -79,6 +92,16 @@ test.describe('DataTable bulk actions', () => {
       await expect(count).toBeVisible()
       const selected = await head.boundingBox()
       expect(selected!.height).toBe(before!.height)
+      expect((await count.boundingBox())!.x).toBe(labelBefore!.x)
+      const actions = table.getByRole('group', {name: 'Bulk actions'})
+      await expect(actions.getByRole('button')).toHaveCount(2)
+      const padding = await actions.evaluate(element => {
+        const cell = element.parentElement!
+        return getComputedStyle(cell).paddingInlineEnd
+      })
+      expect(padding).toBe('8px')
+      const lastAction = await actions.getByRole('button', {name: 'Delete selected'}).boundingBox()
+      expect(selected!.x + selected!.width - lastAction!.x - lastAction!.width).toBe(9)
       expect(
         await count.evaluate(element => {
           const style = getComputedStyle(element)
@@ -119,12 +142,18 @@ test.describe('DataTable bulk actions', () => {
     }))
     expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.width)
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320)
+    const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+    await selectAll.focus()
+    await page.keyboard.press('Tab')
+    await expect(actions.getByRole('button', {name: 'Make internal'})).toBeFocused()
+    await page.keyboard.press('Tab')
     const deleteButton = actions.getByRole('button', {name: 'Delete selected'})
-    await deleteButton.focus()
+    await expect(deleteButton).toBeFocused()
     await expect(deleteButton).toBeInViewport({ratio: 1})
     const buttonBox = await deleteButton.boundingBox()
     expect(buttonBox!.width).toBeLessThanOrEqual(320)
-    await deleteButton.click()
-    await expect(page.getByRole('checkbox', {name: 'Select rows', exact: true})).toBeFocused()
+    await page.keyboard.press('Enter')
+    await expect(selectAll).toBeFocused()
+    await expect(selectAll).toBeInViewport({ratio: 1})
   })
 })
