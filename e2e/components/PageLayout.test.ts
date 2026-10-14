@@ -99,7 +99,7 @@ test.describe('PageLayout', () => {
 
 const stickyPaneId = 'components-pagelayout-features--sticky-pane'
 
-test.describe('PageLayout', () => {
+test.describe('PageLayout sticky panes', () => {
   test.describe('Sticky Pane', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

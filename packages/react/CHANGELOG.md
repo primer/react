@@ -1,5 +1,35 @@
 # @primer/react
 
+## 38.41.0
+
+### Minor Changes
+
+- [#8504](https://github.com/primer/react/pull/8504) [`c9419e7`](https://github.com/primer/react/commit/c9419e75d7084b62096b50fb54f6a94e96592a9a) Thanks [@joshblack](https://github.com/joshblack)! - React Compiler: Switch from Babel to Oxc.
+
+- [#8477](https://github.com/primer/react/pull/8477) [`7f5303d`](https://github.com/primer/react/commit/7f5303d803986887187d86dcebaeda22a4dc6823) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - ActionList.Item and ActionList.LinkItem: Add a small size variant with smaller text.
+
+### Patch Changes
+
+- [#8484](https://github.com/primer/react/pull/8484) [`da3be09`](https://github.com/primer/react/commit/da3be09cc9b28cd95e9117db0a422ab08a7e37b2) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TreeView: Prevent keyboard navigation errors when nested controls have focus
+
+- [#8473](https://github.com/primer/react/pull/8473) [`53ed545`](https://github.com/primer/react/commit/53ed54524aac9c3e829c239afdb4f63de160f873) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - LiveRegion: Upgrade `@primer/live-region-element` to 0.8.1
+
+- [#8412](https://github.com/primer/react/pull/8412) [`3d8f32f`](https://github.com/primer/react/commit/3d8f32fcce51a40db8e3091027714673d4a48617) Thanks [@anishtsudo](https://github.com/anishtsudo)! - Button: Add opt-in disabled styling for loading buttons so they look non-interactive while staying focusable
+
+- [#8463](https://github.com/primer/react/pull/8463) [`f710336`](https://github.com/primer/react/commit/f7103363ce5c916b8aa27a3fd5d4c9d564d3a13f) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Truncate: Infer accepted props from the `as` prop and forward `inline` to custom `as` components (e.g. `Link`).
+
+## 38.40.1
+
+### Patch Changes
+
+- [#8413](https://github.com/primer/react/pull/8413) [`d4e30ed`](https://github.com/primer/react/commit/d4e30ed186af6ae781b3adcf83278e0c2001a834) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - SelectPanel: Announce the filter input label when focus moves into the panel
+
+- [#8434](https://github.com/primer/react/pull/8434) [`6794582`](https://github.com/primer/react/commit/67945828439898ace865bd5f7417c562033bcbc2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - AvatarStack: Prevent a thin edge from a masked avatar over the next avatar
+
+- [#8443](https://github.com/primer/react/pull/8443) [`e2d6cb9`](https://github.com/primer/react/commit/e2d6cb931bbde9446701056f204b055789b16dd9) Thanks [@siddharthkp](https://github.com/siddharthkp)! - UnderlineNav: Avoid adding a default `href` when items render as custom link components
+
+- [#8429](https://github.com/primer/react/pull/8429) [`f2c075a`](https://github.com/primer/react/commit/f2c075a5d4d0b51a279c39effa18226ad909929d) Thanks [@tay1orjones](https://github.com/tay1orjones)! - SelectPanel: Prevent console warnings when measuring virtualized items
+
 ## 38.40.0
 
 ### Minor Changes
