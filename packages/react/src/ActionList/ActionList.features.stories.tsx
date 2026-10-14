@@ -1079,3 +1079,17 @@ export const LargeItem = () => (
     </ActionList.Item>
   </ActionList>
 )
+
+export const SmallItem = () => (
+  <ActionList>
+    <ActionList.Item size="small">Small item</ActionList.Item>
+    <ActionList.Item size="small">
+      Small item
+      <ActionList.Description>With inline description</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item size="small">
+      Small item
+      <ActionList.Description variant="block">With block description</ActionList.Description>
+    </ActionList.Item>
+  </ActionList>
+)

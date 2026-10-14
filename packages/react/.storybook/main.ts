@@ -1,12 +1,11 @@
 // This file has been automatically migrated to valid ESM format by Storybook.
 import {createRequire} from 'node:module'
 import path from 'node:path'
-import babel from '@rolldown/plugin-babel'
 
-import react, {reactCompilerPreset} from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
-import {isSupported} from '../script/react-compiler.mjs'
+import {files, isSupported} from '../script/react-compiler.mjs'
 
 const require = createRequire(import.meta.url)
 
@@ -67,14 +66,11 @@ const config: StorybookConfig = {
 
     config.plugins = [
       ...(config.plugins ?? []),
-      react(),
-      babel({
-        presets: [
-          reactCompilerPreset({
-            sources: (filepath: string) => isSupported(filepath),
-            target: '18',
-          }),
-        ],
+      react({
+        compiler: {
+          sources: files.filter(isSupported),
+          target: '18',
+        },
       }),
     ]
 

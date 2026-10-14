@@ -191,6 +191,11 @@
   color: var(--fgColor-default);
 }
 
+.TableSelectionHeader,
+.TableRowSelection {
+  justify-content: center;
+}
+
 /* Control visibility of sort icons */
 .TableSortIcon {
   visibility: hidden;
