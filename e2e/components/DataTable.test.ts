@@ -92,23 +92,19 @@ test.describe('DataTable', () => {
     await page.getByRole('checkbox', {name: 'Select rows', exact: true}).check()
     await disclosure.focus()
     await page.keyboard.press('Enter')
-    await expect(page.getByRole('checkbox', {name: 'Select strapi', exact: true})).toBeChecked()
     const member = page.getByRole('checkbox', {name: 'Select strapi', exact: true})
+    await expect(member).toBeChecked()
     await member.focus()
     // A programmatic control activation models an external controlled update.
-    await page.getByRole('button', {name: 'Collapse all groups'}).evaluate(button => {
-      if (button instanceof HTMLButtonElement) button.click()
-    })
+    await page.getByRole('button', {name: 'Collapse all groups'}).dispatchEvent('click')
     await expect(disclosure).toBeFocused()
     await expect(page.locator(`[id="${bodyId}"]`)).toBeHidden()
-    for (let index = 0; index < 6; index++) {
-      await page.keyboard.press('Tab')
-      expect(
-        await page
-          .locator('tbody[hidden]')
-          .evaluateAll(bodies => bodies.some(body => body.contains(document.activeElement))),
-      ).toBe(false)
-    }
+    await page.keyboard.press('Shift+Tab')
+    await expect(page.getByRole('button', {name: 'Internal', exact: true})).toBeFocused()
+    await page.keyboard.press('Tab')
+    await expect(disclosure).toBeFocused()
+    await page.keyboard.press('Tab')
+    await expect(page.getByRole('table').locator(':focus')).toHaveCount(0)
     await expect(page).toHaveNoViolations()
   })
 
