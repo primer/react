@@ -32,6 +32,31 @@ const data: DataTableData<Row> = [
 ]
 
 describe('DataTable group expansion', () => {
+  it('rounds only the final group header when its members are collapsed', async () => {
+    const user = userEvent.setup()
+    render(
+      <DataTable
+        data={[
+          {groupId: 'first', label: 'First', rows: [{id: 1, name: 'Alpha'}]},
+          {groupId: 'last', label: 'Last', rows: [{id: 2, name: 'Beta'}]},
+        ]}
+        columns={columns}
+        collapsibleGroups
+      />,
+    )
+    const first = screen.getByRole('columnheader', {name: 'First'})
+    const last = screen.getByRole('columnheader', {name: 'Last'})
+    expect(getComputedStyle(last).borderBottomLeftRadius).toBe('0px')
+    await user.click(screen.getByRole('button', {name: 'First'}))
+    expect(getComputedStyle(first).borderBottomLeftRadius).toBe('0px')
+    await user.click(screen.getByRole('button', {name: 'Last'}))
+    expect(getComputedStyle(last).borderBottomLeftRadius).toBe('6px')
+    expect(getComputedStyle(last).borderBottomRightRadius).toBe('6px')
+    await user.click(screen.getByRole('button', {name: 'Last'}))
+    expect(getComputedStyle(last).borderBottomLeftRadius).toBe('0px')
+    expect(getComputedStyle(screen.getByRole('rowheader', {name: 'Beta'})).borderBottomLeftRadius).toBe('6px')
+  })
+
   it('leaves groups expanded and without controls unless enabled', () => {
     render(<DataTable data={data} columns={columns} expandedGroups={new Set()} />)
     expect(screen.queryByRole('button', {name: 'First'})).not.toBeInTheDocument()
@@ -274,6 +299,20 @@ describe('DataTable group expansion', () => {
 })
 
 describe('Table.Group expansion', () => {
+  it('keeps collapsed group corners square when pagination follows the table', () => {
+    render(
+      <Table.Container>
+        <Table>
+          <Table.Group id="last" label="Last" rowCount={0} colSpan={1} collapsible defaultExpanded={false} />
+        </Table>
+        <Table.Pagination aria-label="Pagination" totalCount={20} pageSize={10} />
+      </Table.Container>,
+    )
+    const header = screen.getByRole('columnheader', {name: 'Last'})
+    expect(getComputedStyle(header).borderBottomLeftRadius).toBe('0px')
+    expect(getComputedStyle(header).borderBottomRightRadius).toBe('0px')
+  })
+
   implementsClassName(
     props => (
       <Table>
