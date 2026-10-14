@@ -1,6 +1,5 @@
 import React, {useRef} from 'react'
 import {clsx} from 'clsx'
-import {Button} from '../Button'
 import {AriaStatus} from '../live-region'
 import VisuallyHidden from '../_VisuallyHidden'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -13,10 +12,6 @@ export type TableBulkActionsProps = Omit<React.ComponentPropsWithoutRef<'div'>, 
    */
   selectedCount: number
   /**
-   * Requests clearing selection. The consumer owns the selection state.
-   */
-  onClearSelection: () => void
-  /**
    * Restores focus when a focused action disappears. Not called if focus has
    * already moved elsewhere, for example into a consumer-owned dialog.
    */
@@ -25,23 +20,17 @@ export type TableBulkActionsProps = Omit<React.ComponentPropsWithoutRef<'div'>, 
    * Localizes the visible and announced selection count, including zero.
    */
   getSelectedCountLabel?: (selectedCount: number) => string
-  /**
-   * Localizes the clear-selection button.
-   */
-  clearSelectionLabel?: string
 }
 
 function defaultSelectedCountLabel(selectedCount: number) {
-  return `${selectedCount} ${selectedCount === 1 ? 'row' : 'rows'} selected`
+  return `${selectedCount} selected`
 }
 
 const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>(function TableBulkActions(
   {
     selectedCount,
-    onClearSelection,
     onFocusReturn,
     getSelectedCountLabel = defaultSelectedCountLabel,
-    clearSelectionLabel = 'Clear selection',
     'aria-label': ariaLabel = 'Bulk actions',
     className,
     children,
@@ -68,7 +57,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
   })
 
   const count = (
-    <AriaStatus as="span" announceOnShow={active}>
+    <AriaStatus as="span" className={classes.Count} announceOnShow={active}>
       {getSelectedCountLabel(selectedCount)}
     </AriaStatus>
   )
@@ -100,14 +89,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
       className={clsx(classes.TableBulkActions, className)}
     >
       <VisuallyHidden isVisible={active}>{count}</VisuallyHidden>
-      {active ? (
-        <>
-          <Button size="small" onClick={onClearSelection}>
-            {clearSelectionLabel}
-          </Button>
-          <div className={classes.Actions}>{children}</div>
-        </>
-      ) : null}
+      {active ? <div className={classes.Actions}>{children}</div> : null}
     </div>
   )
 })

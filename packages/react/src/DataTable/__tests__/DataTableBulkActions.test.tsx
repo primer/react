@@ -59,12 +59,13 @@ describe('DataTable bulk actions', () => {
       />,
     )
 
-    expect(screen.getByText('2 rows selected')).toBeVisible()
+    expect(screen.getByText('2 selected')).toBeVisible()
+    expect(screen.queryByRole('button', {name: 'Clear selection'})).not.toBeInTheDocument()
     await user.click(screen.getByRole('button', {name: 'Archive'}))
     expect(onAction).toHaveBeenLastCalledWith({selectedRows: new Set<DataTableRowId>([1, '1']), selectedCount: 2})
     expect(screen.queryByRole('button', {name: 'Name'})).not.toBeInTheDocument()
     expect(screen.getByRole('columnheader', {name: 'Name'})).toBeInTheDocument()
-    await user.click(screen.getByRole('button', {name: 'Clear selection'}))
+    await user.click(screen.getByRole('checkbox', {name: 'Select rows'}))
     await user.click(screen.getByRole('button', {name: 'Name'}))
     expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveAttribute('aria-sort', 'ascending')
     await user.click(screen.getByRole('checkbox', {name: 'Select rows'}))
@@ -101,11 +102,11 @@ describe('DataTable bulk actions', () => {
     checkbox.focus()
     await user.keyboard(' ')
     expect(checkbox).toHaveFocus()
-    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('1 row selected'))
+    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('1 selected'))
     await user.click(screen.getByRole('checkbox', {name: 'Select Alpha'}))
-    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('2 rows selected'))
-    await user.click(screen.getByRole('button', {name: 'Clear selection'}))
-    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('0 rows selected'))
+    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('2 selected'))
+    await user.click(screen.getByRole('button', {name: 'Apply to 2'}))
+    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('0 selected'))
     expect(screen.getByRole('checkbox', {name: 'Select rows'})).toHaveFocus()
     expect(screen.queryByRole('group', {name: 'Bulk actions'})).not.toBeInTheDocument()
   })
@@ -183,7 +184,7 @@ describe('DataTable bulk actions', () => {
       )
     }
     render(<Example />)
-    await user.click(screen.getByRole('button', {name: 'Clear selection'}))
+    await user.click(screen.getByRole('button', {name: 'Apply to 1'}))
     expect(screen.getByRole('button', {name: 'Add repository'})).toHaveFocus()
   })
 
@@ -298,7 +299,7 @@ describe('DataTable bulk actions', () => {
         />
       </>,
     )
-    expect(screen.getByText('1 row selected')).toBeVisible()
+    expect(screen.getByText('1 selected')).toBeVisible()
     expect(onSelectionChange).not.toHaveBeenCalled()
     expect(screen.getByRole('button', {name: 'Elsewhere'})).toHaveFocus()
   })
@@ -313,14 +314,13 @@ describe('DataTable bulk actions', () => {
         renderBulkActions={renderActions}
         bulkActionsProps={{
           'aria-label': 'Selected repositories',
-          clearSelectionLabel: 'Deselect repositories',
           getSelectedCountLabel: count => `${count} repositories chosen`,
         }}
       />,
     )
     const group = screen.getByRole('group', {name: 'Selected repositories'})
     expect(within(group).getByText('1 repositories chosen')).toBeVisible()
-    expect(within(group).getByRole('button', {name: 'Deselect repositories'})).toBeVisible()
+    expect(within(group).getAllByRole('button')).toHaveLength(1)
   })
 
   it('preserves structure through server rendering and hydration', async () => {
@@ -352,7 +352,7 @@ describe('DataTable bulk actions', () => {
         ),
       ).toBe(true)
       expect(within(container).getByRole('table')).toBe(serverTable)
-      expect(within(container).getByText('1 row selected')).toBeVisible()
+      expect(within(container).getByText('1 selected')).toBeVisible()
     } finally {
       consoleErrorSpy.mockRestore()
       await act(async () => root?.unmount())
@@ -362,15 +362,11 @@ describe('DataTable bulk actions', () => {
 })
 
 describe('Table.BulkActions', () => {
-  implementsClassName(
-    props => <Table.BulkActions selectedCount={1} onClearSelection={() => {}} {...props} />,
-    classes.TableBulkActions,
-  )
+  implementsClassName(props => <Table.BulkActions selectedCount={1} {...props} />, classes.TableBulkActions)
 
   it('forwards root attributes and ref, preserves child order and native Tab order', async () => {
     const user = userEvent.setup()
     const ref = React.createRef<HTMLDivElement>()
-    const onClearSelection = vi.fn()
     const onFocusCapture = vi.fn()
     const onBlurCapture = vi.fn()
     render(
@@ -378,7 +374,6 @@ describe('Table.BulkActions', () => {
         ref={ref}
         data-testid="actions"
         selectedCount={2}
-        onClearSelection={onClearSelection}
         onFocusCapture={onFocusCapture}
         onBlurCapture={onBlurCapture}
       >
@@ -391,14 +386,10 @@ describe('Table.BulkActions', () => {
     expect(group).toHaveAttribute('data-testid', 'actions')
     expect(group).toHaveAttribute('data-component', 'Table.BulkActions')
     await user.tab()
-    expect(screen.getByRole('button', {name: 'Clear selection'})).toHaveFocus()
-    expect(onFocusCapture).toHaveBeenCalledOnce()
-    await user.keyboard('{Enter}')
-    expect(onClearSelection).toHaveBeenCalledOnce()
-    await user.tab()
     expect(screen.getByRole('button', {name: 'First'})).toHaveFocus()
-    expect(onBlurCapture).toHaveBeenCalledOnce()
+    expect(onFocusCapture).toHaveBeenCalledOnce()
     await user.tab()
     expect(screen.getByRole('button', {name: 'Second'})).toHaveFocus()
+    expect(onBlurCapture).toHaveBeenCalledOnce()
   })
 })

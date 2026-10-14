@@ -272,11 +272,7 @@ export function shouldAcceptBulkActions() {
       bulkActionsProps={{getSelectedCountLabel: count => `${count} selected`}}
     />
   )
-  const composed = (
-    <Table.BulkActions selectedCount={context.selectedCount} onClearSelection={context.clearSelection}>
-      Actions
-    </Table.BulkActions>
-  )
+  const composed = <Table.BulkActions selectedCount={context.selectedCount}>Actions</Table.BulkActions>
   return {config, composed}
 }
 
