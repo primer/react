@@ -124,7 +124,7 @@ type DataTableBaseProps<Data extends UniqueRow> = {
   /**
    * Localizes bulk-action labels and the selected-count announcement.
    */
-  bulkActionsProps?: Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel' | 'clearSelectionLabel'>
+  bulkActionsProps?: Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel'>
 
   /**
    * Overrides the focus recovery target when a focused bulk action disappears.
@@ -268,9 +268,11 @@ function DataTableImplementation<Data extends UniqueRow>({
                         : undefined
                   }
                 >
-                  <VisuallyHidden>
-                    {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
-                  </VisuallyHidden>
+                  <span className={classes.ColumnLabel}>
+                    <VisuallyHidden>
+                      {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
+                    </VisuallyHidden>
+                  </span>
                 </TableHeader>
               )
             }
@@ -313,7 +315,6 @@ function DataTableImplementation<Data extends UniqueRow>({
               <TableBulkActions
                 {...bulkActionsProps}
                 selectedCount={selection.selectedCount}
-                onClearSelection={actions.clearSelection}
                 onFocusReturn={() => {
                   const target = bulkActionsReturnFocusRef?.current
                   if (target?.isConnected) {

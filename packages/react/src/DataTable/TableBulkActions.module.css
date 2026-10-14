@@ -4,8 +4,17 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--base-size-8);
-    font-size: var(--text-body-size-small);
   }
+}
+
+.Count {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+}
+
+.ColumnLabel {
+  /* Preserve the header's text line when its label is visually hidden. */
+  min-block-size: 1lh;
 }
 
 .Actions {
@@ -29,6 +38,7 @@
   align-content: center;
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--table-cell-padding);
+  padding-block: 0;
   padding-inline-end: var(--base-size-16);
   background-color: var(--bgColor-muted);
   border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);

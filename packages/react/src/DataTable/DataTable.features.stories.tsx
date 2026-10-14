@@ -1816,6 +1816,7 @@ export const WithBulkActions = () => {
         bulkActionsReturnFocusRef={rows.length === 0 ? resetButtonRef : undefined}
         renderBulkActions={({selectedRows: effectiveIds, selectedCount, clearSelection}) => (
           <Button
+            size="small"
             variant="danger"
             onClick={() => {
               setRows(current => current.filter(row => !effectiveIds.has(row.id)))

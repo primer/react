@@ -130,8 +130,8 @@
     },
     {
       "name": "bulkActionsProps",
-      "type": "Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel' | 'clearSelectionLabel'>",
-      "description": "Localize the bulk-action group name, selected-count announcement (including zero), and clear-selection label."
+      "type": "Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel'>",
+      "description": "Localize the bulk-action group name and selected-count announcement (including zero)."
     },
     {
       "name": "bulkActionsReturnFocusRef",
@@ -197,12 +197,6 @@
           "description": "The effectively selected row count. Keep the component mounted at zero so count announcements and focus recovery can complete."
         },
         {
-          "name": "onClearSelection",
-          "type": "() => void",
-          "required": true,
-          "description": "Request clearing selection. The consumer owns selection state."
-        },
-        {
           "name": "onFocusReturn",
           "type": "() => void",
           "description": "Choose the recovery destination when a focused action disappears and focus has not moved elsewhere."
@@ -211,12 +205,6 @@
           "name": "getSelectedCountLabel",
           "type": "(selectedCount: number) => string",
           "description": "Localize the visible and announced selected count, including zero."
-        },
-        {
-          "name": "clearSelectionLabel",
-          "type": "string",
-          "defaultValue": "'Clear selection'",
-          "description": "Localize the clear-selection button."
         },
         {
           "name": "aria-label",

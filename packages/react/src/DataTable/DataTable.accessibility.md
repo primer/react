@@ -271,7 +271,8 @@ labels while rows are selected. Column labels remain available to assistive
 technology, but sorting controls are removed until selection is cleared. The
 named action group uses native Tab/Shift+Tab navigation. Count changes are
 announced, including zero. Use `bulkActionsProps`
-to localize the group name, clear button, and count label.
+to localize the group name and count label. The header checkbox toggles selection;
+there is no separate clear button. Use small action buttons to fit the header.
 
 Showing actions preserves checkbox focus. When clearing selection or updating
 rows removes the focused action, `DataTable` restores focus to select-all, or to

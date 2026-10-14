@@ -24,7 +24,8 @@ test.describe('DataTable bulk actions', () => {
     const actions = page.getByRole('table').getByRole('group', {name: 'Bulk actions'})
     await expect(page.getByRole('button', {name: 'Repository', exact: true})).toHaveCount(0)
     await expect(page.getByRole('columnheader', {name: 'Repository', exact: true})).toHaveCount(1)
-    await expect(actions.getByText('3 rows selected')).toBeVisible()
+    await expect(actions.getByText('3 selected')).toBeVisible()
+    await expect(actions.getByRole('button', {name: 'Clear selection'})).toHaveCount(0)
     const actionsBox = await actions.boundingBox()
     const headerBox = await selectAll.boundingBox()
     expect(actionsBox).not.toBeNull()
@@ -34,8 +35,9 @@ test.describe('DataTable bulk actions', () => {
     expect(headerBox!.x + headerBox!.width).toBeLessThan(actionsBox!.x)
 
     await page.keyboard.press('Tab')
-    await expect(actions.getByRole('button', {name: 'Clear selection'})).toBeFocused()
-    await page.keyboard.press('Enter')
+    await expect(actions.getByRole('button', {name: 'Delete selected'})).toBeFocused()
+    await page.keyboard.press('Shift+Tab')
+    await page.keyboard.press('Space')
     await expect(selectAll).toBeFocused()
     await expect(actions).toHaveCount(0)
     await expect(page.getByRole('button', {name: 'Repository', exact: true})).toBeVisible()
@@ -57,6 +59,38 @@ test.describe('DataTable bulk actions', () => {
     await expect(page).toHaveNoViolations()
   })
 
+  for (const density of ['condensed', 'normal', 'spacious'] as const) {
+    test(`preserves header height and typography (${density}) @avt`, async ({page}) => {
+      await visit(page, {id: storyId})
+      const table = page.getByRole('table')
+      await table.evaluate((element, value) => {
+        element.setAttribute('data-cell-padding', value)
+      }, density)
+      await page.getByRole('button', {name: 'Reset repositories'}).click()
+      const head = table.locator('thead')
+      const before = await head.boundingBox()
+      const columnStyle = await page.getByRole('columnheader', {name: 'Repository', exact: true}).evaluate(element => {
+        const style = getComputedStyle(element)
+        return [style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.color]
+      })
+
+      await page.getByRole('checkbox', {name: 'Select rows', exact: true}).click()
+      const count = table.getByText('3 selected', {exact: true})
+      await expect(count).toBeVisible()
+      const selected = await head.boundingBox()
+      expect(selected!.height).toBe(before!.height)
+      expect(
+        await count.evaluate(element => {
+          const style = getComputedStyle(element)
+          return [style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.color]
+        }),
+      ).toEqual(columnStyle)
+
+      await page.getByRole('checkbox', {name: 'Select rows', exact: true}).click()
+      expect((await head.boundingBox())!.height).toBe(before!.height)
+    })
+  }
+
   for (const theme of ['light', 'dark'] as const) {
     test(`mixed ${theme} @vrt`, async ({page}) => {
       await visit(page, {
@@ -77,7 +111,7 @@ test.describe('DataTable bulk actions', () => {
         '* {line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important;} p {margin-bottom: 2em !important;}',
     })
     const actions = page.getByRole('group', {name: 'Bulk actions'})
-    await expect(actions.getByRole('button', {name: 'Clear selection'})).toBeVisible()
+    await expect(actions.getByText('1 selected')).toBeVisible()
     await expect(actions.getByRole('button', {name: 'Delete selected'})).toBeVisible()
     const dimensions = await actions.evaluate(element => ({
       width: element.clientWidth,
@@ -90,7 +124,7 @@ test.describe('DataTable bulk actions', () => {
     await expect(deleteButton).toBeInViewport({ratio: 1})
     const buttonBox = await deleteButton.boundingBox()
     expect(buttonBox!.width).toBeLessThanOrEqual(320)
-    await actions.getByRole('button', {name: 'Clear selection'}).click()
+    await deleteButton.click()
     await expect(page.getByRole('checkbox', {name: 'Select rows', exact: true})).toBeFocused()
   })
 })
