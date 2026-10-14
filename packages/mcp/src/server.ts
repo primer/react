@@ -6,6 +6,7 @@ import * as cheerio from 'cheerio'
 import * as z from 'zod'
 import TurndownService from 'turndown'
 import {listComponents, listPatterns, listIcons} from './primer'
+import {feedbackInstructions, registerFeedbackTool} from './feedback'
 import {
   listTokenGroups,
   loadAllTokensWithGuidelines,
@@ -29,10 +30,17 @@ const turndownService = new TurndownService()
 const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
 
 function createServer() {
-  const server = new McpServer({
-    name: 'Primer',
-    version: packageJson.version,
-  })
+  const server = new McpServer(
+    {
+      name: 'Primer',
+      version: packageJson.version,
+    },
+    {
+      instructions: feedbackInstructions,
+    },
+  )
+
+  registerFeedbackTool(server)
 
   // -----------------------------------------------------------------------------
   // Project setup

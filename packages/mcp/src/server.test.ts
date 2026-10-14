@@ -1,5 +1,6 @@
 import {Client, InMemoryTransport} from '@modelcontextprotocol/client'
 import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
+import {feedbackDraftSchema} from './feedback'
 import {server} from './server'
 
 describe('MCP server', () => {
@@ -49,6 +50,266 @@ describe('MCP server', () => {
       arguments: {names},
     })
   }
+
+  describe('feedback drafts', () => {
+    const feedback = {
+      feedbackType: 'Discovery gap',
+      title: 'Make the existing component easier to discover',
+      resource: 'ActionMenu',
+      observed: 'The user had to point out the existing component.',
+      expected: 'The agent discovers the component before building a custom menu.',
+      reproduction: {
+        status: 'reproduced',
+        steps: ['Search the component documentation using the original task terms.'],
+        result: 'The lookup does not identify ActionMenu until its name is supplied.',
+      },
+      outcome: {
+        status: 'worked-around',
+        details: 'Used the component after the user supplied its name.',
+      },
+    }
+
+    it('provides low-interruption guidance when the client connects', () => {
+      expect(client.getInstructions()).toContain('offer once at a natural stopping point')
+      expect(client.getInstructions()).toContain('Do not repeat an offer the user has declined')
+      expect(client.getInstructions()).toContain('Never submit feedback without explicit user approval')
+      expect(client.getInstructions()).toContain('Default all feedback to github/primer')
+      expect(client.getInstructions()).toContain('Skip reproduction only when the user says they do not want to wait')
+      expect(client.getInstructions()).toContain(
+        'Only include an agent-session link if the user explicitly shares it or approves including it',
+      )
+    })
+
+    it.each(['github/primer', 'primer/react'])(
+      'prepares a reviewable draft for %s without network access',
+      async repository => {
+        const result = await client.callTool({
+          name: 'prepare_feedback',
+          arguments: {
+            ...feedback,
+            repository,
+            githubPrimerAccess: repository === 'primer/react' ? 'unavailable' : 'available',
+            title: '  Discovery: ActionMenu & menus?  ',
+            context: 'A task involving menus.',
+            evidence: 'https://primer.style/product/components/action-menu',
+          },
+        })
+
+        expect(result.isError).not.toBe(true)
+        expect(result.structuredContent).toMatchObject({
+          status: 'draft',
+          repository,
+          title: 'Discovery: ActionMenu & menus?',
+          body: expect.stringContaining(
+            '### Outcome\n\nStatus: worked-around\n\nUsed the component after the user supplied its name.',
+          ),
+        })
+        const draft = feedbackDraftSchema.parse(result.structuredContent)
+        expect(draft.body).toContain('### Context\n\nA task involving menus.')
+        expect(draft.body).toContain('### Evidence\n\nhttps://primer.style/product/components/action-menu')
+        const url = new URL(draft.issueUrl)
+        expect(url.origin).toBe('https://github.com')
+        expect(url.pathname).toBe(`/${repository}/issues/new`)
+        expect(url.searchParams.get('template')).toBe('agent-feedback.md')
+        expect(url.searchParams.get('title')).toBe(draft.title)
+        expect(url.searchParams.get('body')).toBe(draft.body)
+        expect(result.content).toContainEqual(
+          expect.objectContaining({
+            type: 'text',
+            text: expect.stringContaining('Draft only; no issue has been filed.'),
+          }),
+        )
+        expect(fetch).not.toHaveBeenCalled()
+      },
+    )
+
+    it.each([
+      'Bug',
+      'Documentation gap',
+      'Documentation mismatch',
+      'Feature gap',
+      'Discovery gap',
+      'Performance gap',
+      'Accessibility gap',
+      'Migration gap',
+    ])('captures %s without requiring optional evidence', async feedbackType => {
+      const result = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: {
+          ...feedback,
+          feedbackType,
+        },
+      })
+
+      expect(result.isError).not.toBe(true)
+      const draft = feedbackDraftSchema.parse(result.structuredContent)
+      expect(draft.body).toBe(
+        `### Feedback type\n\n${feedbackType}\n\n### Resource\n\n${feedback.resource}\n\n### Observed\n\n${feedback.observed}\n\n### Expected\n\n${feedback.expected}\n\n### Reproduction\n\nStatus: reproduced\n\n1. ${feedback.reproduction.steps[0]}\n\nResult: ${feedback.reproduction.result}\n\n### Outcome\n\nStatus: worked-around\n\n${feedback.outcome.details}`,
+      )
+    })
+
+    it('defaults to github/primer without requiring an access check', async () => {
+      const result = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: feedback,
+      })
+
+      expect(result.isError).not.toBe(true)
+      const draft = feedbackDraftSchema.parse(result.structuredContent)
+      expect(draft.repository).toBe('github/primer')
+      expect(new URL(draft.issueUrl).pathname).toBe('/github/primer/issues/new')
+      expect(draft.reproduction).toEqual(feedback.reproduction)
+      expect(draft.links).toEqual([])
+      expect(draft.body).not.toContain('### Links')
+    })
+
+    it('includes labeled references in the draft and prefilled issue body', async () => {
+      const links = [
+        {
+          label: 'Pull request',
+          url: 'https://github.com/primer/react/pull/123',
+        },
+        {
+          label: 'Copilot review [comment]',
+          url: 'https://github.com/primer/react/pull/123#discussion_r456',
+        },
+        {
+          label: 'User-shared agent session',
+          url: 'https://example.com/shared-agent-session',
+        },
+      ]
+      const result = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: {
+          ...feedback,
+          links,
+        },
+      })
+
+      expect(result.isError).not.toBe(true)
+      const draft = feedbackDraftSchema.parse(result.structuredContent)
+      expect(draft.links).toEqual(links)
+      expect(draft.body).toContain(
+        `### Links\n\n- [Pull request](<${links[0].url}>)\n- [Copilot review \\[comment\\]](<${links[1].url}>)\n- [User-shared agent session](<${links[2].url}>)`,
+      )
+      expect(draft.body.endsWith(`### Outcome\n\nStatus: worked-around\n\n${feedback.outcome.details}`)).toBe(true)
+      expect(new URL(draft.issueUrl).searchParams.get('body')).toBe(draft.body)
+      expect(fetch).not.toHaveBeenCalled()
+    })
+
+    it.each([
+      {
+        status: 'blocked',
+        details: 'The task cannot proceed without the missing functionality.',
+      },
+      {
+        status: 'worked-around',
+        details: 'Replaced the missing feature with a separate control.',
+      },
+      {
+        status: 'resolved',
+        details: 'Corrected the conflicting guidance and completed the task without a workaround.',
+      },
+    ])('records task outcome $status independently of reproduction', async outcome => {
+      const result = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: {
+          ...feedback,
+          outcome,
+        },
+      })
+
+      expect(result.isError).not.toBe(true)
+      const draft = feedbackDraftSchema.parse(result.structuredContent)
+      expect(draft.outcome).toEqual(outcome)
+      expect(draft.reproduction).toEqual(feedback.reproduction)
+      expect(draft.body.endsWith(`### Outcome\n\nStatus: ${outcome.status}\n\n${outcome.details}`)).toBe(true)
+    })
+
+    it.each(['unknown', 'available'])(
+      'rejects the public fallback when github/primer access is %s',
+      async githubPrimerAccess => {
+        const result = await client.callTool({
+          name: 'prepare_feedback',
+          arguments: {
+            ...feedback,
+            repository: 'primer/react',
+            githubPrimerAccess,
+          },
+        })
+
+        expect(result.isError).toBe(true)
+        expect(result.structuredContent).toBeUndefined()
+      },
+    )
+
+    it.each([
+      {
+        status: 'not-reproduced',
+        steps: ['Repeat the original component lookup.'],
+        result: 'The component was found this time.',
+      },
+      {
+        status: 'skipped-user-request',
+      },
+    ])('records reproduction status $status without claiming verification', async reproduction => {
+      const result = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: {
+          ...feedback,
+          reproduction,
+        },
+      })
+
+      expect(result.isError).not.toBe(true)
+      const draft = feedbackDraftSchema.parse(result.structuredContent)
+      expect(draft.reproduction).toEqual(reproduction)
+      if (reproduction.status === 'not-reproduced') {
+        expect(draft.body).toContain('Status: not-reproduced')
+        expect(draft.body).toContain('1. Repeat the original component lookup.')
+        expect(draft.body).toContain('Result: The component was found this time.')
+      } else {
+        expect(draft.body).toContain("Skipped at the user's request because they do not want to wait.")
+      }
+    })
+
+    it.each([
+      {repository: 'other/repository'},
+      {feedbackType: 'Unknown'},
+      {title: ' '},
+      {title: 'Title\nAnother line'},
+      {resource: ' '},
+      {observed: ' '},
+      {expected: ' '},
+      {evidence: ' '},
+      {repository: 'primer/react'},
+      {reproduction: undefined},
+      {reproduction: {status: 'reproduced', steps: [], result: 'Observed the problem.'}},
+      {reproduction: {status: 'reproduced', steps: [' '], result: 'Observed the problem.'}},
+      {reproduction: {status: 'not-reproduced', steps: ['Repeat the lookup.'], result: ' '}},
+      {reproduction: {status: 'skipped'}},
+      {links: [{label: ' ', url: 'https://example.com/report'}]},
+      {links: [{label: 'Review\ncomment', url: 'https://example.com/report'}]},
+      {links: [{label: 'Review comment', url: 'not-a-url'}]},
+      {links: [{label: 'Review comment', url: 'javascript:alert(1)'}]},
+      {links: [{label: 'Review comment', url: 'file:///private/session.log'}]},
+      {outcome: undefined},
+      {outcome: {status: 'unknown', details: 'No task outcome was recorded.'}},
+      {outcome: {status: 'worked-around', details: ' '}},
+      {outcome: {status: 'blocked'}},
+    ])('rejects invalid feedback fields: %j', async overrides => {
+      const result = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: {
+          ...feedback,
+          ...overrides,
+        },
+      })
+
+      expect(result.isError).toBe(true)
+      expect(fetch).not.toHaveBeenCalled()
+    })
+  })
 
   it('documents which component tool to use for each supported count', async () => {
     const {tools} = await client.listTools()
