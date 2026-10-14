@@ -148,9 +148,14 @@ test.describe('SelectPanel', () => {
   for (const theme of contrastThemes) {
     test(`Legacy contrast @vrt ${theme}`, async ({page}) => {
       await visit(page, {
-        id: 'components-selectpanel-features--legacy-contrast',
-        globals: {colorScheme: theme},
+        id: 'components-selectpanel--default',
+        globals: {
+          colorScheme: theme,
+          featureFlags: {primer_react_select_panel_legacy_contrast: true},
+        },
       })
+      await page.getByRole('button', {name: /bug/}).click()
+      await expect(page.locator('[data-component="TextInput"]')).toHaveAttribute('data-contrast')
       await expect(page.getByRole('combobox', {name: 'Filter items'})).toHaveValue('')
       await expect(page.getByRole('option')).toHaveCount(7)
       expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(

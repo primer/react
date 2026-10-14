@@ -1,7 +1,8 @@
-import {render, screen, waitFor} from '@testing-library/react'
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
 import {page} from 'vitest/browser'
 import React from 'react'
+import {flushSync} from 'react-dom'
 import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
 import {FeatureFlags} from '../FeatureFlags'
@@ -674,7 +675,13 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getAllByRole('option')).toHaveLength(1)
         expect(screen.getByRole('option', {name: 'item two'})).toBeInTheDocument()
 
-        await user.keyboard('{Escape}')
+        // Keep close-time ref and focus updates inside the active act scope.
+        act(() => {
+          flushSync(() => {
+            fireEvent.keyDown(input, {key: 'Escape'})
+          })
+        })
+        await waitFor(() => expect(input).not.toBeInTheDocument())
         expect(screen.getByRole('button', {name: 'Select items'})).toHaveFocus()
       })
 
