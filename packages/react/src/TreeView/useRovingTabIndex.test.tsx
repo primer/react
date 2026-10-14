@@ -572,6 +572,35 @@ describe('useRovingTabIndex hook', () => {
     expect(item1).toHaveFocus()
   })
 
+  it.each(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown', 'Backspace'])(
+    'keeps focus on a nested control when pressing %s',
+    key => {
+      const {getByRole} = render(
+        <TreeWithRovingTabIndex>
+          <li role="treeitem" aria-selected="false" aria-label="Item 1" tabIndex={0}>
+            Item 1
+            <button type="button" tabIndex={-1}>
+              Nested action
+            </button>
+          </li>
+          <li role="treeitem" aria-selected="false" tabIndex={0}>
+            Item 2
+          </li>
+        </TreeWithRovingTabIndex>,
+      )
+
+      const item = getByRole('treeitem', {name: 'Item 1'})
+      const button = getByRole('button', {name: 'Nested action'})
+
+      act(() => item.focus())
+      act(() => button.focus())
+      expect(button).toHaveFocus()
+
+      expect(fireEvent.keyDown(button, {key})).toBe(false)
+      expect(button).toHaveFocus()
+    },
+  )
+
   describe('preventScroll', () => {
     it('defaults to preventScroll=true', () => {
       const focusSpy = vi.spyOn(HTMLElement.prototype, 'focus')

@@ -370,6 +370,31 @@ describe('Markup', () => {
     expect(item1).toHaveFocus()
   })
 
+  it('keeps focus on a nested control when pressing ArrowDown', () => {
+    render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">
+          Item 2
+          <button type="button" tabIndex={-1} aria-hidden>
+            Nested action
+          </button>
+        </TreeView.Item>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+      </TreeView>,
+    )
+
+    const item = screen.getByRole('treeitem', {name: 'Item 2'})
+    const button = screen.getByText('Nested action')
+
+    act(() => item.focus())
+    act(() => button.focus())
+    expect(button).toHaveFocus()
+
+    expect(fireEvent.keyDown(button, {key: 'ArrowDown'})).toBe(false)
+    expect(button).toHaveFocus()
+  })
+
   describe('as prop', () => {
     it('renders as an `li` by default', () => {
       render(

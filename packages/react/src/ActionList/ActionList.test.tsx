@@ -242,23 +242,30 @@ describe('ActionList', () => {
     expect(item.getAttribute('aria-labelledby')).not.toContain(descriptionId)
   })
 
-  it('should support size prop on LinkItem', () => {
+  it('should support size prop on Item and LinkItem', () => {
     const {container} = HTMLRender(
       <ActionList>
+        <ActionList.Item size="small">Small Item</ActionList.Item>
         <ActionList.LinkItem href="//github.com" size="large">
           Large Link Item
         </ActionList.LinkItem>
         <ActionList.LinkItem href="//github.com" size="medium">
           Medium Link Item
         </ActionList.LinkItem>
+        <ActionList.LinkItem href="//github.com" size="small">
+          Small Link Item
+        </ActionList.LinkItem>
         <ActionList.LinkItem href="//github.com">Default Link Item</ActionList.LinkItem>
       </ActionList>,
     )
 
+    const buttonElement = container.querySelector('button')
     const linkElements = container.querySelectorAll('a')
+    expect(buttonElement).toHaveAttribute('data-size', 'small')
     expect(linkElements[0]).toHaveAttribute('data-size', 'large')
     expect(linkElements[1]).toHaveAttribute('data-size', 'medium')
-    expect(linkElements[2]).toHaveAttribute('data-size', 'medium') // default should be medium
+    expect(linkElements[2]).toHaveAttribute('data-size', 'small')
+    expect(linkElements[3]).toHaveAttribute('data-size', 'medium') // default should be medium
   })
 })
 
