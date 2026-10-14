@@ -1,5 +1,6 @@
+import {Buffer} from 'node:buffer'
 import {Client, InMemoryTransport} from '@modelcontextprotocol/client'
-import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterAll, afterEach, assert, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest'
 import {feedbackDraftSchema} from './feedback'
 import {server} from './server'
 
@@ -111,7 +112,8 @@ describe('MCP server', () => {
         const draft = feedbackDraftSchema.parse(result.structuredContent)
         expect(draft.body).toContain('### Context\n\nA task involving menus.')
         expect(draft.body).toContain('### Evidence\n\nhttps://primer.style/product/components/action-menu')
-        const url = new URL(draft.issueUrl)
+        assert(draft.submission.method === 'url')
+        const url = new URL(draft.submission.url)
         expect(url.origin).toBe('https://github.com')
         expect(url.pathname).toBe(`/${repository}/issues/new`)
         expect(url.searchParams.get('template')).toBe('agent-feedback.md')
@@ -161,7 +163,8 @@ describe('MCP server', () => {
       expect(result.isError).not.toBe(true)
       const draft = feedbackDraftSchema.parse(result.structuredContent)
       expect(draft.repository).toBe('github/primer')
-      expect(new URL(draft.issueUrl).pathname).toBe('/github/primer/issues/new')
+      assert(draft.submission.method === 'url')
+      expect(new URL(draft.submission.url).pathname).toBe('/github/primer/issues/new')
       expect(draft.reproduction).toEqual(feedback.reproduction)
       expect(draft.links).toEqual([])
       expect(draft.body).not.toContain('### Links')
@@ -197,7 +200,89 @@ describe('MCP server', () => {
         `### Links\n\n- [Pull request](<${links[0].url}>)\n- [Copilot review \\[comment\\]](<${links[1].url}>)\n- [User-shared agent session](<${links[2].url}>)`,
       )
       expect(draft.body.endsWith(`### Outcome\n\nStatus: worked-around\n\n${feedback.outcome.details}`)).toBe(true)
-      expect(new URL(draft.issueUrl).searchParams.get('body')).toBe(draft.body)
+      assert(draft.submission.method === 'url')
+      expect(new URL(draft.submission.url).searchParams.get('body')).toBe(draft.body)
+      expect(fetch).not.toHaveBeenCalled()
+    })
+
+    it.each([6000, 6001])('chooses the appropriate submission method for a %i-byte URL', async urlBytes => {
+      const baseline = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: {
+          ...feedback,
+          context: 'x',
+        },
+      })
+      const baselineDraft = feedbackDraftSchema.parse(baseline.structuredContent)
+      assert(baselineDraft.submission.method === 'url')
+      const baselineUrl = baselineDraft.submission.url
+      const context = 'x'.repeat(urlBytes - Buffer.byteLength(baselineUrl, 'utf8') + 1)
+      const result = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: {
+          ...feedback,
+          context,
+        },
+      })
+
+      expect(result.isError).not.toBe(true)
+      const draft = feedbackDraftSchema.parse(result.structuredContent)
+      const candidateUrl = new URL(baselineUrl)
+      candidateUrl.searchParams.set('body', draft.body)
+      expect(Buffer.byteLength(candidateUrl.toString(), 'utf8')).toBe(urlBytes)
+      expect(draft.body).toContain(`### Context\n\n${context}`)
+
+      if (urlBytes === 6000) {
+        expect(draft.submission).toEqual({
+          method: 'url',
+          url: candidateUrl.toString(),
+        })
+      } else {
+        expect(draft.submission).toEqual({
+          method: 'gh-cli',
+          command: 'gh',
+          args: ['issue', 'create', '--repo', 'github/primer', '--title', feedback.title, '--body-file', '-'],
+        })
+        expect(result.content).toContainEqual(
+          expect.objectContaining({
+            type: 'text',
+            text: expect.stringContaining('Only after explicit user approval, run gh with these argument values:'),
+          }),
+        )
+        expect(JSON.stringify(result)).not.toContain(candidateUrl.toString())
+      }
+      expect(fetch).not.toHaveBeenCalled()
+    })
+
+    it('uses the CLI for percent-encoded Unicode without altering the title or draft', async () => {
+      const title = "What's missing? 'quoted' & $special"
+      const context = '説明'.repeat(400)
+      const result = await client.callTool({
+        name: 'prepare_feedback',
+        arguments: {
+          ...feedback,
+          title,
+          context,
+          repository: 'primer/react',
+          githubPrimerAccess: 'unavailable',
+        },
+      })
+
+      expect(result.isError).not.toBe(true)
+      const draft = feedbackDraftSchema.parse(result.structuredContent)
+      expect(draft.body.length).toBeLessThan(6000)
+      expect(draft.body).toContain(`### Context\n\n${context}`)
+      expect(draft.submission).toEqual({
+        method: 'gh-cli',
+        command: 'gh',
+        args: ['issue', 'create', '--repo', 'primer/react', '--title', title, '--body-file', '-'],
+      })
+      expect(result.content).toContainEqual(
+        expect.objectContaining({
+          type: 'text',
+          text: expect.stringContaining("Offer to submit this draft on the user's behalf using the GitHub CLI."),
+        }),
+      )
       expect(fetch).not.toHaveBeenCalled()
     })
 

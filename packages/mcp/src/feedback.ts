@@ -1,3 +1,4 @@
+import {Buffer} from 'node:buffer'
 import type {McpServer} from '@modelcontextprotocol/server'
 // eslint-disable-next-line import/no-namespace
 import * as z from 'zod'
@@ -8,6 +9,7 @@ Do not ask the user to repeat information already available in the conversation.
 Before drafting feedback, attempt the smallest safe reproduction of the problem and record the steps and actual result. For documentation or discovery feedback, recheck the relevant source or lookup rather than building an unrelated code example. Do not invent evidence or claim successful reproduction when the attempt did not reproduce the problem. Skip reproduction only when the user says they do not want to wait, and record that explicitly. If reproduction would take substantial time, ask whether the user wants to wait before starting it.
 Record the final task outcome separately from reproduction: blocked if the user cannot proceed, worked-around if an alternative approach or manual guidance enables progress, or resolved if the problem is addressed without a remaining workaround. Explain what remains blocked or exactly what enabled progress. A successful reproduction does not mean the task is resolved, and a workaround does not erase the original feedback.
 Use prepare_feedback to draft a report, not to submit one. Review the repository and report with the user before opening a prefilled issue link or submitting through another tool. Never submit feedback without explicit user approval.
+If the draft is too large for a prefilled issue URL, offer to submit it on the user's behalf using the returned gh CLI arguments. Only after explicit approval, run gh with those arguments and pass the draft body unchanged on standard input. The tool does not run gh or create issues. If gh is unavailable, unauthenticated, or fails, explain the error and retain the draft rather than claiming it was submitted.
 Include relevant links when available, such as a pull request or Copilot code review comment. Only include an agent-session link if the user explicitly shares it or approves including it. Do not create session share links or upload transcripts just to attach feedback. Check that linked content is appropriate for the destination repository, and omit links whose sharing permissions are unclear.
 Default all feedback to github/primer. Only offer primer/react as a fallback when the user cannot create an issue in github/primer, confirmed by the user or an issue-creation permission check. Unknown access, a transient network failure, or a missing GitHub login is not confirmation that the user lacks permission. Do not switch repositories based on the feedback category or resource. Do not copy private code, unreleased product details, credentials, or conversation transcripts into public issues. Ask if access or sharing permissions are unclear; never make private feedback public just to use the fallback.`
 
@@ -41,12 +43,27 @@ const outcomeSchema = z.object({
   details: z.string().trim().min(1),
 })
 
+// Leave room below GitHub's request limit for redirects and URL encoding.
+const MAX_ISSUE_URL_BYTES = 6000
+
 const feedbackDraftSchema = z.object({
   status: z.literal('draft'),
   repository: z.enum(['github/primer', 'primer/react']),
   title: z.string(),
   body: z.string(),
-  issueUrl: z.string(),
+  submission: z.discriminatedUnion('method', [
+    z.object({
+      method: z.literal('url'),
+      url: z.url(),
+    }),
+    z.object({
+      method: z.literal('gh-cli'),
+      command: z.literal('gh'),
+      args: z
+        .array(z.string())
+        .describe('Pass these arguments to gh and the draft body on standard input after approval'),
+    }),
+  ]),
   reproduction: reproductionSchema,
   links: feedbackLinksSchema,
   outcome: outcomeSchema,
@@ -190,13 +207,35 @@ function registerFeedbackTool(server: McpServer) {
       issueUrl.searchParams.set('title', title)
       issueUrl.searchParams.set('body', body)
 
+      const url = issueUrl.toString()
+      const submission =
+        Buffer.byteLength(url, 'utf8') <= MAX_ISSUE_URL_BYTES
+          ? {
+              method: 'url' as const,
+              url,
+            }
+          : {
+              method: 'gh-cli' as const,
+              command: 'gh' as const,
+              args: ['issue', 'create', '--repo', repository, '--title', title, '--body-file', '-'],
+            }
+      const nextStep =
+        submission.method === 'url'
+          ? `Issue link: ${submission.url}`
+          : `The prefilled issue URL exceeds the ${MAX_ISSUE_URL_BYTES}-byte budget. Offer to submit this draft on the user's behalf using the GitHub CLI.
+
+Only after explicit user approval, run gh with these argument values:
+${JSON.stringify(submission.args, null, 2)}
+
+Pass the draft body unchanged on standard input (--body-file -). This requires an installed, authenticated gh CLI. No command has been run and no issue has been filed.`
+
       return {
         structuredContent: {
           status: 'draft',
           repository,
           title,
           body,
-          issueUrl: issueUrl.toString(),
+          submission,
           reproduction,
           links,
           outcome,
@@ -211,9 +250,9 @@ Title: ${title}
 
 ${body}
 
-Review the repository and content with the user before opening this link or submitting. primer/react is public: remove private code, credentials, unreleased product details, and conversation transcripts. The agent-feedback.md template is proposed and may not exist yet; the title and body are provided separately for manual filing.
+Review the repository and content with the user before opening a link or submitting. primer/react is public: remove private code, credentials, unreleased product details, and conversation transcripts. The body follows the proposed agent-feedback.md template, which may not exist yet; the title and body are provided separately for filing without the template.
 
-Issue link: ${issueUrl}`,
+${nextStep}`,
           },
         ],
       }
