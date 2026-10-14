@@ -840,6 +840,8 @@
 .Sidebar {
   width: var(--pane-width-size);
   height: 100%;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--spacing);
   overflow: auto;
 
   &:where([data-resizable]) {
