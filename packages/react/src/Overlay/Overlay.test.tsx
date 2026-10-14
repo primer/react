@@ -15,11 +15,13 @@ type TestComponentSettings = {
   width?: 'small' | 'medium' | 'large' | 'auto' | 'xlarge' | 'xxlarge'
   callback?: () => void
   preventFocusOnOpen?: boolean
+  preventFocusOnClose?: boolean
 }
 const TestComponent = ({
   initialFocus,
   width = 'small',
   preventFocusOnOpen = undefined,
+  preventFocusOnClose,
   callback,
 }: TestComponentSettings) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -57,6 +59,7 @@ const TestComponent = ({
             onClickOutside={closeOverlay}
             width={width}
             preventFocusOnOpen={preventFocusOnOpen}
+            preventFocusOnClose={preventFocusOnClose}
             role="dialog"
           >
             <div
@@ -157,6 +160,46 @@ describe('Overlay', () => {
 
     // Focus should return to button that was originally clicked to open overlay
     expect(document.activeElement).toEqual(openButton)
+  })
+
+  it.each([undefined, false, true])(
+    'controls focus restoration with preventFocusOnClose set to %s',
+    async preventFocusOnClose => {
+      const user = userEvent.setup()
+      const component = render(<TestComponent preventFocusOnClose={preventFocusOnClose} />)
+      const trigger = component.getByRole('button', {name: 'open overlay'})
+      await user.click(trigger)
+
+      expect(component.getByRole('button', {name: 'Cancel'})).toHaveFocus()
+      expect(component.getByRole('dialog')).not.toHaveAttribute('preventFocusOnClose')
+
+      await user.click(component.getByRole('button', {name: 'Cancel'}))
+      expect(component.queryByRole('dialog')).not.toBeInTheDocument()
+
+      if (preventFocusOnClose) {
+        expect(trigger).not.toHaveFocus()
+      } else {
+        expect(trigger).toHaveFocus()
+      }
+    },
+  )
+
+  it('preserves consumer-managed focus when automatic restoration is prevented', async () => {
+    const user = userEvent.setup()
+    const component = render(
+      <TestComponent
+        preventFocusOnClose
+        callback={() => {
+          component.getByRole('button', {name: 'outside'}).focus()
+        }}
+      />,
+    )
+
+    await user.click(component.getByRole('button', {name: 'open overlay'}))
+    await user.click(component.getByRole('button', {name: 'Cancel'}))
+
+    expect(component.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(component.getByRole('button', {name: 'outside'})).toHaveFocus()
   })
 
   it('should call function when user clicks outside container', async () => {

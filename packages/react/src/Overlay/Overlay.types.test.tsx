@@ -31,3 +31,19 @@ export function shouldNotAcceptSystemProps(ref: React.RefObject<HTMLElement>) {
     />
   )
 }
+
+export function shouldAcceptPreventFocusOnClose(ref: React.RefObject<HTMLElement>) {
+  return <Overlay returnFocusRef={ref} onClickOutside={() => null} onEscape={() => null} preventFocusOnClose />
+}
+
+export function shouldNotAcceptInvalidPreventFocusOnClose(ref: React.RefObject<HTMLElement>) {
+  return (
+    <Overlay
+      returnFocusRef={ref}
+      onClickOutside={() => null}
+      onEscape={() => null}
+      // @ts-expect-error preventFocusOnClose must be a boolean
+      preventFocusOnClose="true"
+    />
+  )
+}
