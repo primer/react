@@ -25,7 +25,6 @@ const unsupportedPatterns = [
   'src/SelectPanel/SelectPanel.test.tsx',
   'src/SelectPanel/SelectPanel.tsx',
   'src/Skeleton/SkeletonBox.figma.tsx',
-  'src/Token/_RemoveTokenButton.tsx',
   'src/TreeView/TreeView.features.stories.tsx',
   'src/TreeView/TreeView.tsx',
   'src/deprecated/utils/create-slots.tsx',
