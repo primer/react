@@ -22,14 +22,12 @@ const RemoveTokenButton = ({
   borderOffset = 0,
   as: _as,
   children: _children,
-  ref,
   ...rest
 }: React.PropsWithChildren<RemoveTokenButtonProps & {as?: React.ElementType}>) => {
   if (isParentInteractive) {
     return (
       <span
         {...rest}
-        ref={ref as React.Ref<HTMLSpanElement>}
         tabIndex={-1}
         aria-label={ariaLabel}
         data-size={size}
@@ -52,7 +50,6 @@ const RemoveTokenButton = ({
       style={{
         transform: `translate(${borderOffset}px, -${borderOffset}px)`,
       }}
-      ref={ref as React.Ref<HTMLButtonElement>}
       type="button"
     >
       <XIcon size={size === 'small' || size === 'medium' ? 12 : 16} />
