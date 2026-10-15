@@ -43,10 +43,10 @@ test.describe('Avatar', () => {
               const avatar = page.getByRole('img')
               await expect(avatar).toHaveCSS('width', `${story.expectedSize}px`)
               await expect(avatar).toHaveCSS('height', `${story.expectedSize}px`)
+            } else {
+              // Default state
+              await expect(page).toHaveScreenshot(`Avatar.${story.title}.${theme}.png`)
             }
-
-            // Default state
-            await expect(page).toHaveScreenshot(`Avatar.${story.title}.${theme}.png`)
           })
         })
       }
