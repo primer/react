@@ -30,7 +30,6 @@ const unsupportedPatterns = [
   'src/deprecated/utils/create-slots.tsx',
   'src/experimental/SelectPanel2/SelectPanel.tsx',
   'src/experimental/UnderlinePanels/UnderlinePanels.test.tsx',
-  'src/experimental/UnderlinePanels/UnderlinePanels.tsx',
   'src/hooks/useAnchoredPosition.ts',
   'src/hooks/useControllableState.ts',
   'src/hooks/useFocusTrap.ts',
