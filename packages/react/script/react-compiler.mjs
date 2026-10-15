@@ -39,7 +39,6 @@ const unsupportedPatterns = [
   'src/hooks/useOnEscapePress.ts',
   'src/hooks/useOnOutsideClick.tsx',
   'src/hooks/useResizeObserver.ts',
-  'src/hooks/useSafeTimeout.ts',
   'src/internal/hooks/__tests__/useFocus.test.tsx',
   'src/internal/hooks/useDevOnlyEffect.ts',
   'src/utils/StressTest.tsx',
