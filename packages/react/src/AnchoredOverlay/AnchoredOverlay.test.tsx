@@ -706,6 +706,33 @@ describe('AnchoredOverlay CSS anchor positioning viewport handling', () => {
 })
 
 describe('AnchoredOverlay anchor element replacement', () => {
+  it('passes the provided ref object to the anchor renderer', () => {
+    const anchorRef = createRef<HTMLElement>()
+    let renderedRef: React.Ref<HTMLElement> | undefined
+
+    render(
+      <AnchoredOverlay
+        open={false}
+        onOpen={() => {}}
+        onClose={() => {}}
+        anchorRef={anchorRef}
+        renderAnchor={props => {
+          renderedRef = (props as typeof props & {ref?: React.Ref<HTMLElement>}).ref
+          return (
+            <button type="button" {...props}>
+              Anchor
+            </button>
+          )
+        }}
+      >
+        Content
+      </AnchoredOverlay>,
+    )
+
+    expect(renderedRef).toBe(anchorRef)
+    expect(anchorRef.current).toBeInstanceOf(HTMLButtonElement)
+  })
+
   it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', () => {
     function TestComponent() {
       const anchorRef = useRef<HTMLButtonElement>(null)

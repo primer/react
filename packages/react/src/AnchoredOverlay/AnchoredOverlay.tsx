@@ -202,7 +202,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
-  const mergedAnchorRef = useMergedRefs(anchorRef, setAnchorElement)
   // The object ref can point to a replacement element without changing identity.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -407,8 +406,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   return (
     <>
       {renderAnchor &&
+        // eslint-disable-next-line react-hooks/refs
         renderAnchor({
-          ref: mergedAnchorRef,
+          ref: anchorRef,
           id: anchorId,
           'aria-haspopup': 'true',
           'aria-expanded': open,
