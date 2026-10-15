@@ -12,7 +12,8 @@ interface TokenButtonProps {
   isParentInteractive?: boolean
 }
 
-type RemoveTokenButtonProps = TokenButtonProps & Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement>, 'size'>
+type RemoveTokenButtonProps = TokenButtonProps &
+  Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement>, 'size' | 'ref'>
 
 const RemoveTokenButton = ({
   'aria-label': ariaLabel,
