@@ -1,5 +1,23 @@
 # @primer/react
 
+## 38.41.0
+
+### Minor Changes
+
+- [#8504](https://github.com/primer/react/pull/8504) [`c9419e7`](https://github.com/primer/react/commit/c9419e75d7084b62096b50fb54f6a94e96592a9a) Thanks [@joshblack](https://github.com/joshblack)! - React Compiler: Switch from Babel to Oxc.
+
+- [#8477](https://github.com/primer/react/pull/8477) [`7f5303d`](https://github.com/primer/react/commit/7f5303d803986887187d86dcebaeda22a4dc6823) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - ActionList.Item and ActionList.LinkItem: Add a small size variant with smaller text.
+
+### Patch Changes
+
+- [#8484](https://github.com/primer/react/pull/8484) [`da3be09`](https://github.com/primer/react/commit/da3be09cc9b28cd95e9117db0a422ab08a7e37b2) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TreeView: Prevent keyboard navigation errors when nested controls have focus
+
+- [#8473](https://github.com/primer/react/pull/8473) [`53ed545`](https://github.com/primer/react/commit/53ed54524aac9c3e829c239afdb4f63de160f873) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - LiveRegion: Upgrade `@primer/live-region-element` to 0.8.1
+
+- [#8412](https://github.com/primer/react/pull/8412) [`3d8f32f`](https://github.com/primer/react/commit/3d8f32fcce51a40db8e3091027714673d4a48617) Thanks [@anishtsudo](https://github.com/anishtsudo)! - Button: Add opt-in disabled styling for loading buttons so they look non-interactive while staying focusable
+
+- [#8463](https://github.com/primer/react/pull/8463) [`f710336`](https://github.com/primer/react/commit/f7103363ce5c916b8aa27a3fd5d4c9d564d3a13f) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Truncate: Infer accepted props from the `as` prop and forward `inline` to custom `as` components (e.g. `Link`).
+
 ## 38.40.1
 
 ### Patch Changes

@@ -314,7 +314,7 @@ ${text}`,
         }
       }
 
-      const url = new URL(`/product/components/${match.id}/guidelines`, 'https://primer.style')
+      const url = new URL(`/product/components/${match.slug}/guidelines`, 'https://primer.style')
       const response = await fetch(url)
       if (!response.ok) {
         if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
