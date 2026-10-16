@@ -127,6 +127,18 @@ describe('Button', () => {
     consoleSpy.mockRestore()
   })
 
+  it('validates the rendered element after its ref is attached', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    try {
+      render(<Button as="div">Invalid button</Button>)
+
+      expect(consoleSpy).toHaveBeenCalledWith('This component should be an instanceof a semantic button or anchor')
+    } finally {
+      consoleSpy.mockRestore()
+    }
+  })
+
   it('respects the "disabled" prop', () => {
     const onClick = vi.fn()
     const container = render(
