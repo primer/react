@@ -7,6 +7,7 @@ import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
 import {useId} from '../hooks'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
@@ -75,15 +76,12 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   // Only include the loading aria-describedby if there is a loading state
   const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
 
-  if (__DEV__) {
+  useDevOnlyEffect(() => {
     if (notificationIndicator === 'leadingVisual' && !LeadingVisual) {
       // eslint-disable-next-line no-console
       console.warn('Button: `notificationIndicator="leadingVisual"` requires a `leadingVisual` prop.')
     }
 
-    // Validate that the element is a semantic button/anchor.
-    // This runs during render (not in an effect) to avoid a conditional hook call
-    // that prevents React Compiler from optimizing this component.
     const el = innerRef.current
     if (
       el &&
@@ -94,7 +92,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       // eslint-disable-next-line no-console
       console.warn('This component should be an instanceof a semantic button or anchor')
     }
-  }
+  })
   return (
     <ConditionalWrapper
       // If anything is passed to `loading`, we need the wrapper:
