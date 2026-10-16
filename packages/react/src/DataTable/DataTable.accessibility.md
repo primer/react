@@ -259,6 +259,34 @@ its header ID to selection cells' `headers`; group headings have no checkbox.
 Examples: `WithRowSelection` in [Table features](./Table.features.stories.tsx)
 and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.stories.tsx).
 
+## Bulk actions
+
+With `rowSelection`, `renderBulkActions` receives effective `selectedRows`,
+`selectedCount`, and `clearSelection`. Use these IDs for operations, not the
+unfiltered controlled selection. `clearSelection` requests an empty selection,
+including retained IDs; controlled consumers apply `onSelectionChange`.
+
+Actions occupy the table header beside select-all, replacing the visible column
+labels while rows are selected. Column labels remain available to assistive
+technology, but sorting controls are removed until selection is cleared. The
+named action group uses native Tab/Shift+Tab navigation. Count changes are
+announced, including zero. Use `bulkActionsProps`
+to localize the group name and count label. The header checkbox toggles selection;
+there is no separate clear button. Use small action buttons to fit the header.
+
+Showing actions preserves checkbox focus. When clearing selection or updating
+rows removes the focused action, `DataTable` restores focus to select-all, or to
+the table when no selectable rows remain. `bulkActionsReturnFocusRef` overrides
+that destination. Focus is not restored after the user leaves the actions or
+moves into a consumer-owned dialog. When composing `Table.BulkActions` directly,
+keep it mounted at zero and provide `onFocusReturn` for recovery.
+
+Consumers own pending states, result announcements, and focus when closing
+dialogs or replacing the table. For asynchronous operations, capture the effective
+IDs at activation and reconcile only those IDs on success; preserve selection on
+failure and do not clear selections added while waiting.
+See `WithBulkActions` in [DataTable features](./DataTable.features.stories.tsx).
+
 ## Verification
 
 - [Grouping tests](./__tests__/DataTableGrouping.test.tsx) cover mixed body
@@ -268,6 +296,8 @@ and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.sto
   spanning headers, accessible names, and nested-table isolation.
 - [Selection tests](./__tests__/DataTableSelection.test.tsx) cover controlled
   updates, disabled rows, focus, and hydration.
+- [Bulk-action tests](./__tests__/DataTableBulkActions.test.tsx) cover effective
+  IDs/counts, announcements, controlled clearing, focus recovery and hydration.
 - [DataTable browser tests](../../../../e2e/components/DataTable.test.ts) cover
   themed axe checks, visual snapshots, and a group split across pages.
 - [Table browser tests](../../../../e2e/components/Table.test.ts) cover explicit
