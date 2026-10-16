@@ -361,6 +361,55 @@ describe('Dialog', () => {
     expect(getByRole('button', {name: 'return focus to (button 2)'})).toHaveFocus()
   })
 
+  it('falls back to the previously focused element when the return focus target disappears before closing', async () => {
+    const Fixture = () => {
+      const [isOpen, setIsOpen] = React.useState(false)
+      const [showReturnTarget, setShowReturnTarget] = React.useState(true)
+      const returnFocusRef = React.useRef<HTMLButtonElement>(null)
+
+      return (
+        <>
+          <Button
+            onClick={() => {
+              setIsOpen(true)
+            }}
+          >
+            Open dialog
+          </Button>
+          {showReturnTarget && <Button ref={returnFocusRef}>Return target</Button>}
+          {isOpen && (
+            <Dialog
+              onClose={() => {
+                setIsOpen(false)
+              }}
+              returnFocusRef={returnFocusRef}
+            >
+              <Button
+                onClick={() => {
+                  setShowReturnTarget(false)
+                }}
+              >
+                Remove return target
+              </Button>
+            </Dialog>
+          )}
+        </>
+      )
+    }
+
+    const user = userEvent.setup()
+    const {getByRole, queryByRole} = render(<Fixture />)
+    const triggerButton = getByRole('button', {name: 'Open dialog'})
+
+    await user.click(triggerButton)
+    await user.click(getByRole('button', {name: 'Remove return target'}))
+    expect(queryByRole('button', {name: 'Return target'})).not.toBeInTheDocument()
+    await user.click(getByRole('button', {name: 'Close'}))
+
+    expect(queryByRole('dialog')).not.toBeInTheDocument()
+    expect(triggerButton).toHaveFocus()
+  })
+
   it('should support `className` on the Dialog element', async () => {
     const Fixture = () => {
       const [isOpen, setIsOpen] = React.useState(true)
@@ -570,6 +619,58 @@ describe('Footer button loading states', () => {
 
 describe('Dialog auto-focus button forwarded ref (primer_react_merged_forwarded_refs)', () => {
   for (const enabled of [true, false]) {
+    it(`focuses only the first auto-focus footer button with the flag ${enabled ? 'enabled' : 'disabled'}`, async () => {
+      const {getByRole} = render(
+        <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+          <Dialog
+            onClose={() => {}}
+            footerButtons={[
+              {
+                content: 'Not auto-focused',
+              },
+              {
+                content: 'First auto-focus',
+                autoFocus: true,
+              },
+              {
+                content: 'Second auto-focus',
+                autoFocus: true,
+              },
+            ]}
+          >
+            Body
+          </Dialog>
+        </FeatureFlags>,
+      )
+
+      await waitFor(() => {
+        expect(getByRole('button', {name: 'First auto-focus'})).toHaveFocus()
+      })
+    })
+
+    it(`does not mutate caller footer button props with the flag ${enabled ? 'enabled' : 'disabled'}`, async () => {
+      const suppliedRef = React.createRef<HTMLButtonElement>()
+      const footerButton = Object.freeze({
+        content: 'Footer button',
+        autoFocus: true,
+        ref: suppliedRef,
+      })
+      const {getByRole} = render(
+        <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+          <Dialog onClose={() => {}} footerButtons={[footerButton]}>
+            Body
+          </Dialog>
+        </FeatureFlags>,
+      )
+
+      await waitFor(() => {
+        expect(getByRole('button', {name: 'Footer button'})).toHaveFocus()
+      })
+      expect(footerButton.ref).toBe(suppliedRef)
+      // Dialog's internal auto-focus ref still takes precedence over a supplied footer ref.
+      expect(suppliedRef.current).toBeNull()
+    })
+
     it(`focuses the auto-focus footer button via the gated ref with the flag ${enabled ? 'enabled' : 'disabled'}`, async () => {
       const {getByRole} = render(
         <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
