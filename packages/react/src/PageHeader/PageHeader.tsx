@@ -350,11 +350,13 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
 
 export type TitleProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  id?: string
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2'}) => {
+const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2', id}) => {
   return (
     <Heading
+      id={id}
       className={clsx(classes.Title, className)}
       data-component="PH_Title"
       data-hidden={hidden}

@@ -1,5 +1,23 @@
 import {PageHeader} from '../PageHeader'
 
+export function titleAcceptsId() {
+  return (
+    <PageHeader.Title as="h1" id="page-title" hidden={{narrow: true}}>
+      Project
+    </PageHeader.Title>
+  )
+}
+
+export function titleDoesNotAcceptOtherNativeHeadingAttributes() {
+  // @ts-expect-error title only adds support for id, not all native heading attributes
+  return <PageHeader.Title tabIndex={-1}>Project</PageHeader.Title>
+}
+
+export function titleOnlyAcceptsHeadingElements() {
+  // @ts-expect-error titles must render a heading
+  return <PageHeader.Title as="button">Project</PageHeader.Title>
+}
+
 // PageHeader
 export function acceptsAsProp() {
   return <PageHeader role="banner" as="header"></PageHeader>
