@@ -1,6 +1,7 @@
 @define-mixin subtleVariant {
   --segmented-control-outer-radius: var(--borderRadius-large);
   --segmented-control-button-bg-inset: 0px;
+  --segmented-control-button-max-padding-block: 0px;
 
   background-color: transparent;
   border: 0;
@@ -47,6 +48,7 @@
 @define-mixin defaultVariant {
   --segmented-control-outer-radius: var(--borderRadius-medium);
   --segmented-control-button-bg-inset: 4px;
+  --segmented-control-button-max-padding-block: 4px;
 
   background-color: var(--controlTrack-bgColor-rest);
   border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
@@ -67,7 +69,7 @@
 
   .Button {
     /* stylelint-disable-next-line primer/spacing */
-    padding: var(--segmented-control-button-bg-inset);
+    padding: var(--segmented-control-button-padding-block) var(--segmented-control-button-bg-inset);
     color: currentColor;
     /* stylelint-disable-next-line primer/borders */
     border-radius: var(--segmented-control-outer-radius);
@@ -99,11 +101,14 @@
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
   --segmented-control-outer-radius: var(--borderRadius-medium);
+  --segmented-control-min-height: 32px;
+  --segmented-control-button-max-padding-block: 4px;
 
   display: inline-flex;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
-  height: 32px;
+  height: fit-content;
+  min-height: var(--segmented-control-min-height);
   padding: 0;
   margin: 0;
   font-size: var(--text-body-size-medium);
@@ -278,7 +283,8 @@
 
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
-    height: 28px;
+    --segmented-control-min-height: 28px;
+
     font-size: var(--text-body-size-small);
   }
 }
@@ -472,11 +478,19 @@
   /* TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available */
   --segmented-control-button-inner-padding: 12px;
   --segmented-control-button-bg-inset: 4px;
+  /* Keep a single line within the minimum height, including inherited typography. */
+  --segmented-control-button-padding-block: clamp(
+    0px,
+    calc((var(--segmented-control-min-height, 32px) - 1lh - 2 * var(--borderWidth-thin)) / 2),
+    var(--segmented-control-button-max-padding-block, 4px)
+  );
 
+  /* Avoid the inline button's anonymous line box contributing to intrinsic height in WebKit. */
+  display: block;
   width: 100%;
   height: 100%;
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--segmented-control-button-bg-inset);
+  padding: var(--segmented-control-button-padding-block) var(--segmented-control-button-bg-inset);
   font-family: inherit;
   font-size: inherit;
   font-weight: var(--base-text-weight-normal);
@@ -574,6 +588,9 @@
   font-weight: var(--base-text-weight-semibold);
 
   .Content {
+    /* Reserve the same intrinsic height when selection removes the button's padding. */
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: var(--segmented-control-button-padding-block);
     /* stylelint-disable-next-line primer/spacing */
     padding-right: var(--segmented-control-button-inner-padding);
     /* stylelint-disable-next-line primer/spacing */
@@ -599,9 +616,20 @@
   }
 }
 
+.Text {
+  display: grid;
+  align-items: center;
+}
+
+/* Reserve both width and wrapped height without duplicating the visible label. */
+.TextContent,
+.Text::after {
+  grid-area: 1 / 1;
+}
+
 .Text::after {
   display: block;
-  height: 0;
+  min-width: min-content;
   overflow: hidden;
   font-weight: var(--base-text-weight-semibold);
   pointer-events: none;

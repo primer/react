@@ -76,9 +76,61 @@ const stories = [
     title: 'With Disabled Buttons',
     id: 'components-segmentedcontrol-examples--with-disabled-buttons',
   },
+  {
+    title: 'Compact Toolbar',
+    id: 'components-segmentedcontrol-features--compact-toolbar',
+  },
+  {
+    title: 'Multiline Labels',
+    id: 'components-segmentedcontrol-features--multiline-labels',
+  },
 ] as const
 
 test.describe('SegmentedControl', () => {
+  test('small controls retain 28px with inherited typography @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-features--compact-toolbar'})
+    const control = page.getByRole('list', {name: 'File view'})
+    const buttons = control.getByRole('button')
+    await expect(control).toHaveCSS('font-size', '14px')
+    await expect(buttons.first()).toHaveCSS('line-height', '21px')
+
+    for (const name of ['Code', 'Blame', 'Code']) {
+      await control.getByRole('button', {name}).click()
+      expect(await control.boundingBox()).toMatchObject({height: 28})
+      expect(
+        await buttons.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().height)),
+      ).toEqual([28, 28])
+    }
+  })
+
+  test('multiline height and segment boxes stay stable across selection @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-features--multiline-labels'})
+    await page
+      .getByRole('list')
+      .first()
+      .evaluate(root => {
+        root.parentElement!.style.width = '260px'
+      })
+
+    for (const variant of ['default', 'subtle']) {
+      const control = page.getByRole('list', {name: `small ${variant}`, exact: true})
+      const buttons = control.getByRole('button')
+      const box = await control.boundingBox()
+      const segments = await buttons.evaluateAll(elements =>
+        elements.map(element => element.getBoundingClientRect().toJSON()),
+      )
+      expect(box?.height).toBeGreaterThan(28)
+
+      for (const name of ['Code', 'Preview changes before publishing (5)']) {
+        await control.getByRole('button', {name, exact: true}).click()
+        expect(await control.boundingBox()).toEqual(box)
+        expect(
+          await buttons.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON())),
+        ).toEqual(segments)
+      }
+    }
+  })
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {

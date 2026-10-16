@@ -477,6 +477,7 @@ describe('SegmentedControl', () => {
       </BaseStyles>,
     )
 
+    expect(getByRole('button', {name: 'All (5)'})).toHaveAccessibleName('All (5)')
     const iconActionButton = getByRole('button', {name: 'Add view'})
 
     expect(iconActionButton.parentElement?.closest('[data-component]')).toHaveAttribute(
