@@ -15,7 +15,6 @@ const unsupportedPatterns = [
   'src/ActionMenu/ActionMenu.test.tsx',
   'src/AnchoredOverlay/AnchoredOverlay.tsx',
   'src/FilteredActionList/FilteredActionList.tsx',
-  'src/LabelGroup/LabelGroup.tsx',
   'src/Overlay/Overlay.figma.tsx',
   'src/SelectPanel/SelectPanel.examples.stories.tsx',
   'src/SelectPanel/SelectPanel.test.tsx',
