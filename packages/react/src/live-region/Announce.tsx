@@ -52,11 +52,13 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     ...rest
   } = props
   const ref = useRef<ElementRef<'div'>>(null)
+
   // Tracked in a ref rather than state because it is only used to dedupe
   // announcements and is never rendered. Using state here would trigger a React
   // commit on every content change (e.g. one per keystroke when tied to an input).
   const previousAnnouncementText = useRef<string | null>(null)
   const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
+  const cleanupTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
   const announce = useEffectCallback(() => {
     const {current: element} = ref
     if (!element) {
@@ -130,11 +132,16 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
   }, [announce])
 
   useEffect(() => {
+    const element = ref.current
     return () => {
-      if (savedAnnouncement.current !== null) {
-        savedAnnouncement.current.cancel()
-        savedAnnouncement.current = null
-      }
+      // StrictMode reconnects the rendered element before the next task.
+      // eslint-disable-next-line @eslint-react/web-api/no-leaked-timeout -- this task must outlive effect cleanup
+      cleanupTimeout.current = setTimeout(() => {
+        if (!element?.isConnected && savedAnnouncement.current !== null) {
+          savedAnnouncement.current.cancel()
+          savedAnnouncement.current = null
+        }
+      }, 0)
     }
   }, [])
 
