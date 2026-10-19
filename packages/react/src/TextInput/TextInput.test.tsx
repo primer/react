@@ -52,6 +52,24 @@ describe('TextInput', () => {
     expect(render(<TextInput name="zipcode" contrast value="" />).container).toMatchSnapshot()
   })
 
+  it.each([
+    {label: 'true', props: {contrast: true}},
+    {label: 'false', props: {contrast: false}},
+    {label: 'omitted', props: {}},
+  ])('preserves deprecated contrast behavior when $label', ({props}) => {
+    const {container} = render(<TextInput name="zipcode" {...props} />)
+    const input = screen.getByRole('textbox')
+
+    if (props.contrast) {
+      expect(container.firstElementChild).toHaveAttribute('data-contrast', 'true')
+    } else {
+      expect(container.firstElementChild).not.toHaveAttribute('data-contrast')
+    }
+
+    expect(input).not.toHaveAttribute('contrast')
+    expect(input).toBeEnabled()
+  })
+
   it('renders monospace', () => {
     expect(render(<TextInput name="zipcode" monospace value="" />).container).toMatchSnapshot()
   })

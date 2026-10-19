@@ -99,6 +99,8 @@ jobs:
           # Note: this permission step is _critical_ to make sure only maintainers can run the command
           permissions: 'write,admin'
           allow_forks: true
+          skip_ci: true
+          skip_reviews: true
       - name: Override status checks for issue comment
         if: ${{ github.event_name == 'issue_comment' && steps.command.outputs.continue == 'true' }}
         run: |

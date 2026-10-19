@@ -1,8 +1,20 @@
-import type {ComponentProps} from 'react'
+import type {ComponentProps, ReactElement} from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {IconButton} from '.'
-import {OcticonArgType} from '../utils/story-helpers'
+import type {DistributiveOmit} from '../utils/modern-polymorphic'
+
+const icons = {
+  EyeClosedIcon: <EyeClosedIcon />,
+  EyeIcon: <EyeIcon />,
+  SearchIcon: <SearchIcon />,
+  XIcon: <XIcon />,
+  HeartIcon: <HeartIcon />,
+}
+
+type PlaygroundArgs = DistributiveOmit<ComponentProps<typeof IconButton>, 'icon'> & {
+  icon: keyof typeof icons | ReactElement
+}
 
 const meta: Meta<ComponentProps<typeof IconButton>> = {
   title: 'Components/IconButton',
@@ -10,7 +22,9 @@ const meta: Meta<ComponentProps<typeof IconButton>> = {
 
 export default meta
 
-export const Playground: StoryFn<typeof IconButton> = args => <IconButton {...args} />
+export const Playground: StoryFn<PlaygroundArgs> = ({icon, ...args}) => (
+  <IconButton {...args} icon={typeof icon === 'string' ? icons[icon] : icon} />
+)
 Playground.argTypes = {
   size: {
     control: {
@@ -34,7 +48,11 @@ Playground.argTypes = {
     },
     options: ['default', 'primary', 'danger', 'invisible'],
   },
-  icon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+  icon: {
+    options: Object.keys(icons),
+    control: {type: 'select'},
+    mapping: icons,
+  },
 }
 Playground.args = {
   size: 'medium',
@@ -42,7 +60,7 @@ Playground.args = {
   inactive: false,
   variant: 'default',
   'aria-label': 'Favorite',
-  icon: HeartIcon,
+  icon: 'HeartIcon',
 }
 
-export const Default = () => <IconButton icon={HeartIcon} aria-label="Favorite" />
+export const Default = () => <IconButton icon={<HeartIcon />} aria-label="Favorite" />

@@ -8,6 +8,9 @@ export type TextInputSizes = 'small' | 'medium' | 'large'
 
 type StyledTextInputBaseWrapperProps = {
   block?: boolean
+  /**
+   * @deprecated Omit this prop to use the default background.
+   */
   contrast?: boolean
   disabled?: boolean
   hasTrailingAction?: boolean
