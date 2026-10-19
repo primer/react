@@ -1,17 +1,21 @@
 ---
 name: style-guide
-description: 'Use when: authoring, modifying, or reviewing Primer React components, hooks, utilities, or component APIs.'
+description: 'Use when: authoring, modifying, or reviewing Primer React components, hooks, utilities, or component APIs; or authoring, modifying, or debugging their tests.'
 ---
 
 # Primer React Style Guide
 
 Use this skill when creating, modifying, or reviewing Primer React components,
-hooks, utilities, or component APIs.
+hooks, utilities, or component APIs, and when authoring, modifying, or debugging
+their tests.
 
 Before authoring component code, read `contributor-docs/style.md` and apply the
 guidelines that are relevant to the change. The style guide is the source of
 truth for component API design and implementation conventions in this
 repository.
+
+Before authoring or changing component tests, read the Component testing topic
+below and `contributor-docs/testing.md` for testing strategy, setup, and commands.
 
 When proposing, implementing, or reviewing a component change, explicitly apply
 the relevant style-guide principles to the design. If a change intentionally
@@ -24,6 +28,7 @@ specific topic. Consult this to see if any apply to the task at hand.
 | :-------------------- | :-------------------------------------------------------------------------------- | :------------------------------------------------------- |
 | Component prop naming | Use when deciding or evaluating the name for a prop in a React component.         | [component-prop-naming](./docs/component-prop-naming.md) |
 | Component prop types  | Use when designing or reviewing component prop types, including slot-based props. | [component-prop-types](./docs/component-prop-types.md)   |
+| Component testing     | Use when authoring, modifying, or debugging component and hook tests.             | [component-testing](./docs/component-testing.md)         |
 
 ## Updating this skill
 
