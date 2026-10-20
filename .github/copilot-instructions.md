@@ -2,6 +2,12 @@
 
 **ALWAYS reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.**
 
+## User feedback on skills
+
+- When a user explicitly corrects guidance from an active skill or requests a conflicting approach, point out the difference and ask whether it is a one-off exception or a lasting change
+- If it is a lasting change, propose a specific update to the relevant skill or reference and obtain permission before editing
+- Do not infer permanent guidance from a single action or exception
+
 ## Repository Organization
 
 The project is the React implementation of GitHub's Primer Design System authored as a monorepo with separate npm workspaces.

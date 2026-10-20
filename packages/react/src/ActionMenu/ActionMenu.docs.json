@@ -118,6 +118,12 @@
           "description": "Callback that is called when the position of the overlay changes"
         },
         {
+          "name": "preventFocusOnClose",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, focus will not be returned to the anchor or returnFocusRef when the menu closes. Consumers must manage focus themselves."
+        },
+        {
           "name": "data-test-id",
           "type": "unknown",
           "required": false,

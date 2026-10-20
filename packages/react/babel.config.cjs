@@ -8,17 +8,16 @@ const sharedPlugins = [
   'macros',
   'dev-expression',
   'add-react-displayname',
-  '@babel/plugin-proposal-nullish-coalescing-operator',
-  '@babel/plugin-proposal-optional-chaining',
+  '@babel/plugin-transform-nullish-coalescing-operator',
+  '@babel/plugin-transform-optional-chaining',
 ]
 
-function makePresets(moduleValue) {
+function makePresets() {
   return [
-    '@babel/preset-typescript',
+    ['@babel/preset-typescript', {onlyRemoveTypeImports: false}],
     [
       '@babel/preset-react',
       {
-        modules: moduleValue,
         runtime: 'automatic',
       },
     ],
@@ -28,15 +27,15 @@ function makePresets(moduleValue) {
 module.exports = {
   env: {
     development: {
-      presets: makePresets(process.env.BABEL_MODULE || false),
+      presets: makePresets(),
       plugins: [...sharedPlugins, replacementPlugin('development')],
     },
     production: {
-      presets: makePresets(false),
+      presets: makePresets(),
       plugins: [...sharedPlugins, replacementPlugin('production')],
     },
     test: {
-      presets: makePresets('commonjs'),
+      presets: makePresets(),
       plugins: [...sharedPlugins, ['@babel/plugin-transform-modules-commonjs'], replacementPlugin('test')],
     },
   },
