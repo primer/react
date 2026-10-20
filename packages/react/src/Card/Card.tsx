@@ -16,8 +16,8 @@ export type CardProps<As extends CardAs = 'div'> = PolymorphicProps<
     /** Optional className for the root element. */
     className?: string
 
-    /** Internal padding: none (0px), condensed (8px), normal (16px), spacious (24px). @default 'normal' */
-    padding?: 'none' | 'condensed' | 'normal' | 'spacious'
+    /** Internal padding: none (0px), condensed (8px), regular (16px), normal (24px, or 16px in compact layout). @default 'normal' */
+    padding?: 'none' | 'condensed' | 'regular' | 'normal'
 
     /** Whether to show the card's shadow. @default true */
     shadow?: boolean

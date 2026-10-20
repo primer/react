@@ -39,7 +39,9 @@ describe('Card', () => {
     )
     const card = screen.getByTestId('card')
     const footer = screen.getByTestId('footer')
-    expect(footer.getBoundingClientRect().bottom).toBeCloseTo(card.getBoundingClientRect().bottom - 17)
+    const style = getComputedStyle(card)
+    const bottomInset = Number.parseFloat(style.paddingBottom) + Number.parseFloat(style.borderBottomWidth)
+    expect(footer.getBoundingClientRect().bottom).toBeCloseTo(card.getBoundingClientRect().bottom - bottomInset)
   })
 
   it.each(['default', 'compact'] as const)('shrinks long content within a narrow flex parent in %s layout', layout => {
@@ -75,7 +77,7 @@ describe('Card', () => {
   )
 
   describe.each(['default', 'compact'] as const)('%s layout padding', layout => {
-    it.each(['slots', 'custom'] as const)('defaults to 16px padding with %s content', content => {
+    it.each(['slots', 'custom'] as const)('preserves default padding with %s content', content => {
       const {container} = render(
         <Card layout={layout}>
           {content === 'slots' ? <Card.Heading>Heading</Card.Heading> : <p>Custom content</p>}
@@ -83,14 +85,14 @@ describe('Card', () => {
       )
       const card = container.querySelector('[data-component="Card"]')!
       expect(card).toHaveAttribute('data-padding', 'normal')
-      expect(getComputedStyle(card).padding).toBe('16px')
+      expect(getComputedStyle(card).padding).toBe(layout === 'compact' ? '16px' : '24px')
     })
 
     it.each([
       ['none', 0],
       ['condensed', 8],
-      ['normal', 16],
-      ['spacious', 24],
+      ['regular', 16],
+      ['normal', layout === 'compact' ? 16 : 24],
     ] as const)('uses %s padding of %ipx for both content modes', (padding, pixels) => {
       const {container, rerender} = render(
         <Card layout={layout} padding={padding}>
@@ -110,25 +112,22 @@ describe('Card', () => {
     })
   })
 
-  it.each(['none', 'condensed', 'normal', 'spacious'] as const)(
-    'keeps images edge-to-edge with %s padding',
-    padding => {
-      const {container} = render(
-        <Card padding={padding} style={{width: 400}}>
-          <Card.Image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'/%3E" />
-          <Card.Heading>Image card</Card.Heading>
-        </Card>,
-      )
-      const card = container.querySelector('[data-component="Card"]')!
-      const image = screen.getByRole('presentation')
-      const cardBounds = card.getBoundingClientRect()
-      const imageBounds = image.getBoundingClientRect()
-      const borderWidth = Number.parseFloat(getComputedStyle(card).borderLeftWidth)
-      expect(imageBounds.left).toBeCloseTo(cardBounds.left + borderWidth)
-      expect(imageBounds.top).toBeCloseTo(cardBounds.top + borderWidth)
-      expect(imageBounds.width).toBeCloseTo(cardBounds.width - 2 * borderWidth)
-    },
-  )
+  it.each(['none', 'condensed', 'regular', 'normal'] as const)('keeps images edge-to-edge with %s padding', padding => {
+    const {container} = render(
+      <Card padding={padding} style={{width: 400}}>
+        <Card.Image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'/%3E" />
+        <Card.Heading>Image card</Card.Heading>
+      </Card>,
+    )
+    const card = container.querySelector('[data-component="Card"]')!
+    const image = screen.getByRole('presentation')
+    const cardBounds = card.getBoundingClientRect()
+    const imageBounds = image.getBoundingClientRect()
+    const borderWidth = Number.parseFloat(getComputedStyle(card).borderLeftWidth)
+    expect(imageBounds.left).toBeCloseTo(cardBounds.left + borderWidth)
+    expect(imageBounds.top).toBeCloseTo(cardBounds.top + borderWidth)
+    expect(imageBounds.width).toBeCloseTo(cardBounds.width - 2 * borderWidth)
+  })
 
   implementsClassName(
     props => (
