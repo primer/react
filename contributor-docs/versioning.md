@@ -10,6 +10,7 @@
 - [Versioning](#versioning)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
+  - [Preparing a package release](#preparing-a-package-release)
   - [Changes](#changes)
   - [Reference](#reference)
     - [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
@@ -46,6 +47,24 @@ anything breaking in your project. For a full list of changes and their
 corresponding semver bumps, check out the [changes](#changes) table below.
 
 For a full list of releases, visit our [releases](https://github.com/primer/react/releases) page.
+
+## Preparing a package release
+
+Run the **Package Release Tracking** workflow (`package-release-tracking.yml`) from `main` and enter
+the full workspace package name, such as `@primer/react`. The workflow creates or
+updates a PR titled `Release Tracking: <package-name>` on a package-specific branch.
+Rerun the workflow to refresh the PR with the latest changes from `main`.
+
+The PR applies only that package's pending changesets, along with any downstream
+version and dependency updates required by Changesets. Unrelated changesets remain
+pending. If a changeset covers multiple packages, only the selected package's entry
+is consumed; the other entries and description remain available for a later release.
+The workflow fails if the package is unknown, has no pending changesets, is excluded
+from versioning, or the repository is in prerelease mode.
+
+This workflow only prepares a PR. Publishing remains unchanged: merging the PR
+does not publish immediately while unrelated changesets remain. The existing
+Release workflow publishes once all pending changesets have been applied.
 
 ## Changes
 

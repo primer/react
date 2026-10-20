@@ -1,0 +1,77 @@
+name: Package Release Tracking
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to version (for example, @primer/react)'
+        required: true
+        type: string
+
+concurrency:
+  group: package-release-tracking-${{ inputs.package }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release-package:
+    name: Prepare release pull request
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
+        id: app-token
+        with:
+          app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
+          private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
+
+      - name: Prepare package release
+        id: release
+        run: node script/release-package.mjs
+        env:
+          RELEASE_PACKAGE: ${{ inputs.package }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Update lockfile
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Create or update release pull request
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          RELEASE_PACKAGE: ${{ inputs.package }}
+          RELEASE_BRANCH: ${{ steps.release.outputs.branch }}
+          RELEASE_BODY: ${{ steps.release.outputs.body }}
+        run: |
+          gh auth setup-git
+          remote_sha=$(git ls-remote --heads origin "refs/heads/$RELEASE_BRANCH" | cut -f1)
+          git switch -c "$RELEASE_BRANCH"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "chore(release): version $RELEASE_PACKAGE"
+          git push --force-with-lease="refs/heads/$RELEASE_BRANCH:$remote_sha" origin "HEAD:refs/heads/$RELEASE_BRANCH"
+
+          pr_number=$(gh pr list --base main --head "$RELEASE_BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [[ -n "$pr_number" ]]; then
+            gh pr edit "$pr_number" --title "Release Tracking: $RELEASE_PACKAGE" --body-file "$RELEASE_BODY"
+          else
+            gh pr create --base main --head "$RELEASE_BRANCH" --title "Release Tracking: $RELEASE_PACKAGE" --body-file "$RELEASE_BODY"
+          fi
