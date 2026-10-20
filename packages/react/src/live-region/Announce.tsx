@@ -1,7 +1,6 @@
 import {announceFromElement} from '@primer/live-region-element'
 import type React from 'react'
 import {useEffect, useRef, type ElementRef} from 'react'
-import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
@@ -58,7 +57,6 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
   // commit on every content change (e.g. one per keystroke when tied to an input).
   const previousAnnouncementText = useRef<string | null>(null)
   const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
-  const cleanupTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
   const announce = useEffectCallback(() => {
     const {current: element} = ref
     if (!element) {
@@ -101,13 +99,12 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     previousAnnouncementText.current = textContent
   })
 
-  // Announce the initial message, this is wrapped in `useEffectOnce` so that it
-  // does not announce twice in StrictMode
-  useEffectOnce(() => {
+  useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- announce after the element mounts
     if (announceOnShow) {
       announce()
     }
-  })
+  }, [announce, announceOnShow])
 
   useEffect(() => {
     const {current: container} = ref
@@ -132,16 +129,10 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
   }, [announce])
 
   useEffect(() => {
-    const element = ref.current
     return () => {
-      // StrictMode reconnects the rendered element before the next task.
-      // eslint-disable-next-line @eslint-react/web-api/no-leaked-timeout -- this task must outlive effect cleanup
-      cleanupTimeout.current = setTimeout(() => {
-        if (!element?.isConnected && savedAnnouncement.current !== null) {
-          savedAnnouncement.current.cancel()
-          savedAnnouncement.current = null
-        }
-      }, 0)
+      savedAnnouncement.current?.cancel()
+      savedAnnouncement.current = null
+      previousAnnouncementText.current = null
     }
   }, [])
 
