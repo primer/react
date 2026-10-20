@@ -6,7 +6,7 @@ description: Use when creating, updating, or reviewing agent skills
 # Write Skill
 
 - Use this skill when creating, updating, or reviewing skill files
-- Do not use it for tasks that only use an existing skill; follow that skill directly
+- When authoring a skill, include in its description when it should and should not be used
 - Keep agent skills short and concise
 - Keep skill prose under 200 lines, excluding reference tables; move additional guidance into references
 - Use a `references` sub-folder in a skill when it becomes too long or needs to link out to different topics
