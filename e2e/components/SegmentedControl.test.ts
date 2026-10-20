@@ -84,6 +84,10 @@ const stories = [
     title: 'Constrained Label Overflow',
     id: 'components-segmentedcontrol-features--constrained-label-overflow',
   },
+  {
+    title: 'Constrained Label Overflow Stress Test',
+    id: 'components-segmentedcontrol-features--constrained-label-overflow-stress-test',
+  },
 ] as const
 
 test.describe('SegmentedControl', () => {
@@ -108,8 +112,42 @@ test.describe('SegmentedControl', () => {
     }
   })
 
-  test('constrained labels truncate without changing segment geometry @vrt', async ({page}) => {
+  test('constraining one label keeps other labels readable @vrt', async ({page}) => {
     await visit(page, {id: 'components-segmentedcontrol-features--constrained-label-overflow'})
+
+    for (const example of ['full label', 'constrained label']) {
+      const control = page.getByRole('list', {name: `File view, ${example}`, exact: true})
+      const buttons = control.getByRole('button')
+      const box = await control.boundingBox()
+      const segments = await buttons.evaluateAll(elements =>
+        elements.map(element => element.getBoundingClientRect().toJSON()),
+      )
+      expect(box?.height).toBe(32)
+      await expect(control.getByRole('button', {name: 'Preview changes', exact: true})).toHaveAccessibleName(
+        'Preview changes',
+      )
+
+      for (const name of ['Code', 'Blame', 'Preview changes']) {
+        await control.getByRole('button', {name, exact: true}).click()
+        expect(
+          await control.locator('.segmentedControl-text').evaluateAll(elements =>
+            elements.map(element => {
+              const range = document.createRange()
+              range.selectNodeContents(element)
+              return range.getBoundingClientRect().width > element.clientWidth + 0.5
+            }),
+          ),
+        ).toEqual([example === 'constrained label', false, false])
+        expect(await control.boundingBox()).toEqual(box)
+        expect(
+          await buttons.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON())),
+        ).toEqual(segments)
+      }
+    }
+  })
+
+  test('extremely constrained labels truncate without changing segment geometry @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-features--constrained-label-overflow-stress-test'})
 
     for (const size of ['small', 'medium']) {
       for (const variant of ['default', 'subtle']) {

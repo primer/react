@@ -228,6 +228,38 @@ export const CompactToolbar = () => (
 
 export const ConstrainedLabelOverflow = () => (
   <div className={classes.ConstrainedLabelExamples}>
+    <div className={classes.ConstrainedLabelExample}>
+      <Text className={classes.TextMediumSubtle}>Full label</Text>
+      <SegmentedControl aria-label="File view, full label">
+        <SegmentedControl.Button defaultSelected>Preview changes</SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
+        <SegmentedControl.Button>Blame</SegmentedControl.Button>
+      </SegmentedControl>
+    </div>
+    <div className={classes.ConstrainedLabelExample}>
+      <Text className={classes.TextMediumSubtle}>Constrained label</Text>
+      <SegmentedControl aria-label="File view, constrained label">
+        <SegmentedControl.Button defaultSelected className={classes.ConstrainedLabelButton}>
+          Preview changes
+        </SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
+        <SegmentedControl.Button>Blame</SegmentedControl.Button>
+      </SegmentedControl>
+    </div>
+  </div>
+)
+
+ConstrainedLabelOverflow.parameters = {
+  docs: {
+    description: {
+      story:
+        'The second example limits the first segment to show label truncation. Prefer enough space to display labels in full.',
+    },
+  },
+}
+
+export const ConstrainedLabelOverflowStressTest = () => (
+  <div className={classes.ConstrainedLabelStressExamples}>
     {(['small', 'medium'] as const).flatMap(size =>
       (['default', 'subtle'] as const).map(variant => (
         <SegmentedControl
@@ -250,7 +282,8 @@ export const ConstrainedLabelOverflow = () => (
   </div>
 )
 
-ConstrainedLabelOverflow.parameters = {
+ConstrainedLabelOverflowStressTest.storyName = 'Constrained label overflow (stress test)'
+ConstrainedLabelOverflowStressTest.parameters = {
   docs: {
     description: {
       story:

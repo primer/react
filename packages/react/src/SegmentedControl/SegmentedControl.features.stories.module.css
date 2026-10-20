@@ -48,6 +48,24 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: var(--base-size-24);
+}
+
+.ConstrainedLabelExample {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base-size-8);
+}
+
+.ConstrainedLabelButton {
+  max-width: 120px;
+}
+
+.ConstrainedLabelStressExamples {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--base-size-16);
   width: 260px;
 }
