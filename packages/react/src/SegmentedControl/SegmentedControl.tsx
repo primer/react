@@ -26,9 +26,9 @@ export type SegmentedControlProps = {
   fullWidth?: boolean | ResponsiveValue<boolean>
   /** The handler that gets called when a segment is selected */
   onChange?: (selectedIndex: number) => void
-  /** The minimum height of the control: 28px for small, 32px for medium. Wrapped labels can increase the height, which stays stable across selection. */
+  /** The height of the control: 28px for small, 32px for medium. */
   size?: 'small' | 'medium'
-  /** Configure alternative ways to render the control when it gets rendered in tight spaces */
+  /** Choose the appearance or responsive variant. Prefer more space, shorter labels or another control over truncation. */
   variant?:
     | 'default'
     | 'subtle'

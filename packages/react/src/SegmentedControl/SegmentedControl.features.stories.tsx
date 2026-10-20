@@ -226,8 +226,8 @@ export const CompactToolbar = () => (
   </div>
 )
 
-export const MultilineLabels = () => (
-  <div className={classes.SizingExamples}>
+export const ConstrainedLabelOverflow = () => (
+  <div className={classes.ConstrainedLabelExamples}>
     {(['small', 'medium'] as const).flatMap(size =>
       (['default', 'subtle'] as const).map(variant => (
         <SegmentedControl
@@ -241,9 +241,20 @@ export const MultilineLabels = () => (
             Preview changes before publishing
           </SegmentedControl.Button>
           <SegmentedControl.Button>Code</SegmentedControl.Button>
-          <SegmentedControl.IconButton aria-label="Blame" icon={PeopleIcon} />
+          <SegmentedControl.Button leadingVisual={PeopleIcon} count={2}>
+            Blame
+          </SegmentedControl.Button>
         </SegmentedControl>
       )),
     )}
   </div>
 )
+
+ConstrainedLabelOverflow.parameters = {
+  docs: {
+    description: {
+      story:
+        'Stress test of defensive label truncation, not a recommended layout. Keep labels short and provide enough space to show them in full. If labels regularly truncate, give the control more space, shorten the labels or use a different component.',
+    },
+  },
+}

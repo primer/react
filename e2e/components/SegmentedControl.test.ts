@@ -81,8 +81,8 @@ const stories = [
     id: 'components-segmentedcontrol-features--compact-toolbar',
   },
   {
-    title: 'Multiline Labels',
-    id: 'components-segmentedcontrol-features--multiline-labels',
+    title: 'Constrained Label Overflow',
+    id: 'components-segmentedcontrol-features--constrained-label-overflow',
   },
 ] as const
 
@@ -93,6 +93,11 @@ test.describe('SegmentedControl', () => {
     const buttons = control.getByRole('button')
     await expect(control).toHaveCSS('font-size', '14px')
     await expect(buttons.first()).toHaveCSS('line-height', '21px')
+    expect(
+      await control
+        .locator('.segmentedControl-text')
+        .evaluateAll(elements => elements.every(element => element.scrollWidth <= element.clientWidth)),
+    ).toBe(true)
 
     for (const name of ['Code', 'Blame', 'Code']) {
       await control.getByRole('button', {name}).click()
@@ -103,30 +108,36 @@ test.describe('SegmentedControl', () => {
     }
   })
 
-  test('multiline height and segment boxes stay stable across selection @vrt', async ({page}) => {
-    await visit(page, {id: 'components-segmentedcontrol-features--multiline-labels'})
-    await page
-      .getByRole('list')
-      .first()
-      .evaluate(root => {
-        root.parentElement!.style.width = '260px'
-      })
+  test('constrained labels truncate without changing segment geometry @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-features--constrained-label-overflow'})
 
-    for (const variant of ['default', 'subtle']) {
-      const control = page.getByRole('list', {name: `small ${variant}`, exact: true})
-      const buttons = control.getByRole('button')
-      const box = await control.boundingBox()
-      const segments = await buttons.evaluateAll(elements =>
-        elements.map(element => element.getBoundingClientRect().toJSON()),
-      )
-      expect(box?.height).toBeGreaterThan(28)
+    for (const size of ['small', 'medium']) {
+      for (const variant of ['default', 'subtle']) {
+        const control = page.getByRole('list', {name: `${size} ${variant}`, exact: true})
+        const buttons = control.getByRole('button')
+        const box = await control.boundingBox()
+        const segments = await buttons.evaluateAll(elements =>
+          elements.map(element => element.getBoundingClientRect().toJSON()),
+        )
+        const longLabel = control.locator('.segmentedControl-text').first()
 
-      for (const name of ['Code', 'Preview changes before publishing (5)']) {
-        await control.getByRole('button', {name, exact: true}).click()
-        expect(await control.boundingBox()).toEqual(box)
-        expect(
-          await buttons.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON())),
-        ).toEqual(segments)
+        await expect(longLabel).toHaveCSS('overflow', 'hidden')
+        await expect(longLabel).toHaveCSS('text-overflow', 'ellipsis')
+        await expect(longLabel).toHaveCSS('white-space', 'nowrap')
+        await expect(control).toHaveCSS('overflow-y', 'visible')
+        expect(await longLabel.evaluate(element => element.scrollWidth > element.clientWidth)).toBe(true)
+        await expect(control.getByRole('button', {name: 'Preview changes before publishing (5)'})).toHaveAccessibleName(
+          'Preview changes before publishing (5)',
+        )
+        expect(box?.height).toBe(size === 'small' ? 28 : 32)
+
+        for (const name of ['Code', 'Preview changes before publishing (5)']) {
+          await control.getByRole('button', {name, exact: true}).click()
+          expect(await control.boundingBox()).toEqual(box)
+          expect(
+            await buttons.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON())),
+          ).toEqual(segments)
+        }
       }
     }
   })
