@@ -1,5 +1,5 @@
 .Card {
-  --card-padding: var(--stack-padding-normal);
+  --card-padding: var(--stack-padding-spacious);
 
   display: grid;
   position: relative;
@@ -34,8 +34,8 @@
     border-radius: var(--borderRadius-medium);
   }
 
-  &[data-padding='spacious'] {
-    --card-padding: var(--stack-padding-spacious);
+  &[data-padding='regular'] {
+    --card-padding: var(--stack-padding-normal);
   }
 
   &[data-padding='condensed'] {
@@ -50,6 +50,10 @@
     display: flex;
     align-items: flex-start;
     gap: var(--stack-gap-condensed);
+  }
+
+  &[data-layout='compact'][data-padding='normal'] {
+    --card-padding: var(--stack-padding-normal);
   }
 }
 

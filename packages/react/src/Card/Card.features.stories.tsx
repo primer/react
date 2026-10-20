@@ -24,7 +24,7 @@ const meta = {
 export default meta
 
 export const WithLink = () => (
-  <Card shadow={false} padding="normal">
+  <Card shadow={false} padding="regular">
     <Card.Icon icon={RepoIcon} />
     <Card.Heading>
       <Card.Link href="#primer-react">primer/react</Card.Link>
@@ -45,7 +45,7 @@ export const WithButton: StoryFn = () => {
   const [opened, setOpened] = useState(false)
   return (
     <div className={classes.CardList}>
-      <Card layout="compact" padding="normal" shadow={false}>
+      <Card layout="compact" padding="regular" shadow={false}>
         <Card.Icon icon={RepoIcon} />
         <Card.Heading>
           <Card.Button onClick={() => setOpened(true)}>Open repository details</Card.Button>
@@ -82,7 +82,7 @@ export const CustomContent: StoryFn = () => {
   return (
     <div className={classes.EqualHeightGrid}>
       {['primer/react', 'primer/primitives-with-a-long-unbroken-repository-name'].map((name, index) => (
-        <Card key={name} padding="normal" borderRadius="medium" shadow={false}>
+        <Card key={name} padding="regular" borderRadius="medium" shadow={false}>
           <div className={classes.ComposedBody}>
             <div className={classes.ComposedHeader}>
               <Card.Heading className={classes.ComposedHeading}>
