@@ -1,12 +1,8 @@
 import {fireEvent, render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {StrictMode, useRef, type PropsWithChildren} from 'react'
-import {afterEach, it, expect, vi} from 'vitest'
+import {it, expect, vi} from 'vitest'
 import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
-
-afterEach(() => {
-  vi.restoreAllMocks()
-})
 
 type ComponentProps = {
   callback: () => void
@@ -79,6 +75,8 @@ it('updates the callback without replacing the document listener', () => {
   expect(removeListener).toHaveBeenCalledWith('mousedown', expect.any(Function), {capture: true})
   fireEvent.mouseDown(document.body)
   expect(nextCallback).toHaveBeenCalledTimes(1)
+  addListener.mockRestore()
+  removeListener.mockRestore()
 })
 
 it('preserves nested handler priority after rerendering in StrictMode', () => {
