@@ -1,7 +1,11 @@
 import {render, renderHook, fireEvent} from '@testing-library/react'
 import {StrictMode, useCallback, type PropsWithChildren} from 'react'
-import {it, expect, vi} from 'vitest'
+import {afterAll, it, expect, vi} from 'vitest'
 import {useOnEscapePress} from '../../hooks/useOnEscapePress'
+
+afterAll(() => {
+  vi.restoreAllMocks()
+})
 
 it('should call function when user presses escape', () => {
   const functionToCall = vi.fn()
@@ -48,8 +52,6 @@ it('updates a memoized callback without replacing the document listener', () => 
   expect(removeListener).toHaveBeenCalledWith('keydown', expect.any(Function))
   fireEvent.keyDown(document.body, {key: 'Escape'})
   expect(onEscape).toHaveBeenCalledTimes(1)
-  addListener.mockRestore()
-  removeListener.mockRestore()
 })
 
 it('preserves caller-controlled callback dependencies', () => {
