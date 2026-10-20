@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useEffect, useCallback, useMemo} from 'react'
+import {useEffect, useCallback, useState} from 'react'
 
 export type TouchOrMouseEvent = MouseEvent | TouchEvent
 type TouchOrMouseEventCallback = (event: TouchOrMouseEvent) => boolean | undefined
@@ -42,7 +42,11 @@ function deregister(id: number) {
 let handlerId = 0
 
 export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickSettings) => {
-  const id = useMemo(() => handlerId++, [])
+  const [id] = useState(() => {
+    const id = handlerId
+    handlerId += 1
+    return id
+  })
 
   const handler = useCallback<TouchOrMouseEventCallback>(
     event => {
