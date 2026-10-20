@@ -4,7 +4,16 @@ export default {
   title: 'Components/Avatar/Dev',
 }
 
-// Regression fixture for consumer style overrides. Use the size prop for supported sizing.
+// Regression fixture: consumer CSS overrides must remain exact in constrained flex layouts.
 export const CSSSizeOverrideRegression = () => (
-  <Avatar alt="mona" src="https://avatars.githubusercontent.com/u/7143434?v=4" style={{width: 16, height: 16}} />
+  <div style={{display: 'flex', width: 8, '--avatar-size': '16px'} as React.CSSProperties}>
+    <Avatar
+      alt="mona"
+      src="https://avatars.githubusercontent.com/u/7143434?v=4"
+      style={{
+        width: 'var(--avatar-size)',
+        height: 'var(--avatar-size)',
+      }}
+    />
+  </div>
 )
