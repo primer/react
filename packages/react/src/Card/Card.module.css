@@ -1,12 +1,30 @@
 .Card {
+  --card-padding: var(--stack-padding-normal);
+
   display: grid;
   position: relative;
+  isolation: isolate;
   overflow: hidden;
+  min-width: 0;
   grid-auto-rows: max-content auto;
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   box-shadow: var(--shadow-resting-small);
   background-color: var(--bgColor-default);
   gap: var(--stack-gap-normal);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--card-padding);
+
+  &[data-content='custom'] {
+    grid-auto-rows: auto;
+  }
+
+  &[data-content='structured'][data-has-header='false'] {
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  &[data-shadow='false'] {
+    box-shadow: none;
+  }
 
   &[data-border-radius='large'] {
     border-radius: var(--borderRadius-large);
@@ -16,18 +34,16 @@
     border-radius: var(--borderRadius-medium);
   }
 
-  &[data-padding='normal'] {
-    /* stylelint-disable-next-line primer/spacing */
-    padding: var(--stack-padding-spacious);
+  &[data-padding='spacious'] {
+    --card-padding: var(--stack-padding-spacious);
   }
 
   &[data-padding='condensed'] {
-    /* stylelint-disable-next-line primer/spacing */
-    padding: var(--stack-padding-condensed);
+    --card-padding: var(--stack-padding-condensed);
   }
 
   &[data-padding='none'] {
-    padding: 0;
+    --card-padding: 0px;
   }
 
   &[data-layout='compact'] {
@@ -35,10 +51,20 @@
     align-items: flex-start;
     gap: var(--stack-gap-condensed);
   }
+}
 
-  &[data-layout='compact'][data-padding='normal'] {
-    /* stylelint-disable-next-line primer/spacing */
-    padding: var(--stack-padding-normal);
+:where(.Card) {
+  :where(a),
+  :where(button),
+  :where(input),
+  :where(select),
+  :where(textarea),
+  :where(summary),
+  :where(label),
+  :where([tabindex]),
+  :where([contenteditable='true']) {
+    position: relative;
+    z-index: 1;
   }
 }
 
@@ -55,10 +81,10 @@
 
 .CardHeaderEdgeToEdge {
   /* stylelint-disable primer/spacing */
-  margin-top: calc(-1 * var(--stack-padding-spacious));
-  margin-right: calc(-1 * var(--stack-padding-spacious));
-  margin-left: calc(-1 * var(--stack-padding-spacious));
-  width: calc(100% + 2 * var(--stack-padding-spacious));
+  margin-top: calc(-1 * var(--card-padding));
+  margin-right: calc(-1 * var(--card-padding));
+  margin-left: calc(-1 * var(--card-padding));
+  width: calc(100% + 2 * var(--card-padding));
   /* stylelint-enable primer/spacing */
 }
 
@@ -85,6 +111,7 @@
 
 .CardBody {
   display: grid;
+  min-width: 0;
   gap: var(--stack-gap-normal);
 
   .Card:where([data-layout='compact']) & {
@@ -94,6 +121,8 @@
 
 .CardContent {
   display: grid;
+  min-width: 0;
+  align-content: start;
   gap: var(--stack-gap-condensed);
 }
 
@@ -103,9 +132,57 @@
   margin: 0;
 
   .Card:where([data-layout='compact']) & {
-    position: relative;
-    top: calc(-1 * var(--base-size-4));
+    margin-top: calc(-1 * var(--base-size-4));
+    margin-bottom: var(--base-size-4);
     font-size: var(--text-body-size-medium);
+  }
+}
+
+.CardPrimaryAction {
+  position: static;
+  z-index: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  cursor: pointer;
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    content: '';
+    border-radius: var(--borderRadius-large);
+
+    .Card:where([data-border-radius='medium']) & {
+      border-radius: var(--borderRadius-medium);
+    }
+  }
+
+  &:hover:not(:disabled) {
+    text-decoration: underline;
+  }
+
+  &:hover:where(:not(:disabled))::after {
+    outline: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
+    outline-offset: calc(-1 * var(--borderWidth-thin));
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::after {
+    outline: var(--borderWidth-thick) solid var(--focus-outlineColor);
+    outline-offset: calc(-1 * var(--base-size-4));
+  }
+
+  &:disabled {
+    color: var(--fgColor-disabled);
+    cursor: default;
   }
 }
 
@@ -117,6 +194,7 @@
 
 .CardMetadataContainer {
   display: flex;
+  align-self: end;
   align-items: center;
   gap: var(--stack-gap-normal);
   font: var(--text-body-shorthand-medium);
