@@ -39,7 +39,6 @@ const Avatar = React.forwardRef<HTMLElement, AvatarProps>(function Avatar(
   const sharedProps = {
     'data-component': 'Avatar',
     className: clsx(className, classes.Avatar),
-    ref,
     'data-responsive': isResponsive ? '' : undefined,
     'data-square': square ? '' : undefined,
     style: style
@@ -55,6 +54,7 @@ const Avatar = React.forwardRef<HTMLElement, AvatarProps>(function Avatar(
     return (
       <img
         {...sharedProps}
+        ref={ref as React.Ref<HTMLImageElement>}
         alt={alt}
         width={isResponsive ? undefined : size}
         height={isResponsive ? undefined : size}
@@ -66,6 +66,7 @@ const Avatar = React.forwardRef<HTMLElement, AvatarProps>(function Avatar(
   return (
     <span
       {...sharedProps}
+      ref={ref as React.Ref<HTMLSpanElement>}
       role="img"
       aria-label={alt || placeholder || undefined}
       data-placeholder=""
