@@ -350,6 +350,7 @@ export const Tooltip: ForwardRefExoticComponent<
                 safeSetTimeout(() => closeTooltip(), 10)
               },
               onFocus: (event: React.FocusEvent) => {
+                child.props.onFocus?.(event)
                 // only show tooltip on :focus-visible, not on :focus
                 try {
                   if (!event.target.matches(':focus-visible')) return
@@ -359,9 +360,9 @@ export const Tooltip: ForwardRefExoticComponent<
                 }
 
                 openTooltip()
-                child.props.onFocus?.(event)
               },
               onMouseOverCapture: (event: React.MouseEvent) => {
+                child.props.onMouseOverCapture?.(event)
                 const delayTime = delayTimeMap[delay] || 50
                 // We use a `capture` event to ensure this is called first before
                 // events that might cancel the opening timeout (like `onTouchEnd`)

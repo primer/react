@@ -213,6 +213,65 @@ test.describe('SegmentedControl', () => {
     expect(await control.boundingBox()).toMatchObject({height: bounds?.height})
   })
 
+  test('consumer callbacks still run for pointer focus and mouse-over capture @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-dev--changing-label'})
+    await page.getByRole('textbox', {name: 'Segment label', exact: true}).fill('Files')
+    const control = page.getByRole('list', {name: 'File view', exact: true})
+    const button = control.getByRole('button', {name: 'Files (5)', exact: true})
+    await expect(control.locator('[data-component="Tooltip"]').first()).toBeEmpty()
+    await button.click()
+    await expect(button).toBeFocused()
+    await expect(page.getByRole('status', {name: 'Focus events'})).toHaveText('1')
+    await expect(page.getByRole('status', {name: 'Mouse-over events'})).toHaveText(/^[1-9]\d*$/)
+    await expect(control.locator('[data-component="Tooltip"]:visible')).toHaveCount(0)
+  })
+
+  test('label reveal tracks selection-dependent font weight without a box resize @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-features--constrained-label-overflow'})
+    const control = page.getByRole('list', {name: 'File view, constrained label', exact: true})
+    const button = control.getByRole('button', {name: 'Preview changes', exact: true})
+    const code = control.getByRole('button', {name: 'Code', exact: true})
+    const label = button.locator('.segmentedControl-text')
+    const tooltip = control.locator('[data-component="Tooltip"]').first()
+    const selectedTextWidth = await label.evaluate(element => {
+      const range = document.createRange()
+      range.selectNodeContents(element)
+      return range.getBoundingClientRect().width
+    })
+    await code.click()
+    const normalTextWidth = await label.evaluate(element => {
+      const range = document.createRange()
+      range.selectNodeContents(element)
+      return range.getBoundingClientRect().width
+    })
+    expect(selectedTextWidth - normalTextWidth).toBeGreaterThan(2)
+    const availableTextWidth = Math.floor((normalTextWidth + selectedTextWidth) / 2)
+    await button.evaluate((element, width) => {
+      const text = element.querySelector('.segmentedControl-text')
+      if (!(text instanceof HTMLElement)) throw new Error('Expected a segment label')
+      const nonLabelWidth = element.getBoundingClientRect().width - text.getBoundingClientRect().width
+      element.style.maxWidth = `${width + nonLabelWidth}px`
+    }, availableTextWidth)
+    await expect(tooltip).toBeEmpty()
+    const labelBounds = await label.boundingBox()
+    const buttonBounds = await button.boundingBox()
+
+    await button.click()
+    await expect(button).toHaveAttribute('aria-pressed', 'true')
+    expect(await label.boundingBox()).toEqual(labelBounds)
+    expect(await button.boundingBox()).toEqual(buttonBounds)
+    await expect(tooltip).toHaveText('Preview changes')
+    await button.press('Tab')
+    await page.keyboard.press('Shift+Tab')
+    await expect(tooltip).toBeVisible()
+    await code.click()
+    await expect(tooltip).toBeEmpty()
+    expect(await label.boundingBox()).toEqual(labelBounds)
+    expect(await button.boundingBox()).toEqual(buttonBounds)
+    await button.hover()
+    await expect(tooltip).toBeHidden()
+  })
+
   for (const size of ['small', 'medium'] as const) {
     for (const variant of ['default', 'subtle'] as const) {
       for (const fullWidth of [undefined, false] as const) {

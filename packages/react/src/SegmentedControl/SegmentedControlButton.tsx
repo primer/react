@@ -53,7 +53,7 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
     }
   }, [])
   useResizeObserver(updateTruncation, labelRef)
-  useIsomorphicLayoutEffect(updateTruncation, [children, updateTruncation])
+  useIsomorphicLayoutEffect(updateTruncation, [children, selected, updateTruncation])
   // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
   const LeadingVisual = leadingVisual ?? leadingIcon
 

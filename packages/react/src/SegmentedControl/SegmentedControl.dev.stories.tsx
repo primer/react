@@ -177,6 +177,8 @@ ConstrainedControls.argTypes = {
 export const ChangingLabel = () => {
   const [label, setLabel] = useState('Preview changes before publishing')
   const [disabled, setDisabled] = useState(false)
+  const [focusEvents, setFocusEvents] = useState(0)
+  const [mouseOverEvents, setMouseOverEvents] = useState(0)
 
   return (
     <div className={classes.ConstrainedControls}>
@@ -194,6 +196,8 @@ export const ChangingLabel = () => {
             count={5}
             disabled={disabled}
             aria-describedby="changing-label-description"
+            onFocus={() => setFocusEvents(value => value + 1)}
+            onMouseOverCapture={() => setMouseOverEvents(value => value + 1)}
           >
             {label}
           </SegmentedControl.Button>
@@ -201,6 +205,8 @@ export const ChangingLabel = () => {
           <SegmentedControl.Button>Blame</SegmentedControl.Button>
         </SegmentedControl>
       </div>
+      <output aria-label="Focus events">{focusEvents}</output>
+      <output aria-label="Mouse-over events">{mouseOverEvents}</output>
     </div>
   )
 }
