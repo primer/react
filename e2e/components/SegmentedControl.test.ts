@@ -101,6 +101,45 @@ test.describe('SegmentedControl', () => {
         const description = `${size} ${variant}, fullWidth ${fullWidth ?? 'omitted'}`
         const args = {size, appearance: variant, fullWidthMode: fullWidth === false ? 'explicit-false' : 'omitted'}
 
+        test(`unequal labels preserve icons and counters (${description}) @vrt`, async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-dev--constrained-controls',
+            args: {...args, textContent: 'unequal-labels-with-visuals'},
+          })
+          const control = page.getByRole('list', {name: 'Text file view', exact: true})
+          await expect(control).toHaveAttribute('data-size', size)
+          await expect(control).toHaveAttribute('data-variant', variant)
+          await expect(control.locator('svg')).toHaveCount(2)
+          await expect(control.getByText('5', {exact: true})).toHaveCount(1)
+          await expect(control.getByText('2', {exact: true})).toHaveCount(1)
+          const buttons = control.getByRole('button')
+
+          for (const width of [260, 360]) {
+            await control.locator('..').evaluate((element, width) => {
+              element.style.width = `${width}px`
+            }, width)
+            for (const index of [0, 1, 2]) {
+              await buttons.nth(index).click()
+              expect(await control.boundingBox()).toMatchObject({width, height: size === 'small' ? 28 : 32})
+              const contained = await buttons.evaluateAll(buttons =>
+                buttons.every(button => {
+                  const bounds = button.getBoundingClientRect()
+                  const content = button.querySelector('.segmentedControl-content')
+                  if (!content) throw new Error('Expected segment content')
+                  const visuals = [...content.children]
+                    .filter(element => !element.classList.contains('segmentedControl-text'))
+                    .flatMap(element => [element, ...element.querySelectorAll('*')])
+                  return visuals.every(element => {
+                    const rect = element.getBoundingClientRect()
+                    return rect.left >= bounds.left - 0.5 && rect.right <= bounds.right + 0.5
+                  })
+                }),
+              )
+              expect(contained).toBe(true)
+            }
+          }
+        })
+
         test(`auto-sized controls fit constrained parents (${description}) @vrt`, async ({page}) => {
           await visit(page, {id: 'components-segmentedcontrol-dev--constrained-controls', args})
           const control = page.getByRole('list', {name: 'Text file view', exact: true})

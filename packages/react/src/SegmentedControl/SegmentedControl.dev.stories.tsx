@@ -113,18 +113,36 @@ type ConstrainedControlsArgs = {
   size: 'small' | 'medium'
   appearance: 'default' | 'subtle'
   fullWidthMode: 'omitted' | 'explicit-false'
+  textContent: 'plain' | 'unequal-labels-with-visuals'
 }
 
-export const ConstrainedControls: StoryFn<ConstrainedControlsArgs> = ({size, appearance, fullWidthMode}) => {
+export const ConstrainedControls: StoryFn<ConstrainedControlsArgs> = ({
+  size,
+  appearance,
+  fullWidthMode,
+  textContent,
+}) => {
   const props = {size, variant: appearance, fullWidth: fullWidthMode === 'explicit-false' ? false : undefined}
+  const withVisuals = textContent === 'unequal-labels-with-visuals'
 
   return (
     <div className={classes.ConstrainedControls}>
       <div>
         <SegmentedControl {...props} aria-label="Text file view">
-          <SegmentedControl.Button defaultSelected>Preview changes before publishing</SegmentedControl.Button>
+          <SegmentedControl.Button
+            defaultSelected
+            leadingVisual={withVisuals ? EyeIcon : undefined}
+            count={withVisuals ? 5 : undefined}
+          >
+            {withVisuals ? 'Preview changes before publishing '.repeat(8) : 'Preview changes before publishing'}
+          </SegmentedControl.Button>
           <SegmentedControl.Button>Code</SegmentedControl.Button>
-          <SegmentedControl.Button>Blame</SegmentedControl.Button>
+          <SegmentedControl.Button
+            leadingVisual={withVisuals ? PeopleIcon : undefined}
+            count={withVisuals ? 2 : undefined}
+          >
+            Blame
+          </SegmentedControl.Button>
         </SegmentedControl>
       </div>
       <div>
@@ -145,10 +163,11 @@ export const ConstrainedControls: StoryFn<ConstrainedControlsArgs> = ({size, app
   )
 }
 
-ConstrainedControls.args = {size: 'medium', appearance: 'default', fullWidthMode: 'omitted'}
+ConstrainedControls.args = {size: 'medium', appearance: 'default', fullWidthMode: 'omitted', textContent: 'plain'}
 
 ConstrainedControls.argTypes = {
   size: {control: 'radio', options: ['small', 'medium']},
   appearance: {control: 'radio', options: ['default', 'subtle']},
   fullWidthMode: {control: 'radio', options: ['omitted', 'explicit-false']},
+  textContent: {control: 'radio', options: ['plain', 'unequal-labels-with-visuals']},
 }
