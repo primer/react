@@ -101,6 +101,8 @@
   --segmented-control-outer-radius: var(--borderRadius-medium);
 
   display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
   height: 32px;
@@ -413,8 +415,11 @@
   margin-top: -1px;
   /* stylelint-disable-next-line primer/spacing */
   margin-bottom: -1px;
-  min-width: 0;
   flex-grow: 1;
+
+  &[data-component='SegmentedControl.Button'] {
+    min-width: 0;
+  }
 
   &:not(:last-child) {
     /* stylelint-disable-next-line primer/spacing */

@@ -1,8 +1,9 @@
-import type {Meta} from '@storybook/react-vite'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import classes from './SegmentedControl.dev.stories.module.css'
 
 const excludedControlKeys = ['variant']
 
@@ -107,3 +108,47 @@ export const WithCss = () => (
     </SegmentedControl.Button>
   </SegmentedControl>
 )
+
+type ConstrainedControlsArgs = {
+  size: 'small' | 'medium'
+  appearance: 'default' | 'subtle'
+  fullWidthMode: 'omitted' | 'explicit-false'
+}
+
+export const ConstrainedControls: StoryFn<ConstrainedControlsArgs> = ({size, appearance, fullWidthMode}) => {
+  const props = {size, variant: appearance, fullWidth: fullWidthMode === 'explicit-false' ? false : undefined}
+
+  return (
+    <div className={classes.ConstrainedControls}>
+      <div>
+        <SegmentedControl {...props} aria-label="Text file view">
+          <SegmentedControl.Button defaultSelected>Preview changes before publishing</SegmentedControl.Button>
+          <SegmentedControl.Button>Code</SegmentedControl.Button>
+          <SegmentedControl.Button>Blame</SegmentedControl.Button>
+        </SegmentedControl>
+      </div>
+      <div>
+        <SegmentedControl {...props} aria-label="Mixed file view">
+          <SegmentedControl.Button defaultSelected>Preview changes</SegmentedControl.Button>
+          <SegmentedControl.IconButton aria-label="Code" icon={FileCodeIcon} />
+          <SegmentedControl.IconButton aria-label="Blame" icon={PeopleIcon} />
+        </SegmentedControl>
+      </div>
+      <div>
+        <SegmentedControl {...props} aria-label="Icon file view">
+          <SegmentedControl.IconButton defaultSelected aria-label="Preview" icon={EyeIcon} />
+          <SegmentedControl.IconButton aria-label="Code" icon={FileCodeIcon} />
+          <SegmentedControl.IconButton aria-label="Blame" icon={PeopleIcon} />
+        </SegmentedControl>
+      </div>
+    </div>
+  )
+}
+
+ConstrainedControls.args = {size: 'medium', appearance: 'default', fullWidthMode: 'omitted'}
+
+ConstrainedControls.argTypes = {
+  size: {control: 'radio', options: ['small', 'medium']},
+  appearance: {control: 'radio', options: ['default', 'subtle']},
+  fullWidthMode: {control: 'radio', options: ['omitted', 'explicit-false']},
+}

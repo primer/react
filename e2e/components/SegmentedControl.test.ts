@@ -73,6 +73,10 @@ const stories = [
     id: 'components-segmentedcontrol-dev--with-css',
   },
   {
+    title: 'Dev: Constrained Controls',
+    id: 'components-segmentedcontrol-dev--constrained-controls',
+  },
+  {
     title: 'With Disabled Buttons',
     id: 'components-segmentedcontrol-examples--with-disabled-buttons',
   },
@@ -91,6 +95,110 @@ const stories = [
 ] as const
 
 test.describe('SegmentedControl', () => {
+  for (const size of ['small', 'medium'] as const) {
+    for (const variant of ['default', 'subtle'] as const) {
+      for (const fullWidth of [undefined, false] as const) {
+        const description = `${size} ${variant}, fullWidth ${fullWidth ?? 'omitted'}`
+        const args = {size, appearance: variant, fullWidthMode: fullWidth === false ? 'explicit-false' : 'omitted'}
+
+        test(`auto-sized controls fit constrained parents (${description}) @vrt`, async ({page}) => {
+          await visit(page, {id: 'components-segmentedcontrol-dev--constrained-controls', args})
+          const control = page.getByRole('list', {name: 'Text file view', exact: true})
+          const container = control.locator('..')
+          const buttons = control.getByRole('button')
+          if (fullWidth === false) {
+            await expect(control).toHaveAttribute('data-full-width', 'false')
+          } else {
+            await expect(control).not.toHaveAttribute('data-full-width')
+          }
+          await expect(control).toHaveAttribute('data-size', size)
+          await expect(control).toHaveAttribute('data-variant', variant)
+
+          for (const display of ['block', 'flex', 'grid']) {
+            await container.evaluate((element, layout) => {
+              element.style.width = '260px'
+              element.style.display = layout
+            }, display)
+
+            const box = await control.boundingBox()
+            expect(box?.width).toBeLessThanOrEqual(260)
+            expect(box?.height).toBe(size === 'small' ? 28 : 32)
+            expect(
+              await control
+                .locator('.segmentedControl-text')
+                .first()
+                .evaluate(element => element.scrollWidth > element.clientWidth),
+            ).toBe(true)
+            await expect(buttons.first()).toHaveAccessibleName('Preview changes before publishing')
+
+            for (const index of [1, 2, 0]) {
+              await buttons.nth(index).click()
+              expect(await control.boundingBox()).toEqual(box)
+            }
+
+            await container.evaluate(element => {
+              element.style.width = '1024px'
+            })
+            if (display !== 'grid') {
+              const roomyBox = await control.boundingBox()
+              expect(roomyBox?.width).toBeGreaterThan(260)
+              expect(roomyBox?.width).toBeLessThan(1024)
+            }
+            expect(
+              await control
+                .locator('.segmentedControl-text')
+                .evaluateAll(elements => elements.every(element => element.scrollWidth <= element.clientWidth)),
+            ).toBe(true)
+          }
+        })
+
+        test(`constrained icon buttons do not overlap (${description}) @vrt`, async ({page}) => {
+          await visit(page, {id: 'components-segmentedcontrol-dev--constrained-controls', args})
+
+          for (const [name, width] of [
+            ['Icon file view', 80],
+            ['Mixed file view', 140],
+          ] as const) {
+            const control = page.getByRole('list', {name, exact: true})
+            const buttons = control.getByRole('button')
+            await expect(control).toHaveAttribute('data-size', size)
+            await expect(control).toHaveAttribute('data-variant', variant)
+            await control.evaluate((element, constrainedWidth) => {
+              element.style.width = `${constrainedWidth}px`
+            }, width)
+
+            for (const index of [0, 1, 2]) {
+              await buttons.nth(index).click()
+              const iconDimensions = await control
+                .locator('[data-component="SegmentedControl.IconButton"]')
+                .evaluateAll(items =>
+                  items.map(item => {
+                    const button = item.querySelector('button')
+                    if (!button) throw new Error('Expected an icon button')
+                    return {
+                      itemWidth: item.getBoundingClientRect().width,
+                      buttonWidth: button.getBoundingClientRect().width,
+                    }
+                  }),
+                )
+              for (const {itemWidth, buttonWidth} of iconDimensions) {
+                expect(buttonWidth).toBe(32)
+                expect(itemWidth).toBeGreaterThanOrEqual(buttonWidth)
+              }
+              const bounds = await buttons.evaluateAll(elements =>
+                elements.map(element => element.getBoundingClientRect().toJSON()),
+              )
+              for (let i = 0; i < bounds.length - 1; i++) {
+                expect(bounds[i].right).toBeLessThanOrEqual(bounds[i + 1].left)
+              }
+              expect(await control.boundingBox()).toMatchObject({height: size === 'small' ? 28 : 32})
+            }
+          }
+        })
+      }
+    }
+  }
+
   test('small controls retain 28px with inherited typography @vrt', async ({page}) => {
     await visit(page, {id: 'components-segmentedcontrol-features--compact-toolbar'})
     const control = page.getByRole('list', {name: 'File view'})

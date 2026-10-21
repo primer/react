@@ -77,12 +77,12 @@
       "name": "variant",
       "type": "| 'default' | 'subtle' | { narrow?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' regular?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' wide?: 'hideLabels' | 'dropdown' | 'default' | 'subtle' }",
       "defaultValue": "'default'",
-      "description": "Choose the appearance or responsive variant. Prefer more space, shorter labels or another control over truncation."
+      "description": "Configure the control's visual treatment or responsive behavior in tight spaces."
     },
     {
       "name": "size",
       "type": "'small' | 'medium'",
-      "description": "The height of the control: 28px for small, 32px for medium.",
+      "description": "The size of the buttons",
       "defaultValue": ""
     },
     {
