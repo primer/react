@@ -4,3 +4,7 @@
   align-items: flex-start;
   gap: var(--base-size-24);
 }
+
+.ChangingLabelControl {
+  width: 260px;
+}

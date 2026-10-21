@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
+import React, {Children, useEffect, useState, useMemo, useCallback, type ForwardRefExoticComponent, useRef} from 'react'
 import {useId, useOnEscapePress, useMergedRefs, useProvidedRefOrCreate} from '../hooks'
 import {useFeatureFlag} from '../FeatureFlags'
 import {invariant} from '../utils/invariant'
@@ -30,7 +30,7 @@ export type TooltipProps = React.PropsWithChildren<{
    */
   delay?: 'short' | 'medium' | 'long'
   /**
-   * Private API for use internally only. Prevents the tooltip from opening if `true`.
+   * Private API for use internally only. Closes the tooltip and prevents it from opening if `true`.
    *
    * Accessibility note: This prop should be used with caution. Only use when needing to
    * programmatically close the tooltip in response to a specific user action, such as
@@ -197,7 +197,7 @@ export const Tooltip: ForwardRefExoticComponent<
         }
       }
     }
-    const closeTooltip = () => {
+    const closeTooltip = useCallback(() => {
       if (openTimeoutRef.current) {
         safeClearTimeout(openTimeoutRef.current)
         openTimeoutRef.current = null
@@ -229,7 +229,15 @@ export const Tooltip: ForwardRefExoticComponent<
           throw error
         }
       }
-    }
+    }, [readTriggerRef, safeClearTimeout])
+
+    useEffect(() => {
+      // Synchronise the native popover with changes to its availability.
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (_privateDisableTooltip) {
+        closeTooltip()
+      }
+    }, [_privateDisableTooltip, closeTooltip])
 
     // context value
     const value = useMemo(() => ({tooltipId}), [tooltipId])

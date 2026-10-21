@@ -95,6 +95,124 @@ const stories = [
 ] as const
 
 test.describe('SegmentedControl', () => {
+  test('truncated labels reveal their full text on hover and keyboard focus @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-features--constrained-label-overflow'})
+    const control = page.getByRole('list', {name: 'File view, constrained label', exact: true})
+    const button = control.getByRole('button', {name: 'Preview changes', exact: true})
+    const tooltip = control.locator('[data-component="Tooltip"]').filter({hasText: /^Preview changes$/})
+    const bounds = await button.boundingBox()
+
+    await button.hover()
+    await expect(tooltip).toBeVisible()
+    await expect(button).toHaveAccessibleName('Preview changes')
+    expect(await button.boundingBox()).toEqual(bounds)
+    await page.keyboard.press('Escape')
+    await expect(tooltip).toBeHidden()
+
+    await page.mouse.move(0, 0)
+    await page
+      .getByRole('list', {name: 'File view, full label', exact: true})
+      .getByRole('button', {name: 'Blame', exact: true})
+      .focus()
+    await page.keyboard.press('Tab')
+    await expect(button).toBeFocused()
+    await expect(tooltip).toBeVisible()
+    await page.keyboard.press('Enter')
+    await expect(button).toHaveAttribute('aria-pressed', 'true')
+    await expect(button).toHaveAccessibleName('Preview changes')
+    expect(await button.boundingBox()).toEqual(bounds)
+    await page.keyboard.press('Escape')
+    await expect(tooltip).toBeHidden()
+    await expect(button).toBeFocused()
+    await page.keyboard.press('Tab')
+    await expect(control.getByRole('button', {name: 'Code', exact: true})).toBeFocused()
+  })
+
+  test('label reveal tracks container resizing without replacing the focused button @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-dev--constrained-controls'})
+    const control = page.getByRole('list', {name: 'Text file view', exact: true})
+    const container = control.locator('..')
+    const button = control.getByRole('button', {name: 'Preview changes before publishing', exact: true})
+    const tooltip = control.locator('[data-component="Tooltip"]').first()
+
+    await container.evaluate(element => {
+      element.style.width = '260px'
+    })
+    await expect(tooltip).toHaveText('Preview changes before publishing')
+    await button.focus()
+    await expect(button).toBeFocused()
+    await expect(tooltip).toBeVisible()
+    await container.evaluate(element => {
+      element.style.width = '1024px'
+    })
+    await expect(tooltip).toBeHidden()
+    await expect(button).toBeFocused()
+    await expect(button).toHaveAccessibleName('Preview changes before publishing')
+    await button.hover()
+    await expect(tooltip).toBeHidden()
+    await container.evaluate(element => {
+      element.style.width = '260px'
+    })
+    await expect(tooltip).toHaveText('Preview changes before publishing')
+    await control.getByRole('button', {name: 'Code', exact: true}).focus()
+    await page.keyboard.press('Shift+Tab')
+    await expect(tooltip).toBeVisible()
+    await expect(tooltip).toHaveText('Preview changes before publishing')
+    await expect(button).toBeFocused()
+  })
+
+  test('fitting labels do not reveal a tooltip on hover or keyboard focus @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-features--constrained-label-overflow'})
+    const control = page.getByRole('list', {name: 'File view, full label', exact: true})
+    const buttons = control.getByRole('button')
+
+    for (const button of await buttons.all()) {
+      await button.hover()
+      await button.press('Tab')
+      await page.keyboard.press('Shift+Tab')
+      await expect(button).toBeFocused()
+      await expect(control.locator('[data-component="Tooltip"]:visible')).toHaveCount(0)
+    }
+  })
+
+  test('label reveal updates after text changes and remains available when aria-disabled @vrt', async ({page}) => {
+    await visit(page, {id: 'components-segmentedcontrol-dev--changing-label'})
+    const control = page.getByRole('list', {name: 'File view', exact: true})
+    const labelInput = page.getByRole('textbox', {name: 'Segment label', exact: true})
+    const button = control.getByRole('button').first()
+    const tooltip = control.locator('[data-component="Tooltip"]').first()
+    const bounds = await control.boundingBox()
+
+    await button.hover()
+    await expect(tooltip).toBeVisible()
+    await expect(tooltip).toHaveText('Preview changes before publishing')
+    await expect(button).toHaveAccessibleName('Preview changes before publishing (5)')
+    await expect(button).toHaveAccessibleDescription('Choose a file view Preview changes before publishing')
+    await control.getByRole('button', {name: 'Code', exact: true}).click()
+    await page.getByRole('checkbox', {name: 'Disable first segment'}).check()
+    await page.keyboard.press('Tab')
+    await expect(button).toBeFocused()
+    await page.keyboard.press('Enter')
+    await expect(tooltip).toBeVisible()
+    await expect(button).toHaveAttribute('aria-disabled', 'true')
+    await expect(button).toHaveAttribute('aria-pressed', 'false')
+
+    await labelInput.fill('Files')
+    await expect(tooltip).toBeEmpty()
+    await page.getByRole('checkbox', {name: 'Disable first segment'}).press('Tab')
+    await button.hover()
+    await expect(tooltip).toBeHidden()
+    await expect(button).toHaveAccessibleName('Files (5)')
+    await expect(button).toHaveAccessibleDescription('Choose a file view')
+    await labelInput.fill('Review all changes before publishing')
+    await expect(tooltip).toHaveText('Review all changes before publishing')
+    await page.getByRole('checkbox', {name: 'Disable first segment'}).press('Tab')
+    await expect(tooltip).toBeVisible()
+    await expect(tooltip).toHaveText('Review all changes before publishing')
+    await expect(button).toHaveAccessibleName('Review all changes before publishing (5)')
+    expect(await control.boundingBox()).toMatchObject({height: bounds?.height})
+  })
+
   for (const size of ['small', 'medium'] as const) {
     for (const variant of ['default', 'subtle'] as const) {
       for (const fullWidth of [undefined, false] as const) {
@@ -323,6 +441,9 @@ test.describe('SegmentedControl', () => {
             await buttons.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON())),
           ).toEqual(segments)
         }
+        await page.mouse.move(0, 0)
+        await page.keyboard.press('Escape')
+        await expect(control.locator('[data-component="Tooltip"]:visible')).toHaveCount(0)
       }
     }
   })

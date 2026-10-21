@@ -1,5 +1,6 @@
 import type {ButtonHTMLAttributes} from 'react'
 import type React from 'react'
+import {useCallback, useRef, useState} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import {isElement} from 'react-is'
 
@@ -7,6 +8,9 @@ import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import CounterLabel from '../CounterLabel'
 import type {FCWithSlotMarker} from '../utils/types'
+import {Tooltip} from '../TooltipV2'
+import {useResizeObserver} from '../hooks/useResizeObserver'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -40,6 +44,16 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
   ...props
 }) => {
   const {'aria-disabled': ariaDisabled, ...rest} = props
+  const labelRef = useRef<HTMLDivElement>(null)
+  const [isTruncated, setIsTruncated] = useState(false)
+  const updateTruncation = useCallback(() => {
+    const label = labelRef.current
+    if (label) {
+      setIsTruncated(label.scrollWidth > label.clientWidth)
+    }
+  }, [])
+  useResizeObserver(updateTruncation, labelRef)
+  useIsomorphicLayoutEffect(updateTruncation, [children, updateTruncation])
   // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
   const LeadingVisual = leadingVisual ?? leadingIcon
 
@@ -49,27 +63,29 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
       data-selected={selected ? '' : undefined}
       data-component="SegmentedControl.Button"
     >
-      <button
-        aria-pressed={selected}
-        aria-disabled={disabled || ariaDisabled || undefined}
-        className={clsx(classes.Button, className)}
-        type="button"
-        {...rest}
-      >
-        <span className={clsx(classes.Content, 'segmentedControl-content')}>
-          {LeadingVisual && (
-            <div className={classes.LeadingIcon}>{isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}</div>
-          )}
-          <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
-            {children}
-          </div>
-          {count !== undefined && (
-            <span className={classes.Counter}>
-              <CounterLabel>{count}</CounterLabel>
-            </span>
-          )}
-        </span>
-      </button>
+      <Tooltip text={isTruncated ? children : ''} _privateDisableTooltip={!isTruncated}>
+        <button
+          aria-pressed={selected}
+          aria-disabled={disabled || ariaDisabled || undefined}
+          className={clsx(classes.Button, className)}
+          type="button"
+          {...rest}
+        >
+          <span className={clsx(classes.Content, 'segmentedControl-content')}>
+            {LeadingVisual && (
+              <div className={classes.LeadingIcon}>{isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}</div>
+            )}
+            <div ref={labelRef} className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
+              {children}
+            </div>
+            {count !== undefined && (
+              <span className={classes.Counter}>
+                <CounterLabel>{count}</CounterLabel>
+              </span>
+            )}
+          </span>
+        </button>
+      </Tooltip>
     </li>
   )
 }

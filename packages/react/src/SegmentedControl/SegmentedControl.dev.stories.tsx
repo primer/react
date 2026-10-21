@@ -1,9 +1,11 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
+import {useState} from 'react'
 import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import classes from './SegmentedControl.dev.stories.module.css'
+import TextInput from '../TextInput'
 
 const excludedControlKeys = ['variant']
 
@@ -170,4 +172,35 @@ ConstrainedControls.argTypes = {
   appearance: {control: 'radio', options: ['default', 'subtle']},
   fullWidthMode: {control: 'radio', options: ['omitted', 'explicit-false']},
   textContent: {control: 'radio', options: ['plain', 'unequal-labels-with-visuals']},
+}
+
+export const ChangingLabel = () => {
+  const [label, setLabel] = useState('Preview changes before publishing')
+  const [disabled, setDisabled] = useState(false)
+
+  return (
+    <div className={classes.ConstrainedControls}>
+      <TextInput aria-label="Segment label" value={label} onChange={event => setLabel(event.target.value)} />
+      <label>
+        <input type="checkbox" checked={disabled} onChange={event => setDisabled(event.target.checked)} />
+        Disable first segment
+      </label>
+      <p id="changing-label-description">Choose a file view</p>
+      <div className={classes.ChangingLabelControl}>
+        <SegmentedControl aria-label="File view">
+          <SegmentedControl.Button
+            defaultSelected
+            leadingVisual={EyeIcon}
+            count={5}
+            disabled={disabled}
+            aria-describedby="changing-label-description"
+          >
+            {label}
+          </SegmentedControl.Button>
+          <SegmentedControl.Button>Code</SegmentedControl.Button>
+          <SegmentedControl.Button>Blame</SegmentedControl.Button>
+        </SegmentedControl>
+      </div>
+    </div>
+  )
 }

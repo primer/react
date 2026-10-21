@@ -253,7 +253,7 @@ ConstrainedLabelOverflow.parameters = {
   docs: {
     description: {
       story:
-        'The second example limits the first segment to show label truncation. Prefer enough space to display labels in full.',
+        'The second example limits the first segment to show label truncation. Hover or focus it to reveal the full label. Prefer enough space to display labels in full.',
     },
   },
 }
