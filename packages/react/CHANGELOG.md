@@ -1,5 +1,27 @@
 # @primer/react
 
+## 38.42.0
+
+### Minor Changes
+
+- [#8513](https://github.com/primer/react/pull/8513) [`1bab81a`](https://github.com/primer/react/commit/1bab81a0eb3f613c8d6b4abd36bd92d0ac6cedc4) Thanks [@tay1orjones](https://github.com/tay1orjones)! - ActionMenu, Overlay: Add `preventFocusOnClose` to let consumers manage focus when an overlay closes.
+
+- [#8525](https://github.com/primer/react/pull/8525) [`013ab30`](https://github.com/primer/react/commit/013ab3078785ee90afe8a7562576fe0a26001b96) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TextInput and Textarea: Deprecate the `contrast` prop. Omit it to use the default background.
+
+- [#8450](https://github.com/primer/react/pull/8450) [`1528a48`](https://github.com/primer/react/commit/1528a483f9efa41fdb4bea7793c49bcde6fb4220) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - IconButton, ActionBar: Accept React nodes and icon components
+
+- [#8509](https://github.com/primer/react/pull/8509) [`78ba2e0`](https://github.com/primer/react/commit/78ba2e08bc194f36b023e126a3084468aabff2ac) Thanks [@joshblack](https://github.com/joshblack)! - CounterLabel, Truncate: Improve rendering performance with React Compiler support.
+
+- [#8511](https://github.com/primer/react/pull/8511) [`6d14fa0`](https://github.com/primer/react/commit/6d14fa092e3e9e470991dab7f8e753bfb265a905) Thanks [@joshblack](https://github.com/joshblack)! - Checkbox, Tooltip: Improve rendering performance with React Compiler support.
+
+- [#8512](https://github.com/primer/react/pull/8512) [`e236683`](https://github.com/primer/react/commit/e236683d5c21c1d4b8121d35f4960986f5cd3a5f) Thanks [@joshblack](https://github.com/joshblack)! - ActionBar, FilteredActionList, Overlay, TextInput, Tooltip: Improve rendering performance with automatic memoization.
+
+- [#8415](https://github.com/primer/react/pull/8415) [`66a9f31`](https://github.com/primer/react/commit/66a9f31611c642209f66ed68b7d43712b09dbd88) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add controlled and uncontrolled row selection.
+
+### Patch Changes
+
+- [#8508](https://github.com/primer/react/pull/8508) [`f71dce4`](https://github.com/primer/react/commit/f71dce4869dedf4cb8460ed2fa8e18edc0604198) Thanks [@namangoyal176-10](https://github.com/namangoyal176-10)! - FormControl: Prevent duplicate input rendering when layout is horizontal with non-choice inputs
+
 ## 38.41.0
 
 ### Minor Changes

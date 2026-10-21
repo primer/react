@@ -1,6 +1,6 @@
-import {render, screen, within} from '@testing-library/react'
+import {act, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {act} from 'react'
+import React from 'react'
 import {hydrateRoot, type Root} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {describe, expect, it, vi} from 'vitest'

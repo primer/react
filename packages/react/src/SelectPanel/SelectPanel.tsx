@@ -232,6 +232,7 @@ function Panel({
   const KEYBOARD_VISIBILITY_THRESHOLD = 10
 
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const legacyContrast = useFeatureFlag('primer_react_select_panel_legacy_contrast')
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
@@ -743,12 +744,12 @@ function Panel({
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
       className: classes.TextInput,
-      contrast: true,
+      contrast: legacyContrast,
       leadingVisual: SearchIcon,
       'aria-label': inputLabel,
       ...textInputProps,
     }
-  }, [inputLabel, textInputProps])
+  }, [inputLabel, legacyContrast, textInputProps])
 
   const loadingType = (): FilteredActionListLoadingType => {
     if (dataLoadedOnce) {

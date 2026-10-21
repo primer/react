@@ -12,7 +12,7 @@ export const CustomSize = () => (
     aria-label="Expand"
     variant="primary"
     size="small"
-    icon={ChevronDownIcon}
+    icon={<ChevronDownIcon />}
     className={classes.CustomSize}
   />
 )
@@ -22,7 +22,7 @@ export const CustomSizeWithMedia = () => (
     aria-label="Expand"
     variant="primary"
     size="small"
-    icon={ChevronDownIcon}
+    icon={<ChevronDownIcon />}
     className={classes.CustomSizeWithMedia}
   />
 )
@@ -32,7 +32,7 @@ export const CustomIconColor = () => (
     aria-label="Expand"
     variant="invisible"
     size="small"
-    icon={ChevronDownIcon}
+    icon={<ChevronDownIcon />}
     className={classes.CustomIconColor}
   />
 )
@@ -40,7 +40,7 @@ export const CustomIconColor = () => (
 export const CustomSizeWithStyleProp = () => (
   <span className={classes.BoxBorder}>
     <IconButton
-      icon={BoldIcon}
+      icon={<BoldIcon />}
       aria-label="Bold"
       size="large"
       variant="invisible"
@@ -58,6 +58,6 @@ export const IconButtonWithinFlexContainer = () => (
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </span>
 
-    <IconButton icon={BoldIcon} aria-label="Icon button" />
+    <IconButton icon={<BoldIcon />} aria-label="Icon button" />
   </Stack>
 )
