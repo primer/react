@@ -151,10 +151,11 @@ export const Tooltip: ForwardRefExoticComponent<
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
     const openTimeoutRef = React.useRef<number | null>(null)
+    const shouldOpenOnFocusRef = useRef(false)
 
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
-    const openTooltip = () => {
+    const openTooltip = useCallback(() => {
       try {
         if (
           tooltipElRef.current &&
@@ -196,7 +197,7 @@ export const Tooltip: ForwardRefExoticComponent<
           throw error
         }
       }
-    }
+    }, [_privateDisableTooltip, readTriggerRef, direction])
     const closeTooltip = useCallback(() => {
       if (openTimeoutRef.current) {
         safeClearTimeout(openTimeoutRef.current)
@@ -233,11 +234,12 @@ export const Tooltip: ForwardRefExoticComponent<
 
     useEffect(() => {
       // Synchronise the native popover with changes to its availability.
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (_privateDisableTooltip) {
         closeTooltip()
+      } else if (shouldOpenOnFocusRef.current) {
+        openTooltip()
       }
-    }, [_privateDisableTooltip, closeTooltip])
+    }, [_privateDisableTooltip, closeTooltip, openTooltip])
 
     // context value
     const value = useMemo(() => ({tooltipId}), [tooltipId])
@@ -297,6 +299,7 @@ export const Tooltip: ForwardRefExoticComponent<
     useOnEscapePress(
       (event: KeyboardEvent) => {
         if (isPopoverOpen) {
+          shouldOpenOnFocusRef.current = false
           event.stopImmediatePropagation()
           event.preventDefault()
           closeTooltip()
@@ -339,6 +342,7 @@ export const Tooltip: ForwardRefExoticComponent<
               // If it is a label type, we use tooltip to label the trigger
               'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
+                shouldOpenOnFocusRef.current = false
                 closeTooltip()
                 child.props.onBlur?.(event)
               },
@@ -350,6 +354,7 @@ export const Tooltip: ForwardRefExoticComponent<
                 safeSetTimeout(() => closeTooltip(), 10)
               },
               onFocus: (event: React.FocusEvent) => {
+                shouldOpenOnFocusRef.current = false
                 child.props.onFocus?.(event)
                 // only show tooltip on :focus-visible, not on :focus
                 try {
@@ -359,6 +364,7 @@ export const Tooltip: ForwardRefExoticComponent<
                   // https://github.com/jsdom/jsdom/issues/3426
                 }
 
+                shouldOpenOnFocusRef.current = true
                 openTooltip()
               },
               onMouseOverCapture: (event: React.MouseEvent) => {

@@ -229,7 +229,7 @@ test.describe('SegmentedControl', () => {
     await expect(control.locator('[data-component="Tooltip"]:visible')).toHaveCount(0)
   })
 
-  test('label reveal tracks selection-dependent font weight without a box resize @vrt', async ({page}) => {
+  test('label reveal tracks selection-dependent font weight without refocusing @vrt', async ({page}) => {
     await visit(page, {id: 'components-segmentedcontrol-features--constrained-label-overflow'})
     const control = page.getByRole('list', {name: 'File view, constrained label', exact: true})
     const button = control.getByRole('button', {name: 'Preview changes', exact: true})
@@ -249,21 +249,39 @@ test.describe('SegmentedControl', () => {
     })
     expect(selectedTextWidth - normalTextWidth).toBeGreaterThan(2)
     const availableTextWidth = Math.floor((normalTextWidth + selectedTextWidth) / 2)
-    await button.evaluate((element, width) => {
+    const constrainedWidth = await button.evaluate((element, width) => {
       const text = element.querySelector('.segmentedControl-text')
       if (!(text instanceof HTMLElement)) throw new Error('Expected a segment label')
       const nonLabelWidth = element.getBoundingClientRect().width - text.getBoundingClientRect().width
       element.style.maxWidth = `${width + nonLabelWidth}px`
+      return element.style.maxWidth
     }, availableTextWidth)
     await expect(tooltip).toBeEmpty()
     const labelBounds = await label.boundingBox()
     const buttonBounds = await button.boundingBox()
 
-    await button.click()
+    await code.press('Shift+Tab')
+    await expect(button).toBeFocused()
+    await expect(tooltip).toBeHidden()
+    await page.keyboard.press('Enter')
     await expect(button).toHaveAttribute('aria-pressed', 'true')
     expect(await label.boundingBox()).toEqual(labelBounds)
     expect(await button.boundingBox()).toEqual(buttonBounds)
     await expect(tooltip).toHaveText('Preview changes')
+    await expect(tooltip).toBeVisible()
+    await expect(button).toBeFocused()
+    await page.keyboard.press('Escape')
+    await expect(tooltip).toBeHidden()
+    await button.evaluate(element => {
+      element.style.maxWidth = '240px'
+    })
+    await expect(tooltip).toBeEmpty()
+    await button.evaluate((element, width) => {
+      element.style.maxWidth = width
+    }, constrainedWidth)
+    await expect(tooltip).toHaveText('Preview changes')
+    await expect(tooltip).toBeHidden()
+    await expect(button).toBeFocused()
     await button.press('Tab')
     await page.keyboard.press('Shift+Tab')
     await expect(tooltip).toBeVisible()
