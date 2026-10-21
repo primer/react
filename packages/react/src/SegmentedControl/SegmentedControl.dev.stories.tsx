@@ -179,6 +179,7 @@ export const ChangingLabel = () => {
   const [disabled, setDisabled] = useState(false)
   const [focusEvents, setFocusEvents] = useState(0)
   const [mouseOverEvents, setMouseOverEvents] = useState(0)
+  const [mouseEnterEvents, setMouseEnterEvents] = useState(0)
 
   return (
     <div className={classes.ConstrainedControls}>
@@ -198,6 +199,7 @@ export const ChangingLabel = () => {
             aria-describedby="changing-label-description"
             onFocus={() => setFocusEvents(value => value + 1)}
             onMouseOverCapture={() => setMouseOverEvents(value => value + 1)}
+            onMouseEnter={() => setMouseEnterEvents(value => value + 1)}
           >
             {label}
           </SegmentedControl.Button>
@@ -207,6 +209,7 @@ export const ChangingLabel = () => {
       </div>
       <output aria-label="Focus events">{focusEvents}</output>
       <output aria-label="Mouse-over events">{mouseOverEvents}</output>
+      <output aria-label="Mouse-enter events">{mouseEnterEvents}</output>
     </div>
   )
 }

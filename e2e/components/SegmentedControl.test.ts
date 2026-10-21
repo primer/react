@@ -215,6 +215,7 @@ test.describe('SegmentedControl', () => {
 
   test('consumer callbacks still run for pointer focus and mouse-over capture @vrt', async ({page}) => {
     await visit(page, {id: 'components-segmentedcontrol-dev--changing-label'})
+    await page.clock.install()
     await page.getByRole('textbox', {name: 'Segment label', exact: true}).fill('Files')
     const control = page.getByRole('list', {name: 'File view', exact: true})
     const button = control.getByRole('button', {name: 'Files (5)', exact: true})
@@ -223,6 +224,8 @@ test.describe('SegmentedControl', () => {
     await expect(button).toBeFocused()
     await expect(page.getByRole('status', {name: 'Focus events'})).toHaveText('1')
     await expect(page.getByRole('status', {name: 'Mouse-over events'})).toHaveText(/^[1-9]\d*$/)
+    await page.clock.runFor(100)
+    await expect(page.getByRole('status', {name: 'Mouse-enter events'})).toHaveText('1')
     await expect(control.locator('[data-component="Tooltip"]:visible')).toHaveCount(0)
   })
 

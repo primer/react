@@ -372,7 +372,6 @@ export const Tooltip: ForwardRefExoticComponent<
                   // if the mouse is already moved out, do not show the tooltip
                   if (!openTimeoutRef.current) return
                   openTooltip()
-                  child.props.onMouseEnter?.(event)
                 }, delayTime)
               },
               onMouseLeave: (event: React.MouseEvent) => {
