@@ -669,7 +669,7 @@ const SkeletonItem = () => {
       )}
     >
       <SkeletonAvatar size={16} square />
-      <SkeletonText className={classes.TreeItemSkeletonTextStyles} />
+      <SkeletonText width="var(--tree-item-loading-width, 67%)" />
     </span>
   )
 }

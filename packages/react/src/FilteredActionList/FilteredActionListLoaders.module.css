@@ -5,22 +5,28 @@
 }
 
 .LoadingSkeletonRow {
-  --loading-skeleton-width: 80%;
-
-  &:nth-of-type(5n + 2) {
-    --loading-skeleton-width: 52.5%;
+  @supports (width: random(40%, 80%)) {
+    --loading-skeleton-width: random(40%, 80%);
   }
 
-  &:nth-of-type(5n + 3) {
-    --loading-skeleton-width: 67.5%;
-  }
+  @supports not (width: random(40%, 80%)) {
+    --loading-skeleton-width: 80%;
 
-  &:nth-of-type(5n + 4) {
-    --loading-skeleton-width: 40%;
-  }
+    &:nth-of-type(5n + 2) {
+      --loading-skeleton-width: 52.5%;
+    }
 
-  &:nth-of-type(5n + 5) {
-    --loading-skeleton-width: 72.5%;
+    &:nth-of-type(5n + 3) {
+      --loading-skeleton-width: 67.5%;
+    }
+
+    &:nth-of-type(5n + 4) {
+      --loading-skeleton-width: 40%;
+    }
+
+    &:nth-of-type(5n + 5) {
+      --loading-skeleton-width: 72.5%;
+    }
   }
 }
 

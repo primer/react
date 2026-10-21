@@ -529,7 +529,7 @@ function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10,
                   {Array.from({length: rows}).map((_, i) => {
                     return (
                       <div key={i} className={clsx('TableCellSkeletonItem', classes.TableCellSkeletonItem)}>
-                        <SkeletonText />
+                        <SkeletonText width="var(--skeleton-item-width)" />
                       </div>
                     )
                   })}

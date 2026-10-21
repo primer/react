@@ -265,27 +265,29 @@
     height: 2.75rem;
   }
 
-  &:nth-of-type(5n + 1) {
-    --tree-item-loading-width: 67%;
+  @supports (width: random(47%, 73%)) {
+    --tree-item-loading-width: random(47%, 73%);
   }
 
-  &:nth-of-type(5n + 2) {
-    --tree-item-loading-width: 47%;
-  }
+  @supports not (width: random(47%, 73%)) {
+    &:nth-of-type(5n + 1) {
+      --tree-item-loading-width: 67%;
+    }
 
-  &:nth-of-type(5n + 3) {
-    --tree-item-loading-width: 73%;
-  }
+    &:nth-of-type(5n + 2) {
+      --tree-item-loading-width: 47%;
+    }
 
-  &:nth-of-type(5n + 4) {
-    --tree-item-loading-width: 64%;
-  }
+    &:nth-of-type(5n + 3) {
+      --tree-item-loading-width: 73%;
+    }
 
-  &:nth-of-type(5n + 5) {
-    --tree-item-loading-width: 50%;
-  }
-}
+    &:nth-of-type(5n + 4) {
+      --tree-item-loading-width: 64%;
+    }
 
-.TreeItemSkeletonTextStyles {
-  width: var(--tree-item-loading-width, 67%);
+    &:nth-of-type(5n + 5) {
+      --tree-item-loading-width: 50%;
+    }
+  }
 }

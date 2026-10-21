@@ -241,29 +241,31 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--table-cell-padding);
 
-  &:nth-of-type(5n + 1) {
-    --skeleton-item-width: 85%;
+  @supports (width: random(60%, 85%)) {
+    --skeleton-item-width: random(60%, 85%);
   }
 
-  &:nth-of-type(5n + 2) {
-    --skeleton-item-width: 67.5%;
-  }
+  @supports not (width: random(60%, 85%)) {
+    &:nth-of-type(5n + 1) {
+      --skeleton-item-width: 85%;
+    }
 
-  &:nth-of-type(5n + 3) {
-    --skeleton-item-width: 80%;
-  }
+    &:nth-of-type(5n + 2) {
+      --skeleton-item-width: 67.5%;
+    }
 
-  &:nth-of-type(5n + 4) {
-    --skeleton-item-width: 60%;
-  }
+    &:nth-of-type(5n + 3) {
+      --skeleton-item-width: 80%;
+    }
 
-  &:nth-of-type(5n + 5) {
-    --skeleton-item-width: 75%;
-  }
-}
+    &:nth-of-type(5n + 4) {
+      --skeleton-item-width: 60%;
+    }
 
-.TableCellSkeletonItem [data-component='SkeletonText'] {
-  width: var(--skeleton-item-width);
+    &:nth-of-type(5n + 5) {
+      --skeleton-item-width: 75%;
+    }
+  }
 }
 
 .TableCellSkeletonItem:not(:last-of-type) {

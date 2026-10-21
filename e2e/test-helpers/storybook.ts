@@ -4,6 +4,7 @@ import {parseSync, traverse, types as t} from '@babel/core'
 import type {Page} from '@playwright/test'
 import {kebabCase} from 'change-case'
 import {waitForImages} from './waitForImages'
+import {deterministicSkeletonWidths} from './skeletonWidths'
 
 const AVATAR_IMAGE_PATH = path.join(__dirname, '../../packages/react/static/mock-avatar.png')
 
@@ -20,6 +21,7 @@ interface Options {
   args?: Record<string, string | boolean>
   globals?: Record<string, Value>
   storybook?: 'react' | 'styled-react'
+  randomSkeletonWidths?: boolean
 }
 
 const {STORYBOOK_URL = 'http://localhost:6006', STYLED_REACT_STORYBOOK_URL = 'http://localhost:6007'} = process.env
@@ -70,6 +72,9 @@ async function visit(page: Page, options: Options) {
   await page.goto(url.toString())
   await page.waitForSelector('body.sb-show-main:not(.sb-show-preparing-story)')
   await page.waitForSelector('#storybook-root > *', {state: 'attached'})
+  if (!options.randomSkeletonWidths) {
+    await page.addStyleTag({content: deterministicSkeletonWidths})
+  }
   await page.evaluate(async () => {
     await document.fonts.ready
   })
