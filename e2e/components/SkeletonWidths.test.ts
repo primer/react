@@ -41,7 +41,7 @@ async function getWidths(rows: Locator, textSelector: string) {
 }
 
 for (const randomSupported of [false, true]) {
-  test.describe(randomSupported ? 'Random skeleton widths' : 'Fallback skeleton widths', () => {
+  test.describe(randomSupported ? 'Random skeleton widths @vrt' : 'Fallback skeleton widths @vrt', () => {
     // WebKit implements random() natively; Chromium exercises the unsupported path.
     test.use({
       page: async ({playwright, contextOptions, viewport}, providePage) => {
