@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import Breadcrumbs from '.'
 import TextInput from '../TextInput'
+import {FeatureFlags} from '../FeatureFlags'
 import classes from './Breadcrumbs.dev.stories.module.css'
 
 export default {
@@ -171,3 +172,25 @@ export const ResizableOverflow = ({overflow}: {overflow: 'menu' | 'menu-with-roo
 
 ResizableOverflow.args = {overflow: 'menu'}
 ResizableOverflow.argTypes = {overflow: {control: 'radio', options: ['menu', 'menu-with-root']}}
+
+/** Both implementations in one resizable container: drag the corner and check that each pair matches. */
+export const CssOverflowComparison = () => (
+  <div className={classes.ResizableContainer}>
+    {(['menu', 'menu-with-root'] as const).map(overflow =>
+      [false, true].map(cssOverflow => (
+        <FeatureFlags key={`${overflow}-${cssOverflow}`} flags={{primer_react_breadcrumbs_css_overflow: cssOverflow}}>
+          <span className={classes.ComparisonLabel}>
+            {overflow}, {cssOverflow ? 'CSS overflow' : 'measured overflow'}
+          </span>
+          <Breadcrumbs overflow={overflow}>
+            {RESIZABLE_LABELS.map((label, index) => (
+              <Breadcrumbs.Item key={label} href="#" selected={index === RESIZABLE_LABELS.length - 1}>
+                {label}
+              </Breadcrumbs.Item>
+            ))}
+          </Breadcrumbs>
+        </FeatureFlags>
+      )),
+    )}
+  </div>
+)

@@ -21,3 +21,8 @@
   flex-direction: column;
   gap: var(--base-size-8);
 }
+
+.ComparisonLabel {
+  font-size: var(--text-caption-size);
+  color: var(--fgColor-muted);
+}
