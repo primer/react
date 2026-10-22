@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import Breadcrumbs from '.'
 import TextInput from '../TextInput'
+import {FeatureFlags} from '../FeatureFlags'
 import classes from './Breadcrumbs.dev.stories.module.css'
 
 export default {
@@ -152,4 +153,26 @@ export const WithEditableNameInput = () => (
       />
     </Breadcrumbs.Item>
   </Breadcrumbs>
+)
+
+const CSS_OVERFLOW_LABELS = ['github', 'Teams', 'Engineering', 'core-productivity', 'collaboration', 'reviewers']
+
+/** Drag the corner to resize. Both implementations should look identical at every width. */
+export const CssOverflowComparison = () => (
+  <div className={classes.ResizableContainer}>
+    {[false, true].map(cssOverflow => (
+      <FeatureFlags key={String(cssOverflow)} flags={{primer_react_breadcrumbs_css_overflow: cssOverflow}}>
+        <h4 className={classes.ComparisonHeading}>{cssOverflow ? 'CSS overflow' : 'Measured overflow'}</h4>
+        {(['menu', 'menu-with-root'] as const).map(overflow => (
+          <Breadcrumbs key={overflow} overflow={overflow}>
+            {CSS_OVERFLOW_LABELS.map((label, index) => (
+              <Breadcrumbs.Item key={label} href="#" selected={index === CSS_OVERFLOW_LABELS.length - 1}>
+                {label}
+              </Breadcrumbs.Item>
+            ))}
+          </Breadcrumbs>
+        ))}
+      </FeatureFlags>
+    ))}
+  </div>
 )

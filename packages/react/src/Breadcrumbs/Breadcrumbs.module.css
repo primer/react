@@ -165,3 +165,190 @@
     }
   }
 }
+
+/*
+ * CSS-driven overflow (`primer_react_breadcrumbs_css_overflow`).
+ * Crumbs live in a single clipped row laid out from the leaf backwards (`row-reverse` + `order`),
+ * so leading crumbs wrap onto a hidden second line. No measurement is needed for the first paint.
+ */
+.BreadcrumbsBase[data-css-overflow] {
+  position: relative;
+  /* Lets the list react to the row's scroll timeline below. */
+  timeline-scope: --breadcrumbs-row;
+
+  /* Only until JS measures the width: size containment collapses content-sized containers to 0px. */
+  &:not([data-measured]) {
+    container: breadcrumbs / inline-size;
+  }
+}
+
+/* Tracks the nav's width without its height, which changes with the crumbs. */
+.CssOverflowWidthSentinel {
+  position: absolute;
+  top: 0;
+  height: 0;
+  pointer-events: none;
+  visibility: hidden;
+  inset-inline: 0;
+}
+
+.CssOverflowList {
+  /* Collapsed and uncollapsed states use different separators, toggled with the menu. */
+  --breadcrumbs-menu-display: none;
+  --breadcrumbs-svg-separator-display: none;
+  --breadcrumbs-line-separator-display: inline-block;
+
+  min-width: 0;
+  flex: 1 1 auto;
+  align-items: center;
+
+  /* Until JS observes overflow (e.g. server-rendered markup before hydration). */
+  &:not([data-observed]) {
+    animation: detect-overflow linear;
+    animation-timeline: --breadcrumbs-row;
+  }
+
+  &[data-has-overflow],
+  &[data-overflowing],
+  &[data-root-collapsed] {
+    --breadcrumbs-menu-display: inline-grid;
+    --breadcrumbs-svg-separator-display: flex;
+    --breadcrumbs-line-separator-display: none;
+  }
+
+  &[data-root-collapsed] > .CssOverflowCrumb {
+    display: none;
+  }
+
+  & > .CssOverflowMenu {
+    display: var(--breadcrumbs-menu-display);
+  }
+
+  & > .BreadcrumbsItem {
+    flex: none;
+  }
+
+  /* The pinned root truncates rather than painting past the nav when it alone doesn't fit. */
+  & > .CssOverflowCrumb {
+    min-width: 0;
+    flex: 0 1 auto;
+    grid-auto-columns: minmax(0, auto);
+
+    & > :first-child {
+      overflow: clip;
+      overflow-clip-margin: var(--base-size-2);
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+/* Scroll timelines are only active when the row has scrollable (wrapped) overflow. */
+@keyframes detect-overflow {
+  0%,
+  100% {
+    --breadcrumbs-menu-display: inline-grid;
+    --breadcrumbs-svg-separator-display: flex;
+    --breadcrumbs-line-separator-display: none;
+  }
+}
+
+.CssOverflowCrumb {
+  & > :first-child,
+  &::after {
+    align-self: baseline;
+  }
+
+  & > .ItemSeparator {
+    display: var(--breadcrumbs-svg-separator-display);
+  }
+
+  /* Matches `.ItemWrapper::after`, used while nothing is collapsed. */
+  &::after {
+    display: var(--breadcrumbs-line-separator-display);
+    height: 0.8em;
+    /* stylelint-disable-next-line primer/spacing */
+    margin: 0 0.5em;
+    font-size: var(--text-body-size-medium);
+    content: '';
+    /* stylelint-disable-next-line primer/borders, primer/colors */
+    border-right: 0.1em solid var(--fgColor-muted);
+    transform: rotate(15deg) translateY(0.0625em);
+  }
+
+  &:last-child::after {
+    content: none;
+  }
+}
+
+.CssOverflowHost {
+  display: flex;
+  min-width: 0;
+  /* Zero basis: the row makes room by wrapping, so it shouldn't make the root shrink. */
+  flex: 1 1 0%;
+  list-style: none;
+}
+
+.CssOverflowRow {
+  display: flex;
+  min-width: 0;
+  box-sizing: content-box;
+  /* Fallback for browsers without the `lh` unit. */
+  height: 1.5em;
+  height: max(1lh, var(--breadcrumbs-row-min-height, 0px));
+  /* Room for focus outlines inside the clip, cancelled out by the negative margin. */
+  padding: var(--base-size-4);
+  margin: calc(-1 * var(--base-size-4));
+  overflow: hidden;
+  font-size: var(--text-body-size-medium);
+  list-style: none;
+  flex: 1 1 auto;
+  flex-flow: row-reverse wrap;
+  justify-content: flex-end;
+  align-items: center;
+  /* Keeps wrapped lines well clear of the visible row. */
+  row-gap: var(--base-size-16);
+  contain: layout;
+  scroll-timeline: --breadcrumbs-row block;
+
+  [data-variant='spacious'] & {
+    height: calc(1.5em + 2 * var(--base-size-4));
+    height: max(calc(1lh + 2 * var(--base-size-4)), var(--breadcrumbs-row-min-height, 0px));
+  }
+}
+
+.CssOverflowItem {
+  min-width: 0;
+  flex: 0 1 auto;
+  /* Only the leaf can be narrower than its content (everything else wraps first); truncate it. */
+  grid-auto-columns: minmax(0, auto);
+
+  & > :first-child {
+    overflow: clip;
+    /* Don't clip glyph anti-aliasing at the edges of untruncated items. */
+    overflow-clip-margin: var(--base-size-2);
+    text-overflow: ellipsis;
+  }
+}
+
+/* Narrow containers show only the leaf: a container query until hydration, then `data-narrow` set by JS. */
+.CssOverflowList:where([data-narrow-collapse][data-narrow]) {
+  --breadcrumbs-menu-display: inline-grid;
+  --breadcrumbs-svg-separator-display: flex;
+  --breadcrumbs-line-separator-display: none;
+
+  .CssOverflowItem:not(:last-child) {
+    display: none;
+  }
+}
+
+@container breadcrumbs (width < 544px) {
+  .CssOverflowList[data-narrow-collapse] {
+    --breadcrumbs-menu-display: inline-grid;
+    --breadcrumbs-svg-separator-display: flex;
+    --breadcrumbs-line-separator-display: none;
+
+    .CssOverflowItem:not(:last-child) {
+      display: none;
+    }
+  }
+}
