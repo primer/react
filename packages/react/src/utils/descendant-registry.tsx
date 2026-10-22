@@ -41,9 +41,9 @@ interface DescendantRegistryContext<T> {
  *    the string key is a unique and stable identifier for each component which can be used as a `key` if necessary.
  *
  * @note Note that this pattern is not SSR compatible. It won't raise errors or hydration mismatches, but the
- * registry will not be available during SSR. The registry is built during the effect phase, so it will be populated
- * after hydration on the client. The initial `undefined` value can be used to safely show loading UI during SSR/initial
- * render if necessary.
+ * registry will not be available during SSR. Registrations are collected during the effect phase and published after
+ * the effects complete, so the registry will be populated after hydration on the client. The initial `undefined` value
+ * can be used to safely show loading UI during SSR/initial render if necessary.
  */
 export function createDescendantRegistry<T>() {
   const Context = createContext<DescendantRegistryContext<T>>({
@@ -79,24 +79,27 @@ export function createDescendantRegistry<T>() {
   /** Provide context for registering descendant components. This only needs to wrap `children`. */
   function Provider({children, setRegistry}: ProviderProps<T>) {
     const workingRegistryRef = useRef<Map<string, T | typeof unsetValue> | 'queued' | 'idle'>('queued')
+    const registryRef = useRef(new Map<string, T>())
 
     /** State value to trigger a re-render and force all descendants to re-register. This ensures everything remains ordered. */
     const [key, rebuildRegistry] = useReducer(prev => prev + 1, 0)
 
-    // Coalesce rebuilds: when several descendants register in the same tick (e.g. multiple items crossing the wrap
-    // boundary during one resize frame), schedule a single rebuild via microtask instead of one rebuild per
-    // registration. The microtask drains before paint, so the rebuild still lands within the same frame.
-    const pendingRebuildRef = useRef(false)
+    const pendingRegistryUpdateRef = useRef(false)
     const isMountedRef = useRef(true)
-    const scheduleRebuild = useCallback(() => {
-      if (pendingRebuildRef.current) return
-      pendingRebuildRef.current = true
+    const scheduleRegistryUpdate = useCallback(() => {
+      if (pendingRegistryUpdateRef.current) return
+      pendingRegistryUpdateRef.current = true
       scheduleMicrotask(() => {
-        pendingRebuildRef.current = false
-        // Guard against dispatching into an unmounted provider.
-        if (isMountedRef.current) rebuildRegistry()
+        pendingRegistryUpdateRef.current = false
+        if (!isMountedRef.current) return
+
+        if (workingRegistryRef.current === 'queued') {
+          rebuildRegistry()
+        } else if (workingRegistryRef.current === 'idle') {
+          setRegistry(new Map(registryRef.current))
+        }
       })
-    }, [])
+    }, [setRegistry])
 
     useEffect(() => {
       isMountedRef.current = true
@@ -123,10 +126,9 @@ export function createDescendantRegistry<T>() {
           workingRegistryRef.current.set(id, unsetValue)
         } else if (workingRegistryRef.current === 'idle') {
           // When idle, registering a new component causes the whole registry to be rebuilt (because that item could
-          // be inserted anywhere in the tree, changing the order of items). Coalesce concurrent registrations so the
-          // rebuild only happens once per tick.
+          // be inserted anywhere in the tree, changing the order of items).
           workingRegistryRef.current = 'queued'
-          scheduleRebuild()
+          scheduleRegistryUpdate()
         }
         // Noop if status is `queued` since we will restart the map in the next cycle
 
@@ -136,15 +138,12 @@ export function createDescendantRegistry<T>() {
           } else if (workingRegistryRef.current === 'idle') {
             // No need to rebuild the registry when unregistering, because removing an item doesn't affect the order
             // the rest of the items
-            setRegistry(prev => {
-              const copy = new Map(prev)
-              copy.delete(id)
-              return copy
-            })
+            registryRef.current.delete(id)
+            scheduleRegistryUpdate()
           }
         }
       },
-      [setRegistry, scheduleRebuild],
+      [scheduleRegistryUpdate],
     )
 
     /** Update a descendant's value in the registry. */
@@ -154,23 +153,24 @@ export function createDescendantRegistry<T>() {
           workingRegistryRef.current.set(id, value)
         } else if (workingRegistryRef.current === 'idle') {
           // No need to rebuild the registry when updating a value; that doesn't affect order
-          setRegistry(prev => new Map(prev).set(id, value))
+          registryRef.current.set(id, value)
+          scheduleRegistryUpdate()
         }
         // Ignore `queued` stage; a rebuild is coming that will capture the new value in the next render
       },
-      [setRegistry],
+      [scheduleRegistryUpdate],
     )
 
-    // After all descendants' effects complete, commit the working registry to state
+    // After all descendants' effects complete, prepare the working registry for batched publication
     useEffect(function commitWorkingRegistry() {
       if (workingRegistryRef.current instanceof Map) {
         // There shouldn't be any unset values left, but still filter them just in case
         const setEntries = Array.from(workingRegistryRef.current.entries()).filter(
           (entry): entry is [string, T] => entry[1] !== unsetValue,
         )
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
-        setRegistry(new Map(setEntries))
+        registryRef.current = new Map(setEntries)
         workingRegistryRef.current = 'idle'
+        scheduleRegistryUpdate()
       }
     })
 
