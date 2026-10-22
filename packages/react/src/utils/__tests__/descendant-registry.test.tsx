@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import type React from 'react'
-import {Fragment, useState} from 'react'
+import {Fragment, useEffect, useState} from 'react'
 import {act, render, waitFor} from '@testing-library/react'
 import {createDescendantRegistry} from '../descendant-registry'
 import {userEvent} from '@testing-library/user-event'
@@ -208,7 +208,12 @@ describe('createDescendantRegistry', () => {
         {id: 'b', value: 'b'},
         {id: 'c', value: 'c'},
       ])
-      setItems = setItemState
+      useEffect(() => {
+        setItems = setItemState
+        return () => {
+          setItems = null
+        }
+      }, [])
       return items.map(item => <Item key={item.id} value={item.value} />)
     }
 
@@ -256,7 +261,12 @@ describe('createDescendantRegistry', () => {
         {id: 'a', value: 'a'},
         {id: 'd', value: 'd'},
       ])
-      setItems = setItemState
+      useEffect(() => {
+        setItems = setItemState
+        return () => {
+          setItems = null
+        }
+      }, [])
       return items.map(item => <Item key={item.id} value={item.value} />)
     }
 
@@ -314,7 +324,12 @@ describe('createDescendantRegistry', () => {
         {id: 'b', value: 'b'},
         {id: 'c', value: 'c'},
       ])
-      setItems = setItemState
+      useEffect(() => {
+        setItems = setItemState
+        return () => {
+          setItems = null
+        }
+      }, [])
       return items.map(item => <Item key={item.id} value={item.value} />)
     }
 
