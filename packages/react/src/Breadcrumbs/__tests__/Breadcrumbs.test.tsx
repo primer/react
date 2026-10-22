@@ -427,12 +427,16 @@ describe('Breadcrumbs', () => {
 
   it('does not remount visible items when items collapse into the overflow menu', () => {
     const onMount = vi.fn()
-    const TrackedLink = (props: React.ComponentPropsWithoutRef<'a'>) => {
+    const TrackedLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<'a'>>((props, ref) => {
       React.useEffect(() => {
         onMount(props.children)
       }, [props.children])
-      return <a {...props}>{props.children}</a>
-    }
+      return (
+        <a {...props} ref={ref}>
+          {props.children}
+        </a>
+      )
+    })
 
     renderWithTheme(
       <Breadcrumbs overflow="menu">

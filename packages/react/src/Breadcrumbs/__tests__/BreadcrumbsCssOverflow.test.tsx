@@ -6,6 +6,8 @@ import {describe, expect, it, vi} from 'vitest'
 import Breadcrumbs from '..'
 import type {BreadcrumbsProps} from '..'
 import {FeatureFlags} from '../../FeatureFlags'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Breadcrumbs.module.css'
 
 const SHORT_LABELS = ['One', 'Two', 'Three', 'Four', 'Five', 'Six']
 const LONG_LABELS = [
@@ -55,6 +57,14 @@ async function getMenuLabels() {
 }
 
 describe('Breadcrumbs with primer_react_breadcrumbs_css_overflow', () => {
+  implementsClassName(
+    (props: BreadcrumbsProps) => (
+      <FeatureFlags flags={{primer_react_breadcrumbs_css_overflow: true}}>
+        <Breadcrumbs overflow="menu" {...props} />
+      </FeatureFlags>
+    ),
+    classes.BreadcrumbsBase,
+  )
   it('collapses all but the last four items into the menu', async () => {
     render(<TestBreadcrumbs overflow="menu" labels={SHORT_LABELS} width={1000} />)
 

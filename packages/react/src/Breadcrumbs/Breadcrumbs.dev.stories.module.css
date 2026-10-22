@@ -21,7 +21,3 @@
   flex-direction: column;
   gap: var(--base-size-8);
 }
-
-.ComparisonHeading {
-  margin: 0;
-}
