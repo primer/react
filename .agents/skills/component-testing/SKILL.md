@@ -1,13 +1,17 @@
+---
+name: component-testing
+description: 'Use when authoring, modifying, reviewing, or debugging Primer React component and hook tests in Vitest browser mode. Do not use for Node/SSR tests, standalone Playwright visual or accessibility tests, or component implementation without test changes.'
+---
+
 # Component Testing
 
-Use these conventions when authoring, modifying, or debugging component and hook
-tests. Test observable behavior and the component's public contract rather than
+Use these conventions for Primer React component and hook tests in Vitest browser
+mode. Test observable behavior and the component's public contract rather than
 its implementation details.
 
-Read [the testing guide](../../../../contributor-docs/testing.md) for strategy,
-environment setup, and commands. The conventions below apply to Vitest browser
-tests. Node/SSR tests and the separate Playwright visual and accessibility suites
-have their own environments and use the APIs available in those environments.
+Read [the testing guide](../../../contributor-docs/testing.md) for strategy,
+environment setup, and commands. Keep Node/SSR tests and the separate Playwright
+visual and accessibility suites on the APIs available in their own environments.
 
 ## Start with RTL rendering and browser interactions
 
