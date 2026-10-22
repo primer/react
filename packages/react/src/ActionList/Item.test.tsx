@@ -1,6 +1,6 @@
+import {page, userEvent} from 'vitest/browser'
 import {describe, it, expect, vi} from 'vitest'
-import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
 import React, {type JSX} from 'react'
 import {ActionList} from '.'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -67,102 +67,113 @@ describe('ActionList.Item', () => {
   implementsClassName(ActionList.LinkItem)
   it('should have aria-keyshortcuts applied to the correct element', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
-    const linkOptions = await waitFor(() => container.querySelectorAll('a'))
+    const linkOptions = container.querySelectorAll('a')
     expect(linkOptions[0]).toHaveAttribute('aria-keyshortcuts', 'd')
     expect(linkOptions[0].parentElement).not.toHaveAttribute('aria-keyshortcuts', 'd')
   })
   it('should fire onSelect on click and keypress', async () => {
-    const component = HTMLRender(<SingleSelectListStory />)
-    const options = await waitFor(() => component.getAllByRole('option'))
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[1]).toHaveAttribute('aria-selected', 'false')
-    fireEvent.click(options[1])
-    expect(options[0]).toHaveAttribute('aria-selected', 'false')
-    expect(options[1]).toHaveAttribute('aria-selected', 'true')
-    // We pass keycode here to navigate a implementation detail in react-testing-library
-    // https://github.com/testing-library/react-testing-library/issues/269#issuecomment-455854112
-    fireEvent.keyPress(options[0], {key: 'Enter', charCode: 13})
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[1]).toHaveAttribute('aria-selected', 'false')
-    fireEvent.keyPress(options[1], {key: ' ', charCode: 32})
-    expect(options[0]).toHaveAttribute('aria-selected', 'false')
-    expect(options[1]).toHaveAttribute('aria-selected', 'true')
+    HTMLRender(<SingleSelectListStory />)
+    const options = page.getByRole('option').all()
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[1]).toHaveAttribute('aria-selected', 'false')
+    await userEvent.click(options[1])
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'false')
+    await expect.element(options[1]).toHaveAttribute('aria-selected', 'true')
+    act(() => {
+      options[0].element().focus()
+    })
+    await userEvent.keyboard('{Enter}')
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[1]).toHaveAttribute('aria-selected', 'false')
+    act(() => {
+      options[1].element().focus()
+    })
+    await userEvent.keyboard(' ')
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'false')
+    await expect.element(options[1]).toHaveAttribute('aria-selected', 'true')
   })
   it('should skip onSelect on disabled items', async () => {
-    const component = HTMLRender(<SingleSelectListStory />)
-    const options = await waitFor(() => component.getAllByRole('option'))
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[2]).toHaveAttribute('aria-selected', 'false')
-    fireEvent.click(options[2])
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[2]).toHaveAttribute('aria-selected', 'false')
-    fireEvent.keyPress(options[2], {key: 'Enter', charCode: 13})
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[2]).toHaveAttribute('aria-selected', 'false')
+    HTMLRender(<SingleSelectListStory />)
+    const options = page.getByRole('option').all()
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[2]).toHaveAttribute('aria-selected', 'false')
+    fireEvent.click(options[2].element())
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[2]).toHaveAttribute('aria-selected', 'false')
+    act(() => {
+      options[2].element().focus()
+    })
+    await userEvent.keyboard('{Enter}')
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[2]).toHaveAttribute('aria-selected', 'false')
   })
   it('should skip onSelect on inactive items', async () => {
-    const component = HTMLRender(<SingleSelectListStory />)
-    const options = await waitFor(() => component.getAllByRole('option'))
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[3]).toHaveAttribute('aria-selected', 'false')
-    fireEvent.click(options[3])
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[3]).toHaveAttribute('aria-selected', 'false')
-    fireEvent.keyPress(options[3], {key: 'Enter', charCode: 13})
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[3]).toHaveAttribute('aria-selected', 'false')
+    HTMLRender(<SingleSelectListStory />)
+    const options = page.getByRole('option').all()
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[3]).toHaveAttribute('aria-selected', 'false')
+    fireEvent.click(options[3].element())
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[3]).toHaveAttribute('aria-selected', 'false')
+    act(() => {
+      options[3].element().focus()
+    })
+    await userEvent.keyboard('{Enter}')
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[3]).toHaveAttribute('aria-selected', 'false')
   })
   it('should skip onSelect on loading items', async () => {
-    const component = HTMLRender(<SingleSelectListStory />)
-    const options = await waitFor(() => component.getAllByRole('option'))
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[4]).toHaveAttribute('aria-selected', 'false')
-    fireEvent.click(options[4])
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[4]).toHaveAttribute('aria-selected', 'false')
-    fireEvent.keyPress(options[3], {key: 'Enter', charCode: 13})
-    expect(options[0]).toHaveAttribute('aria-selected', 'true')
-    expect(options[4]).toHaveAttribute('aria-selected', 'false')
+    HTMLRender(<SingleSelectListStory />)
+    const options = page.getByRole('option').all()
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[4]).toHaveAttribute('aria-selected', 'false')
+    fireEvent.click(options[4].element())
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[4]).toHaveAttribute('aria-selected', 'false')
+    act(() => {
+      options[3].element().focus()
+    })
+    await userEvent.keyboard('{Enter}')
+    await expect.element(options[0]).toHaveAttribute('aria-selected', 'true')
+    await expect.element(options[4]).toHaveAttribute('aria-selected', 'false')
   })
   it('should not crash when clicking an item without an onSelect', async () => {
-    const component = HTMLRender(
+    HTMLRender(
       <ActionList role="listbox">
         <ActionList.Item role="option">Primer React</ActionList.Item>
       </ActionList>,
     )
-    const option = await waitFor(() => component.getByRole('option'))
-    expect(option).toBeInTheDocument()
-    fireEvent.click(option)
-    fireEvent.keyPress(option, {key: 'Enter', charCode: 13})
-    expect(option).toBeInTheDocument()
+    const option = page.getByRole('option')
+    await expect.element(option).toBeInTheDocument()
+    await userEvent.click(option)
+    await userEvent.keyboard('{Enter}')
+    await expect.element(option).toBeInTheDocument()
   })
   it('should focus the button around the alert icon when tabbing to an inactive item', async () => {
-    const component = HTMLRender(<SimpleActionList />)
-    const inactiveIndicatorButton = await waitFor(() => component.getByRole('button', {name: 'Inactive item'}))
+    HTMLRender(<SimpleActionList />)
+    const inactiveIndicatorButton = page.getByRole('button', {name: 'Inactive item', exact: true})
     await userEvent.tab()
     await userEvent.tab()
     await userEvent.tab()
     await userEvent.tab()
     await userEvent.tab()
     await userEvent.tab() // focuses 6th element, which is inactive
-    expect(inactiveIndicatorButton).toHaveFocus()
-    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
+    await expect.element(inactiveIndicatorButton).toHaveFocus()
+    await expect.element(inactiveIndicatorButton).toHaveAccessibleDescription('Unavailable due to an outage')
   })
   it('should focus the option or menu item when moving focus to an inactive item **in a listbox**', async () => {
-    const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOption = await waitFor(() => component.getByRole('option', {name: projects[3].name}))
+    HTMLRender(<SingleSelectListStory />)
+    const inactiveOption = page.getByRole('option', {name: projects[3].name})
     await userEvent.tab() // get focus on first element
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
-    expect(inactiveOption).toHaveFocus()
-    expect(document.activeElement).toHaveAccessibleDescription(projects[3].inactiveText as string)
+    await expect.element(inactiveOption).toHaveFocus()
+    await expect.element(inactiveOption).toHaveAccessibleDescription(projects[3].inactiveText as string)
   })
   it('should behave as inactive if both inactiveText and loading props are passed', async () => {
-    const component = HTMLRender(<SimpleActionList />)
-    const inactiveIndicatorButton = await waitFor(() =>
-      component.getByRole('button', {name: 'Loading and inactive item'}),
-    )
+    HTMLRender(<SimpleActionList />)
+    const inactiveIndicatorButton = page.getByRole('button', {name: 'Loading and inactive item', exact: true})
     await userEvent.tab()
     await userEvent.tab()
     await userEvent.tab()
@@ -170,33 +181,33 @@ describe('ActionList.Item', () => {
     await userEvent.tab()
     await userEvent.tab()
     await userEvent.tab() // focuses 7th element, which is inactive AND has a loading prop
-    expect(inactiveIndicatorButton).toHaveFocus()
-    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
+    await expect.element(inactiveIndicatorButton).toHaveFocus()
+    await expect.element(inactiveIndicatorButton).toHaveAccessibleDescription('Unavailable due to an outage')
   })
 
   it('should behave as inactive if both inactiveText and loading props are passed **in a listbox**', async () => {
-    const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOption = await waitFor(() => component.getByRole('option', {name: projects[5].name}))
+    HTMLRender(<SingleSelectListStory />)
+    const inactiveOption = page.getByRole('option', {name: projects[5].name})
     await userEvent.tab() // get focus on first element
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
-    expect(inactiveOption).toHaveFocus()
-    expect(document.activeElement).toHaveAccessibleDescription(projects[5].inactiveText as string)
+    await expect.element(inactiveOption).toHaveFocus()
+    await expect.element(inactiveOption).toHaveAccessibleDescription(projects[5].inactiveText as string)
   })
   it('should call onClick for a link item', async () => {
     const onClick = vi.fn()
-    const component = HTMLRender(
+    HTMLRender(
       <ActionList role="listbox">
         <ActionList.LinkItem role="link" onClick={onClick}>
           Primer React
         </ActionList.LinkItem>
       </ActionList>,
     )
-    const link = await waitFor(() => component.getByRole('link'))
-    fireEvent.click(link)
+    const link = page.getByRole('link')
+    await userEvent.click(link)
     expect(onClick).toHaveBeenCalled()
   })
   it('should render ActionList.Item as button', async () => {
@@ -207,9 +218,9 @@ describe('ActionList.Item', () => {
       </ActionList>,
     )
     const button = container.querySelector('button')
-    expect(button).toHaveTextContent('Item 1')
+    await expect.element(button).toHaveTextContent('Item 1')
     // Ensure passed prop "disabled" is applied to the button
-    expect(button).toHaveAttribute('aria-disabled', 'true')
+    await expect.element(button).toHaveAttribute('aria-disabled', 'true')
     const listItems = container.querySelectorAll('li')
     expect(listItems.length).toBe(2)
   })
@@ -254,7 +265,7 @@ describe('ActionList.Item', () => {
   })
   it('should do action when trailing action is clicked', async () => {
     const onClick = vi.fn()
-    const component = HTMLRender(
+    HTMLRender(
       <ActionList>
         <ActionList.Item>
           Item 1
@@ -262,8 +273,8 @@ describe('ActionList.Item', () => {
         </ActionList.Item>
       </ActionList>,
     )
-    const trailingAction = await waitFor(() => component.getByRole('button', {name: 'Action'}))
-    fireEvent.click(trailingAction)
+    const trailingAction = page.getByRole('button', {name: 'Action', exact: true})
+    await userEvent.click(trailingAction)
     expect(onClick).toHaveBeenCalled()
   })
   it('should focus the trailing action', async () => {
@@ -276,26 +287,27 @@ describe('ActionList.Item', () => {
       </ActionList>,
     )
     await userEvent.tab()
-    expect(document.activeElement).toHaveTextContent('Item 1')
+    await expect.element(page.getByRole('button', {name: 'Item 1', exact: true})).toHaveFocus()
     await userEvent.tab()
-    expect(document.activeElement).toHaveAccessibleName('Action')
+    await expect.element(page.getByRole('button', {name: 'Action', exact: true})).toHaveFocus()
   })
   it('should only trigger a key event once', async () => {
     const mockOnSelect = vi.fn()
-    const user = userEvent.setup()
-    const {getByRole} = HTMLRender(
+    HTMLRender(
       <ActionList>
         <ActionList.Item onSelect={mockOnSelect}>Item 1</ActionList.Item>
       </ActionList>,
     )
-    const item = getByRole('button')
-    item.focus()
-    expect(document.activeElement).toBe(item)
-    await user.keyboard('{Enter}')
+    const item = page.getByRole('button')
+    act(() => {
+      item.element().focus()
+    })
+    await expect.element(item).toHaveFocus()
+    await userEvent.keyboard('{Enter}')
     expect(mockOnSelect).toHaveBeenCalledTimes(1)
   })
   it('should not render buttons when role is specified', async () => {
-    const {getByRole} = HTMLRender(
+    HTMLRender(
       <ActionList>
         <ActionList.Item role="option">Item 1</ActionList.Item>
         <ActionList.Item role="menuitem">Item 2</ActionList.Item>
@@ -304,22 +316,22 @@ describe('ActionList.Item', () => {
         <ActionList.Item>Item 5</ActionList.Item>
       </ActionList>,
     )
-    const option = getByRole('option')
-    expect(option.tagName).toBe('LI')
-    expect(option.textContent).toBe('Item 1')
-    const menuItem = getByRole('menuitem')
-    expect(menuItem.tagName).toBe('LI')
-    const menuItemCheckbox = getByRole('menuitemcheckbox')
-    expect(menuItemCheckbox.tagName).toBe('LI')
-    const menuItemRadio = getByRole('menuitemradio')
-    expect(menuItemRadio.tagName).toBe('LI')
-    const button = getByRole('button')
-    expect(button.parentElement?.tagName).toBe('LI')
-    expect(button.textContent).toBe('Item 5')
+    const option = page.getByRole('option')
+    expect(option.element().tagName).toBe('LI')
+    expect(option.element().textContent).toBe('Item 1')
+    const menuItem = page.getByRole('menuitem')
+    expect(menuItem.element().tagName).toBe('LI')
+    const menuItemCheckbox = page.getByRole('menuitemcheckbox')
+    expect(menuItemCheckbox.element().tagName).toBe('LI')
+    const menuItemRadio = page.getByRole('menuitemradio')
+    expect(menuItemRadio.element().tagName).toBe('LI')
+    const button = page.getByRole('button')
+    expect(button.element().parentElement?.tagName).toBe('LI')
+    expect(button.element().textContent).toBe('Item 5')
   })
 
   it('should add `role="option"` if `role="listbox"` and `selectionVariant` is present', async () => {
-    const {getAllByRole} = HTMLRender(
+    HTMLRender(
       <ActionList role="listbox" selectionVariant="single">
         <ActionList.Item>Item 1</ActionList.Item>
         <ActionList.Item>Item 2</ActionList.Item>
@@ -327,84 +339,82 @@ describe('ActionList.Item', () => {
         <ActionList.Item>Item 4</ActionList.Item>
       </ActionList>,
     )
-    const options = getAllByRole('option')
-    expect(options[0]).toBeInTheDocument()
+    const options = page.getByRole('option').all()
+    await expect.element(options[0]).toBeInTheDocument()
     expect(options).toHaveLength(4)
   })
 
-  it('should add `aria-describedby` to items with a description', () => {
-    const {getByRole} = HTMLRender(
+  it('should add `aria-describedby` to items with a description', async () => {
+    HTMLRender(
       <ActionList>
         <ActionList.Item>
           Item, <ActionList.Description variant="block">Description</ActionList.Description>
         </ActionList.Item>
       </ActionList>,
     )
-    const item = getByRole('button')
-    expect(item).toHaveAttribute('aria-describedby')
-    expect(item).toHaveTextContent('Item, Description')
-    expect(item).toHaveAccessibleDescription('Description')
+    const item = page.getByRole('button')
+    await expect.element(item).toHaveAttribute('aria-describedby')
+    await expect.element(item).toHaveTextContent('Item, Description')
+    await expect.element(item).toHaveAccessibleDescription('Description')
   })
 
-  it('should add `aria-describedby` to items with a description when `role=listbox` is applied', () => {
-    const {getByRole} = HTMLRender(
+  it('should add `aria-describedby` to items with a description when `role=listbox` is applied', async () => {
+    HTMLRender(
       <ActionList role="listbox" selectionVariant="single">
         <ActionList.Item>
           Item, <ActionList.Description variant="block">Description</ActionList.Description>
         </ActionList.Item>
       </ActionList>,
     )
-    const item = getByRole('option')
-    expect(item).toHaveAttribute('aria-describedby')
-    expect(item).toHaveTextContent('Item, Description')
-    expect(item).toHaveAccessibleDescription('Description')
+    const item = page.getByRole('option')
+    await expect.element(item).toHaveAttribute('aria-describedby')
+    await expect.element(item).toHaveTextContent('Item, Description')
+    await expect.element(item).toHaveAccessibleDescription('Description')
   })
 
-  it('should add role="tab" when ActionList has role="tablist"', () => {
-    const {getAllByRole} = HTMLRender(
+  it('should add role="tab" when ActionList has role="tablist"', async () => {
+    HTMLRender(
       <ActionList role="tablist">
         <ActionList.Item>Tab 1</ActionList.Item>
         <ActionList.Item>Tab 2</ActionList.Item>
         <ActionList.Item>Tab 3</ActionList.Item>
       </ActionList>,
     )
-    const tabs = getAllByRole('tab')
-    expect(tabs[0]).toBeInTheDocument()
+    const tabs = page.getByRole('tab').all()
+    await expect.element(tabs[0]).toBeInTheDocument()
     expect(tabs).toHaveLength(3)
   })
 
-  it('should allow role="tab" on the li element', () => {
-    const {getAllByRole} = HTMLRender(
+  it('should allow role="tab" on the li element', async () => {
+    HTMLRender(
       <ActionList role="tablist">
         <ActionList.Item role="tab">Tab 1</ActionList.Item>
         <ActionList.Item role="tab">Tab 2</ActionList.Item>
         <ActionList.Item role="tab">Tab 3</ActionList.Item>
       </ActionList>,
     )
-    const tabs = getAllByRole('tab')
-    expect(tabs[0]).toBeInTheDocument()
-    expect(tabs[0].nodeType).toBe(Node.ELEMENT_NODE)
+    const tabs = page.getByRole('tab').all()
+    await expect.element(tabs[0]).toBeInTheDocument()
+    expect(tabs[0].element().nodeType).toBe(Node.ELEMENT_NODE)
     expect(tabs).toHaveLength(3)
   })
 
   it('should forward a list-semantic item ref only to the outer list item', () => {
     const ref = vi.fn<(node: HTMLLIElement | null) => void>()
-    const {getByRole} = HTMLRender(
+    HTMLRender(
       <ActionList role="listbox" aria-label="Projects">
         <ActionList.Item ref={ref} role="option">
           Primer React
         </ActionList.Item>
       </ActionList>,
     )
-    const option = getByRole('option')
+    const option = page.getByRole('option')
 
-    expect(ref.mock.calls.filter(([node]) => node !== null)).toEqual([[option]])
-    expect(option.tagName).toBe('LI')
+    expect(ref.mock.calls.filter(([node]) => node !== null)).toEqual([[option.element()]])
+    expect(option.element().tagName).toBe('LI')
   })
 
   it('should preserve consumer ref when tooltip wraps trigger', async () => {
-    const user = userEvent.setup()
-
     function TestComponent() {
       const anchorRef = React.useRef<HTMLLIElement>(null)
       const [open, setOpen] = React.useState(false)
@@ -433,18 +443,16 @@ describe('ActionList.Item', () => {
       )
     }
 
-    const {getByText, queryByRole} = HTMLRender(<TestComponent />)
+    HTMLRender(<TestComponent />)
 
     // Overlay should not be visible initially
-    expect(queryByRole('menu')).not.toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
 
     // Click the item to open the anchored overlay
-    await user.click(getByText('Convert to issue'))
+    await userEvent.click(page.getByText('Convert to issue', {exact: true}))
 
     // The overlay should open — this fails if Tooltip overwrites the consumer ref
-    await waitFor(() => {
-      expect(queryByRole('menu')).toBeInTheDocument()
-    })
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
   })
 
   describe('data attributes derived from slots', () => {
