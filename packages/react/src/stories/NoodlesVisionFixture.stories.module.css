@@ -1,0 +1,321 @@
+/* stylelint-disable primer/typography -- The document type ramp is fixture-only and intentionally differs from Primer text tokens. */
+/* stylelint-disable primer/borders -- These local radii match the visual reference, not production component defaults. */
+
+.Story {
+  min-height: 100vh;
+  padding: clamp(var(--base-size-16), 3vw, var(--base-size-32));
+  background: var(--bgColor-muted);
+}
+
+.Comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--base-size-24);
+  align-items: start;
+  margin-inline: auto;
+}
+
+.Preview {
+  min-width: 0;
+}
+
+.PreviewTitle {
+  margin: 0 0 var(--base-size-12);
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+.PrimerScope,
+.NoodlesScope {
+  position: relative;
+  color: var(--fgColor-default);
+  font-family: var(--fontStack-system);
+  line-height: var(--base-text-lineHeight-normal);
+}
+
+.NoodlesScope {
+  --fixture-font-family: 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+  --fixture-display-font-family: 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+  --fixture-sidebar-font-size: 13px;
+  --fixture-heading-size: clamp(30px, 3vw, 36px);
+  --fixture-heading-line-height: 1.105;
+  --fixture-section-heading-size: 24px;
+  --fixture-section-heading-line-height: 31px;
+  --fixture-body-size: 16px;
+  --fixture-body-line-height: 24px;
+  --fixture-row-radius: 8px;
+  --fixture-brand-radius: 9px;
+
+  color: var(--fgColor-default);
+  font-family: var(--fixture-font-family);
+}
+
+.Frame {
+  display: grid;
+  grid-template-columns: minmax(220px, 32%) minmax(0, 1fr);
+  min-height: 640px;
+  overflow: hidden;
+  background: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  box-shadow: var(--shadow-floating-small);
+}
+
+.NoodlesScope .Frame {
+  color: var(--fgColor-default);
+  background: var(--bgColor-default);
+  border-color: var(--borderColor-default);
+}
+
+.Sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--base-size-16) var(--base-size-8) var(--base-size-12);
+  background: var(--bgColor-muted);
+  border-inline-end: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.NoodlesScope .Sidebar {
+  border-color: var(--borderColor-default);
+}
+
+.Brand {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+  min-height: var(--base-size-40);
+  padding-inline: var(--base-size-8);
+  margin-bottom: var(--base-size-24);
+}
+
+.BrandMark,
+.Avatar {
+  display: grid;
+  flex: 0 0 auto;
+  width: var(--base-size-32);
+  height: var(--base-size-32);
+  color: var(--fgColor-onEmphasis);
+  font-size: var(--fixture-sidebar-font-size, var(--text-body-size-small));
+  font-weight: var(--base-text-weight-semibold);
+  background: var(--bgColor-accent-emphasis);
+  border-radius: var(--fixture-brand-radius, var(--borderRadius-medium));
+  place-items: center;
+}
+
+.NoodlesScope .BrandMark {
+  color: var(--fgColor-default);
+  background: var(--bgColor-neutral-muted);
+}
+
+.BrandName,
+.BrandCaption {
+  display: block;
+}
+
+.BrandName {
+  font-size: var(--fixture-sidebar-font-size, var(--text-body-size-small));
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--base-size-20);
+}
+
+.BrandCaption {
+  color: var(--fgColor-muted);
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-lineHeight);
+}
+
+.SidebarAction {
+  margin-inline-start: auto;
+}
+
+.Navigation {
+  min-width: 0;
+}
+
+.NavigationList {
+  min-width: 0;
+}
+
+.NoodlesScope .NavigationList {
+  --text-body-size-small: 13px;
+  --text-body-lineHeight-small: 20px;
+}
+
+.NavigationItem {
+  min-height: var(--base-size-32);
+  border-radius: var(--fixture-row-radius, var(--borderRadius-medium));
+}
+
+.NoodlesScope .NavigationItem {
+  color: var(--fgColor-default);
+}
+
+.SidebarFooter {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+  min-height: var(--base-size-40);
+  padding: var(--base-size-8) var(--base-size-8) 0;
+  margin-top: auto;
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.NoodlesScope .SidebarFooter {
+  border-color: var(--borderColor-default);
+}
+
+.Avatar {
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  color: var(--fgColor-onEmphasis);
+  background: var(--bgColor-neutral-emphasis);
+  border-radius: 50%;
+}
+
+.FooterName {
+  overflow: hidden;
+  font-size: var(--text-body-size-small);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Main {
+  min-width: 0;
+}
+
+.Toolbar {
+  display: flex;
+  gap: var(--base-size-12);
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: var(--base-size-4) var(--base-size-16);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.NoodlesScope .Toolbar {
+  border-color: var(--borderColor-default);
+}
+
+.Breadcrumb {
+  overflow: hidden;
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ToolbarActions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--base-size-4);
+  align-items: center;
+}
+
+.MenuOverlay {
+  border-radius: var(--borderRadius-large);
+}
+
+.Document {
+  width: min(100%, 84ch);
+  padding: clamp(var(--base-size-24), 4vw, var(--base-size-48));
+  margin-inline: auto;
+}
+
+.Eyebrow {
+  margin: 0 0 var(--base-size-8);
+  color: var(--fgColor-muted);
+  font-size: var(--text-caption-size);
+  font-weight: var(--base-text-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.DocumentTitle {
+  margin: 0;
+  font-family: var(--fixture-display-font-family, var(--fontStack-system));
+  font-size: var(--fixture-heading-size, var(--text-title-size-large));
+  font-weight: var(--base-text-weight-medium);
+  line-height: var(--fixture-heading-line-height, var(--text-title-lineHeight-large));
+}
+
+.DocumentMeta {
+  margin: var(--base-size-12) 0 var(--base-size-40);
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-body-lineHeight-small);
+}
+
+.Status {
+  padding: var(--base-size-8) var(--base-size-12);
+  margin: calc(-1 * var(--base-size-20)) 0 var(--base-size-24);
+  color: var(--fgColor-muted);
+  background: var(--bgColor-muted);
+  border-radius: var(--borderRadius-medium);
+}
+
+.DocumentSection + .DocumentSection {
+  margin-top: var(--base-size-36);
+}
+
+.DocumentSection h4 {
+  margin: 0 0 var(--base-size-12);
+  font-size: var(--fixture-section-heading-size, var(--text-title-size-medium));
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--fixture-section-heading-line-height, var(--text-title-lineHeight-medium));
+}
+
+.DocumentSection p,
+.DocumentListItem {
+  font-size: var(--fixture-body-size, var(--text-body-size-medium));
+  line-height: var(--fixture-body-line-height, var(--text-body-lineHeight-medium));
+}
+
+.DocumentSection p {
+  margin: 0 0 var(--base-size-16);
+}
+
+.DocumentSection ul {
+  padding-inline-start: var(--base-size-24);
+  margin: 0;
+}
+
+.DocumentListItem + .DocumentListItem {
+  margin-top: var(--base-size-8);
+}
+
+@media (max-width: 1100px) {
+  .Comparison {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .Story {
+    padding: var(--base-size-12);
+  }
+
+  .Frame {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .Sidebar {
+    padding: var(--base-size-12);
+    border-inline-end: 0;
+    border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+  }
+
+  .Brand {
+    margin-bottom: var(--base-size-12);
+  }
+
+  .SidebarFooter {
+    display: none;
+  }
+
+  .Document {
+    padding: var(--base-size-24) var(--base-size-20) var(--base-size-36);
+  }
+}
