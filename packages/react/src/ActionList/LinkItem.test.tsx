@@ -159,7 +159,7 @@ describe('ActionList.LinkItem', () => {
     expect(updatedRef).toHaveBeenLastCalledWith(link)
   })
 
-  it('preserves an open tooltip across prop and layout updates and can reopen it at the new position', async () => {
+  it('keeps an open tooltip anchored across prop and layout updates', async () => {
     const renderItem = (tooltipText: string, offset: number) => (
       <div style={{paddingTop: offset}}>
         <ActionList>
@@ -189,6 +189,7 @@ describe('ActionList.LinkItem', () => {
     expect(screen.getByRole('link', {name: 'Home'})).toBe(link)
     expect(link.getBoundingClientRect().top - originalLinkTop).toBeCloseTo(80)
     expect(tooltip.matches(':popover-open')).toBe(true)
+    expect(tooltip.getBoundingClientRect().top - originalTooltipTop).toBeCloseTo(80)
     fireEvent.mouseLeave(link)
     await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(false))
     fireEvent.mouseOver(link)
