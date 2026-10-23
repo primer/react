@@ -24,9 +24,11 @@ export function useThemeProvider(props: ThemeProviderProps): {
   const themeDefinition = props.theme ?? parentValue.themeDefinition
   const themeNonce = props.themeNonce ?? parentValue.themeNonce
   const [colorMode, setColorMode] = useSyncedState(props.colorMode ?? parentValue.colorMode ?? defaultColorMode)
-  const [dayScheme, setDayScheme] = useSyncedState(props.dayScheme ?? parentValue.dayScheme ?? defaultDayScheme)
+  const [dayScheme, setDayScheme] = useSyncedState(
+    props.dayScheme ?? (props.theme ? defaultDayScheme : (parentValue.dayScheme ?? defaultDayScheme)),
+  )
   const [nightScheme, setNightScheme] = useSyncedState(
-    props.nightScheme ?? parentValue.nightScheme ?? defaultNightScheme,
+    props.nightScheme ?? (props.theme ? defaultNightScheme : (parentValue.nightScheme ?? defaultNightScheme)),
   )
   const systemColorMode = useSystemColorMode()
   const resolvedColorMode = colorMode === 'auto' ? systemColorMode : colorMode

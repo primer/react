@@ -83,6 +83,45 @@ describe.each([
   ['next', ThemeProvider],
   ['legacy', LegacyThemeProvider],
 ] as const)('%s theme identity boundary', (_name, Provider) => {
+  it.each(['light', 'dark', 'dark_dimmed', 'light_high_contrast'])(
+    'starts explicit identities with light/dark schemes inside a %s parent',
+    scheme => {
+      render(
+        <LegacyThemeProvider dayScheme={scheme} nightScheme={scheme} colorMode="day">
+          <Provider theme={identity} colorMode="night">
+            <Button>Themed</Button>
+            <Provider>
+              <Button>Inherited</Button>
+            </Provider>
+          </Provider>
+          <Provider theme={primerTheme} colorMode="night">
+            <Button>Primer</Button>
+          </Provider>
+        </LegacyThemeProvider>,
+      )
+      for (const name of ['Themed', 'Inherited']) {
+        const button = screen.getByRole('button', {name})
+        expect(button.closest('[data-primer-theme]')).toHaveAttribute('data-light-theme', 'light')
+        expect(button.closest('[data-primer-theme]')).toHaveAttribute('data-dark-theme', 'dark')
+        expect(getComputedStyle(button).backgroundColor).toBe('rgb(34, 34, 34)')
+      }
+      expect(getComputedStyle(screen.getByRole('button', {name: 'Primer'})).backgroundColor).toBe('rgb(33, 40, 48)')
+    },
+  )
+
+  it.each([{dayScheme: 'light_high_contrast'}, {nightScheme: 'dark_dimmed'}])(
+    'rejects unsupported explicit schemes: %j',
+    schemes => {
+      expect(() =>
+        renderToString(
+          <Provider theme={identity} {...schemes}>
+            Content
+          </Provider>,
+        ),
+      ).toThrow('dayScheme="light" and nightScheme="dark" only')
+    },
+  )
+
   it('applies semantic outputs, typography shorthands, shared radii and component states at one scope', async () => {
     render(
       <Provider theme={identity} colorMode="night">

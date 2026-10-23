@@ -118,6 +118,10 @@ font or color instead of a semantic token must opt into the appropriate token.
 A nested provider inherits the current identity unless it receives an explicit
 `theme`. An explicit identity starts from its own definition/base, not the outer
 identity. Use `theme={primerTheme}` to reset to Primer inside a custom identity.
+An explicit identity also defaults to `dayScheme="light"` and
+`nightScheme="dark"` instead of inheriting an outer provider's scheme names.
+Explicit scheme props still take precedence and must use these supported names.
+Providers without an explicit identity keep inheriting schemes as before.
 Changing only color mode switches schemes without changing identity.
 `contextOnly` still emits no DOM/styles: descendants receive the identity, but
 ordinary DOM needs a non-context-only provider boundary to apply it.

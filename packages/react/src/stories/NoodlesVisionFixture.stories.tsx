@@ -13,6 +13,7 @@ import {
   SearchIcon,
 } from '@primer/octicons-react'
 import {noodlesTheme} from './noodlesTheme'
+import {primerTheme} from '../experimental/defineTheme'
 import classes from './NoodlesVisionFixture.stories.module.css'
 
 type Appearance = 'primer' | 'noodles'
@@ -27,7 +28,7 @@ function Workspace({appearance}: WorkspaceProps) {
   const documentId = `${appearance}-quarterly-priorities`
 
   return (
-    <ThemeProvider theme={isNoodles ? noodlesTheme : undefined} colorMode="night">
+    <ThemeProvider theme={isNoodles ? noodlesTheme : primerTheme} colorMode="night">
       <div className={classes.Scope} data-testid={`${appearance}-workspace`} data-appearance={appearance}>
         <BaseStyles className={classes.Frame}>
           <aside className={classes.Sidebar}>
@@ -174,7 +175,7 @@ function NoodlesVisionFixture() {
         </section>
         <section className={classes.Preview} aria-labelledby="noodles-appearance-title">
           <h2 className={classes.PreviewTitle} id="noodles-appearance-title">
-            Noodles theme (dark)
+            Noodles: Gruvbox Material (dark)
           </h2>
           <Workspace appearance="noodles" />
         </section>
