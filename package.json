@@ -63,7 +63,7 @@
     "@size-limit/preset-big-lib": "11.2.0",
     "@types/node": "26.0.0",
     "@types/semver": "^7.7.1",
-    "@vitest/browser": "^5.0.0",
+    "@vitest/browser": "^5.0.5",
     "@vitest/browser-playwright": "^5.0.0",
     "@vitest/eslint-plugin": "^1.6.27",
     "change-case": "^5.4.4",
