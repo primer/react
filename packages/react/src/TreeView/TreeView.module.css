@@ -28,7 +28,7 @@
 
     &:focus-visible > div,
     &:global(.focus-visible) > div {
-      box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
+      box-shadow: var(--boxShadow-thick) var(--focus-outlineColor);
 
       @media (forced-colors: active) {
         outline: 2px solid HighlightText;

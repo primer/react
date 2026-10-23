@@ -67,7 +67,7 @@
       z-index: 1;
       text-decoration: none;
       background-color: var(--bgColor-neutral-muted);
-      outline: solid 2px var(--fgColor-accent);
+      outline: solid 2px var(--focus-outlineColor);
     }
 
     &[aria-current='page'],
@@ -96,7 +96,7 @@
       z-index: 1;
       color: var(--fgColor-default);
       text-decoration: none;
-      outline: solid 1px var(--fgColor-accent);
+      outline: solid 1px var(--focus-outlineColor);
     }
 
     &[aria-current='page'],

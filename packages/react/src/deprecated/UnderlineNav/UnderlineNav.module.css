@@ -45,7 +45,7 @@
   /* fallback :focus state */
   &:focus:not(:disabled) {
     box-shadow: none;
-    outline: 2px solid var(--fgColor-accent);
+    outline: 2px solid var(--focus-outlineColor);
     outline-offset: -8px;
 
     /* remove fallback :focus if :focus-visible is supported */
@@ -57,7 +57,7 @@
   /* default focus state */
   &:focus-visible:not(:disabled) {
     box-shadow: none;
-    outline: 2px solid var(--fgColor-accent);
+    outline: 2px solid var(--focus-outlineColor);
     outline-offset: -8px;
   }
 }

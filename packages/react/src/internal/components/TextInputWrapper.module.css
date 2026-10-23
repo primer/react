@@ -35,7 +35,7 @@
   &:where([data-trailing-action][data-focused]),
   &:where([data-no-trailing-action]:focus-within) {
     border-color: var(--borderColor-accent-emphasis);
-    outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+    outline: var(--borderWidth-thick) solid var(--focus-outlineColor);
     outline-offset: -1px;
   }
 

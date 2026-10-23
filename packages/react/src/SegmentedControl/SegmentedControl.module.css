@@ -495,7 +495,7 @@
 
   /* fallback :focus state */
   &:focus:not(:disabled) {
-    outline: var(--base-size-2) solid var(--fgColor-accent);
+    outline: var(--base-size-2) solid var(--focus-outlineColor);
     outline-offset: -1px;
     box-shadow: none;
 
@@ -507,7 +507,7 @@
 
   /* default focus state */
   &:focus-visible:not(:disabled) {
-    outline: var(--base-size-2) solid var(--fgColor-accent);
+    outline: var(--base-size-2) solid var(--focus-outlineColor);
     outline-offset: -1px;
     box-shadow: none;
   }
