@@ -338,6 +338,10 @@ it('measures Noodles text, primary states, focus, and control boundary contrast 
   const indicator = noodlesTheme.colorSchemes.dark.components['underlineNav.borderColor.active']
   if (!indicator) throw new Error('Missing contrast input: underlineNav.borderColor.active')
   expect(getContrast(indicator, color('bgColor.default'))).toBeGreaterThanOrEqual(3)
+  expect(getContrast(color('borderColor.accent.emphasis'), color('bgColor.default'))).toBeGreaterThanOrEqual(3)
+  expect(
+    getContrast(color('borderColor.accent.emphasis'), color('control.transparent.bgColor.selected')),
+  ).toBeGreaterThanOrEqual(3)
 })
 
 it('applies component exceptions after shared roles at the same scope', () => {

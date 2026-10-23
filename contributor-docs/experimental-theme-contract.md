@@ -137,7 +137,9 @@ input. CSS selectors and component internals are not part of this contract.
 Spacing, control sizes, and type-size scales remain Primer defaults. Choose
 existing size/variant props for density. Product layout and document composition
 remain local CSS. Navigation's active indicator remains Primer appearance
-policy, including `aria-current`; this contract does not disable it.
+policy, including `aria-current`; this contract does not disable it. Its color
+follows the shared `borderColor.accent.emphasis` role, so an identity can match
+its primary color there. That role also colors focused text input borders.
 
 This does not guarantee all components are fully themeable. Hardcoded colors,
 legacy styled-components JavaScript values, product-authored CSS, independent

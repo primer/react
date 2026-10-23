@@ -23,6 +23,8 @@ export const noodlesTheme = defineTheme({
         'fgColor.muted': '#baa37e',
         'borderColor.default': '#887c67',
         'borderColor.muted': '#33312f',
+        // Selected nav rows and focused inputs use the accent border role.
+        'borderColor.accent.emphasis': '#a7b364',
         'control.fgColor.rest': '#d4be98',
         'control.bgColor.rest': '#2b2a2a',
         'control.bgColor.hover': '#33302e',
