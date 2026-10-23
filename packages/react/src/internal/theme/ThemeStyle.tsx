@@ -25,7 +25,9 @@ function declarations(theme: ThemeDefinition, scheme: ThemeColorScheme) {
     'font-family': 'var(--fontStack-system)',
     color: 'var(--fgColor-default)',
   }
-  for (const [name, value] of Object.entries(theme.colorSchemes[scheme].tokens)) {
+  const {tokens, components} = theme.colorSchemes[scheme]
+  // Component exceptions are applied last so they win over shared roles.
+  for (const [name, value] of [...Object.entries(tokens), ...Object.entries(components)]) {
     values[`--${name.replaceAll('.', '-')}`] = value
   }
   return Object.entries(values)

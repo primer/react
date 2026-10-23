@@ -261,6 +261,10 @@
   align-items: center;
 }
 
+.UpdatesTabs {
+  margin-top: var(--base-size-16);
+}
+
 @media (max-width: 1100px) {
   .Comparison {
     grid-template-columns: minmax(0, 1fr);

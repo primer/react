@@ -102,6 +102,38 @@ primary state. Unspecified roles keep their Primer defaults. Danger, status,
 focus, and primary roles must be evaluated independently. Primary disabled
 color, border, and icon treatments are independent inputs too.
 
+### Component exceptions
+
+Some identities need one component to differ from the shared roles, such as a
+selected tab underline in an orange accent. Each scheme accepts an optional
+`components` map for these cases:
+
+```ts
+defineTheme({
+  name: 'noodles',
+  colorSchemes: {
+    dark: {
+      tokens: {'bgColor.default': '#292828'},
+      components: {'underlineNav.borderColor.active': '#e78a4e'},
+    },
+  },
+})
+```
+
+`ThemeComponentToken` is generated from an allowlist of primitives component
+tokens that React CSS actually reads: `button.default.*`, `button.invisible.*`,
+`button.danger.*`, `overlay.bgColor`, `underlineNav.*`, `counter.*`, and
+`tooltip.*`. Keys outside the allowlist throw, and values follow the same
+color rules as `tokens`. Component values are emitted after shared roles at the
+same scope, so they win, including over the central overlay mapping. They merge
+with the base identity like `tokens`.
+
+Prefer shared roles. Add a component exception only when a shared role would
+change unrelated components, and check its contrast pairs yourself. Widening the
+allowlist is a deliberate change to `componentPattern` in
+`packages/react/script/theme-contract.mjs`, because every key becomes supported
+input. CSS selectors and component internals are not part of this contract.
+
 Spacing, control sizes, and type-size scales remain Primer defaults. Choose
 existing size/variant props for density. Product layout and document composition
 remain local CSS. Navigation's active indicator remains Primer appearance

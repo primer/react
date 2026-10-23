@@ -43,6 +43,11 @@ export const noodlesTheme = defineTheme({
         'button.primary.iconColor.disabled': '#baa37e',
         'focus.outlineColor': '#7caca1',
       },
+      // Gruvbox marks the selected tab with its orange accent rather than
+      // the shared accent, so this is an explicit component exception.
+      components: {
+        'underlineNav.borderColor.active': '#e78a4e',
+      },
     },
   },
 })

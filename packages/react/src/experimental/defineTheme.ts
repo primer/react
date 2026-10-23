@@ -1,7 +1,22 @@
-import {colorTokens} from '../internal/theme/themeTokens'
+import {colorTokens, componentTokens} from '../internal/theme/themeTokens'
 
 export type ThemeColorToken = (typeof colorTokens)[number]
+export type ThemeComponentToken = (typeof componentTokens)[number]
 export type ThemeColorScheme = 'light' | 'dark'
+
+export interface ThemeColorSchemeDefinition {
+  readonly tokens: Readonly<Partial<Record<ThemeColorToken, string>>>
+  /**
+   * Opt-in exceptions for specific component tokens. These win over the
+   * shared roles in `tokens`, so prefer `tokens` whenever a shared role fits.
+   */
+  readonly components: Readonly<Partial<Record<ThemeComponentToken, string>>>
+}
+
+export interface ThemeColorSchemeOptions {
+  tokens?: Partial<Record<ThemeColorToken, string>>
+  components?: Partial<Record<ThemeComponentToken, string>>
+}
 
 export interface ThemeDefinition {
   readonly name: string
@@ -9,9 +24,7 @@ export interface ThemeDefinition {
     readonly fontFamily: Readonly<Record<'body' | 'heading' | 'monospace', string>>
   }
   readonly radii: Readonly<Record<'small' | 'medium' | 'large', string>>
-  readonly colorSchemes: Readonly<
-    Record<ThemeColorScheme, {readonly tokens: Readonly<Partial<Record<ThemeColorToken, string>>>}>
-  >
+  readonly colorSchemes: Readonly<Record<ThemeColorScheme, ThemeColorSchemeDefinition>>
 }
 
 export interface ThemeDefinitionOptions {
@@ -19,7 +32,7 @@ export interface ThemeDefinitionOptions {
   extends?: ThemeDefinition
   typography?: {fontFamily?: Partial<ThemeDefinition['typography']['fontFamily']>}
   radii?: Partial<ThemeDefinition['radii']>
-  colorSchemes?: Partial<Record<ThemeColorScheme, {tokens: Partial<Record<ThemeColorToken, string>>}>>
+  colorSchemes?: Partial<Record<ThemeColorScheme, ThemeColorSchemeOptions>>
 }
 
 const definitions = new WeakSet<ThemeDefinition>()
@@ -36,8 +49,8 @@ export const primerTheme: ThemeDefinition = Object.freeze({
   }),
   radii: Object.freeze({small: '3px', medium: '6px', large: '12px'}),
   colorSchemes: Object.freeze({
-    light: Object.freeze({tokens: Object.freeze({})}),
-    dark: Object.freeze({tokens: Object.freeze({})}),
+    light: Object.freeze({tokens: Object.freeze({}), components: Object.freeze({})}),
+    dark: Object.freeze({tokens: Object.freeze({}), components: Object.freeze({})}),
   }),
 })
 definitions.add(primerTheme)
@@ -90,15 +103,17 @@ export function defineTheme(options: ThemeDefinitionOptions): ThemeDefinition {
   }
   function scheme(name: ThemeColorScheme) {
     const input = options.colorSchemes?.[name]
-    assertOptionalKeys(input, ['tokens'], 'color scheme option')
+    assertOptionalKeys(input, ['tokens', 'components'], 'color scheme option')
     assertOptionalKeys(input?.tokens, colorTokens, 'color token')
+    assertOptionalKeys(input?.components, componentTokens, 'component token')
     const tokens = {...base.colorSchemes[name].tokens, ...input?.tokens}
-    for (const value of Object.values(tokens)) {
+    const components = {...base.colorSchemes[name].components, ...input?.components}
+    for (const value of [...Object.values(tokens), ...Object.values(components)]) {
       if (typeof value !== 'string' || !/^#[\da-f]{6}$/i.test(value)) {
         throw new Error('defineTheme: colors must be opaque six-digit hex values.')
       }
     }
-    return Object.freeze({tokens: Object.freeze(tokens)})
+    return Object.freeze({tokens: Object.freeze(tokens), components: Object.freeze(components)})
   }
   const theme = Object.freeze({
     name: options.name,

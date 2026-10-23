@@ -64,12 +64,35 @@ describe('defineTheme', () => {
     expect(Object.isFrozen(theme.colorSchemes.dark.tokens)).toBe(true)
   })
 
+  it('merges component exceptions with the base and keeps them separate from shared roles', () => {
+    const base = defineTheme({
+      name: 'base',
+      colorSchemes: {dark: {components: {'underlineNav.borderColor.active': '#e78a4e'}}},
+    })
+    const theme = defineTheme({
+      name: 'derived',
+      extends: base,
+      colorSchemes: {dark: {components: {'tooltip.bgColor': '#222222'}}},
+    })
+    expect(theme.colorSchemes.dark.components).toEqual({
+      'underlineNav.borderColor.active': '#e78a4e',
+      'tooltip.bgColor': '#222222',
+    })
+    expect(theme.colorSchemes.dark.tokens).toEqual({})
+    expect(Object.isFrozen(theme.colorSchemes.dark.components)).toBe(true)
+  })
+
   it.each([
     ['unknown option', {name: 'test', spacing: {}}],
     ['unknown font family', {name: 'test', typography: {fontFamily: {display: 'serif'}}}],
     ['unknown radius', {name: 'test', radii: {full: '8px'}}],
     ['unknown color scheme', {name: 'test', colorSchemes: {sepia: {tokens: {}}}}],
     ['unknown color token', {name: 'test', colorSchemes: {dark: {tokens: {'bgColor.typo': '#ffffff'}}}}],
+    [
+      'unknown component token',
+      {name: 'test', colorSchemes: {dark: {components: {'actionList.item.bgColor': '#ffffff'}}}},
+    ],
+    ['colors must', {name: 'test', colorSchemes: {dark: {components: {'underlineNav.borderColor.active': 'orange'}}}}],
     ['colors must', {name: 'test', colorSchemes: {dark: {tokens: {'bgColor.default': 'var(--other)'}}}}],
     ['font families', {name: 'test', typography: {fontFamily: {body: '</style><script>'}}}],
     ['radii must', {name: 'test', radii: {medium: '-1px'}}],
@@ -312,4 +335,28 @@ it('measures Noodles text, primary states, focus, and control boundary contrast 
   ).toBeGreaterThanOrEqual(4.5)
   expect(getContrast(color('focus.outlineColor'), color('bgColor.default'))).toBeGreaterThanOrEqual(3)
   expect(getContrast(color('borderColor.default'), color('control.bgColor.rest'))).toBeGreaterThanOrEqual(3)
+  const indicator = noodlesTheme.colorSchemes.dark.components['underlineNav.borderColor.active']
+  if (!indicator) throw new Error('Missing contrast input: underlineNav.borderColor.active')
+  expect(getContrast(indicator, color('bgColor.default'))).toBeGreaterThanOrEqual(3)
+})
+
+it('applies component exceptions after shared roles at the same scope', () => {
+  const theme = defineTheme({
+    name: 'exception',
+    colorSchemes: {
+      dark: {
+        tokens: {'bgColor.default': '#111111', 'fgColor.accent': '#4493f8'},
+        components: {'underlineNav.borderColor.active': '#e78a4e', 'overlay.bgColor': '#222222'},
+      },
+    },
+  })
+  const {container} = render(
+    <ThemeProvider theme={theme} colorMode="dark">
+      <span>Content</span>
+    </ThemeProvider>,
+  )
+  const css = container.querySelector('style')?.textContent ?? ''
+  expect(css).toContain('--underlineNav-borderColor-active:#e78a4e;')
+  expect(css).toContain('--overlay-bgColor:#222222;')
+  expect(css).not.toContain('--overlay-bgColor:var(--bgColor-default)')
 })

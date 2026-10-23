@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, userEvent, within} from 'storybook/test'
-import {ActionList, ActionMenu, BaseStyles, Button, IconButton} from '..'
+import {ActionList, ActionMenu, BaseStyles, Button, IconButton, UnderlineNav} from '..'
 import {ThemeProvider} from '../next'
 import {
   BookIcon,
@@ -17,6 +17,12 @@ import {noodlesTheme} from './noodlesTheme'
 import {primerTheme} from '../experimental/defineTheme'
 import classes from './NoodlesVisionFixture.stories.module.css'
 
+const updateTabs = [
+  {id: 'all', label: 'All', count: 12},
+  {id: 'mine', label: 'Mine', count: 4},
+  {id: 'mentions', label: 'Mentions', count: 2},
+] as const
+
 type Appearance = 'primer' | 'noodles'
 
 interface WorkspaceProps {
@@ -27,6 +33,7 @@ function Workspace({appearance}: WorkspaceProps) {
   const isNoodles = appearance === 'noodles'
   const [archived, setArchived] = React.useState(false)
   const [sortOrder, setSortOrder] = React.useState<'newest' | 'oldest'>('newest')
+  const [updateTab, setUpdateTab] = React.useState<(typeof updateTabs)[number]['id']>('all')
   const documentId = `${appearance}-quarterly-priorities`
 
   return (
@@ -189,6 +196,22 @@ function Workspace({appearance}: WorkspaceProps) {
                     </Button>
                   </div>
                 </div>
+                <UnderlineNav aria-label="Update filters" className={classes.UpdatesTabs}>
+                  {updateTabs.map(tab => (
+                    <UnderlineNav.Item
+                      key={tab.id}
+                      href={`#${documentId}-${tab.id}`}
+                      counter={tab.count}
+                      aria-current={updateTab === tab.id ? 'page' : undefined}
+                      onSelect={event => {
+                        event.preventDefault()
+                        setUpdateTab(tab.id)
+                      }}
+                    >
+                      {tab.label}
+                    </UnderlineNav.Item>
+                  ))}
+                </UnderlineNav>
               </section>
             </article>
           </main>
