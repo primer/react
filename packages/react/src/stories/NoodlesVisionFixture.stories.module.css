@@ -1,6 +1,3 @@
-/* stylelint-disable primer/typography -- The document type ramp is fixture-only and intentionally differs from Primer text tokens. */
-/* stylelint-disable primer/borders -- These local radii match the visual reference, not production component defaults. */
-
 .Story {
   min-height: 100vh;
   padding: clamp(var(--base-size-16), 3vw, var(--base-size-32));
@@ -26,29 +23,11 @@
   line-height: var(--text-body-lineHeight-medium);
 }
 
-.PrimerScope,
-.NoodlesScope {
+.Scope {
   position: relative;
   color: var(--fgColor-default);
   font-family: var(--fontStack-system);
   line-height: var(--base-text-lineHeight-normal);
-}
-
-.NoodlesScope {
-  --fixture-font-family: 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
-  --fixture-display-font-family: 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
-  --fixture-sidebar-font-size: 13px;
-  --fixture-heading-size: clamp(30px, 3vw, 36px);
-  --fixture-heading-line-height: 1.105;
-  --fixture-section-heading-size: 24px;
-  --fixture-section-heading-line-height: 31px;
-  --fixture-body-size: 16px;
-  --fixture-body-line-height: 24px;
-  --fixture-row-radius: 8px;
-  --fixture-brand-radius: 9px;
-
-  color: var(--fgColor-default);
-  font-family: var(--fixture-font-family);
 }
 
 .Frame {
@@ -62,12 +41,6 @@
   box-shadow: var(--shadow-floating-small);
 }
 
-.NoodlesScope .Frame {
-  color: var(--fgColor-default);
-  background: var(--bgColor-default);
-  border-color: var(--borderColor-default);
-}
-
 .Sidebar {
   display: flex;
   flex-direction: column;
@@ -75,10 +48,6 @@
   padding: var(--base-size-16) var(--base-size-8) var(--base-size-12);
   background: var(--bgColor-muted);
   border-inline-end: var(--borderWidth-thin) solid var(--borderColor-muted);
-}
-
-.NoodlesScope .Sidebar {
-  border-color: var(--borderColor-default);
 }
 
 .Brand {
@@ -97,16 +66,11 @@
   width: var(--base-size-32);
   height: var(--base-size-32);
   color: var(--fgColor-onEmphasis);
-  font-size: var(--fixture-sidebar-font-size, var(--text-body-size-small));
+  font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
   background: var(--bgColor-accent-emphasis);
-  border-radius: var(--fixture-brand-radius, var(--borderRadius-medium));
+  border-radius: var(--borderRadius-medium);
   place-items: center;
-}
-
-.NoodlesScope .BrandMark {
-  color: var(--fgColor-default);
-  background: var(--bgColor-neutral-muted);
 }
 
 .BrandName,
@@ -115,9 +79,9 @@
 }
 
 .BrandName {
-  font-size: var(--fixture-sidebar-font-size, var(--text-body-size-small));
+  font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
-  line-height: var(--base-size-20);
+  line-height: var(--text-body-lineHeight-small);
 }
 
 .BrandCaption {
@@ -138,20 +102,6 @@
   min-width: 0;
 }
 
-.NoodlesScope .NavigationList {
-  --text-body-size-small: 13px;
-  --text-body-lineHeight-small: 20px;
-}
-
-.NavigationItem {
-  min-height: var(--base-size-32);
-  border-radius: var(--fixture-row-radius, var(--borderRadius-medium));
-}
-
-.NoodlesScope .NavigationItem {
-  color: var(--fgColor-default);
-}
-
 .SidebarFooter {
   display: flex;
   gap: var(--base-size-8);
@@ -160,10 +110,6 @@
   padding: var(--base-size-8) var(--base-size-8) 0;
   margin-top: auto;
   border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
-}
-
-.NoodlesScope .SidebarFooter {
-  border-color: var(--borderColor-default);
 }
 
 .Avatar {
@@ -195,10 +141,6 @@
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
 }
 
-.NoodlesScope .Toolbar {
-  border-color: var(--borderColor-default);
-}
-
 .Breadcrumb {
   overflow: hidden;
   color: var(--fgColor-muted);
@@ -212,10 +154,6 @@
   flex: 0 0 auto;
   gap: var(--base-size-4);
   align-items: center;
-}
-
-.MenuOverlay {
-  border-radius: var(--borderRadius-large);
 }
 
 .Document {
@@ -235,10 +173,10 @@
 
 .DocumentTitle {
   margin: 0;
-  font-family: var(--fixture-display-font-family, var(--fontStack-system));
-  font-size: var(--fixture-heading-size, var(--text-title-size-large));
+  font-family: var(--fontStack-sansSerifDisplay);
+  font-size: var(--text-title-size-large);
   font-weight: var(--base-text-weight-medium);
-  line-height: var(--fixture-heading-line-height, var(--text-title-lineHeight-large));
+  line-height: var(--text-title-lineHeight-large);
 }
 
 .DocumentMeta {
@@ -262,15 +200,16 @@
 
 .DocumentSection h4 {
   margin: 0 0 var(--base-size-12);
-  font-size: var(--fixture-section-heading-size, var(--text-title-size-medium));
+  font-family: var(--fontStack-sansSerifDisplay);
+  font-size: var(--text-title-size-medium);
   font-weight: var(--base-text-weight-semibold);
-  line-height: var(--fixture-section-heading-line-height, var(--text-title-lineHeight-medium));
+  line-height: var(--text-title-lineHeight-medium);
 }
 
 .DocumentSection p,
 .DocumentListItem {
-  font-size: var(--fixture-body-size, var(--text-body-size-medium));
-  line-height: var(--fixture-body-line-height, var(--text-body-lineHeight-medium));
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-medium);
 }
 
 .DocumentSection p {

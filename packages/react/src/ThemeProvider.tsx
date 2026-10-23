@@ -3,6 +3,7 @@ import deepmerge from 'deepmerge'
 import {ThemeProviderBase} from './internal/components/ThemeProviderBase'
 import {useThemeProvider} from './internal/hooks/useThemeProvider'
 import defaultTheme from './theme'
+import type {ThemeDefinition} from './experimental/defineTheme'
 
 export const defaultColorMode = 'day'
 
@@ -12,6 +13,10 @@ export type ColorMode = 'day' | 'night' | 'light' | 'dark'
 export type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
+  /** Experimental theme identity created with `defineTheme` from `@primer/react/experimental`. */
+  theme?: ThemeDefinition
+  /** CSP nonce for experimental theme styles, including portaled scopes. */
+  themeNonce?: string
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string

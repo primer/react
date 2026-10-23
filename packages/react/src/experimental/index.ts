@@ -8,6 +8,9 @@
 
 'use client'
 
+export {defineTheme, primerTheme} from './defineTheme'
+export type {ThemeDefinition, ThemeDefinitionOptions, ThemeColorToken, ThemeColorScheme} from './defineTheme'
+
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 

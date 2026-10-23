@@ -3,6 +3,8 @@ import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {PortalContext} from './PortalContext'
 import {DEFAULT_PORTAL_CONTAINER_NAME, ensureDefaultPortal, getPortalRoot} from './portalRoot'
+import {ThemeContext} from '../ThemeContext'
+import {ThemeProviderBase} from '../internal/components/ThemeProviderBase'
 
 const subscribe = () => () => {}
 const getSnapshot = () => true
@@ -52,6 +54,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
+  const themeContext = useContext(ThemeContext)
   const isClientRender = useIsClientRender()
 
   // `onMount` is read from a ref so that it is not part of the effect below's
@@ -103,5 +106,14 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     }
   }, [element, isClientRender, _containerName, portalContainerName])
 
-  return element && isClientRender ? createPortal(children, element) : null
+  return element && isClientRender
+    ? createPortal(
+        themeContext.themeDefinition ? (
+          <ThemeProviderBase value={themeContext}>{children}</ThemeProviderBase>
+        ) : (
+          children
+        ),
+        element,
+      )
+    : null
 }

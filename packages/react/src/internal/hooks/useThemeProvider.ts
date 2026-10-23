@@ -21,6 +21,8 @@ export function useThemeProvider(props: ThemeProviderProps): {
   value: ThemeProviderValue
 } {
   const parentValue = useTheme()
+  const themeDefinition = props.theme ?? parentValue.themeDefinition
+  const themeNonce = props.themeNonce ?? parentValue.themeNonce
   const [colorMode, setColorMode] = useSyncedState(props.colorMode ?? parentValue.colorMode ?? defaultColorMode)
   const [dayScheme, setDayScheme] = useSyncedState(props.dayScheme ?? parentValue.dayScheme ?? defaultDayScheme)
   const [nightScheme, setNightScheme] = useSyncedState(
@@ -32,6 +34,8 @@ export function useThemeProvider(props: ThemeProviderProps): {
 
   const value = React.useMemo(
     () => ({
+      themeDefinition,
+      themeNonce,
       colorScheme,
       colorMode,
       resolvedColorMode,
@@ -41,7 +45,18 @@ export function useThemeProvider(props: ThemeProviderProps): {
       setDayScheme,
       setNightScheme,
     }),
-    [colorScheme, colorMode, resolvedColorMode, dayScheme, nightScheme, setColorMode, setDayScheme, setNightScheme],
+    [
+      themeDefinition,
+      themeNonce,
+      colorScheme,
+      colorMode,
+      resolvedColorMode,
+      dayScheme,
+      nightScheme,
+      setColorMode,
+      setDayScheme,
+      setNightScheme,
+    ],
   )
 
   return {parentValue, value}

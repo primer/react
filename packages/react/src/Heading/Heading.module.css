@@ -1,7 +1,6 @@
 :where(.Heading) {
   margin: 0;
-  font-size: var(--text-title-size-large);
-  font-weight: var(--base-text-weight-semibold);
+  font: var(--text-title-shorthand-large);
 
   &:where([data-variant='large']) {
     font: var(--text-title-shorthand-large);

@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, userEvent, within} from 'storybook/test'
-import {ActionList, ActionMenu, BaseStyles, IconButton, PortalContext, registerPortalRoot} from '..'
+import {ActionList, ActionMenu, BaseStyles, IconButton} from '..'
 import {ThemeProvider} from '../next'
 import {
   BookIcon,
@@ -12,7 +12,7 @@ import {
   KebabHorizontalIcon,
   SearchIcon,
 } from '@primer/octicons-react'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {noodlesTheme} from './noodlesTheme'
 import classes from './NoodlesVisionFixture.stories.module.css'
 
 type Appearance = 'primer' | 'noodles'
@@ -21,34 +21,15 @@ interface WorkspaceProps {
   appearance: Appearance
 }
 
-const portalNames: Record<Appearance, string> = {
-  primer: 'noodles-vision-primer',
-  noodles: 'noodles-vision-noodles',
-}
-const noodlesFontFamily = "'SF Pro Text', 'SF Pro Display', system-ui, sans-serif"
-
 function Workspace({appearance}: WorkspaceProps) {
   const isNoodles = appearance === 'noodles'
   const [archived, setArchived] = React.useState(false)
-  const scopeRef = React.useRef<HTMLDivElement>(null)
-  const portalContainerName = portalNames[appearance]
   const documentId = `${appearance}-quarterly-priorities`
 
-  useIsomorphicLayoutEffect(() => {
-    if (scopeRef.current) {
-      registerPortalRoot(scopeRef.current, portalContainerName)
-    }
-  }, [portalContainerName])
-
   return (
-    <ThemeProvider colorMode={isNoodles ? 'night' : 'day'} dayScheme="light" nightScheme="dark">
-      <div
-        ref={scopeRef}
-        className={isNoodles ? classes.NoodlesScope : classes.PrimerScope}
-        data-testid={`${appearance}-workspace`}
-        data-appearance={appearance}
-      >
-        <BaseStyles className={classes.Frame} style={isNoodles ? {fontFamily: noodlesFontFamily} : undefined}>
+    <ThemeProvider theme={isNoodles ? noodlesTheme : undefined} colorMode="night">
+      <div className={classes.Scope} data-testid={`${appearance}-workspace`} data-appearance={appearance}>
+        <BaseStyles className={classes.Frame}>
           <aside className={classes.Sidebar}>
             <div className={classes.Brand}>
               <span className={classes.BrandMark} aria-hidden="true">
@@ -69,33 +50,19 @@ function Workspace({appearance}: WorkspaceProps) {
 
             <nav aria-label="Workspace navigation" className={classes.Navigation}>
               <ActionList variant="full" className={classes.NavigationList}>
-                <ActionList.LinkItem
-                  href={`#${documentId}`}
-                  active
-                  aria-current="page"
-                  size={isNoodles ? 'small' : 'medium'}
-                  className={classes.NavigationItem}
-                >
+                <ActionList.LinkItem href={`#${documentId}`} active aria-current="page" size="small">
                   <ActionList.LeadingVisual>
                     <FileDirectoryIcon />
                   </ActionList.LeadingVisual>
                   Quarterly priorities
                 </ActionList.LinkItem>
-                <ActionList.LinkItem
-                  href={`#${appearance}-focus`}
-                  size={isNoodles ? 'small' : 'medium'}
-                  className={classes.NavigationItem}
-                >
+                <ActionList.LinkItem href={`#${appearance}-focus`} size="small">
                   <ActionList.LeadingVisual>
                     <FileIcon />
                   </ActionList.LeadingVisual>
                   Project notes
                 </ActionList.LinkItem>
-                <ActionList.LinkItem
-                  href={`#${appearance}-next-steps`}
-                  size={isNoodles ? 'small' : 'medium'}
-                  className={classes.NavigationItem}
-                >
+                <ActionList.LinkItem href={`#${appearance}-next-steps`} size="small">
                   <ActionList.LeadingVisual>
                     <BookIcon />
                   </ActionList.LeadingVisual>
@@ -125,24 +92,22 @@ function Workspace({appearance}: WorkspaceProps) {
               <div className={classes.ToolbarActions}>
                 <IconButton aria-label="Search document" icon={SearchIcon} size="small" variant="invisible" />
                 <IconButton aria-label="Open comments" icon={CommentIcon} size="small" variant="invisible" />
-                <PortalContext.Provider value={{portalContainerName}}>
-                  <ActionMenu>
-                    <ActionMenu.Button
-                      aria-label="Document actions"
-                      icon={KebabHorizontalIcon}
-                      size="small"
-                      variant="invisible"
-                      trailingAction={null}
-                    />
-                    <ActionMenu.Overlay className={classes.MenuOverlay} width="small">
-                      <ActionList>
-                        <ActionList.Item onSelect={() => setArchived(value => !value)}>
-                          {archived ? 'Restore document' : 'Archive document'}
-                        </ActionList.Item>
-                      </ActionList>
-                    </ActionMenu.Overlay>
-                  </ActionMenu>
-                </PortalContext.Provider>
+                <ActionMenu>
+                  <ActionMenu.Button
+                    aria-label="Document actions"
+                    icon={KebabHorizontalIcon}
+                    size="small"
+                    variant="invisible"
+                    trailingAction={null}
+                  />
+                  <ActionMenu.Overlay width="small">
+                    <ActionList>
+                      <ActionList.Item onSelect={() => setArchived(value => !value)}>
+                        {archived ? 'Restore document' : 'Archive document'}
+                      </ActionList.Item>
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
               </div>
             </header>
 
@@ -203,13 +168,13 @@ function NoodlesVisionFixture() {
       <div className={classes.Comparison}>
         <section className={classes.Preview} aria-labelledby="primer-appearance-title">
           <h2 className={classes.PreviewTitle} id="primer-appearance-title">
-            Primer defaults
+            Primer defaults (dark)
           </h2>
           <Workspace appearance="primer" />
         </section>
         <section className={classes.Preview} aria-labelledby="noodles-appearance-title">
           <h2 className={classes.PreviewTitle} id="noodles-appearance-title">
-            Noodles appearance
+            Noodles theme (dark)
           </h2>
           <Workspace appearance="noodles" />
         </section>
@@ -240,24 +205,27 @@ export const Comparison: Story = {
       throw new Error('ThemeProvider color-mode scopes were not rendered')
     }
     const noodles = within(noodlesWorkspace)
+    const portal = within(canvasElement.ownerDocument.body)
     await expect(noodles.getByRole('link', {name: 'Quarterly priorities'})).toHaveAttribute('aria-current', 'page')
-    await expect(primerColorMode).toHaveAttribute('data-color-mode', 'light')
+    await expect(primerColorMode).toHaveAttribute('data-color-mode', 'dark')
     await expect(noodlesColorMode).toHaveAttribute('data-color-mode', 'dark')
     const actionButton = noodles.getByRole('button', {name: 'Document actions'})
 
     await userEvent.click(actionButton)
-    const archiveAction = noodles.getByRole('menuitem', {name: 'Archive document'})
+    const archiveAction = portal.getByRole('menuitem', {name: 'Archive document'})
     await expect(archiveAction).toHaveFocus()
-    await expect(noodlesWorkspace.contains(archiveAction)).toBe(true)
+    await expect(archiveAction.closest('[data-primer-theme]')).toHaveAttribute('data-primer-theme', 'noodles')
     await expect(noodlesWorkspace.closest('[data-color-mode="dark"]')).not.toBeNull()
 
     await userEvent.keyboard('{Escape}')
     await expect(actionButton).toHaveFocus()
-    await expect(noodles.queryByRole('menu')).not.toBeInTheDocument()
+    await expect(portal.queryByRole('menu')).not.toBeInTheDocument()
 
     await userEvent.keyboard('{Enter}')
-    await expect(noodles.getByRole('menuitem', {name: 'Archive document'})).toHaveFocus()
-    await expect(noodlesWorkspace.contains(noodles.getByRole('menuitem', {name: 'Archive document'}))).toBe(true)
+    await expect(portal.getByRole('menuitem', {name: 'Archive document'})).toHaveFocus()
+    await expect(
+      portal.getByRole('menuitem', {name: 'Archive document'}).closest('[data-primer-theme]'),
+    ).toHaveAttribute('data-primer-theme', 'noodles')
     await userEvent.keyboard('{Escape}')
     await expect(actionButton).toHaveFocus()
 

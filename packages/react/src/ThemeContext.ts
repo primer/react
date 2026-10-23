@@ -1,7 +1,10 @@
 import React from 'react'
 import type {ColorMode, ColorModeWithAuto, Theme} from './ThemeProvider'
+import type {ThemeDefinition} from './experimental/defineTheme'
 
 export interface ThemeContextValue {
+  themeDefinition?: ThemeDefinition
+  themeNonce?: string
   /** @deprecated Use `ThemeProvider` and `useTheme` from `@primer/react/next` to migrate away from JavaScript theme values. */
   theme?: Theme
   colorScheme?: string
