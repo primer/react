@@ -83,9 +83,12 @@ function ExampleWithTooltip(): JSX.Element {
   )
 }
 
-function IconButtonActionMenu({onSelect}: {onSelect?: () => void} = {}): JSX.Element {
+function IconButtonActionMenu({
+  onSelect,
+  ...props
+}: {onSelect?: () => void} & Pick<React.ComponentProps<typeof ActionMenu>, 'open' | 'onOpenChange'> = {}): JSX.Element {
   return (
-    <ActionMenu>
+    <ActionMenu {...props}>
       <ActionMenu.Anchor>
         <IconButton icon={SearchIcon} aria-label="More actions" />
       </ActionMenu.Anchor>
@@ -694,6 +697,27 @@ describe('ActionMenu', () => {
 
       expect(counter.mountCount).toBe(1)
       expect(counter.updateCount).toBe(0)
+    })
+
+    it.each([false, true])('labels controlled menus with initial open state %s', async initialOpen => {
+      const onOpenChange = vi.fn()
+      const component = HTMLRender(
+        <BaseStyles>
+          <IconButtonActionMenu open={initialOpen} onOpenChange={onOpenChange} />
+        </BaseStyles>,
+      )
+
+      if (!initialOpen) {
+        component.rerender(
+          <BaseStyles>
+            <IconButtonActionMenu open onOpenChange={onOpenChange} />
+          </BaseStyles>,
+        )
+      }
+
+      const menu = await component.findByRole('menu', {name: 'More actions'})
+      const anchor = component.getByRole('button', {name: 'More actions'})
+      expect(menu).toHaveAttribute('aria-labelledby', anchor.getAttribute('aria-labelledby'))
     })
 
     it('uses the tooltip id to name the menu on first open', async () => {

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {clsx} from 'clsx'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
@@ -318,13 +318,11 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
 
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
-  const handleOpen = useCallback<NonNullable<AnchoredOverlayProps['onOpen']>>(
-    (gesture, event) => {
+  useEffect(() => {
+    if (open) {
       setAnchorAriaLabelledby(anchorRef.current?.getAttribute('aria-labelledby') ?? null)
-      onOpen?.(gesture, event)
-    },
-    [anchorRef, onOpen],
-  )
+    }
+  }, [anchorRef, open])
 
   const afterSelect = useCallback(() => onClose?.('item-select'), [onClose])
 
@@ -348,7 +346,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       renderAnchor={renderAnchor}
       anchorId={anchorId}
       open={open}
-      onOpen={handleOpen}
+      onOpen={onOpen}
       onClose={handleClose}
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
