@@ -15,6 +15,7 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
 import {TooltipContext} from './TooltipContext'
 import {reactMajorVersion} from '../utils/environment'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -154,6 +155,26 @@ export const Tooltip: ForwardRefExoticComponent<
 
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
+    const positionTooltip = () => {
+      const tooltip = tooltipElRef.current
+      const trigger = readTriggerRef.current
+      if (!tooltip || !(trigger instanceof HTMLElement)) return
+      const settings = {
+        side: directionToPosition[direction].side,
+        align: directionToPosition[direction].align,
+      }
+      const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
+      // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
+      setCalculatedDirection(positionToDirection[`${anchorSide}-${anchorAlign}` as string])
+      tooltip.style.top = `${top}px`
+      tooltip.style.left = `${left}px`
+    }
+
+    // A tooltip can stay open while its trigger rerenders, so keep it anchored if that render moves the trigger
+    useIsomorphicLayoutEffect(() => {
+      if (isPopoverOpen) positionTooltip()
+    })
+
     const openTooltip = () => {
       try {
         if (
@@ -163,23 +184,9 @@ export const Tooltip: ForwardRefExoticComponent<
           !tooltipElRef.current.matches(':popover-open') &&
           !_privateDisableTooltip
         ) {
-          const tooltip = tooltipElRef.current
-          const trigger = readTriggerRef.current
-          tooltip.showPopover()
+          tooltipElRef.current.showPopover()
           setIsPopoverOpen(true)
-          /*
-           * TOOLTIP POSITIONING
-           */
-          const settings = {
-            side: directionToPosition[direction].side,
-            align: directionToPosition[direction].align,
-          }
-          const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
-          // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-          const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-          setCalculatedDirection(calculatedDirection)
-          tooltip.style.top = `${top}px`
-          tooltip.style.left = `${left}px`
+          positionTooltip()
         }
       } catch (error) {
         // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill

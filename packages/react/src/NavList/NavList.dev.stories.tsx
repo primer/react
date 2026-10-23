@@ -1,8 +1,10 @@
 import type {Meta} from '@storybook/react-vite'
-import {within, userEvent} from 'storybook/test'
+import {expect, within, userEvent} from 'storybook/test'
+import React from 'react'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
-import {ArrowRightIcon, ArrowLeftIcon, BookIcon, FileDirectoryIcon} from '@primer/octicons-react'
+import {ArrowRightIcon, ArrowLeftIcon, BookIcon, FileDirectoryIcon, SyncIcon, CheckIcon} from '@primer/octicons-react'
+import classes from './NavList.dev.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/NavList/Dev',
@@ -104,4 +106,60 @@ CollapsedSubNavWithCurrentItem.play = async ({canvasElement}: {canvasElement: HT
   const canvas = within(canvasElement)
   const parentButton = await canvas.findByRole('button', {name: /Item with current sub-item/i})
   await userEvent.click(parentButton)
+}
+
+export const PreserveAnimationOnSiblingUpdate = () => {
+  const [siblingWorking, setSiblingWorking] = React.useState(false)
+  const updateSibling = () => setSiblingWorking(working => !working)
+
+  return (
+    <PageLayout>
+      <PageLayout.Pane position="start">
+        <NavList aria-label="Sessions">
+          <NavList.Item
+            href="#parser-tests"
+            onClick={event => event.preventDefault()}
+            onKeyDown={event => {
+              if (event.key.toLowerCase() === 'u') updateSibling()
+            }}
+          >
+            <NavList.LeadingVisual>
+              <SyncIcon className={classes.Working} />
+            </NavList.LeadingVisual>
+            Add unit tests for parser
+            <NavList.Description>Working</NavList.Description>
+          </NavList.Item>
+          <NavList.Item href="#integration-test" onClick={event => event.preventDefault()}>
+            <NavList.LeadingVisual>
+              {siblingWorking ? <SyncIcon className={classes.Working} /> : <CheckIcon />}
+            </NavList.LeadingVisual>
+            Fix flaky integration test
+            <NavList.Description>{siblingWorking ? 'Working' : 'Completed'}</NavList.Description>
+          </NavList.Item>
+        </NavList>
+      </PageLayout.Pane>
+      <PageLayout.Content>
+        <p>
+          Focus the first session link, then press U repeatedly to change the second session&apos;s status. The first
+          link should keep focus and its slow rotation should continue without restarting. Reduced motion disables the
+          rotation.
+        </p>
+        <button type="button" onClick={updateSibling}>
+          Toggle second session status
+        </button>
+      </PageLayout.Content>
+    </PageLayout>
+  )
+}
+
+PreserveAnimationOnSiblingUpdate.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const link = canvas.getByRole('link', {name: 'Add unit tests for parser'})
+  const visual = link.querySelector('svg')
+  await userEvent.click(link)
+  await userEvent.keyboard('u')
+  await expect(canvas.getByRole('link', {name: 'Add unit tests for parser'})).toBe(link)
+  await expect(link.querySelector('svg')).toBe(visual)
+  await expect(link).toHaveFocus()
+  await expect(canvas.getAllByText('Working')).toHaveLength(2)
 }
