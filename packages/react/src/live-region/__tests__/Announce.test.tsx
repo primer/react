@@ -47,6 +47,14 @@ describe('Announce', () => {
     })
   })
 
+  it('does not announce when announceOnShow changes after mount', () => {
+    const {rerender} = render(<Announce announceOnShow={false}>test</Announce>)
+
+    rerender(<Announce announceOnShow>test</Announce>)
+
+    expect(getLiveRegion().getMessage('polite')).toBe('')
+  })
+
   it('cancels delayed content after unmounting', async () => {
     const {unmount} = render(<Announce delayMs={50}>test</Announce>)
 

@@ -99,12 +99,15 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     previousAnnouncementText.current = textContent
   })
 
-  useEffect(() => {
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- announce after the element mounts
+  const announceOnMount = useEffectCallback(() => {
     if (announceOnShow) {
       announce()
     }
-  }, [announce, announceOnShow])
+  })
+
+  useEffect(() => {
+    announceOnMount()
+  }, [announceOnMount])
 
   useEffect(() => {
     const {current: container} = ref
