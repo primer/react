@@ -32,3 +32,15 @@
     }
   }
 }
+
+:where(.AvatarPlaceholder) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* stylelint-disable-next-line primer/typography */
+  font-size: calc(var(--avatarSize-regular) * 0.4);
+  font-weight: var(--base-text-weight-semibold, 600);
+  background-color: var(--bgColor-neutral-muted, var(--color-neutral-muted));
+  color: var(--fgColor-default, var(--color-fg-default));
+  user-select: none;
+}

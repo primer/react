@@ -12,7 +12,9 @@ export type AvatarProps = {
   /** Sets the shape of the avatar to a square if true. If false, the avatar will be circular. */
   square?: boolean
   /** URL of the avatar image. */
-  src: string
+  src?: string
+  /** Text to display inside the avatar when no image src is provided (e.g. initials). */
+  placeholder?: string
   /** Provide alt text when the Avatar is used without the user's name next to it. */
   alt?: string
   /** Additional class name. */
@@ -20,7 +22,7 @@ export type AvatarProps = {
 } & React.ComponentPropsWithoutRef<'img'>
 
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, className, style, ...rest},
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, className, style, src, placeholder, ...rest},
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)
@@ -34,24 +36,36 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
     cssSizeVars['--avatarSize-regular'] = `${size}px`
   }
 
+  const computedStyle = style ? {...cssSizeVars, ...style} : (cssSizeVars as React.CSSProperties)
+
+  if (!src && placeholder) {
+    return (
+      <span
+        data-component="Avatar"
+        className={clsx(className, classes.Avatar, classes.AvatarPlaceholder)}
+        data-responsive={isResponsive ? '' : undefined}
+        data-square={square ? '' : undefined}
+        style={computedStyle}
+        aria-label={alt || placeholder}
+        role="img"
+      >
+        {placeholder}
+      </span>
+    )
+  }
+
   return (
     <img
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
       ref={ref}
       alt={alt}
+      src={src}
       data-responsive={isResponsive ? '' : undefined}
       data-square={square ? '' : undefined}
       width={isResponsive ? undefined : size}
       height={isResponsive ? undefined : size}
-      style={
-        style
-          ? {
-              ...cssSizeVars,
-              ...style,
-            }
-          : (cssSizeVars as React.CSSProperties)
-      }
+      style={computedStyle}
       {...rest}
     />
   )
