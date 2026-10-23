@@ -225,6 +225,42 @@
   margin-top: var(--base-size-8);
 }
 
+.Updates {
+  padding-top: var(--base-size-24);
+  margin-top: var(--base-size-36);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.UpdatesHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-12);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.UpdatesHeader h4 {
+  margin: 0 0 var(--base-size-4);
+  font-family: var(--fontStack-sansSerifDisplay);
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--text-title-lineHeight-medium);
+}
+
+.UpdatesDescription {
+  margin: 0;
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-body-lineHeight-small);
+}
+
+.UpdatesActions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--base-size-8);
+  align-items: center;
+}
+
 @media (max-width: 1100px) {
   .Comparison {
     grid-template-columns: minmax(0, 1fr);

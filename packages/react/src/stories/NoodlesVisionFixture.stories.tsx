@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, userEvent, within} from 'storybook/test'
-import {ActionList, ActionMenu, BaseStyles, IconButton} from '..'
+import {ActionList, ActionMenu, BaseStyles, Button, IconButton} from '..'
 import {ThemeProvider} from '../next'
 import {
   BookIcon,
@@ -10,6 +10,7 @@ import {
   FileIcon,
   GearIcon,
   KebabHorizontalIcon,
+  PlusIcon,
   SearchIcon,
 } from '@primer/octicons-react'
 import {noodlesTheme} from './noodlesTheme'
@@ -25,6 +26,7 @@ interface WorkspaceProps {
 function Workspace({appearance}: WorkspaceProps) {
   const isNoodles = appearance === 'noodles'
   const [archived, setArchived] = React.useState(false)
+  const [sortOrder, setSortOrder] = React.useState<'newest' | 'oldest'>('newest')
   const documentId = `${appearance}-quarterly-priorities`
 
   return (
@@ -154,6 +156,39 @@ function Workspace({appearance}: WorkspaceProps) {
                   Share an early direction with the team, gather feedback, and refine the parts that make the experience
                   feel personal without getting in the way.
                 </p>
+              </section>
+
+              <section className={classes.Updates} aria-labelledby={`${documentId}-updates`}>
+                <div className={classes.UpdatesHeader}>
+                  <div>
+                    <h4 id={`${documentId}-updates`}>Updates</h4>
+                    <p className={classes.UpdatesDescription}>The latest progress and context across this document.</p>
+                  </div>
+                  <div className={classes.UpdatesActions}>
+                    <ActionMenu>
+                      <ActionMenu.Button variant="invisible" size="small">
+                        {sortOrder === 'newest' ? 'Newest' : 'Oldest'}
+                      </ActionMenu.Button>
+                      <ActionMenu.Overlay width="small">
+                        <ActionList selectionVariant="single">
+                          {(['newest', 'oldest'] as const).map(order => (
+                            <ActionList.Item
+                              key={order}
+                              selected={sortOrder === order}
+                              onSelect={() => setSortOrder(order)}
+                            >
+                              {order === 'newest' ? 'Newest' : 'Oldest'}
+                            </ActionList.Item>
+                          ))}
+                        </ActionList>
+                      </ActionMenu.Overlay>
+                    </ActionMenu>
+                    <Button size="small">Share</Button>
+                    <Button size="small" variant="primary" leadingVisual={PlusIcon}>
+                      Create
+                    </Button>
+                  </div>
+                </div>
               </section>
             </article>
           </main>
