@@ -1,4 +1,5 @@
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import ButtonGroup from './ButtonGroup'
 import {createRef} from 'react'
 import {FeatureFlags} from '../FeatureFlags'
@@ -10,18 +11,18 @@ describe('ButtonGroup', () => {
   implementsClassName(ButtonGroup, classes.ButtonGroup)
 
   it('renders a <div>', () => {
-    const container = render(<ButtonGroup data-testid="button-group" />)
-    expect(container.getByTestId('button-group').tagName).toBe('DIV')
+    render(<ButtonGroup data-testid="button-group" />)
+    expect(page.getByTestId('button-group').element().tagName).toBe('DIV')
   })
 
-  it('renders data-component attribute', () => {
+  it('renders data-component attribute', async () => {
     const {container} = render(<ButtonGroup />)
-    expect(container.querySelector('[data-component="ButtonGroup"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="ButtonGroup"]')).toBeInTheDocument()
   })
 
-  it('should respect role prop', () => {
+  it('should respect role prop', async () => {
     render(<ButtonGroup role="toolbar" />)
-    expect(screen.getByRole('toolbar')).toBeInTheDocument()
+    await expect.element(page.getByRole('toolbar')).toBeInTheDocument()
   })
 })
 
