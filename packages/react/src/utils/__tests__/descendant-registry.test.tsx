@@ -38,7 +38,7 @@ function createTestRegistry({onRegistryRender}: {onRegistryRender?: () => void} 
 }
 
 describe('createDescendantRegistry', () => {
-  it('publishes the initial registry after descendant effects complete', async () => {
+  it('publishes the initial registry within the descendant effect flush', () => {
     const onRegistryRender = vi.fn()
     const {RegistryParent, Item} = createTestRegistry({onRegistryRender})
 
@@ -48,10 +48,7 @@ describe('createDescendantRegistry', () => {
       </RegistryParent>,
     )
 
-    expect(getByTestId('registry-values').textContent).toBe('')
-    expect(onRegistryRender).toHaveBeenCalledTimes(1)
-
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a'))
+    expect(getByTestId('registry-values').textContent).toBe('a')
     expect(onRegistryRender).toHaveBeenCalledTimes(2)
   })
 

@@ -41,8 +41,8 @@ interface DescendantRegistryContext<T> {
  *    the string key is a unique and stable identifier for each component which can be used as a `key` if necessary.
  *
  * @note Note that this pattern is not SSR compatible. It won't raise errors or hydration mismatches, but the
- * registry will not be available during SSR. Registrations are collected during the effect phase and published after
- * the effects complete, so the registry will be populated after hydration on the client. The initial `undefined` value
+ * registry will not be available during SSR. Registrations are collected and published during the effect phase,
+ * so the registry will be populated after hydration on the client. The initial `undefined` value
  * can be used to safely show loading UI during SSR/initial render if necessary.
  */
 export function createDescendantRegistry<T>() {
@@ -161,7 +161,7 @@ export function createDescendantRegistry<T>() {
       [scheduleRegistryUpdate],
     )
 
-    // After all descendants' effects complete, prepare the working registry for batched publication
+    // Publish a rebuilt registry in the same effect flush; idle updates remain batched.
     useEffect(function commitWorkingRegistry() {
       if (workingRegistryRef.current instanceof Map) {
         // There shouldn't be any unset values left, but still filter them just in case
@@ -170,7 +170,8 @@ export function createDescendantRegistry<T>() {
         )
         registryRef.current = new Map(setEntries)
         workingRegistryRef.current = 'idle'
-        scheduleRegistryUpdate()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
+        setRegistry(new Map(setEntries))
       }
     })
 
