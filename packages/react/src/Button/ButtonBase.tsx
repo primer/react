@@ -10,7 +10,7 @@ import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
-import {isElement} from 'react-is'
+import {isElement, isValidElementType} from 'react-is'
 import {useFeatureFlag} from '../FeatureFlags'
 
 const BUTTON_LOADING_DISABLED_STYLES_FEATURE_FLAG = 'primer_react_button_loading_disabled_styles'
@@ -33,6 +33,9 @@ const renderModuleVisual = (
     {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
   </span>
 )
+
+const renderIcon = (icon: ButtonProps['icon']): React.ReactNode =>
+  isValidElementType(icon) && typeof icon !== 'string' ? React.createElement(icon) : (icon as React.ReactNode)
 
 type ButtonBaseComponentProps = Omit<ButtonProps, 'notificationIndicator'> & {
   notificationIndicator?: NotificationIndicatorPlacement
@@ -131,13 +134,11 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
         onClick={loading ? undefined : onClick}
       >
-        {Icon ? (
+        {Icon !== undefined && Icon !== null ? (
           loading ? (
             <Spinner size="small" />
-          ) : isElement(Icon) ? (
-            Icon
           ) : (
-            <Icon />
+            renderIcon(Icon)
           )
         ) : (
           <>
