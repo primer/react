@@ -258,9 +258,9 @@ function TableSelectionHeader({
 
 export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
-function TableRow({children, ...rest}: TableRowProps) {
+function TableRow({children, className, ...rest}: TableRowProps) {
   return (
-    <tr {...rest} className={clsx('TableRow', classes.TableRow)} role="row" data-component="Table.Row">
+    <tr {...rest} className={clsx('TableRow', classes.TableRow, className)} role="row" data-component="Table.Row">
       {children}
     </tr>
   )

@@ -26,6 +26,7 @@ interface Table<Data extends UniqueRow> {
     sortBy: (header: Header<Data>) => void
     toggleRowSelection: (row: Row<Data>) => void
     toggleAllRows: () => void
+    clearSelection: () => void
   }
   selection: {
     headerId: string
@@ -381,6 +382,9 @@ export function useTable<Data extends UniqueRow>({
       sortBy,
       toggleRowSelection,
       toggleAllRows,
+      clearSelection: () => {
+        setSelectedRows(new Set<DataTableRowId>())
+      },
     },
     selection: {
       headerId: `${tableId}-selection-column`,
