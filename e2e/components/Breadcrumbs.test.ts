@@ -106,4 +106,50 @@ test.describe('Breadcrumbs', () => {
       await expect(page).toHaveScreenshot('Breadcrumbs.TwoItemsOverflowMenuWithRoot.narrow.png')
     })
   })
+
+  // Same baselines as above: the flagged implementation must match the current one pixel for pixel.
+  test.describe('CSS overflow (primer_react_breadcrumbs_css_overflow)', () => {
+    const scenarios = [
+      {story: 'overflow-menu', width: viewports['primer.breakpoint.xs'] - 1, snapshot: 'OverflowMenu.narrow'},
+      {story: 'overflow-menu', width: viewports['primer.breakpoint.md'], snapshot: 'OverflowMenu.wide'},
+      {
+        story: 'overflow-menu-with-root',
+        width: viewports['primer.breakpoint.xs'] - 1,
+        snapshot: 'OverflowMenuWithRoot.narrow',
+      },
+      {
+        story: 'two-items-with-overflow-menu',
+        width: viewports['primer.breakpoint.xs'] - 1,
+        snapshot: 'TwoItemsOverflowMenu.narrow',
+      },
+      {
+        story: 'two-items-with-overflow-menu-with-root',
+        width: viewports['primer.breakpoint.xs'] - 1,
+        snapshot: 'TwoItemsOverflowMenuWithRoot.narrow',
+      },
+    ]
+
+    for (const {story, width, snapshot} of scenarios) {
+      test.describe(snapshot, () => {
+        test.beforeEach(async ({page}) => {
+          await visit(page, {
+            id: `components-breadcrumbs-features--${story}`,
+            globals: {
+              colorScheme: 'light',
+              featureFlags: {primer_react_breadcrumbs_css_overflow: true},
+            },
+          })
+          await page.setViewportSize({width, height: 768})
+        })
+
+        test('matches the current implementation @vrt', async ({page}) => {
+          await expect(page).toHaveScreenshot(`Breadcrumbs.${snapshot}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
 })

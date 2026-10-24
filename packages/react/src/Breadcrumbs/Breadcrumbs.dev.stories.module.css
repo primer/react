@@ -8,3 +8,21 @@
 .EditableTextInput:focus {
   border: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
 }
+
+.ResizableContainer {
+  display: flex;
+  width: var(--overlay-width-medium);
+  max-width: 100%;
+  min-width: 120px;
+  padding: var(--base-size-8);
+  overflow: auto;
+  resize: horizontal;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  flex-direction: column;
+  gap: var(--base-size-8);
+}
+
+.ComparisonLabel {
+  font-size: var(--text-caption-size);
+  color: var(--fgColor-muted);
+}

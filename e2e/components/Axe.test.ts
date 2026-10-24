@@ -23,6 +23,9 @@ const SKIPPED_TESTS = [
   'components-filteredactionlist-features--with-no-results-message',
   'components-pagelayout-performance-tests--medium-content',
   'components-pagelayout-performance-tests--heavy-content',
+  // Renders both Breadcrumbs implementations side by side, so duplicate "Breadcrumbs" landmarks are inherent.
+  // The flagged implementation is axe-tested in Breadcrumbs.test.ts.
+  'components-breadcrumbs-dev--css-overflow-comparison',
 ]
 
 type Component = {

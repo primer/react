@@ -1,4 +1,5 @@
 import Breadcrumbs from '..'
+import React from 'react'
 import {act, fireEvent, render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
@@ -422,6 +423,79 @@ describe('Breadcrumbs', () => {
     expect(screen.getByRole('link', {name: 'Details'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Specifications'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Reviews'})).toBeInTheDocument()
+  })
+
+  it('does not remount visible items when items collapse into the overflow menu', () => {
+    const onMount = vi.fn()
+    const TrackedLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<'a'>>((props, ref) => {
+      React.useEffect(() => {
+        onMount(props.children)
+      }, [props.children])
+      return (
+        <a {...props} ref={ref}>
+          {props.children}
+        </a>
+      )
+    })
+
+    renderWithTheme(
+      <Breadcrumbs overflow="menu">
+        {['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'].map(label => (
+          <Breadcrumbs.Item key={label} as={TrackedLink} href={`/${label}`}>
+            {label}
+          </Breadcrumbs.Item>
+        ))}
+      </Breadcrumbs>,
+    )
+
+    expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
+    expect(onMount.mock.calls.filter(([label]) => label === 'Item 6')).toHaveLength(1)
+  })
+
+  it('renders once on mount when no items overflow', () => {
+    const onRender = vi.fn()
+    renderWithTheme(
+      <React.Profiler id="breadcrumbs" onRender={onRender}>
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
+        </Breadcrumbs>
+      </React.Profiler>,
+    )
+
+    expect(onRender).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not re-render on resizes that keep the same overflow split', () => {
+    let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
+    globalThis.ResizeObserver = vi.fn().mockImplementation(function (callback) {
+      resizeCallback = callback
+      return {observe: mockObserve, unobserve: mockUnobserve, disconnect: mockDisconnect}
+    })
+    const onRender = vi.fn()
+
+    renderWithTheme(
+      <div style={{width: 1000}}>
+        <React.Profiler id="breadcrumbs" onRender={onRender}>
+          <Breadcrumbs overflow="menu">
+            <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/3">Item 3</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/4">Item 4</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
+          </Breadcrumbs>
+        </React.Profiler>
+      </div>,
+    )
+
+    const rendersAfterMount = onRender.mock.calls.length
+    for (const width of [900, 901, 950, 1000]) {
+      act(() => resizeCallback?.([{contentRect: {width, height: 40}} as ResizeObserverEntry]))
+    }
+
+    expect(onRender).toHaveBeenCalledTimes(rendersAfterMount)
+    expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
   })
 
   describe('BreadcrumbsMenuItem interactions', () => {
