@@ -202,12 +202,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
-  // eslint-disable-next-line react-hooks/refs
-  if (anchorRef.current !== anchorElement) {
+  // The object ref can point to a replacement element without changing identity.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
     setAnchorElement(anchorRef.current)
-  }
+  })
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
   const mergedOverlayRef = useMergedRefs(updateOverlayRef, useMergedRefs(overlayProps?.ref, setOverlayElement))
   const anchorId = useId(externalAnchorId)
@@ -438,17 +438,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
           {...(shouldRenderAsPopover ? {id: popoverId} : {})}
-          ref={
-            mergedRefEnabled
-              ? mergedOverlayRef
-              : node => {
-                  setOverlayElement(node)
-                  if (overlayProps?.ref) {
-                    assignRef(overlayProps.ref, node)
-                  }
-                  updateOverlayRef(node)
-                }
-          }
+          ref={mergedOverlayRef}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
         >
@@ -554,17 +544,6 @@ function getCSSAnchorPositionTryFallbacks(
   // 'default': don't write an inline `position-try-fallbacks`, so the
   // stylesheet-defined fallback list on `.AnchoredOverlay` takes effect.
   return undefined
-}
-
-function assignRef<T>(
-  ref: React.MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,
-  value: T | null,
-) {
-  if (typeof ref === 'function') {
-    ref(value)
-  } else if (ref) {
-    ref.current = value
-  }
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'

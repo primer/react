@@ -336,16 +336,8 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
           className={clsx(className, classes.StyledUnderlineWrapper)}
           {...props}
         >
-          <UnderlineItemList
-            ref={listRef}
-            role={tabListProps.role}
-            aria-label={tabListProps['aria-label']}
-            aria-labelledby={tabListProps['aria-labelledby']}
-            aria-orientation={tabListProps['aria-orientation']}
-            onKeyDown={tabListProps.onKeyDown}
-          >
-            {tabs}
-          </UnderlineItemList>
+          {/* @ts-expect-error ref needs a non nullable ref */}
+          <UnderlineItemList {...tabListProps}>{tabs}</UnderlineItemList>
         </UnderlineWrapper>
         {tabPanels}
       </Tabs>

@@ -5,7 +5,7 @@ import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'
-import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -44,14 +44,8 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
-  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const listRef = useRef<HTMLElement>(null)
   const mergedRef = useMergedRefs(listRef, forwardedRef)
-  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
-  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `listRef` and `appliedRef` with `mergedRef`.
-  const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
-  const readRef = mergedRefEnabled ? listRef : providedOrCreatedRef
-  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
   const itemGapFlag = useFeatureFlag('primer_react_action_list_item_gap')
   const itemGapEnabled = itemGapFlag && !disableItemGap && container === 'NavList'
 
@@ -61,7 +55,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   useFocusZone({
     disabled: !enableFocusZone,
-    containerRef: readRef,
+    containerRef: listRef,
     bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
     focusOutBehavior:
       listRole === 'menu' || container === 'SelectPanel' || container === 'FilteredActionList' ? 'wrap' : undefined,
@@ -93,7 +87,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   // Two querySelector calls after render is trivially cheap compared to what the browser
   // was doing on every DOM mutation with `:has()`.
   useIsomorphicLayoutEffect(() => {
-    const list = readRef.current
+    const list = listRef.current
     if (!list) return
     const hasMixed =
       list.querySelector('[data-has-description="true"]') !== null &&
@@ -109,12 +103,11 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   return (
     <ListContext.Provider value={listContextValue}>
       {slots.heading}
-      {/* @ts-expect-error ref needs a non nullable ref */}
       <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
-        ref={appliedRef}
+        ref={mergedRef}
         data-component="ActionList"
         data-dividers={showDividers}
         data-variant={variant}
