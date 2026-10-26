@@ -233,6 +233,9 @@ function TableSelectionHeader({
   'aria-description': ariaDescription,
   ...rest
 }: TableSelectionHeaderProps) {
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  React.useImperativeHandle<HTMLInputElement | null, HTMLInputElement | null>(checkboxRef, () => inputRef.current, [])
+
   return (
     <TableHeader
       {...rest}
@@ -240,7 +243,7 @@ function TableSelectionHeader({
       data-component="Table.SelectionHeader"
     >
       <Checkbox
-        ref={checkboxRef}
+        ref={inputRef}
         checked={selection === 'all'}
         indeterminate={selection === 'some'}
         disabled={disabled}
