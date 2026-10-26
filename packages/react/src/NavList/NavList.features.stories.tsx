@@ -57,7 +57,7 @@ export const WithLinkedSubNavParent: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
-        <NavList.Item href="#" subNavToggleLabel="Toggle overview pages">
+        <NavList.Item href="#" aria-current="page" subNavToggleLabel="Toggle overview pages">
           Overview
           <NavList.SubNav>
             <NavList.Item href="#">Review requested</NavList.Item>

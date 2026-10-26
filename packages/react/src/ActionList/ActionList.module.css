@@ -498,8 +498,27 @@
 /* button or a tag */
 
 .ActionListItemRow {
+  position: relative;
   display: flex;
   border-radius: var(--borderRadius-medium);
+
+  :where(.ActionListItem[data-active='true']) > & {
+    background: var(--control-transparent-bgColor-selected);
+    outline: 2px solid transparent;
+
+    & .ItemLabel {
+      font-weight: var(--base-text-weight-semibold);
+      color: var(--control-fgColor-rest);
+    }
+
+    & .ActionListSubContent::before {
+      visibility: hidden;
+    }
+
+    &::after {
+      @mixin activeIndicatorLine;
+    }
+  }
 
   @media (hover: hover) {
     &:hover {

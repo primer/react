@@ -18,11 +18,12 @@ import classes from '../ActionList/ActionList.module.css'
 import navListClasses from './NavList.module.css'
 import {flushSync} from 'react-dom'
 import {useSlots} from '../hooks/useSlots'
-import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
+import {fixedForwardRef, type DistributiveOmit, type PolymorphicProps} from '../utils/modern-polymorphic'
 import HeadingComponent from '../Heading'
 import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
 import {asSlot} from '../utils/as-slot'
+import {invariant} from '../utils/invariant'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
@@ -130,19 +131,23 @@ Heading.__SLOT__ = Symbol('NavList.Heading')
 // ----------------------------------------------------------------------------
 // NavList.Item
 
+type SubNavLinkProps<As extends React.ElementType> =
+  | {subNavToggleLabel?: undefined; href?: string}
+  | {subNavToggleLabel: string; href: string}
+  | {subNavToggleLabel: string; as: Exclude<As, 'a'>; href?: string}
+
 export type NavListItemProps<As extends React.ElementType = React.ElementType> = PolymorphicProps<
   As,
   'a',
   {
     children: React.ReactNode
     defaultOpen?: boolean
-    href?: string
-    subNavToggleLabel?: string
     'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
     inactiveText?: string
     tooltipText?: string
   }
->
+> &
+  SubNavLinkProps<As>
 
 const ItemComponent = fixedForwardRef(
   <As extends React.ElementType = 'a'>(
@@ -313,6 +318,11 @@ function ItemWithSubNav<As extends React.ElementType = 'a'>({
 
   const toggleSubNav = () => setIsOpen(open => !open)
   const InternalLinkItem: React.ElementType = ActionList.LinkItem
+
+  invariant(
+    !subNavToggleLabel || (Component && Component !== 'a') || typeof restLinkProps.href === 'string',
+    'NavList.Item requires an href when subNavToggleLabel is set and the item renders as an anchor.',
+  )
 
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
@@ -510,7 +520,7 @@ type GroupItem = {
   leadingVisual?: Icon
   trailingAction?: ActionListTrailingActionProps
   'data-expand-focus-target'?: string
-} & Omit<NavListItemProps, 'children'>
+} & DistributiveOmit<NavListItemProps, 'children'>
 
 export type NavListGroupExpandProps = {
   label?: string
@@ -551,7 +561,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                   })
                 }
                 return (
-                  <Item {...rest} key={index} data-expand-focus-target={focusTarget}>
+                  <Item<React.ElementType> {...rest} key={index} data-expand-focus-target={focusTarget}>
                     {LeadingVisualIcon ? (
                       <LeadingVisual>
                         <LeadingVisualIcon />

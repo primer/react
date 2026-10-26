@@ -118,7 +118,7 @@
         {
           "name": "subNavToggleLabel",
           "type": "string",
-          "description": "Renders an item with a SubNav as a link with a separate toggle button. The value is used as the toggle button's accessible name."
+          "description": "Renders an item with a SubNav as a link with a separate toggle button. The value is used as the toggle button's accessible name. Requires `href` when rendering the default anchor or using `as=\"a\"`. Custom link components passed through `as` must receive their own navigation props, such as `to`."
         },
         {
           "name": "inactiveText",
