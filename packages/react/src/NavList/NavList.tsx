@@ -133,8 +133,8 @@ Heading.__SLOT__ = Symbol('NavList.Heading')
 
 type SubNavLinkProps<As extends React.ElementType> =
   | {subNavToggleLabel?: undefined; href?: string}
-  | {subNavToggleLabel: string; href: string}
-  | {subNavToggleLabel: string; as: Exclude<As, 'a'>; href?: string}
+  | {subNavToggleLabel?: string; href: string}
+  | ([As] extends ['a'] ? never : {subNavToggleLabel?: string; as: As; href?: string})
 
 export type NavListItemProps<As extends React.ElementType = React.ElementType> = PolymorphicProps<
   As,

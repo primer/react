@@ -1,3 +1,4 @@
+import type {ComponentProps} from 'react'
 import {NavList, type NavListItemProps} from '../NavList/NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
@@ -44,5 +45,64 @@ export function shouldRequireCustomLinkNavigationProps() {
     <NavList.Item as={ReactRouterLikeLink} subNavToggleLabel="Toggle pages">
       Overview
     </NavList.Item>
+  )
+}
+
+export function shouldForwardOptionalToggleLabel(subNavToggleLabel?: string) {
+  return (
+    <>
+      <NavList.Item href="/overview" subNavToggleLabel={subNavToggleLabel}>
+        Overview
+      </NavList.Item>
+      <NavList.Item as={ReactRouterLikeLink} to="/overview" subNavToggleLabel={subNavToggleLabel}>
+        Overview
+      </NavList.Item>
+    </>
+  )
+}
+
+type WrappedLinkProps = Omit<ComponentProps<typeof NavList.Item>, 'href' | 'as' | 'children'> & {
+  to: string
+  label: string
+}
+
+export function shouldForwardComponentProps({to, label, ...rest}: WrappedLinkProps) {
+  return (
+    <>
+      <NavList.Item href={to} {...rest}>
+        {label}
+      </NavList.Item>
+      <NavList.Item as={ReactRouterLikeLink} to={to} {...rest}>
+        {label}
+      </NavList.Item>
+    </>
+  )
+}
+
+type WrappedMenuItemProps = Omit<NavListItemProps, 'children'> & {href: string; label: string}
+
+export function shouldForwardExportedProps({href, label, ...rest}: WrappedMenuItemProps) {
+  return (
+    <NavList.Item {...rest} as={ReactRouterLikeLink} to={href}>
+      {label}
+    </NavList.Item>
+  )
+}
+
+export function shouldForwardPolymorphicComponentProps(
+  props: ComponentProps<typeof NavList.Item>,
+  {label, ...rest}: Omit<WrappedLinkProps, 'to'>,
+) {
+  return (
+    <NavList.Item as={ReactRouterLikeLink} {...props} {...rest}>
+      {label}
+    </NavList.Item>
+  )
+}
+
+export function shouldRejectOptionalToggleLabelWithoutDestination(subNavToggleLabel?: string) {
+  return (
+    // @ts-expect-error a possibly linked native parent still needs a destination
+    <NavList.Item subNavToggleLabel={subNavToggleLabel}>Overview</NavList.Item>
   )
 }
