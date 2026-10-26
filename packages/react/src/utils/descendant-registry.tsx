@@ -108,12 +108,15 @@ export function createDescendantRegistry<T>() {
       }
     }, [])
 
-    // If a rebuild is queued, instantiate a new map. Must be in a layout effect to run before all descendants' effects run to populate it
-    useIsomorphicLayoutEffect(function instantiateNewRegistry() {
-      if (workingRegistryRef.current === 'queued') {
-        workingRegistryRef.current = new Map<string, T>()
-      }
-    })
+    // Initialize only on mount or an explicit rebuild, before descendant effects populate the map.
+    useIsomorphicLayoutEffect(
+      function instantiateNewRegistry() {
+        if (workingRegistryRef.current === 'queued') {
+          workingRegistryRef.current = new Map<string, T>()
+        }
+      },
+      [key],
+    )
 
     /**
      * Register a mounted descendant in the registry.

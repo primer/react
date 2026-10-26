@@ -168,6 +168,29 @@ describe('createDescendantRegistry', () => {
     await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c,d,e'))
   })
 
+  it('preserves all descendants when the parent rerenders before a queued rebuild', async () => {
+    const {RegistryParent, Item} = createTestRegistry()
+
+    function Test({values}: {values: string[]}) {
+      return (
+        <RegistryParent>
+          {values.map(value => (
+            <Item key={value} value={value} />
+          ))}
+        </RegistryParent>
+      )
+    }
+
+    const {getByTestId, rerender} = render(<Test values={['a', 'd']} />)
+    expect(getByTestId('registry-values').textContent).toBe('a,d')
+
+    // Both parent commits must finish before the scheduled rebuild runs.
+    rerender(<Test values={['a', 'b', 'd']} />)
+    rerender(<Test values={['a', 'b', 'c', 'd']} />)
+
+    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c,d'))
+  })
+
   it('drops items from the registry after they unmount', async () => {
     const {RegistryParent, Item} = createTestRegistry()
 
