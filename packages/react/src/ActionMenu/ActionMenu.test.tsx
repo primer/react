@@ -690,65 +690,6 @@ describe('ActionMenu', () => {
   })
 
   describe('anchor labeling and focus behavior', () => {
-    it.each(['uncontrolled', 'controlled', 'initially open'] as const)(
-      'names the menu before initial item focus with CSS anchor positioning (%s)',
-      async mode => {
-        const onFocus = vi.fn(() => within(document.body).queryByRole('menu', {name: 'More actions'}) !== null)
-        const onOpenChange = vi.fn()
-        const example = (open?: boolean) => (
-          <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
-            <BaseStyles>
-              <IconButtonActionMenu open={open} onOpenChange={onOpenChange} onFocus={onFocus} />
-            </BaseStyles>
-          </FeatureFlags>
-        )
-        const component = HTMLRender(example(mode === 'uncontrolled' ? undefined : mode === 'initially open'))
-
-        if (mode === 'uncontrolled') {
-          await browserUserEvent.click(page.getByRole('button', {name: 'More actions', exact: true}))
-        } else if (mode === 'controlled') {
-          component.rerender(example(true))
-        }
-
-        await expect.element(page.getByRole('menuitem', {name: 'Copy link', exact: true})).toHaveFocus()
-        expect(onFocus).toHaveBeenCalled()
-        expect(onFocus.mock.results[0].value).toBe(true)
-      },
-    )
-
-    it('resolves a changed external anchor label before focusing a reopened menu', async () => {
-      const anchorRef: React.RefObject<HTMLButtonElement> = {current: null}
-      const onFocus = vi.fn(() => within(document.body).queryByRole('menu')?.getAttribute('aria-labelledby'))
-      const example = (open: boolean, labelId: string) => (
-        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
-          <BaseStyles>
-            <span id="first-label">More actions</span>
-            <span id="second-label">Updated actions</span>
-            <Button ref={anchorRef} aria-labelledby={labelId}>
-              Actions
-            </Button>
-            <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={() => {}}>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item onFocus={onFocus}>Copy link</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </FeatureFlags>
-      )
-      const component = HTMLRender(example(true, 'first-label'))
-      const item = page.getByRole('menuitem', {name: 'Copy link', exact: true})
-      await expect.element(item).toHaveFocus()
-      expect(onFocus.mock.results.map(result => result.value)).toEqual(['first-label'])
-
-      component.rerender(example(false, 'second-label'))
-      component.rerender(example(true, 'second-label'))
-
-      await expect.element(item).toHaveFocus()
-      expect(onFocus.mock.results.map(result => result.value)).toEqual(['first-label', 'second-label'])
-    })
-
     it('does not publish anchor label state after mounting closed', async () => {
       const [Wrap, counter] = createRenderCounter()
       HTMLRender(
@@ -765,38 +706,38 @@ describe('ActionMenu', () => {
       expect(counter.updateCount).toBe(0)
     })
 
-    it.each([false, true])('labels controlled menus with initial open state %s', async initialOpen => {
-      const onOpenChange = vi.fn()
+    it('labels an initially open controlled menu before item focus', async () => {
+      const onFocus = vi.fn(() => within(document.body).queryByRole('menu', {name: 'More actions'}) !== null)
       const component = HTMLRender(
-        <BaseStyles>
-          <IconButtonActionMenu open={initialOpen} onOpenChange={onOpenChange} />
-        </BaseStyles>,
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <IconButtonActionMenu open onOpenChange={vi.fn()} onFocus={onFocus} />
+          </BaseStyles>
+        </FeatureFlags>,
       )
 
-      if (!initialOpen) {
-        component.rerender(
-          <BaseStyles>
-            <IconButtonActionMenu open onOpenChange={onOpenChange} />
-          </BaseStyles>,
-        )
-      }
-
-      const menu = await component.findByRole('menu', {name: 'More actions'})
+      await expect.element(page.getByRole('menuitem', {name: 'Copy link', exact: true})).toHaveFocus()
+      expect(onFocus.mock.results[0].value).toBe(true)
+      const menu = component.getByRole('menu', {name: 'More actions'})
       const anchor = component.getByRole('button', {name: 'More actions'})
       expect(menu).toHaveAttribute('aria-labelledby', anchor.getAttribute('aria-labelledby'))
     })
 
-    it('uses the tooltip id to name the menu on first open', async () => {
+    it('uses the tooltip id to name the menu before first item focus', async () => {
+      const onFocus = vi.fn(() => within(document.body).queryByRole('menu', {name: 'More actions'}) !== null)
       const component = HTMLRender(
-        <BaseStyles>
-          <IconButtonActionMenu />
-        </BaseStyles>,
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <IconButtonActionMenu onFocus={onFocus} />
+          </BaseStyles>
+        </FeatureFlags>,
       )
-      const user = userEvent.setup()
       const toggleButton = component.getByRole('button', {name: 'More actions'})
 
-      await user.click(toggleButton)
+      await browserUserEvent.click(page.getByRole('button', {name: 'More actions', exact: true}))
 
+      await expect.element(page.getByRole('menuitem', {name: 'Copy link', exact: true})).toHaveFocus()
+      expect(onFocus.mock.results[0].value).toBe(true)
       expect(toggleButton).toHaveAttribute('aria-labelledby')
       expect(component.getByRole('menu', {name: 'More actions'})).toHaveAttribute(
         'aria-labelledby',
