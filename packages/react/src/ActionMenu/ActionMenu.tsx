@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useMemo, useState} from 'react'
 import {clsx} from 'clsx'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
@@ -19,6 +19,7 @@ import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveVa
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 import {DialogContext} from '../Dialog/DialogContext'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -312,15 +313,21 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     [isNarrowFullscreen, onClose],
   )
 
-  useMenuKeyboardNavigation(open, handleClose, containerRef, anchorRef, isSubmenu)
+  // Wait for the anchor label before mounting or focusing the menu.
+  const [anchorLabelReady, setAnchorLabelReady] = useState(false)
+  if (!open && anchorLabelReady) {
+    setAnchorLabelReady(false)
+  }
+  useMenuKeyboardNavigation(open && anchorLabelReady, handleClose, containerRef, anchorRef, isSubmenu)
 
   const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
 
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (open) {
       setAnchorAriaLabelledby(anchorRef.current?.getAttribute('aria-labelledby') ?? null)
+      setAnchorLabelReady(true)
     }
   }, [anchorRef, open])
 
@@ -345,7 +352,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       anchorRef={anchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
-      open={open}
+      open={open && anchorLabelReady}
       onOpen={onOpen}
       onClose={handleClose}
       align={align}

@@ -1,6 +1,7 @@
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import type React from 'react'
 import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
@@ -85,8 +86,12 @@ function ExampleWithTooltip(): JSX.Element {
 
 function IconButtonActionMenu({
   onSelect,
+  onFocus,
   ...props
-}: {onSelect?: () => void} & Pick<React.ComponentProps<typeof ActionMenu>, 'open' | 'onOpenChange'> = {}): JSX.Element {
+}: {onSelect?: () => void; onFocus?: React.FocusEventHandler<HTMLElement>} & Pick<
+  React.ComponentProps<typeof ActionMenu>,
+  'open' | 'onOpenChange'
+> = {}): JSX.Element {
   return (
     <ActionMenu {...props}>
       <ActionMenu.Anchor>
@@ -94,7 +99,9 @@ function IconButtonActionMenu({
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="medium">
         <ActionList>
-          <ActionList.Item onSelect={onSelect}>Copy link</ActionList.Item>
+          <ActionList.Item onSelect={onSelect} onFocus={onFocus}>
+            Copy link
+          </ActionList.Item>
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
@@ -683,6 +690,65 @@ describe('ActionMenu', () => {
   })
 
   describe('anchor labeling and focus behavior', () => {
+    it.each(['uncontrolled', 'controlled', 'initially open'] as const)(
+      'names the menu before initial item focus with CSS anchor positioning (%s)',
+      async mode => {
+        const onFocus = vi.fn(() => within(document.body).queryByRole('menu', {name: 'More actions'}) !== null)
+        const onOpenChange = vi.fn()
+        const example = (open?: boolean) => (
+          <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+            <BaseStyles>
+              <IconButtonActionMenu open={open} onOpenChange={onOpenChange} onFocus={onFocus} />
+            </BaseStyles>
+          </FeatureFlags>
+        )
+        const component = HTMLRender(example(mode === 'uncontrolled' ? undefined : mode === 'initially open'))
+
+        if (mode === 'uncontrolled') {
+          await browserUserEvent.click(page.getByRole('button', {name: 'More actions', exact: true}))
+        } else if (mode === 'controlled') {
+          component.rerender(example(true))
+        }
+
+        await expect.element(page.getByRole('menuitem', {name: 'Copy link', exact: true})).toHaveFocus()
+        expect(onFocus).toHaveBeenCalled()
+        expect(onFocus.mock.results[0].value).toBe(true)
+      },
+    )
+
+    it('resolves a changed external anchor label before focusing a reopened menu', async () => {
+      const anchorRef: React.RefObject<HTMLButtonElement> = {current: null}
+      const onFocus = vi.fn(() => within(document.body).queryByRole('menu')?.getAttribute('aria-labelledby'))
+      const example = (open: boolean, labelId: string) => (
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <span id="first-label">More actions</span>
+            <span id="second-label">Updated actions</span>
+            <Button ref={anchorRef} aria-labelledby={labelId}>
+              Actions
+            </Button>
+            <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={() => {}}>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item onFocus={onFocus}>Copy link</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>
+      )
+      const component = HTMLRender(example(true, 'first-label'))
+      const item = page.getByRole('menuitem', {name: 'Copy link', exact: true})
+      await expect.element(item).toHaveFocus()
+      expect(onFocus.mock.results.map(result => result.value)).toEqual(['first-label'])
+
+      component.rerender(example(false, 'second-label'))
+      component.rerender(example(true, 'second-label'))
+
+      await expect.element(item).toHaveFocus()
+      expect(onFocus.mock.results.map(result => result.value)).toEqual(['first-label', 'second-label'])
+    })
+
     it('does not publish anchor label state after mounting closed', async () => {
       const [Wrap, counter] = createRenderCounter()
       HTMLRender(
