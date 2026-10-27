@@ -1,10 +1,12 @@
-.SkeletonAvatar[data-component='SkeletonAvatar'] {
-  display: inline-block;
-  width: var(--avatarSize-regular);
-  height: var(--avatarSize-regular);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1;
-  border-radius: 50%;
+.SkeletonAvatar {
+  &:where([data-component='SkeletonAvatar']) {
+    display: inline-block;
+    width: var(--avatarSize-regular);
+    height: var(--avatarSize-regular);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 1;
+    border-radius: 50%;
+  }
 
   &:where([data-square]) {
     /* stylelint-disable-next-line primer/borders */
