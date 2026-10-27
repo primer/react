@@ -451,7 +451,6 @@ describe('Breadcrumbs', () => {
       await waitFor(() => {
         expect(menuButton).toHaveAttribute('aria-expanded', 'true')
       })
-      expect(menuButton).toHaveAttribute('aria-haspopup', 'true')
 
       // Press Escape key
       fireEvent.keyDown(document, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})

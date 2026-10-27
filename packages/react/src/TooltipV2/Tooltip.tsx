@@ -289,14 +289,12 @@ export const Tooltip: ForwardRefExoticComponent<
     useOnEscapePress(
       (event: KeyboardEvent) => {
         if (isPopoverOpen) {
-          if (!_privateDisableTooltip) {
-            event.stopImmediatePropagation()
-            event.preventDefault()
-          }
+          event.stopImmediatePropagation()
+          event.preventDefault()
           closeTooltip()
         }
       },
-      [isPopoverOpen, _privateDisableTooltip],
+      [isPopoverOpen],
     )
 
     const platform = usePlatform()
