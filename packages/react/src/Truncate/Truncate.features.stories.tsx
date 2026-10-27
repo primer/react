@@ -1,5 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import Truncate from './Truncate'
+import Link from '../Link'
 import {ArrowLeftIcon, ArrowRightIcon} from '@primer/octicons-react'
 
 export default {
@@ -28,3 +29,16 @@ export const MaxWidth = () => (
     Some example text with a max width
   </Truncate>
 )
+
+export const AsLink = () => {
+  const url = 'https://github.com/primer/react/blob/main/packages/react/src/Truncate/Truncate.tsx'
+  return (
+    <p>
+      Mirror:{' '}
+      <Truncate as={Link} href={url} title={url} maxWidth={300} inline>
+        {url}
+      </Truncate>{' '}
+      (inline link inside text)
+    </p>
+  )
+}

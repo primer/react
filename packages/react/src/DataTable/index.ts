@@ -6,7 +6,9 @@ import {
   TableBody,
   TableRow,
   TableHeader,
+  TableSelectionHeader,
   TableCell,
+  TableRowSelection,
   TableCellPlaceholder,
   TableContainer,
   TableTitle,
@@ -15,6 +17,7 @@ import {
   TableDivider,
   TableSkeleton,
 } from './Table'
+import {TableGroup} from './TableGroup'
 import {Pagination} from './Pagination'
 import type {SlotMarker} from '../utils/types/Slots'
 
@@ -28,8 +31,11 @@ const Table: typeof TableImpl &
     Skeleton: typeof TableSkeleton
     Head: typeof TableHead
     Body: typeof TableBody
+    Group: typeof TableGroup
     Header: typeof TableHeader
+    SelectionHeader: typeof TableSelectionHeader
     Row: typeof TableRow
+    RowSelection: typeof TableRowSelection
     Cell: typeof TableCell
     CellPlaceholder: typeof TableCellPlaceholder
     Pagination: typeof Pagination
@@ -43,8 +49,11 @@ const Table: typeof TableImpl &
   Skeleton: TableSkeleton,
   Head: TableHead,
   Body: TableBody,
+  Group: TableGroup,
   Header: TableHeader,
+  SelectionHeader: TableSelectionHeader,
   Row: TableRow,
+  RowSelection: TableRowSelection,
   Cell: TableCell,
   CellPlaceholder: TableCellPlaceholder,
   Pagination,
@@ -59,14 +68,17 @@ export type {
   TableBodyProps,
   TableRowProps,
   TableHeaderProps,
+  TableSelectionHeaderProps,
   TableCellProps,
+  TableRowSelectionProps,
   TableContainerProps,
   TableTitleProps,
   TableSubtitleProps,
   TableActionsProps,
   TableSkeletonProps,
 } from './Table'
+export type {TableGroupProps} from './TableGroup'
 export {createColumnHelper} from './column'
 export type {Column, CellAlignment, ColumnWidth} from './column'
-export type {UniqueRow} from './row'
+export type {DataTableData, DataTableRowGroup, DataTableRowId, UniqueRow} from './row'
 export type {ObjectPaths} from './utils'

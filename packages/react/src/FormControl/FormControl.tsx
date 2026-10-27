@@ -16,7 +16,7 @@ import {FormControlCaption} from './FormControlCaption'
 import FormControlLabel from './FormControlLabel'
 import FormControlLeadingVisual from './FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
-import {FormControlContextProvider} from './_FormControlContext'
+import {FormControlContextProvider} from './_FormControlContextProvider'
 import {warning} from '../utils/warning'
 import classes from './FormControl.module.css'
 import {isSlot} from '../utils/is-slot'
@@ -155,7 +155,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           {childrenWithoutSlots.filter(
             child =>
               React.isValidElement(child) &&
-              ![Checkbox, Radio].some(inputComponent => child.type === inputComponent || isSlot(child, inputComponent)),
+              !expectedInputComponents.some(
+                inputComponent => child.type === inputComponent || isSlot(child, inputComponent),
+              ),
           )}
         </div>
         {slots.leadingVisual ? (

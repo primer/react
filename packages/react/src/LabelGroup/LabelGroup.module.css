@@ -7,6 +7,11 @@
   max-width: 100%;
   overflow: hidden;
 
+  /* Isolate the IntersectionObserver-driven show/hide of overflowing labels so it can't invalidate
+  ancestor layout. Safe because the row already clips (overflow: hidden) and the expanded overlay is
+  rendered separately, so it isn't affected by the new containing block/stacking context. */
+  contain: layout;
+
   &:where([data-overflow='inline']) {
     flex-wrap: wrap;
   }

@@ -4,7 +4,3 @@
   overflow-y: hidden;
   -webkit-overflow-scrolling: auto;
 }
-
-.StyledUnderlineWrapper[data-icons-visible='false'] [data-component='icon'] {
-  display: none;
-}

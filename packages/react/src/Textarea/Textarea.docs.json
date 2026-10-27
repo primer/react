@@ -68,6 +68,12 @@
       "description": "Changes the resize behavior"
     },
     {
+      "name": "autoSize",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Allows the textarea to grow to fit its content"
+    },
+    {
       "name": "characterLimit",
       "type": "number",
       "description": "The maximum number of characters allowed in the textarea"
@@ -76,7 +82,8 @@
       "name": "contrast",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Changes background color to a higher contrast color"
+      "deprecated": true,
+      "description": "Deprecated. Omit this prop to use the default background."
     },
     {
       "name": "validationStatus",

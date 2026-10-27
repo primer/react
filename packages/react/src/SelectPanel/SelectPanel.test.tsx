@@ -1,7 +1,8 @@
-import {render, screen, waitFor} from '@testing-library/react'
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
 import {page} from 'vitest/browser'
 import React from 'react'
+import {flushSync} from 'react-dom'
 import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
 import {FeatureFlags} from '../FeatureFlags'
@@ -13,6 +14,7 @@ import classes from './SelectPanel.test.module.css'
 import {implementsClassName} from '../utils/testing'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition} from '@primer/behaviors'
+import {createRenderCounter} from '../utils/testing/profiler'
 
 // Mock getAnchoredPosition to verify displayInViewport is forwarded
 vi.mock('@primer/behaviors', async () => {
@@ -98,6 +100,234 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
 }
 
 globalThis.Element.prototype.scrollTo = vi.fn()
+
+describe('SelectPanel state synchronization', () => {
+  const synchronizedItems: ItemInput[] = [
+    {id: 'one', text: 'item one'},
+    {id: 'two', text: 'item two'},
+    {id: 'three', text: 'item three'},
+  ]
+  const selectedItems = [synchronizedItems[1]]
+
+  function MultiSelectPanel({
+    items: panelItems,
+    loading,
+    onOpenChange = () => {},
+    open,
+  }: {
+    items: ItemInput[]
+    loading?: boolean
+    onOpenChange?: SelectPanelProps['onOpenChange']
+    open: boolean
+  }) {
+    return (
+      <SelectPanel
+        title="test title"
+        items={panelItems}
+        placeholder="Select items"
+        placeholderText="Filter items"
+        selected={selectedItems}
+        onSelectedChange={() => {}}
+        onFilterChange={() => {}}
+        loading={loading}
+        open={open}
+        onOpenChange={onOpenChange}
+      />
+    )
+  }
+
+  function SingleSelectModal({
+    onSelectedChange = () => {},
+    open,
+    selected,
+  }: {
+    onSelectedChange?: (selected: ItemInput | undefined) => void
+    open: boolean
+    selected: ItemInput | undefined
+  }) {
+    return (
+      <SelectPanel
+        title="test title"
+        items={synchronizedItems}
+        placeholder="Select an item"
+        placeholderText="Filter items"
+        selected={selected}
+        onSelectedChange={onSelectedChange}
+        onFilterChange={() => {}}
+        open={open}
+        onOpenChange={() => {}}
+        variant="modal"
+        onCancel={() => {}}
+      />
+    )
+  }
+
+  it('does not commit a follow-up update when mounted closed with preloaded items', async () => {
+    const [Wrap, counter] = createRenderCounter()
+
+    render(
+      <Wrap>
+        <MultiSelectPanel items={synchronizedItems} open={false} />
+      </Wrap>,
+    )
+    await act(async () => {})
+
+    expect(counter.mountCount).toBe(1)
+    expect(counter.updateCount).toBe(0)
+  })
+
+  it('orders the selected item in the opening commit and focuses the filter input', async () => {
+    const committedOrders: string[][] = []
+    const recordOrder = () => {
+      const order = Array.from(document.querySelectorAll<HTMLElement>('[role="option"]'), option =>
+        option.textContent.trim(),
+      )
+
+      if (order.length > 0) {
+        committedOrders.push(order)
+      }
+    }
+    const renderPanel = (open: boolean) => (
+      <React.Profiler id="select-panel-open" onRender={recordOrder}>
+        <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+          <MultiSelectPanel items={synchronizedItems} open={open} />
+        </FeatureFlags>
+      </React.Profiler>
+    )
+    const {rerender} = render(renderPanel(false))
+
+    await act(async () => {})
+    committedOrders.length = 0
+    rerender(renderPanel(true))
+    await act(async () => {})
+
+    expect(committedOrders.length).toBeGreaterThan(0)
+    expect(committedOrders.every(order => order[0] === 'item two')).toBe(true)
+    expect(screen.getByLabelText('Filter items')).toHaveFocus()
+  })
+
+  it('commits item arrival once while closed', async () => {
+    const [Wrap, counter] = createRenderCounter()
+    const renderPanel = (panelItems: ItemInput[]) => (
+      <Wrap>
+        <MultiSelectPanel items={panelItems} open={false} />
+      </Wrap>
+    )
+    const {rerender} = render(renderPanel([]))
+
+    await act(async () => {})
+    counter.reset()
+    rerender(renderPanel(synchronizedItems))
+    await act(async () => {})
+
+    expect(counter.updateCount).toBe(1)
+    expect(counter.nestedUpdateCount).toBe(0)
+  })
+
+  it('orders arriving items without replacing or blurring the filter input', async () => {
+    const committedOrders: string[][] = []
+    const recordOrder = () => {
+      const order = Array.from(document.querySelectorAll<HTMLElement>('[role="option"]'), option =>
+        option.textContent.trim(),
+      )
+
+      if (order.length > 0) {
+        committedOrders.push(order)
+      }
+    }
+    const renderPanel = (panelItems: ItemInput[]) => (
+      <React.Profiler id="select-panel-items" onRender={recordOrder}>
+        <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+          <MultiSelectPanel items={panelItems} loading={false} open />
+        </FeatureFlags>
+      </React.Profiler>
+    )
+    const {rerender} = render(renderPanel([]))
+
+    const input = await screen.findByLabelText('Filter items')
+    await waitFor(() => expect(input).toHaveFocus())
+    committedOrders.length = 0
+    rerender(renderPanel(synchronizedItems))
+    await act(async () => {})
+
+    expect(committedOrders.length).toBeGreaterThan(0)
+    expect(committedOrders.every(order => order[0] === 'item two')).toBe(true)
+    expect(screen.getByLabelText('Filter items')).toBe(input)
+    expect(input).toHaveFocus()
+  })
+
+  it('commits a controlled modal selection change once while closed', async () => {
+    const [Wrap, counter] = createRenderCounter()
+    const renderPanel = (selected: ItemInput) => (
+      <Wrap>
+        <SingleSelectModal open={false} selected={selected} />
+      </Wrap>
+    )
+    const {rerender} = render(renderPanel(synchronizedItems[0]))
+
+    await act(async () => {})
+    counter.reset()
+    rerender(renderPanel(synchronizedItems[1]))
+    await act(async () => {})
+
+    expect(counter.updateCount).toBe(1)
+    expect(counter.nestedUpdateCount).toBe(0)
+  })
+
+  it('resets modal intermediate selection across close and controlled selection changes', async () => {
+    const user = userEvent.setup()
+    const onSelectedChange = vi.fn()
+    const renderPanel = (open: boolean, selected: ItemInput) => (
+      <SingleSelectModal onSelectedChange={onSelectedChange} open={open} selected={selected} />
+    )
+    const {rerender} = render(renderPanel(true, synchronizedItems[0]))
+
+    await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus())
+    await user.click(screen.getByRole('option', {name: 'item two'}))
+    expect(screen.getByRole('option', {name: 'item two'})).toHaveAttribute('aria-selected', 'true')
+    expect(onSelectedChange).not.toHaveBeenCalled()
+
+    rerender(renderPanel(false, synchronizedItems[0]))
+    rerender(renderPanel(true, synchronizedItems[0]))
+    await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus())
+    expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+
+    const input = screen.getByLabelText('Filter items')
+    rerender(renderPanel(true, synchronizedItems[2]))
+    expect(screen.getByRole('option', {name: 'item three'})).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByLabelText('Filter items')).toBe(input)
+    expect(input).toHaveFocus()
+
+    await user.click(screen.getByRole('button', {name: 'Save'}))
+    expect(onSelectedChange).toHaveBeenCalledWith(synchronizedItems[2])
+  })
+
+  it('announces internally managed loading when opened', async () => {
+    vi.useFakeTimers()
+    for (const element of document.querySelectorAll('live-region')) {
+      element.remove()
+    }
+    const liveRegion = document.createElement('live-region') as LiveRegionElement
+    document.body.appendChild(liveRegion)
+
+    try {
+      function LoadingPanel() {
+        const [open, setOpen] = React.useState(false)
+        return <MultiSelectPanel items={[]} open={open} onOpenChange={setOpen} />
+      }
+
+      render(<LoadingPanel />)
+      fireEvent.click(screen.getByRole('button', {name: 'item two'}))
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(liveRegion.getMessage('polite')).toBe('Loading.')
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+})
 
 for (const usingRemoveActiveDescendant of [false, true]) {
   describe('SelectPanel', () => {
@@ -502,7 +732,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       })
     })
 
-    function FilterableSelectPanel() {
+    function FilterableSelectPanel({textInputProps}: Pick<SelectPanelProps, 'textInputProps'>) {
       const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
       const [filter, setFilter] = React.useState('')
       const [open, setOpen] = React.useState(false)
@@ -518,6 +748,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           items={items.filter(item => item.text?.includes(filter))}
           placeholder="Select items"
           placeholderText="Filter items"
+          textInputProps={textInputProps}
           selected={selected}
           onSelectedChange={onSelectedChange}
           filterValue={filter}
@@ -646,6 +877,98 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       })
     })
 
+    describe.each([
+      {name: 'absent', flags: {}, contrast: false},
+      {name: 'false', flags: {primer_react_select_panel_legacy_contrast: false}, contrast: false},
+      {name: 'true', flags: {primer_react_select_panel_legacy_contrast: true}, contrast: true},
+    ])('legacy contrast flag $name', ({flags, contrast}) => {
+      it('should set the default background without changing filtering or focus', async () => {
+        const user = userEvent.setup()
+        render(
+          <FeatureFlags flags={flags}>
+            <FilterableSelectPanel />
+          </FeatureFlags>,
+        )
+
+        await user.click(screen.getByRole('button', {name: 'Select items'}))
+
+        const input = screen.getByLabelText('Filter items')
+        const wrapper = input.closest('[data-component="TextInput"]')
+        expect(wrapper).toBeInTheDocument()
+        expect(wrapper?.hasAttribute('data-contrast')).toBe(contrast)
+        expect(input).toBeEnabled()
+        expect(input).toHaveFocus()
+
+        await user.type(input, 'two')
+        expect(input).toHaveValue('two')
+        expect(screen.getAllByRole('option')).toHaveLength(1)
+        expect(screen.getByRole('option', {name: 'item two'})).toBeInTheDocument()
+
+        // Keep close-time ref and focus updates inside the active act scope.
+        act(() => {
+          flushSync(() => {
+            fireEvent.keyDown(input, {key: 'Escape'})
+          })
+        })
+        await waitFor(() => expect(input).not.toBeInTheDocument())
+        expect(screen.getByRole('button', {name: 'Select items'})).toHaveFocus()
+      })
+
+      it.each([true, false, undefined])('should preserve explicit contrast=%s', async explicitContrast => {
+        const user = userEvent.setup()
+        render(
+          <FeatureFlags flags={flags}>
+            <FilterableSelectPanel textInputProps={{contrast: explicitContrast}} />
+          </FeatureFlags>,
+        )
+
+        await user.click(screen.getByRole('button', {name: 'Select items'}))
+
+        const input = screen.getByLabelText('Filter items')
+        const wrapper = input.closest('[data-component="TextInput"]')
+        expect(wrapper).toBeInTheDocument()
+        expect(wrapper?.hasAttribute('data-contrast')).toBe(explicitContrast === true)
+        expect(input).toBeEnabled()
+        expect(input).toHaveFocus()
+        await user.type(input, 'two')
+        expect(input).toHaveValue('two')
+        expect(screen.getByRole('option', {name: 'item two'})).toBeInTheDocument()
+      })
+    })
+
+    it('should update contrast with the flag while preserving the input, filter, and focus', async () => {
+      const user = userEvent.setup()
+      const textInputProps = {'aria-label': 'Search items'}
+      const panel = <FilterableSelectPanel textInputProps={textInputProps} />
+      const {rerender} = render(
+        <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: false}}>{panel}</FeatureFlags>,
+      )
+
+      await user.click(screen.getByRole('button', {name: 'Select items'}))
+      const input = screen.getByLabelText('Search items')
+      const wrapper = input.closest('[data-component="TextInput"]')
+      expect(wrapper).toBeInTheDocument()
+      expect(wrapper).not.toHaveAttribute('data-contrast')
+      await user.type(input, 'two')
+
+      for (const legacyContrast of [true, false]) {
+        rerender(
+          <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: legacyContrast}}>{panel}</FeatureFlags>,
+        )
+
+        expect(screen.getByLabelText('Search items')).toBe(input)
+        expect(wrapper?.hasAttribute('data-contrast')).toBe(legacyContrast)
+        expect(input).toBeEnabled()
+        expect(input).toHaveValue('two')
+        expect(input).toHaveFocus()
+        expect(screen.getAllByRole('option')).toHaveLength(1)
+        expect(screen.getByRole('option', {name: 'item two'})).toBeInTheDocument()
+      }
+
+      await user.clear(input)
+      expect(screen.getAllByRole('option')).toHaveLength(3)
+    })
+
     describe('screen reader announcements', () => {
       beforeEach(() => {
         const liveRegion = document.createElement('live-region')
@@ -731,7 +1054,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
             } else {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
-                'List updated, Focused item: item one, not selected, 1 of 3',
+                'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
               )
             }
           },
@@ -781,7 +1104,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-        expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+        expect(getLiveRegion().getMessage('polite').trim()).toContain('This is a notice')
       })
 
       it('should announce filtered results', async () => {
@@ -797,7 +1120,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
             } else {
               expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
-                'List updated, Focused item: item one, not selected, 1 of 3',
+                'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
               )
             }
           },
@@ -828,7 +1151,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe('1 item available, 0 selected.')
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
+              expect(getLiveRegion().getMessage('polite').trim()).toBe(
                 'List updated, Focused item: item one, not selected, 1 of 1',
               )
             }
@@ -851,7 +1174,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe('No items available.')
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe('No items available.')
+              expect(getLiveRegion().getMessage('polite').trim()).toBe('No items available.')
             }
           },
           {timeout: 3000},
@@ -903,7 +1226,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             if (usingRemoveActiveDescendant) {
               expect(getLiveRegion().getMessage('polite')!.trim()).toBe("Nothing found. There's nothing here.")
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe("Nothing found. There's nothing here.")
+              expect(getLiveRegion().getMessage('polite').trim()).toBe("Nothing found. There's nothing here.")
             }
           },
           {timeout: 3000},
@@ -1673,11 +1996,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         const input = screen.getByPlaceholderText('Filter items')
         const options = screen.getAllByRole('option')
 
-        // Wait a tick for the effect to run
-        await new Promise(resolve => setTimeout(resolve, 0))
-
-        // aria-activedescendant should be set to the first item
-        expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id)
+        await waitFor(() => {
+          expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id)
+        })
       })
 
       it('should not set aria-activedescendant on mouse hover until after first interaction when setInitialFocus is true', async () => {
@@ -2176,6 +2497,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div
           onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
             const isAlphabetKey = e.key.length === 1 && /[a-z\d]/i.test(e.key)

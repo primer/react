@@ -96,6 +96,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     role,
     loading,
     _PrivateItemWrapper,
+    _PrivateTooltipText,
     className,
     groupId: _groupId,
     renderItem: _renderItem,
@@ -333,13 +334,13 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-trailing-action-loading={trailingActionRendered && slots.trailingAction?.props.loading ? true : undefined}
         className={clsx(classes.ActionListItem, className)}
       >
-        <ConditionalTooltip ref={forwardedRef} text={truncatedText} enabled={buttonSemantics}>
+        <ConditionalTooltip ref={forwardedRef} text={_PrivateTooltipText ?? truncatedText} enabled={buttonSemantics}>
           <ItemWrapper
             {...wrapperProps}
             className={classes.ActionListContent}
             data-size={size}
             // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
-            ref={forwardedRef}
+            ref={listSemantics ? null : forwardedRef}
           >
             {/* Reset TooltipContext so that child components don't detect
                 the ConditionalTooltip and suppress their own internal tooltips. */}

@@ -8,6 +8,11 @@ export type Size = 'small' | 'medium' | 'large'
 
 export type AlignContent = 'start' | 'center'
 
+export type NotificationIndicatorPlacement = 'button' | 'leadingVisual' | 'icon'
+
+type ButtonNotificationIndicatorPlacement = Exclude<NotificationIndicatorPlacement, 'icon'>
+type IconButtonNotificationIndicatorPlacement = Exclude<NotificationIndicatorPlacement, 'leadingVisual'>
+
 type ButtonA11yProps =
   | {'aria-label': string; 'aria-labelledby'?: undefined}
   | {'aria-label'?: undefined; 'aria-labelledby': string}
@@ -58,8 +63,7 @@ export type ButtonProps = {
   /**
    * The icon for the IconButton
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  icon?: React.FunctionComponent<IconProps> | React.ElementType | React.ReactElement<any> | null
+  icon?: React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>
 
   /**
    * The leading visual which comes before the button content
@@ -82,10 +86,22 @@ export type ButtonProps = {
   children?: React.ReactNode
 
   count?: number | string
+
+  /**
+   * Displays a visual indicator for new activity on the button boundary or leading visual.
+   * The `leadingVisual` placement requires the `leadingVisual` prop. Consumers are responsible
+   * for communicating the indicator's meaning through an accessible label or description.
+   */
+  notificationIndicator?: ButtonNotificationIndicatorPlacement
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.ElementType
+  icon: React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>
+  /**
+   * Displays a visual indicator for new activity on the button boundary or icon. Consumers are
+   * responsible for communicating the indicator's meaning through an accessible label or description.
+   */
+  notificationIndicator?: IconButtonNotificationIndicatorPlacement
   unsafeDisableTooltip?: boolean
   description?: string
   tooltipDirection?: TooltipDirection

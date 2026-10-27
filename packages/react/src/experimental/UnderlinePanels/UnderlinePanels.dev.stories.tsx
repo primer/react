@@ -1,6 +1,9 @@
+import {useState} from 'react'
 import type {ComponentProps} from '../../utils/types'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import UnderlinePanels from './UnderlinePanels'
+import {AnchoredOverlay} from '../../AnchoredOverlay'
+import {Button} from '../../Button'
 
 export default {
   title: 'Experimental/Components/UnderlinePanels/Dev',
@@ -44,4 +47,28 @@ SingleTabPlayground.argTypes = {
       type: 'text',
     },
   },
+}
+
+export const InOverlay = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderAnchor={props => <Button {...props}>Open panels</Button>}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'Select a tab', style: {width: '320px'}}}
+      focusZoneSettings={{disabled: true}}
+    >
+      <UnderlinePanels aria-label="Select a tab">
+        <UnderlinePanels.Tab aria-selected={true}>Tab 1</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab>Tab 3</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
+      </UnderlinePanels>
+    </AnchoredOverlay>
+  )
 }

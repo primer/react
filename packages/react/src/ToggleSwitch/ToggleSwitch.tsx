@@ -109,19 +109,20 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
     e => {
       if (disabled || loading) return
 
-      if (!isControlled) {
+      if (isControlled) {
+        // For controlled usage the click is the source of the change, so notify the
+        // consumer here rather than echoing the `checked` prop back from an effect
+        // (which fired on mount and whenever any of its dependencies — `checked`,
+        // `disabled`, or `onChange` — changed).
+        onChange?.(!isOn)
+      } else {
+        // `setIsOn` notifies `onChange` for uncontrolled usage.
         setIsOn(!isOn)
       }
       onClick && onClick(e)
     },
-    [disabled, isControlled, loading, onClick, setIsOn, isOn],
+    [disabled, isControlled, loading, onClick, onChange, setIsOn, isOn],
   )
-
-  useEffect(() => {
-    if (onChange && isControlled && !disabled) {
-      onChange(Boolean(checked))
-    }
-  }, [onChange, checked, isControlled, disabled])
 
   useEffect(() => {
     if (!loading && isLoadingLabelVisible) {

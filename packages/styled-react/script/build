@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# Build the package
-npx rollup -c
+set -e
 
-# Generate type declarations
-npx tsc --project tsconfig.build.json
+# Generate color schemes
+npm run build:precompile-color-schemes
+
+# Build the package
+npx rolldown -c
 
 # Generate components.json
 ./script/generate-components-json

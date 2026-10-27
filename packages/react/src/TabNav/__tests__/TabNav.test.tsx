@@ -34,6 +34,17 @@ describe('TabNav', () => {
     })
   })
 
+  it('renders data-component attributes', () => {
+    render(
+      <TabNav>
+        <TabNav.Link href="#">Link Text</TabNav.Link>
+      </TabNav>,
+    )
+
+    expect(screen.getByRole('navigation').parentElement).toHaveAttribute('data-component', 'TabNav')
+    expect(screen.getByRole('tab')).toHaveAttribute('data-component', 'TabNav.Link')
+  })
+
   it('sets aria-label appropriately', () => {
     render(<TabNav aria-label="Test label" />)
     expect(screen.getByLabelText('Test label')).toBeTruthy()

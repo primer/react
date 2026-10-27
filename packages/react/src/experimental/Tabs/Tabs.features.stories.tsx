@@ -61,6 +61,31 @@ export const Controlled = () => {
   )
 }
 
+export const ManualActivation = () => (
+  <>
+    <Flash style={{marginBottom: '16px'}}>
+      This example shows the `Tabs` component with `activationMode` set to `manual`. Arrow keys move focus between tabs
+      without selecting them; press Enter or Space (or click) to select the focused tab.
+    </Flash>
+    <Tabs
+      defaultValue="one"
+      activationMode="manual"
+      onValueChange={({value}) => {
+        action('onValueChange')({value})
+      }}
+    >
+      <TabList aria-label="Tabs">
+        <Tab value="one">One</Tab>
+        <Tab value="two">Two</Tab>
+        <Tab value="three">Three</Tab>
+      </TabList>
+      <TabPanel value="one">Panel one</TabPanel>
+      <TabPanel value="two">Panel two</TabPanel>
+      <TabPanel value="three">Panel three</TabPanel>
+    </Tabs>
+  </>
+)
+
 export const Vertical = () => (
   <>
     <Flash style={{marginBottom: '16px'}}>

@@ -193,6 +193,7 @@ export const ComplexAncestry = () => {
   // The outer Position element simply fills all available space
   return (
     <>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <div className={classes.ClippingContainer} tabIndex={0}>
         Clipping container - this element has <code>overflow</code> set to something other than <code>visible</code>
         <div className={classes.RelativeParent}>

@@ -8,6 +8,15 @@ import classes from '../Stack.module.css'
 describe('StackItem', () => {
   implementsClassName(StackItem, classes.StackItem)
 
+  it('renders data-component attribute', () => {
+    render(
+      <Stack>
+        <StackItem data-testid="stack-item">Content</StackItem>
+      </Stack>,
+    )
+    expect(screen.getByTestId('stack-item')).toHaveAttribute('data-component', 'StackItem')
+  })
+
   it('should render its children', () => {
     render(
       <Stack>

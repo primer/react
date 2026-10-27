@@ -24,7 +24,7 @@
           "name": "containerRef",
           "type": "React.RefObject<HTMLElement>",
           "required": true,
-          "description": "Ref to the container element (e.g. a tree) whose treeitem children will participate in roving tabindex focus management."
+          "description": "Ref to the container element (e.g. a tree) whose treeitem children will participate in roving tabindex focus management. Tree navigation keeps focus on nested controls that are not treeitems."
         },
         {
           "name": "mouseDownRef",

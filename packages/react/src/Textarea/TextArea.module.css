@@ -29,6 +29,10 @@
   resize: vertical;
 }
 
+.TextArea[data-auto-size='true'] {
+  field-sizing: content;
+}
+
 .TextArea:disabled {
   resize: none;
 }

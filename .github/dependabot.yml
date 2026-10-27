@@ -9,6 +9,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     versioning-strategy: increase
     labels:
       - 'dependencies'
@@ -23,6 +25,11 @@ updates:
           - '@eslint/*'
           - 'eslint'
           - 'eslint-plugin-*'
+      oxc:
+        patterns:
+          - 'oxc'
+          - 'oxc-*'
+          - '@oxc/*'
       react:
         patterns:
           - 'react'
@@ -31,11 +38,10 @@ updates:
           - '@types/react'
           - '@types/react-dom'
           - '@types/react-is'
-      rollup:
+      rolldown:
         patterns:
-          - '@rollup/*'
-          - 'rollup'
-          - 'rollup-plugin-*'
+          - '@rolldown/*'
+          - 'rolldown'
       storybook:
         patterns:
           - '@storybook/*'
@@ -49,6 +55,13 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     labels:
       - 'dependencies'
       - 'skip changeset'
+    groups:
+      artifacts:
+        patterns:
+          - 'actions/upload-artifact'
+          - 'actions/download-artifact'

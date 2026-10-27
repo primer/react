@@ -2,6 +2,7 @@ import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {ActionList} from '.'
+import {createRef} from 'react'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionList.module.css'
@@ -241,23 +242,30 @@ describe('ActionList', () => {
     expect(item.getAttribute('aria-labelledby')).not.toContain(descriptionId)
   })
 
-  it('should support size prop on LinkItem', () => {
+  it('should support size prop on Item and LinkItem', () => {
     const {container} = HTMLRender(
       <ActionList>
+        <ActionList.Item size="small">Small Item</ActionList.Item>
         <ActionList.LinkItem href="//github.com" size="large">
           Large Link Item
         </ActionList.LinkItem>
         <ActionList.LinkItem href="//github.com" size="medium">
           Medium Link Item
         </ActionList.LinkItem>
+        <ActionList.LinkItem href="//github.com" size="small">
+          Small Link Item
+        </ActionList.LinkItem>
         <ActionList.LinkItem href="//github.com">Default Link Item</ActionList.LinkItem>
       </ActionList>,
     )
 
+    const buttonElement = container.querySelector('button')
     const linkElements = container.querySelectorAll('a')
+    expect(buttonElement).toHaveAttribute('data-size', 'small')
     expect(linkElements[0]).toHaveAttribute('data-size', 'large')
     expect(linkElements[1]).toHaveAttribute('data-size', 'medium')
-    expect(linkElements[2]).toHaveAttribute('data-size', 'medium') // default should be medium
+    expect(linkElements[2]).toHaveAttribute('data-size', 'small')
+    expect(linkElements[3]).toHaveAttribute('data-size', 'medium') // default should be medium
   })
 })
 
@@ -605,4 +613,34 @@ describe('ActionList with role="tree"', () => {
 
     expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
   })
+})
+
+describe('ActionList forwarded ref (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      it('forwards a ref object to the element', () => {
+        const ref = createRef<HTMLUListElement>()
+        HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <ActionList ref={ref}>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList>
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLElement)
+      })
+
+      it('calls a callback ref with the element', () => {
+        const refCallback = vi.fn()
+        HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <ActionList ref={refCallback}>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList>
+          </FeatureFlags>,
+        )
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLElement)).toBe(true)
+      })
+    })
+  }
 })

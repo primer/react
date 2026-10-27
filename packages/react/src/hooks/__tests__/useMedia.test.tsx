@@ -1,6 +1,5 @@
-import {render} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import {act} from 'react'
 import ReactDOM from 'react-dom/server'
 import {useMedia, MatchMedia} from '../useMedia'
 
@@ -8,11 +7,14 @@ type MediaQueryEventListener = (event: {matches: boolean}) => void
 
 function mockMatchMedia({defaultMatch = false} = {}) {
   const listeners = new Set<MediaQueryEventListener>()
+  // Track the current match state so that reading `matchMedia(query).matches`
+  // reflects the latest value, mirroring real `MediaQueryList` behavior.
+  let currentMatches = defaultMatch
 
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: vi.fn().mockImplementation(query => ({
-      matches: defaultMatch,
+      matches: currentMatches,
       media: query,
       onchange: null,
       addListener: vi.fn(), // deprecated
@@ -29,6 +31,7 @@ function mockMatchMedia({defaultMatch = false} = {}) {
 
   return {
     change({matches = false}) {
+      currentMatches = matches
       for (const listener of listeners) {
         listener({
           matches,
@@ -72,8 +75,30 @@ describe('useMedia', () => {
       return null
     }
 
+    // `renderToString` uses the server snapshot, which defaults to `false` when
+    // no `defaultState` is provided.
     ReactDOM.renderToString(<TestComponent />)
     expect(match[0]).toBe(false)
+  })
+
+  it('does not warn about a missing defaultState on the client', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    function TestComponent() {
+      useMedia('(pointer: coarse)')
+      return null
+    }
+
+    // On the client (where `window` is defined) the hook reads `matchMedia`
+    // directly, so the SSR guidance warning must not appear in the browser
+    // console — including during hydration, when `getServerSnapshot` runs.
+    render(<TestComponent />)
+
+    expect(warnSpy).not.toHaveBeenCalledWith(
+      'Warning:',
+      expect.stringContaining('`useMedia` When server side rendering'),
+    )
+    warnSpy.mockRestore()
   })
 
   it('should respond to change in matchMedia values', () => {

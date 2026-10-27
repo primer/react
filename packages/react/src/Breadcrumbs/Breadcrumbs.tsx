@@ -313,7 +313,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
     // In 'menu-with-root' mode the root stays visible, so drop it from the menu.
     const effectiveMenuItems = effectiveHideRoot ? menuItems : menuItems.slice(1)
     const menuElement = (
-      <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
+      <li className={classes.BreadcrumbsItem} data-overflow-menu="" key="breadcrumbs-menu">
         <BreadcrumbsMenuItem
           ref={measureMenuButton}
           items={effectiveMenuItems}

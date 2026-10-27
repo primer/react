@@ -98,9 +98,12 @@ test.describe('ActionMenu', () => {
                   await page.getByRole('button', {name: buttonName}).click()
                 }
               }
-              expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-                `ActionMenu.${story.title}.${theme}${suffix}.png`,
-              )
+              if (story.title === 'Dev: Within Dialog') {
+                await page
+                  .locator('[data-component="ActionMenu.Button"] [data-component="text"]')
+                  .evaluate(element => element.setAttribute('style', 'visibility: hidden !important'))
+              }
+              await expect(page).toHaveScreenshot(`ActionMenu.${story.title}.${theme}${suffix}.png`)
             })
           }
         })

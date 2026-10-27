@@ -1,9 +1,10 @@
-import {describe, expect, it} from 'vitest'
-import {render} from '@testing-library/react'
+import {describe, expect, it, vi} from 'vitest'
+import {fireEvent, render} from '@testing-library/react'
 import type {PopoverProps} from '../Popover'
 import Popover from '../Popover'
 import classes from './Popover.module.css'
 import {implementsClassName} from '../utils/testing'
+import {useOnEscapePress} from '../hooks'
 
 describe('Popover', () => {
   implementsClassName(Popover, classes.Popover)
@@ -51,5 +52,52 @@ describe('Popover', () => {
     const {container: contentContainer} = render(<Popover.Content />)
     expect((popoverContainer.firstChild as Element).tagName).toEqual('DIV')
     expect((contentContainer.firstChild as Element).tagName).toEqual('DIV')
+  })
+
+  it('calls onEscape when the popover is open', () => {
+    const onEscape = vi.fn()
+    render(
+      <Popover open>
+        <Popover.Content onEscape={onEscape} />
+      </Popover>,
+    )
+
+    fireEvent.keyDown(document, {key: 'Escape'})
+
+    expect(onEscape).toHaveBeenCalledExactlyOnceWith(expect.any(KeyboardEvent))
+  })
+
+  it('does not call onEscape when the popover is closed', () => {
+    const onEscape = vi.fn()
+    render(
+      <Popover open={false}>
+        <Popover.Content onEscape={onEscape} />
+      </Popover>,
+    )
+
+    fireEvent.keyDown(document, {key: 'Escape'})
+
+    expect(onEscape).not.toHaveBeenCalled()
+  })
+
+  it('prevents lower overlays from handling Escape', () => {
+    const onEscape = vi.fn()
+    const onParentEscape = vi.fn()
+
+    const ParentOverlay = () => {
+      useOnEscapePress(onParentEscape)
+
+      return (
+        <Popover open>
+          <Popover.Content onEscape={onEscape} />
+        </Popover>
+      )
+    }
+
+    render(<ParentOverlay />)
+    fireEvent.keyDown(document, {key: 'Escape'})
+
+    expect(onEscape).toHaveBeenCalledOnce()
+    expect(onParentEscape).not.toHaveBeenCalled()
   })
 })

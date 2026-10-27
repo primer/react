@@ -19,6 +19,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   use: {
+    contextOptions: {
+      reducedMotion: 'reduce',
+    },
     screenshot: 'only-on-failure',
     viewport: {
       // Large breakpoint

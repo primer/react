@@ -49,19 +49,31 @@
   color: var(--fgColor-muted);
 }
 
+.InlineAvatar {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+/* Title on top, lock icon and state pill stacked below at narrow;
+   inline row with the title claiming remaining space above 480px. */
 .CrossReferenceRow {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   gap: var(--base-size-12);
   margin-top: var(--base-size-4);
 }
 
-.CrossReferenceContent {
-  flex: 1;
-  min-width: 0;
+@container (width < 480px) {
+  .CrossReferenceRow {
+    flex-direction: column;
+    gap: var(--base-size-4);
+  }
 }
 
 .CrossReferenceTitle {
+  flex: 1;
+  min-width: 0;
   font-size: var(--text-title-size-small);
   line-height: var(--text-title-lineHeight-small);
 }
@@ -87,18 +99,6 @@
   color: var(--fgColor-accent);
 }
 
-.CrossReferenceMeta {
-  color: var(--fgColor-muted);
-  flex-shrink: 0;
-}
-
-.CrossReferenceActions {
-  display: flex;
-  align-items: center;
-  gap: var(--base-size-12);
-  flex-shrink: 0;
-}
-
 .CrossReferenceTaskline {
   display: flex;
   align-items: center;
@@ -108,9 +108,18 @@
   color: var(--fgColor-muted);
 }
 
-.InlineAvatar {
-  vertical-align: middle;
-  margin-right: var(--base-size-4);
+.CrossReferenceMeta {
+  color: var(--fgColor-muted);
+  flex-shrink: 0;
+}
+
+/* Hides Timeline.Actions children (Verified / Unverified signature labels
+   on commit rows) when Timeline is narrow, so only the compact icon + SHA
+   cluster remains after the Actions row wraps beneath Body. */
+@container (width < 480px) {
+  .HideAtNarrow {
+    display: none;
+  }
 }
 
 .Timestamp {

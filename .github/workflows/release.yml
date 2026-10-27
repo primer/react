@@ -28,14 +28,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
+      - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
@@ -52,14 +52,14 @@ jobs:
       - name: Create release pull request or publish to npm
         id: changesets
         # Uses SHA for security hardening
-        # Currently pointing at a commit for the v1.4.1 tag
+        # Currently pointing at a commit for the v2.0.0 tag
         # Please keep this up-to-date if you're changing the SHA below
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51
         with:
-          title: Release tracking
-          commitMode: github-api
+          github-token: ${{ steps.app-token.outputs.token }}
+          pr-title: Release tracking
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
+          publish-script: npm run release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
@@ -72,13 +72,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
       - name: Set up Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -123,13 +123,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
       - name: Set up Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'

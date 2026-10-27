@@ -2,10 +2,11 @@ import {clsx} from 'clsx'
 import classes from './Popover.module.css'
 import type {HTMLProps} from 'react'
 import React, {useRef} from 'react'
-import {useOnOutsideClick} from '../hooks'
+import {useOnEscapePress, useOnOutsideClick} from '../hooks'
 
 // Stable empty array reference to avoid unnecessary re-renders
 const EMPTY_IGNORE_CLICK_REFS: React.RefObject<HTMLElement>[] = []
+const PopoverContext = React.createContext(false)
 
 type CaretPosition =
   | 'top'
@@ -38,15 +39,17 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   forwardRef,
 ) {
   return (
-    <div
-      {...props}
-      ref={forwardRef}
-      data-component="Popover"
-      data-open={open ? '' : undefined}
-      data-relative={relative ? '' : undefined}
-      data-caret={caret}
-      className={clsx(className, classes.Popover)}
-    />
+    <PopoverContext.Provider value={open ?? false}>
+      <div
+        {...props}
+        ref={forwardRef}
+        data-component="Popover"
+        data-open={open ? '' : undefined}
+        data-relative={relative ? '' : undefined}
+        data-caret={caret}
+        className={clsx(className, classes.Popover)}
+      />
+    </PopoverContext.Provider>
   )
 })
 Popover.displayName = 'Popover'
@@ -61,6 +64,10 @@ export type PopoverContentProps = {
    */
   onClickOutside?: (event: MouseEvent | TouchEvent) => void
   /*
+   * Callback fired when the Escape key is pressed while the popover is open
+   */
+  onEscape?: (event: KeyboardEvent) => void
+  /*
    * Refs to elements that should be ignored when detecting outside clicks
    */
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
@@ -71,10 +78,12 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
   width = 'small',
   height = 'fit-content',
   onClickOutside,
+  onEscape,
   ignoreClickRefs,
   ...props
 }) => {
   const divRef = useRef(null)
+  const open = React.useContext(PopoverContext)
 
   const outsideClickHandler = onClickOutside ?? (() => {})
 
@@ -83,6 +92,16 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
     containerRef: divRef,
     ignoreClickRefs: ignoreClickRefs ?? EMPTY_IGNORE_CLICK_REFS,
   })
+
+  useOnEscapePress(
+    event => {
+      if (open && onEscape) {
+        onEscape(event)
+        event.preventDefault()
+      }
+    },
+    [open, onEscape],
+  )
 
   return (
     <div

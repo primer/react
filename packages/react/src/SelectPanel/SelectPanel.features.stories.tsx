@@ -27,6 +27,9 @@ import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
 import classes from './SelectPanel.features.stories.module.css'
+import {FeatureFlags} from '../FeatureFlags'
+import {Default} from './SelectPanel.stories'
+import {expect, within} from 'storybook/test'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
@@ -34,6 +37,26 @@ const meta: Meta<typeof SelectPanel> = {
 } satisfies Meta<SelectPanelProps>
 
 export default meta
+
+export const LegacyContrast: StoryObj<typeof SelectPanel> = {
+  render: () => (
+    <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: true}}>
+      <Default />
+    </FeatureFlags>
+  ),
+  play: async ({canvas, canvasElement, userEvent}) => {
+    await userEvent.click(canvas.getByRole('button', {name: /bug/}))
+    const body = within(canvasElement.ownerDocument.body)
+    const input = body.getByRole('combobox', {name: 'Filter items'})
+    await expect(input.closest('[data-component="TextInput"]')).toHaveAttribute('data-contrast')
+    await expect(input).toBeEnabled()
+    await expect(input).toHaveFocus()
+    await userEvent.type(input, 'enhancement')
+    await expect(body.getAllByRole('option')).toHaveLength(1)
+    await expect(body.getByRole('option', {name: /enhancement/})).toBeVisible()
+    await userEvent.clear(input)
+  },
+}
 
 const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => {
   return {

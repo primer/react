@@ -1,4 +1,5 @@
 docs/public/**/*.css
+.agents/**/*.css
 **/dist/**/*.css
 **/.next/**/*.css
 **/storybook-static/**

@@ -1,6 +1,4 @@
-import {StdioServerTransport} from '@modelcontextprotocol/sdk/server/stdio.js'
-import {server} from '../server'
+import {serveStdio} from '@modelcontextprotocol/server/stdio'
+import {createServer} from '../server'
 
-const transport = new StdioServerTransport()
-
-await server.connect(transport)
+serveStdio(createServer)

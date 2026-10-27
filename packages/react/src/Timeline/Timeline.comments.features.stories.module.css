@@ -1,0 +1,9 @@
+/* Establishes the container query context for the responsive comment collapse. The
+   large comment cards switch between the large-gutter form (≥768px) and the compact
+   inline form (<768px) based on THIS element's inline size — mirroring live
+   github.com, which uses a container query (`@container issueViewerContainer`), not a
+   viewport media query, at a 768px breakpoint. The card + its `@container` child rules
+   live in `internal/CommentCard.module.css`; the story just owns the container root. */
+.CommentsRoot {
+  container-type: inline-size;
+}

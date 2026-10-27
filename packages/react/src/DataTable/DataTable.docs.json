@@ -42,6 +42,33 @@
     },
     {
       "id": "experimental-components-datatable-features--with-pagination"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-groups"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-row-selection"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-grouped-row-selection"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-standalone-and-grouped-row-selection"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-paginated-row-selection"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-sortable-groups"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-collapsible-groups"
+    },
+    {
+      "id": "experimental-components-table-features--with-groups"
+    },
+    {
+      "id": "experimental-components-table-features--with-row-selection"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -58,13 +85,64 @@
     },
     {
       "name": "data",
-      "type": "Array<Data>",
-      "description": "Provide a collection of the rows which will be rendered inside of the table"
+      "type": "Array<Data | DataTableRowGroup<Data>>",
+      "description": "Provide rows, row groups, or a mixture of both to render in the table, in display order."
     },
     {
       "name": "columns",
       "type": "Array<Column<Data>>",
       "description": "Provide the columns for the table and the fields in `data` to which they correspond"
+    },
+    {
+      "name": "getRowId",
+      "type": "(row: Data) => DataTableRowId",
+      "description": "Provide a stable row ID. Defaults to row.id. DataTableRowId is an exported string | number type."
+    },
+    {
+      "name": "rowSelection",
+      "type": "boolean",
+      "description": "Render row checkboxes and a select-all checkbox for the current page."
+    },
+    {
+      "name": "selectedRows",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Control selection using stable IDs from `getRowId`. Missing or non-selectable IDs stay stored but do not count as selected."
+    },
+    {
+      "name": "defaultSelectedRows",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Set the initial selection for an uncontrolled, static, single-page table."
+    },
+    {
+      "name": "onSelectionChange",
+      "type": "({ selectedRows }: { selectedRows: Set<DataTableRowId> }) => void",
+      "description": "Receive a new selection set when a checkbox is toggled. Data changes alone do not trigger this callback."
+    },
+    {
+      "name": "isRowSelectable",
+      "type": "(row: Data) => boolean",
+      "description": "Determine which rows can be selected and counted by select-all."
+    },
+    {
+      "name": "collapsibleGroups",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Enable group disclosures. Collapsing only hides members; selection and select-all still include them."
+    },
+    {
+      "name": "expandedGroups",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Control expanded groups by stable groupId. String and numeric IDs remain distinct."
+    },
+    {
+      "name": "defaultExpandedGroups",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Initially expanded group IDs. Defaults to all groups in the initial data; subsequently introduced IDs are collapsed."
+    },
+    {
+      "name": "onExpandedGroupsChange",
+      "type": "({ expandedGroups }: { expandedGroups: Set<DataTableRowId> }) => void",
+      "description": "Receive a new expansion set on a disclosure request. Sorting and data replacement do not emit this callback or clear stored IDs."
     },
     {
       "name": "cellPadding",
@@ -167,6 +245,63 @@
       ]
     },
     {
+      "name": "Table.Group",
+      "props": [
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Render a disclosure controlling the member body. Without this prop members are always visible."
+        },
+        {
+          "name": "expanded",
+          "type": "boolean",
+          "description": "Control whether the member body is visible."
+        },
+        {
+          "name": "defaultExpanded",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Initial expanded state for an uncontrolled group."
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "({ expanded }: { expanded: boolean }) => void",
+          "description": "Handle a disclosure request. Controlled groups wait for the expanded prop to update."
+        },
+        {
+          "name": "id",
+          "type": "string | number",
+          "description": "A stable identifier exposed on both group sections as `data-group-id`. The group header's DOM id is generated separately so it is safe for use in `headers`."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "The visible label for the group, shown in the group header and included in its accessible name along with the row count."
+        },
+        {
+          "name": "rowCount",
+          "type": "number",
+          "description": "The number of member rows in the group. Combined with `label` to build the group header's accessible name, for example \"Admins, 2 rows\"."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Override the group header's accessible name, for example to localize its row count description."
+        },
+        {
+          "name": "colSpan",
+          "type": "number",
+          "description": "The number of columns spanned by the group header."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The group's member rows, typically a list of `Table.Row` elements. When composing a grouped table directly, use each `Table.Cell`'s native `headers` prop to reference the corresponding `Table.Header` id. The group header association is added automatically."
+        }
+      ]
+    },
+    {
       "name": "Table.Row",
       "props": [
         {
@@ -188,6 +323,80 @@
         {
           "name": "children",
           "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Table.SelectionHeader",
+      "props": [
+        {
+          "name": "selection",
+          "type": "'all' | 'some' | 'none'",
+          "required": true,
+          "description": "Whether all, some, or none of the selectable rows are selected."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Whether row selection is unavailable."
+        },
+        {
+          "name": "onToggleSelect",
+          "type": "() => void",
+          "description": "Request toggling selection for all selectable rows."
+        },
+        {
+          "name": "checkboxRef",
+          "type": "React.Ref<HTMLInputElement>",
+          "description": "Forward a ref to the native selection checkbox."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "'Select rows'",
+          "description": "Provide the selection checkbox's accessible name."
+        },
+        {
+          "name": "aria-description",
+          "type": "string",
+          "description": "Describe the select-all scope, for example \"Select all 10 rows\"."
+        }
+      ]
+    },
+    {
+      "name": "Table.RowSelection",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": true,
+          "description": "Whether the row is selected."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Whether the row cannot be selected."
+        },
+        {
+          "name": "onToggleSelect",
+          "type": "() => void",
+          "description": "Request toggling selection for the row."
+        },
+        {
+          "name": "checkboxRef",
+          "type": "React.Ref<HTMLInputElement>",
+          "description": "Forward a ref to the native row checkbox."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "'Select row'",
+          "description": "Name the row checkbox when `aria-labelledby` is not provided."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Reference the row header IDs. The checkbox name adds \"Select\" before their text."
         }
       ]
     },

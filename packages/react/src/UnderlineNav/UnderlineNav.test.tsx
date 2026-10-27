@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import type React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   CodeIcon,
@@ -16,6 +16,8 @@ import {UnderlineNav} from '.'
 import {implementsClassName, withExpectedConsoleError} from '../utils/testing'
 import classes from '../internal/components/UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
+import {page} from 'vitest/browser'
+import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
@@ -62,6 +64,29 @@ const ResponsiveUnderlineNav = ({
 describe('UnderlineNav', () => {
   implementsClassName(ResponsiveUnderlineNav, classes.UnderlineWrapper)
   implementsClassName(props => <UnderlineNav.Item {...props}>Hi</UnderlineNav.Item>)
+
+  it('defaults href for native anchor items', () => {
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Code'})).toHaveAttribute('href', '#')
+  })
+
+  it('does not default href for custom link components', () => {
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item as={ReactRouterLikeLink} to="/issues">
+          Issues
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Issues'})).toHaveAttribute('href', '/issues')
+  })
+
   it('renders aria-current attribute to be pages when an item is selected', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const selectedNavLink = getByRole('link', {name: 'Code'})
@@ -78,7 +103,31 @@ describe('UnderlineNav', () => {
   it('renders icons correctly', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const nav = getByRole('navigation')
-    expect(nav.getElementsByTagName('svg').length).toEqual(7)
+    const list = within(nav).getByRole('list')
+    expect(list.getElementsByTagName('svg').length).toEqual(7)
+  })
+
+  it('hides icons below the medium breakpoint by default', () => {
+    render(<ResponsiveUnderlineNav />)
+    expect(screen.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
+  })
+
+  it('supports customizing when icons are hidden', () => {
+    render(
+      <UnderlineNav aria-label="Repository" hideIconsBreakpoint="medium">
+        <UnderlineNav.Item>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    expect(screen.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
+  })
+
+  it('supports always showing icons', () => {
+    render(
+      <UnderlineNav aria-label="Repository" hideIconsBreakpoint={null}>
+        <UnderlineNav.Item>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    expect(screen.getByRole('navigation')).not.toHaveAttribute('data-hide-icons-breakpoint')
   })
 
   it('fires onSelect on click', async () => {
@@ -141,9 +190,10 @@ describe('UnderlineNav', () => {
     expect(counter.textContent).toBe('\u00A0(120)')
   })
 
-  it('respects loadingCounters prop', () => {
+  it('respects loadingCounters prop', async () => {
+    await page.viewport(1000, 500)
     const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
-    const item = getByRole('link', {name: 'Actions'})
+    const item = getByRole('link', {name: 'Actions', hidden: true})
     const loadingCounter = item.getElementsByTagName('span')[2]
     expect(loadingCounter.className).toContain('LoadingCounter')
     expect(loadingCounter.textContent).toBe('')

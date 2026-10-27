@@ -12,6 +12,7 @@ exports[`SubNav.Link > respects the "selected" prop 1`] = `
       <a
         aria-current="true"
         class="prc-SubNav-Link-zaEfe"
+        data-component="SubNav.Link"
         data-selected="true"
       />
     </div>
@@ -20,6 +21,7 @@ exports[`SubNav.Link > respects the "selected" prop 1`] = `
     <a
       aria-current="true"
       class="prc-SubNav-Link-zaEfe"
+      data-component="SubNav.Link"
       data-selected="true"
     />
   </div>,

@@ -1,6 +1,8 @@
 'use client'
 
 export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
+export {AriaStatus, AriaAlert} from './live-region'
+export type {AriaStatusProps, AriaAlertProps} from './live-region'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
 export {default as ThemeProvider} from './ThemeProvider'
@@ -16,6 +18,15 @@ export type {
   PageLayoutContentProps,
   PageLayoutPaneProps,
   PageLayoutFooterProps,
+} from './PageLayout'
+export {usePaneWidth, defaultPaneWidth, DragHandle} from './PageLayout'
+export type {
+  DragHandleProps,
+  UsePaneWidthOptions,
+  UsePaneWidthResult,
+  PaneWidth,
+  PaneWidthValue,
+  CustomWidthOptions,
 } from './PageLayout'
 export {SplitPageLayout} from './SplitPageLayout'
 export type {
@@ -154,6 +165,8 @@ export type {
   SegmentedControlProps,
   SegmentedControlButtonProps,
   SegmentedControlIconButtonProps,
+  SegmentedControlActionProps,
+  SegmentedControlDividerProps,
 } from './SegmentedControl'
 // Currently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
 export {default as Select} from './Select'

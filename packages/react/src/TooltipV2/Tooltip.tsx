@@ -1,5 +1,6 @@
-import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
-import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
+import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
+import {useId, useOnEscapePress, useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -13,6 +14,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
 import {TooltipContext} from './TooltipContext'
+import {reactMajorVersion} from '../utils/environment'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -52,7 +54,7 @@ type TriggerPropsType = Pick<
   | 'onTouchCancel'
   | 'onTouchEnd'
 > & {
-  ref?: React.RefObject<HTMLElement>
+  ref?: React.Ref<HTMLElement>
 }
 
 // map tooltip direction to anchoredPosition props
@@ -126,7 +128,22 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
-    const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    const isFragmentTrigger = React.isValidElement(child) && child.type === React.Fragment
+    warning(
+      isFragmentTrigger,
+      'The `Tooltip` component does not support a React Fragment as its trigger. Pass a single interactive element instead.',
+    )
+    const elementChild = React.isValidElement(child) ? child : undefined
+    const childRef =
+      reactMajorVersion > 18 ? elementChild?.props.ref : (elementChild as {ref?: React.Ref<unknown>} | undefined)?.ref
+    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+    const triggerRef = useRef<HTMLElement>(null)
+    const mergedTriggerRef = useMergedRefs(triggerRef, useMergedRefs(forwardedRef, childRef))
+    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+    // At graduation: remove the three declarations below, and replace all instances of `readTriggerRef` with `triggerRef` and `appliedTriggerRef` with `mergedTriggerRef`.
+    const providedOrCreatedRef = useProvidedRefOrCreate((forwardedRef ?? childRef) as React.RefObject<HTMLElement>)
+    const readTriggerRef = mergedRefEnabled ? triggerRef : providedOrCreatedRef
+    const appliedTriggerRef = mergedRefEnabled ? mergedTriggerRef : providedOrCreatedRef
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
@@ -141,13 +158,13 @@ export const Tooltip: ForwardRefExoticComponent<
       try {
         if (
           tooltipElRef.current &&
-          triggerRef.current &&
+          readTriggerRef.current instanceof HTMLElement &&
           tooltipElRef.current.hasAttribute('popover') &&
           !tooltipElRef.current.matches(':popover-open') &&
           !_privateDisableTooltip
         ) {
           const tooltip = tooltipElRef.current
-          const trigger = triggerRef.current
+          const trigger = readTriggerRef.current
           tooltip.showPopover()
           setIsPopoverOpen(true)
           /*
@@ -188,7 +205,7 @@ export const Tooltip: ForwardRefExoticComponent<
       try {
         if (
           tooltipElRef.current &&
-          triggerRef.current &&
+          readTriggerRef.current &&
           tooltipElRef.current.hasAttribute('popover') &&
           tooltipElRef.current.matches(':popover-open')
         ) {
@@ -218,13 +235,20 @@ export const Tooltip: ForwardRefExoticComponent<
     const value = useMemo(() => ({tooltipId}), [tooltipId])
 
     useEffect(() => {
-      if (!tooltipElRef.current || !triggerRef.current) return
+      if (!tooltipElRef.current || !readTriggerRef.current) return
+      const trigger = readTriggerRef.current
+      const isInvalidTrigger = !(trigger instanceof HTMLElement)
+      warning(
+        isInvalidTrigger,
+        'The `Tooltip` component expects its trigger ref to resolve to an HTML element. Ensure the trigger forwards its ref to a single interactive element instead of a React Fragment.',
+      )
+      if (isInvalidTrigger) return
       /*
        * ACCESSIBILITY CHECKS
        */
       // Has trigger element or any of its children interactive elements?
-      const isTriggerInteractive = isInteractive(triggerRef.current)
-      const triggerChildren = triggerRef.current.childNodes
+      const isTriggerInteractive = isInteractive(trigger)
+      const triggerChildren = trigger.childNodes
       // two levels deep
       const hasInteractiveDescendant = Array.from(triggerChildren).some(child => {
         return (
@@ -241,8 +265,8 @@ export const Tooltip: ForwardRefExoticComponent<
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (type === 'label') {
-        const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
-        const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
+        const hasAriaLabel = trigger.hasAttribute('aria-label')
+        const hasAriaLabelInChildren = Array.from(trigger.childNodes).some(
           child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
         )
         warning(
@@ -260,7 +284,7 @@ export const Tooltip: ForwardRefExoticComponent<
 
       const tooltip = tooltipElRef.current
       tooltip.setAttribute('popover', 'auto')
-    }, [tooltipElRef, triggerRef, direction, type])
+    }, [tooltipElRef, readTriggerRef, direction, type])
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
@@ -279,13 +303,15 @@ export const Tooltip: ForwardRefExoticComponent<
     // Normalize keybindingHint to an array for uniform rendering
     const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
 
+    if (isFragmentTrigger) return child
+
     return (
       <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              // @ts-expect-error it needs a non nullable ref
-              ref: triggerRef,
+              // @ts-expect-error the provided-or-created ref path needs a non nullable ref
+              ref: appliedTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
                 // If tooltip is not a description type, keep the original aria-describedby

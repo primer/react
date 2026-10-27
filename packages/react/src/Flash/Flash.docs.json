@@ -1,32 +1,32 @@
 {
   "id": "flash",
   "name": "Flash",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": "2025-01-08",
   "stories": [
     {
-      "id": "components-flash--default"
+      "id": "deprecated-components-flash--default"
     },
     {
-      "id": "components-flash-features--success"
+      "id": "deprecated-components-flash-features--success"
     },
     {
-      "id": "components-flash-features--danger"
+      "id": "deprecated-components-flash-features--danger"
     },
     {
-      "id": "components-flash-features--warning"
+      "id": "deprecated-components-flash-features--warning"
     },
     {
-      "id": "components-flash-features--full"
+      "id": "deprecated-components-flash-features--full"
     },
     {
-      "id": "components-flash-features--with-icon-and-action"
+      "id": "deprecated-components-flash-features--with-icon-and-action"
     },
     {
-      "id": "components-flash-features--with-icon-action-dismiss"
+      "id": "deprecated-components-flash-features--with-icon-action-dismiss"
     }
   ],
-  "importPath": "@primer/react",
+  "importPath": "@primer/react/deprecated",
   "props": [
     {
       "name": "full",

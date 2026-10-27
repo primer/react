@@ -1,4 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
+import {within, userEvent} from 'storybook/test'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
 import {ArrowRightIcon, ArrowLeftIcon, BookIcon, FileDirectoryIcon} from '@primer/octicons-react'
@@ -69,3 +70,38 @@ export const WithGroupTitleAndHeading = () => (
     <PageLayout.Content></PageLayout.Content>
   </PageLayout>
 )
+
+/**
+ * A collapsed parent item whose sub-nav contains the current item shows an
+ * active indicator. NavList auto-expands sub-navs that contain the current
+ * item, so the play function collapses it to surface the collapsed-parent
+ * active styling for visual regression coverage. This exercises the CSS that
+ * replaced `:has(~ .SubGroup [data-active])` with the parent's `data-active`.
+ */
+export const CollapsedSubNavWithCurrentItem = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item>
+          Item with current sub-item
+          <NavList.SubNav>
+            <NavList.Item href="#" aria-current="page">
+              Current sub-item
+            </NavList.Item>
+            <NavList.Item href="#">Other sub-item</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+CollapsedSubNavWithCurrentItem.storyName = 'Collapsed SubNav With Current Item'
+CollapsedSubNavWithCurrentItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const parentButton = await canvas.findByRole('button', {name: /Item with current sub-item/i})
+  await userEvent.click(parentButton)
+}

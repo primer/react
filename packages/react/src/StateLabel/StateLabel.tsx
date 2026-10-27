@@ -84,6 +84,7 @@ const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(
         {...rest}
         ref={ref}
         className={clsx(classes.StateLabel, className)}
+        data-component="StateLabel"
         data-size={inferredSize}
         data-status={status}
       >

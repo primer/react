@@ -50,3 +50,13 @@
   margin-top: var(--base-size-4);
   color: var(--fgColor-muted);
 }
+
+/*
+ * Timeline Playground: story-local style for the empty state rendered by the
+ * `TimelinePlayground` story (its controls are Storybook argTypes).
+ */
+
+.PlaygroundEmpty {
+  max-width: 1012px;
+  color: var(--fgColor-muted);
+}

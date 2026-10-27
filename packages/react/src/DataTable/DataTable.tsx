@@ -1,16 +1,27 @@
-import type React from 'react'
+import type {ReactElement, ReactNode} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
-import type {UniqueRow} from './row'
-import type {ObjectPaths} from './utils'
-import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
+import type {DataTableData, DataTableRowGroup, DataTableRowId, UniqueRow} from './row'
+import type {IsAny, ObjectPaths} from './utils'
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableSortHeader,
+  TableSelectionHeader,
+  TableCell,
+  TableRowSelection,
+} from './Table'
+import {TableGroup} from './TableGroup'
 
 // ----------------------------------------------------------------------------
 // DataTable
 // ----------------------------------------------------------------------------
 
-export type DataTableProps<Data extends UniqueRow> = {
+type DataTableBaseProps<Data extends UniqueRow> = {
   /**
    * Provide an id to an element which uniquely describes this table
    */
@@ -26,11 +37,6 @@ export type DataTableProps<Data extends UniqueRow> = {
    * a cell
    */
   cellPadding?: 'condensed' | 'normal' | 'spacious'
-
-  /**
-   * Provide a collection of the rows which will be rendered inside of the table
-   */
-  data: Array<Data>
 
   /**
    * Provide the columns for the table and the fields in `data` to which they
@@ -65,7 +71,7 @@ export type DataTableProps<Data extends UniqueRow> = {
    * @param rowData The row data object for which the ID is being retrieved.
    * @returns The unique identifier for the row, which can be a string or number.
    */
-  getRowId?: (rowData: Data) => string | number
+  getRowId?: (rowData: Data) => DataTableRowId
 
   /**
    * Fires every time the user clicks a sortable column header. It reports
@@ -73,13 +79,80 @@ export type DataTableProps<Data extends UniqueRow> = {
    * (never `"NONE"`).
    */
   onToggleSort?: (columnId: ObjectPaths<Data> | string | number, direction: Exclude<SortDirection, 'NONE'>) => void
+
+  /**
+   * Whether to render controls for selecting rows.
+   */
+  rowSelection?: boolean
+
+  /**
+   * Controls the selected row IDs.
+   */
+  selectedRows?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Provides the initially selected row IDs for an uncontrolled table.
+   * Uncontrolled selection is intended for static, single-page data.
+   */
+  defaultSelectedRows?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Handles changes to the selected row IDs.
+   */
+  onSelectionChange?: ({selectedRows}: {selectedRows: Set<DataTableRowId>}) => void
+
+  /**
+   * Determines whether a row can be selected.
+   */
+  isRowSelectable?: (row: Data) => boolean
+
+  /**
+   * Whether groups have disclosure controls. Groups are expanded by default.
+   */
+  collapsibleGroups?: boolean
+
+  /**
+   * Controls the expanded group IDs.
+   */
+  expandedGroups?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Initially expanded group IDs. Defaults to all groups in the initial data.
+   */
+  defaultExpandedGroups?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Handles requests to change the expanded group IDs.
+   */
+  onExpandedGroupsChange?: ({expandedGroups}: {expandedGroups: Set<DataTableRowId>}) => void
+}
+
+export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
+  /**
+   * Provide a collection of rows, row groups, or a mixture of both.
+   */
+  data: DataTableData<Data>
 }
 
 function defaultGetRowId<D extends UniqueRow>(row: D) {
   return row.id
 }
 
-function DataTable<Data extends UniqueRow>({
+type DataFromItem<Item> = Item extends DataTableRowGroup<infer Data> ? Data : Item extends UniqueRow ? Item : never
+
+type DataFromInput<Input extends DataTableData<UniqueRow>> =
+  IsAny<Input> extends true ? UniqueRow : DataFromItem<Input[number]>
+
+type InferredDataTableProps<Input extends DataTableData<UniqueRow>> = DataTableBaseProps<DataFromInput<Input>> & {
+  data: Input & DataTableData<DataFromInput<Input>>
+}
+
+interface DataTableComponent {
+  <Data extends UniqueRow>(props: DataTableProps<Data>): ReactElement
+  <Input extends DataTableData<UniqueRow>>(props: InferredDataTableProps<Input>): ReactElement
+}
+
+function DataTableImplementation<Data extends UniqueRow>({
   'aria-labelledby': labelledby,
   'aria-describedby': describedby,
   cellPadding,
@@ -90,15 +163,62 @@ function DataTable<Data extends UniqueRow>({
   externalSorting,
   getRowId = defaultGetRowId,
   onToggleSort,
+  rowSelection = false,
+  selectedRows,
+  defaultSelectedRows,
+  onSelectionChange,
+  isRowSelectable,
+  collapsibleGroups = false,
+  expandedGroups,
+  defaultExpandedGroups,
+  onExpandedGroupsChange,
 }: DataTableProps<Data>) {
-  const {headers, rows, actions, gridTemplateColumns} = useTable({
+  const table = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
     getRowId,
     externalSorting,
+    rowSelection,
+    selectedRows,
+    defaultSelectedRows,
+    onSelectionChange,
+    isRowSelectable,
+    collapsibleGroups,
+    expandedGroups,
+    defaultExpandedGroups,
+    onExpandedGroupsChange,
   })
+  const {headers, bodies, actions, selection, gridTemplateColumns} = table
+
+  const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
+    <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
+      {rowSelection ? (
+        <TableRowSelection
+          selected={row.selected}
+          disabled={!row.selectable}
+          headers={selection.headerId}
+          aria-label={row.selectionLabelledBy ? undefined : `Select row ${row.selectionId}`}
+          aria-labelledby={row.selectionLabelledBy}
+          onToggleSelect={() => {
+            actions.toggleRowSelection(row)
+          }}
+        />
+      ) : null}
+      {row.getCells().map(cell => (
+        <TableCell
+          key={cell.id}
+          id={cell.domId}
+          scope={cell.rowHeader ? 'row' : undefined}
+          align={cell.column.align}
+          headers={cell.headers}
+        >
+          {cell.column.renderCell ? cell.column.renderCell(row.getValue()) : (cell.getValue() as ReactNode)}
+        </TableCell>
+      ))}
+    </TableRow>
+  )
 
   return (
     <Table
@@ -109,11 +229,28 @@ function DataTable<Data extends UniqueRow>({
     >
       <TableHead>
         <TableRow>
+          {rowSelection ? (
+            <TableSelectionHeader
+              id={selection.headerId}
+              selection={selection.allSelected ? 'all' : selection.someSelected ? 'some' : 'none'}
+              disabled={selection.selectableCount === 0}
+              aria-label="Select rows"
+              aria-description={
+                selection.selectableCount > 0
+                  ? `Select all ${selection.selectableCount} ${selection.selectableCount === 1 ? 'row' : 'rows'}`
+                  : undefined
+              }
+              onToggleSelect={() => {
+                actions.toggleAllRows()
+              }}
+            />
+          ) : null}
           {headers.map(header => {
             if (header.isSortable()) {
               return (
                 <TableSortHeader
                   key={header.id}
+                  id={header.domId}
                   align={header.column.align}
                   direction={header.getSortDirection()}
                   onToggleSort={() => {
@@ -128,32 +265,38 @@ function DataTable<Data extends UniqueRow>({
               )
             }
             return (
-              <TableHeader key={header.id} align={header.column.align}>
+              <TableHeader key={header.id} id={header.domId} align={header.column.align}>
                 {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
               </TableHeader>
             )
           })}
         </TableRow>
       </TableHead>
-      <TableBody>
-        {rows.map(row => {
-          return (
-            <TableRow key={row.id}>
-              {row.getCells().map(cell => {
-                return (
-                  <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
-                    {cell.column.renderCell
-                      ? cell.column.renderCell(row.getValue())
-                      : (cell.getValue() as React.ReactNode)}
-                  </TableCell>
-                )
-              })}
-            </TableRow>
-          )
-        })}
-      </TableBody>
+      {bodies.map(body =>
+        body.type === 'row-group' ? (
+          <TableGroup
+            key={body.key}
+            id={body.id}
+            label={body.label}
+            rowCount={body.rows.length}
+            colSpan={headers.length + (rowSelection ? 1 : 0)}
+            aria-label={body['aria-label']}
+            collapsible={collapsibleGroups}
+            expanded={body.expanded}
+            onExpandedChange={() => {
+              actions.toggleGroupExpansion(body)
+            }}
+          >
+            {body.rows.map(renderRow)}
+          </TableGroup>
+        ) : (
+          <TableBody key={body.key}>{body.rows.map(renderRow)}</TableBody>
+        ),
+      )}
     </Table>
   )
 }
+
+const DataTable = DataTableImplementation as DataTableComponent
 
 export {DataTable}

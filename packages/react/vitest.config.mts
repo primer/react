@@ -1,19 +1,15 @@
 import {defineConfig} from '@primer/vitest-config/config'
-import babel from '@rolldown/plugin-babel'
 
-import react, {reactCompilerPreset} from '@vitejs/plugin-react'
-import {isSupported} from './script/react-compiler.mjs'
+import react from '@vitejs/plugin-react'
+import {files, isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
   plugins: [
-    react(),
-    babel({
-      presets: [
-        reactCompilerPreset({
-          sources: (filepath: string) => isSupported(filepath),
-          target: '18',
-        }),
-      ],
+    react({
+      compiler: {
+        sources: files.filter(isSupported),
+        target: '18',
+      },
     }),
   ],
   resolve: {
@@ -24,7 +20,7 @@ export default defineConfig({
   },
   test: {
     name: '@primer/react (node)',
-    include: ['src/__tests__/exports.test.ts', 'src/__tests__/storybook.test.tsx'],
+    include: ['src/__tests__/exports.test.ts', 'src/__tests__/ssr.test.tsx', 'src/__tests__/storybook.test.tsx'],
     environment: 'node',
     detectAsyncLeaks: true,
   },

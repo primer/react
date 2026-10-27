@@ -16,7 +16,9 @@ import {useTabPanel} from './useTabPanel'
  */
 function Tabs(props: TabsProps) {
   const {children, onValueChange} = props
-  const groupId = useId()
+  const generatedId = useId()
+  const groupId = props.id ?? generatedId
+  const activationMode = props.activationMode ?? 'automatic'
 
   const [selectedValue, setSelectedValue] = useControllableState<string>({
     name: 'tab-selection',
@@ -24,17 +26,29 @@ function Tabs(props: TabsProps) {
     value: props.value,
   })
 
+  // In manual activation the roving tab stop follows focus, not selection, so track it separately.
+  const [focusedValue, setFocusedValue] = React.useState<string>()
+
   const savedOnValueChange = React.useRef(onValueChange)
   const contextValue: TabsContextValue = useMemo(() => {
     return {
       groupId,
       selectedValue,
+      activationMode,
+      focusedValue,
       selectTab(value: string) {
+        setFocusedValue(undefined)
+        if (value === selectedValue) {
+          return
+        }
         setSelectedValue(value)
         savedOnValueChange.current?.({value})
       },
+      focusTab(value: string) {
+        setFocusedValue(value)
+      },
     }
-  }, [groupId, selectedValue, setSelectedValue])
+  }, [groupId, selectedValue, activationMode, focusedValue, setSelectedValue])
 
   useIsomorphicLayoutEffect(() => {
     savedOnValueChange.current = onValueChange

@@ -24,26 +24,15 @@ Closes #
 
 <!-- How do you recommend this change to be rolled out? Refer to [contributor docs on Versioning](https://github.com/primer/react/blob/main/contributor-docs/versioning.md) for details. -->
 
-- [ ] Patch release
-- [ ] Minor release
-- [ ] Major release; if selected, include a written rollout or migration plan
-- [ ] None; if selected, include a brief description as to why
+- [ ] No changes needed in github/github-ui
+- [ ] Needs changes in github/github-ui <!-- if selected, include the commits or link to migration plan -->
+- [ ] Ships with feature flag(s) <!-- if selected, include the names of the feature flag(s) -->
+- [ ] Not sure <!-- select this if you are not sure how to roll out this change or you are an open source contributor (thanks for contributing!) -->
+- [ ] None <!-- if selected, include a brief description as to why -->
 
 ### Testing & Reviewing
 
 <!-- Describe any specific details to help reviewers test or review this Pull Request -->
-<!-- To publish a canary release for integration testing, apply the "Canary Release" label to this PR -->
-
-### Merge checklist
-
-- [ ] Added/updated tests
-- [ ] Added/updated documentation
-- [ ] Added/updated previews (Storybook)
-- [ ] Changes are [SSR compatible](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#ssr-compatibility)
-- [ ] Tested in Chrome
-- [ ] Tested in Firefox
-- [ ] Tested in Safari
-- [ ] Tested in Edge
-- [ ] (GitHub staff only) Integration tests pass at github/github-ui ([Learn more about how to run integration tests](https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md))
+<!-- To test these changes with github/github-ui, use the [integration workflow](https://github.com/github/github-ui/actions/workflows/primer-npm-packages-integration.yml) -->
 
 <!-- Take a look at the [What we look for in reviews](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#what-we-look-for-in-reviews) section of the contributing guidelines for more information on how we review PRs. -->

@@ -153,16 +153,27 @@
 }
 
 /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
-.TableOverflowWrapper:last-child .Table .TableBody .TableRow:last-of-type .TableCell:first-child {
+.TableOverflowWrapper:last-child .Table .TableBody:last-of-type .TableRow:last-of-type .TableCell:first-child {
   /* stylelint-disable-next-line primer/borders */
   border-bottom-left-radius: var(--table-border-radius);
 }
 
 /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
-.TableOverflowWrapper:last-child .Table .TableBody .TableRow:last-of-type .TableCell:last-child {
+.TableOverflowWrapper:last-child .Table .TableBody:last-of-type .TableRow:last-of-type .TableCell:last-child {
   /* stylelint-disable-next-line primer/borders */
   border-bottom-right-radius: var(--table-border-radius);
 }
+
+/* stylelint-disable selector-pseudo-class-disallowed-list, selector-max-compound-selectors -- scoped to a group header and its adjacent member body */
+.TableOverflowWrapper:last-child
+  .TableGroupHeaderBody:where(:has(+ .TableBody[hidden]:last-child))
+  .TableGroupHeaderCell {
+  /* stylelint-disable-next-line primer/borders */
+  border-bottom-left-radius: var(--table-border-radius);
+  /* stylelint-disable-next-line primer/borders */
+  border-bottom-right-radius: var(--table-border-radius);
+}
+/* stylelint-enable selector-pseudo-class-disallowed-list, selector-max-compound-selectors */
 
 /**
  * Offset padding to make sure type aligns regardless of cell padding
@@ -189,6 +200,11 @@
 .TableHeader:where([aria-sort='descending']),
 .TableHeader:where([aria-sort='ascending']) {
   color: var(--fgColor-default);
+}
+
+.TableSelectionHeader,
+.TableRowSelection {
+  justify-content: center;
 }
 
 /* Control visibility of sort icons */
@@ -272,6 +288,7 @@
 /* Grid layout */
 .TableHead,
 .TableBody,
+.TableGroupHeaderBody,
 .TableRow {
   display: contents;
 }
@@ -279,10 +296,68 @@
 @supports (grid-template-columns: subgrid) {
   .TableHead,
   .TableBody,
+  .TableGroupHeaderBody,
   .TableRow {
     display: grid;
     grid-template-columns: subgrid;
     grid-column: -1 /1;
+  }
+}
+
+.TableGroupHeaderCell {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  /* Match the padding on either side of the selection/data column boundary. */
+  column-gap: calc(2 * var(--cell-padding-inline));
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--table-cell-padding);
+  text-align: start;
+  color: var(--fgColor-muted);
+  background-color: var(--bgColor-muted);
+  border-inline-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.TableGroupHeaderContent {
+  display: flex;
+  align-items: baseline;
+  column-gap: var(--base-size-8);
+}
+
+.TableGroupHeaderLabel {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+.TableGroupHeaderCount {
+  color: var(--fgColor-muted);
+}
+
+.TableBody:where([hidden]) {
+  display: none;
+}
+
+.TableGroupToggle {
+  display: inline-flex;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  /* Center the hit target over the same 16px slot as a selection checkbox. */
+  margin-inline: calc((var(--base-size-16) - var(--base-size-24)) / 2);
+  color: var(--fgColor-default);
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
+  border-radius: var(--borderRadius-small);
+
+  &:hover {
+    background-color: var(--bgColor-neutral-muted);
+  }
+
+  &:where([aria-expanded='true']) svg {
+    transform: rotate(90deg);
   }
 }
 

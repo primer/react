@@ -1,6 +1,6 @@
 import {render, fireEvent, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
+import {createRef} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import type {AutocompleteInputProps} from '../Autocomplete'
 import Autocomplete from '../Autocomplete'
@@ -269,6 +269,49 @@ describe('Autocomplete', () => {
   })
 
   describe('Autocomplete.Menu', () => {
+    it('only sets an active descendant while a menu rendered without an overlay is open', async () => {
+      const user = userEvent.setup()
+      const ancestorRef = createRef<HTMLDivElement>()
+      const handleAncestorKeyDown = (event: KeyboardEvent) => {
+        if (!event.defaultPrevented && event.key === 'ArrowDown') {
+          ancestorRef.current?.querySelector<HTMLElement>('[role="option"]')?.focus()
+        }
+      }
+
+      render(
+        <BaseStyles>
+          <div ref={ancestorRef}>
+            <label htmlFor="autocompleteInput" id="autocompleteLabel">
+              Autocomplete field
+            </label>
+            <Autocomplete id="autocompleteId">
+              <Autocomplete.Input id="autocompleteInput" />
+              <Autocomplete.Menu items={mockItems} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+            </Autocomplete>
+          </div>
+        </BaseStyles>,
+      )
+      const inputNode = screen.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
+      ancestorRef.current?.addEventListener('keydown', handleAncestorKeyDown)
+
+      expect(inputNode).toHaveAttribute('aria-expanded', 'false')
+      expect(screen.getByRole('listbox', {hidden: true}).closest('[hidden]')).toBeInTheDocument()
+
+      await user.click(inputNode)
+      expect(inputNode).not.toHaveAttribute('aria-activedescendant')
+
+      await user.keyboard('{ArrowDown}')
+      await waitFor(() => {
+        expect(inputNode).toHaveFocus()
+        expect(inputNode).toHaveAttribute('aria-activedescendant', mockItems[0].id)
+        expect(screen.getByRole('option', {name: mockItems[0].text})).not.toHaveFocus()
+      })
+
+      // eslint-disable-next-line github/no-blur
+      fireEvent.blur(inputNode)
+      await waitFor(() => expect(inputNode).not.toHaveAttribute('aria-activedescendant'))
+    })
+
     it('calls a custom filter function', async () => {
       const user = userEvent.setup()
       const filterFnMock = vi.fn()

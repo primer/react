@@ -1,7 +1,8 @@
+import {fileURLToPath} from 'node:url'
+import {dirname} from 'node:path'
 import type {StorybookConfig} from '@storybook/react-vite'
-import babel from '@rolldown/plugin-babel'
 
-import react, {reactCompilerPreset} from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 
 const {DEPLOY_ENV = 'development'} = process.env
@@ -10,7 +11,7 @@ const STORYBOOK_ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.tsx'],
   framework: {
-    name: '@storybook/react-vite',
+    name: getAbsolutePath('@storybook/react-vite'),
     options: {
       strictMode: true,
     },
@@ -41,13 +42,10 @@ const config: StorybookConfig = {
 
     config.plugins = [
       ...(config.plugins ?? []),
-      react(),
-      babel({
-        presets: [
-          reactCompilerPreset({
-            target: '18',
-          }),
-        ],
+      react({
+        compiler: {
+          target: '18',
+        },
       }),
     ]
 
@@ -67,3 +65,7 @@ const config: StorybookConfig = {
 }
 
 export default config
+
+function getAbsolutePath(value: string) {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)))
+}

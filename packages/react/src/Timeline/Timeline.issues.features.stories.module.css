@@ -1,0 +1,133 @@
+.CommitSha {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+/* IssueLink-style inline reference: state octicon + bold title + muted number. */
+.IssueLink {
+  color: var(--fgColor-default);
+  text-decoration: none;
+}
+
+.IssueLink:hover {
+  color: var(--fgColor-accent);
+  text-decoration: underline;
+}
+
+.IssueLinkIcon {
+  color: var(--fgColor-done);
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+.IssueLinkTitle {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.IssueLinkNumber {
+  color: var(--fgColor-muted);
+}
+
+/* Issue-version ProjectV2 reference (github-ui `ProjectV2.tsx` + `ClosedEvent.tsx`):
+   an inline default-colored TableIcon octicon followed by a default-color link
+   (`.ProjectRefLink`). The underline comes from the Link `inline` prop (always-on
+   underline, which also satisfies the high-contrast a11y rule). Mirrors live
+   `.projectLink`/`.stateReasonLink` (both `color: var(--fgColor-default)`). NOTE:
+   the PR (ERB) surface renders this differently — see the EventProject group. */
+.ProjectRefIcon {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+.ProjectRefLink {
+  color: var(--fgColor-default);
+}
+
+/* Open (green) state icon variant for IssueLink references that point at an
+   open issue/PR (e.g. the canonical issue in a "marked as duplicate of" row). */
+.IssueLinkIconOpen {
+  color: var(--fgColor-open);
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+/* Inline pull-request state icon rendered in the body text (References group),
+   mirroring github-ui's `sourceIcon('PullRequest', ...)` open-state coloring. */
+.PrStateIcon {
+  color: var(--fgColor-open);
+  vertical-align: middle;
+  margin: 0 var(--base-size-4);
+}
+
+/* Open (green) badge icon, used when the badge icon itself is a PR state icon
+   (References "removed a link to a pull request" → `leadingIcon={PullStateIcon}`). */
+.BadgeIconOpen {
+  color: var(--fgColor-open);
+}
+
+/* Wrapper around a colored issue-type Token so it sits inline with the copy,
+   matching github-ui's `IssueTypeEvent.module.css` `issueTypeTokenWrapper`. */
+.TokenWrapper {
+  display: inline-flex;
+  vertical-align: middle;
+  margin: 0 var(--base-size-4);
+}
+
+/* Commit reference (github-ui's `ReferencedEventInner`): NOT a bordered card on
+   live GitHub — `.referencedCommitContainer` is a plain flex column (`gap: 2px`)
+   with the monospace message on the left and the SHA on the right. Mirror that:
+   no border, no card background, no row dividers. */
+.CommitRefBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-4);
+  margin-top: var(--base-size-8);
+}
+
+.CommitRefRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-8);
+}
+
+.CommitRefMessage {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.CommitRefOid {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+/* Secondary reference list (github-ui Hierarchy/Dependency events render the
+   linked issues below the main copy). On live GitHub these are PLAIN, lightly
+   indented rows — state octicon + bold title + muted #number per line — with no
+   surrounding border, no card background, and no row dividers. Single vs
+   multiple differ only by item count + singular/plural leading copy. */
+.RefList {
+  margin-top: var(--base-size-8);
+  padding-left: var(--base-size-4);
+  list-style: none;
+}
+
+.RefListItem + .RefListItem {
+  margin-top: var(--base-size-4);
+}
+
+/* IssueField event: the field name reads as semibold inline text, the value as
+   an inline link (github-ui's `IssueFieldEvent` `issueFieldTokenWrapper`). */
+.FieldName {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin: 0 var(--base-size-4);
+}
+
+.FieldValue {
+  margin-left: var(--base-size-4);
+}

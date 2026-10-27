@@ -24,6 +24,18 @@
     },
     {
       "id": "experimental-components-underlinepanels-features--with-icons-hidden-on-narrow-screen"
+    },
+    {
+      "id": "experimental-components-underlinepanels-features--controlled"
+    },
+    {
+      "id": "experimental-components-underlinepanels-features--uncontrolled"
+    },
+    {
+      "id": "experimental-components-underlinepanels-features--manual-activation"
+    },
+    {
+      "id": "experimental-components-underlinepanels-features--in-overlay"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -39,6 +51,30 @@
       "type": "string",
       "defaultValue": "",
       "description": "ID of the element containing the name for the tab list"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "defaultValue": "",
+      "description": "The value of the selected tab, keyed to each `UnderlinePanels.Tab`/`UnderlinePanels.Panel` `value`. Provide this (with `onChange`) for a controlled component where the selected tab is the single source of truth."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "defaultValue": "",
+      "description": "The value of the tab selected by default, for an uncontrolled component. Cannot be combined with `value`."
+    },
+    {
+      "name": "onChange",
+      "type": "({value}: {value: string}) => void",
+      "defaultValue": "",
+      "description": "Callback fired whenever the selected tab changes, for every selection method — pointer, Enter/Space, and Arrow/Home/End keys. Unlike `UnderlinePanels.Tab`'s `onSelect` (which only fires on click and Enter/Space), this makes the selected value usable as a single source of truth for data-driven tabs."
+    },
+    {
+      "name": "activationMode",
+      "type": "'automatic' | 'manual'",
+      "defaultValue": "'automatic'",
+      "description": "Controls how tabs are activated with the keyboard. `'automatic'` selects on focus (Arrow/Home/End select immediately); `'manual'` moves focus only and commits selection on Enter, Space, or click. Prefer `'manual'` when displaying a panel is not instant (e.g. it triggers a network request)."
     },
     {
       "name": "children",
@@ -71,6 +107,12 @@
       "name": "UnderlinePanels.Tab",
       "props": [
         {
+          "name": "value",
+          "type": "string",
+          "defaultValue": "",
+          "description": "A value that uniquely identifies this tab, paired with the `UnderlinePanels.Panel` of the same `value`. Provide this to use domain values (e.g. `'branch'`) with the container's controlled `value`/`onChange` API. When omitted, tabs and panels are paired by DOM order."
+        },
+        {
           "name": "aria-selected",
           "type": "| boolean | 'true' | 'false'",
           "defaultValue": "false",
@@ -80,7 +122,7 @@
           "name": "onSelect",
           "type": "(event) => void",
           "defaultValue": "",
-          "description": "The handler that gets called when the tab is selected"
+          "description": "The handler that gets called when the tab is selected. Note: this fires only on click and Enter/Space — not on arrow-key navigation. For a callback that fires for every selection method, use the container's `onChange` prop instead."
         },
         {
           "name": "counter",
@@ -98,7 +140,14 @@
     },
     {
       "name": "UnderlinePanels.Panel",
-      "props": [],
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "defaultValue": "",
+          "description": "A value that uniquely identifies this panel, paired with the `UnderlinePanels.Tab` of the same `value`. When omitted, tabs and panels are paired by DOM order."
+        }
+      ],
       "passthrough": {
         "element": "div",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#Attributes"

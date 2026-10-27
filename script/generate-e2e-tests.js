@@ -500,23 +500,23 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'components-flash--default',
+          id: 'deprecated-components-flash--default',
           name: 'Default',
         },
         {
-          id: 'components-flash-features--danger',
+          id: 'deprecated-components-flash-features--danger',
           name: 'Danger',
         },
         {
-          id: 'components-flash-features--full',
+          id: 'deprecated-components-flash-features--full',
           name: 'Full',
         },
         {
-          id: 'components-flash-features--success',
+          id: 'deprecated-components-flash-features--success',
           name: 'Success',
         },
         {
-          id: 'components-flash-features--warning',
+          id: 'deprecated-components-flash-features--warning',
           name: 'Warning',
         },
       ],

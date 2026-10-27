@@ -19,7 +19,7 @@ jobs:
           echo $NUMBER > ./PR/number
         env:
           NUMBER: ${{ github.event.number }}
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: pull-request
           path: ./PR
@@ -33,25 +33,24 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Set up Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.job }}-shard-${{ matrix.shard }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             ${{ runner.os }}-turbo-${{ github.job }}-shard-${{ matrix.shard }}-
             ${{ runner.os }}-turbo-${{ github.job }}-
-            ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
-        run: npx turbo run build:storybook
+        run: npx turbo run build:storybook --filter=@primer/react --filter=@primer/styled-react -- --test
       - name: Run storybook
         id: storybook
         run: |
@@ -83,7 +82,7 @@ jobs:
             git ls-files --others --exclude-standard --modified | zip snapshots -@
           fi
       - name: Upload snapshots
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: snapshots-${{ matrix.shard }}
           path: snapshots.zip

@@ -39,6 +39,10 @@ export function useRovingTabIndex(
           // Don't return
         }
 
+        if (from.getAttribute('role') !== 'treeitem') {
+          return from
+        }
+
         return getNextFocusableElement(from, event) ?? from
       },
       focusInStrategy: () => {

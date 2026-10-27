@@ -1,4 +1,13 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src", "vitest.config.ts", "vitest.config.browser.ts", "config/vitest", "./.storybook/**/*.ts", "./.storybook/**/*.tsx"],
+  "include": [
+    "src",
+    "script/**/*.ts",
+    "rolldown.config.ts",
+    "vitest.config.ts",
+    "vitest.config.browser.ts",
+    "config/vitest",
+    "./.storybook/**/*.ts",
+    "./.storybook/**/*.tsx"
+  ]
 }

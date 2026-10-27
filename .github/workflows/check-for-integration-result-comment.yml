@@ -40,7 +40,7 @@ jobs:
             const integrationComments = result.data.filter(
               comment =>
                 comment.user.login == 'primer-integration[bot]' &&
-                comment.body.includes('<!-- test-result')
+                (comment.body.includes('<!-- test-result') || comment.body.includes('<!-- statuses:'))
             );
             if (integrationComments.length === 0) {
               console.log('Integration comment with test-result not found');
@@ -54,7 +54,14 @@ jobs:
             const pass = latestComment.body.includes('🟢');
             console.log({ pass });
 
-            const newIntegrationLabel = pass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
+            const githubUiPass = latestComment.body.includes('All checks passed!');
+            const githubUiFail = latestComment.body.includes('fail.svg');
+            if (latestComment.body.includes('<!-- statuses:') && !githubUiPass && !githubUiFail) {
+              console.log('Integration checks are still running');
+              return;
+            }
+
+            const newIntegrationLabel = pass || githubUiPass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
             console.log({existingIntegrationLabels, newIntegrationLabel})
 
             Object.values(INTEGRATION_LABEL_NAMES).map(async (name) => {

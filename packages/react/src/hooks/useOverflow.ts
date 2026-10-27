@@ -9,15 +9,13 @@ export function useOverflow<T extends HTMLElement>(ref: React.RefObject<T>) {
     }
 
     const observer = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        if (
-          entry.target.scrollHeight > entry.target.clientHeight ||
-          entry.target.scrollWidth > entry.target.clientWidth
-        ) {
-          setHasOverflow(true)
-          break
-        }
-      }
+      setHasOverflow(
+        entries.some(
+          entry =>
+            entry.target.scrollHeight > entry.target.clientHeight ||
+            entry.target.scrollWidth > entry.target.clientWidth,
+        ),
+      )
     })
 
     observer.observe(ref.current)

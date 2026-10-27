@@ -19,6 +19,11 @@
   animation: detect-overflow linear;
   animation-timeline: scroll(self block);
 
+  /* Isolate the frequent overflow-driven reflows (JS visibility toggling + item wrapping) so they
+  can't invalidate ancestor layout. Safe because the list already clips (overflow: hidden) and the
+  More menu is portaled, so it isn't affected by the new containing block/stacking context. */
+  contain: layout;
+
   /* After initial render, JS is used to control visibility which provides progressive enhancement for unsupported browsers */
   &[data-has-overflow='true'] {
     --morebutton-display: flex;
@@ -99,6 +104,9 @@
   gap: inherit;
   justify-content: flex-end;
   overflow: hidden;
+
+  /* Contain the wrap/measure reflows to this subtree. */
+  contain: layout;
 
   .OverflowSpacer {
     height: var(--actionbar-height);

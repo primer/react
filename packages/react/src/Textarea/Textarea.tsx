@@ -34,7 +34,11 @@ export type TextareaProps = {
    */
   resize?: 'none' | 'both' | 'horizontal' | 'vertical'
   /**
-   * apply a high contrast color to background
+   * Allows the textarea to grow to fit its content
+   */
+  autoSize?: boolean
+  /**
+   * @deprecated Omit this prop to use the default background.
    */
   contrast?: boolean
   /**
@@ -74,6 +78,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       rows = DEFAULT_TEXTAREA_ROWS,
       cols = DEFAULT_TEXTAREA_COLS,
       resize = DEFAULT_TEXTAREA_RESIZE,
+      autoSize,
       block,
       contrast,
       className,
@@ -131,7 +136,9 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           <textarea
             value={value}
             defaultValue={defaultValue}
+            data-component="Textarea"
             data-resize={resize}
+            data-auto-size={autoSize || undefined}
             aria-required={required}
             aria-invalid={isValid === 'error' ? 'true' : 'false'}
             ref={ref}

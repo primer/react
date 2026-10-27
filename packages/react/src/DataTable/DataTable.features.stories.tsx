@@ -8,26 +8,34 @@ import {
   TrashIcon,
 } from '@primer/octicons-react'
 import {action} from 'storybook/actions'
+import {expect, userEvent, within} from 'storybook/test'
 import type {Meta} from '@storybook/react-vite'
 import React from 'react'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {Blankslate} from '../Blankslate'
 import {Button, IconButton} from '../Button'
-import {DataTable, Table} from '../DataTable'
+import {DataTable, type DataTableProps, type DataTableRowId, Table} from '../DataTable'
 import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
+import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 import classes from './DataTable.features.stories.module.css'
 
+// Storybook's Meta type cannot resolve DataTable's overloads without TS2589.
+// Keep a concrete props signature here without changing consumer type inference.
+function DataTableStoryComponent(props: DataTableProps<UniqueRow>) {
+  return <DataTable {...props} />
+}
+
 export default {
   title: 'Experimental/Components/DataTable/Features',
-  component: DataTable,
-} as Meta<typeof DataTable>
+  component: DataTableStoryComponent,
+} as Meta<typeof DataTableStoryComponent>
 
 const now = Date.now()
 const Second = 1000
@@ -1710,6 +1718,287 @@ export const WithNetworkError = () => {
         totalCount={repos.length}
         onChange={({pageIndex}) => {
           setPageIndex(pageIndex)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+const repoGroups: Array<DataTableRowGroup<Repo>> = [
+  {
+    groupId: 'internal',
+    label: 'Internal',
+    rows: data.filter(repo => repo.type === 'internal'),
+  },
+  {
+    groupId: 'public',
+    label: 'Public',
+    rows: data.filter(repo => repo.type === 'public'),
+  },
+]
+const groupedColumns = [
+  columnHelper.column({
+    header: 'Name',
+    field: 'name',
+    rowHeader: true,
+    width: 'growCollapse',
+  }),
+  columnHelper.column({
+    header: 'Updated',
+    field: 'updatedAt',
+    width: 'auto',
+    renderCell: repo => <RelativeTime date={new Date(repo.updatedAt)} />,
+  }),
+]
+
+export const WithRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set([2]))
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-repositories">
+        Selectable repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-repositories"
+        data={data}
+        columns={groupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+const repoGroupsWithDisabledRow = repoGroups.map(group => ({
+  ...group,
+  rows: group.rows.map(repo => (repo.id === 1 ? {...repo, name: `${repo.name} (not selectable)`} : repo)),
+}))
+
+export const WithGroupedRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-repositories-by-visibility">
+        Selectable repositories by visibility
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-repositories-by-visibility"
+        data={repoGroupsWithDisabledRow}
+        columns={groupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        isRowSelectable={repo => repo.id !== 1}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+WithGroupedRowSelection.parameters = {
+  docs: {
+    description: {
+      story: '`codeql-dca-worker` is not selectable and is excluded from select-all.',
+    },
+  },
+}
+
+const sortableGroupedColumns = [
+  columnHelper.column({
+    header: 'Name',
+    field: 'name',
+    rowHeader: true,
+    sortBy: true,
+    width: 'growCollapse',
+  }),
+  groupedColumns[1],
+]
+
+export const WithCollapsibleGroups = () => {
+  const titleId = React.useId()
+  const [expandedGroups, setExpandedGroups] = React.useState<ReadonlySet<DataTableRowId>>(
+    () => new Set(['internal', 'public']),
+  )
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id={titleId}>
+        Collapsible repositories by visibility
+      </Table.Title>
+      <Table.Actions>
+        <Button onClick={() => setExpandedGroups(new Set())}>Collapse all groups</Button>
+        <Button onClick={() => setExpandedGroups(new Set(['internal', 'public']))}>Expand all groups</Button>
+      </Table.Actions>
+      <DataTable
+        aria-labelledby={titleId}
+        data={repoGroupsWithDisabledRow}
+        columns={sortableGroupedColumns}
+        collapsibleGroups
+        expandedGroups={expandedGroups}
+        onExpandedGroupsChange={({expandedGroups}) => setExpandedGroups(expandedGroups)}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
+        isRowSelectable={repo => repo.id !== 1}
+      />
+    </Table.Container>
+  )
+}
+
+WithCollapsibleGroups.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const publicGroup = canvas.getByRole('button', {name: 'Public'})
+  await userEvent.click(publicGroup)
+  await expect(publicGroup).toHaveAttribute('aria-expanded', 'false')
+  await userEvent.keyboard('{Enter}')
+  await expect(publicGroup).toHaveAttribute('aria-expanded', 'true')
+}
+
+export const WithStandaloneAndGroupedRowSelection = () => {
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="selectable-mixed-repositories">
+        Selectable standalone and grouped repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby="selectable-mixed-repositories"
+        data={[...data.filter(repo => repo.type === 'internal'), repoGroups[1]]}
+        columns={sortableGroupedColumns}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows: nextSelectedRows}) => {
+          setSelectedRows(nextSelectedRows)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+export const WithSortableGroups = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="sortable-repositories-by-visibility">
+      Sortable repositories by visibility
+    </Table.Title>
+    <DataTable
+      aria-labelledby="sortable-repositories-by-visibility"
+      data={repoGroups}
+      columns={sortableGroupedColumns}
+    />
+  </Table.Container>
+)
+
+interface PaginatedRepository {
+  id: number
+  name: string
+  visibility: string
+}
+
+const paginationData: DataTableData<PaginatedRepository> = [
+  {id: 100, name: 'standalone/before', visibility: 'Unassigned'},
+  {
+    groupId: 'public',
+    label: 'Public',
+    rows: Array.from({length: 12}, (_, index) => ({
+      id: index,
+      name: `public/repository-${index + 1}`,
+      visibility: 'Public',
+    })),
+  },
+  {
+    groupId: 'internal',
+    label: 'Internal',
+    rows: Array.from({length: 3}, (_, index) => ({
+      id: index + 12,
+      name: `internal/repository-${index + 1}`,
+      visibility: 'Internal',
+    })),
+  },
+  {id: 101, name: 'standalone/after', visibility: 'Unassigned'},
+]
+
+function getPageData(source: DataTableData<PaginatedRepository>, pageRows: ReadonlySet<DataTableRowId>) {
+  // Count data rows, not headings, and preserve each item's position and group membership.
+  return source.flatMap((item): DataTableData<PaginatedRepository> => {
+    if ('rows' in item) {
+      const rows = item.rows.filter(row => pageRows.has(row.id))
+      return rows.length > 0 ? [{...item, rows}] : []
+    }
+    return pageRows.has(item.id) ? [item] : []
+  })
+}
+
+export const WithGroups = () => {
+  const titleId = React.useId()
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const pageSize = 10
+  const allRows = paginationData.flatMap(item => ('rows' in item ? item.rows : [item]))
+  const pageRows = new Set(allRows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(row => row.id))
+  const data = getPageData(paginationData, pageRows)
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id={titleId}>
+        Paginated repositories by visibility
+      </Table.Title>
+      <DataTable
+        aria-labelledby={titleId}
+        data={data}
+        columns={[
+          {header: 'Name', field: 'name', rowHeader: true, sortBy: true},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
+      />
+      <Table.Pagination
+        aria-label="Pagination for grouped repositories"
+        pageSize={pageSize}
+        totalCount={allRows.length}
+        onChange={({pageIndex}) => setPageIndex(pageIndex)}
+      />
+    </Table.Container>
+  )
+}
+
+export const WithPaginatedRowSelection = () => {
+  const titleId = React.useId()
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
+  const pageSize = 10
+  const allRows = paginationData.flatMap(item => ('rows' in item ? item.rows : [item]))
+  const pageRows = new Set(allRows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize).map(row => row.id))
+  const data = getPageData(paginationData, pageRows)
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id={titleId}>
+        Selectable paginated repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby={titleId}
+        data={data}
+        columns={[
+          {header: 'Name', field: 'name', rowHeader: true},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
+      />
+      <Table.Pagination
+        aria-label="Pagination for selectable repositories"
+        pageSize={pageSize}
+        totalCount={allRows.length}
+        onChange={({pageIndex}) => {
+          setPageIndex(pageIndex)
+          // Selection applies only to the current page.
+          setSelectedRows(new Set())
         }}
       />
     </Table.Container>

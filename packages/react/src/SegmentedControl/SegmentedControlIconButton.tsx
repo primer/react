@@ -50,7 +50,7 @@ export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildre
       >
         <button
           type="button"
-          aria-current={selected}
+          aria-pressed={selected}
           // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
           aria-label={description ? ariaLabel : undefined}
           aria-disabled={disabled || ariaDisabled || undefined}

@@ -69,6 +69,11 @@
           "description": "Callback fired when a click is detected outside the popover content"
         },
         {
+          "name": "onEscape",
+          "type": "(event: KeyboardEvent) => void",
+          "description": "Callback fired when the Escape key is pressed while the popover is open"
+        },
+        {
           "name": "ignoreClickRefs",
           "type": "React.RefObject<HTMLElement>[]",
           "description": "Refs to elements that should be ignored when detecting outside clicks"

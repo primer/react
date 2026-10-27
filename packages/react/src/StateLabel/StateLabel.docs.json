@@ -65,9 +65,16 @@
   "importPath": "@primer/react",
   "props": [
     {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "defaultValue": "'medium'"
+    },
+    {
       "name": "variant",
       "type": "'small' | 'normal'",
-      "defaultValue": "'normal'"
+      "defaultValue": "'normal'",
+      "description": "Use `size` instead.",
+      "deprecated": true
     },
     {
       "name": "status",

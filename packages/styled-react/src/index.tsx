@@ -49,7 +49,7 @@ export {
    * `@primer/primitives` and CSS Modules instead.
    */
   theme,
-} from '@primer/react'
+} from './theme'
 
 export {
   /**

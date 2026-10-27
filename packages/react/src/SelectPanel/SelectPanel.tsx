@@ -131,7 +131,10 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align' | 'displayInViewport'> &
+  Pick<
+    AnchoredOverlayProps,
+    'open' | 'height' | 'width' | 'align' | 'displayInViewport' | 'cssAnchorPositioningSettings'
+  > &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
@@ -157,6 +160,16 @@ const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
 
 const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
+}
+
+const getSelectedItems = (
+  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
+): ItemInput[] => {
+  if (isMultiSelectVariant(selected)) {
+    return selected
+  }
+
+  return selected ? [selected] : []
 }
 
 const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
@@ -204,22 +217,70 @@ function Panel({
   focusPrependedElements,
   virtualized,
   displayInViewport,
+  cssAnchorPositioningSettings,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
   const subtitleId = useId()
-  const [dataLoadedOnce, setDataLoadedOnce] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const loadingDelayTimeoutId = useRef<number | null>(null)
   const loadingManagedInternally = loading === undefined
   const loadingManagedExternally = !loadingManagedInternally
+  const [loadingState, setLoadingState] = useState(() => ({
+    dataLoadedOnce: items.length > 0,
+    isLoading: loadingManagedInternally && open && items.length === 0,
+    items,
+    open,
+  }))
+
+  if (loadingState.items !== items || loadingState.open !== open) {
+    let {dataLoadedOnce, isLoading} = loadingState
+
+    if (loadingState.items !== items) {
+      if (loadingManagedExternally) {
+        dataLoadedOnce ||= items.length > 0
+      } else if (isLoading || items.length > 0) {
+        dataLoadedOnce = true
+        isLoading = false
+      }
+    }
+
+    if (loadingState.open !== open && open && loadingManagedInternally && !dataLoadedOnce && items.length === 0) {
+      isLoading = true
+    }
+
+    setLoadingState({
+      dataLoadedOnce,
+      isLoading,
+      items,
+      open,
+    })
+  }
+
+  const {dataLoadedOnce, isLoading} = loadingState
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
-  const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
+  const itemsAreEmpty = items.length === 0
+  const [sortState, setSortState] = useState(() => ({
+    itemsWereEmpty: itemsAreEmpty,
+    open,
+    selected: getSelectedItems(selected),
+  }))
+
+  if (sortState.open !== open || sortState.itemsWereEmpty !== itemsAreEmpty) {
+    const shouldResetSelection = sortState.open !== open || (sortState.itemsWereEmpty && !itemsAreEmpty)
+
+    setSortState({
+      itemsWereEmpty: itemsAreEmpty,
+      open,
+      selected: shouldResetSelection ? getSelectedItems(selected) : sortState.selected,
+    })
+  }
+
+  const selectedOnSort = sortState.selected
   const initialHeightRef = useRef(0)
   const initialScaleRef = useRef(1)
   const noticeRef = useRef<HTMLDivElement>(null)
@@ -228,6 +289,7 @@ function Panel({
   const KEYBOARD_VISIBILITY_THRESHOLD = 10
 
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const legacyContrast = useFeatureFlag('primer_react_select_panel_legacy_contrast')
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
@@ -237,15 +299,28 @@ function Panel({
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
   const isSingleSelectModal = variant === 'modal' && !isMultiSelectVariant(selected)
-  const [intermediateSelected, setIntermediateSelected] = useState<ItemInput | undefined>(
-    isSingleSelectModal ? selected : undefined,
-  )
+  const selectedForSingleSelectModal = isSingleSelectModal && !isMultiSelectVariant(selected) ? selected : undefined
+  const [intermediateSelectionState, setIntermediateSelectionState] = useState(() => ({
+    isSingleSelectModal,
+    open,
+    selected,
+    value: selectedForSingleSelectModal,
+  }))
 
-  // Reset the intermediate selected item when the panel is open/closed
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
-    setIntermediateSelected(isSingleSelectModal ? selected : undefined)
-  }, [isSingleSelectModal, open, selected])
+  if (
+    intermediateSelectionState.isSingleSelectModal !== isSingleSelectModal ||
+    intermediateSelectionState.open !== open ||
+    intermediateSelectionState.selected !== selected
+  ) {
+    setIntermediateSelectionState({
+      isSingleSelectModal,
+      open,
+      selected,
+      value: selectedForSingleSelectModal,
+    })
+  }
+
+  const intermediateSelected = intermediateSelectionState.value
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -265,13 +340,14 @@ function Panel({
   )
 
   const resetSort = useCallback(() => {
-    if (isMultiSelectVariant(selected)) {
-      setSelectedOnSort(selected)
-    } else if (selected) {
-      setSelectedOnSort([selected])
-    } else {
-      setSelectedOnSort([])
-    }
+    const nextSelected = getSelectedItems(selected)
+    setSortState(current => {
+      if (current.selected === nextSelected) {
+        return current
+      }
+
+      return {...current, selected: nextSelected}
+    })
   }, [selected])
 
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
@@ -287,7 +363,9 @@ function Panel({
           // not async.
 
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
-            setIsLoading(true)
+            setLoadingState(current => {
+              return current.isLoading ? current : {...current, isLoading: true}
+            })
             announceLoading()
           }, LONG_DELAY_MS)
         } else {
@@ -295,7 +373,9 @@ function Panel({
           // immediately
 
           if (items.length === 0) {
-            setIsLoading(true)
+            setLoadingState(current => {
+              return current.isLoading ? current : {...current, isLoading: true}
+            })
           }
 
           // We still want to announce if loading is taking too long
@@ -392,25 +472,6 @@ function Panel({
         // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setNeedsNoItemsAnnouncement(true)
       }
-    }
-
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (loadingManagedExternally) {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-      if (items.length > 0) {
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
-        setDataLoadedOnce(true)
-      }
-
-      return
-    }
-
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (isLoading || items.length > 0) {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
-      setIsLoading(false)
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
-      setDataLoadedOnce(true)
     }
 
     if (loadingDelayTimeoutId.current) {
@@ -671,9 +732,19 @@ function Panel({
             if (isSingleSelectModal) {
               if (intermediateSelected?.id === item.id) {
                 // if the item is already selected, we need to unselect it
-                setIntermediateSelected(undefined)
+                setIntermediateSelectionState({
+                  isSingleSelectModal,
+                  open,
+                  selected,
+                  value: undefined,
+                })
               } else {
-                setIntermediateSelected(item)
+                setIntermediateSelectionState({
+                  isSingleSelectModal,
+                  open,
+                  selected,
+                  value: item,
+                })
               }
               return
             }
@@ -707,44 +778,22 @@ function Panel({
     isItemCurrentlySelected,
     isSingleSelectModal,
     intermediateSelected,
+    open,
     shouldOrderSelectedFirst,
     selectedOnSort,
   ])
-
-  // Track previous items and reset sort when items first load
-  const prevItemsRef = useRef(items)
-  useEffect(() => {
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (prevItemsRef.current !== items) {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-      if (prevItemsRef.current.length === 0 && items.length > 0) {
-        resetSort()
-      }
-      prevItemsRef.current = items
-    }
-  }, [items, resetSort])
-
-  // Reset sort when panel opens
-  const prevOpenRef = useRef(open)
-  useEffect(() => {
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (prevOpenRef.current !== open) {
-      resetSort()
-      prevOpenRef.current = open
-    }
-  }, [open, resetSort])
 
   const focusTrapSettings = useMemo(() => ({initialFocusRef: inputRef || undefined}), [inputRef])
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
       className: classes.TextInput,
-      contrast: true,
+      contrast: legacyContrast,
       leadingVisual: SearchIcon,
       'aria-label': inputLabel,
       ...textInputProps,
     }
-  }, [inputLabel, textInputProps])
+  }, [inputLabel, legacyContrast, textInputProps])
 
   const loadingType = (): FilteredActionListLoadingType => {
     if (dataLoadedOnce) {
@@ -902,7 +951,11 @@ function Panel({
         closeButtonProps={closeButtonProps}
         displayInViewport={displayInViewport}
         // Modal variant is positioned manually so native CSS anchor positioning must not be used
-        cssAnchorPositioningSettings={{disable: variant === 'modal'}}
+        // Other cssAnchorPositioningSettings (e.g. fallbackStrategy) may be passed in and are forwarded here
+        cssAnchorPositioningSettings={{
+          ...cssAnchorPositioningSettings,
+          disable: variant === 'modal' || cssAnchorPositioningSettings?.disable,
+        }}
       >
         <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
           <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
