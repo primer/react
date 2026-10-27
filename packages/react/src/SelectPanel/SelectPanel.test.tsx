@@ -14,6 +14,7 @@ import classes from './SelectPanel.test.module.css'
 import {implementsClassName} from '../utils/testing'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition} from '@primer/behaviors'
+import {createRenderCounter} from '../utils/testing/profiler'
 
 // Mock getAnchoredPosition to verify displayInViewport is forwarded
 vi.mock('@primer/behaviors', async () => {
@@ -99,6 +100,234 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
 }
 
 globalThis.Element.prototype.scrollTo = vi.fn()
+
+describe('SelectPanel state synchronization', () => {
+  const synchronizedItems: ItemInput[] = [
+    {id: 'one', text: 'item one'},
+    {id: 'two', text: 'item two'},
+    {id: 'three', text: 'item three'},
+  ]
+  const selectedItems = [synchronizedItems[1]]
+
+  function MultiSelectPanel({
+    items: panelItems,
+    loading,
+    onOpenChange = () => {},
+    open,
+  }: {
+    items: ItemInput[]
+    loading?: boolean
+    onOpenChange?: SelectPanelProps['onOpenChange']
+    open: boolean
+  }) {
+    return (
+      <SelectPanel
+        title="test title"
+        items={panelItems}
+        placeholder="Select items"
+        placeholderText="Filter items"
+        selected={selectedItems}
+        onSelectedChange={() => {}}
+        onFilterChange={() => {}}
+        loading={loading}
+        open={open}
+        onOpenChange={onOpenChange}
+      />
+    )
+  }
+
+  function SingleSelectModal({
+    onSelectedChange = () => {},
+    open,
+    selected,
+  }: {
+    onSelectedChange?: (selected: ItemInput | undefined) => void
+    open: boolean
+    selected: ItemInput | undefined
+  }) {
+    return (
+      <SelectPanel
+        title="test title"
+        items={synchronizedItems}
+        placeholder="Select an item"
+        placeholderText="Filter items"
+        selected={selected}
+        onSelectedChange={onSelectedChange}
+        onFilterChange={() => {}}
+        open={open}
+        onOpenChange={() => {}}
+        variant="modal"
+        onCancel={() => {}}
+      />
+    )
+  }
+
+  it('does not commit a follow-up update when mounted closed with preloaded items', async () => {
+    const [Wrap, counter] = createRenderCounter()
+
+    render(
+      <Wrap>
+        <MultiSelectPanel items={synchronizedItems} open={false} />
+      </Wrap>,
+    )
+    await act(async () => {})
+
+    expect(counter.mountCount).toBe(1)
+    expect(counter.updateCount).toBe(0)
+  })
+
+  it('orders the selected item in the opening commit and focuses the filter input', async () => {
+    const committedOrders: string[][] = []
+    const recordOrder = () => {
+      const order = Array.from(document.querySelectorAll<HTMLElement>('[role="option"]'), option =>
+        option.textContent.trim(),
+      )
+
+      if (order.length > 0) {
+        committedOrders.push(order)
+      }
+    }
+    const renderPanel = (open: boolean) => (
+      <React.Profiler id="select-panel-open" onRender={recordOrder}>
+        <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+          <MultiSelectPanel items={synchronizedItems} open={open} />
+        </FeatureFlags>
+      </React.Profiler>
+    )
+    const {rerender} = render(renderPanel(false))
+
+    await act(async () => {})
+    committedOrders.length = 0
+    rerender(renderPanel(true))
+    await act(async () => {})
+
+    expect(committedOrders.length).toBeGreaterThan(0)
+    expect(committedOrders.every(order => order[0] === 'item two')).toBe(true)
+    expect(screen.getByLabelText('Filter items')).toHaveFocus()
+  })
+
+  it('commits item arrival once while closed', async () => {
+    const [Wrap, counter] = createRenderCounter()
+    const renderPanel = (panelItems: ItemInput[]) => (
+      <Wrap>
+        <MultiSelectPanel items={panelItems} open={false} />
+      </Wrap>
+    )
+    const {rerender} = render(renderPanel([]))
+
+    await act(async () => {})
+    counter.reset()
+    rerender(renderPanel(synchronizedItems))
+    await act(async () => {})
+
+    expect(counter.updateCount).toBe(1)
+    expect(counter.nestedUpdateCount).toBe(0)
+  })
+
+  it('orders arriving items without replacing or blurring the filter input', async () => {
+    const committedOrders: string[][] = []
+    const recordOrder = () => {
+      const order = Array.from(document.querySelectorAll<HTMLElement>('[role="option"]'), option =>
+        option.textContent.trim(),
+      )
+
+      if (order.length > 0) {
+        committedOrders.push(order)
+      }
+    }
+    const renderPanel = (panelItems: ItemInput[]) => (
+      <React.Profiler id="select-panel-items" onRender={recordOrder}>
+        <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+          <MultiSelectPanel items={panelItems} loading={false} open />
+        </FeatureFlags>
+      </React.Profiler>
+    )
+    const {rerender} = render(renderPanel([]))
+
+    const input = await screen.findByLabelText('Filter items')
+    await waitFor(() => expect(input).toHaveFocus())
+    committedOrders.length = 0
+    rerender(renderPanel(synchronizedItems))
+    await act(async () => {})
+
+    expect(committedOrders.length).toBeGreaterThan(0)
+    expect(committedOrders.every(order => order[0] === 'item two')).toBe(true)
+    expect(screen.getByLabelText('Filter items')).toBe(input)
+    expect(input).toHaveFocus()
+  })
+
+  it('commits a controlled modal selection change once while closed', async () => {
+    const [Wrap, counter] = createRenderCounter()
+    const renderPanel = (selected: ItemInput) => (
+      <Wrap>
+        <SingleSelectModal open={false} selected={selected} />
+      </Wrap>
+    )
+    const {rerender} = render(renderPanel(synchronizedItems[0]))
+
+    await act(async () => {})
+    counter.reset()
+    rerender(renderPanel(synchronizedItems[1]))
+    await act(async () => {})
+
+    expect(counter.updateCount).toBe(1)
+    expect(counter.nestedUpdateCount).toBe(0)
+  })
+
+  it('resets modal intermediate selection across close and controlled selection changes', async () => {
+    const user = userEvent.setup()
+    const onSelectedChange = vi.fn()
+    const renderPanel = (open: boolean, selected: ItemInput) => (
+      <SingleSelectModal onSelectedChange={onSelectedChange} open={open} selected={selected} />
+    )
+    const {rerender} = render(renderPanel(true, synchronizedItems[0]))
+
+    await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus())
+    await user.click(screen.getByRole('option', {name: 'item two'}))
+    expect(screen.getByRole('option', {name: 'item two'})).toHaveAttribute('aria-selected', 'true')
+    expect(onSelectedChange).not.toHaveBeenCalled()
+
+    rerender(renderPanel(false, synchronizedItems[0]))
+    rerender(renderPanel(true, synchronizedItems[0]))
+    await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus())
+    expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+
+    const input = screen.getByLabelText('Filter items')
+    rerender(renderPanel(true, synchronizedItems[2]))
+    expect(screen.getByRole('option', {name: 'item three'})).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByLabelText('Filter items')).toBe(input)
+    expect(input).toHaveFocus()
+
+    await user.click(screen.getByRole('button', {name: 'Save'}))
+    expect(onSelectedChange).toHaveBeenCalledWith(synchronizedItems[2])
+  })
+
+  it('announces internally managed loading when opened', async () => {
+    vi.useFakeTimers()
+    for (const element of document.querySelectorAll('live-region')) {
+      element.remove()
+    }
+    const liveRegion = document.createElement('live-region') as LiveRegionElement
+    document.body.appendChild(liveRegion)
+
+    try {
+      function LoadingPanel() {
+        const [open, setOpen] = React.useState(false)
+        return <MultiSelectPanel items={[]} open={open} onOpenChange={setOpen} />
+      }
+
+      render(<LoadingPanel />)
+      fireEvent.click(screen.getByRole('button', {name: 'item two'}))
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(liveRegion.getMessage('polite')).toBe('Loading.')
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+})
 
 for (const usingRemoveActiveDescendant of [false, true]) {
   describe('SelectPanel', () => {
