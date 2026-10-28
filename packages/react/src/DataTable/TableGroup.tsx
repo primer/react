@@ -1,7 +1,10 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {useId, useMemo} from 'react'
+import {useCallback, useId, useMemo, useRef} from 'react'
+import {ChevronRightIcon} from '@primer/octicons-react'
 import {VisuallyHidden} from '../VisuallyHidden'
+import {Button} from '../internal/components/ButtonReset'
+import {useControllableState} from '../hooks/useControllableState'
 import {TableRow} from './Table'
 import {TableGroupContext} from './TableGroupContext'
 import classes from './Table.module.css'
@@ -38,11 +41,62 @@ export type TableGroupProps = {
   colSpan: number
 
   children?: React.ReactNode
+
+  /**
+   * Whether the group has a disclosure control. Defaults to false.
+   */
+  collapsible?: boolean
+
+  /**
+   * Controls whether member rows are displayed.
+   */
+  expanded?: boolean
+
+  /**
+   * Initial expanded state. Defaults to true.
+   */
+  defaultExpanded?: boolean
+
+  /**
+   * Handles requests to change the expanded state.
+   */
+  onExpandedChange?: ({expanded}: {expanded: boolean}) => void
 }
 
-function TableGroup({className, id, label, rowCount, colSpan, children, 'aria-label': ariaLabel}: TableGroupProps) {
+function TableGroup({
+  className,
+  id,
+  label,
+  rowCount,
+  colSpan,
+  children,
+  'aria-label': ariaLabel,
+  collapsible = false,
+  expanded: controlledExpanded,
+  defaultExpanded = true,
+  onExpandedChange,
+}: TableGroupProps) {
   const headerId = useId()
+  const bodyId = useId()
+  const headerRef = useRef<HTMLTableCellElement>(null)
+  const [expanded, setExpanded] = useControllableState({
+    name: 'Table.Group expanded',
+    value: controlledExpanded,
+    defaultValue: defaultExpanded,
+    onChange: value => onExpandedChange?.({expanded: value}),
+  })
+  const isExpanded = !collapsible || expanded
   const contextValue = useMemo(() => ({headerId}), [headerId])
+
+  // Restore focus during the collapse commit, including externally controlled changes.
+  const bodyRef = useCallback(
+    (body: HTMLTableSectionElement | null) => {
+      if (!isExpanded && body?.contains(body.ownerDocument.activeElement)) {
+        headerRef.current?.querySelector('button')?.focus()
+      }
+    },
+    [isExpanded],
+  )
 
   return (
     <>
@@ -55,14 +109,33 @@ function TableGroup({className, id, label, rowCount, colSpan, children, 'aria-la
         <TableRow>
           <th
             id={headerId}
+            ref={headerRef}
             className={clsx('TableGroupHeaderCell', classes.TableGroupHeaderCell)}
             scope="colgroup"
             colSpan={colSpan}
             role="columnheader"
-            aria-label={ariaLabel}
+            aria-label={collapsible ? (ariaLabel ?? label) : ariaLabel}
             data-component="Table.Group.Header"
           >
-            <span className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}>
+            {collapsible ? (
+              <Button
+                className={classes.TableGroupToggle}
+                data-component="Table.Group.Toggle"
+                aria-label={ariaLabel ?? label}
+                aria-description={`${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`}
+                aria-expanded={isExpanded}
+                aria-controls={bodyId}
+                onClick={() => {
+                  setExpanded(!expanded)
+                }}
+              >
+                <ChevronRightIcon aria-hidden="true" />
+              </Button>
+            ) : null}
+            <span
+              className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}
+              aria-hidden={collapsible || undefined}
+            >
               <span className={clsx('TableGroupHeaderLabel', classes.TableGroupHeaderLabel)}>
                 {label}
                 <VisuallyHidden>,</VisuallyHidden>
@@ -76,6 +149,9 @@ function TableGroup({className, id, label, rowCount, colSpan, children, 'aria-la
         </TableRow>
       </tbody>
       <tbody
+        id={bodyId}
+        ref={bodyRef}
+        hidden={!isExpanded}
         className={clsx('TableBody', classes.TableBody)}
         role="rowgroup"
         data-component="Table.Group.Body"

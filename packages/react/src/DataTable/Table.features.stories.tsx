@@ -62,6 +62,45 @@ export const WithGroups = () => {
   )
 }
 
+export const WithCollapsibleGroups = () => {
+  const id = useId()
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id={`${id}-title`}>
+        Collapsible repository groups
+      </Table.Title>
+      <Table aria-labelledby={`${id}-title`} gridTemplateColumns="minmax(0, 1fr) auto">
+        <Table.Head>
+          <Table.Row>
+            <Table.Header id={`${id}-name`}>Name</Table.Header>
+            <Table.Header id={`${id}-visibility`}>Visibility</Table.Header>
+          </Table.Row>
+        </Table.Head>
+        {groups.map(group => (
+          <Table.Group
+            key={group.id}
+            id={group.id}
+            label={group.label}
+            rowCount={group.rows.length}
+            colSpan={2}
+            collapsible
+            defaultExpanded={group.id === 'public'}
+          >
+            {group.rows.map(repo => (
+              <Table.Row key={repo.id}>
+                <Table.Cell id={`${id}-row-${repo.id}`} scope="row" headers={`${id}-name`}>
+                  {repo.name}
+                </Table.Cell>
+                <Table.Cell headers={`${id}-row-${repo.id} ${id}-visibility`}>{repo.visibility}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Group>
+        ))}
+      </Table>
+    </Table.Container>
+  )
+}
+
 export const WithRowSelection = () => {
   const id = useId()
   const titleId = `${id}-title`

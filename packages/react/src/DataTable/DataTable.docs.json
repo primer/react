@@ -62,6 +62,9 @@
       "id": "experimental-components-datatable-features--with-sortable-groups"
     },
     {
+      "id": "experimental-components-datatable-features--with-collapsible-groups"
+    },
+    {
       "id": "experimental-components-table-features--with-groups"
     },
     {
@@ -119,6 +122,27 @@
       "name": "isRowSelectable",
       "type": "(row: Data) => boolean",
       "description": "Determine which rows can be selected and counted by select-all."
+    },
+    {
+      "name": "collapsibleGroups",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Enable group disclosures. Collapsing only hides members; selection and select-all still include them."
+    },
+    {
+      "name": "expandedGroups",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Control expanded groups by stable groupId. String and numeric IDs remain distinct."
+    },
+    {
+      "name": "defaultExpandedGroups",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Initially expanded group IDs. Defaults to all groups in the initial data; subsequently introduced IDs are collapsed."
+    },
+    {
+      "name": "onExpandedGroupsChange",
+      "type": "({ expandedGroups }: { expandedGroups: Set<DataTableRowId> }) => void",
+      "description": "Receive a new expansion set on a disclosure request. Sorting and data replacement do not emit this callback or clear stored IDs."
     },
     {
       "name": "cellPadding",
@@ -223,6 +247,28 @@
     {
       "name": "Table.Group",
       "props": [
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Render a disclosure controlling the member body. Without this prop members are always visible."
+        },
+        {
+          "name": "expanded",
+          "type": "boolean",
+          "description": "Control whether the member body is visible."
+        },
+        {
+          "name": "defaultExpanded",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Initial expanded state for an uncontrolled group."
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "({ expanded }: { expanded: boolean }) => void",
+          "description": "Handle a disclosure request. Controlled groups wait for the expanded prop to update."
+        },
         {
           "name": "id",
           "type": "string | number",

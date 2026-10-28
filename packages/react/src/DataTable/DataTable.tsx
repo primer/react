@@ -105,6 +105,26 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    * Determines whether a row can be selected.
    */
   isRowSelectable?: (row: Data) => boolean
+
+  /**
+   * Whether groups have disclosure controls. Groups are expanded by default.
+   */
+  collapsibleGroups?: boolean
+
+  /**
+   * Controls the expanded group IDs.
+   */
+  expandedGroups?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Initially expanded group IDs. Defaults to all groups in the initial data.
+   */
+  defaultExpandedGroups?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Handles requests to change the expanded group IDs.
+   */
+  onExpandedGroupsChange?: ({expandedGroups}: {expandedGroups: Set<DataTableRowId>}) => void
 }
 
 export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
@@ -148,6 +168,10 @@ function DataTableImplementation<Data extends UniqueRow>({
   defaultSelectedRows,
   onSelectionChange,
   isRowSelectable,
+  collapsibleGroups = false,
+  expandedGroups,
+  defaultExpandedGroups,
+  onExpandedGroupsChange,
 }: DataTableProps<Data>) {
   const table = useTable({
     data,
@@ -161,6 +185,10 @@ function DataTableImplementation<Data extends UniqueRow>({
     defaultSelectedRows,
     onSelectionChange,
     isRowSelectable,
+    collapsibleGroups,
+    expandedGroups,
+    defaultExpandedGroups,
+    onExpandedGroupsChange,
   })
   const {headers, bodies, actions, selection, gridTemplateColumns} = table
 
@@ -253,6 +281,11 @@ function DataTableImplementation<Data extends UniqueRow>({
             rowCount={body.rows.length}
             colSpan={headers.length + (rowSelection ? 1 : 0)}
             aria-label={body['aria-label']}
+            collapsible={collapsibleGroups}
+            expanded={body.expanded}
+            onExpandedChange={() => {
+              actions.toggleGroupExpansion(body)
+            }}
           >
             {body.rows.map(renderRow)}
           </TableGroup>
