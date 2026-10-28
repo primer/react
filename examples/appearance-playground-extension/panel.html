@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Primer Appearance Playground</title>
+    <link rel="stylesheet" href="panel.css" />
+    <script type="module" src="panel.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Appearance playground <span>Demo</span></h1>
+      <p id="site">Connecting to the active tab...</p>
+    </header>
+    <p id="error" role="alert" hidden></p>
+    <p id="notice" role="status"></p>
+    <form id="controls">
+      <fieldset id="settings" disabled>
+        <label class="toggle"><input id="enabled" type="checkbox" /> Preview on this tab</label>
+        <label for="theme-search">Find a theme</label>
+        <input id="theme-search" type="search" placeholder="Primer, Linear, Noodles..." />
+        <label for="theme">Theme</label>
+        <select id="theme"></select>
+        <label for="density">Density <output id="density-value"></output></label>
+        <input id="density" type="range" min="0" max="4" step="1" value="2" />
+        <label for="seriousness">Seriousness <output id="seriousness-value"></output></label>
+        <input id="seriousness" type="range" min="0" max="4" step="1" value="2" />
+        <p class="hint">
+          Friendly social → Bank security. Visual styling only, not a security setting. Density can override the
+          recommended spacing.
+        </p>
+        <div class="buttons">
+          <button type="button" id="reset">Reset page</button>
+          <button type="button" id="refresh">Refresh variables</button>
+        </div>
+        <details>
+          <summary>CSS-variable overrides <span id="override-count"></span></summary>
+          <label for="variable-search">Find a page variable</label>
+          <input id="variable-search" type="search" placeholder="radius, padding, color..." />
+          <label for="variables">Variables found on this page</label>
+          <select id="variables" size="6"></select>
+          <label for="variable-name">Variable name</label>
+          <input id="variable-name" placeholder="--borderRadius-medium" spellcheck="false" />
+          <label for="variable-value">CSS value</label>
+          <input id="variable-value" placeholder="12px or var(--base-size-8)" spellcheck="false" />
+          <div class="buttons">
+            <button type="button" id="set-variable">Set override</button>
+            <button type="button" id="remove-variable">Remove override</button>
+          </div>
+          <ul id="overrides"></ul>
+        </details>
+      </fieldset>
+    </form>
+    <footer>
+      <p>Changes stay in this tab, until reset or reload. Other tabs are independent. Nothing is sent to a server.</p>
+      <p>
+        Best with variable-based Primer. Hard-coded styles, cross-origin frames, shadow DOM and Chrome-protected pages
+        are not covered.
+      </p>
+    </footer>
+  </body>
+</html>

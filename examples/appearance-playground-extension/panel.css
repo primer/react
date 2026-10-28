@@ -1,0 +1,128 @@
+:root {
+  color-scheme: light dark;
+  font:
+    14px/1.5 system-ui,
+    sans-serif;
+  color: light-dark(#1f2328, #f0f3f6);
+  background: light-dark(#ffffff, #151b23);
+}
+
+body {
+  min-width: 260px;
+  margin: 0;
+  padding: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+h1 span {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+p {
+  margin: 8px 0;
+}
+
+fieldset {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 16px 0;
+  padding: 0;
+  border: 0;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+input,
+select,
+button {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  padding: 8px;
+  font: inherit;
+  border: 1px solid light-dark(#d1d9e0, #3d444d);
+  border-radius: 6px;
+}
+
+input[type='range'] {
+  width: 100%;
+  padding: 0;
+  accent-color: light-dark(#0969da, #4493f8);
+}
+
+button,
+summary {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+output,
+.hint,
+footer,
+#site {
+  color: light-dark(#59636e, #b7c0ca);
+  font-weight: 400;
+}
+
+.hint,
+footer {
+  font-size: 12px;
+}
+
+.toggle {
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+details {
+  margin-top: 16px;
+}
+
+details input,
+details select {
+  width: 100%;
+  margin: 4px 0 8px;
+}
+
+#error {
+  padding: 8px;
+  color: light-dark(#82071e, #ffb1ba);
+  background: light-dark(#ffebe9, #3b1019);
+  border: 1px solid light-dark(#ff8182, #b62324);
+  border-radius: 6px;
+}
+
+#notice {
+  min-height: 21px;
+}
+
+#overrides {
+  padding-left: 18px;
+  overflow-wrap: anywhere;
+}
+
+:focus-visible {
+  outline: 2px solid light-dark(#0969da, #4493f8);
+  outline-offset: 2px;
+}

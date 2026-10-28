@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Primer Appearance Playground",
+  "version": "0.1.0",
+  "description": "Demo-only themes, density, Seriousness and CSS-variable overrides for Primer websites.",
+  "minimum_chrome_version": "123",
+  "permissions": ["activeTab", "scripting", "sidePanel", "storage"],
+  "action": {
+    "default_title": "Open Primer Appearance Playground"
+  },
+  "background": {
+    "service_worker": "worker.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/w95fa.woff2"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
