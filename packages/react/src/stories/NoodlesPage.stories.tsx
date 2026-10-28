@@ -5,7 +5,6 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   BookIcon,
-  ChevronRightIcon,
   CodeSquareIcon,
   CommentDiscussionIcon,
   CommentIcon,
@@ -28,6 +27,7 @@ import {Button, IconButton} from '../Button'
 import {Dialog} from '../Dialog'
 import FormControl from '../FormControl'
 import Heading from '../Heading'
+import {NavList} from '../NavList'
 import Textarea from '../Textarea'
 import TextInput from '../TextInput'
 import {
@@ -36,7 +36,14 @@ import {
   PlaygroundAppearanceProvider,
   PlaygroundAppearanceSurface,
 } from './PlaygroundAppearance'
-import {noodlesPages, noodlesReports, noodlesStatusSections} from './NoodlesPage.fixtures'
+import {
+  noodlesPages,
+  noodlesProjectCover,
+  noodlesProjectPages,
+  noodlesReports,
+  noodlesStatusSections,
+} from './NoodlesPage.fixtures'
+import type {NoodlesPageFixture} from './NoodlesPage.fixtures'
 import classes from './NoodlesPage.stories.module.css'
 
 const meta = {
@@ -48,7 +55,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A separate Primer-first interpretation of a user-authorized Noodles reference. Default uses unmodified Primer appearance tokens. The Noodles theme is an optional scoped preset; every existing theme, Density and Seriousness control also works here. Layout and typography approximate the reference without importing its code, fonts, assets, authenticated URLs, account details or report copy. All report text, notes and pages are fictional local fixtures. Navigation, report switching, page creation/renaming/duplication, comments, attachments, reading width, focus mode and Markdown preview run locally. No account connection, remote writes or persistence. Reloading resets the demo.',
+          'A separate Primer-first interpretation of a user-authorized Noodles reference. Default uses unmodified Primer appearance tokens and a standard NavList, including its built-in subpage disclosure, selection, spacing and typography. No story CSS customizes NavList or its items. The Noodles theme is an optional scoped preset; every existing theme, Density and Seriousness control also works here. Page layout approximates the reference without importing its code, fonts, assets, authenticated URLs, account details or report copy. Workspace and navigation labels match the reference; report bodies, notes and newly created pages are original local fixtures. The cover link and noodle switcher are separate controls. Expanding project subpages does not hide sibling collections. Navigation, report switching, page creation/renaming/duplication, comments, attachments, reading width, focus mode and Markdown preview run locally. No account connection, remote writes or persistence. Reloading resets the demo.',
       },
     },
   },
@@ -58,13 +65,13 @@ export default meta
 type Story = StoryObj<typeof meta>
 type UtilityDialog = 'agent' | 'settings' | 'attachments' | null
 type EditDialog = 'new' | 'rename' | null
+const initialPages = [noodlesProjectCover, ...noodlesProjectPages, ...noodlesPages]
 
 function NoodlesPage() {
-  const [pages, setPages] = useState([...noodlesPages])
+  const [pages, setPages] = useState([...initialPages])
   const [selectedId, setSelectedId] = useState('status-updates')
   const [reportIndex, setReportIndex] = useState(0)
   const [sidebarVisible, setSidebarVisible] = useState(true)
-  const [projectExpanded, setProjectExpanded] = useState(true)
   const [focusMode, setFocusMode] = useState(false)
   const [wide, setWide] = useState(false)
   const [markdown, setMarkdown] = useState(false)
@@ -96,7 +103,7 @@ function NoodlesPage() {
     '',
     isReport ? `## Week ${12 - reportIndex}: Rollout readiness` : `## ${selected.title}`,
     '',
-    'Fictional notes for the Arcade Shield team.',
+    'Demo notes for the Octoinvaders Ink Shield team.',
     ...noodlesStatusSections.flatMap(section => [
       '',
       `## ${section.heading}`,
@@ -111,15 +118,15 @@ function NoodlesPage() {
     setEditDialog(mode)
   }
 
-  function addPage(pageTitle: string) {
-    const page = {id: `${id}-page-${nextId.current++}`, title: pageTitle}
+  function addPage(pageTitle: string, parentId?: string) {
+    const page = {id: `${id}-page-${nextId.current++}`, title: pageTitle, parentId}
     setPages(current => [...current, page])
     setSelectedId(page.id)
     setNotice(`Created "${pageTitle}" locally. Nothing was saved remotely.`)
   }
 
   function reset() {
-    setPages([...noodlesPages])
+    setPages([...initialPages])
     setSelectedId('status-updates')
     setReportIndex(0)
     setReportTitles({})
@@ -128,6 +135,29 @@ function NoodlesPage() {
     setNoteDraft('')
     setMarkdown(false)
     setNotice('Local pages, comments and attachments reset. Appearance choices are unchanged.')
+  }
+
+  function openCover() {
+    setSelectedId('project-cover')
+    setMarkdown(false)
+  }
+
+  function renderPage(page: NoodlesPageFixture) {
+    return (
+      <NavList.Item
+        key={page.id}
+        href={`#${id}-${page.id}`}
+        aria-current={selectedId === page.id ? 'page' : undefined}
+        onClick={event => {
+          event.preventDefault()
+          setSelectedId(page.id)
+          setMarkdown(false)
+        }}
+      >
+        {page.title}
+        {page.count !== undefined && <NavList.TrailingVisual>{page.count}</NavList.TrailingVisual>}
+      </NavList.Item>
+    )
   }
 
   return (
@@ -146,49 +176,59 @@ function NoodlesPage() {
               onClick={() => setSidebarVisible(false)}
             />
           </div>
-          <Button
-            className={classes.Project}
-            variant="invisible"
-            block
-            alignContent="start"
-            leadingVisual={BookIcon}
-            onClick={() => setUtilityDialog('settings')}
-          >
-            Arcade &middot; Shield Project
-          </Button>
-          <nav className={classes.Navigation} aria-label="Workspace pages">
+          <div className={classes.Project}>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <IconButton icon={BookIcon} variant="invisible" size="small" aria-label="Switch noodle" />
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList selectionVariant="single">
+                  <ActionList.Group>
+                    <ActionList.GroupHeading>Favourite noodles</ActionList.GroupHeading>
+                    <ActionList.Item selected onSelect={openCover}>
+                      {noodlesProjectCover.title}
+                    </ActionList.Item>
+                  </ActionList.Group>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
             <Button
+              as="a"
+              href={`#${id}-document`}
+              aria-label={`Open ${noodlesProjectCover.title} cover`}
               variant="invisible"
-              leadingVisual={projectExpanded ? ArrowDownIcon : ChevronRightIcon}
-              aria-expanded={projectExpanded}
-              aria-controls={`${id}-pages`}
-              onClick={() => setProjectExpanded(value => !value)}
-              block
               alignContent="start"
+              onClick={event => {
+                event.preventDefault()
+                openCover()
+              }}
             >
-              Arcade &middot; Shield Project
+              {noodlesProjectCover.title}
             </Button>
-            {projectExpanded && (
-              <ActionList id={`${id}-pages`}>
-                {pages.map(page => (
-                  <ActionList.Item
-                    key={page.id}
-                    active={selectedId === page.id}
-                    onSelect={() => {
-                      setSelectedId(page.id)
-                      setMarkdown(false)
-                    }}
-                  >
-                    {page.title}
-                    {page.count !== undefined && (
-                      <ActionList.TrailingVisual>
-                        <span className={classes.Count}>{page.count}</span>
-                      </ActionList.TrailingVisual>
-                    )}
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <IconButton icon={PlusIcon} variant="invisible" size="small" aria-label="Create" />
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item onSelect={() => openEditor('new')}>
+                    New page
+                    <ActionList.Description variant="block">Create content</ActionList.Description>
                   </ActionList.Item>
-                ))}
-              </ActionList>
-            )}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </div>
+          <div className={classes.Navigation}>
+            <NavList aria-label="Noodle pages">
+              <NavList.Item>
+                {noodlesProjectCover.title}
+                <NavList.SubNav>
+                  {pages.filter(page => page.parentId === 'project-cover').map(renderPage)}
+                </NavList.SubNav>
+              </NavList.Item>
+              {pages.filter(page => page.id !== 'project-cover' && !page.parentId).map(renderPage)}
+            </NavList>
             <Button
               variant="invisible"
               leadingVisual={PlusIcon}
@@ -198,7 +238,7 @@ function NoodlesPage() {
             >
               New page
             </Button>
-          </nav>
+          </div>
           <div className={classes.SidebarFooter}>
             <Button
               variant="invisible"
@@ -293,7 +333,9 @@ function NoodlesPage() {
               <ActionMenu.Overlay>
                 <ActionList>
                   <ActionList.Item onSelect={() => openEditor('rename')}>Rename page</ActionList.Item>
-                  <ActionList.Item onSelect={() => addPage(`${title} (copy)`)}>Duplicate page</ActionList.Item>
+                  <ActionList.Item onSelect={() => addPage(`${title} (copy)`, selected.parentId)}>
+                    Duplicate page
+                  </ActionList.Item>
                   <ActionList.Divider />
                   <ActionList.Item onSelect={reset}>Reset local changes</ActionList.Item>
                 </ActionList>
@@ -367,7 +409,7 @@ function NoodlesPage() {
             />
           </div>
         </header>
-        <main className={classes.ScrollArea} aria-label="Noodles document" tabIndex={0}>
+        <main id={`${id}-document`} className={classes.ScrollArea} aria-label="Noodles document" tabIndex={0}>
           <article className={classes.Document}>
             {markdown ? (
               <Textarea block readOnly rows={28} aria-label="Markdown preview" value={markdownPreview} />
@@ -382,8 +424,8 @@ function NoodlesPage() {
                   </Heading>
                   <p>
                     {isReport
-                      ? 'Fictional weekly report for the Arcade Shield team.'
-                      : 'A local planning page for the Arcade Shield project.'}
+                      ? 'Demo weekly report for the Octoinvaders Ink Shield team.'
+                      : 'A local planning page for the Octoinvaders Ink Shield project.'}
                   </p>
                 </section>
                 {noodlesStatusSections.map((section, index) => (
@@ -593,8 +635,8 @@ function NoodlesPage() {
           ) : (
             <>
               <p>
-                Arcade &middot; Shield Project is a fictional local workspace. Use the appearance bar to try themes,
-                density and Seriousness.
+                This is a local demo of the Octoinvaders &middot; Ink Shield workspace. Use the appearance bar to try
+                themes, density and Seriousness.
               </p>
               <Button
                 onClick={() => {
@@ -650,12 +692,32 @@ export const LocalInteractions: Story = {
   render: () => <NoodlesDemo />,
   play: async ({canvas, canvasElement}) => {
     const body = within(canvasElement.ownerDocument.body)
+    const navigation = within(canvas.getByRole('navigation', {name: 'Noodle pages'}))
+    const disclosure = navigation.getByRole('button', {name: noodlesProjectCover.title, exact: true})
+    await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
+    await userEvent.click(disclosure)
+    await expect(navigation.getByRole('link', {name: 'First-use onboarding'})).toBeVisible()
+    await expect(navigation.getByRole('link', {name: /Status updates/})).toBeVisible()
+    await userEvent.click(disclosure)
+    await expect(navigation.queryByRole('link', {name: 'First-use onboarding'})).not.toBeInTheDocument()
+    await expect(navigation.getByRole('link', {name: /Status updates/})).toBeVisible()
+    await userEvent.click(canvas.getByRole('button', {name: 'Switch noodle', exact: true}))
+    const switcher = within(await body.findByRole('menu'))
+    await expect(switcher.getByRole('menuitemradio', {name: noodlesProjectCover.title})).toHaveAttribute(
+      'aria-checked',
+      'true',
+    )
+    await userEvent.keyboard('{Escape}')
+    await userEvent.click(canvas.getByRole('link', {name: `Open ${noodlesProjectCover.title} cover`}))
+    await expect(canvas.getByRole('heading', {name: noodlesProjectCover.title, level: 1})).toBeVisible()
+    await userEvent.click(navigation.getByRole('link', {name: /Status updates/}))
+    await expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toBeVisible()
     await userEvent.click(canvas.getByRole('button', {name: 'New page', exact: true}))
     const dialog = within(await body.findByRole('dialog', {name: 'New page', exact: true}))
     const title = dialog.getByRole('textbox', {name: /Page title/})
     await userEvent.type(title, '   ')
     await userEvent.click(dialog.getByRole('button', {name: 'Create page'}))
-    await expect(dialog.getByText('Enter a page title.')).toBeVisible()
+    await waitFor(() => expect(dialog.getByText('Enter a page title.')).toBeVisible())
     await userEvent.clear(title)
     await userEvent.type(title, 'Release notes')
     await userEvent.click(dialog.getByRole('button', {name: 'Create page'}))

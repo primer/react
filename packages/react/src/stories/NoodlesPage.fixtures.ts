@@ -2,6 +2,7 @@ export interface NoodlesPageFixture {
   id: string
   title: string
   count?: number
+  parentId?: string
 }
 
 export interface NoodlesSectionFixture {
@@ -10,18 +11,31 @@ export interface NoodlesSectionFixture {
   items?: readonly string[]
 }
 
+export const noodlesProjectCover: NoodlesPageFixture = {
+  id: 'project-cover',
+  title: 'Octoinvaders \u00b7 Ink Shield',
+}
+
+export const noodlesProjectPages: readonly NoodlesPageFixture[] = [
+  {id: 'onboarding', title: 'First-use onboarding', parentId: 'project-cover'},
+  {id: 'redirect', title: 'Redirect timing', parentId: 'project-cover'},
+  {id: 'pacing', title: 'Wave-two pacing', parentId: 'project-cover'},
+  {id: 'accessible-feedback', title: 'Accessible shield feedback', parentId: 'project-cover'},
+  {id: 'guardrails', title: 'Rollout guardrails', parentId: 'project-cover'},
+]
+
 export const noodlesPages: readonly NoodlesPageFixture[] = [
   {id: 'status-updates', title: 'Status updates', count: 12},
   {id: 'standups', title: 'Standups', count: 60},
-  {id: 'prototype', title: 'Shield interactive prototype'},
-  {id: 'visual-direction', title: 'Project visual direction'},
+  {id: 'prototype', title: 'Ink Shield interactive prototype'},
+  {id: 'visual-direction', title: 'Octoinvaders visual direction'},
   {id: 'inspiration', title: 'Arcade inspiration'},
   {id: 'feature-brief', title: 'Feature brief'},
   {id: 'mechanics', title: 'Mechanics specification'},
   {id: 'waves', title: 'Wave and character design'},
   {id: 'art-audio', title: 'Art and audio direction'},
-  {id: 'dashboard', title: 'Playtest dashboard'},
-  {id: 'delivery', title: 'Shield delivery board'},
+  {id: 'dashboard', title: 'Kusto playtest dashboard'},
+  {id: 'delivery', title: 'Ink Shield delivery board'},
   {id: 'telemetry', title: 'Telemetry and experiment plan'},
   {id: 'checklist', title: 'Playtest and launch checklist'},
 ]

@@ -37,7 +37,6 @@
   flex-direction: column;
   min-height: 0;
   padding-right: var(--base-size-8);
-  font-size: var(--text-body-size-small);
 }
 
 .Brand,
@@ -62,8 +61,10 @@
 }
 
 .Project {
+  display: flex;
   flex-shrink: 0;
-  justify-content: start;
+  align-items: center;
+  gap: var(--base-size-4);
   margin-block: var(--base-size-16);
 }
 
@@ -71,18 +72,6 @@
   flex: 1;
   min-height: 0;
   overflow: auto;
-
-  > ul {
-    padding-block: 0;
-  }
-}
-
-.Count {
-  padding-inline: var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
-  background: var(--counter-bgColor-muted);
-  border-radius: var(--borderRadius-full);
 }
 
 .SidebarFooter {
