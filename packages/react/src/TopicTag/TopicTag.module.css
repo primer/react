@@ -19,10 +19,11 @@
   --TopicTag--fontSize: var(--text-body-size-small);
   --TopicTag--color: var(--fgColor-accent);
   --TopicTag--backgroundColor: var(--bgColor-accent-muted);
+
   background-color: var(--TopicTag--backgroundColor);
   color: var(--TopicTag--color);
   font-size: var(--TopicTag--fontSize);
-  font-weight: var(--TopicTag--fontWeight);
+  font-weight: var(--base-text-weight-light);
   line-height: var(--TopicTag--lineHeight);
   border-radius: var(--TopicTag--borderRadius);
   padding: var(--TopicTag--padding);
@@ -33,6 +34,7 @@
   &:hover {
     --TopicTag--color-hover: var(--fgColor-onEmphasis);
     --TopicTag--backgroundColor-hover: var(--bgColor-accent-emphasis);
+
     background-color: var(--TopicTag--backgroundColor-hover);
     color: var(--TopicTag--color-hover);
   }

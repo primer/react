@@ -5,6 +5,7 @@
   --Checkbox--shared-input-marginTop: var(--base-size-2);
   --Checkbox--shared-input-height: var(--base-size-16);
   --Checkbox--shared-input-width: var(--base-size-16);
+
   position: relative;
   display: grid;
   width: var(--Checkbox--shared-input-width);
@@ -24,6 +25,7 @@
   &:disabled {
     --Checkbox--shared-input-borderColor-disabled: var(--control-borderColor-disabled);
     --Checkbox--shared-input-backgroundColor-disabled: var(--control-bgColor-disabled);
+
     background-color: var(--Checkbox--shared-input-backgroundColor-disabled);
     border-color: var(--Checkbox--shared-input-borderColor-disabled);
   }

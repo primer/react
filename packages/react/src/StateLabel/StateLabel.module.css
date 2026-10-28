@@ -2,9 +2,10 @@
   --StateLabel--borderRadius: var(--borderRadius-full);
   --StateLabel--color: var(--fgColor-onEmphasis);
   --StateLabel--fontWeight: var(--base-text-weight-semibold);
+
   display: inline-flex;
   align-items: center;
-  font-weight: var(--StateLabel--fontWeight);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/typography */
   line-height: 16px;
   color: var(--StateLabel--color);
@@ -16,6 +17,7 @@
 .StateLabel:where([data-size='small']) {
   --StateLabel--fontSize-sizeSmall: var(--text-body-size-small);
   --StateLabel--padding-sizeSmall: var(--base-size-4) var(--base-size-8);
+
   padding: var(--StateLabel--padding-sizeSmall);
   font-size: var(--StateLabel--fontSize-sizeSmall);
 }
@@ -23,6 +25,7 @@
 .StateLabel:where([data-size='medium']) {
   --StateLabel--fontSize-sizeMedium: var(--text-body-size-medium);
   --StateLabel--padding-sizeMedium: var(--base-size-8) var(--base-size-12);
+
   padding: var(--StateLabel--padding-sizeMedium);
   font-size: var(--StateLabel--fontSize-sizeMedium);
 }
@@ -33,6 +36,7 @@
     var(--borderColor-done-emphasis, transparent);
   --StateLabel--color-statusIssueClosed: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusIssueClosed: var(--bgColor-done-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusIssueClosed);
   color: var(--StateLabel--color-statusIssueClosed);
   box-shadow: var(--StateLabel--boxShadow-statusIssueClosed);
@@ -43,6 +47,7 @@
     var(--borderColor-neutral-emphasis, transparent);
   --StateLabel--color-statusIssueClosedNotPlanned: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusIssueClosedNotPlanned: var(--bgColor-neutral-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusIssueClosedNotPlanned);
   color: var(--StateLabel--color-statusIssueClosedNotPlanned);
   box-shadow: var(--StateLabel--boxShadow-statusIssueClosedNotPlanned);
@@ -53,6 +58,7 @@
     var(--borderColor-closed-emphasis, transparent);
   --StateLabel--color-statusPullClosed: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusPullClosed: var(--bgColor-closed-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusPullClosed);
   color: var(--StateLabel--color-statusPullClosed);
   box-shadow: var(--StateLabel--boxShadow-statusPullClosed);
@@ -63,6 +69,7 @@
     var(--borderColor-done-emphasis, transparent);
   --StateLabel--color-statusPullMerged: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusPullMerged: var(--bgColor-done-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusPullMerged);
   color: var(--StateLabel--color-statusPullMerged);
   box-shadow: var(--StateLabel--boxShadow-statusPullMerged);
@@ -73,6 +80,7 @@
     var(--borderColor-attention-emphasis, transparent);
   --StateLabel--color-statusPullQueued: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusPullQueued: var(--bgColor-attention-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusPullQueued);
   color: var(--StateLabel--color-statusPullQueued);
   box-shadow: var(--StateLabel--boxShadow-statusPullQueued);
@@ -83,6 +91,7 @@
     var(--borderColor-open-emphasis, transparent);
   --StateLabel--color-statusIssueOpened: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusIssueOpened: var(--bgColor-open-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusIssueOpened);
   color: var(--StateLabel--color-statusIssueOpened);
   box-shadow: var(--StateLabel--boxShadow-statusIssueOpened);
@@ -93,6 +102,7 @@
     var(--borderColor-open-emphasis, transparent);
   --StateLabel--color-statusPullOpened: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusPullOpened: var(--bgColor-open-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusPullOpened);
   color: var(--StateLabel--color-statusPullOpened);
   box-shadow: var(--StateLabel--boxShadow-statusPullOpened);
@@ -103,6 +113,7 @@
     var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
   --StateLabel--color-statusDraft: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusDraft: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
+
   background-color: var(--StateLabel--backgroundColor-statusDraft);
   color: var(--StateLabel--color-statusDraft);
   box-shadow: var(--StateLabel--boxShadow-statusDraft);
@@ -113,6 +124,7 @@
     var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
   --StateLabel--color-statusIssueDraft: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusIssueDraft: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
+
   background-color: var(--StateLabel--backgroundColor-statusIssueDraft);
   color: var(--StateLabel--color-statusIssueDraft);
   box-shadow: var(--StateLabel--boxShadow-statusIssueDraft);
@@ -123,6 +135,7 @@
     var(--borderColor-neutral-emphasis, transparent);
   --StateLabel--color-statusUnavailable: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusUnavailable: var(--bgColor-neutral-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusUnavailable);
   color: var(--StateLabel--color-statusUnavailable);
   box-shadow: var(--StateLabel--boxShadow-statusUnavailable);
@@ -133,6 +146,7 @@
     var(--borderColor-open-emphasis, transparent);
   --StateLabel--color-statusOpen: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusOpen: var(--bgColor-open-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusOpen);
   color: var(--StateLabel--color-statusOpen);
   box-shadow: var(--StateLabel--boxShadow-statusOpen);
@@ -143,6 +157,7 @@
     var(--borderColor-done-emphasis, transparent);
   --StateLabel--color-statusClosed: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusClosed: var(--bgColor-done-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusClosed);
   color: var(--StateLabel--color-statusClosed);
   box-shadow: var(--StateLabel--boxShadow-statusClosed);
@@ -153,6 +168,7 @@
     var(--borderColor-open-emphasis, transparent);
   --StateLabel--color-statusAlertOpened: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusAlertOpened: var(--bgColor-open-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusAlertOpened);
   color: var(--StateLabel--color-statusAlertOpened);
   box-shadow: var(--StateLabel--boxShadow-statusAlertOpened);
@@ -163,6 +179,7 @@
     var(--borderColor-done-emphasis, transparent);
   --StateLabel--color-statusAlertFixed: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusAlertFixed: var(--bgColor-done-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusAlertFixed);
   color: var(--StateLabel--color-statusAlertFixed);
   box-shadow: var(--StateLabel--boxShadow-statusAlertFixed);
@@ -173,6 +190,7 @@
     var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
   --StateLabel--color-statusAlertDismissed: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusAlertDismissed: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
+
   background-color: var(--StateLabel--backgroundColor-statusAlertDismissed);
   color: var(--StateLabel--color-statusAlertDismissed);
   box-shadow: var(--StateLabel--boxShadow-statusAlertDismissed);
@@ -183,6 +201,7 @@
     var(--borderColor-closed-emphasis, transparent);
   --StateLabel--color-statusAlertClosed: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusAlertClosed: var(--bgColor-closed-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusAlertClosed);
   color: var(--StateLabel--color-statusAlertClosed);
   box-shadow: var(--StateLabel--boxShadow-statusAlertClosed);
@@ -193,6 +212,7 @@
     var(--borderColor-neutral-emphasis, transparent);
   --StateLabel--color-statusArchived: var(--fgColor-onEmphasis);
   --StateLabel--backgroundColor-statusArchived: var(--bgColor-neutral-emphasis);
+
   background-color: var(--StateLabel--backgroundColor-statusArchived);
   color: var(--StateLabel--color-statusArchived);
   box-shadow: var(--StateLabel--boxShadow-statusArchived);
@@ -200,6 +220,7 @@
 
 .Icon {
   --StateLabel--icon-marginRight: var(--base-size-4);
+
   margin-right: var(--StateLabel--icon-marginRight);
 }
 

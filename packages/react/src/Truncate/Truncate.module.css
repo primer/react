@@ -1,5 +1,6 @@
 .Truncate {
   --Truncate--maxWidth: var(--truncate-max-width);
+
   display: inherit;
   overflow: hidden;
   text-overflow: ellipsis;

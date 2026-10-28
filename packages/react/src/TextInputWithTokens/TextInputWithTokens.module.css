@@ -2,6 +2,7 @@
   --TextInputWithTokens--textInputWrapper-paddingLeft: var(--base-size-12);
   --TextInputWithTokens--textInputWrapper-paddingBottom: var(--base-size-6);
   --TextInputWithTokens--textInputWrapper-paddingTop: var(--base-size-6);
+
   padding-top: var(--TextInputWithTokens--textInputWrapper-paddingTop);
   padding-bottom: var(--TextInputWithTokens--textInputWrapper-paddingBottom);
   padding-left: var(--TextInputWithTokens--textInputWrapper-paddingLeft);
@@ -28,6 +29,7 @@
 .Container {
   --TextInputWithTokens--container-marginLeft: calc(var(--base-size-4) * -1);
   --TextInputWithTokens--container-marginBottom: calc(var(--base-size-4) * -1);
+
   display: flex;
   margin-bottom: var(--TextInputWithTokens--container-marginBottom);
   margin-left: var(--TextInputWithTokens--container-marginLeft);
@@ -42,6 +44,7 @@
   > * {
     --TextInputWithTokens--container-child-marginLeft: var(--base-size-4);
     --TextInputWithTokens--container-child-marginBottom: var(--base-size-4);
+
     margin-bottom: var(--TextInputWithTokens--container-child-marginBottom);
     margin-left: var(--TextInputWithTokens--container-child-marginLeft);
     flex-shrink: 0;
@@ -51,6 +54,7 @@
 .OverflowCountSmall {
   --TextInputWithTokens--overflowCountSmall-fontSize: var(--text-body-size-small);
   --TextInputWithTokens--overflowCountSmall-color: var(--fgColor-muted);
+
   color: var(--TextInputWithTokens--overflowCountSmall-color);
   font-size: var(--TextInputWithTokens--overflowCountSmall-fontSize);
 }
@@ -58,6 +62,7 @@
 .OverflowCountMedium {
   --TextInputWithTokens--overflowCountMedium-fontSize: var(--text-body-size-medium);
   --TextInputWithTokens--overflowCountMedium-color: var(--fgColor-muted);
+
   color: var(--TextInputWithTokens--overflowCountMedium-color);
   font-size: var(--TextInputWithTokens--overflowCountMedium-fontSize);
 }
@@ -65,6 +70,7 @@
 .OverflowCountLarge {
   --TextInputWithTokens--overflowCountLarge-fontSize: var(--text-body-size-medium);
   --TextInputWithTokens--overflowCountLarge-color: var(--fgColor-muted);
+
   color: var(--TextInputWithTokens--overflowCountLarge-color);
   font-size: var(--TextInputWithTokens--overflowCountLarge-fontSize);
 }
@@ -72,6 +78,7 @@
 .OverflowCountXLarge {
   --TextInputWithTokens--overflowCountXLarge-fontSize: var(--text-body-size-large);
   --TextInputWithTokens--overflowCountXLarge-color: var(--fgColor-muted);
+
   color: var(--TextInputWithTokens--overflowCountXLarge-color);
   font-size: var(--TextInputWithTokens--overflowCountXLarge-fontSize);
 }

@@ -13,11 +13,13 @@
 
   & > *:not(label) + * {
     --FormControl--controlVerticalLayout-child-label-next-marginTop-not: var(--base-size-4);
+
     margin-top: var(--FormControl--controlVerticalLayout-child-label-next-marginTop-not);
   }
 
   &[data-has-label] > * + * {
     --FormControl--controlVerticalLayout-child-next-marginTop-hasLabelPresent: var(--base-size-4);
+
     margin-top: var(--FormControl--controlVerticalLayout-child-next-marginTop-hasLabelPresent);
   }
 }
@@ -36,24 +38,28 @@
 
   > label {
     --FormControl--labelContainer-child-label-fontWeight: var(--base-text-weight-normal);
-    font-weight: var(--FormControl--labelContainer-child-label-fontWeight);
+
+    font-weight: var(--base-text-weight-light);
   }
 }
 
 .LeadingVisual {
   --FormControl--leadingVisual-color: var(--fgColor-muted);
   --FormControl--leadingVisual-marginLeft: var(--base-size-8);
+
   margin-left: var(--FormControl--leadingVisual-marginLeft);
   color: var(--FormControl--leadingVisual-color);
 
   &:where([data-disabled]) {
     --FormControl--leadingVisual-color-disabledPresent: var(--control-fgColor-disabled);
+
     color: var(--FormControl--leadingVisual-color-disabledPresent);
   }
 
   > * {
     --FormControl--leadingVisual-child-minHeight: var(--text-body-size-large);
     --FormControl--leadingVisual-child-minWidth: var(--text-body-size-large);
+
     min-width: var(--FormControl--leadingVisual-child-minWidth);
     min-height: var(--FormControl--leadingVisual-child-minHeight);
     fill: currentColor;
@@ -62,6 +68,7 @@
   > *:where([data-has-caption]) {
     --FormControl--leadingVisual-child-minHeight-hasCaptionPresent: var(--base-size-24);
     --FormControl--leadingVisual-child-minWidth-hasCaptionPresent: var(--base-size-24);
+
     min-width: var(--FormControl--leadingVisual-child-minWidth-hasCaptionPresent);
     min-height: var(--FormControl--leadingVisual-child-minHeight-hasCaptionPresent);
   }

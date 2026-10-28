@@ -318,10 +318,10 @@ function VariableEditor({preview, selectedSection, onClearSelection}: VariableEd
   useEffect(() => {
     if (!selectedSection) return
     // CSSOM is external state; read it after the composed stories have mounted.
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
+
     refreshVariables()
     // Include portaled menus without observing the editor's own state changes.
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-external-store-subscription
+
     const observer = new MutationObserver(mutations => {
       if (mutations.every(mutation => mutation.target instanceof Element && mutation.target.closest('aside'))) return
       window.clearTimeout(timeout)
@@ -661,7 +661,8 @@ function VariableEditor({preview, selectedSection, onClearSelection}: VariableEd
                                         {baseColors.length > 0 && (
                                           <>
                                             <ActionList.Divider />
-                                            <ActionList.Group title="Base colours">
+                                            <ActionList.Group>
+                                              <ActionList.GroupHeading>Base colours</ActionList.GroupHeading>
                                               {baseColors
                                                 .filter(name => `var(${name})` !== expressionFor(variable))
                                                 .map(name => renderTokenSuggestion(variable, name))}

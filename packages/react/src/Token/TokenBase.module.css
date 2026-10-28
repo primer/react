@@ -1,10 +1,11 @@
 .TokenBase {
   --Token--tokenBase-borderRadius: var(--borderRadius-full);
   --Token--tokenBase-fontWeight: var(--base-text-weight-semibold);
+
   position: relative;
   display: inline-flex;
   font-family: inherit;
-  font-weight: var(--Token--tokenBase-fontWeight);
+  font-weight: var(--base-text-weight-light);
   text-decoration: none;
   white-space: nowrap;
   border-radius: var(--Token--tokenBase-borderRadius);
@@ -26,6 +27,7 @@
   --Token--tokenBase-paddingLeft-sizeSmall: var(--base-size-4);
   --Token--tokenBase-paddingRight-sizeSmall: var(--base-size-4);
   --Token--tokenBase-height-sizeSmall: var(--base-size-16);
+
   width: auto;
   height: var(--Token--tokenBase-height-sizeSmall);
   padding-right: var(--Token--tokenBase-paddingRight-sizeSmall);
@@ -38,6 +40,7 @@
   --Token--tokenBase-paddingLeft-sizeMedium: var(--base-size-6);
   --Token--tokenBase-paddingRight-sizeMedium: var(--base-size-6);
   --Token--tokenBase-height-sizeMedium: var(--base-size-20);
+
   width: auto;
   height: var(--Token--tokenBase-height-sizeMedium);
   padding-right: var(--Token--tokenBase-paddingRight-sizeMedium);
@@ -50,6 +53,7 @@
   --Token--tokenBase-paddingLeft-sizeLarge: var(--base-size-8);
   --Token--tokenBase-paddingRight-sizeLarge: var(--base-size-8);
   --Token--tokenBase-height-sizeLarge: var(--base-size-24);
+
   width: auto;
   height: var(--Token--tokenBase-height-sizeLarge);
   padding-right: var(--Token--tokenBase-paddingRight-sizeLarge);
@@ -62,6 +66,7 @@
   --Token--tokenBase-paddingLeft-sizeXlarge: var(--base-size-12);
   --Token--tokenBase-paddingRight-sizeXlarge: var(--base-size-12);
   --Token--tokenBase-height-sizeXlarge: var(--base-size-32);
+
   width: auto;
   height: var(--Token--tokenBase-height-sizeXlarge);
   padding-top: 0;

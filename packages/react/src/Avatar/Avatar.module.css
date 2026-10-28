@@ -2,6 +2,7 @@
   --Avatar--boxShadow: 0 0 0 1px var(--avatar-borderColor);
   --Avatar--height: var(--avatarSize-regular);
   --Avatar--width: var(--avatarSize-regular);
+
   display: inline-block;
   width: var(--Avatar--width);
   height: var(--Avatar--height);
@@ -27,6 +28,7 @@
     @media screen and (--viewportRange-narrow) {
       --Avatar--height-responsivePresent-mediaScreenAndViewportRangeNarrow: var(--avatarSize-narrow);
       --Avatar--width-responsivePresent-mediaScreenAndViewportRangeNarrow: var(--avatarSize-narrow);
+
       width: var(--Avatar--width-responsivePresent-mediaScreenAndViewportRangeNarrow);
       height: var(--Avatar--height-responsivePresent-mediaScreenAndViewportRangeNarrow);
     }
@@ -34,6 +36,7 @@
     @media screen and (--viewportRange-regular) {
       --Avatar--height-responsivePresent-mediaScreenAndViewportRangeRegular: var(--avatarSize-regular);
       --Avatar--width-responsivePresent-mediaScreenAndViewportRangeRegular: var(--avatarSize-regular);
+
       width: var(--Avatar--width-responsivePresent-mediaScreenAndViewportRangeRegular);
       height: var(--Avatar--height-responsivePresent-mediaScreenAndViewportRangeRegular);
     }
@@ -41,6 +44,7 @@
     @media screen and (--viewportRange-wide) {
       --Avatar--height-responsivePresent-mediaScreenAndViewportRangeWide: var(--avatarSize-wide);
       --Avatar--width-responsivePresent-mediaScreenAndViewportRangeWide: var(--avatarSize-wide);
+
       width: var(--Avatar--width-responsivePresent-mediaScreenAndViewportRangeWide);
       height: var(--Avatar--height-responsivePresent-mediaScreenAndViewportRangeWide);
     }

@@ -11,7 +11,7 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--DeprecatedActionList--header-padding);
   font-size: var(--DeprecatedActionList--header-fontSize);
-  font-weight: var(--DeprecatedActionList--header-fontWeight);
+  font-weight: var(--base-text-weight-light);
   color: var(--DeprecatedActionList--header-color);
 
   &:where([data-filled]) {
@@ -20,6 +20,7 @@
     --DeprecatedActionList--header-borderTop-filledPresent: var(--borderWidth-thin) solid var(--bgColor-neutral-muted);
     --DeprecatedActionList--header-margin-filledPresent: var(--base-size-8) 0;
     --DeprecatedActionList--header-background-filledPresent: var(--bgColor-muted);
+
     background: var(--DeprecatedActionList--header-background-filledPresent);
     margin: var(--DeprecatedActionList--header-margin-filledPresent);
     /* stylelint-disable-next-line primer/colors */

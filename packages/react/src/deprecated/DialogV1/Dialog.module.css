@@ -1,6 +1,7 @@
 .Overlay {
   &::before {
     --DeprecatedDialogV1--dialog-overlay-before-background: var(--overlay-backdrop-bgColor);
+
     position: fixed;
     top: 0;
     right: 0;
@@ -17,6 +18,7 @@
 .CloseIcon {
   --DeprecatedDialogV1--dialog-closeIcon-right: var(--base-size-16);
   --DeprecatedDialogV1--dialog-closeIcon-top: var(--base-size-8);
+
   position: absolute;
   top: var(--DeprecatedDialogV1--dialog-closeIcon-top);
   right: var(--DeprecatedDialogV1--dialog-closeIcon-right);
@@ -26,6 +28,7 @@
   --DeprecatedDialogV1--dialog-boxShadow: var(--shadow-floating-large);
   --DeprecatedDialogV1--dialog-borderRadius: var(--borderRadius-medium);
   --DeprecatedDialogV1--dialog-backgroundColor: var(--bgColor-default);
+
   position: fixed;
   top: 0;
   left: 50%;
@@ -65,6 +68,7 @@
   --DeprecatedDialogV1--dialog-header-borderBottom: var(--borderWidth-thin) solid var(--borderColor-default);
   --DeprecatedDialogV1--dialog-header-background: var(--bgColor-muted);
   --DeprecatedDialogV1--dialog-header-padding: var(--base-size-16);
+
   display: flex;
   padding: var(--DeprecatedDialogV1--dialog-header-padding);
   background: var(--DeprecatedDialogV1--dialog-header-background);
@@ -79,6 +83,7 @@
 .HeaderChild {
   --DeprecatedDialogV1--dialog-headerChild-fontWeight: var(--base-text-weight-semibold);
   --DeprecatedDialogV1--dialog-headerChild-fontSize: var(--text-body-size-medium);
+
   font-size: var(--DeprecatedDialogV1--dialog-headerChild-fontSize);
-  font-weight: var(--DeprecatedDialogV1--dialog-headerChild-fontWeight);
+  font-weight: var(--base-text-weight-light);
 }

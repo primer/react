@@ -19,6 +19,7 @@
       a {
         --ButtonGroup--child-item-button-a-borderBottomLeftRadius-firstChild: var(--borderRadius-medium);
         --ButtonGroup--child-item-button-a-borderTopLeftRadius-firstChild: var(--borderRadius-medium);
+
         border-top-left-radius: var(--ButtonGroup--child-item-button-a-borderTopLeftRadius-firstChild);
         border-bottom-left-radius: var(--ButtonGroup--child-item-button-a-borderBottomLeftRadius-firstChild);
       }
@@ -29,6 +30,7 @@
       a {
         --ButtonGroup--child-item-button-a-borderBottomRightRadius-lastChild: var(--borderRadius-medium);
         --ButtonGroup--child-item-button-a-borderTopRightRadius-lastChild: var(--borderRadius-medium);
+
         border-top-right-radius: var(--ButtonGroup--child-item-button-a-borderTopRightRadius-lastChild);
         border-bottom-right-radius: var(--ButtonGroup--child-item-button-a-borderBottomRightRadius-lastChild);
       }
@@ -47,6 +49,7 @@
     button,
     a {
       --ButtonGroup--div-button-a-borderRadius-has-lastChild-empty: var(--borderRadius-medium);
+
       border-radius: var(--ButtonGroup--div-button-a-borderRadius-has-lastChild-empty);
     }
   }
@@ -76,6 +79,7 @@
           --borderRadius-medium
         );
         --ButtonGroup--child-button-a-borderTopLeftRadius-loadingWrapperPresent-firstChild: var(--borderRadius-medium);
+
         border-top-left-radius: var(--ButtonGroup--child-button-a-borderTopLeftRadius-loadingWrapperPresent-firstChild);
         border-bottom-left-radius: var(
           --ButtonGroup--child-button-a-borderBottomLeftRadius-loadingWrapperPresent-firstChild
@@ -90,6 +94,7 @@
           --borderRadius-medium
         );
         --ButtonGroup--child-button-a-borderTopRightRadius-loadingWrapperPresent-lastChild: var(--borderRadius-medium);
+
         border-top-right-radius: var(
           --ButtonGroup--child-button-a-borderTopRightRadius-loadingWrapperPresent-lastChild
         );

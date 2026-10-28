@@ -1,5 +1,6 @@
 .Checkbox {
   --Checkbox--borderRadius: var(--borderRadius-small);
+
   border-radius: var(--Checkbox--borderRadius);
 
   /* checked -> unchecked - add 120ms delay to fully see animation-out */
@@ -14,6 +15,7 @@
     --Checkbox--before-backgroundColor: var(--fgColor-onEmphasis);
     --Checkbox--before-height: var(--base-size-16);
     --Checkbox--before-width: var(--base-size-16);
+
     width: var(--Checkbox--before-width);
     height: var(--Checkbox--before-height);
     visibility: hidden;
@@ -33,6 +35,7 @@
   &:indeterminate {
     --Checkbox--borderColor-checked-indeterminate: var(--control-checked-bgColor-rest);
     --Checkbox--background-checked-indeterminate: var(--control-checked-bgColor-rest);
+
     background: var(--Checkbox--background-checked-indeterminate);
 
     /* using bgColor here to avoid a border change in dark high contrast */
@@ -55,6 +58,7 @@
   &:indeterminate:disabled {
     --Checkbox--borderColor-checked-disabled-indeterminate: var(--control-checked-borderColor-disabled);
     --Checkbox--backgroundColor-checked-disabled-indeterminate: var(--control-checked-bgColor-disabled);
+
     background-color: var(--Checkbox--backgroundColor-checked-disabled-indeterminate);
     border-color: var(--Checkbox--borderColor-checked-disabled-indeterminate);
     opacity: 1;
@@ -84,6 +88,7 @@
 
   &:indeterminate {
     --Checkbox--background-indeterminate: var(--control-checked-bgColor-rest);
+
     background: var(--Checkbox--background-indeterminate);
 
     &::before {

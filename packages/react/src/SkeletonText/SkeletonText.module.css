@@ -34,6 +34,7 @@
   &:where([data-text-skeleton-size='display']),
   &:where([data-text-skeleton-size='titleLarge']) {
     --SkeletonText--borderRadius-textSkeletonSizeDisplay-textSkeletonSizeTitleLarge: var(--borderRadius-medium);
+
     border-radius: var(--SkeletonText--borderRadius-textSkeletonSizeDisplay-textSkeletonSizeTitleLarge);
   }
 

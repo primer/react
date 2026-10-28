@@ -4,9 +4,10 @@
   --Label--color: var(--fgColor-default);
   --Label--fontWeight: var(--base-text-weight-medium);
   --Label--fontSize: var(--text-body-size-small);
+
   display: inline-flex;
   font-size: var(--Label--fontSize);
-  font-weight: var(--Label--fontWeight);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
   color: var(--Label--color);
@@ -20,6 +21,7 @@
   &:where([data-size='small']) {
     --Label--padding-sizeSmall: 0 var(--base-size-6);
     --Label--height-sizeSmall: var(--base-size-20);
+
     height: var(--Label--height-sizeSmall);
     padding: var(--Label--padding-sizeSmall);
   }
@@ -27,12 +29,14 @@
   &:where([data-size='large']) {
     --Label--padding-sizeLarge: 0 var(--base-size-8);
     --Label--height-sizeLarge: var(--base-size-24);
+
     height: var(--Label--height-sizeLarge);
     padding: var(--Label--padding-sizeLarge);
   }
 
   &:where([data-variant='default']) {
     --Label--borderColor-variantDefault: var(--borderColor-default);
+
     border-color: var(--Label--borderColor-variantDefault);
   }
 
@@ -45,6 +49,7 @@
   &:where([data-variant='secondary']) {
     --Label--borderColor-variantSecondary: var(--borderColor-muted);
     --Label--color-variantSecondary: var(--fgColor-muted);
+
     color: var(--Label--color-variantSecondary);
     border-color: var(--Label--borderColor-variantSecondary);
   }
@@ -52,6 +57,7 @@
   &:where([data-variant='accent']) {
     --Label--borderColor-variantAccent: var(--bgColor-accent-emphasis);
     --Label--color-variantAccent: var(--fgColor-accent);
+
     color: var(--Label--color-variantAccent);
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--Label--borderColor-variantAccent);
@@ -60,6 +66,7 @@
   &:where([data-variant='success']) {
     --Label--borderColor-variantSuccess: var(--bgColor-success-emphasis);
     --Label--color-variantSuccess: var(--fgColor-success);
+
     color: var(--Label--color-variantSuccess);
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--Label--borderColor-variantSuccess);
@@ -68,6 +75,7 @@
   &:where([data-variant='attention']) {
     --Label--borderColor-variantAttention: var(--bgColor-attention-emphasis);
     --Label--color-variantAttention: var(--fgColor-attention);
+
     color: var(--Label--color-variantAttention);
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--Label--borderColor-variantAttention);
@@ -76,6 +84,7 @@
   &:where([data-variant='severe']) {
     --Label--borderColor-variantSevere: var(--bgColor-severe-emphasis);
     --Label--color-variantSevere: var(--fgColor-severe);
+
     color: var(--Label--color-variantSevere);
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--Label--borderColor-variantSevere);
@@ -84,6 +93,7 @@
   &:where([data-variant='danger']) {
     --Label--borderColor-variantDanger: var(--borderColor-danger-emphasis);
     --Label--color-variantDanger: var(--fgColor-danger);
+
     color: var(--Label--color-variantDanger);
     border-color: var(--Label--borderColor-variantDanger);
   }
@@ -91,6 +101,7 @@
   &:where([data-variant='done']) {
     --Label--borderColor-variantDone: var(--bgColor-done-emphasis);
     --Label--color-variantDone: var(--fgColor-done);
+
     color: var(--Label--color-variantDone);
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--Label--borderColor-variantDone);
@@ -99,6 +110,7 @@
   &:where([data-variant='sponsors']) {
     --Label--borderColor-variantSponsors: var(--bgColor-sponsors-emphasis);
     --Label--color-variantSponsors: var(--fgColor-sponsors);
+
     color: var(--Label--color-variantSponsors);
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--Label--borderColor-variantSponsors);

@@ -1,6 +1,7 @@
 .TokenButton {
   --Token--removeTokenButton-tokenButton-borderRadius: var(--borderRadius-full);
   --Token--removeTokenButton-tokenButton-marginLeft: var(--base-size-4);
+
   display: inline-flex;
   padding: 0;
   margin-left: var(--Token--removeTokenButton-tokenButton-marginLeft);
@@ -21,6 +22,7 @@
 .TokenButton[data-size='small'] {
   --Token--removeTokenButton-tokenButton-height-sizeSmall: var(--base-size-16);
   --Token--removeTokenButton-tokenButton-width-sizeSmall: var(--base-size-16);
+
   width: var(--Token--removeTokenButton-tokenButton-width-sizeSmall);
   height: var(--Token--removeTokenButton-tokenButton-height-sizeSmall);
 }
@@ -28,6 +30,7 @@
 .TokenButton[data-size='medium'] {
   --Token--removeTokenButton-tokenButton-height-sizeMedium: var(--base-size-20);
   --Token--removeTokenButton-tokenButton-width-sizeMedium: var(--base-size-20);
+
   width: var(--Token--removeTokenButton-tokenButton-width-sizeMedium);
   height: var(--Token--removeTokenButton-tokenButton-height-sizeMedium);
 }
@@ -36,6 +39,7 @@
   --Token--removeTokenButton-tokenButton-marginLeft-sizeLarge: var(--base-size-6);
   --Token--removeTokenButton-tokenButton-height-sizeLarge: var(--base-size-24);
   --Token--removeTokenButton-tokenButton-width-sizeLarge: var(--base-size-24);
+
   width: var(--Token--removeTokenButton-tokenButton-width-sizeLarge);
   height: var(--Token--removeTokenButton-tokenButton-height-sizeLarge);
   margin-left: var(--Token--removeTokenButton-tokenButton-marginLeft-sizeLarge);
@@ -45,6 +49,7 @@
   --Token--removeTokenButton-tokenButton-marginLeft-sizeXlarge: var(--base-size-6);
   --Token--removeTokenButton-tokenButton-height-sizeXlarge: var(--base-size-32);
   --Token--removeTokenButton-tokenButton-width-sizeXlarge: var(--base-size-32);
+
   width: var(--Token--removeTokenButton-tokenButton-width-sizeXlarge);
   height: var(--Token--removeTokenButton-tokenButton-height-sizeXlarge);
   margin-left: var(--Token--removeTokenButton-tokenButton-marginLeft-sizeXlarge);
@@ -53,10 +58,12 @@
 .TokenButton:hover,
 .TokenButton:focus {
   --Token--removeTokenButton-tokenButton-backgroundColor-hover-focus: var(--control-transparent-bgColor-hover);
+
   background-color: var(--Token--removeTokenButton-tokenButton-backgroundColor-hover-focus);
 }
 
 .TokenButton:active {
   --Token--removeTokenButton-tokenButton-backgroundColor-active: var(--control-transparent-bgColor-active);
+
   background-color: var(--Token--removeTokenButton-tokenButton-backgroundColor-active);
 }

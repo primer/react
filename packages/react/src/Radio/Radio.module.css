@@ -1,5 +1,6 @@
 .Radio {
   --Radio--borderRadius: var(--borderRadius-full, 100vh);
+
   border-radius: var(--Radio--borderRadius);
   transition:
     background-color,
@@ -20,6 +21,7 @@
     &:disabled {
       --Radio--borderColor-checked-disabled: var(--control-checked-bgColor-disabled);
       --Radio--backgroundColor-checked-disabled: var(--control-checked-fgColor-disabled);
+
       cursor: not-allowed;
       /* stylelint-disable-next-line primer/colors */
       background-color: var(--Radio--backgroundColor-checked-disabled);

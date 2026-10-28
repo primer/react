@@ -189,7 +189,7 @@
 .BannerTitle {
   margin: 0;
   font-size: inherit;
-  font-weight: var(--Banner--title-fontWeight);
+  font-weight: var(--base-text-weight-light);
 }
 
 /* BannerIcon ------------------------------------------------------------- */

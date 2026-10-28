@@ -2,6 +2,7 @@
   &:where([data-component='SkeletonAvatar']) {
     --SkeletonAvatar--height-componentSkeletonAvatar: var(--avatarSize-regular);
     --SkeletonAvatar--width-componentSkeletonAvatar: var(--avatarSize-regular);
+
     display: inline-block;
     width: var(--SkeletonAvatar--width-componentSkeletonAvatar);
     height: var(--SkeletonAvatar--height-componentSkeletonAvatar);
@@ -24,6 +25,7 @@
     @media screen and (--viewportRange-narrow) {
       --SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeNarrow: var(--avatarSize-narrow);
       --SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeNarrow: var(--avatarSize-narrow);
+
       width: var(--SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeNarrow);
       height: var(--SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeNarrow);
     }
@@ -31,6 +33,7 @@
     @media screen and (--viewportRange-regular) {
       --SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeRegular: var(--avatarSize-regular);
       --SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeRegular: var(--avatarSize-regular);
+
       width: var(--SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeRegular);
       height: var(--SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeRegular);
     }
@@ -38,6 +41,7 @@
     @media screen and (--viewportRange-wide) {
       --SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeWide: var(--avatarSize-wide);
       --SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeWide: var(--avatarSize-wide);
+
       width: var(--SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeWide);
       height: var(--SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeWide);
     }

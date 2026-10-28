@@ -167,21 +167,21 @@
   &[data-preset='windows95'] {
     border-top-color: var(--palette-accent);
     box-shadow:
-      inset -2px -2px #000000,
-      inset 2px 2px #ffffff;
+      inset -2px -2px #000,
+      inset 2px 2px #fff;
 
     .PreviewSelection {
       border-radius: 0;
       box-shadow:
         inset -1px -1px #808080,
-        inset 1px 1px #ffffff;
+        inset 1px 1px #fff;
     }
   }
 }
 
 .PreviewSidebar {
   display: block;
-  padding: 7px;
+  padding: var(--base-size-8);
   background-color: var(--palette-surface);
 }
 
@@ -201,7 +201,7 @@
 
 .PreviewNavigation {
   display: grid;
-  margin-bottom: 13px;
+  margin-bottom: var(--base-size-12);
   gap: 9px;
 
   span {
@@ -227,7 +227,7 @@
 
 .PreviewSelection {
   display: flex;
-  padding: 2px;
+  padding: var(--base-size-2);
   gap: 4px;
   align-items: center;
   justify-content: space-between;
@@ -254,7 +254,7 @@
   display: block;
   width: 55%;
   height: 4px;
-  margin: 8px 2px;
+  margin: var(--base-size-8) var(--base-size-2);
   border-radius: 1px;
   background-color: var(--palette-attention);
   opacity: 0.6;
@@ -262,12 +262,12 @@
 
 .PreviewMain {
   display: block;
-  padding: 7px;
+  padding: var(--base-size-8);
 }
 
 .PreviewHeader {
   display: flex;
-  margin-bottom: 12px;
+  margin-bottom: var(--base-size-12);
   gap: 5px;
   align-items: center;
 

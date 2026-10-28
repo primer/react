@@ -21,6 +21,7 @@
 
 .ItemSeparator {
   --Breadcrumbs--itemSeparator-color: var(--fgColor-muted);
+
   color: var(--Breadcrumbs--itemSeparator-color);
   display: flex;
   align-self: center;
@@ -31,6 +32,7 @@
 
 .ItemWrapper {
   --Breadcrumbs--itemWrapper-fontSize: var(--text-body-size-medium);
+
   display: inline-block;
   font-size: var(--Breadcrumbs--itemWrapper-fontSize);
   list-style: none;
@@ -38,6 +40,7 @@
   &::after {
     --Breadcrumbs--itemWrapper-after-borderRight: 0.1em solid var(--fgColor-muted);
     --Breadcrumbs--itemWrapper-after-fontSize: var(--text-body-size-medium);
+
     display: inline-block;
     height: 0.8em;
     /* stylelint-disable-next-line primer/spacing */
@@ -62,11 +65,13 @@
 
 .Item {
   --Breadcrumbs--item-fontSize: var(--text-body-size-medium);
+
   display: inline-block;
   font-size: var(--Breadcrumbs--item-fontSize);
 
   &:focus-visible {
     --Breadcrumbs--item-borderRadius-focusVisible: var(--borderRadius-small);
+
     border-radius: var(--Breadcrumbs--item-borderRadius-focusVisible);
 
     @mixin focusOutline 2px;
@@ -76,6 +81,7 @@
 [data-variant='normal'] {
   & .Item {
     --Breadcrumbs--item-color-variantNormal: var(--fgColor-link);
+
     color: var(--Breadcrumbs--item-color-variantNormal);
     text-decoration: none;
 
@@ -91,6 +97,7 @@
 
     &[aria-current] {
       --Breadcrumbs--item-color-variantNormal-ariaCurrentPresent: var(--fgColor-default);
+
       color: var(--Breadcrumbs--item-color-variantNormal-ariaCurrentPresent);
     }
   }
@@ -102,6 +109,7 @@
     --Breadcrumbs--item-paddingBlock-variantSpacious: var(--base-size-4);
     --Breadcrumbs--item-paddingInline-variantSpacious: var(--base-size-6);
     --Breadcrumbs--item-color-variantSpacious: var(--fgColor-default);
+
     color: var(--Breadcrumbs--item-color-variantSpacious);
     text-decoration: none;
     padding-inline: var(--Breadcrumbs--item-paddingInline-variantSpacious);
@@ -110,13 +118,15 @@
 
     &:hover {
       --Breadcrumbs--item-background-variantSpacious-hover: var(--control-transparent-bgColor-hover);
+
       background: var(--Breadcrumbs--item-background-variantSpacious-hover);
       text-decoration: none;
     }
 
     &[aria-current] {
       --Breadcrumbs--item-fontWeight-variantSpacious-ariaCurrentPresent: var(--base-text-weight-semibold);
-      font-weight: var(--Breadcrumbs--item-fontWeight-variantSpacious-ariaCurrentPresent);
+
+      font-weight: var(--base-text-weight-light);
     }
   }
 }
@@ -168,6 +178,7 @@
     --Breadcrumbs--breadcrumbsItem-menuOverlay-backgroundColor: var(--overlay-bgColor);
     --Breadcrumbs--breadcrumbsItem-menuOverlay-borderRadius: var(--borderRadius-large);
     --Breadcrumbs--breadcrumbsItem-menuOverlay-boxShadow: var(--shadow-floating-small);
+
     position: absolute;
     z-index: 1;
     box-shadow: var(--Breadcrumbs--breadcrumbsItem-menuOverlay-boxShadow);

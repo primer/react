@@ -39,6 +39,7 @@
 
 .ActionListItem:focus {
   --FilteredActionList--actionListItem-background-focus: var(--control-transparent-bgColor-selected);
+
   background: var(--FilteredActionList--actionListItem-background-focus);
 
   &::after {
@@ -50,6 +51,7 @@
   --FilteredActionList--actionListItem-background-inputFocusedPresent-firstChildPresent: var(
     --control-transparent-bgColor-selected
   );
+
   background: var(--FilteredActionList--actionListItem-background-inputFocusedPresent-firstChildPresent);
 
   &::after {
@@ -64,6 +66,7 @@
       --FilteredActionList--fullScreenTextInput-fontSize-mediaScreenAndViewportRangeNarrow-supportsWebkitTouchCalloutNone: var(
         --text-title-size-small
       );
+
       font-size: var(
         --FilteredActionList--fullScreenTextInput-fontSize-mediaScreenAndViewportRangeNarrow-supportsWebkitTouchCalloutNone
       );
@@ -76,6 +79,7 @@
   --FilteredActionList--selectAllContainer-background: var(--bgColor-muted);
   --FilteredActionList--selectAllContainer-paddingInline: var(--base-size-16);
   --FilteredActionList--selectAllContainer-paddingBlock: var(--base-size-4);
+
   display: flex;
   align-items: center;
   padding-block: var(--FilteredActionList--selectAllContainer-paddingBlock);
@@ -94,6 +98,7 @@
 .SelectAllLabel {
   --FilteredActionList--selectAllLabel-color: var(--fgColor-muted);
   --FilteredActionList--selectAllLabel-fontSize: var(--text-body-size-medium);
+
   font-size: var(--FilteredActionList--selectAllLabel-fontSize);
   color: var(--FilteredActionList--selectAllLabel-color);
 }

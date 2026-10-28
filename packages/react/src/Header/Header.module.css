@@ -4,6 +4,7 @@
   --Header--lineHeight: var(--text-title-lineHeight-large);
   --Header--fontSize: var(--text-body-size-medium);
   --Header--padding: var(--base-size-16);
+
   z-index: 32;
   display: flex;
   padding: var(--Header--padding);
@@ -18,6 +19,7 @@
 
 .HeaderItem {
   --Header--headerItem-marginRight: var(--base-size-16);
+
   display: flex;
   margin-right: var(--Header--headerItem-marginRight);
   align-self: stretch;
@@ -32,8 +34,9 @@
 .HeaderLink {
   --Header--headerLink-color: var(--header-fgColor-logo);
   --Header--headerLink-fontWeight: var(--text-title-weight-large);
+
   display: flex;
-  font-weight: var(--Header--headerLink-fontWeight);
+  font-weight: var(--base-text-weight-light);
   color: var(--Header--headerLink-color);
   text-decoration: none;
   white-space: nowrap;
@@ -43,6 +46,7 @@
   &:hover,
   &:focus {
     --Header--headerLink-color-hover-focus: var(--header-fgColor-default);
+
     color: var(--Header--headerLink-color-hover-focus);
   }
 }

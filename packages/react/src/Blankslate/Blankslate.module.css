@@ -4,6 +4,7 @@
 
 .Blankslate {
   --Blankslate--padding: var(--blankslate-padding);
+
   display: grid;
   justify-items: center;
   /* stylelint-disable-next-line primer/spacing */
@@ -12,6 +13,7 @@
   &:where([data-border]) {
     --Blankslate--borderRadius-borderPresent: var(--borderRadius-medium);
     --Blankslate--border-borderPresent: var(--borderWidth-thin) solid var(--borderColor-default);
+
     border: var(--Blankslate--border-borderPresent);
     border-radius: var(--Blankslate--borderRadius-borderPresent);
   }
@@ -111,6 +113,7 @@
   --Blankslate--visual-maxWidth: var(--blankslate-visual-size);
   --Blankslate--visual-marginBlockEnd: var(--base-size-8);
   --Blankslate--visual-color: var(--fgColor-muted);
+
   color: var(--Blankslate--visual-color);
   /* This display property exists so that the container matches the size of the inner svg element */
   display: inline-flex;
@@ -163,6 +166,7 @@
     --Blankslate--visual-color-containerBlankslateMaxWidth34rem: var(--fgColor-muted);
     --Blankslate--visual-marginBottom-containerBlankslateMaxWidth34rem: var(--base-size-8);
     --Blankslate--visual-maxWidth-containerBlankslateMaxWidth34rem: var(--base-size-24);
+
     max-width: var(--Blankslate--visual-maxWidth-containerBlankslateMaxWidth34rem);
     margin-bottom: var(--Blankslate--visual-marginBottom-containerBlankslateMaxWidth34rem);
     color: var(--Blankslate--visual-color-containerBlankslateMaxWidth34rem);
@@ -170,15 +174,18 @@
 
   .Action {
     --Blankslate--action-marginTop-containerBlankslateMaxWidth34rem: var(--base-size-8);
+
     margin-top: var(--Blankslate--action-marginTop-containerBlankslateMaxWidth34rem);
 
     &:first-of-type {
       --Blankslate--action-marginTop-firstOfType-containerBlankslateMaxWidth34rem: var(--base-size-16);
+
       margin-top: var(--Blankslate--action-marginTop-firstOfType-containerBlankslateMaxWidth34rem);
     }
 
     &:last-of-type {
       --Blankslate--action-marginBottom-lastOfType-containerBlankslateMaxWidth34rem: calc(var(--base-size-8) / 2);
+
       margin-bottom: var(--Blankslate--action-marginBottom-lastOfType-containerBlankslateMaxWidth34rem);
     }
   }

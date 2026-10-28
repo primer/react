@@ -4,9 +4,10 @@
   --KeybindingHint--chord-borderRadius: var(--borderRadius-default);
   --KeybindingHint--chord-fontWeight: var(--base-text-weight-normal);
   --KeybindingHint--chord-border: var(--borderWidth-thin) solid;
+
   display: inline-flex;
   border: var(--KeybindingHint--chord-border);
-  font-weight: var(--KeybindingHint--chord-fontWeight);
+  font-weight: var(--base-text-weight-light);
   gap: 0.5ch;
   box-shadow: none;
   vertical-align: baseline;
@@ -22,6 +23,7 @@
   --KeybindingHint--chord-chordNormal-borderColor: var(--borderColor-default);
   --KeybindingHint--chord-chordNormal-color: var(--fgColor-muted);
   --KeybindingHint--chord-chordNormal-background: var(--bgColor-transparent);
+
   background: var(--KeybindingHint--chord-chordNormal-background);
   color: var(--KeybindingHint--chord-chordNormal-color);
   border-color: var(--KeybindingHint--chord-chordNormal-borderColor);
@@ -30,6 +32,7 @@
 .ChordOnEmphasis {
   --KeybindingHint--chord-chordOnEmphasis-color: var(--fgColor-onEmphasis);
   --KeybindingHint--chord-chordOnEmphasis-background: var(--counter-bgColor-emphasis);
+
   background: var(--KeybindingHint--chord-chordOnEmphasis-background);
   color: var(--KeybindingHint--chord-chordOnEmphasis-color);
   border-color: transparent;
@@ -38,6 +41,7 @@
 .ChordOnPrimary {
   --KeybindingHint--chord-chordOnPrimary-color: var(--fgColor-onEmphasis);
   --KeybindingHint--chord-chordOnPrimary-background: var(--button-primary-bgColor-active);
+
   background: var(--KeybindingHint--chord-chordOnPrimary-background);
   color: var(--KeybindingHint--chord-chordOnPrimary-color);
   border-color: transparent;
@@ -48,6 +52,7 @@
   --KeybindingHint--chord-chordSmall-lineHeight: var(--base-size-8);
   --KeybindingHint--chord-chordSmall-padding: var(--base-size-2);
   --KeybindingHint--chord-chordSmall-borderRadius: var(--borderRadius-small);
+
   border-radius: var(--KeybindingHint--chord-chordSmall-borderRadius);
   font-size: 11px; /* stylelint-disable-line primer/typography */
   padding: var(--KeybindingHint--chord-chordSmall-padding);
@@ -60,6 +65,7 @@
   --KeybindingHint--chord-chordNormal-chordSmall-padding-not: var(--base-size-4);
   --KeybindingHint--chord-chordNormal-chordSmall-fontSize-not: var(--text-body-size-small, 0.75rem);
   --KeybindingHint--chord-chordNormal-chordSmall-borderRadius-not: var(--borderRadius-medium);
+
   border-radius: var(--KeybindingHint--chord-chordNormal-chordSmall-borderRadius-not);
   font-size: var(--KeybindingHint--chord-chordNormal-chordSmall-fontSize-not);
   padding: var(--KeybindingHint--chord-chordNormal-chordSmall-padding-not);

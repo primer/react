@@ -26,6 +26,7 @@
         --Timeline--timelineItem-before-top-clipSidebarStart-clipSidebarBoth-firstChild-condensedPresent: var(
           --base-size-12
         );
+
         top: var(--Timeline--timelineItem-before-top-clipSidebarStart-clipSidebarBoth-firstChild-condensedPresent);
       }
 
@@ -50,6 +51,7 @@
         --Timeline--timelineItem-before-height-clipSidebarEnd-clipSidebarBoth-lastChild-condensedPresent: var(
           --base-size-12
         );
+
         height: var(--Timeline--timelineItem-before-height-clipSidebarEnd-clipSidebarBoth-lastChild-condensedPresent);
       }
     }
@@ -59,6 +61,7 @@
 .TimelineItem {
   --Timeline--timelineItem-marginLeft: var(--base-size-16);
   --Timeline--timelineItem-padding: var(--base-size-16) 0;
+
   position: relative;
   display: flex;
   padding: var(--Timeline--timelineItem-padding);
@@ -66,6 +69,7 @@
 
   &::before {
     --Timeline--timelineItem-before-backgroundColor: var(--borderColor-muted);
+
     position: absolute;
     top: 0;
     bottom: 0;
@@ -79,11 +83,13 @@
 
   &:where([data-condensed]) {
     --Timeline--timelineItem-paddingTop-condensedPresent: var(--base-size-4);
+
     padding-top: var(--Timeline--timelineItem-paddingTop-condensedPresent);
     padding-bottom: 0;
 
     &:last-child {
       --Timeline--timelineItem-paddingBottom-condensedPresent-lastChild: var(--base-size-16);
+
       padding-bottom: var(--Timeline--timelineItem-paddingBottom-condensedPresent-lastChild);
     }
 
@@ -92,6 +98,7 @@
       --Timeline--timelineItem-timelineBadge-color-condensedPresent: var(--fgColor-muted);
       --Timeline--timelineItem-timelineBadge-marginBottom-condensedPresent: var(--base-size-8);
       --Timeline--timelineItem-timelineBadge-marginTop-condensedPresent: var(--base-size-8);
+
       height: 16px;
       margin-top: var(--Timeline--timelineItem-timelineBadge-marginTop-condensedPresent);
       margin-bottom: var(--Timeline--timelineItem-timelineBadge-marginBottom-condensedPresent);
@@ -113,6 +120,7 @@
 .TimelineItemAvatar {
   --Timeline--timelineItemAvatar-top: calc(var(--base-size-16) + var(--base-size-16));
   --Timeline--timelineItemAvatar-left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
+
   position: absolute;
   /* Place avatar in the left gutter, aligned with surrounding actor avatars (~72px from item content) */
   left: var(--Timeline--timelineItemAvatar-left);
@@ -133,6 +141,7 @@
   --Timeline--timelineBadge-backgroundColor: var(--timelineBadge-bgColor);
   --Timeline--timelineBadge-color: var(--fgColor-muted);
   --Timeline--timelineBadge-marginRight: var(--base-size-8);
+
   display: flex;
   width: 32px;
   height: 32px;
@@ -155,51 +164,61 @@
 
   &:where([data-variant]) {
     --Timeline--timelineBadge-color-variantPresent: var(--fgColor-onEmphasis);
+
     color: var(--Timeline--timelineBadge-color-variantPresent);
   }
 
   &:where([data-variant='accent']) {
     --Timeline--timelineBadge-backgroundColor-variantAccent: var(--bgColor-accent-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantAccent);
   }
 
   &:where([data-variant='success']) {
     --Timeline--timelineBadge-backgroundColor-variantSuccess: var(--bgColor-success-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantSuccess);
   }
 
   &:where([data-variant='attention']) {
     --Timeline--timelineBadge-backgroundColor-variantAttention: var(--bgColor-attention-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantAttention);
   }
 
   &:where([data-variant='severe']) {
     --Timeline--timelineBadge-backgroundColor-variantSevere: var(--bgColor-severe-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantSevere);
   }
 
   &:where([data-variant='danger']) {
     --Timeline--timelineBadge-backgroundColor-variantDanger: var(--bgColor-danger-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantDanger);
   }
 
   &:where([data-variant='done']) {
     --Timeline--timelineBadge-backgroundColor-variantDone: var(--bgColor-done-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantDone);
   }
 
   &:where([data-variant='open']) {
     --Timeline--timelineBadge-backgroundColor-variantOpen: var(--bgColor-open-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantOpen);
   }
 
   &:where([data-variant='closed']) {
     --Timeline--timelineBadge-backgroundColor-variantClosed: var(--bgColor-closed-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantClosed);
   }
 
   &:where([data-variant='sponsors']) {
     --Timeline--timelineBadge-backgroundColor-variantSponsors: var(--bgColor-sponsors-emphasis);
+
     background-color: var(--Timeline--timelineBadge-backgroundColor-variantSponsors);
   }
 }
@@ -208,6 +227,7 @@
   --Timeline--timelineBody-color: var(--fgColor-muted);
   --Timeline--timelineBody-fontSize: var(--text-body-size-medium);
   --Timeline--timelineBody-marginTop: calc(var(--base-size-4) + 1px);
+
   min-width: 0;
   max-width: 100%;
   /* stylelint-disable-next-line primer/spacing */
@@ -222,6 +242,7 @@
   --Timeline--timelineBreak-backgroundColor: var(--bgColor-default);
   --Timeline--timelineBreak-marginBottom: calc(-1 * var(--base-size-16));
   --Timeline--timelineBreak-height: var(--base-size-24);
+
   position: relative;
   z-index: 1;
   height: var(--Timeline--timelineBreak-height);
@@ -235,6 +256,7 @@
   /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(+ [data-condensed]) {
     --Timeline--timelineBreak-next-marginBottom-has-condensedPresent: calc(-1 * var(--base-size-12));
+
     margin-bottom: var(--Timeline--timelineBreak-next-marginBottom-has-condensedPresent);
   }
 }
@@ -242,6 +264,7 @@
 .TimelineItemActions {
   --Timeline--timelineItemActions-gap: var(--base-size-8);
   --Timeline--timelineItemActions-minHeight: var(--base-size-32);
+
   display: flex;
   align-items: center;
   align-self: flex-start;
@@ -274,6 +297,7 @@
 
   .TimelineItemActions {
     --Timeline--timelineItemActions-marginTop-containerWidth480px: var(--base-size-8);
+
     grid-area: actions;
     /* Reset flex-row auto-push; the wrapped row sits under Body. */
     margin-top: var(--Timeline--timelineItemActions-marginTop-containerWidth480px);

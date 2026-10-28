@@ -7,6 +7,7 @@
 
 .TabNavNav {
   --TabNav--tabNavNav-borderBottom: var(--borderWidth-thin) solid var(--borderColor-default);
+
   margin-top: 0;
   border-bottom: var(--TabNav--tabNavNav-borderBottom);
 }
@@ -16,6 +17,7 @@
   --TabNav--tabNavLink-color: var(--fgColor-default);
   --TabNav--tabNavLink-fontSize: var(--text-body-size-medium);
   --TabNav--tabNavLink-padding: var(--base-size-8) var(--base-size-12);
+
   padding: var(--TabNav--tabNavLink-padding);
   font-size: var(--TabNav--tabNavLink-fontSize);
   /* stylelint-disable-next-line primer/typography */
@@ -28,6 +30,7 @@
 
   &:hover {
     --TabNav--tabNavLink-color-hover: var(--fgColor-default);
+
     color: var(--TabNav--tabNavLink-color-hover);
     text-decoration: none;
   }
@@ -44,6 +47,7 @@
     --TabNav--tabNavLink-selected-borderColor: var(--borderColor-default);
     --TabNav--tabNavLink-selected-backgroundColor: var(--bgColor-default);
     --TabNav--tabNavLink-selected-color: var(--fgColor-default);
+
     color: var(--TabNav--tabNavLink-selected-color);
     background-color: var(--TabNav--tabNavLink-selected-backgroundColor);
     border-color: var(--TabNav--tabNavLink-selected-borderColor);

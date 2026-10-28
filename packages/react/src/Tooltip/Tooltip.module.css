@@ -11,6 +11,7 @@
   --Tooltip--after-color: var(--tooltip-fgColor, var(--fgColor-onEmphasis));
   --Tooltip--after-font: normal normal var(--text-body-size-small) / var(--text-body-lineHeight-small)
     var(--fontStack-system);
+
   position: absolute;
   z-index: 1000000;
   display: none;
@@ -83,6 +84,7 @@
 
 .Tooltip--se::after {
   --Tooltip--tooltipSe-after-marginLeft: calc(-1 * var(--base-size-16));
+
   right: auto;
   left: 50%;
   margin-left: var(--Tooltip--tooltipSe-after-marginLeft);
@@ -90,6 +92,7 @@
 
 .Tooltip--sw::after {
   --Tooltip--tooltipSw-after-marginRight: calc(-1 * var(--base-size-16));
+
   margin-right: var(--Tooltip--tooltipSw-after-marginRight);
 }
 
@@ -105,6 +108,7 @@
 
 .Tooltip--ne::after {
   --Tooltip--tooltipNe-after-marginLeft: calc(-1 * var(--base-size-16));
+
   right: auto;
   left: 50%;
   margin-left: var(--Tooltip--tooltipNe-after-marginLeft);
@@ -112,6 +116,7 @@
 
 .Tooltip--nw::after {
   --Tooltip--tooltipNw-after-marginRight: calc(-1 * var(--base-size-16));
+
   margin-right: var(--Tooltip--tooltipNw-after-marginRight);
 }
 

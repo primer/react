@@ -23,6 +23,7 @@
   .Button {
     --SegmentedControl--button-borderRadius-defineMixinSubtleVariant: var(--borderRadius-large);
     --SegmentedControl--button-color-defineMixinSubtleVariant: var(--fgColor-muted);
+
     padding: 0;
     color: var(--SegmentedControl--button-color-defineMixinSubtleVariant);
     border: 0;
@@ -30,6 +31,7 @@
 
     .Content {
       --SegmentedControl--button-content-paddingInline-defineMixinSubtleVariant: var(--base-size-12);
+
       padding-inline: var(--SegmentedControl--button-content-paddingInline-defineMixinSubtleVariant);
       border: 0;
     }
@@ -37,10 +39,12 @@
 
   .Button[aria-pressed='true'] {
     --SegmentedControl--button-color-ariaPressedTrue-defineMixinSubtleVariant: var(--fgColor-default);
+
     color: var(--SegmentedControl--button-color-ariaPressedTrue-defineMixinSubtleVariant);
 
     .Content {
       --SegmentedControl--button-content-backgroundColor-ariaPressedTrue-defineMixinSubtleVariant: var(--bgColor-muted);
+
       background-color: var(
         --SegmentedControl--button-content-backgroundColor-ariaPressedTrue-defineMixinSubtleVariant
       );
@@ -138,6 +142,7 @@
       --SegmentedControl--before-border-supportsAnchorNameValue: var(--borderWidth-thin) solid
         var(--controlKnob-borderColor-rest);
       --SegmentedControl--before-backgroundColor-supportsAnchorNameValue: var(--controlKnob-bgColor-rest);
+
       position-anchor: --segmented-control-current-item;
       content: '';
       position: absolute;
@@ -150,6 +155,7 @@
       @media (prefers-reduced-motion: no-preference) {
         --SegmentedControl--before-transition-supportsAnchorNameValue-mediaPrefersReducedMotionNoPreference: inset
           var(--base-duration-200) var(--base-easing-easeInOut);
+
         transition: var(
           --SegmentedControl--before-transition-supportsAnchorNameValue-mediaPrefersReducedMotionNoPreference
         );
@@ -181,6 +187,7 @@
     --SegmentedControl--child-marginInlineEnd-componentSegmentedControlDivider: calc(var(--base-size-8) - 1px);
     --SegmentedControl--child-marginInlineStart-componentSegmentedControlDivider: var(--base-size-8);
     --SegmentedControl--child-marginBlock-componentSegmentedControlDivider: var(--base-size-8);
+
     display: none;
     align-self: stretch;
     width: 1px;
@@ -383,6 +390,7 @@
 
   > .SegmentedControl {
     --SegmentedControl--dropdownGroup-child-flex: var(--segmented-control-list-flex);
+
     min-width: 0;
     flex: var(--SegmentedControl--dropdownGroup-child-flex);
   }
@@ -459,6 +467,7 @@
       --SegmentedControl--item-after-bottom-not-lastChild: var(--base-size-8);
       --SegmentedControl--item-after-right-not-lastChild: calc(-1 * var(--base-size-2));
       --SegmentedControl--item-after-top-not-lastChild: var(--base-size-8);
+
       position: absolute;
       top: var(--SegmentedControl--item-after-top-not-lastChild);
       right: var(--SegmentedControl--item-after-right-not-lastChild);
@@ -490,6 +499,7 @@
 
   .Counter {
     --SegmentedControl--item-counter-marginInlineStart: var(--base-size-8);
+
     margin-inline-start: var(--SegmentedControl--item-counter-marginInlineStart);
     display: flex;
     align-items: center;
@@ -505,6 +515,7 @@
 .ActionButton {
   --SegmentedControl--actionButton-height: var(--segmented-control-action-size);
   --SegmentedControl--actionButton-width: var(--segmented-control-action-size);
+
   width: var(--SegmentedControl--actionButton-width);
   height: var(--SegmentedControl--actionButton-height);
   padding: 0;
@@ -524,7 +535,7 @@
   padding: var(--SegmentedControl--button-padding);
   font-family: inherit;
   font-size: inherit;
-  font-weight: var(--SegmentedControl--button-fontWeight);
+  font-weight: var(--base-text-weight-light);
   color: currentColor;
   cursor: pointer;
   background-color: transparent;
@@ -536,6 +547,7 @@
   & svg {
     --SegmentedControl--button-svg-color: var(--fgColor-muted);
     --SegmentedControl--button-svg-fill: var(--fgColor-muted);
+
     fill: var(--SegmentedControl--button-svg-fill);
     color: var(--SegmentedControl--button-svg-color);
   }
@@ -543,6 +555,7 @@
   /* fallback :focus state */
   &:focus:not(:disabled) {
     --SegmentedControl--button-outline-focus-not-disabled: var(--base-size-2) solid var(--fgColor-accent);
+
     outline: var(--SegmentedControl--button-outline-focus-not-disabled);
     outline-offset: -1px;
     box-shadow: none;
@@ -556,6 +569,7 @@
   /* default focus state */
   &:focus-visible:not(:disabled) {
     --SegmentedControl--button-outline-focusVisible-not-disabled: var(--base-size-2) solid var(--fgColor-accent);
+
     outline: var(--SegmentedControl--button-outline-focusVisible-not-disabled);
     outline-offset: -1px;
     box-shadow: none;
@@ -569,6 +583,7 @@
 
   &[aria-disabled='true']:not([aria-pressed='true']) {
     --SegmentedControl--button-color-ariaDisabledTrue-not-ariaPressedTrue: var(--fgColor-disabled);
+
     cursor: not-allowed;
     color: var(--SegmentedControl--button-color-ariaDisabledTrue-not-ariaPressedTrue);
     background-color: transparent;
@@ -576,6 +591,7 @@
     & svg {
       --SegmentedControl--button-svg-color-ariaDisabledTrue-not-ariaPressedTrue: var(--fgColor-disabled);
       --SegmentedControl--button-svg-fill-ariaDisabledTrue-not-ariaPressedTrue: var(--fgColor-disabled);
+
       fill: var(--SegmentedControl--button-svg-fill-ariaDisabledTrue-not-ariaPressedTrue);
       color: var(--SegmentedControl--button-svg-color-ariaDisabledTrue-not-ariaPressedTrue);
     }
@@ -596,6 +612,7 @@
 
 .IconButton {
   --SegmentedControl--iconButton-width: var(--segmented-control-icon-width, 32px);
+
   width: var(--SegmentedControl--iconButton-width);
 }
 
@@ -611,6 +628,7 @@
   --SegmentedControl--content-paddingRight: calc(
     var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset)
   );
+
   display: flex;
   height: 100%;
   /* stylelint-disable-next-line primer/spacing */
@@ -635,8 +653,9 @@
 
 .Button[aria-pressed='true'] {
   --SegmentedControl--button-fontWeight-ariaPressedTrue: var(--base-text-weight-semibold);
+
   padding: 0;
-  font-weight: var(--SegmentedControl--button-fontWeight-ariaPressedTrue);
+  font-weight: var(--base-text-weight-light);
 
   .Content {
     --SegmentedControl--button-content-paddingLeft-ariaPressedTrue: var(--segmented-control-button-inner-padding);
@@ -657,6 +676,7 @@
       --SegmentedControl--button-content-backgroundColor-ariaPressedTrue-supportsNotAnchorNameValue: var(
         --controlKnob-bgColor-rest
       );
+
       background-color: var(
         --SegmentedControl--button-content-backgroundColor-ariaPressedTrue-supportsNotAnchorNameValue
       );
@@ -683,6 +703,7 @@
     --SegmentedControl--button-content-backgroundColor-not-ariaPressedTrue-ariaDisabledTrue-active: var(
       --controlTrack-bgColor-active
     );
+
     background-color: var(
       --SegmentedControl--button-content-backgroundColor-not-ariaPressedTrue-ariaDisabledTrue-active
     );
@@ -691,10 +712,11 @@
 
 .Text::after {
   --SegmentedControl--text-after-fontWeight: var(--base-text-weight-semibold);
+
   display: block;
   height: 0;
   overflow: hidden;
-  font-weight: var(--SegmentedControl--text-after-fontWeight);
+  font-weight: var(--base-text-weight-light);
   pointer-events: none;
   visibility: hidden;
   content: attr(data-text);
@@ -703,5 +725,6 @@
 
 .LeadingIcon {
   --SegmentedControl--leadingIcon-marginRight: var(--base-size-4);
+
   margin-right: var(--SegmentedControl--leadingIcon-marginRight);
 }

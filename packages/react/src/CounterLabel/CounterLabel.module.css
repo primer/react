@@ -3,10 +3,11 @@
   --CounterLabel--fontWeight: var(--base-text-weight-semibold);
   --CounterLabel--fontSize: var(--text-body-size-small);
   --CounterLabel--padding: var(--base-size-2) var(--base-size-6);
+
   display: inline-block;
   padding: var(--CounterLabel--padding);
   font-size: var(--CounterLabel--fontSize);
-  font-weight: var(--CounterLabel--fontWeight);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
   border: var(--CounterLabel--border);
@@ -16,6 +17,7 @@
   &:where([data-variant='primary']) {
     --CounterLabel--backgroundColor-variantPrimary: var(--bgColor-neutral-emphasis);
     --CounterLabel--color-variantPrimary: var(--fgColor-onEmphasis);
+
     color: var(--CounterLabel--color-variantPrimary);
     background-color: var(--CounterLabel--backgroundColor-variantPrimary);
   }
@@ -23,6 +25,7 @@
   &:where([data-variant='secondary']) {
     --CounterLabel--backgroundColor-variantSecondary: var(--bgColor-neutral-muted);
     --CounterLabel--color-variantSecondary: var(--fgColor-default);
+
     color: var(--CounterLabel--color-variantSecondary);
     background-color: var(--CounterLabel--backgroundColor-variantSecondary);
   }
