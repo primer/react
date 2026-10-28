@@ -39,7 +39,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Demo only. Import {AppearancePlayground} from '@primer/react/experimental' and wrap your app inside its existing Primer providers. Includes 18 themes, five density steps and five visual-only Seriousness presets. Automatic spacing changes are limited to one density step: Friendly social uses purple/pink, rounded shapes and soft shadows; Bank security uses neutral colors, square corners and raised OS-style buttons. The middle three presets retain theme colors. Controls retain the host theme; app content and inherited Primer portals are scoped. Default resets theme colors, typography/radii and density. State is not persisted. Nested wrappers and third-party/body portals are not supported. Inline style CSP restrictions may apply.",
+          "Demo only. Import {AppearancePlayground} from '@primer/react/experimental' and wrap your app inside its existing Primer providers. Includes 19 themes, five density steps and five visual-only Seriousness presets. Automatic spacing changes are limited to one density step: Friendly social uses purple/pink, rounded shapes and soft shadows; Bank security uses neutral colors, square corners and raised OS-style buttons. The middle three presets retain theme colors. Controls retain the host theme; app content and inherited Primer portals are scoped. Default resets theme colors, typography/radii and density. State is not persisted. Nested wrappers and third-party/body portals are not supported. Inline style CSP restrictions may apply.",
       },
     },
   },
