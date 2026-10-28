@@ -1,5 +1,6 @@
 import {useCallback, useId, useMemo, useRef, useState} from 'react'
 import type {CSSProperties} from 'react'
+import {clsx} from 'clsx'
 import {ChevronDownIcon, PaintbrushIcon, SearchIcon} from '@primer/octicons-react'
 import {Button} from '../Button'
 import {Dialog} from '../Dialog'
@@ -21,6 +22,7 @@ interface PalettePreviewStyle extends CSSProperties {
 }
 
 interface PlaygroundThemePickerProps {
+  className?: string
   value: string
   onChange: (theme: string) => void
 }
@@ -90,7 +92,7 @@ function PalettePreview({palette}: Pick<ThemeChoice, 'palette'>) {
   )
 }
 
-export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerProps) {
+export function PlaygroundThemePicker({className, value, onChange}: PlaygroundThemePickerProps) {
   const {colorScheme} = useTheme()
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -144,7 +146,7 @@ export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerPr
   }
 
   return (
-    <div className={classes.Control}>
+    <div className={clsx(classes.Control, className)}>
       <label htmlFor={`${id}-theme`}>Theme</label>
       <Button
         ref={triggerRef}

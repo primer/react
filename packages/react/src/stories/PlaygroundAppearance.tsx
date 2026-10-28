@@ -9,7 +9,10 @@ import {
   paletteVariables,
   playgroundDensities,
   playgroundPalettes,
+  playgroundSeriousnessProfiles,
+  seriousnessVariables,
   type PlaygroundDensity,
+  type PlaygroundSeriousness,
 } from './PlaygroundAppearance.tokens'
 import classes from './PlaygroundAppearance.module.css'
 
@@ -17,6 +20,8 @@ interface AppearanceContextValue {
   scope: string
   density: PlaygroundDensity
   setDensity: (density: PlaygroundDensity) => void
+  seriousness: PlaygroundSeriousness
+  setSeriousness: (seriousness: PlaygroundSeriousness) => void
   theme: string
   setTheme: (theme: string) => void
   portalContext: {portalContainerName: string}
@@ -34,15 +39,37 @@ export function PlaygroundAppearanceProvider({children}: PropsWithChildren) {
   const id = useId()
   const scope = `playground-${id}`
   const [density, setDensity] = useState<PlaygroundDensity>('default')
+  const [seriousness, setSeriousness] = useState<PlaygroundSeriousness>('default')
   const [theme, setTheme] = useState('primer')
   const portalContext = useMemo(() => ({portalContainerName: `${scope}-portals`}), [scope])
   const palette = playgroundPalettes.find(value => value.id === theme)
-  const declarations = Object.entries({...densityVariables(density), ...paletteVariables(palette)})
+  const updateSeriousness = (value: PlaygroundSeriousness) => {
+    const preset = playgroundSeriousnessProfiles.find(profile => profile.id === value)
+    if (!preset) throw new Error(`Unknown playground seriousness: ${value}`)
+    setSeriousness(value)
+    setDensity(preset.density)
+  }
+  const declarations = Object.entries({
+    ...densityVariables(density),
+    ...paletteVariables(palette),
+    ...seriousnessVariables(seriousness),
+  })
     .map(([name, value]) => `${name}: ${value} !important;`)
     .join('\n')
   const selector = `[data-playground-appearance="${scope}"]`
   return (
-    <AppearanceContext.Provider value={{scope, density, setDensity, theme, setTheme, portalContext}}>
+    <AppearanceContext.Provider
+      value={{
+        scope,
+        density,
+        setDensity,
+        seriousness,
+        setSeriousness: updateSeriousness,
+        theme,
+        setTheme,
+        portalContext,
+      }}
+    >
       <style data-playground-appearance-style={scope}>{`:where(${selector}, ${selector} *) { ${declarations} }`}</style>
       {children}
     </AppearanceContext.Provider>
@@ -62,9 +89,10 @@ export function usePlaygroundAppearanceScope() {
 }
 
 export function PlaygroundAppearanceControls() {
-  const {density, setDensity, theme, setTheme} = useAppearance()
+  const {density, setDensity, seriousness, setSeriousness, theme, setTheme} = useAppearance()
   const id = useId()
   const densityIndex = playgroundDensities.findIndex(value => value.id === density)
+  const seriousnessIndex = playgroundSeriousnessProfiles.findIndex(value => value.id === seriousness)
   return (
     <section className={classes.Controls} aria-label="Preview appearance">
       <div className={classes.Control}>
@@ -95,7 +123,40 @@ export function PlaygroundAppearanceControls() {
           ))}
         </datalist>
       </div>
-      <PlaygroundThemePicker value={theme} onChange={setTheme} />
+      <div className={clsx(classes.Control, classes.SeriousnessControl)}>
+        <label htmlFor={`${id}-seriousness`}>
+          Seriousness
+          <span className={classes.DensityValue}>{playgroundSeriousnessProfiles[seriousnessIndex].name}</span>
+        </label>
+        <input
+          className={classes.DensitySlider}
+          id={`${id}-seriousness`}
+          type="range"
+          min={0}
+          max={playgroundSeriousnessProfiles.length - 1}
+          step={1}
+          value={seriousnessIndex}
+          list={`${id}-seriousness-steps`}
+          aria-label="Seriousness"
+          aria-valuetext={playgroundSeriousnessProfiles[seriousnessIndex].name}
+          aria-describedby={`${id}-seriousness-description`}
+          onChange={event => {
+            const preset = playgroundSeriousnessProfiles[event.currentTarget.valueAsNumber]
+            if (!preset) throw new Error(`Unknown playground seriousness step: ${event.currentTarget.value}`)
+            setSeriousness(preset.id)
+          }}
+        />
+        <datalist id={`${id}-seriousness-steps`}>
+          {playgroundSeriousnessProfiles.map((preset, index) => (
+            <option key={preset.id} value={index} label={preset.name} />
+          ))}
+        </datalist>
+        <span id={`${id}-seriousness-description`} hidden>
+          Visual styling only, not a security setting. Presets combine spacing, fonts, weights and corner radii. Density
+          can override spacing afterward. Default restores the theme styling and Default density.
+        </span>
+      </div>
+      <PlaygroundThemePicker className={classes.ThemeControl} value={theme} onChange={setTheme} />
     </section>
   )
 }

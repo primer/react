@@ -11,6 +11,88 @@ export const playgroundDensities = [
 
 export type PlaygroundDensity = (typeof playgroundDensities)[number]['id']
 
+export const playgroundSeriousnessProfiles = [
+  {
+    id: 'friendly-social',
+    name: 'Friendly social',
+    density: 'very-spacious',
+    font: "ui-rounded, 'SF Pro Rounded', 'Nunito', system-ui, sans-serif",
+    size: 16,
+    radius: 16,
+    weight: 400,
+    headingWeight: 600,
+  },
+  {
+    id: 'relaxed',
+    name: 'Relaxed',
+    density: 'spacious',
+    font: "'Avenir Next', 'Nunito Sans', ui-sans-serif, system-ui, sans-serif",
+    size: 15,
+    radius: 10,
+    weight: 400,
+    headingWeight: 600,
+  },
+  {id: 'default', name: 'Default', density: 'default'},
+  {
+    id: 'professional',
+    name: 'Professional',
+    density: 'compact',
+    font: "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    size: 14,
+    radius: 4,
+    weight: 400,
+    headingWeight: 600,
+  },
+  {
+    id: 'bank-security',
+    name: 'Bank security',
+    density: 'very-compact',
+    font: "ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace",
+    size: 13,
+    radius: 0,
+    weight: 500,
+    headingWeight: 700,
+  },
+] as const
+
+export type PlaygroundSeriousness = (typeof playgroundSeriousnessProfiles)[number]['id']
+
+export function seriousnessVariables(seriousness: PlaygroundSeriousness): Record<string, string> {
+  const preset = playgroundSeriousnessProfiles.find(value => value.id === seriousness)
+  if (!preset) throw new Error(`Unknown playground seriousness: ${seriousness}`)
+  if (preset.id === 'default') return {}
+  return {
+    ...typographyVariables(),
+    '--fontStack-system': preset.font,
+    '--fontStack-sansSerif': 'var(--fontStack-system)',
+    '--fontStack-sansSerifDisplay': 'var(--fontStack-system)',
+    '--text-body-size-small': `${Math.max(12, preset.size - 2)}px`,
+    '--text-body-size-medium': `${preset.size}px`,
+    '--text-body-size-large': `${preset.size + 3}px`,
+    '--text-body-weight': `${preset.weight}`,
+    '--base-text-weight-normal': `${preset.weight}`,
+    '--base-text-weight-medium': '500',
+    '--base-text-weight-semibold': `${preset.headingWeight}`,
+    '--base-text-weight-bold': '700',
+    '--text-title-size-small': `${preset.size + 6}px`,
+    '--text-title-size-medium': `${preset.size + 10}px`,
+    '--text-title-size-large': `${preset.size + 16}px`,
+    '--text-title-weight-small': `${preset.headingWeight}`,
+    '--text-title-weight-medium': `${preset.headingWeight}`,
+    '--text-title-weight-large': `${preset.headingWeight}`,
+    '--borderRadius-default': `${preset.radius}px`,
+    '--borderRadius-small': `${Math.max(0, preset.radius - 4)}px`,
+    '--borderRadius-medium': `${preset.radius}px`,
+    '--borderRadius-large': `${preset.radius ? preset.radius + 8 : 0}px`,
+    '--ActionList--label-fontSize-medium': 'var(--text-body-size-medium)',
+    '--ActionList--label-fontWeight-selected': `${preset.headingWeight}`,
+    '--UnderlineTabbedInterface--underlineItem-before-fontWeight-contentPresent': `${preset.headingWeight}`,
+    '--UnderlineTabbedInterface--underlineItem-fontWeight-ariaCurrentPresent-not-ariaCurrentFalse-componentText-ariaSelectedTrue': `${preset.headingWeight}`,
+    '--UnderlineNav--moreButton-fontWeight-currentTrue': `${preset.headingWeight}`,
+    '--UnderlineNav--overflowMenuItem-overflowMenuItemLabel-fontWeight-ariaCurrentPresent': `${preset.headingWeight}`,
+  }
+}
+
 interface PlaygroundPalette {
   id: string
   name: string

@@ -13,9 +13,9 @@
 .Controls {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--base-size-12) var(--base-size-24);
+  gap: var(--base-size-8) var(--base-size-16);
   align-items: end;
-  padding: var(--base-size-16) var(--base-size-24);
+  padding: var(--base-size-8) var(--base-size-12);
   color: var(--fgColor-default);
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
   background: var(--bgColor-muted);
@@ -23,16 +23,45 @@
 
 .Control {
   display: grid;
-  gap: var(--base-size-4);
-  width: 240px;
+  gap: 0;
+  width: min(144px, calc((100% - var(--base-size-16)) / 2));
   max-width: 100%;
 
   label {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: var(--base-size-12);
+    gap: 0 var(--base-size-8);
     font-size: var(--text-body-size-small);
     font-weight: var(--base-text-weight-semibold);
+  }
+}
+
+.SeriousnessControl {
+  width: min(176px, calc((100% - var(--base-size-16)) / 2));
+}
+
+.Controls .ThemeControl {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+
+  > label {
+    display: none;
+  }
+
+  > button {
+    min-width: 0;
+    max-width: 144px;
+
+    [data-component='buttonContent'] {
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    [data-component='text'] {
+      min-width: 0;
+    }
   }
 }
 
@@ -43,7 +72,7 @@
 
 .DensitySlider {
   width: 100%;
-  height: var(--control-medium-size);
+  height: var(--control-xsmall-size);
   margin: 0;
   accent-color: var(--bgColor-accent-emphasis);
 }
