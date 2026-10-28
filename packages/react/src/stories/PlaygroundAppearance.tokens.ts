@@ -207,6 +207,9 @@ export function densityVariables(density: PlaygroundDensity): Record<string, str
     result[`${prefix}-paddingInline-normal`] = rem(shifted.normal)
     result[`${prefix}-paddingInline-spacious`] = rem(shifted.spacious)
   }
+  // Keep tabs, the overflow button, and their clipping container on the same height budget.
+  result['--UnderlineTabbedInterface--underlineItem-height'] = 'var(--control-medium-size)'
+  result['--control-xlarge-size'] = 'calc(var(--control-medium-size) + 2 * var(--base-size-8))'
   result['--ActionList--leadingVisual-iconSize'] = 'max(1rem, var(--base-size-16))'
   result['--ActionList--visual-minHeight'] = 'max(1.25rem, var(--base-size-20))'
   return result
