@@ -25,6 +25,48 @@ describe('FilteredActionList', () => {
     expect(onFocus).toHaveBeenCalledOnce()
   })
 
+  describe('combobox list reference', () => {
+    it('references the rendered list when items are shown', () => {
+      const {getByRole} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      const combobox = getByRole('combobox')
+      const listId = combobox.getAttribute('aria-controls')
+
+      expect(combobox).toHaveAttribute('aria-expanded', 'true')
+      expect(listId).toBeTruthy()
+      expect(document.getElementById(listId!)).toBeInTheDocument()
+    })
+
+    it('does not reference a list while a message is shown', () => {
+      const {getByRole} = render(
+        <FilteredActionList items={[]} onFilterChange={vi.fn()} message={<div>No matching items</div>} />,
+      )
+
+      const combobox = getByRole('combobox')
+
+      expect(combobox).toHaveAttribute('aria-expanded', 'false')
+      expect(combobox).not.toHaveAttribute('aria-controls')
+    })
+
+    it('does not reference a list while the body shows a loader', () => {
+      const props = {
+        items,
+        onFilterChange: vi.fn(),
+        loading: true,
+        loadingType: FilteredActionListLoadingTypes.bodySpinner,
+      }
+      const {getByRole, container, rerender} = render(<FilteredActionList {...props} />)
+      // The body loader needs the mounted scroll container, so it appears on the next render
+      rerender(<FilteredActionList {...props} />)
+
+      const combobox = getByRole('combobox')
+
+      expect(container.querySelector('[data-component="FilteredActionList.Spinner"]')).toBeInTheDocument()
+      expect(combobox).toHaveAttribute('aria-expanded', 'false')
+      expect(combobox).not.toHaveAttribute('aria-controls')
+    })
+  })
+
   describe('data-component attributes', () => {
     it('renders FilteredActionList with data-component attribute', () => {
       const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)

@@ -438,8 +438,12 @@ export function FilteredActionList({
     [onSelectAllChange],
   )
 
+  const showBodyLoader = loading && readScrollContainerRef.current !== null && loadingType.appearsInBody
+  // The list is not rendered while the body shows a loader or a message, so the input must not reference it
+  const isListRendered = !showBodyLoader && !message
+
   function getBodyContent() {
-    if (loading && readScrollContainerRef.current && loadingType.appearsInBody) {
+    if (showBodyLoader) {
       return (
         <FilteredActionListBodyLoader loadingType={loadingType} height={readScrollContainerRef.current.clientHeight} />
       )
@@ -586,7 +590,7 @@ export function FilteredActionList({
         onInputKeyPress={onInputKeyPress}
         onInputKeyDown={usingRovingTabindex ? onInputKeyDown : undefined}
         placeholderText={placeholderText}
-        listId={listId}
+        listId={isListRendered ? listId : undefined}
         inputDescriptionTextId={inputDescriptionTextId}
         loading={loading && !loadingType.appearsInBody}
         fullScreenOnNarrow={fullScreenOnNarrow}
