@@ -15,7 +15,7 @@ export const playgroundSeriousnessProfiles = [
   {
     id: 'friendly-social',
     name: 'Friendly social',
-    density: 'very-spacious',
+    density: 'spacious',
     font: "ui-rounded, 'SF Pro Rounded', 'Nunito', system-ui, sans-serif",
     size: 16,
     radius: 16,
@@ -25,7 +25,7 @@ export const playgroundSeriousnessProfiles = [
   {
     id: 'relaxed',
     name: 'Relaxed',
-    density: 'spacious',
+    density: 'default',
     font: "'Avenir Next', 'Nunito Sans', ui-sans-serif, system-ui, sans-serif",
     size: 15,
     radius: 10,
@@ -36,7 +36,7 @@ export const playgroundSeriousnessProfiles = [
   {
     id: 'professional',
     name: 'Professional',
-    density: 'compact',
+    density: 'default',
     font: "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     size: 14,
     radius: 4,
@@ -46,7 +46,7 @@ export const playgroundSeriousnessProfiles = [
   {
     id: 'bank-security',
     name: 'Bank security',
-    density: 'very-compact',
+    density: 'compact',
     font: "ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace",
     size: 13,
     radius: 0,
@@ -57,12 +57,16 @@ export const playgroundSeriousnessProfiles = [
 
 export type PlaygroundSeriousness = (typeof playgroundSeriousnessProfiles)[number]['id']
 
-export function seriousnessVariables(seriousness: PlaygroundSeriousness): Record<string, string> {
+export function seriousnessVariables(
+  seriousness: PlaygroundSeriousness,
+  mode: 'light' | 'dark' = 'light',
+): Record<string, string> {
   const preset = playgroundSeriousnessProfiles.find(value => value.id === seriousness)
   if (!preset) throw new Error(`Unknown playground seriousness: ${seriousness}`)
   if (preset.id === 'default') return {}
   return {
     ...typographyVariables(),
+    ...seriousnessColorVariables(seriousness, mode),
     '--fontStack-system': preset.font,
     '--fontStack-sansSerif': 'var(--fontStack-system)',
     '--fontStack-sansSerifDisplay': 'var(--fontStack-system)',
@@ -84,6 +88,7 @@ export function seriousnessVariables(seriousness: PlaygroundSeriousness): Record
     '--borderRadius-small': `${Math.max(0, preset.radius - 4)}px`,
     '--borderRadius-medium': `${preset.radius}px`,
     '--borderRadius-large': `${preset.radius ? preset.radius + 8 : 0}px`,
+    ...(preset.id === 'friendly-social' ? {'--borderRadius-full': '999px'} : {}),
     '--ActionList--label-fontSize-medium': 'var(--text-body-size-medium)',
     '--ActionList--label-fontWeight-selected': `${preset.headingWeight}`,
     '--UnderlineTabbedInterface--underlineItem-before-fontWeight-contentPresent': `${preset.headingWeight}`,
@@ -122,6 +127,78 @@ interface PlaygroundPalette {
     license: string
     notes?: string
     references?: readonly string[]
+  }
+}
+
+type PaletteColors = Omit<PlaygroundPalette, 'id' | 'name' | 'mode' | 'group' | 'preset' | 'variables' | 'source'>
+
+function seriousnessColorVariables(seriousness: PlaygroundSeriousness, mode: 'light' | 'dark'): Record<string, string> {
+  if (seriousness !== 'friendly-social' && seriousness !== 'bank-security') return {}
+  const friendly = seriousness === 'friendly-social'
+  const dark = mode === 'dark'
+  const background = friendly ? (dark ? '#22152d' : '#fff7fc') : dark ? '#1e2022' : '#eeeeec'
+  const surface = friendly ? (dark ? '#302039' : '#ffffff') : dark ? '#303234' : '#d6d6d2'
+  const inset = friendly ? (dark ? '#291a34' : '#f8eafa') : dark ? '#26282a' : '#e3e3df'
+  const hover = friendly ? (dark ? '#493052' : '#f3e0f6') : dark ? '#404347' : '#c8c8c3'
+  const foreground = friendly ? (dark ? '#f8eaff' : '#382144') : dark ? '#e9e9e4' : '#242625'
+  const muted = friendly ? (dark ? '#d2aecf' : '#76556f') : dark ? '#b5b7b3' : '#5a5d58'
+  const border = friendly ? (dark ? '#986da6' : '#b276a7') : dark ? '#858985' : '#777b76'
+  const accent = friendly ? (dark ? '#d6a5ff' : '#7938b7') : dark ? '#bac0c7' : '#4b5158'
+  const button = friendly ? (dark ? '#b83b83' : '#b42a78') : surface
+  const danger = friendly ? (dark ? '#ff9aaa' : '#b52b4c') : dark ? '#efaaaa' : '#a63838'
+  const raised = `inset 1px 1px 0 ${dark ? '#777b80' : '#ffffff'}, inset -1px -1px 0 ${dark ? '#101112' : '#777b76'}, 1px 1px 0 ${dark ? '#101112' : '#777b76'}`
+  const sunken = `inset 1px 1px 0 ${dark ? '#101112' : '#777b76'}, inset -1px -1px 0 ${dark ? '#777b80' : '#ffffff'}`
+  const shadow = friendly ? `0 3px 8px ${dark ? '#0c041d66' : '#7938b71f'}` : raised
+  return {
+    ...paletteColorVariables({
+      background,
+      surface,
+      inset,
+      hover,
+      foreground,
+      surfaceForeground: foreground,
+      insetForeground: foreground,
+      inputBackground: friendly ? surface : background,
+      inputForeground: foreground,
+      buttonBackground: button,
+      buttonForeground: friendly ? '#ffffff' : foreground,
+      muted,
+      border,
+      accent,
+      success: friendly ? (dark ? '#8addb3' : '#246b4a') : dark ? '#a5b7a9' : '#506958',
+      attention: friendly ? (dark ? '#e5c27b' : '#815900') : dark ? '#c9b991' : '#76633e',
+      danger,
+      done: accent,
+    }),
+    '--playground-desktop-bgColor': background,
+    '--PlaygroundIssuesPage--sidebar-bgColor': inset,
+    '--ActionList--activeIndicator-bgColor': friendly ? accent : 'transparent',
+    '--UnderlineTabbedInterface--underlineItem-color-active': foreground,
+    '--button-primary-bgColor-hover': friendly ? (dark ? '#a52e73' : '#982064') : hover,
+    '--button-primary-bgColor-active': friendly ? (dark ? '#922464' : '#811a55') : hover,
+    '--button-danger-bgColor-hover': hover,
+    '--button-danger-bgColor-active': hover,
+    '--button-danger-fgColor-hover': readableColor(danger, hover, background),
+    '--button-danger-fgColor-active': readableColor(danger, hover, background),
+    '--button-default-shadow-resting': shadow,
+    '--shadow-resting-xsmall': shadow,
+    '--shadow-resting-small': shadow,
+    '--shadow-resting-medium': shadow,
+    '--button-primary-shadow-selected': friendly ? 'inset 0 1px 2px #38214433' : sunken,
+    '--button-danger-shadow-selected': friendly ? 'inset 0 1px 2px #38214433' : sunken,
+    '--shadow-inset': friendly ? 'inset 0 1px 2px #3821441a' : sunken,
+    ...(!friendly
+      ? {
+          '--IssueLabel--backgroundColor': surface,
+          '--IssueLabel--color': foreground,
+          '--IssueLabel--borderRadius': '0px',
+          '--IssueLabel--boxShadow': `0 0 0 1px ${border}`,
+          '--IssueLabel--button-a-backgroundColor-hover': hover,
+          '--IssueLabel--button-a-backgroundColor-active': hover,
+          '--IssueLabel--button-a-color-hover': foreground,
+          '--IssueLabel--button-a-color-active': foreground,
+        }
+      : {}),
   }
 }
 
@@ -335,8 +412,7 @@ function translucent(color: string, percentage: number) {
   return `color-mix(in srgb, ${color} ${percentage}%, transparent)`
 }
 
-export function paletteVariables(palette: PlaygroundPalette | undefined): Record<string, string> {
-  if (!palette) return {}
+function paletteColorVariables(palette: PaletteColors): Record<string, string> {
   const {background, surface, inset, hover, border, accent, buttonBackground} = palette
   const foreground = readableColor(palette.foreground, background)
   const muted = readableColor(palette.muted, background)
@@ -453,6 +529,12 @@ export function paletteVariables(palette: PlaygroundPalette | undefined): Record
     result[`--button-danger-fgColor-${state}`] = readableColor(palette.danger, surface, background)
     result[`--button-outline-fgColor-${state}`] = link
   }
+  return result
+}
+
+export function paletteVariables(palette: PlaygroundPalette | undefined): Record<string, string> {
+  if (!palette) return {}
+  const result = paletteColorVariables(palette)
   if (palette.preset === 'windows95') Object.assign(result, windows95Variables())
   if (palette.preset === 'terminal') Object.assign(result, terminalVariables(palette))
   if (palette.variables) Object.assign(result, typographyVariables(), palette.variables)

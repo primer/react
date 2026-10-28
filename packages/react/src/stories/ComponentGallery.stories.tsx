@@ -27,8 +27,7 @@ import {
   PlaygroundAppearanceSurface,
   usePlaygroundAppearanceScope,
 } from './PlaygroundAppearance'
-import * as sideNavStories from './deprecated/SideNav.dev.stories'
-import * as visuallyHiddenStories from '../VisuallyHidden/VisuallyHidden.dev.stories'
+import {warn} from '../utils/warning'
 import {collectUsedVariables} from './ComponentGallery.tokens'
 import type {GalleryVariable, VariableScan} from './ComponentGallery.tokens'
 import tokenCatalog from './ComponentGallery.catalog.json'
@@ -68,10 +67,15 @@ const discoveredModules = import.meta.glob<StoryModule>(
   {eager: true},
 )
 
+const legacyModules = import.meta.glob<StoryModule>(
+  ['./deprecated/SideNav.dev.stories.tsx', '../VisuallyHidden/VisuallyHidden.dev.stories.tsx'],
+  {eager: true},
+)
+
 const modules: Record<string, StoryModule> = {
   ...discoveredModules,
-  '../SideNav.stories.tsx': sideNavStories,
-  '../VisuallyHidden.stories.tsx': visuallyHiddenStories,
+  '../SideNav.stories.tsx': legacyModules['./deprecated/SideNav.dev.stories.tsx'],
+  '../VisuallyHidden.stories.tsx': legacyModules['../VisuallyHidden/VisuallyHidden.dev.stories.tsx'],
 }
 
 interface GalleryExample {
@@ -187,7 +191,8 @@ const entries: GalleryEntry[] = Object.entries(modules)
     const examples = examplesFor(stories)
     if (examples.length === 0) return []
     const primary = examples.find(example => example.name === 'Default') ?? examples[0]
-    const features = modules[path.replace('.stories.tsx', '.features.stories.tsx')]
+    const featurePath = path.replace('.stories.tsx', '.features.stories.tsx')
+    const features = Object.hasOwn(modules, featurePath) ? modules[featurePath] : undefined
     const variants = features
       ? examplesFor(features).slice(0, 2)
       : examples.filter(example => example !== primary && example.name !== 'Playground').slice(0, 2)
@@ -264,22 +269,20 @@ function VariableEditor({preview, selectedSection, onClearSelection}: VariableEd
   const [error, setError] = useState('')
   const overrideStyle = useRef<HTMLStyleElement | null>(null)
   const componentDefaults = useRef<HTMLSpanElement>(null)
-  const scanWarnings = scan.warnings.join('\n')
+  const lastScanWarnings = useRef('')
   const selectedEntry = entries.find(entry => entry.title === selectedSection)
   const selectedScope = useMemo(() => {
     if (!selectedEntry) return null
     const scope = new Set<string>()
     for (const example of selectedEntry.examples) {
+      if (!Object.hasOwn(storyComponentDependencies, example.id)) {
+        throw new Error(`Missing component gallery dependency snapshot for story: ${example.id}`)
+      }
       const dependencies = storyComponentDependencies[example.id]
-      if (!dependencies) throw new Error(`Missing component gallery dependency snapshot for story: ${example.id}`)
       for (const dependency of dependencies) scope.add(dependency)
     }
     return scope
   }, [selectedEntry])
-
-  useEffect(() => {
-    if (scanWarnings) console.warn(`Component gallery CSS variable inspection:\n${scanWarnings}`)
-  }, [scanWarnings])
 
   const refreshVariables = useCallback(() => {
     if (!preview.current || !selectedSection || !selectedScope || !componentDefaults.current) return
@@ -288,7 +291,13 @@ function VariableEditor({preview, selectedSection, onClearSelection}: VariableEd
     const sheet = overrideStyle.current?.sheet
     if (sheet) sheet.disabled = true
     try {
-      setScan(collectUsedVariables(root, {scope: selectedScope, element: componentDefaults.current}))
+      const result = collectUsedVariables(root, {scope: selectedScope, element: componentDefaults.current})
+      const warnings = result.warnings.join('\n')
+      if (warnings !== lastScanWarnings.current) {
+        lastScanWarnings.current = warnings
+        if (warnings) warn(`Component gallery CSS variable inspection:\n${warnings}`)
+      }
+      setScan(result)
     } finally {
       if (sheet) sheet.disabled = false
     }
@@ -704,7 +713,7 @@ function VariableEditor({preview, selectedSection, onClearSelection}: VariableEd
                                     id={`gallery-${variable.name}`}
                                     aria-label={`Value for ${variable.name}`}
                                     value={displayValue(variable)}
-                                    title="Standalone rem values are displayed in px using the current root font size."
+                                    aria-description="Standalone rem values are displayed in px using the current root font size."
                                     placeholder="Not set in current theme"
                                     onChange={event =>
                                       updateVariable(referencedVariable(variable) ?? variable.name, event.target.value)
@@ -854,7 +863,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The compact appearance bar combines Density, Seriousness and Theme. Seriousness has five visual-only presets from Friendly social through Default to Bank security, coordinating spacing, local font stacks, type sizes/weights and corner radii without changing theme colors or actual security. Selecting a preset sets Density; Density can override spacing afterward. Default restores the selected theme typography/radii and Default density. Theme changes retain the chosen Seriousness. Controls and the variable editor stay protected; preview portals share the styling. ' +
+          'The compact appearance bar combines Density, Seriousness and Theme. Seriousness has five visual-only presets from Friendly social through Default to Bank security, coordinating local fonts, type sizes/weights, corner radii and gentler spacing. Automatic density shifts are limited to one step. Friendly social adds purple/pink colors and soft shadows; Bank security uses neutral surfaces, quieter categorical labels and raised square OS-style buttons. Semantic status/danger colors remain distinguishable; this has no security effect. The middle three presets retain theme colors. Density can override spacing afterward. Default restores the selected theme colors, typography/radii and Default density. Theme changes retain the chosen Seriousness. Controls and the variable editor stay protected; preview portals share the styling. ' +
           'The theme picker is a compact two-column side sheet with a transparent backdrop so theme changes remain visible on the preview. ' +
           'Linear additionally adapts the supplied app screenshot through existing theme variables: charcoal content and sidebar, subtly raised cards, cool-gray text, fine borders, neutral selection fills and no vertical selection marker. Essential input outlines and metadata retain readable contrast. Screenshot grain and lighting are approximated with flat colors; tabs remain a Primer adaptation because the reference shows an issue-detail page. No component CSS, Linear stylesheets or font files are added. ' +
           'Stripe additionally adapts the supplied Dashboard screenshot through theme variables: pale sidebar, white content and top chrome, fine neutral dividers, blue selected text and underlines, and navigation spacing. Default-preserving hooks independently control the sidebar, ActionList selection indicators, and active tab text, including overflow labels. Other accent borders retain their semantic color. No Stripe-specific component selectors or stylesheets are used; content, font fallbacks and density remain Primer adaptations rather than a pixel-perfect product replica. ' +

@@ -63,7 +63,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The compact appearance bar combines Density, Seriousness and Theme. Seriousness has five visual-only presets from Friendly social through Default to Bank security, coordinating spacing, local font stacks, type sizes/weights and corner radii without changing theme colors or actual security. Selecting a preset sets Density; Density can override spacing afterward. Default restores the selected theme typography/radii and Default density. Theme changes retain the chosen Seriousness. Controls and the variable editor stay protected; preview portals share the styling. ' +
+          'The compact appearance bar combines Density, Seriousness and Theme. Seriousness has five visual-only presets from Friendly social through Default to Bank security, coordinating local fonts, type sizes/weights, corner radii and gentler spacing. Automatic density shifts are limited to one step. Friendly social adds purple/pink colors and soft shadows; Bank security uses neutral surfaces, quieter categorical labels and raised square OS-style buttons. Semantic status/danger colors remain distinguishable; this has no security effect. The middle three presets retain theme colors. Density can override spacing afterward. Default restores the selected theme colors, typography/radii and Default density. Theme changes retain the chosen Seriousness. Controls and the variable editor stay protected; preview portals share the styling. ' +
           'The theme picker is a compact two-column side sheet with a transparent backdrop so theme changes remain visible on the preview. ' +
           'Linear additionally adapts the supplied app screenshot through existing theme variables: charcoal content and sidebar, subtly raised cards, cool-gray text, fine borders, neutral selection fills and no vertical selection marker. Essential input outlines and metadata retain readable contrast. Screenshot grain and lighting are approximated with flat colors; tabs remain a Primer adaptation because the reference shows an issue-detail page. No component CSS, Linear stylesheets or font files are added. ' +
           'Stripe additionally adapts the supplied Dashboard screenshot through theme variables: pale sidebar, white content and top chrome, fine neutral dividers, blue selected text and underlines, and navigation spacing. Default-preserving hooks independently control the sidebar, ActionList selection indicators, and active tab text, including overflow labels. Other accent borders retain their semantic color. No Stripe-specific component selectors or stylesheets are used; content, font fallbacks and density remain Primer adaptations rather than a pixel-perfect product replica. ' +
@@ -597,7 +597,7 @@ function IssuesPage() {
               </div>
             </div>
             {selected.length > 0 && (
-              <div className={classes.SelectionToolbar} aria-label="Selected issue actions">
+              <div className={classes.SelectionToolbar} role="group" aria-label="Selected issue actions">
                 <strong>{selected.length} selected</strong>
                 <Button size="small" onClick={() => updateSelected('closed')}>
                   Close selected

@@ -129,7 +129,6 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
         className={classes.ThemeCard}
         aria-label={`Use ${theme.name} theme`}
         aria-pressed={active}
-        title={theme.id === 'primer' ? 'Primer follows the host app theme' : theme.name}
         onClick={() => onChange(theme.id)}
       >
         <PalettePreview palette={theme.palette} />
@@ -157,9 +156,7 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
           setIsOpen(true)
         }}
       >
-        <span className={classes.TriggerName} title={selected.name}>
-          {selected.name}
-        </span>
+        <span className={classes.TriggerName}>{selected.name}</span>
       </Button>
       <div className={classes.Portal} ref={registerPortal} />
       {isOpen && (
@@ -180,7 +177,7 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
                   <h2>Palettes</h2>
                   <p>Pick a sourced palette for the app.</p>
                 </div>
-                <div className={classes.Source} aria-label="Active theme source">
+                <div className={classes.Source} role="group" aria-label="Active theme source">
                   {source ? (
                     <>
                       <a href={sourceUrl} target="_blank" rel="noopener noreferrer">

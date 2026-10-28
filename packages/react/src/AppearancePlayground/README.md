@@ -29,11 +29,16 @@ Controls and the theme sheet retain the host app's appearance.
   Glass UI and Windows 95. Primer follows the host app's current theme.
 - **Density:** five spacing/control-size steps.
 - **Seriousness:** Friendly social, Relaxed, Default, Professional and Bank security.
-  These coordinate density, local font stacks, type weights and corner radii.
-  Theme colors do not change; this has no security functionality.
+  These coordinate local font stacks, type weights, corner radii and gentler spacing.
+  Friendly social adds purple/pink colors and soft shadows; Bank security uses
+  neutral surfaces, square corners and raised OS-style buttons. Semantic status
+  and danger colors remain distinguishable. Both extremes adapt to light/dark mode;
+  the middle three presets retain theme colors. This has no security functionality.
 
-Selecting Seriousness also selects its recommended density. Density can override
-spacing afterward. Default restores theme typography/radii and Default density.
+Selecting Seriousness recommends Spacious at Friendly social, Compact at Bank
+security, and Default at the three middle stops, rather than the two-step density
+extremes. Density can still select the full five-step range afterward.
+Default restores theme colors, typography/radii and Default density.
 Changing themes preserves Seriousness and Density. State is local to each
 mounted wrapper and is not persisted.
 

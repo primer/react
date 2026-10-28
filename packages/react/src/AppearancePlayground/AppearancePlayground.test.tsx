@@ -4,6 +4,7 @@ import {fireEvent, render, screen, within} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import {AppearancePlayground} from './index'
 import {getPortalRoot} from '../Portal/portalRoot'
+import {densityVariables, playgroundSeriousnessProfiles, seriousnessVariables} from './AppearancePlayground.tokens'
 
 describe('AppearancePlayground', () => {
   it('forwards root attributes and protects the component identifier', () => {
@@ -15,7 +16,7 @@ describe('AppearancePlayground', () => {
         data-testid="demo"
         data-component="consumer"
       >
-        <button>App content</button>
+        <button type="button">App content</button>
       </AppearancePlayground>,
     )
     expect(screen.getByTestId('demo')).toHaveAttribute('id', 'demo')
@@ -32,7 +33,7 @@ describe('AppearancePlayground', () => {
     const density = screen.getByRole('slider', {name: 'Density'})
     fireEvent.change(seriousness, {target: {value: '4'}})
     expect(seriousness).toHaveAttribute('aria-valuetext', 'Bank security')
-    expect(density).toHaveAttribute('aria-valuetext', 'Very compact')
+    expect(density).toHaveAttribute('aria-valuetext', 'Compact')
     expect(container.querySelector('style')).toHaveTextContent('--borderRadius-medium: 0px')
     fireEvent.change(density, {target: {value: '4'}})
     expect(density).toHaveAttribute('aria-valuetext', 'Very spacious')
@@ -71,5 +72,32 @@ describe('AppearancePlayground', () => {
 
   it('can render on the server', () => {
     expect(renderToString(<AppearancePlayground>Server content</AppearancePlayground>)).toContain('Server content')
+  })
+
+  it('limits automatic spacing changes to one density step', () => {
+    expect(playgroundSeriousnessProfiles.map(profile => profile.density)).toEqual([
+      'spacious',
+      'default',
+      'default',
+      'default',
+      'compact',
+    ])
+    expect(densityVariables('spacious')['--base-size-16']).toBe('1.25rem')
+    expect(densityVariables('compact')['--base-size-16']).toBe('0.75rem')
+  })
+
+  it.each(['light', 'dark'] as const)('adds distinct endpoint colors and resets in %s mode', mode => {
+    const friendly = seriousnessVariables('friendly-social', mode)
+    const bank = seriousnessVariables('bank-security', mode)
+    expect(friendly['--button-primary-bgColor-rest']).toBe(mode === 'dark' ? '#b83b83' : '#b42a78')
+    expect(friendly['--bgColor-accent-emphasis']).toBe(mode === 'dark' ? '#d6a5ff' : '#7938b7')
+    expect(bank['--button-primary-bgColor-rest']).toBe(bank['--bgColor-muted'])
+    expect(bank['--button-default-shadow-resting']).toContain('inset 1px 1px')
+    expect(bank['--IssueLabel--backgroundColor']).toBe(bank['--bgColor-muted'])
+    expect(bank['--IssueLabel--color']).toBe(bank['--fgColor-default'])
+    expect(bank['--borderRadius-medium']).toBe('0px')
+    expect(seriousnessVariables('default', mode)).toEqual({})
+    expect(seriousnessVariables('relaxed', mode)).not.toHaveProperty('--bgColor-default')
+    expect(seriousnessVariables('professional', mode)).not.toHaveProperty('--bgColor-default')
   })
 })

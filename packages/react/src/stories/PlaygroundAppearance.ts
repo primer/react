@@ -4,5 +4,5 @@ export {
   PlaygroundAppearanceControls,
   PlaygroundAppearanceSurface,
   PlaygroundAppearancePortals,
-  usePlaygroundAppearanceScope,
 } from '../AppearancePlayground/AppearancePlayground'
+export {usePlaygroundAppearanceScope} from '../internal/AppearancePlaygroundContext'
