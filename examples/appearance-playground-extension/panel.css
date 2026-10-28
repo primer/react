@@ -4,13 +4,13 @@
     14px/1.5 system-ui,
     sans-serif;
   color: light-dark(#1f2328, #f0f3f6);
-  background: light-dark(#ffffff, #151b23);
+  background: light-dark(#fff, #151b23);
 }
 
 body {
   min-width: 260px;
   margin: 0;
-  padding: 16px;
+  padding: var(--base-size-16);
 }
 
 h1 {
@@ -20,18 +20,18 @@ h1 {
 
 h1 span {
   font-size: 11px;
-  font-weight: 400;
+  font-weight: var(--base-text-weight-normal);
 }
 
 p {
-  margin: 8px 0;
+  margin: var(--base-size-8) 0;
 }
 
 fieldset {
   display: grid;
   gap: 8px;
   min-width: 0;
-  margin: 16px 0;
+  margin: var(--base-size-16) 0;
   padding: 0;
   border: 0;
 }
@@ -39,8 +39,8 @@ fieldset {
 label {
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
-  font-weight: 500;
+  margin-top: var(--base-size-8);
+  font-weight: var(--base-text-weight-medium);
 }
 
 input,
@@ -49,10 +49,10 @@ button {
   box-sizing: border-box;
   min-width: 0;
   max-width: 100%;
-  padding: 8px;
+  padding: var(--base-size-8);
   font: inherit;
-  border: 1px solid light-dark(#d1d9e0, #3d444d);
-  border-radius: 6px;
+  border: var(--borderWidth-thin) solid light-dark(#d1d9e0, #3d444d);
+  border-radius: var(--borderRadius-default);
 }
 
 input[type='range'] {
@@ -75,12 +75,12 @@ output,
 footer,
 #site {
   color: light-dark(#59636e, #b7c0ca);
-  font-weight: 400;
+  font-weight: var(--base-text-weight-normal);
 }
 
 .hint,
 footer {
-  font-size: 12px;
+  font-size: var(--base-text-size-xs);
 }
 
 .toggle {
@@ -96,21 +96,21 @@ footer {
 }
 
 details {
-  margin-top: 16px;
+  margin-top: var(--base-size-16);
 }
 
 details input,
 details select {
   width: 100%;
-  margin: 4px 0 8px;
+  margin: var(--base-size-4) 0 var(--base-size-8);
 }
 
 #error {
-  padding: 8px;
+  padding: var(--base-size-8);
   color: light-dark(#82071e, #ffb1ba);
   background: light-dark(#ffebe9, #3b1019);
-  border: 1px solid light-dark(#ff8182, #b62324);
-  border-radius: 6px;
+  border: var(--borderWidth-thin) solid light-dark(#ff8182, #b62324);
+  border-radius: var(--borderRadius-default);
 }
 
 #notice {
