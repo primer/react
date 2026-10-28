@@ -172,7 +172,6 @@ export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerPr
                         ? `${source.repository} @ ${source.revision.slice(0, 7)}`
                         : `${source.title} · ${source.retrievedAt}`}
                     </a>
-                    <span>{source.license}</span>
                     {source.notes ? <span>{source.notes}</span> : null}
                   </>
                 ) : (
