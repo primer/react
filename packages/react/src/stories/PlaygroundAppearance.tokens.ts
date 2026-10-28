@@ -141,7 +141,7 @@ export const playgroundPalettes: readonly PlaygroundPalette[] = [
   },
   {
     id: 'windows-95',
-    name: 'Windows 95 (95CSS)',
+    name: 'Windows 95',
     mode: 'light',
     group: 'other-companies',
     preset: 'windows95',
