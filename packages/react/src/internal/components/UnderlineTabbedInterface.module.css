@@ -181,6 +181,10 @@
   );
 
   font-weight: var(--base-text-weight-light);
+
+  /* stylelint-disable-next-line primer/colors */
+
+  color: var(--UnderlineTabbedInterface--underlineItem-color-active, inherit);
 }
 
 .UnderlineItem[aria-current]:not([aria-current='false'])::after,

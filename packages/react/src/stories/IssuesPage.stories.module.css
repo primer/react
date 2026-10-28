@@ -54,6 +54,7 @@
 .Sidebar {
   padding: var(--base-size-16) var(--base-size-12);
   border-right: var(--borderWidth-thin) solid var(--borderColor-default);
+  background: var(--PlaygroundIssuesPage--sidebar-bgColor, transparent);
 }
 
 .SidebarHeading {

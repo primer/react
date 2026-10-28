@@ -44,6 +44,8 @@
 
   &::after {
     @mixin activeIndicatorLine;
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--ActionList--activeIndicator-bgColor, var(--borderColor-accent-emphasis));
   }
 }
 
@@ -56,6 +58,8 @@
 
   &::after {
     @mixin activeIndicatorLine;
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--ActionList--activeIndicator-bgColor, var(--borderColor-accent-emphasis));
   }
 }
 

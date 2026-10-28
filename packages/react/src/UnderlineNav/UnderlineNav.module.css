@@ -92,6 +92,10 @@
     );
 
     font-weight: var(--base-text-weight-light);
+
+    /* stylelint-disable-next-line primer/colors */
+
+    color: var(--UnderlineTabbedInterface--underlineItem-color-active, inherit);
   }
 
   &::after {
@@ -162,6 +166,11 @@
         /* Support for Windows Forced Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast */
         background-color: LinkText;
       }
+    }
+
+    & [data-component='text'] {
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--UnderlineTabbedInterface--underlineItem-color-active, inherit);
     }
   }
 }
