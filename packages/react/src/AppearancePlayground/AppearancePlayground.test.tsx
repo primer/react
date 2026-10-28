@@ -74,6 +74,25 @@ describe('AppearancePlayground', () => {
     expect(renderToString(<AppearancePlayground>Server content</AppearancePlayground>)).toContain('Server content')
   })
 
+  it('selects the newspaper theme and removes its typography and colors when returning to Primer', () => {
+    const {container} = render(<AppearancePlayground>App</AppearancePlayground>)
+    fireEvent.click(screen.getByRole('button', {name: 'Choose theme: Primer'}))
+    const theme = screen.getByRole('button', {name: 'Use New York Times theme'})
+    fireEvent.click(theme)
+    expect(theme).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', {name: 'Choose theme: New York Times'})).toBeInTheDocument()
+    const style = container.querySelector('style[data-playground-appearance-style]')
+    expect(style).toHaveTextContent("--fontStack-system: Georgia, 'Times New Roman', Times, serif")
+    expect(style).toHaveTextContent('--bgColor-default: #ffffff')
+    expect(style).toHaveTextContent('--button-primary-bgColor-rest: #121212')
+    expect(style).toHaveTextContent('--borderRadius-medium: 0px')
+    expect(style).toHaveTextContent('--focus-outlineColor: #326891')
+    fireEvent.click(screen.getByRole('button', {name: 'Use Primer theme'}))
+    expect(style).not.toHaveTextContent('--fontStack-system')
+    expect(style).not.toHaveTextContent('--button-primary-bgColor-rest')
+    expect(style).not.toHaveTextContent('--borderRadius-medium')
+  })
+
   it('limits automatic spacing changes to one density step', () => {
     expect(playgroundSeriousnessProfiles.map(profile => profile.density)).toEqual([
       'spacious',

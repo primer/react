@@ -25,8 +25,10 @@ sheet, themed content surface and a separate themed portal root. It accepts
 children and normal div attributes, including `className`, `style` and `id`.
 Controls and the theme sheet retain the host app's appearance.
 
-- **Theme:** 17 built-in choices, including Primer, Shopify, Linear (Dark), Stripe,
-  Glass UI and Windows 95. Primer follows the host app's current theme.
+- **Theme:** 18 built-in choices, including Primer, Shopify, Linear (Dark), Stripe,
+  New York Times, Glass UI and Windows 95. Primer follows the host app's current theme.
+  New York Times is an original newspaper-inspired preset with local serif fonts,
+  white paper, dark ink, fine rules and square controls, not official NYT assets.
 - **Density:** five spacing/control-size steps.
 - **Seriousness:** Friendly social, Relaxed, Default, Professional and Bank security.
   These coordinate local font stacks, type weights, corner radii and gentler spacing.
