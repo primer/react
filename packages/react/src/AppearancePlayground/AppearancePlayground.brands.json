@@ -11,7 +11,7 @@
         "url": "https://github.com/primer/react/pull/8632",
         "retrievedAt": "2026-10-28",
         "license": "Original Primer demo adaptation; no reference code, fonts, assets or private content redistributed",
-        "notes": "Visually adapted from a user-authorized reference. Pale navigation, a white rounded document surface, neutral selection, system typography and spacious reading text are mapped to Primer variables. Muted text is kept readable rather than copying low-contrast navigation text. The reference app is never contacted by this preset."
+        "notes": "Visually adapted from a user-authorized reference. Pale navigation, a white rounded document surface, neutral selection, system typography and spacious reading text are mapped to Primer variables. Story-specific header hooks align the project cover controls and wordmark; the cover illustration is original gradient artwork. Muted text is kept readable rather than copying low-contrast navigation text. The reference app is never contacted by this preset."
       },
       "colors": {
         "background": "#ffffff",
@@ -68,7 +68,12 @@
         "--button-default-bgColor-rest": "#ffffff",
         "--button-default-shadow-resting": "none",
         "--control-borderColor-rest": "#818b98",
-        "--NoodlesPage--header-minHeight": "calc(var(--control-large-size) + var(--base-size-8))"
+        "--NoodlesPage--header-minHeight": "calc(var(--control-large-size) + var(--base-size-8))",
+        "--NoodlesPage--project-paddingInline": "calc(var(--base-size-8) + var(--borderWidth-thin))",
+        "--NoodlesPage--project-fontWeight": "var(--base-text-weight-medium)",
+        "--NoodlesPage--project-bgColor-hover": "#e7ecf0",
+        "--NoodlesPage--wordmark-fontSize": "var(--base-size-12)",
+        "--NoodlesPage--wordmark-lineHeight": "var(--base-size-16)"
       }
     },
     {

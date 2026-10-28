@@ -49,7 +49,13 @@
 
 .Brand {
   justify-content: space-between;
-  padding-inline: var(--base-size-8);
+  min-height: calc(var(--control-large-size) + var(--base-size-8));
+  padding-inline: var(--base-size-8) var(--base-size-4);
+}
+
+.NavigationToggle {
+  width: var(--control-xsmall-size);
+  height: var(--control-xsmall-size);
 }
 
 .Wordmark {
@@ -57,15 +63,70 @@
   align-items: center;
   gap: var(--base-size-8);
   font-family: var(--fontStack-monospace);
+  font-size: var(--NoodlesPage--wordmark-fontSize, inherit);
+  line-height: var(--NoodlesPage--wordmark-lineHeight, inherit);
   color: var(--fgColor-muted);
 }
 
 .Project {
-  display: flex;
+  position: relative;
   flex-shrink: 0;
-  align-items: center;
-  gap: var(--base-size-4);
-  margin-block: var(--base-size-16);
+  height: var(--control-large-size);
+  margin-top: var(--base-size-6);
+  margin-bottom: var(--base-size-4);
+  border-radius: var(--borderRadius-medium);
+}
+
+.Project:where(:hover, :focus-within) {
+  background-color: var(--NoodlesPage--project-bgColor-hover, var(--button-invisible-bgColor-hover));
+}
+
+.ProjectCoverLink {
+  width: calc(100% - var(--base-size-32));
+  height: 100%;
+  padding-inline: var(--NoodlesPage--project-paddingInline, var(--control-medium-paddingInline-normal));
+  font-weight: var(--NoodlesPage--project-fontWeight, var(--Button--fontWeight));
+}
+
+.ProjectCoverLink:where(:hover) {
+  background-color: transparent;
+}
+
+.NoodleCover {
+  display: block;
+  width: var(--base-size-16);
+  height: var(--base-size-24);
+  background: linear-gradient(
+    135deg,
+    var(--bgColor-emphasis),
+    color-mix(in srgb, var(--bgColor-done-emphasis) 25%, var(--bgColor-emphasis)),
+    color-mix(in srgb, var(--bgColor-accent-emphasis) 35%, var(--bgColor-emphasis))
+  );
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-radius: var(--base-size-2);
+}
+
+.CoverChevron {
+  display: flex;
+  color: var(--fgColor-onEmphasis);
+}
+
+.ProjectSwitch {
+  position: absolute;
+  top: calc((var(--control-large-size) - var(--control-small-size)) / 2);
+  left: calc(
+    var(--NoodlesPage--project-paddingInline, var(--control-medium-paddingInline-normal)) + var(--borderWidth-thin) -
+      var(--base-size-6)
+  );
+  z-index: 1;
+}
+
+.ProjectCreate {
+  position: absolute;
+  top: calc((var(--control-large-size) - var(--control-xsmall-size)) / 2);
+  right: var(--base-size-8);
+  width: var(--control-xsmall-size);
+  height: var(--control-xsmall-size);
 }
 
 .Navigation {
@@ -120,7 +181,7 @@
   align-items: center;
   gap: var(--base-size-4);
   min-height: var(--NoodlesPage--header-minHeight, var(--control-large-size));
-  padding: var(--base-size-4) var(--base-size-12);
+  padding: var(--base-size-4) var(--base-size-8);
   font-size: var(--text-body-size-small);
 }
 

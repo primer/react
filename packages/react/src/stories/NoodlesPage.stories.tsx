@@ -5,11 +5,13 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   BookIcon,
+  ChevronDownIcon,
   CodeSquareIcon,
   CommentDiscussionIcon,
   CommentIcon,
   GearIcon,
   GrabberIcon,
+  HomeIcon,
   KebabHorizontalIcon,
   LinkIcon,
   PaperclipIcon,
@@ -66,6 +68,18 @@ type Story = StoryObj<typeof meta>
 type UtilityDialog = 'agent' | 'settings' | 'attachments' | null
 type EditDialog = 'new' | 'rename' | null
 const initialPages = [noodlesProjectCover, ...noodlesProjectPages, ...noodlesPages]
+
+function NoodleCover() {
+  return <span className={classes.NoodleCover} aria-hidden="true" />
+}
+
+function NoodleSwitcherIcon() {
+  return (
+    <span className={classes.CoverChevron} aria-hidden="true">
+      <ChevronDownIcon size={12} />
+    </span>
+  )
+}
 
 function NoodlesPage() {
   const [pages, setPages] = useState([...initialPages])
@@ -166,12 +180,13 @@ function NoodlesPage() {
         <aside className={classes.Sidebar} aria-label="Page navigation">
           <div className={classes.Brand}>
             <span className={classes.Wordmark}>
-              <CodeSquareIcon size={16} /> Noodles
+              <LinkIcon size={16} /> Noodles
             </span>
             <IconButton
               icon={SidebarCollapseIcon}
               variant="invisible"
               size="small"
+              className={classes.NavigationToggle}
               aria-label="Hide page navigation"
               onClick={() => setSidebarVisible(false)}
             />
@@ -179,7 +194,13 @@ function NoodlesPage() {
           <div className={classes.Project}>
             <ActionMenu>
               <ActionMenu.Anchor>
-                <IconButton icon={BookIcon} variant="invisible" size="small" aria-label="Switch noodle" />
+                <IconButton
+                  icon={NoodleSwitcherIcon}
+                  variant="invisible"
+                  size="small"
+                  className={classes.ProjectSwitch}
+                  aria-label="Switch noodle"
+                />
               </ActionMenu.Anchor>
               <ActionMenu.Overlay>
                 <ActionList selectionVariant="single">
@@ -196,7 +217,10 @@ function NoodlesPage() {
               as="a"
               href={`#${id}-document`}
               aria-label={`Open ${noodlesProjectCover.title} cover`}
+              className={classes.ProjectCoverLink}
               variant="invisible"
+              leadingVisual={NoodleCover}
+              block
               alignContent="start"
               onClick={event => {
                 event.preventDefault()
@@ -207,7 +231,13 @@ function NoodlesPage() {
             </Button>
             <ActionMenu>
               <ActionMenu.Anchor>
-                <IconButton icon={PlusIcon} variant="invisible" size="small" aria-label="Create" />
+                <IconButton
+                  icon={PlusIcon}
+                  variant="invisible"
+                  size="small"
+                  className={classes.ProjectCreate}
+                  aria-label="Create"
+                />
               </ActionMenu.Anchor>
               <ActionMenu.Overlay>
                 <ActionList>
@@ -290,6 +320,9 @@ function NoodlesPage() {
                 setFocusMode(false)
               }}
             />
+          )}
+          {selected.id === 'project-cover' && (
+            <IconButton icon={HomeIcon} variant="invisible" aria-label="Open noodle cover" onClick={openCover} />
           )}
           <div className={classes.Breadcrumb} role="group" aria-label="Current page">
             <Button
@@ -687,6 +720,17 @@ export const NoodlesTheme: Story = {
       fontSize: '36px',
       fontWeight: '500',
     })
+    const cover = canvas.getByRole('link', {name: `Open ${noodlesProjectCover.title} cover`}).getBoundingClientRect()
+    const switcher = canvas.getByRole('button', {name: 'Switch noodle'}).getBoundingClientRect()
+    const create = canvas.getByRole('button', {name: 'Create'}).getBoundingClientRect()
+    await expect(cover.height).toBe(40)
+    await expect(switcher.width).toBe(28)
+    await expect(switcher.left - cover.left).toBe(4)
+    await expect(switcher.top - cover.top).toBe(6)
+    await expect(create.width).toBe(24)
+    await expect(create.height).toBe(24)
+    await expect(create.left).toBe(cover.right)
+    await expect(create.top - cover.top).toBe(8)
   },
 }
 
@@ -721,9 +765,12 @@ export const LocalInteractions: Story = {
     await userEvent.keyboard('{Escape}')
     await userEvent.click(canvas.getByRole('link', {name: `Open ${noodlesProjectCover.title} cover`}))
     await expect(canvas.getByRole('heading', {name: noodlesProjectCover.title, level: 1})).toBeVisible()
+    await expect(canvas.getByRole('button', {name: 'Open noodle cover'})).toBeVisible()
     await userEvent.click(navigation.getByRole('link', {name: /Status updates/}))
     await expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toBeVisible()
-    await userEvent.click(canvas.getByRole('button', {name: 'New page'}))
+    await userEvent.click(canvas.getByRole('button', {name: 'Create'}))
+    const createMenu = within(await body.findByRole('menu'))
+    await userEvent.click(createMenu.getByRole('menuitem', {name: /^New page/}))
     const dialog = within(await body.findByRole('dialog', {name: 'New page'}))
     const title = dialog.getByRole('textbox', {name: /Page title/})
     await userEvent.type(title, '   ')
