@@ -4,12 +4,13 @@ import {clsx} from 'clsx'
 import {ChevronDownIcon, PaintbrushIcon, SearchIcon} from '@primer/octicons-react'
 import {Button} from '../Button'
 import {Dialog} from '../Dialog'
-import {PortalContext, registerPortalRoot} from '../Portal'
+import {PortalContext} from '../Portal'
+import {useRegisteredPortalRoot} from '../internal/hooks/useRegisteredPortalRoot'
 import Label from '../Label'
 import TextInput from '../TextInput'
 import {useTheme} from '../useTheme'
-import {playgroundPalettes} from './PlaygroundAppearance.tokens'
-import classes from './PlaygroundThemePicker.module.css'
+import {playgroundPalettes} from './AppearancePlayground.tokens'
+import classes from './AppearancePlaygroundThemePicker.module.css'
 
 interface ThemeChoice {
   id: string
@@ -101,12 +102,7 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
   const closePicker = useCallback(() => setIsOpen(false), [])
   const id = useId()
   const portalContext = useMemo(() => ({portalContainerName: `${id}-theme-picker`}), [id])
-  const registerPortal = useCallback(
-    (element: HTMLDivElement | null) => {
-      if (element) registerPortalRoot(element, portalContext.portalContainerName)
-    },
-    [portalContext],
-  )
+  const registerPortal = useRegisteredPortalRoot(portalContext.portalContainerName)
   const selected = themes.find(theme => theme.id === value)
   if (!selected) throw new Error(`Unknown playground theme: ${value}`)
   const source = selected.palette?.source
@@ -133,7 +129,7 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
         className={classes.ThemeCard}
         aria-label={`Use ${theme.name} theme`}
         aria-pressed={active}
-        title={theme.id === 'primer' ? 'Primer follows the current Storybook theme' : theme.name}
+        title={theme.id === 'primer' ? 'Primer follows the host app theme' : theme.name}
         onClick={() => onChange(theme.id)}
       >
         <PalettePreview palette={theme.palette} />
@@ -146,7 +142,7 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
   }
 
   return (
-    <div className={clsx(classes.Control, className)}>
+    <div className={clsx(classes.Control, className)} data-component="AppearancePlaygroundThemePicker">
       <label htmlFor={`${id}-theme`}>Theme</label>
       <Button
         ref={triggerRef}
@@ -195,7 +191,7 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
                       {source.notes ? <span>{source.notes}</span> : null}
                     </>
                   ) : (
-                    <span>Primer inherits the current Storybook theme.</span>
+                    <span>Primer inherits the host app theme.</span>
                   )}
                 </div>
                 <TextInput

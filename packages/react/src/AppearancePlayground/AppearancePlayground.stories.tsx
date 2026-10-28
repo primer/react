@@ -1,0 +1,75 @@
+import {useRef, useState} from 'react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
+import {expect, fireEvent, userEvent, waitFor, within} from 'storybook/test'
+import {AppearancePlayground, Dialog} from '../experimental'
+import {Button} from '../Button'
+import TextInput from '../TextInput'
+import Label from '../Label'
+import classes from './AppearancePlayground.stories.module.css'
+
+function DemoApp() {
+  const [open, setOpen] = useState(false)
+  const trigger = useRef<HTMLButtonElement>(null)
+  return (
+    <main className={classes.App}>
+      <Label>Internal demo</Label>
+      <h1>Your app, different personalities</h1>
+      <p>These are normal Primer components. The wrapper supplies the appearance controls and scoped styling.</p>
+      <TextInput aria-label="Project name" placeholder="Project name" />
+      <div className={classes.Actions}>
+        <Button variant="primary">Create project</Button>
+        <Button ref={trigger} onClick={() => setOpen(true)}>
+          Open app dialog
+        </Button>
+      </div>
+      {open && (
+        <Dialog title="App dialog" onClose={() => setOpen(false)} returnFocusRef={trigger}>
+          This portaled dialog follows the preview theme, density and typography.
+        </Dialog>
+      )}
+    </main>
+  )
+}
+
+const meta = {
+  title: 'Components/AppearancePlayground',
+  component: AppearancePlayground,
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
+          "Demo only. Import {AppearancePlayground} from '@primer/react/experimental' and wrap your app inside its existing Primer providers. Includes 17 themes, five density steps and five visual-only Seriousness presets. Controls retain the host theme; app content and inherited Primer portals are scoped. Default resets theme typography/radii and density. State is not persisted. Nested wrappers and third-party/body portals are not supported. Inline style CSP restrictions may apply.",
+      },
+    },
+  },
+  args: {children: <DemoApp />},
+  argTypes: {children: {control: false}},
+} satisfies Meta<typeof AppearancePlayground>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {}
+
+export const Playground: Story = {
+  play: async ({canvas, canvasElement}) => {
+    const seriousness = canvas.getByRole('slider', {name: 'Seriousness'})
+    const density = canvas.getByRole('slider', {name: 'Density'})
+    fireEvent.change(seriousness, {target: {value: '4'}})
+    await expect(seriousness).toHaveAttribute('aria-valuetext', 'Bank security')
+    await expect(density).toHaveAttribute('aria-valuetext', 'Very compact')
+    fireEvent.change(seriousness, {target: {value: '2'}})
+    await expect(seriousness).toHaveAttribute('aria-valuetext', 'Default')
+    const trigger = canvas.getByRole('button', {name: 'Choose theme: Primer'})
+    await userEvent.click(trigger)
+    const body = within(canvasElement.ownerDocument.body)
+    const dialog = within(await body.findByRole('dialog', {name: 'Themes'}))
+    await userEvent.type(dialog.getByRole('searchbox', {name: 'Search palettes'}), 'Linear')
+    const theme = dialog.getByRole('button', {name: 'Use Linear (Dark) theme'})
+    await userEvent.click(theme)
+    await expect(theme).toHaveAttribute('aria-pressed', 'true')
+    await userEvent.keyboard('{Escape}')
+    await waitFor(() => expect(trigger).toHaveFocus())
+  },
+}

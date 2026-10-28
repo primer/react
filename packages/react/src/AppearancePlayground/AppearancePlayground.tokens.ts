@@ -1,5 +1,5 @@
-import sources from './PlaygroundAppearance.sources.json'
-import brands from './PlaygroundAppearance.brands.json'
+import sources from './AppearancePlayground.sources.json'
+import brands from './AppearancePlayground.brands.json'
 
 export const playgroundDensities = [
   {id: 'very-compact', name: 'Very compact', offset: -2},

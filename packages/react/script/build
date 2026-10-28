@@ -11,6 +11,9 @@ npm run type-css-modules
 # Bundle
 npx rolldown -c
 
+# Keep the demo font and its redistribution notices beside the emitted CSS.
+npx copyfiles -u 1 'src/AppearancePlayground/assets/**/*' dist
+
 # Build components.json file for documentation
 npm run build:components.json
 
