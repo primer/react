@@ -1,12 +1,16 @@
 .SideNav {
-  background-color: var(--bgColor-muted);
+  --SideNav--backgroundColor: var(--bgColor-muted);
+  background-color: var(--SideNav--backgroundColor);
 }
 
 .SideNavBordered {
-  border-color: var(--borderColor-default);
+  --SideNav--sideNavBordered-borderRadius: var(--borderRadius-medium);
+  --SideNav--sideNavBordered-borderWidth: var(--borderWidth-thin);
+  --SideNav--sideNavBordered-borderColor: var(--borderColor-default);
+  border-color: var(--SideNav--sideNavBordered-borderColor);
   border-style: solid;
-  border-width: var(--borderWidth-thin);
-  border-radius: var(--borderRadius-medium);
+  border-width: var(--SideNav--sideNavBordered-borderWidth);
+  border-radius: var(--SideNav--sideNavBordered-borderRadius);
 
   /*  Remove duplicate borders from nested SideNavs */
   & > & {
@@ -30,20 +34,31 @@
   }
 
   .SideNav.SideNavVariant--normal > & {
-    padding: var(--base-size-16);
-    color: var(--fgColor-default);
+    --SideNav--sideNavLink-sideNavVariantNormal-child-borderTop: var(--borderWidth-thin) solid var(--borderColor-muted);
+    --SideNav--sideNavLink-sideNavVariantNormal-child-color: var(--fgColor-default);
+    --SideNav--sideNavLink-sideNavVariantNormal-child-padding: var(--base-size-16);
+    padding: var(--SideNav--sideNavLink-sideNavVariantNormal-child-padding);
+    color: var(--SideNav--sideNavLink-sideNavVariantNormal-child-color);
     border: 0;
-    border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+    border-top: var(--SideNav--sideNavLink-sideNavVariantNormal-child-borderTop);
 
     &:first-child {
+      --SideNav--sideNavLink-sideNavVariantNormal-child-borderTopRightRadius-firstChild: var(--borderRadius-medium);
+      --SideNav--sideNavLink-sideNavVariantNormal-child-borderTopLeftRadius-firstChild: var(--borderRadius-medium);
       border-top: 0;
-      border-top-left-radius: var(--borderRadius-medium);
-      border-top-right-radius: var(--borderRadius-medium);
+      border-top-left-radius: var(--SideNav--sideNavLink-sideNavVariantNormal-child-borderTopLeftRadius-firstChild);
+      border-top-right-radius: var(--SideNav--sideNavLink-sideNavVariantNormal-child-borderTopRightRadius-firstChild);
     }
 
     &:last-child {
-      border-bottom-right-radius: var(--borderRadius-medium);
-      border-bottom-left-radius: var(--borderRadius-medium);
+      --SideNav--sideNavLink-sideNavVariantNormal-child-borderBottomLeftRadius-lastChild: var(--borderRadius-medium);
+      --SideNav--sideNavLink-sideNavVariantNormal-child-borderBottomRightRadius-lastChild: var(--borderRadius-medium);
+      border-bottom-right-radius: var(
+        --SideNav--sideNavLink-sideNavVariantNormal-child-borderBottomRightRadius-lastChild
+      );
+      border-bottom-left-radius: var(
+        --SideNav--sideNavLink-sideNavVariantNormal-child-borderBottomLeftRadius-lastChild
+      );
     }
 
     /* Bar on the left */
@@ -59,50 +74,77 @@
     }
 
     &:hover {
+      --SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-hover: var(--bgColor-neutral-muted);
       text-decoration: none;
-      background-color: var(--bgColor-neutral-muted);
+      background-color: var(--SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-hover);
     }
 
     &:focus {
+      --SideNav--sideNavLink-sideNavVariantNormal-child-outline-focus: solid 2px var(--fgColor-accent);
+      --SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-focus: var(--bgColor-neutral-muted);
       z-index: 1;
       text-decoration: none;
-      background-color: var(--bgColor-neutral-muted);
-      outline: solid 2px var(--fgColor-accent);
+      background-color: var(--SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-focus);
+      outline: var(--SideNav--sideNavLink-sideNavVariantNormal-child-outline-focus);
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
-      background-color: var(--bgColor-default);
+      --SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-ariaCurrentPage-ariaSelectedTrue: var(
+        --bgColor-default
+      );
+      background-color: var(
+        --SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-ariaCurrentPage-ariaSelectedTrue
+      );
 
       /* Bar on the left */
       /* stylelint-disable-next-line selector-max-specificity */
       &::before {
+        --SideNav--sideNavLink-sideNavVariantNormal-child-before-backgroundColor-ariaCurrentPage-ariaSelectedTrue: var(
+          --underlineNav-borderColor-active,
+          var(--color-primer-border-active, #fd8c73)
+        );
         /* stylelint-disable-next-line primer/colors */
-        background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
+        background-color: var(
+          --SideNav--sideNavLink-sideNavVariantNormal-child-before-backgroundColor-ariaCurrentPage-ariaSelectedTrue
+        );
       }
     }
   }
 
   .SideNav.SideNavVariant--lightweight > & {
-    padding: var(--base-size-4) 0;
-    color: var(--fgColor-accent);
+    --SideNav--sideNavLink-sideNavVariantLightweight-child-color: var(--fgColor-accent);
+    --SideNav--sideNavLink-sideNavVariantLightweight-child-padding: var(--base-size-4) 0;
+    padding: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-padding);
+    color: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-color);
 
     &:hover {
-      color: var(--fgColor-default);
+      --SideNav--sideNavLink-sideNavVariantLightweight-child-color-hover: var(--fgColor-default);
+      color: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-color-hover);
       text-decoration: none;
     }
 
     &:focus {
+      --SideNav--sideNavLink-sideNavVariantLightweight-child-outline-focus: solid 1px var(--fgColor-accent);
+      --SideNav--sideNavLink-sideNavVariantLightweight-child-color-focus: var(--fgColor-default);
       z-index: 1;
-      color: var(--fgColor-default);
+      color: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-color-focus);
       text-decoration: none;
-      outline: solid 1px var(--fgColor-accent);
+      outline: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-outline-focus);
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
-      font-weight: var(--base-text-weight-medium);
-      color: var(--fgColor-default);
+      --SideNav--sideNavLink-sideNavVariantLightweight-child-color-ariaCurrentPage-ariaSelectedTrue: var(
+        --fgColor-default
+      );
+      --SideNav--sideNavLink-sideNavVariantLightweight-child-fontWeight-ariaCurrentPage-ariaSelectedTrue: var(
+        --base-text-weight-medium
+      );
+      font-weight: var(
+        --SideNav--sideNavLink-sideNavVariantLightweight-child-fontWeight-ariaCurrentPage-ariaSelectedTrue
+      );
+      color: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-color-ariaCurrentPage-ariaSelectedTrue);
     }
   }
 }

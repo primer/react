@@ -1,11 +1,54 @@
 .Banner {
+  --Banner--padding: var(--base-size-8);
+  --Banner--padding-compact: var(--base-size-4);
+  --Banner--bgColor: var(--banner-bgColor);
+  --Banner--borderWidth: var(--borderWidth-thin);
+  --Banner--borderColor: var(--banner-borderColor);
+  --Banner--borderRadius: var(--borderRadius-medium);
+  --Banner--critical-bgColor: var(--bgColor-danger-muted);
+  --Banner--critical-borderColor: var(--borderColor-danger-muted);
+  --Banner--critical-icon-fgColor: var(--fgColor-danger);
+  --Banner--info-bgColor: var(--bgColor-accent-muted);
+  --Banner--info-borderColor: var(--borderColor-accent-muted);
+  --Banner--info-icon-fgColor: var(--fgColor-accent);
+  --Banner--success-bgColor: var(--bgColor-success-muted);
+  --Banner--success-borderColor: var(--borderColor-success-muted);
+  --Banner--success-icon-fgColor: var(--fgColor-success);
+  --Banner--upsell-bgColor: var(--bgColor-upsell-muted);
+  --Banner--upsell-borderColor: var(--borderColor-upsell-muted);
+  --Banner--upsell-icon-fgColor: var(--fgColor-upsell);
+  --Banner--warning-bgColor: var(--bgColor-attention-muted);
+  --Banner--warning-borderColor: var(--borderColor-attention-muted);
+  --Banner--warning-icon-fgColor: var(--fgColor-attention);
+  --Banner--container-fontSize: var(--text-body-size-medium);
+  --Banner--container-lineHeight: var(--text-body-lineHeight-medium);
+  --Banner--container-rowGap: var(--base-size-4);
+  --Banner--container-columnGap: var(--base-size-4);
+  --Banner--content-rowGap: var(--base-size-4);
+  --Banner--content-marginBlock: var(--base-size-8);
+  --Banner--content-marginBlock-titleHidden: var(--base-size-6);
+  --Banner--title-fontWeight: var(--base-text-weight-semibold);
+  --Banner--icon-padding: var(--base-size-8);
+  --Banner--icon-height: var(--base-size-20);
+  --Banner--icon-height-titleHidden: var(--base-size-16);
+  --Banner--icon-fgColor: var(--banner-icon-fgColor);
+  --Banner--dismiss-padding: var(--base-size-8);
+  --Banner--dismiss-marginInlineStart: var(--base-size-4);
+  --Banner--dismiss-marginBlock: var(--base-size-2);
+  --Banner--dismiss-fgColor: var(--Banner--icon-fgColor);
+  --Banner--actionsContainer-columnGap: var(--base-size-12);
+  --Banner--actionsContainer-marginBlock: var(--base-size-2);
+  --Banner--actions-marginBlockEnd: var(--base-size-6);
+  --Banner--actions-link-paddingInlineEnd: var(--base-size-12);
+  --Banner--actions-minHeight: var(--base-size-32, 2rem);
+
   display: grid;
-  padding: var(--base-size-8);
+  padding: var(--Banner--padding);
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--banner-bgColor);
+  background-color: var(--Banner--bgColor);
   /* stylelint-disable-next-line primer/colors */
-  border: var(--borderWidth-thin) solid var(--banner-borderColor);
-  border-radius: var(--borderRadius-medium);
+  border: var(--Banner--borderWidth) solid var(--Banner--borderColor);
+  border-radius: var(--Banner--borderRadius);
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
 
@@ -62,7 +105,7 @@
   }
 
   &[data-layout='compact'] {
-    padding: var(--base-size-4);
+    padding: var(--Banner--padding-compact);
   }
 
   &[data-flush] {
@@ -72,44 +115,44 @@
   }
 
   &[data-variant='critical'] {
-    --banner-bgColor: var(--bgColor-danger-muted);
-    --banner-borderColor: var(--borderColor-danger-muted);
-    --banner-icon-fgColor: var(--fgColor-danger);
+    --banner-bgColor: var(--Banner--critical-bgColor);
+    --banner-borderColor: var(--Banner--critical-borderColor);
+    --banner-icon-fgColor: var(--Banner--critical-icon-fgColor);
   }
 
   &[data-variant='info'] {
-    --banner-bgColor: var(--bgColor-accent-muted);
-    --banner-borderColor: var(--borderColor-accent-muted);
-    --banner-icon-fgColor: var(--fgColor-accent);
+    --banner-bgColor: var(--Banner--info-bgColor);
+    --banner-borderColor: var(--Banner--info-borderColor);
+    --banner-icon-fgColor: var(--Banner--info-icon-fgColor);
   }
 
   &[data-variant='success'] {
-    --banner-bgColor: var(--bgColor-success-muted);
-    --banner-borderColor: var(--borderColor-success-muted);
-    --banner-icon-fgColor: var(--fgColor-success);
+    --banner-bgColor: var(--Banner--success-bgColor);
+    --banner-borderColor: var(--Banner--success-borderColor);
+    --banner-icon-fgColor: var(--Banner--success-icon-fgColor);
   }
 
   &[data-variant='upsell'] {
-    --banner-bgColor: var(--bgColor-upsell-muted);
-    --banner-borderColor: var(--borderColor-upsell-muted);
-    --banner-icon-fgColor: var(--fgColor-upsell);
+    --banner-bgColor: var(--Banner--upsell-bgColor);
+    --banner-borderColor: var(--Banner--upsell-borderColor);
+    --banner-icon-fgColor: var(--Banner--upsell-icon-fgColor);
   }
 
   &[data-variant='warning'] {
-    --banner-bgColor: var(--bgColor-attention-muted);
-    --banner-borderColor: var(--borderColor-attention-muted);
-    --banner-icon-fgColor: var(--fgColor-attention);
+    --banner-bgColor: var(--Banner--warning-bgColor);
+    --banner-borderColor: var(--Banner--warning-borderColor);
+    --banner-icon-fgColor: var(--Banner--warning-icon-fgColor);
   }
 }
 
 /* BannerContainer -------------------------------------------------------- */
 
 .BannerContainer {
-  font-size: var(--text-body-size-medium);
+  font-size: var(--Banner--container-fontSize);
   align-items: start;
-  line-height: var(--text-body-lineHeight-medium);
-  row-gap: var(--base-size-4);
-  column-gap: var(--base-size-4);
+  line-height: var(--Banner--container-lineHeight);
+  row-gap: var(--Banner--container-rowGap);
+  column-gap: var(--Banner--container-columnGap);
 }
 
 .Banner :where(.BannerContainer) {
@@ -128,13 +171,13 @@
 
 .BannerContent {
   display: grid;
-  row-gap: var(--base-size-4);
+  row-gap: var(--Banner--content-rowGap);
   grid-column-start: 1;
-  margin-block: var(--base-size-8);
+  margin-block: var(--Banner--content-marginBlock);
 }
 
 .Banner[data-title-hidden]:not([data-has-actions]) .BannerContent {
-  margin-block: var(--base-size-6);
+  margin-block: var(--Banner--content-marginBlock-titleHidden);
 }
 
 @media screen and (min-width: 544px) {
@@ -146,7 +189,7 @@
 .BannerTitle {
   margin: 0;
   font-size: inherit;
-  font-weight: var(--base-text-weight-semibold);
+  font-weight: var(--Banner--title-fontWeight);
 }
 
 /* BannerIcon ------------------------------------------------------------- */
@@ -154,21 +197,21 @@
 .BannerIcon {
   display: grid;
   place-items: center;
-  padding: var(--base-size-8);
+  padding: var(--Banner--icon-padding);
 }
 
 .BannerIcon svg {
   /* 20px is the line box height of the trailing action buttons */
-  height: var(--base-size-20);
+  height: var(--Banner--icon-height);
   /* stylelint-disable-next-line primer/colors */
-  color: var(--banner-icon-fgColor);
+  color: var(--Banner--icon-fgColor);
   /* stylelint-disable-next-line primer/colors */
-  fill: var(--banner-icon-fgColor);
+  fill: var(--Banner--icon-fgColor);
 }
 
 /* stylelint-disable-next-line selector-max-specificity */
 .Banner[data-title-hidden]:not([data-has-actions]) .BannerIcon svg {
-  height: var(--base-size-16);
+  height: var(--Banner--icon-height-titleHidden);
 }
 
 /* BannerDismiss ---------------------------------------------------------- */
@@ -176,26 +219,26 @@
 .BannerDismiss {
   display: grid;
   place-items: center;
-  padding: var(--base-size-8);
-  margin-inline-start: var(--base-size-4);
+  padding: var(--Banner--dismiss-padding);
+  margin-inline-start: var(--Banner--dismiss-marginInlineStart);
 }
 
 :where(.Banner)[data-has-actions] .BannerDismiss {
-  margin-block: var(--base-size-2);
+  margin-block: var(--Banner--dismiss-marginBlock);
 }
 
 .BannerDismiss svg {
   /* stylelint-disable-next-line primer/colors */
-  color: var(--banner-icon-fgColor);
+  color: var(--Banner--dismiss-fgColor);
 }
 
 /* BannerActions ---------------------------------------------------------- */
 
 .BannerActionsContainer {
   display: flex;
-  column-gap: var(--base-size-12);
+  column-gap: var(--Banner--actionsContainer-columnGap);
   align-items: center;
-  margin-block: var(--base-size-2);
+  margin-block: var(--Banner--actionsContainer-marginBlock);
 }
 
 .BannerActions :where([data-primary-action='trailing']) {
@@ -203,7 +246,7 @@
 }
 
 .Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline']) .BannerActions {
-  margin-block-end: var(--base-size-6);
+  margin-block-end: var(--Banner--actions-marginBlockEnd);
 }
 
 /* stylelint-disable-next-line selector-max-specificity */
@@ -230,7 +273,7 @@
   }
 
   .BannerActions {
-    margin-block-end: var(--base-size-6);
+    margin-block-end: var(--Banner--actions-marginBlockEnd);
   }
 
   .BannerActions [data-primary-action='trailing'] {
@@ -251,12 +294,12 @@
   :where(.Banner):not([data-dismissible])
     :where(.BannerActionsContainer[data-primary-action='trailing'])
     :where([data-variant='link']:only-child) {
-    padding-inline: 0 var(--base-size-12);
+    padding-inline: 0 var(--Banner--actions-link-paddingInlineEnd);
   }
 
   .BannerActions [data-primary-action='trailing'] {
     display: flex;
-    min-height: var(--base-size-32, 2rem);
+    min-height: var(--Banner--actions-minHeight);
   }
 
   .BannerActions [data-primary-action='leading'] {

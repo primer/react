@@ -19,30 +19,38 @@
 }
 
 .LoadingSpinner:where([data-status-label-position='end']) {
+  --ToggleSwitch--loadingSpinner-marginLeft-statusLabelPositionEnd: var(--base-size-8);
   margin-right: 0;
-  margin-left: var(--base-size-8);
+  margin-left: var(--ToggleSwitch--loadingSpinner-marginLeft-statusLabelPositionEnd);
 }
 
 .StatusText {
-  margin-left: var(--base-size-8);
-  margin-right: var(--base-size-8);
+  --ToggleSwitch--statusText-fontSize: var(--text-body-size-medium);
+  --ToggleSwitch--statusText-color: var(--fgColor-default);
+  --ToggleSwitch--statusText-marginRight: var(--base-size-8);
+  --ToggleSwitch--statusText-marginLeft: var(--base-size-8);
+  margin-left: var(--ToggleSwitch--statusText-marginLeft);
+  margin-right: var(--ToggleSwitch--statusText-marginRight);
   position: relative;
-  color: var(--fgColor-default);
-  font-size: var(--text-body-size-medium);
+  color: var(--ToggleSwitch--statusText-color);
+  font-size: var(--ToggleSwitch--statusText-fontSize);
   cursor: pointer;
 }
 
 .StatusText:where([data-disabled='true']) {
+  --ToggleSwitch--statusText-color-disabledTrue: var(--fgColor-muted);
   cursor: not-allowed;
-  color: var(--fgColor-muted);
+  color: var(--ToggleSwitch--statusText-color-disabledTrue);
 }
 
 .StatusText:where([data-size='small']) {
-  font-size: var(--text-body-size-small);
+  --ToggleSwitch--statusText-fontSize-sizeSmall: var(--text-body-size-small);
+  font-size: var(--ToggleSwitch--statusText-fontSize-sizeSmall);
 }
 
 .StatusText:where([data-size='medium']) {
-  font-size: var(--text-body-size-medium);
+  --ToggleSwitch--statusText-fontSize-sizeMedium: var(--text-body-size-medium);
+  font-size: var(--ToggleSwitch--statusText-fontSize-sizeMedium);
 }
 
 .StatusTextItem {
@@ -56,17 +64,21 @@
 }
 
 .SwitchButton {
+  --ToggleSwitch--switchButton-borderWidth: var(--borderWidth-thin);
+  --ToggleSwitch--switchButton-borderRadius: var(--borderRadius-default);
+  --ToggleSwitch--switchButton-transitionTimingFunction: var(--toggleSwitch-transition-easing);
+  --ToggleSwitch--switchButton-transitionDuration: var(--toggleSwitch-transition-duration);
   cursor: pointer;
   user-select: none;
   appearance: none;
   text-decoration: none;
   padding: 0;
   transition-property: background-color, border-color;
-  transition-duration: var(--toggleSwitch-transition-duration);
-  transition-timing-function: var(--toggleSwitch-transition-easing);
-  border-radius: var(--borderRadius-default);
+  transition-duration: var(--ToggleSwitch--switchButton-transitionDuration);
+  transition-timing-function: var(--ToggleSwitch--switchButton-transitionTimingFunction);
+  border-radius: var(--ToggleSwitch--switchButton-borderRadius);
   border-style: solid;
-  border-width: var(--borderWidth-thin);
+  border-width: var(--ToggleSwitch--switchButton-borderWidth);
   display: block;
   position: relative;
   overflow: hidden;
@@ -77,7 +89,8 @@
 
   /* Focus styles */
   &:focus-visible {
-    outline: var(--focus-outline);
+    --ToggleSwitch--switchButton-outline-focusVisible: var(--focus-outline);
+    outline: var(--ToggleSwitch--switchButton-outline-focusVisible);
     outline-offset: 3px;
   }
 
@@ -116,8 +129,12 @@
 
 /* State variants */
 .SwitchButton:where([data-disabled='true']) {
+  --ToggleSwitch--switchButton-backgroundColor-disabledTrue: var(
+    --controlTrack-bgColor-disabled,
+    var(--color-switch-track-disabled-bg, #8c959f)
+  );
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
+  background-color: var(--ToggleSwitch--switchButton-backgroundColor-disabledTrue);
   border-color: transparent;
   cursor: not-allowed;
   transition-property: none;
@@ -128,39 +145,68 @@
 }
 
 .SwitchButton:where([data-checked='false']:not([data-disabled='true'])) {
+  --ToggleSwitch--switchButton-borderColor-checkedFalse-not-disabledTrue: var(--controlTrack-borderColor-rest);
+  --ToggleSwitch--switchButton-backgroundColor-checkedFalse-not-disabledTrue: var(
+    --controlTrack-bgColor-rest,
+    var(--color-switch-track-bg, #eaeef2)
+  );
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-rest, var(--color-switch-track-bg, #eaeef2));
-  border-color: var(--controlTrack-borderColor-rest);
+  background-color: var(--ToggleSwitch--switchButton-backgroundColor-checkedFalse-not-disabledTrue);
+  border-color: var(--ToggleSwitch--switchButton-borderColor-checkedFalse-not-disabledTrue);
 }
 
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):hover),
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):focus-visible) {
+  --ToggleSwitch--switchButton-backgroundColor-checkedFalse-not-disabledTrue-hover-focusVisible: var(
+    --controlTrack-bgColor-hover,
+    var(--color-switch-track-hover-bg, hsl(210deg, 24%, 90%, 1))
+  );
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsl(210deg, 24%, 90%, 1)));
+  background-color: var(--ToggleSwitch--switchButton-backgroundColor-checkedFalse-not-disabledTrue-hover-focusVisible);
 }
 
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):active),
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):active:focus-visible) {
+  --ToggleSwitch--switchButton-backgroundColor-checkedFalse-not-disabledTrue-active-focusVisible: var(
+    --controlTrack-bgColor-active,
+    var(--color-switch-track-active-bg, hsl(210deg, 24%, 88%, 1))
+  );
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsl(210deg, 24%, 88%, 1)));
+  background-color: var(--ToggleSwitch--switchButton-backgroundColor-checkedFalse-not-disabledTrue-active-focusVisible);
 }
 
 .SwitchButton:where([data-checked='true']:not([data-disabled='true'])) {
+  --ToggleSwitch--switchButton-borderColor-checkedTrue-not-disabledTrue: var(
+    --control-checked-borderColor-rest,
+    transparent
+  );
+  --ToggleSwitch--switchButton-backgroundColor-checkedTrue-not-disabledTrue: var(
+    --control-checked-bgColor-rest,
+    var(--color-switch-track-checked-bg, #0969da)
+  );
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--control-checked-bgColor-rest, var(--color-switch-track-checked-bg, #0969da));
-  border-color: var(--control-checked-borderColor-rest, transparent);
+  background-color: var(--ToggleSwitch--switchButton-backgroundColor-checkedTrue-not-disabledTrue);
+  border-color: var(--ToggleSwitch--switchButton-borderColor-checkedTrue-not-disabledTrue);
 }
 
 .SwitchButton:where([data-checked='true']:not([data-disabled='true']):hover),
 .SwitchButton:where([data-checked='true']:not([data-disabled='true']):focus-visible) {
+  --ToggleSwitch--switchButton-backgroundColor-checkedTrue-not-disabledTrue-hover-focusVisible: var(
+    --control-checked-bgColor-hover,
+    var(--color-switch-track-checked-hover-bg, #0860ca)
+  );
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--control-checked-bgColor-hover, var(--color-switch-track-checked-hover-bg, #0860ca));
+  background-color: var(--ToggleSwitch--switchButton-backgroundColor-checkedTrue-not-disabledTrue-hover-focusVisible);
 }
 
 .SwitchButton:where([data-checked='true']:not([data-disabled='true']):active),
 .SwitchButton:where([data-checked='true']:not([data-disabled='true']):active:focus-visible) {
+  --ToggleSwitch--switchButton-backgroundColor-checkedTrue-not-disabledTrue-active-focusVisible: var(
+    --control-checked-bgColor-active,
+    var(--color-switch-track-checked-active-bg, #0757ba)
+  );
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--control-checked-bgColor-active, var(--color-switch-track-checked-active-bg, #0757ba));
+  background-color: var(--ToggleSwitch--switchButton-backgroundColor-checkedTrue-not-disabledTrue-active-focusVisible);
 }
 
 .SwitchButtonContent {
@@ -172,14 +218,16 @@
 }
 
 .IconContainer {
+  --ToggleSwitch--iconContainer-transitionTimingFunction: var(--toggleSwitch-transition-easing);
+  --ToggleSwitch--iconContainer-transitionDuration: var(--toggleSwitch-transition-duration);
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 50%;
   /* stylelint-disable-next-line primer/typography */
   line-height: 0;
   transition-property: transform;
-  transition-duration: var(--toggleSwitch-transition-duration);
-  transition-timing-function: var(--toggleSwitch-transition-easing);
+  transition-duration: var(--ToggleSwitch--iconContainer-transitionDuration);
+  transition-timing-function: var(--ToggleSwitch--iconContainer-transitionTimingFunction);
 
   @media (prefers-reduced-motion) {
     transition: none;
@@ -187,13 +235,21 @@
 }
 
 .LineIconContainer {
+  --ToggleSwitch--lineIconContainer-color: var(
+    --control-checked-fgColor-rest,
+    var(--color-switch-track-checked-fg, #fff)
+  );
   /* stylelint-disable-next-line primer/colors */
-  color: var(--control-checked-fgColor-rest, var(--color-switch-track-checked-fg, #fff));
+  color: var(--ToggleSwitch--lineIconContainer-color);
 }
 
 .LineIconContainer:where([data-disabled='true']) {
+  --ToggleSwitch--lineIconContainer-color-disabledTrue: var(
+    --control-checked-fgColor-disabled,
+    var(--color-switch-track-checked-disabled-fg, #fff)
+  );
   /* stylelint-disable-next-line primer/colors */
-  color: var(--control-checked-fgColor-disabled, var(--color-switch-track-checked-disabled-fg, #fff));
+  color: var(--ToggleSwitch--lineIconContainer-color-disabledTrue);
 }
 
 .LineIconContainer:where([data-checked='true']) {
@@ -205,13 +261,18 @@
 }
 
 .CircleIconContainer {
+  --ToggleSwitch--circleIconContainer-color: var(--controlTrack-fgColor-rest, var(--color-switch-track-fg, #656d76));
   /* stylelint-disable-next-line primer/colors */
-  color: var(--controlTrack-fgColor-rest, var(--color-switch-track-fg, #656d76));
+  color: var(--ToggleSwitch--circleIconContainer-color);
 }
 
 .CircleIconContainer:where([data-disabled='true']) {
+  --ToggleSwitch--circleIconContainer-color-disabledTrue: var(
+    --controlTrack-fgColor-disabled,
+    var(--color-switch-track-disabled-fg, #fff)
+  );
   /* stylelint-disable-next-line primer/colors */
-  color: var(--controlTrack-fgColor-disabled, var(--color-switch-track-disabled-fg, #fff));
+  color: var(--ToggleSwitch--circleIconContainer-color-disabledTrue);
 }
 
 .CircleIconContainer:where([data-checked='true']) {
@@ -223,15 +284,21 @@
 }
 
 .ToggleKnob {
+  --ToggleSwitch--toggleKnob-transitionTimingFunction: var(--toggleSwitch-transition-easing);
+  --ToggleSwitch--toggleKnob-transitionDuration: var(--toggleSwitch-transition-duration);
+  --ToggleSwitch--toggleKnob-borderRadius: calc(var(--borderRadius-default) - var(--borderWidth-thick));
+  --ToggleSwitch--toggleKnob-borderColor: var(--controlKnob-borderColor-rest, var(--color-switch-knob-border, #858f99));
+  --ToggleSwitch--toggleKnob-borderWidth: var(--borderWidth-thin);
+  --ToggleSwitch--toggleKnob-backgroundColor: var(--controlKnob-bgColor-rest, var(--color-switch-knob-bg, #fff));
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlKnob-bgColor-rest, var(--color-switch-knob-bg, #fff));
-  border-width: var(--borderWidth-thin);
+  background-color: var(--ToggleSwitch--toggleKnob-backgroundColor);
+  border-width: var(--ToggleSwitch--toggleKnob-borderWidth);
   border-style: solid;
   /* stylelint-disable-next-line primer/colors */
-  border-color: var(--controlKnob-borderColor-rest, var(--color-switch-knob-border, #858f99));
+  border-color: var(--ToggleSwitch--toggleKnob-borderColor);
   /* Use calc to account for 1px border around the control */
   /* stylelint-disable-next-line primer/borders */
-  border-radius: calc(var(--borderRadius-default) - var(--borderWidth-thick));
+  border-radius: var(--ToggleSwitch--toggleKnob-borderRadius);
   width: 50%;
   position: absolute;
   /* stylelint-disable-next-line primer/spacing */
@@ -241,8 +308,8 @@
   /* stylelint-disable-next-line primer/spacing */
   left: 1px;
   transition-property: transform;
-  transition-duration: var(--toggleSwitch-transition-duration);
-  transition-timing-function: var(--toggleSwitch-transition-easing);
+  transition-duration: var(--ToggleSwitch--toggleKnob-transitionDuration);
+  transition-timing-function: var(--ToggleSwitch--toggleKnob-transitionTimingFunction);
   z-index: 1;
 
   @media (prefers-reduced-motion) {
@@ -255,15 +322,24 @@
 }
 
 .ToggleKnob:where([data-checked='true']) {
+  --ToggleSwitch--toggleKnob-borderColor-checkedTrue: var(
+    --controlKnob-borderColor-checked,
+    var(--color-switch-knob-checked-border, #0969da)
+  );
   transform: translateX(calc(100% - 2px));
   /* stylelint-disable-next-line primer/colors */
-  border-color: var(--controlKnob-borderColor-checked, var(--color-switch-knob-checked-border, #0969da));
+  border-color: var(--ToggleSwitch--toggleKnob-borderColor-checkedTrue);
 }
 
 .ToggleKnob:where([data-disabled='true']) {
-  background-color: var(--controlKnob-bgColor-disabled);
+  --ToggleSwitch--toggleKnob-borderColor-disabledTrue: var(
+    --controlTrack-bgColor-disabled,
+    var(--color-switch-track-disabled-bg, #8c959f)
+  );
+  --ToggleSwitch--toggleKnob-backgroundColor-disabledTrue: var(--controlKnob-bgColor-disabled);
+  background-color: var(--ToggleSwitch--toggleKnob-backgroundColor-disabledTrue);
   /* stylelint-disable-next-line primer/colors */
-  border-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
+  border-color: var(--ToggleSwitch--toggleKnob-borderColor-disabledTrue);
 
   @media (forced-colors: active) {
     color: GrayText;

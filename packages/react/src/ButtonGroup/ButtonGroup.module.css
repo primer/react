@@ -17,16 +17,20 @@
     &:first-child {
       button,
       a {
-        border-top-left-radius: var(--borderRadius-medium);
-        border-bottom-left-radius: var(--borderRadius-medium);
+        --ButtonGroup--child-item-button-a-borderBottomLeftRadius-firstChild: var(--borderRadius-medium);
+        --ButtonGroup--child-item-button-a-borderTopLeftRadius-firstChild: var(--borderRadius-medium);
+        border-top-left-radius: var(--ButtonGroup--child-item-button-a-borderTopLeftRadius-firstChild);
+        border-bottom-left-radius: var(--ButtonGroup--child-item-button-a-borderBottomLeftRadius-firstChild);
       }
     }
 
     &:last-child {
       button,
       a {
-        border-top-right-radius: var(--borderRadius-medium);
-        border-bottom-right-radius: var(--borderRadius-medium);
+        --ButtonGroup--child-item-button-a-borderBottomRightRadius-lastChild: var(--borderRadius-medium);
+        --ButtonGroup--child-item-button-a-borderTopRightRadius-lastChild: var(--borderRadius-medium);
+        border-top-right-radius: var(--ButtonGroup--child-item-button-a-borderTopRightRadius-lastChild);
+        border-bottom-right-radius: var(--ButtonGroup--child-item-button-a-borderBottomRightRadius-lastChild);
       }
     }
 
@@ -42,7 +46,8 @@
   &:has(div:last-child:empty) {
     button,
     a {
-      border-radius: var(--borderRadius-medium);
+      --ButtonGroup--div-button-a-borderRadius-has-lastChild-empty: var(--borderRadius-medium);
+      border-radius: var(--ButtonGroup--div-button-a-borderRadius-has-lastChild-empty);
     }
   }
 
@@ -67,16 +72,30 @@
     &:first-child {
       button,
       a {
-        border-top-left-radius: var(--borderRadius-medium);
-        border-bottom-left-radius: var(--borderRadius-medium);
+        --ButtonGroup--child-button-a-borderBottomLeftRadius-loadingWrapperPresent-firstChild: var(
+          --borderRadius-medium
+        );
+        --ButtonGroup--child-button-a-borderTopLeftRadius-loadingWrapperPresent-firstChild: var(--borderRadius-medium);
+        border-top-left-radius: var(--ButtonGroup--child-button-a-borderTopLeftRadius-loadingWrapperPresent-firstChild);
+        border-bottom-left-radius: var(
+          --ButtonGroup--child-button-a-borderBottomLeftRadius-loadingWrapperPresent-firstChild
+        );
       }
     }
 
     &:last-child {
       button,
       a {
-        border-top-right-radius: var(--borderRadius-medium);
-        border-bottom-right-radius: var(--borderRadius-medium);
+        --ButtonGroup--child-button-a-borderBottomRightRadius-loadingWrapperPresent-lastChild: var(
+          --borderRadius-medium
+        );
+        --ButtonGroup--child-button-a-borderTopRightRadius-loadingWrapperPresent-lastChild: var(--borderRadius-medium);
+        border-top-right-radius: var(
+          --ButtonGroup--child-button-a-borderTopRightRadius-loadingWrapperPresent-lastChild
+        );
+        border-bottom-right-radius: var(
+          --ButtonGroup--child-button-a-borderBottomRightRadius-loadingWrapperPresent-lastChild
+        );
       }
     }
   }

@@ -11,6 +11,9 @@
 }
 
 .PageLayoutRoot {
+  --PageLayout--pageLayoutRoot-padding: var(--spacing);
+  --PageLayout--pageLayoutRoot-spacingNormal: var(--base-size-16);
+  --PageLayout--pageLayoutRoot-spacingCondensed: var(--base-size-16);
   /* Region Order */
   --region-order-header: 0;
   --region-order-pane-start: 1;
@@ -20,11 +23,12 @@
 
   /* Spacing Values */
   --spacing-none: 0;
-  --spacing-condensed: var(--base-size-16);
-  --spacing-normal: var(--base-size-16);
+  --spacing-condensed: var(--PageLayout--pageLayoutRoot-spacingCondensed);
+  --spacing-normal: var(--PageLayout--pageLayoutRoot-spacingNormal);
 
   @media screen and (min-width: 1012px) {
-    --spacing-normal: var(--base-size-24);
+    --PageLayout--pageLayoutRoot-spacingNormal-mediaScreenAndMinWidth1012px: var(--base-size-24);
+    --spacing-normal: var(--PageLayout--pageLayoutRoot-spacingNormal-mediaScreenAndMinWidth1012px);
   }
 
   /* Pane Width Values */
@@ -66,7 +70,7 @@
   --pane-width-size: 0;
 
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
+  padding: var(--PageLayout--pageLayoutRoot-padding);
 }
 
 .PageLayoutWrapper {
@@ -107,30 +111,37 @@
 }
 
 .HorizontalDivider {
+  --PageLayout--horizontalDivider-marginLeft: calc(-1 * var(--spacing-divider));
+  --PageLayout--horizontalDivider-marginRight: calc(-1 * var(--spacing-divider));
   /* stylelint-disable-next-line primer/spacing */
-  margin-right: calc(-1 * var(--spacing-divider));
+  margin-right: var(--PageLayout--horizontalDivider-marginRight);
   /* stylelint-disable-next-line primer/spacing */
-  margin-left: calc(-1 * var(--spacing-divider));
+  margin-left: var(--PageLayout--horizontalDivider-marginLeft);
 
   &:where([data-variant='none']) {
     display: none;
   }
 
   &:where([data-variant='line']) {
+    --PageLayout--horizontalDivider-backgroundColor-variantLine: var(--borderColor-default);
     display: block;
     height: 1px;
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-default);
+    background-color: var(--PageLayout--horizontalDivider-backgroundColor-variantLine);
   }
 
   &:where([data-variant='filled']) {
-    display: block;
-    height: var(--base-size-8);
-    background-color: var(--bgColor-inset);
-    box-shadow:
-      /* stylelint-disable-next-line primer/box-shadow */
-      inset 0 -1px 0 0 var(--borderColor-default),
+    --PageLayout--horizontalDivider-boxShadow-variantFilled: inset 0 -1px 0 0 var(--borderColor-default),
       inset 0 1px 0 0 var(--borderColor-default);
+    --PageLayout--horizontalDivider-backgroundColor-variantFilled: var(--bgColor-inset);
+    --PageLayout--horizontalDivider-height-variantFilled: var(--base-size-8);
+    display: block;
+    height: var(--PageLayout--horizontalDivider-height-variantFilled);
+    background-color: var(--PageLayout--horizontalDivider-backgroundColor-variantFilled);
+    box-shadow:
+      /* stylelint-disable-next-line primer/box-shadow */ var(
+      --PageLayout--horizontalDivider-boxShadow-variantFilled
+    );
   }
 
   /* Narrow viewport */
@@ -140,20 +151,32 @@
     }
 
     &:where([data-variant-narrow='line']) {
+      --PageLayout--horizontalDivider-backgroundColor-variantNarrowLine-mediaViewportRangeNarrow: var(
+        --borderColor-default
+      );
       display: block;
       height: 1px;
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
+      background-color: var(--PageLayout--horizontalDivider-backgroundColor-variantNarrowLine-mediaViewportRangeNarrow);
     }
 
     &:where([data-variant-narrow='filled']) {
-      display: block;
-      height: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset 0 -1px 0 0 var(--borderColor-default),
+      --PageLayout--horizontalDivider-boxShadow-variantNarrowFilled-mediaViewportRangeNarrow: inset 0 -1px 0 0
+          var(--borderColor-default),
         inset 0 1px 0 0 var(--borderColor-default);
+      --PageLayout--horizontalDivider-backgroundColor-variantNarrowFilled-mediaViewportRangeNarrow: var(
+        --bgColor-inset
+      );
+      --PageLayout--horizontalDivider-height-variantNarrowFilled-mediaViewportRangeNarrow: var(--base-size-8);
+      display: block;
+      height: var(--PageLayout--horizontalDivider-height-variantNarrowFilled-mediaViewportRangeNarrow);
+      background-color: var(
+        --PageLayout--horizontalDivider-backgroundColor-variantNarrowFilled-mediaViewportRangeNarrow
+      );
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */ var(
+        --PageLayout--horizontalDivider-boxShadow-variantNarrowFilled-mediaViewportRangeNarrow
+      );
     }
   }
 
@@ -164,20 +187,34 @@
     }
 
     &:where([data-variant-regular='line']) {
+      --PageLayout--horizontalDivider-backgroundColor-variantRegularLine-mediaViewportRangeRegular: var(
+        --borderColor-default
+      );
       display: block;
       height: 1px;
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
+      background-color: var(
+        --PageLayout--horizontalDivider-backgroundColor-variantRegularLine-mediaViewportRangeRegular
+      );
     }
 
     &:where([data-variant-regular='filled']) {
-      display: block;
-      height: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset 0 -1px 0 0 var(--borderColor-default),
+      --PageLayout--horizontalDivider-boxShadow-variantRegularFilled-mediaViewportRangeRegular: inset 0 -1px 0 0
+          var(--borderColor-default),
         inset 0 1px 0 0 var(--borderColor-default);
+      --PageLayout--horizontalDivider-backgroundColor-variantRegularFilled-mediaViewportRangeRegular: var(
+        --bgColor-inset
+      );
+      --PageLayout--horizontalDivider-height-variantRegularFilled-mediaViewportRangeRegular: var(--base-size-8);
+      display: block;
+      height: var(--PageLayout--horizontalDivider-height-variantRegularFilled-mediaViewportRangeRegular);
+      background-color: var(
+        --PageLayout--horizontalDivider-backgroundColor-variantRegularFilled-mediaViewportRangeRegular
+      );
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */ var(
+        --PageLayout--horizontalDivider-boxShadow-variantRegularFilled-mediaViewportRangeRegular
+      );
     }
   }
 
@@ -188,20 +225,28 @@
     }
 
     &:where([data-variant-wide='line']) {
+      --PageLayout--horizontalDivider-backgroundColor-variantWideLine-mediaViewportRangeWide: var(
+        --borderColor-default
+      );
       display: block;
       height: 1px;
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
+      background-color: var(--PageLayout--horizontalDivider-backgroundColor-variantWideLine-mediaViewportRangeWide);
     }
 
     &:where([data-variant-wide='filled']) {
-      display: block;
-      height: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset 0 -1px 0 0 var(--borderColor-default),
+      --PageLayout--horizontalDivider-boxShadow-variantWideFilled-mediaViewportRangeWide: inset 0 -1px 0 0
+          var(--borderColor-default),
         inset 0 1px 0 0 var(--borderColor-default);
+      --PageLayout--horizontalDivider-backgroundColor-variantWideFilled-mediaViewportRangeWide: var(--bgColor-inset);
+      --PageLayout--horizontalDivider-height-variantWideFilled-mediaViewportRangeWide: var(--base-size-8);
+      display: block;
+      height: var(--PageLayout--horizontalDivider-height-variantWideFilled-mediaViewportRangeWide);
+      background-color: var(--PageLayout--horizontalDivider-backgroundColor-variantWideFilled-mediaViewportRangeWide);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */ var(
+        --PageLayout--horizontalDivider-boxShadow-variantWideFilled-mediaViewportRangeWide
+      );
     }
   }
 
@@ -220,20 +265,25 @@
   }
 
   &:where([data-variant='line']) {
+    --PageLayout--verticalDivider-backgroundColor-variantLine: var(--borderColor-default);
     display: block;
     width: 1px;
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-default);
+    background-color: var(--PageLayout--verticalDivider-backgroundColor-variantLine);
   }
 
   &:where([data-variant='filled']) {
-    display: block;
-    width: var(--base-size-8);
-    background-color: var(--bgColor-inset);
-    box-shadow:
-      /* stylelint-disable-next-line primer/box-shadow */
-      inset -1px 0 0 0 var(--borderColor-default),
+    --PageLayout--verticalDivider-boxShadow-variantFilled: inset -1px 0 0 0 var(--borderColor-default),
       inset 1px 0 0 0 var(--borderColor-default);
+    --PageLayout--verticalDivider-backgroundColor-variantFilled: var(--bgColor-inset);
+    --PageLayout--verticalDivider-width-variantFilled: var(--base-size-8);
+    display: block;
+    width: var(--PageLayout--verticalDivider-width-variantFilled);
+    background-color: var(--PageLayout--verticalDivider-backgroundColor-variantFilled);
+    box-shadow:
+      /* stylelint-disable-next-line primer/box-shadow */ var(
+      --PageLayout--verticalDivider-boxShadow-variantFilled
+    );
   }
 
   /* Narrow viewport */
@@ -243,20 +293,28 @@
     }
 
     &:where([data-variant-narrow='line']) {
+      --PageLayout--verticalDivider-backgroundColor-variantNarrowLine-mediaViewportRangeNarrow: var(
+        --borderColor-default
+      );
       display: block;
       width: 1px;
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
+      background-color: var(--PageLayout--verticalDivider-backgroundColor-variantNarrowLine-mediaViewportRangeNarrow);
     }
 
     &:where([data-variant-narrow='filled']) {
-      display: block;
-      width: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset -1px 0 0 0 var(--borderColor-default),
+      --PageLayout--verticalDivider-boxShadow-variantNarrowFilled-mediaViewportRangeNarrow: inset -1px 0 0 0
+          var(--borderColor-default),
         inset 1px 0 0 0 var(--borderColor-default);
+      --PageLayout--verticalDivider-backgroundColor-variantNarrowFilled-mediaViewportRangeNarrow: var(--bgColor-inset);
+      --PageLayout--verticalDivider-width-variantNarrowFilled-mediaViewportRangeNarrow: var(--base-size-8);
+      display: block;
+      width: var(--PageLayout--verticalDivider-width-variantNarrowFilled-mediaViewportRangeNarrow);
+      background-color: var(--PageLayout--verticalDivider-backgroundColor-variantNarrowFilled-mediaViewportRangeNarrow);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */ var(
+        --PageLayout--verticalDivider-boxShadow-variantNarrowFilled-mediaViewportRangeNarrow
+      );
     }
   }
 
@@ -267,20 +325,32 @@
     }
 
     &:where([data-variant-regular='line']) {
+      --PageLayout--verticalDivider-backgroundColor-variantRegularLine-mediaViewportRangeRegular: var(
+        --borderColor-default
+      );
       display: block;
       width: 1px;
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
+      background-color: var(--PageLayout--verticalDivider-backgroundColor-variantRegularLine-mediaViewportRangeRegular);
     }
 
     &:where([data-variant-regular='filled']) {
-      display: block;
-      width: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset -1px 0 0 0 var(--borderColor-default),
+      --PageLayout--verticalDivider-boxShadow-variantRegularFilled-mediaViewportRangeRegular: inset -1px 0 0 0
+          var(--borderColor-default),
         inset 1px 0 0 0 var(--borderColor-default);
+      --PageLayout--verticalDivider-backgroundColor-variantRegularFilled-mediaViewportRangeRegular: var(
+        --bgColor-inset
+      );
+      --PageLayout--verticalDivider-width-variantRegularFilled-mediaViewportRangeRegular: var(--base-size-8);
+      display: block;
+      width: var(--PageLayout--verticalDivider-width-variantRegularFilled-mediaViewportRangeRegular);
+      background-color: var(
+        --PageLayout--verticalDivider-backgroundColor-variantRegularFilled-mediaViewportRangeRegular
+      );
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */ var(
+        --PageLayout--verticalDivider-boxShadow-variantRegularFilled-mediaViewportRangeRegular
+      );
     }
   }
 
@@ -291,28 +361,35 @@
     }
 
     &:where([data-variant-wide='line']) {
+      --PageLayout--verticalDivider-backgroundColor-variantWideLine-mediaViewportRangeWide: var(--borderColor-default);
       display: block;
       width: 1px;
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
+      background-color: var(--PageLayout--verticalDivider-backgroundColor-variantWideLine-mediaViewportRangeWide);
     }
 
     &:where([data-variant-wide='filled']) {
-      display: block;
-      width: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset -1px 0 0 0 var(--borderColor-default),
+      --PageLayout--verticalDivider-boxShadow-variantWideFilled-mediaViewportRangeWide: inset -1px 0 0 0
+          var(--borderColor-default),
         inset 1px 0 0 0 var(--borderColor-default);
+      --PageLayout--verticalDivider-backgroundColor-variantWideFilled-mediaViewportRangeWide: var(--bgColor-inset);
+      --PageLayout--verticalDivider-width-variantWideFilled-mediaViewportRangeWide: var(--base-size-8);
+      display: block;
+      width: var(--PageLayout--verticalDivider-width-variantWideFilled-mediaViewportRangeWide);
+      background-color: var(--PageLayout--verticalDivider-backgroundColor-variantWideFilled-mediaViewportRangeWide);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */ var(
+        --PageLayout--verticalDivider-boxShadow-variantWideFilled-mediaViewportRangeWide
+      );
     }
   }
 }
 
 .Header {
+  --PageLayout--header-marginBottom: var(--spacing);
   width: 100%;
   /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: var(--spacing);
+  margin-bottom: var(--PageLayout--header-marginBottom);
 
   &:where([data-hidden='true']) {
     display: none;
@@ -341,23 +418,26 @@
 }
 
 .HeaderContent {
+  --PageLayout--headerContent-padding: var(--spacing);
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
+  padding: var(--PageLayout--headerContent-padding);
 }
 
 .HeaderHorizontalDivider {
+  --PageLayout--headerHorizontalDivider-marginTop: var(--spacing);
   /* stylelint-disable-next-line primer/spacing */
-  margin-top: var(--spacing);
+  margin-top: var(--PageLayout--headerHorizontalDivider-marginTop);
 }
 
 .ContentWrapper {
+  --PageLayout--contentWrapper-order: var(--region-order-content);
   display: flex;
   width: 100%;
 
   /* Hack to prevent overflowing content from pushing the pane region to the next line */
   min-width: 1px;
   flex-direction: column;
-  order: var(--region-order-content);
+  order: var(--PageLayout--contentWrapper-order);
 
   /* Set flex-basis to 0% to allow flex-grow to control the width of the content region.
       Without this, the content region could wrap onto a different line
@@ -393,10 +473,11 @@
 }
 
 .Content {
+  --PageLayout--content-padding: var(--spacing);
   width: 100%;
 
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
+  padding: var(--PageLayout--content-padding);
   margin-right: auto;
   margin-left: auto;
   flex-grow: 1;
@@ -435,34 +516,42 @@
     }
 
     &:where([data-position-narrow='end']) {
+      --PageLayout--paneWrapper-order-positionNarrowEnd-mediaViewportRangeNarrow: var(--region-order-pane-end);
+      --PageLayout--paneWrapper-marginTop-positionNarrowEnd-mediaViewportRangeNarrow: var(--spacing-row);
       /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing-row);
+      margin-top: var(--PageLayout--paneWrapper-marginTop-positionNarrowEnd-mediaViewportRangeNarrow);
       flex-direction: column;
-      order: var(--region-order-pane-end);
+      order: var(--PageLayout--paneWrapper-order-positionNarrowEnd-mediaViewportRangeNarrow);
     }
 
     &:where([data-position-narrow='start']) {
+      --PageLayout--paneWrapper-order-positionNarrowStart-mediaViewportRangeNarrow: var(--region-order-pane-start);
+      --PageLayout--paneWrapper-marginBottom-positionNarrowStart-mediaViewportRangeNarrow: var(--spacing-row);
       /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing-row);
+      margin-bottom: var(--PageLayout--paneWrapper-marginBottom-positionNarrowStart-mediaViewportRangeNarrow);
       flex-direction: column-reverse;
-      order: var(--region-order-pane-start);
+      order: var(--PageLayout--paneWrapper-order-positionNarrowStart-mediaViewportRangeNarrow);
     }
   }
 
   /* Base position (non-responsive) - applies at narrow viewports only */
   @media (--viewportRange-narrow) {
     &:where([data-position='end']) {
+      --PageLayout--paneWrapper-order-positionEnd-mediaViewportRangeNarrow: var(--region-order-pane-end);
+      --PageLayout--paneWrapper-marginTop-positionEnd-mediaViewportRangeNarrow: var(--spacing-row);
       /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing-row);
+      margin-top: var(--PageLayout--paneWrapper-marginTop-positionEnd-mediaViewportRangeNarrow);
       flex-direction: column;
-      order: var(--region-order-pane-end);
+      order: var(--PageLayout--paneWrapper-order-positionEnd-mediaViewportRangeNarrow);
     }
 
     &:where([data-position='start']) {
+      --PageLayout--paneWrapper-order-positionStart-mediaViewportRangeNarrow: var(--region-order-pane-start);
+      --PageLayout--paneWrapper-marginBottom-positionStart-mediaViewportRangeNarrow: var(--spacing-row);
       /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing-row);
+      margin-bottom: var(--PageLayout--paneWrapper-marginBottom-positionStart-mediaViewportRangeNarrow);
       flex-direction: column-reverse;
-      order: var(--region-order-pane-start);
+      order: var(--PageLayout--paneWrapper-order-positionStart-mediaViewportRangeNarrow);
     }
   }
 
@@ -476,39 +565,48 @@
     margin-bottom: 0 !important;
 
     &:where([data-sticky]) {
+      --PageLayout--paneWrapper-top-stickyPresent-mediaScreenAndMinWidth768px: var(--offset-header);
       position: sticky;
       /* stylelint-disable-next-line primer/spacing */
-      top: var(--offset-header);
+      top: var(--PageLayout--paneWrapper-top-stickyPresent-mediaScreenAndMinWidth768px);
       max-height: 100vh;
     }
 
     /* Base position (non-responsive) - applies at regular+ viewports */
     &:where([data-position='end']) {
+      --PageLayout--paneWrapper-order-positionEnd-mediaScreenAndMinWidth768px: var(--region-order-pane-end);
+      --PageLayout--paneWrapper-marginLeft-positionEnd-mediaScreenAndMinWidth768px: var(--spacing-column);
       /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing-column);
+      margin-left: var(--PageLayout--paneWrapper-marginLeft-positionEnd-mediaScreenAndMinWidth768px);
       flex-direction: row-reverse;
-      order: var(--region-order-pane-end);
+      order: var(--PageLayout--paneWrapper-order-positionEnd-mediaScreenAndMinWidth768px);
     }
 
     &:where([data-position='start']) {
+      --PageLayout--paneWrapper-order-positionStart-mediaScreenAndMinWidth768px: var(--region-order-pane-start);
+      --PageLayout--paneWrapper-marginRight-positionStart-mediaScreenAndMinWidth768px: var(--spacing-column);
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing-column);
+      margin-right: var(--PageLayout--paneWrapper-marginRight-positionStart-mediaScreenAndMinWidth768px);
       flex-direction: row;
-      order: var(--region-order-pane-start);
+      order: var(--PageLayout--paneWrapper-order-positionStart-mediaScreenAndMinWidth768px);
     }
 
     &:where([data-position-regular='end']) {
+      --PageLayout--paneWrapper-order-positionRegularEnd-mediaScreenAndMinWidth768px: var(--region-order-pane-end);
+      --PageLayout--paneWrapper-marginLeft-positionRegularEnd-mediaScreenAndMinWidth768px: var(--spacing-column);
       /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing-column);
+      margin-left: var(--PageLayout--paneWrapper-marginLeft-positionRegularEnd-mediaScreenAndMinWidth768px);
       flex-direction: row-reverse;
-      order: var(--region-order-pane-end);
+      order: var(--PageLayout--paneWrapper-order-positionRegularEnd-mediaScreenAndMinWidth768px);
     }
 
     &:where([data-position-regular='start']) {
+      --PageLayout--paneWrapper-order-positionRegularStart-mediaScreenAndMinWidth768px: var(--region-order-pane-start);
+      --PageLayout--paneWrapper-marginRight-positionRegularStart-mediaScreenAndMinWidth768px: var(--spacing-column);
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing-column);
+      margin-right: var(--PageLayout--paneWrapper-marginRight-positionRegularStart-mediaScreenAndMinWidth768px);
       flex-direction: row;
-      order: var(--region-order-pane-start);
+      order: var(--PageLayout--paneWrapper-order-positionRegularStart-mediaScreenAndMinWidth768px);
     }
   }
 
@@ -518,17 +616,21 @@
     }
 
     &:where([data-position-wide='end']) {
+      --PageLayout--paneWrapper-order-positionWideEnd-mediaViewportRangeWide: var(--region-order-pane-end);
+      --PageLayout--paneWrapper-marginLeft-positionWideEnd-mediaViewportRangeWide: var(--spacing-column);
       /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing-column);
+      margin-left: var(--PageLayout--paneWrapper-marginLeft-positionWideEnd-mediaViewportRangeWide);
       flex-direction: row-reverse;
-      order: var(--region-order-pane-end);
+      order: var(--PageLayout--paneWrapper-order-positionWideEnd-mediaViewportRangeWide);
     }
 
     &:where([data-position-wide='start']) {
+      --PageLayout--paneWrapper-order-positionWideStart-mediaViewportRangeWide: var(--region-order-pane-start);
+      --PageLayout--paneWrapper-marginRight-positionWideStart-mediaViewportRangeWide: var(--spacing-column);
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing-column);
+      margin-right: var(--PageLayout--paneWrapper-marginRight-positionWideStart-mediaViewportRangeWide);
       flex-direction: row;
-      order: var(--region-order-pane-start);
+      order: var(--PageLayout--paneWrapper-order-positionWideStart-mediaViewportRangeWide);
     }
   }
 }
@@ -536,63 +638,73 @@
 .PaneVerticalDivider {
   /* Base position (non-responsive) */
   &:where([data-position='start']) {
+    --PageLayout--paneVerticalDivider-marginLeft-positionStart: var(--spacing);
     /* stylelint-disable-next-line primer/spacing */
-    margin-left: var(--spacing);
+    margin-left: var(--PageLayout--paneVerticalDivider-marginLeft-positionStart);
   }
 
   &:where([data-position='end']) {
+    --PageLayout--paneVerticalDivider-marginRight-positionEnd: var(--spacing);
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--spacing);
+    margin-right: var(--PageLayout--paneVerticalDivider-marginRight-positionEnd);
   }
 
   /* Responsive position */
   @media (--viewportRange-narrow) {
     &:where([data-position-narrow='start']) {
+      --PageLayout--paneVerticalDivider-marginLeft-positionNarrowStart-mediaViewportRangeNarrow: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing);
+      margin-left: var(--PageLayout--paneVerticalDivider-marginLeft-positionNarrowStart-mediaViewportRangeNarrow);
       margin-right: 0;
     }
 
     &:where([data-position-narrow='end']) {
+      --PageLayout--paneVerticalDivider-marginRight-positionNarrowEnd-mediaViewportRangeNarrow: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing);
+      margin-right: var(--PageLayout--paneVerticalDivider-marginRight-positionNarrowEnd-mediaViewportRangeNarrow);
       margin-left: 0;
     }
   }
 
   @media (--viewportRange-regular) {
     &:where([data-position-regular='start']) {
+      --PageLayout--paneVerticalDivider-marginLeft-positionRegularStart-mediaViewportRangeRegular: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing);
+      margin-left: var(--PageLayout--paneVerticalDivider-marginLeft-positionRegularStart-mediaViewportRangeRegular);
       margin-right: 0;
     }
 
     &:where([data-position-regular='end']) {
+      --PageLayout--paneVerticalDivider-marginRight-positionRegularEnd-mediaViewportRangeRegular: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing);
+      margin-right: var(--PageLayout--paneVerticalDivider-marginRight-positionRegularEnd-mediaViewportRangeRegular);
       margin-left: 0;
     }
   }
 
   @media (--viewportRange-wide) {
     &:where([data-position-wide='start']) {
+      --PageLayout--paneVerticalDivider-marginLeft-positionWideStart-mediaViewportRangeWide: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing);
+      margin-left: var(--PageLayout--paneVerticalDivider-marginLeft-positionWideStart-mediaViewportRangeWide);
       margin-right: 0;
     }
 
     &:where([data-position-wide='end']) {
+      --PageLayout--paneVerticalDivider-marginRight-positionWideEnd-mediaViewportRangeWide: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing);
+      margin-right: var(--PageLayout--paneVerticalDivider-marginRight-positionWideEnd-mediaViewportRangeWide);
       margin-left: 0;
     }
   }
 }
 
 .Pane {
-  width: var(--pane-width-size);
+  --PageLayout--pane-padding: var(--spacing);
+  --PageLayout--pane-width: var(--pane-width-size);
+  width: var(--PageLayout--pane-width);
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
+  padding: var(--PageLayout--pane-padding);
 
   @media screen and (min-width: 768px) {
     overflow: auto;
@@ -602,76 +714,91 @@
     width: 100%;
 
     @media screen and (min-width: 768px) {
+      --PageLayout--pane-width-resizablePresent-mediaScreenAndMinWidth768px: clamp(
+        var(--pane-min-width),
+        var(--pane-width),
+        var(--pane-max-width)
+      );
       /*
        * --pane-max-width is set by JS on mount and updated on resize (debounced).
        * JS calculates viewport - margin to avoid scrollbar discrepancy with 100vw.
        */
-      width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
+      width: var(--PageLayout--pane-width-resizablePresent-mediaScreenAndMinWidth768px);
     }
   }
 }
 
 .PaneHorizontalDivider {
   &:where([data-position='start']) {
+    --PageLayout--paneHorizontalDivider-marginTop-positionStart: var(--spacing);
     /* stylelint-disable-next-line primer/spacing */
-    margin-top: var(--spacing);
+    margin-top: var(--PageLayout--paneHorizontalDivider-marginTop-positionStart);
   }
 
   &:where([data-position='end']) {
+    --PageLayout--paneHorizontalDivider-marginBottom-positionEnd: var(--spacing);
     /* stylelint-disable-next-line primer/spacing */
-    margin-bottom: var(--spacing);
+    margin-bottom: var(--PageLayout--paneHorizontalDivider-marginBottom-positionEnd);
   }
 
   /* Responsive position */
   @media (--viewportRange-narrow) {
     &:where([data-position-narrow='start']) {
+      --PageLayout--paneHorizontalDivider-marginTop-positionNarrowStart-mediaViewportRangeNarrow: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing);
+      margin-top: var(--PageLayout--paneHorizontalDivider-marginTop-positionNarrowStart-mediaViewportRangeNarrow);
       margin-bottom: 0;
     }
 
     &:where([data-position-narrow='end']) {
+      --PageLayout--paneHorizontalDivider-marginBottom-positionNarrowEnd-mediaViewportRangeNarrow: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing);
+      margin-bottom: var(--PageLayout--paneHorizontalDivider-marginBottom-positionNarrowEnd-mediaViewportRangeNarrow);
       margin-top: 0;
     }
   }
 
   @media (--viewportRange-regular) {
     &:where([data-position-regular='start']) {
+      --PageLayout--paneHorizontalDivider-marginTop-positionRegularStart-mediaViewportRangeRegular: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing);
+      margin-top: var(--PageLayout--paneHorizontalDivider-marginTop-positionRegularStart-mediaViewportRangeRegular);
       margin-bottom: 0;
     }
 
     &:where([data-position-regular='end']) {
+      --PageLayout--paneHorizontalDivider-marginBottom-positionRegularEnd-mediaViewportRangeRegular: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing);
+      margin-bottom: var(--PageLayout--paneHorizontalDivider-marginBottom-positionRegularEnd-mediaViewportRangeRegular);
       margin-top: 0;
     }
   }
 
   @media (--viewportRange-wide) {
     &:where([data-position-wide='start']) {
+      --PageLayout--paneHorizontalDivider-marginTop-positionWideStart-mediaViewportRangeWide: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing);
+      margin-top: var(--PageLayout--paneHorizontalDivider-marginTop-positionWideStart-mediaViewportRangeWide);
       margin-bottom: 0;
     }
 
     &:where([data-position-wide='end']) {
+      --PageLayout--paneHorizontalDivider-marginBottom-positionWideEnd-mediaViewportRangeWide: var(--spacing);
       /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing);
+      margin-bottom: var(--PageLayout--paneHorizontalDivider-marginBottom-positionWideEnd-mediaViewportRangeWide);
       margin-top: 0;
     }
   }
 }
 
 .FooterWrapper {
+  --PageLayout--footerWrapper-marginTop: var(--spacing);
+  --PageLayout--footerWrapper-order: var(--region-order-footer);
   width: 100%;
-  order: var(--region-order-footer);
+  order: var(--PageLayout--footerWrapper-order);
 
   /* stylelint-disable-next-line primer/spacing */
-  margin-top: var(--spacing);
+  margin-top: var(--PageLayout--footerWrapper-marginTop);
 
   &:where([data-hidden='true']) {
     display: none;
@@ -700,13 +827,15 @@
 }
 
 .FooterHorizontalDivider {
+  --PageLayout--footerHorizontalDivider-marginBottom: var(--spacing);
   /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: var(--spacing);
+  margin-bottom: var(--PageLayout--footerHorizontalDivider-marginBottom);
 }
 
 .FooterContent {
+  --PageLayout--footerContent-padding: var(--spacing);
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
+  padding: var(--PageLayout--footerContent-padding);
 }
 
 /**
@@ -723,13 +852,16 @@
 }
 
 .DraggableHandle::before {
+  --PageLayout--draggableHandle-before-transition: var(--draggable-handle--transition, opacity 150ms ease);
+  --PageLayout--draggableHandle-before-opacity: var(--draggable-handle--drag-opacity, 0);
+  --PageLayout--draggableHandle-before-backgroundColor: var(--draggable-handle--bg-color, var(--bgColor-neutral-muted));
   content: '';
   position: absolute;
   inset: 0;
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--draggable-handle--bg-color, var(--bgColor-neutral-muted));
-  opacity: var(--draggable-handle--drag-opacity, 0);
-  transition: var(--draggable-handle--transition, opacity 150ms ease); /* compositor-friendly, disabled during drag */
+  background-color: var(--PageLayout--draggableHandle-before-backgroundColor);
+  opacity: var(--PageLayout--draggableHandle-before-opacity);
+  transition: var(--PageLayout--draggableHandle-before-transition); /* compositor-friendly, disabled during drag */
   border-radius: inherit; /* optional if you need rounded corners */
 }
 
@@ -782,16 +914,18 @@
 
   /* Position: start (left side) */
   &:where([data-position='start']) {
+    --PageLayout--sidebarWrapper-marginRight-positionStart: var(--spacing-column);
     order: -1;
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--spacing-column);
+    margin-right: var(--PageLayout--sidebarWrapper-marginRight-positionStart);
   }
 
   /* Position: end (right side) */
   &:where([data-position='end']) {
+    --PageLayout--sidebarWrapper-marginLeft-positionEnd: var(--spacing-column);
     order: 1;
     /* stylelint-disable-next-line primer/spacing */
-    margin-left: var(--spacing-column);
+    margin-left: var(--PageLayout--sidebarWrapper-marginLeft-positionEnd);
   }
 
   /* Sticky sidebar */
@@ -809,6 +943,9 @@
 
     /* Fullscreen mode at narrow viewport */
     &:where([data-responsive-variant='fullscreen']) {
+      --PageLayout--sidebarWrapper-backgroundColor-responsiveVariantFullscreen-mediaViewportRangeNarrow: var(
+        --bgColor-default
+      );
       position: fixed;
       top: 0;
       left: 0;
@@ -818,7 +955,9 @@
       max-width: unset;
       border-radius: 0;
       z-index: 999;
-      background-color: var(--bgColor-default);
+      background-color: var(
+        --PageLayout--sidebarWrapper-backgroundColor-responsiveVariantFullscreen-mediaViewportRangeNarrow
+      );
     }
   }
 
@@ -838,7 +977,8 @@
 }
 
 .Sidebar {
-  width: var(--pane-width-size);
+  --PageLayout--sidebar-width: var(--pane-width-size);
+  width: var(--PageLayout--sidebar-width);
   height: 100%;
   overflow: auto;
 
@@ -846,7 +986,12 @@
     width: 100%;
 
     @media screen and (min-width: 768px) {
-      width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
+      --PageLayout--sidebar-width-resizablePresent-mediaScreenAndMinWidth768px: clamp(
+        var(--pane-min-width),
+        var(--pane-width),
+        var(--pane-max-width)
+      );
+      width: var(--PageLayout--sidebar-width-resizablePresent-mediaScreenAndMinWidth768px);
     }
   }
 
@@ -865,13 +1010,15 @@
   height: auto;
   /* Base position (non-responsive) */
   &:where([data-position='start']) {
+    --PageLayout--sidebarVerticalDivider-marginLeft-positionStart: var(--spacing-column);
     /* stylelint-disable-next-line primer/spacing */
-    margin-left: var(--spacing-column);
+    margin-left: var(--PageLayout--sidebarVerticalDivider-marginLeft-positionStart);
   }
 
   &:where([data-position='end']) {
+    --PageLayout--sidebarVerticalDivider-marginRight-positionEnd: var(--spacing-column);
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--spacing-column);
+    margin-right: var(--PageLayout--sidebarVerticalDivider-marginRight-positionEnd);
   }
 
   /* Hide divider in fullscreen mode at narrow viewport */

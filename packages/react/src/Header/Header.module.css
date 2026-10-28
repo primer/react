@@ -1,19 +1,25 @@
 .Header {
+  --Header--backgroundColor: var(--header-bgColor);
+  --Header--color: var(--header-fgColor-default);
+  --Header--lineHeight: var(--text-title-lineHeight-large);
+  --Header--fontSize: var(--text-body-size-medium);
+  --Header--padding: var(--base-size-16);
   z-index: 32;
   display: flex;
-  padding: var(--base-size-16);
+  padding: var(--Header--padding);
   overflow: auto;
-  font-size: var(--text-body-size-medium);
-  line-height: var(--text-title-lineHeight-large);
-  color: var(--header-fgColor-default);
-  background-color: var(--header-bgColor);
+  font-size: var(--Header--fontSize);
+  line-height: var(--Header--lineHeight);
+  color: var(--Header--color);
+  background-color: var(--Header--backgroundColor);
   align-items: center;
   flex-wrap: nowrap;
 }
 
 .HeaderItem {
+  --Header--headerItem-marginRight: var(--base-size-16);
   display: flex;
-  margin-right: var(--base-size-16);
+  margin-right: var(--Header--headerItem-marginRight);
   align-self: stretch;
   align-items: center;
   flex-wrap: nowrap;
@@ -24,9 +30,11 @@
 }
 
 .HeaderLink {
+  --Header--headerLink-color: var(--header-fgColor-logo);
+  --Header--headerLink-fontWeight: var(--text-title-weight-large);
   display: flex;
-  font-weight: var(--text-title-weight-large);
-  color: var(--header-fgColor-logo);
+  font-weight: var(--Header--headerLink-fontWeight);
+  color: var(--Header--headerLink-color);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -34,6 +42,7 @@
 
   &:hover,
   &:focus {
-    color: var(--header-fgColor-default);
+    --Header--headerLink-color-hover-focus: var(--header-fgColor-default);
+    color: var(--Header--headerLink-color-hover-focus);
   }
 }

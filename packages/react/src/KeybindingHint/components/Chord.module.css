@@ -1,48 +1,68 @@
 .Chord {
+  --KeybindingHint--chord-padding: var(--base-size-4);
+  --KeybindingHint--chord-fontSize: var(--text-body-size-small);
+  --KeybindingHint--chord-borderRadius: var(--borderRadius-default);
+  --KeybindingHint--chord-fontWeight: var(--base-text-weight-normal);
+  --KeybindingHint--chord-border: var(--borderWidth-thin) solid;
   display: inline-flex;
-  border: var(--borderWidth-thin) solid;
-  font-weight: var(--base-text-weight-normal);
+  border: var(--KeybindingHint--chord-border);
+  font-weight: var(--KeybindingHint--chord-fontWeight);
   gap: 0.5ch;
   box-shadow: none;
   vertical-align: baseline;
   overflow: hidden;
   justify-content: center;
-  border-radius: var(--borderRadius-default);
-  font-size: var(--text-body-size-small);
-  padding: var(--base-size-4);
+  border-radius: var(--KeybindingHint--chord-borderRadius);
+  font-size: var(--KeybindingHint--chord-fontSize);
+  padding: var(--KeybindingHint--chord-padding);
   line-height: 10px; /* stylelint-disable-line primer/typography */
 }
 
 .ChordNormal {
-  background: var(--bgColor-transparent);
-  color: var(--fgColor-muted);
-  border-color: var(--borderColor-default);
+  --KeybindingHint--chord-chordNormal-borderColor: var(--borderColor-default);
+  --KeybindingHint--chord-chordNormal-color: var(--fgColor-muted);
+  --KeybindingHint--chord-chordNormal-background: var(--bgColor-transparent);
+  background: var(--KeybindingHint--chord-chordNormal-background);
+  color: var(--KeybindingHint--chord-chordNormal-color);
+  border-color: var(--KeybindingHint--chord-chordNormal-borderColor);
 }
 
 .ChordOnEmphasis {
-  background: var(--counter-bgColor-emphasis);
-  color: var(--fgColor-onEmphasis);
+  --KeybindingHint--chord-chordOnEmphasis-color: var(--fgColor-onEmphasis);
+  --KeybindingHint--chord-chordOnEmphasis-background: var(--counter-bgColor-emphasis);
+  background: var(--KeybindingHint--chord-chordOnEmphasis-background);
+  color: var(--KeybindingHint--chord-chordOnEmphasis-color);
   border-color: transparent;
 }
 
 .ChordOnPrimary {
-  background: var(--button-primary-bgColor-active);
-  color: var(--fgColor-onEmphasis);
+  --KeybindingHint--chord-chordOnPrimary-color: var(--fgColor-onEmphasis);
+  --KeybindingHint--chord-chordOnPrimary-background: var(--button-primary-bgColor-active);
+  background: var(--KeybindingHint--chord-chordOnPrimary-background);
+  color: var(--KeybindingHint--chord-chordOnPrimary-color);
   border-color: transparent;
 }
 
 .ChordSmall {
-  border-radius: var(--borderRadius-small);
+  --KeybindingHint--chord-chordSmall-minWidth: var(--base-size-16);
+  --KeybindingHint--chord-chordSmall-lineHeight: var(--base-size-8);
+  --KeybindingHint--chord-chordSmall-padding: var(--base-size-2);
+  --KeybindingHint--chord-chordSmall-borderRadius: var(--borderRadius-small);
+  border-radius: var(--KeybindingHint--chord-chordSmall-borderRadius);
   font-size: 11px; /* stylelint-disable-line primer/typography */
-  padding: var(--base-size-2);
-  line-height: var(--base-size-8); /* stylelint-disable-line primer/typography */
-  min-width: var(--base-size-16);
+  padding: var(--KeybindingHint--chord-chordSmall-padding);
+  line-height: var(--KeybindingHint--chord-chordSmall-lineHeight); /* stylelint-disable-line primer/typography */
+  min-width: var(--KeybindingHint--chord-chordSmall-minWidth);
 }
 
 .ChordNormal:not(.ChordSmall) {
-  border-radius: var(--borderRadius-medium);
-  font-size: var(--text-body-size-small, 0.75rem);
-  padding: var(--base-size-4);
+  --KeybindingHint--chord-chordNormal-chordSmall-minWidth-not: var(--base-size-20);
+  --KeybindingHint--chord-chordNormal-chordSmall-padding-not: var(--base-size-4);
+  --KeybindingHint--chord-chordNormal-chordSmall-fontSize-not: var(--text-body-size-small, 0.75rem);
+  --KeybindingHint--chord-chordNormal-chordSmall-borderRadius-not: var(--borderRadius-medium);
+  border-radius: var(--KeybindingHint--chord-chordNormal-chordSmall-borderRadius-not);
+  font-size: var(--KeybindingHint--chord-chordNormal-chordSmall-fontSize-not);
+  padding: var(--KeybindingHint--chord-chordNormal-chordSmall-padding-not);
   line-height: 10px; /* stylelint-disable-line primer/typography */
-  min-width: var(--base-size-20);
+  min-width: var(--KeybindingHint--chord-chordNormal-chordSmall-minWidth-not);
 }

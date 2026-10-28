@@ -15,17 +15,28 @@
       padding-top: 0;
 
       .TimelineItemAvatar {
+        --Timeline--timelineItem-timelineItemAvatar-top-clipSidebarStart-clipSidebarBoth-firstChild: var(
+          --base-size-16
+        );
         /* No padding-top on first item: badge center is at 0 + 16px (half-badge) */
-        top: var(--base-size-16);
+        top: var(--Timeline--timelineItem-timelineItemAvatar-top-clipSidebarStart-clipSidebarBoth-firstChild);
       }
 
       &:where([data-condensed])::before {
-        top: var(--base-size-12);
+        --Timeline--timelineItem-before-top-clipSidebarStart-clipSidebarBoth-firstChild-condensedPresent: var(
+          --base-size-12
+        );
+        top: var(--Timeline--timelineItem-before-top-clipSidebarStart-clipSidebarBoth-firstChild-condensedPresent);
       }
 
       &:where([data-condensed]) .TimelineItemAvatar {
+        --Timeline--timelineItem-timelineItemAvatar-top-clipSidebarStart-clipSidebarBoth-firstChild-condensedPresent: calc(
+          var(--base-size-8) + var(--base-size-8)
+        );
         /* No padding-top + condensed: badge center is at 0 + 8px margin + 8px half-badge */
-        top: calc(var(--base-size-8) + var(--base-size-8));
+        top: var(
+          --Timeline--timelineItem-timelineItemAvatar-top-clipSidebarStart-clipSidebarBoth-firstChild-condensedPresent
+        );
       }
     }
   }
@@ -36,19 +47,25 @@
       padding-bottom: 0;
 
       &:where([data-condensed])::before {
-        height: var(--base-size-12);
+        --Timeline--timelineItem-before-height-clipSidebarEnd-clipSidebarBoth-lastChild-condensedPresent: var(
+          --base-size-12
+        );
+        height: var(--Timeline--timelineItem-before-height-clipSidebarEnd-clipSidebarBoth-lastChild-condensedPresent);
       }
     }
   }
 }
 
 .TimelineItem {
+  --Timeline--timelineItem-marginLeft: var(--base-size-16);
+  --Timeline--timelineItem-padding: var(--base-size-16) 0;
   position: relative;
   display: flex;
-  padding: var(--base-size-16) 0;
-  margin-left: var(--base-size-16);
+  padding: var(--Timeline--timelineItem-padding);
+  margin-left: var(--Timeline--timelineItem-marginLeft);
 
   &::before {
+    --Timeline--timelineItem-before-backgroundColor: var(--borderColor-muted);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -57,39 +74,50 @@
     width: 2px;
     content: '';
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-muted);
+    background-color: var(--Timeline--timelineItem-before-backgroundColor);
   }
 
   &:where([data-condensed]) {
-    padding-top: var(--base-size-4);
+    --Timeline--timelineItem-paddingTop-condensedPresent: var(--base-size-4);
+    padding-top: var(--Timeline--timelineItem-paddingTop-condensedPresent);
     padding-bottom: 0;
 
     &:last-child {
-      padding-bottom: var(--base-size-16);
+      --Timeline--timelineItem-paddingBottom-condensedPresent-lastChild: var(--base-size-16);
+      padding-bottom: var(--Timeline--timelineItem-paddingBottom-condensedPresent-lastChild);
     }
 
     .TimelineBadge {
+      --Timeline--timelineItem-timelineBadge-backgroundColor-condensedPresent: var(--bgColor-default);
+      --Timeline--timelineItem-timelineBadge-color-condensedPresent: var(--fgColor-muted);
+      --Timeline--timelineItem-timelineBadge-marginBottom-condensedPresent: var(--base-size-8);
+      --Timeline--timelineItem-timelineBadge-marginTop-condensedPresent: var(--base-size-8);
       height: 16px;
-      margin-top: var(--base-size-8);
-      margin-bottom: var(--base-size-8);
-      color: var(--fgColor-muted);
-      background-color: var(--bgColor-default);
+      margin-top: var(--Timeline--timelineItem-timelineBadge-marginTop-condensedPresent);
+      margin-bottom: var(--Timeline--timelineItem-timelineBadge-marginBottom-condensedPresent);
+      color: var(--Timeline--timelineItem-timelineBadge-color-condensedPresent);
+      background-color: var(--Timeline--timelineItem-timelineBadge-backgroundColor-condensedPresent);
       border: 0;
     }
 
     .TimelineItemAvatar {
+      --Timeline--timelineItem-timelineItemAvatar-top-condensedPresent: calc(
+        var(--base-size-4) + var(--base-size-8) + var(--base-size-8)
+      );
       /* Vertically center against the condensed badge (4px padding-top + 8px badge top margin + 8px half-badge) */
-      top: calc(var(--base-size-4) + var(--base-size-8) + var(--base-size-8));
+      top: var(--Timeline--timelineItem-timelineItemAvatar-top-condensedPresent);
     }
   }
 }
 
 .TimelineItemAvatar {
+  --Timeline--timelineItemAvatar-top: calc(var(--base-size-16) + var(--base-size-16));
+  --Timeline--timelineItemAvatar-left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
   position: absolute;
   /* Place avatar in the left gutter, aligned with surrounding actor avatars (~72px from item content) */
-  left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
+  left: var(--Timeline--timelineItemAvatar-left);
   /* Vertically center against the default badge (16px padding-top + 16px half-badge) */
-  top: calc(var(--base-size-16) + var(--base-size-16));
+  top: var(--Timeline--timelineItemAvatar-top);
   z-index: 1;
   transform: translateY(-50%);
 }
@@ -100,102 +128,127 @@
 }
 
 .TimelineBadge {
+  --Timeline--timelineBadge-borderWidth: var(--borderWidth-thick);
+  --Timeline--timelineBadge-borderColor: var(--bgColor-default);
+  --Timeline--timelineBadge-backgroundColor: var(--timelineBadge-bgColor);
+  --Timeline--timelineBadge-color: var(--fgColor-muted);
+  --Timeline--timelineBadge-marginRight: var(--base-size-8);
   display: flex;
   width: 32px;
   height: 32px;
-  margin-right: var(--base-size-8);
+  margin-right: var(--Timeline--timelineBadge-marginRight);
   /* stylelint-disable-next-line primer/spacing */
   margin-left: -15px;
   flex-shrink: 0;
   overflow: hidden;
-  color: var(--fgColor-muted);
+  color: var(--Timeline--timelineBadge-color);
 
   /* TODOl not quite sure if this is the correct migration for this line */
-  background-color: var(--timelineBadge-bgColor);
+  background-color: var(--Timeline--timelineBadge-backgroundColor);
   /* stylelint-disable-next-line primer/colors */
-  border-color: var(--bgColor-default);
+  border-color: var(--Timeline--timelineBadge-borderColor);
   border-style: solid;
-  border-width: var(--borderWidth-thick);
+  border-width: var(--Timeline--timelineBadge-borderWidth);
   border-radius: 50%;
   align-items: center;
   justify-content: center;
 
   &:where([data-variant]) {
-    color: var(--fgColor-onEmphasis);
+    --Timeline--timelineBadge-color-variantPresent: var(--fgColor-onEmphasis);
+    color: var(--Timeline--timelineBadge-color-variantPresent);
   }
 
   &:where([data-variant='accent']) {
-    background-color: var(--bgColor-accent-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantAccent: var(--bgColor-accent-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantAccent);
   }
 
   &:where([data-variant='success']) {
-    background-color: var(--bgColor-success-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantSuccess: var(--bgColor-success-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantSuccess);
   }
 
   &:where([data-variant='attention']) {
-    background-color: var(--bgColor-attention-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantAttention: var(--bgColor-attention-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantAttention);
   }
 
   &:where([data-variant='severe']) {
-    background-color: var(--bgColor-severe-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantSevere: var(--bgColor-severe-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantSevere);
   }
 
   &:where([data-variant='danger']) {
-    background-color: var(--bgColor-danger-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantDanger: var(--bgColor-danger-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantDanger);
   }
 
   &:where([data-variant='done']) {
-    background-color: var(--bgColor-done-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantDone: var(--bgColor-done-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantDone);
   }
 
   &:where([data-variant='open']) {
-    background-color: var(--bgColor-open-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantOpen: var(--bgColor-open-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantOpen);
   }
 
   &:where([data-variant='closed']) {
-    background-color: var(--bgColor-closed-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantClosed: var(--bgColor-closed-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantClosed);
   }
 
   &:where([data-variant='sponsors']) {
-    background-color: var(--bgColor-sponsors-emphasis);
+    --Timeline--timelineBadge-backgroundColor-variantSponsors: var(--bgColor-sponsors-emphasis);
+    background-color: var(--Timeline--timelineBadge-backgroundColor-variantSponsors);
   }
 }
 
 .TimelineBody {
+  --Timeline--timelineBody-color: var(--fgColor-muted);
+  --Timeline--timelineBody-fontSize: var(--text-body-size-medium);
+  --Timeline--timelineBody-marginTop: calc(var(--base-size-4) + 1px);
   min-width: 0;
   max-width: 100%;
   /* stylelint-disable-next-line primer/spacing */
-  margin-top: calc(var(--base-size-4) + 1px);
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
+  margin-top: var(--Timeline--timelineBody-marginTop);
+  font-size: var(--Timeline--timelineBody-fontSize);
+  color: var(--Timeline--timelineBody-color);
   flex: auto;
 }
 
 .TimelineBreak {
+  --Timeline--timelineBreak-borderTop: var(--borderWidth-thicker) solid var(--borderColor-default);
+  --Timeline--timelineBreak-backgroundColor: var(--bgColor-default);
+  --Timeline--timelineBreak-marginBottom: calc(-1 * var(--base-size-16));
+  --Timeline--timelineBreak-height: var(--base-size-24);
   position: relative;
   z-index: 1;
-  height: var(--base-size-24);
+  height: var(--Timeline--timelineBreak-height);
   margin: 0;
-  margin-bottom: calc(-1 * var(--base-size-16));
+  margin-bottom: var(--Timeline--timelineBreak-marginBottom);
   margin-left: 0;
-  background-color: var(--bgColor-default);
+  background-color: var(--Timeline--timelineBreak-backgroundColor);
   border: 0;
-  border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
+  border-top: var(--Timeline--timelineBreak-borderTop);
 
   /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(+ [data-condensed]) {
-    margin-bottom: calc(-1 * var(--base-size-12));
+    --Timeline--timelineBreak-next-marginBottom-has-condensedPresent: calc(-1 * var(--base-size-12));
+    margin-bottom: var(--Timeline--timelineBreak-next-marginBottom-has-condensedPresent);
   }
 }
 
 .TimelineItemActions {
+  --Timeline--timelineItemActions-gap: var(--base-size-8);
+  --Timeline--timelineItemActions-minHeight: var(--base-size-32);
   display: flex;
   align-items: center;
   align-self: flex-start;
   /* Match the badge wrapper height (32px in both default and condensed) so contents vertically center against the badge */
-  min-height: var(--base-size-32);
+  min-height: var(--Timeline--timelineItemActions-minHeight);
   margin-left: auto;
-  gap: var(--base-size-8);
+  gap: var(--Timeline--timelineItemActions-gap);
   flex-shrink: 0;
 }
 
@@ -220,9 +273,10 @@
   }
 
   .TimelineItemActions {
+    --Timeline--timelineItemActions-marginTop-containerWidth480px: var(--base-size-8);
     grid-area: actions;
     /* Reset flex-row auto-push; the wrapped row sits under Body. */
-    margin-top: var(--base-size-8);
+    margin-top: var(--Timeline--timelineItemActions-marginTop-containerWidth480px);
     margin-left: 0;
     justify-content: flex-start;
     min-height: 0;

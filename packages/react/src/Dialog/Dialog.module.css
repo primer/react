@@ -60,13 +60,14 @@
 }
 
 .Backdrop {
+  --Dialog--backdrop-backgroundColor: var(--overlay-backdrop-bgColor);
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   display: flex;
-  background-color: var(--overlay-backdrop-bgColor);
+  background-color: var(--Dialog--backdrop-backgroundColor);
   animation: dialog-backdrop-appear 200ms cubic-bezier(0.33, 1, 0.68, 1);
   align-items: center;
   justify-content: center;
@@ -130,18 +131,23 @@
 }
 
 .Dialog {
+  --Dialog--boxShadow: var(--shadow-floating-small);
+  --Dialog--borderRadius-borderRadiusLarge: var(--borderRadius-large, var(--borderRadius-large));
+  --Dialog--borderRadius: var(--borderRadius-large);
+  --Dialog--backgroundColor: var(--overlay-bgColor);
+  --Dialog--width: var(--dialog-width, 640px);
   display: flex;
   /* stylelint-disable-next-line primer/responsive-widths */
-  width: var(--dialog-width, 640px);
+  width: var(--Dialog--width);
   min-width: 296px;
   max-width: calc(100dvw - 64px);
   height: auto;
   max-height: calc(100dvh - 64px);
   flex-direction: column;
-  background-color: var(--overlay-bgColor);
-  border-radius: var(--borderRadius-large);
-  border-radius: var(--borderRadius-large, var(--borderRadius-large));
-  box-shadow: var(--shadow-floating-small);
+  background-color: var(--Dialog--backgroundColor);
+  border-radius: var(--Dialog--borderRadius);
+  border-radius: var(--Dialog--borderRadius-borderRadiusLarge);
+  box-shadow: var(--Dialog--boxShadow);
   opacity: 1;
 
   &:where([data-width='small']) {
@@ -170,7 +176,8 @@
   }
 
   &[data-position-regular='center'] {
-    border-radius: var(--borderRadius-large, var(--borderRadius-large));
+    --Dialog--borderRadius-positionRegularCenter: var(--borderRadius-large, var(--borderRadius-large));
+    border-radius: var(--Dialog--borderRadius-positionRegularCenter);
 
     @media screen and (prefers-reduced-motion: no-preference) {
       animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
@@ -178,18 +185,21 @@
 
     /* align margins only apply when regular position is center */
     &[data-align='top'] {
-      margin-top: var(--base-size-64);
+      --Dialog--marginTop-positionRegularCenter-alignTop: var(--base-size-64);
+      margin-top: var(--Dialog--marginTop-positionRegularCenter-alignTop);
     }
 
     &[data-align='bottom'] {
-      margin-bottom: var(--base-size-64);
+      --Dialog--marginBottom-positionRegularCenter-alignBottom: var(--base-size-64);
+      margin-bottom: var(--Dialog--marginBottom-positionRegularCenter-alignBottom);
     }
   }
 
   &[data-position-regular='left'] {
+    --Dialog--borderRadius-positionRegularLeft: var(--borderRadius-large, var(--borderRadius-large));
     height: 100dvh;
     max-height: unset;
-    border-radius: var(--borderRadius-large, var(--borderRadius-large));
+    border-radius: var(--Dialog--borderRadius-positionRegularLeft);
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 
@@ -199,9 +209,10 @@
   }
 
   &[data-position-regular='right'] {
+    --Dialog--borderRadius-positionRegularRight: var(--borderRadius-large, var(--borderRadius-large));
     height: 100dvh;
     max-height: unset;
-    border-radius: var(--borderRadius-large, var(--borderRadius-large));
+    border-radius: var(--Dialog--borderRadius-positionRegularRight);
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 
@@ -212,10 +223,15 @@
 
   @media (max-width: 767px) {
     &[data-position-narrow='center'] {
+      --Dialog--borderRadius-positionNarrowCenter-mediaMaxWidth767px: var(
+        --borderRadius-large,
+        var(--borderRadius-large)
+      );
+      --Dialog--width-positionNarrowCenter-mediaMaxWidth767px: var(--dialog-width, 640px);
       /* stylelint-disable-next-line primer/responsive-widths */
-      width: var(--dialog-width, 640px);
+      width: var(--Dialog--width-positionNarrowCenter-mediaMaxWidth767px);
       height: auto;
-      border-radius: var(--borderRadius-large, var(--borderRadius-large));
+      border-radius: var(--Dialog--borderRadius-positionNarrowCenter-mediaMaxWidth767px);
 
       &:where([data-width='small']) {
         width: 296px;
@@ -245,11 +261,15 @@
     }
 
     &[data-position-narrow='bottom'] {
+      --Dialog--borderRadius-positionNarrowBottom-mediaMaxWidth767px: var(
+        --borderRadius-large,
+        var(--borderRadius-large)
+      );
       width: 100dvw;
       max-width: 100dvw;
       height: auto;
       max-height: calc(100dvh - 64px);
-      border-radius: var(--borderRadius-large, var(--borderRadius-large));
+      border-radius: var(--Dialog--borderRadius-positionNarrowBottom-mediaMaxWidth767px);
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
 
@@ -290,8 +310,9 @@
  */
 /* stylelint-disable-next-line selector-no-qualifying-type */
 body[data-dialog-scroll-disabled] {
+  --Dialog--body-paddingRight-dialogScrollDisabledPresent: var(--prc-dialog-scrollgutter);
   /* stylelint-disable-next-line primer/spacing */
-  padding-right: var(--prc-dialog-scrollgutter) !important;
+  padding-right: var(--Dialog--body-paddingRight-dialogScrollDisabledPresent) !important;
   overflow: hidden !important;
 }
 
@@ -309,24 +330,34 @@ Add a border between the body and footer if:
   --can-scroll: 0;
 
   .DialogOverflowWrapper {
+    --Dialog--dialogOverflowWrapper-borderBottom-hasFooterPresent: var(--borderWidth-default) solid
+      var(--borderColor-default);
     /* If the browser does not support the `animation-timeline` property, always show a border */
-    border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
+    border-bottom: var(--Dialog--dialogOverflowWrapper-borderBottom-hasFooterPresent);
     animation: detect-scroll;
     animation-timeline: scroll(self);
 
     @supports (animation-timeline: scroll(self)) {
-      border-bottom: calc(var(--borderWidth-thin) * var(--can-scroll)) solid var(--borderColor-default);
+      --Dialog--dialogOverflowWrapper-borderBottom-hasFooterPresent-supportsAnimationTimelineScrollSelf: calc(
+          var(--borderWidth-thin) * var(--can-scroll)
+        )
+        solid var(--borderColor-default);
+      border-bottom: var(
+        --Dialog--dialogOverflowWrapper-borderBottom-hasFooterPresent-supportsAnimationTimelineScrollSelf
+      );
     }
   }
 }
 
 .Header {
+  --Dialog--header-boxShadow: 0 1px 0 var(--borderColor-default);
+  --Dialog--header-padding: var(--base-size-8);
   z-index: 1;
   max-height: 35vh;
-  padding: var(--base-size-8);
+  padding: var(--Dialog--header-padding);
   overflow-y: auto;
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 1px 0 var(--borderColor-default);
+  box-shadow: var(--Dialog--header-boxShadow);
   flex-shrink: 0;
 }
 
@@ -335,40 +366,51 @@ Add a border between the body and footer if:
 }
 
 .HeaderContent {
+  --Dialog--headerContent-paddingBlock: var(--base-size-6);
+  --Dialog--headerContent-paddingInline: var(--base-size-8);
   display: flex;
-  padding-inline: var(--base-size-8);
-  padding-block: var(--base-size-6);
+  padding-inline: var(--Dialog--headerContent-paddingInline);
+  padding-block: var(--Dialog--headerContent-paddingBlock);
   flex-direction: column;
   flex-grow: 1;
 }
 
 .Title {
+  --Dialog--title-fontWeight: var(--text-title-weight-large);
+  --Dialog--title-fontSize: var(--text-body-size-medium);
   margin: 0; /* override default margin */
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--text-title-weight-large);
+  font-size: var(--Dialog--title-fontSize);
+  font-weight: var(--Dialog--title-fontWeight);
 }
 
 .Subtitle {
+  --Dialog--subtitle-color: var(--fgColor-muted);
+  --Dialog--subtitle-fontWeight: var(--base-text-weight-normal);
+  --Dialog--subtitle-fontSize: var(--text-body-size-small);
+  --Dialog--subtitle-marginTop: var(--base-size-4);
   margin: 0; /* override default margin */
-  margin-top: var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-normal);
-  color: var(--fgColor-muted);
+  margin-top: var(--Dialog--subtitle-marginTop);
+  font-size: var(--Dialog--subtitle-fontSize);
+  font-weight: var(--Dialog--subtitle-fontWeight);
+  color: var(--Dialog--subtitle-color);
 }
 
 .Body {
-  padding: var(--base-size-16);
+  --Dialog--body-padding: var(--base-size-16);
+  padding: var(--Dialog--body-padding);
   overflow: auto;
   flex-grow: 1;
 }
 
 .Footer {
+  --Dialog--footer-gap: var(--base-size-8);
+  --Dialog--footer-padding: var(--base-size-16);
   z-index: 1;
   display: flex;
   flex-flow: wrap;
   justify-content: flex-end;
-  padding: var(--base-size-16);
-  gap: var(--base-size-8);
+  padding: var(--Dialog--footer-padding);
+  gap: var(--Dialog--footer-gap);
   flex-shrink: 0;
 }
 

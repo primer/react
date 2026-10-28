@@ -1,17 +1,21 @@
 .LeadingVisual {
+  --FormControl--formControlLeadingVisual-leadingVisual-color: var(--fgColor-default);
   --leadingVisual-size: 16px;
 
-  color: var(--fgColor-default);
+  color: var(--FormControl--formControlLeadingVisual-leadingVisual-color);
   display: flex;
   align-items: center;
 
   &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
+    --FormControl--formControlLeadingVisual-leadingVisual-color-controlDisabledPresent: var(--control-fgColor-disabled);
+    color: var(--FormControl--formControlLeadingVisual-leadingVisual-color-controlDisabledPresent);
   }
 
   & > * {
-    min-width: var(--leadingVisual-size);
-    min-height: var(--leadingVisual-size);
+    --FormControl--formControlLeadingVisual-leadingVisual-child-minHeight: var(--leadingVisual-size);
+    --FormControl--formControlLeadingVisual-leadingVisual-child-minWidth: var(--leadingVisual-size);
+    min-width: var(--FormControl--formControlLeadingVisual-leadingVisual-child-minWidth);
+    min-height: var(--FormControl--formControlLeadingVisual-leadingVisual-child-minHeight);
     fill: currentColor;
   }
 

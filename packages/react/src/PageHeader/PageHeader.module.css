@@ -39,132 +39,325 @@
     relying on `:has()` (per-descendant invalidation).
   */
   &[data-title-size-variant='large'] {
-    font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
-    font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-    line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5)); /* calc(48/32) */
+    --PageHeader--titleLineHeight-titleSizeVariantLarge: var(
+      --custom-line-height,
+      var(--text-title-lineHeight-large, 1.5)
+    );
+    --PageHeader--lineHeight-titleSizeVariantLarge: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+    --PageHeader--fontWeight-titleSizeVariantLarge: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+    --PageHeader--fontSize-titleSizeVariantLarge: var(--custom-font-size, var(--text-title-size-large, 2rem));
+    font-size: var(--PageHeader--fontSize-titleSizeVariantLarge);
+    font-weight: var(--PageHeader--fontWeight-titleSizeVariantLarge);
+    line-height: var(--PageHeader--lineHeight-titleSizeVariantLarge); /* calc(48/32) */
 
-    --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+    --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantLarge);
   }
 
   &[data-title-size-variant='medium'] {
-    font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-    font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
-    line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6)); /* calc(32/20) */
+    --PageHeader--titleLineHeight-titleSizeVariantMedium: var(
+      --custom-line-height,
+      var(--text-title-lineHeight-medium, 1.6)
+    );
+    --PageHeader--lineHeight-titleSizeVariantMedium: var(
+      --custom-line-height,
+      var(--text-title-lineHeight-medium, 1.6)
+    );
+    --PageHeader--fontWeight-titleSizeVariantMedium: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
+    --PageHeader--fontSize-titleSizeVariantMedium: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+    font-size: var(--PageHeader--fontSize-titleSizeVariantMedium);
+    font-weight: var(--PageHeader--fontWeight-titleSizeVariantMedium);
+    line-height: var(--PageHeader--lineHeight-titleSizeVariantMedium); /* calc(32/20) */
 
-    --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantMedium);
   }
 
   &[data-title-size-variant='subtitle'] {
-    font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-    font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-    line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6)); /* calc(32/20) */
+    --PageHeader--titleLineHeight-titleSizeVariantSubtitle: var(
+      --custom-line-height,
+      var(--text-title-lineHeight-medium, 1.6)
+    );
+    --PageHeader--lineHeight-titleSizeVariantSubtitle: var(
+      --custom-line-height,
+      var(--text-title-lineHeight-medium, 1.6)
+    );
+    --PageHeader--fontWeight-titleSizeVariantSubtitle: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+    --PageHeader--fontSize-titleSizeVariantSubtitle: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+    font-size: var(--PageHeader--fontSize-titleSizeVariantSubtitle);
+    font-weight: var(--PageHeader--fontWeight-titleSizeVariantSubtitle);
+    line-height: var(--PageHeader--lineHeight-titleSizeVariantSubtitle); /* calc(32/20) */
 
-    --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantSubtitle);
   }
 
   /* Responsive size variants */
   @media (--viewportRange-narrow) {
     &[data-title-size-variant-narrow='large'] {
-      font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      --PageHeader--titleLineHeight-titleSizeVariantNarrowLarge-mediaViewportRangeNarrow: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-large, 1.5)
+      );
+      --PageHeader--lineHeight-titleSizeVariantNarrowLarge-mediaViewportRangeNarrow: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-large, 1.5)
+      );
+      --PageHeader--fontWeight-titleSizeVariantNarrowLarge-mediaViewportRangeNarrow: var(
+        --custom-font-weight,
+        var(--base-text-weight-normal, 400)
+      );
+      --PageHeader--fontSize-titleSizeVariantNarrowLarge-mediaViewportRangeNarrow: var(
+        --custom-font-size,
+        var(--text-title-size-large, 2rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantNarrowLarge-mediaViewportRangeNarrow);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantNarrowLarge-mediaViewportRangeNarrow);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantNarrowLarge-mediaViewportRangeNarrow);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantNarrowLarge-mediaViewportRangeNarrow);
     }
 
     &[data-title-size-variant-narrow='medium'] {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --PageHeader--titleLineHeight-titleSizeVariantNarrowMedium-mediaViewportRangeNarrow: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--lineHeight-titleSizeVariantNarrowMedium-mediaViewportRangeNarrow: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--fontWeight-titleSizeVariantNarrowMedium-mediaViewportRangeNarrow: var(
+        --custom-font-weight,
+        var(--base-text-weight-semibold, 600)
+      );
+      --PageHeader--fontSize-titleSizeVariantNarrowMedium-mediaViewportRangeNarrow: var(
+        --custom-font-size,
+        var(--text-title-size-medium, 1.25rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantNarrowMedium-mediaViewportRangeNarrow);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantNarrowMedium-mediaViewportRangeNarrow);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantNarrowMedium-mediaViewportRangeNarrow);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantNarrowMedium-mediaViewportRangeNarrow);
     }
 
     &[data-title-size-variant-narrow='subtitle'] {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --PageHeader--titleLineHeight-titleSizeVariantNarrowSubtitle-mediaViewportRangeNarrow: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--lineHeight-titleSizeVariantNarrowSubtitle-mediaViewportRangeNarrow: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--fontWeight-titleSizeVariantNarrowSubtitle-mediaViewportRangeNarrow: var(
+        --custom-font-weight,
+        var(--base-text-weight-normal, 400)
+      );
+      --PageHeader--fontSize-titleSizeVariantNarrowSubtitle-mediaViewportRangeNarrow: var(
+        --custom-font-size,
+        var(--text-title-size-medium, 1.25rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantNarrowSubtitle-mediaViewportRangeNarrow);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantNarrowSubtitle-mediaViewportRangeNarrow);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantNarrowSubtitle-mediaViewportRangeNarrow);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantNarrowSubtitle-mediaViewportRangeNarrow);
     }
   }
 
   @media (--viewportRange-regular) {
     &[data-title-size-variant-regular='large'] {
-      font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      --PageHeader--titleLineHeight-titleSizeVariantRegularLarge-mediaViewportRangeRegular: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-large, 1.5)
+      );
+      --PageHeader--lineHeight-titleSizeVariantRegularLarge-mediaViewportRangeRegular: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-large, 1.5)
+      );
+      --PageHeader--fontWeight-titleSizeVariantRegularLarge-mediaViewportRangeRegular: var(
+        --custom-font-weight,
+        var(--base-text-weight-normal, 400)
+      );
+      --PageHeader--fontSize-titleSizeVariantRegularLarge-mediaViewportRangeRegular: var(
+        --custom-font-size,
+        var(--text-title-size-large, 2rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantRegularLarge-mediaViewportRangeRegular);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantRegularLarge-mediaViewportRangeRegular);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantRegularLarge-mediaViewportRangeRegular);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantRegularLarge-mediaViewportRangeRegular);
     }
 
     &[data-title-size-variant-regular='medium'] {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --PageHeader--titleLineHeight-titleSizeVariantRegularMedium-mediaViewportRangeRegular: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--lineHeight-titleSizeVariantRegularMedium-mediaViewportRangeRegular: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--fontWeight-titleSizeVariantRegularMedium-mediaViewportRangeRegular: var(
+        --custom-font-weight,
+        var(--base-text-weight-semibold, 600)
+      );
+      --PageHeader--fontSize-titleSizeVariantRegularMedium-mediaViewportRangeRegular: var(
+        --custom-font-size,
+        var(--text-title-size-medium, 1.25rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantRegularMedium-mediaViewportRangeRegular);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantRegularMedium-mediaViewportRangeRegular);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantRegularMedium-mediaViewportRangeRegular);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantRegularMedium-mediaViewportRangeRegular);
     }
 
     &[data-title-size-variant-regular='subtitle'] {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --PageHeader--titleLineHeight-titleSizeVariantRegularSubtitle-mediaViewportRangeRegular: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--lineHeight-titleSizeVariantRegularSubtitle-mediaViewportRangeRegular: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--fontWeight-titleSizeVariantRegularSubtitle-mediaViewportRangeRegular: var(
+        --custom-font-weight,
+        var(--base-text-weight-normal, 400)
+      );
+      --PageHeader--fontSize-titleSizeVariantRegularSubtitle-mediaViewportRangeRegular: var(
+        --custom-font-size,
+        var(--text-title-size-medium, 1.25rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantRegularSubtitle-mediaViewportRangeRegular);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantRegularSubtitle-mediaViewportRangeRegular);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantRegularSubtitle-mediaViewportRangeRegular);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantRegularSubtitle-mediaViewportRangeRegular);
     }
   }
 
   @media (--viewportRange-wide) {
     &[data-title-size-variant-wide='large'] {
-      font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      --PageHeader--titleLineHeight-titleSizeVariantWideLarge-mediaViewportRangeWide: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-large, 1.5)
+      );
+      --PageHeader--lineHeight-titleSizeVariantWideLarge-mediaViewportRangeWide: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-large, 1.5)
+      );
+      --PageHeader--fontWeight-titleSizeVariantWideLarge-mediaViewportRangeWide: var(
+        --custom-font-weight,
+        var(--base-text-weight-normal, 400)
+      );
+      --PageHeader--fontSize-titleSizeVariantWideLarge-mediaViewportRangeWide: var(
+        --custom-font-size,
+        var(--text-title-size-large, 2rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantWideLarge-mediaViewportRangeWide);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantWideLarge-mediaViewportRangeWide);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantWideLarge-mediaViewportRangeWide);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantWideLarge-mediaViewportRangeWide);
     }
 
     &[data-title-size-variant-wide='medium'] {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --PageHeader--titleLineHeight-titleSizeVariantWideMedium-mediaViewportRangeWide: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--lineHeight-titleSizeVariantWideMedium-mediaViewportRangeWide: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--fontWeight-titleSizeVariantWideMedium-mediaViewportRangeWide: var(
+        --custom-font-weight,
+        var(--base-text-weight-semibold, 600)
+      );
+      --PageHeader--fontSize-titleSizeVariantWideMedium-mediaViewportRangeWide: var(
+        --custom-font-size,
+        var(--text-title-size-medium, 1.25rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantWideMedium-mediaViewportRangeWide);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantWideMedium-mediaViewportRangeWide);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantWideMedium-mediaViewportRangeWide);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantWideMedium-mediaViewportRangeWide);
     }
 
     &[data-title-size-variant-wide='subtitle'] {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --PageHeader--titleLineHeight-titleSizeVariantWideSubtitle-mediaViewportRangeWide: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--lineHeight-titleSizeVariantWideSubtitle-mediaViewportRangeWide: var(
+        --custom-line-height,
+        var(--text-title-lineHeight-medium, 1.6)
+      );
+      --PageHeader--fontWeight-titleSizeVariantWideSubtitle-mediaViewportRangeWide: var(
+        --custom-font-weight,
+        var(--base-text-weight-normal, 400)
+      );
+      --PageHeader--fontSize-titleSizeVariantWideSubtitle-mediaViewportRangeWide: var(
+        --custom-font-size,
+        var(--text-title-size-medium, 1.25rem)
+      );
+      font-size: var(--PageHeader--fontSize-titleSizeVariantWideSubtitle-mediaViewportRangeWide);
+      font-weight: var(--PageHeader--fontWeight-titleSizeVariantWideSubtitle-mediaViewportRangeWide);
+      line-height: var(--PageHeader--lineHeight-titleSizeVariantWideSubtitle-mediaViewportRangeWide);
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      --title-line-height: var(--PageHeader--titleLineHeight-titleSizeVariantWideSubtitle-mediaViewportRangeWide);
     }
   }
 
   &[data-has-border='true'][data-nav-hidden-all],
   &[data-has-border='true']:not([data-has-nav]) {
-    border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-    padding-block-end: var(--base-size-8);
+    --PageHeader--paddingBlockEnd-hasBorderTrue-navHiddenAllPresent-not-hasNavPresent: var(--base-size-8);
+    --PageHeader--borderBlockEnd-hasBorderTrue-navHiddenAllPresent-not-hasNavPresent: var(--borderWidth-thin) solid
+      var(--borderColor-default);
+    border-block-end: var(--PageHeader--borderBlockEnd-hasBorderTrue-navHiddenAllPresent-not-hasNavPresent);
+    padding-block-end: var(--PageHeader--paddingBlockEnd-hasBorderTrue-navHiddenAllPresent-not-hasNavPresent);
   }
 
   @media (--viewportRange-narrow) {
     &[data-has-border='true'][data-nav-hidden-narrow] {
-      border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-      padding-block-end: var(--base-size-8);
+      --PageHeader--paddingBlockEnd-hasBorderTrue-navHiddenNarrowPresent-mediaViewportRangeNarrow: var(--base-size-8);
+      --PageHeader--borderBlockEnd-hasBorderTrue-navHiddenNarrowPresent-mediaViewportRangeNarrow: var(
+          --borderWidth-thin
+        )
+        solid var(--borderColor-default);
+      border-block-end: var(--PageHeader--borderBlockEnd-hasBorderTrue-navHiddenNarrowPresent-mediaViewportRangeNarrow);
+      padding-block-end: var(
+        --PageHeader--paddingBlockEnd-hasBorderTrue-navHiddenNarrowPresent-mediaViewportRangeNarrow
+      );
     }
   }
 
   @media (--viewportRange-regular) {
     &[data-has-border='true'][data-nav-hidden-regular] {
-      border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-      padding-block-end: var(--base-size-8);
+      --PageHeader--paddingBlockEnd-hasBorderTrue-navHiddenRegularPresent-mediaViewportRangeRegular: var(--base-size-8);
+      --PageHeader--borderBlockEnd-hasBorderTrue-navHiddenRegularPresent-mediaViewportRangeRegular: var(
+          --borderWidth-thin
+        )
+        solid var(--borderColor-default);
+      border-block-end: var(
+        --PageHeader--borderBlockEnd-hasBorderTrue-navHiddenRegularPresent-mediaViewportRangeRegular
+      );
+      padding-block-end: var(
+        --PageHeader--paddingBlockEnd-hasBorderTrue-navHiddenRegularPresent-mediaViewportRangeRegular
+      );
     }
   }
 
   @media (--viewportRange-wide) {
     &[data-has-border='true'][data-nav-hidden-wide] {
-      border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-      padding-block-end: var(--base-size-8);
+      --PageHeader--paddingBlockEnd-hasBorderTrue-navHiddenWidePresent-mediaViewportRangeWide: var(--base-size-8);
+      --PageHeader--borderBlockEnd-hasBorderTrue-navHiddenWidePresent-mediaViewportRangeWide: var(--borderWidth-thin)
+        solid var(--borderColor-default);
+      border-block-end: var(--PageHeader--borderBlockEnd-hasBorderTrue-navHiddenWidePresent-mediaViewportRangeWide);
+      padding-block-end: var(--PageHeader--paddingBlockEnd-hasBorderTrue-navHiddenWidePresent-mediaViewportRangeWide);
     }
   }
 
@@ -173,7 +366,12 @@
   & [data-component='PH_Actions'],
   & [data-component='PH_LeadingVisual'],
   & [data-component='PH_TrailingVisual'] {
-    height: calc(var(--title-line-height) * 1em);
+    --PageHeader--height-componentPHLeadingAction-componentPHTrailingAction-componentPHActions-componentPHLeadingVisual-componentPHTrailingVisual: calc(
+      var(--title-line-height) * 1em
+    );
+    height: var(
+      --PageHeader--height-componentPHLeadingAction-componentPHTrailingAction-componentPHActions-componentPHLeadingVisual-componentPHTrailingVisual
+    );
   }
 
   & [data-hidden-all] {
@@ -200,79 +398,101 @@
 }
 
 .ContextArea {
+  --PageHeader--contextArea-gap: var(--stack-gap-condensed);
+  --PageHeader--contextArea-gridRow: var(--grid-row-order-context-area);
+  --PageHeader--contextArea-lineHeight: var(--text-body-lineHeight-medium, 1.4285);
+  --PageHeader--contextArea-fontWeight: var(--base-text-weight-normal);
+  --PageHeader--contextArea-fontSize: var(--text-body-size-medium, 0.875rem);
+  --PageHeader--contextArea-paddingBottom: var(--base-size-8);
   display: flex;
-  padding-bottom: var(--base-size-8);
-  font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
+  padding-bottom: var(--PageHeader--contextArea-paddingBottom);
+  font-size: var(--PageHeader--contextArea-fontSize);
+  font-weight: var(--PageHeader--contextArea-fontWeight);
+  line-height: var(--PageHeader--contextArea-lineHeight);
   flex-direction: row;
-  grid-row: var(--grid-row-order-context-area);
+  grid-row: var(--PageHeader--contextArea-gridRow);
   grid-area: context-area;
   align-items: center;
-  gap: var(--stack-gap-condensed);
+  gap: var(--PageHeader--contextArea-gap);
 }
 
 .ParentLink {
+  --PageHeader--parentLink-gap: var(--stack-gap-condensed);
+  --PageHeader--parentLink-order: var(--context-area-region-order-parent-link);
   display: flex;
   align-items: center;
-  order: var(--context-area-region-order-parent-link);
-  gap: var(--stack-gap-condensed);
+  order: var(--PageHeader--parentLink-order);
+  gap: var(--PageHeader--parentLink-gap);
 }
 
 .ContextBar {
+  --PageHeader--contextBar-order: var(--context-area-region-order-context-bar);
   display: flex;
-  order: var(--context-area-region-order-context-bar);
+  order: var(--PageHeader--contextBar-order);
 }
 
 .ContextAreaActions {
+  --PageHeader--contextAreaActions-gap: var(--stack-gap-condensed);
+  --PageHeader--contextAreaActions-order: var(--context-area-region-order-context-area-actions);
   display: flex;
   flex-direction: row;
-  order: var(--context-area-region-order-context-area-actions);
+  order: var(--PageHeader--contextAreaActions-order);
   align-items: center;
-  gap: var(--stack-gap-condensed);
+  gap: var(--PageHeader--contextAreaActions-gap);
   flex-grow: 1;
   justify-content: flex-end;
 }
 
 .TitleArea {
-  grid-row: var(--grid-row-order-title-area);
+  --PageHeader--titleArea-gap: var(--stack-gap-condensed);
+  --PageHeader--titleArea-gridRow: var(--grid-row-order-title-area);
+  grid-row: var(--PageHeader--titleArea-gridRow);
   grid-area: title-area;
   display: flex;
-  gap: var(--stack-gap-condensed);
+  gap: var(--PageHeader--titleArea-gap);
   flex-direction: row;
   align-items: flex-start;
 }
 
 .LeadingAction {
+  --PageHeader--leadingAction-gridRow: var(--grid-row-order-leading-action);
+  --PageHeader--leadingAction-paddingRight: var(--base-size-8);
   display: flex;
-  padding-right: var(--base-size-8);
-  grid-row: var(--grid-row-order-leading-action);
+  padding-right: var(--PageHeader--leadingAction-paddingRight);
+  grid-row: var(--PageHeader--leadingAction-gridRow);
   grid-area: leading-action;
   align-items: center;
 }
 
 .Breadcrumbs {
+  --PageHeader--breadcrumbs-gridRow: var(--grid-row-order-breadcrumbs);
+  --PageHeader--breadcrumbs-lineHeight: var(--text-body-lineHeight-medium, 1.4285);
+  --PageHeader--breadcrumbs-fontWeight: var(--base-text-weight-normal);
+  --PageHeader--breadcrumbs-fontSize: var(--text-body-size-medium, 0.875rem);
+  --PageHeader--breadcrumbs-paddingRight: var(--base-size-8);
   display: flex;
-  padding-right: var(--base-size-8);
-  font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  grid-row: var(--grid-row-order-breadcrumbs);
+  padding-right: var(--PageHeader--breadcrumbs-paddingRight);
+  font-size: var(--PageHeader--breadcrumbs-fontSize);
+  font-weight: var(--PageHeader--breadcrumbs-fontWeight);
+  line-height: var(--PageHeader--breadcrumbs-lineHeight);
+  grid-row: var(--PageHeader--breadcrumbs-gridRow);
   grid-area: breadcrumbs;
   align-items: center;
 }
 
 .LeadingVisual {
+  --PageHeader--leadingVisual-order: var(--title-area-region-order-leading-visual);
   /* using flex and order to display the leading visual in the title area. */
   display: flex;
-  order: var(--title-area-region-order-leading-visual);
+  order: var(--PageHeader--leadingVisual-order);
   align-items: center;
 }
 
 .Title {
+  --PageHeader--title-order: var(--title-area-region-order-title);
   /* using flex and order to display the title in the title area. */
   display: block;
-  order: var(--title-area-region-order-title);
+  order: var(--PageHeader--title-order);
   font-size: inherit;
   font-weight: inherit;
 }
@@ -282,51 +502,68 @@
 }
 
 .TrailingVisual {
+  --PageHeader--trailingVisual-order: var(--title-area-region-order-trailing-visual);
   /* using flex and order to display the trailing visual in the title area. */
   display: flex;
-  order: var(--title-area-region-order-trailing-visual);
+  order: var(--PageHeader--trailingVisual-order);
   align-items: center;
 }
 
 .TrailingAction {
+  --PageHeader--trailingAction-gridRow: var(--grid-row-order-trailing-action);
+  --PageHeader--trailingAction-paddingLeft: var(--base-size-8);
   display: flex;
-  padding-left: var(--base-size-8);
-  grid-row: var(--grid-row-order-trailing-action);
+  padding-left: var(--PageHeader--trailingAction-paddingLeft);
+  grid-row: var(--PageHeader--trailingAction-gridRow);
   grid-area: trailing-action;
   align-items: center;
 }
 
 .Actions {
+  --PageHeader--actions-gap: var(--stack-gap-condensed);
+  --PageHeader--actions-gridRow: var(--grid-row-order-actions);
+  --PageHeader--actions-paddingLeft: var(--base-size-8);
   display: flex;
   min-width: max-content;
-  padding-left: var(--base-size-8);
+  padding-left: var(--PageHeader--actions-paddingLeft);
   flex-direction: row;
-  grid-row: var(--grid-row-order-actions);
+  grid-row: var(--PageHeader--actions-gridRow);
   grid-area: actions;
-  gap: var(--stack-gap-condensed);
+  gap: var(--PageHeader--actions-gap);
   justify-content: flex-end;
   align-items: center;
 }
 
 .Description {
+  --PageHeader--description-gap: var(--stack-gap-condensed);
+  --PageHeader--description-gridRow: var(--grid-row-order-description);
+  --PageHeader--description-lineHeight: var(--text-body-lineHeight-medium, 1.4285);
+  --PageHeader--description-fontWeight: var(--base-text-weight-normal);
+  --PageHeader--description-fontSize: var(--text-body-size-medium, 0.875rem);
+  --PageHeader--description-paddingTop: var(--base-size-8);
   display: flex;
-  padding-top: var(--base-size-8);
-  font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
+  padding-top: var(--PageHeader--description-paddingTop);
+  font-size: var(--PageHeader--description-fontSize);
+  font-weight: var(--PageHeader--description-fontWeight);
+  line-height: var(--PageHeader--description-lineHeight);
   flex-direction: row;
-  grid-row: var(--grid-row-order-description);
+  grid-row: var(--PageHeader--description-gridRow);
   grid-area: description;
   align-items: center;
-  gap: var(--stack-gap-condensed);
+  gap: var(--PageHeader--description-gap);
 }
 
 .Navigation {
+  --PageHeader--navigation-gridRow: var(--grid-row-order-navigation);
+  --PageHeader--navigation-lineHeight: var(--text-body-lineHeight-medium, 1.4285);
+  --PageHeader--navigation-fontWeight: var(--base-text-weight-normal);
+  --PageHeader--navigation-fontSize: var(--text-body-size-medium, 0.875rem);
+  --PageHeader--navigation-paddingTop: var(--base-size-8);
   display: block;
-  padding-top: var(--base-size-8);
-  font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  grid-row: var(--grid-row-order-navigation);
+  padding-top: var(--PageHeader--navigation-paddingTop);
+  font-size: var(--PageHeader--navigation-fontSize);
+  font-weight: var(--PageHeader--navigation-fontWeight);
+  line-height: var(--PageHeader--navigation-lineHeight);
+  grid-row: var(--PageHeader--navigation-gridRow);
   grid-area: navigation;
 }

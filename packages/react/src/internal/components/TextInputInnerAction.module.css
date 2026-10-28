@@ -1,20 +1,28 @@
 .Invisible {
+  --TextInputInnerAction--invisible-color: var(--fgColor-muted);
+  --TextInputInnerAction--invisible-paddingLeft: var(--base-size-4);
+  --TextInputInnerAction--invisible-paddingBottom: var(--base-size-2);
+  --TextInputInnerAction--invisible-paddingRight: var(--base-size-4);
+  --TextInputInnerAction--invisible-paddingTop: var(--base-size-2);
   position: relative;
-  padding-top: var(--base-size-2);
-  padding-right: var(--base-size-4);
-  padding-bottom: var(--base-size-2);
-  padding-left: var(--base-size-4);
-  color: var(--fgColor-muted);
+  padding-top: var(--TextInputInnerAction--invisible-paddingTop);
+  padding-right: var(--TextInputInnerAction--invisible-paddingRight);
+  padding-bottom: var(--TextInputInnerAction--invisible-paddingBottom);
+  padding-left: var(--TextInputInnerAction--invisible-paddingLeft);
+  color: var(--TextInputInnerAction--invisible-color);
   background-color: transparent;
 
   &:hover,
   &:focus {
-    color: var(--fgColor-default);
+    --TextInputInnerAction--invisible-color-hover-focus: var(--fgColor-default);
+    color: var(--TextInputInnerAction--invisible-color-hover-focus);
   }
 
   &[data-component='IconButton'] {
-    width: var(--inner-action-size);
-    height: var(--inner-action-size);
+    --TextInputInnerAction--invisible-height-componentIconButton: var(--inner-action-size);
+    --TextInputInnerAction--invisible-width-componentIconButton: var(--inner-action-size);
+    width: var(--TextInputInnerAction--invisible-width-componentIconButton);
+    height: var(--TextInputInnerAction--invisible-height-componentIconButton);
   }
 
   @media (pointer: coarse) {
@@ -31,8 +39,10 @@
 }
 
 .TextInputAction {
-  margin-right: var(--base-size-4);
-  margin-left: var(--base-size-4);
+  --TextInputInnerAction--textInputAction-marginLeft: var(--base-size-4);
+  --TextInputInnerAction--textInputAction-marginRight: var(--base-size-4);
+  margin-right: var(--TextInputInnerAction--textInputAction-marginRight);
+  margin-left: var(--TextInputInnerAction--textInputAction-marginLeft);
   /* stylelint-disable-next-line primer/typography */
   line-height: 0;
 }

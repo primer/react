@@ -1,4 +1,6 @@
 .List {
+  --ActionBar--list-height: var(--actionbar-height, var(--control-small-size));
+  --ActionBar--list-gap: var(--actionbar-gap, var(--stack-gap-condensed));
   position: relative;
   display: flex;
   min-width: 0;
@@ -8,10 +10,10 @@
   margin-bottom: -1px;
   list-style: none;
   align-items: flex-start;
-  gap: var(--actionbar-gap, var(--stack-gap-condensed));
+  gap: var(--ActionBar--list-gap);
   overflow: hidden;
   /* Explicit height is required to clip wrapped items */
-  height: var(--actionbar-height, var(--control-small-size));
+  height: var(--ActionBar--list-height);
 
   /* Scroll-based animations have no effect unless the container is scrollable (has overflow, even with overflow:hidden)
   so we can use them to detect overflow. It would be cleaner to use scroll-state container queries for this, but
@@ -30,15 +32,18 @@
   }
 
   &:where([data-size='small']) {
-    --actionbar-height: var(--control-small-size);
+    --ActionBar--list-actionbarHeight-sizeSmall: var(--control-small-size);
+    --actionbar-height: var(--ActionBar--list-actionbarHeight-sizeSmall);
   }
 
   &:where([data-size='medium']) {
-    --actionbar-height: var(--control-medium-size);
+    --ActionBar--list-actionbarHeight-sizeMedium: var(--control-medium-size);
+    --actionbar-height: var(--ActionBar--list-actionbarHeight-sizeMedium);
   }
 
   &:where([data-size='large']) {
-    --actionbar-height: var(--control-large-size);
+    --ActionBar--list-actionbarHeight-sizeLarge: var(--control-large-size);
+    --actionbar-height: var(--ActionBar--list-actionbarHeight-sizeLarge);
   }
 
   /* Gap scale (mirrors Stack) */
@@ -46,12 +51,14 @@
     --actionbar-gap: 0;
 
     .Divider {
-      padding: 0 var(--base-size-8);
+      --ActionBar--list-divider-padding-gapNone: 0 var(--base-size-8);
+      padding: var(--ActionBar--list-divider-padding-gapNone);
     }
   }
 
   &:where([data-gap='condensed']) {
-    --actionbar-gap: var(--stack-gap-condensed);
+    --ActionBar--list-actionbarGap-gapCondensed: var(--stack-gap-condensed);
+    --actionbar-gap: var(--ActionBar--list-actionbarGap-gapCondensed);
   }
 
   & [data-overflowing] {
@@ -70,8 +77,9 @@
 }
 
 .Nav {
+  --ActionBar--nav-paddingInline: var(--base-size-16);
   display: flex;
-  padding-inline: var(--base-size-16);
+  padding-inline: var(--ActionBar--nav-paddingInline);
   justify-content: flex-end;
   align-items: center;
 
@@ -82,14 +90,18 @@
 
 .Divider {
   &::before {
+    --ActionBar--divider-before-marginTop: calc((var(--actionbar-height) - var(--base-size-20)) / 2);
+    --ActionBar--divider-before-background: var(--borderColor-muted);
+    --ActionBar--divider-before-height: var(--base-size-20);
+    --ActionBar--divider-before-width: var(--borderWidth-thin);
     display: block;
-    width: var(--borderWidth-thin);
-    height: var(--base-size-20);
+    width: var(--ActionBar--divider-before-width);
+    height: var(--ActionBar--divider-before-height);
     content: '';
     /* stylelint-disable-next-line primer/colors */
-    background: var(--borderColor-muted);
+    background: var(--ActionBar--divider-before-background);
     /* stylelint-disable-next-line primer/spacing */
-    margin-top: calc((var(--actionbar-height) - var(--base-size-20)) / 2);
+    margin-top: var(--ActionBar--divider-before-marginTop);
   }
 }
 
@@ -109,10 +121,12 @@
   contain: layout;
 
   .OverflowSpacer {
-    height: var(--actionbar-height);
+    --ActionBar--overflowContainer-overflowSpacer-height: var(--actionbar-height);
+    height: var(--ActionBar--overflowContainer-overflowSpacer-height);
   }
 }
 
 .MoreButton {
-  display: var(--morebutton-display, none);
+  --ActionBar--moreButton-display: var(--morebutton-display, none);
+  display: var(--ActionBar--moreButton-display);
 }

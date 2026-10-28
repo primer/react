@@ -1,22 +1,31 @@
 @layer primer.components.IssueLabel {
   .IssueLabel {
+    --IssueLabel--paddingInline: var(--base-size-8);
+    --IssueLabel--boxShadow: var(--boxShadow-thin) transparent;
+    --IssueLabel--borderRadius: var(--borderRadius-full);
+    --IssueLabel--backgroundColor: var(--label-bgColor-rest);
+    --IssueLabel--color: var(--label-fgColor);
+    --IssueLabel--lineHeight: var(--text-body-lineHeight-small);
+    --IssueLabel--fontWeight: var(--base-text-weight-semibold);
+    --IssueLabel--fontSize: var(--text-body-size-small);
+    --IssueLabel--minHeight: var(--base-size-20);
     display: inline-flex;
-    min-height: var(--base-size-20);
-    font-size: var(--text-body-size-small);
-    font-weight: var(--base-text-weight-semibold);
-    line-height: var(--text-body-lineHeight-small);
+    min-height: var(--IssueLabel--minHeight);
+    font-size: var(--IssueLabel--fontSize);
+    font-weight: var(--IssueLabel--fontWeight);
+    line-height: var(--IssueLabel--lineHeight);
     /* stylelint-disable-next-line primer/colors */
-    color: var(--label-fgColor);
+    color: var(--IssueLabel--color);
     white-space: nowrap;
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--label-bgColor-rest);
+    background-color: var(--IssueLabel--backgroundColor);
     border: 0;
-    border-radius: var(--borderRadius-full);
+    border-radius: var(--IssueLabel--borderRadius);
 
     /* use color var for box-shadow (border) in future for high contrast themes */
-    box-shadow: var(--boxShadow-thin) transparent;
+    box-shadow: var(--IssueLabel--boxShadow);
     align-items: center;
-    padding-inline: var(--base-size-8);
+    padding-inline: var(--IssueLabel--paddingInline);
     padding-block: 0;
 
     /* stylelint-disable-next-line selector-max-type */
@@ -24,18 +33,22 @@
       text-decoration: none;
 
       &:hover {
+        --IssueLabel--button-a-backgroundColor-hover: var(--label-bgColor-hover);
+        --IssueLabel--button-a-color-hover: var(--label-fgColor-hover);
         /* stylelint-disable-next-line primer/colors */
-        color: var(--label-fgColor-hover);
+        color: var(--IssueLabel--button-a-color-hover);
         cursor: pointer;
         /* stylelint-disable-next-line primer/colors */
-        background-color: var(--label-bgColor-hover);
+        background-color: var(--IssueLabel--button-a-backgroundColor-hover);
       }
 
       &:active {
+        --IssueLabel--button-a-backgroundColor-active: var(--label-bgColor-active);
+        --IssueLabel--button-a-color-active: var(--label-fgColor-active);
         /* stylelint-disable-next-line primer/colors */
-        color: var(--label-fgColor-active);
+        color: var(--IssueLabel--button-a-color-active);
         /* stylelint-disable-next-line primer/colors */
-        background-color: var(--label-bgColor-active);
+        background-color: var(--IssueLabel--button-a-backgroundColor-active);
       }
 
       &:focus-visible {
@@ -44,232 +57,478 @@
     }
 
     &[data-variant='pink'] {
-      --label-bgColor-rest: var(--label-pink-bgColor-rest);
-      --label-bgColor-hover: var(--label-pink-bgColor-hover);
-      --label-bgColor-active: var(--label-pink-bgColor-active);
-      --label-fgColor: var(--label-pink-fgColor-rest);
-      --label-fgColor-hover: var(--label-pink-fgColor-hover);
-      --label-fgColor-active: var(--label-pink-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantPink: var(--label-pink-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantPink: var(--label-pink-fgColor-hover);
+      --IssueLabel--labelFgColor-variantPink: var(--label-pink-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantPink: var(--label-pink-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantPink: var(--label-pink-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantPink: var(--label-pink-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantPink);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantPink);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantPink);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantPink);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantPink);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantPink);
     }
 
     &[data-variant='plum'] {
-      --label-bgColor-rest: var(--label-plum-bgColor-rest);
-      --label-bgColor-hover: var(--label-plum-bgColor-hover);
-      --label-bgColor-active: var(--label-plum-bgColor-active);
-      --label-fgColor: var(--label-plum-fgColor-rest);
-      --label-fgColor-hover: var(--label-plum-fgColor-hover);
-      --label-fgColor-active: var(--label-plum-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantPlum: var(--label-plum-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantPlum: var(--label-plum-fgColor-hover);
+      --IssueLabel--labelFgColor-variantPlum: var(--label-plum-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantPlum: var(--label-plum-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantPlum: var(--label-plum-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantPlum: var(--label-plum-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantPlum);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantPlum);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantPlum);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantPlum);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantPlum);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantPlum);
     }
 
     &[data-variant='purple'] {
-      --label-bgColor-rest: var(--label-purple-bgColor-rest);
-      --label-bgColor-hover: var(--label-purple-bgColor-hover);
-      --label-bgColor-active: var(--label-purple-bgColor-active);
-      --label-fgColor: var(--label-purple-fgColor-rest);
-      --label-fgColor-hover: var(--label-purple-fgColor-hover);
-      --label-fgColor-active: var(--label-purple-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantPurple: var(--label-purple-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantPurple: var(--label-purple-fgColor-hover);
+      --IssueLabel--labelFgColor-variantPurple: var(--label-purple-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantPurple: var(--label-purple-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantPurple: var(--label-purple-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantPurple: var(--label-purple-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantPurple);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantPurple);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantPurple);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantPurple);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantPurple);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantPurple);
     }
 
     &[data-variant='indigo'] {
-      --label-bgColor-rest: var(--label-indigo-bgColor-rest);
-      --label-bgColor-hover: var(--label-indigo-bgColor-hover);
-      --label-bgColor-active: var(--label-indigo-bgColor-active);
-      --label-fgColor: var(--label-indigo-fgColor-rest);
-      --label-fgColor-hover: var(--label-indigo-fgColor-hover);
-      --label-fgColor-active: var(--label-indigo-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantIndigo: var(--label-indigo-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantIndigo: var(--label-indigo-fgColor-hover);
+      --IssueLabel--labelFgColor-variantIndigo: var(--label-indigo-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantIndigo: var(--label-indigo-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantIndigo: var(--label-indigo-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantIndigo: var(--label-indigo-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantIndigo);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantIndigo);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantIndigo);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantIndigo);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantIndigo);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantIndigo);
     }
 
     &[data-variant='blue'] {
-      --label-bgColor-rest: var(--label-blue-bgColor-rest);
-      --label-bgColor-hover: var(--label-blue-bgColor-hover);
-      --label-bgColor-active: var(--label-blue-bgColor-active);
-      --label-fgColor: var(--label-blue-fgColor-rest);
-      --label-fgColor-hover: var(--label-blue-fgColor-hover);
-      --label-fgColor-active: var(--label-blue-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantBlue: var(--label-blue-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantBlue: var(--label-blue-fgColor-hover);
+      --IssueLabel--labelFgColor-variantBlue: var(--label-blue-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantBlue: var(--label-blue-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantBlue: var(--label-blue-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantBlue: var(--label-blue-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantBlue);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantBlue);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantBlue);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantBlue);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantBlue);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantBlue);
     }
 
     &[data-variant='cyan'] {
-      --label-bgColor-rest: var(--label-cyan-bgColor-rest);
-      --label-bgColor-hover: var(--label-cyan-bgColor-hover);
-      --label-bgColor-active: var(--label-cyan-bgColor-active);
-      --label-fgColor: var(--label-cyan-fgColor-rest);
-      --label-fgColor-hover: var(--label-cyan-fgColor-hover);
-      --label-fgColor-active: var(--label-cyan-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantCyan: var(--label-cyan-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantCyan: var(--label-cyan-fgColor-hover);
+      --IssueLabel--labelFgColor-variantCyan: var(--label-cyan-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantCyan: var(--label-cyan-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantCyan: var(--label-cyan-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantCyan: var(--label-cyan-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantCyan);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantCyan);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantCyan);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantCyan);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantCyan);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantCyan);
     }
 
     &[data-variant='teal'] {
-      --label-bgColor-rest: var(--label-teal-bgColor-rest);
-      --label-bgColor-hover: var(--label-teal-bgColor-hover);
-      --label-bgColor-active: var(--label-teal-bgColor-active);
-      --label-fgColor: var(--label-teal-fgColor-rest);
-      --label-fgColor-hover: var(--label-teal-fgColor-hover);
-      --label-fgColor-active: var(--label-teal-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantTeal: var(--label-teal-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantTeal: var(--label-teal-fgColor-hover);
+      --IssueLabel--labelFgColor-variantTeal: var(--label-teal-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantTeal: var(--label-teal-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantTeal: var(--label-teal-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantTeal: var(--label-teal-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantTeal);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantTeal);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantTeal);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantTeal);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantTeal);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantTeal);
     }
 
     &[data-variant='pine'] {
-      --label-bgColor-rest: var(--label-pine-bgColor-rest);
-      --label-bgColor-hover: var(--label-pine-bgColor-hover);
-      --label-bgColor-active: var(--label-pine-bgColor-active);
-      --label-fgColor: var(--label-pine-fgColor-rest);
-      --label-fgColor-hover: var(--label-pine-fgColor-hover);
-      --label-fgColor-active: var(--label-pine-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantPine: var(--label-pine-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantPine: var(--label-pine-fgColor-hover);
+      --IssueLabel--labelFgColor-variantPine: var(--label-pine-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantPine: var(--label-pine-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantPine: var(--label-pine-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantPine: var(--label-pine-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantPine);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantPine);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantPine);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantPine);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantPine);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantPine);
     }
 
     &[data-variant='green'] {
-      --label-bgColor-rest: var(--label-green-bgColor-rest);
-      --label-bgColor-hover: var(--label-green-bgColor-hover);
-      --label-bgColor-active: var(--label-green-bgColor-active);
-      --label-fgColor: var(--label-green-fgColor-rest);
-      --label-fgColor-hover: var(--label-green-fgColor-hover);
-      --label-fgColor-active: var(--label-green-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantGreen: var(--label-green-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantGreen: var(--label-green-fgColor-hover);
+      --IssueLabel--labelFgColor-variantGreen: var(--label-green-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantGreen: var(--label-green-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantGreen: var(--label-green-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantGreen: var(--label-green-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantGreen);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantGreen);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantGreen);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantGreen);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantGreen);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantGreen);
     }
 
     &[data-variant='lime'] {
-      --label-bgColor-rest: var(--label-lime-bgColor-rest);
-      --label-bgColor-hover: var(--label-lime-bgColor-hover);
-      --label-bgColor-active: var(--label-lime-bgColor-active);
-      --label-fgColor: var(--label-lime-fgColor-rest);
-      --label-fgColor-hover: var(--label-lime-fgColor-hover);
-      --label-fgColor-active: var(--label-lime-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantLime: var(--label-lime-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantLime: var(--label-lime-fgColor-hover);
+      --IssueLabel--labelFgColor-variantLime: var(--label-lime-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantLime: var(--label-lime-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantLime: var(--label-lime-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantLime: var(--label-lime-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantLime);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantLime);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantLime);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantLime);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantLime);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantLime);
     }
 
     &[data-variant='olive'] {
-      --label-bgColor-rest: var(--label-olive-bgColor-rest);
-      --label-bgColor-hover: var(--label-olive-bgColor-hover);
-      --label-bgColor-active: var(--label-olive-bgColor-active);
-      --label-fgColor: var(--label-olive-fgColor-rest);
-      --label-fgColor-hover: var(--label-olive-fgColor-hover);
-      --label-fgColor-active: var(--label-olive-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantOlive: var(--label-olive-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantOlive: var(--label-olive-fgColor-hover);
+      --IssueLabel--labelFgColor-variantOlive: var(--label-olive-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantOlive: var(--label-olive-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantOlive: var(--label-olive-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantOlive: var(--label-olive-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantOlive);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantOlive);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantOlive);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantOlive);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantOlive);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantOlive);
     }
 
     &[data-variant='lemon'] {
-      --label-bgColor-rest: var(--label-lemon-bgColor-rest);
-      --label-bgColor-hover: var(--label-lemon-bgColor-hover);
-      --label-bgColor-active: var(--label-lemon-bgColor-active);
-      --label-fgColor: var(--label-lemon-fgColor-rest);
-      --label-fgColor-hover: var(--label-lemon-fgColor-hover);
-      --label-fgColor-active: var(--label-lemon-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantLemon: var(--label-lemon-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantLemon: var(--label-lemon-fgColor-hover);
+      --IssueLabel--labelFgColor-variantLemon: var(--label-lemon-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantLemon: var(--label-lemon-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantLemon: var(--label-lemon-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantLemon: var(--label-lemon-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantLemon);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantLemon);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantLemon);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantLemon);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantLemon);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantLemon);
     }
 
     &[data-variant='yellow'] {
-      --label-bgColor-rest: var(--label-yellow-bgColor-rest);
-      --label-bgColor-hover: var(--label-yellow-bgColor-hover);
-      --label-bgColor-active: var(--label-yellow-bgColor-active);
-      --label-fgColor: var(--label-yellow-fgColor-rest);
-      --label-fgColor-hover: var(--label-yellow-fgColor-hover);
-      --label-fgColor-active: var(--label-yellow-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantYellow: var(--label-yellow-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantYellow: var(--label-yellow-fgColor-hover);
+      --IssueLabel--labelFgColor-variantYellow: var(--label-yellow-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantYellow: var(--label-yellow-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantYellow: var(--label-yellow-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantYellow: var(--label-yellow-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantYellow);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantYellow);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantYellow);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantYellow);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantYellow);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantYellow);
     }
 
     &[data-variant='orange'] {
-      --label-bgColor-rest: var(--label-orange-bgColor-rest);
-      --label-bgColor-hover: var(--label-orange-bgColor-hover);
-      --label-bgColor-active: var(--label-orange-bgColor-active);
-      --label-fgColor: var(--label-orange-fgColor-rest);
-      --label-fgColor-hover: var(--label-orange-fgColor-hover);
-      --label-fgColor-active: var(--label-orange-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantOrange: var(--label-orange-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantOrange: var(--label-orange-fgColor-hover);
+      --IssueLabel--labelFgColor-variantOrange: var(--label-orange-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantOrange: var(--label-orange-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantOrange: var(--label-orange-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantOrange: var(--label-orange-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantOrange);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantOrange);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantOrange);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantOrange);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantOrange);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantOrange);
     }
 
     &[data-variant='red'] {
-      --label-bgColor-rest: var(--label-red-bgColor-rest);
-      --label-bgColor-hover: var(--label-red-bgColor-hover);
-      --label-bgColor-active: var(--label-red-bgColor-active);
-      --label-fgColor: var(--label-red-fgColor-rest);
-      --label-fgColor-hover: var(--label-red-fgColor-hover);
-      --label-fgColor-active: var(--label-red-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantRed: var(--label-red-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantRed: var(--label-red-fgColor-hover);
+      --IssueLabel--labelFgColor-variantRed: var(--label-red-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantRed: var(--label-red-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantRed: var(--label-red-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantRed: var(--label-red-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantRed);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantRed);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantRed);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantRed);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantRed);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantRed);
     }
 
     &[data-variant='coral'] {
-      --label-bgColor-rest: var(--label-coral-bgColor-rest);
-      --label-bgColor-hover: var(--label-coral-bgColor-hover);
-      --label-bgColor-active: var(--label-coral-bgColor-active);
-      --label-fgColor: var(--label-coral-fgColor-rest);
-      --label-fgColor-hover: var(--label-coral-fgColor-hover);
-      --label-fgColor-active: var(--label-coral-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantCoral: var(--label-coral-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantCoral: var(--label-coral-fgColor-hover);
+      --IssueLabel--labelFgColor-variantCoral: var(--label-coral-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantCoral: var(--label-coral-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantCoral: var(--label-coral-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantCoral: var(--label-coral-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantCoral);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantCoral);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantCoral);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantCoral);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantCoral);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantCoral);
     }
 
     &[data-variant='gray'] {
-      --label-bgColor-rest: var(--label-gray-bgColor-rest);
-      --label-bgColor-hover: var(--label-gray-bgColor-hover);
-      --label-bgColor-active: var(--label-gray-bgColor-active);
-      --label-fgColor: var(--label-gray-fgColor-rest);
-      --label-fgColor-hover: var(--label-gray-fgColor-hover);
-      --label-fgColor-active: var(--label-gray-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantGray: var(--label-gray-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantGray: var(--label-gray-fgColor-hover);
+      --IssueLabel--labelFgColor-variantGray: var(--label-gray-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantGray: var(--label-gray-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantGray: var(--label-gray-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantGray: var(--label-gray-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantGray);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantGray);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantGray);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantGray);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantGray);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantGray);
     }
 
     &[data-variant='brown'] {
-      --label-bgColor-rest: var(--label-brown-bgColor-rest);
-      --label-bgColor-hover: var(--label-brown-bgColor-hover);
-      --label-bgColor-active: var(--label-brown-bgColor-active);
-      --label-fgColor: var(--label-brown-fgColor-rest);
-      --label-fgColor-hover: var(--label-brown-fgColor-hover);
-      --label-fgColor-active: var(--label-brown-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantBrown: var(--label-brown-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantBrown: var(--label-brown-fgColor-hover);
+      --IssueLabel--labelFgColor-variantBrown: var(--label-brown-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantBrown: var(--label-brown-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantBrown: var(--label-brown-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantBrown: var(--label-brown-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantBrown);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantBrown);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantBrown);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantBrown);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantBrown);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantBrown);
     }
 
     &[data-variant='auburn'] {
-      --label-bgColor-rest: var(--label-auburn-bgColor-rest);
-      --label-bgColor-hover: var(--label-auburn-bgColor-hover);
-      --label-bgColor-active: var(--label-auburn-bgColor-active);
-      --label-fgColor: var(--label-auburn-fgColor-rest);
-      --label-fgColor-hover: var(--label-auburn-fgColor-hover);
-      --label-fgColor-active: var(--label-auburn-fgColor-active);
+      --IssueLabel--labelFgColorActive-variantAuburn: var(--label-auburn-fgColor-active);
+      --IssueLabel--labelFgColorHover-variantAuburn: var(--label-auburn-fgColor-hover);
+      --IssueLabel--labelFgColor-variantAuburn: var(--label-auburn-fgColor-rest);
+      --IssueLabel--labelBgColorActive-variantAuburn: var(--label-auburn-bgColor-active);
+      --IssueLabel--labelBgColorHover-variantAuburn: var(--label-auburn-bgColor-hover);
+      --IssueLabel--labelBgColorRest-variantAuburn: var(--label-auburn-bgColor-rest);
+      --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-variantAuburn);
+      --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-variantAuburn);
+      --label-bgColor-active: var(--IssueLabel--labelBgColorActive-variantAuburn);
+      --label-fgColor: var(--IssueLabel--labelFgColor-variantAuburn);
+      --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-variantAuburn);
+      --label-fgColor-active: var(--IssueLabel--labelFgColorActive-variantAuburn);
     }
   }
 
   [data-color-mode='dark'] .IssueLabel:not([data-variant]) {
-    --label-bgColor-rest: var(--label-bgColor-dark-rest);
-    --label-bgColor-hover: var(--label-bgColor-dark-hover);
-    --label-bgColor-active: var(--label-bgColor-dark-active);
-    --label-fgColor: var(--label-fgColor-dark);
-    --label-fgColor-hover: var(--label-fgColor-dark-hover);
-    --label-fgColor-active: var(--label-fgColor-dark-active);
+    --IssueLabel--labelFgColorActive-colorModeDark-not-variantPresent: var(--label-fgColor-dark-active);
+    --IssueLabel--labelFgColorHover-colorModeDark-not-variantPresent: var(--label-fgColor-dark-hover);
+    --IssueLabel--labelFgColor-colorModeDark-not-variantPresent: var(--label-fgColor-dark);
+    --IssueLabel--labelBgColorActive-colorModeDark-not-variantPresent: var(--label-bgColor-dark-active);
+    --IssueLabel--labelBgColorHover-colorModeDark-not-variantPresent: var(--label-bgColor-dark-hover);
+    --IssueLabel--labelBgColorRest-colorModeDark-not-variantPresent: var(--label-bgColor-dark-rest);
+    --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-colorModeDark-not-variantPresent);
+    --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-colorModeDark-not-variantPresent);
+    --label-bgColor-active: var(--IssueLabel--labelBgColorActive-colorModeDark-not-variantPresent);
+    --label-fgColor: var(--IssueLabel--labelFgColor-colorModeDark-not-variantPresent);
+    --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-colorModeDark-not-variantPresent);
+    --label-fgColor-active: var(--IssueLabel--labelFgColorActive-colorModeDark-not-variantPresent);
   }
 
   [data-color-mode='light'] .IssueLabel:not([data-variant]) {
-    --label-bgColor-rest: var(--label-bgColor-light-rest);
-    --label-bgColor-hover: var(--label-bgColor-light-hover);
-    --label-bgColor-active: var(--label-bgColor-light-active);
-    --label-fgColor: var(--label-fgColor-light);
-    --label-fgColor-hover: var(--label-fgColor-light-hover);
-    --label-fgColor-active: var(--label-fgColor-light-active);
+    --IssueLabel--labelFgColorActive-colorModeLight-not-variantPresent: var(--label-fgColor-light-active);
+    --IssueLabel--labelFgColorHover-colorModeLight-not-variantPresent: var(--label-fgColor-light-hover);
+    --IssueLabel--labelFgColor-colorModeLight-not-variantPresent: var(--label-fgColor-light);
+    --IssueLabel--labelBgColorActive-colorModeLight-not-variantPresent: var(--label-bgColor-light-active);
+    --IssueLabel--labelBgColorHover-colorModeLight-not-variantPresent: var(--label-bgColor-light-hover);
+    --IssueLabel--labelBgColorRest-colorModeLight-not-variantPresent: var(--label-bgColor-light-rest);
+    --label-bgColor-rest: var(--IssueLabel--labelBgColorRest-colorModeLight-not-variantPresent);
+    --label-bgColor-hover: var(--IssueLabel--labelBgColorHover-colorModeLight-not-variantPresent);
+    --label-bgColor-active: var(--IssueLabel--labelBgColorActive-colorModeLight-not-variantPresent);
+    --label-fgColor: var(--IssueLabel--labelFgColor-colorModeLight-not-variantPresent);
+    --label-fgColor-hover: var(--IssueLabel--labelFgColorHover-colorModeLight-not-variantPresent);
+    --label-fgColor-active: var(--IssueLabel--labelFgColorActive-colorModeLight-not-variantPresent);
   }
 
   @media (prefers-color-scheme: light) {
     [data-color-mode='auto'][data-light-theme*='light'] .IssueLabel:not([data-variant]) {
-      --label-bgColor-rest: var(--label-bgColor-light-rest);
-      --label-bgColor-hover: var(--label-bgColor-light-hover);
-      --label-bgColor-active: var(--label-bgColor-light-active);
-      --label-fgColor: var(--label-fgColor-light);
-      --label-fgColor-hover: var(--label-fgColor-light-hover);
-      --label-fgColor-active: var(--label-fgColor-light-active);
+      --IssueLabel--labelFgColorActive-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-fgColor-light-active
+      );
+      --IssueLabel--labelFgColorHover-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-fgColor-light-hover
+      );
+      --IssueLabel--labelFgColor-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-fgColor-light
+      );
+      --IssueLabel--labelBgColorActive-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-bgColor-light-active
+      );
+      --IssueLabel--labelBgColorHover-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-bgColor-light-hover
+      );
+      --IssueLabel--labelBgColorRest-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-bgColor-light-rest
+      );
+      --label-bgColor-rest: var(
+        --IssueLabel--labelBgColorRest-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-bgColor-hover: var(
+        --IssueLabel--labelBgColorHover-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-bgColor-active: var(
+        --IssueLabel--labelBgColorActive-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-fgColor: var(
+        --IssueLabel--labelFgColor-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-fgColor-hover: var(
+        --IssueLabel--labelFgColorHover-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-fgColor-active: var(
+        --IssueLabel--labelFgColorActive-colorModeAuto-lightThemeLight-not-variantPresent-mediaPrefersColorSchemeLight
+      );
     }
 
     [data-color-mode='auto'][data-light-theme*='dark'] .IssueLabel:not([data-variant]) {
-      --label-bgColor-rest: var(--label-bgColor-dark-rest);
-      --label-bgColor-hover: var(--label-bgColor-dark-hover);
-      --label-bgColor-active: var(--label-bgColor-dark-active);
-      --label-fgColor: var(--label-fgColor-dark);
-      --label-fgColor-hover: var(--label-fgColor-dark-hover);
-      --label-fgColor-active: var(--label-fgColor-dark-active);
+      --IssueLabel--labelFgColorActive-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-fgColor-dark-active
+      );
+      --IssueLabel--labelFgColorHover-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-fgColor-dark-hover
+      );
+      --IssueLabel--labelFgColor-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-fgColor-dark
+      );
+      --IssueLabel--labelBgColorActive-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-bgColor-dark-active
+      );
+      --IssueLabel--labelBgColorHover-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-bgColor-dark-hover
+      );
+      --IssueLabel--labelBgColorRest-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight: var(
+        --label-bgColor-dark-rest
+      );
+      --label-bgColor-rest: var(
+        --IssueLabel--labelBgColorRest-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-bgColor-hover: var(
+        --IssueLabel--labelBgColorHover-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-bgColor-active: var(
+        --IssueLabel--labelBgColorActive-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-fgColor: var(
+        --IssueLabel--labelFgColor-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-fgColor-hover: var(
+        --IssueLabel--labelFgColorHover-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight
+      );
+      --label-fgColor-active: var(
+        --IssueLabel--labelFgColorActive-colorModeAuto-lightThemeDark-not-variantPresent-mediaPrefersColorSchemeLight
+      );
     }
   }
 
   @media (prefers-color-scheme: dark) {
     [data-color-mode='auto'][data-dark-theme*='light'] .IssueLabel:not([data-variant]) {
-      --label-bgColor-rest: var(--label-bgColor-light-rest);
-      --label-bgColor-hover: var(--label-bgColor-light-hover);
-      --label-bgColor-active: var(--label-bgColor-light-active);
-      --label-fgColor: var(--label-fgColor-light);
-      --label-fgColor-hover: var(--label-fgColor-light-hover);
-      --label-fgColor-active: var(--label-fgColor-light-active);
+      --IssueLabel--labelFgColorActive-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-fgColor-light-active
+      );
+      --IssueLabel--labelFgColorHover-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-fgColor-light-hover
+      );
+      --IssueLabel--labelFgColor-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-fgColor-light
+      );
+      --IssueLabel--labelBgColorActive-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-bgColor-light-active
+      );
+      --IssueLabel--labelBgColorHover-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-bgColor-light-hover
+      );
+      --IssueLabel--labelBgColorRest-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-bgColor-light-rest
+      );
+      --label-bgColor-rest: var(
+        --IssueLabel--labelBgColorRest-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-bgColor-hover: var(
+        --IssueLabel--labelBgColorHover-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-bgColor-active: var(
+        --IssueLabel--labelBgColorActive-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-fgColor: var(
+        --IssueLabel--labelFgColor-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-fgColor-hover: var(
+        --IssueLabel--labelFgColorHover-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-fgColor-active: var(
+        --IssueLabel--labelFgColorActive-colorModeAuto-darkThemeLight-not-variantPresent-mediaPrefersColorSchemeDark
+      );
     }
 
     [data-color-mode='auto'][data-dark-theme*='dark'] .IssueLabel:not([data-variant]) {
-      --label-bgColor-rest: var(--label-bgColor-dark-rest);
-      --label-bgColor-hover: var(--label-bgColor-dark-hover);
-      --label-bgColor-active: var(--label-bgColor-dark-active);
-      --label-fgColor: var(--label-fgColor-dark);
-      --label-fgColor-hover: var(--label-fgColor-dark-hover);
-      --label-fgColor-active: var(--label-fgColor-dark-active);
+      --IssueLabel--labelFgColorActive-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-fgColor-dark-active
+      );
+      --IssueLabel--labelFgColorHover-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-fgColor-dark-hover
+      );
+      --IssueLabel--labelFgColor-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-fgColor-dark
+      );
+      --IssueLabel--labelBgColorActive-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-bgColor-dark-active
+      );
+      --IssueLabel--labelBgColorHover-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-bgColor-dark-hover
+      );
+      --IssueLabel--labelBgColorRest-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark: var(
+        --label-bgColor-dark-rest
+      );
+      --label-bgColor-rest: var(
+        --IssueLabel--labelBgColorRest-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-bgColor-hover: var(
+        --IssueLabel--labelBgColorHover-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-bgColor-active: var(
+        --IssueLabel--labelBgColorActive-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-fgColor: var(
+        --IssueLabel--labelFgColor-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-fgColor-hover: var(
+        --IssueLabel--labelFgColorHover-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark
+      );
+      --label-fgColor-active: var(
+        --IssueLabel--labelFgColorActive-colorModeAuto-darkThemeDark-not-variantPresent-mediaPrefersColorSchemeDark
+      );
     }
   }
 }

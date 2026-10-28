@@ -4,16 +4,28 @@
 
   & summary,
   & > button {
+    --DeprecatedFilteredSearch--filteredSearch-summary-child-button-borderBottomLeftRadius: var(--borderRadius-medium);
+    --DeprecatedFilteredSearch--filteredSearch-summary-child-button-borderTopLeftRadius: var(--borderRadius-medium);
     border-radius: 0;
-    border-top-left-radius: var(--borderRadius-medium);
-    border-bottom-left-radius: var(--borderRadius-medium);
+    border-top-left-radius: var(--DeprecatedFilteredSearch--filteredSearch-summary-child-button-borderTopLeftRadius);
+    border-bottom-left-radius: var(
+      --DeprecatedFilteredSearch--filteredSearch-summary-child-button-borderBottomLeftRadius
+    );
     border-right: 0;
   }
 
   /* stylelint-disable-next-line selector-class-pattern */
   & :global(.TextInput-wrapper) {
+    --DeprecatedFilteredSearch--filteredSearch-textInputWrapper-borderBottomRightRadius-global: var(
+      --borderRadius-medium
+    );
+    --DeprecatedFilteredSearch--filteredSearch-textInputWrapper-borderTopRightRadius-global: var(--borderRadius-medium);
     border-radius: 0;
-    border-top-right-radius: var(--borderRadius-medium);
-    border-bottom-right-radius: var(--borderRadius-medium);
+    border-top-right-radius: var(
+      --DeprecatedFilteredSearch--filteredSearch-textInputWrapper-borderTopRightRadius-global
+    );
+    border-bottom-right-radius: var(
+      --DeprecatedFilteredSearch--filteredSearch-textInputWrapper-borderBottomRightRadius-global
+    );
   }
 }

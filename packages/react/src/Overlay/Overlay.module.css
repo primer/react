@@ -9,6 +9,14 @@
 }
 
 .Overlay {
+  --Overlay--bgColor: var(--overlay-bgColor);
+  --Overlay--borderRadius: var(--borderRadius-large);
+  --Overlay--boxShadow: var(--shadow-floating-small);
+  --Overlay--right: var(--right, auto);
+  --Overlay--bottom: var(--bottom, auto);
+  --Overlay--top: var(--top, auto);
+  --Overlay--left: var(--left, auto);
+
   position: absolute;
   max-width: calc(100vw - 2rem);
   width: auto;
@@ -16,16 +24,19 @@
   height: auto;
   max-height: 100vh;
   overflow: auto;
-  background-color: var(--overlay-bgColor);
-  border-radius: var(--borderRadius-large);
-  box-shadow: var(--shadow-floating-small);
+  /* stylelint-disable-next-line primer/colors */
+  background-color: var(--Overlay--bgColor);
+  /* stylelint-disable-next-line primer/borders */
+  border-radius: var(--Overlay--borderRadius);
+  /* stylelint-disable-next-line primer/box-shadow */
+  box-shadow: var(--Overlay--boxShadow);
 
   &[data-anchor-position='false'],
   &:not([data-anchor-position]):not([data-variant='modal']) {
     /* stylelint-disable-next-line primer/spacing */
-    right: var(--right, auto);
+    right: var(--Overlay--right);
     /* stylelint-disable-next-line primer/spacing */
-    bottom: var(--bottom, auto);
+    bottom: var(--Overlay--bottom);
 
     /* stylelint-disable-next-line selector-max-specificity */
     &[data-responsive='fullscreen']:not([data-variant]) {
@@ -37,9 +48,9 @@
 
     &:not([data-variant]) {
       /* stylelint-disable-next-line primer/spacing */
-      top: var(--top, auto);
+      top: var(--Overlay--top);
       /* stylelint-disable-next-line primer/spacing */
-      left: var(--left, auto);
+      left: var(--Overlay--left);
     }
   }
 

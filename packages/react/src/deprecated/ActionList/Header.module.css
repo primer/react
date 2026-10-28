@@ -1,22 +1,31 @@
 .Header {
+  --DeprecatedActionList--header-color: var(--fgColor-muted);
+  --DeprecatedActionList--header-fontWeight: var(--text-title-weight-large);
+  --DeprecatedActionList--header-fontSize: var(--text-body-size-small);
+  --DeprecatedActionList--header-padding: 6px var(--base-size-16);
   /* 6px vertical padding + 20px line height = 32px total height
    *
    * TODO: When rem-based spacing on a 4px scale lands, replace
    * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
    */
   /* stylelint-disable-next-line primer/spacing */
-  padding: 6px var(--base-size-16);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--text-title-weight-large);
-  color: var(--fgColor-muted);
+  padding: var(--DeprecatedActionList--header-padding);
+  font-size: var(--DeprecatedActionList--header-fontSize);
+  font-weight: var(--DeprecatedActionList--header-fontWeight);
+  color: var(--DeprecatedActionList--header-color);
 
   &:where([data-filled]) {
-    background: var(--bgColor-muted);
-    margin: var(--base-size-8) 0;
+    --DeprecatedActionList--header-borderBottom-filledPresent: var(--borderWidth-thin) solid
+      var(--bgColor-neutral-muted);
+    --DeprecatedActionList--header-borderTop-filledPresent: var(--borderWidth-thin) solid var(--bgColor-neutral-muted);
+    --DeprecatedActionList--header-margin-filledPresent: var(--base-size-8) 0;
+    --DeprecatedActionList--header-background-filledPresent: var(--bgColor-muted);
+    background: var(--DeprecatedActionList--header-background-filledPresent);
+    margin: var(--DeprecatedActionList--header-margin-filledPresent);
     /* stylelint-disable-next-line primer/colors */
-    border-top: var(--borderWidth-thin) solid var(--bgColor-neutral-muted);
+    border-top: var(--DeprecatedActionList--header-borderTop-filledPresent);
     /* stylelint-disable-next-line primer/colors */
-    border-bottom: var(--borderWidth-thin) solid var(--bgColor-neutral-muted);
+    border-bottom: var(--DeprecatedActionList--header-borderBottom-filledPresent);
 
     &:first-child {
       margin-top: 0;

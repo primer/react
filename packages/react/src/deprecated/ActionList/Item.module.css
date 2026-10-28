@@ -9,44 +9,59 @@
 }
 
 .MainContent {
+  --DeprecatedActionList--item-mainContent-flexDirection: var(--main-content-flex-direction);
   align-items: baseline;
   display: flex;
   min-width: 0;
-  flex-direction: var(--main-content-flex-direction);
+  flex-direction: var(--DeprecatedActionList--item-mainContent-flexDirection);
   flex-grow: 1;
 }
 
 .Item {
+  --DeprecatedActionList--item-color: var(--fgColor-default);
+  --DeprecatedActionList--item-borderRadius: var(--borderRadius-medium);
+  --DeprecatedActionList--item-padding: 6px var(--base-size-8);
   /* 6px vertical padding + 20px line height = 32px total height */
   /* stylelint-disable-next-line primer/spacing */
-  padding: 6px var(--base-size-8);
+  padding: var(--DeprecatedActionList--item-padding);
   display: flex;
-  border-radius: var(--borderRadius-medium);
-  color: var(--fgColor-default);
+  border-radius: var(--DeprecatedActionList--item-borderRadius);
+  color: var(--DeprecatedActionList--item-color);
   /* 2 frames on a 60hz monitor */
   transition: background 33.333ms linear;
   text-decoration: none;
 }
 
 .Item--danger {
-  color: var(--fgColor-danger);
+  --DeprecatedActionList--item-itemDanger-color: var(--fgColor-danger);
+  color: var(--DeprecatedActionList--item-itemDanger-color);
 }
 
 .Item--disabled {
-  color: var(--fgColor-disabled);
+  --DeprecatedActionList--item-itemDisabled-color: var(--fgColor-disabled);
+  color: var(--DeprecatedActionList--item-itemDisabled-color);
   cursor: default;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .Item:hover {
+    --DeprecatedActionList--item-background-hover-mediaHoverHoverAndPointerFine: var(
+      --item-hover-bg-override,
+      var(--bgColor-muted)
+    );
     /* allow override in case another item in the list is active/focused */
-    background: var(--item-hover-bg-override, var(--bgColor-muted));
+    background: var(--DeprecatedActionList--item-background-hover-mediaHoverHoverAndPointerFine);
     cursor: pointer;
   }
 
   .Item--danger:hover {
-    background: var(--item-hover-bg-override, var(--bgColor-danger-muted));
-    color: var(--fgColor-danger);
+    --DeprecatedActionList--item-itemDanger-color-hover-mediaHoverHoverAndPointerFine: var(--fgColor-danger);
+    --DeprecatedActionList--item-itemDanger-background-hover-mediaHoverHoverAndPointerFine: var(
+      --item-hover-bg-override,
+      var(--bgColor-danger-muted)
+    );
+    background: var(--DeprecatedActionList--item-itemDanger-background-hover-mediaHoverHoverAndPointerFine);
+    color: var(--DeprecatedActionList--item-itemDanger-color-hover-mediaHoverHoverAndPointerFine);
   }
 
   .Item--disabled:hover {
@@ -68,13 +83,17 @@
 /* stylelint-disable-next-line selector-max-compound-selectors */
 .Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *)
   .DividedContent::before {
+  --DeprecatedActionList--item-next-dividedContent-before-border-not-firstOfType-componentActionListDivider-componentActionListHeader: 0
+    solid var(--borderColor-muted);
   content: ' ';
   display: block;
   position: absolute;
   width: 100%;
   /* stylelint-disable-next-line primer/spacing */
   top: -7px;
-  border: 0 solid var(--borderColor-muted);
+  border: var(
+    --DeprecatedActionList--item-next-dividedContent-before-border-not-firstOfType-componentActionListDivider-componentActionListHeader
+  );
   border-top-width: 0;
 }
 
@@ -88,9 +107,13 @@
 /* Item dividers should not be visible above/below hovered items */
 .Item:hover .DividedContent::before,
 :hover + .Item .DividedContent::before {
+  --DeprecatedActionList--item-dividedContent-before-next-borderColor-hover: var(
+    --item-hover-divider-border-color-override,
+    transparent
+  );
   /* allow override in case another item in the list is active/focused */
   /* stylelint-disable-next-line primer/colors */
-  border-color: var(--item-hover-divider-border-color-override, transparent) !important;
+  border-color: var(--DeprecatedActionList--item-dividedContent-before-next-borderColor-hover) !important;
 }
 
 /* Item dividers should not be visible above/below focused items */
@@ -104,20 +127,24 @@
 
 /* Active Descendant */
 .Item[data-is-active-descendant='activated-directly'] {
-  background: var(--bgColor-accent-muted);
+  --DeprecatedActionList--item-background-isActiveDescendantActivatedDirectly: var(--bgColor-accent-muted);
+  background: var(--DeprecatedActionList--item-background-isActiveDescendantActivatedDirectly);
 }
 
 .Item[data-is-active-descendant='activated-indirectly'] {
-  background: var(--bgColor-muted);
+  --DeprecatedActionList--item-background-isActiveDescendantActivatedIndirectly: var(--bgColor-muted);
+  background: var(--DeprecatedActionList--item-background-isActiveDescendantActivatedIndirectly);
 }
 
 .Item:focus {
-  background: var(--bgColor-accent-muted);
+  --DeprecatedActionList--item-background-focus: var(--bgColor-accent-muted);
+  background: var(--DeprecatedActionList--item-background-focus);
   outline: none;
 }
 
 .Item:active {
-  background: var(--bgColor-accent-muted);
+  --DeprecatedActionList--item-background-active: var(--bgColor-accent-muted);
+  background: var(--DeprecatedActionList--item-background-active);
 }
 
 .MainContent--inline {
@@ -129,10 +156,12 @@
 }
 
 .BaseVisualContainer {
+  --DeprecatedActionList--item-baseVisualContainer-marginRight: var(--base-size-8);
+  --DeprecatedActionList--item-baseVisualContainer-width: var(--base-size-16);
   /* Match visual height to adjacent text line height. */
   height: 20px;
-  width: var(--base-size-16);
-  margin-right: var(--base-size-8);
+  width: var(--DeprecatedActionList--item-baseVisualContainer-width);
+  margin-right: var(--DeprecatedActionList--item-baseVisualContainer-marginRight);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,10 +169,12 @@
 }
 
 .LeadingVisualContainer {
+  --DeprecatedActionList--item-leadingVisualContainer-marginRight: var(--base-size-8);
+  --DeprecatedActionList--item-leadingVisualContainer-width: var(--base-size-16);
   /* Match visual height to adjacent text line height. */
   height: 20px;
-  width: var(--base-size-16);
-  margin-right: var(--base-size-8);
+  width: var(--DeprecatedActionList--item-leadingVisualContainer-width);
+  margin-right: var(--DeprecatedActionList--item-leadingVisualContainer-marginRight);
   align-items: center;
   flex-shrink: 0;
   display: flex;
@@ -152,24 +183,30 @@
 }
 
 .LeadingVisualContainer svg {
-  fill: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
+  --DeprecatedActionList--item-leadingVisualContainer-svg-fontSize: var(--text-body-size-small);
+  --DeprecatedActionList--item-leadingVisualContainer-svg-fill: var(--fgColor-muted);
+  fill: var(--DeprecatedActionList--item-leadingVisualContainer-svg-fill);
+  font-size: var(--DeprecatedActionList--item-leadingVisualContainer-svg-fontSize);
 }
 
 .LeadingVisualContainer:where([data-variant='danger']) svg {
-  fill: var(--fgColor-danger);
+  --DeprecatedActionList--item-leadingVisualContainer-svg-fill-variantDanger: var(--fgColor-danger);
+  fill: var(--DeprecatedActionList--item-leadingVisualContainer-svg-fill-variantDanger);
 }
 
 .LeadingVisualContainer:where([data-disabled]) svg {
-  fill: var(--fgColor-disabled);
+  --DeprecatedActionList--item-leadingVisualContainer-svg-fill-disabledPresent: var(--fgColor-disabled);
+  fill: var(--DeprecatedActionList--item-leadingVisualContainer-svg-fill-disabledPresent);
 }
 
 .TrailingContent {
+  --DeprecatedActionList--item-trailingContent-marginLeft: var(--base-size-8);
+  --DeprecatedActionList--item-trailingContent-color: var(--fgColor-muted);
   /* Match visual height to adjacent text line height. */
-  color: var(--fgColor-muted);
+  color: var(--DeprecatedActionList--item-trailingContent-color);
   height: 20px;
   width: auto;
-  margin-left: var(--base-size-8);
+  margin-left: var(--DeprecatedActionList--item-trailingContent-marginLeft);
   margin-right: 0;
   display: flex;
   justify-content: center;
@@ -178,61 +215,79 @@
 }
 
 .TrailingContent:where([data-variant='danger']) {
-  color: var(--fgColor-muted);
+  --DeprecatedActionList--item-trailingContent-color-variantDanger: var(--fgColor-muted);
+  color: var(--DeprecatedActionList--item-trailingContent-color-variantDanger);
 }
 
 .TrailingContent:where([data-disabled]) {
-  color: var(--fgColor-disabled);
+  --DeprecatedActionList--item-trailingContent-color-disabledPresent: var(--fgColor-disabled);
+  color: var(--DeprecatedActionList--item-trailingContent-color-disabledPresent);
 }
 
 .TrailingContent div:nth-child(2) {
-  margin-left: var(--base-size-8);
+  --DeprecatedActionList--item-trailingContent-div-2-marginLeft-nthChild: var(--base-size-8);
+  margin-left: var(--DeprecatedActionList--item-trailingContent-div-2-marginLeft-nthChild);
 }
 
 .TrailingContent svg {
-  fill: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
+  --DeprecatedActionList--item-trailingContent-svg-fontSize: var(--text-body-size-small);
+  --DeprecatedActionList--item-trailingContent-svg-fill: var(--fgColor-muted);
+  fill: var(--DeprecatedActionList--item-trailingContent-svg-fill);
+  font-size: var(--DeprecatedActionList--item-trailingContent-svg-fontSize);
 }
 
 .TrailingContent:where([data-variant='danger']) svg {
-  fill: var(--fgColor-danger);
+  --DeprecatedActionList--item-trailingContent-svg-fill-variantDanger: var(--fgColor-danger);
+  fill: var(--DeprecatedActionList--item-trailingContent-svg-fill-variantDanger);
 }
 
 .TrailingContent:where([data-disabled]) svg {
-  fill: var(--fgColor-disabled);
+  --DeprecatedActionList--item-trailingContent-svg-fill-disabledPresent: var(--fgColor-disabled);
+  fill: var(--DeprecatedActionList--item-trailingContent-svg-fill-disabledPresent);
 }
 
 .DescriptionContainer {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
+  --DeprecatedActionList--item-descriptionContainer-flexBasis: var(--description-container-flex-basis);
+  --DeprecatedActionList--item-descriptionContainer-marginLeft: var(--description-container-margin-left);
+  --DeprecatedActionList--item-descriptionContainer-fontSize: var(--text-body-size-small);
+  --DeprecatedActionList--item-descriptionContainer-color: var(--fgColor-muted);
+  color: var(--DeprecatedActionList--item-descriptionContainer-color);
+  font-size: var(--DeprecatedActionList--item-descriptionContainer-fontSize);
   /* stylelint-disable-next-line primer/typography */
   line-height: 16px;
   min-width: 0;
   flex-grow: 1;
   /* stylelint-disable-next-line primer/spacing */
-  margin-left: var(--description-container-margin-left);
-  flex-basis: var(--description-container-flex-basis);
+  margin-left: var(--DeprecatedActionList--item-descriptionContainer-marginLeft);
+  flex-basis: var(--DeprecatedActionList--item-descriptionContainer-flexBasis);
 }
 
 .MultiSelectIcon {
-  color: var(--fgColor-muted);
+  --DeprecatedActionList--item-multiSelectIcon-color: var(--fgColor-muted);
+  color: var(--DeprecatedActionList--item-multiSelectIcon-color);
 }
 
 .MultiSelectIcon rect {
-  fill: var(--bgColor-default);
-  stroke: var(--borderColor-default);
+  --DeprecatedActionList--item-multiSelectIcon-rect-stroke: var(--borderColor-default);
+  --DeprecatedActionList--item-multiSelectIcon-rect-fill: var(--bgColor-default);
+  fill: var(--DeprecatedActionList--item-multiSelectIcon-rect-fill);
+  stroke: var(--DeprecatedActionList--item-multiSelectIcon-rect-stroke);
   shape-rendering: auto; /* this is a workaround to override global style in github/github, see primer/react#1666 */
 }
 
 .MultiSelectIcon path {
-  fill: var(--fgColor-onEmphasis);
-  box-shadow: var(--shadow-resting-small);
+  --DeprecatedActionList--item-multiSelectIcon-path-boxShadow: var(--shadow-resting-small);
+  --DeprecatedActionList--item-multiSelectIcon-path-fill: var(--fgColor-onEmphasis);
+  fill: var(--DeprecatedActionList--item-multiSelectIcon-path-fill);
+  box-shadow: var(--DeprecatedActionList--item-multiSelectIcon-path-boxShadow);
   opacity: 0;
 }
 
 .MultiSelectIcon:where([data-selected]) rect {
-  fill: var(--bgColor-accent-emphasis);
-  stroke: var(--bgColor-accent-emphasis);
+  --DeprecatedActionList--item-multiSelectIcon-rect-stroke-selectedPresent: var(--bgColor-accent-emphasis);
+  --DeprecatedActionList--item-multiSelectIcon-rect-fill-selectedPresent: var(--bgColor-accent-emphasis);
+  fill: var(--DeprecatedActionList--item-multiSelectIcon-rect-fill-selectedPresent);
+  stroke: var(--DeprecatedActionList--item-multiSelectIcon-rect-stroke-selectedPresent);
 }
 
 .MultiSelectIcon:where([data-selected]) path {
@@ -244,7 +299,12 @@
     [data-component='ActionList.Header'] + .Item
   )
   .DividedContent::before {
-  border-top-width: var(--borderWidth-thin);
+  --DeprecatedActionList--item-next-dividedContent-before-borderTopWidth-dividerPresent-not-firstOfType-componentActionListDivider-componentActionListHeader: var(
+    --borderWidth-thin
+  );
+  border-top-width: var(
+    --DeprecatedActionList--item-next-dividedContent-before-borderTopWidth-dividerPresent-not-firstOfType-componentActionListDivider-componentActionListHeader
+  );
 }
 
 .Item[data-divider]:not(:first-of-type):not([data-component='ActionList.Divider'] + .Item):not(

@@ -1,5 +1,6 @@
 /* Container ---------------------------------------------------------------- */
 .TableContainer {
+  --DataTable--table-tableContainer-columnGap: var(--base-size-8);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
@@ -9,35 +10,43 @@
     'filter filter'
     'table table'
     'footer footer';
-  column-gap: var(--base-size-8);
+  column-gap: var(--DataTable--table-tableContainer-columnGap);
 }
 
 /* TableTitle */
 .TableTitle {
+  --DataTable--table-tableTitle-color: var(--fgColor-default);
+  --DataTable--table-tableTitle-fontWeight: var(--base-text-weight-semibold);
+  --DataTable--table-tableTitle-fontSize: var(--text-body-size-medium);
   margin: 0;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--DataTable--table-tableTitle-fontSize);
+  font-weight: var(--DataTable--table-tableTitle-fontWeight);
   /* stylelint-disable-next-line primer/typography */
   line-height: 20px;
-  color: var(--fgColor-default);
+  color: var(--DataTable--table-tableTitle-color);
   grid-area: title;
   align-self: center;
 }
 
 /* TableSubtitle */
 .TableSubtitle {
+  --DataTable--table-tableSubtitle-color: var(--fgColor-default);
+  --DataTable--table-tableSubtitle-lineHeight: var(--text-title-lineHeight-small);
+  --DataTable--table-tableSubtitle-fontWeight: var(--base-text-weight-normal);
+  --DataTable--table-tableSubtitle-fontSize: var(--text-body-size-small);
   margin: 0;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-title-lineHeight-small);
-  color: var(--fgColor-default);
+  font-size: var(--DataTable--table-tableSubtitle-fontSize);
+  font-weight: var(--DataTable--table-tableSubtitle-fontWeight);
+  line-height: var(--DataTable--table-tableSubtitle-lineHeight);
+  color: var(--DataTable--table-tableSubtitle-color);
   grid-area: subtitle;
 }
 
 /* TableActions */
 .TableActions {
+  --DataTable--table-tableActions-columnGap: var(--base-size-8);
   display: flex;
-  column-gap: var(--base-size-8);
+  column-gap: var(--DataTable--table-tableActions-columnGap);
   align-items: center;
   grid-area: actions;
   justify-self: end;
@@ -45,20 +54,28 @@
 
 /* TableDivider */
 .TableDivider {
+  --DataTable--table-tableDivider-marginBlockEnd: var(--base-size-8);
+  --DataTable--table-tableDivider-marginBlockStart: var(--base-size-16);
+  --DataTable--table-tableDivider-backgroundColor: var(--borderColor-default);
   width: 100%;
   height: 1px;
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--borderColor-default);
+  background-color: var(--DataTable--table-tableDivider-backgroundColor);
   grid-area: divider;
-  margin-block-start: var(--base-size-16);
-  margin-block-end: var(--base-size-8);
+  margin-block-start: var(--DataTable--table-tableDivider-marginBlockStart);
+  margin-block-end: var(--DataTable--table-tableDivider-marginBlockEnd);
 }
 
 /* Spacing before the table */
 .TableTitle + .TableOverflowWrapper,
 .TableSubtitle + .TableOverflowWrapper,
 .TableActions + .TableOverflowWrapper {
-  margin-block-start: var(--base-size-8);
+  --DataTable--table-tableTitle-next-tableOverflowWrapper-tableSubtitle-tableActions-marginBlockStart: var(
+    --base-size-8
+  );
+  margin-block-start: var(
+    --DataTable--table-tableTitle-next-tableOverflowWrapper-tableSubtitle-tableActions-marginBlockStart
+  );
 }
 
 .TableOverflowWrapper {
@@ -67,23 +84,27 @@
 
 /* Table -------------------------------------------------------------------- */
 .Table {
+  --DataTable--table-gridTemplateColumns: var(--grid-template-columns);
+  --DataTable--table-backgroundColor: var(--bgColor-default);
+  --DataTable--table-fontSize: var(--table-font-size);
+  --DataTable--table-tableCellPadding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
   /* Default table styles */
   --table-border-radius: 0.375rem;
-  --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
+  --table-cell-padding: var(--DataTable--table-tableCellPadding);
   --table-font-size: 0.75rem;
 
   display: grid;
   width: 100%;
   /* stylelint-disable-next-line primer/typography */
-  font-size: var(--table-font-size);
+  font-size: var(--DataTable--table-fontSize);
   /* stylelint-disable-next-line primer/typography */
   line-height: calc(20 / 12);
   border-spacing: 0;
   /* stylelint-disable-next-line primer/borders */
   border-collapse: separate;
-  background-color: var(--bgColor-default);
+  background-color: var(--DataTable--table-backgroundColor);
   grid-area: table;
-  grid-template-columns: var(--grid-template-columns);
+  grid-template-columns: var(--DataTable--table-gridTemplateColumns);
 
   /* Density modes: condensed, normal, spacious */
   &:where([data-cell-padding='condensed']) {
@@ -105,22 +126,28 @@
 /* Borders */
 .TableCell:first-child,
 .TableHeader:first-child {
-  border-inline-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableCell-tableHeader-borderInlineStart-firstChild: var(--borderWidth-thin) solid
+    var(--borderColor-default);
+  border-inline-start: var(--DataTable--table-tableCell-tableHeader-borderInlineStart-firstChild);
 }
 
 .TableCell:last-child,
 .TableHeader:last-child {
-  border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableCell-tableHeader-borderInlineEnd-lastChild: var(--borderWidth-thin) solid
+    var(--borderColor-default);
+  border-inline-end: var(--DataTable--table-tableCell-tableHeader-borderInlineEnd-lastChild);
 }
 
 .TableHeader,
 .TableCell {
+  --DataTable--table-tableHeader-tableCell-borderBlockEnd: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableHeader-tableCell-padding: var(--table-cell-padding);
   display: flex;
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--table-cell-padding);
+  padding: var(--DataTable--table-tableHeader-tableCell-padding);
   text-align: start;
   align-items: center;
-  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-block-end: var(--DataTable--table-tableHeader-tableCell-borderBlockEnd);
 }
 
 .TableHeader:where([data-cell-align='end']),
@@ -136,32 +163,54 @@
 }
 
 .TableHead .TableRow:first-of-type .TableHeader {
-  border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableHead-tableRow-tableHeader-borderBlockStart-firstOfType: var(--borderWidth-thin) solid
+    var(--borderColor-default);
+  border-block-start: var(--DataTable--table-tableHead-tableRow-tableHeader-borderBlockStart-firstOfType);
 }
 
 /* Border radius */
 /* stylelint-disable-next-line selector-max-specificity */
 .TableHead .TableRow:first-of-type .TableHeader:first-child {
+  --DataTable--table-tableHead-tableRow-tableHeader-borderTopLeftRadius-firstOfType-firstChild: var(
+    --table-border-radius
+  );
   /* stylelint-disable-next-line primer/borders */
-  border-top-left-radius: var(--table-border-radius);
+  border-top-left-radius: var(
+    --DataTable--table-tableHead-tableRow-tableHeader-borderTopLeftRadius-firstOfType-firstChild
+  );
 }
 
 /* stylelint-disable-next-line selector-max-specificity */
 .TableHead .TableRow:first-of-type .TableHeader:last-child {
+  --DataTable--table-tableHead-tableRow-tableHeader-borderTopRightRadius-firstOfType-lastChild: var(
+    --table-border-radius
+  );
   /* stylelint-disable-next-line primer/borders */
-  border-top-right-radius: var(--table-border-radius);
+  border-top-right-radius: var(
+    --DataTable--table-tableHead-tableRow-tableHeader-borderTopRightRadius-firstOfType-lastChild
+  );
 }
 
 /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
 .TableOverflowWrapper:last-child .Table .TableBody:last-of-type .TableRow:last-of-type .TableCell:first-child {
+  --DataTable--table-tableOverflowWrapper-tableBody-tableRow-tableCell-borderBottomLeftRadius-lastChild-lastOfType-firstChild: var(
+    --table-border-radius
+  );
   /* stylelint-disable-next-line primer/borders */
-  border-bottom-left-radius: var(--table-border-radius);
+  border-bottom-left-radius: var(
+    --DataTable--table-tableOverflowWrapper-tableBody-tableRow-tableCell-borderBottomLeftRadius-lastChild-lastOfType-firstChild
+  );
 }
 
 /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
 .TableOverflowWrapper:last-child .Table .TableBody:last-of-type .TableRow:last-of-type .TableCell:last-child {
+  --DataTable--table-tableOverflowWrapper-tableBody-tableRow-tableCell-borderBottomRightRadius-lastChild-lastOfType: var(
+    --table-border-radius
+  );
   /* stylelint-disable-next-line primer/borders */
-  border-bottom-right-radius: var(--table-border-radius);
+  border-bottom-right-radius: var(
+    --DataTable--table-tableOverflowWrapper-tableBody-tableRow-tableCell-borderBottomRightRadius-lastChild-lastOfType
+  );
 }
 
 /* stylelint-disable selector-pseudo-class-disallowed-list, selector-max-compound-selectors -- scoped to a group header and its adjacent member body */
@@ -181,25 +230,40 @@
  */
 .TableRow > *:first-child:not(.TableCellSkeleton),
 .TableRow > *:first-child .TableCellSkeletonItem {
-  padding-inline-start: var(--base-size-16);
+  --DataTable--table-tableRow-child-tableCellSkeleton-tableCellSkeletonItem-paddingInlineStart-firstChild-not: var(
+    --base-size-16
+  );
+  padding-inline-start: var(
+    --DataTable--table-tableRow-child-tableCellSkeleton-tableCellSkeletonItem-paddingInlineStart-firstChild-not
+  );
 }
 
 .TableRow > *:last-child:not(.TableCellSkeleton),
 .TableRow > *:last-child .TableCellSkeletonItem {
-  padding-inline-end: var(--base-size-16);
+  --DataTable--table-tableRow-child-tableCellSkeleton-tableCellSkeletonItem-paddingInlineEnd-lastChild-not: var(
+    --base-size-16
+  );
+  padding-inline-end: var(
+    --DataTable--table-tableRow-child-tableCellSkeleton-tableCellSkeletonItem-paddingInlineEnd-lastChild-not
+  );
 }
 
 /* TableHeader */
 .TableHeader {
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
-  background-color: var(--bgColor-muted);
-  border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableHeader-borderBlockStart: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableHeader-backgroundColor: var(--bgColor-muted);
+  --DataTable--table-tableHeader-color: var(--fgColor-muted);
+  --DataTable--table-tableHeader-fontWeight: var(--base-text-weight-semibold);
+  font-weight: var(--DataTable--table-tableHeader-fontWeight);
+  color: var(--DataTable--table-tableHeader-color);
+  background-color: var(--DataTable--table-tableHeader-backgroundColor);
+  border-block-start: var(--DataTable--table-tableHeader-borderBlockStart);
 }
 
 .TableHeader:where([aria-sort='descending']),
 .TableHeader:where([aria-sort='ascending']) {
-  color: var(--fgColor-default);
+  --DataTable--table-tableHeader-color-ariaSortDescending-ariaSortAscending: var(--fgColor-default);
+  color: var(--DataTable--table-tableHeader-color-ariaSortDescending-ariaSortAscending);
 }
 
 .TableSelectionHeader,
@@ -226,14 +290,19 @@
 
 /* TableRow */
 .TableRow:hover .TableCell:not(.TableCellSkeleton) {
-  background-color: var(--control-transparent-bgColor-hover);
+  --DataTable--table-tableRow-tableCell-tableCellSkeleton-backgroundColor-hover-not: var(
+    --control-transparent-bgColor-hover
+  );
+  background-color: var(--DataTable--table-tableRow-tableCell-tableCellSkeleton-backgroundColor-hover-not);
 }
 
 /* TableCell */
 .TableCell:where([scope='row']) {
+  --DataTable--table-tableCell-color-scopeRow: var(--fgColor-default);
+  --DataTable--table-tableCell-fontWeight-scopeRow: var(--base-text-weight-semibold);
   display: flex;
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
+  font-weight: var(--DataTable--table-tableCell-fontWeight-scopeRow);
+  color: var(--DataTable--table-tableCell-color-scopeRow);
   align-items: center;
 }
 
@@ -249,8 +318,9 @@
 }
 
 .TableCellSkeletonItem {
+  --DataTable--table-tableCellSkeletonItem-padding: var(--table-cell-padding);
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--table-cell-padding);
+  padding: var(--DataTable--table-tableCellSkeletonItem-padding);
 
   &:nth-of-type(5n + 1) {
     --skeleton-item-width: 85%;
@@ -274,11 +344,14 @@
 }
 
 .TableCellSkeletonItem [data-component='SkeletonText'] {
-  width: var(--skeleton-item-width);
+  --DataTable--table-tableCellSkeletonItem-width-componentSkeletonText: var(--skeleton-item-width);
+  width: var(--DataTable--table-tableCellSkeletonItem-width-componentSkeletonText);
 }
 
 .TableCellSkeletonItem:not(:last-of-type) {
-  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableCellSkeletonItem-borderBlockEnd-not-lastOfType: var(--borderWidth-thin) solid
+    var(--borderColor-default);
+  border-block-end: var(--DataTable--table-tableCellSkeletonItem-borderBlockEnd-not-lastOfType);
 }
 
 .TableSortButton {
@@ -305,34 +378,45 @@
 }
 
 .TableGroupHeaderCell {
+  --DataTable--table-tableGroupHeaderCell-borderBlockEnd: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableGroupHeaderCell-borderInlineEnd: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableGroupHeaderCell-borderInlineStart: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--table-tableGroupHeaderCell-backgroundColor: var(--bgColor-muted);
+  --DataTable--table-tableGroupHeaderCell-color: var(--fgColor-muted);
+  --DataTable--table-tableGroupHeaderCell-padding: var(--table-cell-padding);
+  --DataTable--table-tableGroupHeaderCell-columnGap: calc(2 * var(--cell-padding-inline));
   display: flex;
   grid-column: 1 / -1;
   align-items: center;
   /* Match the padding on either side of the selection/data column boundary. */
-  column-gap: calc(2 * var(--cell-padding-inline));
+  column-gap: var(--DataTable--table-tableGroupHeaderCell-columnGap);
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--table-cell-padding);
+  padding: var(--DataTable--table-tableGroupHeaderCell-padding);
   text-align: start;
-  color: var(--fgColor-muted);
-  background-color: var(--bgColor-muted);
-  border-inline-start: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  color: var(--DataTable--table-tableGroupHeaderCell-color);
+  background-color: var(--DataTable--table-tableGroupHeaderCell-backgroundColor);
+  border-inline-start: var(--DataTable--table-tableGroupHeaderCell-borderInlineStart);
+  border-inline-end: var(--DataTable--table-tableGroupHeaderCell-borderInlineEnd);
+  border-block-end: var(--DataTable--table-tableGroupHeaderCell-borderBlockEnd);
 }
 
 .TableGroupHeaderContent {
+  --DataTable--table-tableGroupHeaderContent-columnGap: var(--base-size-8);
   display: flex;
   align-items: baseline;
-  column-gap: var(--base-size-8);
+  column-gap: var(--DataTable--table-tableGroupHeaderContent-columnGap);
 }
 
 .TableGroupHeaderLabel {
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
+  --DataTable--table-tableGroupHeaderLabel-color: var(--fgColor-default);
+  --DataTable--table-tableGroupHeaderLabel-fontWeight: var(--base-text-weight-semibold);
+  font-weight: var(--DataTable--table-tableGroupHeaderLabel-fontWeight);
+  color: var(--DataTable--table-tableGroupHeaderLabel-color);
 }
 
 .TableGroupHeaderCount {
-  color: var(--fgColor-muted);
+  --DataTable--table-tableGroupHeaderCount-color: var(--fgColor-muted);
+  color: var(--DataTable--table-tableGroupHeaderCount-color);
 }
 
 .TableBody:where([hidden]) {
@@ -362,5 +446,6 @@
 }
 
 .PlaceholderText {
-  color: var(--fgColor-muted);
+  --DataTable--table-placeholderText-color: var(--fgColor-muted);
+  color: var(--DataTable--table-placeholderText-color);
 }

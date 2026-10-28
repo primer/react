@@ -9,5 +9,6 @@
 }
 
 .SpinnerAnimation {
-  animation: rotate-keyframes var(--base-duration-1000) var(--base-easing-linear) infinite;
+  --Spinner--spinnerAnimation-animation: rotate-keyframes var(--base-duration-1000) var(--base-easing-linear) infinite;
+  animation: var(--Spinner--spinnerAnimation-animation);
 }

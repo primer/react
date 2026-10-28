@@ -11,20 +11,30 @@
 }
 
 .TopicTag {
-  background-color: var(--bgColor-accent-muted);
-  color: var(--fgColor-accent);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  line-height: var(--text-body-lineHeight-small);
-  border-radius: var(--borderRadius-full);
-  padding: var(--base-size-2) var(--base-size-12);
-  border: var(--borderWidth-thin) solid var(--topicTag-borderColor, transparent);
+  --TopicTag--border: var(--borderWidth-thin) solid var(--topicTag-borderColor, transparent);
+  --TopicTag--padding: var(--base-size-2) var(--base-size-12);
+  --TopicTag--borderRadius: var(--borderRadius-full);
+  --TopicTag--lineHeight: var(--text-body-lineHeight-small);
+  --TopicTag--fontWeight: var(--base-text-weight-semibold);
+  --TopicTag--fontSize: var(--text-body-size-small);
+  --TopicTag--color: var(--fgColor-accent);
+  --TopicTag--backgroundColor: var(--bgColor-accent-muted);
+  background-color: var(--TopicTag--backgroundColor);
+  color: var(--TopicTag--color);
+  font-size: var(--TopicTag--fontSize);
+  font-weight: var(--TopicTag--fontWeight);
+  line-height: var(--TopicTag--lineHeight);
+  border-radius: var(--TopicTag--borderRadius);
+  padding: var(--TopicTag--padding);
+  border: var(--TopicTag--border);
   display: inline-flex;
   white-space: nowrap;
 
   &:hover {
-    background-color: var(--bgColor-accent-emphasis);
-    color: var(--fgColor-onEmphasis);
+    --TopicTag--color-hover: var(--fgColor-onEmphasis);
+    --TopicTag--backgroundColor-hover: var(--bgColor-accent-emphasis);
+    background-color: var(--TopicTag--backgroundColor-hover);
+    color: var(--TopicTag--color-hover);
   }
 
   /* stylelint-disable-next-line selector-max-type */

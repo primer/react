@@ -1,5 +1,6 @@
 .Overlay {
   &::before {
+    --DeprecatedDialogV1--dialog-overlay-before-background: var(--overlay-backdrop-bgColor);
     position: fixed;
     top: 0;
     right: 0;
@@ -9,27 +10,32 @@
     display: block;
     cursor: default;
     content: ' ';
-    background: var(--overlay-backdrop-bgColor);
+    background: var(--DeprecatedDialogV1--dialog-overlay-before-background);
   }
 }
 
 .CloseIcon {
+  --DeprecatedDialogV1--dialog-closeIcon-right: var(--base-size-16);
+  --DeprecatedDialogV1--dialog-closeIcon-top: var(--base-size-8);
   position: absolute;
-  top: var(--base-size-8);
-  right: var(--base-size-16);
+  top: var(--DeprecatedDialogV1--dialog-closeIcon-top);
+  right: var(--DeprecatedDialogV1--dialog-closeIcon-right);
 }
 
 .Dialog {
+  --DeprecatedDialogV1--dialog-boxShadow: var(--shadow-floating-large);
+  --DeprecatedDialogV1--dialog-borderRadius: var(--borderRadius-medium);
+  --DeprecatedDialogV1--dialog-backgroundColor: var(--bgColor-default);
   position: fixed;
   top: 0;
   left: 50%;
   z-index: 999;
   max-height: 80vh;
   margin: 10vh auto;
-  background-color: var(--bgColor-default);
-  border-radius: var(--borderRadius-medium);
+  background-color: var(--DeprecatedDialogV1--dialog-backgroundColor);
+  border-radius: var(--DeprecatedDialogV1--dialog-borderRadius);
   outline: none;
-  box-shadow: var(--shadow-floating-large);
+  box-shadow: var(--DeprecatedDialogV1--dialog-boxShadow);
   transform: translateX(-50%);
 
   &:where([data-width='default']) {
@@ -55,11 +61,15 @@
 }
 
 .Header {
+  --DeprecatedDialogV1--dialog-header-borderRadius: var(--borderRadius-medium) var(--borderRadius-medium) 0 0;
+  --DeprecatedDialogV1--dialog-header-borderBottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DeprecatedDialogV1--dialog-header-background: var(--bgColor-muted);
+  --DeprecatedDialogV1--dialog-header-padding: var(--base-size-16);
   display: flex;
-  padding: var(--base-size-16);
-  background: var(--bgColor-muted);
-  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-radius: var(--borderRadius-medium) var(--borderRadius-medium) 0 0;
+  padding: var(--DeprecatedDialogV1--dialog-header-padding);
+  background: var(--DeprecatedDialogV1--dialog-header-background);
+  border-bottom: var(--DeprecatedDialogV1--dialog-header-borderBottom);
+  border-radius: var(--DeprecatedDialogV1--dialog-header-borderRadius);
 
   @media screen and (max-width: 750px) {
     border-radius: 0;
@@ -67,6 +77,8 @@
 }
 
 .HeaderChild {
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
+  --DeprecatedDialogV1--dialog-headerChild-fontWeight: var(--base-text-weight-semibold);
+  --DeprecatedDialogV1--dialog-headerChild-fontSize: var(--text-body-size-medium);
+  font-size: var(--DeprecatedDialogV1--dialog-headerChild-fontSize);
+  font-weight: var(--DeprecatedDialogV1--dialog-headerChild-fontWeight);
 }

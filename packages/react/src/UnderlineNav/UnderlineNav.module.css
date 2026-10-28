@@ -70,13 +70,15 @@
 }
 
 .WrapSpacer {
+  --UnderlineNav--wrapSpacer-marginInlineEnd: calc(-1 * var(--stack-gap-condensed));
   /* Cancel out the flex gap so the first real item has no leading gap */
   /* stylelint-disable-next-line primer/spacing -- negative margin required to cancel the flex gap from the list */
-  margin-inline-end: calc(-1 * var(--stack-gap-condensed));
+  margin-inline-end: var(--UnderlineNav--wrapSpacer-marginInlineEnd);
 }
 
 .MoreButtonContainer {
-  display: var(--UnderlineNav_moreButton-display, flex);
+  --UnderlineNav--moreButtonContainer-display: var(--UnderlineNav_moreButton-display, flex);
+  display: var(--UnderlineNav--moreButtonContainer-display);
   align-items: center;
 }
 
@@ -84,30 +86,40 @@
   position: relative;
 
   .OverflowMenuItemLabel {
-    font-weight: var(--base-text-weight-semibold);
+    --UnderlineNav--overflowMenuItem-overflowMenuItemLabel-fontWeight-ariaCurrentPresent: var(
+      --base-text-weight-semibold
+    );
+    font-weight: var(--UnderlineNav--overflowMenuItem-overflowMenuItemLabel-fontWeight-ariaCurrentPresent);
   }
 
   &::after {
+    --UnderlineNav--overflowMenuItem-after-background-ariaCurrentPresent: var(--underlineNav-borderColor-active);
+    --UnderlineNav--overflowMenuItem-after-inset-ariaCurrentPresent: var(--base-size-2) auto var(--base-size-2) 0;
+    --UnderlineNav--overflowMenuItem-after-width-ariaCurrentPresent: var(--base-size-2);
     content: '';
-    width: var(--base-size-2);
+    width: var(--UnderlineNav--overflowMenuItem-after-width-ariaCurrentPresent);
     position: absolute;
-    inset: var(--base-size-2) auto var(--base-size-2) 0;
+    inset: var(--UnderlineNav--overflowMenuItem-after-inset-ariaCurrentPresent);
     /* stylelint-disable-next-line primer/colors */
-    background: var(--underlineNav-borderColor-active);
+    background: var(--UnderlineNav--overflowMenuItem-after-background-ariaCurrentPresent);
   }
 }
 
 .MoreButtonDivider {
+  --UnderlineNav--moreButtonDivider-height: var(--base-size-24);
+  --UnderlineNav--moreButtonDivider-marginInline: var(--base-size-4);
+  --UnderlineNav--moreButtonDivider-borderLeft: var(--borderWidth-thin) solid var(--borderColor-muted);
   display: inline-block;
-  border-left: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-left: var(--UnderlineNav--moreButtonDivider-borderLeft);
   width: 0;
-  margin-inline: var(--base-size-4);
-  height: var(--base-size-24);
+  margin-inline: var(--UnderlineNav--moreButtonDivider-marginInline);
+  height: var(--UnderlineNav--moreButtonDivider-height);
 }
 
 .MoreButton {
+  --UnderlineNav--moreButton-fontWeight: var(--base-text-weight-normal);
   margin: 0; /* reset Safari extra margin */
-  font-weight: var(--base-text-weight-normal);
+  font-weight: var(--UnderlineNav--moreButton-fontWeight);
   position: relative;
 
   & > [data-component='trailingVisual'] {
@@ -117,19 +129,27 @@
   /* When the current item has overflowed into the menu, style the overflow
    anchor so it looks like the current item (semibold text + active underline). */
   &[data-current='true'] {
-    font-weight: var(--base-text-weight-semibold);
+    --UnderlineNav--moreButton-fontWeight-currentTrue: var(--base-text-weight-semibold);
+    font-weight: var(--UnderlineNav--moreButton-fontWeight-currentTrue);
 
     &::after {
+      --UnderlineNav--moreButton-after-backgroundColor-currentTrue: var(
+        --underlineNav-borderColor-active,
+        var(--color-primer-border-active, #fd8c73)
+      );
+      --UnderlineNav--moreButton-after-marginBottom-currentTrue: calc(
+        -1 * (var(--base-size-8) + var(--borderWidth-thin))
+      );
       position: absolute;
       inset: auto 0 0;
       /* Pull down same amount as the item-level decoration, plus the border width of the button */
       /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: calc(-1 * (var(--base-size-8) + var(--borderWidth-thin)));
+      margin-bottom: var(--UnderlineNav--moreButton-after-marginBottom-currentTrue);
       height: 2px;
       pointer-events: none;
       content: '';
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
+      background-color: var(--UnderlineNav--moreButton-after-backgroundColor-currentTrue);
 
       @media (forced-colors: active) {
         /* Support for Windows Forced Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast */

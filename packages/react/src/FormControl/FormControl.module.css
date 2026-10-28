@@ -12,11 +12,13 @@
   align-items: flex-start;
 
   & > *:not(label) + * {
-    margin-top: var(--base-size-4);
+    --FormControl--controlVerticalLayout-child-label-next-marginTop-not: var(--base-size-4);
+    margin-top: var(--FormControl--controlVerticalLayout-child-label-next-marginTop-not);
   }
 
   &[data-has-label] > * + * {
-    margin-top: var(--base-size-4);
+    --FormControl--controlVerticalLayout-child-next-marginTop-hasLabelPresent: var(--base-size-4);
+    margin-top: var(--FormControl--controlVerticalLayout-child-next-marginTop-hasLabelPresent);
   }
 }
 
@@ -27,31 +29,40 @@
 
 .LabelContainer {
   > * {
+    --FormControl--labelContainer-child-paddingLeft: var(--stack-gap-condensed);
     /* stylelint-disable-next-line primer/spacing */
-    padding-left: var(--stack-gap-condensed);
+    padding-left: var(--FormControl--labelContainer-child-paddingLeft);
   }
 
   > label {
-    font-weight: var(--base-text-weight-normal);
+    --FormControl--labelContainer-child-label-fontWeight: var(--base-text-weight-normal);
+    font-weight: var(--FormControl--labelContainer-child-label-fontWeight);
   }
 }
 
 .LeadingVisual {
-  margin-left: var(--base-size-8);
-  color: var(--fgColor-muted);
+  --FormControl--leadingVisual-color: var(--fgColor-muted);
+  --FormControl--leadingVisual-marginLeft: var(--base-size-8);
+  margin-left: var(--FormControl--leadingVisual-marginLeft);
+  color: var(--FormControl--leadingVisual-color);
 
   &:where([data-disabled]) {
-    color: var(--control-fgColor-disabled);
+    --FormControl--leadingVisual-color-disabledPresent: var(--control-fgColor-disabled);
+    color: var(--FormControl--leadingVisual-color-disabledPresent);
   }
 
   > * {
-    min-width: var(--text-body-size-large);
-    min-height: var(--text-body-size-large);
+    --FormControl--leadingVisual-child-minHeight: var(--text-body-size-large);
+    --FormControl--leadingVisual-child-minWidth: var(--text-body-size-large);
+    min-width: var(--FormControl--leadingVisual-child-minWidth);
+    min-height: var(--FormControl--leadingVisual-child-minHeight);
     fill: currentColor;
   }
 
   > *:where([data-has-caption]) {
-    min-width: var(--base-size-24);
-    min-height: var(--base-size-24);
+    --FormControl--leadingVisual-child-minHeight-hasCaptionPresent: var(--base-size-24);
+    --FormControl--leadingVisual-child-minWidth-hasCaptionPresent: var(--base-size-24);
+    min-width: var(--FormControl--leadingVisual-child-minWidth-hasCaptionPresent);
+    min-height: var(--FormControl--leadingVisual-child-minHeight-hasCaptionPresent);
   }
 }

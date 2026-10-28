@@ -14,25 +14,30 @@
   display: none;
 
   &[popover] {
+    --TooltipV2--tooltip-borderRadius-popoverPresent: var(--borderRadius-medium);
+    --TooltipV2--tooltip-background-popoverPresent: var(--tooltip-bgColor);
+    --TooltipV2--tooltip-color-popoverPresent: var(--tooltip-fgColor);
+    --TooltipV2--tooltip-font-popoverPresent: var(--text-body-shorthand-small);
+    --TooltipV2--tooltip-padding-popoverPresent: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
     position: absolute;
     width: max-content;
     max-width: 250px;
     /* stylelint-disable-next-line primer/spacing */
-    padding: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
+    padding: var(--TooltipV2--tooltip-padding-popoverPresent);
     margin: auto;
 
     /* for scrollbar */
     overflow: visible;
     /* stylelint-disable-next-line property-no-deprecated */
     clip: auto;
-    font: var(--text-body-shorthand-small);
-    color: var(--tooltip-fgColor);
+    font: var(--TooltipV2--tooltip-font-popoverPresent);
+    color: var(--TooltipV2--tooltip-color-popoverPresent);
     text-align: center;
     overflow-wrap: break-word;
     white-space: normal;
-    background: var(--tooltip-bgColor);
+    background: var(--TooltipV2--tooltip-background-popoverPresent);
     border: 0;
-    border-radius: var(--borderRadius-medium);
+    border-radius: var(--TooltipV2--tooltip-borderRadius-popoverPresent);
     -webkit-font-smoothing: subpixel-antialiased;
     inset: auto;
     text-wrap: balance;
@@ -55,11 +60,12 @@
 
   /* This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip */
   &::after {
+    --TooltipV2--tooltip-after-height: var(--overlay-offset);
     position: absolute;
     right: 0;
     left: 0;
     display: block;
-    height: var(--overlay-offset);
+    height: var(--TooltipV2--tooltip-after-height);
     content: '';
   }
 
@@ -124,9 +130,11 @@
 }
 
 .KeybindingHintContainer.HasTextBefore {
-  margin-left: var(--base-size-6);
+  --TooltipV2--tooltip-keybindingHintContainer-hasTextBefore-marginLeft: var(--base-size-6);
+  margin-left: var(--TooltipV2--tooltip-keybindingHintContainer-hasTextBefore-marginLeft);
 }
 
 .KeybindingHintContainer.HasTextBefore.HasMultipleHints {
-  margin-left: var(--base-size-8);
+  --TooltipV2--tooltip-keybindingHintContainer-hasTextBefore-hasMultipleHints-marginLeft: var(--base-size-8);
+  margin-left: var(--TooltipV2--tooltip-keybindingHintContainer-hasTextBefore-hasMultipleHints-marginLeft);
 }

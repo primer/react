@@ -1,22 +1,30 @@
 .Input {
+  --Checkbox--shared-input-borderWidth: var(--borderWidth-thin);
+  --Checkbox--shared-input-borderColor: var(--control-borderColor-emphasis);
+  --Checkbox--shared-input-backgroundColor: var(--bgColor-default);
+  --Checkbox--shared-input-marginTop: var(--base-size-2);
+  --Checkbox--shared-input-height: var(--base-size-16);
+  --Checkbox--shared-input-width: var(--base-size-16);
   position: relative;
   display: grid;
-  width: var(--base-size-16);
-  height: var(--base-size-16);
+  width: var(--Checkbox--shared-input-width);
+  height: var(--Checkbox--shared-input-height);
   margin: 0;
 
   /* 2px to center align with label (20px line-height) */
-  margin-top: var(--base-size-2);
+  margin-top: var(--Checkbox--shared-input-marginTop);
   cursor: pointer;
-  background-color: var(--bgColor-default);
-  border-color: var(--control-borderColor-emphasis);
+  background-color: var(--Checkbox--shared-input-backgroundColor);
+  border-color: var(--Checkbox--shared-input-borderColor);
   border-style: solid;
-  border-width: var(--borderWidth-thin);
+  border-width: var(--Checkbox--shared-input-borderWidth);
   appearance: none;
   place-content: center;
 
   &:disabled {
-    background-color: var(--control-bgColor-disabled);
-    border-color: var(--control-borderColor-disabled);
+    --Checkbox--shared-input-borderColor-disabled: var(--control-borderColor-disabled);
+    --Checkbox--shared-input-backgroundColor-disabled: var(--control-bgColor-disabled);
+    background-color: var(--Checkbox--shared-input-backgroundColor-disabled);
+    border-color: var(--Checkbox--shared-input-borderColor-disabled);
   }
 }

@@ -2,7 +2,8 @@
   list-style: none;
 
   &:not(:first-child) {
-    margin-block-start: var(--base-size-8);
+    --ActionList--group-marginBlockStart-not-firstChild: var(--base-size-8);
+    margin-block-start: var(--ActionList--group-marginBlockStart-not-firstChild);
   }
 }
 
@@ -11,26 +12,40 @@
 }
 
 .GroupHeadingWrap {
+  --ActionList--group-groupHeadingWrap-paddingBlock: var(--base-size-6);
+  --ActionList--group-groupHeadingWrap-paddingInline: var(--base-size-16);
+  --ActionList--group-groupHeadingWrap-color: var(--fgColor-muted);
+  --ActionList--group-groupHeadingWrap-fontWeight: var(--base-text-weight-semibold);
+  --ActionList--group-groupHeadingWrap-fontSize: var(--text-body-size-small);
   display: flex;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--ActionList--group-groupHeadingWrap-fontSize);
+  font-weight: var(--ActionList--group-groupHeadingWrap-fontWeight);
 
   /* line-height: var(--text-body-lineHeight-small); use when FF rolls out */
   /* stylelint-disable-next-line primer/typography */
   line-height: 18px;
-  color: var(--fgColor-muted);
+  color: var(--ActionList--group-groupHeadingWrap-color);
   flex-direction: column;
-  padding-inline: var(--base-size-16);
-  padding-block: var(--base-size-6);
+  padding-inline: var(--ActionList--group-groupHeadingWrap-paddingInline);
+  padding-block: var(--ActionList--group-groupHeadingWrap-paddingBlock);
 
   &:where([data-variant='filled']) {
+    --ActionList--group-groupHeadingWrap-paddingInline-variantFilled: var(--base-size-16);
+    --ActionList--group-groupHeadingWrap-borderBottom-variantFilled: solid var(--borderWidth-thin)
+      var(--borderColor-muted);
+    --ActionList--group-groupHeadingWrap-borderTop-variantFilled: solid var(--borderWidth-thin) var(--borderColor-muted);
+    --ActionList--group-groupHeadingWrap-background-variantFilled: var(--bgColor-muted);
+    --ActionList--group-groupHeadingWrap-marginBlockEnd-variantFilled: var(--base-size-8);
+    --ActionList--group-groupHeadingWrap-marginBlockStart-variantFilled: calc(
+      var(--base-size-8) - var(--borderWidth-thin)
+    );
     /* stylelint-disable-next-line primer/spacing */
-    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
-    margin-block-end: var(--base-size-8);
-    background: var(--bgColor-muted);
-    border-top: solid var(--borderWidth-thin) var(--borderColor-muted);
-    border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted);
-    padding-inline: var(--base-size-16);
+    margin-block-start: var(--ActionList--group-groupHeadingWrap-marginBlockStart-variantFilled);
+    margin-block-end: var(--ActionList--group-groupHeadingWrap-marginBlockEnd-variantFilled);
+    background: var(--ActionList--group-groupHeadingWrap-background-variantFilled);
+    border-top: var(--ActionList--group-groupHeadingWrap-borderTop-variantFilled);
+    border-bottom: var(--ActionList--group-groupHeadingWrap-borderBottom-variantFilled);
+    padding-inline: var(--ActionList--group-groupHeadingWrap-paddingInline-variantFilled);
 
     &:first-child {
       margin-block-start: 0;
@@ -43,18 +58,22 @@
 }
 
 .GroupHeading {
+  --ActionList--group-groupHeading-color: var(--fgColor-muted);
+  --ActionList--group-groupHeading-fontWeight: var(--base-text-weight-semibold);
+  --ActionList--group-groupHeading-fontSize: var(--text-body-size-small);
   margin: 0;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
+  font-size: var(--ActionList--group-groupHeading-fontSize);
+  font-weight: var(--ActionList--group-groupHeading-fontWeight);
+  color: var(--ActionList--group-groupHeading-color);
   align-self: flex-start;
 }
 
 .GroupHeadingWrap[data-has-trailing-action] {
+  --ActionList--group-groupHeadingWrap-gap-hasTrailingActionPresent: var(--base-size-8);
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: var(--base-size-8);
+  gap: var(--ActionList--group-groupHeadingWrap-gap-hasTrailingActionPresent);
 
   & > .GroupHeading {
     align-self: center;
