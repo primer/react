@@ -1,0 +1,1685 @@
+{
+  "description": "Pinned color-value facts, not redistributed VS Code theme implementations. Source roles are adapted to Primer; derived tints and contrast text are generated locally. Duplicate no-italics palettes and Oldschool Theme (...) variants are omitted. Dark Green Hacker adds a local terminal treatment through font, radius, border and shadow primitives; source color facts remain unchanged.",
+  "palettes": [
+    {
+      "id": "dadayan1234-gradient-nitro-theme",
+      "name": "Gradient Nitro Glass",
+      "mode": "dark",
+      "colors": {
+        "background": "#18132C",
+        "surface": "#17122A",
+        "inset": "#120D24",
+        "hover": "#202740",
+        "foreground": "#F2F1FE",
+        "surfaceForeground": "#C1BFCC",
+        "insetForeground": "#22D3EE",
+        "inputBackground": "#201B36",
+        "inputForeground": "#F2F1FE",
+        "buttonBackground": "#22D3EE",
+        "buttonForeground": "#000000",
+        "muted": "#8D8C97",
+        "border": "#3B4058",
+        "accent": "#22D3EE",
+        "success": "#28a12f",
+        "attention": "#facc15",
+        "danger": "#f87171",
+        "done": "#a008b9"
+      },
+      "source": {
+        "repository": "dadayan1234/gradient-nitro",
+        "revision": "bf6d0bcafa1b24c8602318bec84cb86adb2cffd3",
+        "path": "themes/gradient-nitro-theme.json",
+        "license": "PolyForm-Noncommercial-1.0.0",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "accent": {
+            "key": "textLink.foreground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "attention": {
+            "key": "terminal.ansiYellow",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "danger": {
+            "key": "errorForeground",
+            "path": "themes/gradient-nitro-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/gradient-nitro-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "dadayan1234-gradient-nitro-light-theme",
+      "name": "Gradient Nitro Glass Light",
+      "mode": "light",
+      "colors": {
+        "background": "#F1EEF6",
+        "surface": "#F3F0F8",
+        "inset": "#FAF7FF",
+        "hover": "#DBE5EE",
+        "foreground": "#000000",
+        "surfaceForeground": "#141315",
+        "insetForeground": "#0097AC",
+        "inputBackground": "#E6E2EB",
+        "inputForeground": "#000000",
+        "buttonBackground": "#0097AC",
+        "buttonForeground": "#000000",
+        "muted": "#3C3B3E",
+        "border": "#A9B0C0",
+        "accent": "#0097AC",
+        "success": "#15803d",
+        "attention": "#d97706",
+        "danger": "#e11d48",
+        "done": "#a21caf"
+      },
+      "source": {
+        "repository": "dadayan1234/gradient-nitro",
+        "revision": "bf6d0bcafa1b24c8602318bec84cb86adb2cffd3",
+        "path": "themes/gradient-nitro-light-theme.json",
+        "license": "PolyForm-Noncommercial-1.0.0",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "accent": {
+            "key": "textLink.foreground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "attention": {
+            "key": "terminal.ansiYellow",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "danger": {
+            "key": "errorForeground",
+            "path": "themes/gradient-nitro-light-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/gradient-nitro-light-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "kobber77-halloween-color-theme",
+      "name": "Halloween",
+      "mode": "dark",
+      "colors": {
+        "background": "#14091F",
+        "surface": "#1A0D2B",
+        "inset": "#B8490B",
+        "hover": "#22123A",
+        "foreground": "#F2ECF7",
+        "surfaceForeground": "#F2ECF7",
+        "insetForeground": "#F2ECF7",
+        "inputBackground": "#0E0616",
+        "inputForeground": "#F2ECF7",
+        "buttonBackground": "#B8490B",
+        "buttonForeground": "#F2ECF7",
+        "muted": "#7B6B8F",
+        "border": "#FF7518",
+        "accent": "#B26CFF",
+        "success": "#B5FF9C",
+        "attention": "#FFC93C",
+        "danger": "#FF2E4D",
+        "done": "#B26CFF"
+      },
+      "source": {
+        "repository": "Kobber77/vscode-themes",
+        "revision": "4489fe6fd9761cf063b4af3a0624e0d2219a0280",
+        "path": "halloween-theme/themes/halloween-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "accent": {
+            "key": "textLink.foreground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "success": {
+            "key": "gitDecoration.addedResourceForeground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "attention": {
+            "key": "editorWarning.foreground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "danger": {
+            "key": "editorError.foreground",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          },
+          "done": {
+            "key": "charts.purple",
+            "path": "halloween-theme/themes/halloween-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "kobber77-st-patricks-day-color-theme",
+      "name": "St. Patrick's Day",
+      "mode": "dark",
+      "colors": {
+        "background": "#0D2A14",
+        "surface": "#112E18",
+        "inset": "#009A44",
+        "hover": "#1A3D22",
+        "foreground": "#FFFFFF",
+        "surfaceForeground": "#FFFFFF",
+        "insetForeground": "#FFFFFF",
+        "inputBackground": "#0A1F0F",
+        "inputForeground": "#FFFFFF",
+        "buttonBackground": "#009A44",
+        "buttonForeground": "#FFFFFF",
+        "muted": "#FFFFFF",
+        "border": "#009A44",
+        "accent": "#4CCA7A",
+        "success": "#4CCA7A",
+        "attention": "#FFD700",
+        "danger": "#FF4500",
+        "done": "#FF8200"
+      },
+      "source": {
+        "repository": "Kobber77/vscode-themes",
+        "revision": "4489fe6fd9761cf063b4af3a0624e0d2219a0280",
+        "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "muted": {
+            "key": "sideBar.foreground",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "accent": {
+            "key": "terminal.ansiBlue",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "success": {
+            "key": "gitDecoration.addedResourceForeground",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "attention": {
+            "key": "terminal.ansiYellow",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "danger": {
+            "key": "terminal.ansiRed",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "st-patricks-day-theme/themes/st-patricks-day-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "joelcaraballo-dark-green-hacker-color-theme",
+      "name": "Dark Green Hacker",
+      "mode": "dark",
+      "colors": {
+        "background": "#050805",
+        "surface": "#071007",
+        "inset": "#030603",
+        "hover": "#123012",
+        "foreground": "#d4d4d4",
+        "surfaceForeground": "#39ff14",
+        "insetForeground": "#39ff14",
+        "inputBackground": "#0b190b",
+        "inputForeground": "#d4d4d4",
+        "buttonBackground": "#1c4a1c",
+        "buttonForeground": "#ffffff",
+        "muted": "#72d572",
+        "border": "#123012",
+        "accent": "#39ff14",
+        "success": "#39ff14",
+        "attention": "#f5c542",
+        "danger": "#ff4d4d",
+        "done": "#c586c0"
+      },
+      "source": {
+        "repository": "joelcaraballo/dark-green",
+        "revision": "da4a42742494aae805ea96305e7fdc4b993b5610",
+        "path": "themes/dark-green-hacker-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "accent": {
+            "key": "textLink.foreground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "attention": {
+            "key": "editorWarning.foreground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "danger": {
+            "key": "editorError.foreground",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/dark-green-hacker-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "joelcaraballo-deep-dark-green-color-theme",
+      "name": "Deep Dark Green",
+      "mode": "dark",
+      "colors": {
+        "background": "#000000",
+        "surface": "#010301",
+        "inset": "#000000",
+        "hover": "#071707",
+        "foreground": "#d4d4d4",
+        "surfaceForeground": "#39ff14",
+        "insetForeground": "#39ff14",
+        "inputBackground": "#020702",
+        "inputForeground": "#d4d4d4",
+        "buttonBackground": "#123012",
+        "buttonForeground": "#ffffff",
+        "muted": "#72d572",
+        "border": "#071707",
+        "accent": "#39ff14",
+        "success": "#39ff14",
+        "attention": "#f5c542",
+        "danger": "#ff4d4d",
+        "done": "#c586c0"
+      },
+      "source": {
+        "repository": "joelcaraballo/dark-green",
+        "revision": "da4a42742494aae805ea96305e7fdc4b993b5610",
+        "path": "themes/deep-dark-green-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "accent": {
+            "key": "textLink.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "attention": {
+            "key": "editorWarning.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "danger": {
+            "key": "editorError.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/deep-dark-green-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "joelcaraballo-green-dark-flow-color-theme",
+      "name": "Green Dark Flow",
+      "mode": "dark",
+      "colors": {
+        "background": "#000000",
+        "surface": "#010301",
+        "inset": "#000000",
+        "hover": "#071707",
+        "foreground": "#d4d4d4",
+        "surfaceForeground": "#39ff14",
+        "insetForeground": "#39ff14",
+        "inputBackground": "#020702",
+        "inputForeground": "#d4d4d4",
+        "buttonBackground": "#123012",
+        "buttonForeground": "#ffffff",
+        "muted": "#72d572",
+        "border": "#071707",
+        "accent": "#39ff14",
+        "success": "#39ff14",
+        "attention": "#f5c542",
+        "danger": "#ff4d4d",
+        "done": "#c586c0"
+      },
+      "source": {
+        "repository": "joelcaraballo/dark-green",
+        "revision": "da4a42742494aae805ea96305e7fdc4b993b5610",
+        "path": "themes/green-dark-flow-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/green-dark-flow-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "accent": {
+            "key": "textLink.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "attention": {
+            "key": "editorWarning.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "danger": {
+            "key": "editorError.foreground",
+            "path": "themes/deep-dark-green-color-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/deep-dark-green-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "joelcaraballo-green-dark-vivid-hacker-color-theme",
+      "name": "Green Dark Vivid Hacker",
+      "mode": "dark",
+      "colors": {
+        "background": "#000000",
+        "surface": "#010401",
+        "inset": "#000200",
+        "hover": "#0c230c",
+        "foreground": "#e1efdc",
+        "surfaceForeground": "#66ff00",
+        "insetForeground": "#66ff00",
+        "inputBackground": "#030903",
+        "inputForeground": "#d4d4d4",
+        "buttonBackground": "#174217",
+        "buttonForeground": "#ffffff",
+        "muted": "#8ae878",
+        "border": "#0c230c",
+        "accent": "#66ff00",
+        "success": "#66ff00",
+        "attention": "#f5c542",
+        "danger": "#ff4d4d",
+        "done": "#c586c0"
+      },
+      "source": {
+        "repository": "joelcaraballo/dark-green",
+        "revision": "da4a42742494aae805ea96305e7fdc4b993b5610",
+        "path": "themes/green-dark-vivid-hacker-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "accent": {
+            "key": "textLink.foreground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "attention": {
+            "key": "editorWarning.foreground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "danger": {
+            "key": "editorError.foreground",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/green-dark-vivid-hacker-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "kelvinelove-neoncode-color-theme",
+      "name": "NeonVSCode",
+      "mode": "dark",
+      "colors": {
+        "background": "#000000",
+        "surface": "#000000",
+        "inset": "#000000",
+        "hover": "#2A2D2E",
+        "foreground": "#CCCCCC",
+        "surfaceForeground": "#CCCCCC",
+        "insetForeground": "#fa7fd9",
+        "inputBackground": "#313131",
+        "inputForeground": "#CCCCCC",
+        "buttonBackground": "#0078D4",
+        "buttonForeground": "#FFFFFF",
+        "muted": "#9D9D9D",
+        "border": "#111111",
+        "accent": "#fa7fd9",
+        "success": "#6efcaa",
+        "attention": "#d0a74c",
+        "danger": "#F85149",
+        "done": "#f6acff"
+      },
+      "source": {
+        "repository": "kelvinelove/neonvscode",
+        "revision": "a1b005df53ebb92ca89d2b8852b36ea19f0c490e",
+        "path": "themes/neoncode-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/dark-modern-ui.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/dark-modern-ui.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/dark-modern-ui.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/dark-modern-ui.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/dark-modern-ui.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/dark-modern-ui.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/dark-modern-ui.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "accent": {
+            "key": "editorCursor.foreground",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "success": {
+            "key": "tokenColors[8].settings.foreground",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "attention": {
+            "key": "tokenColors[1].settings.foreground",
+            "path": "themes/neoncode-color-theme.json"
+          },
+          "danger": {
+            "key": "errorForeground",
+            "path": "themes/dark-modern-ui.json"
+          },
+          "done": {
+            "key": "tokenColors[3].settings.foreground",
+            "path": "themes/neoncode-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "sdras-night-owl-color-theme",
+      "name": "Night Owl",
+      "mode": "dark",
+      "colors": {
+        "background": "#011627",
+        "surface": "#011627",
+        "inset": "#011627",
+        "hover": "#011627",
+        "foreground": "#d6deeb",
+        "surfaceForeground": "#89a4bb",
+        "insetForeground": "#5f7e97",
+        "inputBackground": "#0b253a",
+        "inputForeground": "#ffffffcc",
+        "buttonBackground": "#7e57c2cc",
+        "buttonForeground": "#ffffffcc",
+        "muted": "#89a4bb",
+        "border": "#5f7e97",
+        "accent": "#82AAFF",
+        "success": "#22da6e",
+        "attention": "#b39554",
+        "danger": "#EF5350",
+        "done": "#C792EA"
+      },
+      "source": {
+        "repository": "sdras/night-owl-vscode-theme",
+        "revision": "cc291eba7976b20d7c66bde6883c27b902196b07",
+        "path": "themes/Night Owl-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "muted": {
+            "key": "sideBar.foreground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "accent": {
+            "key": "terminal.ansiBlue",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "attention": {
+            "key": "editorWarning.foreground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "danger": {
+            "key": "editorError.foreground",
+            "path": "themes/Night Owl-color-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/Night Owl-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "sdras-night-owl-light-color-theme",
+      "name": "Night Owl Light",
+      "mode": "light",
+      "colors": {
+        "background": "#FBFBFB",
+        "surface": "#F0F0F0",
+        "inset": "#F0F0F0",
+        "hover": "#d3e8f8",
+        "foreground": "#403f53",
+        "surfaceForeground": "#403f53",
+        "insetForeground": "#403f53",
+        "inputBackground": "#F0F0F0",
+        "inputForeground": "#403f53",
+        "buttonBackground": "#2AA298",
+        "buttonForeground": "#F0F0F0",
+        "muted": "#403f53",
+        "border": "#d9d9d9",
+        "accent": "#288ed7",
+        "success": "#08916a",
+        "attention": "#daaa01",
+        "danger": "#E64D49",
+        "done": "#d6438a"
+      },
+      "source": {
+        "repository": "sdras/night-owl-vscode-theme",
+        "revision": "cc291eba7976b20d7c66bde6883c27b902196b07",
+        "path": "themes/Night Owl-Light-color-theme.json",
+        "license": "MIT",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "accent": {
+            "key": "terminal.ansiBlue",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "attention": {
+            "key": "editorWarning.foreground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "danger": {
+            "key": "editorError.foreground",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/Night Owl-Light-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "ericsonwillians-windows-95-very-nostalgic-theme",
+      "name": "Windows 95 (Very nostalgic theme)",
+      "mode": "dark",
+      "colors": {
+        "background": "#003333",
+        "surface": "#505050",
+        "inset": "#808080",
+        "hover": "#004A4A",
+        "foreground": "#FFFFFF",
+        "surfaceForeground": "#FFFFFF",
+        "insetForeground": "#000000",
+        "inputBackground": "#003333",
+        "inputForeground": "#FFFFFF",
+        "buttonBackground": "#000080",
+        "buttonForeground": "#FFFFFF",
+        "muted": "#FFFFFF",
+        "border": "#008080",
+        "accent": "#FFFFFF",
+        "success": "#FF00FF",
+        "attention": "#FFFF00",
+        "danger": "#FFFFFF",
+        "done": "#00FFFF"
+      },
+      "source": {
+        "repository": "EricsonWillians/oldschool-theme",
+        "revision": "15f472028b56ac58495d6bf4ecd7d173320646f0",
+        "path": "themes/windows-95-very-nostalgic-theme.json",
+        "license": "GPL-3.0",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "inputBackground": {
+            "key": "editor.background",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "inputForeground": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "buttonBackground": {
+            "key": "activityBarBadge.background",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "buttonForeground": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "muted": {
+            "key": "sideBar.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "accent": {
+            "key": "editorCursor.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "success": {
+            "key": "tokenColors[4].settings.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "attention": {
+            "key": "tokenColors[1].settings.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "danger": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          },
+          "done": {
+            "key": "tokenColors[3].settings.foreground",
+            "path": "themes/windows-95-very-nostalgic-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "ericsonwillians-windows-95-somewhat-nostalgic-theme",
+      "name": "Windows 95 (Somewhat nostalgic theme)",
+      "mode": "dark",
+      "colors": {
+        "background": "#000000",
+        "surface": "#000000",
+        "inset": "#000080",
+        "hover": "#000000",
+        "foreground": "#FFFFFF",
+        "surfaceForeground": "#FFFFFF",
+        "insetForeground": "#FFFFFF",
+        "inputBackground": "#000000",
+        "inputForeground": "#FFFFFF",
+        "buttonBackground": "#FFA500",
+        "buttonForeground": "#FFFFFF",
+        "muted": "#FFFFFF",
+        "border": "#FFFFFF",
+        "accent": "#FFFFFF",
+        "success": "#FF00FF",
+        "attention": "#FFFF00",
+        "danger": "#FFFFFF",
+        "done": "#00FFFF"
+      },
+      "source": {
+        "repository": "EricsonWillians/oldschool-theme",
+        "revision": "15f472028b56ac58495d6bf4ecd7d173320646f0",
+        "path": "themes/windows-95-somewhat-nostalgic-theme.json",
+        "license": "GPL-3.0",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "surface": {
+            "key": "editor.background",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "hover": {
+            "key": "editor.background",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "inputBackground": {
+            "key": "editor.background",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "inputForeground": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "buttonBackground": {
+            "key": "activityBarBadge.background",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "buttonForeground": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "muted": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "border": {
+            "key": "editorGroup.border",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "accent": {
+            "key": "editorCursor.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "success": {
+            "key": "tokenColors[4].settings.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "attention": {
+            "key": "tokenColors[1].settings.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "danger": {
+            "key": "editor.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          },
+          "done": {
+            "key": "tokenColors[3].settings.foreground",
+            "path": "themes/windows-95-somewhat-nostalgic-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "ericsonwillians-oldschool-terminal-green",
+      "name": "Oldschool Terminal Theme (Green)",
+      "mode": "dark",
+      "colors": {
+        "background": "#000000",
+        "surface": "#000000",
+        "inset": "#000000",
+        "hover": "#002000",
+        "foreground": "#00FF00",
+        "surfaceForeground": "#00FF00",
+        "insetForeground": "#00FF00",
+        "inputBackground": "#000000",
+        "inputForeground": "#00FF00",
+        "buttonBackground": "#008000",
+        "buttonForeground": "#00FF00",
+        "muted": "#00FF00",
+        "border": "#008000",
+        "accent": "#3333FF",
+        "success": "#33FF00",
+        "attention": "#FFFF00",
+        "danger": "#FF0000",
+        "done": "#FF00FF"
+      },
+      "source": {
+        "repository": "EricsonWillians/oldschool-theme",
+        "revision": "15f472028b56ac58495d6bf4ecd7d173320646f0",
+        "path": "themes/oldschool-terminal-green.json",
+        "license": "GPL-3.0",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "insetForeground": {
+            "key": "activityBar.foreground",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "muted": {
+            "key": "sideBar.foreground",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "accent": {
+            "key": "terminal.ansiBlue",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "success": {
+            "key": "terminal.ansiGreen",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "attention": {
+            "key": "terminal.ansiYellow",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "danger": {
+            "key": "terminal.ansiRed",
+            "path": "themes/oldschool-terminal-green.json"
+          },
+          "done": {
+            "key": "terminal.ansiMagenta",
+            "path": "themes/oldschool-terminal-green.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "macintosh-theme-macintosh-color-theme",
+      "name": "Window 90's Theme",
+      "mode": "dark",
+      "colors": {
+        "background": "#007878",
+        "surface": "#888",
+        "inset": "#aeaeae",
+        "hover": "#aeaeae",
+        "foreground": "#fff",
+        "surfaceForeground": "#000",
+        "insetForeground": "#000",
+        "inputBackground": "#444",
+        "inputForeground": "#ddd",
+        "buttonBackground": "#a0a0a0",
+        "buttonForeground": "#000",
+        "muted": "#333",
+        "border": "#000",
+        "accent": "#00a",
+        "success": "#ffa",
+        "attention": "#f07178",
+        "danger": "#FF5370",
+        "done": "#0ff"
+      },
+      "source": {
+        "repository": "Macintosh-Theme/Macintosh-Theme",
+        "revision": "27d9bfb4ce301018cfdbffd8b63ab807a6878f6c",
+        "path": "themes/macintosh-color-theme.json",
+        "license": "MIT (package.json declaration; no license file)",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "insetForeground": {
+            "key": "statusBar.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "muted": {
+            "key": "descriptionForeground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "accent": {
+            "key": "textLink.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "success": {
+            "key": "tokenColors[7].settings.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "attention": {
+            "key": "tokenColors[9].settings.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "danger": {
+            "key": "tokenColors[3].settings.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          },
+          "done": {
+            "key": "tokenColors[4].settings.foreground",
+            "path": "themes/macintosh-color-theme.json"
+          }
+        }
+      }
+    },
+    {
+      "id": "macintosh-theme-mac-theme",
+      "name": "Mac 90's Theme",
+      "mode": "light",
+      "colors": {
+        "background": "#f9f9f9",
+        "surface": "#e6e6e6",
+        "inset": "#d1d1d1",
+        "hover": "#bbb",
+        "foreground": "#000",
+        "surfaceForeground": "#000",
+        "insetForeground": "#000",
+        "inputBackground": "#fff",
+        "inputForeground": "#000",
+        "buttonBackground": "#ddd",
+        "buttonForeground": "#000",
+        "muted": "#000",
+        "border": "#000",
+        "accent": "#777777",
+        "success": "#AA3731",
+        "attention": "#448C27",
+        "danger": "#660000",
+        "done": "#777777"
+      },
+      "source": {
+        "repository": "Macintosh-Theme/Macintosh-Theme",
+        "revision": "27d9bfb4ce301018cfdbffd8b63ab807a6878f6c",
+        "path": "themes/mac-theme.json",
+        "license": "MIT (package.json declaration; no license file)",
+        "roles": {
+          "background": {
+            "key": "editor.background",
+            "path": "themes/mac-theme.json"
+          },
+          "surface": {
+            "key": "sideBar.background",
+            "path": "themes/mac-theme.json"
+          },
+          "inset": {
+            "key": "activityBar.background",
+            "path": "themes/mac-theme.json"
+          },
+          "hover": {
+            "key": "list.hoverBackground",
+            "path": "themes/mac-theme.json"
+          },
+          "foreground": {
+            "key": "editor.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "surfaceForeground": {
+            "key": "sideBar.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "insetForeground": {
+            "key": "statusBar.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "inputBackground": {
+            "key": "input.background",
+            "path": "themes/mac-theme.json"
+          },
+          "inputForeground": {
+            "key": "input.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "buttonBackground": {
+            "key": "button.background",
+            "path": "themes/mac-theme.json"
+          },
+          "buttonForeground": {
+            "key": "button.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "muted": {
+            "key": "sideBar.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "border": {
+            "key": "panel.border",
+            "path": "themes/mac-theme.json"
+          },
+          "accent": {
+            "key": "tokenColors[4].settings.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "success": {
+            "key": "tokenColors[9].settings.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "attention": {
+            "key": "tokenColors[14].settings.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "danger": {
+            "key": "tokenColors[3].settings.foreground",
+            "path": "themes/mac-theme.json"
+          },
+          "done": {
+            "key": "tokenColors[4].settings.foreground",
+            "path": "themes/mac-theme.json"
+          }
+        }
+      }
+    }
+  ]
+}
