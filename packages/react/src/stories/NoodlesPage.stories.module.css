@@ -79,6 +79,10 @@
   padding-top: var(--base-size-12);
 }
 
+.SidebarAction {
+  font-weight: var(--base-text-weight-normal);
+}
+
 .Account {
   margin-top: var(--base-size-12);
   padding: var(--base-size-8) var(--base-size-4) 0;

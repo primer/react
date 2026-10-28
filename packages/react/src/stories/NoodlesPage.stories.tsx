@@ -241,9 +241,10 @@ function NoodlesPage() {
           </div>
           <div className={classes.SidebarFooter}>
             <Button
+              className={classes.SidebarAction}
               variant="invisible"
               leadingVisual={CommentDiscussionIcon}
-              trailingVisual={PlusIcon}
+              trailingAction={PlusIcon}
               block
               alignContent="start"
               onClick={() => setUtilityDialog('agent')}
@@ -251,6 +252,7 @@ function NoodlesPage() {
               Connect agent
             </Button>
             <Button
+              className={classes.SidebarAction}
               variant="invisible"
               leadingVisual={BookIcon}
               block
@@ -676,7 +678,7 @@ export const NoodlesTheme: Story = {
     await userEvent.click(canvas.getByRole('button', {name: 'Choose theme: Primer'}))
     const body = within(canvasElement.ownerDocument.body)
     const dialog = within(await body.findByRole('dialog', {name: 'Themes'}))
-    const theme = dialog.getByRole('button', {name: 'Use Noodles theme', exact: true})
+    const theme = dialog.getByRole('button', {name: 'Use Noodles theme'})
     await userEvent.click(theme)
     await expect(theme).toHaveAttribute('aria-pressed', 'true')
     await userEvent.keyboard('{Escape}')
@@ -692,8 +694,17 @@ export const LocalInteractions: Story = {
   render: () => <NoodlesDemo />,
   play: async ({canvas, canvasElement}) => {
     const body = within(canvasElement.ownerDocument.body)
+    const connectAgent = canvas.getByRole('button', {name: 'Connect agent'})
+    await expect(connectAgent).toHaveAttribute('data-block', 'block')
+    await expect(connectAgent).toHaveStyle({fontWeight: '400'})
+    await expect(canvas.getByRole('button', {name: 'Noodle settings'})).toHaveStyle({fontWeight: '400'})
+    const plus = connectAgent.querySelector('svg.octicon-plus')
+    if (!plus) throw new Error('Connect agent must include a trailing plus icon')
+    const plusInset = connectAgent.getBoundingClientRect().right - plus.getBoundingClientRect().right
+    await expect(plusInset).toBeGreaterThanOrEqual(0)
+    await expect(plusInset).toBeLessThanOrEqual(24)
     const navigation = within(canvas.getByRole('navigation', {name: 'Noodle pages'}))
-    const disclosure = navigation.getByRole('button', {name: noodlesProjectCover.title, exact: true})
+    const disclosure = navigation.getByRole('button', {name: noodlesProjectCover.title})
     await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
     await userEvent.click(disclosure)
     await expect(navigation.getByRole('link', {name: 'First-use onboarding'})).toBeVisible()
@@ -701,7 +712,7 @@ export const LocalInteractions: Story = {
     await userEvent.click(disclosure)
     await expect(navigation.queryByRole('link', {name: 'First-use onboarding'})).not.toBeInTheDocument()
     await expect(navigation.getByRole('link', {name: /Status updates/})).toBeVisible()
-    await userEvent.click(canvas.getByRole('button', {name: 'Switch noodle', exact: true}))
+    await userEvent.click(canvas.getByRole('button', {name: 'Switch noodle'}))
     const switcher = within(await body.findByRole('menu'))
     await expect(switcher.getByRole('menuitemradio', {name: noodlesProjectCover.title})).toHaveAttribute(
       'aria-checked',
@@ -712,8 +723,8 @@ export const LocalInteractions: Story = {
     await expect(canvas.getByRole('heading', {name: noodlesProjectCover.title, level: 1})).toBeVisible()
     await userEvent.click(navigation.getByRole('link', {name: /Status updates/}))
     await expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toBeVisible()
-    await userEvent.click(canvas.getByRole('button', {name: 'New page', exact: true}))
-    const dialog = within(await body.findByRole('dialog', {name: 'New page', exact: true}))
+    await userEvent.click(canvas.getByRole('button', {name: 'New page'}))
+    const dialog = within(await body.findByRole('dialog', {name: 'New page'}))
     const title = dialog.getByRole('textbox', {name: /Page title/})
     await userEvent.type(title, '   ')
     await userEvent.click(dialog.getByRole('button', {name: 'Create page'}))
@@ -724,7 +735,7 @@ export const LocalInteractions: Story = {
     await expect(canvas.getByRole('heading', {name: 'Release notes', level: 1})).toBeVisible()
     await userEvent.click(canvas.getByRole('button', {name: 'Page comments'}))
     await userEvent.type(canvas.getByRole('textbox', {name: 'Add a comment'}), 'Ready for review.')
-    await userEvent.click(canvas.getByRole('button', {name: 'Comment', exact: true}))
+    await userEvent.click(canvas.getByRole('button', {name: 'Comment'}))
     await expect(canvas.getByText('Ready for review.')).toBeVisible()
     await userEvent.click(canvas.getByRole('button', {name: 'Page comments'}))
     await userEvent.click(canvas.getByRole('button', {name: 'Reset prototype data'}))
