@@ -64,8 +64,8 @@ const meta = {
       description: {
         component:
           'Shopify Polaris, Adobe Spectrum and Stripe presets adapt public brand token values through scoped CSS variables only. Shopify uses the older MIT-licensed Polaris Tokens 4.0.0 baseline. Adobe and Stripe use published font stacks with local fallbacks; no brand fonts or component stylesheets are downloaded. Stripe is a website/Appearance API adaptation, not a Dashboard replica. Source versions, token roles and limitations are recorded in PlaygroundAppearance.brands.json and the picker shows source notes. ' +
-          'Author, label, type and sort filters use searchable SelectPanels with single selection, explicit reset choices and empty-result feedback. Author avatars are local identicons; label swatches follow the active theme. ' +
-          'A Primer-first reconstruction of the primer/react issues list. Public fixtures captured October 28, 2026: 25 open issues and a seven-issue closed sample. All filters, selection, star/watch toggles and new issues are local fixture-only behavior; nothing is sent to GitHub or persisted remotely. Repository and real issue links open GitHub in a new tab. Search supports text, #number, is:issue, state:open/closed, is:open/closed, label:"name", author:login and type:Bug/Feature/Task. The demo user is siddharthkp. The issue toolbar switches between Comfortable and Compact rows independently of page-wide density; Compact reduces row spacing and title size and hides labels, while retaining issue metadata. PlaygroundAppearance manages density, portaled overlays, and independent Primer adaptations of color values snapshotted from the supplied VS Code repositories. The density slider previews five live steps from Very compact to Very spacious, with Default in the middle; spacing and control tiers shift by up to two adjacent steps in either direction and clamp at the scale boundaries. Sources are commit-pinned, inherited color definitions are resolved, and tints and contrast-safe text are adapted locally. Windows 95 (95CSS) additionally customizes typography using the bundled OFL-licensed W95FA font, square corners, and raised/sunken primitive shadows. Primer inherits Storybook. The theme button opens a searchable palette side sheet with miniature previews, recent choices, an Active indicator, and an immutable source link for the selected preset. Selecting a card applies it immediately while keeping the picker open. These are demonstration presets, not a reproduction of GitHub appearance settings.',
+          'Author, label, type and sort filters use searchable SelectPanels with single selection, explicit reset choices and empty-result feedback. Author, assignee and profile avatars load from https://github.com/username.png; GitHub Actions uses its published app-avatar URL because bot logins have no username.png endpoint. Label swatches follow the active theme. ' +
+          'A Primer-first reconstruction of the primer/react issues list. Public fixtures captured October 28, 2026: 25 open issues and a seven-issue closed sample. All filters, selection, star/watch toggles and new issues are local fixture-only behavior; issue changes are never sent to GitHub or persisted remotely. Repository and real issue links open GitHub in a new tab. Search supports text, #number, is:issue, state:open/closed, is:open/closed, label:"name", author:login and type:Bug/Feature/Task. The demo user is siddharthkp. The issue toolbar switches between Comfortable and Compact rows independently of page-wide density; Compact reduces row spacing and title size and hides labels, while retaining issue metadata. PlaygroundAppearance manages density, portaled overlays, and independent Primer adaptations of color values snapshotted from the supplied VS Code repositories. The density slider previews five live steps from Very compact to Very spacious, with Default in the middle; spacing and control tiers shift by up to two adjacent steps in either direction and clamp at the scale boundaries. Sources are commit-pinned, inherited color definitions are resolved, and tints and contrast-safe text are adapted locally. Windows 95 (95CSS) additionally customizes typography using the bundled OFL-licensed W95FA font, square corners, and raised/sunken primitive shadows. Primer inherits Storybook. The theme button opens a searchable palette side sheet with miniature previews, recent choices, an Active indicator, and an immutable source link for the selected preset. Selecting a card applies it immediately while keeping the picker open. These are demonstration presets, not a reproduction of GitHub appearance settings.',
       },
     },
   },
@@ -138,16 +138,9 @@ function FilterPanel({
   )
 }
 
-// Original inline SVG avatars keep this story usable without external image requests.
 function avatarSource(login: string) {
-  const cells = Array.from({length: 15}, (_, index) => {
-    const code = login.charCodeAt(index % login.length)
-    if ((code + index) % 3 === 0) return ''
-    const x = index % 3
-    const y = Math.floor(index / 3)
-    return `<rect x="${x + 1}" y="${y + 1}" width="1" height="1"/><rect x="${5 - x}" y="${y + 1}" width="1" height="1"/>`
-  }).join('')
-  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 7"><rect width="7" height="7" fill="#eaeef2"/><g fill="#5965a6">${cells}</g></svg>`)}`
+  if (login === 'github-actions[bot]') return 'https://avatars.githubusercontent.com/in/15368?v=4'
+  return `https://github.com/${encodeURIComponent(login)}.png`
 }
 
 function labelVariant(label: string) {
