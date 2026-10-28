@@ -2,9 +2,10 @@
   --InputValidation--color: var(--inputValidation-fgColor);
   --InputValidation--fontWeight: var(--base-text-weight-semibold);
   --InputValidation--fontSize: var(--text-body-size-small);
+
   display: flex;
   font-size: var(--InputValidation--fontSize);
-  font-weight: var(--InputValidation--fontWeight);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/colors */
   color: var(--InputValidation--color);
 
@@ -28,6 +29,7 @@
   --InputValidation--validationIcon-minHeight: var(--inputValidation-iconSize);
   --InputValidation--validationIcon-marginInlineEnd: var(--base-size-4);
   --InputValidation--validationIcon-marginTop: var(--base-size-2);
+
   display: flex;
   margin-top: var(--InputValidation--validationIcon-marginTop);
   margin-inline-end: var(--InputValidation--validationIcon-marginInlineEnd);

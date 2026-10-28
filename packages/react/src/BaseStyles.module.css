@@ -57,6 +57,7 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
   --BaseStyles--color: var(--BaseStyles-fgColor, var(--fgColor-default));
   --BaseStyles--lineHeight: var(--BaseStyles-lineHeight, 1.5);
   --BaseStyles--fontFamily: var(--BaseStyles-fontFamily, var(--fontStack-system));
+
   font-family: var(--BaseStyles--fontFamily);
   /* stylelint-disable-next-line primer/typography */
   line-height: var(--BaseStyles--lineHeight);
@@ -74,6 +75,7 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
   /* stylelint-disable-next-line selector-no-qualifying-type */
   :where(a:not([class*='prc-']):not([class*='PRC-']):not([class*='Primer_Brand__'])) {
     --BaseStyles--a-color-not-classPrc-classPRC-classPrimerBrand: var(--fgColor-accent, var(--color-accent-fg));
+
     color: var(--BaseStyles--a-color-not-classPrc-classPRC-classPrimerBrand);
     text-decoration: none;
 

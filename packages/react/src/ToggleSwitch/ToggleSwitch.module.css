@@ -20,6 +20,7 @@
 
 .LoadingSpinner:where([data-status-label-position='end']) {
   --ToggleSwitch--loadingSpinner-marginLeft-statusLabelPositionEnd: var(--base-size-8);
+
   margin-right: 0;
   margin-left: var(--ToggleSwitch--loadingSpinner-marginLeft-statusLabelPositionEnd);
 }
@@ -29,6 +30,7 @@
   --ToggleSwitch--statusText-color: var(--fgColor-default);
   --ToggleSwitch--statusText-marginRight: var(--base-size-8);
   --ToggleSwitch--statusText-marginLeft: var(--base-size-8);
+
   margin-left: var(--ToggleSwitch--statusText-marginLeft);
   margin-right: var(--ToggleSwitch--statusText-marginRight);
   position: relative;
@@ -39,17 +41,20 @@
 
 .StatusText:where([data-disabled='true']) {
   --ToggleSwitch--statusText-color-disabledTrue: var(--fgColor-muted);
+
   cursor: not-allowed;
   color: var(--ToggleSwitch--statusText-color-disabledTrue);
 }
 
 .StatusText:where([data-size='small']) {
   --ToggleSwitch--statusText-fontSize-sizeSmall: var(--text-body-size-small);
+
   font-size: var(--ToggleSwitch--statusText-fontSize-sizeSmall);
 }
 
 .StatusText:where([data-size='medium']) {
   --ToggleSwitch--statusText-fontSize-sizeMedium: var(--text-body-size-medium);
+
   font-size: var(--ToggleSwitch--statusText-fontSize-sizeMedium);
 }
 
@@ -68,6 +73,7 @@
   --ToggleSwitch--switchButton-borderRadius: var(--borderRadius-default);
   --ToggleSwitch--switchButton-transitionTimingFunction: var(--toggleSwitch-transition-easing);
   --ToggleSwitch--switchButton-transitionDuration: var(--toggleSwitch-transition-duration);
+
   cursor: pointer;
   user-select: none;
   appearance: none;
@@ -90,6 +96,7 @@
   /* Focus styles */
   &:focus-visible {
     --ToggleSwitch--switchButton-outline-focusVisible: var(--focus-outline);
+
     outline: var(--ToggleSwitch--switchButton-outline-focusVisible);
     outline-offset: 3px;
   }
@@ -220,6 +227,7 @@
 .IconContainer {
   --ToggleSwitch--iconContainer-transitionTimingFunction: var(--toggleSwitch-transition-easing);
   --ToggleSwitch--iconContainer-transitionDuration: var(--toggleSwitch-transition-duration);
+
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 50%;
@@ -326,6 +334,7 @@
     --controlKnob-borderColor-checked,
     var(--color-switch-knob-checked-border, #0969da)
   );
+
   transform: translateX(calc(100% - 2px));
   /* stylelint-disable-next-line primer/colors */
   border-color: var(--ToggleSwitch--toggleKnob-borderColor-checkedTrue);
@@ -337,6 +346,7 @@
     var(--color-switch-track-disabled-bg, #8c959f)
   );
   --ToggleSwitch--toggleKnob-backgroundColor-disabledTrue: var(--controlKnob-bgColor-disabled);
+
   background-color: var(--ToggleSwitch--toggleKnob-backgroundColor-disabledTrue);
   /* stylelint-disable-next-line primer/colors */
   border-color: var(--ToggleSwitch--toggleKnob-borderColor-disabledTrue);

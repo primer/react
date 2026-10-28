@@ -3,6 +3,7 @@
   --DeprecatedActionList--divider-marginTop: calc(var(--base-size-8) - 1px);
   --DeprecatedActionList--divider-background: var(--borderColor-muted);
   --DeprecatedActionList--divider-height: var(--borderWidth-thin);
+
   height: var(--DeprecatedActionList--divider-height);
   /* stylelint-disable-next-line primer/colors */
   background: var(--DeprecatedActionList--divider-background);

@@ -1,6 +1,7 @@
 /* Container ---------------------------------------------------------------- */
 .TableContainer {
   --DataTable--table-tableContainer-columnGap: var(--base-size-8);
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
@@ -18,9 +19,10 @@
   --DataTable--table-tableTitle-color: var(--fgColor-default);
   --DataTable--table-tableTitle-fontWeight: var(--base-text-weight-semibold);
   --DataTable--table-tableTitle-fontSize: var(--text-body-size-medium);
+
   margin: 0;
   font-size: var(--DataTable--table-tableTitle-fontSize);
-  font-weight: var(--DataTable--table-tableTitle-fontWeight);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/typography */
   line-height: 20px;
   color: var(--DataTable--table-tableTitle-color);
@@ -34,9 +36,10 @@
   --DataTable--table-tableSubtitle-lineHeight: var(--text-title-lineHeight-small);
   --DataTable--table-tableSubtitle-fontWeight: var(--base-text-weight-normal);
   --DataTable--table-tableSubtitle-fontSize: var(--text-body-size-small);
+
   margin: 0;
   font-size: var(--DataTable--table-tableSubtitle-fontSize);
-  font-weight: var(--DataTable--table-tableSubtitle-fontWeight);
+  font-weight: var(--base-text-weight-light);
   line-height: var(--DataTable--table-tableSubtitle-lineHeight);
   color: var(--DataTable--table-tableSubtitle-color);
   grid-area: subtitle;
@@ -45,6 +48,7 @@
 /* TableActions */
 .TableActions {
   --DataTable--table-tableActions-columnGap: var(--base-size-8);
+
   display: flex;
   column-gap: var(--DataTable--table-tableActions-columnGap);
   align-items: center;
@@ -57,6 +61,7 @@
   --DataTable--table-tableDivider-marginBlockEnd: var(--base-size-8);
   --DataTable--table-tableDivider-marginBlockStart: var(--base-size-16);
   --DataTable--table-tableDivider-backgroundColor: var(--borderColor-default);
+
   width: 100%;
   height: 1px;
   /* stylelint-disable-next-line primer/colors */
@@ -73,6 +78,7 @@
   --DataTable--table-tableTitle-next-tableOverflowWrapper-tableSubtitle-tableActions-marginBlockStart: var(
     --base-size-8
   );
+
   margin-block-start: var(
     --DataTable--table-tableTitle-next-tableOverflowWrapper-tableSubtitle-tableActions-marginBlockStart
   );
@@ -128,6 +134,7 @@
 .TableHeader:first-child {
   --DataTable--table-tableCell-tableHeader-borderInlineStart-firstChild: var(--borderWidth-thin) solid
     var(--borderColor-default);
+
   border-inline-start: var(--DataTable--table-tableCell-tableHeader-borderInlineStart-firstChild);
 }
 
@@ -135,6 +142,7 @@
 .TableHeader:last-child {
   --DataTable--table-tableCell-tableHeader-borderInlineEnd-lastChild: var(--borderWidth-thin) solid
     var(--borderColor-default);
+
   border-inline-end: var(--DataTable--table-tableCell-tableHeader-borderInlineEnd-lastChild);
 }
 
@@ -142,6 +150,7 @@
 .TableCell {
   --DataTable--table-tableHeader-tableCell-borderBlockEnd: var(--borderWidth-thin) solid var(--borderColor-default);
   --DataTable--table-tableHeader-tableCell-padding: var(--table-cell-padding);
+
   display: flex;
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--DataTable--table-tableHeader-tableCell-padding);
@@ -165,6 +174,7 @@
 .TableHead .TableRow:first-of-type .TableHeader {
   --DataTable--table-tableHead-tableRow-tableHeader-borderBlockStart-firstOfType: var(--borderWidth-thin) solid
     var(--borderColor-default);
+
   border-block-start: var(--DataTable--table-tableHead-tableRow-tableHeader-borderBlockStart-firstOfType);
 }
 
@@ -233,6 +243,7 @@
   --DataTable--table-tableRow-child-tableCellSkeleton-tableCellSkeletonItem-paddingInlineStart-firstChild-not: var(
     --base-size-16
   );
+
   padding-inline-start: var(
     --DataTable--table-tableRow-child-tableCellSkeleton-tableCellSkeletonItem-paddingInlineStart-firstChild-not
   );
@@ -243,6 +254,7 @@
   --DataTable--table-tableRow-child-tableCellSkeleton-tableCellSkeletonItem-paddingInlineEnd-lastChild-not: var(
     --base-size-16
   );
+
   padding-inline-end: var(
     --DataTable--table-tableRow-child-tableCellSkeleton-tableCellSkeletonItem-paddingInlineEnd-lastChild-not
   );
@@ -254,7 +266,8 @@
   --DataTable--table-tableHeader-backgroundColor: var(--bgColor-muted);
   --DataTable--table-tableHeader-color: var(--fgColor-muted);
   --DataTable--table-tableHeader-fontWeight: var(--base-text-weight-semibold);
-  font-weight: var(--DataTable--table-tableHeader-fontWeight);
+
+  font-weight: var(--base-text-weight-light);
   color: var(--DataTable--table-tableHeader-color);
   background-color: var(--DataTable--table-tableHeader-backgroundColor);
   border-block-start: var(--DataTable--table-tableHeader-borderBlockStart);
@@ -263,6 +276,7 @@
 .TableHeader:where([aria-sort='descending']),
 .TableHeader:where([aria-sort='ascending']) {
   --DataTable--table-tableHeader-color-ariaSortDescending-ariaSortAscending: var(--fgColor-default);
+
   color: var(--DataTable--table-tableHeader-color-ariaSortDescending-ariaSortAscending);
 }
 
@@ -293,6 +307,7 @@
   --DataTable--table-tableRow-tableCell-tableCellSkeleton-backgroundColor-hover-not: var(
     --control-transparent-bgColor-hover
   );
+
   background-color: var(--DataTable--table-tableRow-tableCell-tableCellSkeleton-backgroundColor-hover-not);
 }
 
@@ -300,8 +315,9 @@
 .TableCell:where([scope='row']) {
   --DataTable--table-tableCell-color-scopeRow: var(--fgColor-default);
   --DataTable--table-tableCell-fontWeight-scopeRow: var(--base-text-weight-semibold);
+
   display: flex;
-  font-weight: var(--DataTable--table-tableCell-fontWeight-scopeRow);
+  font-weight: var(--base-text-weight-light);
   color: var(--DataTable--table-tableCell-color-scopeRow);
   align-items: center;
 }
@@ -345,12 +361,14 @@
 
 .TableCellSkeletonItem [data-component='SkeletonText'] {
   --DataTable--table-tableCellSkeletonItem-width-componentSkeletonText: var(--skeleton-item-width);
+
   width: var(--DataTable--table-tableCellSkeletonItem-width-componentSkeletonText);
 }
 
 .TableCellSkeletonItem:not(:last-of-type) {
   --DataTable--table-tableCellSkeletonItem-borderBlockEnd-not-lastOfType: var(--borderWidth-thin) solid
     var(--borderColor-default);
+
   border-block-end: var(--DataTable--table-tableCellSkeletonItem-borderBlockEnd-not-lastOfType);
 }
 
@@ -385,6 +403,7 @@
   --DataTable--table-tableGroupHeaderCell-color: var(--fgColor-muted);
   --DataTable--table-tableGroupHeaderCell-padding: var(--table-cell-padding);
   --DataTable--table-tableGroupHeaderCell-columnGap: calc(2 * var(--cell-padding-inline));
+
   display: flex;
   grid-column: 1 / -1;
   align-items: center;
@@ -402,6 +421,7 @@
 
 .TableGroupHeaderContent {
   --DataTable--table-tableGroupHeaderContent-columnGap: var(--base-size-8);
+
   display: flex;
   align-items: baseline;
   column-gap: var(--DataTable--table-tableGroupHeaderContent-columnGap);
@@ -410,12 +430,14 @@
 .TableGroupHeaderLabel {
   --DataTable--table-tableGroupHeaderLabel-color: var(--fgColor-default);
   --DataTable--table-tableGroupHeaderLabel-fontWeight: var(--base-text-weight-semibold);
-  font-weight: var(--DataTable--table-tableGroupHeaderLabel-fontWeight);
+
+  font-weight: var(--base-text-weight-light);
   color: var(--DataTable--table-tableGroupHeaderLabel-color);
 }
 
 .TableGroupHeaderCount {
   --DataTable--table-tableGroupHeaderCount-color: var(--fgColor-muted);
+
   color: var(--DataTable--table-tableGroupHeaderCount-color);
 }
 
@@ -447,5 +469,6 @@
 
 .PlaceholderText {
   --DataTable--table-placeholderText-color: var(--fgColor-muted);
+
   color: var(--DataTable--table-placeholderText-color);
 }

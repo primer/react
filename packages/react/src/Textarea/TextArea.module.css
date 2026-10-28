@@ -40,6 +40,7 @@
 .CharacterCounter {
   --Textarea--characterCounter-color: var(--fgColor-muted);
   --Textarea--characterCounter-gap: var(--control-xsmall-gap);
+
   display: flex;
   align-items: center;
   gap: var(--Textarea--characterCounter-gap);
@@ -48,5 +49,6 @@
 
 .CharacterCounter--error {
   --Textarea--characterCounterError-color: var(--fgColor-danger);
+
   color: var(--Textarea--characterCounterError-color);
 }

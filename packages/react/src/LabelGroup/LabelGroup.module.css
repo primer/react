@@ -1,5 +1,6 @@
 .Container {
   --LabelGroup--container-gap: var(--base-size-4);
+
   display: flex;
   flex-wrap: nowrap;
   gap: var(--LabelGroup--container-gap);
@@ -49,6 +50,7 @@
 
 .OverlayInner {
   --LabelGroup--overlayInner-gap: var(--base-size-4);
+
   display: flex;
   flex-wrap: wrap;
   gap: var(--LabelGroup--overlayInner-gap);

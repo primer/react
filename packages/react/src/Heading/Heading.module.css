@@ -1,22 +1,26 @@
 :where(.Heading) {
   --Heading--fontWeight: var(--base-text-weight-semibold);
   --Heading--fontSize: var(--text-title-size-large);
+
   margin: 0;
   font-size: var(--Heading--fontSize);
-  font-weight: var(--Heading--fontWeight);
+  font-weight: var(--base-text-weight-light);
 
   &:where([data-variant='large']) {
     --Heading--font-variantLarge: var(--text-title-shorthand-large);
+
     font: var(--Heading--font-variantLarge);
   }
 
   &:where([data-variant='medium']) {
     --Heading--font-variantMedium: var(--text-title-shorthand-medium);
+
     font: var(--Heading--font-variantMedium);
   }
 
   &:where([data-variant='small']) {
     --Heading--font-variantSmall: var(--text-title-shorthand-small);
+
     font: var(--Heading--font-variantSmall);
   }
 }

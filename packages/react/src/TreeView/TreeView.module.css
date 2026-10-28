@@ -33,6 +33,7 @@
           --boxShadow-thick
         )
         var(--fgColor-accent);
+
       box-shadow: var(
         --TreeView--treeViewRootUlStyles-treeViewItem-child-div-focusVisible-boxShadow-focusVisible-global
       );
@@ -88,6 +89,7 @@
       --TreeView--treeViewRootUlStyles-treeViewItemContainer-backgroundColor-hover: var(
         --control-transparent-bgColor-hover
       );
+
       background-color: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-backgroundColor-hover);
 
       @media (forced-colors: active) {
@@ -124,6 +126,7 @@
     --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-backgroundColor-ariaCurrentTrue: var(
       --control-transparent-bgColor-selected
     );
+
     background-color: var(
       --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-backgroundColor-ariaCurrentTrue
     );
@@ -143,6 +146,7 @@
       --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-top-ariaCurrentTrue: calc(
         50% - var(--base-size-12)
       );
+
       position: absolute;
       top: var(--TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-top-ariaCurrentTrue);
       left: var(--TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-left-ariaCurrentTrue);
@@ -173,6 +177,7 @@
     --TreeView--treeViewRootUlStyles-treeViewItemToggle-paddingTop: calc(
       var(--min-item-height) / 2 - var(--base-size-12) / 2
     );
+
     display: flex;
     height: 100%;
 
@@ -190,12 +195,14 @@
     --TreeView--treeViewRootUlStyles-treeViewItemToggleHover-backgroundColor-hover: var(
       --control-transparent-bgColor-hover
     );
+
     background-color: var(--TreeView--treeViewRootUlStyles-treeViewItemToggleHover-backgroundColor-hover);
   }
 
   .TreeViewItemToggleEnd {
     --TreeView--treeViewRootUlStyles-treeViewItemToggleEnd-borderBottomLeftRadius: var(--borderRadius-medium);
     --TreeView--treeViewRootUlStyles-treeViewItemToggleEnd-borderTopLeftRadius: var(--borderRadius-medium);
+
     border-top-left-radius: var(--TreeView--treeViewRootUlStyles-treeViewItemToggleEnd-borderTopLeftRadius);
     border-bottom-left-radius: var(--TreeView--treeViewRootUlStyles-treeViewItemToggleEnd-borderBottomLeftRadius);
   }
@@ -213,6 +220,7 @@
       (var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2
     );
     --TreeView--treeViewRootUlStyles-treeViewItemContent-padding: 0 var(--base-size-8);
+
     display: flex;
     height: 100%;
     padding: var(--TreeView--treeViewRootUlStyles-treeViewItemContent-padding);
@@ -246,6 +254,7 @@
   .TreeViewItemVisual {
     --TreeView--treeViewRootUlStyles-treeViewItemVisual-color: var(--fgColor-muted);
     --TreeView--treeViewRootUlStyles-treeViewItemVisual-height: var(--custom-line-height, 1.3rem);
+
     display: flex;
 
     /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
@@ -257,6 +266,7 @@
 
   .TreeViewItemLeadingAction {
     --TreeView--treeViewRootUlStyles-treeViewItemLeadingAction-color: var(--fgColor-muted);
+
     display: flex;
     color: var(--TreeView--treeViewRootUlStyles-treeViewItemLeadingAction-color);
     grid-area: leadingAction;
@@ -268,6 +278,7 @@
 
   .TreeViewItemTrailingAction {
     --TreeView--treeViewRootUlStyles-treeViewItemTrailingAction-color: var(--fgColor-muted);
+
     display: flex;
     color: var(--TreeView--treeViewRootUlStyles-treeViewItemTrailingAction-color);
     grid-area: trailingAction;
@@ -283,6 +294,7 @@
       var(--borderColor-muted)
     );
     --TreeView--treeViewRootUlStyles-treeViewItemLevelLine-borderRight: var(--borderWidth-thin) solid;
+
     width: 100%;
     height: 100%;
     border-right: var(--TreeView--treeViewRootUlStyles-treeViewItemLevelLine-borderRight);
@@ -311,6 +323,7 @@
 
   .TreeViewDirectoryIcon {
     --TreeView--treeViewRootUlStyles-treeViewDirectoryIcon-color: var(--treeViewItem-leadingVisual-iconColor-rest);
+
     display: grid;
     color: var(--TreeView--treeViewRootUlStyles-treeViewDirectoryIcon-color);
   }
@@ -363,5 +376,6 @@
 
 .TreeItemSkeletonTextStyles {
   --TreeView--treeItemSkeletonTextStyles-width: var(--tree-item-loading-width, 67%);
+
   width: var(--TreeView--treeItemSkeletonTextStyles-width);
 }

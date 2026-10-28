@@ -1,9 +1,11 @@
 .ActionListHeader {
   --ActionList--heading-actionListHeader-marginBlockEnd: var(--base-size-8);
+
   margin-block-end: var(--ActionList--heading-actionListHeader-marginBlockEnd);
 
   &:where([data-list-variant='full']) {
     --ActionList--heading-actionListHeader-marginInlineStart-listVariantFull: var(--base-size-8);
+
     margin-inline-start: var(--ActionList--heading-actionListHeader-marginInlineStart-listVariantFull);
   }
 

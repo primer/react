@@ -8,6 +8,7 @@
   --TextInputWrapper--textInputBaseWrapper-lineHeight: var(--base-size-20);
   --TextInputWrapper--textInputBaseWrapper-fontSize: var(--text-body-size-medium);
   --TextInputWrapper--textInputBaseWrapper-minHeight: var(--base-size-32);
+
   display: inline-flex;
   min-height: var(--TextInputWrapper--textInputBaseWrapper-minHeight);
   overflow: hidden;
@@ -38,6 +39,7 @@
   select {
     &::placeholder {
       --TextInputWrapper--textInputBaseWrapper-input-textarea-select-placeholder-color: var(--fgColor-muted);
+
       color: var(--TextInputWrapper--textInputBaseWrapper-input-textarea-select-placeholder-color);
     }
   }
@@ -51,6 +53,7 @@
     --TextInputWrapper--textInputBaseWrapper-borderColor-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin: var(
       --borderColor-accent-emphasis
     );
+
     border-color: var(
       --TextInputWrapper--textInputBaseWrapper-borderColor-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin
     );
@@ -62,6 +65,7 @@
 
   > textarea {
     --TextInputWrapper--textInputBaseWrapper-child-textarea-padding: var(--base-size-12);
+
     padding: var(--TextInputWrapper--textInputBaseWrapper-child-textarea-padding);
   }
 
@@ -79,6 +83,7 @@
     --TextInputWrapper--textInputBaseWrapper-borderColor-disabledPresent: var(--control-borderColor-disabled);
     --TextInputWrapper--textInputBaseWrapper-backgroundColor-disabledPresent: var(--control-bgColor-disabled);
     --TextInputWrapper--textInputBaseWrapper-color-disabledPresent: var(--fgColor-disabled);
+
     color: var(--TextInputWrapper--textInputBaseWrapper-color-disabledPresent);
     background-color: var(--TextInputWrapper--textInputBaseWrapper-backgroundColor-disabledPresent);
     border-color: var(--TextInputWrapper--textInputBaseWrapper-borderColor-disabledPresent);
@@ -93,11 +98,13 @@
 
   &:where([data-monospace]) {
     --TextInputWrapper--textInputBaseWrapper-fontFamily-monospacePresent: var(--fontStack-monospace);
+
     font-family: var(--TextInputWrapper--textInputBaseWrapper-fontFamily-monospacePresent);
   }
 
   &:where([data-validation='error']) {
     --TextInputWrapper--textInputBaseWrapper-borderColor-validationError: var(--borderColor-danger-emphasis);
+
     border-color: var(--TextInputWrapper--textInputBaseWrapper-borderColor-validationError);
 
     &:where([data-trailing-action][data-focused]),
@@ -107,6 +114,7 @@
       --TextInputWrapper--textInputBaseWrapper-borderColor-validationError-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin: var(
         --control-borderColor-danger
       );
+
       border-color: var(
         --TextInputWrapper--textInputBaseWrapper-borderColor-validationError-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin
       );
@@ -132,6 +140,7 @@
   /* Ensures inputs don't zoom on mobile but are body-font size on desktop */
   @media screen and (--viewportRange-regular) {
     --TextInputWrapper--textInputBaseWrapper-fontSize-mediaScreenAndViewportRangeRegular: var(--text-body-size-medium);
+
     font-size: var(--TextInputWrapper--textInputBaseWrapper-fontSize-mediaScreenAndViewportRangeRegular);
   }
 
@@ -179,6 +188,7 @@
     --TextInputWrapper--textInputBaseWrapper-lineHeight-variantSmall: var(--base-size-20);
     --TextInputWrapper--textInputBaseWrapper-paddingLeft-variantSmall: var(--base-size-8);
     --TextInputWrapper--textInputBaseWrapper-paddingRight-variantSmall: var(--base-size-8);
+
     min-height: 28px;
     /* stylelint-disable-next-line primer/spacing */
     padding-top: 3px;
@@ -225,12 +235,14 @@
 
   & > :not(:last-child) {
     --TextInputWrapper--child-marginRight-not-lastChild: var(--base-size-8);
+
     margin-right: var(--TextInputWrapper--child-marginRight-not-lastChild);
   }
 
   & :global(.TextInput-icon) /* stylelint-disable-line selector-class-pattern */,
   & :global(.TextInput-action)  /* stylelint-disable-line selector-class-pattern */ {
     --TextInputWrapper--textInputIcon-textInputAction-color-global: var(--fgColor-muted);
+
     align-self: center;
     color: var(--TextInputWrapper--textInputIcon-textInputAction-color-global);
     flex-shrink: 0;
@@ -239,12 +251,14 @@
   /* With leading visual */
   &:where([data-leading-visual]) {
     --TextInputWrapper--paddingLeft-leadingVisualPresent: var(--base-size-8);
+
     padding-left: var(--TextInputWrapper--paddingLeft-leadingVisualPresent);
   }
 
   /* With trailing visual */
   &:where([data-trailing-visual][data-no-trailing-action]) {
     --TextInputWrapper--paddingRight-trailingVisualPresent-noTrailingActionPresent: var(--base-size-8);
+
     padding-right: var(--TextInputWrapper--paddingRight-trailingVisualPresent-noTrailingActionPresent);
   }
 
@@ -256,6 +270,7 @@
       --TextInputWrapper--child-input-select-paddingLeft-noLeadingVisualPresent-trailingVisualPresent-trailingActionPresent: var(
         --base-size-8
       );
+
       padding-left: var(
         --TextInputWrapper--child-input-select-paddingLeft-noLeadingVisualPresent-trailingVisualPresent-trailingActionPresent
       );
@@ -268,6 +283,7 @@
     --TextInputWrapper--child-input-select-paddingRight-noTrailingVisualPresent-noTrailingActionPresent: var(
       --base-size-8
     );
+
     padding-right: var(
       --TextInputWrapper--child-input-select-paddingRight-noTrailingVisualPresent-noTrailingActionPresent
     );
@@ -282,6 +298,7 @@
     --TextInputWrapper--child-input-select-paddingLeft-noLeadingVisualPresent-noTrailingVisualPresent-noTrailingActionPresent: var(
       --base-size-12
     );
+
     padding-left: var(
       --TextInputWrapper--child-input-select-paddingLeft-noLeadingVisualPresent-noTrailingVisualPresent-noTrailingActionPresent
     );
@@ -295,11 +312,13 @@
 .TextInputWrapper:where([data-size='large']) {
   &:where([data-leading-visual]) {
     --TextInputWrapper--paddingLeft-sizeLarge-leadingVisualPresent: var(--base-size-12);
+
     padding-left: var(--TextInputWrapper--paddingLeft-sizeLarge-leadingVisualPresent);
   }
 
   &:where([data-trailing-visual][data-no-trailing-action]) {
     --TextInputWrapper--paddingRight-sizeLarge-trailingVisualPresent-noTrailingActionPresent: var(--base-size-12);
+
     padding-right: var(--TextInputWrapper--paddingRight-sizeLarge-trailingVisualPresent-noTrailingActionPresent);
   }
 }

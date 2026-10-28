@@ -19,6 +19,7 @@
     --TooltipV2--tooltip-color-popoverPresent: var(--tooltip-fgColor);
     --TooltipV2--tooltip-font-popoverPresent: var(--text-body-shorthand-small);
     --TooltipV2--tooltip-padding-popoverPresent: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
+
     position: absolute;
     width: max-content;
     max-width: 250px;
@@ -61,6 +62,7 @@
   /* This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip */
   &::after {
     --TooltipV2--tooltip-after-height: var(--overlay-offset);
+
     position: absolute;
     right: 0;
     left: 0;
@@ -131,10 +133,12 @@
 
 .KeybindingHintContainer.HasTextBefore {
   --TooltipV2--tooltip-keybindingHintContainer-hasTextBefore-marginLeft: var(--base-size-6);
+
   margin-left: var(--TooltipV2--tooltip-keybindingHintContainer-hasTextBefore-marginLeft);
 }
 
 .KeybindingHintContainer.HasTextBefore.HasMultipleHints {
   --TooltipV2--tooltip-keybindingHintContainer-hasTextBefore-hasMultipleHints-marginLeft: var(--base-size-8);
+
   margin-left: var(--TooltipV2--tooltip-keybindingHintContainer-hasTextBefore-hasMultipleHints-marginLeft);
 }

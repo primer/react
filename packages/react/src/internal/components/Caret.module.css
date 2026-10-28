@@ -12,6 +12,7 @@
 .CaretBorder {
   --Caret--caretBorder-strokeWidth: var(--caret-border-width, var(--borderWidth-thin));
   --Caret--caretBorder-stroke: var(--caret-border-color, var(--borderColor-default));
+
   fill: none;
   /* stylelint-disable-next-line primer/colors */
   stroke: var(--Caret--caretBorder-stroke);

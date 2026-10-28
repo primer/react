@@ -1,5 +1,6 @@
 .TokenTextContainer {
   --Token--tokenTextContainer-lineHeight: var(--base-text-lineHeight-normal);
+
   width: auto;
   min-width: 0;
   padding: 0;

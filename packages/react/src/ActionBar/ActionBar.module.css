@@ -1,6 +1,7 @@
 .List {
   --ActionBar--list-height: var(--actionbar-height, var(--control-small-size));
   --ActionBar--list-gap: var(--actionbar-gap, var(--stack-gap-condensed));
+
   position: relative;
   display: flex;
   min-width: 0;
@@ -52,6 +53,7 @@
 
     .Divider {
       --ActionBar--list-divider-padding-gapNone: 0 var(--base-size-8);
+
       padding: var(--ActionBar--list-divider-padding-gapNone);
     }
   }
@@ -78,6 +80,7 @@
 
 .Nav {
   --ActionBar--nav-paddingInline: var(--base-size-16);
+
   display: flex;
   padding-inline: var(--ActionBar--nav-paddingInline);
   justify-content: flex-end;
@@ -94,6 +97,7 @@
     --ActionBar--divider-before-background: var(--borderColor-muted);
     --ActionBar--divider-before-height: var(--base-size-20);
     --ActionBar--divider-before-width: var(--borderWidth-thin);
+
     display: block;
     width: var(--ActionBar--divider-before-width);
     height: var(--ActionBar--divider-before-height);
@@ -122,11 +126,13 @@
 
   .OverflowSpacer {
     --ActionBar--overflowContainer-overflowSpacer-height: var(--actionbar-height);
+
     height: var(--ActionBar--overflowContainer-overflowSpacer-height);
   }
 }
 
 .MoreButton {
   --ActionBar--moreButton-display: var(--morebutton-display, none);
+
   display: var(--ActionBar--moreButton-display);
 }

@@ -1,5 +1,6 @@
 .Stack {
   --Stack--gap: var(--stack-gap, var(--stack-gap-normal));
+
   display: flex;
   flex-flow: column;
   align-items: stretch;
@@ -16,6 +17,7 @@
   &[data-padding-narrow='tight'] {
     --Stack--paddingInline-paddingTight-paddingNarrowTight: var(--base-size-4);
     --Stack--paddingBlock-paddingTight-paddingNarrowTight: var(--base-size-4);
+
     padding-block: var(--Stack--paddingBlock-paddingTight-paddingNarrowTight);
     padding-inline: var(--Stack--paddingInline-paddingTight-paddingNarrowTight);
   }
@@ -34,6 +36,7 @@
   &[data-padding-narrow='cozy'] {
     --Stack--paddingInline-paddingCozy-paddingNarrowCozy: var(--base-size-12);
     --Stack--paddingBlock-paddingCozy-paddingNarrowCozy: var(--base-size-12);
+
     padding-block: var(--Stack--paddingBlock-paddingCozy-paddingNarrowCozy);
     padding-inline: var(--Stack--paddingInline-paddingCozy-paddingNarrowCozy);
   }
@@ -166,6 +169,7 @@
   &[data-padding-block='tight'],
   &[data-padding-block-narrow='tight'] {
     --Stack--paddingBlock-paddingBlockTight-paddingBlockNarrowTight: var(--base-size-4);
+
     padding-block: var(--Stack--paddingBlock-paddingBlockTight-paddingBlockNarrowTight);
   }
 
@@ -179,6 +183,7 @@
   &[data-padding-block='cozy'],
   &[data-padding-block-narrow='cozy'] {
     --Stack--paddingBlock-paddingBlockCozy-paddingBlockNarrowCozy: var(--base-size-12);
+
     padding-block: var(--Stack--paddingBlock-paddingBlockCozy-paddingBlockNarrowCozy);
   }
 
@@ -204,6 +209,7 @@
   &[data-padding-inline='tight'],
   &[data-padding-inline-narrow='tight'] {
     --Stack--paddingInline-paddingInlineTight-paddingInlineNarrowTight: var(--base-size-4);
+
     padding-inline: var(--Stack--paddingInline-paddingInlineTight-paddingInlineNarrowTight);
   }
 
@@ -217,6 +223,7 @@
   &[data-padding-inline='cozy'],
   &[data-padding-inline-narrow='cozy'] {
     --Stack--paddingInline-paddingInlineCozy-paddingInlineNarrowCozy: var(--base-size-12);
+
     padding-inline: var(--Stack--paddingInline-paddingInlineCozy-paddingInlineNarrowCozy);
   }
 
@@ -243,6 +250,7 @@
     &[data-padding-regular='tight'] {
       --Stack--paddingInline-paddingRegularTight-mediaViewportRangeRegular: var(--base-size-4);
       --Stack--paddingBlock-paddingRegularTight-mediaViewportRangeRegular: var(--base-size-4);
+
       padding-block: var(--Stack--paddingBlock-paddingRegularTight-mediaViewportRangeRegular);
       padding-inline: var(--Stack--paddingInline-paddingRegularTight-mediaViewportRangeRegular);
     }
@@ -259,6 +267,7 @@
     &[data-padding-regular='cozy'] {
       --Stack--paddingInline-paddingRegularCozy-mediaViewportRangeRegular: var(--base-size-12);
       --Stack--paddingBlock-paddingRegularCozy-mediaViewportRangeRegular: var(--base-size-12);
+
       padding-block: var(--Stack--paddingBlock-paddingRegularCozy-mediaViewportRangeRegular);
       padding-inline: var(--Stack--paddingInline-paddingRegularCozy-mediaViewportRangeRegular);
     }
@@ -368,6 +377,7 @@
 
     &[data-padding-block-regular='tight'] {
       --Stack--paddingBlock-paddingBlockRegularTight-mediaViewportRangeRegular: var(--base-size-4);
+
       padding-block: var(--Stack--paddingBlock-paddingBlockRegularTight-mediaViewportRangeRegular);
     }
 
@@ -379,6 +389,7 @@
 
     &[data-padding-block-regular='cozy'] {
       --Stack--paddingBlock-paddingBlockRegularCozy-mediaViewportRangeRegular: var(--base-size-12);
+
       padding-block: var(--Stack--paddingBlock-paddingBlockRegularCozy-mediaViewportRangeRegular);
     }
 
@@ -400,6 +411,7 @@
 
     &[data-padding-inline-regular='tight'] {
       --Stack--paddingInline-paddingInlineRegularTight-mediaViewportRangeRegular: var(--base-size-4);
+
       padding-inline: var(--Stack--paddingInline-paddingInlineRegularTight-mediaViewportRangeRegular);
     }
 
@@ -411,6 +423,7 @@
 
     &[data-padding-inline-regular='cozy'] {
       --Stack--paddingInline-paddingInlineRegularCozy-mediaViewportRangeRegular: var(--base-size-12);
+
       padding-inline: var(--Stack--paddingInline-paddingInlineRegularCozy-mediaViewportRangeRegular);
     }
 
@@ -436,6 +449,7 @@
     &[data-padding-wide='tight'] {
       --Stack--paddingInline-paddingWideTight-mediaViewportRangeWide: var(--base-size-4);
       --Stack--paddingBlock-paddingWideTight-mediaViewportRangeWide: var(--base-size-4);
+
       padding-block: var(--Stack--paddingBlock-paddingWideTight-mediaViewportRangeWide);
       padding-inline: var(--Stack--paddingInline-paddingWideTight-mediaViewportRangeWide);
     }
@@ -452,6 +466,7 @@
     &[data-padding-wide='cozy'] {
       --Stack--paddingInline-paddingWideCozy-mediaViewportRangeWide: var(--base-size-12);
       --Stack--paddingBlock-paddingWideCozy-mediaViewportRangeWide: var(--base-size-12);
+
       padding-block: var(--Stack--paddingBlock-paddingWideCozy-mediaViewportRangeWide);
       padding-inline: var(--Stack--paddingInline-paddingWideCozy-mediaViewportRangeWide);
     }
@@ -561,6 +576,7 @@
 
     &[data-padding-block-wide='tight'] {
       --Stack--paddingBlock-paddingBlockWideTight-mediaViewportRangeWide: var(--base-size-4);
+
       padding-block: var(--Stack--paddingBlock-paddingBlockWideTight-mediaViewportRangeWide);
     }
 
@@ -572,6 +588,7 @@
 
     &[data-padding-block-wide='cozy'] {
       --Stack--paddingBlock-paddingBlockWideCozy-mediaViewportRangeWide: var(--base-size-12);
+
       padding-block: var(--Stack--paddingBlock-paddingBlockWideCozy-mediaViewportRangeWide);
     }
 
@@ -593,6 +610,7 @@
 
     &[data-padding-inline-wide='tight'] {
       --Stack--paddingInline-paddingInlineWideTight-mediaViewportRangeWide: var(--base-size-4);
+
       padding-inline: var(--Stack--paddingInline-paddingInlineWideTight-mediaViewportRangeWide);
     }
 
@@ -604,6 +622,7 @@
 
     &[data-padding-inline-wide='cozy'] {
       --Stack--paddingInline-paddingInlineWideCozy-mediaViewportRangeWide: var(--base-size-12);
+
       padding-inline: var(--Stack--paddingInline-paddingInlineWideCozy-mediaViewportRangeWide);
     }
 

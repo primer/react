@@ -1,5 +1,6 @@
 .SideNav {
   --SideNav--backgroundColor: var(--bgColor-muted);
+
   background-color: var(--SideNav--backgroundColor);
 }
 
@@ -7,6 +8,7 @@
   --SideNav--sideNavBordered-borderRadius: var(--borderRadius-medium);
   --SideNav--sideNavBordered-borderWidth: var(--borderWidth-thin);
   --SideNav--sideNavBordered-borderColor: var(--borderColor-default);
+
   border-color: var(--SideNav--sideNavBordered-borderColor);
   border-style: solid;
   border-width: var(--SideNav--sideNavBordered-borderWidth);
@@ -37,6 +39,7 @@
     --SideNav--sideNavLink-sideNavVariantNormal-child-borderTop: var(--borderWidth-thin) solid var(--borderColor-muted);
     --SideNav--sideNavLink-sideNavVariantNormal-child-color: var(--fgColor-default);
     --SideNav--sideNavLink-sideNavVariantNormal-child-padding: var(--base-size-16);
+
     padding: var(--SideNav--sideNavLink-sideNavVariantNormal-child-padding);
     color: var(--SideNav--sideNavLink-sideNavVariantNormal-child-color);
     border: 0;
@@ -45,6 +48,7 @@
     &:first-child {
       --SideNav--sideNavLink-sideNavVariantNormal-child-borderTopRightRadius-firstChild: var(--borderRadius-medium);
       --SideNav--sideNavLink-sideNavVariantNormal-child-borderTopLeftRadius-firstChild: var(--borderRadius-medium);
+
       border-top: 0;
       border-top-left-radius: var(--SideNav--sideNavLink-sideNavVariantNormal-child-borderTopLeftRadius-firstChild);
       border-top-right-radius: var(--SideNav--sideNavLink-sideNavVariantNormal-child-borderTopRightRadius-firstChild);
@@ -53,6 +57,7 @@
     &:last-child {
       --SideNav--sideNavLink-sideNavVariantNormal-child-borderBottomLeftRadius-lastChild: var(--borderRadius-medium);
       --SideNav--sideNavLink-sideNavVariantNormal-child-borderBottomRightRadius-lastChild: var(--borderRadius-medium);
+
       border-bottom-right-radius: var(
         --SideNav--sideNavLink-sideNavVariantNormal-child-borderBottomRightRadius-lastChild
       );
@@ -75,6 +80,7 @@
 
     &:hover {
       --SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-hover: var(--bgColor-neutral-muted);
+
       text-decoration: none;
       background-color: var(--SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-hover);
     }
@@ -82,6 +88,7 @@
     &:focus {
       --SideNav--sideNavLink-sideNavVariantNormal-child-outline-focus: solid 2px var(--fgColor-accent);
       --SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-focus: var(--bgColor-neutral-muted);
+
       z-index: 1;
       text-decoration: none;
       background-color: var(--SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-focus);
@@ -93,6 +100,7 @@
       --SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-ariaCurrentPage-ariaSelectedTrue: var(
         --bgColor-default
       );
+
       background-color: var(
         --SideNav--sideNavLink-sideNavVariantNormal-child-backgroundColor-ariaCurrentPage-ariaSelectedTrue
       );
@@ -115,11 +123,13 @@
   .SideNav.SideNavVariant--lightweight > & {
     --SideNav--sideNavLink-sideNavVariantLightweight-child-color: var(--fgColor-accent);
     --SideNav--sideNavLink-sideNavVariantLightweight-child-padding: var(--base-size-4) 0;
+
     padding: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-padding);
     color: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-color);
 
     &:hover {
       --SideNav--sideNavLink-sideNavVariantLightweight-child-color-hover: var(--fgColor-default);
+
       color: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-color-hover);
       text-decoration: none;
     }
@@ -127,6 +137,7 @@
     &:focus {
       --SideNav--sideNavLink-sideNavVariantLightweight-child-outline-focus: solid 1px var(--fgColor-accent);
       --SideNav--sideNavLink-sideNavVariantLightweight-child-color-focus: var(--fgColor-default);
+
       z-index: 1;
       color: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-color-focus);
       text-decoration: none;
@@ -141,9 +152,8 @@
       --SideNav--sideNavLink-sideNavVariantLightweight-child-fontWeight-ariaCurrentPage-ariaSelectedTrue: var(
         --base-text-weight-medium
       );
-      font-weight: var(
-        --SideNav--sideNavLink-sideNavVariantLightweight-child-fontWeight-ariaCurrentPage-ariaSelectedTrue
-      );
+
+      font-weight: var(--base-text-weight-light);
       color: var(--SideNav--sideNavLink-sideNavVariantLightweight-child-color-ariaCurrentPage-ariaSelectedTrue);
     }
   }

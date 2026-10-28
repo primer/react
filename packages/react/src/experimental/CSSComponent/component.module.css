@@ -3,6 +3,7 @@
   --CSSComponent--component-backgroundColor: var(--bgColor-default);
   --CSSComponent--component-color: var(--fgColor-muted);
   --CSSComponent--component-padding: var(--control-xsmall-paddingBlock) var(--control-xsmall-paddingInline-normal);
+
   width: fit-content;
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--CSSComponent--component-padding);

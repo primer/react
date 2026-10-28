@@ -3,6 +3,7 @@
   --Flash--borderWidth: var(--borderWidth-thin);
   --Flash--color: var(--fgColor-default);
   --Flash--padding: var(--base-size-16);
+
   position: relative;
   padding: var(--Flash--padding);
   margin-top: 0;
@@ -14,11 +15,13 @@
   &:where([data-variant='default']) {
     --Flash--borderColor-variantDefault: var(--borderColor-accent-muted);
     --Flash--backgroundColor-variantDefault: var(--bgColor-accent-muted);
+
     background-color: var(--Flash--backgroundColor-variantDefault);
     border-color: var(--Flash--borderColor-variantDefault);
 
     & :where(svg) {
       --Flash--svg-color-variantDefault: var(--fgColor-accent);
+
       color: var(--Flash--svg-color-variantDefault);
     }
   }
@@ -26,11 +29,13 @@
   &:where([data-variant='success']) {
     --Flash--borderColor-variantSuccess: var(--borderColor-success-muted);
     --Flash--backgroundColor-variantSuccess: var(--bgColor-success-muted);
+
     background-color: var(--Flash--backgroundColor-variantSuccess);
     border-color: var(--Flash--borderColor-variantSuccess);
 
     & :where(svg) {
       --Flash--svg-color-variantSuccess: var(--fgColor-success);
+
       color: var(--Flash--svg-color-variantSuccess);
     }
   }
@@ -38,11 +43,13 @@
   &:where([data-variant='danger']) {
     --Flash--borderColor-variantDanger: var(--borderColor-danger-muted);
     --Flash--backgroundColor-variantDanger: var(--bgColor-danger-muted);
+
     background-color: var(--Flash--backgroundColor-variantDanger);
     border-color: var(--Flash--borderColor-variantDanger);
 
     & :where(svg) {
       --Flash--svg-color-variantDanger: var(--fgColor-danger);
+
       color: var(--Flash--svg-color-variantDanger);
     }
   }
@@ -50,11 +57,13 @@
   &:where([data-variant='warning']) {
     --Flash--borderColor-variantWarning: var(--borderColor-attention-muted);
     --Flash--backgroundColor-variantWarning: var(--bgColor-attention-muted);
+
     background-color: var(--Flash--backgroundColor-variantWarning);
     border-color: var(--Flash--borderColor-variantWarning);
 
     & :where(svg) {
       --Flash--svg-color-variantWarning: var(--fgColor-attention);
+
       color: var(--Flash--svg-color-variantWarning);
     }
   }
@@ -73,6 +82,7 @@
 
   & :where(svg) {
     --Flash--svg-marginRight: var(--base-size-8);
+
     margin-right: var(--Flash--svg-marginRight);
   }
 }

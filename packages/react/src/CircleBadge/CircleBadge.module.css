@@ -1,6 +1,7 @@
 .CircleBadge {
   --CircleBadge--boxShadow: var(--shadow-resting-medium);
   --CircleBadge--backgroundColor: var(--bgColor-default);
+
   display: flex;
   align-items: center;
   justify-content: center;

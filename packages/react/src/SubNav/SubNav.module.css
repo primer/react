@@ -10,6 +10,7 @@
 
   & > * {
     --SubNav--body-child-marginLeft: var(--base-size-8);
+
     margin-left: var(--SubNav--body-child-marginLeft);
   }
 
@@ -35,12 +36,13 @@
   --SubNav--link-fontSize: var(--text-body-size-medium);
   --SubNav--link-paddingLeft: var(--base-size-16);
   --SubNav--link-paddingRight: var(--base-size-16);
+
   display: flex;
   min-height: 34px; /* custom values for SubNav */
   padding-right: var(--SubNav--link-paddingRight);
   padding-left: var(--SubNav--link-paddingLeft);
   font-size: var(--SubNav--link-fontSize);
-  font-weight: var(--SubNav--link-fontWeight);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/typography */
   line-height: 20px; /* custom values for SubNav */
   color: var(--SubNav--link-color);
@@ -55,6 +57,7 @@
     --SubNav--link-borderBottomLeftRadius-firstOfType: var(--borderRadius-medium);
     --SubNav--link-borderTopLeftRadius-firstOfType: var(--borderRadius-medium);
     --SubNav--link-borderLeft-firstOfType: var(--borderWidth-thin) solid var(--borderColor-default);
+
     border-left: var(--SubNav--link-borderLeft-firstOfType);
     border-top-left-radius: var(--SubNav--link-borderTopLeftRadius-firstOfType);
     border-bottom-left-radius: var(--SubNav--link-borderBottomLeftRadius-firstOfType);
@@ -63,6 +66,7 @@
   &:last-of-type {
     --SubNav--link-borderBottomRightRadius-lastOfType: var(--borderRadius-medium);
     --SubNav--link-borderTopRightRadius-lastOfType: var(--borderRadius-medium);
+
     border-top-right-radius: var(--SubNav--link-borderTopRightRadius-lastOfType);
     border-bottom-right-radius: var(--SubNav--link-borderBottomRightRadius-lastOfType);
   }
@@ -70,6 +74,7 @@
   &:hover,
   &:focus {
     --SubNav--link-backgroundColor-hover-focus: var(--bgColor-muted);
+
     text-decoration: none;
     background-color: var(--SubNav--link-backgroundColor-hover-focus);
     transition: background-color 0.2s ease;
@@ -79,6 +84,7 @@
     --SubNav--link-borderColor-selectedTrue: var(--bgColor-accent-emphasis);
     --SubNav--link-backgroundColor-selectedTrue: var(--bgColor-accent-emphasis);
     --SubNav--link-color-selectedTrue: var(--fgColor-onEmphasis);
+
     color: var(--SubNav--link-color-selectedTrue);
     background-color: var(--SubNav--link-backgroundColor-selectedTrue);
     /* stylelint-disable-next-line primer/colors */

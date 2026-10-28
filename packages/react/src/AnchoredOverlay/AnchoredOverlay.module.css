@@ -5,6 +5,7 @@
 .ResponsiveCloseButton {
   --AnchoredOverlay--responsiveCloseButton-right: var(--base-size-8);
   --AnchoredOverlay--responsiveCloseButton-top: var(--base-size-8);
+
   position: absolute;
   top: var(--AnchoredOverlay--responsiveCloseButton-top);
   right: var(--AnchoredOverlay--responsiveCloseButton-right);
@@ -47,6 +48,7 @@
       --AnchoredOverlay--right-sideOutsideBottom-sideInsideBottom-alignLeft: calc(
         anchor(right) - var(--anchored-overlay-anchor-offset-left)
       );
+
       left: auto;
       right: var(--AnchoredOverlay--right-sideOutsideBottom-sideInsideBottom-alignLeft);
       /* stylelint-disable max-nesting-depth */
@@ -61,6 +63,7 @@
       --AnchoredOverlay--left-sideOutsideBottom-sideInsideBottom-alignRight: calc(
         anchor(left) - var(--anchored-overlay-anchor-offset-right)
       );
+
       left: var(--AnchoredOverlay--left-sideOutsideBottom-sideInsideBottom-alignRight);
 
       &[data-responsive='fullscreen'] {
@@ -74,6 +77,7 @@
   &[data-side='outside-top'],
   &[data-side='inside-top'] {
     --AnchoredOverlay--marginBottom-sideOutsideTop-sideInsideTop: var(--base-size-4);
+
     margin-bottom: var(--AnchoredOverlay--marginBottom-sideOutsideTop-sideInsideTop);
     bottom: anchor(top);
     left: anchor(left);
@@ -87,6 +91,7 @@
       --AnchoredOverlay--left-sideOutsideTop-sideInsideTop-alignRight: calc(
         anchor(left) - var(--anchored-overlay-anchor-offset-right)
       );
+
       left: var(--AnchoredOverlay--left-sideOutsideTop-sideInsideTop-alignRight);
 
       &[data-responsive='fullscreen'] {
@@ -101,6 +106,7 @@
   &[data-side='inside-left'] {
     --AnchoredOverlay--marginRight-sideOutsideLeft-sideInsideLeft: var(--base-size-4);
     --AnchoredOverlay--top-sideOutsideLeft-sideInsideLeft: var(--anchored-overlay-top-override, anchor(top));
+
     right: anchor(left);
     /* Falls back to `anchor(top)` when JS hasn't overridden it. JS sets the
        override when the overlay's bottom would overflow the viewport so we
@@ -119,6 +125,7 @@
   &[data-side='inside-right'] {
     --AnchoredOverlay--marginLeft-sideOutsideRight-sideInsideRight: var(--base-size-4);
     --AnchoredOverlay--top-sideOutsideRight-sideInsideRight: var(--anchored-overlay-top-override, anchor(top));
+
     left: anchor(right);
     top: var(--AnchoredOverlay--top-sideOutsideRight-sideInsideRight);
     margin-left: var(--AnchoredOverlay--marginLeft-sideOutsideRight-sideInsideRight);
@@ -128,6 +135,7 @@
 
 @position-try --outside-left-to-bottom {
   --AnchoredOverlay--top-positionTryOutsideLeftToBottom: calc(anchor(bottom) + var(--base-size-4));
+
   right: anchor(right);
   top: var(--AnchoredOverlay--top-positionTryOutsideLeftToBottom);
   margin: 0;
@@ -136,6 +144,7 @@
 
 @position-try --outside-right-to-bottom {
   --AnchoredOverlay--top-positionTryOutsideRightToBottom: calc(anchor(bottom) + var(--base-size-4));
+
   left: anchor(left);
   top: var(--AnchoredOverlay--top-positionTryOutsideRightToBottom);
   margin: 0;
@@ -144,6 +153,7 @@
 
 @position-try --inline-end-center {
   --AnchoredOverlay--marginLeft-positionTryInlineEndCenter: var(--base-size-4);
+
   left: anchor(right);
   top: auto;
   bottom: auto;
@@ -153,6 +163,7 @@
 
 @position-try --inline-start-center {
   --AnchoredOverlay--marginRight-positionTryInlineStartCenter: var(--base-size-4);
+
   right: anchor(left);
   left: auto;
   top: auto;
@@ -164,6 +175,7 @@
 @position-try --fit-block-bottom {
   --AnchoredOverlay--bottom-positionTryFitBlockBottom: var(--base-size-8);
   --AnchoredOverlay--top-positionTryFitBlockBottom: calc(anchor(bottom) + var(--base-size-4));
+
   top: var(--AnchoredOverlay--top-positionTryFitBlockBottom);
   bottom: var(--AnchoredOverlay--bottom-positionTryFitBlockBottom);
   height: auto;
@@ -173,6 +185,7 @@
 @position-try --fit-block-top {
   --AnchoredOverlay--bottom-positionTryFitBlockTop: calc(100vh - anchor(top) + var(--base-size-4));
   --AnchoredOverlay--top-positionTryFitBlockTop: var(--base-size-8);
+
   top: var(--AnchoredOverlay--top-positionTryFitBlockTop);
   bottom: var(--AnchoredOverlay--bottom-positionTryFitBlockTop);
   height: auto;

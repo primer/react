@@ -3,6 +3,7 @@
 
   &:not(:first-child) {
     --ActionList--group-marginBlockStart-not-firstChild: var(--base-size-8);
+
     margin-block-start: var(--ActionList--group-marginBlockStart-not-firstChild);
   }
 }
@@ -17,9 +18,10 @@
   --ActionList--group-groupHeadingWrap-color: var(--fgColor-muted);
   --ActionList--group-groupHeadingWrap-fontWeight: var(--base-text-weight-semibold);
   --ActionList--group-groupHeadingWrap-fontSize: var(--text-body-size-small);
+
   display: flex;
   font-size: var(--ActionList--group-groupHeadingWrap-fontSize);
-  font-weight: var(--ActionList--group-groupHeadingWrap-fontWeight);
+  font-weight: var(--base-text-weight-light);
 
   /* line-height: var(--text-body-lineHeight-small); use when FF rolls out */
   /* stylelint-disable-next-line primer/typography */
@@ -61,15 +63,17 @@
   --ActionList--group-groupHeading-color: var(--fgColor-muted);
   --ActionList--group-groupHeading-fontWeight: var(--base-text-weight-semibold);
   --ActionList--group-groupHeading-fontSize: var(--text-body-size-small);
+
   margin: 0;
   font-size: var(--ActionList--group-groupHeading-fontSize);
-  font-weight: var(--ActionList--group-groupHeading-fontWeight);
+  font-weight: var(--base-text-weight-light);
   color: var(--ActionList--group-groupHeading-color);
   align-self: flex-start;
 }
 
 .GroupHeadingWrap[data-has-trailing-action] {
   --ActionList--group-groupHeadingWrap-gap-hasTrailingActionPresent: var(--base-size-8);
+
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

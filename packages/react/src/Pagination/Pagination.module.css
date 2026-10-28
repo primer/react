@@ -3,11 +3,13 @@
   --Pagination--page-color: var(--fgColor-default);
   --Pagination--page-marginRight: var(--base-size-4);
   --Pagination--page-padding: var(--base-size-8) calc((var(--base-size-32) - var(--base-size-20)) / 2);
+
   min-width: 32px; /* primer.control.medium.size */
   height: 32px; /* primer.control.medium.size */
   padding: var(
     --Pagination--page-padding
   ); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
+
   margin-right: var(--Pagination--page-marginRight);
   font-style: normal;
   /* stylelint-disable-next-line primer/typography */
@@ -36,11 +38,13 @@
 
 .Page[rel='prev'] > svg {
   --Pagination--page-child-svg-marginInlineEnd-relPrev: var(--base-size-4);
+
   margin-inline-end: var(--Pagination--page-child-svg-marginInlineEnd-relPrev);
 }
 
 .Page[rel='next'] > svg {
   --Pagination--page-child-svg-marginInlineStart-relNext: var(--base-size-4);
+
   margin-inline-start: var(--Pagination--page-child-svg-marginInlineStart-relNext);
 }
 
@@ -51,6 +55,7 @@
 .Page:hover,
 .Page:focus {
   --Pagination--page-backgroundColor-hover-focus: var(--control-transparent-bgColor-hover);
+
   text-decoration: none;
   background-color: var(--Pagination--page-backgroundColor-hover-focus);
   outline: 0;
@@ -59,18 +64,21 @@
 
 .Page:focus-visible {
   --Pagination--page-outline-focusVisible: 2px solid var(--bgColor-accent-emphasis);
+
   outline: var(--Pagination--page-outline-focusVisible);
   outline-offset: -2px;
 }
 
 .Page:active {
   --Pagination--page-borderColor-active: var(--borderColor-muted);
+
   border-color: var(--Pagination--page-borderColor-active);
 }
 
 .Page[rel='prev'],
 .Page[rel='next'] {
   --Pagination--page-color-relPrev-relNext: var(--fgColor-accent);
+
   color: var(--Pagination--page-color-relPrev-relNext);
 }
 
@@ -78,6 +86,7 @@
 .Page[aria-current]:hover {
   --Pagination--page-backgroundColor-ariaCurrentPresent-hover: var(--bgColor-accent-emphasis);
   --Pagination--page-color-ariaCurrentPresent-hover: var(--fgColor-onEmphasis);
+
   color: var(--Pagination--page-color-ariaCurrentPresent-hover);
   background-color: var(--Pagination--page-backgroundColor-ariaCurrentPresent-hover);
   border-color: transparent;
@@ -86,6 +95,7 @@
 .Page[aria-current]:focus-visible {
   --Pagination--page-boxShadow-ariaCurrentPresent-focusVisible: inset 0 0 0 3px var(--fgColor-onEmphasis);
   --Pagination--page-outline-ariaCurrentPresent-focusVisible: 2px solid var(--bgColor-accent-emphasis);
+
   outline: var(--Pagination--page-outline-ariaCurrentPresent-focusVisible);
   outline-offset: -2px;
   /* stylelint-disable-next-line primer/box-shadow */
@@ -97,6 +107,7 @@
 .Page[role='presentation'],
 .Page[role='presentation']:hover {
   --Pagination--page-color-ariaHiddenPresent-hover-rolePresentation: var(--fgColor-disabled);
+
   color: var(--Pagination--page-color-ariaHiddenPresent-hover-rolePresentation);
   cursor: default;
   background-color: transparent;

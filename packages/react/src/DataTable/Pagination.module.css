@@ -3,6 +3,7 @@
   --DataTable--pagination-tablePagination-borderEndStartRadius: var(--borderRadius-medium);
   --DataTable--pagination-tablePagination-border: var(--borderWidth-thin) solid var(--borderColor-default);
   --DataTable--pagination-tablePagination-padding: var(--base-size-8) var(--base-size-16);
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -64,6 +65,7 @@
 .TablePaginationRange {
   --DataTable--pagination-tablePaginationRange-fontSize: var(--text-body-size-small);
   --DataTable--pagination-tablePaginationRange-color: var(--fgColor-muted);
+
   color: var(--DataTable--pagination-tablePaginationRange-color);
   font-size: var(--DataTable--pagination-tablePaginationRange-fontSize);
   margin: 0;
@@ -72,6 +74,7 @@
 .TablePaginationSteps {
   --DataTable--pagination-tablePaginationSteps-fontSize: var(--text-body-size-medium);
   --DataTable--pagination-tablePaginationSteps-color: var(--fgColor-default);
+
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -84,11 +87,13 @@
 
 .TablePaginationStep:first-of-type {
   --DataTable--pagination-tablePaginationStep-marginRight-firstOfType: var(--base-size-16);
+
   margin-right: var(--DataTable--pagination-tablePaginationStep-marginRight-firstOfType);
 }
 
 .TablePaginationStep:last-of-type {
   --DataTable--pagination-tablePaginationStep-marginLeft-lastOfType: var(--base-size-16);
+
   margin-left: var(--DataTable--pagination-tablePaginationStep-marginLeft-lastOfType);
 }
 
@@ -97,6 +102,7 @@
   --DataTable--pagination-tablePaginationAction-padding: var(--base-size-8);
   --DataTable--pagination-tablePaginationAction-fontSize: var(--text-body-size-medium);
   --DataTable--pagination-tablePaginationAction-color: var(--fgColor-muted);
+
   display: flex;
   align-items: center;
   color: var(--DataTable--pagination-tablePaginationAction-color);
@@ -110,6 +116,7 @@
 
 .TablePaginationAction[data-has-page] {
   --DataTable--pagination-tablePaginationAction-color-hasPagePresent: var(--fgColor-accent);
+
   color: var(--DataTable--pagination-tablePaginationAction-color-hasPagePresent);
 }
 
@@ -118,6 +125,7 @@
     calc((var(--base-size-32) - var(--base-size-20)) / 2);
   --DataTable--pagination-tablePaginationPage-borderRadius: var(--borderRadius-medium);
   --DataTable--pagination-tablePaginationPage-fontSize: var(--text-body-size-medium);
+
   min-width: 2rem;
   min-height: 2rem;
   display: flex;
@@ -140,6 +148,7 @@
   --DataTable--pagination-tablePaginationAction-tablePaginationPage-backgroundColor-hasPagePresent-hover-focus: var(
     --control-transparent-bgColor-hover
   );
+
   background-color: var(
     --DataTable--pagination-tablePaginationAction-tablePaginationPage-backgroundColor-hasPagePresent-hover-focus
   );
@@ -148,6 +157,7 @@
 .TablePaginationPage[data-active='true'] {
   --DataTable--pagination-tablePaginationPage-color-activeTrue: var(--fgColor-onEmphasis);
   --DataTable--pagination-tablePaginationPage-backgroundColor-activeTrue: var(--bgColor-accent-emphasis);
+
   background-color: var(--DataTable--pagination-tablePaginationPage-backgroundColor-activeTrue);
   color: var(--DataTable--pagination-tablePaginationPage-color-activeTrue);
 }
@@ -156,6 +166,7 @@
   --DataTable--pagination-tablePaginationPage-boxShadow-activeTrue-focusVisible: inset 0 0 0 3px
     var(--fgColor-onEmphasis);
   --DataTable--pagination-tablePaginationPage-outline-activeTrue-focusVisible: 2px solid var(--bgColor-accent-emphasis);
+
   outline: var(--DataTable--pagination-tablePaginationPage-outline-activeTrue-focusVisible);
   outline-offset: -2px;
   /* stylelint-disable-next-line primer/box-shadow */

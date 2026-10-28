@@ -1,5 +1,6 @@
 .Overlay {
   --SelectPanel2--selectPanel-overlay-color: var(--fgColor-default);
+
   padding: 0;
   color: var(--SelectPanel2--selectPanel-overlay-color);
   border: none;
@@ -37,6 +38,7 @@
 
   &:where([data-variant='modal'])::backdrop {
     --SelectPanel2--selectPanel-overlay-backdrop-backgroundColor-variantModal: var(--overlay-backdrop-bgColor);
+
     background-color: var(--SelectPanel2--selectPanel-overlay-backdrop-backgroundColor-variantModal);
   }
 
@@ -105,12 +107,14 @@
 
   &:where([data-search-input]) {
     --SelectPanel2--selectPanel-headerContent-marginBottom-searchInputPresent: var(--base-size-8);
+
     margin-bottom: var(--SelectPanel2--selectPanel-headerContent-marginBottom-searchInputPresent);
   }
 }
 
 .TitleWrapper {
   --SelectPanel2--selectPanel-titleWrapper-marginLeft: var(--base-size-8);
+
   margin-top: 0;
   margin-left: var(--SelectPanel2--selectPanel-titleWrapper-marginLeft);
 
@@ -121,12 +125,14 @@
 
   &:where([data-on-back]) {
     --SelectPanel2--selectPanel-titleWrapper-marginLeft-onBackPresent: var(--base-size-4);
+
     margin-left: var(--SelectPanel2--selectPanel-titleWrapper-marginLeft-onBackPresent);
   }
 }
 
 .TextInput {
   --SelectPanel2--selectPanel-textInput-paddingLeft: var(--base-size-8);
+
   padding-left: var(--SelectPanel2--selectPanel-textInput-paddingLeft) !important;
 
   /* Hide the trailing action while the input is empty (showing its placeholder). Uses a
@@ -149,13 +155,15 @@
 .Title {
   --SelectPanel2--selectPanel-title-fontWeight: var(--base-text-weight-semibold);
   --SelectPanel2--selectPanel-title-fontSize: var(--text-body-size-medium);
+
   font-size: var(--SelectPanel2--selectPanel-title-fontSize);
-  font-weight: var(--SelectPanel2--selectPanel-title-fontWeight);
+  font-weight: var(--base-text-weight-light);
 }
 
 .Description {
   --SelectPanel2--selectPanel-description-color: var(--fgColor-muted);
   --SelectPanel2--selectPanel-description-fontSize: var(--text-body-size-small);
+
   display: block;
   font-size: var(--SelectPanel2--selectPanel-description-fontSize);
   color: var(--SelectPanel2--selectPanel-description-color);
@@ -163,6 +171,7 @@
 
 .ClearAction {
   --SelectPanel2--selectPanel-clearAction-color: var(--fgColor-muted);
+
   color: var(--SelectPanel2--selectPanel-clearAction-color);
   background: none;
 }
@@ -171,6 +180,7 @@
   --SelectPanel2--selectPanel-footer-borderTopColor: var(--borderColor-default);
   --SelectPanel2--selectPanel-footer-borderTop: var(--borderWidth-thin) solid;
   --SelectPanel2--selectPanel-footer-padding: var(--base-size-16);
+
   display: flex;
   min-height: 44px;
   padding: var(--SelectPanel2--selectPanel-footer-padding);
@@ -182,6 +192,7 @@
 
   &:where([data-hide-primary-actions]) {
     --SelectPanel2--selectPanel-footer-padding-hidePrimaryActionsPresent: var(--base-size-8);
+
     padding: var(--SelectPanel2--selectPanel-footer-padding-hidePrimaryActionsPresent);
   }
 }
@@ -196,12 +207,14 @@
 
 .FooterActions {
   --SelectPanel2--selectPanel-footerActions-gap: var(--stack-gap-condensed);
+
   display: flex;
   gap: var(--SelectPanel2--selectPanel-footerActions-gap);
 }
 
 .SecondaryCheckbox {
   --SelectPanel2--selectPanel-secondaryCheckbox-gap: var(--stack-gap-condensed);
+
   display: flex;
   align-items: center;
   gap: var(--SelectPanel2--selectPanel-secondaryCheckbox-gap);
@@ -209,12 +222,14 @@
 
 .SmallText {
   --SelectPanel2--selectPanel-smallText-fontSize: var(--text-body-size-small);
+
   font-size: var(--SelectPanel2--selectPanel-smallText-fontSize);
 }
 
 .SelectPanelLoading {
   --SelectPanel2--selectPanel-selectPanelLoading-gap: var(--stack-gap-normal);
   --SelectPanel2--selectPanel-selectPanelLoading-minHeight: min(calc(var(--max-height) - 150px), 324px);
+
   display: flex;
   height: 100%;
 
@@ -229,6 +244,7 @@
 .LoadingText {
   --SelectPanel2--selectPanel-loadingText-color: var(--fgColor-muted);
   --SelectPanel2--selectPanel-loadingText-fontSize: var(--text-body-size-medium);
+
   font-size: var(--SelectPanel2--selectPanel-loadingText-fontSize);
   color: var(--SelectPanel2--selectPanel-loadingText-color);
 }
@@ -238,6 +254,7 @@
   --SelectPanel2--selectPanel-messageFull-paddingLeft: var(--base-size-24);
   --SelectPanel2--selectPanel-messageFull-paddingRight: var(--base-size-24);
   --SelectPanel2--selectPanel-messageFull-minHeight: min(calc(var(--max-height) - 150px), 324px);
+
   display: flex;
   height: 100%;
 
@@ -260,15 +277,18 @@
 
 .Octicon {
   --SelectPanel2--selectPanel-octicon-marginBottom: var(--base-size-8);
+
   margin-bottom: var(--SelectPanel2--selectPanel-octicon-marginBottom);
 
   &.Error {
     --SelectPanel2--selectPanel-octicon-error-color: var(--fgColor-danger);
+
     color: var(--SelectPanel2--selectPanel-octicon-error-color);
   }
 
   &.Warning {
     --SelectPanel2--selectPanel-octicon-warning-color: var(--fgColor-attention);
+
     color: var(--SelectPanel2--selectPanel-octicon-warning-color);
   }
 }
@@ -276,14 +296,16 @@
 .MessageTitle {
   --SelectPanel2--selectPanel-messageTitle-fontWeight: var(--base-text-weight-medium);
   --SelectPanel2--selectPanel-messageTitle-fontSize: var(--text-body-size-medium);
+
   font-size: var(--SelectPanel2--selectPanel-messageTitle-fontSize);
-  font-weight: var(--SelectPanel2--selectPanel-messageTitle-fontWeight);
+  font-weight: var(--base-text-weight-light);
 }
 
 .MessageContent {
   --SelectPanel2--selectPanel-messageContent-gap: var(--stack-gap-condensed);
   --SelectPanel2--selectPanel-messageContent-color: var(--fgColor-muted);
   --SelectPanel2--selectPanel-messageContent-fontSize: var(--text-body-size-medium);
+
   display: flex;
   font-size: var(--SelectPanel2--selectPanel-messageContent-fontSize);
   color: var(--SelectPanel2--selectPanel-messageContent-color);
@@ -300,6 +322,7 @@
   --SelectPanel2--selectPanel-messageInline-paddingBottom: var(--base-size-12);
   --SelectPanel2--selectPanel-messageInline-paddingRight: var(--base-size-16);
   --SelectPanel2--selectPanel-messageInline-paddingTop: var(--base-size-12);
+
   display: flex;
   padding-top: var(--SelectPanel2--selectPanel-messageInline-paddingTop);
   padding-right: var(--SelectPanel2--selectPanel-messageInline-paddingRight);
@@ -318,6 +341,7 @@
     --SelectPanel2--selectPanel-messageInline-borderColor-variantError: var(--borderColor-danger-muted);
     --SelectPanel2--selectPanel-messageInline-backgroundColor-variantError: var(--bgColor-danger-muted);
     --SelectPanel2--selectPanel-messageInline-color-variantError: var(--fgColor-danger);
+
     color: var(--SelectPanel2--selectPanel-messageInline-color-variantError);
     background-color: var(--SelectPanel2--selectPanel-messageInline-backgroundColor-variantError);
     border-color: var(--SelectPanel2--selectPanel-messageInline-borderColor-variantError);
@@ -327,6 +351,7 @@
     --SelectPanel2--selectPanel-messageInline-borderColor-variantWarning: var(--borderColor-attention-muted);
     --SelectPanel2--selectPanel-messageInline-backgroundColor-variantWarning: var(--bgColor-attention-muted);
     --SelectPanel2--selectPanel-messageInline-color-variantWarning: var(--fgColor-attention);
+
     color: var(--SelectPanel2--selectPanel-messageInline-color-variantWarning);
     background-color: var(--SelectPanel2--selectPanel-messageInline-backgroundColor-variantWarning);
     border-color: var(--SelectPanel2--selectPanel-messageInline-borderColor-variantWarning);
@@ -337,6 +362,7 @@
   --SelectPanel2--selectPanel-header-borderBottomColor: var(--borderColor-default);
   --SelectPanel2--selectPanel-header-borderBottom: var(--borderWidth-thin) solid;
   --SelectPanel2--selectPanel-header-padding: var(--base-size-8);
+
   display: flex;
   padding: var(--SelectPanel2--selectPanel-header-padding);
   flex-direction: column;

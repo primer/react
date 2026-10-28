@@ -32,6 +32,7 @@
       calc(var(--label-s) * 1%),
       calc((var(--label-l) - 5) * 1%)
     );
+
     background: var(--Token--issueLabelToken-background-selectedTrue-defineMixinLightThemeIssueLabel);
   }
 
@@ -57,6 +58,7 @@
         rgb(var(--label-r), var(--label-g), var(--label-b)),
         rgb(var(--label-r), var(--label-g), var(--label-b))
       );
+
     background-image: var(
       --Token--issueLabelToken-backgroundImage-cursorIsInteractiveTrue-hover-defineMixinLightThemeIssueLabel
     );
@@ -115,6 +117,7 @@
       calc(calc(var(--label-l) + 10) * 1%),
       0.3
     );
+
     background: var(--Token--issueLabelToken-background-cursorIsInteractiveTrue-hover-defineMixinDarkThemeIssueLabel);
     box-shadow: var(--Token--issueLabelToken-boxShadow-cursorIsInteractiveTrue-hover-defineMixinDarkThemeIssueLabel);
   }
@@ -186,6 +189,7 @@
   --Token--issueLabelToken-issueLabel-after-bottom-selectedTrue: calc(var(--base-size-2) * -1);
   --Token--issueLabelToken-issueLabel-after-right-selectedTrue: calc(var(--base-size-2) * -1);
   --Token--issueLabelToken-issueLabel-after-top-selectedTrue: calc(var(--base-size-2) * -1);
+
   content: '';
   position: absolute;
   z-index: 1;

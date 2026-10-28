@@ -1,5 +1,6 @@
 .LoadingSkeleton {
   --FilteredActionList--filteredActionListLoaders-loadingSkeleton-width: var(--loading-skeleton-width);
+
   width: var(--FilteredActionList--filteredActionListLoaders-loadingSkeleton-width);
   /* stylelint-disable-next-line primer/borders */
   border-radius: 4px;
@@ -27,6 +28,7 @@
 
 .LoadingSpinner {
   --FilteredActionList--filteredActionListLoaders-loadingSpinner-padding: var(--base-size-16);
+
   padding: var(--FilteredActionList--filteredActionListLoaders-loadingSpinner-padding);
   flex-grow: 1;
   align-content: center;
@@ -36,6 +38,7 @@
 
 .LoadingSkeletonContainer {
   --FilteredActionList--filteredActionListLoaders-loadingSkeletonContainer-padding: var(--base-size-8);
+
   padding: var(--FilteredActionList--filteredActionListLoaders-loadingSkeletonContainer-padding);
   display: flex;
   flex-grow: 1;

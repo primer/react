@@ -124,6 +124,7 @@
 
   &:where([data-variant='line']) {
     --PageLayout--horizontalDivider-backgroundColor-variantLine: var(--borderColor-default);
+
     display: block;
     height: 1px;
     /* stylelint-disable-next-line primer/colors */
@@ -135,6 +136,7 @@
       inset 0 1px 0 0 var(--borderColor-default);
     --PageLayout--horizontalDivider-backgroundColor-variantFilled: var(--bgColor-inset);
     --PageLayout--horizontalDivider-height-variantFilled: var(--base-size-8);
+
     display: block;
     height: var(--PageLayout--horizontalDivider-height-variantFilled);
     background-color: var(--PageLayout--horizontalDivider-backgroundColor-variantFilled);
@@ -154,6 +156,7 @@
       --PageLayout--horizontalDivider-backgroundColor-variantNarrowLine-mediaViewportRangeNarrow: var(
         --borderColor-default
       );
+
       display: block;
       height: 1px;
       /* stylelint-disable-next-line primer/colors */
@@ -168,6 +171,7 @@
         --bgColor-inset
       );
       --PageLayout--horizontalDivider-height-variantNarrowFilled-mediaViewportRangeNarrow: var(--base-size-8);
+
       display: block;
       height: var(--PageLayout--horizontalDivider-height-variantNarrowFilled-mediaViewportRangeNarrow);
       background-color: var(
@@ -190,6 +194,7 @@
       --PageLayout--horizontalDivider-backgroundColor-variantRegularLine-mediaViewportRangeRegular: var(
         --borderColor-default
       );
+
       display: block;
       height: 1px;
       /* stylelint-disable-next-line primer/colors */
@@ -206,6 +211,7 @@
         --bgColor-inset
       );
       --PageLayout--horizontalDivider-height-variantRegularFilled-mediaViewportRangeRegular: var(--base-size-8);
+
       display: block;
       height: var(--PageLayout--horizontalDivider-height-variantRegularFilled-mediaViewportRangeRegular);
       background-color: var(
@@ -228,6 +234,7 @@
       --PageLayout--horizontalDivider-backgroundColor-variantWideLine-mediaViewportRangeWide: var(
         --borderColor-default
       );
+
       display: block;
       height: 1px;
       /* stylelint-disable-next-line primer/colors */
@@ -240,6 +247,7 @@
         inset 0 1px 0 0 var(--borderColor-default);
       --PageLayout--horizontalDivider-backgroundColor-variantWideFilled-mediaViewportRangeWide: var(--bgColor-inset);
       --PageLayout--horizontalDivider-height-variantWideFilled-mediaViewportRangeWide: var(--base-size-8);
+
       display: block;
       height: var(--PageLayout--horizontalDivider-height-variantWideFilled-mediaViewportRangeWide);
       background-color: var(--PageLayout--horizontalDivider-backgroundColor-variantWideFilled-mediaViewportRangeWide);
@@ -266,6 +274,7 @@
 
   &:where([data-variant='line']) {
     --PageLayout--verticalDivider-backgroundColor-variantLine: var(--borderColor-default);
+
     display: block;
     width: 1px;
     /* stylelint-disable-next-line primer/colors */
@@ -277,6 +286,7 @@
       inset 1px 0 0 0 var(--borderColor-default);
     --PageLayout--verticalDivider-backgroundColor-variantFilled: var(--bgColor-inset);
     --PageLayout--verticalDivider-width-variantFilled: var(--base-size-8);
+
     display: block;
     width: var(--PageLayout--verticalDivider-width-variantFilled);
     background-color: var(--PageLayout--verticalDivider-backgroundColor-variantFilled);
@@ -296,6 +306,7 @@
       --PageLayout--verticalDivider-backgroundColor-variantNarrowLine-mediaViewportRangeNarrow: var(
         --borderColor-default
       );
+
       display: block;
       width: 1px;
       /* stylelint-disable-next-line primer/colors */
@@ -308,6 +319,7 @@
         inset 1px 0 0 0 var(--borderColor-default);
       --PageLayout--verticalDivider-backgroundColor-variantNarrowFilled-mediaViewportRangeNarrow: var(--bgColor-inset);
       --PageLayout--verticalDivider-width-variantNarrowFilled-mediaViewportRangeNarrow: var(--base-size-8);
+
       display: block;
       width: var(--PageLayout--verticalDivider-width-variantNarrowFilled-mediaViewportRangeNarrow);
       background-color: var(--PageLayout--verticalDivider-backgroundColor-variantNarrowFilled-mediaViewportRangeNarrow);
@@ -328,6 +340,7 @@
       --PageLayout--verticalDivider-backgroundColor-variantRegularLine-mediaViewportRangeRegular: var(
         --borderColor-default
       );
+
       display: block;
       width: 1px;
       /* stylelint-disable-next-line primer/colors */
@@ -342,6 +355,7 @@
         --bgColor-inset
       );
       --PageLayout--verticalDivider-width-variantRegularFilled-mediaViewportRangeRegular: var(--base-size-8);
+
       display: block;
       width: var(--PageLayout--verticalDivider-width-variantRegularFilled-mediaViewportRangeRegular);
       background-color: var(
@@ -362,6 +376,7 @@
 
     &:where([data-variant-wide='line']) {
       --PageLayout--verticalDivider-backgroundColor-variantWideLine-mediaViewportRangeWide: var(--borderColor-default);
+
       display: block;
       width: 1px;
       /* stylelint-disable-next-line primer/colors */
@@ -374,6 +389,7 @@
         inset 1px 0 0 0 var(--borderColor-default);
       --PageLayout--verticalDivider-backgroundColor-variantWideFilled-mediaViewportRangeWide: var(--bgColor-inset);
       --PageLayout--verticalDivider-width-variantWideFilled-mediaViewportRangeWide: var(--base-size-8);
+
       display: block;
       width: var(--PageLayout--verticalDivider-width-variantWideFilled-mediaViewportRangeWide);
       background-color: var(--PageLayout--verticalDivider-backgroundColor-variantWideFilled-mediaViewportRangeWide);
@@ -387,6 +403,7 @@
 
 .Header {
   --PageLayout--header-marginBottom: var(--spacing);
+
   width: 100%;
   /* stylelint-disable-next-line primer/spacing */
   margin-bottom: var(--PageLayout--header-marginBottom);
@@ -431,6 +448,7 @@
 
 .ContentWrapper {
   --PageLayout--contentWrapper-order: var(--region-order-content);
+
   display: flex;
   width: 100%;
 
@@ -474,6 +492,7 @@
 
 .Content {
   --PageLayout--content-padding: var(--spacing);
+
   width: 100%;
 
   /* stylelint-disable-next-line primer/spacing */
@@ -566,6 +585,7 @@
 
     &:where([data-sticky]) {
       --PageLayout--paneWrapper-top-stickyPresent-mediaScreenAndMinWidth768px: var(--offset-header);
+
       position: sticky;
       /* stylelint-disable-next-line primer/spacing */
       top: var(--PageLayout--paneWrapper-top-stickyPresent-mediaScreenAndMinWidth768px);
@@ -702,6 +722,7 @@
 .Pane {
   --PageLayout--pane-padding: var(--spacing);
   --PageLayout--pane-width: var(--pane-width-size);
+
   width: var(--PageLayout--pane-width);
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--PageLayout--pane-padding);
@@ -794,6 +815,7 @@
 .FooterWrapper {
   --PageLayout--footerWrapper-marginTop: var(--spacing);
   --PageLayout--footerWrapper-order: var(--region-order-footer);
+
   width: 100%;
   order: var(--PageLayout--footerWrapper-order);
 
@@ -855,6 +877,7 @@
   --PageLayout--draggableHandle-before-transition: var(--draggable-handle--transition, opacity 150ms ease);
   --PageLayout--draggableHandle-before-opacity: var(--draggable-handle--drag-opacity, 0);
   --PageLayout--draggableHandle-before-backgroundColor: var(--draggable-handle--bg-color, var(--bgColor-neutral-muted));
+
   content: '';
   position: absolute;
   inset: 0;
@@ -915,6 +938,7 @@
   /* Position: start (left side) */
   &:where([data-position='start']) {
     --PageLayout--sidebarWrapper-marginRight-positionStart: var(--spacing-column);
+
     order: -1;
     /* stylelint-disable-next-line primer/spacing */
     margin-right: var(--PageLayout--sidebarWrapper-marginRight-positionStart);
@@ -923,6 +947,7 @@
   /* Position: end (right side) */
   &:where([data-position='end']) {
     --PageLayout--sidebarWrapper-marginLeft-positionEnd: var(--spacing-column);
+
     order: 1;
     /* stylelint-disable-next-line primer/spacing */
     margin-left: var(--PageLayout--sidebarWrapper-marginLeft-positionEnd);
@@ -946,6 +971,7 @@
       --PageLayout--sidebarWrapper-backgroundColor-responsiveVariantFullscreen-mediaViewportRangeNarrow: var(
         --bgColor-default
       );
+
       position: fixed;
       top: 0;
       left: 0;
@@ -978,6 +1004,7 @@
 
 .Sidebar {
   --PageLayout--sidebar-width: var(--pane-width-size);
+
   width: var(--PageLayout--sidebar-width);
   height: 100%;
   overflow: auto;
@@ -991,6 +1018,7 @@
         var(--pane-width),
         var(--pane-max-width)
       );
+
       width: var(--PageLayout--sidebar-width-resizablePresent-mediaScreenAndMinWidth768px);
     }
   }

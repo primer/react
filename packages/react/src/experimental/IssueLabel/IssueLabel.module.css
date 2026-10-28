@@ -9,10 +9,11 @@
     --IssueLabel--fontWeight: var(--base-text-weight-semibold);
     --IssueLabel--fontSize: var(--text-body-size-small);
     --IssueLabel--minHeight: var(--base-size-20);
+
     display: inline-flex;
     min-height: var(--IssueLabel--minHeight);
     font-size: var(--IssueLabel--fontSize);
-    font-weight: var(--IssueLabel--fontWeight);
+    font-weight: var(--base-text-weight-light);
     line-height: var(--IssueLabel--lineHeight);
     /* stylelint-disable-next-line primer/colors */
     color: var(--IssueLabel--color);

@@ -61,6 +61,7 @@
 
 .Backdrop {
   --Dialog--backdrop-backgroundColor: var(--overlay-backdrop-bgColor);
+
   position: fixed;
   top: 0;
   right: 0;
@@ -136,6 +137,7 @@
   --Dialog--borderRadius: var(--borderRadius-large);
   --Dialog--backgroundColor: var(--overlay-bgColor);
   --Dialog--width: var(--dialog-width, 640px);
+
   display: flex;
   /* stylelint-disable-next-line primer/responsive-widths */
   width: var(--Dialog--width);
@@ -177,6 +179,7 @@
 
   &[data-position-regular='center'] {
     --Dialog--borderRadius-positionRegularCenter: var(--borderRadius-large, var(--borderRadius-large));
+
     border-radius: var(--Dialog--borderRadius-positionRegularCenter);
 
     @media screen and (prefers-reduced-motion: no-preference) {
@@ -186,17 +189,20 @@
     /* align margins only apply when regular position is center */
     &[data-align='top'] {
       --Dialog--marginTop-positionRegularCenter-alignTop: var(--base-size-64);
+
       margin-top: var(--Dialog--marginTop-positionRegularCenter-alignTop);
     }
 
     &[data-align='bottom'] {
       --Dialog--marginBottom-positionRegularCenter-alignBottom: var(--base-size-64);
+
       margin-bottom: var(--Dialog--marginBottom-positionRegularCenter-alignBottom);
     }
   }
 
   &[data-position-regular='left'] {
     --Dialog--borderRadius-positionRegularLeft: var(--borderRadius-large, var(--borderRadius-large));
+
     height: 100dvh;
     max-height: unset;
     border-radius: var(--Dialog--borderRadius-positionRegularLeft);
@@ -210,6 +216,7 @@
 
   &[data-position-regular='right'] {
     --Dialog--borderRadius-positionRegularRight: var(--borderRadius-large, var(--borderRadius-large));
+
     height: 100dvh;
     max-height: unset;
     border-radius: var(--Dialog--borderRadius-positionRegularRight);
@@ -265,6 +272,7 @@
         --borderRadius-large,
         var(--borderRadius-large)
       );
+
       width: 100dvw;
       max-width: 100dvw;
       height: auto;
@@ -342,6 +350,7 @@ Add a border between the body and footer if:
           var(--borderWidth-thin) * var(--can-scroll)
         )
         solid var(--borderColor-default);
+
       border-bottom: var(
         --Dialog--dialogOverflowWrapper-borderBottom-hasFooterPresent-supportsAnimationTimelineScrollSelf
       );
@@ -352,6 +361,7 @@ Add a border between the body and footer if:
 .Header {
   --Dialog--header-boxShadow: 0 1px 0 var(--borderColor-default);
   --Dialog--header-padding: var(--base-size-8);
+
   z-index: 1;
   max-height: 35vh;
   padding: var(--Dialog--header-padding);
@@ -368,6 +378,7 @@ Add a border between the body and footer if:
 .HeaderContent {
   --Dialog--headerContent-paddingBlock: var(--base-size-6);
   --Dialog--headerContent-paddingInline: var(--base-size-8);
+
   display: flex;
   padding-inline: var(--Dialog--headerContent-paddingInline);
   padding-block: var(--Dialog--headerContent-paddingBlock);
@@ -378,9 +389,10 @@ Add a border between the body and footer if:
 .Title {
   --Dialog--title-fontWeight: var(--text-title-weight-large);
   --Dialog--title-fontSize: var(--text-body-size-medium);
+
   margin: 0; /* override default margin */
   font-size: var(--Dialog--title-fontSize);
-  font-weight: var(--Dialog--title-fontWeight);
+  font-weight: var(--base-text-weight-light);
 }
 
 .Subtitle {
@@ -388,15 +400,17 @@ Add a border between the body and footer if:
   --Dialog--subtitle-fontWeight: var(--base-text-weight-normal);
   --Dialog--subtitle-fontSize: var(--text-body-size-small);
   --Dialog--subtitle-marginTop: var(--base-size-4);
+
   margin: 0; /* override default margin */
   margin-top: var(--Dialog--subtitle-marginTop);
   font-size: var(--Dialog--subtitle-fontSize);
-  font-weight: var(--Dialog--subtitle-fontWeight);
+  font-weight: var(--base-text-weight-light);
   color: var(--Dialog--subtitle-color);
 }
 
 .Body {
   --Dialog--body-padding: var(--base-size-16);
+
   padding: var(--Dialog--body-padding);
   overflow: auto;
   flex-grow: 1;
@@ -405,6 +419,7 @@ Add a border between the body and footer if:
 .Footer {
   --Dialog--footer-gap: var(--base-size-8);
   --Dialog--footer-padding: var(--base-size-16);
+
   z-index: 1;
   display: flex;
   flex-flow: wrap;

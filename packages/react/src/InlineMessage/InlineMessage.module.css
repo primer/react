@@ -3,6 +3,7 @@
   --InlineMessage--color: var(--inline-message-fgColor);
   --InlineMessage--lineHeight: var(--inline-message-lineHeight);
   --InlineMessage--fontSize: var(--inline-message-fontSize);
+
   display: grid;
   /* stylelint-disable-next-line primer/typography */
   font-size: var(--InlineMessage--fontSize);
@@ -53,5 +54,6 @@
 
 .InlineMessageIcon {
   --InlineMessage--inlineMessageIcon-minHeight: calc(var(--inline-message-lineHeight) * var(--inline-message-fontSize));
+
   min-height: var(--InlineMessage--inlineMessageIcon-minHeight);
 }

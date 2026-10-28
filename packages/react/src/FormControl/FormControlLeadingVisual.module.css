@@ -8,12 +8,14 @@
 
   &:where([data-control-disabled]) {
     --FormControl--formControlLeadingVisual-leadingVisual-color-controlDisabledPresent: var(--control-fgColor-disabled);
+
     color: var(--FormControl--formControlLeadingVisual-leadingVisual-color-controlDisabledPresent);
   }
 
   & > * {
     --FormControl--formControlLeadingVisual-leadingVisual-child-minHeight: var(--leadingVisual-size);
     --FormControl--formControlLeadingVisual-leadingVisual-child-minWidth: var(--leadingVisual-size);
+
     min-width: var(--FormControl--formControlLeadingVisual-leadingVisual-child-minWidth);
     min-height: var(--FormControl--formControlLeadingVisual-leadingVisual-child-minHeight);
     fill: currentColor;

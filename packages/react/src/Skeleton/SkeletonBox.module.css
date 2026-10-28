@@ -11,6 +11,7 @@
 .SkeletonBox {
   --Skeleton--skeletonBox-borderRadius: var(--borderRadius-small);
   --Skeleton--skeletonBox-backgroundColor: var(--skeletonLoader-bgColor);
+
   display: block;
   height: 1rem;
   background-color: var(--Skeleton--skeletonBox-backgroundColor);
@@ -19,6 +20,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     --Skeleton--skeletonBox-animationDuration-mediaPrefersReducedMotionNoPreference: var(--base-duration-1000);
+
     mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
     mask-size: 200%;
     animation: shimmer;

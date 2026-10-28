@@ -4,6 +4,7 @@
   --TextInputInnerAction--invisible-paddingBottom: var(--base-size-2);
   --TextInputInnerAction--invisible-paddingRight: var(--base-size-4);
   --TextInputInnerAction--invisible-paddingTop: var(--base-size-2);
+
   position: relative;
   padding-top: var(--TextInputInnerAction--invisible-paddingTop);
   padding-right: var(--TextInputInnerAction--invisible-paddingRight);
@@ -15,12 +16,14 @@
   &:hover,
   &:focus {
     --TextInputInnerAction--invisible-color-hover-focus: var(--fgColor-default);
+
     color: var(--TextInputInnerAction--invisible-color-hover-focus);
   }
 
   &[data-component='IconButton'] {
     --TextInputInnerAction--invisible-height-componentIconButton: var(--inner-action-size);
     --TextInputInnerAction--invisible-width-componentIconButton: var(--inner-action-size);
+
     width: var(--TextInputInnerAction--invisible-width-componentIconButton);
     height: var(--TextInputInnerAction--invisible-height-componentIconButton);
   }
@@ -41,6 +44,7 @@
 .TextInputAction {
   --TextInputInnerAction--textInputAction-marginLeft: var(--base-size-4);
   --TextInputInnerAction--textInputAction-marginRight: var(--base-size-4);
+
   margin-right: var(--TextInputInnerAction--textInputAction-marginRight);
   margin-left: var(--TextInputInnerAction--textInputAction-marginLeft);
   /* stylelint-disable-next-line primer/typography */

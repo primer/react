@@ -1,6 +1,7 @@
 .CharacterCounter {
   --TextInput--characterCounter-color: var(--fgColor-muted);
   --TextInput--characterCounter-gap: var(--control-xsmall-gap);
+
   display: flex;
   align-items: center;
   gap: var(--TextInput--characterCounter-gap);
@@ -9,5 +10,6 @@
 
 .CharacterCounter--error {
   --TextInput--characterCounterError-color: var(--fgColor-danger);
+
   color: var(--TextInput--characterCounterError-color);
 }
