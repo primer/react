@@ -4,6 +4,7 @@ import {render, fireEvent} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
+import Avatar from '../../Avatar'
 import classes from '../ButtonBase.module.css'
 import {implementsClassName} from '../../utils/testing'
 import {FeatureFlags} from '../../FeatureFlags'
@@ -234,6 +235,48 @@ describe('Button', () => {
       .element()
       .compareDocumentPosition(page.getByTestId('leadingVisual').element())
     expect(position).toBe(Node.DOCUMENT_POSITION_PRECEDING)
+  })
+
+  it('renders Avatar in leadingVisual without collapsing when img has max-width: 100%', async () => {
+    const style = document.createElement('style')
+    style.textContent = 'img { max-width: 100%; }'
+    document.head.appendChild(style)
+
+    try {
+      const {rerender} = render(
+        <Button
+          leadingVisual={() => (
+            <Avatar data-testid="avatar-in-button" src="https://avatars.githubusercontent.com/primer" size={16} />
+          )}
+        >
+          Button with Avatar
+        </Button>,
+      )
+
+      const avatar = page.getByTestId('avatar-in-button').element()
+      expect(avatar.getBoundingClientRect().width).toBe(16)
+      expect(window.getComputedStyle(avatar).minWidth).toBe('16px')
+
+      // Spacing between leadingVisual and label should remain intact
+      const leadingVisual = avatar.parentElement
+      expect(window.getComputedStyle(leadingVisual!).marginRight).toBe('8px')
+
+      // Other Avatar sizes should also behave correctly
+      rerender(
+        <Button
+          leadingVisual={() => (
+            <Avatar data-testid="avatar-in-button" src="https://avatars.githubusercontent.com/primer" size={24} />
+          )}
+        >
+          Button with Avatar
+        </Button>,
+      )
+      const updatedAvatar = page.getByTestId('avatar-in-button').element()
+      expect(updatedAvatar.getBoundingClientRect().width).toBe(24)
+      expect(window.getComputedStyle(updatedAvatar).minWidth).toBe('24px')
+    } finally {
+      document.head.removeChild(style)
+    }
   })
 
   it('should render the trailingVisual prop after the button content', async () => {

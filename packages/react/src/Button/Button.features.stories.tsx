@@ -10,6 +10,7 @@ import {
 } from '@primer/octicons-react'
 import {useState} from 'react'
 import {Button, IconButton} from '.'
+import Avatar from '../Avatar'
 import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'
 import {Tooltip} from '../TooltipV2/Tooltip'
@@ -29,6 +30,12 @@ export const Invisible = () => <Button variant="invisible">Invisible</Button>
 export const Link = () => <Button variant="link">Button that looks like a link</Button>
 
 export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
+
+export const LeadingVisualAvatar = () => (
+  <Button leadingVisual={() => <Avatar src="https://avatars.githubusercontent.com/primer" alt="Primer" size={16} />}>
+    Button with Avatar
+  </Button>
+)
 
 export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>
 
