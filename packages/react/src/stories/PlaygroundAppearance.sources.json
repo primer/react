@@ -527,321 +527,6 @@
       }
     },
     {
-      "id": "joelcaraballo-deep-dark-green-color-theme",
-      "name": "Deep Dark Green",
-      "mode": "dark",
-      "colors": {
-        "background": "#000000",
-        "surface": "#010301",
-        "inset": "#000000",
-        "hover": "#071707",
-        "foreground": "#d4d4d4",
-        "surfaceForeground": "#39ff14",
-        "insetForeground": "#39ff14",
-        "inputBackground": "#020702",
-        "inputForeground": "#d4d4d4",
-        "buttonBackground": "#123012",
-        "buttonForeground": "#ffffff",
-        "muted": "#72d572",
-        "border": "#071707",
-        "accent": "#39ff14",
-        "success": "#39ff14",
-        "attention": "#f5c542",
-        "danger": "#ff4d4d",
-        "done": "#c586c0"
-      },
-      "source": {
-        "repository": "joelcaraballo/dark-green",
-        "revision": "da4a42742494aae805ea96305e7fdc4b993b5610",
-        "path": "themes/deep-dark-green-color-theme.json",
-        "license": "MIT",
-        "roles": {
-          "background": {
-            "key": "editor.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "surface": {
-            "key": "sideBar.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "inset": {
-            "key": "activityBar.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "hover": {
-            "key": "list.hoverBackground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "foreground": {
-            "key": "editor.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "surfaceForeground": {
-            "key": "sideBar.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "insetForeground": {
-            "key": "activityBar.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "inputBackground": {
-            "key": "input.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "inputForeground": {
-            "key": "input.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "buttonBackground": {
-            "key": "button.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "buttonForeground": {
-            "key": "button.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "muted": {
-            "key": "descriptionForeground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "border": {
-            "key": "panel.border",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "accent": {
-            "key": "textLink.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "success": {
-            "key": "terminal.ansiGreen",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "attention": {
-            "key": "editorWarning.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "danger": {
-            "key": "editorError.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "done": {
-            "key": "terminal.ansiMagenta",
-            "path": "themes/deep-dark-green-color-theme.json"
-          }
-        }
-      }
-    },
-    {
-      "id": "joelcaraballo-green-dark-flow-color-theme",
-      "name": "Green Dark Flow",
-      "mode": "dark",
-      "colors": {
-        "background": "#000000",
-        "surface": "#010301",
-        "inset": "#000000",
-        "hover": "#071707",
-        "foreground": "#d4d4d4",
-        "surfaceForeground": "#39ff14",
-        "insetForeground": "#39ff14",
-        "inputBackground": "#020702",
-        "inputForeground": "#d4d4d4",
-        "buttonBackground": "#123012",
-        "buttonForeground": "#ffffff",
-        "muted": "#72d572",
-        "border": "#071707",
-        "accent": "#39ff14",
-        "success": "#39ff14",
-        "attention": "#f5c542",
-        "danger": "#ff4d4d",
-        "done": "#c586c0"
-      },
-      "source": {
-        "repository": "joelcaraballo/dark-green",
-        "revision": "da4a42742494aae805ea96305e7fdc4b993b5610",
-        "path": "themes/green-dark-flow-color-theme.json",
-        "license": "MIT",
-        "roles": {
-          "background": {
-            "key": "editor.background",
-            "path": "themes/green-dark-flow-color-theme.json"
-          },
-          "surface": {
-            "key": "sideBar.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "inset": {
-            "key": "activityBar.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "hover": {
-            "key": "list.hoverBackground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "foreground": {
-            "key": "editor.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "surfaceForeground": {
-            "key": "sideBar.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "insetForeground": {
-            "key": "activityBar.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "inputBackground": {
-            "key": "input.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "inputForeground": {
-            "key": "input.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "buttonBackground": {
-            "key": "button.background",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "buttonForeground": {
-            "key": "button.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "muted": {
-            "key": "descriptionForeground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "border": {
-            "key": "panel.border",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "accent": {
-            "key": "textLink.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "success": {
-            "key": "terminal.ansiGreen",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "attention": {
-            "key": "editorWarning.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "danger": {
-            "key": "editorError.foreground",
-            "path": "themes/deep-dark-green-color-theme.json"
-          },
-          "done": {
-            "key": "terminal.ansiMagenta",
-            "path": "themes/deep-dark-green-color-theme.json"
-          }
-        }
-      }
-    },
-    {
-      "id": "joelcaraballo-green-dark-vivid-hacker-color-theme",
-      "name": "Green Dark Vivid Hacker",
-      "mode": "dark",
-      "colors": {
-        "background": "#000000",
-        "surface": "#010401",
-        "inset": "#000200",
-        "hover": "#0c230c",
-        "foreground": "#e1efdc",
-        "surfaceForeground": "#66ff00",
-        "insetForeground": "#66ff00",
-        "inputBackground": "#030903",
-        "inputForeground": "#d4d4d4",
-        "buttonBackground": "#174217",
-        "buttonForeground": "#ffffff",
-        "muted": "#8ae878",
-        "border": "#0c230c",
-        "accent": "#66ff00",
-        "success": "#66ff00",
-        "attention": "#f5c542",
-        "danger": "#ff4d4d",
-        "done": "#c586c0"
-      },
-      "source": {
-        "repository": "joelcaraballo/dark-green",
-        "revision": "da4a42742494aae805ea96305e7fdc4b993b5610",
-        "path": "themes/green-dark-vivid-hacker-color-theme.json",
-        "license": "MIT",
-        "roles": {
-          "background": {
-            "key": "editor.background",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "surface": {
-            "key": "sideBar.background",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "inset": {
-            "key": "activityBar.background",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "hover": {
-            "key": "list.hoverBackground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "foreground": {
-            "key": "editor.foreground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "surfaceForeground": {
-            "key": "sideBar.foreground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "insetForeground": {
-            "key": "activityBar.foreground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "inputBackground": {
-            "key": "input.background",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "inputForeground": {
-            "key": "input.foreground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "buttonBackground": {
-            "key": "button.background",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "buttonForeground": {
-            "key": "button.foreground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "muted": {
-            "key": "descriptionForeground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "border": {
-            "key": "panel.border",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "accent": {
-            "key": "textLink.foreground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "success": {
-            "key": "terminal.ansiGreen",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "attention": {
-            "key": "editorWarning.foreground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "danger": {
-            "key": "editorError.foreground",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          },
-          "done": {
-            "key": "terminal.ansiMagenta",
-            "path": "themes/green-dark-vivid-hacker-color-theme.json"
-          }
-        }
-      }
-    },
-    {
       "id": "kelvinelove-neoncode-color-theme",
       "name": "NeonVSCode",
       "mode": "dark",
@@ -1259,7 +944,8 @@
             "path": "themes/windows-95-very-nostalgic-theme.json"
           }
         }
-      }
+      },
+      "group": "other-companies"
     },
     {
       "id": "ericsonwillians-windows-95-somewhat-nostalgic-theme",
@@ -1364,7 +1050,8 @@
             "path": "themes/windows-95-somewhat-nostalgic-theme.json"
           }
         }
-      }
+      },
+      "group": "other-companies"
     },
     {
       "id": "ericsonwillians-oldschool-terminal-green",
@@ -1574,7 +1261,8 @@
             "path": "themes/macintosh-color-theme.json"
           }
         }
-      }
+      },
+      "group": "other-companies"
     },
     {
       "id": "macintosh-theme-mac-theme",
@@ -1679,7 +1367,8 @@
             "path": "themes/mac-theme.json"
           }
         }
-      }
+      },
+      "group": "other-companies"
     }
   ]
 }

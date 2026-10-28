@@ -15,6 +15,7 @@ interface PlaygroundPalette {
   id: string
   name: string
   mode: 'light' | 'dark'
+  group?: 'other-companies'
   background: string
   surface: string
   inset: string
@@ -60,6 +61,7 @@ export const playgroundPalettes: readonly PlaygroundPalette[] = [
       id: snapshot.id,
       name: snapshot.name,
       mode: snapshot.mode === 'light' ? 'light' : 'dark',
+      group: 'group' in snapshot && snapshot.group === 'other-companies' ? 'other-companies' : undefined,
       preset: snapshot.id === 'joelcaraballo-dark-green-hacker-color-theme' ? 'terminal' : undefined,
       ...snapshot.colors,
       variables: 'variables' in snapshot ? snapshot.variables : undefined,
@@ -70,6 +72,7 @@ export const playgroundPalettes: readonly PlaygroundPalette[] = [
     id: 'glass-ui',
     name: 'Glass UI',
     mode: 'light',
+    group: 'other-companies',
     background: '#edf2fa',
     surface: '#ffffffb8',
     inset: '#dce7f5a6',
@@ -140,6 +143,7 @@ export const playgroundPalettes: readonly PlaygroundPalette[] = [
     id: 'windows-95',
     name: 'Windows 95 (95CSS)',
     mode: 'light',
+    group: 'other-companies',
     preset: 'windows95',
     background: windows95.gray200,
     surface: windows95.gray100,

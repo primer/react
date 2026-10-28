@@ -65,7 +65,8 @@
         "--borderRadius-small": "4px",
         "--borderRadius-medium": "4px",
         "--borderRadius-large": "8px"
-      }
+      },
+      "group": "other-companies"
     },
     {
       "id": "linear-dark",
@@ -144,7 +145,8 @@
         "--borderRadius-small": "4px",
         "--borderRadius-medium": "6px",
         "--borderRadius-large": "12px"
-      }
+      },
+      "group": "other-companies"
     },
     {
       "id": "stripe",
@@ -230,7 +232,8 @@
         "--borderRadius-small": "2px",
         "--borderRadius-medium": "4px",
         "--borderRadius-large": "6px"
-      }
+      },
+      "group": "other-companies"
     }
   ]
 }

@@ -6,6 +6,7 @@ import {Dialog} from '../Dialog'
 import {PortalContext, registerPortalRoot} from '../Portal'
 import Label from '../Label'
 import TextInput from '../TextInput'
+import {useTheme} from '../useTheme'
 import {playgroundPalettes} from './PlaygroundAppearance.tokens'
 import classes from './PlaygroundThemePicker.module.css'
 
@@ -28,6 +29,12 @@ const themes: readonly ThemeChoice[] = [
   {id: 'primer', name: 'Primer'},
   ...playgroundPalettes.map(palette => ({id: palette.id, name: palette.name, palette})),
 ]
+
+const themeGroups = [
+  {id: 'light', name: 'Light themes'},
+  {id: 'dark', name: 'Dark themes'},
+  {id: 'other-companies', name: 'Other companies'},
+] as const
 
 function PalettePreview({palette}: Pick<ThemeChoice, 'palette'>) {
   const style: PalettePreviewStyle | undefined = palette
@@ -84,9 +91,9 @@ function PalettePreview({palette}: Pick<ThemeChoice, 'palette'>) {
 }
 
 export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerProps) {
+  const {colorScheme} = useTheme()
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const [recent, setRecent] = useState([value])
   const triggerRef = useRef<HTMLButtonElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
   const closePicker = useCallback(() => setIsOpen(false), [])
@@ -107,12 +114,13 @@ export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerPr
       : source.url
     : undefined
   const filtered = themes.filter(theme => theme.name.toLowerCase().includes(query.trim().toLowerCase()))
-  const recentThemes = recent.flatMap(themeId => filtered.filter(theme => theme.id === themeId))
-
-  function chooseTheme(theme: ThemeChoice) {
-    onChange(theme.id)
-    setRecent(previous => [theme.id, ...previous.filter(themeId => themeId !== theme.id)].slice(0, 3))
-  }
+  const primerGroup = colorScheme?.startsWith('dark') ? 'dark' : 'light'
+  const groupedThemes = themeGroups
+    .map(group => ({
+      ...group,
+      themes: filtered.filter(theme => (theme.palette?.group ?? theme.palette?.mode ?? primerGroup) === group.id),
+    }))
+    .filter(group => group.themes.length > 0)
 
   function renderCard(theme: ThemeChoice) {
     const active = theme.id === value
@@ -124,7 +132,7 @@ export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerPr
         aria-label={`Use ${theme.name} theme`}
         aria-pressed={active}
         title={theme.id === 'primer' ? 'Primer follows the current Storybook theme' : theme.name}
-        onClick={() => chooseTheme(theme)}
+        onClick={() => onChange(theme.id)}
       >
         <PalettePreview palette={theme.palette} />
         <span className={classes.CardFooter}>
@@ -202,17 +210,13 @@ export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerPr
               <p className={classes.ResultCount} role="status">
                 {filtered.length} {filtered.length === 1 ? 'palette' : 'palettes'}
               </p>
-              {recent.length > 1 && recentThemes.length > 0 && (
-                <section className={classes.PaletteSection} aria-labelledby={`${id}-recent`}>
-                  <h3 id={`${id}-recent`}>Recent</h3>
-                  <div className={classes.PaletteGrid}>{recentThemes.map(renderCard)}</div>
-                </section>
-              )}
               {filtered.length > 0 ? (
-                <section className={classes.PaletteSection} aria-labelledby={`${id}-all`}>
-                  <h3 id={`${id}-all`}>All palettes</h3>
-                  <div className={classes.PaletteGrid}>{filtered.map(renderCard)}</div>
-                </section>
+                groupedThemes.map(group => (
+                  <section key={group.id} className={classes.PaletteSection} aria-labelledby={`${id}-${group.id}`}>
+                    <h3 id={`${id}-${group.id}`}>{group.name}</h3>
+                    <div className={classes.PaletteGrid}>{group.themes.map(renderCard)}</div>
+                  </section>
+                ))
               ) : (
                 <div className={classes.Empty}>
                   <h3>No palettes found</h3>
