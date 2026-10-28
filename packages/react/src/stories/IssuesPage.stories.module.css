@@ -227,8 +227,8 @@
 
 .IssueTitle {
   color: var(--fgColor-default);
-  font-size: var(--text-body-size-large, 16px);
-  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: var(--text-body-size-medium, 14px);
+  font-weight: var(--base-text-weight-medium, 500);
   line-height: var(--text-body-lineHeight-medium, 1.5);
   white-space: normal;
   text-align: left;
@@ -254,10 +254,6 @@
 .Rows:where([data-density='compact']) {
   .Row {
     padding-block: var(--base-size-4);
-  }
-
-  .IssueTitle {
-    font-size: var(--text-body-size-medium, 14px);
   }
 
   .IssueTag {
