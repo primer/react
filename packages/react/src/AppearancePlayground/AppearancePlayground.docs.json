@@ -6,7 +6,6 @@
   "importPath": "@primer/react/experimental",
   "stories": [
     {"id": "components-appearanceplayground--default"},
-    {"id": "components-appearanceplayground--playground"},
     {"id": "components-appearanceplayground-features--independent-instances"}
   ],
   "props": [
