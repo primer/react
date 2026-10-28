@@ -329,6 +329,8 @@
       /* blue accent line  */
       &::after {
         @mixin activeIndicatorLine;
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--ActionList--activeIndicator-bgColor, var(--borderColor-accent-emphasis));
       }
     }
 
@@ -351,6 +353,8 @@
       /* blue accent line  */
       &::after {
         @mixin activeIndicatorLine;
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--ActionList--activeIndicator-bgColor, var(--borderColor-accent-emphasis));
       }
     }
 
@@ -702,6 +706,8 @@
       /* blue accent line */
       &::after {
         @mixin activeIndicatorLine;
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--ActionList--activeIndicator-bgColor, var(--borderColor-accent-emphasis));
       }
     }
   }
