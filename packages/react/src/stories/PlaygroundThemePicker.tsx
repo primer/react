@@ -1,8 +1,9 @@
-import {useCallback, useId, useRef, useState} from 'react'
+import {useCallback, useId, useMemo, useRef, useState} from 'react'
 import type {CSSProperties} from 'react'
 import {ChevronDownIcon, PaintbrushIcon, SearchIcon} from '@primer/octicons-react'
 import {Button} from '../Button'
 import {Dialog} from '../Dialog'
+import {PortalContext, registerPortalRoot} from '../Portal'
 import Label from '../Label'
 import TextInput from '../TextInput'
 import {playgroundPalettes} from './PlaygroundAppearance.tokens'
@@ -90,6 +91,13 @@ export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerPr
   const searchRef = useRef<HTMLInputElement>(null)
   const closePicker = useCallback(() => setIsOpen(false), [])
   const id = useId()
+  const portalContext = useMemo(() => ({portalContainerName: `${id}-theme-picker`}), [id])
+  const registerPortal = useCallback(
+    (element: HTMLDivElement | null) => {
+      if (element) registerPortalRoot(element, portalContext.portalContainerName)
+    },
+    [portalContext],
+  )
   const selected = themes.find(theme => theme.id === value)
   if (!selected) throw new Error(`Unknown playground theme: ${value}`)
   const source = selected.palette?.source
@@ -147,70 +155,73 @@ export function PlaygroundThemePicker({value, onChange}: PlaygroundThemePickerPr
           {selected.name}
         </span>
       </Button>
+      <div className={classes.Portal} ref={registerPortal} />
       {isOpen && (
-        <Dialog
-          title="Themes"
-          position={{narrow: 'right', regular: 'right'}}
-          width="768px"
-          height="large"
-          className={classes.Dialog}
-          initialFocusRef={searchRef}
-          returnFocusRef={triggerRef}
-          onClose={closePicker}
-        >
-          <div className={classes.Picker}>
-            <div className={classes.PickerHeader}>
-              <div>
-                <h2>Palettes</h2>
-                <p>Pick a sourced palette for the app.</p>
+        <PortalContext.Provider value={portalContext}>
+          <Dialog
+            title="Themes"
+            position={{narrow: 'right', regular: 'right'}}
+            width="480px"
+            height="large"
+            className={classes.Dialog}
+            initialFocusRef={searchRef}
+            returnFocusRef={triggerRef}
+            onClose={closePicker}
+          >
+            <div className={classes.Picker}>
+              <div className={classes.PickerHeader}>
+                <div>
+                  <h2>Palettes</h2>
+                  <p>Pick a sourced palette for the app.</p>
+                </div>
+                <div className={classes.Source} aria-label="Active theme source">
+                  {source ? (
+                    <>
+                      <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
+                        {'repository' in source
+                          ? `${source.repository} @ ${source.revision.slice(0, 7)}`
+                          : `${source.title} · ${source.retrievedAt}`}
+                      </a>
+                      {source.notes ? <span>{source.notes}</span> : null}
+                    </>
+                  ) : (
+                    <span>Primer inherits the current Storybook theme.</span>
+                  )}
+                </div>
+                <TextInput
+                  ref={searchRef}
+                  type="search"
+                  aria-label="Search palettes"
+                  placeholder={`Search ${themes.length} palettes...`}
+                  leadingVisual={SearchIcon}
+                  value={query}
+                  onChange={event => setQuery(event.target.value)}
+                  className={classes.Search}
+                />
               </div>
-              <div className={classes.Source} aria-label="Active theme source">
-                {source ? (
-                  <>
-                    <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
-                      {'repository' in source
-                        ? `${source.repository} @ ${source.revision.slice(0, 7)}`
-                        : `${source.title} · ${source.retrievedAt}`}
-                    </a>
-                    {source.notes ? <span>{source.notes}</span> : null}
-                  </>
-                ) : (
-                  <span>Primer inherits the current Storybook theme.</span>
-                )}
-              </div>
-              <TextInput
-                ref={searchRef}
-                type="search"
-                aria-label="Search palettes"
-                placeholder={`Search ${themes.length} palettes...`}
-                leadingVisual={SearchIcon}
-                value={query}
-                onChange={event => setQuery(event.target.value)}
-                className={classes.Search}
-              />
+              <p className={classes.ResultCount} role="status">
+                {filtered.length} {filtered.length === 1 ? 'palette' : 'palettes'}
+              </p>
+              {recent.length > 1 && recentThemes.length > 0 && (
+                <section className={classes.PaletteSection} aria-labelledby={`${id}-recent`}>
+                  <h3 id={`${id}-recent`}>Recent</h3>
+                  <div className={classes.PaletteGrid}>{recentThemes.map(renderCard)}</div>
+                </section>
+              )}
+              {filtered.length > 0 ? (
+                <section className={classes.PaletteSection} aria-labelledby={`${id}-all`}>
+                  <h3 id={`${id}-all`}>All palettes</h3>
+                  <div className={classes.PaletteGrid}>{filtered.map(renderCard)}</div>
+                </section>
+              ) : (
+                <div className={classes.Empty}>
+                  <h3>No palettes found</h3>
+                  <p>Try a different theme name.</p>
+                </div>
+              )}
             </div>
-            <p className={classes.ResultCount} role="status">
-              {filtered.length} {filtered.length === 1 ? 'palette' : 'palettes'}
-            </p>
-            {recent.length > 1 && recentThemes.length > 0 && (
-              <section className={classes.PaletteSection} aria-labelledby={`${id}-recent`}>
-                <h3 id={`${id}-recent`}>Recent</h3>
-                <div className={classes.PaletteGrid}>{recentThemes.map(renderCard)}</div>
-              </section>
-            )}
-            {filtered.length > 0 ? (
-              <section className={classes.PaletteSection} aria-labelledby={`${id}-all`}>
-                <h3 id={`${id}-all`}>All palettes</h3>
-                <div className={classes.PaletteGrid}>{filtered.map(renderCard)}</div>
-              </section>
-            ) : (
-              <div className={classes.Empty}>
-                <h3>No palettes found</h3>
-                <p>Try a different theme name.</p>
-              </div>
-            )}
-          </div>
-        </Dialog>
+          </Dialog>
+        </PortalContext.Provider>
       )}
     </div>
   )

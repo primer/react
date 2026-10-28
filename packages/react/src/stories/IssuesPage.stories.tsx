@@ -63,6 +63,7 @@ const meta = {
     docs: {
       description: {
         component:
+          'The theme picker is a compact two-column side sheet with a transparent backdrop so theme changes remain visible on the preview. ' +
           'Navigation is an exception to the density tier clamp: tabs match the overflow button height, and the extra-large container grows to include the shifted top and bottom spacing. ' +
           'Shopify Polaris, Adobe Spectrum and Stripe presets adapt public brand token values through scoped CSS variables only. Shopify uses the older MIT-licensed Polaris Tokens 4.0.0 baseline. Adobe and Stripe use published font stacks with local fallbacks; no brand fonts or component stylesheets are downloaded. Stripe is a website/Appearance API adaptation, not a Dashboard replica. Source versions, token roles and limitations are recorded in PlaygroundAppearance.brands.json and the picker shows source notes. ' +
           'Author, label, type and sort filters use searchable SelectPanels with single selection, explicit reset choices and empty-result feedback. Author, assignee and profile avatars load from https://github.com/username.png; GitHub Actions uses its published app-avatar URL because bot logins have no username.png endpoint. Label swatches follow the active theme. ' +

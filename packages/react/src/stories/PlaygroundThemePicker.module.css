@@ -18,8 +18,14 @@
   white-space: nowrap;
 }
 
+.Portal {
+  --overlay-backdrop-bgColor: transparent;
+
+  position: absolute;
+}
+
 .Dialog[role='dialog'] {
-  width: min(768px, 100vw);
+  width: min(480px, 100vw);
   max-width: 100vw;
   height: 100dvh;
   max-height: 100dvh;
@@ -34,11 +40,8 @@
 }
 
 .PickerHeader {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--base-size-16);
+  display: grid;
+  gap: var(--base-size-12);
 
   h2 {
     margin: 0 0 var(--base-size-4);
@@ -53,8 +56,7 @@
 }
 
 .Search {
-  width: 284px;
-  max-width: 100%;
+  width: 100%;
 }
 
 .ResultCount {
@@ -65,7 +67,6 @@
 
 .Source {
   display: grid;
-  margin-top: var(--base-size-16);
   gap: var(--base-size-4);
   font-size: var(--text-body-size-small);
   color: var(--fgColor-muted);
@@ -89,7 +90,7 @@
 
 .PaletteGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--base-size-16);
 }
 
@@ -365,12 +366,7 @@
 
 @media (max-width: 620px) {
   .PaletteGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--base-size-12);
-  }
-
-  .Search {
-    width: 100%;
   }
 }
 
