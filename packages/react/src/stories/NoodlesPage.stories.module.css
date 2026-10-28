@@ -85,7 +85,7 @@
   width: calc(100% - var(--base-size-32));
   height: 100%;
   padding-inline: var(--NoodlesPage--project-paddingInline, var(--control-medium-paddingInline-normal));
-  font-weight: var(--NoodlesPage--project-fontWeight, var(--Button--fontWeight));
+  font-weight: var(--base-text-weight-light);
 }
 
 .ProjectCoverLink:where(:hover) {
