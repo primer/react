@@ -273,7 +273,7 @@
   font-variant-numeric: tabular-nums;
   line-height: calc(var(--base-size-16) + var(--base-size-2));
   color: var(--fgColor-muted);
-  background: rgb(129 139 152 / 11%);
+  background: rgb(129 139 152 / 0.11);
   border: 0;
   border-radius: var(--borderRadius-full);
 }
@@ -283,8 +283,8 @@
   border-radius: min(var(--borderRadius-large), var(--base-size-12));
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--borderColor-default) 50%, transparent),
-    0 6px 12px -3px rgb(26 26 26 / 4%),
-    0 6px 18px rgb(26 26 26 / 12%);
+    0 6px 12px -3px rgb(26 26 26 / 0.04),
+    0 6px 18px rgb(26 26 26 / 0.12);
 
   [data-component='ActionList'] {
     padding: var(--base-size-4);
