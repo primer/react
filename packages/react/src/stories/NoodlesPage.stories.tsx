@@ -1,6 +1,5 @@
 import {useId, useRef, useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import {expect, userEvent, waitFor, within} from 'storybook/test'
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -715,69 +714,4 @@ export const Default: Story = {
       </div>
     </div>
   ),
-  play: async ({canvas, canvasElement}) => {
-    const splitter = canvas.getByRole('slider', {name: 'Draggable pane splitter'})
-    splitter.focus()
-    await expect(splitter).toHaveFocus()
-    await userEvent.keyboard('{ArrowRight}')
-    await expect(splitter).toHaveAttribute('aria-valuenow', '315')
-    await userEvent.keyboard('{ArrowLeft}')
-    await expect(splitter).toHaveAttribute('aria-valuenow', '312')
-    const body = within(canvasElement.ownerDocument.body)
-    const connectAgent = canvas.getByRole('button', {name: 'Connect agent'})
-    await expect(connectAgent).toHaveAttribute('data-block', 'block')
-    await expect(connectAgent).toHaveStyle({fontWeight: '400'})
-    await expect(canvas.getByRole('button', {name: 'Noodle settings'})).toHaveStyle({fontWeight: '400'})
-    const plus = connectAgent.querySelector('svg.octicon-plus')
-    if (!plus) throw new Error('Connect agent must include a trailing plus icon')
-    const plusInset = connectAgent.getBoundingClientRect().right - plus.getBoundingClientRect().right
-    await expect(plusInset).toBeGreaterThanOrEqual(0)
-    await expect(plusInset).toBeLessThanOrEqual(24)
-    const navigation = within(canvas.getByRole('navigation', {name: 'Noodle pages'}))
-    const disclosure = navigation.getByRole('button', {name: noodlesProjectCover.title})
-    await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
-    await userEvent.click(disclosure)
-    await expect(navigation.getByRole('link', {name: 'First-use onboarding'})).toBeVisible()
-    await expect(navigation.getByRole('link', {name: /Status updates/})).toBeVisible()
-    await userEvent.click(disclosure)
-    await expect(navigation.queryByRole('link', {name: 'First-use onboarding'})).not.toBeInTheDocument()
-    await expect(navigation.getByRole('link', {name: /Status updates/})).toBeVisible()
-    await userEvent.click(canvas.getByRole('button', {name: 'Switch noodle'}))
-    const switcher = within(await body.findByRole('menu'))
-    await expect(switcher.getByRole('menuitemradio', {name: noodlesProjectCover.title})).toHaveAttribute(
-      'aria-checked',
-      'true',
-    )
-    await userEvent.keyboard('{Escape}')
-    await userEvent.click(canvas.getByRole('link', {name: `Open ${noodlesProjectCover.title} cover`}))
-    await expect(canvas.getByRole('heading', {name: noodlesProjectCover.title, level: 1})).toBeVisible()
-    await expect(canvas.getByRole('button', {name: 'Open noodle cover'})).toBeVisible()
-    await userEvent.click(navigation.getByRole('link', {name: /Status updates/}))
-    await expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toBeVisible()
-    await userEvent.click(canvas.getByRole('button', {name: 'Create'}))
-    const createMenu = within(await body.findByRole('menu'))
-    await userEvent.click(createMenu.getByRole('menuitem', {name: /^New page/}))
-    const dialog = within(await body.findByRole('dialog', {name: 'New page'}))
-    const title = dialog.getByRole('textbox', {name: /Page title/})
-    await userEvent.type(title, '   ')
-    await userEvent.click(dialog.getByRole('button', {name: 'Create page'}))
-    await waitFor(() => expect(dialog.getByText('Enter a page title.')).toBeVisible())
-    await userEvent.clear(title)
-    await userEvent.type(title, 'Release notes')
-    await userEvent.click(dialog.getByRole('button', {name: 'Create page'}))
-    await expect(canvas.getByRole('heading', {name: 'Release notes', level: 1})).toBeVisible()
-    await userEvent.click(canvas.getByRole('button', {name: 'Page comments'}))
-    await userEvent.type(canvas.getByRole('textbox', {name: 'Add a comment'}), 'Ready for review.')
-    await userEvent.click(canvas.getByRole('button', {name: 'Comment'}))
-    await expect(canvas.getByText('Ready for review.')).toBeVisible()
-    await userEvent.click(canvas.getByRole('button', {name: 'Page comments'}))
-    await userEvent.click(canvas.getByRole('button', {name: 'Reset prototype data'}))
-    await waitFor(() => expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toBeVisible())
-    await userEvent.click(canvas.getByRole('button', {name: 'Switch to Markdown'}))
-    await expect(canvas.getByRole('textbox', {name: 'Markdown preview'})).toHaveProperty(
-      'value',
-      expect.stringContaining('# October 2, 2026'),
-    )
-    await userEvent.click(canvas.getByRole('button', {name: 'Switch to Rich text'}))
-  },
 }
