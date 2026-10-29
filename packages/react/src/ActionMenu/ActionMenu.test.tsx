@@ -1,6 +1,6 @@
+import {page, userEvent} from 'vitest/browser'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
-import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render as HTMLRender, waitFor, act} from '@testing-library/react'
 import type React from 'react'
 import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
@@ -185,63 +185,62 @@ describe('ActionMenu', () => {
 
   it('renders data-component attributes for ActionMenu parts', async () => {
     const component = HTMLRender(<Example />)
-    const user = userEvent.setup()
 
-    const trigger = component.getByRole('button', {name: 'Toggle Menu'})
-    expect(trigger).toHaveAttribute('data-component', 'ActionMenu.Button')
+    const trigger = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+    await expect.element(trigger).toHaveAttribute('data-component', 'ActionMenu.Button')
 
-    await user.click(trigger)
+    await userEvent.click(trigger)
 
     expect(component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]')).not.toBeNull()
     expect(component.baseElement.querySelector('[data-component="AnchoredOverlay"]')).toBeNull()
   })
 
   it('should open Menu on MenuButton click', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
+    HTMLRender(<Example />)
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
   })
 
   it('should open Menu on MenuButton keypress', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
+    HTMLRender(<Example />)
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    button.focus()
-    await user.keyboard('{Enter}')
+    act(() => {
+      button.element().focus()
+    })
+    await userEvent.keyboard('{Enter}')
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
   })
 
   it('should close Menu on selecting an action with click', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
+    HTMLRender(<Example />)
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    const menuItems = component.getAllByRole('menuitem')
-    await user.click(menuItems[0])
+    const menuItems = page.getByRole('menuitem').all()
+    await userEvent.click(menuItems[0])
 
-    expect(component.queryByRole('menu')).toBeNull()
+    await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
   })
 
   it('should close Menu on selecting an action with Enter', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
+    HTMLRender(<Example />)
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    const menuItems = component.getAllByRole('menuitem')
-    menuItems[0].focus()
-    await user.keyboard('{Enter}')
+    const menuItems = page.getByRole('menuitem').all()
+    act(() => {
+      menuItems[0].element().focus()
+    })
+    await userEvent.keyboard('{Enter}')
 
-    expect(component.queryByRole('menu')).toBeNull()
+    await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
   })
 
   describe('preventFocusOnClose', () => {
@@ -256,37 +255,39 @@ describe('ActionMenu', () => {
       {gesture: 'Escape', preventFocusOnClose: true},
       {gesture: 'outside-click', preventFocusOnClose: true},
     ])('handles $gesture with preventFocusOnClose=$preventFocusOnClose', async ({gesture, preventFocusOnClose}) => {
-      const component = HTMLRender(
+      HTMLRender(
         <>
           <Example preventFocusOnClose={preventFocusOnClose} />
           <Button>Outside</Button>
         </>,
       )
-      const user = userEvent.setup()
-      const trigger = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(trigger)
-      const item = component.getByRole('menuitem', {name: 'New file'})
-      item.focus()
+      const trigger = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      const triggerElement = trigger.element()
+      await userEvent.click(trigger)
+      const item = page.getByRole('menuitem', {name: 'New file', exact: true})
+      act(() => {
+        item.element().focus()
+      })
 
-      const focus = vi.spyOn(trigger, 'focus')
+      const focus = vi.spyOn(triggerElement, 'focus')
       if (gesture === 'item-click') {
-        await user.click(item)
+        await userEvent.click(item)
       } else if (gesture === 'outside-click') {
-        await user.click(component.getByRole('button', {name: 'Outside'}))
+        await userEvent.click(page.getByRole('button', {name: 'Outside', exact: true}))
       } else {
-        await user.keyboard(gesture === 'Space' ? ' ' : `{${gesture}}`)
+        await userEvent.keyboard(gesture === 'Space' ? ' ' : `{${gesture}}`)
       }
 
-      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
       if (preventFocusOnClose) {
         expect(focus).not.toHaveBeenCalled()
-        expect(trigger).not.toHaveFocus()
+        await expect.element(trigger).not.toHaveFocus()
       } else {
         expect(focus).toHaveBeenCalled()
-        expect(trigger).toHaveFocus()
+        await expect.element(trigger).toHaveFocus()
       }
       if (gesture === 'outside-click') {
-        expect(component.getByRole('button', {name: 'Outside'})).toHaveFocus()
+        await expect.element(page.getByRole('button', {name: 'Outside', exact: true})).toHaveFocus()
       }
     })
 
@@ -294,7 +295,7 @@ describe('ActionMenu', () => {
       'handles anchor-click closure with preventFocusOnClose=%s',
       async preventFocusOnClose => {
         const returnFocusRef = {current: null as HTMLButtonElement | null}
-        const component = HTMLRender(
+        HTMLRender(
           <BaseStyles>
             <Button ref={returnFocusRef}>Return focus</Button>
             <ActionMenu>
@@ -307,21 +308,20 @@ describe('ActionMenu', () => {
             </ActionMenu>
           </BaseStyles>,
         )
-        const user = userEvent.setup()
-        const trigger = component.getByRole('button', {name: 'Toggle Menu'})
-        const returnFocusTarget = component.getByRole('button', {name: 'Return focus'})
+        const trigger = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+        const returnFocusTarget = page.getByRole('button', {name: 'Return focus', exact: true})
 
-        await user.click(trigger)
-        const focus = vi.spyOn(returnFocusTarget, 'focus')
-        await user.click(trigger)
+        await userEvent.click(trigger)
+        const focus = vi.spyOn(returnFocusTarget.element(), 'focus')
+        await userEvent.click(trigger)
 
-        expect(component.queryByRole('menu')).not.toBeInTheDocument()
+        await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
         if (preventFocusOnClose) {
           expect(focus).not.toHaveBeenCalled()
-          expect(returnFocusTarget).not.toHaveFocus()
+          await expect.element(returnFocusTarget).not.toHaveFocus()
         } else {
           expect(focus).toHaveBeenCalled()
-          expect(returnFocusTarget).toHaveFocus()
+          await expect.element(returnFocusTarget).toHaveFocus()
         }
       },
     )
@@ -343,12 +343,12 @@ describe('ActionMenu', () => {
       const component = HTMLRender(example(true))
       const focus = vi.spyOn(returnFocusRef.current, 'focus')
 
-      await waitFor(() => expect(component.getByRole('menuitem', {name: 'New file'})).toHaveFocus())
+      await expect.element(page.getByRole('menuitem', {name: 'New file', exact: true})).toHaveFocus()
       component.rerender(example(false))
 
-      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
       expect(focus).not.toHaveBeenCalled()
-      expect(component.getByRole('button', {name: 'Toggle Menu'})).not.toHaveFocus()
+      await expect.element(page.getByRole('button', {name: 'Toggle Menu', exact: true})).not.toHaveFocus()
     })
 
     it('does not focus a captured anchor that an action replaces', async () => {
@@ -370,208 +370,199 @@ describe('ActionMenu', () => {
           </BaseStyles>
         )
       }
-      const component = HTMLRender(<ReplaceableAnchor />)
-      const user = userEvent.setup()
-      const trigger = component.getByRole('button', {name: 'Link'})
-      await user.click(trigger)
-      const focus = vi.spyOn(trigger, 'focus')
+      HTMLRender(<ReplaceableAnchor />)
+      const trigger = page.getByRole('button', {name: 'Link', exact: true})
+      const triggerElement = trigger.element()
+      await userEvent.click(trigger)
+      const focus = vi.spyOn(triggerElement, 'focus')
 
-      await user.click(component.getByRole('menuitem', {name: 'Convert to preview'}))
+      await userEvent.click(page.getByRole('menuitem', {name: 'Convert to preview', exact: true}))
 
-      expect(component.queryByRole('menu')).not.toBeInTheDocument()
-      expect(trigger).not.toBeInTheDocument()
-      expect(component.getByRole('button', {name: 'Preview'})).not.toHaveFocus()
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
+      expect(triggerElement).not.toBeInTheDocument()
+      await expect.element(page.getByRole('button', {name: 'Preview', exact: true})).not.toHaveFocus()
       expect(focus).not.toHaveBeenCalled()
     })
   })
 
   it('should not close Menu if event is prevented', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
+    HTMLRender(<Example />)
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    const menuItems = component.getAllByRole('menuitem')
-    await user.click(menuItems[3])
+    const menuItems = page.getByRole('menuitem').all()
+    await userEvent.click(menuItems[3])
 
     // menu should still be open
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
   })
 
   it('should be able to select an Item with selectionVariant', async () => {
-    const component = HTMLRender(<SingleSelect />)
-    const button = component.getByRole('button', {name: /^options/i})
+    HTMLRender(<SingleSelect />)
+    const button = page.getByRole('button', {name: /^options/i})
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
     // select first item by role, that would close the menu
-    await user.click(component.getAllByRole('menuitemradio')[0])
-    expect(component.queryByRole('menu')).not.toBeInTheDocument()
+    await userEvent.click(page.getByRole('menuitemradio').all()[0])
+    await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
 
     // open menu again and check if the first option is checked
-    await user.click(button)
-    expect(component.getAllByRole('menuitemradio')[0]).toHaveAttribute('aria-checked', 'true')
+    await userEvent.click(button)
+    await expect.element(page.getByRole('menuitemradio').all()[0]).toHaveAttribute('aria-checked', 'true')
   })
 
   it('should assign the right roles with groups & mixed selectionVariant', async () => {
-    const component = HTMLRender(<MixedSelection />)
+    HTMLRender(<MixedSelection />)
 
-    const button = component.getByRole('button', {
+    const button = page.getByRole('button', {
       name: 'Group by Stage',
+      exact: true,
     })
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
-    expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
+    await expect.element(page.getByLabelText('Status', {exact: true})).toHaveAttribute('role', 'menuitemradio')
+    await expect.element(page.getByLabelText('Clear Group by', {exact: true})).toHaveAttribute('role', 'menuitem')
   })
 
   it('should be able to select an Item with aria-keyshortcuts after opening Menu with click', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
+    HTMLRender(<Example />)
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    expect(component.queryByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
 
     // linkItem button is the active element at this point
-    await user.keyboard('{ArrowDown}{s}')
+    await userEvent.keyboard('{ArrowDown}{s}')
 
-    expect(component.getAllByRole('menuitem')[4]).toEqual(document.activeElement)
-    await user.keyboard('{ArrowUp}')
-    expect(component.getAllByRole('menuitem')[3]).toEqual(document.activeElement)
+    await expect.element(page.getByRole('menuitem').all()[4]).toHaveFocus()
+    await userEvent.keyboard('{ArrowUp}')
+    await expect.element(page.getByRole('menuitem').all()[3]).toHaveFocus()
 
     // assumes mnemonics aria-keyshortcuts are ignored
-    await user.keyboard('{g}')
-    expect(component.getAllByRole('menuitem')[3]).toEqual(document.activeElement)
+    await userEvent.keyboard('{g}')
+    await expect.element(page.getByRole('menuitem').all()[3]).toHaveFocus()
   })
 
   it('should select last element when ArrowUp is pressed after opening Menu with click', async () => {
-    const component = HTMLRender(<Example />)
+    HTMLRender(<Example />)
 
-    const button = component.getByRole('button')
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    expect(component.queryByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
 
     // button should be the active element
     // assumes button is the active element at this point
-    await user.keyboard('{ArrowUp}')
+    await userEvent.keyboard('{ArrowUp}')
 
-    expect(component.getAllByRole('menuitem').pop()).toEqual(document.activeElement)
+    await expect.element(page.getByRole('menuitem').last()).toHaveFocus()
   })
 
   it('should close the menu if Tab is pressed and move to next element', async () => {
-    const component = HTMLRender(
+    HTMLRender(
       <>
         <Example />
         <input type="text" placeholder="next focusable element" />
       </>,
     )
-    const anchor = component.getByRole('button')
+    const anchor = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first button
-    expect(anchor).toEqual(document.activeElement) // trust, but verify
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    await expect.element(anchor).toHaveFocus() // trust, but verify
 
-    await user.keyboard('{Enter}')
-    expect(component.queryByRole('menu')).toBeInTheDocument()
-    expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
+    await userEvent.keyboard('{Enter}')
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menuitem').all()[0]).toHaveFocus()
 
-    // TODO: revisit why we need this waitFor
-    await waitFor(async () => {
-      await user.tab()
-      expect(document.activeElement).toEqual(component.getByPlaceholderText('next focusable element'))
-      expect(component.queryByRole('menu')).not.toBeInTheDocument()
-    })
+    await userEvent.tab()
+    await expect.element(page.getByPlaceholder('next focusable element')).toHaveFocus()
+    await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
   })
 
   it('should wrap focus when ArrowDown is pressed on the last element', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
+    HTMLRender(<Example />)
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    expect(component.queryByRole('menu')).toBeInTheDocument()
-    const menuItems = component.getAllByRole('menuitem')
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
+    const menuItems = page.getByRole('menuitem').all()
 
     // TODO: Fix the focus trap from taking over focus control
     // https://github.com/primer/react/issues/6434
 
     // expect(menuItems[0]).toEqual(document.activeElement)
 
-    await user.keyboard('{ArrowDown}')
-    expect(menuItems[1]).toEqual(document.activeElement)
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(menuItems[1]).toHaveFocus()
 
     // TODO: Removed one ArrowDown to account for the focus trap starting at the second element
-    // await user.keyboard('{ArrowDown}')
-    await user.keyboard('{ArrowDown}')
-    await user.keyboard('{ArrowDown}')
-    await user.keyboard('{ArrowDown}')
-    expect(menuItems[menuItems.length - 1]).toEqual(document.activeElement) // last elememt
+    // await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(menuItems[menuItems.length - 1]).toHaveFocus() // last elememt
 
-    await user.keyboard('{ArrowDown}')
-    expect(menuItems[0]).toEqual(document.activeElement) // wrap to first
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(menuItems[0]).toHaveFocus() // wrap to first
   })
 
   it('should open menu on menu button click and it is wrapped with tooltip', async () => {
-    const component = HTMLRender(<ExampleWithTooltip />)
-    const button = component.getByRole('button')
+    HTMLRender(<ExampleWithTooltip />)
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
   })
 
   it('should open menu on menu button click and it is wrapped with tooltip v2', async () => {
-    const component = HTMLRender(
+    HTMLRender(
       ExampleWithTooltipV2(
         <TooltipV2 text="Additional context about the menu button" direction="s">
           <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
         </TooltipV2>,
       ),
     )
-    const button = component.getByRole('button')
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
   })
 
   it('should display tooltip when menu button is focused', async () => {
-    const component = HTMLRender(<ExampleWithTooltip />)
-    const button = component.getByRole('button')
-    button.focus()
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    HTMLRender(<ExampleWithTooltip />)
+    const button = page.getByRole('button')
+    act(() => {
+      button.element().focus()
+    })
+    await expect.element(page.getByRole('tooltip')).toBeInTheDocument()
   })
 
   it('should display tooltip v2 when menu button is focused', async () => {
-    const component = HTMLRender(
+    HTMLRender(
       ExampleWithTooltipV2(
         <TooltipV2 text="Additional context about the menu button" direction="s">
           <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
         </TooltipV2>,
       ),
     )
-    const button = component.getByRole('button')
+    const button = page.getByRole('button')
     act(() => {
-      button.focus()
+      button.element().focus()
     })
 
-    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
+    await expect.element(page.getByRole('tooltip', {includeHidden: true})).toBeInTheDocument()
   })
 
   it('should open menu on menu anchor click and it is wrapped with tooltip v2', async () => {
-    const component = HTMLRender(
+    HTMLRender(
       ExampleWithTooltipV2(
         <ActionMenu.Anchor>
           <TooltipV2 text="Additional context about the menu button" direction="n">
@@ -580,16 +571,15 @@ describe('ActionMenu', () => {
         </ActionMenu.Anchor>,
       ),
     )
-    const button = component.getByRole('button')
+    const button = page.getByRole('button')
 
-    const user = userEvent.setup()
-    await user.click(button)
+    await userEvent.click(button)
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
   })
 
   it('should display tooltip v2 and menu anchor is focused', async () => {
-    const component = HTMLRender(
+    HTMLRender(
       ExampleWithTooltipV2(
         <ActionMenu.Anchor>
           <TooltipV2 text="Additional context about the menu button" direction="n">
@@ -598,17 +588,17 @@ describe('ActionMenu', () => {
         </ActionMenu.Anchor>,
       ),
     )
-    const button = component.getByRole('button')
+    const button = page.getByRole('button')
     act(() => {
-      button.focus()
+      button.element().focus()
     })
 
-    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
+    await expect.element(page.getByRole('tooltip', {includeHidden: true})).toBeInTheDocument()
   })
 
   it('should pass the "id" prop from ActionMenu.Button to the HTML button', async () => {
     const buttonId = 'toggle-menu-custom-id'
-    const component = HTMLRender(
+    HTMLRender(
       <BaseStyles>
         <ActionMenu>
           <ActionMenu.Button id={buttonId}>Toggle Menu</ActionMenu.Button>
@@ -629,13 +619,13 @@ describe('ActionMenu', () => {
         </ActionMenu>
       </BaseStyles>,
     )
-    const button = component.getByRole('button')
+    const button = page.getByRole('button')
 
-    expect(button.id).toBe(buttonId)
+    expect(button.element().id).toBe(buttonId)
   })
   it('should pass the "id" prop from ActionMenu.Anchor to anchor child', async () => {
     const buttonId = 'toggle-menu-custom-id'
-    const component = HTMLRender(
+    HTMLRender(
       <BaseStyles>
         <ActionMenu>
           <ActionMenu.Anchor id={buttonId}>
@@ -658,13 +648,13 @@ describe('ActionMenu', () => {
         </ActionMenu>
       </BaseStyles>,
     )
-    const button = component.getByRole('button')
+    const button = page.getByRole('button')
 
-    expect(button.id).toBe(buttonId)
+    expect(button.element().id).toBe(buttonId)
   })
 
   it('should use the tooltip id to name the menu when the anchor is icon button', async () => {
-    const component = HTMLRender(
+    HTMLRender(
       <BaseStyles>
         <ActionMenu>
           <ActionMenu.Anchor>
@@ -683,133 +673,131 @@ describe('ActionMenu', () => {
       </BaseStyles>,
     )
 
-    const toggleButton = component.getByRole('button', {name: 'More actions'})
+    const toggleButton = page.getByRole('button', {name: 'More actions', exact: true})
     await userEvent.click(toggleButton)
-    expect(toggleButton).toHaveAttribute('aria-labelledby')
-    expect(component.getByRole('menu')).toHaveAttribute('aria-labelledby', toggleButton.getAttribute('aria-labelledby'))
+    await expect.element(toggleButton).toHaveAttribute('aria-labelledby')
+    await expect
+      .element(page.getByRole('menu'))
+      .toHaveAttribute('aria-labelledby', toggleButton.element().getAttribute('aria-labelledby'))
   })
 
   describe('submenus', () => {
     it('sets `aria-haspopup` and `aria-expanded` on submenu anchors', async () => {
-      const component = HTMLRender(<ExampleWithSubmenus />)
-      const user = userEvent.setup()
+      HTMLRender(<ExampleWithSubmenus />)
 
-      const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(baseAnchor)
+      const baseAnchor = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await userEvent.click(baseAnchor)
 
-      const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
-      expect(submenuAnchor).toHaveAttribute('aria-haspopup')
-      await user.click(submenuAnchor)
-      expect(submenuAnchor).toHaveAttribute('aria-expanded')
+      const submenuAnchor = page.getByRole('menuitem', {name: 'Paste special', exact: true})
+      await expect.element(submenuAnchor).toHaveAttribute('aria-haspopup')
+      await userEvent.click(submenuAnchor)
+      await expect.element(submenuAnchor).toHaveAttribute('aria-expanded')
 
-      const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
-      expect(subSubmenuAnchor).toHaveAttribute('aria-haspopup')
-      await user.click(subSubmenuAnchor)
-      expect(subSubmenuAnchor).toHaveAttribute('aria-expanded')
+      const subSubmenuAnchor = page.getByRole('menuitem', {name: 'Paste from', exact: true})
+      await expect.element(subSubmenuAnchor).toHaveAttribute('aria-haspopup')
+      await userEvent.click(subSubmenuAnchor)
+      await expect.element(subSubmenuAnchor).toHaveAttribute('aria-expanded')
     })
 
     it('sets labels on submenus', async () => {
-      const component = HTMLRender(<ExampleWithSubmenus />)
-      const user = userEvent.setup()
+      HTMLRender(<ExampleWithSubmenus />)
 
-      const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(baseAnchor)
+      const baseAnchor = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await userEvent.click(baseAnchor)
 
-      const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
-      await user.click(submenuAnchor)
+      const submenuAnchor = page.getByRole('menuitem', {name: 'Paste special', exact: true})
+      await userEvent.click(submenuAnchor)
 
-      const submenu = component.getByRole('menu', {name: 'Paste special'})
-      await waitFor(() => {
-        expect(submenu).toBeVisible()
-      })
+      const submenu = page.getByRole('menu', {name: 'Paste special', exact: true})
+      await expect.element(submenu).toBeVisible()
 
-      const subSubmenuAnchor = within(submenu).getByRole('menuitem', {name: 'Paste from'})
-      await user.click(subSubmenuAnchor)
+      const subSubmenuAnchor = submenu.getByRole('menuitem', {name: 'Paste from', exact: true})
+      await userEvent.click(subSubmenuAnchor)
 
-      const subSubmenu = component.getByRole('menu', {name: 'Paste from'})
+      const subSubmenu = page.getByRole('menu', {name: 'Paste from', exact: true})
 
-      await waitFor(() => {
-        expect(subSubmenu).toBeVisible()
-      })
+      await expect.element(subSubmenu).toBeVisible()
     })
 
     it('does not open top-level menu on right arrow key press', async () => {
-      const component = HTMLRender(<ExampleWithSubmenus />)
-      const user = userEvent.setup()
+      HTMLRender(<ExampleWithSubmenus />)
 
-      const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
-      baseAnchor.focus()
+      const baseAnchor = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      act(() => {
+        baseAnchor.element().focus()
+      })
 
-      await user.keyboard('{ArrowRight}')
-      expect(component.queryByRole('menu')).not.toBeInTheDocument()
-      expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
+      await userEvent.keyboard('{ArrowRight}')
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
+      await expect.element(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
 
     it('opens submenus on enter or right arrow key press', async () => {
-      const component = HTMLRender(<ExampleWithSubmenus />)
-      const user = userEvent.setup()
+      HTMLRender(<ExampleWithSubmenus />)
 
-      const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(baseAnchor)
+      const baseAnchor = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await userEvent.click(baseAnchor)
 
-      const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
-      expect(submenuAnchor).toHaveAttribute('aria-haspopup', 'true')
-      submenuAnchor.focus()
-      await user.keyboard('{Enter}')
-      expect(submenuAnchor).toHaveAttribute('aria-expanded', 'true')
+      const submenuAnchor = page.getByRole('menuitem', {name: 'Paste special', exact: true})
+      await expect.element(submenuAnchor).toHaveAttribute('aria-haspopup', 'true')
+      act(() => {
+        submenuAnchor.element().focus()
+      })
+      await userEvent.keyboard('{Enter}')
+      await expect.element(submenuAnchor).toHaveAttribute('aria-expanded', 'true')
 
-      const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
-      subSubmenuAnchor.focus()
-      await user.keyboard('{ArrowRight}')
-      expect(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true')
+      const subSubmenuAnchor = page.getByRole('menuitem', {name: 'Paste from', exact: true})
+      act(() => {
+        subSubmenuAnchor.element().focus()
+      })
+      await userEvent.keyboard('{ArrowRight}')
+      await expect.element(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true')
     })
 
     it('closes top menu on escape or left arrow key press', async () => {
-      const component = HTMLRender(<ExampleWithSubmenus />)
-      const user = userEvent.setup()
+      HTMLRender(<ExampleWithSubmenus />)
 
-      const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(baseAnchor)
+      const baseAnchor = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await userEvent.click(baseAnchor)
 
-      const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
-      await user.click(submenuAnchor)
+      const submenuAnchor = page.getByRole('menuitem', {name: 'Paste special', exact: true})
+      await userEvent.click(submenuAnchor)
 
-      const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
-      await user.click(subSubmenuAnchor)
+      const subSubmenuAnchor = page.getByRole('menuitem', {name: 'Paste from', exact: true})
+      await userEvent.click(subSubmenuAnchor)
 
-      expect(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true')
 
-      await user.keyboard('{Escape}')
-      expect(subSubmenuAnchor).not.toHaveAttribute('aria-expanded', 'true')
-      expect(submenuAnchor).toHaveAttribute('aria-expanded', 'true')
+      await userEvent.keyboard('{Escape}')
+      await expect.element(subSubmenuAnchor).not.toHaveAttribute('aria-expanded', 'true')
+      await expect.element(submenuAnchor).toHaveAttribute('aria-expanded', 'true')
 
-      await user.keyboard('{ArrowLeft}')
-      expect(submenuAnchor).not.toHaveAttribute('aria-expanded', 'true')
+      await userEvent.keyboard('{ArrowLeft}')
+      await expect.element(submenuAnchor).not.toHaveAttribute('aria-expanded', 'true')
 
-      expect(baseAnchor).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(baseAnchor).toHaveAttribute('aria-expanded', 'true')
     })
 
     it('closes all menus when an item is selected', async () => {
-      const component = HTMLRender(<ExampleWithSubmenus />)
-      const user = userEvent.setup()
+      HTMLRender(<ExampleWithSubmenus />)
 
-      const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(baseAnchor)
+      const baseAnchor = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await userEvent.click(baseAnchor)
 
-      const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
-      await user.click(submenuAnchor)
+      const submenuAnchor = page.getByRole('menuitem', {name: 'Paste special', exact: true})
+      await userEvent.click(submenuAnchor)
 
-      const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
-      await user.click(subSubmenuAnchor)
+      const subSubmenuAnchor = page.getByRole('menuitem', {name: 'Paste from', exact: true})
+      await userEvent.click(subSubmenuAnchor)
 
-      const subSubmenuItem = component.getByRole('menuitem', {name: 'Current clipboard'})
-      await user.click(subSubmenuItem)
+      const subSubmenuItem = page.getByRole('menuitem', {name: 'Current clipboard', exact: true})
+      await userEvent.click(subSubmenuItem)
 
-      expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
+      await expect.element(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
 
     it('supports className prop on ActionMenu.Anchor with css anchor positioning flag', async () => {
-      const component = HTMLRender(
+      HTMLRender(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
           <BaseStyles>
             <ActionMenu>
@@ -834,12 +822,12 @@ describe('ActionMenu', () => {
           </BaseStyles>
         </FeatureFlags>,
       )
-      const anchor = component.getByRole('button', {name: 'Toggle Menu'})
-      expect(anchor).toHaveClass('test-class')
+      const anchor = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await expect.element(anchor).toHaveClass('test-class')
     })
 
     it('supports className prop on ActionMenu.Button with css anchor positioning flag', async () => {
-      const component = HTMLRender(
+      HTMLRender(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
           <BaseStyles>
             <ActionMenu>
@@ -862,12 +850,12 @@ describe('ActionMenu', () => {
           </BaseStyles>
         </FeatureFlags>,
       )
-      const button = component.getByRole('button', {name: 'Toggle Menu'})
-      expect(button).toHaveClass('test-class')
+      const button = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await expect.element(button).toHaveClass('test-class')
     })
 
     it('supports className prop on ActionMenu.Anchor', async () => {
-      const component = HTMLRender(
+      HTMLRender(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
           <BaseStyles>
             <ActionMenu>
@@ -892,12 +880,12 @@ describe('ActionMenu', () => {
           </BaseStyles>
         </FeatureFlags>,
       )
-      const anchor = component.getByRole('button', {name: 'Toggle Menu'})
-      expect(anchor).toHaveClass('test-class')
+      const anchor = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await expect.element(anchor).toHaveClass('test-class')
     })
 
     it('supports className prop on ActionMenu.Button', async () => {
-      const component = HTMLRender(
+      HTMLRender(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
           <BaseStyles>
             <ActionMenu>
@@ -920,36 +908,36 @@ describe('ActionMenu', () => {
           </BaseStyles>
         </FeatureFlags>,
       )
-      const button = component.getByRole('button', {name: 'Toggle Menu'})
-      expect(button).toHaveClass('test-class')
+      const button = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await expect.element(button).toHaveClass('test-class')
     })
 
     it('keeps anchor-name and position-anchor linked when the anchor is replaced while the menu is open', async () => {
-      const user = userEvent.setup()
       const component = HTMLRender(<ExampleWithReplaceableAnchor />)
 
-      const initialAnchor = component.getByRole('button', {name: 'Open menu'})
-      await user.click(initialAnchor)
+      const initialAnchor = page.getByRole('button', {name: 'Open menu', exact: true})
+      const initialAnchorElement = initialAnchor.element()
+      await userEvent.click(initialAnchor)
 
       const overlay = component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]') as HTMLElement
       expect(overlay).not.toBeNull()
 
-      const initialAnchorName = initialAnchor.style.getPropertyValue('anchor-name')
+      const initialAnchorName = initialAnchor.element().style.getPropertyValue('anchor-name')
       const initialPositionAnchor = overlay.style.getPropertyValue('position-anchor')
       expect(initialAnchorName).not.toBe('')
       expect(initialPositionAnchor).not.toBe('')
       expect(initialPositionAnchor).toBe(initialAnchorName)
 
       // Click the item that remounts the anchor while keeping the menu open
-      const switchItem = component.getByRole('menuitem', {name: 'Switch anchor'})
-      await user.click(switchItem)
+      const switchItem = page.getByRole('menuitem', {name: 'Switch anchor', exact: true})
+      await userEvent.click(switchItem)
 
-      const newAnchor = component.getByRole('button', {name: 'Open menu'})
-      expect(newAnchor).not.toBe(initialAnchor)
+      const newAnchor = page.getByRole('button', {name: 'Open menu', exact: true})
+      expect(newAnchor.element()).not.toBe(initialAnchorElement)
 
       // The new anchor should have the same anchor-name re-applied, and the
       // overlay should still reference it via position-anchor.
-      expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
+      expect(newAnchor.element().style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
       expect(overlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
     })
   })
@@ -959,7 +947,7 @@ describe('ActionMenu', () => {
       const mockOnClick = vi.fn()
       const mockOnKeyDown = vi.fn()
 
-      const component = HTMLRender(
+      HTMLRender(
         <ActionMenu>
           <ActionMenu.Button onClick={mockOnClick} onKeyDown={mockOnKeyDown}>
             Open menu
@@ -973,21 +961,20 @@ describe('ActionMenu', () => {
         </ActionMenu>,
       )
 
-      const user = userEvent.setup()
-      const button = component.getByRole('button')
-      await user.click(button)
+      const button = page.getByRole('button')
+      await userEvent.click(button)
 
-      expect(component.getByRole('menu')).toBeInTheDocument()
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnClick).toHaveBeenCalledTimes(1)
 
       // select and close menu
-      const menuItems = component.getAllByRole('menuitem')
-      await user.click(menuItems[0])
-      expect(component.queryByRole('menu')).toBeNull()
+      const menuItems = page.getByRole('menuitem').all()
+      await userEvent.click(menuItems[0])
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
 
-      expect(button).toEqual(document.activeElement)
-      await user.keyboard('{Enter}')
-      expect(component.queryByRole('menu')).toBeInTheDocument()
+      await expect.element(button).toHaveFocus()
+      await userEvent.keyboard('{Enter}')
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
 
@@ -995,7 +982,7 @@ describe('ActionMenu', () => {
       const mockOnClick = vi.fn()
       const mockOnKeyDown = vi.fn()
 
-      const component = HTMLRender(
+      HTMLRender(
         <ActionMenu>
           <ActionMenu.Anchor>
             <IconButton
@@ -1014,21 +1001,20 @@ describe('ActionMenu', () => {
         </ActionMenu>,
       )
 
-      const user = userEvent.setup()
-      const button = component.getByRole('button')
-      await user.click(button)
+      const button = page.getByRole('button')
+      await userEvent.click(button)
 
-      expect(component.getByRole('menu')).toBeInTheDocument()
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnClick).toHaveBeenCalledTimes(1)
 
       // select and close menu
-      const menuItems = component.getAllByRole('menuitem')
-      await user.click(menuItems[0])
-      expect(component.queryByRole('menu')).toBeNull()
+      const menuItems = page.getByRole('menuitem').all()
+      await userEvent.click(menuItems[0])
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
 
-      expect(button).toEqual(document.activeElement)
-      await user.keyboard('{Enter}')
-      expect(component.queryByRole('menu')).toBeInTheDocument()
+      await expect.element(button).toHaveFocus()
+      await userEvent.keyboard('{Enter}')
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
 
@@ -1036,7 +1022,7 @@ describe('ActionMenu', () => {
       const mockOnClick = vi.fn()
       const mockOnKeyDown = vi.fn()
 
-      const component = HTMLRender(
+      HTMLRender(
         <ActionMenu>
           <TooltipV2 text="Additional context about the menu button" direction="s">
             <ActionMenu.Button onClick={mockOnClick} onKeyDown={mockOnKeyDown}>
@@ -1052,21 +1038,20 @@ describe('ActionMenu', () => {
         </ActionMenu>,
       )
 
-      const user = userEvent.setup()
-      const button = component.getByRole('button')
-      await user.click(button)
+      const button = page.getByRole('button')
+      await userEvent.click(button)
 
-      expect(component.getByRole('menu')).toBeInTheDocument()
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnClick).toHaveBeenCalledTimes(1)
 
       // select and close menu
-      const menuItems = component.getAllByRole('menuitem')
-      await user.click(menuItems[0])
-      expect(component.queryByRole('menu')).toBeNull()
+      const menuItems = page.getByRole('menuitem').all()
+      await userEvent.click(menuItems[0])
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
 
-      expect(button).toEqual(document.activeElement)
-      await user.keyboard('{Enter}')
-      expect(component.queryByRole('menu')).toBeInTheDocument()
+      await expect.element(button).toHaveFocus()
+      await userEvent.keyboard('{Enter}')
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
 
@@ -1074,7 +1059,7 @@ describe('ActionMenu', () => {
       const mockOnClick = vi.fn()
       const mockOnKeyDown = vi.fn()
 
-      const component = HTMLRender(
+      HTMLRender(
         <ActionMenu>
           <ActionMenu.Anchor>
             <TooltipV2 text="Additional context about the menu button" direction="s">
@@ -1095,21 +1080,22 @@ describe('ActionMenu', () => {
         </ActionMenu>,
       )
 
-      const user = userEvent.setup()
-      const button = component.getByRole('button')
-      await user.click(button)
+      const button = page.getByRole('button')
+      await userEvent.click(button)
 
-      expect(component.getByRole('menu')).toBeInTheDocument()
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnClick).toHaveBeenCalledTimes(1)
 
-      // select and close menu
-      const menuItems = component.getAllByRole('menuitem')
-      await user.click(menuItems[0])
-      expect(component.queryByRole('menu')).toBeNull()
+      await userEvent.unhover(button)
 
-      expect(button).toEqual(document.activeElement)
-      await user.keyboard('{Enter}')
-      expect(component.queryByRole('menu')).toBeInTheDocument()
+      // select and close menu
+      const menuItems = page.getByRole('menuitem').all()
+      await userEvent.click(menuItems[0])
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
+
+      await expect.element(button).toHaveFocus()
+      await userEvent.keyboard('{Enter}')
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
   })
@@ -1125,7 +1111,7 @@ describe('ActionMenu', () => {
     it('should enable displayInViewport when ActionMenu is inside a dialog', async () => {
       // When the ActionMenu is wrapped in a Dialog, it's inside a dialog context.
       // displayInViewport should be automatically enabled.
-      const component = HTMLRender(
+      HTMLRender(
         <Dialog onClose={() => {}}>
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
@@ -1138,13 +1124,10 @@ describe('ActionMenu', () => {
         </Dialog>,
       )
 
-      const user = userEvent.setup()
-      const button = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(button)
+      const button = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await userEvent.click(button)
 
-      await waitFor(() => {
-        expect(component.queryByRole('menu')).toBeInTheDocument()
-      })
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
 
       // Verify getAnchoredPosition was called with displayInViewport: true
       await waitFor(() => {
@@ -1159,7 +1142,7 @@ describe('ActionMenu', () => {
     it('should not enable displayInViewport when ActionMenu is NOT inside a dialog', async () => {
       // Without being wrapped in a Dialog, the ActionMenu is not in a dialog context.
       // displayInViewport should remain at its default (false/undefined).
-      const component = HTMLRender(
+      HTMLRender(
         <ActionMenu>
           <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
           <ActionMenu.Overlay>
@@ -1170,13 +1153,10 @@ describe('ActionMenu', () => {
         </ActionMenu>,
       )
 
-      const user = userEvent.setup()
-      const button = component.getByRole('button')
-      await user.click(button)
+      const button = page.getByRole('button')
+      await userEvent.click(button)
 
-      await waitFor(() => {
-        expect(component.queryByRole('menu')).toBeInTheDocument()
-      })
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
 
       // Verify getAnchoredPosition was called without displayInViewport enabled
       await waitFor(() => {
@@ -1191,7 +1171,7 @@ describe('ActionMenu', () => {
     it('should respect explicit displayInViewport prop over default logic', async () => {
       // Test that an explicit displayInViewport=false prop overrides the automatic
       // detection, even when the ActionMenu is inside a dialog.
-      const component = HTMLRender(
+      HTMLRender(
         <Dialog onClose={() => {}}>
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
@@ -1204,13 +1184,10 @@ describe('ActionMenu', () => {
         </Dialog>,
       )
 
-      const user = userEvent.setup()
-      const button = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(button)
+      const button = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+      await userEvent.click(button)
 
-      await waitFor(() => {
-        expect(component.queryByRole('menu')).toBeInTheDocument()
-      })
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
 
       // Verify getAnchoredPosition was called with displayInViewport: false (explicit override)
       await waitFor(() => {
@@ -1225,7 +1202,7 @@ describe('ActionMenu', () => {
     it('should respect explicit displayInViewport=true prop', async () => {
       // Test that an explicit displayInViewport=true prop works regardless of
       // the dialog context.
-      const component = HTMLRender(
+      HTMLRender(
         <ActionMenu>
           <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
           <ActionMenu.Overlay displayInViewport={true}>
@@ -1236,13 +1213,10 @@ describe('ActionMenu', () => {
         </ActionMenu>,
       )
 
-      const user = userEvent.setup()
-      const button = component.getByRole('button')
-      await user.click(button)
+      const button = page.getByRole('button')
+      await userEvent.click(button)
 
-      await waitFor(() => {
-        expect(component.queryByRole('menu')).toBeInTheDocument()
-      })
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
 
       // Verify getAnchoredPosition was called with displayInViewport: true (explicit override)
       await waitFor(() => {
