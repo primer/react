@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import {hydrateRoot} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {describe, expect, it, vi} from 'vitest'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import {DataTable, Table} from '../../DataTable'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../Table.module.css'
@@ -159,9 +160,8 @@ describe('DataTable group expansion', () => {
 
   describe.each(['ltr', 'rtl'] as const)('alignment (%s)', dir => {
     it.each(['condensed', 'normal', 'spacious'] as const)(
-      'aligns disclosures, checkboxes and text with %s cell padding',
+      'aligns group checkboxes and member text at %s cell padding',
       async cellPadding => {
-        const user = userEvent.setup()
         render(
           <div dir={dir}>
             <DataTable
@@ -173,30 +173,46 @@ describe('DataTable group expansion', () => {
             />
           </div>,
         )
-        const disclosure = screen.getByRole('button', {name: 'First'})
-        const label = screen.getByText('First')
+        const disclosure = page.getByRole('button', {name: 'First', exact: true})
+        const groupHeader = page.getByRole('columnheader', {name: 'First', exact: true}).element()
+        const label = groupHeader.querySelector('.TableGroupHeaderLabel')!
+        const columnHeader = page.getByRole('columnheader', {name: 'Name', exact: true}).element()
+        const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true}).element()
+        const rowHeader = page.getByRole('rowheader', {name: 'Beta', exact: true}).element()
+        const rowHeight = rowHeader.getBoundingClientRect().height
         const textRange = document.createRange()
-        textRange.selectNodeContents(screen.getByRole('rowheader', {name: 'Beta'}))
+        textRange.selectNodeContents(rowHeader)
         const rowText = textRange.getBoundingClientRect()
-        textRange.selectNodeContents(screen.getByRole('columnheader', {name: 'Name'}))
+        textRange.selectNodeContents(columnHeader)
         const columnText = textRange.getBoundingClientRect()
+        textRange.selectNodeContents(page.getByRole('rowheader', {name: 'Standalone', exact: true}).element())
+        const standaloneText = textRange.getBoundingClientRect()
         const inlineStart = (rect: DOMRect) => (dir === 'rtl' ? rect.right : rect.left)
 
         for (const expanded of [true, false]) {
           if (!expanded) {
-            await user.click(disclosure)
+            await browserUserEvent.click(disclosure)
           }
-          const buttonRect = disclosure.getBoundingClientRect()
+          const buttonRect = disclosure.element().getBoundingClientRect()
+          const iconRect = disclosure.element().querySelector('svg')!.getBoundingClientRect()
           const labelRect = label.getBoundingClientRect()
-          for (const checkbox of screen.getAllByRole('checkbox')) {
+          const selectAllRect = selectAll.getBoundingClientRect()
+          for (const checkbox of page.getByRole('checkbox').elements()) {
             const checkboxRect = checkbox.getBoundingClientRect()
             expect(
-              Math.abs(buttonRect.x + buttonRect.width / 2 - checkboxRect.x - checkboxRect.width / 2),
+              Math.abs(selectAllRect.x + selectAllRect.width / 2 - checkboxRect.x - checkboxRect.width / 2),
             ).toBeLessThan(0.5)
           }
           expect(Math.abs(inlineStart(labelRect) - inlineStart(rowText))).toBeLessThan(0.5)
-          expect(Math.abs(inlineStart(labelRect) - inlineStart(columnText))).toBeLessThan(0.5)
+          expect(Math.abs(inlineStart(iconRect) - inlineStart(columnText))).toBeLessThan(0.5)
+          expect(Math.abs(inlineStart(standaloneText) - inlineStart(columnText))).toBeLessThan(0.5)
+          expect((inlineStart(labelRect) - inlineStart(iconRect)) * (dir === 'rtl' ? -1 : 1) - iconRect.width).toBe(8)
           expect(Math.abs(buttonRect.y + buttonRect.height / 2 - labelRect.y - labelRect.height / 2)).toBeLessThan(0.5)
+          expect(buttonRect.height).toBeGreaterThanOrEqual(24)
+          expect(groupHeader.getBoundingClientRect().height).toBe(rowHeight)
+          expect(groupHeader.getBoundingClientRect().height).toBeLessThanOrEqual(
+            columnHeader.getBoundingClientRect().height,
+          )
         }
       },
     )

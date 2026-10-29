@@ -1822,30 +1822,38 @@ const sortableGroupedColumns = [
 
 export const WithCollapsibleGroups = () => {
   const titleId = React.useId()
-  const [expandedGroups, setExpandedGroups] = React.useState<ReadonlySet<DataTableRowId>>(
-    () => new Set(['internal', 'public']),
-  )
-  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())
+  const [expandedGroups, setExpandedGroups] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set(['public']))
   return (
     <Table.Container>
       <Table.Title as="h2" id={titleId}>
-        Collapsible repositories by visibility
+        Repositories
       </Table.Title>
       <Table.Actions>
         <Button onClick={() => setExpandedGroups(new Set())}>Collapse all groups</Button>
-        <Button onClick={() => setExpandedGroups(new Set(['internal', 'public']))}>Expand all groups</Button>
+        <Button onClick={() => setExpandedGroups(new Set(['public']))}>Expand all groups</Button>
       </Table.Actions>
       <DataTable
         aria-labelledby={titleId}
-        data={repoGroupsWithDisabledRow}
-        columns={sortableGroupedColumns}
+        data={[
+          {id: 'github', name: 'github/github', visibility: 'Internal'},
+          {
+            groupId: 'public',
+            label: 'Public',
+            rows: [
+              {id: 'react', name: 'primer/react', visibility: 'Public'},
+              {id: 'css', name: 'primer/css', visibility: 'Public'},
+            ],
+          },
+        ]}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
         collapsibleGroups
         expandedGroups={expandedGroups}
         onExpandedGroupsChange={({expandedGroups}) => setExpandedGroups(expandedGroups)}
         rowSelection
-        selectedRows={selectedRows}
-        onSelectionChange={({selectedRows}) => setSelectedRows(selectedRows)}
-        isRowSelectable={repo => repo.id !== 1}
+        defaultSelectedRows={new Set(['react'])}
       />
     </Table.Container>
   )

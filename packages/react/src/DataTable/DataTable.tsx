@@ -283,6 +283,11 @@ function DataTableImplementation<Data extends UniqueRow>({
             aria-label={body['aria-label']}
             collapsible={collapsibleGroups}
             expanded={body.expanded}
+            selection={rowSelection && collapsibleGroups ? body.selection : undefined}
+            selectionDisabled={!body.selectable}
+            onToggleSelect={() => {
+              actions.toggleGroupSelection(body)
+            }}
             onExpandedChange={() => {
               actions.toggleGroupExpansion(body)
             }}

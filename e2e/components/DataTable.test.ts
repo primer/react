@@ -86,13 +86,15 @@ test.describe('DataTable', () => {
     await page.keyboard.press('Space')
     await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
     await expect(disclosure).toBeFocused()
-    await expect(page.getByRole('checkbox', {name: 'Select strapi', exact: true})).toHaveCount(0)
+    await expect(page.getByRole('checkbox', {name: 'Select primer/css', exact: true})).toHaveCount(0)
     const bodyId = await disclosure.getAttribute('aria-controls')
     await expect(page.locator(`[id="${bodyId}"]`)).toBeHidden()
-    await page.getByRole('checkbox', {name: 'Select rows', exact: true}).check()
+    const groupCheckbox = page.getByRole('checkbox', {name: 'Select Public', exact: true})
+    await groupCheckbox.check()
+    await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
     await disclosure.focus()
     await page.keyboard.press('Enter')
-    const member = page.getByRole('checkbox', {name: 'Select strapi', exact: true})
+    const member = page.getByRole('checkbox', {name: 'Select primer/css', exact: true})
     await expect(member).toBeChecked()
     await member.focus()
     // A programmatic control activation models an external controlled update.
@@ -100,7 +102,7 @@ test.describe('DataTable', () => {
     await expect(disclosure).toBeFocused()
     await expect(page.locator(`[id="${bodyId}"]`)).toBeHidden()
     await page.keyboard.press('Shift+Tab')
-    await expect(page.getByRole('button', {name: 'Internal', exact: true})).toBeFocused()
+    await expect(groupCheckbox).toBeFocused()
     await page.keyboard.press('Tab')
     await expect(disclosure).toBeFocused()
     await page.keyboard.press('Tab')
@@ -159,7 +161,7 @@ test.describe('DataTable', () => {
                 await visit(page, {id: story.id, globals: {colorScheme: theme}})
                 const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
                 if (state === 'mixed') {
-                  await page.getByRole('checkbox', {name: 'Select strapi', exact: true}).click()
+                  await page.getByRole('checkbox', {name: 'Select primer/css', exact: true}).click()
                   await expect(selectAll).toBeChecked({indeterminate: true})
                 } else {
                   await selectAll.click()
@@ -205,7 +207,7 @@ test.describe('DataTable', () => {
   test('standalone and grouped selection stays wired through keyboard input and sorting @aat', async ({page}) => {
     await visit(page, {id: 'experimental-components-datatable-features--with-standalone-and-grouped-row-selection'})
     const standalone = page.getByRole('checkbox', {name: 'Select codeql-dca-worker', exact: true})
-    const grouped = page.getByRole('checkbox', {name: 'Select strapi', exact: true})
+    const grouped = page.getByRole('checkbox', {name: 'Select primer/css', exact: true})
     const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
 
     await expect(standalone).toBeEnabled()
