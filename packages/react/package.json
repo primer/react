@@ -34,8 +34,8 @@
     "dist/**/*.css",
     "src/**/test-helpers.tsx",
     "dist/**/test-helpers.js",
-    "src/**/polyfill.ts",
-    "dist/**/polyfill.js"
+    "src/polyfills/*.ts",
+    "dist/polyfills/*.js"
   ],
   "scripts": {
     "build": "./script/build",

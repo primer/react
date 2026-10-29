@@ -2,7 +2,7 @@ import type React from 'react'
 import {useEffect, useRef, type ElementRef} from 'react'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
-import './polyfill'
+import '../polyfills/ariaNotify'
 
 export type AnnounceProps<As extends React.ElementType> = PolymorphicProps<
   As,
@@ -154,7 +154,11 @@ function getTextContent(element: HTMLElement): string {
 
   if (element.hasAttribute('aria-label')) {
     value = element.getAttribute('aria-label')
-  } else if (element.innerText) {
+  } else if (
+    // eslint-disable-next-line github/no-innerText -- Use rendered text to avoid announcing CSS-hidden descendants.
+    element.innerText
+  ) {
+    // eslint-disable-next-line github/no-innerText -- Use rendered text to avoid announcing CSS-hidden descendants.
     value = element.innerText
   } else if (element.textContent) {
     value = element.textContent
