@@ -6,3 +6,5 @@ export type {AriaAlertProps} from './AriaAlert'
 
 export {AriaStatus} from './AriaStatus'
 export type {AriaStatusProps} from './AriaStatus'
+
+export {useAnnounce} from './useAnnounce'
