@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import {hydrateRoot} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {describe, expect, it, vi} from 'vitest'
+import {page} from 'vitest/browser'
 import {DataTable, Table} from '../../DataTable'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../Table.module.css'
@@ -298,6 +299,44 @@ describe('DataTable group expansion', () => {
 })
 
 describe('Table.Group expansion', () => {
+  describe.each([false, true])('empty group corners (pagination: %s)', pagination => {
+    it.each([false, true])('rounds only the final visible boundary (collapsible: %s)', collapsible => {
+      function Example({empty}: {empty: boolean}) {
+        return (
+          <Table.Container>
+            <Table>
+              <Table.Group id="first" label="First" rowCount={0} colSpan={1} collapsible={collapsible} />
+              <Table.Group id="last" label="Last" rowCount={empty ? 0 : 1} colSpan={1} collapsible={collapsible}>
+                {empty ? null : (
+                  <Table.Row>
+                    <Table.Cell>Member</Table.Cell>
+                  </Table.Row>
+                )}
+              </Table.Group>
+            </Table>
+            {pagination ? <Table.Pagination aria-label="Pagination" totalCount={20} pageSize={10} /> : null}
+          </Table.Container>
+        )
+      }
+      const {rerender} = render(<Example empty={false} />)
+      const header = page.getByRole('columnheader', {name: /^Last/}).element()
+      expect(getComputedStyle(header).borderBottomLeftRadius).toBe('0px')
+      expect(getComputedStyle(header).borderBottomRightRadius).toBe('0px')
+
+      rerender(<Example empty />)
+      const radius = pagination ? '0px' : '6px'
+      expect(getComputedStyle(header).borderBottomLeftRadius).toBe(radius)
+      expect(getComputedStyle(header).borderBottomRightRadius).toBe(radius)
+      const first = page.getByRole('columnheader', {name: /^First/}).element()
+      expect(getComputedStyle(first).borderBottomLeftRadius).toBe('0px')
+      expect(getComputedStyle(first).borderBottomRightRadius).toBe('0px')
+
+      rerender(<Example empty={false} />)
+      expect(getComputedStyle(header).borderBottomLeftRadius).toBe('0px')
+      expect(getComputedStyle(header).borderBottomRightRadius).toBe('0px')
+    })
+  })
+
   it('keeps collapsed group corners square when pagination follows the table', () => {
     render(
       <Table.Container>
