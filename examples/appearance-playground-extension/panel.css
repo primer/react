@@ -1,4 +1,14 @@
 :root {
+  /* The extension document does not inherit the website's Primer tokens. */
+  --base-size-4: 4px;
+  --base-size-8: 8px;
+  --base-size-16: 16px;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --borderWidth-thin: 1px;
+  --borderRadius-default: 6px;
+  --base-text-size-xs: 12px;
+
   color-scheme: light dark;
   font:
     14px/1.5 system-ui,
