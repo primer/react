@@ -1,6 +1,8 @@
 .Overlay {
+  --SelectPanel2--selectPanel-overlay-color: var(--fgColor-default);
+
   padding: 0;
-  color: var(--fgColor-default);
+  color: var(--SelectPanel2--selectPanel-overlay-color);
   border: none;
 
   /* CSS variables values are passed in via styles */
@@ -14,10 +16,12 @@
 
   &:where([data-variant='anchored']),
   &:where([data-variant='full-screen']) {
+    --SelectPanel2--selectPanel-overlay-left-variantAnchored-variantFullScreen: var(--position-left);
+    --SelectPanel2--selectPanel-overlay-top-variantAnchored-variantFullScreen: var(--position-top);
     /* stylelint-disable-next-line primer/spacing */
-    top: var(--position-top);
+    top: var(--SelectPanel2--selectPanel-overlay-top-variantAnchored-variantFullScreen);
     /* stylelint-disable-next-line primer/spacing */
-    left: var(--position-left);
+    left: var(--SelectPanel2--selectPanel-overlay-left-variantAnchored-variantFullScreen);
     margin: 0;
 
     &::backdrop {
@@ -33,7 +37,9 @@
   }
 
   &:where([data-variant='modal'])::backdrop {
-    background-color: var(--overlay-backdrop-bgColor);
+    --SelectPanel2--selectPanel-overlay-backdrop-backgroundColor-variantModal: var(--overlay-backdrop-bgColor);
+
+    background-color: var(--SelectPanel2--selectPanel-overlay-backdrop-backgroundColor-variantModal);
   }
 
   &:where([data-variant='full-screen']) {
@@ -100,13 +106,17 @@
   }
 
   &:where([data-search-input]) {
-    margin-bottom: var(--base-size-8);
+    --SelectPanel2--selectPanel-headerContent-marginBottom-searchInputPresent: var(--base-size-8);
+
+    margin-bottom: var(--SelectPanel2--selectPanel-headerContent-marginBottom-searchInputPresent);
   }
 }
 
 .TitleWrapper {
+  --SelectPanel2--selectPanel-titleWrapper-marginLeft: var(--base-size-8);
+
   margin-top: 0;
-  margin-left: var(--base-size-8);
+  margin-left: var(--SelectPanel2--selectPanel-titleWrapper-marginLeft);
 
   &:where([data-description]) {
     /* stylelint-disable-next-line primer/spacing */
@@ -114,12 +124,16 @@
   }
 
   &:where([data-on-back]) {
-    margin-left: var(--base-size-4);
+    --SelectPanel2--selectPanel-titleWrapper-marginLeft-onBackPresent: var(--base-size-4);
+
+    margin-left: var(--SelectPanel2--selectPanel-titleWrapper-marginLeft-onBackPresent);
   }
 }
 
 .TextInput {
-  padding-left: var(--base-size-8) !important;
+  --SelectPanel2--selectPanel-textInput-paddingLeft: var(--base-size-8);
+
+  padding-left: var(--SelectPanel2--selectPanel-textInput-paddingLeft) !important;
 
   /* Hide the trailing action while the input is empty (showing its placeholder). Uses a
      forward sibling selector on the input instead of `:has()` to avoid Safari's `:has()`
@@ -139,33 +153,47 @@
 }
 
 .Title {
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
+  --SelectPanel2--selectPanel-title-fontWeight: var(--base-text-weight-semibold);
+  --SelectPanel2--selectPanel-title-fontSize: var(--text-body-size-medium);
+
+  font-size: var(--SelectPanel2--selectPanel-title-fontSize);
+  font-weight: var(--base-text-weight-light);
 }
 
 .Description {
+  --SelectPanel2--selectPanel-description-color: var(--fgColor-muted);
+  --SelectPanel2--selectPanel-description-fontSize: var(--text-body-size-small);
+
   display: block;
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
+  font-size: var(--SelectPanel2--selectPanel-description-fontSize);
+  color: var(--SelectPanel2--selectPanel-description-color);
 }
 
 .ClearAction {
-  color: var(--fgColor-muted);
+  --SelectPanel2--selectPanel-clearAction-color: var(--fgColor-muted);
+
+  color: var(--SelectPanel2--selectPanel-clearAction-color);
   background: none;
 }
 
 .Footer {
+  --SelectPanel2--selectPanel-footer-borderTopColor: var(--borderColor-default);
+  --SelectPanel2--selectPanel-footer-borderTop: var(--borderWidth-thin) solid;
+  --SelectPanel2--selectPanel-footer-padding: var(--base-size-16);
+
   display: flex;
   min-height: 44px;
-  padding: var(--base-size-16);
-  border-top: var(--borderWidth-thin) solid;
-  border-top-color: var(--borderColor-default);
+  padding: var(--SelectPanel2--selectPanel-footer-padding);
+  border-top: var(--SelectPanel2--selectPanel-footer-borderTop);
+  border-top-color: var(--SelectPanel2--selectPanel-footer-borderTopColor);
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
 
   &:where([data-hide-primary-actions]) {
-    padding: var(--base-size-8);
+    --SelectPanel2--selectPanel-footer-padding-hidePrimaryActionsPresent: var(--base-size-8);
+
+    padding: var(--SelectPanel2--selectPanel-footer-padding-hidePrimaryActionsPresent);
   }
 }
 
@@ -178,51 +206,68 @@
 }
 
 .FooterActions {
+  --SelectPanel2--selectPanel-footerActions-gap: var(--stack-gap-condensed);
+
   display: flex;
-  gap: var(--stack-gap-condensed);
+  gap: var(--SelectPanel2--selectPanel-footerActions-gap);
 }
 
 .SecondaryCheckbox {
+  --SelectPanel2--selectPanel-secondaryCheckbox-gap: var(--stack-gap-condensed);
+
   display: flex;
   align-items: center;
-  gap: var(--stack-gap-condensed);
+  gap: var(--SelectPanel2--selectPanel-secondaryCheckbox-gap);
 }
 
 .SmallText {
-  font-size: var(--text-body-size-small);
+  --SelectPanel2--selectPanel-smallText-fontSize: var(--text-body-size-small);
+
+  font-size: var(--SelectPanel2--selectPanel-smallText-fontSize);
 }
 
 .SelectPanelLoading {
+  --SelectPanel2--selectPanel-selectPanelLoading-gap: var(--stack-gap-normal);
+  --SelectPanel2--selectPanel-selectPanelLoading-minHeight: min(calc(var(--max-height) - 150px), 324px);
+
   display: flex;
   height: 100%;
 
   /* maxHeight of dialog - (header & footer) */
-  min-height: min(calc(var(--max-height) - 150px), 324px);
+  min-height: var(--SelectPanel2--selectPanel-selectPanelLoading-minHeight);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: var(--stack-gap-normal);
+  gap: var(--SelectPanel2--selectPanel-selectPanelLoading-gap);
 }
 
 .LoadingText {
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
+  --SelectPanel2--selectPanel-loadingText-color: var(--fgColor-muted);
+  --SelectPanel2--selectPanel-loadingText-fontSize: var(--text-body-size-medium);
+
+  font-size: var(--SelectPanel2--selectPanel-loadingText-fontSize);
+  color: var(--SelectPanel2--selectPanel-loadingText-color);
 }
 
 .MessageFull {
+  --SelectPanel2--selectPanel-messageFull-gap: var(--base-size-4);
+  --SelectPanel2--selectPanel-messageFull-paddingLeft: var(--base-size-24);
+  --SelectPanel2--selectPanel-messageFull-paddingRight: var(--base-size-24);
+  --SelectPanel2--selectPanel-messageFull-minHeight: min(calc(var(--max-height) - 150px), 324px);
+
   display: flex;
   height: 100%;
 
   /* maxHeight of dialog - (header & footer) */
-  min-height: min(calc(var(--max-height) - 150px), 324px);
-  padding-right: var(--base-size-24);
-  padding-left: var(--base-size-24);
+  min-height: var(--SelectPanel2--selectPanel-messageFull-minHeight);
+  padding-right: var(--SelectPanel2--selectPanel-messageFull-paddingRight);
+  padding-left: var(--SelectPanel2--selectPanel-messageFull-paddingLeft);
   text-align: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
-  gap: var(--base-size-4);
+  gap: var(--SelectPanel2--selectPanel-messageFull-gap);
 
   a {
     color: inherit;
@@ -231,40 +276,61 @@
 }
 
 .Octicon {
-  margin-bottom: var(--base-size-8);
+  --SelectPanel2--selectPanel-octicon-marginBottom: var(--base-size-8);
+
+  margin-bottom: var(--SelectPanel2--selectPanel-octicon-marginBottom);
 
   &.Error {
-    color: var(--fgColor-danger);
+    --SelectPanel2--selectPanel-octicon-error-color: var(--fgColor-danger);
+
+    color: var(--SelectPanel2--selectPanel-octicon-error-color);
   }
 
   &.Warning {
-    color: var(--fgColor-attention);
+    --SelectPanel2--selectPanel-octicon-warning-color: var(--fgColor-attention);
+
+    color: var(--SelectPanel2--selectPanel-octicon-warning-color);
   }
 }
 
 .MessageTitle {
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-medium);
+  --SelectPanel2--selectPanel-messageTitle-fontWeight: var(--base-text-weight-medium);
+  --SelectPanel2--selectPanel-messageTitle-fontSize: var(--text-body-size-medium);
+
+  font-size: var(--SelectPanel2--selectPanel-messageTitle-fontSize);
+  font-weight: var(--base-text-weight-light);
 }
 
 .MessageContent {
+  --SelectPanel2--selectPanel-messageContent-gap: var(--stack-gap-condensed);
+  --SelectPanel2--selectPanel-messageContent-color: var(--fgColor-muted);
+  --SelectPanel2--selectPanel-messageContent-fontSize: var(--text-body-size-medium);
+
   display: flex;
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
+  font-size: var(--SelectPanel2--selectPanel-messageContent-fontSize);
+  color: var(--SelectPanel2--selectPanel-messageContent-color);
   flex-direction: column;
-  gap: var(--stack-gap-condensed);
+  gap: var(--SelectPanel2--selectPanel-messageContent-gap);
   align-items: center;
 }
 
 .MessageInline {
+  --SelectPanel2--selectPanel-messageInline-gap: var(--stack-gap-condensed);
+  --SelectPanel2--selectPanel-messageInline-borderBottom: var(--borderWidth-thin) solid;
+  --SelectPanel2--selectPanel-messageInline-fontSize: var(--text-body-size-small);
+  --SelectPanel2--selectPanel-messageInline-paddingLeft: var(--base-size-16);
+  --SelectPanel2--selectPanel-messageInline-paddingBottom: var(--base-size-12);
+  --SelectPanel2--selectPanel-messageInline-paddingRight: var(--base-size-16);
+  --SelectPanel2--selectPanel-messageInline-paddingTop: var(--base-size-12);
+
   display: flex;
-  padding-top: var(--base-size-12);
-  padding-right: var(--base-size-16);
-  padding-bottom: var(--base-size-12);
-  padding-left: var(--base-size-16);
-  font-size: var(--text-body-size-small);
-  border-bottom: var(--borderWidth-thin) solid;
-  gap: var(--stack-gap-condensed);
+  padding-top: var(--SelectPanel2--selectPanel-messageInline-paddingTop);
+  padding-right: var(--SelectPanel2--selectPanel-messageInline-paddingRight);
+  padding-bottom: var(--SelectPanel2--selectPanel-messageInline-paddingBottom);
+  padding-left: var(--SelectPanel2--selectPanel-messageInline-paddingLeft);
+  font-size: var(--SelectPanel2--selectPanel-messageInline-fontSize);
+  border-bottom: var(--SelectPanel2--selectPanel-messageInline-borderBottom);
+  gap: var(--SelectPanel2--selectPanel-messageInline-gap);
 
   a {
     color: inherit;
@@ -272,22 +338,34 @@
   }
 
   &:where([data-variant='error']) {
-    color: var(--fgColor-danger);
-    background-color: var(--bgColor-danger-muted);
-    border-color: var(--borderColor-danger-muted);
+    --SelectPanel2--selectPanel-messageInline-borderColor-variantError: var(--borderColor-danger-muted);
+    --SelectPanel2--selectPanel-messageInline-backgroundColor-variantError: var(--bgColor-danger-muted);
+    --SelectPanel2--selectPanel-messageInline-color-variantError: var(--fgColor-danger);
+
+    color: var(--SelectPanel2--selectPanel-messageInline-color-variantError);
+    background-color: var(--SelectPanel2--selectPanel-messageInline-backgroundColor-variantError);
+    border-color: var(--SelectPanel2--selectPanel-messageInline-borderColor-variantError);
   }
 
   &:where([data-variant='warning']) {
-    color: var(--fgColor-attention);
-    background-color: var(--bgColor-attention-muted);
-    border-color: var(--borderColor-attention-muted);
+    --SelectPanel2--selectPanel-messageInline-borderColor-variantWarning: var(--borderColor-attention-muted);
+    --SelectPanel2--selectPanel-messageInline-backgroundColor-variantWarning: var(--bgColor-attention-muted);
+    --SelectPanel2--selectPanel-messageInline-color-variantWarning: var(--fgColor-attention);
+
+    color: var(--SelectPanel2--selectPanel-messageInline-color-variantWarning);
+    background-color: var(--SelectPanel2--selectPanel-messageInline-backgroundColor-variantWarning);
+    border-color: var(--SelectPanel2--selectPanel-messageInline-borderColor-variantWarning);
   }
 }
 
 .Header {
+  --SelectPanel2--selectPanel-header-borderBottomColor: var(--borderColor-default);
+  --SelectPanel2--selectPanel-header-borderBottom: var(--borderWidth-thin) solid;
+  --SelectPanel2--selectPanel-header-padding: var(--base-size-8);
+
   display: flex;
-  padding: var(--base-size-8);
+  padding: var(--SelectPanel2--selectPanel-header-padding);
   flex-direction: column;
-  border-bottom: var(--borderWidth-thin) solid;
-  border-bottom-color: var(--borderColor-default);
+  border-bottom: var(--SelectPanel2--selectPanel-header-borderBottom);
+  border-bottom-color: var(--SelectPanel2--selectPanel-header-borderBottomColor);
 }

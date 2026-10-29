@@ -1,11 +1,14 @@
 .TokenBase {
+  --Token--tokenBase-borderRadius: var(--borderRadius-full);
+  --Token--tokenBase-fontWeight: var(--base-text-weight-semibold);
+
   position: relative;
   display: inline-flex;
   font-family: inherit;
-  font-weight: var(--base-text-weight-semibold);
+  font-weight: var(--base-text-weight-light);
   text-decoration: none;
   white-space: nowrap;
-  border-radius: var(--borderRadius-full);
+  border-radius: var(--Token--tokenBase-borderRadius);
   align-items: center;
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
@@ -20,35 +23,55 @@
 }
 
 .TokenBase:where([data-size='small']) {
+  --Token--tokenBase-fontSize-sizeSmall: var(--text-body-size-small);
+  --Token--tokenBase-paddingLeft-sizeSmall: var(--base-size-4);
+  --Token--tokenBase-paddingRight-sizeSmall: var(--base-size-4);
+  --Token--tokenBase-height-sizeSmall: var(--base-size-16);
+
   width: auto;
-  height: var(--base-size-16);
-  padding-right: var(--base-size-4);
-  padding-left: var(--base-size-4);
-  font-size: var(--text-body-size-small);
+  height: var(--Token--tokenBase-height-sizeSmall);
+  padding-right: var(--Token--tokenBase-paddingRight-sizeSmall);
+  padding-left: var(--Token--tokenBase-paddingLeft-sizeSmall);
+  font-size: var(--Token--tokenBase-fontSize-sizeSmall);
 }
 
 .TokenBase:where([data-size='medium']) {
+  --Token--tokenBase-fontSize-sizeMedium: var(--text-body-size-small);
+  --Token--tokenBase-paddingLeft-sizeMedium: var(--base-size-6);
+  --Token--tokenBase-paddingRight-sizeMedium: var(--base-size-6);
+  --Token--tokenBase-height-sizeMedium: var(--base-size-20);
+
   width: auto;
-  height: var(--base-size-20);
-  padding-right: var(--base-size-6);
-  padding-left: var(--base-size-6);
-  font-size: var(--text-body-size-small);
+  height: var(--Token--tokenBase-height-sizeMedium);
+  padding-right: var(--Token--tokenBase-paddingRight-sizeMedium);
+  padding-left: var(--Token--tokenBase-paddingLeft-sizeMedium);
+  font-size: var(--Token--tokenBase-fontSize-sizeMedium);
 }
 
 .TokenBase[data-size='large'] {
+  --Token--tokenBase-fontSize-sizeLarge: var(--text-body-size-medium);
+  --Token--tokenBase-paddingLeft-sizeLarge: var(--base-size-8);
+  --Token--tokenBase-paddingRight-sizeLarge: var(--base-size-8);
+  --Token--tokenBase-height-sizeLarge: var(--base-size-24);
+
   width: auto;
-  height: var(--base-size-24);
-  padding-right: var(--base-size-8);
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-medium);
+  height: var(--Token--tokenBase-height-sizeLarge);
+  padding-right: var(--Token--tokenBase-paddingRight-sizeLarge);
+  padding-left: var(--Token--tokenBase-paddingLeft-sizeLarge);
+  font-size: var(--Token--tokenBase-fontSize-sizeLarge);
 }
 
 .TokenBase[data-size='xlarge'] {
+  --Token--tokenBase-fontSize-sizeXlarge: var(--text-body-size-medium);
+  --Token--tokenBase-paddingLeft-sizeXlarge: var(--base-size-12);
+  --Token--tokenBase-paddingRight-sizeXlarge: var(--base-size-12);
+  --Token--tokenBase-height-sizeXlarge: var(--base-size-32);
+
   width: auto;
-  height: var(--base-size-32);
+  height: var(--Token--tokenBase-height-sizeXlarge);
   padding-top: 0;
-  padding-right: var(--base-size-12);
+  padding-right: var(--Token--tokenBase-paddingRight-sizeXlarge);
   padding-bottom: 0;
-  padding-left: var(--base-size-12);
-  font-size: var(--text-body-size-medium);
+  padding-left: var(--Token--tokenBase-paddingLeft-sizeXlarge);
+  font-size: var(--Token--tokenBase-fontSize-sizeXlarge);
 }

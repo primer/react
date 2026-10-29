@@ -1,10 +1,15 @@
 .CharacterCounter {
+  --TextInput--characterCounter-color: var(--fgColor-muted);
+  --TextInput--characterCounter-gap: var(--control-xsmall-gap);
+
   display: flex;
   align-items: center;
-  gap: var(--control-xsmall-gap);
-  color: var(--fgColor-muted);
+  gap: var(--TextInput--characterCounter-gap);
+  color: var(--TextInput--characterCounter-color);
 }
 
 .CharacterCounter--error {
-  color: var(--fgColor-danger);
+  --TextInput--characterCounterError-color: var(--fgColor-danger);
+
+  color: var(--TextInput--characterCounterError-color);
 }

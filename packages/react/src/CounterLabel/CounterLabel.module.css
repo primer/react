@@ -1,22 +1,33 @@
 .CounterLabel {
+  --CounterLabel--border: var(--borderWidth-thin) solid var(--counter-borderColor);
+  --CounterLabel--fontWeight: var(--base-text-weight-semibold);
+  --CounterLabel--fontSize: var(--text-body-size-small);
+  --CounterLabel--padding: var(--base-size-2) var(--base-size-6);
+
   display: inline-block;
-  padding: var(--base-size-2) var(--base-size-6);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
+  padding: var(--CounterLabel--padding);
+  font-size: var(--CounterLabel--fontSize);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
-  border: var(--borderWidth-thin) solid var(--counter-borderColor);
+  border: var(--CounterLabel--border);
   /* stylelint-disable-next-line primer/borders */
   border-radius: 20px;
 
   &:where([data-variant='primary']) {
-    color: var(--fgColor-onEmphasis);
-    background-color: var(--bgColor-neutral-emphasis);
+    --CounterLabel--backgroundColor-variantPrimary: var(--bgColor-neutral-emphasis);
+    --CounterLabel--color-variantPrimary: var(--fgColor-onEmphasis);
+
+    color: var(--CounterLabel--color-variantPrimary);
+    background-color: var(--CounterLabel--backgroundColor-variantPrimary);
   }
 
   &:where([data-variant='secondary']) {
-    color: var(--fgColor-default);
-    background-color: var(--bgColor-neutral-muted);
+    --CounterLabel--backgroundColor-variantSecondary: var(--bgColor-neutral-muted);
+    --CounterLabel--color-variantSecondary: var(--fgColor-default);
+
+    color: var(--CounterLabel--color-variantSecondary);
+    background-color: var(--CounterLabel--backgroundColor-variantSecondary);
   }
 
   &:where(:empty) {

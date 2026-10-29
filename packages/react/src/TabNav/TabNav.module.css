@@ -6,23 +6,32 @@
 }
 
 .TabNavNav {
+  --TabNav--tabNavNav-borderBottom: var(--borderWidth-thin) solid var(--borderColor-default);
+
   margin-top: 0;
-  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-bottom: var(--TabNav--tabNavNav-borderBottom);
 }
 
 .TabNavLink {
-  padding: var(--base-size-8) var(--base-size-12);
-  font-size: var(--text-body-size-medium);
+  --TabNav--tabNavLink-border: var(--borderWidth-thin) solid transparent;
+  --TabNav--tabNavLink-color: var(--fgColor-default);
+  --TabNav--tabNavLink-fontSize: var(--text-body-size-medium);
+  --TabNav--tabNavLink-padding: var(--base-size-8) var(--base-size-12);
+
+  padding: var(--TabNav--tabNavLink-padding);
+  font-size: var(--TabNav--tabNavLink-fontSize);
   /* stylelint-disable-next-line primer/typography */
   line-height: 20px;
-  color: var(--fgColor-default);
+  color: var(--TabNav--tabNavLink-color);
   text-decoration: none;
   background-color: transparent;
-  border: var(--borderWidth-thin) solid transparent;
+  border: var(--TabNav--tabNavLink-border);
   border-bottom: 0;
 
   &:hover {
-    color: var(--fgColor-default);
+    --TabNav--tabNavLink-color-hover: var(--fgColor-default);
+
+    color: var(--TabNav--tabNavLink-color-hover);
     text-decoration: none;
   }
 
@@ -33,10 +42,16 @@
   }
 
   &.Selected {
-    color: var(--fgColor-default);
-    background-color: var(--bgColor-default);
-    border-color: var(--borderColor-default);
-    border-top-left-radius: var(--borderRadius-medium);
-    border-top-right-radius: var(--borderRadius-medium);
+    --TabNav--tabNavLink-selected-borderTopRightRadius: var(--borderRadius-medium);
+    --TabNav--tabNavLink-selected-borderTopLeftRadius: var(--borderRadius-medium);
+    --TabNav--tabNavLink-selected-borderColor: var(--borderColor-default);
+    --TabNav--tabNavLink-selected-backgroundColor: var(--bgColor-default);
+    --TabNav--tabNavLink-selected-color: var(--fgColor-default);
+
+    color: var(--TabNav--tabNavLink-selected-color);
+    background-color: var(--TabNav--tabNavLink-selected-backgroundColor);
+    border-color: var(--TabNav--tabNavLink-selected-borderColor);
+    border-top-left-radius: var(--TabNav--tabNavLink-selected-borderTopLeftRadius);
+    border-top-right-radius: var(--TabNav--tabNavLink-selected-borderTopRightRadius);
   }
 }

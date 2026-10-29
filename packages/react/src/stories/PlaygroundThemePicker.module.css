@@ -1,0 +1,377 @@
+.Control {
+  display: grid;
+  min-width: 0;
+  max-width: 100%;
+  gap: var(--base-size-4);
+
+  label {
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+  }
+}
+
+.TriggerName {
+  display: block;
+  max-width: min(320px, calc(100vw - 150px));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Portal {
+  --overlay-backdrop-bgColor: transparent;
+
+  position: absolute;
+}
+
+.Dialog[role='dialog'] {
+  width: min(480px, 100vw);
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+}
+
+.Picker {
+  padding: var(--base-size-4);
+  padding-bottom: var(--base-size-40);
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+.PickerHeader {
+  display: grid;
+  gap: var(--base-size-12);
+
+  h2 {
+    margin: 0 0 var(--base-size-4);
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-semibold);
+  }
+
+  p {
+    margin: 0;
+    color: var(--fgColor-muted);
+  }
+}
+
+.Search {
+  width: 100%;
+}
+
+.ResultCount {
+  margin: var(--base-size-8) 0 var(--base-size-16);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.Source {
+  display: grid;
+  gap: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  overflow-wrap: anywhere;
+
+  a {
+    color: var(--fgColor-link);
+  }
+}
+
+.PaletteSection {
+  margin-bottom: var(--base-size-32);
+
+  h3 {
+    margin: 0 0 var(--base-size-12);
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-normal);
+    color: var(--fgColor-muted);
+  }
+}
+
+.PaletteGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--base-size-16);
+}
+
+.ThemeCard {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  color: var(--fgColor-default);
+  text-align: left;
+  cursor: pointer;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  background-color: var(--bgColor-default);
+  font: inherit;
+
+  &:hover {
+    border-color: var(--borderColor-accent-emphasis);
+  }
+
+  &:focus-visible {
+    outline: var(--borderWidth-thick) solid var(--focus-outlineColor);
+    outline-offset: var(--base-size-4);
+  }
+
+  &[aria-pressed='true'] {
+    border-color: var(--borderColor-accent-emphasis);
+  }
+}
+
+.CardFooter {
+  display: flex;
+  min-height: 42px;
+  padding: var(--base-size-8) var(--base-size-12);
+  gap: var(--base-size-8);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.CardName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Active {
+  padding-inline: var(--base-size-8);
+  font-weight: var(--base-text-weight-normal);
+  color: var(--fgColor-accent);
+  border-color: transparent;
+  background-color: var(--bgColor-accent-muted);
+}
+
+.Preview {
+  --palette-background: var(--bgColor-default);
+  --palette-surface: var(--bgColor-muted);
+  --palette-foreground: var(--fgColor-default);
+  --palette-muted: var(--fgColor-muted);
+  --palette-accent: var(--fgColor-accent);
+  --palette-success: var(--fgColor-success);
+  --palette-danger: var(--fgColor-danger);
+  --palette-attention: var(--fgColor-attention);
+  --palette-done: var(--fgColor-done);
+
+  display: grid;
+  grid-template-columns: 35% minmax(0, 1fr);
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.62;
+  border-top: 13px solid var(--palette-surface);
+  background-color: var(--palette-background);
+
+  &[data-preset='windows95'] {
+    border-top-color: var(--palette-accent);
+    box-shadow:
+      inset -2px -2px #000,
+      inset 2px 2px #fff;
+
+    .PreviewSelection {
+      border-radius: 0;
+      box-shadow:
+        inset -1px -1px #808080,
+        inset 1px 1px #fff;
+    }
+  }
+}
+
+.PreviewSidebar {
+  display: block;
+  padding: var(--base-size-8);
+  background-color: var(--palette-surface);
+}
+
+.PreviewDots {
+  display: flex;
+  margin-bottom: 14px;
+  gap: 4px;
+
+  span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--palette-muted);
+    opacity: 0.4;
+  }
+}
+
+.PreviewNavigation {
+  display: grid;
+  margin-bottom: var(--base-size-12);
+  gap: 9px;
+
+  span {
+    width: 74%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--palette-foreground);
+    opacity: 0.12;
+
+    &:nth-child(2) {
+      width: 55%;
+    }
+
+    &:nth-child(3) {
+      width: 66%;
+    }
+
+    &:nth-child(4) {
+      width: 45%;
+    }
+  }
+}
+
+.PreviewSelection {
+  display: flex;
+  padding: var(--base-size-2);
+  gap: 4px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 2px;
+  background-color: color-mix(in srgb, var(--palette-accent) 15%, transparent);
+
+  span:first-child {
+    width: 68%;
+    height: 4px;
+    border-radius: 1px;
+    background-color: var(--palette-muted);
+    opacity: 0.6;
+  }
+
+  span:last-child {
+    width: 4px;
+    height: 4px;
+    border-radius: 1px;
+    background-color: var(--palette-accent);
+  }
+}
+
+.PreviewSidebarFooter {
+  display: block;
+  width: 55%;
+  height: 4px;
+  margin: var(--base-size-8) var(--base-size-2);
+  border-radius: 1px;
+  background-color: var(--palette-attention);
+  opacity: 0.6;
+}
+
+.PreviewMain {
+  display: block;
+  padding: var(--base-size-8);
+}
+
+.PreviewHeader {
+  display: flex;
+  margin-bottom: var(--base-size-12);
+  gap: 5px;
+  align-items: center;
+
+  span:first-child {
+    width: 12px;
+    height: 5px;
+    border-radius: 2px;
+    background-color: var(--palette-done);
+  }
+
+  span:nth-child(2) {
+    width: 38%;
+    height: 4px;
+    border-radius: 1px;
+    background-color: var(--palette-muted);
+    opacity: 0.6;
+  }
+
+  span:last-child {
+    width: 18%;
+    height: 5px;
+    margin-left: auto;
+    border-radius: 1px;
+    background-color: var(--palette-success);
+  }
+}
+
+.PreviewRows {
+  display: grid;
+  gap: 10px;
+}
+
+.PreviewRow {
+  display: grid;
+  gap: 6px;
+
+  span {
+    width: 95%;
+    height: 3px;
+    border-radius: 1px;
+    background-color: var(--palette-foreground);
+    opacity: 0.16;
+  }
+
+  span:last-child {
+    width: 72%;
+  }
+
+  &:nth-child(2) span {
+    width: 48%;
+    background-color: var(--palette-danger);
+    opacity: 0.5;
+  }
+
+  &:nth-child(2) span:last-child {
+    width: 62%;
+    background-color: var(--palette-success);
+  }
+
+  &:nth-child(4) span {
+    width: 52%;
+  }
+}
+
+.PreviewSpectrum {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--palette-danger) 0% 17%,
+    var(--palette-attention) 17% 34%,
+    var(--palette-success) 34% 50%,
+    var(--palette-accent) 50% 75%,
+    var(--palette-done) 75% 100%
+  );
+}
+
+.Caption,
+.Empty p {
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.Empty {
+  padding: var(--base-size-32) 0;
+  text-align: center;
+
+  h3 {
+    font-size: var(--text-body-size-medium);
+  }
+}
+
+@media (max-width: 620px) {
+  .PaletteGrid {
+    gap: var(--base-size-12);
+  }
+}
+
+@media (max-width: 359px) {
+  .PaletteGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

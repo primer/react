@@ -1,8 +1,13 @@
 .Component {
+  --CSSComponent--component-border: var(--borderWidth-thin) solid var(--borderColor-default);
+  --CSSComponent--component-backgroundColor: var(--bgColor-default);
+  --CSSComponent--component-color: var(--fgColor-muted);
+  --CSSComponent--component-padding: var(--control-xsmall-paddingBlock) var(--control-xsmall-paddingInline-normal);
+
   width: fit-content;
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--control-xsmall-paddingBlock) var(--control-xsmall-paddingInline-normal);
-  color: var(--fgColor-muted);
-  background-color: var(--bgColor-default);
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding: var(--CSSComponent--component-padding);
+  color: var(--CSSComponent--component-color);
+  background-color: var(--CSSComponent--component-backgroundColor);
+  border: var(--CSSComponent--component-border);
 }

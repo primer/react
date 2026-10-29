@@ -1,79 +1,118 @@
 :where(.Label) {
+  --Label--borderRadius: var(--borderRadius-full);
+  --Label--borderWidth: var(--borderWidth-thin);
+  --Label--color: var(--fgColor-default);
+  --Label--fontWeight: var(--base-text-weight-medium);
+  --Label--fontSize: var(--text-body-size-small);
+
   display: inline-flex;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-medium);
+  font-size: var(--Label--fontSize);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
-  color: var(--fgColor-default);
+  color: var(--Label--color);
   white-space: nowrap;
   background-color: transparent;
   border-style: solid;
-  border-width: var(--borderWidth-thin);
-  border-radius: var(--borderRadius-full);
+  border-width: var(--Label--borderWidth);
+  border-radius: var(--Label--borderRadius);
   align-items: center;
 
   &:where([data-size='small']) {
-    height: var(--base-size-20);
-    padding: 0 var(--base-size-6);
+    --Label--padding-sizeSmall: 0 var(--base-size-6);
+    --Label--height-sizeSmall: var(--base-size-20);
+
+    height: var(--Label--height-sizeSmall);
+    padding: var(--Label--padding-sizeSmall);
   }
 
   &:where([data-size='large']) {
-    height: var(--base-size-24);
-    padding: 0 var(--base-size-8);
+    --Label--padding-sizeLarge: 0 var(--base-size-8);
+    --Label--height-sizeLarge: var(--base-size-24);
+
+    height: var(--Label--height-sizeLarge);
+    padding: var(--Label--padding-sizeLarge);
   }
 
   &:where([data-variant='default']) {
-    border-color: var(--borderColor-default);
+    --Label--borderColor-variantDefault: var(--borderColor-default);
+
+    border-color: var(--Label--borderColor-variantDefault);
   }
 
   &:where([data-variant='primary']) {
+    --Label--borderColor-variantPrimary: var(--fgColor-default);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--fgColor-default);
+    border-color: var(--Label--borderColor-variantPrimary);
   }
 
   &:where([data-variant='secondary']) {
-    color: var(--fgColor-muted);
-    border-color: var(--borderColor-muted);
+    --Label--borderColor-variantSecondary: var(--borderColor-muted);
+    --Label--color-variantSecondary: var(--fgColor-muted);
+
+    color: var(--Label--color-variantSecondary);
+    border-color: var(--Label--borderColor-variantSecondary);
   }
 
   &:where([data-variant='accent']) {
-    color: var(--fgColor-accent);
+    --Label--borderColor-variantAccent: var(--bgColor-accent-emphasis);
+    --Label--color-variantAccent: var(--fgColor-accent);
+
+    color: var(--Label--color-variantAccent);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-accent-emphasis);
+    border-color: var(--Label--borderColor-variantAccent);
   }
 
   &:where([data-variant='success']) {
-    color: var(--fgColor-success);
+    --Label--borderColor-variantSuccess: var(--bgColor-success-emphasis);
+    --Label--color-variantSuccess: var(--fgColor-success);
+
+    color: var(--Label--color-variantSuccess);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-success-emphasis);
+    border-color: var(--Label--borderColor-variantSuccess);
   }
 
   &:where([data-variant='attention']) {
-    color: var(--fgColor-attention);
+    --Label--borderColor-variantAttention: var(--bgColor-attention-emphasis);
+    --Label--color-variantAttention: var(--fgColor-attention);
+
+    color: var(--Label--color-variantAttention);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-attention-emphasis);
+    border-color: var(--Label--borderColor-variantAttention);
   }
 
   &:where([data-variant='severe']) {
-    color: var(--fgColor-severe);
+    --Label--borderColor-variantSevere: var(--bgColor-severe-emphasis);
+    --Label--color-variantSevere: var(--fgColor-severe);
+
+    color: var(--Label--color-variantSevere);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-severe-emphasis);
+    border-color: var(--Label--borderColor-variantSevere);
   }
 
   &:where([data-variant='danger']) {
-    color: var(--fgColor-danger);
-    border-color: var(--borderColor-danger-emphasis);
+    --Label--borderColor-variantDanger: var(--borderColor-danger-emphasis);
+    --Label--color-variantDanger: var(--fgColor-danger);
+
+    color: var(--Label--color-variantDanger);
+    border-color: var(--Label--borderColor-variantDanger);
   }
 
   &:where([data-variant='done']) {
-    color: var(--fgColor-done);
+    --Label--borderColor-variantDone: var(--bgColor-done-emphasis);
+    --Label--color-variantDone: var(--fgColor-done);
+
+    color: var(--Label--color-variantDone);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-done-emphasis);
+    border-color: var(--Label--borderColor-variantDone);
   }
 
   &:where([data-variant='sponsors']) {
-    color: var(--fgColor-sponsors);
+    --Label--borderColor-variantSponsors: var(--bgColor-sponsors-emphasis);
+    --Label--color-variantSponsors: var(--fgColor-sponsors);
+
+    color: var(--Label--color-variantSponsors);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-sponsors-emphasis);
+    border-color: var(--Label--borderColor-variantSponsors);
   }
 }

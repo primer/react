@@ -1,11 +1,16 @@
 .Heading {
-  margin-block-end: var(--base-size-8);
+  --NavList--heading-marginInlineStart: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
+  --NavList--heading-marginBlockEnd: var(--base-size-8);
+
+  margin-block-end: var(--NavList--heading-marginBlockEnd);
   /* stylelint-disable-next-line primer/spacing */
-  margin-inline-start: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
+  margin-inline-start: var(--NavList--heading-marginInlineStart);
 }
 
 .GroupHeading > a {
-  color: var(--fgColor-default);
+  --NavList--groupHeading-child-a-color: var(--fgColor-default);
+
+  color: var(--NavList--groupHeading-child-a-color);
   text-decoration: inherit;
 }
 

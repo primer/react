@@ -1,52 +1,78 @@
 .Flash {
+  --Flash--borderRadius: var(--borderRadius-medium);
+  --Flash--borderWidth: var(--borderWidth-thin);
+  --Flash--color: var(--fgColor-default);
+  --Flash--padding: var(--base-size-16);
+
   position: relative;
-  padding: var(--base-size-16);
+  padding: var(--Flash--padding);
   margin-top: 0;
-  color: var(--fgColor-default);
+  color: var(--Flash--color);
   border-style: solid;
-  border-width: var(--borderWidth-thin);
-  border-radius: var(--borderRadius-medium);
+  border-width: var(--Flash--borderWidth);
+  border-radius: var(--Flash--borderRadius);
 
   &:where([data-variant='default']) {
-    background-color: var(--bgColor-accent-muted);
-    border-color: var(--borderColor-accent-muted);
+    --Flash--borderColor-variantDefault: var(--borderColor-accent-muted);
+    --Flash--backgroundColor-variantDefault: var(--bgColor-accent-muted);
+
+    background-color: var(--Flash--backgroundColor-variantDefault);
+    border-color: var(--Flash--borderColor-variantDefault);
 
     & :where(svg) {
-      color: var(--fgColor-accent);
+      --Flash--svg-color-variantDefault: var(--fgColor-accent);
+
+      color: var(--Flash--svg-color-variantDefault);
     }
   }
 
   &:where([data-variant='success']) {
-    background-color: var(--bgColor-success-muted);
-    border-color: var(--borderColor-success-muted);
+    --Flash--borderColor-variantSuccess: var(--borderColor-success-muted);
+    --Flash--backgroundColor-variantSuccess: var(--bgColor-success-muted);
+
+    background-color: var(--Flash--backgroundColor-variantSuccess);
+    border-color: var(--Flash--borderColor-variantSuccess);
 
     & :where(svg) {
-      color: var(--fgColor-success);
+      --Flash--svg-color-variantSuccess: var(--fgColor-success);
+
+      color: var(--Flash--svg-color-variantSuccess);
     }
   }
 
   &:where([data-variant='danger']) {
-    background-color: var(--bgColor-danger-muted);
-    border-color: var(--borderColor-danger-muted);
+    --Flash--borderColor-variantDanger: var(--borderColor-danger-muted);
+    --Flash--backgroundColor-variantDanger: var(--bgColor-danger-muted);
+
+    background-color: var(--Flash--backgroundColor-variantDanger);
+    border-color: var(--Flash--borderColor-variantDanger);
 
     & :where(svg) {
-      color: var(--fgColor-danger);
+      --Flash--svg-color-variantDanger: var(--fgColor-danger);
+
+      color: var(--Flash--svg-color-variantDanger);
     }
   }
 
   &:where([data-variant='warning']) {
-    background-color: var(--bgColor-attention-muted);
-    border-color: var(--borderColor-attention-muted);
+    --Flash--borderColor-variantWarning: var(--borderColor-attention-muted);
+    --Flash--backgroundColor-variantWarning: var(--bgColor-attention-muted);
+
+    background-color: var(--Flash--backgroundColor-variantWarning);
+    border-color: var(--Flash--borderColor-variantWarning);
 
     & :where(svg) {
-      color: var(--fgColor-attention);
+      --Flash--svg-color-variantWarning: var(--fgColor-attention);
+
+      color: var(--Flash--svg-color-variantWarning);
     }
   }
 
   &:where([data-full]) {
+    --Flash--borderWidth-fullPresent: var(--borderWidth-thin) 0;
     /* stylelint-disable-next-line primer/spacing */
     margin-top: -1px;
-    border-width: var(--borderWidth-thin) 0;
+    border-width: var(--Flash--borderWidth-fullPresent);
     border-radius: 0;
   }
 
@@ -55,6 +81,8 @@
   }
 
   & :where(svg) {
-    margin-right: var(--base-size-8);
+    --Flash--svg-marginRight: var(--base-size-8);
+
+    margin-right: var(--Flash--svg-marginRight);
   }
 }

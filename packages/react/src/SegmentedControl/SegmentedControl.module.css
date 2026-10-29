@@ -1,5 +1,6 @@
 @define-mixin subtleVariant {
-  --segmented-control-outer-radius: var(--borderRadius-large);
+  --SegmentedControl--segmentedControlOuterRadius-defineMixinSubtleVariant: var(--borderRadius-large);
+  --segmented-control-outer-radius: var(--SegmentedControl--segmentedControlOuterRadius-defineMixinSubtleVariant);
   --segmented-control-button-bg-inset: 0px;
   --segmented-control-button-bgColor-hover: var(--button-invisible-bgColor-hover);
 
@@ -20,33 +21,48 @@
   }
 
   .Button {
+    --SegmentedControl--button-borderRadius-defineMixinSubtleVariant: var(--borderRadius-large);
+    --SegmentedControl--button-color-defineMixinSubtleVariant: var(--fgColor-muted);
+
     padding: 0;
-    color: var(--fgColor-muted);
+    color: var(--SegmentedControl--button-color-defineMixinSubtleVariant);
     border: 0;
-    border-radius: var(--borderRadius-large);
+    border-radius: var(--SegmentedControl--button-borderRadius-defineMixinSubtleVariant);
 
     .Content {
-      padding-inline: var(--base-size-12);
+      --SegmentedControl--button-content-paddingInline-defineMixinSubtleVariant: var(--base-size-12);
+
+      padding-inline: var(--SegmentedControl--button-content-paddingInline-defineMixinSubtleVariant);
       border: 0;
     }
   }
 
   .Button[aria-pressed='true'] {
-    color: var(--fgColor-default);
+    --SegmentedControl--button-color-ariaPressedTrue-defineMixinSubtleVariant: var(--fgColor-default);
+
+    color: var(--SegmentedControl--button-color-ariaPressedTrue-defineMixinSubtleVariant);
 
     .Content {
-      background-color: var(--bgColor-muted);
+      --SegmentedControl--button-content-backgroundColor-ariaPressedTrue-defineMixinSubtleVariant: var(--bgColor-muted);
+
+      background-color: var(
+        --SegmentedControl--button-content-backgroundColor-ariaPressedTrue-defineMixinSubtleVariant
+      );
     }
   }
 }
 
 @define-mixin defaultVariant {
-  --segmented-control-outer-radius: var(--borderRadius-medium);
+  --SegmentedControl--border-defineMixinDefaultVariant: var(--borderWidth-thin) solid
+    var(--controlTrack-borderColor-rest, transparent);
+  --SegmentedControl--backgroundColor-defineMixinDefaultVariant: var(--controlTrack-bgColor-rest);
+  --SegmentedControl--segmentedControlOuterRadius-defineMixinDefaultVariant: var(--borderRadius-medium);
+  --segmented-control-outer-radius: var(--SegmentedControl--segmentedControlOuterRadius-defineMixinDefaultVariant);
   --segmented-control-button-bg-inset: 4px;
   --segmented-control-button-bgColor-hover: var(--controlTrack-bgColor-hover);
 
-  background-color: var(--controlTrack-bgColor-rest);
-  border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
+  background-color: var(--SegmentedControl--backgroundColor-defineMixinDefaultVariant);
+  border: var(--SegmentedControl--border-defineMixinDefaultVariant);
 
   /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &::before {
@@ -54,8 +70,9 @@
   }
 
   .Item:not(:last-child)::after {
+    --SegmentedControl--item-after-backgroundColor-not-lastChild-defineMixinDefaultVariant: var(--borderColor-default);
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-default);
+    background-color: var(--SegmentedControl--item-after-backgroundColor-not-lastChild-defineMixinDefaultVariant);
   }
 
   > [data-component='SegmentedControl.Divider'] {
@@ -63,16 +80,22 @@
   }
 
   .Button {
+    --SegmentedControl--button-borderRadius-defineMixinDefaultVariant: var(--segmented-control-outer-radius);
+    --SegmentedControl--button-padding-defineMixinDefaultVariant: var(--segmented-control-button-bg-inset);
     /* stylelint-disable-next-line primer/spacing */
-    padding: var(--segmented-control-button-bg-inset);
+    padding: var(--SegmentedControl--button-padding-defineMixinDefaultVariant);
     color: currentColor;
     /* stylelint-disable-next-line primer/borders */
-    border-radius: var(--segmented-control-outer-radius);
+    border-radius: var(--SegmentedControl--button-borderRadius-defineMixinDefaultVariant);
 
     .Content {
+      --SegmentedControl--button-content-border-defineMixinDefaultVariant: var(--borderWidth-thin) solid transparent;
+      --SegmentedControl--button-content-paddingInline-defineMixinDefaultVariant: calc(
+        var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset)
+      );
       /* stylelint-disable-next-line primer/spacing */
-      padding-inline: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
-      border: var(--borderWidth-thin) solid transparent;
+      padding-inline: var(--SegmentedControl--button-content-paddingInline-defineMixinDefaultVariant);
+      border: var(--SegmentedControl--button-content-border-defineMixinDefaultVariant);
     }
   }
 
@@ -81,17 +104,25 @@
     color: currentColor;
 
     .Content {
+      --SegmentedControl--button-content-paddingInline-ariaPressedTrue-defineMixinDefaultVariant: var(
+        --segmented-control-button-inner-padding
+      );
       /* stylelint-disable-next-line primer/spacing */
-      padding-inline: var(--segmented-control-button-inner-padding);
+      padding-inline: var(--SegmentedControl--button-content-paddingInline-ariaPressedTrue-defineMixinDefaultVariant);
       background-color: transparent;
     }
   }
 }
 
 .SegmentedControl {
+  --SegmentedControl--borderRadius: var(--borderRadius-medium);
+  --SegmentedControl--border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
+  --SegmentedControl--backgroundColor: var(--controlTrack-bgColor-rest);
+  --SegmentedControl--fontSize: var(--text-body-size-medium);
+  --SegmentedControl--segmentedControlOuterRadius: var(--borderRadius-medium);
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
-  --segmented-control-outer-radius: var(--borderRadius-medium);
+  --segmented-control-outer-radius: var(--SegmentedControl--segmentedControlOuterRadius);
 
   display: inline-flex;
 
@@ -99,25 +130,35 @@
   height: 32px;
   padding: 0;
   margin: 0;
-  font-size: var(--text-body-size-medium);
-  background-color: var(--controlTrack-bgColor-rest);
-  border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
-  border-radius: var(--borderRadius-medium);
+  font-size: var(--SegmentedControl--fontSize);
+  background-color: var(--SegmentedControl--backgroundColor);
+  border: var(--SegmentedControl--border);
+  border-radius: var(--SegmentedControl--borderRadius);
   position: relative;
 
   @supports (anchor-name: --value) {
     &::before {
+      --SegmentedControl--before-borderRadius-supportsAnchorNameValue: var(--segmented-control-outer-radius);
+      --SegmentedControl--before-border-supportsAnchorNameValue: var(--borderWidth-thin) solid
+        var(--controlKnob-borderColor-rest);
+      --SegmentedControl--before-backgroundColor-supportsAnchorNameValue: var(--controlKnob-bgColor-rest);
+
       position-anchor: --segmented-control-current-item;
       content: '';
       position: absolute;
       inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
-      background-color: var(--controlKnob-bgColor-rest);
-      border: var(--borderWidth-thin) solid var(--controlKnob-borderColor-rest);
+      background-color: var(--SegmentedControl--before-backgroundColor-supportsAnchorNameValue);
+      border: var(--SegmentedControl--before-border-supportsAnchorNameValue);
       /* stylelint-disable-next-line primer/borders */
-      border-radius: var(--segmented-control-outer-radius);
+      border-radius: var(--SegmentedControl--before-borderRadius-supportsAnchorNameValue);
 
       @media (prefers-reduced-motion: no-preference) {
-        transition: inset var(--base-duration-200) var(--base-easing-easeInOut);
+        --SegmentedControl--before-transition-supportsAnchorNameValue-mediaPrefersReducedMotionNoPreference: inset
+          var(--base-duration-200) var(--base-easing-easeInOut);
+
+        transition: var(
+          --SegmentedControl--before-transition-supportsAnchorNameValue-mediaPrefersReducedMotionNoPreference
+        );
       }
     }
 
@@ -142,16 +183,21 @@
   }
 
   > [data-component='SegmentedControl.Divider'] {
+    --SegmentedControl--child-backgroundColor-componentSegmentedControlDivider: var(--borderColor-default);
+    --SegmentedControl--child-marginInlineEnd-componentSegmentedControlDivider: calc(var(--base-size-8) - 1px);
+    --SegmentedControl--child-marginInlineStart-componentSegmentedControlDivider: var(--base-size-8);
+    --SegmentedControl--child-marginBlock-componentSegmentedControlDivider: var(--base-size-8);
+
     display: none;
     align-self: stretch;
     width: 1px;
-    margin-block: var(--base-size-8);
-    margin-inline-start: var(--base-size-8);
+    margin-block: var(--SegmentedControl--child-marginBlock-componentSegmentedControlDivider);
+    margin-inline-start: var(--SegmentedControl--child-marginInlineStart-componentSegmentedControlDivider);
     /* stylelint-disable-next-line primer/spacing -- preserve the previous divider's 16px layout footprint */
-    margin-inline-end: calc(var(--base-size-8) - 1px);
+    margin-inline-end: var(--SegmentedControl--child-marginInlineEnd-componentSegmentedControlDivider);
     list-style: none;
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-default);
+    background-color: var(--SegmentedControl--child-backgroundColor-componentSegmentedControlDivider);
   }
 
   @media (--viewportRange-narrow) {
@@ -270,19 +316,21 @@
   }
 
   &:where([data-size='small']) {
+    --SegmentedControl--fontSize-sizeSmall: var(--text-body-size-small);
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
     height: 28px;
-    font-size: var(--text-body-size-small);
+    font-size: var(--SegmentedControl--fontSize-sizeSmall);
   }
 }
 
 .DropdownGroup {
+  --SegmentedControl--dropdownGroup-gap: var(--base-size-4);
   --segmented-control-action-size: 32px;
   --segmented-control-list-flex: 0 1 auto;
 
   display: inline-flex;
   align-items: center;
-  gap: var(--base-size-4);
+  gap: var(--SegmentedControl--dropdownGroup-gap);
 
   &[data-full-width='true'] {
     width: 100%;
@@ -341,8 +389,10 @@
   }
 
   > .SegmentedControl {
+    --SegmentedControl--dropdownGroup-child-flex: var(--segmented-control-list-flex);
+
     min-width: 0;
-    flex: var(--segmented-control-list-flex);
+    flex: var(--SegmentedControl--dropdownGroup-child-flex);
   }
 }
 
@@ -413,14 +463,19 @@
     margin-right: 1px;
 
     &::after {
+      --SegmentedControl--item-after-backgroundColor-not-lastChild: var(--borderColor-default);
+      --SegmentedControl--item-after-bottom-not-lastChild: var(--base-size-8);
+      --SegmentedControl--item-after-right-not-lastChild: calc(-1 * var(--base-size-2));
+      --SegmentedControl--item-after-top-not-lastChild: var(--base-size-8);
+
       position: absolute;
-      top: var(--base-size-8);
-      right: calc(-1 * var(--base-size-2));
-      bottom: var(--base-size-8);
+      top: var(--SegmentedControl--item-after-top-not-lastChild);
+      right: var(--SegmentedControl--item-after-right-not-lastChild);
+      bottom: var(--SegmentedControl--item-after-bottom-not-lastChild);
       width: 1px;
       content: '';
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
+      background-color: var(--SegmentedControl--item-after-backgroundColor-not-lastChild);
     }
 
     /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
@@ -443,7 +498,9 @@
   }
 
   .Counter {
-    margin-inline-start: var(--base-size-8);
+    --SegmentedControl--item-counter-marginInlineStart: var(--base-size-8);
+
+    margin-inline-start: var(--SegmentedControl--item-counter-marginInlineStart);
     display: flex;
     align-items: center;
   }
@@ -456,12 +513,18 @@
 }
 
 .ActionButton {
-  width: var(--segmented-control-action-size);
-  height: var(--segmented-control-action-size);
+  --SegmentedControl--actionButton-height: var(--segmented-control-action-size);
+  --SegmentedControl--actionButton-width: var(--segmented-control-action-size);
+
+  width: var(--SegmentedControl--actionButton-width);
+  height: var(--SegmentedControl--actionButton-height);
   padding: 0;
 }
 
 .Button {
+  --SegmentedControl--button-borderRadius: var(--segmented-control-outer-radius);
+  --SegmentedControl--button-fontWeight: var(--base-text-weight-normal);
+  --SegmentedControl--button-padding: var(--segmented-control-button-bg-inset);
   /* TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available */
   --segmented-control-button-inner-padding: 12px;
   --segmented-control-button-bg-inset: 4px;
@@ -469,26 +532,31 @@
   width: 100%;
   height: 100%;
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--segmented-control-button-bg-inset);
+  padding: var(--SegmentedControl--button-padding);
   font-family: inherit;
   font-size: inherit;
-  font-weight: var(--base-text-weight-normal);
+  font-weight: var(--base-text-weight-light);
   color: currentColor;
   cursor: pointer;
   background-color: transparent;
   border-color: transparent;
   border-width: 0;
   /* stylelint-disable-next-line primer/borders */
-  border-radius: var(--segmented-control-outer-radius);
+  border-radius: var(--SegmentedControl--button-borderRadius);
 
   & svg {
-    fill: var(--fgColor-muted);
-    color: var(--fgColor-muted);
+    --SegmentedControl--button-svg-color: var(--fgColor-muted);
+    --SegmentedControl--button-svg-fill: var(--fgColor-muted);
+
+    fill: var(--SegmentedControl--button-svg-fill);
+    color: var(--SegmentedControl--button-svg-color);
   }
 
   /* fallback :focus state */
   &:focus:not(:disabled) {
-    outline: var(--base-size-2) solid var(--fgColor-accent);
+    --SegmentedControl--button-outline-focus-not-disabled: var(--base-size-2) solid var(--fgColor-accent);
+
+    outline: var(--SegmentedControl--button-outline-focus-not-disabled);
     outline-offset: -1px;
     box-shadow: none;
 
@@ -500,7 +568,9 @@
 
   /* default focus state */
   &:focus-visible:not(:disabled) {
-    outline: var(--base-size-2) solid var(--fgColor-accent);
+    --SegmentedControl--button-outline-focusVisible-not-disabled: var(--base-size-2) solid var(--fgColor-accent);
+
+    outline: var(--SegmentedControl--button-outline-focusVisible-not-disabled);
     outline-offset: -1px;
     box-shadow: none;
   }
@@ -512,13 +582,18 @@
   }
 
   &[aria-disabled='true']:not([aria-pressed='true']) {
+    --SegmentedControl--button-color-ariaDisabledTrue-not-ariaPressedTrue: var(--fgColor-disabled);
+
     cursor: not-allowed;
-    color: var(--fgColor-disabled);
+    color: var(--SegmentedControl--button-color-ariaDisabledTrue-not-ariaPressedTrue);
     background-color: transparent;
 
     & svg {
-      fill: var(--fgColor-disabled);
-      color: var(--fgColor-disabled);
+      --SegmentedControl--button-svg-color-ariaDisabledTrue-not-ariaPressedTrue: var(--fgColor-disabled);
+      --SegmentedControl--button-svg-fill-ariaDisabledTrue-not-ariaPressedTrue: var(--fgColor-disabled);
+
+      fill: var(--SegmentedControl--button-svg-fill-ariaDisabledTrue-not-ariaPressedTrue);
+      color: var(--SegmentedControl--button-svg-color-ariaDisabledTrue-not-ariaPressedTrue);
     }
   }
 
@@ -536,68 +611,112 @@
 }
 
 .IconButton {
-  width: var(--segmented-control-icon-width, 32px);
+  --SegmentedControl--iconButton-width: var(--segmented-control-icon-width, 32px);
+
+  width: var(--SegmentedControl--iconButton-width);
 }
 
 .Content {
+  --SegmentedControl--content-borderRadius: calc(
+    var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2
+  );
+  --SegmentedControl--content-transition: background-color var(--base-duration-200) var(--base-easing-easeInOut);
+  --SegmentedControl--content-borderWidth: var(--borderWidth-thin);
+  --SegmentedControl--content-paddingLeft: calc(
+    var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset)
+  );
+  --SegmentedControl--content-paddingRight: calc(
+    var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset)
+  );
+
   display: flex;
   height: 100%;
   /* stylelint-disable-next-line primer/spacing */
-  padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+  padding-right: var(--SegmentedControl--content-paddingRight);
   /* stylelint-disable-next-line primer/spacing */
-  padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+  padding-left: var(--SegmentedControl--content-paddingLeft);
   border-color: transparent;
   border-style: solid;
-  border-width: var(--borderWidth-thin);
+  border-width: var(--SegmentedControl--content-borderWidth);
   background-color: transparent;
-  transition: background-color var(--base-duration-200) var(--base-easing-easeInOut);
+  transition: var(--SegmentedControl--content-transition);
 
   /*
     innerRadius = outerRadius - distance/2
     https://stackoverflow.com/questions/2932146/math-problem-determine-the-corner-radius-of-an-inner-border-based-on-outer-corn
   */
   /* stylelint-disable-next-line primer/borders */
-  border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
+  border-radius: var(--SegmentedControl--content-borderRadius);
   align-items: center;
   justify-content: center;
 }
 
 .Button[aria-pressed='true'] {
+  --SegmentedControl--button-fontWeight-ariaPressedTrue: var(--base-text-weight-semibold);
+
   padding: 0;
-  font-weight: var(--base-text-weight-semibold);
+  font-weight: var(--base-text-weight-light);
 
   .Content {
+    --SegmentedControl--button-content-paddingLeft-ariaPressedTrue: var(--segmented-control-button-inner-padding);
+    --SegmentedControl--button-content-paddingRight-ariaPressedTrue: var(--segmented-control-button-inner-padding);
     /* stylelint-disable-next-line primer/spacing */
-    padding-right: var(--segmented-control-button-inner-padding);
+    padding-right: var(--SegmentedControl--button-content-paddingRight-ariaPressedTrue);
     /* stylelint-disable-next-line primer/spacing */
-    padding-left: var(--segmented-control-button-inner-padding);
+    padding-left: var(--SegmentedControl--button-content-paddingLeft-ariaPressedTrue);
     anchor-name: --segmented-control-current-item;
 
     @supports not (anchor-name: --value) {
-      background-color: var(--controlKnob-bgColor-rest);
-      border-color: var(--controlKnob-borderColor-rest);
+      --SegmentedControl--button-content-borderRadius-ariaPressedTrue-supportsNotAnchorNameValue: var(
+        --segmented-control-outer-radius
+      );
+      --SegmentedControl--button-content-borderColor-ariaPressedTrue-supportsNotAnchorNameValue: var(
+        --controlKnob-borderColor-rest
+      );
+      --SegmentedControl--button-content-backgroundColor-ariaPressedTrue-supportsNotAnchorNameValue: var(
+        --controlKnob-bgColor-rest
+      );
+
+      background-color: var(
+        --SegmentedControl--button-content-backgroundColor-ariaPressedTrue-supportsNotAnchorNameValue
+      );
+      border-color: var(--SegmentedControl--button-content-borderColor-ariaPressedTrue-supportsNotAnchorNameValue);
       /* stylelint-disable-next-line primer/borders */
-      border-radius: var(--segmented-control-outer-radius);
+      border-radius: var(--SegmentedControl--button-content-borderRadius-ariaPressedTrue-supportsNotAnchorNameValue);
     }
   }
 }
 
 .Button:not([aria-pressed='true'], [aria-disabled='true']) {
   &:hover .Content {
+    --SegmentedControl--button-content-backgroundColor-not-ariaPressedTrue-ariaDisabledTrue-hover: var(
+      --segmented-control-button-bgColor-hover,
+      var(--controlTrack-bgColor-hover)
+    );
     /* stylelint-disable-next-line primer/colors -- each variant supplies a semantic background token */
-    background-color: var(--segmented-control-button-bgColor-hover, var(--controlTrack-bgColor-hover));
+    background-color: var(
+      --SegmentedControl--button-content-backgroundColor-not-ariaPressedTrue-ariaDisabledTrue-hover
+    );
   }
 
   &:active .Content {
-    background-color: var(--controlTrack-bgColor-active);
+    --SegmentedControl--button-content-backgroundColor-not-ariaPressedTrue-ariaDisabledTrue-active: var(
+      --controlTrack-bgColor-active
+    );
+
+    background-color: var(
+      --SegmentedControl--button-content-backgroundColor-not-ariaPressedTrue-ariaDisabledTrue-active
+    );
   }
 }
 
 .Text::after {
+  --SegmentedControl--text-after-fontWeight: var(--base-text-weight-semibold);
+
   display: block;
   height: 0;
   overflow: hidden;
-  font-weight: var(--base-text-weight-semibold);
+  font-weight: var(--base-text-weight-light);
   pointer-events: none;
   visibility: hidden;
   content: attr(data-text);
@@ -605,5 +724,7 @@
 }
 
 .LeadingIcon {
-  margin-right: var(--base-size-4);
+  --SegmentedControl--leadingIcon-marginRight: var(--base-size-4);
+
+  margin-right: var(--SegmentedControl--leadingIcon-marginRight);
 }

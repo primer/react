@@ -1,17 +1,26 @@
 :where(.Heading) {
+  --Heading--fontWeight: var(--base-text-weight-semibold);
+  --Heading--fontSize: var(--text-title-size-large);
+
   margin: 0;
-  font-size: var(--text-title-size-large);
-  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--Heading--fontSize);
+  font-weight: var(--base-text-weight-light);
 
   &:where([data-variant='large']) {
-    font: var(--text-title-shorthand-large);
+    --Heading--font-variantLarge: var(--text-title-shorthand-large);
+
+    font: var(--Heading--font-variantLarge);
   }
 
   &:where([data-variant='medium']) {
-    font: var(--text-title-shorthand-medium);
+    --Heading--font-variantMedium: var(--text-title-shorthand-medium);
+
+    font: var(--Heading--font-variantMedium);
   }
 
   &:where([data-variant='small']) {
-    font: var(--text-title-shorthand-small);
+    --Heading--font-variantSmall: var(--text-title-shorthand-small);
+
+    font: var(--Heading--font-variantSmall);
   }
 }

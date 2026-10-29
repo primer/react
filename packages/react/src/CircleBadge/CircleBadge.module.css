@@ -1,10 +1,13 @@
 .CircleBadge {
+  --CircleBadge--boxShadow: var(--shadow-resting-medium);
+  --CircleBadge--backgroundColor: var(--bgColor-default);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bgColor-default);
+  background-color: var(--CircleBadge--backgroundColor);
   border-radius: 50%;
-  box-shadow: var(--shadow-resting-medium);
+  box-shadow: var(--CircleBadge--boxShadow);
 
   &:where([data-inline]) {
     display: inline-flex;

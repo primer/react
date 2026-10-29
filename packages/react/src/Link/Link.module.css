@@ -1,5 +1,7 @@
 :where(.Link) {
-  color: var(--fgColor-accent);
+  --Link--color: var(--fgColor-accent);
+
+  color: var(--Link--color);
   text-decoration: none;
   text-underline-offset: 0.05rem;
 
@@ -32,10 +34,14 @@
   }
 
   &:where([data-muted='true']) {
-    color: var(--fgColor-muted);
+    --Link--color-mutedTrue: var(--fgColor-muted);
+
+    color: var(--Link--color-mutedTrue);
 
     &:hover {
-      color: var(--fgColor-accent);
+      --Link--color-mutedTrue-hover: var(--fgColor-accent);
+
+      color: var(--Link--color-mutedTrue-hover);
       text-decoration: none;
     }
   }

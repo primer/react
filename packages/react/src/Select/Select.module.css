@@ -61,9 +61,11 @@
 }
 
 .ArrowIndicator {
+  --Select--arrowIndicator-right: var(--base-size-4);
+
   position: absolute;
   top: 50%;
-  right: var(--base-size-4);
+  right: var(--Select--arrowIndicator-right);
   pointer-events: none;
   transform: translateY(-50%);
 }

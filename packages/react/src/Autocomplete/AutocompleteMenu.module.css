@@ -1,9 +1,13 @@
 .SpinnerWrapper {
+  --Autocomplete--autocompleteMenu-spinnerWrapper-padding: var(--base-size-16);
+
   display: flex;
   justify-content: center;
-  padding: var(--base-size-16);
+  padding: var(--Autocomplete--autocompleteMenu-spinnerWrapper-padding);
 }
 
 .EmptyStateWrapper {
-  padding: var(--base-size-16);
+  --Autocomplete--autocompleteMenu-emptyStateWrapper-padding: var(--base-size-16);
+
+  padding: var(--Autocomplete--autocompleteMenu-emptyStateWrapper-padding);
 }

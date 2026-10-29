@@ -1,32 +1,169 @@
 /* Base styles */
 .ButtonBase {
+  --Button--size-medium: var(--control-medium-size);
+  --Button--paddingInline-medium: var(--control-medium-paddingInline-normal);
+  --Button--fontSize-medium: var(--text-body-size-medium);
+  --Button--fontWeight: var(--base-text-weight-medium);
+  --Button--default-fgColor-rest: var(--button-default-fgColor-rest);
+  --Button--borderWidth: var(--borderWidth-thin);
+  --Button--default-borderColor-rest: var(--button-default-borderColor-rest);
+  --Button--borderRadius: var(--borderRadius-medium);
+  --Button--gap-medium: var(--base-size-8);
+  --Button--keybindingHint-paddingInlineEnd-medium: var(--base-size-6);
+  --Button--notificationIndicator-size: var(--base-size-8);
+  --Button--notificationIndicator-bgColor: var(--fgColor-accent);
+  --Button--notificationIndicator-borderRadius: var(--borderRadius-full);
+  --Button--notificationIndicator-boxShadow: 0 0 0 calc(var(--base-size-4) / 2) var(--bgColor-inset);
+  --Button--notificationIndicator-inset-button: calc(var(--base-size-4) / -2);
+  --Button--notificationIndicator-inset-icon: calc(50% - var(--base-size-12));
+  --Button--notificationIndicator-inset-leadingVisual: calc(var(--base-size-4) * -1);
+  --Button--visual-fgColor: var(--fgColor-muted);
+  --Button--size-small: var(--control-small-size);
+  --Button--size-large: var(--control-large-size);
+  --Button--lineHeight-medium: var(--text-body-lineHeight-medium);
+  --Button--trailingAction-marginInlineEnd: calc(var(--base-size-4) * -1);
+  --Button--paddingInline-small: var(--control-small-paddingInline-condensed);
+  --Button--gap-small: var(--control-small-gap);
+  --Button--fontSize-small: var(--text-body-size-small);
+  --Button--lineHeight-small: var(--text-body-lineHeight-small);
+  --Button--paddingInline-large: var(--control-large-paddingInline-spacious);
+  --Button--gap-large: var(--control-large-gap);
+  --Button--keybindingHint-paddingInlineEnd-large: var(--base-size-8);
+  --Button--labelWrap-paddingBlock-medium: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
+  --Button--labelWrap-paddingBlock-small: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+  --Button--labelWrap-paddingBlock-large: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+  --Button--default-bgColor-rest: var(--button-default-bgColor-rest);
+  --Button--default-boxShadow-rest: var(--button-default-shadow-resting);
+  --Button--default-bgColor-active: var(--button-default-bgColor-active);
+  --Button--default-borderColor-active: var(--button-default-borderColor-active);
+  --Button--default-bgColor-hover: var(--button-default-bgColor-hover);
+  --Button--default-borderColor-hover: var(--button-default-borderColor-hover);
+  --Button--fgColor-disabled: var(--control-fgColor-disabled);
+  --Button--default-bgColor-disabled: var(--button-default-bgColor-disabled);
+  --Button--default-borderColor-disabled: var(--button-default-borderColor-disabled);
+  --Button--keybindingHint-default-bgColor-disabled: var(--buttonKeybindingHint-default-bgColor-disabled);
+  --Button--keybindingHint-default-fgColor-disabled: var(--buttonKeybindingHint-default-fgColor-disabled);
+  --Button--keybindingHint-default-borderColor-disabled: var(--buttonKeybindingHint-default-borderColor-disabled);
+  --Button--counter-default-bgColor-rest: var(--buttonCounter-default-bgColor-rest);
+  --Button--keybindingHint-default-bgColor-rest: var(--buttonKeybindingHint-default-bgColor-rest);
+  --Button--keybindingHint-default-fgColor-rest: var(--buttonKeybindingHint-default-fgColor-rest);
+  --Button--keybindingHint-default-borderColor-rest: var(--buttonKeybindingHint-default-borderColor-rest);
+  --Button--default-iconColor-rest: var(--fgColor-muted);
+  --Button--primary-fgColor-rest: var(--button-primary-fgColor-rest);
+  --Button--primary-bgColor-rest: var(--button-primary-bgColor-rest);
+  --Button--primary-borderColor-rest: var(--button-primary-borderColor-rest);
+  --Button--primary-boxShadow-rest: var(--shadow-resting-small);
+  --Button--primary-bgColor-active: var(--button-primary-bgColor-active);
+  --Button--primary-boxShadow-active: var(--button-primary-shadow-selected);
+  --Button--primary-bgColor-hover: var(--button-primary-bgColor-hover);
+  --Button--primary-borderColor-hover: var(--button-primary-borderColor-hover);
+  --Button--primary-fgColor-disabled: var(--button-primary-fgColor-disabled);
+  --Button--primary-bgColor-disabled: var(--button-primary-bgColor-disabled);
+  --Button--primary-borderColor-disabled: var(--button-primary-borderColor-disabled);
+  --Button--keybindingHint-primary-bgColor-disabled: var(--buttonKeybindingHint-primary-bgColor-disabled);
+  --Button--keybindingHint-primary-fgColor-disabled: var(--buttonKeybindingHint-primary-fgColor-disabled);
+  --Button--keybindingHint-primary-borderColor-disabled: var(--buttonKeybindingHint-primary-borderColor-disabled);
+  --Button--counter-primary-bgColor-rest: var(--buttonCounter-primary-bgColor-rest);
+  --Button--keybindingHint-primary-bgColor-rest: var(--buttonKeybindingHint-primary-bgColor-rest);
+  --Button--keybindingHint-primary-fgColor-rest: var(--buttonKeybindingHint-primary-fgColor-rest);
+  --Button--keybindingHint-primary-borderColor-rest: var(--buttonKeybindingHint-primary-borderColor-rest);
+  --Button--danger-fgColor-rest: var(--button-danger-fgColor-rest);
+  --Button--danger-bgColor-rest: var(--button-danger-bgColor-rest);
+  --Button--danger-boxShadow-rest: var(--button-default-shadow-resting);
+  --Button--danger-fgColor-active: var(--button-danger-fgColor-active);
+  --Button--danger-bgColor-active: var(--button-danger-bgColor-active);
+  --Button--danger-borderColor-active: var(--button-danger-borderColor-active);
+  --Button--danger-boxShadow-active: var(--button-danger-shadow-selected);
+  --Button--danger-iconColor-hover: var(--button-danger-iconColor-hover);
+  --Button--danger-fgColor-hover: var(--button-danger-fgColor-hover);
+  --Button--danger-bgColor-hover: var(--button-danger-bgColor-hover);
+  --Button--danger-borderColor-hover: var(--button-danger-borderColor-hover);
+  --Button--danger-boxShadow-hover: var(--shadow-resting-small);
+  --Button--counter-danger-fgColor-hover: var(--buttonCounter-danger-fgColor-hover);
+  --Button--counter-danger-bgColor-hover: var(--buttonCounter-danger-bgColor-hover);
+  --Button--keybindingHint-danger-bgColor-hover: var(--buttonKeybindingHint-danger-bgColor-hover);
+  --Button--keybindingHint-danger-fgColor-hover: var(--buttonKeybindingHint-danger-fgColor-hover);
+  --Button--keybindingHint-danger-borderColor-hover: var(--buttonKeybindingHint-danger-borderColor-hover);
+  --Button--keybindingHint-danger-bgColor-active: var(--buttonKeybindingHint-danger-bgColor-active);
+  --Button--keybindingHint-danger-fgColor-active: var(--buttonKeybindingHint-danger-fgColor-active);
+  --Button--keybindingHint-danger-borderColor-active: var(--buttonKeybindingHint-danger-borderColor-active);
+  --Button--danger-fgColor-disabled: var(--button-danger-fgColor-disabled);
+  --Button--danger-bgColor-disabled: var(--button-danger-bgColor-disabled);
+  --Button--danger-borderColor-disabled: var(--button-default-borderColor-disabled);
+  --Button--counter-danger-fgColor-disabled: var(--buttonCounter-danger-fgColor-disabled);
+  --Button--counter-danger-bgColor-disabled: var(--buttonCounter-danger-bgColor-disabled);
+  --Button--keybindingHint-danger-bgColor-disabled: var(--buttonKeybindingHint-danger-bgColor-disabled);
+  --Button--keybindingHint-danger-fgColor-disabled: var(--buttonKeybindingHint-danger-fgColor-disabled);
+  --Button--keybindingHint-danger-borderColor-disabled: var(--buttonKeybindingHint-danger-borderColor-disabled);
+  --Button--counter-danger-fgColor-rest: var(--buttonCounter-danger-fgColor-rest);
+  --Button--counter-danger-bgColor-rest: var(--buttonCounter-danger-bgColor-rest);
+  --Button--keybindingHint-danger-bgColor-rest: var(--buttonKeybindingHint-danger-bgColor-rest);
+  --Button--keybindingHint-danger-fgColor-rest: var(--buttonKeybindingHint-danger-fgColor-rest);
+  --Button--keybindingHint-danger-borderColor-rest: var(--buttonKeybindingHint-danger-borderColor-rest);
+  --Button--danger-iconColor-rest: var(--button-danger-iconColor-rest);
+  --Button--invisible-fgColor-rest: var(--button-default-fgColor-rest);
+  --Button--invisible-borderColor-rest: var(--button-invisible-borderColor-rest);
+  --Button--invisible-bgColor-active: var(--button-invisible-bgColor-active);
+  --Button--invisible-bgColor-hover: var(--button-invisible-bgColor-hover);
+  --Button--invisible-borderColor-hover: var(--button-invisible-borderColor-hover);
+  --Button--invisible-iconColor-hover: var(--button-invisible-iconColor-hover);
+  --Button--keybindingHint-invisible-bgColor-hover: var(--buttonKeybindingHint-invisible-bgColor-hover);
+  --Button--keybindingHint-invisible-bgColor-active: var(--buttonKeybindingHint-invisible-bgColor-active);
+  --Button--invisible-fgColor-disabled: var(--button-invisible-fgColor-disabled);
+  --Button--invisible-bgColor-disabled: var(--button-invisible-bgColor-disabled);
+  --Button--invisible-borderColor-disabled: var(--button-invisible-borderColor-disabled);
+  --Button--keybindingHint-invisible-bgColor-disabled: var(--buttonKeybindingHint-invisible-bgColor-disabled);
+  --Button--keybindingHint-invisible-fgColor-disabled: var(--buttonKeybindingHint-invisible-fgColor-disabled);
+  --Button--keybindingHint-invisible-borderColor-disabled: var(--buttonKeybindingHint-invisible-borderColor-disabled);
+  --Button--invisible-iconColor-rest: var(--button-invisible-iconColor-rest);
+  --Button--counter-invisible-bgColor-rest: var(--buttonCounter-invisible-bgColor-rest);
+  --Button--keybindingHint-invisible-bgColor-rest: var(--buttonKeybindingHint-invisible-bgColor-rest);
+  --Button--keybindingHint-invisible-fgColor-rest: var(--buttonKeybindingHint-invisible-fgColor-rest);
+  --Button--keybindingHint-invisible-borderColor-rest: var(--buttonKeybindingHint-invisible-borderColor-rest);
+  --Button--link-fgColor: var(--fgColor-link);
+  --Button--inactive-fgColor: var(--button-inactive-fgColor);
+  --Button--inactive-bgColor: var(--button-inactive-bgColor);
+  --Button--keybindingHint-inactive-bgColor: var(--buttonKeybindingHint-inactive-bgColor);
+  --Button--keybindingHint-inactive-fgColor: var(--buttonKeybindingHint-inactive-fgColor);
+  --Button--keybindingHint-inactive-borderColor: var(--buttonKeybindingHint-inactive-borderColor);
+  --Button--iconOnlyCounter-paddingInline-medium: var(--control-medium-paddingInline-condensed);
+  --Button--iconOnlyCounter-paddingInline-small: var(--control-xsmall-paddingInline-condensed);
+  --Button--iconOnlyCounter-paddingInline-large: var(--control-large-paddingInline-normal);
+
   display: flex;
   min-width: max-content;
-  height: var(--control-medium-size);
+  height: var(--Button--size-medium);
   /* stylelint-disable-next-line primer/spacing */
-  padding: 0 var(--control-medium-paddingInline-normal);
+  padding: 0 var(--Button--paddingInline-medium);
   font-family: inherit;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-medium);
-  color: var(--button-default-fgColor-rest);
+  /* stylelint-disable-next-line primer/typography */
+  font-size: var(--Button--fontSize-medium);
+  /* stylelint-disable-next-line primer/typography */
+  font-weight: var(--Button--fontWeight);
+  /* stylelint-disable-next-line primer/colors */
+  color: var(--Button--default-fgColor-rest);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   user-select: none;
   background-color: transparent;
-  border: var(--borderWidth-thin) solid;
-  border-color: var(--button-default-borderColor-rest);
-  border-radius: var(--borderRadius-medium);
+  /* stylelint-disable-next-line primer/borders */
+  border: var(--Button--borderWidth) solid;
+  /* stylelint-disable-next-line primer/colors */
+  border-color: var(--Button--default-borderColor-rest);
+  /* stylelint-disable-next-line primer/borders */
+  border-radius: var(--Button--borderRadius);
   transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
   transition-property: color, fill, background-color, border-color;
   appearance: none;
   align-items: center;
   justify-content: space-between;
-  gap: var(--base-size-8);
+  gap: var(--Button--gap-medium);
 
   /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has([data-kbd-chord]) {
-    padding-inline-end: var(--base-size-6);
+    /* stylelint-disable-next-line primer/spacing */
+    padding-inline-end: var(--Button--keybindingHint-paddingInlineEnd-medium);
   }
 
   &:hover {
@@ -54,29 +191,36 @@
   &:where([data-notification-indicator='leadingVisual']) .LeadingVisual::before {
     position: absolute;
     display: block;
-    width: var(--base-size-8);
-    height: var(--base-size-8);
+    width: var(--Button--notificationIndicator-size);
+    height: var(--Button--notificationIndicator-size);
     content: '';
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--fgColor-accent);
-    border-radius: var(--borderRadius-full);
+    background-color: var(--Button--notificationIndicator-bgColor);
+    /* stylelint-disable-next-line primer/borders */
+    border-radius: var(--Button--notificationIndicator-borderRadius);
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 0 0 0 calc(var(--base-size-4) / 2) var(--bgColor-inset);
+    box-shadow: var(--Button--notificationIndicator-boxShadow);
   }
 
   &:where([data-notification-indicator='button'])::before {
-    top: calc(var(--base-size-4) / -2);
-    right: calc(var(--base-size-4) / -2);
+    /* stylelint-disable-next-line primer/spacing */
+    top: var(--Button--notificationIndicator-inset-button);
+    /* stylelint-disable-next-line primer/spacing */
+    right: var(--Button--notificationIndicator-inset-button);
   }
 
   &:where([data-notification-indicator='icon'].IconButton)::before {
-    top: calc(50% - var(--base-size-12));
-    right: calc(50% - var(--base-size-12));
+    /* stylelint-disable-next-line primer/spacing */
+    top: var(--Button--notificationIndicator-inset-icon);
+    /* stylelint-disable-next-line primer/spacing */
+    right: var(--Button--notificationIndicator-inset-icon);
   }
 
   &:where([data-notification-indicator='leadingVisual']) .LeadingVisual::before {
-    top: calc(var(--base-size-4) * -1);
-    right: calc(var(--base-size-4) * -1);
+    /* stylelint-disable-next-line primer/spacing */
+    top: var(--Button--notificationIndicator-inset-leadingVisual);
+    /* stylelint-disable-next-line primer/spacing */
+    right: var(--Button--notificationIndicator-inset-leadingVisual);
   }
 
   &:disabled,
@@ -100,7 +244,8 @@
   /* Visuals */
   & :where(.Visual) {
     display: flex;
-    color: var(--fgColor-muted);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--Button--visual-fgColor);
     pointer-events: none;
   }
 
@@ -114,7 +259,7 @@
 
   &:where(.IconButton) {
     display: inline-grid;
-    width: var(--control-medium-size);
+    width: var(--Button--size-medium);
     min-width: unset;
     /* stylelint-disable-next-line primer/spacing */
     padding: unset;
@@ -122,11 +267,11 @@
     flex-shrink: 0;
 
     &:where([data-size='small']) {
-      width: var(--control-small-size);
+      width: var(--Button--size-small);
     }
 
     &:where([data-size='large']) {
-      width: var(--control-large-size);
+      width: var(--Button--size-large);
     }
   }
 
@@ -151,7 +296,8 @@
     align-content: center;
 
     & > :not(:last-child) {
-      margin-right: var(--base-size-8);
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--Button--gap-medium);
     }
 
     /* Content alignment */
@@ -170,7 +316,8 @@
   }
 
   & :where(.Label) {
-    line-height: var(--text-body-lineHeight-medium);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: var(--Button--lineHeight-medium);
     white-space: nowrap;
     grid-area: text;
   }
@@ -180,42 +327,46 @@
   }
 
   & :where([data-component='trailingAction']) {
-    margin-right: calc(var(--base-size-4) * -1);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--Button--trailingAction-marginInlineEnd);
   }
 
   /* Size */
 
   &:where([data-size='small']) {
-    height: var(--control-small-size);
+    height: var(--Button--size-small);
     /* stylelint-disable-next-line primer/spacing */
-    padding: 0 var(--control-small-paddingInline-condensed);
-    gap: var(--control-small-gap);
-    font-size: var(--text-body-size-small);
+    padding: 0 var(--Button--paddingInline-small);
+    gap: var(--Button--gap-small);
+    /* stylelint-disable-next-line primer/typography */
+    font-size: var(--Button--fontSize-small);
 
     & .ButtonContent > :not(:last-child) {
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--control-small-gap);
+      margin-right: var(--Button--gap-small);
     }
 
     & .Label {
-      line-height: var(--text-body-lineHeight-small);
+      /* stylelint-disable-next-line primer/typography */
+      line-height: var(--Button--lineHeight-small);
     }
   }
 
   &:where([data-size='large']) {
-    height: var(--control-large-size);
+    height: var(--Button--size-large);
     /* stylelint-disable-next-line primer/spacing */
-    padding: 0 var(--control-large-paddingInline-spacious);
-    gap: var(--control-large-gap);
+    padding: 0 var(--Button--paddingInline-large);
+    gap: var(--Button--gap-large);
 
     & .ButtonContent > :not(:last-child) {
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--control-large-gap);
+      margin-right: var(--Button--gap-large);
     }
 
     /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has([data-kbd-chord]) {
-      padding-inline-end: var(--base-size-8);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-inline-end: var(--Button--keybindingHint-paddingInlineEnd-large);
     }
   }
 
@@ -230,13 +381,13 @@
   &:where([data-label-wrap='true']) {
     min-width: fit-content;
     height: unset;
-    min-height: var(--control-medium-size);
+    min-height: var(--Button--size-medium);
 
     & .ButtonContent {
       flex: 1 1 auto;
       align-self: stretch;
       /* stylelint-disable-next-line primer/spacing */
-      padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
+      padding-block: var(--Button--labelWrap-paddingBlock-medium);
     }
 
     & .Label {
@@ -247,23 +398,23 @@
 
     &:where([data-size='small']) {
       height: unset;
-      min-height: var(--control-small-size);
+      min-height: var(--Button--size-small);
 
       & .ButtonContent {
         /* stylelint-disable-next-line primer/spacing */
-        padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+        padding-block: var(--Button--labelWrap-paddingBlock-small);
       }
     }
 
     &:where([data-size='large']) {
       height: unset;
-      min-height: var(--control-large-size);
+      min-height: var(--Button--size-large);
       /* stylelint-disable-next-line primer/spacing */
-      padding-inline: var(--control-large-paddingInline-spacious);
+      padding-inline: var(--Button--paddingInline-large);
 
       & .ButtonContent {
         /* stylelint-disable-next-line primer/spacing */
-        padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+        padding-block: var(--Button--labelWrap-paddingBlock-large);
       }
     }
   }
@@ -302,71 +453,101 @@
   /* Default Variant */
 
   &:where([data-variant='default']) {
-    color: var(--button-default-fgColor-rest);
-    background-color: var(--button-default-bgColor-rest);
-    box-shadow: var(--button-default-shadow-resting);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--Button--default-fgColor-rest);
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--Button--default-bgColor-rest);
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: var(--Button--default-boxShadow-rest);
 
     &[aria-expanded='true'] {
-      background-color: var(--button-default-bgColor-active);
-      border-color: var(--button-default-borderColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--default-bgColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--default-borderColor-active);
     }
 
     &:hover {
-      background-color: var(--button-default-bgColor-hover);
-      border-color: var(--button-default-borderColor-hover);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--default-bgColor-hover);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--default-borderColor-hover);
     }
 
     &:active {
-      background-color: var(--button-default-bgColor-active);
-      border-color: var(--button-default-borderColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--default-bgColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--default-borderColor-active);
     }
 
     &:disabled,
     &[aria-disabled='true']:not([data-loading='true']),
     &[aria-disabled='true'][data-loading-disabled-styles='true'] {
-      color: var(--control-fgColor-disabled);
-      background-color: var(--button-default-bgColor-disabled);
-      border-color: var(--button-default-borderColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--fgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--default-bgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--default-borderColor-disabled);
       box-shadow: none;
 
       & [data-kbd-chord] {
-        background: var(--buttonKeybindingHint-default-bgColor-disabled);
-        color: var(--buttonKeybindingHint-default-fgColor-disabled);
-        border-color: var(--buttonKeybindingHint-default-borderColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--Button--keybindingHint-default-bgColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--keybindingHint-default-fgColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        border-color: var(--Button--keybindingHint-default-borderColor-disabled);
       }
     }
 
     & .CounterLabel {
-      background-color: var(--buttonCounter-default-bgColor-rest) !important; /* temporarily override our own sx prop */
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(
+        --Button--counter-default-bgColor-rest
+      ) !important; /* temporarily override our own sx prop */
     }
 
     & [data-kbd-chord] {
-      background: var(--buttonKeybindingHint-default-bgColor-rest);
-      color: var(--buttonKeybindingHint-default-fgColor-rest);
-      border-color: var(--buttonKeybindingHint-default-borderColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      background: var(--Button--keybindingHint-default-bgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--keybindingHint-default-fgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--keybindingHint-default-borderColor-rest);
     }
 
     &:where(.IconButton) {
-      color: var(--fgColor-muted);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--default-iconColor-rest);
     }
   }
 
   /* Primary variant */
 
   &:where([data-variant='primary']) {
-    color: var(--button-primary-fgColor-rest);
-    background-color: var(--button-primary-bgColor-rest);
-    border-color: var(--button-primary-borderColor-rest);
-    box-shadow: var(--shadow-resting-small);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--Button--primary-fgColor-rest);
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--Button--primary-bgColor-rest);
+    /* stylelint-disable-next-line primer/colors */
+    border-color: var(--Button--primary-borderColor-rest);
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: var(--Button--primary-boxShadow-rest);
 
     &[aria-expanded='true'] {
-      background-color: var(--button-primary-bgColor-active);
-      box-shadow: var(--button-primary-shadow-selected);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--primary-bgColor-active);
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: var(--Button--primary-boxShadow-active);
     }
 
     &:hover {
-      background-color: var(--button-primary-bgColor-hover);
-      border-color: var(--button-primary-borderColor-hover);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--primary-bgColor-hover);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--primary-borderColor-hover);
     }
 
     &:focus-visible {
@@ -374,176 +555,244 @@
     }
 
     &:active {
-      background-color: var(--button-primary-bgColor-active);
-      box-shadow: var(--button-primary-shadow-selected);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--primary-bgColor-active);
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: var(--Button--primary-boxShadow-active);
     }
 
     &:disabled,
     &[aria-disabled='true']:not([data-loading='true']),
     &[aria-disabled='true'][data-loading-disabled-styles='true'] {
-      color: var(--button-primary-fgColor-disabled);
-      background-color: var(--button-primary-bgColor-disabled);
-      border-color: var(--button-primary-borderColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--primary-fgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--primary-bgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--primary-borderColor-disabled);
       box-shadow: none;
 
       & [data-kbd-chord] {
-        background: var(--buttonKeybindingHint-primary-bgColor-disabled);
-        color: var(--buttonKeybindingHint-primary-fgColor-disabled);
-        border-color: var(--buttonKeybindingHint-primary-borderColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--Button--keybindingHint-primary-bgColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--keybindingHint-primary-fgColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        border-color: var(--Button--keybindingHint-primary-borderColor-disabled);
       }
     }
 
     & .CounterLabel {
-      color: var(--button-primary-fgColor-rest) !important; /* temporarily override our own sx prop */
-      background-color: var(--buttonCounter-primary-bgColor-rest) !important; /* temporarily override our own sx prop */
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--primary-fgColor-rest) !important; /* temporarily override our own sx prop */
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(
+        --Button--counter-primary-bgColor-rest
+      ) !important; /* temporarily override our own sx prop */
     }
 
     & [data-kbd-chord] {
-      background: var(--buttonKeybindingHint-primary-bgColor-rest);
-      color: var(--buttonKeybindingHint-primary-fgColor-rest);
-      border-color: var(--buttonKeybindingHint-primary-borderColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      background: var(--Button--keybindingHint-primary-bgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--keybindingHint-primary-fgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--keybindingHint-primary-borderColor-rest);
     }
 
     /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
     & .Visual {
-      color: var(--button-primary-fgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--primary-fgColor-rest);
     }
   }
 
   /* Danger variant */
 
   &:where([data-variant='danger']) {
-    color: var(--button-danger-fgColor-rest);
-    background-color: var(--button-danger-bgColor-rest);
-    box-shadow: var(--button-default-shadow-resting);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--Button--danger-fgColor-rest);
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--Button--danger-bgColor-rest);
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: var(--Button--danger-boxShadow-rest);
 
     &[aria-expanded='true'] {
-      color: var(--button-danger-fgColor-active);
-      background-color: var(--button-danger-bgColor-active);
-      border-color: var(--button-danger-borderColor-active);
-      box-shadow: var(--button-danger-shadow-selected);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--danger-fgColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--danger-bgColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--danger-borderColor-active);
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: var(--Button--danger-boxShadow-active);
 
       & .Visual {
-        color: var(--button-danger-iconColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--danger-iconColor-hover);
       }
     }
 
     &:hover {
-      color: var(--button-danger-fgColor-hover);
-      background-color: var(--button-danger-bgColor-hover);
-      border-color: var(--button-danger-borderColor-hover);
-      box-shadow: var(--shadow-resting-small);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--danger-fgColor-hover);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--danger-bgColor-hover);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--danger-borderColor-hover);
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: var(--Button--danger-boxShadow-hover);
 
       & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
-        background-color: var(--buttonCounter-danger-bgColor-hover) !important;
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--counter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--Button--counter-danger-bgColor-hover) !important;
       }
 
       & [data-kbd-chord] {
-        background: var(--buttonKeybindingHint-danger-bgColor-hover);
-        color: var(--buttonKeybindingHint-danger-fgColor-hover);
-        border-color: var(--buttonKeybindingHint-danger-borderColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--Button--keybindingHint-danger-bgColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--keybindingHint-danger-fgColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        border-color: var(--Button--keybindingHint-danger-borderColor-hover);
         transition: 80ms ease-out;
       }
 
       & .Visual {
-        color: var(--button-danger-iconColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--danger-iconColor-hover);
       }
     }
 
     &:active {
-      color: var(--button-danger-fgColor-active);
-      background-color: var(--button-danger-bgColor-active);
-      border-color: var(--button-danger-borderColor-active);
-      box-shadow: var(--button-danger-shadow-selected);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--danger-fgColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--danger-bgColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--danger-borderColor-active);
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: var(--Button--danger-boxShadow-active);
 
       & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
-        background-color: var(--buttonCounter-danger-bgColor-hover) !important;
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--counter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--Button--counter-danger-bgColor-hover) !important;
       }
 
       & [data-kbd-chord] {
-        background: var(--buttonKeybindingHint-danger-bgColor-active);
-        color: var(--buttonKeybindingHint-danger-fgColor-active);
-        border-color: var(--buttonKeybindingHint-danger-borderColor-active);
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--Button--keybindingHint-danger-bgColor-active);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--keybindingHint-danger-fgColor-active);
+        /* stylelint-disable-next-line primer/colors */
+        border-color: var(--Button--keybindingHint-danger-borderColor-active);
         transition: 80ms ease-out;
       }
 
       & .Visual {
-        color: var(--button-danger-iconColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--danger-iconColor-hover);
       }
     }
 
     &:disabled,
     &[aria-disabled='true']:not([data-loading='true']),
     &[aria-disabled='true'][data-loading-disabled-styles='true'] {
-      color: var(--button-danger-fgColor-disabled);
-      background-color: var(--button-danger-bgColor-disabled);
-      border-color: var(--button-default-borderColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--danger-fgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--danger-bgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--danger-borderColor-disabled);
       box-shadow: none;
 
       & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-disabled) !important; /* temporarily override our own sx prop */
-        background-color: var(--buttonCounter-danger-bgColor-disabled) !important;
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--counter-danger-fgColor-disabled) !important; /* temporarily override our own sx prop */
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--Button--counter-danger-bgColor-disabled) !important;
       }
 
       & [data-kbd-chord] {
-        background: var(--buttonKeybindingHint-danger-bgColor-disabled);
-        color: var(--buttonKeybindingHint-danger-fgColor-disabled);
-        border-color: var(--buttonKeybindingHint-danger-borderColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--Button--keybindingHint-danger-bgColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--keybindingHint-danger-fgColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        border-color: var(--Button--keybindingHint-danger-borderColor-disabled);
       }
     }
 
     & .CounterLabel {
-      color: var(--buttonCounter-danger-fgColor-rest) !important; /* temporarily override our own sx prop */
-      background-color: var(--buttonCounter-danger-bgColor-rest) !important;
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--counter-danger-fgColor-rest) !important; /* temporarily override our own sx prop */
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--counter-danger-bgColor-rest) !important;
     }
 
     & [data-kbd-chord] {
-      background: var(--buttonKeybindingHint-danger-bgColor-rest);
-      color: var(--buttonKeybindingHint-danger-fgColor-rest);
-      border-color: var(--buttonKeybindingHint-danger-borderColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      background: var(--Button--keybindingHint-danger-bgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--keybindingHint-danger-fgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--keybindingHint-danger-borderColor-rest);
     }
 
     & .Visual {
-      color: var(--button-danger-iconColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--danger-iconColor-rest);
     }
   }
 
   /* Invisible variant */
 
   &:where([data-variant='invisible']) {
-    color: var(--button-default-fgColor-rest);
-    border-color: var(--button-invisible-borderColor-rest);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--Button--invisible-fgColor-rest);
+    /* stylelint-disable-next-line primer/colors */
+    border-color: var(--Button--invisible-borderColor-rest);
     box-shadow: none;
 
     &[aria-expanded='true'] {
-      background-color: var(--button-invisible-bgColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--invisible-bgColor-active);
     }
 
     &:hover {
-      background-color: var(--button-invisible-bgColor-hover);
-      border-color: var(--button-invisible-borderColor-hover);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--invisible-bgColor-hover);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--invisible-borderColor-hover);
 
       & .Visual {
-        color: var(--button-invisible-iconColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--invisible-iconColor-hover);
       }
 
       & [data-kbd-chord] {
-        background: var(--buttonKeybindingHint-invisible-bgColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--Button--keybindingHint-invisible-bgColor-hover);
         transition: 80ms ease-out;
       }
     }
 
     &:active {
-      background-color: var(--button-invisible-bgColor-active);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--invisible-bgColor-active);
 
       & .Visual {
-        color: var(--button-invisible-iconColor-hover);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--invisible-iconColor-hover);
       }
 
       & [data-kbd-chord] {
-        background: var(--buttonKeybindingHint-invisible-bgColor-active);
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--Button--keybindingHint-invisible-bgColor-active);
         transition: 80ms ease-out;
       }
     }
@@ -551,34 +800,46 @@
     &:disabled,
     &[aria-disabled='true']:not([data-loading='true']),
     &[aria-disabled='true'][data-loading-disabled-styles='true'] {
-      color: var(--button-invisible-fgColor-disabled);
-      background-color: var(--button-invisible-bgColor-disabled);
-      border-color: var(--button-invisible-borderColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--invisible-fgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--invisible-bgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--invisible-borderColor-disabled);
       box-shadow: none;
 
       & [data-kbd-chord] {
-        background: var(--buttonKeybindingHint-invisible-bgColor-disabled);
-        color: var(--buttonKeybindingHint-invisible-fgColor-disabled);
-        border-color: var(--buttonKeybindingHint-invisible-borderColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--Button--keybindingHint-invisible-bgColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        color: var(--Button--keybindingHint-invisible-fgColor-disabled);
+        /* stylelint-disable-next-line primer/colors */
+        border-color: var(--Button--keybindingHint-invisible-borderColor-disabled);
       }
     }
 
     & .Visual {
-      color: var(--button-invisible-iconColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--invisible-iconColor-rest);
     }
 
     & .CounterLabel {
-      background-color: var(--buttonCounter-invisible-bgColor-rest) !important;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--Button--counter-invisible-bgColor-rest) !important;
     }
 
     & [data-kbd-chord] {
-      background: var(--buttonKeybindingHint-invisible-bgColor-rest);
-      color: var(--buttonKeybindingHint-invisible-fgColor-rest);
-      border-color: var(--buttonKeybindingHint-invisible-borderColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      background: var(--Button--keybindingHint-invisible-bgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--keybindingHint-invisible-fgColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--keybindingHint-invisible-borderColor-rest);
     }
 
     &:where(.IconButton) {
-      color: var(--button-invisible-iconColor-rest);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--invisible-iconColor-rest);
     }
   }
 
@@ -590,7 +851,8 @@
     height: unset;
     padding: 0;
     font-size: inherit;
-    color: var(--fgColor-link);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--Button--link-fgColor);
     text-align: left;
     border: unset;
     border-radius: 0;
@@ -611,7 +873,8 @@
     &:disabled,
     &[aria-disabled='true']:not([data-loading='true']),
     &[aria-disabled='true'][data-loading-disabled-styles='true'] {
-      color: var(--control-fgColor-disabled);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--fgColor-disabled);
       background-color: transparent;
       border-color: transparent;
     }
@@ -625,12 +888,14 @@
     }
 
     &:where([data-inactive]) {
-      color: var(--button-inactive-fgColor);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--inactive-fgColor);
       background: transparent !important;
     }
 
     & .Visual {
-      color: var(--fgColor-link);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--link-fgColor);
     }
   }
 
@@ -682,11 +947,13 @@
   &:where([data-inactive]),
   &:where([data-inactive]):hover,
   &:where([data-inactive]):active {
-    color: var(--button-inactive-fgColor);
-    cursor: auto;
-    background-color: var(--button-inactive-bgColor);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--button-inactive-bgColor);
+    color: var(--Button--inactive-fgColor);
+    cursor: auto;
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--Button--inactive-bgColor);
+    /* stylelint-disable-next-line primer/colors */
+    border-color: var(--Button--inactive-bgColor);
     box-shadow: none;
 
     & .Visual,
@@ -695,9 +962,12 @@
     }
 
     & [data-kbd-chord] {
-      background: var(--buttonKeybindingHint-inactive-bgColor);
-      color: var(--buttonKeybindingHint-inactive-fgColor);
-      border-color: var(--buttonKeybindingHint-inactive-borderColor);
+      /* stylelint-disable-next-line primer/colors */
+      background: var(--Button--keybindingHint-inactive-bgColor);
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--Button--keybindingHint-inactive-fgColor);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--Button--keybindingHint-inactive-borderColor);
     }
   }
 
@@ -705,16 +975,16 @@
 
   &:where([data-icon-only-counter]) {
     /* stylelint-disable-next-line primer/spacing */
-    padding-inline: var(--control-medium-paddingInline-condensed);
+    padding-inline: var(--Button--iconOnlyCounter-paddingInline-medium);
 
     &:where([data-size='small']) {
       /* stylelint-disable-next-line primer/spacing */
-      padding-inline: var(--control-xsmall-paddingInline-condensed);
+      padding-inline: var(--Button--iconOnlyCounter-paddingInline-small);
     }
 
     &:where([data-size='large']) {
       /* stylelint-disable-next-line primer/spacing */
-      padding-inline: var(--control-large-paddingInline-normal);
+      padding-inline: var(--Button--iconOnlyCounter-paddingInline-large);
     }
   }
 }

@@ -3,9 +3,12 @@
 }
 
 .ResponsiveCloseButton {
+  --AnchoredOverlay--responsiveCloseButton-right: var(--base-size-8);
+  --AnchoredOverlay--responsiveCloseButton-top: var(--base-size-8);
+
   position: absolute;
-  top: var(--base-size-8);
-  right: var(--base-size-8);
+  top: var(--AnchoredOverlay--responsiveCloseButton-top);
+  right: var(--AnchoredOverlay--responsiveCloseButton-right);
   display: none;
 
   @media screen and (--viewportRange-narrow) {
@@ -36,13 +39,18 @@
 
   &[data-side='outside-bottom'],
   &[data-side='inside-bottom'] {
+    --AnchoredOverlay--top-sideOutsideBottom-sideInsideBottom: calc(anchor(bottom) + var(--base-size-4));
     /* stylelint-disable primer/spacing */
-    top: calc(anchor(bottom) + var(--base-size-4));
+    top: var(--AnchoredOverlay--top-sideOutsideBottom-sideInsideBottom);
     left: anchor(left);
 
     &[data-align='left'] {
+      --AnchoredOverlay--right-sideOutsideBottom-sideInsideBottom-alignLeft: calc(
+        anchor(right) - var(--anchored-overlay-anchor-offset-left)
+      );
+
       left: auto;
-      right: calc(anchor(right) - var(--anchored-overlay-anchor-offset-left));
+      right: var(--AnchoredOverlay--right-sideOutsideBottom-sideInsideBottom-alignLeft);
       /* stylelint-disable max-nesting-depth */
       &[data-responsive='fullscreen'] {
         @media screen and (--viewportRange-narrow) {
@@ -52,7 +60,11 @@
     }
 
     &[data-align='right'] {
-      left: calc(anchor(left) - var(--anchored-overlay-anchor-offset-right));
+      --AnchoredOverlay--left-sideOutsideBottom-sideInsideBottom-alignRight: calc(
+        anchor(left) - var(--anchored-overlay-anchor-offset-right)
+      );
+
+      left: var(--AnchoredOverlay--left-sideOutsideBottom-sideInsideBottom-alignRight);
 
       &[data-responsive='fullscreen'] {
         @media screen and (--viewportRange-narrow) {
@@ -64,7 +76,9 @@
 
   &[data-side='outside-top'],
   &[data-side='inside-top'] {
-    margin-bottom: var(--base-size-4);
+    --AnchoredOverlay--marginBottom-sideOutsideTop-sideInsideTop: var(--base-size-4);
+
+    margin-bottom: var(--AnchoredOverlay--marginBottom-sideOutsideTop-sideInsideTop);
     bottom: anchor(top);
     left: anchor(left);
 
@@ -74,7 +88,11 @@
     }
 
     &[data-align='right'] {
-      left: calc(anchor(left) - var(--anchored-overlay-anchor-offset-right));
+      --AnchoredOverlay--left-sideOutsideTop-sideInsideTop-alignRight: calc(
+        anchor(left) - var(--anchored-overlay-anchor-offset-right)
+      );
+
+      left: var(--AnchoredOverlay--left-sideOutsideTop-sideInsideTop-alignRight);
 
       &[data-responsive='fullscreen'] {
         @media screen and (--viewportRange-narrow) {
@@ -86,6 +104,9 @@
 
   &[data-side='outside-left'],
   &[data-side='inside-left'] {
+    --AnchoredOverlay--marginRight-sideOutsideLeft-sideInsideLeft: var(--base-size-4);
+    --AnchoredOverlay--top-sideOutsideLeft-sideInsideLeft: var(--anchored-overlay-top-override, anchor(top));
+
     right: anchor(left);
     /* Falls back to `anchor(top)` when JS hasn't overridden it. JS sets the
        override when the overlay's bottom would overflow the viewport so we
@@ -95,61 +116,78 @@
        This override only applies when CSS cannot find space using the default position -
        or any of its defined fallbacks.
     */
-    top: var(--anchored-overlay-top-override, anchor(top));
-    margin-right: var(--base-size-4);
+    top: var(--AnchoredOverlay--top-sideOutsideLeft-sideInsideLeft);
+    margin-right: var(--AnchoredOverlay--marginRight-sideOutsideLeft-sideInsideLeft);
     position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-left-to-bottom;
   }
 
   &[data-side='outside-right'],
   &[data-side='inside-right'] {
+    --AnchoredOverlay--marginLeft-sideOutsideRight-sideInsideRight: var(--base-size-4);
+    --AnchoredOverlay--top-sideOutsideRight-sideInsideRight: var(--anchored-overlay-top-override, anchor(top));
+
     left: anchor(right);
-    top: var(--anchored-overlay-top-override, anchor(top));
-    margin-left: var(--base-size-4);
+    top: var(--AnchoredOverlay--top-sideOutsideRight-sideInsideRight);
+    margin-left: var(--AnchoredOverlay--marginLeft-sideOutsideRight-sideInsideRight);
     position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-right-to-bottom;
   }
 }
 
 @position-try --outside-left-to-bottom {
+  --AnchoredOverlay--top-positionTryOutsideLeftToBottom: calc(anchor(bottom) + var(--base-size-4));
+
   right: anchor(right);
-  top: calc(anchor(bottom) + var(--base-size-4));
+  top: var(--AnchoredOverlay--top-positionTryOutsideLeftToBottom);
   margin: 0;
   width: auto;
 }
 
 @position-try --outside-right-to-bottom {
+  --AnchoredOverlay--top-positionTryOutsideRightToBottom: calc(anchor(bottom) + var(--base-size-4));
+
   left: anchor(left);
-  top: calc(anchor(bottom) + var(--base-size-4));
+  top: var(--AnchoredOverlay--top-positionTryOutsideRightToBottom);
   margin: 0;
   width: auto;
 }
 
 @position-try --inline-end-center {
+  --AnchoredOverlay--marginLeft-positionTryInlineEndCenter: var(--base-size-4);
+
   left: anchor(right);
   top: auto;
   bottom: auto;
-  margin-left: var(--base-size-4);
+  margin-left: var(--AnchoredOverlay--marginLeft-positionTryInlineEndCenter);
   align-self: anchor-center;
 }
 
 @position-try --inline-start-center {
+  --AnchoredOverlay--marginRight-positionTryInlineStartCenter: var(--base-size-4);
+
   right: anchor(left);
   left: auto;
   top: auto;
   bottom: auto;
-  margin-right: var(--base-size-4);
+  margin-right: var(--AnchoredOverlay--marginRight-positionTryInlineStartCenter);
   align-self: anchor-center;
 }
 
 @position-try --fit-block-bottom {
-  top: calc(anchor(bottom) + var(--base-size-4));
-  bottom: var(--base-size-8);
+  --AnchoredOverlay--bottom-positionTryFitBlockBottom: var(--base-size-8);
+  --AnchoredOverlay--top-positionTryFitBlockBottom: calc(anchor(bottom) + var(--base-size-4));
+
+  top: var(--AnchoredOverlay--top-positionTryFitBlockBottom);
+  bottom: var(--AnchoredOverlay--bottom-positionTryFitBlockBottom);
   height: auto;
   max-height: none;
 }
 
 @position-try --fit-block-top {
-  top: var(--base-size-8);
-  bottom: calc(100vh - anchor(top) + var(--base-size-4));
+  --AnchoredOverlay--bottom-positionTryFitBlockTop: calc(100vh - anchor(top) + var(--base-size-4));
+  --AnchoredOverlay--top-positionTryFitBlockTop: var(--base-size-8);
+
+  top: var(--AnchoredOverlay--top-positionTryFitBlockTop);
+  bottom: var(--AnchoredOverlay--bottom-positionTryFitBlockTop);
   height: auto;
   max-height: none;
 }

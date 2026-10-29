@@ -1,34 +1,52 @@
 :where(.Avatar) {
+  --Avatar--boxShadow: 0 0 0 1px var(--avatar-borderColor);
+  --Avatar--height: var(--avatarSize-regular);
+  --Avatar--width: var(--avatarSize-regular);
+
   display: inline-block;
-  width: var(--avatarSize-regular);
-  height: var(--avatarSize-regular);
+  width: var(--Avatar--width);
+  height: var(--Avatar--height);
   overflow: hidden; /* Ensure page layout in Firefox should images fail to load */
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 0 0 1px var(--avatar-borderColor);
+  box-shadow: var(--Avatar--boxShadow);
 
   &:where([data-square]) {
+    --Avatar--borderRadius-squarePresent: clamp(
+      4px,
+      calc(var(--avatarSize-regular) - 24px),
+      var(--borderRadius-medium)
+    );
     /* stylelint-disable-next-line primer/borders */
-    border-radius: clamp(4px, calc(var(--avatarSize-regular) - 24px), var(--borderRadius-medium));
+    border-radius: var(--Avatar--borderRadius-squarePresent);
   }
 
   &:where([data-responsive]) {
     @media screen and (--viewportRange-narrow) {
-      width: var(--avatarSize-narrow);
-      height: var(--avatarSize-narrow);
+      --Avatar--height-responsivePresent-mediaScreenAndViewportRangeNarrow: var(--avatarSize-narrow);
+      --Avatar--width-responsivePresent-mediaScreenAndViewportRangeNarrow: var(--avatarSize-narrow);
+
+      width: var(--Avatar--width-responsivePresent-mediaScreenAndViewportRangeNarrow);
+      height: var(--Avatar--height-responsivePresent-mediaScreenAndViewportRangeNarrow);
     }
 
     @media screen and (--viewportRange-regular) {
-      width: var(--avatarSize-regular);
-      height: var(--avatarSize-regular);
+      --Avatar--height-responsivePresent-mediaScreenAndViewportRangeRegular: var(--avatarSize-regular);
+      --Avatar--width-responsivePresent-mediaScreenAndViewportRangeRegular: var(--avatarSize-regular);
+
+      width: var(--Avatar--width-responsivePresent-mediaScreenAndViewportRangeRegular);
+      height: var(--Avatar--height-responsivePresent-mediaScreenAndViewportRangeRegular);
     }
 
     @media screen and (--viewportRange-wide) {
-      width: var(--avatarSize-wide);
-      height: var(--avatarSize-wide);
+      --Avatar--height-responsivePresent-mediaScreenAndViewportRangeWide: var(--avatarSize-wide);
+      --Avatar--width-responsivePresent-mediaScreenAndViewportRangeWide: var(--avatarSize-wide);
+
+      width: var(--Avatar--width-responsivePresent-mediaScreenAndViewportRangeWide);
+      height: var(--Avatar--height-responsivePresent-mediaScreenAndViewportRangeWide);
     }
   }
 }
