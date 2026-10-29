@@ -22,9 +22,9 @@
   --borderRadius-small: 4px;
   --borderRadius-medium: 8px;
   --borderRadius-large: 16px;
-  --bgColor-default: #ffffff;
+  --bgColor-default: #fff;
   --bgColor-muted: #f6f8fa;
-  --bgColor-inset: #ffffff;
+  --bgColor-inset: #fff;
   --bgColor-emphasis: #1f2328;
   --fgColor-default: #1f2328;
   --fgColor-muted: #59636e;
@@ -41,14 +41,14 @@
   --button-invisible-bgColor-active: transparent;
   --button-invisible-bgColor-hover: color-mix(in srgb, #1f2328 8%, transparent);
   --button-default-fgColor-rest: var(--fgColor-default);
-  --button-default-bgColor-rest: #ffffff;
+  --button-default-bgColor-rest: #fff;
   --button-default-bgColor-hover: #eaeef2;
   --button-default-bgColor-active: #eaeef2;
   --button-default-shadow-resting: none;
   --button-primary-bgColor-rest: #1f2328;
   --button-primary-bgColor-hover: #1f2328;
   --button-primary-bgColor-active: #1f2328;
-  --button-primary-fgColor-rest: #ffffff;
+  --button-primary-fgColor-rest: #fff;
   --button-primary-borderColor-rest: #1f2328;
   --control-borderColor-rest: #818b98;
   --NoodlesPage--header-minHeight: calc(var(--control-large-size) + var(--base-size-8));
