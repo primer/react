@@ -13,7 +13,6 @@
 }
 
 .ColumnLabel {
-  /* Preserve the header's text line when its label is visually hidden. */
   min-block-size: 1lh;
 }
 
@@ -25,7 +24,6 @@
   margin-inline-start: auto;
 
   :focus {
-    /* Keep the focus ring inside the scroller despite scroll-offset rounding. */
     scroll-margin: var(--base-size-4);
   }
 }
@@ -52,7 +50,6 @@
   border-start-end-radius: var(--table-border-radius);
 }
 
-/* This spans data columns, despite being the first cell in its DOM row. */
 .HeaderRow > .BulkActionsCell:first-child:last-child {
   /* stylelint-disable-next-line primer/spacing */
   padding-inline-start: var(--cell-padding-inline, var(--base-size-12));

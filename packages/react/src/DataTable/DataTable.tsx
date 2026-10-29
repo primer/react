@@ -135,21 +135,8 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    */
   onExpandedGroupsChange?: ({expandedGroups}: {expandedGroups: Set<DataTableRowId>}) => void
 
-  /**
-   * Renders actions for effectively selected rows, excluding missing and
-   * non-selectable IDs. Requires rowSelection. Consumers own business operations.
-   */
   renderBulkActions?: (context: DataTableBulkActionsContext) => ReactNode
-
-  /**
-   * Localizes bulk-action labels and the selected-count announcement.
-   */
   bulkActionsProps?: Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel'>
-
-  /**
-   * Overrides the focus recovery target when a focused bulk action disappears.
-   * Defaults to select-all, or the table when no selectable rows remain.
-   */
   bulkActionsReturnFocusRef?: RefObject<HTMLElement | null>
 }
 
@@ -257,7 +244,7 @@ function DataTableImplementation<Data extends UniqueRow>({
   return (
     <Table
       ref={tableRef}
-      tabIndex={rowSelection && renderBulkActions ? -1 : undefined}
+      tabIndex={hasBulkActions ? -1 : undefined}
       aria-labelledby={labelledby}
       aria-describedby={describedby}
       cellPadding={cellPadding}
@@ -303,7 +290,6 @@ function DataTableImplementation<Data extends UniqueRow>({
                     {typeof header.column.header === 'string' ? (
                       <VisuallyHidden>{header.column.header}</VisuallyHidden>
                     ) : (
-                      // Hidden content names the header without exposing its controls.
                       <span id={labelId} hidden>
                         {header.column.header()}
                       </span>
@@ -338,8 +324,6 @@ function DataTableImplementation<Data extends UniqueRow>({
           })}
         </TableRow>
         {hasBulkActions ? (
-          // Share the visual header row without putting action names in column
-          // headers or removing their associations with the table body.
           <TableRow className={classes.HeaderRow}>
             <VisuallyHidden
               as="td"

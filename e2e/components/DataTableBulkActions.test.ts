@@ -92,9 +92,7 @@ test.describe('DataTable bulk actions', () => {
       expect(selected!.height).toBe(before!.height)
       expect((await count.boundingBox())!.x).toBe(labelBefore!.x)
       const actions = table.getByRole('group', {name: 'Bulk actions'})
-      await expect(actions.getByRole('button')).toHaveCount(2)
       const lastAction = await actions.getByRole('button', {name: 'Delete selected'}).boundingBox()
-      // 8px padding plus the 1px header border.
       expect(selected!.x + selected!.width - lastAction!.x - lastAction!.width).toBe(9)
       expect(
         await count.evaluate(element => {

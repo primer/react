@@ -107,14 +107,11 @@ describe('DataTable bulk actions', () => {
   })
 
   it('names custom headers without leaving hidden controls in the tab order', async () => {
-    function CustomHeader() {
-      return <a href="#name">Name</a>
-    }
     render(
       <DataTable
         data={rows}
         columns={[
-          {header: () => <CustomHeader />, field: 'name', rowHeader: true},
+          {header: () => <a href="#name">Name</a>, field: 'name', rowHeader: true},
           {
             header: () => (
               <button type="button" aria-label="Details">
@@ -168,21 +165,24 @@ describe('DataTable bulk actions', () => {
     )
     await browserUserEvent.click(page.getByRole('button', {name: 'Remove action', exact: true}))
     await expect.element(page.getByRole('checkbox', {name: 'Select rows', exact: true})).toHaveFocus()
-    await expect.element(page.getByRole('group', {name: 'Bulk actions', exact: true})).toBeInTheDocument()
     await expect
       .element(page.getByRole('group', {name: 'Bulk actions', exact: true}).getByText('1 selected', {exact: true}))
       .toBeVisible()
   })
 
-  it('does not override a consumer destination after a child-only action removal', async () => {
+  it.each([false, true])('preserves a consumer focus destination (child-only removal: %s)', async childOnly => {
     const destination = React.createRef<HTMLButtonElement>()
-    function Action() {
+    function Action({clearSelection}: DataTableBulkActionsContext) {
       const [visible, setVisible] = React.useState(true)
       return visible ? (
         <Button
           onClick={() => {
             destination.current?.focus()
-            setVisible(false)
+            if (childOnly) {
+              setVisible(false)
+            } else {
+              clearSelection()
+            }
           }}
         >
           Complete
@@ -197,7 +197,7 @@ describe('DataTable bulk actions', () => {
           columns={columns}
           rowSelection
           defaultSelectedRows={new Set([1])}
-          renderBulkActions={() => <Action />}
+          renderBulkActions={context => <Action {...context} />}
         />
       </>,
     )
@@ -334,37 +334,6 @@ describe('DataTable bulk actions', () => {
     render(<Example />)
     await user.click(screen.getByRole('button', {name: 'Apply to 1'}))
     expect(screen.getByRole('button', {name: 'Add repository'})).toHaveFocus()
-  })
-
-  it('does not steal focus from a consumer-owned action destination', async () => {
-    const user = userEvent.setup()
-    function Example() {
-      const destination = React.useRef<HTMLButtonElement>(null)
-      return (
-        <>
-          <Button ref={destination}>Confirmation</Button>
-          <DataTable
-            data={rows}
-            columns={columns}
-            rowSelection
-            defaultSelectedRows={new Set([1])}
-            renderBulkActions={({clearSelection}) => (
-              <Button
-                onClick={() => {
-                  destination.current?.focus()
-                  clearSelection()
-                }}
-              >
-                Complete
-              </Button>
-            )}
-          />
-        </>
-      )
-    }
-    render(<Example />)
-    await user.click(screen.getByRole('button', {name: 'Complete'}))
-    expect(screen.getByRole('button', {name: 'Confirmation'})).toHaveFocus()
   })
 
   it('does not recover focus after the user leaves the actions for non-interactive content', async () => {

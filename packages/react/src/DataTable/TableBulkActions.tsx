@@ -6,19 +6,8 @@ import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import classes from './TableBulkActions.module.css'
 
 export type TableBulkActionsProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'role'> & {
-  /**
-   * The number of effectively selected rows. Keep this component mounted at zero
-   * so the count announcement and focus recovery can complete.
-   */
   selectedCount: number
-  /**
-   * Restores focus when a focused action disappears. Not called if focus has
-   * already moved elsewhere, for example into a consumer-owned dialog.
-   */
   onFocusReturn?: () => void
-  /**
-   * Localizes the visible and announced selection count, including zero.
-   */
   getSelectedCountLabel?: (selectedCount: number) => string
 }
 
@@ -60,7 +49,6 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
     focusObserver.current?.disconnect()
     const element = focusedAction.current
     if (element) {
-      // Observe only while an action owns focus, including actions in portals.
       const observer = new MutationObserver(recoverFocus)
       observer.observe(element.ownerDocument.body, {childList: true, subtree: true})
       focusObserver.current = observer
@@ -87,7 +75,6 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
       onFocusCapture={event => {
         focusedAction.current = event.target
         observeFocusedAction()
-        // Native focus scrolling can miss controls in the grid-overlaid header.
         if (event.currentTarget.contains(event.target)) {
           event.target.scrollIntoView({block: 'nearest', inline: 'nearest'})
         }
@@ -96,7 +83,6 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
         }
       }}
       onBlurCapture={event => {
-        // Clicking non-focusable content blurs with a null relatedTarget.
         if (event.target.isConnected) {
           focusedAction.current = null
           focusObserver.current?.disconnect()
