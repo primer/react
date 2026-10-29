@@ -9,6 +9,13 @@ const catalogPromise = fetch(chrome.runtime.getURL('catalog.json')).then(respons
 const keyFor = tabId => `preview:${tabId}`
 let queue = Promise.resolve()
 
+class UnsupportedPageError extends Error {
+  constructor() {
+    super('Browser-internal pages cannot be customized. Open a normal website and click the extension icon.')
+    this.name = 'UnsupportedPageError'
+  }
+}
+
 chrome.sidePanel.setPanelBehavior({openPanelOnActionClick: false}).catch(error => {
   console.error('Could not enable the appearance side panel:', error)
 })
@@ -23,7 +30,15 @@ chrome.action.onClicked.addListener(tab => {
 })
 
 async function inspect(tabId) {
-  const [result] = await chrome.scripting.executeScript({target: {tabId}, func: inspectPage})
+  const tab = await chrome.tabs.get(tabId)
+  if (tab.url && !/^(https?|file):/.test(tab.url)) throw new UnsupportedPageError()
+  let result
+  try {
+    result = (await chrome.scripting.executeScript({target: {tabId}, func: inspectPage}))[0]
+  } catch (error) {
+    if (error.message.includes('Cannot access a chrome:// URL')) throw new UnsupportedPageError()
+    throw error
+  }
   if (!result?.documentId || !result.result) throw new Error('The active page could not be inspected.')
   const key = keyFor(tabId)
   const stored = (await chrome.storage.session.get(key))[key]
@@ -92,8 +107,12 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
     .then(
       result => respond({ok: true, result}),
       error => {
-        console.error('Appearance preview failed:', error)
-        respond({ok: false, error: error.message || String(error)})
+        if (!(error instanceof UnsupportedPageError)) console.error('Appearance preview failed:', error)
+        respond({
+          ok: false,
+          error: error.message || String(error),
+          code: error instanceof UnsupportedPageError ? 'unsupported-page' : undefined,
+        })
       },
     )
   return true

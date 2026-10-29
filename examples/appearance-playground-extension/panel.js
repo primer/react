@@ -19,6 +19,13 @@ let generation = 0
 let timer
 
 function showError(error) {
+  if (error.code === 'unsupported-page') {
+    element('error').hidden = true
+    element('settings').disabled = true
+    element('site').textContent = 'Unsupported page'
+    element('notice').textContent = error.message
+    return
+  }
   element('error').textContent =
     `${error.message || error} Click the extension icon on the website tab if access is needed.`
   element('error').hidden = false
@@ -27,7 +34,9 @@ function showError(error) {
 
 async function request(type, extra = {}) {
   const reply = await chrome.runtime.sendMessage({type, tabId, documentId: page?.documentId, ...extra})
-  if (!reply?.ok) throw new Error(reply?.error || 'The extension worker did not respond.')
+  if (!reply?.ok) {
+    throw Object.assign(new Error(reply?.error || 'The extension worker did not respond.'), {code: reply?.code})
+  }
   return reply.result
 }
 

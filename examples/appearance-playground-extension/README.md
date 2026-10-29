@@ -60,6 +60,12 @@ Chrome pages, the Chrome Web Store and other browser-protected pages cannot be
 modified. File URLs need Chrome's separate **Allow access to file URLs** setting.
 Cross-origin navigation requires clicking the extension icon again.
 
+Browser-internal pages such as `chrome://extensions`, settings and the new-tab
+page show an **Unsupported page** message with the controls disabled. Open a
+normal website and click the extension icon there. If an older copy logged
+`Cannot access a chrome:// URL`, reload the unpacked extension in the browser's
+extensions manager; previously recorded errors can be cleared there.
+
 The controls use native HTML rather than bundling React, keeping installation
 dependency-free. This is a demo, not a supported Primer package or a store release.
 
