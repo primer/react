@@ -271,6 +271,151 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
   })
 
+  it('supports a link with a separate SubNav toggle', () => {
+    const onClick = vi.fn((event: React.MouseEvent) => event.preventDefault())
+    const {getByRole, queryByRole} = render(
+      <NavList>
+        <NavList.Item
+          href="/overview"
+          id="overview-link"
+          aria-current="page"
+          className="custom-class"
+          style={{color: 'red'}}
+          subNavToggleLabel="Toggle overview pages"
+          onClick={onClick}
+        >
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+    const link = getByRole('link', {name: 'Overview'})
+    const toggle = getByRole('button', {name: 'Toggle overview pages'})
+
+    expect(link).toHaveAttribute('href', '/overview')
+    expect(link).toHaveAttribute('id', 'overview-link')
+    expect(link).toHaveAttribute('aria-current', 'page')
+    expect(link).toHaveStyle({color: 'rgb(255, 0, 0)'})
+    expect(link.closest('li')).toHaveClass('custom-class')
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(queryByRole('list', {name: 'Overview'})).toBeNull()
+
+    fireEvent.click(link)
+    expect(onClick).toHaveBeenCalledOnce()
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+
+    onClick.mockClear()
+    fireEvent.click(toggle)
+    expect(onClick).not.toHaveBeenCalled()
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(getByRole('list', {name: 'Overview'})).toBeVisible()
+  })
+
+  it('forwards custom link props when using a separate SubNav toggle', () => {
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item as={ReactRouterLikeLink} to="/overview" subNavToggleLabel="Toggle overview pages">
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/overview/review-requested">Review requested</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    expect(getByRole('link', {name: 'Overview'})).toHaveAttribute('href', '/overview')
+  })
+
+  it('rejects a linked parent without a native navigation destination', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => null)
+    try {
+      expect(() =>
+        renderToStaticMarkup(
+          <NavList>
+            {/* @ts-expect-error exercise invalid JavaScript usage */}
+            <NavList.Item subNavToggleLabel="Toggle overview pages">
+              Overview
+              <NavList.SubNav>
+                <NavList.Item href="/drafts">Drafts</NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList>,
+        ),
+      ).toThrow('NavList.Item requires an href when subNavToggleLabel is set and the item renders as an anchor.')
+    } finally {
+      consoleSpy.mockRestore()
+    }
+  })
+
+  it.each([false, true])('styles the current linked parent with defaultOpen=%s', defaultOpen => {
+    const {getByRole, getByText} = render(
+      <NavList>
+        <NavList.Item href="/current" aria-current="page">
+          Current item
+        </NavList.Item>
+        <NavList.Item
+          href="/overview"
+          aria-current="page"
+          subNavToggleLabel="Toggle overview pages"
+          defaultOpen={defaultOpen}
+        >
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/drafts">Drafts</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+    const currentItem = getByRole('link', {name: 'Current item'}).closest('li')!
+    const row = getByRole('link', {name: 'Overview'}).parentElement!
+    const toggle = getByRole('button', {name: 'Toggle overview pages'})
+    const expectSelectedRow = () => {
+      expect(getComputedStyle(row).backgroundColor).toBe(getComputedStyle(currentItem).backgroundColor)
+      expect(getComputedStyle(row, '::after').content).toBe('""')
+      expect(getComputedStyle(getByText('Overview')).fontWeight).toBe('600')
+      expect(getComputedStyle(getByText('Drafts')).fontWeight).toBe('400')
+    }
+
+    expectSelectedRow()
+    fireEvent.click(toggle)
+    expectSelectedRow()
+  })
+
+  it('only highlights a linked ancestor while its current descendant is collapsed', () => {
+    const {getByRole, getByText} = render(
+      <NavList>
+        <NavList.Item href="/overview" subNavToggleLabel="Toggle overview pages">
+          Overview
+          <NavList.SubNav>
+            <NavList.Item href="/drafts" aria-current="page">
+              Drafts
+            </NavList.Item>
+            <NavList.Item href="/other" subNavToggleLabel="Toggle other pages">
+              Other
+              <NavList.SubNav>
+                <NavList.Item href="/other/nested">Nested</NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+    const row = getByRole('link', {name: 'Overview'}).parentElement!
+    const otherRow = getByRole('link', {name: 'Other'}).parentElement!
+    const toggle = getByRole('button', {name: 'Toggle overview pages'})
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(getComputedStyle(row, '::after').content).toBe('none')
+    fireEvent.click(toggle)
+    expect(getComputedStyle(row, '::after').content).toBe('""')
+    expect(getComputedStyle(otherRow, '::after').content).toBe('none')
+    expect(getComputedStyle(getByText('Other')).fontWeight).toBe('400')
+    fireEvent.click(toggle)
+    expect(getComputedStyle(row, '::after').content).toBe('none')
+  })
+
   it('prevents more than 4 levels of nested SubNavs', () => {
     const consoleSpy = vi
       .spyOn(console, 'error')
