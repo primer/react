@@ -200,7 +200,9 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       </Component>
       {loading && (
         <VisuallyHidden>
-          <AriaStatus id={loadingAnnouncementID}>{loadingAnnouncement}</AriaStatus>
+          <AriaStatus id={loadingAnnouncementID} announceOnShow>
+            {loadingAnnouncement}
+          </AriaStatus>
         </VisuallyHidden>
       )}
     </ConditionalWrapper>
