@@ -205,6 +205,28 @@ describe('FilteredActionList forwarded refs (primer_react_merged_forwarded_refs)
         )
         expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
       })
+
+      it('handles a scroll container callback ref while loading', () => {
+        const ui = (
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList
+              items={items}
+              onFilterChange={vi.fn()}
+              scrollContainerRef={() => {}}
+              loading
+              loadingType={FilteredActionListLoadingTypes.bodySpinner}
+            />
+          </FeatureFlags>
+        )
+        const {getByRole, container, rerender} = render(ui)
+
+        expect(() => rerender(ui)).not.toThrow()
+        // With the flag off, a callback ref leaves no readable scroll container, so the loader stays hidden as before
+        expect(container.querySelector('[data-component="FilteredActionList.Spinner"]') !== null).toBe(enabled)
+
+        const listId = getByRole('combobox').getAttribute('aria-controls')
+        expect(listId === null || document.getElementById(listId) !== null).toBe(true)
+      })
     })
   }
 })

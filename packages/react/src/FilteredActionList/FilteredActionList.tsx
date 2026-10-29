@@ -438,15 +438,17 @@ export function FilteredActionList({
     [onSelectAllChange],
   )
 
-  const showBodyLoader = loading && readScrollContainerRef.current !== null && loadingType.appearsInBody
+  // `current` is undefined rather than null for a callback ref while the merged refs flag is off,
+  // so the body loader is only shown once the scroll container has been read
+  const bodyLoaderHeight =
+    loading && loadingType.appearsInBody ? readScrollContainerRef.current?.clientHeight : undefined
+  const showBodyLoader = bodyLoaderHeight !== undefined
   // The list is not rendered while the body shows a loader or a message, so the input must not reference it
   const isListRendered = !showBodyLoader && !message
 
   function getBodyContent() {
     if (showBodyLoader) {
-      return (
-        <FilteredActionListBodyLoader loadingType={loadingType} height={readScrollContainerRef.current.clientHeight} />
-      )
+      return <FilteredActionListBodyLoader loadingType={loadingType} height={bodyLoaderHeight} />
     }
     if (message) {
       return message
