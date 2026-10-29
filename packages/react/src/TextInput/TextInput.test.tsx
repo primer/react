@@ -1,19 +1,13 @@
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {render, fireEvent, screen, act} from '@testing-library/react'
-import {describe, it, expect, vi, afterEach} from 'vitest'
+import {describe, it, expect, vi, beforeEach, afterEach, type MockInstance} from 'vitest'
 import React, {createRef} from 'react'
 import TextInput from '../TextInput'
 import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 import {SCREEN_READER_DELAY} from '../utils/character-counter'
 import {createRenderCounter} from '../utils/testing/profiler'
-import type {LiveRegionElement} from '@primer/live-region-element'
-
-function getPoliteAnnouncement(): string {
-  const liveRegion = document.querySelector('live-region') as LiveRegionElement | null
-  return liveRegion?.getMessage('polite') ?? ''
-}
 
 describe('TextInput', () => {
   implementsClassName(TextInput, 'TextInput-wrapper')
@@ -299,10 +293,15 @@ describe('TextInput', () => {
   })
 
   describe('character counter', () => {
+    let ariaNotify: MockInstance<Element['ariaNotify']>
+
+    beforeEach(() => {
+      ariaNotify = vi.spyOn(Element.prototype, 'ariaNotify').mockImplementation(() => {})
+    })
+
     afterEach(() => {
-      // The announcement live region is shared and appended to the document, so
-      // remove it between tests to avoid leaking messages across cases.
-      document.querySelector('live-region')?.remove()
+      vi.useRealTimers()
+      ariaNotify.mockRestore()
     })
 
     it('should render character counter when characterLimit is provided', () => {
@@ -387,9 +386,15 @@ describe('TextInput', () => {
       expect(describedBy).toContain(staticMessage?.id)
     })
 
-    it('does not announce the counter on show', () => {
+    it('does not announce the counter on show', async () => {
+      vi.useFakeTimers()
       render(<TextInput characterLimit={20} />)
-      expect(getPoliteAnnouncement()).toBe('')
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).not.toHaveBeenCalled()
     })
 
     it('should have static screen reader message', () => {
@@ -402,32 +407,36 @@ describe('TextInput', () => {
       expect(container.textContent).toContain('You can enter up to 1 character')
     })
 
-    it('should not announce on initial load', () => {
+    it('should not announce on initial load', async () => {
+      vi.useFakeTimers()
       render(<TextInput characterLimit={20} defaultValue="Hello" />)
-      expect(getPoliteAnnouncement()).toBe('')
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).not.toHaveBeenCalled()
     })
 
     it('announces the updated remaining count after a change', async () => {
-      // The remaining-count message is derived in render and announced (debounced)
-      // through the shared live region. Uses fireEvent + fake timers because
-      // userEvent deadlocks with fake timers in the browser test environment and
-      // the announcement is debounced (real timers would be slow and flaky).
+      // Use fireEvent with fake timers to check the announcement debounce.
       vi.useFakeTimers()
       try {
         const {getByRole} = render(<TextInput characterLimit={20} />)
 
         fireEvent.change(getByRole('textbox'), {target: {value: 'Hello'}})
-        // Nothing is announced until the debounce delay elapses.
-        expect(getPoliteAnnouncement()).toBe('')
+        await act(async () => {
+          await Promise.resolve()
+          await vi.advanceTimersByTimeAsync(SCREEN_READER_DELAY - 1)
+        })
+        expect(ariaNotify).not.toHaveBeenCalled()
 
         await act(async () => {
-          // Let the MutationObserver schedule the debounced announcement, then
-          // advance past the delay so the live region updates.
-          await Promise.resolve()
-          await vi.advanceTimersByTimeAsync(SCREEN_READER_DELAY)
+          await vi.advanceTimersByTimeAsync(1)
         })
-
-        expect(getPoliteAnnouncement()).toBe('15 characters remaining')
+        expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('15 characters remaining', {
+          priority: 'normal',
+        })
       } finally {
         vi.useRealTimers()
       }

@@ -1,12 +1,11 @@
 import {page, userEvent} from 'vitest/browser'
 import {fireEvent, render, act, screen} from '@testing-library/react'
 import rtlUserEvent from '@testing-library/user-event'
-import {afterEach, describe, it, expect, vi} from 'vitest'
+import {beforeEach, afterEach, describe, it, expect, vi, type MockInstance} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
 import {GearIcon} from '@primer/octicons-react'
-import {getLiveRegion} from '../live-region/__tests__/test-helpers'
 import {implementsClassName} from '../utils/testing'
 import classes from './TreeView.module.css'
 
@@ -1772,14 +1771,17 @@ describe('State', () => {
 })
 
 describe('Asynchronous loading', () => {
-  afterEach(() => {
-    const liveRegion = document.querySelector('live-region')
-    if (liveRegion) {
-      document.body.removeChild(liveRegion)
-    }
+  let ariaNotify: MockInstance<Element['ariaNotify']>
+
+  beforeEach(() => {
+    ariaNotify = vi.spyOn(Element.prototype, 'ariaNotify').mockImplementation(() => {})
   })
 
-  it('updates aria live region when loading is done', async () => {
+  afterEach(() => {
+    ariaNotify.mockRestore()
+  })
+
+  it('announces loading and completion', async () => {
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
 
@@ -1821,13 +1823,29 @@ describe('Asynchronous loading', () => {
 
     await userEvent.click(doneButton)
 
-    // Get live region after the first announcement creates it
-    await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('Parent content loading')
-    const liveRegion = getLiveRegion()
+    await expect
+      .poll(() => {
+        return ariaNotify.mock.lastCall
+      })
+      .toEqual([
+        'Parent content loading',
+        {
+          priority: 'normal',
+        },
+      ])
 
     await userEvent.click(doneButton)
 
-    await expect.poll(() => liveRegion.getMessage('polite')).toBe('Parent content loaded')
+    await expect
+      .poll(() => {
+        return ariaNotify.mock.lastCall
+      })
+      .toEqual([
+        'Parent content loaded',
+        {
+          priority: 'normal',
+        },
+      ])
   })
 
   it('moves focus from loading item to first child', async () => {
