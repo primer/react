@@ -20,6 +20,8 @@ export type {
   CardIconProps,
   CardImageProps,
   CardHeadingProps,
+  CardLinkProps,
+  CardButtonProps,
   CardDescriptionProps,
   CardActionProps,
   CardMetadataProps,

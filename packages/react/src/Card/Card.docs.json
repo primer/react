@@ -12,6 +12,18 @@
       "id": "experimental-components-card-features--with-image"
     },
     {
+      "id": "experimental-components-card-features--compact"
+    },
+    {
+      "id": "experimental-components-card-features--with-link"
+    },
+    {
+      "id": "experimental-components-card-features--with-button"
+    },
+    {
+      "id": "experimental-components-card-features--custom-content"
+    },
+    {
       "id": "experimental-components-card-features--with-metadata"
     },
     {
@@ -32,7 +44,7 @@
       "name": "children",
       "type": "React.ReactNode",
       "required": true,
-      "description": "The contents of the card. Provide either `Card.*` subcomponents (for example `Card.Heading`, `Card.Description`, `Card.Metadata`) or any custom content. A card with no children will not render."
+      "description": "The contents of the card. Provide either direct `Card.*` subcomponents (for example `Card.Heading`, `Card.Description`, `Card.Metadata`) for the predefined layout or a custom wrapper for free-form composition. A custom wrapper fills the available card height, allowing a flex-column body with margin-top: auto on footer actions. Grid parents stretch cards by default; when cards are wrapped in list items, consumers must also make the cards fill those items. A card with no children will not render."
     },
     {
       "name": "className",
@@ -41,9 +53,21 @@
     },
     {
       "name": "padding",
-      "type": "'none' | 'condensed' | 'normal'",
+      "type": "'none' | 'condensed' | 'regular' | 'normal'",
       "defaultValue": "'normal'",
-      "description": "Controls the internal padding of the Card."
+      "description": "Internal padding: none is 0px, condensed is 8px, and regular is 16px in either layout. The default normal padding remains 24px in the default layout and 16px in compact layout."
+    },
+    {
+      "name": "shadow",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "Whether to show the Card shadow. Set to false for a bordered, shadowless card in dense dashboards."
+    },
+    {
+      "name": "layout",
+      "type": "'default' | 'compact'",
+      "defaultValue": "'default'",
+      "description": "Compact layout places the icon beside the content, removes its background container, and uses a smaller heading and tighter spacing."
     },
     {
       "name": "borderRadius",
@@ -98,6 +122,45 @@
           "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
           "defaultValue": "'h3'",
           "description": "The heading level to render. When the parent Card uses `as=\"section\"`, the heading's `id` is automatically wired to the section's `aria-labelledby`."
+        }
+      ]
+    },
+    {
+      "name": "Card.Link",
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "required": true,
+          "description": "Navigation destination. Place Card.Link inside Card.Heading to extend the native link's hit area over the card. Card supplies the hit area, hover border, and visible keyboard focus ring; the native link supplies keyboard activation, modifier-click, and browser context menus. Consumers provide a descriptive link name and destination. Use only one primary Card.Link or Card.Button per card and do not nest interactive controls inside it. Secondary native controls can be placed in Card.Action, Card.Metadata, or custom headers and footers; Card layers them above the primary hit area. Keep wrappers between the primary link and Card unpositioned so its hit area remains card-wide. Other card text cannot be selected with a pointer under the expanded hit area; use a regular Link in Card.Heading instead when text selection or richer interactive content is needed."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Descriptive link text, used as the accessible name rather than the entire card contents. Accepts native anchor attributes and forwards its ref to the anchor."
+        }
+      ]
+    },
+    {
+      "name": "Card.Button",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Descriptive action text. Place Card.Button inside Card.Heading for a whole-card action that does not navigate. Card supplies the expanded hit area, hover border, and visible focus ring; the native button supplies Enter/Space activation and disabled behavior. Consumers provide the accessible name and onClick handler. Use only one primary Card.Link or Card.Button per card. Put secondary controls outside the primary button, in Card.Action, Card.Metadata, or custom headers and footers. Keep wrappers between the primary button and Card unpositioned so its hit area remains card-wide. Accepts native button attributes and forwards its ref to the button."
+        },
+        {
+          "name": "type",
+          "type": "'button' | 'submit' | 'reset'",
+          "defaultValue": "'button'",
+          "description": "Native button type. Defaults to button to avoid accidentally submitting a surrounding form."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Disables the primary action, including its expanded hit area, and removes it from the tab order. Secondary controls remain independent."
         }
       ]
     },

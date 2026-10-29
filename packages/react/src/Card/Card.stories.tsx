@@ -34,12 +34,20 @@ type PlaygroundArgs = {
   showIcon: boolean
   showMetadata: boolean
   layout: 'default' | 'compact'
-  padding: 'none' | 'condensed' | 'normal'
+  padding: 'none' | 'condensed' | 'regular' | 'normal'
+  shadow: boolean
   borderRadius: 'medium' | 'large'
 }
 
-export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata, layout, padding, borderRadius}) => (
-  <Card layout={layout} padding={padding} borderRadius={borderRadius}>
+export const Playground: StoryFn<PlaygroundArgs> = ({
+  showIcon,
+  showMetadata,
+  layout,
+  padding,
+  borderRadius,
+  shadow,
+}) => (
+  <Card layout={layout} padding={padding} borderRadius={borderRadius} shadow={shadow}>
     {showIcon && <Card.Icon icon={RocketIcon} />}
     <Card.Heading>Playground Card</Card.Heading>
     <Card.Description>Experiment with the Card component and its subcomponents.</Card.Description>
@@ -53,6 +61,7 @@ Playground.args = {
   layout: 'default',
   padding: 'normal',
   borderRadius: 'large',
+  shadow: true,
 }
 
 Playground.argTypes = {
@@ -71,12 +80,17 @@ Playground.argTypes = {
   },
   padding: {
     control: {type: 'radio'},
-    options: ['none', 'condensed', 'normal'],
-    description: 'Controls the internal padding of the Card',
+    options: ['none', 'condensed', 'regular', 'normal'],
+    description:
+      'Internal padding: none (0px), condensed (8px), regular (16px), normal (24px, or 16px in compact layout)',
   },
   borderRadius: {
     control: {type: 'radio'},
     options: ['medium', 'large'],
     description: 'Controls the border radius of the Card',
+  },
+  shadow: {
+    control: {type: 'boolean'},
+    description: 'Show or hide the Card shadow',
   },
 }
