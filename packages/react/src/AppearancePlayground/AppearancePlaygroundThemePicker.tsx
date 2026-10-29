@@ -105,12 +105,6 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
   const registerPortal = useRegisteredPortalRoot(portalContext.portalContainerName)
   const selected = themes.find(theme => theme.id === value)
   if (!selected) throw new Error(`Unknown playground theme: ${value}`)
-  const source = selected.palette?.source
-  const sourceUrl = source
-    ? 'repository' in source
-      ? `https://github.com/${source.repository}/blob/${source.revision}/${source.path.split('/').map(encodeURIComponent).join('/')}`
-      : source.url
-    : undefined
   const filtered = themes.filter(theme => theme.name.toLowerCase().includes(query.trim().toLowerCase()))
   const primerGroup = colorScheme?.startsWith('dark') ? 'dark' : 'light'
   const groupedThemes = themeGroups
@@ -176,20 +170,6 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
                 <div>
                   <h2>Palettes</h2>
                   <p>Pick a sourced palette for the app.</p>
-                </div>
-                <div className={classes.Source} role="group" aria-label="Active theme source">
-                  {source ? (
-                    <>
-                      <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
-                        {'repository' in source
-                          ? `${source.repository} @ ${source.revision.slice(0, 7)}`
-                          : `${source.title} · ${source.retrievedAt}`}
-                      </a>
-                      {source.notes ? <span>{source.notes}</span> : null}
-                    </>
-                  ) : (
-                    <span>Primer inherits the host app theme.</span>
-                  )}
                 </div>
                 <TextInput
                   ref={searchRef}
