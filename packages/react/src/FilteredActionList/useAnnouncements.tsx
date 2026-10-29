@@ -1,10 +1,10 @@
 // Announcements for FilteredActionList (and SelectPanel) based
 // on https://github.com/github/multi-select-user-testing
 
-import {announce as liveRegionAnnounce} from '@primer/live-region-element'
 import {useCallback, useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './index'
 import type {ItemInput} from '../SelectPanel'
+import {useAnnounce} from '../live-region'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
@@ -78,32 +78,51 @@ export const useAnnouncements = (
   filterValue?: string,
 ) => {
   const usingRovingTabindex = focusManagement === 'roving-tabindex'
-
-  const liveRegion = document.querySelector('live-region')
-
   // Notify user of the number of items available
   const selectedItems = items.filter(item => item.selected).length
+  const {announce: ariaNotify, cancel} = useAnnounce()
+  const focusTimeoutId = useRef<number | null>(null)
+  const updateFrameId = useRef<number | null>(null)
 
+  useEffect(() => {
+    return () => {
+      if (focusTimeoutId.current !== null) {
+        clearTimeout(focusTimeoutId.current)
+        focusTimeoutId.current = null
+      }
+      if (updateFrameId.current !== null) {
+        cancelAnimationFrame(updateFrameId.current)
+        updateFrameId.current = null
+      }
+    }
+  }, [])
   const announce = useCallback(
-    (...args: Parameters<typeof liveRegionAnnounce>): ReturnType<typeof liveRegionAnnounce> | undefined => {
+    (...args: Parameters<typeof ariaNotify>) => {
       if (enabled) {
-        return liveRegionAnnounce(...args)
+        ariaNotify(...args)
       }
     },
-    [enabled],
+    [ariaNotify, enabled],
   )
 
   const onInputFocus = useCallback(() => {
+    if (loading) {
+      return
+    }
+
     if (usingRovingTabindex) {
       const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
       announce(announcementText, {
         delayMs,
-        from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
       })
       return
     }
 
-    window.setTimeout(() => {
+    if (focusTimeoutId.current !== null) {
+      clearTimeout(focusTimeoutId.current)
+    }
+    focusTimeoutId.current = window.setTimeout(() => {
+      focusTimeoutId.current = null
       const activeItem = getItemWithActiveDescendant(listContainerRef, items)
       if (!activeItem) return
       const {index, text, selected} = activeItem
@@ -117,10 +136,9 @@ export const useAnnouncements = (
       ].join(', ')
       announce(announcementText, {
         delayMs,
-        from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
       })
     })
-  }, [announce, inputRef, items, listContainerRef, liveRegion, selectedItems, usingRovingTabindex])
+  }, [announce, inputRef, items, listContainerRef, loading, selectedItems, usingRovingTabindex])
 
   const announcementState = getAnnouncementState(items, loading, message, filterValue)
   const previousAnnouncementState = useRef(announcementState)
@@ -129,10 +147,24 @@ export const useAnnouncements = (
       if (previousAnnouncementState.current === announcementState) return
       previousAnnouncementState.current = announcementState
 
-      liveRegion?.clear() // clear previous announcements
+      // clear previous announcements
+      cancel()
+      if (focusTimeoutId.current !== null) {
+        clearTimeout(focusTimeoutId.current)
+        focusTimeoutId.current = null
+      }
+      if (updateFrameId.current !== null) {
+        cancelAnimationFrame(updateFrameId.current)
+        updateFrameId.current = null
+      }
 
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-      if (items.length === 0 && !loading) {
+      if (loading) {
+        return
+      }
+
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (items.length === 0) {
         announce(`${message?.title}. ${message?.description}`, {delayMs})
         return
       }
@@ -142,11 +174,11 @@ export const useAnnouncements = (
 
         announce(announcementText, {
           delayMs,
-          from: liveRegion ? liveRegion : undefined,
         })
       } else {
         // give @primer/behaviors a moment to update active-descendant
-        window.requestAnimationFrame(() => {
+        updateFrameId.current = window.requestAnimationFrame(() => {
+          updateFrameId.current = null
           const activeItem = getItemWithActiveDescendant(listContainerRef, items)
           if (!activeItem) return
           const {index, text, selected} = activeItem
@@ -160,17 +192,16 @@ export const useAnnouncements = (
 
           announce(announcementText, {
             delayMs,
-            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
           })
         })
       }
     },
     [
       announce,
+      cancel,
       announcementState,
       items,
       listContainerRef,
-      liveRegion,
       usingRovingTabindex,
       message?.title,
       message?.description,
