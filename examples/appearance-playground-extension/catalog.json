@@ -2871,6 +2871,7 @@
         "--ActionList--item-bgColor-selected": "#0000aa",
         "--ActionList--label-fontWeight-selected": "400",
         "--Button--fontWeight": "400",
+        "--Button--invisible-fgColor-rest": "var(--fgColor-default)",
         "--shadow-inset": "inset 1px 1px 0 #000000",
         "--shadow-resting-xsmall": "2px 2px 0 #000000",
         "--shadow-resting-small": "3px 3px 0 #000000",

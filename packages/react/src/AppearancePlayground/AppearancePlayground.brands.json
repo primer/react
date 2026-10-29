@@ -82,6 +82,7 @@
         "--ActionList--item-bgColor-selected": "#0000aa",
         "--ActionList--label-fontWeight-selected": "400",
         "--Button--fontWeight": "400",
+        "--Button--invisible-fgColor-rest": "var(--fgColor-default)",
         "--focus-outlineColor": "#ffff55",
         "--selection-bgColor": "#00aaaa",
         "--shadow-inset": "inset 1px 1px 0 #000000",

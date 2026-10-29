@@ -705,6 +705,33 @@ function NoodlesDemo() {
 
 export const Default: Story = {render: () => <NoodlesDemo />}
 
+export const MSDOS: Story = {
+  name: 'MS DOS',
+  render: () => <NoodlesDemo />,
+  play: async ({canvas, canvasElement}) => {
+    await userEvent.click(canvas.getByRole('button', {name: 'Choose theme: Primer'}))
+    const body = within(canvasElement.ownerDocument.body)
+    const dialog = within(await body.findByRole('dialog', {name: 'Themes'}))
+    await userEvent.click(dialog.getByRole('button', {name: 'Use MS DOS theme'}))
+    await userEvent.keyboard('{Escape}')
+    const controls = [
+      canvas.getByRole('link', {name: `Open ${noodlesProjectCover.title} cover`}),
+      canvas.getByRole('button', {name: 'Connect agent'}),
+      canvas.getByRole('button', {name: 'Status updates'}),
+      canvas.getByRole('button', {name: 'October 2, 2026'}),
+    ]
+    for (const control of controls) {
+      await expect(control).toHaveStyle({color: 'rgb(85, 255, 255)'})
+      await userEvent.hover(control)
+      await expect(control).toHaveStyle({color: 'rgb(85, 255, 255)'})
+      await userEvent.unhover(control)
+      control.focus()
+      await expect(control).toHaveFocus()
+      await expect(control).toHaveStyle({color: 'rgb(85, 255, 255)'})
+    }
+  },
+}
+
 export const NoodlesTheme: Story = {
   render: () => <NoodlesDemo />,
   play: async ({canvas, canvasElement}) => {
