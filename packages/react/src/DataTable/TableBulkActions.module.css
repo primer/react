@@ -23,6 +23,11 @@
   align-items: center;
   gap: var(--base-size-8);
   margin-inline-start: auto;
+
+  :focus {
+    /* Keep the focus ring inside the scroller despite scroll-offset rounding. */
+    scroll-margin: var(--base-size-4);
+  }
 }
 
 .HeaderRow,
