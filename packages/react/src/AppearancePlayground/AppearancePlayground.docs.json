@@ -1,0 +1,29 @@
+{
+  "id": "appearance-playground",
+  "name": "AppearancePlayground",
+  "status": "draft",
+  "a11yReviewed": false,
+  "importPath": "@primer/react/experimental",
+  "stories": [
+    {"id": "components-appearanceplayground--default"},
+    {"id": "components-appearanceplayground-features--independent-instances"}
+  ],
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "App content to preview with scoped appearance overrides."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Additional class name applied to the wrapper."
+    },
+    {
+      "name": "style",
+      "type": "React.CSSProperties",
+      "description": "Styles applied to the wrapper. Normal div attributes are also forwarded."
+    }
+  ]
+}

@@ -1,9 +1,12 @@
-import {createContext, forwardRef, useCallback, useContext, useId, useMemo, useState} from 'react'
-import type {HTMLAttributes, PropsWithChildren} from 'react'
+import {forwardRef, useId, useMemo, useState} from 'react'
+import type {FC, HTMLAttributes, PropsWithChildren, ReactNode} from 'react'
 import {clsx} from 'clsx'
 import {ThemeProvider} from '../next/ThemeProvider'
-import {PortalContext, registerPortalRoot} from '../Portal'
-import {PlaygroundThemePicker} from './PlaygroundThemePicker'
+import {useTheme} from '../useTheme'
+import {PortalContext} from '../Portal'
+import {useRegisteredPortalRoot} from '../internal/hooks/useRegisteredPortalRoot'
+import {AppearanceContext, useAppearance, usePlaygroundAppearanceScope} from '../internal/AppearancePlaygroundContext'
+import {PlaygroundThemePicker} from './AppearancePlaygroundThemePicker'
 import {
   densityVariables,
   paletteVariables,
@@ -13,29 +16,11 @@ import {
   seriousnessVariables,
   type PlaygroundDensity,
   type PlaygroundSeriousness,
-} from './PlaygroundAppearance.tokens'
-import classes from './PlaygroundAppearance.module.css'
-
-interface AppearanceContextValue {
-  scope: string
-  density: PlaygroundDensity
-  setDensity: (density: PlaygroundDensity) => void
-  seriousness: PlaygroundSeriousness
-  setSeriousness: (seriousness: PlaygroundSeriousness) => void
-  theme: string
-  setTheme: (theme: string) => void
-  portalContext: {portalContainerName: string}
-}
-
-const AppearanceContext = createContext<AppearanceContextValue | null>(null)
-
-function useAppearance() {
-  const appearance = useContext(AppearanceContext)
-  if (!appearance) throw new Error('Playground appearance controls require PlaygroundAppearanceProvider.')
-  return appearance
-}
+} from './AppearancePlayground.tokens'
+import classes from './AppearancePlayground.module.css'
 
 export function PlaygroundAppearanceProvider({children}: PropsWithChildren) {
+  const {colorScheme} = useTheme()
   const id = useId()
   const scope = `playground-${id}`
   const [density, setDensity] = useState<PlaygroundDensity>('default')
@@ -52,7 +37,7 @@ export function PlaygroundAppearanceProvider({children}: PropsWithChildren) {
   const declarations = Object.entries({
     ...densityVariables(density),
     ...paletteVariables(palette),
-    ...seriousnessVariables(seriousness),
+    ...seriousnessVariables(seriousness, palette?.mode ?? (colorScheme?.startsWith('dark') ? 'dark' : 'light')),
   })
     .map(([name, value]) => `${name}: ${value} !important;`)
     .join('\n')
@@ -76,26 +61,25 @@ export function PlaygroundAppearanceProvider({children}: PropsWithChildren) {
   )
 }
 
-export function usePlaygroundAppearanceScope() {
-  const {scope, theme} = useAppearance()
-  const palette = playgroundPalettes.find(value => value.id === theme)
-  return {
-    'data-playground-appearance': scope,
-    'data-color-mode': palette?.mode,
-    'data-light-theme': palette ? 'light' : undefined,
-    'data-dark-theme': palette ? 'dark' : undefined,
-    'data-playground-preset': palette?.preset,
-  }
+interface PlaygroundAppearanceDialsProps {
+  density: PlaygroundDensity
+  seriousness: PlaygroundSeriousness
+  onDensityChange: (density: PlaygroundDensity) => void
+  onSeriousnessChange: (seriousness: PlaygroundSeriousness) => void
 }
 
-export function PlaygroundAppearanceControls() {
-  const {density, setDensity, seriousness, setSeriousness, theme, setTheme} = useAppearance()
+export function PlaygroundAppearanceDials({
+  density,
+  seriousness,
+  onDensityChange,
+  onSeriousnessChange,
+}: PlaygroundAppearanceDialsProps) {
   const id = useId()
   const densityIndex = playgroundDensities.findIndex(value => value.id === density)
   const seriousnessIndex = playgroundSeriousnessProfiles.findIndex(value => value.id === seriousness)
   return (
-    <section className={classes.Controls} aria-label="Preview appearance">
-      <div className={classes.Control}>
+    <>
+      <div className={classes.Control} data-component="AppearancePlaygroundDials.Density">
         <label htmlFor={`${id}-density`}>
           Density
           <span className={classes.DensityValue}>{playgroundDensities[densityIndex].name}</span>
@@ -112,9 +96,9 @@ export function PlaygroundAppearanceControls() {
           aria-label="Density"
           aria-valuetext={playgroundDensities[densityIndex].name}
           onChange={event => {
-            const preset = playgroundDensities[event.currentTarget.valueAsNumber]
+            const preset = playgroundDensities.find((_, index) => index === event.currentTarget.valueAsNumber)
             if (!preset) throw new Error(`Unknown playground density step: ${event.currentTarget.value}`)
-            setDensity(preset.id)
+            onDensityChange(preset.id)
           }}
         />
         <datalist id={`${id}-density-steps`}>
@@ -123,7 +107,10 @@ export function PlaygroundAppearanceControls() {
           ))}
         </datalist>
       </div>
-      <div className={clsx(classes.Control, classes.SeriousnessControl)}>
+      <div
+        className={clsx(classes.Control, classes.SeriousnessControl)}
+        data-component="AppearancePlaygroundDials.Seriousness"
+      >
         <label htmlFor={`${id}-seriousness`}>
           Seriousness
           <span className={classes.DensityValue}>{playgroundSeriousnessProfiles[seriousnessIndex].name}</span>
@@ -141,9 +128,9 @@ export function PlaygroundAppearanceControls() {
           aria-valuetext={playgroundSeriousnessProfiles[seriousnessIndex].name}
           aria-describedby={`${id}-seriousness-description`}
           onChange={event => {
-            const preset = playgroundSeriousnessProfiles[event.currentTarget.valueAsNumber]
+            const preset = playgroundSeriousnessProfiles.find((_, index) => index === event.currentTarget.valueAsNumber)
             if (!preset) throw new Error(`Unknown playground seriousness step: ${event.currentTarget.value}`)
-            setSeriousness(preset.id)
+            onSeriousnessChange(preset.id)
           }}
         />
         <datalist id={`${id}-seriousness-steps`}>
@@ -152,10 +139,25 @@ export function PlaygroundAppearanceControls() {
           ))}
         </datalist>
         <span id={`${id}-seriousness-description`} hidden>
-          Visual styling only, not a security setting. Presets combine spacing, fonts, weights and corner radii. Density
-          can override spacing afterward. Default restores the theme styling and Default density.
+          Visual styling only, not a security setting. Presets combine fonts, weights, corner radii and gentle density
+          changes. Friendly social adds purple and pink; Bank security uses neutral colors and raised, square buttons.
+          Density can override spacing afterward. Default restores the theme styling and Default density.
         </span>
       </div>
+    </>
+  )
+}
+
+export function PlaygroundAppearanceControls() {
+  const {density, setDensity, seriousness, setSeriousness, theme, setTheme} = useAppearance()
+  return (
+    <section className={classes.Controls} aria-label="Preview appearance" data-component="AppearancePlaygroundControls">
+      <PlaygroundAppearanceDials
+        density={density}
+        seriousness={seriousness}
+        onDensityChange={setDensity}
+        onSeriousnessChange={setSeriousness}
+      />
       <PlaygroundThemePicker className={classes.ThemeControl} value={theme} onChange={setTheme} />
     </section>
   )
@@ -174,7 +176,13 @@ export const PlaygroundAppearanceSurface = forwardRef<HTMLDivElement, HTMLAttrib
         nightScheme={palette ? 'dark' : undefined}
       >
         <PortalContext.Provider value={appearance.portalContext}>
-          <div {...props} {...attributes} className={clsx(classes.Surface, className)} ref={ref}>
+          <div
+            {...props}
+            {...attributes}
+            data-component="AppearancePlaygroundSurface"
+            className={clsx(classes.Surface, className)}
+            ref={ref}
+          >
             {children}
           </div>
         </PortalContext.Provider>
@@ -185,19 +193,23 @@ export const PlaygroundAppearanceSurface = forwardRef<HTMLDivElement, HTMLAttrib
 
 export function PlaygroundAppearancePortals(props: HTMLAttributes<HTMLDivElement>) {
   const {portalContext} = useAppearance()
-  const register = useCallback(
-    (element: HTMLDivElement | null) => {
-      if (element) registerPortalRoot(element, portalContext.portalContainerName)
-    },
-    [portalContext],
-  )
+  const register = useRegisteredPortalRoot(portalContext.portalContainerName)
   return <PlaygroundAppearanceSurface {...props} className={classes.Portals} ref={register} />
 }
 
-export function PlaygroundAppearance({children}: PropsWithChildren) {
+export interface AppearancePlaygroundProps extends HTMLAttributes<HTMLDivElement> {
+  /** App content whose appearance should be customized. */
+  children: ReactNode
+}
+
+/**
+ * Demo-only appearance controls and a scoped preview of the wrapped app.
+ * Requires the app's normal Primer theme provider and base styles.
+ */
+export const AppearancePlayground: FC<AppearancePlaygroundProps> = ({children, className, ...props}) => {
   return (
     <PlaygroundAppearanceProvider>
-      <div className={classes.Playground}>
+      <div {...props} data-component="AppearancePlayground" className={clsx(classes.Playground, className)}>
         <PlaygroundAppearancePortals />
         <PlaygroundAppearanceControls />
         <PlaygroundAppearanceSurface>{children}</PlaygroundAppearanceSurface>

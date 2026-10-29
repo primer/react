@@ -27,8 +27,7 @@ import {
   PlaygroundAppearanceSurface,
   usePlaygroundAppearanceScope,
 } from './PlaygroundAppearance'
-import * as sideNavStories from './deprecated/SideNav.dev.stories'
-import * as visuallyHiddenStories from '../VisuallyHidden/VisuallyHidden.dev.stories'
+import {warn} from '../utils/warning'
 import {collectUsedVariables} from './ComponentGallery.tokens'
 import type {GalleryVariable, VariableScan} from './ComponentGallery.tokens'
 import tokenCatalog from './ComponentGallery.catalog.json'
@@ -62,15 +61,21 @@ const discoveredModules = import.meta.glob<StoryModule>(
     '!../ConfirmationDialog/**',
     '!../deprecated/DialogV1/**',
     '!../Portal/**',
+    '!../AppearancePlayground/**',
     '!../BaseStyles*',
   ],
   {eager: true},
 )
 
+const legacyModules = import.meta.glob<StoryModule>(
+  ['./deprecated/SideNav.dev.stories.tsx', '../VisuallyHidden/VisuallyHidden.dev.stories.tsx'],
+  {eager: true},
+)
+
 const modules: Record<string, StoryModule> = {
   ...discoveredModules,
-  '../SideNav.stories.tsx': sideNavStories,
-  '../VisuallyHidden.stories.tsx': visuallyHiddenStories,
+  '../SideNav.stories.tsx': legacyModules['./deprecated/SideNav.dev.stories.tsx'],
+  '../VisuallyHidden.stories.tsx': legacyModules['../VisuallyHidden/VisuallyHidden.dev.stories.tsx'],
 }
 
 interface GalleryExample {
@@ -186,7 +191,8 @@ const entries: GalleryEntry[] = Object.entries(modules)
     const examples = examplesFor(stories)
     if (examples.length === 0) return []
     const primary = examples.find(example => example.name === 'Default') ?? examples[0]
-    const features = modules[path.replace('.stories.tsx', '.features.stories.tsx')]
+    const featurePath = path.replace('.stories.tsx', '.features.stories.tsx')
+    const features = Object.hasOwn(modules, featurePath) ? modules[featurePath] : undefined
     const variants = features
       ? examplesFor(features).slice(0, 2)
       : examples.filter(example => example !== primary && example.name !== 'Playground').slice(0, 2)
@@ -263,22 +269,20 @@ function VariableEditor({preview, selectedSection, onClearSelection}: VariableEd
   const [error, setError] = useState('')
   const overrideStyle = useRef<HTMLStyleElement | null>(null)
   const componentDefaults = useRef<HTMLSpanElement>(null)
-  const scanWarnings = scan.warnings.join('\n')
+  const lastScanWarnings = useRef('')
   const selectedEntry = entries.find(entry => entry.title === selectedSection)
   const selectedScope = useMemo(() => {
     if (!selectedEntry) return null
     const scope = new Set<string>()
     for (const example of selectedEntry.examples) {
+      if (!Object.hasOwn(storyComponentDependencies, example.id)) {
+        throw new Error(`Missing component gallery dependency snapshot for story: ${example.id}`)
+      }
       const dependencies = storyComponentDependencies[example.id]
-      if (!dependencies) throw new Error(`Missing component gallery dependency snapshot for story: ${example.id}`)
       for (const dependency of dependencies) scope.add(dependency)
     }
     return scope
   }, [selectedEntry])
-
-  useEffect(() => {
-    if (scanWarnings) console.warn(`Component gallery CSS variable inspection:\n${scanWarnings}`)
-  }, [scanWarnings])
 
   const refreshVariables = useCallback(() => {
     if (!preview.current || !selectedSection || !selectedScope || !componentDefaults.current) return
@@ -287,7 +291,13 @@ function VariableEditor({preview, selectedSection, onClearSelection}: VariableEd
     const sheet = overrideStyle.current?.sheet
     if (sheet) sheet.disabled = true
     try {
-      setScan(collectUsedVariables(root, {scope: selectedScope, element: componentDefaults.current}))
+      const result = collectUsedVariables(root, {scope: selectedScope, element: componentDefaults.current})
+      const warnings = result.warnings.join('\n')
+      if (warnings !== lastScanWarnings.current) {
+        lastScanWarnings.current = warnings
+        if (warnings) warn(`Component gallery CSS variable inspection:\n${warnings}`)
+      }
+      setScan(result)
     } finally {
       if (sheet) sheet.disabled = false
     }
@@ -703,7 +713,7 @@ function VariableEditor({preview, selectedSection, onClearSelection}: VariableEd
                                     id={`gallery-${variable.name}`}
                                     aria-label={`Value for ${variable.name}`}
                                     value={displayValue(variable)}
-                                    title="Standalone rem values are displayed in px using the current root font size."
+                                    aria-description="Standalone rem values are displayed in px using the current root font size."
                                     placeholder="Not set in current theme"
                                     onChange={event =>
                                       updateVariable(referencedVariable(variable) ?? variable.name, event.target.value)
@@ -853,15 +863,15 @@ const meta = {
     docs: {
       description: {
         component:
-          'The compact appearance bar combines Density, Seriousness and Theme. Seriousness has five visual-only presets from Friendly social through Default to Bank security, coordinating spacing, local font stacks, type sizes/weights and corner radii without changing theme colors or actual security. Selecting a preset sets Density; Density can override spacing afterward. Default restores the selected theme typography/radii and Default density. Theme changes retain the chosen Seriousness. Controls and the variable editor stay protected; preview portals share the styling. ' +
+          'The compact appearance bar combines Density, Seriousness and Theme. Seriousness has five visual-only presets from Friendly social through Default to Bank security, coordinating local fonts, type sizes/weights, corner radii and gentler spacing. Automatic density shifts are limited to one step. Friendly social adds purple/pink colors and soft shadows; Bank security uses neutral surfaces, quieter categorical labels and raised square OS-style buttons. Semantic status/danger colors remain distinguishable; this has no security effect. The middle three presets retain theme colors. Density can override spacing afterward. Default restores the selected theme colors, typography/radii and Default density. Theme changes retain the chosen Seriousness. Controls and the variable editor stay protected; preview portals share the styling. ' +
           'The theme picker is a compact two-column side sheet with a transparent backdrop so theme changes remain visible on the preview. ' +
           'Linear additionally adapts the supplied app screenshot through existing theme variables: charcoal content and sidebar, subtly raised cards, cool-gray text, fine borders, neutral selection fills and no vertical selection marker. Essential input outlines and metadata retain readable contrast. Screenshot grain and lighting are approximated with flat colors; tabs remain a Primer adaptation because the reference shows an issue-detail page. No component CSS, Linear stylesheets or font files are added. ' +
           'Stripe additionally adapts the supplied Dashboard screenshot through theme variables: pale sidebar, white content and top chrome, fine neutral dividers, blue selected text and underlines, and navigation spacing. Default-preserving hooks independently control the sidebar, ActionList selection indicators, and active tab text, including overflow labels. Other accent borders retain their semantic color. No Stripe-specific component selectors or stylesheets are used; content, font fallbacks and density remain Primer adaptations rather than a pixel-perfect product replica. ' +
           'Navigation is an exception to the density tier clamp: tabs match the overflow button height, and the extra-large container grows to include the shifted top and bottom spacing. ' +
-          'Shopify Polaris, Linear (Dark) and Stripe presets additionally adapt public brand token values through scoped CSS variables only. PlaygroundAppearance.brands.json records source versions, per-role color provenance and adaptation notes. Shopify uses the older MIT-licensed Polaris Tokens 4.0.0 baseline. Linear combines public dark app surfaces and typography with its website palette; it is not an official app theme. Linear and Stripe name their published font families with local fallbacks; no brand fonts or component stylesheets are downloaded. Stripe combines public website tokens with Appearance API guidance, not an official Dashboard theme. Brand presets preserve the density-controlled spacing scale. ' +
+          'Shopify Polaris, Linear (Dark) and Stripe presets additionally adapt public brand token values through scoped CSS variables only. AppearancePlayground/AppearancePlayground.brands.json records source versions, per-role color provenance and adaptation notes. Shopify uses the older MIT-licensed Polaris Tokens 4.0.0 baseline. Linear combines public dark app surfaces and typography with its website palette; it is not an official app theme. Linear and Stripe name their published font families with local fallbacks; no brand fonts or component stylesheets are downloaded. Stripe combines public website tokens with Appearance API guidance, not an official Dashboard theme. Brand presets preserve the density-controlled spacing scale. ' +
           'Dependencies are snapshotted per rendered story ID, following only its export, referenced helpers, args, applicable metadata, and runtime component source files. A namespace is included only when its CSS is reached; shared CSS and context-only imports do not expand into an entire component graph. Type-only imports, unused exports, play functions, documentation-only subcomponents, and unrelated companion stories do not contribute. The inspector unions only the examples actually rendered in the selected card, including the separate Add context list/menu examples. Story IDs distinguish current, experimental, and deprecated components even when their display names match. ' +
           'The density slider updates the preview live across five steps: Very compact, Compact, Default, Spacious, and Very spacious. These shift the base spacing scale and control size, padding, and gap tiers by -2, -1, 0, 1, and 2 steps, clamping the smallest and largest tiers. Functional stack padding and gap tokens follow the shifted base scale, including the vertical padding of issue rows. ActionList icons retain a 16px minimum and their visual slots retain a 20px minimum so compact spacing does not shrink pictograms or misalign them with text. Default restores the original primitives. ' +
-          'Theme presets snapshot actual color values from the supplied VS Code theme repositories, with commit-pinned source files and original color-role provenance in PlaygroundAppearance.sources.json. Inherited definitions are resolved; duplicate no-italics palettes are omitted. These are independent Primer adaptations, not imported VS Code theme implementations. Tints and contrast-safe text are derived locally. Windows 95 additionally applies its original palette, square corners, raised/sunken primitive shadows, and the bundled OFL-licensed W95FA font. Primer inherits the Storybook theme. Appearance changes apply to preview components, their portals, and the hidden variable resolver; the editor and appearance controls remain unchanged. Manual variable overrides take precedence over appearance presets. ' +
+          'Theme presets snapshot actual color values from the supplied VS Code theme repositories, with commit-pinned source files and original color-role provenance in AppearancePlayground/AppearancePlayground.sources.json. Inherited definitions are resolved; duplicate no-italics palettes are omitted. These are independent Primer adaptations, not imported VS Code theme implementations. Tints and contrast-safe text are derived locally. Windows 95 additionally applies its original palette, square corners, raised/sunken primitive shadows, and the bundled OFL-licensed W95FA font. Primer inherits the Storybook theme. Appearance changes apply to preview components, their portals, and the hidden variable resolver; the editor and appearance controls remain unchanged. Manual variable overrides take precedence over appearance presets. ' +
           'The theme button opens a searchable palette side sheet with miniature previews and an Active indicator. Palettes appear once, ordered as Light themes, Dark themes, and Other companies, which includes brand presets, Glass UI, and Windows/Mac-inspired presets. Primer follows the current Storybook color mode. Search hides empty groups. Selecting a card applies it immediately while keeping the picker open. ' +
           'ActionList and ActionMenu share an Add context example with icons, shortcuts, and a divider. ' +
           'Variables are grouped into Typography, Spacing, Colors, and Rest; empty groups are hidden. ' +

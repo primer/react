@@ -8,6 +8,9 @@
 
 'use client'
 
+export {AppearancePlayground} from '../AppearancePlayground'
+export type {AppearancePlaygroundProps} from '../AppearancePlayground'
+
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 

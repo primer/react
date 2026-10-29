@@ -1,0 +1,26 @@
+.App {
+  display: grid;
+  gap: var(--base-size-16);
+  align-content: start;
+  justify-items: start;
+  min-height: 480px;
+  padding: var(--base-size-24);
+
+  h1,
+  p {
+    margin: 0;
+  }
+}
+
+.Actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-8);
+}
+
+.SidebarDials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-16);
+  margin-bottom: var(--base-size-24);
+}

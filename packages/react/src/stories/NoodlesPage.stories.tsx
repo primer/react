@@ -1,0 +1,855 @@
+import {useId, useRef, useState} from 'react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
+import {expect, userEvent, waitFor, within} from 'storybook/test'
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  BookIcon,
+  ChevronDownIcon,
+  CodeSquareIcon,
+  CommentDiscussionIcon,
+  CommentIcon,
+  GearIcon,
+  GrabberIcon,
+  HomeIcon,
+  KebabHorizontalIcon,
+  LinkIcon,
+  PaperclipIcon,
+  PencilIcon,
+  PlusIcon,
+  ScreenFullIcon,
+  SidebarCollapseIcon,
+  SidebarExpandIcon,
+  SyncIcon,
+  ZapIcon,
+} from '@primer/octicons-react'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import {Button, IconButton} from '../Button'
+import {Dialog} from '../Dialog'
+import FormControl from '../FormControl'
+import Heading from '../Heading'
+import {NavList} from '../NavList'
+import {PageLayout} from '../PageLayout'
+import Textarea from '../Textarea'
+import TextInput from '../TextInput'
+import {
+  PlaygroundAppearanceControls,
+  PlaygroundAppearancePortals,
+  PlaygroundAppearanceProvider,
+  PlaygroundAppearanceSurface,
+} from './PlaygroundAppearance'
+import {
+  noodlesPages,
+  noodlesProjectCover,
+  noodlesProjectPages,
+  noodlesReports,
+  noodlesStatusSections,
+} from './NoodlesPage.fixtures'
+import type {NoodlesPageFixture} from './NoodlesPage.fixtures'
+import classes from './NoodlesPage.stories.module.css'
+
+const meta = {
+  title: 'Design tools/Noodles page',
+  globals: {colorScheme: 'light'},
+  parameters: {
+    layout: 'fullscreen',
+    controls: {disable: true},
+    docs: {
+      description: {
+        component:
+          'PageLayout provides the sidebar, document and comments regions. The native resizable sidebar supports dragging and keyboard resizing from 240px to 480px, preserves its width through navigation toggles and focus mode, and resets to 312px on double-click or reload. ' +
+          'A separate Primer-first interpretation of a user-authorized Noodles reference. Default uses unmodified Primer appearance tokens and a standard NavList, including its built-in subpage disclosure, selection, spacing and typography. No story CSS customizes NavList or its items. The Noodles theme is an optional scoped preset; every existing theme, Density and Seriousness control also works here. Page layout approximates the reference without importing its code, fonts, assets, authenticated URLs, account details or report copy. Workspace and navigation labels match the reference; report bodies, notes and newly created pages are original local fixtures. The cover link and noodle switcher are separate controls. Expanding project subpages does not hide sibling collections. Navigation, report switching, page creation/renaming/duplication, comments, attachments, reading width, focus mode and Markdown preview run locally. No account connection, remote writes or persistence. Reloading resets the demo.',
+      },
+    },
+  },
+} satisfies Meta
+
+export default meta
+type Story = StoryObj<typeof meta>
+type UtilityDialog = 'agent' | 'settings' | 'attachments' | null
+type EditDialog = 'new' | 'rename' | null
+const initialPages = [noodlesProjectCover, ...noodlesProjectPages, ...noodlesPages]
+
+function NoodleCover() {
+  return <span className={classes.NoodleCover} aria-hidden="true" />
+}
+
+function NoodleSwitcherIcon() {
+  return (
+    <span className={classes.CoverChevron} aria-hidden="true">
+      <ChevronDownIcon size={12} />
+    </span>
+  )
+}
+
+function NoodlesPage() {
+  const [pages, setPages] = useState([...initialPages])
+  const [selectedId, setSelectedId] = useState('status-updates')
+  const [reportIndex, setReportIndex] = useState(0)
+  const [sidebarVisible, setSidebarVisible] = useState(true)
+  const [sidebarWidth, setSidebarWidth] = useState(312)
+  const [focusMode, setFocusMode] = useState(false)
+  const [wide, setWide] = useState(false)
+  const [markdown, setMarkdown] = useState(false)
+  const [commentsOpen, setCommentsOpen] = useState(false)
+  const [notesByPage, setNotesByPage] = useState<Record<string, string[]>>({})
+  const [noteDraft, setNoteDraft] = useState('')
+  const [utilityDialog, setUtilityDialog] = useState<UtilityDialog>(null)
+  const [editDialog, setEditDialog] = useState<EditDialog>(null)
+  const [draftTitle, setDraftTitle] = useState('')
+  const [titleError, setTitleError] = useState(false)
+  const [attachmentsByPage, setAttachmentsByPage] = useState<Record<string, string[]>>({})
+  const [deliveryGroup, setDeliveryGroup] = useState('Third slice')
+  const [notice, setNotice] = useState('')
+  const [reportTitles, setReportTitles] = useState<Record<string, string>>({})
+  const id = useId()
+  const nextId = useRef(0)
+  const titleRef = useRef<HTMLInputElement>(null)
+  const selected = pages.find(page => page.id === selectedId)
+  if (!selected) throw new Error(`Unknown local Noodles page: ${selectedId}`)
+  const reportDate = noodlesReports.find((_, index) => index === reportIndex)
+  if (!reportDate) throw new Error(`Unknown local Noodles report: ${reportIndex}`)
+  const isReport = selected.id === 'status-updates'
+  const pageKey = isReport ? reportDate : selected.id
+  const notes = notesByPage[pageKey] ?? []
+  const attachments = attachmentsByPage[pageKey] ?? []
+  const title = isReport ? (reportTitles[reportDate] ?? reportDate) : selected.title
+  const markdownPreview = [
+    `# ${title}`,
+    '',
+    isReport ? `## Week ${12 - reportIndex}: Rollout readiness` : `## ${selected.title}`,
+    '',
+    'Demo notes for the Octoinvaders Ink Shield team.',
+    ...noodlesStatusSections.flatMap(section => [
+      '',
+      `## ${section.heading}`,
+      '',
+      ...(section.items?.map(item => `- ${item}`) ?? [section.paragraph]),
+    ]),
+  ].join('\n')
+
+  function openEditor(mode: EditDialog) {
+    setDraftTitle(mode === 'rename' ? title : '')
+    setTitleError(false)
+    setEditDialog(mode)
+  }
+
+  function addPage(pageTitle: string, parentId?: string) {
+    const page = {id: `${id}-page-${nextId.current++}`, title: pageTitle, parentId}
+    setPages(current => [...current, page])
+    setSelectedId(page.id)
+    setNotice(`Created "${pageTitle}" locally. Nothing was saved remotely.`)
+  }
+
+  function reset() {
+    setPages([...initialPages])
+    setSelectedId('status-updates')
+    setReportIndex(0)
+    setReportTitles({})
+    setNotesByPage({})
+    setAttachmentsByPage({})
+    setNoteDraft('')
+    setMarkdown(false)
+    setNotice('Local pages, comments and attachments reset. Appearance choices are unchanged.')
+  }
+
+  function openCover() {
+    setSelectedId('project-cover')
+    setMarkdown(false)
+  }
+
+  function renderPage(page: NoodlesPageFixture) {
+    return (
+      <NavList.Item
+        key={page.id}
+        href={`#${id}-${page.id}`}
+        aria-current={selectedId === page.id ? 'page' : undefined}
+        onClick={event => {
+          event.preventDefault()
+          setSelectedId(page.id)
+          setMarkdown(false)
+        }}
+      >
+        {page.title}
+        {page.count !== undefined && <NavList.TrailingVisual>{page.count}</NavList.TrailingVisual>}
+      </NavList.Item>
+    )
+  }
+
+  return (
+    <div className={classes.Workspace} data-sidebar={sidebarVisible && !focusMode} data-comments={commentsOpen}>
+      <PageLayout className={classes.Layout} containerWidth="full" padding="none" rowGap="none" columnGap="none">
+        {sidebarVisible && !focusMode && (
+          <PageLayout.Sidebar
+            className={classes.SidebarRegion}
+            aria-label="Page navigation"
+            resizable
+            width={{min: '240px', default: '312px', max: '480px'}}
+            currentWidth={sidebarWidth}
+            onResizeEnd={setSidebarWidth}
+          >
+            <aside className={classes.Sidebar} aria-label="Page navigation">
+              <div className={classes.Brand}>
+                <span className={classes.Wordmark}>
+                  <LinkIcon size={16} /> Noodles
+                </span>
+                <IconButton
+                  icon={SidebarCollapseIcon}
+                  variant="invisible"
+                  size="small"
+                  className={classes.NavigationToggle}
+                  aria-label="Hide page navigation"
+                  onClick={() => setSidebarVisible(false)}
+                />
+              </div>
+              <div className={classes.Project}>
+                <ActionMenu>
+                  <ActionMenu.Anchor>
+                    <IconButton
+                      icon={NoodleSwitcherIcon}
+                      variant="invisible"
+                      size="small"
+                      className={classes.ProjectSwitch}
+                      aria-label="Switch noodle"
+                    />
+                  </ActionMenu.Anchor>
+                  <ActionMenu.Overlay>
+                    <ActionList selectionVariant="single">
+                      <ActionList.Group>
+                        <ActionList.GroupHeading>Favourite noodles</ActionList.GroupHeading>
+                        <ActionList.Item selected onSelect={openCover}>
+                          {noodlesProjectCover.title}
+                        </ActionList.Item>
+                      </ActionList.Group>
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
+                <Button
+                  as="a"
+                  href={`#${id}-document`}
+                  aria-label={`Open ${noodlesProjectCover.title} cover`}
+                  className={classes.ProjectCoverLink}
+                  variant="invisible"
+                  leadingVisual={NoodleCover}
+                  block
+                  alignContent="start"
+                  onClick={event => {
+                    event.preventDefault()
+                    openCover()
+                  }}
+                >
+                  {noodlesProjectCover.title}
+                </Button>
+                <ActionMenu>
+                  <ActionMenu.Anchor>
+                    <IconButton
+                      icon={PlusIcon}
+                      variant="invisible"
+                      size="small"
+                      className={classes.ProjectCreate}
+                      aria-label="Create"
+                    />
+                  </ActionMenu.Anchor>
+                  <ActionMenu.Overlay>
+                    <ActionList>
+                      <ActionList.Item onSelect={() => openEditor('new')}>
+                        New page
+                        <ActionList.Description variant="block">Create content</ActionList.Description>
+                      </ActionList.Item>
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
+              </div>
+              <div className={classes.Navigation}>
+                <NavList aria-label="Noodle pages">
+                  <NavList.Item>
+                    {noodlesProjectCover.title}
+                    <NavList.SubNav>
+                      {pages.filter(page => page.parentId === 'project-cover').map(renderPage)}
+                    </NavList.SubNav>
+                  </NavList.Item>
+                  {pages.filter(page => page.id !== 'project-cover' && !page.parentId).map(renderPage)}
+                </NavList>
+                <Button
+                  variant="invisible"
+                  leadingVisual={PlusIcon}
+                  block
+                  alignContent="start"
+                  onClick={() => openEditor('new')}
+                >
+                  New page
+                </Button>
+              </div>
+              <div className={classes.SidebarFooter}>
+                <Button
+                  className={classes.SidebarAction}
+                  variant="invisible"
+                  leadingVisual={CommentDiscussionIcon}
+                  trailingAction={PlusIcon}
+                  block
+                  alignContent="start"
+                  onClick={() => setUtilityDialog('agent')}
+                >
+                  Connect agent
+                </Button>
+                <Button
+                  className={classes.SidebarAction}
+                  variant="invisible"
+                  leadingVisual={BookIcon}
+                  block
+                  alignContent="start"
+                  onClick={() => setUtilityDialog('settings')}
+                >
+                  Noodle settings
+                </Button>
+                <div className={classes.Account}>
+                  <span className={classes.Avatar} aria-hidden="true">
+                    M
+                  </span>
+                  <span>Mona &middot; Demo account</span>
+                  <IconButton
+                    icon={GearIcon}
+                    variant="invisible"
+                    size="small"
+                    aria-label="App settings"
+                    onClick={() => setUtilityDialog('settings')}
+                  />
+                </div>
+              </div>
+            </aside>
+          </PageLayout.Sidebar>
+        )}
+        <PageLayout.Content as="div" className={classes.ContentRegion} width="full" padding="none">
+          <div className={classes.PagePanel} data-focus={focusMode} data-wide={wide}>
+            <header className={classes.Header}>
+              {(!sidebarVisible || focusMode) && (
+                <IconButton
+                  icon={SidebarExpandIcon}
+                  variant="invisible"
+                  size="small"
+                  aria-label="Show page navigation"
+                  onClick={() => {
+                    setSidebarVisible(true)
+                    setFocusMode(false)
+                  }}
+                />
+              )}
+              {selected.id === 'project-cover' && (
+                <IconButton icon={HomeIcon} variant="invisible" aria-label="Open noodle cover" onClick={openCover} />
+              )}
+              <div className={classes.Breadcrumb} role="group" aria-label="Current page">
+                <Button
+                  variant="invisible"
+                  size="small"
+                  leadingVisual={CodeSquareIcon}
+                  onClick={() => {
+                    setSelectedId('status-updates')
+                    setReportIndex(0)
+                  }}
+                >
+                  {isReport ? 'Status updates' : 'Workspace'}
+                </Button>
+                <span className={classes.Muted} aria-hidden="true">
+                  /
+                </span>
+                {isReport ? (
+                  <ActionMenu>
+                    <ActionMenu.Button size="small" variant="invisible">
+                      {title}
+                    </ActionMenu.Button>
+                    <ActionMenu.Overlay width="medium">
+                      <ActionList selectionVariant="single">
+                        {noodlesReports.map((report, index) => (
+                          <ActionList.Item
+                            key={report}
+                            selected={reportIndex === index}
+                            onSelect={() => setReportIndex(index)}
+                          >
+                            {report}
+                          </ActionList.Item>
+                        ))}
+                      </ActionList>
+                    </ActionMenu.Overlay>
+                  </ActionMenu>
+                ) : (
+                  <span className={classes.CurrentTitle}>{title}</span>
+                )}
+                <ActionMenu>
+                  <ActionMenu.Anchor>
+                    <IconButton icon={KebabHorizontalIcon} aria-label="Page actions" size="small" variant="invisible" />
+                  </ActionMenu.Anchor>
+                  <ActionMenu.Overlay>
+                    <ActionList>
+                      <ActionList.Item onSelect={() => openEditor('rename')}>Rename page</ActionList.Item>
+                      <ActionList.Item onSelect={() => addPage(`${title} (copy)`, selected.parentId)}>
+                        Duplicate page
+                      </ActionList.Item>
+                      <ActionList.Divider />
+                      <ActionList.Item onSelect={reset}>Reset local changes</ActionList.Item>
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
+                <IconButton
+                  icon={PlusIcon}
+                  size="small"
+                  variant="invisible"
+                  aria-label="Add tab"
+                  onClick={() => openEditor('new')}
+                />
+              </div>
+              <div className={classes.HeaderActions}>
+                <IconButton
+                  icon={CommentIcon}
+                  size="small"
+                  variant="invisible"
+                  aria-label="Page comments"
+                  aria-expanded={commentsOpen}
+                  aria-controls={`${id}-comments`}
+                  onClick={() => setCommentsOpen(value => !value)}
+                />
+                <div className={classes.SecondaryActions}>
+                  <IconButton
+                    icon={PaperclipIcon}
+                    size="small"
+                    variant="invisible"
+                    aria-label="Page attachments"
+                    onClick={() => setUtilityDialog('attachments')}
+                  />
+                  <IconButton
+                    icon={ZapIcon}
+                    size="small"
+                    variant="invisible"
+                    aria-label="Page automation"
+                    onClick={() => setUtilityDialog('agent')}
+                  />
+                  <IconButton
+                    icon={CommentDiscussionIcon}
+                    size="small"
+                    variant="invisible"
+                    aria-label="Open assistant"
+                    onClick={() => setUtilityDialog('agent')}
+                  />
+                </div>
+                <IconButton
+                  icon={ScreenFullIcon}
+                  size="small"
+                  variant="invisible"
+                  aria-label="Focus mode"
+                  aria-pressed={focusMode}
+                  onClick={() => setFocusMode(value => !value)}
+                />
+                <span className={classes.HeaderDivider} />
+                <IconButton
+                  icon={ArrowUpIcon}
+                  size="small"
+                  variant="invisible"
+                  aria-label="Previous report"
+                  disabled={!isReport || reportIndex === noodlesReports.length - 1}
+                  onClick={() => setReportIndex(index => index + 1)}
+                />
+                <IconButton
+                  icon={ArrowDownIcon}
+                  size="small"
+                  variant="invisible"
+                  aria-label="Next report"
+                  disabled={!isReport || reportIndex === 0}
+                  onClick={() => setReportIndex(index => index - 1)}
+                />
+              </div>
+            </header>
+            <main id={`${id}-document`} className={classes.ScrollArea} aria-label="Noodles document" tabIndex={0}>
+              <article className={classes.Document}>
+                {markdown ? (
+                  <Textarea block readOnly rows={28} aria-label="Markdown preview" value={markdownPreview} />
+                ) : (
+                  <>
+                    <Heading as="h1" className={classes.Title}>
+                      {title}
+                    </Heading>
+                    <section className={classes.Introduction}>
+                      <Heading as="h2" className={classes.SectionHeading}>
+                        {isReport ? `Week ${12 - reportIndex}: Rollout readiness` : selected.title}
+                      </Heading>
+                      <p>
+                        {isReport
+                          ? 'Demo weekly report for the Octoinvaders Ink Shield team.'
+                          : 'A local planning page for the Octoinvaders Ink Shield project.'}
+                      </p>
+                    </section>
+                    {noodlesStatusSections.map((section, index) => (
+                      <section className={classes.Section} key={section.heading}>
+                        <span className={classes.BlockHandle} aria-hidden="true">
+                          <GrabberIcon size={16} />
+                        </span>
+                        <Heading as="h2" className={classes.SectionHeading}>
+                          {section.heading}
+                        </Heading>
+                        {section.items ? (
+                          <ul>
+                            {section.items.map(item => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>{section.paragraph}</p>
+                        )}
+                        {!isReport && index === 0 && (
+                          <p className={classes.Muted}>Use the page menu to rename or duplicate this fixture.</p>
+                        )}
+                      </section>
+                    ))}
+                  </>
+                )}
+              </article>
+            </main>
+            <footer className={classes.EditorFooter}>
+              <Button
+                variant="invisible"
+                size="small"
+                leadingVisual={PencilIcon}
+                aria-label={markdown ? 'Switch to Rich text' : 'Switch to Markdown'}
+                onClick={() => setMarkdown(value => !value)}
+              >
+                {markdown ? 'Markdown' : 'Rich text'}
+              </Button>
+              <ActionMenu>
+                <ActionMenu.Anchor>
+                  <IconButton icon={KebabHorizontalIcon} variant="invisible" size="small" aria-label="Editor options" />
+                </ActionMenu.Anchor>
+                <ActionMenu.Overlay>
+                  <ActionList selectionVariant="single">
+                    <ActionList.Item selected={!wide} onSelect={() => setWide(false)}>
+                      Comfortable width
+                    </ActionList.Item>
+                    <ActionList.Item selected={wide} onSelect={() => setWide(true)}>
+                      Wide page
+                    </ActionList.Item>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+              <span className={classes.Notice} role="status">
+                {notice}
+              </span>
+              <ActionMenu>
+                <ActionMenu.Button size="small">{deliveryGroup}</ActionMenu.Button>
+                <ActionMenu.Overlay>
+                  <ActionList selectionVariant="single">
+                    {['First slice', 'Second slice', 'Third slice'].map(group => (
+                      <ActionList.Item
+                        key={group}
+                        selected={deliveryGroup === group}
+                        onSelect={() => setDeliveryGroup(group)}
+                      >
+                        {group}
+                      </ActionList.Item>
+                    ))}
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+              <IconButton
+                icon={SyncIcon}
+                size="small"
+                variant="invisible"
+                aria-label="Reset prototype data"
+                onClick={reset}
+              />
+            </footer>
+          </div>
+        </PageLayout.Content>
+        {commentsOpen && (
+          <PageLayout.Pane
+            className={classes.CommentsRegion}
+            position="end"
+            width={{min: '0px', default: '320px', max: '320px'}}
+            padding="none"
+            aria-label="Page comments"
+          >
+            <aside className={classes.Comments} id={`${id}-comments`} aria-label="Page comments">
+              <Heading as="h2" className={classes.SectionHeading}>
+                Comments
+              </Heading>
+              <p className={classes.Muted}>Local demo notes only. Nothing is sent to the reference app.</p>
+              {notes.length ? (
+                <ul>
+                  {notes.map((note, index) => (
+                    <li key={`${index}-${note}`}>{note}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No comments yet.</p>
+              )}
+              <form
+                onSubmit={event => {
+                  event.preventDefault()
+                  const note = noteDraft.trim()
+                  if (!note) {
+                    setNotice('Enter a comment before posting.')
+                    return
+                  }
+                  setNotesByPage(current => ({...current, [pageKey]: [...(current[pageKey] ?? []), note]}))
+                  setNoteDraft('')
+                }}
+              >
+                <FormControl>
+                  <FormControl.Label>Add a comment</FormControl.Label>
+                  <Textarea block rows={4} value={noteDraft} onChange={event => setNoteDraft(event.target.value)} />
+                </FormControl>
+                <Button type="submit" variant="primary" disabled={!noteDraft.trim()}>
+                  Comment
+                </Button>
+              </form>
+            </aside>
+          </PageLayout.Pane>
+        )}
+      </PageLayout>
+      {editDialog && (
+        <Dialog
+          title={editDialog === 'new' ? 'New page' : 'Rename page'}
+          onClose={() => setEditDialog(null)}
+          initialFocusRef={titleRef}
+          footerButtons={[
+            {content: 'Cancel', onClick: () => setEditDialog(null)},
+            {
+              content: editDialog === 'new' ? 'Create page' : 'Save title',
+              buttonType: 'primary',
+              type: 'submit',
+              form: `${id}-page-form`,
+            },
+          ]}
+        >
+          <form
+            id={`${id}-page-form`}
+            onSubmit={event => {
+              event.preventDefault()
+              const value = draftTitle.trim()
+              if (!value) {
+                setTitleError(true)
+                titleRef.current?.focus()
+                return
+              }
+              if (editDialog === 'new') addPage(value)
+              else if (isReport) setReportTitles(current => ({...current, [reportDate]: value}))
+              else setPages(current => current.map(page => (page.id === selectedId ? {...page, title: value} : page)))
+              setEditDialog(null)
+            }}
+          >
+            <FormControl required>
+              <FormControl.Label>Page title</FormControl.Label>
+              <TextInput
+                block
+                ref={titleRef}
+                value={draftTitle}
+                onChange={event => {
+                  setDraftTitle(event.target.value)
+                  setTitleError(false)
+                }}
+              />
+              {titleError && <FormControl.Validation variant="error">Enter a page title.</FormControl.Validation>}
+              <FormControl.Caption>Stored in this demo until reload.</FormControl.Caption>
+            </FormControl>
+          </form>
+        </Dialog>
+      )}
+      {utilityDialog && (
+        <Dialog
+          title={
+            utilityDialog === 'attachments'
+              ? 'Page attachments'
+              : utilityDialog === 'agent'
+                ? 'Connect agent'
+                : 'Noodle settings'
+          }
+          onClose={() => setUtilityDialog(null)}
+        >
+          {utilityDialog === 'attachments' ? (
+            <>
+              {attachments.length ? (
+                <ul>
+                  {attachments.map(name => (
+                    <li key={name}>{name}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No attachments yet.</p>
+              )}
+              <Button
+                leadingVisual={LinkIcon}
+                onClick={() =>
+                  setAttachmentsByPage(current => ({
+                    ...current,
+                    [pageKey]: [...(current[pageKey] ?? []), `demo-notes-${attachments.length + 1}.txt`],
+                  }))
+                }
+              >
+                Add demo attachment
+              </Button>
+              <p className={classes.Muted}>Names only; no files are read, uploaded or downloaded.</p>
+            </>
+          ) : utilityDialog === 'agent' ? (
+            <p>
+              This prototype does not connect to an agent or request credentials. Try appearance controls, local pages
+              and comments instead.
+            </p>
+          ) : (
+            <>
+              <p>
+                This is a local demo of the Octoinvaders &middot; Ink Shield workspace. Use the appearance bar to try
+                themes, density and Seriousness.
+              </p>
+              <Button
+                onClick={() => {
+                  reset()
+                  setUtilityDialog(null)
+                }}
+              >
+                Reset local demo
+              </Button>
+            </>
+          )}
+        </Dialog>
+      )}
+    </div>
+  )
+}
+
+function NoodlesDemo() {
+  return (
+    <PlaygroundAppearanceProvider>
+      <div className={classes.Playground}>
+        <PlaygroundAppearanceControls />
+        <PlaygroundAppearanceSurface className={classes.Surface}>
+          <NoodlesPage />
+        </PlaygroundAppearanceSurface>
+        <PlaygroundAppearancePortals />
+      </div>
+    </PlaygroundAppearanceProvider>
+  )
+}
+
+export const Default: Story = {render: () => <NoodlesDemo />}
+
+export const MSDOS: Story = {
+  name: 'MS DOS',
+  render: () => <NoodlesDemo />,
+  play: async ({canvas, canvasElement}) => {
+    await userEvent.click(canvas.getByRole('button', {name: 'Choose theme: Primer'}))
+    const body = within(canvasElement.ownerDocument.body)
+    const dialog = within(await body.findByRole('dialog', {name: 'Themes'}))
+    await userEvent.click(dialog.getByRole('button', {name: 'Use MS DOS theme'}))
+    await userEvent.keyboard('{Escape}')
+    const controls = [
+      canvas.getByRole('link', {name: `Open ${noodlesProjectCover.title} cover`}),
+      canvas.getByRole('button', {name: 'Connect agent'}),
+      canvas.getByRole('button', {name: 'Status updates'}),
+      canvas.getByRole('button', {name: 'October 2, 2026'}),
+    ]
+    for (const control of controls) {
+      await expect(control).toHaveStyle({color: 'rgb(85, 255, 255)'})
+      await userEvent.hover(control)
+      await expect(control).toHaveStyle({color: 'rgb(85, 255, 255)'})
+      await userEvent.unhover(control)
+      control.focus()
+      await expect(control).toHaveFocus()
+      await expect(control).toHaveStyle({color: 'rgb(85, 255, 255)'})
+    }
+  },
+}
+
+export const NoodlesTheme: Story = {
+  render: () => <NoodlesDemo />,
+  play: async ({canvas, canvasElement}) => {
+    const splitter = canvas.getByRole('slider', {name: 'Draggable pane splitter'})
+    splitter.focus()
+    await expect(splitter).toHaveFocus()
+    await userEvent.keyboard('{ArrowRight}')
+    await expect(splitter).toHaveAttribute('aria-valuenow', '315')
+    await userEvent.keyboard('{ArrowLeft}')
+    await expect(splitter).toHaveAttribute('aria-valuenow', '312')
+    await userEvent.click(canvas.getByRole('button', {name: 'Choose theme: Primer'}))
+    const body = within(canvasElement.ownerDocument.body)
+    const dialog = within(await body.findByRole('dialog', {name: 'Themes'}))
+    const theme = dialog.getByRole('button', {name: 'Use Noodles theme'})
+    await userEvent.click(theme)
+    await expect(theme).toHaveAttribute('aria-pressed', 'true')
+    await userEvent.keyboard('{Escape}')
+    await expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toBeVisible()
+    await expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toHaveStyle({
+      fontSize: '36px',
+      fontWeight: '500',
+    })
+    const cover = canvas.getByRole('link', {name: `Open ${noodlesProjectCover.title} cover`}).getBoundingClientRect()
+    const switcher = canvas.getByRole('button', {name: 'Switch noodle'}).getBoundingClientRect()
+    const create = canvas.getByRole('button', {name: 'Create'}).getBoundingClientRect()
+    await expect(cover.height).toBe(40)
+    await expect(switcher.width).toBe(28)
+    await expect(switcher.left - cover.left).toBe(4)
+    await expect(switcher.top - cover.top).toBe(6)
+    await expect(create.width).toBe(24)
+    await expect(create.height).toBe(24)
+    await expect(create.left).toBe(cover.right)
+    await expect(create.top - cover.top).toBe(8)
+  },
+}
+
+export const LocalInteractions: Story = {
+  render: () => <NoodlesDemo />,
+  play: async ({canvas, canvasElement}) => {
+    const body = within(canvasElement.ownerDocument.body)
+    const connectAgent = canvas.getByRole('button', {name: 'Connect agent'})
+    await expect(connectAgent).toHaveAttribute('data-block', 'block')
+    await expect(connectAgent).toHaveStyle({fontWeight: '400'})
+    await expect(canvas.getByRole('button', {name: 'Noodle settings'})).toHaveStyle({fontWeight: '400'})
+    const plus = connectAgent.querySelector('svg.octicon-plus')
+    if (!plus) throw new Error('Connect agent must include a trailing plus icon')
+    const plusInset = connectAgent.getBoundingClientRect().right - plus.getBoundingClientRect().right
+    await expect(plusInset).toBeGreaterThanOrEqual(0)
+    await expect(plusInset).toBeLessThanOrEqual(24)
+    const navigation = within(canvas.getByRole('navigation', {name: 'Noodle pages'}))
+    const disclosure = navigation.getByRole('button', {name: noodlesProjectCover.title})
+    await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
+    await userEvent.click(disclosure)
+    await expect(navigation.getByRole('link', {name: 'First-use onboarding'})).toBeVisible()
+    await expect(navigation.getByRole('link', {name: /Status updates/})).toBeVisible()
+    await userEvent.click(disclosure)
+    await expect(navigation.queryByRole('link', {name: 'First-use onboarding'})).not.toBeInTheDocument()
+    await expect(navigation.getByRole('link', {name: /Status updates/})).toBeVisible()
+    await userEvent.click(canvas.getByRole('button', {name: 'Switch noodle'}))
+    const switcher = within(await body.findByRole('menu'))
+    await expect(switcher.getByRole('menuitemradio', {name: noodlesProjectCover.title})).toHaveAttribute(
+      'aria-checked',
+      'true',
+    )
+    await userEvent.keyboard('{Escape}')
+    await userEvent.click(canvas.getByRole('link', {name: `Open ${noodlesProjectCover.title} cover`}))
+    await expect(canvas.getByRole('heading', {name: noodlesProjectCover.title, level: 1})).toBeVisible()
+    await expect(canvas.getByRole('button', {name: 'Open noodle cover'})).toBeVisible()
+    await userEvent.click(navigation.getByRole('link', {name: /Status updates/}))
+    await expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toBeVisible()
+    await userEvent.click(canvas.getByRole('button', {name: 'Create'}))
+    const createMenu = within(await body.findByRole('menu'))
+    await userEvent.click(createMenu.getByRole('menuitem', {name: /^New page/}))
+    const dialog = within(await body.findByRole('dialog', {name: 'New page'}))
+    const title = dialog.getByRole('textbox', {name: /Page title/})
+    await userEvent.type(title, '   ')
+    await userEvent.click(dialog.getByRole('button', {name: 'Create page'}))
+    await waitFor(() => expect(dialog.getByText('Enter a page title.')).toBeVisible())
+    await userEvent.clear(title)
+    await userEvent.type(title, 'Release notes')
+    await userEvent.click(dialog.getByRole('button', {name: 'Create page'}))
+    await expect(canvas.getByRole('heading', {name: 'Release notes', level: 1})).toBeVisible()
+    await userEvent.click(canvas.getByRole('button', {name: 'Page comments'}))
+    await userEvent.type(canvas.getByRole('textbox', {name: 'Add a comment'}), 'Ready for review.')
+    await userEvent.click(canvas.getByRole('button', {name: 'Comment'}))
+    await expect(canvas.getByText('Ready for review.')).toBeVisible()
+    await userEvent.click(canvas.getByRole('button', {name: 'Page comments'}))
+    await userEvent.click(canvas.getByRole('button', {name: 'Reset prototype data'}))
+    await waitFor(() => expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toBeVisible())
+    await userEvent.click(canvas.getByRole('button', {name: 'Switch to Markdown'}))
+    await expect(canvas.getByRole('textbox', {name: 'Markdown preview'})).toHaveProperty(
+      'value',
+      expect.stringContaining('# October 2, 2026'),
+    )
+    await userEvent.click(canvas.getByRole('button', {name: 'Switch to Rich text'}))
+  },
+}

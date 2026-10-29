@@ -20,8 +20,9 @@ export function preserveDirectives(options: PreserveDirectivesOptions = {}): Plu
 
   return {
     name: 'preserve-directives',
-    transform(code, id) {
-      if (isDeclarationFile(id)) {
+    transform(code, id, meta) {
+      // Assets such as JSON are still raw before Rolldown's built-in transforms.
+      if (isDeclarationFile(id) || !['js', 'jsx', 'ts', 'tsx'].includes(meta.moduleType)) {
         return null
       }
 

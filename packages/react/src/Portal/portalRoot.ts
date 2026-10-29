@@ -13,6 +13,10 @@ export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINE
   portalRootRegistry[name] = root
 }
 
+export function unregisterPortalRoot(root: Element, name: string): void {
+  if (portalRootRegistry[name] === root) delete portalRootRegistry[name]
+}
+
 export function ensureDefaultPortal() {
   const existingDefaultPortalContainer = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
   if (!existingDefaultPortalContainer || !document.body.contains(existingDefaultPortalContainer)) {

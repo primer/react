@@ -65,18 +65,6 @@
   color: var(--fgColor-muted);
 }
 
-.Source {
-  display: grid;
-  gap: var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
-  overflow-wrap: anywhere;
-
-  a {
-    color: var(--fgColor-link);
-  }
-}
-
 .PaletteSection {
   margin-bottom: var(--base-size-32);
 
