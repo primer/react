@@ -6,8 +6,8 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-medium-paddingInline-normal);
   font-family: inherit;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-medium);
+  font-size: var(--Button--fontSize-medium, var(--text-body-size-medium));
+  font-weight: var(--Button--fontWeight, var(--base-text-weight-medium));
   color: var(--button-default-fgColor-rest);
   text-align: center;
   text-decoration: none;

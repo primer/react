@@ -42,6 +42,7 @@ import {
   noodlesStatusSections,
 } from './NoodlesPage.fixtures'
 import type {NoodlesPageFixture} from './NoodlesPage.fixtures'
+import {NoodlesThemedPage} from './NoodlesPage.themed'
 import classes from './NoodlesPage.stories.module.css'
 
 const meta = {
@@ -54,7 +55,7 @@ const meta = {
       description: {
         component:
           'PageLayout provides the sidebar, document and comments regions. The native resizable sidebar supports dragging and keyboard resizing from 240px to 480px, preserves its width through navigation toggles and focus mode, and resets to 312px on double-click or reload. ' +
-          'A standalone Noodles-inspired workspace using default Primer components and appearance tokens. Stack owns row and content spacing, Heading owns typography, and ordinary icons replace custom cover/account artwork. Decorative drag handles and appearance-playground hooks are omitted. Story CSS handles the viewport shell, scrolling, reading width and responsive regions. Navigation, page creation, comments, attachments, reading width, focus mode and Markdown preview work locally with original fictional report fixtures. No account connection, remote writes or persistence. Reloading resets the demo.',
+          'Two standalone versions of a Noodles-inspired workspace: Primer noodles uses default Primer appearance, while Noodles noodles uses the fixed, page-scoped Noodles theme. Both use the same original fictional fixtures and support local navigation, page creation, comments, attachments, reading width, focus mode and Markdown preview. No appearance-playground controls, account connection, remote writes or persistence. Reloading resets each demo.',
       },
     },
   },
@@ -723,5 +724,27 @@ function NoodlesPage() {
 }
 
 export const Default: Story = {
+  name: 'Primer noodles',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Default Primer appearance with Stack for row/content spacing, Heading for typography and ordinary icons instead of custom artwork. Story CSS handles the viewport shell, scrolling, reading width and responsive regions; no theme variables are overridden.',
+      },
+    },
+  },
   render: () => <NoodlesPage />,
+}
+
+export const NoodlesNoodles: Story = {
+  name: 'Noodles noodles',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The fixed Noodles theme from the standalone themed demo, including its counters, menus, footer and New page styling. Five optional ActionList/Button styling hooks preserve Primer defaults outside this theme. Menus and dialogs inherit the same scoped tokens through a registered portal container.',
+      },
+    },
+  },
+  render: () => <NoodlesThemedPage />,
 }
