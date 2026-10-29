@@ -1,10 +1,21 @@
+/* stylelint-disable primer/typography -- Font-face descriptors require literal font names and weights, not CSS variables. */
 @font-face {
   font-family: 'Playground W95FA';
   src: url('./assets/w95fa/w95fa.woff2') format('woff2');
   font-style: normal;
-  font-weight: var(--base-text-weight-normal);
+  font-weight: 400;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Playground IBM VGA';
+  src: url('./assets/ibm-vga/pxplus-ibm-vga-9x16.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* stylelint-enable primer/typography */
 
 .Playground {
   min-height: 100vh;

@@ -75,15 +75,22 @@ export function appearanceVariables(state, catalog, hostMode) {
   }
 }
 
-export function appearanceCSS(state, catalog, hostMode, fontURL) {
+export function appearanceCSS(state, catalog, hostMode, fontBaseURL) {
   const {mode, variables} = appearanceVariables(state, catalog, hostMode)
   if (!state.enabled) return ''
   const declarations = Object.entries(variables).map(([name, value]) => `${name}: ${value} !important;`)
   if (state.theme !== 'primer') declarations.push(`color-scheme: ${mode} !important;`)
   if (!declarations.length) return ''
-  const font = Object.values(variables).some(value => value.includes('Playground W95FA'))
-    ? `@font-face { font-family: "Playground W95FA"; src: url("${fontURL}") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }\n`
-    : ''
+  const font = [
+    {family: 'Playground W95FA', path: 'w95fa.woff2'},
+    {family: 'Playground IBM VGA', path: 'ibm-vga/pxplus-ibm-vga-9x16.woff2'},
+  ]
+    .filter(({family}) => Object.values(variables).some(value => value.includes(family)))
+    .map(
+      ({family, path}) =>
+        `@font-face { font-family: "${family}"; src: url("${new URL(path, fontBaseURL).href}") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }\n`,
+    )
+    .join('')
   return `${font}:root, :root *, :root *::before, :root *::after {\n${declarations.join('\n')}\n}`
 }
 

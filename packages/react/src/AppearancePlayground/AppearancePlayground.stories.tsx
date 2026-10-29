@@ -39,7 +39,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Demo only. Import {AppearancePlayground} from '@primer/react/experimental' and wrap your app inside its existing Primer providers. Includes 19 themes, five density steps and five visual-only Seriousness presets. Automatic spacing changes are limited to one density step: Friendly social uses purple/pink, rounded shapes and soft shadows; Bank security uses neutral colors, square corners and raised OS-style buttons. The middle three presets retain theme colors. Controls retain the host theme; app content and inherited Primer portals are scoped. Default resets theme colors, typography/radii and density. State is not persisted. Nested wrappers and third-party/body portals are not supported. Inline style CSP restrictions may apply.",
+          "Demo only. Import {AppearancePlayground} from '@primer/react/experimental' and wrap your app inside its existing Primer providers. Includes 20 themes, five density steps and five visual-only Seriousness presets. Automatic spacing changes are limited to one density step: Friendly social uses purple/pink, rounded shapes and soft shadows; Bank security uses neutral colors, square corners and raised OS-style buttons. The middle three presets retain theme colors. Controls retain the host theme; app content and inherited Primer portals are scoped. Default resets theme colors, typography/radii and density. State is not persisted. Nested wrappers and third-party/body portals are not supported. Inline style CSP restrictions may apply.",
       },
     },
   },
@@ -51,6 +51,28 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+
+export const MSDOS: Story = {
+  name: 'MS DOS',
+  play: async ({canvas, canvasElement}) => {
+    const trigger = canvas.getByRole('button', {name: 'Choose theme: Primer'})
+    await userEvent.click(trigger)
+    const body = within(canvasElement.ownerDocument.body)
+    const dialog = within(await body.findByRole('dialog', {name: 'Themes'}))
+    const theme = dialog.getByRole('button', {name: 'Use MS DOS theme'})
+    await userEvent.click(theme)
+    await expect(theme).toHaveAttribute('aria-pressed', 'true')
+    await userEvent.keyboard('{Escape}')
+    await waitFor(() => expect(trigger).toHaveFocus())
+    await expect(trigger).toHaveAccessibleName('Choose theme: MS DOS')
+    const style = canvasElement.querySelector('[data-playground-appearance-style]')
+    await expect(style).toHaveTextContent('--bgColor-default: #00006c')
+    await expect(style).toHaveTextContent("--fontStack-system: 'Playground IBM VGA', 'Courier New', monospace")
+    await expect(style).toHaveTextContent('--borderRadius-medium: 0px')
+    const fonts = await canvasElement.ownerDocument.fonts.load('16px "Playground IBM VGA"')
+    await expect(fonts).toHaveLength(1)
+  },
+}
 
 export const NewYorkTimes: Story = {
   play: async ({canvas, canvasElement}) => {

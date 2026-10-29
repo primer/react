@@ -14,7 +14,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["assets/w95fa.woff2", "panel.html"],
+      "resources": ["assets/w95fa.woff2", "assets/ibm-vga/pxplus-ibm-vga-9x16.woff2", "panel.html"],
       "matches": ["<all_urls>"]
     }
   ]

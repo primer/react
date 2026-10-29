@@ -92,7 +92,7 @@ async function handle(message) {
   if (message.type !== 'apply') throw new Error('Unknown appearance action.')
   const catalog = await catalogPromise
   validateState(message.state, catalog)
-  const css = appearanceCSS(message.state, catalog, page.hostMode, chrome.runtime.getURL('assets/w95fa.woff2'))
+  const css = appearanceCSS(message.state, catalog, page.hostMode, chrome.runtime.getURL('assets/'))
   if (css !== previous) {
     if (css) await chrome.scripting.insertCSS({target, css, origin: 'USER'})
     try {

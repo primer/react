@@ -25,8 +25,11 @@ sheet, themed content surface and a separate themed portal root. It accepts
 children and normal div attributes, including `className`, `style` and `id`.
 Controls and the theme sheet retain the host app's appearance.
 
-- **Theme:** 19 built-in choices, including Primer, Shopify, Linear (Dark), Stripe,
-  Noodles, New York Times, Glass UI and Windows 95. Primer follows the host app's current theme.
+- **Theme:** 20 built-in choices, including Primer, Shopify, Linear (Dark), Stripe,
+  Noodles, New York Times, Glass UI, Windows 95 and MS DOS. Primer follows the host app's current theme.
+  MS DOS adapts noted.computer's Turbo blue style with cyan text, yellow accents,
+  green actions, square controls and hard shadows. Its locally bundled IBM VGA
+  font is by VileR, licensed CC BY-SA-4.0 with attribution and license included.
   New York Times is an original newspaper-inspired preset with local serif fonts,
   white paper, dark ink, fine rules and square controls, not official NYT assets.
   Noodles pairs pale navigation and rounded white panels with neutral selection
@@ -59,8 +62,8 @@ not supported. Sibling instances are independent.
 Use the wrapper outside transformed or clipping app containers. Its styles
 include an inline style element, which a restrictive Content Security Policy may
 block. No persistence, controlled-state API or remote theme loading is provided.
-No brand fonts are downloaded. The bundled Windows 95 font and redistribution
-notices ship with the package; palette provenance remains in the colocated JSON
+No brand fonts are downloaded at runtime. The bundled Windows 95 and IBM VGA fonts
+and their redistribution notices ship with the package; palette provenance remains in the colocated JSON
 snapshots. Glass UI is a flat/translucent approximation, not optical refraction.
 
 Only the wrapper and its props are exported from `@primer/react/experimental`.

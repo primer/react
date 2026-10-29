@@ -2,7 +2,7 @@
 
 Experimental, unpacked Manifest V3 extension for desktop Chrome 123+ and compatible
 Chromium browsers. It brings the
-playground's 19 themes, five density levels, five Seriousness presets and a
+playground's 20 themes, five density levels, five Seriousness presets and a
 CSS-variable editor to an existing Primer website. No app changes are required.
 
 ## Install and try
@@ -54,9 +54,11 @@ floating controls without a `sidePanel` permission.
 The inspector reads variable names/values and theme metadata, not report text,
 cookies, credentials or form contents. The extension does not alter app data.
 
-The controls document and bundled Windows 95 font are exposed as local extension
-resources. The font includes its original OFL and MIT notices. This does not grant website access. A site's font
-CSP can still require a system-font fallback. Other presets use installed fonts.
+The controls document and bundled Windows 95 and IBM VGA fonts are exposed as local
+extension resources. The Windows 95 font includes its original OFL and MIT notices.
+MS DOS uses VileR's IBM VGA font under CC BY-SA-4.0, with its license and attribution
+in `assets/ibm-vga/`. This does not grant website access. A site's font CSP can still
+require a system-font fallback. Other presets use installed fonts.
 
 ## Demo limitations
 
@@ -90,5 +92,5 @@ node examples/appearance-playground-extension/refresh-presets.mjs
 ```
 
 This exports data from `packages/react/src/AppearancePlayground/AppearancePlayground.tokens.ts`
-and copies the existing licensed Windows 95 font/notices. It does not build the
+and copies the licensed Windows 95 and IBM VGA fonts/notices. It does not build the
 repository, run tests or install dependencies.

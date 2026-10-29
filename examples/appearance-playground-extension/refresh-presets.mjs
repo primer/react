@@ -39,6 +39,11 @@ await mkdir(new URL('assets/', import.meta.url), {recursive: true})
 for (const name of ['w95fa.woff2', 'OFL.txt', '95CSS-LICENSE.txt']) {
   await copyFile(new URL(`assets/w95fa/${name}`, sourceDirectory), new URL(`assets/${name}`, import.meta.url))
 }
+await mkdir(new URL('assets/ibm-vga/', import.meta.url), {recursive: true})
+for (const name of ['pxplus-ibm-vga-9x16.woff2', 'CC-BY-SA-4.0.txt', 'NOTICE.md']) {
+  const path = `assets/ibm-vga/${name}`
+  await copyFile(new URL(path, sourceDirectory), new URL(path, import.meta.url))
+}
 console.log(
   `Exported ${catalog.themes.length} themes, ${catalog.densities.length} densities and ${catalog.seriousness.length} Seriousness profiles from the shared Primer engine.`,
 )
