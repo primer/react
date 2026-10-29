@@ -5,6 +5,14 @@ import {AppearancePlayground, Dialog} from '../experimental'
 import {Button} from '../Button'
 import TextInput from '../TextInput'
 import Label from '../Label'
+import {
+  PlaygroundAppearanceDials,
+  PlaygroundAppearancePortals,
+  PlaygroundAppearanceProvider,
+  PlaygroundAppearanceSurface,
+} from './AppearancePlayground'
+import {PlaygroundThemePicker} from './AppearancePlaygroundThemePicker'
+import {useAppearance} from '../internal/AppearancePlaygroundContext'
 import classes from './AppearancePlayground.stories.module.css'
 
 function DemoApp() {
@@ -51,6 +59,54 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+
+function SidebarControlsDemo() {
+  const {density, setDensity, seriousness, setSeriousness, theme, setTheme} = useAppearance()
+  return (
+    <PlaygroundThemePicker value={theme} onChange={setTheme}>
+      <div className={classes.SidebarDials} role="group" aria-label="Density and Seriousness">
+        <PlaygroundAppearanceDials
+          density={density}
+          seriousness={seriousness}
+          onDensityChange={setDensity}
+          onSeriousnessChange={setSeriousness}
+        />
+      </div>
+    </PlaygroundThemePicker>
+  )
+}
+
+export const SidebarControls: Story = {
+  render: () => (
+    <PlaygroundAppearanceProvider>
+      <SidebarControlsDemo />
+      <PlaygroundAppearanceSurface>
+        <DemoApp />
+      </PlaygroundAppearanceSurface>
+      <PlaygroundAppearancePortals />
+    </PlaygroundAppearanceProvider>
+  ),
+  play: async ({canvas, canvasElement}) => {
+    await userEvent.click(canvas.getByRole('button', {name: 'Choose theme: Primer'}))
+    const body = within(canvasElement.ownerDocument.body)
+    const dialog = within(await body.findByRole('dialog', {name: 'Themes'}))
+    const density = dialog.getByRole('slider', {name: 'Density'})
+    const seriousness = dialog.getByRole('slider', {name: 'Seriousness'})
+    fireEvent.change(density, {target: {value: '4'}})
+    await expect(density).toHaveValue('4')
+    fireEvent.change(seriousness, {target: {value: '4'}})
+    await expect(seriousness).toHaveAttribute('aria-valuetext', 'Bank security')
+    await expect(density).toHaveAttribute('aria-valuetext', 'Compact')
+    await userEvent.click(dialog.getByRole('button', {name: 'Use MS DOS theme'}))
+    await expect(seriousness).toHaveAttribute('aria-valuetext', 'Bank security')
+    await expect(density).toHaveAttribute('aria-valuetext', 'Compact')
+    await userEvent.keyboard('{Escape}')
+    await expect(canvas.getByRole('button', {name: 'Choose theme: MS DOS'})).toHaveFocus()
+    await userEvent.click(canvas.getByRole('button', {name: 'Choose theme: MS DOS'}))
+    const reopened = within(await body.findByRole('dialog', {name: 'Themes'}))
+    await expect(reopened.getByRole('slider', {name: 'Seriousness'})).toHaveAttribute('aria-valuetext', 'Bank security')
+  },
+}
 
 export const MSDOS: Story = {
   name: 'MS DOS',

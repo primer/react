@@ -1,5 +1,5 @@
 import {useCallback, useId, useMemo, useRef, useState} from 'react'
-import type {CSSProperties} from 'react'
+import type {CSSProperties, ReactNode, Ref} from 'react'
 import {clsx} from 'clsx'
 import {ChevronDownIcon, PaintbrushIcon, SearchIcon} from '@primer/octicons-react'
 import {Button} from '../Button'
@@ -26,6 +26,12 @@ interface PlaygroundThemePickerProps {
   className?: string
   value: string
   onChange: (theme: string) => void
+  children?: ReactNode
+}
+
+interface PlaygroundThemePickerContentProps
+  extends Pick<PlaygroundThemePickerProps, 'value' | 'onChange' | 'children'> {
+  searchRef?: Ref<HTMLInputElement>
 }
 
 const themes: readonly ThemeChoice[] = [
@@ -93,18 +99,16 @@ function PalettePreview({palette}: Pick<ThemeChoice, 'palette'>) {
   )
 }
 
-export function PlaygroundThemePicker({className, value, onChange}: PlaygroundThemePickerProps) {
+export function PlaygroundThemePickerContent({
+  value,
+  onChange,
+  searchRef,
+  children,
+}: PlaygroundThemePickerContentProps) {
   const {colorScheme} = useTheme()
-  const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const triggerRef = useRef<HTMLButtonElement>(null)
-  const searchRef = useRef<HTMLInputElement>(null)
-  const closePicker = useCallback(() => setIsOpen(false), [])
   const id = useId()
-  const portalContext = useMemo(() => ({portalContainerName: `${id}-theme-picker`}), [id])
-  const registerPortal = useRegisteredPortalRoot(portalContext.portalContainerName)
-  const selected = themes.find(theme => theme.id === value)
-  if (!selected) throw new Error(`Unknown playground theme: ${value}`)
+  if (!themes.some(theme => theme.id === value)) throw new Error(`Unknown playground theme: ${value}`)
   const filtered = themes.filter(theme => theme.name.toLowerCase().includes(query.trim().toLowerCase()))
   const primerGroup = colorScheme?.startsWith('dark') ? 'dark' : 'light'
   const groupedThemes = themeGroups
@@ -114,26 +118,72 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
     }))
     .filter(group => group.themes.length > 0)
 
-  function renderCard(theme: ThemeChoice) {
-    const active = theme.id === value
-    return (
-      <button
-        key={theme.id}
-        type="button"
-        className={classes.ThemeCard}
-        aria-label={`Use ${theme.name} theme`}
-        aria-pressed={active}
-        onClick={() => onChange(theme.id)}
-      >
-        <PalettePreview palette={theme.palette} />
-        <span className={classes.CardFooter}>
-          <span className={classes.CardName}>{theme.name}</span>
-          {active && <Label className={classes.Active}>Active</Label>}
-        </span>
-      </button>
-    )
-  }
+  return (
+    <div className={classes.Picker} data-component="AppearancePlaygroundThemePicker.Content">
+      {children}
+      <div className={classes.PickerHeader}>
+        <div>
+          <h2>Palettes</h2>
+          <p>Pick a sourced palette for the app.</p>
+        </div>
+        <TextInput
+          ref={searchRef}
+          type="search"
+          aria-label="Search palettes"
+          placeholder={`Search ${themes.length} palettes...`}
+          leadingVisual={SearchIcon}
+          value={query}
+          onChange={event => setQuery(event.target.value)}
+          className={classes.Search}
+        />
+      </div>
+      <p className={classes.ResultCount} role="status">
+        {filtered.length} {filtered.length === 1 ? 'palette' : 'palettes'}
+      </p>
+      {filtered.length > 0 ? (
+        groupedThemes.map(group => (
+          <section key={group.id} className={classes.PaletteSection} aria-labelledby={`${id}-${group.id}`}>
+            <h3 id={`${id}-${group.id}`}>{group.name}</h3>
+            <div className={classes.PaletteGrid}>
+              {group.themes.map(theme => (
+                <button
+                  key={theme.id}
+                  type="button"
+                  className={classes.ThemeCard}
+                  aria-label={`Use ${theme.name} theme`}
+                  aria-pressed={theme.id === value}
+                  onClick={() => onChange(theme.id)}
+                >
+                  <PalettePreview palette={theme.palette} />
+                  <span className={classes.CardFooter}>
+                    <span className={classes.CardName}>{theme.name}</span>
+                    {theme.id === value && <Label className={classes.Active}>Active</Label>}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </section>
+        ))
+      ) : (
+        <div className={classes.Empty}>
+          <h3>No palettes found</h3>
+          <p>Try a different theme name.</p>
+        </div>
+      )}
+    </div>
+  )
+}
 
+export function PlaygroundThemePicker({className, value, onChange, children}: PlaygroundThemePickerProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null)
+  const closePicker = useCallback(() => setIsOpen(false), [])
+  const id = useId()
+  const portalContext = useMemo(() => ({portalContainerName: `${id}-theme-picker`}), [id])
+  const registerPortal = useRegisteredPortalRoot(portalContext.portalContainerName)
+  const selected = themes.find(theme => theme.id === value)
+  if (!selected) throw new Error(`Unknown playground theme: ${value}`)
   return (
     <div className={clsx(classes.Control, className)} data-component="AppearancePlaygroundThemePicker">
       <label htmlFor={`${id}-theme`}>Theme</label>
@@ -146,7 +196,6 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         onClick={() => {
-          setQuery('')
           setIsOpen(true)
         }}
       >
@@ -165,40 +214,9 @@ export function PlaygroundThemePicker({className, value, onChange}: PlaygroundTh
             returnFocusRef={triggerRef}
             onClose={closePicker}
           >
-            <div className={classes.Picker}>
-              <div className={classes.PickerHeader}>
-                <div>
-                  <h2>Palettes</h2>
-                  <p>Pick a sourced palette for the app.</p>
-                </div>
-                <TextInput
-                  ref={searchRef}
-                  type="search"
-                  aria-label="Search palettes"
-                  placeholder={`Search ${themes.length} palettes...`}
-                  leadingVisual={SearchIcon}
-                  value={query}
-                  onChange={event => setQuery(event.target.value)}
-                  className={classes.Search}
-                />
-              </div>
-              <p className={classes.ResultCount} role="status">
-                {filtered.length} {filtered.length === 1 ? 'palette' : 'palettes'}
-              </p>
-              {filtered.length > 0 ? (
-                groupedThemes.map(group => (
-                  <section key={group.id} className={classes.PaletteSection} aria-labelledby={`${id}-${group.id}`}>
-                    <h3 id={`${id}-${group.id}`}>{group.name}</h3>
-                    <div className={classes.PaletteGrid}>{group.themes.map(renderCard)}</div>
-                  </section>
-                ))
-              ) : (
-                <div className={classes.Empty}>
-                  <h3>No palettes found</h3>
-                  <p>Try a different theme name.</p>
-                </div>
-              )}
-            </div>
+            <PlaygroundThemePickerContent value={value} onChange={onChange} searchRef={searchRef}>
+              {children}
+            </PlaygroundThemePickerContent>
           </Dialog>
         </PortalContext.Provider>
       )}

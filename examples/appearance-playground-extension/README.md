@@ -10,7 +10,7 @@ CSS-variable editor to an existing Primer website. No app changes are required.
 1. Open `chrome://extensions` and enable **Developer mode**.
 2. Choose **Load unpacked** and select this directory, containing `manifest.json`.
 3. Pin **Primer Appearance Playground** in Chrome's Extensions menu.
-4. Open a Primer page and click the extension icon. Floating controls appear at the top right;
+4. Open a Primer page and click the extension icon. An on-page sidebar appears at the right;
    enable **Preview on this tab** there.
 5. Try a theme, Density or Seriousness. **Reset page** removes this extension's styles.
 
@@ -23,6 +23,9 @@ or native side-panel UI is used.
 
 ## Behavior
 
+- The sidebar reuses the React playground's **actual palette-grid components and
+  styles**, including theme previews, grouping, search and selected states.
+  Density and Seriousness live inside the sidebar, above the palettes.
 - Presets come from the **same token engine** as the React playground, not a second
   implementation. Merge order is Density → Theme → Seriousness → custom overrides.
 - Seriousness recommends Spacious at Friendly social and Compact at Bank security.
@@ -33,7 +36,7 @@ or native side-panel UI is used.
 - Each tab has independent settings. A full reload or navigation to a new document
   clears the preview. Same-document SPA navigation retains it. Settings survive
   closing/reopening the controls and service-worker restarts, not browser restarts.
-- Controls stay docked at the top right of the page and affect only that tab.
+- Controls stay docked to the right edge, fill the viewport height and affect only that tab.
   Click the extension icon again or **Close** to dismiss them without removing
   the preview. Another tab gets its own independent controls. A full reload
   removes the controls; click the icon again to reopen them.
@@ -78,8 +81,9 @@ with details in the icon tooltip and service-worker console. If an older copy lo
 `Cannot access a chrome:// URL`, reload the unpacked extension in the browser's
 extensions manager; previously recorded errors can be cleared there.
 
-The controls use native HTML rather than bundling React, keeping installation
-dependency-free. This is a demo, not a supported Primer package or a store release.
+The controls bundle React and the shared Primer components locally. Installation
+still needs no dependencies or server. Bundled dependency licenses are in
+`assets/ui-LICENSES.txt`. This is a demo, not a supported Primer package or a store release.
 
 ## Refresh the bundled presets
 
@@ -91,6 +95,8 @@ supported Node version:
 node examples/appearance-playground-extension/refresh-presets.mjs
 ```
 
-This exports data from `packages/react/src/AppearancePlayground/AppearancePlayground.tokens.ts`
-and copies the licensed Windows 95 and IBM VGA fonts/notices. It does not build the
-repository, run tests or install dependencies.
+This exports data from `packages/react/src/AppearancePlayground/AppearancePlayground.tokens.ts`,
+copies the licensed Windows 95 and IBM VGA fonts/notices, and bundles only the
+extension UI with the repository's existing esbuild installation. The UI source
+is `panel.tsx` and `panel.source.css`; `panel.js`, `panel.css` and `assets/ui/` are generated.
+It does not build repository packages, run tests or install dependencies.

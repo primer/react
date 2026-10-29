@@ -17,3 +17,10 @@
   flex-wrap: wrap;
   gap: var(--base-size-8);
 }
+
+.SidebarDials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-16);
+  margin-bottom: var(--base-size-24);
+}

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Primer Appearance Playground",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Demo-only themes, density, Seriousness and CSS-variable overrides for Primer websites.",
   "minimum_chrome_version": "123",
   "permissions": ["activeTab", "scripting", "storage"],

@@ -1,3 +1,6 @@
+/**
+ * @returns {{enabled: boolean, theme: string, density: import('../../packages/react/src/AppearancePlayground/AppearancePlayground.tokens').PlaygroundDensity, seriousness: import('../../packages/react/src/AppearancePlayground/AppearancePlayground.tokens').PlaygroundSeriousness, overrides: Record<string, string>}}
+ */
 export function defaultState() {
   return {enabled: false, theme: 'primer', density: 'default', seriousness: 'default', overrides: {}}
 }
@@ -142,12 +145,12 @@ export function toggleControls(url) {
   host.style.cssText = `
     all: initial !important;
     position: fixed !important;
-    top: 16px !important;
-    right: 16px !important;
-    width: min(400px, calc(100vw - 32px)) !important;
-    height: min(800px, calc(100dvh - 32px)) !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: min(480px, 100vw) !important;
+    height: 100dvh !important;
     z-index: 2147483647 !important;
-    border-radius: 12px !important;
+    border-radius: 0 !important;
     box-shadow: 0 8px 40px #0004 !important;
     overflow: hidden !important;
   `

@@ -61,14 +61,25 @@ export function PlaygroundAppearanceProvider({children}: PropsWithChildren) {
   )
 }
 
-export function PlaygroundAppearanceControls() {
-  const {density, setDensity, seriousness, setSeriousness, theme, setTheme} = useAppearance()
+interface PlaygroundAppearanceDialsProps {
+  density: PlaygroundDensity
+  seriousness: PlaygroundSeriousness
+  onDensityChange: (density: PlaygroundDensity) => void
+  onSeriousnessChange: (seriousness: PlaygroundSeriousness) => void
+}
+
+export function PlaygroundAppearanceDials({
+  density,
+  seriousness,
+  onDensityChange,
+  onSeriousnessChange,
+}: PlaygroundAppearanceDialsProps) {
   const id = useId()
   const densityIndex = playgroundDensities.findIndex(value => value.id === density)
   const seriousnessIndex = playgroundSeriousnessProfiles.findIndex(value => value.id === seriousness)
   return (
-    <section className={classes.Controls} aria-label="Preview appearance" data-component="AppearancePlaygroundControls">
-      <div className={classes.Control}>
+    <>
+      <div className={classes.Control} data-component="AppearancePlaygroundDials.Density">
         <label htmlFor={`${id}-density`}>
           Density
           <span className={classes.DensityValue}>{playgroundDensities[densityIndex].name}</span>
@@ -87,7 +98,7 @@ export function PlaygroundAppearanceControls() {
           onChange={event => {
             const preset = playgroundDensities.find((_, index) => index === event.currentTarget.valueAsNumber)
             if (!preset) throw new Error(`Unknown playground density step: ${event.currentTarget.value}`)
-            setDensity(preset.id)
+            onDensityChange(preset.id)
           }}
         />
         <datalist id={`${id}-density-steps`}>
@@ -96,7 +107,10 @@ export function PlaygroundAppearanceControls() {
           ))}
         </datalist>
       </div>
-      <div className={clsx(classes.Control, classes.SeriousnessControl)}>
+      <div
+        className={clsx(classes.Control, classes.SeriousnessControl)}
+        data-component="AppearancePlaygroundDials.Seriousness"
+      >
         <label htmlFor={`${id}-seriousness`}>
           Seriousness
           <span className={classes.DensityValue}>{playgroundSeriousnessProfiles[seriousnessIndex].name}</span>
@@ -116,7 +130,7 @@ export function PlaygroundAppearanceControls() {
           onChange={event => {
             const preset = playgroundSeriousnessProfiles.find((_, index) => index === event.currentTarget.valueAsNumber)
             if (!preset) throw new Error(`Unknown playground seriousness step: ${event.currentTarget.value}`)
-            setSeriousness(preset.id)
+            onSeriousnessChange(preset.id)
           }}
         />
         <datalist id={`${id}-seriousness-steps`}>
@@ -130,6 +144,20 @@ export function PlaygroundAppearanceControls() {
           Density can override spacing afterward. Default restores the theme styling and Default density.
         </span>
       </div>
+    </>
+  )
+}
+
+export function PlaygroundAppearanceControls() {
+  const {density, setDensity, seriousness, setSeriousness, theme, setTheme} = useAppearance()
+  return (
+    <section className={classes.Controls} aria-label="Preview appearance" data-component="AppearancePlaygroundControls">
+      <PlaygroundAppearanceDials
+        density={density}
+        seriousness={seriousness}
+        onDensityChange={setDensity}
+        onSeriousnessChange={setSeriousness}
+      />
       <PlaygroundThemePicker className={classes.ThemeControl} value={theme} onChange={setTheme} />
     </section>
   )

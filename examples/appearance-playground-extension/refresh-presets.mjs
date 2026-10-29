@@ -47,3 +47,4 @@ for (const name of ['pxplus-ibm-vga-9x16.woff2', 'CC-BY-SA-4.0.txt', 'NOTICE.md'
 console.log(
   `Exported ${catalog.themes.length} themes, ${catalog.densities.length} densities and ${catalog.seriousness.length} Seriousness profiles from the shared Primer engine.`,
 )
+await import('./bundle-ui.mjs')
