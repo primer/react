@@ -221,7 +221,7 @@
       outline: 2px solid transparent;
 
       & .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
+        font-weight: var(--ActionList--label-fontWeight-selected, var(--base-text-weight-semibold));
         color: var(--control-fgColor-rest);
       }
 
@@ -578,7 +578,7 @@
       background: var(--control-transparent-bgColor-selected);
 
       & .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
+        font-weight: var(--ActionList--label-fontWeight-selected, var(--base-text-weight-semibold));
       }
 
       & .ActionListSubContent::before,
@@ -708,12 +708,12 @@ span wrapping svg or text */
 /* text */
 .ItemLabel {
   position: relative;
-  font-size: var(--text-body-size-medium);
+  font-size: var(--ActionList--label-fontSize-medium, var(--text-body-size-medium));
   font-weight: var(--base-text-weight-normal);
   /* stylelint-disable-next-line primer/typography */
   line-height: 20px;
   /* temporary until we fix line-height rounding in primitives */
-  color: var(--fgColor-default);
+  color: var(--ActionList--label-fgColor, var(--fgColor-default));
   grid-area: label;
   /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
   word-break: break-word;
