@@ -9,7 +9,7 @@ import {Tooltip} from '../TooltipV2'
 import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../FilteredActionList'
 import {clsx} from 'clsx'
-import {announce} from '@primer/live-region-element'
+import '../polyfills/ariaNotify'
 
 import styles from './BranchName.stories.module.css'
 
@@ -50,7 +50,9 @@ export const WithTrailingAction = ({
   const handleCopy = () => {
     setCopied(true)
     void navigator.clipboard.writeText(branchName)
-    announce('Copied!')
+    document.ariaNotify('Copied!', {
+      priority: 'normal',
+    })
     setTimeout(() => setCopied(false), 2000)
   }
 
