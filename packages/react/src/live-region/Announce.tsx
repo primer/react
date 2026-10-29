@@ -1,9 +1,8 @@
-import {announceFromElement} from '@primer/live-region-element'
 import type React from 'react'
 import {useEffect, useRef, type ElementRef} from 'react'
-import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
+import './polyfill'
 
 export type AnnounceProps<As extends React.ElementType> = PolymorphicProps<
   As,
@@ -44,9 +43,9 @@ export type AnnounceProps<As extends React.ElementType> = PolymorphicProps<
 export function Announce<As extends React.ElementType = 'div'>(props: AnnounceProps<As>) {
   const {
     as: BaseComponent = 'div',
-    announceOnShow = true,
+    announceOnShow: shouldAnnounceOnShow = true,
     children,
-    delayMs,
+    delayMs = 0,
     hidden = false,
     politeness = 'polite',
     ...rest
@@ -56,8 +55,13 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
   // announcements and is never rendered. Using state here would trigger a React
   // commit on every content change (e.g. one per keystroke when tied to an input).
   const previousAnnouncementText = useRef<string | null>(null)
-  const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
+  const savedAnnouncement = useRef<number | null>(null)
   const announce = useEffectCallback(() => {
+    if (savedAnnouncement.current !== null) {
+      clearTimeout(savedAnnouncement.current)
+      savedAnnouncement.current = null
+    }
+
     const {current: element} = ref
     if (!element) {
       return
@@ -84,28 +88,24 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
       return
     }
 
-    savedAnnouncement.current?.cancel()
-    savedAnnouncement.current = announceFromElement(
-      element,
-      politeness === 'assertive'
-        ? {
-            politeness,
-          }
-        : {
-            politeness,
-            delayMs,
-          },
-    )
-    previousAnnouncementText.current = textContent
+    const timeoutMs = politeness === 'assertive' ? 0 : delayMs
+    savedAnnouncement.current = window.setTimeout(() => {
+      element.ariaNotify(textContent, {
+        priority: politeness === 'assertive' ? 'high' : 'normal',
+      })
+      savedAnnouncement.current = null
+      previousAnnouncementText.current = textContent
+    }, timeoutMs)
   })
-
-  // Announce the initial message, this is wrapped in `useEffectOnce` so that it
-  // does not announce twice in StrictMode
-  useEffectOnce(() => {
-    if (announceOnShow) {
+  const announceOnShow = useEffectCallback(() => {
+    if (shouldAnnounceOnShow) {
       announce()
     }
   })
+
+  useEffect(() => {
+    announceOnShow()
+  }, [announceOnShow])
 
   useEffect(() => {
     const {current: container} = ref
@@ -132,8 +132,12 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
   useEffect(() => {
     return () => {
       if (savedAnnouncement.current !== null) {
-        savedAnnouncement.current.cancel()
+        clearTimeout(savedAnnouncement.current)
         savedAnnouncement.current = null
+      }
+
+      if (previousAnnouncementText.current !== null) {
+        previousAnnouncementText.current = null
       }
     }
   }, [])
@@ -146,12 +150,16 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
 }
 
 function getTextContent(element: HTMLElement): string {
-  let value = ''
+  let value: string | null = ''
+
   if (element.hasAttribute('aria-label')) {
-    value = element.getAttribute('aria-label')!
+    value = element.getAttribute('aria-label')
+  } else if (element.innerText) {
+    value = element.innerText
   } else if (element.textContent) {
     value = element.textContent
   }
+
   return value ? value.trim() : ''
 }
 

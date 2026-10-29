@@ -33,7 +33,9 @@
   "sideEffects": [
     "dist/**/*.css",
     "src/**/test-helpers.tsx",
-    "dist/**/test-helpers.js"
+    "src/**/polyfill.ts",
+    "dist/**/test-helpers.js",
+    "dist/**/polyfill.js"
   ],
   "scripts": {
     "build": "./script/build",
@@ -73,6 +75,7 @@
     "npm": ">=7"
   },
   "dependencies": {
+    "@github/arianotify-polyfill": "^2.4.0",
     "@github/mini-throttle": "^2.1.1",
     "@github/relative-time-element": "^5.0.0",
     "@lit-labs/react": "1.2.1",
@@ -98,9 +101,9 @@
     "@babel/core": "8.0.7",
     "@babel/generator": "8.0.6",
     "@babel/parser": "8.0.7",
+    "@babel/plugin-transform-modules-commonjs": "8.0.1",
     "@babel/plugin-transform-nullish-coalescing-operator": "8.0.1",
     "@babel/plugin-transform-optional-chaining": "8.0.5",
-    "@babel/plugin-transform-modules-commonjs": "8.0.1",
     "@babel/preset-react": "8.0.1",
     "@babel/preset-typescript": "8.0.7",
     "@babel/types": "8.0.6",
