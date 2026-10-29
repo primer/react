@@ -1812,6 +1812,7 @@ export const WithBulkActions = () => {
         selectedRows={selectedRows}
         onSelectionChange={({selectedRows: next}) => setSelectedRows(next)}
         bulkActionsReturnFocusRef={rows.length === 0 ? resetButtonRef : undefined}
+        collapsibleGroups
         renderBulkActions={({selectedRows: effectiveIds, clearSelection}) => (
           <>
             <Button

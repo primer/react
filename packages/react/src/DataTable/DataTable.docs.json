@@ -159,7 +159,7 @@
     },
     {
       "name": "bulkActionsReturnFocusRef",
-      "type": "React.RefObject<HTMLElement>",
+      "type": "React.RefObject<HTMLElement | null>",
       "description": "Override focus recovery when a focused action disappears. Defaults to select-all, or the table when no selectable rows remain. Does not override focus already moved by the consumer."
     },
     {

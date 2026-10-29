@@ -41,17 +41,37 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
   ref,
 ) {
   const focusedAction = useRef<HTMLElement | null>(null)
+  const focusObserver = useRef<MutationObserver | null>(null)
   const active = selectedCount > 0
 
-  // Controlled updates can remove the focused action after its event has finished.
-  useLayoutEffect(() => {
+  function recoverFocus() {
     const element = focusedAction.current
     if (element && !element.isConnected) {
       focusedAction.current = null
+      focusObserver.current?.disconnect()
       const document = element.ownerDocument
       if (document.activeElement === document.body) {
         onFocusReturn?.()
       }
+    }
+  }
+
+  function observeFocusedAction() {
+    focusObserver.current?.disconnect()
+    const element = focusedAction.current
+    if (element) {
+      // Observe only while an action owns focus, including actions in portals.
+      const observer = new MutationObserver(recoverFocus)
+      observer.observe(element.ownerDocument.body, {childList: true, subtree: true})
+      focusObserver.current = observer
+    }
+  }
+
+  useLayoutEffect(() => {
+    recoverFocus()
+    observeFocusedAction()
+    return () => {
+      focusObserver.current?.disconnect()
     }
   })
 
@@ -66,6 +86,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
       {...rest}
       onFocusCapture={event => {
         focusedAction.current = event.target
+        observeFocusedAction()
         // Native focus scrolling can miss controls in the grid-overlaid header.
         if (event.currentTarget.contains(event.target)) {
           event.target.scrollIntoView({block: 'nearest', inline: 'nearest'})
@@ -78,6 +99,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
         // Clicking non-focusable content blurs with a null relatedTarget.
         if (event.target.isConnected) {
           focusedAction.current = null
+          focusObserver.current?.disconnect()
         }
         if (!event.defaultPrevented) {
           onBlurCapture?.(event)

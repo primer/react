@@ -1,4 +1,4 @@
-import {useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
+import {useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -150,7 +150,7 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    * Overrides the focus recovery target when a focused bulk action disappears.
    * Defaults to select-all, or the table when no selectable rows remain.
    */
-  bulkActionsReturnFocusRef?: RefObject<HTMLElement>
+  bulkActionsReturnFocusRef?: RefObject<HTMLElement | null>
 }
 
 export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
@@ -204,6 +204,7 @@ function DataTableImplementation<Data extends UniqueRow>({
 }: DataTableProps<Data>) {
   const selectionCheckboxRef = useRef<HTMLInputElement>(null)
   const tableRef = useRef<HTMLTableElement>(null)
+  const bulkActionsId = useId()
   const table = useTable({
     data,
     columns,
@@ -281,12 +282,14 @@ function DataTableImplementation<Data extends UniqueRow>({
               }}
             />
           ) : null}
-          {headers.map(header => {
+          {headers.map((header, index) => {
             if (bulkActionsActive) {
+              const labelId = typeof header.column.header === 'string' ? undefined : `${bulkActionsId}-column-${index}`
               return (
                 <TableHeader
                   key={header.id}
                   id={header.domId}
+                  aria-labelledby={labelId}
                   align={header.column.align}
                   aria-sort={
                     header.getSortDirection() === 'ASC'
@@ -297,9 +300,14 @@ function DataTableImplementation<Data extends UniqueRow>({
                   }
                 >
                   <span className={classes.ColumnLabel}>
-                    <VisuallyHidden>
-                      {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
-                    </VisuallyHidden>
+                    {typeof header.column.header === 'string' ? (
+                      <VisuallyHidden>{header.column.header}</VisuallyHidden>
+                    ) : (
+                      // Hidden content names the header without exposing its controls.
+                      <span id={labelId} hidden>
+                        {header.column.header()}
+                      </span>
+                    )}
                   </span>
                 </TableHeader>
               )

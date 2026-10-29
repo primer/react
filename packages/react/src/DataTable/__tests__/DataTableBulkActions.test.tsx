@@ -1,6 +1,8 @@
-import React, {act} from 'react'
-import {render, screen, waitFor, within} from '@testing-library/react'
+import React from 'react'
+import {act, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
+import {createPortal} from 'react-dom'
 import {renderToString} from 'react-dom/server'
 import {hydrateRoot, type Root} from 'react-dom/client'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
@@ -102,6 +104,142 @@ describe('DataTable bulk actions', () => {
     )
     expect(renderer).not.toHaveBeenCalled()
     expect(screen.queryByRole('group', {name: 'Bulk actions'})).not.toBeInTheDocument()
+  })
+
+  it('names custom headers without leaving hidden controls in the tab order', async () => {
+    function CustomHeader() {
+      return <a href="#name">Name</a>
+    }
+    render(
+      <DataTable
+        data={rows}
+        columns={[
+          {header: () => <CustomHeader />, field: 'name', rowHeader: true},
+          {
+            header: () => (
+              <button type="button" aria-label="Details">
+                More
+              </button>
+            ),
+            field: 'id',
+          },
+        ]}
+        rowSelection
+        defaultSelectedRows={new Set([1])}
+        renderBulkActions={renderActions}
+      />,
+    )
+    for (const name of ['Name', 'Details']) {
+      const header = page.getByRole('columnheader', {name, exact: true})
+      await expect.element(header).toBeInTheDocument()
+      const labelId = header.element().getAttribute('aria-labelledby')
+      expect(document.getElementById(labelId!)).toHaveAttribute('hidden')
+    }
+    await expect.element(page.getByRole('link', {name: 'Name', exact: true})).not.toBeInTheDocument()
+    await expect.element(page.getByRole('button', {name: 'Details', exact: true})).not.toBeInTheDocument()
+    const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+    act(() => selectAll.element().focus())
+    await browserUserEvent.tab()
+    const apply = page.getByRole('button', {name: 'Apply to 1', exact: true})
+    await expect.element(apply).toHaveFocus()
+    await browserUserEvent.tab({shift: true})
+    await expect.element(selectAll).toHaveFocus()
+    await browserUserEvent.click(apply)
+    await browserUserEvent.tab()
+    await expect.element(page.getByRole('link', {name: 'Name', exact: true})).toHaveFocus()
+    await browserUserEvent.tab()
+    await expect.element(page.getByRole('button', {name: 'Details', exact: true})).toHaveFocus()
+  })
+
+  it.each([false, true])('recovers focus after a child-only action removal (portal: %s)', async portal => {
+    function Action() {
+      const [visible, setVisible] = React.useState(true)
+      const button = visible ? <Button onClick={() => setVisible(false)}>Remove action</Button> : null
+      return portal ? createPortal(button, document.body) : button
+    }
+    render(
+      <DataTable
+        data={rows}
+        columns={columns}
+        rowSelection
+        defaultSelectedRows={new Set([1])}
+        renderBulkActions={() => <Action />}
+      />,
+    )
+    await browserUserEvent.click(page.getByRole('button', {name: 'Remove action', exact: true}))
+    await expect.element(page.getByRole('checkbox', {name: 'Select rows', exact: true})).toHaveFocus()
+    await expect.element(page.getByRole('group', {name: 'Bulk actions', exact: true})).toBeInTheDocument()
+    await expect
+      .element(page.getByRole('group', {name: 'Bulk actions', exact: true}).getByText('1 selected', {exact: true}))
+      .toBeVisible()
+  })
+
+  it('does not override a consumer destination after a child-only action removal', async () => {
+    const destination = React.createRef<HTMLButtonElement>()
+    function Action() {
+      const [visible, setVisible] = React.useState(true)
+      return visible ? (
+        <Button
+          onClick={() => {
+            destination.current?.focus()
+            setVisible(false)
+          }}
+        >
+          Complete
+        </Button>
+      ) : null
+    }
+    render(
+      <>
+        <Button ref={destination}>Confirmation</Button>
+        <DataTable
+          data={rows}
+          columns={columns}
+          rowSelection
+          defaultSelectedRows={new Set([1])}
+          renderBulkActions={() => <Action />}
+        />
+      </>,
+    )
+    await browserUserEvent.click(page.getByRole('button', {name: 'Complete', exact: true}))
+    await expect.element(page.getByRole('button', {name: 'Confirmation', exact: true})).toHaveFocus()
+  })
+
+  it('acts on selected collapsed rows without changing expansion', async () => {
+    const onAction = vi.fn()
+    render(
+      <DataTable
+        data={[{groupId: 'group', label: 'Repositories', rows}]}
+        columns={columns}
+        rowSelection
+        collapsibleGroups
+        defaultExpandedGroups={new Set()}
+        defaultSelectedRows={new Set([1])}
+        renderBulkActions={({selectedRows, clearSelection}) => (
+          <Button
+            onClick={() => {
+              onAction(selectedRows)
+              clearSelection()
+            }}
+          >
+            Apply
+          </Button>
+        )}
+      />,
+    )
+    await expect
+      .element(page.getByRole('group', {name: 'Bulk actions', exact: true}).getByText('1 selected', {exact: true}))
+      .toBeVisible()
+    await expect
+      .element(page.getByRole('button', {name: 'Repositories', exact: true}))
+      .toHaveAttribute('aria-expanded', 'false')
+    await browserUserEvent.click(page.getByRole('button', {name: 'Apply', exact: true}))
+    expect(onAction).toHaveBeenCalledWith(new Set([1]))
+    await expect.element(page.getByRole('group', {name: 'Bulk actions', exact: true})).not.toBeInTheDocument()
+    await expect.element(page.getByRole('checkbox', {name: 'Select rows', exact: true})).toHaveFocus()
+    await expect
+      .element(page.getByRole('button', {name: 'Repositories', exact: true}))
+      .toHaveAttribute('aria-expanded', 'false')
   })
 
   it('preserves checkbox focus when actions appear and announces counts including zero', async () => {
@@ -339,6 +477,18 @@ describe('DataTable bulk actions', () => {
 
 describe('Table.BulkActions', () => {
   implementsClassName(props => <Table.BulkActions selectedCount={1} {...props} />, classes.TableBulkActions)
+
+  it('does not recover focus when the entire component unmounts', async () => {
+    const onFocusReturn = vi.fn()
+    const {unmount} = render(
+      <Table.BulkActions selectedCount={1} onFocusReturn={onFocusReturn}>
+        <Button>Apply</Button>
+      </Table.BulkActions>,
+    )
+    await browserUserEvent.click(page.getByRole('button', {name: 'Apply', exact: true}))
+    await act(async () => unmount())
+    expect(onFocusReturn).not.toHaveBeenCalled()
+  })
 
   it('forwards root attributes, ref and focus handlers', async () => {
     const user = userEvent.setup()

@@ -6,7 +6,7 @@ const storyId = 'experimental-components-datatable-features--with-bulk-actions'
 
 test.describe('DataTable bulk actions', () => {
   for (const theme of themes) {
-    test(`${theme} @avt`, async ({page}) => {
+    test(`${theme} @aat`, async ({page}) => {
       await visit(page, {
         id: storyId,
         globals: {colorScheme: theme},
@@ -15,7 +15,7 @@ test.describe('DataTable bulk actions', () => {
     })
   }
 
-  test('bulk actions replace column labels beside the header checkbox @avt', async ({page}) => {
+  test('bulk actions replace column labels beside the header checkbox @aat', async ({page}) => {
     await visit(page, {id: storyId})
     const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
     await selectAll.focus()
@@ -45,7 +45,7 @@ test.describe('DataTable bulk actions', () => {
     await expect(page).toHaveNoViolations()
   })
 
-  test('deletion and final-record focus @avt', async ({page}) => {
+  test('deletion and final-record focus @aat', async ({page}) => {
     await visit(page, {id: storyId})
     await page.getByRole('button', {name: 'Delete selected'}).click()
     await expect(page.getByRole('rowheader', {name: 'primer/react', exact: true})).toHaveCount(0)
@@ -60,7 +60,7 @@ test.describe('DataTable bulk actions', () => {
     await expect(page).toHaveNoViolations()
   })
 
-  test('makes only selected repositories internal @avt', async ({page}) => {
+  test('makes only selected repositories internal @aat', async ({page}) => {
     await visit(page, {id: storyId})
     await page.getByRole('button', {name: 'Make internal'}).click()
     await expect(page.getByRole('row', {name: /primer\/react/}).getByRole('cell', {name: 'Internal'})).toBeVisible()
@@ -70,7 +70,7 @@ test.describe('DataTable bulk actions', () => {
   })
 
   for (const density of ['condensed', 'normal', 'spacious'] as const) {
-    test(`preserves header height, typography and alignment (${density}) @avt`, async ({page}) => {
+    test(`preserves header height, typography and alignment (${density}) @aat`, async ({page}) => {
       await visit(page, {id: storyId})
       const table = page.getByRole('table')
       await table.evaluate((element, value) => {
@@ -118,7 +118,7 @@ test.describe('DataTable bulk actions', () => {
     })
   }
 
-  test('header actions remain reachable in a narrow scrolling table with text-spacing overrides @avt', async ({
+  test('header actions remain reachable in a narrow scrolling table with text-spacing overrides @aat', async ({
     page,
   }) => {
     await page.setViewportSize({width: 320, height: 256})
