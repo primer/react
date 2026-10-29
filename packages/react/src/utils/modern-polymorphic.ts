@@ -25,11 +25,13 @@ export const fixedForwardRef = forwardRef as FixedForwardRef
 /**
  * Simplified polymorphic props type that handles the common pattern of
  * `DistributiveOmit<ComponentPropsWithRef<ElementType extends As ? DefaultElement : As>, 'as'>`
+ * Keep own props separate so their types remain available in generic components.
  */
 export type PolymorphicProps<
   TAs extends ElementType,
   TDefaultElement extends ElementType = 'div',
   Props = object,
-> = DistributiveOmit<ComponentPropsWithRef<ElementType extends TAs ? TDefaultElement : TAs> & Props, 'as'> & {
-  as?: TAs
-}
+> = DistributiveOmit<ComponentPropsWithRef<ElementType extends TAs ? TDefaultElement : TAs>, 'as'> &
+  DistributiveOmit<Props, 'as'> & {
+    as?: TAs
+  }
