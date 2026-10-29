@@ -1,17 +1,22 @@
 .UnderlineWrapper {
+  --UnderlineTabbedInterface--underlineWrapper-boxShadow: inset 0 -1px var(--borderColor-muted);
+  --UnderlineTabbedInterface--underlineWrapper-minHeight: var(--control-xlarge-size);
+  --UnderlineTabbedInterface--underlineWrapper-paddingInline: var(--stack-padding-normal);
+  --UnderlineTabbedInterface--underlineWrapper-paddingTop: var(--base-size-8);
+
   display: flex;
-  padding-top: var(--base-size-8);
+  padding-top: var(--UnderlineTabbedInterface--underlineWrapper-paddingTop);
   /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--stack-padding-normal);
+  padding-inline: var(--UnderlineTabbedInterface--underlineWrapper-paddingInline);
   justify-content: flex-start;
   align-items: flex-start;
 
   /* make space for the underline */
-  min-height: var(--control-xlarge-size);
+  min-height: var(--UnderlineTabbedInterface--underlineWrapper-minHeight);
 
   /* using a box-shadow instead of a border to accommodate 'overflow-y: hidden' on UnderlinePanels */
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: inset 0 -1px var(--borderColor-muted);
+  box-shadow: var(--UnderlineTabbedInterface--underlineWrapper-boxShadow);
 
   &[data-variant='flush'] {
     /* stylelint-disable-next-line primer/spacing */
@@ -19,14 +24,16 @@
   }
 
   &[data-overflow-mode='wrap'] {
+    --UnderlineTabbedInterface--underlineWrapper-paddingBlock-overflowModeWrap: var(--base-size-8) 0;
+    --UnderlineTabbedInterface--underlineWrapper-maxHeight-overflowModeWrap: var(--control-xlarge-size);
     /* Wrap items onto hidden next lines */
     overflow: hidden;
-    max-height: var(--control-xlarge-size);
+    max-height: var(--UnderlineTabbedInterface--underlineWrapper-maxHeight-overflowModeWrap);
 
     /* Pin the vertical box model so external box-sizing/border/padding overrides can't change the height budget and incorrectly trigger the overflow "more" menu */
     box-sizing: border-box !important;
     border: 0 !important;
-    padding-block: var(--base-size-8) 0 !important;
+    padding-block: var(--UnderlineTabbedInterface--underlineWrapper-paddingBlock-overflowModeWrap) !important;
 
     .UnderlineItemList {
       flex-grow: 1;
@@ -37,6 +44,8 @@
 }
 
 .UnderlineItemList {
+  --UnderlineTabbedInterface--underlineItemList-gap: var(--stack-gap-condensed);
+
   position: relative;
   display: flex;
   padding: 0;
@@ -44,7 +53,7 @@
   white-space: nowrap;
   list-style: none;
   align-items: center;
-  gap: var(--stack-gap-condensed);
+  gap: var(--UnderlineTabbedInterface--underlineItemList-gap);
 
   /* Isolate the ResizeObserver-driven item swapping (UnderlineNav overflow menu / UnderlinePanels)
   so it can't invalidate ancestor layout. Safe because UnderlineNav's overflow menu is rendered via ActionMenu.Overlay
@@ -53,42 +62,54 @@
 }
 
 .UnderlineItem {
+  --UnderlineTabbedInterface--underlineItem-paddingBlock: var(--base-size-6);
+  --UnderlineTabbedInterface--underlineItem-paddingInline: var(--base-size-8);
+  --UnderlineTabbedInterface--underlineItem-height: var(--base-size-32);
+  --UnderlineTabbedInterface--underlineItem-marginBottom: var(--base-size-8);
+  --UnderlineTabbedInterface--underlineItem-borderRadius: var(--borderRadius-medium);
+  --UnderlineTabbedInterface--underlineItem-color: var(--fgColor-default);
+  --UnderlineTabbedInterface--underlineItem-lineHeight: var(--text-body-lineHeight-medium, 1.4285);
+  --UnderlineTabbedInterface--underlineItem-fontSize: var(--text-body-size-medium);
   /* underline tab specific styles */
   position: relative;
   display: inline-flex;
   font: inherit;
-  font-size: var(--text-body-size-medium);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  color: var(--fgColor-default);
+  font-size: var(--UnderlineTabbedInterface--underlineItem-fontSize);
+  line-height: var(--UnderlineTabbedInterface--underlineItem-lineHeight);
+  color: var(--UnderlineTabbedInterface--underlineItem-color);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   background-color: transparent;
   border: 0;
-  border-radius: var(--borderRadius-medium);
+  border-radius: var(--UnderlineTabbedInterface--underlineItem-borderRadius);
   max-width: 100%;
-  margin-bottom: var(--base-size-8);
-  height: var(--base-size-32);
+  margin-bottom: var(--UnderlineTabbedInterface--underlineItem-marginBottom);
+  height: var(--UnderlineTabbedInterface--underlineItem-height);
 
   /* button resets */
   appearance: none;
-  padding-inline: var(--base-size-8);
-  padding-block: var(--base-size-6);
+  padding-inline: var(--UnderlineTabbedInterface--underlineItem-paddingInline);
+  padding-block: var(--UnderlineTabbedInterface--underlineItem-paddingBlock);
   align-items: center;
 
   @media (hover: hover) {
     &:hover {
+      --UnderlineTabbedInterface--underlineItem-backgroundColor-hover-mediaHoverHover: var(--bgColor-neutral-muted);
+
       text-decoration: none;
-      background-color: var(--bgColor-neutral-muted);
+      background-color: var(--UnderlineTabbedInterface--underlineItem-backgroundColor-hover-mediaHoverHover);
       transition: background-color 0.12s ease-out;
     }
   }
 }
 
 .UnderlineItem:focus {
+  --UnderlineTabbedInterface--underlineItem-boxShadow-focus: inset 0 0 0 2px var(--fgColor-accent);
+
   outline: 2px solid transparent;
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: inset 0 0 0 2px var(--fgColor-accent);
+  box-shadow: var(--UnderlineTabbedInterface--underlineItem-boxShadow-focus);
 
   /* where focus-visible is supported, remove the focus box-shadow */
   &:not(:focus-visible) {
@@ -97,26 +118,33 @@
 }
 
 .UnderlineItem:focus-visible {
+  --UnderlineTabbedInterface--underlineItem-boxShadow-focusVisible: inset 0 0 0 2px var(--fgColor-accent);
+
   outline: 2px solid transparent;
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: inset 0 0 0 2px var(--fgColor-accent);
+  box-shadow: var(--UnderlineTabbedInterface--underlineItem-boxShadow-focusVisible);
 }
 
 /* renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected */
 .UnderlineItem [data-content]::before {
+  --UnderlineTabbedInterface--underlineItem-before-fontWeight-contentPresent: var(--base-text-weight-semibold);
+
   display: block;
   height: 0;
-  font-weight: var(--base-text-weight-semibold);
+  font-weight: var(--base-text-weight-light);
   white-space: nowrap;
   visibility: hidden;
   content: attr(data-content);
 }
 
 .UnderlineItem [data-component='icon'] {
+  --UnderlineTabbedInterface--underlineItem-marginInlineEnd-componentIcon: var(--base-size-8);
+  --UnderlineTabbedInterface--underlineItem-color-componentIcon: var(--fgColor-muted);
+
   display: inline-flex;
-  color: var(--fgColor-muted);
+  color: var(--UnderlineTabbedInterface--underlineItem-color-componentIcon);
   align-items: center;
-  margin-inline-end: var(--base-size-8);
+  margin-inline-end: var(--UnderlineTabbedInterface--underlineItem-marginInlineEnd-componentIcon);
 }
 
 /* Truncate items if necessary (should only ever apply to the last item after everything else overflows) */
@@ -127,15 +155,19 @@
 }
 
 .UnderlineItem [data-component='counter'] {
-  margin-inline-start: var(--base-size-8);
+  --UnderlineTabbedInterface--underlineItem-marginInlineStart-componentCounter: var(--base-size-8);
+
+  margin-inline-start: var(--UnderlineTabbedInterface--underlineItem-marginInlineStart-componentCounter);
   display: flex;
   align-items: center;
 }
 
 .UnderlineItem::after {
+  --UnderlineTabbedInterface--underlineItem-after-marginBottom: calc(-1 * var(--base-size-8));
+
   position: absolute;
   inset: auto 0 0;
-  margin-bottom: calc(-1 * var(--base-size-8));
+  margin-bottom: var(--UnderlineTabbedInterface--underlineItem-after-marginBottom);
   height: 2px;
   pointer-events: none;
   content: '';
@@ -144,13 +176,27 @@
 
 .UnderlineItem[aria-current]:not([aria-current='false']) [data-component='text'],
 .UnderlineItem[aria-selected='true'] [data-component='text'] {
-  font-weight: var(--base-text-weight-semibold);
+  --UnderlineTabbedInterface--underlineItem-fontWeight-ariaCurrentPresent-not-ariaCurrentFalse-componentText-ariaSelectedTrue: var(
+    --base-text-weight-semibold
+  );
+
+  font-weight: var(--base-text-weight-light);
+
+  /* stylelint-disable-next-line primer/colors */
+
+  color: var(--UnderlineTabbedInterface--underlineItem-color-active, inherit);
 }
 
 .UnderlineItem[aria-current]:not([aria-current='false'])::after,
 .UnderlineItem[aria-selected='true']::after {
+  --UnderlineTabbedInterface--underlineItem-after-backgroundColor-ariaCurrentPresent-not-ariaCurrentFalse-ariaSelectedTrue: var(
+    --underlineNav-borderColor-active,
+    var(--color-primer-border-active, #fd8c73)
+  );
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
+  background-color: var(
+    --UnderlineTabbedInterface--underlineItem-after-backgroundColor-ariaCurrentPresent-not-ariaCurrentFalse-ariaSelectedTrue
+  );
 
   @media (forced-colors: active) {
     /* Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast */
@@ -159,12 +205,15 @@
 }
 
 .LoadingCounter {
+  --UnderlineTabbedInterface--loadingCounter-borderColor: var(--borderColor-default);
+  --UnderlineTabbedInterface--loadingCounter-backgroundColor: var(--bgColor-neutral-muted);
+
   display: inline-block;
   width: 1.5rem;
   height: 1rem;
   /* 16px */
-  background-color: var(--bgColor-neutral-muted);
-  border-color: var(--borderColor-default);
+  background-color: var(--UnderlineTabbedInterface--loadingCounter-backgroundColor);
+  border-color: var(--UnderlineTabbedInterface--loadingCounter-borderColor);
   /* stylelint-disable-next-line primer/borders */
   border-radius: 20px;
   animation: loadingCounterKeyFrames 1.2s ease-in-out infinite alternate;

@@ -1,9 +1,13 @@
 .InputValidation {
+  --InputValidation--color: var(--inputValidation-fgColor);
+  --InputValidation--fontWeight: var(--base-text-weight-semibold);
+  --InputValidation--fontSize: var(--text-body-size-small);
+
   display: flex;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--InputValidation--fontSize);
+  font-weight: var(--base-text-weight-light);
   /* stylelint-disable-next-line primer/colors */
-  color: var(--inputValidation-fgColor);
+  color: var(--InputValidation--color);
 
   & :where(a) {
     color: currentColor;
@@ -11,22 +15,29 @@
   }
 
   &:where([data-validation-status='success']) {
-    --inputValidation-fgColor: var(--fgColor-success);
+    --InputValidation--inputValidationFgColor-validationStatusSuccess: var(--fgColor-success);
+    --inputValidation-fgColor: var(--InputValidation--inputValidationFgColor-validationStatusSuccess);
   }
 
   &:where([data-validation-status='error']) {
-    --inputValidation-fgColor: var(--fgColor-danger);
+    --InputValidation--inputValidationFgColor-validationStatusError: var(--fgColor-danger);
+    --inputValidation-fgColor: var(--InputValidation--inputValidationFgColor-validationStatusError);
   }
 }
 
 .ValidationIcon {
+  --InputValidation--validationIcon-minHeight: var(--inputValidation-iconSize);
+  --InputValidation--validationIcon-marginInlineEnd: var(--base-size-4);
+  --InputValidation--validationIcon-marginTop: var(--base-size-2);
+
   display: flex;
-  margin-top: var(--base-size-2);
-  margin-inline-end: var(--base-size-4);
-  min-height: var(--inputValidation-iconSize);
+  margin-top: var(--InputValidation--validationIcon-marginTop);
+  margin-inline-end: var(--InputValidation--validationIcon-marginInlineEnd);
+  min-height: var(--InputValidation--validationIcon-minHeight);
 }
 
 .ValidationText {
+  --InputValidation--validationText-lineHeight: var(--inputValidation-lineHeight);
   /* stylelint-disable-next-line primer/typography */
-  line-height: var(--inputValidation-lineHeight);
+  line-height: var(--InputValidation--validationText-lineHeight);
 }

@@ -1,20 +1,28 @@
 .SkeletonText {
-  --font-size: var(--text-body-size-medium);
-  --line-height: var(--text-body-lineHeight-medium);
-  --leading: calc(var(--font-size) * var(--line-height) - var(--font-size));
+  --SkeletonText--marginBlock: calc(var(--leading) / 2);
+  --SkeletonText--borderRadius: var(--borderRadius-small);
+  --SkeletonText--height: var(--font-size);
+  --SkeletonText--leading: calc(var(--font-size) * var(--line-height) - var(--font-size));
+  --SkeletonText--lineHeight: var(--text-body-lineHeight-medium);
+  --SkeletonText--fontSize: var(--text-body-size-medium);
+  --font-size: var(--SkeletonText--fontSize);
+  --line-height: var(--SkeletonText--lineHeight);
+  --leading: var(--SkeletonText--leading);
 
   @supports (margin-block: mod(1px, 1px)) {
-    --leading: mod(var(--font-size) * var(--line-height), var(--font-size));
+    --SkeletonText--leading-supportsMarginBlockMod1px1px: mod(var(--font-size) * var(--line-height), var(--font-size));
+    --leading: var(--SkeletonText--leading-supportsMarginBlockMod1px1px);
   }
 
-  height: var(--font-size);
-  border-radius: var(--borderRadius-small);
+  height: var(--SkeletonText--height);
+  border-radius: var(--SkeletonText--borderRadius);
   /* stylelint-disable-next-line primer/spacing */
-  margin-block: calc(var(--leading) / 2);
+  margin-block: var(--SkeletonText--marginBlock);
 
   &:where([data-in-multiline]) {
+    --SkeletonText--marginBlockEnd-inMultilinePresent: calc(var(--leading) * 2);
     /* stylelint-disable-next-line primer/spacing */
-    margin-block-end: calc(var(--leading) * 2);
+    margin-block-end: var(--SkeletonText--marginBlockEnd-inMultilinePresent);
 
     &:last-child {
       min-width: 50px;
@@ -25,42 +33,58 @@
 
   &:where([data-text-skeleton-size='display']),
   &:where([data-text-skeleton-size='titleLarge']) {
-    border-radius: var(--borderRadius-medium);
+    --SkeletonText--borderRadius-textSkeletonSizeDisplay-textSkeletonSizeTitleLarge: var(--borderRadius-medium);
+
+    border-radius: var(--SkeletonText--borderRadius-textSkeletonSizeDisplay-textSkeletonSizeTitleLarge);
   }
 
   &:where([data-text-skeleton-size='display']) {
-    --font-size: var(--text-display-size);
-    --line-height: var(--text-display-lineHeight);
+    --SkeletonText--lineHeight-textSkeletonSizeDisplay: var(--text-display-lineHeight);
+    --SkeletonText--fontSize-textSkeletonSizeDisplay: var(--text-display-size);
+    --font-size: var(--SkeletonText--fontSize-textSkeletonSizeDisplay);
+    --line-height: var(--SkeletonText--lineHeight-textSkeletonSizeDisplay);
   }
 
   &:where([data-text-skeleton-size='titleLarge']) {
-    --font-size: var(--text-title-size-large);
-    --line-height: var(--text-title-lineHeight-large);
+    --SkeletonText--lineHeight-textSkeletonSizeTitleLarge: var(--text-title-lineHeight-large);
+    --SkeletonText--fontSize-textSkeletonSizeTitleLarge: var(--text-title-size-large);
+    --font-size: var(--SkeletonText--fontSize-textSkeletonSizeTitleLarge);
+    --line-height: var(--SkeletonText--lineHeight-textSkeletonSizeTitleLarge);
   }
 
   &:where([data-text-skeleton-size='titleMedium']) {
-    --font-size: var(--text-title-size-medium);
-    --line-height: var(--text-title-lineHeight-medium);
+    --SkeletonText--lineHeight-textSkeletonSizeTitleMedium: var(--text-title-lineHeight-medium);
+    --SkeletonText--fontSize-textSkeletonSizeTitleMedium: var(--text-title-size-medium);
+    --font-size: var(--SkeletonText--fontSize-textSkeletonSizeTitleMedium);
+    --line-height: var(--SkeletonText--lineHeight-textSkeletonSizeTitleMedium);
   }
 
   &:where([data-text-skeleton-size='titleSmall']) {
-    --font-size: var(--text-title-size-small);
-    --line-height: var(--text-title-lineHeight-small);
+    --SkeletonText--lineHeight-textSkeletonSizeTitleSmall: var(--text-title-lineHeight-small);
+    --SkeletonText--fontSize-textSkeletonSizeTitleSmall: var(--text-title-size-small);
+    --font-size: var(--SkeletonText--fontSize-textSkeletonSizeTitleSmall);
+    --line-height: var(--SkeletonText--lineHeight-textSkeletonSizeTitleSmall);
   }
 
   &:where([data-text-skeleton-size='subtitle']) {
-    --font-size: var(--text-subtitle-size);
-    --line-height: var(--text-subtitle-lineHeight);
+    --SkeletonText--lineHeight-textSkeletonSizeSubtitle: var(--text-subtitle-lineHeight);
+    --SkeletonText--fontSize-textSkeletonSizeSubtitle: var(--text-subtitle-size);
+    --font-size: var(--SkeletonText--fontSize-textSkeletonSizeSubtitle);
+    --line-height: var(--SkeletonText--lineHeight-textSkeletonSizeSubtitle);
   }
 
   &:where([data-text-skeleton-size='bodyLarge']) {
-    --font-size: var(--text-body-size-large);
-    --line-height: var(--text-body-lineHeight-large);
+    --SkeletonText--lineHeight-textSkeletonSizeBodyLarge: var(--text-body-lineHeight-large);
+    --SkeletonText--fontSize-textSkeletonSizeBodyLarge: var(--text-body-size-large);
+    --font-size: var(--SkeletonText--fontSize-textSkeletonSizeBodyLarge);
+    --line-height: var(--SkeletonText--lineHeight-textSkeletonSizeBodyLarge);
   }
 
   &:where([data-text-skeleton-size='bodySmall']) {
-    --font-size: var(--text-body-size-small);
-    --line-height: var(--text-body-lineHeight-small);
+    --SkeletonText--lineHeight-textSkeletonSizeBodySmall: var(--text-body-lineHeight-small);
+    --SkeletonText--fontSize-textSkeletonSizeBodySmall: var(--text-body-size-small);
+    --font-size: var(--SkeletonText--fontSize-textSkeletonSizeBodySmall);
+    --line-height: var(--SkeletonText--lineHeight-textSkeletonSizeBodySmall);
   }
 }
 

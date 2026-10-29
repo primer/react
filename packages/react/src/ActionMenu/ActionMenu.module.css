@@ -1,9 +1,12 @@
 .ActionMenuContainer {
+  --ActionMenu--paddingTop-fullscreen: var(--base-size-36);
+
   /* add default max height */
   max-height: 100vh;
 
   &:where([data-variant='fullscreen']) {
-    padding-top: var(--base-size-36);
+    /* stylelint-disable-next-line primer/spacing */
+    padding-top: var(--ActionMenu--paddingTop-fullscreen);
   }
 
   /* Overflow variants */

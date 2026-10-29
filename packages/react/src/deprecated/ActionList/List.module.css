@@ -1,5 +1,10 @@
 .List[data-has-active-descendant],
 .List:focus-within {
+  --DeprecatedActionList--list-itemHoverDividerBorderColorOverride-hasActiveDescendantPresent-focusWithin: var(
+    --borderColor-muted
+  );
   --item-hover-bg-override: none;
-  --item-hover-divider-border-color-override: var(--borderColor-muted);
+  --item-hover-divider-border-color-override: var(
+    --DeprecatedActionList--list-itemHoverDividerBorderColorOverride-hasActiveDescendantPresent-focusWithin
+  );
 }

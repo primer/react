@@ -1,15 +1,19 @@
 .UnderlineNav {
+  --DeprecatedUnderlineNav--underlineNav-borderBottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+
   display: flex;
   justify-content: space-between;
-  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-bottom: var(--DeprecatedUnderlineNav--underlineNav-borderBottom);
 
   &.UnderlineNav--right {
     justify-content: flex-end;
   }
 
   &.UnderlineNav--right .UnderlineNavItem {
+    --DeprecatedUnderlineNav--underlineNav-underlineNavRight-underlineNavItem-marginLeft: var(--base-size-16);
+
     margin-right: 0;
-    margin-left: var(--base-size-16);
+    margin-left: var(--DeprecatedUnderlineNav--underlineNav-underlineNavRight-underlineNavItem-marginLeft);
   }
 
   &.UnderlineNav--right .UnderlineNavActions {
@@ -32,11 +36,17 @@
 }
 
 .UnderlineNavLink {
-  padding: var(--base-size-16) var(--base-size-8);
-  margin-right: var(--base-size-16);
-  font-size: var(--text-body-size-medium);
-  line-height: var(--text-title-lineHeight-large);
-  color: var(--fgColor-default);
+  --DeprecatedUnderlineNav--underlineNavLink-color: var(--fgColor-default);
+  --DeprecatedUnderlineNav--underlineNavLink-lineHeight: var(--text-title-lineHeight-large);
+  --DeprecatedUnderlineNav--underlineNavLink-fontSize: var(--text-body-size-medium);
+  --DeprecatedUnderlineNav--underlineNavLink-marginRight: var(--base-size-16);
+  --DeprecatedUnderlineNav--underlineNavLink-padding: var(--base-size-16) var(--base-size-8);
+
+  padding: var(--DeprecatedUnderlineNav--underlineNavLink-padding);
+  margin-right: var(--DeprecatedUnderlineNav--underlineNavLink-marginRight);
+  font-size: var(--DeprecatedUnderlineNav--underlineNavLink-fontSize);
+  line-height: var(--DeprecatedUnderlineNav--underlineNavLink-lineHeight);
+  color: var(--DeprecatedUnderlineNav--underlineNavLink-color);
   text-align: center;
   /* stylelint-disable-next-line primer/borders */
   border-bottom: 2px solid transparent;
@@ -44,8 +54,10 @@
 
   /* fallback :focus state */
   &:focus:not(:disabled) {
+    --DeprecatedUnderlineNav--underlineNavLink-outline-focus-not-disabled: 2px solid var(--fgColor-accent);
+
     box-shadow: none;
-    outline: 2px solid var(--fgColor-accent);
+    outline: var(--DeprecatedUnderlineNav--underlineNavLink-outline-focus-not-disabled);
     outline-offset: -8px;
 
     /* remove fallback :focus if :focus-visible is supported */
@@ -56,30 +68,42 @@
 
   /* default focus state */
   &:focus-visible:not(:disabled) {
+    --DeprecatedUnderlineNav--underlineNavLink-outline-focusVisible-not-disabled: 2px solid var(--fgColor-accent);
+
     box-shadow: none;
-    outline: 2px solid var(--fgColor-accent);
+    outline: var(--DeprecatedUnderlineNav--underlineNavLink-outline-focusVisible-not-disabled);
     outline-offset: -8px;
   }
 }
 
 .UnderlineNavLink:hover,
 .UnderlineNavLink:focus {
-  color: var(--fgColor-default);
+  --DeprecatedUnderlineNav--underlineNavLink-borderBottomColor-hover-focus: var(--borderColor-muted);
+  --DeprecatedUnderlineNav--underlineNavLink-color-hover-focus: var(--fgColor-default);
+
+  color: var(--DeprecatedUnderlineNav--underlineNavLink-color-hover-focus);
   text-decoration: none;
-  border-bottom-color: var(--borderColor-muted);
+  border-bottom-color: var(--DeprecatedUnderlineNav--underlineNavLink-borderBottomColor-hover-focus);
   transition: border-bottom-color 0.2s ease;
 }
 
 .UnderlineNavLink:hover .UnderlineNavOcticon,
 .UnderlineNavLink:focus .UnderlineNavOcticon {
-  color: var(--fgColor-muted);
+  --DeprecatedUnderlineNav--underlineNavLink-underlineNavOcticon-color-hover-focus: var(--fgColor-muted);
+
+  color: var(--DeprecatedUnderlineNav--underlineNavLink-underlineNavOcticon-color-hover-focus);
 }
 
 .UnderlineNavLink:where([data-selected]) {
-  color: var(--fgColor-default);
-  border-bottom-color: var(--underlineNav-borderColor-active);
+  --DeprecatedUnderlineNav--underlineNavLink-borderBottomColor-selectedPresent: var(--underlineNav-borderColor-active);
+  --DeprecatedUnderlineNav--underlineNavLink-color-selectedPresent: var(--fgColor-default);
+
+  color: var(--DeprecatedUnderlineNav--underlineNavLink-color-selectedPresent);
+  border-bottom-color: var(--DeprecatedUnderlineNav--underlineNavLink-borderBottomColor-selectedPresent);
 }
 
 .UnderlineNavLink:where([data-selected]) .UnderlineNavOcticon {
-  color: var(--fgColor-default);
+  --DeprecatedUnderlineNav--underlineNavLink-underlineNavOcticon-color-selectedPresent: var(--fgColor-default);
+
+  color: var(--DeprecatedUnderlineNav--underlineNavLink-underlineNavOcticon-color-selectedPresent);
 }

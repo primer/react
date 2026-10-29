@@ -1,7 +1,9 @@
 .Container {
+  --LabelGroup--container-gap: var(--base-size-4);
+
   display: flex;
   flex-wrap: nowrap;
-  gap: var(--base-size-4);
+  gap: var(--LabelGroup--container-gap);
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
   max-width: 100%;
@@ -47,9 +49,11 @@
 }
 
 .OverlayInner {
+  --LabelGroup--overlayInner-gap: var(--base-size-4);
+
   display: flex;
   flex-wrap: wrap;
-  gap: var(--base-size-4);
+  gap: var(--LabelGroup--overlayInner-gap);
 }
 
 .CloseButton {

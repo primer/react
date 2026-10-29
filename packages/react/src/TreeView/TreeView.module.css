@@ -17,18 +17,26 @@
    * Do NOT copy this pattern without understanding the tradeoffs.
    */
   .TreeViewItem {
+    --TreeView--treeViewRootUlStyles-treeViewItem-overflowClipMargin: var(--base-size-8);
     /*
      * `overflow-clip-margin` extends the paint clip edge by 8px so the current-item indicator
      * (positioned at `left: -8px` of the row container) remains visible when a consumer applies
      * `contain: paint` (or `contain: strict`, or `content-visibility: auto`) to this `<li>`. Has
      * no effect when no paint containment is active, so default rendering is unchanged.
      */
-    overflow-clip-margin: var(--base-size-8);
+    overflow-clip-margin: var(--TreeView--treeViewRootUlStyles-treeViewItem-overflowClipMargin);
     outline: none;
 
     &:focus-visible > div,
     &:global(.focus-visible) > div {
-      box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
+      --TreeView--treeViewRootUlStyles-treeViewItem-child-div-focusVisible-boxShadow-focusVisible-global: var(
+          --boxShadow-thick
+        )
+        var(--fgColor-accent);
+
+      box-shadow: var(
+        --TreeView--treeViewRootUlStyles-treeViewItem-child-div-focusVisible-boxShadow-focusVisible-global
+      );
 
       @media (forced-colors: active) {
         outline: 2px solid HighlightText;
@@ -42,6 +50,18 @@
   }
 
   .TreeViewItemContainer {
+    --TreeView--treeViewRootUlStyles-treeViewItemContainer-spacerWidth: calc(
+      calc(var(--level) - 1) * (var(--toggle-width) / 2)
+    );
+    --TreeView--treeViewRootUlStyles-treeViewItemContainer-leadingActionWidth: calc(
+      var(--has-leading-action, 0) * 1.5rem
+    );
+    --TreeView--treeViewRootUlStyles-treeViewItemContainer-gridTemplateColumns: var(--spacer-width)
+      var(--leading-action-width) var(--toggle-width) 1fr auto;
+    --TreeView--treeViewRootUlStyles-treeViewItemContainer-borderRadius: var(--borderRadius-medium);
+    --TreeView--treeViewRootUlStyles-treeViewItemContainer-color: var(--fgColor-default);
+    --TreeView--treeViewRootUlStyles-treeViewItemContainer-fontSize: var(--text-body-size-medium);
+    --TreeView--treeViewRootUlStyles-treeViewItemContainer-overflowClipMargin: var(--base-size-8);
     --level: 1;
     --toggle-width: 1rem;
     --min-item-height: 2rem;
@@ -54,19 +74,23 @@
      * visible when `containIntrinsicSize` is set on this row (which sets
      * `content-visibility: auto` on this container and implies paint containment).
      */
-    overflow-clip-margin: var(--base-size-8);
-    font-size: var(--text-body-size-medium);
-    color: var(--fgColor-default);
+    overflow-clip-margin: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-overflowClipMargin);
+    font-size: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-fontSize);
+    color: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-color);
     cursor: pointer;
-    border-radius: var(--borderRadius-medium);
-    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr auto;
+    border-radius: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-borderRadius);
+    grid-template-columns: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-gridTemplateColumns);
     grid-template-areas: 'spacer leadingAction toggle content trailingAction';
 
-    --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
-    --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
+    --leading-action-width: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-leadingActionWidth);
+    --spacer-width: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-spacerWidth);
 
     &:hover {
-      background-color: var(--control-transparent-bgColor-hover);
+      --TreeView--treeViewRootUlStyles-treeViewItemContainer-backgroundColor-hover: var(
+        --control-transparent-bgColor-hover
+      );
+
+      background-color: var(--TreeView--treeViewRootUlStyles-treeViewItemContainer-backgroundColor-hover);
 
       @media (forced-colors: active) {
         outline: 2px solid transparent;
@@ -99,14 +123,33 @@
   }
 
   .TreeViewItem[aria-current='true'] > .TreeViewItemContainer {
-    background-color: var(--control-transparent-bgColor-selected);
+    --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-backgroundColor-ariaCurrentTrue: var(
+      --control-transparent-bgColor-selected
+    );
+
+    background-color: var(
+      --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-backgroundColor-ariaCurrentTrue
+    );
 
     /* Current item indicator */
     /* stylelint-disable-next-line selector-max-specificity */
     &::after {
+      --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-borderRadius-ariaCurrentTrue: var(
+        --borderRadius-medium
+      );
+      --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-backgroundColor-ariaCurrentTrue: var(
+        --fgColor-accent
+      );
+      --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-left-ariaCurrentTrue: calc(
+        -1 * var(--base-size-8)
+      );
+      --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-top-ariaCurrentTrue: calc(
+        50% - var(--base-size-12)
+      );
+
       position: absolute;
-      top: calc(50% - var(--base-size-12));
-      left: calc(-1 * var(--base-size-8));
+      top: var(--TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-top-ariaCurrentTrue);
+      left: var(--TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-left-ariaCurrentTrue);
       width: 0.25rem;
       height: 1.5rem;
       content: '';
@@ -116,8 +159,12 @@
        * --bgColor-accent-emphasis, causes vrt failures for dark high contrast mode
        */
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--fgColor-accent);
-      border-radius: var(--borderRadius-medium);
+      background-color: var(
+        --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-backgroundColor-ariaCurrentTrue
+      );
+      border-radius: var(
+        --TreeView--treeViewRootUlStyles-treeViewItem-child-treeViewItemContainer-after-borderRadius-ariaCurrentTrue
+      );
 
       @media (forced-colors: active) {
         background-color: HighlightText;
@@ -126,41 +173,66 @@
   }
 
   .TreeViewItemToggle {
+    --TreeView--treeViewRootUlStyles-treeViewItemToggle-color: var(--fgColor-muted);
+    --TreeView--treeViewRootUlStyles-treeViewItemToggle-paddingTop: calc(
+      var(--min-item-height) / 2 - var(--base-size-12) / 2
+    );
+
     display: flex;
     height: 100%;
 
     /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
     across more lines. */
     /* stylelint-disable-next-line primer/spacing */
-    padding-top: calc(var(--min-item-height) / 2 - var(--base-size-12) / 2);
-    color: var(--fgColor-muted);
+    padding-top: var(--TreeView--treeViewRootUlStyles-treeViewItemToggle-paddingTop);
+    color: var(--TreeView--treeViewRootUlStyles-treeViewItemToggle-color);
     grid-area: toggle;
     justify-content: center;
     align-items: flex-start;
   }
 
   .TreeViewItemToggleHover:hover {
-    background-color: var(--control-transparent-bgColor-hover);
+    --TreeView--treeViewRootUlStyles-treeViewItemToggleHover-backgroundColor-hover: var(
+      --control-transparent-bgColor-hover
+    );
+
+    background-color: var(--TreeView--treeViewRootUlStyles-treeViewItemToggleHover-backgroundColor-hover);
   }
 
   .TreeViewItemToggleEnd {
-    border-top-left-radius: var(--borderRadius-medium);
-    border-bottom-left-radius: var(--borderRadius-medium);
+    --TreeView--treeViewRootUlStyles-treeViewItemToggleEnd-borderBottomLeftRadius: var(--borderRadius-medium);
+    --TreeView--treeViewRootUlStyles-treeViewItemToggleEnd-borderTopLeftRadius: var(--borderRadius-medium);
+
+    border-top-left-radius: var(--TreeView--treeViewRootUlStyles-treeViewItemToggleEnd-borderTopLeftRadius);
+    border-bottom-left-radius: var(--TreeView--treeViewRootUlStyles-treeViewItemToggleEnd-borderBottomLeftRadius);
   }
 
   .TreeViewItemContent {
+    --TreeView--treeViewRootUlStyles-treeViewItemContent-gap: var(--stack-gap-condensed);
+    --TreeView--treeViewRootUlStyles-treeViewItemContent-lineHeight: var(
+      --custom-line-height,
+      var(--text-body-lineHeight-medium, 1.4285)
+    );
+    --TreeView--treeViewRootUlStyles-treeViewItemContent-paddingBottom: calc(
+      (var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2
+    );
+    --TreeView--treeViewRootUlStyles-treeViewItemContent-paddingTop: calc(
+      (var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2
+    );
+    --TreeView--treeViewRootUlStyles-treeViewItemContent-padding: 0 var(--base-size-8);
+
     display: flex;
     height: 100%;
-    padding: 0 var(--base-size-8);
+    padding: var(--TreeView--treeViewRootUlStyles-treeViewItemContent-padding);
 
     /* The dynamic top and bottom padding to maintain the minimum item height for single line items */
     /* stylelint-disable-next-line primer/spacing */
-    padding-top: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
+    padding-top: var(--TreeView--treeViewRootUlStyles-treeViewItemContent-paddingTop);
     /* stylelint-disable-next-line primer/spacing */
-    padding-bottom: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
-    line-height: var(--custom-line-height, var(--text-body-lineHeight-medium, 1.4285));
+    padding-bottom: var(--TreeView--treeViewRootUlStyles-treeViewItemContent-paddingBottom);
+    line-height: var(--TreeView--treeViewRootUlStyles-treeViewItemContent-lineHeight);
     grid-area: content;
-    gap: var(--stack-gap-condensed);
+    gap: var(--TreeView--treeViewRootUlStyles-treeViewItemContent-gap);
   }
 
   .TreeViewItemContentText {
@@ -180,18 +252,23 @@
   }
 
   .TreeViewItemVisual {
+    --TreeView--treeViewRootUlStyles-treeViewItemVisual-color: var(--fgColor-muted);
+    --TreeView--treeViewRootUlStyles-treeViewItemVisual-height: var(--custom-line-height, 1.3rem);
+
     display: flex;
 
     /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
     across more lines. */
-    height: var(--custom-line-height, 1.3rem);
-    color: var(--fgColor-muted);
+    height: var(--TreeView--treeViewRootUlStyles-treeViewItemVisual-height);
+    color: var(--TreeView--treeViewRootUlStyles-treeViewItemVisual-color);
     align-items: center;
   }
 
   .TreeViewItemLeadingAction {
+    --TreeView--treeViewRootUlStyles-treeViewItemLeadingAction-color: var(--fgColor-muted);
+
     display: flex;
-    color: var(--fgColor-muted);
+    color: var(--TreeView--treeViewRootUlStyles-treeViewItemLeadingAction-color);
     grid-area: leadingAction;
 
     & > button {
@@ -200,8 +277,10 @@
   }
 
   .TreeViewItemTrailingAction {
+    --TreeView--treeViewRootUlStyles-treeViewItemTrailingAction-color: var(--fgColor-muted);
+
     display: flex;
-    color: var(--fgColor-muted);
+    color: var(--TreeView--treeViewRootUlStyles-treeViewItemTrailingAction-color);
     grid-area: trailingAction;
   }
 
@@ -210,9 +289,15 @@
   }
 
   .TreeViewItemLevelLine {
+    --TreeView--treeViewRootUlStyles-treeViewItemLevelLine-borderColor: var(
+      --tree-line-color,
+      var(--borderColor-muted)
+    );
+    --TreeView--treeViewRootUlStyles-treeViewItemLevelLine-borderRight: var(--borderWidth-thin) solid;
+
     width: 100%;
     height: 100%;
-    border-right: var(--borderWidth-thin) solid;
+    border-right: var(--TreeView--treeViewRootUlStyles-treeViewItemLevelLine-borderRight);
 
     /*
      * `--tree-line-color` is set on the root `<ul>` and inherited down. On coarse pointers it
@@ -223,7 +308,7 @@
      * hover/focus change inside large trees.
      */
     /* stylelint-disable-next-line primer/colors -- private custom property, defaults to a Primer token */
-    border-color: var(--tree-line-color, var(--borderColor-muted));
+    border-color: var(--TreeView--treeViewRootUlStyles-treeViewItemLevelLine-borderColor);
   }
 
   @media (hover: hover) {
@@ -231,13 +316,16 @@
 
     &:hover,
     &:focus-within {
-      --tree-line-color: var(--borderColor-muted);
+      --TreeView--treeViewRootUlStyles-treeLineColor-hover-focusWithin-mediaHoverHover: var(--borderColor-muted);
+      --tree-line-color: var(--TreeView--treeViewRootUlStyles-treeLineColor-hover-focusWithin-mediaHoverHover);
     }
   }
 
   .TreeViewDirectoryIcon {
+    --TreeView--treeViewRootUlStyles-treeViewDirectoryIcon-color: var(--treeViewItem-leadingVisual-iconColor-rest);
+
     display: grid;
-    color: var(--treeViewItem-leadingVisual-iconColor-rest);
+    color: var(--TreeView--treeViewRootUlStyles-treeViewDirectoryIcon-color);
   }
 
   .TreeViewVisuallyHidden {
@@ -287,5 +375,7 @@
 }
 
 .TreeItemSkeletonTextStyles {
-  width: var(--tree-item-loading-width, 67%);
+  --TreeView--treeItemSkeletonTextStyles-width: var(--tree-item-loading-width, 67%);
+
+  width: var(--TreeView--treeItemSkeletonTextStyles-width);
 }

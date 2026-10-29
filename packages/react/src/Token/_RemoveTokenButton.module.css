@@ -1,7 +1,10 @@
 .TokenButton {
+  --Token--removeTokenButton-tokenButton-borderRadius: var(--borderRadius-full);
+  --Token--removeTokenButton-tokenButton-marginLeft: var(--base-size-4);
+
   display: inline-flex;
   padding: 0;
-  margin-left: var(--base-size-4);
+  margin-left: var(--Token--removeTokenButton-tokenButton-marginLeft);
   font-family: inherit;
   color: currentColor;
   text-decoration: none;
@@ -9,7 +12,7 @@
   user-select: none;
   background-color: transparent;
   border: 0;
-  border-radius: var(--borderRadius-full);
+  border-radius: var(--Token--removeTokenButton-tokenButton-borderRadius);
   justify-content: center;
   align-items: center;
   appearance: none;
@@ -17,32 +20,50 @@
 }
 
 .TokenButton[data-size='small'] {
-  width: var(--base-size-16);
-  height: var(--base-size-16);
+  --Token--removeTokenButton-tokenButton-height-sizeSmall: var(--base-size-16);
+  --Token--removeTokenButton-tokenButton-width-sizeSmall: var(--base-size-16);
+
+  width: var(--Token--removeTokenButton-tokenButton-width-sizeSmall);
+  height: var(--Token--removeTokenButton-tokenButton-height-sizeSmall);
 }
 
 .TokenButton[data-size='medium'] {
-  width: var(--base-size-20);
-  height: var(--base-size-20);
+  --Token--removeTokenButton-tokenButton-height-sizeMedium: var(--base-size-20);
+  --Token--removeTokenButton-tokenButton-width-sizeMedium: var(--base-size-20);
+
+  width: var(--Token--removeTokenButton-tokenButton-width-sizeMedium);
+  height: var(--Token--removeTokenButton-tokenButton-height-sizeMedium);
 }
 
 .TokenButton[data-size='large'] {
-  width: var(--base-size-24);
-  height: var(--base-size-24);
-  margin-left: var(--base-size-6);
+  --Token--removeTokenButton-tokenButton-marginLeft-sizeLarge: var(--base-size-6);
+  --Token--removeTokenButton-tokenButton-height-sizeLarge: var(--base-size-24);
+  --Token--removeTokenButton-tokenButton-width-sizeLarge: var(--base-size-24);
+
+  width: var(--Token--removeTokenButton-tokenButton-width-sizeLarge);
+  height: var(--Token--removeTokenButton-tokenButton-height-sizeLarge);
+  margin-left: var(--Token--removeTokenButton-tokenButton-marginLeft-sizeLarge);
 }
 
 .TokenButton[data-size='xlarge'] {
-  width: var(--base-size-32);
-  height: var(--base-size-32);
-  margin-left: var(--base-size-6);
+  --Token--removeTokenButton-tokenButton-marginLeft-sizeXlarge: var(--base-size-6);
+  --Token--removeTokenButton-tokenButton-height-sizeXlarge: var(--base-size-32);
+  --Token--removeTokenButton-tokenButton-width-sizeXlarge: var(--base-size-32);
+
+  width: var(--Token--removeTokenButton-tokenButton-width-sizeXlarge);
+  height: var(--Token--removeTokenButton-tokenButton-height-sizeXlarge);
+  margin-left: var(--Token--removeTokenButton-tokenButton-marginLeft-sizeXlarge);
 }
 
 .TokenButton:hover,
 .TokenButton:focus {
-  background-color: var(--control-transparent-bgColor-hover);
+  --Token--removeTokenButton-tokenButton-backgroundColor-hover-focus: var(--control-transparent-bgColor-hover);
+
+  background-color: var(--Token--removeTokenButton-tokenButton-backgroundColor-hover-focus);
 }
 
 .TokenButton:active {
-  background-color: var(--control-transparent-bgColor-active);
+  --Token--removeTokenButton-tokenButton-backgroundColor-active: var(--control-transparent-bgColor-active);
+
+  background-color: var(--Token--removeTokenButton-tokenButton-backgroundColor-active);
 }
