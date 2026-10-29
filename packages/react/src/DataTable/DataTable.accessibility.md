@@ -239,7 +239,7 @@ The fragments below show these associations; `sr-only` denotes hidden text.
 
 Without a row header, `DataTable` uses `Select row {id}` from `getRowId`.
 Place selection first and include it in group `colSpan`. `Table.Group` prepends
-its header ID to selection cells' `headers`; group headings have no checkbox.
+its header ID to selection cells' `headers`. Group headers are not selected row IDs.
 
 ### State, scope, and focus
 
@@ -272,6 +272,13 @@ row count. The generated count description is currently English.
   disclosure. Focus outside the group is left alone.
 - Collapse does not clear selection or change its scope.
 
+With `rowSelection`, each collapsible group has a checkbox named `Select {group name}`.
+It toggles the group's selectable members on the current page, including collapsed
+members. Partial selection is mixed; activating it selects the remaining members.
+Empty groups and groups without selectable members have disabled checkboxes.
+The checkbox precedes the disclosure in Tab order; selection does not toggle expansion.
+With `Table.Group`, consumers provide `selection`, `selectionDisabled`, and `onToggleSelect`.
+
 ## Verification
 
 - [Grouping tests](./__tests__/DataTableGrouping.test.tsx) cover mixed body
@@ -283,6 +290,8 @@ row count. The generated count description is currently English.
   updates, disabled rows, focus, and hydration.
 - [Expansion tests](./__tests__/DataTableExpansion.test.tsx) cover disclosure
   semantics, focus recovery, hidden members, and selection compatibility.
+- [Group selection tests](./__tests__/DataTableGroupSelection.test.tsx) cover mixed
+  state, collapsed members, disabled groups, and controlled selection.
 - [DataTable browser tests](../../../../e2e/components/DataTable.test.ts) cover
   themed axe checks, visual snapshots, and a group split across pages.
 - [Table browser tests](../../../../e2e/components/Table.test.ts) cover explicit

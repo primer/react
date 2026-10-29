@@ -2,6 +2,7 @@ import {clsx} from 'clsx'
 import type React from 'react'
 import {useCallback, useId, useMemo, useRef} from 'react'
 import {ChevronRightIcon} from '@primer/octicons-react'
+import Checkbox from '../Checkbox'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {Button} from '../internal/components/ButtonReset'
 import {useControllableState} from '../hooks/useControllableState'
@@ -61,6 +62,9 @@ export type TableGroupProps = {
    * Handles requests to change the expanded state.
    */
   onExpandedChange?: ({expanded}: {expanded: boolean}) => void
+  selection?: 'all' | 'some' | 'none'
+  selectionDisabled?: boolean
+  onToggleSelect?: () => void
 }
 
 function TableGroup({
@@ -75,6 +79,9 @@ function TableGroup({
   expanded: controlledExpanded,
   defaultExpanded = true,
   onExpandedChange,
+  selection,
+  selectionDisabled,
+  onToggleSelect,
 }: TableGroupProps) {
   const headerId = useId()
   const bodyId = useId()
@@ -114,35 +121,47 @@ function TableGroup({
             scope="colgroup"
             colSpan={colSpan}
             role="columnheader"
-            aria-label={collapsible ? (ariaLabel ?? label) : ariaLabel}
+            aria-label={collapsible || selection !== undefined ? (ariaLabel ?? label) : ariaLabel}
             data-component="Table.Group.Header"
           >
-            {collapsible ? (
-              <Button
-                className={classes.TableGroupToggle}
-                data-component="Table.Group.Toggle"
-                aria-label={ariaLabel ?? label}
-                aria-description={`${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`}
-                aria-expanded={isExpanded}
-                aria-controls={bodyId}
-                onClick={() => {
-                  setExpanded(!expanded)
-                }}
-              >
-                <ChevronRightIcon aria-hidden="true" />
-              </Button>
+            {selection !== undefined ? (
+              <Checkbox
+                className={classes.TableGroupSelection}
+                checked={selection === 'all'}
+                indeterminate={selection === 'some'}
+                disabled={selectionDisabled}
+                aria-label={`Select ${ariaLabel ?? label}`}
+                onChange={() => onToggleSelect?.()}
+              />
             ) : null}
-            <span
-              className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}
-              aria-hidden={collapsible || undefined}
-            >
-              <span className={clsx('TableGroupHeaderLabel', classes.TableGroupHeaderLabel)}>
-                {label}
-                <VisuallyHidden>,</VisuallyHidden>
-              </span>
-              <span className={clsx('TableGroupHeaderCount', classes.TableGroupHeaderCount)}>
-                {rowCount}
-                <VisuallyHidden>{rowCount === 1 ? ' row' : ' rows'}</VisuallyHidden>
+            <span className={classes.TableGroupHeaderTitle} data-selection={selection}>
+              {collapsible ? (
+                <Button
+                  className={classes.TableGroupToggle}
+                  data-component="Table.Group.Toggle"
+                  aria-label={ariaLabel ?? label}
+                  aria-description={`${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`}
+                  aria-expanded={isExpanded}
+                  aria-controls={bodyId}
+                  onClick={() => {
+                    setExpanded(!expanded)
+                  }}
+                >
+                  <ChevronRightIcon aria-hidden="true" />
+                </Button>
+              ) : null}
+              <span
+                className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}
+                aria-hidden={collapsible || undefined}
+              >
+                <span className={clsx('TableGroupHeaderLabel', classes.TableGroupHeaderLabel)}>
+                  {label}
+                  <VisuallyHidden>,</VisuallyHidden>
+                </span>
+                <span className={clsx('TableGroupHeaderCount', classes.TableGroupHeaderCount)}>
+                  {rowCount}
+                  <VisuallyHidden>{rowCount === 1 ? ' row' : ' rows'}</VisuallyHidden>
+                </span>
               </span>
             </span>
           </th>
@@ -156,6 +175,7 @@ function TableGroup({
         role="rowgroup"
         data-component="Table.Group.Body"
         data-group-id={id}
+        data-selection={collapsible ? selection : undefined}
       >
         <TableGroupContext.Provider value={contextValue}>{children}</TableGroupContext.Provider>
       </tbody>

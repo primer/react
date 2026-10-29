@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import {hydrateRoot} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {describe, expect, it, vi} from 'vitest'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import {DataTable, Table} from '../../DataTable'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../Table.module.css'
@@ -159,9 +160,8 @@ describe('DataTable group expansion', () => {
 
   describe.each(['ltr', 'rtl'] as const)('alignment (%s)', dir => {
     it.each(['condensed', 'normal', 'spacious'] as const)(
-      'aligns disclosures, checkboxes and text with %s cell padding',
+      'aligns group checkboxes and member text at %s cell padding',
       async cellPadding => {
-        const user = userEvent.setup()
         render(
           <div dir={dir}>
             <DataTable
@@ -173,30 +173,46 @@ describe('DataTable group expansion', () => {
             />
           </div>,
         )
-        const disclosure = screen.getByRole('button', {name: 'First'})
-        const label = screen.getByText('First')
+        const disclosure = page.getByRole('button', {name: 'First', exact: true})
+        const groupHeader = page.getByRole('columnheader', {name: 'First', exact: true}).element()
+        const label = groupHeader.querySelector('.TableGroupHeaderLabel')!
+        const columnHeader = page.getByRole('columnheader', {name: 'Name', exact: true}).element()
+        const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true}).element()
+        const rowHeader = page.getByRole('rowheader', {name: 'Beta', exact: true}).element()
+        const rowHeight = rowHeader.getBoundingClientRect().height
         const textRange = document.createRange()
-        textRange.selectNodeContents(screen.getByRole('rowheader', {name: 'Beta'}))
+        textRange.selectNodeContents(rowHeader)
         const rowText = textRange.getBoundingClientRect()
-        textRange.selectNodeContents(screen.getByRole('columnheader', {name: 'Name'}))
+        textRange.selectNodeContents(columnHeader)
         const columnText = textRange.getBoundingClientRect()
+        textRange.selectNodeContents(page.getByRole('rowheader', {name: 'Standalone', exact: true}).element())
+        const standaloneText = textRange.getBoundingClientRect()
         const inlineStart = (rect: DOMRect) => (dir === 'rtl' ? rect.right : rect.left)
 
         for (const expanded of [true, false]) {
           if (!expanded) {
-            await user.click(disclosure)
+            await browserUserEvent.click(disclosure)
           }
-          const buttonRect = disclosure.getBoundingClientRect()
+          const buttonRect = disclosure.element().getBoundingClientRect()
+          const iconRect = disclosure.element().querySelector('svg')!.getBoundingClientRect()
           const labelRect = label.getBoundingClientRect()
-          for (const checkbox of screen.getAllByRole('checkbox')) {
+          const selectAllRect = selectAll.getBoundingClientRect()
+          for (const checkbox of page.getByRole('checkbox').elements()) {
             const checkboxRect = checkbox.getBoundingClientRect()
             expect(
-              Math.abs(buttonRect.x + buttonRect.width / 2 - checkboxRect.x - checkboxRect.width / 2),
+              Math.abs(selectAllRect.x + selectAllRect.width / 2 - checkboxRect.x - checkboxRect.width / 2),
             ).toBeLessThan(0.5)
           }
           expect(Math.abs(inlineStart(labelRect) - inlineStart(rowText))).toBeLessThan(0.5)
-          expect(Math.abs(inlineStart(labelRect) - inlineStart(columnText))).toBeLessThan(0.5)
+          expect(Math.abs(inlineStart(iconRect) - inlineStart(columnText))).toBeLessThan(0.5)
+          expect(Math.abs(inlineStart(standaloneText) - inlineStart(columnText))).toBeLessThan(0.5)
+          expect((inlineStart(labelRect) - inlineStart(iconRect)) * (dir === 'rtl' ? -1 : 1) - iconRect.width).toBe(8)
           expect(Math.abs(buttonRect.y + buttonRect.height / 2 - labelRect.y - labelRect.height / 2)).toBeLessThan(0.5)
+          expect(buttonRect.height).toBeGreaterThanOrEqual(24)
+          expect(groupHeader.getBoundingClientRect().height).toBe(rowHeight)
+          expect(groupHeader.getBoundingClientRect().height).toBeLessThanOrEqual(
+            columnHeader.getBoundingClientRect().height,
+          )
         }
       },
     )
@@ -401,5 +417,102 @@ describe('Table.Group expansion', () => {
     await user.click(button)
     expect(input).toHaveValue('Saved draft text')
     expect(screen.getByRole('columnheader', {name: 'Administrators'})).toHaveAttribute('colspan', '1')
+  })
+})
+
+describe('DataTable group selection', () => {
+  const columns: Array<Column<Row>> = [{header: 'Name', field: 'name', rowHeader: true}]
+  const data: DataTableData<Row> = [
+    {id: 'standalone', name: 'Standalone'},
+    {
+      groupId: 'public',
+      label: 'Public',
+      rows: [
+        {id: 1, name: 'Alpha'},
+        {id: '1', name: 'Beta'},
+        {id: 2, name: 'Disabled'},
+      ],
+    },
+    {groupId: 'private', label: 'Private', rows: [{id: 3, name: 'Gamma'}]},
+    {groupId: 'empty', label: 'Empty', rows: []},
+  ]
+
+  it('selects only selectable members, including collapsed rows, and preserves other selections', async () => {
+    const onSelectionChange = vi.fn()
+    render(
+      <DataTable
+        data={data}
+        columns={columns}
+        rowSelection
+        collapsibleGroups
+        defaultSelectedRows={new Set<DataTableRowId>(['standalone', 3, 'off-page'])}
+        isRowSelectable={row => row.id !== 2}
+        onSelectionChange={onSelectionChange}
+      />,
+    )
+    const group = page.getByRole('checkbox', {name: 'Select Public', exact: true})
+    const disclosure = page.getByRole('button', {name: 'Public', exact: true})
+    const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+
+    await expect.element(group).not.toBeChecked()
+    await browserUserEvent.click(page.getByRole('checkbox', {name: 'Select Alpha', exact: true}))
+    await expect.element(group).toBePartiallyChecked()
+    await browserUserEvent.click(disclosure)
+    await browserUserEvent.tab({shift: true})
+    await expect.element(group).toHaveFocus()
+    await browserUserEvent.keyboard(' ')
+    await expect.element(group).toBeChecked()
+    await expect.element(group).toHaveFocus()
+    await expect.element(selectAll).toBeChecked()
+    await expect.element(disclosure).toHaveAttribute('aria-expanded', 'false')
+    expect(onSelectionChange).toHaveBeenLastCalledWith({
+      selectedRows: new Set<DataTableRowId>(['standalone', 3, 'off-page', 1, '1']),
+    })
+
+    await browserUserEvent.click(disclosure)
+    await expect.element(page.getByRole('checkbox', {name: 'Select Beta', exact: true})).toBeChecked()
+    await expect.element(page.getByRole('checkbox', {name: 'Select Disabled', exact: true})).not.toBeChecked()
+    await browserUserEvent.click(group)
+    await expect.element(group).not.toBeChecked()
+    await expect.element(selectAll).toBePartiallyChecked()
+    expect(onSelectionChange).toHaveBeenLastCalledWith({
+      selectedRows: new Set<DataTableRowId>(['standalone', 3, 'off-page']),
+    })
+  })
+
+  it('requests immutable controlled updates using custom row IDs and group names', async () => {
+    const selectedRows = new Set<DataTableRowId>(['Alpha', 'off-page'])
+    const onSelectionChange = vi.fn()
+    const props = {
+      data: [{groupId: 'public', label: 'Public', 'aria-label': 'Public repositories', rows: [{id: 1, name: 'Alpha'}]}],
+      columns,
+      rowSelection: true,
+      collapsibleGroups: true,
+      getRowId: (row: Row) => row.name,
+      onSelectionChange,
+    }
+    const {rerender} = render(<DataTable {...props} selectedRows={selectedRows} />)
+    const group = page.getByRole('checkbox', {name: 'Select Public repositories', exact: true})
+    await browserUserEvent.click(group)
+    expect(onSelectionChange).toHaveBeenLastCalledWith({selectedRows: new Set(['off-page'])})
+    expect(selectedRows).toEqual(new Set(['Alpha', 'off-page']))
+    await expect.element(group).toBeChecked()
+    rerender(<DataTable {...props} selectedRows={new Set(['off-page'])} />)
+    await expect.element(group).not.toBeChecked()
+  })
+
+  it('disables empty and unselectable groups and requires both selection and collapse controls', async () => {
+    const {rerender} = render(
+      <DataTable data={data} columns={columns} rowSelection collapsibleGroups isRowSelectable={() => false} />,
+    )
+    for (const name of ['Public', 'Private', 'Empty']) {
+      const checkbox = page.getByRole('checkbox', {name: `Select ${name}`, exact: true})
+      await expect.element(checkbox).toBeDisabled()
+      await expect.element(checkbox).not.toBeChecked()
+    }
+    rerender(<DataTable data={data} columns={columns} rowSelection />)
+    await expect.element(page.getByRole('checkbox', {name: 'Select Public', exact: true})).not.toBeInTheDocument()
+    rerender(<DataTable data={data} columns={columns} collapsibleGroups />)
+    await expect.element(page.getByRole('checkbox')).not.toBeInTheDocument()
   })
 })

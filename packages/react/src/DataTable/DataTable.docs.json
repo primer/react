@@ -101,7 +101,7 @@
     {
       "name": "rowSelection",
       "type": "boolean",
-      "description": "Render row checkboxes and a select-all checkbox for the current page."
+      "description": "Render row checkboxes and current-page select-all. Collapsible groups also get a checkbox for their selectable members."
     },
     {
       "name": "selectedRows",
@@ -268,6 +268,21 @@
           "name": "onExpandedChange",
           "type": "({ expanded }: { expanded: boolean }) => void",
           "description": "Handle a disclosure request. Controlled groups wait for the expanded prop to update."
+        },
+        {
+          "name": "selection",
+          "type": "'all' | 'some' | 'none'",
+          "description": "Render a group checkbox with the given selection state."
+        },
+        {
+          "name": "selectionDisabled",
+          "type": "boolean",
+          "description": "Disable the group checkbox without disabling its disclosure."
+        },
+        {
+          "name": "onToggleSelect",
+          "type": "() => void",
+          "description": "Handle group checkbox activation. Consumers own member selection."
         },
         {
           "name": "id",
