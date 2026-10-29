@@ -154,8 +154,8 @@ function getTextContent(element: HTMLElement): string {
 
   if (element.hasAttribute('aria-label')) {
     value = element.getAttribute('aria-label')
-  } else if (element.innerText) {
-    value = element.innerText
+  } else if (element.textContent) {
+    value = element.textContent
   } else if (element.textContent) {
     value = element.textContent
   }
