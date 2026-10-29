@@ -1,4 +1,4 @@
-import type {ReactElement, ReactNode} from 'react'
+import {useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -16,6 +16,15 @@ import {
   TableRowSelection,
 } from './Table'
 import {TableGroup} from './TableGroup'
+import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
+import classes from './TableBulkActions.module.css'
+import VisuallyHidden from '../_VisuallyHidden'
+
+export interface DataTableBulkActionsContext {
+  selectedRows: ReadonlySet<DataTableRowId>
+  selectedCount: number
+  clearSelection: () => void
+}
 
 // ----------------------------------------------------------------------------
 // DataTable
@@ -125,6 +134,10 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    * Handles requests to change the expanded group IDs.
    */
   onExpandedGroupsChange?: ({expandedGroups}: {expandedGroups: Set<DataTableRowId>}) => void
+
+  renderBulkActions?: (context: DataTableBulkActionsContext) => ReactNode
+  bulkActionsProps?: Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel'>
+  bulkActionsReturnFocusRef?: RefObject<HTMLElement | null>
 }
 
 export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
@@ -172,7 +185,13 @@ function DataTableImplementation<Data extends UniqueRow>({
   expandedGroups,
   defaultExpandedGroups,
   onExpandedGroupsChange,
+  renderBulkActions,
+  bulkActionsProps,
+  bulkActionsReturnFocusRef,
 }: DataTableProps<Data>) {
+  const selectionCheckboxRef = useRef<HTMLInputElement>(null)
+  const tableRef = useRef<HTMLTableElement>(null)
+  const bulkActionsId = useId()
   const table = useTable({
     data,
     columns,
@@ -191,6 +210,8 @@ function DataTableImplementation<Data extends UniqueRow>({
     onExpandedGroupsChange,
   })
   const {headers, bodies, actions, selection, gridTemplateColumns} = table
+  const hasBulkActions = Boolean(rowSelection && renderBulkActions)
+  const bulkActionsActive = hasBulkActions && selection.selectedCount > 0
 
   const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
     <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
@@ -222,15 +243,18 @@ function DataTableImplementation<Data extends UniqueRow>({
 
   return (
     <Table
+      ref={tableRef}
+      tabIndex={hasBulkActions ? -1 : undefined}
       aria-labelledby={labelledby}
       aria-describedby={describedby}
       cellPadding={cellPadding}
       gridTemplateColumns={gridTemplateColumns}
     >
       <TableHead>
-        <TableRow>
+        <TableRow className={hasBulkActions ? classes.HeaderRow : undefined}>
           {rowSelection ? (
             <TableSelectionHeader
+              checkboxRef={selectionCheckboxRef}
               id={selection.headerId}
               selection={selection.allSelected ? 'all' : selection.someSelected ? 'some' : 'none'}
               disabled={selection.selectableCount === 0}
@@ -245,7 +269,35 @@ function DataTableImplementation<Data extends UniqueRow>({
               }}
             />
           ) : null}
-          {headers.map(header => {
+          {headers.map((header, index) => {
+            if (bulkActionsActive) {
+              const labelId = typeof header.column.header === 'string' ? undefined : `${bulkActionsId}-column-${index}`
+              return (
+                <TableHeader
+                  key={header.id}
+                  id={header.domId}
+                  aria-labelledby={labelId}
+                  align={header.column.align}
+                  aria-sort={
+                    header.getSortDirection() === 'ASC'
+                      ? 'ascending'
+                      : header.getSortDirection() === 'DESC'
+                        ? 'descending'
+                        : undefined
+                  }
+                >
+                  <span className={classes.ColumnLabel}>
+                    {typeof header.column.header === 'string' ? (
+                      <VisuallyHidden>{header.column.header}</VisuallyHidden>
+                    ) : (
+                      <span id={labelId} hidden>
+                        {header.column.header()}
+                      </span>
+                    )}
+                  </span>
+                </TableHeader>
+              )
+            }
             if (header.isSortable()) {
               return (
                 <TableSortHeader
@@ -271,6 +323,40 @@ function DataTableImplementation<Data extends UniqueRow>({
             )
           })}
         </TableRow>
+        {hasBulkActions ? (
+          <TableRow className={classes.HeaderRow}>
+            <VisuallyHidden
+              as="td"
+              isVisible={bulkActionsActive}
+              colSpan={headers.length + 1}
+              role="cell"
+              className={bulkActionsActive ? classes.BulkActionsCell : undefined}
+            >
+              <TableBulkActions
+                {...bulkActionsProps}
+                selectedCount={selection.selectedCount}
+                onFocusReturn={() => {
+                  const target = bulkActionsReturnFocusRef?.current
+                  if (target?.isConnected) {
+                    target.focus()
+                  } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
+                    selectionCheckboxRef.current.focus()
+                  } else {
+                    tableRef.current?.focus()
+                  }
+                }}
+              >
+                {bulkActionsActive
+                  ? renderBulkActions?.({
+                      selectedRows: new Set(selection.selectedRows),
+                      selectedCount: selection.selectedCount,
+                      clearSelection: actions.clearSelection,
+                    })
+                  : null}
+              </TableBulkActions>
+            </VisuallyHidden>
+          </TableRow>
+        ) : null}
       </TableHead>
       {bodies.map(body =>
         body.type === 'row-group' ? (

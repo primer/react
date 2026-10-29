@@ -28,6 +28,8 @@ export type {
 export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
+  DataTableBulkActionsContext,
+  TableBulkActionsProps,
   DataTableData,
   DataTableRowGroup,
   DataTableRowId,
