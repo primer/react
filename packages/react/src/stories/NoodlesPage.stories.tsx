@@ -9,6 +9,7 @@ import {
   CodeSquareIcon,
   CommentDiscussionIcon,
   CommentIcon,
+  CopyIcon,
   GearIcon,
   GrabberIcon,
   HomeIcon,
@@ -26,6 +27,7 @@ import {
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {Button, IconButton} from '../Button'
+import CounterLabel from '../CounterLabel'
 import {Dialog} from '../Dialog'
 import FormControl from '../FormControl'
 import Heading from '../Heading'
@@ -66,6 +68,14 @@ const initialPages = [noodlesProjectCover, ...noodlesProjectPages, ...noodlesPag
 
 function NoodleCover() {
   return <span className={classes.NoodleCover} aria-hidden="true" />
+}
+
+function DemoAvatar() {
+  return (
+    <span className={classes.Avatar} aria-hidden="true">
+      M
+    </span>
+  )
 }
 
 function NoodleSwitcherIcon() {
@@ -164,7 +174,13 @@ function NoodlesPage() {
         }}
       >
         {page.title}
-        {page.count !== undefined && <NavList.TrailingVisual>{page.count}</NavList.TrailingVisual>}
+        {page.count !== undefined && (
+          <NavList.TrailingVisual>
+            <CounterLabel className={classes.Count} title={`${page.count} pages`}>
+              {page.count}
+            </CounterLabel>
+          </NavList.TrailingVisual>
+        )}
       </NavList.Item>
     )
   }
@@ -197,7 +213,7 @@ function NoodlesPage() {
                   aria-label="Switch noodle"
                 />
               </ActionMenu.Anchor>
-              <ActionMenu.Overlay>
+              <ActionMenu.Overlay className={classes.MenuOverlay}>
                 <ActionList selectionVariant="single">
                   <ActionList.Group>
                     <ActionList.GroupHeading>Favourite noodles</ActionList.GroupHeading>
@@ -234,7 +250,7 @@ function NoodlesPage() {
                   aria-label="Create"
                 />
               </ActionMenu.Anchor>
-              <ActionMenu.Overlay>
+              <ActionMenu.Overlay className={classes.MenuOverlay}>
                 <ActionList>
                   <ActionList.Item onSelect={() => openEditor('new')}>
                     New page
@@ -255,6 +271,7 @@ function NoodlesPage() {
               {pages.filter(page => page.id !== 'project-cover' && !page.parentId).map(renderPage)}
             </NavList>
             <Button
+              className={classes.NewPage}
               variant="invisible"
               leadingVisual={PlusIcon}
               block
@@ -264,7 +281,7 @@ function NoodlesPage() {
               New page
             </Button>
           </div>
-          <div className={classes.SidebarFooter}>
+          <nav className={classes.SidebarFooter} aria-label="User profile and settings">
             <Button
               className={classes.SidebarAction}
               variant="invisible"
@@ -287,10 +304,17 @@ function NoodlesPage() {
               Noodle settings
             </Button>
             <div className={classes.Account}>
-              <span className={classes.Avatar} aria-hidden="true">
-                M
-              </span>
-              <span>Mona &middot; Demo account</span>
+              <Button
+                className={classes.AccountButton}
+                variant="invisible"
+                size="small"
+                leadingVisual={DemoAvatar}
+                alignContent="start"
+                aria-label="Demo account settings"
+                onClick={() => setUtilityDialog('settings')}
+              >
+                Mona &middot; Demo account
+              </Button>
               <IconButton
                 icon={GearIcon}
                 variant="invisible"
@@ -299,7 +323,7 @@ function NoodlesPage() {
                 onClick={() => setUtilityDialog('settings')}
               />
             </div>
-          </div>
+          </nav>
         </aside>
       )}
       <div className={classes.PagePanel} data-focus={focusMode} data-wide={wide}>
@@ -339,7 +363,7 @@ function NoodlesPage() {
                 <ActionMenu.Button size="small" variant="invisible">
                   {title}
                 </ActionMenu.Button>
-                <ActionMenu.Overlay width="medium">
+                <ActionMenu.Overlay className={classes.MenuOverlay} width="medium">
                   <ActionList selectionVariant="single">
                     {noodlesReports.map((report, index) => (
                       <ActionList.Item
@@ -360,14 +384,27 @@ function NoodlesPage() {
               <ActionMenu.Anchor>
                 <IconButton icon={KebabHorizontalIcon} aria-label="Page actions" size="small" variant="invisible" />
               </ActionMenu.Anchor>
-              <ActionMenu.Overlay>
+              <ActionMenu.Overlay className={classes.MenuOverlay}>
                 <ActionList>
-                  <ActionList.Item onSelect={() => openEditor('rename')}>Rename page</ActionList.Item>
+                  <ActionList.Item onSelect={() => openEditor('rename')}>
+                    <ActionList.LeadingVisual>
+                      <PencilIcon />
+                    </ActionList.LeadingVisual>
+                    Rename page
+                  </ActionList.Item>
                   <ActionList.Item onSelect={() => addPage(`${title} (copy)`, selected.parentId)}>
+                    <ActionList.LeadingVisual>
+                      <CopyIcon />
+                    </ActionList.LeadingVisual>
                     Duplicate page
                   </ActionList.Item>
                   <ActionList.Divider />
-                  <ActionList.Item onSelect={reset}>Reset local changes</ActionList.Item>
+                  <ActionList.Item onSelect={reset}>
+                    <ActionList.LeadingVisual>
+                      <SyncIcon />
+                    </ActionList.LeadingVisual>
+                    Reset local changes
+                  </ActionList.Item>
                 </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>
@@ -498,7 +535,7 @@ function NoodlesPage() {
             <ActionMenu.Anchor>
               <IconButton icon={KebabHorizontalIcon} variant="invisible" size="small" aria-label="Editor options" />
             </ActionMenu.Anchor>
-            <ActionMenu.Overlay>
+            <ActionMenu.Overlay className={classes.MenuOverlay}>
               <ActionList selectionVariant="single">
                 <ActionList.Item selected={!wide} onSelect={() => setWide(false)}>
                   Comfortable width
@@ -514,7 +551,7 @@ function NoodlesPage() {
           </span>
           <ActionMenu>
             <ActionMenu.Button size="small">{deliveryGroup}</ActionMenu.Button>
-            <ActionMenu.Overlay>
+            <ActionMenu.Overlay className={classes.MenuOverlay}>
               <ActionList selectionVariant="single">
                 {['First slice', 'Second slice', 'Third slice'].map(group => (
                   <ActionList.Item
@@ -709,6 +746,15 @@ export const Default: Story = {
   render: () => <NoodlesStory />,
   play: async ({canvas, canvasElement}) => {
     const body = within(canvasElement.ownerDocument.body)
+    await expect(canvas.getByTitle('12 pages')).toHaveStyle({fontSize: '11px', height: '18px'})
+    await expect(canvas.getByRole('button', {name: 'New page', exact: true})).toHaveStyle({
+      fontSize: '13px',
+      opacity: '0.5',
+    })
+    await expect(canvas.getByRole('button', {name: 'Demo account settings'})).toHaveStyle({
+      fontSize: '13px',
+      height: '28px',
+    })
     await expect(canvas.getByRole('heading', {name: 'October 2, 2026', level: 1})).toHaveStyle({
       fontSize: '36px',
       fontWeight: '500',
@@ -745,6 +791,12 @@ export const Default: Story = {
     await userEvent.click(navigation.getByRole('link', {name: /Status updates/}))
     await userEvent.click(canvas.getByRole('button', {name: 'Switch noodle'}))
     const switcher = within(await body.findByRole('menu'))
+    await expect(body.getByRole('menu')).toHaveStyle({padding: '4px'})
+    await expect(
+      within(switcher.getByRole('menuitemradio', {name: noodlesProjectCover.title})).getByText(
+        noodlesProjectCover.title,
+      ),
+    ).toHaveStyle({fontSize: '13px', color: 'rgb(31, 35, 40)'})
     await expect(switcher.getByRole('menuitemradio', {name: noodlesProjectCover.title})).toHaveAttribute(
       'aria-checked',
       'true',

@@ -117,6 +117,7 @@
   flex-direction: column;
   min-height: 0;
   padding-right: var(--base-size-8);
+  padding-bottom: var(--base-size-8);
 }
 
 .Brand,
@@ -216,21 +217,123 @@
 
 .SidebarFooter {
   display: grid;
-  padding-top: var(--base-size-12);
+  flex-shrink: 0;
+  margin-top: var(--base-size-16);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
 }
 
-.SidebarAction {
+.SidebarFooter .SidebarAction,
+.Navigation .NewPage {
+  min-width: 0;
+  height: var(--control-medium-size);
+  min-height: var(--control-medium-size);
+  padding: var(--base-size-6) var(--base-size-8);
+  font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
+  line-height: var(--base-size-20);
+  border: 0;
+}
+
+.SidebarAction [data-component='leadingVisual'],
+.NewPage [data-component='leadingVisual'] {
+  margin-inline-end: var(--base-size-6);
+}
+
+.SidebarFooter [data-component='text'],
+.NewPage [data-component='text'] {
+  line-height: var(--base-size-20);
+}
+
+.SidebarAction [data-component='trailingAction'] svg,
+.NewPage [data-component='leadingVisual'] svg {
+  width: calc(var(--base-size-16) - var(--base-size-2));
+  height: calc(var(--base-size-16) - var(--base-size-2));
+}
+
+.Navigation .NewPage {
+  margin-top: var(--base-size-2);
+  color: var(--fgColor-muted);
+  opacity: 0.5;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--fgColor-default);
+    background: transparent;
+    opacity: 1;
+  }
+}
+
+.Navigation .Count {
+  min-width: calc(var(--base-size-16) + var(--base-size-2));
+  height: calc(var(--base-size-16) + var(--base-size-2));
+  padding: 0 calc(var(--base-size-4) + var(--borderWidth-thin));
+  font-size: calc(var(--text-body-size-small) - var(--base-size-2));
+  font-weight: var(--base-text-weight-normal);
+  font-variant-numeric: tabular-nums;
+  line-height: calc(var(--base-size-16) + var(--base-size-2));
+  color: var(--fgColor-muted);
+  background: rgb(129 139 152 / 11%);
+  border: 0;
+  border-radius: var(--borderRadius-full);
+}
+
+.MenuOverlay {
+  background: var(--bgColor-default);
+  border-radius: min(var(--borderRadius-large), var(--base-size-12));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--borderColor-default) 50%, transparent),
+    0 6px 12px -3px rgb(26 26 26 / 4%),
+    0 6px 18px rgb(26 26 26 / 12%);
+
+  [data-component='ActionList'] {
+    padding: var(--base-size-4);
+  }
+
+  [data-component='ActionList.Item'] {
+    margin-inline: 0;
+
+    > [data-size] {
+      padding: var(--base-size-4) var(--base-size-8);
+    }
+  }
+
+  [data-component='ActionList.Item.Label'] {
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
+    line-height: var(--base-size-20);
+    color: var(--fgColor-default);
+  }
+
+  [data-component='ActionList.Divider'] {
+    margin: var(--base-size-4) var(--base-size-8);
+  }
 }
 
 .Account {
-  margin-top: var(--base-size-12);
-  padding: var(--base-size-8) var(--base-size-4) 0;
-  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+  position: relative;
+  min-height: var(--control-small-size);
+  margin-top: calc(var(--base-size-16) + var(--borderWidth-thin));
+  gap: 0;
 
-  > button {
-    margin-left: auto;
+  &::before {
+    position: absolute;
+    top: calc(-1 * (var(--base-size-8) + var(--borderWidth-thin)));
+    inset-inline: var(--base-size-8);
+    height: var(--borderWidth-thin);
+    content: '';
+    background: var(--borderColor-default);
   }
+}
+
+.Account .AccountButton {
+  flex: 1;
+  min-width: 0;
+  height: var(--control-small-size);
+  padding: 0 var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-normal);
+  line-height: var(--base-size-20);
 }
 
 .Avatar {
@@ -238,7 +341,7 @@
   width: var(--base-size-20);
   height: var(--base-size-20);
   place-items: center;
-  font-size: var(--text-body-size-small);
+  font-size: calc(var(--text-body-size-small) - var(--base-size-4));
   color: var(--fgColor-onEmphasis);
   background: var(--bgColor-emphasis);
   border-radius: var(--borderRadius-full);
