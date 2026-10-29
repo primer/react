@@ -38,7 +38,7 @@ const LinkItemComponent = fixedForwardRef(
     forwardedRef: ForwardedRef<unknown>,
   ) => {
     return (
-      <Item
+      <Item<'li'>
         className={className}
         active={active}
         inactiveText={inactiveText}
