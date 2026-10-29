@@ -161,7 +161,7 @@ test.describe('DataTable', () => {
                 await visit(page, {id: story.id, globals: {colorScheme: theme}})
                 const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
                 if (state === 'mixed') {
-                  await page.getByRole('checkbox', {name: 'Select primer/css', exact: true}).click()
+                  await page.getByRole('checkbox', {name: 'Select strapi', exact: true}).click()
                   await expect(selectAll).toBeChecked({indeterminate: true})
                 } else {
                   await selectAll.click()
@@ -207,7 +207,7 @@ test.describe('DataTable', () => {
   test('standalone and grouped selection stays wired through keyboard input and sorting @aat', async ({page}) => {
     await visit(page, {id: 'experimental-components-datatable-features--with-standalone-and-grouped-row-selection'})
     const standalone = page.getByRole('checkbox', {name: 'Select codeql-dca-worker', exact: true})
-    const grouped = page.getByRole('checkbox', {name: 'Select primer/css', exact: true})
+    const grouped = page.getByRole('checkbox', {name: 'Select strapi', exact: true})
     const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
 
     await expect(standalone).toBeEnabled()
