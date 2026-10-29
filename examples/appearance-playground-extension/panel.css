@@ -23,6 +23,11 @@ body {
   padding: var(--base-size-16);
 }
 
+#close-controls {
+  float: right;
+  margin-left: var(--base-size-8);
+}
+
 h1 {
   margin: 0;
   font-size: 18px;

@@ -1,6 +1,6 @@
 /* global chrome */
 
-import {appearanceCSS, appearanceVariables, defaultState, inspectPage, validateState} from './shared.js'
+import {appearanceCSS, appearanceVariables, defaultState, inspectPage, toggleControls, validateState} from './shared.js'
 
 const catalogPromise = fetch(chrome.runtime.getURL('catalog.json')).then(response => {
   if (!response.ok) throw new Error(`Could not load presets (${response.status}).`)
@@ -16,16 +16,24 @@ class UnsupportedPageError extends Error {
   }
 }
 
-chrome.sidePanel.setPanelBehavior({openPanelOnActionClick: false}).catch(error => {
-  console.error('Could not enable the appearance side panel:', error)
-})
+async function openControls(tab) {
+  if (!Number.isInteger(tab.id) || tab.id < 0) throw new Error('Select a website tab first.')
+  const page = await inspect(tab.id)
+  const url = `${chrome.runtime.getURL('panel.html')}?tabId=${tab.id}`
+  await chrome.scripting.executeScript({target: {tabId: tab.id}, func: toggleControls, args: [url]})
+  await chrome.storage.session.set({activation: {tabId: tab.id, time: Date.now()}})
+  await chrome.action.setBadgeText({tabId: tab.id, text: page.record?.css ? 'ON' : ''})
+  await chrome.action.setTitle({tabId: tab.id, title: 'Open Primer appearance controls'})
+}
 
 chrome.action.onClicked.addListener(tab => {
-  chrome.sidePanel
-    .open({tabId: tab.id})
-    .then(() => chrome.storage.session.set({activation: {tabId: tab.id, time: Date.now()}}))
-    .catch(error => {
-      console.error('Could not open the appearance side panel:', error)
+  queue = queue
+    .then(() => openControls(tab))
+    .catch(async error => {
+      const unsupported = error instanceof UnsupportedPageError
+      if (!unsupported) console.error('Could not toggle the appearance controls:', error)
+      await chrome.action.setBadgeText({tabId: tab.id, text: unsupported ? 'N/A' : 'ERR'})
+      await chrome.action.setTitle({tabId: tab.id, title: error.message || String(error)})
     })
 })
 
@@ -68,6 +76,10 @@ async function handle(message) {
     throw new Error('The page navigated. Reconnect before changing its appearance.')
   }
   const target = {tabId, documentIds: [page.documentId]}
+  if (message.type === 'close-controls') {
+    await chrome.scripting.executeScript({target, func: toggleControls, args: [null]})
+    return {closed: true}
+  }
   const key = keyFor(tabId)
   const previous = page.record?.css ?? ''
   if (message.type === 'reset') {
@@ -101,7 +113,13 @@ async function handle(message) {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, respond) => {
-  if (sender.id !== chrome.runtime.id || !['inspect', 'apply', 'reset'].includes(message?.type)) return false
+  if (sender.id !== chrome.runtime.id || !['inspect', 'apply', 'reset', 'close-controls'].includes(message?.type)) {
+    return false
+  }
+  if (sender.tab?.id !== message.tabId) {
+    respond({ok: false, error: 'These controls can only modify the website tab that contains them.'})
+    return false
+  }
   queue = queue
     .then(() => handle(message))
     .then(
@@ -122,4 +140,11 @@ chrome.tabs.onRemoved.addListener(tabId => {
   chrome.storage.session
     .remove(keyFor(tabId))
     .catch(error => console.error('Could not clear closed-tab settings:', error))
+})
+
+chrome.tabs.onUpdated.addListener((tabId, change) => {
+  if (change.status !== 'loading') return
+  chrome.action
+    .setBadgeText({tabId, text: ''})
+    .catch(error => console.error('Could not clear the navigating tab badge:', error))
 })

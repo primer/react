@@ -120,3 +120,36 @@ export function inspectPage() {
     truncated: variables.size === 1000,
   }
 }
+
+export function toggleControls(url) {
+  const key = '__primerAppearancePlaygroundControls'
+  const existing = globalThis[key]
+  if (existing?.isConnected) {
+    existing.remove()
+    delete globalThis[key]
+    return
+  }
+  if (!url) throw new Error('The appearance controls are no longer open.')
+  const host = document.createElement('div')
+  host.setAttribute('data-primer-appearance-controls', '')
+  host.style.cssText = `
+    all: initial !important;
+    position: fixed !important;
+    top: 16px !important;
+    right: 16px !important;
+    width: min(400px, calc(100vw - 32px)) !important;
+    height: min(800px, calc(100dvh - 32px)) !important;
+    z-index: 2147483647 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 40px #0004 !important;
+    overflow: hidden !important;
+  `
+  const shadow = host.attachShadow({mode: 'closed'})
+  const frame = document.createElement('iframe')
+  frame.src = url
+  frame.title = 'Primer appearance controls'
+  frame.style.cssText = 'display: block; width: 100%; height: 100%; border: 0; color-scheme: light dark;'
+  shadow.append(frame)
+  document.documentElement.append(host)
+  globalThis[key] = host
+}

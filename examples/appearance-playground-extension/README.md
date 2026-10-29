@@ -1,6 +1,7 @@
 # Primer Appearance Playground for Chrome
 
-Experimental, unpacked Manifest V3 extension for desktop Chrome 123+. It brings the
+Experimental, unpacked Manifest V3 extension for desktop Chrome 123+ and compatible
+Chromium browsers. It brings the
 playground's 19 themes, five density levels, five Seriousness presets and a
 CSS-variable editor to an existing Primer website. No app changes are required.
 
@@ -9,13 +10,16 @@ CSS-variable editor to an existing Primer website. No app changes are required.
 1. Open `chrome://extensions` and enable **Developer mode**.
 2. Choose **Load unpacked** and select this directory, containing `manifest.json`.
 3. Pin **Primer Appearance Playground** in Chrome's Extensions menu.
-4. Open a Primer page, click the extension icon and enable **Preview on this tab**.
+4. Open a Primer page and click the extension icon. Floating controls appear at the top right;
+   enable **Preview on this tab** there.
 5. Try a theme, Density or Seriousness. **Reset page** removes this extension's styles.
 
 Start with the existing Storybook page at
 `http://localhost:6006/iframe.html?id=design-tools-noodles-page--default&viewMode=story`.
 Real sites using Primer variables, including authenticated sites you can already
-access, can also be previewed. Chrome's side panel does not inherit website themes.
+access, can also be previewed. The controls use an isolated extension frame inside
+a shadow root, so website themes do not restyle them. No separate browser window
+or native side-panel UI is used.
 
 ## Behavior
 
@@ -28,7 +32,11 @@ access, can also be previewed. Chrome's side panel does not inherit website them
   the exact injected stylesheet; it never replaces the site's own inline styles.
 - Each tab has independent settings. A full reload or navigation to a new document
   clears the preview. Same-document SPA navigation retains it. Settings survive
-  closing/reopening the panel and service-worker restarts, not browser restarts.
+  closing/reopening the controls and service-worker restarts, not browser restarts.
+- Controls stay docked at the top right of the page and affect only that tab.
+  Click the extension icon again or **Close** to dismiss them without removing
+  the preview. Another tab gets its own independent controls. A full reload
+  removes the controls; click the icon again to reopen them.
 - Variable inspection reads computed CSS custom properties from the document,
   body and up to 20 component roots, capped at 1,000 variables. Refresh after
   opening a menu/dialog to discover additional component variables.
@@ -40,13 +48,14 @@ access, can also be previewed. Chrome's side panel does not inherit website them
 
 `activeTab` grants temporary access when you click the extension. There are **no
 host permissions, automatic content scripts, analytics, remote code or external
-services**. `scripting` applies/removes a user-origin stylesheet, `sidePanel` hosts
-the UI, and `storage.session` remembers only tab settings and the injected CSS.
+services**. `scripting` applies/removes a user-origin stylesheet and mounts the
+floating controls without a `sidePanel` permission.
+`storage.session` remembers tab settings, activation metadata and the injected CSS.
 The inspector reads variable names/values and theme metadata, not report text,
 cookies, credentials or form contents. The extension does not alter app data.
 
-The bundled Windows 95 font is exposed as a local extension resource, with its
-original OFL and MIT notices. This does not grant website access. A site's font
+The controls document and bundled Windows 95 font are exposed as local extension
+resources. The font includes its original OFL and MIT notices. This does not grant website access. A site's font
 CSP can still require a system-font fallback. Other presets use installed fonts.
 
 ## Demo limitations
@@ -61,8 +70,9 @@ modified. File URLs need Chrome's separate **Allow access to file URLs** setting
 Cross-origin navigation requires clicking the extension icon again.
 
 Browser-internal pages such as `chrome://extensions`, settings and the new-tab
-page show an **Unsupported page** message with the controls disabled. Open a
-normal website and click the extension icon there. If an older copy logged
+page cannot host the controls. The extension icon shows **N/A** and its tooltip
+explains that a normal website is required. Other activation failures show **ERR**
+with details in the icon tooltip and service-worker console. If an older copy logged
 `Cannot access a chrome:// URL`, reload the unpacked extension in the browser's
 extensions manager; previously recorded errors can be cleared there.
 

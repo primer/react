@@ -9,8 +9,9 @@
   </head>
   <body>
     <header>
+      <button type="button" id="close-controls" aria-label="Close appearance controls">Close</button>
       <h1>Appearance playground <span>Demo</span></h1>
-      <p id="site">Connecting to the active tab...</p>
+      <p id="site">Connecting to the website tab...</p>
     </header>
     <p id="error" role="alert" hidden></p>
     <p id="notice" role="status"></p>
@@ -52,6 +53,7 @@
       </fieldset>
     </form>
     <footer>
+      <p>Click the extension icon to toggle these controls. Closing them does not remove your preview.</p>
       <p>Changes stay in this tab, until reset or reload. Other tabs are independent. Nothing is sent to a server.</p>
       <p>
         Best with variable-based Primer. Hard-coded styles, cross-origin frames, shadow DOM and Chrome-protected pages

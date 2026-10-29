@@ -14,7 +14,8 @@ try {
 }
 let state = defaultState()
 let page = null
-let tabId = null
+const requestedTabId = new URLSearchParams(location.search).get('tabId')
+const tabId = requestedTabId === null ? NaN : Number(requestedTabId)
 let generation = 0
 let timer
 
@@ -84,9 +85,9 @@ async function connect() {
   element('error').hidden = true
   element('notice').textContent = 'Connecting...'
   try {
-    const [active] = await chrome.tabs.query({active: true, currentWindow: true})
-    if (!active?.id) throw new Error('Select a website tab.')
-    tabId = active.id
+    if (!Number.isSafeInteger(tabId) || tabId < 0) {
+      throw new Error('Open the controls using the extension icon on a website tab.')
+    }
     const result = await request('inspect')
     if (version !== generation) return
     page = result
@@ -188,7 +189,14 @@ element('reset').addEventListener('click', async () => {
   }
 })
 element('refresh').addEventListener('click', connect)
-chrome.tabs.onActivated.addListener(connect)
+element('close-controls').addEventListener('click', async () => {
+  clearTimeout(timer)
+  try {
+    await request('close-controls')
+  } catch (error) {
+    showError(error)
+  }
+})
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === 'session' && changes.activation?.newValue?.tabId === tabId) connect()
 })
@@ -200,5 +208,15 @@ chrome.tabs.onUpdated.addListener((changedId, change) => {
     element('notice').textContent = 'Page is navigating. Preview does not carry over to a new document.'
   }
   if (changedId === tabId && change.status === 'complete') connect()
+})
+chrome.tabs.onRemoved.addListener(closedId => {
+  if (closedId !== tabId) return
+  ++generation
+  clearTimeout(timer)
+  page = null
+  element('settings').disabled = true
+  element('error').hidden = true
+  element('site').textContent = 'Tab closed'
+  element('notice').textContent = 'The website tab was closed. Open another website and click the extension icon.'
 })
 await connect()
