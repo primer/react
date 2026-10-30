@@ -20,7 +20,7 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 import {useFeatureFlag} from '../FeatureFlags'
-import {announce, announceFromElement} from '@primer/live-region-element'
+import {useAnnounce} from '../live-region'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {debounce} from '@github/mini-throttle'
@@ -43,21 +43,6 @@ const DefaultEmptyMessage = (
     {EMPTY_MESSAGE.description}
   </SelectPanelMessage>
 )
-
-async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
-
-  await announce(text, {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
-}
-
-async function announceLoading() {
-  await announceText('Loading.')
-}
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -225,6 +210,13 @@ function Panel({
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const loadingDelayTimeoutId = useRef<number | null>(null)
+  const {announce, cancel} = useAnnounce()
+  const announceLoading = useCallback(() => {
+    announce('Loading.', {
+      delayMs: SHORT_DELAY_MS,
+    })
+  }, [announce])
+
   const loadingManagedInternally = loading === undefined
   const loadingManagedExternally = !loadingManagedInternally
   const [loadingState, setLoadingState] = useState(() => ({
@@ -259,6 +251,18 @@ function Panel({
   }
 
   const {dataLoadedOnce, isLoading} = loadingState
+
+  useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (!open || !(isLoading || loading)) {
+      cancel()
+      if (loadingDelayTimeoutId.current !== null) {
+        safeClearTimeout(loadingDelayTimeoutId.current)
+        loadingDelayTimeoutId.current = null
+      }
+    }
+  }, [cancel, isLoading, loading, open, safeClearTimeout])
+
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
@@ -352,6 +356,7 @@ function Panel({
 
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
+      cancel()
       if (loadingManagedInternally) {
         if (loadingDelayTimeoutId.current) {
           safeClearTimeout(loadingDelayTimeoutId.current)
@@ -400,6 +405,8 @@ function Panel({
       safeClearTimeout,
       items.length,
       resetSort,
+      announceLoading,
+      cancel,
     ],
   )
 
@@ -464,6 +471,7 @@ function Panel({
   }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
 
   useEffect(() => {
+    cancel()
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open) {
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
@@ -476,11 +484,12 @@ function Panel({
 
     if (loadingDelayTimeoutId.current) {
       safeClearTimeout(loadingDelayTimeoutId.current)
+      loadingDelayTimeoutId.current = null
     }
 
     // Only fire this effect if items have changed
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items])
+  }, [cancel, items])
 
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
@@ -513,7 +522,7 @@ function Panel({
         }
       }
     }
-  }, [isLoading, loadingManagedExternally, safeSetTimeout, safeClearTimeout])
+  }, [isLoading, loadingManagedExternally, safeSetTimeout, safeClearTimeout, announceLoading])
 
   // Populate panel with items on first open
   useEffect(() => {
@@ -578,22 +587,13 @@ function Panel({
   }, [open, isNarrowScreenSize])
 
   useEffect(() => {
-    const announceNotice = async () => {
-      if (!noticeRef.current) return
-      const liveRegion = document.querySelector('live-region')
-
-      liveRegion?.clear()
-
-      await announceFromElement(noticeRef.current, {
-        from: liveRegion ? liveRegion : undefined,
-      })
-    }
-
+    // eslint-disable-next-line github/no-innerText -- Exclude hidden notice content from announcements.
+    const text = noticeRef.current?.innerText || noticeRef.current?.textContent
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (open && notice) {
-      announceNotice()
+    if (open && notice && text?.trim()) {
+      announce(text.trim())
     }
-  }, [notice, open])
+  }, [announce, notice, open])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
