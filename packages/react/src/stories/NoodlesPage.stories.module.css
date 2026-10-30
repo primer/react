@@ -117,6 +117,11 @@
   flex-direction: column;
 }
 
+/* Hide the permanent line without removing PageLayout's resize target. */
+.SidebarRegion > [data-component='PageLayout.VerticalDivider'] {
+  background-color: transparent;
+}
+
 .Sidebar {
   display: flex;
   flex-direction: column;
