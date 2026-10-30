@@ -116,7 +116,9 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const anchorId = useId(menuButtonChildId)
-  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
+  const anchor: Pick<AnchoredOverlayProps, 'renderAnchor'> = {
+    renderAnchor: null,
+  }
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
   // with additional props for accessibility
@@ -127,8 +129,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       // tooltip trigger
       const anchorChildren = child.props.children
       if (anchorChildren.type === MenuButton || isSlot(anchorChildren, MenuButton)) {
-        // eslint-disable-next-line react-hooks/immutability
-        renderAnchor = anchorProps => {
+        anchor.renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
           const triggerButton = React.cloneElement(
             anchorChildren,
@@ -144,7 +145,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
         anchorChildren !== undefined ? anchorChildren.type === Tooltip || isSlot(anchorChildren, Tooltip) : false
       if (isWrappedWithTooltip) {
         if (anchorChildren.props.children !== null) {
-          renderAnchor = anchorProps => {
+          anchor.renderAnchor = anchorProps => {
             // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
             const tooltipTrigger = anchorChildren.props.children
             // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
@@ -157,15 +158,18 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
           }
         }
       } else {
-        renderAnchor = anchorProps =>
-          React.cloneElement(child, {
+        anchor.renderAnchor = anchorProps => {
+          return React.cloneElement(child, {
             ...anchorProps,
             className: clsx(anchorProps.className, child.props.className),
           })
+        }
       }
       return null
     } else if (child.type === MenuButton || isSlot(child, MenuButton)) {
-      renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
+      anchor.renderAnchor = anchorProps => {
+        return React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
+      }
       return null
     } else {
       return child
@@ -177,14 +181,14 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   const menuContextValue = useMemo(
     () => ({
       anchorRef,
-      renderAnchor,
+      renderAnchor: anchor.renderAnchor,
       anchorId,
       open: combinedOpenState,
       onOpen,
       onClose,
       isSubmenu,
     }),
-    [anchorRef, renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu],
+    [anchorRef, anchor.renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu],
   )
 
   return <MenuContext.Provider value={menuContextValue}>{contents}</MenuContext.Provider>
