@@ -1,4 +1,5 @@
 import {useEffect, useRef} from 'react'
+import '../polyfills/ariaNotify'
 
 type AnnounceOptions = {
   priority?: 'high' | 'normal'

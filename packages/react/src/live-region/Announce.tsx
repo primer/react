@@ -154,14 +154,9 @@ function getTextContent(element: HTMLElement): string {
 
   if (element.hasAttribute('aria-label')) {
     value = element.getAttribute('aria-label')
-  } else if (
+  } else {
     // eslint-disable-next-line github/no-innerText -- Use rendered text to avoid announcing CSS-hidden descendants.
-    element.innerText
-  ) {
-    // eslint-disable-next-line github/no-innerText -- Use rendered text to avoid announcing CSS-hidden descendants.
-    value = element.innerText
-  } else if (element.textContent) {
-    value = element.textContent
+    value = element.innerText ?? element.textContent
   }
 
   return value ? value.trim() : ''
