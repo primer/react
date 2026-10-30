@@ -23,7 +23,7 @@ function getCSSStyleRules(): Array<CSSStyleRule> {
   })
 }
 
-function getSizePadding(size: 'small' | 'medium' | 'large') {
+function getSizePadding(size: 'medium' | 'large') {
   const rule = getCSSStyleRules().find(cssRule => {
     return (
       cssRule.selectorText.includes(`.${classes.Blankslate}`) &&
@@ -53,10 +53,10 @@ describe('Blankslate', () => {
     expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', '')
   })
 
-  it('sets reduced padding for small size variant', () => {
+  it('sets reduced padding for the default medium size variant', () => {
     render(<Blankslate>Test content</Blankslate>)
 
-    expect(getSizePadding('small')).toMatch(/^var\(--base-size-16/)
+    expect(getSizePadding('medium')).toMatch(/^var\(--base-size-16/)
   })
 
   it('renders data-component attributes', () => {
@@ -144,6 +144,16 @@ describe('Blankslate', () => {
         </Blankslate>,
       )
       expect(screen.getByRole('button', {name: 'Primary action'})).toBeInTheDocument()
+    })
+
+    it.each(['medium', 'large'] as const)('should render a default-size button for the %s blankslate size', size => {
+      render(
+        <Blankslate size={size}>
+          <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
+        </Blankslate>,
+      )
+
+      expect(screen.getByRole('button', {name: 'Primary action'})).toHaveAttribute('data-size', 'medium')
     })
 
     it('should handle click events on the button', async () => {
