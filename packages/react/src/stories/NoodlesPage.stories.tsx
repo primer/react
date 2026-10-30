@@ -1,4 +1,5 @@
 import {useId, useMemo, useRef, useState} from 'react'
+import {clsx} from 'clsx'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {
   ArrowDownIcon,
@@ -44,6 +45,7 @@ import {
 } from './NoodlesPage.fixtures'
 import type {NoodlesPageFixture} from './NoodlesPage.fixtures'
 import classes from './NoodlesPage.stories.module.css'
+import theme from './NoodlesPage.theme.module.css'
 
 const meta = {
   title: 'Examples/Noodles page',
@@ -55,7 +57,7 @@ const meta = {
       description: {
         component:
           'PageLayout provides the sidebar, document and comments regions. The native resizable sidebar supports dragging and keyboard resizing from 240px to 480px, preserves its width through navigation toggles and focus mode, and resets to 312px on double-click or reload. ' +
-          'A standalone Noodles-inspired workspace with a fixed, page-scoped Noodles theme. Five optional ActionList and Button styling hooks provide its label typography and button typography; existing semantic tokens handle the remaining colors and selection styling. Menus and dialogs inherit the same theme through a registered portal container. Navigation, page creation, comments, attachments, reading width, focus mode and Markdown preview work locally with original fictional report fixtures. No account connection, remote writes or persistence. Reloading resets the demo.',
+          'A standalone Noodles-inspired workspace with a fixed, page-scoped Noodles theme. NoodlesPage.theme.module.css owns theme tokens and component overrides, including the transparent sidebar divider; NoodlesPage.stories.module.css owns the story layout, scrolling and responsive regions. Five optional ActionList and Button styling hooks provide its label typography and button typography; existing semantic tokens handle the remaining colors and selection styling. Menus and dialogs inherit the same theme through a registered portal container. Navigation, page creation, comments, attachments, reading width, focus mode and Markdown preview work locally with original fictional report fixtures. No account connection, remote writes or persistence. Reloading resets the demo.',
       },
     },
   },
@@ -178,7 +180,7 @@ function NoodlesPage() {
         {page.title}
         {page.count !== undefined && (
           <NavList.TrailingVisual>
-            <CounterLabel className={classes.Count} title={`${page.count} pages`}>
+            <CounterLabel className={theme.Count} title={`${page.count} pages`}>
               {page.count}
             </CounterLabel>
           </NavList.TrailingVisual>
@@ -192,7 +194,7 @@ function NoodlesPage() {
       <PageLayout className={classes.Layout} containerWidth="full" padding="none" rowGap="none" columnGap="none">
         {sidebarVisible && !focusMode && (
           <PageLayout.Sidebar
-            className={classes.SidebarRegion}
+            className={clsx(classes.SidebarRegion, theme.SidebarRegion)}
             aria-label="Page navigation"
             resizable
             width={{min: '240px', default: '312px', max: '480px'}}
@@ -208,7 +210,7 @@ function NoodlesPage() {
                   icon={SidebarCollapseIcon}
                   variant="invisible"
                   size="small"
-                  className={classes.NavigationToggle}
+                  className={theme.NavigationToggle}
                   aria-label="Hide page navigation"
                   onClick={() => setSidebarVisible(false)}
                 />
@@ -220,11 +222,11 @@ function NoodlesPage() {
                       icon={NoodleSwitcherIcon}
                       variant="invisible"
                       size="small"
-                      className={classes.ProjectSwitch}
+                      className={theme.ProjectSwitch}
                       aria-label="Switch noodle"
                     />
                   </ActionMenu.Anchor>
-                  <ActionMenu.Overlay className={classes.MenuOverlay}>
+                  <ActionMenu.Overlay className={theme.MenuOverlay}>
                     <ActionList selectionVariant="single">
                       <ActionList.Group>
                         <ActionList.GroupHeading>Favourite noodles</ActionList.GroupHeading>
@@ -239,7 +241,7 @@ function NoodlesPage() {
                   as="a"
                   href={`#${id}-document`}
                   aria-label={`Open ${noodlesProjectCover.title} cover`}
-                  className={classes.ProjectCoverLink}
+                  className={theme.ProjectCoverLink}
                   variant="invisible"
                   leadingVisual={NoodleCover}
                   block
@@ -257,11 +259,11 @@ function NoodlesPage() {
                       icon={PlusIcon}
                       variant="invisible"
                       size="small"
-                      className={classes.ProjectCreate}
+                      className={theme.ProjectCreate}
                       aria-label="Create"
                     />
                   </ActionMenu.Anchor>
-                  <ActionMenu.Overlay className={classes.MenuOverlay}>
+                  <ActionMenu.Overlay className={theme.MenuOverlay}>
                     <ActionList>
                       <ActionList.Item onSelect={() => openEditor('new')}>
                         New page
@@ -271,7 +273,7 @@ function NoodlesPage() {
                   </ActionMenu.Overlay>
                 </ActionMenu>
               </div>
-              <div className={classes.Navigation}>
+              <div className={clsx(classes.Navigation, theme.Navigation)}>
                 <NavList aria-label="Noodle pages">
                   <NavList.Item>
                     {noodlesProjectCover.title}
@@ -282,7 +284,7 @@ function NoodlesPage() {
                   {pages.filter(page => page.id !== 'project-cover' && !page.parentId).map(renderPage)}
                 </NavList>
                 <Button
-                  className={classes.NewPage}
+                  className={theme.NewPage}
                   variant="invisible"
                   leadingVisual={PlusIcon}
                   block
@@ -292,9 +294,9 @@ function NoodlesPage() {
                   New page
                 </Button>
               </div>
-              <nav className={classes.SidebarFooter} aria-label="User profile and settings">
+              <nav className={clsx(classes.SidebarFooter, theme.SidebarFooter)} aria-label="User profile and settings">
                 <Button
-                  className={classes.SidebarAction}
+                  className={theme.SidebarAction}
                   variant="invisible"
                   leadingVisual={CommentDiscussionIcon}
                   trailingAction={PlusIcon}
@@ -305,7 +307,7 @@ function NoodlesPage() {
                   Connect agent
                 </Button>
                 <Button
-                  className={classes.SidebarAction}
+                  className={theme.SidebarAction}
                   variant="invisible"
                   leadingVisual={BookIcon}
                   block
@@ -314,9 +316,9 @@ function NoodlesPage() {
                 >
                   Noodle settings
                 </Button>
-                <div className={classes.Account}>
+                <div className={clsx(classes.Account, theme.Account)}>
                   <Button
-                    className={classes.AccountButton}
+                    className={theme.AccountButton}
                     variant="invisible"
                     size="small"
                     leadingVisual={DemoAvatar}
@@ -356,7 +358,7 @@ function NoodlesPage() {
               {selected.id === 'project-cover' && (
                 <IconButton icon={HomeIcon} variant="invisible" aria-label="Open noodle cover" onClick={openCover} />
               )}
-              <div className={classes.Breadcrumb} role="group" aria-label="Current page">
+              <div className={clsx(classes.Breadcrumb, theme.Breadcrumb)} role="group" aria-label="Current page">
                 <Button
                   variant="invisible"
                   size="small"
@@ -376,7 +378,7 @@ function NoodlesPage() {
                     <ActionMenu.Button size="small" variant="invisible">
                       {title}
                     </ActionMenu.Button>
-                    <ActionMenu.Overlay className={classes.MenuOverlay} width="medium">
+                    <ActionMenu.Overlay className={theme.MenuOverlay} width="medium">
                       <ActionList selectionVariant="single">
                         {noodlesReports.map((report, index) => (
                           <ActionList.Item
@@ -397,7 +399,7 @@ function NoodlesPage() {
                   <ActionMenu.Anchor>
                     <IconButton icon={KebabHorizontalIcon} aria-label="Page actions" size="small" variant="invisible" />
                   </ActionMenu.Anchor>
-                  <ActionMenu.Overlay className={classes.MenuOverlay}>
+                  <ActionMenu.Overlay className={theme.MenuOverlay}>
                     <ActionList>
                       <ActionList.Item onSelect={() => openEditor('rename')}>
                         <ActionList.LeadingVisual>
@@ -495,11 +497,11 @@ function NoodlesPage() {
                   <Textarea block readOnly rows={28} aria-label="Markdown preview" value={markdownPreview} />
                 ) : (
                   <>
-                    <Heading as="h1" className={classes.Title}>
+                    <Heading as="h1" className={theme.Title}>
                       {title}
                     </Heading>
                     <section className={classes.Introduction}>
-                      <Heading as="h2" className={classes.SectionHeading}>
+                      <Heading as="h2" className={theme.SectionHeading}>
                         {isReport ? `Week ${12 - reportIndex}: Rollout readiness` : selected.title}
                       </Heading>
                       <p>
@@ -513,7 +515,7 @@ function NoodlesPage() {
                         <span className={classes.BlockHandle} aria-hidden="true">
                           <GrabberIcon size={16} />
                         </span>
-                        <Heading as="h2" className={classes.SectionHeading}>
+                        <Heading as="h2" className={theme.SectionHeading}>
                           {section.heading}
                         </Heading>
                         {section.items ? (
@@ -548,7 +550,7 @@ function NoodlesPage() {
                 <ActionMenu.Anchor>
                   <IconButton icon={KebabHorizontalIcon} variant="invisible" size="small" aria-label="Editor options" />
                 </ActionMenu.Anchor>
-                <ActionMenu.Overlay className={classes.MenuOverlay}>
+                <ActionMenu.Overlay className={theme.MenuOverlay}>
                   <ActionList selectionVariant="single">
                     <ActionList.Item selected={!wide} onSelect={() => setWide(false)}>
                       Comfortable width
@@ -564,7 +566,7 @@ function NoodlesPage() {
               </span>
               <ActionMenu>
                 <ActionMenu.Button size="small">{deliveryGroup}</ActionMenu.Button>
-                <ActionMenu.Overlay className={classes.MenuOverlay}>
+                <ActionMenu.Overlay className={theme.MenuOverlay}>
                   <ActionList selectionVariant="single">
                     {['First slice', 'Second slice', 'Third slice'].map(group => (
                       <ActionList.Item
@@ -597,7 +599,7 @@ function NoodlesPage() {
             aria-label="Page comments"
           >
             <aside className={classes.Comments} id={`${id}-comments`} aria-label="Page comments">
-              <Heading as="h2" className={classes.SectionHeading}>
+              <Heading as="h2" className={theme.SectionHeading}>
                 Comments
               </Heading>
               <p className={classes.Muted}>Local demo notes only. Nothing is sent to the reference app.</p>
@@ -750,7 +752,7 @@ function NoodlesStory() {
 
   return (
     <PortalContext.Provider value={portalContext}>
-      <div className={`${classes.Page} ${classes.NoodlesTheme}`}>
+      <div className={clsx(classes.Page, theme.NoodlesTheme)}>
         <div className={classes.Surface}>
           <NoodlesPage />
         </div>

@@ -1,76 +1,3 @@
-.NoodlesTheme {
-  --fontStack-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --fontStack-sansSerif: var(--fontStack-system);
-  --fontStack-sansSerifDisplay: var(--fontStack-system);
-  --text-body-size-small: 13px;
-  --text-body-size-medium: 16px;
-  --text-body-size-large: 18px;
-  --text-body-lineHeight-medium: 1.7;
-  --text-body-weight: 400;
-  --base-text-weight-normal: 400;
-  --base-text-weight-medium: 500;
-  --base-text-weight-semibold: 500;
-  --text-title-size-small: 20px;
-  --text-title-size-medium: 24px;
-  --text-title-size-large: 36px;
-  --text-title-weight-small: 600;
-  --text-title-weight-medium: 600;
-  --text-title-weight-large: 500;
-  --text-title-lineHeight-medium: 1.292;
-  --text-title-lineHeight-large: 1.105;
-  --borderRadius-default: 6px;
-  --borderRadius-small: 4px;
-  --borderRadius-medium: 8px;
-  --borderRadius-large: 16px;
-  --bgColor-default: #fff;
-  --bgColor-muted: #f6f8fa;
-  --bgColor-inset: #fff;
-  --bgColor-emphasis: #1f2328;
-  --fgColor-default: #1f2328;
-  --fgColor-muted: #59636e;
-  --borderColor-default: #d1d9e0;
-  --control-fgColor-rest: var(--fgColor-default);
-  --control-transparent-bgColor-hover: color-mix(in srgb, #1f2328 8%, transparent);
-  --control-transparent-bgColor-active: color-mix(in srgb, #1f2328 13%, transparent);
-  --control-transparent-bgColor-selected: #e7ecf0;
-  --ActionList--label-fontSize-medium: 13px;
-  --ActionList--label-fontWeight-selected: 400;
-  --ActionList--label-fgColor: #59636e;
-  --Button--fontWeight: 400;
-  --Button--fontSize-medium: var(--text-body-size-small);
-  --button-invisible-bgColor-active: transparent;
-  --button-invisible-bgColor-hover: color-mix(in srgb, #1f2328 8%, transparent);
-  --button-default-fgColor-rest: var(--fgColor-default);
-  --button-default-bgColor-rest: #fff;
-  --button-default-bgColor-hover: #eaeef2;
-  --button-default-bgColor-active: #eaeef2;
-  --button-default-shadow-resting: none;
-  --button-primary-bgColor-rest: #1f2328;
-  --button-primary-bgColor-hover: #1f2328;
-  --button-primary-bgColor-active: #1f2328;
-  --button-primary-fgColor-rest: #fff;
-  --button-primary-borderColor-rest: #1f2328;
-  --control-borderColor-rest: #818b98;
-  --NoodlesPage--header-minHeight: calc(var(--control-large-size) + var(--base-size-8));
-  --NoodlesPage--project-paddingInline: calc(var(--base-size-8) + var(--borderWidth-thin));
-  --NoodlesPage--project-bgColor-hover: #e7ecf0;
-  --NoodlesPage--wordmark-fontSize: var(--base-size-12);
-  --NoodlesPage--wordmark-lineHeight: var(--base-size-16);
-
-  position: relative;
-  font-family: var(--fontStack-system);
-  font-size: var(--text-body-size-medium);
-  line-height: var(--text-body-lineHeight-medium);
-
-  .Navigation {
-    --borderColor-accent-emphasis: transparent;
-  }
-
-  .ProjectCoverLink {
-    font-weight: var(--base-text-weight-medium);
-  }
-}
-
 .ThemePortals {
   position: absolute;
   top: 0;
@@ -79,6 +6,7 @@
 }
 
 .Page {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100dvh;
@@ -117,11 +45,6 @@
   flex-direction: column;
 }
 
-/* Hide the permanent line without removing PageLayout's resize target. */
-.SidebarRegion > [data-component='PageLayout.VerticalDivider'] {
-  background-color: transparent;
-}
-
 .Sidebar {
   display: flex;
   flex-direction: column;
@@ -143,11 +66,6 @@
   justify-content: space-between;
   min-height: calc(var(--control-large-size) + var(--base-size-8));
   padding-inline: var(--base-size-8) var(--base-size-4);
-}
-
-.NavigationToggle {
-  width: var(--control-xsmall-size);
-  height: var(--control-xsmall-size);
 }
 
 .Wordmark {
@@ -173,16 +91,6 @@
   background-color: var(--NoodlesPage--project-bgColor-hover, var(--button-invisible-bgColor-hover));
 }
 
-.ProjectCoverLink {
-  width: calc(100% - var(--base-size-32));
-  height: 100%;
-  padding-inline: var(--NoodlesPage--project-paddingInline, var(--control-medium-paddingInline-normal));
-}
-
-.ProjectCoverLink:where(:hover) {
-  background-color: transparent;
-}
-
 .NoodleCover {
   display: block;
   width: var(--base-size-16);
@@ -202,24 +110,6 @@
   color: var(--fgColor-onEmphasis);
 }
 
-.ProjectSwitch {
-  position: absolute;
-  top: calc((var(--control-large-size) - var(--control-small-size)) / 2);
-  left: calc(
-    var(--NoodlesPage--project-paddingInline, var(--control-medium-paddingInline-normal)) + var(--borderWidth-thin) -
-      var(--base-size-6)
-  );
-  z-index: 1;
-}
-
-.ProjectCreate {
-  position: absolute;
-  top: calc((var(--control-large-size) - var(--control-xsmall-size)) / 2);
-  right: var(--base-size-8);
-  width: var(--control-xsmall-size);
-  height: var(--control-xsmall-size);
-}
-
 .Navigation {
   flex: 1;
   min-height: 0;
@@ -232,93 +122,6 @@
   margin-top: var(--base-size-16);
   font-size: var(--text-body-size-small);
   line-height: var(--base-size-20);
-}
-
-.SidebarFooter .SidebarAction,
-.Navigation .NewPage {
-  min-width: 0;
-  height: var(--control-medium-size);
-  min-height: var(--control-medium-size);
-  padding: var(--base-size-6) var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--base-size-20);
-  border: 0;
-}
-
-.SidebarAction [data-component='leadingVisual'],
-.NewPage [data-component='leadingVisual'] {
-  margin-inline-end: var(--base-size-6);
-}
-
-.SidebarFooter [data-component='text'],
-.NewPage [data-component='text'] {
-  line-height: var(--base-size-20);
-}
-
-.SidebarAction [data-component='trailingAction'] svg,
-.NewPage [data-component='leadingVisual'] svg {
-  width: calc(var(--base-size-16) - var(--base-size-2));
-  height: calc(var(--base-size-16) - var(--base-size-2));
-}
-
-.Navigation .NewPage {
-  margin-top: var(--base-size-2);
-  color: var(--fgColor-muted);
-  opacity: 0.5;
-
-  &:hover,
-  &:focus-visible {
-    color: var(--fgColor-default);
-    background: transparent;
-    opacity: 1;
-  }
-}
-
-.Navigation .Count {
-  min-width: calc(var(--base-size-16) + var(--base-size-2));
-  height: calc(var(--base-size-16) + var(--base-size-2));
-  padding: 0 calc(var(--base-size-4) + var(--borderWidth-thin));
-  font-size: calc(var(--text-body-size-small) - var(--base-size-2));
-  font-weight: var(--base-text-weight-normal);
-  font-variant-numeric: tabular-nums;
-  line-height: calc(var(--base-size-16) + var(--base-size-2));
-  color: var(--fgColor-muted);
-  background: rgb(129 139 152 / 0.11);
-  border: 0;
-  border-radius: var(--borderRadius-full);
-}
-
-.MenuOverlay {
-  background: var(--bgColor-default);
-  border-radius: min(var(--borderRadius-large), var(--base-size-12));
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--borderColor-default) 50%, transparent),
-    0 6px 12px -3px rgb(26 26 26 / 0.04),
-    0 6px 18px rgb(26 26 26 / 0.12);
-
-  [data-component='ActionList'] {
-    padding: var(--base-size-4);
-  }
-
-  [data-component='ActionList.Item'] {
-    margin-inline: 0;
-
-    > [data-size] {
-      padding: var(--base-size-4) var(--base-size-8);
-    }
-  }
-
-  [data-component='ActionList.Item.Label'] {
-    font-size: var(--text-body-size-small);
-    font-weight: var(--base-text-weight-normal);
-    line-height: var(--base-size-20);
-    color: var(--fgColor-default);
-  }
-
-  [data-component='ActionList.Divider'] {
-    margin: var(--base-size-4) var(--base-size-8);
-  }
 }
 
 .Account {
@@ -335,16 +138,6 @@
     content: '';
     background: var(--borderColor-default);
   }
-}
-
-.Account .AccountButton {
-  flex: 1;
-  min-width: 0;
-  height: var(--control-small-size);
-  padding: 0 var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--base-size-20);
 }
 
 .Avatar {
@@ -384,11 +177,6 @@
   align-items: center;
   gap: var(--base-size-4);
   min-width: 0;
-
-  > button {
-    min-width: 0;
-    max-width: 240px;
-  }
 }
 
 .CurrentTitle {
@@ -455,26 +243,10 @@
   max-width: 1120px;
 }
 
-.Title {
-  margin: 0;
-  font-size: var(--text-title-size-large);
-  font-weight: var(--text-title-weight-large);
-  line-height: var(--text-title-lineHeight-large);
-  overflow-wrap: anywhere;
-}
-
 .Introduction,
 .Section {
   position: relative;
   margin-top: var(--base-size-32);
-}
-
-.SectionHeading {
-  margin: 0;
-  font-size: var(--text-title-size-medium);
-  font-weight: var(--text-title-weight-medium);
-  line-height: var(--text-title-lineHeight-medium);
-  overflow-wrap: anywhere;
 }
 
 .BlockHandle {
@@ -576,10 +348,6 @@
   .SidebarRegion {
     width: 100%;
     height: 30dvh;
-
-    > [data-component='PageLayout.VerticalDivider'] {
-      display: none;
-    }
   }
 
   .Sidebar {
@@ -598,10 +366,6 @@
   .Breadcrumb {
     flex: 1;
     max-width: 100%;
-
-    > button {
-      max-width: 144px;
-    }
   }
 
   .HeaderActions {
