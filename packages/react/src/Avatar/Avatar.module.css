@@ -10,6 +10,17 @@
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 0 0 1px var(--avatar-borderColor);
 
+  &:where([data-placeholder]) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bgColor-muted);
+    color: var(--fgColor-muted);
+    font-size: calc(var(--avatarSize-regular) * 0.4);
+    font-weight: var(--base-text-weight-semibold);
+    white-space: nowrap;
+  }
+
   &:where([data-square]) {
     /* stylelint-disable-next-line primer/borders */
     border-radius: clamp(4px, calc(var(--avatarSize-regular) - 24px), var(--borderRadius-medium));
