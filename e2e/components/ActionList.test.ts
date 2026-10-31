@@ -216,4 +216,74 @@ test.describe('ActionList', () => {
       })
     }
   })
+
+  // A multi-select checkbox only renders when the list is not a `menu`:
+  // `Selection` falls back to the single-select checkmark for `role="menu"`, so
+  // the FilteredActionList story - a `role="listbox"` with
+  // `selectionVariant="multiple"` - is what produces `.MultiSelectCheckbox`.
+  const bugItem = (page: Page) => page.getByRole('option', {name: /^bug/})
+
+  const describeCheckmark = (page: Page) =>
+    bugItem(page)
+      .locator('[data-component="ActionList.Selection"] > div')
+      .evaluate(element => {
+        const {animationName, clipPath, visibility, transitionDelay} = getComputedStyle(element, '::before')
+        return {animationName, clipPath, visibility, transitionDelay}
+      })
+
+  test.describe('reduced motion', () => {
+    // `contextOptions` is what the root Playwright config uses to emulate
+    // `prefers-reduced-motion`, so it is the option that has to be overridden.
+    test.use({contextOptions: {reducedMotion: 'reduce'}})
+
+    test('checkmark is shown without the clip-path animation @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-filteredactionlist-features--multi-select-with-select-all',
+      })
+
+      // `bug` is one of the two items the story starts out with selected
+      expect(await describeCheckmark(page)).toEqual({
+        animationName: 'none',
+        // Chromium reports a fully un-clipped value as `inset(0px)`
+        clipPath: 'inset(0px)',
+        visibility: 'visible',
+        transitionDelay: '0s',
+      })
+
+      // Clearing the selection hides the mark straight away - the wipe-out and
+      // the 230ms `visibility` delay that goes with it are both motion-only
+      await bugItem(page).click()
+
+      expect(await describeCheckmark(page)).toEqual({
+        animationName: 'none',
+        clipPath: 'inset(16px 0px 0px)',
+        visibility: 'hidden',
+        transitionDelay: '0s',
+      })
+    })
+  })
+
+  test.describe('no preference for reduced motion', () => {
+    test.use({contextOptions: {reducedMotion: 'no-preference'}})
+
+    test('checkmark keeps its clip-path animation @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-filteredactionlist-features--multi-select-with-select-all',
+      })
+
+      // Names are scoped by CSS Modules, so only the base name is stable. The
+      // clip-path is not worth asserting here: by the time it can be read, the
+      // 80ms wipe has already landed on the un-clipped value.
+      const checkmark = await describeCheckmark(page)
+      expect(checkmark.animationName).toMatch(/checkmarkIn/)
+      expect(checkmark.visibility).toBe('visible')
+
+      await bugItem(page).click()
+
+      const cleared = await describeCheckmark(page)
+      expect(cleared.animationName).toMatch(/checkmarkOut/)
+      // The mark is kept visible until the wipe-out has run
+      expect(cleared.transitionDelay).toBe('0.23s')
+    })
+  })
 })
