@@ -4,6 +4,7 @@ import {render, fireEvent} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
+import Avatar from '../../Avatar'
 import classes from '../ButtonBase.module.css'
 import {implementsClassName} from '../../utils/testing'
 import {FeatureFlags} from '../../FeatureFlags'
@@ -707,5 +708,18 @@ describe('data-component attributes', () => {
         .element(container.querySelector<HTMLElement>('[data-component="LinkButton"] [data-component="buttonContent"]'))
         .toBeInTheDocument()
     })
+  })
+
+  it('renders Avatar in leadingVisual without collapsing dimensions (#7974)', async () => {
+    render(
+      <Button leadingVisual={() => <Avatar src="primer.png" size={20} data-testid="button-avatar" />}>
+        Profile
+      </Button>,
+    )
+    const avatar = page.getByTestId('button-avatar')
+    await expect.element(avatar).toBeInTheDocument()
+    await expect.element(avatar).toHaveAttribute('data-component', 'Avatar')
+    await expect.element(avatar).toHaveAttribute('width', '20')
+    await expect.element(avatar).toHaveAttribute('height', '20')
   })
 })
