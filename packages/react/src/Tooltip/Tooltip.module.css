@@ -45,11 +45,20 @@
 .Tooltip:focus-within::after {
   display: inline-block;
   text-decoration: none;
-  animation-name: tooltip-appear;
-  animation-duration: 0.1s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in;
-  animation-delay: 0s;
+  /* `tooltip-appear` only fades the bubble in, so the visible state is the
+     default here and the fade is the enhancement. Without this the
+     reduced-motion path would inherit `opacity: 0` from `.Tooltip::after` and
+     render nothing at all. */
+  opacity: 1;
+
+  /* Only show animations if users don't have a preference for reduced motion */
+  @media screen and (prefers-reduced-motion: no-preference) {
+    animation-name: tooltip-appear;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+    animation-delay: 0s;
+  }
 }
 
 .Tooltip--noDelay:hover::after,
