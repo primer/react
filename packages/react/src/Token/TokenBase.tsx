@@ -60,6 +60,10 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
         onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
           onKeyDown && onKeyDown(event)
 
+          if (event.defaultPrevented) {
+            return
+          }
+
           if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
             onRemove()
           }
