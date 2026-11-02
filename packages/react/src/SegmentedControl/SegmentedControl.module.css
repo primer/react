@@ -101,7 +101,6 @@
   --segmented-control-outer-radius: var(--borderRadius-medium);
 
   display: inline-flex;
-  min-width: 0;
   max-width: 100%;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
