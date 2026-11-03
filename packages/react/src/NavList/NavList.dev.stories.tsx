@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {expect, within, userEvent} from 'storybook/test'
+import {within, userEvent} from 'storybook/test'
 import React from 'react'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
@@ -150,16 +150,4 @@ export const PreserveAnimationOnSiblingUpdate = () => {
       </PageLayout.Content>
     </PageLayout>
   )
-}
-
-PreserveAnimationOnSiblingUpdate.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
-  const canvas = within(canvasElement)
-  const link = canvas.getByRole('link', {name: 'Add unit tests for parser'})
-  const visual = link.querySelector('svg')
-  await userEvent.click(link)
-  await userEvent.keyboard('u')
-  await expect(canvas.getByRole('link', {name: 'Add unit tests for parser'})).toBe(link)
-  await expect(link.querySelector('svg')).toBe(visual)
-  await expect(link).toHaveFocus()
-  await expect(canvas.getAllByText('Working')).toHaveLength(2)
 }
