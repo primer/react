@@ -163,7 +163,8 @@ const AutocompleteInput = React.forwardRef(
         autocompleteSuggestion &&
         (inputValue || isMenuDirectlyActivated)
       ) {
-        inputRef.current.value = autocompleteSuggestion
+        // Keep React's value tracking at the typed text so completing the suggestion still fires onChange.
+        inputRef.current.setRangeText(autocompleteSuggestion, 0, inputRef.current.value.length)
 
         if (autocompleteSuggestion.toLowerCase().indexOf(inputValue.toLowerCase()) === 0) {
           inputRef.current.setSelectionRange(inputValue.length, autocompleteSuggestion.length)
