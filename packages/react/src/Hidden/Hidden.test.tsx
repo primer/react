@@ -15,7 +15,7 @@ describe('Hidden', () => {
       </Hidden>,
     )
 
-    const el = container.querySelector('[data-component="Hidden"]')
+    const el = container.querySelector<HTMLElement>('[data-component="Hidden"]')
     await expect.element(el).toBeInTheDocument()
   })
 
@@ -28,7 +28,7 @@ describe('Hidden', () => {
       </div>,
     )
     await expect
-      .element(page.getByTestId('hidden-regular').element().firstChild)
+      .element(page.getByTestId('hidden-regular').element().firstChild as HTMLElement)
       .toHaveAttribute('style', '--hiddenDisplay-regular: none;')
   })
 
@@ -41,7 +41,7 @@ describe('Hidden', () => {
       </div>,
     )
     await expect
-      .element(page.getByTestId('hidden-regular').element().firstChild)
+      .element(page.getByTestId('hidden-regular').element().firstChild as HTMLElement)
       .toHaveAttribute('style', '--hiddenDisplay-narrow: none; --hiddenDisplay-wide: none;')
   })
 })

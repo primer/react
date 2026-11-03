@@ -66,7 +66,7 @@ describe('LabelGroup', () => {
     )
 
     const list = page.getByRole('list').element()
-    const toggleLi = list.querySelector('li[data-component="LabelGroup.Toggle"]')
+    const toggleLi = list.querySelector<HTMLLIElement>('li[data-component="LabelGroup.Toggle"]')
     await expect.element(toggleLi).toBeInTheDocument()
 
     rerender(
@@ -78,7 +78,7 @@ describe('LabelGroup', () => {
       </ThemeAndStyleContainer>,
     )
 
-    const toggleSpan = container.querySelector('span[data-component="LabelGroup.Toggle"]')
+    const toggleSpan = container.querySelector<HTMLSpanElement>('span[data-component="LabelGroup.Toggle"]')
     await expect.element(toggleSpan).toBeInTheDocument()
   })
 
@@ -268,7 +268,9 @@ describe('LabelGroup', () => {
       const labelGroupDiv = container.querySelectorAll('div')[1]
       expect(labelGroupDiv.querySelectorAll('li')).toHaveLength(0)
       expect(labelGroupDiv.querySelectorAll(':scope > span[data-index]')).toHaveLength(5)
-      await expect.element(labelGroupDiv.querySelector('span[data-component="LabelGroup.Toggle"]')).toBeInTheDocument()
+      await expect
+        .element(labelGroupDiv.querySelector<HTMLSpanElement>('span[data-component="LabelGroup.Toggle"]'))
+        .toBeInTheDocument()
       await expect.element(labelGroupDiv).not.toHaveAttribute('data-list')
     })
   })

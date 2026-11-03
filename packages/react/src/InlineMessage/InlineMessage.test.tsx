@@ -30,7 +30,7 @@ describe('InlineMessage', () => {
         test
       </InlineMessage>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-testid', 'test')
+    await expect.element(container.firstChild as HTMLElement).toHaveAttribute('data-testid', 'test')
   })
 
   it('should support `size="small"`', async () => {
@@ -104,7 +104,7 @@ describe('InlineMessage', () => {
   it('should render InfoIcon when variant is not provided', async () => {
     const {container} = render(<InlineMessage>test without variant</InlineMessage>)
     await expect.element(page.getByText('test without variant', {exact: true})).toBeInTheDocument()
-    const svg = container.querySelector('svg.octicon-info')
+    const svg = container.querySelector<SVGElement>('svg.octicon-info')
     await expect.element(svg).toBeInTheDocument()
   })
 

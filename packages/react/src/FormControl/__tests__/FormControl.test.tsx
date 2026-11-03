@@ -91,7 +91,7 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    await expect.element(container.firstElementChild).toHaveAttribute('data-component', 'FormControl')
+    await expect.element(container.firstElementChild as HTMLElement).toHaveAttribute('data-component', 'FormControl')
     await expect
       .element(page.getByText(LABEL_TEXT, {exact: true}))
       .toHaveAttribute('data-component', 'FormControl.Label')
@@ -99,7 +99,7 @@ describe('FormControl', () => {
       .element(page.getByText(CAPTION_TEXT, {exact: true}))
       .toHaveAttribute('data-component', 'FormControl.Caption')
 
-    const validation = container.querySelector('[data-component="FormControl.Validation"]')
+    const validation = container.querySelector<HTMLElement>('[data-component="FormControl.Validation"]')
     await expect.element(validation).toHaveTextContent(ERROR_TEXT)
   })
 
@@ -114,12 +114,12 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    await expect.element(container.firstElementChild).toHaveAttribute('data-component', 'FormControl')
+    await expect.element(container.firstElementChild as HTMLElement).toHaveAttribute('data-component', 'FormControl')
     await expect
       .element(page.getByText(LABEL_TEXT, {exact: true}))
       .toHaveAttribute('data-component', 'FormControl.Label')
 
-    const leadingVisual = container.querySelector('[data-component="FormControl.LeadingVisual"]')
+    const leadingVisual = container.querySelector<HTMLElement>('[data-component="FormControl.LeadingVisual"]')
     await expect.element(leadingVisual).toBeInTheDocument()
   })
 
@@ -382,7 +382,7 @@ describe('FormControl', () => {
 
         expect(labelledBy.split(' ')).toEqual(expect.arrayContaining([`${fieldId}-label`, `${fieldId}-selected-value`]))
 
-        await expect.element(container.querySelector(`#${fieldId}-selected-value`)).toBeInTheDocument()
+        await expect.element(container.querySelector<HTMLElement>(`#${fieldId}-selected-value`)).toBeInTheDocument()
 
         await expect.element(page.getByText('bug', {exact: true})).toBeInTheDocument()
       })
@@ -587,7 +587,7 @@ describe('FormControl', () => {
 
         // The leading visual should be found as a slot because of the __SLOT__ property
         // We can verify this by checking that the leading visual container is present
-        const leadingVisualContainer = container.querySelector('[data-has-leading-visual]')
+        const leadingVisualContainer = container.querySelector<HTMLElement>('[data-has-leading-visual]')
         await expect.element(leadingVisualContainer).toBeInTheDocument()
 
         // The icon should be rendered and functional
