@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vitest'
-import {render, screen, within} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {renderToString} from 'react-dom/server'
 import {Table} from '../../DataTable'
 import {implementsClassName} from '../../utils/testing'
@@ -60,7 +61,7 @@ describe('Table.Group', () => {
     expect(tbodies?.[1]).toHaveAttribute('data-group-id', 'admins')
   })
 
-  it('renders a native colgroup-scoped header cell spanning every column', () => {
+  it('renders a native colgroup-scoped header cell spanning every column', async () => {
     render(
       <Table>
         <ColumnHeaders />
@@ -77,17 +78,17 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 2 rows$/})
-    expect(groupHeader.tagName).toBe('TH')
-    expect(groupHeader).toHaveAttribute('scope', 'colgroup')
-    expect(groupHeader).toHaveAttribute('colspan', '2')
+    const groupHeader = page.getByRole('columnheader', {name: /^Admins\s*, 2 rows$/})
+    expect(groupHeader.element().tagName).toBe('TH')
+    await expect.element(groupHeader).toHaveAttribute('scope', 'colgroup')
+    await expect.element(groupHeader).toHaveAttribute('colspan', '2')
   })
 
   it.each([
     [1, /^Admins\s*, 1 row$/],
     [2, /^Admins\s*, 2 rows$/],
     [0, /^Admins\s*, 0 rows$/],
-  ])('builds an accessible name from the label and row count (rowCount=%s)', (rowCount, expectedName) => {
+  ])('builds an accessible name from the label and row count (rowCount=%s)', async (rowCount, expectedName) => {
     render(
       <Table>
         <ColumnHeaders />
@@ -100,13 +101,13 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: expectedName})
-    expect(groupHeader).not.toHaveAttribute('aria-label')
-    expect(groupHeader).toHaveTextContent(`Admins,${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`)
-    expect(groupHeader.querySelector('[aria-hidden="true"]')).toBeNull()
+    const groupHeader = page.getByRole('columnheader', {name: expectedName})
+    await expect.element(groupHeader).not.toHaveAttribute('aria-label')
+    await expect.element(groupHeader).toHaveTextContent(`Admins,${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`)
+    expect(groupHeader.element().querySelector('[aria-hidden="true"]')).toBeNull()
   })
 
-  it('exposes visible label/count text while keeping the group header name concise', () => {
+  it('exposes visible label/count text while keeping the group header name concise', async () => {
     render(
       <Table>
         <ColumnHeaders />
@@ -119,12 +120,12 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 2 rows$/})
-    expect(within(groupHeader).getByText('Admins')).toBeVisible()
-    expect(within(groupHeader).getByText('2')).toBeVisible()
+    const groupHeader = page.getByRole('columnheader', {name: /^Admins\s*, 2 rows$/})
+    await expect.element(groupHeader.getByText(/^Admins\s*,$/)).toBeVisible()
+    await expect.element(groupHeader.getByText(/^2\s+rows$/)).toBeVisible()
   })
 
-  it("associates member cells with both the group header and their column's header", () => {
+  it("associates member cells with both the group header and their column's header", async () => {
     render(
       <Table>
         <ColumnHeaders />
@@ -137,15 +138,15 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
-    const nameCell = screen.getByRole('cell', {name: 'Mona'})
-    const roleCell = screen.getByRole('cell', {name: 'Admin'})
+    const groupHeader = page.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
+    const nameCell = page.getByRole('cell', {name: 'Mona', exact: true})
+    const roleCell = page.getByRole('cell', {name: 'Admin', exact: true})
 
-    expect(nameCell).toHaveAttribute('headers', `${groupHeader.id} col-name`)
-    expect(roleCell).toHaveAttribute('headers', `${groupHeader.id} col-role`)
+    await expect.element(nameCell).toHaveAttribute('headers', `${groupHeader.element().id} col-name`)
+    await expect.element(roleCell).toHaveAttribute('headers', `${groupHeader.element().id} col-role`)
   })
 
-  it('preserves explicit header associations for cells rendered by wrapper components', () => {
+  it('preserves explicit header associations for cells rendered by wrapper components', async () => {
     render(
       <Table>
         <ColumnHeaders />
@@ -157,9 +158,13 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
-    expect(screen.getByRole('cell', {name: 'Mona'})).toHaveAttribute('headers', `${groupHeader.id} col-name`)
-    expect(screen.getByRole('cell', {name: 'Admin'})).toHaveAttribute('headers', `${groupHeader.id} col-role`)
+    const groupHeader = page.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
+    await expect
+      .element(page.getByRole('cell', {name: 'Mona', exact: true}))
+      .toHaveAttribute('headers', `${groupHeader.element().id} col-name`)
+    await expect
+      .element(page.getByRole('cell', {name: 'Admin', exact: true}))
+      .toHaveAttribute('headers', `${groupHeader.element().id} col-role`)
   })
 
   it('does not leak group header associations into nested tables', () => {
@@ -194,7 +199,7 @@ describe('Table.Group', () => {
     expect(nestedCell).not.toHaveAttribute('headers')
   })
 
-  it('allows the group header accessible name to be localized', () => {
+  it('allows the group header accessible name to be localized', async () => {
     render(
       <Table>
         <ColumnHeaders />
@@ -208,10 +213,12 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    expect(screen.getByRole('columnheader', {name: 'Administrateurs, 2 lignes'})).toBeInTheDocument()
+    await expect
+      .element(page.getByRole('columnheader', {name: 'Administrateurs, 2 lignes', exact: true}))
+      .toBeInTheDocument()
   })
 
-  it('prepends the group header to consumer-supplied `headers` associations', () => {
+  it('prepends the group header to consumer-supplied `headers` associations', async () => {
     render(
       <Table>
         <ColumnHeaders />
@@ -224,9 +231,9 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    const groupHeader = screen.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
-    const nameCell = screen.getByRole('cell', {name: 'Mona'})
-    expect(nameCell).toHaveAttribute('headers', `${groupHeader.id} col-name extra-ref`)
+    const groupHeader = page.getByRole('columnheader', {name: /^Admins\s*, 1 row$/})
+    const nameCell = page.getByRole('cell', {name: 'Mona', exact: true})
+    await expect.element(nameCell).toHaveAttribute('headers', `${groupHeader.element().id} col-name extra-ref`)
   })
 
   it('gives each group header a non-colliding id, even with duplicate consumer-supplied group ids', () => {
@@ -259,7 +266,7 @@ describe('Table.Group', () => {
       </>,
     )
 
-    const groupHeaders = screen.getAllByRole('columnheader', {name: /Admins|Owners/})
+    const groupHeaders = page.getByRole('columnheader', {name: /Admins|Owners/}).elements()
     const ids = groupHeaders.map(header => header.id)
     expect(new Set(ids).size).toBe(ids.length)
     for (const id of ids) {
@@ -268,7 +275,7 @@ describe('Table.Group', () => {
     }
   })
 
-  it('does not add a `headers` attribute to cells in an ungrouped table', () => {
+  it('does not add a `headers` attribute to cells in an ungrouped table', async () => {
     render(
       <Table>
         <ColumnHeaders />
@@ -281,8 +288,8 @@ describe('Table.Group', () => {
       </Table>,
     )
 
-    expect(screen.getByRole('cell', {name: 'Mona'})).not.toHaveAttribute('headers')
-    expect(screen.getByRole('cell', {name: 'Admin'})).not.toHaveAttribute('headers')
+    await expect.element(page.getByRole('cell', {name: 'Mona', exact: true})).not.toHaveAttribute('headers')
+    await expect.element(page.getByRole('cell', {name: 'Admin', exact: true})).not.toHaveAttribute('headers')
   })
 
   it('includes complete group and column associations in server-rendered markup', () => {

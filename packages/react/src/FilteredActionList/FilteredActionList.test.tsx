@@ -1,4 +1,5 @@
-import {fireEvent, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import {FilteredActionList} from '../FilteredActionList'
@@ -16,11 +17,11 @@ const items = [
 describe('FilteredActionList', () => {
   implementsClassName(props => <FilteredActionList items={items} onFilterChange={vi.fn()} {...props} />, classes.Root)
 
-  it('calls the provided input focus handler', () => {
+  it('calls the provided input focus handler', async () => {
     const onFocus = vi.fn()
-    const {getByRole} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} textInputProps={{onFocus}} />)
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} textInputProps={{onFocus}} />)
 
-    fireEvent.focus(getByRole('combobox'))
+    await userEvent.click(page.getByRole('combobox'))
 
     expect(onFocus).toHaveBeenCalledOnce()
   })
