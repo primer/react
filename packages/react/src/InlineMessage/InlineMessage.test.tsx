@@ -30,7 +30,9 @@ describe('InlineMessage', () => {
         test
       </InlineMessage>,
     )
-    await expect.element(container.firstChild as HTMLElement).toHaveAttribute('data-testid', 'test')
+    await expect
+      .element(container.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('data-testid', 'test')
   })
 
   it('should support `size="small"`', async () => {

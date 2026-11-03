@@ -28,7 +28,7 @@ describe('Hidden', () => {
       </div>,
     )
     await expect
-      .element(page.getByTestId('hidden-regular').element().firstChild as HTMLElement)
+      .element(page.getByTestId('hidden-regular').element().querySelector<HTMLElement>(':scope > :first-child'))
       .toHaveAttribute('style', '--hiddenDisplay-regular: none;')
   })
 
@@ -41,7 +41,7 @@ describe('Hidden', () => {
       </div>,
     )
     await expect
-      .element(page.getByTestId('hidden-regular').element().firstChild as HTMLElement)
+      .element(page.getByTestId('hidden-regular').element().querySelector<HTMLElement>(':scope > :first-child'))
       .toHaveAttribute('style', '--hiddenDisplay-narrow: none; --hiddenDisplay-wide: none;')
   })
 })

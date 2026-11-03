@@ -91,7 +91,9 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    await expect.element(container.firstElementChild as HTMLElement).toHaveAttribute('data-component', 'FormControl')
+    await expect
+      .element(container.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('data-component', 'FormControl')
     await expect
       .element(page.getByText(LABEL_TEXT, {exact: true}))
       .toHaveAttribute('data-component', 'FormControl.Label')
@@ -114,7 +116,9 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    await expect.element(container.firstElementChild as HTMLElement).toHaveAttribute('data-component', 'FormControl')
+    await expect
+      .element(container.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('data-component', 'FormControl')
     await expect
       .element(page.getByText(LABEL_TEXT, {exact: true}))
       .toHaveAttribute('data-component', 'FormControl.Label')
