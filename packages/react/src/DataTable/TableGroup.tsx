@@ -129,7 +129,7 @@ function TableGroup({
                 className={classes.TableGroupSelection}
                 checked={selection === 'all'}
                 indeterminate={selection === 'some'}
-                disabled={selectionDisabled}
+                disabled={selectionDisabled || !onToggleSelect}
                 aria-label={`Select ${ariaLabel ?? label}`}
                 onChange={() => onToggleSelect?.()}
               />

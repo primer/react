@@ -282,7 +282,7 @@
         {
           "name": "onToggleSelect",
           "type": "() => void",
-          "description": "Handle group checkbox activation. Consumers own member selection."
+          "description": "Handle group checkbox activation. Consumers own member selection. When omitted, the group checkbox is disabled."
         },
         {
           "name": "id",
