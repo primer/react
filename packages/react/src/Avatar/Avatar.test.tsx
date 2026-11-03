@@ -36,6 +36,12 @@ describe('Avatar', () => {
     expect(avatar).toHaveAttribute('src', 'primer.png')
   })
 
+  it('applies min-width matching size to prevent collapsing', () => {
+    render(<Avatar size={32} src="primer.png" alt="github" data-testid="avatar" />)
+    const avatar = screen.getByTestId('avatar')
+    expect(window.getComputedStyle(avatar).minWidth).toBe('32px')
+  })
+
   it('should support the `style` prop without overriding internal styles', () => {
     render(
       <Avatar
