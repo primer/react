@@ -98,7 +98,7 @@ const LinkItemComponent = fixedForwardRef(
           tooltipText: _PrivateTooltipText,
         }}
       >
-        <Item
+        <Item<'li'>
           className={className}
           active={active}
           inactiveText={inactiveText}
