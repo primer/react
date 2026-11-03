@@ -291,7 +291,7 @@ describe('Button', () => {
       return {backgroundColor, borderColor, color, cursor}
     }
 
-    it('applies disabled styles to a loading primary button without using native disabled', () => {
+    it('applies disabled styles to a loading primary button without a feature flag or native disabled', () => {
       render(
         <>
           <Button variant="primary" loading>
@@ -333,26 +333,6 @@ describe('Button', () => {
 
       expect(loadingButton).toHaveAttribute('aria-disabled', 'true')
       expect(loadingButton).not.toBeDisabled()
-      expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
-    })
-
-    it('applies disabled styles to loading buttons without a feature flag', () => {
-      render(
-        <>
-          <Button variant="primary" loading>
-            Loading
-          </Button>
-          <Button variant="primary" disabled>
-            Disabled
-          </Button>
-        </>,
-      )
-
-      const loadingButton = screen.getByRole('button', {name: 'Loading'})
-      const disabledButton = screen.getByRole('button', {name: 'Disabled'})
-
-      expect(loadingButton).toHaveAttribute('data-loading', 'true')
-      expect(loadingButton).toHaveAttribute('aria-disabled', 'true')
       expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
     })
 
