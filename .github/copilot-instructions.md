@@ -155,7 +155,7 @@ npm run lint:fix        # Auto-fix linting issues
 
 ## Storybook
 
-When working on UI components, always use the `primer-storybook` MCP tools to access Storybook's component and documentation knowledge before answering or taking any action. Reference the `.github/skills/storybook/SKILL.md` file for detailed instructions on using the Storybook MCP effectively and accurately.
+When working on UI components, always use the `primer-storybook` MCP tools to access Storybook's component and documentation knowledge before answering or taking any action. Reference the `.agent/skills/storybook/SKILL.md` file for detailed instructions on using the Storybook MCP effectively and accurately.
 
 **Story conventions:**
 
@@ -166,7 +166,7 @@ When working on UI components, always use the `primer-storybook` MCP tools to ac
 
 ## Slots
 
-When building, modifying, or wrapping compound components that use child-component "slots" (anything involving `__SLOT__`, `useSlots`, `isSlot`, or `asSlot`), reference the `.github/skills/slots/SKILL.md` file. It documents when to add slot markers, naming conventions for `Symbol(...)` descriptions, the public slot APIs, and common pitfalls.
+When building, modifying, or wrapping compound components that use child-component "slots" (anything involving `__SLOT__`, `useSlots`, `isSlot`, or `asSlot`), reference the `.agent/skills/slots/SKILL.md` file. It documents when to add slot markers, naming conventions for `Symbol(...)` descriptions, the public slot APIs, and common pitfalls.
 
 ## Known Issues and Workarounds
 
@@ -189,5 +189,5 @@ When building, modifying, or wrapping compound components that use child-compone
 When creating a pull request, you MUST:
 
 1. Use the template in `.github/pull_request_template.md` to structure the PR description. Read the template file, fill in all sections appropriately, and include it in the PR body.
-2. Include a changeset file in the PR if the change affects the published package (bug fix, new feature, breaking change, etc.). Create a `.changeset/<descriptive-name>.md` file with the appropriate semver bump type. Reference the `changesets` skill (`.github/skills/changesets/SKILL.md`) for detailed guidance on file format, choosing the correct bump type, and when a changeset can be skipped.
+2. Include a changeset file in the PR if the change affects the published package (bug fix, new feature, breaking change, etc.). Create a `.changeset/<descriptive-name>.md` file with the appropriate semver bump type. Reference the `changesets` skill (`.agent/skills/changesets/SKILL.md`) for detailed guidance on file format, choosing the correct bump type, and when a changeset can be skipped.
 3. If no changeset is needed (docs-only, test-only, CI/infra changes), add the `skip changeset` label to the pull request to bypass the CI changeset check.

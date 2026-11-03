@@ -80,14 +80,14 @@ The same investigation records a VoiceOver limitation even with native
 
 ### Keep group names concise and localizable
 
-The default accessible name is the label followed by the member count, such as
-`Public, 2 rows` or `Internal, 1 row`. The visible label and count also supply
+For non-collapsible groups, the accessible name is the label followed by the
+member count, such as `Public, 2 rows` or `Internal, 1 row`. The visible label and count also supply
 the accessible name, with visually hidden text adding the comma and `row` or
 `rows` suffix. This avoids duplicating the label and count. Consumers can
 override the name through the group's `aria-label`, including for localization.
 
-A group heading is not a button. Selection and expansion actions are not part
-of this contract and must not be included in its accessible name.
+A group heading retains its native header role, even when it contains a
+disclosure button. Action verbs must not be included in its accessible name.
 
 ```html
 <tbody>
@@ -243,8 +243,8 @@ its header ID to selection cells' `headers`; group headings have no checkbox.
 
 ### State, scope, and focus
 
-- Select-all includes every selectable supplied row across groups and outside
-  the scroll viewport. Disabled rows do not affect selection totals.
+- Select-all includes every selectable supplied row, including collapsed groups
+  and rows outside the scroll viewport. Disabled rows do not affect selection totals.
 - `Checkbox` sets the native `indeterminate` property for mixed state.
   Activating a mixed header selects the remaining rows; a checked header clears them.
 - With no selectable rows, keep disabled, unchecked, non-mixed checkboxes and
@@ -259,6 +259,19 @@ its header ID to selection cells' `headers`; group headings have no checkbox.
 Examples: `WithRowSelection` in [Table features](./Table.features.stories.tsx)
 and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.stories.tsx).
 
+## Group expansion
+
+With `collapsibleGroups` (`Table.Group`'s `collapsible`), the group header contains
+a native disclosure button. The header and button use the group label, or its
+`aria-label` override, as their name; the button's `aria-description` supplies the
+row count. The generated count description is currently English.
+
+- Enter or Space toggles `aria-expanded`; `aria-controls` references the member body.
+- Collapsed members stay mounted but are hidden from table navigation and Tab order.
+- If a controlled collapse hides the focused member, focus returns to that group's
+  disclosure. Focus outside the group is left alone.
+- Collapse does not clear selection or change its scope.
+
 ## Verification
 
 - [Grouping tests](./__tests__/DataTableGrouping.test.tsx) cover mixed body
@@ -268,6 +281,8 @@ and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.sto
   spanning headers, accessible names, and nested-table isolation.
 - [Selection tests](./__tests__/DataTableSelection.test.tsx) cover controlled
   updates, disabled rows, focus, and hydration.
+- [Expansion tests](./__tests__/DataTableExpansion.test.tsx) cover disclosure
+  semantics, focus recovery, hidden members, and selection compatibility.
 - [DataTable browser tests](../../../../e2e/components/DataTable.test.ts) cover
   themed axe checks, visual snapshots, and a group split across pages.
 - [Table browser tests](../../../../e2e/components/Table.test.ts) cover explicit
@@ -279,6 +294,8 @@ boundaries with NVDA and JAWS, and check VoiceOver while accounting for its
 documented spanning-header limitation. Verify that sorting controls announce
 their name, state, and next action without polluting cell header names.
 For selection, also verify mixed-state announcements and focus after select-all.
+For expansion, verify the disclosure's name, count, and expanded state, and that
+collapsed members are skipped during table navigation.
 
 ## Links and resources
 

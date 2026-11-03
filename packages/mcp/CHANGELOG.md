@@ -1,5 +1,13 @@
 # @primer/mcp
 
+## 1.1.2
+
+### Patch Changes
+
+- [#8582](https://github.com/primer/react/pull/8582) [`e0524db`](https://github.com/primer/react/commit/e0524db5b12eea7a2b1537c895f83491eac4288d) Thanks [@Pranay623](https://github.com/Pranay623)! - Update component MCP tools to match on the slug of components for HTTP requests to primer.style
+- Updated dependencies [[`c29b6fe`](https://github.com/primer/react/commit/c29b6fec94c8b18b4f59f7935740ab7b94598ecc), [`6f52273`](https://github.com/primer/react/commit/6f522732b1370954fd1de47b806864c6a46886c5), [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3), [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3), [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3), [`c29b6fe`](https://github.com/primer/react/commit/c29b6fec94c8b18b4f59f7935740ab7b94598ecc), [`0d5607c`](https://github.com/primer/react/commit/0d5607c3b29ab090a0a97d1532fdc3a066a37d3d)]:
+  - @primer/react@38.43.0
+
 ## 1.1.1
 
 ### Patch Changes

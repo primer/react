@@ -1,5 +1,39 @@
 # @primer/react
 
+## 38.44.0
+
+### Minor Changes
+
+- [#8533](https://github.com/primer/react/pull/8533) [`714cb96`](https://github.com/primer/react/commit/714cb96adbdc0aec951f7a131f44f221b10ef3ae) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable, Table.Group: Add controlled and uncontrolled group expansion without changing row selection.
+
+### Patch Changes
+
+- [#8533](https://github.com/primer/react/pull/8533) [`714cb96`](https://github.com/primer/react/commit/714cb96adbdc0aec951f7a131f44f221b10ef3ae) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - Table.SelectionHeader: Preserve the mixed checkbox state when using a callback ref.
+
+- [#8613](https://github.com/primer/react/pull/8613) [`f733dcb`](https://github.com/primer/react/commit/f733dcb2b086c6da7902bfecfcf68cd61c7daab3) Thanks [@alexus37](https://github.com/alexus37)! - SelectPanel: Improve rendering performance when opening and updating items or selection
+
+- [#8590](https://github.com/primer/react/pull/8590) [`f83d6a9`](https://github.com/primer/react/commit/f83d6a9350f85784e51d9632dfc881cf805976f7) Thanks [@donjo](https://github.com/donjo)! - SegmentedControl: Match unselected hover backgrounds in the subtle variant to invisible buttons.
+
+## 38.43.0
+
+### Minor Changes
+
+- [#8545](https://github.com/primer/react/pull/8545) [`c29b6fe`](https://github.com/primer/react/commit/c29b6fec94c8b18b4f59f7935740ab7b94598ecc) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TextInput and Textarea: Deprecate the `contrast` prop. Omit it to use the default background.
+
+- [#8558](https://github.com/primer/react/pull/8558) [`6f52273`](https://github.com/primer/react/commit/6f522732b1370954fd1de47b806864c6a46886c5) Thanks [@joshblack](https://github.com/joshblack)! - useControllableState, useOnOutsideClick: Support automatic memoization with React Compiler.
+
+- [#8555](https://github.com/primer/react/pull/8555) [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3) Thanks [@joshblack](https://github.com/joshblack)! - useSafeTimeout: Support automatic memoization with React Compiler.
+
+- [#8555](https://github.com/primer/react/pull/8555) [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3) Thanks [@joshblack](https://github.com/joshblack)! - Token, IssueLabelToken: Improve rendering performance with React Compiler support.
+
+- [#8555](https://github.com/primer/react/pull/8555) [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3) Thanks [@joshblack](https://github.com/joshblack)! - UnderlinePanels: Improve rendering performance with React Compiler support.
+
+### Patch Changes
+
+- [#8545](https://github.com/primer/react/pull/8545) [`c29b6fe`](https://github.com/primer/react/commit/c29b6fec94c8b18b4f59f7935740ab7b94598ecc) Thanks [@tay1orjones](https://github.com/tay1orjones)! - SelectPanel: Use the default filter input background. Enable `primer_react_select_panel_legacy_contrast` to restore the previous appearance.
+
+- [#8524](https://github.com/primer/react/pull/8524) [`0d5607c`](https://github.com/primer/react/commit/0d5607c3b29ab090a0a97d1532fdc3a066a37d3d) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TreeView: Prevent typeahead errors and focus changes when typing in nested controls.
+
 ## 38.42.0
 
 ### Minor Changes

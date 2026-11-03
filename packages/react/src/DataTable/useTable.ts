@@ -17,6 +17,10 @@ interface TableConfig<Data extends UniqueRow> {
   defaultSelectedRows?: ReadonlySet<DataTableRowId>
   onSelectionChange?: ({selectedRows}: {selectedRows: Set<DataTableRowId>}) => void
   isRowSelectable?: (row: Data) => boolean
+  collapsibleGroups?: boolean
+  expandedGroups?: ReadonlySet<DataTableRowId>
+  defaultExpandedGroups?: ReadonlySet<DataTableRowId>
+  onExpandedGroupsChange?: ({expandedGroups}: {expandedGroups: Set<DataTableRowId>}) => void
 }
 
 interface Table<Data extends UniqueRow> {
@@ -26,6 +30,7 @@ interface Table<Data extends UniqueRow> {
     sortBy: (header: Header<Data>) => void
     toggleRowSelection: (row: Row<Data>) => void
     toggleAllRows: () => void
+    toggleGroupExpansion: (group: RowGroup<Data>) => void
   }
   selection: {
     headerId: string
@@ -63,6 +68,7 @@ interface RowGroup<Data extends UniqueRow> {
   id: string | number
   label: string
   rows: Array<Row<Data>>
+  expanded: boolean
   'aria-label'?: string
 }
 
@@ -95,6 +101,10 @@ export function useTable<Data extends UniqueRow>({
   defaultSelectedRows,
   onSelectionChange,
   isRowSelectable,
+  collapsibleGroups = false,
+  expandedGroups: controlledExpandedGroups,
+  defaultExpandedGroups,
+  onExpandedGroupsChange,
 }: TableConfig<Data>): Table<Data> {
   const tableId = useId()
   const [rowOrder, setRowOrder] = useState<DataTableData<Data>>(data)
@@ -112,6 +122,14 @@ export function useTable<Data extends UniqueRow>({
     },
   })
   const {gridTemplateColumns} = useTableLayout(columns, rowSelection)
+  const [expandedGroups, setExpandedGroups] = useControllableState<ReadonlySet<DataTableRowId>>({
+    name: 'DataTable expandedGroups',
+    value: controlledExpandedGroups,
+    defaultValue: () => defaultExpandedGroups ?? new Set(data.filter(isDataTableRowGroup).map(group => group.groupId)),
+    onChange: nextExpandedGroups => {
+      onExpandedGroupsChange?.({expandedGroups: new Set(nextExpandedGroups)})
+    },
+  })
 
   // Reset the `sortByColumn` state if the columns change and that column is no
   // longer provided
@@ -321,14 +339,15 @@ export function useTable<Data extends UniqueRow>({
       const groupStartIndex = rowIndex
       bodies.push({
         type: 'row-group',
-        key: `group:${item.groupId}`,
+        key: `group:${typeof item.groupId}:${item.groupId}`,
         id: item.groupId,
         label: item.label,
         rows: item.rows.map((row, index) => createRow(row, groupStartIndex + index)),
+        expanded: !collapsibleGroups || expandedGroups.has(item.groupId),
         'aria-label': item['aria-label'],
       })
       rowIndex += item.rows.length
-      body = {type: 'row-body', key: `rows:after:${item.groupId}`, rows: []}
+      body = {type: 'row-body', key: `rows:after:${typeof item.groupId}:${item.groupId}`, rows: []}
     } else {
       body.rows.push(createRow(item, rowIndex))
       rowIndex += 1
@@ -375,12 +394,26 @@ export function useTable<Data extends UniqueRow>({
     setSelectedRows(nextSelectedRows)
   }
 
+  function toggleGroupExpansion(group: RowGroup<Data>) {
+    if (!collapsibleGroups) {
+      return
+    }
+    const nextExpandedGroups = new Set(expandedGroups)
+    if (nextExpandedGroups.has(group.id)) {
+      nextExpandedGroups.delete(group.id)
+    } else {
+      nextExpandedGroups.add(group.id)
+    }
+    setExpandedGroups(nextExpandedGroups)
+  }
+
   return {
     headers,
     actions: {
       sortBy,
       toggleRowSelection,
       toggleAllRows,
+      toggleGroupExpansion,
     },
     selection: {
       headerId: `${tableId}-selection-column`,

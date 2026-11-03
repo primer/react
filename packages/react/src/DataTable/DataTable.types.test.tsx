@@ -82,6 +82,41 @@ export function shouldAcceptExplicitRowType() {
   return <DataTable<Repository> data={groups} columns={columns} />
 }
 
+export function shouldAcceptGroupExpansion() {
+  const expandedGroups: ReadonlySet<DataTableRowId> = new Set([1, 'public'])
+  const config = (
+    <DataTable
+      data={groups}
+      columns={columns}
+      collapsibleGroups
+      expandedGroups={expandedGroups}
+      defaultExpandedGroups={expandedGroups}
+      onExpandedGroupsChange={({expandedGroups}) => {
+        const ids: Set<DataTableRowId> = expandedGroups
+        return ids
+      }}
+    />
+  )
+  const presentational = (
+    <Table.Group
+      id="public"
+      label="Public"
+      colSpan={1}
+      rowCount={0}
+      collapsible
+      expanded
+      defaultExpanded={false}
+      onExpandedChange={({expanded}) => {
+        const nextExpanded: boolean = expanded
+        return nextExpanded
+      }}
+    />
+  )
+  // @ts-expect-error Expansion IDs must be strings or numbers.
+  const invalid = <DataTable data={groups} columns={columns} expandedGroups={new Set([true])} />
+  return {config, presentational, invalid}
+}
+
 export function shouldInferRowTypeFromInlineGroups() {
   return (
     <DataTable

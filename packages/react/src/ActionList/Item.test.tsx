@@ -146,6 +146,7 @@ describe('ActionList.Item', () => {
     const option = page.getByRole('option')
     await expect.element(option).toBeInTheDocument()
     await userEvent.click(option)
+    await expect.element(option).toHaveFocus()
     await userEvent.keyboard('{Enter}')
     await expect.element(option).toBeInTheDocument()
   })
