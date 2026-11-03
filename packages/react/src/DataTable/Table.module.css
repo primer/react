@@ -164,6 +164,17 @@
   border-bottom-right-radius: var(--table-border-radius);
 }
 
+/* stylelint-disable selector-pseudo-class-disallowed-list, selector-max-compound-selectors -- scoped to a group header and its adjacent member body */
+.TableOverflowWrapper:last-child
+  .TableGroupHeaderBody:where(:has(+ .TableBody[hidden]:last-child))
+  .TableGroupHeaderCell {
+  /* stylelint-disable-next-line primer/borders */
+  border-bottom-left-radius: var(--table-border-radius);
+  /* stylelint-disable-next-line primer/borders */
+  border-bottom-right-radius: var(--table-border-radius);
+}
+/* stylelint-enable selector-pseudo-class-disallowed-list, selector-max-compound-selectors */
+
 /**
  * Offset padding to make sure type aligns regardless of cell padding
  * selection
@@ -296,8 +307,9 @@
 .TableGroupHeaderCell {
   display: flex;
   grid-column: 1 / -1;
-  align-items: baseline;
-  column-gap: var(--base-size-8);
+  align-items: center;
+  /* Match the padding on either side of the selection/data column boundary. */
+  column-gap: calc(2 * var(--cell-padding-inline));
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--table-cell-padding);
   text-align: start;
@@ -321,6 +333,32 @@
 
 .TableGroupHeaderCount {
   color: var(--fgColor-muted);
+}
+
+.TableBody:where([hidden]) {
+  display: none;
+}
+
+.TableGroupToggle {
+  display: inline-flex;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  /* Center the hit target over the same 16px slot as a selection checkbox. */
+  margin-inline: calc((var(--base-size-16) - var(--base-size-24)) / 2);
+  color: var(--fgColor-default);
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
+  border-radius: var(--borderRadius-small);
+
+  &:hover {
+    background-color: var(--bgColor-neutral-muted);
+  }
+
+  &:where([aria-expanded='true']) svg {
+    transform: rotate(90deg);
+  }
 }
 
 .PlaceholderText {
