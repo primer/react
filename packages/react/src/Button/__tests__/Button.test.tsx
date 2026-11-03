@@ -5,7 +5,6 @@ import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
 import classes from '../ButtonBase.module.css'
 import {implementsClassName} from '../../utils/testing'
-import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -292,11 +291,8 @@ describe('Button', () => {
       return {backgroundColor, borderColor, color, cursor}
     }
 
-    const renderWithLoadingDisabledStyles = (children: React.ReactNode) =>
-      render(<FeatureFlags flags={{primer_react_button_loading_disabled_styles: true}}>{children}</FeatureFlags>)
-
     it('applies disabled styles to a loading primary button without using native disabled', () => {
-      renderWithLoadingDisabledStyles(
+      render(
         <>
           <Button variant="primary" loading>
             Loading
@@ -314,7 +310,6 @@ describe('Button', () => {
 
       expect(loadingButton).toHaveAttribute('aria-disabled', 'true')
       expect(loadingButton).toHaveAttribute('data-loading', 'true')
-      expect(loadingButton).toHaveAttribute('data-loading-disabled-styles', 'true')
       expect(loadingButton).not.toBeDisabled()
       expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
       expect(visualStyles(loadingButton).backgroundColor).not.toBe(visualStyles(enabledButton).backgroundColor)
@@ -322,7 +317,7 @@ describe('Button', () => {
     })
 
     it('applies disabled styles when loading is combined with aria-disabled', () => {
-      renderWithLoadingDisabledStyles(
+      render(
         <>
           <Button variant="primary" loading aria-disabled>
             Loading
@@ -341,7 +336,7 @@ describe('Button', () => {
       expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
     })
 
-    it('preserves existing loading styles when the feature flag is disabled', () => {
+    it('applies disabled styles to loading buttons without a feature flag', () => {
       render(
         <>
           <Button variant="primary" loading>
@@ -356,8 +351,9 @@ describe('Button', () => {
       const loadingButton = screen.getByRole('button', {name: 'Loading'})
       const disabledButton = screen.getByRole('button', {name: 'Disabled'})
 
-      expect(loadingButton).not.toHaveAttribute('data-loading-disabled-styles')
-      expect(visualStyles(loadingButton)).not.toEqual(visualStyles(disabledButton))
+      expect(loadingButton).toHaveAttribute('data-loading', 'true')
+      expect(loadingButton).toHaveAttribute('aria-disabled', 'true')
+      expect(visualStyles(loadingButton)).toEqual(visualStyles(disabledButton))
     })
 
     it('does not call onClick while loading', () => {
