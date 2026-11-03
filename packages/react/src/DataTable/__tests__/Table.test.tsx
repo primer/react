@@ -354,7 +354,9 @@ describe('Table', () => {
           .toBeInTheDocument()
       }
 
-      for (const cell of page.getByRole('cell').all()) {
+      const cells = page.getByRole('cell').all()
+      expect(cells).toHaveLength(columns.length)
+      for (const cell of cells) {
         await expect.element(cell).toHaveTextContent('Loading')
       }
     })

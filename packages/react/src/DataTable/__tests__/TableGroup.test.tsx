@@ -267,6 +267,7 @@ describe('Table.Group', () => {
     )
 
     const groupHeaders = page.getByRole('columnheader', {name: /Admins|Owners/}).elements()
+    expect(groupHeaders).toHaveLength(3)
     const ids = groupHeaders.map(header => header.id)
     expect(new Set(ids).size).toBe(ids.length)
     for (const id of ids) {
