@@ -1,4 +1,5 @@
 import {describe, it, expect, vi} from 'vitest'
+import {page} from 'vitest/browser'
 import {render, screen, fireEvent, waitFor} from '@testing-library/react'
 import React from 'react'
 import {ActionList} from '.'
@@ -172,7 +173,8 @@ describe('ActionList.LinkItem', () => {
     const {rerender} = render(renderItem('Go home', 0))
     const link = screen.getByRole('link', {name: 'Home'})
     const tooltip = screen.getByText('Go home')
-    fireEvent.mouseOver(link)
+    const browserLink = page.getByRole('link', {name: 'Home'})
+    await browserLink.hover()
     await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(true))
     const originalLinkTop = link.getBoundingClientRect().top
     const originalTooltipTop = tooltip.getBoundingClientRect().top
@@ -189,9 +191,9 @@ describe('ActionList.LinkItem', () => {
     expect(screen.getByRole('link', {name: 'Home'})).toBe(link)
     expect(link.getBoundingClientRect().top - originalLinkTop).toBeCloseTo(80)
     expect(tooltip.matches(':popover-open')).toBe(true)
-    fireEvent.mouseLeave(link)
+    await browserLink.unhover()
     await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(false))
-    fireEvent.mouseOver(link)
+    await browserLink.hover()
     await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(true))
     expect(tooltip.getBoundingClientRect().top - originalTooltipTop).toBeCloseTo(80)
   })
