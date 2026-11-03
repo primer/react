@@ -13,7 +13,7 @@ describe('CircleBadge', () => {
 
   it('renders data-component attribute', async () => {
     const {container} = HTMLRender(<CircleBadge />)
-    await expect.element(container.querySelector('[data-component="CircleBadge"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="CircleBadge"]')).toBeInTheDocument()
   })
 
   it('respects the inline prop', () => {
@@ -52,12 +52,14 @@ describe('CircleBadge', () => {
   describe('CircleBadge.Icon', () => {
     it('renders an icon', async () => {
       const {container} = HTMLRender(<CircleBadge.Icon icon={CheckIcon} />)
-      await expect.element(container.firstChild).toBeInTheDocument()
+      await expect.element(container.querySelector<SVGElement>(':first-child')).toBeInTheDocument()
     })
 
     it('renders data-component attribute', async () => {
       const {container} = HTMLRender(<CircleBadge.Icon icon={CheckIcon} />)
-      await expect.element(container.querySelector('[data-component="CircleBadge.Icon"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<SVGElement>('[data-component="CircleBadge.Icon"]'))
+        .toBeInTheDocument()
     })
   })
 })

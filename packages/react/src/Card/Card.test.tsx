@@ -88,7 +88,7 @@ describe('Card', () => {
         <Card.Heading>Edge to Edge</Card.Heading>
       </Card>,
     )
-    const header = container.querySelector(`.${classes.CardHeader}`)
+    const header = container.querySelector<HTMLElement>(`.${classes.CardHeader}`)
     await expect.element(header).toHaveClass(classes.CardHeaderEdgeToEdge)
   })
 
@@ -99,7 +99,7 @@ describe('Card', () => {
         <Card.Heading>With Icon</Card.Heading>
       </Card>,
     )
-    const header = container.querySelector(`.${classes.CardHeader}`)
+    const header = container.querySelector<HTMLElement>(`.${classes.CardHeader}`)
     await expect.element(header).not.toHaveClass(classes.CardHeaderEdgeToEdge)
   })
 
@@ -109,8 +109,8 @@ describe('Card', () => {
         <Card.Heading>Custom</Card.Heading>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveClass('custom-class')
-    await expect.element(container.firstChild).toHaveClass(classes.Card)
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).toHaveClass('custom-class')
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).toHaveClass(classes.Card)
   })
 
   it('should forward a ref to the root element', () => {
@@ -141,7 +141,7 @@ describe('Card', () => {
         <Card.Heading>Padded</Card.Heading>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-padding', 'normal')
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).toHaveAttribute('data-padding', 'normal')
   })
 
   it('should set data-padding to none when padding="none"', async () => {
@@ -150,7 +150,7 @@ describe('Card', () => {
         <Card.Heading>No Padding</Card.Heading>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-padding', 'none')
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).toHaveAttribute('data-padding', 'none')
   })
 
   it('should set data-padding on custom content cards', async () => {
@@ -159,7 +159,7 @@ describe('Card', () => {
         <p>Custom</p>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-padding', 'none')
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).toHaveAttribute('data-padding', 'none')
   })
 
   it('should set data-border-radius to large by default', async () => {
@@ -168,7 +168,9 @@ describe('Card', () => {
         <Card.Heading>Default Radius</Card.Heading>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-border-radius', 'large')
+    await expect
+      .element(container.querySelector<HTMLElement>(':first-child'))
+      .toHaveAttribute('data-border-radius', 'large')
   })
 
   it('should set data-border-radius to medium when borderRadius="medium"', async () => {
@@ -177,7 +179,9 @@ describe('Card', () => {
         <Card.Heading>Medium Radius</Card.Heading>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-border-radius', 'medium')
+    await expect
+      .element(container.querySelector<HTMLElement>(':first-child'))
+      .toHaveAttribute('data-border-radius', 'medium')
   })
 
   it('should set data-component attributes on Card and its subcomponents', async () => {
@@ -192,12 +196,14 @@ describe('Card', () => {
         </Card.Action>
       </Card>,
     )
-    await expect.element(container.querySelector('[data-component="Card"]')).toBeInTheDocument()
-    await expect.element(container.querySelector('[data-component="Card.Icon"]')).toBeInTheDocument()
-    await expect.element(container.querySelector('[data-component="Card.Heading"]')).toBeInTheDocument()
-    await expect.element(container.querySelector('[data-component="Card.Description"]')).toBeInTheDocument()
-    await expect.element(container.querySelector('[data-component="Card.Metadata"]')).toBeInTheDocument()
-    await expect.element(container.querySelector('[data-component="Card.Action"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Card"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Card.Icon"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Card.Heading"]')).toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Card.Description"]'))
+      .toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Card.Metadata"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Card.Action"]')).toBeInTheDocument()
   })
 
   it('should set data-component="Card.Image" on Card.Image', async () => {
@@ -207,7 +213,7 @@ describe('Card', () => {
         <Card.Heading>With Image</Card.Heading>
       </Card>,
     )
-    await expect.element(container.querySelector('[data-component="Card.Image"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Card.Image"]')).toBeInTheDocument()
   })
 
   it('should set data-component="Card" on custom content cards', async () => {
@@ -216,7 +222,7 @@ describe('Card', () => {
         <p>Custom</p>
       </Card>,
     )
-    await expect.element(container.querySelector('[data-component="Card"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Card"]')).toBeInTheDocument()
   })
 
   it('should not render when there are no children', async () => {
@@ -247,7 +253,9 @@ describe('Card', () => {
       </Card>,
     )
     expect(container.firstChild?.nodeName).toBe('SECTION')
-    await expect.element(container.firstChild).toHaveAttribute('aria-label', 'Standalone card')
+    await expect
+      .element(container.querySelector<HTMLElement>(':first-child'))
+      .toHaveAttribute('aria-label', 'Standalone card')
   })
 
   it('should expose the section as a labelled region landmark', async () => {
@@ -276,7 +284,7 @@ describe('Card', () => {
         <Card.Heading>Heading</Card.Heading>
       </Card>,
     )
-    await expect.element(container.firstChild).not.toHaveAttribute('as')
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).not.toHaveAttribute('as')
   })
 
   it('should set data-layout to default by default', async () => {
@@ -285,7 +293,7 @@ describe('Card', () => {
         <Card.Heading>Default Variant</Card.Heading>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-layout', 'default')
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).toHaveAttribute('data-layout', 'default')
   })
 
   it('should set data-layout to compact when layout="compact"', async () => {
@@ -295,7 +303,7 @@ describe('Card', () => {
         <Card.Heading>Compact Card</Card.Heading>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-layout', 'compact')
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).toHaveAttribute('data-layout', 'compact')
   })
 
   it('should set data-layout on custom content cards', async () => {
@@ -304,6 +312,6 @@ describe('Card', () => {
         <p>Custom</p>
       </Card>,
     )
-    await expect.element(container.firstChild).toHaveAttribute('data-layout', 'compact')
+    await expect.element(container.querySelector<HTMLElement>(':first-child')).toHaveAttribute('data-layout', 'compact')
   })
 })

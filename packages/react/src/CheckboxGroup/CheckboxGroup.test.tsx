@@ -56,9 +56,15 @@ describe('CheckboxGroup', () => {
       </CheckboxGroup>,
     )
 
-    await expect.element(container.querySelector('[data-component="CheckboxGroup.Label"]')).toBeInTheDocument()
-    await expect.element(container.querySelector('[data-component="CheckboxGroup.Caption"]')).toBeInTheDocument()
-    await expect.element(container.querySelector('[data-component="CheckboxGroup.Validation"]')).toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="CheckboxGroup.Label"]'))
+      .toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="CheckboxGroup.Caption"]'))
+      .toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="CheckboxGroup.Validation"]'))
+      .toBeInTheDocument()
   })
 
   it('renders a disabled group of inputs', async () => {
