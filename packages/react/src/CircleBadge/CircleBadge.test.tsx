@@ -1,3 +1,4 @@
+import {page} from 'vitest/browser'
 import CircleBadge from './CircleBadge'
 import {CheckIcon} from '@primer/octicons-react'
 import {render as HTMLRender} from '@testing-library/react'
@@ -10,9 +11,9 @@ const imgInput = <img alt="Example" src="primer.jpg" />
 describe('CircleBadge', () => {
   implementsClassName(CircleBadge, classes.CircleBadge)
 
-  it('renders data-component attribute', () => {
+  it('renders data-component attribute', async () => {
     const {container} = HTMLRender(<CircleBadge />)
-    expect(container.querySelector('[data-component="CircleBadge"]')).toBeInTheDocument()
+    await expect.element(container.querySelector('[data-component="CircleBadge"]')).toBeInTheDocument()
   })
 
   it('respects the inline prop', () => {
@@ -30,33 +31,33 @@ describe('CircleBadge', () => {
     expect(container.firstChild).toMatchSnapshot()
   })
 
-  it('applies title', () => {
-    const {container} = HTMLRender(
+  it('applies title', async () => {
+    HTMLRender(
       <CircleBadge as="a" title="primer logo">
         {imgInput}
       </CircleBadge>,
     )
-    expect(container.firstChild).toHaveAttribute('title', 'primer logo')
+    await expect.element(page.getByTitle('primer logo')).toHaveAttribute('title', 'primer logo')
   })
 
-  it('preserves child class names', () => {
-    const {getByRole} = HTMLRender(
+  it('preserves child class names', async () => {
+    HTMLRender(
       <CircleBadge>
         <img className="primer" alt="Example" src="primer.jpg" />
       </CircleBadge>,
     )
-    expect(getByRole('img')).toHaveClass('primer')
+    await expect.element(page.getByRole('img')).toHaveClass('primer')
   })
 
   describe('CircleBadge.Icon', () => {
-    it('renders an icon', () => {
+    it('renders an icon', async () => {
       const {container} = HTMLRender(<CircleBadge.Icon icon={CheckIcon} />)
-      expect(container.firstChild).toBeInTheDocument()
+      await expect.element(container.firstChild).toBeInTheDocument()
     })
 
-    it('renders data-component attribute', () => {
+    it('renders data-component attribute', async () => {
       const {container} = HTMLRender(<CircleBadge.Icon icon={CheckIcon} />)
-      expect(container.querySelector('[data-component="CircleBadge.Icon"]')).toBeInTheDocument()
+      await expect.element(container.querySelector('[data-component="CircleBadge.Icon"]')).toBeInTheDocument()
     })
   })
 })

@@ -1,8 +1,8 @@
+import {page, userEvent} from 'vitest/browser'
 import {render} from '@testing-library/react'
 import Checkbox from '../Checkbox'
 import CheckboxGroup from '.'
 import FormControl from '../FormControl'
-import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeAll, afterAll} from 'vitest'
 import {implementsClassName} from '../utils/testing'
 import classes from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.module.css'
@@ -28,8 +28,8 @@ describe('CheckboxGroup', () => {
     vi.restoreAllMocks()
   })
 
-  it('renders data-component attribute', () => {
-    const {getByRole} = render(
+  it('renders data-component attribute', async () => {
+    render(
       <CheckboxGroup>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -39,10 +39,10 @@ describe('CheckboxGroup', () => {
       </CheckboxGroup>,
     )
 
-    expect(getByRole('group')).toHaveAttribute('data-component', 'CheckboxGroup')
+    await expect.element(page.getByRole('group')).toHaveAttribute('data-component', 'CheckboxGroup')
   })
 
-  it('renders data-component attributes for subcomponents', () => {
+  it('renders data-component attributes for subcomponents', async () => {
     const {container} = render(
       <CheckboxGroup>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
@@ -56,13 +56,13 @@ describe('CheckboxGroup', () => {
       </CheckboxGroup>,
     )
 
-    expect(container.querySelector('[data-component="CheckboxGroup.Label"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="CheckboxGroup.Caption"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="CheckboxGroup.Validation"]')).toBeInTheDocument()
+    await expect.element(container.querySelector('[data-component="CheckboxGroup.Label"]')).toBeInTheDocument()
+    await expect.element(container.querySelector('[data-component="CheckboxGroup.Caption"]')).toBeInTheDocument()
+    await expect.element(container.querySelector('[data-component="CheckboxGroup.Validation"]')).toBeInTheDocument()
   })
 
-  it('renders a disabled group of inputs', () => {
-    const {getAllByRole, getByRole} = render(
+  it('renders a disabled group of inputs', async () => {
+    render(
       <CheckboxGroup disabled>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -79,18 +79,18 @@ describe('CheckboxGroup', () => {
         </FormControl>
       </CheckboxGroup>,
     )
-    const checkboxInputs = getAllByRole('checkbox') as HTMLInputElement[]
-    const fieldset = getByRole('group') as HTMLFieldSetElement
+    const checkboxInputs = page.getByRole('checkbox').all()
+    const fieldset = page.getByRole('group')
 
     for (const checkboxInput of checkboxInputs) {
-      expect(checkboxInput.disabled).toBe(true)
+      await expect.element(checkboxInput).toBeDisabled()
     }
 
-    expect(fieldset.disabled).toBe(true)
+    await expect.element(fieldset).toBeDisabled()
   })
 
-  it('renders a required group of inputs', () => {
-    const {getByTitle} = render(
+  it('renders a required group of inputs', async () => {
+    render(
       <CheckboxGroup required>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -107,16 +107,15 @@ describe('CheckboxGroup', () => {
         </FormControl>
       </CheckboxGroup>,
     )
-    const requiredIndicator = getByTitle('required field')
+    const requiredIndicator = page.getByTitle('required field')
 
-    expect(requiredIndicator).toBeInTheDocument()
+    await expect.element(requiredIndicator).toBeInTheDocument()
   })
 
   it('calls onChange handlers passed to CheckboxGroup and Checkbox', async () => {
-    const user = userEvent.setup()
     const handleParentChange = vi.fn()
     const handleCheckboxChange = vi.fn()
-    const {getByLabelText} = render(
+    render(
       <CheckboxGroup onChange={handleParentChange}>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -133,19 +132,18 @@ describe('CheckboxGroup', () => {
         </FormControl>
       </CheckboxGroup>,
     )
-    const checkbox = getByLabelText('Choice one') as HTMLInputElement
+    const checkbox = page.getByLabelText('Choice one')
 
     expect(handleParentChange).not.toHaveBeenCalled()
     expect(handleCheckboxChange).not.toHaveBeenCalled()
-    await user.click(checkbox)
+    await userEvent.click(checkbox)
     expect(handleParentChange).toHaveBeenCalled()
     expect(handleCheckboxChange).toHaveBeenCalled()
   })
 
   it('calls onChange handler on CheckboxGroup with selected values', async () => {
-    const user = userEvent.setup()
     const handleParentChange = vi.fn()
-    const {getByLabelText} = render(
+    render(
       <CheckboxGroup onChange={handleParentChange}>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -163,10 +161,10 @@ describe('CheckboxGroup', () => {
       </CheckboxGroup>,
     )
 
-    const checkbox = getByLabelText('Choice one') as HTMLInputElement
+    const checkbox = page.getByLabelText('Choice one')
 
     expect(handleParentChange).not.toHaveBeenCalled()
-    await user.click(checkbox)
+    await userEvent.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
       ['two', 'one'],
       expect.objectContaining({
@@ -175,7 +173,7 @@ describe('CheckboxGroup', () => {
         }),
       }),
     )
-    await user.click(checkbox)
+    await userEvent.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
       ['two'],
       expect.objectContaining({

@@ -1,6 +1,6 @@
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {page} from 'vitest/browser'
 import Checkbox from '../Checkbox'
 import {createRef} from 'react'
 import {FeatureFlags} from '../FeatureFlags'
@@ -14,141 +14,132 @@ describe('Checkbox', () => {
     vi.clearAllMocks()
   })
 
-  it('renders a valid checkbox input', () => {
-    const {getByRole} = render(<Checkbox />)
+  it('renders a valid checkbox input', async () => {
+    render(<Checkbox />)
 
-    const checkbox = getByRole('checkbox')
-
-    expect(checkbox).toBeDefined()
+    await expect.element(page.getByRole('checkbox')).toBeInTheDocument()
   })
 
-  it('renders data-component attribute', () => {
-    const {getByRole} = render(<Checkbox />)
-    expect(getByRole('checkbox')).toHaveAttribute('data-component', 'Checkbox')
+  it('renders data-component attribute', async () => {
+    render(<Checkbox />)
+    await expect.element(page.getByRole('checkbox')).toHaveAttribute('data-component', 'Checkbox')
   })
 
-  it('renders an unchecked checkbox by default', () => {
-    const {getByRole} = render(<Checkbox />)
+  it('renders an unchecked checkbox by default', async () => {
+    render(<Checkbox />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
-
-    expect(checkbox.checked).toEqual(false)
+    await expect.element(page.getByRole('checkbox')).not.toBeChecked()
   })
 
-  it('renders an active checkbox when checked attribute is passed', () => {
+  it('renders an active checkbox when checked attribute is passed', async () => {
     const handleChange = vi.fn()
-    const {getByRole} = render(<Checkbox checked onChange={handleChange} />)
+    render(<Checkbox checked onChange={handleChange} />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
-
-    expect(checkbox.checked).toEqual(true)
+    await expect.element(page.getByRole('checkbox')).toBeChecked()
   })
 
   it('accepts a change handler that can alter the checkbox state', async () => {
-    const user = userEvent.setup()
     const handleChange = vi.fn()
-    const {getByRole} = render(<Checkbox onChange={handleChange} />)
+    render(<Checkbox onChange={handleChange} />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
+    const checkbox = page.getByRole('checkbox')
 
-    expect(checkbox.checked).toEqual(false)
+    await expect.element(checkbox).not.toBeChecked()
 
-    await user.click(checkbox)
+    await checkbox.click()
     expect(handleChange).toHaveBeenCalled()
-    expect(checkbox.checked).toEqual(true)
+    await expect.element(checkbox).toBeChecked()
 
-    await user.click(checkbox)
+    await checkbox.click()
     expect(handleChange).toHaveBeenCalled()
-    expect(checkbox.checked).toEqual(false)
+    await expect.element(checkbox).not.toBeChecked()
   })
 
-  it('renders an indeterminate prop correctly', () => {
+  it('renders an indeterminate prop correctly', async () => {
     const handleChange = vi.fn()
-    const {getByRole} = render(<Checkbox indeterminate checked onChange={handleChange} />)
+    render(<Checkbox indeterminate checked onChange={handleChange} />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
+    const checkbox = page.getByRole('checkbox')
 
-    expect(checkbox.indeterminate).toEqual(true)
-    expect(checkbox.checked).toEqual(false)
+    await expect.element(checkbox).toBePartiallyChecked()
+    expect(checkbox.element()).toHaveProperty('checked', false)
   })
 
   it('renders an inactive checkbox state correctly', async () => {
-    const user = userEvent.setup()
     const handleChange = vi.fn()
-    const {getByRole, rerender} = render(<Checkbox disabled onChange={handleChange} />)
+    const {rerender} = render(<Checkbox disabled onChange={handleChange} />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
+    const checkbox = page.getByRole('checkbox')
 
-    expect(checkbox.disabled).toEqual(true)
-    expect(checkbox.checked).toEqual(false)
+    await expect.element(checkbox).toBeDisabled()
+    await expect.element(checkbox).not.toBeChecked()
 
-    await user.click(checkbox)
+    await checkbox.click({force: true})
 
-    expect(checkbox.disabled).toEqual(true)
-    expect(checkbox.checked).toEqual(false)
+    await expect.element(checkbox).toBeDisabled()
+    await expect.element(checkbox).not.toBeChecked()
 
     // remove disabled attribute and retest
     rerender(<Checkbox onChange={handleChange} />)
   })
 
   it('renders an uncontrolled component correctly', async () => {
-    const user = userEvent.setup()
-    const {getByRole} = render(<Checkbox defaultChecked />)
+    render(<Checkbox defaultChecked />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
+    const checkbox = page.getByRole('checkbox')
 
-    expect(checkbox.checked).toEqual(true)
+    await expect.element(checkbox).toBeChecked()
 
-    await user.click(checkbox)
+    await checkbox.click()
 
-    expect(checkbox.checked).toEqual(false)
+    await expect.element(checkbox).not.toBeChecked()
   })
 
-  it('renders an aria-checked attribute correctly', () => {
+  it('renders an aria-checked attribute correctly', async () => {
     const handleChange = vi.fn()
-    const {getByRole, rerender} = render(<Checkbox checked={false} onChange={handleChange} />)
+    const {rerender} = render(<Checkbox checked={false} onChange={handleChange} />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
+    const checkbox = page.getByRole('checkbox')
 
-    expect(checkbox).toHaveAttribute('aria-checked', 'false')
+    await expect.element(checkbox).toHaveAttribute('aria-checked', 'false')
 
     rerender(<Checkbox checked={true} onChange={handleChange} />)
 
-    expect(checkbox).toHaveAttribute('aria-checked', 'true')
+    await expect.element(checkbox).toHaveAttribute('aria-checked', 'true')
 
     rerender(<Checkbox indeterminate checked onChange={handleChange} />)
 
-    expect(checkbox).toHaveAttribute('aria-checked', 'mixed')
+    await expect.element(checkbox).toHaveAttribute('aria-checked', 'mixed')
   })
 
-  it('renders an invalid aria state when validation prop indicates an error', () => {
+  it('renders an invalid aria state when validation prop indicates an error', async () => {
     const handleChange = vi.fn()
-    const {getByRole, rerender} = render(<Checkbox onChange={handleChange} />)
+    const {rerender} = render(<Checkbox onChange={handleChange} />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
+    const checkbox = page.getByRole('checkbox')
 
-    expect(checkbox).toHaveAttribute('aria-invalid', 'false')
+    await expect.element(checkbox).toHaveAttribute('aria-invalid', 'false')
 
     rerender(<Checkbox onChange={handleChange} validationStatus="success" />)
 
-    expect(checkbox).toHaveAttribute('aria-invalid', 'false')
+    await expect.element(checkbox).toHaveAttribute('aria-invalid', 'false')
 
     rerender(<Checkbox onChange={handleChange} validationStatus="error" />)
 
-    expect(checkbox).toHaveAttribute('aria-invalid', 'true')
+    await expect.element(checkbox).toHaveAttribute('aria-invalid', 'true')
   })
 
-  it('renders an aria state indicating the field is required', () => {
+  it('renders an aria state indicating the field is required', async () => {
     const handleChange = vi.fn()
-    const {getByRole, rerender} = render(<Checkbox onChange={handleChange} />)
+    const {rerender} = render(<Checkbox onChange={handleChange} />)
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
+    const checkbox = page.getByRole('checkbox')
 
-    expect(checkbox).toHaveAttribute('aria-required', 'false')
+    await expect.element(checkbox).toHaveAttribute('aria-required', 'false')
 
     rerender(<Checkbox onChange={handleChange} required />)
 
-    expect(checkbox).toHaveAttribute('aria-required', 'true')
+    await expect.element(checkbox).toHaveAttribute('aria-required', 'true')
   })
 })
 
