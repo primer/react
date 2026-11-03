@@ -6,21 +6,21 @@ import classes from './Header.module.css'
 
 describe('Header', () => {
   implementsClassName(Header, classes.Header)
-  it('renders data-component attributes', () => {
+  it('renders data-component attributes', async () => {
     const {container: headerContainer} = render(<Header />)
-    expect(headerContainer.firstChild).toHaveAttribute('data-component', 'Header')
+    await expect.element(headerContainer.firstChild).toHaveAttribute('data-component', 'Header')
 
     const {container: itemContainer} = render(<Header.Item />)
-    expect(itemContainer.firstChild).toHaveAttribute('data-component', 'Header.Item')
+    await expect.element(itemContainer.firstChild).toHaveAttribute('data-component', 'Header.Item')
 
     const {container: linkContainer} = render(<Header.Link />)
-    expect(linkContainer.firstChild).toHaveAttribute('data-component', 'Header.Link')
+    await expect.element(linkContainer.firstChild).toHaveAttribute('data-component', 'Header.Link')
   })
   describe('Header.Item', () => {
     implementsClassName(Header.Item, classes.HeaderItem)
-    it('accepts and applies className', () => {
+    it('accepts and applies className', async () => {
       const {container} = render(<Header.Item className="primer" />)
-      expect(container.firstChild).toHaveClass('primer')
+      await expect.element(container.firstChild).toHaveClass('primer')
     })
   })
 
@@ -35,8 +35,8 @@ describe('Header', () => {
     expect((linkContainer.firstChild as Element).tagName).toEqual('A')
   })
 
-  it('sets aria-label appropriately', () => {
+  it('sets aria-label appropriately', async () => {
     const {container} = render(<Header aria-label="Test label" />)
-    expect(container.firstChild).toHaveAttribute('aria-label', 'Test label')
+    await expect.element(container.firstChild).toHaveAttribute('aria-label', 'Test label')
   })
 })

@@ -1,4 +1,5 @@
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {describe, expect, it, test} from 'vitest'
 import {InfoIcon} from '@primer/octicons-react'
 import {InlineMessage} from '../InlineMessage'
@@ -9,105 +10,105 @@ import classes from './InlineMessage.module.css'
 describe('InlineMessage', () => {
   implementsClassName(InlineMessage, classes.InlineMessage)
 
-  it('renders data-component="InlineMessage" on the root element', () => {
+  it('renders data-component="InlineMessage" on the root element', async () => {
     render(
       <InlineMessage data-testid="container" variant="success">
         test
       </InlineMessage>,
     )
-    expect(screen.getByTestId('container')).toHaveAttribute('data-component', 'InlineMessage')
+    await expect.element(page.getByTestId('container')).toHaveAttribute('data-component', 'InlineMessage')
   })
 
-  it('should render content passed as `children`', () => {
+  it('should render content passed as `children`', async () => {
     render(<InlineMessage variant="success">test contents</InlineMessage>)
-    expect(screen.getByText('test contents')).toBeInTheDocument()
+    await expect.element(page.getByText('test contents', {exact: true})).toBeInTheDocument()
   })
 
-  test('forward props to the outermost element', () => {
+  test('forward props to the outermost element', async () => {
     const {container} = render(
       <InlineMessage data-testid="test" variant="success">
         test
       </InlineMessage>,
     )
-    expect(container.firstChild).toHaveAttribute('data-testid', 'test')
+    await expect.element(container.firstChild).toHaveAttribute('data-testid', 'test')
   })
 
-  it('should support `size="small"`', () => {
+  it('should support `size="small"`', async () => {
     render(
       <InlineMessage data-testid="container" size="small" variant="success">
         test
       </InlineMessage>,
     )
-    expect(screen.getByTestId('container')).toHaveAttribute('data-size', 'small')
+    await expect.element(page.getByTestId('container')).toHaveAttribute('data-size', 'small')
   })
 
-  it('should support `size="medium"`', () => {
+  it('should support `size="medium"`', async () => {
     render(
       <InlineMessage data-testid="container" size="medium" variant="success">
         test
       </InlineMessage>,
     )
-    expect(screen.getByTestId('container')).toHaveAttribute('data-size', 'medium')
+    await expect.element(page.getByTestId('container')).toHaveAttribute('data-size', 'medium')
   })
 
-  it('should use `size="medium"` as the default size', () => {
+  it('should use `size="medium"` as the default size', async () => {
     render(
       <InlineMessage data-testid="container" variant="success">
         test
       </InlineMessage>,
     )
-    expect(screen.getByTestId('container')).toHaveAttribute('data-size', 'medium')
+    await expect.element(page.getByTestId('container')).toHaveAttribute('data-size', 'medium')
   })
 
-  it('should support `variant="critical"`', () => {
+  it('should support `variant="critical"`', async () => {
     render(
       <InlineMessage data-testid="container" variant="critical">
         test
       </InlineMessage>,
     )
-    expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'critical')
+    await expect.element(page.getByTestId('container')).toHaveAttribute('data-variant', 'critical')
   })
 
-  it('should support `variant="success"`', () => {
+  it('should support `variant="success"`', async () => {
     render(
       <InlineMessage data-testid="container" variant="success">
         test
       </InlineMessage>,
     )
-    expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'success')
+    await expect.element(page.getByTestId('container')).toHaveAttribute('data-variant', 'success')
   })
 
-  it('should support `variant="unavailable"`', () => {
+  it('should support `variant="unavailable"`', async () => {
     render(
       <InlineMessage data-testid="container" variant="unavailable">
         test
       </InlineMessage>,
     )
-    expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'unavailable')
+    await expect.element(page.getByTestId('container')).toHaveAttribute('data-variant', 'unavailable')
   })
 
-  it('should support `variant="warning"`', () => {
+  it('should support `variant="warning"`', async () => {
     render(
       <InlineMessage data-testid="container" variant="warning">
         test
       </InlineMessage>,
     )
-    expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'warning')
+    await expect.element(page.getByTestId('container')).toHaveAttribute('data-variant', 'warning')
   })
 
-  it('should not set data-variant when variant is not provided', () => {
+  it('should not set data-variant when variant is not provided', async () => {
     render(<InlineMessage data-testid="container">test</InlineMessage>)
-    expect(screen.getByTestId('container')).not.toHaveAttribute('data-variant')
+    await expect.element(page.getByTestId('container')).not.toHaveAttribute('data-variant')
   })
 
-  it('should render InfoIcon when variant is not provided', () => {
+  it('should render InfoIcon when variant is not provided', async () => {
     const {container} = render(<InlineMessage>test without variant</InlineMessage>)
-    expect(screen.getByText('test without variant')).toBeInTheDocument()
+    await expect.element(page.getByText('test without variant', {exact: true})).toBeInTheDocument()
     const svg = container.querySelector('svg.octicon-info')
-    expect(svg).toBeInTheDocument()
+    await expect.element(svg).toBeInTheDocument()
   })
 
-  it('should render leading visual', () => {
+  it('should render leading visual', async () => {
     render(
       <>
         <InlineMessage variant="critical" leadingVisual={<InfoIcon data-testid="info-icon" />}>
@@ -131,16 +132,16 @@ describe('InlineMessage', () => {
         </InlineMessage>
       </>,
     )
-    expect(screen.getByTestId('info-icon')).toBeInTheDocument()
-    expect(screen.getByTestId('memo')).toBeInTheDocument()
-    expect(screen.getByTestId('forward-ref')).toBeInTheDocument()
+    await expect.element(page.getByTestId('info-icon')).toBeInTheDocument()
+    await expect.element(page.getByTestId('memo')).toBeInTheDocument()
+    await expect.element(page.getByTestId('forward-ref')).toBeInTheDocument()
   })
 
-  it('should use default icon when `leadingVisual` is not provided', () => {
+  it('should use default icon when `leadingVisual` is not provided', async () => {
     const {container} = render(<InlineMessage variant="success">test with default icon</InlineMessage>)
-    expect(screen.getByText('test with default icon')).toBeInTheDocument()
+    await expect.element(page.getByText('test with default icon', {exact: true})).toBeInTheDocument()
     // Default icon should be rendered
     const svg = container.querySelector('svg')
-    expect(svg).toBeInTheDocument()
+    await expect.element(svg).toBeInTheDocument()
   })
 })

@@ -1,10 +1,10 @@
 import type React from 'react'
-import {render, waitFor} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {describe, it, expect, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import LabelGroup from '.'
 import Label from '../Label'
-import userEvent from '@testing-library/user-event'
 import {implementsClassName} from '../utils/testing'
 import classes from './LabelGroup.module.css'
 
@@ -31,19 +31,19 @@ describe('LabelGroup', () => {
     }
   }) as unknown as typeof IntersectionObserver
 
-  it('renders data-component="LabelGroup" on the root element', () => {
-    const {getByRole} = render(
+  it('renders data-component="LabelGroup" on the root element', async () => {
+    render(
       <ThemeAndStyleContainer>
         <LabelGroup>
           <Label>One</Label>
         </LabelGroup>
       </ThemeAndStyleContainer>,
     )
-    expect(getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
+    await expect.element(page.getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
   })
 
-  it('renders data-component="LabelGroup" on the root element (truncation path)', () => {
-    const {getByRole} = render(
+  it('renders data-component="LabelGroup" on the root element (truncation path)', async () => {
+    render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={1}>
           <Label>One</Label>
@@ -52,11 +52,11 @@ describe('LabelGroup', () => {
       </ThemeAndStyleContainer>,
     )
 
-    expect(getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
+    await expect.element(page.getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
   })
 
-  it('renders a toggle wrapper with data-component="LabelGroup.Toggle" (li for lists, span for non-lists)', () => {
-    const {getByRole, container, rerender} = render(
+  it('renders a toggle wrapper with data-component="LabelGroup.Toggle" (li for lists, span for non-lists)', async () => {
+    const {container, rerender} = render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={1}>
           <Label>One</Label>
@@ -65,9 +65,9 @@ describe('LabelGroup', () => {
       </ThemeAndStyleContainer>,
     )
 
-    const list = getByRole('list')
+    const list = page.getByRole('list').element()
     const toggleLi = list.querySelector('li[data-component="LabelGroup.Toggle"]')
-    expect(toggleLi).toBeInTheDocument()
+    await expect.element(toggleLi).toBeInTheDocument()
 
     rerender(
       <ThemeAndStyleContainer>
@@ -79,7 +79,7 @@ describe('LabelGroup', () => {
     )
 
     const toggleSpan = container.querySelector('span[data-component="LabelGroup.Toggle"]')
-    expect(toggleSpan).toBeInTheDocument()
+    await expect.element(toggleSpan).toBeInTheDocument()
   })
 
   it('observers intersections on each child', async () => {
@@ -111,8 +111,8 @@ describe('LabelGroup', () => {
     expect(observe).toHaveBeenCalledTimes(16)
   })
 
-  it('should truncate labels to a specified number', () => {
-    const {getByText} = render(
+  it('should truncate labels to a specified number', async () => {
+    render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3}>
           <Label>One</Label>
@@ -123,14 +123,13 @@ describe('LabelGroup', () => {
         </LabelGroup>
       </ThemeAndStyleContainer>,
     )
-    const expandButton = getByText('+2')
+    const expandButton = page.getByText('+2', {exact: true})
 
-    expect(expandButton).toBeDefined()
+    await expect.element(expandButton).toBeInTheDocument()
   })
 
   it('should expand all tokens into an overlay when overflowStyle="overlay"', async () => {
-    const user = userEvent.setup()
-    const {getByLabelText, getByText} = render(
+    render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="overlay">
           <Label>One</Label>
@@ -141,16 +140,13 @@ describe('LabelGroup', () => {
         </LabelGroup>
       </ThemeAndStyleContainer>,
     )
-    const expandButton = getByText('+2')
-    await user.click(expandButton)
-    await waitFor(() => getByLabelText('Close'))
-
-    expect(document.activeElement).toBe(getByLabelText('Close'))
+    const expandButton = page.getByText('+2', {exact: true})
+    await userEvent.click(expandButton)
+    await expect.element(page.getByRole('button', {name: 'Close', exact: true})).toHaveFocus()
   })
 
   it('should expand all tokens in place when overflowStyle="inline"', async () => {
-    const user = userEvent.setup()
-    const {getByText} = render(
+    render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="inline">
           <Label>One</Label>
@@ -161,19 +157,18 @@ describe('LabelGroup', () => {
         </LabelGroup>
       </ThemeAndStyleContainer>,
     )
-    const expandButton = getByText('+2')
-    const fourthLabel = getByText('Four')
+    const expandButton = page.getByText('+2', {exact: true})
+    const fourthLabel = page.getByText('Four', {exact: true})
 
-    expect(fourthLabel).not.toBeVisible()
+    await expect.element(fourthLabel).not.toBeVisible()
 
-    await user.click(expandButton)
+    await userEvent.click(expandButton)
 
-    expect(fourthLabel).toBeVisible()
+    await expect.element(fourthLabel).toBeVisible()
   })
 
   it('should focus the collapse button when expanded, and the expand button when collapsed', async () => {
-    const user = userEvent.setup()
-    const {getByText} = render(
+    render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="inline">
           <Label>One</Label>
@@ -186,21 +181,17 @@ describe('LabelGroup', () => {
     )
 
     // Expand
-    await user.click(getByText('+2'))
-    await waitFor(() => getByText('Show less'))
-
-    expect(document.activeElement).toEqual(getByText('Show less').closest('button'))
+    await userEvent.click(page.getByText('+2', {exact: true}))
+    await expect.element(page.getByRole('button', {name: 'Show less', exact: true})).toHaveFocus()
 
     // Collapse
-    await user.click(getByText('Show less'))
-    await waitFor(() => getByText('+2'))
-
-    expect(document.activeElement).toEqual(getByText('+2').closest('button'))
+    await userEvent.click(page.getByRole('button', {name: 'Show less', exact: true}))
+    await expect.element(page.getByRole('button', {name: 'Show +2 more', exact: true})).toHaveFocus()
   })
 
   describe('should render as ul by default', () => {
-    it('without truncation', () => {
-      const {getByRole} = render(
+    it('without truncation', async () => {
+      render(
         <ThemeAndStyleContainer>
           <LabelGroup>
             <Label>One</Label>
@@ -211,15 +202,15 @@ describe('LabelGroup', () => {
           </LabelGroup>
         </ThemeAndStyleContainer>,
       )
-      const list = getByRole('list')
-      expect(list).not.toBeNull()
-      expect(list.tagName).toBe('UL')
-      expect(list).toHaveAttribute('data-list', 'true')
-      expect(list.querySelectorAll('li')).toHaveLength(5)
+      const list = page.getByRole('list')
+      await expect.element(list).toBeInTheDocument()
+      expect(list.element().tagName).toBe('UL')
+      await expect.element(list).toHaveAttribute('data-list', 'true')
+      expect(list.element().querySelectorAll('li')).toHaveLength(5)
     })
 
-    it('with truncation', () => {
-      const {getByRole} = render(
+    it('with truncation', async () => {
+      render(
         <ThemeAndStyleContainer>
           <LabelGroup visibleChildCount={3}>
             <Label>One</Label>
@@ -230,18 +221,18 @@ describe('LabelGroup', () => {
           </LabelGroup>
         </ThemeAndStyleContainer>,
       )
-      const list = getByRole('list')
-      expect(list).not.toBeNull()
-      expect(list.tagName).toBe('UL')
-      expect(list).toHaveAttribute('data-list', 'true')
+      const list = page.getByRole('list')
+      await expect.element(list).toBeInTheDocument()
+      expect(list.element().tagName).toBe('UL')
+      await expect.element(list).toHaveAttribute('data-list', 'true')
       // account for "show more" button
-      expect(list.querySelectorAll('li')).toHaveLength(6)
+      expect(list.element().querySelectorAll('li')).toHaveLength(6)
     })
   })
 
   describe('should render as custom element when `as` is provided', () => {
-    it('without truncation', () => {
-      const {queryByRole, container} = render(
+    it('without truncation', async () => {
+      const {container} = render(
         <ThemeAndStyleContainer>
           <LabelGroup as="div">
             <Label>One</Label>
@@ -252,16 +243,16 @@ describe('LabelGroup', () => {
           </LabelGroup>
         </ThemeAndStyleContainer>,
       )
-      const list = queryByRole('list')
-      expect(list).toBeNull()
+      const list = page.getByRole('list')
+      await expect.element(list).not.toBeInTheDocument()
       const labelGroupDiv = container.querySelectorAll('div')[1]
       expect(labelGroupDiv.querySelectorAll('li')).toHaveLength(0)
       expect(labelGroupDiv.querySelectorAll('span')).toHaveLength(5)
-      expect(labelGroupDiv).not.toHaveAttribute('data-list')
+      await expect.element(labelGroupDiv).not.toHaveAttribute('data-list')
     })
 
-    it('with truncation', () => {
-      const {queryByRole, container} = render(
+    it('with truncation', async () => {
+      const {container} = render(
         <ThemeAndStyleContainer>
           <LabelGroup as="div" visibleChildCount={2}>
             <Label>One</Label>
@@ -272,19 +263,19 @@ describe('LabelGroup', () => {
           </LabelGroup>
         </ThemeAndStyleContainer>,
       )
-      const list = queryByRole('list')
-      expect(list).toBeNull()
+      const list = page.getByRole('list')
+      await expect.element(list).not.toBeInTheDocument()
       const labelGroupDiv = container.querySelectorAll('div')[1]
       expect(labelGroupDiv.querySelectorAll('li')).toHaveLength(0)
       expect(labelGroupDiv.querySelectorAll(':scope > span[data-index]')).toHaveLength(5)
-      expect(labelGroupDiv.querySelector('span[data-component="LabelGroup.Toggle"]')).toBeInTheDocument()
-      expect(labelGroupDiv).not.toHaveAttribute('data-list')
+      await expect.element(labelGroupDiv.querySelector('span[data-component="LabelGroup.Toggle"]')).toBeInTheDocument()
+      await expect.element(labelGroupDiv).not.toHaveAttribute('data-list')
     })
   })
 
   describe('should render children as list items when rendered as ol', () => {
-    it('without truncation', () => {
-      const {getByRole} = render(
+    it('without truncation', async () => {
+      render(
         <ThemeAndStyleContainer>
           <LabelGroup as={'ol'}>
             <Label>One</Label>
@@ -295,14 +286,14 @@ describe('LabelGroup', () => {
           </LabelGroup>
         </ThemeAndStyleContainer>,
       )
-      const list = getByRole('list')
-      expect(list).not.toBeNull()
-      expect(list.tagName).toBe('OL')
-      expect(list).toHaveAttribute('data-list', 'true')
-      expect(list.querySelectorAll('li')).toHaveLength(5)
+      const list = page.getByRole('list')
+      await expect.element(list).toBeInTheDocument()
+      expect(list.element().tagName).toBe('OL')
+      await expect.element(list).toHaveAttribute('data-list', 'true')
+      expect(list.element().querySelectorAll('li')).toHaveLength(5)
     })
-    it('with truncation', () => {
-      const {getByRole} = render(
+    it('with truncation', async () => {
+      render(
         <ThemeAndStyleContainer>
           <LabelGroup as={'ol'} visibleChildCount={1}>
             <Label>One</Label>
@@ -313,12 +304,12 @@ describe('LabelGroup', () => {
           </LabelGroup>
         </ThemeAndStyleContainer>,
       )
-      const list = getByRole('list')
-      expect(list).not.toBeNull()
-      expect(list.tagName).toBe('OL')
-      expect(list).toHaveAttribute('data-list', 'true')
+      const list = page.getByRole('list')
+      await expect.element(list).toBeInTheDocument()
+      expect(list.element().tagName).toBe('OL')
+      await expect.element(list).toHaveAttribute('data-list', 'true')
       // account for "show more" button
-      expect(list.querySelectorAll('li')).toHaveLength(6)
+      expect(list.element().querySelectorAll('li')).toHaveLength(6)
     })
   })
 })
