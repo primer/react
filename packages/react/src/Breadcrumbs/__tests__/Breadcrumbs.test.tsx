@@ -231,7 +231,7 @@ describe('Breadcrumbs', () => {
     await expect.element(page.getByRole('link', {name: 'Home'})).toBeInTheDocument()
 
     // These links should be inside the details (overflow) content
-    await expect.element(detailsScope.getByRole('link', {name: 'Category'})).toBeInTheDocument()
+    await expect.element(detailsScope.getByRole('link', {name: 'Category', exact: true})).toBeInTheDocument()
     await expect.element(detailsScope.getByRole('link', {name: 'Subcategory'})).toBeInTheDocument()
     await expect.element(detailsScope.getByRole('link', {name: 'Product'})).toBeInTheDocument()
 
@@ -360,7 +360,7 @@ describe('Breadcrumbs', () => {
 
     // Verify menu items are present (first 3 items should be in overflow for 7 total items)
     await expect.element(page.getByRole('link', {name: 'Home'})).toBeInTheDocument()
-    await expect.element(page.getByRole('link', {name: 'Category'})).toBeInTheDocument()
+    await expect.element(page.getByRole('link', {name: 'Category', exact: true})).toBeInTheDocument()
     await expect.element(page.getByRole('link', {name: 'Subcategory'})).toBeInTheDocument()
     await expect.element(page.getByRole('link', {name: 'Product'})).toBeInTheDocument()
 
@@ -408,7 +408,7 @@ describe('Breadcrumbs', () => {
 
     // Verify menu still contains expected items (first 3 items)
     await expect.element(page.getByRole('link', {name: 'Home'})).toBeInTheDocument()
-    await expect.element(page.getByRole('link', {name: 'Category'})).toBeInTheDocument()
+    await expect.element(page.getByRole('link', {name: 'Category', exact: true})).toBeInTheDocument()
     await expect.element(page.getByRole('link', {name: 'Subcategory'})).toBeInTheDocument()
     await expect.element(page.getByRole('link', {name: 'Product'})).toBeInTheDocument()
 
@@ -443,7 +443,9 @@ describe('Breadcrumbs', () => {
       await expect.element(menuButton).toHaveAttribute('aria-expanded', 'true')
 
       // Press Escape key
-      await userEvent.keyboard('{Escape}')
+      await act(async () => {
+        await userEvent.keyboard('{Escape}')
+      })
 
       // Verify menu is closed
       await expect.element(menuButton).toHaveAttribute('aria-expanded', 'false')
