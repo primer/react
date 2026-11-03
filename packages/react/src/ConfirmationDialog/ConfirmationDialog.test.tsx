@@ -341,6 +341,7 @@ describe('ConfirmationDialog', () => {
       await userEvent.click(page.getByText('Show dialog'))
 
       await expect.element(page.getByRole('alertdialog')).toBeInTheDocument()
+      const dialogElement = page.getByRole('alertdialog').element()
 
       const hostElement = Array.from(document.body.children).find(el => !bodyChildrenBeforeDialog.includes(el))
       if (!hostElement) throw new Error('Expected confirm() to append a host element to <body>')
@@ -349,6 +350,7 @@ describe('ConfirmationDialog', () => {
 
       // After closing, neither the dialog nor its host element should linger in the DOM
       await expect.element(page.getByRole('alertdialog')).not.toBeInTheDocument()
+      await expect.poll(() => dialogElement.isConnected).toBe(false)
       await expect.poll(() => hostElement.isConnected).toBe(false)
     })
   })

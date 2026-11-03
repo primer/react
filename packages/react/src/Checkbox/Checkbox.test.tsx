@@ -63,6 +63,7 @@ describe('Checkbox', () => {
 
     await expect.element(checkbox).toBePartiallyChecked()
     expect(checkbox.element()).toHaveProperty('checked', false)
+    expect(checkbox.element()).toHaveProperty('indeterminate', true)
   })
 
   it('renders an inactive checkbox state correctly', async () => {
