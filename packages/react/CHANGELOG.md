@@ -1,5 +1,19 @@
 # @primer/react
 
+## 38.44.0
+
+### Minor Changes
+
+- [#8533](https://github.com/primer/react/pull/8533) [`714cb96`](https://github.com/primer/react/commit/714cb96adbdc0aec951f7a131f44f221b10ef3ae) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable, Table.Group: Add controlled and uncontrolled group expansion without changing row selection.
+
+### Patch Changes
+
+- [#8533](https://github.com/primer/react/pull/8533) [`714cb96`](https://github.com/primer/react/commit/714cb96adbdc0aec951f7a131f44f221b10ef3ae) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - Table.SelectionHeader: Preserve the mixed checkbox state when using a callback ref.
+
+- [#8613](https://github.com/primer/react/pull/8613) [`f733dcb`](https://github.com/primer/react/commit/f733dcb2b086c6da7902bfecfcf68cd61c7daab3) Thanks [@alexus37](https://github.com/alexus37)! - SelectPanel: Improve rendering performance when opening and updating items or selection
+
+- [#8590](https://github.com/primer/react/pull/8590) [`f83d6a9`](https://github.com/primer/react/commit/f83d6a9350f85784e51d9632dfc881cf805976f7) Thanks [@donjo](https://github.com/donjo)! - SegmentedControl: Match unselected hover backgrounds in the subtle variant to invisible buttons.
+
 ## 38.43.0
 
 ### Minor Changes
