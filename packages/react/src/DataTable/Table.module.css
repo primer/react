@@ -166,7 +166,7 @@
 
 /* stylelint-disable selector-pseudo-class-disallowed-list, selector-max-compound-selectors -- scoped to a group header and its adjacent member body */
 .TableOverflowWrapper:last-child
-  .TableGroupHeaderBody:where(:has(+ .TableBody[hidden]:last-child))
+  .TableGroupHeaderBody:where(:has(+ .TableBody:where([hidden], :empty):last-child))
   .TableGroupHeaderCell {
   /* stylelint-disable-next-line primer/borders */
   border-bottom-left-radius: var(--table-border-radius);
