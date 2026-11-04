@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, useState, type JSX} from 'react'
+import {useCallback, useEffect, useRef, useState, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -17,6 +17,56 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
+
+// Detached refs may point at positioning wrappers or textboxes, not popup triggers.
+const rolesSupportingPopupAria = new Set([
+  'application',
+  'button',
+  'combobox',
+  'gridcell',
+  'link',
+  'menuitem',
+  'menuitemcheckbox',
+  'menuitemradio',
+  'tab',
+  'treeitem',
+])
+
+function anchorSupportsPopupAria(node: HTMLElement): boolean {
+  const explicitRole = node.getAttribute('role')
+  if (explicitRole) return rolesSupportingPopupAria.has(explicitRole)
+  switch (node.tagName) {
+    case 'BUTTON':
+    case 'SUMMARY':
+      return true
+    case 'A':
+      return node.hasAttribute('href')
+    case 'INPUT':
+      return ['button', 'submit', 'reset', 'image'].includes((node as HTMLInputElement).type)
+    default:
+      return false
+  }
+}
+
+interface DetachedAnchorAria {
+  node: HTMLElement
+  addedHasPopup: boolean
+  previousExpanded: string | null
+  expanded: string
+}
+
+function releaseDetachedAnchorAria({node, addedHasPopup, previousExpanded, expanded}: DetachedAnchorAria) {
+  if (addedHasPopup && node.getAttribute('aria-haspopup') === 'true') {
+    node.removeAttribute('aria-haspopup')
+  }
+  if (node.getAttribute('aria-expanded') === expanded) {
+    if (previousExpanded === null) {
+      node.removeAttribute('aria-expanded')
+    } else {
+      node.setAttribute('aria-expanded', previousExpanded)
+    }
+  }
+}
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -201,6 +251,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const detachedAnchorAria = useRef<DetachedAnchorAria | null>(null)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
   // eslint-disable-next-line react-hooks/refs
   if (anchorRef.current !== anchorElement) {
@@ -315,6 +366,46 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       }
     }
   }, [cssAnchorPositioning, anchorElement, anchorName])
+
+  useEffect(() => {
+    // A ref can acquire a new node without changing identity.
+    const node = renderAnchor === null && anchorRef.current
+    const eligibleNode = node && anchorSupportsPopupAria(node) ? node : null
+    let managed = detachedAnchorAria.current
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (managed && managed.node !== eligibleNode) {
+      releaseDetachedAnchorAria(managed)
+      detachedAnchorAria.current = managed = null
+    }
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (!eligibleNode) return
+
+    const expanded = String(open)
+    if (!managed) {
+      managed = {
+        node: eligibleNode,
+        addedHasPopup: !eligibleNode.hasAttribute('aria-haspopup'),
+        previousExpanded: eligibleNode.getAttribute('aria-expanded'),
+        expanded,
+      }
+      if (managed.addedHasPopup) eligibleNode.setAttribute('aria-haspopup', 'true')
+      detachedAnchorAria.current = managed
+    }
+
+    const currentExpanded = eligibleNode.getAttribute('aria-expanded')
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (currentExpanded !== managed.expanded) managed.previousExpanded = currentExpanded
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (currentExpanded !== expanded) eligibleNode.setAttribute('aria-expanded', expanded)
+    managed.expanded = expanded
+  })
+
+  useEffect(() => {
+    return () => {
+      if (detachedAnchorAria.current) releaseDetachedAnchorAria(detachedAnchorAria.current)
+      detachedAnchorAria.current = null
+    }
+  }, [])
 
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
