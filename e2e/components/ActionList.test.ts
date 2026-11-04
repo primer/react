@@ -101,15 +101,15 @@ const stories = [
     id: 'components-actionlist-features--full-variant',
   },
   {
-    title: 'Group Heading with Classname',
+    title: 'Group Heading With Classname',
     id: 'components-actionlist-dev--group-heading-custom-classname',
   },
   {
-    title: 'Heading with Classname',
+    title: 'Heading With Classname',
     id: 'components-actionlist-dev--heading-custom-classname',
   },
   {
-    title: 'Visuals with Classnames',
+    title: 'Visuals With Classnames',
     id: 'components-actionlist-dev--visual-custom-classname',
   },
   {
