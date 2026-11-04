@@ -25,6 +25,48 @@ describe('FilteredActionList', () => {
     expect(onFocus).toHaveBeenCalledOnce()
   })
 
+  describe('combobox list reference', () => {
+    it('references the rendered list when items are shown', () => {
+      const {getByRole} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      const combobox = getByRole('combobox')
+      const listId = combobox.getAttribute('aria-controls')
+
+      expect(combobox).toHaveAttribute('aria-expanded', 'true')
+      expect(listId).toBeTruthy()
+      expect(document.getElementById(listId!)).toBeInTheDocument()
+    })
+
+    it('does not reference a list while a message is shown', () => {
+      const {getByRole} = render(
+        <FilteredActionList items={[]} onFilterChange={vi.fn()} message={<div>No matching items</div>} />,
+      )
+
+      const combobox = getByRole('combobox')
+
+      expect(combobox).toHaveAttribute('aria-expanded', 'false')
+      expect(combobox).not.toHaveAttribute('aria-controls')
+    })
+
+    it('does not reference a list while the body shows a loader', () => {
+      const props = {
+        items,
+        onFilterChange: vi.fn(),
+        loading: true,
+        loadingType: FilteredActionListLoadingTypes.bodySpinner,
+      }
+      const {getByRole, container, rerender} = render(<FilteredActionList {...props} />)
+      // The body loader needs the mounted scroll container, so it appears on the next render
+      rerender(<FilteredActionList {...props} />)
+
+      const combobox = getByRole('combobox')
+
+      expect(container.querySelector('[data-component="FilteredActionList.Spinner"]')).toBeInTheDocument()
+      expect(combobox).toHaveAttribute('aria-expanded', 'false')
+      expect(combobox).not.toHaveAttribute('aria-controls')
+    })
+  })
+
   describe('data-component attributes', () => {
     it('renders FilteredActionList with data-component attribute', () => {
       const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
@@ -162,6 +204,28 @@ describe('FilteredActionList forwarded refs (primer_react_merged_forwarded_refs)
           </FeatureFlags>,
         )
         expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+      })
+
+      it('handles a scroll container callback ref while loading', () => {
+        const ui = (
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList
+              items={items}
+              onFilterChange={vi.fn()}
+              scrollContainerRef={() => {}}
+              loading
+              loadingType={FilteredActionListLoadingTypes.bodySpinner}
+            />
+          </FeatureFlags>
+        )
+        const {getByRole, container, rerender} = render(ui)
+
+        expect(() => rerender(ui)).not.toThrow()
+        // With the flag off, a callback ref leaves no readable scroll container, so the loader stays hidden as before
+        expect(container.querySelector('[data-component="FilteredActionList.Spinner"]') !== null).toBe(enabled)
+
+        const listId = getByRole('combobox').getAttribute('aria-controls')
+        expect(listId === null || document.getElementById(listId) !== null).toBe(true)
       })
     })
   }
