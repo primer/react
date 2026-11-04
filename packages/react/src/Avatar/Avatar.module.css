@@ -2,7 +2,8 @@
   display: inline-block;
   width: var(--avatarSize-regular);
   height: var(--avatarSize-regular);
-  overflow: hidden; /* Ensure page layout in Firefox should images fail to load */
+  overflow: hidden;
+  /* Ensure page layout in Firefox should images fail to load */
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
   vertical-align: middle;
@@ -29,6 +30,41 @@
     @media screen and (--viewportRange-wide) {
       width: var(--avatarSize-wide);
       height: var(--avatarSize-wide);
+    }
+  }
+}
+
+:where(.Avatar):where(span) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-default);
+
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+
+  font-size: calc(var(--avatarSize-regular, 20px) * .4);
+
+  &>span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  &:where([data-responsive]) {
+    @media screen and (--viewportRange-narrow) {
+      font-size: calc(var(--avatarSize-narrow) * .4);
+    }
+
+    @media screen and (--viewportRange-regular) {
+      font-size: calc(var(--avatarSize-regular) * .4);
+    }
+
+    @media screen and (--viewportRange-wide) {
+      font-size: calc(var(--avatarSize-wide) * .4);
     }
   }
 }
