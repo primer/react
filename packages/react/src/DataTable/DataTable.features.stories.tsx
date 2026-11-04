@@ -1773,6 +1773,76 @@ export const WithRowSelection = () => {
   )
 }
 
+export const WithBulkActions = () => {
+  const repositories = [
+    {id: 1, name: 'primer/react', visibility: 'Public'},
+    {id: 2, name: 'primer/css', visibility: 'Public'},
+    {id: 3, name: 'github/github', visibility: 'Internal'},
+  ]
+  const titleId = React.useId()
+  const [rows, setRows] = React.useState(repositories)
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set([1]))
+  const resetButtonRef = React.useRef<HTMLButtonElement>(null)
+
+  return (
+    <Table.Container>
+      <Table.Title id={titleId}>Repositories</Table.Title>
+      <Table.Actions>
+        <Button
+          ref={resetButtonRef}
+          onClick={() => {
+            setRows(repositories)
+            setSelectedRows(new Set())
+          }}
+        >
+          Reset repositories
+        </Button>
+      </Table.Actions>
+      <DataTable
+        aria-labelledby={titleId}
+        data={[
+          ...rows.filter(row => row.visibility === 'Internal'),
+          {groupId: 'public', label: 'Public', rows: rows.filter(row => row.visibility === 'Public')},
+        ]}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true, sortBy: 'alphanumeric'},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows: next}) => setSelectedRows(next)}
+        bulkActionsReturnFocusRef={rows.length === 0 ? resetButtonRef : undefined}
+        collapsibleGroups
+        renderBulkActions={({selectedRows: effectiveIds, clearSelection}) => (
+          <>
+            <Button
+              size="small"
+              onClick={() => {
+                setRows(current =>
+                  current.map(row => (effectiveIds.has(row.id) ? {...row, visibility: 'Internal'} : row)),
+                )
+                clearSelection()
+              }}
+            >
+              Make internal
+            </Button>
+            <Button
+              size="small"
+              variant="danger"
+              onClick={() => {
+                setRows(current => current.filter(row => !effectiveIds.has(row.id)))
+                clearSelection()
+              }}
+            >
+              Delete selected
+            </Button>
+          </>
+        )}
+      />
+    </Table.Container>
+  )
+}
+
 const repoGroupsWithDisabledRow = repoGroups.map(group => ({
   ...group,
   rows: group.rows.map(repo => (repo.id === 1 ? {...repo, name: `${repo.name} (not selectable)`} : repo)),
