@@ -40,8 +40,9 @@ const NAVIGATION_KEYS = new Set([
  * Roving tabindex and arrow key navigation for `TreeView`.
  *
  * Items render `tabIndex={-1}` (or `0` for the item that is current when it mounts), so this hook
- * only has to pick one tab stop and keep it in sync with focus. It doesn't walk or rewrite every
- * element in the tree on mount, which is what made `useFocusZone` expensive for large trees.
+ * only has to pick one tab stop, keep it in sync with focus, and take nested controls out of the
+ * tab order. It doesn't rewrite every treeitem on mount, which is what made `useFocusZone`
+ * expensive for large trees.
  */
 export function useTreeRovingTabIndex({
   containerRef,
@@ -95,23 +96,12 @@ export function useTreeRovingTabIndex({
         ? activeElement
         : null
     setTabStop(getPreferredItem(activeTreeItem))
-
-    // Scanning a large tree for nested controls costs several milliseconds, so it waits until focus
-    // first enters the tree. Until then Tab can't move between elements inside the tree: focus coming
-    // from outside is redirected to the preferred item by `onFocusIn`.
-    let hasScanned = false
-    function scanOnce() {
-      if (hasScanned) return
-      hasScanned = true
-      removeFromTabOrder(container)
-    }
+    removeFromTabOrder(container)
 
     const observer = new MutationObserver(mutations => {
-      if (hasScanned) {
-        for (const mutation of mutations) {
-          for (const node of mutation.addedNodes) {
-            if (node instanceof Element) removeFromTabOrder(node)
-          }
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node instanceof Element) removeFromTabOrder(node)
         }
       }
       // If the tab stop was removed (e.g. its parent collapsed), the tree must stay reachable by Tab.
@@ -125,7 +115,6 @@ export function useTreeRovingTabIndex({
     function onFocusIn(event: FocusEvent) {
       const target = event.target
       if (!(target instanceof HTMLElement)) return
-      scanOnce()
       const isTreeItem = target.getAttribute('role') === 'treeitem'
 
       // When focus enters the tree from elsewhere with the keyboard, move it to the current item.
@@ -144,6 +133,8 @@ export function useTreeRovingTabIndex({
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.defaultPrevented || !NAVIGATION_KEYS.has(event.key)) return
+      // Leave browser shortcuts such as Alt+ArrowLeft (Back) alone, like `Item`'s keydown handler.
+      if ((event.key === 'ArrowLeft' || event.key === 'ArrowRight') && (event.altKey || event.metaKey)) return
 
       const from = document.activeElement
       if (!(from instanceof HTMLElement)) return

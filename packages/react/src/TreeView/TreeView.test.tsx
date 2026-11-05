@@ -724,6 +724,97 @@ describe('Tab order', () => {
     await vi.waitFor(() => expect(getTabStops(container)).toEqual(['item-1']))
   })
 
+  it('removes nested controls from the tab order on mount', () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">
+          <TreeView.LeadingAction>
+            <button type="button">Nested action</button>
+          </TreeView.LeadingAction>
+          Item 1
+        </TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    // Nothing has been focused: the aria-hidden leading action must not be tabbable
+    expect(container.querySelector('button')).toHaveAttribute('tabindex', '-1')
+  })
+
+  it('removes nested controls from the tab order when focus is already inside the tree at mount', () => {
+    const tree = (
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">
+          <TreeView.LeadingAction>
+            <button type="button">Nested action</button>
+          </TreeView.LeadingAction>
+          Item 2
+        </TreeView.Item>
+      </TreeView>
+    )
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    container.innerHTML = renderToString(tree)
+
+    const focusedItem = container.querySelector<HTMLElement>('#item-2')!
+    focusedItem.focus()
+    expect(document.activeElement).toBe(focusedItem)
+
+    let root: Root | undefined
+    act(() => {
+      root = hydrateRoot(container, tree)
+    })
+
+    try {
+      expect(container.querySelector('button')).toHaveAttribute('tabindex', '-1')
+      expect(getTabStops(container)).toEqual(['item-2'])
+    } finally {
+      act(() => root?.unmount())
+      container.remove()
+    }
+  })
+
+  it('does not handle Alt or Meta modified ArrowLeft and ArrowRight', () => {
+    render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="parent" defaultExpanded>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.Item id="child">Child</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item id="collapsed-parent">
+          Collapsed parent
+          <TreeView.SubTree>
+            <TreeView.Item id="hidden-child">Hidden child</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    const parent = page.getByRole('treeitem', {name: 'Parent', exact: true}).element()
+    const child = page.getByRole('treeitem', {name: 'Child', exact: true}).element()
+    const collapsedParent = page.getByRole('treeitem', {name: 'Collapsed parent'}).element()
+
+    // Alt+ArrowLeft on a child must not move focus to the parent
+    act(() => child.focus())
+    expect(fireEvent.keyDown(child, {key: 'ArrowLeft', altKey: true})).toBe(true)
+    expect(child).toHaveFocus()
+
+    // Meta+ArrowRight on an expanded parent must not move focus to its first child
+    act(() => parent.focus())
+    expect(fireEvent.keyDown(parent, {key: 'ArrowRight', metaKey: true})).toBe(true)
+    expect(parent).toHaveFocus()
+    expect(parent).toHaveAttribute('aria-expanded', 'true')
+
+    // Meta+ArrowRight on a collapsed parent must not expand it
+    act(() => collapsedParent.focus())
+    expect(fireEvent.keyDown(collapsedParent, {key: 'ArrowRight', metaKey: true})).toBe(true)
+    expect(collapsedParent).toHaveFocus()
+    expect(collapsedParent).toHaveAttribute('aria-expanded', 'false')
+  })
+
   it('lets nested editable controls handle navigation keys', async () => {
     render(
       <TreeView aria-label="Test tree">
