@@ -1,6 +1,7 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {userEvent as browserUserEvent} from 'vitest/browser'
 import React, {type JSX} from 'react'
 import {ActionList} from '.'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -642,6 +643,32 @@ describe('ActionList.Item', () => {
       const {label, nested, enabledNested} = renderItem({disabled: true})
       expect(nested).toBe(label)
       expect(nested).not.toBe(enabledNested)
+    })
+
+    it('mutes every descendant while hovering an inactive item that also sets aria-disabled', async () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item inactiveText="Unavailable" aria-disabled>
+            <ActionList.LeadingVisual>
+              <BookIcon />
+            </ActionList.LeadingVisual>
+            Label
+            <ActionList.TrailingVisual>
+              <CounterLabel>3</CounterLabel>
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable">Inactive</ActionList.Item>
+        </ActionList>,
+      )
+      const [item, inactiveOnly] = container.querySelectorAll<HTMLElement>('[data-component="ActionList.Item"]')
+      const colorOf = (el: Element | null) => getComputedStyle(el!).color
+      const mutedColor = colorOf(inactiveOnly.querySelector(`.${classes.ItemLabel}`))
+
+      await browserUserEvent.hover(item.querySelector(`.${classes.ItemLabel}`)!)
+
+      await expect.poll(() => colorOf(item.querySelector(`.${classes.ItemLabel}`))).toBe(mutedColor)
+      expect(colorOf(item.querySelector('[data-component="CounterLabel"]'))).toBe(mutedColor)
+      expect(colorOf(item.querySelector(`.${classes.ActionListSubContent}`))).toBe(mutedColor)
     })
   })
 })

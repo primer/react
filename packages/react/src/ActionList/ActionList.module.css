@@ -280,6 +280,11 @@
           & .ItemLabel {
             color: var(--fgColor-muted);
           }
+
+          /* an `aria-disabled` prop without `disabled`: the inactive color wins while hovered */
+          &.DisabledColors {
+            --disabledItem-fgColor: var(--fgColor-muted);
+          }
         }
       }
 
@@ -332,7 +337,13 @@
   }
 
   &.DisabledColors .ActionListContent * {
-    color: var(--control-fgColor-disabled);
+    /* stylelint-disable-next-line primer/colors -- private custom property, defaults to a Primer token */
+    color: var(--disabledItem-fgColor, var(--control-fgColor-disabled));
+  }
+
+  /* the tooltip and warning keep the disabled color, even while hovered */
+  &.DisabledColors .ActionListContent :is([popover], .InactiveWarning) {
+    --disabledItem-fgColor: var(--control-fgColor-disabled);
   }
 
   /* if item has subitem, move hover styles to ActionListContent */
