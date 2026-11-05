@@ -1,0 +1,50 @@
+[
+  {
+    "scenario": "bulk-cleared-keyboard",
+    "beforeSHA256": "5f3d6179d5ee1a25d03cbe36b957770cf28b5300b869e431d62778ba0bd2f853",
+    "afterSHA256": "5f3d6179d5ee1a25d03cbe36b957770cf28b5300b869e431d62778ba0bd2f853",
+    "byteIdentical": true
+  },
+  {
+    "scenario": "bulk-multiple",
+    "beforeSHA256": "f7d38dfdc4b3da2f9c4fefddf63927e9277f47df8d839f8f19b6cc7e8c28dd5c",
+    "afterSHA256": "f7d38dfdc4b3da2f9c4fefddf63927e9277f47df8d839f8f19b6cc7e8c28dd5c",
+    "byteIdentical": true
+  },
+  {
+    "scenario": "bulk-one",
+    "beforeSHA256": "d6e7d90f3fb39ae999a8c32cb7307254c1cc020c0c61bf661fff8d27eecb9e98",
+    "afterSHA256": "d6e7d90f3fb39ae999a8c32cb7307254c1cc020c0c61bf661fff8d27eecb9e98",
+    "byteIdentical": true
+  },
+  {
+    "scenario": "bulk-preselected",
+    "beforeSHA256": "5349fdf43c8572cad0ee183f14f45fef25fbbbe09a0160bb6de3e7dd182315c0",
+    "afterSHA256": "5349fdf43c8572cad0ee183f14f45fef25fbbbe09a0160bb6de3e7dd182315c0",
+    "byteIdentical": true
+  },
+  {
+    "scenario": "bulk-zero",
+    "beforeSHA256": "638aca2c10cb068ab41eeaab2205741e36c98fa11740c0c4f7376c974dae6048",
+    "afterSHA256": "638aca2c10cb068ab41eeaab2205741e36c98fa11740c0c4f7376c974dae6048",
+    "byteIdentical": true
+  },
+  {
+    "scenario": "selection-all",
+    "beforeSHA256": "2f3c54b46afd419ed44f5251f74146dd5b95bfb481a64bdbe04848b201b349bf",
+    "afterSHA256": "2f3c54b46afd419ed44f5251f74146dd5b95bfb481a64bdbe04848b201b349bf",
+    "byteIdentical": true
+  },
+  {
+    "scenario": "selection-cleared",
+    "beforeSHA256": "267ac7f27afdcd1a54308809bd3fbcfc037914f00a4a629a73de51239ed239d7",
+    "afterSHA256": "267ac7f27afdcd1a54308809bd3fbcfc037914f00a4a629a73de51239ed239d7",
+    "byteIdentical": true
+  },
+  {
+    "scenario": "selection-preselected",
+    "beforeSHA256": "bd29ff06f1423c383fd4582d29bf0bb0877e1f03e410e4d9119d9d1d43a8f4dd",
+    "afterSHA256": "bd29ff06f1423c383fd4582d29bf0bb0877e1f03e410e4d9119d9d1d43a8f4dd",
+    "byteIdentical": true
+  }
+]

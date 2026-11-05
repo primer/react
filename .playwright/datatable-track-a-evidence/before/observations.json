@@ -1,0 +1,349 @@
+{
+  "phase": "before",
+  "browser": "148.0.7778.96",
+  "viewport": {
+    "width": 1000,
+    "height": 640
+  },
+  "screens": [
+    {
+      "name": "bulk-preselected",
+      "url": "http://localhost:6006/iframe.html?id=experimental-components-datatable-features--with-bulk-actions&viewMode=story&globals=colorScheme%3Alight",
+      "announcements": {
+        "requests": [],
+        "delivered": []
+      },
+      "focus": "<body class=\"sb-main-padded sb-show-main\" data-color-mode=\"light\" data-light-theme=\"light\" data-dark-theme=\"undefined\" style=\"filter: none;\">\n    <div class=\"sb-preparing-story sb-wrapper\">\n  <div class=\"sb-loader\"></div>\n</div>\n\n<div class=\"sb-preparing-docs sb-wrapper\">\n  <div class=\"sb-previewBlock\">\n    <div class=\"sb-previewBlock_header\">\n      <div class=\"sb-previewBlock_icon\"></div>\n      <div class=\"sb-previewBlock_icon\"></div>\n      <div class=\"sb-previewBlock_icon\"></div>\n      <div class=\"sb-previewBlock_icon\"></div>\n    </div>\n    <div class=\"sb-previewBlock_body\">\n      <div class=\"sb-loader\"></div>\n    </div>\n  </div>\n  <table aria-hidden=\"true\" class=\"sb-argstableBlock\">\n    <thead class=\"sb-argstableBlock-head\">\n      <tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>\n    </thead>\n    <tbody class=\"sb-argstableBlock-body\">\n      <tr>\n        <td><span>propertyName</span><span title=\"Required\">*</span></td>\n        <td>\n          <div><span>This is a short description</span></div>\n          <div class=\"sb-argstableBlock-summary\">\n            <div><span class=\"sb-argstableBlock-code\">summary</span></div>\n          </div>\n        </td>\n        <td>\n          <div><span class=\"sb-argstableBlock-code\">defaultValue</span></div>\n        </td>\n        <td><button>Set string</button></td>\n      </tr>\n      <tr>\n        <td><span>propertyName</span><span>*</span></td>\n        <td>\n          <div><span>This is a short description</span></div>\n          <div class=\"sb-argstableBlock-summary\">\n            <div><span class=\"sb-argstableBlock-code\">summary</span></div>\n          </div>\n        </td>\n        <td>\n          <div><span class=\"sb-argstableBlock-code\">defaultValue</span></div>\n        </td>\n        <td><button>Set string</button></td>\n      </tr>\n      <tr>\n        <td><span>propertyName</span><span>*</span></td>\n        <td>\n          <div><span>This is a short description</span></div>\n          <div class=\"sb-argstableBlock-summary\">\n            <div><span class=\"sb-argstableBlock-code\">summary</span></div>\n          </div>\n        </td>\n        <td>\n          <div><span class=\"sb-argstableBlock-code\">defaultValue</span></div>\n        </td>\n        <td><button>Set string</button></td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n\n<div class=\"sb-nopreview sb-wrapper\">\n  <div class=\"sb-nopreview_main\">\n    <h1 class=\"sb-nopreview_heading sb-heading\">No Preview</h1>\n    <p>Sorry, but you either have no stories or none are selected somehow.</p>\n    <ul>\n      <li>Please check the Storybook config.</li>\n      <li>Try reloading the page.</li>\n    </ul>\n    <p>\n      If the problem persists, check the browser console, or the terminal you've run Storybook from.\n    </p>\n  </div>\n</div>\n\n<div class=\"sb-errordisplay sb-wrapper\">\n  <div class=\"sb-errordisplay_main\">\n    <h1 id=\"error-message\"></h1>\n    <p>\n      The component failed to render properly, likely due to a configuration issue in Storybook.\n      Here are some common causes and how you can address them:\n    </p>\n    <ol>\n      <li>\n        <strong>Missing Context/Providers</strong>: You can use decorators to supply specific\n        contexts or providers, which are sometimes necessary for components to render correctly. For\n        detailed instructions on using decorators, please visit the\n        <a href=\"https://storybook.js.org/docs/writing-stories/decorators\">Decorators documentation</a>.\n      </li>\n      <li>\n        <strong>Misconfigured Webpack or Vite</strong>: Verify that Storybook picks up all necessary\n        settings for loaders, plugins, and other relevant parameters. You can find step-by-step\n        guides for configuring\n        <a href=\"https://storybook.js.org/docs/builders/webpack\">Webpack</a> or\n        <a href=\"https://storybook.js.org/docs/builders/vite\">Vite</a>\n        with Storybook.\n      </li>\n      <li>\n        <strong>Missing Environment Variables</strong>: Your Storybook may require specific\n        environment variables to function as intended. You can set up custom environment variables\n        as outlined in the\n        <a href=\"https://storybook.js.org/docs/configure/environment-variables\">Environment Variables documentation</a>.\n      </li>\n    </ol>\n    <pre class=\"sb-errordisplay_code\"><code id=\"error-stack\"></code></pre>\n  </div>\n</div>\n\n    <div id=\"storybook-root\"><div data-component=\"ThemeProvider\" data-color-mode=\"light\" data-light-theme=\"light\" data-dark-theme=\"light\"><div data-a11y-link-underlines=\"true\" class=\"story-wrap\"><div data-component=\"BaseStyles\" class=\"prc-src-BaseStyles-dl-St\" data-portal-root=\"true\"><div class=\"prc-DataTable-TableContainer-Gm3sY\" data-component=\"Table.Container\"><h2 class=\"TableTitle prc-DataTable-TableTitle-Q7qQd\" id=\":r3:\" data-component=\"Table.Title\">Repositories</h2><div class=\"TableActions prc-DataTable-TableActions-IEEii\" data-component=\"Table.Actions\"><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"medium\" data-variant=\"default\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Reset repositories</span></span></button></div><div class=\"prc-ScrollableRegion-ScrollableRegion-3VVm3 TableOverflowWrapper prc-DataTable-TableOverflowWrapper-PFgsy\" data-component=\"ScrollableRegion\"><table tabindex=\"-1\" aria-labelledby=\":r3:\" data-cell-padding=\"normal\" class=\"Table prc-DataTable-Table-qYfrL\" role=\"table\" data-component=\"Table\" style=\"--grid-template-columns: min-content minmax(max-content, 1fr) minmax(max-content, 1fr);\"><thead class=\"TableHead prc-DataTable-TableHead-eOrJU\" role=\"rowgroup\" data-component=\"Table.Head\"><tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r9:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 3 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"mixed\" style=\"\"></th><th data-component=\"Table.Header\" id=\":r9:-column-0\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><span class=\"prc-DataTable-ColumnLabel-iMq03\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\">Repository</span></span></th><th data-component=\"Table.Header\" id=\":r9:-column-1\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><span class=\"prc-DataTable-ColumnLabel-iMq03\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\">Visibility</span></span></th></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-BulkActionsCell-9ESEm\" colspan=\"3\" role=\"cell\"><div role=\"group\" aria-label=\"Bulk actions\" data-component=\"Table.BulkActions\" data-active=\"true\" class=\"prc-DataTable-TableBulkActions-609rJ\"><span class=\"\"><span class=\"prc-DataTable-Count-p9Hj4\">1 selected</span></span><div class=\"prc-DataTable-Actions-4hyNx\"><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"small\" data-variant=\"default\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Make internal</span></span></button><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"small\" data-variant=\"danger\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Delete selected</span></span></button></div></div></td></tr></thead><tbody class=\"TableBody prc-DataTable-TableBody-p56SS\" role=\"rowgroup\" data-component=\"Table.Body\"><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r9:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":rf:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rf: :r9:-row-0-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r9:-row-0-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\" headers=\":r9:-column-0\">github/github</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\" headers=\":r9:-row-0-header-0 :r9:-column-1\">Internal</td></tr></tbody><tbody class=\"TableGroupHeaderBody prc-DataTable-TableGroupHeaderBody--jTLA\" role=\"rowgroup\" data-component=\"Table.Group\" data-group-id=\"public\"><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><th id=\":ri:\" class=\"TableGroupHeaderCell prc-DataTable-TableGroupHeaderCell-auFGi\" scope=\"colgroup\" colspan=\"3\" role=\"columnheader\" aria-label=\"Public\" data-component=\"Table.Group.Header\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select Public\" data-component=\"Checkbox\" class=\"prc-DataTable-TableGroupSelection-0N2H0 prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"mixed\" style=\"\"><span class=\"prc-DataTable-TableGroupHeaderTitle-1sKSo\" data-selection=\"some\"><button class=\"prc-DataTable-TableGroupToggle-ZKpYZ prc-components-ButtonReset-9kafa\" type=\"button\" data-component=\"Table.Group.Toggle\" aria-label=\"Public\" aria-description=\"2 rows\" aria-expanded=\"true\" aria-controls=\":rj:\"><svg data-component=\"Octicon\" aria-hidden=\"true\" focusable=\"false\" class=\"octicon octicon-chevron-right\" viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"currentColor\" display=\"inline-block\" overflow=\"visible\" style=\"vertical-align: text-bottom;\"><path d=\"M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z\"></path></svg></button><span class=\"TableGroupHeaderContent prc-DataTable-TableGroupHeaderContent-5Xjzi\" aria-hidden=\"true\"><span class=\"TableGroupHeaderLabel prc-DataTable-TableGroupHeaderLabel-jMlRb\">Public<span class=\"prc-VisuallyHidden-VisuallyHidden-UNWQp\">,</span></span><span class=\"TableGroupHeaderCount prc-DataTable-TableGroupHeaderCount-IGX87\">2<span class=\"prc-VisuallyHidden-VisuallyHidden-UNWQp\"> rows</span></span></span></span></th></tr></tbody><tbody id=\":rj:\" class=\"TableBody prc-DataTable-TableBody-p56SS\" role=\"rowgroup\" data-component=\"Table.Group.Body\" data-group-id=\"public\" data-selection=\"some\"><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":ri: :r9:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":rl:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rl: :r9:-row-1-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" checked=\"\" aria-checked=\"true\" style=\"\"></td><th id=\":r9:-row-1-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\" headers=\":ri: :r9:-column-0\">primer/react</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\" headers=\":ri: :r9:-row-1-header-0 :r9:-column-1\">Public</td></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":ri: :r9:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":rn:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rn: :r9:-row-2-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r9:-row-2-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\" headers=\":ri: :r9:-column-0\">primer/css</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\" headers=\":ri: :r9:-row-2-header-0 :r9:-column-1\">Public</td></tr></tbody></table></div></div></div></div></div></div>\n    <div id=\"storybook-docs\" hidden=\"true\"></div>\n    <script>\n      function __onViteAppLoadingError(event) {\n        const hostname = globalThis.location.hostname;\n        if (hostname !== 'localhost' && globalThis.CONFIG_TYPE === 'DEVELOPMENT') {\n          const message = `Failed to load the Storybook preview file 'vite-app.js':\n\n      It looks like you're visiting the Storybook development server on another hostname than localhost: '${hostname}', but you haven't configured the necessary security features to support this.\n      Please re-run your Storybook development server with the '--host ${hostname}' flag, or manually configure your Vite allowedHosts configuration with viteFinal.\n\n      See:`;\n          const docs = [\n            'https://storybook.js.org/docs/api/cli-options#dev',\n            'https://storybook.js.org/docs/api/main-config/main-config-vite-final',\n            'https://vite.dev/config/server-options.html#server-allowedhosts',\n          ];\n          console.error(`${message}\\n${docs.map((doc) => `- ${doc}`).join('\\n')}`);\n\n          document.getElementById('storybook-root').innerHTML =\n            `<p style=\"color: red; max-width: 70ch\">${message.replaceAll(\n              '\\n',\n              '<br/>'\n            )}<ul>${docs.map((doc) => `<li><a href='${doc}' target='_blank'>${doc}</a></li>`).join('')}</ul></p>`;\n          return;\n        }\n      }\n    </script>\n    <script type=\"module\" src=\"/@id/__x00__virtual:/@storybook/builder-vite/vite-app.js\" onerror=\"__onViteAppLoadingError(event)\"></script>\n  \n\n<div id=\"storybook-highlights-root\" style=\"\"><div id=\"storybook-highlights-menu\" popover=\"manual\" style=\"display: none;\"></div><style>\n            #storybook-highlights-menu {\n              position: absolute;\n              z-index: 2147483647;\n              width: 300px;\n              padding: 0px;\n              margin: 15px 0 0 0;\n              transform: translateX(-50%);\n              font-family: \"Nunito Sans\", -apple-system, \".SFNSText-Regular\", \"San Francisco\", BlinkMacSystemFont, \"Segoe UI\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n              font-size: 12px;\n              background: white;\n              border: none;\n              border-radius: 6px;\n              box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05), 0 5px 15px 0 rgba(0, 0, 0, 0.1);\n              color: #2E3438;\n            }\n            #storybook-highlights-menu ul {\n              list-style: none;\n              margin: 0;\n              padding: 0;\n            }\n            #storybook-highlights-menu > ul {\n              max-height: 300px;\n              overflow-y: auto;\n              padding: 4px 0;\n            }\n            #storybook-highlights-menu li {\n              padding: 0 4px;\n              margin: 0;\n            }\n            #storybook-highlights-menu li > :not(ul) {\n              display: flex;\n              padding: 8px;\n              margin: 0;\n              align-items: center;\n              gap: 8px;\n              border-radius: 4px;\n            }\n            #storybook-highlights-menu button {\n              width: 100%;\n              border: 0;\n              background: transparent;\n              color: inherit;\n              text-align: left;\n              font-family: inherit;\n              font-size: inherit;\n            }\n            #storybook-highlights-menu button:focus-visible {\n              outline-color: #029CFD;\n            }\n            #storybook-highlights-menu button:hover {\n              background: rgba(2, 156, 253, 0.07);\n              color: #029CFD;\n              cursor: pointer;\n            }\n            #storybook-highlights-menu li code {\n              white-space: nowrap;\n              overflow: hidden;\n              text-overflow: ellipsis;\n              line-height: 16px;\n              font-size: 11px;\n            }\n            #storybook-highlights-menu li svg {\n              flex-shrink: 0;\n              margin: 1px;\n              color: #73828C;\n            }\n            #storybook-highlights-menu li > button:hover svg, #storybook-highlights-menu li > button:focus-visible svg {\n              color: #029CFD;\n            }\n            #storybook-highlights-menu .element-list li svg {\n              display: none;\n            }\n            #storybook-highlights-menu li.selectable svg, #storybook-highlights-menu li.selected svg {\n              display: block;\n            }\n            #storybook-highlights-menu .menu-list {\n              border-top: 1px solid rgba(38, 85, 115, 0.15);\n            }\n            #storybook-highlights-menu .menu-list > li:not(:last-child) {\n              padding-bottom: 4px;\n              margin-bottom: 4px;\n              border-bottom: 1px solid rgba(38, 85, 115, 0.15);\n            }\n            #storybook-highlights-menu .menu-items, #storybook-highlights-menu .menu-items li {\n              padding: 0;\n            }\n            #storybook-highlights-menu .menu-item {\n              display: flex;\n            }\n            #storybook-highlights-menu .menu-item-content {\n              display: flex;\n              flex-direction: column;\n              flex-grow: 1;\n            }\n          </style></div><live-region></live-region><svg id=\"storybook-a11y-vision-filters\" style=\"display: none !important;\">\n  <defs>\n    <filter id=\"storybook-a11y-vision-protanopia\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.567, 0.433, 0, 0, 0 0.558, 0.442, 0, 0, 0 0, 0.242, 0.758, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-protanomaly\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.817, 0.183, 0, 0, 0 0.333, 0.667, 0, 0, 0 0, 0.125, 0.875, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-deuteranopia\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.625, 0.375, 0, 0, 0 0.7, 0.3, 0, 0, 0 0, 0.3, 0.7, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-deuteranomaly\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.8, 0.2, 0, 0, 0 0.258, 0.742, 0, 0, 0 0, 0.142, 0.858, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-tritanopia\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.95, 0.05,  0, 0, 0 0,  0.433, 0.567, 0, 0 0,  0.475, 0.525, 0, 0 0,  0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-tritanomaly\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.967, 0.033, 0, 0, 0 0, 0.733, 0.267, 0, 0 0, 0.183, 0.817, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-achromatopsia\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.299, 0.587, 0.114, 0, 0 0.299, 0.587, 0.114, 0, 0 0.299, 0.587, 0.114, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n  </defs>\n</svg></body>",
+      "density": null,
+      "theme": "light",
+      "headerRows": [
+        {
+          "html": "<tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r9:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 3 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"mixed\" style=\"\"></th><th data-component=\"Table.Header\" id=\":r9:-column-0\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><span class=\"prc-DataTable-ColumnLabel-iMq03\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\">Repository</span></span></th><th data-component=\"Table.Header\" id=\":r9:-column-1\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><span class=\"prc-DataTable-ColumnLabel-iMq03\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\">Visibility</span></span></th></tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-BulkActionsCell-9ESEm\" colspan=\"3\" role=\"cell\"><div role=\"group\" aria-label=\"Bulk actions\" data-component=\"Table.BulkActions\" data-active=\"true\" class=\"prc-DataTable-TableBulkActions-609rJ\"><span class=\"\"><span class=\"prc-DataTable-Count-p9Hj4\">1 selected</span></span><div class=\"prc-DataTable-Actions-4hyNx\"><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"small\" data-variant=\"default\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Make internal</span></span></button><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"small\" data-variant=\"danger\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Delete selected</span></span></button></div></div></td></tr>",
+          "ariaHidden": null
+        }
+      ],
+      "axRows": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "bulk-zero",
+      "url": "http://localhost:6006/iframe.html?id=experimental-components-datatable-features--with-bulk-actions&viewMode=story&globals=colorScheme%3Alight",
+      "announcements": {
+        "requests": [
+          {
+            "message": "0 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          }
+        ],
+        "delivered": [
+          "0 selected"
+        ]
+      },
+      "focus": "<button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"medium\" data-variant=\"default\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Reset repositories</span></span></button>",
+      "density": null,
+      "theme": "light",
+      "headerRows": [
+        {
+          "html": "<tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r9:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 3 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></th><th data-component=\"Table.SortHeader\" id=\":r9:-column-0\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><button class=\"TableSortButton prc-DataTable-TableSortButton-LnQla prc-components-ButtonReset-9kafa\" type=\"button\" data-component=\"Table.SortHeader.Button\" aria-description=\"Sort ascending\">Repository<svg data-component=\"Octicon\" aria-hidden=\"true\" focusable=\"false\" class=\"octicon octicon-sort-asc TableSortIcon TableSortIcon--ascending prc-DataTable-TableSortIcon-2h30n prc-DataTable-TableSortIcon--ascending-H9-sb\" viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"currentColor\" display=\"inline-block\" overflow=\"visible\" style=\"vertical-align: text-bottom;\"><path d=\"m12.927 2.573 3 3A.25.25 0 0 1 15.75 6H13.5v6.75a.75.75 0 0 1-1.5 0V6H9.75a.25.25 0 0 1-.177-.427l3-3a.25.25 0 0 1 .354 0ZM0 12.25a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75Zm0-4a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 8.25Zm0-4a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 4.25Z\"></path></svg></button></th><th data-component=\"Table.Header\" id=\":r9:-column-1\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Visibility</th></tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-src-InternalVisuallyHidden-nlR9R\" colspan=\"3\" role=\"cell\"><div data-component=\"Table.BulkActions\" class=\"prc-DataTable-TableBulkActions-609rJ\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\"><span class=\"prc-DataTable-Count-p9Hj4\">0 selected</span></span></div></td></tr>",
+          "ariaHidden": null
+        }
+      ],
+      "axRows": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "bulk-one",
+      "url": "http://localhost:6006/iframe.html?id=experimental-components-datatable-features--with-bulk-actions&viewMode=story&globals=colorScheme%3Alight",
+      "announcements": {
+        "requests": [
+          {
+            "message": "0 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          },
+          {
+            "message": "1 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          }
+        ],
+        "delivered": [
+          "0 selected",
+          "1 selected"
+        ]
+      },
+      "focus": "<input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rl: :r9:-row-1-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" checked=\"\" aria-checked=\"true\" style=\"\">",
+      "density": null,
+      "theme": "light",
+      "headerRows": [
+        {
+          "html": "<tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r9:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 3 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"mixed\" style=\"\"></th><th data-component=\"Table.Header\" id=\":r9:-column-0\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><span class=\"prc-DataTable-ColumnLabel-iMq03\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\">Repository</span></span></th><th data-component=\"Table.Header\" id=\":r9:-column-1\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><span class=\"prc-DataTable-ColumnLabel-iMq03\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\">Visibility</span></span></th></tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-BulkActionsCell-9ESEm\" colspan=\"3\" role=\"cell\"><div data-component=\"Table.BulkActions\" class=\"prc-DataTable-TableBulkActions-609rJ\" role=\"group\" aria-label=\"Bulk actions\" data-active=\"true\"><span class=\"\"><span class=\"prc-DataTable-Count-p9Hj4\">1 selected</span></span><div class=\"prc-DataTable-Actions-4hyNx\"><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"small\" data-variant=\"default\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Make internal</span></span></button><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"small\" data-variant=\"danger\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Delete selected</span></span></button></div></div></td></tr>",
+          "ariaHidden": null
+        }
+      ],
+      "axRows": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "bulk-multiple",
+      "url": "http://localhost:6006/iframe.html?id=experimental-components-datatable-features--with-bulk-actions&viewMode=story&globals=colorScheme%3Alight",
+      "announcements": {
+        "requests": [
+          {
+            "message": "0 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          },
+          {
+            "message": "1 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          },
+          {
+            "message": "2 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          }
+        ],
+        "delivered": [
+          "0 selected",
+          "1 selected",
+          "2 selected"
+        ]
+      },
+      "focus": "<input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rn: :r9:-row-2-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"true\" style=\"\">",
+      "density": null,
+      "theme": "light",
+      "headerRows": [
+        {
+          "html": "<tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r9:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 3 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"mixed\" style=\"\"></th><th data-component=\"Table.Header\" id=\":r9:-column-0\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><span class=\"prc-DataTable-ColumnLabel-iMq03\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\">Repository</span></span></th><th data-component=\"Table.Header\" id=\":r9:-column-1\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><span class=\"prc-DataTable-ColumnLabel-iMq03\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\">Visibility</span></span></th></tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-BulkActionsCell-9ESEm\" colspan=\"3\" role=\"cell\"><div data-component=\"Table.BulkActions\" class=\"prc-DataTable-TableBulkActions-609rJ\" role=\"group\" aria-label=\"Bulk actions\" data-active=\"true\"><span class=\"\"><span class=\"prc-DataTable-Count-p9Hj4\">2 selected</span></span><div class=\"prc-DataTable-Actions-4hyNx\"><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"small\" data-variant=\"default\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Make internal</span></span></button><button data-component=\"Button\" type=\"button\" class=\"prc-Button-ButtonBase-c50BI\" data-loading=\"false\" data-no-visuals=\"true\" data-size=\"small\" data-variant=\"danger\"><span data-component=\"buttonContent\" data-align=\"center\" class=\"prc-Button-ButtonContent-HKbr-\"><span data-component=\"text\" class=\"prc-Button-Label-pTQ3x\">Delete selected</span></span></button></div></div></td></tr>",
+          "ariaHidden": null
+        }
+      ],
+      "axRows": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "bulk-cleared-keyboard",
+      "url": "http://localhost:6006/iframe.html?id=experimental-components-datatable-features--with-bulk-actions&viewMode=story&globals=colorScheme%3Alight",
+      "announcements": {
+        "requests": [
+          {
+            "message": "0 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          },
+          {
+            "message": "1 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          },
+          {
+            "message": "2 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          },
+          {
+            "message": "0 selected",
+            "options": {
+              "politeness": "polite"
+            }
+          }
+        ],
+        "delivered": [
+          "0 selected",
+          "1 selected",
+          "2 selected",
+          "0 selected"
+        ]
+      },
+      "focus": "<input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 3 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX focus-visible\" value=\"\" aria-checked=\"false\" style=\"\" data-focus-visible-added=\"\">",
+      "density": null,
+      "theme": "light",
+      "headerRows": [
+        {
+          "html": "<tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r9:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 3 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX focus-visible\" value=\"\" aria-checked=\"false\" style=\"\" data-focus-visible-added=\"\"></th><th data-component=\"Table.SortHeader\" id=\":r9:-column-0\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><button class=\"TableSortButton prc-DataTable-TableSortButton-LnQla prc-components-ButtonReset-9kafa\" type=\"button\" data-component=\"Table.SortHeader.Button\" aria-description=\"Sort ascending\">Repository<svg data-component=\"Octicon\" aria-hidden=\"true\" focusable=\"false\" class=\"octicon octicon-sort-asc TableSortIcon TableSortIcon--ascending prc-DataTable-TableSortIcon-2h30n prc-DataTable-TableSortIcon--ascending-H9-sb\" viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"currentColor\" display=\"inline-block\" overflow=\"visible\" style=\"vertical-align: text-bottom;\"><path d=\"m12.927 2.573 3 3A.25.25 0 0 1 15.75 6H13.5v6.75a.75.75 0 0 1-1.5 0V6H9.75a.25.25 0 0 1-.177-.427l3-3a.25.25 0 0 1 .354 0ZM0 12.25a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75Zm0-4a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 8.25Zm0-4a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 4.25Z\"></path></svg></button></th><th data-component=\"Table.Header\" id=\":r9:-column-1\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Visibility</th></tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7 prc-DataTable-HeaderRow-IvB1E\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-src-InternalVisuallyHidden-nlR9R\" colspan=\"3\" role=\"cell\"><div data-component=\"Table.BulkActions\" class=\"prc-DataTable-TableBulkActions-609rJ\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\"><span class=\"prc-DataTable-Count-p9Hj4\">0 selected</span></span></div></td></tr>",
+          "ariaHidden": null
+        }
+      ],
+      "axRows": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "selection-preselected",
+      "url": "http://localhost:6006/iframe.html?id=experimental-components-datatable-features--with-row-selection&viewMode=story&globals=colorScheme%3Alight",
+      "announcements": {
+        "requests": [],
+        "delivered": []
+      },
+      "focus": "<body class=\"sb-main-padded sb-show-main\" data-color-mode=\"light\" data-light-theme=\"light\" data-dark-theme=\"undefined\" style=\"filter: none;\">\n    <div class=\"sb-preparing-story sb-wrapper\">\n  <div class=\"sb-loader\"></div>\n</div>\n\n<div class=\"sb-preparing-docs sb-wrapper\">\n  <div class=\"sb-previewBlock\">\n    <div class=\"sb-previewBlock_header\">\n      <div class=\"sb-previewBlock_icon\"></div>\n      <div class=\"sb-previewBlock_icon\"></div>\n      <div class=\"sb-previewBlock_icon\"></div>\n      <div class=\"sb-previewBlock_icon\"></div>\n    </div>\n    <div class=\"sb-previewBlock_body\">\n      <div class=\"sb-loader\"></div>\n    </div>\n  </div>\n  <table aria-hidden=\"true\" class=\"sb-argstableBlock\">\n    <thead class=\"sb-argstableBlock-head\">\n      <tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>\n    </thead>\n    <tbody class=\"sb-argstableBlock-body\">\n      <tr>\n        <td><span>propertyName</span><span title=\"Required\">*</span></td>\n        <td>\n          <div><span>This is a short description</span></div>\n          <div class=\"sb-argstableBlock-summary\">\n            <div><span class=\"sb-argstableBlock-code\">summary</span></div>\n          </div>\n        </td>\n        <td>\n          <div><span class=\"sb-argstableBlock-code\">defaultValue</span></div>\n        </td>\n        <td><button>Set string</button></td>\n      </tr>\n      <tr>\n        <td><span>propertyName</span><span>*</span></td>\n        <td>\n          <div><span>This is a short description</span></div>\n          <div class=\"sb-argstableBlock-summary\">\n            <div><span class=\"sb-argstableBlock-code\">summary</span></div>\n          </div>\n        </td>\n        <td>\n          <div><span class=\"sb-argstableBlock-code\">defaultValue</span></div>\n        </td>\n        <td><button>Set string</button></td>\n      </tr>\n      <tr>\n        <td><span>propertyName</span><span>*</span></td>\n        <td>\n          <div><span>This is a short description</span></div>\n          <div class=\"sb-argstableBlock-summary\">\n            <div><span class=\"sb-argstableBlock-code\">summary</span></div>\n          </div>\n        </td>\n        <td>\n          <div><span class=\"sb-argstableBlock-code\">defaultValue</span></div>\n        </td>\n        <td><button>Set string</button></td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n\n<div class=\"sb-nopreview sb-wrapper\">\n  <div class=\"sb-nopreview_main\">\n    <h1 class=\"sb-nopreview_heading sb-heading\">No Preview</h1>\n    <p>Sorry, but you either have no stories or none are selected somehow.</p>\n    <ul>\n      <li>Please check the Storybook config.</li>\n      <li>Try reloading the page.</li>\n    </ul>\n    <p>\n      If the problem persists, check the browser console, or the terminal you've run Storybook from.\n    </p>\n  </div>\n</div>\n\n<div class=\"sb-errordisplay sb-wrapper\">\n  <div class=\"sb-errordisplay_main\">\n    <h1 id=\"error-message\"></h1>\n    <p>\n      The component failed to render properly, likely due to a configuration issue in Storybook.\n      Here are some common causes and how you can address them:\n    </p>\n    <ol>\n      <li>\n        <strong>Missing Context/Providers</strong>: You can use decorators to supply specific\n        contexts or providers, which are sometimes necessary for components to render correctly. For\n        detailed instructions on using decorators, please visit the\n        <a href=\"https://storybook.js.org/docs/writing-stories/decorators\">Decorators documentation</a>.\n      </li>\n      <li>\n        <strong>Misconfigured Webpack or Vite</strong>: Verify that Storybook picks up all necessary\n        settings for loaders, plugins, and other relevant parameters. You can find step-by-step\n        guides for configuring\n        <a href=\"https://storybook.js.org/docs/builders/webpack\">Webpack</a> or\n        <a href=\"https://storybook.js.org/docs/builders/vite\">Vite</a>\n        with Storybook.\n      </li>\n      <li>\n        <strong>Missing Environment Variables</strong>: Your Storybook may require specific\n        environment variables to function as intended. You can set up custom environment variables\n        as outlined in the\n        <a href=\"https://storybook.js.org/docs/configure/environment-variables\">Environment Variables documentation</a>.\n      </li>\n    </ol>\n    <pre class=\"sb-errordisplay_code\"><code id=\"error-stack\"></code></pre>\n  </div>\n</div>\n\n    <div id=\"storybook-root\"><div data-component=\"ThemeProvider\" data-color-mode=\"light\" data-light-theme=\"light\" data-dark-theme=\"light\"><div data-a11y-link-underlines=\"true\" class=\"story-wrap\"><div data-component=\"BaseStyles\" class=\"prc-src-BaseStyles-dl-St\" data-portal-root=\"true\"><div class=\"prc-DataTable-TableContainer-Gm3sY\" data-component=\"Table.Container\"><h2 class=\"TableTitle prc-DataTable-TableTitle-Q7qQd\" id=\"selectable-repositories\" data-component=\"Table.Title\">Selectable repositories</h2><div class=\"prc-ScrollableRegion-ScrollableRegion-3VVm3 TableOverflowWrapper prc-DataTable-TableOverflowWrapper-PFgsy\" data-component=\"ScrollableRegion\"><table aria-labelledby=\"selectable-repositories\" data-cell-padding=\"normal\" class=\"Table prc-DataTable-Table-qYfrL\" role=\"table\" data-component=\"Table\" style=\"--grid-template-columns: min-content minmax(0, 1fr) auto;\"><thead class=\"TableHead prc-DataTable-TableHead-eOrJU\" role=\"rowgroup\" data-component=\"Table.Head\"><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r3:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 8 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"mixed\" style=\"\"></th><th data-component=\"Table.Header\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Name</th><th data-component=\"Table.Header\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Updated</th></tr></thead><tbody class=\"TableBody prc-DataTable-TableBody-p56SS\" role=\"rowgroup\" data-component=\"Table.Body\"><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r3:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":r5:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":r5: :r3:-row-0-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r3:-row-0-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\">codeql-dca-worker</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\"><relative-time data-component=\"RelativeTime\" datetime=\"2026-11-05T20:00:00.000Z\" title=\"Nov 5, 2026, 3:00 PM EST\">Nov 5, 2026</relative-time></td></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r3:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":r7:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":r7: :r3:-row-1-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" checked=\"\" aria-checked=\"true\" style=\"\"></td><th id=\":r3:-row-1-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\">aegir</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\"><relative-time data-component=\"RelativeTime\" datetime=\"2026-11-05T19:55:00.000Z\" title=\"Nov 5, 2026, 2:55 PM EST\">Nov 5, 2026</relative-time></td></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r3:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":r9:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":r9: :r3:-row-2-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r3:-row-2-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\">strapi</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\"><relative-time data-component=\"RelativeTime\" datetime=\"2026-11-05T19:00:00.000Z\" title=\"Nov 5, 2026, 2:00 PM EST\">Nov 5, 2026</relative-time></td></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r3:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":rb:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rb: :r3:-row-3-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r3:-row-3-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\">codeql-ci-nightlies</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\"><relative-time data-component=\"RelativeTime\" datetime=\"2026-11-05T14:00:00.000Z\" title=\"Nov 5, 2026, 9:00 AM EST\">Nov 5, 2026</relative-time></td></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r3:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":rd:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rd: :r3:-row-4-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r3:-row-4-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\">dependabot-updates</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\"><relative-time data-component=\"RelativeTime\" datetime=\"2026-11-04T20:00:00.000Z\" title=\"Nov 4, 2026, 3:00 PM EST\">Nov 4, 2026</relative-time></td></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r3:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":rf:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rf: :r3:-row-5-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r3:-row-5-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\">tsx-create-react-app</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\"><relative-time data-component=\"RelativeTime\" datetime=\"2026-10-29T20:00:00.000Z\" title=\"Oct 29, 2026, 4:00 PM EDT\">Oct 29, 2026</relative-time></td></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r3:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":rh:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rh: :r3:-row-6-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r3:-row-6-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\">bootstrap</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\"><relative-time data-component=\"RelativeTime\" datetime=\"2026-10-08T20:00:00.000Z\" title=\"Oct 8, 2026, 4:00 PM EDT\">Oct 8, 2026</relative-time></td></tr><tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><td class=\"prc-DataTable-TableCell-dVc-6 prc-DataTable-TableRowSelection-BA9jR\" role=\"cell\" headers=\":r3:-selection-column\" data-component=\"Table.RowSelection\"><span class=\"prc-src-InternalVisuallyHidden-nlR9R\" id=\":rj:\">Select</span><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-labelledby=\":rj: :r3:-row-7-header-0\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"false\" style=\"\"></td><th id=\":r3:-row-7-header-0\" class=\"TableCell prc-DataTable-TableCell-dVc-6\" scope=\"row\" role=\"rowheader\" data-component=\"Table.Cell\">docker-templates</th><td class=\"TableCell prc-DataTable-TableCell-dVc-6\" role=\"cell\" data-component=\"Table.Cell\"><relative-time data-component=\"RelativeTime\" datetime=\"2024-09-05T00:00:00.000Z\" title=\"Sep 4, 2024, 8:00 PM EDT\">Sep 5, 2024</relative-time></td></tr></tbody></table></div></div></div></div></div></div>\n    <div id=\"storybook-docs\" hidden=\"true\"></div>\n    <script>\n      function __onViteAppLoadingError(event) {\n        const hostname = globalThis.location.hostname;\n        if (hostname !== 'localhost' && globalThis.CONFIG_TYPE === 'DEVELOPMENT') {\n          const message = `Failed to load the Storybook preview file 'vite-app.js':\n\n      It looks like you're visiting the Storybook development server on another hostname than localhost: '${hostname}', but you haven't configured the necessary security features to support this.\n      Please re-run your Storybook development server with the '--host ${hostname}' flag, or manually configure your Vite allowedHosts configuration with viteFinal.\n\n      See:`;\n          const docs = [\n            'https://storybook.js.org/docs/api/cli-options#dev',\n            'https://storybook.js.org/docs/api/main-config/main-config-vite-final',\n            'https://vite.dev/config/server-options.html#server-allowedhosts',\n          ];\n          console.error(`${message}\\n${docs.map((doc) => `- ${doc}`).join('\\n')}`);\n\n          document.getElementById('storybook-root').innerHTML =\n            `<p style=\"color: red; max-width: 70ch\">${message.replaceAll(\n              '\\n',\n              '<br/>'\n            )}<ul>${docs.map((doc) => `<li><a href='${doc}' target='_blank'>${doc}</a></li>`).join('')}</ul></p>`;\n          return;\n        }\n      }\n    </script>\n    <script type=\"module\" src=\"/@id/__x00__virtual:/@storybook/builder-vite/vite-app.js\" onerror=\"__onViteAppLoadingError(event)\"></script>\n  \n\n<div id=\"storybook-highlights-root\" style=\"\"><div id=\"storybook-highlights-menu\" popover=\"manual\" style=\"display: none;\"></div><style>\n            #storybook-highlights-menu {\n              position: absolute;\n              z-index: 2147483647;\n              width: 300px;\n              padding: 0px;\n              margin: 15px 0 0 0;\n              transform: translateX(-50%);\n              font-family: \"Nunito Sans\", -apple-system, \".SFNSText-Regular\", \"San Francisco\", BlinkMacSystemFont, \"Segoe UI\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n              font-size: 12px;\n              background: white;\n              border: none;\n              border-radius: 6px;\n              box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05), 0 5px 15px 0 rgba(0, 0, 0, 0.1);\n              color: #2E3438;\n            }\n            #storybook-highlights-menu ul {\n              list-style: none;\n              margin: 0;\n              padding: 0;\n            }\n            #storybook-highlights-menu > ul {\n              max-height: 300px;\n              overflow-y: auto;\n              padding: 4px 0;\n            }\n            #storybook-highlights-menu li {\n              padding: 0 4px;\n              margin: 0;\n            }\n            #storybook-highlights-menu li > :not(ul) {\n              display: flex;\n              padding: 8px;\n              margin: 0;\n              align-items: center;\n              gap: 8px;\n              border-radius: 4px;\n            }\n            #storybook-highlights-menu button {\n              width: 100%;\n              border: 0;\n              background: transparent;\n              color: inherit;\n              text-align: left;\n              font-family: inherit;\n              font-size: inherit;\n            }\n            #storybook-highlights-menu button:focus-visible {\n              outline-color: #029CFD;\n            }\n            #storybook-highlights-menu button:hover {\n              background: rgba(2, 156, 253, 0.07);\n              color: #029CFD;\n              cursor: pointer;\n            }\n            #storybook-highlights-menu li code {\n              white-space: nowrap;\n              overflow: hidden;\n              text-overflow: ellipsis;\n              line-height: 16px;\n              font-size: 11px;\n            }\n            #storybook-highlights-menu li svg {\n              flex-shrink: 0;\n              margin: 1px;\n              color: #73828C;\n            }\n            #storybook-highlights-menu li > button:hover svg, #storybook-highlights-menu li > button:focus-visible svg {\n              color: #029CFD;\n            }\n            #storybook-highlights-menu .element-list li svg {\n              display: none;\n            }\n            #storybook-highlights-menu li.selectable svg, #storybook-highlights-menu li.selected svg {\n              display: block;\n            }\n            #storybook-highlights-menu .menu-list {\n              border-top: 1px solid rgba(38, 85, 115, 0.15);\n            }\n            #storybook-highlights-menu .menu-list > li:not(:last-child) {\n              padding-bottom: 4px;\n              margin-bottom: 4px;\n              border-bottom: 1px solid rgba(38, 85, 115, 0.15);\n            }\n            #storybook-highlights-menu .menu-items, #storybook-highlights-menu .menu-items li {\n              padding: 0;\n            }\n            #storybook-highlights-menu .menu-item {\n              display: flex;\n            }\n            #storybook-highlights-menu .menu-item-content {\n              display: flex;\n              flex-direction: column;\n              flex-grow: 1;\n            }\n          </style></div><svg id=\"storybook-a11y-vision-filters\" style=\"display: none !important;\">\n  <defs>\n    <filter id=\"storybook-a11y-vision-protanopia\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.567, 0.433, 0, 0, 0 0.558, 0.442, 0, 0, 0 0, 0.242, 0.758, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-protanomaly\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.817, 0.183, 0, 0, 0 0.333, 0.667, 0, 0, 0 0, 0.125, 0.875, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-deuteranopia\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.625, 0.375, 0, 0, 0 0.7, 0.3, 0, 0, 0 0, 0.3, 0.7, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-deuteranomaly\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.8, 0.2, 0, 0, 0 0.258, 0.742, 0, 0, 0 0, 0.142, 0.858, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-tritanopia\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.95, 0.05,  0, 0, 0 0,  0.433, 0.567, 0, 0 0,  0.475, 0.525, 0, 0 0,  0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-tritanomaly\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.967, 0.033, 0, 0, 0 0, 0.733, 0.267, 0, 0 0, 0.183, 0.817, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n    <filter id=\"storybook-a11y-vision-achromatopsia\">\n      <feColorMatrix in=\"SourceGraphic\" type=\"matrix\" values=\"0.299, 0.587, 0.114, 0, 0 0.299, 0.587, 0.114, 0, 0 0.299, 0.587, 0.114, 0, 0 0, 0, 0, 1, 0\"></feColorMatrix>\n    </filter>\n  </defs>\n</svg></body>",
+      "density": null,
+      "theme": "light",
+      "headerRows": [
+        {
+          "html": "<tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r3:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 8 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX\" value=\"\" aria-checked=\"mixed\" style=\"\"></th><th data-component=\"Table.Header\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Name</th><th data-component=\"Table.Header\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Updated</th></tr>",
+          "ariaHidden": null
+        }
+      ],
+      "axRows": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "selection-all",
+      "url": "http://localhost:6006/iframe.html?id=experimental-components-datatable-features--with-row-selection&viewMode=story&globals=colorScheme%3Alight",
+      "announcements": {
+        "requests": [],
+        "delivered": []
+      },
+      "focus": "<input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 8 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX focus-visible\" value=\"\" aria-checked=\"true\" style=\"\" data-focus-visible-added=\"\">",
+      "density": null,
+      "theme": "light",
+      "headerRows": [
+        {
+          "html": "<tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r3:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 8 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX focus-visible\" value=\"\" aria-checked=\"true\" style=\"\" data-focus-visible-added=\"\"></th><th data-component=\"Table.Header\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Name</th><th data-component=\"Table.Header\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Updated</th></tr>",
+          "ariaHidden": null
+        }
+      ],
+      "axRows": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "selection-cleared",
+      "url": "http://localhost:6006/iframe.html?id=experimental-components-datatable-features--with-row-selection&viewMode=story&globals=colorScheme%3Alight",
+      "announcements": {
+        "requests": [],
+        "delivered": []
+      },
+      "focus": "<input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 8 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX focus-visible\" value=\"\" aria-checked=\"false\" style=\"\" data-focus-visible-added=\"\">",
+      "density": null,
+      "theme": "light",
+      "headerRows": [
+        {
+          "html": "<tr>\n        <th><span>Name</span></th>\n        <th><span>Description</span></th>\n        <th><span>Default</span></th>\n        <th><span>Control </span></th>\n      </tr>",
+          "ariaHidden": null
+        },
+        {
+          "html": "<tr class=\"TableRow prc-DataTable-TableRow-1vLX7\" role=\"row\" data-component=\"Table.Row\"><th data-component=\"Table.SelectionHeader\" id=\":r3:-selection-column\" class=\"TableHeader prc-DataTable-TableSelectionHeader-l-dPt prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\"><input type=\"checkbox\" aria-required=\"false\" aria-invalid=\"false\" aria-label=\"Select rows\" aria-description=\"Select all 8 rows\" data-component=\"Checkbox\" class=\"prc-Checkbox-Input-mxggT prc-Checkbox-Checkbox-gIwWX focus-visible\" value=\"\" aria-checked=\"false\" style=\"\" data-focus-visible-added=\"\"></th><th data-component=\"Table.Header\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Name</th><th data-component=\"Table.Header\" class=\"TableHeader prc-DataTable-TableHeader-CRPoj\" role=\"columnheader\" scope=\"col\">Updated</th></tr>",
+          "ariaHidden": null
+        }
+      ],
+      "axRows": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  ]
+}

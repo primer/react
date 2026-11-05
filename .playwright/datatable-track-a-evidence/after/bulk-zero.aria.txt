@@ -1,0 +1,33 @@
+- table "Repositories":
+  - rowgroup:
+    - row "Select rows Repository Visibility":
+      - columnheader "Select rows":
+        - checkbox "Select rows"
+      - columnheader "Repository":
+        - button "Repository"
+      - columnheader "Visibility"
+  - rowgroup:
+    - row "Select github/github Internal":
+      - cell "Select github/github":
+        - text: Select
+        - checkbox "Select github/github"
+      - rowheader "github/github"
+      - cell "Internal"
+  - rowgroup:
+    - row "Public":
+      - columnheader "Public":
+        - checkbox "Select Public"
+        - button "Public" [expanded]
+  - rowgroup:
+    - row "Select primer/react Public":
+      - cell "Select primer/react":
+        - text: Select
+        - checkbox "Select primer/react"
+      - rowheader "primer/react"
+      - cell "Public"
+    - row "Select primer/css Public":
+      - cell "Select primer/css":
+        - text: Select
+        - checkbox "Select primer/css"
+      - rowheader "primer/css"
+      - cell "Public"

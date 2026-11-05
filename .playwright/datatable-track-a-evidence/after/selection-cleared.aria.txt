@@ -1,0 +1,56 @@
+- table "Selectable repositories":
+  - rowgroup:
+    - row "Select rows Name Updated":
+      - columnheader "Select rows":
+        - checkbox "Select rows"
+      - columnheader "Name"
+      - columnheader "Updated"
+  - rowgroup:
+    - row "Select codeql-dca-worker Nov 5, 2026now":
+      - cell "Select codeql-dca-worker":
+        - text: Select
+        - checkbox "Select codeql-dca-worker"
+      - rowheader "codeql-dca-worker"
+      - cell "Nov 5, 2026now"
+    - row "Select aegir Nov 5, 20265 minutes ago":
+      - cell "Select aegir":
+        - text: Select
+        - checkbox "Select aegir"
+      - rowheader "aegir"
+      - cell "Nov 5, 20265 minutes ago"
+    - row "Select strapi Nov 5, 20261 hour ago":
+      - cell "Select strapi":
+        - text: Select
+        - checkbox "Select strapi"
+      - rowheader "strapi"
+      - cell "Nov 5, 20261 hour ago"
+    - row "Select codeql-ci-nightlies Nov 5, 20266 hours ago":
+      - cell "Select codeql-ci-nightlies":
+        - text: Select
+        - checkbox "Select codeql-ci-nightlies"
+      - rowheader "codeql-ci-nightlies"
+      - cell "Nov 5, 20266 hours ago"
+    - row "Select dependabot-updates Nov 4, 2026yesterday":
+      - cell "Select dependabot-updates":
+        - text: Select
+        - checkbox "Select dependabot-updates"
+      - rowheader "dependabot-updates"
+      - cell "Nov 4, 2026yesterday"
+    - row "Select tsx-create-react-app Oct 29, 2026last week":
+      - cell "Select tsx-create-react-app":
+        - text: Select
+        - checkbox "Select tsx-create-react-app"
+      - rowheader "tsx-create-react-app"
+      - cell "Oct 29, 2026last week"
+    - row "Select bootstrap Oct 8, 2026last month":
+      - cell "Select bootstrap":
+        - text: Select
+        - checkbox "Select bootstrap"
+      - rowheader "bootstrap"
+      - cell "Oct 8, 2026last month"
+    - row "Select docker-templates Sep 5, 2024on Sep 4, 2024":
+      - cell "Select docker-templates":
+        - text: Select
+        - checkbox "Select docker-templates"
+      - rowheader "docker-templates"
+      - cell "Sep 5, 2024on Sep 4, 2024"

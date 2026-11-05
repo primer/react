@@ -1,0 +1,38 @@
+- table "Repositories":
+  - rowgroup:
+    - row "Select rows Repository Visibility":
+      - columnheader "Select rows":
+        - checkbox "Select rows" [checked=mixed]
+      - columnheader "Repository"
+      - columnheader "Visibility"
+    - row "Bulk actions":
+      - cell "Bulk actions":
+        - group "Bulk actions":
+          - text: 2 selected
+          - button "Make internal"
+          - button "Delete selected"
+  - rowgroup:
+    - row "Select github/github Internal":
+      - cell "Select github/github":
+        - text: Select
+        - checkbox "Select github/github"
+      - rowheader "github/github"
+      - cell "Internal"
+  - rowgroup:
+    - row "Public":
+      - columnheader "Public":
+        - checkbox "Select Public" [checked]
+        - button "Public" [expanded]
+  - rowgroup:
+    - row "Select primer/react Public":
+      - cell "Select primer/react":
+        - text: Select
+        - checkbox "Select primer/react" [checked]
+      - rowheader "primer/react"
+      - cell "Public"
+    - row "Select primer/css Public":
+      - cell "Select primer/css":
+        - text: Select
+        - checkbox "Select primer/css" [checked]
+      - rowheader "primer/css"
+      - cell "Public"
