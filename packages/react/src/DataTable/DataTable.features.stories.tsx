@@ -1773,6 +1773,46 @@ export const WithRowSelection = () => {
   )
 }
 
+export const WithLocalizedSelectionAnnouncements = () => {
+  const titleId = React.useId()
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id={titleId}>
+        Selectable repositories
+      </Table.Title>
+      <DataTable
+        aria-labelledby={titleId}
+        data={data}
+        columns={groupedColumns}
+        rowSelection
+        bulkActionsProps={{
+          getSelectedCountLabel: count => (count === 0 ? 'Selection cleared' : `${count} repositories selected`),
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+WithLocalizedSelectionAnnouncements.parameters = {
+  docs: {
+    description: {
+      story:
+        'Selection-count messages can be customized without a bulk-actions renderer. Initial selection is silent; select rows and clear select-all to verify count changes and the custom clearing message with a screen reader.',
+    },
+  },
+}
+
+WithLocalizedSelectionAnnouncements.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const selectAll = canvas.getByRole('checkbox', {name: 'Select rows'})
+  await expect(selectAll).not.toBeChecked()
+  await userEvent.click(selectAll)
+  await expect(selectAll).toBeChecked()
+  await userEvent.keyboard(' ')
+  await expect(selectAll).not.toBeChecked()
+  await expect(selectAll).toHaveFocus()
+}
+
 export const WithBulkActions = () => {
   const repositories = [
     {id: 1, name: 'primer/react', visibility: 'Public'},
