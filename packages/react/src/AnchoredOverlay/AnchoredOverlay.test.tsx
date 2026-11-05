@@ -706,6 +706,33 @@ describe('AnchoredOverlay CSS anchor positioning viewport handling', () => {
 })
 
 describe('AnchoredOverlay anchor element replacement', () => {
+  it('passes the provided ref object to the anchor renderer', () => {
+    const anchorRef = createRef<HTMLElement>()
+    let renderedRef: React.Ref<HTMLElement> | undefined
+
+    render(
+      <AnchoredOverlay
+        open={false}
+        onOpen={() => {}}
+        onClose={() => {}}
+        anchorRef={anchorRef}
+        renderAnchor={props => {
+          renderedRef = (props as typeof props & {ref?: React.Ref<HTMLElement>}).ref
+          return (
+            <button type="button" {...props}>
+              Anchor
+            </button>
+          )
+        }}
+      >
+        Content
+      </AnchoredOverlay>,
+    )
+
+    expect(renderedRef).toBe(anchorRef)
+    expect(anchorRef.current).toBeInstanceOf(HTMLButtonElement)
+  })
+
   it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', () => {
     function TestComponent() {
       const anchorRef = useRef<HTMLButtonElement>(null)
@@ -766,48 +793,40 @@ describe('AnchoredOverlay anchor element replacement', () => {
   })
 })
 
-describe('AnchoredOverlay overlay forwarded ref (primer_react_merged_forwarded_refs)', () => {
-  for (const enabled of [true, false]) {
-    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
-      it('forwards a ref object to the overlay', () => {
-        const ref = createRef<HTMLDivElement>()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <BaseStyles>
-              <AnchoredOverlay
-                open
-                onClose={() => {}}
-                onOpen={() => {}}
-                renderAnchor={props => <Button {...props}>Anchor</Button>}
-                overlayProps={{ref}}
-              >
-                <button type="button">Child</button>
-              </AnchoredOverlay>
-            </BaseStyles>
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLDivElement)
-      })
+describe('AnchoredOverlay overlay forwarded ref', () => {
+  it('forwards a ref object to the overlay', () => {
+    const ref = createRef<HTMLDivElement>()
+    render(
+      <BaseStyles>
+        <AnchoredOverlay
+          open
+          onClose={() => {}}
+          onOpen={() => {}}
+          renderAnchor={props => <Button {...props}>Anchor</Button>}
+          overlayProps={{ref}}
+        >
+          <button type="button">Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>,
+    )
+    expect(ref.current).toBeInstanceOf(HTMLDivElement)
+  })
 
-      it('calls a callback ref with the overlay', () => {
-        const refCallback = vi.fn()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <BaseStyles>
-              <AnchoredOverlay
-                open
-                onClose={() => {}}
-                onOpen={() => {}}
-                renderAnchor={props => <Button {...props}>Anchor</Button>}
-                overlayProps={{ref: refCallback}}
-              >
-                <button type="button">Child</button>
-              </AnchoredOverlay>
-            </BaseStyles>
-          </FeatureFlags>,
-        )
-        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
-      })
-    })
-  }
+  it('calls a callback ref with the overlay', () => {
+    const refCallback = vi.fn()
+    render(
+      <BaseStyles>
+        <AnchoredOverlay
+          open
+          onClose={() => {}}
+          onOpen={() => {}}
+          renderAnchor={props => <Button {...props}>Anchor</Button>}
+          overlayProps={{ref: refCallback}}
+        >
+          <button type="button">Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>,
+    )
+    expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+  })
 })

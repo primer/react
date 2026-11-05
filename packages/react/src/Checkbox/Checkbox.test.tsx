@@ -3,7 +3,6 @@ import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Checkbox from '../Checkbox'
 import {createRef} from 'react'
-import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 import classes from './Checkbox.module.css'
 
@@ -152,28 +151,16 @@ describe('Checkbox', () => {
   })
 })
 
-describe('Checkbox forwarded ref (primer_react_merged_forwarded_refs)', () => {
-  for (const enabled of [true, false]) {
-    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
-      it('forwards a ref object to the element', () => {
-        const ref = createRef<HTMLInputElement>()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Checkbox ref={ref} />
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLInputElement)
-      })
+describe('Checkbox forwarded ref', () => {
+  it('forwards a ref object to the element', () => {
+    const ref = createRef<HTMLInputElement>()
+    render(<Checkbox ref={ref} />)
+    expect(ref.current).toBeInstanceOf(HTMLInputElement)
+  })
 
-      it('calls a callback ref with the element', () => {
-        const refCallback = vi.fn()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Checkbox ref={refCallback} />
-          </FeatureFlags>,
-        )
-        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLInputElement)).toBe(true)
-      })
-    })
-  }
+  it('calls a callback ref with the element', () => {
+    const refCallback = vi.fn()
+    render(<Checkbox ref={refCallback} />)
+    expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLInputElement)).toBe(true)
+  })
 })

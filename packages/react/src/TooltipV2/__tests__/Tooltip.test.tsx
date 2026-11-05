@@ -13,7 +13,6 @@ import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
 import {createRef, forwardRef, useImperativeHandle} from 'react'
-import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName, withExpectedConsoleError, withExpectedConsoleWarning} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
@@ -253,80 +252,66 @@ describe('Tooltip data-component attributes', () => {
   })
 })
 
-describe('Tooltip forwarded ref (primer_react_merged_forwarded_refs)', () => {
-  for (const enabled of [true, false]) {
-    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
-      it('forwards a ref object to the trigger element', () => {
-        const ref = createRef<HTMLButtonElement>()
-        HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Tooltip text="Tooltip text" ref={ref}>
-              <Button>Button Text</Button>
-            </Tooltip>
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLButtonElement)
-        expect(ref.current).toHaveTextContent('Button Text')
-      })
+describe('Tooltip forwarded ref', () => {
+  it('forwards a ref object to the trigger element', () => {
+    const ref = createRef<HTMLButtonElement>()
+    HTMLRender(
+      <Tooltip text="Tooltip text" ref={ref}>
+        <Button>Button Text</Button>
+      </Tooltip>,
+    )
+    expect(ref.current).toBeInstanceOf(HTMLButtonElement)
+    expect(ref.current).toHaveTextContent('Button Text')
+  })
 
-      it('calls a callback ref with the trigger element', () => {
-        const refCallback = vi.fn()
-        const {getByRole} = HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Tooltip text="Tooltip text" ref={refCallback}>
-              <Button>Button Text</Button>
-            </Tooltip>
-          </FeatureFlags>,
-        )
-        const button = getByRole('button')
-        expect(refCallback).toHaveBeenCalledWith(button)
-      })
+  it('calls a callback ref with the trigger element', () => {
+    const refCallback = vi.fn()
+    const {getByRole} = HTMLRender(
+      <Tooltip text="Tooltip text" ref={refCallback}>
+        <Button>Button Text</Button>
+      </Tooltip>,
+    )
+    const button = getByRole('button')
+    expect(refCallback).toHaveBeenCalledWith(button)
+  })
 
-      it("preserves trigger element's own ref", () => {
-        const buttonRefCallback = vi.fn()
+  it("preserves trigger element's own ref", () => {
+    const buttonRefCallback = vi.fn()
 
-        const {getByRole} = HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Tooltip text="Tooltip text">
-              <Button ref={buttonRefCallback}>Button Text</Button>
-            </Tooltip>
-          </FeatureFlags>,
-        )
+    const {getByRole} = HTMLRender(
+      <Tooltip text="Tooltip text">
+        <Button ref={buttonRefCallback}>Button Text</Button>
+      </Tooltip>,
+    )
 
-        const button = getByRole('button')
-        expect(buttonRefCallback).toHaveBeenCalledWith(button)
-      })
+    const button = getByRole('button')
+    expect(buttonRefCallback).toHaveBeenCalledWith(button)
+  })
 
-      it.skipIf(!enabled)("merges trigger's own ref with tooltip ref", () => {
-        const buttonRefCallback = vi.fn()
-        const tooltipRefCallback = vi.fn()
+  it("merges trigger's own ref with tooltip ref", () => {
+    const buttonRefCallback = vi.fn()
+    const tooltipRefCallback = vi.fn()
 
-        const {getByRole} = HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Tooltip text="Tooltip text" ref={tooltipRefCallback}>
-              <Button ref={buttonRefCallback}>Button Text</Button>
-            </Tooltip>
-          </FeatureFlags>,
-        )
+    const {getByRole} = HTMLRender(
+      <Tooltip text="Tooltip text" ref={tooltipRefCallback}>
+        <Button ref={buttonRefCallback}>Button Text</Button>
+      </Tooltip>,
+    )
 
-        const button = getByRole('button')
-        expect(buttonRefCallback).toHaveBeenCalledWith(button)
-        expect(tooltipRefCallback).toHaveBeenCalledWith(button)
-      })
+    const button = getByRole('button')
+    expect(buttonRefCallback).toHaveBeenCalledWith(button)
+    expect(tooltipRefCallback).toHaveBeenCalledWith(button)
+  })
 
-      it('warns without crashing when a custom trigger ref does not resolve to an HTML element', () => {
-        withExpectedConsoleWarning(() => {
-          const {getByRole} = HTMLRender(
-            <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-              <Tooltip text="Tooltip text">
-                <InvalidRefTrigger>Button Text</InvalidRefTrigger>
-              </Tooltip>
-            </FeatureFlags>,
-          )
+  it('warns without crashing when a custom trigger ref does not resolve to an HTML element', () => {
+    withExpectedConsoleWarning(() => {
+      const {getByRole} = HTMLRender(
+        <Tooltip text="Tooltip text">
+          <InvalidRefTrigger>Button Text</InvalidRefTrigger>
+        </Tooltip>,
+      )
 
-          expect(() => fireEvent.focus(getByRole('button', {name: 'Button Text'}))).not.toThrow()
-        })
-      })
+      expect(() => fireEvent.focus(getByRole('button', {name: 'Button Text'}))).not.toThrow()
     })
-  }
+  })
 })

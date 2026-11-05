@@ -615,32 +615,24 @@ describe('ActionList with role="tree"', () => {
   })
 })
 
-describe('ActionList forwarded ref (primer_react_merged_forwarded_refs)', () => {
-  for (const enabled of [true, false]) {
-    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
-      it('forwards a ref object to the element', () => {
-        const ref = createRef<HTMLUListElement>()
-        HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <ActionList ref={ref}>
-              <ActionList.Item>Item</ActionList.Item>
-            </ActionList>
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLElement)
-      })
+describe('ActionList forwarded ref', () => {
+  it('forwards a ref object to the element', () => {
+    const ref = createRef<HTMLUListElement>()
+    HTMLRender(
+      <ActionList ref={ref}>
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+    expect(ref.current).toBeInstanceOf(HTMLElement)
+  })
 
-      it('calls a callback ref with the element', () => {
-        const refCallback = vi.fn()
-        HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <ActionList ref={refCallback}>
-              <ActionList.Item>Item</ActionList.Item>
-            </ActionList>
-          </FeatureFlags>,
-        )
-        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLElement)).toBe(true)
-      })
-    })
-  }
+  it('calls a callback ref with the element', () => {
+    const refCallback = vi.fn()
+    HTMLRender(
+      <ActionList ref={refCallback}>
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+    expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLElement)).toBe(true)
+  })
 })
