@@ -42,10 +42,12 @@ const RootContext = React.createContext<{
   // when their parent is collapsed.
   expandedStateCache: React.RefObject<Map<string, boolean> | null>
   scrollElementIntoView: (element: Element | null | undefined) => void
+  trailingActionShortcutText: string
 }>({
   announceUpdate: () => {},
   expandedStateCache: {current: new Map()},
   scrollElementIntoView: () => {},
+  trailingActionShortcutText: '',
 })
 
 const ItemContext = React.createContext<{
@@ -171,12 +173,17 @@ const Root: React.FC<TreeViewProps> = ({
     expandedStateCache.current = new Map()
   }
 
+  // Identical for every item, so compute it once here instead of per item.
+  const platform = usePlatform()
+  const trailingActionShortcutText = React.useMemo(() => getTrailingActionShortcutText(platform), [platform])
+
   return (
     <RootContext.Provider
       value={{
         announceUpdate,
         expandedStateCache,
         scrollElementIntoView,
+        trailingActionShortcutText,
       }}
     >
       <>
@@ -270,7 +277,7 @@ const ItemImpl = fixedForwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
     })
-    const {expandedStateCache, scrollElementIntoView} = React.useContext(RootContext)
+    const {expandedStateCache, scrollElementIntoView, trailingActionShortcutText} = React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
@@ -292,7 +299,6 @@ const ItemImpl = fixedForwardRef(
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
     const [isFocused, setIsFocused] = React.useState(false)
-    const platform = usePlatform()
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
@@ -366,9 +372,6 @@ const ItemImpl = fixedForwardRef(
       slots.leadingVisual ? leadingVisualId : null,
       slots.trailingVisual ? trailingVisualId : null,
     ].filter(Boolean)
-
-    const shortcut = `Shift+${platform === 'apple' ? 'Meta' : 'Control'}+U`
-    const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
 
     const itemElement = (
       // @ts-ignore TypeScript can't infer that the `ref` here is compatible
@@ -500,6 +503,11 @@ const ItemImpl = fixedForwardRef(
 )
 
 const Item = Object.assign(ItemImpl, {displayName: 'TreeView.Item'})
+
+function getTrailingActionShortcutText(platform: ReturnType<typeof usePlatform>) {
+  const shortcut = `Shift+${platform === 'apple' ? 'Meta' : 'Control'}+U`
+  return `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
+}
 
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {

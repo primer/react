@@ -9,6 +9,7 @@ import {GearIcon} from '@primer/octicons-react'
 import {getLiveRegion} from '../live-region/__tests__/test-helpers'
 import {implementsClassName} from '../utils/testing'
 import classes from './TreeView.module.css'
+import {PlatformOverrideProvider} from '../KeybindingHint/platform'
 
 afterEach(() => {
   vi.useRealTimers()
@@ -2188,6 +2189,25 @@ it('should have keyboard shortcut command as part of accessible name when using 
   )
 
   await expect.element(page.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
+})
+
+it.each([
+  ['apple', /^Parent - Press \(.*command.*\) for more actions\.$/i],
+  ['windows', /^Parent - Press \(.*control.*\) for more actions\.$/i],
+] as const)('announces the %s keyboard shortcut only on items with `secondaryActions`', async (platform, name) => {
+  render(
+    <PlatformOverrideProvider value={platform}>
+      <TreeView aria-label="Files changed">
+        <TreeView.Item id="parent" secondaryActions={[{icon: GearIcon, label: 'Item settings', onClick: () => {}}]}>
+          Parent
+        </TreeView.Item>
+        <TreeView.Item id="sibling">Sibling</TreeView.Item>
+      </TreeView>
+    </PlatformOverrideProvider>,
+  )
+
+  await expect.element(page.getByRole('treeitem', {name})).toBeInTheDocument()
+  await expect.element(page.getByRole('treeitem', {name: 'Sibling', exact: true})).toBeInTheDocument()
 })
 
 it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
