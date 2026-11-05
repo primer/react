@@ -159,7 +159,7 @@ describe('Breadcrumbs', () => {
     const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
     await user.click(menuButton)
 
-    const oldMenu = menuButton.closest('details')
+    const oldMenu = menuButton.closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')
     expect(oldMenu).not.toBeNull()
     expect(within(oldMenu!).getByRole('link', {name: 'Old Home'})).toBeInTheDocument()
 
@@ -178,7 +178,9 @@ describe('Breadcrumbs', () => {
 
     await user.click(screen.getByRole('button', {name: /more breadcrumb items/i}))
 
-    const updatedMenu = screen.getByRole('button', {name: /more breadcrumb items/i}).closest('details')
+    const updatedMenu = screen
+      .getByRole('button', {name: /more breadcrumb items/i})
+      .closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')
     expect(updatedMenu).not.toBeNull()
     expect(within(updatedMenu!).getByRole('link', {name: 'New Home'})).toBeInTheDocument()
     expect(within(updatedMenu!).queryByRole('link', {name: 'Old Home'})).not.toBeInTheDocument()
@@ -219,8 +221,8 @@ describe('Breadcrumbs', () => {
     // Open the overflow menu
     await user.click(menuButton)
 
-    // Find the <details> element that contains the overflow menu
-    const detailsEl = menuButton.closest('details')
+    // Find the menu element that contains the overflow menu
+    const detailsEl = menuButton.closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')
     expect(detailsEl).not.toBeNull()
     const detailsScope = within(detailsEl!)
 
@@ -228,7 +230,7 @@ describe('Breadcrumbs', () => {
       expect(screen.getByRole('link', {name: 'Home'})).toBeInTheDocument()
     })
 
-    // These links should be inside the details (overflow) content
+    // These links should be inside the overflow menu
     expect(detailsScope.getByRole('link', {name: 'Category'})).toBeInTheDocument()
     expect(detailsScope.getByRole('link', {name: 'Subcategory'})).toBeInTheDocument()
     expect(detailsScope.getByRole('link', {name: 'Product'})).toBeInTheDocument()
@@ -661,8 +663,9 @@ describe('Breadcrumbs', () => {
       await user.click(menuButton)
 
       // Verify the custom link in the overflow menu has the correct href
+      const menu = menuButton.closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')!
       await waitFor(() => {
-        const homeLink = screen.getByTestId('home-link')
+        const homeLink = within(menu).getByTestId('home-link')
         expect(homeLink).toHaveAttribute('href', '/home')
       })
     })

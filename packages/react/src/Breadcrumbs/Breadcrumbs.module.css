@@ -165,3 +165,18 @@
     }
   }
 }
+
+/* Collapsed crumbs stay mounted, so they never remount and are not duplicated in the menu.
+   Crumbs that can reappear stay measurable (via `scrollWidth`) out of flow and invisible. */
+.BreadcrumbsItem[data-collapsed='measured'] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.BreadcrumbsItem[data-collapsed='removed'] {
+  display: none;
+}
