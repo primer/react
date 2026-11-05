@@ -185,6 +185,8 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   useIsomorphicLayoutEffect(() => {
     const nav = navRef.current
     if (!collapsible || !nav) return
+    // Hands layout over from the pre-hydration CSS rules. JS-owned: React never renders it.
+    if (!nav.hasAttribute('data-hydrated')) nav.setAttribute('data-hydrated', '')
     const previous = widthsRef.current
     const widths = new Map<React.Key, number>()
     for (const item of items) {
@@ -242,12 +244,19 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
         </li>,
       )
     }
-    if (!plain) {
+    // Before hydration, CSS approximates the narrow rule and needs the menu to be present.
+    // It stays hidden otherwise.
+    const narrowCollapse = !withRoot && itemCount > 2
+    if (!plain || narrowCollapse) {
       listItems.splice(
         withRoot && rootVisible ? 1 : 0,
         0,
-        <li className={classes.BreadcrumbsItem} data-overflow-menu="" key="breadcrumbs-menu">
-          <OverflowMenu items={menuItems} open={menuOpen} setOpen={setMenuOpen} />
+        <li className={classes.BreadcrumbsItem} data-overflow-menu="" hidden={plain} key="breadcrumbs-menu">
+          <OverflowMenu
+            items={plain ? items.slice(0, itemCount - 1) : menuItems}
+            open={menuOpen}
+            setOpen={setMenuOpen}
+          />
           <ItemSeparator />
         </li>,
       )
@@ -265,7 +274,12 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       data-variant={variant}
       data-component="Breadcrumbs"
     >
-      <ol className={classes.BreadcrumbsList}>{content}</ol>
+      <ol
+        className={classes.BreadcrumbsList}
+        data-narrow-collapse={collapsible && overflow === 'menu' && itemCount > 2 ? '' : undefined}
+      >
+        {content}
+      </ol>
     </nav>
   )
 }

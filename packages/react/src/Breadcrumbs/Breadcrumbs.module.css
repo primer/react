@@ -177,3 +177,44 @@
   visibility: hidden;
   pointer-events: none;
 }
+
+/* The overflow menu is rendered but hidden while nothing is collapsed, so the pre-hydration
+   narrow rule below can show it. */
+.BreadcrumbsItem[hidden] {
+  display: none;
+}
+
+/*
+ * Before hydration, CSS approximates the rules JS applies once it can measure. JS sets
+ * `data-hydrated` (never rendered by React) in its first layout effect, before measuring,
+ * so none of this applies afterwards or costs anything at runtime.
+ *
+ * Crumbs that don't fit are clipped at the start, so the leaf stays visible and nothing
+ * paints outside the nav. The spacer keeps crumbs that fit start-aligned.
+ */
+.BreadcrumbsBase:where([data-overflow^='menu']:not([data-hydrated])) > .BreadcrumbsList {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: clip;
+  justify-content: flex-end;
+
+  &::after {
+    flex: 1 0 0;
+    content: '';
+  }
+}
+
+/* The narrow rule uses the container width. A viewport query never shows the narrow layout
+   when JS wouldn't, unless the nav is wider than the viewport. A container query would be
+   exact, but its size containment collapses content-sized containers to 0px. */
+@media (max-width: 543.98px) {
+  .BreadcrumbsBase:where([data-overflow='menu']:not([data-hydrated])) > .BreadcrumbsList[data-narrow-collapse] {
+    & > :not(:last-child, [data-overflow-menu]) {
+      display: none;
+    }
+
+    & > [hidden] {
+      display: inline-grid;
+    }
+  }
+}

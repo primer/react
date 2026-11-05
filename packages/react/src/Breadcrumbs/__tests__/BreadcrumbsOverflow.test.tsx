@@ -1,7 +1,9 @@
 import {Profiler} from 'react'
+import {renderToString} from 'react-dom/server'
 import {act, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vitest'
+import {page} from 'vitest/browser'
 import Breadcrumbs from '..'
 
 // Uses real layout and a real ResizeObserver.
@@ -157,5 +159,78 @@ describe('Breadcrumbs overflow (real layout)', () => {
     rerenderWith([...labels, 'Deeper'])
     await nextFrame()
     expect(visibleLinks()).toEqual([...labels, 'Deeper'].slice(3))
+  })
+
+  it('keeps the hidden overflow menu out of the accessibility tree when nothing collapses', async () => {
+    renderCrumbs(1200, 'menu', labels.slice(0, 3))
+    await nextFrame()
+    expect(menuButton()).toBeNull()
+    expect(visibleLinks()).toEqual(labels.slice(0, 3))
+  })
+})
+
+describe('Breadcrumbs overflow before hydration', () => {
+  afterEach(async () => {
+    await page.viewport(414, 896)
+  })
+
+  // Server markup in a real browser, as users see it before hydration, then hydrated.
+  async function serverRender(width: number, overflow: 'menu' | 'menu-with-root', items: string[]) {
+    const ui = (
+      <Breadcrumbs overflow={overflow}>
+        {items.map((label, index) => (
+          <Breadcrumbs.Item key={label} href={`#${label}`} selected={index === items.length - 1}>
+            {label}
+          </Breadcrumbs.Item>
+        ))}
+      </Breadcrumbs>
+    )
+    const host = document.createElement('div')
+    host.style.width = `${width}px`
+    document.body.appendChild(host)
+    // Rendering on the server is simulated in the browser, so React warns about layout effects.
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {})
+    host.innerHTML = renderToString(ui)
+    error.mockRestore()
+    const nav = host.querySelector('nav')!
+    const snapshot = () => {
+      const navRect = nav.getBoundingClientRect()
+      const links = [...nav.querySelectorAll('a')].filter(link => {
+        const rect = link.getBoundingClientRect()
+        return (
+          link.checkVisibility({visibilityProperty: true}) && rect.right > navRect.left && rect.left < navRect.right
+        )
+      })
+      return {
+        links: links.map(link => link.textContent),
+        menu: [...nav.querySelectorAll('[data-component="Breadcrumbs.MenuItem"]')].some(menu => menu.checkVisibility()),
+        overflowsNav: links.some(link => link.getBoundingClientRect().right > navRect.right + 1),
+      }
+    }
+    const hydrate = async () => {
+      const result = render(ui, {container: host, hydrate: true})
+      await nextFrame()
+      return result
+    }
+    return {nav, snapshot, hydrate}
+  }
+
+  it('applies the narrow rule on narrow viewports before hydration', async () => {
+    await page.viewport(400, 800)
+    const {snapshot, hydrate} = await serverRender(400, 'menu', labels.slice(0, 3))
+    const before = snapshot()
+    expect(before).toEqual({links: ['Engineering'], menu: true, overflowsNav: false})
+    await hydrate()
+    expect(snapshot()).toEqual(before)
+  })
+
+  it('never paints crumbs outside the nav before hydration, and keeps the leaf visible', async () => {
+    const {snapshot, hydrate, nav} = await serverRender(300, 'menu-with-root', labels)
+    const before = snapshot()
+    expect(before.overflowsNav).toBe(false)
+    expect(before.links.at(-1)).toBe('Current page')
+    await hydrate()
+    expect(nav).toHaveAttribute('data-hydrated')
+    expect(snapshot().overflowsNav).toBe(false)
   })
 })

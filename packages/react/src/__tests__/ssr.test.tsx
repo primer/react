@@ -32,4 +32,19 @@ describe('server rendering', () => {
     expect(html.match(/<a /g)).toHaveLength(4)
     expect(html).toContain('2 more breadcrumb items')
   })
+
+  it('renders a hidden Breadcrumbs overflow menu for the pre-hydration narrow rule', () => {
+    const html = renderToString(
+      <Breadcrumbs overflow="menu">
+        {['a', 'b', 'c'].map(label => (
+          <Breadcrumbs.Item key={label} href="#">
+            {label}
+          </Breadcrumbs.Item>
+        ))}
+      </Breadcrumbs>,
+    )
+    expect(html).toMatch(/<li[^>]*data-overflow-menu=""[^>]*hidden=""/)
+    expect(html).toContain('data-narrow-collapse')
+    expect(html).not.toContain('data-hydrated')
+  })
 })
