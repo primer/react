@@ -21,6 +21,7 @@ import {TableSelectionAnnouncementContext, defaultSelectedCountLabel} from './Ta
 import classes from './TableBulkActions.module.css'
 import VisuallyHidden from '../_VisuallyHidden'
 import {announce} from '@primer/live-region-element'
+import {isVisible} from '../internal/utils/isVisible'
 
 export interface DataTableBulkActionsContext {
   selectedRows: ReadonlySet<DataTableRowId>
@@ -254,10 +255,15 @@ function DataTableImplementation<Data extends UniqueRow>({
       return
     }
 
+    const table = tableRef.current
+    if (!table || !isVisible(table)) {
+      return
+    }
+
     const announcement = announce(selectionAnnouncement, {
       politeness: 'polite',
       delayMs: 150,
-      from: tableRef.current ?? undefined,
+      from: table,
     })
     return () => announcement.cancel()
   }, [selectionAnnouncement])
