@@ -1,13 +1,19 @@
 .Label {
+  --InputLabel--label-color: var(--fgColor-default);
+  --InputLabel--label-fontWeight: var(--base-text-weight-semibold);
+  --InputLabel--label-fontSize: var(--text-body-size-medium);
+
   display: block;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
+  font-size: var(--InputLabel--label-fontSize);
+  font-weight: var(--base-text-weight-light);
+  color: var(--InputLabel--label-color);
   cursor: pointer;
   align-self: flex-start;
 
   &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
+    --InputLabel--label-color-controlDisabledPresent: var(--control-fgColor-disabled);
+
+    color: var(--InputLabel--label-color-controlDisabledPresent);
     cursor: not-allowed;
   }
 
@@ -28,6 +34,8 @@
 }
 
 .RequiredText {
+  --InputLabel--requiredText-columnGap: var(--base-size-4);
+
   display: flex;
-  column-gap: var(--base-size-4);
+  column-gap: var(--InputLabel--requiredText-columnGap);
 }

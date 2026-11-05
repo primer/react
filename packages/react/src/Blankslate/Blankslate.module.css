@@ -3,14 +3,19 @@
 }
 
 .Blankslate {
+  --Blankslate--padding: var(--blankslate-padding);
+
   display: grid;
   justify-items: center;
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--blankslate-padding);
+  padding: var(--Blankslate--padding);
 
   &:where([data-border]) {
-    border: var(--borderWidth-thin) solid var(--borderColor-default);
-    border-radius: var(--borderRadius-medium);
+    --Blankslate--borderRadius-borderPresent: var(--borderRadius-medium);
+    --Blankslate--border-borderPresent: var(--borderWidth-thin) solid var(--borderColor-default);
+
+    border: var(--Blankslate--border-borderPresent);
+    border-radius: var(--Blankslate--borderRadius-borderPresent);
   }
 
   &:where([data-narrow]) {
@@ -19,41 +24,61 @@
   }
 
   &:where([data-size='medium']) {
-    --blankslate-heading-text: var(--text-title-shorthand-medium);
-    --blankslate-heading-margin-block: 0 var(--base-size-4);
-    --blankslate-description-text: var(--text-body-shorthand-large);
-    --blankslate-padding: var(--base-size-32);
-    --blankslate-action-margin-block-end: var(--base-size-16);
+    --Blankslate--blankslateActionMarginBlockEnd-sizeMedium: var(--base-size-16);
+    --Blankslate--blankslatePadding-sizeMedium: var(--base-size-32);
+    --Blankslate--blankslateDescriptionText-sizeMedium: var(--text-body-shorthand-large);
+    --Blankslate--blankslateHeadingMarginBlock-sizeMedium: 0 var(--base-size-4);
+    --Blankslate--blankslateHeadingText-sizeMedium: var(--text-title-shorthand-medium);
+    --blankslate-heading-text: var(--Blankslate--blankslateHeadingText-sizeMedium);
+    --blankslate-heading-margin-block: var(--Blankslate--blankslateHeadingMarginBlock-sizeMedium);
+    --blankslate-description-text: var(--Blankslate--blankslateDescriptionText-sizeMedium);
+    --blankslate-padding: var(--Blankslate--blankslatePadding-sizeMedium);
+    --blankslate-action-margin-block-end: var(--Blankslate--blankslateActionMarginBlockEnd-sizeMedium);
   }
 
   &:where([data-size='medium'][data-spacious]) {
-    --blankslate-padding: var(--base-size-80) var(--base-size-40);
+    --Blankslate--blankslatePadding-sizeMedium-spaciousPresent: var(--base-size-80) var(--base-size-40);
+    --blankslate-padding: var(--Blankslate--blankslatePadding-sizeMedium-spaciousPresent);
   }
 
   &:where([data-size='small']) {
-    --blankslate-heading-text: var(--text-title-shorthand-small);
-    --blankslate-heading-margin-block: 0 var(--base-size-4);
-    --blankslate-description-text: var(--text-body-shorthand-medium);
-    --blankslate-padding: var(--base-size-16);
-    --blankslate-action-margin-block-end: var(--base-size-12);
-    --blankslate-visual-size: var(--base-size-24);
+    --Blankslate--blankslateVisualSize-sizeSmall: var(--base-size-24);
+    --Blankslate--blankslateActionMarginBlockEnd-sizeSmall: var(--base-size-12);
+    --Blankslate--blankslatePadding-sizeSmall: var(--base-size-16);
+    --Blankslate--blankslateDescriptionText-sizeSmall: var(--text-body-shorthand-medium);
+    --Blankslate--blankslateHeadingMarginBlock-sizeSmall: 0 var(--base-size-4);
+    --Blankslate--blankslateHeadingText-sizeSmall: var(--text-title-shorthand-small);
+    --blankslate-heading-text: var(--Blankslate--blankslateHeadingText-sizeSmall);
+    --blankslate-heading-margin-block: var(--Blankslate--blankslateHeadingMarginBlock-sizeSmall);
+    --blankslate-description-text: var(--Blankslate--blankslateDescriptionText-sizeSmall);
+    --blankslate-padding: var(--Blankslate--blankslatePadding-sizeSmall);
+    --blankslate-action-margin-block-end: var(--Blankslate--blankslateActionMarginBlockEnd-sizeSmall);
+    --blankslate-visual-size: var(--Blankslate--blankslateVisualSize-sizeSmall);
   }
 
   &:where([data-size='small'][data-spacious]) {
-    --blankslate-padding: var(--base-size-44) var(--base-size-28);
+    --Blankslate--blankslatePadding-sizeSmall-spaciousPresent: var(--base-size-44) var(--base-size-28);
+    --blankslate-padding: var(--Blankslate--blankslatePadding-sizeSmall-spaciousPresent);
   }
 
   &:where([data-size='large']) {
-    --blankslate-heading-text: var(--text-title-shorthand-large);
-    --blankslate-heading-margin-block: var(--base-size-8) var(--base-size-4);
-    --blankslate-description-text: var(--text-body-shorthand-large);
-    --blankslate-description-margin-block: 0 var(--base-size-8);
-    --blankslate-padding: var(--base-size-32);
-    --blankslate-action-margin-block-end: var(--base-size-16);
+    --Blankslate--blankslateActionMarginBlockEnd-sizeLarge: var(--base-size-16);
+    --Blankslate--blankslatePadding-sizeLarge: var(--base-size-32);
+    --Blankslate--blankslateDescriptionMarginBlock-sizeLarge: 0 var(--base-size-8);
+    --Blankslate--blankslateDescriptionText-sizeLarge: var(--text-body-shorthand-large);
+    --Blankslate--blankslateHeadingMarginBlock-sizeLarge: var(--base-size-8) var(--base-size-4);
+    --Blankslate--blankslateHeadingText-sizeLarge: var(--text-title-shorthand-large);
+    --blankslate-heading-text: var(--Blankslate--blankslateHeadingText-sizeLarge);
+    --blankslate-heading-margin-block: var(--Blankslate--blankslateHeadingMarginBlock-sizeLarge);
+    --blankslate-description-text: var(--Blankslate--blankslateDescriptionText-sizeLarge);
+    --blankslate-description-margin-block: var(--Blankslate--blankslateDescriptionMarginBlock-sizeLarge);
+    --blankslate-padding: var(--Blankslate--blankslatePadding-sizeLarge);
+    --blankslate-action-margin-block-end: var(--Blankslate--blankslateActionMarginBlockEnd-sizeLarge);
   }
 
   &:where([data-size='large'][data-spacious]) {
-    --blankslate-padding: var(--base-size-80) var(--base-size-40);
+    --Blankslate--blankslatePadding-sizeLarge-spaciousPresent: var(--base-size-80) var(--base-size-40);
+    --blankslate-padding: var(--Blankslate--blankslatePadding-sizeLarge-spaciousPresent);
   }
 }
 
@@ -65,26 +90,35 @@
 }
 
 .Heading {
+  --Blankslate--heading-marginBlock: var(--blankslate-heading-margin-block);
+  --Blankslate--heading-font: var(--blankslate-heading-text);
   /* stylelint-disable-next-line primer/typography */
-  font: var(--blankslate-heading-text);
+  font: var(--Blankslate--heading-font);
   /* stylelint-disable-next-line primer/spacing */
-  margin-block: var(--blankslate-heading-margin-block);
+  margin-block: var(--Blankslate--heading-marginBlock);
 }
 
 .Description {
+  --Blankslate--description-marginBlock: var(--blankslate-description-margin-block);
+  --Blankslate--description-color: var(--fgColor-muted);
+  --Blankslate--description-font: var(--blankslate-description-text);
   /* stylelint-disable-next-line primer/typography */
-  font: var(--blankslate-description-text);
-  color: var(--fgColor-muted);
+  font: var(--Blankslate--description-font);
+  color: var(--Blankslate--description-color);
   /* stylelint-disable-next-line primer/spacing */
-  margin-block: var(--blankslate-description-margin-block);
+  margin-block: var(--Blankslate--description-marginBlock);
 }
 
 .Visual {
-  color: var(--fgColor-muted);
+  --Blankslate--visual-maxWidth: var(--blankslate-visual-size);
+  --Blankslate--visual-marginBlockEnd: var(--base-size-8);
+  --Blankslate--visual-color: var(--fgColor-muted);
+
+  color: var(--Blankslate--visual-color);
   /* This display property exists so that the container matches the size of the inner svg element */
   display: inline-flex;
-  margin-block-end: var(--base-size-8);
-  max-width: var(--blankslate-visual-size);
+  margin-block-end: var(--Blankslate--visual-marginBlockEnd);
+  max-width: var(--Blankslate--visual-maxWidth);
 
   & svg {
     width: 100%;
@@ -92,48 +126,67 @@
 }
 
 .Action {
+  --Blankslate--action-marginBlockStart: var(--base-size-16);
+  --Blankslate--action-font: var(--blankslate-description-text);
   /* stylelint-disable-next-line primer/typography */
-  font: var(--blankslate-description-text);
-  margin-block-start: var(--base-size-16);
+  font: var(--Blankslate--action-font);
+  margin-block-start: var(--Blankslate--action-marginBlockStart);
 
   &:where(:last-of-type) {
+    --Blankslate--action-marginBlockEnd-lastOfType: var(--blankslate-action-margin-block-end);
     /* stylelint-disable-next-line primer/spacing */
-    margin-block-end: var(--blankslate-action-margin-block-end);
+    margin-block-end: var(--Blankslate--action-marginBlockEnd-lastOfType);
   }
 }
 
 /* At the time these styles were written, 34rem was our "small" breakpoint width */
 @container blankslate (max-width: 34rem) {
   .Blankslate {
-    --blankslate-padding: var(--base-size-20);
+    --Blankslate--blankslateDescriptionText-containerBlankslateMaxWidth34rem: var(--text-body-shorthand-medium);
+    --Blankslate--blankslateHeadingText-containerBlankslateMaxWidth34rem: var(--text-title-shorthand-small);
+    --Blankslate--blankslatePadding-containerBlankslateMaxWidth34rem: var(--base-size-20);
+    --blankslate-padding: var(--Blankslate--blankslatePadding-containerBlankslateMaxWidth34rem);
 
     &:where([data-size='small']) {
-      --blankslate-padding: var(--base-size-16);
+      --Blankslate--blankslatePadding-sizeSmall-containerBlankslateMaxWidth34rem: var(--base-size-16);
+      --blankslate-padding: var(--Blankslate--blankslatePadding-sizeSmall-containerBlankslateMaxWidth34rem);
     }
 
     &:where([data-spacious]) {
-      --blankslate-padding: var(--base-size-44) var(--base-size-28);
+      --Blankslate--blankslatePadding-spaciousPresent-containerBlankslateMaxWidth34rem: var(--base-size-44)
+        var(--base-size-28);
+      --blankslate-padding: var(--Blankslate--blankslatePadding-spaciousPresent-containerBlankslateMaxWidth34rem);
     }
 
-    --blankslate-heading-text: var(--text-title-shorthand-small);
-    --blankslate-description-text: var(--text-body-shorthand-medium);
+    --blankslate-heading-text: var(--Blankslate--blankslateHeadingText-containerBlankslateMaxWidth34rem);
+    --blankslate-description-text: var(--Blankslate--blankslateDescriptionText-containerBlankslateMaxWidth34rem);
   }
 
   .Visual {
-    max-width: var(--base-size-24);
-    margin-bottom: var(--base-size-8);
-    color: var(--fgColor-muted);
+    --Blankslate--visual-color-containerBlankslateMaxWidth34rem: var(--fgColor-muted);
+    --Blankslate--visual-marginBottom-containerBlankslateMaxWidth34rem: var(--base-size-8);
+    --Blankslate--visual-maxWidth-containerBlankslateMaxWidth34rem: var(--base-size-24);
+
+    max-width: var(--Blankslate--visual-maxWidth-containerBlankslateMaxWidth34rem);
+    margin-bottom: var(--Blankslate--visual-marginBottom-containerBlankslateMaxWidth34rem);
+    color: var(--Blankslate--visual-color-containerBlankslateMaxWidth34rem);
   }
 
   .Action {
-    margin-top: var(--base-size-8);
+    --Blankslate--action-marginTop-containerBlankslateMaxWidth34rem: var(--base-size-8);
+
+    margin-top: var(--Blankslate--action-marginTop-containerBlankslateMaxWidth34rem);
 
     &:first-of-type {
-      margin-top: var(--base-size-16);
+      --Blankslate--action-marginTop-firstOfType-containerBlankslateMaxWidth34rem: var(--base-size-16);
+
+      margin-top: var(--Blankslate--action-marginTop-firstOfType-containerBlankslateMaxWidth34rem);
     }
 
     &:last-of-type {
-      margin-bottom: calc(var(--base-size-8) / 2);
+      --Blankslate--action-marginBottom-lastOfType-containerBlankslateMaxWidth34rem: calc(var(--base-size-8) / 2);
+
+      margin-bottom: var(--Blankslate--action-marginBottom-lastOfType-containerBlankslateMaxWidth34rem);
     }
   }
 }

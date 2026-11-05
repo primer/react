@@ -4,13 +4,17 @@
 }
 
 .CaretTriangle {
+  --Caret--caretTriangle-fill: var(--caret-bg, var(--bgColor-default));
   /* stylelint-disable-next-line primer/colors */
-  fill: var(--caret-bg, var(--bgColor-default));
+  fill: var(--Caret--caretTriangle-fill);
 }
 
 .CaretBorder {
+  --Caret--caretBorder-strokeWidth: var(--caret-border-width, var(--borderWidth-thin));
+  --Caret--caretBorder-stroke: var(--caret-border-color, var(--borderColor-default));
+
   fill: none;
   /* stylelint-disable-next-line primer/colors */
-  stroke: var(--caret-border-color, var(--borderColor-default));
-  stroke-width: var(--caret-border-width, var(--borderWidth-thin));
+  stroke: var(--Caret--caretBorder-stroke);
+  stroke-width: var(--Caret--caretBorder-strokeWidth);
 }

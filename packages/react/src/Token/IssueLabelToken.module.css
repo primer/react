@@ -1,69 +1,137 @@
 /* stylelint-disable primer/colors */
 @define-mixin lightThemeIssueLabel {
+  --Token--issueLabelToken-borderColor-defineMixinLightThemeIssueLabel: hsl(
+    var(--label-h),
+    calc(var(--label-s) * 1%),
+    calc((var(--label-l) - 25) * 1%),
+    var(--border-alpha)
+  );
+  --Token--issueLabelToken-color-defineMixinLightThemeIssueLabel: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
+  --Token--issueLabelToken-background-defineMixinLightThemeIssueLabel: rgb(
+    var(--label-r),
+    var(--label-g),
+    var(--label-b)
+  );
+  --Token--issueLabelToken-borderAlpha-defineMixinLightThemeIssueLabel: max(
+    0,
+    min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1)
+  );
   --lightness-threshold: 0.453;
   --border-threshold: 0.96;
-  --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
+  --border-alpha: var(--Token--issueLabelToken-borderAlpha-defineMixinLightThemeIssueLabel);
 
-  background: rgb(var(--label-r), var(--label-g), var(--label-b));
-  color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
-  border-color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
+  background: var(--Token--issueLabelToken-background-defineMixinLightThemeIssueLabel);
+  color: var(--Token--issueLabelToken-color-defineMixinLightThemeIssueLabel);
+  border-color: var(--Token--issueLabelToken-borderColor-defineMixinLightThemeIssueLabel);
 
   /* Selected state */
   /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-selected='true']) {
-    background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
+    --Token--issueLabelToken-background-selectedTrue-defineMixinLightThemeIssueLabel: hsl(
+      var(--label-h),
+      calc(var(--label-s) * 1%),
+      calc((var(--label-l) - 5) * 1%)
+    );
+
+    background: var(--Token--issueLabelToken-background-selectedTrue-defineMixinLightThemeIssueLabel);
   }
 
   /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-selected='true'])::after {
+    --Token--issueLabelToken-after-boxShadow-selectedTrue-defineMixinLightThemeIssueLabel: 0 0 0 2px
+      rgb(var(--label-r), var(--label-g), var(--label-b));
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
+    box-shadow: var(--Token--issueLabelToken-after-boxShadow-selectedTrue-defineMixinLightThemeIssueLabel);
   }
 
   /* Interactive hover states */
   /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-cursor-is-interactive='true']:hover) {
-    background-image: linear-gradient(rgb(0, 0, 0, 0.15), rgb(0, 0, 0, 0.15)),
+    --Token--issueLabelToken-boxShadow-cursorIsInteractiveTrue-hover-defineMixinLightThemeIssueLabel: var(
+      --shadow-resting-medium
+    );
+    --Token--issueLabelToken-backgroundImage-cursorIsInteractiveTrue-hover-defineMixinLightThemeIssueLabel: linear-gradient(
+        rgb(0, 0, 0, 0.15),
+        rgb(0, 0, 0, 0.15)
+      ),
       linear-gradient(
         rgb(var(--label-r), var(--label-g), var(--label-b)),
         rgb(var(--label-r), var(--label-g), var(--label-b))
       );
-    box-shadow: var(--shadow-resting-medium);
+
+    background-image: var(
+      --Token--issueLabelToken-backgroundImage-cursorIsInteractiveTrue-hover-defineMixinLightThemeIssueLabel
+    );
+    box-shadow: var(--Token--issueLabelToken-boxShadow-cursorIsInteractiveTrue-hover-defineMixinLightThemeIssueLabel);
   }
 }
 
 @define-mixin darkThemeIssueLabel {
-  --lightness-threshold: 0.6;
-  --background-alpha: 0.18;
-  --border-alpha: 0.3;
-  --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
-
-  background: rgb(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
-  color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
-  border-color: hsl(
+  --Token--issueLabelToken-borderColor-defineMixinDarkThemeIssueLabel: hsl(
     var(--label-h),
     calc(var(--label-s) * 1%),
     calc((var(--label-l) + var(--lighten-by)) * 1%),
     var(--border-alpha)
   );
+  --Token--issueLabelToken-color-defineMixinDarkThemeIssueLabel: hsl(
+    var(--label-h),
+    calc(var(--label-s) * 1%),
+    calc((var(--label-l) + var(--lighten-by)) * 1%)
+  );
+  --Token--issueLabelToken-background-defineMixinDarkThemeIssueLabel: rgb(
+    var(--label-r),
+    var(--label-g),
+    var(--label-b),
+    var(--background-alpha)
+  );
+  --Token--issueLabelToken-lightenBy-defineMixinDarkThemeIssueLabel: calc(
+    ((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch)
+  );
+  --lightness-threshold: 0.6;
+  --background-alpha: 0.18;
+  --border-alpha: 0.3;
+  --lighten-by: var(--Token--issueLabelToken-lightenBy-defineMixinDarkThemeIssueLabel);
+
+  background: var(--Token--issueLabelToken-background-defineMixinDarkThemeIssueLabel);
+  color: var(--Token--issueLabelToken-color-defineMixinDarkThemeIssueLabel);
+  border-color: var(--Token--issueLabelToken-borderColor-defineMixinDarkThemeIssueLabel);
 
   /* Selected state */
   /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-selected='true'])::after {
-    /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 0 0 0 2px
+    --Token--issueLabelToken-after-boxShadow-selectedTrue-defineMixinDarkThemeIssueLabel: 0 0 0 2px
       hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: var(--Token--issueLabelToken-after-boxShadow-selectedTrue-defineMixinDarkThemeIssueLabel);
   }
 
   /* Interactive hover states */
   /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-cursor-is-interactive='true']:hover) {
-    background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
-    box-shadow: var(--shadow-resting-medium);
+    --Token--issueLabelToken-boxShadow-cursorIsInteractiveTrue-hover-defineMixinDarkThemeIssueLabel: var(
+      --shadow-resting-medium
+    );
+    --Token--issueLabelToken-background-cursorIsInteractiveTrue-hover-defineMixinDarkThemeIssueLabel: hsl(
+      var(--label-h),
+      calc(var(--label-s) * 1%),
+      calc(calc(var(--label-l) + 10) * 1%),
+      0.3
+    );
+
+    background: var(--Token--issueLabelToken-background-cursorIsInteractiveTrue-hover-defineMixinDarkThemeIssueLabel);
+    box-shadow: var(--Token--issueLabelToken-boxShadow-cursorIsInteractiveTrue-hover-defineMixinDarkThemeIssueLabel);
   }
 }
 
 .IssueLabel {
+  --Token--issueLabelToken-issueLabel-borderWidth: var(--borderWidth-thin);
+  --Token--issueLabelToken-issueLabel-lightnessSwitch: max(
+    0,
+    min(calc(1 / (var(--lightness-threshold) - var(--perceived-lightness))), 1)
+  );
+  --Token--issueLabelToken-issueLabel-perceivedLightness: calc(
+    ((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255
+  );
   /* Color variables - dynamically set via inline CSS custom properties */
   --label-r: 153;
   --label-g: 153;
@@ -71,13 +139,11 @@
   --label-h: 0;
   --label-s: 0;
   --label-l: 60;
-  --perceived-lightness: calc(
-    ((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255
-  );
-  --lightness-switch: max(0, min(calc(1 / (var(--lightness-threshold) - var(--perceived-lightness))), 1));
+  --perceived-lightness: var(--Token--issueLabelToken-issueLabel-perceivedLightness);
+  --lightness-switch: var(--Token--issueLabelToken-issueLabel-lightnessSwitch);
 
   position: relative;
-  border-width: var(--borderWidth-thin);
+  border-width: var(--Token--issueLabelToken-issueLabel-borderWidth);
   border-style: solid;
 }
 
@@ -118,16 +184,22 @@
 }
 
 .IssueLabel:where([data-selected='true'])::after {
+  --Token--issueLabelToken-issueLabel-after-borderRadius-selectedTrue: var(--borderRadius-full);
+  --Token--issueLabelToken-issueLabel-after-left-selectedTrue: calc(var(--base-size-2) * -1);
+  --Token--issueLabelToken-issueLabel-after-bottom-selectedTrue: calc(var(--base-size-2) * -1);
+  --Token--issueLabelToken-issueLabel-after-right-selectedTrue: calc(var(--base-size-2) * -1);
+  --Token--issueLabelToken-issueLabel-after-top-selectedTrue: calc(var(--base-size-2) * -1);
+
   content: '';
   position: absolute;
   z-index: 1;
-  top: calc(var(--base-size-2) * -1);
-  right: calc(var(--base-size-2) * -1);
-  bottom: calc(var(--base-size-2) * -1);
-  left: calc(var(--base-size-2) * -1);
+  top: var(--Token--issueLabelToken-issueLabel-after-top-selectedTrue);
+  right: var(--Token--issueLabelToken-issueLabel-after-right-selectedTrue);
+  bottom: var(--Token--issueLabelToken-issueLabel-after-bottom-selectedTrue);
+  left: var(--Token--issueLabelToken-issueLabel-after-left-selectedTrue);
   display: block;
   pointer-events: none;
-  border-radius: var(--borderRadius-full);
+  border-radius: var(--Token--issueLabelToken-issueLabel-after-borderRadius-selectedTrue);
 }
 
 /* Remove button styling */

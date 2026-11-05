@@ -9,13 +9,15 @@
 }
 
 .ProgressBarItem {
+  --ProgressBar--progressBarItem-backgroundColor: var(--progress-bg);
+  --ProgressBar--progressBarItem-width: var(--progress-width);
   /* these are passed from the component */
   --progress-width: ;
   --progress-bg: ;
 
-  width: var(--progress-width);
+  width: var(--ProgressBar--progressBarItem-width);
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--progress-bg);
+  background-color: var(--ProgressBar--progressBarItem-backgroundColor);
 
   @media (prefers-reduced-motion: no-preference) {
     &[data-animated='true'] {
@@ -29,12 +31,16 @@
 }
 
 .ProgressBarContainer {
+  --ProgressBar--progressBarContainer-outline: solid 1px var(--progressBar-track-borderColor);
+  --ProgressBar--progressBarContainer-borderRadius: var(--borderRadius-small);
+  --ProgressBar--progressBarContainer-backgroundColor: var(--progressBar-track-bgColor);
+
   display: flex;
   overflow: hidden;
-  background-color: var(--progressBar-track-bgColor);
-  border-radius: var(--borderRadius-small);
+  background-color: var(--ProgressBar--progressBarContainer-backgroundColor);
+  border-radius: var(--ProgressBar--progressBarContainer-borderRadius);
   gap: 2px;
-  outline: solid 1px var(--progressBar-track-borderColor);
+  outline: var(--ProgressBar--progressBarContainer-outline);
   outline-offset: -1px;
 
   &:where([data-progress-display='inline']) {

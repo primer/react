@@ -1,8 +1,13 @@
 .Divider {
-  height: var(--borderWidth-thin);
+  --DeprecatedActionList--divider-marginBottom: var(--base-size-8);
+  --DeprecatedActionList--divider-marginTop: calc(var(--base-size-8) - 1px);
+  --DeprecatedActionList--divider-background: var(--borderColor-muted);
+  --DeprecatedActionList--divider-height: var(--borderWidth-thin);
+
+  height: var(--DeprecatedActionList--divider-height);
   /* stylelint-disable-next-line primer/colors */
-  background: var(--borderColor-muted);
+  background: var(--DeprecatedActionList--divider-background);
   /* stylelint-disable-next-line primer/spacing */
-  margin-top: calc(var(--base-size-8) - 1px);
-  margin-bottom: var(--base-size-8);
+  margin-top: var(--DeprecatedActionList--divider-marginTop);
+  margin-bottom: var(--DeprecatedActionList--divider-marginBottom);
 }
