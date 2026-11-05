@@ -267,17 +267,17 @@
 
     /* inactive */
     &:where([data-inactive='true']) {
-      /* ignore tooltip */
-      & * :not([popover], .InactiveWarning) {
-        color: var(--fgColor-muted);
-      }
+      /* text color is set by `.InactiveColors` below */
 
       @media (hover: hover) {
         &:hover {
           cursor: not-allowed;
           background-color: transparent;
 
-          & * :not([popover], .InactiveWarning) {
+          /* outrank the danger variant's hover colors */
+          & .LeadingAction,
+          & .LeadingVisual,
+          & .ItemLabel {
             color: var(--fgColor-muted);
           }
         }
@@ -316,6 +316,25 @@
     }
   }
 
+  /*
+   * Inactive and disabled items mute every descendant, including nested components that set
+   * their own color. `Item.tsx` sets `.InactiveColors` and `.DisabledColors` on the `<li>`.
+   *
+   * Key these universal descendant selectors on those classes, never on `:hover` or an
+   * attribute. Blink builds invalidation sets per feature for the whole page, so `:hover *` or
+   * `[aria-disabled] *` would restyle the entire subtree of any element, in any component,
+   * whose hover state or attribute changes.
+   */
+
+  /* ignore tooltip */
+  &.InactiveColors * :not([popover], .InactiveWarning) {
+    color: var(--fgColor-muted);
+  }
+
+  &.DisabledColors .ActionListContent * {
+    color: var(--control-fgColor-disabled);
+  }
+
   /* if item has subitem, move hover styles to ActionListContent */
   &[data-has-subitem='true'] {
     /* first child */
@@ -343,9 +362,7 @@
 
   &[aria-disabled='true'],
   &[data-is-disabled] {
-    & .ActionListContent * {
-      color: var(--control-fgColor-disabled);
-    }
+    /* text color is set by `.DisabledColors` above */
 
     & .ActionListContent {
       @media (hover: hover) {

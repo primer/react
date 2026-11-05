@@ -6,6 +6,7 @@ import {ActionList} from '.'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {BookIcon} from '@primer/octicons-react'
 import {implementsClassName} from '../utils/testing'
+import CounterLabel from '../CounterLabel'
 import classes from './ActionList.module.css'
 
 function SimpleActionList(): JSX.Element {
@@ -599,6 +600,48 @@ describe('ActionList.Item', () => {
       )
       const action = container.querySelector(`.${classes.TrailingActionButton}`)
       expect(action).not.toHaveAttribute('data-has-label')
+    })
+  })
+
+  describe('inactive and disabled text color', () => {
+    function renderItem(props: React.ComponentProps<typeof ActionList.Item>) {
+      const {container} = HTMLRender(
+        <ActionList role="menu" aria-label="Menu">
+          <ActionList.Item {...props}>
+            Label
+            <ActionList.TrailingVisual>
+              <CounterLabel>3</CounterLabel>
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            Enabled
+            <ActionList.TrailingVisual>
+              <CounterLabel>4</CounterLabel>
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>,
+      )
+      const [item, enabled] = container.querySelectorAll<HTMLElement>('[data-component="ActionList.Item"]')
+      const colorOf = (el: Element | null) => getComputedStyle(el!).color
+      return {
+        label: colorOf(item.querySelector(`.${classes.ItemLabel}`)),
+        nested: colorOf(item.querySelector('[data-component="CounterLabel"]')),
+        enabledNested: colorOf(enabled.querySelector('[data-component="CounterLabel"]')),
+        warning: item.querySelector(`.${classes.InactiveWarning}`),
+      }
+    }
+
+    it('mutes nested components that set their own color in inactive items', () => {
+      const {label, nested, enabledNested, warning} = renderItem({inactiveText: 'Unavailable'})
+      expect(nested).toBe(label)
+      expect(nested).not.toBe(enabledNested)
+      expect(getComputedStyle(warning!).color).not.toBe(label)
+    })
+
+    it('mutes nested components that set their own color in disabled items', () => {
+      const {label, nested, enabledNested} = renderItem({disabled: true})
+      expect(nested).toBe(label)
+      expect(nested).not.toBe(enabledNested)
     })
   })
 })

@@ -318,6 +318,12 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   // attributes so the CSS only kicks in when the action is actually in the DOM.
   const trailingActionRendered = !inactive && !loading && !menuContext && Boolean(slots.trailingAction)
 
+  // Mirrors the `<li>` attributes below so CSS can key descendant colors on classes instead of
+  // attributes. See `.InactiveColors` in ActionList.module.css.
+  const liAriaDisabled = 'aria-disabled' in containerProps ? containerProps['aria-disabled'] : undefined
+  const disabledColors = disabled || liAriaDisabled === true || liAriaDisabled === 'true'
+  const inactiveColors = Boolean(inactiveText) && !disabled && !slots.subItem
+
   return (
     <ItemContext.Provider value={itemContextValue}>
       <li
@@ -332,7 +338,12 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-has-description={slots.description ? true : false}
         data-has-trailing-action={trailingActionRendered ? true : undefined}
         data-trailing-action-loading={trailingActionRendered && slots.trailingAction?.props.loading ? true : undefined}
-        className={clsx(classes.ActionListItem, className)}
+        className={clsx(
+          classes.ActionListItem,
+          inactiveColors && classes.InactiveColors,
+          disabledColors && classes.DisabledColors,
+          className,
+        )}
       >
         <ConditionalTooltip ref={forwardedRef} text={_PrivateTooltipText ?? truncatedText} enabled={buttonSemantics}>
           <ItemWrapper
