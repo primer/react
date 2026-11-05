@@ -1,0 +1,551 @@
+{
+  "stage": "after",
+  "head": "f80b27cc531b4f12f3384a68a6c0259639d07d99",
+  "capturedAt": "2026-11-05T20:58:45.431Z",
+  "url": "http://localhost:6007/iframe.html?id=experimental-components-datatable-features--with-collapsible-groups&viewMode=story&globals=colorScheme:light",
+  "browser": "148.0.7778.96",
+  "viewport": {
+    "width": 1012,
+    "height": 768
+  },
+  "deviceScaleFactor": 1,
+  "theme": "light",
+  "cellPadding": "normal (default)",
+  "locale": "en-US",
+  "reducedMotion": "reduce",
+  "errors": [],
+  "states": [
+    {
+      "state": "mixed-expanded",
+      "controls": [
+        {
+          "role": "columnheader",
+          "name": "Public",
+          "description": null,
+          "properties": [
+            {
+              "name": "readonly",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            },
+            {
+              "name": "required",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "role": "cell",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "cell",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "checkbox",
+          "name": "Select Public",
+          "description": "2 rows",
+          "properties": [
+            {
+              "name": "invalid",
+              "value": {
+                "type": "token",
+                "value": "false"
+              }
+            },
+            {
+              "name": "focusable",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "focused",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "checked",
+              "value": {
+                "type": "tristate",
+                "value": "mixed"
+              }
+            },
+            {
+              "name": "describedby",
+              "value": {
+                "type": "idrefList",
+                "value": ":rj:",
+                "relatedNodes": [
+                  {
+                    "backendDOMNodeId": 192,
+                    "idref": ":rj:"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "role": "button",
+          "name": "Public",
+          "description": "2 rows",
+          "properties": [
+            {
+              "name": "invalid",
+              "value": {
+                "type": "token",
+                "value": "false"
+              }
+            },
+            {
+              "name": "focusable",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "expanded",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "describedby",
+              "value": {
+                "type": "idrefList",
+                "value": ":rj:",
+                "relatedNodes": [
+                  {
+                    "backendDOMNodeId": 192,
+                    "idref": ":rj:"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "controls",
+              "value": {
+                "type": "idrefList",
+                "value": ":ri:",
+                "relatedNodes": [
+                  {
+                    "backendDOMNodeId": 193,
+                    "idref": ":ri:"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "role": "StaticText",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "StaticText",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        }
+      ],
+      "dom": [
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": "Select Public",
+          "description": null,
+          "describedby": ":rj:",
+          "referencedDescription": "2 rows",
+          "checked": false,
+          "indeterminate": true,
+          "disabled": false,
+          "expanded": null,
+          "focused": true
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Public",
+          "description": null,
+          "describedby": ":rj:",
+          "referencedDescription": "2 rows",
+          "checked": null,
+          "indeterminate": null,
+          "disabled": false,
+          "expanded": "true",
+          "focused": false
+        }
+      ],
+      "tree": "- table \"Repositories\":\n  - rowgroup:\n    - row \"Select rows Repository Visibility\":\n      - columnheader \"Select rows\":\n        - checkbox \"Select rows\" [checked=mixed]\n      - columnheader \"Repository\"\n      - columnheader \"Visibility\"\n  - rowgroup:\n    - row \"Select github/github Internal\":\n      - cell \"Select github/github\":\n        - text: Select\n        - checkbox \"Select github/github\"\n      - rowheader \"github/github\"\n      - cell \"Internal\"\n  - rowgroup:\n    - row \"Public\":\n      - columnheader \"Public\":\n        - checkbox \"Select Public\" [checked=mixed]\n        - button \"Public\" [expanded]\n        - text: 2 rows\n  - rowgroup:\n    - row \"Select primer/react Public\":\n      - cell \"Select primer/react\":\n        - text: Select\n        - checkbox \"Select primer/react\" [checked]\n      - rowheader \"primer/react\"\n      - cell \"Public\"\n    - row \"Select primer/css Public\":\n      - cell \"Select primer/css\":\n        - text: Select\n        - checkbox \"Select primer/css\"\n      - rowheader \"primer/css\"\n      - cell \"Public\""
+    },
+    {
+      "state": "all-collapsed",
+      "controls": [
+        {
+          "role": "columnheader",
+          "name": "Public",
+          "description": null,
+          "properties": [
+            {
+              "name": "readonly",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            },
+            {
+              "name": "required",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "role": "checkbox",
+          "name": "Select Public",
+          "description": "2 rows",
+          "properties": [
+            {
+              "name": "invalid",
+              "value": {
+                "type": "token",
+                "value": "false"
+              }
+            },
+            {
+              "name": "focusable",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "focused",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "checked",
+              "value": {
+                "type": "tristate",
+                "value": "true"
+              }
+            },
+            {
+              "name": "describedby",
+              "value": {
+                "type": "idrefList",
+                "value": ":rj:",
+                "relatedNodes": [
+                  {
+                    "backendDOMNodeId": 192,
+                    "idref": ":rj:"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "role": "button",
+          "name": "Public",
+          "description": "2 rows",
+          "properties": [
+            {
+              "name": "invalid",
+              "value": {
+                "type": "token",
+                "value": "false"
+              }
+            },
+            {
+              "name": "focusable",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "expanded",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": false
+              }
+            },
+            {
+              "name": "describedby",
+              "value": {
+                "type": "idrefList",
+                "value": ":rj:",
+                "relatedNodes": [
+                  {
+                    "backendDOMNodeId": 192,
+                    "idref": ":rj:"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "dom": [
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": "Select Public",
+          "description": null,
+          "describedby": ":rj:",
+          "referencedDescription": "2 rows",
+          "checked": true,
+          "indeterminate": false,
+          "disabled": false,
+          "expanded": null,
+          "focused": true
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Public",
+          "description": null,
+          "describedby": ":rj:",
+          "referencedDescription": "2 rows",
+          "checked": null,
+          "indeterminate": null,
+          "disabled": false,
+          "expanded": "false",
+          "focused": false
+        }
+      ],
+      "tree": "- table \"Repositories\":\n  - rowgroup:\n    - row \"Select rows Repository Visibility\":\n      - columnheader \"Select rows\":\n        - checkbox \"Select rows\" [checked=mixed]\n      - columnheader \"Repository\"\n      - columnheader \"Visibility\"\n  - rowgroup:\n    - row \"Select github/github Internal\":\n      - cell \"Select github/github\":\n        - text: Select\n        - checkbox \"Select github/github\"\n      - rowheader \"github/github\"\n      - cell \"Internal\"\n  - rowgroup:\n    - row \"Public\":\n      - columnheader \"Public\":\n        - checkbox \"Select Public\" [checked]\n        - button \"Public\"\n        - text: 2 rows"
+    },
+    {
+      "state": "none-expanded",
+      "controls": [
+        {
+          "role": "columnheader",
+          "name": "Public",
+          "description": null,
+          "properties": [
+            {
+              "name": "readonly",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            },
+            {
+              "name": "required",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "role": "cell",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "cell",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "checkbox",
+          "name": "Select Public",
+          "description": "2 rows",
+          "properties": [
+            {
+              "name": "invalid",
+              "value": {
+                "type": "token",
+                "value": "false"
+              }
+            },
+            {
+              "name": "focusable",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "checked",
+              "value": {
+                "type": "tristate",
+                "value": "false"
+              }
+            },
+            {
+              "name": "describedby",
+              "value": {
+                "type": "idrefList",
+                "value": ":rj:",
+                "relatedNodes": [
+                  {
+                    "backendDOMNodeId": 192,
+                    "idref": ":rj:"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "role": "button",
+          "name": "Public",
+          "description": "2 rows",
+          "properties": [
+            {
+              "name": "invalid",
+              "value": {
+                "type": "token",
+                "value": "false"
+              }
+            },
+            {
+              "name": "focusable",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "focused",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "expanded",
+              "value": {
+                "type": "booleanOrUndefined",
+                "value": true
+              }
+            },
+            {
+              "name": "describedby",
+              "value": {
+                "type": "idrefList",
+                "value": ":rj:",
+                "relatedNodes": [
+                  {
+                    "backendDOMNodeId": 192,
+                    "idref": ":rj:"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "controls",
+              "value": {
+                "type": "idrefList",
+                "value": ":ri:",
+                "relatedNodes": [
+                  {
+                    "backendDOMNodeId": 193,
+                    "idref": ":ri:"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "role": "StaticText",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "StaticText",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Public",
+          "description": null,
+          "properties": []
+        }
+      ],
+      "dom": [
+        {
+          "tag": "INPUT",
+          "type": "checkbox",
+          "name": "Select Public",
+          "description": null,
+          "describedby": ":rj:",
+          "referencedDescription": "2 rows",
+          "checked": false,
+          "indeterminate": false,
+          "disabled": false,
+          "expanded": null,
+          "focused": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "name": "Public",
+          "description": null,
+          "describedby": ":rj:",
+          "referencedDescription": "2 rows",
+          "checked": null,
+          "indeterminate": null,
+          "disabled": false,
+          "expanded": "true",
+          "focused": true
+        }
+      ],
+      "tree": "- table \"Repositories\":\n  - rowgroup:\n    - row \"Select rows Repository Visibility\":\n      - columnheader \"Select rows\":\n        - checkbox \"Select rows\"\n      - columnheader \"Repository\"\n      - columnheader \"Visibility\"\n  - rowgroup:\n    - row \"Select github/github Internal\":\n      - cell \"Select github/github\":\n        - text: Select\n        - checkbox \"Select github/github\"\n      - rowheader \"github/github\"\n      - cell \"Internal\"\n  - rowgroup:\n    - row \"Public\":\n      - columnheader \"Public\":\n        - checkbox \"Select Public\"\n        - button \"Public\" [expanded]\n        - text: 2 rows\n  - rowgroup:\n    - row \"Select primer/react Public\":\n      - cell \"Select primer/react\":\n        - text: Select\n        - checkbox \"Select primer/react\"\n      - rowheader \"primer/react\"\n      - cell \"Public\"\n    - row \"Select primer/css Public\":\n      - cell \"Select primer/css\":\n        - text: Select\n        - checkbox \"Select primer/css\"\n      - rowheader \"primer/css\"\n      - cell \"Public\""
+    }
+  ],
+  "manualScreenReaderTesting": "Not run; pending NVDA/Firefox, JAWS/Chrome or Edge, VoiceOver/Safari.",
+  "sourceState": "Working tree implementation on baseline f80b27cc531b4f12f3384a68a6c0259639d07d99; source changes are included in this PR."
+}

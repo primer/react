@@ -263,8 +263,14 @@ and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.sto
 
 With `collapsibleGroups` (`Table.Group`'s `collapsible`), the group header contains
 a native disclosure button. The header and button use the group label, or its
-`aria-label` override, as their name; the button's `aria-description` supplies the
-row count. The generated count description is currently English.
+`aria-label` override, as their name. The checkbox and disclosure reference the same
+count description through `aria-describedby`. It defaults to `1 row` or `N rows`.
+Localize it with `DataTable`'s `getGroupRowCountLabel` or `Table.Group`'s
+`getRowCountLabel`, following the count-label callback convention used by
+`Table.BulkActions`. The count describes all members, including non-selectable
+members, and matches the visible group count; it is not the number selected or
+the number that can be selected. It updates when the member count changes, even
+while the group is collapsed. This description is not a live region.
 
 - Enter or Space toggles `aria-expanded`; `aria-controls` references the member body.
 - Collapsed members stay mounted but are hidden from table navigation and Tab order.
@@ -278,6 +284,18 @@ members. Partial selection is mixed; activating it selects the remaining members
 Empty groups and groups without selectable members have disabled checkboxes.
 The checkbox precedes the disclosure in Tab order; selection does not toggle expansion.
 With `Table.Group`, consumers provide `selection`, `selectionDisabled`, and `onToggleSelect`.
+
+This combined interaction is intentional: select or clear a group's selectable
+members in one action while controlling visibility independently. Config-driven
+non-collapsible groups keep their existing member-row selection controls without
+a group checkbox. Presentational `Table.Group` supports a checkbox with or without
+a disclosure when `selection` is provided.
+
+Focused automated coverage lives in [DataTableGroupSelection.test.tsx](./__tests__/DataTableGroupSelection.test.tsx)
+and [DataTableExpansion.test.tsx](./__tests__/DataTableExpansion.test.tsx). Browser
+accessibility-tree evidence does not establish a screen-reader pass. The combined
+model still requires manual NVDA/Firefox, JAWS/Chrome or Edge, and VoiceOver/Safari
+verification, including count descriptions on focus and after count changes.
 
 ## Bulk actions
 

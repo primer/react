@@ -1,0 +1,30 @@
+[
+  {
+    "colorScheme": "light",
+    "state": "expanded",
+    "violations": [],
+    "incomplete": [],
+    "passes": 32
+  },
+  {
+    "colorScheme": "light",
+    "state": "collapsed",
+    "violations": [],
+    "incomplete": [],
+    "passes": 32
+  },
+  {
+    "colorScheme": "dark",
+    "state": "expanded",
+    "violations": [],
+    "incomplete": [],
+    "passes": 32
+  },
+  {
+    "colorScheme": "dark",
+    "state": "collapsed",
+    "violations": [],
+    "incomplete": [],
+    "passes": 32
+  }
+]

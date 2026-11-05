@@ -72,7 +72,7 @@ describe('DataTable group expansion', () => {
     const first = screen.getByRole('button', {name: 'First'})
     const second = screen.getByRole('button', {name: 'Second'})
     expect(first).toHaveAttribute('aria-expanded', 'true')
-    expect(first).toHaveAttribute('aria-description', '2 rows')
+    expect(first).toHaveAccessibleDescription('2 rows')
     const body = container.querySelector(`[id="${first.getAttribute('aria-controls')}"]`)
     expect(body).toHaveAttribute('data-component', 'Table.Group.Body')
     await user.click(first)
