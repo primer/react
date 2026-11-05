@@ -11,7 +11,8 @@ export interface FilteredActionListInputProps extends Partial<Omit<TextInputProp
   onInputKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
   onInputKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
   placeholderText?: string
-  listId: string
+  /** ID of the rendered list. Omit it while the list is not rendered. */
+  listId?: string
   inputDescriptionTextId: string
   loading: boolean
   fullScreenOnNarrow?: boolean
@@ -51,7 +52,7 @@ export function FilteredActionListInput({
         onKeyDown={onInputKeyDown}
         placeholder={placeholderText}
         role="combobox"
-        aria-expanded="true"
+        aria-expanded={listId !== undefined}
         aria-autocomplete="list"
         aria-controls={listId}
         aria-label={placeholderText}

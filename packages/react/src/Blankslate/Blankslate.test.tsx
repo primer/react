@@ -2,6 +2,7 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Blankslate} from '../Blankslate'
+import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 import classes from './Blankslate.module.css'
 
@@ -23,11 +24,12 @@ function getCSSStyleRules(): Array<CSSStyleRule> {
   })
 }
 
-function getSizePadding(size: 'small' | 'medium' | 'large') {
+function getSizePadding(size: 'small' | 'medium' | 'large', compactDefault = false) {
   const rule = getCSSStyleRules().find(cssRule => {
     return (
       cssRule.selectorText.includes(`.${classes.Blankslate}`) &&
       cssRule.selectorText.includes(`data-size="${size}"`) &&
+      cssRule.selectorText.includes('data-compact-default') === compactDefault &&
       !cssRule.selectorText.includes('data-spacious')
     )
   })
@@ -57,6 +59,39 @@ describe('Blankslate', () => {
     render(<Blankslate>Test content</Blankslate>)
 
     expect(getSizePadding('small')).toMatch(/^var\(--base-size-16/)
+  })
+
+  it('keeps the existing size scale when the compact default feature is disabled', () => {
+    const {container} = render(<Blankslate size="small">Test content</Blankslate>)
+    const blankslate = container.querySelector('[data-component="Blankslate"]')
+
+    expect(blankslate).toHaveAttribute('data-size', 'small')
+    expect(blankslate).not.toHaveAttribute('data-compact-default')
+  })
+
+  it('uses the compact default size scale when the feature is enabled', () => {
+    const {container} = render(
+      <FeatureFlags flags={{primer_react_blankslate_compact_default: true}}>
+        <Blankslate>Test content</Blankslate>
+      </FeatureFlags>,
+    )
+    const blankslate = container.querySelector('[data-component="Blankslate"]')
+
+    expect(blankslate).toHaveAttribute('data-size', 'medium')
+    expect(blankslate).toHaveAttribute('data-compact-default', '')
+    expect(getSizePadding('medium', true)).toMatch(/^var\(--base-size-16/)
+    expect(getSizePadding('large', true)).toMatch(/^var\(--base-size-32/)
+  })
+
+  it('maps the legacy small size to the compact default size when the feature is enabled', () => {
+    const {container} = render(
+      <FeatureFlags flags={{primer_react_blankslate_compact_default: true}}>
+        <Blankslate size="small">Test content</Blankslate>
+      </FeatureFlags>,
+    )
+    const blankslate = container.querySelector('[data-component="Blankslate"]')
+
+    expect(blankslate).toHaveAttribute('data-size', 'medium')
   })
 
   it('renders data-component attributes', () => {
@@ -144,6 +179,28 @@ describe('Blankslate', () => {
         </Blankslate>,
       )
       expect(screen.getByRole('button', {name: 'Primary action'})).toBeInTheDocument()
+    })
+
+    it('uses the default button size when the compact default feature is enabled', () => {
+      render(
+        <FeatureFlags flags={{primer_react_blankslate_compact_default: true}}>
+          <Blankslate size="small">
+            <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
+          </Blankslate>
+        </FeatureFlags>,
+      )
+
+      expect(screen.getByRole('button', {name: 'Primary action'})).toHaveAttribute('data-size', 'medium')
+    })
+
+    it('keeps the small button size when the compact default feature is disabled', () => {
+      render(
+        <Blankslate size="small">
+          <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
+        </Blankslate>,
+      )
+
+      expect(screen.getByRole('button', {name: 'Primary action'})).toHaveAttribute('data-size', 'small')
     })
 
     it('should handle click events on the button', async () => {
