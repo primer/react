@@ -5,6 +5,8 @@ import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import Breadcrumbs from '..'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Breadcrumbs.module.css'
 
 // Uses real layout and a real ResizeObserver.
 
@@ -50,6 +52,8 @@ const visibleLinks = () => screen.queryAllByRole('link').map(link => link.textCo
 const menuButton = () => screen.queryByRole('button', {name: /more breadcrumb items/i})
 
 describe('Breadcrumbs overflow (real layout)', () => {
+  implementsClassName(Breadcrumbs, classes.BreadcrumbsBase)
+
   it('collapses leading crumbs so the visible crumbs fit the container', async () => {
     const {container, setWidth} = renderCrumbs(1200)
     await nextFrame()
@@ -283,24 +287,33 @@ describe('Breadcrumbs overflow regressions (real layout)', () => {
     return screen.queryAllByRole('link').every(link => link.getBoundingClientRect().right <= navRight + 1)
   }
 
-  it('settles instead of looping when large text puts the container at the collapse boundary', async () => {
-    // Text scaling grows the separator drawn between crumbs by `em`, but not the 16px icon
-    // used once crumbs collapse. Sweep the widths around the boundary for four crumbs.
-    for (let width = 600; width <= 720; width += 8) {
-      const {unmount} = render(
-        <div style={{width, ['--text-body-size-medium' as string]: '28px'}}>
-          {crumbs('menu', ['Home', 'Organization', 'Engineering', 'Current page'])}
-        </div>,
-      )
-      await nextFrame()
-      const settled = visibleLinks()
-      await nextFrame()
-      await nextFrame()
-      expect(visibleLinks(), `width ${width}`).toEqual(settled)
-      expect(settled.at(-1), `width ${width}`).toBe('Current page')
-      unmount()
-    }
-  })
+  it.each([
+    {overflow: 'menu', fontSize: 28, from: 600, to: 720, step: 8},
+    {overflow: 'menu-with-root', fontSize: 28, from: 600, to: 720, step: 8},
+    {overflow: 'menu', fontSize: 40, from: 600, to: 1000, step: 16},
+    {overflow: 'menu-with-root', fontSize: 40, from: 600, to: 1000, step: 16},
+  ] as const)(
+    'settles and keeps visible crumbs inside the nav with $fontSize px text in $overflow mode',
+    async ({overflow, fontSize, from, to, step}) => {
+      // Text scaling grows the separator drawn between crumbs by `em`, but not the 16px icon
+      // used once crumbs collapse, so the separators must be measured, not assumed.
+      for (let width = from; width <= to; width += step) {
+        const {unmount} = render(
+          <div style={{width, ['--text-body-size-medium' as string]: `${fontSize}px`}}>
+            {crumbs(overflow, ['Home', 'Organization', 'Engineering', 'Current page'])}
+          </div>,
+        )
+        await nextFrame()
+        const settled = visibleLinks()
+        await nextFrame()
+        await nextFrame()
+        expect(visibleLinks(), `width ${width}`).toEqual(settled)
+        expect(settled.at(-1), `width ${width}`).toBe('Current page')
+        expect(linksWithinNav(), `width ${width}: ${settled.join(', ')}`).toBe(true)
+        unmount()
+      }
+    },
+  )
 
   it('keeps the same crumbs when the breadcrumbs are hidden and shown again', async () => {
     const {container, setWidth} = renderCrumbs(600, 'menu', longLabels)

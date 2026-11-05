@@ -190,17 +190,23 @@
  * so none of this applies afterwards or costs anything at runtime.
  *
  * Crumbs that don't fit are clipped at the start, so the leaf stays visible and nothing
- * paints outside the nav. The spacer keeps crumbs that fit start-aligned.
+ * paints outside the nav. Browsers don't scroll a partially visible focus target into view, so
+ * while a crumb has focus the list wraps and every crumb is fully visible. It is start-aligned
+ * because content that overflows the start edge can't be scrolled to, and snaps to the leaf
+ * initially.
  */
 .BreadcrumbsBase:where([data-overflow^='menu']:not([data-hydrated])) > .BreadcrumbsList {
   min-width: 0;
   flex: 1 1 auto;
-  overflow: clip;
-  justify-content: flex-end;
+  overflow: hidden;
+  scroll-snap-type: x mandatory;
 
-  &::after {
-    flex: 1 0 0;
-    content: '';
+  & > :last-child {
+    scroll-snap-align: end;
+  }
+
+  &:focus-within {
+    flex-wrap: wrap;
   }
 }
 

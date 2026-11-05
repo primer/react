@@ -36,7 +36,9 @@ export type BreadcrumbsProps = React.PropsWithChildren<{
 }>
 
 const MENU_BUTTON_WIDTH = 32 // small IconButton
-const SEPARATOR_ALLOWANCE = 16
+// Width of the chevron icon drawn between collapsed-style crumbs. Also the starting guess for
+// the plain separator until one has been measured.
+const SEPARATOR_ICON_WIDTH = 16
 const NARROW_WIDTH = 544
 
 /**
@@ -58,27 +60,45 @@ function countRule(withRoot: boolean, narrow: boolean, itemCount: number) {
   return Math.max(0, itemCount - minVisible(withRoot, narrow, itemCount))
 }
 
-function computeFit(widths: number[], available: number, withRoot: boolean): Fit {
+/**
+ * Separator width after a crumb, per rendering. The plain one is drawn in `em`, so it follows the
+ * text size; the collapsed one is the fixed-size icon.
+ */
+type Separators = {plain: number; collapsed: number}
+
+const INITIAL_SEPARATORS: Separators = {plain: SEPARATOR_ICON_WIDTH, collapsed: SEPARATOR_ICON_WIDTH}
+
+function computeFit(widths: number[], separators: Separators, available: number, withRoot: boolean): Fit {
   const itemCount = widths.length
   if (available <= 0 || itemCount === 0) return INITIAL_FIT
   const narrow = available < NARROW_WIDTH
   const min = minVisible(withRoot, narrow, itemCount)
-  const rootWidth = withRoot ? widths[0] : 0
-  let visibleWidth = widths.reduce((sum, width) => sum + width + SEPARATOR_ALLOWANCE, 0)
+  const rootWidth = withRoot ? widths[0] + separators.collapsed : 0
+  // Collapsing the first `collapsed` crumbs. Mirrors the rendering: with nothing in the menu every
+  // crumb is shown with the plain separator (the last has none). Otherwise the visible crumbs
+  // each count a collapsed separator, the last one's standing in for the menu item's own.
+  const menuCount = (collapsed: number) => Math.max(0, collapsed - (withRoot ? 1 : 0))
+  let tailWidth = widths.reduce((sum, width) => sum + width + separators.collapsed, 0)
+  const total = widths.reduce((sum, width) => sum + width, 0)
+  const width = (collapsed: number) =>
+    menuCount(collapsed) === 0 ? total + separators.plain * (itemCount - 1) : rootWidth + tailWidth + MENU_BUTTON_WIDTH
   let collapsed = 0
   let rootCollapsed = false
-  while (
-    rootWidth + visibleWidth + (collapsed > 0 ? MENU_BUTTON_WIDTH : 0) > available ||
-    itemCount - collapsed > min
-  ) {
-    visibleWidth -= widths[collapsed] + SEPARATOR_ALLOWANCE
+  while (width(collapsed) > available || itemCount - collapsed > min) {
+    tailWidth -= widths[collapsed] + separators.collapsed
     collapsed += 1
-    if (itemCount - collapsed === 1 && rootWidth + visibleWidth + MENU_BUTTON_WIDTH > available) {
+    if (itemCount - collapsed === 1 && width(collapsed) > available) {
       rootCollapsed = withRoot
       break
     }
   }
   return {extra: collapsed - countRule(withRoot, narrow, itemCount), rootCollapsed, narrow}
+}
+
+// Content box width: excludes padding, matching what the crumbs can occupy.
+function getContentWidth(nav: HTMLElement) {
+  const {paddingLeft, paddingRight} = getComputedStyle(nav)
+  return nav.clientWidth - parseFloat(paddingLeft) - parseFloat(paddingRight)
 }
 
 const sameFit = (a: Fit, b: Fit) => a.extra === b.extra && a.rootCollapsed === b.rootCollapsed && a.narrow === b.narrow
@@ -162,6 +182,8 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   const [fit, setFit] = useState<Fit>(INITIAL_FIT)
   // Mirrors `fit` so unchanged results never schedule a render.
   const fitRef = useRef<Fit>(INITIAL_FIT)
+  // Last measured separator widths. Like the crumb widths they don't depend on the fit.
+  const separatorsRef = useRef(INITIAL_SEPARATORS)
   const [menuOpen, setMenuOpen] = useState(false)
 
   const collapsible = overflow !== 'wrap'
@@ -172,7 +194,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   const updateFit = useCallback(
     (available: number) => {
       const widths = items.map(item => widthsRef.current.get(item.key ?? '') ?? 0)
-      const next = computeFit(widths, available, withRoot)
+      const next = computeFit(widths, separatorsRef.current, available, withRoot)
       if (sameFit(fitRef.current, next)) return
       fitRef.current = next
       setFit(next)
@@ -181,30 +203,67 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   )
 
   // Measure the crumbs that are rendered. This only reads layout. Collapsed crumbs that can
-  // reappear stay mounted out of flow, so `scrollWidth` still reports their natural width.
+  // reappear stay mounted as zero-size items, so their width is still their natural width. The
+  // crumb is measured without its separator, and each styling's separator is kept on its own
+  // (taken from any rendered crumb that has one), so measurements don't change when the fit does.
+  const measure = useCallback(
+    (nav: HTMLElement, available: number) => {
+      const previous = widthsRef.current
+      const widths = new Map<React.Key, number>()
+      let separators = separatorsRef.current
+      for (const item of items) {
+        const width = previous.get(item.key ?? '')
+        if (width !== undefined) widths.set(item.key ?? '', width)
+      }
+      for (const li of nav.querySelectorAll<HTMLElement>(':scope > ol > li[data-index]')) {
+        const key = items[Number(li.getAttribute('data-index'))]?.key
+        const crumb = li.firstElementChild
+        if (key == null || !crumb) continue
+        const crumbWidth = crumb.getBoundingClientRect().width
+        widths.set(key, crumbWidth)
+        if (li.nextElementSibling && !li.hasAttribute('data-collapsed')) {
+          const separator = li.getBoundingClientRect().width - crumbWidth
+          const kind = li.classList.contains(classes.ItemWrapper) ? 'plain' : 'collapsed'
+          if (separators[kind] !== separator) separators = {...separators, [kind]: separator}
+        }
+      }
+      separatorsRef.current = separators
+      widthsRef.current = widths
+      updateFit(available)
+    },
+    [items, updateFit],
+  )
+
+  // True while the nav had no width (e.g. `display: none`). Its crumbs can't be measured then,
+  // so the previous widths and fit are kept and layout is measured again once it is shown.
+  const hiddenRef = useRef(false)
+
   useIsomorphicLayoutEffect(() => {
     const nav = navRef.current
     if (!collapsible || !nav) return
     // Hands layout over from the pre-hydration CSS rules. JS-owned: React never renders it.
     if (!nav.hasAttribute('data-hydrated')) nav.setAttribute('data-hydrated', '')
-    const previous = widthsRef.current
-    const widths = new Map<React.Key, number>()
-    for (const item of items) {
-      const width = previous.get(item.key ?? '')
-      if (width !== undefined) widths.set(item.key ?? '', width)
-    }
-    for (const li of nav.querySelectorAll<HTMLElement>(':scope > ol > li[data-index]')) {
-      const key = items[Number(li.getAttribute('data-index'))]?.key
-      if (key != null) widths.set(key, li.scrollWidth)
-    }
-    widthsRef.current = widths
-    updateFit(nav.clientWidth)
-  }, [items, collapsible, fit, menuOpen, updateFit])
+    const available = getContentWidth(nav)
+    hiddenRef.current = available <= 0
+    if (!hiddenRef.current) measure(nav, available)
+  }, [collapsible, fit, menuOpen, measure])
 
   // Container resizes reuse the cached widths; React only re-renders when the split changes.
+  // The width is read from the element rather than the observer entry because the hook's
+  // fallback reports the border box.
   useResizeObserver(
     () => {
-      if (navRef.current) updateFit(navRef.current.clientWidth)
+      const nav = navRef.current
+      if (!nav) return
+      const available = getContentWidth(nav)
+      if (available <= 0) {
+        hiddenRef.current = true
+      } else if (hiddenRef.current) {
+        hiddenRef.current = false
+        measure(nav, available)
+      } else {
+        updateFit(available)
+      }
     },
     navRef,
     [],
@@ -213,6 +272,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   let content: React.ReactNode
   if (!collapsible) {
+    if (menuOpen) setMenuOpen(false)
     content = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   } else {
     const collapsed = Math.min(Math.max(itemCount - 1, 0), countRule(withRoot, fit.narrow, itemCount) + fit.extra)
