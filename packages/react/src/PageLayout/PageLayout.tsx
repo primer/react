@@ -642,7 +642,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         widthStorageKey,
         paneRef,
         handleRef,
-        contentWrapperRef,
         onResizeEnd,
         currentWidth: controlledWidth,
       })
@@ -955,7 +954,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
     },
     forwardRef,
   ) => {
-    const {columnGap, sidebarRef, sidebarContentWrapperRef} = React.useContext(PageLayoutContext)
+    const {columnGap, sidebarRef} = React.useContext(PageLayoutContext)
 
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
@@ -973,7 +972,6 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         widthStorageKey,
         paneRef: sidebarRef,
         handleRef,
-        contentWrapperRef: sidebarContentWrapperRef,
         constrainToViewport: true,
         onResizeEnd,
         currentWidth: controlledWidth,
