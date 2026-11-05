@@ -167,9 +167,13 @@
 }
 
 /* A collapsed crumb that can reappear at wider sizes. It stays mounted, so it never remounts
-   and `scrollWidth` still reports its natural width. It stays in flow as a zero-size item:
-   out-of-flow (absolute) boxes made resize layout measurably slower. */
+   and can still be measured. It stays in flow as a zero-size item: out-of-flow (absolute)
+   boxes made resize layout measurably slower. The grid track is sized to the content, not to
+   the zero-width item, so the crumb keeps its natural width whatever its `min-width` is.
+   Without that it would shrink to its minimum, measure narrower than it is when shown, and
+   the fit would flip between the two. */
 .BreadcrumbsItem[data-collapsed] {
+  grid-auto-columns: max-content;
   flex: none;
   width: 0;
   height: 0;

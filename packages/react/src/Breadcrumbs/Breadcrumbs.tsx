@@ -203,7 +203,8 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   )
 
   // Measure the crumbs that are rendered. This only reads layout. Collapsed crumbs that can
-  // reappear stay mounted as zero-size items, so their width is still their natural width. The
+  // reappear stay mounted as zero-size items whose grid track is `max-content` (see the CSS), so
+  // they measure at their natural width whatever their `min-width` is. The
   // crumb is measured without its separator, and each styling's separator is kept on its own
   // (taken from any rendered crumb that has one), so measurements don't change when the fit does.
   const measure = useCallback(

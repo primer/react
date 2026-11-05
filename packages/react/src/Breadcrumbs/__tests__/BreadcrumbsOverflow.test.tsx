@@ -375,6 +375,26 @@ describe('Breadcrumbs overflow regressions (real layout)', () => {
     expect(visibleLinks()).toEqual(['Engineering'])
   })
 
+  it('settles when crumbs have a min-width smaller than their content', async () => {
+    // Downstream crumbs set `min-width: 3ch`. A collapsed crumb is a zero-width item, so it shrinks
+    // to its min-width. Measuring it there makes both crumbs appear to fit, which expands them again.
+    render(
+      <div style={{width: 90}}>
+        <Breadcrumbs overflow="menu">
+          {['github', 'test-123'].map((label, index) => (
+            <Breadcrumbs.Item key={label} href={`#${label}`} selected={index === 1} style={{minWidth: '3ch'}}>
+              {label}
+            </Breadcrumbs.Item>
+          ))}
+        </Breadcrumbs>
+      </div>,
+    )
+    await nextFrame()
+    expect(screen.getByRole('navigation', {name: 'Breadcrumbs'})).toBeInTheDocument()
+    expect(visibleLinks()).toEqual(['test-123'])
+    expect(linksWithinNav()).toBe(true)
+  })
+
   it('starts with the overflow menu closed after switching to wrap and back', async () => {
     const user = userEvent.setup()
     const ui = (overflow: 'wrap' | 'menu') => <div style={{width: 300}}>{crumbs(overflow, labels)}</div>
