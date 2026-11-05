@@ -1,8 +1,11 @@
-import type {Meta} from '@storybook/react-vite'
+import type {Meta, StoryFn} from '@storybook/react-vite'
+import {useState} from 'react'
 import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import classes from './SegmentedControl.dev.stories.module.css'
+import TextInput from '../TextInput'
 
 const excludedControlKeys = ['variant']
 
@@ -107,3 +110,106 @@ export const WithCss = () => (
     </SegmentedControl.Button>
   </SegmentedControl>
 )
+
+type ConstrainedControlsArgs = {
+  size: 'small' | 'medium'
+  appearance: 'default' | 'subtle'
+  fullWidthMode: 'omitted' | 'explicit-false'
+  textContent: 'plain' | 'unequal-labels-with-visuals'
+}
+
+export const ConstrainedControls: StoryFn<ConstrainedControlsArgs> = ({
+  size,
+  appearance,
+  fullWidthMode,
+  textContent,
+}) => {
+  const props = {size, variant: appearance, fullWidth: fullWidthMode === 'explicit-false' ? false : undefined}
+  const withVisuals = textContent === 'unequal-labels-with-visuals'
+
+  return (
+    <div className={classes.ConstrainedControls}>
+      <div>
+        <SegmentedControl {...props} aria-label="Text file view">
+          <SegmentedControl.Button
+            defaultSelected
+            leadingVisual={withVisuals ? EyeIcon : undefined}
+            count={withVisuals ? 5 : undefined}
+          >
+            {withVisuals ? 'Preview changes before publishing '.repeat(8) : 'Preview changes before publishing'}
+          </SegmentedControl.Button>
+          <SegmentedControl.Button>Code</SegmentedControl.Button>
+          <SegmentedControl.Button
+            leadingVisual={withVisuals ? PeopleIcon : undefined}
+            count={withVisuals ? 2 : undefined}
+          >
+            Blame
+          </SegmentedControl.Button>
+        </SegmentedControl>
+      </div>
+      <div>
+        <SegmentedControl {...props} aria-label="Mixed file view">
+          <SegmentedControl.Button defaultSelected>Preview changes</SegmentedControl.Button>
+          <SegmentedControl.IconButton aria-label="Code" icon={FileCodeIcon} />
+          <SegmentedControl.IconButton aria-label="Blame" icon={PeopleIcon} />
+        </SegmentedControl>
+      </div>
+      <div>
+        <SegmentedControl {...props} aria-label="Icon file view">
+          <SegmentedControl.IconButton defaultSelected aria-label="Preview" icon={EyeIcon} />
+          <SegmentedControl.IconButton aria-label="Code" icon={FileCodeIcon} />
+          <SegmentedControl.IconButton aria-label="Blame" icon={PeopleIcon} />
+        </SegmentedControl>
+      </div>
+    </div>
+  )
+}
+
+ConstrainedControls.args = {size: 'medium', appearance: 'default', fullWidthMode: 'omitted', textContent: 'plain'}
+
+ConstrainedControls.argTypes = {
+  size: {control: 'radio', options: ['small', 'medium']},
+  appearance: {control: 'radio', options: ['default', 'subtle']},
+  fullWidthMode: {control: 'radio', options: ['omitted', 'explicit-false']},
+  textContent: {control: 'radio', options: ['plain', 'unequal-labels-with-visuals']},
+}
+
+export const ChangingLabel = () => {
+  const [label, setLabel] = useState('Preview changes before publishing')
+  const [disabled, setDisabled] = useState(false)
+  const [focusEvents, setFocusEvents] = useState(0)
+  const [mouseOverEvents, setMouseOverEvents] = useState(0)
+  const [mouseEnterEvents, setMouseEnterEvents] = useState(0)
+
+  return (
+    <div className={classes.ConstrainedControls}>
+      <TextInput aria-label="Segment label" value={label} onChange={event => setLabel(event.target.value)} />
+      <label>
+        <input type="checkbox" checked={disabled} onChange={event => setDisabled(event.target.checked)} />
+        Disable first segment
+      </label>
+      <p id="changing-label-description">Choose a file view</p>
+      <div className={classes.ChangingLabelControl}>
+        <SegmentedControl aria-label="File view">
+          <SegmentedControl.Button
+            defaultSelected
+            leadingVisual={EyeIcon}
+            count={5}
+            disabled={disabled}
+            aria-describedby="changing-label-description"
+            onFocus={() => setFocusEvents(value => value + 1)}
+            onMouseOverCapture={() => setMouseOverEvents(value => value + 1)}
+            onMouseEnter={() => setMouseEnterEvents(value => value + 1)}
+          >
+            {label}
+          </SegmentedControl.Button>
+          <SegmentedControl.Button>Code</SegmentedControl.Button>
+          <SegmentedControl.Button>Blame</SegmentedControl.Button>
+        </SegmentedControl>
+      </div>
+      <output aria-label="Focus events">{focusEvents}</output>
+      <output aria-label="Mouse-over events">{mouseOverEvents}</output>
+      <output aria-label="Mouse-enter events">{mouseEnterEvents}</output>
+    </div>
+  )
+}
