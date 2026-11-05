@@ -38,12 +38,17 @@
 }
 
 .CharacterCounter {
+  --Textarea--characterCounter-color: var(--fgColor-muted);
+  --Textarea--characterCounter-gap: var(--control-xsmall-gap);
+
   display: flex;
   align-items: center;
-  gap: var(--control-xsmall-gap);
-  color: var(--fgColor-muted);
+  gap: var(--Textarea--characterCounter-gap);
+  color: var(--Textarea--characterCounter-color);
 }
 
 .CharacterCounter--error {
-  color: var(--fgColor-danger);
+  --Textarea--characterCounterError-color: var(--fgColor-danger);
+
+  color: var(--Textarea--characterCounterError-color);
 }

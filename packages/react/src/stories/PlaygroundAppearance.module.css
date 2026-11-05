@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'Playground W95FA';
+  src: url('./assets/w95fa/w95fa.woff2') format('woff2');
+  font-style: normal;
+  font-weight: var(--base-text-weight-normal);
+  font-display: swap;
+}
+
+.Playground {
+  min-height: 100vh;
+}
+
+.Controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-8) var(--base-size-16);
+  align-items: end;
+  padding: var(--base-size-8) var(--base-size-12);
+  color: var(--fgColor-default);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  background: var(--bgColor-muted);
+}
+
+.Control {
+  display: grid;
+  gap: 0;
+  width: min(144px, calc((100% - var(--base-size-16)) / 2));
+  max-width: 100%;
+
+  label {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 var(--base-size-8);
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+  }
+}
+
+.SeriousnessControl {
+  width: min(176px, calc((100% - var(--base-size-16)) / 2));
+}
+
+.Controls .ThemeControl {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+
+  > label {
+    display: none;
+  }
+
+  > button {
+    min-width: 0;
+    max-width: 144px;
+
+    [data-component='buttonContent'] {
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    [data-component='text'] {
+      min-width: 0;
+    }
+  }
+}
+
+.DensityValue {
+  font-weight: var(--base-text-weight-normal);
+  color: var(--fgColor-muted);
+}
+
+.DensitySlider {
+  width: 100%;
+  height: var(--control-xsmall-size);
+  margin: 0;
+  accent-color: var(--bgColor-accent-emphasis);
+}
+
+.Description {
+  max-width: 520px;
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: var(--fgColor-link);
+  }
+}
+
+.Surface {
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  font-family: var(--fontStack-system);
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-medium);
+  color-scheme: inherit;
+
+  &[data-color-mode='dark'] {
+    color-scheme: dark;
+  }
+
+  &[data-color-mode='light'] {
+    color-scheme: light;
+  }
+
+  &[data-playground-preset='windows95']:not(.Portals) {
+    padding: var(--base-size-16);
+    background-color: var(--playground-desktop-bgColor);
+  }
+}
+
+.Portals {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

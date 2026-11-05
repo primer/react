@@ -5,8 +5,9 @@
 }
 
 .Header {
+  --FilteredActionList--header-boxShadow: 0 1px 0 var(--borderColor-default);
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 1px 0 var(--borderColor-default);
+  box-shadow: var(--FilteredActionList--header-boxShadow);
   z-index: 1;
 }
 
@@ -37,18 +38,28 @@
 }
 
 .ActionListItem:focus {
-  background: var(--control-transparent-bgColor-selected);
+  --FilteredActionList--actionListItem-background-focus: var(--control-transparent-bgColor-selected);
+
+  background: var(--FilteredActionList--actionListItem-background-focus);
 
   &::after {
     @mixin activeIndicatorLine;
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--ActionList--activeIndicator-bgColor, var(--borderColor-accent-emphasis));
   }
 }
 
 .ActionListItem:where([data-input-focused]):where([data-first-child]) {
-  background: var(--control-transparent-bgColor-selected);
+  --FilteredActionList--actionListItem-background-inputFocusedPresent-firstChildPresent: var(
+    --control-transparent-bgColor-selected
+  );
+
+  background: var(--FilteredActionList--actionListItem-background-inputFocusedPresent-firstChildPresent);
 
   &::after {
     @mixin activeIndicatorLine;
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--ActionList--activeIndicator-bgColor, var(--borderColor-accent-emphasis));
   }
 }
 
@@ -56,27 +67,42 @@
   @media screen and (--viewportRange-narrow) {
     /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
     @supports (-webkit-touch-callout: none) {
-      font-size: var(--text-title-size-small);
+      --FilteredActionList--fullScreenTextInput-fontSize-mediaScreenAndViewportRangeNarrow-supportsWebkitTouchCalloutNone: var(
+        --text-title-size-small
+      );
+
+      font-size: var(
+        --FilteredActionList--fullScreenTextInput-fontSize-mediaScreenAndViewportRangeNarrow-supportsWebkitTouchCalloutNone
+      );
     }
   }
 }
 
 .SelectAllContainer {
+  --FilteredActionList--selectAllContainer-borderBottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  --FilteredActionList--selectAllContainer-background: var(--bgColor-muted);
+  --FilteredActionList--selectAllContainer-paddingInline: var(--base-size-16);
+  --FilteredActionList--selectAllContainer-paddingBlock: var(--base-size-4);
+
   display: flex;
   align-items: center;
-  padding-block: var(--base-size-4);
-  padding-inline: var(--base-size-16);
-  background: var(--bgColor-muted);
-  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding-block: var(--FilteredActionList--selectAllContainer-paddingBlock);
+  padding-inline: var(--FilteredActionList--selectAllContainer-paddingInline);
+  background: var(--FilteredActionList--selectAllContainer-background);
+  border-bottom: var(--FilteredActionList--selectAllContainer-borderBottom);
 }
 
 .SelectAllCheckbox {
+  --FilteredActionList--selectAllCheckbox-margin: var(--base-size-4) var(--base-size-8) calc(var(--base-size-4) - 1px) 0;
   /* -1px hack to offset 1px border-bottom causing uneven alignment */
   /* stylelint-disable-next-line primer/spacing */
-  margin: var(--base-size-4) var(--base-size-8) calc(var(--base-size-4) - 1px) 0;
+  margin: var(--FilteredActionList--selectAllCheckbox-margin);
 }
 
 .SelectAllLabel {
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
+  --FilteredActionList--selectAllLabel-color: var(--fgColor-muted);
+  --FilteredActionList--selectAllLabel-fontSize: var(--text-body-size-medium);
+
+  font-size: var(--FilteredActionList--selectAllLabel-fontSize);
+  color: var(--FilteredActionList--selectAllLabel-color);
 }

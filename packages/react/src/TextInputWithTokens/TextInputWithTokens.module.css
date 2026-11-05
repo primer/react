@@ -1,7 +1,11 @@
 .TextInputWrapper {
-  padding-top: var(--base-size-6);
-  padding-bottom: var(--base-size-6);
-  padding-left: var(--base-size-12);
+  --TextInputWithTokens--textInputWrapper-paddingLeft: var(--base-size-12);
+  --TextInputWithTokens--textInputWrapper-paddingBottom: var(--base-size-6);
+  --TextInputWithTokens--textInputWrapper-paddingTop: var(--base-size-6);
+
+  padding-top: var(--TextInputWithTokens--textInputWrapper-paddingTop);
+  padding-bottom: var(--TextInputWithTokens--textInputWrapper-paddingBottom);
+  padding-left: var(--TextInputWithTokens--textInputWrapper-paddingLeft);
 
   &:where([data-block]) {
     display: flex;
@@ -23,9 +27,12 @@
 }
 
 .Container {
+  --TextInputWithTokens--container-marginLeft: calc(var(--base-size-4) * -1);
+  --TextInputWithTokens--container-marginBottom: calc(var(--base-size-4) * -1);
+
   display: flex;
-  margin-bottom: calc(var(--base-size-4) * -1);
-  margin-left: calc(var(--base-size-4) * -1);
+  margin-bottom: var(--TextInputWithTokens--container-marginBottom);
+  margin-left: var(--TextInputWithTokens--container-marginLeft);
   align-items: center;
   flex-wrap: wrap;
   flex-grow: 1;
@@ -35,28 +42,43 @@
   }
 
   > * {
-    margin-bottom: var(--base-size-4);
-    margin-left: var(--base-size-4);
+    --TextInputWithTokens--container-child-marginLeft: var(--base-size-4);
+    --TextInputWithTokens--container-child-marginBottom: var(--base-size-4);
+
+    margin-bottom: var(--TextInputWithTokens--container-child-marginBottom);
+    margin-left: var(--TextInputWithTokens--container-child-marginLeft);
     flex-shrink: 0;
   }
 }
 
 .OverflowCountSmall {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
+  --TextInputWithTokens--overflowCountSmall-fontSize: var(--text-body-size-small);
+  --TextInputWithTokens--overflowCountSmall-color: var(--fgColor-muted);
+
+  color: var(--TextInputWithTokens--overflowCountSmall-color);
+  font-size: var(--TextInputWithTokens--overflowCountSmall-fontSize);
 }
 
 .OverflowCountMedium {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-medium);
+  --TextInputWithTokens--overflowCountMedium-fontSize: var(--text-body-size-medium);
+  --TextInputWithTokens--overflowCountMedium-color: var(--fgColor-muted);
+
+  color: var(--TextInputWithTokens--overflowCountMedium-color);
+  font-size: var(--TextInputWithTokens--overflowCountMedium-fontSize);
 }
 
 .OverflowCountLarge {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-medium);
+  --TextInputWithTokens--overflowCountLarge-fontSize: var(--text-body-size-medium);
+  --TextInputWithTokens--overflowCountLarge-color: var(--fgColor-muted);
+
+  color: var(--TextInputWithTokens--overflowCountLarge-color);
+  font-size: var(--TextInputWithTokens--overflowCountLarge-fontSize);
 }
 
 .OverflowCountXLarge {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-large);
+  --TextInputWithTokens--overflowCountXLarge-fontSize: var(--text-body-size-large);
+  --TextInputWithTokens--overflowCountXLarge-color: var(--fgColor-muted);
+
+  color: var(--TextInputWithTokens--overflowCountXLarge-color);
+  font-size: var(--TextInputWithTokens--overflowCountXLarge-fontSize);
 }

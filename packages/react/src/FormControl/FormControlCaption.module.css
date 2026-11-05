@@ -1,9 +1,14 @@
 .Caption {
+  --FormControl--formControlCaption-caption-color: var(--fgColor-muted);
+  --FormControl--formControlCaption-caption-fontSize: var(--text-body-size-small);
+
   display: block;
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
+  font-size: var(--FormControl--formControlCaption-caption-fontSize);
+  color: var(--FormControl--formControlCaption-caption-color);
 
   &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
+    --FormControl--formControlCaption-caption-color-controlDisabledPresent: var(--control-fgColor-disabled);
+
+    color: var(--FormControl--formControlCaption-caption-color-controlDisabledPresent);
   }
 }

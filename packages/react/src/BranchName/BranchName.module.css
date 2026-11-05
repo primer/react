@@ -1,14 +1,23 @@
 .BranchName {
+  --BranchName--paddingBlock: var(--base-size-2);
+  --BranchName--paddingInline: var(--base-size-6);
+  --BranchName--fontFamily: var(--fontStack-monospace);
+  --BranchName--fontSize: var(--text-body-size-small);
+  --BranchName--fgColor: var(--fgColor-link);
+  --BranchName--fgColor-nonLink: var(--fgColor-muted);
+  --BranchName--bgColor: var(--bgColor-accent-muted);
+  --BranchName--borderRadius: var(--borderRadius-medium);
+
   display: inline-block;
-  padding: var(--base-size-2) var(--base-size-6);
-  font-family: var(--fontStack-monospace);
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-link);
+  padding: var(--BranchName--paddingBlock) var(--BranchName--paddingInline);
+  font-family: var(--BranchName--fontFamily);
+  font-size: var(--BranchName--fontSize);
+  color: var(--BranchName--fgColor);
   text-decoration: none;
-  background-color: var(--bgColor-accent-muted);
-  border-radius: var(--borderRadius-medium);
+  background-color: var(--BranchName--bgColor);
+  border-radius: var(--BranchName--borderRadius);
 
   &:is(:not(a)) {
-    color: var(--fgColor-muted);
+    color: var(--BranchName--fgColor-nonLink);
   }
 }

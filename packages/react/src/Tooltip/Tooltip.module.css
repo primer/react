@@ -6,14 +6,20 @@
 }
 
 .Tooltip::after {
+  --Tooltip--after-borderRadius: var(--borderRadius-medium);
+  --Tooltip--after-background: var(--tooltip-bgColor, var(--bgColor-emphasis));
+  --Tooltip--after-color: var(--tooltip-fgColor, var(--fgColor-onEmphasis));
+  --Tooltip--after-font: normal normal var(--text-body-size-small) / var(--text-body-lineHeight-small)
+    var(--fontStack-system);
+
   position: absolute;
   z-index: 1000000;
   display: none;
   /* stylelint-disable-next-line primer/spacing */
   padding: 0.5em 0.75em;
-  font: normal normal var(--text-body-size-small) / var(--text-body-lineHeight-small) var(--fontStack-system);
+  font: var(--Tooltip--after-font);
   -webkit-font-smoothing: subpixel-antialiased;
-  color: var(--tooltip-fgColor, var(--fgColor-onEmphasis));
+  color: var(--Tooltip--after-color);
   text-align: center;
   text-decoration: none;
   text-shadow: none;
@@ -23,8 +29,8 @@
   white-space: pre;
   pointer-events: none;
   content: attr(aria-label);
-  background: var(--tooltip-bgColor, var(--bgColor-emphasis));
-  border-radius: var(--borderRadius-medium);
+  background: var(--Tooltip--after-background);
+  border-radius: var(--Tooltip--after-borderRadius);
   opacity: 0;
 }
 
@@ -77,13 +83,17 @@
 }
 
 .Tooltip--se::after {
+  --Tooltip--tooltipSe-after-marginLeft: calc(-1 * var(--base-size-16));
+
   right: auto;
   left: 50%;
-  margin-left: calc(-1 * var(--base-size-16));
+  margin-left: var(--Tooltip--tooltipSe-after-marginLeft);
 }
 
 .Tooltip--sw::after {
-  margin-right: calc(-1 * var(--base-size-16));
+  --Tooltip--tooltipSw-after-marginRight: calc(-1 * var(--base-size-16));
+
+  margin-right: var(--Tooltip--tooltipSw-after-marginRight);
 }
 
 /* Tooltips above the object */
@@ -97,13 +107,17 @@
 }
 
 .Tooltip--ne::after {
+  --Tooltip--tooltipNe-after-marginLeft: calc(-1 * var(--base-size-16));
+
   right: auto;
   left: 50%;
-  margin-left: calc(-1 * var(--base-size-16));
+  margin-left: var(--Tooltip--tooltipNe-after-marginLeft);
 }
 
 .Tooltip--nw::after {
-  margin-right: calc(-1 * var(--base-size-16));
+  --Tooltip--tooltipNw-after-marginRight: calc(-1 * var(--base-size-16));
+
+  margin-right: var(--Tooltip--tooltipNw-after-marginRight);
 }
 
 /* Move the tooltip body to the center of the object. */

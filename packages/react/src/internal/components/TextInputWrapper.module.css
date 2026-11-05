@@ -1,18 +1,28 @@
 .TextInputBaseWrapper {
+  --TextInputWrapper--textInputBaseWrapper-innerActionSize: var(--base-size-24);
+  --TextInputWrapper--textInputBaseWrapper-boxShadow: var(--shadow-inset);
+  --TextInputWrapper--textInputBaseWrapper-borderRadius: var(--borderRadius-medium);
+  --TextInputWrapper--textInputBaseWrapper-border: var(--borderWidth-thin) solid var(--control-borderColor-rest);
+  --TextInputWrapper--textInputBaseWrapper-backgroundColor: var(--bgColor-default);
+  --TextInputWrapper--textInputBaseWrapper-color: var(--fgColor-default);
+  --TextInputWrapper--textInputBaseWrapper-lineHeight: var(--base-size-20);
+  --TextInputWrapper--textInputBaseWrapper-fontSize: var(--text-body-size-medium);
+  --TextInputWrapper--textInputBaseWrapper-minHeight: var(--base-size-32);
+
   display: inline-flex;
-  min-height: var(--base-size-32);
+  min-height: var(--TextInputWrapper--textInputBaseWrapper-minHeight);
   overflow: hidden;
-  font-size: var(--text-body-size-medium);
+  font-size: var(--TextInputWrapper--textInputBaseWrapper-fontSize);
   /* stylelint-disable-next-line primer/typography */
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default);
+  line-height: var(--TextInputWrapper--textInputBaseWrapper-lineHeight);
+  color: var(--TextInputWrapper--textInputBaseWrapper-color);
   vertical-align: middle;
   cursor: text;
-  background-color: var(--bgColor-default);
-  border: var(--borderWidth-thin) solid var(--control-borderColor-rest);
-  border-radius: var(--borderRadius-medium);
+  background-color: var(--TextInputWrapper--textInputBaseWrapper-backgroundColor);
+  border: var(--TextInputWrapper--textInputBaseWrapper-border);
+  border-radius: var(--TextInputWrapper--textInputBaseWrapper-borderRadius);
   outline: none;
-  box-shadow: var(--shadow-inset);
+  box-shadow: var(--TextInputWrapper--textInputBaseWrapper-boxShadow);
   align-items: stretch;
 
   input,
@@ -28,31 +38,55 @@
   textarea,
   select {
     &::placeholder {
-      color: var(--fgColor-muted);
+      --TextInputWrapper--textInputBaseWrapper-input-textarea-select-placeholder-color: var(--fgColor-muted);
+
+      color: var(--TextInputWrapper--textInputBaseWrapper-input-textarea-select-placeholder-color);
     }
   }
 
   &:where([data-trailing-action][data-focused]),
   &:where([data-no-trailing-action]:focus-within) {
-    border-color: var(--borderColor-accent-emphasis);
-    outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+    --TextInputWrapper--textInputBaseWrapper-outline-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin: var(
+        --borderWidth-thick
+      )
+      solid var(--borderColor-accent-emphasis);
+    --TextInputWrapper--textInputBaseWrapper-borderColor-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin: var(
+      --borderColor-accent-emphasis
+    );
+
+    border-color: var(
+      --TextInputWrapper--textInputBaseWrapper-borderColor-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin
+    );
+    outline: var(
+      --TextInputWrapper--textInputBaseWrapper-outline-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin
+    );
     outline-offset: -1px;
   }
 
   > textarea {
-    padding: var(--base-size-12);
+    --TextInputWrapper--textInputBaseWrapper-child-textarea-padding: var(--base-size-12);
+
+    padding: var(--TextInputWrapper--textInputBaseWrapper-child-textarea-padding);
   }
 
   &:where([data-contrast]) {
+    --TextInputWrapper--textInputBaseWrapper-backgroundColor-contrastPresent: var(
+      --control-bgColor-contrast,
+      var(--bgColor-inset)
+    );
     /* this variable is available behind a feature flag in gh/gh */
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--control-bgColor-contrast, var(--bgColor-inset));
+    background-color: var(--TextInputWrapper--textInputBaseWrapper-backgroundColor-contrastPresent);
   }
 
   &:where([data-disabled]) {
-    color: var(--fgColor-disabled);
-    background-color: var(--control-bgColor-disabled);
-    border-color: var(--control-borderColor-disabled);
+    --TextInputWrapper--textInputBaseWrapper-borderColor-disabledPresent: var(--control-borderColor-disabled);
+    --TextInputWrapper--textInputBaseWrapper-backgroundColor-disabledPresent: var(--control-bgColor-disabled);
+    --TextInputWrapper--textInputBaseWrapper-color-disabledPresent: var(--fgColor-disabled);
+
+    color: var(--TextInputWrapper--textInputBaseWrapper-color-disabledPresent);
+    background-color: var(--TextInputWrapper--textInputBaseWrapper-backgroundColor-disabledPresent);
+    border-color: var(--TextInputWrapper--textInputBaseWrapper-borderColor-disabledPresent);
     box-shadow: none;
 
     input,
@@ -63,23 +97,38 @@
   }
 
   &:where([data-monospace]) {
-    font-family: var(--fontStack-monospace);
+    --TextInputWrapper--textInputBaseWrapper-fontFamily-monospacePresent: var(--fontStack-monospace);
+
+    font-family: var(--TextInputWrapper--textInputBaseWrapper-fontFamily-monospacePresent);
   }
 
   &:where([data-validation='error']) {
-    border-color: var(--borderColor-danger-emphasis);
+    --TextInputWrapper--textInputBaseWrapper-borderColor-validationError: var(--borderColor-danger-emphasis);
+
+    border-color: var(--TextInputWrapper--textInputBaseWrapper-borderColor-validationError);
 
     &:where([data-trailing-action][data-focused]),
     &:where([data-no-trailing-action]):focus-within {
-      border-color: var(--control-borderColor-danger);
-      outline: 2px solid var(--control-borderColor-danger);
+      --TextInputWrapper--textInputBaseWrapper-outline-validationError-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin: 2px
+        solid var(--control-borderColor-danger);
+      --TextInputWrapper--textInputBaseWrapper-borderColor-validationError-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin: var(
+        --control-borderColor-danger
+      );
+
+      border-color: var(
+        --TextInputWrapper--textInputBaseWrapper-borderColor-validationError-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin
+      );
+      outline: var(
+        --TextInputWrapper--textInputBaseWrapper-outline-validationError-trailingActionPresent-focusedPresent-noTrailingActionPresent-focusWithin
+      );
       outline-offset: -1px;
     }
   }
 
   &:where([data-validation='success']) {
+    --TextInputWrapper--textInputBaseWrapper-borderColor-validationSuccess: var(--bgColor-success-emphasis);
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-success-emphasis);
+    border-color: var(--TextInputWrapper--textInputBaseWrapper-borderColor-validationSuccess);
   }
 
   &:where([data-block]) {
@@ -90,62 +139,81 @@
 
   /* Ensures inputs don't zoom on mobile but are body-font size on desktop */
   @media screen and (--viewportRange-regular) {
-    font-size: var(--text-body-size-medium);
+    --TextInputWrapper--textInputBaseWrapper-fontSize-mediaScreenAndViewportRangeRegular: var(--text-body-size-medium);
+
+    font-size: var(--TextInputWrapper--textInputBaseWrapper-fontSize-mediaScreenAndViewportRangeRegular);
   }
 
-  --inner-action-size: var(--base-size-24); /* Default size */
+  --inner-action-size: var(--TextInputWrapper--textInputBaseWrapper-innerActionSize); /* Default size */
 
   &:where([data-size='small']) {
-    --inner-action-size: var(--base-size-20);
+    --TextInputWrapper--textInputBaseWrapper-lineHeight-sizeSmall: var(--base-size-20);
+    --TextInputWrapper--textInputBaseWrapper-fontSize-sizeSmall: var(--text-body-size-small);
+    --TextInputWrapper--textInputBaseWrapper-paddingLeft-sizeSmall: var(--base-size-8);
+    --TextInputWrapper--textInputBaseWrapper-paddingRight-sizeSmall: var(--base-size-8);
+    --TextInputWrapper--textInputBaseWrapper-minHeight-sizeSmall: var(--base-size-28);
+    --TextInputWrapper--textInputBaseWrapper-innerActionSize-sizeSmall: var(--base-size-20);
+    --inner-action-size: var(--TextInputWrapper--textInputBaseWrapper-innerActionSize-sizeSmall);
 
-    min-height: var(--base-size-28);
+    min-height: var(--TextInputWrapper--textInputBaseWrapper-minHeight-sizeSmall);
     /* stylelint-disable-next-line primer/spacing */
     padding-top: 3px;
-    padding-right: var(--base-size-8);
+    padding-right: var(--TextInputWrapper--textInputBaseWrapper-paddingRight-sizeSmall);
     /* stylelint-disable-next-line primer/spacing */
     padding-bottom: 3px;
-    padding-left: var(--base-size-8);
-    font-size: var(--text-body-size-small);
+    padding-left: var(--TextInputWrapper--textInputBaseWrapper-paddingLeft-sizeSmall);
+    font-size: var(--TextInputWrapper--textInputBaseWrapper-fontSize-sizeSmall);
     /* stylelint-disable-next-line primer/typography */
-    line-height: var(--base-size-20);
+    line-height: var(--TextInputWrapper--textInputBaseWrapper-lineHeight-sizeSmall);
   }
 
   &:where([data-size='large']) {
-    --inner-action-size: var(--base-size-28);
+    --TextInputWrapper--textInputBaseWrapper-paddingLeft-sizeLarge: var(--base-size-8);
+    --TextInputWrapper--textInputBaseWrapper-paddingRight-sizeLarge: var(--base-size-8);
+    --TextInputWrapper--textInputBaseWrapper-height-sizeLarge: var(--base-size-40);
+    --TextInputWrapper--textInputBaseWrapper-innerActionSize-sizeLarge: var(--base-size-28);
+    --inner-action-size: var(--TextInputWrapper--textInputBaseWrapper-innerActionSize-sizeLarge);
 
-    height: var(--base-size-40);
+    height: var(--TextInputWrapper--textInputBaseWrapper-height-sizeLarge);
     /* stylelint-disable-next-line primer/spacing */
     padding-top: 10px;
-    padding-right: var(--base-size-8);
+    padding-right: var(--TextInputWrapper--textInputBaseWrapper-paddingRight-sizeLarge);
     /* stylelint-disable-next-line primer/spacing */
     padding-bottom: 10px;
-    padding-left: var(--base-size-8);
+    padding-left: var(--TextInputWrapper--textInputBaseWrapper-paddingLeft-sizeLarge);
   }
 
   /* Deprecated */
   &:where([data-variant='small']) {
+    --TextInputWrapper--textInputBaseWrapper-lineHeight-variantSmall: var(--base-size-20);
+    --TextInputWrapper--textInputBaseWrapper-paddingLeft-variantSmall: var(--base-size-8);
+    --TextInputWrapper--textInputBaseWrapper-paddingRight-variantSmall: var(--base-size-8);
+
     min-height: 28px;
     /* stylelint-disable-next-line primer/spacing */
     padding-top: 3px;
-    padding-right: var(--base-size-8);
+    padding-right: var(--TextInputWrapper--textInputBaseWrapper-paddingRight-variantSmall);
     /* stylelint-disable-next-line primer/spacing */
     padding-bottom: 3px;
-    padding-left: var(--base-size-8);
+    padding-left: var(--TextInputWrapper--textInputBaseWrapper-paddingLeft-variantSmall);
     /* stylelint-disable-next-line declaration-property-value-no-unknown */
     font-size: (--text-body-size-small);
     /* stylelint-disable-next-line primer/typography */
-    line-height: var(--base-size-20);
+    line-height: var(--TextInputWrapper--textInputBaseWrapper-lineHeight-variantSmall);
   }
 
   /* Deprecated */
   &:where([data-variant='large']) {
+    --TextInputWrapper--textInputBaseWrapper-fontSize-variantLarge: var(--text-title-size-medium);
+    --TextInputWrapper--textInputBaseWrapper-paddingLeft-variantLarge: var(--base-size-8);
+    --TextInputWrapper--textInputBaseWrapper-paddingRight-variantLarge: var(--base-size-8);
     /* stylelint-disable-next-line primer/spacing */
     padding-top: 10px;
-    padding-right: var(--base-size-8);
+    padding-right: var(--TextInputWrapper--textInputBaseWrapper-paddingRight-variantLarge);
     /* stylelint-disable-next-line primer/spacing */
     padding-bottom: 10px;
-    padding-left: var(--base-size-8);
-    font-size: var(--text-title-size-medium);
+    padding-left: var(--TextInputWrapper--textInputBaseWrapper-paddingLeft-variantLarge);
+    font-size: var(--TextInputWrapper--textInputBaseWrapper-fontSize-variantLarge);
   }
 }
 
@@ -166,24 +234,32 @@
   background-position: right 8px center;
 
   & > :not(:last-child) {
-    margin-right: var(--base-size-8);
+    --TextInputWrapper--child-marginRight-not-lastChild: var(--base-size-8);
+
+    margin-right: var(--TextInputWrapper--child-marginRight-not-lastChild);
   }
 
   & :global(.TextInput-icon) /* stylelint-disable-line selector-class-pattern */,
   & :global(.TextInput-action)  /* stylelint-disable-line selector-class-pattern */ {
+    --TextInputWrapper--textInputIcon-textInputAction-color-global: var(--fgColor-muted);
+
     align-self: center;
-    color: var(--fgColor-muted);
+    color: var(--TextInputWrapper--textInputIcon-textInputAction-color-global);
     flex-shrink: 0;
   }
 
   /* With leading visual */
   &:where([data-leading-visual]) {
-    padding-left: var(--base-size-8);
+    --TextInputWrapper--paddingLeft-leadingVisualPresent: var(--base-size-8);
+
+    padding-left: var(--TextInputWrapper--paddingLeft-leadingVisualPresent);
   }
 
   /* With trailing visual */
   &:where([data-trailing-visual][data-no-trailing-action]) {
-    padding-right: var(--base-size-8);
+    --TextInputWrapper--paddingRight-trailingVisualPresent-noTrailingActionPresent: var(--base-size-8);
+
+    padding-right: var(--TextInputWrapper--paddingRight-trailingVisualPresent-noTrailingActionPresent);
   }
 
   /* Only trailing visual */
@@ -191,31 +267,58 @@
   &:where([data-no-leading-visual][data-trailing-action]) {
     > input,
     > select {
-      padding-left: var(--base-size-8);
+      --TextInputWrapper--child-input-select-paddingLeft-noLeadingVisualPresent-trailingVisualPresent-trailingActionPresent: var(
+        --base-size-8
+      );
+
+      padding-left: var(
+        --TextInputWrapper--child-input-select-paddingLeft-noLeadingVisualPresent-trailingVisualPresent-trailingActionPresent
+      );
     }
   }
 
   /* Only leading visual */
   &:where([data-no-trailing-visual][data-no-trailing-action]) > input,
   &:where([data-no-trailing-visual][data-no-trailing-action]) > select {
-    padding-right: var(--base-size-8);
+    --TextInputWrapper--child-input-select-paddingRight-noTrailingVisualPresent-noTrailingActionPresent: var(
+      --base-size-8
+    );
+
+    padding-right: var(
+      --TextInputWrapper--child-input-select-paddingRight-noTrailingVisualPresent-noTrailingActionPresent
+    );
   }
 
   /* No visuals at all */
   &:where([data-no-leading-visual][data-no-trailing-visual][data-no-trailing-action]) > input,
   &:where([data-no-leading-visual][data-no-trailing-visual][data-no-trailing-action]) > select {
-    padding-left: var(--base-size-12);
-    padding-right: var(--base-size-12);
+    --TextInputWrapper--child-input-select-paddingRight-noLeadingVisualPresent-noTrailingVisualPresent-noTrailingActionPresent: var(
+      --base-size-12
+    );
+    --TextInputWrapper--child-input-select-paddingLeft-noLeadingVisualPresent-noTrailingVisualPresent-noTrailingActionPresent: var(
+      --base-size-12
+    );
+
+    padding-left: var(
+      --TextInputWrapper--child-input-select-paddingLeft-noLeadingVisualPresent-noTrailingVisualPresent-noTrailingActionPresent
+    );
+    padding-right: var(
+      --TextInputWrapper--child-input-select-paddingRight-noLeadingVisualPresent-noTrailingVisualPresent-noTrailingActionPresent
+    );
   }
 }
 
 /* Large size input */
 .TextInputWrapper:where([data-size='large']) {
   &:where([data-leading-visual]) {
-    padding-left: var(--base-size-12);
+    --TextInputWrapper--paddingLeft-sizeLarge-leadingVisualPresent: var(--base-size-12);
+
+    padding-left: var(--TextInputWrapper--paddingLeft-sizeLarge-leadingVisualPresent);
   }
 
   &:where([data-trailing-visual][data-no-trailing-action]) {
-    padding-right: var(--base-size-12);
+    --TextInputWrapper--paddingRight-sizeLarge-trailingVisualPresent-noTrailingActionPresent: var(--base-size-12);
+
+    padding-right: var(--TextInputWrapper--paddingRight-sizeLarge-trailingVisualPresent-noTrailingActionPresent);
   }
 }

@@ -1,29 +1,40 @@
 .Card {
+  --Card--gap: var(--stack-gap-normal);
+  --Card--backgroundColor: var(--bgColor-default);
+  --Card--boxShadow: var(--shadow-resting-small);
+  --Card--border: var(--borderWidth-thin) solid var(--borderColor-default);
+
   display: grid;
   position: relative;
   overflow: hidden;
   grid-auto-rows: max-content auto;
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-  box-shadow: var(--shadow-resting-small);
-  background-color: var(--bgColor-default);
-  gap: var(--stack-gap-normal);
+  border: var(--Card--border);
+  box-shadow: var(--Card--boxShadow);
+  background-color: var(--Card--backgroundColor);
+  gap: var(--Card--gap);
 
   &[data-border-radius='large'] {
-    border-radius: var(--borderRadius-large);
+    --Card--borderRadius-borderRadiusLarge: var(--borderRadius-large);
+
+    border-radius: var(--Card--borderRadius-borderRadiusLarge);
   }
 
   &[data-border-radius='medium'] {
-    border-radius: var(--borderRadius-medium);
+    --Card--borderRadius-borderRadiusMedium: var(--borderRadius-medium);
+
+    border-radius: var(--Card--borderRadius-borderRadiusMedium);
   }
 
   &[data-padding='normal'] {
+    --Card--padding-paddingNormal: var(--stack-padding-spacious);
     /* stylelint-disable-next-line primer/spacing */
-    padding: var(--stack-padding-spacious);
+    padding: var(--Card--padding-paddingNormal);
   }
 
   &[data-padding='condensed'] {
+    --Card--padding-paddingCondensed: var(--stack-padding-condensed);
     /* stylelint-disable-next-line primer/spacing */
-    padding: var(--stack-padding-condensed);
+    padding: var(--Card--padding-paddingCondensed);
   }
 
   &[data-padding='none'] {
@@ -31,14 +42,17 @@
   }
 
   &[data-layout='compact'] {
+    --Card--gap-layoutCompact: var(--stack-gap-condensed);
+
     display: flex;
     align-items: flex-start;
-    gap: var(--stack-gap-condensed);
+    gap: var(--Card--gap-layoutCompact);
   }
 
   &[data-layout='compact'][data-padding='normal'] {
+    --Card--padding-layoutCompact-paddingNormal: var(--stack-padding-normal);
     /* stylelint-disable-next-line primer/spacing */
-    padding: var(--stack-padding-normal);
+    padding: var(--Card--padding-layoutCompact-paddingNormal);
   }
 }
 
@@ -54,11 +68,15 @@
 }
 
 .CardHeaderEdgeToEdge {
+  --Card--cardHeaderEdgeToEdge-width: calc(100% + 2 * var(--stack-padding-spacious));
+  --Card--cardHeaderEdgeToEdge-marginLeft: calc(-1 * var(--stack-padding-spacious));
+  --Card--cardHeaderEdgeToEdge-marginRight: calc(-1 * var(--stack-padding-spacious));
+  --Card--cardHeaderEdgeToEdge-marginTop: calc(-1 * var(--stack-padding-spacious));
   /* stylelint-disable primer/spacing */
-  margin-top: calc(-1 * var(--stack-padding-spacious));
-  margin-right: calc(-1 * var(--stack-padding-spacious));
-  margin-left: calc(-1 * var(--stack-padding-spacious));
-  width: calc(100% + 2 * var(--stack-padding-spacious));
+  margin-top: var(--Card--cardHeaderEdgeToEdge-marginTop);
+  margin-right: var(--Card--cardHeaderEdgeToEdge-marginRight);
+  margin-left: var(--Card--cardHeaderEdgeToEdge-marginLeft);
+  width: var(--Card--cardHeaderEdgeToEdge-width);
   /* stylelint-enable primer/spacing */
 }
 
@@ -69,23 +87,32 @@
 }
 
 .CardIcon {
+  --Card--cardIcon-color: var(--fgColor-muted);
+
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: var(--fgColor-muted);
+  color: var(--Card--cardIcon-color);
 
   .Card:where([data-layout='default']) & {
+    --Card--cardIcon-backgroundColor-layoutDefault: var(--bgColor-muted);
+    --Card--cardIcon-borderRadius-layoutDefault: var(--borderRadius-medium);
+    --Card--cardIcon-height-layoutDefault: var(--base-size-32);
+    --Card--cardIcon-width-layoutDefault: var(--base-size-32);
+
     justify-content: center;
-    width: var(--base-size-32);
-    height: var(--base-size-32);
-    border-radius: var(--borderRadius-medium);
-    background-color: var(--bgColor-muted);
+    width: var(--Card--cardIcon-width-layoutDefault);
+    height: var(--Card--cardIcon-height-layoutDefault);
+    border-radius: var(--Card--cardIcon-borderRadius-layoutDefault);
+    background-color: var(--Card--cardIcon-backgroundColor-layoutDefault);
   }
 }
 
 .CardBody {
+  --Card--cardBody-gap: var(--stack-gap-normal);
+
   display: grid;
-  gap: var(--stack-gap-normal);
+  gap: var(--Card--cardBody-gap);
 
   .Card:where([data-layout='compact']) & {
     flex: 1 1 auto;
@@ -93,46 +120,67 @@
 }
 
 .CardContent {
+  --Card--cardContent-gap: var(--stack-gap-condensed);
+
   display: grid;
-  gap: var(--stack-gap-condensed);
+  gap: var(--Card--cardContent-gap);
 }
 
 .CardHeading {
-  font: var(--text-title-shorthand-small);
-  color: var(--fgColor-default);
+  --Card--cardHeading-color: var(--fgColor-default);
+  --Card--cardHeading-font: var(--text-title-shorthand-small);
+
+  font: var(--Card--cardHeading-font);
+  color: var(--Card--cardHeading-color);
   margin: 0;
 
   .Card:where([data-layout='compact']) & {
+    --Card--cardHeading-fontSize-layoutCompact: var(--text-body-size-medium);
+    --Card--cardHeading-top-layoutCompact: calc(-1 * var(--base-size-4));
+
     position: relative;
-    top: calc(-1 * var(--base-size-4));
-    font-size: var(--text-body-size-medium);
+    top: var(--Card--cardHeading-top-layoutCompact);
+    font-size: var(--Card--cardHeading-fontSize-layoutCompact);
   }
 }
 
 .CardDescription {
-  font: var(--text-body-shorthand-medium);
-  color: var(--fgColor-muted);
+  --Card--cardDescription-color: var(--fgColor-muted);
+  --Card--cardDescription-font: var(--text-body-shorthand-medium);
+
+  font: var(--Card--cardDescription-font);
+  color: var(--Card--cardDescription-color);
   margin: 0;
 }
 
 .CardMetadataContainer {
+  --Card--cardMetadataContainer-color: var(--fgColor-muted);
+  --Card--cardMetadataContainer-font: var(--text-body-shorthand-medium);
+  --Card--cardMetadataContainer-gap: var(--stack-gap-normal);
+
   display: flex;
   align-items: center;
-  gap: var(--stack-gap-normal);
-  font: var(--text-body-shorthand-medium);
-  color: var(--fgColor-muted);
+  gap: var(--Card--cardMetadataContainer-gap);
+  font: var(--Card--cardMetadataContainer-font);
+  color: var(--Card--cardMetadataContainer-color);
 }
 
 .CardMetadataItem {
+  --Card--cardMetadataItem-font: var(--text-body-shorthand-small);
+  --Card--cardMetadataItem-gap: var(--stack-gap-condensed);
+
   display: flex;
   align-items: center;
-  gap: var(--stack-gap-condensed);
-  font: var(--text-body-shorthand-small);
+  gap: var(--Card--cardMetadataItem-gap);
+  font: var(--Card--cardMetadataItem-font);
 }
 
 .CardAction {
+  --Card--cardAction-right: var(--base-size-16);
+  --Card--cardAction-top: var(--base-size-16);
+
   position: absolute;
-  top: var(--base-size-16);
-  right: var(--base-size-16);
+  top: var(--Card--cardAction-top);
+  right: var(--Card--cardAction-right);
   z-index: 1;
 }

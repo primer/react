@@ -1,0 +1,327 @@
+.Page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  min-height: 100vh;
+  color: var(--fgColor-default);
+  background: var(--bgColor-muted);
+}
+
+.Main {
+  min-width: 0;
+  padding: var(--base-size-32);
+}
+
+.Header {
+  max-width: 960px;
+  margin-bottom: var(--base-size-32);
+
+  h1 {
+    margin: var(--base-size-8) 0;
+    font-size: var(--text-title-size-large, 32px);
+  }
+}
+
+.Filters {
+  display: flex;
+  gap: var(--base-size-12);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: var(--base-size-24);
+}
+
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: var(--base-size-24);
+  align-items: start;
+}
+
+.Card {
+  min-width: 0;
+  overflow: clip;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  background: var(--bgColor-default);
+
+  &[data-selected='true'] {
+    outline: 2px solid var(--borderColor-accent-emphasis);
+    outline-offset: 2px;
+  }
+}
+
+.CardHeader {
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+
+  h2 {
+    margin: 0;
+    font-size: var(--text-body-size-medium);
+    overflow-wrap: anywhere;
+  }
+}
+
+.CardSelect {
+  display: flex;
+  width: 100%;
+  padding: var(--base-size-16);
+  color: inherit;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  gap: var(--base-size-8);
+  align-items: baseline;
+  justify-content: space-between;
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-outlineColor);
+    outline-offset: -2px;
+  }
+}
+
+.Example {
+  padding: var(--base-size-16);
+
+  & + & {
+    border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+  }
+}
+
+.ExampleLabel {
+  display: inline-block;
+  margin-bottom: var(--base-size-12);
+  color: var(--fgColor-muted);
+  font: var(--text-caption-shorthand);
+}
+
+.Canvas {
+  position: relative;
+  min-width: 0;
+  max-height: 440px;
+  overflow: auto;
+  isolation: isolate;
+}
+
+.Editor {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-width: 0;
+  overflow: auto;
+  padding-bottom: 40vh;
+  border-left: var(--borderWidth-thin) solid var(--borderColor-default);
+  background: var(--bgColor-default);
+}
+
+.EditorHeader {
+  padding: var(--base-size-20);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+
+  h2 {
+    margin: 0 0 var(--base-size-8);
+    font-size: var(--text-body-size-large);
+  }
+
+  p {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
+  }
+}
+
+.SelectionScope {
+  margin-bottom: var(--base-size-12);
+  overflow-wrap: anywhere;
+}
+
+.ChangedFilter {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+  margin-top: var(--base-size-12);
+  font-size: var(--text-body-size-small);
+}
+
+.Variables {
+  padding: 0 var(--base-size-20);
+}
+
+.ComponentVariables + .ComponentVariables,
+.VariableGroup + .VariableGroup,
+.VariableTarget + .VariableTarget {
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.ComponentVariables {
+  summary {
+    display: flex;
+    gap: var(--base-size-8);
+    align-items: center;
+    justify-content: space-between;
+    margin: var(--base-size-20) 0 var(--base-size-8);
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  h3 {
+    display: inline;
+    margin: 0;
+    font-size: var(--text-body-size-medium);
+  }
+
+  details[open] > summary > .DisclosureIcon {
+    transform: rotate(180deg);
+  }
+}
+
+.DisclosureIcon {
+  flex-shrink: 0;
+}
+
+.VariableGroup {
+  summary {
+    margin: var(--base-size-16) 0 var(--base-size-4);
+    color: var(--fgColor-muted);
+  }
+
+  h4 {
+    margin: 0;
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
+  }
+}
+
+.VariableTarget {
+  padding-inline-start: var(--base-size-8);
+
+  summary {
+    margin: var(--base-size-8) 0 var(--base-size-4);
+  }
+
+  h5 {
+    margin: 0;
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
+  }
+}
+
+.Variable {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--base-size-4) var(--base-size-8);
+  padding: var(--base-size-8) 0;
+
+  label {
+    display: block;
+    margin-bottom: var(--base-size-4);
+    font-size: var(--text-body-size-small);
+    overflow-wrap: anywhere;
+  }
+
+  input {
+    width: 100%;
+    height: 28px;
+    min-width: 0;
+    padding: var(--base-size-4) var(--base-size-8);
+    color: var(--fgColor-default);
+    border: var(--borderWidth-thin) solid var(--borderColor-default);
+    border-radius: var(--borderRadius-medium);
+    background: var(--bgColor-default);
+    font: var(--text-caption-shorthand);
+    font-family: var(--fontStack-monospace);
+  }
+}
+
+.VariableHeading {
+  display: flex;
+  min-height: 28px;
+  grid-column: 1 / -1;
+  gap: var(--base-size-4);
+  align-items: center;
+
+  label {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+
+  button {
+    flex-shrink: 0;
+  }
+}
+
+.ExpressionField {
+  min-width: 0;
+}
+
+.ExpressionButton {
+  min-width: 0;
+  font: var(--text-caption-shorthand);
+  font-family: var(--fontStack-monospace);
+}
+
+.TokenName {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.TokenMenu {
+  max-width: calc(100vw - 32px);
+  max-height: min(60vh, 480px);
+  overflow: auto;
+}
+
+.TokenDescription {
+  display: inline-flex;
+  gap: var(--base-size-8);
+  align-items: center;
+  vertical-align: middle;
+
+  .Swatch {
+    margin-bottom: 0;
+  }
+}
+
+.ValueField {
+  flex: 1;
+  min-width: 0;
+}
+
+.VariableValue {
+  display: flex;
+  min-width: 0;
+  gap: var(--base-size-4);
+  align-items: end;
+}
+
+.Swatch {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-bottom: var(--base-size-6);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-small);
+}
+
+@media (max-width: 900px) {
+  .Page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .Main {
+    padding: var(--base-size-16);
+  }
+
+  .Editor {
+    position: static;
+    height: auto;
+    max-height: 70vh;
+    border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+    border-left: 0;
+  }
+}

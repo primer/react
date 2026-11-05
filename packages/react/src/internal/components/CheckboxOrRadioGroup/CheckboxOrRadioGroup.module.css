@@ -6,7 +6,9 @@
   flex-direction: column;
 
   & > * + * {
-    margin-top: var(--base-size-8);
+    --CheckboxOrRadioGroup--body-child-next-marginTop: var(--base-size-8);
+
+    margin-top: var(--CheckboxOrRadioGroup--body-child-next-marginTop);
   }
 }
 
@@ -16,7 +18,9 @@
   border: none;
 
   &:where([data-validation]) {
-    margin-bottom: var(--base-size-8);
+    --CheckboxOrRadioGroup--groupFieldset-marginBottom-validationPresent: var(--base-size-8);
+
+    margin-bottom: var(--CheckboxOrRadioGroup--groupFieldset-marginBottom-validationPresent);
   }
 }
 
@@ -24,25 +28,37 @@
   padding: 0;
 
   &:where([data-legend-visible]) {
-    margin-bottom: var(--base-size-8);
+    --CheckboxOrRadioGroup--groupLegend-marginBottom-legendVisiblePresent: var(--base-size-8);
+
+    margin-bottom: var(--CheckboxOrRadioGroup--groupLegend-marginBottom-legendVisiblePresent);
   }
 }
 
 .CheckboxOrRadioGroupCaption {
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
+  --CheckboxOrRadioGroup--checkboxOrRadioGroupCaption-color: var(--fgColor-muted);
+  --CheckboxOrRadioGroup--checkboxOrRadioGroupCaption-fontSize: var(--text-body-size-medium);
+
+  font-size: var(--CheckboxOrRadioGroup--checkboxOrRadioGroupCaption-fontSize);
+  color: var(--CheckboxOrRadioGroup--checkboxOrRadioGroupCaption-color);
 }
 
 .RadioGroupLabel {
+  --CheckboxOrRadioGroup--radioGroupLabel-fontWeight: var(--base-text-weight-semibold);
+  --CheckboxOrRadioGroup--radioGroupLabel-fontSize: var(--text-body-size-medium);
+
   display: block;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--CheckboxOrRadioGroup--radioGroupLabel-fontSize);
+  font-weight: var(--base-text-weight-light);
 
   &:where([data-label-disabled]) {
-    color: var(--fgColor-muted);
+    --CheckboxOrRadioGroup--radioGroupLabel-color-labelDisabledPresent: var(--fgColor-muted);
+
+    color: var(--CheckboxOrRadioGroup--radioGroupLabel-color-labelDisabledPresent);
   }
 }
 
 .GroupLabelChildren {
-  margin-right: var(--base-size-8);
+  --CheckboxOrRadioGroup--groupLabelChildren-marginRight: var(--base-size-8);
+
+  margin-right: var(--CheckboxOrRadioGroup--groupLabelChildren-marginRight);
 }

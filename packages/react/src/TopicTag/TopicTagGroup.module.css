@@ -1,6 +1,9 @@
 .TopicTagGroup {
+  --TopicTag--topicTagGroup-rowGap: var(--base-size-8);
+  --TopicTag--topicTagGroup-columnGap: var(--base-size-2);
+
   display: flex;
   flex-wrap: wrap;
-  column-gap: var(--base-size-2);
-  row-gap: var(--base-size-8);
+  column-gap: var(--TopicTag--topicTagGroup-columnGap);
+  row-gap: var(--TopicTag--topicTagGroup-rowGap);
 }

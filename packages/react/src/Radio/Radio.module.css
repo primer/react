@@ -1,24 +1,32 @@
 .Radio {
-  border-radius: var(--borderRadius-full, 100vh);
+  --Radio--borderRadius: var(--borderRadius-full, 100vh);
+
+  border-radius: var(--Radio--borderRadius);
   transition:
     background-color,
     border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
   &:where(:checked) {
+    --Radio--borderWidth-checked: var(--borderWidth-thicker);
+    --Radio--borderColor-checked: var(--control-checked-bgColor-rest);
+    --Radio--backgroundColor-checked: var(--control-checked-fgColor-rest);
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--control-checked-fgColor-rest);
+    background-color: var(--Radio--backgroundColor-checked);
 
     /* using bgColor here to avoid a border change in dark high contrast */
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--control-checked-bgColor-rest);
-    border-width: var(--borderWidth-thicker);
+    border-color: var(--Radio--borderColor-checked);
+    border-width: var(--Radio--borderWidth-checked);
 
     &:disabled {
+      --Radio--borderColor-checked-disabled: var(--control-checked-bgColor-disabled);
+      --Radio--backgroundColor-checked-disabled: var(--control-checked-fgColor-disabled);
+
       cursor: not-allowed;
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--control-checked-fgColor-disabled);
+      background-color: var(--Radio--backgroundColor-checked-disabled);
       /* stylelint-disable-next-line primer/colors */
-      border-color: var(--control-checked-bgColor-disabled);
+      border-color: var(--Radio--borderColor-checked-disabled);
     }
   }
 

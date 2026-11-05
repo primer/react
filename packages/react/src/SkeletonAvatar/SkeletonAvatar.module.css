@@ -1,32 +1,49 @@
 .SkeletonAvatar {
   &:where([data-component='SkeletonAvatar']) {
+    --SkeletonAvatar--height-componentSkeletonAvatar: var(--avatarSize-regular);
+    --SkeletonAvatar--width-componentSkeletonAvatar: var(--avatarSize-regular);
+
     display: inline-block;
-    width: var(--avatarSize-regular);
-    height: var(--avatarSize-regular);
+    width: var(--SkeletonAvatar--width-componentSkeletonAvatar);
+    height: var(--SkeletonAvatar--height-componentSkeletonAvatar);
     /* stylelint-disable-next-line primer/typography */
     line-height: 1;
     border-radius: 50%;
   }
 
   &:where([data-square]) {
+    --SkeletonAvatar--borderRadius-squarePresent: clamp(
+      4px,
+      var(--avatarSize-regular) - 24px,
+      var(--borderRadius-medium)
+    );
     /* stylelint-disable-next-line primer/borders */
-    border-radius: clamp(4px, var(--avatarSize-regular) - 24px, var(--borderRadius-medium));
+    border-radius: var(--SkeletonAvatar--borderRadius-squarePresent);
   }
 
   &:where([data-responsive]) {
     @media screen and (--viewportRange-narrow) {
-      width: var(--avatarSize-narrow);
-      height: var(--avatarSize-narrow);
+      --SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeNarrow: var(--avatarSize-narrow);
+      --SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeNarrow: var(--avatarSize-narrow);
+
+      width: var(--SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeNarrow);
+      height: var(--SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeNarrow);
     }
 
     @media screen and (--viewportRange-regular) {
-      width: var(--avatarSize-regular);
-      height: var(--avatarSize-regular);
+      --SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeRegular: var(--avatarSize-regular);
+      --SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeRegular: var(--avatarSize-regular);
+
+      width: var(--SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeRegular);
+      height: var(--SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeRegular);
     }
 
     @media screen and (--viewportRange-wide) {
-      width: var(--avatarSize-wide);
-      height: var(--avatarSize-wide);
+      --SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeWide: var(--avatarSize-wide);
+      --SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeWide: var(--avatarSize-wide);
+
+      width: var(--SkeletonAvatar--width-responsivePresent-mediaScreenAndViewportRangeWide);
+      height: var(--SkeletonAvatar--height-responsivePresent-mediaScreenAndViewportRangeWide);
     }
   }
 }

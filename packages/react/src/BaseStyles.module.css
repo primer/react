@@ -54,11 +54,15 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
 /* -------------------------------------------------------------------------- */
 
 .BaseStyles {
-  font-family: var(--BaseStyles-fontFamily, var(--fontStack-system));
+  --BaseStyles--color: var(--BaseStyles-fgColor, var(--fgColor-default));
+  --BaseStyles--lineHeight: var(--BaseStyles-lineHeight, 1.5);
+  --BaseStyles--fontFamily: var(--BaseStyles-fontFamily, var(--fontStack-system));
+
+  font-family: var(--BaseStyles--fontFamily);
   /* stylelint-disable-next-line primer/typography */
-  line-height: var(--BaseStyles-lineHeight, 1.5);
+  line-height: var(--BaseStyles--lineHeight);
   /* stylelint-disable-next-line primer/colors */
-  color: var(--BaseStyles-fgColor, var(--fgColor-default));
+  color: var(--BaseStyles--color);
 
   /*
    * PERFORMANCE: Removed :has([data-color-mode]) selectors that scanned entire DOM.
@@ -70,7 +74,9 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
   /* Low-specificity default link styling */
   /* stylelint-disable-next-line selector-no-qualifying-type */
   :where(a:not([class*='prc-']):not([class*='PRC-']):not([class*='Primer_Brand__'])) {
-    color: var(--fgColor-accent, var(--color-accent-fg));
+    --BaseStyles--a-color-not-classPrc-classPRC-classPrimerBrand: var(--fgColor-accent, var(--color-accent-fg));
+
+    color: var(--BaseStyles--a-color-not-classPrc-classPRC-classPrimerBrand);
     text-decoration: none;
 
     &:hover {

@@ -1,15 +1,20 @@
 .TablePagination {
+  --DataTable--pagination-tablePagination-borderEndEndRadius: var(--borderRadius-medium);
+  --DataTable--pagination-tablePagination-borderEndStartRadius: var(--borderRadius-medium);
+  --DataTable--pagination-tablePagination-border: var(--borderWidth-thin) solid var(--borderColor-default);
+  --DataTable--pagination-tablePagination-padding: var(--base-size-8) var(--base-size-16);
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   column-gap: 1rem;
   width: 100%;
   grid-area: footer;
-  padding: var(--base-size-8) var(--base-size-16);
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding: var(--DataTable--pagination-tablePagination-padding);
+  border: var(--DataTable--pagination-tablePagination-border);
   border-top-width: 0;
-  border-end-start-radius: var(--borderRadius-medium);
-  border-end-end-radius: var(--borderRadius-medium);
+  border-end-start-radius: var(--DataTable--pagination-tablePagination-borderEndStartRadius);
+  border-end-end-radius: var(--DataTable--pagination-tablePagination-borderEndEndRadius);
 }
 
 @media ((max-width: calc(768px - 0.02px))) {
@@ -58,77 +63,114 @@
 }
 
 .TablePaginationRange {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
+  --DataTable--pagination-tablePaginationRange-fontSize: var(--text-body-size-small);
+  --DataTable--pagination-tablePaginationRange-color: var(--fgColor-muted);
+
+  color: var(--DataTable--pagination-tablePaginationRange-color);
+  font-size: var(--DataTable--pagination-tablePaginationRange-fontSize);
   margin: 0;
 }
 
 .TablePaginationSteps {
+  --DataTable--pagination-tablePaginationSteps-fontSize: var(--text-body-size-medium);
+  --DataTable--pagination-tablePaginationSteps-color: var(--fgColor-default);
+
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   list-style: none;
-  color: var(--fgColor-default);
-  font-size: var(--text-body-size-medium);
+  color: var(--DataTable--pagination-tablePaginationSteps-color);
+  font-size: var(--DataTable--pagination-tablePaginationSteps-fontSize);
   margin: 0;
   padding: 0;
 }
 
 .TablePaginationStep:first-of-type {
-  margin-right: var(--base-size-16);
+  --DataTable--pagination-tablePaginationStep-marginRight-firstOfType: var(--base-size-16);
+
+  margin-right: var(--DataTable--pagination-tablePaginationStep-marginRight-firstOfType);
 }
 
 .TablePaginationStep:last-of-type {
-  margin-left: var(--base-size-16);
+  --DataTable--pagination-tablePaginationStep-marginLeft-lastOfType: var(--base-size-16);
+
+  margin-left: var(--DataTable--pagination-tablePaginationStep-marginLeft-lastOfType);
 }
 
 .TablePaginationAction {
+  --DataTable--pagination-tablePaginationAction-borderRadius: var(--borderRadius-medium);
+  --DataTable--pagination-tablePaginationAction-padding: var(--base-size-8);
+  --DataTable--pagination-tablePaginationAction-fontSize: var(--text-body-size-medium);
+  --DataTable--pagination-tablePaginationAction-color: var(--fgColor-muted);
+
   display: flex;
   align-items: center;
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-medium);
+  color: var(--DataTable--pagination-tablePaginationAction-color);
+  font-size: var(--DataTable--pagination-tablePaginationAction-fontSize);
   /* stylelint-disable-next-line primer/typography */
   line-height: calc(20 / 14);
   user-select: none;
-  padding: var(--base-size-8);
-  border-radius: var(--borderRadius-medium);
+  padding: var(--DataTable--pagination-tablePaginationAction-padding);
+  border-radius: var(--DataTable--pagination-tablePaginationAction-borderRadius);
 }
 
 .TablePaginationAction[data-has-page] {
-  color: var(--fgColor-accent);
+  --DataTable--pagination-tablePaginationAction-color-hasPagePresent: var(--fgColor-accent);
+
+  color: var(--DataTable--pagination-tablePaginationAction-color-hasPagePresent);
 }
 
 .TablePaginationPage {
+  --DataTable--pagination-tablePaginationPage-padding: var(--base-size-8)
+    calc((var(--base-size-32) - var(--base-size-20)) / 2);
+  --DataTable--pagination-tablePaginationPage-borderRadius: var(--borderRadius-medium);
+  --DataTable--pagination-tablePaginationPage-fontSize: var(--text-body-size-medium);
+
   min-width: 2rem;
   min-height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--text-body-size-medium);
+  font-size: var(--DataTable--pagination-tablePaginationPage-fontSize);
   /* stylelint-disable-next-line primer/typography */
   line-height: calc(20 / 14);
   user-select: none;
-  border-radius: var(--borderRadius-medium);
-  padding: var(--base-size-8) calc((var(--base-size-32) - var(--base-size-20)) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
+  border-radius: var(--DataTable--pagination-tablePaginationPage-borderRadius);
+  padding: var(
+    --DataTable--pagination-tablePaginationPage-padding
+  ); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
 }
 
 .TablePaginationAction[data-has-page]:hover,
 .TablePaginationAction[data-has-page]:focus,
 .TablePaginationPage:hover,
 .TablePaginationPage:focus {
-  background-color: var(--control-transparent-bgColor-hover);
+  --DataTable--pagination-tablePaginationAction-tablePaginationPage-backgroundColor-hasPagePresent-hover-focus: var(
+    --control-transparent-bgColor-hover
+  );
+
+  background-color: var(
+    --DataTable--pagination-tablePaginationAction-tablePaginationPage-backgroundColor-hasPagePresent-hover-focus
+  );
 }
 
 .TablePaginationPage[data-active='true'] {
-  background-color: var(--bgColor-accent-emphasis);
-  color: var(--fgColor-onEmphasis);
+  --DataTable--pagination-tablePaginationPage-color-activeTrue: var(--fgColor-onEmphasis);
+  --DataTable--pagination-tablePaginationPage-backgroundColor-activeTrue: var(--bgColor-accent-emphasis);
+
+  background-color: var(--DataTable--pagination-tablePaginationPage-backgroundColor-activeTrue);
+  color: var(--DataTable--pagination-tablePaginationPage-color-activeTrue);
 }
 
 .TablePaginationPage[data-active='true']:focus-visible {
-  outline: 2px solid var(--bgColor-accent-emphasis);
+  --DataTable--pagination-tablePaginationPage-boxShadow-activeTrue-focusVisible: inset 0 0 0 3px
+    var(--fgColor-onEmphasis);
+  --DataTable--pagination-tablePaginationPage-outline-activeTrue-focusVisible: 2px solid var(--bgColor-accent-emphasis);
+
+  outline: var(--DataTable--pagination-tablePaginationPage-outline-activeTrue-focusVisible);
   outline-offset: -2px;
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
+  box-shadow: var(--DataTable--pagination-tablePaginationPage-boxShadow-activeTrue-focusVisible);
 }
 
 .TablePaginationTruncationStep {
