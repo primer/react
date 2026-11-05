@@ -3,7 +3,7 @@ import {renderToString} from 'react-dom/server'
 import {act, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import {page} from 'vitest/browser'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import Breadcrumbs from '..'
 
 // Uses real layout and a real ResizeObserver.
@@ -232,5 +232,140 @@ describe('Breadcrumbs overflow before hydration', () => {
     await hydrate()
     expect(nav).toHaveAttribute('data-hydrated')
     expect(snapshot().overflowsNav).toBe(false)
+  })
+
+  it('keeps every focusable crumb on screen when tabbing through unhydrated markup', async () => {
+    const {nav} = await serverRender(300, 'menu-with-root', labels)
+    const host = nav.parentElement!
+    try {
+      const navRect = nav.getBoundingClientRect()
+      const tabStops = nav.querySelectorAll('a, button').length
+      expect(tabStops).toBeGreaterThan(0)
+
+      const offscreen: string[] = []
+      for (let stop = 0; stop < tabStops; stop++) {
+        await browserUserEvent.tab()
+        const focused = document.activeElement as HTMLElement
+        expect(nav).toContainElement(focused)
+        const rect = focused.getBoundingClientRect()
+        if (rect.left < navRect.left - 1 || rect.right > navRect.right + 1) {
+          offscreen.push(`${focused.textContent || focused.getAttribute('aria-label')} (${rect.left}..${rect.right})`)
+        }
+      }
+      expect(offscreen).toEqual([])
+    } finally {
+      host.remove()
+    }
+  })
+})
+
+describe('Breadcrumbs overflow regressions (real layout)', () => {
+  const longLabels = [
+    'Home',
+    'organization-name-long',
+    'engineering-team-long',
+    'core-productivity-long',
+    'Current page long',
+  ]
+
+  const crumbs = (overflow: 'wrap' | 'menu' | 'menu-with-root', items: string[], style?: React.CSSProperties) => (
+    <Breadcrumbs overflow={overflow} style={style}>
+      {items.map((label, index) => (
+        <Breadcrumbs.Item key={label} href={`#${label}`} selected={index === items.length - 1}>
+          {label}
+        </Breadcrumbs.Item>
+      ))}
+    </Breadcrumbs>
+  )
+
+  const linksWithinNav = () => {
+    const navRight = screen.getByRole('navigation').getBoundingClientRect().right
+    return screen.queryAllByRole('link').every(link => link.getBoundingClientRect().right <= navRight + 1)
+  }
+
+  it('settles instead of looping when large text puts the container at the collapse boundary', async () => {
+    // Text scaling grows the separator drawn between crumbs by `em`, but not the 16px icon
+    // used once crumbs collapse. Sweep the widths around the boundary for four crumbs.
+    for (let width = 600; width <= 720; width += 8) {
+      const {unmount} = render(
+        <div style={{width, ['--text-body-size-medium' as string]: '28px'}}>
+          {crumbs('menu', ['Home', 'Organization', 'Engineering', 'Current page'])}
+        </div>,
+      )
+      await nextFrame()
+      const settled = visibleLinks()
+      await nextFrame()
+      await nextFrame()
+      expect(visibleLinks(), `width ${width}`).toEqual(settled)
+      expect(settled.at(-1), `width ${width}`).toBe('Current page')
+      unmount()
+    }
+  })
+
+  it('keeps the same crumbs when the breadcrumbs are hidden and shown again', async () => {
+    const {container, setWidth} = renderCrumbs(600, 'menu', longLabels)
+    await nextFrame()
+    const before = visibleLinks()
+    expect(before.length).toBeLessThan(longLabels.length)
+    expect(linksWithinNav()).toBe(true)
+
+    container.style.display = 'none'
+    await nextFrame()
+    container.style.display = 'block'
+    await nextFrame()
+    expect(visibleLinks()).toEqual(before)
+    expect(linksWithinNav()).toBe(true)
+
+    // Still responds to resizes afterwards.
+    await setWidth(300)
+    expect(linksWithinNav()).toBe(true)
+  })
+
+  it('measures the content box, so padding does not change which crumbs collapse', async () => {
+    // 520px of content is below the 544px narrow breakpoint with or without padding.
+    const three = labels.slice(0, 3)
+    const plain = render(<div style={{width: 520}}>{crumbs('menu', three)}</div>)
+    await nextFrame()
+    const withoutPadding = visibleLinks()
+    expect(withoutPadding).toEqual(['Engineering'])
+    plain.unmount()
+
+    render(<div style={{width: 552}}>{crumbs('menu', three, {boxSizing: 'border-box', paddingInline: 16})}</div>)
+    await nextFrame()
+    expect(visibleLinks()).toEqual(withoutPadding)
+  })
+
+  it('measures the content box when a padded container is resized', async () => {
+    const three = labels.slice(0, 3)
+    render(
+      <div data-testid="container" style={{width: 800}}>
+        {crumbs('menu', three, {boxSizing: 'border-box', paddingInline: 16})}
+      </div>,
+    )
+    await nextFrame()
+    expect(visibleLinks()).toEqual(three)
+
+    screen.getByTestId('container').style.width = '552px'
+    await nextFrame()
+    expect(visibleLinks()).toEqual(['Engineering'])
+  })
+
+  it('starts with the overflow menu closed after switching to wrap and back', async () => {
+    const user = userEvent.setup()
+    const ui = (overflow: 'wrap' | 'menu') => <div style={{width: 300}}>{crumbs(overflow, labels)}</div>
+    const {rerender} = render(ui('menu'))
+    await nextFrame()
+    await user.click(menuButton()!)
+    expect(menuButton()).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(ui('wrap'))
+    await nextFrame()
+    expect(menuButton()).toBeNull()
+
+    rerender(ui('menu'))
+    await nextFrame()
+    expect(menuButton()).toHaveAttribute('aria-expanded', 'false')
+    const menu = menuButton()!.closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')!
+    expect(within(menu).queryAllByRole('link')).toHaveLength(0)
   })
 })
