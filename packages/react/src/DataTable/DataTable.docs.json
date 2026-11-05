@@ -104,7 +104,7 @@
     {
       "name": "rowSelection",
       "type": "boolean",
-      "description": "Render row checkboxes and current-page select-all. Collapsible groups also get a checkbox for their selectable members. Announce count changes with or without bulk actions; initial selection is not announced."
+      "description": "Render row checkboxes and current-page select-all. Collapsible groups also get a checkbox for their selectable members."
     },
     {
       "name": "selectedRows",
@@ -155,7 +155,7 @@
     {
       "name": "bulkActionsProps",
       "type": "Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel'>",
-      "description": "Localize the bulk-action group name and selected-count announcement (including zero). getSelectedCountLabel also applies without renderBulkActions. Rapid count changes are coalesced over 150 ms."
+      "description": "Localize the bulk-action group name and selected-count announcement (including zero). getSelectedCountLabel also applies without renderBulkActions."
     },
     {
       "name": "bulkActionsReturnFocusRef",
