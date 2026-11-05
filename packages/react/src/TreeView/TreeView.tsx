@@ -17,7 +17,8 @@ import {useId} from '../hooks/useId'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import {useSlots} from '../hooks/useSlots'
 import {getAccessibleName} from './shared'
-import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
+import {getFirstChildElement} from './useRovingTabIndex'
+import {useTreeRovingTabIndex} from './useTreeRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {SkeletonText} from '../SkeletonText'
@@ -131,7 +132,7 @@ const Root: React.FC<TreeViewProps> = ({
     }
   }, [])
 
-  useRovingTabIndex({containerRef, mouseDownRef})
+  useTreeRovingTabIndex({containerRef, mouseDownRef})
   useTypeahead({
     containerRef,
     onFocusChange: element => {
@@ -299,6 +300,10 @@ const ItemImpl = fixedForwardRef(
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
     const [isFocused, setIsFocused] = React.useState(false)
+    // Only one item is in the tab order. The current item starts as the tab stop so it is reachable
+    // before hydration, then `useTreeRovingTabIndex` moves the tab stop by writing `tabindex`
+    // directly. The value is latched so re-renders never fight those writes.
+    const [initialTabIndex] = React.useState(isCurrentItem ? 0 : -1)
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
@@ -381,7 +386,7 @@ const ItemImpl = fixedForwardRef(
         {...restProps}
         className={clsx('PRIVATE_TreeView-item', className, classes.TreeViewItem)}
         ref={ref as React.ForwardedRef<HTMLElement>}
-        tabIndex={0}
+        tabIndex={initialTabIndex}
         id={itemId}
         role="treeitem"
         aria-label={

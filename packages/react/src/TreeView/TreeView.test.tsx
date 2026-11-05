@@ -3,6 +3,8 @@ import {fireEvent, render, act, screen} from '@testing-library/react'
 import rtlUserEvent from '@testing-library/user-event'
 import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
+import {renderToString} from 'react-dom/server'
+import {hydrateRoot, type Root} from 'react-dom/client'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
 import {GearIcon} from '@primer/octicons-react'
@@ -530,6 +532,168 @@ describe('Markup', () => {
       await userEvent.click(item)
       expect(onSelect).toHaveBeenCalledTimes(1)
     })
+  })
+})
+
+describe('Tab order', () => {
+  const getTabStops = (container: Element) =>
+    Array.from(container.querySelectorAll('[tabindex="0"]')).map(element => element.id || element.textContent)
+
+  it('server renders only the current item in the tab order and keeps one tab stop after hydration', async () => {
+    const tree = (
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2" defaultExpanded>
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2-1" current>
+              Item 2.1
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    )
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    container.innerHTML = renderToString(tree)
+
+    expect(getTabStops(container)).toEqual(['item-2-1'])
+
+    let root: Root | undefined
+    act(() => {
+      root = hydrateRoot(container, tree)
+    })
+    expect(getTabStops(container)).toEqual(['item-2-1'])
+
+    act(() => root?.unmount())
+    container.remove()
+  })
+
+  it('makes the first item the tab stop when there is no current item', () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    expect(getTabStops(container)).toEqual(['item-1'])
+  })
+
+  it('moves the tab stop to the focused item', async () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+      </TreeView>,
+    )
+
+    act(() => page.getByRole('treeitem', {name: 'Item 1'}).element().focus())
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 2'})).toHaveFocus()
+    expect(getTabStops(container)).toEqual(['item-2'])
+
+    // A pointer focus also moves the tab stop
+    await userEvent.click(page.getByRole('treeitem', {name: 'Item 3'}))
+    expect(getTabStops(container)).toEqual(['item-3'])
+  })
+
+  it('tabs into the tree once and lands on the current item', async () => {
+    render(
+      <div>
+        <button type="button">Before</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+          <TreeView.Item id="item-2" current>
+            Item 2
+          </TreeView.Item>
+          <TreeView.Item id="item-3">
+            <TreeView.LeadingAction>
+              <button type="button">Nested action</button>
+            </TreeView.LeadingAction>
+            Item 3
+          </TreeView.Item>
+        </TreeView>
+        <button type="button">After</button>
+      </div>,
+    )
+
+    act(() => page.getByRole('button', {name: 'Before'}).element().focus())
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 2'})).toHaveFocus()
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('button', {name: 'After'})).toHaveFocus()
+    await userEvent.keyboard('{Shift>}{Tab}{/Shift}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 2'})).toHaveFocus()
+  })
+
+  it('keeps nested controls and late-mounted current items out of the tab order', async () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2-1" current>
+              <TreeView.LeadingAction>
+                <button type="button">Nested action</button>
+              </TreeView.LeadingAction>
+              Item 2.1
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    act(() => page.getByRole('treeitem', {name: 'Item 1'}).element().focus())
+    await userEvent.keyboard('{ArrowDown}{ArrowRight}')
+    await expect.element(page.getByRole('treeitem', {name: /Item 2.1/})).toBeInTheDocument()
+
+    expect(getTabStops(container)).toEqual(['item-2'])
+    expect(container.querySelector('button')).toHaveAttribute('tabindex', '-1')
+  })
+
+  it('assigns a new tab stop when the tab stop is removed', async () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1" defaultExpanded>
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item id="item-1-1">Item 1.1</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    act(() => page.getByRole('treeitem', {name: 'Item 1.1'}).element().focus())
+    expect(getTabStops(container)).toEqual(['item-1-1'])
+
+    // Collapse the parent with a pointer, which unmounts the tab stop
+    const toggle = container.querySelector('.PRIVATE_TreeView-item-toggle') as HTMLElement
+    act(() => toggle.click())
+    await expect.element(page.getByRole('treeitem', {name: 'Item 1.1'})).not.toBeInTheDocument()
+
+    await vi.waitFor(() => expect(getTabStops(container)).toEqual(['item-1']))
+  })
+
+  it('lets nested editable controls handle navigation keys', async () => {
+    render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">
+          Item 1
+          <input aria-label="Nested input" defaultValue="abc" />
+        </TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    const input = page.getByRole('textbox', {name: 'Nested input'})
+    act(() => input.element().focus())
+    expect(fireEvent.keyDown(input.element(), {key: 'Backspace'})).toBe(true)
+    expect(fireEvent.keyDown(input.element(), {key: 'ArrowDown'})).toBe(true)
+    expect(input.element()).toHaveFocus()
   })
 })
 
