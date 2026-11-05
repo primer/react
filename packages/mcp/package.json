@@ -44,7 +44,7 @@
     "@primer/react": "^38.43.0",
     "cheerio": "^1.0.0",
     "turndown": "^7.2.0",
-    "zod": "^4.3.5"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@modelcontextprotocol/inspector": "^0.16.6",

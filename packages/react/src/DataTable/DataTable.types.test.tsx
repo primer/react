@@ -1,4 +1,4 @@
-import {lazy} from 'react'
+import {lazy, type RefObject} from 'react'
 import type {Column} from './column'
 import {DataTable, type DataTableProps} from './DataTable'
 import type {DataTableRowGroup} from './row'
@@ -246,6 +246,31 @@ export function shouldAcceptRowSelectionProps() {
       }}
     />
   )
+}
+
+export function shouldAcceptBulkActions() {
+  const returnFocusRef: RefObject<HTMLButtonElement | null> = {current: null}
+  const config = (
+    <LazyDataTable
+      data={groups}
+      columns={columns}
+      rowSelection
+      bulkActionsReturnFocusRef={returnFocusRef}
+      renderBulkActions={({selectedRows, selectedCount, clearSelection}) => {
+        const ids: ReadonlySet<DataTableRowId> = selectedRows
+        // @ts-expect-error Bulk action IDs are read-only.
+        ids.add(3)
+        return (
+          <button type="button" onClick={clearSelection}>
+            Apply to {selectedCount}
+          </button>
+        )
+      }}
+      bulkActionsProps={{getSelectedCountLabel: count => `${count} selected`}}
+    />
+  )
+  const composed = <Table.BulkActions selectedCount={1}>Actions</Table.BulkActions>
+  return {config, composed}
 }
 
 export function shouldInferMixedSelectionCallbacks() {

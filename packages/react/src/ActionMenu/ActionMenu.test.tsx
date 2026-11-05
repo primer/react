@@ -1,6 +1,7 @@
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import type React from 'react'
 import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
@@ -18,6 +19,7 @@ import type {AnchorPosition} from '@primer/behaviors'
 
 import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
+import {createRenderCounter} from '../utils/testing/profiler'
 import {FeatureFlags} from '../FeatureFlags'
 
 // Mock getAnchoredPosition for feature flag tests
@@ -79,6 +81,30 @@ function ExampleWithTooltip(): JSX.Element {
         </ActionMenu>
       </Tooltip>
     </BaseStyles>
+  )
+}
+
+function IconButtonActionMenu({
+  onSelect,
+  onFocus,
+  ...props
+}: {onSelect?: () => void; onFocus?: React.FocusEventHandler<HTMLElement>} & Pick<
+  React.ComponentProps<typeof ActionMenu>,
+  'open' | 'onOpenChange'
+> = {}): JSX.Element {
+  return (
+    <ActionMenu {...props}>
+      <ActionMenu.Anchor>
+        <IconButton icon={SearchIcon} aria-label="More actions" />
+      </ActionMenu.Anchor>
+      <ActionMenu.Overlay width="medium">
+        <ActionList>
+          <ActionList.Item onSelect={onSelect} onFocus={onFocus}>
+            Copy link
+          </ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
   )
 }
 
@@ -663,30 +689,113 @@ describe('ActionMenu', () => {
     expect(button.id).toBe(buttonId)
   })
 
-  it('should use the tooltip id to name the menu when the anchor is icon button', async () => {
-    const component = HTMLRender(
-      <BaseStyles>
-        <ActionMenu>
-          <ActionMenu.Anchor>
-            <IconButton icon={SearchIcon} aria-label="More actions" />
-          </ActionMenu.Anchor>
+  describe('anchor labeling and focus behavior', () => {
+    it('does not publish anchor label state after mounting closed', async () => {
+      const [Wrap, counter] = createRenderCounter()
+      HTMLRender(
+        <Wrap>
+          <BaseStyles>
+            <IconButtonActionMenu />
+          </BaseStyles>
+        </Wrap>,
+      )
 
-          <ActionMenu.Overlay width="medium">
-            <ActionList>
-              <ActionList.Item onSelect={() => alert('Copy link clicked')}>
-                Copy link
-                <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-              </ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </BaseStyles>,
-    )
+      await act(async () => {})
 
-    const toggleButton = component.getByRole('button', {name: 'More actions'})
-    await userEvent.click(toggleButton)
-    expect(toggleButton).toHaveAttribute('aria-labelledby')
-    expect(component.getByRole('menu')).toHaveAttribute('aria-labelledby', toggleButton.getAttribute('aria-labelledby'))
+      expect(counter.mountCount).toBe(1)
+      expect(counter.updateCount).toBe(0)
+    })
+
+    it('labels an initially open controlled menu before item focus', async () => {
+      const onFocus = vi.fn(() => within(document.body).queryByRole('menu', {name: 'More actions'}) !== null)
+      const component = HTMLRender(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <IconButtonActionMenu open onOpenChange={vi.fn()} onFocus={onFocus} />
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+
+      await expect.element(page.getByRole('menuitem', {name: 'Copy link', exact: true})).toHaveFocus()
+      expect(onFocus.mock.results[0].value).toBe(true)
+      const menu = component.getByRole('menu', {name: 'More actions'})
+      const anchor = component.getByRole('button', {name: 'More actions'})
+      expect(menu).toHaveAttribute('aria-labelledby', anchor.getAttribute('aria-labelledby'))
+    })
+
+    it('uses the tooltip id to name the menu before first item focus', async () => {
+      const onFocus = vi.fn(() => within(document.body).queryByRole('menu', {name: 'More actions'}) !== null)
+      const component = HTMLRender(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <IconButtonActionMenu onFocus={onFocus} />
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      const toggleButton = component.getByRole('button', {name: 'More actions'})
+
+      await browserUserEvent.click(page.getByRole('button', {name: 'More actions', exact: true}))
+
+      await expect.element(page.getByRole('menuitem', {name: 'Copy link', exact: true})).toHaveFocus()
+      expect(onFocus.mock.results[0].value).toBe(true)
+      expect(toggleButton).toHaveAttribute('aria-labelledby')
+      expect(component.getByRole('menu', {name: 'More actions'})).toHaveAttribute(
+        'aria-labelledby',
+        toggleButton.getAttribute('aria-labelledby'),
+      )
+    })
+
+    it('closes with Escape and returns focus to the anchor', async () => {
+      const component = HTMLRender(
+        <BaseStyles>
+          <IconButtonActionMenu />
+        </BaseStyles>,
+      )
+      const user = userEvent.setup()
+      const toggleButton = component.getByRole('button', {name: 'More actions'})
+      await user.click(toggleButton)
+      component.getByRole('menuitem', {name: 'Copy link'}).focus()
+
+      await user.keyboard('{Escape}')
+
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      expect(toggleButton).toHaveFocus()
+    })
+
+    it('closes with Tab without returning focus to the anchor', async () => {
+      const component = HTMLRender(
+        <BaseStyles>
+          <IconButtonActionMenu />
+        </BaseStyles>,
+      )
+      const user = userEvent.setup()
+      const toggleButton = component.getByRole('button', {name: 'More actions'})
+      await user.click(toggleButton)
+      component.getByRole('menuitem', {name: 'Copy link'}).focus()
+
+      await user.tab()
+
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      expect(toggleButton).not.toHaveFocus()
+    })
+
+    it('closes after selection and returns focus to the anchor', async () => {
+      const onSelect = vi.fn()
+      const component = HTMLRender(
+        <BaseStyles>
+          <IconButtonActionMenu onSelect={onSelect} />
+        </BaseStyles>,
+      )
+      const user = userEvent.setup()
+      const toggleButton = component.getByRole('button', {name: 'More actions'})
+      await user.click(toggleButton)
+
+      await user.click(component.getByRole('menuitem', {name: 'Copy link'}))
+
+      expect(onSelect).toHaveBeenCalledOnce()
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+      expect(toggleButton).toHaveFocus()
+    })
   })
 
   describe('submenus', () => {
