@@ -92,8 +92,7 @@ type DataTableBaseProps<Data extends UniqueRow> = {
   onToggleSort?: (columnId: ObjectPaths<Data> | string | number, direction: Exclude<SortDirection, 'NONE'>) => void
 
   /**
-   * Whether to render controls for selecting rows and announce changes to the
-   * selected count. Initial selection is not announced.
+   * Whether to render controls for selecting rows.
    */
   rowSelection?: boolean
 
@@ -251,7 +250,6 @@ function DataTableImplementation<Data extends UniqueRow>({
   useEffect(() => {
     const previous = previousSelectionAnnouncement.current
     previousSelectionAnnouncement.current = selectionAnnouncement
-    // Initial selection (including when selection is enabled later) stays silent.
     if (previous === null || selectionAnnouncement === null || previous === selectionAnnouncement) {
       return
     }
@@ -347,8 +345,7 @@ function DataTableImplementation<Data extends UniqueRow>({
           })}
         </TableRow>
         {hasBulkActions ? (
-          // Keep the toolbar mounted so its observer can recover focus when an action disappears.
-          <TableRow className={classes.HeaderRow} aria-hidden={!bulkActionsActive || undefined}>
+          <TableRow className={classes.HeaderRow} aria-hidden={!bulkActionsActive}>
             <VisuallyHidden
               as="td"
               isVisible={bulkActionsActive}

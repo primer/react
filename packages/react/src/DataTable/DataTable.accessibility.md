@@ -259,22 +259,6 @@ its header ID to selection cells' `headers`. Group headers are not selected row 
 Examples: `WithRowSelection` in [Table features](./Table.features.stories.tsx)
 and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.stories.tsx).
 
-### Selection announcements
-
-With `rowSelection`, `DataTable` announces changes to the effective selected count
-through a persistent polite status, with or without `renderBulkActions`. Mounting
-with zero or preselected rows does not announce. Rapid changes are coalesced over
-150 ms, and unchanged count text is not repeated. Clearing announces `0 selected`
-by default. Use `bulkActionsProps.getSelectedCountLabel` to localize messages,
-including zero, even when there is no toolbar.
-
-This uses `@primer/live-region-element`, the shared delivery mechanism behind
-`AriaStatus`. Browser tests verify message
-requests and live-region content; they do not establish screen-reader delivery.
-The [historical VoiceOver/Safari retest](https://github.com/github/accessibility/issues/10807#issuecomment-5410001879)
-requires current assistive-technology validation and potentially a separately
-scoped shared live-region fix.
-
 ## Group expansion
 
 With `collapsibleGroups` (`Table.Group`'s `collapsible`), the group header contains
@@ -306,11 +290,9 @@ Actions occupy the table header beside select-all, replacing the visible column
 labels while rows are selected. Column names remain available to assistive
 technology, but custom header controls are hidden and sorting controls are removed
 until selection is cleared. The
-named action group uses native Tab/Shift+Tab navigation. `DataTable` owns the
-selection announcements described above, so the visible toolbar count does not
-announce a second time. Use `bulkActionsProps` to localize the group name and count label.
-The inactive toolbar row is excluded from the accessibility tree, but stays
-mounted to preserve focus recovery. The header checkbox toggles selection;
+named action group uses native Tab/Shift+Tab navigation. Count changes are
+announced, including zero. Use `bulkActionsProps`
+to localize the group name and count label. The header checkbox toggles selection;
 there is no separate clear button. Use small action buttons to fit the header.
 
 Showing actions preserves checkbox focus. When clearing selection or updating
@@ -339,9 +321,6 @@ See `WithBulkActions` in [DataTable features](./DataTable.features.stories.tsx).
   updates, disabled rows, focus, and hydration.
 - [Expansion tests](./__tests__/DataTableExpansion.test.tsx) cover disclosure
   semantics, focus recovery, hidden members, and group selection.
-- [Announcement tests](./__tests__/DataTableAnnouncements.test.tsx) cover silent
-  initial selection, toolbar-independent counts, clearing, debounce, localization,
-  inactive header semantics, and keyboard focus recovery.
 - [Bulk-action tests](./__tests__/DataTableBulkActions.test.tsx) cover effective
   IDs/counts, announcements, controlled clearing, focus recovery and hydration.
 - [DataTable browser tests](../../../../e2e/components/DataTable.test.ts) cover
