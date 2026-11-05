@@ -135,8 +135,20 @@ describe('Breadcrumbs overflow (real layout)', () => {
   })
 
   it('does not re-render on resizes that do not move the collapse point', async () => {
+    const hoverAt = async (css: string) => {
+      const probe = document.createElement('div')
+      probe.style.cssText = `position:fixed;width:20px;height:20px;${css}`
+      document.body.append(probe)
+      await browserUserEvent.hover(probe)
+      probe.remove()
+    }
+    // A pointer left over the spot where the menu button appears opens its tooltip (a state update),
+    // which is not a resize-driven render. Park it there, then move it away before measuring.
+    await hoverAt('left:0;top:0')
     let renders = 0
     const {setWidth} = renderCrumbs(1200, 'menu', labels, () => renders++)
+    await nextFrame()
+    await hoverAt('right:0;bottom:0')
     await nextFrame()
     renders = 0
     for (let width = 1190; width >= 900; width -= 10) {
