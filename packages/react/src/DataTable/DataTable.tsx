@@ -17,7 +17,7 @@ import {
 } from './Table'
 import {TableGroup} from './TableGroup'
 import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
-import {TableSelectionAnnouncementContext, defaultSelectedCountLabel} from './TableSelectionAnnouncementContext'
+import {TableSelectionAnnouncementContext} from './TableSelectionAnnouncementContext'
 import classes from './TableBulkActions.module.css'
 import VisuallyHidden from '../_VisuallyHidden'
 import {announce} from '@primer/live-region-element'
@@ -27,6 +27,22 @@ export interface DataTableBulkActionsContext {
   selectedRows: ReadonlySet<DataTableRowId>
   selectedCount: number
   clearSelection: () => void
+}
+
+export interface DataTableSelectionAnnouncementContext {
+  selectedCount: number
+  bulkActionsAvailable: boolean
+}
+
+function defaultSelectionAnnouncement({selectedCount, bulkActionsAvailable}: DataTableSelectionAnnouncementContext) {
+  const message =
+    selectedCount === 0 ? 'Selection cleared' : `${selectedCount} ${selectedCount === 1 ? 'row' : 'rows'} selected`
+
+  if (bulkActionsAvailable && selectedCount > 0) {
+    return `${message}, additional bulk actions available`
+  }
+
+  return message
 }
 
 // ----------------------------------------------------------------------------
@@ -119,6 +135,11 @@ type DataTableBaseProps<Data extends UniqueRow> = {
   isRowSelectable?: (row: Data) => boolean
 
   /**
+   * Formats the live announcement after the selected row count changes.
+   */
+  getSelectionAnnouncement?: (context: DataTableSelectionAnnouncementContext) => string
+
+  /**
    * Whether groups have disclosure controls. Groups are expanded by default.
    */
   collapsibleGroups?: boolean
@@ -184,6 +205,7 @@ function DataTableImplementation<Data extends UniqueRow>({
   defaultSelectedRows,
   onSelectionChange,
   isRowSelectable,
+  getSelectionAnnouncement = defaultSelectionAnnouncement,
   collapsibleGroups = false,
   expandedGroups,
   defaultExpandedGroups,
@@ -245,13 +267,22 @@ function DataTableImplementation<Data extends UniqueRow>({
   )
 
   const selectionAnnouncement = rowSelection
-    ? (bulkActionsProps?.getSelectedCountLabel ?? defaultSelectedCountLabel)(selection.selectedCount)
+    ? getSelectionAnnouncement({
+        selectedCount: selection.selectedCount,
+        bulkActionsAvailable: hasBulkActions,
+      })
     : null
-  const previousSelectionAnnouncement = useRef(selectionAnnouncement)
+  const selectedCountForAnnouncement = rowSelection ? selection.selectedCount : null
+  const previousSelectedCount = useRef(selectedCountForAnnouncement)
   useEffect(() => {
-    const previous = previousSelectionAnnouncement.current
-    previousSelectionAnnouncement.current = selectionAnnouncement
-    if (previous === null || selectionAnnouncement === null || previous === selectionAnnouncement) {
+    const previous = previousSelectedCount.current
+    previousSelectedCount.current = selectedCountForAnnouncement
+    if (
+      previous === null ||
+      selectedCountForAnnouncement === null ||
+      previous === selectedCountForAnnouncement ||
+      selectionAnnouncement === null
+    ) {
       return
     }
 
@@ -266,7 +297,7 @@ function DataTableImplementation<Data extends UniqueRow>({
       from: table,
     })
     return () => announcement.cancel()
-  }, [selectionAnnouncement])
+  }, [selectedCountForAnnouncement, selectionAnnouncement])
 
   return (
     <Table

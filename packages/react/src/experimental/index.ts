@@ -31,6 +31,7 @@ export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
   DataTableBulkActionsContext,
+  DataTableSelectionAnnouncementContext,
   TableBulkActionsProps,
   DataTableData,
   DataTableRowGroup,

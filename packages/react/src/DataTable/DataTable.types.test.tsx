@@ -3,7 +3,7 @@ import type {Column} from './column'
 import {DataTable, type DataTableProps} from './DataTable'
 import type {DataTableRowGroup} from './row'
 import {useTable} from './useTable'
-import {Table, type DataTableRowId} from '../experimental'
+import {Table, type DataTableRowId, type DataTableSelectionAnnouncementContext} from '../experimental'
 
 interface Repository {
   id: number
@@ -267,6 +267,9 @@ export function shouldAcceptBulkActions() {
         )
       }}
       bulkActionsProps={{getSelectedCountLabel: count => `${count} selected`}}
+      getSelectionAnnouncement={({selectedCount, bulkActionsAvailable}: DataTableSelectionAnnouncementContext) =>
+        `${selectedCount} selected${bulkActionsAvailable ? ' with bulk actions' : ''}`
+      }
     />
   )
   const composed = <Table.BulkActions selectedCount={1}>Actions</Table.BulkActions>
