@@ -585,6 +585,24 @@ describe('Tab order', () => {
   const getTabStops = (container: Element) =>
     Array.from(container.querySelectorAll('[tabindex="0"]')).map(element => element.id || element.textContent)
 
+  it('keeps standalone items tabbable without a TreeView root', async () => {
+    render(
+      <>
+        <button type="button">Before</button>
+        <ul role="tree" aria-label="Custom tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        </ul>
+        <button type="button">After</button>
+      </>,
+    )
+
+    act(() => page.getByRole('button', {name: 'Before'}).element().focus())
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 1', exact: true})).toHaveFocus()
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('button', {name: 'After'})).toHaveFocus()
+  })
+
   it('server renders only the current item in the tab order and keeps one tab stop after hydration', async () => {
     const tree = (
       <TreeView aria-label="Test tree">

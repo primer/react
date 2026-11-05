@@ -37,6 +37,7 @@ import {fixedForwardRef, type DistributiveOmit} from '../utils/modern-polymorphi
 // Context
 
 const RootContext = React.createContext<{
+  isWithinTree: boolean
   announceUpdate: (message: string) => void
   // We cache the expanded state of tree items so we can preserve the state
   // across remounts. This is necessary because we unmount tree items
@@ -45,6 +46,7 @@ const RootContext = React.createContext<{
   scrollElementIntoView: (element: Element | null | undefined) => void
   trailingActionShortcutText: string
 }>({
+  isWithinTree: false,
   announceUpdate: () => {},
   expandedStateCache: {current: new Map()},
   scrollElementIntoView: () => {},
@@ -187,6 +189,7 @@ const Root: React.FC<TreeViewProps> = ({
   return (
     <RootContext.Provider
       value={{
+        isWithinTree: true,
         announceUpdate,
         expandedStateCache,
         scrollElementIntoView,
@@ -284,7 +287,8 @@ const ItemImpl = fixedForwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
     })
-    const {expandedStateCache, scrollElementIntoView, trailingActionShortcutText} = React.useContext(RootContext)
+    const {isWithinTree, expandedStateCache, scrollElementIntoView, trailingActionShortcutText} =
+      React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
@@ -306,10 +310,10 @@ const ItemImpl = fixedForwardRef(
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
     const [isFocused, setIsFocused] = React.useState(false)
-    // Only one item is in the tab order. The current item starts as the tab stop so it is reachable
+    // Within a tree, only the current item starts as the tab stop so it is reachable
     // before hydration, then `useTreeRovingTabIndex` moves the tab stop by writing `tabindex`
     // directly. The value is latched so re-renders never fight those writes.
-    const [initialTabIndex] = React.useState(isCurrentItem ? 0 : -1)
+    const [initialTabIndex] = React.useState(!isWithinTree || isCurrentItem ? 0 : -1)
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
