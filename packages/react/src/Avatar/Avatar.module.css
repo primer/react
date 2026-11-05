@@ -16,7 +16,7 @@
     justify-content: center;
     background: var(--bgColor-muted);
     color: var(--fgColor-muted);
-    font-size: calc(var(--avatarSize-regular) * 0.4);
+    font-size: var(--text-body-size-small);
     font-weight: var(--base-text-weight-semibold);
     white-space: nowrap;
   }
