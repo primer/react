@@ -104,9 +104,16 @@ describe('Breadcrumbs overflow (real layout)', () => {
       .getAllByRole('link')
       .map(link => link.textContent)
     expect(menuLinks).toEqual(labels.slice(0, labels.length - shown.length))
+    // Collapsed crumbs are not also rendered in the list while the menu shows them.
     for (const label of labels) {
-      expect(screen.getAllByRole('link', {name: label})).toHaveLength(1)
+      expect(screen.getAllByText(label)).toHaveLength(1)
     }
+  })
+
+  it('never renders an empty overflow menu', () => {
+    renderCrumbs(1200, 'menu-with-root', labels.slice(0, 4))
+    expect(menuButton()).toBeNull()
+    expect(visibleLinks()).toEqual(labels.slice(0, 4))
   })
 
   it('moves the root into the menu when only the leaf fits in menu-with-root mode', async () => {

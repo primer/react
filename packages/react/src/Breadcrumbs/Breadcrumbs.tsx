@@ -92,10 +92,13 @@ function getValidChildren(children: React.ReactNode) {
 
 type OverflowMenuProps = {items: CrumbElement[]}
 
-function OverflowMenu({items}: OverflowMenuProps) {
-  const [open, setOpen] = useState(false)
+function OverflowMenu({
+  items,
+  open,
+  setOpen,
+}: OverflowMenuProps & {open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const close = useCallback(() => setOpen(false), [])
+  const close = useCallback(() => setOpen(false), [setOpen])
   return (
     <div className={classes.MenuDetails} data-component="Breadcrumbs.MenuItem">
       <IconButton
@@ -153,10 +156,13 @@ function OverflowMenuOverlay({
 
 function Breadcrumbs({className, children, style, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
   const navRef = useRef<HTMLElement>(null)
-  const widthsRef = useRef<number[]>([])
+  // Last measured width of each crumb, by key. Crumbs keep their width while they are
+  // collapsed, so resizing never needs to render them.
+  const widthsRef = useRef(new Map<React.Key, number>())
   const [fit, setFit] = useState<Fit>(INITIAL_FIT)
   // Mirrors `fit` so unchanged results never schedule a render.
   const fitRef = useRef<Fit>(INITIAL_FIT)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const collapsible = overflow !== 'wrap'
   const withRoot = overflow === 'menu-with-root'
@@ -165,26 +171,33 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   const updateFit = useCallback(
     (available: number) => {
-      const next = computeFit(widthsRef.current, available, withRoot)
+      const widths = items.map(item => widthsRef.current.get(item.key ?? '') ?? 0)
+      const next = computeFit(widths, available, withRoot)
       if (sameFit(fitRef.current, next)) return
       fitRef.current = next
       setFit(next)
     },
-    [withRoot],
+    [items, withRoot],
   )
 
-  // Measure crumbs when children change. This only reads layout, and collapsed crumbs that
-  // can reappear stay mounted out of flow, so `scrollWidth` reports their natural width.
+  // Measure the crumbs that are rendered. This only reads layout. Collapsed crumbs that can
+  // reappear stay mounted out of flow, so `scrollWidth` still reports their natural width.
   useIsomorphicLayoutEffect(() => {
     const nav = navRef.current
     if (!collapsible || !nav) return
-    const widths = new Array<number>(itemCount).fill(0)
+    const previous = widthsRef.current
+    const widths = new Map<React.Key, number>()
+    for (const item of items) {
+      const width = previous.get(item.key ?? '')
+      if (width !== undefined) widths.set(item.key ?? '', width)
+    }
     for (const li of nav.querySelectorAll<HTMLElement>(':scope > ol > li[data-index]')) {
-      widths[Number(li.getAttribute('data-index'))] = li.scrollWidth
+      const key = items[Number(li.getAttribute('data-index'))]?.key
+      if (key != null) widths.set(key, li.scrollWidth)
     }
     widthsRef.current = widths
     updateFit(nav.clientWidth)
-  }, [items, itemCount, collapsible, updateFit])
+  }, [items, collapsible, fit, menuOpen, updateFit])
 
   // Container resizes reuse the cached widths; React only re-renders when the split changes.
   useResizeObserver(
@@ -203,37 +216,38 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
     const collapsed = Math.min(Math.max(itemCount - 1, 0), countRule(withRoot, fit.narrow, itemCount) + fit.extra)
     const rootVisible = withRoot && !(collapsed > 0 && fit.rootCollapsed)
     const menuItems = items.slice(rootVisible ? 1 : 0, collapsed)
+    if (menuOpen && menuItems.length === 0) setMenuOpen(false)
 
     // Until something collapses, crumbs use the `wrap` styling. Only the `li` class and the
     // trailing separator change between the two, so crumbs are never remounted.
-    const plain = collapsed === 0
-    // Crumbs below the count rule at full width can never reappear, so they skip layout.
-    // Collapsed crumbs above it stay measurable.
+    const plain = menuItems.length === 0
+    // Crumbs below the count rule at full width can never reappear, so they are not rendered.
     const alwaysCollapsed = countRule(withRoot, false, itemCount)
-    const listItems: React.ReactNode[] = items.map((item, index) => {
+    const listItems: React.ReactNode[] = []
+    for (const [index, item] of items.entries()) {
       const isRoot = withRoot && index === 0
-      let state: 'measured' | 'removed' | undefined
-      if (index < collapsed && !(isRoot && rootVisible)) {
-        state = index < alwaysCollapsed && !isRoot ? 'removed' : 'measured'
-      }
-      return (
+      const isCollapsed = index < collapsed && !(isRoot && rootVisible)
+      if (isCollapsed && index < alwaysCollapsed && !isRoot) continue
+      // While the menu is open it shows the collapsed crumbs, so they are not also rendered here.
+      const rendered = !isCollapsed || !menuOpen
+      listItems.push(
         <li
           key={item.key}
           className={plain ? classes.ItemWrapper : classes.BreadcrumbsItem}
-          data-index={index}
-          data-collapsed={state}
+          data-index={rendered ? index : undefined}
+          data-collapsed={isCollapsed ? '' : undefined}
         >
-          {item}
+          {rendered ? item : null}
           {plain ? null : <ItemSeparator />}
-        </li>
+        </li>,
       )
-    })
-    if (collapsed > 0) {
+    }
+    if (!plain) {
       listItems.splice(
-        withRoot ? 1 : 0,
+        withRoot && rootVisible ? 1 : 0,
         0,
         <li className={classes.BreadcrumbsItem} data-overflow-menu="" key="breadcrumbs-menu">
-          <OverflowMenu items={menuItems} />
+          <OverflowMenu items={menuItems} open={menuOpen} setOpen={setMenuOpen} />
           <ItemSeparator />
         </li>,
       )

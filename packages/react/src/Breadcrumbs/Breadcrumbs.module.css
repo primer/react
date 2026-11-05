@@ -166,17 +166,14 @@
   }
 }
 
-/* Collapsed crumbs stay mounted, so they never remount and are not duplicated in the menu.
-   Crumbs that can reappear stay measurable (via `scrollWidth`) out of flow and invisible. */
-.BreadcrumbsItem[data-collapsed='measured'] {
-  position: absolute;
+/* A collapsed crumb that can reappear at wider sizes. It stays mounted, so it never remounts
+   and `scrollWidth` still reports its natural width. It stays in flow as a zero-size item:
+   out-of-flow (absolute) boxes made resize layout measurably slower. */
+.BreadcrumbsItem[data-collapsed] {
+  flex: none;
   width: 0;
   height: 0;
   overflow: hidden;
   visibility: hidden;
   pointer-events: none;
-}
-
-.BreadcrumbsItem[data-collapsed='removed'] {
-  display: none;
 }

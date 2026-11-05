@@ -663,9 +663,8 @@ describe('Breadcrumbs', () => {
       await user.click(menuButton)
 
       // Verify the custom link in the overflow menu has the correct href
-      const menu = menuButton.closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')!
       await waitFor(() => {
-        const homeLink = within(menu).getByTestId('home-link')
+        const homeLink = screen.getByTestId('home-link')
         expect(homeLink).toHaveAttribute('href', '/home')
       })
     })

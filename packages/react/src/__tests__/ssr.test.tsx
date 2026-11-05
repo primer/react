@@ -29,7 +29,7 @@ describe('server rendering', () => {
         ))}
       </Breadcrumbs>,
     )
-    expect(html.match(/data-collapsed/g)).toHaveLength(2)
+    expect(html.match(/<a /g)).toHaveLength(4)
     expect(html).toContain('2 more breadcrumb items')
   })
 })
