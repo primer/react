@@ -4,19 +4,39 @@
 
 Import: `import {Timeline} from '@primer/react-tailwind/Timeline'`
 
-Renders an `<ol>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders an [`<ol>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 
 - `clipSidebar`: `"both" | "end" | "start" | boolean` — Trims the connecting line at the start, the end, or both, where the timeline meets other content.
 
-## Item props
+## Timeline.Item
+
+Renders a [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `condensed`: `boolean` — Reduces the item's vertical spacing, for a minor event in the timeline.
 
-## Badge props
+## Timeline.Avatar
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Timeline.Badge
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `variant`: `"accent" | "attention" | "closed" | "danger" | "done" | "open" | "severe" | "sponsors" | "success"` — Colour of the badge, conveying what kind of event it marks.
+
+## Timeline.Body
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Timeline.Break
+
+Renders a [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Timeline.Actions
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Differences from `@primer/react`
 

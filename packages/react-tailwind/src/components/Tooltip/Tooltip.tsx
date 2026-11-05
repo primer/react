@@ -4,6 +4,7 @@ import {Tooltip as BaseTooltip} from '@base-ui/react/tooltip'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {FloatingArrowGraphic, floatingArrowClassName} from '../../internal/floatingArrow'
+import {FloatingPortal} from '../../internal/FloatingPortal'
 import {mergeClassName} from '../../internal/mergeClassName'
 import type {FloatingContentProps} from '../../utils/types'
 import {KeybindingHint} from '../KeybindingHint/KeybindingHint'
@@ -127,6 +128,7 @@ const Content = React.forwardRef<HTMLDivElement, TooltipContentProps>(function T
   {
     align = 'center',
     alignOffset,
+    anchor,
     children,
     className,
     keepMounted,
@@ -146,6 +148,7 @@ const Content = React.forwardRef<HTMLDivElement, TooltipContentProps>(function T
       <Positioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
         side={side}
         sideOffset={sideOffset}
         className={positionerClassName}
@@ -169,7 +172,11 @@ const Content = React.forwardRef<HTMLDivElement, TooltipContentProps>(function T
       </Positioner>
     </PopupMarkerContext.Provider>
   )
-  return portal ? <Portal keepMounted={keepMounted ?? (!isLabel || hints.length > 0)}>{content}</Portal> : content
+  return (
+    <FloatingPortal keepMounted={keepMounted ?? (!isLabel || hints.length > 0)} part={Portal} portal={portal}>
+      {content}
+    </FloatingPortal>
+  )
 })
 
 const Positioner = React.forwardRef<HTMLDivElement, Omit<BaseTooltip.Positioner.Props, 'data-component'>>(
@@ -241,4 +248,3 @@ export const Tooltip = Object.assign(Root, {
   Viewport,
 })
 ;(Tooltip as {displayName?: string}).displayName = 'Tooltip'
-;('use client')

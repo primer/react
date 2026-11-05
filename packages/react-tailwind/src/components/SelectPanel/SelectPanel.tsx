@@ -5,9 +5,16 @@ import {AlertIcon, CheckIcon, SearchIcon, StopIcon, TriangleDownIcon, XIcon} fro
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {areItemsEqual, getItemRenderKey, getItemText, renderItemVisual} from '../../internal/collectionItem'
+import {FloatingPortal} from '../../internal/FloatingPortal'
+import {overlayHeightClassNames, overlayMaxHeightClassNames, overlayWidthClassNames} from '../../internal/overlaySize'
 import {assignRef} from '../../internal/refs'
-import type {CSSPropertiesWithCustomProperties} from '../../utils/types'
-import {ActionList, ActionItemContent} from '../ActionList/ActionList'
+import type {CSSPropertiesWithCustomProperties, OverlayHeight, OverlayMaxHeight, OverlayWidth} from '../../utils/types'
+import {
+  ActionList,
+  ActionItemContent,
+  ActionItemElementContent,
+  type ActionListItemProps,
+} from '../ActionList/ActionList'
 import {Banner} from '../Banner'
 import {Button, type ButtonProps} from '../Button'
 import {Checkbox} from '../Checkbox'
@@ -20,38 +27,19 @@ import {Spinner} from '../Spinner'
 import {TextInput, type TextInputProps} from '../TextInput'
 
 const panelWidthClasses = {
+  ...overlayWidthClassNames,
   auto: 'min-w-64 w-auto',
-  small: 'w-64',
-  medium: 'w-80',
-  large: 'w-[30rem]',
-  xlarge: 'w-[40rem]',
-  xxlarge: 'w-[60rem]',
-} as const
+} as const satisfies Record<OverlayWidth, string>
 
 const panelHeightClasses = {
+  ...overlayHeightClassNames,
   auto: 'h-auto max-h-[min(37.5rem,var(--available-height))]',
-  xsmall: 'h-48',
-  small: 'h-64',
-  medium: 'h-80',
-  large: 'h-[27rem]',
-  xlarge: 'h-[37.5rem]',
-  'fit-content': 'h-fit',
   initial: 'h-[var(--select-panel-initial-height)]',
-} as const
-
-const panelMaxHeightClasses = {
-  xsmall: 'max-h-48',
-  small: 'max-h-64',
-  medium: 'max-h-80',
-  large: 'max-h-[27rem]',
-  xlarge: 'max-h-[37.5rem]',
-} as const
+} as const satisfies Record<OverlayHeight, string>
 
 let selectPanelScrollLockCount = 0
 let selectPanelPreviousBodyOverflow: string | undefined
 
-type PanelWidth = keyof typeof panelWidthClasses
-type PanelHeight = keyof typeof panelHeightClasses
 type PopoverPositionerProps = React.ComponentPropsWithoutRef<typeof Popover.Positioner>
 type SelectPanelValue = {
   item: SelectPanelItem
@@ -141,9 +129,9 @@ export interface SelectPanelOverlayProps
   /** Gap kept between the panel and the edge of its collision boundary. */
   collisionPadding?: PopoverPositionerProps['collisionPadding']
   /** Height of the panel. */
-  height?: PanelHeight
+  height?: OverlayHeight
   /** Largest height the panel may grow to before its list scrolls. */
-  maxHeight?: Exclude<PanelHeight, 'auto' | 'initial' | 'fit-content'>
+  maxHeight?: Exclude<OverlayMaxHeight, 'fit-content'>
   /** Where the panel is rendered in the DOM. Set `false` to keep it in place. */
   portal?: boolean
   /** Classes applied to the element that positions the panel. */
@@ -154,7 +142,7 @@ export interface SelectPanelOverlayProps
   sideOffset?: PopoverPositionerProps['sideOffset']
   style?: React.CSSProperties
   /** Width of the panel. */
-  width?: PanelWidth
+  width?: OverlayWidth
 }
 
 export interface SelectPanelAnchorProps extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'children' | 'id'> {
@@ -240,13 +228,13 @@ interface SelectPanelBaseProps {
   /** Renders each group yourself. */
   renderGroup?: SelectPanelRenderGroup
   /** Height of the panel. */
-  height?: PanelHeight
+  height?: OverlayHeight
   /** Renders each option yourself. */
   renderItem?: SelectPanelRenderItem
   /** Renders only the visible options, for a long uniform list. */
   virtualized?: boolean
   /** Width of the panel. */
-  width?: PanelWidth
+  width?: OverlayWidth
   /** Ref to the scrolling options container. */
   scrollContainerRef?: React.Ref<HTMLDivElement>
   /** Extra props forwarded to the underlying list. */
@@ -389,15 +377,19 @@ function SelectPanelMessageComponent({
   )
 }
 
-function SelectPanelSecondaryActionButton({children, ...props}: ButtonProps) {
+export type SelectPanelSecondaryActionButtonProps = ButtonProps
+
+function SelectPanelSecondaryActionButton({block = true, children, ...props}: SelectPanelSecondaryActionButtonProps) {
   return (
-    <Button {...props} block data-component="SelectPanel.SecondaryActionButton">
+    <Button {...props} block={block} data-component="SelectPanel.SecondaryActionButton">
       {children}
     </Button>
   )
 }
 
-export interface SelectPanelSecondaryActionLinkProps extends Omit<ButtonProps, 'children' | 'render' | 'nativeButton'> {
+// A secondary link always fills the footer and reads as a quiet action, so `block` and `variant` are fixed.
+export interface SelectPanelSecondaryActionLinkProps
+  extends Omit<ButtonProps, 'block' | 'children' | 'nativeButton' | 'render' | 'variant'> {
   children?: React.ReactNode
   /** URL the secondary action navigates to. */
   href: string
@@ -513,10 +505,12 @@ function renderSelectPanelOption({
   const optionDisabled = Boolean(disabled || inactiveText)
   const renderer = renderItem ?? itemRenderer
   const renderedItem = renderer?.(item)
-  const renderedContent =
-    React.isValidElement<{children?: React.ReactNode}>(renderedItem) && renderedItem.type === ActionList.Item
-      ? renderedItem.props.children
-      : renderedItem
+  const renderedActionListItem =
+    React.isValidElement<Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'>>(
+      renderedItem,
+    ) && renderedItem.type === ActionList.Item
+      ? renderedItem
+      : undefined
   const selection = inactiveText ? (
     <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-attention" />
   ) : multiple ? (
@@ -572,18 +566,26 @@ function renderSelectPanelOption({
       ref={node => assignItemNode(itemNodes, item, ref, node)}
       value={value}
     >
-      {renderedContent ?? (
-        <ActionItemContent
-          description={description}
-          descriptionVariant={descriptionVariant}
-          leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
+      {renderedActionListItem ? (
+        <ActionItemElementContent
+          item={renderedActionListItem.props}
           selection={selection}
           supportingText={inactiveText}
-          trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
-        >
-          {children}
-          {text}
-        </ActionItemContent>
+        />
+      ) : (
+        (renderedItem ?? (
+          <ActionItemContent
+            description={description}
+            descriptionVariant={descriptionVariant}
+            leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
+            selection={selection}
+            supportingText={inactiveText}
+            trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
+          >
+            {children}
+            {text}
+          </ActionItemContent>
+        ))
       )}
       {inactiveText ? <span className="sr-only">{inactiveText}</span> : null}
     </Combobox.Item>
@@ -1236,7 +1238,6 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
   }>({active: false, value: undefined})
   const itemNodes = React.useRef(new Map<SelectPanelItem, HTMLElement>())
   const inputRef = React.useRef<HTMLInputElement | null>(null)
-  const inlinePortalContainerRef = React.useRef<HTMLDivElement | null>(null)
   const previousActiveItem = React.useRef<HTMLElement | undefined>(undefined)
   const titleId = React.useId()
   const subtitleId = React.useId()
@@ -1458,7 +1459,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     'flex min-h-0 flex-col',
     panelWidthClasses[panelWidth],
     panelHeightClasses[panelHeight],
-    maxHeight && panelHeight !== 'initial' && panelMaxHeightClasses[maxHeight],
+    maxHeight && panelHeight !== 'initial' && overlayMaxHeightClassNames[maxHeight],
     className,
     overlayClassName,
     isDialog && 'max-w-[calc(100vw-var(--base-size-32))]',
@@ -1562,7 +1563,6 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
         aria-describedby={subtitle ? subtitleId : undefined}
         aria-labelledby={titleId}
         className={panelClasses}
-        data-component="SelectPanel.Content"
         finalFocus={anchorRef ?? true}
         initialFocus={inputRef}
         ref={contentRef}
@@ -1597,20 +1597,23 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
           />
         ) : null}
         {open ? (
-          <Dialog.Content
-            {...overlayDomProps}
-            aria-describedby={subtitle ? subtitleId : undefined}
-            aria-labelledby={titleId}
-            className={panelClasses}
-            finalFocus={anchorRef ?? true}
-            initialFocus={inputRef}
-            portal={portal}
-            ref={contentRef}
-            style={contentStyle}
-            viewportClassName={cn(useMobileDialog && 'p-0', positionerClassName)}
-          >
-            {panel}
-          </Dialog.Content>
+          <FloatingPortal part={Dialog.Portal} portal={portal}>
+            <Dialog.Backdrop />
+            <Dialog.Viewport className={cn(useMobileDialog && 'p-0', positionerClassName)}>
+              <Dialog.Popup
+                {...overlayDomProps}
+                aria-describedby={subtitle ? subtitleId : undefined}
+                aria-labelledby={titleId}
+                className={panelClasses}
+                finalFocus={anchorRef ?? true}
+                initialFocus={inputRef}
+                ref={contentRef}
+                style={contentStyle}
+              >
+                {panel}
+              </Dialog.Popup>
+            </Dialog.Viewport>
+          </FloatingPortal>
         ) : null}
       </Dialog.Root>
     )
@@ -1639,9 +1642,10 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
           render={anchorElement}
         />
       ) : null}
-      {!portal ? <div className="contents" ref={inlinePortalContainerRef} /> : null}
       {open ? (
-        <Popover.Portal container={portal ? undefined : inlinePortalContainerRef}>{popoverContent}</Popover.Portal>
+        <FloatingPortal part={Popover.Portal} portal={portal}>
+          {popoverContent}
+        </FloatingPortal>
       ) : null}
     </Popover.Root>
   )
@@ -1654,4 +1658,3 @@ export const SelectPanel = Object.assign(SelectPanelConfig, {
 })
 
 SelectPanel.displayName = 'SelectPanel'
-;('use client')

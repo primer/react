@@ -21,7 +21,7 @@ const Label = React.forwardRef<HTMLDivElement, CheckboxGroupLabelProps>(function
       {...rest}
       ref={ref}
       data-component="CheckboxGroup.Label"
-      className={cn('text-sm font-medium text-default', visuallyHidden && 'sr-only', className)}
+      className={cn('block text-sm font-semibold text-default', visuallyHidden && 'sr-only', className)}
     >
       {children}
     </div>
@@ -37,7 +37,11 @@ const Caption = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTML
       {...rest}
       ref={ref}
       data-component="CheckboxGroup.Caption"
-      className={cn('m-0 text-xs leading-[18px] text-muted', className)}
+      className={cn(
+        // Upstream renders the caption inside the legend, directly under a visible label.
+        'm-0 text-sm leading-6 text-muted [[data-component$=Label]:not(.sr-only)+&]:-mt-2',
+        className,
+      )}
     >
       {children}
     </p>

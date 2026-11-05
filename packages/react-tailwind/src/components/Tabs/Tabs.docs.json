@@ -3,6 +3,12 @@
   "name": "Tabs",
   "status": "alpha",
   "importPath": "@primer/react-tailwind/Tabs",
+  "exports": [
+    "Tabs",
+    "Tab",
+    "TabList",
+    "TabPanel"
+  ],
   "description": "`Tabs` provides unstyled tab, tab list, and tab panel behavior that can be composed into an application-specific presentation.",
   "stories": [
     {
@@ -18,6 +24,9 @@
       "id": "react-tailwind-navigation-tabs-features--controlled"
     },
     {
+      "id": "react-tailwind-navigation-tabs-features--manual-activation"
+    },
+    {
       "id": "react-tailwind-navigation-tabs-features--vertical"
     },
     {
@@ -26,5 +35,43 @@
     {
       "id": "react-tailwind-navigation-tabs--playground"
     }
-  ]
+  ],
+  "props": [
+    {
+      "name": "activationMode",
+      "type": "TabsActivationMode",
+      "defaultValue": "'automatic'",
+      "description": "Whether arrow-key focus also selects a tab. `automatic` selects the focused tab; `manual` only moves focus,\nand Enter, Space, or a click commits the selection. An explicit `TabList` `activateOnFocus` takes precedence."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Tab",
+      "props": [],
+      "passthrough": {
+        "element": "Tabs.Tab",
+        "url": "https://base-ui.com/react/components/tabs#tab"
+      }
+    },
+    {
+      "name": "TabList",
+      "props": [],
+      "passthrough": {
+        "element": "Tabs.List",
+        "url": "https://base-ui.com/react/components/tabs#list"
+      }
+    },
+    {
+      "name": "TabPanel",
+      "props": [],
+      "passthrough": {
+        "element": "Tabs.Panel",
+        "url": "https://base-ui.com/react/components/tabs#panel"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Tabs.Root",
+    "url": "https://base-ui.com/react/components/tabs#root"
+  }
 }

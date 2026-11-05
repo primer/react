@@ -179,4 +179,3 @@ export function BlankslateSecondaryAction({
     </div>
   )
 }
-;('use client')

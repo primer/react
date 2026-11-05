@@ -3,6 +3,10 @@
   "name": "Button",
   "status": "alpha",
   "importPath": "@primer/react-tailwind/Button",
+  "exports": [
+    "Button",
+    "ButtonBase"
+  ],
   "description": "`Button` triggers an action in the current view. Use `LinkButton` when the control navigates to a URL, and `IconButton` when the control has no visible label.",
   "stories": [
     {
@@ -34,6 +38,9 @@
     },
     {
       "id": "react-tailwind-display-button-features--trailing-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--notification-indicator"
     },
     {
       "id": "react-tailwind-display-button-features--trailing-counter"
@@ -154,7 +161,7 @@
     {
       "name": "data-component",
       "type": "string",
-      "defaultValue": "'ButtonBase'",
+      "defaultValue": "'Button'",
       "description": "Overrides the marker used to identify this element in tests and styling."
     },
     {
@@ -189,8 +196,14 @@
       "description": "Text announced to assistive technology while the button is loading."
     },
     {
+      "name": "notificationIndicator",
+      "type": "\"button\" | \"leadingVisual\"",
+      "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+    },
+    {
       "name": "size",
       "type": "ControlSize",
+      "defaultValue": "'medium'",
       "description": "Height and text size of the button."
     },
     {
@@ -209,5 +222,26 @@
       "defaultValue": "'default'",
       "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
     }
-  ]
+  ],
+  "subcomponents": [
+    {
+      "name": "ButtonBase",
+      "props": [
+        {
+          "name": "data-component",
+          "type": "string",
+          "defaultValue": "'ButtonBase'",
+          "description": "Overrides the marker used to identify this element in tests and styling."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Button",
+    "url": "https://base-ui.com/react/components/button#api-reference"
+  }
 }

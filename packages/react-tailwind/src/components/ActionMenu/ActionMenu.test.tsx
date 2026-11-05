@@ -1,7 +1,8 @@
 import React from 'react'
+import type {Menu} from '@base-ui/react/menu'
 import {cleanup, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {afterEach, describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 import {ActionMenu} from './ActionMenu'
 
 afterEach(cleanup)
@@ -24,6 +25,45 @@ describe('ActionMenu', () => {
     )
     await user.keyboard('{Escape}')
     expect(trigger).toHaveFocus()
+  })
+
+  it('focuses the menu when opened with a pointer and the first item when opened with the keyboard', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionMenu>
+        <ActionMenu.Button>Actions</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.Item>Archive</ActionMenu.Item>
+          <ActionMenu.Item>Delete</ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+    const trigger = screen.getByRole('button', {name: 'Actions'})
+    await user.click(trigger)
+    const menu = await screen.findByRole('menu')
+    await waitFor(() => expect(menu).toHaveFocus())
+
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(trigger).toHaveFocus())
+    await user.keyboard('{Enter}')
+    const archive = await screen.findByRole('menuitem', {name: 'Archive'})
+    await waitFor(() => expect(archive).toHaveFocus())
+  })
+
+  it('renders in place when portal is false', () => {
+    render(
+      <div data-testid="container">
+        <ActionMenu defaultOpen>
+          <ActionMenu.Button>Actions</ActionMenu.Button>
+          <ActionMenu.Content portal={false}>
+            <ActionMenu.Item>Archive</ActionMenu.Item>
+          </ActionMenu.Content>
+        </ActionMenu>
+      </div>,
+    )
+    expect(screen.getByTestId('container')).toContainElement(
+      screen.getByRole('menuitem', {name: 'Archive', hidden: true}),
+    )
   })
 
   it('composes Button props, refs, and rest props into its trigger', async () => {
@@ -136,6 +176,119 @@ describe('ActionMenu', () => {
     expect(await screen.findByRole('menuitem', {name: 'Plain text'})).toBeVisible()
   })
 
+  it('renders links as menu items that close the menu, and unavailable links as inactive items', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionMenu defaultOpen>
+        <ActionMenu.Button>Links</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.LinkItem href="#docs">Docs</ActionMenu.LinkItem>
+          <ActionMenu.LinkItem href="#billing" inactiveText="Requires billing access">
+            Billing
+          </ActionMenu.LinkItem>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+
+    const link = screen.getByRole('menuitem', {name: 'Docs'})
+    expect(link.tagName).toBe('A')
+    expect(link).toHaveAttribute('href', '#docs')
+    expect(link).toHaveAttribute('data-component', 'ActionMenu.LinkItem')
+    const inactiveLink = screen.getByRole('menuitem', {name: /Billing.*Requires billing access/})
+    expect(inactiveLink.tagName).not.toBe('A')
+    expect(inactiveLink).toHaveAttribute('aria-disabled', 'true')
+
+    await user.click(link)
+    await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())
+  })
+
+  it('draws dividers between items only with showDividers', () => {
+    const {rerender} = render(
+      <ActionMenu open>
+        <ActionMenu.Button>Actions</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.Item>Copy</ActionMenu.Item>
+          <ActionMenu.Item>Paste</ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+    const dividerContainer = () =>
+      screen
+        .getByRole('menuitem', {name: 'Paste'})
+        .querySelector('[data-component="ActionList.Item--DividerContainer"]')
+
+    expect(screen.getByRole('menu')).not.toHaveAttribute('data-dividers')
+    expect(dividerContainer()).not.toHaveClass('before:-top-[7px]')
+
+    rerender(
+      <ActionMenu open>
+        <ActionMenu.Button>Actions</ActionMenu.Button>
+        <ActionMenu.Content showDividers>
+          <ActionMenu.Item>Copy</ActionMenu.Item>
+          <ActionMenu.Item>Paste</ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+    expect(screen.getByRole('menu')).toHaveAttribute('data-dividers', 'true')
+    expect(dividerContainer()).toHaveClass('before:-top-[7px]')
+  })
+
+  describe('narrow fullscreen variant', () => {
+    it('closes from a close button rendered beside the menu', async () => {
+      const user = userEvent.setup()
+      const onOpenChange = vi.fn()
+      render(
+        <ActionMenu defaultOpen onOpenChange={onOpenChange}>
+          <ActionMenu.Button>Options</ActionMenu.Button>
+          <ActionMenu.Content variant={{narrow: 'fullscreen', regular: 'anchored'}}>
+            <ActionMenu.Item>Option 1</ActionMenu.Item>
+          </ActionMenu.Content>
+        </ActionMenu>,
+      )
+
+      const closeButton = screen.getByRole('button', {name: 'Close'})
+      expect(closeButton).toHaveAttribute('data-component', 'ActionMenu.CloseButton')
+      // A menu may only own items, so the button must not sit inside it.
+      expect(screen.getByRole('menu')).not.toContainElement(closeButton)
+      expect(screen.getByRole('menu').parentElement).toHaveAttribute('data-responsive', 'fullscreen')
+
+      await user.click(closeButton)
+      await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())
+      expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything())
+    })
+
+    it('closes through a consumer actionsRef', async () => {
+      const user = userEvent.setup()
+      const actionsRef: React.RefObject<Menu.Root.Actions | null> = {current: null}
+      render(
+        <ActionMenu defaultOpen actionsRef={actionsRef}>
+          <ActionMenu.Button>Options</ActionMenu.Button>
+          <ActionMenu.Content variant={{narrow: 'fullscreen'}}>
+            <ActionMenu.Item>Option 1</ActionMenu.Item>
+          </ActionMenu.Content>
+        </ActionMenu>,
+      )
+
+      expect(actionsRef.current).toEqual({close: expect.any(Function), unmount: expect.any(Function)})
+      await user.click(screen.getByRole('button', {name: 'Close'}))
+      await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())
+    })
+
+    it('omits the close button when anchored', () => {
+      render(
+        <ActionMenu defaultOpen>
+          <ActionMenu.Button>Options</ActionMenu.Button>
+          <ActionMenu.Content>
+            <ActionMenu.Item>Option 1</ActionMenu.Item>
+          </ActionMenu.Content>
+        </ActionMenu>,
+      )
+
+      expect(screen.queryByRole('button', {name: 'Close'})).not.toBeInTheDocument()
+      expect(screen.getByRole('menu').parentElement).not.toHaveAttribute('data-responsive')
+    })
+  })
+
   describe('focus on close', () => {
     function FocusExample({preventFocusOnClose}: {preventFocusOnClose?: boolean}) {
       return (
@@ -181,7 +334,9 @@ describe('ActionMenu', () => {
       const trigger = screen.getByRole('button', {name: 'Link actions'})
 
       await user.click(trigger)
-      await screen.findByRole('menuitem', {name: 'Convert to preview'})
+      // Base UI moves focus into the menu after it mounts; Escape must start from there to test focus return.
+      const menu = await screen.findByRole('menu')
+      await waitFor(() => expect(menu).toContainElement(document.activeElement as HTMLElement))
       await user.keyboard('{Escape}')
 
       await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())

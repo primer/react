@@ -42,6 +42,24 @@
       "id": "react-tailwind-components-overlay--surface"
     }
   ],
+  "subcomponents": [
+    {
+      "name": "Overlay.Root",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Overlay.Content",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
   "passthrough": {
     "element": "div",
     "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"

@@ -28,4 +28,3 @@ export function useFormControlForwardedProps<Props extends object>(
 
   return {...context, ...externalProps}
 }
-;('use client')

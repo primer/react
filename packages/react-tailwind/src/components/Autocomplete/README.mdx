@@ -23,7 +23,7 @@ The root forwards Base UI autocomplete props, including `items`, `value`, `onVal
 import {Autocomplete} from '@primer/react-tailwind/Autocomplete'
 ```
 
-Compose `Input`, `Content`, `List`, and `Item` under the root. `Content` has `align`, `alignOffset`, `side`, `sideOffset`, and `positionerClassName` options; it uses Base UI's required portal composition. Use `Group`, `GroupLabel`, `Empty`, and `Status` for richer lists.
+Compose `Input`, `Content`, `List`, and `Item` under the root. `Content` has `align`, `alignOffset`, `side`, `sideOffset`, `anchor`, `portal`, and `positionerClassName` options; set `portal={false}` to render the list in place. Use `Group`, `GroupLabel`, `Empty`, and `Status` for richer lists.
 
 ## Controlled and uncontrolled
 

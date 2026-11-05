@@ -38,7 +38,10 @@ export interface LinkButtonProps extends Omit<React.ComponentPropsWithoutRef<'a'
   onClick?: React.MouseEventHandler<HTMLAnchorElement>
   /** Renders the link as your own element, for a router link that still needs button styling. */
   render?: useRender.RenderProp<LinkButtonState>
-  /** Height and text size of the link. */
+  /**
+   * Height and text size of the link.
+   * @default 'medium'
+   */
   size?: ControlSize
   /** Icon shown at the far end, conventionally a chevron. */
   trailingAction?: ButtonVisual
@@ -145,4 +148,3 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
 })
 
 LinkButton.displayName = 'LinkButton'
-;('use client')

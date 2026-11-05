@@ -14,5 +14,5 @@ Its config uses controlled state, `title`, `description`, `dangerous`, `onCancel
 
 - Migrate `onClose` gesture handling to `onCancel`/`onConfirm` and controlled Root state.
 - Migrate custom dialog markup to the exported compound parts where needed.
-- Do not depend on legacy width/height or overlay class names.
+- `width` and `height` keep upstream's dialog size scale; do not depend on legacy overlay class names.
 - Remove `sx` and styled-system props.

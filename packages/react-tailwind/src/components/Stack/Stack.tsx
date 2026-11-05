@@ -56,7 +56,7 @@ export interface StackProps extends React.HTMLAttributes<HTMLElement>, AsProp {
   paddingInline?: ResponsiveValue<Gap>
 }
 
-export const Stack = React.forwardRef<HTMLElement, StackProps>(function Stack(
+const StackRoot = React.forwardRef<HTMLElement, StackProps>(function Stack(
   {
     as: Component = 'div',
     align = 'stretch',
@@ -139,5 +139,7 @@ export const StackItem = React.forwardRef<HTMLElement, StackItemProps>(function 
   )
 })
 
-Stack.displayName = 'Stack'
+StackRoot.displayName = 'Stack'
 StackItem.displayName = 'StackItem'
+
+export const Stack = Object.assign(StackRoot, {Item: StackItem})

@@ -44,17 +44,29 @@
   ],
   "subcomponents": [
     {
-      "name": "Label",
+      "name": "RadioGroup.Label",
       "props": [
         {
           "name": "visuallyHidden",
           "type": "boolean",
           "description": "Hides the label visually while keeping it available to assistive technology."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     },
     {
-      "name": "Validation",
+      "name": "RadioGroup.Caption",
+      "props": [],
+      "passthrough": {
+        "element": "p",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes"
+      }
+    },
+    {
+      "name": "RadioGroup.Validation",
       "props": [
         {
           "name": "variant",
@@ -62,7 +74,15 @@
           "required": true,
           "description": "Whether the message reports a problem or confirms success."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "RadioGroup",
+    "url": "https://base-ui.com/react/components/radio-group#api-reference"
+  }
 }

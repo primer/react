@@ -79,7 +79,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Header",
+      "name": "SplitPageLayout.Header",
       "props": [
         {
           "name": "divider",
@@ -95,13 +95,17 @@
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'none'",
+          "defaultValue": "'normal'",
           "description": "Inner spacing of the header region."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "header",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header#attributes"
+      }
     },
     {
-      "name": "Content",
+      "name": "SplitPageLayout.Content",
       "props": [
         {
           "name": "as",
@@ -116,7 +120,7 @@
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'none'",
+          "defaultValue": "'normal'",
           "description": "Inner spacing of the content region."
         },
         {
@@ -125,10 +129,14 @@
           "defaultValue": "'large'",
           "description": "Maximum width of the content column."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "main",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main#attributes"
+      }
     },
     {
-      "name": "Pane",
+      "name": "SplitPageLayout.Pane",
       "props": [
         {
           "name": "currentWidth",
@@ -149,6 +157,7 @@
         {
           "name": "minWidth",
           "type": "number",
+          "defaultValue": "256",
           "description": "Smallest width in pixels the pane may be resized to."
         },
         {
@@ -164,7 +173,7 @@
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'none'",
+          "defaultValue": "'normal'",
           "description": "Inner spacing of the pane."
         },
         {
@@ -187,7 +196,7 @@
         {
           "name": "width",
           "type": "PaneWidthValue",
-          "defaultValue": "'large'",
+          "defaultValue": "'medium'",
           "description": "Pane width, either a named size or a custom min/default/max triple."
         },
         {
@@ -195,10 +204,14 @@
           "type": "string",
           "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     },
     {
-      "name": "Sidebar",
+      "name": "SplitPageLayout.Sidebar",
       "props": [
         {
           "name": "currentWidth",
@@ -219,12 +232,8 @@
         {
           "name": "minWidth",
           "type": "number",
+          "defaultValue": "256",
           "description": "Smallest width in pixels the pane may be resized to."
-        },
-        {
-          "name": "offsetHeader",
-          "type": "string | number",
-          "description": "Distance a sticky pane is offset from the top, to clear a fixed header above it."
         },
         {
           "name": "onResizeEnd",
@@ -256,13 +265,12 @@
         {
           "name": "sticky",
           "type": "boolean",
-          "defaultValue": "true",
           "description": "Keeps the pane in view as the content scrolls."
         },
         {
           "name": "width",
           "type": "PaneWidthValue",
-          "defaultValue": "'large'",
+          "defaultValue": "'medium'",
           "description": "Pane width, either a named size or a custom min/default/max triple."
         },
         {
@@ -270,14 +278,18 @@
           "type": "string",
           "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     },
     {
-      "name": "Footer",
+      "name": "SplitPageLayout.Footer",
       "props": [
         {
           "name": "divider",
-          "type": "\"filled\" | \"line\" | \"none\"",
+          "type": "ResponsiveValue<\"filled\" | \"line\" | \"none\">",
           "defaultValue": "'line'",
           "description": "Divider drawn above the footer. Accepts a responsive object to vary it per viewport."
         },
@@ -289,10 +301,18 @@
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'none'",
+          "defaultValue": "'normal'",
           "description": "Inner spacing of the footer region."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "footer",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer#attributes"
+      }
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

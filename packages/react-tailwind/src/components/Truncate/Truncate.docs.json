@@ -30,6 +30,9 @@
       "id": "react-tailwind-display-truncate-features--custom-element"
     },
     {
+      "id": "react-tailwind-display-truncate-features--as-link"
+    },
+    {
       "id": "react-tailwind-display-truncate--default"
     },
     {
@@ -40,13 +43,18 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'span'",
-      "description": "Element to render."
+      "defaultValue": "'div'",
+      "description": "Element or component to render, such as `Link` for a truncated link. Components also receive `inline`."
     },
     {
       "name": "expandable",
       "type": "boolean",
       "description": "Reveals the full text on hover and focus."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "description": "URL to navigate to when `as` renders a link."
     },
     {
       "name": "inline",
@@ -65,5 +73,9 @@
       "required": true,
       "description": "Full text, shown on hover and kept available to assistive technology when the text is clipped."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {readPassthroughElement, simplifyReactType} from '../ts-utils'
+import {readElementTag, simplifyReactType} from '../ts-utils'
 
 // Every input below is a string TypeScript actually produced for a component in
 // @primer/react-tailwind, so the boundary is pinned to real output rather than invented shapes.
@@ -56,36 +56,31 @@ describe('simplifyReactType', () => {
   })
 })
 
-describe('readPassthroughElement', () => {
-  it('reads a tag from ComponentPropsWithoutRef', () => {
-    expect(readPassthroughElement("extends React.ComponentPropsWithoutRef<'a'>")).toBe('a')
-    expect(readPassthroughElement("extends React.ComponentPropsWithoutRef<'nav'>")).toBe('nav')
-    expect(readPassthroughElement("extends React.ComponentPropsWithoutRef<'h2'>")).toBe('h2')
-  })
-
+describe('readElementTag', () => {
   it('maps an element interface to its tag', () => {
-    expect(readPassthroughElement('extends React.HTMLAttributes<HTMLDivElement>')).toBe('div')
-    expect(readPassthroughElement('extends React.HTMLAttributes<HTMLSpanElement>')).toBe('span')
+    expect(readElementTag('HTMLDivElement')).toBe('div')
+    expect(readElementTag('HTMLSpanElement')).toBe('span')
+    expect(readElementTag('HTMLOptGroupElement')).toBe('optgroup')
+    expect(readElementTag('HTMLTimeElement')).toBe('time')
   })
 
-  it('maps the anchor interface to its tag rather than its interface name', () => {
-    expect(readPassthroughElement('extends React.AnchorHTMLAttributes<HTMLAnchorElement>')).toBe('a')
+  it('maps an interface to its tag rather than its interface name', () => {
+    expect(readElementTag('HTMLAnchorElement')).toBe('a')
+    expect(readElementTag('HTMLTableRowElement')).toBe('tr')
+    expect(readElementTag('SVGSVGElement')).toBe('svg')
   })
 
   it('reports nothing for an interface shared by several tags', () => {
     // Reporting one tag for these would be a guess: HTMLElement is every element, and
     // HTMLHeadingElement is h1 through h6.
-    expect(readPassthroughElement('extends React.HTMLAttributes<HTMLElement>')).toBeUndefined()
-    expect(readPassthroughElement('extends React.HTMLAttributes<HTMLHeadingElement>')).toBeUndefined()
-    expect(readPassthroughElement('extends React.HTMLAttributes<HTMLTableCellElement>')).toBeUndefined()
+    expect(readElementTag('HTMLElement')).toBeUndefined()
+    expect(readElementTag('HTMLHeadingElement')).toBeUndefined()
+    expect(readElementTag('HTMLTableCellElement')).toBeUndefined()
+    expect(readElementTag('HTMLTableSectionElement')).toBeUndefined()
   })
 
-  it('reports nothing for a component reference', () => {
-    expect(readPassthroughElement('extends React.ComponentPropsWithoutRef<typeof Heading>')).toBeUndefined()
-    expect(readPassthroughElement('BaseDialog.Root.Props')).toBeUndefined()
-  })
-
-  it('reads the element from a type alias body, not only a heritage clause', () => {
-    expect(readPassthroughElement('React.HTMLAttributes<HTMLSpanElement>')).toBe('span')
+  it('reports nothing for a name that is not an element interface', () => {
+    expect(readElementTag('ButtonProps')).toBeUndefined()
+    expect(readElementTag('constructor')).toBeUndefined()
   })
 })

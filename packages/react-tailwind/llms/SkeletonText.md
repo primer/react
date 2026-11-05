@@ -4,6 +4,8 @@
 
 Import: `import {SkeletonText} from '@primer/react-tailwind/SkeletonText'`
 
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `lines`: `number` — Default `1`. Number of placeholder lines to render.

@@ -4,12 +4,22 @@ import {XIcon} from '@primer/octicons-react'
 import {Dialog as BaseDialog} from '@base-ui/react/dialog'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {FloatingPortal} from '../../internal/FloatingPortal'
 import {mergeClassName} from '../../internal/mergeClassName'
+import {mergeStyle} from '../../internal/mergeStyle'
 import {IconButton} from '../IconButton'
 import {usePortalContainer} from '../../internal/portalRoot'
+import {
+  getDialogPosition,
+  getDialogSize,
+  type DialogAlign,
+  type DialogHeight,
+  type DialogPosition,
+  type DialogWidth,
+} from './dialogLayout'
 
 const popupClassName =
-  'flex w-full max-w-[var(--overlay-width-large)] flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] font-sans text-default leading-normal shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
+  'flex flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] font-sans text-default leading-normal shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
 export type DialogRootProps = BaseDialog.Root.Props
 
@@ -52,35 +62,85 @@ const Popup = React.forwardRef<HTMLDivElement, DialogPopupProps>(function Dialog
 })
 
 export interface DialogContentProps extends DialogPopupProps {
-  /** Replaces the default backdrop element. */
+  /**
+   * Vertical alignment of the dialog while it is centered.
+   */
+  align?: DialogAlign
+  /**
+   * Whether to render a backdrop behind the dialog. Modal dialogs render one by default.
+   */
   backdrop?: boolean
   /** Classes applied to the backdrop. */
   backdropClassName?: string
+  /**
+   * Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content.
+   * @default 'auto'
+   */
+  height?: DialogHeight
   /** Where the dialog is rendered in the DOM. Set `false` to keep it in place. */
   portal?: boolean
+  /**
+   * Where the dialog sits in the viewport. Pass a responsive object to change it on narrow viewports, for example
+   * `{narrow: 'bottom', regular: 'center'}` for a bottom sheet. `wide` follows `regular`.
+   * @default {narrow: 'center', regular: 'center'}
+   */
+  position?: DialogPosition
   /** Classes applied to the element that positions the dialog within the viewport. */
   viewportClassName?: string
+  /**
+   * Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width.
+   * @default 'xlarge'
+   */
+  width?: DialogWidth
 }
 
+const defaultPosition: DialogPosition = {narrow: 'center', regular: 'center'}
+
 const Content = React.forwardRef<HTMLDivElement, DialogContentProps>(function DialogContent(
-  {backdrop, backdropClassName, children, className, portal = true, viewportClassName, ...rest},
+  {
+    align,
+    backdrop,
+    backdropClassName,
+    children,
+    className,
+    height = 'auto',
+    portal = true,
+    position = defaultPosition,
+    style,
+    viewportClassName,
+    width = 'xlarge',
+    ...rest
+  },
   ref,
 ) {
   const {modal} = React.useContext(DialogContext)
   const shouldRenderBackdrop = backdrop ?? modal !== false
+  const size = getDialogSize({height, width})
+  const layout = getDialogPosition({align, position})
   const content = (
     <>
       {shouldRenderBackdrop && <Backdrop className={backdropClassName} />}
       <PopupMarkerContext.Provider value="Dialog.Content">
-        <Viewport className={viewportClassName}>
-          <Popup {...rest} ref={ref} className={className}>
+        <Viewport className={cn(layout.viewportClassName, viewportClassName)}>
+          <Popup
+            {...rest}
+            {...size.dataAttributes}
+            {...layout.dataAttributes}
+            ref={ref}
+            className={mergeClassName(cn(size.className, layout.popupClassName), className)}
+            style={mergeStyle(style, size.style)}
+          >
             {children}
           </Popup>
         </Viewport>
       </PopupMarkerContext.Provider>
     </>
   )
-  return portal ? <Portal>{content}</Portal> : content
+  return (
+    <FloatingPortal part={Portal} portal={portal}>
+      {content}
+    </FloatingPortal>
+  )
 })
 
 const Backdrop = React.forwardRef<HTMLDivElement, Omit<BaseDialog.Backdrop.Props, 'data-component'>>(
@@ -189,7 +249,10 @@ const Footer = React.forwardRef<HTMLDivElement, Omit<React.ComponentPropsWithout
 )
 
 export interface DialogCloseButtonProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof IconButton>, 'aria-label' | 'icon' | 'data-component'> {
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof IconButton>,
+    'aria-label' | 'data-component' | 'icon' | 'variant'
+  > {
   /** Accessible name for the close button. */
   'aria-label'?: string
 }
@@ -242,4 +305,3 @@ export const Dialog = Object.assign(Root, {
   Footer,
 })
 ;(Dialog as {displayName?: string}).displayName = 'Dialog'
-;('use client')

@@ -9,11 +9,10 @@ export interface TopicTagProps extends React.HTMLAttributes<HTMLElement> {
   /** URL the tag navigates to. */
   href?: string
 }
-export const TopicTag = React.forwardRef<HTMLElement, TopicTagProps>(function TopicTag(
-  {as, className, href, ...rest},
+const TopicTagRoot = React.forwardRef<HTMLElement, TopicTagProps>(function TopicTag(
+  {as: Component = 'a', className, href, ...rest},
   ref,
 ) {
-  const Component = as ?? 'a'
   return (
     <Component {...rest} ref={ref} href={href} className={cn(topicTagClassName, className)} data-component="TopicTag" />
   )
@@ -32,3 +31,5 @@ export const TopicTagGroup = React.forwardRef<HTMLDivElement, TopicTagGroupProps
     />
   )
 })
+
+export const TopicTag = Object.assign(TopicTagRoot, {Group: TopicTagGroup})

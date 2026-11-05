@@ -4,7 +4,7 @@
 
 Import: `import {Avatar} from '@primer/react-tailwind/Avatar'`
 
-Renders an `<img>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders an [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 

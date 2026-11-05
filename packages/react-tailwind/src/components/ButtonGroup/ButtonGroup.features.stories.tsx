@@ -1,9 +1,11 @@
 import {DashIcon, PlusIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {useState} from 'react'
+import {ActionMenu} from '../ActionMenu'
 import {Button} from '../Button'
 import {IconButton} from '../IconButton'
 import {LinkButton} from '../LinkButton'
+import {Tooltip} from '../Tooltip'
 import {ButtonGroup} from './ButtonGroup'
 
 const meta = {title: 'React Tailwind/Display/ButtonGroup/Features', component: ButtonGroup} satisfies Meta<
@@ -53,10 +55,35 @@ export const LinksWithTooltip: Story = {
 export const InactiveButtonsGroup: Story = {
   render: () => (
     <ButtonGroup>
-      <Button aria-disabled="true" title="This button is inactive">
-        Primary Button
-      </Button>
-      <IconButton aria-disabled="true" icon={DashIcon} aria-label="Secondary Button" title="This button is inactive" />
+      <Tooltip>
+        <Tooltip.Trigger
+          render={
+            <Button aria-disabled="true" inactive onClick={() => {}}>
+              Primary Button
+            </Button>
+          }
+        />
+        <Tooltip.Content align="start" side="top">
+          This button is inactive
+        </Tooltip.Content>
+      </Tooltip>
+      <ActionMenu open={false} onOpenChange={() => {}}>
+        <ActionMenu.Trigger
+          render={
+            <IconButton
+              aria-disabled="true"
+              aria-label="Secondary Button"
+              description="this button is inactive"
+              icon={DashIcon}
+              inactive
+            />
+          }
+        />
+        <ActionMenu.Content align="end">
+          <ActionMenu.Item>Item 1</ActionMenu.Item>
+          <ActionMenu.Item>Item 2</ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>
     </ButtonGroup>
   ),
 }

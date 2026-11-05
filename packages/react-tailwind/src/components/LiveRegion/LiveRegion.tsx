@@ -75,21 +75,27 @@ export const Announce = React.forwardRef<HTMLElement, AnnounceProps>(function An
 export type AriaStatusProps = Omit<AnnounceProps, 'politeness'>
 
 export const AriaStatus = React.forwardRef<HTMLElement, AriaStatusProps>(function AriaStatus(
-  {announceOnShow = false, ...rest},
+  {announceOnShow = false, 'data-component': dataComponent = 'AriaStatus', ...rest},
   ref,
 ) {
   return (
-    <Announce {...rest} announceOnShow={announceOnShow} data-component="AriaStatus" politeness="polite" ref={ref} />
+    <Announce {...rest} announceOnShow={announceOnShow} data-component={dataComponent} politeness="polite" ref={ref} />
   )
 })
 
 export type AriaAlertProps = Omit<AnnounceProps, 'politeness'>
 
 export const AriaAlert = React.forwardRef<HTMLElement, AriaAlertProps>(function AriaAlert(
-  {announceOnShow = true, ...rest},
+  {announceOnShow = true, 'data-component': dataComponent = 'AriaAlert', ...rest},
   ref,
 ) {
   return (
-    <Announce {...rest} announceOnShow={announceOnShow} data-component="AriaAlert" politeness="assertive" ref={ref} />
+    <Announce
+      {...rest}
+      announceOnShow={announceOnShow}
+      data-component={dataComponent}
+      politeness="assertive"
+      ref={ref}
+    />
   )
 })

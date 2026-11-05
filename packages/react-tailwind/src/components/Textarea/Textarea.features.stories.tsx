@@ -3,6 +3,7 @@ import {useState} from 'react'
 import {expect, userEvent, within} from 'storybook/test'
 import {FormControl} from '../FormControl'
 import {Heading} from '../Heading'
+import {Stack} from '../Stack'
 import {Textarea} from './Textarea'
 
 const meta = {title: 'React Tailwind/Forms/Textarea/Features', component: Textarea} satisfies Meta<typeof Textarea>
@@ -64,12 +65,21 @@ export const CustomHeight: Story = {render: () => <Field rows={3} />}
 export const CustomWidth: Story = {render: () => <Field cols={60} />}
 export const CustomResizeBehavior: Story = {
   render: () => (
-    <div className="grid gap-3">
-      <Field resize="both" />
-      <Field resize="none" />
-      <Field resize="horizontal" />
-      <Field resize="vertical" />
-    </div>
+    <Stack as="form">
+      {(
+        [
+          ['both', 'Resize in either direction (default)'],
+          ['none', 'No resize'],
+          ['horizontal', 'Horizontal resize'],
+          ['vertical', 'Vertical resize'],
+        ] as const
+      ).map(([resize, label]) => (
+        <FormControl key={resize}>
+          <FormControl.Label>{label}</FormControl.Label>
+          <Textarea resize={resize} />
+        </FormControl>
+      ))}
+    </Stack>
   ),
 }
 export const AutoSize: Story = {

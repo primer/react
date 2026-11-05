@@ -5,24 +5,28 @@ import {Popover, type PopoverContentProps, type PopoverRootProps} from './Popove
 
 interface PopoverStoryArgs
   extends Pick<PopoverRootProps, 'modal'>,
-    Pick<PopoverContentProps, 'align' | 'side' | 'sideOffset'> {}
+    Pick<PopoverContentProps, 'align' | 'height' | 'side' | 'sideOffset' | 'width'> {}
 
 const meta = {
   title: 'React Tailwind/Components/Popover',
   args: {
     align: 'center',
+    height: 'fit-content',
     modal: true,
     side: 'bottom',
     sideOffset: 8,
+    width: 'small',
   },
   argTypes: {
     align: {control: 'select', options: ['start', 'center', 'end']},
+    height: {control: 'select', options: ['small', 'medium', 'large', 'xlarge', 'fit-content', 'auto']},
     modal: {control: 'select', options: [false, true, 'trap-focus']},
     side: {
       control: 'select',
       options: ['top', 'bottom', 'left', 'right', 'inline-start', 'inline-end'],
     },
     sideOffset: {control: {type: 'number', min: 0}},
+    width: {control: 'select', options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'auto']},
   },
 } satisfies Meta<PopoverStoryArgs>
 
@@ -30,7 +34,14 @@ export default meta
 
 type Story = StoryObj<PopoverStoryArgs>
 
-function PopoverFixture({align = 'center', modal = true, side = 'bottom', sideOffset = 8}: PopoverStoryArgs) {
+function PopoverFixture({
+  align = 'center',
+  height,
+  modal = true,
+  side = 'bottom',
+  sideOffset = 8,
+  width,
+}: PopoverStoryArgs) {
   return (
     <div className="w-full">
       <Popover open modal={modal}>
@@ -40,11 +51,13 @@ function PopoverFixture({align = 'center', modal = true, side = 'bottom', sideOf
         />
         <Popover.Content
           align={align}
+          height={height}
           initialFocus={false}
           portal={false}
-          positionerClassName="!relative !inset-auto !transform-none mx-auto mt-2 w-[var(--overlay-width-small)]"
+          positionerClassName="!relative !inset-auto !transform-none mx-auto mt-2 w-fit"
           side={side}
           sideOffset={sideOffset}
+          width={width}
         >
           <Popover.Arrow />
           <Popover.Title>Popover heading</Popover.Title>

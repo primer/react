@@ -83,6 +83,56 @@ describe('PageLayout', () => {
     )
   })
 
+  it('places a sidebar at the start by default and fills omitted ranges with the default', () => {
+    const {container, rerender} = render(
+      <PageLayout>
+        <PageLayout.Sidebar>Sidebar</PageLayout.Sidebar>
+        <PageLayout.Content>Content</PageLayout.Content>
+      </PageLayout>,
+    )
+    const sidebar = () => container.querySelector('[data-component="PageLayout.Sidebar"]')?.parentElement?.parentElement
+    expect(sidebar()).toHaveAttribute('data-position', 'start')
+    expect(sidebar()).toHaveClass('order-first', 'md:order-first', '2xl:order-first')
+
+    rerender(
+      <PageLayout>
+        <PageLayout.Sidebar position={{regular: 'end'}}>Sidebar</PageLayout.Sidebar>
+        <PageLayout.Content>Content</PageLayout.Content>
+      </PageLayout>,
+    )
+    expect(sidebar()).toHaveClass('order-first', 'md:order-last', '2xl:order-last')
+    rerender(<></>)
+  })
+
+  it('persists a resizable sidebar width only under its own storage key', () => {
+    window.localStorage.clear()
+    const {unmount} = render(
+      <PageLayout>
+        <PageLayout.Sidebar resizable>Sidebar</PageLayout.Sidebar>
+      </PageLayout>,
+    )
+    let handle = screen.getByRole('slider')
+    fireEvent.keyDown(handle, {key: 'ArrowRight'})
+    fireEvent.keyUp(handle, {key: 'ArrowRight'})
+    expect(window.localStorage.getItem('paneWidth')).toBeNull()
+    unmount()
+
+    const keyed = render(
+      <PageLayout>
+        <PageLayout.Sidebar resizable widthStorageKey="sidebarWidth">
+          Sidebar
+        </PageLayout.Sidebar>
+      </PageLayout>,
+    )
+    handle = screen.getByRole('slider')
+    fireEvent.keyDown(handle, {key: 'ArrowRight'})
+    fireEvent.keyUp(handle, {key: 'ArrowRight'})
+    expect(window.localStorage.getItem('sidebarWidth')).not.toBeNull()
+    expect(window.localStorage.getItem('paneWidth')).toBeNull()
+    keyed.unmount()
+    window.localStorage.clear()
+  })
+
   it('keeps header and footer outside the pane and content row', () => {
     const {container} = render(
       <PageLayout>
@@ -138,7 +188,9 @@ describe('PageLayout', () => {
         <PageLayout.Content>Content</PageLayout.Content>
       </PageLayout>,
     )
-    const narrowDivider = container.querySelector('aside + [aria-hidden="true"]')
+    const pane = container.querySelector('[data-component="PageLayout.Sidebar"]')?.closest('[data-position]')
+    expect(pane?.tagName).toBe('DIV')
+    const narrowDivider = pane?.nextElementSibling
     expect(narrowDivider).toHaveClass('order-last', 'ms-[var(--page-layout-column-gap)]', 'md:hidden')
   })
 

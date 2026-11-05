@@ -4,6 +4,8 @@
 
 Import: `import {Stack} from '@primer/react-tailwind/Stack'`
 
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `align`: `ResponsiveValue<"baseline" | "center" | "end" | "start" | "stretch">` — Default `'stretch'`. Alignment of children across the stack's direction.
@@ -15,6 +17,14 @@ Import: `import {Stack} from '@primer/react-tailwind/Stack'`
 - `paddingBlock`: `ResponsiveValue<Gap>` — Inner spacing at the top and bottom, overriding `padding`.
 - `paddingInline`: `ResponsiveValue<Gap>` — Inner spacing at the start and end, overriding `padding`.
 - `wrap`: `ResponsiveValue<"nowrap" | "wrap">` — Default `'nowrap'`. Whether children may wrap onto another line.
+
+## Stack.Item
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+- `as`: `React.ElementType` — Default `'div'`. Element to render.
+- `grow`: `ResponsiveValue<boolean>` — Default `false`. Lets the item take up any remaining space.
+- `shrink`: `ResponsiveValue<boolean>` — Default `true`. Lets the item shrink below its content size when space is tight.
 
 ## Differences from `@primer/react`
 

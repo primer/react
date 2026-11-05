@@ -12,9 +12,6 @@
       "id": "react-tailwind-display-skeletonbox-examples--comments-loading-with-suspense"
     },
     {
-      "id": "react-tailwind-display-skeletonbox-examples--loading-card-with-custom-content"
-    },
-    {
       "id": "react-tailwind-display-skeletonbox-features--custom-height"
     },
     {
@@ -63,5 +60,9 @@
       "type": "Width<string | number>",
       "description": "Width of the placeholder."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

@@ -16,11 +16,21 @@ const failures = files.filter(filepath => {
   const source = fs.readFileSync(filepath, 'utf8')
   return clientRuntimePattern.test(source) && !/^['"]use client['"]/.test(source)
 })
+// A directive is only honored as the first statement; anywhere else it is a no-op expression.
+const misplacedDirectives = glob
+  .sync('src/**/*.{ts,tsx}', {absolute: true, cwd: packageDirectory})
+  .filter(filepath => /\n;?\(?['"]use client['"]\)?\s*;?\s*(?:\n|$)/.test(fs.readFileSync(filepath, 'utf8')))
 
-if (failures.length > 0) {
+if (failures.length > 0 || misplacedDirectives.length > 0) {
   for (const filepath of failures) {
     // eslint-disable-next-line no-console
     console.error(`${path.relative(packageDirectory, filepath)} uses client-only React APIs without 'use client'.`)
+  }
+  for (const filepath of misplacedDirectives) {
+    // eslint-disable-next-line no-console
+    console.error(
+      `${path.relative(packageDirectory, filepath)} has a 'use client' directive after the first statement.`,
+    )
   }
   process.exitCode = 1
 } else {

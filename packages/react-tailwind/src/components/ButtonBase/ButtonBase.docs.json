@@ -25,7 +25,12 @@
     {
       "name": "data-component",
       "type": "string",
+      "defaultValue": "'ButtonBase'",
       "description": "Overrides the marker used to identify this element in tests and styling."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "Button",
+    "url": "https://base-ui.com/react/components/button#api-reference"
+  }
 }

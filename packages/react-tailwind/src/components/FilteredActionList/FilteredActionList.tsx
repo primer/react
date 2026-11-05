@@ -7,7 +7,14 @@ import {cn} from '../../internal/cn'
 import {areItemsEqual, getItemRenderKey, getItemText, itemIdKey, renderItemVisual} from '../../internal/collectionItem'
 import {mergeRefs} from '../../internal/refs'
 import type {CSSPropertiesWithCustomProperties} from '../../utils/types'
-import {ActionItemContent, ActionList, actionItemClassName, type ActionListRootProps} from '../ActionList/ActionList'
+import {
+  ActionItemContent,
+  ActionItemElementContent,
+  ActionList,
+  actionItemClassName,
+  type ActionListItemProps,
+  type ActionListRootProps,
+} from '../ActionList/ActionList'
 import {Checkbox} from '../Checkbox'
 import {SkeletonBox} from '../SkeletonBox'
 import {Spinner} from '../Spinner'
@@ -204,7 +211,11 @@ function getVirtualRowHeight(
   return undefined
 }
 
-function BodyLoader({loadingType}: {loadingType: FilteredActionListLoadingType}) {
+/**
+ * `announce` gives the loader its own status message for when the list's live region is disabled;
+ * otherwise that live region already announces loading and the loader stays visual.
+ */
+function BodyLoader({announce, loadingType}: {announce: boolean; loadingType: FilteredActionListLoadingType}) {
   const [skeletonElement, setSkeletonElement] = React.useState<HTMLDivElement | null>(null)
   const subscribeToSkeletonHeight = React.useCallback(
     (onStoreChange: () => void) => {
@@ -223,10 +234,10 @@ function BodyLoader({loadingType}: {loadingType: FilteredActionListLoadingType})
       <div
         className="flex h-full min-h-[200px] w-full flex-1 items-center justify-center p-4 text-muted"
         data-component="FilteredActionList.Spinner"
-        role="status"
+        role={announce ? 'status' : undefined}
       >
         <Spinner data-testid="filtered-action-list-spinner" srText={null} />
-        <span className="sr-only">Loading items</span>
+        {announce ? <span className="sr-only">Loading items</span> : null}
       </div>
     )
   }
@@ -236,13 +247,13 @@ function BodyLoader({loadingType}: {loadingType: FilteredActionListLoadingType})
 
   return (
     <div
-      className="flex h-full min-h-[200px] w-full flex-1 flex-col justify-center gap-2 p-2"
+      className="flex h-full min-h-[200px] w-full flex-1 flex-col gap-2 p-2"
       data-component="FilteredActionList.Skeleton"
       data-testid="filtered-action-list-skeleton"
       ref={setSkeletonElement}
-      role="status"
+      role={announce ? 'status' : undefined}
     >
-      <span className="sr-only">Loading items</span>
+      {announce ? <span className="sr-only">Loading items</span> : null}
       {Array.from({length: skeletonRows}, (_, index) => (
         <div key={index} className="flex items-center gap-2">
           <SkeletonBox className="size-4 shrink-0" />
@@ -306,17 +317,17 @@ function FilteredActionListOption({
   const renderer = renderItem ?? group?.renderItem ?? itemRenderer
   const renderedItem = renderer?.({...item, selected})
   const renderedActionListItem =
-    React.isValidElement<{
-      children?: React.ReactNode
-      className?: string
-      disabled?: boolean
-      onClick?: React.MouseEventHandler<HTMLElement>
-      onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
-      variant?: FilteredActionListItem['variant']
-    }>(renderedItem) && renderedItem.type === ActionList.Item
+    React.isValidElement<
+      Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'> & {
+        className?: string
+        disabled?: boolean
+        onClick?: React.MouseEventHandler<HTMLElement>
+        onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+        variant?: FilteredActionListItem['variant']
+      }
+    >(renderedItem) && renderedItem.type === ActionList.Item
       ? renderedItem
       : undefined
-  const renderedContent = renderedActionListItem ? renderedActionListItem.props.children : renderedItem
   const optionDisabled = Boolean(disabled || renderedActionListItem?.props.disabled)
   const optionVariant = renderedActionListItem?.props.variant ?? variant
   const selection = !selectable ? null : multiple ? (
@@ -380,18 +391,26 @@ function FilteredActionListOption({
       }}
       value={value}
     >
-      {renderedContent ?? (
-        <ActionItemContent
-          description={description}
-          descriptionVariant={descriptionVariant}
-          leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
+      {renderedActionListItem ? (
+        <ActionItemElementContent
+          item={renderedActionListItem.props}
           selection={selection}
           showDivider={showItemDividers && optionIndex > 0}
-          trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
-        >
-          {children}
-          {text}
-        </ActionItemContent>
+        />
+      ) : (
+        (renderedItem ?? (
+          <ActionItemContent
+            description={description}
+            descriptionVariant={descriptionVariant}
+            leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
+            selection={selection}
+            showDivider={showItemDividers && optionIndex > 0}
+            trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
+          >
+            {children}
+            {text}
+          </ActionItemContent>
+        ))
       )}
     </Combobox.Item>
   )
@@ -434,14 +453,14 @@ function FilteredActionListDisabledOption({
   const renderer = renderItem ?? group?.renderItem ?? itemRenderer
   const renderedItem = renderer?.({...item, selected: false})
   const renderedActionListItem =
-    React.isValidElement<{
-      children?: React.ReactNode
-      className?: string
-      variant?: FilteredActionListItem['variant']
-    }>(renderedItem) && renderedItem.type === ActionList.Item
+    React.isValidElement<
+      Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'> & {
+        className?: string
+        variant?: FilteredActionListItem['variant']
+      }
+    >(renderedItem) && renderedItem.type === ActionList.Item
       ? renderedItem
       : undefined
-  const renderedContent = renderedActionListItem ? renderedActionListItem.props.children : renderedItem
   const optionVariant = renderedActionListItem?.props.variant ?? variant
 
   return (
@@ -466,17 +485,24 @@ function FilteredActionListDisabledOption({
       data-item-id={itemId === undefined ? undefined : itemIdKey(itemId)}
       role="option"
     >
-      {renderedContent ?? (
-        <ActionItemContent
-          description={description}
-          descriptionVariant={descriptionVariant}
-          leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
+      {renderedActionListItem ? (
+        <ActionItemElementContent
+          item={renderedActionListItem.props}
           showDivider={showItemDividers && optionIndex > 0}
-          trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
-        >
-          {children}
-          {text}
-        </ActionItemContent>
+        />
+      ) : (
+        (renderedItem ?? (
+          <ActionItemContent
+            description={description}
+            descriptionVariant={descriptionVariant}
+            leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
+            showDivider={showItemDividers && optionIndex > 0}
+            trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
+          >
+            {children}
+            {text}
+          </ActionItemContent>
+        ))
       )}
     </div>
   )
@@ -833,11 +859,6 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
           className="relative z-1 shrink-0 shadow-[0_1px_0_var(--borderColor-default)]"
           data-component="FilteredActionList.Header"
         >
-          {LeadingVisual ? (
-            <span className="pointer-events-none absolute top-1/2 left-2.5 z-1 -translate-y-1/2 text-muted">
-              {renderItemVisual(LeadingVisual)}
-            </span>
-          ) : null}
           <Combobox.Input
             aria-describedby={filterDescriptionId}
             aria-label={ariaLabel}
@@ -845,11 +866,13 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
             ref={mergeRefs(inputElementRef, inputRef)}
             render={
               <TextInput
+                loaderPosition="leading"
                 {...inputProps}
                 block
+                leadingVisual={LeadingVisual ? renderItemVisual(LeadingVisual) : undefined}
+                loading={loading && loadingType === FilteredActionListLoadingTypes.input}
                 className={cn(
                   'min-w-0',
-                  LeadingVisual && 'pl-8',
                   // Match upstream: keep iOS from zooming the viewport when focusing a narrow input.
                   fullScreenOnNarrow &&
                     'max-md:supports-[-webkit-touch-callout:none]:text-[var(--text-title-size-small)]',
@@ -858,9 +881,6 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
               />
             }
           />
-          {loading && loadingType === FilteredActionListLoadingTypes.input ? (
-            <Spinner className="absolute top-1/2 right-2.5 -translate-y-1/2" size="small" srText={null} />
-          ) : null}
         </div>
         <span id={filterDescriptionId} className="sr-only">
           Items will be filtered as you type
@@ -909,7 +929,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
           ref={setScrollElement}
         >
           {bodyLoading ? (
-            <BodyLoader loadingType={loadingType} />
+            <BodyLoader announce={!announcementsEnabled} loadingType={loadingType} />
           ) : hasMessage ? (
             <div className="flex flex-1" data-component="FilteredActionList.MessageContainer">
               {message}

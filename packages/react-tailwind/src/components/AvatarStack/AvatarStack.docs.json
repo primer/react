@@ -76,5 +76,9 @@
       "defaultValue": "'cascade'",
       "description": "The style of overlapping avatars."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
 }

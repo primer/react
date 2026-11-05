@@ -114,7 +114,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Button",
+      "name": "SegmentedControl.Button",
       "props": [
         {
           "name": "children",
@@ -141,10 +141,14 @@
           "required": true,
           "description": "Value this segment selects, matched against the control's value."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Toggle",
+        "url": "https://base-ui.com/react/components/toggle#api-reference"
+      }
     },
     {
-      "name": "IconButton",
+      "name": "SegmentedControl.IconButton",
       "props": [
         {
           "name": "aria-label",
@@ -184,10 +188,14 @@
           "required": true,
           "description": "Value this segment selects, matched against the control's value."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Toggle",
+        "url": "https://base-ui.com/react/components/toggle#api-reference"
+      }
     },
     {
-      "name": "Divider",
+      "name": "SegmentedControl.Divider",
       "props": [
         {
           "name": "className",
@@ -202,7 +210,7 @@
       ]
     },
     {
-      "name": "Action",
+      "name": "SegmentedControl.Action",
       "props": [
         {
           "name": "disabled",
@@ -233,5 +241,9 @@
         }
       ]
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "ToggleGroup",
+    "url": "https://base-ui.com/react/components/toggle-group#api-reference"
+  }
 }

@@ -204,7 +204,7 @@
     },
     {
       "name": "height",
-      "type": "\"auto\" | \"fit-content\" | \"initial\" | \"large\" | \"medium\" | \"small\" | \"xlarge\" | \"xsmall\"",
+      "type": "OverlayHeight",
       "description": "Height of the panel."
     },
     {
@@ -375,7 +375,7 @@
     {
       "name": "variant",
       "type": "\"anchored\" | \"modal\"",
-      "defaultValue": "'empty'",
+      "defaultValue": "'anchored'",
       "description": "How the panel presents itself. `anchored` attaches it to its anchor.\nHow the panel presents itself. `modal` presents it over the page and requires `onCancel`."
     },
     {
@@ -386,13 +386,13 @@
     },
     {
       "name": "width",
-      "type": "\"auto\" | \"large\" | \"medium\" | \"small\" | \"xlarge\" | \"xxlarge\"",
+      "type": "OverlayWidth",
       "description": "Width of the panel."
     }
   ],
   "subcomponents": [
     {
-      "name": "Message",
+      "name": "SelectPanel.Message",
       "props": [
         {
           "name": "action",
@@ -423,7 +423,7 @@
       ]
     },
     {
-      "name": "SecondaryActionButton",
+      "name": "SelectPanel.SecondaryActionButton",
       "props": [
         {
           "name": "alignContent",
@@ -433,6 +433,7 @@
         {
           "name": "block",
           "type": "boolean",
+          "defaultValue": "true",
           "description": "Stretches the button to fill the width of its container."
         },
         {
@@ -476,7 +477,6 @@
         {
           "name": "loading",
           "type": "boolean",
-          "defaultValue": "false",
           "description": "Replaces the leading visual with a spinner and suppresses activation."
         },
         {
@@ -485,8 +485,14 @@
           "description": "Text announced to assistive technology while the button is loading."
         },
         {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"leadingVisual\"",
+          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+        },
+        {
           "name": "size",
           "type": "ControlSize",
+          "defaultValue": "'medium'",
           "description": "Height and text size of the button."
         },
         {
@@ -502,23 +508,22 @@
         {
           "name": "variant",
           "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
-          "defaultValue": "'empty'",
+          "defaultValue": "'default'",
           "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
     },
     {
-      "name": "SecondaryActionLink",
+      "name": "SelectPanel.SecondaryActionLink",
       "props": [
         {
           "name": "alignContent",
           "type": "\"center\" | \"start\"",
           "description": "Whether the label sits centred or hugs the start edge when visuals are present."
-        },
-        {
-          "name": "block",
-          "type": "boolean",
-          "description": "Stretches the button to fill the width of its container."
         },
         {
           "name": "children",
@@ -567,7 +572,6 @@
         {
           "name": "loading",
           "type": "boolean",
-          "defaultValue": "false",
           "description": "Replaces the leading visual with a spinner and suppresses activation."
         },
         {
@@ -576,8 +580,14 @@
           "description": "Text announced to assistive technology while the button is loading."
         },
         {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"leadingVisual\"",
+          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+        },
+        {
           "name": "size",
           "type": "ControlSize",
+          "defaultValue": "'medium'",
           "description": "Height and text size of the button."
         },
         {
@@ -589,14 +599,12 @@
           "name": "trailingVisual",
           "type": "ButtonVisual",
           "description": "Icon shown after the label."
-        },
-        {
-          "name": "variant",
-          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
-          "defaultValue": "'empty'",
-          "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
     }
   ]
 }

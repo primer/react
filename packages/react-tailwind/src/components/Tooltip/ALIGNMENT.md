@@ -6,7 +6,7 @@ Legacy Tooltip uses compass `direction` and older overlay positioning convention
 
 ## To: `@primer/react-tailwind`
 
-Stable Tooltip promotes the Tooltip V2 interaction model under the base name. Its `Root`, `Trigger`, `Portal`, `Positioner`, `Popup`, and `Content` compose Base UI for focus, hover behavior, dismissal, portals, ARIA, and physical placement. `side` uses `top`, `right`, `bottom`, or `left`; controlled and uncontrolled open state follow Base UI conventions. `type` (`description` or `label`) and `keybindingHint` match TooltipV2; description tooltips and hint text stay mounted so trigger descriptions resolve while closed. Popups portal into the nearest `BaseStyles` so they inherit its theme and typography.
+Stable Tooltip promotes the Tooltip V2 interaction model under the base name. Its `Root`, `Trigger`, `Portal`, `Positioner`, `Popup`, and `Content` compose Base UI for focus, hover behavior, dismissal, portals, ARIA, and physical placement. `side` uses `top`, `right`, `bottom`, or `left`; controlled and uncontrolled open state follow Base UI conventions. `type` (`description` or `label`) and `keybindingHint` match TooltipV2; description tooltips and hint text stay mounted so trigger descriptions resolve while closed. Popups portal into the nearest `BaseStyles` so they inherit its theme and typography. `Content` shares the floating-content props of Popover, AnchoredOverlay, ActionMenu, and Autocomplete: `side`, `align`, offsets, `anchor`, and `portal`.
 
 ## Migration notes
 

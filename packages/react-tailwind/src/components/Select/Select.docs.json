@@ -70,12 +70,6 @@
       "description": "Classes applied to the visible control wrapper."
     },
     {
-      "name": "contrast",
-      "type": "boolean",
-      "defaultValue": "false",
-      "description": "Uses the inset control background token."
-    },
-    {
       "name": "placeholder",
       "type": "string",
       "description": "Text rendered as an initially selected empty-value option."
@@ -89,6 +83,24 @@
       "name": "validationStatus",
       "type": "ValidationStatus",
       "description": "Applies error or success control styling."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Select.Option",
+      "props": [],
+      "passthrough": {
+        "element": "option",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attributes"
+      }
+    },
+    {
+      "name": "Select.OptGroup",
+      "props": [],
+      "passthrough": {
+        "element": "optgroup",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup#attributes"
+      }
     }
   ],
   "passthrough": {

@@ -118,7 +118,7 @@ function responsivePanePositionClasses(value: ResponsiveValue<PanePosition> | un
 }
 
 function responsiveSidebarPositionClasses(value: ResponsiveValue<PanePosition> | undefined) {
-  const position = resolveResponsiveValue(value ?? 'end', 'end')
+  const position = resolveResponsiveValue(value ?? 'start', 'start')
   return (['narrow', 'regular', 'wide'] as const).map(viewport => sidebarPositionClasses[position[viewport]][viewport])
 }
 
@@ -292,9 +292,15 @@ const Content = React.forwardRef<HTMLElement, PageLayoutContentProps>(function P
 export interface PageLayoutPaneBaseProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'hidden'> {
   /** Which side of the content the pane sits on. Accepts a responsive object to move it per viewport. */
   position?: ResponsiveValue<PanePosition>
-  /** Pane width, either a named size or a custom min/default/max triple. */
+  /**
+   * Pane width, either a named size or a custom min/default/max triple.
+   * @default 'medium'
+   */
   width?: PaneWidthValue
-  /** Smallest width in pixels the pane may be resized to. */
+  /**
+   * Smallest width in pixels the pane may be resized to.
+   * @default 256
+   */
   minWidth?: number
   /** Key under which a resized width is persisted, so the pane reopens at the user's chosen size. */
   widthStorageKey?: string
@@ -381,7 +387,7 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
   }
 
   return (
-    <aside
+    <div
       {...rest}
       className={cn(
         'relative flex min-h-0 w-full shrink-0 flex-col md:w-auto md:flex-row',
@@ -477,11 +483,12 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
           ) : null}
         </div>
       ) : null}
-    </aside>
+    </div>
   )
 })
 
-export interface PageLayoutSidebarProps extends PageLayoutPaneBaseProps {
+// A sidebar sticks to the viewport rather than below a header, so it has no `offsetHeader`.
+export interface PageLayoutSidebarProps extends Omit<PageLayoutPaneBaseProps, 'offsetHeader'> {
   /** How the sidebar behaves on narrow viewports: inline by default, or as a fullscreen overlay. */
   responsiveVariant?: 'default' | 'fullscreen'
 }
@@ -490,13 +497,13 @@ const Sidebar = markPageLayoutSidebar(
     {
       className,
       divider = 'none',
-      hidden: hiddenValue,
+      hidden: hiddenValue = false,
       padding = 'none',
-      position: responsivePosition = 'end',
+      position: responsivePosition = 'start',
       responsiveVariant = 'default',
       resizable = false,
       style,
-      sticky,
+      sticky = false,
       widthStorageKey,
       ...rest
     },
@@ -504,7 +511,7 @@ const Sidebar = markPageLayoutSidebar(
   ) {
     const markers = React.useContext(PageLayoutMarkerContext)
     const sidebarDivider = resolveResponsiveValue(divider, 'none')
-    const sidebarPosition = resolveResponsiveValue(responsivePosition, 'end')
+    const sidebarPosition = resolveResponsiveValue(responsivePosition, 'start')
     const narrowDivider = resizable ? 'line' : sidebarDivider.narrow
     const narrowDividerNode =
       narrowDivider === 'none' ? null : (
@@ -545,10 +552,12 @@ const Sidebar = markPageLayoutSidebar(
             divider={{narrow: 'none', regular: sidebarDivider.regular, wide: sidebarDivider.wide}}
             hidden={false}
             padding={padding}
-            position={responsivePosition}
+            // Pane falls back to `end` for omitted ranges, so it gets the sidebar's fully resolved position.
+            position={typeof responsivePosition === 'string' ? responsivePosition : sidebarPosition}
             resizable={resizable}
             sticky={false}
-            widthStorageKey={widthStorageKey}
+            // A sidebar persists its width only under a key it is given, so it never shares the pane's.
+            widthStorageKey={widthStorageKey ?? ''}
           />
         </PageLayoutMarkerContext.Provider>
         {sidebarPosition.narrow === 'start' ? narrowDividerNode : null}
@@ -598,4 +607,3 @@ Sidebar.displayName = 'PageLayout.Sidebar'
 Footer.displayName = 'PageLayout.Footer'
 export const PageLayout = Object.assign(Root, {Header, Content, Pane, Sidebar, Footer})
 export type {CustomWidthOptions, PaneWidth, PaneWidthValue}
-;('use client')

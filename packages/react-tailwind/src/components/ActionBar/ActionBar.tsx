@@ -182,10 +182,19 @@ interface MenuTriggerProps extends Omit<IconButtonProps, 'data-component' | 'var
 
 /** An icon button that is both a toolbar item and an ActionMenu trigger. */
 const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(function ActionBarMenuTrigger(
-  {'aria-label': ariaLabel, 'data-component': dataComponent, disabled, icon, isOverflowing = false, ...props},
+  {
+    'aria-label': ariaLabel,
+    'data-component': dataComponent,
+    disabled,
+    icon,
+    isOverflowing = false,
+    size: sizeProp,
+    ...props
+  },
   ref,
 ) {
-  const size = React.useContext(ActionBarContext)
+  const contextSize = React.useContext(ActionBarContext)
+  const size = sizeProp ?? contextSize
   return (
     <Toolbar.Button
       ref={ref}
@@ -285,12 +294,16 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
   )
 })
 
-export type ActionBarButtonProps = Omit<ButtonProps, 'data-component' | 'variant'>
+export type ActionBarButtonProps = Omit<ButtonProps, 'data-component' | 'size' | 'variant'> & {
+  /** Height and text size of the button. Defaults to the `size` of the `ActionBar`. */
+  size?: ButtonProps['size']
+}
 const Button = React.forwardRef<HTMLButtonElement, ActionBarButtonProps>(function ActionBarButton(
-  {children, className, disabled = false, leadingVisual, onClick, ...props},
+  {children, className, disabled = false, leadingVisual, onClick, size: sizeProp, ...props},
   ref,
 ) {
-  const size = React.useContext(ActionBarContext)
+  const contextSize = React.useContext(ActionBarContext)
+  const size = sizeProp ?? contextSize
   const [element, setElement] = React.useState<HTMLButtonElement | null>(null)
   const isOverflowing = useActionBarItem(element, {
     type: 'action',
@@ -321,12 +334,16 @@ const Button = React.forwardRef<HTMLButtonElement, ActionBarButtonProps>(functio
   )
 })
 
-export type ActionBarIconButtonProps = Omit<IconButtonProps, 'data-component' | 'variant'>
+export type ActionBarIconButtonProps = Omit<IconButtonProps, 'data-component' | 'size' | 'variant'> & {
+  /** Height of the button. Defaults to the `size` of the `ActionBar`. */
+  size?: IconButtonProps['size']
+}
 const IconButton = React.forwardRef<HTMLButtonElement, ActionBarIconButtonProps>(function ActionBarIconButton(
-  {'aria-label': ariaLabel, className, disabled = false, icon, onClick, ...props},
+  {'aria-label': ariaLabel, className, disabled = false, icon, onClick, size: sizeProp, ...props},
   ref,
 ) {
-  const size = React.useContext(ActionBarContext)
+  const contextSize = React.useContext(ActionBarContext)
+  const size = sizeProp ?? contextSize
   const [element, setElement] = React.useState<HTMLButtonElement | null>(null)
   const isOverflowing = useActionBarItem(element, {
     type: 'action',

@@ -4,6 +4,8 @@
 
 Import: `import {AvatarStack} from '@primer/react-tailwind/AvatarStack'`
 
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `alignRight`: `boolean` — Align the avatars to the right.

@@ -4,6 +4,8 @@
 
 Import: `import {RelativeTime} from '@primer/react-tailwind/RelativeTime'`
 
+Renders a [`<time>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `date`: `Date` — Instant being described.

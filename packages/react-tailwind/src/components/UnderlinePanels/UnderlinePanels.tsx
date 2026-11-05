@@ -111,4 +111,3 @@ Root.displayName = 'UnderlinePanels'
 List.displayName = 'UnderlinePanels.List'
 PanelTab.displayName = 'UnderlinePanels.Tab'
 Panel.displayName = 'UnderlinePanels.Panel'
-;('use client')

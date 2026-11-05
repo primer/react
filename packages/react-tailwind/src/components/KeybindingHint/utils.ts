@@ -108,4 +108,3 @@ export const getAccessibleKeybindingHintString = (sequence: string, platform: Pl
     .map(chord => accessibleChordString(chord, resolvedPlatform))
     .join(' then ')
 }
-;('use client')

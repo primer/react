@@ -32,7 +32,7 @@ export const SideSheetInteraction: Story = {
   render: () => (
     <Dialog>
       <Dialog.Trigger render={<Button>Open side sheet</Button>} />
-      <Dialog.Content className="h-full max-w-[640px] rounded-none" viewportClassName="items-stretch justify-end p-0">
+      <Dialog.Content position="right">
         <Dialog.Header>
           <Dialog.Title>Side sheet</Dialog.Title>
           <Dialog.CloseButton />

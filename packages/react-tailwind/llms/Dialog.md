@@ -4,28 +4,90 @@
 
 Import: `import {Dialog} from '@primer/react-tailwind/Dialog'`
 
-## Content props
+Forwards unrecognized props to Base UI's [`Dialog.Root`](https://base-ui.com/react/components/dialog#root), so it also accepts that part's props.
 
-- `backdrop`: `boolean` — Replaces the default backdrop element.
+## Dialog.Root
+
+Forwards unrecognized props to Base UI's [`Dialog.Root`](https://base-ui.com/react/components/dialog#root), so it also accepts that part's props.
+
+## Dialog.Trigger
+
+Forwards unrecognized props to Base UI's [`Dialog.Trigger`](https://base-ui.com/react/components/dialog#trigger), so it also accepts that part's props.
+
+## Dialog.Content
+
+Forwards unrecognized props to Base UI's [`Dialog.Popup`](https://base-ui.com/react/components/dialog#popup), so it also accepts that part's props.
+
+- `align`: `DialogAlign` — Vertical alignment of the dialog while it is centered.
+- `backdrop`: `boolean` — Whether to render a backdrop behind the dialog. Modal dialogs render one by default.
 - `backdropClassName`: `string` — Classes applied to the backdrop.
+- `height`: `DialogHeight` — Default `'auto'`. Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content.
 - `portal`: `boolean` — Default `true`. Where the dialog is rendered in the DOM. Set `false` to keep it in place.
+- `position`: `DialogPosition` — Default `{narrow: 'center', regular: 'center'}`. Where the dialog sits in the viewport. Pass a responsive object to change it on narrow viewports, for example `{narrow: 'bottom', regular: 'center'}` for a bottom sheet. `wide` follows `regular`.
 - `viewportClassName`: `string` — Classes applied to the element that positions the dialog within the viewport.
+- `width`: `DialogWidth` — Default `'xlarge'`. Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width.
 
-## CloseButton props
+## Dialog.Popup
+
+Forwards unrecognized props to Base UI's [`Dialog.Popup`](https://base-ui.com/react/components/dialog#popup), so it also accepts that part's props.
+
+## Dialog.Portal
+
+Forwards unrecognized props to Base UI's [`Dialog.Portal`](https://base-ui.com/react/components/dialog#portal), so it also accepts that part's props.
+
+## Dialog.Backdrop
+
+Forwards unrecognized props to Base UI's [`Dialog.Backdrop`](https://base-ui.com/react/components/dialog#backdrop), so it also accepts that part's props.
+
+## Dialog.Viewport
+
+Forwards unrecognized props to Base UI's [`Dialog.Viewport`](https://base-ui.com/react/components/dialog#viewport), so it also accepts that part's props.
+
+## Dialog.Title
+
+Forwards unrecognized props to Base UI's [`Dialog.Title`](https://base-ui.com/react/components/dialog#title), so it also accepts that part's props.
+
+## Dialog.Description
+
+Forwards unrecognized props to Base UI's [`Dialog.Description`](https://base-ui.com/react/components/dialog#description), so it also accepts that part's props.
+
+## Dialog.Close
+
+Forwards unrecognized props to Base UI's [`Dialog.Close`](https://base-ui.com/react/components/dialog#close), so it also accepts that part's props.
+
+## Dialog.CloseButton
+
+Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
 - `aria-label`: `string` — Accessible name for the close button.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
+- `description`: `string` — Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the tooltip repeats `aria-label` visually.
 - `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
+- `keybindingHint`: `string | string[]` — Keyboard shortcut, or alternative shortcuts, shown in the tooltip, such as `Mod+B` or `['Mod+B', 'Control+B']`. Displays the hint only; the consumer still registers the shortcut.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
-- `size`: `ControlSize` — Height and text size of the button.
+- `notificationIndicator`: `"button" | "icon"` — Shows a dot for new activity on the button boundary or on the icon. The dot is not announced, so describe the activity in the accessible name or description.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
+- `tooltipDirection`: `TooltipDirection` — Default `'s'`. Side and alignment of the tooltip relative to the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
-- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
+- `unsafeDisableTooltip`: `boolean` — Default `false`. Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip.
+
+## Dialog.Header
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Dialog.Body
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Dialog.Footer
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Differences from `@primer/react`
 

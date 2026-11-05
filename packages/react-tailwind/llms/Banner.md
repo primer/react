@@ -4,7 +4,7 @@
 
 Import: `import {Banner} from '@primer/react-tailwind/Banner'`
 
-Renders a `<section>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders a [`<section>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 
@@ -20,12 +20,18 @@ Renders a `<section>` and forwards unrecognized props to it, so it also accepts 
 - `title`: `React.ReactNode` — Short summary of the banner's message.
 - `variant`: `BannerVariant` — Default `'info'`. Severity of the message, which also sets the colour and default icon.
 
-## Actions props
+## Banner.Actions
 
 - `primaryAction`: `React.ReactNode` — Most important action, rendered first.
 - `secondaryAction`: `React.ReactNode` — Supporting action, rendered after the primary one.
 
-## PrimaryAction props
+## Banner.Description
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Banner.PrimaryAction
+
+Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
@@ -39,11 +45,14 @@ Renders a `<section>` and forwards unrecognized props to it, so it also accepts 
 - `leadingVisual`: `ButtonVisual` — Icon shown before the label.
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
-- `size`: `ControlSize` — Height and text size of the button.
+- `notificationIndicator`: `"button" | "leadingVisual"` — Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
 
-## SecondaryAction props
+## Banner.SecondaryAction
+
+Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
@@ -57,11 +66,14 @@ Renders a `<section>` and forwards unrecognized props to it, so it also accepts 
 - `leadingVisual`: `ButtonVisual` — Icon shown before the label.
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
-- `size`: `ControlSize` — Height and text size of the button.
+- `notificationIndicator`: `"button" | "leadingVisual"` — Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
 
-## Title props
+## Banner.Title
+
+Renders a [`<h2>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `as`: `"h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`. Heading element to render, so the title fits the surrounding document outline.
 

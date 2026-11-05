@@ -82,7 +82,15 @@
   ],
   "subcomponents": [
     {
-      "name": "Heading",
+      "name": "Blankslate.Description",
+      "props": [],
+      "passthrough": {
+        "element": "p",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes"
+      }
+    },
+    {
+      "name": "Blankslate.Heading",
       "props": [
         {
           "name": "as",
@@ -90,10 +98,14 @@
           "defaultValue": "'h2'",
           "description": "Heading element to render, so the heading fits the surrounding document outline."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
     },
     {
-      "name": "PrimaryAction",
+      "name": "Blankslate.PrimaryAction",
       "props": [
         {
           "name": "href",
@@ -102,7 +114,7 @@
       ]
     },
     {
-      "name": "SecondaryAction",
+      "name": "Blankslate.SecondaryAction",
       "props": [
         {
           "name": "className",
@@ -114,6 +126,14 @@
           "required": true
         }
       ]
+    },
+    {
+      "name": "Blankslate.Visual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
     }
   ],
   "passthrough": {

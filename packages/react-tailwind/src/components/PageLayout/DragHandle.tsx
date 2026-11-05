@@ -8,8 +8,14 @@ export interface DragHandleProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragStart' | 'onDoubleClick'> {
   /** Ref to the drag handle element, so the pane can measure and focus it. */
   handleRef: React.RefObject<HTMLDivElement | null>
+  /** Called when a pointer starts dragging the handle, with the pointer's horizontal position. */
   onDragStart(clientX: number): void
+  /**
+   * Called as the handle moves. A pointer drag passes the pointer's horizontal position, at most once per frame; an
+   * arrow key passes a signed step in pixels and sets `isKeyboard`.
+   */
   onDrag(value: number, isKeyboard: boolean): void
+  /** Called when a drag ends, or when an arrow key that moved the handle is released. */
   onDragEnd(): void
   /** Called when the handle is double-clicked, conventionally to reset the pane to its default width. */
   onDoubleClick?: React.MouseEventHandler<HTMLDivElement>
@@ -23,7 +29,10 @@ export interface DragHandleProps
   'aria-valuemax'?: number
   /** Current width of the pane, announced by assistive technology. */
   'aria-valuenow'?: number
-  /** Turns the current width into the text announced while resizing. */
+  /**
+   * Turns the current width into the text announced while resizing.
+   * @default value => `Pane width ${value} pixels`
+   */
   formatValueText?: (value: number) => string
 }
 

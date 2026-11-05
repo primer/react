@@ -2,27 +2,32 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, userEvent, waitFor, within} from 'storybook/test'
 import {Button} from '../Button'
 import {AnchoredOverlay, type AnchoredOverlayContentProps, type AnchoredOverlayRootProps} from './AnchoredOverlay'
+import {HoverCard} from './AnchoredOverlay.storyHelpers'
 
 interface AnchoredOverlayStoryArgs
   extends Pick<AnchoredOverlayRootProps, 'modal'>,
-    Pick<AnchoredOverlayContentProps, 'align' | 'side' | 'sideOffset'> {}
+    Pick<AnchoredOverlayContentProps, 'align' | 'height' | 'side' | 'sideOffset' | 'width'> {}
 
 const meta = {
   title: 'React Tailwind/Components/AnchoredOverlay',
   args: {
     align: 'start',
+    height: 'auto',
     modal: 'trap-focus',
     side: 'bottom',
     sideOffset: 4,
+    width: 'auto',
   },
   argTypes: {
     align: {control: 'select', options: ['start', 'center', 'end']},
+    height: {control: 'select', options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'auto', 'initial']},
     modal: {control: 'select', options: [false, true, 'trap-focus']},
     side: {
       control: 'select',
       options: ['top', 'bottom', 'left', 'right', 'inline-start', 'inline-end'],
     },
     sideOffset: {control: {type: 'number', min: 0}},
+    width: {control: 'select', options: ['small', 'medium', 'large', 'xlarge', 'xxlarge', 'auto']},
   },
 } satisfies Meta<AnchoredOverlayStoryArgs>
 
@@ -34,17 +39,8 @@ export const Default: Story = {
   render: () => (
     <AnchoredOverlay>
       <AnchoredOverlay.Trigger render={<Button>Button</Button>} />
-      <AnchoredOverlay.Content className="w-80 p-4" role="dialog" aria-label="User Card Overlay">
-        <div className="flex items-start justify-between gap-2">
-          <div className="h-12 w-12 rounded-full bg-muted" />
-          <Button size="small">Follow</Button>
-        </div>
-        <div className="mt-2 text-sm font-medium">monalisa</div>
-        <p className="mt-2 text-sm">
-          Former beach cat and champion swimmer. Now your friendly octopus with a normal face.
-        </p>
-        <p className="mt-2 text-xs text-muted">Interwebs</p>
-        <p className="mt-1 text-xs text-muted">Owns this repository</p>
+      <AnchoredOverlay.Content className="min-w-80" role="dialog" aria-label="User Card Overlay">
+        <HoverCard />
       </AnchoredOverlay.Content>
     </AnchoredOverlay>
   ),
@@ -53,8 +49,17 @@ export const Playground: Story = {
   render: args => (
     <AnchoredOverlay modal={args.modal}>
       <AnchoredOverlay.Trigger render={<Button>Button</Button>} />
-      <AnchoredOverlay.Content align={args.align} side={args.side} sideOffset={args.sideOffset}>
-        <AnchoredOverlay.Close>Close</AnchoredOverlay.Close>
+      <AnchoredOverlay.Content
+        align={args.align}
+        aria-label="User Card Overlay"
+        className="min-w-80"
+        height={args.height}
+        role="dialog"
+        side={args.side}
+        sideOffset={args.sideOffset}
+        width={args.width}
+      >
+        <HoverCard />
       </AnchoredOverlay.Content>
     </AnchoredOverlay>
   ),

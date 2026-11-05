@@ -225,4 +225,3 @@ export const CardMetadata = React.forwardRef<HTMLDivElement, React.ComponentProp
     )
   },
 )
-;('use client')

@@ -4,17 +4,39 @@ import {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {FloatingArrowGraphic, floatingArrowClassName} from '../../internal/floatingArrow'
+import {FloatingPortal} from '../../internal/FloatingPortal'
 import {mergeClassName} from '../../internal/mergeClassName'
-import type {FloatingContentProps} from '../../utils/types'
+import type {FloatingContentProps, PopoverHeight, PopoverWidth} from '../../utils/types'
 import {Button, type ButtonProps} from '../Button'
 import {usePortalContainer} from '../../internal/portalRoot'
 
 const popupClassName =
-  'min-w-[var(--overlay-width-small)] rounded-md bg-[var(--overlay-bgColor)] p-6 text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden'
+  'rounded-md bg-[var(--overlay-bgColor)] p-6 text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden'
 
-export type PopoverRootProps = BasePopover.Root.Props
+const widthClassNames = {
+  xsmall: 'w-[var(--overlay-width-xsmall)]',
+  small: 'w-[var(--overlay-width-small)]',
+  medium: 'w-[var(--overlay-width-medium)]',
+  large: 'w-[var(--overlay-width-large)]',
+  xlarge: 'w-[var(--overlay-width-xlarge)]',
+  auto: 'w-auto',
+} as const satisfies Record<PopoverWidth, string>
 
-const Root = BasePopover.Root
+const heightClassNames = {
+  small: 'h-[var(--overlay-height-small)]',
+  medium: 'h-[var(--overlay-height-medium)]',
+  large: 'h-[var(--overlay-height-large)]',
+  xlarge: 'h-[var(--overlay-height-xlarge)]',
+  'fit-content': 'h-fit',
+  auto: 'h-auto',
+} as const satisfies Record<PopoverHeight, string>
+
+export type PopoverRootProps<Payload = unknown> = BasePopover.Root.Props<Payload>
+
+// A distinct function keeps the attached parts off Base UI's shared `Popover.Root`, which AnchoredOverlay also wraps.
+function Root<Payload = unknown>(props: PopoverRootProps<Payload>) {
+  return <BasePopover.Root {...props} />
+}
 const PopupMarkerContext = React.createContext('Popover.Popup')
 
 export type PopoverTriggerProps = Omit<BasePopover.Trigger.Props, 'data-component'>
@@ -61,46 +83,60 @@ const Popup = React.forwardRef<HTMLDivElement, PopoverPopupProps>(function Popov
   )
 })
 
-export interface PopoverContentProps extends PopoverPopupProps, FloatingContentProps {}
+export interface PopoverContentProps extends PopoverPopupProps, FloatingContentProps {
+  /**
+   * Height of the content, on the overlay height token scale.
+   * @default 'fit-content'
+   */
+  height?: PopoverHeight
+  /**
+   * Width of the content, on the overlay width token scale.
+   * @default 'small'
+   */
+  width?: PopoverWidth
+}
 
 const Content = React.forwardRef<HTMLDivElement, PopoverContentProps>(function PopoverContent(
   {
     align = 'center',
     alignOffset,
+    anchor,
     children,
     className,
+    height = 'fit-content',
     portal = true,
     positionerClassName,
     side = 'bottom',
     sideOffset = 8,
+    width = 'small',
     ...rest
   },
   ref,
 ) {
-  const inlinePortalRef = React.useRef<HTMLDivElement>(null)
   const content = (
     <PopupMarkerContext.Provider value="Popover.Content">
       <Positioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
         side={side}
         sideOffset={sideOffset}
         className={positionerClassName}
       >
-        <Popup {...rest} ref={ref} className={className}>
+        <Popup
+          {...rest}
+          ref={ref}
+          className={mergeClassName(cn(widthClassNames[width], heightClassNames[height]), className)}
+        >
           {children}
         </Popup>
       </Positioner>
     </PopupMarkerContext.Provider>
   )
-  if (portal) return <Portal>{content}</Portal>
-
   return (
-    <div ref={inlinePortalRef} className="contents">
-      <Portal container={inlinePortalRef} className="contents">
-        {content}
-      </Portal>
-    </div>
+    <FloatingPortal part={Portal} portal={portal}>
+      {content}
+    </FloatingPortal>
   )
 })
 
@@ -233,4 +269,3 @@ export const Popover = Object.assign(Root, {
   Viewport,
 })
 ;(Popover as {displayName?: string}).displayName = 'Popover'
-;('use client')

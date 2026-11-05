@@ -4,6 +4,8 @@
 
 Import: `import {SkeletonBox} from '@primer/react-tailwind/SkeletonBox'`
 
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `as`: `React.ElementType` — Default `'div'`. Element to render.

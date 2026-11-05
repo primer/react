@@ -9,4 +9,3 @@ export type TabHookProps = React.ComponentPropsWithoutRef<typeof BaseTabs.Tab>
 export function useTab(props: TabHookProps) {
   return React.useMemo(() => ({tabProps: props}), [props])
 }
-;('use client')

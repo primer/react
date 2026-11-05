@@ -38,5 +38,9 @@
       "name": "className",
       "type": "string | ((state: RadioRootState) => string | undefined)"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "Radio.Root",
+    "url": "https://base-ui.com/react/components/radio#root"
+  }
 }

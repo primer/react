@@ -2,7 +2,9 @@
 
 `Button` triggers an action in the current view. Use `LinkButton` when the control navigates to a URL, and `IconButton` when the control has no visible label.
 
-Import: `import {Button} from '@primer/react-tailwind/Button'`
+Import: `import {Button, ButtonBase} from '@primer/react-tailwind/Button'`
+
+Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 ## Props
 
@@ -11,17 +13,24 @@ Import: `import {Button} from '@primer/react-tailwind/Button'`
 - `children`: `React.ReactElement[]`
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
-- `data-component`: `string` — Default `'ButtonBase'`. Overrides the marker used to identify this element in tests and styling.
+- `data-component`: `string` — Default `'Button'`. Overrides the marker used to identify this element in tests and styling.
 - `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `leadingVisual`: `ButtonVisual` — Icon shown before the label.
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
 - `loadingAnnouncement`: `string` — Default `'Loading'`. Text announced to assistive technology while the button is loading.
-- `size`: `ControlSize` — Height and text size of the button.
+- `notificationIndicator`: `"button" | "leadingVisual"` — Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
 - `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'default'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
+
+## ButtonBase
+
+Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
+
+- `data-component`: `string` — Default `'ButtonBase'`. Overrides the marker used to identify this element in tests and styling.
 
 ## Differences from `@primer/react`
 

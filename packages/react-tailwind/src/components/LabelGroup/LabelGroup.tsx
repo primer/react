@@ -239,4 +239,3 @@ export const LabelGroup = React.forwardRef<HTMLElement, LabelGroupProps>(functio
 })
 
 LabelGroup.displayName = 'LabelGroup'
-;('use client')

@@ -218,4 +218,3 @@ export const AvatarStack = React.forwardRef<HTMLElement, AvatarStackProps>(funct
 })
 
 AvatarStack.displayName = 'AvatarStack'
-;('use client')

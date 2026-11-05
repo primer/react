@@ -9,7 +9,10 @@ export interface TableBulkActionsProps extends Omit<React.ComponentPropsWithoutR
   selectedCount: number
   /** Called when the focused action is removed, so focus can move somewhere meaningful instead of the page. */
   onFocusReturn?: () => void
-  /** Formats the announced selection count. Defaults to "N selected". */
+  /**
+   * Formats the announced selection count.
+   * @default selectedCount => `${selectedCount} selected`
+   */
   getSelectedCountLabel?: (selectedCount: number) => string
   /** Accessible name for the group of actions. */
   'aria-label'?: string

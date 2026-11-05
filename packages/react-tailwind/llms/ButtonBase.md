@@ -4,9 +4,11 @@
 
 Import: `import {ButtonBase} from '@primer/react-tailwind/ButtonBase'`
 
+Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
+
 ## Props
 
-- `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
+- `data-component`: `string` — Default `'ButtonBase'`. Overrides the marker used to identify this element in tests and styling.
 
 ## Differences from `@primer/react`
 

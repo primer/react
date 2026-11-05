@@ -49,13 +49,14 @@ function ViewingFilterMenu({
   return (
     <ActionMenu>
       <ActionMenu.Button leadingVisual={EyeIcon}>Viewing</ActionMenu.Button>
-      <ActionMenu.Overlay>
+      <ActionMenu.Overlay width="auto">
         {options.map(option => {
           const isSelected = selected.includes(option.id)
           return (
             <ActionMenu.CheckboxItem
               key={option.id}
               checked={isSelected}
+              closeOnClick={false}
               onCheckedChange={checked =>
                 onSelectedChange(checked ? [...selected, option.id] : selected.filter(id => id !== option.id))
               }

@@ -4,14 +4,17 @@
 
 Import: `import {Truncate} from '@primer/react-tailwind/Truncate'`
 
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
-- `as`: `React.ElementType` — Default `'span'`. Element to render.
+- `as`: `React.ElementType` — Default `'div'`. Element or component to render, such as `Link` for a truncated link. Components also receive `inline`.
 - `expandable`: `boolean` — Reveals the full text on hover and focus.
+- `href`: `string` — URL to navigate to when `as` renders a link.
 - `inline`: `boolean` — Renders inline rather than as a block.
 - `maxWidth`: `string | number` — Default `125`. Width past which the text is clipped.
 - `title`: `string` — Full text, shown on hover and kept available to assistive technology when the text is clipped.
 
 ## Differences from `@primer/react`
 
-- Keep expansion state and controls in the consumer.
+- Keep persistent expansion state and controls in the consumer; `expandable` only reveals the text on hover or focus.

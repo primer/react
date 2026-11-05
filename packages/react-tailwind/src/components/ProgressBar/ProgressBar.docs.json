@@ -78,7 +78,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Item",
+      "name": "ProgressBar.Item",
       "props": [
         {
           "name": "animated",
@@ -93,7 +93,11 @@
           "name": "variant",
           "type": "\"accent\" | \"attention\" | \"danger\" | \"done\" | \"neutral\" | \"severe\" | \"sponsors\" | \"success\" | null"
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
     }
   ],
   "passthrough": {

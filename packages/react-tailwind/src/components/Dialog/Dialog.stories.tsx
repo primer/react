@@ -1,7 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, userEvent, waitFor, within} from 'storybook/test'
 import {Button} from '../Button'
-import {Dialog} from './Dialog'
+import {Dialog, type DialogContentProps} from './Dialog'
+import type {DialogPositionValue} from './dialogLayout'
 
 const meta = {
   title: 'React Tailwind/Components/Dialog',
@@ -44,11 +45,50 @@ export const Default: Story = {
     </Dialog>
   ),
 }
-export const Playground: Story = {
-  render: () => (
+interface PlaygroundArgs extends Pick<DialogContentProps, 'align' | 'height' | 'width'> {
+  positionNarrow: Extract<DialogPositionValue, 'center' | 'bottom' | 'fullscreen'> | 'inherit'
+  positionRegular: Extract<DialogPositionValue, 'center' | 'left' | 'right'>
+  title: string
+}
+
+export const Playground: StoryObj<PlaygroundArgs> = {
+  args: {
+    height: 'auto',
+    positionNarrow: 'inherit',
+    positionRegular: 'center',
+    title: 'Dialog heading',
+    width: 'xlarge',
+  },
+  argTypes: {
+    align: {control: 'radio', options: ['top', 'center', 'bottom']},
+    height: {control: 'radio', options: ['small', 'large', 'auto']},
+    positionNarrow: {
+      name: 'position.narrow',
+      control: 'radio',
+      options: ['center', 'bottom', 'fullscreen', 'inherit'],
+      table: {category: 'Responsive props'},
+    },
+    positionRegular: {
+      name: 'position.regular',
+      control: 'radio',
+      options: ['center', 'left', 'right'],
+      table: {category: 'Responsive props'},
+    },
+    title: {control: 'text'},
+    width: {
+      control: 'text',
+      description: 'Named size (small, medium, large, xlarge) or a custom CSS width value (e.g. 400px, 80rem)',
+    },
+  },
+  render: ({positionNarrow, positionRegular, title, ...contentProps}) => (
     <Dialog modal="trap-focus">
       <Dialog.Trigger render={<Button>Show dialog</Button>} />
-      <Dialog.Content>{content('Dialog heading')}</Dialog.Content>
+      <Dialog.Content
+        {...contentProps}
+        position={positionNarrow === 'inherit' ? positionRegular : {narrow: positionNarrow, regular: positionRegular}}
+      >
+        {content(title)}
+      </Dialog.Content>
     </Dialog>
   ),
 }

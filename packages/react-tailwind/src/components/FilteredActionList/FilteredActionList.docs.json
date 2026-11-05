@@ -87,7 +87,7 @@
     {
       "name": "loadingType",
       "type": "FilteredActionListLoadingType",
-      "defaultValue": "FilteredActionListLoadingTypes.bodySpinner",
+      "defaultValue": "'body-spinner'",
       "description": "Which loading affordance to show, and whether it replaces the list or sits beside it."
     },
     {

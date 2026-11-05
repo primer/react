@@ -10,6 +10,8 @@ Tailwind `Dialog` is a Base UI compound replacement. The root and named parts ow
 
 Use `Dialog.Trigger`, `Content`, `Popup`, `Portal`, `Backdrop`, `Viewport`, `Header`, `Title`, `Description`, `Body`, `Footer`, `Close`, and `CloseButton` rather than legacy internal DOM. Controlled open state remains compatible. Legacy gesture callbacks and styled-system props do not.
 
+`Dialog.Content` keeps upstream's `width`, `height`, `position`, and `align`. `position` accepts a responsive object such as `{narrow: 'bottom', regular: 'center'}`; `wide` follows `regular`. Set `portal={false}` to render the dialog in place.
+
 ## Migration notes
 
 - Migrate custom structure to the Tailwind compound parts.

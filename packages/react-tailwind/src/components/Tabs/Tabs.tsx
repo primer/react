@@ -91,4 +91,3 @@ Tabs.displayName = 'Tabs'
 TabList.displayName = 'Tabs.List'
 Tab.displayName = 'Tabs.Tab'
 TabPanel.displayName = 'Tabs.Panel'
-;('use client')

@@ -49,7 +49,7 @@
     {
       "name": "hrefBuilder",
       "type": "((page: number) => string)",
-      "defaultValue": "defaultHrefBuilder",
+      "defaultValue": "page => `#${page}`",
       "description": "Builds the URL for a page, so pagination works without JavaScript."
     },
     {

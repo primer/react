@@ -6,6 +6,9 @@
   "description": "`UnderlineNav` is a presentational navigation composition for sibling destinations. It keeps native link semantics, while consumers own route integration, item order, and selected state.",
   "stories": [
     {
+      "id": "react-tailwind-navigation-underlinenav-item--playground"
+    },
+    {
       "id": "react-tailwind-navigation-underlinenav-examples--pull-request-page"
     },
     {
@@ -36,6 +39,12 @@
       "id": "react-tailwind-navigation-underlinenav-features--variant-flush"
     },
     {
+      "id": "react-tailwind-navigation-underlinenav-interactions--keyboard-navigation"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-interactions--select-a-menu-item"
+    },
+    {
       "id": "react-tailwind-navigation-underlinenav--default"
     },
     {
@@ -52,8 +61,8 @@
     {
       "name": "hideIconsBreakpoint",
       "type": "HideIconsBreakpoint",
-      "defaultValue": "'xxlarge'",
-      "description": "Viewport below which item icons are hidden to save space."
+      "defaultValue": "'medium'",
+      "description": "Container width below which item icons are hidden to save space. To keep icons visible in a narrow container,\nuse a smaller breakpoint such as `xsmall`, or set to `null` to always show icons."
     },
     {
       "name": "loadingCounters",
@@ -70,13 +79,13 @@
   ],
   "subcomponents": [
     {
-      "name": "Item",
+      "name": "UnderlineNav.Item",
       "props": [
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'nav'",
-          "description": "Element to render. Use a non-anchor element when the link is handled by a router."
+          "defaultValue": "'a'",
+          "description": "Element to render, such as a router link component. Native anchors default to `href=\"#\"`; custom components\nreceive no default `href`, so they can supply their own navigation target."
         },
         {
           "name": "counter",
@@ -91,9 +100,13 @@
         {
           "name": "onSelect",
           "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void)",
-          "description": "Called when the item is activated."
+          "description": "Called when the item is activated, from the bar or from the \"More\" menu."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
     }
   ],
   "passthrough": {

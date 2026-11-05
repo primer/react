@@ -4,41 +4,96 @@ import {Autocomplete as BaseAutocomplete} from '@base-ui/react/autocomplete'
 import React from 'react'
 import {mergeClassName} from '../../internal/mergeClassName'
 import type {FloatingContentProps} from '../../utils/types'
+import {FloatingPortal} from '../../internal/FloatingPortal'
 import {usePortalContainer} from '../../internal/portalRoot'
+import {TextInput, type TextInputProps} from '../TextInput'
 
 export type AutocompleteRootProps<ItemValue> = BaseAutocomplete.Root.Props<ItemValue>
 
-const Root = BaseAutocomplete.Root
+// A distinct function keeps the attached parts off Base UI's exported `Autocomplete.Root`; the cast keeps its overloads.
+const Root = function AutocompleteRoot(props: AutocompleteRootProps<unknown>) {
+  return <BaseAutocomplete.Root {...props} />
+} as typeof BaseAutocomplete.Root
 
-export type AutocompleteInputProps = Omit<BaseAutocomplete.Input.Props, 'data-component'>
+export interface AutocompleteInputProps
+  extends Omit<BaseAutocomplete.Input.Props, 'data-component' | 'render' | 'size'>,
+    Pick<
+      TextInputProps,
+      | 'block'
+      | 'leadingVisual'
+      | 'loaderPosition'
+      | 'loaderText'
+      | 'loading'
+      | 'monospace'
+      | 'size'
+      | 'trailingAction'
+      | 'trailingVisual'
+      | 'validationStatus'
+    > {}
+
+/** The combobox input, rendered as a `TextInput` so it shares field styling, visuals, and FormControl wiring. */
 const Input = React.forwardRef<HTMLInputElement, AutocompleteInputProps>(function AutocompleteInput(
-  {className, ...rest},
+  {
+    block,
+    leadingVisual,
+    loaderPosition,
+    loaderText,
+    loading,
+    monospace,
+    size,
+    trailingAction,
+    trailingVisual,
+    validationStatus,
+    ...rest
+  },
   ref,
 ) {
   return (
     <BaseAutocomplete.Input
       {...rest}
       ref={ref}
-      className={mergeClassName(
-        'm-0 block h-8 w-full rounded-md border border-default bg-default px-3 text-sm text-default placeholder:text-muted focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-focus',
-        className,
-      )}
       data-component="Autocomplete.Input"
+      render={
+        <TextInput
+          block={block}
+          leadingVisual={leadingVisual}
+          loaderPosition={loaderPosition}
+          loaderText={loaderText}
+          loading={loading}
+          monospace={monospace}
+          size={size}
+          trailingAction={trailingAction}
+          trailingVisual={trailingVisual}
+          validationStatus={validationStatus}
+        />
+      }
     />
   )
 })
 
 export interface AutocompleteContentProps
   extends Omit<BaseAutocomplete.Popup.Props, 'data-component'>,
-    Omit<FloatingContentProps, 'portal'> {}
+    FloatingContentProps {}
 const Content = React.forwardRef<HTMLDivElement, AutocompleteContentProps>(function AutocompleteContent(
-  {align = 'start', alignOffset, children, className, positionerClassName, side = 'bottom', sideOffset = 4, ...rest},
+  {
+    align = 'start',
+    alignOffset,
+    anchor,
+    children,
+    className,
+    portal = true,
+    positionerClassName,
+    side = 'bottom',
+    sideOffset = 4,
+    ...rest
+  },
   ref,
 ) {
   const popup = (
     <BaseAutocomplete.Positioner
       align={align}
       alignOffset={alignOffset}
+      anchor={anchor}
       side={side}
       sideOffset={sideOffset}
       className={mergeClassName('z-popover', positionerClassName)}
@@ -57,9 +112,11 @@ const Content = React.forwardRef<HTMLDivElement, AutocompleteContentProps>(funct
       </BaseAutocomplete.Popup>
     </BaseAutocomplete.Positioner>
   )
-  // Base UI requires the Portal context for Positioner. Rendering through the
-  // portal also matches the original menu behavior outside overlay containers.
-  return <Portal>{popup}</Portal>
+  return (
+    <FloatingPortal part={Portal} portal={portal}>
+      {popup}
+    </FloatingPortal>
+  )
 })
 
 function Portal({children, container, ...rest}: BaseAutocomplete.Portal.Props) {

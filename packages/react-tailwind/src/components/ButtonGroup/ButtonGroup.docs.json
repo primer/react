@@ -44,5 +44,9 @@
       "name": "orientation",
       "type": "\"horizontal\" | \"vertical\" | null"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

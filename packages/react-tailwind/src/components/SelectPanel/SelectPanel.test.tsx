@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import type {SelectPanelItem, SelectPanelProps} from './SelectPanel'
 import {SelectPanel} from './SelectPanel'
+import {ActionList} from '../ActionList'
 
 const items: SelectPanelItem[] = [
   {id: 'mona', text: 'Mona'},
@@ -651,6 +652,31 @@ describe('SelectPanel', () => {
     expect(screen.getByRole('option', {name: 'Prepended'})).toBeVisible()
     await user.keyboard('{ArrowDown}')
     expect(onActiveDescendantChanged).toHaveBeenCalled()
+  })
+
+  it('keeps the selection indicator and regions of a rendered ActionList item', async () => {
+    const user = userEvent.setup()
+    render(
+      <SelectPanel
+        items={items}
+        onSelectedChange={() => {}}
+        renderItem={item => (
+          <ActionList.Item leadingVisual={<ActionList.LeadingVisual>visual</ActionList.LeadingVisual>}>
+            {item.text}
+            <ActionList.Description>Teammate</ActionList.Description>
+          </ActionList.Item>
+        )}
+        selected={[items[0]]}
+        title="Rendered items"
+      />,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Mona'}))
+    const option = screen.getByRole('option', {name: /Mona/})
+    expect(option.querySelector('[data-component="ActionList.Selection"]')).toBeInTheDocument()
+    expect(option.querySelector('[data-component="ActionList.LeadingVisual"]')).toHaveTextContent('visual')
+    expect(option.querySelector('[data-component="ActionList.Description"]')).toHaveTextContent('Teammate')
+    expect(option.querySelector('[data-component="ActionList.Item.Label"]')).toHaveTextContent(/^Mona$/)
   })
 
   it('keeps scrolling locked until every open modal SelectPanel closes', () => {

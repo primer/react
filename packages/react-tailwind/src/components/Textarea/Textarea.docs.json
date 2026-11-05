@@ -39,10 +39,22 @@
       "id": "react-tailwind-forms-textarea-features--custom-resize-behavior"
     },
     {
+      "id": "react-tailwind-forms-textarea-features--auto-size"
+    },
+    {
       "id": "react-tailwind-forms-textarea-features--minimum-height"
     },
     {
       "id": "react-tailwind-forms-textarea-features--maximum-height"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--with-character-limit"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--with-character-limit-and-caption"
+    },
+    {
+      "id": "react-tailwind-forms-textarea-features--with-character-limit-exceeded"
     },
     {
       "id": "react-tailwind-forms-textarea-features--required"
@@ -59,8 +71,41 @@
   ],
   "props": [
     {
+      "name": "autoSize",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Grows the textarea to fit its content, using CSS `field-sizing`."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Stretches the textarea to fill the width of its container."
+    },
+    {
+      "name": "characterLimit",
+      "type": "number",
+      "description": "Shows a remaining-character count and announces when the limit is near."
+    },
+    {
+      "name": "maxHeight",
+      "type": "number",
+      "description": "Maximum height of the textarea, in pixels."
+    },
+    {
+      "name": "minHeight",
+      "type": "number",
+      "description": "Minimum height of the textarea, in pixels."
+    },
+    {
       "name": "resize",
-      "type": "\"both\" | \"horizontal\" | \"none\" | \"vertical\" | null"
+      "type": "\"both\" | \"horizontal\" | \"none\" | \"vertical\"",
+      "description": "Which directions the user can resize the textarea in."
+    },
+    {
+      "name": "validationStatus",
+      "type": "\"error\" | \"success\"",
+      "description": "Applies error or success styling. Going over `characterLimit` always shows the error state."
     }
   ],
   "passthrough": {

@@ -170,6 +170,25 @@ describe('FilteredActionList', () => {
     expect(screen.getByTestId('filtered-action-list-skeleton')).toBeInTheDocument()
   })
 
+  it('announces body loading once, through its own status only when list announcements are disabled', () => {
+    const {rerender} = render(
+      <FilteredActionList items={[]} loading loadingType={FilteredActionListLoadingTypes.bodySkeleton} />,
+    )
+    expect(screen.getAllByText('Loading items')).toHaveLength(1)
+    expect(screen.getByTestId('filtered-action-list-skeleton')).not.toHaveAttribute('role')
+
+    rerender(
+      <FilteredActionList
+        announcementsEnabled={false}
+        items={[]}
+        loading
+        loadingType={FilteredActionListLoadingTypes.bodySkeleton}
+      />,
+    )
+    expect(screen.getByRole('status')).toHaveTextContent('Loading items')
+    expect(screen.getAllByText('Loading items')).toHaveLength(1)
+  })
+
   it('uses valid Base UI listbox virtualization with a subset of uniform options mounted', () => {
     const manyItems = Array.from({length: 100}, (_, index) => ({id: index, text: `Item ${index}`}))
     const {container} = render(<FilteredActionList items={manyItems} virtualized />)
@@ -283,6 +302,40 @@ describe('FilteredActionList', () => {
     await user.click(screen.getByRole('option', {name: 'item renderer'}))
     expect(customSelect).toHaveBeenCalledTimes(1)
     expect(itemAction).not.toHaveBeenCalled()
+  })
+
+  it('keeps the selection indicator, regions, and dividers of a rendered ActionList item', () => {
+    render(
+      <FilteredActionList
+        defaultSelectedItemIds={['apple']}
+        items={fruit.map(item => ({
+          ...item,
+          renderItem: ({selected, text}) => (
+            <ActionList.Item
+              leadingVisual={<ActionList.LeadingVisual>visual</ActionList.LeadingVisual>}
+              selected={selected}
+            >
+              {text}
+              <ActionList.Description>Fresh</ActionList.Description>
+            </ActionList.Item>
+          ),
+        }))}
+        selectionVariant="single"
+        showItemDividers
+      />,
+    )
+
+    const [apple, banana] = screen.getAllByRole('option')
+    for (const option of [apple, banana]) {
+      expect(option.querySelector('[data-component="ActionList.Selection"]')).toBeInTheDocument()
+      expect(option.querySelector('[data-component="ActionList.LeadingVisual"]')).toHaveTextContent('visual')
+      expect(option.querySelector('[data-component="ActionList.Description"]')).toHaveTextContent('Fresh')
+    }
+    expect(apple.querySelector('[data-component="ActionList.Item.Label"]')).toHaveTextContent(/^Apple$/)
+    const divider = (option: HTMLElement) =>
+      option.querySelector('[data-component="ActionList.Item--DividerContainer"]')?.className
+    expect(divider(apple)).not.toContain('before:bg-[var(--borderColor-muted)]')
+    expect(divider(banana)).toContain('before:bg-[var(--borderColor-muted)]')
   })
 
   it('uses Base UI group semantics with global option positions', () => {

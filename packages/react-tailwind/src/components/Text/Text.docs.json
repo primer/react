@@ -79,5 +79,9 @@
       "type": "\"normal\" | \"nowrap\" | \"pre\" | \"pre-line\" | \"pre-wrap\"",
       "description": "How whitespace and line breaks in the content are treated."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
 }

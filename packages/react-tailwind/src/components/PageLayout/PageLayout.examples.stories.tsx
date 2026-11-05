@@ -146,7 +146,7 @@ ParentDetailBreadcrumb.storyName = 'Parent-detail (w/ breadcrumbs)'
 const FilterDialog = ({title = 'Filter'}: {title?: string}) => (
   <Dialog>
     <Dialog.Trigger render={<Button leadingVisual={FilterIcon}>Filter</Button>} />
-    <Dialog.Content>
+    <Dialog.Content position={{narrow: 'bottom'}}>
       <Dialog.Header>
         <Dialog.Title>{title}</Dialog.Title>
         <Dialog.CloseButton />
@@ -320,7 +320,7 @@ const ResponsiveFilterDialog = ({
 }) => (
   <Dialog>
     <Dialog.Trigger render={<Button leadingVisual={FilterIcon}>Filter</Button>} />
-    <Dialog.Content>
+    <Dialog.Content position={{narrow: 'bottom'}}>
       <Dialog.Header>
         <Dialog.Title>Filter</Dialog.Title>
         <Dialog.CloseButton />

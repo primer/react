@@ -16,7 +16,7 @@ const meta = {
 
       return (
         <div onKeyDownCapture={event => setLastKey(event.key)}>
-          <p className="absolute top-2 right-8 m-0">Last key pressed: {lastKey}</p>
+          <p className="absolute top-2 right-8 my-4">Last key pressed: {lastKey}</p>
           <div className="pt-8">
             <Story />
           </div>
@@ -48,20 +48,20 @@ const meta = {
 export default meta
 
 type Story = StoryObj<AutocompleteStoryArgs>
-const fruits = ['Apple', 'Banana', 'Orange']
+const items = ['css', 'css-in-js', 'styled-system', 'javascript', 'typescript', 'react', 'design-systems']
 
 export const Default: Story = {
   render: () => (
     <form className="p-4" onSubmit={event => event.preventDefault()}>
       <FormControl>
         <FormControl.Label>Label</FormControl.Label>
-        <Autocomplete items={fruits}>
-          <Autocomplete.Input className="w-[182px]" />
+        <Autocomplete items={items}>
+          <Autocomplete.Input />
           <Autocomplete.Content>
             <Autocomplete.List>
-              {(fruit: string) => (
-                <Autocomplete.Item key={fruit} value={fruit}>
-                  {fruit}
+              {(item: string) => (
+                <Autocomplete.Item key={item} value={item}>
+                  {item}
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
@@ -77,17 +77,17 @@ export const Playground: Story = {
       <FormControl>
         <FormControl.Label>Label</FormControl.Label>
         <Autocomplete
-          items={fruits}
+          items={items}
           autoHighlight={args.autoHighlight}
           mode={args.mode}
           openOnInputClick={args.openOnInputClick}
         >
-          <Autocomplete.Input className="w-[182px]" />
+          <Autocomplete.Input />
           <Autocomplete.Content align={args.align} side={args.side} sideOffset={args.sideOffset}>
             <Autocomplete.List>
-              {(fruit: string) => (
-                <Autocomplete.Item key={fruit} value={fruit}>
-                  {fruit}
+              {(item: string) => (
+                <Autocomplete.Item key={item} value={item}>
+                  {item}
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
@@ -101,9 +101,9 @@ export const Playground: Story = {
       name: 'Label',
     })
     await userEvent.click(input)
-    await userEvent.type(input, 'App')
-    await userEvent.click(await within(document.body).findByRole('option', {name: 'Apple'}))
-    await expect(input).toHaveValue('Apple')
-    input.value = ''
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.click(await within(document.body).findByRole('option', {name: 'css'}))
+    await expect(input).toHaveValue('css')
+    await userEvent.keyboard('{Enter}')
   },
 }

@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {ActionList} from '../ActionList'
 import {Button} from '../Button'
+import {FormControl} from '../FormControl'
 import {TextInput} from '../TextInput'
 import {KeybindingHint, type KeybindingHintProps} from './KeybindingHint'
 
@@ -66,13 +67,10 @@ export const Prose: Story = {
 
 export const TextInputExample: Story = {
   render: args => (
-    <label className="relative inline-flex" htmlFor="keybinding-hint-search">
-      <span className="sr-only">Search</span>
-      <TextInput id="keybinding-hint-search" className="pr-8" placeholder="Search" />
-      <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2">
-        <KeybindingHint {...args} />
-      </span>
-    </label>
+    <FormControl>
+      <FormControl.Label visuallyHidden>Search</FormControl.Label>
+      <TextInput trailingVisual={<KeybindingHint {...args} />} placeholder="Search" />
+    </FormControl>
   ),
   args: {keys: '/'},
 }

@@ -4,6 +4,8 @@
 
 Import: `import {SkeletonAvatar} from '@primer/react-tailwind/SkeletonAvatar'`
 
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `size`: `AvatarSize | ResponsiveValue<number>` — Default `'small'`. Width and height in pixels, matching the avatar it stands in for.

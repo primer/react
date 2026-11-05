@@ -59,5 +59,9 @@
       "defaultValue": "'Loading'",
       "description": "Text announced to assistive technology while loading. Set to null when a nearby live region already announces it."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
 }

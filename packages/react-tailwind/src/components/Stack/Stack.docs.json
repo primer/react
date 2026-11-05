@@ -31,6 +31,9 @@
     },
     {
       "id": "react-tailwind-layout-stack--responsive"
+    },
+    {
+      "id": "react-tailwind-layout-stack--stack-item-playground"
     }
   ],
   "props": [
@@ -86,5 +89,38 @@
       "defaultValue": "'nowrap'",
       "description": "Whether children may wrap onto another line."
     }
-  ]
+  ],
+  "subcomponents": [
+    {
+      "name": "Stack.Item",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'",
+          "description": "Element to render."
+        },
+        {
+          "name": "grow",
+          "type": "ResponsiveValue<boolean>",
+          "defaultValue": "false",
+          "description": "Lets the item take up any remaining space."
+        },
+        {
+          "name": "shrink",
+          "type": "ResponsiveValue<boolean>",
+          "defaultValue": "true",
+          "description": "Lets the item shrink below its content size when space is tight."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

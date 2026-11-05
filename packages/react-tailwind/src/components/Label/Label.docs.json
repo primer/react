@@ -63,5 +63,9 @@
       "name": "variant",
       "type": "\"accent\" | \"attention\" | \"danger\" | \"default\" | \"done\" | \"primary\" | \"secondary\" | \"severe\" | \"sponsors\" | \"success\" | null"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
 }

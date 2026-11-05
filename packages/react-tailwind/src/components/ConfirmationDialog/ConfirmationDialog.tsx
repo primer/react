@@ -2,12 +2,15 @@
 
 import {Dialog as AlertDialog} from '@base-ui/react/dialog'
 import React from 'react'
+import {cn} from '../../internal/cn'
 import {mergeClassName} from '../../internal/mergeClassName'
+import {mergeStyle} from '../../internal/mergeStyle'
 import {Button, type ButtonProps} from '../Button'
+import {getDialogSize, type DialogHeight, type DialogWidth} from '../Dialog/dialogLayout'
 import {usePortalContainer} from '../../internal/portalRoot'
 
 const popupClassName =
-  'flex w-full max-w-[var(--overlay-width-small)] flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
+  'flex flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
 const Root = AlertDialog.Root
 
@@ -65,19 +68,36 @@ const Viewport = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Viewport.Prop
   },
 )
 
-const Content = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Popup.Props, 'data-component'>>(
-  function ConfirmationDialogContent({className, role = 'alertdialog', ...rest}, ref) {
-    return (
-      <AlertDialog.Popup
-        {...rest}
-        ref={ref}
-        role={role}
-        className={mergeClassName(popupClassName, className)}
-        data-component="ConfirmationDialog.Content"
-      />
-    )
-  },
-)
+export interface ConfirmationDialogContentProps extends Omit<AlertDialog.Popup.Props, 'data-component'> {
+  /**
+   * Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content.
+   * @default 'auto'
+   */
+  height?: DialogHeight
+  /**
+   * Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width.
+   * @default 'medium'
+   */
+  width?: DialogWidth
+}
+
+const Content = React.forwardRef<HTMLDivElement, ConfirmationDialogContentProps>(function ConfirmationDialogContent(
+  {className, height = 'auto', role = 'alertdialog', style, width = 'medium', ...rest},
+  ref,
+) {
+  const size = getDialogSize({height, width})
+  return (
+    <AlertDialog.Popup
+      {...rest}
+      {...size.dataAttributes}
+      ref={ref}
+      role={role}
+      className={mergeClassName(cn(popupClassName, size.className), className)}
+      style={mergeStyle(style, size.style)}
+      data-component="ConfirmationDialog.Content"
+    />
+  )
+})
 
 const Title = React.forwardRef<HTMLHeadingElement, Omit<AlertDialog.Title.Props, 'data-component'>>(
   function ConfirmationDialogTitle({className, ...rest}, ref) {
@@ -138,6 +158,11 @@ export interface ConfirmationDialogProps extends Omit<AlertDialog.Root.Props, 'c
   description?: React.ReactNode
   /** What receives focus when the dialog closes. */
   finalFocus?: React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['finalFocus']
+  /**
+   * Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content.
+   * @default 'auto'
+   */
+  height?: DialogHeight
   /** What receives focus when the dialog opens. */
   initialFocus?: 'cancel' | 'confirm' | React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['initialFocus']
   /** Called when the dialog is dismissed or the cancel button is activated. */
@@ -148,6 +173,11 @@ export interface ConfirmationDialogProps extends Omit<AlertDialog.Root.Props, 'c
   title: React.ReactNode
   /** Element that opens the dialog. */
   trigger?: React.ReactElement
+  /**
+   * Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width.
+   * @default 'medium'
+   */
+  width?: DialogWidth
 }
 
 /**
@@ -167,11 +197,13 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
     dangerous = false,
     description,
     finalFocus,
+    height,
     initialFocus,
     onCancel,
     onConfirm,
     title,
     trigger,
+    width,
     ...rootProps
   },
   ref,
@@ -192,7 +224,7 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
       <Portal>
         <Backdrop />
         <Viewport>
-          <Content ref={ref} initialFocus={popupInitialFocus} finalFocus={finalFocus}>
+          <Content ref={ref} initialFocus={popupInitialFocus} finalFocus={finalFocus} height={height} width={width}>
             <div className="p-4" data-component="ConfirmationDialog.Body">
               <Title>{title}</Title>
               {description && <Description>{description}</Description>}

@@ -80,23 +80,38 @@ function propLine({name, type, defaultValue, description}) {
   return tail ? `${head} — ${tail}` : head
 }
 
-function renderComponent({name, intent, notes, docs}) {
-  const lines = [`# ${name}`, '', intent, '', `Import: \`import {${name}} from '@primer/react-tailwind/${name}'\``, '']
-
-  if (docs?.passthrough) {
-    lines.push(
-      `Renders ${/^[aeiou]/.test(docs.passthrough.element) ? 'an' : 'a'} \`<${docs.passthrough.element}>\` and forwards unrecognized props to it, so it also accepts that element's native attributes.`,
-      '',
-    )
+/** Names the HTML element or Base UI part a component forwards unrecognized props to. */
+function passthroughLine({element, url}) {
+  if (new URL(url).hostname === 'base-ui.com') {
+    return `Forwards unrecognized props to Base UI's [\`${element}\`](${url}), so it also accepts that part's props.`
   }
+  const article = /^[aeiou]/.test(element) ? 'an' : 'a'
+  return `Renders ${article} [\`<${element}>\`](${url}) and forwards unrecognized props to it, so it also accepts that element's native attributes.`
+}
+
+function renderComponent({name, intent, notes, docs}) {
+  const imports = (docs?.exports ?? [name]).join(', ')
+  const lines = [
+    `# ${name}`,
+    '',
+    intent,
+    '',
+    `Import: \`import {${imports}} from '@primer/react-tailwind/${name}'\``,
+    '',
+  ]
+
+  if (docs?.passthrough) lines.push(passthroughLine(docs.passthrough), '')
 
   if (docs?.props?.length) {
     lines.push('## Props', '', ...docs.props.map(propLine), '')
   }
 
+  // Every part gets a section, so a reader learns it exists even when it takes no props of its own.
   for (const sub of docs?.subcomponents ?? []) {
-    if (!sub.props?.length) continue
-    lines.push(`## ${sub.name} props`, '', ...sub.props.map(propLine), '')
+    lines.push(`## ${sub.name}`, '')
+    if (sub.passthrough) lines.push(passthroughLine(sub.passthrough), '')
+    if (sub.props?.length) lines.push(...sub.props.map(propLine), '')
+    else if (!sub.passthrough) lines.push('Takes no props of its own.', '')
   }
 
   if (notes.length > 0) {

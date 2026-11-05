@@ -1,16 +1,8 @@
 import React from 'react'
-import {
-  ArchiveIcon,
-  BookIcon,
-  CommentIcon,
-  CopyIcon,
-  GearIcon,
-  RocketIcon,
-  SparkleFillIcon,
-  WorkflowIcon,
-} from '@primer/octicons-react'
+import {ArchiveIcon, CopyIcon, GearIcon, SparkleFillIcon, WorkflowIcon} from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {ActionMenu} from './ActionMenu'
+import {GitHubProjectsGroup, ProjectActions} from './ActionMenu.storyHelpers'
 
 const meta = {
   title: 'React Tailwind/Components/ActionMenu/Features',
@@ -20,79 +12,68 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-// eslint-disable-next-line jsx-a11y/anchor-has-content -- ActionMenu.Item supplies the rendered anchor's content.
-const linkRenderer = <a href="/" />
+const notifyClicked = (name: string) => alert(`${name} clicked`)
 
 export const LinksAndActions: Story = {
   render: () => (
     <ActionMenu>
       <ActionMenu.Button>Open menu</ActionMenu.Button>
-      <ActionMenu.Content>
-        <ActionMenu.Item>
-          <ActionMenu.LeadingVisual>
-            <WorkflowIcon />
-          </ActionMenu.LeadingVisual>
-          Workflows
-        </ActionMenu.Item>
-        <ActionMenu.Item>
-          <ActionMenu.LeadingVisual>
-            <ArchiveIcon />
-          </ActionMenu.LeadingVisual>
-          Archived items
-        </ActionMenu.Item>
-        <ActionMenu.Item render={linkRenderer}>
-          <ActionMenu.LeadingVisual>
-            <GearIcon />
-          </ActionMenu.LeadingVisual>
-          Settings
-        </ActionMenu.Item>
-        <ActionMenu.Item>
-          <ActionMenu.LeadingVisual>
-            <CopyIcon />
-          </ActionMenu.LeadingVisual>
-          Make a copy
-        </ActionMenu.Item>
-        <ActionMenu.Divider />
-        <ActionMenu.Group>
-          <ActionMenu.GroupLabel>GitHub projects</ActionMenu.GroupLabel>
-          <ActionMenu.Item render={linkRenderer}>
-            <ActionMenu.LeadingVisual>
-              <RocketIcon />
-            </ActionMenu.LeadingVisual>
-            What&apos;s new
-          </ActionMenu.Item>
-          <ActionMenu.Item render={linkRenderer}>
-            <ActionMenu.LeadingVisual>
-              <CommentIcon />
-            </ActionMenu.LeadingVisual>
-            Give feedback
-          </ActionMenu.Item>
-          <ActionMenu.Item render={linkRenderer}>
-            <ActionMenu.LeadingVisual>
-              <BookIcon />
-            </ActionMenu.LeadingVisual>
-            GitHub Docs
-          </ActionMenu.Item>
-        </ActionMenu.Group>
+      <ActionMenu.Content width="auto">
+        <ProjectActions />
+        <GitHubProjectsGroup heading="GitHub projects" />
       </ActionMenu.Content>
     </ActionMenu>
   ),
 }
 
+const mergeOptions = ['Fast forward', 'Recursive', 'Ours', 'Octopus', 'Resolve', 'Subtree']
+
 export const SingleSelect: Story = {
-  render: () => {
-    const options = ['Fast forward', 'Recursive', 'Ours', 'Octopus', 'Resolve', 'Subtree']
-    const [selected, setSelected] = React.useState(options[0])
+  render: function SingleSelectExample() {
+    const [selected, setSelected] = React.useState(mergeOptions[0])
     return (
       <ActionMenu>
         <ActionMenu.Button>
-          <span className="text-muted">Options:</span> {selected}
+          <span className="inline-block text-muted">Options:</span> {selected}
         </ActionMenu.Button>
-        <ActionMenu.Content>
-          {options.map(option => (
-            <ActionMenu.Item key={option} onClick={() => setSelected(option)} selected={option === selected}>
+        <ActionMenu.Content width="auto">
+          <ActionMenu.RadioGroup value={selected} onValueChange={setSelected}>
+            {mergeOptions.map(option => (
+              <ActionMenu.RadioItem key={option} value={option}>
+                {option}
+              </ActionMenu.RadioItem>
+            ))}
+          </ActionMenu.RadioGroup>
+        </ActionMenu.Content>
+      </ActionMenu>
+    )
+  },
+}
+
+const displayOptions = ['Show code folding buttons', 'Wrap lines', 'Center content']
+
+export const MultiSelect: Story = {
+  render: function MultiSelectExample() {
+    const [selected, setSelected] = React.useState<ReadonlySet<string>>(() => new Set([displayOptions[0]]))
+    const toggle = (option: string, checked: boolean) =>
+      setSelected(current => {
+        const next = new Set(current)
+        if (checked) next.add(option)
+        else next.delete(option)
+        return next
+      })
+    return (
+      <ActionMenu>
+        <ActionMenu.Button>Display</ActionMenu.Button>
+        <ActionMenu.Content width="auto">
+          {displayOptions.map(option => (
+            <ActionMenu.CheckboxItem
+              key={option}
+              checked={selected.has(option)}
+              onCheckedChange={checked => toggle(option, checked)}
+            >
               {option}
-            </ActionMenu.Item>
+            </ActionMenu.CheckboxItem>
           ))}
         </ActionMenu.Content>
       </ActionMenu>
@@ -100,48 +81,13 @@ export const SingleSelect: Story = {
   },
 }
 
-export const MultiSelect: Story = {
-  render: () => (
-    <ActionMenu>
-      <ActionMenu.Button>Display</ActionMenu.Button>
-      <ActionMenu.Content>
-        <ActionMenu.CheckboxItem checked>Show code folding buttons</ActionMenu.CheckboxItem>
-        <ActionMenu.CheckboxItem>Wrap lines</ActionMenu.CheckboxItem>
-        <ActionMenu.CheckboxItem>Center content</ActionMenu.CheckboxItem>
-      </ActionMenu.Content>
-    </ActionMenu>
-  ),
-}
-
 export const InactiveItems: Story = {
   render: () => (
     <ActionMenu>
       <ActionMenu.Button>Open menu</ActionMenu.Button>
-      <ActionMenu.Content>
-        <ActionMenu.Item inactiveText="Unavailable due to an outage">
-          <ActionMenu.LeadingVisual>
-            <WorkflowIcon />
-          </ActionMenu.LeadingVisual>
-          Workflows
-        </ActionMenu.Item>
-        <ActionMenu.Item inactiveText="Unavailable due to an outage">
-          <ActionMenu.LeadingVisual>
-            <ArchiveIcon />
-          </ActionMenu.LeadingVisual>
-          Archived items
-        </ActionMenu.Item>
-        <ActionMenu.Item inactiveText="Unavailable due to an outage">
-          <ActionMenu.LeadingVisual>
-            <GearIcon />
-          </ActionMenu.LeadingVisual>
-          Settings
-        </ActionMenu.Item>
-        <ActionMenu.Item inactiveText="Unavailable due to an outage">
-          <ActionMenu.LeadingVisual>
-            <CopyIcon />
-          </ActionMenu.LeadingVisual>
-          Make a copy
-        </ActionMenu.Item>
+      <ActionMenu.Content width="auto">
+        <ProjectActions inactiveText="Unavailable due to an outage" />
+        <GitHubProjectsGroup heading="Github projects" />
       </ActionMenu.Content>
     </ActionMenu>
   ),
@@ -151,25 +97,26 @@ export const LoadingItems: Story = {
   render: () => (
     <ActionMenu>
       <ActionMenu.Button>Open menu</ActionMenu.Button>
-      <ActionMenu.Content>
-        <ActionMenu.Item loading>
+      <ActionMenu.Content width="auto">
+        <ActionMenu.Item loading onClick={() => notifyClicked('Workflows')}>
           <ActionMenu.LeadingVisual>
             <WorkflowIcon />
           </ActionMenu.LeadingVisual>
           Workflows
         </ActionMenu.Item>
-        <ActionMenu.Item loading>
+        <ActionMenu.Item loading onClick={() => notifyClicked('Archived items')}>
           <ActionMenu.LeadingVisual>
             <ArchiveIcon />
           </ActionMenu.LeadingVisual>
           Archived items
         </ActionMenu.Item>
-        <ActionMenu.Item loading>
+        <ActionMenu.Item loading onClick={() => notifyClicked('Make a copy')}>
           <ActionMenu.LeadingVisual>
             <CopyIcon />
           </ActionMenu.LeadingVisual>
           Make a copy
         </ActionMenu.Item>
+        <GitHubProjectsGroup heading="Github projects" />
       </ActionMenu.Content>
     </ActionMenu>
   ),
@@ -190,12 +137,13 @@ export const Submenus: Story = {
             </ActionMenu.LeadingVisual>
             Paste special
           </ActionMenu.SubmenuTrigger>
-          <ActionMenu.Content side="right">
+          <ActionMenu.Content>
             <ActionMenu.Item>Paste plain text</ActionMenu.Item>
             <ActionMenu.Item>Paste formulas</ActionMenu.Item>
+            <ActionMenu.Item>Paste with formatting</ActionMenu.Item>
             <ActionMenu.Submenu>
-              <ActionMenu.SubmenuTrigger>Paste with formatting</ActionMenu.SubmenuTrigger>
-              <ActionMenu.Content side="right">
+              <ActionMenu.SubmenuTrigger>Paste from</ActionMenu.SubmenuTrigger>
+              <ActionMenu.Content>
                 <ActionMenu.Item>Current clipboard</ActionMenu.Item>
                 <ActionMenu.Item>History</ActionMenu.Item>
                 <ActionMenu.Item>Another device</ActionMenu.Item>
@@ -212,7 +160,7 @@ export const DisabledItems: Story = {
   render: () => (
     <ActionMenu>
       <ActionMenu.Button>Open menu</ActionMenu.Button>
-      <ActionMenu.Content>
+      <ActionMenu.Content width="auto">
         <ActionMenu.Item disabled>
           <ActionMenu.LeadingVisual>
             <WorkflowIcon />
@@ -225,18 +173,19 @@ export const DisabledItems: Story = {
           </ActionMenu.LeadingVisual>
           Archived items
         </ActionMenu.Item>
-        <ActionMenu.Item render={linkRenderer}>
+        <ActionMenu.LinkItem href="/">
           <ActionMenu.LeadingVisual>
             <GearIcon />
           </ActionMenu.LeadingVisual>
           Settings
-        </ActionMenu.Item>
+        </ActionMenu.LinkItem>
         <ActionMenu.Item disabled>
           <ActionMenu.LeadingVisual>
             <CopyIcon />
           </ActionMenu.LeadingVisual>
           Make a copy
         </ActionMenu.Item>
+        <GitHubProjectsGroup heading="Github projects" />
       </ActionMenu.Content>
     </ActionMenu>
   ),

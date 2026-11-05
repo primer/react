@@ -459,45 +459,59 @@ function simplifyNested(member: string): string {
 
 /**
  * DOM interfaces that name exactly one tag. Interfaces shared by several tags — `HTMLElement`,
- * `HTMLHeadingElement`, `HTMLTableCellElement` — are deliberately absent, because reporting one
- * of their tags would be a guess.
+ * `HTMLHeadingElement`, `HTMLTableCellElement`, `HTMLTableSectionElement` — are deliberately
+ * absent, because reporting one of their tags would be a guess.
  */
 const ELEMENT_INTERFACE_TAGS: Record<string, string> = {
   HTMLAnchorElement: 'a',
+  HTMLAudioElement: 'audio',
+  HTMLBRElement: 'br',
   HTMLButtonElement: 'button',
+  HTMLCanvasElement: 'canvas',
+  HTMLDListElement: 'dl',
+  HTMLDataElement: 'data',
   HTMLDetailsElement: 'details',
   HTMLDialogElement: 'dialog',
   HTMLDivElement: 'div',
   HTMLFieldSetElement: 'fieldset',
   HTMLFormElement: 'form',
   HTMLHRElement: 'hr',
+  HTMLIFrameElement: 'iframe',
   HTMLImageElement: 'img',
   HTMLInputElement: 'input',
   HTMLLIElement: 'li',
   HTMLLabelElement: 'label',
   HTMLLegendElement: 'legend',
+  HTMLMenuElement: 'menu',
+  HTMLMeterElement: 'meter',
   HTMLOListElement: 'ol',
+  HTMLOptGroupElement: 'optgroup',
   HTMLOptionElement: 'option',
+  HTMLOutputElement: 'output',
   HTMLParagraphElement: 'p',
+  HTMLPictureElement: 'picture',
   HTMLPreElement: 'pre',
+  HTMLProgressElement: 'progress',
   HTMLSelectElement: 'select',
   HTMLSpanElement: 'span',
+  HTMLTableCaptionElement: 'caption',
   HTMLTableElement: 'table',
+  HTMLTableRowElement: 'tr',
   HTMLTextAreaElement: 'textarea',
+  HTMLTimeElement: 'time',
   HTMLUListElement: 'ul',
+  HTMLVideoElement: 'video',
+  SVGSVGElement: 'svg',
 }
 
 /**
- * Reads the DOM element a props type passes through to, so documentation can say which element
- * a component renders and which native attributes it therefore accepts.
+ * Reads the one tag a DOM interface names, such as `p` for `HTMLParagraphElement`, so
+ * documentation can say which element a component renders and which native attributes it
+ * therefore accepts.
  *
- * Returns nothing when the base is a component reference or an interface shared by several
- * tags, because in both cases the element is genuinely not determined by the type.
+ * Returns nothing for an interface shared by several tags, because the element is genuinely
+ * not determined by the type.
  */
-export function readPassthroughElement(heritageText: string): string | undefined {
-  const tag = /ComponentPropsWith(?:out)?Ref<\s*'([a-z][a-z0-9]*)'\s*>/.exec(heritageText)?.[1]
-  if (tag) return tag
-
-  const interfaceName = /HTMLAttributes<\s*(HTML\w*Element)\s*>/.exec(heritageText)?.[1]
-  return interfaceName ? ELEMENT_INTERFACE_TAGS[interfaceName] : undefined
+export function readElementTag(interfaceName: string): string | undefined {
+  return Object.hasOwn(ELEMENT_INTERFACE_TAGS, interfaceName) ? ELEMENT_INTERFACE_TAGS[interfaceName] : undefined
 }

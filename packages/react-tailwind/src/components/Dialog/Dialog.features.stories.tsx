@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
-import {Dialog} from './Dialog'
+import {Dialog, type DialogContentProps} from './Dialog'
 
 const meta = {
   title: 'React Tailwind/Components/Dialog/Features',
@@ -39,27 +39,26 @@ const Content = ({
 )
 
 const DialogFixture = ({
-  contentClassName,
+  align,
   defaultOpen,
   footer,
   long = false,
   modal = true,
+  position,
   title,
   triggerVariant,
-  viewportClassName,
-}: {
-  contentClassName?: string
+  width,
+}: Pick<DialogContentProps, 'align' | 'position' | 'width'> & {
   defaultOpen?: boolean
   footer?: boolean
   long?: boolean
   modal?: boolean | 'trap-focus'
   title?: string
   triggerVariant?: React.ComponentProps<typeof Button>['variant']
-  viewportClassName?: string
 }) => (
   <Dialog defaultOpen={defaultOpen} modal={modal}>
     <Dialog.Trigger render={<Button variant={triggerVariant}>Show dialog</Button>} />
-    <Dialog.Content className={contentClassName} viewportClassName={viewportClassName}>
+    <Dialog.Content align={align} position={position} width={width}>
       <Content footer={footer} long={long} title={title} />
     </Dialog.Content>
   </Dialog>
@@ -69,18 +68,19 @@ const InsetFixture = ({children}: React.PropsWithChildren) => <div className="h-
 
 export const WithCustomRenderers: Story = {render: () => <DialogFixture />}
 export const WithDirectSubcomponents: Story = {render: () => <DialogFixture modal="trap-focus" />}
-export const StressTest: Story = {render: () => <DialogFixture long />}
+export const StressTest: Story = {
+  render: () => <DialogFixture long position={{narrow: 'fullscreen', regular: 'center'}} />,
+}
 export const ReproMultistepDialogWithConditionalFooter: Story = {render: () => <DialogFixture />}
 export const BottomSheetNarrow: Story = {
   render: () => (
     <InsetFixture>
       <DialogFixture
-        contentClassName="max-md:max-w-none max-md:rounded-t-lg max-md:rounded-b-none"
         defaultOpen
         footer={false}
         long
+        position={{narrow: 'bottom', regular: 'center'}}
         title="My Dialog"
-        viewportClassName="max-md:items-end max-md:p-0"
       />
     </InsetFixture>
   ),
@@ -89,12 +89,11 @@ export const FullScreenNarrow: Story = {
   render: () => (
     <InsetFixture>
       <DialogFixture
-        contentClassName="max-md:h-full max-md:max-w-none max-md:rounded-none"
         defaultOpen
         footer={false}
         long
+        position={{narrow: 'fullscreen', regular: 'center'}}
         title="My Dialog"
-        viewportClassName="p-0"
       />
     </InsetFixture>
   ),
@@ -103,10 +102,7 @@ export const SideSheet: Story = {
   render: () => (
     <Dialog defaultOpen>
       <Dialog.Trigger render={<Button>Show dialog</Button>} />
-      <Dialog.Content
-        className="h-full w-[calc(100%_-_64px)] max-w-[640px] rounded-none rounded-l-lg"
-        viewportClassName="items-stretch justify-end p-0"
-      >
+      <Dialog.Content position="right">
         <Content footer={false} long title="My Dialog" />
       </Dialog.Content>
     </Dialog>
@@ -175,14 +171,14 @@ export const LoadingCustomFooterButtonsCould: Story = {
 export const AlignTop: Story = {
   render: () => (
     <InsetFixture>
-      <DialogFixture defaultOpen footer={false} long title="My Dialog" viewportClassName="items-start pt-16" />
+      <DialogFixture align="top" defaultOpen footer={false} long title="My Dialog" />
     </InsetFixture>
   ),
 }
 export const AlignBottom: Story = {
   render: () => (
     <InsetFixture>
-      <DialogFixture defaultOpen footer={false} long title="My Dialog" viewportClassName="items-end pb-16" />
+      <DialogFixture align="bottom" defaultOpen footer={false} long title="My Dialog" />
     </InsetFixture>
   ),
 }
@@ -191,7 +187,7 @@ export const CustomWidth: Story = {
     <InsetFixture>
       <Dialog defaultOpen>
         <Dialog.Trigger render={<Button>Show dialog</Button>} />
-        <Dialog.Content className="max-w-[400px]">
+        <Dialog.Content width="400px">
           <Content footer={false} long title="Custom Width Dialog" />
         </Dialog.Content>
       </Dialog>

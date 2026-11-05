@@ -16,6 +16,24 @@ describe('Truncate', () => {
     expect(screen.getByTestId('truncate')).toBe(ref.current)
   })
 
+  it('renders a div by default, like Primer React', () => {
+    render(<Truncate title="Default element">Default element</Truncate>)
+    expect(screen.getByTitle('Default element').tagName).toBe('DIV')
+  })
+
+  it('lifts the width limit on hover and focus only when expandable', () => {
+    render(
+      <>
+        <Truncate title="Expandable" expandable>
+          Expandable
+        </Truncate>
+        <Truncate title="Fixed">Fixed</Truncate>
+      </>,
+    )
+    expect(screen.getByTitle('Expandable')).toHaveClass('hover:max-w-[10000px]', 'focus-within:max-w-[10000px]')
+    expect(screen.getByTitle('Fixed')).not.toHaveClass('hover:max-w-[10000px]')
+  })
+
   it('renders as a link and forwards inline to component targets', () => {
     render(
       <Truncate as={Link} href="https://github.com" title="GitHub" inline>

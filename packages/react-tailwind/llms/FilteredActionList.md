@@ -4,7 +4,7 @@
 
 Import: `import {FilteredActionList} from '@primer/react-tailwind/FilteredActionList'`
 
-Renders a `<div>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 
@@ -22,7 +22,7 @@ Renders a `<div>` and forwards unrecognized props to it, so it also accepts that
 - `inputRef`: `Ref<HTMLInputElement>` — Ref to the filter input, for focusing it from outside.
 - `items`: `readonly FilteredActionListItem[]` — Items to list. Filtering, selection, and virtualization all operate on this array.
 - `loading`: `boolean` — Default `false`. Shows a loading affordance in place of results.
-- `loadingType`: `FilteredActionListLoadingType` — Default `FilteredActionListLoadingTypes.bodySpinner`. Which loading affordance to show, and whether it replaces the list or sits beside it.
+- `loadingType`: `FilteredActionListLoadingType` — Default `'body-spinner'`. Which loading affordance to show, and whether it replaces the list or sits beside it.
 - `message`: `React.ReactNode` — Content shown in place of the list, for an error or other terminal state.
 - `messageText`: `{ title: string; description: string; }` — Title and description for the built-in message, as an alternative to supplying `message`.
 - `onActiveDescendantChanged`: `((current: HTMLElement | undefined, previous: HTMLElement | undefined, directlyActivated: boolean) => void)` — Called when keyboard focus moves to a different option.

@@ -27,7 +27,10 @@ function resolveHeaders(group: React.ContextType<typeof TableGroupContext>, head
 }
 
 export interface TableProps extends React.ComponentPropsWithoutRef<'table'> {
-  /** Vertical spacing inside cells, which sets the density of the table. */
+  /**
+   * Vertical spacing inside cells, which sets the density of the table.
+   * @default 'normal'
+   */
   cellPadding?: 'condensed' | 'normal' | 'spacious'
   /** Explicit column track sizes, as a CSS grid template. */
   gridTemplateColumns?: React.CSSProperties['gridTemplateColumns']

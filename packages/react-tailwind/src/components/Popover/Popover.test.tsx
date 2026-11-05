@@ -1,5 +1,5 @@
 import React from 'react'
-import {cleanup, render, screen} from '@testing-library/react'
+import {cleanup, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {Popover} from './Popover'
@@ -56,6 +56,41 @@ describe('Popover', () => {
     expect(ref.current).toBe(screen.getByTestId('content'))
     expect(ref.current).toHaveAttribute('data-component', 'Popover.Content')
     expect(ref.current).toHaveClass('bg-[var(--overlay-bgColor)]')
+  })
+
+  it('sizes content on the overlay token scale', () => {
+    const {rerender} = render(
+      <Popover open>
+        <Popover.Trigger>More</Popover.Trigger>
+        <Popover.Content data-testid="content">Details</Popover.Content>
+      </Popover>,
+    )
+    expect(screen.getByTestId('content')).toHaveClass('w-[var(--overlay-width-small)]', 'h-fit')
+
+    rerender(
+      <Popover open>
+        <Popover.Trigger>More</Popover.Trigger>
+        <Popover.Content data-testid="content" width="large" height="medium" className="w-full">
+          Details
+        </Popover.Content>
+      </Popover>,
+    )
+    const content = screen.getByTestId('content')
+    expect(content).toHaveClass('w-full', 'h-[var(--overlay-height-medium)]')
+    expect(content).not.toHaveClass('w-[var(--overlay-width-large)]')
+  })
+
+  it('positions against an anchor other than its trigger', async () => {
+    const getBoundingClientRect = vi.fn(() => new DOMRect(10, 20, 30, 40))
+    render(
+      <Popover open>
+        <Popover.Trigger>More</Popover.Trigger>
+        <Popover.Content anchor={{getBoundingClientRect}}>Details</Popover.Content>
+      </Popover>,
+    )
+
+    expect(screen.getByText('Details')).toBeInTheDocument()
+    await waitFor(() => expect(getBoundingClientRect).toHaveBeenCalled())
   })
 
   it('renders through a local Base UI portal when portal is disabled', () => {

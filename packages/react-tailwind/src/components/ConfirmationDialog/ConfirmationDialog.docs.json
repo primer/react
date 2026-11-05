@@ -85,6 +85,12 @@
       "description": "What receives focus when the dialog closes."
     },
     {
+      "name": "height",
+      "type": "DialogHeight",
+      "defaultValue": "'auto'",
+      "description": "Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content."
+    },
+    {
       "name": "initialFocus",
       "type": "\"cancel\" | \"confirm\" | boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => void | boolean | HTMLElement | null)",
       "description": "What receives focus when the dialog opens."
@@ -109,6 +115,124 @@
       "name": "trigger",
       "type": "React.ReactElement",
       "description": "Element that opens the dialog."
+    },
+    {
+      "name": "width",
+      "type": "DialogWidth",
+      "defaultValue": "'medium'",
+      "description": "Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width."
     }
-  ]
+  ],
+  "subcomponents": [
+    {
+      "name": "ConfirmationDialog.Root",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Root",
+        "url": "https://base-ui.com/react/components/dialog#root"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Trigger",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Trigger",
+        "url": "https://base-ui.com/react/components/dialog#trigger"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Portal",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Portal",
+        "url": "https://base-ui.com/react/components/dialog#portal"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Backdrop",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Backdrop",
+        "url": "https://base-ui.com/react/components/dialog#backdrop"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Viewport",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Viewport",
+        "url": "https://base-ui.com/react/components/dialog#viewport"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Content",
+      "props": [
+        {
+          "name": "height",
+          "type": "DialogHeight",
+          "defaultValue": "'auto'",
+          "description": "Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content."
+        },
+        {
+          "name": "width",
+          "type": "DialogWidth",
+          "defaultValue": "'medium'",
+          "description": "Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width."
+        }
+      ],
+      "passthrough": {
+        "element": "Dialog.Popup",
+        "url": "https://base-ui.com/react/components/dialog#popup"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Popup",
+      "props": [
+        {
+          "name": "height",
+          "type": "DialogHeight",
+          "defaultValue": "'auto'",
+          "description": "Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content."
+        },
+        {
+          "name": "width",
+          "type": "DialogWidth",
+          "defaultValue": "'medium'",
+          "description": "Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width."
+        }
+      ],
+      "passthrough": {
+        "element": "Dialog.Popup",
+        "url": "https://base-ui.com/react/components/dialog#popup"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Title",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Title",
+        "url": "https://base-ui.com/react/components/dialog#title"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Description",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Description",
+        "url": "https://base-ui.com/react/components/dialog#description"
+      }
+    },
+    {
+      "name": "ConfirmationDialog.Close",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Close",
+        "url": "https://base-ui.com/react/components/dialog#close"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Dialog.Root",
+    "url": "https://base-ui.com/react/components/dialog#root"
+  }
 }

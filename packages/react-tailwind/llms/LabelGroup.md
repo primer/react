@@ -4,6 +4,8 @@
 
 Import: `import {LabelGroup} from '@primer/react-tailwind/LabelGroup'`
 
+Renders an [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `as`: `React.ElementType` — Default `'ul'`. Customize the element type of the rendered container.

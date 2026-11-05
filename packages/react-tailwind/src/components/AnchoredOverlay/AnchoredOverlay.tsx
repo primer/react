@@ -4,16 +4,30 @@ import {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {FloatingArrowGraphic, floatingArrowClassName} from '../../internal/floatingArrow'
+import {FloatingPortal} from '../../internal/FloatingPortal'
 import {mergeClassName} from '../../internal/mergeClassName'
-import type {FloatingContentProps} from '../../utils/types'
+import {
+  NarrowFullscreenCloseButton,
+  type NarrowFullscreenCloseButtonProps,
+} from '../../internal/NarrowFullscreenCloseButton'
+import {
+  isNarrowFullscreen,
+  narrowFullscreenPopupClassName,
+  narrowFullscreenPositionerClassName,
+} from '../../internal/narrowFullscreen'
+import {overlaySizeClassName} from '../../internal/overlaySize'
+import type {AnchoredOverlayVariant, FloatingContentProps, OverlaySizeProps} from '../../utils/types'
 import {usePortalContainer} from '../../internal/portalRoot'
 
 const contentClassName =
   'min-w-48 max-w-[calc(100vw-var(--base-size-32))] max-h-dvh overflow-auto rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
-export type AnchoredOverlayRootProps = BasePopover.Root.Props
+export type AnchoredOverlayRootProps<Payload = unknown> = BasePopover.Root.Props<Payload>
 
-const Root = BasePopover.Root
+// A distinct function keeps the attached parts off Base UI's shared `Popover.Root`, which Popover also wraps.
+function Root<Payload = unknown>(props: AnchoredOverlayRootProps<Payload>) {
+  return <BasePopover.Root {...props} />
+}
 const PopupMarkerContext = React.createContext('AnchoredOverlay.Popup')
 
 export type AnchoredOverlayTriggerProps = Omit<BasePopover.Trigger.Props, 'data-component'>
@@ -32,41 +46,89 @@ const Trigger = React.forwardRef<HTMLElement, AnchoredOverlayTriggerProps>(funct
   )
 })
 
+export type AnchoredOverlayCloseButtonProps = Omit<NarrowFullscreenCloseButtonProps, 'data-component'>
+
 export interface AnchoredOverlayContentProps
   extends Omit<BasePopover.Popup.Props, 'data-component'>,
-    FloatingContentProps {}
+    FloatingContentProps,
+    OverlaySizeProps {
+  /** Props for the close button that the fullscreen variant shows, such as a more specific `aria-label`. */
+  closeButtonProps?: AnchoredOverlayCloseButtonProps
+  /**
+   * Whether the fullscreen variant shows a close button.
+   * @default true
+   */
+  displayCloseButton?: boolean
+  /**
+   * How the content is presented at each viewport range. `{narrow: 'fullscreen'}` covers narrow viewports and adds a
+   * close button.
+   * @default 'anchored'
+   */
+  variant?: AnchoredOverlayVariant
+}
 
 const Content = React.forwardRef<HTMLDivElement, AnchoredOverlayContentProps>(function AnchoredOverlayContent(
   {
     align = 'start',
     alignOffset,
+    anchor,
     children,
     className,
+    closeButtonProps,
+    displayCloseButton = true,
+    height,
+    maxHeight,
+    maxWidth,
     portal = true,
     positionerClassName,
     side = 'bottom',
     sideOffset = 4,
+    variant = 'anchored',
+    width,
     ...rest
   },
   ref,
 ) {
+  const fullscreen = isNarrowFullscreen(variant)
   const content = (
     <PopupMarkerContext.Provider value="AnchoredOverlay.Content">
       <Positioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
         side={side}
         sideOffset={sideOffset}
-        className={positionerClassName}
+        className={cn(fullscreen && narrowFullscreenPositionerClassName, positionerClassName)}
+        data-responsive={fullscreen ? 'fullscreen' : undefined}
       >
-        <Popup {...rest} ref={ref} className={mergeClassName(contentClassName, className)}>
+        {fullscreen && displayCloseButton ? (
+          <BasePopover.Close
+            render={<NarrowFullscreenCloseButton {...closeButtonProps} data-component="AnchoredOverlay.CloseButton" />}
+          />
+        ) : null}
+        <Popup
+          {...rest}
+          ref={ref}
+          className={mergeClassName(
+            cn(
+              contentClassName,
+              overlaySizeClassName({height, maxHeight, maxWidth, width}),
+              fullscreen && narrowFullscreenPopupClassName,
+            ),
+            className,
+          )}
+        >
           {children}
         </Popup>
       </Positioner>
     </PopupMarkerContext.Provider>
   )
 
-  return portal ? <Portal>{content}</Portal> : content
+  return (
+    <FloatingPortal part={Portal} portal={portal}>
+      {content}
+    </FloatingPortal>
+  )
 })
 
 export type AnchoredOverlayPopupProps = Omit<BasePopover.Popup.Props, 'data-component'>
@@ -198,4 +260,3 @@ export const AnchoredOverlay = Object.assign(Root, {
   Description,
 })
 ;(AnchoredOverlay as {displayName?: string}).displayName = 'AnchoredOverlay'
-;('use client')

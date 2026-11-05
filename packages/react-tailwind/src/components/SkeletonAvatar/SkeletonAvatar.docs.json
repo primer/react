@@ -46,5 +46,9 @@
       "defaultValue": "false",
       "description": "Renders square corners, matching a square avatar."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

@@ -254,4 +254,3 @@ export const BannerSecondaryAction = React.forwardRef<HTMLElement, BannerSeconda
     return <Button {...props} ref={ref} variant="invisible" data-component="Banner.SecondaryAction" />
   },
 )
-;('use client')

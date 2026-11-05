@@ -4,6 +4,8 @@
 
 Import: `import {ButtonGroup} from '@primer/react-tailwind/ButtonGroup'`
 
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `orientation`: `"horizontal" | "vertical" | null`

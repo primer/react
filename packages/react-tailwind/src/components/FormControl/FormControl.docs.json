@@ -15,6 +15,9 @@
       "id": "react-tailwind-forms-formcontrol-features--with-complex-inputs"
     },
     {
+      "id": "react-tailwind-forms-formcontrol-features--with-custom-input"
+    },
+    {
       "id": "react-tailwind-forms-formcontrol-features--with-checkbox-and-radio-inputs"
     },
     {
@@ -22,6 +25,9 @@
     },
     {
       "id": "react-tailwind-forms-formcontrol-features--validation-example"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-select-panel"
     },
     {
       "id": "react-tailwind-forms-formcontrol-features--with-leading-visual"
@@ -97,7 +103,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Label",
+      "name": "FormControl.Label",
       "props": [
         {
           "name": "className",
@@ -119,19 +125,27 @@
           "type": "boolean",
           "description": "Hides the label visually while keeping it available to assistive technology."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Field.Label",
+        "url": "https://base-ui.com/react/components/field#label"
+      }
     },
     {
-      "name": "Caption",
+      "name": "FormControl.Caption",
       "props": [
         {
           "name": "className",
           "type": "string | ((state: FieldDescriptionState) => string | undefined)"
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Field.Description",
+        "url": "https://base-ui.com/react/components/field#description"
+      }
     },
     {
-      "name": "Validation",
+      "name": "FormControl.Validation",
       "props": [
         {
           "name": "className",
@@ -143,7 +157,31 @@
           "required": true,
           "description": "Whether the message reports a problem or confirms success."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "FormControl.LeadingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "FormControl.Control",
+      "props": [],
+      "passthrough": {
+        "element": "Field.Control",
+        "url": "https://base-ui.com/react/components/field#control"
+      }
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "Field.Root",
+    "url": "https://base-ui.com/react/components/field#root"
+  }
 }

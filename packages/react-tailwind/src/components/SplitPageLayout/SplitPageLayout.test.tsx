@@ -13,9 +13,9 @@ describe('SplitPageLayout', () => {
     )
     expect(screen.getByTestId('layout')).toHaveAttribute('data-layout', 'split')
     expect(screen.getByTestId('layout')).toHaveAttribute('data-component', 'SplitPageLayout')
-    expect(screen.getByRole('complementary')).toContainElement(
-      document.querySelector('[data-component="SplitPageLayout.Pane"]'),
-    )
+    // Like Primer React, the pane adds no landmark of its own; consumers choose one for its content.
+    expect(screen.queryByRole('complementary')).not.toBeInTheDocument()
+    expect(document.querySelector('[data-component="SplitPageLayout.Pane"]')).toHaveTextContent('Navigation')
     expect(screen.getByRole('main')).toHaveAttribute('data-component', 'SplitPageLayout.Content')
     expect(screen.getByRole('main')).toHaveTextContent('Content')
   })

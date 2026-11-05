@@ -3,28 +3,172 @@
   "name": "LiveRegion",
   "status": "alpha",
   "importPath": "@primer/react-tailwind/LiveRegion",
-  "description": "`LiveRegion` announces asynchronous changes without moving focus.",
+  "exports": [
+    "Announce",
+    "AriaAlert",
+    "AriaStatus"
+  ],
+  "description": "`Announce`, `AriaStatus`, and `AriaAlert` announce asynchronous changes without moving focus. They share one live-region implementation; `AriaStatus` and `AriaAlert` fix the politeness.",
   "stories": [
     {
-      "id": "react-tailwind-components-liveregion-examples--async-save"
+      "id": "react-tailwind-components-announce-examples--async-save"
     },
     {
-      "id": "react-tailwind-components-liveregion-examples--save-failed"
+      "id": "react-tailwind-components-announce-examples--save-failed"
     },
     {
-      "id": "react-tailwind-components-liveregion-examples--results-loaded"
+      "id": "react-tailwind-components-announce-examples--results-loaded"
     },
     {
-      "id": "react-tailwind-components-liveregion-features--visually-hidden-story"
+      "id": "react-tailwind-components-announce-features--visually-hidden-story"
     },
     {
-      "id": "react-tailwind-components-liveregion-features--with-delay"
+      "id": "react-tailwind-components-announce-features--with-delay"
     },
     {
-      "id": "react-tailwind-components-liveregion--default"
+      "id": "react-tailwind-components-announce--default"
     },
     {
-      "id": "react-tailwind-components-liveregion--playground"
+      "id": "react-tailwind-components-announce--playground"
+    },
+    {
+      "id": "react-tailwind-components-ariaalert-features--visually-hidden-story"
+    },
+    {
+      "id": "react-tailwind-components-ariaalert--default"
+    },
+    {
+      "id": "react-tailwind-components-ariaalert--playground"
+    },
+    {
+      "id": "react-tailwind-components-ariastatus-features--visually-hidden-story"
+    },
+    {
+      "id": "react-tailwind-components-ariastatus-features--with-delay"
+    },
+    {
+      "id": "react-tailwind-components-ariastatus--default"
+    },
+    {
+      "id": "react-tailwind-components-ariastatus--playground"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Announce",
+      "props": [
+        {
+          "name": "announceOnShow",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Announces the content when the region first becomes visible, rather than only on later changes."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'",
+          "description": "Element to render."
+        },
+        {
+          "name": "data-component",
+          "type": "string",
+          "defaultValue": "'Announce'",
+          "description": "Overrides the marker used to identify this element in tests and styling."
+        },
+        {
+          "name": "delayMs",
+          "type": "number",
+          "description": "Delay before announcing, which lets rapidly changing content settle first."
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Hides the region visually while it keeps announcing to assistive technology."
+        },
+        {
+          "name": "politeness",
+          "type": "Politeness",
+          "defaultValue": "'polite'",
+          "description": "Whether the announcement waits for a pause or interrupts immediately."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "AriaAlert",
+      "props": [
+        {
+          "name": "announceOnShow",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Announces the content when the region first becomes visible, rather than only on later changes."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "description": "Element to render."
+        },
+        {
+          "name": "data-component",
+          "type": "string",
+          "defaultValue": "'AriaAlert'",
+          "description": "Overrides the marker used to identify this element in tests and styling."
+        },
+        {
+          "name": "delayMs",
+          "type": "number",
+          "description": "Delay before announcing, which lets rapidly changing content settle first."
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "description": "Hides the region visually while it keeps announcing to assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "AriaStatus",
+      "props": [
+        {
+          "name": "announceOnShow",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Announces the content when the region first becomes visible, rather than only on later changes."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "description": "Element to render."
+        },
+        {
+          "name": "data-component",
+          "type": "string",
+          "defaultValue": "'AriaStatus'",
+          "description": "Overrides the marker used to identify this element in tests and styling."
+        },
+        {
+          "name": "delayMs",
+          "type": "number",
+          "description": "Delay before announcing, which lets rapidly changing content settle first."
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "description": "Hides the region visually while it keeps announcing to assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     }
   ]
 }

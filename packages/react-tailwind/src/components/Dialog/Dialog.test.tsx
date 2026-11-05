@@ -97,6 +97,89 @@ describe('Dialog', () => {
     )
   })
 
+  it('exposes Primer size and position markers with upstream defaults', () => {
+    render(
+      <Dialog open>
+        <Dialog.Content data-testid="dialog">
+          <Dialog.Title>Settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog>,
+    )
+
+    const dialog = screen.getByTestId('dialog')
+    expect(dialog).toHaveAttribute('data-width', 'xlarge')
+    expect(dialog).toHaveAttribute('data-height', 'auto')
+    expect(dialog).toHaveAttribute('data-position-narrow', 'center')
+    expect(dialog).toHaveAttribute('data-position-regular', 'center')
+    expect(dialog).not.toHaveAttribute('data-align')
+    expect(dialog).toHaveClass('w-[640px]', 'h-auto', 'min-w-[296px]', 'max-w-[calc(100dvw-64px)]')
+  })
+
+  it('maps responsive positions and alignment onto the popup and viewport', () => {
+    const {rerender} = render(
+      <Dialog open>
+        <Dialog.Content align="top" data-testid="dialog" position={{narrow: 'bottom', regular: 'center'}} width="small">
+          <Dialog.Title>Settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog>,
+    )
+
+    let dialog = screen.getByTestId('dialog')
+    let viewport = document.querySelector('[data-component="Dialog.Viewport"]')
+    expect(dialog).toHaveAttribute('data-position-narrow', 'bottom')
+    expect(dialog).toHaveAttribute('data-align', 'top')
+    expect(dialog).toHaveClass('w-[296px]', 'max-md:w-dvw', 'max-md:rounded-b-none')
+    expect(viewport).toHaveClass('max-md:items-end', 'md:items-start', 'md:pt-16')
+    expect(viewport).not.toHaveClass('max-md:pt-16')
+
+    rerender(
+      <Dialog open>
+        <Dialog.Content data-testid="dialog" position="right">
+          <Dialog.Title>Settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog>,
+    )
+
+    dialog = screen.getByTestId('dialog')
+    viewport = document.querySelector('[data-component="Dialog.Viewport"]')
+    expect(dialog).toHaveAttribute('data-position-regular', 'right')
+    expect(dialog).not.toHaveAttribute('data-position-narrow')
+    expect(dialog).toHaveClass('h-dvh', 'rounded-r-none')
+    expect(viewport).toHaveClass('justify-end', 'p-0')
+    expect(viewport).not.toHaveClass('p-8')
+  })
+
+  it('sizes custom widths through a CSS variable and merges consumer styles', () => {
+    render(
+      <Dialog open>
+        <Dialog.Content data-testid="dialog" height="small" style={{color: 'red'}} width={400}>
+          <Dialog.Title>Settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog>,
+    )
+
+    const dialog = screen.getByTestId('dialog')
+    expect(dialog).not.toHaveAttribute('data-width')
+    expect(dialog).toHaveAttribute('data-height', 'small')
+    expect(dialog).toHaveClass('w-[var(--dialog-width)]', 'h-[480px]')
+    expect(dialog.style.getPropertyValue('--dialog-width')).toBe('400px')
+    expect(dialog.style.color).toBe('red')
+  })
+
+  it('renders in place when portal is false', () => {
+    render(
+      <div data-testid="host">
+        <Dialog open>
+          <Dialog.Content data-testid="dialog" portal={false}>
+            <Dialog.Title>Settings</Dialog.Title>
+          </Dialog.Content>
+        </Dialog>
+      </div>,
+    )
+
+    expect(screen.getByTestId('host')).toContainElement(screen.getByTestId('dialog'))
+  })
+
   it('supports HTMLElement trigger refs when rendering a composed trigger', () => {
     const ref = React.createRef<HTMLElement>()
     render(

@@ -96,20 +96,30 @@
       "description": "Overrides the marker used to identify this element in tests and styling."
     },
     {
+      "name": "description",
+      "type": "string",
+      "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the\ntooltip repeats `aria-label` visually."
+    },
+    {
       "name": "disabled",
       "type": "boolean",
       "description": "Prevents activation and removes the button from the keyboard order."
     },
     {
       "name": "icon",
-      "type": "React.ElementType",
+      "type": "IconSource",
       "required": true,
-      "description": "Icon component to render."
+      "description": "Icon to render: a component such as an Octicon, or a rendered element. Pass an element when the icon comes\nfrom a Server Component."
     },
     {
       "name": "inactive",
       "type": "boolean",
       "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+    },
+    {
+      "name": "keybindingHint",
+      "type": "string | string[]",
+      "description": "Keyboard shortcut, or alternative shortcuts, shown in the tooltip, such as `Mod+B` or `['Mod+B', 'Control+B']`.\nDisplays the hint only; the consumer still registers the shortcut."
     },
     {
       "name": "labelWrap",
@@ -127,10 +137,21 @@
       "description": "Text announced to assistive technology while the button is loading."
     },
     {
+      "name": "notificationIndicator",
+      "type": "\"button\" | \"icon\"",
+      "description": "Shows a dot for new activity on the button boundary or on the icon. The dot is not announced, so describe the\nactivity in the accessible name or description."
+    },
+    {
       "name": "size",
       "type": "ControlSize",
       "defaultValue": "'medium'",
       "description": "Height and text size of the button."
+    },
+    {
+      "name": "tooltipDirection",
+      "type": "TooltipDirection",
+      "defaultValue": "'s'",
+      "description": "Side and alignment of the tooltip relative to the button."
     },
     {
       "name": "trailingAction",
@@ -138,9 +159,20 @@
       "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
     },
     {
+      "name": "unsafeDisableTooltip",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip."
+    },
+    {
       "name": "variant",
       "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+      "defaultValue": "'default'",
       "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "Button",
+    "url": "https://base-ui.com/react/components/button#api-reference"
+  }
 }

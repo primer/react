@@ -323,4 +323,3 @@ const Control = React.forwardRef<HTMLElement, FormControlControlProps>(function 
  * Compose its children in the needed semantic order; no consumer children are extracted or moved.
  */
 export const FormControl = Object.assign(Root, {Label, Caption, Validation, LeadingVisual, Control})
-;('use client')

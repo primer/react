@@ -44,11 +44,11 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-function Example(args: SelectStoryArgs) {
+function Example({label = 'Default label', ...args}: SelectStoryArgs & {label?: string}) {
   return (
     <form>
       <FormControl>
-        <FormControl.Label>Default label</FormControl.Label>
+        <FormControl.Label>{label}</FormControl.Label>
         <Select {...args}>{options}</Select>
       </FormControl>
     </form>
@@ -56,4 +56,4 @@ function Example(args: SelectStoryArgs) {
 }
 
 export const Default: Story = {render: () => <Example />}
-export const Playground: Story = {render: args => <Example {...args} />}
+export const Playground: Story = {render: args => <Example {...args} label="Label" />}

@@ -4,7 +4,7 @@
 
 Import: `import {LinkButton} from '@primer/react-tailwind/LinkButton'`
 
-Renders an `<a>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 
@@ -20,7 +20,7 @@ Renders an `<a>` and forwards unrecognized props to it, so it also accepts that 
 - `loadingAnnouncement`: `string` — Default `'Loading'`. Text announced to assistive technology while the link is loading.
 - `onClick`: `MouseEventHandler<HTMLAnchorElement>` — Called when the link is activated.
 - `render`: `RenderProp<LinkButtonState>` — Renders the link as your own element, for a router link that still needs button styling.
-- `size`: `ControlSize` — Height and text size of the link.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the link.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
 - `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'default'`. Visual weight of the link. Use `primary` for the main action and `danger` for a destructive one.

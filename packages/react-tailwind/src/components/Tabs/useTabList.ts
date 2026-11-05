@@ -14,4 +14,3 @@ export type TabListHookProps = React.ComponentPropsWithoutRef<typeof BaseTabs.Li
 export function useTabList(props: TabListHookProps = {}) {
   return React.useMemo(() => ({tabListProps: props}), [props])
 }
-;('use client')

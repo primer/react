@@ -4,7 +4,7 @@
 
 Import: `import {ProgressBar} from '@primer/react-tailwind/ProgressBar'`
 
-Renders a `<span>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 
@@ -14,7 +14,9 @@ Renders a `<span>` and forwards unrecognized props to it, so it also accepts tha
 - `size`: `"large" | "medium" | "small" | null`
 - `variant`: `"accent" | "attention" | "danger" | "done" | "neutral" | "severe" | "sponsors" | "success" | null` — Height of the bar.
 
-## Item props
+## ProgressBar.Item
+
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `animated`: `boolean | null`
 - `progress`: `number` — Percentage of the bar this segment fills, from 0 to 100.

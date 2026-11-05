@@ -81,6 +81,9 @@
       "id": "react-tailwind-layout-timeline-features--with-list-semantics"
     },
     {
+      "id": "react-tailwind-layout-timeline-features--with-filtering"
+    },
+    {
       "id": "react-tailwind-layout-timeline-features-issues--event-closed"
     },
     {
@@ -186,7 +189,13 @@
       "id": "react-tailwind-layout-timeline--default"
     },
     {
-      "id": "react-tailwind-layout-timeline--playground"
+      "id": "react-tailwind-layout-timeline--event-playground"
+    },
+    {
+      "id": "react-tailwind-layout-timeline--timeline-playground"
+    },
+    {
+      "id": "react-tailwind-layout-timeline-internal--helpers"
     }
   ],
   "props": [
@@ -198,24 +207,64 @@
   ],
   "subcomponents": [
     {
-      "name": "Item",
+      "name": "Timeline.Item",
       "props": [
         {
           "name": "condensed",
           "type": "boolean",
           "description": "Reduces the item's vertical spacing, for a minor event in the timeline."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
     },
     {
-      "name": "Badge",
+      "name": "Timeline.Avatar",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Timeline.Badge",
       "props": [
         {
           "name": "variant",
           "type": "\"accent\" | \"attention\" | \"closed\" | \"danger\" | \"done\" | \"open\" | \"severe\" | \"sponsors\" | \"success\"",
           "description": "Colour of the badge, conveying what kind of event it marks."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Timeline.Body",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Timeline.Break",
+      "props": [],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
+    },
+    {
+      "name": "Timeline.Actions",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     }
   ],
   "passthrough": {

@@ -130,6 +130,7 @@
     {
       "name": "size",
       "type": "ControlSize",
+      "defaultValue": "'medium'",
       "description": "Height and text size of the link."
     },
     {

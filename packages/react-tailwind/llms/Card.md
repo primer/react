@@ -4,6 +4,8 @@
 
 Import: `import {Card} from '@primer/react-tailwind/Card'`
 
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `action`: `React.ReactNode` — Supplies the action region. Takes precedence over a matching `Card.Action` child.
@@ -18,19 +20,35 @@ Import: `import {Card} from '@primer/react-tailwind/Card'`
 - `metadata`: `React.ReactNode` — Supplies the metadata region. Takes precedence over a matching `Card.Metadata` child.
 - `padding`: `"condensed" | "none" | "normal"` — Default `'normal'`. Inner spacing of the card.
 
-## Heading props
+## Card.Action
 
-- `as`: `"h2" | "h3" | "h4" | "h5" | "h6"` — Default `'div'`. Heading element to render, so the card heading fits the surrounding document outline.
+Takes no props of its own.
 
-## Icon props
+## Card.Description
+
+Renders a [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Card.Heading
+
+Renders a [`<h3>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+- `as`: `"h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h3'`. Heading element to render, so the card heading fits the surrounding document outline.
+
+## Card.Icon
 
 - `aria-label`: `string` — Accessible name for the icon. Leave unset when the icon is decorative.
 - `className`: `string`
 - `icon`: `React.ElementType` — Icon component to render.
 
-## Image props
+## Card.Image
+
+Renders an [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `src`: `string` — Source of the image.
+
+## Card.Metadata
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Differences from `@primer/react`
 

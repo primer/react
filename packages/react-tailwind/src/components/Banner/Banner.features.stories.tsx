@@ -91,7 +91,7 @@ export const CustomIcon: Story = {
 export const FlushInsideDialog: Story = {
   render: () => (
     <Dialog defaultOpen>
-      <Dialog.Content className="h-[480px]">
+      <Dialog.Content height="small">
         <Dialog.Header>
           <Dialog.Title>Add issue fields</Dialog.Title>
           <Dialog.CloseButton />

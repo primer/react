@@ -4,7 +4,7 @@
 
 Import: `import {Link} from '@primer/react-tailwind/Link'`
 
-Renders an `<a>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 

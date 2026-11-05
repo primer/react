@@ -4,67 +4,97 @@
 
 Import: `import {PageHeader} from '@primer/react-tailwind/PageHeader'`
 
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `as`: `React.ElementType` — Default `'div'`. Element to render.
 - `hasBorder`: `boolean` — Draws a border below the header, separating it from the content.
 
-## ContextArea props
+## PageHeader.ContextArea
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## ParentLink props
+## PageHeader.ParentLink
 
-- `as`: `React.ElementType` — Default `'div'`. Element to render.
+Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+- `as`: `React.ElementType` — Default `'a'`. Element to render.
 - `hidden`: `ResponsiveValue<boolean>` — Hides the parent link. Accepts a responsive object to hide it only at some viewports.
 
-## ContextBar props
+## PageHeader.ContextBar
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## ContextAreaActions props
+## PageHeader.ContextAreaActions
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## TitleArea props
+## PageHeader.TitleArea
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 - `variant`: `ResponsiveValue<TitleVariant>` — Default `'medium'`. Size of the title area. Accepts a responsive object to vary it per viewport.
 
-## LeadingAction props
+## PageHeader.LeadingAction
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## Breadcrumbs props
+## PageHeader.Breadcrumbs
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## LeadingVisual props
+## PageHeader.LeadingVisual
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## Title props
+## PageHeader.Title
 
-- `as`: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"` — Default `'div'`. Heading element to render, so the title fits the surrounding document outline.
+Renders a [`<h2>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+- `as`: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`. Heading element to render, so the title fits the surrounding document outline.
 - `hidden`: `ResponsiveValue<boolean>` — Hides the title. Accepts a responsive object to hide it only at some viewports.
 
-## TrailingVisual props
+## PageHeader.TrailingVisual
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## TrailingAction props
+## PageHeader.TrailingAction
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## Actions props
+## PageHeader.Actions
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## Description props
+## PageHeader.Description
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.
 
-## Navigation props
+## PageHeader.Navigation
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `as`: `"div" | "nav"` — Default `'div'`. Element to render. Use `nav` only when the navigation has an accessible name.
 - `hidden`: `ResponsiveValue<boolean>` — Hides the part. Accepts a responsive object to hide it only at some viewports.

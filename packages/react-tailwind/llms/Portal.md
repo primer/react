@@ -4,7 +4,7 @@
 
 Import: `import {Portal} from '@primer/react-tailwind/Portal'`
 
-Renders a `<div>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 

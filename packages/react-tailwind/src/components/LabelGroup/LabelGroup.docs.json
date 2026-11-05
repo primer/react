@@ -48,5 +48,9 @@
       "type": "number | \"auto\"",
       "description": "How many children to show. `'auto'` truncates children to fit the available width."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "ul",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+  }
 }

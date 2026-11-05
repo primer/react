@@ -12,6 +12,9 @@
       "id": "react-tailwind-components-popover-features--close-on-click-outside"
     },
     {
+      "id": "react-tailwind-components-popover-features--close-on-escape"
+    },
+    {
       "id": "react-tailwind-components-popover-features--disabled-trigger"
     },
     {
@@ -26,7 +29,23 @@
   ],
   "subcomponents": [
     {
-      "name": "Button",
+      "name": "Popover.Root",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Root",
+        "url": "https://base-ui.com/react/components/popover#root"
+      }
+    },
+    {
+      "name": "Popover.Trigger",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Trigger",
+        "url": "https://base-ui.com/react/components/popover#trigger"
+      }
+    },
+    {
+      "name": "Popover.Button",
       "props": [
         {
           "name": "alignContent",
@@ -82,8 +101,14 @@
           "description": "Text announced to assistive technology while the button is loading."
         },
         {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"leadingVisual\"",
+          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+        },
+        {
           "name": "size",
           "type": "ControlSize",
+          "defaultValue": "'medium'",
           "description": "Height and text size of the button."
         },
         {
@@ -99,12 +124,25 @@
         {
           "name": "variant",
           "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+          "defaultValue": "'default'",
           "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
     },
     {
-      "name": "Content",
+      "name": "Popover.Popup",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Popup",
+        "url": "https://base-ui.com/react/components/popover#popup"
+      }
+    },
+    {
+      "name": "Popover.Content",
       "props": [
         {
           "name": "align",
@@ -116,6 +154,17 @@
           "name": "alignOffset",
           "type": "FloatingOffset",
           "description": "Shift in pixels along the anchor's edge, or a callback that computes it from the measured sizes."
+        },
+        {
+          "name": "anchor",
+          "type": "FloatingAnchor",
+          "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
+        },
+        {
+          "name": "height",
+          "type": "PopoverHeight",
+          "defaultValue": "'fit-content'",
+          "description": "Height of the content, on the overlay height token scale."
         },
         {
           "name": "portal",
@@ -139,8 +188,86 @@
           "type": "FloatingOffset",
           "defaultValue": "8",
           "description": "Distance in pixels between the content and its anchor, or a callback that computes it."
+        },
+        {
+          "name": "width",
+          "type": "PopoverWidth",
+          "defaultValue": "'small'",
+          "description": "Width of the content, on the overlay width token scale."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Popover.Popup",
+        "url": "https://base-ui.com/react/components/popover#popup"
+      }
+    },
+    {
+      "name": "Popover.Positioner",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Positioner",
+        "url": "https://base-ui.com/react/components/popover#positioner"
+      }
+    },
+    {
+      "name": "Popover.Portal",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Portal",
+        "url": "https://base-ui.com/react/components/popover#portal"
+      }
+    },
+    {
+      "name": "Popover.Arrow",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Arrow",
+        "url": "https://base-ui.com/react/components/popover#arrow"
+      }
+    },
+    {
+      "name": "Popover.Backdrop",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Backdrop",
+        "url": "https://base-ui.com/react/components/popover#backdrop"
+      }
+    },
+    {
+      "name": "Popover.Title",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Title",
+        "url": "https://base-ui.com/react/components/popover#title"
+      }
+    },
+    {
+      "name": "Popover.Description",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Description",
+        "url": "https://base-ui.com/react/components/popover#description"
+      }
+    },
+    {
+      "name": "Popover.Close",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Close",
+        "url": "https://base-ui.com/react/components/popover#close"
+      }
+    },
+    {
+      "name": "Popover.Viewport",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Viewport",
+        "url": "https://base-ui.com/react/components/popover#viewport"
+      }
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "Popover.Root",
+    "url": "https://base-ui.com/react/components/popover#root"
+  }
 }

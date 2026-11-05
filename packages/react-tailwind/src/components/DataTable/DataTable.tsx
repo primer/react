@@ -76,7 +76,10 @@ interface DataTableBaseProps<Data extends UniqueRow>
   initialSortDirection?: ActiveSortDirection
   /** Stops the table sorting `data` itself, for when rows arrive already sorted by a server. */
   externalSorting?: boolean
-  /** Reads a stable identity from a row. Supply it when rows have no `id` field. */
+  /**
+   * Reads a stable identity from a row. Supply it when rows have no `id` field.
+   * @default row => row.id
+   */
   getRowId?: (row: Data) => DataTableRowId
   /** Called with the column and new direction when a sortable header is activated. */
   onToggleSort?: (columnId: string, direction: ActiveSortDirection) => void

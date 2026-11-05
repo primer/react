@@ -110,18 +110,34 @@
   ],
   "subcomponents": [
     {
-      "name": "Heading",
+      "name": "Card.Action",
+      "props": []
+    },
+    {
+      "name": "Card.Description",
+      "props": [],
+      "passthrough": {
+        "element": "p",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes"
+      }
+    },
+    {
+      "name": "Card.Heading",
       "props": [
         {
           "name": "as",
           "type": "\"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
-          "defaultValue": "'div'",
+          "defaultValue": "'h3'",
           "description": "Heading element to render, so the card heading fits the surrounding document outline."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "h3",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#attributes"
+      }
     },
     {
-      "name": "Icon",
+      "name": "Card.Icon",
       "props": [
         {
           "name": "aria-label",
@@ -141,7 +157,7 @@
       ]
     },
     {
-      "name": "Image",
+      "name": "Card.Image",
       "props": [
         {
           "name": "src",
@@ -149,7 +165,23 @@
           "required": true,
           "description": "Source of the image."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "img",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes"
+      }
+    },
+    {
+      "name": "Card.Metadata",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

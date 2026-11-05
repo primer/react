@@ -43,8 +43,12 @@ interface ActionListTrailingActionBaseProps {
   style?: React.CSSProperties
 }
 
+// The action always matches the item's density and stays invisible, so `size` and `variant` are not configurable.
 type ActionListTrailingActionButtonProps = {
-  /** Renders the action as a button. */
+  /**
+   * Renders the action as a button.
+   * @default 'button'
+   */
   as?: 'button'
   /** Not available on a button action. Use `as="a"` to make the action navigate. */
   href?: never
@@ -55,15 +59,20 @@ type ActionListTrailingActionButtonProps = {
   | 'data-component'
   | 'leadingVisual'
   | 'notificationIndicator'
+  | 'size'
   | 'style'
   | 'trailingAction'
   | 'trailingVisual'
+  | 'variant'
 >
 
 type ActionListTrailingActionLinkProps = {
   /** Renders the action as a link. */
   as: 'a'
-} & Omit<LinkButtonProps, 'children' | 'className' | 'leadingVisual' | 'style' | 'trailingVisual' | 'variant'>
+} & Omit<
+  LinkButtonProps,
+  'children' | 'className' | 'data-component' | 'leadingVisual' | 'size' | 'style' | 'trailingVisual' | 'variant'
+>
 
 export type ActionListTrailingActionProps = ActionListTrailingActionBaseProps &
   (ActionListTrailingActionButtonProps | ActionListTrailingActionLinkProps)
@@ -333,6 +342,7 @@ export function ActionItemContent({
   children,
   description,
   descriptionVariant,
+  dividerClassName = actionItemDividerClassName,
   indicator,
   leadingVisual,
   selection,
@@ -344,6 +354,8 @@ export function ActionItemContent({
   children: React.ReactNode
   description?: React.ReactNode
   descriptionVariant?: ActionListDescriptionProps['variant']
+  /** Draws the divider for this item's structure. Defaults to the divider for items rendered in list items. */
+  dividerClassName?: string
   indicator?: React.ReactNode
   leadingVisual?: React.ReactNode
   selection?: React.ReactNode
@@ -391,7 +403,7 @@ export function ActionItemContent({
         className={cn(
           'flex min-w-0 flex-1 items-start',
           supportingText ? 'flex-wrap gap-x-2 gap-y-0' : 'gap-2',
-          showDivider && actionItemDividerClassName,
+          showDivider && dividerClassName,
           // Upstream paints the divider a second time for items with inline descriptions.
           showDivider && inlineDescriptions.length > 0 && 'before:shadow-[inset_0_1px_var(--borderColor-muted)]',
         )}
@@ -427,6 +439,25 @@ export function ActionItemContent({
       </span>
     </>
   )
+}
+
+type ActionItemElementProps = Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'>
+
+/**
+ * Renders an `ActionList.Item` element returned from a `renderItem` escape hatch as the content of a
+ * list option. Its regions resolve as `ActionList.Item` resolves them, so the option keeps its
+ * selection indicator, divider, and label layout.
+ */
+export function ActionItemElementContent({
+  item,
+  ...contentProps
+}: Omit<
+  React.ComponentProps<typeof ActionItemContent>,
+  'children' | 'description' | 'descriptionVariant' | 'leadingVisual' | 'trailingVisual'
+> & {item: ActionItemElementProps}) {
+  const {children, description, leadingVisual, trailingVisual} = item
+  const {itemChildren} = resolveItemRegions(children, {description, leadingVisual, trailingVisual})
+  return <ActionItemContent {...contentProps}>{itemChildren}</ActionItemContent>
 }
 
 const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionListItem(
@@ -753,6 +784,10 @@ const GroupHeadingTrailingAction = React.forwardRef<HTMLElement, ActionListGroup
   },
 )
 
+/** Full-width rule between list items or groups, shared with menu separators. */
+export const actionListDividerClassName =
+  'mt-[7px] mb-2 block h-px list-none border-0 bg-[var(--borderColor-muted)] p-0 first:hidden'
+
 const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'li'>>(
   function ActionListDivider(props, ref) {
     return (
@@ -760,10 +795,7 @@ const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'
         {...props}
         ref={ref}
         role="separator"
-        className={cn(
-          'mt-[7px] mb-2 block h-px list-none border-0 bg-[var(--borderColor-muted)] p-0 first:hidden',
-          props.className,
-        )}
+        className={cn(actionListDividerClassName, props.className)}
         data-component="ActionList.Divider"
       />
     )
@@ -858,4 +890,3 @@ export const ActionList = Object.assign(Root, {
 })
 
 ActionList.displayName = 'ActionList'
-;('use client')

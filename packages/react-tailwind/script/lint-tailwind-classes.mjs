@@ -101,7 +101,7 @@ const CLASS_CONTEXT =
 
 /** Attributes and props whose values are never class names, even beside a `className`. */
 const NON_CLASS_VALUE =
-  /\b(?:id|htmlFor|aria-[\w-]+|data-[\w-]+|title|label|name|role|key|href|placeholder|alt|type|description|value|defaultValue|children)\s*[=:]\s*\{?\s*$/
+  /\b(?:id|\w+Id|htmlFor|aria-[\w-]+|data-[\w-]+|title|label|name|role|key|href|placeholder|alt|type|description|value|defaultValue|children)\s*[=:]\s*\{?\s*$/
 
 /** Sentence punctuation never appears in a class list, so its presence marks prose. */
 const PROSE_PUNCTUATION = /[.!?](?:\s|$)/

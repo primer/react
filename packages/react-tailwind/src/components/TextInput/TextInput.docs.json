@@ -88,12 +88,6 @@
       "description": "Shows a remaining-character count and announces when the limit is near."
     },
     {
-      "name": "contrast",
-      "type": "boolean",
-      "defaultValue": "false",
-      "description": "Gives the input a filled background, for use on a matching surface."
-    },
-    {
       "name": "leadingVisual",
       "type": "TextInputVisual",
       "description": "Icon or text shown inside the input, before the value."
@@ -146,7 +140,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Action",
+      "name": "TextInput.Action",
       "props": [
         {
           "name": "aria-label",
@@ -162,11 +156,15 @@
         },
         {
           "name": "tooltipDirection",
-          "type": "TextInputActionDirection",
+          "type": "TooltipDirection",
           "defaultValue": "'s'",
           "description": "Side the tooltip appears on."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
     }
   ],
   "passthrough": {

@@ -58,7 +58,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Item",
+      "name": "Breadcrumbs.Item",
       "props": [
         {
           "name": "as",
@@ -71,7 +71,11 @@
           "type": "boolean",
           "description": "Marks the item as the current page, which is announced to assistive technology."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
     }
   ],
   "passthrough": {

@@ -4,7 +4,7 @@
 
 Import: `import {Blankslate} from '@primer/react-tailwind/Blankslate'`
 
-Renders a `<div>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 
@@ -13,18 +13,28 @@ Renders a `<div>` and forwards unrecognized props to it, so it also accepts that
 - `size`: `"large" | "medium" | "small"` — Default `'medium'`. Overall scale of the visual, heading, and spacing.
 - `spacious`: `boolean` — Default `false`. Increases the vertical padding, for a blankslate that fills a large empty region.
 
-## Heading props
+## Blankslate.Description
+
+Renders a [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Blankslate.Heading
+
+Renders a [`<h2>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `as`: `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"` — Default `'h2'`. Heading element to render, so the heading fits the surrounding document outline.
 
-## PrimaryAction props
+## Blankslate.PrimaryAction
 
 - `href`: `string`
 
-## SecondaryAction props
+## Blankslate.SecondaryAction
 
 - `className`: `string`
 - `href`: `string`
+
+## Blankslate.Visual
+
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Differences from `@primer/react`
 

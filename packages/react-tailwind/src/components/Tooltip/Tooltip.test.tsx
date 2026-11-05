@@ -36,6 +36,18 @@ describe('Tooltip', () => {
     expect(screen.getByTestId('second')).toContainElement(tooltip)
   })
 
+  it('renders in place when portal is false', async () => {
+    render(
+      <div data-testid="container">
+        <Tooltip open>
+          <Tooltip.Trigger>Save</Tooltip.Trigger>
+          <Tooltip.Content portal={false}>Save this file</Tooltip.Content>
+        </Tooltip>
+      </div>,
+    )
+    expect(screen.getByTestId('container')).toContainElement(await screen.findByRole('tooltip'))
+  })
+
   it('closes on escape without moving focus from the trigger', async () => {
     const user = userEvent.setup()
     render(

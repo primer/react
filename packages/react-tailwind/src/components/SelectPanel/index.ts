@@ -12,5 +12,6 @@ export {
   type SelectPanelProps,
   type SelectPanelRenderGroup,
   type SelectPanelRenderItem,
+  type SelectPanelSecondaryActionButtonProps,
   type SelectPanelSecondaryActionLinkProps,
 } from './SelectPanel'

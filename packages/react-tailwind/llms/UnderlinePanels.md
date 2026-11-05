@@ -4,16 +4,32 @@
 
 Import: `import {UnderlinePanels} from '@primer/react-tailwind/UnderlinePanels'`
 
+Forwards unrecognized props to Base UI's [`Tabs.Root`](https://base-ui.com/react/components/tabs#root), so it also accepts that part's props.
+
 ## Props
 
+- `activationMode`: `TabsActivationMode` — Default `'automatic'`. Whether arrow-key focus also selects a tab. `automatic` selects the focused tab; `manual` only moves focus, and Enter, Space, or a click commits the selection. An explicit `TabList` `activateOnFocus` takes precedence.
+- `defaultValue`: `string` — Value of the tab selected on first render when uncontrolled.
 - `loadingCounters`: `boolean` — Default `false`. Shows placeholders in place of tab counters while their values load.
+- `onChange`: `((details: { value: string; }) => void)` — Called with the newly selected tab's `value` when a user selects a different tab. Automatic fallbacks, such as a missing or disabled selection, and re-selecting the current tab do not call it.
+- `value`: `string` — Value of the selected tab when controlled. Update it from `onChange` or `onValueChange`.
 
-## Tab props
+## UnderlinePanels.List
+
+Forwards unrecognized props to Base UI's [`Tabs.List`](https://base-ui.com/react/components/tabs#list), so it also accepts that part's props.
+
+## UnderlinePanels.Tab
+
+Forwards unrecognized props to Base UI's [`Tabs.Tab`](https://base-ui.com/react/components/tabs#tab), so it also accepts that part's props.
 
 - `counter`: `React.ReactNode` — Number shown after the tab's label.
 - `icon`: `React.ElementType` — Icon component shown before the tab's label.
 - `leadingVisual`: `React.ReactNode` — Visual shown before the tab's label, as an alternative to `icon`.
 
+## UnderlinePanels.Panel
+
+Forwards unrecognized props to Base UI's [`Tabs.Panel`](https://base-ui.com/react/components/tabs#panel), so it also accepts that part's props.
+
 ## Differences from `@primer/react`
 
-- Use the documented value/default-value callback contract for tab selection.
+- Use `value`/`defaultValue` with `onChange({value})` for tab selection, matching upstream. `onChange` fires only for user-initiated selection of a different tab; Base UI's `onValueChange(value, eventDetails)` remains available when you need the event details or want to cancel a change.

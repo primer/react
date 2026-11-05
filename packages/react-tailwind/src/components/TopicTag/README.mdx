@@ -7,19 +7,21 @@ import * as Examples from './TopicTag.examples.stories'
 
 # TopicTag
 
-`TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTagGroup` wraps tags into a responsive row.
+`TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTag.Group` wraps tags into a responsive row.
 
 <Canvas of={Stories.Default} />
 
 ## Import and usage
 
 ```tsx
-import {TopicTag, TopicTagGroup} from '@primer/react-tailwind/TopicTag'
-;<TopicTagGroup aria-label="Repository topics">
+import {TopicTag} from '@primer/react-tailwind/TopicTag'
+;<TopicTag.Group aria-label="Repository topics">
   <TopicTag href="/topics/react">react</TopicTag>
   <TopicTag href="/topics/typescript">typescript</TopicTag>
-</TopicTagGroup>
+</TopicTag.Group>
 ```
+
+`TopicTag.Group` is also exported as `TopicTagGroup`.
 
 ## Props
 
@@ -80,11 +82,11 @@ import {TopicTag, TopicTagGroup} from '@primer/react-tailwind/TopicTag'
 
 <Controls of={Stories.Playground} />
 
-`TopicTagGroup` accepts standard `div` props and lays out children with wrapping and a two-unit gap.
+`TopicTag.Group` accepts standard `div` props and lays out children with wrapping and a two-unit gap.
 
 ## Composition
 
-Use `TopicTagGroup` for a collection of topics and provide a group label when the surrounding heading does not already name them. Use `as="button"` for selection, with the selected state owned by the consumer.
+Use `TopicTag.Group` for a collection of topics and provide a group label when the surrounding heading does not already name them. Use `as="button"` for selection, with the selected state owned by the consumer.
 
 ## Accessibility
 
@@ -100,7 +102,7 @@ Topic tags use Primer accent tokens. Import package styles or compile Tailwind v
 
 ### Data attributes
 
-`TopicTag` exposes `data-component="TopicTag"` and `TopicTagGroup` exposes `data-component="TopicTagGroup"`.
+`TopicTag` exposes `data-component="TopicTag"` and `TopicTag.Group` exposes `data-component="TopicTagGroup"`.
 
 ## Features and examples
 

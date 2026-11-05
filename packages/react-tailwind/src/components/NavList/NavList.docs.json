@@ -15,6 +15,15 @@
       "id": "react-tailwind-navigation-navlist-features--with-nested-sub-items"
     },
     {
+      "id": "react-tailwind-navigation-navlist-features--with-react-router-link"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-next-js-link"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-reloads"
+    },
+    {
       "id": "react-tailwind-navigation-navlist-features--with-inactive-items"
     },
     {
@@ -36,10 +45,25 @@
       "id": "react-tailwind-navigation-navlist-features--with-expand-and-icons"
     },
     {
+      "id": "react-tailwind-navigation-navlist-features--expand-with-custom-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--expand-with-pages"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-group-expand"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--group-with-expand-and-custom-items"
+    },
+    {
       "id": "react-tailwind-navigation-navlist-features--with-description"
     },
     {
       "id": "react-tailwind-navigation-navlist-features--with-item-gap"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--without-item-gap"
     },
     {
       "id": "react-tailwind-navigation-navlist-features--without-divider"
@@ -62,6 +86,12 @@
   ],
   "props": [
     {
+      "name": "disableItemGap",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Disable the gap between items when the item gap feature is enabled."
+    },
+    {
       "name": "heading",
       "type": "React.ReactNode",
       "description": "Supplies the heading region. Takes precedence over a matching `NavList.Heading` child."
@@ -69,7 +99,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Heading",
+      "name": "NavList.Heading",
       "props": [
         {
           "name": "as",
@@ -86,11 +116,20 @@
           "type": "boolean",
           "description": "Hides the heading visually while keeping it available to assistive technology."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
     },
     {
-      "name": "Group",
+      "name": "NavList.Group",
       "props": [
+        {
+          "name": "heading",
+          "type": "React.ReactNode",
+          "description": "Supplies the heading region. Takes precedence over a matching `NavList.GroupHeading` child."
+        },
         {
           "name": "hideDivider",
           "type": "boolean",
@@ -100,17 +139,72 @@
         {
           "name": "title",
           "type": "React.ReactNode",
-          "description": "Heading text for the group."
+          "description": "Heading text for the group. A `NavList.GroupHeading` child takes precedence."
+        }
+      ],
+      "passthrough": {
+        "element": "section",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section#attributes"
+      }
+    },
+    {
+      "name": "NavList.GroupExpand",
+      "props": [
+        {
+          "name": "items",
+          "type": "NavListGroupExpandItem[]",
+          "required": true,
+          "description": "Items revealed by the button."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "defaultValue": "'Show more'",
+          "description": "Text of the button that reveals more items."
+        },
+        {
+          "name": "pages",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "Number of reveals needed to show every item. `0` reveals them all at once."
+        },
+        {
+          "name": "renderItem",
+          "type": "((item: NavListGroupExpandItem) => React.ReactNode)",
+          "defaultValue": "item => <NavList.Item {...item}>{item.text}</NavList.Item>",
+          "description": "Renders a revealed item, in place of the default `NavList.Item`. Spread the item's props to keep focus management."
         }
       ]
     },
     {
-      "name": "Item",
+      "name": "NavList.GroupHeading",
+      "props": [],
+      "passthrough": {
+        "element": "h3",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#attributes"
+      }
+    },
+    {
+      "name": "NavList.List",
+      "props": [],
+      "passthrough": {
+        "element": "ul",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+      }
+    },
+    {
+      "name": "NavList.Item",
       "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'a'",
+          "description": "Element to render in place of the anchor, such as a router's link component."
+        },
         {
           "name": "description",
           "type": "React.ReactNode",
-          "description": "Supplies the description region. Takes precedence over a matching `NavList.Item.Description` child."
+          "description": "Supplies the description region. Takes precedence over a matching `NavList.Description` child."
         },
         {
           "name": "inactiveText",
@@ -120,22 +214,52 @@
         {
           "name": "leadingVisual",
           "type": "React.ReactNode",
-          "description": "Supplies the leadingVisual region. Takes precedence over a matching `NavList.Item.LeadingVisual` child."
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `NavList.LeadingVisual` child."
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "description": "Route the item links to, forwarded to the element supplied with `as` for router integration."
+        },
+        {
+          "name": "tooltipText",
+          "type": "string",
+          "description": "Supplementary text shown in a tooltip when the item is hovered or focused."
         },
         {
           "name": "trailingAction",
           "type": "React.ReactNode",
-          "description": "Supplies the trailingAction region. Takes precedence over a matching `NavList.Item.TrailingAction` child."
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `NavList.TrailingAction` child."
         },
         {
           "name": "trailingVisual",
           "type": "React.ReactNode",
-          "description": "Supplies the trailingVisual region. Takes precedence over a matching `NavList.Item.TrailingVisual` child."
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `NavList.TrailingVisual` child."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
     },
     {
-      "name": "TrailingAction",
+      "name": "NavList.LeadingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "NavList.TrailingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "NavList.TrailingAction",
       "props": [
         {
           "name": "alignContent",
@@ -145,6 +269,7 @@
         {
           "name": "as",
           "type": "\"a\" | \"button\"",
+          "defaultValue": "'button'",
           "description": "Renders the action as a button.\nRenders the action as a link."
         },
         {
@@ -203,19 +328,17 @@
           "description": "Text announced to assistive technology while the button is loading.\nText announced to assistive technology while the link is loading."
         },
         {
-          "name": "size",
-          "type": "ControlSize",
-          "defaultValue": "'small'",
-          "description": "Height and text size of the button.\nHeight and text size of the link."
-        },
-        {
           "name": "style",
           "type": "React.CSSProperties"
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
     },
     {
-      "name": "Description",
+      "name": "NavList.Description",
       "props": [
         {
           "name": "truncate",
@@ -225,9 +348,22 @@
         {
           "name": "variant",
           "type": "\"block\" | \"inline\"",
+          "defaultValue": "'inline'",
           "description": "Whether the description sits beside the label or on its own line."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "NavList.SubNav",
+      "props": [],
+      "passthrough": {
+        "element": "Collapsible.Root",
+        "url": "https://base-ui.com/react/components/collapsible#root"
+      }
     }
   ],
   "passthrough": {

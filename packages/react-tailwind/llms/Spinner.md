@@ -4,6 +4,8 @@
 
 Import: `import {Spinner} from '@primer/react-tailwind/Spinner'`
 
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `delay`: `number | "long" | "short" | boolean` — Default `false`. Waits before showing the spinner, so a fast response never flashes one.

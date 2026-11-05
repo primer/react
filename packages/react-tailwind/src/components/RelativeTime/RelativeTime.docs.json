@@ -126,5 +126,9 @@
       "type": "NumericDatePart",
       "description": "How the year is rendered in an absolute date."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "time",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time#attributes"
+  }
 }

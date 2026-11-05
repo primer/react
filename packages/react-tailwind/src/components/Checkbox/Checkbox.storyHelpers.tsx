@@ -31,7 +31,7 @@ export function CheckboxField({
       {leadingVisual ? (
         <FormControl.LeadingVisual className="self-center text-default">{leadingVisual}</FormControl.LeadingVisual>
       ) : null}
-      <div className={leadingVisual ? 'min-w-0 pl-2' : 'min-w-0'}>
+      <div className="min-w-0">
         {/* eslint-disable-next-line primer-react/direct-slot-children -- The wrapper groups the horizontal label and caption. */}
         <FormControl.Label
           className={checkboxProps.disabled ? 'font-normal text-disabled' : 'font-normal'}

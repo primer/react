@@ -145,7 +145,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Actions",
+      "name": "Banner.Actions",
       "props": [
         {
           "name": "primaryAction",
@@ -160,7 +160,15 @@
       ]
     },
     {
-      "name": "PrimaryAction",
+      "name": "Banner.Description",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Banner.PrimaryAction",
       "props": [
         {
           "name": "alignContent",
@@ -221,8 +229,14 @@
           "description": "Text announced to assistive technology while the button is loading."
         },
         {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"leadingVisual\"",
+          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+        },
+        {
           "name": "size",
           "type": "ControlSize",
+          "defaultValue": "'medium'",
           "description": "Height and text size of the button."
         },
         {
@@ -235,10 +249,14 @@
           "type": "ButtonVisual",
           "description": "Icon shown after the label."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
     },
     {
-      "name": "SecondaryAction",
+      "name": "Banner.SecondaryAction",
       "props": [
         {
           "name": "alignContent",
@@ -299,8 +317,14 @@
           "description": "Text announced to assistive technology while the button is loading."
         },
         {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"leadingVisual\"",
+          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+        },
+        {
           "name": "size",
           "type": "ControlSize",
+          "defaultValue": "'medium'",
           "description": "Height and text size of the button."
         },
         {
@@ -313,10 +337,14 @@
           "type": "ButtonVisual",
           "description": "Icon shown after the label."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
     },
     {
-      "name": "Title",
+      "name": "Banner.Title",
       "props": [
         {
           "name": "as",
@@ -324,7 +352,11 @@
           "defaultValue": "'h2'",
           "description": "Heading element to render, so the title fits the surrounding document outline."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
     }
   ],
   "passthrough": {

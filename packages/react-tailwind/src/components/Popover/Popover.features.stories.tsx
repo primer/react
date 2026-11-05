@@ -24,7 +24,7 @@ export const CloseOnClickOutside: Story = {
         <Popover.Button className="mb-1">Toggle Popover</Popover.Button>
         <Popover.Content
           portal={false}
-          positionerClassName="!relative !inset-auto !transform-none mt-1 w-[var(--overlay-width-small)] self-center"
+          positionerClassName="!relative !inset-auto !transform-none mt-1 self-center"
           finalFocus={focusOnInteraction}
           initialFocus={focusOnInteraction}
           role="dialog"
@@ -49,7 +49,7 @@ export const CloseOnEscape: Story = {
         <Popover.Button className="mb-1">Toggle Popover</Popover.Button>
         <Popover.Content
           portal={false}
-          positionerClassName="!relative !inset-auto !transform-none mt-1 w-[var(--overlay-width-small)] self-center"
+          positionerClassName="!relative !inset-auto !transform-none mt-1 self-center"
           finalFocus={focusOnInteraction}
           initialFocus={focusOnInteraction}
           role="dialog"

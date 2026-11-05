@@ -6,7 +6,7 @@ const labelVariants = cva('inline-flex items-center rounded-full border font-med
   variants: {
     variant: {
       default: 'border-default bg-transparent text-default',
-      primary: 'border-default bg-transparent text-default',
+      primary: 'border-[var(--fgColor-default)] bg-transparent text-default',
       secondary: 'border-muted bg-transparent text-muted',
       accent: 'border-accent-emphasis bg-transparent text-accent',
       success: 'border-success-emphasis bg-transparent text-success',
@@ -16,7 +16,7 @@ const labelVariants = cva('inline-flex items-center rounded-full border font-med
       done: 'border-done-emphasis bg-transparent text-done',
       sponsors: 'border-sponsors-emphasis bg-transparent text-sponsors',
     },
-    size: {small: 'h-5 px-1.5 text-xs leading-none', large: 'h-[26px] px-2 text-sm leading-none'},
+    size: {small: 'h-5 px-1.5 text-xs leading-none', large: 'h-6 px-2 text-xs leading-none'},
   },
   defaultVariants: {variant: 'default', size: 'small'},
 })

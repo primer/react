@@ -15,11 +15,13 @@ import * as Examples from './Stack.examples.stories'
 ## Import and usage
 
 ```tsx
-import {Stack, StackItem} from '@primer/react-tailwind/Stack'
+import {Stack} from '@primer/react-tailwind/Stack'
 ;<Stack direction="vertical" gap="normal">
-  <StackItem>Repository settings</StackItem>
+  <Stack.Item>Repository settings</Stack.Item>
 </Stack>
 ```
+
+`Stack.Item` is also exported as `StackItem`.
 
 Use responsive values for `direction`, `gap`, and alignment without changing the DOM order. `Stack` adds no semantics; use appropriate landmarks, headings, and lists for its children.
 

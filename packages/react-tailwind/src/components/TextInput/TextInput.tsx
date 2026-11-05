@@ -136,6 +136,9 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
   const loadingId = React.useId()
   const {characterLimitId, counter, onValueChange} = useCharacterLimit({characterLimit, defaultValue, value})
   const forwardedProps = useFormControlForwardedProps(rest)
+  // Composite inputs (e.g. `Autocomplete.Input` rendering through Base UI) keep their own marker on
+  // the native input, matching upstream; the prop is intentionally absent from the public type.
+  const inputDataComponent = (rest as {'data-component'?: string})['data-component'] ?? 'TextInput.Input'
   const effectiveDisabled = disabled ?? forwardedProps.disabled
   const effectiveRequired = required ?? forwardedProps.required
   const effectiveValidation = counter?.isOverLimit || forwardedProps['aria-invalid'] ? 'error' : validationStatus
@@ -168,6 +171,8 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
         aria-busy={loading || undefined}
         className={cn(
           inputVariants({block, monospace, size}),
+          // Match upstream: every inner part except the last is separated by 8px.
+          '[&>:not(:last-child)]:mr-2',
           hasLeading && (size === 'large' ? 'pl-3' : 'pl-2'),
           hasTrailing && !trailingAction && (size === 'large' ? 'pr-3' : 'pr-2'),
           className,
@@ -198,12 +203,12 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
           aria-invalid={effectiveValidation === 'error' ? true : forwardedProps['aria-invalid']}
           aria-required={effectiveRequired || undefined}
           className={cn(
-            'm-0 w-full appearance-none border-0 bg-transparent [font-family:inherit] [font-size:inherit] text-[color:inherit] outline-none placeholder:text-muted disabled:cursor-not-allowed',
+            'm-0 w-full appearance-none border-0 bg-transparent px-0 [font-family:inherit] [font-size:inherit] text-[color:inherit] outline-none placeholder:text-muted disabled:cursor-not-allowed',
             !hasLeading && !hasTrailing && !trailingAction && 'px-3',
             hasLeading && !hasTrailing && !trailingAction && 'pr-2',
             !hasLeading && (hasTrailing || trailingAction) && 'pl-2',
           )}
-          data-component="TextInput.Input"
+          data-component={inputDataComponent}
           defaultValue={defaultValue}
           disabled={effectiveDisabled}
           onBlur={event => {

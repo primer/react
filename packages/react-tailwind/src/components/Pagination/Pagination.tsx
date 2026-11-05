@@ -25,7 +25,10 @@ export interface PaginationProps extends React.ComponentPropsWithoutRef<'nav'> {
   currentPage: number
   /** Called with the event and the requested page when a page is selected. */
   onPageChange?: (event: React.MouseEvent, page: number) => void
-  /** Builds the URL for a page, so pagination works without JavaScript. */
+  /**
+   * Builds the URL for a page, so pagination works without JavaScript.
+   * @default page => `#${page}`
+   */
   hrefBuilder?: (page: number) => string
   /** How many pages stay visible at each end of the range. */
   marginPageCount?: number

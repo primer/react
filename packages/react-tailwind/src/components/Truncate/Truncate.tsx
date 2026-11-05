@@ -17,7 +17,7 @@ export interface TruncateProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export const Truncate = React.forwardRef<HTMLElement, TruncateProps>(function Truncate(
-  {as: Component = 'span', className, expandable, inline, maxWidth = 125, style, ...rest},
+  {as: Component = 'div', className, expandable, inline, maxWidth = 125, style, ...rest},
   ref,
 ) {
   const passthroughProps = typeof Component === 'string' ? {} : {inline}
@@ -30,7 +30,12 @@ export const Truncate = React.forwardRef<HTMLElement, TruncateProps>(function Tr
       title={rest.title}
       data-component="Truncate"
       data-expandable={expandable || undefined}
-      className={cn(inline ? 'inline-block align-top' : 'block', 'max-w-(--truncate-max-width) truncate', className)}
+      className={cn(
+        inline ? 'inline-block align-top' : 'block',
+        'max-w-(--truncate-max-width) truncate',
+        expandable && 'hover:max-w-[10000px] focus-within:max-w-[10000px]',
+        className,
+      )}
       style={
         {
           '--truncate-max-width': typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,

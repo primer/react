@@ -83,7 +83,23 @@
   ],
   "subcomponents": [
     {
-      "name": "Content",
+      "name": "AnchoredOverlay.Root",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Root",
+        "url": "https://base-ui.com/react/components/popover#root"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Trigger",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Trigger",
+        "url": "https://base-ui.com/react/components/popover#trigger"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Content",
       "props": [
         {
           "name": "align",
@@ -95,6 +111,37 @@
           "name": "alignOffset",
           "type": "FloatingOffset",
           "description": "Shift in pixels along the anchor's edge, or a callback that computes it from the measured sizes."
+        },
+        {
+          "name": "anchor",
+          "type": "FloatingAnchor",
+          "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
+        },
+        {
+          "name": "closeButtonProps",
+          "type": "AnchoredOverlayCloseButtonProps",
+          "description": "Props for the close button that the fullscreen variant shows, such as a more specific `aria-label`."
+        },
+        {
+          "name": "displayCloseButton",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether the fullscreen variant shows a close button."
+        },
+        {
+          "name": "height",
+          "type": "OverlayHeight",
+          "description": "Height of the surface."
+        },
+        {
+          "name": "maxHeight",
+          "type": "OverlayMaxHeight",
+          "description": "Largest height the surface may grow to before its content scrolls."
+        },
+        {
+          "name": "maxWidth",
+          "type": "OverlayMaxWidth",
+          "description": "Largest width the surface may grow to."
         },
         {
           "name": "portal",
@@ -118,8 +165,91 @@
           "type": "FloatingOffset",
           "defaultValue": "4",
           "description": "Distance in pixels between the content and its anchor, or a callback that computes it."
+        },
+        {
+          "name": "variant",
+          "type": "AnchoredOverlayVariant",
+          "defaultValue": "'anchored'",
+          "description": "How the content is presented at each viewport range. `{narrow: 'fullscreen'}` covers narrow viewports and adds a\nclose button."
+        },
+        {
+          "name": "width",
+          "type": "OverlayWidth",
+          "description": "Width of the surface."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Popover.Popup",
+        "url": "https://base-ui.com/react/components/popover#popup"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Popup",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Popup",
+        "url": "https://base-ui.com/react/components/popover#popup"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Positioner",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Positioner",
+        "url": "https://base-ui.com/react/components/popover#positioner"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Portal",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Portal",
+        "url": "https://base-ui.com/react/components/popover#portal"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Arrow",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Arrow",
+        "url": "https://base-ui.com/react/components/popover#arrow"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Backdrop",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Backdrop",
+        "url": "https://base-ui.com/react/components/popover#backdrop"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Close",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Close",
+        "url": "https://base-ui.com/react/components/popover#close"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Title",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Title",
+        "url": "https://base-ui.com/react/components/popover#title"
+      }
+    },
+    {
+      "name": "AnchoredOverlay.Description",
+      "props": [],
+      "passthrough": {
+        "element": "Popover.Description",
+        "url": "https://base-ui.com/react/components/popover#description"
+      }
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "Popover.Root",
+    "url": "https://base-ui.com/react/components/popover#root"
+  }
 }

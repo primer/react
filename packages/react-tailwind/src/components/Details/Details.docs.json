@@ -21,6 +21,16 @@
       "id": "react-tailwind-forms-details--playground"
     }
   ],
+  "subcomponents": [
+    {
+      "name": "Details.Summary",
+      "props": [],
+      "passthrough": {
+        "element": "summary",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary#attributes"
+      }
+    }
+  ],
   "passthrough": {
     "element": "details",
     "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#attributes"

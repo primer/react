@@ -4,13 +4,12 @@
 
 Import: `import {TextInput} from '@primer/react-tailwind/TextInput'`
 
-Renders an `<input>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders an [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 
 - `block`: `boolean` — Default `false`. Stretches the input to fill the width of its container.
 - `characterLimit`: `number` — Shows a remaining-character count and announces when the limit is near.
-- `contrast`: `boolean` — Default `false`. Gives the input a filled background, for use on a matching surface.
 - `leadingVisual`: `TextInputVisual` — Icon or text shown inside the input, before the value.
 - `loaderPosition`: `"auto" | "leading" | "trailing"` — Default `'auto'`. Which end the spinner appears at, or `auto` to take the place of an existing visual.
 - `loaderText`: `string` — Default `'Loading'`. Text announced to assistive technology while the input is loading.
@@ -21,11 +20,13 @@ Renders an `<input>` and forwards unrecognized props to it, so it also accepts t
 - `trailingVisual`: `TextInputVisual` — Icon or text shown inside the input, after the value.
 - `validationStatus`: `"error" | "success"` — Marks the value invalid or confirmed, which sets the border colour and `aria-invalid`.
 
-## Action props
+## TextInput.Action
+
+Renders a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `aria-label`: `string` — Accessible name for the action, since the icon alone conveys nothing.
 - `icon`: `React.ElementType` — Icon component to render.
-- `tooltipDirection`: `TextInputActionDirection` — Default `'s'`. Side the tooltip appears on.
+- `tooltipDirection`: `TooltipDirection` — Default `'s'`. Side the tooltip appears on.
 
 ## Differences from `@primer/react`
 

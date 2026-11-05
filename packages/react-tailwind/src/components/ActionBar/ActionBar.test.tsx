@@ -94,6 +94,26 @@ describe('ActionBar', () => {
     expect(onPaste).toHaveBeenCalledOnce()
   })
 
+  it('sizes its buttons from the bar unless a button sets its own size', () => {
+    render(
+      <ActionBar aria-label="Actions" size="small">
+        <ActionBar.Button>Copy</ActionBar.Button>
+        <ActionBar.Button size="large">Paste</ActionBar.Button>
+        <ActionBar.IconButton aria-label="Edit" icon={TestIcon} />
+        <ActionBar.IconButton aria-label="Delete" icon={TestIcon} size="large" />
+        <ActionBar.Menu aria-label="Menu" icon={TestIcon} items={[]} />
+        <ActionBar.Menu aria-label="Large menu" icon={TestIcon} items={[]} size="large" />
+      </ActionBar>,
+    )
+
+    for (const name of ['Copy', 'Edit', 'Menu']) {
+      expect(screen.getByRole('button', {name})).toHaveAttribute('data-size', 'small')
+    }
+    for (const name of ['Paste', 'Delete', 'Large menu']) {
+      expect(screen.getByRole('button', {name})).toHaveAttribute('data-size', 'large')
+    }
+  })
+
   it('includes button, icon button, and menu trigger in toolbar Home and End navigation', async () => {
     const user = userEvent.setup()
     render(

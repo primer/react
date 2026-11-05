@@ -22,7 +22,7 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `focusOutBehavior`: `"start" | "stop" | "wrap"` — Default `'wrap'`. Whether keyboard navigation stops or wraps at the first and last option.
 - `focusPrependedElements`: `boolean` — Default `false`. Includes elements rendered before the list in the keyboard focus order.
 - `groupMetadata`: `readonly SelectPanelGroupMetadata[]` — Group headers, matched to options by their group id.
-- `height`: `"auto" | "fit-content" | "initial" | "large" | "medium" | "small" | "xlarge" | "xsmall"` — Height of the panel.
+- `height`: `OverlayHeight` — Height of the panel.
 - `id`: `string` — Identifier for the panel, used to associate it with its anchor.
 - `initialLoadingType`: `"skeleton" | "spinner"` — Default `'spinner'`. Which affordance the first load shows.
 - `inputLabel`: `string` — Accessible name for the filter input.
@@ -54,11 +54,11 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `subtitle`: `React.ReactNode` — Supporting text shown below the title.
 - `textInputProps`: `Partial<Omit<TextInputProps, "defaultValue" | "onChange" | "value">>` — Extra props forwarded to the filter input.
 - `title`: `React.ReactNode` — Heading shown at the top of the panel.
-- `variant`: `"anchored" | "modal"` — Default `'empty'`. How the panel presents itself. `anchored` attaches it to its anchor. How the panel presents itself. `modal` presents it over the page and requires `onCancel`.
+- `variant`: `"anchored" | "modal"` — Default `'anchored'`. How the panel presents itself. `anchored` attaches it to its anchor. How the panel presents itself. `modal` presents it over the page and requires `onCancel`.
 - `virtualized`: `boolean` — Default `false`. Renders only the visible options, for a long uniform list.
-- `width`: `"auto" | "large" | "medium" | "small" | "xlarge" | "xxlarge"` — Width of the panel.
+- `width`: `OverlayWidth` — Width of the panel.
 
-## Message props
+## SelectPanel.Message
 
 - `action`: `React.ReactNode`
 - `body`: `React.ReactNode`
@@ -67,10 +67,12 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `title`: `React.ReactNode`
 - `variant`: `"empty" | "error" | "warning"` — Default `'empty'`.
 
-## SecondaryActionButton props
+## SelectPanel.SecondaryActionButton
+
+Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
-- `block`: `boolean` — Stretches the button to fill the width of its container.
+- `block`: `boolean` — Default `true`. Stretches the button to fill the width of its container.
 - `children`: `React.ReactElement[]`
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
@@ -79,17 +81,19 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `leadingVisual`: `ButtonVisual` — Icon shown before the label.
-- `loading`: `boolean` — Default `false`. Replaces the leading visual with a spinner and suppresses activation.
+- `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
-- `size`: `ControlSize` — Height and text size of the button.
+- `notificationIndicator`: `"button" | "leadingVisual"` — Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
-- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'empty'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
+- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'default'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
 
-## SecondaryActionLink props
+## SelectPanel.SecondaryActionLink
+
+Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
-- `block`: `boolean` — Stretches the button to fill the width of its container.
 - `children`: `React.ReactElement[]`
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
@@ -99,12 +103,12 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `leadingVisual`: `ButtonVisual` — Icon shown before the label.
-- `loading`: `boolean` — Default `false`. Replaces the leading visual with a spinner and suppresses activation.
+- `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
-- `size`: `ControlSize` — Height and text size of the button.
+- `notificationIndicator`: `"button" | "leadingVisual"` — Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
-- `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'empty'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
 
 ## Differences from `@primer/react`
 

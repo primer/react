@@ -9,4 +9,3 @@ export type TabPanelHookProps = React.ComponentPropsWithoutRef<typeof BaseTabs.P
 export function useTabPanel(props: TabPanelHookProps) {
   return React.useMemo(() => ({tabPanelProps: props}), [props])
 }
-;('use client')

@@ -4,14 +4,20 @@
 
 Import: `import {TreeView} from '@primer/react-tailwind/TreeView'`
 
-Renders an `<ul>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders an [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 
 - `flat`: `boolean` — Default `false`. Removes the indentation guides, for a tree that is only one level deep.
 - `truncate`: `boolean` — Default `true`. Clips long item labels to one line instead of wrapping them.
 
-## Item props
+## TreeView.DirectoryIcon
+
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## TreeView.Item
+
+Renders a [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `as`: `React.ElementType` — Default `'li'`. Element to render.
 - `containIntrinsicSize`: `string` — Reserves a size for off-screen items so a long tree can skip rendering them.
@@ -27,17 +33,23 @@ Renders an `<ul>` and forwards unrecognized props to it, so it also accepts that
 - `to`: `string` — Route the item links to, for integration with a router.
 - `trailingVisual`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode` — Visual shown after the label. Accepts a callback to vary it with the item's expanded state.
 
-## LeadingVisual props
+## TreeView.LeadingVisual
+
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `children`: `React.ReactElement[]`
 - `label`: `string` — Accessible name for the visual, which is announced as part of the item.
 
-## SubTree props
+## TreeView.SubTree
+
+Renders an [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `count`: `number` — Number of placeholder rows to show while the subtree loads.
 - `state`: `"done" | "error" | "initial" | "loading"` — Loading state of the subtree, which decides whether items, placeholders, or an error are shown.
 
-## TrailingVisual props
+## TreeView.TrailingVisual
+
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `children`: `React.ReactElement[]`
 - `label`: `string` — Accessible name for the visual, which is announced as part of the item.

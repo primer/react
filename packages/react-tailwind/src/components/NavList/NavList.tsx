@@ -357,7 +357,10 @@ export interface NavListGroupExpandProps {
   pages?: number
   /** Items revealed by the button. */
   items: NavListGroupExpandItem[]
-  /** Renders a revealed item, in place of the default `NavList.Item`. Spread the item's props to keep focus management. */
+  /**
+   * Renders a revealed item, in place of the default `NavList.Item`. Spread the item's props to keep focus management.
+   * @default item => <NavList.Item {...item}>{item.text}</NavList.Item>
+   */
   renderItem?: (item: NavListGroupExpandItem) => React.ReactNode
 }
 
@@ -519,4 +522,3 @@ export const NavList = Object.assign(Root, {
   SubNav: Object.assign(SubNav, {Trigger: SubNavTrigger, Panel: SubNavPanel}),
 })
 Root.displayName = 'NavList'
-;('use client')

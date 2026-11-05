@@ -31,6 +31,17 @@ describe('ConfirmationDialog', () => {
     await waitFor(() => expect(screen.getByRole('button', {name: 'Cancel'})).toHaveFocus())
   })
 
+  it('defaults to the medium Primer dialog width and accepts dialog sizes', () => {
+    const {rerender} = render(<ConfirmationDialog open title="Continue?" />)
+    expect(screen.getByRole('alertdialog', {name: 'Continue?'})).toHaveAttribute('data-width', 'medium')
+    expect(screen.getByRole('alertdialog', {name: 'Continue?'})).toHaveClass('w-[320px]', 'h-auto')
+
+    rerender(<ConfirmationDialog height="small" open title="Continue?" width="large" />)
+    expect(screen.getByRole('alertdialog', {name: 'Continue?'})).toHaveAttribute('data-width', 'large')
+    expect(screen.getByRole('alertdialog', {name: 'Continue?'})).toHaveAttribute('data-height', 'small')
+    expect(screen.getByRole('alertdialog', {name: 'Continue?'})).toHaveClass('w-[480px]', 'h-[480px]')
+  })
+
   it('supports controlled state and confirms through its action', async () => {
     const user = userEvent.setup()
     const onOpenChange = vi.fn()

@@ -180,4 +180,3 @@ export function usePaneWidth({
     getDefaultWidth: () => defaultWidth,
   }
 }
-;('use client')

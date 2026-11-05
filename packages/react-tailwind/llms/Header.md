@@ -4,17 +4,23 @@
 
 Import: `import {Header} from '@primer/react-tailwind/Header'`
 
+Renders a [`<header>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
 ## Props
 
 - `as`: `React.ElementType` — Default `'header'`. Element to render.
 
-## Item props
+## Header.Item
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `full`: `boolean` — Lets the item grow to fill the remaining space, pushing later items to the end.
 
-## Link props
+## Header.Link
 
-- `as`: `React.ElementType` — Default `'header'`. Element to render. Use a non-anchor element when the item does not link anywhere.
+Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+- `as`: `React.ElementType` — Default `'a'`. Element to render. Use a non-anchor element when the item does not link anywhere.
 
 ## Differences from `@primer/react`
 

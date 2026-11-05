@@ -85,7 +85,15 @@
   ],
   "subcomponents": [
     {
-      "name": "Item",
+      "name": "TreeView.DirectoryIcon",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "TreeView.Item",
       "props": [
         {
           "name": "as",
@@ -155,10 +163,14 @@
           "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
           "description": "Visual shown after the label. Accepts a callback to vary it with the item's expanded state."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
     },
     {
-      "name": "LeadingVisual",
+      "name": "TreeView.LeadingVisual",
       "props": [
         {
           "name": "children",
@@ -170,10 +182,14 @@
           "type": "string",
           "description": "Accessible name for the visual, which is announced as part of the item."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
     },
     {
-      "name": "SubTree",
+      "name": "TreeView.SubTree",
       "props": [
         {
           "name": "count",
@@ -185,10 +201,14 @@
           "type": "\"done\" | \"error\" | \"initial\" | \"loading\"",
           "description": "Loading state of the subtree, which decides whether items, placeholders, or an error are shown."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "ul",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+      }
     },
     {
-      "name": "TrailingVisual",
+      "name": "TreeView.TrailingVisual",
       "props": [
         {
           "name": "children",
@@ -200,7 +220,11 @@
           "type": "string",
           "description": "Accessible name for the visual, which is announced as part of the item."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
     }
   ],
   "passthrough": {

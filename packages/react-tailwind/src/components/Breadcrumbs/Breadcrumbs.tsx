@@ -222,4 +222,3 @@ const BreadcrumbsItem = React.forwardRef<HTMLElement, BreadcrumbsItemProps>(func
 BreadcrumbsRoot.displayName = 'Breadcrumbs'
 BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
 export const Breadcrumbs = Object.assign(BreadcrumbsRoot, {Item: BreadcrumbsItem})
-;('use client')

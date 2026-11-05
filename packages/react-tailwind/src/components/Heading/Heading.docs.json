@@ -35,5 +35,9 @@
       "name": "size",
       "type": "\"display\" | \"large\" | \"medium\" | \"small\" | null"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "h2",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+  }
 }

@@ -5,17 +5,34 @@ import {Menu} from '@base-ui/react/menu'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {mergeClassName} from '../../internal/mergeClassName'
+import {NarrowFullscreenCloseButton} from '../../internal/NarrowFullscreenCloseButton'
+import {
+  isNarrowFullscreen,
+  narrowFullscreenPopupClassName,
+  narrowFullscreenPositionerClassName,
+} from '../../internal/narrowFullscreen'
+import {overlaySizeClassName} from '../../internal/overlaySize'
+import {FloatingPortal} from '../../internal/FloatingPortal'
 import {usePortalContainer} from '../../internal/portalRoot'
-import type {FloatingContentProps} from '../../utils/types'
-import {ActionItemContent, actionItemClassName, ActionList} from '../ActionList/ActionList'
+import type {AnchoredOverlayVariant, FloatingContentProps, FloatingSide, OverlaySizeProps} from '../../utils/types'
+import {ActionItemContent, actionItemClassName, actionListDividerClassName, ActionList} from '../ActionList/ActionList'
 import {Button, type ButtonProps} from '../Button'
 import {Spinner} from '../Spinner'
+import {ActionMenuActionsContext, ActionMenuListContext} from './ActionMenuContext'
 const triggerClassName =
   'inline-flex min-h-8 items-center justify-center gap-2 rounded-md border border-default bg-default px-3 text-sm font-semibold text-default hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:text-disabled'
 
 export type ActionMenuRootProps = Menu.Root.Props
 
-const Root = Menu.Root
+function Root({actionsRef, ...rest}: ActionMenuRootProps) {
+  const ownActionsRef = React.useRef<Menu.Root.Actions | null>(null)
+  const menuActionsRef = actionsRef ?? ownActionsRef
+  return (
+    <ActionMenuActionsContext.Provider value={menuActionsRef}>
+      <Menu.Root {...rest} actionsRef={menuActionsRef} />
+    </ActionMenuActionsContext.Provider>
+  )
+}
 
 export type ActionMenuTriggerProps = Omit<Menu.Trigger.Props, 'data-component'>
 
@@ -65,55 +82,130 @@ const ButtonTrigger = React.forwardRef<HTMLButtonElement, ActionMenuButtonProps>
 
 export interface ActionMenuContentProps
   extends Omit<Menu.Popup.Props, 'data-component'>,
-    Omit<FloatingContentProps, 'portal'> {
+    FloatingContentProps,
+    OverlaySizeProps {
   /** If true, focus will not be returned to the trigger or `finalFocus` target when the menu closes. */
   preventFocusOnClose?: boolean
+  /** Draws a divider between consecutive items. */
+  showDividers?: boolean
+  /** Side of the trigger the menu opens on. Menus open below their trigger, and submenus beside it. */
+  side?: FloatingSide
+  /**
+   * How the menu is presented at each viewport range. `{narrow: 'fullscreen'}` covers narrow viewports and adds a
+   * close button.
+   * @default 'anchored'
+   */
+  variant?: AnchoredOverlayVariant
 }
 
 const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(function ActionMenuContent(
   {
     align = 'start',
     alignOffset,
+    anchor,
     children,
     className,
     finalFocus,
+    height,
+    maxHeight,
+    maxWidth,
+    portal = true,
     positionerClassName,
     preventFocusOnClose = false,
-    side = 'bottom',
+    showDividers = false,
+    side,
     sideOffset = 4,
+    variant = 'anchored',
+    width,
     ...rest
   },
   ref,
 ) {
-  const portalContainer = usePortalContainer(undefined)
+  const actionsRef = React.useContext(ActionMenuActionsContext)
+  const fullscreen = isNarrowFullscreen(variant)
 
-  if (portalContainer === undefined) return null
   return (
-    <Menu.Portal container={portalContainer}>
+    <FloatingPortal part={Portal} portal={portal}>
       <Menu.Positioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
         side={side}
         sideOffset={sideOffset}
-        className={cn('z-popover', positionerClassName)}
+        className={cn(
+          'z-popover',
+          fullscreen && [narrowFullscreenPositionerClassName, 'max-md:pt-9'],
+          positionerClassName,
+        )}
         data-component="ActionMenu.Positioner"
+        data-responsive={fullscreen ? 'fullscreen' : undefined}
       >
+        {fullscreen ? (
+          // The menu role only allows items, so the close button sits beside the popup rather than inside it.
+          <NarrowFullscreenCloseButton
+            data-component="ActionMenu.CloseButton"
+            onClick={() => actionsRef?.current?.close()}
+          />
+        ) : null}
         <Menu.Popup
           {...rest}
           ref={ref}
           finalFocus={preventFocusOnClose ? false : finalFocus}
           className={mergeClassName(
-            'min-w-48 rounded-lg bg-[var(--overlay-bgColor)] py-2 shadow-floating-sm outline-none contrast-more:border contrast-more:border-current data-[closed]:hidden',
+            cn(
+              'max-h-[var(--available-height)] min-w-48 overflow-y-auto rounded-lg bg-[var(--overlay-bgColor)] py-2 shadow-floating-sm outline-none contrast-more:border contrast-more:border-current data-[closed]:hidden',
+              overlaySizeClassName({height, maxHeight, maxWidth, width}),
+              fullscreen && narrowFullscreenPopupClassName,
+            ),
             className,
           )}
           data-component="ActionMenu.Content"
+          data-dividers={showDividers || undefined}
         >
-          {children}
+          <ActionMenuListContext.Provider value={{showDividers}}>{children}</ActionMenuListContext.Provider>
         </Menu.Popup>
       </Menu.Positioner>
-    </Menu.Portal>
+    </FloatingPortal>
   )
 })
+
+function Portal({children, container, ...rest}: Menu.Portal.Props) {
+  const portalContainer = usePortalContainer(container)
+  // The portal root resolves only on the client, so the menu renders nothing on the server.
+  if (portalContainer === undefined) return null
+  return (
+    <Menu.Portal {...rest} container={portalContainer}>
+      {children}
+    </Menu.Portal>
+  )
+}
+
+type ActionMenuItemVariant = 'default' | 'danger'
+
+/** Every menu row shares the ActionList item layout, inset by the popup's padding, and highlights from Base UI state. */
+function menuItemClassName(variant: ActionMenuItemVariant = 'default') {
+  return cn(
+    actionItemClassName,
+    'mx-2 !w-[calc(100%-1rem)] data-[highlighted]:bg-neutral-muted data-[highlighted]:text-default',
+    variant === 'danger' && 'text-danger data-[highlighted]:bg-[var(--control-danger-bgColor-hover)]',
+  )
+}
+
+/**
+ * Menu rows are siblings rather than list items, so a row draws its divider only when it directly follows another
+ * row. Group labels and dividers break the run, and a highlighted row hides the dividers on both of its edges.
+ */
+const menuItemDividerClassName = cn(
+  "relative before:absolute before:inset-x-0 before:-top-[7px] before:hidden before:h-px before:bg-[var(--borderColor-muted)] before:content-['']",
+  '[[role^=menuitem]:not([data-highlighted])+[role^=menuitem]:not([data-highlighted])>&]:before:block',
+)
+
+function MenuItemContent(
+  props: Omit<React.ComponentProps<typeof ActionItemContent>, 'dividerClassName' | 'showDivider'>,
+) {
+  const {showDividers} = React.useContext(ActionMenuListContext)
+  return <ActionItemContent {...props} dividerClassName={menuItemDividerClassName} showDivider={showDividers} />
+}
 
 export interface ActionMenuItemProps extends Omit<Menu.Item.Props, 'data-component'> {
   /** Marks the item temporarily unavailable and explains why. */
@@ -125,7 +217,7 @@ export interface ActionMenuItemProps extends Omit<Menu.Item.Props, 'data-compone
   /** Marks the item as the current choice. */
   selected?: boolean
   /** Use `danger` for a destructive action. */
-  variant?: 'default' | 'danger'
+  variant?: ActionMenuItemVariant
 }
 
 const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionMenuItem(
@@ -147,84 +239,112 @@ const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionM
       disabled={disabled || Boolean(inactiveText) || loading}
       aria-disabled={inactiveText || loading ? true : undefined}
       title={typeof inactiveText === 'string' ? inactiveText : undefined}
-      className={mergeClassName(
-        cn(
-          actionItemClassName,
-          'mx-2 !w-[calc(100%-1rem)]',
-          'data-[highlighted]:bg-neutral-muted data-[highlighted]:text-default',
-          variant === 'danger' && 'text-danger data-[highlighted]:bg-[var(--control-danger-bgColor-hover)]',
-        ),
-        className,
-      )}
+      className={mergeClassName(menuItemClassName(variant), className)}
       data-component="ActionMenu.Item"
       data-selected={selected || undefined}
       data-variant={variant === 'danger' ? variant : undefined}
     >
-      <ActionItemContent indicator={statusIndicator} selection={selection} supportingText={inactiveText}>
+      <MenuItemContent indicator={statusIndicator} selection={selection} supportingText={inactiveText}>
         {children}
-      </ActionItemContent>
+      </MenuItemContent>
       {loading && loadingText ? <span className="sr-only">{loadingText}</span> : null}
     </Menu.Item>
   )
 })
 
-export type ActionMenuCheckboxItemProps = Omit<Menu.CheckboxItem.Props, 'data-component'>
+export interface ActionMenuLinkItemProps extends Omit<Menu.LinkItem.Props, 'data-component'> {
+  /**
+   * Whether activating the link closes the menu, as activating any other menu item does.
+   * @default true
+   */
+  closeOnClick?: boolean
+  /** Marks the link temporarily unavailable and explains why. The link renders as an inactive item until it is available. */
+  inactiveText?: React.ReactNode
+  /** Use `danger` for a destructive navigation. */
+  variant?: ActionMenuItemVariant
+}
+
+const LinkItem = React.forwardRef<HTMLAnchorElement, ActionMenuLinkItemProps>(function ActionMenuLinkItem(
+  {children, className, closeOnClick = true, id, inactiveText, label, variant = 'default', ...rest},
+  ref,
+) {
+  if (inactiveText) {
+    // Links can't be disabled, so an unavailable link stays discoverable as an inactive item instead.
+    return (
+      <Item className={className} id={id} inactiveText={inactiveText} label={label} variant={variant}>
+        {children}
+      </Item>
+    )
+  }
+
+  return (
+    <Menu.LinkItem
+      {...rest}
+      ref={ref}
+      id={id}
+      closeOnClick={closeOnClick}
+      label={label}
+      className={mergeClassName(menuItemClassName(variant), className)}
+      data-component="ActionMenu.LinkItem"
+      data-variant={variant === 'danger' ? variant : undefined}
+    >
+      <MenuItemContent>{children}</MenuItemContent>
+    </Menu.LinkItem>
+  )
+})
+
+/** Menus mark checked checkbox and radio items with a checkmark, as menu selections do in Primer. */
+const checkedItemIndicator = (
+  <CheckIcon aria-hidden="true" className="size-4 shrink-0 invisible group-data-[checked]:visible" />
+)
+
+export interface ActionMenuCheckboxItemProps extends Omit<Menu.CheckboxItem.Props, 'data-component'> {
+  /**
+   * Whether toggling the item closes the menu, as activating any other menu item does. Set `false` to keep the menu
+   * open while several items are toggled.
+   * @default true
+   */
+  closeOnClick?: boolean
+}
+
 const CheckboxItem = React.forwardRef<HTMLElement, ActionMenuCheckboxItemProps>(function ActionMenuCheckboxItem(
-  {children, className, ...rest},
+  {children, className, closeOnClick = true, ...rest},
   ref,
 ) {
   return (
     <Menu.CheckboxItem
       {...rest}
       ref={ref}
-      className={mergeClassName(
-        cn(
-          actionItemClassName,
-          'group mx-2 !w-[calc(100%-1rem)] data-[highlighted]:bg-neutral-muted data-[highlighted]:text-default',
-        ),
-        className,
-      )}
+      closeOnClick={closeOnClick}
+      className={mergeClassName(cn('group', menuItemClassName()), className)}
       data-component="ActionMenu.CheckboxItem"
     >
-      <ActionItemContent
-        selection={
-          <span
-            aria-hidden="true"
-            className="grid size-4 shrink-0 place-items-center rounded-sm border border-[var(--control-borderColor-emphasis)] bg-default group-data-[checked]:border-[var(--control-checked-bgColor-rest)] group-data-[checked]:bg-[var(--control-checked-bgColor-rest)] group-data-[checked]:text-on-emphasis"
-          >
-            <CheckIcon className="size-3 invisible group-data-[checked]:visible" />
-          </span>
-        }
-      >
-        {children}
-      </ActionItemContent>
+      <MenuItemContent selection={checkedItemIndicator}>{children}</MenuItemContent>
     </Menu.CheckboxItem>
   )
 })
 
-export type ActionMenuRadioItemProps = Omit<Menu.RadioItem.Props, 'data-component'>
+export interface ActionMenuRadioItemProps extends Omit<Menu.RadioItem.Props, 'data-component'> {
+  /**
+   * Whether choosing the item closes the menu, as activating any other menu item does.
+   * @default true
+   */
+  closeOnClick?: boolean
+}
+
 const RadioItem = React.forwardRef<HTMLElement, ActionMenuRadioItemProps>(function ActionMenuRadioItem(
-  {children, className, ...rest},
+  {children, className, closeOnClick = true, ...rest},
   ref,
 ) {
   return (
     <Menu.RadioItem
       {...rest}
       ref={ref}
-      className={mergeClassName(
-        cn(
-          actionItemClassName,
-          'group mx-2 !w-[calc(100%-1rem)] data-[highlighted]:bg-neutral-muted data-[highlighted]:text-default',
-        ),
-        className,
-      )}
+      closeOnClick={closeOnClick}
+      className={mergeClassName(cn('group', menuItemClassName()), className)}
       data-component="ActionMenu.RadioItem"
     >
-      <ActionItemContent
-        selection={<CheckIcon aria-hidden="true" className="size-4 shrink-0 invisible group-data-[checked]:visible" />}
-      >
-        {children}
-      </ActionItemContent>
+      <MenuItemContent selection={checkedItemIndicator}>{children}</MenuItemContent>
     </Menu.RadioItem>
   )
 })
@@ -238,33 +358,49 @@ const SubmenuTrigger = React.forwardRef<HTMLElement, ActionMenuSubmenuTriggerPro
     <Menu.SubmenuTrigger
       {...rest}
       ref={ref}
-      className={mergeClassName(
-        cn(
-          actionItemClassName,
-          'mx-2 !w-[calc(100%-1rem)] data-[highlighted]:bg-neutral-muted data-[highlighted]:text-default',
-        ),
-        className,
-      )}
+      className={mergeClassName(menuItemClassName(), className)}
       data-component="ActionMenu.SubmenuTrigger"
     >
-      <ActionItemContent>
+      <MenuItemContent>
         {children}
         {/* eslint-disable-next-line primer-react/direct-slot-children -- ActionItemContent owns the shared item layout. */}
         <ActionList.TrailingVisual>
           <ChevronRightIcon aria-hidden="true" />
         </ActionList.TrailingVisual>
-      </ActionItemContent>
+      </MenuItemContent>
     </Menu.SubmenuTrigger>
   )
 })
 
-const Group = React.forwardRef<HTMLDivElement, Menu.Group.Props>(function ActionMenuGroup({className, ...props}, ref) {
+/** Adjacent groups, including radio groups, are spaced apart as ActionList groups are. */
+const groupClassName = '[&+&]:mt-2'
+
+export type ActionMenuGroupProps = Omit<Menu.Group.Props, 'data-component'>
+const Group = React.forwardRef<HTMLDivElement, ActionMenuGroupProps>(function ActionMenuGroup(
+  {className, ...props},
+  ref,
+) {
   return (
     <Menu.Group
       {...props}
       ref={ref}
-      className={mergeClassName('[&+&]:mt-2', className)}
+      className={mergeClassName(groupClassName, className)}
       data-component="ActionMenu.Group"
+    />
+  )
+})
+
+export type ActionMenuRadioGroupProps = Omit<Menu.RadioGroup.Props, 'data-component'>
+const RadioGroup = React.forwardRef<HTMLDivElement, ActionMenuRadioGroupProps>(function ActionMenuRadioGroup(
+  {className, ...props},
+  ref,
+) {
+  return (
+    <Menu.RadioGroup
+      {...props}
+      ref={ref}
+      className={mergeClassName(groupClassName, className)}
+      data-component="ActionMenu.RadioGroup"
     />
   )
 })
@@ -292,10 +428,7 @@ const Divider = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<
       <Menu.Separator
         {...props}
         ref={ref}
-        className={cn(
-          "relative h-4 border-0 after:absolute after:inset-x-4 after:top-1/2 after:h-px after:bg-[var(--borderColor-muted)] after:content-['']",
-          props.className,
-        )}
+        className={cn(actionListDividerClassName, props.className)}
         data-component="ActionMenu.Divider"
       />
     )
@@ -306,12 +439,13 @@ export const ActionMenu = Object.assign(Root, {
   Root,
   Trigger,
   Button: ButtonTrigger,
-  /** Alias retained for ActionMenu's established overlay vocabulary. */
   Content,
+  /** Alias retained for ActionMenu's established overlay vocabulary. */
   Overlay: Content,
   Item,
+  LinkItem,
   CheckboxItem,
-  RadioGroup: Menu.RadioGroup,
+  RadioGroup,
   RadioItem,
   Group,
   GroupLabel,
@@ -323,4 +457,3 @@ export const ActionMenu = Object.assign(Root, {
   Description: ActionList.Description,
 })
 ;(ActionMenu as {displayName?: string}).displayName = 'ActionMenu'
-;('use client')

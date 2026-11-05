@@ -44,5 +44,9 @@
       "name": "className",
       "type": "string | ((state: CheckboxRootState) => string | undefined)"
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "Checkbox.Root",
+    "url": "https://base-ui.com/react/components/checkbox#root"
+  }
 }

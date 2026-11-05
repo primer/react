@@ -72,5 +72,9 @@
       "defaultValue": "'bodyMedium'",
       "description": "Line height, matching the text size it stands in for."
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
 }

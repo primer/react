@@ -4,6 +4,7 @@ import {Button} from '../Button'
 import {Dialog} from '../Dialog'
 import {FormControl} from '../FormControl'
 import {Stack} from '../Stack'
+import {Token} from '../Token'
 import {Autocomplete} from './Autocomplete'
 
 const items = ['css', 'css-in-js', 'styled-system', 'javascript', 'typescript', 'react', 'design-systems']
@@ -12,7 +13,7 @@ function FeatureDecorator({children}: {children: ReactNode}) {
   const [lastKey, setLastKey] = useState('none')
   return (
     <div onKeyDownCapture={event => setLastKey(event.key)}>
-      <p className="absolute top-2 right-8">Last key pressed: {lastKey}</p>
+      <p className="absolute top-2 right-8 my-4">Last key pressed: {lastKey}</p>
       <div className="pt-8">{children}</div>
     </div>
   )
@@ -102,10 +103,54 @@ function FieldFixture({
   )
 }
 
+function TokenAutocomplete() {
+  const [tokens, setTokens] = useState<string[]>([])
+  const [inputValue, setInputValue] = useState('')
+
+  return (
+    <Stack gap="condensed" className="w-full">
+      <Autocomplete
+        items={items.filter(item => !tokens.includes(item))}
+        value={inputValue}
+        onValueChange={(nextValue, {reason}) => {
+          if (reason === 'item-press') {
+            setTokens(current => [...current, nextValue])
+            setInputValue('')
+            return
+          }
+          setInputValue(nextValue)
+        }}
+      >
+        <Autocomplete.Input id="autocomplete-input" block />
+        <Autocomplete.Content>
+          <Autocomplete.List>
+            {(item: string) => (
+              <Autocomplete.Item key={item} value={item}>
+                {item}
+              </Autocomplete.Item>
+            )}
+          </Autocomplete.List>
+        </Autocomplete.Content>
+      </Autocomplete>
+      {tokens.length > 0 ? (
+        <Stack direction="horizontal" gap="condensed" wrap="wrap">
+          {tokens.map(token => (
+            <Token
+              key={token}
+              text={token}
+              onRemove={() => setTokens(current => current.filter(currentToken => currentToken !== token))}
+            />
+          ))}
+        </Stack>
+      ) : null}
+    </Stack>
+  )
+}
+
 export const WithTokenInput: Story = {
   render: () => (
     <FieldFixture>
-      <FruitAutocomplete mode="both" />
+      <TokenAutocomplete />
     </FieldFixture>
   ),
 }

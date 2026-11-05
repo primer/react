@@ -4,7 +4,7 @@
 
 Import: `import {CounterLabel} from '@primer/react-tailwind/CounterLabel'`
 
-Renders a `<span>` and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
 

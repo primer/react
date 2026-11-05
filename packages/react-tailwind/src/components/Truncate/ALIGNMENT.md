@@ -6,11 +6,11 @@
 
 ## To: `@primer/react-tailwind`
 
-Tailwind `Truncate` keeps `maxWidth`, `inline`, `expandable`, children, and native element props while using Tailwind utilities for overflow and ellipsis. It remains a presentational marker: `expandable` communicates intent but does not supply an expansion control or state machine. The new implementation uses React 19-compatible native composition and Primer/Tailwind classes, without legacy CSS-module selectors or styled-system styling.
+Tailwind `Truncate` keeps `maxWidth`, `inline`, `expandable`, children, and native element props while using Tailwind utilities for overflow and ellipsis. `expandable` lifts the width limit while the text is hovered or contains focus, using CSS only; it does not add an expansion control or state machine. The new implementation uses React 19-compatible native composition and Primer/Tailwind classes, without legacy CSS-module selectors or styled-system styling.
 
 ## Migration notes
 
-- Keep expansion state and controls in the consumer.
+- Keep persistent expansion state and controls in the consumer; `expandable` only reveals the text on hover or focus.
 - Use `as={Link}` with `href` for truncated links; component targets also receive `inline`.
-- Recheck the rendered default element and selectors when relying on legacy block/inline markup.
+- The default element stays a `div`; pass `as="span"` for phrasing contexts such as paragraphs.
 - Remove `sx` and styled-system props.

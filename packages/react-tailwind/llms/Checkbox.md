@@ -4,6 +4,8 @@
 
 Import: `import {Checkbox} from '@primer/react-tailwind/Checkbox'`
 
+Forwards unrecognized props to Base UI's [`Checkbox.Root`](https://base-ui.com/react/components/checkbox#root), so it also accepts that part's props.
+
 ## Props
 
 - `className`: `string | ((state: CheckboxRootState) => string | undefined)`

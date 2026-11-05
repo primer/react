@@ -16,4 +16,3 @@ export const FeatureFlags: React.FC<FeatureFlagsProps> = ({children, flags}) => 
 
   return <FeatureFlagContext.Provider value={scope}>{children}</FeatureFlagContext.Provider>
 }
-;('use client')

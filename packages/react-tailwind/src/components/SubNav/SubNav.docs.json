@@ -45,7 +45,7 @@
   ],
   "subcomponents": [
     {
-      "name": "Link",
+      "name": "SubNav.Link",
       "props": [
         {
           "name": "as",
@@ -58,7 +58,19 @@
           "type": "boolean",
           "description": "Marks the link as the current page."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    },
+    {
+      "name": "SubNav.Links",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     }
   ],
   "passthrough": {

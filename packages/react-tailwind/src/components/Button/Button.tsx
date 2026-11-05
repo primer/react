@@ -61,9 +61,15 @@ export interface ButtonProps extends Omit<ButtonBaseProps, 'className' | 'childr
    * `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
    */
   notificationIndicator?: Exclude<NotificationIndicatorPlacement, 'icon'>
-  /** Height and text size of the button. */
+  /**
+   * Height and text size of the button.
+   * @default 'medium'
+   */
   size?: ControlSize
-  /** Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one. */
+  /**
+   * Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
+   * @default 'default'
+   */
   variant?: 'default' | 'primary' | 'danger' | 'invisible' | 'link'
 }
 
@@ -159,4 +165,3 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
 })
 
 Button.displayName = 'Button'
-;('use client')

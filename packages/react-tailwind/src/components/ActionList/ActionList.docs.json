@@ -138,13 +138,38 @@
       "id": "react-tailwind-components-actionlist-features--large-item"
     },
     {
+      "id": "react-tailwind-components-actionlist-features--small-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--disable-item-gap"
+    },
+    {
       "id": "react-tailwind-components-actionlist--default"
     },
     {
       "id": "react-tailwind-components-actionlist--playground"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--item-playground"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--link-item-playground"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--group-playground"
     }
   ],
   "props": [
+    {
+      "name": "disableItemGap",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Disable the gap between items when this list is rendered in a `NavList`."
+    },
+    {
+      "name": "heading",
+      "type": "React.ReactNode"
+    },
     {
       "name": "selectionVariant",
       "type": "SelectionVariant",
@@ -165,8 +190,19 @@
   ],
   "subcomponents": [
     {
-      "name": "Root",
+      "name": "ActionList.Root",
       "props": [
+        {
+          "name": "disableItemGap",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Disable the gap between items when this list is rendered in a `NavList`."
+        },
+        {
+          "name": "heading",
+          "type": "React.ReactNode",
+          "description": "Supplies the heading region. Takes precedence over a matching `ActionList.Heading` child."
+        },
         {
           "name": "selectionVariant",
           "type": "SelectionVariant",
@@ -184,10 +220,14 @@
           "defaultValue": "'inset'",
           "description": "Density and inset treatment of the list."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "ul",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+      }
     },
     {
-      "name": "Item",
+      "name": "ActionList.Item",
       "props": [
         {
           "name": "active",
@@ -205,7 +245,7 @@
         {
           "name": "description",
           "type": "React.ReactNode",
-          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Item.Description` child."
+          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Description` child."
         },
         {
           "name": "disabled",
@@ -220,13 +260,13 @@
         {
           "name": "leadingVisual",
           "type": "React.ReactNode",
-          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.Item.LeadingVisual` child."
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
         },
         {
           "name": "loading",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "Shows a spinner in place of the leading visual and suppresses activation."
+          "description": "Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation."
         },
         {
           "name": "loadingText",
@@ -245,40 +285,54 @@
         },
         {
           "name": "size",
-          "type": "\"large\" | \"medium\"",
+          "type": "\"large\" | \"medium\" | \"small\"",
           "defaultValue": "'medium'",
-          "description": "Row height. Use `large` for a more comfortable touch target."
+          "description": "Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target."
         },
         {
           "name": "trailingAction",
           "type": "React.ReactNode",
-          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.Item.TrailingAction` child."
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
         },
         {
           "name": "trailingVisual",
           "type": "React.ReactNode",
-          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.Item.TrailingVisual` child."
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child."
         },
         {
           "name": "variant",
           "type": "\"danger\" | \"default\"",
-          "defaultValue": "'inset'",
+          "defaultValue": "'default'",
           "description": "Use `danger` for a destructive action."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
     },
     {
-      "name": "LinkItem",
+      "name": "ActionList.LinkItem",
       "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "description": "Highlights the link as the current one."
+        },
         {
           "name": "description",
           "type": "React.ReactNode",
-          "description": "Supplies the description region. Takes precedence over a matching `ActionList.LinkItem.Description` child."
+          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Description` child."
+        },
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the link temporarily unavailable and explains why. The link renders as text until it is available."
         },
         {
           "name": "leadingVisual",
           "type": "React.ReactNode",
-          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LinkItem.LeadingVisual` child."
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
         },
         {
           "name": "selected",
@@ -286,30 +340,40 @@
           "description": "Marks the link as the current one."
         },
         {
+          "name": "size",
+          "type": "\"large\" | \"medium\" | \"small\"",
+          "defaultValue": "'medium'",
+          "description": "Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target."
+        },
+        {
           "name": "trailingAction",
           "type": "React.ReactNode",
-          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.LinkItem.TrailingAction` child."
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
         },
         {
           "name": "trailingVisual",
           "type": "React.ReactNode",
-          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.LinkItem.TrailingVisual` child."
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child."
         },
         {
           "name": "variant",
           "type": "\"danger\" | \"default\"",
-          "defaultValue": "'inset'",
+          "defaultValue": "'default'",
           "description": "Use `danger` for a destructive navigation."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
     },
     {
-      "name": "Group",
+      "name": "ActionList.Group",
       "props": [
         {
           "name": "heading",
           "type": "React.ReactNode",
-          "description": "Supplies the heading region. Takes precedence over a matching `ActionList.Group.Heading` child."
+          "description": "Supplies the heading region. Takes precedence over a matching `ActionList.GroupHeading` child."
         },
         {
           "name": "selectionVariant",
@@ -321,10 +385,14 @@
           "type": "React.ReactNode",
           "description": "Heading text for the group, as an alternative to supplying a heading child."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
     },
     {
-      "name": "GroupHeading",
+      "name": "ActionList.GroupHeading",
       "props": [
         {
           "name": "as",
@@ -340,13 +408,41 @@
         {
           "name": "variant",
           "type": "\"filled\" | \"subtle\"",
-          "defaultValue": "'inset'",
+          "defaultValue": "'subtle'",
           "description": "Use `filled` to give the heading a background and separate it from the items above."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "h3",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#attributes"
+      }
     },
     {
-      "name": "Description",
+      "name": "ActionList.Divider",
+      "props": [],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
+    },
+    {
+      "name": "ActionList.LeadingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "ActionList.TrailingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Description",
       "props": [
         {
           "name": "truncate",
@@ -356,30 +452,43 @@
         {
           "name": "variant",
           "type": "\"block\" | \"inline\"",
-          "defaultValue": "'inset'",
+          "defaultValue": "'inline'",
           "description": "Whether the description sits beside the label or on its own line."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
     },
     {
-      "name": "Heading",
+      "name": "ActionList.Heading",
       "props": [
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'h3'",
+          "defaultValue": "'h2'",
           "description": "Heading element to render, so the list heading fits the surrounding document outline."
         },
         {
           "name": "size",
-          "type": "\"medium\" | \"small\"",
-          "defaultValue": "'medium'",
-          "description": "Visual size of the heading."
+          "type": "\"large\" | \"medium\" | \"small\"",
+          "description": "Title size of the heading. Omit it to keep the default large heading font size."
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Hides the heading visually while it still names the list for assistive technology."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
     },
     {
-      "name": "TrailingAction",
+      "name": "ActionList.TrailingAction",
       "props": [
         {
           "name": "alignContent",
@@ -389,7 +498,7 @@
         {
           "name": "as",
           "type": "\"a\" | \"button\"",
-          "defaultValue": "'h3'",
+          "defaultValue": "'button'",
           "description": "Renders the action as a button.\nRenders the action as a link."
         },
         {
@@ -440,7 +549,6 @@
         {
           "name": "loading",
           "type": "boolean",
-          "defaultValue": "false",
           "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses navigation."
         },
         {
@@ -449,16 +557,18 @@
           "description": "Text announced to assistive technology while the button is loading.\nText announced to assistive technology while the link is loading."
         },
         {
-          "name": "size",
-          "type": "ControlSize",
-          "defaultValue": "'medium'",
-          "description": "Height and text size of the button.\nHeight and text size of the link."
-        },
-        {
           "name": "style",
           "type": "React.CSSProperties"
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
     }
-  ]
+  ],
+  "passthrough": {
+    "element": "ul",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+  }
 }

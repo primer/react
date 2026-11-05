@@ -6,3 +6,4 @@ export {
   type DialogRootProps,
   type DialogTriggerProps,
 } from './Dialog'
+export type {DialogAlign, DialogHeight, DialogPosition, DialogPositionValue, DialogWidth} from './dialogLayout'
