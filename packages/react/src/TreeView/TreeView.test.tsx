@@ -535,6 +535,52 @@ describe('Markup', () => {
   })
 })
 
+describe('SubTree accessible name', () => {
+  const actions = [{icon: GearIcon, label: 'Item settings', onClick: () => {}}]
+  const renderTree = (itemProps: Partial<React.ComponentProps<typeof TreeView.Item>>, subTreeLabel?: string) => (
+    <>
+      <span id="external-label">External label</span>
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="src" defaultExpanded {...itemProps}>
+          <TreeView.LeadingVisual label="Directory">
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          src
+          <TreeView.TrailingVisual label="Modified">M</TreeView.TrailingVisual>
+          <TreeView.SubTree aria-label={subTreeLabel}>
+            <TreeView.Item id="src/index.ts">index.ts</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    </>
+  )
+
+  it.each([
+    ['the parent item label', {}, undefined, 'src'],
+    ['the parent item label without the shortcut text', {secondaryActions: actions}, undefined, 'src'],
+    ['the parent `aria-label`', {'aria-label': 'Source'}, undefined, 'Source'],
+    [
+      'the parent `aria-label` without the shortcut text',
+      {'aria-label': 'Source', secondaryActions: actions},
+      undefined,
+      'Source',
+    ],
+    ['the parent `aria-labelledby`', {'aria-labelledby': 'external-label'}, undefined, 'External label'],
+    ['its own `aria-label`', {}, 'Custom', 'Custom'],
+  ])('is named by %s', async (_, itemProps, subTreeLabel, name) => {
+    render(renderTree(itemProps, subTreeLabel))
+    await expect.element(page.getByRole('group', {name, exact: true})).toBeInTheDocument()
+  })
+
+  it('is named in server-rendered markup', () => {
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(renderTree({}))
+    const group = container.querySelector('[role="group"]')!
+    const labelledBy = group.getAttribute('aria-labelledby')!
+    expect(container.querySelector(`[id="${labelledBy}"]`)).toHaveTextContent('src')
+  })
+})
+
 describe('Tab order', () => {
   const getTabStops = (container: Element) =>
     Array.from(container.querySelectorAll('[tabindex="0"]')).map(element => element.id || element.textContent)

@@ -61,6 +61,10 @@ const ItemContext = React.createContext<{
   leadingVisualId: string
   trailingVisualId: string
   trailingActionId: string
+  // How a SubTree is named after its parent item: the item's `aria-label`, or else the element(s)
+  // that label the item, without the secondary action shortcut text.
+  subTreeAriaLabel: string | undefined
+  subTreeAriaLabelledBy: string | undefined
 }>({
   itemId: '',
   level: 1,
@@ -71,6 +75,8 @@ const ItemContext = React.createContext<{
   leadingVisualId: '',
   trailingVisualId: '',
   trailingActionId: '',
+  subTreeAriaLabel: undefined,
+  subTreeAriaLabelledBy: undefined,
 })
 
 // Module-private channel from LoadingItem to the Item it renders. Lets us mark the placeholder
@@ -499,6 +505,8 @@ const ItemImpl = fixedForwardRef(
           leadingVisualId,
           trailingVisualId,
           trailingActionId,
+          subTreeAriaLabel: ariaLabel,
+          subTreeAriaLabelledBy: ariaLabel ? undefined : ariaLabelledby || labelId,
         }}
       >
         {isPolymorphic ? <li role="none">{itemElement}</li> : itemElement}
@@ -542,11 +550,11 @@ export type TreeViewSubTreeProps = {
 
 const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children, 'aria-label': ariaLabel}) => {
   const {announceUpdate} = React.useContext(RootContext)
-  const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
+  const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty, subTreeAriaLabel, subTreeAriaLabelledBy} =
+    React.useContext(ItemContext)
   const loadingItemRef = React.useRef<HTMLElement>(null)
   const ref = React.useRef<HTMLElement>(null)
   const [loadingFocused, setLoadingFocused] = React.useState(false)
-  const [subTreeLabel, setSubTreeLabel] = React.useState('')
   const previousState = usePreviousValue(state)
   const {safeSetTimeout} = useSafeTimeout()
 
@@ -566,12 +574,13 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
 
   // Handle transition from loading to done state
   React.useEffect(() => {
+    const isDoneLoading = previousState === 'loading' && state === 'done'
+    if (!isDoneLoading && state !== 'loading') return
+
     const parentElement = document.getElementById(itemId)
     if (!parentElement) return
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
-    setSubTreeLabel(getAccessibleName(parentElement))
-    if (previousState === 'loading' && state === 'done') {
+    if (isDoneLoading) {
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
 
@@ -597,7 +606,7 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
           })
         }
 
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
+        // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
         setLoadingFocused(false)
       }
     } else if (state === 'loading') {
@@ -650,7 +659,8 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
       }}
       // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
       ref={ref}
-      aria-label={ariaLabel || subTreeLabel}
+      aria-label={ariaLabel || subTreeAriaLabel}
+      aria-labelledby={ariaLabel || subTreeAriaLabel ? undefined : subTreeAriaLabelledBy}
     >
       {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
       {isSubTreeEmpty && state !== 'loading' ? <EmptyItem /> : null}
