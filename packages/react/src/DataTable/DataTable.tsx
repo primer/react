@@ -120,10 +120,6 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    */
   collapsibleGroups?: boolean
 
-  /**
-   * Provide a localized description of each group's total member count,
-   * including non-selectable rows, for its checkbox and disclosure.
-   */
   getGroupRowCountLabel?: (rowCount: number) => string
 
   /**

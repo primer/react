@@ -492,6 +492,10 @@ describe('DataTable group selection', () => {
     const disclosure = page.getByRole('button', {name: 'Public', exact: true})
     const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
 
+    await expect.element(group).toHaveAccessibleDescription('3 rows')
+    await expect.element(disclosure).toHaveAccessibleDescription('3 rows')
+    await expect.element(group).not.toHaveAttribute('aria-expanded')
+    await expect.element(disclosure).not.toHaveAttribute('aria-checked')
     await expect.element(group).not.toBeChecked()
     await browserUserEvent.click(page.getByRole('checkbox', {name: 'Select Alpha', exact: true}))
     await expect.element(group).toBePartiallyChecked()
@@ -507,10 +511,18 @@ describe('DataTable group selection', () => {
       selectedRows: new Set<DataTableRowId>(['standalone', 3, 'off-page', 1, '1']),
     })
 
-    await browserUserEvent.click(disclosure)
+    await browserUserEvent.tab()
+    await expect.element(disclosure).toHaveFocus()
+    await browserUserEvent.keyboard('{Enter}')
+    await expect.element(disclosure).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(disclosure).toHaveFocus()
+    await expect.element(group).toBeChecked()
     await expect.element(page.getByRole('checkbox', {name: 'Select Beta', exact: true})).toBeChecked()
     await expect.element(page.getByRole('checkbox', {name: 'Select Disabled', exact: true})).not.toBeChecked()
-    await browserUserEvent.click(group)
+    await browserUserEvent.keyboard(' ')
+    await expect.element(disclosure).toHaveAttribute('aria-expanded', 'false')
+    await browserUserEvent.tab({shift: true})
+    await browserUserEvent.keyboard(' ')
     await expect.element(group).not.toBeChecked()
     await expect.element(selectAll).toBePartiallyChecked()
     expect(onSelectionChange).toHaveBeenLastCalledWith({
@@ -543,14 +555,46 @@ describe('DataTable group selection', () => {
     const {rerender} = render(
       <DataTable data={data} columns={columns} rowSelection collapsibleGroups isRowSelectable={() => false} />,
     )
-    for (const name of ['Public', 'Private', 'Empty']) {
+    await browserUserEvent.click(page.getByRole('button', {name: 'Public', exact: true}))
+    for (const [name, count] of [
+      ['Public', '3 rows'],
+      ['Private', '1 row'],
+      ['Empty', '0 rows'],
+    ]) {
       const checkbox = page.getByRole('checkbox', {name: `Select ${name}`, exact: true})
       await expect.element(checkbox).toBeDisabled()
       await expect.element(checkbox).not.toBeChecked()
+      await expect.element(checkbox).toHaveAccessibleDescription(count)
+      await expect.element(page.getByRole('button', {name, exact: true})).toHaveFocus()
+      await browserUserEvent.tab()
     }
     rerender(<DataTable data={data} columns={columns} rowSelection />)
     await expect.element(page.getByRole('checkbox', {name: 'Select Public', exact: true})).not.toBeInTheDocument()
     rerender(<DataTable data={data} columns={columns} collapsibleGroups />)
     await expect.element(page.getByRole('checkbox')).not.toBeInTheDocument()
+  })
+
+  it('updates localized counts while collapsed and retains checkbox focus', async () => {
+    const props = {
+      columns,
+      rowSelection: true,
+      collapsibleGroups: true,
+      defaultExpandedGroups: new Set<DataTableRowId>(),
+      getGroupRowCountLabel: (count: number) => `${count} ${count === 1 ? 'ligne' : 'lignes'}`,
+    }
+    const {rerender} = render(<DataTable {...props} data={data} />)
+    const checkbox = page.getByRole('checkbox', {name: 'Select Public', exact: true})
+    const disclosure = page.getByRole('button', {name: 'Public', exact: true})
+    await browserUserEvent.click(checkbox)
+    await expect.element(checkbox).toHaveAccessibleDescription('3 lignes')
+
+    rerender(<DataTable {...props} data={[{groupId: 'public', label: 'Public', rows: [{id: 1, name: 'Alpha'}]}]} />)
+    await expect.element(checkbox).toHaveAccessibleDescription('1 ligne')
+    await expect.element(disclosure).toHaveAccessibleDescription('1 ligne')
+    await expect.element(disclosure).toHaveAttribute('aria-expanded', 'false')
+    expect(checkbox.element()).toHaveFocus()
+    rerender(<DataTable {...props} data={[{groupId: 'public', label: 'Public', rows: []}]} />)
+    await expect.element(checkbox).toHaveAccessibleDescription('0 lignes')
+    await expect.element(checkbox).toBeDisabled()
   })
 })

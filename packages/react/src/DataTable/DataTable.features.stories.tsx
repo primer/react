@@ -1932,9 +1932,6 @@ export const WithCollapsibleGroups = () => {
 WithCollapsibleGroups.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const canvas = within(canvasElement)
   const publicGroup = canvas.getByRole('button', {name: 'Public'})
-  const groupCheckbox = canvas.getByRole('checkbox', {name: 'Select Public'})
-  await expect(groupCheckbox).toHaveAccessibleDescription('2 rows')
-  await expect(publicGroup).toHaveAccessibleDescription('2 rows')
   await userEvent.click(publicGroup)
   await expect(publicGroup).toHaveAttribute('aria-expanded', 'false')
   await userEvent.keyboard('{Enter}')

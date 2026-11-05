@@ -31,10 +31,6 @@ export type TableGroupProps = {
    */
   rowCount: number
 
-  /**
-   * Provide a localized description of the total member count, including
-   * non-selectable rows, for the group checkbox and disclosure.
-   */
   getRowCountLabel?: (rowCount: number) => string
 
   /**
