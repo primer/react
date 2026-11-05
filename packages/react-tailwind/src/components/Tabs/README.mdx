@@ -35,4 +35,16 @@ Use `defaultValue` for uncontrolled tabs or `value` with `onValueChange` for con
 
 <Canvas of={Features.Controlled} />
 
+### Activation mode
+
+By default, selection follows focus: navigating with the Arrow, Home, and End keys immediately selects the newly focused tab (`activationMode="automatic"`). Set `activationMode="manual"` to move focus without changing selection — selection is then committed with Enter, Space, or a pointer click. Prefer manual activation when displaying a panel is not instant (for example, it triggers a network request), per the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/).
+
+```tsx
+<Tabs defaultValue="one" activationMode="manual">
+  {/* ... */}
+</Tabs>
+```
+
+<Canvas of={Features.ManualActivation} />
+
 <Canvas of={Examples.WithCustomComponents} />

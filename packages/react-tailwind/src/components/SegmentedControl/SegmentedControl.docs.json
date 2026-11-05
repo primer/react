@@ -6,6 +6,12 @@
   "description": "`SegmentedControl` is a single-choice Base UI toggle group for related view or mode choices.",
   "stories": [
     {
+      "id": "react-tailwind-forms-segmentedcontrol-button--playground"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-iconbutton--playground"
+    },
+    {
       "id": "react-tailwind-forms-segmentedcontrol-examples--with-disabled-buttons"
     },
     {
@@ -13,6 +19,9 @@
     },
     {
       "id": "react-tailwind-forms-segmentedcontrol-features--with-counter-labels"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--variant-subtle"
     },
     {
       "id": "react-tailwind-forms-segmentedcontrol-features--controlled"
@@ -27,6 +36,9 @@
       "id": "react-tailwind-forms-segmentedcontrol-features--variant-narrow-action-menu"
     },
     {
+      "id": "react-tailwind-forms-segmentedcontrol-features--variant-narrow-action-menu-with-action"
+    },
+    {
       "id": "react-tailwind-forms-segmentedcontrol-features--fullwidth-narrow"
     },
     {
@@ -39,7 +51,31 @@
       "id": "react-tailwind-forms-segmentedcontrol-features--associated-with-a-label-and-caption"
     },
     {
+      "id": "react-tailwind-forms-segmentedcontrol-features--compact-toolbar"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--constrained-label-overflow"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-features--constrained-label-overflow-stress-test"
+    },
+    {
       "id": "react-tailwind-forms-segmentedcontrol-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-responsive-tests--full-width-responsive"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-responsive-tests--variant-hide-labels-responsive"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-responsive-tests--variant-dropdown-responsive"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-responsive-tests--variant-dropdown-narrow-only"
+    },
+    {
+      "id": "react-tailwind-forms-segmentedcontrol-responsive-tests--complex-responsive"
     },
     {
       "id": "react-tailwind-forms-segmentedcontrol--default"
@@ -49,6 +85,11 @@
     }
   ],
   "props": [
+    {
+      "name": "action",
+      "type": "React.ReactNode",
+      "description": "Supplies the action region. Takes precedence over a matching `SegmentedControl.Action` child."
+    },
     {
       "name": "className",
       "type": "string | ((state: ToggleGroupState) => string | undefined)"
@@ -66,9 +107,9 @@
     },
     {
       "name": "variant",
-      "type": "\"default\" | Partial<Record<\"narrow\" | \"regular\" | \"wide\", SegmentedControlVariant>>",
+      "type": "\"default\" | \"subtle\" | Partial<Record<ViewportRange, SegmentedControlVariant>>",
       "defaultValue": "'default'",
-      "description": "How the control adapts on narrow viewports, such as collapsing into a menu or hiding labels."
+      "description": "Visual treatment of the control. `subtle` drops the track for a lower-emphasis control. Pass an object to adapt per\nviewport range, for example collapsing into a menu or hiding labels on narrow viewports."
     }
   ],
   "subcomponents": [
@@ -77,7 +118,8 @@
       "props": [
         {
           "name": "children",
-          "type": "React.ReactElement[]"
+          "type": "React.ReactElement[]",
+          "description": "Visible label. It stays on one line and truncates with a tooltip when the segment is too narrow."
         },
         {
           "name": "className",
@@ -90,8 +132,8 @@
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode",
-          "description": "Icon shown before the segment's label."
+          "type": "IconSource",
+          "description": "Icon shown before the segment's label: a component such as an Octicon, or a rendered element."
         },
         {
           "name": "value",
@@ -108,7 +150,7 @@
           "name": "aria-label",
           "type": "string",
           "required": true,
-          "description": "Accessible name for the segment, since the icon alone conveys nothing."
+          "description": "Accessible name for the segment, since the icon alone conveys nothing. Shown in the tooltip by default."
         },
         {
           "name": "className",
@@ -120,16 +162,74 @@
           "description": "Number shown after the segment's label."
         },
         {
+          "name": "description",
+          "type": "string",
+          "description": "Supplementary text shown in the tooltip instead of the label and exposed as the accessible description."
+        },
+        {
           "name": "icon",
-          "type": "React.ElementType",
+          "type": "IconSource",
           "required": true,
-          "description": "Icon component to render."
+          "description": "Icon to render: a component such as an Octicon, or a rendered element."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'s'",
+          "description": "Side and alignment of the tooltip relative to the segment."
         },
         {
           "name": "value",
           "type": "string",
           "required": true,
           "description": "Value this segment selects, matched against the control's value."
+        }
+      ]
+    },
+    {
+      "name": "Divider",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Additional classes for the divider."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "description": "Inline styles for the divider."
+        }
+      ]
+    },
+    {
+      "name": "Action",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents the action from being activated."
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "required": true,
+          "description": "Icon component for the action."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the action, shown in its tooltip and as the menu item text in the dropdown variant."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Shows a spinner and suppresses activation."
+        },
+        {
+          "name": "onClick",
+          "type": "(() => void)",
+          "description": "Called when the action is activated."
         }
       ]
     }

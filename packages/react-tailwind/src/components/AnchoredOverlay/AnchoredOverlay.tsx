@@ -2,8 +2,11 @@
 
 import {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
+import {cn} from '../../internal/cn'
+import {FloatingArrowGraphic, floatingArrowClassName} from '../../internal/floatingArrow'
 import {mergeClassName} from '../../internal/mergeClassName'
 import type {FloatingContentProps} from '../../utils/types'
+import {usePortalContainer} from '../../internal/portalRoot'
 
 const contentClassName =
   'min-w-48 max-w-[calc(100vw-var(--base-size-32))] max-h-dvh overflow-auto rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
@@ -99,19 +102,32 @@ const Positioner = React.forwardRef<HTMLDivElement, AnchoredOverlayPositionerPro
   )
 })
 
-const Portal = ({children, ...rest}: BasePopover.Portal.Props) => (
-  <BasePopover.Portal {...rest}>{children}</BasePopover.Portal>
-)
+function Portal({children, container, ...rest}: BasePopover.Portal.Props) {
+  const portalContainer = usePortalContainer(container)
+  return (
+    <BasePopover.Portal {...rest} container={portalContainer}>
+      {children}
+    </BasePopover.Portal>
+  )
+}
 
 const Arrow = React.forwardRef<HTMLDivElement, Omit<BasePopover.Arrow.Props, 'data-component'>>(
-  function AnchoredOverlayArrow({className, ...rest}, ref) {
+  function AnchoredOverlayArrow({children, className, ...rest}, ref) {
     return (
       <BasePopover.Arrow
         {...rest}
         ref={ref}
-        className={mergeClassName('fill-[var(--overlay-bgColor)] stroke-[var(--borderColor-default)]', className)}
+        className={mergeClassName(
+          cn(
+            floatingArrowClassName,
+            '[--arrow-bg-color:var(--overlay-bgColor)] [--arrow-border-color:var(--borderColor-default)]',
+          ),
+          className,
+        )}
         data-component="AnchoredOverlay.Arrow"
-      />
+      >
+        {children ?? <FloatingArrowGraphic />}
+      </BasePopover.Arrow>
     )
   },
 )

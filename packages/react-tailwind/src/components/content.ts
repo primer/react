@@ -1,7 +1,6 @@
 export * from './Banner'
 export * from './Blankslate'
 export * from './Card'
-export * from './Flash'
 export * from './InlineMessage'
 export * from './IssueLabel'
 export * from './KeybindingHint'

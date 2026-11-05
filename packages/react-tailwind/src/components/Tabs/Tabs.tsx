@@ -19,37 +19,54 @@ const defaultMarkers: TabsMarkers = {
 
 const TabsMarkersContext = React.createContext<TabsMarkers>(defaultMarkers)
 
+type TabsActivationMode = 'automatic' | 'manual'
+
+const TabsActivationModeContext = React.createContext<TabsActivationMode>('automatic')
+
 /** @internal Used by composed tab presentations to retain their component markers. */
 export function TabsMarkerProvider({children, markers}: {children: React.ReactNode; markers: TabsMarkers}) {
   return <TabsMarkersContext.Provider value={markers}>{children}</TabsMarkersContext.Provider>
 }
 
-export type TabsProps = Omit<React.ComponentPropsWithoutRef<typeof BaseTabs.Root>, 'data-component'>
+export type TabsProps = Omit<React.ComponentPropsWithoutRef<typeof BaseTabs.Root>, 'data-component'> & {
+  /**
+   * Whether arrow-key focus also selects a tab. `automatic` selects the focused tab; `manual` only moves focus,
+   * and Enter, Space, or a click commits the selection. An explicit `TabList` `activateOnFocus` takes precedence.
+   * @default 'automatic'
+   */
+  activationMode?: TabsActivationMode
+}
 
-export const Tabs = React.forwardRef<HTMLElement, TabsProps>(function Tabs({className, ...props}, ref) {
+export const Tabs = React.forwardRef<HTMLElement, TabsProps>(function Tabs(
+  {activationMode = 'automatic', className, ...props},
+  ref,
+) {
   const markers = React.useContext(TabsMarkersContext)
   return (
-    <BaseTabs.Root
-      {...props}
-      ref={ref as React.Ref<HTMLDivElement>}
-      data-component={markers.root}
-      className={className}
-    />
+    <TabsActivationModeContext.Provider value={activationMode}>
+      <BaseTabs.Root
+        {...props}
+        ref={ref as React.Ref<HTMLDivElement>}
+        data-component={markers.root}
+        className={className}
+      />
+    </TabsActivationModeContext.Provider>
   )
 })
 
 export type TabListProps = Omit<React.ComponentPropsWithoutRef<typeof BaseTabs.List>, 'data-component'>
 
 export const TabList = React.forwardRef<HTMLElement, TabListProps>(function TabList(
-  {className, activateOnFocus = true, ...props},
+  {className, activateOnFocus, ...props},
   ref,
 ) {
   const markers = React.useContext(TabsMarkersContext)
+  const activationMode = React.useContext(TabsActivationModeContext)
   return (
     <BaseTabs.List
       {...props}
       ref={ref as React.Ref<HTMLDivElement>}
-      activateOnFocus={activateOnFocus}
+      activateOnFocus={activateOnFocus ?? activationMode === 'automatic'}
       data-component={markers.list}
       className={className}
     />

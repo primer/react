@@ -2,15 +2,16 @@
 
 ## From: `@primer/react`
 
-Legacy ToggleSwitch includes loading status labels and custom on/off label APIs in addition to checked, disabled, controlled, keyboard, focus, and form behavior.
+Legacy ToggleSwitch renders a wrapper with on/off status text, a loading spinner with a delayed loading announcement, and a `button` with `aria-pressed`. It exposes `onChange(checked)`, `buttonType`, `statusLabelPosition`, `buttonLabelOn`, `buttonLabelOff`, `loading`, `loadingLabel`, and `loadingLabelDelay`.
 
 ## To: `@primer/react-tailwind`
 
-ToggleSwitch is a Base UI-backed form control with supported size, checked state, disabled state, keyboard/focus behavior, and form association. It follows the normalized `checked`, `defaultChecked`, and `onCheckedChange` state contract. Loading and status-label presentation are not part of the stable public API.
+ToggleSwitch keeps the Primer status label, `statusLabelPosition`, custom on/off labels, size, and loading props (`loading`, `loadingLabel`, `loadingLabelDelay`). The control itself is a Base UI `Switch.Root` with `role="switch"`, a hidden form input, and the normalized `checked`, `defaultChecked`, and `onCheckedChange` state contract. Loading maps to Base UI `readOnly`, so the switch stays focusable but does not toggle. The status label is derived from Base UI's `data-checked` state with CSS, so there is no second React state source.
 
 ## Migration notes
 
-- Use the checked-state contract; do not mirror Base UI state in a second React state source.
-- Compose loading text or status announcements beside the switch with normal markup or LiveRegion.
+- Replace `onChange(checked)` with `onCheckedChange(checked, details)`.
+- `ref`, `className`, and rest props target the switch control, not the outer status-label wrapper.
+- `buttonType` is omitted; the switch submits through its hidden input and `name`/`value`.
 - Use a visible associated label or an accessible name.
 - `sx` and styled-system props are unsupported; use `className`.

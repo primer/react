@@ -5,6 +5,7 @@ import {Button} from '../Button'
 import {Checkbox} from '../Checkbox'
 import {Dialog} from '../Dialog'
 import {FormControl} from '../FormControl'
+import {Stack} from '../Stack'
 import {SelectPanel, type SelectPanelItem, type SelectPanelProps} from './SelectPanel'
 
 const meta = {
@@ -50,6 +51,7 @@ function asItems(selection: SelectPanelItem | SelectPanelItem[] | undefined) {
 }
 
 interface ExamplePanelProps {
+  children?: React.ReactNode
   initialSelected?: SelectPanelItem | SelectPanelItem[] | undefined
   items?: readonly SelectPanelItem[]
   label?: React.ReactNode | null
@@ -59,6 +61,7 @@ interface ExamplePanelProps {
 }
 
 function ExamplePanel({
+  children,
   initialSelected,
   items = labels,
   label = 'Labels',
@@ -119,18 +122,14 @@ function ExamplePanel({
     <FormControl>
       <FormControl.Label>{label}</FormControl.Label>
       {panel}
+      {children}
     </FormControl>
   )
 }
 
-const overflowingItems = Array.from({length: 40}, (_, index) => ({id: index, text: `Label ${index + 1}`}))
-
 export const HeightInitialWithOverflowingItemsStory: Story = {
   render: () => (
-    <ExamplePanel
-      items={overflowingItems}
-      selectPanelProps={{height: 'initial', overlayProps: {maxHeight: 'xsmall'}}}
-    />
+    <ExamplePanel selectPanelProps={{height: 'initial', overlayProps: {width: 'small', maxHeight: 'xsmall'}}} />
   ),
 }
 HeightInitialWithOverflowingItemsStory.storyName = 'Height: Initial, Overflowing Items'
@@ -140,7 +139,11 @@ export const HeightInitialWithUnderflowingItemsStory: Story = {
     <ExamplePanel
       initialSelected={labels[0]}
       items={labels.slice(0, 2)}
-      selectPanelProps={{height: 'initial', overlayProps: {maxHeight: 'xsmall'}, showItemDividers: true}}
+      selectPanelProps={{
+        height: 'initial',
+        overlayProps: {width: 'small', maxHeight: 'xsmall'},
+        showItemDividers: true,
+      }}
     />
   ),
 }
@@ -174,7 +177,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch: Story = {
             }
           },
           open,
-          overlayProps: {maxHeight: 'xsmall'},
+          overlayProps: {width: 'small', maxHeight: 'xsmall'},
           showItemDividers: true,
         }}
       />
@@ -185,30 +188,35 @@ HeightInitialWithUnderflowingItemsAfterFetch.storyName = 'Height: Initial, Under
 
 export const AboveTallBody: Story = {
   render: () => (
-    <>
-      <ExamplePanel selectPanelProps={{showItemDividers: true}} />
-      <div className="m-5 h-screen bg-[rgb(156,39,176)] p-5 text-white">
-        This element makes the body really tall. It verifies that portal positioning remains stable far down the page.
+    <ExamplePanel selectPanelProps={{showItemDividers: true}}>
+      {/* lint-tailwind-disable-next-line -- matches the upstream fixture's purple tall-body block */}
+      <div className="h-screen bg-[rgb(156,39,176)] p-5 text-white" style={{margin: '20px'}}>
+        This element makes the body really tall. This is to test that we do not have layout/focus issues if the Portal
+        is far down the page
       </div>
-    </>
+    </ExamplePanel>
   ),
 }
+
+const longLabels = Array.from({length: 8}, (_, copy) =>
+  labels.map(item => ({...item, id: `${item.id}-${copy}`})),
+).flat()
 
 export const HeightVariationsAndScroll: Story = {
   render: () => (
     <>
       <ExamplePanel
-        items={overflowingItems}
+        items={longLabels}
+        label="With height:medium"
         multiple={false}
-        selectPanelProps={{height: 'medium', showItemDividers: true}}
-        title="With height: medium"
+        selectPanelProps={{overlayProps: {height: 'medium'}, showItemDividers: true}}
       />
       <br />
       <ExamplePanel
-        items={labels.slice(0, 2)}
+        items={longLabels}
+        label="With height:auto, maxheight:medium"
         multiple={false}
-        selectPanelProps={{overlayProps: {maxHeight: 'medium'}, showItemDividers: true}}
-        title="With height: auto, max height: medium"
+        selectPanelProps={{overlayProps: {height: 'auto', maxHeight: 'medium'}, showItemDividers: true}}
       />
     </>
   ),
@@ -275,6 +283,7 @@ function RepositionAfterLoadingFixture({insideDialog = false}: {insideDialog?: b
     <ExamplePanel
       initialSelected={selected}
       items={itemsToShow}
+      label={null}
       selectPanelProps={{
         filterValue,
         loading: open && loadedFilterValue !== filterValue,
@@ -325,11 +334,14 @@ export const WithDefaultMessage: Story = {
   render: () => <ExamplePanel initialSelected={labels.slice(1, 3)} items={labels} />,
 }
 
-const renderMoreItems = Array.from({length: 180}, (_, index) => ({
-  description: index === 5 ? 'This row demonstrates wrapped supporting text.' : undefined,
-  descriptionVariant: 'block' as const,
+const renderMoreItems = Array.from({length: 1800}, (_, index) => ({
+  description: `Description ${index}`,
   id: index,
-  text: `Item ${index + 1}`,
+  leadingVisual: <ColorCircle color="#a2eeef" />,
+  text:
+    index === 5
+      ? 'This is being used to show what would happen if you returned an item that needed text wrapping'
+      : `Item ${index}`,
 }))
 
 function RenderSubsetControl({
@@ -368,7 +380,7 @@ export const RenderMoreOnScroll: Story = {
         />
         <p>
           Time taken (ms) to render initial {renderSubset ? 50 : renderMoreItems.length} items: (click &quot;Select
-          labels&quot; to open)
+          Labels&quot; to open)
         </p>
         <p>Known bug: Scroll resets to top when the items change.</p>
         <ExamplePanel
@@ -394,7 +406,7 @@ export const VirtualizedConsumerSide: Story = {
           checked
           onCheckedChange={() => setCount(50)}
         />
-        <p>Time taken (ms) to render initial {count} items: (click &quot;Select labels&quot; to open)</p>
+        <p>Time taken (ms) to render initial {count} items: (click &quot;Select Labels&quot; to open)</p>
         <ExamplePanel
           initialSelected={[]}
           items={renderMoreItems.slice(0, count)}
@@ -411,7 +423,7 @@ export const VirtualizedConsumerSide: Story = {
 
 export const VirtualizedBuiltIn: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-4">
+    <Stack direction="horizontal" gap="normal">
       <form>
         <h3>Without virtualization</h3>
         <p>Time to open (ms): (click to open)</p>
@@ -434,6 +446,6 @@ export const VirtualizedBuiltIn: Story = {
           title="Select labels"
         />
       </form>
-    </div>
+    </Stack>
   ),
 }

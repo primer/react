@@ -3,6 +3,7 @@
 import React from 'react'
 import {createPortal} from 'react-dom'
 import {cn} from '../../internal/cn'
+import {usePortalContainer} from '../../internal/portalRoot'
 
 type PortalContainer = HTMLElement | ShadowRoot
 type PortalContainerRef = React.RefObject<PortalContainer | null>
@@ -14,16 +15,12 @@ export interface PortalProps extends React.ComponentPropsWithoutRef<'div'> {
   onMount?: () => void
 }
 
-function resolveContainer(container: PortalProps['container']): PortalContainer | null {
-  if (container === null) {
-    return null
-  }
-
-  if (container !== undefined && 'current' in container) {
+function resolveContainer(container: PortalContainer | PortalContainerRef | null): PortalContainer | null {
+  if (container !== null && 'current' in container) {
     return container.current
   }
 
-  return container ?? document.querySelector<HTMLElement>('[data-portal-root]') ?? document.body
+  return container
 }
 
 export const Portal = React.forwardRef<HTMLDivElement, PortalProps>(function Portal(
@@ -31,6 +28,7 @@ export const Portal = React.forwardRef<HTMLDivElement, PortalProps>(function Por
   ref,
 ) {
   const [target, setTarget] = React.useState<PortalContainer | null>(null)
+  const portalContainer = usePortalContainer(container)
   const onMountRef = React.useRef(onMount)
 
   React.useEffect(() => {
@@ -38,8 +36,8 @@ export const Portal = React.forwardRef<HTMLDivElement, PortalProps>(function Por
   }, [onMount])
 
   React.useEffect(() => {
-    setTarget(resolveContainer(container))
-  }, [container])
+    setTarget(resolveContainer(portalContainer ?? null))
+  }, [portalContainer])
 
   const portalRef = React.useCallback(
     (node: HTMLDivElement | null) => {

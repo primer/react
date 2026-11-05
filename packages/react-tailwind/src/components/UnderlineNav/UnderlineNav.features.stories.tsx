@@ -36,11 +36,9 @@ const items: {navigation: string; icon: React.ReactElement; counter?: number | s
 export const Default: Story = {
   render: () => (
     <UnderlineNav aria-label="Repository">
-      <UnderlineNav.List>
-        <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
-        <UnderlineNav.Item>Issues</UnderlineNav.Item>
-        <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
-      </UnderlineNav.List>
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+      <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
     </UnderlineNav>
   ),
 }
@@ -48,19 +46,17 @@ export const Default: Story = {
 export const WithIcons: Story = {
   render: () => (
     <UnderlineNav aria-label="Repository with icons">
-      <UnderlineNav.List>
-        <UnderlineNav.Item leadingVisual={<CodeIcon />}>Code</UnderlineNav.Item>
-        <UnderlineNav.Item leadingVisual={<EyeIcon />} counter={6}>
-          Issues
-        </UnderlineNav.Item>
-        <UnderlineNav.Item aria-current="page" leadingVisual={<GitPullRequestIcon />}>
-          Pull Requests
-        </UnderlineNav.Item>
-        <UnderlineNav.Item leadingVisual={<CommentDiscussionIcon />} counter={7}>
-          Discussions
-        </UnderlineNav.Item>
-        <UnderlineNav.Item leadingVisual={<ProjectIcon />}>Projects</UnderlineNav.Item>
-      </UnderlineNav.List>
+      <UnderlineNav.Item leadingVisual={<CodeIcon />}>Code</UnderlineNav.Item>
+      <UnderlineNav.Item leadingVisual={<EyeIcon />} counter={6}>
+        Issues
+      </UnderlineNav.Item>
+      <UnderlineNav.Item aria-current="page" leadingVisual={<GitPullRequestIcon />}>
+        Pull Requests
+      </UnderlineNav.Item>
+      <UnderlineNav.Item leadingVisual={<CommentDiscussionIcon />} counter={7}>
+        Discussions
+      </UnderlineNav.Item>
+      <UnderlineNav.Item leadingVisual={<ProjectIcon />}>Projects</UnderlineNav.Item>
     </UnderlineNav>
   ),
 }
@@ -68,48 +64,44 @@ export const WithIcons: Story = {
 export const WithCounterLabels: Story = {
   render: () => (
     <UnderlineNav aria-label="Repository with counters">
-      <UnderlineNav.List>
-        <UnderlineNav.Item aria-current="page" leadingVisual={<CodeIcon />} counter="11K">
-          Code
-        </UnderlineNav.Item>
-        <UnderlineNav.Item leadingVisual={<IssueOpenedIcon />} counter={12}>
-          Issues
-        </UnderlineNav.Item>
-      </UnderlineNav.List>
+      <UnderlineNav.Item aria-current="page" leadingVisual={<CodeIcon />} counter="11K">
+        Code
+      </UnderlineNav.Item>
+      <UnderlineNav.Item leadingVisual={<IssueOpenedIcon />} counter={12}>
+        Issues
+      </UnderlineNav.Item>
     </UnderlineNav>
   ),
 }
 
-export const OverflowTemplate: Story = {
-  render: function OverflowTemplateStory() {
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(1)
-    return (
-      <UnderlineNav aria-label="Repository">
-        <UnderlineNav.List>
-          {items.map((item, index) => (
-            <UnderlineNav.Item
-              key={item.navigation}
-              aria-current={index === selectedIndex ? 'page' : undefined}
-              counter={item.counter}
-              href={item.href}
-              leadingVisual={item.icon}
-              target="_self"
-              onSelect={event => {
-                event.preventDefault()
-                setSelectedIndex(index)
-              }}
-            >
-              {item.navigation}
-            </UnderlineNav.Item>
-          ))}
-        </UnderlineNav.List>
-      </UnderlineNav>
-    )
-  },
+function OverflowNav({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(initialSelectedIndex)
+  return (
+    <UnderlineNav aria-label="Repository" hideIconsBreakpoint="medium">
+      {items.map((item, index) => (
+        <UnderlineNav.Item
+          key={item.navigation}
+          aria-current={index === selectedIndex ? 'page' : undefined}
+          counter={item.counter}
+          href={item.href}
+          leadingVisual={item.icon}
+          target="_self"
+          onSelect={event => {
+            event.preventDefault()
+            setSelectedIndex(index)
+          }}
+        >
+          {item.navigation}
+        </UnderlineNav.Item>
+      ))}
+    </UnderlineNav>
+  )
 }
 
+export const OverflowTemplate: Story = {render: () => <OverflowNav />}
+
 export const OverflowOnNarrowScreen: Story = {
-  ...OverflowTemplate,
+  render: () => <OverflowNav initialSelectedIndex={items.length - 1} />,
   parameters: {
     viewport: {
       viewports: {
@@ -129,19 +121,17 @@ export const CountersLoadingState: Story = {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(1)
     return (
       <UnderlineNav aria-label="Repository with loading counters" loadingCounters>
-        <UnderlineNav.List>
-          {items.map((item, index) => (
-            <UnderlineNav.Item
-              key={item.navigation}
-              aria-current={index === selectedIndex ? 'page' : undefined}
-              counter={item.counter}
-              leadingVisual={item.icon}
-              onSelect={() => setSelectedIndex(index)}
-            >
-              {item.navigation}
-            </UnderlineNav.Item>
-          ))}
-        </UnderlineNav.List>
+        {items.map((item, index) => (
+          <UnderlineNav.Item
+            key={item.navigation}
+            aria-current={index === selectedIndex ? 'page' : undefined}
+            counter={item.counter}
+            leadingVisual={item.icon}
+            onSelect={() => setSelectedIndex(index)}
+          >
+            {item.navigation}
+          </UnderlineNav.Item>
+        ))}
       </UnderlineNav>
     )
   },
@@ -150,11 +140,9 @@ export const CountersLoadingState: Story = {
 export const VariantFlush: Story = {
   render: () => (
     <UnderlineNav variant="flush" aria-label="Repository">
-      <UnderlineNav.List>
-        <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
-        <UnderlineNav.Item>Issues</UnderlineNav.Item>
-        <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
-      </UnderlineNav.List>
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+      <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
     </UnderlineNav>
   ),
 }

@@ -58,4 +58,19 @@ describe('Button', () => {
 
     expect(container.querySelector('[role="button"]')).not.toHaveAttribute('type')
   })
+
+  it('places the notification indicator on the button or leading visual', () => {
+    const {rerender} = render(<Button notificationIndicator="button">Inbox</Button>)
+    expect(screen.getByRole('button', {name: 'Inbox'})).toHaveAttribute('data-notification-indicator', 'button')
+    expect(screen.getByRole('button', {name: 'Inbox'}).className).toContain('before:size-2')
+
+    rerender(
+      <Button leadingVisual={() => <svg aria-hidden="true" data-testid="gear" />} notificationIndicator="leadingVisual">
+        View
+      </Button>,
+    )
+    const leadingVisual = screen.getByTestId('gear').closest('[data-component="leadingVisual"]')
+    expect(leadingVisual?.className).toContain('before:size-2')
+    expect(screen.getByRole('button', {name: 'View'}).className).not.toContain('before:size-2')
+  })
 })

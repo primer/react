@@ -24,7 +24,7 @@ const labels = [
 ]
 
 const ResizableContainer = ({children, ...props}: {children: React.ReactNode}) => (
-  <div className="w-[600px] resize overflow-auto p-1 outline outline-1 outline-black" {...props}>
+  <div className="w-[600px] resize overflow-auto p-1 outline outline-1 outline-[var(--fgColor-default)]" {...props}>
     {children}
   </div>
 )

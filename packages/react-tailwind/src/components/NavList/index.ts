@@ -3,6 +3,8 @@ export {
   type NavListProps,
   type NavListHeadingProps,
   type NavListGroupProps,
+  type NavListGroupExpandItem,
+  type NavListGroupExpandProps,
   type NavListGroupHeadingProps,
   type NavListListProps,
   type NavListItemProps,

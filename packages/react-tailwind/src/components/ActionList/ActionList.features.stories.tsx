@@ -11,6 +11,7 @@ import {
   LinkIcon,
   PeopleIcon,
   PlusCircleIcon,
+  PlusIcon,
   ProjectIcon,
   RepoForkedIcon,
   StarIcon,
@@ -18,8 +19,11 @@ import {
 } from '@primer/octicons-react'
 import React from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import {ListContainerContext} from '../../internal/listContainer'
 import {Avatar} from '../Avatar'
 import {CounterLabel} from '../CounterLabel'
+import {FeatureFlags} from '../FeatureFlags'
+import {Heading} from '../Heading'
 import {KeybindingHint} from '../KeybindingHint'
 import {Label} from '../Label'
 import {ActionList} from './ActionList'
@@ -99,7 +103,10 @@ export const WithVisualListHeading: Story = {
 export const WithCustomHeading: Story = {
   render: () => (
     <>
-      <h1 id="list-heading" className="m-0 mx-4 text-xl leading-[30px]">
+      <h1
+        id="list-heading"
+        className="m-0 mx-4 text-[length:var(--text-title-size-medium)] leading-[30px] font-semibold"
+      >
         Details
       </h1>
       <ActionList aria-labelledby="list-heading">
@@ -254,16 +261,25 @@ export const SingleSelect: Story = {
   },
 }
 export const InactiveSingleSelect: Story = {
-  render: () => (
-    <ActionList role="menu" aria-label="Project" selectionVariant="single">
-      <ActionList.Item role="menuitem" inactiveText="Unavailable due to an outage">
-        Inactive item
-      </ActionList.Item>
-      <ActionList.Item role="menuitemradio" selected>
-        Item 2
-      </ActionList.Item>
-    </ActionList>
-  ),
+  render: function InactiveSingleSelectStory() {
+    const [selectedIndex, setSelectedIndex] = React.useState(1)
+    return (
+      <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
+        {/* menuitem because state is inactive */}
+        <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
+          Inactive item
+        </ActionList.Item>
+        <ActionList.Item
+          role="menuitemradio"
+          selected={selectedIndex === 1}
+          aria-checked={selectedIndex === 1}
+          onSelect={() => setSelectedIndex(1)}
+        >
+          Item 2
+        </ActionList.Item>
+      </ActionList>
+    )
+  },
 }
 export const MultiSelect: Story = {
   render: function MultiSelectStory() {
@@ -447,28 +463,43 @@ export const LoadingItem: Story = {
 export const Links: Story = {
   render: () => (
     <ActionList>
-      <ActionList.Heading as="h1" className="mx-4 px-0 text-sm">
+      <ActionList.Heading as="h1" className="mx-4 text-sm">
         Details
       </ActionList.Heading>
-      {(
-        [
-          [BookIcon, 'Readme', 'https://github.com/primer/react#readme'],
-          [LawIcon, 'MIT License', 'https://github.com/primer/react/blob/main/LICENSE'],
-          [StarIcon, '1.5k stars', 'https://github.com/primer/react/stargazers'],
-          [EyeIcon, '21 watching', 'https://github.com/primer/react/watchers'],
-          [RepoForkedIcon, '225 forks', 'https://github.com/primer/react/network/members'],
-        ] satisfies Array<[React.ElementType, string, string]>
-      ).map(([Icon, label, href]) => (
-        <ActionList.LinkItem key={label} href={href}>
-          <ActionList.LeadingVisual>
-            <Icon />
-          </ActionList.LeadingVisual>
-          {label}
-        </ActionList.LinkItem>
-      ))}
+      <ActionList.LinkItem href="https://github.com/primer/react#readme">
+        <ActionList.LeadingVisual>
+          <BookIcon />
+        </ActionList.LeadingVisual>
+        Readme
+      </ActionList.LinkItem>
+      <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
+        <ActionList.LeadingVisual>
+          <LawIcon />
+        </ActionList.LeadingVisual>
+        MIT License
+      </ActionList.LinkItem>
+      <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
+        <ActionList.LeadingVisual>
+          <StarIcon />
+        </ActionList.LeadingVisual>
+        <strong>1.5k</strong> stars
+      </ActionList.LinkItem>
+      <ActionList.LinkItem href="https://github.com/primer/react/watchers">
+        <ActionList.LeadingVisual>
+          <EyeIcon />
+        </ActionList.LeadingVisual>
+        <strong>21</strong> watching
+      </ActionList.LinkItem>
+      <ActionList.LinkItem href="https://github.com/primer/react/network/members">
+        <ActionList.LeadingVisual>
+          <RepoForkedIcon />
+        </ActionList.LeadingVisual>
+        <strong>225</strong> forks
+      </ActionList.LinkItem>
     </ActionList>
   ),
 }
+
 export const CustomItemChildren: Story = {
   render: () => (
     <ActionList>
@@ -864,9 +895,9 @@ export const WithTrailingActionOnGroupHeading: Story = {
   render: () => (
     <ActionList>
       <ActionList.Group>
-        <ActionList.GroupHeading>
+        <ActionList.GroupHeading as="h3">
           Custom fields
-          <ActionList.GroupHeading.TrailingAction label="New field" icon={ProjectIcon} />
+          <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
         </ActionList.GroupHeading>
         <ActionList.Item>
           <ActionList.LeadingVisual>
@@ -882,7 +913,7 @@ export const WithTrailingActionOnGroupHeading: Story = {
         </ActionList.Item>
       </ActionList.Group>
       <ActionList.Group>
-        <ActionList.GroupHeading variant="filled">
+        <ActionList.GroupHeading as="h3" variant="filled">
           Repositories
           <ActionList.GroupHeading.TrailingAction as="a" href="#" label="Manage repositories" icon={ProjectIcon} />
         </ActionList.GroupHeading>
@@ -916,5 +947,42 @@ export const LargeItem: Story = {
         <ActionList.Description variant="block">With block description</ActionList.Description>
       </ActionList.Item>
     </ActionList>
+  ),
+}
+export const SmallItem: Story = {
+  render: () => (
+    <ActionList>
+      <ActionList.Item size="small">Small item</ActionList.Item>
+      <ActionList.Item size="small">
+        Small item
+        <ActionList.Description>With inline description</ActionList.Description>
+      </ActionList.Item>
+      <ActionList.Item size="small">
+        Small item
+        <ActionList.Description variant="block">With block description</ActionList.Description>
+      </ActionList.Item>
+    </ActionList>
+  ),
+}
+export const DisableItemGap: Story = {
+  render: () => (
+    <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+      {/* The item gap only applies inside a NavList, so the story provides that container directly. */}
+      <ListContainerContext.Provider value="NavList">
+        <Heading as="h3">Default item gap</Heading>
+        <ActionList>
+          <ActionList.Item>Copy link</ActionList.Item>
+          <ActionList.Item>Quote reply</ActionList.Item>
+          <ActionList.Item>Edit comment</ActionList.Item>
+        </ActionList>
+
+        <Heading as="h3">Item gap disabled</Heading>
+        <ActionList disableItemGap>
+          <ActionList.Item>Copy link</ActionList.Item>
+          <ActionList.Item>Quote reply</ActionList.Item>
+          <ActionList.Item>Edit comment</ActionList.Item>
+        </ActionList>
+      </ListContainerContext.Provider>
+    </FeatureFlags>
   ),
 }

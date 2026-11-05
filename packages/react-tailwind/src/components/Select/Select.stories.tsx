@@ -4,7 +4,7 @@ import {Select, type SelectProps} from './Select'
 
 type SelectStoryArgs = Pick<
   SelectProps,
-  'block' | 'contrast' | 'disabled' | 'multiple' | 'placeholder' | 'required' | 'size' | 'validationStatus'
+  'block' | 'disabled' | 'multiple' | 'placeholder' | 'required' | 'size' | 'validationStatus'
 >
 
 const options = (
@@ -23,7 +23,6 @@ const meta = {
   component: Select,
   args: {
     block: false,
-    contrast: false,
     disabled: false,
     multiple: false,
     placeholder: undefined,
@@ -33,7 +32,6 @@ const meta = {
   },
   argTypes: {
     block: {control: 'boolean'},
-    contrast: {control: 'boolean'},
     disabled: {control: 'boolean'},
     multiple: {control: 'boolean'},
     placeholder: {control: 'text'},

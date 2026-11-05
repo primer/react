@@ -10,6 +10,7 @@ import {
   GitCommitIcon,
   KebabHorizontalIcon,
   PaperclipIcon,
+  TriangleDownIcon,
 } from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {ActionMenu} from '../ActionMenu'
@@ -150,9 +151,13 @@ function FileActionsMenu({size}: {size?: 'small'}) {
 function BranchMenu() {
   return (
     <ActionMenu>
-      <ActionMenu.Button size="small" leadingVisual={GitBranchIcon}>
-        Main
-      </ActionMenu.Button>
+      <ActionMenu.Trigger
+        render={
+          <Button size="small" leadingVisual={GitBranchIcon} trailingVisual={TriangleDownIcon}>
+            Main
+          </Button>
+        }
+      />
       <ActionMenu.Content>
         <ActionMenu.Item>
           <CheckIcon /> main
@@ -203,7 +208,7 @@ export const FilesPage: Story = {
     <div className="p-4">
       <PageHeader role="banner" aria-label="PageHeader.tsx">
         <PageHeader.TitleArea className="items-center">
-          <Text className="text-sm font-normal text-muted">/</Text>
+          <Text className="font-normal text-muted [font-size:var(--text-body-size-medium)]">/</Text>
           <PageHeader.Title as="h1" className="h-[21px] [font-size:var(--text-body-size-medium)]">
             PageHeader.tsx
           </PageHeader.Title>
@@ -271,7 +276,7 @@ export const WithPageLayout: Story = {
       <PageLayout.Pane>
         <div className="flex flex-col gap-4">
           <div>
-            <h2 className="m-0 block text-xs font-semibold text-muted">Assignees</h2>
+            <h2 className="m-0 block [font-size:var(--text-body-size-small)] font-semibold text-muted">Assignees</h2>
             <Text className="flex items-center text-xs leading-[1.25] text-muted">
               No one —
               <Button variant="invisible" className="text-muted">
@@ -281,7 +286,7 @@ export const WithPageLayout: Story = {
           </div>
           <div className="h-px w-full bg-default" role="separator" />
           <div>
-            <h2 className="m-0 block text-xs font-semibold text-muted">Labels</h2>
+            <h2 className="m-0 block [font-size:var(--text-body-size-small)] font-semibold text-muted">Labels</h2>
             <Text className="flex h-[26px] items-center text-xs leading-[1.25] text-muted">None yet</Text>
           </div>
         </div>
@@ -366,7 +371,7 @@ export const IssuesPage: Story = {
       <PageLayout.Pane>
         <div className="flex flex-col gap-4">
           <div>
-            <h2 className="m-0 block text-xs font-semibold text-muted">Assignees</h2>
+            <h2 className="m-0 block [font-size:var(--text-body-size-small)] font-semibold text-muted">Assignees</h2>
             <Text className="flex items-center text-xs leading-[1.25] text-muted">
               No one —
               <Button variant="invisible" className="text-muted">
@@ -375,7 +380,7 @@ export const IssuesPage: Story = {
             </Text>
           </div>
           <div>
-            <h2 className="m-0 block pb-2 text-xs font-semibold text-muted">Labels</h2>
+            <h2 className="m-0 block pb-2 [font-size:var(--text-body-size-small)] font-semibold text-muted">Labels</h2>
             <div className="flex items-center gap-1">
               <Token as="button" text="react" />
               <Token as="button" text="accessibility" />

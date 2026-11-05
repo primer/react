@@ -7,6 +7,7 @@ import type {ControlSize} from '../../utils/types'
 import {getButtonClassName} from './ButtonClassName'
 import {type ButtonVisual} from './ButtonVisual'
 import {ButtonContent} from './ButtonPresentation'
+import {getNotificationIndicatorClassName, type NotificationIndicatorPlacement} from './notificationIndicator'
 import {buttonBaseClassName} from './styles'
 
 export interface ButtonBaseProps extends React.ComponentPropsWithoutRef<typeof BaseButton> {
@@ -55,6 +56,11 @@ export interface ButtonProps extends Omit<ButtonBaseProps, 'className' | 'childr
   loading?: boolean
   /** Text announced to assistive technology while the button is loading. */
   loadingAnnouncement?: string
+  /**
+   * Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a
+   * `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
+   */
+  notificationIndicator?: Exclude<NotificationIndicatorPlacement, 'icon'>
   /** Height and text size of the button. */
   size?: ControlSize
   /** Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one. */
@@ -76,6 +82,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
     loading,
     loadingAnnouncement = 'Loading',
     nativeButton = true,
+    notificationIndicator,
     size,
     trailingAction,
     trailingVisual,
@@ -90,8 +97,15 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
   const loadingAnnouncementId = `${id}-loading-announcement`
   const labelId = `${id}-label`
 
+  if (process.env.NODE_ENV !== 'production' && notificationIndicator === 'leadingVisual' && !leadingVisual) {
+    // eslint-disable-next-line no-console
+    console.warn('Button: `notificationIndicator="leadingVisual"` requires a `leadingVisual` prop.')
+  }
+
   return (
     <ButtonBase
+      data-no-visuals={!leadingVisual && !trailingVisual && !trailingAction ? true : undefined}
+      data-notification-indicator={notificationIndicator}
       {...rest}
       ref={ref}
       nativeButton={nativeButton}
@@ -114,7 +128,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
       className={getButtonClassName({
         block,
         children,
-        className,
+        className: cn(notificationIndicator === 'button' && getNotificationIndicatorClassName('button'), className),
         count,
         inactive,
         labelWrap,
@@ -132,6 +146,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
         loading={loadingState}
         loadingAnnouncement={loadingAnnouncement}
         loadingAnnouncementId={loadingAnnouncementId}
+        notificationIndicator={notificationIndicator === 'leadingVisual'}
         size={size}
         trailingAction={trailingAction}
         trailingVisual={trailingVisual}

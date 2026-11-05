@@ -25,8 +25,8 @@ describe('DataTable and Table', () => {
         ]}
       />,
     )
-    expect(screen.getByRole('button', {name: /Stars\s*sort ascending/})).toBeInTheDocument()
-    await user.click(screen.getByRole('button', {name: /Stars/}))
+    expect(screen.getByRole('button', {name: 'Stars'})).toHaveAccessibleDescription('Sort ascending')
+    await user.click(screen.getByRole('button', {name: 'Stars'}))
     expect(screen.getByRole('columnheader', {name: /Stars/})).toHaveAttribute('aria-sort', 'ascending')
     expect(screen.getAllByRole('rowheader')[0]).toHaveTextContent('Zebra')
   })
@@ -89,5 +89,15 @@ describe('DataTable and Table', () => {
     expect(pageIndex).toBe(1)
     expect(screen.getByRole('button', {name: 'Page 2'})).toHaveAttribute('aria-current', 'page')
     expect(screen.getByText(/11.*20 of 30/)).toBeInTheDocument()
+  })
+
+  it('hides numbered pages on narrow viewports unless showPages is set', () => {
+    const {rerender} = render(<Table.Pagination pageSize={10} totalCount={30} />)
+    expect(screen.getByRole('button', {name: 'Page 2'})).toHaveClass('hidden', 'md:inline-flex')
+    expect(screen.getByRole('button', {name: 'Previous page'})).toHaveClass('mr-0', 'md:mr-4')
+
+    rerender(<Table.Pagination pageSize={10} showPages totalCount={30} />)
+    expect(screen.getByRole('button', {name: 'Page 2'})).not.toHaveClass('hidden')
+    expect(screen.getByRole('button', {name: 'Previous page'})).toHaveClass('mr-4')
   })
 })

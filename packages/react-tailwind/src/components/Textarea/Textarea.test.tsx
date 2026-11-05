@@ -17,4 +17,33 @@ describe('Textarea', () => {
     expect(ref.current).toBe(screen.getByTestId('textarea'))
     expect(new FormData(screen.getByTestId('textarea').closest('form')!).get('body')).toBe('First\nSecond')
   })
+
+  it('counts characters, describes the limit, and enters the error state when exceeded', async () => {
+    const user = userEvent.setup()
+    render(<Textarea aria-label="Bio" characterLimit={5} defaultValue="abc" />)
+
+    const textarea = screen.getByRole('textbox', {name: 'Bio'})
+    expect(
+      screen.getByText('2 characters remaining', {selector: '[data-component="Textarea.CharacterCounter"]'}),
+    ).toBeInTheDocument()
+    expect(textarea).toHaveAccessibleDescription('You can enter up to 5 characters')
+    expect(textarea).not.toHaveAttribute('aria-invalid')
+
+    await user.type(textarea, 'def')
+    expect(
+      screen.getByText('1 character over', {selector: '[data-component="Textarea.CharacterCounter"]'}),
+    ).toBeInTheDocument()
+    expect(textarea).toHaveAttribute('aria-invalid', 'true')
+    expect(textarea).toHaveAttribute('data-validation', 'error')
+  })
+
+  it('applies autoSize, block, height, and validation props', () => {
+    render(<Textarea aria-label="Notes" autoSize block maxHeight={200} minHeight={100} validationStatus="success" />)
+
+    const textarea = screen.getByRole('textbox', {name: 'Notes'})
+    expect(textarea).toHaveAttribute('data-auto-size', 'true')
+    expect(textarea).toHaveClass('[field-sizing:content]', 'w-full')
+    expect(textarea).toHaveAttribute('data-validation', 'success')
+    expect(textarea).toHaveStyle({maxHeight: '200px', minHeight: '100px'})
+  })
 })

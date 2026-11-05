@@ -9,7 +9,7 @@ const linkVariants = cva(
       muted: {true: 'text-muted hover:text-accent hover:no-underline', false: ''},
       inline: {
         true: "[[data-a11y-link-underlines='true']_&]:underline [[data-a11y-link-underlines='true']_&]:hover:no-underline",
-        false: 'inline-block',
+        false: '',
       },
     },
     defaultVariants: {muted: false, inline: false},

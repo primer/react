@@ -15,5 +15,7 @@ Base UI owns menu ARIA, keyboard navigation, focus, dismissal, positioning, nest
 - Compose branded triggers with `render`, not `as`, to avoid nested interactive elements. Use `className` when the composed control owns the visual treatment.
 - Move legacy ActionList item content directly into ActionMenu items and use `ActionMenu.LeadingVisual`, `TrailingVisual`, and `Description`; no intermediate ActionList wrapper is required.
 - Use physical Base UI placement through the positioner; legacy custom anchors, fullscreen mode, and non-public positioning props are unsupported.
+- Pass `preventFocusOnClose` to `ActionMenu.Content` when the menu should not return focus to its trigger after closing, for example when an item moves focus elsewhere.
+- Upstream's fix for passive anchor label updates has no equivalent here, because Base UI owns the trigger's labelling.
 - Keep dialog and menu portal composition explicit.
 - `sx` and styled-system props are unsupported.

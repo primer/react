@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, userEvent, within} from 'storybook/test'
 import React from 'react'
 import {actionItemClassName} from '../ActionList/ActionList'
-import {Flash} from '../Flash'
+import {StoryNotice} from '../../internal/StoryNotice.storyHelpers'
 import {Tab, TabList, TabPanel, Tabs} from './index'
 
 const meta = {
@@ -18,13 +18,13 @@ export const WithCustomComponents: Story = {
     const [value, setValue] = React.useState('one')
     return (
       <>
-        <Flash className="mb-4">
+        <StoryNotice className="mb-4">
           This example shows how to use the `Tabs` component with custom Components for the TabList and Tabs. Here we
           are using `ActionList` and `ActionList.Item`
           <br />
           The direction is also set to `vertical` to demonstrate the `aria-orientation` prop handling. Which also
           changes the keyboard navigation to Up/Down arrows.
-        </Flash>
+        </StoryNotice>
         <div className="grid grid-cols-[auto_1fr]">
           <Tabs className="contents" value={value} orientation="vertical" onValueChange={next => setValue(next)}>
             <TabList aria-label="Tabs" className="flex w-[200px] flex-col py-2">

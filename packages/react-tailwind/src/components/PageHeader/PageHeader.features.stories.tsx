@@ -256,6 +256,3 @@ export const HasBottomBorder: Story = {
       </PageHeader>,
     ),
 }
-export const TitleAreaSizeResponsive: Story = {
-  render: () => title({narrow: 'subtitle', regular: 'medium', wide: 'large'}),
-}

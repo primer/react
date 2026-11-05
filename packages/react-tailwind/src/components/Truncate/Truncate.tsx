@@ -2,8 +2,10 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 export interface TruncateProps extends React.HTMLAttributes<HTMLElement> {
-  /** Element to render. */
+  /** Element or component to render, such as `Link` for a truncated link. Components also receive `inline`. */
   as?: React.ElementType
+  /** URL to navigate to when `as` renders a link. */
+  href?: string
   /** Full text, shown on hover and kept available to assistive technology when the text is clipped. */
   title: string
   /** Renders inline rather than as a block. */
@@ -18,8 +20,11 @@ export const Truncate = React.forwardRef<HTMLElement, TruncateProps>(function Tr
   {as: Component = 'span', className, expandable, inline, maxWidth = 125, style, ...rest},
   ref,
 ) {
+  const passthroughProps = typeof Component === 'string' ? {} : {inline}
+
   return (
     <Component
+      {...passthroughProps}
       {...rest}
       ref={ref}
       title={rest.title}

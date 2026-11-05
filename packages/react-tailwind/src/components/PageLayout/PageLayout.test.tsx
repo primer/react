@@ -114,6 +114,34 @@ describe('PageLayout', () => {
     )
   })
 
+  it('accepts a responsive footer divider and spaces it from the footer content', () => {
+    const {container} = render(
+      <PageLayout>
+        <PageLayout.Footer divider={{narrow: 'none', regular: 'line'}}>Footer</PageLayout.Footer>
+      </PageLayout>,
+    )
+    expect(container.querySelector('footer [aria-hidden="true"]')).toHaveClass(
+      'mb-[var(--page-layout-row-gap)]',
+      'hidden',
+      'md:block',
+      'md:h-px',
+      'md:bg-[var(--borderColor-default)]',
+    )
+  })
+
+  it('places the narrow sidebar divider between the sidebar and the content', () => {
+    const {container} = render(
+      <PageLayout>
+        <PageLayout.Sidebar aria-label="Sidebar" divider="line" position="start">
+          Sidebar
+        </PageLayout.Sidebar>
+        <PageLayout.Content>Content</PageLayout.Content>
+      </PageLayout>,
+    )
+    const narrowDivider = container.querySelector('aside + [aria-hidden="true"]')
+    expect(narrowDivider).toHaveClass('order-last', 'ms-[var(--page-layout-column-gap)]', 'md:hidden')
+  })
+
   it('renders responsive divider utilities from static class maps', () => {
     const {container} = render(
       <PageLayout>
@@ -128,7 +156,8 @@ describe('PageLayout', () => {
       'border-default',
       'bg-inset',
       'md:h-px',
-      'md:bg-default',
+      'md:border-0',
+      'md:bg-[var(--borderColor-default)]',
       '2xl:h-px',
     )
   })
@@ -151,7 +180,7 @@ describe('PageLayout', () => {
       'md:hidden',
       '2xl:hidden',
     )
-    expect(dividers[1]).toHaveClass('hidden', 'md:block', 'md:w-px', 'md:bg-default', '2xl:hidden')
+    expect(dividers[1]).toHaveClass('hidden', 'md:block', 'md:w-px', 'md:bg-[var(--borderColor-default)]', '2xl:hidden')
     expect(dividers[1]).toHaveClass(
       'md:mr-[var(--page-layout-column-gap)]',
       'md:ml-0',
@@ -170,8 +199,11 @@ describe('PageLayout', () => {
       </PageLayout>,
     )
     const handle = screen.getByRole('slider')
+    expect(handle).not.toHaveAttribute('data-dragging')
     fireEvent.keyDown(handle, {key: 'ArrowRight'})
+    expect(handle).toHaveAttribute('data-dragging')
     fireEvent.keyUp(handle, {key: 'ArrowRight'})
+    expect(handle).not.toHaveAttribute('data-dragging')
     expect(onResizeEnd).toHaveBeenCalled()
   })
 

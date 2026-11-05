@@ -66,3 +66,69 @@ export const Responsive: Story = {
     </Stack>
   ),
 }
+
+interface StackItemPlaygroundArgs {
+  grow: boolean
+  growNarrow: boolean
+  growRegular: boolean
+  growWide: boolean
+  shrink: boolean
+  shrinkNarrow: boolean
+  shrinkRegular: boolean
+  shrinkWide: boolean
+}
+
+function responsiveControlValue(value: boolean, viewports: {narrow: boolean; regular: boolean; wide: boolean}) {
+  return Object.values(viewports).every(viewportValue => viewportValue === value) ? value : viewports
+}
+
+function booleanControl(category: string) {
+  return {control: {type: 'boolean' as const}, table: {category}}
+}
+
+export const StackItemPlayground: StoryObj<StackItemPlaygroundArgs> = {
+  args: {
+    grow: true,
+    growNarrow: true,
+    growRegular: true,
+    growWide: true,
+    shrink: true,
+    shrinkNarrow: true,
+    shrinkRegular: true,
+    shrinkWide: true,
+  },
+  argTypes: {
+    grow: booleanControl('Properties'),
+    growNarrow: booleanControl('Narrow properties'),
+    growRegular: booleanControl('Regular properties'),
+    growWide: booleanControl('Wide properties'),
+    shrink: booleanControl('Properties'),
+    shrinkNarrow: booleanControl('Narrow properties'),
+    shrinkRegular: booleanControl('Regular properties'),
+    shrinkWide: booleanControl('Wide properties'),
+  },
+  render: args => (
+    <Stack gap="normal" direction="horizontal" align="center" justify="space-between" wrap="nowrap">
+      <StackItem
+        grow={responsiveControlValue(args.grow, {
+          narrow: args.growNarrow,
+          regular: args.growRegular,
+          wide: args.growWide,
+        })}
+        shrink={responsiveControlValue(args.shrink, {
+          narrow: args.shrinkNarrow,
+          regular: args.shrinkRegular,
+          wide: args.shrinkWide,
+        })}
+      >
+        <div className="rounded-md bg-[var(--display-indigo-bgColor-muted)] p-2">Adjust this item</div>
+      </StackItem>
+      <StackItem>
+        <div className="rounded-md bg-[var(--display-purple-bgColor-muted)] p-2">Fixed width</div>
+      </StackItem>
+      <StackItem>
+        <div className="rounded-md bg-[var(--display-purple-bgColor-muted)] p-2">Fixed width</div>
+      </StackItem>
+    </Stack>
+  ),
+}

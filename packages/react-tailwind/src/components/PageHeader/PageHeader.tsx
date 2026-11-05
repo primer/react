@@ -154,7 +154,7 @@ const LeadingAction = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(func
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:leading] flex min-h-8 items-center pr-2',
+        '[grid-area:leading] flex h-[1lh] items-center pr-2',
         hiddenClasses(hidden, 'flex', hiddenOnNarrow),
         className,
       )}
@@ -187,7 +187,7 @@ const LeadingVisual = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(func
     <div
       {...rest}
       ref={ref}
-      className={cn('flex items-center', hiddenClasses(hidden, 'flex'), className)}
+      className={cn('flex h-[1lh] items-center', hiddenClasses(hidden, 'flex'), className)}
       data-component="PageHeader.LeadingVisual"
     />
   )
@@ -223,7 +223,7 @@ const TrailingVisual = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(fun
     <div
       {...rest}
       ref={ref}
-      className={cn('flex items-center', hiddenClasses(hidden, 'flex'), className)}
+      className={cn('flex h-[1lh] items-center', hiddenClasses(hidden, 'flex'), className)}
       data-component="PageHeader.TrailingVisual"
     />
   )
@@ -237,7 +237,7 @@ const TrailingAction = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(fun
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:trailing] flex min-h-8 items-center pl-2',
+        '[grid-area:trailing] flex h-[1lh] items-center pl-2',
         hiddenClasses(hidden, 'flex', hiddenOnNarrow),
         className,
       )}
@@ -254,7 +254,7 @@ const Actions = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(function A
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:actions] flex min-h-8 min-w-max items-center justify-end gap-2 pl-2',
+        '[grid-area:actions] flex h-[1lh] min-w-max items-center justify-end gap-2 pl-2',
         hiddenClasses(hidden, 'flex'),
         className,
       )}
@@ -271,7 +271,7 @@ const Description = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functi
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:description] flex items-center gap-2 pt-2 text-sm text-muted',
+        '[grid-area:description] flex items-center gap-2 pt-2 text-sm font-normal',
         hiddenClasses(hidden, 'flex'),
         className,
       )}
@@ -291,7 +291,7 @@ const Navigation = React.forwardRef<HTMLElement, NavigationProps>(function Navig
     <Component
       {...rest}
       ref={ref as React.Ref<HTMLDivElement>}
-      className={cn('[grid-area:navigation] block pt-2 text-sm', hiddenClasses(hidden), className)}
+      className={cn('[grid-area:navigation] block pt-2 text-sm font-normal', hiddenClasses(hidden), className)}
       data-component="PageHeader.Navigation"
     />
   )

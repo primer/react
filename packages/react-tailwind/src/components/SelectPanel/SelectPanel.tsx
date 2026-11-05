@@ -1477,7 +1477,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     renderAnchor === null ? null : renderAnchor ? (
       renderAnchor({children: triggerLabel, id: panelAnchorId})
     ) : (
-      <Button data-component="SelectPanel.Trigger" trailingVisual={<TriangleDownIcon aria-hidden="true" />}>
+      <Button data-component="SelectPanel.Trigger" trailingAction={TriangleDownIcon}>
         {triggerLabel}
       </Button>
     )

@@ -3,6 +3,8 @@ import React from 'react'
 import {cleanup, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
+import {ListContainerContext} from '../../internal/listContainer'
+import {FeatureFlags} from '../FeatureFlags'
 import {ActionList} from './ActionList'
 
 afterEach(cleanup)
@@ -21,6 +23,23 @@ describe('ActionList', () => {
     expect(option).toHaveAttribute('aria-selected', 'true')
     await userEvent.click(option)
     expect(onSelect).toHaveBeenCalledOnce()
+  })
+
+  it('renders a checkmark rather than a checkbox for multiple selection inside a menu', () => {
+    const {container} = render(
+      <>
+        <ActionList role="menu" selectionVariant="multiple" aria-label="Menu">
+          <ActionList.Item selected>Menu item</ActionList.Item>
+        </ActionList>
+        <ActionList role="listbox" selectionVariant="multiple" aria-label="Listbox">
+          <ActionList.Item selected>Listbox item</ActionList.Item>
+        </ActionList>
+      </>,
+    )
+
+    const [menuSelection, listboxSelection] = container.querySelectorAll('[data-component="ActionList.Selection"]')
+    expect(menuSelection.firstElementChild?.tagName.toLowerCase()).toBe('svg')
+    expect(listboxSelection.firstElementChild?.tagName.toLowerCase()).toBe('span')
   })
 
   it('renders trailing actions beside the primary item action', () => {
@@ -121,6 +140,52 @@ describe('ActionList', () => {
     expect(container.querySelector('[data-component="ActionList.TrailingAction.Button"]')).toBeNull()
   })
 
+  it('marks items whose trailing action is loading', () => {
+    const {container} = render(
+      <ActionList>
+        <ActionList.Item>
+          Loading action
+          <ActionList.Description>Saving</ActionList.Description>
+          <ActionList.TrailingAction label="Save changes" loading />
+        </ActionList.Item>
+        <ActionList.Item>
+          Idle action
+          <ActionList.TrailingAction label="Apply settings" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const [loadingItem, idleItem] = container.querySelectorAll('[data-component="ActionList.Item"]')
+    expect(loadingItem).toHaveAttribute('data-trailing-action-loading', 'true')
+    expect(idleItem).not.toHaveAttribute('data-trailing-action-loading')
+  })
+
+  it('places the loading indicator in the leading visual when present and the trailing visual otherwise', () => {
+    render(
+      <ActionList>
+        <ActionList.Item loading>
+          Without visual
+          <ActionList.TrailingVisual>⌘K</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item loading>
+          <ActionList.LeadingVisual>Icon</ActionList.LeadingVisual>
+          With visual
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const [withoutVisual, withVisual] = screen.getAllByRole('button')
+    const trailingSpinner = withoutVisual.querySelector(
+      '[data-component="ActionList.TrailingVisual"] [data-component="Spinner"]',
+    )
+    expect(trailingSpinner).not.toBeNull()
+    expect(withoutVisual).not.toHaveTextContent('⌘K')
+    expect(
+      withVisual.querySelector('[data-component="ActionList.LeadingVisual"] [data-component="Spinner"]'),
+    ).not.toBeNull()
+    expect(withVisual).not.toHaveTextContent('Icon')
+  })
+
   it('supports large items and filled group headings', () => {
     const {container} = render(
       <ActionList>
@@ -178,5 +243,136 @@ describe('ActionList', () => {
       'aria-labelledby',
       'repository-heading',
     )
+  })
+
+  it('renders the list heading before the list and uses it as the list name', () => {
+    const {container} = render(
+      <ActionList>
+        <ActionList.Heading as="h2">Details</ActionList.Heading>
+        <ActionList.Item>Readme</ActionList.Item>
+      </ActionList>,
+    )
+
+    const heading = screen.getByRole('heading', {name: 'Details'})
+    const list = within(container).getByRole('list', {name: 'Details'})
+    expect(heading.nextElementSibling).toBe(list)
+    expect(list).not.toContainElement(heading)
+  })
+
+  it('preserves an explicit list heading ID', () => {
+    const {container} = render(
+      <ActionList heading={<ActionList.Heading id="details-heading">Details</ActionList.Heading>}>
+        <ActionList.Item>Readme</ActionList.Item>
+      </ActionList>,
+    )
+
+    expect(within(container).getByRole('list', {name: 'Details'})).toHaveAttribute('aria-labelledby', 'details-heading')
+  })
+
+  it('renders a small item with compact padding and a small label', () => {
+    render(
+      <ActionList>
+        <ActionList.Item size="small">Small item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const item = screen.getByText('Small item')
+    expect(item).toHaveClass('text-xs')
+    expect(item.closest('[data-size]')).toHaveAttribute('data-size', 'small')
+    expect(item.closest('[data-size]')).toHaveClass('py-1')
+  })
+
+  it('renders a small link item', () => {
+    render(
+      <ActionList>
+        <ActionList.LinkItem href="#docs" size="small">
+          Docs
+        </ActionList.LinkItem>
+      </ActionList>,
+    )
+
+    const link = screen.getByRole('link', {name: 'Docs'})
+    expect(link).toHaveAttribute('data-size', 'small')
+    expect(link).toHaveClass('py-1')
+    expect(screen.getByText('Docs')).toHaveClass('text-xs')
+  })
+
+  it('marks an active link item', () => {
+    render(
+      <ActionList>
+        <ActionList.LinkItem href="#docs" active>
+          Docs
+        </ActionList.LinkItem>
+      </ActionList>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Docs'})).toHaveAttribute('data-active', 'true')
+  })
+
+  it('renders an inactive link item as unavailable text', () => {
+    render(
+      <ActionList>
+        <ActionList.LinkItem href="#docs" inactiveText="Unavailable due to an outage">
+          Docs
+        </ActionList.LinkItem>
+      </ActionList>,
+    )
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+    const item = screen.getByText('Docs').closest('[data-inactive]')
+    expect(item).toHaveAttribute('aria-disabled', 'true')
+    expect(item).toHaveTextContent('Unavailable due to an outage')
+  })
+
+  describe('item gap', () => {
+    const items = (
+      <>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Quote reply</ActionList.Item>
+      </>
+    )
+
+    it('does not add an item gap by default', () => {
+      render(
+        <ListContainerContext.Provider value="NavList">
+          <ActionList>{items}</ActionList>
+        </ListContainerContext.Provider>,
+      )
+      expect(screen.getByRole('list')).not.toHaveAttribute('data-item-gap')
+    })
+
+    it('does not add an item gap to a standalone list', () => {
+      render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <ActionList>{items}</ActionList>
+        </FeatureFlags>,
+      )
+      expect(screen.getByRole('list')).not.toHaveAttribute('data-item-gap')
+    })
+
+    it('adds an item gap inside a NavList when the feature flag is enabled', () => {
+      render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <ListContainerContext.Provider value="NavList">
+            <ActionList>{items}</ActionList>
+          </ListContainerContext.Provider>
+        </FeatureFlags>,
+      )
+      const list = screen.getByRole('list')
+      expect(list).toHaveAttribute('data-item-gap', 'true')
+      expect(screen.getByText('Quote reply').closest('li')).toHaveClass("[[data-component$='Item']+&]:mt-0.5")
+    })
+
+    it('does not add an item gap when disableItemGap is set', () => {
+      render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <ListContainerContext.Provider value="NavList">
+            <ActionList disableItemGap>{items}</ActionList>
+          </ListContainerContext.Provider>
+        </FeatureFlags>,
+      )
+      expect(screen.getByRole('list')).not.toHaveAttribute('data-item-gap')
+      expect(screen.getByText('Quote reply').closest('li')).not.toHaveClass("[[data-component$='Item']+&]:mt-0.5")
+    })
   })
 })

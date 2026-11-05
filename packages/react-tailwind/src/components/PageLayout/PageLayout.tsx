@@ -28,6 +28,13 @@ import {
 type Spacing = 'none' | 'condensed' | 'normal'
 
 const spacing: Record<Spacing, string> = {none: 'p-0', condensed: 'p-4', normal: 'p-4 lg:p-6'}
+const paddingVariableClasses: Record<Spacing, string> = {
+  none: '[--page-layout-padding:0px]',
+  condensed: '[--page-layout-padding:1rem]',
+  normal: '[--page-layout-padding:1rem] lg:[--page-layout-padding:1.5rem]',
+}
+// Narrow horizontal dividers bleed through the root padding to the viewport edges.
+const horizontalDividerBleed = 'max-md:-mx-[var(--page-layout-padding)]'
 const rowGapClasses: Record<Spacing, string> = {none: 'gap-y-0', condensed: 'gap-y-4', normal: 'gap-y-4 lg:gap-y-6'}
 const rowGapVariableClasses: Record<Spacing, string> = {
   none: '[--page-layout-row-gap:0px]',
@@ -67,9 +74,9 @@ const sidebarPositionClasses: Record<PanePosition, Record<'narrow' | 'regular' |
 const horizontalDividerClasses: Record<PaneDivider, Record<'narrow' | 'regular' | 'wide', string>> = {
   none: {narrow: 'hidden', regular: 'md:hidden', wide: '2xl:hidden'},
   line: {
-    narrow: 'block h-px bg-default',
-    regular: 'md:block md:h-px md:bg-default',
-    wide: '2xl:block 2xl:h-px 2xl:bg-default',
+    narrow: 'block h-px border-0 bg-[var(--borderColor-default)]',
+    regular: 'md:block md:h-px md:border-0 md:bg-[var(--borderColor-default)]',
+    wide: '2xl:block 2xl:h-px 2xl:border-0 2xl:bg-[var(--borderColor-default)]',
   },
   filled: {
     narrow: 'box-border block h-2 border-y border-default bg-inset',
@@ -81,8 +88,8 @@ const horizontalDividerClasses: Record<PaneDivider, Record<'narrow' | 'regular' 
 const verticalDividerClasses: Record<PaneDivider, Record<'regular' | 'wide', string>> = {
   none: {regular: 'md:hidden', wide: '2xl:hidden'},
   line: {
-    regular: 'md:block md:w-px md:border-0 md:bg-default',
-    wide: '2xl:block 2xl:w-px 2xl:border-0 2xl:bg-default',
+    regular: 'md:block md:w-px md:border-0 md:bg-[var(--borderColor-default)]',
+    wide: '2xl:block 2xl:w-px 2xl:border-0 2xl:bg-[var(--borderColor-default)]',
   },
   filled: {
     regular: 'md:box-border md:block md:w-2 md:border-x md:border-default md:bg-inset',
@@ -118,6 +125,10 @@ function responsiveSidebarPositionClasses(value: ResponsiveValue<PanePosition> |
 function responsiveHorizontalDividerClasses(value: ResponsiveValue<PaneDivider> | undefined) {
   const divider = resolveResponsiveValue(value ?? 'none', 'none')
   return (['narrow', 'regular', 'wide'] as const).map(viewport => horizontalDividerClasses[divider[viewport]][viewport])
+}
+
+function hasResponsiveDivider(value: ResponsiveValue<PaneDivider>) {
+  return typeof value === 'string' ? value !== 'none' : Object.values(value).some(divider => divider !== 'none')
 }
 
 function getActivePanePosition(value: ResponsiveValue<PanePosition>) {
@@ -176,6 +187,7 @@ const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayo
       ref={ref}
       className={cn(
         spacing[padding],
+        paddingVariableClasses[padding],
         rowGapVariableClasses[rowGap],
         columnGapVariableClasses[columnGap],
         sidebar && 'flex flex-row',
@@ -225,8 +237,6 @@ const Header = markPageLayoutHeader(
   ) {
     const markers = React.useContext(PageLayoutMarkerContext)
     const dividerClass = responsiveHorizontalDividerClasses(divider)
-    const hasDivider =
-      typeof divider === 'string' ? divider !== 'none' : Object.values(divider).some(value => value !== 'none')
     return (
       <header
         {...rest}
@@ -235,7 +245,12 @@ const Header = markPageLayoutHeader(
         data-component={markers.header}
       >
         <div className={spacing[padding]}>{children}</div>
-        {hasDivider ? <div aria-hidden="true" className={cn('mt-[var(--page-layout-row-gap)]', dividerClass)} /> : null}
+        {hasResponsiveDivider(divider) ? (
+          <div
+            aria-hidden="true"
+            className={cn('mt-[var(--page-layout-row-gap)]', horizontalDividerBleed, dividerClass)}
+          />
+        ) : null}
       </header>
     )
   }),
@@ -384,8 +399,11 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
           aria-hidden="true"
           className={cn(
             horizontalDividerClasses[dividers.narrow].narrow,
-            'mt-[var(--page-layout-row-gap)] md:hidden 2xl:hidden',
-            positions.narrow === 'start' ? 'order-last' : 'order-first',
+            horizontalDividerBleed,
+            'md:hidden 2xl:hidden',
+            positions.narrow === 'start'
+              ? 'order-last mt-[var(--page-layout-row-gap)]'
+              : 'order-first mb-[var(--page-layout-row-gap)]',
           )}
         />
       ) : null}
@@ -494,7 +512,12 @@ const Sidebar = markPageLayoutSidebar(
           aria-hidden="true"
           className={cn(
             'shrink-0 self-stretch md:hidden',
-            narrowDivider === 'line' ? 'w-px bg-default' : 'box-border w-2 border-x border-default bg-inset',
+            sidebarPosition.narrow === 'start'
+              ? 'order-last ms-[var(--page-layout-column-gap)]'
+              : 'order-first me-[var(--page-layout-column-gap)]',
+            narrowDivider === 'line'
+              ? 'w-px bg-[var(--borderColor-default)]'
+              : 'box-border w-2 border-x border-default bg-inset',
           )}
         />
       )
@@ -538,7 +561,7 @@ export interface PageLayoutFooterProps extends Omit<React.ComponentPropsWithoutR
   /** Inner spacing of the footer region. */
   padding?: Spacing
   /** Divider drawn above the footer. Accepts a responsive object to vary it per viewport. */
-  divider?: 'none' | 'line' | 'filled'
+  divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line' | 'filled'>
   /** Hides the footer. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
 }
@@ -548,6 +571,7 @@ const Footer = markPageLayoutFooter(
     ref,
   ) {
     const markers = React.useContext(PageLayoutMarkerContext)
+    const dividerClass = responsiveHorizontalDividerClasses(divider)
     return (
       <footer
         {...rest}
@@ -555,10 +579,10 @@ const Footer = markPageLayoutFooter(
         className={cn('order-4 w-full', hidden(hiddenValue), className)}
         data-component={markers.footer}
       >
-        {divider !== 'none' ? (
+        {hasResponsiveDivider(divider) ? (
           <div
             aria-hidden="true"
-            className={cn(divider === 'filled' ? 'h-2 border-y border-default bg-inset' : 'h-px bg-default')}
+            className={cn('mb-[var(--page-layout-row-gap)]', horizontalDividerBleed, dividerClass)}
           />
         ) : null}
         <div className={spacing[padding]}>{children}</div>

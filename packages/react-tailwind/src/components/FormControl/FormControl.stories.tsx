@@ -37,7 +37,7 @@ export const Playground: Story = {
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TokenInputFixture
-          className="w-[595px]"
+          className="w-[595px] max-w-full"
           inputClassName="min-w-20"
           initialTokens={formControlTokens.slice(0, 5)}
         />

@@ -31,3 +31,9 @@ Give every icon-only action an accessible name. Arrow keys move between enabled 
 <Canvas of={Features.RovingFocus} />
 
 <Canvas of={Examples.WithGroups} />
+
+## Overflow
+
+Actions that do not fit move into a "More items" menu at the end of the bar, in the order they appear. A `Group` moves as a whole, and a `Menu` becomes a submenu. Overflowing actions are skipped by arrow-key, Home, and End navigation.
+
+<Canvas of={Examples.WithMenus} />

@@ -4,7 +4,7 @@ import {Button} from '../Button'
 import {Tooltip, type TooltipContentProps, type TooltipRootProps} from './Tooltip'
 
 interface TooltipStoryArgs
-  extends Pick<TooltipRootProps, 'disableHoverablePopup' | 'trackCursorAxis'>,
+  extends Pick<TooltipRootProps, 'disableHoverablePopup' | 'keybindingHint' | 'trackCursorAxis' | 'type'>,
     Pick<TooltipContentProps, 'align' | 'side' | 'sideOffset'> {}
 
 const meta = {
@@ -12,9 +12,11 @@ const meta = {
   args: {
     align: 'center',
     disableHoverablePopup: true,
+    keybindingHint: '',
     side: 'right',
     sideOffset: 8,
     trackCursorAxis: 'none',
+    type: 'description',
   },
   argTypes: {
     align: {control: 'select', options: ['start', 'center', 'end']},
@@ -25,6 +27,7 @@ const meta = {
     },
     sideOffset: {control: {type: 'number', min: 0}},
     trackCursorAxis: {control: 'select', options: ['none', 'x', 'y', 'both']},
+    type: {control: 'radio', options: ['description', 'label']},
   },
 } satisfies Meta<TooltipStoryArgs>
 
@@ -50,7 +53,12 @@ export const Default: Story = {
 }
 export const Playground: Story = {
   render: args => (
-    <Tooltip disableHoverablePopup={args.disableHoverablePopup} trackCursorAxis={args.trackCursorAxis}>
+    <Tooltip
+      disableHoverablePopup={args.disableHoverablePopup}
+      keybindingHint={args.keybindingHint}
+      trackCursorAxis={args.trackCursorAxis}
+      type={args.type}
+    >
       <Tooltip.Trigger>Info</Tooltip.Trigger>
       <Tooltip.Content align={args.align} side={args.side} sideOffset={args.sideOffset}>
         Additional information

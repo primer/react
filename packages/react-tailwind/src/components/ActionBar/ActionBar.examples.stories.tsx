@@ -16,6 +16,7 @@ import {
   SearchIcon,
   TasklistIcon,
   ThreeBarsIcon,
+  TrashIcon,
 } from '@primer/octicons-react'
 import {type ComponentProps, useState} from 'react'
 import {ActionMenu} from '../ActionMenu'
@@ -24,7 +25,7 @@ import {Button} from '../Button'
 import {IconButton} from '../IconButton'
 import {Text} from '../Text'
 import {Textarea} from '../Textarea'
-import {ActionBar} from './ActionBar'
+import {ActionBar, type ActionBarMenuItemProps} from './ActionBar'
 
 const meta = {
   title: 'React Tailwind/Data/ActionBar/Examples',
@@ -256,37 +257,55 @@ export const MultipleActionBars: Story = {
   },
 }
 
+const fileOptions: ActionBarMenuItemProps[] = [
+  {label: 'Download', onClick: () => alert('Download clicked')},
+  {label: 'Jump to line', onClick: () => alert('Jump to line clicked')},
+  {label: 'Find in file', onClick: () => alert('Find in file clicked')},
+  {label: 'Copy path', onClick: () => alert('Copy path clicked')},
+  {label: 'Copy permalink', onClick: () => alert('Copy permalink clicked')},
+  {type: 'divider'},
+  {label: 'Delete file', onClick: () => alert('Delete file clicked'), leadingVisual: <TrashIcon />, variant: 'danger'},
+]
+
+const menuHeadings: ActionBarMenuItemProps = {
+  label: 'Headings',
+  items: [
+    {label: 'Heading 1', onClick: () => alert('Heading 1 clicked'), trailingVisual: '⌘ 1'},
+    {label: 'Heading 2', onClick: () => alert('Heading 2 clicked'), trailingVisual: '⌘ 2'},
+    {label: 'Heading 3', onClick: () => alert('Heading 3 clicked'), trailingVisual: '⌘ 3'},
+    {label: 'Heading 4', onClick: () => alert('Heading 4 clicked'), trailingVisual: '⌘ 4'},
+    {label: 'Heading 5', onClick: () => alert('Heading 5 clicked'), trailingVisual: '⌘ 5'},
+    {label: 'Heading 6', onClick: () => alert('Heading 6 clicked'), trailingVisual: '⌘ 6'},
+    {type: 'divider'},
+    {label: 'Remove heading', onClick: () => alert('Remove heading clicked'), disabled: true},
+  ],
+}
+
 export const WithMenus: Story = {
   render: () => (
     <ActionBar aria-label="Toolbar">
-      <ActionBar.IconButton aria-label="Italic" icon={ItalicIcon} />
-      <ActionBar.IconButton aria-label="Code" icon={CodeIcon} />
-      <ActionBar.IconButton aria-label="Link" icon={LinkIcon} />
+      <ActionBar.IconButton aria-label="Italic" icon={<ItalicIcon />} />
+      <ActionBar.IconButton aria-label="Code" icon={<CodeIcon />} />
+      <ActionBar.IconButton aria-label="Link" icon={<LinkIcon />} />
       <ActionBar.Divider />
-      <ActionBar.IconButton aria-label="File Added" icon={FileAddedIcon} />
-      <ActionBar.IconButton aria-label="Search" icon={SearchIcon} />
-      <ActionBar.IconButton disabled aria-label="File Added" icon={FileAddedIcon} />
-      <ActionBar.IconButton disabled aria-label="Search" icon={SearchIcon} />
-      <ActionBar.IconButton disabled aria-label="Insert Quote" icon={QuoteIcon} />
-      <ActionBar.IconButton aria-label="Unordered List" icon={ListUnorderedIcon} />
-      <ActionBar.IconButton aria-label="Ordered List" icon={ListOrderedIcon} />
-      <ActionBar.Menu
-        aria-label="File options"
-        icon={NoteIcon}
-        items={[
-          {label: 'Download'},
-          {label: 'Jump to line'},
-          {label: 'Find in file'},
-          {label: 'Copy path'},
-          {label: 'Copy permalink'},
-          {label: 'Delete file'},
-        ]}
-      />
-      <ActionBar.IconButton aria-label="Task List" icon={TasklistIcon} />
+      <ActionBar.IconButton aria-label="File Added" icon={<FileAddedIcon />} />
+      <ActionBar.IconButton aria-label="Search" icon={<SearchIcon />} />
+      <ActionBar.IconButton disabled aria-label="File Added" icon={<FileAddedIcon />} />
+      <ActionBar.IconButton disabled aria-label="Search" icon={<SearchIcon />} />
+      <ActionBar.IconButton disabled aria-label="Insert Quote" icon={<QuoteIcon />} />
+      <ActionBar.IconButton aria-label="Unordered List" icon={<ListUnorderedIcon />} />
+      <ActionBar.IconButton aria-label="Ordered List" icon={<ListOrderedIcon />} />
+      <ActionBar.Menu aria-label="File options" icon={<NoteIcon />} items={fileOptions} />
+      <ActionBar.IconButton aria-label="Task List" icon={<TasklistIcon />} />
       <ActionBar.Menu
         aria-label="Formatting"
-        icon={KebabHorizontalIcon}
-        items={[{label: 'Bold'}, {label: 'Underline'}, {label: 'Headings'}]}
+        icon={<KebabHorizontalIcon />}
+        overflowIcon="none"
+        items={[
+          {label: 'Bold', onClick: () => alert('Bold clicked')},
+          {label: 'Underline', onClick: () => alert('Underline clicked')},
+          menuHeadings,
+        ]}
       />
     </ActionBar>
   ),

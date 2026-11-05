@@ -58,29 +58,36 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
   const captionId = hasCaption ? `${controlId}-caption` : undefined
   const validationId = hasValidation ? `${controlId}-validation` : undefined
   const describedBy = [validationId, captionId].filter(Boolean).join(' ') || undefined
+  const isLabelHidden =
+    React.isValidElement<FormControlLabelProps>(regions.label) && regions.label.props.visuallyHidden === true
+  // A visually hidden label leaves the flow, so it must not push the following control down.
+  const verticalLayoutClassName = cn(
+    'flex flex-col items-start',
+    isLabelHidden ? '[&>*:not(label)+*]:mt-1' : '[&>*+*]:mt-1',
+  )
   const mergedClassName =
     typeof className === 'function'
       ? (state: Field.Root.State) =>
           cn(
             layout === 'horizontal'
               ? cn(
-                  'grid gap-0 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
+                  'grid gap-0 [&>input]:mx-0 [&>[data-component="Checkbox"]]:mt-0.5 [&>[data-component="Radio"]]:mt-0.5 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
                   hasLeadingVisual
                     ? 'grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component="FormControl.Caption"]]:col-start-3 [&>[data-component="FormControl.Label"]]:col-start-3 [&>[data-component="FormControl.Validation"]]:col-start-3'
                     : 'grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component="FormControl.Caption"]]:col-start-2 [&>[data-component="FormControl.Label"]]:col-start-2 [&>[data-component="FormControl.Validation"]]:col-start-2',
                 )
-              : 'flex flex-col items-start gap-1',
+              : verticalLayoutClassName,
             className(state),
           )
       : cn(
           layout === 'horizontal'
             ? cn(
-                'grid gap-0 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
+                'grid gap-0 [&>input]:mx-0 [&>[data-component="Checkbox"]]:mt-0.5 [&>[data-component="Radio"]]:mt-0.5 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
                 hasLeadingVisual
                   ? 'grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component="FormControl.Caption"]]:col-start-3 [&>[data-component="FormControl.Label"]]:col-start-3 [&>[data-component="FormControl.Validation"]]:col-start-3'
                   : 'grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component="FormControl.Caption"]]:col-start-2 [&>[data-component="FormControl.Label"]]:col-start-2 [&>[data-component="FormControl.Validation"]]:col-start-2',
               )
-            : 'flex flex-col items-start gap-1',
+            : verticalLayoutClassName,
           className,
         )
   const context = React.useMemo(
@@ -159,13 +166,13 @@ function FormControlLabel(
     typeof className === 'function'
       ? (state: Field.Label.State) =>
           cn(
-            'block text-sm text-default data-[disabled]:text-muted',
+            'block text-sm text-default data-[disabled]:text-[var(--control-fgColor-disabled)]',
             layout === 'horizontal' ? 'pl-2 font-normal' : 'font-semibold',
             visuallyHidden && 'sr-only',
             className(state),
           )
       : cn(
-          'block text-sm text-default data-[disabled]:text-muted',
+          'block text-sm text-default data-[disabled]:text-[var(--control-fgColor-disabled)]',
           layout === 'horizontal' ? 'pl-2 font-normal' : 'font-semibold',
           visuallyHidden && 'sr-only',
           className,
@@ -286,8 +293,10 @@ const LeadingVisual = React.forwardRef<HTMLDivElement, FormControlLeadingVisualP
       data-component="FormControl.LeadingVisual"
       data-control-disabled={context?.disabled || undefined}
       className={cn(
-        'ml-2 flex shrink-0 items-center leading-none',
-        context?.disabled ? 'text-disabled' : 'text-muted',
+        'ml-2 flex shrink-0 items-center leading-none [&>*]:min-h-4 [&>*]:min-w-4 [&>*]:fill-current',
+        // The visual grows to sit beside a label and caption, even when they share a wrapper.
+        "[[data-component='FormControl']:has([data-component='FormControl.Caption'])_&>*]:min-h-6 [[data-component='FormControl']:has([data-component='FormControl.Caption'])_&>*]:min-w-6",
+        context?.disabled ? 'text-[var(--control-fgColor-disabled)]' : 'text-default',
         className,
       )}
     />

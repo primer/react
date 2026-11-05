@@ -37,7 +37,7 @@ The forwarded ref and `overlayProps` target the popup or dialog element. `render
 
 ## Accessibility, forms, and keyboard
 
-The trigger has a button name from selected content, placeholder, or title. The filter input has `inputLabel` or placeholder text and the list uses `actionListProps['aria-label']`, `aria-label`, or the string title. Base UI owns active descendants, disabled options, Escape and outside dismissal, focus restoration, portals, collision-aware placement, and option semantics. Arrow keys navigate and Enter selects. Modal and narrow-screen panels lock document scrolling, focus the filter, expose Cancel/Save controls where selection is deferred, and restore focus to their trigger. The component is not a native form field; model submitted values in application state.
+The trigger has a button name from selected content, placeholder, or title. The filter input uses the normal input background, is named by `inputLabel` or placeholder text, and references the list with `aria-controls` only while the list is rendered. The list uses `actionListProps['aria-label']`, `aria-label`, or the string title. Base UI owns active descendants, disabled options, Escape and outside dismissal, focus restoration, portals, collision-aware placement, and option semantics. Arrow keys navigate and Enter selects. Modal and narrow-screen panels lock document scrolling, focus the filter, expose Cancel/Save controls where selection is deferred, and restore focus to their trigger. The component is not a native form field; model submitted values in application state.
 
 ## Events and state attributes
 
@@ -47,4 +47,4 @@ The trigger has a button name from selected content, placeholder, or title. The 
 
 ## Alignment
 
-See [alignment notes](./ALIGNMENT.md) for API mapping and the only deprecated legacy exclusion.
+See [alignment notes](./ALIGNMENT.md) for API mapping and the deprecated legacy exclusions.

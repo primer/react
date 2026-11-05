@@ -48,12 +48,12 @@ export const WithAnnouncement: Story = {
           secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
         />
         <RadioGroup
-          className="mt-4"
+          className="mt-6"
           defaultValue="one"
           name="options"
           onValueChange={choice => setMessage(`This is a message for choice ${choice}`)}
         >
-          <span className="text-sm font-semibold">Choices</span>
+          <RadioGroup.Label>Choices</RadioGroup.Label>
           {(['one', 'two', 'three'] as const).map(choice => (
             <FormControl key={choice} layout="horizontal">
               <Radio value={choice} />

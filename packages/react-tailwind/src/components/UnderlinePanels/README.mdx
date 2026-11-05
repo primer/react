@@ -31,4 +31,36 @@ import {UnderlinePanels} from '@primer/react-tailwind/UnderlinePanels'
 Pair each tab and panel by `value`, provide an accessible name for the list, and use this pattern for local content switching rather than navigation.
 
 <Canvas of={Features.SelectedTab} />
+
+### Controlled and uncontrolled selection
+
+Pass `value` and `onChange` to control the selected tab, or `defaultValue` to let the component manage selection. `onChange` receives `{value}` when a user selects a different tab.
+
+```tsx
+const [refType, setRefType] = React.useState('branch')
+
+<UnderlinePanels value={refType} onChange={({value}) => setRefType(value)}>
+  <UnderlinePanels.List aria-label="Ref type">
+    <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+  </UnderlinePanels.List>
+  <UnderlinePanels.Panel value="branch">Find or create a branch…</UnderlinePanels.Panel>
+  <UnderlinePanels.Panel value="tag">Search or create a new tag…</UnderlinePanels.Panel>
+</UnderlinePanels>
+```
+
+<Canvas of={Features.Controlled} />
+<Canvas of={Features.Uncontrolled} />
+
+### Activation mode
+
+By default, arrow-key navigation selects the focused tab (`activationMode="automatic"`). Set `activationMode="manual"` so the Arrow, Home, and End keys only move focus and Enter, Space, or a click commits the selection. Prefer manual activation when showing a panel triggers async work such as a fetch.
+
+<Canvas of={Features.ManualActivation} />
+
+### In an overlay
+
+`UnderlinePanels` can be composed inside `AnchoredOverlay.Content`, for example to pick a ref type. The tab list keeps its own roving tab stop.
+
+<Canvas of={Features.InOverlay} />
 <Canvas of={Examples.RepositorySections} />

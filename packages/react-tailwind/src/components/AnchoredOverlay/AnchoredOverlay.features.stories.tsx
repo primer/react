@@ -52,6 +52,7 @@ export const PortalInsideScrollingElement: Story = {
   render: () => (
     <div className="absolute inset-0 w-full p-6">
       <Heading>Header or some such</Heading>
+      {/* lint-tailwind-disable-next-line -- matches the upstream fixture's `powderblue` scroll region */}
       <div className="absolute inset-x-6 bottom-6 top-24 overflow-scroll bg-[#b0e0e6]">
         <table>
           <tbody>

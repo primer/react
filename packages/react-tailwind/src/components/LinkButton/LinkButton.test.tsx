@@ -16,7 +16,8 @@ it('composes button styling onto an anchor and forwards anchor props', () => {
 it('uses intrinsic width unless block layout is requested', () => {
   const {container, rerender} = render(<LinkButton href="/settings">Settings</LinkButton>)
 
-  expect(container.firstElementChild).toHaveClass('inline-flex')
+  // Like upstream's `[href]` rule, links stay inline while buttons are block-level flex containers.
+  expect(container.firstElementChild).toHaveClass('[&[href]]:inline-flex')
   expect(container.firstElementChild).not.toHaveClass('w-full')
 
   rerender(
@@ -25,13 +26,13 @@ it('uses intrinsic width unless block layout is requested', () => {
     </LinkButton>,
   )
 
-  expect(container.firstElementChild).toHaveClass('flex', 'w-full')
+  expect(container.firstElementChild).toHaveClass('w-full')
 })
 
 it('uses block flex sizing for a native anchor without an href', () => {
   const {container} = render(<LinkButton loading>Settings</LinkButton>)
 
-  expect(container.firstElementChild).toHaveClass('flex', 'w-full')
+  expect(container.firstElementChild).toHaveClass('w-full')
   expect(container.firstElementChild).not.toHaveAttribute('role', 'button')
 })
 

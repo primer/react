@@ -141,11 +141,6 @@
       "family": "display"
     },
     {
-      "name": "Flash",
-      "kind": "component",
-      "family": "display"
-    },
-    {
       "name": "InlineMessage",
       "kind": "component",
       "family": "display"
@@ -529,6 +524,11 @@
       "name": "useResponsiveValue",
       "reason": "deprecated",
       "replacement": "Use responsive class names or CSS media queries."
+    },
+    {
+      "name": "Flash",
+      "reason": "deprecated",
+      "replacement": "Use Banner."
     }
   ],
   "notRequired": [

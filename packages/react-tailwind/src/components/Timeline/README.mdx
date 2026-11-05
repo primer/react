@@ -3,6 +3,7 @@ import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 import * as Stories from './Timeline.stories'
 import * as Features from './Timeline.features.stories'
 import * as Examples from './Timeline.examples.stories'
+import * as Filter from './Timeline.filter.features.stories'
 
 <Meta of={Stories} />
 
@@ -35,3 +36,17 @@ Timeline does not prescribe event taxonomies. Compose package primitives such as
 <Canvas of={Features.WithActions} />
 
 <Canvas of={Examples.ActivityStream} />
+
+## Playgrounds
+
+The Event Playground configures a single event from public parts: actor size and type, badge icon and variant, timestamp format, an optional app attribution, note, and actions. The Timeline Playground renders representative rows for one product surface and filters them by the categories and event types checked in the Controls panel.
+
+<Canvas of={Stories.EventPlayground} />
+
+<Canvas of={Stories.TimelinePlayground} />
+
+## Filtering
+
+Timeline does not filter events. Consumers own the predicate and render only the items that pass it. Optional `data-event-scope`, `data-event-type`, `data-event-category`, `data-event-visibility`, and `data-actor-type` attributes on `Timeline.Item` give filtering code a stable hook without changing the visual output. The example below toggles categories with a multi-select `ActionMenu` and pins the opening and closing rows so the timeline is never empty.
+
+<Canvas of={Filter.WithFiltering} />

@@ -40,6 +40,11 @@ export function BoldLink({className, ...props}: React.ComponentProps<typeof Link
   return <Link {...props} className={cn('mr-1 inline font-semibold text-default hover:text-accent', className)} />
 }
 
+/** Inline semibold emphasis that lifts a phrase out of the muted `Timeline.Body` text. */
+export function Strong({className, ...props}: React.ComponentProps<'span'>) {
+  return <span {...props} className={cn('font-semibold text-default', className)} />
+}
+
 export function InlineAvatar({alt = '', className, size = 20, ...props}: React.ComponentProps<typeof Avatar>) {
   return <Avatar {...props} alt={alt} className={cn('mr-1 inline-block align-middle', className)} size={size} />
 }
@@ -88,10 +93,18 @@ export function GitHubActor() {
   return <UserActor icon={MarkGithubIcon} login="GitHub" />
 }
 
-export function EventSubRow({children, icon: Icon}: {children: React.ReactNode; icon: React.ElementType}) {
+export function EventSubRow({
+  children,
+  icon: Icon,
+  iconSize = 16,
+}: {
+  children: React.ReactNode
+  icon: React.ElementType
+  iconSize?: number
+}) {
   return (
     <div className="mt-1 flex items-center gap-1 text-xs leading-[18px] text-muted">
-      <Icon aria-hidden="true" size={16} />
+      <Icon aria-hidden="true" size={iconSize} />
       <span>{children}</span>
     </div>
   )

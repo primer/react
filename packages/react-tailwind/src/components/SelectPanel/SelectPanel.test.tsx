@@ -699,4 +699,38 @@ describe('SelectPanel', () => {
     await user.click(screen.getByRole('option', {name: 'Prevent selection'}))
     expect(onSelectedChange).not.toHaveBeenCalled()
   })
+
+  it('focuses a named filter input with the default input background when opened', async () => {
+    const user = userEvent.setup()
+    render(<SelectPanel items={items} onSelectedChange={() => {}} selected={undefined} title="Assignees" />)
+
+    await user.click(screen.getByRole('button', {name: 'Assignees'}))
+    const input = await screen.findByRole('combobox', {name: 'Filter items'})
+
+    expect(input).toHaveFocus()
+    const wrapper = input.closest('[data-component="TextInput"]')
+    expect(wrapper).toHaveClass('bg-default')
+    expect(wrapper).not.toHaveAttribute('data-contrast')
+  })
+
+  it('references the option list from the filter input only while the list is rendered', () => {
+    const panelProps = {onOpenChange: () => {}, onSelectedChange: () => {}, open: true, selected: undefined, title: 'T'}
+    const {rerender} = render(<SelectPanel {...panelProps} items={items} />)
+
+    const listId = screen.getByRole('combobox').getAttribute('aria-controls')
+    expect(listId).toBeTruthy()
+    expect(document.getElementById(listId!)).toBe(screen.getByRole('listbox'))
+
+    rerender(
+      <SelectPanel
+        {...panelProps}
+        items={[]}
+        message={{body: 'Try another filter', title: 'No items', variant: 'empty'}}
+      />,
+    )
+    expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-controls')
+
+    rerender(<SelectPanel {...panelProps} items={items} loading />)
+    expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-controls')
+  })
 })

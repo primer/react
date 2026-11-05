@@ -3,11 +3,17 @@ import {UnderlinePanels} from './UnderlinePanels'
 const meta = {
   title: 'React Tailwind/Navigation/UnderlinePanels',
   component: UnderlinePanels,
-  args: {defaultValue: 'one'},
+  args: {'aria-label': 'Select a tab', id: 'test', loadingCounters: false, defaultValue: 'one'},
   argTypes: {
-    defaultValue: {control: 'select', options: ['one', 'two']},
+    'aria-label': {control: 'text'},
+    id: {control: 'text'},
+    loadingCounters: {control: 'boolean'},
+    defaultValue: {control: 'select', options: ['one', 'two', 'three']},
+    activationMode: {control: 'radio', options: ['automatic', 'manual']},
   },
-  parameters: {controls: {include: ['defaultValue']}},
+  parameters: {
+    controls: {expanded: true, include: ['aria-label', 'id', 'loadingCounters', 'defaultValue', 'activationMode']},
+  },
 } satisfies Meta<typeof UnderlinePanels>
 
 export default meta
@@ -29,9 +35,9 @@ export const Default: Story = {
 }
 
 export const Playground: Story = {
-  render: args => (
-    <UnderlinePanels defaultValue={args.defaultValue}>
-      <UnderlinePanels.List aria-label="Select a tab">
+  render: ({'aria-label': ariaLabel, ...args}) => (
+    <UnderlinePanels {...args}>
+      <UnderlinePanels.List aria-label={ariaLabel}>
         <UnderlinePanels.Tab value="one">Tab 1</UnderlinePanels.Tab>
         <UnderlinePanels.Tab value="two">Tab 2</UnderlinePanels.Tab>
         <UnderlinePanels.Tab value="three">Tab 3</UnderlinePanels.Tab>
@@ -42,3 +48,6 @@ export const Playground: Story = {
     </UnderlinePanels>
   ),
 }
+
+/** Mirrors the upstream story id, which keeps its historical `Playgound` spelling. */
+export const Playgound: Story = {...Playground, tags: ['!autodocs']}

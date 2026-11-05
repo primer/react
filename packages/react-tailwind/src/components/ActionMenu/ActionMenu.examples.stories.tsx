@@ -1,5 +1,18 @@
 import React from 'react'
-import {GearIcon, KebabHorizontalIcon, MilestoneIcon} from '@primer/octicons-react'
+import {flushSync} from 'react-dom'
+import {expect, userEvent, within} from 'storybook/test'
+import {
+  CalendarIcon,
+  GearIcon,
+  IssueOpenedIcon,
+  KebabHorizontalIcon,
+  MilestoneIcon,
+  NumberIcon,
+  PeopleIcon,
+  TableIcon,
+  TypographyIcon,
+  XIcon,
+} from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
 import {Dialog} from '../Dialog'
@@ -185,20 +198,58 @@ export const CustomAnchorId: Story = {
     </ActionMenu>
   ),
 }
-export const MixedSelection: Story = {
-  render: () => (
+const mixedSelectionOptions = [
+  {text: 'Status', icon: IssueOpenedIcon},
+  {text: 'Stage', icon: TableIcon},
+  {text: 'Assignee', icon: PeopleIcon},
+  {text: 'Team', icon: TypographyIcon},
+  {text: 'Estimate', icon: NumberIcon},
+  {text: 'Due Date', icon: CalendarIcon},
+]
+
+function MixedSelectionExample() {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
+  const selectedOption = selectedIndex === null ? undefined : mixedSelectionOptions[selectedIndex]
+
+  return (
     <ActionMenu>
-      <ActionMenu.Button leadingVisual={GearIcon}>Group by Stage</ActionMenu.Button>
+      <ActionMenu.Button leadingVisual={selectedOption?.icon}>
+        {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
+      </ActionMenu.Button>
       <ActionMenu.Content>
-        <ActionMenu.Item>Copy link</ActionMenu.Item>
-        <ActionMenu.CheckboxItem checked>Wrap lines</ActionMenu.CheckboxItem>
-        <ActionMenu.RadioGroup>
-          <ActionMenu.RadioItem value="light">Light</ActionMenu.RadioItem>
-          <ActionMenu.RadioItem value="dark">Dark</ActionMenu.RadioItem>
-        </ActionMenu.RadioGroup>
+        <ActionMenu.Group>
+          <ActionMenu.GroupLabel>Group by</ActionMenu.GroupLabel>
+          {mixedSelectionOptions.map((option, index) => (
+            <ActionMenu.Item
+              key={option.text}
+              selected={index === selectedIndex}
+              onClick={() => setSelectedIndex(index)}
+            >
+              <ActionMenu.LeadingVisual>
+                <option.icon />
+              </ActionMenu.LeadingVisual>
+              {option.text}
+            </ActionMenu.Item>
+          ))}
+        </ActionMenu.Group>
+        {selectedIndex === null ? null : (
+          <ActionMenu.Group>
+            <ActionMenu.Divider />
+            <ActionMenu.Item onClick={() => setSelectedIndex(null)}>
+              <ActionMenu.LeadingVisual>
+                <XIcon />
+              </ActionMenu.LeadingVisual>
+              Clear Group by
+            </ActionMenu.Item>
+          </ActionMenu.Group>
+        )}
       </ActionMenu.Content>
     </ActionMenu>
-  ),
+  )
+}
+
+export const MixedSelection: Story = {
+  render: () => <MixedSelectionExample />,
 }
 export const MultipleSections: Story = {
   render: () => (
@@ -264,7 +315,7 @@ export const InsideDialog: Story = {
   render: () => {
     const [isDialogOpen, setIsDialogOpen] = React.useState(false)
     const scrollableContent = Array.from({length: 50}, (_, index) => (
-      <p key={index} className="mb-3 text-base leading-6">
+      <p key={index} className="mb-3 leading-6">
         This is paragraph {index + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
@@ -275,7 +326,7 @@ export const InsideDialog: Story = {
     return (
       <div className="p-5">
         <div>
-          <h1 className="mb-4 text-[32px] leading-[48px] font-bold">Main Page Content</h1>
+          <h1 className="mb-4 text-[32px] leading-[48px] font-[700]">Main Page Content</h1>
           <Button className="my-4 !flex" onClick={() => setIsDialogOpen(true)}>
             Open Dialog with ActionMenu
           </Button>
@@ -292,7 +343,7 @@ export const InsideDialog: Story = {
               <p className="mb-3 text-sm">
                 This dialog contains an ActionMenu. The main page content behind is long enough to be scrollable.
               </p>
-              <h3 className="mb-2 text-base font-semibold">Document Settings</h3>
+              <h3 className="mb-2 font-semibold">Document Settings</h3>
               <p className="mb-4 text-sm text-muted">
                 Configure the document properties and sharing settings. These options allow you to control how the
                 document is displayed and who has access to it.
@@ -342,4 +393,62 @@ export const TwoActionMenus: Story = {
       </ActionMenu>
     </div>
   ),
+}
+
+export const PreventFocusOnClose: Story = {
+  render: function PreventFocusOnCloseExample() {
+    const [open, setOpen] = React.useState(false)
+    const [preview, setPreview] = React.useState(false)
+    const editorRef = React.useRef<HTMLInputElement>(null)
+    const selectionRef = React.useRef({start: 0, end: 0})
+
+    const onOpenChange = (nextOpen: boolean) => {
+      const editor = editorRef.current
+      if (nextOpen) {
+        selectionRef.current = {start: editor?.selectionStart ?? 0, end: editor?.selectionEnd ?? 0}
+        setOpen(true)
+      } else {
+        // Close the menu before restoring the editor selection.
+        flushSync(() => setOpen(false))
+        editor?.focus()
+        editor?.setSelectionRange(selectionRef.current.start, selectionRef.current.end)
+      }
+    }
+
+    return (
+      <>
+        <FormControl>
+          <FormControl.Label>Document</FormControl.Label>
+          <TextInput ref={editorRef} defaultValue="Edit this document, then change the link presentation." />
+        </FormControl>
+        <ActionMenu open={open} onOpenChange={onOpenChange}>
+          <ActionMenu.Button key={preview ? 'preview' : 'link'}>
+            {preview ? 'Preview actions' : 'Link actions'}
+          </ActionMenu.Button>
+          <ActionMenu.Content preventFocusOnClose>
+            <ActionMenu.Item onClick={() => setPreview(true)}>Convert to preview</ActionMenu.Item>
+            <ActionMenu.Item onClick={() => setPreview(false)}>Convert to link</ActionMenu.Item>
+          </ActionMenu.Content>
+        </ActionMenu>
+      </>
+    )
+  },
+  play: async ({canvasElement}) => {
+    const canvas = within(canvasElement)
+    const editor = canvas.getByRole<HTMLInputElement>('textbox', {name: 'Document'})
+    await userEvent.click(editor)
+    await userEvent.keyboard('{Home}{ArrowRight}{ArrowRight}{ArrowRight}')
+    const selectionStart = editor.selectionStart
+    const selectionEnd = editor.selectionEnd
+    const anchor = canvas.getByRole('button', {name: 'Link actions'})
+
+    await userEvent.click(anchor)
+    await userEvent.click(within(canvasElement.ownerDocument.body).getByRole('menuitem', {name: 'Convert to preview'}))
+
+    await expect(anchor).not.toBeInTheDocument()
+    await expect(canvas.getByRole('button', {name: 'Preview actions'})).not.toHaveFocus()
+    await expect(editor).toHaveFocus()
+    await expect(editor.selectionStart).toBe(selectionStart)
+    await expect(editor.selectionEnd).toBe(selectionEnd)
+  },
 }

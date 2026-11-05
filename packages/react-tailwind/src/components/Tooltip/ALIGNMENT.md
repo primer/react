@@ -2,15 +2,15 @@
 
 ## From: `@primer/react`
 
-Legacy Tooltip uses direction, type, and keybinding-hint presentation props and older overlay positioning conventions.
+Legacy Tooltip uses compass `direction` and older overlay positioning conventions; TooltipV2 adds `type` and `keybindingHint`.
 
 ## To: `@primer/react-tailwind`
 
-Stable Tooltip promotes the Tooltip V2 interaction model under the base name. Its `Root`, `Trigger`, `Portal`, `Positioner`, `Popup`, and `Content` compose Base UI for focus, hover behavior, dismissal, portals, ARIA, and physical placement. `side` uses `top`, `right`, `bottom`, or `left`; controlled and uncontrolled open state follow Base UI conventions.
+Stable Tooltip promotes the Tooltip V2 interaction model under the base name. Its `Root`, `Trigger`, `Portal`, `Positioner`, `Popup`, and `Content` compose Base UI for focus, hover behavior, dismissal, portals, ARIA, and physical placement. `side` uses `top`, `right`, `bottom`, or `left`; controlled and uncontrolled open state follow Base UI conventions. `type` (`description` or `label`) and `keybindingHint` match TooltipV2; description tooltips and hint text stay mounted so trigger descriptions resolve while closed. Popups portal into the nearest `BaseStyles` so they inherit its theme and typography.
 
 ## Migration notes
 
 - Replace `direction` with physical `side` and use `align` where needed.
-- Compose keybinding content inside Tooltip rather than passing a legacy presentation prop.
+- `type="label"` is visual only: keep the accessible name on the trigger (for example `aria-label`).
 - Use `render` to add tooltip behavior to an existing trigger without nested interactive elements.
-- `type`, `sx`, and styled-system props are unsupported.
+- `sx` and styled-system props are unsupported.

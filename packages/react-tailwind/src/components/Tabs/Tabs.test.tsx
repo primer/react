@@ -1,7 +1,7 @@
 import {cleanup, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {afterEach, describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 import {Tab, TabList, TabPanel, Tabs} from './Tabs'
 import {useTab} from './useTab'
 import {useTabList} from './useTabList'
@@ -56,5 +56,53 @@ describe('Tabs', () => {
     await user.keyboard('{ArrowRight}')
     expect(screen.getByRole('tab', {name: 'Second'})).toHaveFocus()
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Second panel')
+  })
+
+  it('moves focus without selecting in manual activation mode', async () => {
+    const user = userEvent.setup()
+    const onValueChange = vi.fn()
+    render(
+      <Tabs defaultValue="one" activationMode="manual" onValueChange={onValueChange}>
+        <TabList aria-label="Views">
+          <Tab value="one">One</Tab>
+          <Tab value="two">Two</Tab>
+        </TabList>
+        <TabPanel value="one">First panel</TabPanel>
+        <TabPanel value="two">Second panel</TabPanel>
+      </Tabs>,
+    )
+    const one = screen.getByRole('tab', {name: 'One'})
+    const two = screen.getByRole('tab', {name: 'Two'})
+    await user.tab()
+    expect(one).toHaveFocus()
+    await user.keyboard('{ArrowRight}')
+    expect(two).toHaveFocus()
+    expect(two).toHaveAttribute('aria-selected', 'false')
+    expect(two).toHaveAttribute('tabindex', '0')
+    expect(one).toHaveAttribute('aria-selected', 'true')
+    expect(onValueChange).not.toHaveBeenCalled()
+
+    await user.keyboard('{Enter}')
+    expect(two).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Second panel')
+    expect(onValueChange).toHaveBeenCalledTimes(1)
+    expect(onValueChange.mock.calls[0]?.[0]).toBe('two')
+  })
+
+  it('lets an explicit TabList activateOnFocus override the activation mode', async () => {
+    const user = userEvent.setup()
+    render(
+      <Tabs defaultValue="one" activationMode="manual">
+        <TabList aria-label="Views" activateOnFocus>
+          <Tab value="one">One</Tab>
+          <Tab value="two">Two</Tab>
+        </TabList>
+        <TabPanel value="one">First panel</TabPanel>
+        <TabPanel value="two">Second panel</TabPanel>
+      </Tabs>,
+    )
+    await user.tab()
+    await user.keyboard('{ArrowRight}')
+    expect(screen.getByRole('tab', {name: 'Two'})).toHaveAttribute('aria-selected', 'true')
   })
 })

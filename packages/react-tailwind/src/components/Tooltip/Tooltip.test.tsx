@@ -2,6 +2,7 @@ import React from 'react'
 import {cleanup, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
+import {BaseStyles} from '../../BaseStyles'
 import {Tooltip} from './Tooltip'
 
 describe('Tooltip', () => {
@@ -17,6 +18,22 @@ describe('Tooltip', () => {
     )
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Save this file')
     expect(screen.getByRole('button', {name: 'Save'})).toHaveAccessibleDescription('Save this file')
+  })
+
+  it('portals into the nearest BaseStyles so content inherits its theme and typography', async () => {
+    render(
+      <>
+        <BaseStyles data-testid="first" />
+        <BaseStyles data-testid="second">
+          <Tooltip open>
+            <Tooltip.Trigger>Save</Tooltip.Trigger>
+            <Tooltip.Content>Save this file</Tooltip.Content>
+          </Tooltip>
+        </BaseStyles>
+      </>,
+    )
+    const tooltip = await screen.findByRole('tooltip')
+    expect(screen.getByTestId('second')).toContainElement(tooltip)
   })
 
   it('closes on escape without moving focus from the trigger', async () => {
@@ -63,6 +80,7 @@ describe('Tooltip', () => {
     )
 
     expect(ref.current).toBe(screen.getByRole('link', {name: 'Save'}))
-    expect(screen.getByTestId('arrow')).toHaveClass('fill-[var(--tooltip-bgColor)]', 'open')
+    expect(screen.getByTestId('arrow')).toHaveClass('[--arrow-bg-color:var(--tooltip-bgColor)]', 'open')
+    expect(screen.getByTestId('arrow').querySelector('svg')).toHaveAttribute('aria-hidden', 'true')
   })
 })

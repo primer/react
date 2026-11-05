@@ -2,15 +2,15 @@
 
 ## From: `@primer/react`
 
-Legacy ActionBar is a compound toolbar with button, icon-button, group, divider, and menu parts. Its examples also rely on legacy ActionMenu, Dialog, Textarea, Avatar, and responsive `overflowIcon` behavior that can turn actions into an automatic overflow menu.
+Legacy ActionBar is a compound toolbar with button, icon-button, group, divider, and menu parts. Items that do not fit move into a "More items" overflow menu in bar order, and `ActionBar.Menu` takes an `items` array with dividers, visuals, danger variants, and submenus.
 
 ## To: `@primer/react-tailwind`
 
-ActionBar keeps the local `Button`, `IconButton`, `Group`, `Divider`, and `Menu` composition. Its menu uses Base UI for menu behavior; consumers provide the explicit menu trigger and `items`. It retains toolbar sizing, flush layout, and gaps, but has no automatic responsive overflow API. Other product controls remain normal child composition rather than ActionBar features.
+ActionBar keeps the same `Button`, `IconButton`, `Group`, `Divider`, and `Menu` parts and props. It is built on Base UI `Toolbar` for roving focus and on the local `ActionMenu` for menus. Overflow uses the shared `OverflowObserverProvider`: items clipped by the toolbar register themselves with a "More items" menu, groups overflow as a whole, and overflowing items leave the arrow-key, Home, and End focus order. SSR renders no overflow menu; it appears once the observer reports clipping.
 
 ## Migration notes
 
-- Replace `overflowIcon` with an explicit `ActionBar.Menu`; preserve the action order and focus behavior in consumer code.
-- Use local component children instead of legacy cross-component props.
-- Automatic overflow is intentionally deferred until its public and focus-management contract is defined.
+- `ActionBar.Menu` requires `icon`, matching upstream. Use `overflowIcon` to change, or `'none'` to hide, the icon shown in the "More items" menu.
+- `returnFocusRef` maps to the Base UI menu's `finalFocus`.
+- Icons accept either a component such as an Octicon or a rendered element.
 - `sx` and styled-system props are unsupported; use `className` on the appropriate local part.

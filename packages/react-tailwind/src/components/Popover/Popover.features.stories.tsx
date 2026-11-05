@@ -11,6 +11,12 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+/**
+ * These stories open on load, so focus stays in place until the user interacts.
+ * User-initiated opens and closes still move focus into and back out of the popover.
+ */
+const focusOnInteraction = (openType: string) => Boolean(openType)
+
 export const CloseOnClickOutside: Story = {
   render: () => (
     <div className="flex w-full flex-col items-center">
@@ -19,11 +25,41 @@ export const CloseOnClickOutside: Story = {
         <Popover.Content
           portal={false}
           positionerClassName="!relative !inset-auto !transform-none mt-1 w-[var(--overlay-width-small)] self-center"
+          finalFocus={focusOnInteraction}
+          initialFocus={focusOnInteraction}
           role="dialog"
           sideOffset={0}
         >
+          <Popover.Arrow />
           <Popover.Title>Popover heading</Popover.Title>
-          <Popover.Description className="my-4 text-base leading-6">Message about popovers</Popover.Description>
+          <Popover.Description className="my-4 text-md leading-6 text-default">
+            Message about popovers
+          </Popover.Description>
+          <Popover.Close render={<Button />}>Got it!</Popover.Close>
+        </Popover.Content>
+      </Popover>
+    </div>
+  ),
+}
+
+export const CloseOnEscape: Story = {
+  render: () => (
+    <div className="flex w-full flex-col items-center">
+      <Popover defaultOpen>
+        <Popover.Button className="mb-1">Toggle Popover</Popover.Button>
+        <Popover.Content
+          portal={false}
+          positionerClassName="!relative !inset-auto !transform-none mt-1 w-[var(--overlay-width-small)] self-center"
+          finalFocus={focusOnInteraction}
+          initialFocus={focusOnInteraction}
+          role="dialog"
+          sideOffset={0}
+        >
+          <Popover.Arrow />
+          <Popover.Title>Popover heading</Popover.Title>
+          <Popover.Description className="my-4 text-md leading-6 text-default">
+            Press Escape to dismiss this popover.
+          </Popover.Description>
           <Popover.Close render={<Button />}>Got it!</Popover.Close>
         </Popover.Content>
       </Popover>

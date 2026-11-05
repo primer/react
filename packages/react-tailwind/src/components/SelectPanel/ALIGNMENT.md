@@ -14,9 +14,12 @@ It composes Base UI Combobox with Primer Button, TextInput, ActionList item cont
 
 - `onOpenChange(open, gesture)` reports the gesture that caused the change rather than Base UI change details, and `disableFullscreenOnNarrow` stays opt-out where `FilteredActionList` uses the opt-in `fullScreenOnNarrow`. Both keep upstream's contract.
 
-- Use `renderAnchor={null}` with `anchorRef` for an external trigger; this configuration is type-checked.
+- Use `renderAnchor={null}` with `anchorRef` for an external trigger; this configuration is type-checked. The default anchor is a `Button` whose `TriangleDownIcon` is a `trailingAction`, matching upstream.
 - Use `overlayProps` for popup and dialog DOM props, positioning, sizing, portal behavior, and a forwarded popup ref.
 - Use `onScrollEnd` or `scrollContainerRef` for incremental loading. Set `virtualized` for fixed-row virtualization; variable content such as descriptions, inactive rows, and custom renderers falls back to normal rendering, and grouped lists stay fully rendered to preserve group semantics.
 - Use list-level `renderGroup` to wrap every group; `groupMetadata[].renderGroup` wins for an individual group.
 - `footer` is excluded because it is deprecated upstream in favor of `secondaryAction`.
+- The filter input uses the normal input background. Upstream's `primer_react_select_panel_legacy_contrast` flag and the `contrast` input prop it relies on are deprecated, so the `LegacyContrast` story is intentionally not paired.
+- The filter input is named when it first receives focus, and `aria-controls` references the list only while the list is rendered, so it is absent for loading and message states. Base UI provides both behaviours.
+- Upstream's rendering-performance memoization and its fix for virtualized row measurement warnings have no equivalent here: the React Compiler handles memoization, and Base UI measures virtualized rows.
 - Legacy styled-system and `sx` props are unsupported.

@@ -28,5 +28,11 @@ export const Default: Story = {
   ),
 }
 export const Playground: Story = {
-  args: {cols: 30, resize: 'both', rows: 7, disabled: false},
+  args: {autoSize: false, block: false, cols: 30, disabled: false, resize: 'both', rows: 7},
+  argTypes: {
+    autoSize: {control: {type: 'boolean'}},
+    block: {control: {type: 'boolean'}},
+    resize: {control: {type: 'radio'}, options: ['none', 'both', 'horizontal', 'vertical']},
+    validationStatus: {control: {type: 'radio'}, options: ['error', 'success', undefined]},
+  },
 }

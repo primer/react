@@ -175,10 +175,10 @@ export const WithActions: Story = {
               Monalisa
             </BoldLink>
             merged via the queue into <BranchName href="#">main</BranchName> with commit{' '}
-            <Link className="font-mono text-xs leading-[18px] font-semibold text-default" href="#" inline>
+            <Link className="inline font-mono text-xs leading-[18px] font-semibold text-default" href="#">
               01e49tb
             </Link>{' '}
-            <Link className="underline" href="#" inline muted>
+            <Link className="inline underline" href="#" muted>
               just now
             </Link>
             <div className="mt-1 text-xs leading-[18px] text-muted">28 checks passed</div>
@@ -197,14 +197,14 @@ export const WithActions: Story = {
               Monalisa
             </BoldLink>
             force-pushed the <BranchName href="#">main</BranchName> branch from{' '}
-            <Link className="font-mono text-xs leading-[18px] font-semibold text-default" href="#" inline>
+            <Link className="inline font-mono text-xs leading-[18px] font-semibold text-default" href="#">
               01e49tb
             </Link>{' '}
             to{' '}
-            <Link className="font-mono text-xs leading-[18px] font-semibold text-default" href="#" inline>
+            <Link className="inline font-mono text-xs leading-[18px] font-semibold text-default" href="#">
               02f50uc
             </Link>{' '}
-            <Link className="underline" href="#" inline muted>
+            <Link className="inline underline" href="#" muted>
               2 hours ago
             </Link>
           </Timeline.Body>
@@ -217,14 +217,14 @@ export const WithActions: Story = {
             <GitCommitIcon aria-label="Commit" />
           </Timeline.Badge>
           <Timeline.Body>
-            <Link href="#" inline muted>
+            <Link className="inline" href="#" muted>
               Update README.md
             </Link>
           </Timeline.Body>
           <Timeline.Actions>
             <Label className="@max-[479px]/timeline:hidden text-success">Verified</Label>
             <CheckIcon aria-label="All checks passed" className="text-success" />
-            <Link className="font-mono text-xs leading-[18px] underline" href="#" inline muted>
+            <Link className="inline font-mono text-xs leading-[18px] underline" href="#" muted>
               3fbdc0
             </Link>
           </Timeline.Actions>
@@ -234,14 +234,14 @@ export const WithActions: Story = {
             <GitCommitIcon aria-label="Commit" />
           </Timeline.Badge>
           <Timeline.Body>
-            <Link href="#" inline muted>
+            <Link className="inline" href="#" muted>
               Initial commit
             </Link>
           </Timeline.Body>
           <Timeline.Actions>
             <Label className="@max-[479px]/timeline:hidden">Unverified</Label>
             <XIcon aria-label="Some checks failed" className="text-danger" />
-            <Link className="font-mono text-xs leading-[18px] underline" href="#" inline muted>
+            <Link className="inline font-mono text-xs leading-[18px] underline" href="#" muted>
               3fbdc0
             </Link>
           </Timeline.Actions>
@@ -256,12 +256,12 @@ export const WithActions: Story = {
               Monalisa
             </BoldLink>
             mentioned this pull request{' '}
-            <Link className="underline" href="#" inline muted>
+            <Link className="inline underline" href="#" muted>
               just now
             </Link>
             <div className="mt-1 flex items-start gap-3 @max-[479px]/timeline:flex-col @max-[479px]/timeline:gap-1">
-              <div className="min-w-0 flex-1 text-base leading-6">
-                <Link className="text-base leading-6 text-default underline hover:text-accent" href="#" inline>
+              <div className="min-w-0 flex-1 text-md">
+                <Link className="inline text-default underline hover:text-accent" href="#">
                   <span className="font-semibold">Fix positioning of Autocomplete overlay menu</span>{' '}
                   <span className="text-muted">primer/react#7431</span>
                 </Link>
@@ -297,7 +297,7 @@ export const WithAvatar: Story = {
             <BoldLink href="#" muted>
               monalisa
             </BoldLink>
-            approved these changes <RelativeTime date={new Date('2022-07-26T11:46:07Z')} format="relative" />
+            approved these changes <RelativeTime date={new Date()} format="relative" />
           </Timeline.Body>
           <Timeline.Actions>
             <Button size="small">View reviewed changes</Button>

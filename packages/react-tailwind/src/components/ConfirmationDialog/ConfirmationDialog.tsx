@@ -4,15 +4,21 @@ import {Dialog as AlertDialog} from '@base-ui/react/dialog'
 import React from 'react'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {Button, type ButtonProps} from '../Button'
+import {usePortalContainer} from '../../internal/portalRoot'
 
 const popupClassName =
   'flex w-full max-w-[var(--overlay-width-small)] flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
 
 const Root = AlertDialog.Root
 
-const Portal = ({children, ...rest}: AlertDialog.Portal.Props) => (
-  <AlertDialog.Portal {...rest}>{children}</AlertDialog.Portal>
-)
+function Portal({children, container, ...rest}: AlertDialog.Portal.Props) {
+  const portalContainer = usePortalContainer(container)
+  return (
+    <AlertDialog.Portal {...rest} container={portalContainer}>
+      {children}
+    </AlertDialog.Portal>
+  )
+}
 
 const Trigger = React.forwardRef<HTMLElement, Omit<AlertDialog.Trigger.Props, 'data-component'>>(
   function ConfirmationDialogTrigger({className, ...rest}, ref) {

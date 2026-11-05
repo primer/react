@@ -173,6 +173,7 @@ export const AvatarStack = React.forwardRef<HTMLElement, AvatarStackProps>(funct
               : 'var(--overlap-size)'
           const isDirectImage = child.type === 'img' || child.type === Avatar
           const itemStyle: StackStyle = {
+            '--avatar-stack-item-overlap': childOverlap,
             '--avatar-stack-margin': index === 0 ? '0px' : `calc(${childOverlap} * -1)`,
             '--avatar-stack-opacity': variant === 'cascade' && index >= 2 ? Math.max(0.4, 1 - index * 0.15) : 1,
             ...child.props.style,
@@ -187,7 +188,7 @@ export const AvatarStack = React.forwardRef<HTMLElement, AvatarStackProps>(funct
               !disableExpand && expandedItemClassName,
               index >= 1 &&
                 cn(
-                  '[mask-repeat:no-repeat,no-repeat] [mask-size:var(--mask-size)_var(--mask-size),auto] [mask-composite:exclude] [mask-position:calc((var(--avatar-stack-size)-var(--overlap-size))*var(--mask-start)-var(--avatar-border-width))_center,0_0] [padding:0.1px]',
+                  '[mask-repeat:no-repeat,no-repeat] [mask-size:var(--mask-size)_var(--mask-size),auto] [mask-composite:exclude] [mask-position:calc((var(--avatar-stack-size)-var(--avatar-stack-item-overlap))*var(--mask-start)-var(--avatar-border-width))_center,0_0] [padding:0.1px]',
                   !disableExpand && expandedOverlapClassName,
                 ),
               shape === 'circle' && 'rounded-[50%]',

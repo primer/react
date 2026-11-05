@@ -28,7 +28,6 @@ export const Default: Story = {
 export const Playground: Story = {
   args: {
     block: false,
-    contrast: false,
     disabled: false,
     loading: false,
     monospace: false,

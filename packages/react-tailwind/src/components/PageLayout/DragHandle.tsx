@@ -48,11 +48,12 @@ export const DragHandle = React.memo(function DragHandle({
   const end = React.useCallback(() => {
     if (!dragging.current) return
     dragging.current = false
+    handleRef.current?.removeAttribute('data-dragging')
     if (frame.current !== null) cancelAnimationFrame(frame.current)
     frame.current = null
     pending.current = null
     onDragEnd()
-  }, [onDragEnd])
+  }, [handleRef, onDragEnd])
   React.useEffect(
     () => () => {
       if (frame.current !== null) cancelAnimationFrame(frame.current)
@@ -73,7 +74,7 @@ export const DragHandle = React.memo(function DragHandle({
       aria-valuenow={ariaValueNow}
       aria-valuetext={ariaValueNow === undefined ? undefined : formatValueText(ariaValueNow)}
       className={cn(
-        'absolute inset-y-0 -mx-1 w-2 cursor-col-resize touch-none focus-visible:outline-2 focus-visible:outline-focus after:absolute after:inset-y-0 after:left-1/2 after:w-px after:bg-default hover:after:bg-accent-emphasis',
+        "absolute inset-y-0 -inset-x-0.5 cursor-col-resize touch-none select-none focus-visible:outline-2 focus-visible:outline-focus before:absolute before:inset-0 before:rounded-[inherit] before:bg-neutral-muted before:opacity-0 before:transition-opacity before:duration-150 before:content-[''] hover:before:opacity-100 data-[dragging]:before:bg-accent-emphasis data-[dragging]:before:opacity-100 data-[dragging]:before:transition-none",
         className,
       )}
       data-component="PageLayout.DragHandle"
@@ -83,6 +84,7 @@ export const DragHandle = React.memo(function DragHandle({
         event.preventDefault()
         event.currentTarget.setPointerCapture(event.pointerId)
         dragging.current = true
+        event.currentTarget.setAttribute('data-dragging', '')
         onDragStart(event.clientX)
       }}
       onPointerMove={event => {
@@ -100,6 +102,7 @@ export const DragHandle = React.memo(function DragHandle({
         if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
         event.preventDefault()
         dragging.current = true
+        event.currentTarget.setAttribute('data-dragging', '')
         onDrag(event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -ARROW_KEY_STEP : ARROW_KEY_STEP, true)
       }}
       onKeyUp={event => {

@@ -3,7 +3,7 @@ import {expect, within} from 'storybook/test'
 import {Announce, AriaAlert, AriaStatus} from './LiveRegion'
 
 const meta = {
-  title: 'React Tailwind/Components/LiveRegion/Examples',
+  title: 'React Tailwind/Components/Announce/Examples',
   component: Announce,
 } satisfies Meta<typeof Announce>
 

@@ -30,10 +30,11 @@ Compose `Button` or `Trigger`, then `Content`/`Overlay`, with `Item`, `CheckboxI
 Use `open`/`onOpenChange` when application state owns menu visibility, or `defaultOpen` for initial state.
 
 <Canvas of={Examples.ControlledMenu} />
+<Canvas of={Examples.PreventFocusOnClose} />
 
 ## Accessibility, disabled behavior, and keyboard
 
-Give a trigger clear visible text or an accessible name. Base UI owns menu roles, focus management, Arrow-key navigation, Enter/Space activation, and Escape close/return-focus behavior. Disabled items cannot be activated; checkbox and radio items report their selection semantics.
+Give a trigger clear visible text or an accessible name. Base UI owns menu roles, focus management, Arrow-key navigation, Enter/Space activation, and Escape close/return-focus behavior. Pass `preventFocusOnClose` to `Content` when an item moves focus elsewhere and focus should not return to the trigger. Disabled items cannot be activated; checkbox and radio items report their selection semantics.
 
 ## Events and state attributes
 

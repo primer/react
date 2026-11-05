@@ -1,8 +1,10 @@
 import React from 'react'
-import {render, screen, waitFor} from '@testing-library/react'
+import {cleanup, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it} from 'vitest'
 import {ActionMenu} from './ActionMenu'
+
+afterEach(cleanup)
 
 describe('ActionMenu', () => {
   it('opens with the trigger and returns focus when dismissed', async () => {
@@ -132,5 +134,58 @@ describe('ActionMenu', () => {
     submenuTrigger.focus()
     await user.keyboard('{ArrowRight}')
     expect(await screen.findByRole('menuitem', {name: 'Plain text'})).toBeVisible()
+  })
+
+  describe('focus on close', () => {
+    function FocusExample({preventFocusOnClose}: {preventFocusOnClose?: boolean}) {
+      return (
+        <>
+          <input aria-label="Editor" />
+          <ActionMenu>
+            <ActionMenu.Button>Link actions</ActionMenu.Button>
+            <ActionMenu.Content preventFocusOnClose={preventFocusOnClose}>
+              <ActionMenu.Item>Convert to preview</ActionMenu.Item>
+            </ActionMenu.Content>
+          </ActionMenu>
+        </>
+      )
+    }
+
+    it('returns focus to the trigger after selection by default', async () => {
+      const user = userEvent.setup()
+      render(<FocusExample />)
+      const trigger = screen.getByRole('button', {name: 'Link actions'})
+
+      await user.click(trigger)
+      await user.click(await screen.findByRole('menuitem', {name: 'Convert to preview'}))
+
+      await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())
+      expect(trigger).toHaveFocus()
+    })
+
+    it('does not return focus to the trigger with preventFocusOnClose', async () => {
+      const user = userEvent.setup()
+      render(<FocusExample preventFocusOnClose />)
+      const trigger = screen.getByRole('button', {name: 'Link actions'})
+
+      await user.click(trigger)
+      await user.click(await screen.findByRole('menuitem', {name: 'Convert to preview'}))
+
+      await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())
+      expect(trigger).not.toHaveFocus()
+    })
+
+    it('does not return focus to the trigger after Escape with preventFocusOnClose', async () => {
+      const user = userEvent.setup()
+      render(<FocusExample preventFocusOnClose />)
+      const trigger = screen.getByRole('button', {name: 'Link actions'})
+
+      await user.click(trigger)
+      await screen.findByRole('menuitem', {name: 'Convert to preview'})
+      await user.keyboard('{Escape}')
+
+      await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())
+      expect(trigger).not.toHaveFocus()
+    })
   })
 })

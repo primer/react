@@ -54,20 +54,18 @@ export const PullRequestPage: Story = {
         </div>
       </div>
       <UnderlineNav aria-label="Pull Request">
-        <UnderlineNav.List>
-          <UnderlineNav.Item aria-current="page" counter="0" leadingVisual={<CommentDiscussionIcon />}>
-            Conversation
-          </UnderlineNav.Item>
-          <UnderlineNav.Item counter={3} leadingVisual={<GitCommitIcon />}>
-            Commits
-          </UnderlineNav.Item>
-          <UnderlineNav.Item counter={7} leadingVisual={<ChecklistIcon />}>
-            Checks
-          </UnderlineNav.Item>
-          <UnderlineNav.Item counter={4} leadingVisual={<FileDiffIcon />}>
-            Files Changes
-          </UnderlineNav.Item>
-        </UnderlineNav.List>
+        <UnderlineNav.Item aria-current="page" counter="0" leadingVisual={<CommentDiscussionIcon />}>
+          Conversation
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={3} leadingVisual={<GitCommitIcon />}>
+          Commits
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={7} leadingVisual={<ChecklistIcon />}>
+          Checks
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={4} leadingVisual={<FileDiffIcon />}>
+          Files Changes
+        </UnderlineNav.Item>
       </UnderlineNav>
     </div>
   ),
@@ -89,23 +87,21 @@ function RepositoryNavigation({items}: {items: typeof repositoryItems}) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(1)
   return (
     <UnderlineNav aria-label="Repository">
-      <UnderlineNav.List>
-        {items.map((item, index) => (
-          <UnderlineNav.Item
-            key={item.navigation}
-            aria-current={index === selectedIndex ? 'page' : undefined}
-            counter={item.counter}
-            href={item.href}
-            leadingVisual={item.icon}
-            onSelect={event => {
-              event.preventDefault()
-              setSelectedIndex(index)
-            }}
-          >
-            {item.navigation}
-          </UnderlineNav.Item>
-        ))}
-      </UnderlineNav.List>
+      {items.map((item, index) => (
+        <UnderlineNav.Item
+          key={item.navigation}
+          aria-current={index === selectedIndex ? 'page' : undefined}
+          counter={item.counter}
+          href={item.href}
+          leadingVisual={item.icon}
+          onSelect={event => {
+            event.preventDefault()
+            setSelectedIndex(index)
+          }}
+        >
+          {item.navigation}
+        </UnderlineNav.Item>
+      ))}
     </UnderlineNav>
   )
 }
@@ -137,11 +133,11 @@ export const ProfilePage: Story = {
               <Heading as="h1" style={{fontSize: 24}}>
                 Monalisa Octocat
               </Heading>
-              <Heading as="h1" size="medium" className="m-0 font-light">
+              <Heading as="h1" size="medium" className="m-0 font-light leading-normal">
                 mona
               </Heading>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-on-emphasis">
               <Button block>Edit Profile</Button>
               <div className="mt-4 flex items-center">
                 <PeopleIcon className="mr-1" size={16} />

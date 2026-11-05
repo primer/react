@@ -13,52 +13,75 @@ export interface BreadcrumbsProps extends React.ComponentPropsWithoutRef<'nav'> 
   variant?: 'normal' | 'spacious'
 }
 
-function useOverflowCount(
+interface OverflowResult {
+  menuItemCount: number
+  hideRoot: boolean
+}
+
+const NARROW_BREAKPOINT = 544
+const SEPARATOR_WIDTH = 16
+// Matches the small overflow trigger (`size-7`).
+const MENU_BUTTON_WIDTH = 28
+
+// Mirrors Primer React's collapse rules so both packages fold the same items
+// at the same widths.
+function calculateOverflow(widths: number[], availableWidth: number, hideRoot: boolean): OverflowResult {
+  let effectiveHideRoot = hideRoot
+  const rootWidth = widths[0] ?? 0
+  let minimumVisibleItems = 4
+  if (!hideRoot) minimumVisibleItems = 3
+  else if (availableWidth < NARROW_BREAKPOINT && widths.length > 2) minimumVisibleItems = 1
+
+  const measure = (items: number[]) => {
+    const total = items.reduce((sum, width) => sum + width + SEPARATOR_WIDTH, 0)
+    return effectiveHideRoot ? total : rootWidth + total
+  }
+
+  let visible = widths
+  let menuItemCount = 0
+  let total = measure(visible)
+  while (visible.length > 0 && (total > availableWidth || visible.length > minimumVisibleItems)) {
+    menuItemCount += 1
+    visible = visible.slice(1)
+    total = measure(visible) + MENU_BUTTON_WIDTH
+    if (visible.length === 1 && total > availableWidth) {
+      effectiveHideRoot = true
+      break
+    }
+    effectiveHideRoot = hideRoot
+  }
+  return {menuItemCount, hideRoot: effectiveHideRoot}
+}
+
+function useOverflow(
   ref: React.RefObject<HTMLElement | null>,
   count: number,
   enabled: boolean,
-  keepRoot: boolean,
-) {
-  const [overflowCount, setOverflowCount] = React.useState(0)
+  hideRoot: boolean,
+): OverflowResult {
+  const [result, setResult] = React.useState<OverflowResult>({menuItemCount: 0, hideRoot})
   React.useEffect(() => {
     if (!enabled || !ref.current || typeof window === 'undefined') return
     const container = ref.current
     const update = () => {
       const items = Array.from(container.querySelectorAll('[data-breadcrumb-measurement] > li')) as HTMLElement[]
-      if (items.length < 2 || container.clientWidth === 0) return
-
-      // Include space for the overflow trigger before deciding which authored
-      // items to move. Measuring a hidden duplicate keeps the calculation
-      // stable as visible items are replaced by the menu.
-      const menuWidth = 44
-      let width = items.reduce((total, item) => total + item.offsetWidth, 0)
-      let hidden = 0
-      const firstRemovable = keepRoot ? 1 : 0
-      const lastRemovable = items.length - 2
-      const minimumVisibleItems = keepRoot ? 4 : container.clientWidth < 544 ? 1 : 4
-      for (
-        let index = firstRemovable;
-        index <= lastRemovable &&
-        (items.length - hidden > minimumVisibleItems || width + menuWidth > container.clientWidth);
-        index += 1
-      ) {
-        width -= items[index].offsetWidth
-        hidden += 1
-      }
-
-      // `menu-with-root` renders the root outside of the menu. Its collapsed
-      // slice still includes that root so the existing display calculation can
-      // preserve authored order.
-      const next = keepRoot && hidden > 0 ? hidden + 1 : hidden
-      setOverflowCount(previous => (previous === next ? previous : next))
+      if (items.length === 0 || container.clientWidth === 0) return
+      const next = calculateOverflow(
+        items.map(item => item.offsetWidth),
+        container.clientWidth,
+        hideRoot,
+      )
+      setResult(previous =>
+        previous.menuItemCount === next.menuItemCount && previous.hideRoot === next.hideRoot ? previous : next,
+      )
     }
     update()
     if (typeof ResizeObserver === 'undefined') return
     const observer = new ResizeObserver(update)
     observer.observe(container)
     return () => observer.disconnect()
-  }, [count, enabled, keepRoot, ref])
-  return enabled ? overflowCount : 0
+  }, [count, enabled, hideRoot, ref])
+  return enabled ? result : {menuItemCount: 0, hideRoot}
 }
 
 function Separator({compact = false}: {compact?: boolean}) {
@@ -66,7 +89,7 @@ function Separator({compact = false}: {compact?: boolean}) {
     return (
       <span
         aria-hidden="true"
-        className="mx-[0.5em] inline-block h-[0.8em] translate-y-[0.0625em] rotate-[15deg] border-r-[0.1em] border-muted align-middle"
+        className="mx-[0.5em] inline-block h-[0.8em] translate-y-[0.0625em] rotate-[15deg] border-r-[0.1em] border-r-[color:var(--fgColor-muted)] align-middle"
       />
     )
   }
@@ -86,27 +109,31 @@ const BreadcrumbsRoot = React.forwardRef<HTMLElement, BreadcrumbsProps>(function
 ) {
   const localRef = React.useRef<HTMLElement | null>(null)
   const childrenArray = flattenChildren(children).filter(React.isValidElement)
-  const keepRoot = overflow === 'menu-with-root' && childrenArray.length > 0
-  const overflowCount = useOverflowCount(localRef, childrenArray.length, overflow !== 'wrap', keepRoot)
-  const collapsed = overflowCount > 0 ? childrenArray.slice(0, overflowCount) : []
-  const visible = overflowCount > 0 ? childrenArray.slice(overflowCount) : childrenArray
-  const menuItems = keepRoot ? collapsed.slice(1) : collapsed
-  const displayItems = keepRoot && overflowCount > 0 ? [childrenArray[0], ...visible] : visible
+  const hideRoot = overflow !== 'menu-with-root'
+  const overflowState = useOverflow(localRef, childrenArray.length, overflow !== 'wrap', hideRoot)
+  const {menuItemCount} = overflowState
+  const collapsed = childrenArray.slice(0, menuItemCount)
+  const menuItems = overflowState.hideRoot ? collapsed : collapsed.slice(1)
+  const visible = childrenArray.slice(menuItemCount)
+  const showRoot = menuItemCount > 0 && !overflowState.hideRoot
+  const displayItems = showRoot ? [childrenArray[0], ...visible] : visible
+  // Until items collapse, menu modes share the wrap layout and compact separator.
+  const compact = overflow === 'wrap' || menuItemCount === 0
   const renderedItems = displayItems.map((item, index) => (
     <li
       key={index}
       className={cn(
         'min-w-0 list-none',
-        overflow === 'wrap'
+        compact
           ? 'inline-block text-[length:var(--text-body-size-medium)]'
           : 'inline-grid shrink-0 auto-cols-max grid-flow-col items-center whitespace-nowrap',
       )}
     >
       {item}
-      {index < displayItems.length - 1 ? <Separator compact={overflow === 'wrap'} /> : null}
+      {index < displayItems.length - 1 ? <Separator compact={compact} /> : null}
     </li>
   ))
-  const preserveRootOrder = keepRoot && menuItems.length > 0
+  const preserveRootOrder = showRoot
   const ref = (node: HTMLElement | null) => {
     localRef.current = node
     if (typeof forwardedRef === 'function') forwardedRef(node)
@@ -134,9 +161,9 @@ const BreadcrumbsRoot = React.forwardRef<HTMLElement, BreadcrumbsProps>(function
           data-breadcrumb-measurement=""
         >
           {childrenArray.map((item, index) => (
-            <li key={index} className="flex min-w-0 items-center">
+            <li key={index} className="inline-block min-w-0 text-[length:var(--text-body-size-medium)]">
               {item}
-              {index < childrenArray.length - 1 ? <Separator /> : null}
+              {index < childrenArray.length - 1 ? <Separator compact /> : null}
             </li>
           ))}
         </ol>

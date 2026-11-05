@@ -2,9 +2,12 @@
 
 import {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
+import {cn} from '../../internal/cn'
+import {FloatingArrowGraphic, floatingArrowClassName} from '../../internal/floatingArrow'
 import {mergeClassName} from '../../internal/mergeClassName'
 import type {FloatingContentProps} from '../../utils/types'
 import {Button, type ButtonProps} from '../Button'
+import {usePortalContainer} from '../../internal/portalRoot'
 
 const popupClassName =
   'min-w-[var(--overlay-width-small)] rounded-md bg-[var(--overlay-bgColor)] p-6 text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden'
@@ -117,21 +120,34 @@ const Positioner = React.forwardRef<HTMLDivElement, PopoverPositionerProps>(func
   )
 })
 
-const Portal = ({children, ...rest}: BasePopover.Portal.Props) => (
-  <BasePopover.Portal {...rest}>{children}</BasePopover.Portal>
-)
+function Portal({children, container, ...rest}: BasePopover.Portal.Props) {
+  const portalContainer = usePortalContainer(container)
+  return (
+    <BasePopover.Portal {...rest} container={portalContainer}>
+      {children}
+    </BasePopover.Portal>
+  )
+}
 
 const Arrow = React.forwardRef<HTMLDivElement, Omit<BasePopover.Arrow.Props, 'data-component'>>(function PopoverArrow(
-  {className, ...rest},
+  {children, className, ...rest},
   ref,
 ) {
   return (
     <BasePopover.Arrow
       {...rest}
       ref={ref}
-      className={mergeClassName('fill-[var(--overlay-bgColor)] stroke-[var(--borderColor-default)]', className)}
+      className={mergeClassName(
+        cn(
+          floatingArrowClassName,
+          '[--arrow-bg-color:var(--overlay-bgColor)] [--arrow-border-color:var(--borderColor-default)]',
+        ),
+        className,
+      )}
       data-component="Popover.Arrow"
-    />
+    >
+      {children ?? <FloatingArrowGraphic />}
+    </BasePopover.Arrow>
   )
 })
 

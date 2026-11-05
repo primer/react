@@ -45,7 +45,6 @@ const DialogFixture = ({
   long = false,
   modal = true,
   title,
-  triggerInactive,
   triggerVariant,
   viewportClassName,
 }: {
@@ -55,18 +54,11 @@ const DialogFixture = ({
   long?: boolean
   modal?: boolean | 'trap-focus'
   title?: string
-  triggerInactive?: boolean
   triggerVariant?: React.ComponentProps<typeof Button>['variant']
   viewportClassName?: string
 }) => (
   <Dialog defaultOpen={defaultOpen} modal={modal}>
-    <Dialog.Trigger
-      render={
-        <Button inactive={triggerInactive} variant={triggerVariant}>
-          Show dialog
-        </Button>
-      }
-    />
+    <Dialog.Trigger render={<Button variant={triggerVariant}>Show dialog</Button>} />
     <Dialog.Content className={contentClassName} viewportClassName={viewportClassName}>
       <Content footer={footer} long={long} title={title} />
     </Dialog.Content>
@@ -88,7 +80,6 @@ export const BottomSheetNarrow: Story = {
         footer={false}
         long
         title="My Dialog"
-        triggerInactive
         viewportClassName="max-md:items-end max-md:p-0"
       />
     </InsetFixture>
@@ -103,7 +94,6 @@ export const FullScreenNarrow: Story = {
         footer={false}
         long
         title="My Dialog"
-        triggerInactive
         viewportClassName="p-0"
       />
     </InsetFixture>
@@ -112,7 +102,7 @@ export const FullScreenNarrow: Story = {
 export const SideSheet: Story = {
   render: () => (
     <Dialog defaultOpen>
-      <Dialog.Trigger render={<Button inactive>Show dialog</Button>} />
+      <Dialog.Trigger render={<Button>Show dialog</Button>} />
       <Dialog.Content
         className="h-full w-[calc(100%_-_64px)] max-w-[640px] rounded-none rounded-l-lg"
         viewportClassName="items-stretch justify-end p-0"
@@ -133,7 +123,7 @@ export const LoadingFooterButtons: Story = {
   render: () => (
     <InsetFixture>
       <Dialog defaultOpen>
-        <Dialog.Trigger render={<Button inactive>Show Dialog</Button>} />
+        <Dialog.Trigger render={<Button>Show Dialog</Button>} />
         <Dialog.Content>
           <Dialog.Header>
             <Dialog.Title>Dialog title</Dialog.Title>
@@ -158,7 +148,7 @@ export const LoadingCustomFooterButtonsCould: Story = {
   render: () => (
     <InsetFixture>
       <Dialog defaultOpen>
-        <Dialog.Trigger render={<Button inactive>Show Dialog</Button>} />
+        <Dialog.Trigger render={<Button>Show Dialog</Button>} />
         <Dialog.Content>
           <Dialog.Header>
             <div>
@@ -185,28 +175,14 @@ export const LoadingCustomFooterButtonsCould: Story = {
 export const AlignTop: Story = {
   render: () => (
     <InsetFixture>
-      <DialogFixture
-        defaultOpen
-        footer={false}
-        long
-        title="My Dialog"
-        triggerInactive
-        viewportClassName="items-start pt-16"
-      />
+      <DialogFixture defaultOpen footer={false} long title="My Dialog" viewportClassName="items-start pt-16" />
     </InsetFixture>
   ),
 }
 export const AlignBottom: Story = {
   render: () => (
     <InsetFixture>
-      <DialogFixture
-        defaultOpen
-        footer={false}
-        long
-        title="My Dialog"
-        triggerInactive
-        viewportClassName="items-end pb-16"
-      />
+      <DialogFixture defaultOpen footer={false} long title="My Dialog" viewportClassName="items-end pb-16" />
     </InsetFixture>
   ),
 }
@@ -214,7 +190,7 @@ export const CustomWidth: Story = {
   render: () => (
     <InsetFixture>
       <Dialog defaultOpen>
-        <Dialog.Trigger render={<Button inactive>Show dialog</Button>} />
+        <Dialog.Trigger render={<Button>Show dialog</Button>} />
         <Dialog.Content className="max-w-[400px]">
           <Content footer={false} long title="Custom Width Dialog" />
         </Dialog.Content>

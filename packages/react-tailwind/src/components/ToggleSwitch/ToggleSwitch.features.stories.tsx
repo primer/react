@@ -1,5 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import {useId, useState} from 'react'
+import {useEffect, useId, useRef, useState} from 'react'
 import {expect, userEvent, within} from 'storybook/test'
 import {cn} from '../../internal/cn'
 import {ToggleSwitch} from './ToggleSwitch'
@@ -12,72 +12,36 @@ type Story = StoryObj<typeof meta>
 
 interface SwitchProps extends React.ComponentProps<typeof ToggleSwitch> {
   caption?: string
-  containerClassName?: string
   label?: string
-  statusLabelOff?: string
-  statusLabelOn?: string
+  labelClassName?: string
 }
 
-function Switch({
-  caption,
-  checked,
-  containerClassName,
-  defaultChecked = false,
-  disabled,
-  label = 'Toggle label',
-  onCheckedChange,
-  size = 'medium',
-  statusLabelOff = 'Off',
-  statusLabelOn = 'On',
-  ...props
-}: SwitchProps) {
+function Switch({caption, label = 'Toggle label', labelClassName, ...props}: SwitchProps) {
   const labelId = useId()
   const captionId = useId()
-  const [uncontrolledChecked, setUncontrolledChecked] = useState(defaultChecked)
-  const isChecked = checked ?? uncontrolledChecked
-  const handleCheckedChange = (...args: Parameters<NonNullable<SwitchProps['onCheckedChange']>>) => {
-    if (checked === undefined) setUncontrolledChecked(args[0])
-    onCheckedChange?.(...args)
-  }
-  const control = (
-    <span className="inline-flex items-center">
-      <span className={cn('mx-2 text-right', size === 'small' ? 'text-xs' : 'text-sm', disabled && 'text-muted')}>
-        {isChecked ? statusLabelOn : statusLabelOff}
-      </span>
-      <ToggleSwitch
-        {...props}
-        checked={isChecked}
-        disabled={disabled}
-        size={size}
-        aria-labelledby={labelId}
-        aria-describedby={caption ? captionId : undefined}
-        onCheckedChange={handleCheckedChange}
-      />
-    </span>
-  )
 
   if (caption) {
     return (
       <div className="flex items-start gap-4">
         <span className="grow">
-          <span className="block text-base font-semibold" id={labelId}>
+          <span className="block font-semibold" id={labelId}>
             {label}
           </span>
           <span className="block text-sm text-muted" id={captionId}>
             {caption}
           </span>
         </span>
-        {control}
+        <ToggleSwitch {...props} aria-labelledby={labelId} aria-describedby={captionId} />
       </div>
     )
   }
 
   return (
-    <div className={cn('grid max-w-80 grid-cols-[max-content_auto] items-center justify-between', containerClassName)}>
-      <span className="block text-sm font-semibold" id={labelId}>
+    <div className="grid max-w-80 grid-cols-[max-content_auto] items-center justify-between">
+      <span className={cn('block text-sm font-semibold', labelClassName)} id={labelId}>
         {label}
       </span>
-      {control}
+      <ToggleSwitch {...props} aria-labelledby={labelId} />
     </div>
   )
 }
@@ -97,20 +61,59 @@ export const CheckedDisabled: Story = {render: () => <Switch defaultChecked disa
 export const Controlled: Story = {
   render: function ControlledStory() {
     const [checked, setChecked] = useState(false)
+    const labelId = useId()
     return (
       <>
-        <Switch
-          checked={checked}
-          containerClassName="max-w-[300px]"
-          label="Notifications"
-          onCheckedChange={setChecked}
-        />
+        <div className="flex max-w-[300px] items-start gap-4">
+          <span className="block grow font-semibold [font-size:var(--text-title-size-small)]" id={labelId}>
+            Notifications
+          </span>
+          <ToggleSwitch checked={checked} onCheckedChange={setChecked} aria-labelledby={labelId} />
+        </div>
         <p>The switch is {checked ? 'on' : 'off'}</p>
       </>
     )
   },
 }
-export const WithCustomLabels: Story = {render: () => <Switch statusLabelOn="Active" statusLabelOff="Inactive" />}
+export const Loading: Story = {render: () => <Switch loading />}
+
+interface LoadingWithDelayArgs {
+  loadingDelay: number
+  loadingLabelDelay: number
+}
+
+function LoadingWithDelaySwitch({loadingDelay, loadingLabelDelay}: LoadingWithDelayArgs) {
+  const [loading, setLoading] = useState(false)
+  const [checked, setChecked] = useState(false)
+  const timeout = useRef<number | undefined>(undefined)
+
+  useEffect(() => () => window.clearTimeout(timeout.current), [])
+
+  return (
+    <Switch
+      checked={checked}
+      label="Enable feature"
+      labelClassName="text-md font-[700]"
+      loading={loading}
+      loadingLabel={`${checked ? 'Enabling' : 'Disabling'} feature`}
+      loadingLabelDelay={loadingLabelDelay}
+      onCheckedChange={nextChecked => {
+        setChecked(nextChecked)
+        setLoading(true)
+        window.clearTimeout(timeout.current)
+        timeout.current = window.setTimeout(() => setLoading(false), loadingDelay)
+      }}
+    />
+  )
+}
+
+export const LoadingWithDelay: StoryObj<LoadingWithDelayArgs> = {
+  args: {loadingDelay: 5000, loadingLabelDelay: 2000},
+  argTypes: {loadingDelay: {control: {type: 'number'}}, loadingLabelDelay: {control: {type: 'number'}}},
+  render: args => <LoadingWithDelaySwitch {...args} />,
+}
+export const LabelEnd: Story = {render: () => <Switch statusLabelPosition="end" />}
+export const WithCustomLabels: Story = {render: () => <Switch buttonLabelOn="Active" buttonLabelOff="Inactive" />}
 export const FocusVisible: Story = {
   render: () => <Switch />,
   play: async ({canvasElement}) => {

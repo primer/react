@@ -5,16 +5,13 @@ import {Menu} from '@base-ui/react/menu'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {mergeClassName} from '../../internal/mergeClassName'
+import {usePortalContainer} from '../../internal/portalRoot'
 import type {FloatingContentProps} from '../../utils/types'
 import {ActionItemContent, actionItemClassName, ActionList} from '../ActionList/ActionList'
 import {Button, type ButtonProps} from '../Button'
 import {Spinner} from '../Spinner'
 const triggerClassName =
   'inline-flex min-h-8 items-center justify-center gap-2 rounded-md border border-default bg-default px-3 text-sm font-semibold text-default hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:text-disabled'
-
-const subscribeToPortalContainer = () => () => {}
-const getPortalContainer = () => document.querySelector<HTMLElement>('[data-portal-root]') ?? document.body
-const getServerPortalContainer = () => null
 
 export type ActionMenuRootProps = Menu.Root.Props
 
@@ -68,19 +65,29 @@ const ButtonTrigger = React.forwardRef<HTMLButtonElement, ActionMenuButtonProps>
 
 export interface ActionMenuContentProps
   extends Omit<Menu.Popup.Props, 'data-component'>,
-    Omit<FloatingContentProps, 'portal'> {}
+    Omit<FloatingContentProps, 'portal'> {
+  /** If true, focus will not be returned to the trigger or `finalFocus` target when the menu closes. */
+  preventFocusOnClose?: boolean
+}
 
 const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(function ActionMenuContent(
-  {align = 'start', alignOffset, children, className, positionerClassName, side = 'bottom', sideOffset = 4, ...rest},
+  {
+    align = 'start',
+    alignOffset,
+    children,
+    className,
+    finalFocus,
+    positionerClassName,
+    preventFocusOnClose = false,
+    side = 'bottom',
+    sideOffset = 4,
+    ...rest
+  },
   ref,
 ) {
-  const portalContainer = React.useSyncExternalStore(
-    subscribeToPortalContainer,
-    getPortalContainer,
-    getServerPortalContainer,
-  )
+  const portalContainer = usePortalContainer(undefined)
 
-  if (portalContainer === null) return null
+  if (portalContainer === undefined) return null
   return (
     <Menu.Portal container={portalContainer}>
       <Menu.Positioner
@@ -94,6 +101,7 @@ const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(functio
         <Menu.Popup
           {...rest}
           ref={ref}
+          finalFocus={preventFocusOnClose ? false : finalFocus}
           className={mergeClassName(
             'min-w-48 rounded-lg bg-[var(--overlay-bgColor)] py-2 shadow-floating-sm outline-none contrast-more:border contrast-more:border-current data-[closed]:hidden',
             className,
@@ -110,7 +118,7 @@ const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(functio
 export interface ActionMenuItemProps extends Omit<Menu.Item.Props, 'data-component'> {
   /** Marks the item temporarily unavailable and explains why. */
   inactiveText?: React.ReactNode
-  /** Shows a spinner and suppresses activation. */
+  /** Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation. */
   loading?: boolean
   /** Text announced to assistive technology while the item is loading. */
   loadingText?: string
@@ -128,7 +136,9 @@ const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionM
     selected === undefined ? null : (
       <CheckIcon aria-hidden="true" className={cn('size-4 shrink-0', !selected && 'invisible')} />
     )
-  const statusIndicator = loading ? <Spinner aria-hidden="true" className="shrink-0" size="small" /> : selection
+  const statusIndicator = loading ? (
+    <Spinner aria-hidden="true" className="shrink-0" size="small" srText={null} />
+  ) : null
 
   return (
     <Menu.Item
@@ -150,7 +160,7 @@ const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionM
       data-selected={selected || undefined}
       data-variant={variant === 'danger' ? variant : undefined}
     >
-      <ActionItemContent selection={statusIndicator} supportingText={inactiveText}>
+      <ActionItemContent indicator={statusIndicator} selection={selection} supportingText={inactiveText}>
         {children}
       </ActionItemContent>
       {loading && loadingText ? <span className="sr-only">{loadingText}</span> : null}

@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <>
-      <Text className="text-base leading-6">
+      <Text className="leading-6">
         The below content is visible when the viewport is regular or wide but hidden when narrow:
       </Text>
       <Hidden when="narrow">

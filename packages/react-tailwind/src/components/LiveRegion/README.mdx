@@ -1,14 +1,14 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 
-import * as Stories from './LiveRegion.stories'
-import * as Features from './LiveRegion.features.stories'
-import * as Examples from './LiveRegion.examples.stories'
+import * as Stories from './Announce.stories'
+import * as Features from './Announce.features.stories'
+import * as Examples from './Announce.examples.stories'
 
 <Meta of={Stories} />
 
-# LiveRegion
+# Announce
 
-`LiveRegion` announces asynchronous changes without moving focus.
+`Announce`, `AriaStatus`, and `AriaAlert` announce asynchronous changes without moving focus. They share one live-region implementation; `AriaStatus` and `AriaAlert` fix the politeness.
 
 <Canvas of={Stories.Default} />
 

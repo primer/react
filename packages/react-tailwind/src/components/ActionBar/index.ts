@@ -6,5 +6,5 @@ export {
   type ActionBarGroupProps,
   type ActionBarDividerProps,
   type ActionBarMenuProps,
-  type ActionBarMenuItem,
+  type ActionBarMenuItemProps,
 } from './ActionBar'

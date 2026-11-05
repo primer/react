@@ -1,6 +1,7 @@
 import {CheckIcon, CopyIcon, GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {useState} from 'react'
+import {cn} from '../../internal/cn'
 import {IconButton} from '../IconButton'
 import {BranchName} from './BranchName'
 
@@ -11,7 +12,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 const trailingActionContainerClassName = 'inline-flex flex-nowrap items-stretch gap-px rounded-md bg-accent-muted'
 const trailingActionButtonClassName =
-  'relative h-auto w-auto px-1.5 py-0.5 text-accent-fg before:absolute before:inset-y-1 before:-left-px before:w-px before:bg-accent-muted [&_svg]:size-3'
+  'relative h-auto w-auto px-1.5 py-0.5 text-link before:absolute before:inset-y-1 before:-left-px before:w-px before:bg-[var(--borderColor-accent-muted)] [&_svg]:size-3'
 export const WithBranchIcon: Story = {
   render: () => (
     <BranchName href="#">
@@ -46,7 +47,7 @@ export const WithTrailingAction: Story = {
           aria-label="Copy branch name to clipboard"
           size="small"
           variant="invisible"
-          className={trailingActionButtonClassName}
+          className={cn(trailingActionButtonClassName, copied && 'text-success')}
           onClick={() => setCopied(true)}
         />
       </span>

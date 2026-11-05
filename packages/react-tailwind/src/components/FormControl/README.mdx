@@ -23,7 +23,9 @@ import * as Examples from './FormControl.examples.stories'
 import {FormControl} from '@primer/react-tailwind/FormControl'
 ```
 
-Place `Label`, the native input or `Control`, optional `Caption`, and `Validation` in semantic order. Children are not extracted or reordered.
+Place `Label`, the native input or `Control`, optional `Caption`, and `Validation` in semantic order. Children are not extracted or reordered. A raw custom input or a `SelectPanel` anchor can sit inside FormControl when it wires its own `id`, `htmlFor`, and `aria-*` references.
+
+<Canvas of={Features.WithCustomInput} />
 
 ## Controlled and uncontrolled
 
@@ -35,7 +37,7 @@ Place `Label`, the native input or `Control`, optional `Caption`, and `Validatio
 
 ## Accessibility, forms, and validation
 
-`Label` associates field text, `Caption` provides description, and error validation uses `Field.Error`; success validation announces with `role="status"`. Forward `disabled` and `name` through the field or child control. Set `aria-invalid` on invalid native controls.
+`Label` associates field text, `Caption` provides description, and error validation uses `Field.Error`; success validation announces with `role="status"`; pass `validationStatus="success"` to the control to tint its border. Forward `disabled` and `name` through the field or child control. Set `aria-invalid` on invalid native controls.
 
 ## Keyboard, events, and state
 

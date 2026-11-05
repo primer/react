@@ -6,7 +6,7 @@ import {ActionMenu} from '../ActionMenu'
 import {Breadcrumbs} from '../Breadcrumbs'
 import {Button} from '../Button'
 import {Dialog} from '../Dialog'
-import {Flash} from '../Flash'
+import {StoryNotice} from '../../internal/StoryNotice.storyHelpers'
 import {LinkButton} from '../LinkButton'
 import {NavList} from '../NavList'
 import {PageLayout} from './PageLayout'
@@ -40,7 +40,9 @@ function useCurrentHash() {
   return currentHash
 }
 
-const ResponsiveNotice = ({children}: React.PropsWithChildren) => <Flash className="hidden md:block">{children}</Flash>
+const ResponsiveNotice = ({children}: React.PropsWithChildren) => (
+  <StoryNotice className="hidden md:block">{children}</StoryNotice>
+)
 
 const Navigation = ({currentHash, filters}: {currentHash: string; filters?: React.ReactNode}) => (
   <>

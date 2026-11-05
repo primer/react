@@ -1,11 +1,14 @@
-import {MarkGithubIcon} from '@primer/octicons-react'
+import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {StoryObj} from '@storybook/react-vite'
+import React from 'react'
 import {Autocomplete} from '../Autocomplete'
+import {Button} from '../Button'
 import {Checkbox} from '../Checkbox'
 import {CheckboxGroup} from '../CheckboxGroup'
 import {Radio} from '../Radio'
 import {RadioGroup} from '../RadioGroup'
 import {Select} from '../Select'
+import {SelectPanel, type SelectPanelItem} from '../SelectPanel'
 import {Stack} from '../Stack'
 import {Text} from '../Text'
 import {TextInput} from '../TextInput'
@@ -50,6 +53,69 @@ export const WithComplexInputs: Story = {
       </FormControl>
     </Stack>
   ),
+}
+function CustomTextInput(props: React.ComponentPropsWithoutRef<'input'>) {
+  return <input type="text" {...props} />
+}
+
+function CustomCheckboxInput(props: React.ComponentPropsWithoutRef<'input'>) {
+  return <input type="checkbox" {...props} />
+}
+
+export const WithCustomInput: Story = {
+  render: function WithCustomInputStory() {
+    const [value, setValue] = React.useState('mona lisa')
+    const validationResult = /\s/g.test(value) ? 'noSpaces' : value ? 'validName' : ''
+
+    return (
+      <div className="grid">
+        <FormControl>
+          <FormControl.Label htmlFor="custom-input">GitHub handle</FormControl.Label>
+          <CustomTextInput
+            id="custom-input"
+            aria-describedby="custom-input-validation custom-input-caption"
+            aria-invalid={validationResult === 'noSpaces'}
+            onChange={event => setValue(event.currentTarget.value)}
+          />
+          {validationResult === 'noSpaces' && (
+            <FormControl.Validation id="custom-input-validation" variant="error">
+              GitHub handles cannot contain spaces
+            </FormControl.Validation>
+          )}
+          {validationResult === 'validName' && (
+            <FormControl.Validation id="custom-input-validation" variant="success">
+              Valid name
+            </FormControl.Validation>
+          )}
+          <FormControl.Caption id="custom-input-caption">
+            With or without &quot;@&quot;. For example &quot;monalisa&quot; or &quot;@monalisa&quot;
+          </FormControl.Caption>
+        </FormControl>
+
+        <CheckboxGroup>
+          <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
+          <FormControl layout="horizontal">
+            <CustomCheckboxInput
+              id="custom-checkbox-one"
+              aria-describedby="custom-checkbox-one-caption"
+              value="checkOne"
+            />
+            <FormControl.Label htmlFor="custom-checkbox-one">Checkbox one</FormControl.Label>
+            <FormControl.Caption id="custom-checkbox-one-caption">Hint text for checkbox one</FormControl.Caption>
+          </FormControl>
+          <FormControl layout="horizontal">
+            <CustomCheckboxInput
+              id="custom-checkbox-two"
+              aria-describedby="custom-checkbox-two-caption"
+              value="checkTwo"
+            />
+            <FormControl.Label htmlFor="custom-checkbox-two">Checkbox two</FormControl.Label>
+            <FormControl.Caption id="custom-checkbox-two-caption">Hint text for checkbox two</FormControl.Caption>
+          </FormControl>
+        </CheckboxGroup>
+      </div>
+    )
+  },
 }
 export const WithCheckboxAndRadioInputs: Story = {
   render: () => (
@@ -97,6 +163,66 @@ export const ValidationExample: Story = {
     </FormControl>
   ),
 }
+function ColorCircle({color}: {color: string}) {
+  return (
+    <span
+      className="m-auto box-border block size-3.5 rounded-lg border border-solid"
+      style={{backgroundColor: color, borderColor: color}}
+    />
+  )
+}
+
+const labelItems: SelectPanelItem[] = [
+  {leadingVisual: <ColorCircle color="#a2eeef" />, text: 'enhancement', description: 'New feature or request', id: 1},
+  {leadingVisual: <ColorCircle color="#d73a4a" />, text: 'bug', description: "Something isn't working", id: 2},
+  {leadingVisual: <ColorCircle color="#0cf478" />, text: 'good first issue', description: 'Good for newcomers', id: 3},
+  {leadingVisual: <ColorCircle color="#ffd78e" />, text: 'design', id: 4},
+  {leadingVisual: <ColorCircle color="#ff0000" />, text: 'blocker', id: 5},
+  {leadingVisual: <ColorCircle color="#a4f287" />, text: 'backend', id: 6},
+  {leadingVisual: <ColorCircle color="#8dc6fc" />, text: 'frontend', id: 7},
+].map(item => ({...item, descriptionVariant: 'block'}))
+
+export const WithSelectPanel: Story = {
+  render: function WithSelectPanelStory() {
+    const [selected, setSelected] = React.useState<SelectPanelItem[]>([labelItems[0], labelItems[1]])
+    const [filter, setFilter] = React.useState('')
+    const filteredItems = labelItems.filter(item =>
+      String(item.text ?? '')
+        .toLowerCase()
+        .startsWith(filter.toLowerCase()),
+    )
+    const [open, setOpen] = React.useState(false)
+
+    return (
+      <FormControl required>
+        <FormControl.Label id="select_panel_label">Select Labels</FormControl.Label>
+        <SelectPanel
+          title="Select labels"
+          subtitle="Use labels to organize issues and pull requests"
+          renderAnchor={({children, id, ...anchorProps}) => (
+            <Button
+              trailingAction={TriangleDownIcon}
+              aria-labelledby="select_panel_label selectpanel_wrapper"
+              id={id}
+              {...anchorProps}
+              aria-haspopup="dialog"
+            >
+              <span id="selectpanel_wrapper">{children ?? 'Select Labels'}</span>
+            </Button>
+          )}
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          selectionVariant="multiple"
+          onSelectedChange={next => setSelected(Array.isArray(next) ? next : next ? [next] : [])}
+          filterValue={filter}
+          onFilterChange={setFilter}
+        />
+      </FormControl>
+    )
+  },
+}
 export const WithLeadingVisual: Story = {
   render: () => (
     <Stack gap="none">
@@ -109,7 +235,7 @@ export const WithLeadingVisual: Story = {
         <FormControl key={option.label} disabled={option.disabled} layout="horizontal">
           <Checkbox />
           <FormControl.LeadingVisual>
-            <MarkGithubIcon aria-hidden="true" size={option.caption ? 24 : 16} />
+            <MarkGithubIcon aria-hidden="true" />
           </FormControl.LeadingVisual>
           <div>
             {/* eslint-disable-next-line primer-react/direct-slot-children -- Choice controls group their label and caption beside the input. */}
@@ -209,7 +335,7 @@ export const WithSuccessValidation: Story = {
   render: () => (
     <FormControl required>
       <FormControl.Label requiredIndicator>Example label</FormControl.Label>
-      <TextInput defaultValue="Input value" />
+      <TextInput defaultValue="Input value" validationStatus="success" />
       <FormControl.Validation variant="success">Example success validation message</FormControl.Validation>
     </FormControl>
   ),

@@ -21,15 +21,15 @@ import * as Examples from './UnderlineNav.examples.stories'
 ```tsx
 import {UnderlineNav} from '@primer/react-tailwind/UnderlineNav'
 ;<UnderlineNav aria-label="Repository">
-  <UnderlineNav.List>
-    <UnderlineNav.Item href="/code" aria-current="page">
-      Code
-    </UnderlineNav.Item>
-  </UnderlineNav.List>
+  <UnderlineNav.Item href="/code" aria-current="page">
+    Code
+  </UnderlineNav.Item>
 </UnderlineNav>
 ```
 
-Use `UnderlineNav.List` as the direct child of the root and place `UnderlineNav.Item` links in the list. Give the navigation landmark an accessible name and use one `aria-current="page"` item for the current destination. `Item` renders an anchor by default; use `as` to compose a router link when its props are compatible.
+Place `UnderlineNav.Item` links directly in the root, which renders them as a list. Items that do not fit move into a "More" menu, in order. Give the navigation landmark an accessible name and use one `aria-current="page"` item for the current destination. `Item` renders an anchor by default; use `as` to compose a router link when its props are compatible.
+
+Native anchor items default to `href="#"`. When a custom component is supplied with `as`, no default `href` is added, so the component can supply its own navigation target. `UnderlineNav.Item` is not polymorphically typed; bind router-specific props such as `to` in a small wrapper component.
 
 <Canvas of={Features.WithIcons} />
 <Canvas of={Features.WithCounterLabels} />
@@ -39,7 +39,7 @@ Use `UnderlineNav.List` as the direct child of the root and place `UnderlineNav.
 
 ## Responsive behavior
 
-The list keeps a single row and scrolls horizontally when it cannot fit. `hideIconsBreakpoint` hides leading visuals at the selected root container width; set it to `null` to always show them. The default is `xxlarge`, matching the established UnderlineNav density behavior.
+The list keeps a single row and scrolls horizontally when it cannot fit. `hideIconsBreakpoint` hides leading visuals at the selected root container width; set it to `null` to always show them. The default is `medium`, so icons show when the navigation is at least 768px wide. To keep icons visible in a narrow container, use a smaller breakpoint such as `xsmall`.
 
 ## Events and state
 

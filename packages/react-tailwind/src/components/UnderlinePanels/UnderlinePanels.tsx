@@ -23,15 +23,29 @@ import {TabsMarkerProvider} from '../Tabs/Tabs'
 type UnderlinePanelsContextValue = {loadingCounters: boolean}
 const UnderlinePanelsContext = React.createContext<UnderlinePanelsContextValue>({loadingCounters: false})
 
-export interface UnderlinePanelsProps extends TabsProps {
+export interface UnderlinePanelsProps extends Omit<TabsProps, 'defaultValue' | 'onChange' | 'value'> {
+  /** Value of the selected tab when controlled. Update it from `onChange` or `onValueChange`. */
+  value?: string
+  /** Value of the tab selected on first render when uncontrolled. */
+  defaultValue?: string
+  /**
+   * Called with the newly selected tab's `value` when a user selects a different tab. Automatic fallbacks,
+   * such as a missing or disabled selection, and re-selecting the current tab do not call it.
+   */
+  onChange?: (details: {value: string}) => void
   /** Shows placeholders in place of tab counters while their values load. */
   loadingCounters?: boolean
 }
 
 const Root = React.forwardRef<HTMLElement, UnderlinePanelsProps>(function UnderlinePanels(
-  {className, loadingCounters = false, ...props},
+  {className, loadingCounters = false, onChange, onValueChange, ...props},
   ref,
 ) {
+  const handleValueChange: TabsProps['onValueChange'] = (value, eventDetails) => {
+    onValueChange?.(value, eventDetails)
+    if (eventDetails.reason === 'none' && !eventDetails.isCanceled) onChange?.({value})
+  }
+
   return (
     <UnderlinePanelsContext.Provider value={{loadingCounters}}>
       <TabsMarkerProvider
@@ -42,7 +56,7 @@ const Root = React.forwardRef<HTMLElement, UnderlinePanelsProps>(function Underl
           panel: 'UnderlinePanels.Panel',
         }}
       >
-        <Tabs {...props} ref={ref} className={cn('w-full', className)} />
+        <Tabs {...props} ref={ref} className={cn('w-full', className)} onValueChange={handleValueChange} />
       </TabsMarkerProvider>
     </UnderlinePanelsContext.Provider>
   )

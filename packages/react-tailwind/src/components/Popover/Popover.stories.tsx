@@ -40,13 +40,17 @@ function PopoverFixture({align = 'center', modal = true, side = 'bottom', sideOf
         />
         <Popover.Content
           align={align}
+          initialFocus={false}
           portal={false}
           positionerClassName="!relative !inset-auto !transform-none mx-auto mt-2 w-[var(--overlay-width-small)]"
           side={side}
           sideOffset={sideOffset}
         >
+          <Popover.Arrow />
           <Popover.Title>Popover heading</Popover.Title>
-          <Popover.Description className="my-4 text-base leading-6">Message about popovers</Popover.Description>
+          <Popover.Description className="my-4 text-md leading-6 text-default">
+            Message about popovers
+          </Popover.Description>
           <Button>Got it!</Button>
         </Popover.Content>
       </Popover>

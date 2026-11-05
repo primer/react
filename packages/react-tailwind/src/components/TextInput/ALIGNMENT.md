@@ -15,5 +15,5 @@ TextInput preserves the native input contract while owning the visual wrapper ne
 - Keep value state on the native input (`value`, `defaultValue`, and `onChange`).
 - Use FormControl for labels, captions, required indication, and validation.
 - `className` styles the visual root, while native input attributes and the forwarded ref apply to the underlying input.
-- Deprecated `icon`, styled width props, and `variant` are omitted.
+- Deprecated `contrast`, `icon`, styled width props, and `variant` are omitted; drop `contrast` to use the default background.
 - Replace `sx` and styled-system props with `className`.

@@ -15,7 +15,7 @@ import * as Examples from './ActionList.examples.stories'
 
 <Controls of={Stories.Playground} />
 
-`ActionList` accepts `role`, `selectionVariant`, `variant`, and `showDividers`. `Item` supports `selected`, `active`, `disabled`, `inactiveText`, `loading`, `loadingText`, `size`, danger styling, and `onSelect`. `Description` supports inline or block layout and truncation. `GroupHeading` supports subtle and filled variants. `TrailingAction` supports button or link rendering, icon or text labels, and loading state; all documented child parts forward their relevant HTML props.
+`ActionList` accepts `role`, `selectionVariant`, `variant`, `showDividers`, `disableItemGap`, and a `heading` region. `Item` supports `selected`, `active`, `disabled`, `inactiveText`, `loading`, `loadingText`, `size` (`small`, `medium`, or `large`), danger styling, and `onSelect`; `LinkItem` supports `active`, `inactiveText`, and `size`. `Description` supports inline or block layout and truncation. `Heading` renders before the list and labels it, and supports `size` and `visuallyHidden`. `GroupHeading` supports subtle and filled variants and a small icon `TrailingAction`. `TrailingAction` supports button or link rendering, icon or text labels, and loading state; all documented child parts forward their relevant HTML props.
 
 ## Import and composition
 
@@ -33,13 +33,14 @@ ActionList does not own selection state. Render `selected` and update it from `I
 
 ## Accessibility, disabled behavior, and keyboard
 
-Choose `list`, `menu`, or `listbox` semantics intentionally and give interactive lists an accessible name. For selection variants, items receive `aria-selected` or `aria-checked`; disabled, inactive, and loading items cannot be activated. Inactive items use a warning indicator in ordinary lists and visible supporting text in menus and listboxes. Loading and inactive items suppress trailing actions. Native button and link keyboard behavior is retained.
+Choose `list`, `menu`, or `listbox` semantics intentionally and give interactive lists an accessible name. For selection variants, items receive `aria-selected` or `aria-checked`; disabled, inactive, and loading items cannot be activated. Inactive items use a warning indicator in ordinary lists and visible supporting text in menus and listboxes. The loading spinner and inactive warning indicator replace the leading visual when one exists, otherwise the trailing visual. Loading and inactive items suppress trailing actions. Native button and link keyboard behavior is retained.
 
 ## State attributes
 
 Stable selectors include `ActionList`, `ActionList.Item`, `ActionList.Item.Action`, `ActionList.LinkItem`, `ActionList.Group`, and `ActionList.Divider`. Items expose `data-active`, `data-selected`, `data-variant`, and disabled state; root exposes `data-variant` and `data-dividers`.
 
 <Canvas of={Features.SingleSelect} />
+<Canvas of={Features.SmallItem} />
 
 ## Alignment
 

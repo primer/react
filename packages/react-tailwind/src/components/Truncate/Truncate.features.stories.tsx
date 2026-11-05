@@ -1,5 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {ArrowLeftIcon, ArrowRightIcon} from '@primer/octicons-react'
+import {Link} from '../Link'
 import {Truncate} from './Truncate'
 
 const meta = {
@@ -45,4 +46,19 @@ export const Overflow: Story = {
 
 export const CustomElement: Story = {
   args: {as: 'div', title: 'A block-level truncated label', children: 'A block-level truncated label'},
+}
+
+export const AsLink: Story = {
+  render: () => {
+    const url = 'https://github.com/primer/react/blob/main/packages/react/src/Truncate/Truncate.tsx'
+    return (
+      <p>
+        Mirror:{' '}
+        <Truncate as={Link} href={url} title={url} maxWidth={300} inline>
+          {url}
+        </Truncate>{' '}
+        (inline link inside text)
+      </p>
+    )
+  },
 }

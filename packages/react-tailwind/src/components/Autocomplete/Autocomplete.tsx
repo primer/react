@@ -1,7 +1,10 @@
+'use client'
+
 import {Autocomplete as BaseAutocomplete} from '@base-ui/react/autocomplete'
 import React from 'react'
 import {mergeClassName} from '../../internal/mergeClassName'
 import type {FloatingContentProps} from '../../utils/types'
+import {usePortalContainer} from '../../internal/portalRoot'
 
 export type AutocompleteRootProps<ItemValue> = BaseAutocomplete.Root.Props<ItemValue>
 
@@ -56,8 +59,17 @@ const Content = React.forwardRef<HTMLDivElement, AutocompleteContentProps>(funct
   )
   // Base UI requires the Portal context for Positioner. Rendering through the
   // portal also matches the original menu behavior outside overlay containers.
-  return <BaseAutocomplete.Portal>{popup}</BaseAutocomplete.Portal>
+  return <Portal>{popup}</Portal>
 })
+
+function Portal({children, container, ...rest}: BaseAutocomplete.Portal.Props) {
+  const portalContainer = usePortalContainer(container)
+  return (
+    <BaseAutocomplete.Portal {...rest} container={portalContainer}>
+      {children}
+    </BaseAutocomplete.Portal>
+  )
+}
 
 export type AutocompleteItemProps = Omit<BaseAutocomplete.Item.Props, 'data-component'>
 const Item = React.forwardRef<HTMLDivElement, AutocompleteItemProps>(function AutocompleteItem(
@@ -99,7 +111,7 @@ export const Autocomplete = Object.assign(Root, {
   Content,
   Popup: Content,
   Positioner: BaseAutocomplete.Positioner,
-  Portal: BaseAutocomplete.Portal,
+  Portal,
   List,
   Item,
   Group: BaseAutocomplete.Group,

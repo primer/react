@@ -6,6 +6,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {IconButton} from '../IconButton'
+import {usePortalContainer} from '../../internal/portalRoot'
 
 const popupClassName =
   'flex w-full max-w-[var(--overlay-width-large)] flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] font-sans text-default leading-normal shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
@@ -114,9 +115,14 @@ const Viewport = React.forwardRef<HTMLDivElement, Omit<BaseDialog.Viewport.Props
   },
 )
 
-const Portal = ({children, ...rest}: BaseDialog.Portal.Props) => (
-  <BaseDialog.Portal {...rest}>{children}</BaseDialog.Portal>
-)
+function Portal({children, container, ...rest}: BaseDialog.Portal.Props) {
+  const portalContainer = usePortalContainer(container)
+  return (
+    <BaseDialog.Portal {...rest} container={portalContainer}>
+      {children}
+    </BaseDialog.Portal>
+  )
+}
 
 const Header = React.forwardRef<HTMLDivElement, Omit<React.ComponentPropsWithoutRef<'div'>, 'data-component'>>(
   function DialogHeader({className, ...rest}, ref) {
@@ -196,7 +202,7 @@ const CloseButton = React.forwardRef<HTMLElement, DialogCloseButtonProps>(functi
         <IconButton
           {...props}
           icon={XIcon}
-          aria-label={props['aria-label'] ?? 'Close dialog'}
+          aria-label={props['aria-label'] ?? 'Close'}
           data-component="Dialog.CloseButton"
           variant="invisible"
         />

@@ -3,13 +3,19 @@ import {
   CommentDiscussionIcon,
   EyeIcon,
   GearIcon,
+  GitBranchIcon,
   GitPullRequestIcon,
   GraphIcon,
   PlayIcon,
   ProjectIcon,
   ShieldLockIcon,
+  TagIcon,
 } from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import React from 'react'
+import {action} from 'storybook/actions'
+import {AnchoredOverlay} from '../AnchoredOverlay'
+import {Button} from '../Button'
 import {UnderlinePanels} from './UnderlinePanels'
 
 const meta = {title: 'React Tailwind/Navigation/UnderlinePanels/Features', component: UnderlinePanels} satisfies Meta<
@@ -131,4 +137,107 @@ export const WithCountersInLoadingState: Story = {
       <UnderlinePanels.Panel value="two">Panel 2</UnderlinePanels.Panel>
     </UnderlinePanels>
   ),
+}
+
+const RefTypePanels = () => (
+  <>
+    <UnderlinePanels.Panel value="branch">Find or create a branch…</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel value="tag">Search or create a new tag…</UnderlinePanels.Panel>
+  </>
+)
+
+export const Controlled: Story = {
+  render: function Controlled() {
+    const [refType, setRefType] = React.useState('branch')
+    return (
+      <>
+        <UnderlinePanels
+          value={refType}
+          onChange={({value}) => {
+            action('onChange')({value})
+            setRefType(value)
+          }}
+        >
+          <UnderlinePanels.List aria-label="Ref type">
+            <UnderlinePanels.Tab value="branch" icon={GitBranchIcon}>
+              Branches
+            </UnderlinePanels.Tab>
+            <UnderlinePanels.Tab value="tag" icon={TagIcon}>
+              Tags
+            </UnderlinePanels.Tab>
+          </UnderlinePanels.List>
+          <RefTypePanels />
+        </UnderlinePanels>
+        <p>
+          Selected ref type: <strong>{refType}</strong>
+        </p>
+      </>
+    )
+  },
+}
+
+export const Uncontrolled: Story = {
+  render: () => (
+    <UnderlinePanels defaultValue="tag" onChange={({value}) => action('onChange')({value})}>
+      <UnderlinePanels.List aria-label="Ref type">
+        <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+      </UnderlinePanels.List>
+      <RefTypePanels />
+    </UnderlinePanels>
+  ),
+}
+
+export const ManualActivation: Story = {
+  render: function ManualActivation() {
+    const [refType, setRefType] = React.useState('branch')
+    return (
+      <>
+        <p>
+          With <code>activationMode=&quot;manual&quot;</code>, arrow keys only move focus; press Enter or Space (or
+          click) to commit selection. Prefer this when switching tabs triggers async work like a fetch.
+        </p>
+        <UnderlinePanels
+          value={refType}
+          activationMode="manual"
+          onChange={({value}) => {
+            action('onChange')({value})
+            setRefType(value)
+          }}
+        >
+          <UnderlinePanels.List aria-label="Ref type">
+            <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+            <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+          </UnderlinePanels.List>
+          <RefTypePanels />
+        </UnderlinePanels>
+      </>
+    )
+  },
+}
+
+export const InOverlay: Story = {
+  render: function InOverlay() {
+    const [refType, setRefType] = React.useState('branch')
+    return (
+      <AnchoredOverlay>
+        <AnchoredOverlay.Trigger render={<Button>Select ref type</Button>} />
+        <AnchoredOverlay.Content role="dialog" aria-label="Select a ref type" className="w-80">
+          <UnderlinePanels
+            value={refType}
+            onChange={({value}) => {
+              action('onChange')({value})
+              setRefType(value)
+            }}
+          >
+            <UnderlinePanels.List aria-label="Ref type">
+              <UnderlinePanels.Tab value="branch">Branches</UnderlinePanels.Tab>
+              <UnderlinePanels.Tab value="tag">Tags</UnderlinePanels.Tab>
+            </UnderlinePanels.List>
+            <RefTypePanels />
+          </UnderlinePanels>
+        </AnchoredOverlay.Content>
+      </AnchoredOverlay>
+    )
+  },
 }

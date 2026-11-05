@@ -6,12 +6,18 @@ import {Spinner} from '../Spinner'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {ButtonVariant} from './ButtonClassName'
 import {type ButtonVisual, resolveButtonVisual} from './ButtonVisual'
+import {getNotificationIndicatorClassName} from './notificationIndicator'
 
-function renderVisual(visual: ButtonVisual, component: 'leadingVisual' | 'trailingVisual' | 'trailingAction') {
+function renderVisual(
+  visual: ButtonVisual,
+  component: 'leadingVisual' | 'trailingVisual' | 'trailingAction',
+  notificationIndicator = false,
+) {
   return (
     <span
       className={cn(
         'flex pointer-events-none',
+        notificationIndicator && getNotificationIndicatorClassName('leadingVisual'),
         component === 'leadingVisual' && '[grid-area:leadingVisual]',
         component === 'trailingVisual' && '[grid-area:trailingVisual]',
         component !== 'trailingAction' && 'text-muted',
@@ -34,6 +40,7 @@ interface ButtonContentProps {
   loading: boolean
   loadingAnnouncement: string
   loadingAnnouncementId: string
+  notificationIndicator?: boolean
   size?: ControlSize
   trailingAction?: ButtonVisual
   trailingVisual?: ButtonVisual
@@ -50,6 +57,7 @@ export function ButtonContent({
   loading,
   loadingAnnouncement,
   loadingAnnouncementId,
+  notificationIndicator,
   size,
   trailingAction,
   trailingVisual,
@@ -88,6 +96,7 @@ export function ButtonContent({
           ? renderVisual(
               loading ? <Spinner aria-hidden="true" size="small" srText={null} /> : leadingVisual,
               'leadingVisual',
+              notificationIndicator,
             )
           : null}
         {children ? (

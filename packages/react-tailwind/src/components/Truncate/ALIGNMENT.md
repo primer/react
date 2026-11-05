@@ -11,5 +11,6 @@ Tailwind `Truncate` keeps `maxWidth`, `inline`, `expandable`, children, and nati
 ## Migration notes
 
 - Keep expansion state and controls in the consumer.
+- Use `as={Link}` with `href` for truncated links; component targets also receive `inline`.
 - Recheck the rendered default element and selectors when relying on legacy block/inline markup.
 - Remove `sx` and styled-system props.

@@ -8,7 +8,7 @@ import {useFormControlForwardedProps} from '../FormControl/useFormControlForward
 type ValidationStatus = 'error' | 'success'
 
 const selectWrapperClassName =
-  'relative inline-flex h-8 w-auto overflow-hidden align-middle rounded-md border border-[var(--control-borderColor-rest)] bg-default text-sm leading-5 text-default shadow-[var(--shadow-inset)] outline-none focus-within:border-accent-emphasis focus-within:outline-2 focus-within:outline-offset-[-1px] focus-within:outline-focus data-[block]:flex data-[block]:w-full data-[block]:self-stretch data-[contrast]:bg-[var(--control-bgColor-contrast,var(--bgColor-inset))] data-[disabled]:border-[var(--control-borderColor-disabled)] data-[disabled]:bg-[var(--control-bgColor-disabled)] data-[disabled]:text-disabled data-[disabled]:shadow-none data-[multiple]:h-auto data-[multiple]:min-h-8 data-[multiple]:overflow-visible data-[validation=error]:border-danger-emphasis data-[validation=error]:focus-within:border-[var(--control-borderColor-danger)] data-[validation=error]:focus-within:outline-[var(--control-borderColor-danger)] data-[validation=success]:border-[var(--bgColor-success-emphasis)] data-[size=small]:h-7 data-[size=large]:h-10 data-[size=small]:text-xs'
+  'relative inline-flex h-8 w-auto overflow-hidden align-middle rounded-md border border-[var(--control-borderColor-rest)] bg-default text-sm leading-5 text-default shadow-[var(--shadow-inset)] outline-none focus-within:border-accent-emphasis focus-within:outline-2 focus-within:outline-offset-[-1px] focus-within:outline-focus data-[block]:flex data-[block]:w-full data-[block]:self-stretch data-[disabled]:border-[var(--control-borderColor-disabled)] data-[disabled]:bg-[var(--control-bgColor-disabled)] data-[disabled]:text-disabled data-[disabled]:shadow-none data-[multiple]:h-auto data-[multiple]:min-h-8 data-[multiple]:overflow-visible data-[validation=error]:border-danger-emphasis data-[validation=error]:focus-within:border-[var(--control-borderColor-danger)] data-[validation=error]:focus-within:outline-[var(--control-borderColor-danger)] data-[validation=success]:border-[var(--bgColor-success-emphasis)] data-[size=small]:h-7 data-[size=large]:h-10 data-[size=small]:text-xs'
 
 const selectClassName =
   'm-px w-full min-w-0 cursor-pointer appearance-none rounded-[inherit] border-0 bg-inherit px-3 pr-6 text-inherit outline-none disabled:cursor-not-allowed disabled:bg-transparent'
@@ -17,8 +17,6 @@ export interface SelectProps
   extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'className' | 'data-component' | 'size'> {
   /** Makes the visible control fill its container. */
   block?: boolean
-  /** Uses the inset control background token. */
-  contrast?: boolean
   /** Text rendered as an initially selected empty-value option. */
   placeholder?: string
   /** Primer control height and typography. */
@@ -57,7 +55,6 @@ const SelectRoot = React.forwardRef<HTMLSelectElement, SelectProps>(function Sel
     block = false,
     children,
     className,
-    contrast = false,
     defaultValue,
     disabled,
     multiple,
@@ -79,7 +76,6 @@ const SelectRoot = React.forwardRef<HTMLSelectElement, SelectProps>(function Sel
     <span
       className={cn(selectWrapperClassName, className)}
       data-block={block || undefined}
-      data-contrast={contrast || undefined}
       data-disabled={isDisabled || undefined}
       data-multiple={multiple || undefined}
       data-size={size}

@@ -1,13 +1,12 @@
 'use client'
 
-import {AlertFillIcon} from '@primer/octicons-react'
 import {cva} from 'class-variance-authority'
 import React from 'react'
+import {CharacterCounter} from '../../internal/CharacterCounter'
+import {useCharacterLimit} from '../../internal/useCharacterLimit'
 import {cn} from '../../internal/cn'
 import type {ControlSize} from '../../utils/types'
-import {getCharacterCountState} from '../../utils/characterCounter'
 import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
-import {AriaStatus} from '../LiveRegion'
 import {Spinner} from '../Spinner'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {TextInputAction} from './TextInputAction'
@@ -20,10 +19,6 @@ const inputVariants = cva(
         true: 'flex w-full self-stretch',
         false: 'inline-flex',
       },
-      contrast: {
-        true: 'bg-[var(--control-bgColor-contrast,var(--bgColor-inset))]',
-        false: '',
-      },
       monospace: {
         true: 'font-mono',
         false: '',
@@ -34,7 +29,7 @@ const inputVariants = cva(
         large: 'h-10 py-[10px] text-sm leading-5 [--text-input-action-size:28px]',
       },
     },
-    defaultVariants: {block: false, contrast: false, monospace: false, size: 'medium'},
+    defaultVariants: {block: false, monospace: false, size: 'medium'},
   },
 )
 
@@ -45,8 +40,6 @@ export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInput
   block?: boolean
   /** Shows a remaining-character count and announces when the limit is near. */
   characterLimit?: number
-  /** Gives the input a filled background, for use on a matching surface. */
-  contrast?: boolean
   /** Icon or text shown inside the input, before the value. */
   leadingVisual?: TextInputVisual
   /** Shows a spinner inside the input while a value is being resolved. */
@@ -116,7 +109,6 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
     block = false,
     characterLimit,
     className,
-    contrast = false,
     defaultValue,
     disabled,
     leadingVisual,
@@ -139,18 +131,13 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
 ) {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [focused, setFocused] = React.useState(false)
-  const [uncontrolledLength, setUncontrolledLength] = React.useState(() =>
-    defaultValue === undefined ? 0 : String(defaultValue).length,
-  )
   const leadingVisualId = React.useId()
   const trailingVisualId = React.useId()
   const loadingId = React.useId()
-  const characterLimitId = React.useId()
+  const {characterLimitId, counter, onValueChange} = useCharacterLimit({characterLimit, defaultValue, value})
   const forwardedProps = useFormControlForwardedProps(rest)
   const effectiveDisabled = disabled ?? forwardedProps.disabled
   const effectiveRequired = required ?? forwardedProps.required
-  const currentLength = value === undefined ? uncontrolledLength : String(value).length
-  const counter = characterLimit === undefined ? undefined : getCharacterCountState(currentLength, characterLimit)
   const effectiveValidation = counter?.isOverLimit || forwardedProps['aria-invalid'] ? 'error' : validationStatus
   const showLeadingLoader =
     loading && (loaderPosition === 'leading' || (loaderPosition === 'auto' && leadingVisual !== undefined))
@@ -161,7 +148,7 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
   if (leadingVisual !== undefined) descriptionIds.push(leadingVisualId)
   if (trailingVisual !== undefined) descriptionIds.push(trailingVisualId)
   if (loading) descriptionIds.push(loadingId)
-  if (characterLimit !== undefined) descriptionIds.push(characterLimitId)
+  if (characterLimitId) descriptionIds.push(characterLimitId)
   const describedBy = descriptionIds.filter(Boolean).join(' ') || undefined
 
   const setInputRef = React.useCallback(
@@ -180,14 +167,13 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
       <span
         aria-busy={loading || undefined}
         className={cn(
-          inputVariants({block, contrast, monospace, size}),
+          inputVariants({block, monospace, size}),
           hasLeading && (size === 'large' ? 'pl-3' : 'pl-2'),
           hasTrailing && !trailingAction && (size === 'large' ? 'pr-3' : 'pr-2'),
           className,
         )}
         data-block={block || undefined}
         data-component="TextInput"
-        data-contrast={contrast || undefined}
         data-disabled={effectiveDisabled || undefined}
         data-focused={focused || undefined}
         data-leading-visual={hasLeading || undefined}
@@ -225,7 +211,7 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
             onBlur?.(event)
           }}
           onChange={event => {
-            if (characterLimit !== undefined && value === undefined) setUncontrolledLength(event.target.value.length)
+            onValueChange(event.target.value)
             onChange?.(event)
           }}
           onFocus={event => {
@@ -241,23 +227,13 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
         </VisualSlot>
         {trailingAction}
       </span>
-      {counter ? (
-        <>
-          <AriaStatus announceOnShow={false} className="sr-only" delayMs={500}>
-            {counter.message}
-          </AriaStatus>
-          <VisuallyHidden id={characterLimitId}>
-            You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
-          </VisuallyHidden>
-          <span
-            aria-hidden="true"
-            className={cn('flex items-center gap-1 text-xs text-muted', counter.isOverLimit && 'text-danger')}
-            data-component="TextInput.CharacterCounter"
-          >
-            {counter.isOverLimit ? <AlertFillIcon size={16} /> : null}
-            {counter.message}
-          </span>
-        </>
+      {counter && characterLimit !== undefined && characterLimitId ? (
+        <CharacterCounter
+          characterLimit={characterLimit}
+          counter={counter}
+          data-component="TextInput.CharacterCounter"
+          id={characterLimitId}
+        />
       ) : null}
     </>
   )

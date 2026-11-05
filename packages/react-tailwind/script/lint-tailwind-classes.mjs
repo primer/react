@@ -89,8 +89,6 @@ const sourceFiles = await glob('src/**/*.{ts,tsx}', {
   ignore: [
     '**/*.d.ts',
     '**/*.test.*',
-    '**/*.stories.*',
-    '**/*.storyHelpers.*',
     '**/test-setup.ts',
     // Configures tailwind-merge class groups rather than emitting class names.
     'src/internal/cn.ts',
@@ -101,13 +99,24 @@ const sourceFiles = await glob('src/**/*.{ts,tsx}', {
 const CLASS_CONTEXT =
   /(?:className|classNames|\bcn\(|\bcva\(|\bclsx\(|\bmergeClassName\(|ClassName\b|Classes\b|twMerge\()/
 
+/** Attributes and props whose values are never class names, even beside a `className`. */
+const NON_CLASS_VALUE =
+  /\b(?:id|htmlFor|aria-[\w-]+|data-[\w-]+|title|label|name|role|key|href|placeholder|alt|type|description|value|defaultValue|children)\s*[=:]\s*\{?\s*$/
+
+/** Sentence punctuation never appears in a class list, so its presence marks prose. */
+const PROSE_PUNCTUATION = /[.!?](?:\s|$)/
+
+/** Mirrors `stylelint-disable-next-line`, for fixtures that intentionally copy upstream values. */
+const DISABLE_NEXT_LINE = 'lint-tailwind-disable-next-line'
+
 /** Every string literal that sits in a class-name context, with the location that produced it. */
 const literals = []
 for (const file of sourceFiles) {
   const source = await readFile(file, 'utf8')
+  const sourceLines = source.split('\n')
   const lineStarts = []
   let offset = 0
-  for (const line of source.split('\n')) {
+  for (const line of sourceLines) {
     lineStarts.push(offset)
     offset += line.length + 1
   }
@@ -124,12 +133,14 @@ for (const file of sourceFiles) {
 
   for (const match of source.matchAll(/'([^'\n]{2,2000})'|"([^"\n]{2,2000})"/g)) {
     const value = (match[1] ?? match[2]).trim()
-    if (!value || !value.includes('-') || value.includes('${')) continue
+    if (!value || !value.includes('-') || value.includes('${') || PROSE_PUNCTUATION.test(value)) continue
     // A class list is always near the call or attribute that consumes it, including in
     // multi-line cn() and cva() expressions.
     const preceding = source.slice(Math.max(0, match.index - 600), match.index)
-    if (!CLASS_CONTEXT.test(preceding)) continue
-    literals.push({file: path.relative(packageRoot, file), line: lineFor(match.index), value})
+    if (!CLASS_CONTEXT.test(preceding) || NON_CLASS_VALUE.test(preceding)) continue
+    const line = lineFor(match.index)
+    if (sourceLines[line - 2]?.includes(DISABLE_NEXT_LINE)) continue
+    literals.push({file: path.relative(packageRoot, file), line, value})
   }
 }
 
@@ -180,6 +191,9 @@ try {
     if (tokens.length === 0) continue
     const valid = tokens.filter(compiles)
     if (valid.length === tokens.length) continue
+    // Several words with no compiling class and no variant or arbitrary syntax are copy, such
+    // as a hyphenated phrase rendered beside a styled element.
+    if (tokens.length >= 2 && valid.length === 0 && !tokens.some(token => /[:[]/.test(token))) continue
 
     for (const token of tokens.filter(token => !compiles(token))) {
       const base = token.split(VARIANT_SPLIT).pop() ?? token

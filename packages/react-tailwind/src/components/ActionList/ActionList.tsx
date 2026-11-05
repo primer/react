@@ -3,15 +3,18 @@
 import {AlertIcon, CheckIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {useItemGap} from '../../internal/listContainer'
 import {isPartOf, regionElements, resolveRegions} from '../../internal/regions'
 import type {RegionProps} from '../../utils/types'
 import {Button, ButtonBase, type ButtonBaseProps, type ButtonProps} from '../Button'
 import {IconButton} from '../IconButton'
 import {LinkButton, type LinkButtonProps} from '../LinkButton'
+import {Spinner} from '../Spinner'
 import {getSelectionAttribute, getSelectionRole, type SelectionVariant} from './selectionUtils'
 
 type ListContextValue = {
   groupLabelId?: string
+  itemGap?: boolean
   role?: string
   selectionVariant?: SelectionVariant
   showDividers?: boolean
@@ -21,8 +24,15 @@ type ListContextValue = {
 const ListContext = React.createContext<ListContextValue>({})
 
 const listClassName = 'm-0 list-none p-0 text-default'
+const actionItemDividerClassName = cn(
+  "relative before:absolute before:inset-x-0 before:-top-[7px] before:h-px before:bg-[var(--borderColor-muted)] before:content-['']",
+  "[li:first-of-type>*>&]:before:invisible [[data-component='ActionList.Divider']+li>*>&]:before:invisible",
+  '[[data-active]>&]:before:invisible [li:has(>[data-active])+li>*>&]:before:invisible',
+  '[@media(hover:hover)]:[li:hover>*>&]:before:invisible [@media(hover:hover)]:[li:hover+li>*>&]:before:invisible',
+)
+
 export const actionItemClassName =
-  'flex !min-w-0 w-full !justify-start gap-2 appearance-none rounded-md !border-0 bg-transparent px-2 py-1.5 text-left text-sm font-normal ![line-height:20px] whitespace-normal text-default no-underline !shadow-none hover:bg-neutral-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled'
+  'flex !min-w-0 w-full !justify-start gap-2 appearance-none rounded-md !border-0 bg-transparent px-2 py-1.5 text-left text-sm font-normal ![line-height:20px] whitespace-normal text-default no-underline !shadow-none hover:bg-neutral-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled items-start'
 
 interface ActionListTrailingActionBaseProps {
   className?: string
@@ -40,7 +50,14 @@ type ActionListTrailingActionButtonProps = {
   href?: never
 } & Omit<
   ButtonProps,
-  'children' | 'className' | 'data-component' | 'leadingVisual' | 'style' | 'trailingAction' | 'trailingVisual'
+  | 'children'
+  | 'className'
+  | 'data-component'
+  | 'leadingVisual'
+  | 'notificationIndicator'
+  | 'style'
+  | 'trailingAction'
+  | 'trailingVisual'
 >
 
 type ActionListTrailingActionLinkProps = {
@@ -51,23 +68,94 @@ type ActionListTrailingActionLinkProps = {
 export type ActionListTrailingActionProps = ActionListTrailingActionBaseProps &
   (ActionListTrailingActionButtonProps | ActionListTrailingActionLinkProps)
 
-function getTrailingActionClassName(hasIcon: boolean) {
+type TrailingActionSize = 'medium' | 'small'
+
+function getTrailingActionClassName(hasIcon: boolean, size: TrailingActionSize, loading = false) {
   return cn(
     'relative inline-flex h-8 min-h-8 min-w-8 items-center justify-center rounded-md !border-0 bg-transparent px-2 text-sm !shadow-none hover:bg-neutral-muted hover:text-default focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed',
     hasIcon ? 'text-muted' : '!px-[13px] text-default',
+    // A loading text action keeps its width and moves the spinner to the end, where an icon action's spinner sits.
+    !hasIcon &&
+      loading &&
+      "!pr-px !pl-[25px] [&_[data-component='buttonContent']>[data-component='leadingVisual']]:right-0 [&_[data-component='buttonContent']>[data-component='leadingVisual']]:left-auto [&_[data-component='buttonContent']>[data-component='leadingVisual']]:translate-x-0",
+    size === 'small' && 'size-7 min-h-7 min-w-7 !border p-0',
   )
 }
 
-function renderTrailingActionContainer(
-  action: React.ReactNode,
-  className: string | undefined,
-  style: React.CSSProperties | undefined,
+// While a trailing action loads, descriptions stay at full contrast so the item remains readable.
+const trailingActionLoadingClassName = "[&_[data-component='ActionList.Description']]:text-default"
+
+/** Whether a resolved trailing action is loading, so the item can keep its text at full contrast. */
+function isTrailingActionLoading(trailingAction: React.ReactNode) {
+  return React.isValidElement<{loading?: boolean}>(trailingAction) && Boolean(trailingAction.props.loading)
+}
+
+function renderTrailingAction(
+  props: ActionListTrailingActionProps,
+  ref: React.ForwardedRef<HTMLElement>,
+  size: TrailingActionSize,
+  dataComponent: string,
 ) {
+  let action: React.ReactNode
+  if (props.as === 'a') {
+    const {as: actionType, className, icon: Icon, label, style, ...linkProps} = props
+    void actionType
+    void className
+    void style
+    action = (
+      <LinkButton
+        {...linkProps}
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        aria-label={Icon ? label : linkProps['aria-label']}
+        className={getTrailingActionClassName(Boolean(Icon), size)}
+        data-component={`${dataComponent}.Button`}
+        leadingVisual={Icon ? <Icon aria-hidden="true" /> : undefined}
+        size={size}
+        variant="invisible"
+      >
+        {Icon ? null : label}
+      </LinkButton>
+    )
+  } else {
+    const {as: actionType, className, icon: Icon, label, style, type = 'button', ...buttonProps} = props
+    void actionType
+    void className
+    void style
+    action = Icon ? (
+      <IconButton
+        {...buttonProps}
+        ref={ref}
+        type={type}
+        aria-label={label}
+        className={getTrailingActionClassName(true, size)}
+        data-component={`${dataComponent}.Button`}
+        icon={Icon}
+        size={size}
+        variant="invisible"
+      />
+    ) : (
+      <Button
+        {...buttonProps}
+        ref={ref}
+        type={type}
+        className={getTrailingActionClassName(false, size, Boolean(buttonProps.loading))}
+        data-component={`${dataComponent}.Button`}
+        size={size}
+        variant="invisible"
+      >
+        {label}
+      </Button>
+    )
+  }
   return (
     <span
-      className={cn('ml-auto shrink-0 self-stretch', className)}
-      data-component="ActionList.TrailingAction"
-      style={style}
+      className={cn(
+        'ml-auto shrink-0',
+        size === 'small' ? 'inline-flex items-center' : 'self-stretch',
+        props.className,
+      )}
+      data-component={dataComponent}
+      style={props.style}
     >
       {action}
     </span>
@@ -76,55 +164,13 @@ function renderTrailingActionContainer(
 
 const TrailingAction = React.forwardRef<HTMLElement, ActionListTrailingActionProps>(
   function ActionListTrailingAction(props, ref) {
-    if (props.as === 'a') {
-      const {as: actionType, className, icon: Icon, label, style, ...linkProps} = props
-      void actionType
-      const action = (
-        <LinkButton
-          {...linkProps}
-          ref={ref as React.Ref<HTMLAnchorElement>}
-          aria-label={Icon ? label : linkProps['aria-label']}
-          className={getTrailingActionClassName(Boolean(Icon))}
-          data-component="ActionList.TrailingAction.Button"
-          leadingVisual={Icon ? <Icon aria-hidden="true" /> : undefined}
-          variant="invisible"
-        >
-          {Icon ? null : label}
-        </LinkButton>
-      )
-      return renderTrailingActionContainer(action, className, style)
-    }
-
-    const {as: actionType, className, icon: Icon, label, style, type = 'button', ...buttonProps} = props
-    void actionType
-    const action = Icon ? (
-      <IconButton
-        {...buttonProps}
-        ref={ref}
-        type={type}
-        aria-label={label}
-        className={getTrailingActionClassName(true)}
-        data-component="ActionList.TrailingAction.Button"
-        icon={Icon}
-        variant="invisible"
-      />
-    ) : (
-      <Button
-        {...buttonProps}
-        ref={ref}
-        type={type}
-        className={getTrailingActionClassName(false)}
-        data-component="ActionList.TrailingAction.Button"
-        variant="invisible"
-      >
-        {label}
-      </Button>
-    )
-    return renderTrailingActionContainer(action, className, style)
+    return renderTrailingAction(props, ref, 'medium', 'ActionList.TrailingAction')
   },
 )
 
-export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'> {
+export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'>, RegionProps<'heading'> {
+  /** Disable the gap between items when this list is rendered in a `NavList`. */
+  disableItemGap?: boolean
   /** How many items may be selected, which also decides the list's ARIA role. */
   selectionVariant?: SelectionVariant
   /** Density and inset treatment of the list. */
@@ -134,10 +180,28 @@ export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'
 }
 
 const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function ActionListRoot(
-  {children, className, role = 'list', selectionVariant, showDividers = false, variant = 'inset', ...rest},
+  {
+    children,
+    className,
+    disableItemGap = false,
+    heading: headingProp,
+    role = 'list',
+    selectionVariant,
+    showDividers = false,
+    variant = 'inset',
+    ...rest
+  },
   ref,
 ) {
   const listRole = role
+  const itemGap = useItemGap(disableItemGap)
+  const generatedHeadingId = React.useId()
+  const {
+    matched: {heading: matchedHeadings},
+    rest: listChildren,
+  } = resolveRegions(children, {heading: {match: isPartOf(Heading)}}, {heading: headingProp})
+  const heading = regionElements<ActionListHeadingProps>(headingProp, matchedHeadings).at(0)
+  const headingId = heading ? (heading.props.id ?? generatedHeadingId) : undefined
   const listRef = React.useRef<HTMLUListElement | null>(null)
   const setListRef = React.useCallback(
     (node: HTMLUListElement | null) => {
@@ -158,8 +222,10 @@ const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function Ac
   })
 
   return (
-    <ListContext.Provider value={{role: listRole, selectionVariant, showDividers, variant}}>
+    <ListContext.Provider value={{itemGap, role: listRole, selectionVariant, showDividers, variant}}>
+      {heading ? React.cloneElement(heading, {id: headingId}) : null}
       <ul
+        aria-labelledby={headingId}
         {...rest}
         ref={setListRef}
         role={role}
@@ -173,8 +239,9 @@ const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function Ac
         data-component="ActionList"
         data-variant={variant}
         data-dividers={showDividers || undefined}
+        data-item-gap={itemGap || undefined}
       >
-        {children}
+        {listChildren}
       </ul>
     </ListContext.Provider>
   )
@@ -189,14 +256,14 @@ export interface ActionListItemProps
   disabled?: boolean
   /** Marks the item temporarily unavailable and explains why. Unlike `disabled`, the item stays reachable. */
   inactiveText?: React.ReactNode
-  /** Shows a spinner in place of the leading visual and suppresses activation. */
+  /** Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation. */
   loading?: boolean
   /** Text announced to assistive technology while the item is loading. */
   loadingText?: string
   /** Marks the item selected, reported through the role's selection attribute. */
   selected?: boolean
-  /** Row height. Use `large` for a more comfortable touch target. */
-  size?: 'medium' | 'large'
+  /** Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target. */
+  size?: 'small' | 'medium' | 'large'
   /** Highlights the item as the current one, without marking it selected. */
   active?: boolean
   /** Use `danger` for a destructive action. */
@@ -266,18 +333,22 @@ export function ActionItemContent({
   children,
   description,
   descriptionVariant,
+  indicator,
   leadingVisual,
   selection,
   showDivider,
+  size = 'medium',
   supportingText,
   trailingVisual,
 }: {
   children: React.ReactNode
   description?: React.ReactNode
   descriptionVariant?: ActionListDescriptionProps['variant']
+  indicator?: React.ReactNode
   leadingVisual?: React.ReactNode
   selection?: React.ReactNode
   showDivider?: boolean
+  size?: 'small' | 'medium' | 'large'
   supportingText?: React.ReactNode
   trailingVisual?: React.ReactNode
 }) {
@@ -298,17 +369,31 @@ export function ActionItemContent({
     trailingVisual: resolvedTrailingVisual,
   } = getItemParts(composedChildren)
   const hasBlockDescription = blockDescriptions.length > 0
+  // A loading or inactive indicator replaces the leading visual when there is one and the trailing
+  // visual otherwise, as upstream does, so the label keeps its alignment.
+  const renderedLeadingVisual =
+    indicator && resolvedLeadingVisual ? <LeadingVisual>{indicator}</LeadingVisual> : resolvedLeadingVisual
+  const renderedTrailingVisual =
+    indicator && !resolvedLeadingVisual ? <TrailingVisual>{indicator}</TrailingVisual> : resolvedTrailingVisual
 
   return (
     <>
-      {selection}
-      {resolvedLeadingVisual}
+      {selection ? (
+        <span
+          className="flex min-h-5 min-w-max shrink-0 items-center leading-5 text-muted"
+          data-component="ActionList.Selection"
+        >
+          {selection}
+        </span>
+      ) : null}
+      {renderedLeadingVisual}
       <span
         className={cn(
           'flex min-w-0 flex-1 items-start',
           supportingText ? 'flex-wrap gap-x-2 gap-y-0' : 'gap-2',
-          showDivider &&
-            "relative before:absolute before:inset-x-0 before:-top-[7px] before:h-px before:bg-[var(--borderColor-muted)] before:content-['']",
+          showDivider && actionItemDividerClassName,
+          // Upstream paints the divider a second time for items with inline descriptions.
+          showDivider && inlineDescriptions.length > 0 && 'before:shadow-[inset_0_1px_var(--borderColor-muted)]',
         )}
         data-component="ActionList.Item--DividerContainer"
       >
@@ -323,7 +408,8 @@ export function ActionItemContent({
           <span className={cn('flex min-w-0 items-baseline', inlineDescriptions.length > 0 && 'gap-2')}>
             <span
               className={cn(
-                'relative text-sm leading-5 wrap-break-word',
+                'relative wrap-break-word',
+                size === 'small' ? 'text-xs' : 'text-sm leading-5',
                 descriptions.length === 0 && 'min-w-0 flex-1',
                 descriptions.length > 0 && 'font-semibold',
               )}
@@ -336,7 +422,7 @@ export function ActionItemContent({
           </span>
           {blockDescriptions}
         </span>
-        {resolvedTrailingVisual}
+        {renderedTrailingVisual}
         {supportingText ? <span className="basis-full text-xs leading-4 text-attention">{supportingText}</span> : null}
       </span>
     </>
@@ -366,7 +452,7 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
   },
   ref,
 ) {
-  const {role: listRole, selectionVariant, showDividers, variant: listVariant} = React.useContext(ListContext)
+  const {itemGap, role: listRole, selectionVariant, showDividers, variant: listVariant} = React.useContext(ListContext)
   const role = roleProp ?? getSelectionRole(listRole, selectionVariant)
   const selectionAttribute = getSelectionAttribute(role)
   const {
@@ -380,9 +466,10 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
     trailingAction: trailingActionProp,
   })
   const renderedTrailingAction = !inactiveText && !loading ? resolvedTrailingAction : null
+  const trailingActionLoading = !disabled && isTrailingActionLoading(renderedTrailingAction)
   const showInactiveWarning = Boolean(inactiveText && (listRole === 'menu' || listRole === 'listbox'))
   const selection =
-    selectionVariant === 'multiple' ? (
+    selectionVariant === 'multiple' && listRole !== 'menu' ? (
       <span
         aria-hidden="true"
         className={cn(
@@ -393,30 +480,27 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
       >
         <CheckIcon className={cn('size-3', !selected && 'invisible')} />
       </span>
-    ) : selectionVariant === 'single' || selectionVariant === 'radio' ? (
+    ) : selectionVariant ? (
       <CheckIcon aria-hidden="true" className={cn('shrink-0', !selected && 'invisible')} />
     ) : null
-  const statusIndicator = loading ? (
-    <span
-      aria-hidden="true"
-      className="size-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent"
-    />
-  ) : null
-  const inactiveIndicator =
+  const statusIndicator =
     inactiveText && !showInactiveWarning ? (
       <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-muted" />
+    ) : loading ? (
+      <Spinner aria-hidden="true" className="shrink-0" size="small" srText={null} />
     ) : null
 
   return (
     <li
       role={listRole === 'menu' || listRole === 'listbox' ? 'none' : undefined}
       data-component="ActionList.Item"
+      data-trailing-action-loading={trailingActionLoading || undefined}
       className={cn(
         'relative list-none rounded-md',
         listVariant !== 'full' && 'mx-2',
-        showDividers &&
-          "after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-[var(--borderColor-muted)] after:content-[''] last:after:hidden",
+        itemGap && "[[data-component$='Item']+&]:mt-0.5",
         renderedTrailingAction && 'flex items-center',
+        trailingActionLoading && trailingActionLoadingClassName,
       )}
     >
       <ButtonBase
@@ -434,6 +518,7 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
         }}
         className={cn(
           actionItemClassName,
+          size === 'small' && 'py-1',
           size === 'large' && 'py-2.5',
           renderedTrailingAction && 'min-w-0 flex-1',
           variant === 'danger' && 'text-danger hover:bg-[var(--control-danger-bgColor-hover)]',
@@ -445,12 +530,15 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
         data-active={active || undefined}
         data-has-description={hasDescription}
         data-selected={selected || undefined}
+        data-size={size}
         data-variant={variant === 'danger' ? variant : undefined}
       >
         <ActionItemContent
-          selection={statusIndicator ?? selection}
+          indicator={statusIndicator}
+          selection={selection}
+          showDivider={showDividers}
+          size={size}
           supportingText={showInactiveWarning ? inactiveText : null}
-          trailingVisual={inactiveIndicator}
         >
           {itemChildren}
         </ActionItemContent>
@@ -465,19 +553,29 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
 export interface ActionListLinkItemProps
   extends React.ComponentPropsWithoutRef<'a'>,
     RegionProps<'leadingVisual' | 'trailingVisual' | 'description' | 'trailingAction'> {
+  /** Highlights the link as the current one. */
+  active?: boolean
+  /** Marks the link temporarily unavailable and explains why. The link renders as text until it is available. */
+  inactiveText?: React.ReactNode
   /** Marks the link as the current one. */
   selected?: boolean
+  /** Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target. */
+  size?: 'small' | 'medium' | 'large'
   /** Use `danger` for a destructive navigation. */
   variant?: 'default' | 'danger'
 }
 
 const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(function ActionListLinkItem(
   {
+    active,
     children,
     className,
     description: descriptionProp,
+    href,
+    inactiveText,
     leadingVisual: leadingVisualProp,
     selected,
+    size = 'medium',
     trailingAction: trailingActionProp,
     trailingVisual: trailingVisualProp,
     variant = 'default',
@@ -486,6 +584,7 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
   ref,
 ) {
   const context = React.useContext(ListContext)
+  const {showDividers} = context
   const {itemChildren, hasDescription, trailingAction} = resolveItemRegions(children, {
     leadingVisual: leadingVisualProp,
     trailingVisual: trailingVisualProp,
@@ -493,31 +592,54 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
     trailingAction: trailingActionProp,
   })
 
+  const renderedTrailingAction = inactiveText ? null : trailingAction
+  const trailingActionLoading = isTrailingActionLoading(renderedTrailingAction)
+  const LinkElement = inactiveText ? 'span' : 'a'
+
   return (
     <li
       data-component="ActionList.LinkItem"
+      data-trailing-action-loading={trailingActionLoading || undefined}
       className={cn(
         'relative list-none rounded-md',
         context.variant !== 'full' && 'mx-2',
-        trailingAction && 'flex items-center',
+        context.itemGap && "[[data-component$='Item']+&]:mt-0.5",
+        renderedTrailingAction && 'flex items-center',
+        trailingActionLoading && trailingActionLoadingClassName,
       )}
     >
-      <a
+      <LinkElement
         {...rest}
         ref={ref}
+        href={inactiveText ? undefined : href}
+        aria-disabled={inactiveText ? true : undefined}
         className={cn(
           actionItemClassName,
-          trailingAction && 'min-w-0 flex-1',
+          size === 'small' && 'py-1',
+          size === 'large' && 'py-2.5',
+          renderedTrailingAction && 'min-w-0 flex-1',
           variant === 'danger' && 'text-danger hover:bg-[var(--control-danger-bgColor-hover)]',
           selected && 'bg-accent-muted',
+          active && 'bg-[var(--control-transparent-bgColor-selected)]',
+          inactiveText && 'cursor-not-allowed text-muted hover:bg-transparent',
           className,
         )}
-        data-selected={selected || undefined}
+        data-active={active || undefined}
         data-has-description={hasDescription}
+        data-inactive={inactiveText ? true : undefined}
+        data-selected={selected || undefined}
+        data-size={size}
       >
-        <ActionItemContent>{itemChildren}</ActionItemContent>
-      </a>
-      {trailingAction}
+        <ActionItemContent
+          indicator={inactiveText ? <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-muted" /> : undefined}
+          showDivider={showDividers}
+          size={size}
+        >
+          {itemChildren}
+        </ActionItemContent>
+        {inactiveText ? <span className="sr-only">{inactiveText}</span> : null}
+      </LinkElement>
+      {renderedTrailingAction}
     </li>
   )
 })
@@ -545,13 +667,12 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
   const groupLabelId = title
     ? generatedGroupLabelId
     : (headingChildren[0]?.props.id ?? (headingChildren.length > 0 ? generatedGroupLabelId : undefined))
-  const hasFilledHeading = headingChildren.some(child => child.props.variant === 'filled')
   return (
     <li
       {...rest}
       ref={ref}
       role={context.role === 'menu' || context.role === 'listbox' ? 'none' : rest.role}
-      className={cn(!hasFilledHeading && '[&+&]:mt-2', className)}
+      className={cn('not-first:mt-2', className)}
       data-component="ActionList.Group"
     >
       <ListContext.Provider
@@ -628,7 +749,7 @@ export type ActionListGroupHeadingTrailingActionProps = ActionListTrailingAction
 
 const GroupHeadingTrailingAction = React.forwardRef<HTMLElement, ActionListGroupHeadingTrailingActionProps>(
   function ActionListGroupHeadingTrailingAction(props, ref) {
-    return <TrailingAction {...props} ref={ref} />
+    return renderTrailingAction(props, ref, 'small', 'ActionList.GroupHeading.TrailingAction')
   },
 )
 
@@ -640,7 +761,7 @@ const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'
         ref={ref}
         role="separator"
         className={cn(
-          "relative h-4 border-0 after:absolute after:inset-x-4 after:top-1/2 after:h-px after:bg-[var(--borderColor-muted)] after:content-['']",
+          'mt-[7px] mb-2 block h-px list-none border-0 bg-[var(--borderColor-muted)] p-0 first:hidden',
           props.className,
         )}
         data-component="ActionList.Divider"
@@ -685,18 +806,42 @@ const Description = ({className, truncate, variant = 'inline', ...props}: Action
 export interface ActionListHeadingProps extends React.ComponentPropsWithoutRef<'h2'> {
   /** Heading element to render, so the list heading fits the surrounding document outline. */
   as?: React.ElementType
-  /** Visual size of the heading. */
-  size?: 'small' | 'medium'
+  /** Title size of the heading. Omit it to keep the default large heading font size. */
+  size?: 'small' | 'medium' | 'large'
+  /** Hides the heading visually while it still names the list for assistive technology. */
+  visuallyHidden?: boolean
 }
-const Heading = ({as: Component = 'h2', children, className, size = 'medium', ...props}: ActionListHeadingProps) => (
-  <Component
-    {...props}
-    className={cn('m-0 px-4 py-1.5 font-semibold', size === 'small' ? 'text-xs leading-[18px]' : 'text-sm', className)}
-    data-component="ActionList.Heading"
-  >
-    {children}
-  </Component>
-)
+const headingSizeClassName = {
+  small: 'font-display text-title-small',
+  medium: 'font-display text-title-medium',
+  large: 'font-display text-title-large',
+} as const
+const Heading = ({
+  as: Component = 'h2',
+  children,
+  className,
+  size,
+  visuallyHidden = false,
+  ...props
+}: ActionListHeadingProps) => {
+  const {variant} = React.useContext(ListContext)
+  return (
+    <Component
+      {...props}
+      className={cn(
+        'm-0 mb-2 text-[length:var(--text-title-size-large)] font-semibold',
+        size && headingSizeClassName[size],
+        variant === 'full' ? 'ms-2' : 'ms-4',
+        visuallyHidden && 'sr-only',
+        className,
+      )}
+      data-component="ActionList.Heading"
+      data-list-variant={variant}
+    >
+      {children}
+    </Component>
+  )
+}
 
 export const ActionList = Object.assign(Root, {
   Root,

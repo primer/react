@@ -1,22 +1,26 @@
-import {render, within} from '@testing-library/react'
+import {cleanup, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vitest'
+import {clip, MockIntersectionObserver, stubIntersectionObserver} from '../../internal/intersectionObserver.test-utils'
 import {UnderlineNav} from './UnderlineNav'
+
+afterEach(() => {
+  cleanup()
+  vi.unstubAllGlobals()
+})
 
 describe('UnderlineNav', () => {
   it('retains semantic navigation, list, current-link states, and DOM props', () => {
     const ref = React.createRef<HTMLElement>()
     const {container} = render(
       <UnderlineNav ref={ref} aria-label="Repository" data-testid="navigation">
-        <UnderlineNav.List>
-          <UnderlineNav.Item href="/code" aria-current="page">
-            Code
-          </UnderlineNav.Item>
-          <UnderlineNav.Item href="/issues" counter={3}>
-            Issues
-          </UnderlineNav.Item>
-        </UnderlineNav.List>
+        <UnderlineNav.Item href="/code" aria-current="page">
+          Code
+        </UnderlineNav.Item>
+        <UnderlineNav.Item href="/issues" counter={3}>
+          Issues
+        </UnderlineNav.Item>
       </UnderlineNav>,
     )
     const canvas = within(container)
@@ -35,11 +39,9 @@ describe('UnderlineNav', () => {
 
     const {container} = render(
       <UnderlineNav aria-label="Repository">
-        <UnderlineNav.List>
-          <UnderlineNav.Item href="#issues" onClick={onClick} onSelect={onSelect}>
-            Issues
-          </UnderlineNav.Item>
-        </UnderlineNav.List>
+        <UnderlineNav.Item href="#issues" onClick={onClick} onSelect={onSelect}>
+          Issues
+        </UnderlineNav.Item>
       </UnderlineNav>,
     )
 
@@ -55,11 +57,9 @@ describe('UnderlineNav', () => {
 
     const {container} = render(
       <UnderlineNav aria-label="Repository">
-        <UnderlineNav.List>
-          <UnderlineNav.Item href="#issues" onClick={event => event.preventDefault()} onSelect={onSelect}>
-            Issues
-          </UnderlineNav.Item>
-        </UnderlineNav.List>
+        <UnderlineNav.Item href="#issues" onClick={event => event.preventDefault()} onSelect={onSelect}>
+          Issues
+        </UnderlineNav.Item>
       </UnderlineNav>,
     )
 
@@ -71,16 +71,123 @@ describe('UnderlineNav', () => {
   it('uses a loading skeleton in place of counters', () => {
     const {container} = render(
       <UnderlineNav aria-label="Repository" loadingCounters>
-        <UnderlineNav.List>
-          <UnderlineNav.Item href="/issues" counter={3}>
-            Issues
-          </UnderlineNav.Item>
-        </UnderlineNav.List>
+        <UnderlineNav.Item href="/issues" counter={3}>
+          Issues
+        </UnderlineNav.Item>
       </UnderlineNav>,
     )
 
     const issues = within(container).getByRole('link', {name: 'Issues'})
     expect(issues).toBeInTheDocument()
     expect(issues.querySelector('[data-component="SkeletonBox"]')).toBeInTheDocument()
+  })
+
+  it('hides icons below the medium container breakpoint by default', () => {
+    const {container} = render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item leadingVisual={<svg aria-hidden="true" data-testid="icon" />}>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    expect(within(container).getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
+    expect(within(container).getByTestId('icon').parentElement).toHaveClass('@max-[768px]/underline-nav:hidden')
+  })
+
+  it('supports always showing icons', () => {
+    const {container} = render(
+      <UnderlineNav aria-label="Repository" hideIconsBreakpoint={null}>
+        <UnderlineNav.Item leadingVisual={<svg aria-hidden="true" data-testid="icon" />}>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    expect(within(container).getByRole('navigation')).not.toHaveAttribute('data-hide-icons-breakpoint')
+    expect(within(container).getByTestId('icon').parentElement?.className).not.toMatch(/:hidden/)
+  })
+
+  it('defaults href for native anchor items', () => {
+    const {container} = render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item>Code</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    expect(within(container).getByRole('link', {name: 'Code'})).toHaveAttribute('href', '#')
+  })
+
+  it('does not default href for custom link components', () => {
+    const RouterLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<'a'>>(function RouterLink(
+      {children, ...props},
+      ref,
+    ) {
+      return (
+        <a {...props} ref={ref} data-href-prop={props.href ?? 'none'} href="/issues">
+          {children}
+        </a>
+      )
+    })
+    const {container} = render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item as={RouterLink}>Issues</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    const link = within(container).getByRole('link', {name: 'Issues'})
+    expect(link).toHaveAttribute('href', '/issues')
+    expect(link).toHaveAttribute('data-href-prop', 'none')
+  })
+})
+
+describe('UnderlineNav overflow', () => {
+  function renderOverflowNav(onSelect = vi.fn()) {
+    stubIntersectionObserver()
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item href="/code">Code</UnderlineNav.Item>
+        <UnderlineNav.Item href="/issues" counter={3} onSelect={onSelect}>
+          Issues
+        </UnderlineNav.Item>
+        <UnderlineNav.Item href="/settings" aria-current="page">
+          Settings
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    const item = (name: RegExp) => screen.getByRole('link', {name}).closest('li')!
+    return {nav: screen.getByRole('navigation'), issues: item(/^Issues/), settings: item(/^Settings/)}
+  }
+
+  it('observes items against the navigation root', () => {
+    const {nav, issues} = renderOverflowNav()
+    expect(MockIntersectionObserver.current?.options?.root).toBe(nav)
+    expect(MockIntersectionObserver.current?.elements.has(issues)).toBe(true)
+  })
+
+  it('moves clipped items into the More menu in document order', async () => {
+    const user = userEvent.setup()
+    const onSelect = vi.fn((event: React.MouseEvent) => event.preventDefault())
+    const {nav, issues, settings} = renderOverflowNav(onSelect)
+
+    clip(settings, issues)
+    expect(nav).toHaveAttribute('data-has-overflow', 'true')
+    expect(issues).toHaveAttribute('aria-hidden', 'true')
+    expect(within(issues).getByRole('link', {hidden: true})).toHaveAttribute('tabindex', '-1')
+
+    const more = screen.getByRole('button', {name: 'More items, including current item'})
+    expect(more).toHaveAttribute('data-current')
+    await user.click(more)
+    const items = await screen.findAllByRole('menuitem')
+    expect(items).toHaveLength(2)
+    expect(items[0]).toHaveTextContent('Issues3 (3)')
+    expect(items[1]).toHaveTextContent('Settings')
+    expect(items[1]).toHaveAttribute('aria-current', 'page')
+
+    await user.click(items[0])
+    expect(onSelect).toHaveBeenCalledOnce()
+  })
+
+  it('restores items once they fit again', () => {
+    const {nav, issues} = renderOverflowNav()
+    clip(issues)
+    // jsdom drops the space before the visually hidden word; browsers announce "More items".
+    expect(screen.getByRole('button', {name: /^More\s?items$/})).toBeInTheDocument()
+    clip()
+    expect(nav).not.toHaveAttribute('data-has-overflow')
+    expect(issues).not.toHaveAttribute('aria-hidden')
+    expect(within(issues).getByRole('link')).not.toHaveAttribute('tabindex')
   })
 })

@@ -71,10 +71,12 @@ describe('AnchoredOverlay', () => {
     )
 
     expect(screen.getByRole('button', {name: 'Options'})).toHaveAttribute('data-component', 'AnchoredOverlay.Trigger')
-    expect(screen.getByTestId('arrow')).toHaveClass(
-      'fill-[var(--overlay-bgColor)]',
-      'stroke-[var(--borderColor-default)]',
+    const arrow = screen.getByTestId('arrow')
+    expect(arrow).toHaveClass(
+      '[--arrow-bg-color:var(--overlay-bgColor)]',
+      '[--arrow-border-color:var(--borderColor-default)]',
       'open',
     )
+    expect(arrow.querySelector('svg')).toHaveAttribute('aria-hidden', 'true')
   })
 })

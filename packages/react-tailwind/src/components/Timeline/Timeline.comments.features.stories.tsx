@@ -69,7 +69,7 @@ function CommentCard({
                 )}
               >
                 {inlineAvatar ? (
-                  <span className={cn('shrink-0', isResponsive && '@min-[768px]:hidden')}>{inlineAvatar}</span>
+                  <span className={cn('flex shrink-0', isResponsive && '@min-[768px]:hidden')}>{inlineAvatar}</span>
                 ) : null}
                 <Link className="font-semibold text-default hover:text-accent" href="#" muted>
                   {name}
@@ -101,7 +101,13 @@ function CommentCard({
                   ) : null}
                 </span>
               </div>
-              <IconButton aria-label="Comment actions" icon={KebabHorizontalIcon} size="small" variant="invisible" />
+              <IconButton
+                aria-label="Comment actions"
+                className="shrink-0"
+                icon={KebabHorizontalIcon}
+                size="small"
+                variant="invisible"
+              />
             </div>
             <div className="p-4 text-sm leading-[21px] text-default [&_code]:rounded-md [&_code]:bg-neutral-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-xs [&_code]:leading-[18px] [&_p]:m-0 [&_p:not(:first-child)]:mt-2">
               {children}
@@ -164,7 +170,6 @@ export const CommentCards: Story = {
             <Avatar
               alt=""
               className="mr-1 inline-block align-middle"
-              shape="square"
               size={24}
               src="https://avatars.githubusercontent.com/u/44036562?v=4"
             />

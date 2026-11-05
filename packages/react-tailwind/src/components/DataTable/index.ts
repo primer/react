@@ -10,24 +10,32 @@ import {
   TableHeader,
   TablePagination,
   TableRow,
+  TableRowSelection,
+  TableSelectionHeader,
   TableSkeleton,
   TableSortHeader,
   TableSubtitle,
   TableTitle,
 } from './Table'
+import {TableBulkActions} from './TableBulkActions'
+import {TableGroup} from './TableGroup'
 export {createColumnHelper} from './column'
 
 export const Table = Object.assign(TableRoot, {
   Actions: TableActions,
   Body: TableBody,
+  BulkActions: TableBulkActions,
   Cell: TableCell,
   CellPlaceholder: TableCellPlaceholder,
   Container: TableContainer,
   Divider: TableDivider,
+  Group: TableGroup,
   Head: TableHead,
   Header: TableHeader,
   Pagination: TablePagination,
   Row: TableRow,
+  RowSelection: TableRowSelection,
+  SelectionHeader: TableSelectionHeader,
   SortHeader: TableSortHeader,
   Skeleton: TableSkeleton,
   Subtitle: TableSubtitle,
@@ -36,7 +44,11 @@ export const Table = Object.assign(TableRoot, {
 
 export {
   DataTable,
+  type DataTableBulkActionsContext,
+  type DataTableData,
   type DataTableProps,
+  type DataTableRowGroup,
+  type DataTableRowId,
   type Column,
   type UniqueRow,
   type CellAlignment,
@@ -52,9 +64,13 @@ export {
   type TablePaginationProps,
   type TableSortHeaderProps,
   type TableCellProps,
+  type TableRowSelectionProps,
+  type TableSelectionHeaderProps,
   type TableContainerProps,
   type TableTitleProps,
   type TableSubtitleProps,
   type TableSkeletonProps,
   type SortDirection,
 } from './Table'
+export {type TableBulkActionsProps} from './TableBulkActions'
+export {type TableGroupProps} from './TableGroup'

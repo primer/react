@@ -121,10 +121,10 @@ function LabelsPanel({
         onOpenChange={restProps.onOpenChange ?? setOpen}
         onSelectedChange={restProps.onSelectedChange ?? setSelected}
         open={restProps.open ?? open}
-        placeholder="Select labels"
+        placeholder={restProps.placeholder ?? 'Select labels'}
         selected={restProps.selected ?? selected}
         selectionVariant={multiple ? 'multiple' : 'single'}
-        subtitle="Use labels to organize issues and pull requests"
+        subtitle={restProps.subtitle ?? 'Use labels to organize issues and pull requests'}
         title={title}
         variant="modal"
       />
@@ -138,10 +138,10 @@ function LabelsPanel({
         onOpenChange={restProps.onOpenChange ?? setOpen}
         onSelectedChange={restProps.onSelectedChange ?? setSelected}
         open={restProps.open ?? open}
-        placeholder="Select labels"
+        placeholder={restProps.placeholder ?? 'Select labels'}
         selected={restProps.selected ?? selected}
         selectionVariant={multiple ? 'multiple' : 'single'}
-        subtitle="Use labels to organize issues and pull requests"
+        subtitle={restProps.subtitle ?? 'Use labels to organize issues and pull requests'}
         title={title}
         variant="anchored"
       />
@@ -295,6 +295,7 @@ export const WithGroups: Story = {
   render: () => (
     <LabelsPanel
       initialSelected={[]}
+      label="Options"
       panelItems={groupItems}
       selectPanelProps={{
         groupMetadata: [
@@ -303,6 +304,10 @@ export const WithGroups: Story = {
           {groupId: 'layout', header: {title: 'Layout', variant: 'filled'}},
         ],
         overlayProps: {height: 'xlarge', width: 'large'},
+        placeholder: 'Select options',
+        subtitle:
+          'Choose which files and symbols you want to chat about. Use fewer references for more accurate responses.',
+        width: 'medium',
       }}
       title="Attach files and symbols"
     />
@@ -330,9 +335,8 @@ export const WithLabelInternally: Story = {
       label={null}
       selectPanelProps={{
         renderAnchor: ({children}) => (
-          <Button trailingVisual={FilterIcon}>
-            <span className="mr-1 text-muted">Choices:</span>
-            {children || 'None selected'}
+          <Button aria-haspopup="dialog" trailingAction={TriangleDownIcon}>
+            <span className="inline-block text-muted">Choices:</span> {children || 'None selected'}
           </Button>
         ),
       }}
@@ -378,6 +382,9 @@ function AsyncLabelsPanel({
         onOpenChange: setOpen,
         onSelectedChange: next => setSelected(asItems(next)),
         open,
+        placeholder: 'Select Labels',
+        placeholderText: 'Filter labels',
+        showItemDividers: true,
       }}
       title={title}
     />
@@ -394,12 +401,9 @@ export const CustomisedNoInitialItems: Story = {
     return (
       <>
         <div className="flex h-8 items-center">
-          <label className="mr-2 text-[16px] font-semibold" htmlFor="toggle-customised-no-initial-items">
+          <label className="text-[16px] font-semibold" htmlFor="toggle-customised-no-initial-items">
             Enable Error State :{isError ? 'On' : 'Off'}
           </label>
-          <span aria-hidden="true" className="mr-2 text-[14px]">
-            {isError ? 'On' : 'Off'}
-          </span>
           <ToggleSwitch
             checked={isError}
             id="toggle-customised-no-initial-items"
@@ -426,7 +430,7 @@ export const CustomisedNoInitialItems: Story = {
                     variant: 'empty',
                   },
               overlayProps: {height: 'large'},
-              renderAnchor: () => <Button trailingVisual={TriangleDownIcon}>Select Labels</Button>,
+              renderAnchor: () => <Button trailingAction={TriangleDownIcon}>Select Labels</Button>,
             }}
             title="Set projects"
           />
@@ -539,10 +543,22 @@ export const WithMessage: Story = {
             onValueChange={value => setVariant(value[0] as typeof variant)}
             value={[variant]}
           >
-            <SegmentedControl.Button value="default">Default message</SegmentedControl.Button>
-            <SegmentedControl.Button value="empty">Empty</SegmentedControl.Button>
-            <SegmentedControl.Button value="error">Error</SegmentedControl.Button>
-            <SegmentedControl.Button value="warning">Warning</SegmentedControl.Button>
+            <SegmentedControl.Button value="default" aria-label="Default message">
+              Default message
+            </SegmentedControl.Button>
+            <SegmentedControl.Button value="empty" aria-label="Empty" leadingVisual={<SearchIcon aria-hidden="true" />}>
+              Empty
+            </SegmentedControl.Button>
+            <SegmentedControl.Button value="error" aria-label="Error" leadingVisual={<StopIcon aria-hidden="true" />}>
+              Error
+            </SegmentedControl.Button>
+            <SegmentedControl.Button
+              value="warning"
+              aria-label="Warning"
+              leadingVisual={<AlertIcon aria-hidden="true" />}
+            >
+              Warning
+            </SegmentedControl.Button>
           </SegmentedControl>
         </FormControl>
         <LabelsPanel

@@ -127,17 +127,9 @@ describe('Select', () => {
     expect(select).toHaveAttribute('name', 'repository')
   })
 
-  it('styles validation, size, block, contrast, and disabled states without leaking custom props', () => {
+  it('styles validation, size, block, and disabled states without leaking custom props', () => {
     const {container} = render(
-      <Select
-        aria-label="Choice"
-        block
-        className="custom-select w-64"
-        contrast
-        disabled
-        size="large"
-        validationStatus="error"
-      >
+      <Select aria-label="Choice" block className="custom-select w-64" disabled size="large" validationStatus="error">
         {choices}
       </Select>,
     )
@@ -146,7 +138,7 @@ describe('Select', () => {
     const select = screen.getByRole('combobox', {name: 'Choice'})
     expect(wrapper).toHaveClass('custom-select', 'w-64')
     expect(wrapper).toHaveAttribute('data-block')
-    expect(wrapper).toHaveAttribute('data-contrast')
+    expect(wrapper).not.toHaveAttribute('data-contrast')
     expect(wrapper).toHaveAttribute('data-disabled')
     expect(wrapper).toHaveAttribute('data-size', 'large')
     expect(wrapper).toHaveAttribute('data-validation', 'error')

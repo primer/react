@@ -47,7 +47,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(function
       {...rest}
       ref={ref}
       className={cn(
-        'relative ml-4 flex py-4 before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:bg-muted',
+        'relative ml-4 flex py-4 before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:bg-[var(--borderColor-muted)]',
         condensed &&
           'pt-1 pb-0 last:pb-4 [&_[data-timeline-badge]]:my-2 [&_[data-timeline-badge]]:h-4 [&_[data-timeline-badge]]:border-0 [&_[data-timeline-badge]]:bg-default [&_[data-timeline-badge]]:text-muted [&_[data-timeline-avatar]]:top-5',
         '@max-[479px]/timeline:grid @max-[479px]/timeline:grid-cols-[auto_minmax(0,1fr)] @max-[479px]/timeline:[grid-template-areas:"badge_body"_"._actions"]',
@@ -100,7 +100,7 @@ const TimelineBadge = React.forwardRef<HTMLDivElement, TimelineBadgeProps>(funct
         {...rest}
         ref={ref}
         className={cn(
-          '-ml-[15px] mr-2 flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-default bg-default text-muted',
+          '-ml-[15px] mr-2 flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-[var(--bgColor-default)] bg-[var(--timelineBadge-bgColor)] text-muted',
           variant && cn(badgeColors[variant], 'text-on-emphasis'),
           className,
         )}
@@ -141,7 +141,7 @@ const TimelineBreak = React.forwardRef<HTMLLIElement, TimelineBreakProps>(functi
       ref={ref}
       role="presentation"
       className={cn(
-        'relative z-1 -mb-4 h-6 border-t-2 border-default bg-default [&:has(+_[data-condensed])]:-mb-3',
+        'relative z-1 -mb-4 h-6 border-t-4 border-default bg-default [&:has(+_[data-condensed])]:-mb-3',
         className,
       )}
       data-component="Timeline.Break"

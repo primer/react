@@ -1,4 +1,14 @@
-import {LinkIcon, StarIcon, TableIcon, XIcon} from '@primer/octicons-react'
+import {
+  CalendarIcon,
+  IssueOpenedIcon,
+  LinkIcon,
+  NumberIcon,
+  PeopleIcon,
+  StarIcon,
+  TableIcon,
+  TypographyIcon,
+  XIcon,
+} from '@primer/octicons-react'
 import React, {useEffect, useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, userEvent, waitFor, within} from 'storybook/test'
@@ -87,7 +97,14 @@ const branches = [
 export const MixedSelection: Story = {
   render: () => {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(1)
-    const options = ['Status', 'Stage', 'Assignee', 'Team', 'Estimate', 'Due Date']
+    const options = [
+      {text: 'Status', icon: <IssueOpenedIcon />},
+      {text: 'Stage', icon: <TableIcon />},
+      {text: 'Assignee', icon: <PeopleIcon />},
+      {text: 'Team', icon: <TypographyIcon />},
+      {text: 'Estimate', icon: <NumberIcon />},
+      {text: 'Due Date', icon: <CalendarIcon />},
+    ]
 
     return (
       <>
@@ -98,16 +115,16 @@ export const MixedSelection: Story = {
         </p>
         <ActionList role="listbox" aria-label="View options">
           <ActionList.Group selectionVariant="single">
-            <ActionList.GroupHeading>Group by</ActionList.GroupHeading>
+            <ActionList.GroupHeading as="h2">Group by</ActionList.GroupHeading>
             {options.map((option, index) => (
               <ActionList.Item
-                key={option}
+                key={option.text}
                 role="option"
                 selected={index === selectedIndex}
                 onSelect={() => setSelectedIndex(index)}
               >
-                <ActionList.LeadingVisual aria-hidden="true">◆</ActionList.LeadingVisual>
-                {option}
+                <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
+                {option.text}
               </ActionList.Item>
             ))}
           </ActionList.Group>
@@ -115,7 +132,9 @@ export const MixedSelection: Story = {
             <>
               <ActionList.Divider />
               <ActionList.Item onSelect={() => setSelectedIndex(null)}>
-                <ActionList.LeadingVisual aria-hidden="true">×</ActionList.LeadingVisual>
+                <ActionList.LeadingVisual>
+                  <XIcon />
+                </ActionList.LeadingVisual>
                 Clear Group by
               </ActionList.Item>
             </>

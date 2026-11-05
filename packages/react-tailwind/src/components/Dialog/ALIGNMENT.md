@@ -15,3 +15,5 @@ Use `Dialog.Trigger`, `Content`, `Popup`, `Portal`, `Backdrop`, `Viewport`, `Hea
 - Migrate custom structure to the Tailwind compound parts.
 - Preserve controlled state; map legacy `onClose` gesture handling to the new close/action callbacks.
 - Remove `sx`, styled-system props, and legacy CSS selectors.
+- `Dialog.CloseButton` is labelled "Close", matching upstream's close button.
+- `Dialog.Trigger` sets `aria-expanded` while the dialog is open (Base UI semantics), so a `Button` trigger shows its active background behind the backdrop. Upstream stories open dialogs from a plain button with no expanded state, so visual comparisons of open dialogs differ only in that blended trigger fill.

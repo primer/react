@@ -1,9 +1,19 @@
-import {CommentIcon, DownloadIcon, EyeIcon, HeartIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {
+  CommentIcon,
+  DownloadIcon,
+  EyeIcon,
+  GearIcon,
+  HeartIcon,
+  InboxIcon,
+  KebabHorizontalIcon,
+  TriangleDownIcon,
+} from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {useState} from 'react'
 import {expect, userEvent, within} from 'storybook/test'
 import {KeybindingHint} from '../KeybindingHint'
 import {Stack} from '../Stack'
+import {IconButton} from '../IconButton'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {Button} from './Button'
 
@@ -44,6 +54,42 @@ export const Invisible: Story = {args: {children: 'Invisible', variant: 'invisib
 export const Link: Story = {args: {children: 'Button that looks like a link', variant: 'link'}}
 export const LeadingVisual: Story = {args: {children: 'Leading visual', leadingVisual: <HeartIcon />}}
 export const TrailingVisual: Story = {args: {children: 'Trailing visual', trailingVisual: <EyeIcon />}}
+
+export const NotificationIndicator: Story = {
+  render: () => (
+    <Stack gap="spacious">
+      <Stack gap="condensed">
+        <div>
+          <strong>Indicator on button boundary</strong>
+          <div>Use when the notification applies to the whole control.</div>
+        </div>
+        <Stack direction="horizontal" gap="normal">
+          <IconButton icon={InboxIcon} aria-label="Inbox (new activity)" notificationIndicator="button" />
+        </Stack>
+      </Stack>
+      <Stack gap="condensed">
+        <div>
+          <strong>Indicator on icon or leading visual</strong>
+          <div>Use the leading visual for Button and the icon for IconButton.</div>
+        </div>
+        <Stack direction="horizontal" gap="normal">
+          <Button
+            leadingVisual={GearIcon}
+            aria-label="Saved view menu (update available)"
+            notificationIndicator="leadingVisual"
+          >
+            View
+          </Button>
+          <IconButton
+            icon={KebabHorizontalIcon}
+            aria-label="More options (new activity)"
+            notificationIndicator="icon"
+          />
+        </Stack>
+      </Stack>
+    </Stack>
+  ),
+}
 
 export const TrailingCounter: Story = {
   render: function TrailingCounterStory() {
@@ -161,7 +207,22 @@ export const Inactive: Story = {
 export const Small: Story = {args: {children: 'Default', size: 'small'}}
 export const Medium: Story = {args: {children: 'Default', size: 'medium'}}
 export const Large: Story = {args: {children: 'Default', size: 'large'}}
-export const Loading: Story = {args: {children: 'Default', loading: true}}
+export const Loading: Story = {
+  render: () => (
+    <div className="flex flex-row gap-4">
+      <Button loading>Default</Button>
+      <Button variant="primary" loading>
+        Primary
+      </Button>
+      <Button variant="danger" loading>
+        Danger
+      </Button>
+      <Button variant="invisible" loading>
+        Invisible
+      </Button>
+    </div>
+  ),
+}
 export const LoadingCustomAnnouncement: Story = {
   args: {children: 'Default', loading: true, loadingAnnouncement: 'This is a custom loading announcement'},
 }

@@ -30,5 +30,8 @@ import {NavList} from '@primer/react-tailwind/NavList'
 
 Use `NavList.SubNav.Trigger` and `NavList.SubNav.Panel` for expandable sections. Compose item metadata with `LeadingVisual`, `TrailingVisual`, and `Description`; use `TrailingAction` for a secondary interactive action that must remain outside the primary link. Give the navigation an accessible name, or include `NavList.Heading` to name it automatically, and preserve `aria-current` on the current destination.
 
+Pass a router link component with `as` and its destination with `to`. Use `tooltipText` for supplementary text shown in a tooltip on hover or focus. `NavList.GroupExpand` reveals more `items` behind a "Show more" button, optionally across `pages`, and focuses the first revealed item; pass `renderItem` to render each item yourself. When the `primer_react_action_list_item_gap` feature flag is on, items are separated by a small gap; pass `disableItemGap` to opt out.
+
 <Canvas of={Features.WithSubItems} />
+<Canvas of={Features.WithGroupExpand} />
 <Canvas of={Examples.SettingsNavigation} />

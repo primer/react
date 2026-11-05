@@ -4,6 +4,9 @@ import {NavList} from './NavList'
 const meta = {
   title: 'React Tailwind/Navigation/NavList',
   component: NavList,
+  parameters: {
+    layout: 'fullscreen',
+  },
   args: {'aria-label': 'Repository settings'},
   argTypes: {
     'aria-label': {control: 'text'},

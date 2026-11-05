@@ -1,6 +1,1 @@
-export {
-  UnderlineNav,
-  type UnderlineNavProps,
-  type UnderlineNavListProps,
-  type UnderlineNavItemProps,
-} from './UnderlineNav'
+export {UnderlineNav, type UnderlineNavProps, type UnderlineNavItemProps} from './UnderlineNav'

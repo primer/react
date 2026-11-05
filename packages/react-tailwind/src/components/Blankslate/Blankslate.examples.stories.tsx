@@ -41,7 +41,7 @@ export const NoSearchResults: Story = {
 export const CustomEmptyState: Story = {
   render: () => (
     <Blankslate>
-      <div className="mb-2 text-4xl" aria-hidden="true">
+      <div className="mb-2 text-title-large" aria-hidden="true">
         ☁
       </div>
       <BlankslateHeading>Upload your first file</BlankslateHeading>
