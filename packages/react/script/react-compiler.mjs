@@ -14,7 +14,6 @@ const files = glob
 const unsupportedPatterns = [
   'src/ActionMenu/ActionMenu.test.tsx',
   'src/AnchoredOverlay/AnchoredOverlay.tsx',
-  'src/Dialog/Dialog.tsx',
   'src/FilteredActionList/FilteredActionList.tsx',
   'src/LabelGroup/LabelGroup.tsx',
   'src/Overlay/Overlay.figma.tsx',
