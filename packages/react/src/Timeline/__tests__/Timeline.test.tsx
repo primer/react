@@ -1,3 +1,4 @@
+import {page} from 'vitest/browser'
 import {render} from '@testing-library/react'
 import type {ReactElement} from 'react'
 import {describe, expect, it} from 'vitest'
@@ -131,15 +132,15 @@ describe('Timeline.Break', () => {
 describe('Timeline.Actions', () => {
   implementsClassName(Timeline.Actions, classes.TimelineItemActions)
 
-  it('renders children', () => {
-    const {getByTestId} = render(
+  it('renders children', async () => {
+    render(
       <Timeline.Actions>
         <button type="button" data-testid="actions-child">
           Revert
         </button>
       </Timeline.Actions>,
     )
-    expect(getByTestId('actions-child')).toBeInTheDocument()
+    await expect.element(page.getByTestId('actions-child')).toBeInTheDocument()
   })
 
   it('forwards additional props to the underlying element', () => {
@@ -151,13 +152,13 @@ describe('Timeline.Actions', () => {
 describe('Timeline.Avatar', () => {
   implementsClassName(Timeline.Avatar, classes.TimelineItemAvatar)
 
-  it('renders children', () => {
-    const {getByTestId} = render(
+  it('renders children', async () => {
+    render(
       <Timeline.Avatar>
         <span data-testid="avatar-child">avatar</span>
       </Timeline.Avatar>,
     )
-    expect(getByTestId('avatar-child')).toBeInTheDocument()
+    await expect.element(page.getByTestId('avatar-child')).toBeInTheDocument()
   })
 
   it('forwards additional props to the underlying element', () => {
