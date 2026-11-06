@@ -129,7 +129,7 @@ export const Playground: Story = {
       },
       type: {
         name: 'enum',
-        value: ['wrap', 'nowrap'],
+        value: ['wrap', 'nowrap', 'balance'],
       },
       table: {
         category: 'Properties',
@@ -219,7 +219,7 @@ export const Playground: Story = {
       },
       type: {
         name: 'enum',
-        value: ['wrap', 'nowrap'],
+        value: ['wrap', 'nowrap', 'balance'],
       },
       table: {
         category: 'Narrow properties',
@@ -309,7 +309,7 @@ export const Playground: Story = {
       },
       type: {
         name: 'enum',
-        value: ['wrap', 'nowrap'],
+        value: ['wrap', 'nowrap', 'balance'],
       },
       table: {
         category: 'Regular properties',
@@ -399,7 +399,7 @@ export const Playground: Story = {
       },
       type: {
         name: 'enum',
-        value: ['wrap', 'nowrap'],
+        value: ['wrap', 'nowrap', 'balance'],
       },
       table: {
         category: 'Wide properties',
