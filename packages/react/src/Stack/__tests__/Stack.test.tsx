@@ -305,10 +305,12 @@ describe('Stack', () => {
         <>
           <Stack data-testid="wrap" wrap="wrap" />
           <Stack data-testid="nowrap" wrap="nowrap" />
+          <Stack data-testid="balance" wrap="balance" />
         </>,
       )
       expect(screen.getByTestId('wrap')).toHaveAttribute('data-wrap', 'wrap')
       expect(screen.getByTestId('nowrap')).toHaveAttribute('data-wrap', 'nowrap')
+      expect(screen.getByTestId('balance')).toHaveAttribute('data-wrap', 'balance')
     })
 
     it('should support responsive `wrap` values', () => {
@@ -317,14 +319,14 @@ describe('Stack', () => {
           data-testid="responsive"
           wrap={{
             narrow: 'wrap',
-            regular: 'nowrap',
-            wide: 'wrap',
+            regular: 'balance',
+            wide: 'balance',
           }}
         />,
       )
       expect(screen.getByTestId('responsive')).toHaveAttribute('data-wrap-narrow', 'wrap')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-wrap-regular', 'nowrap')
-      expect(screen.getByTestId('responsive')).toHaveAttribute('data-wrap-wide', 'wrap')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('data-wrap-regular', 'balance')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('data-wrap-wide', 'balance')
     })
   })
 })

@@ -1,4 +1,4 @@
-/* See Skeleton/SkeletonBox.module.css: a masked layer moved with `transform` so the compositor can run the shimmer */
+/* See Skeleton/skeleton.module.css: a masked layer moved with `transform` so the compositor can run the shimmer */
 @keyframes shimmer {
   from {
     transform: translateX(0);

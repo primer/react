@@ -10,6 +10,9 @@ on:
     types:
       - checks_requested
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -29,6 +32,20 @@ jobs:
         run: npm ci
       - name: Check for unformatted files
         run: npm run format:diff
+
+  internal-mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Check lockfiles for internal package feed URLs
+        shell: bash
+        run: |
+          if git grep -nE '(pkgs\.visualstudio\.com|pkgs\.dev\.azure\.com|packagefeedproxy\.microsoft\.io)' -- \
+              '*package-lock.json' '*npm-shrinkwrap.json'; then
+            echo "::error::A lockfile contains internal package feed URLs. Replace them with public registry URLs using script/update-registry-download-urls."
+            exit 1
+          fi
 
   lint:
     runs-on: ubuntu-latest
@@ -84,7 +101,7 @@ jobs:
         run: npm run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Run tests defined in vitest
-        uses: docker://mcr.microsoft.com/playwright:v1.60.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.65.0-jammy
         with:
           args: npm test
 
