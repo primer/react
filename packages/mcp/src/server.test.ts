@@ -482,6 +482,56 @@ describe('MCP server', () => {
     },
   )
 
+  it.each([
+    {
+      tool: 'get_component_examples',
+      expectedPath: '/product/components/text-input',
+      rawIdPath: '/product/components/text_input',
+    },
+    {
+      tool: 'get_component_accessibility_guidelines',
+      expectedPath: '/product/components/text-input/accessibility',
+      rawIdPath: '/product/components/text_input/accessibility',
+    },
+  ] as const)('$tool uses the TextInput slug in its URL', async ({tool, expectedPath, rawIdPath}) => {
+    const expectedUrl = `https://primer.style${expectedPath}`
+    const rawIdUrl = `https://primer.style${rawIdPath}`
+    const responseBody = 'synthetic-text-input-documentation'
+    const homepageBody = 'homepage-body-not-text-input-documentation'
+    const fetchMock = vi.mocked(fetch)
+    fetchMock.mockImplementation(async input => {
+      const url = input.toString()
+
+      if (url === expectedUrl) {
+        return responseWithFinalUrl(`<main><p>${responseBody}</p></main>`, expectedUrl)
+      }
+
+      if (url === rawIdUrl) {
+        return responseWithFinalUrl(`<main><p>${homepageBody}</p></main>`, 'https://primer.style/')
+      }
+
+      throw new Error(`Unexpected fetch request: ${url}`)
+    })
+
+    const result = await client.callTool({name: tool, arguments: {name: 'TextInput'}})
+
+    expect(result.isError).not.toBe(true)
+    expect(result.content).toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining(responseBody),
+      }),
+    )
+    expect(result.content).not.toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining(homepageBody),
+      }),
+    )
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock.mock.calls[0]?.[0].toString()).toBe(expectedUrl)
+  })
+
   it.each(['ConfirmationDialog', 'confirmationdialog'])(
     'retrieves ConfirmationDialog documentation for %s from its published URL',
     async name => {
