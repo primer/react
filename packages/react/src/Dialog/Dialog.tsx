@@ -28,6 +28,22 @@ import {DialogContext} from './DialogContext'
  */
 let dialogScrollDisabledCount = 0
 
+function disableDialogScroll() {
+  const scrollbarWidth = window.innerWidth - document.body.clientWidth
+
+  dialogScrollDisabledCount++
+  document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
+  document.body.setAttribute('data-dialog-scroll-disabled', '')
+
+  return () => {
+    dialogScrollDisabledCount--
+    if (dialogScrollDisabledCount === 0) {
+      document.body.style.removeProperty('--prc-dialog-scrollgutter')
+      document.body.removeAttribute('data-dialog-scroll-disabled')
+    }
+  }
+}
+
 /**
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
@@ -286,7 +302,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
-    footerButtons = defaultFooterButtons,
+    footerButtons: providedFooterButtons = defaultFooterButtons,
     position = defaultPosition,
     align,
     returnFocusRef,
@@ -297,15 +313,26 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
-  for (const footerButton of footerButtons) {
+  const footerButtons = providedFooterButtons.map(footerButton => {
     if (footerButton.autoFocus) {
-      // eslint-disable-next-line react-hooks/immutability
-      footerButton.ref = autoFocusedFooterButtonRef
+      return {
+        ...footerButton,
+        ref: autoFocusedFooterButtonRef,
+      }
     }
-  }
+    return footerButton
+  })
   const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
   const [footerButtonLayout, setFooterButtonLayout] = useState<'scroll' | 'wrap'>('wrap')
-  const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
+  const defaultedProps = {
+    ...props,
+    title,
+    subtitle,
+    role,
+    dialogLabelId,
+    dialogDescriptionId,
+    ...(props.footerButtons && {footerButtons}),
+  }
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
       if (e.target === e.currentTarget && lastMouseDownIsBackdrop) {
@@ -327,8 +354,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   useFocusTrap({
     containerRef: dialogRef,
     initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
-    // eslint-disable-next-line react-hooks/refs
-    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
+    restoreFocusOnCleanUp: true,
     returnFocusRef,
   })
 
@@ -340,21 +366,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     [onClose],
   )
 
-  React.useEffect(() => {
-    const scrollbarWidth = window.innerWidth - document.body.clientWidth
-
-    dialogScrollDisabledCount++
-    document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
-    document.body.setAttribute('data-dialog-scroll-disabled', '')
-
-    return () => {
-      dialogScrollDisabledCount--
-      if (dialogScrollDisabledCount === 0) {
-        document.body.style.removeProperty('--prc-dialog-scrollgutter')
-        document.body.removeAttribute('data-dialog-scroll-disabled')
-      }
-    }
-  }, [])
+  React.useEffect(disableDialogScroll, [])
 
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
@@ -489,7 +501,10 @@ Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-  const providedButtonRef = buttons.find(button => button.autoFocus)?.ref
+  const autoFocusIndex = buttons.findIndex(button => {
+    return button.autoFocus
+  })
+  const providedButtonRef = buttons[autoFocusIndex]?.ref
   const autoFocusRef = useRef<HTMLButtonElement>(null)
   const mergedRef = useMergedRefs(autoFocusRef, providedButtonRef)
   // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
@@ -497,7 +512,6 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   const providedOrCreatedRef = useProvidedRefOrCreate<HTMLButtonElement>(providedButtonRef)
   const readRef = mergedRefEnabled ? autoFocusRef : providedOrCreatedRef
   const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
-  let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
     // hack to work around dialogs originating from other focus traps.
@@ -521,7 +535,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
             // @ts-expect-error it needs a non nullable ref
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, appliedRef) : null}
+            ref={autoFocus && index === autoFocusIndex ? appliedRef : null}
           >
             {content}
           </Button>
