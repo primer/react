@@ -271,7 +271,11 @@ describe('Card', () => {
       )
       const button = page.getByRole('button', {name: 'Open details'})
       await expect.element(button).toBeDisabled()
-      button.element().click()
+      const element = button.element()
+      if (!(element instanceof HTMLButtonElement)) {
+        throw new Error('Expected Card.Button to render a native button')
+      }
+      element.click()
       expect(onClick).not.toHaveBeenCalled()
       await userEvent.tab()
       await expect.element(page.getByRole('button', {name: 'Secondary action'})).toHaveFocus()
