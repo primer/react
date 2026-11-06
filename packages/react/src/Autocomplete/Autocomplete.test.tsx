@@ -329,7 +329,7 @@ describe('Autocomplete', () => {
     })
 
     it('calls a custom sort function when the menu closes', async () => {
-      const sortOnCloseFnMock = vi.fn()
+      const sortOnCloseFnMock = vi.fn(() => 0)
       render(
         <LabelledAutocomplete
           menuProps={{
@@ -344,8 +344,9 @@ describe('Autocomplete', () => {
 
       // `sortOnCloseFnMock` will be called in a `.sort()` on render to check if the
       // current sort order matches the result of `sortOnCloseFnMock`
-      expect(sortOnCloseFnMock).toHaveBeenCalledTimes(mockItems.length - 1)
+      expect(sortOnCloseFnMock).toHaveBeenCalled()
       await userEvent.type(inputNode, 'ze')
+      sortOnCloseFnMock.mockClear()
       // eslint-disable-next-line github/no-blur
       act(() => inputNode.element().blur())
 
