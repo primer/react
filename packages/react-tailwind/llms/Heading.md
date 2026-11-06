@@ -1,6 +1,6 @@
 # Heading
 
-`Heading` renders a section heading. Choose the level with `as` for document structure and `variant` for visual size, so heading order stays correct independently of scale.
+`Heading` renders a section heading. Choose the level with `as` for document structure and `size` for visual size, so heading order stays correct independently of scale.
 
 Import: `import {Heading} from '@primer/react-tailwind/Heading'`
 

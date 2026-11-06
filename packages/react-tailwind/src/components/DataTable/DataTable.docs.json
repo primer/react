@@ -353,7 +353,7 @@
         },
         {
           "name": "children",
-          "type": "React.ReactElement[]",
+          "type": "React.ReactNode",
           "description": "Member rows of the group."
         },
         {

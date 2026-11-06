@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './ButtonBase.docs.json'
 import * as Stories from './ButtonBase.stories'
 import * as Features from './ButtonBase.features.stories'
 import * as Examples from './ButtonBase.examples.stories'
@@ -22,10 +24,9 @@ import {ButtonBase} from '@primer/react-tailwind/ButtonBase'
 
 ## Props
 
-- **`children`** (default: none) — Button content.
-- **`className`** (default: none) — A string or Base UI state callback; base button classes are retained.
-- **`data-component`** (default: `ButtonBase`) — Overrides the stable root identifier.
-- **native Base UI button props** (default: none) — Includes native button semantics such as `disabled` and `type`.
+<ApiReference {...api} />
+
+`className` accepts a string or a Base UI state callback; base button classes are retained.
 
 ## Composition
 
@@ -35,9 +36,7 @@ Use as the foundation for locally composed button controls. `Button` builds on t
 
 Supply a clear accessible name and use native `type` and `disabled` semantics.
 
-## Tailwind extension
-
-Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+## Data attributes
 
 The root defaults to `data-component="ButtonBase"`.
 

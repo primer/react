@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Hidden.docs.json'
 import * as Stories from './Hidden.stories'
 import * as Features from './Hidden.features.stories'
 import * as Examples from './Hidden.examples.stories'
@@ -23,8 +25,7 @@ import {Hidden} from '@primer/react-tailwind/Hidden'
 
 ## Props
 
-- **`when`** (required) — `narrow`, `regular`, `wide`, or an array of those ranges.
-- **native div props** (default: none) — Includes children, `className`, and ARIA attributes. The root is always a `div`.
+<ApiReference {...api} />
 
 `narrow` is below 48rem (768px); `regular` is 48rem through below 87.5rem (1400px); `wide` starts at 87.5rem. These are Primer named viewport ranges. They are not Tailwind's `lg` breakpoint, which is 63.25rem (1012px).
 

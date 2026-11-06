@@ -530,7 +530,7 @@ const elementConflicts = []
  * defaults computed at runtime that no literal can show.
  */
 function toProp(owner, name, info, own) {
-  const prop = {name, type: simplifyReactType(info.type)}
+  const prop = {name, type: simplifyReactType(info.type, {optional: !info.required})}
   const implemented = own?.get(name)
   const documented = info.defaultValue
   let defaultValue = documented

@@ -9,7 +9,7 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Props
 
 - `alignRight`: `boolean` — Align the avatars to the right.
-- `children`: `React.ReactElement[]` — A set of Avatar components to stack.
+- `children` (required): `React.ReactNode` — A set of Avatar components to stack.
 - `disableExpand`: `boolean` — Do not spread the avatars on hover or focus.
 - `shape`: `"circle" | "square"` — Default `'circle'`. The shape of the avatars.
 - `size`: `number | Partial<Record<"narrow" | "regular" | "wide", number>>` — The size of the avatar children in pixels.

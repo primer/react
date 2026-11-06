@@ -20,7 +20,7 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 - `fullScreenOnNarrow`: `boolean` — Default `false`. Increases the input text size on narrow viewports to prevent iOS from zooming while the input is focused.
 - `groupMetadata`: `readonly FilteredActionListGroup[]` — Group headers and per-group renderers, matched to items by `groupId`.
 - `inputRef`: `Ref<HTMLInputElement>` — Ref to the filter input, for focusing it from outside.
-- `items`: `readonly FilteredActionListItem[]` — Items to list. Filtering, selection, and virtualization all operate on this array.
+- `items` (required): `readonly FilteredActionListItem[]` — Items to list. Filtering, selection, and virtualization all operate on this array.
 - `loading`: `boolean` — Default `false`. Shows a loading affordance in place of results.
 - `loadingType`: `FilteredActionListLoadingType` — Default `'body-spinner'`. Which loading affordance to show, and whether it replaces the list or sits beside it.
 - `message`: `React.ReactNode` — Content shown in place of the list, for an error or other terminal state.

@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './StateLabel.docs.json'
 import * as Stories from './StateLabel.stories'
 import * as Features from './StateLabel.features.stories'
 import * as Examples from './StateLabel.examples.stories'
@@ -22,9 +24,9 @@ import {StateLabel} from '@primer/react-tailwind/StateLabel'
 
 ## Props
 
-- **`status`** (default: none) — Required: issue, pull request, alert, draft, queue, archived, unavailable, open, or closed status values.
-- **`size`** (default: `medium`) — `small` or `medium`.
-- **native span props** (default: none) — Includes children and `className`.
+<ApiReference {...api} />
+
+The default size is `medium`.
 
 ## Composition
 
@@ -34,9 +36,7 @@ Use the component-owned status icon with text children that name the state.
 
 Include visible state text. Component-owned issue, pull request, alert, and archived icons expose their artifact type to assistive technology; the unavailable icon is decorative because it does not identify an artifact type.
 
-## Tailwind extension
-
-Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+## Data attributes
 
 The root exposes `data-component="StateLabel"` and `data-status`.
 

@@ -64,7 +64,7 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLSpanElement>,
   progress?: number
   /** Animates the bar to suggest indeterminate progress. */
   animated?: boolean
-  /** Height of the bar. */
+  /** Color of the single segment. */
   variant?: VariantProps<typeof itemVariants>['variant']
 }
 

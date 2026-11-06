@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Card.docs.json'
 import * as Stories from './Card.stories'
 import * as Features from './Card.features.stories'
 import * as Examples from './Card.examples.stories'
@@ -25,76 +27,7 @@ The compound API is exposed as properties on `Card`; the named part exports are 
 
 ## Props
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>as</code>
-      </td>
-      <td>
-        <code>'div' | 'section'</code>
-      </td>
-      <td>
-        <code>'div'</code>
-      </td>
-      <td>Element to render.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>padding</code>
-      </td>
-      <td>
-        <code>'none' | 'condensed' | 'normal'</code>
-      </td>
-      <td>
-        <code>'normal'</code>
-      </td>
-      <td>Inner spacing.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>borderRadius</code>
-      </td>
-      <td>
-        <code>'medium' | 'large'</code>
-      </td>
-      <td>
-        <code>'large'</code>
-      </td>
-      <td>Corner radius.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>layout</code>
-      </td>
-      <td>
-        <code>'default' | 'compact'</code>
-      </td>
-      <td>
-        <code>'default'</code>
-      </td>
-      <td>Default stacked or compact horizontal layout.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>className</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>—</td>
-      <td>Tailwind utilities or custom classes.</td>
-    </tr>
-  </tbody>
-</table>
+<ApiReference {...api} />
 
 <Controls of={Stories.Playground} />
 

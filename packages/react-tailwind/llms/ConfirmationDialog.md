@@ -11,7 +11,7 @@ Forwards unrecognized props to Base UI's [`Dialog.Root`](https://base-ui.com/rea
 - `cancelButtonContent`: `React.ReactNode` — Default `'Cancel'`. Label for the cancel button.
 - `cancelButtonDisabled`: `boolean` — Default `false`. Prevents cancelling.
 - `cancelButtonLoading`: `boolean` — Default `false`. Shows a spinner on the cancel button.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `confirmButtonContent`: `React.ReactNode` — Default `'Confirm'`. Label for the confirm button. Name the action rather than saying `OK`.
 - `confirmButtonDisabled`: `boolean` — Default `false`. Prevents confirming, for when a precondition is not yet met.
 - `confirmButtonLoading`: `boolean` — Default `false`. Shows a spinner on the confirm button while the action is in flight.
@@ -22,7 +22,7 @@ Forwards unrecognized props to Base UI's [`Dialog.Root`](https://base-ui.com/rea
 - `initialFocus`: `"cancel" | "confirm" | boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => void | boolean | HTMLElement | null)` — What receives focus when the dialog opens.
 - `onCancel`: `(() => void)` — Called when the dialog is dismissed or the cancel button is activated.
 - `onConfirm`: `(() => void)` — Called when the confirm button is activated.
-- `title`: `React.ReactNode` — Question or statement the reader is confirming.
+- `title` (required): `React.ReactNode` — Question or statement the reader is confirming.
 - `trigger`: `React.ReactElement` — Element that opens the dialog.
 - `width`: `DialogWidth` — Default `'medium'`. Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width.
 

@@ -114,7 +114,7 @@ Each component has a detail file with its props and migration notes. Load only t
 - [FilteredActionList](llms/FilteredActionList.md): `FilteredActionList` is a configured, data-driven filterable ActionList for established picker and command-list patterns. It composes shared `TextInput`, ActionList content layers, `Checkbox`, `Spinner`, and `SkeletonBox` with Base UI's combobox behavior. Use `ActionList` directly when consumer-owned markup needs a different structure.
 - [FormControl](llms/FormControl.md): `FormControl` is a composable field wrapper that provides label, caption, validation, and control association.
 - [Header](llms/Header.md): `Header` is a compact horizontal header primitive. Use `Header.Item` for layout participants and `Header.Link` for consistently styled navigation.
-- [Heading](llms/Heading.md): `Heading` renders a section heading. Choose the level with `as` for document structure and `variant` for visual size, so heading order stays correct independently of scale.
+- [Heading](llms/Heading.md): `Heading` renders a section heading. Choose the level with `as` for document structure and `size` for visual size, so heading order stays correct independently of scale.
 - [Hidden](llms/Hidden.md): `Hidden` conditionally hides presentational content at Primer viewport ranges. It is not a permission or authorization mechanism.
 - [IconButton](llms/IconButton.md): `IconButton` is a button whose only content is an icon. `aria-label` is required, because the control has no visible text.
 - [InlineMessage](llms/InlineMessage.md): `InlineMessage` communicates validation, status, and availability inline with content or a form control.
@@ -123,7 +123,7 @@ Each component has a detail file with its props and migration notes. Load only t
 - [Label](llms/Label.md): `Label` marks an item with a short piece of metadata, such as a status or category. It is presentational and does not label form fields; use `FormControl.Label` for that.
 - [LabelGroup](llms/LabelGroup.md): `LabelGroup` lays out a collection of `Label` items and collapses overflow behind a toggle when they exceed the available width.
 - [Link](llms/Link.md): `Link` navigates to another location. Use `Button` when the control performs an action, and `LinkButton` when a navigation target needs button styling.
-- [LinkButton](llms/LinkButton.md): `LinkButton` navigates to a URL while looking like a `Button`. It renders an anchor, so it requires `href` rather than `onClick`.
+- [LinkButton](llms/LinkButton.md): `LinkButton` navigates to a URL while looking like a `Button`. Supply `href` for a native anchor destination.
 - [LiveRegion](llms/LiveRegion.md): `Announce`, `AriaStatus`, and `AriaAlert` announce asynchronous changes without moving focus. They share one live-region implementation; `AriaStatus` and `AriaAlert` fix the politeness.
 - [NavList](llms/NavList.md): `NavList` is a vertical navigation primitive for settings and page navigation.
 - [Overlay](llms/Overlay.md): `Overlay` is a low-level surface for positioned content.

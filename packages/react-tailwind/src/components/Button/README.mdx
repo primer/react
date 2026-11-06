@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Button.docs.json'
 import * as Stories from './Button.stories'
 import * as Features from './Button.features.stories'
 import * as Examples from './Button.examples.stories'
@@ -22,16 +24,7 @@ import {Button} from '@primer/react-tailwind/Button'
 
 ## Props
 
-- **`variant`** (default: `default`) — `default`, `primary`, `danger`, `invisible`, or `link`.
-- **`size`** (default: `medium`) — `small`, `medium`, or `large`.
-- **`block`** (default: `false`) — Expands the button to the available width.
-- **`alignContent`** (default: `center`) — Aligns visual and text content at the center or start.
-- **`leadingVisual` / `trailingVisual` / `trailingAction`** (default: none) — Accept an icon component or rendered element in Primer's standard button positions.
-- **`count`** (default: none) — Adds an accessible trailing counter using the shared `CounterLabel` primitive.
-- **`inactive`** (default: `false`) — Applies the visually inactive treatment while preserving interaction.
-- **`labelWrap`** (default: `false`) — Allows long button labels to wrap while preserving control-size minimum heights.
-- **`loading` / `loadingAnnouncement`** (default: `false` / `Loading`) — Suppresses interaction, preserves focus, and announces progress.
-- **`disabled` / `type`** (default: — / `button`) — Native button behavior.
+<ApiReference {...api} />
 
 ## Composition
 
@@ -41,9 +34,7 @@ Use `Button` for the styled API. `ButtonBase` is the lower-level public primitiv
 
 Use meaningful text or an `aria-label` for icon-only content. Loading state sets `aria-busy` and `aria-disabled`, suppresses activation without replacing the focused element, and provides a screen-reader announcement. Describe inactive controls with `aria-describedby` so the visual state has an accessible explanation.
 
-## Tailwind extension
-
-Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+## Data attributes
 
 `data-component="Button"`, `data-block`, `data-inactive`, `data-label-wrap`, `data-loading`, `data-size`, and `data-variant` expose the stable public state and part contract.
 

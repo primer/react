@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Spinner.docs.json'
 import * as Stories from './Spinner.stories'
 import * as Features from './Spinner.features.stories'
 import * as Examples from './Spinner.examples.stories'
@@ -22,69 +24,9 @@ The component renders a `span` and forwards standard HTML attributes and `classN
 
 ## Props
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>size</code>
-      </td>
-      <td>
-        <code>'small' | 'medium' | 'large'</code>
-      </td>
-      <td>
-        <code>'medium'</code>
-      </td>
-      <td>Indicator size.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>srText</code>
-      </td>
-      <td>
-        <code>string | null</code>
-      </td>
-      <td>
-        <code>'Loading'</code>
-      </td>
-      <td>
-        Visually hidden status text. Set to <code>null</code> to suppress the status role and announcement.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>delay</code>
-      </td>
-      <td>
-        <code>boolean | 'short' | 'long' | number</code>
-      </td>
-      <td>
-        <code>false</code>
-      </td>
-      <td>
-        Delays rendering by 300 ms, 1,000 ms, or the supplied number of milliseconds. <code>true</code> uses the long
-        delay.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>className</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>—</td>
-      <td>Tailwind utilities or custom classes for the root.</td>
-    </tr>
-  </tbody>
-</table>
+<ApiReference {...api} />
+
+The default size is `medium`. `delay="short"` waits 300 ms; `delay="long"` or `delay={true}` waits 1000 ms. A number specifies milliseconds.
 
 <Controls of={Stories.Playground} />
 

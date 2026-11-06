@@ -6,8 +6,8 @@ Import: `import {FeatureFlags} from '@primer/react-tailwind/FeatureFlags'`
 
 ## Props
 
-- `children`: `React.ReactElement[]`
-- `flags`: `FeatureFlagValues` — Flags to enable or disable for everything rendered inside, merged over any flags from an enclosing provider.
+- `children`: `React.ReactNode`
+- `flags` (required): `FeatureFlagValues` — Flags to enable or disable for everything rendered inside, merged over any flags from an enclosing provider.
 
 ## Differences from `@primer/react`
 

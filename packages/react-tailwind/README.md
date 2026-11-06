@@ -182,7 +182,22 @@ npm run type-check --workspace @primer/react-tailwind
 npm run check:exports --workspace @primer/react-tailwind
 npm run check:inventory --workspace @primer/react-tailwind
 npm run check:packed-consumer --workspace @primer/react-tailwind
+npm run check:docs-json --workspace @primer/react-tailwind
 npm run check:llms --workspace @primer/react-tailwind
 npm run lint:tailwind --workspace @primer/react-tailwind
 npm run lint:npm --workspace @primer/react-tailwind
 ```
+
+### Generated API documentation
+
+Component `*.docs.json` files are generated from the source types. Storybook API references and the `llms/` component files use that metadata; keep behavior and migration guidance in the component README and alignment notes rather than editing generated files.
+
+After changing component types or guidance, rebuild the doc generator and refresh both outputs:
+
+```bash
+npm run build --workspace @primer/doc-gen
+npm run build:docs-json --workspace @primer/react-tailwind
+npm run build:llms --workspace @primer/react-tailwind
+```
+
+Use `check:docs-json` and `check:llms` to verify the generated files are current.

@@ -8,8 +8,8 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 
 ## Props
 
-- `children`: `React.ReactElement[]`
-- `when`: `readonly Viewport[] | Viewport` — Viewports at which the children are hidden.
+- `children` (required): `React.ReactNode`
+- `when` (required): `readonly Viewport[] | Viewport` — Viewports at which the children are hidden.
 
 ## Differences from `@primer/react`
 

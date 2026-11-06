@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './IssueLabel.docs.json'
 import * as Stories from './IssueLabel.stories'
 import * as Features from './IssueLabel.features.stories'
 import * as Examples from './IssueLabel.examples.stories'
@@ -22,74 +24,9 @@ import {IssueLabel} from '@primer/react-tailwind/IssueLabel'
 
 ## Props
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>variant</code>
-      </td>
-      <td>
-        <code>
-          'auburn' | 'blue' | 'brown' | 'coral' | 'cyan' | 'gray' | 'green' | 'indigo' | 'lemon' | 'lime' | 'olive' |
-          'orange' | 'pine' | 'pink' | 'plum' | 'purple' | 'red' | 'teal' | 'yellow'
-        </code>
-      </td>
-      <td>
-        <code>'gray'</code>
-      </td>
-      <td>Primer label color.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>fillColor</code>
-      </td>
-      <td>
-        `<code> </code>#${string}
-        <code> </code>`
-      </td>
-      <td>—</td>
-      <td>Custom hex background; foreground color is selected for contrast.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>href</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>—</td>
-      <td>Renders an anchor by default and supplies its destination.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>as</code>
-      </td>
-      <td>
-        <code>React.ElementType</code>
-      </td>
-      <td>inferred</td>
-      <td>Overrides the rendered element.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>className</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>—</td>
-      <td>Tailwind utilities or custom classes.</td>
-    </tr>
-  </tbody>
-</table>
+<ApiReference {...api} />
+
+`variant` defaults to `gray` and accepts `auburn`, `blue`, `brown`, `coral`, `cyan`, `gray`, `green`, `indigo`, `lemon`, `lime`, `olive`, `orange`, `pine`, `pink`, `plum`, `purple`, `red`, `teal`, or `yellow`. Without `as`, the root is an anchor when `href` is provided, a button when `onClick` is provided, and otherwise a span.
 
 <Controls of={Stories.Playground} />
 

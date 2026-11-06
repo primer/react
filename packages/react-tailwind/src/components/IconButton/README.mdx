@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './IconButton.docs.json'
 import * as Stories from './IconButton.stories'
 import * as Features from './IconButton.features.stories'
 import * as Examples from './IconButton.examples.stories'
@@ -22,10 +24,7 @@ import {IconButton} from '@primer/react-tailwind/IconButton'
 
 ## Props
 
-- **`icon`** (default: none) — Required React element type rendered as the visual.
-- **`aria-label`** (default: none) — Required accessible name.
-- **`size`** (default: `medium`) — `small`, `medium`, or `large`.
-- **button props** (default: none) — Supports Button variants, loading, and native button props except visual children.
+<ApiReference {...api} />
 
 ## Composition
 
@@ -35,9 +34,7 @@ import {IconButton} from '@primer/react-tailwind/IconButton'
 
 Always provide the required `aria-label`; the icon itself is hidden from assistive technology.
 
-## Tailwind extension
-
-Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+## Data attributes
 
 The root is identified as `data-component="IconButton"`.
 

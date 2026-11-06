@@ -1,11 +1,23 @@
-import {existsSync} from 'node:fs'
-import {mkdir, readFile, rm, writeFile} from 'node:fs/promises'
+import {mkdir, readFile, writeFile} from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import glob from 'fast-glob'
 
 const packageRoot = path.resolve(import.meta.dirname, '..')
-const outputPath = path.join(packageRoot, 'llms.txt')
+let outputRoot = packageRoot
+let checkOnly = false
+
+for (let i = 0; i < process.argv.slice(2).length; i++) {
+  const argument = process.argv[i + 2]
+  if (argument === '--check') {
+    checkOnly = true
+  } else if (argument === '--output-dir' && process.argv[i + 3] && !process.argv[i + 3].startsWith('--')) {
+    outputRoot = path.resolve(process.argv[i + 3])
+    i++
+  } else {
+    throw new Error(`Unknown or incomplete argument: ${argument}`)
+  }
+}
 
 /** The first paragraph after a document's heading, used as the component's intent line. */
 function readIntent(source, name) {
@@ -51,7 +63,7 @@ for (const readmePath of componentDirectories) {
 
   const alignment = await readFile(path.join(directory, 'ALIGNMENT.md'), 'utf8')
   const docsPath = path.join(directory, `${name}.docs.json`)
-  const docs = existsSync(docsPath) ? JSON.parse(await readFile(docsPath, 'utf8')) : null
+  const docs = JSON.parse(await readFile(docsPath, 'utf8'))
   components.push({name, intent, notes: readMigrationNotes(alignment), docs})
 }
 
@@ -64,13 +76,9 @@ if (problems.length > 0) {
 // AGENTS.md is the authored guidance; llms.txt republishes it with a generated component index.
 const guidance = agents.replace(/^# .*\n\n/, '').trimEnd()
 
-const detailDirectory = path.join(packageRoot, 'llms')
-await rm(detailDirectory, {recursive: true, force: true})
-await mkdir(detailDirectory, {recursive: true})
-
 /** Renders one prop row, keeping the table narrow enough to stay readable as plain text. */
-function propLine({name, type, defaultValue, description}) {
-  const head = `- ${codeSpan(name)}: ${codeSpan(type)}`
+function propLine({name, type, defaultValue, description, required}) {
+  const head = `- ${codeSpan(name)}${required ? ' (required)' : ''}: ${codeSpan(type)}`
   // A description keeps its source line wrapping, which would break the bullet it renders into.
   const prose = description?.replace(/\s+/g, ' ').trim()
   const tail = [defaultValue ? `Default ${codeSpan(defaultValue)}.` : undefined, prose].filter(Boolean).join(' ')
@@ -126,10 +134,6 @@ function renderComponent({name, intent, notes, docs}) {
   return `${lines.join('\n').trimEnd()}\n`
 }
 
-for (const component of components) {
-  await writeFile(path.join(detailDirectory, `${component.name}.md`), renderComponent(component))
-}
-
 // llms.txt stays an index so an agent can load guidance plus one component, not all of them.
 const lines = [
   `# @primer/react-tailwind ${version}`,
@@ -150,7 +154,44 @@ const lines = [
   '',
 ]
 
-await writeFile(outputPath, `${lines.join('\n')}\n`)
+const files = new Map([
+  ['llms.txt', `${lines.join('\n')}\n`],
+  ...components.map(component => [`llms/${component.name}.md`, renderComponent(component)]),
+])
 
-// eslint-disable-next-line no-console
-console.log(`Generated llms.txt index and ${components.length} component files.`)
+if (checkOnly) {
+  const existingDetails = await glob('llms/*.md', {cwd: outputRoot})
+  const paths = new Set([...files.keys(), ...existingDetails])
+  const stale = []
+
+  for (const file of paths) {
+    let actual
+    try {
+      actual = await readFile(path.join(outputRoot, file), 'utf8')
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error
+    }
+    if (actual !== files.get(file)) stale.push(file)
+  }
+
+  if (stale.length > 0) {
+    // eslint-disable-next-line no-console
+    console.error(
+      `Generated llms files are out of date. Run \`npm run build:llms -w @primer/react-tailwind\` and remove obsolete files:\n${stale
+        .sort()
+        .map(file => `  ${file}`)
+        .join('\n')}`,
+    )
+    process.exitCode = 1
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(`llms.txt and ${components.length} component files are up to date.`)
+  }
+} else {
+  await mkdir(path.join(outputRoot, 'llms'), {recursive: true})
+  for (const [file, content] of files) {
+    await writeFile(path.join(outputRoot, file), content)
+  }
+  // eslint-disable-next-line no-console
+  console.log(`Generated llms.txt index and ${components.length} component files.`)
+}

@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './InlineMessage.docs.json'
 import * as Stories from './InlineMessage.stories'
 import * as Features from './InlineMessage.features.stories'
 import * as Examples from './InlineMessage.examples.stories'
@@ -20,70 +22,9 @@ import {InlineMessage} from '@primer/react-tailwind/InlineMessage'
 
 ## Props
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>variant</code>
-      </td>
-      <td>
-        <code>'critical' | 'success' | 'unavailable' | 'warning'</code>
-      </td>
-      <td>—</td>
-      <td>Semantic message tone and default icon.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>size</code>
-      </td>
-      <td>
-        <code>'small' | 'medium'</code>
-      </td>
-      <td>
-        <code>'medium'</code>
-      </td>
-      <td>Text and icon size.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>leadingVisual</code>
-      </td>
-      <td>
-        <code>React.ElementType | ReactNode</code>
-      </td>
-      <td>variant icon</td>
-      <td>Replaces the default icon.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>children</code>
-      </td>
-      <td>
-        <code>ReactNode</code>
-      </td>
-      <td>—</td>
-      <td>Message content.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>className</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>—</td>
-      <td>Tailwind utilities or custom classes.</td>
-    </tr>
-  </tbody>
-</table>
+<ApiReference {...api} />
+
+`variant` accepts `critical`, `success`, `unavailable`, or `warning`. When omitted, the message uses neutral text and an information icon.
 
 <Controls of={Stories.Playground} />
 

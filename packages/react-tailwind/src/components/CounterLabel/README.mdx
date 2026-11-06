@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './CounterLabel.docs.json'
 import * as Stories from './CounterLabel.stories'
 import * as Features from './CounterLabel.features.stories'
 import * as Examples from './CounterLabel.examples.stories'
@@ -22,9 +24,9 @@ import {CounterLabel} from '@primer/react-tailwind/CounterLabel'
 
 ## Props
 
-- **`variant`** (default: `secondary`) — `primary` or `secondary`.
-- **`aria-label`** (default: `({children})`) — Screen-reader label; the visible count is hidden from assistive technology.
-- **native span props** (default: none) — Includes children and `className`.
+<ApiReference {...api} />
+
+The default variant is `secondary`. The visible count is hidden from assistive technology; without an `aria-label`, the screen-reader text is the count in parentheses.
 
 ## Composition
 
@@ -34,9 +36,7 @@ Use next to the control or label whose count it qualifies.
 
 Provide `aria-label` when the generated parenthesized count is not sufficient context.
 
-## Tailwind extension
-
-Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+## Data attributes
 
 The visible count has `data-component="CounterLabel"`.
 

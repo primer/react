@@ -26,7 +26,7 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `id`: `string` — Identifier for the panel, used to associate it with its anchor.
 - `initialLoadingType`: `"skeleton" | "spinner"` — Default `'spinner'`. Which affordance the first load shows.
 - `inputLabel`: `string` — Accessible name for the filter input.
-- `items`: `readonly SelectPanelItem[]` — Options to choose from.
+- `items` (required): `readonly SelectPanelItem[]` — Options to choose from.
 - `loading`: `boolean` — Default `false`. Shows a loading affordance in place of the options.
 - `message`: `SelectPanelMessage | React.ReactNode` — Content shown in place of the options, for an error or other terminal state.
 - `notice`: `SelectPanelNotice` — Banner shown above the options, for a warning that does not replace them.
@@ -35,7 +35,7 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `onFilterChange`: `((filter: string, details: ChangeEventDetails) => void)` — Called with the new query whenever the filter input changes.
 - `onOpenChange`: `((open: boolean, gesture: SelectPanelOpenChangeGesture) => void)` — Called when the panel opens or closes, with the gesture that caused it.
 - `onScrollEnd`: `(() => void)` — Called when the options are scrolled to the end, for loading another page.
-- `onSelectedChange`: `(selected: SelectPanelItem[] | SelectPanelItem | undefined, details?: ChangeEventDetails | undefined) => void` — Called with the new selection whenever it changes.
+- `onSelectedChange` (required): `(selected: SelectPanelItem[] | SelectPanelItem | undefined, details?: ChangeEventDetails | undefined) => void` — Called with the new selection whenever it changes.
 - `open`: `boolean` — Controls whether the panel is open. Supply it with `onOpenChange` to own the state.
 - `overlayProps`: `SelectPanelOverlayProps` — Size and positioning of the panel overlay.
 - `placeholder`: `string` — Text shown on the anchor when nothing is selected.
@@ -45,7 +45,7 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `renderItem`: `SelectPanelRenderItem` — Renders each option yourself.
 - `scrollContainerRef`: `Ref<HTMLDivElement>` — Ref to the scrolling options container.
 - `secondaryAction`: `React.ReactElement` — Extra control shown in the panel's footer.
-- `selected`: `readonly SelectPanelItem[] | SelectPanelItem | undefined` — Currently selected option or options.
+- `selected` (required): `readonly SelectPanelItem[] | SelectPanelItem | undefined` — Currently selected option or options.
 - `selectionVariant`: `"multiple" | "single"` — Whether one option or several may be selected.
 - `setInitialFocus`: `boolean` — Default `false`. Moves focus to the filter input when the panel opens.
 - `showItemDividers`: `boolean` — Default `false`. Draws a divider between options.
@@ -64,7 +64,7 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `body`: `React.ReactNode`
 - `className`: `string`
 - `icon`: `React.ElementType`
-- `title`: `React.ReactNode`
+- `title` (required): `React.ReactNode`
 - `variant`: `"empty" | "error" | "warning"` — Default `'empty'`.
 
 ## SelectPanel.SecondaryActionButton
@@ -73,7 +73,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
 - `block`: `boolean` — Default `true`. Stretches the button to fill the width of its container.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
 - `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
@@ -94,11 +94,11 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `count`: `string | number` — Number shown in a trailing counter.
 - `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
 - `disabled`: `boolean` — Prevents navigation and removes the link from the keyboard order.
-- `href`: `string` — URL the secondary action navigates to.
+- `href` (required): `string` — URL the secondary action navigates to.
 - `inactive`: `boolean` — Marks the link temporarily unavailable while keeping it focusable.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `leadingVisual`: `ButtonVisual` — Icon shown before the label.

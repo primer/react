@@ -3,7 +3,7 @@
   "name": "Heading",
   "status": "alpha",
   "importPath": "@primer/react-tailwind/Heading",
-  "description": "`Heading` renders a section heading. Choose the level with `as` for document structure and `variant` for visual size, so heading order stays correct independently of scale.",
+  "description": "`Heading` renders a section heading. Choose the level with `as` for document structure and `size` for visual size, so heading order stays correct independently of scale.",
   "stories": [
     {
       "id": "react-tailwind-display-heading-examples--page-outline"

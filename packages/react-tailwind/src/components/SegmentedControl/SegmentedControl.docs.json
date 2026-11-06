@@ -118,7 +118,7 @@
       "props": [
         {
           "name": "children",
-          "type": "React.ReactElement[]",
+          "type": "React.ReactNode",
           "description": "Visible label. It stays on one line and truncates with a tooltip when the segment is too narrow."
         },
         {

@@ -24,8 +24,8 @@ Renders an [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 
 Renders a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
-- `aria-label`: `string` — Accessible name for the action, since the icon alone conveys nothing.
-- `icon`: `React.ElementType` — Icon component to render.
+- `aria-label` (required): `string` — Accessible name for the action, since the icon alone conveys nothing.
+- `icon` (required): `React.ElementType` — Icon component to render.
 - `tooltipDirection`: `TooltipDirection` — Default `'s'`. Side the tooltip appears on.
 
 ## Differences from `@primer/react`

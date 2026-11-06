@@ -17,7 +17,7 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 
 ## TreeView.ErrorDialog
 
-- `children`: `React.ReactElement[]` — Description of the error.
+- `children` (required): `React.ReactNode` — Description of the error.
 - `onDismiss`: `(() => void)` — Called when the user dismisses the error, after the item collapses.
 - `onRetry`: `(() => void)` — Called when the user chooses to retry loading the subtree.
 - `title`: `string` — Default `'Error'`. Title of the dialog.
@@ -32,7 +32,7 @@ Renders a [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#
 - `defaultExpanded`: `boolean` — Whether the item starts expanded when it owns its own expansion state.
 - `expanded`: `boolean | null` — Controls whether the item is expanded. Supply it with `onExpandedChange` to own the state. `null` keeps the item collapsed and leaves its expanded state unannounced.
 - `href`: `string` — Makes the item a link to the given URL.
-- `id`: `string` — Stable identity for the item, used to track focus and expansion.
+- `id` (required): `string` — Stable identity for the item, used to track focus and expansion.
 - `leadingAction`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode` — Action shown before the toggle, such as a drag handle. Accepts a callback to vary it with the expanded state.
 - `leadingVisual`: `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode` — Visual shown before the label. Accepts a callback to vary it with the item's expanded state.
 - `onExpandedChange`: `((expanded: boolean) => void)` — Called with the new state when the item is expanded or collapsed.
@@ -46,14 +46,14 @@ Renders a [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#
 
 Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
-- `children`: `React.ReactElement[]` — The action, such as a drag handle button. Accepts a callback to vary it with the item's expanded state.
+- `children` (required): `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode` — The action, such as a drag handle button. Accepts a callback to vary it with the item's expanded state.
 - `label`: `string` — Text describing the action. Like the action itself, it is hidden from assistive technology.
 
 ## TreeView.LeadingVisual
 
 Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
-- `children`: `React.ReactElement[]`
+- `children` (required): `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode`
 - `label`: `string` — Accessible name for the visual, which is announced as part of the item's description.
 
 ## TreeView.SubTree
@@ -67,7 +67,7 @@ Renders an [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
 
 Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
-- `children`: `React.ReactElement[]`
+- `children` (required): `((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode`
 - `label`: `string` — Accessible name for the visual, which is announced as part of the item's description.
 
 ## Differences from `@primer/react`

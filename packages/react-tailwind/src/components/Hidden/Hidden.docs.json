@@ -33,7 +33,7 @@
   "props": [
     {
       "name": "children",
-      "type": "React.ReactElement[]",
+      "type": "React.ReactNode",
       "required": true
     },
     {

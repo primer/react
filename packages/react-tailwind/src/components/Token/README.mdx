@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Token.docs.json'
 import * as Stories from './Token.stories'
 import * as Features from './Token.features.stories'
 import * as Examples from './Token.examples.stories'
@@ -20,120 +22,9 @@ import {Token} from '@primer/react-tailwind/Token'
 
 ## Props
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>text</code>
-      </td>
-      <td>
-        <code>ReactNode</code>
-      </td>
-      <td>required</td>
-      <td>Main token content.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>size</code>
-      </td>
-      <td>
-        <code>'small' | 'medium' | 'large' | 'xlarge'</code>
-      </td>
-      <td>
-        <code>'medium'</code>
-      </td>
-      <td>Token size.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>leadingVisual</code>
-      </td>
-      <td>
-        <code>React.ElementType</code>
-      </td>
-      <td>—</td>
-      <td>
-        Icon or visual before the text; omitted at <code>small</code>.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>isSelected</code>
-      </td>
-      <td>
-        <code>boolean</code>
-      </td>
-      <td>—</td>
-      <td>Selected visual state.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>onRemove</code>
-      </td>
-      <td>
-        <code>() => void</code>
-      </td>
-      <td>—</td>
-      <td>Enables keyboard removal and, unless hidden, a remove affordance.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>hideRemoveButton</code>
-      </td>
-      <td>
-        <code>boolean</code>
-      </td>
-      <td>
-        <code>false</code>
-      </td>
-      <td>
-        Hides the visual remove affordance while retaining <code>onRemove</code> keyboard behavior.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>as</code>
-      </td>
-      <td>
-        <code>'span' | 'a' | 'button'</code>
-      </td>
-      <td>
-        <code>'span'</code>
-      </td>
-      <td>Rendered element.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>href</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>—</td>
-      <td>
-        Link destination when <code>as="a"</code>.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>disabled</code>
-      </td>
-      <td>
-        <code>boolean</code>
-      </td>
-      <td>—</td>
-      <td>Disabled state for buttons and aria-disabled state for other elements.</td>
-    </tr>
-  </tbody>
-</table>
+<ApiReference {...api} />
+
+Named sizes are `small`, `medium`, `large`, and `xlarge`. `onRemove` receives no arguments; `id` is applied to the root element.
 
 <Controls of={Stories.Playground} />
 

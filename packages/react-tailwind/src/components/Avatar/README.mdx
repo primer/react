@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Avatar.docs.json'
 import * as Stories from './Avatar.stories'
 import * as Features from './Avatar.features.stories'
 import * as Examples from './Avatar.examples.stories'
@@ -22,10 +24,9 @@ import {Avatar} from '@primer/react-tailwind/Avatar'
 
 ## Props
 
-- **`src` / `alt`** (default: — / empty string) — Standard image source and alternative text.
-- **`size`** (default: `small`) — `small`, `medium`, `large`, `xlarge`, a numeric pixel size, or responsive viewport values.
-- **`shape` / `square`** (default: `circle` / `false`) — Use `square` as a shorthand for square shape.
-- **native image props** (default: none) — Includes dimensions, loading behavior, and `className`.
+<ApiReference {...api} />
+
+The default size is `small`; named sizes also include `medium`, `large`, and `xlarge`. The default shape is `circle`.
 
 ## Composition
 
@@ -35,15 +36,13 @@ Use as an image primitive, including as a child of an avatar stack.
 
 Provide meaningful `alt` text for informative avatars; leave it empty only for decorative images.
 
-## Tailwind extension
-
-Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+## Data attributes
 
 The image exposes `data-component="Avatar"` and `data-shape`.
 
 ## Alignment
 
-[Avatar alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/Avatar/ALIGNMENT.md) document intentional differences from the upstream component. Responsive size objects are intentionally not supported; use Tailwind responsive classes for responsive styling.
+[Avatar alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/Avatar/ALIGNMENT.md) document differences from the upstream component.
 
 ## Features and examples
 

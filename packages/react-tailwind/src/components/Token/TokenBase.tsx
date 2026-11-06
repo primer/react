@@ -30,7 +30,7 @@ export interface TokenBaseProps extends Omit<React.HTMLAttributes<HTMLElement>, 
    * @default 'span'
    */
   as?: 'span' | 'a' | 'button'
-  /** Identifier passed back to `onRemove`, so a caller can tell which token was removed. */
+  /** Identifier applied to the root element. */
   id?: string | number
   /** Label shown on the token. */
   text: React.ReactNode

@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Heading.docs.json'
 import * as Stories from './Heading.stories'
 import * as Features from './Heading.features.stories'
 import * as Examples from './Heading.examples.stories'
@@ -7,7 +9,7 @@ import * as Examples from './Heading.examples.stories'
 
 # Heading
 
-`Heading` renders a section heading. Choose the level with `as` for document structure and `variant` for visual size, so heading order stays correct independently of scale.
+`Heading` renders a section heading. Choose the level with `as` for document structure and `size` for visual size, so heading order stays correct independently of scale.
 
 ```tsx
 import {Heading} from '@primer/react-tailwind/Heading'
@@ -22,9 +24,9 @@ import {Heading} from '@primer/react-tailwind/Heading'
 
 ## Props
 
-- **`as`** (default: `h2`) — One of `h1` through `h6`.
-- **`size`** (default: `large`) — `small`, `medium`, `large`, or `display`.
-- **native heading props** (default: none) — Includes children and `className`.
+<ApiReference {...api} />
+
+The default size is `large`.
 
 ## Composition
 
@@ -34,9 +36,7 @@ Set `as` from the document outline independently from the visual `size`.
 
 Maintain a logical heading hierarchy; size is visual and does not change heading level.
 
-## Tailwind extension
-
-Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+## Data attributes
 
 The heading has `data-component="Heading"`.
 

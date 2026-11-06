@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './SkeletonBox.docs.json'
 import * as Stories from './SkeletonBox.stories'
 import * as Features from './SkeletonBox.features.stories'
 import * as Examples from './SkeletonBox.examples.stories'
@@ -22,70 +24,9 @@ Use it in a loading composition with dimensions that match the eventual content.
 
 ## Props
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>as</code>
-      </td>
-      <td>
-        <code>React.ElementType</code>
-      </td>
-      <td>
-        <code>'div'</code>
-      </td>
-      <td>Element to render.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>width</code>
-      </td>
-      <td>
-        <code>React.CSSProperties['width']</code>
-      </td>
-      <td>—</td>
-      <td>Placeholder width.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>height</code>
-      </td>
-      <td>
-        <code>React.CSSProperties['height']</code>
-      </td>
-      <td>—</td>
-      <td>Placeholder height.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>delay</code>
-      </td>
-      <td>
-        <code>'short' | 'long' | number</code>
-      </td>
-      <td>—</td>
-      <td>Delays mounting by 300 ms, 1,000 ms, or the supplied milliseconds.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>className</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>—</td>
-      <td>Tailwind utilities or custom classes.</td>
-    </tr>
-  </tbody>
-</table>
+<ApiReference {...api} />
+
+`delay="short"` waits 300 ms, `delay="long"` waits 1000 ms, and a number specifies milliseconds. Without a delay, the placeholder appears immediately.
 
 <Controls of={Stories.Playground} />
 

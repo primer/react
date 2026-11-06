@@ -97,7 +97,7 @@
       "props": [
         {
           "name": "children",
-          "type": "React.ReactElement[]",
+          "type": "React.ReactNode",
           "required": true,
           "description": "Description of the error."
         },
@@ -211,7 +211,7 @@
       "props": [
         {
           "name": "children",
-          "type": "React.ReactElement[]",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
           "required": true,
           "description": "The action, such as a drag handle button. Accepts a callback to vary it with the item's expanded state."
         },
@@ -231,7 +231,7 @@
       "props": [
         {
           "name": "children",
-          "type": "React.ReactElement[]",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
           "required": true
         },
         {
@@ -269,7 +269,7 @@
       "props": [
         {
           "name": "children",
-          "type": "React.ReactElement[]",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
           "required": true
         },
         {

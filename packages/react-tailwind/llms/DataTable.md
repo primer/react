@@ -12,8 +12,8 @@ Renders a [`<table>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/
 - `bulkActionsReturnFocusRef`: `RefObject<HTMLElement | null>` — Element that receives focus when a focused bulk action disappears. Defaults to the select-all checkbox.
 - `cellPadding`: `"condensed" | "normal" | "spacious"` — Default `'normal'`. Vertical spacing inside cells, which sets the density of the table.
 - `collapsibleGroups`: `boolean` — Default `false`. Adds disclosure buttons that show and hide each group's rows. Groups start expanded.
-- `columns`: `Column<Data>[]` — Column definitions, giving each column its header, width, and how to read a cell from a row.
-- `data`: `DataTableData<Data>` — Rows, row groups, or a mixture of both, in display order.
+- `columns` (required): `Column<Data>[]` — Column definitions, giving each column its header, width, and how to read a cell from a row.
+- `data` (required): `DataTableData<Data>` — Rows, row groups, or a mixture of both, in display order.
 - `defaultExpandedGroups`: `ReadonlySet<DataTableRowId>` — Ids of the groups expanded on first render. Defaults to every group in the initial data.
 - `defaultSelectedRows`: `ReadonlySet<DataTableRowId>` — Ids selected on first render, when the table owns its selection. Intended for static, single-page data.
 - `expandedGroups`: `ReadonlySet<DataTableRowId>` — Ids of the expanded groups, for when the caller owns the expanded state.
@@ -52,7 +52,7 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 - `aria-label`: `string` — Default `'Bulk actions'`. Accessible name for the group of actions.
 - `getSelectedCountLabel`: `((selectedCount: number) => string)` — Default `` selectedCount => `${selectedCount} selected` ``. Formats the announced selection count.
 - `onFocusReturn`: `(() => void)` — Called when the focused action is removed, so focus can move somewhere meaningful instead of the page.
-- `selectedCount`: `number` — Number of selected rows. The actions show only when it is greater than zero.
+- `selectedCount` (required): `number` — Number of selected rows. The actions show only when it is greater than zero.
 
 ## Table.Cell
 
@@ -76,17 +76,17 @@ Takes no props of its own.
 ## Table.Group
 
 - `aria-label`: `string` — Accessible name for the group header, for when the visible label needs more context.
-- `children`: `React.ReactElement[]` — Member rows of the group.
+- `children`: `React.ReactNode` — Member rows of the group.
 - `className`: `string` — Class name for the group header section.
 - `collapsible`: `boolean` — Default `false`. Adds a disclosure button that shows and hides the member rows.
-- `colSpan`: `number` — Number of columns the group header spans.
+- `colSpan` (required): `number` — Number of columns the group header spans.
 - `defaultExpanded`: `boolean` — Default `true`. Whether the member rows are shown on first render, when the group owns its expanded state.
 - `expanded`: `boolean` — Whether the member rows are shown, for when the caller owns the expanded state.
-- `id`: `string | number` — Stable identifier exposed on both group sections as `data-group-id`.
-- `label`: `string` — Visible label for the group header.
+- `id` (required): `string | number` — Stable identifier exposed on both group sections as `data-group-id`.
+- `label` (required): `string` — Visible label for the group header.
 - `onExpandedChange`: `((details: { expanded: boolean; }) => void)` — Called with the requested expanded state when the disclosure button is activated.
 - `onToggleSelect`: `(() => void)` — Called when the reader asks to select or clear every selectable row in the group.
-- `rowCount`: `number` — Number of member rows in the group, announced alongside the label.
+- `rowCount` (required): `number` — Number of member rows in the group, announced alongside the label.
 - `selection`: `"all" | "none" | "some"` — Whether all, some, or none of the group's selectable rows are selected. Renders a group checkbox when set.
 - `selectionDisabled`: `boolean` — Prevents toggling the group checkbox, for when the group has no selectable rows.
 
@@ -109,11 +109,11 @@ Renders a [`<nav>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/na
 - `hrefBuilder`: `((page: number) => string)` — Default `` page => `#${page}` ``. Builds the URL for a page, so pagination works without JavaScript.
 - `marginPageCount`: `number` — How many pages stay visible at each end of the range.
 - `onChange`: `((details: { pageIndex: number; }) => void)` — Called with the new page index when the reader pages through the table.
-- `pageSize`: `number` — Number of rows shown per page.
+- `pageSize` (required): `number` — Number of rows shown per page.
 - `renderPage`: `((props: PageProps) => React.ReactNode)` — Renders each page link yourself, for integrating with a router.
 - `showPages`: `ResponsiveValue<boolean>` — Default `{narrow: false}`. Shows the numbered pages. Defaults to hiding them on narrow viewports, keeping only Previous and Next.
 - `surroundingPageCount`: `number` — How many pages stay visible on each side of the current one.
-- `totalCount`: `number` — Total number of rows across all pages.
+- `totalCount` (required): `number` — Total number of rows across all pages.
 
 ## Table.Row
 
@@ -128,7 +128,7 @@ Renders a [`<td>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#
 - `checkboxRef`: `Ref<HTMLElement>` — Ref to the row's selection checkbox.
 - `disabled`: `boolean` — Prevents selecting the row.
 - `onToggleSelect`: `(() => void)` — Called when the reader asks to select or deselect the row.
-- `selected`: `boolean` — Whether the row is selected.
+- `selected` (required): `boolean` — Whether the row is selected.
 
 ## Table.SelectionHeader
 
@@ -139,22 +139,22 @@ Renders a [`<th>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#
 - `checkboxRef`: `Ref<HTMLElement>` — Ref to the selection checkbox, for returning focus to it.
 - `disabled`: `boolean` — Prevents toggling selection, for when no rows can be selected.
 - `onToggleSelect`: `(() => void)` — Called when the reader asks to select or clear every selectable row.
-- `selection`: `"all" | "none" | "some"` — Whether all, some, or none of the selectable rows are selected.
+- `selection` (required): `"all" | "none" | "some"` — Whether all, some, or none of the selectable rows are selected.
 
 ## Table.SortHeader
 
 Renders a [`<th>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `align`: `Alignment` — Horizontal alignment of the header's content.
-- `direction`: `SortDirection` — Current sort direction for this column.
-- `onToggleSort`: `() => void` — Called when the header is activated to change the sort.
+- `direction` (required): `SortDirection` — Current sort direction for this column.
+- `onToggleSort` (required): `() => void` — Called when the header is activated to change the sort.
 
 ## Table.Skeleton
 
 Renders a [`<table>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `cellPadding`: `"condensed" | "normal" | "spacious"` — Default `'normal'`. Vertical spacing inside cells, which sets the density of the table.
-- `columns`: `(TableColumnLayout & { header: React.ReactNode; })[]` — Column definitions the placeholder should mirror.
+- `columns` (required): `(TableColumnLayout & { header: React.ReactNode; })[]` — Column definitions the placeholder should mirror.
 - `gridTemplateColumns`: `GridTemplateColumns<string | number>` — Explicit column track sizes, as a CSS grid template.
 - `rows`: `number` — Default `10`. Number of placeholder rows to render while data loads.
 

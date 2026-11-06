@@ -18,23 +18,23 @@ Forwards unrecognized props to Base UI's [`ToggleGroup`](https://base-ui.com/rea
 
 Forwards unrecognized props to Base UI's [`Toggle`](https://base-ui.com/react/components/toggle#api-reference), so it also accepts that part's props.
 
-- `children`: `React.ReactElement[]` — Visible label. It stays on one line and truncates with a tooltip when the segment is too narrow.
+- `children`: `React.ReactNode` — Visible label. It stays on one line and truncates with a tooltip when the segment is too narrow.
 - `className`: `string | ((state: ToggleState) => string | undefined)`
 - `count`: `string | number` — Number shown after the segment's label.
 - `leadingVisual`: `IconSource` — Icon shown before the segment's label: a component such as an Octicon, or a rendered element.
-- `value`: `string` — Value this segment selects, matched against the control's value.
+- `value` (required): `string` — Value this segment selects, matched against the control's value.
 
 ## SegmentedControl.IconButton
 
 Forwards unrecognized props to Base UI's [`Toggle`](https://base-ui.com/react/components/toggle#api-reference), so it also accepts that part's props.
 
-- `aria-label`: `string` — Accessible name for the segment, since the icon alone conveys nothing. Shown in the tooltip by default.
+- `aria-label` (required): `string` — Accessible name for the segment, since the icon alone conveys nothing. Shown in the tooltip by default.
 - `className`: `string | ((state: ToggleState) => string | undefined)`
 - `count`: `string | number` — Number shown after the segment's label.
 - `description`: `string` — Supplementary text shown in the tooltip instead of the label and exposed as the accessible description.
-- `icon`: `IconSource` — Icon to render: a component such as an Octicon, or a rendered element.
+- `icon` (required): `IconSource` — Icon to render: a component such as an Octicon, or a rendered element.
 - `tooltipDirection`: `TooltipDirection` — Default `'s'`. Side and alignment of the tooltip relative to the segment.
-- `value`: `string` — Value this segment selects, matched against the control's value.
+- `value` (required): `string` — Value this segment selects, matched against the control's value.
 
 ## SegmentedControl.Divider
 
@@ -44,8 +44,8 @@ Forwards unrecognized props to Base UI's [`Toggle`](https://base-ui.com/react/co
 ## SegmentedControl.Action
 
 - `disabled`: `boolean` — Prevents the action from being activated.
-- `icon`: `React.ElementType` — Icon component for the action.
-- `label`: `string` — Accessible name of the action, shown in its tooltip and as the menu item text in the dropdown variant.
+- `icon` (required): `React.ElementType` — Icon component for the action.
+- `label` (required): `string` — Accessible name of the action, shown in its tooltip and as the menu item text in the dropdown variant.
 - `loading`: `boolean` — Shows a spinner and suppresses activation.
 - `onClick`: `(() => void)` — Called when the action is activated.
 

@@ -11,7 +11,7 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 - `action`: `React.ReactNode` — Supplies the action region. Takes precedence over a matching `Card.Action` child.
 - `as`: `"div" | "section"` — Default `'div'`. Element to render. Use `section` when the card is a labelled region of the page.
 - `borderRadius`: `"large" | "medium"` — Default `'large'`. Corner radius of the card.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `description`: `React.ReactNode` — Supplies the description region. Takes precedence over a matching `Card.Description` child.
 - `heading`: `React.ReactNode` — Supplies the heading region. Takes precedence over a matching `Card.Heading` child.
 - `icon`: `React.ReactNode` — Supplies the icon region. Takes precedence over a matching `Card.Icon` child.
@@ -38,13 +38,13 @@ Renders a [`<h3>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#
 
 - `aria-label`: `string` — Accessible name for the icon. Leave unset when the icon is decorative.
 - `className`: `string`
-- `icon`: `React.ElementType` — Icon component to render.
+- `icon` (required): `React.ElementType` — Icon component to render.
 
 ## Card.Image
 
 Renders an [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
-- `src`: `string` — Source of the image.
+- `src` (required): `string` — Source of the image.
 
 ## Card.Metadata
 

@@ -31,7 +31,7 @@ Renders an [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
 Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `active`: `boolean` — Highlights the item as the current one, without marking it selected.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `className`: `string`
 - `description`: `React.ReactNode` — Supplies the description region. Takes precedence over a matching `ActionList.Description` child.
 - `disabled`: `boolean` — Prevents activation. In a list the item also leaves the keyboard order; in a menu or listbox it stays focusable and is marked `aria-disabled`, so keyboard users can still discover it.
@@ -115,7 +115,7 @@ Renders a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 - `href`: `string` — Not available on a button action. Use `as="a"` to make the action navigate.
 - `icon`: `React.ElementType` — Icon component to render.
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced. Marks the link temporarily unavailable while keeping it focusable.
-- `label`: `string` — Accessible name for the action, since the icon alone conveys nothing.
+- `label` (required): `string` — Accessible name for the action, since the icon alone conveys nothing.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation. Replaces the leading visual with a spinner and suppresses navigation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading. Text announced to assistive technology while the link is loading.

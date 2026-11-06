@@ -76,7 +76,7 @@
     },
     {
       "name": "status",
-      "type": "\"alertClosed\" | \"alertDismissed\" | \"alertFixed\" | \"alertOpened\" | \"archived\" | \"closed\" | \"draft\" | \"issueClosed\" | \"issueClosedNotPlanned\" | \"issueDraft\" | \"issueOpened\" | ... 5 more ... | \"unavailable\"",
+      "type": "\"alertClosed\" | \"alertDismissed\" | \"alertFixed\" | \"alertOpened\" | \"archived\" | \"closed\" | \"draft\" | \"issueClosed\" | \"issueClosedNotPlanned\" | \"issueDraft\" | \"issueOpened\" | \"open\" | \"pullClosed\" | \"pullMerged\" | \"pullOpened\" | \"pullQueued\" | \"unavailable\"",
       "required": true,
       "description": "State being reported, which sets the label's colour, icon, and default text."
     }

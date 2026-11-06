@@ -13,7 +13,7 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 - `href`: `string` — URL to navigate to when `as` renders a link.
 - `inline`: `boolean` — Renders inline rather than as a block.
 - `maxWidth`: `string | number` — Default `125`. Width past which the text is clipped.
-- `title`: `string` — Full text, shown on hover and kept available to assistive technology when the text is clipped.
+- `title` (required): `string` — Full text, shown on hover and kept available to assistive technology when the text is clipped.
 
 ## Differences from `@primer/react`
 

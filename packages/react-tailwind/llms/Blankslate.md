@@ -30,7 +30,7 @@ Renders a [`<h2>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#
 ## Blankslate.SecondaryAction
 
 - `className`: `string`
-- `href`: `string`
+- `href` (required): `string`
 
 ## Blankslate.Visual
 

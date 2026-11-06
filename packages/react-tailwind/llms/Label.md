@@ -14,4 +14,4 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 
 ## Differences from `@primer/react`
 
-- Existing `variant`, `size`, and semantic `as` usage can be retained.
+- Existing `variant`, `size`, and `as` usage can be retained.

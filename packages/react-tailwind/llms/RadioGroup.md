@@ -25,7 +25,7 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 
 Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
-- `variant`: `"error" | "success"` — Whether the message reports a problem or confirms success.
+- `variant` (required): `"error" | "success"` — Whether the message reports a problem or confirms success.
 
 ## Differences from `@primer/react`
 

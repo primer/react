@@ -9,7 +9,7 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Props
 
 - `size`: `"medium" | "small" | null`
-- `status`: `"alertClosed" | "alertDismissed" | "alertFixed" | "alertOpened" | "archived" | "closed" | "draft" | "issueClosed" | "issueClosedNotPlanned" | "issueDraft" | "issueOpened" | ... 5 more ... | "unavailable"` — State being reported, which sets the label's colour, icon, and default text.
+- `status` (required): `"alertClosed" | "alertDismissed" | "alertFixed" | "alertOpened" | "archived" | "closed" | "draft" | "issueClosed" | "issueClosedNotPlanned" | "issueDraft" | "issueOpened" | "open" | "pullClosed" | "pullMerged" | "pullOpened" | "pullQueued" | "unavailable"` — State being reported, which sets the label's colour, icon, and default text.
 
 ## Differences from `@primer/react`
 

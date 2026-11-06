@@ -68,7 +68,7 @@
     },
     {
       "name": "children",
-      "type": "React.ReactElement[]"
+      "type": "React.ReactNode"
     },
     {
       "name": "description",

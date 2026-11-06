@@ -36,7 +36,7 @@ Forwards unrecognized props to Base UI's [`Field.Description`](https://base-ui.c
 Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `className`: `string`
-- `variant`: `"error" | "success"` — Whether the message reports a problem or confirms success.
+- `variant` (required): `"error" | "success"` — Whether the message reports a problem or confirms success.
 
 ## FormControl.LeadingVisual
 

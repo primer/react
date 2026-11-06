@@ -3,7 +3,7 @@
   "name": "LinkButton",
   "status": "alpha",
   "importPath": "@primer/react-tailwind/LinkButton",
-  "description": "`LinkButton` navigates to a URL while looking like a `Button`. It renders an anchor, so it requires `href` rather than `onClick`.",
+  "description": "`LinkButton` navigates to a URL while looking like a `Button`. Supply `href` for a native anchor destination.",
   "stories": [
     {
       "id": "react-tailwind-components-linkbutton-examples--settings-navigation"
@@ -77,7 +77,7 @@
     },
     {
       "name": "children",
-      "type": "React.ReactElement[]"
+      "type": "React.ReactNode"
     },
     {
       "name": "count",

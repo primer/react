@@ -14,4 +14,4 @@ Renders an [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i
 
 ## Differences from `@primer/react`
 
-- Replace responsive size objects with responsive `className` utilities on the Avatar or its layout wrapper.
+- Existing numeric or `{narrow, regular, wide}` sizes and `square` usage can be retained.

@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './ButtonGroup.docs.json'
 import * as Stories from './ButtonGroup.stories'
 import * as Features from './ButtonGroup.features.stories'
 import * as Examples from './ButtonGroup.examples.stories'
@@ -24,10 +26,7 @@ import {ButtonGroup} from '@primer/react-tailwind/ButtonGroup'
 
 ## Props
 
-- **`orientation`** (default: `horizontal`) — `horizontal` or `vertical` flex direction.
-- **`role`** (default: `group`) — Use `toolbar` for a command toolbar, which moves focus between buttons with the arrow keys.
-- **`as`** (default: `div`) — Render a different element type.
-- **native HTML props** (default: none) — Includes `aria-label`, `className`, and children.
+<ApiReference {...api} />
 
 ## Composition
 
@@ -37,9 +36,7 @@ Compose adjacent controls as children; the group does not clone or modify them.
 
 Label groups of controls with `aria-label`, and use `role="toolbar"` when appropriate. A toolbar keeps one button in the tab order. The arrow keys in its orientation, Home, and End move focus between buttons, wrapping at either end.
 
-## Tailwind extension
-
-Pass `className` to extend the component with Tailwind utilities. The root exposes a stable `data-component` attribute for targeted selectors; use the component's documented data attributes rather than implementation class names.
+## Data attributes
 
 The root exposes `data-component="ButtonGroup"` and `data-orientation`.
 

@@ -18,7 +18,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
 - `disabled`: `boolean` — Default `false`. Prevents activation and removes the button from the keyboard order.
@@ -37,13 +37,13 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
-- `aria-label`: `string` — Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology.
+- `aria-label` (required): `string` — Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
 - `description`: `string` — Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the tooltip repeats `aria-label` visually.
 - `disabled`: `boolean` — Default `false`. Prevents activation and removes the button from the keyboard order.
-- `icon`: `IconSource` — Icon to render: a component such as an Octicon, or a rendered element. Pass an element when the icon comes from a Server Component.
+- `icon` (required): `IconSource` — Icon to render: a component such as an Octicon, or a rendered element. Pass an element when the icon comes from a Server Component.
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
 - `keybindingHint`: `string | string[]` — Keyboard shortcut, or alternative shortcuts, shown in the tooltip, such as `Mod+B` or `['Mod+B', 'Control+B']`. Displays the hint only; the consumer still registers the shortcut.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
@@ -68,15 +68,15 @@ Forwards unrecognized props to Base UI's [`Toolbar.Separator`](https://base-ui.c
 Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
-- `aria-label`: `string` — Accessible name for the menu trigger, also used as its label when the menu overflows.
+- `aria-label` (required): `string` — Accessible name for the menu trigger, also used as its label when the menu overflows.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
 - `description`: `string` — Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the tooltip repeats `aria-label` visually.
 - `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
-- `icon`: `IconSource` — Icon for the menu trigger: a component such as an Octicon, or a rendered element.
+- `icon` (required): `IconSource` — Icon for the menu trigger: a component such as an Octicon, or a rendered element.
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
-- `items`: `ActionBarMenuItemProps[]` — Items in the menu.
+- `items` (required): `ActionBarMenuItemProps[]` — Items in the menu.
 - `keybindingHint`: `string | string[]` — Keyboard shortcut, or alternative shortcuts, shown in the tooltip, such as `Mod+B` or `['Mod+B', 'Control+B']`. Displays the hint only; the consumer still registers the shortcut.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.

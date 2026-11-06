@@ -35,7 +35,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
 - `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
@@ -56,7 +56,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
 - `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.

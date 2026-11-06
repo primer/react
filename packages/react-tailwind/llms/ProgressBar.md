@@ -12,7 +12,7 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 - `inline`: `boolean | null`
 - `progress`: `number` — Percentage complete, from 0 to 100.
 - `size`: `"large" | "medium" | "small" | null`
-- `variant`: `"accent" | "attention" | "danger" | "done" | "neutral" | "severe" | "sponsors" | "success" | null` — Height of the bar.
+- `variant`: `"accent" | "attention" | "danger" | "done" | "neutral" | "severe" | "sponsors" | "success" | null` — Color of the single segment.
 
 ## ProgressBar.Item
 

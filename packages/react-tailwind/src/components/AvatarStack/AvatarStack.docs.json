@@ -50,7 +50,7 @@
     },
     {
       "name": "children",
-      "type": "React.ReactElement[]",
+      "type": "React.ReactNode",
       "required": true,
       "description": "A set of Avatar components to stack."
     },

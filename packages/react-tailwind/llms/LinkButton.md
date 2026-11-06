@@ -1,6 +1,6 @@
 # LinkButton
 
-`LinkButton` navigates to a URL while looking like a `Button`. It renders an anchor, so it requires `href` rather than `onClick`.
+`LinkButton` navigates to a URL while looking like a `Button`. Supply `href` for a native anchor destination.
 
 Import: `import {LinkButton} from '@primer/react-tailwind/LinkButton'`
 
@@ -10,7 +10,7 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 
 - `alignContent`: `"center" | "start"` — Default `'center'`. Whether the label sits centred or hugs the start edge when visuals are present.
 - `block`: `boolean` — Stretches the link to fill the width of its container.
-- `children`: `React.ReactElement[]`
+- `children`: `React.ReactNode`
 - `count`: `string | number` — Number shown in a trailing counter.
 - `data-component`: `string` — Default `'LinkButton'`. Overrides the marker used to identify this element in tests and styling.
 - `disabled`: `boolean` — Default `false`. Prevents navigation and removes the link from the keyboard order.

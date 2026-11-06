@@ -29,7 +29,7 @@ Renders a [`<section>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Elemen
 
 ## NavList.GroupExpand
 
-- `items`: `NavListGroupExpandItem[]` — Items revealed by the button.
+- `items` (required): `NavListGroupExpandItem[]` — Items revealed by the button.
 - `label`: `string` — Default `'Show more'`. Text of the button that reveals more items.
 - `pages`: `number` — Default `0`. Number of reveals needed to show every item. `0` reveals them all at once.
 - `renderItem`: `((item: NavListGroupExpandItem) => React.ReactNode)` — Default `item => <NavList.Item {...item}>{item.text}</NavList.Item>`. Renders a revealed item, in place of the default `NavList.Item`. Spread the item's props to keep focus management.
@@ -76,7 +76,7 @@ Renders a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 - `href`: `string` — Not available on a button action. Use `as="a"` to make the action navigate.
 - `icon`: `React.ElementType` — Icon component to render.
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced. Marks the link temporarily unavailable while keeping it focusable.
-- `label`: `string` — Accessible name for the action, since the icon alone conveys nothing.
+- `label` (required): `string` — Accessible name for the action, since the icon alone conveys nothing.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation. Replaces the leading visual with a spinner and suppresses navigation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading. Text announced to assistive technology while the link is loading.

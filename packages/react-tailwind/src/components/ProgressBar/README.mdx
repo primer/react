@@ -1,4 +1,6 @@
 import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './ProgressBar.docs.json'
 import * as Stories from './ProgressBar.stories'
 import * as Features from './ProgressBar.features.stories'
 import * as Examples from './ProgressBar.examples.stories'
@@ -29,88 +31,9 @@ For multiple segments, pass items as children:
 
 ## Props
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>progress</code>
-      </td>
-      <td>
-        <code>number</code>
-      </td>
-      <td>—</td>
-      <td>Single-segment percentage, clamped to 0–100. Do not use with children.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>variant</code>
-      </td>
-      <td>
-        <code>'accent' | 'success' | 'attention' | 'danger' | 'severe' | 'done' | 'sponsors' | 'neutral'</code>
-      </td>
-      <td>
-        <code>'success'</code>
-      </td>
-      <td>Color of the single segment.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>size</code>
-      </td>
-      <td>
-        <code>'small' | 'default' | 'large'</code>
-      </td>
-      <td>
-        <code>'default'</code>
-      </td>
-      <td>Track height.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>inline</code>
-      </td>
-      <td>
-        <code>boolean</code>
-      </td>
-      <td>
-        <code>false</code>
-      </td>
-      <td>Uses an inline-flex track.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>animated</code>
-      </td>
-      <td>
-        <code>boolean</code>
-      </td>
-      <td>
-        <code>false</code>
-      </td>
-      <td>Applies Primer's progress shimmer when reduced motion is not requested.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>children</code>
-      </td>
-      <td>
-        <code>ReactNode</code>
-      </td>
-      <td>—</td>
-      <td>
-        <code>ProgressBar.Item</code> segments; mutually exclusive with <code>progress</code>.
-      </td>
-    </tr>
-  </tbody>
-</table>
+<ApiReference {...api} />
+
+The track defaults to `size="medium"`, and a single segment defaults to `variant="success"`. Pass either `progress` or `ProgressBar.Item` children, not both.
 
 <Controls of={Stories.Playground} />
 

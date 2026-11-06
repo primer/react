@@ -9,14 +9,14 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 ## Props
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
-- `aria-label`: `string` — Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology.
+- `aria-label` (required): `string` — Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
 - `data-component`: `string` — Default `'IconButton'`. Overrides the marker used to identify this element in tests and styling.
 - `description`: `string` — Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the tooltip repeats `aria-label` visually.
 - `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
-- `icon`: `IconSource` — Icon to render: a component such as an Octicon, or a rendered element. Pass an element when the icon comes from a Server Component.
+- `icon` (required): `IconSource` — Icon to render: a component such as an Octicon, or a rendered element. Pass an element when the icon comes from a Server Component.
 - `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
 - `keybindingHint`: `string | string[]` — Keyboard shortcut, or alternative shortcuts, shown in the tooltip, such as `Mod+B` or `['Mod+B', 'Control+B']`. Displays the hint only; the consumer still registers the shortcut.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
