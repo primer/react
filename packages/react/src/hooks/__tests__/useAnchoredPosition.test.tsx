@@ -1,5 +1,6 @@
 import {render, waitFor, act} from '@testing-library/react'
 import {it, expect, vi, describe} from 'vitest'
+import {page} from 'vitest/browser'
 import React from 'react'
 import {useAnchoredPosition} from '../../hooks/useAnchoredPosition'
 
@@ -109,7 +110,7 @@ describe('scroll recalculation', () => {
       const anchorElementRef = React.useRef<HTMLDivElement>(null)
       callback(useAnchoredPosition({floatingElementRef, anchorElementRef}))
       return (
-        <div style={{overflow: 'auto', height: '200px'}}>
+        <div data-testid="scroll-container" style={{overflow: 'auto', height: '200px'}}>
           <div style={{height: '1000px'}}>
             <div
               style={{position: 'absolute', top: '20px', left: '20px', height: '50px', width: '50px'}}
@@ -122,14 +123,14 @@ describe('scroll recalculation', () => {
     }
 
     const cb = vi.fn()
-    const {container} = render(<ScrollableComponent callback={cb} />)
+    render(<ScrollableComponent callback={cb} />)
 
     await waitFor(() => {
       expect(cb).toHaveBeenCalledTimes(2)
     })
 
     const callCountBefore = cb.mock.calls.length
-    const scrollContainer = container.firstElementChild!
+    const scrollContainer = page.getByTestId('scroll-container').element()
 
     // Simulate scroll on the scrollable ancestor
     act(() => {
