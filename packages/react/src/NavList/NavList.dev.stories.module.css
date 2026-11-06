@@ -1,0 +1,11 @@
+.Working {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: working-rotation 4s linear infinite;
+  }
+}
+
+@keyframes working-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
