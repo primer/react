@@ -244,13 +244,14 @@ describe('SelectPanel state synchronization', () => {
 
     const input = page.getByLabelText('Filter items')
     await expect.element(input).toHaveFocus()
+    const inputElement = input.element()
     committedOrders.length = 0
     rerender(renderPanel(synchronizedItems))
     await act(async () => {})
 
     expect(committedOrders.length).toBeGreaterThan(0)
     expect(committedOrders.every(order => order[0] === 'item two')).toBe(true)
-    expect(page.getByLabelText('Filter items').element()).toBe(input.element())
+    expect(page.getByLabelText('Filter items').element()).toBe(inputElement)
     await expect.element(input).toHaveFocus()
   })
 
@@ -290,9 +291,10 @@ describe('SelectPanel state synchronization', () => {
     await expect.element(page.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
 
     const input = page.getByLabelText('Filter items')
+    const inputElement = input.element()
     rerender(renderPanel(true, synchronizedItems[2]))
     await expect.element(page.getByRole('option', {name: 'item three'})).toHaveAttribute('aria-selected', 'true')
-    expect(page.getByLabelText('Filter items').element()).toBe(input.element())
+    expect(page.getByLabelText('Filter items').element()).toBe(inputElement)
     await expect.element(input).toHaveFocus()
 
     await userEvent.click(page.getByRole('button', {name: 'Save'}))
@@ -916,7 +918,8 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
       await userEvent.click(page.getByRole('button', {name: 'Select items'}))
       const input = page.getByLabelText('Search items')
-      const wrapper = input.element().closest<HTMLElement>('[data-component="TextInput"]')
+      const inputElement = input.element()
+      const wrapper = inputElement.closest<HTMLElement>('[data-component="TextInput"]')
       if (!wrapper) {
         throw new Error('Expected a TextInput wrapper')
       }
@@ -929,7 +932,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: legacyContrast}}>{panel}</FeatureFlags>,
         )
 
-        expect(page.getByLabelText('Search items').element()).toBe(input.element())
+        expect(page.getByLabelText('Search items').element()).toBe(inputElement)
         expect(wrapper.hasAttribute('data-contrast')).toBe(legacyContrast)
         await expect.element(input).toBeEnabled()
         await expect.element(input).toHaveValue('two')
