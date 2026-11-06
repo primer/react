@@ -10,6 +10,9 @@ on:
     types:
       - checks_requested
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -98,7 +101,7 @@ jobs:
         run: npm run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Run tests defined in vitest
-        uses: docker://mcr.microsoft.com/playwright:v1.60.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.65.0-jammy
         with:
           args: npm test
 
