@@ -6,6 +6,7 @@ import React from 'react'
 type FormControlForwardedProps = Pick<Field.Root.Props, 'disabled' | 'name'> & {
   'aria-describedby'?: string
   'aria-invalid'?: boolean
+  'aria-labelledby'?: string
   id?: string
   required?: boolean
 }
@@ -19,7 +20,7 @@ export const useFormControlContext = () => React.useContext(FormControlContext)
 
 /**
  * Returns the variant of the surrounding field's `FormControl.Validation`, so a control can show the same status.
- * A control's own `validationStatus` prop should take precedence.
+ * A control can request its own status, but an invalid field remains an error.
  */
 export const useFormControlValidationStatus = () => React.useContext(FormControlValidationStatusContext)
 

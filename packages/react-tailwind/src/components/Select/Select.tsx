@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {markFormControlInput} from '../../internal/formControlParts'
 import type {ControlSize} from '../../utils/types'
 import {useFormControlForwardedProps, useFormControlValidationStatus} from '../FormControl/useFormControlForwardedProps'
 
@@ -126,5 +127,7 @@ const SelectRoot = React.forwardRef<HTMLSelectElement, SelectProps>(function Sel
 SelectRoot.displayName = 'Select'
 
 export const Select = Object.assign(SelectRoot, {Option, OptGroup})
+
+markFormControlInput(Select)
 
 export default Select

@@ -1,4 +1,4 @@
-import {access, mkdir, mkdtemp, readFile, rm, stat, writeFile} from 'node:fs/promises'
+import {access, copyFile, mkdir, mkdtemp, readFile, rm, stat, writeFile} from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import {createRequire} from 'node:module'
@@ -10,10 +10,11 @@ const requiredStyles = ['styles.css', 'theme.css', 'tailwind.css', 'base.css', '
 const reactVersions = ['19.2.0']
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm'
 
-function run(command, args, {cwd, label}) {
+function run(command, args, {cwd, env, label}) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       cwd,
+      env,
       stdio: ['ignore', 'pipe', 'pipe'],
     })
     let stdout = ''
@@ -67,102 +68,6 @@ async function packArtifact(packDirectory) {
   }
 
   return path.join(packDirectory, packed.filename)
-}
-
-function consumerProgram() {
-  return `
-import React from 'react'
-import {renderToStaticMarkup} from 'react-dom/server'
-
-const browserGlobals = [
-  'window',
-  'document',
-  'navigator',
-  'location',
-  'history',
-  'localStorage',
-  'sessionStorage',
-  'HTMLElement',
-  'Element',
-  'Node',
-  'CustomEvent',
-  'MutationObserver',
-  'ResizeObserver',
-  'requestAnimationFrame',
-  'cancelAnimationFrame',
-  'matchMedia',
-  'getComputedStyle',
-  'CSS',
-]
-
-for (const name of browserGlobals) {
-  delete globalThis[name]
-}
-
-const failures = []
-async function check(label, callback) {
-  try {
-    await callback()
-  } catch (error) {
-    failures.push(new Error(\`\${label}: \${error.message}\`, {cause: error}))
-  }
-}
-
-let packageRoot
-await check('Root package import', async () => {
-  packageRoot = await import('@primer/react-tailwind')
-})
-
-if (packageRoot) {
-  await check('Root package exports and server render', async () => {
-    for (const name of ['BaseStyles', 'Button', 'TextInput', 'Overlay']) {
-      const component = packageRoot[name]
-      if (typeof component !== 'object' && typeof component !== 'function') {
-        throw new Error(\`Missing \${name} export.\`)
-      }
-    }
-
-    const markup = renderToStaticMarkup(
-      React.createElement(
-        packageRoot.BaseStyles,
-        null,
-        React.createElement(packageRoot.Button, {type: 'button'}, 'Consumer button'),
-        React.createElement(packageRoot.TextInput, {
-          'aria-label': 'Consumer input',
-          defaultValue: 'Consumer value',
-        }),
-        React.createElement(packageRoot.Overlay, null, 'Consumer overlay'),
-      ),
-    )
-
-    for (const component of ['BaseStyles', 'Button', 'TextInput', 'Overlay']) {
-      if (!markup.includes(\`data-component="\${component}"\`)) {
-        throw new Error(\`Server render did not produce \${component} markup.\`)
-      }
-    }
-  })
-}
-
-for (const [name, expectedExport] of [
-  ['Button', 'Button'],
-  ['TextInput', 'TextInput'],
-  ['Overlay', 'Overlay'],
-]) {
-  await check(\`\${name} subpath import\`, async () => {
-    const module = await import(\`@primer/react-tailwind/\${name}\`)
-    if (typeof module[expectedExport] !== 'object' && typeof module[expectedExport] !== 'function') {
-      throw new Error(\`Missing \${expectedExport} export.\`)
-    }
-  })
-}
-
-if (failures.length > 0) {
-  process.stderr.write(
-    \`Packed package import and server render validation failed:\n\${failures.map(error => error.message).join('\\n')}\n\`,
-  )
-  process.exitCode = 1
-}
-`
 }
 
 function getErrorMessage(error) {
@@ -287,14 +192,20 @@ async function validateConsumer(temporaryRoot, tarball, reactVersion) {
     ],
     {cwd: consumerDirectory, label: `React ${reactVersion} consumer install`},
   )
-  await writeFile(path.join(consumerDirectory, 'consumer.mjs'), consumerProgram())
+  await copyFile(
+    path.join(packageRoot, 'script/packed-consumer-entry.mjs'),
+    path.join(consumerDirectory, 'consumer.mjs'),
+  )
   await validateStyles(consumerDirectory)
   await validateAgentDocs(consumerDirectory)
   await validateTailwindConsumer(consumerDirectory)
-  await run(process.execPath, [path.join(consumerDirectory, 'consumer.mjs')], {
-    cwd: consumerDirectory,
-    label: `React ${reactVersion} packed package import and server render`,
-  })
+  for (const mode of ['production', 'development']) {
+    await run(process.execPath, [path.join(consumerDirectory, 'consumer.mjs')], {
+      cwd: consumerDirectory,
+      env: {...process.env, NODE_ENV: mode},
+      label: `React ${reactVersion} packed package import and server render (${mode})`,
+    })
+  }
 }
 
 async function main() {
@@ -323,7 +234,7 @@ async function main() {
   }
 
   process.stdout.write(
-    `Packed consumer validation passed (React ${reactVersions.join(', ')}; root and Button/TextInput/Overlay subpaths; SSR; styles; agent docs; Tailwind v4).\n`,
+    `Packed consumer validation passed (React ${reactVersions.join(', ')}; root and component subpaths; production and development SSR; styles; agent docs; Tailwind v4).\n`,
   )
 }
 

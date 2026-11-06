@@ -5,6 +5,7 @@ import React from 'react'
 import {CharacterCounter} from '../../internal/CharacterCounter'
 import {useCharacterLimit} from '../../internal/useCharacterLimit'
 import {cn} from '../../internal/cn'
+import {markFormControlInput} from '../../internal/formControlParts'
 import {joinIdRefs} from '../../internal/idRefs'
 import {useFormControlForwardedProps, useFormControlValidationStatus} from '../FormControl/useFormControlForwardedProps'
 
@@ -108,3 +109,5 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
 })
 
 Textarea.displayName = 'Textarea'
+
+markFormControlInput(Textarea)

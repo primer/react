@@ -5,6 +5,7 @@ import React from 'react'
 import {CharacterCounter} from '../../internal/CharacterCounter'
 import {useCharacterLimit} from '../../internal/useCharacterLimit'
 import {cn} from '../../internal/cn'
+import {markFormControlInput} from '../../internal/formControlParts'
 import {joinIdRefs} from '../../internal/idRefs'
 import type {ControlSize} from '../../utils/types'
 import {useFormControlForwardedProps, useFormControlValidationStatus} from '../FormControl/useFormControlForwardedProps'
@@ -251,3 +252,5 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
 TextInputRoot.displayName = 'TextInput'
 
 export const TextInput = Object.assign(TextInputRoot, {Action: TextInputAction})
+
+markFormControlInput(TextInput)

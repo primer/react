@@ -5,6 +5,7 @@ import React from 'react'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {CheckboxGlyph, checkboxClassName, checkboxGlyphRevealClassName} from '../../internal/selectionVisuals'
 import {cn} from '../../internal/cn'
+import {markFormControlInput} from '../../internal/formControlParts'
 import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
 
 export interface CheckboxProps
@@ -39,3 +40,5 @@ export const Checkbox = React.forwardRef<HTMLElement, CheckboxProps>(function Ch
 })
 
 Checkbox.displayName = 'Checkbox'
+
+markFormControlInput(Checkbox, {baseUiAccessibleLabel: true})

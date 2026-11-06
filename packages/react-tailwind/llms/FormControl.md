@@ -48,4 +48,4 @@ Forwards unrecognized props to Base UI's [`Field.Control`](https://base-ui.com/r
 
 ## Differences from `@primer/react`
 
-- `label`, `caption`, `validation`, and `leadingVisual` accept an element for the corresponding region and take precedence over a matching child. Regions render in place rather than being relocated, because horizontal layout positions parts by selector. A custom control does not need a region prop: `FormControl` distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` through context, so any control calling `useFormControlForwardedProps` is wired without being identified.
+- `label`, `caption`, `validation`, and `leadingVisual` accept an element for the corresponding region and replace matching children, including parts inside fragments or native DOM wrappers. Other children retain their order and state. A custom control does not need a region prop: `FormControl` distributes `id`, `name`, `required`, `disabled`, and accessibility attributes through context to controls using `useFormControlForwardedProps`.

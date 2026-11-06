@@ -118,7 +118,7 @@ Every component's `ALIGNMENT.md` explains the legacy source and the modern repla
 
 ## React 19 and React Compiler
 
-React 19 and React DOM 19 are the only peer targets. Rolldown applies `babel-plugin-react-compiler` with target 19 to all TypeScript runtime modules, preserves module-level directives, and fails the build on circular dependencies.
+React 19 and React DOM 19 are the only peer targets. Rolldown applies `babel-plugin-react-compiler` with target 19 to all TypeScript runtime modules, emits production-compatible JSX regardless of the build environment, preserves module-level directives, and fails the build on circular dependencies.
 
 Server-safe and presentational modules remain usable during SSR. Interactive modules retain `'use client'` where their hooks or Base UI primitives require a client boundary. Browser-dependent behavior must be guarded or event-driven so server markup remains deterministic.
 
@@ -150,7 +150,7 @@ Changes are not complete when source code compiles. The package gates cover:
 - ESM, declarations, directives, and circular dependencies;
 - static Tailwind class discovery and generated CSS;
 - root and component subpath imports from a packed React 19 consumer;
-- SSR without browser globals;
+- SSR without browser globals in production and development modes;
 - Storybook docs, controls, interaction tests, and runtime errors; and
 - visual and computed-style parity in supported schemes and viewports.
 

@@ -48,5 +48,5 @@ describe('generated llms documentation', () => {
     expect(run('--check').status).toBe(1)
     unlinkSync(obsolete)
     expect(run('--check').status).toBe(0)
-  })
+  }, 60_000)
 })

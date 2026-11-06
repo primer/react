@@ -74,6 +74,16 @@ import {ThemeProvider} from '@primer/react-tailwind'
 
 `colorMode` accepts `light`, `dark`, `day`, `night`, or `auto`. Use `defaultColorMode`, `defaultDayScheme`, and `defaultNightScheme` for uncontrolled state, or the corresponding controlled props with `onColorModeChange`, `onDaySchemeChange`, and `onNightSchemeChange`. Use `contextOnly` when the context is needed without adding the provider wrapper.
 
+`useTheme()` requires a `ThemeProvider`; unlike `@primer/react`, it does not return a default context outside one. Its `resolvedColorMode` is always `light` or `dark`, and the active scheme can be derived from the configured schemes:
+
+```tsx
+const {colorMode, resolvedColorMode, dayScheme, nightScheme} = useTheme()
+const colorScheme = resolvedColorMode === 'dark' ? nightScheme : dayScheme
+const legacyResolvedColorMode = colorMode === 'auto' ? (resolvedColorMode === 'dark' ? 'night' : 'day') : colorMode
+```
+
+The theme setters accept direct values, not React state updater functions. A `contextOnly` provider avoids an extra DOM wrapper but does not reproduce the legacy no-provider context's undefined values and no-op setters.
+
 ## Imports
 
 The package root exports the public API, including foundation APIs:

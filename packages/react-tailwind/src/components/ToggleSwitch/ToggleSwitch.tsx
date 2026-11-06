@@ -3,6 +3,7 @@
 import {Switch as BaseSwitch} from '@base-ui/react/switch'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {markFormControlInput} from '../../internal/formControlParts'
 import {joinIdRefs} from '../../internal/idRefs'
 import {mergeRefs} from '../../internal/refs'
 import {coarsePointerTouchTarget} from '../../internal/touchTarget'
@@ -189,3 +190,5 @@ export const ToggleSwitch = React.forwardRef<HTMLElement, ToggleSwitchProps>(fun
 })
 
 ToggleSwitch.displayName = 'ToggleSwitch'
+
+markFormControlInput(ToggleSwitch, {baseUiControlId: true, baseUiAccessibleLabel: true})

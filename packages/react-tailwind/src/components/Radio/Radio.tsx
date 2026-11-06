@@ -2,6 +2,7 @@
 
 import {Radio as BaseRadio} from '@base-ui/react/radio'
 import React from 'react'
+import {markFormControlInput} from '../../internal/formControlParts'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {radioClassName} from '../../internal/selectionVisuals'
 import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
@@ -32,3 +33,5 @@ export const Radio = React.forwardRef<HTMLElement, RadioProps>(function Radio({c
 })
 
 Radio.displayName = 'Radio'
+
+markFormControlInput(Radio, {baseUiControlId: true, baseUiAccessibleLabel: true})
