@@ -12,7 +12,8 @@ interface TokenButtonProps {
   isParentInteractive?: boolean
 }
 
-type RemoveTokenButtonProps = TokenButtonProps & Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement>, 'size'>
+type RemoveTokenButtonProps = TokenButtonProps &
+  Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement>, 'size' | 'ref'>
 
 const RemoveTokenButton = ({
   'aria-label': ariaLabel,
@@ -43,7 +44,6 @@ const RemoveTokenButton = ({
 
   return (
     <button
-      // eslint-disable-next-line react-hooks/refs
       {...rest}
       aria-label={'Remove token'}
       data-size={size}
@@ -51,8 +51,6 @@ const RemoveTokenButton = ({
       style={{
         transform: `translate(${borderOffset}px, -${borderOffset}px)`,
       }}
-      // eslint-disable-next-line react-hooks/refs
-      ref={rest.ref as React.Ref<HTMLButtonElement>}
       type="button"
     >
       <XIcon size={size === 'small' || size === 'medium' ? 12 : 16} />

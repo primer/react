@@ -1,7 +1,7 @@
 import React from 'react'
-import {render, fireEvent, waitFor} from '@testing-library/react'
+import {render, fireEvent} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
-import userEvent from '@testing-library/user-event'
+import {page, userEvent} from 'vitest/browser'
 import {Dialog} from './Dialog'
 import {FeatureFlags} from '../FeatureFlags'
 import {Button} from '../Button'
@@ -10,65 +10,65 @@ import classes from './Dialog.module.css'
 
 describe('Dialog', () => {
   implementsClassName(Dialog, classes.Dialog)
-  it('renders with role "dialog" by default', () => {
-    const {getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
+  it('renders with role "dialog" by default', async () => {
+    render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 
-    expect(getByRole('dialog')).toBeInTheDocument()
+    await expect.element(page.getByRole('dialog')).toBeInTheDocument()
   })
 
-  it('renders with role "alertdialog" when passed', () => {
-    const {getByRole} = render(
+  it('renders with role "alertdialog" when passed', async () => {
+    render(
       <Dialog role="alertdialog" onClose={() => {}}>
         Definitely pay attention to me
       </Dialog>,
     )
 
-    expect(getByRole('alertdialog')).toBeInTheDocument()
+    await expect.element(page.getByRole('alertdialog')).toBeInTheDocument()
   })
   it('automatically focuses the footer button when `autoFocus` is true', async () => {
-    const {getByRole} = render(
+    render(
       <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'Footer button', autoFocus: true}]}>
         Pay attention to me
       </Dialog>,
     )
 
-    await waitFor(() => expect(getByRole('button', {name: 'Footer button'})).toHaveFocus())
+    await expect.element(page.getByRole('button', {name: 'Footer button', exact: true})).toHaveFocus()
   })
 
-  it('sets data-has-footer when footerButtons are provided', () => {
-    const {getByRole} = render(
+  it('sets data-has-footer when footerButtons are provided', async () => {
+    render(
       <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'OK'}]}>
         Content
       </Dialog>,
     )
-    expect(getByRole('dialog')).toHaveAttribute('data-has-footer', '')
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-has-footer', '')
   })
 
-  it('does not set data-has-footer when no footer is rendered', () => {
-    const {getByRole} = render(
+  it('does not set data-has-footer when no footer is rendered', async () => {
+    render(
       <Dialog onClose={() => {}} renderFooter={() => null}>
         Content
       </Dialog>,
     )
-    expect(getByRole('dialog')).not.toHaveAttribute('data-has-footer')
+    await expect.element(page.getByRole('dialog')).not.toHaveAttribute('data-has-footer')
   })
 
-  it('renders data-component attribute', () => {
-    const {getByRole} = render(<Dialog onClose={() => {}}>Content</Dialog>)
-    expect(getByRole('dialog')).toHaveAttribute('data-component', 'Dialog')
+  it('renders data-component attribute', async () => {
+    render(<Dialog onClose={() => {}}>Content</Dialog>)
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-component', 'Dialog')
   })
 
-  it('allows overriding the root data-component attribute', () => {
-    const {getByRole} = render(
+  it('allows overriding the root data-component attribute', async () => {
+    render(
       <Dialog data-component="ConfirmationDialog" onClose={() => {}}>
         Content
       </Dialog>,
     )
-    expect(getByRole('dialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
   })
 
   it('renders data-component hooks for Dialog subcomponents', () => {
-    const {getByRole} = render(
+    render(
       <Dialog
         onClose={() => {}}
         title="Title"
@@ -85,7 +85,7 @@ describe('Dialog', () => {
       />,
     )
 
-    const dialog = getByRole('dialog')
+    const dialog = page.getByRole('dialog').element()
 
     expect(dialog.querySelector('[data-component="Dialog.Header"]')).toBeInTheDocument()
     expect(dialog.querySelector('[data-component="Dialog.Title"]')).toBeInTheDocument()
@@ -96,7 +96,7 @@ describe('Dialog', () => {
   })
 
   it('adds a Dialog-scoped data-component hook for footer buttons (and not for body buttons)', () => {
-    const {getByRole, getByText} = render(
+    render(
       <Dialog
         onClose={() => {}}
         footerButtons={[
@@ -108,7 +108,7 @@ describe('Dialog', () => {
       </Dialog>,
     )
 
-    const dialog = getByRole('dialog')
+    const dialog = page.getByRole('dialog').element()
 
     // ensure footer buttons have the data-component hook
     const footerButtonHooks = dialog.querySelectorAll('[data-component="Dialog.FooterButton"]')
@@ -119,34 +119,32 @@ describe('Dialog', () => {
     expect(footerButtonHooks[1]).toHaveTextContent('Cancel')
 
     // ensure we're not targeting other buttons
-    const bodyButton = getByText('Body button').closest('button')
+    const bodyButton = page.getByRole('button', {name: 'Body button', exact: true}).element()
     expect(bodyButton).toBeTruthy()
-    expect(bodyButton?.closest('[data-component="Dialog.FooterButton"]')).toBeNull()
+    expect(bodyButton.closest('[data-component="Dialog.FooterButton"]')).toBeNull()
   })
 
   it('calls `onClose` when clicking the close button', async () => {
-    const user = userEvent.setup()
     const onClose = vi.fn()
-    const {getByLabelText} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
+    render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
-    await user.click(getByLabelText('Close'))
+    await userEvent.click(page.getByRole('button', {name: 'Close', exact: true}))
 
     expect(onClose).toHaveBeenCalledWith('close-button')
     expect(onClose).toHaveBeenCalledTimes(1) // Ensure it's not called with a backdrop gesture as well
   })
 
   it('calls `onClose` when clicking the backdrop', async () => {
-    const user = userEvent.setup()
     const onClose = vi.fn()
-    const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
+    render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
-    const dialog = getByRole('dialog')
+    const dialog = page.getByRole('dialog').element()
     const backdrop = dialog.parentElement!
-    await user.click(backdrop)
+    await userEvent.click(backdrop, {position: {x: 1, y: 1}})
 
     expect(onClose).toHaveBeenCalledWith('escape')
   })
@@ -154,11 +152,11 @@ describe('Dialog', () => {
   it('does not call `onClose` when click was not originated from backdrop', async () => {
     const onClose = vi.fn()
 
-    const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
+    render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
-    const dialog = getByRole('dialog')
+    const dialog = page.getByRole('dialog').element()
     const backdrop = dialog.parentElement!
 
     fireEvent.mouseDown(dialog)
@@ -170,21 +168,18 @@ describe('Dialog', () => {
   })
 
   it('calls `onClose` when keying "Escape"', async () => {
-    const user = userEvent.setup()
     const onClose = vi.fn()
 
     render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
-    await user.keyboard('{Escape}')
+    await userEvent.keyboard('{Escape}')
 
     expect(onClose).toHaveBeenCalledWith('escape')
   })
 
   it('calls `onClose` with a single "Escape" keypress when multiple dialogs can be opened', async () => {
-    const user = userEvent.setup()
-
     function ButtonWithDialog({label, onClose}: {label: string; onClose: () => void}) {
       const [isOpen, setIsOpen] = React.useState(false)
       const buttonRef = React.useRef<HTMLButtonElement>(null)
@@ -211,15 +206,15 @@ describe('Dialog', () => {
 
     const onCloseFirst = vi.fn()
     const onCloseSecond = vi.fn()
-    const {getByText} = render(
+    render(
       <>
         <ButtonWithDialog label="Dialog 1" onClose={onCloseFirst} />
         <ButtonWithDialog label="Dialog 2" onClose={onCloseSecond} />
       </>,
     )
 
-    await user.click(getByText('Dialog 1'))
-    await user.keyboard('{Escape}')
+    await userEvent.click(page.getByRole('button', {name: 'Dialog 1', exact: true}))
+    await userEvent.keyboard('{Escape}')
 
     expect(onCloseFirst).toHaveBeenCalled()
     expect(onCloseSecond).not.toHaveBeenCalled()
@@ -241,55 +236,55 @@ describe('Dialog', () => {
     expect(container.ownerDocument.body).toHaveStyle('overflow: hidden')
   })
 
-  it('renders with data-position-regular="left" when position="left"', () => {
-    const {getByRole} = render(<Dialog onClose={() => {}} position="left" />)
-    expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'left')
+  it('renders with data-position-regular="left" when position="left"', async () => {
+    render(<Dialog onClose={() => {}} position="left" />)
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-position-regular', 'left')
   })
 
-  it('renders with data-position-regular="right" when position="right"', () => {
-    const {getByRole} = render(<Dialog onClose={() => {}} position="right" />)
-    expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'right')
+  it('renders with data-position-regular="right" when position="right"', async () => {
+    render(<Dialog onClose={() => {}} position="right" />)
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-position-regular', 'right')
   })
 
-  it('renders with data-position-narrow="fullscreen" when narrow position is fullscreen', () => {
-    const {getByRole} = render(<Dialog onClose={() => {}} position={{narrow: 'fullscreen'}} />)
-    expect(getByRole('dialog')).toHaveAttribute('data-position-narrow', 'fullscreen')
+  it('renders with data-position-narrow="fullscreen" when narrow position is fullscreen', async () => {
+    render(<Dialog onClose={() => {}} position={{narrow: 'fullscreen'}} />)
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-position-narrow', 'fullscreen')
   })
 
-  it('renders with data-position-narrow="bottom" when narrow position is bottom and data-position-regular="center" when regular is center', () => {
-    const {getByRole} = render(<Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'center'}} />)
-    expect(getByRole('dialog')).toHaveAttribute('data-position-narrow', 'bottom')
-    expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'center')
+  it('renders with data-position-narrow="bottom" when narrow position is bottom and data-position-regular="center" when regular is center', async () => {
+    render(<Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'center'}} />)
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-position-narrow', 'bottom')
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-position-regular', 'center')
   })
 
   describe('align prop', () => {
-    it('sets data-align="top" on both dialog and backdrop', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} align="top" />)
-      const dialog = getByRole('dialog')
-      expect(dialog).toHaveAttribute('data-align', 'top')
-      expect(dialog.parentElement).toHaveAttribute('data-align', 'top')
+    it('sets data-align="top" on both dialog and backdrop', async () => {
+      render(<Dialog onClose={() => {}} align="top" />)
+      const dialog = page.getByRole('dialog')
+      await expect.element(dialog).toHaveAttribute('data-align', 'top')
+      expect(dialog.element().parentElement).toHaveAttribute('data-align', 'top')
     })
 
-    it('sets data-align="bottom" when align is bottom', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} align="bottom" />)
-      expect(getByRole('dialog')).toHaveAttribute('data-align', 'bottom')
+    it('sets data-align="bottom" when align is bottom', async () => {
+      render(<Dialog onClose={() => {}} align="bottom" />)
+      await expect.element(page.getByRole('dialog')).toHaveAttribute('data-align', 'bottom')
     })
 
-    it('sets data-align="center" when align is center', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} align="center" />)
-      expect(getByRole('dialog')).toHaveAttribute('data-align', 'center')
+    it('sets data-align="center" when align is center', async () => {
+      render(<Dialog onClose={() => {}} align="center" />)
+      await expect.element(page.getByRole('dialog')).toHaveAttribute('data-align', 'center')
     })
 
-    it('omits data-align when align is not provided', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} />)
-      expect(getByRole('dialog')).not.toHaveAttribute('data-align')
+    it('omits data-align when align is not provided', async () => {
+      render(<Dialog onClose={() => {}} />)
+      await expect.element(page.getByRole('dialog')).not.toHaveAttribute('data-align')
     })
 
-    it('emits data-align attribute even when position is non-center', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} position="left" align="top" />)
-      const dialog = getByRole('dialog')
-      expect(dialog).toHaveAttribute('data-position-regular', 'left')
-      expect(dialog).toHaveAttribute('data-align', 'top')
+    it('emits data-align attribute even when position is non-center', async () => {
+      render(<Dialog onClose={() => {}} position="left" align="top" />)
+      const dialog = page.getByRole('dialog')
+      await expect.element(dialog).toHaveAttribute('data-position-regular', 'left')
+      await expect.element(dialog).toHaveAttribute('data-align', 'top')
     })
   })
 
@@ -309,20 +304,19 @@ describe('Dialog', () => {
       )
     }
 
-    const {getByRole, getByLabelText, queryByRole} = render(<Fixture />)
-    const triggerButton = getByRole('button', {name: 'Open dialog'})
+    render(<Fixture />)
+    const triggerButton = page.getByRole('button', {name: 'Open dialog', exact: true})
 
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first button
-    expect(triggerButton).toHaveFocus()
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    await expect.element(triggerButton).toHaveFocus()
 
-    await user.click(triggerButton)
-    await waitFor(() => expect(getByRole('dialog')).toBeInTheDocument())
+    await userEvent.click(triggerButton)
+    await expect.element(page.getByRole('dialog')).toBeInTheDocument()
 
-    await user.click(getByLabelText('Close'))
+    await userEvent.click(page.getByRole('button', {name: 'Close', exact: true}))
 
-    expect(queryByRole('dialog')).toBeNull()
-    expect(triggerButton).toHaveFocus()
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
+    await expect.element(triggerButton).toHaveFocus()
   })
 
   it('returns focus to the element passed in returnFocusRef when the dialog closes', async () => {
@@ -348,17 +342,16 @@ describe('Dialog', () => {
       )
     }
 
-    const {getByRole, getByLabelText} = render(<Fixture />)
-    const triggerButton = getByRole('button', {name: 'Show dialog (button 1)'})
+    render(<Fixture />)
+    const triggerButton = page.getByRole('button', {name: 'Show dialog (button 1)', exact: true})
 
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first button
-    expect(triggerButton).toHaveFocus()
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    await expect.element(triggerButton).toHaveFocus()
 
-    await user.click(triggerButton)
-    await user.click(getByLabelText('Close'))
+    await userEvent.click(triggerButton)
+    await userEvent.click(page.getByRole('button', {name: 'Close', exact: true}))
 
-    expect(getByRole('button', {name: 'return focus to (button 2)'})).toHaveFocus()
+    await expect.element(page.getByRole('button', {name: 'return focus to (button 2)', exact: true})).toHaveFocus()
   })
 
   it('should support `className` on the Dialog element', async () => {
@@ -380,19 +373,18 @@ describe('Dialog', () => {
       )
     }
 
-    const user = userEvent.setup()
-
     const component = render(<Fixture />)
-    const triggerButton = component.getByRole('button', {name: 'Show dialog'})
-    await user.click(triggerButton)
-    expect(component.getByRole('dialog')).toHaveClass('custom-class')
+    const triggerButton = page.getByRole('button', {name: 'Show dialog', exact: true})
+    // The already-open dialog blocks pointer access to the trigger.
+    fireEvent.click(triggerButton.element())
+    await expect.element(page.getByRole('dialog')).toHaveClass('custom-class')
     component.unmount()
   })
 })
 
-it('automatically focuses the element that is specified as initialFocusRef', () => {
+it('automatically focuses the element that is specified as initialFocusRef', async () => {
   const initialFocusRef = React.createRef<HTMLAnchorElement>()
-  const {getByRole} = render(
+  render(
     <Dialog
       initialFocusRef={initialFocusRef}
       onClose={() => {}}
@@ -405,12 +397,12 @@ it('automatically focuses the element that is specified as initialFocusRef', () 
     ></Dialog>,
   )
 
-  expect(getByRole('link')).toHaveFocus()
+  await expect.element(page.getByRole('link')).toHaveFocus()
 })
 
 describe('Footer button loading states', () => {
-  it('applies loading state to footer buttons', () => {
-    const {getByRole} = render(
+  it('applies loading state to footer buttons', async () => {
+    render(
       <Dialog
         onClose={() => {}}
         footerButtons={[
@@ -422,21 +414,21 @@ describe('Footer button loading states', () => {
       </Dialog>,
     )
 
-    const submitButton = getByRole('button', {name: 'Submit'})
-    const cancelButton = getByRole('button', {name: 'Cancel'})
+    const submitButton = page.getByRole('button', {name: 'Submit', exact: true})
+    const cancelButton = page.getByRole('button', {name: 'Cancel', exact: true})
 
-    expect(submitButton).toHaveAttribute('data-loading', 'true')
-    expect(cancelButton).not.toHaveAttribute('data-loading', 'true')
+    await expect.element(submitButton).toHaveAttribute('data-loading', 'true')
+    await expect.element(cancelButton).not.toHaveAttribute('data-loading', 'true')
   })
 
   it('shows loading spinner in button when loading', () => {
-    const {getByRole, baseElement} = render(
+    const {baseElement} = render(
       <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'Processing...', loading: true}]}>
         Dialog content
       </Dialog>,
     )
 
-    const button = getByRole('button', {name: 'Processing...'})
+    const button = page.getByRole('button', {name: 'Processing...', exact: true}).element()
     const spinner = baseElement.querySelector('[data-component="loadingSpinner"]') as HTMLElement
 
     expect(spinner).toBeInTheDocument()
@@ -445,7 +437,7 @@ describe('Footer button loading states', () => {
 
   it('disables button clicks when loading', async () => {
     const mockOnClick = vi.fn()
-    const {getByRole} = render(
+    render(
       <Dialog
         onClose={() => {}}
         footerButtons={[{buttonType: 'primary', content: 'Submit', loading: true, onClick: mockOnClick}]}
@@ -454,15 +446,15 @@ describe('Footer button loading states', () => {
       </Dialog>,
     )
 
-    const button = getByRole('button', {name: 'Submit'})
+    const button = page.getByRole('button', {name: 'Submit', exact: true})
 
-    fireEvent.click(button)
+    fireEvent.click(button.element())
 
     expect(mockOnClick).not.toHaveBeenCalled()
   })
 
   it('maintains focus management when button is loading', async () => {
-    const {getByRole} = render(
+    render(
       <Dialog
         onClose={() => {}}
         footerButtons={[
@@ -474,13 +466,13 @@ describe('Footer button loading states', () => {
       </Dialog>,
     )
 
-    const cancelButton = getByRole('button', {name: 'Cancel'})
+    const cancelButton = page.getByRole('button', {name: 'Cancel', exact: true})
 
-    await waitFor(() => expect(cancelButton).toHaveFocus())
+    await expect.element(cancelButton).toHaveFocus()
   })
 
-  it('handles multiple loading buttons correctly', () => {
-    const {getByRole} = render(
+  it('handles multiple loading buttons correctly', async () => {
+    render(
       <Dialog
         onClose={() => {}}
         footerButtons={[
@@ -493,13 +485,13 @@ describe('Footer button loading states', () => {
       </Dialog>,
     )
 
-    const saveDraftButton = getByRole('button', {name: 'Save Draft'})
-    const publishButton = getByRole('button', {name: 'Publish'})
-    const deleteButton = getByRole('button', {name: 'Delete'})
+    const saveDraftButton = page.getByRole('button', {name: 'Save Draft', exact: true})
+    const publishButton = page.getByRole('button', {name: 'Publish', exact: true})
+    const deleteButton = page.getByRole('button', {name: 'Delete', exact: true})
 
-    expect(saveDraftButton).toHaveAttribute('data-loading', 'true')
-    expect(publishButton).toHaveAttribute('data-loading', 'true')
-    expect(deleteButton).not.toHaveAttribute('data-loading', 'true')
+    await expect.element(saveDraftButton).toHaveAttribute('data-loading', 'true')
+    await expect.element(publishButton).toHaveAttribute('data-loading', 'true')
+    await expect.element(deleteButton).not.toHaveAttribute('data-loading', 'true')
   })
 
   describe('scroll disable behavior', () => {
@@ -534,34 +526,34 @@ describe('Footer button loading states', () => {
 
   describe('width prop', () => {
     it('sets data-width for named sizes', () => {
-      const {getByRole} = render(
+      render(
         <Dialog onClose={() => {}} width="small">
           Content
         </Dialog>,
       )
-      const dialog = getByRole('dialog')
+      const dialog = page.getByRole('dialog').element()
       expect(dialog).toHaveAttribute('data-width', 'small')
       expect(dialog.style.getPropertyValue('--dialog-width')).toBe('')
     })
 
     it('sets --dialog-width custom property for custom width values', () => {
-      const {getByRole} = render(
+      render(
         <Dialog onClose={() => {}} width="400px">
           Content
         </Dialog>,
       )
-      const dialog = getByRole('dialog')
+      const dialog = page.getByRole('dialog').element()
       expect(dialog).not.toHaveAttribute('data-width')
       expect(dialog.style.getPropertyValue('--dialog-width')).toBe('400px')
     })
 
     it('sets --dialog-width custom property for numeric width values', () => {
-      const {getByRole} = render(
+      render(
         <Dialog onClose={() => {}} width={400}>
           Content
         </Dialog>,
       )
-      const dialog = getByRole('dialog')
+      const dialog = page.getByRole('dialog').element()
       expect(dialog).not.toHaveAttribute('data-width')
       expect(dialog.style.getPropertyValue('--dialog-width')).toBe('400px')
     })
@@ -571,7 +563,7 @@ describe('Footer button loading states', () => {
 describe('Dialog auto-focus button forwarded ref (primer_react_merged_forwarded_refs)', () => {
   for (const enabled of [true, false]) {
     it(`focuses the auto-focus footer button via the gated ref with the flag ${enabled ? 'enabled' : 'disabled'}`, async () => {
-      const {getByRole} = render(
+      render(
         <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
           <Dialog
             onClose={() => {}}
@@ -581,7 +573,7 @@ describe('Dialog auto-focus button forwarded ref (primer_react_merged_forwarded_
           </Dialog>
         </FeatureFlags>,
       )
-      await waitFor(() => expect(getByRole('button', {name: 'Footer button'})).toHaveFocus())
+      await expect.element(page.getByRole('button', {name: 'Footer button', exact: true})).toHaveFocus()
     })
   }
 })
