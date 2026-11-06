@@ -124,6 +124,7 @@ function OverflowMenu({
       <IconButton
         ref={buttonRef}
         aria-label={`${items.length} more breadcrumb items`}
+        aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen(value => !value)}
         variant="invisible"
