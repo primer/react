@@ -12,3 +12,5 @@ Import: `import {FeatureFlags} from '@primer/react-tailwind/FeatureFlags'`
 ## Differences from `@primer/react`
 
 - Provider and hook usage is intended to be drop-in.
+- Preserve nested-provider precedence when migrating scopes.
+- There is no `sx` or styled-system surface to migrate.

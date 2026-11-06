@@ -32,6 +32,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `notificationIndicator`: `"button" | "leadingVisual"` — Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
 - `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 - `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'default'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
 
 ## ActionMenu.Content
@@ -144,3 +145,11 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Compose branded triggers with `render`, not `as`, to avoid nested interactive elements. Use `className` when the composed control owns the visual treatment.
+- Move legacy ActionList item content directly into ActionMenu items and use `ActionMenu.LeadingVisual`, `TrailingVisual`, and `Description`; no intermediate ActionList wrapper is required.
+- Replace the root's `anchorRef` with `Content`'s `anchor` and controlled `open`. `displayInViewport` and `onPositionChange` are unsupported; Base UI's collision handling keeps the menu in view.
+- Opening with a pointer or programmatically (with `open` or `defaultOpen`) focuses the menu itself, and opening with the keyboard focuses its first item (Base UI's menu pattern). Upstream focuses the first item either way.
+- The menu opens when the trigger is pressed rather than on release, so the trigger shows its open colour instead of a separate pressed colour, and it keeps its resting shadow because focus moves into the menu.
+- Pass `preventFocusOnClose` to `ActionMenu.Content` when the menu should not return focus to its trigger after closing, for example when an item moves focus elsewhere.
+- Upstream's fix for passive anchor label updates has no equivalent here, because Base UI owns the trigger's labelling.
+- Set `portal={false}` to render the menu in place, for example inside a scrolling container.
+- `sx` and styled-system props are unsupported.

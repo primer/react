@@ -33,6 +33,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 - `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'default'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
 
 ## Popover.Popup
@@ -88,3 +89,7 @@ Forwards unrecognized props to Base UI's [`Popover.Viewport`](https://base-ui.co
 ## Differences from `@primer/react`
 
 - Recompose legacy anchor/content markup with the compound parts.
+- Remove manual outside-click and portal plumbing when the new parts provide it. Set `portal={false}` to render content inside its parent rather than at the end of the document.
+- Replace `caret` with `Popover.Arrow`, which follows the content's `side` and `align`.
+- `relative` is unsupported because the positioner always places content against its anchor. Use `className` for overflow; there is no `overflow` prop.
+- Remove legacy placement/style props, `sx`, and styled-system props.

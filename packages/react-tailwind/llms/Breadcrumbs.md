@@ -21,3 +21,5 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 ## Differences from `@primer/react`
 
 - Normal breadcrumb and item composition is intended to be drop-in.
+- Verify custom overflow menu styling or selectors against the new `ActionMenu` composition.
+- Remove `sx` and other styled-system props.

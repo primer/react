@@ -188,7 +188,7 @@ function Portal({children, container, ...rest}: BaseDialog.Portal.Props) {
 // Header content stacks in the first column with upstream's 16px/14px inset. The close button takes the top of the
 // second column and is pulled into the 8px header padding so it doesn't add height.
 const headerClassName =
-  'z-1 grid max-h-[35vh] shrink-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-x-2 overflow-y-auto py-3.5 pr-2 pl-4 shadow-[0_1px_0_var(--borderColor-default)] *:col-start-1 [&>[data-component="Dialog.CloseButton"]]:col-start-2 [&>[data-component="Dialog.CloseButton"]]:row-start-1 [&>[data-component="Dialog.CloseButton"]]:-my-1.5'
+  "z-1 grid max-h-[35vh] shrink-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-x-2 overflow-y-auto py-3.5 pr-2 pl-4 shadow-[0_1px_0_var(--borderColor-default)] *:col-start-1 [&>[data-component='Dialog.CloseButton']]:col-start-2 [&>[data-component='Dialog.CloseButton']]:row-start-1 [&>[data-component='Dialog.CloseButton']]:-my-1.5"
 
 const Header = React.forwardRef<HTMLDivElement, Omit<React.ComponentPropsWithoutRef<'div'>, 'data-component'>>(
   function DialogHeader({className, ...rest}, ref) {

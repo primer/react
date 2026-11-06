@@ -29,3 +29,6 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Do not assume omitted `gap` means zero; it keeps the normal spacing default.
+- Use the documented responsive values rather than dynamically constructed class names.
+- Use `Stack.Item` for growth and shrink behavior, not child styled-system props.
+- `sx` and styled-system props are unsupported; use `className`.

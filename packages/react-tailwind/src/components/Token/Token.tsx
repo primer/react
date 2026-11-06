@@ -22,6 +22,7 @@ export const Token = React.forwardRef<HTMLElement, TokenProps>(function Token(
     size = 'medium',
     isSelected,
     text,
+    type,
     ...rest
   },
   ref,
@@ -43,6 +44,7 @@ export const Token = React.forwardRef<HTMLElement, TokenProps>(function Token(
       onRemove={onRemove}
       size={size}
       text={text}
+      type={hasMultipleActionTargets ? undefined : type}
     >
       {LeadingVisual && size !== 'small' ? (
         <span
@@ -57,6 +59,7 @@ export const Token = React.forwardRef<HTMLElement, TokenProps>(function Token(
         disabled={rest.disabled}
         href={hasMultipleActionTargets ? rest.href : undefined}
         onClick={hasMultipleActionTargets ? rest.onClick : undefined}
+        type={hasMultipleActionTargets ? type : undefined}
       >
         {text}
         {onRemove ? <VisuallyHidden> (press backspace or delete to remove)</VisuallyHidden> : null}

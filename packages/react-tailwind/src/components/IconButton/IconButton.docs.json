@@ -159,6 +159,12 @@
       "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
     },
     {
+      "name": "type",
+      "type": "\"button\" | \"reset\" | \"submit\"",
+      "defaultValue": "'button'",
+      "description": "Native button behavior. Use `submit` to submit a form."
+    },
+    {
       "name": "unsafeDisableTooltip",
       "type": "boolean",
       "defaultValue": "false",

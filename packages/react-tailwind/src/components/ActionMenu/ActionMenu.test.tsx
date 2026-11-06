@@ -1,6 +1,6 @@
 import React from 'react'
 import type {Menu} from '@base-ui/react/menu'
-import {cleanup, render, screen, waitFor} from '@testing-library/react'
+import {cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {Tooltip} from '../Tooltip'
@@ -191,6 +191,109 @@ describe('ActionMenu', () => {
     expect(screen.getByText('Archiving repository')).toHaveClass('sr-only')
     expect(screen.getByRole('menuitemcheckbox', {name: 'Watch'})).toHaveAttribute('aria-checked', 'true')
     expect(screen.getByRole('menuitemradio', {name: 'Dark'})).toHaveAttribute('aria-checked', 'true')
+  })
+
+  it('exposes disabled items and prevents pointer and keyboard activation', async () => {
+    const user = userEvent.setup()
+    const onDisabledClick = vi.fn()
+    const onExplicitAriaDisabledClick = vi.fn()
+    const onInactiveClick = vi.fn()
+    const onLoadingClick = vi.fn()
+    render(
+      <ActionMenu defaultOpen>
+        <ActionMenu.Button>Actions</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.Item>First</ActionMenu.Item>
+          <ActionMenu.Item disabled onClick={onDisabledClick}>
+            Disabled
+          </ActionMenu.Item>
+          <ActionMenu.Item disabled aria-disabled={true} onClick={onExplicitAriaDisabledClick}>
+            Disabled with explicit ARIA
+          </ActionMenu.Item>
+          <ActionMenu.Item inactiveText="Not available" onClick={onInactiveClick}>
+            Inactive
+          </ActionMenu.Item>
+          <ActionMenu.Item loading onClick={onLoadingClick}>
+            Loading
+          </ActionMenu.Item>
+          <ActionMenu.Item>Last</ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+
+    const first = screen.getByRole('menuitem', {name: 'First'})
+    const disabled = screen.getByRole('menuitem', {name: 'Disabled'})
+    const explicitlyDisabled = screen.getByRole('menuitem', {name: 'Disabled with explicit ARIA'})
+    const inactive = screen.getByRole('menuitem', {name: /Inactive/})
+    const loading = screen.getByRole('menuitem', {name: 'Loading'})
+
+    expect(first).not.toHaveAttribute('aria-disabled', 'true')
+    for (const item of [disabled, explicitlyDisabled, inactive, loading]) {
+      expect(item).toHaveAttribute('aria-disabled', 'true')
+      expect(item).toHaveAttribute('data-disabled')
+      fireEvent.click(item)
+    }
+
+    first.focus()
+    await user.keyboard('{ArrowDown}')
+    await waitFor(() => expect(disabled).toHaveFocus())
+    await user.keyboard('{Enter}{Space}')
+    expect(onDisabledClick).not.toHaveBeenCalled()
+    await user.keyboard('{ArrowDown}')
+    await waitFor(() => expect(explicitlyDisabled).toHaveFocus())
+    await user.keyboard('{Enter}{Space}')
+    expect(onExplicitAriaDisabledClick).not.toHaveBeenCalled()
+    expect(onInactiveClick).not.toHaveBeenCalled()
+    expect(onLoadingClick).not.toHaveBeenCalled()
+    expect(screen.getByRole('menu')).toBeVisible()
+  })
+
+  it('exposes disabled checkbox, radio, and submenu items', () => {
+    render(
+      <ActionMenu defaultOpen>
+        <ActionMenu.Button>Actions</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.CheckboxItem disabled>Watch</ActionMenu.CheckboxItem>
+          <ActionMenu.RadioGroup value="dark">
+            <ActionMenu.RadioItem disabled value="light">
+              Light
+            </ActionMenu.RadioItem>
+          </ActionMenu.RadioGroup>
+          <ActionMenu.Submenu>
+            <ActionMenu.SubmenuTrigger disabled>More</ActionMenu.SubmenuTrigger>
+            <ActionMenu.Content>
+              <ActionMenu.Item>Nested</ActionMenu.Item>
+            </ActionMenu.Content>
+          </ActionMenu.Submenu>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+
+    expect(screen.getByRole('menuitemcheckbox', {name: 'Watch'})).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByRole('menuitemradio', {name: 'Light'})).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByRole('menuitem', {name: 'More'})).toHaveAttribute('aria-disabled', 'true')
+  })
+
+  it('preserves disabled semantics when an item renders as a native button', async () => {
+    const user = userEvent.setup()
+    const onClick = vi.fn()
+    render(
+      <ActionMenu defaultOpen>
+        <ActionMenu.Button>Actions</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.Item disabled nativeButton onClick={onClick} render={<button type="button" />}>
+            Unavailable
+          </ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+
+    const item = screen.getByRole('menuitem', {name: 'Unavailable'})
+    expect(item.tagName).toBe('BUTTON')
+    expect(item).toHaveAttribute('aria-disabled', 'true')
+    await user.click(item)
+    expect(onClick).not.toHaveBeenCalled()
+    expect(screen.getByRole('menu')).toBeVisible()
   })
 
   it('opens nested menus with menu keyboard navigation', async () => {

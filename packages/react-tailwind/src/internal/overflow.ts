@@ -8,6 +8,12 @@ export type ObserveFn = (element: Element, onChange: OverflowCallback) => () => 
 /** Provides the shared observer's `observe` function to descendants of an `OverflowObserverProvider`. */
 export const OverflowObserverContext = React.createContext<ObserveFn | null>(null)
 
+/** Lets overlays use the overflow trigger when their own anchor is clipped. */
+export const OverflowAnchorContext = React.createContext<{
+  items: readonly Element[]
+  triggerRef: React.RefObject<HTMLElement | null>
+} | null>(null)
+
 function isClippedEntry(entry: Pick<IntersectionObserverEntry, 'intersectionRatio' | 'isIntersecting'>) {
   return !entry.isIntersecting || entry.intersectionRatio < 0.95
 }
@@ -60,14 +66,17 @@ export function createOverflowRegistry() {
  * Whether `element` is clipped by the nearest `OverflowObserverProvider` root. Reports `false` without a provider, during
  * SSR, or when `disabled`.
  */
-export function useIsClipped(element: Element | null, disabled = false): boolean {
+export function useIsClipped(element: Element | null, disabled = false, onChange?: OverflowCallback): boolean {
   const observe = React.useContext(OverflowObserverContext)
   const [isClipped, setIsClipped] = React.useState(false)
 
   React.useEffect(() => {
     if (disabled || element === null || observe === null) return
-    return observe(element, setIsClipped)
-  }, [disabled, element, observe])
+    return observe(element, clipped => {
+      onChange?.(clipped)
+      setIsClipped(clipped)
+    })
+  }, [disabled, element, observe, onChange])
 
   return !disabled && observe !== null && isClipped
 }

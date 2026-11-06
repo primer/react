@@ -15,3 +15,5 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Expect at least one line; fractional counts are floored.
+- Recheck snapshots or selectors that depended on one element per line or legacy CSS classes.
+- Remove `sx` and styled-system props.

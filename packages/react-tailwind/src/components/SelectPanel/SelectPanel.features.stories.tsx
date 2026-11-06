@@ -15,7 +15,10 @@ import {
 } from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import React from 'react'
+import {ActionList} from '../ActionList'
 import {Button} from '../Button'
+import {Checkbox} from '../Checkbox'
+import {FeatureFlags} from '../FeatureFlags'
 import {FormControl} from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {ToggleSwitch} from '../ToggleSwitch'
@@ -175,6 +178,70 @@ export const MultiSelect: Story = {
 
 export const WithDisabledItem: Story = {
   render: () => <LabelsPanel panelItems={labels.map(item => (item.id === 4 ? {...item, disabled: true} : item))} />,
+}
+
+export const WithOptionDescriptions: Story = {
+  render: () => (
+    <LabelsPanel
+      initialSelected={[]}
+      label={null}
+      panelItems={[
+        {id: 'default', text: 'item1', description: 'Loading'},
+        {
+          id: 'rich',
+          text: (
+            <>
+              Rich <strong>item</strong>
+            </>
+          ),
+          description: 'Rich description',
+          leadingVisual: <span aria-hidden="true">Icon</span>,
+          trailingVisual: (
+            <>
+              Public<span aria-hidden="true">Hidden decoration</span>
+            </>
+          ),
+        },
+        {id: 'rendered', text: 'Rendered item'},
+        {id: 'hidden', text: 'Hidden visual item'},
+        {id: 'raw', text: 'Raw item', inactiveText: 'Not available'},
+        {
+          id: 'named',
+          text: 'Visible item',
+          description: 'Item description',
+          trailingVisual: 'Ignored by explicit name',
+          'aria-label': 'Custom item name',
+        },
+      ]}
+      selectPanelProps={{
+        placeholder: 'Choose items',
+        renderItem: item => {
+          if (item.id === 'rendered') {
+            return (
+              <ActionList.Item>
+                {item.text}
+                <ActionList.Description>First detail</ActionList.Description>
+                <ActionList.Description variant="block">Second detail</ActionList.Description>
+                <ActionList.TrailingVisual>Premium</ActionList.TrailingVisual>
+              </ActionList.Item>
+            )
+          }
+          if (item.id === 'hidden') {
+            return (
+              <ActionList.Item>
+                {item.text}
+                <ActionList.Description>Visible detail</ActionList.Description>
+                <ActionList.TrailingVisual aria-hidden>Hidden visual</ActionList.TrailingVisual>
+              </ActionList.Item>
+            )
+          }
+          if (item.id === 'raw') return <span>Raw custom content</span>
+          return null
+        },
+      }}
+      title="Choose items"
+    />
+  ),
 }
 
 export const WithExternalAnchor: Story = {
@@ -487,6 +554,51 @@ export const SingleSelectModal: Story = {
       selectPanelProps={{onCancel: () => {}, variant: 'modal'}}
       title="Select labels"
     />
+  ),
+}
+
+function RequiredFieldPanel({modal = false}: {modal?: boolean}) {
+  const [selected, setSelected] = React.useState<SelectPanelItem[]>([])
+  const notificationHelpId = React.useId()
+  const variantProps = modal ? ({variant: 'modal', onCancel: () => {}} as const) : ({variant: 'anchored'} as const)
+
+  return (
+    <FormControl id="required-picker" name="items" required>
+      <FormControl.Label>Items</FormControl.Label>
+      <FormControl.Caption>Choose at least one item</FormControl.Caption>
+      <FormControl.Validation variant="error">An item is required</FormControl.Validation>
+      <SelectPanel
+        {...variantProps}
+        items={labels}
+        onSelectedChange={next => setSelected(asItems(next))}
+        secondaryAction={
+          <div className="flex items-center gap-2">
+            <Checkbox aria-describedby={notificationHelpId} aria-label="Notify me" />
+            <span id={notificationHelpId}>Email me when selection changes</span>
+          </div>
+        }
+        selected={selected}
+        selectionVariant="multiple"
+        showSelectAll
+        title="Choose items"
+      />
+    </FormControl>
+  )
+}
+
+export const InsideRequiredFormControl: Story = {
+  render: () => <RequiredFieldPanel />,
+}
+
+export const ModalInsideRequiredFormControl: Story = {
+  render: () => <RequiredFieldPanel modal />,
+}
+
+export const FullscreenOnNarrow: Story = {
+  render: () => (
+    <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: true}}>
+      <LabelsPanel initialSelected={null} label={null} title="Select labels" />
+    </FeatureFlags>
   ),
 }
 

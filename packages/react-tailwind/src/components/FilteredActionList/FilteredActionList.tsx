@@ -4,11 +4,11 @@ import {Combobox} from '@base-ui/react/combobox'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {areItemsEqual, getItemRenderKey, getItemText, itemIdKey, renderItemVisual} from '../../internal/collectionItem'
+import {joinIdRefs} from '../../internal/idRefs'
 import {mergeRefs} from '../../internal/refs'
 import type {CSSPropertiesWithCustomProperties} from '../../utils/types'
 import {
   ActionItemContent,
-  ActionItemElementContent,
   ActionList,
   type ActionListItemProps,
   type ActionListRootProps,
@@ -167,9 +167,9 @@ export interface FilteredActionListProps
   ) => void
   /** Stops hovering an option from making it the active descendant. */
   disableSelectOnHover?: boolean
-  /** Moves focus to the filter input when the list mounts. */
+  /** Suppresses filter-change highlighting unless focusPrependedElements is enabled. Initial item highlighting is not yet supported. */
   setInitialFocus?: boolean
-  /** Includes elements rendered before the list in the keyboard focus order. */
+  /** Enables automatic highlighting as the filter changes; it does not re-highlight items prepended to an unchanged filter. */
   focusPrependedElements?: boolean
   /** Scrolling behavior used when bringing the active option into view. */
   scrollBehavior?: ScrollBehavior
@@ -229,6 +229,23 @@ interface FilteredActionListOptionProps {
   virtualized?: boolean
 }
 
+type FilteredActionListRenderedItemProps = Pick<
+  ActionListItemProps,
+  | 'aria-describedby'
+  | 'aria-label'
+  | 'aria-labelledby'
+  | 'children'
+  | 'description'
+  | 'leadingVisual'
+  | 'trailingVisual'
+> & {
+  className?: string
+  disabled?: boolean
+  onClick?: React.MouseEventHandler<HTMLElement>
+  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  variant?: FilteredActionListItem['variant']
+}
+
 function FilteredActionListOption({
   group,
   itemNodes,
@@ -245,6 +262,7 @@ function FilteredActionListOption({
   variant: listVariant,
   virtualized = false,
 }: FilteredActionListOptionProps) {
+  const accessibilityId = React.useId()
   const item = value.item
   const {
     children,
@@ -265,17 +283,27 @@ function FilteredActionListOption({
   const renderer = renderItem ?? group?.renderItem ?? itemRenderer
   const renderedItem = renderer?.({...item, selected})
   const renderedActionListItem =
-    React.isValidElement<
-      Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'> & {
-        className?: string
-        disabled?: boolean
-        onClick?: React.MouseEventHandler<HTMLElement>
-        onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
-        variant?: FilteredActionListItem['variant']
-      }
-    >(renderedItem) && renderedItem.type === ActionList.Item
+    React.isValidElement<FilteredActionListRenderedItemProps>(renderedItem) && renderedItem.type === ActionList.Item
       ? renderedItem
       : undefined
+  const resolvedContent = ActionItemContent.resolveOption(
+    {
+      children: (
+        <>
+          {children}
+          {text}
+        </>
+      ),
+      description,
+      descriptionVariant,
+      leadingVisual: leadingVisual ? renderItemVisual(leadingVisual) : undefined,
+      trailingVisual: trailingVisual ? renderItemVisual(trailingVisual) : undefined,
+    },
+    renderedItem,
+    renderedActionListItem,
+    accessibilityId,
+  )
+  const ariaLabel = renderedActionListItem?.props['aria-label']
   const optionDisabled = Boolean(disabled || renderedActionListItem?.props.disabled)
   const optionVariant = renderedActionListItem?.props.variant ?? variant
   const selection = selectable ? (
@@ -288,6 +316,15 @@ function FilteredActionListOption({
   return (
     <Combobox.Item
       {...getActionItemStateAttributes({disabled: optionDisabled, variant: optionVariant})}
+      aria-describedby={joinIdRefs(
+        renderedActionListItem?.props['aria-describedby'],
+        ...(resolvedContent?.descriptionIds ?? []),
+      )}
+      aria-label={ariaLabel}
+      aria-labelledby={
+        renderedActionListItem?.props['aria-labelledby'] ??
+        (ariaLabel === undefined ? joinIdRefs(resolvedContent?.labelId, resolvedContent?.trailingVisualId) : undefined)
+      }
       aria-posinset={optionIndex + 1}
       aria-setsize={optionCount}
       className={cn(
@@ -322,26 +359,14 @@ function FilteredActionListOption({
       }}
       value={value}
     >
-      {renderedActionListItem ? (
-        <ActionItemElementContent
-          item={renderedActionListItem.props}
+      {resolvedContent ? (
+        <ActionItemContent
+          resolvedContent={resolvedContent}
           selection={selection}
           showDivider={showItemDividers && optionIndex > 0}
         />
       ) : (
-        (renderedItem ?? (
-          <ActionItemContent
-            description={description}
-            descriptionVariant={descriptionVariant}
-            leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
-            selection={selection}
-            showDivider={showItemDividers && optionIndex > 0}
-            trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
-          >
-            {children}
-            {text}
-          </ActionItemContent>
-        ))
+        renderedItem
       )}
     </Combobox.Item>
   )
@@ -366,6 +391,7 @@ function FilteredActionListDisabledOption({
   showItemDividers,
   variant: listVariant,
 }: FilteredActionListDisabledOptionProps) {
+  const accessibilityId = React.useId()
   const item = value.item
   const {
     children,
@@ -384,20 +410,42 @@ function FilteredActionListDisabledOption({
   const renderer = renderItem ?? group?.renderItem ?? itemRenderer
   const renderedItem = renderer?.({...item, selected: false})
   const renderedActionListItem =
-    React.isValidElement<
-      Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'> & {
-        className?: string
-        variant?: FilteredActionListItem['variant']
-      }
-    >(renderedItem) && renderedItem.type === ActionList.Item
+    React.isValidElement<FilteredActionListRenderedItemProps>(renderedItem) && renderedItem.type === ActionList.Item
       ? renderedItem
       : undefined
+  const resolvedContent = ActionItemContent.resolveOption(
+    {
+      children: (
+        <>
+          {children}
+          {text}
+        </>
+      ),
+      description,
+      descriptionVariant,
+      leadingVisual: leadingVisual ? renderItemVisual(leadingVisual) : undefined,
+      trailingVisual: trailingVisual ? renderItemVisual(trailingVisual) : undefined,
+    },
+    renderedItem,
+    renderedActionListItem,
+    accessibilityId,
+  )
+  const ariaLabel = renderedActionListItem?.props['aria-label']
   const optionVariant = renderedActionListItem?.props.variant ?? variant
 
   return (
     <div
       {...getActionItemStateAttributes({disabled: true, variant: optionVariant})}
+      aria-describedby={joinIdRefs(
+        renderedActionListItem?.props['aria-describedby'],
+        ...(resolvedContent?.descriptionIds ?? []),
+      )}
       aria-disabled="true"
+      aria-label={ariaLabel}
+      aria-labelledby={
+        renderedActionListItem?.props['aria-labelledby'] ??
+        (ariaLabel === undefined ? joinIdRefs(resolvedContent?.labelId, resolvedContent?.trailingVisualId) : undefined)
+      }
       aria-posinset={optionIndex + 1}
       aria-selected="false"
       aria-setsize={optionCount}
@@ -419,24 +467,10 @@ function FilteredActionListDisabledOption({
       data-item-id={itemId === undefined ? undefined : itemIdKey(itemId)}
       role="option"
     >
-      {renderedActionListItem ? (
-        <ActionItemElementContent
-          item={renderedActionListItem.props}
-          showDivider={showItemDividers && optionIndex > 0}
-        />
+      {resolvedContent ? (
+        <ActionItemContent resolvedContent={resolvedContent} showDivider={showItemDividers && optionIndex > 0} />
       ) : (
-        (renderedItem ?? (
-          <ActionItemContent
-            description={description}
-            descriptionVariant={descriptionVariant}
-            leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
-            showDivider={showItemDividers && optionIndex > 0}
-            trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
-          >
-            {children}
-            {text}
-          </ActionItemContent>
-        ))
+        renderedItem
       )}
     </div>
   )

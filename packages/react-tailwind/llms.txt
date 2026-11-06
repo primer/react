@@ -25,16 +25,21 @@ import {Button} from '@primer/react-tailwind'
 import {Button} from '@primer/react-tailwind/Button'
 ```
 
+The compiled `styles.css` styles package components; it does not generate arbitrary app-owned Tailwind classes. With this setup, use ordinary CSS or package layout components such as `Stack` for application layout. To use Tailwind utilities in app code, configure a Tailwind v4 build with Primer's config and scan both the app sources and the package's `dist`; import the generated CSS instead of `styles.css`. See the package README for both setups.
+
+Both modes use unprefixed utilities that can collide with legacy `@primer/css` `!important` rules. Layer ordering alone does not isolate them, and the package does not yet provide a prefixed build. Verify stylesheet isolation before combining them.
+
 ## Rules
 
-- Style with `className`. There is no `sx` prop and no styled-system props such as `m`, `p`, `bg`, or `color`. Reaching for `sx` is the most common mistake when adapting `@primer/react` code.
-- Use Primer semantic Tailwind utilities such as `text-default`, `bg-muted`, and `border-default` rather than raw palette values such as `text-gray-500`. Colors must resolve through Primer tokens so themes and high-contrast schemes keep working. A build check rejects hardcoded colors.
+- Style with CSS classes via `className`; Tailwind utilities work only when your app compiles them. There is no `sx` prop and no styled-system props such as `m`, `p`, `bg`, or `color`. Reaching for `sx` is the most common mistake when adapting `@primer/react` code.
+- When using a host Tailwind build, use Primer semantic utilities such as `text-default`, `bg-muted`, and `border-default` rather than raw palette values such as `text-gray-500`. Colors must resolve through Primer tokens so themes and high-contrast schemes keep working.
 - Not every default Tailwind utility exists. The Primer type scale replaces the default one, so `text-base` and `text-lg` generate nothing; use `text-body-medium`, `text-body-large`, or a title size. There are no `ring-*` or `bg-border-*` color utilities either. When no utility exists, use the token directly, as in `bg-[var(--borderColor-muted)]`.
-- Focus treatment is `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus`.
+- In a host Tailwind build, focus treatment is `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus`.
 - Change the rendered element with `render` on Base UI-backed components such as `Button`, `Dialog`, and `Tooltip`, and with `as` on presentational components such as `Text`, `Stack`, `Card`, and `PageLayout`. Check the component's props before choosing.
 - React 19 is the only supported peer. The package is compiled with React Compiler; do not add manual `memo`, `useMemo`, or `useCallback` wrappers around package components for performance alone.
 - Components forward their root ref and unrecognized DOM props to their root element. Prefer passing standard DOM props directly instead of wrapping components in extra elements.
 - There is no `Box` component. Use a plain element with `className`, or `Stack` for layout.
+- `Button` defaults to `type="button"`; set `type="submit"` on a form submission action.
 
 ## Composition
 

@@ -15,3 +15,5 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Keep `size`, `srText`, and delay usage, but recheck selectors targeting the legacy SVG root.
+- Respect the new root status semantics when composing surrounding live regions.
+- Remove `sx`, styled-system props, and legacy animation overrides.

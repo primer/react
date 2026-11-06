@@ -15,3 +15,5 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Keep `variant`, children, and count-related content unchanged.
+- Replace deprecated `scheme` usage with `variant`.
+- Remove `sx`, styled-system props, and CSS-module selectors.

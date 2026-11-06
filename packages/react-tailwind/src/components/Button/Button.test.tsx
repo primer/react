@@ -1,6 +1,7 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
-import {describe, expect, it} from 'vitest'
+import userEvent from '@testing-library/user-event'
+import {describe, expect, it, vi} from 'vitest'
 import {Button} from './Button'
 
 describe('Button', () => {
@@ -20,6 +21,26 @@ describe('Button', () => {
     )
     expect(screen.getByRole('button', {name: 'Save'})).toHaveAttribute('data-component', 'Button')
     expect(screen.getByTestId('button')).toBe(ref.current)
+  })
+
+  it('submits a form only when explicitly given type="submit"', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn((event: React.FormEvent<HTMLFormElement>) => event.preventDefault())
+    render(
+      <form onSubmit={onSubmit}>
+        <Button>Preview</Button>
+        <Button type="submit">Create account</Button>
+      </form>,
+    )
+
+    const preview = screen.getByRole('button', {name: 'Preview'})
+    const submit = screen.getByRole('button', {name: 'Create account'})
+    expect(preview).toHaveAttribute('type', 'button')
+    expect(submit).toHaveAttribute('type', 'submit')
+    await user.click(preview)
+    expect(onSubmit).not.toHaveBeenCalled()
+    await user.click(submit)
+    expect(onSubmit).toHaveBeenCalledOnce()
   })
 
   it('keeps its action label accessible while loading with a keybinding hint', () => {

@@ -24,6 +24,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 - `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'default'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
 
 ## ButtonBase
@@ -35,3 +36,9 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 ## Differences from `@primer/react`
 
 - Prefer LinkButton for navigation; the `link` Button variant remains available for semantic button actions rendered as inline links.
+- Pass counters through `count`, trailing disclosure icons through `trailingAction`, and keyboard shortcuts through a composed `KeybindingHint` in `trailingVisual`.
+- Use `inactive` for the interactive visually-disabled state and add an accessible description when the reason is not otherwise evident.
+- Use `render`, not `as`, when composing a Base UI trigger or other existing element. Set `nativeButton={false}` when the rendered element is not a `<button>`.
+- `notificationIndicator` accepts `button` or `leadingVisual`; the dot is visual only, so include the activity in the accessible name or description.
+- The `link` variant underlines only the label on hover when visuals are present, matching upstream `data-no-visuals` behavior.
+- Replace `sx` and styled-system props with `className`.

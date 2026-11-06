@@ -17,6 +17,8 @@ import * as Examples from './TextInput.examples.stories'
 
 `TextInputProps` extends native input attributes and adds `size`, `block`, `monospace`, `leadingVisual`, `trailingVisual`, `trailingAction`, `loading`, `loaderPosition`, `loaderText`, `validationStatus`, and `characterLimit`. Use native `value`, `defaultValue`, `onChange`, `type`, `name`, `required`, `disabled`, and autocomplete attributes.
 
+For a required field, prefer `required` on `FormControl` so the label receives its required marker and the input participates in native constraint validation. An explicit `aria-required` on `TextInput` is preserved, but by itself does not enable native validation or add a label marker.
+
 ## Import
 
 ```tsx

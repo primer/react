@@ -13,3 +13,6 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 ## Differences from `@primer/react`
 
 - Compose Tooltip, live announcements, and selection controls around BranchName instead of expecting BranchName props for them.
+- Use `as` only for simple presentational element replacement, not interactive trigger composition.
+- Use `className` rather than `sx` or styled-system props.
+- Clipboard announcement behavior remains an explicit consumer or LiveRegion concern.

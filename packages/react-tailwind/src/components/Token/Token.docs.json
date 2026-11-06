@@ -116,6 +116,11 @@
       "type": "React.ReactNode",
       "required": true,
       "description": "Label shown on the token."
+    },
+    {
+      "name": "type",
+      "type": "\"button\" | \"reset\" | \"submit\"",
+      "description": "Button behavior when `as=\"button\"`. Defaults to `button`."
     }
   ],
   "subcomponents": [
@@ -175,6 +180,11 @@
           "type": "React.ReactNode",
           "required": true,
           "description": "Label shown on the token."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "description": "Button behavior when `as=\"button\"`. Defaults to `button`."
         }
       ],
       "passthrough": {
@@ -233,6 +243,11 @@
           "type": "React.ReactNode",
           "required": true,
           "description": "Label shown on the token."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "description": "Button behavior when `as=\"button\"`. Defaults to `button`."
         }
       ],
       "passthrough": {

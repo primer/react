@@ -54,7 +54,7 @@
       "name": "focusPrependedElements",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Includes elements rendered before the list in the keyboard focus order."
+      "description": "Enables automatic highlighting as the filter changes; it does not re-highlight items prepended to an unchanged filter."
     },
     {
       "name": "fullScreenOnNarrow",
@@ -170,7 +170,7 @@
       "name": "setInitialFocus",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Moves focus to the filter input when the list mounts."
+      "description": "Suppresses filter-change highlighting unless focusPrependedElements is enabled. Initial item highlighting is not yet supported."
     },
     {
       "name": "showItemDividers",

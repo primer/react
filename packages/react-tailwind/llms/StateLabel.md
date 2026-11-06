@@ -14,3 +14,5 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Keep the accessible text explicit rather than depending on color alone.
+- Replace the deprecated `variant="small"` prop with `size="small"`.
+- Use `className`, not `sx` or styled-system props.

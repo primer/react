@@ -30,6 +30,8 @@ Tooltips supplement, never replace, the accessible name of their trigger. Do not
 
 `Tooltip.Trigger` adds tooltip behavior to the element passed to `render`, so the trigger stays a single element. A `description` tooltip (the default) adds its text to the trigger's accessible description. A `label` tooltip names a trigger without visible text, such as an icon-only link, through `aria-labelledby`.
 
+The visual tooltip content is hidden from the accessibility tree; the trigger's label or description references its text instead. Keep tooltip content non-interactive.
+
 <Canvas of={Features.LabelType} />
 
 ### Placement and delay

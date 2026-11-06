@@ -1,16 +1,21 @@
 'use client'
 
+import type {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
+
+type PortalContainer = BasePopover.Portal.Props['container']
 
 type PortalPartProps = {
   children?: React.ReactNode
   className?: string
-  container?: HTMLElement | null
+  container?: PortalContainer
   keepMounted?: boolean
 }
 
 export interface FloatingPortalProps {
   children: React.ReactNode
+  /** Explicit portal container; ignored when rendering in place. */
+  container?: PortalContainer
   /** Keeps the portal mounted while closed. */
   keepMounted?: boolean
   /** The component's Base UI `Portal` part. */
@@ -25,9 +30,14 @@ export interface FloatingPortalProps {
  * state because Base UI resolves it in a layout effect, which runs before a parent's ref attaches when both mount
  * together (e.g. initially open); an explicit `null` container makes Base UI wait for it.
  */
-export function FloatingPortal({children, keepMounted, part: Portal, portal}: FloatingPortalProps) {
+export function FloatingPortal({children, container, keepMounted, part: Portal, portal}: FloatingPortalProps) {
   const [inlineContainer, setInlineContainer] = React.useState<HTMLDivElement | null>(null)
-  if (portal) return <Portal keepMounted={keepMounted}>{children}</Portal>
+  if (portal)
+    return (
+      <Portal container={container} keepMounted={keepMounted}>
+        {children}
+      </Portal>
+    )
 
   return (
     <div ref={setInlineContainer} className="contents">

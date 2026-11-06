@@ -79,6 +79,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `tooltipDirection`: `TooltipDirection` — Default `'s'`. Side and alignment of the tooltip relative to the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 - `unsafeDisableTooltip`: `boolean` — Default `false`. Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip.
 
 ## Dialog.Header
@@ -96,3 +97,11 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Migrate custom structure to the Tailwind compound parts.
+- Preserve controlled state; map legacy `onClose` gesture handling to the new close/action callbacks.
+- Remove `sx`, styled-system props, and legacy CSS selectors.
+- `Dialog.CloseButton` is labelled "Close", matching upstream's close button.
+- Upstream's `footerButtons` footer moves focus between its buttons with the arrow keys. `Dialog.Footer` holds author-defined content, so it keeps the normal tab order. ConfirmationDialog keeps the arrow-key footer.
+- Upstream's `title` and `subtitle` props become `Dialog.Title` and `Dialog.Subtitle` inside `Dialog.Header`, which places the close button beside them. `Title` renders an `h2` (upstream `h1`) and `Subtitle` a `p` (upstream `h2`). Both `Subtitle` and `Description` describe the dialog, so render one of them.
+- Escape pressed on a focused close button closes the dialog on the first press, even while the button's tooltip is open, as upstream does since #7915. Every close button in Tailwind popups shares this behavior.
+- `Dialog.Trigger` sets `aria-expanded` while the dialog is open (Base UI semantics), so a `Button` trigger shows its active background behind the backdrop. Upstream stories open dialogs from a plain button with no expanded state, so visual comparisons of open dialogs differ only in that blended trigger fill.
+- `Dialog.Body` receives `tabIndex={0}` while its content overflows, so keyboard users can scroll it when it has no focusable children. Pass `tabIndex` to override.

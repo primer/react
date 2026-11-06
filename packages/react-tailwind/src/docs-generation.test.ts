@@ -24,6 +24,26 @@ describe('generated llms documentation', () => {
     expect(readFileSync(path.join(outputDirectory, 'llms/IconButton.md'), 'utf8')).toContain(
       '- `aria-label` (required): `string`',
     )
+    const selectPanelAlignment = readFileSync(
+      path.resolve(import.meta.dirname, './components/SelectPanel/ALIGNMENT.md'),
+      'utf8',
+    )
+    const selectPanelNotes = selectPanelAlignment
+      .split('## Migration notes\n')[1]
+      .split('\n')
+      .filter(line => line.startsWith('- '))
+    const generatedSelectPanel = readFileSync(path.join(outputDirectory, 'llms/SelectPanel.md'), 'utf8')
+    expect(selectPanelNotes.length).toBeGreaterThan(1)
+    for (const note of selectPanelNotes) expect(generatedSelectPanel).toContain(note)
+    expect(readFileSync(path.join(outputDirectory, 'llms.txt'), 'utf8')).toContain(
+      'does not generate arbitrary app-owned Tailwind classes',
+    )
+    expect(readFileSync(path.join(outputDirectory, 'llms.txt'), 'utf8')).toContain(
+      'unprefixed utilities that can collide with legacy `@primer/css`',
+    )
+    expect(readFileSync(path.join(outputDirectory, 'llms/Button.md'), 'utf8')).toContain(
+      'Use `submit` to submit a form.',
+    )
 
     const index = path.join(outputDirectory, 'llms.txt')
     const button = path.join(outputDirectory, 'llms/Button.md')

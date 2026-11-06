@@ -52,3 +52,14 @@ Forwards unrecognized props to Base UI's [`Toggle`](https://base-ui.com/react/co
 ## Differences from `@primer/react`
 
 - Use `value`, `defaultValue`, and `onValueChange` for single-choice state.
+- Children may be grouped in fragments; only `SegmentedControl.Button`, `IconButton`, `Divider`, and `Action` children are rendered.
+- Responsive `hideLabels` and `dropdown` variants retain the Primer viewport-range API while composing the package ActionMenu for dropdown behavior.
+- Use real `disabled` controls instead of a legacy `aria-disabled` presentation example.
+- `leadingVisual` and `IconButton` `icon` accept a component or a rendered element.
+- Pass the trailing action as a `SegmentedControl.Action` child or through the `action` region prop. In the dropdown variant it becomes the last menu item, keeps the menu open when activated, and its stable selector is `ActionMenu.Item`.
+- `IconButton` shows `aria-label` in a label tooltip, or `description` in a description tooltip, placed with `tooltipDirection`. It also keeps the package's `count` prop.
+- The truncation tooltip is a label tooltip that only enables while the label is truncated; upstream uses a description tooltip.
+- A responsive `variant` object without a `wide` value uses `default` for wide viewports; upstream inherits the `regular` value for `hideLabels` and `dropdown`.
+- Upstream's `Dev` stories (constrained controls and a changing label) are not ported.
+- `sx` and styled-system props are unsupported.
+- Disabled segments use the native `disabled` attribute only. Upstream uses `aria-disabled` to keep them focusable; Base UI's toggle group skips disabled items during roving focus, so the redundant `aria-disabled` it emits is removed.

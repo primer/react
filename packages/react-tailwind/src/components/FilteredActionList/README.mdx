@@ -29,7 +29,7 @@ Use `filterValue`/`onFilterChange` or `defaultFilterValue` for controlled and un
 
 ## Accessibility and keyboard behavior
 
-The input is a combobox associated with a listbox and retains DOM focus while Base UI exposes the highlighted option through `aria-activedescendant`. Arrow keys move between enabled options and Enter invokes selection and `onAction`. Groups use labelled `group` semantics, and a polite result count is announced unless `announcementsEnabled` is false. Body loading and custom-message states do not leave the input pointing to an absent listbox; empty-state status is outside the listbox. Provide an `aria-label` that names the filter input.
+The input is a combobox associated with a listbox and retains DOM focus while Base UI exposes the highlighted option through `aria-activedescendant`. Arrow keys move between enabled options and Enter invokes selection and `onAction`. Option names include the item label and trailing visual; item descriptions are exposed separately. Mark decorative visuals as hidden from assistive technology. Groups use labelled `group` semantics, and a polite result count is announced unless `announcementsEnabled` is false. Body loading and custom-message states do not leave the input pointing to an absent listbox; empty-state status is outside the listbox. Provide an `aria-label` that names the filter input.
 
 <Canvas of={Features.MultiSelectWithSelectAll} />
 

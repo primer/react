@@ -15,3 +15,4 @@ Renders an [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i
 ## Differences from `@primer/react`
 
 - Existing numeric or `{narrow, regular, wide}` sizes and `square` usage can be retained.
+- Use `className` instead of `sx` or styled-system props.

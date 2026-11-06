@@ -50,7 +50,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(function
         'relative ml-4 flex py-4 before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:bg-[var(--borderColor-muted)]',
         condensed &&
           'pt-1 pb-0 last:pb-4 [&_[data-timeline-badge]]:my-2 [&_[data-timeline-badge]]:h-4 [&_[data-timeline-badge]]:border-0 [&_[data-timeline-badge]]:bg-default [&_[data-timeline-badge]]:text-muted [&_[data-timeline-avatar]]:top-5',
-        '@max-[479px]/timeline:grid @max-[479px]/timeline:grid-cols-[auto_minmax(0,1fr)] @max-[479px]/timeline:[grid-template-areas:"badge_body"_"._actions"]',
+        "@max-[479px]/timeline:grid @max-[479px]/timeline:grid-cols-[auto_minmax(0,1fr)] @max-[479px]/timeline:[grid-template-areas:'badge_body'_'._actions']",
         className,
       )}
       data-condensed={condensed || undefined}

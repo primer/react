@@ -8,7 +8,9 @@ This package keeps Primer's component names and, wherever it can, their props. M
 
 ## Styling
 
-`sx` and styled-system props are gone. Use `className` with Primer's semantic utilities, and a token when no utility exists.
+`sx` and styled-system props are gone. Use `className` with ordinary CSS, or with Primer's semantic utilities when your app compiles Tailwind and scans its own source files. The package's compiled `styles.css` does not generate arbitrary app classes.
+
+The package's utilities are unprefixed in both CSS modes. Legacy `@primer/css` includes conflicting `!important` rules for names such as `border`, `px-6`, and `py-8`, so CSS layers alone do not safely isolate an incremental migration. A prefixed package build is not yet available.
 
 ```tsx
 // Before
@@ -75,7 +77,7 @@ A few APIs stay as they are upstream so existing handlers port unchanged, even t
 
 - `Pagination`'s `onPageChange(event, page)` keeps its event-first argument order.
 - `SelectPanel`'s `onOpenChange(open, gesture)` reports a gesture rather than Base UI change details.
-- `SelectPanel.disableFullscreenOnNarrow` is opt-out while `FilteredActionList.fullScreenOnNarrow` is opt-in.
+- `SelectPanel` uses the default-off `primer_react_select_panel_fullscreen_on_narrow` feature flag, and `disableFullscreenOnNarrow` opts out when it is enabled. `FilteredActionList.fullScreenOnNarrow` is opt-in. The `@primer/react-tailwind` and `@primer/react` feature-flag providers have separate contexts; pass the same flag value to both during an incremental migration.
 
 ## Internals that are no longer exported
 

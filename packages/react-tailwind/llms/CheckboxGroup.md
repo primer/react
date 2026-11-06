@@ -31,3 +31,9 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Use `Label`, `Caption`, and `Validation` parts for group metadata; set `visuallyHidden` only when another visible label exists. `Label` is a Base UI `Fieldset.Legend`, so it must stay inside the group.
+- `aria-labelledby` on the group takes precedence over `Label`. Without either, an enclosing `FormControl.Label` names the group.
+- `required` shows a visual `*` on the label and adds a hidden "Required" description, because `role="group"` has no `aria-required`. Upstream announces ", required" inside the legend and also exposes the `*`. Neither validates the selection.
+- `disabled` disables every nested checkbox and mutes the label and nested leading visuals.
+- `Caption` renders a `div` rather than a `p`.
+- Control each child checkbox with its documented checked-state contract.
+- `sx` and styled-system props are unsupported; use `className`.

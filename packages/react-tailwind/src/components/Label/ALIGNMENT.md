@@ -10,6 +10,6 @@ Tailwind retains the same variants, sizes, and `as` prop, using utility classes 
 
 ## Migration notes
 
-- Existing `variant`, `size`, and `as` usage can be retained.
+- Existing `variant`, `size`, and `as` usage can be retained; element-specific props and refs follow the element selected by `as`.
 - Use `FormControl.Label` to label a form field.
 - Replace `sx`, styled-system props, and selectors targeting `data-size` or `data-variant`.

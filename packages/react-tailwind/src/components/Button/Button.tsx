@@ -68,6 +68,11 @@ export interface ButtonProps extends Omit<ButtonBaseProps, 'className' | 'childr
    */
   size?: ControlSize
   /**
+   * Native button behavior. Use `submit` to submit a form.
+   * @default 'button'
+   */
+  type?: ButtonBaseProps['type']
+  /**
    * Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
    * @default 'default'
    */

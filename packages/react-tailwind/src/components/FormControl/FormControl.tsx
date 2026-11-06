@@ -182,10 +182,10 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
           cn(
             layout === 'horizontal'
               ? cn(
-                  'grid gap-0 [&>input]:mx-0 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
+                  "grid gap-0 [&>input]:mx-0 [&>[data-component='Checkbox']]:col-start-1 [&>[data-component='Checkbox']]:row-start-1 [&>[data-component='Radio']]:col-start-1 [&>[data-component='Radio']]:row-start-1 [&>[data-component='FormControl.Caption']]:row-start-2 [&>[data-component='FormControl.Label']]:row-start-1 [&>[data-component='FormControl.LeadingVisual']]:col-start-2 [&>[data-component='FormControl.LeadingVisual']]:row-start-1 [&>[data-component='FormControl.Validation']]:row-start-3",
                   hasLeadingVisual
-                    ? 'grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component="FormControl.Caption"]]:col-start-3 [&>[data-component="FormControl.Label"]]:col-start-3 [&>[data-component="FormControl.Validation"]]:col-start-3'
-                    : 'grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component="FormControl.Caption"]]:col-start-2 [&>[data-component="FormControl.Label"]]:col-start-2 [&>[data-component="FormControl.Validation"]]:col-start-2',
+                    ? "grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component='FormControl.Caption']]:col-start-3 [&>[data-component='FormControl.Label']]:col-start-3 [&>[data-component='FormControl.Validation']]:col-start-3"
+                    : "grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component='FormControl.Caption']]:col-start-2 [&>[data-component='FormControl.Label']]:col-start-2 [&>[data-component='FormControl.Validation']]:col-start-2",
                 )
               : verticalLayoutClassName,
             className(state),
@@ -193,10 +193,10 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
       : cn(
           layout === 'horizontal'
             ? cn(
-                'grid gap-0 [&>input]:mx-0 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
+                "grid gap-0 [&>input]:mx-0 [&>[data-component='Checkbox']]:col-start-1 [&>[data-component='Checkbox']]:row-start-1 [&>[data-component='Radio']]:col-start-1 [&>[data-component='Radio']]:row-start-1 [&>[data-component='FormControl.Caption']]:row-start-2 [&>[data-component='FormControl.Label']]:row-start-1 [&>[data-component='FormControl.LeadingVisual']]:col-start-2 [&>[data-component='FormControl.LeadingVisual']]:row-start-1 [&>[data-component='FormControl.Validation']]:row-start-3",
                 hasLeadingVisual
-                  ? 'grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component="FormControl.Caption"]]:col-start-3 [&>[data-component="FormControl.Label"]]:col-start-3 [&>[data-component="FormControl.Validation"]]:col-start-3'
-                  : 'grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component="FormControl.Caption"]]:col-start-2 [&>[data-component="FormControl.Label"]]:col-start-2 [&>[data-component="FormControl.Validation"]]:col-start-2',
+                  ? "grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component='FormControl.Caption']]:col-start-3 [&>[data-component='FormControl.Label']]:col-start-3 [&>[data-component='FormControl.Validation']]:col-start-3"
+                  : "grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component='FormControl.Caption']]:col-start-2 [&>[data-component='FormControl.Label']]:col-start-2 [&>[data-component='FormControl.Validation']]:col-start-2",
               )
             : verticalLayoutClassName,
           className,

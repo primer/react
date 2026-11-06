@@ -27,3 +27,5 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Existing navigation composition and state ownership can be retained.
+- Recheck custom selectors for borders, selected state, and item spacing.
+- Remove `sx` and styled-system props.

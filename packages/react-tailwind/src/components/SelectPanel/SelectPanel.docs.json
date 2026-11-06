@@ -33,6 +33,15 @@
       "id": "react-tailwind-components-selectpanel-examples--select-panel-reposition-inside-dialog"
     },
     {
+      "id": "react-tailwind-components-selectpanel-examples--portal-in-scrollable-dialog"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--modal-in-scrollable-dialog-portal"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--action-menu-anchor"
+    },
+    {
       "id": "react-tailwind-components-selectpanel-examples--with-default-message"
     },
     {
@@ -58,6 +67,9 @@
     },
     {
       "id": "react-tailwind-components-selectpanel-features--with-disabled-item"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-option-descriptions"
     },
     {
       "id": "react-tailwind-components-selectpanel-features--with-external-anchor"
@@ -99,6 +111,15 @@
       "id": "react-tailwind-components-selectpanel-features--single-select-modal"
     },
     {
+      "id": "react-tailwind-components-selectpanel-features--inside-required-form-control"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--modal-inside-required-form-control"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--fullscreen-on-narrow"
+    },
+    {
       "id": "react-tailwind-components-selectpanel-features--with-inactive-items"
     },
     {
@@ -130,6 +151,11 @@
       "name": "anchorId",
       "type": "string",
       "description": "Id of the element the panel is anchored to."
+    },
+    {
+      "name": "anchorProps",
+      "type": "Pick<Omit<Omit<PopoverTriggerProps, \"ref\"> & RefAttributes<HTMLElement>, \"ref\">, \"nativeButton\" | \"role\">",
+      "description": "Not supported when the anchor is rendered externally.\nConfigure a custom anchor's element and, when needed, its role inside a composite widget."
     },
     {
       "name": "anchorRef",
@@ -166,7 +192,7 @@
       "name": "disableFullscreenOnNarrow",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Keeps the panel anchored on narrow viewports instead of filling the screen."
+      "description": "Keeps the panel anchored on narrow viewports when the fullscreen feature flag is enabled."
     },
     {
       "name": "disableSelectOnHover",
@@ -195,7 +221,7 @@
       "name": "focusPrependedElements",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Includes elements rendered before the list in the keyboard focus order."
+      "description": "Enables automatic highlighting as the filter changes; it does not re-highlight items prepended to an unchanged filter."
     },
     {
       "name": "groupMetadata",
@@ -337,7 +363,7 @@
       "name": "setInitialFocus",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Moves focus to the filter input when the panel opens."
+      "description": "Suppresses filter-change highlighting unless focusPrependedElements is enabled. Initial item highlighting is not yet supported."
     },
     {
       "name": "showItemDividers",
@@ -409,6 +435,11 @@
         {
           "name": "icon",
           "type": "React.ElementType"
+        },
+        {
+          "name": "role",
+          "type": "AriaRole",
+          "description": "Defaults to `status`, or `alert` for errors. Use `none` when announcements are handled separately."
         },
         {
           "name": "title",
@@ -504,6 +535,12 @@
           "name": "trailingVisual",
           "type": "ButtonVisual",
           "description": "Icon shown after the label."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
         },
         {
           "name": "variant",

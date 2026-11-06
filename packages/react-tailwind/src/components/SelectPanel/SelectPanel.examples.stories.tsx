@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import React from 'react'
+import {ActionMenu} from '../ActionMenu'
 import {Button} from '../Button'
 import {Checkbox} from '../Checkbox'
 import {Dialog} from '../Dialog'
@@ -328,6 +329,74 @@ export const RepositionAfterLoading: Story = {
 
 export const SelectPanelRepositionInsideDialog: Story = {
   render: () => <RepositionAfterLoadingFixture insideDialog />,
+}
+
+function ProjectPickerPortalExample({modal = false}: {modal?: boolean}) {
+  const [portalContainer, setPortalContainer] = React.useState<HTMLDivElement | null>(null)
+  const [selected, setSelected] = React.useState<SelectPanelItem | undefined>()
+  const variantProps = modal ? ({variant: 'modal', onCancel: () => {}} as const) : ({variant: 'anchored'} as const)
+  const projects = [
+    {id: 'roadmap', text: 'Roadmap'},
+    {id: 'planning', text: 'Planning'},
+  ]
+
+  return (
+    <Dialog>
+      <Dialog.Trigger render={<Button>Open project settings</Button>} />
+      <Dialog.Content width="xlarge">
+        <Dialog.Header>
+          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.CloseButton />
+        </Dialog.Header>
+        <Dialog.Body>
+          <Dialog.Description>Choose the project associated with this item.</Dialog.Description>
+          <div data-testid="project-picker-portal" ref={setPortalContainer} />
+          <div className="h-52 w-48 overflow-auto rounded-md border border-default" data-testid="project-picker-scroll">
+            <div aria-hidden="true" className="h-80" />
+            <SelectPanel
+              {...variantProps}
+              items={projects}
+              onSelectedChange={next => setSelected(Array.isArray(next) ? next[0] : next)}
+              overlayProps={{container: portalContainer}}
+              selected={selected}
+              title="Projects"
+            />
+            <div aria-hidden="true" className="h-80" />
+          </div>
+        </Dialog.Body>
+      </Dialog.Content>
+    </Dialog>
+  )
+}
+
+export const PortalInScrollableDialog: Story = {
+  render: () => <ProjectPickerPortalExample />,
+}
+
+export const ModalInScrollableDialogPortal: Story = {
+  render: () => <ProjectPickerPortalExample modal />,
+}
+
+export const ActionMenuAnchor: Story = {
+  render: function ActionMenuAnchorStory() {
+    const [selected, setSelected] = React.useState<SelectPanelItem | undefined>()
+
+    return (
+      <ActionMenu.Root>
+        <ActionMenu.Button>Actions</ActionMenu.Button>
+        <ActionMenu.Content>
+          <SelectPanel
+            anchorProps={{nativeButton: false, role: 'menuitem'}}
+            items={labels}
+            onSelectedChange={next => setSelected(Array.isArray(next) ? next[0] : next)}
+            renderAnchor={({children}) => <ActionMenu.Item closeOnClick={false}>{children}</ActionMenu.Item>}
+            selected={selected}
+            title="Select labels"
+          />
+        </ActionMenu.Content>
+      </ActionMenu.Root>
+    )
+  },
 }
 
 export const WithDefaultMessage: Story = {

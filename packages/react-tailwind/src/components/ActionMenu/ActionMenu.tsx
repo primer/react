@@ -250,7 +250,6 @@ const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionM
       {...getActionItemStateAttributes(state)}
       ref={ref}
       disabled={disabled || Boolean(inactiveText) || loading}
-      aria-disabled={inactiveText || loading ? true : undefined}
       title={typeof inactiveText === 'string' ? inactiveText : undefined}
       className={mergeClassName(menuItemClassName(state), className)}
       data-component="ActionMenu.Item"

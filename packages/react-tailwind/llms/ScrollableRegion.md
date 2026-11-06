@@ -14,3 +14,5 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Existing children, native scrolling props, accessible-name props, and scroll usage can generally be retained.
+- Replace CSS-module selectors with Tailwind utilities or `className` styles.
+- The Tailwind package does not support legacy CSS-module selectors or styled-system APIs.

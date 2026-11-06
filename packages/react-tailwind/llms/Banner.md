@@ -49,6 +49,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 
 ## Banner.SecondaryAction
 
@@ -70,6 +71,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 
 ## Banner.Title
 
@@ -80,3 +82,6 @@ Renders a [`<h2>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#
 ## Differences from `@primer/react`
 
 - Prefer the compound parts for custom heading and action markup.
+- Keep dialog ownership in local Dialog composition; Banner does not own modal behavior.
+- Do not replace the container-query behavior with viewport-only CSS.
+- `sx` and styled-system props are unsupported; use documented `className` composition.

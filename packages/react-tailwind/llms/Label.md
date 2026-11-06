@@ -8,10 +8,13 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 
 ## Props
 
-- `as`: `React.ElementType` — Default `'span'`. Element to render.
+- `as`: `As` — Default `'span'`. Element to render. Its props and ref follow the selected element.
+- `className`: `string`
 - `size`: `"large" | "small" | null`
 - `variant`: `"accent" | "attention" | "danger" | "default" | "done" | "primary" | "secondary" | "severe" | "sponsors" | "success" | null`
 
 ## Differences from `@primer/react`
 
-- Existing `variant`, `size`, and `as` usage can be retained.
+- Existing `variant`, `size`, and `as` usage can be retained; element-specific props and refs follow the element selected by `as`.
+- Use `FormControl.Label` to label a form field.
+- Replace `sx`, styled-system props, and selectors targeting `data-size` or `data-variant`.

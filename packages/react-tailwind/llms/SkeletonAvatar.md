@@ -14,3 +14,5 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Existing `size` and `square` usage can be retained.
+- Verify custom sizes against the Tailwind component's supported size scale.
+- Remove `sx`, styled-system props, and legacy class selectors.

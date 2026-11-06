@@ -38,3 +38,6 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Select `AriaStatus` for polite status updates and `AriaAlert` for urgent messages; do not duplicate the text in multiple regions.
+- Use `announceOnShow` and `delayMs` only for the documented Announce activation behavior.
+- Keep visual hiding separate from removing important content from the accessibility tree.
+- `sx` and styled-system props are unsupported; use `className`.

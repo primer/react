@@ -1,6 +1,8 @@
 import {fireEvent, render, screen} from '@testing-library/react'
-import {expect, it, vi} from 'vitest'
-import {IssueLabelToken, Token} from './'
+import userEvent from '@testing-library/user-event'
+import type {FormEvent} from 'react'
+import {describe, expect, it, vi} from 'vitest'
+import {IssueLabelToken, Token, TokenBase} from './'
 it('removes tokens with the remove button and keyboard', () => {
   const remove = vi.fn()
   render(<Token as="button" onRemove={remove} text="design" />)
@@ -21,4 +23,46 @@ it('sets the custom issue-label color variables', () => {
   expect(screen.getByTestId('label').getAttribute('style')).toContain(
     '--issue-label-light-background: rgb(255 255 255)',
   )
+})
+
+describe.each([
+  ['Token', Token],
+  ['IssueLabelToken', IssueLabelToken],
+  ['TokenBase', TokenBase],
+] as const)('%s button form behavior', (_name, Component) => {
+  it.each([false, true])('defaults to button and supports submit and reset (removable: %s)', async removable => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn((event: FormEvent<HTMLFormElement>) => event.preventDefault())
+    const onRemove = removable ? () => {} : undefined
+    const form = (type?: 'button' | 'reset' | 'submit') => (
+      <form onSubmit={onSubmit}>
+        <label>
+          Name
+          <input defaultValue="original" />
+        </label>
+        <Component as="button" onRemove={onRemove} text="Design" type={type}>
+          {Component === TokenBase ? 'Design' : undefined}
+        </Component>
+      </form>
+    )
+    const {rerender} = render(form())
+    const button = screen.getByRole('button', {name: /Design/})
+    expect(button).toHaveAttribute('type', 'button')
+    await user.click(button)
+    expect(onSubmit).not.toHaveBeenCalled()
+
+    rerender(form('submit'))
+    expect(button).toHaveAttribute('type', 'submit')
+    await user.click(button)
+    expect(onSubmit).toHaveBeenCalledOnce()
+
+    rerender(form('reset'))
+    const input = screen.getByRole('textbox', {name: 'Name'})
+    await user.clear(input)
+    await user.type(input, 'changed')
+    expect(button).toHaveAttribute('type', 'reset')
+    await user.click(button)
+    expect(input).toHaveValue('original')
+    expect(onSubmit).toHaveBeenCalledOnce()
+  })
 })

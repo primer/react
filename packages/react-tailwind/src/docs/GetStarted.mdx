@@ -43,12 +43,31 @@ Pick one. Using both duplicates every component rule.
 import '@primer/react-tailwind/styles.css'
 ```
 
-**Host-generated** lets your own Tailwind v4 build emit the utilities:
+This stylesheet contains utilities needed by the package components, not arbitrary classes from your app. Use ordinary CSS or package layout components for your own layout:
+
+```tsx
+import './layout.css'
+;<main className="app-layout">{children}</main>
+```
+
+```css
+.app-layout {
+  width: min(100%, 28rem);
+  margin-inline: auto;
+  padding-block: 3rem;
+}
+```
+
+**Host-generated** lets your own Tailwind v4 build emit both the package's utilities and the utilities used in your app:
 
 ```css
 @import 'tailwindcss';
 @import '@primer/react-tailwind/tailwind.css';
 ```
+
+Ensure Tailwind scans your application source files as well as the package; add `@source` directives when your app's files are outside automatic source detection. Import your generated CSS instead of `styles.css`.
+
+Both modes use unprefixed utilities that can conflict with `@primer/css` `!important` rules. CSS layers alone do not isolate them, and a prefixed build is not yet available. Verify stylesheet isolation before using the package alongside legacy Primer CSS.
 
 ## Use a component
 
@@ -62,7 +81,7 @@ import {Button} from '@primer/react-tailwind/Button'
 
 ## Style a component
 
-Every component takes `className` and forwards unrecognized DOM props and its root ref to its root element. Use Primer's semantic utilities so themes and high-contrast schemes keep working, and reach for a token when no utility exists.
+Every component takes `className` and forwards unrecognized DOM props and its root ref to its root element. With host-generated Tailwind, use Primer's semantic utilities so themes and high-contrast schemes keep working, and reach for a token when no utility exists.
 
 ```tsx
 <Button className="mt-2 w-full">Save</Button>

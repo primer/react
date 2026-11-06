@@ -404,32 +404,18 @@ function resolveItemRegions(
   return {itemChildren, hasDescription: description !== undefined && description !== null, trailingAction}
 }
 
-export function ActionItemContent({
-  children,
-  description,
-  descriptionVariant,
-  dividerClassName = actionItemDividerClassName,
-  indicator,
-  leadingVisual,
-  selection,
-  showDivider,
-  size = 'medium',
-  supportingText,
-  trailingVisual,
-}: {
-  children: React.ReactNode
+interface ActionItemContentRegions {
+  children?: React.ReactNode
   description?: React.ReactNode
   descriptionVariant?: ActionListDescriptionProps['variant']
-  /** Draws the divider for this item's structure. Defaults to the divider for items rendered in list items. */
-  dividerClassName?: string
-  indicator?: React.ReactNode
   leadingVisual?: React.ReactNode
-  selection?: React.ReactNode
-  showDivider?: boolean
-  size?: 'small' | 'medium' | 'large'
-  supportingText?: React.ReactNode
   trailingVisual?: React.ReactNode
-}) {
+}
+
+function resolveActionItemContent(
+  {children, description, descriptionVariant, leadingVisual, trailingVisual}: ActionItemContentRegions,
+  accessibilityId?: string,
+) {
   const composedChildren = [
     leadingVisual ? React.createElement(LeadingVisual, {key: 'leading-visual'}, leadingVisual) : null,
     children,
@@ -438,14 +424,101 @@ export function ActionItemContent({
       : null,
     trailingVisual ? React.createElement(TrailingVisual, {key: 'trailing-visual'}, trailingVisual) : null,
   ]
+  const parts = getItemParts(composedChildren)
+  const descriptions = accessibilityId
+    ? parts.descriptions.map((item, index) =>
+        React.cloneElement(item, {id: item.props.id ?? `${accessibilityId}-description-${index}`}),
+      )
+    : parts.descriptions
+  const trailingVisualElement = React.isValidElement<React.ComponentPropsWithoutRef<'span'>>(parts.trailingVisual)
+    ? parts.trailingVisual
+    : undefined
+  const trailingVisualId =
+    accessibilityId &&
+    trailingVisualElement &&
+    !trailingVisualElement.props.hidden &&
+    trailingVisualElement.props['aria-hidden'] !== true &&
+    trailingVisualElement.props['aria-hidden'] !== 'true'
+      ? (trailingVisualElement.props.id ?? `${accessibilityId}-trailing-visual`)
+      : undefined
+
+  return {
+    ...parts,
+    blockDescriptions: descriptions.filter(item => item.props.variant === 'block'),
+    descriptionIds: accessibilityId
+      ? descriptions
+          .filter(item => item.props['aria-hidden'] !== true && item.props['aria-hidden'] !== 'true')
+          .map(item => item.props.id)
+      : [],
+    descriptions,
+    inlineDescriptions: descriptions.filter(item => item.props.variant !== 'block'),
+    labelId: accessibilityId ? `${accessibilityId}-label` : undefined,
+    trailingVisual:
+      trailingVisualId && trailingVisualElement
+        ? React.cloneElement(trailingVisualElement, {id: trailingVisualId})
+        : parts.trailingVisual,
+    trailingVisualId,
+  }
+}
+
+type ActionItemElementProps = Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'>
+
+function resolveActionItemElementContent(item: ActionItemElementProps, accessibilityId?: string) {
+  const {children, description, leadingVisual, trailingVisual} = item
+  const {itemChildren} = resolveItemRegions(children, {description, leadingVisual, trailingVisual})
+  return resolveActionItemContent({children: itemChildren}, accessibilityId)
+}
+
+function resolveActionItemOptionContent(
+  regions: ActionItemContentRegions,
+  renderedItem: React.ReactNode,
+  renderedActionListItem: React.ReactElement<ActionItemElementProps> | undefined,
+  accessibilityId: string,
+) {
+  if (renderedActionListItem) return resolveActionItemElementContent(renderedActionListItem.props, accessibilityId)
+  return renderedItem == null ? resolveActionItemContent(regions, accessibilityId) : undefined
+}
+
+function ActionItemContentRoot({
+  children,
+  description,
+  descriptionVariant,
+  dividerClassName = actionItemDividerClassName,
+  indicator,
+  leadingVisual,
+  resolvedContent,
+  selection,
+  showDivider,
+  size = 'medium',
+  supportingText,
+  supportingTextId,
+  trailingVisual,
+}: {
+  children?: React.ReactNode
+  description?: React.ReactNode
+  descriptionVariant?: ActionListDescriptionProps['variant']
+  /** Draws the divider for this item's structure. Defaults to the divider for items rendered in list items. */
+  dividerClassName?: string
+  indicator?: React.ReactNode
+  leadingVisual?: React.ReactNode
+  resolvedContent?: ReturnType<typeof resolveActionItemContent>
+  selection?: React.ReactNode
+  showDivider?: boolean
+  size?: 'small' | 'medium' | 'large'
+  supportingText?: React.ReactNode
+  supportingTextId?: string
+  trailingVisual?: React.ReactNode
+}) {
   const {
     blockDescriptions,
     descriptions,
     inlineDescriptions,
     label,
+    labelId,
     leadingVisual: resolvedLeadingVisual,
     trailingVisual: resolvedTrailingVisual,
-  } = getItemParts(composedChildren)
+  } = resolvedContent ??
+  resolveActionItemContent({children, description, descriptionVariant, leadingVisual, trailingVisual})
   const hasBlockDescription = blockDescriptions.length > 0
   // A loading or inactive indicator replaces the leading visual when there is one and the trailing
   // visual otherwise, as upstream does, so the label keeps its alignment.
@@ -497,6 +570,7 @@ export function ActionItemContent({
               )}
               data-component="ActionList.Item.Label"
               data-item-label=""
+              id={labelId}
             >
               {label}
             </span>
@@ -505,30 +579,17 @@ export function ActionItemContent({
           {blockDescriptions}
         </span>
         {renderedTrailingVisual}
-        {supportingText ? <span className="basis-full text-xs leading-4 text-attention">{supportingText}</span> : null}
+        {supportingText ? (
+          <span className="basis-full text-xs leading-4 text-attention" id={supportingTextId}>
+            {supportingText}
+          </span>
+        ) : null}
       </span>
     </>
   )
 }
 
-type ActionItemElementProps = Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'>
-
-/**
- * Renders an `ActionList.Item` element returned from a `renderItem` escape hatch as the content of a
- * list option. Its regions resolve as `ActionList.Item` resolves them, so the option keeps its
- * selection indicator, divider, and label layout.
- */
-export function ActionItemElementContent({
-  item,
-  ...contentProps
-}: Omit<
-  React.ComponentProps<typeof ActionItemContent>,
-  'children' | 'description' | 'descriptionVariant' | 'leadingVisual' | 'trailingVisual'
-> & {item: ActionItemElementProps}) {
-  const {children, description, leadingVisual, trailingVisual} = item
-  const {itemChildren} = resolveItemRegions(children, {description, leadingVisual, trailingVisual})
-  return <ActionItemContent {...contentProps}>{itemChildren}</ActionItemContent>
-}
+export const ActionItemContent = Object.assign(ActionItemContentRoot, {resolveOption: resolveActionItemOptionContent})
 
 const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionListItem(
   {

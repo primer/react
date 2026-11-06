@@ -10,22 +10,39 @@ See [Architecture](./ARCHITECTURE.md) for the package layers, behavior and CSS o
 npm install @primer/react-tailwind
 ```
 
-React 19 and `react-dom` are peer dependencies. The package includes its compiled CSS and does not require Tailwind tooling at runtime.
+React 19 and `react-dom` are peer dependencies. The package includes compiled CSS for its components and does not require Tailwind tooling at runtime.
 
 ## Compiled CSS
 
-Import the compiled component, theme, and utility styles once at your application entry point:
+Import the compiled component and theme styles once at your application entry point:
 
 ```tsx
 import '@primer/react-tailwind/styles.css'
 import {Button, ThemeProvider} from '@primer/react-tailwind'
 ```
 
+`styles.css` includes the utilities used by the package's components, not arbitrary utility classes in your application. A class such as `max-w-[28rem]`, `gap-5`, or `py-12` may have no effect unless your app compiles it. In a compiled-only app, use ordinary CSS or package layout components for app-owned layout:
+
+```tsx
+import './signup.css'
+;<main className="signup-layout">{children}</main>
+```
+
+```css
+.signup-layout {
+  display: grid;
+  gap: 1.25rem;
+  width: min(100%, 28rem);
+  margin-inline: auto;
+  padding-block: 3rem;
+}
+```
+
 `base.css`, `components.css`, `theme.css`, and `tailwind.css` are also available as CSS subpath exports. `base.css` is an optional small global normalization stylesheet for box sizing, body margin, and table border collapsing; it does not include Tailwind Preflight. `components.css` contains the package's non-utility component rules and keyframes. Do not combine `styles.css` with host-generated package utilities, or the component rules will be duplicated.
 
 ## Tailwind v4
 
-For applications that compile package classes themselves, install Tailwind v4 and use Primer's Tailwind configuration. Adjust the `@source` path to the location of your stylesheet:
+To use Tailwind utilities in application code, install Tailwind v4 and compile both the app's classes and the package's classes with Primer's Tailwind configuration. For a stylesheet at `src/index.css`:
 
 ```css
 @layer theme, base, components, utilities;
@@ -37,7 +54,10 @@ For applications that compile package classes themselves, install Tailwind v4 an
 @import '@primer/react-tailwind/components.css';
 
 @source '../node_modules/@primer/react-tailwind/dist';
+@source './';
 ```
+
+Adjust the `@source` paths to your stylesheet, installed package, and app source locations; Tailwind must scan every directory containing the classes you use. A host-generated app can then use, for example, `<main className="mx-auto grid max-w-[28rem] gap-5 py-12">`. Import the generated stylesheet instead of `@primer/react-tailwind/styles.css`.
 
 The package's `tailwind.css` subpath is a convenience entry point containing Primer theme CSS, `@primer/tailwind-config`, and a package source directive. Combine it with Tailwind's own entry point:
 
@@ -47,6 +67,8 @@ The package's `tailwind.css` subpath is a convenience entry point containing Pri
 ```
 
 Use either compiled `styles.css` or host-generated utilities, not both. For granular host configuration, `@primer/tailwind-config` also provides modules such as `color`, `size`, `typography`, `shadow`, `radius`, `border`, `easing`, and `z-index`.
+
+**Legacy Primer CSS:** Both modes use unprefixed utility names. Legacy `@primer/css` utilities such as `px-6`, `py-8`, and `border` use `!important` and can override package styles with different values. CSS layer ordering alone does not isolate them, and this package does not yet provide a prefixed build. Verify stylesheet isolation before using the package alongside legacy Primer CSS.
 
 ## Themes
 
@@ -131,14 +153,19 @@ Base UI's `render` prop composes behavior onto an existing element rather than n
 ### Forms
 
 ```tsx
-<FormControl name="email">
-  <FormControl.Label>Email</FormControl.Label>
-  <FormControl.Control render={<TextInput type="email" />} />
-  <FormControl.Caption>We will not share your address.</FormControl.Caption>
-</FormControl>
+<form onSubmit={handleSubmit}>
+  <FormControl name="email">
+    <FormControl.Label>Email</FormControl.Label>
+    <FormControl.Control render={<TextInput type="email" />} />
+    <FormControl.Caption>We will not share your address.</FormControl.Caption>
+  </FormControl>
+  <Button type="submit" variant="primary">
+    Create account
+  </Button>
+</form>
 ```
 
-`Checkbox`, `Radio`, `Select`, `Textarea`, `ToggleSwitch`, and other form components accept native form attributes and Base UI state props.
+`Button` defaults to `type="button"`; use `type="submit"` for a form submission action. `Checkbox`, `Radio`, `Select`, `Textarea`, `ToggleSwitch`, and other form components accept native form attributes and Base UI state props.
 
 ### Navigation
 
@@ -161,7 +188,7 @@ Included API families are foundation, display/content, forms, selection, layout,
 
 Selected newer/V2 or upstream experimental APIs are promoted under stable names in this package (for example `Tabs`, `UnderlinePanels`, `FilteredActionList`, and `Tooltip`); use the names exported here rather than draft or `*2` names. Not every upstream API is included, and deprecated APIs are intentionally omitted.
 
-The package does not implement `sx` or Primer system/styled-system props. Use Tailwind `className` utilities, CSS, and standard HTML/Base UI props instead.
+The package does not implement `sx` or Primer system/styled-system props. Use CSS, standard HTML/Base UI props, and—when your app compiles them—Tailwind `className` utilities instead.
 
 ## Using this package with AI tools
 

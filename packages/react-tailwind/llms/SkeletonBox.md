@@ -17,3 +17,7 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Keep Suspense, data fetching, and loading transitions in the application.
+- Compose SkeletonText and SkeletonAvatar directly for richer placeholder layouts.
+- Use `as` only for a simple presentational element choice.
+- Named placeholders use image semantics by default so their accessible name is valid. An explicit `role` takes precedence.
+- Replace `sx` and styled-system props with `className`.

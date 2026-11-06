@@ -13,3 +13,5 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 ## Differences from `@primer/react`
 
 - The component is a stable replacement for the experimental legacy export.
+- Preserve behavioral props, but remove `sx` and styled-system props.
+- Recheck custom selectors tied to legacy CSS-module class names.

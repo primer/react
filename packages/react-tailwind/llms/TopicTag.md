@@ -18,3 +18,5 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Existing TopicTag and TopicTagGroup composition can generally be retained.
+- Keep navigation/filter state outside the components.
+- Remove `sx`, styled-system props, and legacy CSS-module selectors.

@@ -25,3 +25,5 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 ## Differences from `@primer/react`
 
 - Existing Header subcomponent composition can generally be retained.
+- Recheck custom class selectors and responsive overrides.
+- Remove `sx` and styled-system props.

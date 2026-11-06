@@ -18,3 +18,6 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Replace the import path with `@primer/react-tailwind/AvatarStack`.
+- Keep avatars and link wrappers as direct children.
+- Use `className` instead of styled-system props.
+- No intentional AvatarStack behavioral or visual differences are documented. Residual visual-matrix deltas are limited to browser rasterization at circular masked overlap edges; computed styles and geometry match, and single-avatar and square-avatar stories are pixel exact.

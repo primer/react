@@ -14,5 +14,6 @@ Interactive removable tokens compose their primary action and pointer removal af
 
 - Do not nest a remove button inside a link/button token.
 - Use `onRemove` and the documented composition for keyboard removal.
+- `as="button"` defaults to `type="button"`; pass `type="submit"` or `type="reset"` explicitly for form actions.
 - Keep non-interactive token remove controls visibly and programmatically named; interactive tokens include keyboard-removal instructions in the primary action's accessible name.
 - `sx` and styled-system props are unsupported; use `className`.

@@ -9,3 +9,5 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Existing `focusable` usage can be retained.
+- Recheck custom selectors that target legacy visually-hidden classes.
+- Remove `sx` and styled-system props.

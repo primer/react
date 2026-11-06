@@ -25,3 +25,5 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Rename `barSize` to `size` and `bg` to `variant`. The middle size is `medium` rather than upstream's `default`, matching the size vocabulary used across the package.
+- Convert string percentages to numbers and keep values in the supported numeric range.
+- Do not pass children alongside `progress`; remove `sx` and styled-system props.

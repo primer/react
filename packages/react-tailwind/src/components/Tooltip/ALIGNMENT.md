@@ -16,4 +16,5 @@ Stable Tooltip promotes the Tooltip V2 interaction model under the base name. It
 - `Tooltip.Provider` sets a delay for a group of tooltips. Base UI's `disabled` root never opens, and stops naming or describing its trigger.
 - An `IconButton` rendered by `Tooltip.Trigger` skips its own tooltip, as it does inside a TooltipV2.
 - Keyboard focus opens the tooltip immediately; TooltipV2 shows it only for `:focus-visible`.
+- Tooltip content is hidden from the accessibility tree and referenced by its trigger; description content does not use `role="tooltip"`.
 - `sx` and styled-system props are unsupported.

@@ -1,5 +1,6 @@
 export {
   SelectPanel,
+  type SelectPanelActionDetails,
   type SelectPanelActionListProps,
   type SelectPanelAnchorProps,
   type SelectPanelGroupMetadata,

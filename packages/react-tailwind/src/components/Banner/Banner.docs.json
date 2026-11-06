@@ -248,6 +248,12 @@
           "name": "trailingVisual",
           "type": "ButtonVisual",
           "description": "Icon shown after the label."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
         }
       ],
       "passthrough": {
@@ -336,6 +342,12 @@
           "name": "trailingVisual",
           "type": "ButtonVisual",
           "description": "Icon shown after the label."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
         }
       ],
       "passthrough": {

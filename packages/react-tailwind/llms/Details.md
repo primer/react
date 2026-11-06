@@ -13,3 +13,8 @@ Renders a [`<summary>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Elemen
 ## Differences from `@primer/react`
 
 - Remove `useDetails`; use the native `open` attribute/event behavior or normal React state around Details when needed.
+- Keep the first summary as the disclosure control and avoid nesting interactive controls in it.
+- Build custom summaries with `Details.Summary` rather than legacy hook wiring.
+- Compose `Button` with `block`, `nativeButton={false}`, and `render={<Details.Summary />}` to reproduce the legacy full-width button-summary presentation without adding polymorphism to the disclosure API.
+- Direct native `<summary>` children retain native disclosure behavior and receive the same marker reset as `Details.Summary`.
+- `sx` and styled-system props are unsupported; use `className`.

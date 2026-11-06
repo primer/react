@@ -1,10 +1,15 @@
 import React from 'react'
-import {cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {act, cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import type {SelectPanelAnchorProps, SelectPanelItem, SelectPanelProps} from './SelectPanel'
+import type {SelectPanelActionDetails, SelectPanelAnchorProps, SelectPanelItem, SelectPanelProps} from './SelectPanel'
 import {SelectPanel} from './SelectPanel'
 import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import {Checkbox} from '../Checkbox'
+import {Dialog} from '../Dialog'
+import {FeatureFlags} from '../FeatureFlags'
+import {FormControl} from '../FormControl'
 
 const items: SelectPanelItem[] = [
   {id: 'mona', text: 'Mona'},
@@ -36,9 +41,290 @@ function asItems(selection: SelectPanelItem | SelectPanelItem[] | undefined) {
   return Array.isArray(selection) ? selection : selection ? [selection] : []
 }
 
-afterEach(cleanup)
+afterEach(() => {
+  cleanup()
+  vi.restoreAllMocks()
+  vi.unstubAllGlobals()
+})
 
 describe('SelectPanel', () => {
+  it.each(['anchored', 'modal'] as const)('keeps the %s filter independent from its enclosing field', async variant => {
+    const user = userEvent.setup()
+
+    render(
+      <FormControl name="outer-field" required>
+        <FormControl.Label>Items</FormControl.Label>
+        <FormControl.Caption>Choose at least one item</FormControl.Caption>
+        <FormControl.Validation variant="error">An item is required</FormControl.Validation>
+        <SelectPanel
+          {...(variant === 'modal' ? {variant, onCancel: () => {}} : {variant})}
+          items={items}
+          onSelectedChange={() => {}}
+          selected={[]}
+          selectionVariant="multiple"
+          showSelectAll
+          title="Choose items"
+        />
+      </FormControl>,
+    )
+
+    const trigger = screen.getByRole('button', {name: /Items|Choose items/})
+    const label = screen.getByText('Items').closest('label')
+    expect(label).toHaveAttribute('for', trigger.id)
+    expect(trigger.id).not.toBe('')
+    expect(trigger).toHaveAccessibleDescription('An item is required Choose at least one item Required')
+    expect(trigger).toHaveAttribute('aria-invalid', 'true')
+
+    await user.click(trigger)
+
+    const input = screen.getByRole('combobox', {name: 'Filter items'})
+    expect(input).not.toBeRequired()
+    expect(input).not.toHaveAttribute('aria-labelledby')
+    expect(input).not.toHaveAttribute('aria-describedby')
+    expect(input).not.toHaveAttribute('aria-invalid')
+    expect(input).not.toHaveAttribute('name', 'outer-field')
+    expect(input).not.toBeDisabled()
+    const selectAll = screen.getByRole('checkbox', {name: 'Select all'})
+    expect(selectAll).not.toBeRequired()
+    expect(selectAll).not.toHaveAttribute('aria-describedby')
+    expect(selectAll).not.toHaveAttribute('aria-invalid')
+    expect(label).toHaveAttribute('for', trigger.id)
+  })
+
+  it.each(['anchored', 'modal'] as const)(
+    'preserves explicit %s filter accessibility and form props inside a field',
+    async variant => {
+      const user = userEvent.setup()
+
+      render(
+        <>
+          <span id="filter-help">Search by name</span>
+          <FormControl required>
+            <FormControl.Label>Items</FormControl.Label>
+            <SelectPanel
+              {...(variant === 'modal' ? {variant, onCancel: () => {}} : {variant})}
+              items={items}
+              onSelectedChange={() => {}}
+              selected={undefined}
+              textInputProps={{
+                'aria-describedby': 'filter-help',
+                'aria-invalid': true,
+                'aria-label': 'Search items',
+                name: 'filter-query',
+                required: true,
+              }}
+              title="Choose items"
+            />
+          </FormControl>
+        </>,
+      )
+
+      await user.click(screen.getByRole('button', {name: /Items|Choose items/}))
+
+      const input = screen.getByRole('combobox', {name: 'Search items'})
+      expect(input).toHaveAttribute('aria-describedby', 'filter-help')
+      expect(input).toHaveAttribute('aria-invalid', 'true')
+      expect(input).toHaveAttribute('name', 'filter-query')
+      expect(input).toBeRequired()
+    },
+  )
+
+  it.each(['anchored', 'modal'] as const)(
+    'keeps custom %s popup controls independent from the enclosing field',
+    async variant => {
+      const user = userEvent.setup()
+
+      render(
+        <>
+          <span id="custom-help">Custom help</span>
+          <FormControl required>
+            <FormControl.Label>Items</FormControl.Label>
+            <FormControl.Caption>Choose at least one item</FormControl.Caption>
+            <FormControl.Validation variant="error">An item is required</FormControl.Validation>
+            <SelectPanel
+              {...(variant === 'modal' ? {variant, onCancel: () => {}} : {variant})}
+              items={items}
+              onSelectedChange={() => {}}
+              secondaryAction={<Checkbox aria-describedby="custom-help" aria-label="Custom option" />}
+              selected={undefined}
+              title="Choose items"
+            />
+          </FormControl>
+        </>,
+      )
+
+      await user.click(screen.getByRole('button', {name: /Items|Choose items/}))
+
+      const customOption = screen.getByRole('checkbox', {name: 'Custom option'})
+      expect(customOption).toHaveAccessibleDescription('Custom help')
+      expect(customOption).not.toBeRequired()
+      expect(customOption).not.toHaveAttribute('aria-invalid')
+    },
+  )
+
+  it.each(['anchored', 'modal'] as const)(
+    'merges a custom %s trigger description with the enclosing field',
+    variant => {
+      render(
+        <>
+          <span id="anchor-help">Additional trigger help</span>
+          <FormControl>
+            <FormControl.Label>Items</FormControl.Label>
+            <FormControl.Caption>Choose an item</FormControl.Caption>
+            <FormControl.Validation variant="error">Selection is invalid</FormControl.Validation>
+            <SelectPanel
+              {...(variant === 'modal' ? {variant, onCancel: () => {}} : {variant})}
+              items={items}
+              onSelectedChange={() => {}}
+              renderAnchor={({children}) => (
+                <button aria-describedby="anchor-help" aria-invalid="false" type="button">
+                  {children}
+                </button>
+              )}
+              selected={undefined}
+            />
+          </FormControl>
+        </>,
+      )
+
+      const trigger = screen.getByRole('button', {name: 'Items'})
+      expect(trigger).toHaveAccessibleDescription('Selection is invalid Choose an item Additional trigger help')
+      expect(trigger).toHaveAttribute('aria-invalid', 'true')
+    },
+  )
+
+  it('describes a required trigger even without a caption or validation message', () => {
+    render(
+      <FormControl required>
+        <FormControl.Label>Items</FormControl.Label>
+        <SelectPanel items={items} onSelectedChange={() => {}} selected={undefined} />
+      </FormControl>,
+    )
+
+    const trigger = screen.getByRole('button', {name: /Items\s*\*/})
+    expect(trigger).toHaveAccessibleDescription('Required')
+    expect(trigger).not.toHaveAttribute('aria-required')
+  })
+
+  it('associates a non-button custom trigger with its enclosing label', async () => {
+    const user = userEvent.setup()
+
+    render(
+      <FormControl>
+        <FormControl.Label>Items</FormControl.Label>
+        <SelectPanel
+          anchorProps={{nativeButton: false}}
+          items={items}
+          onSelectedChange={() => {}}
+          renderAnchor={({children}) => <div>{children}</div>}
+          selected={undefined}
+        />
+      </FormControl>,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Items'}))
+    expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+  })
+
+  it('does not open a disabled non-button trigger', async () => {
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+
+    render(
+      <FormControl disabled>
+        <FormControl.Label>Items</FormControl.Label>
+        <SelectPanel
+          anchorProps={{nativeButton: false}}
+          items={items}
+          onOpenChange={onOpenChange}
+          onSelectedChange={() => {}}
+          renderAnchor={({children}) => <div>{children}</div>}
+          selected={undefined}
+        />
+      </FormControl>,
+    )
+
+    const trigger = screen.getByRole('button', {name: 'Items'})
+    expect(trigger).toHaveAttribute('aria-disabled', 'true')
+    await user.click(trigger)
+    expect(onOpenChange).not.toHaveBeenCalled()
+    expect(screen.queryByRole('combobox')).not.toBeInTheDocument()
+  })
+
+  it('does not let a custom native trigger re-enable a disabled field', async () => {
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+
+    render(
+      <FormControl disabled>
+        <FormControl.Label>Items</FormControl.Label>
+        <SelectPanel
+          items={items}
+          onOpenChange={onOpenChange}
+          onSelectedChange={() => {}}
+          renderAnchor={({children}) => (
+            <button disabled={false} type="button">
+              {children}
+            </button>
+          )}
+          selected={undefined}
+        />
+      </FormControl>,
+    )
+
+    const trigger = screen.getByRole('button', {name: 'Items'})
+    expect(trigger).toBeDisabled()
+    await user.click(trigger)
+    expect(onOpenChange).not.toHaveBeenCalled()
+  })
+
+  it.each(['anchored', 'modal'] as const)(
+    'does not disable the %s filter when its enclosing field is disabled',
+    variant => {
+      render(
+        <FormControl disabled required>
+          <FormControl.Label>Items</FormControl.Label>
+          <SelectPanel
+            {...(variant === 'modal' ? {variant, onCancel: () => {}} : {variant})}
+            items={items}
+            onSelectedChange={() => {}}
+            open
+            selected={undefined}
+            title="Choose items"
+          />
+        </FormControl>,
+      )
+
+      const label = screen.getByText('Items').closest('label')
+      const trigger = document.getElementById(label?.htmlFor ?? '')
+      expect(trigger).toBeDisabled()
+      expect(screen.getByRole('combobox', {name: 'Filter items'})).not.toBeDisabled()
+    },
+  )
+
+  it('respects an explicit filter label reference inside a field', async () => {
+    const user = userEvent.setup()
+
+    render(
+      <>
+        <span id="filter-label">Search assignees</span>
+        <FormControl required>
+          <FormControl.Label>Items</FormControl.Label>
+          <SelectPanel
+            items={items}
+            onSelectedChange={() => {}}
+            selected={undefined}
+            textInputProps={{'aria-labelledby': 'filter-label'}}
+            title="Choose items"
+          />
+        </FormControl>
+      </>,
+    )
+
+    await user.click(screen.getByRole('button', {name: /Items|Choose items/}))
+    expect(screen.getByRole('combobox', {name: 'Search assignees'})).toHaveAttribute('aria-labelledby', 'filter-label')
+  })
+
   it('filters options, selects with the keyboard, and updates its trigger label', async () => {
     const user = userEvent.setup()
     const onSelectedChange = vi.fn()
@@ -71,6 +357,51 @@ describe('SelectPanel', () => {
     expect(onSelectedChange).toHaveBeenCalledWith(items[0], expect.objectContaining({reason: 'item-press'}))
     expect(screen.getByRole('button', {name: 'Mona'})).toBeVisible()
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+  })
+
+  it.todo('initially highlights the first enabled option and navigates to the second on ArrowDown', async () => {
+    const user = userEvent.setup()
+    const first = {id: 'first', text: 'First'}
+    const second = {id: 'second', text: 'Second'}
+    const onSelectedChange = vi.fn()
+    render(
+      <SelectPanel
+        items={[{id: 'disabled', text: 'Unavailable', disabled: true}, first, second]}
+        onSelectedChange={onSelectedChange}
+        selected={undefined}
+        title="Choose items"
+      />,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Choose items'}))
+    const input = screen.getByRole('combobox', {name: 'Filter items'})
+    await waitFor(() =>
+      expect(input).toHaveAttribute('aria-activedescendant', screen.getByRole('option', {name: 'First'}).id),
+    )
+    await user.keyboard('{ArrowDown}')
+    expect(input).toHaveAttribute('aria-activedescendant', screen.getByRole('option', {name: 'Second'}).id)
+    await user.keyboard('{Enter}')
+    expect(onSelectedChange).toHaveBeenCalledOnce()
+    expect(onSelectedChange.mock.calls[0][0]).toBe(second)
+  })
+
+  it('leaves initial highlighting to keyboard interaction when setInitialFocus is true', async () => {
+    const user = userEvent.setup()
+    render(
+      <SelectPanel
+        items={items}
+        onSelectedChange={() => {}}
+        selected={undefined}
+        setInitialFocus
+        title="Choose items"
+      />,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Choose items'}))
+    const input = screen.getByRole('combobox', {name: 'Filter items'})
+    expect(input).not.toHaveAttribute('aria-activedescendant')
+    await user.keyboard('{ArrowDown}')
+    expect(input).toHaveAttribute('aria-activedescendant', screen.getByRole('option', {name: 'Mona'}).id)
   })
 
   it('keeps default filter values synchronized with the input and local filtering', async () => {
@@ -299,6 +630,87 @@ describe('SelectPanel', () => {
     expect(screen.getByRole('listbox', {name: 'Assignees'})).toBeVisible()
   })
 
+  it.each(['anchored', 'modal'] as const)('supports a non-button custom anchor in %s mode', async variant => {
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    render(
+      <SelectPanel
+        {...(variant === 'modal' ? {variant, onCancel: () => {}} : {variant})}
+        anchorProps={{nativeButton: false}}
+        items={items}
+        onOpenChange={onOpenChange}
+        onSelectedChange={() => {}}
+        renderAnchor={({children}) => <div>{children}</div>}
+        selected={undefined}
+        title="Assignees"
+      />,
+    )
+
+    const anchor = screen.getByRole('button', {name: 'Assignees'})
+    expect(anchor.tagName).toBe('DIV')
+    act(() => anchor.focus())
+    await user.keyboard('{Enter}')
+    expect(screen.getByRole('dialog', {name: 'Assignees'})).toBeVisible()
+    expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+    expect(onOpenChange).toHaveBeenCalledTimes(1)
+
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(anchor).toHaveFocus())
+    await user.keyboard(' ')
+    expect(screen.getByRole('dialog', {name: 'Assignees'})).toBeVisible()
+    expect(onOpenChange).toHaveBeenCalledTimes(3)
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(anchor).toHaveFocus())
+    expect(consoleError).not.toHaveBeenCalled()
+    consoleError.mockRestore()
+  })
+
+  it('can use an ActionMenu item as a non-button anchor', async () => {
+    const user = userEvent.setup()
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    render(
+      <ActionMenu.Root modal={false}>
+        <ActionMenu.Button>Open menu</ActionMenu.Button>
+        <ActionMenu.Content>
+          <SelectPanel
+            anchorProps={{nativeButton: false, role: 'menuitem'}}
+            items={items}
+            onSelectedChange={() => {}}
+            renderAnchor={({children}) => <ActionMenu.Item closeOnClick={false}>{children}</ActionMenu.Item>}
+            selected={undefined}
+            title="Assignees"
+          />
+        </ActionMenu.Content>
+      </ActionMenu.Root>,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Open menu'}))
+    const menuAnchor = (await screen.findByText('Assignees')).closest('[role]')
+    expect(menuAnchor).toHaveAttribute('role', 'menuitem')
+    const anchor = await screen.findByRole('menuitem', {name: 'Assignees'})
+    await user.keyboard('{ArrowDown}')
+    await waitFor(() => expect(anchor).toHaveFocus())
+    await user.keyboard('{Enter}')
+    expect(screen.getByRole('dialog', {name: 'Assignees'})).toBeVisible()
+    expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(anchor).toHaveFocus())
+    expect(screen.getByRole('menu')).toBeVisible()
+
+    await user.click(anchor)
+    expect(screen.getByRole('dialog', {name: 'Assignees'})).toBeVisible()
+    await user.click(screen.getByRole('option', {name: 'Mona'}))
+    await waitFor(() => expect(screen.queryByRole('dialog', {name: 'Assignees'})).not.toBeInTheDocument())
+    await waitFor(() => expect(anchor).toHaveFocus())
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(screen.getByRole('button', {name: 'Open menu'})).toHaveFocus())
+    expect(consoleError).not.toHaveBeenCalled()
+    consoleError.mockRestore()
+  })
+
   it('passes renderAnchor the selected text labels as one comma-separated string', () => {
     const renderAnchor = vi.fn((props: SelectPanelAnchorProps) => <button {...props} type="button" />)
 
@@ -317,14 +729,150 @@ describe('SelectPanel', () => {
     expect(screen.getByRole('button', {name: 'Mona, Robot'})).toBeVisible()
   })
 
+  it.each(['anchored', 'modal'] as const)('releases closed %s portal content after restoring focus', async variant => {
+    const user = userEvent.setup()
+    const onMount = vi.fn()
+    const onUnmount = vi.fn()
+
+    function Message() {
+      React.useEffect(() => {
+        onMount()
+        return onUnmount
+      }, [])
+      return <span data-testid="portal-message">No items</span>
+    }
+
+    render(
+      <SelectPanel
+        {...(variant === 'modal' ? {variant, onCancel: () => {}} : {variant})}
+        items={[]}
+        message={<Message />}
+        onSelectedChange={() => {}}
+        selected={undefined}
+        title="Projects"
+      />,
+    )
+
+    expect(screen.queryByTestId('portal-message')).not.toBeInTheDocument()
+    const anchor = screen.getByRole('button', {name: 'Projects'})
+    await user.click(anchor)
+    const message = screen.getByTestId('portal-message')
+    expect(onMount).toHaveBeenCalledTimes(1)
+
+    await user.keyboard('{Escape}')
+    await waitFor(() => {
+      expect(anchor).toHaveFocus()
+      expect(message).not.toBeInTheDocument()
+    })
+    expect(onUnmount).toHaveBeenCalledTimes(1)
+
+    await user.click(anchor)
+    expect(screen.getByTestId('portal-message')).toBeVisible()
+    expect(onMount).toHaveBeenCalledTimes(2)
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(screen.queryByTestId('portal-message')).not.toBeInTheDocument())
+  })
+
+  it.each(['anchored', 'modal'] as const)(
+    'retains a controlled %s popup across a rapid close and reopen',
+    async variant => {
+      const variantProps =
+        variant === 'modal' ? ({variant: 'modal', onCancel: () => {}} as const) : ({variant: 'anchored'} as const)
+      const panelProps = {
+        ...variantProps,
+        items,
+        onSelectedChange: () => {},
+        selected: undefined,
+        title: 'Projects',
+      } satisfies SelectPanelProps
+      const {rerender} = render(<SelectPanel {...panelProps} open={false} />)
+
+      expect(screen.queryByRole('dialog', {name: 'Projects'})).not.toBeInTheDocument()
+      rerender(<SelectPanel {...panelProps} open />)
+      expect(await screen.findByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+
+      rerender(<SelectPanel {...panelProps} open={false} />)
+      rerender(<SelectPanel {...panelProps} open />)
+      await act(async () => {
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
+      })
+      expect(screen.getByRole('dialog', {name: 'Projects'})).toBeVisible()
+      expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+
+      rerender(<SelectPanel {...panelProps} open={false} />)
+      await waitFor(() => expect(screen.queryByText('Mona')).not.toBeInTheDocument())
+    },
+  )
+
+  it('releases an external-anchor popup after an outside click', async () => {
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+
+    function Example() {
+      const [open, setOpen] = React.useState(false)
+      const anchorRef = React.useRef<HTMLButtonElement>(null)
+      return (
+        <>
+          <button ref={anchorRef} type="button" onClick={() => setOpen(true)}>
+            Open picker
+          </button>
+          <button type="button">Outside</button>
+          <SelectPanel
+            anchorRef={anchorRef}
+            items={items}
+            onOpenChange={(nextOpen, gesture) => {
+              onOpenChange(nextOpen, gesture)
+              setOpen(nextOpen)
+            }}
+            onSelectedChange={() => {}}
+            open={open}
+            renderAnchor={null}
+            selected={undefined}
+            title="Projects"
+          />
+        </>
+      )
+    }
+
+    render(<Example />)
+    await user.click(screen.getByRole('button', {name: 'Open picker'}))
+    expect(await screen.findByRole('dialog', {name: 'Projects'})).toBeVisible()
+    await user.click(screen.getByRole('button', {name: 'Outside'}))
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'click-outside')
+    await waitFor(() => expect(screen.queryByText('Mona')).not.toBeInTheDocument())
+    await user.click(screen.getByRole('button', {name: 'Open picker'}))
+    expect(await screen.findByRole('dialog', {name: 'Projects'})).toBeVisible()
+  })
+
+  it('distinguishes a trigger click from an outside dismissal', async () => {
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+    render(
+      <SelectPanel
+        items={items}
+        onOpenChange={onOpenChange}
+        onSelectedChange={() => {}}
+        selected={undefined}
+        title="Projects"
+      />,
+    )
+
+    const trigger = screen.getByRole('button', {name: 'Projects'})
+    await user.click(trigger)
+    expect(onOpenChange).toHaveBeenLastCalledWith(true, 'anchor-click')
+    await user.click(trigger)
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'anchor-click')
+  })
+
   it('keeps anchored panel content in place when overlayProps.portal is false', async () => {
     const user = userEvent.setup()
+    const portalTarget = document.createElement('div')
     const {container} = render(
       <div data-testid="panel-root">
         <SelectPanel
           items={items}
           onSelectedChange={() => {}}
-          overlayProps={{portal: false}}
+          overlayProps={{container: portalTarget, portal: false}}
           selected={undefined}
           title="No portal"
         />
@@ -333,6 +881,145 @@ describe('SelectPanel', () => {
 
     await user.click(screen.getByRole('button', {name: 'No portal'}))
     expect(container).toContainElement(screen.getByRole('dialog', {name: 'No portal'}))
+    expect(portalTarget).toBeEmptyDOMElement()
+  })
+
+  it('uses a portal inside a focus-trapped dialog without moving the scroll position', async () => {
+    const user = userEvent.setup()
+
+    function Example() {
+      const [portalTarget, setPortalTarget] = React.useState<HTMLDivElement | null>(null)
+      return (
+        <Dialog defaultOpen modal="trap-focus">
+          <Dialog.Content>
+            <Dialog.Title>Project settings</Dialog.Title>
+            <div data-testid="portal-target" ref={setPortalTarget} />
+            <div data-testid="scroll-container" style={{height: 100, overflow: 'auto'}}>
+              <SelectPanel
+                disableFullscreenOnNarrow
+                items={items}
+                onSelectedChange={() => {}}
+                overlayProps={{container: portalTarget}}
+                selected={undefined}
+                title="Projects"
+              />
+            </div>
+          </Dialog.Content>
+        </Dialog>
+      )
+    }
+
+    render(<Example />)
+    const scrollContainer = screen.getByTestId('scroll-container')
+    scrollContainer.scrollTop = 120
+    const trigger = screen.getByRole('button', {name: 'Projects'})
+    await user.click(trigger)
+
+    const panel = await screen.findByRole('dialog', {name: 'Projects'})
+    expect(screen.getByTestId('portal-target')).toContainElement(panel)
+    expect(scrollContainer).not.toContainElement(panel)
+    expect(scrollContainer.scrollTop).toBe(120)
+    await waitFor(() => expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus())
+
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(screen.queryByRole('dialog', {name: 'Projects'})).not.toBeInTheDocument())
+    expect(trigger).toHaveFocus()
+    expect(scrollContainer.scrollTop).toBe(120)
+  })
+
+  it.each(['anchored', 'modal'] as const)('waits for an explicit portal container in %s mode', async variant => {
+    const variantProps =
+      variant === 'modal' ? ({variant: 'modal', onCancel: () => {}} as const) : ({variant: 'anchored'} as const)
+    const panelProps = {
+      defaultOpen: true,
+      disableFullscreenOnNarrow: true,
+      items,
+      onSelectedChange: () => {},
+      selected: undefined,
+      title: 'Choose a project',
+      ...variantProps,
+    } satisfies SelectPanelProps
+    const {rerender} = render(
+      <>
+        <div data-testid="portal-target" />
+        <SelectPanel {...panelProps} overlayProps={{container: null}} />
+      </>,
+    )
+    expect(screen.queryByRole('dialog', {name: 'Choose a project'})).not.toBeInTheDocument()
+
+    const portalTarget = screen.getByTestId('portal-target')
+    rerender(
+      <>
+        <div data-testid="portal-target" />
+        <SelectPanel {...panelProps} overlayProps={{container: portalTarget}} />
+      </>,
+    )
+    expect(portalTarget).toContainElement(await screen.findByRole('dialog', {name: 'Choose a project'}))
+  })
+
+  it('supports a ref object as its portal container', async () => {
+    const portalRef = React.createRef<HTMLDivElement>()
+    render(
+      <>
+        <div data-testid="portal-target" ref={portalRef} />
+        <SelectPanel
+          defaultOpen
+          disableFullscreenOnNarrow
+          items={items}
+          onSelectedChange={() => {}}
+          overlayProps={{container: portalRef}}
+          selected={undefined}
+          title="Projects"
+        />
+      </>,
+    )
+    expect(screen.getByTestId('portal-target')).toContainElement(await screen.findByRole('dialog', {name: 'Projects'}))
+  })
+
+  it.each([
+    {name: 'the default flag', flag: undefined, narrow: true, disabled: false, fullscreen: false},
+    {name: 'the flag disabled', flag: false, narrow: true, disabled: false, fullscreen: false},
+    {name: 'the flag enabled', flag: true, narrow: true, disabled: false, fullscreen: true},
+    {name: 'the flag enabled with the opt-out', flag: true, narrow: true, disabled: true, fullscreen: false},
+    {name: 'a wider viewport', flag: true, narrow: false, disabled: false, fullscreen: false},
+  ])('uses the correct narrow presentation with $name', async ({flag, narrow, disabled, fullscreen}) => {
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn((query: string) => ({
+        matches: narrow && query === '(max-width: 767px)',
+        media: query,
+        onchange: null,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    )
+    const user = userEvent.setup()
+    const panel = (
+      <SelectPanel
+        disableFullscreenOnNarrow={disabled}
+        items={items}
+        onSelectedChange={() => {}}
+        selected={undefined}
+        title="Projects"
+      />
+    )
+    render(
+      flag === undefined ? (
+        panel
+      ) : (
+        <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: flag}}>{panel}</FeatureFlags>
+      ),
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Projects'}))
+    const dialog = await screen.findByRole('dialog', {name: 'Projects'})
+    expect(dialog).toHaveAttribute('data-component', fullscreen ? 'Dialog.Popup' : 'Popover.Popup')
+
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(screen.queryByRole('dialog', {name: 'Projects'})).not.toBeInTheDocument())
   })
 
   it('uses modal cancellation, deferred single selection, focus management, and scroll locking', async () => {
@@ -537,6 +1224,46 @@ describe('SelectPanel', () => {
     expect(screen.queryByRole('option', {name: 'Mona'})).not.toBeInTheDocument()
   })
 
+  it('lets a configured message opt out of live announcements without hiding its content', async () => {
+    const user = userEvent.setup()
+
+    render(
+      <SelectPanel
+        items={[]}
+        message={{body: 'Try another filter.', role: 'none', title: 'No matching issues'}}
+        onSelectedChange={() => {}}
+        selected={undefined}
+        title="Issues"
+      />,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Issues'}))
+    const title = screen.getByText('No matching issues')
+    expect(title).toBeVisible()
+    expect(title.closest('[data-component="SelectPanel.Message"]')).toHaveAttribute('role', 'none')
+    expect(screen.getByText('Try another filter.')).toBeVisible()
+    expect(screen.queryByRole('status')).not.toBeInTheDocument()
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+
+  it('supports announcement roles on the SelectPanel.Message helper', () => {
+    const {rerender} = render(<SelectPanel.Message title="No matches" />)
+    expect(screen.getByRole('status')).toHaveTextContent('No matches')
+
+    rerender(
+      <SelectPanel.Message
+        action={<button type="button">Create issue</button>}
+        role="none"
+        title="No matches"
+        variant="error"
+      />,
+    )
+    expect(screen.getByText('No matches')).toBeVisible()
+    expect(screen.getByRole('button', {name: 'Create issue'})).toBeVisible()
+    expect(screen.queryByRole('status')).not.toBeInTheDocument()
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+
   it('prefers actionListProps aria-label over the generated list label', async () => {
     const user = userEvent.setup()
 
@@ -697,6 +1424,188 @@ describe('SelectPanel', () => {
     expect(option.querySelector('[data-component="ActionList.Item.Label"]')).toHaveTextContent(/^Mona$/)
   })
 
+  it('exposes item descriptions separately from their accessible names', () => {
+    render(
+      <>
+        <span id="additional-description">Additional context</span>
+        <span id="external-name">External name</span>
+        <SelectPanel
+          items={[
+            {id: 'default', text: 'Default item', description: 'Default description'},
+            {
+              id: 'named',
+              text: 'Visible item',
+              description: 'Item description',
+              trailingVisual: 'Ignored by explicit name',
+              'aria-label': 'Custom item name',
+              'aria-describedby': 'additional-description',
+            },
+            {
+              id: 'labelled',
+              text: 'Visible label',
+              description: 'Labelled description',
+              trailingVisual: 'Ignored by explicit label',
+              'aria-labelledby': 'external-name',
+            },
+            {
+              id: 'rich',
+              text: (
+                <>
+                  Rich <strong>item</strong>
+                </>
+              ),
+              description: 'Rich description',
+              leadingVisual: <span>Leading decoration</span>,
+              trailingVisual: (
+                <>
+                  Public<span aria-hidden="true">Hidden decoration</span>
+                </>
+              ),
+            },
+            {id: 'inactive', text: 'Inactive item', inactiveText: 'Unavailable'},
+            {id: 'visual', text: 'Visual item', leadingVisual: <span>Important</span>},
+            {id: 'rendered', text: 'Rendered item'},
+            {id: 'hidden-visual', text: 'Hidden visual item'},
+            {id: 'raw', text: 'Raw item', inactiveText: 'Not available'},
+            {
+              id: 'raw-labelled',
+              text: 'Raw labelled item',
+              'aria-labelledby': 'raw-name',
+              'aria-describedby': 'additional-description',
+            },
+          ]}
+          onSelectedChange={() => {}}
+          open
+          renderItem={item => {
+            if (item.id === 'rendered') {
+              return (
+                <ActionList.Item>
+                  {item.text}
+                  <ActionList.Description id="first-description">First detail</ActionList.Description>
+                  <ActionList.Description variant="block">Second detail</ActionList.Description>
+                  <ActionList.Description aria-hidden>Hidden detail</ActionList.Description>
+                  <ActionList.TrailingVisual id="custom-trailing">Premium</ActionList.TrailingVisual>
+                </ActionList.Item>
+              )
+            }
+            if (item.id === 'hidden-visual') {
+              return (
+                <ActionList.Item>
+                  {item.text}
+                  <ActionList.Description>Visible detail</ActionList.Description>
+                  <ActionList.TrailingVisual aria-hidden>Hidden visual</ActionList.TrailingVisual>
+                </ActionList.Item>
+              )
+            }
+            if (item.id === 'raw') return <span>Raw custom content</span>
+            if (item.id === 'raw-labelled') return <span id="raw-name">Raw custom label</span>
+            return null
+          }}
+          selected={undefined}
+          title="Items"
+        />
+      </>,
+    )
+
+    expect(screen.getByRole('option', {name: 'Default item'})).toHaveAccessibleDescription('Default description')
+    expect(screen.getByRole('option', {name: 'Custom item name'})).toHaveAccessibleDescription(
+      'Additional context Item description',
+    )
+    expect(screen.getByRole('option', {name: 'External name'})).toHaveAccessibleDescription('Labelled description')
+    expect(screen.getByRole('option', {name: 'Rich item Public'})).toHaveAccessibleDescription('Rich description')
+    expect(screen.getByRole('option', {name: 'Inactive item'})).toHaveAccessibleDescription('Unavailable')
+    expect(screen.getAllByText('Unavailable')).toHaveLength(1)
+    expect(screen.getByRole('option', {name: 'Visual item'})).toBeInTheDocument()
+    const rendered = screen.getByRole('option', {name: 'Rendered item Premium'})
+    expect(rendered).toHaveAttribute('aria-labelledby', expect.stringContaining('custom-trailing'))
+    expect(rendered).toHaveAccessibleDescription('First detail Second detail')
+    expect(screen.getByRole('option', {name: 'Hidden visual item'})).toHaveAccessibleDescription('Visible detail')
+    expect(screen.getByRole('option', {name: 'Raw custom content'})).toHaveAccessibleDescription('Not available')
+    expect(screen.getByRole('option', {name: 'Raw custom label'})).toHaveAccessibleDescription('Additional context')
+  })
+
+  it('activates the highlighted option after grouped items are prepended', async () => {
+    const user = userEvent.setup()
+    const onSelectedChange = vi.fn()
+    const onAction = vi.fn(
+      (_item: SelectPanelItem, event: React.SyntheticEvent<HTMLDivElement>, _details: SelectPanelActionDetails) =>
+        event.preventDefault(),
+    )
+    const onInputKeyDown = vi.fn()
+    const first = {id: 'first', text: 'Existing label', groupId: 'labels'}
+    const second = {id: 'second', text: 'Other label', groupId: 'labels'}
+    const disabled = {id: 'disabled', text: 'Unavailable label', disabled: true, groupId: 'actions'}
+    const create = {id: 'create', text: 'Create label', groupId: 'actions', onAction}
+    const props = {
+      filterValue: 'new',
+      focusPrependedElements: true,
+      groupMetadata: [{groupId: 'actions'}, {groupId: 'labels'}],
+      onSelectedChange,
+      open: true,
+      selected: [],
+      textInputProps: {onKeyDown: onInputKeyDown},
+      title: 'Labels',
+    } satisfies Omit<SelectPanelProps, 'items'>
+    const {rerender} = render(<SelectPanel {...props} items={[first, second]} />)
+
+    const input = screen.getByRole('combobox', {name: 'Filter items'})
+    const firstOption = screen.getByRole('option', {name: 'Existing label'})
+    await waitFor(() => expect(input).toHaveFocus())
+    await user.keyboard('{ArrowDown}')
+    await waitFor(() => expect(input).toHaveAttribute('aria-activedescendant', firstOption.id))
+    await user.keyboard('{ArrowDown}')
+    expect(input).toHaveAttribute('aria-activedescendant', screen.getByRole('option', {name: 'Other label'}).id)
+
+    rerender(<SelectPanel {...props} items={[disabled, create, first, second]} />)
+
+    const createOption = screen.getByRole('option', {name: 'Create label'})
+    await waitFor(() => expect(input).toHaveAttribute('aria-activedescendant', createOption.id))
+    expect(createOption).toHaveAttribute('data-highlighted')
+    expect(input).toHaveFocus()
+    expect(input).toHaveValue('new')
+    expect(input).toHaveAttribute('aria-controls', screen.getByRole('listbox').id)
+
+    await user.keyboard('{Enter}')
+    expect(onAction).toHaveBeenCalledOnce()
+    expect(onAction.mock.calls[0][0]).toBe(create)
+    expect(onAction.mock.calls[0][1]).toHaveProperty('type', 'click')
+    expect(onAction.mock.calls[0][2].sourceEvent).toBeInstanceOf(KeyboardEvent)
+    expect(onAction.mock.calls[0][2].sourceEvent).toHaveProperty('key', 'Enter')
+    expect(onInputKeyDown).toHaveBeenCalled()
+    expect(onSelectedChange).not.toHaveBeenCalled()
+
+    await user.keyboard('{ArrowDown}{Enter}')
+    expect(onSelectedChange).toHaveBeenCalledOnce()
+    expect(onSelectedChange.mock.calls[0][0]).toEqual([first])
+    expect(onSelectedChange.mock.calls[0][0][0]).toBe(first)
+    expect(onAction.mock.invocationCallOrder[0]).toBeLessThan(onSelectedChange.mock.invocationCallOrder[0])
+  })
+
+  it('exposes a click as the source event when an option is clicked', async () => {
+    const user = userEvent.setup()
+    const onAction = vi.fn(
+      (_item: SelectPanelItem, event: React.SyntheticEvent<HTMLDivElement>, _details: SelectPanelActionDetails) =>
+        event.preventDefault(),
+    )
+    render(
+      <SelectPanel
+        items={[{id: 'action', text: 'Action', onAction}]}
+        onSelectedChange={() => {}}
+        open
+        selected={undefined}
+        title="Actions"
+      />,
+    )
+
+    await user.click(screen.getByRole('option', {name: 'Action'}))
+
+    expect(onAction).toHaveBeenCalledOnce()
+    expect(onAction.mock.calls[0][2].sourceEvent).toBeInstanceOf(MouseEvent)
+    expect(onAction.mock.calls[0][2].sourceEvent).toHaveProperty('type', 'click')
+  })
+
+  it.todo('highlights the first enabled option when items are prepended without changing the filter')
+
   it('keeps scrolling locked until every open modal SelectPanel closes', () => {
     const modalProps = {
       items,
@@ -776,11 +1685,19 @@ describe('SelectPanel', () => {
   })
 
   it('references the option list from the filter input only while the list is rendered', () => {
-    const panelProps = {onOpenChange: () => {}, onSelectedChange: () => {}, open: true, selected: undefined, title: 'T'}
+    const panelProps = {
+      onOpenChange: () => {},
+      onSelectedChange: () => {},
+      open: true,
+      selected: undefined,
+      textInputProps: {'aria-expanded': undefined},
+      title: 'T',
+    }
     const {rerender} = render(<SelectPanel {...panelProps} items={items} />)
 
     const listId = screen.getByRole('combobox').getAttribute('aria-controls')
     expect(listId).toBeTruthy()
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true')
     expect(document.getElementById(listId!)).toBe(screen.getByRole('listbox'))
 
     rerender(
@@ -791,8 +1708,10 @@ describe('SelectPanel', () => {
       />,
     )
     expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-controls')
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'false')
 
     rerender(<SelectPanel {...panelProps} items={items} loading />)
     expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-controls')
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'false')
   })
 })

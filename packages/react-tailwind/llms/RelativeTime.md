@@ -31,3 +31,7 @@ Renders a [`<time>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/t
 ## Differences from `@primer/react`
 
 - `date` and `datetime` are normalized onto the `time` element's machine-readable `datetime` value.
+- All formats, date-part controls, title handling, tense, precision, prefix, threshold, and time-zone props are formatted locally without a custom-element dependency.
+- The initial server-rendered value is an absolute localized date; the client enhances it to relative output after hydration to avoid time-dependent hydration mismatches.
+- Parent `lang`, `time-zone`, `hour-cycle`, and `data-prefers-absolute-time` DOM context are not read; use the component props and the runtime Intl defaults instead.
+- Use `className` instead of `sx` or styled-system props.

@@ -35,9 +35,13 @@ Use `checked` with `onCheckedChange` when application state owns the value; use 
 
 Give the checkbox an accessible name with a `<label>` or `aria-label`. `name` and `value` participate in native form submission when checked. Use `FormControl` to associate captions or validation messages; disabled controls cannot be changed.
 
+The forwarded `ref` targets the focusable checkbox; `inputRef` targets Base UI's separate, accessibility-hidden form input. Custom focus traversal must skip `aria-hidden` elements.
+
 ## Keyboard, events, and state
 
 Space toggles a focused checkbox. `onCheckedChange` receives the next checked state and Base UI event details. The root exposes `data-component="Checkbox"` and Base UI state attributes including `data-checked`, `data-indeterminate`, and `data-disabled`; `className` may be a string or state callback.
+
+`onCheckedChange` receives a native event in its details rather than a React change event. When an ancestor's React `onChange` must not receive the checkbox change, intercept that event on a wrapper around the checkbox and call `stopPropagation()` there.
 
 <Canvas of={Features.Indeterminate} />
 

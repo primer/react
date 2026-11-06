@@ -92,3 +92,6 @@ Forwards unrecognized props to Base UI's [`Autocomplete.Status`](https://base-ui
 ## Differences from `@primer/react`
 
 - Move legacy token, dialog, and TextInput integrations to composition with their local components.
+- Use the documented value/default-value callback contract rather than legacy overlay state props.
+- Set `portal={false}` on `Content` to render the list in place rather than at the end of the document; it still composes its positioner.
+- `sx` and styled-system props are unsupported.

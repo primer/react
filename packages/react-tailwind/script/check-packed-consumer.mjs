@@ -3,11 +3,13 @@ import path from 'node:path'
 import process from 'node:process'
 import {createRequire} from 'node:module'
 import {spawn} from 'node:child_process'
+import {transform} from 'lightningcss'
 
 const packageRoot = path.resolve(import.meta.dirname, '..')
 const distDirectory = path.join(packageRoot, 'dist')
 const requiredStyles = ['styles.css', 'theme.css', 'tailwind.css', 'base.css', 'components.css']
 const reactVersions = ['19.2.0']
+const tailwindVersions = ['4.2.2', '4.3.3']
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm'
 
 function run(command, args, {cwd, env, label}) {
@@ -110,12 +112,22 @@ async function validateAgentDocs(consumerDirectory) {
       throw new Error(`Packed export ${file} is empty.`)
     }
   }
+
+  const packageDirectory = path.dirname(resolveFromConsumer.resolve('@primer/react-tailwind/package.json'))
+  const guidance = await readFile(path.join(packageDirectory, 'llms.txt'), 'utf8')
+  const buttonGuidance = await readFile(path.join(packageDirectory, 'llms/Button.md'), 'utf8')
+  if (!guidance.includes('does not generate arbitrary app-owned Tailwind classes')) {
+    throw new Error('Packed agent guidance does not explain the compiled CSS boundary.')
+  }
+  if (!buttonGuidance.includes('Use `submit` to submit a form.')) {
+    throw new Error('Packed Button guidance does not explain explicit form submission.')
+  }
 }
 
-async function findTailwindCli() {
+async function findTailwindCli(consumerDirectory) {
   const binaryName = process.platform === 'win32' ? 'tailwindcss.cmd' : 'tailwindcss'
 
-  for (let directory = packageRoot; ; directory = path.dirname(directory)) {
+  for (let directory = consumerDirectory; ; directory = path.dirname(directory)) {
     const candidate = path.join(directory, 'node_modules', '.bin', binaryName)
     try {
       await access(candidate)
@@ -129,9 +141,9 @@ async function findTailwindCli() {
 }
 
 async function compileTailwindConsumer(consumerDirectory, name, source) {
-  const inputPath = path.join(consumerDirectory, `${name}.css`)
+  const inputPath = path.join(consumerDirectory, 'src', `${name}.css`)
   const outputPath = path.join(consumerDirectory, `${name}.output.css`)
-  const tailwindCli = await findTailwindCli()
+  const tailwindCli = await findTailwindCli(consumerDirectory)
 
   await writeFile(inputPath, source)
   await run(tailwindCli, ['--input', inputPath, '--output', outputPath], {
@@ -140,22 +152,56 @@ async function compileTailwindConsumer(consumerDirectory, name, source) {
   })
 
   const css = await readFile(outputPath, 'utf8')
+  try {
+    transform({filename: outputPath, code: Buffer.from(css)})
+  } catch (error) {
+    throw new Error(`Tailwind v4 ${name} mode emitted invalid CSS: ${getErrorMessage(error)}`, {cause: error})
+  }
+
   if (!css.includes('.rounded-md')) {
     throw new Error(`Tailwind v4 ${name} mode did not emit utilities discovered in the packed package dist.`)
+  }
+  for (const selector of ['.min-h-screen', '.max-w-\\[28rem\\]', '.gap-5', '.py-12']) {
+    if (!css.includes(selector)) {
+      throw new Error(`Tailwind v4 ${name} mode did not emit the app-owned utility ${selector}.`)
+    }
   }
   if (!css.includes('@keyframes primer-skeleton-shimmer') || !css.includes('data-token-kind')) {
     throw new Error(`Tailwind v4 ${name} mode did not emit the package component CSS contract.`)
   }
+  for (const fragment of [
+    "[data-component='Dialog.CloseButton']",
+    "[data-component='FormControl.Caption']",
+    "[data-component='SegmentedControl.Divider']",
+    "grid-template-areas: 'context context context context context'",
+    "grid-template-areas: 'badge body' '. actions'",
+  ]) {
+    if (!css.includes(fragment)) {
+      throw new Error(`Tailwind v4 ${name} mode did not emit the expected utility for ${fragment}.`)
+    }
+  }
 }
 
 async function validateTailwindConsumer(consumerDirectory) {
+  const sourceDirectory = path.join(consumerDirectory, 'src')
+  await mkdir(sourceDirectory, {recursive: true})
+  await writeFile(
+    path.join(sourceDirectory, 'App.jsx'),
+    // Static source fixture for Tailwind's scanner, not rendered as HTML.
+    // eslint-disable-next-line github/unescaped-html-literal
+    '<main className="min-h-screen max-w-[28rem] gap-5 py-12">Consumer layout</main>\n',
+  )
   await compileTailwindConsumer(
     consumerDirectory,
     'explicit',
-    `@import 'tailwindcss';
+    `@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import '@primer/react-tailwind/theme.css';
 @import '@primer/tailwind-config';
 @import '@primer/react-tailwind/components.css';
-@source './node_modules/@primer/react-tailwind/dist';
+@source '../node_modules/@primer/react-tailwind/dist';
+@source './';
 `,
   )
   await compileTailwindConsumer(
@@ -163,17 +209,18 @@ async function validateTailwindConsumer(consumerDirectory) {
     'convenience',
     `@import 'tailwindcss';
 @import '@primer/react-tailwind/tailwind.css';
+@source './';
 `,
   )
 }
 
-async function validateConsumer(temporaryRoot, tarball, reactVersion) {
-  const consumerDirectory = path.join(temporaryRoot, `react-${reactVersion}`)
+async function validateConsumer(temporaryRoot, tarball, reactVersion, tailwindVersion) {
+  const consumerDirectory = path.join(temporaryRoot, `react-${reactVersion}-tailwind-${tailwindVersion}`)
   await mkdir(consumerDirectory, {recursive: true})
   await writeFile(
     path.join(consumerDirectory, 'package.json'),
     JSON.stringify({
-      name: `packed-consumer-react-${reactVersion}`,
+      name: `packed-consumer-react-${reactVersion}-tailwind-${tailwindVersion}`,
       private: true,
       type: 'module',
     }),
@@ -188,9 +235,11 @@ async function validateConsumer(temporaryRoot, tarball, reactVersion) {
       '--no-fund',
       `react@${reactVersion}`,
       `react-dom@${reactVersion}`,
+      `tailwindcss@${tailwindVersion}`,
+      `@tailwindcss/cli@${tailwindVersion}`,
       tarball,
     ],
-    {cwd: consumerDirectory, label: `React ${reactVersion} consumer install`},
+    {cwd: consumerDirectory, label: `React ${reactVersion}, Tailwind ${tailwindVersion} consumer install`},
   )
   await copyFile(
     path.join(packageRoot, 'script/packed-consumer-entry.mjs'),
@@ -217,10 +266,19 @@ async function main() {
     const tarball = await packArtifact(temporaryRoot)
 
     for (const reactVersion of reactVersions) {
-      try {
-        await validateConsumer(temporaryRoot, tarball, reactVersion)
-      } catch (error) {
-        failures.push(new Error(`React ${reactVersion} validation failed: ${getErrorMessage(error)}`, {cause: error}))
+      for (const tailwindVersion of tailwindVersions) {
+        try {
+          await validateConsumer(temporaryRoot, tarball, reactVersion, tailwindVersion)
+        } catch (error) {
+          failures.push(
+            new Error(
+              `React ${reactVersion}, Tailwind ${tailwindVersion} validation failed: ${getErrorMessage(error)}`,
+              {
+                cause: error,
+              },
+            ),
+          )
+        }
       }
     }
   } finally {
@@ -234,7 +292,7 @@ async function main() {
   }
 
   process.stdout.write(
-    `Packed consumer validation passed (React ${reactVersions.join(', ')}; root and component subpaths; production and development SSR; styles; agent docs; Tailwind v4).\n`,
+    `Packed consumer validation passed (React ${reactVersions.join(', ')}; root and component subpaths; production and development SSR; styles; agent docs; Tailwind ${tailwindVersions.join(', ')}).\n`,
   )
 }
 

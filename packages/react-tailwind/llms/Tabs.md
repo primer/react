@@ -25,3 +25,7 @@ Forwards unrecognized props to Base UI's [`Tabs.Panel`](https://base-ui.com/reac
 ## Differences from `@primer/react`
 
 - Use `value`, `defaultValue`, and `onValueChange` for selection state.
+- **Parity — activation mode:** `activationMode` keeps the upstream `'automatic' | 'manual'` values. Manual mode moves the roving tab stop with Arrow, Home, and End keys and commits selection on Enter, Space, or click. An explicit `TabList` `activateOnFocus` prop takes precedence over the root mode.
+- Keep `TabList` and `Tab` composition; reproduce custom presentations with static classes or Base UI `render` composition.
+- Query and style the active tab panel; inactive-panel rendering follows Base UI behavior.
+- Use `render` for element composition and `className`, not `sx`.

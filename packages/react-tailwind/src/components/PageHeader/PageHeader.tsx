@@ -30,7 +30,7 @@ const Root = React.forwardRef<HTMLElement, PageHeaderProps>(function PageHeader(
       {...rest}
       ref={ref}
       className={cn(
-        'grid grid-cols-[auto_auto_auto_auto_1fr] grid-rows-[auto_auto_auto_auto] text-title-medium font-semibold [grid-template-areas:"context_context_context_context_context"_"leading_breadcrumbs_title_trailing_actions"_"description_description_description_description_description"_"navigation_navigation_navigation_navigation_navigation"]',
+        "grid grid-cols-[auto_auto_auto_auto_1fr] grid-rows-[auto_auto_auto_auto] text-title-medium font-semibold [grid-template-areas:'context_context_context_context_context'_'leading_breadcrumbs_title_trailing_actions'_'description_description_description_description_description'_'navigation_navigation_navigation_navigation_navigation']",
         hasBorder && 'border-b border-default pb-2',
         className,
       )}

@@ -26,9 +26,16 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
 - `tooltipDirection`: `TooltipDirection` — Default `'s'`. Side and alignment of the tooltip relative to the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 - `unsafeDisableTooltip`: `boolean` — Default `false`. Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip.
 - `variant`: `"danger" | "default" | "invisible" | "link" | "primary"` — Default `'default'`. Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one.
 
 ## Differences from `@primer/react`
 
 - Supply an accessible name with `aria-label`; it is always kept on the button, so the label tooltip is visual only.
+- The default tooltip is skipped when `unsafeDisableTooltip` is set, when `aria-label` is empty, or inside an external Tooltip, and stays closed while disabled or while an attached popup is expanded.
+- Compose `ActionMenu.Trigger render={<IconButton … />}` to use it as a menu anchor.
+- `notificationIndicator` accepts `button` or `icon`; the dot is visual only, so include the activity in `aria-label` or a description.
+- Pass a rendered element such as `icon={<HeartIcon />}` when the icon comes from a Server Component.
+- Use `className`, not `sx` or styled-system props.
+- When `aria-labelledby` is passed, the redundant `aria-label` is dropped from the button; `aria-label` still provides the default tooltip text.

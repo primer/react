@@ -9,6 +9,7 @@ import {OverflowObserverProvider} from '../../internal/OverflowObserverProvider'
 import {
   type OverflowItem,
   type RegisterOverflowItem,
+  OverflowAnchorContext,
   useIsClipped,
   useOverflowRegistry,
   useRegisterOverflowItem,
@@ -87,6 +88,7 @@ type OverflowEntries = Array<[string, OverflowItem<OverflowEntry>]>
 
 const ActionBarContext = React.createContext<ControlSize>('medium')
 const ActionBarRegistryContext = React.createContext<RegisterOverflowItem<OverflowEntry> | null>(null)
+const ActionBarFocusContext = React.createContext<((element: Element) => void) | null>(null)
 /** Whether the enclosing `ActionBar.Group` overflows; `null` outside a group. */
 const ActionBarGroupContext = React.createContext<boolean | null>(null)
 
@@ -102,6 +104,17 @@ function trimDividers(items: OverflowEntries) {
   return result
 }
 
+function useActionBarClipping(element: Element | null, disabled: boolean) {
+  const onItemClipped = React.useContext(ActionBarFocusContext)
+  const onChange = React.useCallback(
+    (clipped: boolean) => {
+      if (clipped && element) onItemClipped?.(element)
+    },
+    [element, onItemClipped],
+  )
+  return useIsClipped(element, disabled, onChange)
+}
+
 /**
  * Tracks whether an item is clipped out of the bar and, while it is, registers it with the "More items" menu. Items in
  * a group follow the group, which overflows as a whole.
@@ -109,7 +122,7 @@ function trimDividers(items: OverflowEntries) {
 function useActionBarItem(element: Element | null, entry: OverflowEntry) {
   const register = React.useContext(ActionBarRegistryContext)
   const isGroupOverflowing = React.useContext(ActionBarGroupContext)
-  const isClipped = useIsClipped(element, isGroupOverflowing !== null)
+  const isClipped = useActionBarClipping(element, isGroupOverflowing !== null)
   const isOverflowing = isGroupOverflowing === true || isClipped
   useRegisterOverflowItem(register, element, isOverflowing ? entry : null)
   return isOverflowing
@@ -183,6 +196,8 @@ interface MenuTriggerProps extends Omit<IconButtonProps, 'data-component' | 'var
 /** An icon button that is both a toolbar item and an ActionMenu trigger. */
 const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(function ActionBarMenuTrigger(
   {
+    'aria-disabled': ariaDisabled,
+    'aria-hidden': ariaHidden,
     'aria-label': ariaLabel,
     'data-component': dataComponent,
     disabled,
@@ -201,6 +216,8 @@ const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(functi
       ref={ref}
       // Passed down the render chain so the menu and tooltip triggers track the element they render.
       id={id}
+      aria-disabled={disabled || isOverflowing ? true : ariaDisabled}
+      aria-hidden={isOverflowing ? true : ariaHidden}
       aria-label={ariaLabel}
       data-component={dataComponent}
       data-overflowing={isOverflowing || undefined}
@@ -224,6 +241,33 @@ const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(functi
   )
 })
 
+function OverflowMenu({
+  entries,
+  onUnmount,
+  popupRef,
+  triggerRef,
+}: {
+  entries: OverflowEntries
+  onUnmount: () => void
+  popupRef: React.RefObject<HTMLDivElement | null>
+  triggerRef: React.RefObject<HTMLButtonElement | null>
+}) {
+  React.useLayoutEffect(() => onUnmount, [onUnmount])
+  return (
+    <ActionMenu>
+      <MenuTrigger
+        ref={triggerRef}
+        aria-label="More items"
+        data-component="ActionBar.MoreButton"
+        icon={KebabHorizontalIcon}
+      />
+      <ActionMenu.Content ref={popupRef} sideOffset={4}>
+        {entries.map(renderOverflowEntry)}
+      </ActionMenu.Content>
+    </ActionMenu>
+  )
+}
+
 const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar(
   {
     'aria-label': ariaLabel,
@@ -242,6 +286,58 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
   const [overflowItems, register] = useOverflowRegistry<OverflowEntry>()
   const overflowEntries = trimDividers(overflowItems)
   const hasOverflow = overflowEntries.length > 0
+
+  const moreTriggerRef = React.useRef<HTMLButtonElement | null>(null)
+  const morePopupRef = React.useRef<HTMLDivElement | null>(null)
+  const pendingFocusRef = React.useRef<HTMLElement | null>(null)
+  const previousFocusRef = React.useRef<HTMLElement | null>(null)
+  const handleItemClipped = React.useCallback((element: Element) => {
+    const activeElement = element.ownerDocument.activeElement
+    if (!(activeElement instanceof HTMLElement) || !element.contains(activeElement)) return
+    previousFocusRef.current = activeElement
+    if (moreTriggerRef.current) moreTriggerRef.current.focus()
+    else pendingFocusRef.current = activeElement
+  }, [])
+
+  React.useLayoutEffect(() => {
+    const previousFocus = pendingFocusRef.current
+    if (!hasOverflow || !previousFocus || !moreTriggerRef.current) return
+    const activeElement = previousFocus.ownerDocument.activeElement
+    if (activeElement === previousFocus || activeElement === previousFocus.ownerDocument.body) {
+      moreTriggerRef.current.focus()
+    }
+    pendingFocusRef.current = null
+  }, [hasOverflow])
+
+  const handleOverflowUnmount = React.useCallback(() => {
+    const trigger = moreTriggerRef.current
+    const popup = morePopupRef.current
+    const activeElement = toolbar?.ownerDocument.activeElement
+    const hadOverflowFocus = activeElement === trigger || (activeElement && popup?.contains(activeElement))
+    if (!hadOverflowFocus || !toolbar || !trigger) return
+
+    queueMicrotask(() => {
+      if (trigger.isConnected) return
+      const currentFocus = toolbar.ownerDocument.activeElement
+      if (currentFocus !== toolbar.ownerDocument.body && currentFocus !== trigger && !popup?.contains(currentFocus)) {
+        return
+      }
+
+      const previousFocus = previousFocusRef.current
+      previousFocusRef.current = null
+      pendingFocusRef.current = null
+      const canFocus = (element: HTMLElement) =>
+        element.isConnected &&
+        toolbar.contains(element) &&
+        !element.matches(':disabled,[data-overflowing]') &&
+        !element.closest('[aria-hidden="true"]')
+      const fallback = Array.from(toolbar.querySelectorAll<HTMLElement>('[data-focusable]:not([data-disabled])')).find(
+        element => element !== trigger && canFocus(element),
+      )
+      const target = previousFocus && canFocus(previousFocus) ? previousFocus : fallback
+      target?.focus()
+    })
+  }, [toolbar])
 
   const handleKeyDown: NonNullable<ActionBarProps['onKeyDown']> = event => {
     onKeyDown?.(event)
@@ -282,14 +378,24 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
             {/* An empty first item lets even the first real item wrap onto the clipped second line. */}
             <div aria-hidden="true" className="h-8 group-data-[size=small]:h-7 group-data-[size=large]:h-10" />
             <OverflowObserverProvider root={toolbar}>
-              <ActionBarRegistryContext.Provider value={register}>{children}</ActionBarRegistryContext.Provider>
+              <ActionBarRegistryContext.Provider value={register}>
+                <ActionBarFocusContext.Provider value={handleItemClipped}>
+                  <OverflowAnchorContext.Provider
+                    value={{items: overflowItems.map(([, item]) => item.element), triggerRef: moreTriggerRef}}
+                  >
+                    {children}
+                  </OverflowAnchorContext.Provider>
+                </ActionBarFocusContext.Provider>
+              </ActionBarRegistryContext.Provider>
             </OverflowObserverProvider>
           </div>
           {hasOverflow ? (
-            <ActionMenu>
-              <MenuTrigger aria-label="More items" data-component="ActionBar.MoreButton" icon={KebabHorizontalIcon} />
-              <ActionMenu.Content sideOffset={4}>{overflowEntries.map(renderOverflowEntry)}</ActionMenu.Content>
-            </ActionMenu>
+            <OverflowMenu
+              entries={overflowEntries}
+              onUnmount={handleOverflowUnmount}
+              popupRef={morePopupRef}
+              triggerRef={moreTriggerRef}
+            />
           ) : null}
         </Toolbar.Root>
       </div>
@@ -322,11 +428,19 @@ const Button = React.forwardRef<HTMLButtonElement, ActionBarButtonProps>(functio
     <Toolbar.Button
       {...props}
       ref={mergeRefs(ref, setElement)}
+      aria-disabled={disabled || isOverflowing ? true : props['aria-disabled']}
+      aria-hidden={isOverflowing ? true : props['aria-hidden']}
       disabled={disabled || isOverflowing}
       focusableWhenDisabled={!isOverflowing}
       onClick={onClick}
       render={
-        <SharedButton data-component="ActionBar.Button" leadingVisual={leadingVisual} size={size} variant="invisible" />
+        <SharedButton
+          data-component="ActionBar.Button"
+          focusableWhenDisabled={!isOverflowing}
+          leadingVisual={leadingVisual}
+          size={size}
+          variant="invisible"
+        />
       }
       data-component="ActionBar.Button"
       data-overflowing={isOverflowing || undefined}
@@ -359,6 +473,8 @@ const IconButton = React.forwardRef<HTMLButtonElement, ActionBarIconButtonProps>
     <Toolbar.Button
       {...props}
       ref={mergeRefs(ref, setElement)}
+      aria-disabled={disabled || isOverflowing ? true : props['aria-disabled']}
+      aria-hidden={isOverflowing ? true : props['aria-hidden']}
       aria-label={ariaLabel}
       disabled={disabled || isOverflowing}
       focusableWhenDisabled={!isOverflowing}
@@ -367,6 +483,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, ActionBarIconButtonProps>
         <SharedIconButton
           aria-label={ariaLabel}
           data-component="ActionBar.IconButton"
+          focusableWhenDisabled={!isOverflowing}
           icon={icon}
           size={size}
           variant="invisible"
@@ -386,13 +503,14 @@ const Group = React.forwardRef<HTMLDivElement, ActionBarGroupProps>(function Act
 ) {
   const [element, setElement] = React.useState<HTMLDivElement | null>(null)
   const isParentOverflowing = React.useContext(ActionBarGroupContext)
-  const isClipped = useIsClipped(element, isParentOverflowing !== null)
+  const isClipped = useActionBarClipping(element, isParentOverflowing !== null)
   const isOverflowing = isParentOverflowing === true || isClipped
   return (
     <ActionBarGroupContext.Provider value={isOverflowing}>
       <Toolbar.Group
         {...props}
         ref={mergeRefs(ref, setElement)}
+        aria-hidden={isOverflowing ? true : props['aria-hidden']}
         data-component="ActionBar.Group"
         data-overflowing={isOverflowing || undefined}
         className={cn('flex gap-[inherit]', className)}
@@ -412,6 +530,7 @@ const Divider = React.forwardRef<HTMLDivElement, ActionBarDividerProps>(function
     <Toolbar.Separator
       {...props}
       ref={mergeRefs(ref, setElement)}
+      aria-hidden={isOverflowing ? true : props['aria-hidden']}
       data-component="ActionBar.Divider"
       data-overflowing={isOverflowing || undefined}
       className={cn('h-5 w-px self-center bg-muted group-data-[gap=none]:mx-2', className)}
@@ -436,6 +555,7 @@ const Menu = React.forwardRef<HTMLButtonElement, ActionBarMenuProps>(function Ac
   ref,
 ) {
   const [element, setElement] = React.useState<HTMLButtonElement | null>(null)
+  const overflowAnchor = React.useContext(OverflowAnchorContext)
   const isOverflowing = useActionBarItem(element, {
     type: 'menu',
     label: ariaLabel,
@@ -453,7 +573,11 @@ const Menu = React.forwardRef<HTMLButtonElement, ActionBarMenuProps>(function Ac
         icon={icon}
         isOverflowing={isOverflowing}
       />
-      <ActionMenu.Content sideOffset={4} finalFocus={returnFocusRef}>
+      <ActionMenu.Content
+        anchor={isOverflowing ? overflowAnchor?.triggerRef : undefined}
+        finalFocus={returnFocusRef ?? (isOverflowing ? overflowAnchor?.triggerRef : undefined)}
+        sideOffset={4}
+      >
         {items.map(renderMenuItem)}
       </ActionMenu.Content>
     </ActionMenu>

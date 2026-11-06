@@ -26,7 +26,7 @@ function readIntent(source, name) {
 }
 
 function readMigrationNotes(source) {
-  const section = /^## Migration notes\n\n([\s\S]*?)(?=\n## |$)/m.exec(source)
+  const section = /^## Migration notes\n\n([\s\S]*?)(?=^## |(?![\s\S]))/m.exec(source)
   if (!section) return []
   return section[1]
     .split('\n')

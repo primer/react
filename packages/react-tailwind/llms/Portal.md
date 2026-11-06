@@ -14,3 +14,5 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Replace `containerName` with a DOM `container` or ref.
+- Add `[data-portal-root]` to a root when a shared default is desired.
+- Remove `sx` and styled-system props; move styling to the portaled content.

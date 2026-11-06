@@ -20,3 +20,7 @@ Forwards unrecognized props to Base UI's [`Switch.Root`](https://base-ui.com/rea
 ## Differences from `@primer/react`
 
 - Replace `onChange(checked)` with `onCheckedChange(checked, details)`.
+- `ref`, `className`, and rest props target the switch control, not the outer status-label wrapper.
+- `buttonType` is omitted; the switch submits through its hidden input and `name`/`value`.
+- Use a visible associated label or an accessible name.
+- `sx` and styled-system props are unsupported; use `className`.

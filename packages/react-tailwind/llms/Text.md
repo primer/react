@@ -16,3 +16,5 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Preserve core typography props and semantic `as` usage.
+- Keep the original whitespace values, including `pre-wrap` and `pre-line`.
+- Remove `sx`, styled-system props, and CSS-module selectors.

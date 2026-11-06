@@ -9,7 +9,7 @@ export const underlineRootClassName =
 export const underlineListClassName = 'relative m-0 flex min-w-max list-none items-center gap-2 p-0 whitespace-nowrap'
 
 export const underlineItemClassName =
-  'group/underline-item relative mb-2 inline-flex h-8 max-w-full shrink-0 items-center rounded-md border-0 bg-transparent px-2 py-1.5 text-center text-sm leading-[1.5] text-default no-underline after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:-mb-2 after:h-0.5 after:bg-transparent after:content-[""] hover:bg-neutral-muted hover:no-underline focus-visible:outline-2 focus-visible:outline-transparent focus-visible:shadow-[inset_0_0_0_2px_var(--fgColor-accent)] data-[active]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)] data-[current]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)]'
+  "group/underline-item relative mb-2 inline-flex h-8 max-w-full shrink-0 items-center rounded-md border-0 bg-transparent px-2 py-1.5 text-center text-sm leading-[1.5] text-default no-underline after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:-mb-2 after:h-0.5 after:bg-transparent after:content-[''] hover:bg-neutral-muted hover:no-underline focus-visible:outline-2 focus-visible:outline-transparent focus-visible:shadow-[inset_0_0_0_2px_var(--fgColor-accent)] data-[active]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)] data-[current]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)]"
 
 /** An item's counter, or a placeholder while counters load. */
 export function UnderlineCounter({counter, loading}: {counter: React.ReactNode; loading: boolean}) {

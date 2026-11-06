@@ -1,21 +1,21 @@
 'use client'
 
 import {Combobox} from '@base-ui/react/combobox'
+import {Field} from '@base-ui/react/field'
+import {mergeProps} from '@base-ui/react/merge-props'
 import {AlertIcon, SearchIcon, StopIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React from 'react'
 import {CloseIconButton} from '../../internal/CloseIconButton'
 import {cn} from '../../internal/cn'
 import {areItemsEqual, getItemRenderKey, getItemText, renderItemVisual} from '../../internal/collectionItem'
 import {FloatingPortal} from '../../internal/FloatingPortal'
+import {markFormControlInput} from '../../internal/formControlParts'
+import {joinIdRefs} from '../../internal/idRefs'
+import {OverflowAnchorContext} from '../../internal/overflow'
 import {overlayHeightClassNames, overlayMaxHeightClassNames, overlayWidthClassNames} from '../../internal/overlaySize'
 import {assignRef} from '../../internal/refs'
 import type {CSSPropertiesWithCustomProperties, OverlayHeight, OverlayMaxHeight, OverlayWidth} from '../../utils/types'
-import {
-  ActionList,
-  ActionItemContent,
-  ActionItemElementContent,
-  type ActionListItemProps,
-} from '../ActionList/ActionList'
+import {ActionList, ActionItemContent, type ActionListItemProps} from '../ActionList/ActionList'
 import {
   actionItemPartClassName,
   getActionItemStateAttributes,
@@ -25,8 +25,13 @@ import {Banner} from '../Banner'
 import {Button, type ButtonProps} from '../Button'
 import {LinkButton, type LinkButtonProps} from '../LinkButton'
 import {Dialog} from '../Dialog'
+import {useFeatureFlag} from '../FeatureFlags/useFeatureFlag'
 import {ComboboxSelectionIndicator, SelectAllRow} from '../FilteredActionList/FilteredActionListParts'
-import {useFormControlContext} from '../FormControl/useFormControlForwardedProps'
+import {
+  FormControlContextProvider,
+  FormControlValidationStatusProvider,
+  useFormControlContext,
+} from '../FormControl/useFormControlForwardedProps'
 import {Announce} from '../LiveRegion'
 import {Popover} from '../Popover'
 import {Spinner} from '../Spinner'
@@ -53,6 +58,24 @@ type SelectPanelValue = {
   renderKey: string
 }
 
+const SelectPanelActivationContext = React.createContext<React.RefObject<KeyboardEvent | null> | null>(null)
+
+function handleSelectPanelInputKeyDown(
+  event: React.KeyboardEvent<HTMLInputElement>,
+  onKeyDown: React.KeyboardEventHandler<HTMLInputElement> | undefined,
+  activationEventRef: React.RefObject<KeyboardEvent | null> | null,
+) {
+  const previousEvent = activationEventRef?.current ?? null
+  if (activationEventRef && event.key === 'Enter' && !event.nativeEvent.isComposing) {
+    activationEventRef.current = event.nativeEvent
+  }
+  try {
+    onKeyDown?.(event)
+  } finally {
+    if (activationEventRef) activationEventRef.current = previousEvent
+  }
+}
+
 interface SelectPanelGroupValue {
   groupId: string
   items: readonly SelectPanelValue[]
@@ -73,6 +96,11 @@ export type SelectPanelOpenChangeGesture =
 export type SelectPanelRenderItem = (item: SelectPanelItem) => React.ReactNode
 
 export type SelectPanelRenderGroup = (group: SelectPanelGroupMetadata, children: React.ReactNode) => React.ReactNode
+
+export interface SelectPanelActionDetails {
+  /** The original keyboard or click event. Use the callback's React event to cancel activation. */
+  sourceEvent: KeyboardEvent | MouseEvent
+}
 
 export interface SelectPanelItem
   extends Omit<
@@ -97,7 +125,12 @@ export interface SelectPanelItem
   inactiveText?: React.ReactNode
   groupId?: string
   ref?: React.Ref<HTMLDivElement>
-  onAction?: (item: SelectPanelItem, event: React.SyntheticEvent<HTMLDivElement>) => void
+  /** Called on activation. Prevent the React event to cancel selection; `details.sourceEvent` identifies the original event. */
+  onAction?: (
+    item: SelectPanelItem,
+    event: React.SyntheticEvent<HTMLDivElement>,
+    details: SelectPanelActionDetails,
+  ) => void
   renderItem?: SelectPanelRenderItem
 }
 
@@ -122,6 +155,8 @@ export interface SelectPanelMessage {
   variant?: 'empty' | 'error' | 'warning'
   icon?: React.ElementType
   action?: React.ReactNode
+  /** Defaults to `status`, or `alert` for errors. Use `none` when announcements are handled separately. */
+  role?: React.AriaRole
 }
 
 export interface SelectPanelOverlayProps
@@ -134,6 +169,8 @@ export interface SelectPanelOverlayProps
   collisionBoundary?: PopoverPositionerProps['collisionBoundary']
   /** Gap kept between the panel and the edge of its collision boundary. */
   collisionPadding?: PopoverPositionerProps['collisionPadding']
+  /** Portal destination. Pass `null` to wait for a container; ignored when `portal` is false. */
+  container?: React.ComponentPropsWithoutRef<typeof Popover.Portal>['container']
   /** Height of the panel. */
   height?: OverlayHeight
   /** Largest height the panel may grow to before its list scrolls. */
@@ -255,15 +292,15 @@ interface SelectPanelBaseProps {
   ) => void
   /** Whether keyboard navigation stops or wraps at the first and last option. */
   focusOutBehavior?: 'start' | 'stop' | 'wrap'
-  /** Includes elements rendered before the list in the keyboard focus order. */
+  /** Enables automatic highlighting as the filter changes; it does not re-highlight items prepended to an unchanged filter. */
   focusPrependedElements?: boolean
   /** Stops hovering an option from making it the active descendant. */
   disableSelectOnHover?: boolean
-  /** Moves focus to the filter input when the panel opens. */
+  /** Suppresses filter-change highlighting unless focusPrependedElements is enabled. Initial item highlighting is not yet supported. */
   setInitialFocus?: boolean
   /** Keeps the panel within the viewport rather than its nearest scrolling ancestor. */
   displayInViewport?: boolean
-  /** Keeps the panel anchored on narrow viewports instead of filling the screen. */
+  /** Keeps the panel anchored on narrow viewports when the fullscreen feature flag is enabled. */
   disableFullscreenOnNarrow?: boolean
   /** How the panel falls back when CSS anchor positioning cannot place it. */
   cssAnchorPositioningSettings?: {
@@ -274,6 +311,8 @@ interface SelectPanelBaseProps {
 type SelectPanelExternalAnchorProps = {
   /** Ref to your own anchor element, when you render the anchor yourself. */
   anchorRef: React.RefObject<HTMLElement | null>
+  /** Not supported when the anchor is rendered externally. */
+  anchorProps?: never
   /** Set to null when the anchor is rendered outside the panel and referenced by `anchorRef`. */
   renderAnchor: null
 }
@@ -281,6 +320,8 @@ type SelectPanelExternalAnchorProps = {
 type SelectPanelInternalAnchorProps = {
   /** Ref to the anchor element the panel renders. */
   anchorRef?: React.RefObject<HTMLElement | null>
+  /** Configure a custom anchor's element and, when needed, its role inside a composite widget. */
+  anchorProps?: Pick<React.ComponentPropsWithoutRef<typeof Popover.Trigger>, 'nativeButton' | 'role'>
   /** Renders the anchor yourself, receiving the props that make it control the panel. */
   renderAnchor?: (props: SelectPanelAnchorProps) => React.ReactElement
 }
@@ -342,19 +383,20 @@ function SelectPanelMessageComponent({
   body,
   className,
   icon: Icon,
+  role,
   title,
   variant = 'empty',
 }: SelectPanelMessageProps) {
   const DefaultIcon = variant === 'error' ? StopIcon : variant === 'warning' ? AlertIcon : SearchIcon
   const MessageIcon = Icon ?? DefaultIcon
-  const role = variant === 'error' ? 'alert' : 'status'
+  const messageRole = role ?? (variant === 'error' ? 'alert' : 'status')
 
   return (
     <div
       className={cn('flex flex-1 flex-col items-center justify-center gap-2 px-6 py-8 text-center text-sm', className)}
       data-component="SelectPanel.Message"
       data-variant={variant}
-      role={role}
+      role={messageRole}
     >
       <MessageIcon
         aria-hidden="true"
@@ -439,7 +481,6 @@ function useDocumentScrollLock(locked: boolean) {
 interface SelectPanelOptionProps {
   itemNodes: React.RefObject<Map<SelectPanelItem, HTMLElement>>
   itemRenderer?: SelectPanelRenderItem
-  key?: React.Key
   multiple: boolean
   optionIndex?: number
   optionCount?: number
@@ -463,10 +504,9 @@ function assignItemNode(
   assignRef(ref ?? null, node)
 }
 
-function renderSelectPanelOption({
+function SelectPanelOption({
   itemNodes,
   itemRenderer,
-  key,
   multiple,
   optionIndex,
   optionCount,
@@ -475,6 +515,8 @@ function renderSelectPanelOption({
   value,
   virtualized = false,
 }: SelectPanelOptionProps) {
+  const accessibilityId = React.useId()
+  const activationEventRef = React.useContext(SelectPanelActivationContext)
   const item = value.item
   const {
     children,
@@ -499,11 +541,29 @@ function renderSelectPanelOption({
   const renderer = renderItem ?? itemRenderer
   const renderedItem = renderer?.(item)
   const renderedActionListItem =
-    React.isValidElement<Pick<ActionListItemProps, 'children' | 'description' | 'leadingVisual' | 'trailingVisual'>>(
-      renderedItem,
-    ) && renderedItem.type === ActionList.Item
+    React.isValidElement<ActionListItemProps>(renderedItem) && renderedItem.type === ActionList.Item
       ? renderedItem
       : undefined
+  const resolvedContent = ActionItemContent.resolveOption(
+    {
+      children: (
+        <>
+          {children}
+          {text}
+        </>
+      ),
+      description,
+      descriptionVariant,
+      leadingVisual: leadingVisual ? renderItemVisual(leadingVisual) : undefined,
+      trailingVisual: trailingVisual ? renderItemVisual(trailingVisual) : undefined,
+    },
+    renderedItem,
+    renderedActionListItem,
+    accessibilityId,
+  )
+  const ariaLabel = itemProps['aria-label'] ?? renderedActionListItem?.props['aria-label']
+  const ariaLabelledBy = itemProps['aria-labelledby'] ?? renderedActionListItem?.props['aria-labelledby']
+  const inactiveDescriptionId = inactiveText ? `${accessibilityId}-inactive` : undefined
   const selection = inactiveText ? (
     <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-attention" />
   ) : (
@@ -514,6 +574,17 @@ function renderSelectPanelOption({
     <Combobox.Item
       {...itemProps}
       {...getActionItemStateAttributes({disabled, inactive: Boolean(inactiveText)})}
+      aria-describedby={joinIdRefs(
+        itemProps['aria-describedby'],
+        renderedActionListItem?.props['aria-describedby'],
+        ...(resolvedContent?.descriptionIds ?? []),
+        inactiveDescriptionId,
+      )}
+      aria-label={ariaLabel}
+      aria-labelledby={
+        ariaLabelledBy ??
+        (ariaLabel === undefined ? joinIdRefs(resolvedContent?.labelId, resolvedContent?.trailingVisualId) : undefined)
+      }
       aria-posinset={optionIndex === undefined ? itemProps['aria-posinset'] : optionIndex + 1}
       aria-setsize={optionCount ?? itemProps['aria-setsize']}
       className={cn(
@@ -533,37 +604,29 @@ function renderSelectPanelOption({
       data-item-id={itemId === undefined ? undefined : `${typeof itemId}:${String(itemId)}`}
       data-item-key={itemKey === undefined ? undefined : `${typeof itemKey}:${String(itemKey)}`}
       disabled={optionDisabled}
-      index={optionIndex}
-      key={key}
+      index={virtualized ? optionIndex : undefined}
       onClick={event => {
-        onAction?.(item, event)
+        onAction?.(item, event, {sourceEvent: activationEventRef?.current ?? event.nativeEvent})
         if (event.defaultPrevented) event.preventBaseUIHandler()
       }}
       ref={node => assignItemNode(itemNodes, item, ref, node)}
       value={value}
     >
-      {renderedActionListItem ? (
-        <ActionItemElementContent
-          item={renderedActionListItem.props}
+      {resolvedContent ? (
+        <ActionItemContent
+          resolvedContent={resolvedContent}
           selection={selection}
           supportingText={inactiveText}
+          supportingTextId={inactiveDescriptionId}
         />
       ) : (
-        (renderedItem ?? (
-          <ActionItemContent
-            description={description}
-            descriptionVariant={descriptionVariant}
-            leadingVisual={leadingVisual ? renderItemVisual(leadingVisual) : undefined}
-            selection={selection}
-            supportingText={inactiveText}
-            trailingVisual={trailingVisual ? renderItemVisual(trailingVisual) : undefined}
-          >
-            {children}
-            {text}
-          </ActionItemContent>
-        ))
+        renderedItem
       )}
-      {inactiveText ? <span className="sr-only">{inactiveText}</span> : null}
+      {inactiveText && !resolvedContent ? (
+        <span aria-hidden="true" className="sr-only" id={inactiveDescriptionId}>
+          {inactiveText}
+        </span>
+      ) : null}
     </Combobox.Item>
   )
 }
@@ -657,17 +720,17 @@ function SelectPanelVirtualizedList({
               role="presentation"
               style={itemStyle}
             >
-              {renderSelectPanelOption({
-                itemNodes,
-                itemRenderer,
-                multiple,
-                optionIndex: index,
-                optionCount: values.length,
-                radio,
-                showItemDividers,
-                value,
-                virtualized: true,
-              })}
+              <SelectPanelOption
+                itemNodes={itemNodes}
+                itemRenderer={itemRenderer}
+                multiple={multiple}
+                optionIndex={index}
+                optionCount={values.length}
+                radio={radio}
+                showItemDividers={showItemDividers}
+                value={value}
+                virtualized
+              />
             </div>
           )
         })}
@@ -787,19 +850,19 @@ function SelectPanelList({
                   {group.title}
                 </Combobox.GroupLabel>
                 <Combobox.Collection>
-                  {(value: SelectPanelValue, index: number) =>
-                    renderSelectPanelOption({
-                      itemNodes,
-                      itemRenderer: group.renderItem ?? itemRenderer,
-                      key: value.renderKey,
-                      multiple,
-                      optionCount: values.length,
-                      optionIndex: groupOptionOffset + index,
-                      radio,
-                      showItemDividers,
-                      value,
-                    })
-                  }
+                  {(value: SelectPanelValue, index: number) => (
+                    <SelectPanelOption
+                      itemNodes={itemNodes}
+                      itemRenderer={group.renderItem ?? itemRenderer}
+                      key={value.renderKey}
+                      multiple={multiple}
+                      optionCount={values.length}
+                      optionIndex={groupOptionOffset + index}
+                      radio={radio}
+                      showItemDividers={showItemDividers}
+                      value={value}
+                    />
+                  )}
                 </Combobox.Collection>
               </>
             )
@@ -810,18 +873,19 @@ function SelectPanelList({
               </Combobox.Group>
             )
           }
-        : (value: SelectPanelValue, index: number) =>
-            renderSelectPanelOption({
-              itemNodes,
-              itemRenderer,
-              key: value.renderKey,
-              multiple,
-              optionCount: values.length,
-              optionIndex: index,
-              radio,
-              showItemDividers,
-              value,
-            })}
+        : (value: SelectPanelValue, index: number) => (
+            <SelectPanelOption
+              itemNodes={itemNodes}
+              itemRenderer={itemRenderer}
+              key={value.renderKey}
+              multiple={multiple}
+              optionCount={values.length}
+              optionIndex={index}
+              radio={radio}
+              showItemDividers={showItemDividers}
+              value={value}
+            />
+          )}
     </Combobox.List>
   )
 }
@@ -837,6 +901,7 @@ interface SelectPanelBodyProps {
   loading: boolean
   message: SelectPanelProps['message']
   multiple: boolean
+  open: boolean
   onScrollEnd?: () => void
   placeholderText: string
   radio: boolean
@@ -864,6 +929,7 @@ function SelectPanelBody({
   loading,
   message,
   multiple,
+  open,
   onScrollEnd,
   placeholderText,
   radio,
@@ -879,6 +945,7 @@ function SelectPanelBody({
   visibleItems,
   onSelectAllChange,
 }: SelectPanelBodyProps) {
+  const activationEventRef = React.useContext(SelectPanelActivationContext)
   const selectableItems = visibleItems.filter(item => !item.disabled && !item.inactiveText)
   const allSelected =
     selectableItems.length > 0 &&
@@ -892,7 +959,13 @@ function SelectPanelBody({
   ) : (
     (message as React.ReactNode)
   )
-  const {className: inputClassName, id: inputId, ...inputProps} = textInputProps ?? {}
+  const {
+    'aria-expanded': inputExpanded,
+    className: inputClassName,
+    id: inputId,
+    size: inputSize,
+    ...inputProps
+  } = textInputProps ?? {}
 
   return (
     <>
@@ -900,21 +973,38 @@ function SelectPanelBody({
         <Combobox.Input
           // The input tracks its own `id`, so it must not be overridden on the render element.
           id={inputId}
+          aria-expanded={inputExpanded ?? (open && !loading && !hasMessage)}
           aria-label={inputProps['aria-label'] ?? inputLabel}
           autoFocus
           data-component="SelectPanel.Filter"
           placeholder={placeholderText}
           ref={inputRef}
-          render={<TextInput {...inputProps} block className={cn('w-full', inputClassName)} />}
+          render={baseProps => {
+            const mergedProps = mergeProps<'input'>(baseProps, inputProps, props => ({
+              ...props,
+              onKeyDown: event => handleSelectPanelInputKeyDown(event, props.onKeyDown, activationEventRef),
+            }))
+            return (
+              <TextInput
+                {...inputProps}
+                {...mergedProps}
+                block
+                className={cn('w-full', inputClassName)}
+                size={inputSize}
+              />
+            )
+          }}
         />
       </div>
       {multiple && showSelectAll ? (
-        <SelectAllRow
-          checked={allSelected}
-          indeterminate={someSelected}
-          label={selectAllLabel}
-          onCheckedChange={onSelectAllChange}
-        />
+        <Field.Root className="contents">
+          <SelectAllRow
+            checked={allSelected}
+            indeterminate={someSelected}
+            label={selectAllLabel}
+            onCheckedChange={onSelectAllChange}
+          />
+        </Field.Root>
       ) : null}
       {loading ? (
         <div className="flex flex-1 items-center justify-center gap-2 p-6 text-sm text-muted" role="status">
@@ -959,6 +1049,15 @@ function SelectPanelBody({
   )
 }
 
+function SelectPanelFieldBoundary({children}: {children: React.ReactNode}) {
+  // Base UI fields inherit their parent's description IDs; the extra boundary keeps popup controls independent.
+  return (
+    <Field.Root className="contents">
+      <Field.Root className="contents">{children}</Field.Root>
+    </Field.Root>
+  )
+}
+
 interface SelectPanelContentProps {
   actionListProps?: SelectPanelActionListProps
   ariaLabel: string | undefined
@@ -972,6 +1071,7 @@ interface SelectPanelContentProps {
   message: SelectPanelProps['message']
   multiple: boolean
   notice?: SelectPanelNotice
+  open: boolean
   onCancelRequest: () => void
   onSave: () => void
   onScrollEnd?: () => void
@@ -1012,6 +1112,7 @@ function SelectPanelContent({
   message,
   multiple,
   notice,
+  open,
   onCancelRequest,
   onSave,
   onScrollEnd,
@@ -1038,112 +1139,116 @@ function SelectPanelContent({
   visibleItems,
   onSelectAllChange,
 }: SelectPanelContentProps) {
+  const activationEventRef = React.useRef<KeyboardEvent | null>(null)
   return (
-    <div
-      className={cn(
-        'flex min-h-0 flex-1 flex-col overflow-hidden bg-default text-default',
-        !isDialog && 'rounded-md border border-default shadow-floating-lg',
-      )}
-      data-component="SelectPanel"
-      data-variant={variant}
-    >
-      <div className="contents" data-component="SelectPanel.Content">
-        <header className="flex items-start justify-between gap-4 px-4 pt-4" data-component="SelectPanel.Header">
-          <div className="min-w-0">
-            <h2 className="m-0 font-semibold text-default" data-component="SelectPanel.Title" id={titleId}>
-              {title}
-            </h2>
-            {subtitle ? (
-              <p className="mt-1 text-sm text-muted" data-component="SelectPanel.Subtitle" id={subtitleId}>
-                {subtitle}
-              </p>
+    <SelectPanelActivationContext.Provider value={activationEventRef}>
+      <div
+        className={cn(
+          'flex min-h-0 flex-1 flex-col overflow-hidden bg-default text-default',
+          !isDialog && 'rounded-md border border-default shadow-floating-lg',
+        )}
+        data-component="SelectPanel"
+        data-variant={variant}
+      >
+        <div className="contents" data-component="SelectPanel.Content">
+          <header className="flex items-start justify-between gap-4 px-4 pt-4" data-component="SelectPanel.Header">
+            <div className="min-w-0">
+              <h2 className="m-0 font-semibold text-default" data-component="SelectPanel.Title" id={titleId}>
+                {title}
+              </h2>
+              {subtitle ? (
+                <p className="mt-1 text-sm text-muted" data-component="SelectPanel.Subtitle" id={subtitleId}>
+                  {subtitle}
+                </p>
+              ) : null}
+            </div>
+            {isDialog ? (
+              <CloseIconButton
+                aria-label="Cancel and close"
+                className="-mr-2 -mt-2"
+                data-component="SelectPanel.CloseButton"
+                onClick={onCancelRequest}
+              />
             ) : null}
-          </div>
-          {isDialog ? (
-            <CloseIconButton
-              aria-label="Cancel and close"
-              className="-mr-2 -mt-2"
-              data-component="SelectPanel.CloseButton"
-              onClick={onCancelRequest}
-            />
+          </header>
+          {notice ? (
+            <Announce
+              className="mx-4 mt-3"
+              data-component="SelectPanel.Notice"
+              politeness={notice.variant === 'error' ? 'assertive' : 'polite'}
+            >
+              <Banner
+                description={notice.text}
+                hideTitle
+                layout="compact"
+                title="Notice"
+                variant={notice.variant === 'error' ? 'critical' : notice.variant}
+              />
+            </Announce>
           ) : null}
-        </header>
-        {notice ? (
-          <Announce
-            className="mx-4 mt-3"
-            data-component="SelectPanel.Notice"
-            politeness={notice.variant === 'error' ? 'assertive' : 'polite'}
-          >
-            <Banner
-              description={notice.text}
-              hideTitle
-              layout="compact"
-              title="Notice"
-              variant={notice.variant === 'error' ? 'critical' : notice.variant}
+          <div className="flex min-h-0 flex-1 flex-col">
+            <SelectPanelBody
+              actionListProps={actionListProps}
+              ariaLabel={ariaLabel}
+              groupedValues={groupedValues}
+              inputLabel={inputLabel}
+              initialLoadingType={initialLoadingType}
+              inputRef={inputRef}
+              itemNodes={itemNodes}
+              loading={loading}
+              message={message}
+              multiple={multiple}
+              open={open}
+              onScrollEnd={onScrollEnd}
+              placeholderText={placeholderText}
+              radio={radio}
+              renderGroup={renderGroup}
+              renderItem={renderItem}
+              scrollContainerRef={scrollContainerRef}
+              selectedItems={selectedItems}
+              showItemDividers={showItemDividers}
+              showSelectAll={showSelectAll}
+              textInputProps={textInputProps}
+              values={values}
+              virtualized={virtualized}
+              visibleItems={visibleItems}
+              onSelectAllChange={onSelectAllChange}
             />
-          </Announce>
-        ) : null}
-        <div className="flex min-h-0 flex-1 flex-col">
-          <SelectPanelBody
-            actionListProps={actionListProps}
-            ariaLabel={ariaLabel}
-            groupedValues={groupedValues}
-            inputLabel={inputLabel}
-            initialLoadingType={initialLoadingType}
-            inputRef={inputRef}
-            itemNodes={itemNodes}
-            loading={loading}
-            message={message}
-            multiple={multiple}
-            onScrollEnd={onScrollEnd}
-            placeholderText={placeholderText}
-            radio={radio}
-            renderGroup={renderGroup}
-            renderItem={renderItem}
-            scrollContainerRef={scrollContainerRef}
-            selectedItems={selectedItems}
-            showItemDividers={showItemDividers}
-            showSelectAll={showSelectAll}
-            textInputProps={textInputProps}
-            values={values}
-            virtualized={virtualized}
-            visibleItems={visibleItems}
-            onSelectAllChange={onSelectAllChange}
-          />
+          </div>
+          {secondaryAction || showCancel || showSave || showSaveAndClose ? (
+            <footer
+              className="flex flex-wrap items-center gap-2 border-t border-default p-3"
+              data-component="SelectPanel.Footer"
+            >
+              {secondaryAction ? (
+                <div className="min-w-0 flex-1" data-component="SelectPanel.SecondaryAction">
+                  {secondaryAction}
+                </div>
+              ) : null}
+              {showCancel || showSave || showSaveAndClose ? (
+                <div className="ml-auto flex gap-2">
+                  {showCancel ? (
+                    <Button data-component="SelectPanel.CancelButton" onClick={onCancelRequest}>
+                      Cancel
+                    </Button>
+                  ) : null}
+                  {showSave ? (
+                    <Button data-component="SelectPanel.SaveButton" onClick={onSave} variant="primary">
+                      Save
+                    </Button>
+                  ) : null}
+                  {showSaveAndClose ? (
+                    <Button data-component="SelectPanel.SaveAndCloseButton" onClick={onSave} variant="primary">
+                      Save and close
+                    </Button>
+                  ) : null}
+                </div>
+              ) : null}
+            </footer>
+          ) : null}
         </div>
-        {secondaryAction || showCancel || showSave || showSaveAndClose ? (
-          <footer
-            className="flex flex-wrap items-center gap-2 border-t border-default p-3"
-            data-component="SelectPanel.Footer"
-          >
-            {secondaryAction ? (
-              <div className="min-w-0 flex-1" data-component="SelectPanel.SecondaryAction">
-                {secondaryAction}
-              </div>
-            ) : null}
-            {showCancel || showSave || showSaveAndClose ? (
-              <div className="ml-auto flex gap-2">
-                {showCancel ? (
-                  <Button data-component="SelectPanel.CancelButton" onClick={onCancelRequest}>
-                    Cancel
-                  </Button>
-                ) : null}
-                {showSave ? (
-                  <Button data-component="SelectPanel.SaveButton" onClick={onSave} variant="primary">
-                    Save
-                  </Button>
-                ) : null}
-                {showSaveAndClose ? (
-                  <Button data-component="SelectPanel.SaveAndCloseButton" onClick={onSave} variant="primary">
-                    Save and close
-                  </Button>
-                ) : null}
-              </div>
-            ) : null}
-          </footer>
-        ) : null}
       </div>
-    </div>
+    </SelectPanelActivationContext.Provider>
   )
 }
 
@@ -1153,6 +1258,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     actionListProps,
     align = 'start',
     anchorId,
+    anchorProps,
     anchorRef,
     className,
     cssAnchorPositioningSettings,
@@ -1211,11 +1317,53 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
   }>({active: false, value: undefined})
   const itemNodes = React.useRef(new Map<SelectPanelItem, HTMLElement>())
   const inputRef = React.useRef<HTMLInputElement | null>(null)
+  const internalAnchorRef = React.useRef<HTMLElement | null>(null)
+  const lastAnchorRef = React.useRef<HTMLElement | null>(null)
+  const lastCloseGestureRef = React.useRef<SelectPanelOpenChangeGesture | null>(null)
+  const overflowAnchor = React.useContext(OverflowAnchorContext)
+  const setAnchorRef = React.useCallback(
+    (element: HTMLElement | null) => {
+      internalAnchorRef.current = element
+      if (element) lastAnchorRef.current = element
+      if (anchorRef) anchorRef.current = element
+    },
+    [anchorRef],
+  )
+  const getPositionAnchor = React.useCallback(() => {
+    const anchor = anchorRef?.current ?? internalAnchorRef.current ?? lastAnchorRef.current
+    return anchor && overflowAnchor?.items.includes(anchor) ? (overflowAnchor.triggerRef.current ?? anchor) : anchor
+  }, [anchorRef, overflowAnchor])
+  const getFinalFocus = React.useCallback(() => {
+    if (lastCloseGestureRef.current === 'click-outside') return false
+    const anchor = anchorRef?.current ?? internalAnchorRef.current ?? lastAnchorRef.current
+    if (anchor && overflowAnchor?.items.includes(anchor)) return overflowAnchor.triggerRef.current ?? true
+    return anchor?.isConnected ? anchor : true
+  }, [anchorRef, overflowAnchor])
   const previousActiveItem = React.useRef<HTMLElement | undefined>(undefined)
   const titleId = React.useId()
   const subtitleId = React.useId()
+  const requiredId = React.useId()
   const formControlContext = useFormControlContext()
   const open = controlledOpen ?? uncontrolledOpen
+  const [keepPortalMounted, setKeepPortalMounted] = React.useState(open)
+  const releasePortalFrame = React.useRef<number | null>(null)
+  if (open && !keepPortalMounted) setKeepPortalMounted(true)
+  React.useEffect(() => {
+    return () => {
+      if (releasePortalFrame.current !== null) cancelAnimationFrame(releasePortalFrame.current)
+    }
+  }, [])
+  const onOpenChangeComplete = (nextOpen: boolean) => {
+    if (nextOpen) lastCloseGestureRef.current = null
+    if (releasePortalFrame.current !== null) cancelAnimationFrame(releasePortalFrame.current)
+    if (!nextOpen) {
+      // Base UI restores focus in a microtask; do not remove the focused portal before it runs.
+      releasePortalFrame.current = requestAnimationFrame(() => {
+        releasePortalFrame.current = null
+        setKeepPortalMounted(false)
+      })
+    }
+  }
   const filterValue = controlledFilterValue ?? uncontrolledFilterValue
   const multiple = selectionVariant === 'multiple' || isMultiSelection(selected)
   const selectedItems = React.useMemo(
@@ -1235,7 +1383,8 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
   const panelTitle = title ?? (multiple ? 'Select items' : 'Select an item')
   const panelAnchorId = anchorId ?? id ?? formControlContext?.id
   const isNarrowViewport = useNarrowViewport()
-  const useMobileDialog = variant === 'anchored' && !disableFullscreenOnNarrow && isNarrowViewport
+  const fullscreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const useMobileDialog = variant === 'anchored' && fullscreenOnNarrow && !disableFullscreenOnNarrow && isNarrowViewport
   const isDialog = variant === 'modal' || useMobileDialog
   const isRadio = isSingleSelectModal
   useDocumentScrollLock(isDialog && open)
@@ -1295,6 +1444,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     className: overlayClassName,
     collisionBoundary,
     collisionPadding,
+    container: portalContainer,
     height: overlayHeight,
     maxHeight,
     portal = true,
@@ -1319,6 +1469,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
 
   const setPanelOpen = React.useCallback(
     (nextOpen: boolean, gesture: SelectPanelOpenChangeGesture) => {
+      lastCloseGestureRef.current = nextOpen ? null : gesture
       if (isSingleSelectModal) {
         setDraftSelection({
           active: nextOpen,
@@ -1460,74 +1611,104 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
         {triggerLabel}
       </Button>
     )
+  const nativeAnchor = anchorElement ? (anchorProps?.nativeButton ?? !isLinkAnchor(anchorElement)) : true
+  const anchorDisabled =
+    formControlContext?.disabled ||
+    (React.isValidElement<SelectPanelAnchorProps>(anchorElement) ? anchorElement.props.disabled : undefined)
+  let fieldAnchor = anchorElement
+  if (formControlContext && React.isValidElement<SelectPanelAnchorProps>(anchorElement)) {
+    const description = joinIdRefs(
+      formControlContext['aria-describedby'],
+      anchorElement.props['aria-describedby'],
+      formControlContext.required && requiredId,
+    )
+    const invalid = formControlContext['aria-invalid'] ?? anchorElement.props['aria-invalid']
+    const labelledBy =
+      anchorElement.props['aria-labelledby'] ??
+      (anchorElement.props['aria-label'] ? undefined : formControlContext['aria-labelledby'])
+    fieldAnchor = React.cloneElement(anchorElement, {
+      ...(description ? {'aria-describedby': description} : {}),
+      ...(invalid !== undefined ? {'aria-invalid': invalid} : {}),
+      ...(labelledBy ? {'aria-labelledby': labelledBy} : {}),
+      ...(formControlContext.disabled && nativeAnchor ? {disabled: true} : {}),
+    })
+  }
 
   const panel = (
-    <Combobox.Root<SelectPanelValue, boolean>
-      autoHighlight={focusPrependedElements || !setInitialFocus}
-      defaultInputValue={defaultFilterValue}
-      filteredItems={groupedValues ?? values}
-      highlightItemOnHover={!disableSelectOnHover}
-      inputValue={filterValue}
-      inline
-      isItemEqualToValue={(itemValue, selectedValue) => areItemsEqual(itemValue.item, selectedValue.item)}
-      itemToStringLabel={value => value.label}
-      items={groupedValues ?? values}
-      loopFocus={focusOutBehavior !== 'stop'}
-      multiple={multiple}
-      onInputValueChange={onFilterValueChange}
-      onItemHighlighted={onHighlighted}
-      onOpenChange={onComboboxOpenChange}
-      onValueChange={onValueChange}
-      open={open}
-      value={multiple ? selectedValues : (selectedValues[0] ?? null)}
-      virtualized={usesBuiltInVirtualization}
-    >
-      <SelectPanelContent
-        actionListProps={actionListProps}
-        ariaLabel={listAriaLabel}
-        groupedValues={groupedValues}
-        initialLoadingType={initialLoadingType}
-        inputLabel={inputLabel ?? placeholderText}
-        inputRef={inputRef}
-        isDialog={isDialog}
-        itemNodes={itemNodes}
-        loading={loading}
-        message={message}
-        multiple={multiple}
-        notice={notice}
-        onCancelRequest={requestCancel}
-        onSave={saveSelection}
-        onScrollEnd={onScrollEnd}
-        placeholderText={placeholderText}
-        radio={isRadio}
-        renderGroup={renderGroup}
-        renderItem={renderItem}
-        scrollContainerRef={scrollContainerRef}
-        secondaryAction={secondaryAction}
-        selectedItems={effectiveSelectedItems}
-        showCancel={variant === 'modal' || (useMobileDialog && Boolean(onCancel))}
-        showItemDividers={showItemDividers}
-        showSave={variant === 'modal'}
-        showSaveAndClose={useMobileDialog && multiple && !onCancel}
-        showSelectAll={showSelectAll}
-        subtitle={subtitle}
-        subtitleId={subtitleId}
-        textInputProps={textInputProps}
-        title={panelTitle}
-        titleId={titleId}
-        values={values}
-        variant={variant}
-        virtualized={usesBuiltInVirtualization}
-        visibleItems={visibleItems}
-        onSelectAllChange={onSelectAllChange}
-      />
-    </Combobox.Root>
+    // The trigger belongs to the enclosing field; the popup contains independent controls.
+    <FormControlContextProvider value={null}>
+      <FormControlValidationStatusProvider value={undefined}>
+        <SelectPanelFieldBoundary>
+          <Combobox.Root<SelectPanelValue, boolean>
+            autoHighlight={focusPrependedElements || !setInitialFocus}
+            defaultInputValue={defaultFilterValue}
+            filteredItems={groupedValues ?? values}
+            highlightItemOnHover={!disableSelectOnHover}
+            inputValue={filterValue}
+            inline
+            isItemEqualToValue={(itemValue, selectedValue) => areItemsEqual(itemValue.item, selectedValue.item)}
+            itemToStringLabel={value => value.label}
+            items={groupedValues ?? values}
+            loopFocus={focusOutBehavior !== 'stop'}
+            multiple={multiple}
+            onInputValueChange={onFilterValueChange}
+            onItemHighlighted={onHighlighted}
+            onOpenChange={onComboboxOpenChange}
+            onValueChange={onValueChange}
+            open={open}
+            value={multiple ? selectedValues : (selectedValues[0] ?? null)}
+            virtualized={usesBuiltInVirtualization}
+          >
+            <SelectPanelContent
+              actionListProps={actionListProps}
+              ariaLabel={listAriaLabel}
+              groupedValues={groupedValues}
+              initialLoadingType={initialLoadingType}
+              inputLabel={inputLabel ?? placeholderText}
+              inputRef={inputRef}
+              isDialog={isDialog}
+              itemNodes={itemNodes}
+              loading={loading}
+              message={message}
+              multiple={multiple}
+              notice={notice}
+              open={open}
+              onCancelRequest={requestCancel}
+              onSave={saveSelection}
+              onScrollEnd={onScrollEnd}
+              placeholderText={placeholderText}
+              radio={isRadio}
+              renderGroup={renderGroup}
+              renderItem={renderItem}
+              scrollContainerRef={scrollContainerRef}
+              secondaryAction={secondaryAction}
+              selectedItems={effectiveSelectedItems}
+              showCancel={variant === 'modal' || (useMobileDialog && Boolean(onCancel))}
+              showItemDividers={showItemDividers}
+              showSave={variant === 'modal'}
+              showSaveAndClose={useMobileDialog && multiple && !onCancel}
+              showSelectAll={showSelectAll}
+              subtitle={subtitle}
+              subtitleId={subtitleId}
+              textInputProps={textInputProps}
+              title={panelTitle}
+              titleId={titleId}
+              values={values}
+              variant={variant}
+              virtualized={usesBuiltInVirtualization}
+              visibleItems={visibleItems}
+              onSelectAllChange={onSelectAllChange}
+            />
+          </Combobox.Root>
+        </SelectPanelFieldBoundary>
+      </FormControlValidationStatusProvider>
+    </FormControlContextProvider>
   )
   const popoverContent = (
     <Popover.Positioner
       align={align}
       alignOffset={alignOffset}
-      anchor={renderAnchor === null ? anchorRef : undefined}
+      anchor={overflowAnchor ? getPositionAnchor : renderAnchor === null ? anchorRef : undefined}
       className={cn('z-popover', positionerClassName)}
       collisionAvoidance={positionerCollisionAvoidance}
       collisionBoundary={collisionBoundary}
@@ -1541,7 +1722,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
         aria-describedby={subtitle ? subtitleId : undefined}
         aria-labelledby={titleId}
         className={panelClasses}
-        finalFocus={anchorRef ?? true}
+        finalFocus={overflowAnchor ? getFinalFocus : (anchorRef ?? true)}
         initialFocus={inputRef}
         ref={contentRef}
         role="dialog"
@@ -1556,6 +1737,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     return (
       <Dialog.Root
         open={open}
+        onOpenChangeComplete={onOpenChangeComplete}
         onOpenChange={(nextOpen, details) => {
           if (nextOpen) {
             setPanelOpen(true, details.event.type === 'keydown' ? 'anchor-key-press' : 'anchor-click')
@@ -1566,33 +1748,45 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
           setPanelOpen(false, details.reason === 'escape-key' ? 'escape' : 'click-outside')
         }}
       >
-        {anchorElement ? (
-          <Dialog.Trigger
-            id={panelAnchorId}
-            nativeButton={!isLinkAnchor(anchorElement)}
-            ref={anchorRef}
-            render={anchorElement}
-          />
+        {fieldAnchor ? (
+          <>
+            <Dialog.Trigger
+              {...anchorProps}
+              disabled={anchorDisabled}
+              id={panelAnchorId}
+              nativeButton={nativeAnchor}
+              ref={setAnchorRef}
+              render={fieldAnchor}
+            />
+            {formControlContext?.required ? (
+              <span className="sr-only" id={requiredId}>
+                Required
+              </span>
+            ) : null}
+          </>
         ) : null}
-        {open ? (
-          <FloatingPortal part={Dialog.Portal} portal={portal}>
-            <Dialog.Backdrop />
-            <Dialog.Viewport className={cn(useMobileDialog && 'p-0', positionerClassName)}>
-              <Dialog.Popup
-                {...overlayDomProps}
-                aria-describedby={subtitle ? subtitleId : undefined}
-                aria-labelledby={titleId}
-                className={panelClasses}
-                finalFocus={anchorRef ?? true}
-                initialFocus={inputRef}
-                ref={contentRef}
-                style={contentStyle}
-              >
-                {panel}
-              </Dialog.Popup>
-            </Dialog.Viewport>
-          </FloatingPortal>
-        ) : null}
+        <FloatingPortal
+          container={portalContainer}
+          keepMounted={keepPortalMounted}
+          part={Dialog.Portal}
+          portal={portal}
+        >
+          <Dialog.Backdrop />
+          <Dialog.Viewport className={cn(useMobileDialog && 'p-0', positionerClassName)}>
+            <Dialog.Popup
+              {...overlayDomProps}
+              aria-describedby={subtitle ? subtitleId : undefined}
+              aria-labelledby={titleId}
+              className={panelClasses}
+              finalFocus={overflowAnchor ? getFinalFocus : (anchorRef ?? true)}
+              initialFocus={inputRef}
+              ref={contentRef}
+              style={contentStyle}
+            >
+              {panel}
+            </Dialog.Popup>
+          </Dialog.Viewport>
+        </FloatingPortal>
       </Dialog.Root>
     )
   }
@@ -1600,11 +1794,12 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
   return (
     <Popover.Root
       open={open}
+      onOpenChangeComplete={onOpenChangeComplete}
       onOpenChange={(nextOpen, details) => {
         const gesture =
           details.reason === 'escape-key'
             ? 'escape'
-            : details.reason === 'outside-press'
+            : details.reason === 'outside-press' || details.reason === 'focus-out'
               ? 'click-outside'
               : details.reason === 'trigger-press' && details.event.type === 'keydown'
                 ? 'anchor-key-press'
@@ -1612,19 +1807,26 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
         setPanelOpen(nextOpen, gesture)
       }}
     >
-      {anchorElement ? (
-        <Popover.Trigger
-          id={panelAnchorId}
-          nativeButton={!isLinkAnchor(anchorElement)}
-          ref={anchorRef}
-          render={anchorElement}
-        />
+      {fieldAnchor ? (
+        <>
+          <Popover.Trigger
+            {...anchorProps}
+            disabled={anchorDisabled}
+            id={panelAnchorId}
+            nativeButton={nativeAnchor}
+            ref={setAnchorRef}
+            render={fieldAnchor}
+          />
+          {formControlContext?.required ? (
+            <span className="sr-only" id={requiredId}>
+              Required
+            </span>
+          ) : null}
+        </>
       ) : null}
-      {open ? (
-        <FloatingPortal part={Popover.Portal} portal={portal}>
-          {popoverContent}
-        </FloatingPortal>
-      ) : null}
+      <FloatingPortal container={portalContainer} keepMounted={keepPortalMounted} part={Popover.Portal} portal={portal}>
+        {popoverContent}
+      </FloatingPortal>
     </Popover.Root>
   )
 })
@@ -1636,3 +1838,4 @@ export const SelectPanel = Object.assign(SelectPanelConfig, {
 })
 
 SelectPanel.displayName = 'SelectPanel'
+markFormControlInput(SelectPanel, {baseUiAccessibleLabel: true})

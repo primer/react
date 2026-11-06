@@ -36,7 +36,7 @@ function issueLabelColorProperties(color: string): React.CSSProperties {
   } as React.CSSProperties
 }
 export const IssueLabelToken = React.forwardRef<HTMLElement, IssueLabelTokenProps>(function IssueLabelToken(
-  {children, className, fillColor = '#999999', hideRemoveButton, isSelected, onRemove, style, text, ...rest},
+  {children, className, fillColor = '#999999', hideRemoveButton, isSelected, onRemove, style, text, type, ...rest},
   ref,
 ) {
   const isParentInteractive =
@@ -57,12 +57,14 @@ export const IssueLabelToken = React.forwardRef<HTMLElement, IssueLabelTokenProp
       data-token-kind="issue-label"
       style={{...issueLabelColorProperties(fillColor), ...style}}
       text={text}
+      type={hasMultipleActionTargets ? undefined : type}
     >
       <TokenTextContainer
         as={hasMultipleActionTargets ? rest.as : undefined}
         disabled={rest.disabled}
         href={hasMultipleActionTargets ? rest.href : undefined}
         onClick={hasMultipleActionTargets ? rest.onClick : undefined}
+        type={hasMultipleActionTargets ? type : undefined}
       >
         {text}
       </TokenTextContainer>

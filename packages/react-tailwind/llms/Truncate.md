@@ -18,3 +18,6 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Keep persistent expansion state and controls in the consumer; `expandable` only reveals the text on hover or focus.
+- Use `as={Link}` with `href` for truncated links; component targets also receive `inline`.
+- The default element stays a `div`; pass `as="span"` for phrasing contexts such as paragraphs.
+- Remove `sx` and styled-system props.

@@ -39,3 +39,5 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 ## Differences from `@primer/react`
 
 - Existing composition and variant props can be retained.
+- Remove `sx`, styled-system props, and legacy style overrides.
+- Prefer the named subcomponents instead of relying on ad hoc region markup.

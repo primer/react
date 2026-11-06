@@ -206,7 +206,7 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
           ref={setInputRef}
           aria-describedby={describedBy}
           aria-invalid={effectiveValidation === 'error' ? true : forwardedProps['aria-invalid']}
-          aria-required={effectiveRequired || undefined}
+          aria-required={forwardedProps['aria-required'] ?? (effectiveRequired || undefined)}
           className={cn(
             'm-0 w-full appearance-none border-0 bg-transparent px-0 [font-family:inherit] [font-size:inherit] text-[color:inherit] outline-none placeholder:text-muted disabled:cursor-not-allowed',
             !hasLeading && !hasTrailing && !trailingAction && 'px-3',

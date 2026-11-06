@@ -102,3 +102,6 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Compose Breadcrumbs, local Header, and product controls around the slots instead of extending PageHeader.
+- Use each part's `hidden` option for supported responsive or conditional presentation.
+- Preserve heading hierarchy when replacing Title's simple `as` element.
+- `sx` and styled-system props are unsupported; use `className`.

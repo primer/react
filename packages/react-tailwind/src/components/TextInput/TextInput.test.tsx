@@ -78,6 +78,30 @@ describe('TextInput', () => {
     expect(screen.getByTestId('override-input').parentElement).not.toHaveAttribute('data-disabled')
   })
 
+  it('preserves explicit aria-required independently of native form validation', () => {
+    render(
+      <>
+        <FormControl>
+          <FormControl.Label>Custom validation</FormControl.Label>
+          <TextInput aria-required="true" />
+        </FormControl>
+        <TextInput aria-label="Optional" aria-required={false} />
+        <FormControl required>
+          <FormControl.Label>Native validation</FormControl.Label>
+          <TextInput />
+        </FormControl>
+      </>,
+    )
+
+    const custom = screen.getByRole('textbox', {name: 'Custom validation'})
+    expect(custom).toHaveAttribute('aria-required', 'true')
+    expect(custom).not.toHaveAttribute('required')
+    expect(screen.getByRole('textbox', {name: 'Optional'})).toHaveAttribute('aria-required', 'false')
+    const native = screen.getByRole('textbox', {name: /Native validation/})
+    expect(native).toHaveAttribute('required')
+    expect(native).toHaveAttribute('aria-required', 'true')
+  })
+
   it('uses FormControl error validation for native and visual invalid state', () => {
     render(
       <FormControl>

@@ -14,3 +14,5 @@ Import: `import {IssueLabel} from '@primer/react-tailwind/IssueLabel'`
 ## Differences from `@primer/react`
 
 - Import the stable Tailwind `IssueLabel` instead of the experimental legacy entry point.
+- Add `as="button"` for click actions without `href`.
+- Remove `sx`, styled-system props, and CSS-module selectors.

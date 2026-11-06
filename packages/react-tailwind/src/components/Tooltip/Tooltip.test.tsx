@@ -14,10 +14,41 @@ describe('Tooltip', () => {
     render(
       <Tooltip open onOpenChange={onOpenChange}>
         <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Content>Save this file</Tooltip.Content>
+        <Tooltip.Content data-testid="tooltip">Save this file</Tooltip.Content>
       </Tooltip>,
     )
-    expect(await screen.findByRole('tooltip')).toHaveTextContent('Save this file')
+    const tooltip = await screen.findByTestId('tooltip')
+    expect(tooltip).toHaveTextContent('Save this file')
+    expect(tooltip).toHaveAttribute('aria-hidden', 'true')
+    expect(tooltip).not.toHaveAttribute('role')
+    expect(screen.getByRole('button', {name: 'Save'})).toHaveAccessibleDescription('Save this file')
+  })
+
+  it('describes the trigger with text and a keyboard hint, without the visual hint', () => {
+    render(
+      <Tooltip keybindingHint="Control+K">
+        <Tooltip.Trigger>Search</Tooltip.Trigger>
+        <Tooltip.Content>Search files</Tooltip.Content>
+      </Tooltip>,
+    )
+    expect(screen.getByRole('button', {name: 'Search'})).toHaveAccessibleDescription('Search files (control k)')
+  })
+
+  it('hides the lower-level popup from the accessibility tree by default', () => {
+    render(
+      <Tooltip open id="composed-tooltip">
+        <Tooltip.Trigger>Save</Tooltip.Trigger>
+        <Tooltip.Portal>
+          <Tooltip.Positioner>
+            <Tooltip.Popup id="composed-tooltip" data-testid="popup">
+              Save this file
+            </Tooltip.Popup>
+          </Tooltip.Positioner>
+        </Tooltip.Portal>
+      </Tooltip>,
+    )
+    expect(screen.getByTestId('popup')).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getByTestId('popup')).not.toHaveAttribute('role')
     expect(screen.getByRole('button', {name: 'Save'})).toHaveAccessibleDescription('Save this file')
   })
 
@@ -28,12 +59,12 @@ describe('Tooltip', () => {
         <BaseStyles data-testid="second">
           <Tooltip open>
             <Tooltip.Trigger>Save</Tooltip.Trigger>
-            <Tooltip.Content>Save this file</Tooltip.Content>
+            <Tooltip.Content data-testid="tooltip">Save this file</Tooltip.Content>
           </Tooltip>
         </BaseStyles>
       </>,
     )
-    const tooltip = await screen.findByRole('tooltip')
+    const tooltip = await screen.findByTestId('tooltip')
     expect(screen.getByTestId('second')).toContainElement(tooltip)
   })
 
@@ -42,11 +73,13 @@ describe('Tooltip', () => {
       <div data-testid="container">
         <Tooltip open>
           <Tooltip.Trigger>Save</Tooltip.Trigger>
-          <Tooltip.Content portal={false}>Save this file</Tooltip.Content>
+          <Tooltip.Content portal={false} data-testid="tooltip">
+            Save this file
+          </Tooltip.Content>
         </Tooltip>
       </div>,
     )
-    expect(screen.getByTestId('container')).toContainElement(await screen.findByRole('tooltip'))
+    expect(screen.getByTestId('container')).toContainElement(await screen.findByTestId('tooltip'))
   })
 
   it('closes on escape without moving focus from the trigger', async () => {
@@ -54,14 +87,16 @@ describe('Tooltip', () => {
     render(
       <Tooltip defaultOpen>
         <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Content>Save this file</Tooltip.Content>
+        <Tooltip.Content data-testid="tooltip">Save this file</Tooltip.Content>
       </Tooltip>,
     )
     const trigger = screen.getByRole('button', {name: 'Save'})
+    const tooltip = screen.getByTestId('tooltip')
+    expect(tooltip).toHaveAttribute('data-open')
     trigger.focus()
     await user.keyboard('{Escape}')
     expect(trigger).toHaveFocus()
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+    expect(tooltip).toHaveAttribute('data-closed')
   })
 
   it('forwards content refs and rest props', () => {
@@ -101,10 +136,10 @@ describe('Tooltip', () => {
     render(
       <Tooltip open>
         <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Content>Save this file</Tooltip.Content>
+        <Tooltip.Content data-testid="tooltip">Save this file</Tooltip.Content>
       </Tooltip>,
     )
-    expect(await screen.findByRole('tooltip')).toHaveAttribute('data-side', 'bottom')
+    expect(await screen.findByTestId('tooltip')).toHaveAttribute('data-side', 'bottom')
   })
 
   it('maps diagonal directions to the side and alignment Primer React uses', () => {

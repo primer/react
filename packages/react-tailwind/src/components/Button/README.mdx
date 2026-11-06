@@ -30,6 +30,17 @@ import {Button} from '@primer/react-tailwind/Button'
 
 Use `Button` for the styled API. `ButtonBase` is the lower-level public primitive for custom button composition.
 
+Buttons default to `type="button"` so actions do not accidentally submit an enclosing form. Set `type="submit"` on the form's submit action:
+
+```tsx
+<form onSubmit={handleSubmit}>
+  {/* Form fields */}
+  <Button type="submit" variant="primary">
+    Create account
+  </Button>
+</form>
+```
+
 ## Accessibility
 
 Use meaningful text or an `aria-label` for icon-only content. Loading state sets `aria-busy` and `aria-disabled`, suppresses activation without replacing the focused element, and provides a screen-reader announcement. Describe inactive controls with `aria-describedby` so the visual state has an accessible explanation.

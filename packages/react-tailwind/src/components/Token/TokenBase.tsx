@@ -49,12 +49,15 @@ export interface TokenBaseProps extends Omit<React.HTMLAttributes<HTMLElement>, 
   href?: string
   /** Prevents interaction with the token and its remove button. */
   disabled?: boolean
+  /** Button behavior when `as="button"`. Defaults to `button`. */
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
 }
 
 interface TokenTextContainerProps extends React.HTMLAttributes<HTMLElement> {
   as?: 'span' | 'a' | 'button'
   disabled?: boolean
   href?: string
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
 }
 
 export function TokenTextContainer({
@@ -63,6 +66,7 @@ export function TokenTextContainer({
   className,
   disabled,
   href,
+  type,
   ...rest
 }: TokenTextContainerProps) {
   const interactive = Component !== 'span' || Boolean(rest.onClick || rest.tabIndex !== undefined)
@@ -73,12 +77,12 @@ export function TokenTextContainer({
       ...rest,
       className: cn(
         'min-w-0 grow truncate border-0 bg-transparent p-0 [font-family:inherit] [font-size:inherit] [font-weight:inherit] leading-[var(--base-text-lineHeight-normal)] text-inherit no-underline appearance-none',
-        interactive && 'cursor-pointer after:absolute after:inset-0 after:content-[""]',
+        interactive && "cursor-pointer after:absolute after:inset-0 after:content-['']",
         className,
       ),
       disabled: Component === 'button' ? disabled : undefined,
       href: Component === 'a' && !disabled ? href : undefined,
-      type: Component === 'button' ? 'button' : undefined,
+      type: Component === 'button' ? (type ?? 'button') : undefined,
     },
     children,
   )
@@ -99,6 +103,7 @@ export const TokenBase = React.forwardRef<HTMLElement, TokenBaseProps>(function 
     onRemove,
     size = 'medium',
     text: _text,
+    type,
     ...rest
   },
   ref,
@@ -141,6 +146,7 @@ export const TokenBase = React.forwardRef<HTMLElement, TokenBaseProps>(function 
       onKeyDown={remove}
       role={Component === 'span' && interactive ? 'button' : undefined}
       tabIndex={Component === 'span' && interactive ? (disabled ? -1 : (rest.tabIndex ?? 0)) : rest.tabIndex}
+      type={Component === 'button' ? (type ?? 'button') : undefined}
     >
       {children}
     </Component>

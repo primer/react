@@ -13,7 +13,8 @@ The component owns filtering, ordering, selection, announcements, and the combob
 ## Migration notes
 
 - Deprecated `trailingIcon` and `trailingText` are not included; use `trailingVisual`.
-- The public focus behavior props from the upstream component are supported: `focusOutBehavior`, `onActiveDescendantChanged`, `disableSelectOnHover`, `setInitialFocus`, `focusPrependedElements`, `scrollBehavior`, and `fullScreenOnNarrow`.
+- The public focus behavior props from the upstream component are available: `focusOutBehavior`, `onActiveDescendantChanged`, `disableSelectOnHover`, `setInitialFocus`, `focusPrependedElements`, `scrollBehavior`, and `fullScreenOnNarrow`. **Parity gaps:** the first option is not highlighted on mount with default `setInitialFocus={false}`, and `focusPrependedElements` does not reliably highlight newly prepended options when the filter is unchanged.
+- Default item descriptions and `ActionList.Description` parts are exposed as descriptions rather than included in option names. Custom `ActionList.Item` renderers can provide their own accessible name and description references.
 - The previous partial `Root`, `Input`, `Content`, `List`, `Item`, `Empty`, and `Status` compound exports were removed because they did not form a complete composable API.
 - Virtualization is enabled only for ungrouped, enabled, default-rendered, one-line text rows. Grouped, disabled, custom-rendered, and variable-height rows use the safe regular-list fallback.
 - Item-level `renderItem` callbacks are honored. The upstream custom-rendering story currently falls back to its default item presentation even though each item supplies a renderer; this implementation preserves the documented custom-rendering behavior instead.

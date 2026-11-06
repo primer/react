@@ -171,6 +171,54 @@ describe('FilteredActionList', () => {
     expect(screen.getByRole('option', {name: 'Disabled'})).toHaveAttribute('aria-disabled', 'true')
   })
 
+  it('exposes descriptions separately for enabled, disabled, and rendered options', () => {
+    render(
+      <FilteredActionList
+        items={[
+          {
+            id: 'enabled',
+            text: 'Enabled',
+            description: 'Available now',
+            leadingVisual: <span>Decoration</span>,
+            trailingVisual: 'Public',
+          },
+          {
+            id: 'disabled',
+            text: 'Disabled',
+            description: 'Unavailable now',
+            disabled: true,
+            trailingVisual: 'Private',
+          },
+          {id: 'rendered', text: 'Rendered'},
+          {id: 'hidden', text: 'Hidden'},
+        ]}
+        renderItem={item =>
+          item.id === 'rendered' ? (
+            <ActionList.Item>
+              {item.text}
+              <ActionList.Description>First detail</ActionList.Description>
+              <ActionList.Description variant="block">Second detail</ActionList.Description>
+              <ActionList.TrailingVisual>Premium</ActionList.TrailingVisual>
+            </ActionList.Item>
+          ) : item.id === 'hidden' ? (
+            <ActionList.Item>
+              {item.text}
+              <ActionList.Description>Hidden visual detail</ActionList.Description>
+              <ActionList.TrailingVisual hidden>Hidden visual</ActionList.TrailingVisual>
+            </ActionList.Item>
+          ) : null
+        }
+      />,
+    )
+
+    expect(screen.getByRole('option', {name: 'Enabled Public'})).toHaveAccessibleDescription('Available now')
+    expect(screen.getByRole('option', {name: 'Disabled Private'})).toHaveAccessibleDescription('Unavailable now')
+    expect(screen.getByRole('option', {name: 'Rendered Premium'})).toHaveAccessibleDescription(
+      'First detail Second detail',
+    )
+    expect(screen.getByRole('option', {name: 'Hidden'})).toHaveAccessibleDescription('Hidden visual detail')
+  })
+
   it('omits aria-controls while body content replaces the listbox and keeps empty status outside it', () => {
     const {rerender} = render(<FilteredActionList items={fruit} loading />)
 

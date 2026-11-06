@@ -29,3 +29,6 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 ## Differences from `@primer/react`
 
 - Replace `as={RouterLink}` with `render={<RouterLink to="/path" />}`.
+- `href` remains optional for loading placeholders and custom render elements.
+- Use a real Button for actions that do not navigate.
+- Replace `sx` and styled-system props with `className`.

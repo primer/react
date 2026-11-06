@@ -18,6 +18,7 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 - `onRemove`: `(() => void)` — Shows a remove button and is called when it is activated.
 - `size`: `TokenSize` — Default `'medium'`. Height and text size of the token.
 - `text` (required): `React.ReactNode` — Label shown on the token.
+- `type`: `"button" | "reset" | "submit"` — Button behavior when `as="button"`. Defaults to `button`.
 
 ## IssueLabelToken
 
@@ -33,6 +34,7 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 - `onRemove`: `(() => void)` — Shows a remove button and is called when it is activated.
 - `size`: `TokenSize` — Height and text size of the token.
 - `text` (required): `React.ReactNode` — Label shown on the token.
+- `type`: `"button" | "reset" | "submit"` — Button behavior when `as="button"`. Defaults to `button`.
 
 ## TokenBase
 
@@ -47,7 +49,12 @@ Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s
 - `onRemove`: `(() => void)` — Shows a remove button and is called when it is activated.
 - `size`: `TokenSize` — Default `'medium'`. Height and text size of the token.
 - `text` (required): `React.ReactNode` — Label shown on the token.
+- `type`: `"button" | "reset" | "submit"` — Button behavior when `as="button"`. Defaults to `button`.
 
 ## Differences from `@primer/react`
 
 - Do not nest a remove button inside a link/button token.
+- Use `onRemove` and the documented composition for keyboard removal.
+- `as="button"` defaults to `type="button"`; pass `type="submit"` or `type="reset"` explicitly for form actions.
+- Keep non-interactive token remove controls visibly and programmatically named; interactive tokens include keyboard-removal instructions in the primary action's accessible name.
+- `sx` and styled-system props are unsupported; use `className`.

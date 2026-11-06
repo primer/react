@@ -31,6 +31,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Height and text size of the button. Defaults to the `size` of the `ActionBar`.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 
 ## ActionBar.IconButton
 
@@ -53,6 +54,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Height of the button. Defaults to the `size` of the `ActionBar`.
 - `tooltipDirection`: `TooltipDirection` — Default `'s'`. Side and alignment of the tooltip relative to the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 - `unsafeDisableTooltip`: `boolean` — Default `false`. Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip.
 
 ## ActionBar.Group
@@ -87,8 +89,12 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `size`: `ControlSize` — Height of the button. Defaults to the `size` of the `ActionBar`.
 - `tooltipDirection`: `TooltipDirection` — Default `'s'`. Side and alignment of the tooltip relative to the button.
 - `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `type`: `"button" | "reset" | "submit"` — Default `'button'`. Native button behavior. Use `submit` to submit a form.
 - `unsafeDisableTooltip`: `boolean` — Default `false`. Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip.
 
 ## Differences from `@primer/react`
 
 - `ActionBar.Menu` requires `icon`, matching upstream. Use `overflowIcon` to change, or `'none'` to hide, the icon shown in the "More items" menu.
+- `returnFocusRef` maps to the Base UI menu's `finalFocus` and takes precedence over overflow focus restoration. An open menu or composed SelectPanel follows "More items" when its original trigger overflows.
+- Icons accept either a component such as an Octicon or a rendered element.
+- `sx` and styled-system props are unsupported; use `className` on the appropriate local part.

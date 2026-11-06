@@ -68,6 +68,16 @@ if (packageRoot) {
       }
     }
   })
+
+  await check('Button form types', async () => {
+    const defaultButton = renderToStaticMarkup(React.createElement(packageRoot.Button, null, 'Preview'))
+    const submitButton = renderToStaticMarkup(
+      React.createElement(packageRoot.Button, {type: 'submit'}, 'Create account'),
+    )
+    if (!defaultButton.includes('type="button"') || !submitButton.includes('type="submit"')) {
+      throw new Error('Button must default to type="button" and support an explicit type="submit".')
+    }
+  })
 }
 
 for (const [name, expectedExport] of [

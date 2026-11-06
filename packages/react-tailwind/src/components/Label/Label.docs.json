@@ -51,9 +51,13 @@
   "props": [
     {
       "name": "as",
-      "type": "React.ElementType",
+      "type": "As",
       "defaultValue": "'span'",
-      "description": "Element to render."
+      "description": "Element to render. Its props and ref follow the selected element."
+    },
+    {
+      "name": "className",
+      "type": "string"
     },
     {
       "name": "size",

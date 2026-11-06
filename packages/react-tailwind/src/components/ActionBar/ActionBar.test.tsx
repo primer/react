@@ -1,4 +1,4 @@
-import {cleanup, render, screen, within} from '@testing-library/react'
+import {cleanup, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
@@ -219,10 +219,15 @@ describe('ActionBar', () => {
     )
 
     const group = screen.getByRole('group')
+    const undo = screen.getByRole('button', {name: 'Undo'})
+    const redo = screen.getByRole('button', {name: 'Redo'})
     clip(group)
     expect(group).toHaveAttribute('data-overflowing')
-    expect(screen.getByRole('button', {name: 'Undo'})).toHaveAttribute('data-overflowing')
-    expect(screen.getByRole('button', {name: 'Redo'})).toHaveAttribute('data-overflowing')
+    expect(group).toHaveAttribute('aria-hidden', 'true')
+    expect(undo).toHaveAttribute('data-overflowing')
+    expect(redo).toHaveAttribute('data-overflowing')
+    expect(screen.queryByRole('button', {name: 'Undo'})).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', {name: 'Redo'})).not.toBeInTheDocument()
 
     const copy = screen.getByRole('button', {name: 'Copy'})
     await user.click(copy)
@@ -234,6 +239,100 @@ describe('ActionBar', () => {
     await user.click(screen.getByRole('button', {name: 'More items'}))
     expect((await screen.findAllByRole('menuitem')).map(item => item.textContent)).toEqual(['Undo', 'Redo'])
   })
+
+  it('hides clipped originals while preserving accessible overflow items and restores them when they fit', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionBar aria-label="Actions">
+        <ActionBar.Button>Author</ActionBar.Button>
+        <ActionBar.Button disabled>Labels</ActionBar.Button>
+        <ActionBar.IconButton aria-label="Assignee" icon={TestIcon} />
+        <ActionBar.Button aria-disabled={false}>Projects</ActionBar.Button>
+        <ActionBar.Menu aria-label="More actions" icon={TestIcon} items={[{label: 'Delete'}]} />
+      </ActionBar>,
+    )
+
+    const originals = [
+      screen.getByRole('button', {name: 'Author'}),
+      screen.getByRole('button', {name: 'Labels'}),
+      screen.getByRole('button', {name: 'Assignee'}),
+      screen.getByRole('button', {name: 'Projects'}),
+      screen.getByRole('button', {name: 'More actions'}),
+    ]
+    clip(...originals)
+    for (const original of originals) {
+      expect(original).toHaveAttribute('aria-hidden', 'true')
+      expect(original).toBeDisabled()
+      expect(original).not.toHaveAttribute('aria-disabled', 'false')
+    }
+    for (const name of ['Author', 'Labels', 'Assignee', 'Projects', 'More actions']) {
+      expect(screen.queryByRole('button', {name})).not.toBeInTheDocument()
+    }
+
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    const menu = await screen.findByRole('menu')
+    for (const name of ['Author', 'Labels', 'Assignee', 'Projects', 'More actions']) {
+      expect(within(menu).getByRole('menuitem', {name})).toBeInTheDocument()
+    }
+    expect(within(menu).getByRole('menuitem', {name: 'Labels'})).toHaveAttribute('aria-disabled', 'true')
+    await user.keyboard('{Escape}')
+
+    clip()
+    for (const original of originals) expect(original).not.toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getByRole('button', {name: 'Projects'})).toBeEnabled()
+    expect(screen.getByRole('button', {name: 'Labels'})).toHaveAttribute('aria-disabled', 'true')
+  })
+
+  it('preserves toolbar focus when the focused item overflows and fits again', async () => {
+    render(
+      <React.StrictMode>
+        <ActionBar aria-label="Actions">
+          <ActionBar.Button>Author</ActionBar.Button>
+          <ActionBar.Button>Projects</ActionBar.Button>
+        </ActionBar>
+      </React.StrictMode>,
+    )
+    const projects = screen.getByRole('button', {name: 'Projects'})
+    projects.focus()
+    expect(projects).toHaveFocus()
+
+    clip(projects)
+    expect(screen.getByRole('button', {name: 'More items'})).toHaveFocus()
+
+    clip()
+    await waitFor(() => expect(projects).toHaveFocus())
+  })
+
+  it.each([false, true])(
+    'restores focus when an open menu overflows (custom return focus: %s)',
+    async hasCustomReturnFocus => {
+      const user = userEvent.setup()
+      const returnFocusRef = React.createRef<HTMLButtonElement>()
+      render(
+        <>
+          <button ref={returnFocusRef} type="button">
+            Custom return target
+          </button>
+          <ActionBar aria-label="Actions">
+            <ActionBar.Menu
+              aria-label="Settings"
+              icon={TestIcon}
+              items={[{label: 'Configure'}]}
+              returnFocusRef={hasCustomReturnFocus ? returnFocusRef : undefined}
+            />
+          </ActionBar>
+        </>,
+      )
+
+      const trigger = screen.getByRole('button', {name: 'Settings'})
+      await user.click(trigger)
+      expect(await screen.findByRole('menuitem', {name: 'Configure'})).toBeVisible()
+      clip(trigger)
+      const more = screen.getByRole('button', {name: 'More items'})
+      await user.keyboard('{Escape}')
+      await waitFor(() => expect(hasCustomReturnFocus ? returnFocusRef.current : more).toHaveFocus())
+    },
+  )
 
   it('renders an ActionMenu trigger without the More items menu on the server', () => {
     const html = renderToString(

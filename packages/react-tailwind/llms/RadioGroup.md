@@ -30,3 +30,9 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Use `value`, `defaultValue`, and `onValueChange` for group selection; do not duplicate the primitive's state.
+- Use `visuallyHidden` only if another accessible group name is supplied. `Label` is a Base UI `Fieldset.Legend`, so it must stay inside the group.
+- `aria-labelledby` on the group takes precedence over `Label`. Without either, an enclosing `FormControl.Label` names the group.
+- `required` sets `aria-required` on the radiogroup and `required` on its inputs, and shows a visual `*` on the label. Upstream announces ", required" inside the legend and also exposes the `*`.
+- `Caption` renders a `div` rather than a `p`.
+- A disabled group (`disabled` on RadioGroup or an enclosing FormControl) leaves the tab order, like native disabled radios, and mutes its label and nested leading visuals. Base UI's roving focus still treats individually disabled radios differently from native radios: if the checked radio is disabled, it remains the group's tab stop, and if every radio is disabled individually, the group stays reachable but inert. Disable the group instead of each radio when no choice is available.
+- `sx` and styled-system props are unsupported; use `className`.

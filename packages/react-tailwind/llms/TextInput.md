@@ -31,3 +31,10 @@ Renders a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 ## Differences from `@primer/react`
 
 - Continue using `leadingVisual`, `trailingVisual`, `trailingAction`, `loading`, and `characterLimit`.
+- `TextInput.Action` is intentionally icon-only and requires both `icon` and `aria-label`; deprecated text-action and variant APIs are omitted.
+- Keep value state on the native input (`value`, `defaultValue`, and `onChange`).
+- Use FormControl for labels, captions, required indication, and validation.
+- Use `FormControl required` for the label marker and native required state; an explicit `aria-required` is preserved but does not enable native constraint validation.
+- `className` styles the visual root, while native input attributes and the forwarded ref apply to the underlying input.
+- Deprecated `contrast`, `icon`, styled width props, and `variant` are omitted; drop `contrast` to use the default background.
+- Replace `sx` and styled-system props with `className`.

@@ -122,6 +122,12 @@
           "description": "Icon shown after the label."
         },
         {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        },
+        {
           "name": "variant",
           "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
           "defaultValue": "'default'",

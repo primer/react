@@ -15,3 +15,5 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 ## Differences from `@primer/react`
 
 - Preserve `muted`, `inline`, and `as` usage.
+- Replace `hoverColor` with supported token/class composition.
+- Remove `sx`, styled-system props, and legacy class selectors.

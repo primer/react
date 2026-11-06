@@ -114,12 +114,16 @@ const Trigger = React.forwardRef<HTMLElement, TooltipTriggerProps>(function Tool
 
 export type TooltipPopupProps = Omit<BaseTooltip.Popup.Props, 'data-component'>
 
-const Popup = React.forwardRef<HTMLDivElement, TooltipPopupProps>(function TooltipPopup({className, ...rest}, ref) {
+const Popup = React.forwardRef<HTMLDivElement, TooltipPopupProps>(function TooltipPopup(
+  {className, 'aria-hidden': ariaHidden = true, ...rest},
+  ref,
+) {
   const marker = React.useContext(PopupMarkerContext)
   return (
     <BaseTooltip.Popup
       {...rest}
       ref={ref}
+      aria-hidden={ariaHidden}
       className={mergeClassName(popupClassName, className)}
       data-component={marker}
     />
@@ -138,17 +142,21 @@ const KeybindingHintContent = ({
   children,
   hintId,
   hints,
+  textId,
 }: {
   children: React.ReactNode
   hintId?: string
   hints: string[]
+  textId?: string
 }) => {
   const platform = usePlatform()
   return (
     <>
-      {children}{' '}
-      <span className="sr-only" id={hintId}>
-        ({hints.map(hint => getAccessibleKeybindingHintString(hint, platform)).join(' or ')})
+      <span id={textId}>
+        {children}{' '}
+        <span className="sr-only" id={hintId}>
+          ({hints.map(hint => getAccessibleKeybindingHintString(hint, platform)).join(' or ')})
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -198,14 +206,17 @@ const Content = React.forwardRef<HTMLDivElement, TooltipContentProps>(function T
         <Popup
           {...rest}
           ref={ref}
-          id={isLabel && hints.length > 0 ? undefined : tooltip?.id}
-          role={isLabel ? undefined : 'tooltip'}
-          aria-hidden={isLabel || undefined}
+          id={hints.length > 0 ? undefined : tooltip?.id}
+          aria-hidden="true"
           className={className}
         >
           {hints.length > 0 ? (
             // A label names the trigger with its text alone; the hint joins the trigger's description instead.
-            <KeybindingHintContent hintId={isLabel ? `${tooltip.id}-keybinding-hint` : undefined} hints={hints}>
+            <KeybindingHintContent
+              hintId={isLabel ? `${tooltip.id}-keybinding-hint` : undefined}
+              hints={hints}
+              textId={isLabel ? undefined : tooltip?.id}
+            >
               {isLabel ? <span id={tooltip.id}>{children}</span> : children}
             </KeybindingHintContent>
           ) : (

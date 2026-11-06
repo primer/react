@@ -35,4 +35,25 @@ describe('Checkbox', () => {
     expect(screen.getByRole('checkbox', {name: 'Notifications'})).toHaveAttribute('aria-checked', 'mixed')
     expect(container.querySelector('svg')).toHaveAttribute('viewBox', '0 0 10 2')
   })
+
+  it('allows an enclosing change handler to stop a checkbox change from bubbling further', async () => {
+    const user = userEvent.setup()
+    const outerChange = vi.fn()
+    const checkboxChange = vi.fn()
+    const interceptChange = vi.fn((event: React.ChangeEvent<HTMLDivElement>) => event.stopPropagation())
+
+    render(
+      <div onChange={outerChange}>
+        <div onChange={interceptChange}>
+          <Checkbox aria-label="Notifications" onCheckedChange={checkboxChange} />
+        </div>
+      </div>,
+    )
+
+    await user.click(screen.getByRole('checkbox', {name: 'Notifications'}))
+    expect(checkboxChange).toHaveBeenCalledOnce()
+    expect(interceptChange).toHaveBeenCalledOnce()
+    expect(outerChange).not.toHaveBeenCalled()
+    expect(screen.getByRole('checkbox', {name: 'Notifications'})).toBeChecked()
+  })
 })

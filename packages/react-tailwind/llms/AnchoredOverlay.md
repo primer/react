@@ -68,3 +68,11 @@ Forwards unrecognized props to Base UI's [`Popover.Description`](https://base-ui
 ## Differences from `@primer/react`
 
 - Replace legacy `outside-*` placement names with `side` and `align`, and `anchorOffset`/`alignmentOffset` with `sideOffset`/`alignOffset`.
+- Replace `renderAnchor` with `AnchoredOverlay.Trigger`. Use `render` to compose a trigger with an existing element; do not use a polymorphic `as` compatibility layer.
+- Replace `renderAnchor={null}` with `anchorRef` by passing the element or ref to `Content`'s `anchor`, controlling `open`, and passing `finalFocus` so focus returns to it on close.
+- Replace `onOpen`/`onClose` gestures with `onOpenChange`, whose details report the reason (`trigger-press`, `outside-press`, `escape-key`, or `close-press`).
+- Content is non-modal by default. To trap focus, pass `modal` (or `modal="trap-focus"`) and render `AnchoredOverlay.Close`; Base UI only traps focus when the popup offers a way out.
+- Replace `focusZoneSettings` by composing `ActionList` or `ActionBar`, which own arrow-key navigation.
+- Replace named portal roots with `portal={false}`, which renders the overlay in place, for example inside a scrolling container.
+- `preventOverflow`, `pinPosition`, `displayInViewport`, `onPositionChange`, `inside-*` placements, and the CSS-anchor fallback options are unsupported; Base UI's collision handling replaces them.
+- Use `className`, not `sx` or styled-system props.

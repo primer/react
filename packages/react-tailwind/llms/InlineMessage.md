@@ -15,3 +15,5 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Existing variant and content usage can be retained.
+- Add any required `role` or live-region behavior at the consumer boundary.
+- Remove `sx`, styled-system props, and legacy class selectors.

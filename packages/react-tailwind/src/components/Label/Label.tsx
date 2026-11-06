@@ -1,5 +1,5 @@
 import {cva, type VariantProps} from 'class-variance-authority'
-import React from 'react'
+import type React from 'react'
 import {cn} from '../../internal/cn'
 
 const labelVariants = cva('inline-flex items-center rounded-full border font-medium leading-none whitespace-nowrap', {
@@ -21,18 +21,18 @@ const labelVariants = cva('inline-flex items-center rounded-full border font-med
   defaultVariants: {variant: 'default', size: 'small'},
 })
 
-export interface LabelProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof labelVariants> {
-  /** Element to render. */
-  as?: React.ElementType
-}
+export type LabelProps<As extends React.ElementType = 'span'> = VariantProps<typeof labelVariants> & {
+  /**
+   * Element to render. Its props and ref follow the selected element.
+   * @default 'span'
+   */
+  as?: As
+  className?: string
+} & Omit<React.ComponentPropsWithRef<As>, 'as' | 'className' | 'size' | 'variant'>
 
-export const Label = React.forwardRef<HTMLElement, LabelProps>(function Label(
-  {as: Component = 'span', className, size, variant, ...rest},
-  ref,
-) {
-  return (
-    <Component {...rest} ref={ref} data-component="Label" className={cn(labelVariants({size, variant}), className)} />
-  )
-})
+export function Label<As extends React.ElementType = 'span'>({as, className, size, variant, ...rest}: LabelProps<As>) {
+  const Component = as ?? 'span'
+  return <Component {...rest} data-component="Label" className={cn(labelVariants({size, variant}), className)} />
+}
 
 Label.displayName = 'Label'

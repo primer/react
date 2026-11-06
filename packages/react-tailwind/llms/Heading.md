@@ -14,3 +14,5 @@ Renders a [`<h2>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#
 ## Differences from `@primer/react`
 
 - Rename `variant` to `size`.
+- Use `display` when migrating display-heading usage.
+- Remove `sx` and styled-system props; keep the semantic `as` element.

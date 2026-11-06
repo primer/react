@@ -17,3 +17,5 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - Do not treat Tailwind `Overlay` as a drop-in modal/menu controller.
+- Migrate behavioral usage to `Dialog` or `Popover`, as appropriate.
+- Remove legacy positioning/layering props, `sx`, and styled-system props.

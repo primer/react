@@ -39,6 +39,9 @@
       "id": "react-tailwind-data-actionbar-features--roving-focus"
     },
     {
+      "id": "react-tailwind-data-actionbar-features--overflow-accessibility"
+    },
+    {
       "id": "react-tailwind-data-actionbar--default"
     },
     {
@@ -148,6 +151,12 @@
           "name": "trailingVisual",
           "type": "ButtonVisual",
           "description": "Icon shown after the label."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
         }
       ],
       "passthrough": {
@@ -245,6 +254,12 @@
           "name": "trailingAction",
           "type": "ButtonVisual",
           "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
         },
         {
           "name": "unsafeDisableTooltip",
@@ -379,6 +394,12 @@
           "name": "trailingAction",
           "type": "ButtonVisual",
           "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
         },
         {
           "name": "unsafeDisableTooltip",

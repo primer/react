@@ -53,3 +53,9 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 ## Differences from `@primer/react`
 
 - A duplicate part is discarded rather than rendered among the custom children. Upstream keeps a single region too, though it takes the last match rather than the first.
+- `icon`, `image`, `heading`, `description`, `metadata`, and `action` accept an element for the corresponding region and take precedence over a matching child. Use them to supply a component of your own where upstream required copying the region's `__SLOT__` symbol onto it. A `section` card still derives its `aria-labelledby` from a heading supplied this way.
+- Compose ActionMenu or native action controls inside `Card.Action` instead of relying on a Card-specific menu API.
+- Use `as` only for simple presentational roots.
+- Preserve meaningful image alt text and accessible action names.
+- Replace `sx` and styled-system props with `className` on the target slot.
+- Tailwind stories use the package's Button, ActionMenu, ActionList, and VisuallyHidden primitives; their controls remain separate from Card.
