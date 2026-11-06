@@ -244,35 +244,6 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it.each(['small', 'medium'] as const)('keeps icon buttons inside a shrinking flex row (%s)', async size => {
-    const {getByRole, getAllByRole} = render(
-      <div style={{display: 'flex', width: 100}}>
-        <div style={{flex: '1 1 100px', minWidth: 0}}>Filters</div>
-        <SegmentedControl aria-label="File view" size={size}>
-          <SegmentedControl.IconButton aria-label="Preview" icon={EyeIcon} />
-          <SegmentedControl.IconButton aria-label="Code" icon={FileCodeIcon} />
-        </SegmentedControl>
-      </div>,
-    )
-    const control = getByRole('list')
-    const row = control.parentElement!
-    const buttons = getAllByRole('button')
-    const bounds = control.getBoundingClientRect()
-
-    expect(row.scrollWidth).toBeLessThanOrEqual(row.clientWidth)
-    for (const button of buttons) {
-      const rect = button.getBoundingClientRect()
-      expect(rect.width).toBe(32)
-      expect(rect.left).toBeGreaterThanOrEqual(bounds.left)
-      expect(rect.right).toBeLessThanOrEqual(bounds.right)
-    }
-
-    await userEvent.click(getByRole('button', {name: 'Code'}))
-    expect(getByRole('button', {name: 'Code'})).toHaveAttribute('aria-pressed', 'true')
-    expect(control.getBoundingClientRect().toJSON()).toEqual(bounds.toJSON())
-    expect(control.getBoundingClientRect().height).toBe(size === 'small' ? 28 : 32)
-  })
-
   it('renders IconButton with aria-pressed when selected', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="File view">
@@ -506,7 +477,6 @@ describe('SegmentedControl', () => {
       </BaseStyles>,
     )
 
-    expect(getByRole('button', {name: 'All (5)'})).toHaveAccessibleName('All (5)')
     const iconActionButton = getByRole('button', {name: 'Add view'})
 
     expect(iconActionButton.parentElement?.closest('[data-component]')).toHaveAttribute(

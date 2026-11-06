@@ -1,3 +1,4 @@
+import {page} from 'vitest/browser'
 import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
@@ -20,61 +21,61 @@ describe('ActionList.Heading', () => {
   )
 
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
-    const container = HTMLRender(
+    HTMLRender(
       <ActionList>
         <ActionList.Heading as="h1">Heading</ActionList.Heading>
       </ActionList>,
     )
-    const heading = container.getByRole('heading', {level: 1})
-    expect(heading).toBeInTheDocument()
-    expect(heading).toHaveTextContent('Heading')
+    const heading = page.getByRole('heading', {level: 1})
+    await expect.element(heading).toBeInTheDocument()
+    await expect.element(heading).toHaveTextContent('Heading')
   })
 
   it('should not wrap the heading in a span', async () => {
-    const {getByRole} = HTMLRender(
+    HTMLRender(
       <ActionList>
         <ActionList.Heading as="h1">Heading</ActionList.Heading>
       </ActionList>,
     )
-    const heading = getByRole('heading', {level: 1})
-    expect(heading.parentElement?.tagName).not.toBe('SPAN')
-    expect(heading).toHaveClass(classes.ActionListHeader)
+    const heading = page.getByRole('heading', {level: 1})
+    expect(heading.element().parentElement?.tagName).not.toBe('SPAN')
+    await expect.element(heading).toHaveClass(classes.ActionListHeader)
   })
 
   it('should apply the visually-hidden class to the heading when visuallyHidden is set', async () => {
-    const {getByRole} = HTMLRender(
+    HTMLRender(
       <ActionList>
         <ActionList.Heading as="h1" visuallyHidden>
           Heading
         </ActionList.Heading>
       </ActionList>,
     )
-    const heading = getByRole('heading', {level: 1})
-    expect(heading).toHaveClass(visuallyHiddenClasses.InternalVisuallyHidden)
-    expect(heading).toHaveClass(classes.ActionListHeader)
+    const heading = page.getByRole('heading', {level: 1})
+    await expect.element(heading).toHaveClass(visuallyHiddenClasses.InternalVisuallyHidden)
+    await expect.element(heading).toHaveClass(classes.ActionListHeader)
   })
 
   it('should not apply the visually-hidden class to the heading by default', async () => {
-    const {getByRole} = HTMLRender(
+    HTMLRender(
       <ActionList>
         <ActionList.Heading as="h1">Heading</ActionList.Heading>
       </ActionList>,
     )
-    const heading = getByRole('heading', {level: 1})
-    expect(heading).not.toHaveClass(visuallyHiddenClasses.InternalVisuallyHidden)
-    expect(heading).toHaveClass(classes.ActionListHeader)
+    const heading = page.getByRole('heading', {level: 1})
+    await expect.element(heading).not.toHaveClass(visuallyHiddenClasses.InternalVisuallyHidden)
+    await expect.element(heading).toHaveClass(classes.ActionListHeader)
   })
 
   it('should label the action list with the heading id', async () => {
-    const {container, getByRole} = HTMLRender(
+    const {container} = HTMLRender(
       <ActionList>
         <ActionList.Heading as="h1">Heading</ActionList.Heading>
         <ActionList.Item>Item</ActionList.Item>
       </ActionList>,
     )
     const list = container.querySelector('ul')
-    const heading = getByRole('heading', {level: 1})
-    expect(list).toHaveAttribute('aria-labelledby', heading.id)
+    const heading = page.getByRole('heading', {level: 1})
+    expect(list).toHaveAttribute('aria-labelledby', heading.element().id)
   })
 
   it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
