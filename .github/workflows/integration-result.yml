@@ -59,10 +59,18 @@ jobs:
             | any(.[]; .state == "failure" or .state == "error")
           ' <<< "$statuses")
 
+          skipped=$(jq '
+            [.[].statuses[]
+              | select(.context | startswith("github-ui"))
+              | select(.description == "Skipped" or .description == "Manual override")]
+            | length > 0
+          ' <<< "$statuses")
+
           echo "passing=$passing" >> "$GITHUB_OUTPUT"
           echo "failing=$failing" >> "$GITHUB_OUTPUT"
+          echo "skipped=$skipped" >> "$GITHUB_OUTPUT"
       - name: Update integration labels
-        if: ${{ steps.integration.outputs.passing == 'true' || steps.integration.outputs.failing == 'true' }}
+        if: ${{ (steps.integration.outputs.passing == 'true' || steps.integration.outputs.failing == 'true') && steps.integration.outputs.skipped != 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
