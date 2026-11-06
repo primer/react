@@ -16,19 +16,13 @@ permissions:
 
 jobs:
   autofix:
-    # Only run on pull requests where lint or format failed
+    # Fork code must not execute with the autofix token.
     if: >
       github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'failure'
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-      - name: Generate token
-        id: generate_token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
-
       - name: Get Pull Request
         id: pr
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
@@ -46,11 +40,26 @@ jobs:
             }
 
             const pr = response.data[0];
+            const repository = `${context.repo.owner}/${context.repo.repo}`;
+            if (pr.head.repo?.full_name !== repository) {
+              core.info('Skipping autofix for a pull request from outside this repository');
+              return;
+            }
+
             core.setOutput('number', pr.number);
             core.setOutput('head_ref', pr.head.ref);
             core.setOutput('head_repo', pr.head.repo?.full_name || '');
 
+      - name: Generate token
+        if: steps.pr.outputs.head_ref != ''
+        id: generate_token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
       - name: Check which jobs failed
+        if: steps.pr.outputs.head_ref != ''
         id: check_jobs
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         with:
@@ -92,7 +101,7 @@ jobs:
 
       - name: Set up Node.js
         if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -113,7 +122,7 @@ jobs:
 
       - name: Commit and push changes
         if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
-        uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d
+        uses: stefanzweifel/git-auto-commit-action@d0b01107b5db882071f96de5dd4b54961ea93f4c
         with:
           commit_message: 'chore: auto-fix lint and formatting issues'
           commit_user_name: 'github-actions[bot]'

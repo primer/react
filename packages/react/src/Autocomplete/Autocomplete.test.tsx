@@ -1,5 +1,5 @@
-import {render, fireEvent, screen, waitFor} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {act, render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {createRef} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import type {AutocompleteInputProps} from '../Autocomplete'
@@ -57,184 +57,183 @@ describe('Autocomplete', () => {
     ))
 
     it('renders data-component attributes for Autocomplete parts when menu is shown', async () => {
-      const user = userEvent.setup()
       const {container} = render(
         <LabelledAutocomplete
           menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
 
-      const input = container.querySelector('#autocompleteInput') as HTMLInputElement
-      expect(input).toHaveAttribute('data-component', 'Autocomplete.Input')
+      const input = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
+      await expect.element(input).toHaveAttribute('data-component', 'Autocomplete.Input')
 
-      await user.type(input, 'z')
+      await userEvent.type(input, 'z')
 
-      expect(container.querySelector('[data-component="Autocomplete.Overlay"]')).toBeInTheDocument()
-      expect(container.querySelector('[data-component="Autocomplete.Menu"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="Autocomplete.Overlay"]'))
+        .toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="Autocomplete.Menu"]'))
+        .toBeInTheDocument()
     })
 
     it('calls onChange', async () => {
-      const user = userEvent.setup()
       const onChangeMock = vi.fn()
-      const {container} = render(
+      render(
         <LabelledAutocomplete
           inputProps={{onChange: onChangeMock}}
           menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
       expect(onChangeMock).not.toHaveBeenCalled()
-      inputNode && (await user.type(inputNode, 'z'))
+      await userEvent.type(inputNode, 'z')
       expect(onChangeMock).toHaveBeenCalled()
     })
 
     it('calls onFocus', () => {
       const onFocusMock = vi.fn()
-      const {container} = render(
+      render(
         <LabelledAutocomplete
           inputProps={{onFocus: onFocusMock}}
           menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
       expect(onFocusMock).not.toHaveBeenCalled()
-      inputNode && fireEvent.focus(inputNode)
+      act(() => inputNode.element().focus())
       expect(onFocusMock).toHaveBeenCalled()
     })
 
-    it('calls onKeyDown', () => {
+    it('calls onKeyDown', async () => {
       const onKeyDownMock = vi.fn()
-      const {getByLabelText} = render(
+      render(
         <LabelledAutocomplete
           inputProps={{onKeyDown: onKeyDownMock}}
           menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
       expect(onKeyDownMock).not.toHaveBeenCalled()
-      fireEvent.keyDown(inputNode, {key: 'Shift'})
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{Shift}')
       expect(onKeyDownMock).toHaveBeenCalled()
     })
 
-    it('calls onKeyUp', () => {
+    it('calls onKeyUp', async () => {
       const onKeyUpMock = vi.fn()
-      const {getByLabelText} = render(
+      render(
         <LabelledAutocomplete
           inputProps={{onKeyUp: onKeyUpMock}}
           menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
       expect(onKeyUpMock).not.toHaveBeenCalled()
-      fireEvent.keyUp(inputNode, {key: 'Shift'})
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{Shift}')
       expect(onKeyUpMock).toHaveBeenCalled()
     })
 
     it('calls onKeyPress', async () => {
-      const user = userEvent.setup()
       const onKeyPressMock = vi.fn()
-      const {getByLabelText} = render(
+      render(
         <LabelledAutocomplete
           inputProps={{onKeyPress: onKeyPressMock}}
           menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
       expect(onKeyPressMock).not.toHaveBeenCalled()
-      await user.type(inputNode, '{enter}')
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{Enter}')
       expect(onKeyPressMock).toHaveBeenCalled()
     })
 
-    it('opens the menu when the input is focused and arrow key is pressed', () => {
-      const {getByLabelText} = render(
+    it('opens the menu when the input is focused and arrow key is pressed', async () => {
+      render(
         <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,
       )
-      const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      fireEvent.click(inputNode)
-      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
-      expect(inputNode.getAttribute('aria-expanded')).toBe('true')
+      await expect.element(inputNode).not.toHaveAttribute('aria-expanded', 'true')
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{ArrowDown}')
+      await expect.element(inputNode).toHaveAttribute('aria-expanded', 'true')
     })
 
     it('closes the menu when the input is blurred', async () => {
-      const {getByLabelText} = render(
+      render(
         <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,
       )
-      const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      fireEvent.click(inputNode)
-      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
+      await expect.element(inputNode).not.toHaveAttribute('aria-expanded', 'true')
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{ArrowDown}')
 
-      expect(inputNode.getAttribute('aria-expanded')).toBe('true')
+      await expect.element(inputNode).toHaveAttribute('aria-expanded', 'true')
 
-      // `userEvent.tab()` is unreliable in browser-mode Vitest for this case; blur is deterministic.
       // eslint-disable-next-line github/no-blur
-      fireEvent.blur(inputNode)
+      act(() => inputNode.element().blur())
 
-      await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).not.toBe('true'))
+      await expect.element(inputNode).not.toHaveAttribute('aria-expanded', 'true')
     })
 
     it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {
-      const user = userEvent.setup()
-      const {container, getByDisplayValue} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      inputNode && (await user.type(inputNode, 'ze'))
-      expect(getByDisplayValue('zero')).toBeDefined()
+      await userEvent.type(inputNode, 'ze')
+      await expect.element(inputNode).toHaveValue('zero')
     })
 
     it('does not show or highlight suggestion text after the user hits Backspace until they hit another key', async () => {
-      const user = userEvent.setup()
-      const {container, getByDisplayValue} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      expect((inputNode as HTMLInputElement).selectionStart).toBe(0)
-      inputNode && (await user.type(inputNode, 'ze'))
-      expect(getByDisplayValue('zero')).toBeDefined()
-      expect((inputNode as HTMLInputElement).selectionStart).toBe(2)
-      expect((inputNode as HTMLInputElement).selectionEnd).toBe(4)
-      inputNode && (await user.keyboard('{backspace}'))
-      expect((inputNode as HTMLInputElement).selectionStart).toBe(2)
-      expect(getByDisplayValue('ze')).toBeDefined()
-      inputNode && (await user.keyboard('r'))
-      expect((inputNode as HTMLInputElement).selectionStart).toBe(3)
-      expect((inputNode as HTMLInputElement).selectionEnd).toBe(4)
-      expect(getByDisplayValue('zero')).toBeDefined()
+      expect((inputNode.element() as HTMLInputElement).selectionStart).toBe(0)
+      await userEvent.type(inputNode, 'ze')
+      await expect.element(inputNode).toHaveValue('zero')
+      expect((inputNode.element() as HTMLInputElement).selectionStart).toBe(2)
+      expect((inputNode.element() as HTMLInputElement).selectionEnd).toBe(4)
+      await userEvent.keyboard('{backspace}')
+      expect((inputNode.element() as HTMLInputElement).selectionStart).toBe(2)
+      await expect.element(inputNode).toHaveValue('ze')
+      await userEvent.keyboard('r')
+      expect((inputNode.element() as HTMLInputElement).selectionStart).toBe(3)
+      expect((inputNode.element() as HTMLInputElement).selectionEnd).toBe(4)
+      await expect.element(inputNode).toHaveValue('zero')
     })
 
     it('clears the input value when the user hits Escape', async () => {
-      const user = userEvent.setup()
-      const {container} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
-      inputNode && (await user.type(inputNode, 'ze'))
-      expect(inputNode?.getAttribute('aria-expanded')).toBe('true')
-      inputNode && (await user.keyboard('{escape}'))
-      expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
+      await expect.element(inputNode).not.toHaveAttribute('aria-expanded', 'true')
+      await userEvent.type(inputNode, 'ze')
+      await expect.element(inputNode).toHaveAttribute('aria-expanded', 'true')
+      await userEvent.keyboard('{escape}')
+      await expect.element(inputNode).not.toHaveAttribute('aria-expanded', 'true')
     })
 
     it('does not restore the autocomplete suggestion when the input is blurred', async () => {
-      const user = userEvent.setup()
-      const {container} = render(
+      render(
         <>
           <LabelledAutocomplete
             menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
@@ -242,35 +241,34 @@ describe('Autocomplete', () => {
           <button type="button">outside</button>
         </>,
       )
-      const inputNode = container.querySelector('#autocompleteInput') as HTMLInputElement
-      const outsideButton = screen.getByRole('button', {name: 'outside'})
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
+      const outsideButton = page.getByRole('button', {name: 'outside'})
 
       // Type 'ze' which gets the inline autocomplete suggestion 'zero'
-      await user.type(inputNode, 'ze')
-      expect(inputNode.value).toBe('zero')
+      await userEvent.type(inputNode, 'ze')
+      await expect.element(inputNode).toHaveValue('zero')
 
       // Move focus elsewhere on the page, like clicking outside the Autocomplete
-      await user.click(outsideButton)
+      await userEvent.click(outsideButton)
 
       // The input should retain the text the user typed rather than the full suggestion
-      await waitFor(() => expect(inputNode.value).toBe('ze'))
+      await expect.element(inputNode).toHaveValue('ze')
     })
 
-    it('allows the value to be 0', () => {
-      const {getByDisplayValue} = render(
+    it('allows the value to be 0', async () => {
+      render(
         <LabelledAutocomplete
           menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
           inputProps={{value: 0}}
         />,
       )
 
-      expect(getByDisplayValue('0')).toBeDefined()
+      await expect.element(page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})).toHaveValue('0')
     })
   })
 
   describe('Autocomplete.Menu', () => {
     it('only sets an active descendant while a menu rendered without an overlay is open', async () => {
-      const user = userEvent.setup()
       const ancestorRef = createRef<HTMLDivElement>()
       const handleAncestorKeyDown = (event: KeyboardEvent) => {
         if (!event.defaultPrevented && event.key === 'ArrowDown') {
@@ -291,31 +289,30 @@ describe('Autocomplete', () => {
           </div>
         </BaseStyles>,
       )
-      const inputNode = screen.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
       ancestorRef.current?.addEventListener('keydown', handleAncestorKeyDown)
 
-      expect(inputNode).toHaveAttribute('aria-expanded', 'false')
-      expect(screen.getByRole('listbox', {hidden: true}).closest('[hidden]')).toBeInTheDocument()
+      await expect.element(inputNode).toHaveAttribute('aria-expanded', 'false')
+      await expect
+        .element(page.getByRole('listbox', {includeHidden: true}).element().closest<HTMLElement>('[hidden]'))
+        .toBeInTheDocument()
 
-      await user.click(inputNode)
-      expect(inputNode).not.toHaveAttribute('aria-activedescendant')
+      await userEvent.click(inputNode)
+      await expect.element(inputNode).not.toHaveAttribute('aria-activedescendant')
 
-      await user.keyboard('{ArrowDown}')
-      await waitFor(() => {
-        expect(inputNode).toHaveFocus()
-        expect(inputNode).toHaveAttribute('aria-activedescendant', mockItems[0].id)
-        expect(screen.getByRole('option', {name: mockItems[0].text})).not.toHaveFocus()
-      })
+      await userEvent.keyboard('{ArrowDown}')
+      await expect.element(inputNode).toHaveFocus()
+      await expect.element(inputNode).toHaveAttribute('aria-activedescendant', mockItems[0].id)
+      await expect.element(page.getByRole('option', {name: mockItems[0].text})).not.toHaveFocus()
 
       // eslint-disable-next-line github/no-blur
-      fireEvent.blur(inputNode)
-      await waitFor(() => expect(inputNode).not.toHaveAttribute('aria-activedescendant'))
+      act(() => inputNode.element().blur())
+      await expect.element(inputNode).not.toHaveAttribute('aria-activedescendant')
     })
 
     it('calls a custom filter function', async () => {
-      const user = userEvent.setup()
       const filterFnMock = vi.fn()
-      const {container} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{
             items: mockItems,
@@ -325,16 +322,15 @@ describe('Autocomplete', () => {
           }}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      inputNode && (await user.type(inputNode, 'ze'))
+      await userEvent.type(inputNode, 'ze')
       expect(filterFnMock).toHaveBeenCalled()
     })
 
     it('calls a custom sort function when the menu closes', async () => {
-      const user = userEvent.setup()
       const sortOnCloseFnMock = vi.fn()
-      const {container} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{
             items: mockItems,
@@ -344,25 +340,22 @@ describe('Autocomplete', () => {
           }}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
       // `sortOnCloseFnMock` will be called in a `.sort()` on render to check if the
       // current sort order matches the result of `sortOnCloseFnMock`
       expect(sortOnCloseFnMock).toHaveBeenCalledTimes(mockItems.length - 1)
-      if (inputNode) {
-        await user.type(inputNode, 'ze')
-        // eslint-disable-next-line github/no-blur
-        fireEvent.blur(inputNode)
-      }
+      await userEvent.type(inputNode, 'ze')
+      // eslint-disable-next-line github/no-blur
+      act(() => inputNode.element().blur())
 
       // wait a tick for blur to finish
-      await waitFor(() => expect(sortOnCloseFnMock).toHaveBeenCalled())
+      await expect.poll(() => sortOnCloseFnMock).toHaveBeenCalled()
     })
 
     it("calls onOpenChange with the menu's open state", async () => {
-      const user = userEvent.setup()
       const onOpenChangeMock = vi.fn()
-      const {container} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{
             items: mockItems,
@@ -372,16 +365,15 @@ describe('Autocomplete', () => {
           }}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      inputNode && (await user.type(inputNode, 'ze'))
+      await userEvent.type(inputNode, 'ze')
       expect(onOpenChangeMock).toHaveBeenCalled()
     })
 
     it('calls onSelectedChange with the data for the selected items', async () => {
-      const user = userEvent.setup()
       const onSelectedChangeMock = vi.fn()
-      const {container} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{
             items: mockItems,
@@ -391,20 +383,17 @@ describe('Autocomplete', () => {
           }}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
       expect(onSelectedChangeMock).not.toHaveBeenCalled()
-      if (inputNode) {
-        fireEvent.focus(inputNode)
-        await user.type(inputNode, '{arrowdown}{enter}')
-      }
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{ArrowDown}{Enter}')
 
       expect(onSelectedChangeMock).toHaveBeenCalledWith([mockItems[0]])
     })
 
     it('does not close the menu when clicking an item in the menu if selectionVariant=multiple', async () => {
-      const user = userEvent.setup()
-      const {getByText, container} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{
             items: mockItems,
@@ -414,22 +403,19 @@ describe('Autocomplete', () => {
           }}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      if (inputNode) {
-        expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-        await user.click(inputNode)
+      await expect.element(inputNode).not.toHaveAttribute('aria-expanded', 'true')
+      await userEvent.click(inputNode)
 
-        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
-        expect(inputNode.getAttribute('aria-expanded')).toBe('true')
-        await user.click(getByText(mockItems[1].text))
-        expect(inputNode.getAttribute('aria-expanded')).toBe('true')
-      }
+      await userEvent.keyboard('{ArrowDown}')
+      await expect.element(inputNode).toHaveAttribute('aria-expanded', 'true')
+      await userEvent.click(page.getByRole('option', {name: mockItems[1].text, exact: true}))
+      await expect.element(inputNode).toHaveAttribute('aria-expanded', 'true')
     })
 
     it('closes the menu when clicking an item in the menu if selectionVariant=single', async () => {
-      const user = userEvent.setup()
-      const {getByText, container} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{
             items: mockItems,
@@ -439,21 +425,19 @@ describe('Autocomplete', () => {
           }}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL})
 
-      if (inputNode) {
-        expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-        await user.click(inputNode)
-        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
-        expect(inputNode.getAttribute('aria-expanded')).toBe('true')
-        await user.click(getByText(mockItems[1].text))
-        expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      }
+      await expect.element(inputNode).not.toHaveAttribute('aria-expanded', 'true')
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{ArrowDown}')
+      await expect.element(inputNode).toHaveAttribute('aria-expanded', 'true')
+      await userEvent.click(page.getByRole('option', {name: mockItems[1].text, exact: true}))
+      await expect.element(inputNode).not.toHaveAttribute('aria-expanded', 'true')
     })
 
-    it('calls handleAddItem with new item data when passing addNewItem', () => {
+    it('calls handleAddItem with new item data when passing addNewItem', async () => {
       const handleAddItemMock = vi.fn()
-      const {getByText} = render(
+      render(
         <LabelledAutocomplete
           menuProps={{
             items: mockItems,
@@ -469,10 +453,12 @@ describe('Autocomplete', () => {
         />,
       )
 
-      const addNewItemNode = getByText('Add new item')
+      const addNewItemNode = page.getByText('Add new item', {exact: true})
 
       expect(handleAddItemMock).not.toHaveBeenCalled()
-      fireEvent.click(addNewItemNode)
+      await userEvent.click(page.getByRole('combobox', {name: AUTOCOMPLETE_LABEL}))
+      await userEvent.keyboard('{ArrowDown}')
+      await userEvent.click(addNewItemNode)
       expect(handleAddItemMock).toHaveBeenCalled()
     })
 
@@ -495,7 +481,7 @@ describe('Autocomplete', () => {
       spy.mockRestore()
     })
 
-    it('renders items with the `children` field', () => {
+    it('renders items with the `children` field', async () => {
       render(
         <>
           <span id="label">test-label</span>
@@ -524,9 +510,9 @@ describe('Autocomplete', () => {
         </>,
       )
 
-      expect(screen.getByText('One')).toBeInTheDocument()
-      expect(screen.getByText('Two')).toBeInTheDocument()
-      expect(screen.getByText('Three')).toBeInTheDocument()
+      await expect.element(page.getByText('One')).toBeInTheDocument()
+      await expect.element(page.getByText('Two')).toBeInTheDocument()
+      await expect.element(page.getByText('Three')).toBeInTheDocument()
     })
   })
   describe('Autocomplete.Overlay', () => {

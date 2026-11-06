@@ -60,3 +60,8 @@ updates:
     labels:
       - 'dependencies'
       - 'skip changeset'
+    groups:
+      artifacts:
+        patterns:
+          - 'actions/upload-artifact'
+          - 'actions/download-artifact'
