@@ -1,3 +1,4 @@
+import {page} from 'vitest/browser'
 import {render} from '@testing-library/react'
 import {describe, test, expect} from 'vitest'
 import {TopicTagGroup} from './TopicTagGroup'
@@ -7,13 +8,13 @@ import classes from './TopicTagGroup.module.css'
 describe('TopicTagGroup', () => {
   implementsClassName(TopicTagGroup, classes.TopicTagGroup)
 
-  test('additional props are applied to outermost element', () => {
-    const {container} = render(
+  test('additional props are applied to outermost element', async () => {
+    render(
       <TopicTagGroup data-testid="test" id="test-id">
         test
       </TopicTagGroup>,
     )
-    expect(container.firstChild).toHaveAttribute('data-testid', 'test')
-    expect(container.firstChild).toHaveAttribute('id', 'test-id')
+    await expect.element(page.getByTestId('test')).toHaveAttribute('data-testid', 'test')
+    await expect.element(page.getByTestId('test')).toHaveAttribute('id', 'test-id')
   })
 })

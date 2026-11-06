@@ -1,4 +1,5 @@
-import {fireEvent, render, screen} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
+import {render} from '@testing-library/react'
 import {describe, test, expect, vi} from 'vitest'
 import {TopicTag} from '../TopicTag'
 import {implementsClassName} from '../utils/testing'
@@ -10,7 +11,7 @@ describe('TopicTag', () => {
   test('defaults to <a> semantics', async () => {
     render(<TopicTag href="#">test</TopicTag>)
 
-    expect(screen.getByRole('link', {name: 'test'})).toBeInTheDocument()
+    await expect.element(page.getByRole('link', {name: 'test'})).toBeInTheDocument()
   })
 
   test('support <button> semantics through `as` prop', async () => {
@@ -21,22 +22,22 @@ describe('TopicTag', () => {
       </TopicTag>,
     )
 
-    fireEvent.click(screen.getByRole('button', {name: 'test'}))
+    await userEvent.click(page.getByRole('button', {name: 'test'}))
     expect(onClick).toHaveBeenCalled()
   })
 
-  test('supports `className` merging', () => {
-    const {container} = render(<TopicTag className="custom-class">test</TopicTag>)
-    expect(container.firstChild).toHaveClass('custom-class')
+  test('supports `className` merging', async () => {
+    render(<TopicTag className="custom-class">test</TopicTag>)
+    await expect.element(page.getByText('test', {exact: true})).toHaveClass('custom-class')
   })
 
-  test('additional props are applied to outermost element', () => {
-    const {container} = render(
+  test('additional props are applied to outermost element', async () => {
+    render(
       <TopicTag data-testid="test" id="test-id">
         test
       </TopicTag>,
     )
-    expect(container.firstChild).toHaveAttribute('data-testid', 'test')
-    expect(container.firstChild).toHaveAttribute('id', 'test-id')
+    await expect.element(page.getByTestId('test')).toHaveAttribute('data-testid', 'test')
+    await expect.element(page.getByTestId('test')).toHaveAttribute('id', 'test-id')
   })
 })
