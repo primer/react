@@ -63,6 +63,7 @@ describe('SelectPanel', () => {
 
     render(<Example />)
     await user.click(screen.getByRole('button', {name: 'Assignees'}))
+    expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveAttribute('aria-expanded', 'true')
     await user.type(screen.getByRole('combobox', {name: 'Filter items'}), 'mon')
     expect(screen.getByRole('option', {name: 'Mona'})).toBeVisible()
 

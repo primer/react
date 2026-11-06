@@ -6,6 +6,15 @@
   "description": "`SelectPanel` is a data-driven, filterable picker built with Base UI Combobox and Primer's Popover and Dialog primitives.",
   "stories": [
     {
+      "id": "react-tailwind-components-selectpanel-examples-composition--without-filter"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples-composition--custom-rows-and-footer"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples-composition--grouped-picker-with-creation"
+    },
+    {
       "id": "react-tailwind-components-selectpanel-examples--height-initial-with-overflowing-items-story"
     },
     {
@@ -391,6 +400,193 @@
     }
   ],
   "subcomponents": [
+    {
+      "name": "SelectPanel.Root",
+      "props": [
+        {
+          "name": "filterable",
+          "type": "boolean",
+          "description": "Use Select behavior for a picker without an input.\nUse Combobox behavior with an optional filter input. Defaults to true."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Trigger",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | ((state: ComboboxTriggerState | SelectTriggerState) => string | undefined)",
+          "description": "Classes or a state-aware class resolver for either behavior family."
+        },
+        {
+          "name": "render",
+          "type": "ComponentRenderFn<HTMLProps, ComboboxTriggerState | SelectTriggerState> | React.ReactNode",
+          "defaultValue": "<Button />",
+          "description": "Replaces the trigger element while retaining primitive behavior."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties | ((state: ComboboxTriggerState | SelectTriggerState) => React.CSSProperties | undefined)",
+          "description": "Styles or a state-aware style resolver for either behavior family."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Portal",
+      "props": []
+    },
+    {
+      "name": "SelectPanel.Positioner",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | ((state: ComboboxPositionerState | SelectPositionerState) => string | undefined)",
+          "description": "Classes or a state-aware class resolver for either behavior family."
+        },
+        {
+          "name": "render",
+          "type": "ComponentRenderFn<HTMLProps, ComboboxPositionerState | SelectPositionerState> | React.ReactNode",
+          "description": "Replaces the rendered element while retaining primitive behavior."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties | ((state: ComboboxPositionerState | SelectPositionerState) => React.CSSProperties | undefined)",
+          "description": "Styles or a state-aware style resolver for either behavior family."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Popup",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | ((state: ComboboxPopupState | SelectPopupState) => string | undefined)",
+          "description": "Classes or a state-aware class resolver for either behavior family."
+        },
+        {
+          "name": "render",
+          "type": "ComponentRenderFn<HTMLProps, ComboboxPopupState | SelectPopupState> | React.ReactNode",
+          "description": "Replaces the rendered element while retaining primitive behavior."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties | ((state: ComboboxPopupState | SelectPopupState) => React.CSSProperties | undefined)",
+          "description": "Styles or a state-aware style resolver for either behavior family."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Surface",
+      "props": [
+        {
+          "name": "undecorated",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Omit the floating surface decoration inside an existing dialog."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Header",
+      "props": []
+    },
+    {
+      "name": "SelectPanel.Title",
+      "props": []
+    },
+    {
+      "name": "SelectPanel.Filter",
+      "props": [
+        {
+          "name": "render",
+          "type": "ComponentRenderFn<HTMLProps, ComboboxInputState> | React.ReactNode",
+          "defaultValue": "<TextInput block />",
+          "description": "Replaces the filter element while retaining input behavior."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.List",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | ((state: ComboboxListState | SelectListState) => string | undefined)",
+          "description": "Classes or a state-aware class resolver for either behavior family."
+        },
+        {
+          "name": "render",
+          "type": "ComponentRenderFn<HTMLProps, ComboboxListState | SelectListState> | React.ReactNode",
+          "description": "Replaces the rendered element while retaining primitive behavior."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties | ((state: ComboboxListState | SelectListState) => React.CSSProperties | undefined)",
+          "description": "Styles or a state-aware style resolver for either behavior family."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Item",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Text used for typeahead in a non-filterable picker."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Group",
+      "props": []
+    },
+    {
+      "name": "SelectPanel.GroupLabel",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"filled\" | \"subtle\"",
+          "description": "Filled labels draw a background and dividing border."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Empty",
+      "props": []
+    },
+    {
+      "name": "SelectPanel.Loading",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"skeleton\" | \"spinner\"",
+          "defaultValue": "'spinner'",
+          "description": "Which affordance to show while waiting for options."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Footer",
+      "props": []
+    },
+    {
+      "name": "SelectPanel.SelectionIndicator",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Draws disabled selection colors."
+        },
+        {
+          "name": "variant",
+          "type": "SelectionVisualVariant",
+          "description": "Overrides the default single checkmark or multiple checkbox appearance."
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Collection",
+      "props": []
+    },
     {
       "name": "SelectPanel.Message",
       "props": [

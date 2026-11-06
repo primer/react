@@ -8,7 +8,11 @@ The canonical alpha SelectPanel is a configurable picker over AnchoredOverlay, F
 
 The Tailwind SelectPanel covers the full non-deprecated surface: anchored, modal, and narrow-screen presentation; controlled or uncontrolled visibility and filtering; external anchors; typed selection identity; groups, dividers, and custom item rendering; loading, message, and notice states; secondary actions and select-all; sizing, collision, and scroll behavior; and built-in virtualization.
 
-It composes Base UI Combobox with Primer Button, TextInput, ActionList item content, Banner, Popover, and Dialog. It deliberately does not export a partial `Root`/`Trigger`/`Content`/`Item` family, because those parts cannot form a valid combobox without their shared context.
+It composes Base UI Combobox with Primer Button, TextInput, ActionList item content, Banner, Popover, and Dialog. For custom compositions, `SelectPanel` also exposes `Root`, `Trigger`, `Portal`, `Positioner`, `Popup`, `Surface`, `Header`, `Title`, `Filter`, `List`, `Item`, `Group`, `GroupLabel`, `Collection`, `Empty`, `Loading`, `Footer`, and `SelectionIndicator`. The configured component uses the same styled parts and retains its existing selection and presentation policies.
+
+The parts API intentionally uses Base UI's `value/defaultValue/onValueChange` and callback details, not the configured API's selection and gesture adapters. A filterable root uses Combobox. `filterable={false}` uses Select for select-style typeahead and option focus; map explicit item children in that mode. `Filter`, `Empty`, and `Collection` are Combobox-only.
+
+Parts do not implicitly supply the configured API's responsive dialog, draft/save behavior, selected-first sorting, select-all, or virtualization. Those remain configured policies, not primitive defaults.
 
 ## Migration notes
 

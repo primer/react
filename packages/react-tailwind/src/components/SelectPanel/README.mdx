@@ -23,9 +23,46 @@ import * as Examples from './SelectPanel.examples.stories'
 import {SelectPanel} from '@primer/react-tailwind/SelectPanel'
 ```
 
-Use the configured component for the supported picker pattern. `SelectPanel` intentionally does not expose partial Popover or Combobox subcomponents: that would leave consumers without the matching Combobox root, input, list, selection, and dismissal context. Use `Popover`, `Dialog`, `Combobox`, and `ActionList` directly for a wholly custom composition.
+Use the configured component for the standard picker pattern. Use `SelectPanel.Root` and its parts when the consumer needs to control structure; both APIs share Primer styling.
 
 `SelectPanel.SecondaryActionButton`, `SelectPanel.SecondaryActionLink`, and `SelectPanel.Message` are the supported presentational helpers for the configured API.
+
+## Composing parts
+
+```tsx
+<SelectPanel.Root<string> items={['bug', 'enhancement']}>
+  <SelectPanel.Trigger aria-label="Labels">Labels</SelectPanel.Trigger>
+  <SelectPanel.Portal>
+    <SelectPanel.Positioner>
+      <SelectPanel.Popup>
+        <SelectPanel.Header>
+          <SelectPanel.Title>Labels</SelectPanel.Title>
+        </SelectPanel.Header>
+        <SelectPanel.Filter aria-label="Filter labels" />
+        <SelectPanel.List aria-label="Labels">
+          {(label: string) => (
+            <SelectPanel.Item key={label} value={label}>
+              <SelectPanel.SelectionIndicator />
+              {label}
+            </SelectPanel.Item>
+          )}
+        </SelectPanel.List>
+        <SelectPanel.Empty>
+          <SelectPanel.Message title="No labels available" />
+        </SelectPanel.Empty>
+      </SelectPanel.Popup>
+    </SelectPanel.Positioner>
+  </SelectPanel.Portal>
+</SelectPanel.Root>
+```
+
+Name the trigger explicitly with `aria-label` or a visible label association. Include `Title` to name the popup, or name `Popup` explicitly with `aria-label`/`aria-labelledby`; when overriding a title's ID, also provide `Popup`'s `aria-labelledby`. Always name the list and any filter. Parts forward refs and DOM props to their named element; Base UI-backed parts retain `render`, state-aware classes/styles, and primitive events.
+
+For a picker without a filter, set `filterable={false}` on `Root`, omit `Filter`/`Empty`/`Collection`, and map explicit `Item` children into `List`. That root uses Base UI Select, with typeahead and option focus rather than input active descendants. Disabled options remain focusable for discovery but cannot be selected. `SelectionIndicator` defaults to a checkmark or checkbox according to `multiple`; override `variant` for a radio visual.
+
+`Surface` is the presentational body for embedding the picker in an existing Popover or Dialog; `Popup` is the explicit floating Base UI behavior part. `Header`, `Title`, `GroupLabel`, `Loading`, and `Footer` keep Primer styling while allowing arbitrary children. Put footer actions outside `List`. Show `Loading` instead of `List` while fetching; it announces its children as a status. Compose `Group` and `GroupLabel` with `Collection` for filtered sections. There is no child extraction or region registration, so consumer wrappers work normally.
+
+Parts use Base UI's `value/defaultValue/onValueChange` and `open/defaultOpen/onOpenChange` contracts; filterable roots also support `inputValue/defaultInputValue/onInputValueChange`. The configured API retains automatic mobile dialogs, staged Save/Cancel selection, select-all, selected-first sorting, and virtualization. See the composition stories for input-free selection, custom rows and footer actions, and grouped creation.
 
 ## Controlled and uncontrolled
 

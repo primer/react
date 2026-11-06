@@ -58,6 +58,87 @@ Import: `import {SelectPanel} from '@primer/react-tailwind/SelectPanel'`
 - `virtualized`: `boolean` — Default `false`. Renders only the visible options, for a long uniform list.
 - `width`: `OverlayWidth` — Width of the panel.
 
+## SelectPanel.Root
+
+- `filterable`: `boolean` — Use Select behavior for a picker without an input. Use Combobox behavior with an optional filter input. Defaults to true.
+
+## SelectPanel.Trigger
+
+- `className`: `string | ((state: ComboboxTriggerState | SelectTriggerState) => string | undefined)` — Classes or a state-aware class resolver for either behavior family.
+- `render`: `ComponentRenderFn<HTMLProps, ComboboxTriggerState | SelectTriggerState> | React.ReactNode` — Default `<Button />`. Replaces the trigger element while retaining primitive behavior.
+- `style`: `React.CSSProperties | ((state: ComboboxTriggerState | SelectTriggerState) => React.CSSProperties | undefined)` — Styles or a state-aware style resolver for either behavior family.
+
+## SelectPanel.Portal
+
+Takes no props of its own.
+
+## SelectPanel.Positioner
+
+- `className`: `string | ((state: ComboboxPositionerState | SelectPositionerState) => string | undefined)` — Classes or a state-aware class resolver for either behavior family.
+- `render`: `ComponentRenderFn<HTMLProps, ComboboxPositionerState | SelectPositionerState> | React.ReactNode` — Replaces the rendered element while retaining primitive behavior.
+- `style`: `React.CSSProperties | ((state: ComboboxPositionerState | SelectPositionerState) => React.CSSProperties | undefined)` — Styles or a state-aware style resolver for either behavior family.
+
+## SelectPanel.Popup
+
+- `className`: `string | ((state: ComboboxPopupState | SelectPopupState) => string | undefined)` — Classes or a state-aware class resolver for either behavior family.
+- `render`: `ComponentRenderFn<HTMLProps, ComboboxPopupState | SelectPopupState> | React.ReactNode` — Replaces the rendered element while retaining primitive behavior.
+- `style`: `React.CSSProperties | ((state: ComboboxPopupState | SelectPopupState) => React.CSSProperties | undefined)` — Styles or a state-aware style resolver for either behavior family.
+
+## SelectPanel.Surface
+
+- `undecorated`: `boolean` — Default `false`. Omit the floating surface decoration inside an existing dialog.
+
+## SelectPanel.Header
+
+Takes no props of its own.
+
+## SelectPanel.Title
+
+Takes no props of its own.
+
+## SelectPanel.Filter
+
+- `render`: `ComponentRenderFn<HTMLProps, ComboboxInputState> | React.ReactNode` — Default `<TextInput block />`. Replaces the filter element while retaining input behavior.
+
+## SelectPanel.List
+
+- `className`: `string | ((state: ComboboxListState | SelectListState) => string | undefined)` — Classes or a state-aware class resolver for either behavior family.
+- `render`: `ComponentRenderFn<HTMLProps, ComboboxListState | SelectListState> | React.ReactNode` — Replaces the rendered element while retaining primitive behavior.
+- `style`: `React.CSSProperties | ((state: ComboboxListState | SelectListState) => React.CSSProperties | undefined)` — Styles or a state-aware style resolver for either behavior family.
+
+## SelectPanel.Item
+
+- `label`: `string` — Text used for typeahead in a non-filterable picker.
+
+## SelectPanel.Group
+
+Takes no props of its own.
+
+## SelectPanel.GroupLabel
+
+- `variant`: `"filled" | "subtle"` — Filled labels draw a background and dividing border.
+
+## SelectPanel.Empty
+
+Takes no props of its own.
+
+## SelectPanel.Loading
+
+- `variant`: `"skeleton" | "spinner"` — Default `'spinner'`. Which affordance to show while waiting for options.
+
+## SelectPanel.Footer
+
+Takes no props of its own.
+
+## SelectPanel.SelectionIndicator
+
+- `disabled`: `boolean` — Draws disabled selection colors.
+- `variant`: `SelectionVisualVariant` — Overrides the default single checkmark or multiple checkbox appearance.
+
+## SelectPanel.Collection
+
+Takes no props of its own.
+
 ## SelectPanel.Message
 
 - `action`: `React.ReactNode`

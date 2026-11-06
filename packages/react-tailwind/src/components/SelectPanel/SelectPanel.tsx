@@ -1,6 +1,6 @@
 'use client'
 
-import {Combobox} from '@base-ui/react/combobox'
+import type {Combobox} from '@base-ui/react/combobox'
 import {AlertIcon, SearchIcon, StopIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React from 'react'
 import {CloseIconButton} from '../../internal/CloseIconButton'
@@ -16,21 +16,57 @@ import {
   ActionItemElementContent,
   type ActionListItemProps,
 } from '../ActionList/ActionList'
-import {
-  actionItemPartClassName,
-  getActionItemStateAttributes,
-  getActionItemStateClassName,
-} from '../ActionList/itemState'
+import {getActionItemStateAttributes, getActionItemStateClassName} from '../ActionList/itemState'
 import {Banner} from '../Banner'
 import {Button, type ButtonProps} from '../Button'
 import {LinkButton, type LinkButtonProps} from '../LinkButton'
 import {Dialog} from '../Dialog'
-import {ComboboxSelectionIndicator, SelectAllRow} from '../FilteredActionList/FilteredActionListParts'
+import {SelectAllRow} from '../FilteredActionList/FilteredActionListParts'
 import {useFormControlContext} from '../FormControl/useFormControlForwardedProps'
 import {Announce} from '../LiveRegion'
 import {Popover} from '../Popover'
-import {Spinner} from '../Spinner'
 import {TextInput, type TextInputProps} from '../TextInput'
+import {
+  Root,
+  Trigger,
+  Portal,
+  Positioner,
+  Popup,
+  Surface,
+  Header,
+  Title,
+  Filter,
+  List,
+  Item,
+  Group,
+  GroupLabel,
+  Empty,
+  Loading,
+  Footer,
+  SelectionIndicator,
+  Collection,
+} from './SelectPanelParts'
+
+const Parts = {
+  Root,
+  Trigger,
+  Portal,
+  Positioner,
+  Popup,
+  Surface,
+  Header,
+  Title,
+  Filter,
+  List,
+  Item,
+  Group,
+  GroupLabel,
+  Empty,
+  Loading,
+  Footer,
+  SelectionIndicator,
+  Collection,
+}
 
 const panelWidthClasses = {
   ...overlayWidthClassNames,
@@ -507,19 +543,17 @@ function renderSelectPanelOption({
   const selection = inactiveText ? (
     <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-attention" />
   ) : (
-    <ComboboxSelectionIndicator disabled={disabled} variant={multiple ? 'multiple' : radio ? 'radio' : 'single'} />
+    <Parts.SelectionIndicator disabled={disabled} variant={multiple ? 'multiple' : radio ? 'radio' : 'single'} />
   )
 
   return (
-    <Combobox.Item
+    <Parts.Item
       {...itemProps}
       {...getActionItemStateAttributes({disabled, inactive: Boolean(inactiveText)})}
       aria-posinset={optionIndex === undefined ? itemProps['aria-posinset'] : optionIndex + 1}
       aria-setsize={optionCount ?? itemProps['aria-setsize']}
       className={cn(
-        // Selection shows only through the indicator, as it does in ActionList listboxes.
-        'group relative flex w-full cursor-default items-center rounded-md px-2 py-1.5 text-left text-sm outline-none',
-        actionItemPartClassName.content,
+        'gap-0',
         getActionItemStateClassName({disabled, highlightable: true, inactive: Boolean(inactiveText)}),
         // Rows clip only vertically, so the accent line beside a highlighted row stays visible.
         virtualized && 'h-9 overflow-y-clip whitespace-nowrap',
@@ -564,7 +598,7 @@ function renderSelectPanelOption({
         ))
       )}
       {inactiveText ? <span className="sr-only">{inactiveText}</span> : null}
-    </Combobox.Item>
+    </Parts.Item>
   )
 }
 
@@ -733,10 +767,10 @@ function SelectPanelList({
 
   if (virtualized) {
     return (
-      <Combobox.List
+      <Parts.List
         aria-label={ariaLabel}
         aria-multiselectable={multiple || undefined}
-        className="m-0 min-h-0 flex-1 list-none overflow-hidden p-1"
+        className="max-h-none overflow-hidden"
         data-component="SelectPanel.List"
       >
         <SelectPanelVirtualizedList
@@ -750,16 +784,16 @@ function SelectPanelList({
           showItemDividers={showItemDividers}
           values={values}
         />
-      </Combobox.List>
+      </Parts.List>
     )
   }
 
   return (
-    <Combobox.List
+    <Parts.List
       {...actionListProps}
       aria-label={ariaLabel}
       aria-multiselectable={multiple || undefined}
-      className={cn('m-0 min-h-0 max-h-72 flex-1 list-none overflow-auto p-1', actionListProps?.className)}
+      className={actionListProps?.className}
       data-component="SelectPanel.List"
       onScroll={onScroll}
       ref={setListRef}
@@ -777,16 +811,8 @@ function SelectPanelList({
             }
             const groupContent = (
               <>
-                <Combobox.GroupLabel
-                  className={cn(
-                    'flex min-h-[30px] items-center px-3 py-1.5 text-xs leading-[18px] font-semibold text-muted',
-                    group.variant === 'filled' && 'mb-1 border-y border-muted bg-muted',
-                  )}
-                  data-component="SelectPanel.GroupHeading"
-                >
-                  {group.title}
-                </Combobox.GroupLabel>
-                <Combobox.Collection>
+                <Parts.GroupLabel variant={group.variant}>{group.title}</Parts.GroupLabel>
+                <Parts.Collection>
                   {(value: SelectPanelValue, index: number) =>
                     renderSelectPanelOption({
                       itemNodes,
@@ -800,14 +826,14 @@ function SelectPanelList({
                       value,
                     })
                   }
-                </Combobox.Collection>
+                </Parts.Collection>
               </>
             )
 
             return (
-              <Combobox.Group className="block pb-2 last:pb-0" items={group.items} key={group.groupId}>
+              <Parts.Group items={group.items} key={group.groupId}>
                 {(group.renderGroup ?? renderGroup)?.(groupMetadata, groupContent) ?? groupContent}
-              </Combobox.Group>
+              </Parts.Group>
             )
           }
         : (value: SelectPanelValue, index: number) =>
@@ -822,7 +848,7 @@ function SelectPanelList({
               showItemDividers,
               value,
             })}
-    </Combobox.List>
+    </Parts.List>
   )
 }
 
@@ -897,10 +923,11 @@ function SelectPanelBody({
   return (
     <>
       <div className="border-b border-default p-3" data-component="SelectPanel.FilterContainer">
-        <Combobox.Input
+        <Parts.Filter
           // The input tracks its own `id`, so it must not be overridden on the render element.
           id={inputId}
           aria-label={inputProps['aria-label'] ?? inputLabel}
+          aria-expanded="true"
           autoFocus
           data-component="SelectPanel.Filter"
           placeholder={placeholderText}
@@ -917,18 +944,7 @@ function SelectPanelBody({
         />
       ) : null}
       {loading ? (
-        <div className="flex flex-1 items-center justify-center gap-2 p-6 text-sm text-muted" role="status">
-          {initialLoadingType === 'skeleton' ? (
-            <div aria-hidden="true" className="w-full space-y-2">
-              <div className="h-4 animate-pulse rounded bg-neutral-muted" />
-              <div className="h-4 w-4/5 animate-pulse rounded bg-neutral-muted" />
-              <div className="h-4 w-3/5 animate-pulse rounded bg-neutral-muted" />
-            </div>
-          ) : (
-            <Spinner size="small" srText={null} />
-          )}
-          Loading
-        </div>
+        <Parts.Loading variant={initialLoadingType} />
       ) : hasMessage ? (
         <div className="flex flex-1" data-component="SelectPanel.MessageContainer">
           {messageContent}
@@ -950,9 +966,9 @@ function SelectPanelBody({
             values={values}
             virtualized={virtualized && !groupedValues}
           />
-          <Combobox.Empty className="flex flex-1" data-component="SelectPanel.Empty">
+          <Parts.Empty>
             <SelectPanelMessageComponent title="No items available" variant="empty" />
-          </Combobox.Empty>
+          </Parts.Empty>
         </>
       )}
     </>
@@ -1039,20 +1055,11 @@ function SelectPanelContent({
   onSelectAllChange,
 }: SelectPanelContentProps) {
   return (
-    <div
-      className={cn(
-        'flex min-h-0 flex-1 flex-col overflow-hidden bg-default text-default',
-        !isDialog && 'rounded-md border border-default shadow-floating-lg',
-      )}
-      data-component="SelectPanel"
-      data-variant={variant}
-    >
+    <Parts.Surface undecorated={isDialog} data-variant={variant}>
       <div className="contents" data-component="SelectPanel.Content">
-        <header className="flex items-start justify-between gap-4 px-4 pt-4" data-component="SelectPanel.Header">
+        <Parts.Header>
           <div className="min-w-0">
-            <h2 className="m-0 font-semibold text-default" data-component="SelectPanel.Title" id={titleId}>
-              {title}
-            </h2>
+            <Parts.Title id={titleId}>{title}</Parts.Title>
             {subtitle ? (
               <p className="mt-1 text-sm text-muted" data-component="SelectPanel.Subtitle" id={subtitleId}>
                 {subtitle}
@@ -1067,7 +1074,7 @@ function SelectPanelContent({
               onClick={onCancelRequest}
             />
           ) : null}
-        </header>
+        </Parts.Header>
         {notice ? (
           <Announce
             className="mx-4 mt-3"
@@ -1112,10 +1119,7 @@ function SelectPanelContent({
           />
         </div>
         {secondaryAction || showCancel || showSave || showSaveAndClose ? (
-          <footer
-            className="flex flex-wrap items-center gap-2 border-t border-default p-3"
-            data-component="SelectPanel.Footer"
-          >
+          <Parts.Footer>
             {secondaryAction ? (
               <div className="min-w-0 flex-1" data-component="SelectPanel.SecondaryAction">
                 {secondaryAction}
@@ -1140,10 +1144,10 @@ function SelectPanelContent({
                 ) : null}
               </div>
             ) : null}
-          </footer>
+          </Parts.Footer>
         ) : null}
       </div>
-    </div>
+    </Parts.Surface>
   )
 }
 
@@ -1462,7 +1466,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     )
 
   const panel = (
-    <Combobox.Root<SelectPanelValue, boolean>
+    <Parts.Root<SelectPanelValue, boolean>
       autoHighlight={focusPrependedElements || !setInitialFocus}
       defaultInputValue={defaultFilterValue}
       filteredItems={groupedValues ?? values}
@@ -1521,7 +1525,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
         visibleItems={visibleItems}
         onSelectAllChange={onSelectAllChange}
       />
-    </Combobox.Root>
+    </Parts.Root>
   )
   const popoverContent = (
     <Popover.Positioner
@@ -1630,6 +1634,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
 })
 
 export const SelectPanel = Object.assign(SelectPanelConfig, {
+  ...Parts,
   Message: SelectPanelMessageComponent,
   SecondaryActionButton: SelectPanelSecondaryActionButton,
   SecondaryActionLink: SelectPanelSecondaryActionLink,
