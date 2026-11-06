@@ -291,6 +291,22 @@
         "element": "Autocomplete.Status",
         "url": "https://base-ui.com/react/components/autocomplete#status"
       }
+    },
+    {
+      "name": "Autocomplete.useFilter",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.useFilter",
+        "url": "https://base-ui.com/react/components/autocomplete#usefilter"
+      }
+    },
+    {
+      "name": "Autocomplete.useFilteredItems",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.useFilteredItems",
+        "url": "https://base-ui.com/react/components/autocomplete#usefiltereditems"
+      }
     }
   ],
   "passthrough": {

@@ -16,7 +16,7 @@ const Root = function AutocompleteRoot(props: AutocompleteRootProps<unknown>) {
 } as typeof BaseAutocomplete.Root
 
 export interface AutocompleteInputProps
-  extends Omit<BaseAutocomplete.Input.Props, 'data-component' | 'render' | 'size'>,
+  extends Omit<BaseAutocomplete.Input.Props, 'data-component' | 'size'>,
     Pick<
       TextInputProps,
       | 'block'
@@ -40,6 +40,7 @@ const Input = React.forwardRef<HTMLInputElement, AutocompleteInputProps>(functio
     loaderText,
     loading,
     monospace,
+    render,
     size,
     trailingAction,
     trailingVisual,
@@ -54,18 +55,20 @@ const Input = React.forwardRef<HTMLInputElement, AutocompleteInputProps>(functio
       ref={ref}
       data-component="Autocomplete.Input"
       render={
-        <TextInput
-          block={block}
-          leadingVisual={leadingVisual}
-          loaderPosition={loaderPosition}
-          loaderText={loaderText}
-          loading={loading}
-          monospace={monospace}
-          size={size}
-          trailingAction={trailingAction}
-          trailingVisual={trailingVisual}
-          validationStatus={validationStatus}
-        />
+        render ?? (
+          <TextInput
+            block={block}
+            leadingVisual={leadingVisual}
+            loaderPosition={loaderPosition}
+            loaderText={loaderText}
+            loading={loading}
+            monospace={monospace}
+            size={size}
+            trailingAction={trailingAction}
+            trailingVisual={trailingVisual}
+            validationStatus={validationStatus}
+          />
+        )
       }
     />
   )
@@ -160,6 +163,8 @@ const List = React.forwardRef<HTMLDivElement, BaseAutocomplete.List.Props>(funct
   )
 })
 
+const useFilteredItems: <T>() => T[] = BaseAutocomplete.useFilteredItems
+
 export const Autocomplete = Object.assign(Root, {
   Root,
   Input,
@@ -175,5 +180,7 @@ export const Autocomplete = Object.assign(Root, {
   GroupLabel: BaseAutocomplete.GroupLabel,
   Empty: BaseAutocomplete.Empty,
   Status: BaseAutocomplete.Status,
+  useFilter: BaseAutocomplete.useFilter,
+  useFilteredItems,
 })
 ;(Autocomplete as {displayName?: string}).displayName = 'Autocomplete'

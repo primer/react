@@ -89,6 +89,14 @@ Forwards unrecognized props to Base UI's [`Autocomplete.Empty`](https://base-ui.
 
 Forwards unrecognized props to Base UI's [`Autocomplete.Status`](https://base-ui.com/react/components/autocomplete#status), so it also accepts that part's props.
 
+## Autocomplete.useFilter
+
+Forwards unrecognized props to Base UI's [`Autocomplete.useFilter`](https://base-ui.com/react/components/autocomplete#usefilter), so it also accepts that part's props.
+
+## Autocomplete.useFilteredItems
+
+Forwards unrecognized props to Base UI's [`Autocomplete.useFilteredItems`](https://base-ui.com/react/components/autocomplete#usefiltereditems), so it also accepts that part's props.
+
 ## Differences from `@primer/react`
 
 - Move legacy token, dialog, and TextInput integrations to composition with their local components.

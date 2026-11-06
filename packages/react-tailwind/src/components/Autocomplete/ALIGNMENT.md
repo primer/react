@@ -14,3 +14,5 @@ The stable compound API provides `Root`, `Input`, `Content`, and `Item`. Base UI
 - Use the documented value/default-value callback contract rather than legacy overlay state props.
 - Set `portal={false}` on `Content` to render the list in place rather than at the end of the document; it still composes its positioner.
 - `sx` and styled-system props are unsupported.
+- `Input.render` replaces the default `TextInput`, including with a local `Textarea`. TextInput decoration props are only applied to the default element. The outer input event/ref types remain Base UI's input types; a textarea's native handlers and ref belong on the render element.
+- `useFilter` and `useFilteredItems` preserve Base UI's public behavior hooks. Trigger parsing, caret measurement, Tab acceptance, and text insertion remain consumer concerns rather than new Autocomplete state.

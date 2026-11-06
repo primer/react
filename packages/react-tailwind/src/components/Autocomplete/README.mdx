@@ -25,6 +25,14 @@ import {Autocomplete} from '@primer/react-tailwind/Autocomplete'
 
 Compose `Input`, `Content`, `List`, and `Item` under the root. `Content` has `align`, `alignOffset`, `side`, `sideOffset`, `anchor`, `portal`, and `positionerClassName` options; set `portal={false}` to render the list in place. Use `Group`, `GroupLabel`, `Empty`, and `Status` for richer lists.
 
+`Input` defaults to `TextInput`. Use `render={<Textarea />}` to replace the field without losing Base UI behavior. Put textarea-specific props, handlers, and its typed ref on the render element; Base UI's outer input props and ref retain their upstream `HTMLInputElement` signatures. TextInput-only visuals and sizes apply only to the default render element.
+
+For inline suggestions, control the root's full text `value` and `open`, pass externally filtered `items` with `filter={null}`, and handle selection through `onValueChange` event details (`item-press`). `Content.anchor` already accepts a virtual anchor (`getBoundingClientRect` plus `contextElement`); consumers own trigger parsing, text replacement, and caret measurement. Base UI's input keyboard defaults target a single-line input, so textarea integrations must preserve native multiline Home/End and closed Escape behavior using Base UI event cancellation.
+
+`Autocomplete.useFilter` exposes Base UI's locale-aware matching. `Autocomplete.useFilteredItems` reads the current filtered collection from a descendant of the root. These are behavior hooks, not an inline-editor engine.
+
+Textarea composition is exploratory, not accessibility-certified: Base UI applies combobox semantics to a textarea only while open, and the repository's axe version reports an `aria-allowed-role` best-practice warning for that combination. Validate the interaction with supported screen readers before production use.
+
 ## Controlled and uncontrolled
 
 <Canvas of={Examples.Controlled} />
