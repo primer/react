@@ -105,11 +105,10 @@ export default defineConfig([
         include: /\.(?:js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         presets: [
-          '@babel/preset-typescript',
+          ['@babel/preset-typescript', {onlyRemoveTypeImports: false}],
           [
             '@babel/preset-react',
             {
-              modules: false,
               runtime: 'automatic',
             },
           ],
@@ -119,8 +118,8 @@ export default defineConfig([
           'add-react-displayname',
           'dev-expression',
           'babel-plugin-styled-components',
-          '@babel/plugin-proposal-nullish-coalescing-operator',
-          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-transform-nullish-coalescing-operator',
+          '@babel/plugin-transform-optional-chaining',
           [
             'babel-plugin-transform-replace-expressions',
             {
