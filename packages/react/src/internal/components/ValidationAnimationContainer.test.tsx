@@ -1,4 +1,5 @@
 import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {describe, it, expect} from 'vitest'
 import ValidationAnimationContainer from './ValidationAnimationContainer'
 import {createRenderCounter} from '../../utils/testing/profiler'
@@ -7,9 +8,9 @@ import {implementsClassName} from '../../utils/testing'
 describe('ValidationAnimationContainer', () => {
   implementsClassName(props => <ValidationAnimationContainer show {...props} />)
 
-  it('renders children when show is true', () => {
-    const {getByText} = render(<ValidationAnimationContainer show>content</ValidationAnimationContainer>)
-    expect(getByText('content')).toBeInTheDocument()
+  it('renders children when show is true', async () => {
+    render(<ValidationAnimationContainer show>content</ValidationAnimationContainer>)
+    await expect.element(page.getByText('content', {exact: true})).toBeInTheDocument()
   })
 
   it('does not render children when show is false initially', () => {
@@ -17,14 +18,14 @@ describe('ValidationAnimationContainer', () => {
     expect(queryByText('content')).not.toBeInTheDocument()
   })
 
-  it('renders children after show transitions to true', () => {
+  it('renders children after show transitions to true', async () => {
     const {queryByText, rerender} = render(
       <ValidationAnimationContainer show={false}>content</ValidationAnimationContainer>,
     )
     expect(queryByText('content')).not.toBeInTheDocument()
 
     rerender(<ValidationAnimationContainer show={true}>content</ValidationAnimationContainer>)
-    expect(queryByText('content')).toBeInTheDocument()
+    await expect.element(page.getByText('content', {exact: true})).toBeInTheDocument()
   })
 
   it('commits once (no cascade) when show transitions to true', () => {
