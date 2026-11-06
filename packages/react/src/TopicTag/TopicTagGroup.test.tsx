@@ -9,12 +9,14 @@ describe('TopicTagGroup', () => {
   implementsClassName(TopicTagGroup, classes.TopicTagGroup)
 
   test('additional props are applied to outermost element', async () => {
-    render(
+    const {container} = render(
       <TopicTagGroup data-testid="test" id="test-id">
         test
       </TopicTagGroup>,
     )
-    await expect.element(page.getByTestId('test')).toHaveAttribute('data-testid', 'test')
-    await expect.element(page.getByTestId('test')).toHaveAttribute('id', 'test-id')
+    const topicTagGroup = page.getByTestId('test')
+    expect(topicTagGroup.element()).toBe(container.firstElementChild)
+    await expect.element(topicTagGroup).toHaveAttribute('data-testid', 'test')
+    await expect.element(topicTagGroup).toHaveAttribute('id', 'test-id')
   })
 })

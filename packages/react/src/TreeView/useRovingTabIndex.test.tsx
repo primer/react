@@ -598,7 +598,7 @@ describe('useRovingTabIndex hook', () => {
       await expect.element(button).toHaveFocus()
 
       expect(fireEvent.keyDown(button.element(), {key})).toBe(false)
-      await expect.element(button).toHaveFocus()
+      expect(button.element()).toHaveFocus()
     },
   )
 

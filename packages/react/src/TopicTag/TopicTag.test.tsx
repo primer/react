@@ -27,17 +27,21 @@ describe('TopicTag', () => {
   })
 
   test('supports `className` merging', async () => {
-    render(<TopicTag className="custom-class">test</TopicTag>)
-    await expect.element(page.getByText('test', {exact: true})).toHaveClass('custom-class')
+    const {container} = render(<TopicTag className="custom-class">test</TopicTag>)
+    const topicTag = page.getByText('test', {exact: true})
+    expect(topicTag.element()).toBe(container.firstElementChild)
+    await expect.element(topicTag).toHaveClass('custom-class')
   })
 
   test('additional props are applied to outermost element', async () => {
-    render(
+    const {container} = render(
       <TopicTag data-testid="test" id="test-id">
         test
       </TopicTag>,
     )
-    await expect.element(page.getByTestId('test')).toHaveAttribute('data-testid', 'test')
-    await expect.element(page.getByTestId('test')).toHaveAttribute('id', 'test-id')
+    const topicTag = page.getByTestId('test')
+    expect(topicTag.element()).toBe(container.firstElementChild)
+    await expect.element(topicTag).toHaveAttribute('data-testid', 'test')
+    await expect.element(topicTag).toHaveAttribute('id', 'test-id')
   })
 })
