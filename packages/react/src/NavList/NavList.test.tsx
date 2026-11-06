@@ -92,17 +92,17 @@ describe('NavList.Item', () => {
         <NavList.Item href="#second">Second session {working ? 'working' : 'completed'}</NavList.Item>
       </NavList>
     )
-    const {getByRole, getByTestId, rerender} = render(renderItems(false))
-    const link = getByRole('link', {name: 'First session'})
-    const visual = getByTestId('working-visual')
+    const {rerender} = render(renderItems(false))
+    const link = page.getByRole('link', {name: 'First session', exact: true}).element()
+    const visual = page.getByTestId('working-visual').element()
     link.focus()
 
     rerender(renderItems(true))
 
-    expect(getByRole('link', {name: 'First session'})).toBe(link)
-    expect(getByTestId('working-visual')).toBe(visual)
+    expect(page.getByRole('link', {name: 'First session', exact: true}).element()).toBe(link)
+    expect(page.getByTestId('working-visual').element()).toBe(visual)
     expect(link).toHaveFocus()
-    expect(getByRole('link', {name: 'Second session working'})).toBeInTheDocument()
+    expect(page.getByRole('link', {name: 'Second session working', exact: true}).element()).toBeInTheDocument()
   })
 
   it('renders a tooltip inside a link item when tooltipText is provided', () => {
@@ -255,7 +255,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     // Click to close
     const itemWithSubNav = page.getByRole('button', {name: 'Item 2'})
     await userEvent.click(itemWithSubNav)
-    expect(page.getByRole('list', {name: 'Item 2'}).elements()[0] ?? null).toBeNull()
+    expect(page.getByRole('list', {name: 'Item 2'}).elements()).toHaveLength(0)
   })
 
   it('renders parent item expanded on initial static render when SubNav contains the current item', () => {
@@ -277,8 +277,8 @@ describe('NavList.Item with NavList.SubNav', () => {
 
   it('hides SubNav by default if SubNav does not contain the current item', () => {
     render(<NavListWithSubNav />)
-    const subNav = page.getByRole('list', {name: 'Item 2'}).elements()[0] ?? null
-    expect(subNav).toBeNull()
+    const subNav = page.getByRole('list', {name: 'Item 2'}).elements()
+    expect(subNav).toHaveLength(0)
   })
 
   it('toggles visibility of SubNav when clicked', async () => {
@@ -286,7 +286,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     const itemWithSubNav = page.getByRole('button', {name: 'Item 2'})
 
     // Starts closed
-    expect(page.getByRole('list', {name: 'Item 2'}).elements()[0] ?? null).toBeNull()
+    expect(page.getByRole('list', {name: 'Item 2'}).elements()).toHaveLength(0)
 
     // Click to open
     await userEvent.click(itemWithSubNav)
@@ -294,7 +294,7 @@ describe('NavList.Item with NavList.SubNav', () => {
 
     // Click to close
     await userEvent.click(itemWithSubNav)
-    expect(page.getByRole('list', {name: 'Item 2'}).elements()[0] ?? null).toBeNull()
+    expect(page.getByRole('list', {name: 'Item 2'}).elements()).toHaveLength(0)
   })
 
   it('prevents more than 4 levels of nested SubNavs', async () => {
@@ -400,8 +400,8 @@ describe('NavList.Item with NavList.SubNav', () => {
     it('does not render TrailingAction alongside SubNav', async () => {
       render(<NavListWithSubNavAndTrailingAction />)
 
-      const trailingAction = page.getByRole('button', {name: 'This should not be rendered'}).elements()[0] ?? null
-      expect(trailingAction).toBeNull()
+      const trailingAction = page.getByRole('button', {name: 'This should not be rendered'}).elements()
+      expect(trailingAction).toHaveLength(0)
     })
 
     it('supports TrailingAction within an Item inside SubNav', async () => {
@@ -453,8 +453,8 @@ describe('NavList.GroupExpand', () => {
 
     expect(page.getByRole('link', {name: 'Item 1'}).elements()[0] ?? null).toBeInTheDocument()
     expect(page.getByRole('link', {name: 'Item 2'}).elements()[0] ?? null).toBeInTheDocument()
-    expect(page.getByRole('link', {name: 'Item 3'}).elements()[0] ?? null).not.toBeInTheDocument()
-    expect(page.getByRole('link', {name: 'Item 4'}).elements()[0] ?? null).not.toBeInTheDocument()
+    expect(page.getByRole('link', {name: 'Item 3'}).elements()).toHaveLength(0)
+    expect(page.getByRole('link', {name: 'Item 4'}).elements()).toHaveLength(0)
   })
 
   it('shows items inside of NavList.ShowMoreItem when expand button is activated', async () => {
@@ -467,7 +467,7 @@ describe('NavList.GroupExpand', () => {
     expect(page.getByRole('link', {name: 'Item 3'}).elements()[0] ?? null).toBeInTheDocument()
     expect(page.getByRole('link', {name: 'Item 4'}).elements()[0] ?? null).toBeInTheDocument()
 
-    expect(page.getByRole('button', {name: 'More'}).elements()[0] ?? null).not.toBeInTheDocument()
+    expect(page.getByRole('button', {name: 'More'}).elements()).toHaveLength(0)
   })
 
   it('removes expand button after it is activated', async () => {
@@ -475,7 +475,7 @@ describe('NavList.GroupExpand', () => {
 
     await userEvent.click(page.getByRole('button', {name: 'More'}))
 
-    expect(page.getByRole('button', {name: 'More'}).elements()[0] ?? null).not.toBeInTheDocument()
+    expect(page.getByRole('button', {name: 'More'}).elements()).toHaveLength(0)
   })
 
   it('places focus on the first of the newly shown list item', async () => {
@@ -574,8 +574,8 @@ describe('NavList.ShowMoreItem with pages', () => {
     expect(page.getByRole('link', {name: 'Item 3'}).elements()[0] ?? null).toBeInTheDocument()
     expect(page.getByRole('link', {name: 'Item 4'}).elements()[0] ?? null).toBeInTheDocument()
     expect(page.getByRole('link', {name: 'Item 5'}).elements()[0] ?? null).toBeInTheDocument()
-    expect(page.getByRole('link', {name: 'Item 6'}).elements()[0] ?? null).not.toBeInTheDocument()
-    expect(page.getByRole('link', {name: 'Item 7'}).elements()[0] ?? null).not.toBeInTheDocument()
+    expect(page.getByRole('link', {name: 'Item 6'}).elements()).toHaveLength(0)
+    expect(page.getByRole('link', {name: 'Item 7'}).elements()).toHaveLength(0)
   })
 
   it('passes through as props to the link items', async () => {
@@ -892,7 +892,7 @@ describe('NavList.ShowMoreItem with pages', () => {
       const list = container.querySelector('[data-testid="group"] > ul')
       const heading = page.getByRole('heading', {level: 3, name: 'Project templates'}).element()
 
-      expect(page.getByText('Overview').elements()[0] ?? null).not.toBeInTheDocument()
+      expect(page.getByText('Overview').elements()).toHaveLength(0)
       expect(page.getByRole('heading').element()).toBe(heading)
       expect(container.querySelectorAll(`#${CSS.escape(heading.id)}`)).toHaveLength(1)
       expect(heading.parentElement?.parentElement).toBe(group)
@@ -911,7 +911,7 @@ describe('NavList.ShowMoreItem with pages', () => {
       )
 
       expect(page.getByRole('heading', {level: 3, name: 'Project templates'}).element()).toBeInTheDocument()
-      expect(page.getByText('Overview').elements()[0] ?? null).not.toBeInTheDocument()
+      expect(page.getByText('Overview').elements()).toHaveLength(0)
     })
 
     it('recognizes a group heading wrapper created with asSlot', () => {
@@ -934,7 +934,7 @@ describe('NavList.ShowMoreItem with pages', () => {
       const list = group?.querySelector(':scope > ul')
       const heading = page.getByRole('heading', {level: 3, name: 'Project templates'}).element()
 
-      expect(page.getByText('Overview').elements()[0] ?? null).not.toBeInTheDocument()
+      expect(page.getByText('Overview').elements()).toHaveLength(0)
       expect(heading.parentElement?.parentElement).toBe(group)
       expect(list).toHaveAttribute('aria-labelledby', 'project-templates-heading')
     })
