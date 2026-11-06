@@ -1,4 +1,4 @@
-import {act, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {page, userEvent} from 'vitest/browser'
 import React, {useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
@@ -49,7 +49,7 @@ const TestComponent = ({
         <Button ref={openButtonRef} onClick={() => setIsOpen(!isOpen)}>
           open overlay
         </Button>
-        <Button>outside</Button>
+        <Button style={{position: 'absolute', right: 16, bottom: 16}}>outside</Button>
         {isOpen ? (
           <Overlay
             initialFocusRef={initialFocus === 'button' ? confirmButtonRef : undefined}
@@ -201,12 +201,7 @@ describe('Overlay', () => {
     const mockFunction = vi.fn()
     render(<TestComponent callback={mockFunction} />)
     await user.click(page.getByText('open overlay'))
-    act(() => {
-      page
-        .getByText('outside')
-        .element()
-        .dispatchEvent(new MouseEvent('mousedown', {bubbles: true}))
-    })
+    await user.click(page.getByText('outside'))
     expect(mockFunction).toHaveBeenCalledTimes(1)
     const cancelButtons = page.getByText('Cancel').elements()
     expect(cancelButtons).toHaveLength(0)
@@ -342,6 +337,7 @@ describe('Overlay', () => {
     await user.click(page.getByLabelText('Change issue title'))
     const titleInput = page.getByRole('textbox')
     expect(titleInput.element()).toBeInTheDocument()
+    expect(titleInput.element()).toHaveValue('Implement draft issue editor')
 
     // pressing Escape inside input brings back the button but does not close the overlay
     titleInput.element().focus()

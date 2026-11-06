@@ -9,12 +9,13 @@ describe('Pagehead', () => {
   implementsClassName(Pagehead, classes.Pagehead)
 
   it('should support attributes on the outermost element', () => {
-    render(
+    const {container} = render(
       <Pagehead data-testid="pagehead" className="test-class-name">
         Pagehead
       </Pagehead>,
     )
     const pagehead = page.getByTestId('pagehead').element()
+    expect(pagehead).toBe(container.firstChild)
     expect(pagehead).toHaveAttribute('data-testid', 'pagehead')
     expect(pagehead).toHaveAttribute('data-component', 'Pagehead')
   })

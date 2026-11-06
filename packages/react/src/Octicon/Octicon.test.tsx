@@ -9,7 +9,9 @@ describe('Octicon', () => {
   implementsClassName(props => <Octicon icon={XIcon} {...props} />)
 
   it('should pass along props to the outermost element', () => {
-    render(<Octicon icon={XIcon} data-testid="test-id" />)
-    expect(page.getByTestId('test-id').element()).toHaveAttribute('data-testid', 'test-id')
+    const {container} = render(<Octicon icon={XIcon} data-testid="test-id" />)
+    const octicon = page.getByTestId('test-id').element()
+    expect(octicon).toBe(container.firstChild)
+    expect(octicon).toHaveAttribute('data-testid', 'test-id')
   })
 })
