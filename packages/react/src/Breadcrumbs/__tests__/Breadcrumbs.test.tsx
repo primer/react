@@ -441,6 +441,7 @@ describe('Breadcrumbs', () => {
 
       // Verify menu is open
       await expect.element(menuButton).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(menuButton).toHaveAttribute('aria-haspopup', 'true')
 
       // Press Escape key
       await act(async () => {
