@@ -1470,6 +1470,7 @@ describe('Keyboard interactions', () => {
       fireEvent.keyDown(cherry, {key: 'a'})
       expect(cantalope).toHaveFocus()
     })
+
     it('moves focus to the next item that matches the typed character', async () => {
       render(
         <TreeView aria-label="Test tree">
