@@ -1,5 +1,6 @@
-import {render, within} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {beforeAll, afterAll, describe, expect, it, vi} from 'vitest'
+import {page} from 'vitest/browser'
 import Checkbox from '../Checkbox'
 import FormControl from '../FormControl'
 import TextInput from '../TextInput'
@@ -30,7 +31,7 @@ describe('CheckboxOrRadioGroup', () => {
     vi.clearAllMocks()
   })
 
-  it('renders a group of inputs with a caption in the <legend>', () => {
+  it('renders a group of inputs with a caption in the <legend>', async () => {
     render(
       <CheckboxOrRadioGroup>
         <CheckboxOrRadioGroup.Label>{INPUT_GROUP_LABEL}</CheckboxOrRadioGroup.Label>
@@ -50,12 +51,12 @@ describe('CheckboxOrRadioGroup', () => {
       </CheckboxOrRadioGroup>,
     )
     const legend = document.getElementsByTagName('legend')[0]
-    const caption = within(legend).getByText('Caption text')
+    const caption = page.elementLocator(legend).getByText('Caption text', {exact: true})
 
-    expect(caption).toBeInTheDocument()
+    await expect.element(caption).toBeInTheDocument()
   })
 
-  it('renders a group of inputs with a validation message in the <legend>', () => {
+  it('renders a group of inputs with a validation message in the <legend>', async () => {
     render(
       <CheckboxOrRadioGroup>
         <CheckboxOrRadioGroup.Label>{INPUT_GROUP_LABEL}</CheckboxOrRadioGroup.Label>
@@ -76,13 +77,13 @@ describe('CheckboxOrRadioGroup', () => {
       </CheckboxOrRadioGroup>,
     )
     const legend = document.getElementsByTagName('legend')[0]
-    const validationMsg = within(legend).getByText('Validation text')
+    const validationMsg = page.elementLocator(legend).getByText('Validation text', {exact: true})
 
-    expect(validationMsg).toBeInTheDocument()
+    await expect.element(validationMsg).toBeInTheDocument()
   })
 
-  it('renders with a hidden label', () => {
-    const {getByText} = render(
+  it('renders with a hidden label', async () => {
+    render(
       <CheckboxOrRadioGroup disabled>
         <CheckboxOrRadioGroup.Label>{INPUT_GROUP_LABEL}</CheckboxOrRadioGroup.Label>
         <FormControl>
@@ -99,13 +100,13 @@ describe('CheckboxOrRadioGroup', () => {
         </FormControl>
       </CheckboxOrRadioGroup>,
     )
-    const legend = getByText(INPUT_GROUP_LABEL)
+    const legend = page.getByText(INPUT_GROUP_LABEL, {exact: true})
 
-    expect(legend).toBeInTheDocument()
+    await expect.element(legend).toBeInTheDocument()
   })
 
-  it('uses a legend to label the input group', () => {
-    const {getByRole} = render(
+  it('uses a legend to label the input group', async () => {
+    render(
       <CheckboxOrRadioGroup>
         <CheckboxOrRadioGroup.Label>{INPUT_GROUP_LABEL}</CheckboxOrRadioGroup.Label>
         <FormControl>
@@ -123,12 +124,12 @@ describe('CheckboxOrRadioGroup', () => {
       </CheckboxOrRadioGroup>,
     )
 
-    expect(getByRole('group', {name: INPUT_GROUP_LABEL})).toBeTruthy()
+    await expect.element(page.getByRole('group', {name: INPUT_GROUP_LABEL, exact: true})).toBeInTheDocument()
   })
 
-  it('associates a label with the input group when the label is not a child of CheckboxOrRadioGroup', () => {
+  it('associates a label with the input group when the label is not a child of CheckboxOrRadioGroup', async () => {
     const INPUT_GROUP_LABEL_ID = 'the-label'
-    const {getByLabelText} = render(
+    render(
       <>
         <h2 id={INPUT_GROUP_LABEL_ID}>{INPUT_GROUP_LABEL}</h2>
         <CheckboxOrRadioGroup aria-labelledby={INPUT_GROUP_LABEL_ID}>
@@ -147,9 +148,9 @@ describe('CheckboxOrRadioGroup', () => {
         </CheckboxOrRadioGroup>
       </>,
     )
-    const fieldset = getByLabelText(INPUT_GROUP_LABEL)
+    const fieldset = page.getByLabelText(INPUT_GROUP_LABEL, {exact: true})
 
-    expect(fieldset).toBeInTheDocument()
+    await expect.element(fieldset).toBeInTheDocument()
   })
 
   it('logs a warning when trying to render a group without a label', () => {

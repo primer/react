@@ -1,7 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import type React from 'react'
-import {render, screen, within} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render} from '@testing-library/react'
 import {
   CodeIcon,
   IssueOpenedIcon,
@@ -16,7 +15,7 @@ import {UnderlineNav} from '.'
 import {implementsClassName, withExpectedConsoleError} from '../utils/testing'
 import classes from '../internal/components/UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
-import {page} from 'vitest/browser'
+import {page, userEvent} from 'vitest/browser'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
 const ResponsiveUnderlineNav = ({
@@ -65,17 +64,17 @@ describe('UnderlineNav', () => {
   implementsClassName(ResponsiveUnderlineNav, classes.UnderlineWrapper)
   implementsClassName(props => <UnderlineNav.Item {...props}>Hi</UnderlineNav.Item>)
 
-  it('defaults href for native anchor items', () => {
+  it('defaults href for native anchor items', async () => {
     render(
       <UnderlineNav aria-label="Repository">
         <UnderlineNav.Item>Code</UnderlineNav.Item>
       </UnderlineNav>,
     )
 
-    expect(screen.getByRole('link', {name: 'Code'})).toHaveAttribute('href', '#')
+    await expect.element(page.getByRole('link', {name: /\bCode$/})).toHaveAttribute('href', '#')
   })
 
-  it('does not default href for custom link components', () => {
+  it('does not default href for custom link components', async () => {
     render(
       <UnderlineNav aria-label="Repository">
         <UnderlineNav.Item as={ReactRouterLikeLink} to="/issues">
@@ -84,70 +83,71 @@ describe('UnderlineNav', () => {
       </UnderlineNav>,
     )
 
-    expect(screen.getByRole('link', {name: 'Issues'})).toHaveAttribute('href', '/issues')
+    await expect.element(page.getByRole('link', {name: /\bIssues$/})).toHaveAttribute('href', '/issues')
   })
 
-  it('renders aria-current attribute to be pages when an item is selected', () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const selectedNavLink = getByRole('link', {name: 'Code'})
-    expect(selectedNavLink.getAttribute('aria-current')).toBe('page')
+  it('renders aria-current attribute to be pages when an item is selected', async () => {
+    render(<ResponsiveUnderlineNav />)
+    const selectedNavLink = page.getByRole('link', {name: /\bCode$/})
+    await expect.element(selectedNavLink).toHaveAttribute('aria-current', 'page')
   })
 
-  it('renders aria-label attribute correctly', () => {
-    const {container, getByRole} = render(<ResponsiveUnderlineNav />)
-    expect(container.getElementsByTagName('nav').length).toEqual(1)
-    const nav = getByRole('navigation')
-    expect(nav.getAttribute('aria-label')).toBe('Repository')
+  it('renders aria-label attribute correctly', async () => {
+    render(<ResponsiveUnderlineNav />)
+    const nav = page.getByRole('navigation')
+    expect(nav.elements()).toHaveLength(1)
+    const element = nav.element()
+    expect(element.tagName).toBe('NAV')
+    await expect.element(nav).toHaveAttribute('aria-label', 'Repository')
   })
 
   it('renders icons correctly', () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const nav = getByRole('navigation')
-    const list = within(nav).getByRole('list')
-    expect(list.getElementsByTagName('svg').length).toEqual(7)
-  })
-
-  it('hides icons below the medium breakpoint by default', () => {
     render(<ResponsiveUnderlineNav />)
-    expect(screen.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
+    const nav = page.getByRole('navigation')
+    const list = nav.getByRole('list')
+    expect(list.element().getElementsByTagName('svg').length).toEqual(7)
   })
 
-  it('supports customizing when icons are hidden', () => {
+  it('hides icons below the medium breakpoint by default', async () => {
+    render(<ResponsiveUnderlineNav />)
+    await expect.element(page.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
+  })
+
+  it('supports customizing when icons are hidden', async () => {
     render(
       <UnderlineNav aria-label="Repository" hideIconsBreakpoint="medium">
         <UnderlineNav.Item>Code</UnderlineNav.Item>
       </UnderlineNav>,
     )
-    expect(screen.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
+    await expect.element(page.getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
   })
 
-  it('supports always showing icons', () => {
+  it('supports always showing icons', async () => {
     render(
       <UnderlineNav aria-label="Repository" hideIconsBreakpoint={null}>
         <UnderlineNav.Item>Code</UnderlineNav.Item>
       </UnderlineNav>,
     )
-    expect(screen.getByRole('navigation')).not.toHaveAttribute('data-hide-icons-breakpoint')
+    await expect.element(page.getByRole('navigation')).not.toHaveAttribute('data-hide-icons-breakpoint')
   })
 
   it('fires onSelect on click', async () => {
     const onSelect = vi.fn()
-    const {getByRole} = render(
+    render(
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 3</UnderlineNav.Item>
       </UnderlineNav>,
     )
-    const item = getByRole('link', {name: 'Item 1'})
-    const user = userEvent.setup()
-    await user.click(item)
+    const item = page.getByRole('link', {name: /\bItem 1$/})
+    await userEvent.click(item)
     expect(onSelect).toHaveBeenCalledTimes(1)
   })
 
   it('fires onSelect on keypress', async () => {
     const onSelect = vi.fn()
-    const {getByRole} = render(
+    render(
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
@@ -156,55 +156,55 @@ describe('UnderlineNav', () => {
         </UnderlineNav.Item>
       </UnderlineNav>,
     )
-    const item = getByRole('link', {name: 'Item 1'})
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first link
-    expect(item).toEqual(document.activeElement)
-    await user.keyboard('{Enter}')
+    const item = page.getByRole('link', {name: /\bItem 1$/})
+    await userEvent.tab() // tab into the story, this should focus on the first link
+    await expect.element(item).toHaveFocus()
+    await userEvent.keyboard('{Enter}')
     // Enter keypress fires both click and keypress events
     expect(onSelect).toHaveBeenCalledTimes(2)
-    await user.keyboard(' ') // space
+    await userEvent.keyboard(' ') // space
     expect(onSelect).toHaveBeenCalledTimes(3)
   })
 
-  it('respects counter prop', () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const item = getByRole('link', {name: 'Issues (120)'})
-    const counter = item.getElementsByTagName('span')[3]
+  it('respects counter prop', async () => {
+    render(<ResponsiveUnderlineNav />)
+    // Browser accessible names include the CSS-generated copy of the tab label.
+    const item = page.getByRole('link', {name: /\bIssues \(120\)$/})
+    const counter = item.element().getElementsByTagName('span')[3]
     expect(counter.textContent).toBe('120')
-    expect(counter).toHaveAttribute('aria-hidden', 'true')
+    await expect.element(counter).toHaveAttribute('aria-hidden', 'true')
   })
 
   it('adds className prop to base wrapper classes', () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const nav = getByRole('navigation')
-    expect(nav.className).toContain('foo')
-    expect(nav.className).toContain('UnderlineWrapper')
+    render(<ResponsiveUnderlineNav />)
+    const nav = page.getByRole('navigation')
+    expect(nav.element().className).toContain('foo')
+    expect(nav.element().className).toContain('UnderlineWrapper')
   })
 
   it('renders the content of visually hidden span properly for screen readers', () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const item = getByRole('link', {name: 'Issues (120)'})
-    const counter = item.getElementsByTagName('span')[4]
+    render(<ResponsiveUnderlineNav />)
+    const item = page.getByRole('link', {name: /\bIssues \(120\)$/})
+    const counter = item.element().getElementsByTagName('span')[4]
     // non breaking space unified code
     expect(counter.textContent).toBe('\u00A0(120)')
   })
 
   it('respects loadingCounters prop', async () => {
     await page.viewport(1000, 500)
-    const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
-    const item = getByRole('link', {name: 'Actions', hidden: true})
-    const loadingCounter = item.getElementsByTagName('span')[2]
+    render(<ResponsiveUnderlineNav loadingCounters={true} />)
+    const item = page.getByRole('link', {name: /\bActions$/, includeHidden: true})
+    const loadingCounter = item.element().getElementsByTagName('span')[2]
     expect(loadingCounter.className).toContain('LoadingCounter')
     expect(loadingCounter.textContent).toBe('')
   })
 
   it('renders a visually hidden h2 heading for screen readers when aria-label is present', () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const heading = getByRole('heading', {name: 'Repository navigation'})
+    render(<ResponsiveUnderlineNav />)
+    const heading = page.getByRole('heading', {name: 'Repository navigation', exact: true})
     // check if heading is h2 tag
-    expect(heading.tagName).toBe('H2')
-    expect(heading.textContent).toBe('Repository navigation')
+    expect(heading.element().tagName).toBe('H2')
+    expect(heading.element().textContent).toBe('Repository navigation')
   })
 
   it('throws an error when there are multiple items that have aria-current', () => {
@@ -220,7 +220,7 @@ describe('UnderlineNav', () => {
     })
   })
 
-  it('should support icons passed in as an element', () => {
+  it('should support icons passed in as an element', async () => {
     render(
       <UnderlineNav aria-label="Repository">
         <UnderlineNav.Item aria-current="page" leadingVisual={<CodeIcon aria-label="Page one icon" />}>
@@ -233,23 +233,23 @@ describe('UnderlineNav', () => {
       </UnderlineNav>,
     )
 
-    expect(screen.getByLabelText('Page one icon')).toBeInTheDocument()
-    expect(screen.getByLabelText('Page two icon')).toBeInTheDocument()
-    expect(screen.getByLabelText('Page three icon')).toBeInTheDocument()
+    await expect.element(page.getByLabelText('Page one icon', {exact: true})).toBeInTheDocument()
+    await expect.element(page.getByLabelText('Page two icon', {exact: true})).toBeInTheDocument()
+    await expect.element(page.getByLabelText('Page three icon', {exact: true})).toBeInTheDocument()
   })
 
-  it('adds className prop to item classes', () => {
+  it('adds className prop to item classes', async () => {
     render(
       <UnderlineNav aria-label="Repository">
         <UnderlineNav.Item className="custom-class">Item 1</UnderlineNav.Item>
       </UnderlineNav>,
     )
-    const item = screen.getByRole('link', {name: 'Item 1'})
-    expect(item).toHaveClass('custom-class')
-    expect(item.className).toContain('UnderlineItem')
+    const item = page.getByRole('link', {name: /\bItem 1$/})
+    await expect.element(item).toHaveClass('custom-class')
+    expect(item.element().className).toContain('UnderlineItem')
   })
 
-  it('supports the deprecated `icon` prop', () => {
+  it('supports the deprecated `icon` prop', async () => {
     render(
       <UnderlineNav aria-label="Test">
         <UnderlineNav.Item icon={<CodeIcon data-testid="jsx-element" />}>as jsx element</UnderlineNav.Item>
@@ -259,11 +259,11 @@ describe('UnderlineNav', () => {
       </UnderlineNav>,
     )
 
-    expect(screen.getByTestId('jsx-element')).toBeInTheDocument()
-    expect(screen.getByTestId('functional-component')).toBeInTheDocument()
+    await expect.element(page.getByTestId('jsx-element')).toBeInTheDocument()
+    await expect.element(page.getByTestId('functional-component')).toBeInTheDocument()
   })
 
-  it('extracts only direct text content for data-content attribute, ignoring nested elements', () => {
+  it('extracts only direct text content for data-content attribute, ignoring nested elements', async () => {
     render(
       <UnderlineNav aria-label="Test">
         <UnderlineNav.Item>
@@ -273,40 +273,39 @@ describe('UnderlineNav', () => {
       </UnderlineNav>,
     )
 
-    const item = screen.getByRole('link', {name: /Tab Label/})
-    const textSpan = item.querySelector('[data-component="text"]')
+    const item = page.getByRole('link', {name: /Tab Label/})
+    const textSpan = item.element().querySelector<HTMLElement>('[data-component="text"]')
     // data-content should only have the content of the Text and not the nested span
-    expect(textSpan).toHaveAttribute('data-content', 'Tab Label')
+    await expect.element(textSpan).toHaveAttribute('data-content', 'Tab Label')
   })
 
-  it('handles string children correctly for data-content attribute', () => {
+  it('handles string children correctly for data-content attribute', async () => {
     render(
       <UnderlineNav aria-label="Test">
         <UnderlineNav.Item>Simple Text</UnderlineNav.Item>
       </UnderlineNav>,
     )
 
-    const item = screen.getByRole('link', {name: 'Simple Text'})
-    const textSpan = item.querySelector('[data-component="text"]')
-    expect(textSpan).toHaveAttribute('data-content', 'Simple Text')
+    const item = page.getByRole('link', {name: /\bSimple Text$/})
+    const textSpan = item.element().querySelector<HTMLElement>('[data-component="text"]')
+    await expect.element(textSpan).toHaveAttribute('data-content', 'Simple Text')
   })
 })
 
 describe('Keyboard Navigation', () => {
   it('should move focus to the next/previous item on the list with the tab key', async () => {
-    const {getByRole} = render(
+    render(
       <UnderlineNav aria-label="Repository">
         <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
         <UnderlineNav.Item counter={120}>Issues</UnderlineNav.Item>
       </UnderlineNav>,
     )
-    const item = getByRole('link', {name: 'Code'})
-    const nextItem = getByRole('link', {name: 'Issues (120)'})
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first link
-    expect(item).toEqual(document.activeElement) // check if the first item is focused
-    await user.tab()
+    const item = page.getByRole('link', {name: /\bCode$/})
+    const nextItem = page.getByRole('link', {name: /\bIssues \(120\)$/})
+    await userEvent.tab() // tab into the story, this should focus on the first link
+    await expect.element(item).toHaveFocus() // check if the first item is focused
+    await userEvent.tab()
     // focus should be on the next item
-    expect(nextItem).toHaveFocus()
+    await expect.element(nextItem).toHaveFocus()
   })
 })
