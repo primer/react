@@ -186,14 +186,16 @@ describe('TextInput', () => {
   })
 
   it('focuses the text input if you do not click the input element', async () => {
-    render(
+    const {container} = render(
       <>
         <label htmlFor="testInput">Search</label>
         <TextInput id="testInput" name="search" placeholder={'Search'} trailingVisual={SearchIcon} />
       </>,
     )
 
-    const icon = page.getByRole('img', {includeHidden: true})
+    const iconElement = container.querySelector<SVGElement>('svg')
+    if (!iconElement) throw new Error('Could not find the trailing icon')
+    const icon = page.elementLocator(iconElement)
 
     await expect.element(page.getByLabelText('Search')).not.toHaveFocus()
     await userEvent.click(icon)

@@ -377,6 +377,7 @@ describe('TextInputWithTokens', () => {
   it('does not hide tokens when blurring the input to focus within the component (when visibleTokenCount is set)', async () => {
     const onRemoveMock = vi.fn()
     const visibleTokenCount = 2
+    vi.useFakeTimers()
     render(
       <>
         <LabelledTextInputWithTokens
@@ -396,6 +397,7 @@ describe('TextInputWithTokens', () => {
 
     act(() => inputNode.element().focus())
     act(() => firstTokenNode.element().focus())
+    act(() => vi.advanceTimersByTime(0))
 
     await expect.element(truncatedTokenCountNode).not.toBeInTheDocument()
 
