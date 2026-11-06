@@ -1,0 +1,492 @@
+{
+  "id": "pagelayout",
+  "name": "PageLayout",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/PageLayout",
+  "exports": [
+    "PageLayout",
+    "DragHandle"
+  ],
+  "description": "`PageLayout` composes page headers, navigation panes or sidebars, content, and footers into a responsive layout.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--parent-detail"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--parent-detail-breadcrumb"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--filter-bottom-sheet"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--filter-action-menu"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--filters-bottom-sheet-two-levels"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-examples--parent-detail-plus-filters"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--pull-request-page"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sticky-pane"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--nested-scroll-container"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--custom-sticky-header"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--scroll-container-within-page-layout-pane"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--custom-pane-widths"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--with-custom-pane-heading"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sidebar-start"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sidebar-end"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sidebar-with-pane-resizable"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-sidebar-without-persistence"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-sidebar-with-custom-persistence"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sticky-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--sidebar-fullscreen-responsive-variant"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane-without-persistence"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane-with-custom-persistence"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane-with-number-width"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-features--resizable-pane-with-controlled-width"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--header-divider-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--header-hidden-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--footer-divider-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--footer-hidden-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--content-hidden-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--pane-position-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--pane-divider-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--pane-hidden-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--complex-responsive-layout"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--backward-compatibility-test"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--ssr-safe-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout-responsive-variants--fixed-height-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout--default"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout--playground"
+    },
+    {
+      "id": "react-tailwind-layout-pagelayout--resizable-pane"
+    }
+  ],
+  "props": [
+    {
+      "name": "columnGap",
+      "type": "Spacing",
+      "defaultValue": "'normal'",
+      "description": "Horizontal spacing between the sidebar, content, and pane."
+    },
+    {
+      "name": "containerWidth",
+      "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
+      "defaultValue": "'xlarge'",
+      "description": "Maximum width of the centered content column."
+    },
+    {
+      "name": "footer",
+      "type": "React.ReactNode",
+      "description": "Supplies the footer region. Takes precedence over a matching `PageLayout.Footer` child."
+    },
+    {
+      "name": "header",
+      "type": "React.ReactNode",
+      "description": "Supplies the header region. Takes precedence over a matching `PageLayout.Header` child."
+    },
+    {
+      "name": "padding",
+      "type": "Spacing",
+      "defaultValue": "'normal'",
+      "description": "Spacing between the page container's outer edges and the viewport."
+    },
+    {
+      "name": "rowGap",
+      "type": "Spacing",
+      "defaultValue": "'normal'",
+      "description": "Vertical spacing between the header, content, and footer."
+    },
+    {
+      "name": "sidebar",
+      "type": "React.ReactNode",
+      "description": "Supplies the sidebar region. Takes precedence over a matching `PageLayout.Sidebar` child."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "PageLayout.Header",
+      "props": [
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<\"filled\" | \"line\" | \"none\">",
+          "defaultValue": "'none'",
+          "description": "Divider drawn below the header. Accepts a responsive object to vary it per viewport."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the header. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'",
+          "description": "Inner spacing of the header region."
+        }
+      ],
+      "passthrough": {
+        "element": "header",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header#attributes"
+      }
+    },
+    {
+      "name": "PageLayout.Content",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'main'",
+          "description": "Element to render."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the content. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'",
+          "description": "Inner spacing of the content region."
+        },
+        {
+          "name": "width",
+          "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
+          "defaultValue": "'full'",
+          "description": "Maximum width of the content column."
+        }
+      ],
+      "passthrough": {
+        "element": "main",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main#attributes"
+      }
+    },
+    {
+      "name": "PageLayout.Pane",
+      "props": [
+        {
+          "name": "currentWidth",
+          "type": "number",
+          "description": "Controls the pane width in pixels. Supply it with `onResizeEnd` to own the width yourself."
+        },
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<PaneDivider>",
+          "defaultValue": "'none'",
+          "description": "Divider drawn between the pane and the content. Accepts a responsive object to vary it per viewport."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the pane. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "Smallest width in pixels the pane may be resized to."
+        },
+        {
+          "name": "offsetHeader",
+          "type": "string | number",
+          "defaultValue": "0",
+          "description": "Distance a sticky pane is offset from the top, to clear a fixed header above it."
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "((width: number) => void)",
+          "description": "Called with the new width when a resize finishes."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'",
+          "description": "Inner spacing of the pane."
+        },
+        {
+          "name": "position",
+          "type": "ResponsiveValue<PanePosition>",
+          "defaultValue": "'end'",
+          "description": "Which side of the content the pane sits on. Accepts a responsive object to move it per viewport."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Lets the user drag the pane's edge to resize it."
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Keeps the pane in view as the content scrolls."
+        },
+        {
+          "name": "width",
+          "type": "PaneWidthValue",
+          "defaultValue": "'medium'",
+          "description": "Pane width, either a named size or a custom min/default/max triple."
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "defaultValue": "'paneWidth'",
+          "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageLayout.Sidebar",
+      "props": [
+        {
+          "name": "currentWidth",
+          "type": "number",
+          "description": "Controls the pane width in pixels. Supply it with `onResizeEnd` to own the width yourself."
+        },
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<PaneDivider>",
+          "defaultValue": "'none'",
+          "description": "Divider drawn between the pane and the content. Accepts a responsive object to vary it per viewport."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "defaultValue": "false",
+          "description": "Hides the pane. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "Smallest width in pixels the pane may be resized to."
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "((width: number) => void)",
+          "description": "Called with the new width when a resize finishes."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'",
+          "description": "Inner spacing of the pane."
+        },
+        {
+          "name": "position",
+          "type": "ResponsiveValue<PanePosition>",
+          "defaultValue": "'start'",
+          "description": "Which side of the content the pane sits on. Accepts a responsive object to move it per viewport."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Lets the user drag the pane's edge to resize it."
+        },
+        {
+          "name": "responsiveVariant",
+          "type": "\"default\" | \"fullscreen\"",
+          "defaultValue": "'default'",
+          "description": "How the sidebar behaves on narrow viewports: inline by default, or as a fullscreen overlay."
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Keeps the pane in view as the content scrolls."
+        },
+        {
+          "name": "width",
+          "type": "PaneWidthValue",
+          "defaultValue": "'medium'",
+          "description": "Pane width, either a named size or a custom min/default/max triple."
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageLayout.Footer",
+      "props": [
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<\"filled\" | \"line\" | \"none\">",
+          "defaultValue": "'none'",
+          "description": "Divider drawn above the footer. Accepts a responsive object to vary it per viewport."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the footer. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'",
+          "description": "Inner spacing of the footer region."
+        }
+      ],
+      "passthrough": {
+        "element": "footer",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer#attributes"
+      }
+    },
+    {
+      "name": "DragHandle",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Accessible name for the separator, describing what it resizes."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Id of an element naming the separator, as an alternative to `aria-label`."
+        },
+        {
+          "name": "aria-valuemax",
+          "type": "number",
+          "description": "Largest width the separator can be dragged to, announced by assistive technology."
+        },
+        {
+          "name": "aria-valuemin",
+          "type": "number",
+          "description": "Smallest width the separator can be dragged to, announced by assistive technology."
+        },
+        {
+          "name": "aria-valuenow",
+          "type": "number",
+          "description": "Current width of the pane, announced by assistive technology."
+        },
+        {
+          "name": "formatValueText",
+          "type": "((value: number) => string)",
+          "defaultValue": "value => `Pane width ${value} pixels`",
+          "description": "Turns the current width into the text announced while resizing."
+        },
+        {
+          "name": "handleRef",
+          "type": "RefObject<HTMLDivElement | null>",
+          "required": true,
+          "description": "Ref to the drag handle element, so the pane can measure and focus it."
+        },
+        {
+          "name": "onDoubleClick",
+          "type": "MouseEventHandler<HTMLDivElement>",
+          "description": "Called when the handle is double-clicked, conventionally to reset the pane to its default width."
+        },
+        {
+          "name": "onDrag",
+          "type": "(value: number, isKeyboard: boolean) => void",
+          "required": true,
+          "description": "Called as the handle moves. A pointer drag passes the pointer's horizontal position, at most once per frame; an\narrow key passes a signed step in pixels and sets `isKeyboard`."
+        },
+        {
+          "name": "onDragEnd",
+          "type": "() => void",
+          "required": true,
+          "description": "Called when a drag ends, or when an arrow key that moved the handle is released."
+        },
+        {
+          "name": "onDragStart",
+          "type": "(clientX: number) => void",
+          "required": true,
+          "description": "Called when a pointer starts dragging the handle, with the pointer's horizontal position."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

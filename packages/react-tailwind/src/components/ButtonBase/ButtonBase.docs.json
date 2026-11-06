@@ -1,0 +1,36 @@
+{
+  "id": "buttonbase",
+  "name": "ButtonBase",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ButtonBase",
+  "description": "`ButtonBase` is the unstyled button primitive behind `Button`, `IconButton`, and `LinkButton`. Reach for it only when building a new button-like control; prefer `Button` for ordinary actions.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-buttonbase-examples--submit-form"
+    },
+    {
+      "id": "react-tailwind-display-buttonbase-features--disabled"
+    },
+    {
+      "id": "react-tailwind-display-buttonbase-features--with-custom-class-name"
+    },
+    {
+      "id": "react-tailwind-display-buttonbase--default"
+    },
+    {
+      "id": "react-tailwind-display-buttonbase--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "data-component",
+      "type": "string",
+      "defaultValue": "'ButtonBase'",
+      "description": "Overrides the marker used to identify this element in tests and styling."
+    }
+  ],
+  "passthrough": {
+    "element": "Button",
+    "url": "https://base-ui.com/react/components/button#api-reference"
+  }
+}

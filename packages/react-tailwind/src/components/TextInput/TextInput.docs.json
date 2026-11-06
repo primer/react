@@ -1,0 +1,174 @@
+{
+  "id": "textinput",
+  "name": "TextInput",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/TextInput",
+  "description": "`TextInput` is a styled native single-line input with small, medium, and large visual sizes.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-textinput-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--disabled"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--visually-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--error"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--success"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--block"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--small"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--large"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--required"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-trailing-icon"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-tooltip-direction"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-loading-indicator"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-autocomplete-attribute"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-character-limit"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-character-limit-and-caption"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--with-character-limit-exceeded"
+    },
+    {
+      "id": "react-tailwind-forms-textinput-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-textinput--default"
+    },
+    {
+      "id": "react-tailwind-forms-textinput--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "block",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Stretches the input to fill the width of its container."
+    },
+    {
+      "name": "characterLimit",
+      "type": "number",
+      "description": "Shows a remaining-character count and announces when the limit is near."
+    },
+    {
+      "name": "leadingVisual",
+      "type": "TextInputVisual",
+      "description": "Icon or text shown inside the input, before the value."
+    },
+    {
+      "name": "loaderPosition",
+      "type": "\"auto\" | \"leading\" | \"trailing\"",
+      "defaultValue": "'auto'",
+      "description": "Which end the spinner appears at, or `auto` to take the place of an existing visual."
+    },
+    {
+      "name": "loaderText",
+      "type": "string",
+      "defaultValue": "'Loading'",
+      "description": "Text announced to assistive technology while the input is loading."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Shows a spinner inside the input while a value is being resolved."
+    },
+    {
+      "name": "monospace",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Renders the value in a monospace face, for code or identifiers."
+    },
+    {
+      "name": "size",
+      "type": "ControlSize",
+      "defaultValue": "'medium'",
+      "description": "Height and text size of the input."
+    },
+    {
+      "name": "trailingAction",
+      "type": "React.ReactElement",
+      "description": "Interactive control shown at the end of the input, such as a clear button."
+    },
+    {
+      "name": "trailingVisual",
+      "type": "TextInputVisual",
+      "description": "Icon or text shown inside the input, after the value."
+    },
+    {
+      "name": "validationStatus",
+      "type": "\"error\" | \"success\"",
+      "description": "Marks the value invalid or confirmed, which sets the border colour and `aria-invalid`."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TextInput.Action",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the action, since the icon alone conveys nothing."
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "required": true,
+          "description": "Icon component to render."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'s'",
+          "description": "Side the tooltip appears on."
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "input",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attributes"
+  }
+}

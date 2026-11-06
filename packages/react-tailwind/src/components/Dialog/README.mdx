@@ -1,0 +1,56 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as Stories from './Dialog.stories'
+import * as Features from './Dialog.features.stories'
+import * as Examples from './Dialog.examples.stories'
+
+<Meta of={Stories} />
+
+# Dialog
+
+`Dialog` provides a modal surface with composable trigger and content parts.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Usage
+
+```tsx
+import {Button, Dialog} from '@primer/react-tailwind'
+;<Dialog>
+  <Dialog.Trigger>Open dialog</Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Title>Dialog title</Dialog.Title>
+    <Dialog.Description>Dialog content.</Dialog.Description>
+  </Dialog.Content>
+</Dialog>
+```
+
+Compose `Header`, `Body`, and `Footer` for the full upstream layout. `Subtitle` describes the dialog; use it instead of `Description`.
+
+```tsx
+<Dialog>
+  <Dialog.Trigger>Open dialog</Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Delete repository</Dialog.Title>
+      <Dialog.Subtitle>This cannot be undone.</Dialog.Subtitle>
+      <Dialog.CloseButton />
+    </Dialog.Header>
+    <Dialog.Body>Type the repository name to confirm.</Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Close render={<Button>Cancel</Button>} />
+      <Button variant="danger">Delete</Button>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>
+```
+
+Provide a title or accessible label, retain the keyboard close path, and return focus to the element that opened the dialog.
+
+<Canvas of={Features.WithDirectSubcomponents} />
+
+<Canvas of={Examples.ControlledDialog} />

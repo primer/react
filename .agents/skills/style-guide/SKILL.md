@@ -17,6 +17,10 @@ When proposing, implementing, or reviewing a component change, explicitly apply
 the relevant style-guide principles to the design. If a change intentionally
 deviates from the style guide, call out the reason.
 
+For component composition and reuse, apply **Compose components around explicit
+contracts** in `contributor-docs/style.md`, regardless of the styling or behavior
+library a package uses.
+
 In addition, there are a set of topics below that may be used for guidance on a
 specific topic. Consult this to see if any apply to the task at hand.
 

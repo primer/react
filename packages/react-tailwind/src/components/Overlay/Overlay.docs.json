@@ -1,0 +1,67 @@
+{
+  "id": "overlay",
+  "name": "Overlay",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Overlay",
+  "description": "`Overlay` is a low-level surface for positioned content.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-overlay-examples--controlled-dialog"
+    },
+    {
+      "id": "react-tailwind-components-overlay-features--dropdown-overlay"
+    },
+    {
+      "id": "react-tailwind-components-overlay-features--dialog-overlay"
+    },
+    {
+      "id": "react-tailwind-components-overlay-features--overlay-on-top-of-overlay"
+    },
+    {
+      "id": "react-tailwind-components-overlay-features--memex-nested-overlays"
+    },
+    {
+      "id": "react-tailwind-components-overlay-features--nested-overlays"
+    },
+    {
+      "id": "react-tailwind-components-overlay-features--memex-issue-overlay"
+    },
+    {
+      "id": "react-tailwind-components-overlay-features--positioned-overlays"
+    },
+    {
+      "id": "react-tailwind-components-overlay-features--setting-max-height"
+    },
+    {
+      "id": "react-tailwind-components-overlay--default"
+    },
+    {
+      "id": "react-tailwind-components-overlay--playground"
+    },
+    {
+      "id": "react-tailwind-components-overlay--surface"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Overlay.Root",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Overlay.Content",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

@@ -1,0 +1,261 @@
+'use client'
+
+import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon, XIcon} from '@primer/octicons-react'
+import {cva} from 'class-variance-authority'
+import React from 'react'
+import {cn} from '../../internal/cn'
+import {Button, type ButtonProps} from '../Button'
+import {IconButton} from '../IconButton'
+
+export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
+
+const banner = cva('grid grid-cols-[auto_minmax(0,1fr)_auto] items-start border rounded-md p-2 text-default', {
+  variants: {
+    variant: {
+      critical: 'border-danger-muted bg-danger-muted',
+      info: 'border-accent-muted bg-accent-muted',
+      success: 'border-success-muted bg-success-muted',
+      upsell: 'border-upsell-muted bg-upsell-muted',
+      warning: 'border-attention-muted bg-attention-muted',
+    },
+    layout: {default: '', compact: 'p-1'},
+    flush: {true: 'rounded-none border-x-0', false: ''},
+  },
+  defaultVariants: {variant: 'info', layout: 'default', flush: false},
+})
+
+const iconForVariant: Record<BannerVariant, React.ElementType> = {
+  critical: StopIcon,
+  info: InfoIcon,
+  success: CheckCircleIcon,
+  upsell: InfoIcon,
+  warning: AlertIcon,
+}
+
+export interface BannerProps extends Omit<React.ComponentPropsWithoutRef<'section'>, 'title'> {
+  /** Short summary of the banner's message. */
+  title?: React.ReactNode
+  /** Supporting detail shown below the title. */
+  description?: React.ReactNode
+  /** Replaces the icon the variant would otherwise choose. */
+  leadingVisual?: React.ReactNode
+  /** Shows a dismiss button and is called when it is pressed. */
+  onDismiss?: () => void
+  /** Most important action, rendered first. */
+  primaryAction?: React.ReactNode
+  /** Supporting action, rendered after the primary one. */
+  secondaryAction?: React.ReactNode
+  /** Severity of the message, which also sets the colour and default icon. */
+  variant?: BannerVariant
+  /** Use `compact` to reduce the banner's spacing. */
+  layout?: 'default' | 'compact'
+  /** Whether actions sit inline with the message or stack below it. */
+  actionsLayout?: 'inline' | 'stacked' | 'default'
+  /** Removes the outer border and radius so the banner can span a container edge to edge. */
+  flush?: boolean
+  /** Hides the title visually while keeping it available to assistive technology. */
+  hideTitle?: boolean
+}
+
+const BannerContext = React.createContext<string | undefined>(undefined)
+const BannerActionsLayoutContext = React.createContext<{
+  layout: NonNullable<BannerProps['actionsLayout']>
+  placeActionsBelowContent: boolean
+}>({layout: 'default', placeActionsBelowContent: false})
+
+export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
+  {
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    actionsLayout = 'default',
+    children,
+    className,
+    description,
+    flush = false,
+    hideTitle = false,
+    layout = 'default',
+    leadingVisual,
+    onDismiss,
+    primaryAction,
+    secondaryAction,
+    title,
+    variant = 'info',
+    ...rest
+  },
+  ref,
+) {
+  const titleId = React.useId()
+  const DefaultIcon = iconForVariant[variant]
+  const visual = variant === 'info' || variant === 'upsell' ? (leadingVisual ?? <DefaultIcon />) : <DefaultIcon />
+  const hasActions = Boolean(primaryAction || secondaryAction)
+
+  return (
+    <BannerContext.Provider value={titleId}>
+      <BannerActionsLayoutContext.Provider
+        value={{
+          layout: actionsLayout,
+          placeActionsBelowContent: Boolean(onDismiss && !hideTitle && actionsLayout !== 'inline'),
+        }}
+      >
+        <section
+          {...rest}
+          ref={ref}
+          aria-label={ariaLabelledBy ? undefined : ariaLabel}
+          aria-labelledby={ariaLabelledBy ?? (ariaLabel || !title ? undefined : titleId)}
+          className={cn('@container/banner', banner({variant, layout, flush}), className)}
+          data-actions-layout={actionsLayout}
+          data-component="Banner"
+          data-dismissible={onDismiss ? '' : undefined}
+          data-flush={flush ? '' : undefined}
+          data-has-actions={hasActions ? '' : undefined}
+          data-layout={layout}
+          data-title-hidden={hideTitle ? '' : undefined}
+          data-variant={variant}
+          tabIndex={-1}
+        >
+          <span
+            aria-hidden="true"
+            className={cn(
+              'grid place-items-center p-2 [&>svg]:h-5',
+              hideTitle && !primaryAction && !secondaryAction && '[&>svg]:h-4',
+              iconColor[variant],
+            )}
+            data-component="Banner.Icon"
+          >
+            {visual}
+          </span>
+          <div
+            className={cn(
+              'min-w-0 items-start gap-1 text-sm leading-normal',
+              onDismiss && !hideTitle && actionsLayout !== 'inline'
+                ? 'grid'
+                : actionsLayout === 'stacked'
+                  ? 'flex flex-col'
+                  : actionsLayout === 'inline'
+                    ? 'flex flex-nowrap justify-between max-[767px]:grid max-[767px]:grid-rows-[auto_auto]'
+                    : cn(
+                        'flex flex-wrap justify-between @max-[500px]/banner:grid @min-[500px]/banner:grid @min-[500px]/banner:grid-cols-[auto_auto]',
+                        hasActions && '@max-[500px]/banner:grid-rows-[auto_auto]',
+                      ),
+            )}
+          >
+            <div
+              className={cn('my-2 grid min-w-0 gap-1', hideTitle && !hasActions && 'my-1.5')}
+              data-component="Banner.Content"
+            >
+              {title ? (
+                hideTitle ? (
+                  <span className="sr-only">
+                    <BannerTitle>{title}</BannerTitle>
+                  </span>
+                ) : (
+                  <BannerTitle>{title}</BannerTitle>
+                )
+              ) : null}
+              {description ? <BannerDescription>{description}</BannerDescription> : null}
+              {children}
+            </div>
+            {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
+          </div>
+          {onDismiss ? (
+            <IconButton
+              aria-label="Dismiss banner"
+              className={cn('ml-1', hasActions && 'my-0.5', dismissIconColor[variant])}
+              icon={XIcon}
+              onClick={onDismiss}
+              variant="invisible"
+            />
+          ) : null}
+        </section>
+      </BannerActionsLayoutContext.Provider>
+    </BannerContext.Provider>
+  )
+})
+
+const iconColor: Record<BannerVariant, string> = {
+  critical: 'text-danger',
+  info: 'text-accent',
+  success: 'text-success',
+  upsell: 'text-upsell',
+  warning: 'text-attention',
+}
+
+// The dismiss button keeps the muted invisible-button colour; only its glyph takes the variant colour.
+const dismissIconColor: Record<BannerVariant, string> = {
+  critical: '[&_svg]:text-danger',
+  info: '[&_svg]:text-accent',
+  success: '[&_svg]:text-success',
+  upsell: '[&_svg]:text-upsell',
+  warning: '[&_svg]:text-attention',
+}
+
+export interface BannerTitleProps extends React.ComponentPropsWithoutRef<'h2'> {
+  /** Heading element to render, so the title fits the surrounding document outline. */
+  as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+}
+
+export function BannerTitle({as: Heading = 'h2', className, id, ...rest}: BannerTitleProps) {
+  const titleId = React.useContext(BannerContext)
+  return (
+    <Heading
+      {...rest}
+      className={cn('m-0 text-sm font-semibold', className)}
+      data-banner-title=""
+      data-component="Banner.Title"
+      id={id ?? titleId}
+    />
+  )
+}
+
+export function BannerDescription({className, ...rest}: React.ComponentPropsWithoutRef<'div'>) {
+  return <div {...rest} className={className} data-component="Banner.Description" />
+}
+
+export interface BannerActionsProps {
+  /** Most important action, rendered first. */
+  primaryAction?: React.ReactNode
+  /** Supporting action, rendered after the primary one. */
+  secondaryAction?: React.ReactNode
+}
+
+export function BannerActions({primaryAction, secondaryAction}: BannerActionsProps) {
+  const {layout, placeActionsBelowContent} = React.useContext(BannerActionsLayoutContext)
+  return (
+    <div
+      className={cn(
+        'shrink-0',
+        placeActionsBelowContent && 'mb-1.5',
+        layout === 'default' && '@max-[500px]/banner:mb-1.5',
+      )}
+      data-component="Banner.Actions"
+      data-layout={layout}
+    >
+      <div
+        className={cn(
+          'flex items-center gap-3 py-0.5',
+          layout === 'inline' && 'flex-row-reverse max-[767px]:flex-row',
+          layout === 'default' && !placeActionsBelowContent && '@min-[500px]/banner:flex-row-reverse',
+        )}
+      >
+        {primaryAction}
+        {secondaryAction}
+      </div>
+    </div>
+  )
+}
+
+export type BannerPrimaryActionProps = Omit<ButtonProps, 'variant'>
+
+export const BannerPrimaryAction = React.forwardRef<HTMLElement, BannerPrimaryActionProps>(
+  function BannerPrimaryAction(props, ref) {
+    return <Button {...props} ref={ref} variant="default" data-component="Banner.PrimaryAction" />
+  },
+)
+
+export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
+
+export const BannerSecondaryAction = React.forwardRef<HTMLElement, BannerSecondaryActionProps>(
+  function BannerSecondaryAction(props, ref) {
+    return <Button {...props} ref={ref} variant="invisible" data-component="Banner.SecondaryAction" />
+  },
+)

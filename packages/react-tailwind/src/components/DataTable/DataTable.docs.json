@@ -1,0 +1,682 @@
+{
+  "id": "datatable",
+  "name": "DataTable",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/DataTable",
+  "exports": [
+    "DataTable",
+    "Table"
+  ],
+  "description": "`DataTable` is a presentational, typed table for stable row data. It owns native table structure, sorting state, and column layout while `Table` exposes structural parts for custom composition.",
+  "stories": [
+    {
+      "id": "react-tailwind-data-datatable-examples--minimal-issues"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-title"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-title-and-subtitle"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-sorting"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-custom-sorting"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-action"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-action-only"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-actions"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-actions-only"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-row-action"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-row-actions"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-row-action-menu"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--mixed-column-widths"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-custom-heading"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-no-content"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-overflow"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-loading"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-placeholder-cells"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-right-aligned-columns"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-sort-events"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-pagination"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-pagination-using-default-page-index"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-network-error"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--selectable-rows"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-row-selection"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-bulk-actions"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-grouped-row-selection"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-collapsible-groups"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-standalone-and-grouped-row-selection"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-sortable-groups"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-groups"
+    },
+    {
+      "id": "react-tailwind-data-datatable-features--with-paginated-row-selection"
+    },
+    {
+      "id": "react-tailwind-data-datatable--default"
+    },
+    {
+      "id": "react-tailwind-data-datatable--playground"
+    },
+    {
+      "id": "react-tailwind-data-table-features--with-groups"
+    },
+    {
+      "id": "react-tailwind-data-table-features--with-collapsible-groups"
+    },
+    {
+      "id": "react-tailwind-data-table-features--with-row-selection"
+    }
+  ],
+  "props": [
+    {
+      "name": "bulkActionsProps",
+      "type": "Pick<TableBulkActionsProps, \"aria-label\" | \"getSelectedCountLabel\">",
+      "description": "Labels for the bulk actions toolbar."
+    },
+    {
+      "name": "bulkActionsReturnFocusRef",
+      "type": "RefObject<HTMLElement | null>",
+      "description": "Element that receives focus when a focused bulk action disappears. Defaults to the select-all checkbox."
+    },
+    {
+      "name": "cellPadding",
+      "type": "\"condensed\" | \"normal\" | \"spacious\"",
+      "defaultValue": "'normal'",
+      "description": "Vertical spacing inside cells, which sets the density of the table."
+    },
+    {
+      "name": "collapsibleGroups",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Adds disclosure buttons that show and hide each group's rows. Groups start expanded."
+    },
+    {
+      "name": "columns",
+      "type": "Column<Data>[]",
+      "required": true,
+      "description": "Column definitions, giving each column its header, width, and how to read a cell from a row."
+    },
+    {
+      "name": "data",
+      "type": "DataTableData<Data>",
+      "required": true,
+      "description": "Rows, row groups, or a mixture of both, in display order."
+    },
+    {
+      "name": "defaultExpandedGroups",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Ids of the groups expanded on first render. Defaults to every group in the initial data."
+    },
+    {
+      "name": "defaultSelectedRows",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Ids selected on first render, when the table owns its selection. Intended for static, single-page data."
+    },
+    {
+      "name": "expandedGroups",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Ids of the expanded groups, for when the caller owns the expanded state."
+    },
+    {
+      "name": "externalSorting",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Stops the table sorting `data` itself, for when rows arrive already sorted by a server."
+    },
+    {
+      "name": "getRowId",
+      "type": "((row: Data) => DataTableRowId)",
+      "defaultValue": "row => row.id",
+      "description": "Reads a stable identity from a row. Supply it when rows have no `id` field."
+    },
+    {
+      "name": "gridTemplateColumns",
+      "type": "GridTemplateColumns<string | number>",
+      "description": "Explicit column track sizes, as a CSS grid template."
+    },
+    {
+      "name": "initialSortColumn",
+      "type": "string",
+      "description": "Column sorted on first render."
+    },
+    {
+      "name": "initialSortDirection",
+      "type": "ActiveSortDirection",
+      "description": "Direction sorted on first render."
+    },
+    {
+      "name": "isRowSelectable",
+      "type": "((row: Data) => boolean)",
+      "description": "Decides whether a row can be selected. Rows are selectable by default."
+    },
+    {
+      "name": "onExpandedGroupsChange",
+      "type": "((details: { expandedGroups: Set<DataTableRowId>; }) => void)",
+      "description": "Called with the requested expanded groups when a reader shows or hides a group."
+    },
+    {
+      "name": "onSelectionChange",
+      "type": "((details: { selectedRows: Set<DataTableRowId>; }) => void)",
+      "description": "Called with the requested selection when a reader selects or deselects rows."
+    },
+    {
+      "name": "onToggleSort",
+      "type": "((columnId: string, direction: ActiveSortDirection) => void)",
+      "description": "Called with the column and new direction when a sortable header is activated."
+    },
+    {
+      "name": "renderBulkActions",
+      "type": "((context: DataTableBulkActionsContext) => React.ReactNode)",
+      "description": "Renders actions for the selected rows in place of the column headers while any row is selected."
+    },
+    {
+      "name": "rowSelection",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Adds a checkbox column for selecting rows."
+    },
+    {
+      "name": "selectedRows",
+      "type": "ReadonlySet<DataTableRowId>",
+      "description": "Ids of the selected rows, for when the caller owns the selection."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Table",
+      "props": [
+        {
+          "name": "cellPadding",
+          "type": "\"condensed\" | \"normal\" | \"spacious\"",
+          "defaultValue": "'normal'",
+          "description": "Vertical spacing inside cells, which sets the density of the table."
+        },
+        {
+          "name": "gridTemplateColumns",
+          "type": "GridTemplateColumns<string | number>",
+          "description": "Explicit column track sizes, as a CSS grid template."
+        }
+      ],
+      "passthrough": {
+        "element": "table",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table#attributes"
+      }
+    },
+    {
+      "name": "Table.Actions",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Table.Body",
+      "props": [],
+      "passthrough": {
+        "element": "tbody",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tbody#attributes"
+      }
+    },
+    {
+      "name": "Table.BulkActions",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "'Bulk actions'",
+          "description": "Accessible name for the group of actions."
+        },
+        {
+          "name": "getSelectedCountLabel",
+          "type": "((selectedCount: number) => string)",
+          "defaultValue": "selectedCount => `${selectedCount} selected`",
+          "description": "Formats the announced selection count."
+        },
+        {
+          "name": "onFocusReturn",
+          "type": "(() => void)",
+          "description": "Called when the focused action is removed, so focus can move somewhere meaningful instead of the page."
+        },
+        {
+          "name": "selectedCount",
+          "type": "number",
+          "required": true,
+          "description": "Number of selected rows. The actions show only when it is greater than zero."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Table.Cell",
+      "props": [
+        {
+          "name": "align",
+          "type": "Alignment",
+          "description": "Horizontal alignment of the cell's content."
+        },
+        {
+          "name": "scope",
+          "type": "\"row\"",
+          "description": "Marks the cell as a header for its row or column, which assistive technology uses to describe other cells."
+        }
+      ],
+      "passthrough": {
+        "element": "td",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#attributes"
+      }
+    },
+    {
+      "name": "Table.CellPlaceholder",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "Table.Container",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Table.Divider",
+      "props": []
+    },
+    {
+      "name": "Table.Group",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Accessible name for the group header, for when the visible label needs more context."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Member rows of the group."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Class name for the group header section."
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Adds a disclosure button that shows and hides the member rows."
+        },
+        {
+          "name": "colSpan",
+          "type": "number",
+          "required": true,
+          "description": "Number of columns the group header spans."
+        },
+        {
+          "name": "defaultExpanded",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether the member rows are shown on first render, when the group owns its expanded state."
+        },
+        {
+          "name": "expanded",
+          "type": "boolean",
+          "description": "Whether the member rows are shown, for when the caller owns the expanded state."
+        },
+        {
+          "name": "id",
+          "type": "string | number",
+          "required": true,
+          "description": "Stable identifier exposed on both group sections as `data-group-id`."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label for the group header."
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "((details: { expanded: boolean; }) => void)",
+          "description": "Called with the requested expanded state when the disclosure button is activated."
+        },
+        {
+          "name": "onToggleSelect",
+          "type": "(() => void)",
+          "description": "Called when the reader asks to select or clear every selectable row in the group."
+        },
+        {
+          "name": "rowCount",
+          "type": "number",
+          "required": true,
+          "description": "Number of member rows in the group, announced alongside the label."
+        },
+        {
+          "name": "selection",
+          "type": "\"all\" | \"none\" | \"some\"",
+          "description": "Whether all, some, or none of the group's selectable rows are selected. Renders a group checkbox when set."
+        },
+        {
+          "name": "selectionDisabled",
+          "type": "boolean",
+          "description": "Prevents toggling the group checkbox, for when the group has no selectable rows."
+        }
+      ]
+    },
+    {
+      "name": "Table.Head",
+      "props": [],
+      "passthrough": {
+        "element": "thead",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/thead#attributes"
+      }
+    },
+    {
+      "name": "Table.Header",
+      "props": [
+        {
+          "name": "align",
+          "type": "Alignment",
+          "description": "Horizontal alignment of the header's content."
+        }
+      ],
+      "passthrough": {
+        "element": "th",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attributes"
+      }
+    },
+    {
+      "name": "Table.Pagination",
+      "props": [
+        {
+          "name": "data-component",
+          "type": "string",
+          "description": "Overrides the marker used to identify this element in tests and styling."
+        },
+        {
+          "name": "defaultPageIndex",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "Zero-based page shown on first render."
+        },
+        {
+          "name": "hrefBuilder",
+          "type": "((page: number) => string)",
+          "defaultValue": "page => `#${page}`",
+          "description": "Builds the URL for a page, so pagination works without JavaScript."
+        },
+        {
+          "name": "marginPageCount",
+          "type": "number",
+          "description": "How many pages stay visible at each end of the range."
+        },
+        {
+          "name": "onChange",
+          "type": "((details: { pageIndex: number; }) => void)",
+          "description": "Called with the new page index when the reader pages through the table."
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": true,
+          "description": "Number of rows shown per page."
+        },
+        {
+          "name": "renderPage",
+          "type": "((props: PageProps) => React.ReactNode)",
+          "description": "Renders each page link yourself, for integrating with a router."
+        },
+        {
+          "name": "showPages",
+          "type": "ResponsiveValue<boolean>",
+          "defaultValue": "{narrow: false}",
+          "description": "Shows the numbered pages. Defaults to hiding them on narrow viewports, keeping only Previous and Next."
+        },
+        {
+          "name": "surroundingPageCount",
+          "type": "number",
+          "description": "How many pages stay visible on each side of the current one."
+        },
+        {
+          "name": "totalCount",
+          "type": "number",
+          "required": true,
+          "description": "Total number of rows across all pages."
+        }
+      ],
+      "passthrough": {
+        "element": "nav",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+      }
+    },
+    {
+      "name": "Table.Row",
+      "props": [],
+      "passthrough": {
+        "element": "tr",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr#attributes"
+      }
+    },
+    {
+      "name": "Table.RowSelection",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "'Select row'",
+          "description": "Accessible name for the checkbox when no row header labels it."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Ids of the row header or headers that label the checkbox. The selection action is prepended automatically."
+        },
+        {
+          "name": "checkboxRef",
+          "type": "Ref<HTMLElement>",
+          "description": "Ref to the row's selection checkbox."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents selecting the row."
+        },
+        {
+          "name": "onToggleSelect",
+          "type": "(() => void)",
+          "description": "Called when the reader asks to select or deselect the row."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": true,
+          "description": "Whether the row is selected."
+        }
+      ],
+      "passthrough": {
+        "element": "td",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#attributes"
+      }
+    },
+    {
+      "name": "Table.SelectionHeader",
+      "props": [
+        {
+          "name": "aria-description",
+          "type": "string",
+          "description": "Accessible description for the selection checkbox, such as how many rows it selects."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "'Select rows'",
+          "description": "Accessible name for the selection checkbox."
+        },
+        {
+          "name": "checkboxRef",
+          "type": "Ref<HTMLElement>",
+          "description": "Ref to the selection checkbox, for returning focus to it."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents toggling selection, for when no rows can be selected."
+        },
+        {
+          "name": "onToggleSelect",
+          "type": "(() => void)",
+          "description": "Called when the reader asks to select or clear every selectable row."
+        },
+        {
+          "name": "selection",
+          "type": "\"all\" | \"none\" | \"some\"",
+          "required": true,
+          "description": "Whether all, some, or none of the selectable rows are selected."
+        }
+      ],
+      "passthrough": {
+        "element": "th",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attributes"
+      }
+    },
+    {
+      "name": "Table.SortHeader",
+      "props": [
+        {
+          "name": "align",
+          "type": "Alignment",
+          "description": "Horizontal alignment of the header's content."
+        },
+        {
+          "name": "direction",
+          "type": "SortDirection",
+          "required": true,
+          "description": "Current sort direction for this column."
+        },
+        {
+          "name": "onToggleSort",
+          "type": "() => void",
+          "required": true,
+          "description": "Called when the header is activated to change the sort."
+        }
+      ],
+      "passthrough": {
+        "element": "th",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attributes"
+      }
+    },
+    {
+      "name": "Table.Skeleton",
+      "props": [
+        {
+          "name": "cellPadding",
+          "type": "\"condensed\" | \"normal\" | \"spacious\"",
+          "defaultValue": "'normal'",
+          "description": "Vertical spacing inside cells, which sets the density of the table."
+        },
+        {
+          "name": "columns",
+          "type": "(TableColumnLayout & { header: React.ReactNode; })[]",
+          "required": true,
+          "description": "Column definitions the placeholder should mirror."
+        },
+        {
+          "name": "gridTemplateColumns",
+          "type": "GridTemplateColumns<string | number>",
+          "description": "Explicit column track sizes, as a CSS grid template."
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "defaultValue": "10",
+          "description": "Number of placeholder rows to render while data loads."
+        }
+      ],
+      "passthrough": {
+        "element": "table",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table#attributes"
+      }
+    },
+    {
+      "name": "Table.Subtitle",
+      "props": [],
+      "passthrough": {
+        "element": "p",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes"
+      }
+    },
+    {
+      "name": "Table.Title",
+      "props": [],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "table",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table#attributes"
+  }
+}

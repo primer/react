@@ -1,0 +1,28 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Pagination.stories'
+import * as Features from './Pagination.features.stories'
+import * as Examples from './Pagination.examples.stories'
+
+<Meta of={Stories} />
+
+# Pagination
+
+`Pagination` renders previous, next, and page links from a controlled current page and page count.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {Pagination} from '@primer/react-tailwind/Pagination'
+;<Pagination pageCount={15} currentPage={3} />
+```
+
+Use `onPageChange` to coordinate a route or data view. `showPages` accepts a boolean or responsive map for compact narrow layouts.
+
+<Canvas of={Features.LargerPageCountMargin} />
+<Canvas of={Examples.SearchResults} />

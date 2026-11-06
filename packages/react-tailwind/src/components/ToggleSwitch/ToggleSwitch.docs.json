@@ -1,0 +1,106 @@
+{
+  "id": "toggleswitch",
+  "name": "ToggleSwitch",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ToggleSwitch",
+  "description": "`ToggleSwitch` is a form-associated binary switch with small and medium sizes.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-toggleswitch-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--small"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--disabled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--checked"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--checked-disabled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--loading"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--loading-with-delay"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--label-end"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--with-custom-labels"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch--default"
+    },
+    {
+      "id": "react-tailwind-forms-toggleswitch--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "buttonLabelOff",
+      "type": "string",
+      "defaultValue": "'Off'",
+      "description": "Text shown when the switch is off. Only customize it when there is a more specific label for the context."
+    },
+    {
+      "name": "buttonLabelOn",
+      "type": "string",
+      "defaultValue": "'On'",
+      "description": "Text shown when the switch is on. Only customize it when there is a more specific label for the context."
+    },
+    {
+      "name": "className",
+      "type": "string | ((state: SwitchRootState) => string | undefined)"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the switch's value is being calculated. A loading switch shows a spinner and does not accept input."
+    },
+    {
+      "name": "loadingLabel",
+      "type": "string",
+      "defaultValue": "'Loading'",
+      "description": "Text describing what is loading, announced to assistive technology after `loadingLabelDelay`."
+    },
+    {
+      "name": "loadingLabelDelay",
+      "type": "number",
+      "defaultValue": "2000",
+      "description": "Delay in milliseconds before `loadingLabel` is announced while loading."
+    },
+    {
+      "name": "size",
+      "type": "\"medium\" | \"small\"",
+      "defaultValue": "'medium'",
+      "description": "Size of the switch."
+    },
+    {
+      "name": "statusLabelPosition",
+      "type": "\"end\" | \"start\"",
+      "defaultValue": "'start'",
+      "description": "Whether the \"on\" and \"off\" status labels appear before or after the switch.\nOnly change this when the switch's alignment needs to be adjusted."
+    }
+  ],
+  "passthrough": {
+    "element": "Switch.Root",
+    "url": "https://base-ui.com/react/components/switch#root"
+  }
+}

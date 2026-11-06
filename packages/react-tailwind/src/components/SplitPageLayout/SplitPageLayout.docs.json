@@ -1,0 +1,318 @@
+{
+  "id": "splitpagelayout",
+  "name": "SplitPageLayout",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SplitPageLayout",
+  "description": "`SplitPageLayout` is an opinionated full-width `PageLayout` composition for settings and detail pages with a navigation pane and content area.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-splitpagelayout-examples--settings-workspace"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--settings-page"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-sidebar-start"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-sidebar-end"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-resizable-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-sidebar-and-resizable-pane"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--with-sticky-sidebar"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--sidebar-fullscreen-responsive-variant"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout--default"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout--playground"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout--with-sidebar"
+    }
+  ],
+  "props": [
+    {
+      "name": "columnGap",
+      "type": "Spacing",
+      "defaultValue": "'none'",
+      "description": "Horizontal spacing between the sidebar, content, and pane."
+    },
+    {
+      "name": "containerWidth",
+      "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
+      "defaultValue": "'full'",
+      "description": "Maximum width of the centered content column."
+    },
+    {
+      "name": "footer",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "header",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "padding",
+      "type": "Spacing",
+      "defaultValue": "'none'",
+      "description": "Spacing between the page container's outer edges and the viewport."
+    },
+    {
+      "name": "rowGap",
+      "type": "Spacing",
+      "defaultValue": "'none'",
+      "description": "Vertical spacing between the header, content, and footer."
+    },
+    {
+      "name": "sidebar",
+      "type": "React.ReactNode"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SplitPageLayout.Header",
+      "props": [
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<\"filled\" | \"line\" | \"none\">",
+          "defaultValue": "'line'",
+          "description": "Divider drawn below the header. Accepts a responsive object to vary it per viewport."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the header. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the header region."
+        }
+      ],
+      "passthrough": {
+        "element": "header",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header#attributes"
+      }
+    },
+    {
+      "name": "SplitPageLayout.Content",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "description": "Element to render."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the content. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the content region."
+        },
+        {
+          "name": "width",
+          "type": "\"full\" | \"large\" | \"medium\" | \"xlarge\"",
+          "defaultValue": "'large'",
+          "description": "Maximum width of the content column."
+        }
+      ],
+      "passthrough": {
+        "element": "main",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main#attributes"
+      }
+    },
+    {
+      "name": "SplitPageLayout.Pane",
+      "props": [
+        {
+          "name": "currentWidth",
+          "type": "number",
+          "description": "Controls the pane width in pixels. Supply it with `onResizeEnd` to own the width yourself."
+        },
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<PaneDivider>",
+          "defaultValue": "'line'",
+          "description": "Divider drawn between the pane and the content. Accepts a responsive object to vary it per viewport."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the pane. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "Smallest width in pixels the pane may be resized to."
+        },
+        {
+          "name": "offsetHeader",
+          "type": "string | number",
+          "description": "Distance a sticky pane is offset from the top, to clear a fixed header above it."
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "((width: number) => void)",
+          "description": "Called with the new width when a resize finishes."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the pane."
+        },
+        {
+          "name": "position",
+          "type": "ResponsiveValue<PanePosition>",
+          "defaultValue": "'start'",
+          "description": "Which side of the content the pane sits on. Accepts a responsive object to move it per viewport."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "description": "Lets the user drag the pane's edge to resize it."
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Keeps the pane in view as the content scrolls."
+        },
+        {
+          "name": "width",
+          "type": "PaneWidthValue",
+          "defaultValue": "'medium'",
+          "description": "Pane width, either a named size or a custom min/default/max triple."
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "SplitPageLayout.Sidebar",
+      "props": [
+        {
+          "name": "currentWidth",
+          "type": "number",
+          "description": "Controls the pane width in pixels. Supply it with `onResizeEnd` to own the width yourself."
+        },
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<PaneDivider>",
+          "defaultValue": "'line'",
+          "description": "Divider drawn between the pane and the content. Accepts a responsive object to vary it per viewport."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the pane. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "Smallest width in pixels the pane may be resized to."
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "((width: number) => void)",
+          "description": "Called with the new width when a resize finishes."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'none'",
+          "description": "Inner spacing of the pane."
+        },
+        {
+          "name": "position",
+          "type": "ResponsiveValue<PanePosition>",
+          "defaultValue": "'start'",
+          "description": "Which side of the content the pane sits on. Accepts a responsive object to move it per viewport."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "description": "Lets the user drag the pane's edge to resize it."
+        },
+        {
+          "name": "responsiveVariant",
+          "type": "\"default\" | \"fullscreen\"",
+          "description": "How the sidebar behaves on narrow viewports: inline by default, or as a fullscreen overlay."
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "description": "Keeps the pane in view as the content scrolls."
+        },
+        {
+          "name": "width",
+          "type": "PaneWidthValue",
+          "defaultValue": "'medium'",
+          "description": "Pane width, either a named size or a custom min/default/max triple."
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "SplitPageLayout.Footer",
+      "props": [
+        {
+          "name": "divider",
+          "type": "ResponsiveValue<\"filled\" | \"line\" | \"none\">",
+          "defaultValue": "'line'",
+          "description": "Divider drawn above the footer. Accepts a responsive object to vary it per viewport."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the footer. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "padding",
+          "type": "Spacing",
+          "defaultValue": "'normal'",
+          "description": "Inner spacing of the footer region."
+        }
+      ],
+      "passthrough": {
+        "element": "footer",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

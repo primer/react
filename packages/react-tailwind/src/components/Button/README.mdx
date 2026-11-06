@@ -1,0 +1,60 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Button.docs.json'
+import * as Stories from './Button.stories'
+import * as Features from './Button.features.stories'
+import * as Examples from './Button.examples.stories'
+
+<Meta of={Stories} />
+
+# Button
+
+`Button` triggers an action in the current view. Use `LinkButton` when the control navigates to a URL, and `IconButton` when the control has no visible label.
+
+```tsx
+import {Button} from '@primer/react-tailwind/Button'
+;<Button variant="primary">Save changes</Button>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+## Composition
+
+Use `Button` for the styled API. `ButtonBase` is the lower-level public primitive for custom button composition.
+
+Buttons default to `type="button"` so actions do not accidentally submit an enclosing form. Set `type="submit"` on the form's submit action:
+
+```tsx
+<form onSubmit={handleSubmit}>
+  {/* Form fields */}
+  <Button type="submit" variant="primary">
+    Create account
+  </Button>
+</form>
+```
+
+## Accessibility
+
+Use meaningful text or an `aria-label` for icon-only content. Loading state sets `aria-busy` and `aria-disabled`, suppresses activation without replacing the focused element, and provides a screen-reader announcement. Describe inactive controls with `aria-describedby` so the visual state has an accessible explanation.
+
+## Data attributes
+
+`data-component="Button"`, `data-block`, `data-inactive`, `data-label-wrap`, `data-loading`, `data-size`, and `data-variant` expose the stable public state and part contract.
+
+## Alignment
+
+[Button alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/Button/ALIGNMENT.md) document intentional differences from the upstream component. Styled-system props and polymorphic `as` rendering are intentionally omitted.
+
+## Features and examples
+
+<Canvas of={Features.Primary} />
+
+<Canvas of={Examples.LoadingStatusAnnouncementSuccessful} />

@@ -38,8 +38,10 @@
   "scripts": {
     "build": "./script/build",
     "clean": "rimraf dist generated",
+    "prestart:storybook": "npm run build:css:storybook -w @primer/react-tailwind",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006 --no-open",
+    "prebuild:storybook": "npm run build:css:storybook -w @primer/react-tailwind",
     "build:storybook": "storybook build",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",

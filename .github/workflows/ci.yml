@@ -71,6 +71,16 @@ jobs:
         run: npm run test:classname-coverage
       - name: Check react compiler coverage
         run: npx turbo run lint:react-compiler
+      - name: Check React client boundaries
+        run: npx turbo run lint:client-boundaries
+      - name: Check Tailwind class names
+        run: npx turbo run lint:tailwind
+      - name: Check region props
+        run: npx turbo run lint:region-props
+      - name: Check prop descriptions
+        run: npx turbo run lint:prop-docs
+      - name: Check package consumer contracts
+        run: npx turbo run check:exports check:inventory check:packed-consumer check:llms check:docs-json
 
   test:
     runs-on: ubuntu-latest

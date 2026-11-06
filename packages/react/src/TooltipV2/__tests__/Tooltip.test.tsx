@@ -1,8 +1,9 @@
 import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
+import {page, userEvent} from 'vitest/browser'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {fireEvent, render as HTMLRender} from '@testing-library/react'
+import {act, fireEvent, render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
@@ -91,6 +92,85 @@ describe('Tooltip', () => {
   it('renders the tooltip element with role="tooltip" when the tooltip type is description (by default)', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
     expect(getByText('Tooltip text')).toHaveAttribute('role', 'tooltip')
+  })
+
+  it('closes a visible tooltip when it is disabled', async () => {
+    const {rerender} = HTMLRender(<TooltipComponent />)
+    const trigger = page.getByRole('button', {name: 'Button Text'})
+    const tooltip = page.getByText('Tooltip text', {exact: true})
+    await userEvent.hover(trigger)
+    await expect.element(tooltip).toBeVisible()
+
+    rerender(<TooltipComponent _privateDisableTooltip />)
+    await expect.element(tooltip).not.toBeVisible()
+
+    rerender(<TooltipComponent />)
+    await userEvent.unhover(trigger)
+    await userEvent.hover(trigger)
+    await expect.element(tooltip).toBeVisible()
+  })
+
+  it('cancels pending tooltip openings when disabled', () => {
+    vi.useFakeTimers()
+    try {
+      const {rerender} = HTMLRender(<TooltipComponent delay="medium" />)
+      const trigger = page.getByRole('button', {name: 'Button Text'}).element()
+      const tooltip = page.getByText('Tooltip text', {exact: true}).element()
+
+      fireEvent.mouseOver(trigger)
+      act(() => vi.advanceTimersByTime(100))
+      fireEvent.mouseOver(trigger)
+      rerender(<TooltipComponent delay="medium" _privateDisableTooltip />)
+      rerender(<TooltipComponent delay="medium" />)
+      fireEvent.mouseOver(trigger)
+
+      act(() => vi.advanceTimersByTime(399))
+      expect(tooltip.matches(':popover-open')).toBe(false)
+      act(() => vi.advanceTimersByTime(1))
+      expect(tooltip.matches(':popover-open')).toBe(true)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('does not consume Escape after the browser dismisses the tooltip', async () => {
+    HTMLRender(<TooltipComponent />)
+    const tooltip = page.getByText('Tooltip text', {exact: true})
+    await userEvent.hover(page.getByRole('button', {name: 'Button Text'}))
+    await expect.element(tooltip).toBeVisible()
+
+    const onEscape = vi.fn()
+    document.addEventListener('keydown', onEscape)
+    try {
+      const tooltipElement = tooltip.element()
+      if (!(tooltipElement instanceof HTMLElement)) {
+        throw new Error('Tooltip must render an HTML element')
+      }
+      act(() => tooltipElement.hidePopover())
+      await userEvent.keyboard('{Escape}')
+      expect(onEscape).toHaveBeenCalledOnce()
+    } finally {
+      document.removeEventListener('keydown', onEscape)
+    }
+  })
+
+  it('closes on Escape when the browser cannot match the popover selector', async () => {
+    const supports = vi.spyOn(CSS, 'supports').mockReturnValue(false)
+    const onEscape = vi.fn()
+    try {
+      HTMLRender(<TooltipComponent />)
+      const tooltip = page.getByText('Tooltip text', {exact: true})
+      await userEvent.hover(page.getByRole('button', {name: 'Button Text'}))
+      await expect.element(tooltip).toBeVisible()
+
+      document.addEventListener('keydown', onEscape)
+      await userEvent.keyboard('{Escape}')
+      await expect.element(tooltip).not.toBeVisible()
+      expect(onEscape).not.toHaveBeenCalled()
+    } finally {
+      supports.mockRestore()
+      document.removeEventListener('keydown', onEscape)
+    }
   })
 
   it('spreads the accessibility attributes correctly on the trigger (ActionMenu.Button) when tooltip is used in an action menu', () => {

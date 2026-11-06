@@ -1,0 +1,29 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './PageHeader.stories'
+import * as Features from './PageHeader.features.stories'
+import * as Examples from './PageHeader.examples.stories'
+
+<Meta of={Stories} />
+
+# PageHeader
+
+`PageHeader` composes page context, a title, description, actions, and local navigation while preserving reading and focus order.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {PageHeader} from '@primer/react-tailwind/PageHeader'
+;<PageHeader hasBorder>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Issues</PageHeader.Title>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+Keep its slots as direct children, use one clear page title, and give local navigation an accessible name. Use `hidden` only for responsive presentation, not to remove the only navigation path.
+
+<Canvas of={Features.WithActions} />
+<Canvas of={Examples.PullRequestPage} />

@@ -1,0 +1,39 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as Stories from './ActionBar.stories'
+import * as Features from './ActionBar.features.stories'
+import * as Examples from './ActionBar.examples.stories'
+
+<Meta of={Stories} />
+
+# ActionBar
+
+`ActionBar` groups related actions with `Button`, `IconButton`, `Group`, `Divider`, and `Menu` parts.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Usage
+
+```tsx
+import {ActionBar} from '@primer/react-tailwind'
+;<ActionBar aria-label="Issue actions">
+  <ActionBar.Button>Assign</ActionBar.Button>
+  <ActionBar.Button>Label</ActionBar.Button>
+</ActionBar>
+```
+
+Give every icon-only action an accessible name. Arrow keys move between enabled actions; menus must retain their own keyboard dismissal path.
+
+<Canvas of={Features.RovingFocus} />
+
+<Canvas of={Examples.WithGroups} />
+
+## Overflow
+
+Actions that do not fit move into a "More items" menu at the end of the bar, in the order they appear. A `Group` moves as a whole, and a `Menu` becomes a submenu. Overflowing originals remain in the layout for measurement but are hidden from assistive technology and skipped by keyboard navigation. If a focused action overflows, focus moves to "More items"; when the menu disappears, focus returns to that action if it is available. An open `ActionBar.Menu` or a `SelectPanel` anchored to an `ActionBar.Button` follows "More items" while its trigger overflows. A menu's explicit `returnFocusRef` still takes precedence.
+
+<Canvas of={Examples.WithMenus} />

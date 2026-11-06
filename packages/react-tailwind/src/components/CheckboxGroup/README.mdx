@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './CheckboxGroup.stories'
+import * as Features from './CheckboxGroup.features.stories'
+import * as Examples from './CheckboxGroup.examples.stories'
+
+<Meta of={Stories} />
+
+# CheckboxGroup
+
+`CheckboxGroup` groups checkbox primitives and supplies their shared controlled or uncontrolled state.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`CheckboxGroupProps` forwards Base UI group props and adds `required`. Its public value contract is `value`/`onValueChange` or `defaultValue`; `className` accepts a string or group-state callback.
+
+## Import and composition
+
+```tsx
+import {Checkbox} from '@primer/react-tailwind/Checkbox'
+import {CheckboxGroup} from '@primer/react-tailwind/CheckboxGroup'
+```
+
+Place `CheckboxGroup.Label`, `CheckboxGroup.Caption`, and `CheckboxGroup.Validation` directly inside the group, and compose `Checkbox` children in author order, each in a `FormControl` with its own label.
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+`CheckboxGroup.Label` names the group, and `CheckboxGroup.Validation` and `CheckboxGroup.Caption` describe it. Pass `aria-labelledby` instead when a heading elsewhere names the group; without either, an enclosing `FormControl.Label` names it. `required` marks the label and describes the group as required, since `role="group"` has no `aria-required`; it does not validate the selection. `disabled` disables every nested checkbox and mutes the label. Child `name` and `value` fields form-submit independently.
+
+## Keyboard, events, and state
+
+Space toggles the focused checkbox. `onValueChange` receives the selected value array and Base UI details. The root has `data-component="CheckboxGroup"`; children retain their checkbox `data-checked`, `data-indeterminate`, and `data-disabled` states.
+
+<Canvas of={Features.Checked} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) explain how the `Label`, `Caption`, and `Validation` parts name and describe the group compared with upstream's legend.

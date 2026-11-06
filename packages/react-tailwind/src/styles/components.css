@@ -1,0 +1,130 @@
+@layer components {
+  [data-token-kind='issue-label'] {
+    /* stylelint-disable-next-line primer/colors -- these values are derived from the consumer-provided label color */
+    color: var(--issue-label-light-foreground);
+    background: var(--issue-label-light-background);
+    /* stylelint-disable-next-line primer/colors -- these values are derived from the consumer-provided label color */
+    border-color: var(--issue-label-light-border);
+    transition:
+      background var(--motion-transition-hover),
+      box-shadow var(--motion-transition-hover);
+  }
+
+  [data-token-kind='issue-label']:where([data-is-selected='true']) {
+    background: var(--issue-label-light-selected-background);
+  }
+
+  [data-token-kind='issue-label']:where([data-cursor-is-interactive='true']:hover) {
+    background: var(--issue-label-light-hover-background);
+    box-shadow: var(--shadow-resting-medium);
+  }
+
+  [data-color-mode='dark'] [data-token-kind='issue-label'] {
+    /* stylelint-disable-next-line primer/colors -- these values are derived from the consumer-provided label color */
+    color: var(--issue-label-dark-foreground);
+    background: var(--issue-label-dark-background);
+    /* stylelint-disable-next-line primer/colors -- these values are derived from the consumer-provided label color */
+    border-color: var(--issue-label-dark-border);
+  }
+
+  [data-color-mode='dark'] [data-token-kind='issue-label']:where([data-cursor-is-interactive='true']:hover) {
+    background: var(--issue-label-dark-hover-background);
+  }
+
+  @media (prefers-color-scheme: light) {
+    [data-color-mode='auto'][data-light-theme*='dark'] [data-token-kind='issue-label'] {
+      /* stylelint-disable-next-line primer/colors -- these values are derived from the consumer-provided label color */
+      color: var(--issue-label-dark-foreground);
+      background: var(--issue-label-dark-background);
+      /* stylelint-disable-next-line primer/colors -- these values are derived from the consumer-provided label color */
+      border-color: var(--issue-label-dark-border);
+    }
+
+    [data-color-mode='auto'][data-light-theme*='dark']
+      [data-token-kind='issue-label']:where([data-cursor-is-interactive='true']:hover) {
+      background: var(--issue-label-dark-hover-background);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-color-mode='auto'][data-dark-theme*='dark'] [data-token-kind='issue-label'] {
+      /* stylelint-disable-next-line primer/colors -- these values are derived from the consumer-provided label color */
+      color: var(--issue-label-dark-foreground);
+      background: var(--issue-label-dark-background);
+      /* stylelint-disable-next-line primer/colors -- these values are derived from the consumer-provided label color */
+      border-color: var(--issue-label-dark-border);
+    }
+
+    [data-color-mode='auto'][data-dark-theme*='dark']
+      [data-token-kind='issue-label']:where([data-cursor-is-interactive='true']:hover) {
+      background: var(--issue-label-dark-hover-background);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-token-kind='issue-label'] {
+      transition: none;
+    }
+  }
+}
+
+@layer components {
+  /* Shows UnderlineNav's "More" button before hydration: the nav only scrolls in its block axis once items wrap. */
+  [data-component='UnderlineNav'] {
+    animation: primer-detect-overflow linear;
+    animation-timeline: scroll(self block);
+  }
+}
+
+@keyframes primer-detect-overflow {
+  0%,
+  100% {
+    --underline-nav-more-display: flex;
+  }
+}
+
+@keyframes primer-skeleton-shimmer {
+  from {
+    mask-position: 200%;
+  }
+
+  to {
+    mask-position: 0%;
+  }
+}
+
+@layer base {
+  [data-component='BaseStyles'],
+  [data-component='BaseStyles'] *,
+  [data-component='BaseStyles'] *::before,
+  [data-component='BaseStyles'] *::after {
+    box-sizing: border-box;
+  }
+
+  /* stylelint-disable-next-line selector-max-type */
+  [data-component='BaseStyles'] :where(button, input, select, textarea) {
+    font-family: inherit;
+  }
+
+  [data-component='BaseStyles'] table {
+    /* stylelint-disable-next-line primer/borders */
+    border-collapse: collapse;
+  }
+}
+
+@layer utilities {
+  /*
+   * Mirrors Primer's BaseStyles focus reset: focusing with a pointer draws no focus ring and drops resting shadows.
+   * It sits in the utilities layer so its specificity outranks utility shadows, which a rule in `@layer base` can't.
+   */
+  /* stylelint-disable-next-line selector-max-type -- mirrors the element list in Primer's BaseStyles reset */
+  :where([data-component='BaseStyles'])
+    :is(button, summary, a, [role='button'], [role='tabpanel'][tabindex='0']):focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  [data-component='BaseStyles'] [tabindex='0']:focus:not(:focus-visible) {
+    outline: none;
+  }
+}

@@ -1,0 +1,30 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './SplitPageLayout.stories'
+import * as Features from './SplitPageLayout.features.stories'
+import * as Examples from './SplitPageLayout.examples.stories'
+
+<Meta of={Stories} />
+
+# SplitPageLayout
+
+`SplitPageLayout` is an opinionated full-width `PageLayout` composition for settings and detail pages with a navigation pane and content area.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {SplitPageLayout} from '@primer/react-tailwind/SplitPageLayout'
+;<SplitPageLayout>
+  <SplitPageLayout.Pane aria-label="Settings navigation">Navigation</SplitPageLayout.Pane>
+  <SplitPageLayout.Content>
+    <h1>General</h1>
+  </SplitPageLayout.Content>
+</SplitPageLayout>
+```
+
+Use `Header`, `Pane` or `Sidebar`, `Content`, and `Footer` as direct children. The pane is sticky by default; opt out with `sticky={false}` when it should participate in normal flow.
+
+<Canvas of={Features.WithSidebarStart} />
+<Canvas of={Examples.SettingsWorkspace} />

@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './ActionMenu.stories'
+import * as Features from './ActionMenu.features.stories'
+import * as Examples from './ActionMenu.examples.stories'
+
+<Meta of={Stories} />
+
+# ActionMenu
+
+`ActionMenu` is a composable Base UI menu with button and low-level trigger options.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+The root forwards Base UI Menu props, including controlled `open`/`onOpenChange` and `defaultOpen`. `Button` supports Button props; `Content` owns its portal and positioner, and takes placement, `anchor`, `portal`, overlay size, and fullscreen `variant` options; `Item` supports danger, selected, inactive, and loading states.
+
+## Import and composition
+
+```tsx
+import {ActionMenu} from '@primer/react-tailwind/ActionMenu'
+```
+
+Compose `Button` or `Trigger`, then `Content`/`Overlay`, with `Item`, `CheckboxItem`, `RadioGroup`, `RadioItem`, `Group`, `GroupLabel`, and `Divider` as needed. Items accept `LeadingVisual`, `TrailingVisual`, and inline or block `Description` parts that share the ActionList presentation layer. Nest `Submenu`, `SubmenuTrigger`, and another `Content` for Base UI-managed nested menus. Compose another branded trigger through Base UI's `render` prop and use `className` to supply its visual treatment. Set `id` on `Button` or `Trigger` rather than on the rendered element, because the trigger tracks its open state by its `id`.
+
+## Controlled and uncontrolled
+
+Use `open`/`onOpenChange` when application state owns menu visibility, or `defaultOpen` for initial state.
+
+<Canvas of={Examples.ControlledMenu} />
+<Canvas of={Examples.PreventFocusOnClose} />
+
+## Accessibility, disabled behavior, and keyboard
+
+Give a trigger clear visible text or an accessible name. Base UI owns menu roles, focus management, Arrow-key navigation, Enter/Space activation, and Escape close/return-focus behavior. Pass `preventFocusOnClose` to `Content` when an item moves focus elsewhere and focus should not return to the trigger. Disabled items cannot be activated; checkbox and radio items report their selection semantics.
+
+## Events and state attributes
+
+`onOpenChange` receives the next visibility value and Base UI details. Stable selectors include `ActionMenu.Trigger`, `.Button`, `.Content`, `.Positioner`, `.Item`, `.CheckboxItem`, `.RadioItem`, `.SubmenuTrigger`, `.Group`, `.GroupLabel`, and `.Divider`; item states include `data-highlighted`, `data-disabled`, `data-selected`, and danger `data-variant`.
+
+<Canvas of={Features.MultiSelect} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) preserve Base UI menu groups, checkbox/radio items, disabled items, and keyboard navigation while intentionally not simulating legacy anchors, fullscreen variants, or non-public positioning APIs.

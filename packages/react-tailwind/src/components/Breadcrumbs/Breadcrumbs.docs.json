@@ -1,0 +1,85 @@
+{
+  "id": "breadcrumbs",
+  "name": "Breadcrumbs",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Breadcrumbs",
+  "description": "`Breadcrumbs` communicates the current location within a hierarchy.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-examples--project-location"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--overflow-wrap"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--overflow-menu"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--overflow-menu-open"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--overflow-menu-with-root"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--spacious-variant-with-overflow-menu"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--spacious-variant-with-overflow-wrap"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--two-items-with-overflow-menu"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--two-items-with-overflow-menu-with-root"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs--default"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs--playground"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs--overflow-menu"
+    }
+  ],
+  "props": [
+    {
+      "name": "overflow",
+      "type": "\"menu\" | \"menu-with-root\" | \"wrap\"",
+      "defaultValue": "'wrap'",
+      "description": "How the trail behaves when it is too wide: wrap onto another line, or collapse the middle into a menu."
+    },
+    {
+      "name": "variant",
+      "type": "\"normal\" | \"spacious\"",
+      "defaultValue": "'normal'",
+      "description": "Use `spacious` to increase the spacing between items."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Breadcrumbs.Item",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'a'",
+          "description": "Element to render. Use a non-anchor element for an item that does not link anywhere."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Marks the item as the current page, which is announced to assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
+}

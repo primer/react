@@ -1,0 +1,44 @@
+{
+  "id": "link",
+  "name": "Link",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Link",
+  "description": "`Link` navigates to another location. Use `Button` when the control performs an action, and `LinkButton` when a navigation target needs button styling.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-link-examples--inline-documentation"
+    },
+    {
+      "id": "react-tailwind-display-link-features--muted"
+    },
+    {
+      "id": "react-tailwind-display-link-features--inline"
+    },
+    {
+      "id": "react-tailwind-display-link--default"
+    },
+    {
+      "id": "react-tailwind-display-link--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'a'",
+      "description": "Element to render. Use a non-anchor element when the link is handled by a router."
+    },
+    {
+      "name": "inline",
+      "type": "boolean | null"
+    },
+    {
+      "name": "muted",
+      "type": "boolean | null"
+    }
+  ],
+  "passthrough": {
+    "element": "a",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+  }
+}

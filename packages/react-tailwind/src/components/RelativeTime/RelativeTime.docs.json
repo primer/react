@@ -1,0 +1,134 @@
+{
+  "id": "relativetime",
+  "name": "RelativeTime",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/RelativeTime",
+  "description": "`RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-relativetime-examples--dynamic-relative-time"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-examples--long-date"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-examples--link-with-tooltip"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--micro-format"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--recent-time"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--count-down-timer"
+    },
+    {
+      "id": "react-tailwind-content-relativetime--default"
+    },
+    {
+      "id": "react-tailwind-content-relativetime--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "date",
+      "type": "Date",
+      "description": "Instant being described."
+    },
+    {
+      "name": "datetime",
+      "type": "string",
+      "description": "Instant being described, as an ISO 8601 string. An alternative to `date`."
+    },
+    {
+      "name": "day",
+      "type": "NumericDatePart",
+      "description": "How the day of the month is rendered in an absolute date."
+    },
+    {
+      "name": "format",
+      "type": "Format",
+      "description": "Which formatting scheme to use, such as a relative phrase, an elapsed duration, or a plain date."
+    },
+    {
+      "name": "formatStyle",
+      "type": "FormatStyle",
+      "description": "How verbose the formatted output is."
+    },
+    {
+      "name": "hour",
+      "type": "NumericDatePart",
+      "description": "How the hour is rendered in an absolute date."
+    },
+    {
+      "name": "minute",
+      "type": "NumericDatePart",
+      "description": "How the minutes are rendered in an absolute date."
+    },
+    {
+      "name": "month",
+      "type": "\"long\" | \"narrow\" | \"short\" | NumericDatePart",
+      "description": "How the month is rendered in an absolute date."
+    },
+    {
+      "name": "noTitle",
+      "type": "boolean",
+      "description": "Stops the full date being set as the element's `title`."
+    },
+    {
+      "name": "onRelativeTimeUpdated",
+      "type": "((event: RelativeTimeUpdatedEvent) => void)",
+      "description": "Called whenever the rendered text changes as time passes."
+    },
+    {
+      "name": "precision",
+      "type": "\"day\" | \"hour\" | \"minute\" | \"month\" | \"second\" | \"week\" | \"year\"",
+      "description": "Smallest unit the output distinguishes, which also sets how often it refreshes."
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "description": "Text placed before an absolute date, such as `on`."
+    },
+    {
+      "name": "second",
+      "type": "NumericDatePart",
+      "description": "How the seconds are rendered in an absolute date."
+    },
+    {
+      "name": "tense",
+      "type": "Tense",
+      "description": "Forces past or future phrasing rather than deriving it from the date."
+    },
+    {
+      "name": "threshold",
+      "type": "string",
+      "description": "Duration past which the output switches from a relative phrase to an absolute date."
+    },
+    {
+      "name": "timeZone",
+      "type": "string",
+      "description": "IANA time zone the date is presented in."
+    },
+    {
+      "name": "timeZoneName",
+      "type": "\"\" | \"long\" | \"longGeneric\" | \"longOffset\" | \"short\" | \"shortGeneric\" | \"shortOffset\"",
+      "description": "How the time zone is named in the output, if at all."
+    },
+    {
+      "name": "weekday",
+      "type": "\"\" | \"long\" | \"narrow\" | \"short\"",
+      "description": "How the weekday is rendered in an absolute date, if at all."
+    },
+    {
+      "name": "year",
+      "type": "NumericDatePart",
+      "description": "How the year is rendered in an absolute date."
+    }
+  ],
+  "passthrough": {
+    "element": "time",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time#attributes"
+  }
+}

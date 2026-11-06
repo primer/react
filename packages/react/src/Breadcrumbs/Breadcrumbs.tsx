@@ -11,6 +11,8 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {useId} from '../hooks/useId'
+import {Tooltip} from '../TooltipV2'
 import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
 
 export type BreadcrumbsProps = React.PropsWithChildren<{
@@ -53,6 +55,8 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     const detailsRef = useRef<HTMLDetailsElement | null>(null)
     const menuButtonRef = useRef<HTMLButtonElement | null>(null)
     const menuContainerRef = useRef<HTMLDivElement>(null)
+    const tooltipId = useId()
+    const label = ariaLabel || `${items.length} more breadcrumb items`
     const detailsRefCallback = useCallback(
       (element: HTMLDetailsElement | null) => {
         detailsRef.current = element
@@ -103,20 +107,20 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
 
     return (
       <Details ref={detailsRefCallback} className={classes.MenuDetails} data-component="Breadcrumbs.MenuItem">
-        <IconButton
-          as="summary"
-          role="button"
-          ref={menuButtonRef}
-          aria-label={ariaLabel || `${items.length} more breadcrumb items`}
-          aria-haspopup="true"
-          aria-expanded={isOpen ? 'true' : 'false'}
-          onClick={handleSummaryClick}
-          variant="invisible"
-          size="small"
-          icon={KebabHorizontalIcon}
-          tooltipDirection="e"
-          {...rest}
-        />
+        <Tooltip id={tooltipId} text={label} type="label" direction="e" _privateDisableTooltip={isOpen}>
+          <IconButton
+            as="summary"
+            role="button"
+            ref={menuButtonRef}
+            aria-labelledby={tooltipId}
+            aria-expanded={isOpen ? 'true' : 'false'}
+            onClick={handleSummaryClick}
+            variant="invisible"
+            size="small"
+            icon={KebabHorizontalIcon}
+            {...rest}
+          />
+        </Tooltip>
         <div ref={menuContainerRef} className={classes.MenuOverlay}>
           <ActionList>
             {items.map((item, index) => {

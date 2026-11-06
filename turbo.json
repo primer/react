@@ -5,15 +5,59 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**", "generated/**"]
     },
+    "build:docs-json": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "build:llms": {
+      "dependsOn": [],
+      "outputs": ["llms.txt"]
+    },
     "build:storybook": {
       "dependsOn": ["^build"],
       "outputs": ["storybook-static/**"]
+    },
+    "check:docs-json": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "check:exports": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "check:inventory": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "check:llms": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "check:packed-consumer": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "lint:client-boundaries": {
+      "dependsOn": [],
+      "outputs": []
     },
     "lint:npm": {
       "dependsOn": ["^build", "build"],
       "outputs": []
     },
+    "lint:prop-docs": {
+      "dependsOn": [],
+      "outputs": []
+    },
     "lint:react-compiler": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "lint:region-props": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "lint:tailwind": {
       "dependsOn": [],
       "outputs": []
     },

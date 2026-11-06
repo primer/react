@@ -1,0 +1,44 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Textarea.stories'
+import * as Features from './Textarea.features.stories'
+import * as Examples from './Textarea.examples.stories'
+
+<Meta of={Stories} />
+
+# Textarea
+
+`Textarea` is a styled native multiline text control.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`TextareaProps` extends native textarea attributes, including `value`, `defaultValue`, `onChange`, `name`, `required`, `rows`, `cols`, `resize`, and `disabled`.
+
+## Import
+
+```tsx
+import {Textarea} from '@primer/react-tailwind/Textarea'
+```
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+Associate a visible `FormControl.Label` or use `aria-label`. Native `name`, `required`, and `disabled` behavior is retained. Pair invalid fields with `aria-invalid` and `FormControl.Validation`; captions come from `FormControl.Caption`.
+
+## Keyboard, events, and state
+
+The native control provides standard text-editing shortcuts and form events; use `onChange` for input updates. The root exposes `data-component="Textarea"` and accepts `className`; native `:disabled`, `:focus-visible`, and `aria-invalid` state styling is supported.
+
+<Canvas of={Features.Error} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) retain native sizing, resize, required, disabled, validation, caption, and labels while intentionally using Tailwind classes instead of upstream character-limit and pixel-height APIs.

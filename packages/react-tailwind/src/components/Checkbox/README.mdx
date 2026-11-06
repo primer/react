@@ -1,0 +1,50 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Checkbox.stories'
+import * as Features from './Checkbox.features.stories'
+import * as Examples from './Checkbox.examples.stories'
+
+<Meta of={Stories} />
+
+# Checkbox
+
+`Checkbox` is a form-associated binary control. Pair it with a native label or `FormControl.Label`.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+The table is generated from the attached default story and `CheckboxProps`, which forwards Base UI checkbox props except implementation-owned children and `data-component`.
+
+## Import
+
+```tsx
+import {Checkbox} from '@primer/react-tailwind/Checkbox'
+```
+
+## Controlled and uncontrolled
+
+Use `checked` with `onCheckedChange` when application state owns the value; use `defaultChecked` for initial-only state.
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+Give the checkbox an accessible name with a `<label>` or `aria-label`. `name` and `value` participate in native form submission when checked. Use `FormControl` to associate captions or validation messages; disabled controls cannot be changed.
+
+The forwarded `ref` targets the focusable checkbox; `inputRef` targets Base UI's separate, accessibility-hidden form input. Custom focus traversal must skip `aria-hidden` elements.
+
+## Keyboard, events, and state
+
+Space toggles a focused checkbox. `onCheckedChange` receives the next checked state and Base UI event details. The root exposes `data-component="Checkbox"` and Base UI state attributes including `data-checked`, `data-indeterminate`, and `data-disabled`; `className` may be a string or state callback.
+
+`onCheckedChange` receives a native event in its details rather than a React change event. When an ancestor's React `onChange` must not receive the checkbox change, intercept that event on a wrapper around the checkbox and call `stopPropagation()` there.
+
+<Canvas of={Features.Indeterminate} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) retain checked, indeterminate, disabled, controlled, keyboard, and form behavior while replacing upstream layout/action logging with native labels and Base UI callbacks.

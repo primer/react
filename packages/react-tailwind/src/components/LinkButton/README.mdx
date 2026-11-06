@@ -1,0 +1,49 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './LinkButton.docs.json'
+import * as Stories from './LinkButton.stories'
+import * as Features from './LinkButton.features.stories'
+import * as Examples from './LinkButton.examples.stories'
+
+<Meta of={Stories} />
+
+# LinkButton
+
+`LinkButton` navigates to a URL while looking like a `Button`. Supply `href` for a native anchor destination.
+
+```tsx
+import {LinkButton} from '@primer/react-tailwind/LinkButton'
+;<LinkButton href="#settings">Settings</LinkButton>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+## Composition
+
+This navigation primitive composes the shared Button presentation. Use `render={<RouterLink to="/settings" />}` for framework links and a real Button for actions that do not navigate.
+
+## Accessibility
+
+Give the link descriptive text. While loading it exposes `aria-busy` and `aria-disabled` and prevents navigation.
+
+## Data attributes
+
+The anchor exposes `data-component="LinkButton"`.
+
+## Alignment
+
+[LinkButton alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/LinkButton/ALIGNMENT.md) describe the Base UI `render` replacement for the legacy `as` prop.
+
+## Features and examples
+
+<Canvas of={Features.Primary} />
+
+<Canvas of={Examples.SettingsNavigation} />

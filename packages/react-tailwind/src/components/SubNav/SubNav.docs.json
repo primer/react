@@ -1,0 +1,80 @@
+{
+  "id": "subnav",
+  "name": "SubNav",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SubNav",
+  "description": "`SubNav` is a horizontal secondary navigation bar composed from `SubNav.Links` and `SubNav.Link`.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-subnav-examples--project-sections"
+    },
+    {
+      "id": "react-tailwind-navigation-subnav-features--selected"
+    },
+    {
+      "id": "react-tailwind-navigation-subnav--default"
+    },
+    {
+      "id": "react-tailwind-navigation-subnav--playground"
+    },
+    {
+      "id": "react-tailwind-navigation-subnav--with-actions"
+    }
+  ],
+  "props": [
+    {
+      "name": "actions",
+      "type": "React.ReactNode",
+      "description": "Controls shown at the end of the bar, beside the links."
+    },
+    {
+      "name": "align",
+      "type": "\"right\"",
+      "description": "Aligns the links to the end of the bar."
+    },
+    {
+      "name": "full",
+      "type": "boolean",
+      "description": "Stretches the bar to fill the width of its container."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Accessible name for the navigation region."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SubNav.Link",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'a'",
+          "description": "Element to render. Use a non-anchor element when the link is handled by a router."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Marks the link as the current page."
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    },
+    {
+      "name": "SubNav.Links",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
+}

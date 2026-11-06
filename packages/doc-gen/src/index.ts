@@ -313,3 +313,9 @@ export async function main() {
     }
   }
 }
+
+// Re-exported so other packages can generate docs from TypeScript rather than only validate
+// authored docs against it.
+export {getTSProgram, parseTypeInfo, readElementTag, simplifyReactType, updateJSDocsForProp} from './ts-utils'
+export type {TSParsedComponentInfo, TSPropInfo} from './ts-utils'
+export type {AuthoredDocsFile, AuthoredDocsPropInfo, DocsFile, DocsPropInfo} from './types'

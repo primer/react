@@ -1,0 +1,46 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './TextInput.stories'
+import * as Features from './TextInput.features.stories'
+import * as Examples from './TextInput.examples.stories'
+
+<Meta of={Stories} />
+
+# TextInput
+
+`TextInput` is a styled native single-line input with small, medium, and large visual sizes.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`TextInputProps` extends native input attributes and adds `size`, `block`, `monospace`, `leadingVisual`, `trailingVisual`, `trailingAction`, `loading`, `loaderPosition`, `loaderText`, `validationStatus`, and `characterLimit`. Use native `value`, `defaultValue`, `onChange`, `type`, `name`, `required`, `disabled`, and autocomplete attributes.
+
+For a required field, prefer `required` on `FormControl` so the label receives its required marker and the input participates in native constraint validation. An explicit `aria-required` on `TextInput` is preserved, but by itself does not enable native validation or add a label marker.
+
+## Import
+
+```tsx
+import {TextInput} from '@primer/react-tailwind/TextInput'
+```
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+Use `FormControl.Label` or `aria-label`; retain native form submission and constraint validation. Set `aria-invalid` and compose `FormControl.Validation` for errors or success feedback. Disabled inputs cannot receive focus or edits.
+
+## Keyboard, events, and state
+
+Native input keyboard behavior and `onChange` are unchanged. The root exposes `data-component="TextInput"` and accepts `className`; focus, disabled, and `aria-invalid` styles are applied through native state selectors.
+
+<Canvas of={Features.Error} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) describe the retained native and visual APIs and the deliberate removal of deprecated styling and text-action props.

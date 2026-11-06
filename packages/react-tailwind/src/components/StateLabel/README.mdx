@@ -1,0 +1,51 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './StateLabel.docs.json'
+import * as Stories from './StateLabel.stories'
+import * as Features from './StateLabel.features.stories'
+import * as Examples from './StateLabel.examples.stories'
+
+<Meta of={Stories} />
+
+# StateLabel
+
+`StateLabel` shows the lifecycle state of an issue or pull request, such as open, closed, or merged. Use `Label` for general-purpose metadata.
+
+```tsx
+import {StateLabel} from '@primer/react-tailwind/StateLabel'
+;<StateLabel status="pullMerged">Merged</StateLabel>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+The default size is `medium`.
+
+## Composition
+
+Use the component-owned status icon with text children that name the state.
+
+## Accessibility
+
+Include visible state text. Component-owned issue, pull request, alert, and archived icons expose their artifact type to assistive technology; the unavailable icon is decorative because it does not identify an artifact type.
+
+## Data attributes
+
+The root exposes `data-component="StateLabel"` and `data-status`.
+
+## Alignment
+
+[StateLabel alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/StateLabel/ALIGNMENT.md) document intentional differences from the upstream component.
+
+## Features and examples
+
+<Canvas of={Features.IssueOpened} />
+
+<Canvas of={Examples.PullRequestState} />

@@ -1,0 +1,37 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './NavList.stories'
+import * as Features from './NavList.features.stories'
+import * as Examples from './NavList.examples.stories'
+
+<Meta of={Stories} />
+
+# NavList
+
+`NavList` is a vertical navigation primitive for settings and page navigation.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {NavList} from '@primer/react-tailwind/NavList'
+;<NavList aria-label="Repository settings">
+  <NavList.List>
+    <NavList.Item href="/settings/general" aria-current="page">
+      General
+    </NavList.Item>
+  </NavList.List>
+</NavList>
+```
+
+Use `NavList.SubNav.Trigger` and `NavList.SubNav.Panel` for expandable sections. Compose item metadata with `LeadingVisual`, `TrailingVisual`, and `Description`; use `TrailingAction` for a secondary interactive action that must remain outside the primary link. Give the navigation an accessible name, or include `NavList.Heading` to name it automatically, and preserve `aria-current` on the current destination.
+
+Pass a router link component with `as` and its destination with `to`. Use `tooltipText` for supplementary text shown in a tooltip on hover or focus. `NavList.GroupExpand` reveals more `items` behind a "Show more" button, optionally across `pages`, and focuses the first revealed item; pass `renderItem` to render each item yourself. When the `primer_react_action_list_item_gap` feature flag is on, items are separated by a small gap; pass `disableItemGap` to opt out.
+
+<Canvas of={Features.WithSubItems} />
+<Canvas of={Features.WithGroupExpand} />
+<Canvas of={Examples.SettingsNavigation} />

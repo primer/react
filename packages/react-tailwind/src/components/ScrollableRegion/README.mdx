@@ -1,0 +1,42 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './ScrollableRegion.docs.json'
+import * as Stories from './ScrollableRegion.stories'
+import * as Features from './ScrollableRegion.features.stories'
+import * as Examples from './ScrollableRegion.examples.stories'
+
+<Meta of={Stories} />
+
+# ScrollableRegion
+
+`ScrollableRegion` owns horizontal or vertical overflow and becomes a labelled, focusable region when its content overflows.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {ScrollableRegion} from '@primer/react-tailwind/ScrollableRegion'
+;<ScrollableRegion aria-label="Generated command">
+  <code>git checkout feature/long-branch-name</code>
+</ScrollableRegion>
+```
+
+Always provide exactly one of `aria-label` or `aria-labelledby`. When overflow is present, the root has `role="region"` and `tabIndex={0}`, so keyboard users can focus it and use the browser's native scrolling keys. The label and region semantics are omitted when there is no overflow.
+
+## Props
+
+<ApiReference {...api} />
+
+One of the two accessible-name props is required, although neither is required independently.
+
+Place the region in a bounded layout when page scrolling must remain independent. Use responsive width or height utilities in `className`; the component supports native horizontal and vertical scrolling without a direction prop.
+
+## Visual affordances
+
+The component intentionally does not add masks, shadows, or custom scrollbar styling. This matches `@primer/react`; consumers can add responsive presentation through `className` without replacing the component's overflow or focus behavior.
+
+<Canvas of={Features.HorizontalOverflow} />
+<Canvas of={Features.VerticalOverflow} />
+<Canvas of={Examples.CommitSummary} />

@@ -1,0 +1,15 @@
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import './theme.css';
+@import '@primer/tailwind-config';
+@import './components.css';
+
+@source '../';
+@source not '../**/*.stories.tsx';
+@source not '../**/*.stories.helpers.tsx';
+@source not '../**/*.storyHelpers.tsx';
+@source not '../**/*.test.{ts,tsx}';
+@source not '../**/*.md';
+@source not '../**/*.mdx';

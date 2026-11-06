@@ -1,0 +1,126 @@
+{
+  "id": "underlinepanels",
+  "name": "UnderlinePanels",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/UnderlinePanels",
+  "description": "`UnderlinePanels` is a tab-and-panel composition with an underlined tab list.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-underlinepanels-examples--repository-sections"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--selected-tab"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--labelled-by-external-element"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--with-icons"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--with-icons-hidden-on-narrow-screen"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--with-counters"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--with-counters-in-loading-state"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--controlled"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--manual-activation"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels-features--in-overlay"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels--default"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels--playground"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinepanels--playgound"
+    }
+  ],
+  "props": [
+    {
+      "name": "activationMode",
+      "type": "TabsActivationMode",
+      "defaultValue": "'automatic'",
+      "description": "Whether arrow-key focus also selects a tab. `automatic` selects the focused tab; `manual` only moves focus,\nand Enter, Space, or a click commits the selection. An explicit `TabList` `activateOnFocus` takes precedence."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "description": "Value of the tab selected on first render when uncontrolled."
+    },
+    {
+      "name": "loadingCounters",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Shows placeholders in place of tab counters while their values load."
+    },
+    {
+      "name": "onChange",
+      "type": "((details: { value: string; }) => void)",
+      "description": "Called with the newly selected tab's `value` when a user selects a different tab. Automatic fallbacks,\nsuch as a missing or disabled selection, and re-selecting the current tab do not call it."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Value of the selected tab when controlled. Update it from `onChange` or `onValueChange`."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "UnderlinePanels.List",
+      "props": [],
+      "passthrough": {
+        "element": "Tabs.List",
+        "url": "https://base-ui.com/react/components/tabs#list"
+      }
+    },
+    {
+      "name": "UnderlinePanels.Tab",
+      "props": [
+        {
+          "name": "counter",
+          "type": "React.ReactNode",
+          "description": "Number shown after the tab's label."
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "description": "Icon component shown before the tab's label."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode",
+          "description": "Visual shown before the tab's label, as an alternative to `icon`."
+        }
+      ],
+      "passthrough": {
+        "element": "Tabs.Tab",
+        "url": "https://base-ui.com/react/components/tabs#tab"
+      }
+    },
+    {
+      "name": "UnderlinePanels.Panel",
+      "props": [],
+      "passthrough": {
+        "element": "Tabs.Panel",
+        "url": "https://base-ui.com/react/components/tabs#panel"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Tabs.Root",
+    "url": "https://base-ui.com/react/components/tabs#root"
+  }
+}

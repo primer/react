@@ -1,0 +1,73 @@
+{
+  "id": "header",
+  "name": "Header",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Header",
+  "description": "`Header` is a compact horizontal header primitive. Use `Header.Item` for layout participants and `Header.Link` for consistently styled navigation.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-header-examples--repository-header"
+    },
+    {
+      "id": "react-tailwind-layout-header-features--with-full-size-item"
+    },
+    {
+      "id": "react-tailwind-layout-header-features--with-links"
+    },
+    {
+      "id": "react-tailwind-layout-header-features--with-many-items"
+    },
+    {
+      "id": "react-tailwind-layout-header--default"
+    },
+    {
+      "id": "react-tailwind-layout-header--playground"
+    },
+    {
+      "id": "react-tailwind-layout-header--items"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'header'",
+      "description": "Element to render."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Header.Item",
+      "props": [
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Lets the item grow to fill the remaining space, pushing later items to the end."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Header.Link",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'a'",
+          "description": "Element to render. Use a non-anchor element when the item does not link anywhere."
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "header",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header#attributes"
+  }
+}

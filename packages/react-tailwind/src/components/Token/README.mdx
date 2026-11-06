@@ -1,0 +1,61 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Token.docs.json'
+import * as Stories from './Token.stories'
+import * as Features from './Token.features.stories'
+import * as Examples from './Token.examples.stories'
+
+<Meta of={Stories} />
+
+# Token
+
+`Token` displays compact filter or selection content with optional leading visuals, selection state, and removal behavior. `IssueLabelToken` provides the same token interaction model with a custom label color.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {Token} from '@primer/react-tailwind/Token'
+;<Token text="bug" isSelected onRemove={() => removeFilter('bug')} />
+```
+
+## Props
+
+<ApiReference {...api} />
+
+Named sizes are `small`, `medium`, `large`, and `xlarge`. `onRemove` receives no arguments; `id` is applied to the root element.
+
+<Controls of={Stories.Playground} />
+
+`TokenBase` exposes the shared base API. `IssueLabelToken` adds `fillColor?: string` and derives light- and dark-theme backgrounds, foregrounds, borders, hover states, and selection treatment from that color.
+
+## Composition
+
+Use tokens as filter chips or selected values. Use an interactive parent (`as="button"`, `as="a"`, or `onClick`) when the whole token is actionable. Button tokens default to `type="button"`; pass `type="submit"` or `type="reset"` when that form behavior is intended. For removal, pass `onRemove`; do not add a second nested remove button yourself.
+
+## Accessibility
+
+Interactive tokens expose button or link semantics. `Enter` and `Space` invoke an interactive span's click handler, while `Backspace` and `Delete` invoke `onRemove`. When an interactive token is also removable, its action and pointer removal affordance are composed as sibling targets inside the token shell, avoiding nested controls; the removal instructions are included in the action's accessible name. Non-interactive tokens receive a real, labelled remove button.
+
+## Animation and reduced motion
+
+`Token` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Use `className` to extend token layout and Primer semantic border/background tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`. `IssueLabelToken` uses package CSS and internal custom properties to preserve arbitrary consumer-provided colors in light, dark, and automatic color modes without requiring generated Tailwind classes.
+
+### Data attributes
+
+`Token` and `IssueLabelToken` expose `data-component="TokenBase"`, `data-cursor-is-interactive`, `data-is-selected`, and `data-size`. The remove affordance exposes `data-component="Token.RemoveButton"`.
+
+## Alignment
+
+Interactive removable tokens render their primary action and pointer removal affordance as siblings inside `TokenBase`, avoiding nested controls while preserving Backspace and Delete removal. Non-interactive tokens retain a labelled remove button.
+
+## Features and examples
+
+<Canvas of={Features.InteractiveToken} />
+<Canvas of={Features.InteractiveIssueLabelToken} />
+<Canvas of={Examples.FilterChips} />

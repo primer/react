@@ -1,0 +1,49 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './ActionList.stories'
+import * as Features from './ActionList.features.stories'
+import * as Examples from './ActionList.examples.stories'
+
+<Meta of={Stories} />
+
+# ActionList
+
+`ActionList` is a semantic action, menu, or listbox list composed from explicit child parts.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`ActionList` accepts `role`, `selectionVariant`, `variant`, `showDividers`, `disableItemGap`, and a `heading` region. `Item` supports `selected`, `active`, `disabled`, `inactiveText`, `loading`, `loadingText`, `size` (`small`, `medium`, or `large`), danger styling, and `onSelect`; `LinkItem` supports `active`, `inactiveText`, and `size`. `Description` supports inline or block layout and truncation. `Heading` renders before the list and labels it, and supports `size` and `visuallyHidden`. `GroupHeading` supports subtle and filled variants and a small icon `TrailingAction`. `TrailingAction` supports button or link rendering, icon or text labels, and loading state; all documented child parts forward their relevant HTML props.
+
+## Import and composition
+
+```tsx
+import {ActionList} from '@primer/react-tailwind/ActionList'
+```
+
+Compose `Item` or `LinkItem`, optional `Group`, `GroupHeading`, `Heading`, `Divider`, `LeadingVisual`, `TrailingVisual`, `TrailingAction`, and one or more `Description` parts in author order. Inline descriptions share the label row and block descriptions create supporting rows. `TrailingAction` is rendered as an interactive sibling of the item action, so it never creates nested button or link markup.
+
+## Selection and events
+
+ActionList does not own selection state. Render `selected` and update it from `Item.onSelect`; listbox semantics use `selectionVariant` with the matching role and ARIA state.
+
+<Canvas of={Examples.MixedSelection} />
+
+## Accessibility, disabled behavior, and keyboard
+
+Choose `list`, `menu`, or `listbox` semantics intentionally and give interactive lists an accessible name. For selection variants, items receive `aria-selected` or `aria-checked`; disabled, inactive, and loading items cannot be activated. Inactive items use a warning indicator in ordinary lists and visible supporting text in menus and listboxes. The loading spinner and inactive warning indicator replace the leading visual when one exists, otherwise the trailing visual. Loading and inactive items suppress trailing actions. Native button and link keyboard behavior is retained.
+
+Menu and listbox lists keep one item in the tab order. The arrow keys, Home, End, Page Up, and Page Down move focus between items, and menus wrap at either end. Pass `disableFocusZone` when a parent widget manages focus.
+
+## State attributes
+
+Stable selectors include `ActionList`, `ActionList.Item`, `ActionList.Item.Action`, `ActionList.LinkItem`, `ActionList.Group`, and `ActionList.Divider`. Items expose `data-active`, `data-selected`, `data-variant`, and disabled state; root exposes `data-variant` and `data-dividers`.
+
+<Canvas of={Features.SingleSelect} />
+<Canvas of={Features.SmallItem} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) retain supported disabled, inactive, loading, description, size, group, divider, link, and trailing-action behavior while replacing CSS-module-only variants with local composition.

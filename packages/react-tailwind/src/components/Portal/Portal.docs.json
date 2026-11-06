@@ -1,0 +1,46 @@
+{
+  "id": "portal",
+  "name": "Portal",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Portal",
+  "description": "`Portal` renders children outside their React parent's DOM subtree while preserving React context.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-portal-examples--with-dialog-content"
+    },
+    {
+      "id": "react-tailwind-components-portal-features--custom-portal-root-by-id"
+    },
+    {
+      "id": "react-tailwind-components-portal-features--custom-portal-root-by-registration"
+    },
+    {
+      "id": "react-tailwind-components-portal-features--multiple-portal-roots"
+    },
+    {
+      "id": "react-tailwind-components-portal-features--with-portal-context"
+    },
+    {
+      "id": "react-tailwind-components-portal--default"
+    },
+    {
+      "id": "react-tailwind-components-portal--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "container",
+      "type": "PortalContainerRef | PortalContainer | null",
+      "description": "Where the children are rendered. Defaults to the shared portal root."
+    },
+    {
+      "name": "onMount",
+      "type": "(() => void)",
+      "description": "Called once the children have been rendered into the container."
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

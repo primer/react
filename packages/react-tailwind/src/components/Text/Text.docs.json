@@ -1,0 +1,87 @@
+{
+  "id": "text",
+  "name": "Text",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Text",
+  "description": "`Text` applies Primer typography to inline or block text. Use `Heading` for section headings so that structure is conveyed semantically.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-text-examples--issue-metadata"
+    },
+    {
+      "id": "react-tailwind-display-text-features--polymorphism"
+    },
+    {
+      "id": "react-tailwind-display-text-features--styled-text"
+    },
+    {
+      "id": "react-tailwind-display-text-features--size-small"
+    },
+    {
+      "id": "react-tailwind-display-text-features--size-medium"
+    },
+    {
+      "id": "react-tailwind-display-text-features--size-large"
+    },
+    {
+      "id": "react-tailwind-display-text-features--light-weight"
+    },
+    {
+      "id": "react-tailwind-display-text-features--normal-weight"
+    },
+    {
+      "id": "react-tailwind-display-text-features--medium-weight"
+    },
+    {
+      "id": "react-tailwind-display-text-features--semibold-weight"
+    },
+    {
+      "id": "react-tailwind-display-text-features--pre-white-space"
+    },
+    {
+      "id": "react-tailwind-display-text-features--normal-white-space"
+    },
+    {
+      "id": "react-tailwind-display-text-features--nowrap-white-space"
+    },
+    {
+      "id": "react-tailwind-display-text-features--pre-wrap-white-space"
+    },
+    {
+      "id": "react-tailwind-display-text-features--pre-line-white-space"
+    },
+    {
+      "id": "react-tailwind-display-text--default"
+    },
+    {
+      "id": "react-tailwind-display-text--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'span'",
+      "description": "Element to render."
+    },
+    {
+      "name": "size",
+      "type": "TextSize",
+      "description": "Size from the Primer type scale."
+    },
+    {
+      "name": "weight",
+      "type": "\"light\" | \"medium\" | \"normal\" | \"semibold\"",
+      "description": "Font weight."
+    },
+    {
+      "name": "whiteSpace",
+      "type": "\"normal\" | \"nowrap\" | \"pre\" | \"pre-line\" | \"pre-wrap\"",
+      "description": "How whitespace and line breaks in the content are treated."
+    }
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
+}

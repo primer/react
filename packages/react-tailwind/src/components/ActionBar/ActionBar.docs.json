@@ -1,0 +1,421 @@
+{
+  "id": "actionbar",
+  "name": "ActionBar",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ActionBar",
+  "description": "`ActionBar` groups related actions with `Button`, `IconButton`, `Group`, `Divider`, and `Menu` parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-data-actionbar-examples--with-groups"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--small-action-bar"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--with-text-buttons"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--gap-scale"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--with-disabled-items"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--comment-box"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--action-bar-with-menu-trigger"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--actionbar-toggle"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--multiple-action-bars"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-examples--with-menus"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-features--roving-focus"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-features--overflow-accessibility"
+    },
+    {
+      "id": "react-tailwind-data-actionbar--default"
+    },
+    {
+      "id": "react-tailwind-data-actionbar--playground"
+    },
+    {
+      "id": "react-tailwind-data-actionbar--deep-child-tree"
+    },
+    {
+      "id": "react-tailwind-data-actionbar--multiple-keybinding-hints"
+    }
+  ],
+  "props": [
+    {
+      "name": "flush",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Removes the bar's outer padding so it aligns with surrounding content."
+    },
+    {
+      "name": "gap",
+      "type": "\"condensed\" | \"none\"",
+      "defaultValue": "'condensed'",
+      "description": "Spacing between items."
+    },
+    {
+      "name": "size",
+      "type": "ControlSize",
+      "defaultValue": "'medium'",
+      "description": "Size of the bar's controls."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionBar.Button",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents activation and removes the button from the keyboard order."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
+        },
+        {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"leadingVisual\"",
+          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "description": "Height and text size of the button. Defaults to the `size` of the `ActionBar`."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "ActionBar.IconButton",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the\ntooltip repeats `aria-label` visually."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents activation and removes the button from the keyboard order."
+        },
+        {
+          "name": "icon",
+          "type": "IconSource",
+          "required": true,
+          "description": "Icon to render: a component such as an Octicon, or a rendered element. Pass an element when the icon comes\nfrom a Server Component."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+        },
+        {
+          "name": "keybindingHint",
+          "type": "string | string[]",
+          "description": "Keyboard shortcut, or alternative shortcuts, shown in the tooltip, such as `Mod+B` or `['Mod+B', 'Control+B']`.\nDisplays the hint only; the consumer still registers the shortcut."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
+        },
+        {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"icon\"",
+          "description": "Shows a dot for new activity on the button boundary or on the icon. The dot is not announced, so describe the\nactivity in the accessible name or description."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "description": "Height of the button. Defaults to the `size` of the `ActionBar`."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'s'",
+          "description": "Side and alignment of the tooltip relative to the button."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        },
+        {
+          "name": "unsafeDisableTooltip",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "ActionBar.Group",
+      "props": [],
+      "passthrough": {
+        "element": "Toolbar.Group",
+        "url": "https://base-ui.com/react/components/toolbar#group"
+      }
+    },
+    {
+      "name": "ActionBar.Divider",
+      "props": [],
+      "passthrough": {
+        "element": "Toolbar.Separator",
+        "url": "https://base-ui.com/react/components/toolbar#separator"
+      }
+    },
+    {
+      "name": "ActionBar.Menu",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the menu trigger, also used as its label when the menu overflows."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the\ntooltip repeats `aria-label` visually."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
+        },
+        {
+          "name": "icon",
+          "type": "IconSource",
+          "required": true,
+          "description": "Icon for the menu trigger: a component such as an Octicon, or a rendered element."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+        },
+        {
+          "name": "items",
+          "type": "ActionBarMenuItemProps[]",
+          "required": true,
+          "description": "Items in the menu."
+        },
+        {
+          "name": "keybindingHint",
+          "type": "string | string[]",
+          "description": "Keyboard shortcut, or alternative shortcuts, shown in the tooltip, such as `Mod+B` or `['Mod+B', 'Control+B']`.\nDisplays the hint only; the consumer still registers the shortcut."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
+        },
+        {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"icon\"",
+          "description": "Shows a dot for new activity on the button boundary or on the icon. The dot is not announced, so describe the\nactivity in the accessible name or description."
+        },
+        {
+          "name": "overflowIcon",
+          "type": "IconSource",
+          "description": "Icon shown beside the menu's label in the \"More items\" menu, or `'none'` to omit it. Defaults to `icon`."
+        },
+        {
+          "name": "returnFocusRef",
+          "type": "RefObject<HTMLElement | null>",
+          "description": "Element that receives focus when the menu closes. Defaults to the trigger."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "description": "Height of the button. Defaults to the `size` of the `ActionBar`."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'s'",
+          "description": "Side and alignment of the tooltip relative to the button."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        },
+        {
+          "name": "unsafeDisableTooltip",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Toolbar.Root",
+    "url": "https://base-ui.com/react/components/toolbar#root"
+  }
+}

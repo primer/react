@@ -1,0 +1,335 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Dialog",
+  "description": "`Dialog` provides a modal surface with composable trigger and content parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-dialog-examples--controlled-dialog"
+    },
+    {
+      "id": "react-tailwind-components-dialog-examples--side-sheet-interaction"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--with-custom-renderers"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--with-direct-subcomponents"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--stress-test"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--repro-multistep-dialog-with-conditional-footer"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--bottom-sheet-narrow"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--full-screen-narrow"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--side-sheet"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--return-focus-ref"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--new-issues"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--retains-focus-trap-with-dynamic-content"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--loading-footer-buttons"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--loading-custom-footer-buttons-could"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--align-top"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--align-bottom"
+    },
+    {
+      "id": "react-tailwind-components-dialog-features--custom-width"
+    },
+    {
+      "id": "react-tailwind-components-dialog--default"
+    },
+    {
+      "id": "react-tailwind-components-dialog--playground"
+    },
+    {
+      "id": "react-tailwind-components-dialog--non-modal"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Dialog.Root",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Root",
+        "url": "https://base-ui.com/react/components/dialog#root"
+      }
+    },
+    {
+      "name": "Dialog.Trigger",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Trigger",
+        "url": "https://base-ui.com/react/components/dialog#trigger"
+      }
+    },
+    {
+      "name": "Dialog.Content",
+      "props": [
+        {
+          "name": "align",
+          "type": "DialogAlign",
+          "description": "Vertical alignment of the dialog while it is centered."
+        },
+        {
+          "name": "backdrop",
+          "type": "boolean",
+          "description": "Whether to render a backdrop behind the dialog. Modal dialogs render one by default."
+        },
+        {
+          "name": "backdropClassName",
+          "type": "string",
+          "description": "Classes applied to the backdrop."
+        },
+        {
+          "name": "height",
+          "type": "DialogHeight",
+          "defaultValue": "'auto'",
+          "description": "Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content."
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Where the dialog is rendered in the DOM. Set `false` to keep it in place."
+        },
+        {
+          "name": "position",
+          "type": "DialogPosition",
+          "defaultValue": "{narrow: 'center', regular: 'center'}",
+          "description": "Where the dialog sits in the viewport. Pass a responsive object to change it on narrow viewports, for example\n`{narrow: 'bottom', regular: 'center'}` for a bottom sheet. `wide` follows `regular`."
+        },
+        {
+          "name": "viewportClassName",
+          "type": "string",
+          "description": "Classes applied to the element that positions the dialog within the viewport."
+        },
+        {
+          "name": "width",
+          "type": "DialogWidth",
+          "defaultValue": "'xlarge'",
+          "description": "Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width."
+        }
+      ],
+      "passthrough": {
+        "element": "Dialog.Popup",
+        "url": "https://base-ui.com/react/components/dialog#popup"
+      }
+    },
+    {
+      "name": "Dialog.Popup",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Popup",
+        "url": "https://base-ui.com/react/components/dialog#popup"
+      }
+    },
+    {
+      "name": "Dialog.Portal",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Portal",
+        "url": "https://base-ui.com/react/components/dialog#portal"
+      }
+    },
+    {
+      "name": "Dialog.Backdrop",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Backdrop",
+        "url": "https://base-ui.com/react/components/dialog#backdrop"
+      }
+    },
+    {
+      "name": "Dialog.Viewport",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Viewport",
+        "url": "https://base-ui.com/react/components/dialog#viewport"
+      }
+    },
+    {
+      "name": "Dialog.Title",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Title",
+        "url": "https://base-ui.com/react/components/dialog#title"
+      }
+    },
+    {
+      "name": "Dialog.Subtitle",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Description",
+        "url": "https://base-ui.com/react/components/dialog#description"
+      }
+    },
+    {
+      "name": "Dialog.Description",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Description",
+        "url": "https://base-ui.com/react/components/dialog#description"
+      }
+    },
+    {
+      "name": "Dialog.Close",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Close",
+        "url": "https://base-ui.com/react/components/dialog#close"
+      }
+    },
+    {
+      "name": "Dialog.CloseButton",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "'Close'",
+          "description": "Accessible name for the close button."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the\ntooltip repeats `aria-label` visually."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+        },
+        {
+          "name": "keybindingHint",
+          "type": "string | string[]",
+          "description": "Keyboard shortcut, or alternative shortcuts, shown in the tooltip, such as `Mod+B` or `['Mod+B', 'Control+B']`.\nDisplays the hint only; the consumer still registers the shortcut."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "description": "Text announced to assistive technology while the button is loading."
+        },
+        {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"icon\"",
+          "description": "Shows a dot for new activity on the button boundary or on the icon. The dot is not announced, so describe the\nactivity in the accessible name or description."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the button."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'s'",
+          "description": "Side and alignment of the tooltip relative to the button."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        },
+        {
+          "name": "unsafeDisableTooltip",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Skips the default tooltip. Prefer keeping it; IconButton also skips it automatically inside an existing Tooltip."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "Dialog.Header",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Dialog.Body",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "Dialog.Footer",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Dialog.Root",
+    "url": "https://base-ui.com/react/components/dialog#root"
+  }
+}

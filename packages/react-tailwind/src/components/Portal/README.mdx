@@ -1,0 +1,30 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as Stories from './Portal.stories'
+import * as Features from './Portal.features.stories'
+import * as Examples from './Portal.examples.stories'
+
+<Meta of={Stories} />
+
+# Portal
+
+`Portal` renders children outside their React parent's DOM subtree while preserving React context.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Usage
+
+```tsx
+import {Portal} from '@primer/react-tailwind'
+;<Portal container={containerRef}>Content rendered outside its parent.</Portal>
+```
+
+Portal changes DOM placement, not reading order or focus behavior. Give its contents an appropriate role, accessible name, focus management, and dismissal behavior.
+
+<Canvas of={Features.CustomPortalRootByRegistration} />
+
+<Canvas of={Examples.WithDialogContent} />

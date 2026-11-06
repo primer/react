@@ -1,0 +1,23 @@
+# SkeletonBox
+
+`SkeletonBox` reserves space for content that is loading, using a shimmer placeholder that can be delayed until a request has taken long enough to show.
+
+Import: `import {SkeletonBox} from '@primer/react-tailwind/SkeletonBox'`
+
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+
+## Props
+
+- `as`: `React.ElementType` — Default `'div'`. Element to render.
+- `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
+- `delay`: `number | "long" | "short"` — Waits before showing the placeholder, so a fast response never flashes one. Accepts a named delay or milliseconds.
+- `height`: `Height<string | number>` — Height of the placeholder.
+- `width`: `Width<string | number>` — Width of the placeholder.
+
+## Differences from `@primer/react`
+
+- Keep Suspense, data fetching, and loading transitions in the application.
+- Compose SkeletonText and SkeletonAvatar directly for richer placeholder layouts.
+- Use `as` only for a simple presentational element choice.
+- Named placeholders use image semantics by default so their accessible name is valid. An explicit `role` takes precedence.
+- Replace `sx` and styled-system props with `className`.

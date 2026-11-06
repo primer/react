@@ -1,0 +1,63 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './RelativeTime.docs.json'
+import * as Stories from './RelativeTime.stories'
+import * as Features from './RelativeTime.features.stories'
+import * as Examples from './RelativeTime.examples.stories'
+
+<Meta of={Stories} />
+
+# RelativeTime
+
+`RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {RelativeTime} from '@primer/react-tailwind/RelativeTime'
+;<RelativeTime datetime="2024-01-02T00:00:00.000Z" />
+```
+
+Use `date` when a `Date` object is already available, or `datetime` for an ISO date string. `children` can replace the visible relative text while retaining the semantic `time` element.
+
+## Props
+
+<ApiReference {...api} />
+
+When both `date` and `datetime` are provided, `datetime` takes precedence. A supplied `title` overrides the computed absolute-date tooltip; `noTitle` suppresses that fallback.
+
+<Controls of={Stories.Playground} />
+
+Other standard `time` attributes, including `className`, are forwarded.
+
+## Composition
+
+Use `RelativeTime` in activity metadata, event lists, and prose where a machine-readable timestamp should remain available. Use custom children for short labels or links; use `title` or the default title for the precise date.
+
+## Accessibility
+
+The semantic `time` element preserves the date relationship for assistive technology and other consumers. Custom children should still describe the time meaningfully. Invalid dates render empty visible content and omit `dateTime`.
+
+## Animation and reduced motion
+
+`RelativeTime` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Import the package styles once, or compile with Tailwind v4 and the package `dist` `@source`. Use `className` and standard CSS to style the time element; the component does not add a typography-specific styling prop.
+
+### Data attributes
+
+The root exposes `data-component="RelativeTime"`, plus native `dateTime` and `title` values. The relative formatting is content, not a state attribute.
+
+## Alignment
+
+RelativeTime supports the upstream formatting contract locally, including format, style, date-part, tense, precision, threshold, prefix, and time-zone props. It renders a native `time` element without a custom-element dependency.
+
+## Features and examples
+
+<Canvas of={Features.MicroFormat} />
+<Canvas of={Features.CountDownTimer} />
+<Canvas of={Examples.LongDate} />

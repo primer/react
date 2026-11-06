@@ -1,0 +1,60 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './SelectPanel.stories'
+import * as Features from './SelectPanel.features.stories'
+import * as Examples from './SelectPanel.examples.stories'
+
+<Meta of={Stories} />
+
+# SelectPanel
+
+`SelectPanel` is a data-driven, filterable picker built with Base UI Combobox and Primer's Popover and Dialog primitives.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`SelectPanelProps` requires `items`, `selected`, and `onSelectedChange`. It supports anchored and modal presentation, controlled or uncontrolled visibility and filtering, external anchors, selected-option ordering, grouped items, dividers, inactive or disabled items, loading states, notices, custom messages, secondary actions, select-all, item renderers, virtualization, scroll-end loading, and sizing.
+
+## Import and configuration
+
+```tsx
+import {SelectPanel} from '@primer/react-tailwind/SelectPanel'
+```
+
+Use the configured component for the supported picker pattern. `SelectPanel` intentionally does not expose partial Popover or Combobox subcomponents: that would leave consumers without the matching Combobox root, input, list, selection, and dismissal context. Use `Popover`, `Dialog`, `Combobox`, and `ActionList` directly for a wholly custom composition.
+
+`SelectPanel.SecondaryActionButton`, `SelectPanel.SecondaryActionLink`, and `SelectPanel.Message` are the supported presentational helpers for the configured API.
+
+## Controlled and uncontrolled
+
+Selection is controlled by `selected` and `onSelectedChange`; visibility uses `open`/`onOpenChange` or `defaultOpen`; search uses `filterValue`/`onFilterChange` or `defaultFilterValue`. When `filterValue` or `onFilterChange` is provided, `items` is the consumer-filtered collection for remote or fuzzy search; otherwise SelectPanel filters simple text locally. Selected values remain selected even when their items are outside the current filtered `items` collection. Item IDs are type-sensitive, so numeric `1` and string `'1'` remain separate; id-less items use object identity.
+
+The forwarded ref and `overlayProps` target the popup or dialog element. `renderAnchor={null}` requires `anchorRef` and attaches the panel to an external trigger. `renderGroup` wraps every configured group unless that group's `groupMetadata[].renderGroup` overrides it.
+
+For an internally rendered non-button anchor, pass `anchorProps={{nativeButton: false}}`. When the anchor is an `ActionMenu.Item`, also pass `role: 'menuitem'` in `anchorProps` and `closeOnClick={false}` to the item to preserve its menu semantics while the panel is open.
+
+Set `overlayProps.container` to an element or shadow root to portal the panel into a specific location, such as a portal root inside a focus-trapped dialog. Pass `null` while the container is unavailable; `portal: false` renders the panel in place instead.
+
+On narrow viewports, an anchored panel stays anchored by default. Enable `primer_react_select_panel_fullscreen_on_narrow` through this package's `FeatureFlags` provider to use the fullscreen dialog, and set `disableFullscreenOnNarrow` to opt an individual panel out. The `@primer/react-tailwind` and `@primer/react` providers are separate: when migrating incrementally, pass the same flag value to both providers.
+
+<Canvas of={Examples.ItemsInScope} />
+
+## Accessibility, forms, and keyboard
+
+The trigger has a button name from selected content, placeholder, or title. The filter input uses the normal input background, is named by `inputLabel` or placeholder text, and references the list with `aria-controls` only while the list is rendered. The list uses `actionListProps['aria-label']`, `aria-label`, or the string title. The option name includes its label and trailing visual; item descriptions and inactive reasons are exposed separately as descriptions. Mark decorative visuals as hidden from assistive technology. For custom markup returned by `renderItem`, use an `ActionList.Item` with `ActionList.Description` parts or supply the option's accessible name and description references on the item. Base UI owns active descendants, disabled options, Escape and outside dismissal, focus restoration, portals, collision-aware placement, and option semantics. Arrow keys navigate and Enter selects. Modal and fullscreen panels lock document scrolling, focus the filter, expose Cancel/Save controls where selection is deferred, and restore focus to their trigger. The component is not a native form field; model submitted values in application state.
+
+When a panel is inside `FormControl`, its label, descriptions, validation state, and disabled state apply to an internally rendered trigger. A required field is announced as a trigger description because buttons do not support `aria-required`. When using an external anchor, connect it to the field yourself. Popup controls, including the filter, select-all checkbox, and custom content, do not inherit those field properties. Use `textInputProps` to set the filter's own accessible name, description, or form attributes.
+
+Message presets use `role="status"`, or `role="alert"` for errors. If your application announces results separately, set `role: 'none'` on a configured `message` or `role="none"` on `SelectPanel.Message`. This removes the message's live-region role without hiding its text or actions from assistive technology.
+
+## Events and state attributes
+
+`onSelectedChange` receives Base UI selection details when an option causes the change. An item's `onAction(item, event, details)` receives the React click event used for activation and `details.sourceEvent`, the original keyboard or click event. Use `event.preventDefault()` to cancel selection; inspect `details.sourceEvent` to distinguish Enter from a click. `onOpenChange` receives a stable SelectPanel gesture (`anchor-click`, `anchor-key-press`, `click-outside`, `escape`, `selection`, or `cancel`); focus leaving the panel is also reported as `click-outside`. `onFilterChange` receives Base UI input details. Stable selectors include `SelectPanel`, `.Content`, `.Header`, `.Title`, `.Subtitle`, `.Filter`, `.List`, `.Item`, `.GroupHeading`, `.Notice`, `.Message`, and `.Footer`; options expose Base UI selection, highlight, and disabled state attributes.
+
+<Canvas of={Features.MultiSelect} />
+
+## Alignment
+
+See [alignment notes](./ALIGNMENT.md) for API mapping and the deprecated legacy exclusions.
