@@ -1,5 +1,27 @@
 # @primer/react
 
+## 38.45.0
+
+### Minor Changes
+
+- [#8034](https://github.com/primer/react/pull/8034) [`f80b27c`](https://github.com/primer/react/commit/f80b27cc531b4f12f3384a68a6c0259639d07d99) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Blankslate: Add compact-default sizing and default-sized primary actions behind the default-off `primer_react_blankslate_compact_default` feature flag. The `small` size remains supported.
+
+- [#8534](https://github.com/primer/react/pull/8534) [`57c2ac5`](https://github.com/primer/react/commit/57c2ac594efb8ee9b3e59ed2b9abb66fc15a36d9) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add bulk actions in the table header with selection counts and focus recovery.
+
+- [#8640](https://github.com/primer/react/pull/8640) [`8088a06`](https://github.com/primer/react/commit/8088a06e5b5380d81736179fee71d698b650d110) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add selection checkboxes to collapsible groups, aligned with row checkboxes. Table.Group supports controlled group selection.
+
+### Patch Changes
+
+- [#8612](https://github.com/primer/react/pull/8612) [`9cd1f8a`](https://github.com/primer/react/commit/9cd1f8ae897b8db44434474b937fda39f57f15f9) Thanks [@alexus37](https://github.com/alexus37)! - ActionBar, UnderlineNav: Batch descendant registry updates to reduce cascading renders during rapid item changes
+
+- [#8634](https://github.com/primer/react/pull/8634) [`62d32c9`](https://github.com/primer/react/commit/62d32c94ac730847a4557441b65a6a48334201a3) Thanks [@HadrielWonda](https://github.com/HadrielWonda)! - FilteredActionList: Only reference the list from the filter input while the list is rendered, so `aria-controls` never points at a missing element during body loading or when a message is shown
+
+- [#8638](https://github.com/primer/react/pull/8638) [`4b1cc1d`](https://github.com/primer/react/commit/4b1cc1d863209aa9aaf9f6ab47ae25b86de5c1e1) Thanks [@joshblack](https://github.com/joshblack)! - Polymorphic components: Fix TypeScript inference for component-specific props while preserving `as` support.
+
+- [#8611](https://github.com/primer/react/pull/8611) [`68a5c0b`](https://github.com/primer/react/commit/68a5c0b18c800b8f6f6555f9d4d327c48389ae06) Thanks [@alexus37](https://github.com/alexus37)! - ActionMenu: Avoid an extra render when closed menus mount while preserving accessible trigger labeling
+
+- [#8534](https://github.com/primer/react/pull/8534) [`57c2ac5`](https://github.com/primer/react/commit/57c2ac594efb8ee9b3e59ed2b9abb66fc15a36d9) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - Table: Preserve bottom corners when the final row group is empty.
+
 ## 38.44.0
 
 ### Minor Changes
