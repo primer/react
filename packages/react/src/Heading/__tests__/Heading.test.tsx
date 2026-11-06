@@ -1,20 +1,21 @@
 import {describe, expect, it, vi} from 'vitest'
 import Heading from '..'
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import classes from '../Heading.module.css'
 import {implementsClassName} from '../../utils/testing'
 
 describe('Heading', () => {
   implementsClassName(Heading, classes.Heading)
 
-  it('renders data-component attribute', () => {
-    const {container} = render(<Heading />)
-    expect(container.firstChild).toHaveAttribute('data-component', 'Heading')
+  it('renders data-component attribute', async () => {
+    render(<Heading />)
+    await expect.element(page.getByRole('heading')).toHaveAttribute('data-component', 'Heading')
   })
 
   it('renders <h2> by default', () => {
-    const {container} = render(<Heading />)
-    const heading = container.firstChild as HTMLElement
+    render(<Heading />)
+    const heading = page.getByRole('heading').element()
     expect(heading.tagName).toBe('H2')
   })
 
@@ -29,11 +30,11 @@ describe('Heading', () => {
   })
 
   // How can we test for generated class names?
-  it.todo('should only include css modules class', () => {
+  it.todo('should only include css modules class', async () => {
     render(<Heading>test</Heading>)
-    expect(screen.getByText('test')).toHaveClass('prc-Heading-Heading-6CmGO')
+    await expect.element(page.getByText('test', {exact: true})).toHaveClass('prc-Heading-Heading-6CmGO')
     // Note: this is the generated class name when CSS modules is used
     // for this component
-    expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
+    await expect.element(page.getByText('test', {exact: true})).not.toHaveClass(/^Heading__StyledHeading/)
   })
 })

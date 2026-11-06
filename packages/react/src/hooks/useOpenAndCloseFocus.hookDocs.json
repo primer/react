@@ -39,6 +39,12 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "If true, focus will not be set when the container is opened."
+        },
+        {
+          "name": "preventFocusOnClose",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, focus will not be returned to returnFocusRef when the hook is cleaned up. Consumers must manage focus themselves."
         }
       ]
     }

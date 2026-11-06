@@ -1,6 +1,7 @@
 @define-mixin subtleVariant {
   --segmented-control-outer-radius: var(--borderRadius-large);
   --segmented-control-button-bg-inset: 0px;
+  --segmented-control-button-bgColor-hover: var(--button-invisible-bgColor-hover);
 
   background-color: transparent;
   border: 0;
@@ -37,16 +38,12 @@
       background-color: var(--bgColor-muted);
     }
   }
-
-  .Button:where(:not([aria-pressed='true'], [aria-disabled='true'])):hover .Content {
-    background-color: var(--bgColor-muted);
-    background-color: color-mix(in srgb, var(--bgColor-muted) 50%, transparent);
-  }
 }
 
 @define-mixin defaultVariant {
   --segmented-control-outer-radius: var(--borderRadius-medium);
   --segmented-control-button-bg-inset: 4px;
+  --segmented-control-button-bgColor-hover: var(--controlTrack-bgColor-hover);
 
   background-color: var(--controlTrack-bgColor-rest);
   border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
@@ -88,10 +85,6 @@
       padding-inline: var(--segmented-control-button-inner-padding);
       background-color: transparent;
     }
-  }
-
-  .Button:where(:not([aria-pressed='true'], [aria-disabled='true'])):hover .Content {
-    background-color: var(--controlTrack-bgColor-hover);
   }
 }
 
@@ -591,7 +584,8 @@
 
 .Button:not([aria-pressed='true'], [aria-disabled='true']) {
   &:hover .Content {
-    background-color: var(--controlTrack-bgColor-hover);
+    /* stylelint-disable-next-line primer/colors -- each variant supplies a semantic background token */
+    background-color: var(--segmented-control-button-bgColor-hover, var(--controlTrack-bgColor-hover));
   }
 
   &:active .Content {

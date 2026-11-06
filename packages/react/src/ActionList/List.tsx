@@ -109,7 +109,6 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   return (
     <ListContext.Provider value={listContextValue}>
       {slots.heading}
-      {/* @ts-expect-error ref needs a non nullable ref */}
       <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}

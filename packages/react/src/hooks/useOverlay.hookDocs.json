@@ -49,6 +49,12 @@
           "name": "preventFocusOnOpen",
           "type": "boolean",
           "description": "Flag to prevent focus on the overlay when it is opened."
+        },
+        {
+          "name": "preventFocusOnClose",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, focus will not be returned to returnFocusRef when the overlay is unmounted. Consumers must manage focus themselves."
         }
       ]
     }

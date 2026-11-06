@@ -1,13 +1,13 @@
+import {page, userEvent} from 'vitest/browser'
 import {describe, expect, it, vi} from 'vitest'
-import userEvent from '@testing-library/user-event'
-import {render, screen, getByRole, queryByRole, queryAllByRole, renderHook} from '@testing-library/react'
+import {render, renderHook} from '@testing-library/react'
 import {DataTable, Table} from '../../DataTable'
 import type {Column} from '../column'
 import {createColumnHelper} from '../column'
 import {getGridTemplateFromColumns, useTable} from '../useTable'
 
 describe('DataTable', () => {
-  it('should render a semantic <table> through `data` and `columns`', () => {
+  it('should render a semantic <table> through `data` and `columns`', async () => {
     const columnHelper = createColumnHelper<{id: number; name: string}>()
     const columns = [
       columnHelper.column({
@@ -32,19 +32,19 @@ describe('DataTable', () => {
     render(<DataTable data={data} columns={columns} />)
 
     // <table>
-    expect(screen.getByRole('table')).toBeInTheDocument()
+    await expect.element(page.getByRole('table')).toBeInTheDocument()
 
     // <th>
-    expect(screen.getAllByRole('columnheader')).toHaveLength(1)
-    expect(screen.getByRole('columnheader', {name: 'Name'})).toBeInTheDocument()
+    expect(page.getByRole('columnheader').elements()).toHaveLength(1)
+    await expect.element(page.getByRole('columnheader', {name: 'Name'})).toBeInTheDocument()
 
     // <tr>
-    expect(screen.getAllByRole('row').length).toBe(4)
+    expect(page.getByRole('row').elements().length).toBe(4)
     // <td>
-    expect(screen.getAllByRole('cell').length).toBe(3)
+    expect(page.getByRole('cell').elements().length).toBe(3)
   })
 
-  it('should support custom cell rendering with `renderCell`', () => {
+  it('should support custom cell rendering with `renderCell`', async () => {
     const data = [
       {
         id: 1,
@@ -81,11 +81,11 @@ describe('DataTable', () => {
     )
 
     for (const row of data) {
-      expect(screen.getByRole('cell', {name: row.name.value})).toBeInTheDocument()
+      await expect.element(page.getByRole('cell', {name: row.name.value})).toBeInTheDocument()
     }
   })
 
-  it('should support custom labeling through `aria-labelledby`', () => {
+  it('should support custom labeling through `aria-labelledby`', async () => {
     const columnHelper = createColumnHelper<{id: number; name: string}>()
     const columns = [
       columnHelper.column({
@@ -113,10 +113,10 @@ describe('DataTable', () => {
         <DataTable data={data} columns={columns} aria-labelledby="custom-title" />
       </>,
     )
-    expect(screen.getByRole('table', {name: 'custom-title'})).toBeInTheDocument()
+    await expect.element(page.getByRole('table', {name: 'custom-title'})).toBeInTheDocument()
   })
 
-  it('should support custom labeling through `aria-labelledby` and `Table.Title`', () => {
+  it('should support custom labeling through `aria-labelledby` and `Table.Title`', async () => {
     const columnHelper = createColumnHelper<{id: number; name: string}>()
     const columns = [
       columnHelper.column({
@@ -146,10 +146,10 @@ describe('DataTable', () => {
         <DataTable data={data} columns={columns} aria-labelledby="custom-title" />
       </Table.Container>,
     )
-    expect(screen.getByRole('table', {name: 'custom-title'})).toBeInTheDocument()
+    await expect.element(page.getByRole('table', {name: 'custom-title'})).toBeInTheDocument()
   })
 
-  it('should support custom descriptions through `aria-describedby`', () => {
+  it('should support custom descriptions through `aria-describedby`', async () => {
     const columnHelper = createColumnHelper<{id: number; name: string}>()
     const columns = [
       columnHelper.column({
@@ -177,10 +177,11 @@ describe('DataTable', () => {
         <DataTable data={data} columns={columns} aria-describedby="custom-description" />
       </>,
     )
-    expect(screen.getByRole('table', {description: 'custom-description'})).toBeInTheDocument()
+    await expect.element(page.getByRole('table')).toBeInTheDocument()
+    await expect.element(page.getByRole('table')).toHaveAccessibleDescription('custom-description')
   })
 
-  it('should support custom descriptions through `aria-describedby` and `Table.Subtitle`', () => {
+  it('should support custom descriptions through `aria-describedby` and `Table.Subtitle`', async () => {
     const columnHelper = createColumnHelper<{id: number; name: string}>()
     const columns = [
       columnHelper.column({
@@ -210,10 +211,11 @@ describe('DataTable', () => {
         <DataTable data={data} columns={columns} aria-describedby="custom-description" />
       </Table.Container>,
     )
-    expect(screen.getByRole('table', {description: 'custom-description'})).toBeInTheDocument()
+    await expect.element(page.getByRole('table')).toBeInTheDocument()
+    await expect.element(page.getByRole('table')).toHaveAccessibleDescription('custom-description')
   })
 
-  it('should support customizing the `cellPadding` of cells', () => {
+  it('should support customizing the `cellPadding` of cells', async () => {
     const columnHelper = createColumnHelper<{id: number; name: string}>()
     const columns = [
       columnHelper.column({
@@ -237,16 +239,16 @@ describe('DataTable', () => {
     ]
     const {rerender} = render(<DataTable data={data} columns={columns} />)
 
-    expect(screen.getByRole('table')).toHaveAttribute('data-cell-padding', 'normal')
+    await expect.element(page.getByRole('table')).toHaveAttribute('data-cell-padding', 'normal')
 
     rerender(<DataTable data={data} columns={columns} cellPadding="condensed" />)
-    expect(screen.getByRole('table')).toHaveAttribute('data-cell-padding', 'condensed')
+    await expect.element(page.getByRole('table')).toHaveAttribute('data-cell-padding', 'condensed')
 
     rerender(<DataTable data={data} columns={columns} cellPadding="spacious" />)
-    expect(screen.getByRole('table')).toHaveAttribute('data-cell-padding', 'spacious')
+    await expect.element(page.getByRole('table')).toHaveAttribute('data-cell-padding', 'spacious')
   })
 
-  it('should support specifying a rowHeader through `rowHeader` in `columns`', () => {
+  it('should support specifying a rowHeader through `rowHeader` in `columns`', async () => {
     const columnHelper = createColumnHelper<{id: number; name: string}>()
     const columns = [
       columnHelper.column({
@@ -271,11 +273,11 @@ describe('DataTable', () => {
     ]
     render(<DataTable data={data} columns={columns} />)
     for (const row of data) {
-      expect(screen.getByRole('rowheader', {name: row.name})).toBeInTheDocument()
+      await expect.element(page.getByRole('rowheader', {name: row.name})).toBeInTheDocument()
     }
   })
 
-  it('should rely on native scope associations for ungrouped cells', () => {
+  it('should rely on native scope associations for ungrouped cells', async () => {
     const columns: Array<Column<{id: number; name: string; visibility: string}>> = [
       {
         header: 'Name',
@@ -289,19 +291,19 @@ describe('DataTable', () => {
     ]
     render(<DataTable data={[{id: 1, name: 'one', visibility: 'public'}]} columns={columns} />)
 
-    const columnHeaders = screen.getAllByRole('columnheader')
-    const rowHeader = screen.getByRole('rowheader', {name: 'one'})
+    const columnHeaders = page.getByRole('columnheader').elements()
+    const rowHeader = page.getByRole('rowheader', {name: 'one'})
 
-    expect(columnHeaders[0]).not.toHaveAttribute('id')
-    expect(columnHeaders[1]).not.toHaveAttribute('id')
-    expect(rowHeader).not.toHaveAttribute('id')
-    expect(rowHeader).not.toHaveAttribute('headers')
-    expect(screen.getByRole('cell', {name: 'public'})).not.toHaveAttribute('headers')
+    await expect.element(columnHeaders[0]).not.toHaveAttribute('id')
+    await expect.element(columnHeaders[1]).not.toHaveAttribute('id')
+    await expect.element(rowHeader).not.toHaveAttribute('id')
+    await expect.element(rowHeader).not.toHaveAttribute('headers')
+    await expect.element(page.getByRole('cell', {name: 'public'})).not.toHaveAttribute('headers')
   })
 
   describe('sorting', () => {
     describe('initial state', () => {
-      it('should set the default sort state of a sortable table', () => {
+      it('should set the default sort state of a sortable table', async () => {
         render(
           <DataTable
             data={[
@@ -330,24 +332,19 @@ describe('DataTable', () => {
           />,
         )
 
-        const header = screen.getByRole('columnheader', {
+        const header = page.getByRole('columnheader', {
           name: 'Value',
         })
-        expect(header).toHaveAttribute('aria-sort', 'ascending')
+        await expect.element(header).toHaveAttribute('aria-sort', 'ascending')
 
-        const rows = screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
+        const rows = page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
         expect(rows).toEqual(['1', '2', '3'])
       })
 
-      it('should set the default sort state if `initialSortColumn` is provided', () => {
+      it('should set the default sort state if `initialSortColumn` is provided', async () => {
         render(
           <DataTable
             data={[
@@ -382,13 +379,13 @@ describe('DataTable', () => {
           />,
         )
 
-        const header = screen.getByRole('columnheader', {
+        const header = page.getByRole('columnheader', {
           name: 'Field One',
         })
-        expect(header).toHaveAttribute('aria-sort', 'ascending')
+        await expect.element(header).toHaveAttribute('aria-sort', 'ascending')
       })
 
-      it('should not set a default sort state if `initialSortColumn` is provided but no columns are sortable', () => {
+      it('should not set a default sort state if `initialSortColumn` is provided but no columns are sortable', async () => {
         const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
@@ -424,16 +421,16 @@ describe('DataTable', () => {
           />,
         )
 
-        const headers = screen.getAllByRole('columnheader')
+        const headers = page.getByRole('columnheader').elements()
         for (const header of headers) {
-          expect(header).not.toHaveAttribute('aria-sort')
+          await expect.element(header).not.toHaveAttribute('aria-sort')
         }
 
         expect(spy).toHaveBeenCalled()
         spy.mockRestore()
       })
 
-      it('should not set a default sort state if `initialSortColumn` is provided but does not correspond to a column', () => {
+      it('should not set a default sort state if `initialSortColumn` is provided but does not correspond to a column', async () => {
         const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
         render(
           <DataTable
@@ -468,16 +465,16 @@ describe('DataTable', () => {
           />,
         )
 
-        const headers = screen.getAllByRole('columnheader')
+        const headers = page.getByRole('columnheader').elements()
         for (const header of headers) {
-          expect(header).not.toHaveAttribute('aria-sort')
+          await expect.element(header).not.toHaveAttribute('aria-sort')
         }
 
         expect(spy).toHaveBeenCalled()
         spy.mockRestore()
       })
 
-      it('should set the default sort state of the first sortable column if only `initialSortDirection` is provided', () => {
+      it('should set the default sort state of the first sortable column if only `initialSortDirection` is provided', async () => {
         render(
           <DataTable
             data={[
@@ -512,18 +509,24 @@ describe('DataTable', () => {
           />,
         )
 
-        const header = screen.getByRole('columnheader', {
+        const header = page.getByRole('columnheader', {
           name: 'Field Two',
         })
-        expect(header).toHaveAttribute('aria-sort', 'ascending')
+        await expect.element(header).toHaveAttribute('aria-sort', 'ascending')
 
-        const body = screen.getByRole('table').querySelector('tbody') as HTMLTableSectionElement
-        const rows = queryAllByRole(body, 'row').map(row => {
-          const cells = queryAllByRole(row, 'cell').map(cell => {
-            return cell.textContent
+        const body = page.getByRole('rowgroup').last()
+        const rows = body
+          .getByRole('row')
+          .all()
+          .map(row => {
+            const cells = row
+              .getByRole('cell')
+              .elements()
+              .map(cell => {
+                return cell.textContent
+              })
+            return cells
           })
-          return cells
-        })
         expect(rows).toEqual([
           ['a', 'c'],
           ['b', 'b'],
@@ -531,7 +534,7 @@ describe('DataTable', () => {
         ])
       })
 
-      it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', () => {
+      it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', async () => {
         const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
         render(
           <DataTable
@@ -566,9 +569,9 @@ describe('DataTable', () => {
           />,
         )
 
-        const headers = screen.getAllByRole('columnheader')
+        const headers = page.getByRole('columnheader').elements()
         for (const header of headers) {
-          expect(header).not.toHaveAttribute('aria-sort')
+          await expect.element(header).not.toHaveAttribute('aria-sort')
         }
 
         expect(spy).toHaveBeenCalled()
@@ -577,8 +580,6 @@ describe('DataTable', () => {
     })
 
     it('should sort sparsely populated columns with blank values at the end', async () => {
-      const user = userEvent.setup()
-
       render(
         <DataTable
           data={[
@@ -619,45 +620,33 @@ describe('DataTable', () => {
         />,
       )
 
-      const header = screen.getByRole('columnheader', {
+      const header = page.getByRole('columnheader', {
         name: 'Value',
       })
-      expect(header).toHaveAttribute('aria-sort', 'ascending')
+      await expect.element(header).toHaveAttribute('aria-sort', 'ascending')
 
       // Change to descending
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
 
-      let rows = screen
-        .getAllByRole('row')
-        .filter(row => {
-          return queryByRole(row, 'cell')
-        })
-        .map(row => {
-          const cell = getByRole(row, 'cell')
-          return cell.textContent
-        })
+      let rows = page
+        .getByRole('cell')
+        .elements()
+        .map(cell => cell.textContent)
 
       expect(rows).toEqual(['3', '2', '1', '0', '', ''])
 
       // Change to ascending
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
 
-      rows = screen
-        .getAllByRole('row')
-        .filter(row => {
-          return queryByRole(row, 'cell')
-        })
-        .map(row => {
-          const cell = getByRole(row, 'cell')
-          return cell.textContent
-        })
+      rows = page
+        .getByRole('cell')
+        .elements()
+        .map(cell => cell.textContent)
 
       expect(rows).toEqual(['0', '1', '2', '3', '', ''])
     })
 
     it('should treat zero as a populated value when sorting numeric columns', async () => {
-      const user = userEvent.setup()
-
       render(
         <DataTable
           data={[
@@ -685,26 +674,20 @@ describe('DataTable', () => {
       )
 
       function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
+        return page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
       }
 
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
       expect(getRowOrder()).toEqual(['0', '1', '2'])
 
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
       expect(getRowOrder()).toEqual(['2', '1', '0'])
     })
 
     it('should change the sort direction on mouse click', async () => {
-      const user = userEvent.setup()
       render(
         <DataTable
           data={[
@@ -734,30 +717,24 @@ describe('DataTable', () => {
       )
 
       function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
+        return page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
       }
 
       expect(getRowOrder()).toEqual(['1', '2', '3'])
 
       // Transition from ASC -> DESC order
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
       expect(getRowOrder()).toEqual(['3', '2', '1'])
 
       // Transition from DESC -> ASC order
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
       expect(getRowOrder()).toEqual(['1', '2', '3'])
     })
 
     it('should keep the sort action in the button description', async () => {
-      const user = userEvent.setup()
       render(
         <DataTable
           data={[
@@ -776,31 +753,30 @@ describe('DataTable', () => {
         />,
       )
 
-      const header = screen.getByRole('columnheader', {name: 'Value'})
-      const sortButton = screen.getByRole('button', {name: 'Value'})
+      const header = page.getByRole('columnheader', {name: 'Value'})
+      const sortButton = page.getByRole('button', {name: 'Value'})
 
-      expect(header).toHaveAccessibleName('Value')
-      expect(header).not.toHaveAttribute('aria-sort')
-      expect(sortButton).toHaveAccessibleName('Value')
-      expect(sortButton).toHaveAccessibleDescription('Sort ascending')
+      await expect.element(header).toHaveAccessibleName('Value')
+      await expect.element(header).not.toHaveAttribute('aria-sort')
+      await expect.element(sortButton).toHaveAccessibleName('Value')
+      await expect.element(sortButton).toHaveAccessibleDescription('Sort ascending')
 
-      await user.click(sortButton)
+      await userEvent.click(sortButton)
 
-      expect(header).toHaveAccessibleName('Value')
-      expect(header).toHaveAttribute('aria-sort', 'ascending')
-      expect(sortButton).toHaveAccessibleName('Value')
-      expect(sortButton).toHaveAccessibleDescription('Sort descending')
+      await expect.element(header).toHaveAccessibleName('Value')
+      await expect.element(header).toHaveAttribute('aria-sort', 'ascending')
+      await expect.element(sortButton).toHaveAccessibleName('Value')
+      await expect.element(sortButton).toHaveAccessibleDescription('Sort descending')
 
-      await user.click(sortButton)
+      await userEvent.click(sortButton)
 
-      expect(header).toHaveAccessibleName('Value')
-      expect(header).toHaveAttribute('aria-sort', 'descending')
-      expect(sortButton).toHaveAccessibleName('Value')
-      expect(sortButton).toHaveAccessibleDescription('Sort ascending')
+      await expect.element(header).toHaveAccessibleName('Value')
+      await expect.element(header).toHaveAttribute('aria-sort', 'descending')
+      await expect.element(sortButton).toHaveAccessibleName('Value')
+      await expect.element(sortButton).toHaveAccessibleDescription('Sort ascending')
     })
 
     it('should change the sort direction on keyboard Enter or Space', async () => {
-      const user = userEvent.setup()
       render(
         <DataTable
           data={[
@@ -830,52 +806,46 @@ describe('DataTable', () => {
       )
 
       function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
+        return page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
       }
 
       function getSortHeader() {
-        return screen.getByRole('columnheader', {
+        return page.getByRole('columnheader', {
           name: 'Value',
         })
       }
 
       expect(getRowOrder()).toEqual(['1', '2', '3'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
+      await expect.element(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
 
       // Focus columnheader, it should be the first focusable element
-      await user.tab()
+      await userEvent.tab()
 
       // Transition from ASC -> DESC order
-      await user.keyboard('{Enter}')
+      await userEvent.keyboard('{Enter}')
       expect(getRowOrder()).toEqual(['3', '2', '1'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'descending')
+      await expect.element(getSortHeader()).toHaveAttribute('aria-sort', 'descending')
 
       // Transition from DESC -> ASC order
-      await user.keyboard('{Enter}')
+      await userEvent.keyboard('{Enter}')
       expect(getRowOrder()).toEqual(['1', '2', '3'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
+      await expect.element(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
 
       // Transition from ASC -> DESC order
-      await user.keyboard(' ')
+      await userEvent.keyboard(' ')
       expect(getRowOrder()).toEqual(['3', '2', '1'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'descending')
+      await expect.element(getSortHeader()).toHaveAttribute('aria-sort', 'descending')
 
       // Transition from DESC -> ASC order
-      await user.keyboard(' ')
+      await userEvent.keyboard(' ')
       expect(getRowOrder()).toEqual(['1', '2', '3'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
+      await expect.element(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
     })
 
     it('should reset the sort direction when a new column is selected', async () => {
-      const user = userEvent.setup()
       render(
         <DataTable
           data={[
@@ -912,13 +882,14 @@ describe('DataTable', () => {
       )
 
       function getRowOrder() {
-        return screen
-          .getAllByRole('row')
+        return page
+          .getByRole('row')
+          .all()
           .filter(row => {
-            return queryAllByRole(row, 'cell').length > 0
+            return row.getByRole('cell').elements().length > 0
           })
           .map(row => {
-            const cells = queryAllByRole(row, 'cell')
+            const cells = row.getByRole('cell').elements()
             return [cells[0].textContent, cells[1].textContent].map(value => {
               return parseInt(value as string, 10)
             })
@@ -926,13 +897,13 @@ describe('DataTable', () => {
       }
 
       function getSortHeader(name: string) {
-        return screen.getByRole('columnheader', {
+        return page.getByRole('columnheader', {
           name,
         })
       }
 
       // Start in an ASC sort order
-      expect(getSortHeader('Column A')).toHaveAttribute('aria-sort', 'ascending')
+      await expect.element(getSortHeader('Column A')).toHaveAttribute('aria-sort', 'ascending')
       expect(getRowOrder()).toEqual([
         [1, 3],
         [2, 2],
@@ -940,13 +911,13 @@ describe('DataTable', () => {
       ])
 
       // Transition to a DESC sort order
-      await user.click(screen.getByText('Column A'))
-      expect(getSortHeader('Column A')).toHaveAttribute('aria-sort', 'descending')
+      await userEvent.click(page.getByText('Column A'))
+      await expect.element(getSortHeader('Column A')).toHaveAttribute('aria-sort', 'descending')
 
       // When interacting with Column B, sort order should reset to ASC
-      await user.click(screen.getByText('Column B'))
-      expect(getSortHeader('Column A')).not.toHaveAttribute('aria-sort')
-      expect(getSortHeader('Column B')).toHaveAttribute('aria-sort', 'ascending')
+      await userEvent.click(page.getByText('Column B'))
+      await expect.element(getSortHeader('Column A')).not.toHaveAttribute('aria-sort')
+      await expect.element(getSortHeader('Column B')).toHaveAttribute('aria-sort', 'ascending')
       expect(getRowOrder()).toEqual([
         [3, 1],
         [2, 2],
@@ -955,7 +926,6 @@ describe('DataTable', () => {
     })
 
     it('should support a custom sort function', async () => {
-      const user = userEvent.setup()
       const customSortFn = vi.fn().mockImplementation((a, b) => {
         return a.value - b.value
       })
@@ -989,24 +959,18 @@ describe('DataTable', () => {
       )
 
       function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
+        return page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
       }
 
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
       expect(customSortFn).toHaveBeenCalled()
       expect(getRowOrder()).toEqual(['3', '2', '1'])
     })
 
     it('invokes onToggleSort with column id and next direction', async () => {
-      const user = userEvent.setup()
       const handler = vi.fn()
 
       render(
@@ -1030,18 +994,17 @@ describe('DataTable', () => {
       expect(handler).not.toHaveBeenCalled()
 
       // Same column, flips ASC to DESC
-      await user.click(screen.getByText('First'))
+      await userEvent.click(page.getByText('First'))
       expect(handler).toHaveBeenLastCalledWith('first', 'DESC')
 
       // Different column, resets to ASC on that column
-      await user.click(screen.getByText('Second'))
+      await userEvent.click(page.getByText('Second'))
       expect(handler).toHaveBeenLastCalledWith('second', 'ASC')
 
       expect(handler).toHaveBeenCalledTimes(2)
     })
 
     it('should not sort rows when externalSorting is true', async () => {
-      const user = userEvent.setup()
       const handler = vi.fn()
 
       render(
@@ -1064,22 +1027,17 @@ describe('DataTable', () => {
       )
 
       function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
+        return page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
       }
 
       // Initial order should be preserved (no client-side sorting)
       expect(getRowOrder()).toEqual(['3', '1', '2'])
 
       // Click the header to trigger sort
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
 
       // Data order should NOT change (external sorting is enabled)
       expect(getRowOrder()).toEqual(['3', '1', '2'])
@@ -1088,20 +1046,20 @@ describe('DataTable', () => {
       expect(handler).toHaveBeenCalledWith('value', 'ASC')
 
       // The header should still show sort direction
-      const header = screen.getByRole('columnheader', {
+      const header = page.getByRole('columnheader', {
         name: 'Value',
       })
-      expect(header).toHaveAttribute('aria-sort', 'ascending')
+      await expect.element(header).toHaveAttribute('aria-sort', 'ascending')
 
       // Click again
-      await user.click(screen.getByText('Value'))
+      await userEvent.click(page.getByText('Value'))
 
       // Data order should still NOT change
       expect(getRowOrder()).toEqual(['3', '1', '2'])
 
       // onToggleSort should be called with DESC
       expect(handler).toHaveBeenLastCalledWith('value', 'DESC')
-      expect(header).toHaveAttribute('aria-sort', 'descending')
+      await expect.element(header).toHaveAttribute('aria-sort', 'descending')
     })
   })
 
@@ -1261,7 +1219,7 @@ describe('DataTable', () => {
       }
     })
 
-    it('sets a custom property style to define the column grid template', () => {
+    it('sets a custom property style to define the column grid template', async () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
         columnHelper.column({
@@ -1277,7 +1235,7 @@ describe('DataTable', () => {
       ]
       render(<DataTable data={data} columns={columns} />)
 
-      expect(screen.getByRole('table')).toHaveStyle({
+      await expect.element(page.getByRole('table')).toHaveStyle({
         '--grid-template-columns': 'minmax(max-content, 1fr)',
       } as Partial<CSSStyleDeclaration>)
     })
