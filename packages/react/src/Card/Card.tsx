@@ -16,8 +16,11 @@ export type CardProps<As extends CardAs = 'div'> = PolymorphicProps<
     /** Optional className for the root element. */
     className?: string
 
-    /** Internal padding. @default 'normal' */
-    padding?: 'none' | 'condensed' | 'normal'
+    /** Internal padding: none (0px), condensed (8px), regular (16px), spacious (24px), normal (24px, or 16px in compact layout). @default 'normal' */
+    padding?: 'none' | 'condensed' | 'regular' | 'spacious' | 'normal'
+
+    /** Whether to show the card's shadow. @default true */
+    shadow?: boolean
 
     /** Border radius. @default 'large' */
     borderRadius?: 'medium' | 'large'
@@ -38,6 +41,20 @@ export type CardProps<As extends CardAs = 'div'> = PolymorphicProps<
 >
 
 type HeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
+type LinkProps = React.ComponentPropsWithoutRef<'a'> & {
+  /** Destination for the link. */
+  href: string
+  /** Expand the link's hit area over the entire card. @default false */
+  fullCardHitArea?: boolean
+  children: React.ReactNode
+}
+
+type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
+  /** Expand the button's hit area over the entire card. @default false */
+  fullCardHitArea?: boolean
+  children: React.ReactNode
+}
 
 type HeadingProps = React.ComponentPropsWithoutRef<'h3'> & {
   /**
@@ -99,6 +116,7 @@ function CardComponent<As extends CardAs>(
     children,
     className,
     padding = 'normal',
+    shadow = true,
     borderRadius = 'large',
     layout = 'default',
     as = 'div',
@@ -155,7 +173,9 @@ function CardComponent<As extends CardAs>(
           ref={ref}
           className={clsx(classes.Card, className)}
           data-component="Card"
+          data-content="custom"
           data-padding={padding}
+          data-shadow={shadow}
           data-border-radius={borderRadius}
           data-layout={layout}
           {...rest}
@@ -172,7 +192,10 @@ function CardComponent<As extends CardAs>(
         ref={ref}
         className={clsx(classes.Card, className)}
         data-component="Card"
+        data-content="structured"
+        data-has-header={Boolean(image || icon)}
         data-padding={padding}
+        data-shadow={shadow}
         data-border-radius={borderRadius}
         data-layout={layout}
         {...rest}
@@ -247,6 +270,51 @@ const CardHeading = forwardRef<HTMLHeadingElement, HeadingProps>(function CardHe
 
 CardHeading.displayName = 'Card.Heading'
 
+/**
+ * Place inside Card.Heading and set fullCardHitArea for whole-card navigation.
+ * Keep secondary controls outside the link, in Card.Action or Card.Metadata.
+ */
+const CardLink = forwardRef<HTMLAnchorElement, LinkProps>(function CardLink(
+  {children, className, fullCardHitArea = false, ...rest},
+  ref,
+) {
+  return (
+    <a
+      {...rest}
+      ref={ref}
+      className={clsx(classes.CardPrimaryAction, className)}
+      data-component="Card.Link"
+      data-full-card-hit-area={fullCardHitArea}
+    >
+      {children}
+    </a>
+  )
+})
+
+CardLink.displayName = 'Card.Link'
+
+/**
+ * Place inside Card.Heading and set fullCardHitArea for a whole-card action.
+ * Native button semantics provide Enter, Space, and disabled support.
+ */
+const CardButton = forwardRef<HTMLButtonElement, ButtonProps>(function CardButton(
+  {className, type = 'button', fullCardHitArea = false, ...rest},
+  ref,
+) {
+  return (
+    <button
+      {...rest}
+      ref={ref}
+      type={type === 'submit' ? 'submit' : type === 'reset' ? 'reset' : 'button'}
+      className={clsx(classes.CardPrimaryAction, className)}
+      data-component="Card.Button"
+      data-full-card-hit-area={fullCardHitArea}
+    />
+  )
+})
+
+CardButton.displayName = 'Card.Button'
+
 const CardDescription = forwardRef<HTMLParagraphElement, DescriptionProps>(function CardDescription(
   {children, className, ...rest},
   ref,
@@ -286,7 +354,8 @@ const CardMetadata = forwardRef<HTMLDivElement, MetadataProps>(function CardMeta
 
 CardMetadata.displayName = 'Card.Metadata'
 
-export {CardImpl, CardIcon, CardImage, CardHeading, CardDescription, CardAction, CardMetadata}
+export {CardImpl, CardIcon, CardImage, CardHeading, CardLink, CardButton, CardDescription, CardAction, CardMetadata}
+export type {LinkProps as CardLinkProps, ButtonProps as CardButtonProps}
 export type {HeadingProps as CardHeadingProps}
 export type {DescriptionProps as CardDescriptionProps}
 export type {IconProps as CardIconProps}
