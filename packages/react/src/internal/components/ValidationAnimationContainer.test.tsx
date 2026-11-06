@@ -13,14 +13,16 @@ describe('ValidationAnimationContainer', () => {
     await expect.element(page.getByText('content', {exact: true})).toBeInTheDocument()
   })
 
-  it('does not render children when show is false initially', async () => {
-    render(<ValidationAnimationContainer show={false}>content</ValidationAnimationContainer>)
-    await expect.element(page.getByText('content', {exact: true})).not.toBeInTheDocument()
+  it('does not render children when show is false initially', () => {
+    const {queryByText} = render(<ValidationAnimationContainer show={false}>content</ValidationAnimationContainer>)
+    expect(queryByText('content')).not.toBeInTheDocument()
   })
 
   it('renders children after show transitions to true', async () => {
-    const {rerender} = render(<ValidationAnimationContainer show={false}>content</ValidationAnimationContainer>)
-    await expect.element(page.getByText('content', {exact: true})).not.toBeInTheDocument()
+    const {queryByText, rerender} = render(
+      <ValidationAnimationContainer show={false}>content</ValidationAnimationContainer>,
+    )
+    expect(queryByText('content')).not.toBeInTheDocument()
 
     rerender(<ValidationAnimationContainer show={true}>content</ValidationAnimationContainer>)
     await expect.element(page.getByText('content', {exact: true})).toBeInTheDocument()

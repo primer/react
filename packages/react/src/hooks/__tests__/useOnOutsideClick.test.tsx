@@ -35,11 +35,11 @@ it('should call function when user clicks outside container', async () => {
   expect(mockFunction).toHaveBeenCalledTimes(1)
 })
 
-it('should not call function when user right clicks', async () => {
+it('should not call function when user right clicks', () => {
   const mockFunction = vi.fn()
   render(<Component callback={mockFunction} />)
   const button = page.getByRole('button', {name: 'button', exact: true})
-  await userEvent.click(button, {button: 'right'})
+  fireEvent.mouseDown(button.element(), {button: 2})
   expect(mockFunction).toHaveBeenCalledTimes(0)
 })
 
