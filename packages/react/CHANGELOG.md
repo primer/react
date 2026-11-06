@@ -1,5 +1,101 @@
 # @primer/react
 
+## 38.45.0
+
+### Minor Changes
+
+- [#8034](https://github.com/primer/react/pull/8034) [`f80b27c`](https://github.com/primer/react/commit/f80b27cc531b4f12f3384a68a6c0259639d07d99) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Blankslate: Add compact-default sizing and default-sized primary actions behind the default-off `primer_react_blankslate_compact_default` feature flag. The `small` size remains supported.
+
+- [#8534](https://github.com/primer/react/pull/8534) [`57c2ac5`](https://github.com/primer/react/commit/57c2ac594efb8ee9b3e59ed2b9abb66fc15a36d9) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add bulk actions in the table header with selection counts and focus recovery.
+
+- [#8640](https://github.com/primer/react/pull/8640) [`8088a06`](https://github.com/primer/react/commit/8088a06e5b5380d81736179fee71d698b650d110) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add selection checkboxes to collapsible groups, aligned with row checkboxes. Table.Group supports controlled group selection.
+
+### Patch Changes
+
+- [#8612](https://github.com/primer/react/pull/8612) [`9cd1f8a`](https://github.com/primer/react/commit/9cd1f8ae897b8db44434474b937fda39f57f15f9) Thanks [@alexus37](https://github.com/alexus37)! - ActionBar, UnderlineNav: Batch descendant registry updates to reduce cascading renders during rapid item changes
+
+- [#8634](https://github.com/primer/react/pull/8634) [`62d32c9`](https://github.com/primer/react/commit/62d32c94ac730847a4557441b65a6a48334201a3) Thanks [@HadrielWonda](https://github.com/HadrielWonda)! - FilteredActionList: Only reference the list from the filter input while the list is rendered, so `aria-controls` never points at a missing element during body loading or when a message is shown
+
+- [#8638](https://github.com/primer/react/pull/8638) [`4b1cc1d`](https://github.com/primer/react/commit/4b1cc1d863209aa9aaf9f6ab47ae25b86de5c1e1) Thanks [@joshblack](https://github.com/joshblack)! - Polymorphic components: Fix TypeScript inference for component-specific props while preserving `as` support.
+
+- [#8611](https://github.com/primer/react/pull/8611) [`68a5c0b`](https://github.com/primer/react/commit/68a5c0b18c800b8f6f6555f9d4d327c48389ae06) Thanks [@alexus37](https://github.com/alexus37)! - ActionMenu: Avoid an extra render when closed menus mount while preserving accessible trigger labeling
+
+- [#8534](https://github.com/primer/react/pull/8534) [`57c2ac5`](https://github.com/primer/react/commit/57c2ac594efb8ee9b3e59ed2b9abb66fc15a36d9) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - Table: Preserve bottom corners when the final row group is empty.
+
+## 38.44.0
+
+### Minor Changes
+
+- [#8533](https://github.com/primer/react/pull/8533) [`714cb96`](https://github.com/primer/react/commit/714cb96adbdc0aec951f7a131f44f221b10ef3ae) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable, Table.Group: Add controlled and uncontrolled group expansion without changing row selection.
+
+### Patch Changes
+
+- [#8533](https://github.com/primer/react/pull/8533) [`714cb96`](https://github.com/primer/react/commit/714cb96adbdc0aec951f7a131f44f221b10ef3ae) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - Table.SelectionHeader: Preserve the mixed checkbox state when using a callback ref.
+
+- [#8613](https://github.com/primer/react/pull/8613) [`f733dcb`](https://github.com/primer/react/commit/f733dcb2b086c6da7902bfecfcf68cd61c7daab3) Thanks [@alexus37](https://github.com/alexus37)! - SelectPanel: Improve rendering performance when opening and updating items or selection
+
+- [#8590](https://github.com/primer/react/pull/8590) [`f83d6a9`](https://github.com/primer/react/commit/f83d6a9350f85784e51d9632dfc881cf805976f7) Thanks [@donjo](https://github.com/donjo)! - SegmentedControl: Match unselected hover backgrounds in the subtle variant to invisible buttons.
+
+## 38.43.0
+
+### Minor Changes
+
+- [#8545](https://github.com/primer/react/pull/8545) [`c29b6fe`](https://github.com/primer/react/commit/c29b6fec94c8b18b4f59f7935740ab7b94598ecc) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TextInput and Textarea: Deprecate the `contrast` prop. Omit it to use the default background.
+
+- [#8558](https://github.com/primer/react/pull/8558) [`6f52273`](https://github.com/primer/react/commit/6f522732b1370954fd1de47b806864c6a46886c5) Thanks [@joshblack](https://github.com/joshblack)! - useControllableState, useOnOutsideClick: Support automatic memoization with React Compiler.
+
+- [#8555](https://github.com/primer/react/pull/8555) [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3) Thanks [@joshblack](https://github.com/joshblack)! - useSafeTimeout: Support automatic memoization with React Compiler.
+
+- [#8555](https://github.com/primer/react/pull/8555) [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3) Thanks [@joshblack](https://github.com/joshblack)! - Token, IssueLabelToken: Improve rendering performance with React Compiler support.
+
+- [#8555](https://github.com/primer/react/pull/8555) [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3) Thanks [@joshblack](https://github.com/joshblack)! - UnderlinePanels: Improve rendering performance with React Compiler support.
+
+### Patch Changes
+
+- [#8545](https://github.com/primer/react/pull/8545) [`c29b6fe`](https://github.com/primer/react/commit/c29b6fec94c8b18b4f59f7935740ab7b94598ecc) Thanks [@tay1orjones](https://github.com/tay1orjones)! - SelectPanel: Use the default filter input background. Enable `primer_react_select_panel_legacy_contrast` to restore the previous appearance.
+
+- [#8524](https://github.com/primer/react/pull/8524) [`0d5607c`](https://github.com/primer/react/commit/0d5607c3b29ab090a0a97d1532fdc3a066a37d3d) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TreeView: Prevent typeahead errors and focus changes when typing in nested controls.
+
+## 38.42.0
+
+### Minor Changes
+
+- [#8513](https://github.com/primer/react/pull/8513) [`1bab81a`](https://github.com/primer/react/commit/1bab81a0eb3f613c8d6b4abd36bd92d0ac6cedc4) Thanks [@tay1orjones](https://github.com/tay1orjones)! - ActionMenu, Overlay: Add `preventFocusOnClose` to let consumers manage focus when an overlay closes.
+
+- [#8525](https://github.com/primer/react/pull/8525) [`013ab30`](https://github.com/primer/react/commit/013ab3078785ee90afe8a7562576fe0a26001b96) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TextInput and Textarea: Deprecate the `contrast` prop. Omit it to use the default background.
+
+- [#8450](https://github.com/primer/react/pull/8450) [`1528a48`](https://github.com/primer/react/commit/1528a483f9efa41fdb4bea7793c49bcde6fb4220) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - IconButton, ActionBar: Accept React nodes and icon components
+
+- [#8509](https://github.com/primer/react/pull/8509) [`78ba2e0`](https://github.com/primer/react/commit/78ba2e08bc194f36b023e126a3084468aabff2ac) Thanks [@joshblack](https://github.com/joshblack)! - CounterLabel, Truncate: Improve rendering performance with React Compiler support.
+
+- [#8511](https://github.com/primer/react/pull/8511) [`6d14fa0`](https://github.com/primer/react/commit/6d14fa092e3e9e470991dab7f8e753bfb265a905) Thanks [@joshblack](https://github.com/joshblack)! - Checkbox, Tooltip: Improve rendering performance with React Compiler support.
+
+- [#8512](https://github.com/primer/react/pull/8512) [`e236683`](https://github.com/primer/react/commit/e236683d5c21c1d4b8121d35f4960986f5cd3a5f) Thanks [@joshblack](https://github.com/joshblack)! - ActionBar, FilteredActionList, Overlay, TextInput, Tooltip: Improve rendering performance with automatic memoization.
+
+- [#8415](https://github.com/primer/react/pull/8415) [`66a9f31`](https://github.com/primer/react/commit/66a9f31611c642209f66ed68b7d43712b09dbd88) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add controlled and uncontrolled row selection.
+
+### Patch Changes
+
+- [#8508](https://github.com/primer/react/pull/8508) [`f71dce4`](https://github.com/primer/react/commit/f71dce4869dedf4cb8460ed2fa8e18edc0604198) Thanks [@namangoyal176-10](https://github.com/namangoyal176-10)! - FormControl: Prevent duplicate input rendering when layout is horizontal with non-choice inputs
+
+## 38.41.0
+
+### Minor Changes
+
+- [#8504](https://github.com/primer/react/pull/8504) [`c9419e7`](https://github.com/primer/react/commit/c9419e75d7084b62096b50fb54f6a94e96592a9a) Thanks [@joshblack](https://github.com/joshblack)! - React Compiler: Switch from Babel to Oxc.
+
+- [#8477](https://github.com/primer/react/pull/8477) [`7f5303d`](https://github.com/primer/react/commit/7f5303d803986887187d86dcebaeda22a4dc6823) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - ActionList.Item and ActionList.LinkItem: Add a small size variant with smaller text.
+
+### Patch Changes
+
+- [#8484](https://github.com/primer/react/pull/8484) [`da3be09`](https://github.com/primer/react/commit/da3be09cc9b28cd95e9117db0a422ab08a7e37b2) Thanks [@tay1orjones](https://github.com/tay1orjones)! - TreeView: Prevent keyboard navigation errors when nested controls have focus
+
+- [#8473](https://github.com/primer/react/pull/8473) [`53ed545`](https://github.com/primer/react/commit/53ed54524aac9c3e829c239afdb4f63de160f873) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - LiveRegion: Upgrade `@primer/live-region-element` to 0.8.1
+
+- [#8412](https://github.com/primer/react/pull/8412) [`3d8f32f`](https://github.com/primer/react/commit/3d8f32fcce51a40db8e3091027714673d4a48617) Thanks [@anishtsudo](https://github.com/anishtsudo)! - Button: Add opt-in disabled styling for loading buttons so they look non-interactive while staying focusable
+
+- [#8463](https://github.com/primer/react/pull/8463) [`f710336`](https://github.com/primer/react/commit/f7103363ce5c916b8aa27a3fd5d4c9d564d3a13f) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Truncate: Infer accepted props from the `as` prop and forward `inline` to custom `as` components (e.g. `Link`).
+
 ## 38.40.1
 
 ### Patch Changes

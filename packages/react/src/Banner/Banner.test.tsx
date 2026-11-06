@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
-import {render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {Banner} from '../Banner'
 import {implementsClassName} from '../utils/testing'
 import classes from './Banner.module.css'
@@ -8,13 +8,13 @@ import classes from './Banner.module.css'
 describe('Banner', () => {
   implementsClassName(props => <Banner title="test" {...props} />, classes.Banner)
 
-  it('should render as a region element', () => {
+  it('should render as a region element', async () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region', {name: 'test'})).toBeInTheDocument()
-    expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
+    await expect.element(page.getByRole('region', {name: 'test'})).toBeInTheDocument()
+    await expect.element(page.getByRole('heading', {name: 'test'})).toBeInTheDocument()
   })
 
-  it('renders data-component attributes', () => {
+  it('renders data-component attributes', async () => {
     const {container} = render(
       <Banner
         title="test"
@@ -25,114 +25,122 @@ describe('Banner', () => {
       />,
     )
 
-    expect(container.querySelector('[data-component="Banner"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Icon"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Content"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Actions"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Banner"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Banner.Icon"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Banner.Content"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Banner.Actions"]')).toBeInTheDocument()
 
-    expect(container.querySelector('[data-component="Banner.PrimaryAction"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.SecondaryAction"]')).toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner.PrimaryAction"]'))
+      .toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner.SecondaryAction"]'))
+      .toBeInTheDocument()
 
-    expect(container.querySelector('[data-component="Banner.Title"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Description"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Banner.Title"]')).toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner.Description"]'))
+      .toBeInTheDocument()
   })
 
-  it('renders Banner dismiss IconButton with data-component attribute', () => {
+  it('renders Banner dismiss IconButton with data-component attribute', async () => {
     const {container} = render(<Banner title="test" onDismiss={() => {}} />)
 
-    const dismissButton = container.querySelector('[data-component="Banner"] [data-component="IconButton"]')
-    expect(dismissButton).toBeInTheDocument()
+    const dismissButton = container.querySelector<HTMLElement>(
+      '[data-component="Banner"] [data-component="IconButton"]',
+    )
+    await expect.element(dismissButton).toBeInTheDocument()
   })
 
-  it('should label the landmark element with the title by default', () => {
+  it('should label the landmark element with the title by default', async () => {
     render(<Banner title="My Banner Title" />)
-    const region = screen.getByRole('region', {name: 'My Banner Title'})
-    expect(region).toHaveAttribute('aria-labelledby')
-    expect(region).not.toHaveAttribute('aria-label')
+    const region = page.getByRole('region', {name: 'My Banner Title'})
+    await expect.element(region).toHaveAttribute('aria-labelledby')
+    await expect.element(region).not.toHaveAttribute('aria-label')
   })
 
-  it('should use aria-labelledby to reference the title for the critical variant', () => {
+  it('should use aria-labelledby to reference the title for the critical variant', async () => {
     render(<Banner title="Critical Issue" variant="critical" />)
-    const region = screen.getByRole('region', {name: 'Critical Issue'})
-    expect(region).toHaveAttribute('aria-labelledby')
+    const region = page.getByRole('region', {name: 'Critical Issue'})
+    await expect.element(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should use aria-labelledby to reference the title for the info variant', () => {
+  it('should use aria-labelledby to reference the title for the info variant', async () => {
     render(<Banner title="Information" variant="info" />)
-    const region = screen.getByRole('region', {name: 'Information'})
-    expect(region).toHaveAttribute('aria-labelledby')
+    const region = page.getByRole('region', {name: 'Information'})
+    await expect.element(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should use aria-labelledby to reference the title for the success variant', () => {
+  it('should use aria-labelledby to reference the title for the success variant', async () => {
     render(<Banner title="Success Message" variant="success" />)
-    const region = screen.getByRole('region', {name: 'Success Message'})
-    expect(region).toHaveAttribute('aria-labelledby')
+    const region = page.getByRole('region', {name: 'Success Message'})
+    await expect.element(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should use aria-labelledby to reference the title for the upsell variant', () => {
+  it('should use aria-labelledby to reference the title for the upsell variant', async () => {
     render(<Banner title="Recommendation" variant="upsell" />)
-    const region = screen.getByRole('region', {name: 'Recommendation'})
-    expect(region).toHaveAttribute('aria-labelledby')
+    const region = page.getByRole('region', {name: 'Recommendation'})
+    await expect.element(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should use aria-labelledby to reference the title for the warning variant', () => {
+  it('should use aria-labelledby to reference the title for the warning variant', async () => {
     render(<Banner title="Warning" variant="warning" />)
-    const region = screen.getByRole('region', {name: 'Warning'})
-    expect(region).toHaveAttribute('aria-labelledby')
+    const region = page.getByRole('region', {name: 'Warning'})
+    await expect.element(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should support the `aria-label` prop to override the default label for the landmark', () => {
+  it('should support the `aria-label` prop to override the default label for the landmark', async () => {
     render(<Banner aria-label="Test" title="test" variant="warning" />)
-    expect(screen.getByRole('region')).toHaveAttribute('aria-label', 'Test')
+    await expect.element(page.getByRole('region')).toHaveAttribute('aria-label', 'Test')
   })
 
-  it('should prefer aria-labelledby over aria-label and not set both', () => {
+  it('should prefer aria-labelledby over aria-label and not set both', async () => {
     render(
       <Banner aria-label="Override" aria-labelledby="my-banner-title">
         <Banner.Title id="my-banner-title">Explicit Banner Title</Banner.Title>
       </Banner>,
     )
 
-    const region = screen.getByRole('region', {name: 'Explicit Banner Title'})
-    expect(region).toHaveAttribute('aria-labelledby', 'my-banner-title')
-    expect(region).not.toHaveAttribute('aria-label')
+    const region = page.getByRole('region', {name: 'Explicit Banner Title'})
+    await expect.element(region).toHaveAttribute('aria-labelledby', 'my-banner-title')
+    await expect.element(region).not.toHaveAttribute('aria-label')
   })
 
-  it('should only set aria-label when aria-labelledby is not provided', () => {
+  it('should only set aria-label when aria-labelledby is not provided', async () => {
     render(<Banner aria-label="Custom Label" title="test" />)
-    const region = screen.getByRole('region')
-    expect(region).toHaveAttribute('aria-label', 'Custom Label')
-    expect(region).not.toHaveAttribute('aria-labelledby')
+    const region = page.getByRole('region')
+    await expect.element(region).toHaveAttribute('aria-label', 'Custom Label')
+    await expect.element(region).not.toHaveAttribute('aria-labelledby')
   })
 
-  it('should use aria-labelledby to reference Banner.Title when provided as a child', () => {
+  it('should use aria-labelledby to reference Banner.Title when provided as a child', async () => {
     render(
       <Banner>
         <Banner.Title>Custom Title Component</Banner.Title>
       </Banner>,
     )
-    const region = screen.getByRole('region', {name: 'Custom Title Component'})
-    const heading = screen.getByRole('heading', {name: 'Custom Title Component'})
-    expect(region).toHaveAttribute('aria-labelledby', heading.id)
-    expect(heading).toHaveAttribute('id')
-    expect(region).not.toHaveAttribute('aria-label')
+    const region = page.getByRole('region', {name: 'Custom Title Component'})
+    const heading = page.getByRole('heading', {name: 'Custom Title Component'})
+    await expect.element(region).toHaveAttribute('aria-labelledby', heading.element().id)
+    await expect.element(heading).toHaveAttribute('id')
+    await expect.element(region).not.toHaveAttribute('aria-label')
   })
 
-  it('should use aria-labelledby to reference Banner.Title with custom id', () => {
+  it('should use aria-labelledby to reference Banner.Title with custom id', async () => {
     render(
       <Banner aria-labelledby="custom-title-id">
         <Banner.Title id="custom-title-id">Title with Custom ID</Banner.Title>
       </Banner>,
     )
-    const region = screen.getByRole('region', {name: 'Title with Custom ID'})
-    expect(region).toHaveAttribute('aria-labelledby', 'custom-title-id')
-    expect(screen.getByRole('heading')).toHaveAttribute('id', 'custom-title-id')
+    const region = page.getByRole('region', {name: 'Title with Custom ID'})
+    await expect.element(region).toHaveAttribute('aria-labelledby', 'custom-title-id')
+    await expect.element(page.getByRole('heading')).toHaveAttribute('id', 'custom-title-id')
   })
 
-  it('should default the title to a h2', () => {
+  it('should default the title to a h2', async () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('heading', {level: 2})).toBeInTheDocument()
-    expect(screen.getByRole('heading', {level: 2})).toEqual(screen.getByText('test'))
+    await expect.element(page.getByRole('heading', {level: 2})).toBeInTheDocument()
+    expect(page.getByRole('heading', {level: 2}).element()).toEqual(page.getByText('test', {exact: true}).element())
   })
 
   it('should throw an error if no title is provided', () => {
@@ -143,14 +151,15 @@ describe('Banner', () => {
     spy.mockRestore()
   })
 
-  it('should rendering a description with the `description` prop', () => {
+  it('should rendering a description with the `description` prop', async () => {
     render(<Banner title="test" description="test-description" />)
-    expect(screen.getByText('test-description')).toBeInTheDocument()
-    expect(screen.getByRole('region', {name: 'test'})).toContainElement(screen.getByText('test-description'))
+    await expect.element(page.getByText('test-description')).toBeInTheDocument()
+    await expect
+      .element(page.getByRole('region', {name: 'test'}))
+      .toContainElement(page.getByText('test-description').element())
   })
 
   it('should support a primary action', async () => {
-    const user = userEvent.setup()
     const onClick = vi.fn()
     render(
       <Banner
@@ -160,14 +169,13 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
+    expect(page.getByRole('button', {name: 'test primary action', includeHidden: true}).elements()).toHaveLength(2)
 
-    await user.click(screen.queryAllByText('test primary action')[0])
+    await userEvent.click(page.getByRole('button', {name: 'test primary action'}))
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
   it('should support a secondary action', async () => {
-    const user = userEvent.setup()
     const onClick = vi.fn()
     render(
       <Banner
@@ -177,13 +185,13 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
+    expect(page.getByRole('button', {name: 'test secondary action', includeHidden: true}).elements()).toHaveLength(2)
 
-    await user.click(screen.queryAllByText('test secondary action')[0])
+    await userEvent.click(page.getByRole('button', {name: 'test secondary action'}))
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('should support primary action and secondary action', () => {
+  it('should support primary action and secondary action', async () => {
     render(
       <Banner
         title="test"
@@ -193,82 +201,83 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
-    expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
+    expect(page.getByRole('button', {name: 'test primary action', includeHidden: true}).elements()).toHaveLength(2)
+    expect(page.getByRole('button', {name: 'test secondary action', includeHidden: true}).elements()).toHaveLength(2)
   })
 
   it('should call `onDismiss` when the dismiss button is activated', async () => {
-    const user = userEvent.setup()
     const onDismiss = vi.fn()
     render(<Banner title="test" description="test-description" onDismiss={onDismiss} />)
 
-    await user.click(screen.getByRole('button', {name: 'Dismiss banner'}))
+    await userEvent.click(page.getByRole('button', {name: 'Dismiss banner'}))
     expect(onDismiss).toHaveBeenCalledTimes(1)
 
-    expect(screen.getByRole('button', {name: 'Dismiss banner'})).toHaveFocus()
+    await expect.element(page.getByRole('button', {name: 'Dismiss banner'})).toHaveFocus()
 
-    await user.keyboard('{Enter}')
+    await userEvent.keyboard('{Enter}')
     expect(onDismiss).toHaveBeenCalledTimes(2)
 
-    await user.type(screen.getByRole('button', {name: 'Dismiss banner'}), '{Space}')
+    await userEvent.keyboard(' ')
     expect(onDismiss).toHaveBeenCalledTimes(3)
   })
 
   it.each(['critical', 'info', 'success', 'upsell', 'warning'] as const)(
     'should support onDismiss for the %s variant',
-    variant => {
+    async variant => {
       const onDismiss = vi.fn()
       render(<Banner title="test" description="test-description" onDismiss={onDismiss} variant={variant} />)
-      expect(screen.queryByRole('button', {name: 'Dismiss banner'})).toBeInTheDocument()
+      await expect.element(page.getByRole('button', {name: 'Dismiss banner'})).toBeInTheDocument()
     },
   )
 
-  it('should pass extra props onto the container element', () => {
+  it('should pass extra props onto the container element', async () => {
     const {container} = render(<Banner title="test" data-testid="test" />)
-    expect(container.firstChild).toHaveAttribute('data-testid', 'test')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner"]'))
+      .toHaveAttribute('data-testid', 'test')
   })
 
-  it('should support a custom icon for info and upsell variants', () => {
+  it('should support a custom icon for info and upsell variants', async () => {
     const CustomIcon = vi.fn(() => <svg data-testid="icon" aria-hidden="true" />)
     const {rerender} = render(
       <Banner title="test" description="test-description" variant="info" icon={<CustomIcon />} />,
     )
-    expect(screen.getByTestId('icon')).toBeInTheDocument()
+    await expect.element(page.getByTestId('icon')).toBeInTheDocument()
 
     rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
-    expect(screen.getByTestId('icon')).toBeInTheDocument()
+    await expect.element(page.getByTestId('icon')).toBeInTheDocument()
 
     rerender(<Banner title="test" description="test-description" variant="critical" icon={<CustomIcon />} />)
-    expect(screen.queryByTestId('icon')).toBe(null)
+    await expect.element(page.getByTestId('icon')).not.toBeInTheDocument()
 
     rerender(<Banner title="test" description="test-description" variant="success" icon={<CustomIcon />} />)
-    expect(screen.queryByTestId('icon')).toBe(null)
+    await expect.element(page.getByTestId('icon')).not.toBeInTheDocument()
 
     rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)
-    expect(screen.queryByTestId('icon')).toBe(null)
+    await expect.element(page.getByTestId('icon')).not.toBeInTheDocument()
   })
 
-  it('should support a custom leadingVisual for info and upsell variants', () => {
+  it('should support a custom leadingVisual for info and upsell variants', async () => {
     const CustomIcon = vi.fn(() => <svg data-testid="leading-visual" aria-hidden="true" />)
     const {rerender} = render(
       <Banner title="test" description="test-description" variant="info" leadingVisual={<CustomIcon />} />,
     )
-    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+    await expect.element(page.getByTestId('leading-visual')).toBeInTheDocument()
 
     rerender(<Banner title="test" description="test-description" variant="upsell" leadingVisual={<CustomIcon />} />)
-    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+    await expect.element(page.getByTestId('leading-visual')).toBeInTheDocument()
 
     rerender(<Banner title="test" description="test-description" variant="critical" leadingVisual={<CustomIcon />} />)
-    expect(screen.queryByTestId('leading-visual')).toBe(null)
+    await expect.element(page.getByTestId('leading-visual')).not.toBeInTheDocument()
 
     rerender(<Banner title="test" description="test-description" variant="success" leadingVisual={<CustomIcon />} />)
-    expect(screen.queryByTestId('leading-visual')).toBe(null)
+    await expect.element(page.getByTestId('leading-visual')).not.toBeInTheDocument()
 
     rerender(<Banner title="test" description="test-description" variant="warning" leadingVisual={<CustomIcon />} />)
-    expect(screen.queryByTestId('leading-visual')).toBe(null)
+    await expect.element(page.getByTestId('leading-visual')).not.toBeInTheDocument()
   })
 
-  it('should prefer leadingVisual over icon when both are provided', () => {
+  it('should prefer leadingVisual over icon when both are provided', async () => {
     const LeadingVisualIcon = () => <svg data-testid="leading-visual" aria-hidden="true" />
     const DeprecatedIcon = () => <svg data-testid="deprecated-icon" aria-hidden="true" />
     render(
@@ -280,46 +289,56 @@ describe('Banner', () => {
         icon={<DeprecatedIcon />}
       />,
     )
-    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
-    expect(screen.queryByTestId('deprecated-icon')).toBe(null)
+    await expect.element(page.getByTestId('leading-visual')).toBeInTheDocument()
+    await expect.element(page.getByTestId('deprecated-icon')).not.toBeInTheDocument()
   })
 
-  it('should render data-actions-layout attribute with inline value', () => {
+  it('should render data-actions-layout attribute with inline value', async () => {
     const {container} = render(<Banner title="test" actionsLayout="inline" />)
-    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'inline')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner"]'))
+      .toHaveAttribute('data-actions-layout', 'inline')
   })
 
-  it('should render data-actions-layout attribute with stacked value', () => {
+  it('should render data-actions-layout attribute with stacked value', async () => {
     const {container} = render(<Banner title="test" actionsLayout="stacked" />)
-    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'stacked')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner"]'))
+      .toHaveAttribute('data-actions-layout', 'stacked')
   })
 
-  it('should render data-actions-layout attribute with default value when not specified', () => {
+  it('should render data-actions-layout attribute with default value when not specified', async () => {
     const {container} = render(<Banner title="test" />)
-    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner"]'))
+      .toHaveAttribute('data-actions-layout', 'default')
   })
 
-  it('should render data-flush attribute when flush is true', () => {
+  it('should render data-flush attribute when flush is true', async () => {
     const {container} = render(<Banner title="test" flush />)
-    expect(container.firstChild).toHaveAttribute('data-flush')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner"]'))
+      .toHaveAttribute('data-flush')
   })
 
-  it('should not render data-flush attribute when flush is false', () => {
+  it('should not render data-flush attribute when flush is false', async () => {
     const {container} = render(<Banner title="test" />)
-    expect(container.firstChild).not.toHaveAttribute('data-flush')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Banner"]'))
+      .not.toHaveAttribute('data-flush')
   })
 
   describe('Banner.Title', () => {
-    it('should render as a h2 element by default', () => {
+    it('should render as a h2 element by default', async () => {
       render(
         <Banner>
           <Banner.Title>test</Banner.Title>
         </Banner>,
       )
-      expect(screen.getByRole('heading', {level: 2, name: 'test'})).toBeInTheDocument()
+      await expect.element(page.getByRole('heading', {level: 2, name: 'test'})).toBeInTheDocument()
     })
 
-    it('should support rendering as any heading element above level 2', () => {
+    it('should support rendering as any heading element above level 2', async () => {
       const levels = [2, 3, 4, 5, 6] as const
 
       render(
@@ -343,48 +362,48 @@ describe('Banner', () => {
       )
 
       for (const level of levels) {
-        expect(screen.getByRole('heading', {level, name: `test level ${level}`})).toBeInTheDocument()
+        await expect.element(page.getByRole('heading', {level, name: `test level ${level}`})).toBeInTheDocument()
       }
     })
 
-    it('should support a custom `className` on the container element', () => {
+    it('should support a custom `className` on the container element', async () => {
       render(
         <Banner>
           <Banner.Title className="custom-class">test</Banner.Title>
         </Banner>,
       )
-      expect(screen.getByRole('heading', {name: 'test'})).toHaveClass('custom-class')
+      await expect.element(page.getByRole('heading', {name: 'test'})).toHaveClass('custom-class')
     })
 
-    it('should pass extra props onto the container element', () => {
+    it('should pass extra props onto the container element', async () => {
       render(
         <Banner>
           <Banner.Title data-testid="test">test</Banner.Title>
         </Banner>,
       )
-      expect(screen.getByRole('heading', {name: 'test'})).toHaveAttribute('data-testid', 'test')
+      await expect.element(page.getByRole('heading', {name: 'test'})).toHaveAttribute('data-testid', 'test')
     })
   })
 
   describe('Banner.Description', () => {
-    it('should support a custom `className` on the container element', () => {
+    it('should support a custom `className` on the container element', async () => {
       render(
         <Banner>
           <Banner.Title>test title</Banner.Title>
           <Banner.Description className="custom-class">test description</Banner.Description>
         </Banner>,
       )
-      expect(screen.getByText('test description')).toHaveClass('custom-class')
+      await expect.element(page.getByText('test description')).toHaveClass('custom-class')
     })
 
-    it('should pass extra props onto the container element', () => {
+    it('should pass extra props onto the container element', async () => {
       render(
         <Banner>
           <Banner.Title>test title</Banner.Title>
           <Banner.Description data-testid="test">test description</Banner.Description>
         </Banner>,
       )
-      expect(screen.getByText('test description')).toHaveAttribute('data-testid', 'test')
+      await expect.element(page.getByText('test description')).toHaveAttribute('data-testid', 'test')
     })
   })
 })
