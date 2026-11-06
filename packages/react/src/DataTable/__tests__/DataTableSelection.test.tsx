@@ -771,9 +771,11 @@ describe('DataTable selection announcements', () => {
         bulkActionsAvailable: withBulkActions,
       })
       await browserUserEvent.click(alpha)
-      await expect
-        .poll(() => getLiveRegion().getMessage('polite'))
-        .toBe(`0 chosen; bulk actions: ${withBulkActions ? 'yes' : 'no'}`)
+      await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('0 chosen; bulk actions: no')
+      expect(getSelectionAnnouncement).toHaveBeenLastCalledWith({
+        selectedCount: 0,
+        bulkActionsAvailable: false,
+      })
     })
   })
 
@@ -792,6 +794,39 @@ describe('DataTable selection announcements', () => {
     await expect
       .poll(() => getLiveRegion().getMessage('polite'))
       .toBe('1 row selected, additional bulk actions available')
+  })
+
+  it('does not repeat the same custom announcement for different counts', async () => {
+    vi.useFakeTimers()
+    const announce = vi.spyOn(getLiveRegion(), 'announce')
+    const example = (ids: Array<number>) => (
+      <DataTable
+        data={data}
+        columns={columns}
+        rowSelection
+        selectedRows={new Set(ids)}
+        getSelectionAnnouncement={() => 'Selection changed'}
+      />
+    )
+    const {rerender} = render(example([]))
+    rerender(example([1]))
+    await act(async () => vi.advanceTimersByTime(100))
+    expect(getLiveRegion().getMessage('polite')).toBe('')
+    expect(announce).toHaveBeenCalledTimes(1)
+    rerender(example([1, 2]))
+    await act(async () => vi.advanceTimersByTime(49))
+    expect(getLiveRegion().getMessage('polite')).toBe('')
+    await act(async () => vi.advanceTimersByTime(1))
+    expect(getLiveRegion().getMessage('polite')).toBe('Selection changed')
+    expect(announce).toHaveBeenCalledTimes(1)
+  })
+
+  it('reports bulk actions only when the renderer returns content', async () => {
+    const renderBulkActions = vi.fn(() => null)
+    render(<DataTable data={data} columns={columns} rowSelection renderBulkActions={renderBulkActions} />)
+    await browserUserEvent.click(page.getByRole('checkbox', {name: 'Select Alpha', exact: true}))
+    await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('1 row selected')
+    expect(renderBulkActions).toHaveBeenCalledTimes(1)
   })
 
   it('keeps selection silent when enabled and does not repeat it when adding a toolbar', async () => {
