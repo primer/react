@@ -30,6 +30,16 @@ function MemberCells() {
 }
 
 describe('Table.Group', () => {
+  it('disables selection without a callback', async () => {
+    render(
+      <Table>
+        <Table.Group id="admins" label="Admins" rowCount={0} colSpan={2} selection="none" />
+      </Table>,
+    )
+
+    await expect.element(page.getByRole('checkbox', {name: 'Select Admins', exact: true})).toBeDisabled()
+  })
+
   implementsClassName(
     props => (
       <Table>

@@ -30,7 +30,9 @@ interface Table<Data extends UniqueRow> {
     sortBy: (header: Header<Data>) => void
     toggleRowSelection: (row: Row<Data>) => void
     toggleAllRows: () => void
+    toggleGroupSelection: (group: RowGroup<Data>) => void
     toggleGroupExpansion: (group: RowGroup<Data>) => void
+    clearSelection: () => void
   }
   selection: {
     headerId: string
@@ -69,6 +71,8 @@ interface RowGroup<Data extends UniqueRow> {
   label: string
   rows: Array<Row<Data>>
   expanded: boolean
+  selection: 'all' | 'some' | 'none'
+  selectable: boolean
   'aria-label'?: string
 }
 
@@ -337,13 +341,22 @@ export function useTable<Data extends UniqueRow>({
         bodies.push(body)
       }
       const groupStartIndex = rowIndex
+      const rows = item.rows.map((row, index) => createRow(row, groupStartIndex + index))
+      const selectableRows = rows.filter(row => row.selectable)
       bodies.push({
         type: 'row-group',
         key: `group:${typeof item.groupId}:${item.groupId}`,
         id: item.groupId,
         label: item.label,
-        rows: item.rows.map((row, index) => createRow(row, groupStartIndex + index)),
+        rows,
         expanded: !collapsibleGroups || expandedGroups.has(item.groupId),
+        selection:
+          selectableRows.length > 0 && selectableRows.every(row => row.selected)
+            ? 'all'
+            : selectableRows.some(row => row.selected)
+              ? 'some'
+              : 'none',
+        selectable: selectableRows.length > 0,
         'aria-label': item['aria-label'],
       })
       rowIndex += item.rows.length
@@ -379,12 +392,23 @@ export function useTable<Data extends UniqueRow>({
   }
 
   function toggleAllRows() {
-    if (selectableRows.length === 0) {
+    toggleRowsSelection(selectableRows, allSelected)
+  }
+
+  function toggleGroupSelection(group: RowGroup<Data>) {
+    toggleRowsSelection(
+      group.rows.filter(row => row.selectable),
+      group.selection === 'all',
+    )
+  }
+
+  function toggleRowsSelection(rows: Array<Row<Data>>, allSelected: boolean) {
+    if (rows.length === 0) {
       return
     }
 
     const nextSelectedRows = new Set(selectedRows)
-    for (const row of selectableRows) {
+    for (const row of rows) {
       if (allSelected) {
         nextSelectedRows.delete(row.selectionId)
       } else {
@@ -413,7 +437,11 @@ export function useTable<Data extends UniqueRow>({
       sortBy,
       toggleRowSelection,
       toggleAllRows,
+      toggleGroupSelection,
       toggleGroupExpansion,
+      clearSelection: () => {
+        setSelectedRows(new Set<DataTableRowId>())
+      },
     },
     selection: {
       headerId: `${tableId}-selection-column`,

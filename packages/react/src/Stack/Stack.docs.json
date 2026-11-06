@@ -23,7 +23,7 @@
     },
     {
       "name": "wrap",
-      "type": "'wrap' | 'nowrap' | ResponsiveValue<'wrap' | 'nowrap'>",
+      "type": "'wrap' | 'nowrap' | 'balance' | ResponsiveValue<'wrap' | 'nowrap' | 'balance'>",
       "description": "Specify whether items are forced onto one line or can wrap onto multiple lines."
     },
     {
