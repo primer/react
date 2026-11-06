@@ -26,6 +26,9 @@
       "id": "components-button-features--trailing-visual"
     },
     {
+      "id": "components-button-features--visual-sizes"
+    },
+    {
       "id": "components-button-features--trailing-counter"
     },
     {
@@ -130,7 +133,7 @@
     {
       "name": "leadingVisual",
       "type": "React.ElementType",
-      "description": "A visual to display before the button text."
+      "description": "A visual to display before the button text. Standard Octicons default to 14px in small buttons and 16px in medium and large buttons. Explicit icon sizes and custom visuals are preserved."
     },
     {
       "name": "loading",
@@ -160,7 +163,7 @@
     {
       "name": "trailingVisual",
       "type": "React.ElementType",
-      "description": "A visual to display after the button text."
+      "description": "A visual to display after the button text. Standard Octicons default to 14px in small buttons and 16px in medium and large buttons. Explicit icon sizes and custom visuals are preserved."
     },
     {
       "name": "trailingAction",

@@ -72,6 +72,34 @@ describe('LinkButton', () => {
 describe('Button', () => {
   implementsClassName(Button, classes.ButtonBase)
 
+  it.each(['leadingVisual', 'trailingVisual'] as const)('preserves explicit %s icon props', async visualName => {
+    const visual = <HeartIcon size={24} aria-label="Custom icon" className="custom-icon" />
+    render(
+      <Button size="small" {...{[visualName]: visual}}>
+        Favorite
+      </Button>,
+    )
+
+    const icon = page.getByRole('img', {name: 'Custom icon'})
+    await expect.element(icon).toHaveAttribute('width', '24')
+    await expect.element(icon).toHaveClass('custom-icon')
+  })
+
+  it.each(['leadingVisual', 'trailingVisual'] as const)('preserves custom %s component props', async visualName => {
+    const CustomVisual = React.forwardRef<HTMLSpanElement, {size?: number}>(({size}, ref) => (
+      <span ref={ref}>Custom visual size: {size ?? 'unchanged'}</span>
+    ))
+    CustomVisual.displayName = 'SearchIcon'
+
+    render(
+      <Button size="small" {...{[visualName]: CustomVisual}}>
+        Favorite
+      </Button>,
+    )
+
+    await expect.element(page.getByRole('button')).toHaveTextContent('Custom visual size: unchanged')
+  })
+
   it('renders a <button>', () => {
     render(<Button id="test-button">Default</Button>)
     const button = page.getByRole('button')
