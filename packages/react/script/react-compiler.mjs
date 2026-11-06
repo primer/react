@@ -16,7 +16,6 @@ const unsupportedPatterns = [
   'src/ActionMenu/ActionMenu.tsx',
   'src/AnchoredOverlay/AnchoredOverlay.tsx',
   'src/Autocomplete/AutocompleteInput.tsx',
-  'src/Button/ButtonBase.tsx',
   'src/Dialog/Dialog.tsx',
   'src/FilteredActionList/FilteredActionList.tsx',
   'src/LabelGroup/LabelGroup.tsx',
