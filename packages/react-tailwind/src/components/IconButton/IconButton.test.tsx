@@ -1,5 +1,5 @@
 import {PlusIcon} from '@primer/octicons-react'
-import {render, screen} from '@testing-library/react'
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {expect, it} from 'vitest'
 import {IconButton} from './IconButton'
 
@@ -15,7 +15,21 @@ it('preserves its accessible name while loading', () => {
 
   expect(container.firstElementChild).toHaveAccessibleName('Download')
   expect(container.firstElementChild).toHaveAttribute('aria-busy', 'true')
-  expect(container.firstElementChild).not.toHaveAttribute('aria-labelledby')
+})
+
+it('mutes only default icons so other variants keep their own icon colors', () => {
+  render(
+    <>
+      <IconButton aria-label="Default" icon={PlusIcon} />
+      <IconButton aria-label="Primary" icon={PlusIcon} variant="primary" />
+      <IconButton aria-label="Danger" icon={PlusIcon} variant="danger" />
+    </>,
+  )
+
+  expect(screen.getByRole('button', {name: 'Default'})).toHaveClass('text-muted')
+  expect(screen.getByRole('button', {name: 'Primary'})).not.toHaveClass('text-muted')
+  expect(screen.getByRole('button', {name: 'Danger'})).not.toHaveClass('text-muted')
+  expect(screen.getByRole('button', {name: 'Danger'})).toHaveAttribute('data-variant', 'danger')
 })
 
 it('renders element icons and the icon notification indicator', () => {
@@ -60,4 +74,42 @@ it('keeps label tooltips named by aria-label and describes keybinding hints', ()
 
   const button = screen.getByRole('button', {name: 'Italic text'})
   expect(button).toHaveAccessibleDescription('(control i)')
+})
+
+it('merges consumer ARIA references with its tooltip instead of replacing them', () => {
+  render(
+    <>
+      <span id="underline-note">Applies to the selection</span>
+      <span id="strike-name">Strike</span>
+      <IconButton
+        aria-describedby="underline-note"
+        aria-label="Underline text"
+        description="Underline the selection"
+        icon={PlusIcon}
+      />
+      <IconButton aria-label="Strikethrough text" aria-labelledby="strike-name" icon={PlusIcon} />
+    </>,
+  )
+
+  expect(screen.getByRole('button', {name: 'Underline text'})).toHaveAccessibleDescription(
+    'Applies to the selection Underline the selection',
+  )
+  expect(screen.getByRole('button', {name: 'Strike'})).toHaveAttribute('data-component', 'IconButton')
+})
+
+it('keeps aria-label as its only name source while showing the label tooltip', () => {
+  render(<IconButton aria-label="Add item" icon={PlusIcon} />)
+  const button = screen.getByRole('button', {name: 'Add item'})
+  expect(button).toHaveAttribute('aria-label', 'Add item')
+  expect(button).not.toHaveAttribute('aria-labelledby')
+})
+
+it('tracks its tooltip open state when given its own id', async () => {
+  render(<IconButton id="archive-button" aria-label="Archive item" icon={PlusIcon} />)
+
+  const button = screen.getByRole('button', {name: 'Archive item'})
+  expect(button).toHaveAttribute('id', 'archive-button')
+  fireEvent.keyDown(document.body, {key: 'Tab'})
+  act(() => button.focus())
+  await waitFor(() => expect(button).toHaveAttribute('data-popup-open'))
 })

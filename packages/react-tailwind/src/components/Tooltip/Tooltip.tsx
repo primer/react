@@ -5,23 +5,36 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 import {FloatingArrowGraphic, floatingArrowClassName} from '../../internal/floatingArrow'
 import {FloatingPortal} from '../../internal/FloatingPortal'
+import {joinIdRefs} from '../../internal/idRefs'
 import {mergeClassName} from '../../internal/mergeClassName'
 import type {FloatingContentProps} from '../../utils/types'
 import {KeybindingHint} from '../KeybindingHint/KeybindingHint'
 import {getAccessibleKeybindingHintString, usePlatform} from '../KeybindingHint/utils'
 import {usePortalContainer} from '../../internal/portalRoot'
-import {TooltipContext, type TooltipType} from './TooltipContext'
+import {
+  TooltipContext,
+  TooltipProviderContext,
+  tooltipDelayMs,
+  type TooltipDelay,
+  type TooltipType,
+} from './TooltipContext'
 
-export type {TooltipType} from './TooltipContext'
+export type {TooltipDelay, TooltipType} from './TooltipContext'
 
 const popupClassName =
-  'w-max max-w-64 overflow-visible text-balance rounded-md bg-[var(--tooltip-bgColor)] px-2 py-1 text-center text-xs text-[var(--tooltip-fgColor)] outline-none contrast-more:outline contrast-more:outline-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-100 motion-safe:ease-in motion-reduce:transition-none'
+  'w-max max-w-[250px] overflow-visible text-balance wrap-break-word rounded-md bg-[var(--tooltip-bgColor)] px-2 py-1 text-center text-xs text-[var(--tooltip-fgColor)] outline-none [-webkit-font-smoothing:subpixel-antialiased] forced-colors:outline forced-colors:outline-transparent data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-100 motion-safe:ease-in motion-reduce:transition-none'
 
 export interface TooltipRootProps extends BaseTooltip.Root.Props {
   /**
-   * How the tooltip relates to its trigger. `description` adds supplementary text through `aria-describedby`.
-   * `label` repeats the trigger's accessible name visually, so the trigger must already be named, for example
-   * with `aria-label`; the tooltip is then hidden from assistive technology.
+   * Id of the element holding the tooltip text, so other elements can reference it from `aria-labelledby` or
+   * `aria-describedby`. Generated when omitted.
+   */
+  id?: string
+  /**
+   * How the tooltip relates to its trigger. `description` adds the text to the trigger's accessible description
+   * through `aria-describedby`. `label` names the trigger through `aria-labelledby`, for triggers without visible
+   * text such as icon-only buttons; an `aria-labelledby` passed to the trigger takes precedence, and a trigger that
+   * already has an `aria-label` keeps it, so the tooltip stays visual.
    * @default 'description'
    */
   type?: TooltipType
@@ -30,18 +43,36 @@ export interface TooltipRootProps extends BaseTooltip.Root.Props {
    * such as `Mod+B`. Assistive technology receives the shortcut as plain text in the trigger's description.
    */
   keybindingHint?: string | string[]
+  /**
+   * How long the pointer rests on the trigger before the tooltip opens: `short` (50ms), `medium` (400ms) or `long`
+   * (1200ms). Keyboard focus opens it straight away. Without a value, the surrounding `Tooltip.Provider` delay
+   * applies, falling back to `short`.
+   * @default 'short'
+   */
+  delay?: TooltipDelay
 }
 
 const PopupMarkerContext = React.createContext('Tooltip.Popup')
 
-const Root = ({children, keybindingHint, type = 'description', ...rest}: TooltipRootProps) => {
-  const id = React.useId()
+const Root = ({
+  children,
+  delay,
+  disabled,
+  id: idProp,
+  keybindingHint,
+  type = 'description',
+  ...rest
+}: TooltipRootProps) => {
+  const generatedId = React.useId()
+  const id = idProp ?? generatedId
   const hints = (Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]).filter((hint): hint is string =>
     Boolean(hint),
   )
   return (
-    <TooltipContext.Provider value={{hints, id, type}}>
-      <BaseTooltip.Root {...rest}>{children}</BaseTooltip.Root>
+    <TooltipContext.Provider value={{delay, disabled, hints, id, type}}>
+      <BaseTooltip.Root {...rest} disabled={disabled}>
+        {children}
+      </BaseTooltip.Root>
     </TooltipContext.Provider>
   )
 }
@@ -49,21 +80,32 @@ const Root = ({children, keybindingHint, type = 'description', ...rest}: Tooltip
 export type TooltipTriggerProps = Omit<BaseTooltip.Trigger.Props, 'data-component'>
 
 const Trigger = React.forwardRef<HTMLElement, TooltipTriggerProps>(function TooltipTrigger(
-  {className, 'aria-describedby': describedBy, ...rest},
+  {className, 'aria-describedby': describedBy, 'aria-labelledby': labelledBy, delay, ...rest},
   ref,
 ) {
   const tooltip = React.useContext(TooltipContext)
-  const tooltipId =
-    tooltip?.type === 'description'
-      ? tooltip.id
-      : tooltip && tooltip.hints.length > 0
-        ? `${tooltip.id}-keybinding-hint`
+  const hasProvider = React.useContext(TooltipProviderContext)
+  const namedDelay = tooltip?.delay ?? (hasProvider ? undefined : 'short')
+  // A disabled tooltip never shows, so it neither names nor describes the trigger.
+  const wired = tooltip?.disabled ? undefined : tooltip
+  // A trigger already named by `aria-label` keeps that name rather than gaining a redundant `aria-labelledby`.
+  const hasOwnLabel = Boolean(
+    rest['aria-label'] ||
+      (React.isValidElement<{'aria-label'?: string}>(rest.render) && rest.render.props['aria-label']),
+  )
+  const descriptionId =
+    wired?.type === 'description'
+      ? wired.id
+      : wired && wired.hints.length > 0
+        ? `${wired.id}-keybinding-hint`
         : undefined
   return (
     <BaseTooltip.Trigger
       {...rest}
       ref={ref as React.Ref<HTMLButtonElement>}
-      aria-describedby={[describedBy, tooltipId].filter(Boolean).join(' ') || undefined}
+      aria-describedby={joinIdRefs(describedBy, descriptionId)}
+      aria-labelledby={labelledBy ?? (wired?.type === 'label' && !hasOwnLabel ? wired.id : undefined)}
+      delay={delay ?? (namedDelay ? tooltipDelayMs[namedDelay] : undefined)}
       className={mergeClassName('', className)}
       data-component="Tooltip.Trigger"
     />
@@ -86,8 +128,8 @@ const Popup = React.forwardRef<HTMLDivElement, TooltipPopupProps>(function Toolt
 
 export interface TooltipContentProps extends TooltipPopupProps, FloatingContentProps {
   /**
-   * Keeps the popup in the DOM while closed so `aria-describedby` always resolves. Defaults to `true` when the
-   * trigger is described by the tooltip: description tooltips, and label tooltips with a keybinding hint.
+   * Keeps the popup in the DOM while closed so the trigger's `aria-labelledby` or `aria-describedby` always
+   * resolves. Defaults to `true` unless the tooltip is disabled.
    */
   keepMounted?: boolean
 }
@@ -134,8 +176,8 @@ const Content = React.forwardRef<HTMLDivElement, TooltipContentProps>(function T
     keepMounted,
     portal = true,
     positionerClassName,
-    side = 'top',
-    sideOffset = 8,
+    side = 'bottom',
+    sideOffset = 4,
     ...rest
   },
   ref,
@@ -156,14 +198,15 @@ const Content = React.forwardRef<HTMLDivElement, TooltipContentProps>(function T
         <Popup
           {...rest}
           ref={ref}
-          id={tooltip?.id}
+          id={isLabel && hints.length > 0 ? undefined : tooltip?.id}
           role={isLabel ? undefined : 'tooltip'}
           aria-hidden={isLabel || undefined}
           className={className}
         >
           {hints.length > 0 ? (
+            // A label names the trigger with its text alone; the hint joins the trigger's description instead.
             <KeybindingHintContent hintId={isLabel ? `${tooltip.id}-keybinding-hint` : undefined} hints={hints}>
-              {children}
+              {isLabel ? <span id={tooltip.id}>{children}</span> : children}
             </KeybindingHintContent>
           ) : (
             children
@@ -173,7 +216,7 @@ const Content = React.forwardRef<HTMLDivElement, TooltipContentProps>(function T
     </PopupMarkerContext.Provider>
   )
   return (
-    <FloatingPortal keepMounted={keepMounted ?? (!isLabel || hints.length > 0)} part={Portal} portal={portal}>
+    <FloatingPortal keepMounted={keepMounted ?? !tooltip?.disabled} part={Portal} portal={portal}>
       {content}
     </FloatingPortal>
   )
@@ -191,6 +234,23 @@ const Positioner = React.forwardRef<HTMLDivElement, Omit<BaseTooltip.Positioner.
     )
   },
 )
+
+export interface TooltipProviderProps extends Omit<BaseTooltip.Provider.Props, 'delay'> {
+  /**
+   * Open delay for tooltips in this group that don't set their own `delay`: `short` (50ms), `medium` (400ms) or
+   * `long` (1200ms). Once one tooltip in the group is open, adjacent tooltips open without a delay.
+   * @default 'short'
+   */
+  delay?: TooltipDelay
+}
+
+function Provider({delay = 'short', ...rest}: TooltipProviderProps) {
+  return (
+    <TooltipProviderContext.Provider value>
+      <BaseTooltip.Provider {...rest} delay={tooltipDelayMs[delay]} />
+    </TooltipProviderContext.Provider>
+  )
+}
 
 function Portal({children, container, ...rest}: BaseTooltip.Portal.Props) {
   const portalContainer = usePortalContainer(container)
@@ -243,7 +303,7 @@ export const Tooltip = Object.assign(Root, {
   Popup,
   Positioner,
   Portal,
-  Provider: BaseTooltip.Provider,
+  Provider,
   Arrow,
   Viewport,
 })

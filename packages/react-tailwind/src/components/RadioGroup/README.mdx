@@ -24,7 +24,7 @@ import {Radio} from '@primer/react-tailwind/Radio'
 import {RadioGroup} from '@primer/react-tailwind/RadioGroup'
 ```
 
-Compose `Radio` children in author order and wrap label, caption, or validation content with `FormControl` as needed.
+Place `RadioGroup.Label`, `RadioGroup.Caption`, and `RadioGroup.Validation` directly inside the group, and compose `Radio` children in author order, each in a `FormControl` with its own label.
 
 ## Controlled and uncontrolled
 
@@ -34,7 +34,7 @@ Compose `Radio` children in author order and wrap label, caption, or validation 
 
 ## Accessibility, forms, and validation
 
-Name the group with `aria-label` or `aria-labelledby`, and label every choice. The selected child submits its value under the group `name`. Disabled groups prevent selection; `FormControl.Validation` supplies associated feedback.
+`RadioGroup.Label` names the group, and `RadioGroup.Validation` and `RadioGroup.Caption` describe it. Pass `aria-labelledby` instead when a heading elsewhere names the group; without either, an enclosing `FormControl.Label` names it. `required` sets `aria-required` and marks the label. The selected child submits its value under the group `name`. Disabled groups prevent selection, leave the tab order, and mute the label.
 
 ## Keyboard, events, and state
 
@@ -44,4 +44,4 @@ Arrow keys move roving focus and change the selected radio. `onValueChange` rece
 
 ## Alignment
 
-The [alignment notes](./ALIGNMENT.md) document the deliberate `FormControl` and ARIA composition that replaces upstream label, caption, and validation slots while preserving roving focus.
+The [alignment notes](./ALIGNMENT.md) explain how the `Label`, `Caption`, and `Validation` parts name and describe the group compared with upstream's legend, while preserving roving focus.

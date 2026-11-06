@@ -3,7 +3,7 @@
 import {ChevronRightIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {ButtonBase} from '../Button'
+import {UnstyledButton} from '../../internal/UnstyledButton'
 import {Checkbox} from '../Checkbox'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {TableRow} from './Table'
@@ -110,18 +110,17 @@ export function TableGroup({
             ) : null}
             <span data-selection={selection} className="flex items-center gap-x-[inherit] data-[selection]:gap-x-2">
               {collapsible ? (
-                <ButtonBase
-                  type="button"
+                <UnstyledButton
                   aria-controls={bodyId}
                   aria-description={rowCountLabel}
                   aria-expanded={isExpanded}
                   aria-label={ariaLabel ?? label}
                   data-component="Table.Group.Toggle"
                   onClick={toggleExpanded}
-                  className="-mx-1 -my-0.5 size-6 min-w-0 shrink-0 justify-center self-center rounded-sm border-0 bg-transparent p-0 text-default hover:bg-neutral-muted aria-expanded:[&>svg]:rotate-90"
+                  className="-mx-1 -my-0.5 size-6 shrink-0 justify-center self-center rounded-sm text-default hover:bg-neutral-muted aria-expanded:[&>svg]:rotate-90"
                 >
                   <ChevronRightIcon aria-hidden="true" />
-                </ButtonBase>
+                </UnstyledButton>
               ) : null}
               <span aria-hidden={collapsible || undefined} className="flex items-baseline gap-x-2">
                 <span className="font-semibold text-default">

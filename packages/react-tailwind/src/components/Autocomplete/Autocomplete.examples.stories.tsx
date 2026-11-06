@@ -18,7 +18,11 @@ function FruitAutocomplete({value, onValueChange}: {value?: string; onValueChang
       <Autocomplete.Input aria-label="Fruit" />
       <Autocomplete.Content>
         <Autocomplete.List>
-          {(item: string) => <Autocomplete.Item value={item}>{item}</Autocomplete.Item>}
+          {(item: string) => (
+            <Autocomplete.Item key={item} value={item}>
+              {item}
+            </Autocomplete.Item>
+          )}
         </Autocomplete.List>
       </Autocomplete.Content>
     </Autocomplete>

@@ -91,23 +91,23 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 
 ## SelectPanel.SecondaryActionLink
 
-Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
+Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
 - `children`: `React.ReactElement[]`
-- `className`: `string`
-- `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.
+- `count`: `string | number` — Number shown in a trailing counter.
 - `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
-- `disabled`: `boolean` — Prevents activation and removes the button from the keyboard order.
+- `disabled`: `boolean` — Prevents navigation and removes the link from the keyboard order.
 - `href`: `string` — URL the secondary action navigates to.
-- `inactive`: `boolean` — Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.
+- `inactive`: `boolean` — Marks the link temporarily unavailable while keeping it focusable.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.
 - `leadingVisual`: `ButtonVisual` — Icon shown before the label.
-- `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation.
-- `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading.
-- `notificationIndicator`: `"button" | "leadingVisual"` — Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a `leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description.
-- `size`: `ControlSize` — Default `'medium'`. Height and text size of the button.
-- `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron for a button that opens something.
+- `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses navigation.
+- `loadingAnnouncement`: `string` — Text announced to assistive technology while the link is loading.
+- `onClick`: `MouseEventHandler<HTMLAnchorElement>` — Called when the link is activated.
+- `render`: `RenderProp<LinkButtonState>` — Renders the link as your own element, for a router link that still needs button styling.
+- `size`: `ControlSize` — Default `'medium'`. Height and text size of the link.
+- `trailingAction`: `ButtonVisual` — Icon shown at the far end, conventionally a chevron.
 - `trailingVisual`: `ButtonVisual` — Icon shown after the label.
 
 ## Differences from `@primer/react`

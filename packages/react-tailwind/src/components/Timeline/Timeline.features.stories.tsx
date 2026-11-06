@@ -178,7 +178,7 @@ export const WithActions: Story = {
             <Link className="inline font-mono text-xs leading-[18px] font-semibold text-default" href="#">
               01e49tb
             </Link>{' '}
-            <Link className="inline underline" href="#" muted>
+            <Link className="inline underline hover:underline" href="#" muted>
               just now
             </Link>
             <div className="mt-1 text-xs leading-[18px] text-muted">28 checks passed</div>
@@ -204,7 +204,7 @@ export const WithActions: Story = {
             <Link className="inline font-mono text-xs leading-[18px] font-semibold text-default" href="#">
               02f50uc
             </Link>{' '}
-            <Link className="inline underline" href="#" muted>
+            <Link className="inline underline hover:underline" href="#" muted>
               2 hours ago
             </Link>
           </Timeline.Body>
@@ -224,7 +224,7 @@ export const WithActions: Story = {
           <Timeline.Actions>
             <Label className="@max-[479px]/timeline:hidden text-success">Verified</Label>
             <CheckIcon aria-label="All checks passed" className="text-success" />
-            <Link className="inline font-mono text-xs leading-[18px] underline" href="#" muted>
+            <Link className="inline font-mono text-xs leading-[18px] underline hover:underline" href="#" muted>
               3fbdc0
             </Link>
           </Timeline.Actions>
@@ -241,7 +241,7 @@ export const WithActions: Story = {
           <Timeline.Actions>
             <Label className="@max-[479px]/timeline:hidden">Unverified</Label>
             <XIcon aria-label="Some checks failed" className="text-danger" />
-            <Link className="inline font-mono text-xs leading-[18px] underline" href="#" muted>
+            <Link className="inline font-mono text-xs leading-[18px] underline hover:underline" href="#" muted>
               3fbdc0
             </Link>
           </Timeline.Actions>
@@ -256,14 +256,14 @@ export const WithActions: Story = {
               Monalisa
             </BoldLink>
             mentioned this pull request{' '}
-            <Link className="inline underline" href="#" muted>
+            <Link className="inline underline hover:underline" href="#" muted>
               just now
             </Link>
             <div className="mt-1 flex items-start gap-3 @max-[479px]/timeline:flex-col @max-[479px]/timeline:gap-1">
               <div className="min-w-0 flex-1 text-md">
-                <Link className="inline text-default underline hover:text-accent" href="#">
+                <Link className="group inline text-default underline hover:text-accent" href="#">
                   <span className="font-semibold">Fix positioning of Autocomplete overlay menu</span>{' '}
-                  <span className="text-muted">primer/react#7431</span>
+                  <span className="text-muted group-hover:text-accent">primer/react#7431</span>
                 </Link>
               </div>
               <LockIcon aria-label="Private" className="shrink-0 text-muted" size={16} />

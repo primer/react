@@ -12,6 +12,7 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 - `block`: `boolean` — Stretches the link to fill the width of its container.
 - `children`: `React.ReactElement[]`
 - `count`: `string | number` — Number shown in a trailing counter.
+- `data-component`: `string` — Default `'LinkButton'`. Overrides the marker used to identify this element in tests and styling.
 - `disabled`: `boolean` — Default `false`. Prevents navigation and removes the link from the keyboard order.
 - `inactive`: `boolean` — Marks the link temporarily unavailable while keeping it focusable.
 - `labelWrap`: `boolean` — Lets a long label wrap onto more than one line instead of being clipped.

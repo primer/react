@@ -349,7 +349,11 @@ export const IssuesPage: Story = {
               <CrossReferenceIcon />
             </Timeline.Badge>
             <Timeline.Body>
-              <Link href="https://github.com/broccolinisoup" className="mr-1 font-semibold text-default">
+              <Link
+                href="https://github.com/broccolinisoup"
+                className="mr-1 font-semibold text-default hover:text-default"
+                muted
+              >
                 broccolinisoup
               </Link>
               mentioned this on Jul 20, 2022
@@ -360,7 +364,11 @@ export const IssuesPage: Story = {
               <PaperclipIcon />
             </Timeline.Badge>
             <Timeline.Body>
-              <Link href="https://github.com/lesliecdubbs" className="mr-1 font-semibold text-default">
+              <Link
+                href="https://github.com/lesliecdubbs"
+                className="mr-1 font-semibold text-default hover:text-default"
+                muted
+              >
                 lesliecdubbs
               </Link>
               added react and accessibility labels on Jul 12, 2022

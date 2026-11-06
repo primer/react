@@ -93,13 +93,40 @@
       }
     },
     {
+      "name": "TreeView.ErrorDialog",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement[]",
+          "required": true,
+          "description": "Description of the error."
+        },
+        {
+          "name": "onDismiss",
+          "type": "(() => void)",
+          "description": "Called when the user dismisses the error, after the item collapses."
+        },
+        {
+          "name": "onRetry",
+          "type": "(() => void)",
+          "description": "Called when the user chooses to retry loading the subtree."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "defaultValue": "'Error'",
+          "description": "Title of the dialog."
+        }
+      ]
+    },
+    {
       "name": "TreeView.Item",
       "props": [
         {
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "'li'",
-          "description": "Element to render."
+          "description": "Element to render. Anything other than `li` is wrapped in a presentational list item."
         },
         {
           "name": "containIntrinsicSize",
@@ -120,7 +147,7 @@
         {
           "name": "expanded",
           "type": "boolean | null",
-          "description": "Controls whether the item is expanded. Supply it with `onExpandedChange` to own the state."
+          "description": "Controls whether the item is expanded. Supply it with `onExpandedChange` to own the state. `null` keeps the item\ncollapsed and leaves its expanded state unannounced."
         },
         {
           "name": "href",
@@ -132,6 +159,11 @@
           "type": "string",
           "required": true,
           "description": "Stable identity for the item, used to track focus and expansion."
+        },
+        {
+          "name": "leadingAction",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "description": "Action shown before the toggle, such as a drag handle. Accepts a callback to vary it with the expanded state."
         },
         {
           "name": "leadingVisual",
@@ -149,9 +181,14 @@
           "description": "Called when the item is activated by click or keyboard."
         },
         {
+          "name": "secondaryActions",
+          "type": "TreeViewSecondaryActions[]",
+          "description": "Actions shown at the end of the row for pointer users. Keyboard users reach them with Shift+Meta+U on Apple\nplatforms or Shift+Control+U elsewhere: one action runs directly, several open a dialog to choose from."
+        },
+        {
           "name": "subtree",
           "type": "React.ReactNode",
-          "description": "Nested items, as an alternative to supplying a subtree child."
+          "description": "Nested items, as an alternative to supplying a subtree child. Takes precedence over a `TreeView.SubTree` child."
         },
         {
           "name": "to",
@@ -170,6 +207,26 @@
       }
     },
     {
+      "name": "TreeView.LeadingAction",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement[]",
+          "required": true,
+          "description": "The action, such as a drag handle button. Accepts a callback to vary it with the item's expanded state."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Text describing the action. Like the action itself, it is hidden from assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
       "name": "TreeView.LeadingVisual",
       "props": [
         {
@@ -180,7 +237,7 @@
         {
           "name": "label",
           "type": "string",
-          "description": "Accessible name for the visual, which is announced as part of the item."
+          "description": "Accessible name for the visual, which is announced as part of the item's description."
         }
       ],
       "passthrough": {
@@ -194,12 +251,12 @@
         {
           "name": "count",
           "type": "number",
-          "description": "Number of placeholder rows to show while the subtree loads."
+          "description": "Number of placeholder rows to show while the subtree loads. Without it, a spinner row is shown."
         },
         {
           "name": "state",
-          "type": "\"done\" | \"error\" | \"initial\" | \"loading\"",
-          "description": "Loading state of the subtree, which decides whether items, placeholders, or an error are shown."
+          "type": "SubTreeState",
+          "description": "Loading state of the subtree. `loading` shows placeholders and announces the load; moving from `loading` to\n`done` announces the result and moves focus from a focused placeholder to the first loaded item."
         }
       ],
       "passthrough": {
@@ -218,7 +275,7 @@
         {
           "name": "label",
           "type": "string",
-          "description": "Accessible name for the visual, which is announced as part of the item."
+          "description": "Accessible name for the visual, which is announced as part of the item's description."
         }
       ],
       "passthrough": {

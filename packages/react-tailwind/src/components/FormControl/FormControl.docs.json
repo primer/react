@@ -81,8 +81,7 @@
     {
       "name": "layout",
       "type": "\"horizontal\" | \"vertical\"",
-      "defaultValue": "'vertical'",
-      "description": "Whether the label sits above the control or beside it, as it does for a checkbox or radio."
+      "description": "Whether the label sits above the control or beside it. Defaults to `horizontal` when a direct child is a\n`Checkbox` or `Radio`, and `vertical` otherwise."
     },
     {
       "name": "leadingVisual",

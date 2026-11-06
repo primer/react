@@ -11,9 +11,17 @@ type FormControlForwardedProps = Pick<Field.Root.Props, 'disabled' | 'name'> & {
 }
 
 const FormControlContext = React.createContext<FormControlForwardedProps | null>(null)
+const FormControlValidationStatusContext = React.createContext<'error' | 'success' | undefined>(undefined)
 
 export const FormControlContextProvider = FormControlContext.Provider
+export const FormControlValidationStatusProvider = FormControlValidationStatusContext.Provider
 export const useFormControlContext = () => React.useContext(FormControlContext)
+
+/**
+ * Returns the variant of the surrounding field's `FormControl.Validation`, so a control can show the same status.
+ * A control's own `validationStatus` prop should take precedence.
+ */
+export const useFormControlValidationStatus = () => React.useContext(FormControlValidationStatusContext)
 
 /**
  * Applies form-level Base UI Field props to a custom control.

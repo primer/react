@@ -2,6 +2,11 @@ import React from 'react'
 import {cleanup, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it} from 'vitest'
+import {Checkbox} from '../Checkbox'
+import {Radio} from '../Radio'
+import {RadioGroup} from '../RadioGroup'
+import {Select} from '../Select'
+import {Textarea} from '../Textarea'
 import {TextInput} from '../TextInput'
 import {FormControl, useFormControlForwardedProps} from './index'
 
@@ -41,6 +46,51 @@ describe('FormControl', () => {
     ).toHaveAttribute('data-variant', 'error')
     expect(screen.getByRole('status')).toHaveTextContent('Repository is available.')
     expect(screen.getByRole('status')).toHaveAttribute('data-variant', 'success')
+  })
+
+  it('shows the validation variant on text controls unless they set their own status', () => {
+    function CustomControl(props: React.ComponentPropsWithoutRef<'input'>) {
+      return <input {...useFormControlForwardedProps(props)} />
+    }
+
+    render(
+      <>
+        <FormControl>
+          <FormControl.Label>Repository</FormControl.Label>
+          <TextInput />
+          <FormControl.Validation variant="success">Repository is available.</FormControl.Validation>
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Description</FormControl.Label>
+          <Textarea />
+          <FormControl.Validation variant="success">Description is valid.</FormControl.Validation>
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Visibility</FormControl.Label>
+          <Select>
+            <Select.Option value="public">Public</Select.Option>
+          </Select>
+          <FormControl.Validation variant="success">Visibility is valid.</FormControl.Validation>
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Owner</FormControl.Label>
+          <TextInput validationStatus="error" />
+          <FormControl.Validation variant="success">Owner is available.</FormControl.Validation>
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Topic</FormControl.Label>
+          <CustomControl />
+          <FormControl.Validation variant="success">Topic is valid.</FormControl.Validation>
+        </FormControl>
+      </>,
+    )
+
+    for (const label of ['Repository', 'Description', 'Visibility']) {
+      expect(screen.getByLabelText(label).closest('[data-validation]')).toHaveAttribute('data-validation', 'success')
+    }
+    expect(screen.getByLabelText('Owner').closest('[data-validation]')).toHaveAttribute('data-validation', 'error')
+    expect(screen.getByLabelText('Topic')).not.toHaveAttribute('validationStatus')
+    expect(screen.getByLabelText('Topic')).not.toHaveAttribute('aria-invalid')
   })
 
   it('forwards Base UI Field props to custom controls and lets external props win', () => {
@@ -179,5 +229,49 @@ describe('FormControl', () => {
 
     expect(screen.getAllByRole('textbox')).toHaveLength(1)
     expect(screen.getByRole('textbox')).toHaveAccessibleName('Name')
+  })
+
+  it('lays out checkbox and radio children horizontally unless a layout is set', () => {
+    const {rerender} = render(
+      <FormControl data-testid="field">
+        <FormControl.Label data-testid="label">Subscribe</FormControl.Label>
+        <Checkbox />
+      </FormControl>,
+    )
+
+    expect(screen.getByTestId('field')).toHaveAttribute('data-layout', 'horizontal')
+    expect(screen.getByTestId('label')).toHaveClass('font-normal')
+    expect(screen.getByRole('checkbox')).toHaveAccessibleName('Subscribe')
+
+    rerender(
+      <RadioGroup name="choices">
+        <RadioGroup.Label>Choices</RadioGroup.Label>
+        <FormControl data-testid="field">
+          <FormControl.Label>One</FormControl.Label>
+          <Radio value="one" />
+        </FormControl>
+      </RadioGroup>,
+    )
+
+    expect(screen.getByTestId('field')).toHaveAttribute('data-layout', 'horizontal')
+    expect(screen.getByRole('radio')).toHaveAccessibleName('One')
+
+    rerender(
+      <FormControl data-testid="field" layout="vertical">
+        <FormControl.Label>Subscribe</FormControl.Label>
+        <Checkbox />
+      </FormControl>,
+    )
+
+    expect(screen.getByTestId('field')).toHaveAttribute('data-layout', 'vertical')
+
+    rerender(
+      <FormControl data-testid="field">
+        <FormControl.Label>Name</FormControl.Label>
+        <TextInput />
+      </FormControl>,
+    )
+
+    expect(screen.getByTestId('field')).toHaveAttribute('data-layout', 'vertical')
   })
 })

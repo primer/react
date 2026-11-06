@@ -1,5 +1,5 @@
 import React from 'react'
-import {act, cleanup, render, screen, waitFor, within} from '@testing-library/react'
+import {act, cleanup, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {EyeIcon, PlusIcon} from '@primer/octicons-react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
@@ -212,6 +212,25 @@ describe('SegmentedControl', () => {
     expect(screen.getByRole('button', {name: 'Raw'})).toHaveClass('is-idle')
   })
 
+  it('merges a consumer description with the icon button tooltip', () => {
+    render(
+      <>
+        <span id="raw-note">Opens the source</span>
+        <SegmentedControl aria-label="File view">
+          <SegmentedControl.IconButton
+            aria-describedby="raw-note"
+            aria-label="Raw"
+            description="Show the raw file"
+            icon={PlusIcon}
+            value="raw"
+          />
+        </SegmentedControl>
+      </>,
+    )
+
+    expect(screen.getByRole('button', {name: 'Raw'})).toHaveAccessibleDescription('Opens the source Show the raw file')
+  })
+
   it('names icon buttons with their label and exposes the description', async () => {
     const user = userEvent.setup()
     render(
@@ -365,5 +384,28 @@ describe('SegmentedControl', () => {
     expect(group).toHaveAttribute('data-disable-knob-transition', '')
     act(() => frame?.(0))
     expect(group).not.toHaveAttribute('data-disable-knob-transition')
+  })
+
+  it('routes ids and ARIA references through segment tooltips', async () => {
+    render(
+      <>
+        <p id="view-note">Changes how the file is shown</p>
+        <SegmentedControl aria-label="File view" defaultValue={['preview']}>
+          <SegmentedControl.Button id="preview-segment" aria-describedby="view-note" value="preview">
+            Preview
+          </SegmentedControl.Button>
+          <SegmentedControl.IconButton id="raw-segment" aria-label="Raw" icon={EyeIcon} value="raw" />
+        </SegmentedControl>
+      </>,
+    )
+
+    const preview = screen.getByRole('button', {name: 'Preview'})
+    expect(preview).toHaveAttribute('id', 'preview-segment')
+    expect(preview).toHaveAccessibleDescription('Changes how the file is shown')
+    const raw = screen.getByRole('button', {name: 'Raw'})
+    expect(raw).toHaveAttribute('id', 'raw-segment')
+    fireEvent.keyDown(document.body, {key: 'Tab'})
+    act(() => raw.focus())
+    await waitFor(() => expect(raw).toHaveAttribute('data-popup-open'))
   })
 })

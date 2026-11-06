@@ -210,7 +210,7 @@ const closed: readonly EventFixture[] = [
           completed
         </Link>{' '}
         in{' '}
-        <Link className="rounded bg-accent-muted px-1 font-mono text-xs font-semibold text-default" href="#">
+        <Link className="font-mono text-xs font-semibold text-default" href="#">
           abc1234
         </Link>
       </>
@@ -300,18 +300,18 @@ function CommitReferences({multiple}: {multiple: boolean}) {
     <div className="mt-2 flex flex-col gap-1">
       {commits.map(([message, oid], index) => (
         <div className="flex items-center justify-between gap-2" key={oid}>
-          <Link href="#" className="block font-mono text-xs leading-[18px] text-muted" muted>
+          <Link href="#" className="block font-mono text-xs leading-[18px] text-muted hover:text-muted" muted>
             {message}
           </Link>
           {!multiple && index === 0 ? (
             <span>
               <Label variant="success">Verified</Label>{' '}
-              <Link href="#" className="inline font-mono text-xs leading-[18px] text-muted" muted>
+              <Link href="#" className="inline font-mono text-xs leading-[18px] text-muted hover:text-muted" muted>
                 {oid}
               </Link>
             </span>
           ) : (
-            <Link href="#" className="block font-mono text-xs leading-[18px] text-muted" muted>
+            <Link href="#" className="block font-mono text-xs leading-[18px] text-muted hover:text-muted" muted>
               {oid}
             </Link>
           )}
@@ -940,7 +940,8 @@ export const EventProject: Story = {
               <TableIcon aria-hidden="true" />
             </Timeline.Badge>
             <Timeline.Body>
-              <UserActor href="#" muted /> moved this to In Progress in{' '}
+              <UserActor href="#" muted />
+              {'moved this to In Progress in '}
               <TableIcon aria-hidden="true" className="mr-1 inline-block align-middle" size={16} />
               <Link href="#" inline className="text-default">
                 Roadmap
@@ -953,7 +954,8 @@ export const EventProject: Story = {
               <TableIcon aria-hidden="true" />
             </Timeline.Badge>
             <Timeline.Body>
-              <UserActor href="#" muted /> moved this from Todo to In Progress in{' '}
+              <UserActor href="#" muted />
+              {'moved this from Todo to In Progress in '}
               <TableIcon aria-hidden="true" className="mr-1 inline-block align-middle" size={16} />
               <Link href="#" inline className="text-default">
                 Roadmap
@@ -1032,7 +1034,8 @@ export const EventLockUnlock: Story = {
                 <LockIcon aria-hidden="true" />
               </Timeline.Badge>
               <Timeline.Body>
-                <UserActor href="#" muted /> locked as {reason} and limited conversation to collaborators{' '}
+                <UserActor href="#" muted />
+                {`locked as ${reason} and limited conversation to collaborators `}
                 <MutedTime date={new Date(date)} href="#" />
               </Timeline.Body>
             </Timeline.Item>
@@ -1104,7 +1107,9 @@ export const EventCrossReferences: Story = {
               <LinkExternalIcon aria-hidden="true" />
             </Timeline.Badge>
             <Timeline.Body>
-              <UserActor href="#" muted /> mentioned this <MutedTime date={new Date(dates.one)} href="#" />
+              <UserActor href="#" muted />
+              {'mentioned this '}
+              <MutedTime date={new Date(dates.one)} href="#" />
               <ul className="mt-2 ml-1 list-none p-0">
                 <CrossReference
                   icon={IssueOpenedIcon}
@@ -1124,7 +1129,9 @@ export const EventCrossReferences: Story = {
               <LinkExternalIcon aria-hidden="true" />
             </Timeline.Badge>
             <Timeline.Body>
-              <UserActor href="#" muted /> mentioned this <MutedTime date={new Date(dates.two)} href="#" />
+              <UserActor href="#" muted />
+              {'mentioned this '}
+              <MutedTime date={new Date(dates.two)} href="#" />
               <ul className="mt-2 ml-1 list-none p-0">
                 <CrossReference
                   icon={GitPullRequestIcon}
@@ -1144,7 +1151,8 @@ export const EventCrossReferences: Story = {
               <LinkExternalIcon aria-hidden="true" />
             </Timeline.Badge>
             <Timeline.Body>
-              <UserActor href="#" muted /> linked a pull request that will close this issue{' '}
+              <UserActor href="#" muted />
+              {'linked a pull request that will close this issue '}
               <MutedTime date={new Date(dates.three)} href="#" />
               <ul className="mt-2 ml-1 list-none p-0">
                 <CrossReference

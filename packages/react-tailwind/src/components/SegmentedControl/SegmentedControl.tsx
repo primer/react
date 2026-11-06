@@ -8,6 +8,7 @@ import {renderIcon, type IconSource} from '../../internal/icon'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {mergeRefs} from '../../internal/refs'
 import {isPartOf, resolveRegions} from '../../internal/regions'
+import {coarsePointerTouchTarget} from '../../internal/touchTarget'
 import type {RegionProps, ResponsiveValue} from '../../utils/types'
 import {ActionMenu} from '../ActionMenu'
 import {CounterLabel} from '../CounterLabel'
@@ -355,13 +356,13 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
 })
 
 const buttonClassName = cn(
-  'relative -my-px block h-[calc(100%+2px)] grow cursor-pointer appearance-none rounded-[var(--segmented-control-outer-radius)] border-0 bg-transparent p-0 [font-family:inherit] text-[length:inherit] font-normal text-[color:var(--segmented-control-button-fgColor,currentColor)] outline-none first:-ml-px last:-mr-px [&:not(:last-child)]:mr-px',
+  'relative -my-px block h-[calc(100%+2px)] grow cursor-pointer appearance-none rounded-[var(--segmented-control-outer-radius)] border-0 bg-transparent p-0 [font-family:inherit] text-[length:inherit] font-normal text-[color:var(--segmented-control-button-fgColor,currentColor)] first:-ml-px last:-mr-px [&:not(:last-child)]:mr-px',
   'data-[pressed]:font-semibold data-[pressed]:text-[color:var(--segmented-control-button-pressed-fgColor,currentColor)]',
   'after:absolute after:top-2 after:-right-0.5 after:bottom-2 after:w-px after:bg-[var(--segmented-control-separator-color,var(--borderColor-default))] last:after:hidden data-[pressed]:after:bg-transparent [&:has(+[data-pressed])]:after:bg-transparent [&:has(+[data-component="SegmentedControl.Divider"]+[data-pressed])]:after:bg-transparent',
   'hover:[&:not([data-pressed]):not([data-disabled])>.segmentedControl-content]:bg-[var(--segmented-control-button-bgColor-hover,var(--controlTrack-bgColor-hover))] active:[&:not([data-pressed]):not([data-disabled])>.segmentedControl-content]:bg-[var(--controlTrack-bgColor-active)]',
   '[&_svg]:text-muted [&[data-disabled]:not([data-pressed])]:cursor-not-allowed [&[data-disabled]:not([data-pressed])]:text-disabled [&[data-disabled]:not([data-pressed])_svg]:text-disabled',
-  'focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-offset-[-1px] focus-visible:outline-focus',
-  'pointer-coarse:before:absolute pointer-coarse:before:inset-x-0 pointer-coarse:before:top-1/2 pointer-coarse:before:min-h-11 pointer-coarse:before:-translate-y-1/2',
+  'focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-offset-[-1px] focus-visible:outline-[var(--fgColor-accent)] focus-visible:shadow-none focus-visible:not-last:after:w-0',
+  coarsePointerTouchTarget,
 )
 
 // Upstream derives the inner radius from a fixed 4px inset, so subtle segments get a 10px radius.
@@ -392,7 +393,17 @@ export interface SegmentedControlButtonProps<Value extends string = string>
 }
 
 const Button = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(function Button(
-  {children, className, count, leadingVisual, value, ...rest},
+  {
+    'aria-describedby': describedBy,
+    'aria-labelledby': labelledBy,
+    children,
+    className,
+    count,
+    id,
+    leadingVisual,
+    value,
+    ...rest
+  },
   ref,
 ) {
   const {registerButton} = React.useContext(SegmentedControlContext)
@@ -405,7 +416,11 @@ const Button = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(
 
   return (
     <Tooltip.Root disabled={!isTruncated} type="label">
+      {/* Render-element props override the trigger's, so `id` and ARIA references go through the trigger. */}
       <Tooltip.Trigger
+        id={id}
+        aria-describedby={describedBy}
+        aria-labelledby={labelledBy}
         render={
           <Toggle
             {...rest}
@@ -453,7 +468,19 @@ export interface SegmentedControlIconButtonProps<Value extends string = string>
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, SegmentedControlIconButtonProps>(function IconButton(
-  {'aria-label': ariaLabel, className, count, description, icon, tooltipDirection = 's', value, ...rest},
+  {
+    'aria-describedby': describedBy,
+    'aria-label': ariaLabel,
+    'aria-labelledby': labelledBy,
+    className,
+    count,
+    description,
+    icon,
+    id,
+    tooltipDirection = 's',
+    value,
+    ...rest
+  },
   ref,
 ) {
   const {registerButton} = React.useContext(SegmentedControlContext)
@@ -462,6 +489,9 @@ const IconButton = React.forwardRef<HTMLButtonElement, SegmentedControlIconButto
   return (
     <Tooltip.Root type={description ? 'description' : 'label'}>
       <Tooltip.Trigger
+        id={id}
+        aria-describedby={describedBy}
+        aria-labelledby={labelledBy}
         render={
           <Toggle
             {...rest}

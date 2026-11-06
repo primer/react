@@ -12,13 +12,14 @@ Forwards unrecognized props to Base UI's [`RadioGroup`](https://base-ui.com/reac
 
 ## RadioGroup.Label
 
-Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Forwards unrecognized props to Base UI's [`Fieldset.Legend`](https://base-ui.com/react/components/fieldset#legend), so it also accepts that part's props.
 
+- `className`: `string | ((state: FieldsetLegendState) => string | undefined)`
 - `visuallyHidden`: `boolean` — Hides the label visually while keeping it available to assistive technology.
 
 ## RadioGroup.Caption
 
-Renders a [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## RadioGroup.Validation
 

@@ -12,7 +12,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
-    <CheckboxGroup>
+    <CheckboxGroup defaultValue={['one', 'two']}>
       <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
       <FormControl layout="horizontal" required>
         <Checkbox value="one" />

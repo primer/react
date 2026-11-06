@@ -1,6 +1,6 @@
 import React from 'react'
-import {render, screen} from '@testing-library/react'
-import {describe, expect, it} from 'vitest'
+import {fireEvent, render, screen} from '@testing-library/react'
+import {describe, expect, it, vi} from 'vitest'
 import {ButtonBase} from './index'
 
 describe('ButtonBase', () => {
@@ -31,16 +31,18 @@ describe('ButtonBase', () => {
     expect(screen.getByRole('button', {name: 'Callback'})).toHaveClass('is-disabled')
   })
 
-  it('composes button behavior onto another element with render', () => {
+  it('composes button behavior onto a non-button element with render', () => {
+    const onClick = vi.fn()
     render(
-      <ButtonBase
-        // eslint-disable-next-line jsx-a11y/anchor-has-content
-        render={<a href="#target" />}
-      >
-        Link
+      <ButtonBase nativeButton={false} onClick={onClick} render={<span />}>
+        Composed
       </ButtonBase>,
     )
 
-    expect(screen.getByRole('link', {name: 'Link'})).toHaveAttribute('href', '#target')
+    const button = screen.getByRole('button', {name: 'Composed'})
+    expect(button.tagName).toBe('SPAN')
+    expect(button).toHaveAttribute('tabindex', '0')
+    fireEvent.keyDown(button, {key: 'Enter'})
+    expect(onClick).toHaveBeenCalledTimes(1)
   })
 })

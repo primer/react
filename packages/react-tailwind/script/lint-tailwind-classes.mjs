@@ -220,7 +220,21 @@ try {
     }
   }
 
-  if (failures.length > 0 || tokenViolations.length > 0) {
+  // `@primer/tailwind-config` ships these classes as a static preset rule (2px solid, -2px offset) rather than
+  // as generated utilities. Whether it beats a sibling offset or width utility depends on stylesheet import order,
+  // so a custom outline geometry must not be combined with it.
+  const STATIC_FOCUS_PRESETS = new Set(['outline-focus', 'focus:outline-focus', 'focus-within:outline-focus'])
+  const CUSTOM_OUTLINE_GEOMETRY = /^-?outline-(?:offset-|(?!2$)\d|\[(?!var\())/
+  const presetConflicts = []
+  for (const literal of literals) {
+    const tokens = literal.value.split(/\s+/)
+    const preset = tokens.find(token => STATIC_FOCUS_PRESETS.has(token))
+    if (!preset) continue
+    const geometry = tokens.find(token => CUSTOM_OUTLINE_GEOMETRY.test(token.split(VARIANT_SPLIT).pop() ?? token))
+    if (geometry) presetConflicts.push({...literal, token: preset, geometry})
+  }
+
+  if (failures.length > 0 || tokenViolations.length > 0 || presetConflicts.length > 0) {
     const seen = new Set()
     for (const failure of failures) {
       const key = `${failure.file}:${failure.line}:${failure.token}`
@@ -235,8 +249,14 @@ try {
         `${violation.file}:${violation.line} \`${violation.token}\` hardcodes a color. Use a Primer semantic utility or token.`,
       )
     }
+    for (const conflict of presetConflicts) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `${conflict.file}:${conflict.line} \`${conflict.token}\` is a static @primer/tailwind-config preset that can override \`${conflict.geometry}\`. Use \`focus-visible:outline-focus\`, a \`data-[focused]:\` variant, or an \`outline-[var(--borderColor-accent-emphasis)]\` color utility.`,
+      )
+    }
     // eslint-disable-next-line no-console
-    console.error(`\n${seen.size + tokenViolations.length} invalid class name(s).`)
+    console.error(`\n${seen.size + tokenViolations.length + presetConflicts.length} invalid class name(s).`)
     process.exitCode = 1
   } else {
     // eslint-disable-next-line no-console

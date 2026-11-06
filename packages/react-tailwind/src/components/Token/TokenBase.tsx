@@ -2,6 +2,7 @@ import {XIcon} from '@primer/octicons-react'
 import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {UnstyledButton} from '../../internal/UnstyledButton'
 import type {TokenSize} from '../../utils/types'
 
 export type {TokenSize} from '../../utils/types'
@@ -186,10 +187,10 @@ export function TokenRemoveButton({
   }
 
   return (
-    <button
+    <UnstyledButton
       aria-label={`Remove ${typeof text === 'string' ? text : 'token'}`}
       className={cn(
-        'inline-flex self-baseline items-center justify-center rounded-full border-0 bg-transparent p-0 [font-family:inherit] text-inherit [transform:translate(1px,-1px)] transition-colors hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-focus active:bg-[var(--control-transparent-bgColor-active)]',
+        'self-baseline justify-center rounded-full [transform:translate(1px,-1px)] transition-colors hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:bg-[var(--control-transparent-bgColor-hover)] active:bg-[var(--control-transparent-bgColor-active)]',
         sizeClassName,
       )}
       data-component="Token.RemoveButton"
@@ -197,9 +198,8 @@ export function TokenRemoveButton({
         event.stopPropagation()
         onRemove()
       }}
-      type="button"
     >
       <XIcon size={iconSize} />
-    </button>
+    </UnstyledButton>
   )
 }

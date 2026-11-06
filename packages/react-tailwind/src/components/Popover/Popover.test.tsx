@@ -104,6 +104,22 @@ describe('Popover', () => {
     expect(container).toContainElement(screen.getByText('Details'))
   })
 
+  it('tracks its open state on a Button trigger with its own id', async () => {
+    const user = userEvent.setup()
+    render(
+      <Popover>
+        <Popover.Button id="details-button">Details</Popover.Button>
+        <Popover.Content>Repository details</Popover.Content>
+      </Popover>,
+    )
+    const trigger = screen.getByRole('button', {name: 'Details'})
+    expect(trigger).toHaveAttribute('id', 'details-button')
+    await user.click(trigger)
+    const content = await screen.findByText('Repository details')
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    expect(document.getElementById(trigger.getAttribute('aria-controls') ?? '')).toContainElement(content)
+  })
+
   it('supports HTMLElement refs for composed triggers', () => {
     const ref = React.createRef<HTMLElement>()
     render(

@@ -2,7 +2,7 @@ import React from 'react'
 import {cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import type {SelectPanelItem, SelectPanelProps} from './SelectPanel'
+import type {SelectPanelAnchorProps, SelectPanelItem, SelectPanelProps} from './SelectPanel'
 import {SelectPanel} from './SelectPanel'
 import {ActionList} from '../ActionList'
 
@@ -297,6 +297,24 @@ describe('SelectPanel', () => {
 
     await user.click(anchor)
     expect(screen.getByRole('listbox', {name: 'Assignees'})).toBeVisible()
+  })
+
+  it('passes renderAnchor the selected text labels as one comma-separated string', () => {
+    const renderAnchor = vi.fn((props: SelectPanelAnchorProps) => <button {...props} type="button" />)
+
+    render(
+      <SelectPanel
+        items={items}
+        onSelectedChange={() => {}}
+        renderAnchor={renderAnchor}
+        selected={[items[0], items[2]]}
+        selectionVariant="multiple"
+        title="Assignees"
+      />,
+    )
+
+    expect(renderAnchor).toHaveBeenLastCalledWith(expect.objectContaining({children: 'Mona, Robot'}))
+    expect(screen.getByRole('button', {name: 'Mona, Robot'})).toBeVisible()
   })
 
   it('keeps anchored panel content in place when overlayProps.portal is false', async () => {
@@ -737,6 +755,24 @@ describe('SelectPanel', () => {
     const wrapper = input.closest('[data-component="TextInput"]')
     expect(wrapper).toHaveClass('bg-default')
     expect(wrapper).not.toHaveAttribute('data-contrast')
+  })
+
+  it('gives the filter input an id from textInputProps', () => {
+    render(
+      <SelectPanel
+        items={items}
+        onOpenChange={() => {}}
+        onSelectedChange={() => {}}
+        open
+        selected={undefined}
+        textInputProps={{id: 'assignee-filter'}}
+        title="Assignees"
+      />,
+    )
+
+    const input = screen.getByRole('combobox')
+    expect(input).toHaveAttribute('id', 'assignee-filter')
+    expect(document.getElementById(input.getAttribute('aria-controls')!)).toBe(screen.getByRole('listbox'))
   })
 
   it('references the option list from the filter input only while the list is rendered', () => {

@@ -281,10 +281,14 @@ const Content = React.forwardRef<HTMLElement, PageLayoutContentProps>(function P
     <Component
       {...rest}
       ref={ref}
-      className={cn('order-2 flex min-w-0 flex-1 basis-full flex-col md:basis-0', hidden(hiddenValue), className)}
+      className={cn(
+        'order-2 flex min-w-0 flex-1 basis-full flex-col md:basis-0',
+        hidden(hiddenValue, 'flex'),
+        className,
+      )}
       data-component={markers.content}
     >
-      <div className={cn('mx-auto w-full', width[contentWidth], spacing[padding])}>{children}</div>
+      <div className={cn('mx-auto w-full grow', width[contentWidth], spacing[padding])}>{children}</div>
     </Component>
   )
 })

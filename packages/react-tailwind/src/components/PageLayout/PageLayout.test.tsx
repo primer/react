@@ -16,6 +16,24 @@ describe('PageLayout', () => {
     expect(screen.getByRole('main')).toHaveTextContent('Main')
   })
 
+  it('keeps Content a flex column whose inner region fills it, including when responsively hidden', () => {
+    const {rerender} = render(
+      <PageLayout>
+        <PageLayout.Content>Main</PageLayout.Content>
+      </PageLayout>,
+    )
+    expect(screen.getByRole('main')).toHaveClass('flex', 'flex-col')
+    expect(screen.getByRole('main')).not.toHaveClass('block')
+    expect(screen.getByText('Main')).toHaveClass('grow')
+
+    rerender(
+      <PageLayout>
+        <PageLayout.Content hidden={{narrow: true}}>Main</PageLayout.Content>
+      </PageLayout>,
+    )
+    expect(screen.getByRole('main', {hidden: true})).toHaveClass('hidden', 'md:flex', 'flex-col')
+  })
+
   it('lays Content beside Pane from the regular range onward', () => {
     const {container} = render(
       <PageLayout rowGap="condensed" columnGap="normal">

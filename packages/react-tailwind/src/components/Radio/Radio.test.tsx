@@ -24,4 +24,36 @@ describe('Radio', () => {
     expect(new FormData(two.closest('form')!).get('choice')).toBe('two')
     expect(ref.current).toBe(screen.getByTestId('one'))
   })
+
+  it('leaves the tab order when its group is disabled, like native disabled radios', async () => {
+    const user = userEvent.setup()
+    const {rerender} = render(
+      <>
+        <button type="button">Before</button>
+        <RadioGroup disabled defaultValue="two" name="choice">
+          <Radio value="one" />
+          <Radio value="two" />
+        </RadioGroup>
+        <button type="button">After</button>
+      </>,
+    )
+    for (const radio of screen.getAllByRole('radio')) expect(radio).toHaveAttribute('tabindex', '-1')
+    screen.getByRole('button', {name: 'Before'}).focus()
+    await user.tab()
+    expect(screen.getByRole('button', {name: 'After'})).toHaveFocus()
+
+    rerender(
+      <>
+        <button type="button">Before</button>
+        <RadioGroup defaultValue="two" name="choice">
+          <Radio value="one" />
+          <Radio value="two" />
+        </RadioGroup>
+        <button type="button">After</button>
+      </>,
+    )
+    screen.getByRole('button', {name: 'Before'}).focus()
+    await user.tab()
+    expect(screen.getAllByRole('radio')[1]).toHaveFocus()
+  })
 })

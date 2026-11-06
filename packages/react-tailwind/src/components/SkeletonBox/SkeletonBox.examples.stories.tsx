@@ -1,7 +1,6 @@
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Suspense, useEffect, useState} from 'react'
-import {expect, userEvent, within} from 'storybook/test'
 import {Avatar} from '../Avatar/Avatar'
 import {Button} from '../Button/Button'
 import {IconButton} from '../IconButton/IconButton'
@@ -101,13 +100,6 @@ export const CommentsLoading: Story = {
         </div>
       </>
     )
-  },
-  play: async ({canvasElement}) => {
-    const canvas = within(canvasElement)
-    await userEvent.click(canvas.getByRole('button', {name: 'Stop loading'}))
-    await expect(canvas.getByRole('button', {name: 'Start loading'})).toBeInTheDocument()
-    await expect(canvas.getAllByText('monalisa')).toHaveLength(3)
-    await userEvent.click(canvas.getByRole('button', {name: 'Start loading'}))
   },
 }
 

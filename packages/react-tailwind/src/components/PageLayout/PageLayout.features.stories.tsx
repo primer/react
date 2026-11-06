@@ -437,18 +437,24 @@ export const SidebarFullscreenResponsiveVariant: Story = {
 }
 
 const ControlledPane = ({
-  persist,
-  width = 'medium',
+  label,
+  storageKey,
+  width,
 }: {
-  persist: boolean
+  label: (width: number) => string
+  storageKey?: string
   width?: React.ComponentProps<typeof PageLayout.Pane>['width']
 }) => {
-  const key = 'page-layout-features-stories-custom-persistence-pane-width'
-  const initialWidth = persist ? defaultPaneWidth.medium : 300
-  const [currentWidth, setCurrentWidth] = React.useState(initialWidth)
+  const [currentWidth, setCurrentWidth] = React.useState(() => {
+    const storedWidth =
+      storageKey && typeof window !== 'undefined'
+        ? Number.parseFloat(window.localStorage.getItem(storageKey) ?? '')
+        : Number.NaN
+    return storedWidth > 0 ? storedWidth : defaultPaneWidth.medium
+  })
   const onResizeEnd = (nextWidth: number) => {
     setCurrentWidth(nextWidth)
-    if (persist) window.localStorage.setItem(key, String(nextWidth))
+    if (storageKey) window.localStorage.setItem(storageKey, String(nextWidth))
   }
 
   return (
@@ -463,7 +469,7 @@ const ControlledPane = ({
         resizable
         width={width}
       >
-        <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
+        <Placeholder height={320} label={label(currentWidth)} />
       </PageLayout.Pane>
       <PageLayout.Content>
         <Placeholder height={640} label="Content" />
@@ -475,18 +481,40 @@ const ControlledPane = ({
   )
 }
 
-export const ResizablePaneWithoutPersistence: Story = {render: () => <ControlledPane persist={false} />}
+export const ResizablePaneWithoutPersistence: Story = {
+  render: () => <ControlledPane label={width => `Pane (resizable, not persisted, width: ${width}px)`} />,
+}
 ResizablePaneWithoutPersistence.storyName = 'Resizable pane without persistence'
 
 export const ResizablePaneWithCustomPersistence: Story = {
-  render: () => <ControlledPane persist width={{default: '296px', min: '256px', max: '600px'}} />,
+  render: () => (
+    <ControlledPane
+      label={width => `Pane (width: ${width}px)`}
+      storageKey="page-layout-features-stories-custom-persistence-pane-width"
+      width={{min: '256px', default: `${defaultPaneWidth.medium}px`, max: '600px'}}
+    />
+  ),
 }
 ResizablePaneWithCustomPersistence.storyName = 'Resizable pane with custom persistence'
 
-export const ResizablePaneWithNumberWidth: Story = {render: () => <ControlledPane persist width="medium" />}
+export const ResizablePaneWithNumberWidth: Story = {
+  render: () => (
+    <ControlledPane
+      label={width => `Pane (width: ${width}px)`}
+      storageKey="page-layout-features-stories-number-width"
+      width="medium"
+    />
+  ),
+}
 ResizablePaneWithNumberWidth.storyName = 'Resizable pane with number width'
 
 export const ResizablePaneWithControlledWidth: Story = {
-  render: () => <ControlledPane persist width={{default: '296px', min: '256px', max: '600px'}} />,
+  render: () => (
+    <ControlledPane
+      label={width => `Pane (current: ${width}px)`}
+      storageKey="page-layout-features-stories-controlled-width"
+      width={{min: '256px', default: '296px', max: '600px'}}
+    />
+  ),
 }
 ResizablePaneWithControlledWidth.storyName = 'Resizable pane with controlled width (new API)'

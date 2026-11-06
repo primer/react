@@ -81,6 +81,7 @@ Renders a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation. Replaces the leading visual with a spinner and suppresses navigation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading. Text announced to assistive technology while the link is loading.
 - `style`: `React.CSSProperties`
+- `tooltipDirection`: `TooltipDirection` — Default `'w'`. Side and alignment of the tooltip that shows `label` for an icon action.
 
 ## NavList.Description
 

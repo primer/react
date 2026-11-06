@@ -23,7 +23,7 @@ The root forwards Base UI Menu props, including controlled `open`/`onOpenChange`
 import {ActionMenu} from '@primer/react-tailwind/ActionMenu'
 ```
 
-Compose `Button` or `Trigger`, then `Content`/`Overlay`, with `Item`, `CheckboxItem`, `RadioGroup`, `RadioItem`, `Group`, `GroupLabel`, and `Divider` as needed. Items accept `LeadingVisual`, `TrailingVisual`, and inline or block `Description` parts that share the ActionList presentation layer. Nest `Submenu`, `SubmenuTrigger`, and another `Content` for Base UI-managed nested menus. Compose another branded trigger through Base UI's `render` prop and use `className` to supply its visual treatment.
+Compose `Button` or `Trigger`, then `Content`/`Overlay`, with `Item`, `CheckboxItem`, `RadioGroup`, `RadioItem`, `Group`, `GroupLabel`, and `Divider` as needed. Items accept `LeadingVisual`, `TrailingVisual`, and inline or block `Description` parts that share the ActionList presentation layer. Nest `Submenu`, `SubmenuTrigger`, and another `Content` for Base UI-managed nested menus. Compose another branded trigger through Base UI's `render` prop and use `className` to supply its visual treatment. Set `id` on `Button` or `Trigger` rather than on the rendered element, because the trigger tracks its open state by its `id`.
 
 ## Controlled and uncontrolled
 

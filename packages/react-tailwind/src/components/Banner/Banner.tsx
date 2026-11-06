@@ -4,7 +4,8 @@ import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon, XIcon} from '@primer/oct
 import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {Button, ButtonBase, type ButtonProps} from '../Button'
+import {Button, type ButtonProps} from '../Button'
+import {IconButton} from '../IconButton'
 
 export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
@@ -157,18 +158,13 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
             {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
           </div>
           {onDismiss ? (
-            <ButtonBase
+            <IconButton
               aria-label="Dismiss banner"
-              className={cn(
-                'ml-1 grid size-8 place-items-center border-0 bg-transparent p-2',
-                hasActions && 'my-0.5',
-                iconColor[variant],
-              )}
+              className={cn('ml-1', hasActions && 'my-0.5', dismissIconColor[variant])}
+              icon={XIcon}
               onClick={onDismiss}
-              type="button"
-            >
-              <XIcon />
-            </ButtonBase>
+              variant="invisible"
+            />
           ) : null}
         </section>
       </BannerActionsLayoutContext.Provider>
@@ -182,6 +178,15 @@ const iconColor: Record<BannerVariant, string> = {
   success: 'text-success',
   upsell: 'text-upsell',
   warning: 'text-attention',
+}
+
+// The dismiss button keeps the muted invisible-button colour; only its glyph takes the variant colour.
+const dismissIconColor: Record<BannerVariant, string> = {
+  critical: '[&_svg]:text-danger',
+  info: '[&_svg]:text-accent',
+  success: '[&_svg]:text-success',
+  upsell: '[&_svg]:text-upsell',
+  warning: '[&_svg]:text-attention',
 }
 
 export interface BannerTitleProps extends React.ComponentPropsWithoutRef<'h2'> {

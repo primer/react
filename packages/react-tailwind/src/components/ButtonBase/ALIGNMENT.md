@@ -6,7 +6,7 @@
 
 ## To: `@primer/react-tailwind`
 
-Tailwind `ButtonBase` is the promoted low-level primitive and is re-exported from the Button package. It uses Base UI's button primitive for button semantics and React 19-compatible composition, while Tailwind classes and Primer tokens provide presentation. Common button content, disabled, loading, and polymorphic usage remain available, but the implementation does not carry legacy styled-system behavior or deprecated styling aliases. Use Base UI's `render` prop to compose button behavior onto a non-button element.
+Tailwind `ButtonBase` is the promoted low-level primitive and is re-exported from the Button package. It uses Base UI's button primitive for button semantics and React 19-compatible composition, while Tailwind classes and Primer tokens provide presentation. Common button content, disabled, loading, and polymorphic usage remain available, but the implementation does not carry legacy styled-system behavior or deprecated styling aliases. Use Base UI's `render` prop with `nativeButton={false}` to compose button behavior onto a non-button element; that element gets `role="button"`, so use LinkButton for navigation.
 
 ## Migration notes
 

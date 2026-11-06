@@ -19,12 +19,32 @@ import * as Examples from './Dialog.examples.stories'
 ## Usage
 
 ```tsx
-import {Dialog} from '@primer/react-tailwind'
+import {Button, Dialog} from '@primer/react-tailwind'
 ;<Dialog>
   <Dialog.Trigger>Open dialog</Dialog.Trigger>
   <Dialog.Content>
     <Dialog.Title>Dialog title</Dialog.Title>
     <Dialog.Description>Dialog content.</Dialog.Description>
+  </Dialog.Content>
+</Dialog>
+```
+
+Compose `Header`, `Body`, and `Footer` for the full upstream layout. `Subtitle` describes the dialog; use it instead of `Description`.
+
+```tsx
+<Dialog>
+  <Dialog.Trigger>Open dialog</Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Delete repository</Dialog.Title>
+      <Dialog.Subtitle>This cannot be undone.</Dialog.Subtitle>
+      <Dialog.CloseButton />
+    </Dialog.Header>
+    <Dialog.Body>Type the repository name to confirm.</Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Close render={<Button>Cancel</Button>} />
+      <Button variant="danger">Delete</Button>
+    </Dialog.Footer>
   </Dialog.Content>
 </Dialog>
 ```

@@ -1,36 +1,71 @@
-import {cva, type VariantProps} from 'class-variance-authority'
+'use client'
+
+import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {mergeRefs} from '../../internal/refs'
+import {useFocusZone} from '../../internal/useFocusZone'
 
-const groupVariants = cva('inline-flex', {
-  variants: {
-    orientation: {
-      horizontal:
-        'flex-row [&>[data-component$="Button"]]:rounded-none [&>[data-component$="Button"]:first-child]:rounded-l-md [&>[data-component$="Button"]:last-child]:rounded-r-md [&>[data-component$="Button"]+[data-component$="Button"]]:-ml-px',
-      vertical:
-        'flex-col [&>[data-component$="Button"]]:rounded-none [&>[data-component$="Button"]:first-child]:rounded-t-md [&>[data-component$="Button"]:last-child]:rounded-b-md [&>[data-component$="Button"]+[data-component$="Button"]]:-mt-px',
+// Every direct child is a joined item, like Primer React's `ButtonGroup.Item` wrappers. Children are matched
+// structurally rather than by `data-component` because trigger parts (for example `ActionMenu.Trigger`) replace the
+// rendered button's `data-component`.
+const groupVariants = cva(
+  'inline-flex isolate align-middle *:relative *:rounded-none *:hover:z-1 *:focus-visible:z-1 *:active:z-1',
+  {
+    variants: {
+      orientation: {
+        horizontal: 'flex-row *:first:rounded-s-md *:last:rounded-e-md *:not-first:-ms-px',
+        vertical: 'flex-col *:first:rounded-t-md *:last:rounded-b-md *:not-first:-mt-px',
+      },
     },
+    defaultVariants: {orientation: 'horizontal'},
   },
-  defaultVariants: {orientation: 'horizontal'},
-})
+)
 
-export interface ButtonGroupProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof groupVariants> {}
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLElement> {
+  /**
+   * Element to render as the group root.
+   * @default 'div'
+   */
+  as?: React.ElementType
+  /**
+   * Direction the buttons are joined in.
+   * @default 'horizontal'
+   */
+  orientation?: 'horizontal' | 'vertical'
+  /**
+   * Role of the group. A `toolbar` keeps one button in the tab order and moves focus between buttons with the arrow
+   * keys in its orientation, Home, and End.
+   * @default 'group'
+   */
+  role?: React.AriaRole
+}
 
 export const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function ButtonGroup(
-  {children, className, orientation, role = 'group', ...rest},
+  {as: Component = 'div', children, className, orientation = 'horizontal', role = 'group', ...rest},
   ref,
 ) {
+  const isToolbar = role === 'toolbar'
+  const isVertical = orientation === 'vertical'
+  const focusZoneRef = useFocusZone<HTMLElement>({
+    bindKeys: [isVertical ? 'ArrowVertical' : 'ArrowHorizontal', 'HomeAndEnd'],
+    disabled: !isToolbar,
+    focusOutBehavior: 'wrap',
+  })
+  const groupRef = React.useMemo(() => mergeRefs(ref, focusZoneRef), [ref, focusZoneRef])
+
   return (
-    <div
+    <Component
+      aria-orientation={isToolbar && isVertical ? 'vertical' : undefined}
       {...rest}
-      ref={ref as React.Ref<HTMLDivElement>}
+      ref={groupRef}
       role={role}
       data-component="ButtonGroup"
       data-orientation={orientation}
       className={cn(groupVariants({orientation}), className)}
     >
       {children}
-    </div>
+    </Component>
   )
 })
 

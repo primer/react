@@ -47,6 +47,10 @@ Forwards unrecognized props to Base UI's [`Dialog.Viewport`](https://base-ui.com
 
 Forwards unrecognized props to Base UI's [`Dialog.Title`](https://base-ui.com/react/components/dialog#title), so it also accepts that part's props.
 
+## Dialog.Subtitle
+
+Forwards unrecognized props to Base UI's [`Dialog.Description`](https://base-ui.com/react/components/dialog#description), so it also accepts that part's props.
+
 ## Dialog.Description
 
 Forwards unrecognized props to Base UI's [`Dialog.Description`](https://base-ui.com/react/components/dialog#description), so it also accepts that part's props.
@@ -60,7 +64,7 @@ Forwards unrecognized props to Base UI's [`Dialog.Close`](https://base-ui.com/re
 Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/components/button#api-reference), so it also accepts that part's props.
 
 - `alignContent`: `"center" | "start"` — Whether the label sits centred or hugs the start edge when visuals are present.
-- `aria-label`: `string` — Accessible name for the close button.
+- `aria-label`: `string` — Default `'Close'`. Accessible name for the close button.
 - `block`: `boolean` — Stretches the button to fill the width of its container.
 - `className`: `string`
 - `count`: `string | number` — Number shown in a trailing counter, for a button that acts on a known quantity.

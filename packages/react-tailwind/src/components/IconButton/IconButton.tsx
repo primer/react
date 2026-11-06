@@ -8,6 +8,7 @@ import {getNotificationIndicatorClassName, type NotificationIndicatorPlacement} 
 import {Tooltip} from '../Tooltip/Tooltip'
 import {useIsInsideTooltip} from '../Tooltip/TooltipContext'
 import {tooltipDirectionPlacement, type TooltipDirection} from '../Tooltip/direction'
+import {getIconButtonClassName} from './iconButtonClassName'
 
 export interface IconButtonProps
   extends Omit<ButtonProps, 'children' | 'leadingVisual' | 'notificationIndicator' | 'trailingVisual'> {
@@ -58,6 +59,7 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
     size = 'medium',
     tooltipDirection = 's',
     unsafeDisableTooltip = false,
+    variant = 'default',
     ...rest
   },
   ref,
@@ -68,8 +70,7 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
     'aria-label': ariaLabel,
     children: renderIcon(icon, 'block'),
     className: cn(
-      'inline-flex min-w-0 shrink-0 justify-center p-0 text-muted data-[disabled]:text-disabled disabled:text-disabled [&_[data-component=text]>svg]:block',
-      size === 'small' ? 'size-7' : size === 'large' ? 'size-10' : 'size-8',
+      getIconButtonClassName({inactive: rest.inactive, size, variant}),
       notificationIndicator && getNotificationIndicatorClassName(notificationIndicator),
       className,
     ),
@@ -77,6 +78,7 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
     'data-notification-indicator': notificationIndicator,
     disabled,
     size,
+    variant,
   } satisfies ButtonProps & {'data-notification-indicator'?: string}
 
   if (unsafeDisableTooltip || insideTooltip || !ariaLabel) {
@@ -86,9 +88,19 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
   const {'aria-expanded': expanded, 'aria-haspopup': hasPopup} = rest
   const hasActivePopup = (expanded === true || expanded === 'true') && Boolean(hasPopup) && hasPopup !== 'false'
   const placement = tooltipDirectionPlacement[tooltipDirection]
+  // Render-element props override the trigger's, so ARIA references go through the trigger to merge with the tooltip,
+  // and `id` goes through it so the trigger tracks the same element it renders.
+  const {'aria-describedby': describedBy, 'aria-labelledby': labelledBy, id, ...triggerButtonProps} = buttonProps
   return (
     <Tooltip.Root keybindingHint={keybindingHint} type={description ? 'description' : 'label'}>
-      <Tooltip.Trigger ref={ref} disabled={disabled || hasActivePopup} render={<Button {...buttonProps} />} />
+      <Tooltip.Trigger
+        ref={ref}
+        id={id}
+        aria-describedby={describedBy}
+        aria-labelledby={labelledBy}
+        disabled={disabled || hasActivePopup}
+        render={<Button {...triggerButtonProps} />}
+      />
       <Tooltip.Content align={placement.align} side={placement.side}>
         {description || ariaLabel}
       </Tooltip.Content>

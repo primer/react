@@ -68,6 +68,13 @@ guidance where the two implementations differ.
   adapter is documented and tested.
 - Compose branded triggers and controls with `render={<Component />}`. Never
   create nested buttons, links, labels, or other interactive elements.
+- Pass `id` to the outermost Base UI part in a render chain, never to its
+  render element. Menu, Popover, Dialog, and Tooltip triggers track their open
+  state by the `id` they register, and render-element props win the merge. Route
+  `aria-describedby`/`aria-labelledby` through a `Tooltip.Trigger` so they merge
+  with the tooltip's references instead of replacing them. Omit optional keys
+  rather than passing `prop={undefined}` to a render element, since
+  `mergeProps` keeps explicit `undefined` values.
 - Keep popup composition explicit: root, trigger or anchor, portal, positioner,
   backdrop where applicable, and popup/content. Avoid hidden wrapper contracts.
 - Avoid duplicating Base UI state in React state. Derive presentational state

@@ -15,7 +15,13 @@ import {overlaySizeClassName} from '../../internal/overlaySize'
 import {FloatingPortal} from '../../internal/FloatingPortal'
 import {usePortalContainer} from '../../internal/portalRoot'
 import type {AnchoredOverlayVariant, FloatingContentProps, FloatingSide, OverlaySizeProps} from '../../utils/types'
-import {ActionItemContent, actionItemClassName, actionListDividerClassName, ActionList} from '../ActionList/ActionList'
+import {ActionItemContent, actionListDividerClassName, ActionList} from '../ActionList/ActionList'
+import {
+  actionItemClassName,
+  getActionItemStateAttributes,
+  getActionItemStateClassName,
+  type ActionItemStateOptions,
+} from '../ActionList/itemState'
 import {Button, type ButtonProps} from '../Button'
 import {Spinner} from '../Spinner'
 import {ActionMenuActionsContext, ActionMenuListContext} from './ActionMenuContext'
@@ -56,21 +62,23 @@ export interface ActionMenuButtonProps extends Omit<ButtonProps, 'data-component
 }
 
 const ButtonTrigger = React.forwardRef<HTMLButtonElement, ActionMenuButtonProps>(function ActionMenuButton(
-  {children, className, disabled, loading, size = 'medium', ...buttonProps},
+  {children, className, disabled, id, loading, size = 'medium', ...buttonProps},
   ref,
 ) {
   return (
     <Menu.Trigger
+      // The trigger tracks its open state by `id`, so it must not be overridden on the render element.
+      id={id}
       disabled={disabled || loading}
       render={
         <Button
           {...buttonProps}
           ref={ref}
-          className={cn(size === 'small' ? 'pr-1.5' : size === 'large' ? 'pr-3' : 'pr-2', className)}
+          className={className}
           disabled={disabled}
           loading={loading}
           size={size}
-          trailingVisual={<TriangleDownIcon aria-hidden="true" />}
+          trailingAction={TriangleDownIcon}
           data-component="ActionMenu.Button"
         />
       }
@@ -182,12 +190,15 @@ function Portal({children, container, ...rest}: Menu.Portal.Props) {
 
 type ActionMenuItemVariant = 'default' | 'danger'
 
-/** Every menu row shares the ActionList item layout, inset by the popup's padding, and highlights from Base UI state. */
-function menuItemClassName(variant: ActionMenuItemVariant = 'default') {
+/**
+ * Every menu row shares the ActionList item layout and state colors, inset by the popup's padding. Pointer hover fills
+ * the row, and keyboard focus draws the focus ring around it, as focused ActionList items do.
+ */
+function menuItemClassName(state: ActionItemStateOptions = {}) {
   return cn(
     actionItemClassName,
-    'mx-2 !w-[calc(100%-1rem)] data-[highlighted]:bg-neutral-muted data-[highlighted]:text-default',
-    variant === 'danger' && 'text-danger data-[highlighted]:bg-[var(--control-danger-bgColor-hover)]',
+    'mx-2 !w-[calc(100%-1rem)] focus-visible:outline-offset-0',
+    getActionItemStateClassName(state),
   )
 }
 
@@ -231,18 +242,19 @@ const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionM
   const statusIndicator = loading ? (
     <Spinner aria-hidden="true" className="shrink-0" size="small" srText={null} />
   ) : null
+  const state = {disabled, inactive: Boolean(inactiveText), loading, variant}
 
   return (
     <Menu.Item
       {...rest}
+      {...getActionItemStateAttributes(state)}
       ref={ref}
       disabled={disabled || Boolean(inactiveText) || loading}
       aria-disabled={inactiveText || loading ? true : undefined}
       title={typeof inactiveText === 'string' ? inactiveText : undefined}
-      className={mergeClassName(menuItemClassName(variant), className)}
+      className={mergeClassName(menuItemClassName(state), className)}
       data-component="ActionMenu.Item"
       data-selected={selected || undefined}
-      data-variant={variant === 'danger' ? variant : undefined}
     >
       <MenuItemContent indicator={statusIndicator} selection={selection} supportingText={inactiveText}>
         {children}
@@ -280,13 +292,13 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionMenuLinkItemProps>(fu
   return (
     <Menu.LinkItem
       {...rest}
+      {...getActionItemStateAttributes({variant})}
       ref={ref}
       id={id}
       closeOnClick={closeOnClick}
       label={label}
-      className={mergeClassName(menuItemClassName(variant), className)}
+      className={mergeClassName(menuItemClassName({variant}), className)}
       data-component="ActionMenu.LinkItem"
-      data-variant={variant === 'danger' ? variant : undefined}
     >
       <MenuItemContent>{children}</MenuItemContent>
     </Menu.LinkItem>
@@ -316,7 +328,7 @@ const CheckboxItem = React.forwardRef<HTMLElement, ActionMenuCheckboxItemProps>(
       {...rest}
       ref={ref}
       closeOnClick={closeOnClick}
-      className={mergeClassName(cn('group', menuItemClassName()), className)}
+      className={mergeClassName(cn('group', menuItemClassName({disabled: rest.disabled})), className)}
       data-component="ActionMenu.CheckboxItem"
     >
       <MenuItemContent selection={checkedItemIndicator}>{children}</MenuItemContent>
@@ -341,7 +353,7 @@ const RadioItem = React.forwardRef<HTMLElement, ActionMenuRadioItemProps>(functi
       {...rest}
       ref={ref}
       closeOnClick={closeOnClick}
-      className={mergeClassName(cn('group', menuItemClassName()), className)}
+      className={mergeClassName(cn('group', menuItemClassName({disabled: rest.disabled})), className)}
       data-component="ActionMenu.RadioItem"
     >
       <MenuItemContent selection={checkedItemIndicator}>{children}</MenuItemContent>
@@ -358,7 +370,14 @@ const SubmenuTrigger = React.forwardRef<HTMLElement, ActionMenuSubmenuTriggerPro
     <Menu.SubmenuTrigger
       {...rest}
       ref={ref}
-      className={mergeClassName(menuItemClassName(), className)}
+      className={mergeClassName(
+        cn(
+          menuItemClassName({disabled: rest.disabled}),
+          // The trigger stays filled while its submenu is open, so the path to the submenu is visible.
+          'data-[popup-open]:bg-[var(--control-transparent-bgColor-hover)]',
+        ),
+        className,
+      )}
       data-component="ActionMenu.SubmenuTrigger"
     >
       <MenuItemContent>

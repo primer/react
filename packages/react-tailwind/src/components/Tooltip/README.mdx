@@ -19,15 +19,37 @@ import * as Examples from './Tooltip.examples.stories'
 ## Usage
 
 ```tsx
-import {Tooltip} from '@primer/react-tailwind'
+import {Button, Tooltip} from '@primer/react-tailwind'
 ;<Tooltip>
-  <Tooltip.Trigger>Copy</Tooltip.Trigger>
+  <Tooltip.Trigger render={<Button>Copy</Button>} />
   <Tooltip.Content>Copy repository URL</Tooltip.Content>
 </Tooltip>
 ```
 
 Tooltips supplement, never replace, the accessible name of their trigger. Do not put essential interactive controls in tooltip content.
 
+`Tooltip.Trigger` adds tooltip behavior to the element passed to `render`, so the trigger stays a single element. A `description` tooltip (the default) adds its text to the trigger's accessible description. A `label` tooltip names a trigger without visible text, such as an icon-only link, through `aria-labelledby`.
+
+<Canvas of={Features.LabelType} />
+
+### Placement and delay
+
+`Tooltip.Content` opens below its trigger, centered, 4px away. Use `side` and `align` to move it; it flips when there isn't room. `delay` on the root sets how long the pointer rests before the tooltip opens: `short` (50ms, the default), `medium` (400ms) or `long` (1200ms). Keyboard focus opens it immediately. `Tooltip.Provider` sets a shared delay for a group of tooltips, and once one is open its neighbors open without a delay.
+
 <Canvas of={Features.AllDirections} />
 
+### Composing with other triggers
+
+Render another trigger to give one element both behaviors, such as a menu or dialog trigger with a tooltip.
+
+<Canvas of={Features.OnActionMenuAnchor} />
+
+### ARIA references
+
+Pass `aria-describedby`, `aria-labelledby`, and the trigger's `id` to `Tooltip.Trigger`, not to the rendered element. The trigger merges a description with the tooltip's own, a label takes precedence over the tooltip, and the trigger tracks its open state by its `id`. Props on the rendered element replace the trigger's, as with any Base UI `render` prop. Set `id` on the root to reference the tooltip text from elsewhere.
+
+<Canvas of={Features.DescriptionTypeWithExternalDescription} />
+
 <Canvas of={Examples.CustomId} />
+
+A `disabled` root never opens and stops naming or describing its trigger.

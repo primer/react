@@ -15,7 +15,8 @@ Base UI owns menu ARIA, keyboard navigation, focus, dismissal, positioning, nest
 - Compose branded triggers with `render`, not `as`, to avoid nested interactive elements. Use `className` when the composed control owns the visual treatment.
 - Move legacy ActionList item content directly into ActionMenu items and use `ActionMenu.LeadingVisual`, `TrailingVisual`, and `Description`; no intermediate ActionList wrapper is required.
 - Replace the root's `anchorRef` with `Content`'s `anchor` and controlled `open`. `displayInViewport` and `onPositionChange` are unsupported; Base UI's collision handling keeps the menu in view.
-- Opening with a pointer focuses the menu itself, and opening with the keyboard focuses its first item (Base UI's menu pattern). Upstream focuses the first item either way.
+- Opening with a pointer or programmatically (with `open` or `defaultOpen`) focuses the menu itself, and opening with the keyboard focuses its first item (Base UI's menu pattern). Upstream focuses the first item either way.
+- The menu opens when the trigger is pressed rather than on release, so the trigger shows its open colour instead of a separate pressed colour, and it keeps its resting shadow because focus moves into the menu.
 - Pass `preventFocusOnClose` to `ActionMenu.Content` when the menu should not return focus to its trigger after closing, for example when an item moves focus elsewhere.
 - Upstream's fix for passive anchor label updates has no equivalent here, because Base UI owns the trigger's labelling.
 - Set `portal={false}` to render the menu in place, for example inside a scrolling container.

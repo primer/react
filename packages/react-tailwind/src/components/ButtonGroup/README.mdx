@@ -25,7 +25,7 @@ import {ButtonGroup} from '@primer/react-tailwind/ButtonGroup'
 ## Props
 
 - **`orientation`** (default: `horizontal`) — `horizontal` or `vertical` flex direction.
-- **`role`** (default: `group`) — May be changed, for example to `toolbar`.
+- **`role`** (default: `group`) — Use `toolbar` for a command toolbar, which moves focus between buttons with the arrow keys.
 - **`as`** (default: `div`) — Render a different element type.
 - **native HTML props** (default: none) — Includes `aria-label`, `className`, and children.
 
@@ -35,7 +35,7 @@ Compose adjacent controls as children; the group does not clone or modify them.
 
 ## Accessibility
 
-Label groups of controls with `aria-label`, and use `role="toolbar"` when appropriate.
+Label groups of controls with `aria-label`, and use `role="toolbar"` when appropriate. A toolbar keeps one button in the tab order. The arrow keys in its orientation, Home, and End move focus between buttons, wrapping at either end.
 
 ## Tailwind extension
 

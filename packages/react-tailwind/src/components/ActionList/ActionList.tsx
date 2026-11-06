@@ -1,22 +1,35 @@
 'use client'
 
-import {AlertIcon, CheckIcon} from '@primer/octicons-react'
+import {AlertIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {renderIcon} from '../../internal/icon'
 import {useItemGap} from '../../internal/listContainer'
+import {mergeRefs} from '../../internal/refs'
 import {isPartOf, regionElements, resolveRegions} from '../../internal/regions'
+import {SelectionVisual} from '../../internal/selectionVisuals'
+import {useFocusZone} from '../../internal/useFocusZone'
 import type {RegionProps} from '../../utils/types'
 import {Button, ButtonBase, type ButtonBaseProps, type ButtonProps} from '../Button'
 import {IconButton} from '../IconButton'
+import {getIconButtonClassName} from '../IconButton/iconButtonClassName'
 import {LinkButton, type LinkButtonProps} from '../LinkButton'
 import {Spinner} from '../Spinner'
+import {Tooltip} from '../Tooltip/Tooltip'
+import {tooltipDirectionPlacement, type TooltipDirection} from '../Tooltip/direction'
+import {
+  actionItemClassName,
+  actionItemPartClassName,
+  getActionItemStateAttributes,
+  getActionItemStateClassName,
+} from './itemState'
 import {getSelectionAttribute, getSelectionRole, type SelectionVariant} from './selectionUtils'
 
 type ListContextValue = {
   groupLabelId?: string
   itemGap?: boolean
   role?: string
-  selectionVariant?: SelectionVariant
+  selectionVariant?: SelectionVariant | false
   showDividers?: boolean
   variant?: 'inset' | 'horizontal-inset' | 'full'
 }
@@ -28,11 +41,9 @@ const actionItemDividerClassName = cn(
   "relative before:absolute before:inset-x-0 before:-top-[7px] before:h-px before:bg-[var(--borderColor-muted)] before:content-['']",
   "[li:first-of-type>*>&]:before:invisible [[data-component='ActionList.Divider']+li>*>&]:before:invisible",
   '[[data-active]>&]:before:invisible [li:has(>[data-active])+li>*>&]:before:invisible',
+  '[:focus-visible>&]:before:invisible [li:has(>:focus-visible)+li>*>&]:before:invisible',
   '[@media(hover:hover)]:[li:hover>*>&]:before:invisible [@media(hover:hover)]:[li:hover+li>*>&]:before:invisible',
 )
-
-export const actionItemClassName =
-  'flex !min-w-0 w-full !justify-start gap-2 appearance-none rounded-md !border-0 bg-transparent px-2 py-1.5 text-left text-sm font-normal ![line-height:20px] whitespace-normal text-default no-underline !shadow-none hover:bg-neutral-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled items-start'
 
 interface ActionListTrailingActionBaseProps {
   className?: string
@@ -41,6 +52,11 @@ interface ActionListTrailingActionBaseProps {
   /** Accessible name for the action, since the icon alone conveys nothing. */
   label: string
   style?: React.CSSProperties
+  /**
+   * Side and alignment of the tooltip that shows `label` for an icon action.
+   * @default 'w'
+   */
+  tooltipDirection?: TooltipDirection
 }
 
 // The action always matches the item's density and stays invisible, so `size` and `variant` are not configurable.
@@ -81,8 +97,8 @@ type TrailingActionSize = 'medium' | 'small'
 
 function getTrailingActionClassName(hasIcon: boolean, size: TrailingActionSize, loading = false) {
   return cn(
-    'relative inline-flex h-8 min-h-8 min-w-8 items-center justify-center rounded-md !border-0 bg-transparent px-2 text-sm !shadow-none hover:bg-neutral-muted hover:text-default focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed',
-    hasIcon ? 'text-muted' : '!px-[13px] text-default',
+    'relative inline-flex h-8 min-h-8 min-w-8 items-center justify-center rounded-md !border-0 px-2 text-sm !shadow-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed',
+    !hasIcon && '!px-[13px]',
     // A loading text action keeps its width and moves the spinner to the end, where an icon action's spinner sits.
     !hasIcon &&
       loading &&
@@ -90,9 +106,6 @@ function getTrailingActionClassName(hasIcon: boolean, size: TrailingActionSize, 
     size === 'small' && 'size-7 min-h-7 min-w-7 !border p-0',
   )
 }
-
-// While a trailing action loads, descriptions stay at full contrast so the item remains readable.
-const trailingActionLoadingClassName = "[&_[data-component='ActionList.Description']]:text-default"
 
 /** Whether a resolved trailing action is loading, so the item can keep its text at full contrast. */
 function isTrailingActionLoading(trailingAction: React.ReactNode) {
@@ -107,26 +120,68 @@ function renderTrailingAction(
 ) {
   let action: React.ReactNode
   if (props.as === 'a') {
-    const {as: actionType, className, icon: Icon, label, style, ...linkProps} = props
+    const {as: actionType, className, icon: Icon, label, style, tooltipDirection = 'w', ...linkProps} = props
     void actionType
     void className
     void style
-    action = (
-      <LinkButton
-        {...linkProps}
-        ref={ref as React.Ref<HTMLAnchorElement>}
-        aria-label={Icon ? label : linkProps['aria-label']}
-        className={getTrailingActionClassName(Boolean(Icon), size)}
-        data-component={`${dataComponent}.Button`}
-        leadingVisual={Icon ? <Icon aria-hidden="true" /> : undefined}
-        size={size}
-        variant="invisible"
-      >
-        {Icon ? null : label}
-      </LinkButton>
-    )
+    if (Icon) {
+      // Matches an invisible `IconButton`, which cannot render a link because a Base UI button adds `role="button"`.
+      const placement = tooltipDirectionPlacement[tooltipDirection]
+      // Render-element props override the trigger's, so `id` and ARIA references go through the trigger.
+      const {'aria-describedby': describedBy, 'aria-labelledby': labelledBy, id, ...iconLinkProps} = linkProps
+      action = (
+        <Tooltip.Root type="label">
+          <Tooltip.Trigger
+            ref={ref}
+            id={id}
+            aria-describedby={describedBy}
+            aria-labelledby={labelledBy}
+            render={
+              <LinkButton
+                {...iconLinkProps}
+                aria-label={label}
+                className={cn(
+                  getIconButtonClassName({inactive: iconLinkProps.inactive, size, variant: 'invisible'}),
+                  getTrailingActionClassName(true, size),
+                )}
+                data-component={`${dataComponent}.Button`}
+                size={size}
+                variant="invisible"
+              >
+                {renderIcon(Icon, 'block')}
+              </LinkButton>
+            }
+          />
+          <Tooltip.Content align={placement.align} side={placement.side}>
+            {label}
+          </Tooltip.Content>
+        </Tooltip.Root>
+      )
+    } else {
+      action = (
+        <LinkButton
+          {...linkProps}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          className={getTrailingActionClassName(false, size)}
+          data-component={`${dataComponent}.Button`}
+          size={size}
+          variant="invisible"
+        >
+          {label}
+        </LinkButton>
+      )
+    }
   } else {
-    const {as: actionType, className, icon: Icon, label, style, type = 'button', ...buttonProps} = props
+    const {
+      as: actionType,
+      className,
+      icon: Icon,
+      label,
+      style,
+      tooltipDirection = 'w',
+      type = 'button',
+      ...buttonProps
+    } = props
     void actionType
     void className
     void style
@@ -140,6 +195,7 @@ function renderTrailingAction(
         data-component={`${dataComponent}.Button`}
         icon={Icon}
         size={size}
+        tooltipDirection={tooltipDirection}
         variant="invisible"
       />
     ) : (
@@ -177,7 +233,15 @@ const TrailingAction = React.forwardRef<HTMLElement, ActionListTrailingActionPro
   },
 )
 
+const focusZoneRoles = new Set(['menu', 'menubar', 'listbox'])
+
 export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'>, RegionProps<'heading'> {
+  /**
+   * Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the
+   * tab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys.
+   * @default false
+   */
+  disableFocusZone?: boolean
   /** Disable the gap between items when this list is rendered in a `NavList`. */
   disableItemGap?: boolean
   /** How many items may be selected, which also decides the list's ARIA role. */
@@ -192,6 +256,7 @@ const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function Ac
   {
     children,
     className,
+    disableFocusZone = false,
     disableItemGap = false,
     heading: headingProp,
     role = 'list',
@@ -212,14 +277,12 @@ const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function Ac
   const heading = regionElements<ActionListHeadingProps>(headingProp, matchedHeadings).at(0)
   const headingId = heading ? (heading.props.id ?? generatedHeadingId) : undefined
   const listRef = React.useRef<HTMLUListElement | null>(null)
-  const setListRef = React.useCallback(
-    (node: HTMLUListElement | null) => {
-      listRef.current = node
-      if (typeof ref === 'function') ref(node)
-      else if (ref) ref.current = node
-    },
-    [ref],
-  )
+  const focusZoneRef = useFocusZone<HTMLUListElement>({
+    bindKeys: ['ArrowVertical', 'HomeAndEnd', 'PageUpDown'],
+    disabled: disableFocusZone || !focusZoneRoles.has(role),
+    focusOutBehavior: role === 'menu' ? 'wrap' : 'stop',
+  })
+  const setListRef = React.useMemo(() => mergeRefs(listRef, ref, focusZoneRef), [ref, focusZoneRef])
 
   React.useEffect(() => {
     const list = listRef.current
@@ -261,7 +324,10 @@ export interface ActionListItemProps
     RegionProps<'leadingVisual' | 'trailingVisual' | 'description' | 'trailingAction'> {
   children?: React.ReactNode
   className?: string
-  /** Prevents activation and removes the item from the keyboard order. */
+  /**
+   * Prevents activation. In a list the item also leaves the keyboard order; in a menu or listbox it stays focusable
+   * and is marked `aria-disabled`, so keyboard users can still discover it.
+   */
   disabled?: boolean
   /** Marks the item temporarily unavailable and explains why. Unlike `disabled`, the item stays reachable. */
   inactiveText?: React.ReactNode
@@ -392,7 +458,10 @@ export function ActionItemContent({
     <>
       {selection ? (
         <span
-          className="flex min-h-5 min-w-max shrink-0 items-center leading-5 text-muted"
+          className={cn(
+            'flex min-h-5 min-w-max shrink-0 items-center leading-5',
+            actionItemPartClassName.leadingVisual,
+          )}
           data-component="ActionList.Selection"
         >
           {selection}
@@ -421,6 +490,7 @@ export function ActionItemContent({
             <span
               className={cn(
                 'relative wrap-break-word',
+                actionItemPartClassName.label,
                 size === 'small' ? 'text-xs' : 'text-sm leading-5',
                 descriptions.length === 0 && 'min-w-0 flex-1',
                 descriptions.length > 0 && 'font-semibold',
@@ -467,6 +537,7 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
     className,
     description: descriptionProp,
     disabled,
+    focusableWhenDisabled: focusableWhenDisabledProp,
     inactiveText,
     leadingVisual: leadingVisualProp,
     loading = false,
@@ -499,21 +570,31 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
   const renderedTrailingAction = !inactiveText && !loading ? resolvedTrailingAction : null
   const trailingActionLoading = !disabled && isTrailingActionLoading(renderedTrailingAction)
   const showInactiveWarning = Boolean(inactiveText && (listRole === 'menu' || listRole === 'listbox'))
-  const selection =
-    selectionVariant === 'multiple' && listRole !== 'menu' ? (
-      <span
-        aria-hidden="true"
-        className={cn(
-          'grid size-4 shrink-0 place-items-center rounded-sm border border-[var(--control-borderColor-emphasis)] bg-default',
-          selected &&
-            'border-[var(--control-checked-bgColor-rest)] bg-[var(--control-checked-bgColor-rest)] text-on-emphasis',
-        )}
-      >
-        <CheckIcon className={cn('size-3', !selected && 'invisible')} />
-      </span>
-    ) : selectionVariant ? (
-      <CheckIcon aria-hidden="true" className={cn('shrink-0', !selected && 'invisible')} />
-    ) : null
+  // Menus and listboxes keep disabled items focusable, as the ARIA authoring practices recommend for composite widgets.
+  const focusableWhenDisabled =
+    Boolean(disabled) && (focusableWhenDisabledProp ?? (listRole === 'menu' || listRole === 'listbox'))
+  const itemState = {
+    active,
+    disabled,
+    inactive: Boolean(inactiveText),
+    loading,
+    trailingActionLoading,
+    variant,
+  }
+  const selection = selectionVariant ? (
+    <SelectionVisual
+      checked={Boolean(selected)}
+      disabled={disabled}
+      // Menus draw a checkmark for every selection variant except radio, as upstream does.
+      variant={
+        selectionVariant === 'radio'
+          ? 'radio'
+          : selectionVariant === 'multiple' && listRole !== 'menu'
+            ? 'multiple'
+            : 'single'
+      }
+    />
+  ) : null
   const statusIndicator =
     inactiveText && !showInactiveWarning ? (
       <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-muted" />
@@ -525,13 +606,14 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
     <li
       role={listRole === 'menu' || listRole === 'listbox' ? 'none' : undefined}
       data-component="ActionList.Item"
+      {...getActionItemStateAttributes(itemState)}
       data-trailing-action-loading={trailingActionLoading || undefined}
       className={cn(
         'relative list-none rounded-md',
         listVariant !== 'full' && 'mx-2',
         itemGap && "[[data-component$='Item']+&]:mt-0.5",
         renderedTrailingAction && 'flex items-center',
-        trailingActionLoading && trailingActionLoadingClassName,
+        getActionItemStateClassName(itemState),
       )}
     >
       <ButtonBase
@@ -539,7 +621,8 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
         ref={ref}
         role={role}
         disabled={disabled}
-        aria-disabled={inactiveText || loading ? true : undefined}
+        focusableWhenDisabled={focusableWhenDisabled}
+        aria-disabled={focusableWhenDisabled || inactiveText || loading ? true : undefined}
         title={typeof inactiveText === 'string' ? inactiveText : undefined}
         aria-selected={selectionAttribute === 'aria-selected' ? selected : undefined}
         aria-checked={selectionAttribute === 'aria-checked' ? selected : undefined}
@@ -552,9 +635,6 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
           size === 'small' && 'py-1',
           size === 'large' && 'py-2.5',
           renderedTrailingAction && 'min-w-0 flex-1',
-          variant === 'danger' && 'text-danger hover:bg-[var(--control-danger-bgColor-hover)]',
-          inactiveText && 'text-muted',
-          active && 'bg-[var(--control-transparent-bgColor-selected)]',
           className,
         )}
         data-component="ActionList.Item.Action"
@@ -588,8 +668,6 @@ export interface ActionListLinkItemProps
   active?: boolean
   /** Marks the link temporarily unavailable and explains why. The link renders as text until it is available. */
   inactiveText?: React.ReactNode
-  /** Marks the link as the current one. */
-  selected?: boolean
   /** Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target. */
   size?: 'small' | 'medium' | 'large'
   /** Use `danger` for a destructive navigation. */
@@ -605,7 +683,6 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
     href,
     inactiveText,
     leadingVisual: leadingVisualProp,
-    selected,
     size = 'medium',
     trailingAction: trailingActionProp,
     trailingVisual: trailingVisualProp,
@@ -626,17 +703,19 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
   const renderedTrailingAction = inactiveText ? null : trailingAction
   const trailingActionLoading = isTrailingActionLoading(renderedTrailingAction)
   const LinkElement = inactiveText ? 'span' : 'a'
+  const itemState = {active, inactive: Boolean(inactiveText), trailingActionLoading, variant}
 
   return (
     <li
       data-component="ActionList.LinkItem"
+      {...getActionItemStateAttributes(itemState)}
       data-trailing-action-loading={trailingActionLoading || undefined}
       className={cn(
         'relative list-none rounded-md',
         context.variant !== 'full' && 'mx-2',
         context.itemGap && "[[data-component$='Item']+&]:mt-0.5",
         renderedTrailingAction && 'flex items-center',
-        trailingActionLoading && trailingActionLoadingClassName,
+        getActionItemStateClassName(itemState),
       )}
     >
       <LinkElement
@@ -649,16 +728,12 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
           size === 'small' && 'py-1',
           size === 'large' && 'py-2.5',
           renderedTrailingAction && 'min-w-0 flex-1',
-          variant === 'danger' && 'text-danger hover:bg-[var(--control-danger-bgColor-hover)]',
-          selected && 'bg-accent-muted',
-          active && 'bg-[var(--control-transparent-bgColor-selected)]',
-          inactiveText && 'cursor-not-allowed text-muted hover:bg-transparent',
+          inactiveText && 'cursor-not-allowed',
           className,
         )}
         data-active={active || undefined}
         data-has-description={hasDescription}
         data-inactive={inactiveText ? true : undefined}
-        data-selected={selected || undefined}
         data-size={size}
       >
         <ActionItemContent
@@ -680,8 +755,8 @@ export interface ActionListGroupProps
     RegionProps<'heading'> {
   /** Heading text for the group, as an alternative to supplying a heading child. */
   title?: React.ReactNode
-  /** Overrides the list's selection behaviour for this group. */
-  selectionVariant?: SelectionVariant
+  /** Overrides the list's selection behaviour for this group. `false` renders the group's items without selection. */
+  selectionVariant?: SelectionVariant | false
 }
 
 const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function ActionListGroup(
@@ -805,14 +880,22 @@ const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'
 const LeadingVisual = ({className, ...props}: React.ComponentPropsWithoutRef<'span'>) => (
   <span
     {...props}
-    className={cn('flex min-h-5 min-w-max shrink-0 items-center leading-5 text-muted', className)}
+    className={cn(
+      'flex min-h-5 min-w-max shrink-0 items-center leading-5',
+      actionItemPartClassName.leadingVisual,
+      className,
+    )}
     data-component="ActionList.LeadingVisual"
   />
 )
 const TrailingVisual = ({className, ...props}: React.ComponentPropsWithoutRef<'span'>) => (
   <span
     {...props}
-    className={cn('ml-auto flex min-h-5 min-w-max shrink-0 items-center text-sm leading-5 text-muted', className)}
+    className={cn(
+      'ml-auto flex min-h-5 min-w-max shrink-0 items-center text-sm leading-5',
+      actionItemPartClassName.trailingVisual,
+      className,
+    )}
     data-component="ActionList.TrailingVisual"
   />
 )
@@ -826,8 +909,8 @@ const Description = ({className, truncate, variant = 'inline', ...props}: Action
   <span
     {...props}
     className={cn(
-      'text-xs text-muted',
-      'leading-4',
+      'text-xs leading-4',
+      actionItemPartClassName.description,
       variant === 'block' && 'block w-full basis-full',
       truncate && 'overflow-hidden text-ellipsis whitespace-nowrap',
       className,

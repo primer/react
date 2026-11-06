@@ -22,10 +22,11 @@ const lipsum = Array.from({length: 5}, (_, index) => (
   </p>
 ))
 
-const content = (title: string) => (
+const content = (title: string, subtitle?: string) => (
   <>
     <Dialog.Header>
       <Dialog.Title>{title}</Dialog.Title>
+      {subtitle ? <Dialog.Subtitle>{subtitle}</Dialog.Subtitle> : null}
       <Dialog.CloseButton />
     </Dialog.Header>
     <Dialog.Body>{lipsum}</Dialog.Body>
@@ -48,6 +49,7 @@ export const Default: Story = {
 interface PlaygroundArgs extends Pick<DialogContentProps, 'align' | 'height' | 'width'> {
   positionNarrow: Extract<DialogPositionValue, 'center' | 'bottom' | 'fullscreen'> | 'inherit'
   positionRegular: Extract<DialogPositionValue, 'center' | 'left' | 'right'>
+  subtitle: string
   title: string
 }
 
@@ -56,6 +58,7 @@ export const Playground: StoryObj<PlaygroundArgs> = {
     height: 'auto',
     positionNarrow: 'inherit',
     positionRegular: 'center',
+    subtitle: 'Subtitle',
     title: 'Dialog heading',
     width: 'xlarge',
   },
@@ -74,20 +77,21 @@ export const Playground: StoryObj<PlaygroundArgs> = {
       options: ['center', 'left', 'right'],
       table: {category: 'Responsive props'},
     },
+    subtitle: {control: 'text'},
     title: {control: 'text'},
     width: {
       control: 'text',
       description: 'Named size (small, medium, large, xlarge) or a custom CSS width value (e.g. 400px, 80rem)',
     },
   },
-  render: ({positionNarrow, positionRegular, title, ...contentProps}) => (
+  render: ({positionNarrow, positionRegular, subtitle, title, ...contentProps}) => (
     <Dialog modal="trap-focus">
       <Dialog.Trigger render={<Button>Show dialog</Button>} />
       <Dialog.Content
         {...contentProps}
         position={positionNarrow === 'inherit' ? positionRegular : {narrow: positionNarrow, regular: positionRegular}}
       >
-        {content(title)}
+        {content(title, subtitle)}
       </Dialog.Content>
     </Dialog>
   ),

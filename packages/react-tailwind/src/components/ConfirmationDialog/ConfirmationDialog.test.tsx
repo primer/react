@@ -83,6 +83,66 @@ describe('ConfirmationDialog', () => {
     expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
   })
 
+  it('calls onCancel once for each dismissal path and never for confirmation', async () => {
+    const user = userEvent.setup()
+    const onCancel = vi.fn()
+    const onConfirm = vi.fn()
+    const onOpenChange = vi.fn()
+    render(
+      <ConfirmationDialog
+        title="Continue?"
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+        onOpenChange={onOpenChange}
+        trigger={<button type="button">Open</button>}
+      />,
+    )
+    const open = async () => {
+      await user.click(screen.getByRole('button', {name: 'Open'}))
+      await screen.findByRole('alertdialog')
+    }
+
+    await open()
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument())
+    expect(onCancel).toHaveBeenCalledTimes(1)
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'escape-key'}))
+
+    await open()
+    await user.click(document.querySelector('[data-component="ConfirmationDialog.Backdrop"]')!)
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument())
+    expect(onCancel).toHaveBeenCalledTimes(2)
+
+    await open()
+    await user.click(screen.getByRole('button', {name: 'Cancel'}))
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument())
+    expect(onCancel).toHaveBeenCalledTimes(3)
+
+    await open()
+    await user.click(screen.getByRole('button', {name: 'Confirm'}))
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument())
+    expect(onCancel).toHaveBeenCalledTimes(3)
+    expect(onConfirm).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not call onCancel when the consumer cancels the close', async () => {
+    const user = userEvent.setup()
+    const onCancel = vi.fn()
+    render(
+      <ConfirmationDialog
+        defaultOpen
+        title="Continue?"
+        onCancel={onCancel}
+        onOpenChange={(_open, details) => details.cancel()}
+      />,
+    )
+
+    await screen.findByRole('alertdialog')
+    await user.keyboard('{Escape}')
+    expect(screen.getByRole('alertdialog')).toBeInTheDocument()
+    expect(onCancel).not.toHaveBeenCalled()
+  })
+
   it('uses semantic modal backdrop styles with high-contrast and reduced-motion support', () => {
     render(<ConfirmationDialog defaultOpen title="Continue?" />)
 
@@ -92,5 +152,25 @@ describe('ConfirmationDialog', () => {
       'contrast-more:bg-neutral-emphasis',
       'motion-reduce:transition-none',
     )
+  })
+
+  it('moves focus between the footer buttons with the arrow keys and Tab', async () => {
+    const user = userEvent.setup()
+    render(<ConfirmationDialog title="Continue?" trigger={<button type="button">Open</button>} />)
+    await user.click(screen.getByRole('button', {name: 'Open'}))
+    const cancel = screen.getByRole('button', {name: 'Cancel'})
+    const confirm = screen.getByRole('button', {name: 'Confirm'})
+    await waitFor(() => expect(confirm).toHaveFocus())
+    expect(cancel).toHaveAttribute('tabindex', '-1')
+
+    await user.keyboard('{ArrowLeft}')
+    expect(cancel).toHaveFocus()
+    expect(confirm).toHaveAttribute('tabindex', '-1')
+    await user.keyboard('{ArrowLeft}')
+    expect(cancel).toHaveFocus()
+    await user.tab()
+    expect(confirm).toHaveFocus()
+    await user.tab({shift: true})
+    expect(cancel).toHaveFocus()
   })
 })

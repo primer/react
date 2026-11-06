@@ -15,7 +15,7 @@ import * as Examples from './CheckboxGroup.examples.stories'
 
 <Controls of={Stories.Playground} />
 
-`CheckboxGroupProps` forwards Base UI group props. Its public value contract is `value`/`onValueChange` or `defaultValue`; `className` accepts a string or group-state callback.
+`CheckboxGroupProps` forwards Base UI group props and adds `required`. Its public value contract is `value`/`onValueChange` or `defaultValue`; `className` accepts a string or group-state callback.
 
 ## Import and composition
 
@@ -24,7 +24,7 @@ import {Checkbox} from '@primer/react-tailwind/Checkbox'
 import {CheckboxGroup} from '@primer/react-tailwind/CheckboxGroup'
 ```
 
-Compose `Checkbox` children in author order. Use a surrounding `FormControl` for labels, captions, and validation rather than group slots.
+Place `CheckboxGroup.Label`, `CheckboxGroup.Caption`, and `CheckboxGroup.Validation` directly inside the group, and compose `Checkbox` children in author order, each in a `FormControl` with its own label.
 
 ## Controlled and uncontrolled
 
@@ -34,7 +34,7 @@ Compose `Checkbox` children in author order. Use a surrounding `FormControl` for
 
 ## Accessibility, forms, and validation
 
-Name the group with `aria-label` or `aria-labelledby`, and label each checkbox. Child `name` and `value` fields form-submit independently. Disabled state prevents selection; compose `FormControl.Validation` for error or success messages.
+`CheckboxGroup.Label` names the group, and `CheckboxGroup.Validation` and `CheckboxGroup.Caption` describe it. Pass `aria-labelledby` instead when a heading elsewhere names the group; without either, an enclosing `FormControl.Label` names it. `required` marks the label and describes the group as required, since `role="group"` has no `aria-required`; it does not validate the selection. `disabled` disables every nested checkbox and mutes the label. Child `name` and `value` fields form-submit independently.
 
 ## Keyboard, events, and state
 
@@ -44,4 +44,4 @@ Space toggles the focused checkbox. `onValueChange` receives the selected value 
 
 ## Alignment
 
-The [alignment notes](./ALIGNMENT.md) explain that upstream label, caption, and validation slots are deliberately composed with `FormControl` and ARIA attributes in this Base UI group primitive.
+The [alignment notes](./ALIGNMENT.md) explain how the `Label`, `Caption`, and `Validation` parts name and describe the group compared with upstream's legend.

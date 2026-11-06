@@ -177,6 +177,14 @@
       }
     },
     {
+      "name": "Dialog.Subtitle",
+      "props": [],
+      "passthrough": {
+        "element": "Dialog.Description",
+        "url": "https://base-ui.com/react/components/dialog#description"
+      }
+    },
+    {
       "name": "Dialog.Description",
       "props": [],
       "passthrough": {
@@ -203,6 +211,7 @@
         {
           "name": "aria-label",
           "type": "string",
+          "defaultValue": "'Close'",
           "description": "Accessible name for the close button."
         },
         {

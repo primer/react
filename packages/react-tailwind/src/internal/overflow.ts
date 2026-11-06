@@ -128,6 +128,7 @@ export function useRegisterOverflowItem<Entry extends object>(
 ) {
   const id = React.useId()
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent -- Descendant registry: the parent can only learn which mounted elements overflow after commit.
     register?.(id, entry !== null && element !== null ? {element, entry} : null)
   })
   React.useEffect(() => () => register?.(id, null), [id, register])

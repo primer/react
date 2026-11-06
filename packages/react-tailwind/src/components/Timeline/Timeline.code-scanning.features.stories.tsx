@@ -99,11 +99,11 @@ export const EventDetected: Story = {
               <Time date="2024-01-09T09:30:00Z" />
               <SubRow>
                 <ShieldIcon aria-label="Workflow succeeded" className="mr-1 inline-block text-success align-middle" />
-                <Link className="font-semibold text-default hover:text-accent" href="#" inline>
+                <Link className="font-semibold text-default hover:text-accent" href="#">
                   CodeQL #128:
                 </Link>{' '}
-                Commit{' '}
-                <Link className="ml-1 font-mono text-muted" href="#" inline>
+                Commit
+                <Link className="ml-1 font-mono text-muted" href="#">
                   adfc29a
                 </Link>
               </SubRow>

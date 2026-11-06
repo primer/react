@@ -8,6 +8,7 @@ import {getButtonClassName} from '../Button/ButtonClassName'
 import type {ButtonVisual} from '../Button/ButtonVisual'
 import {ButtonContent} from '../Button/ButtonPresentation'
 import {buttonBaseClassName} from '../Button/styles'
+import {useButtonLoading} from '../Button/useButtonLoading'
 
 type LinkButtonState = {
   disabled: boolean
@@ -22,6 +23,8 @@ export interface LinkButtonProps extends Omit<React.ComponentPropsWithoutRef<'a'
   children?: React.ReactNode
   /** Number shown in a trailing counter. */
   count?: number | string
+  /** Overrides the marker used to identify this element in tests and styling. */
+  'data-component'?: string
   /** Prevents navigation and removes the link from the keyboard order. */
   disabled?: boolean
   /** Marks the link temporarily unavailable while keeping it focusable. */
@@ -58,6 +61,7 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
     children,
     className,
     count,
+    'data-component': dataComponent = 'LinkButton',
     disabled = false,
     href,
     inactive,
@@ -76,9 +80,7 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
   },
   ref,
 ) {
-  const id = React.useId()
-  const loadingAnnouncementId = `${id}-loading-announcement`
-  const labelId = `${id}-label`
+  const {ariaProps, labelId, loadingAnnouncementId} = useButtonLoading(loading, rest)
 
   return useRender<LinkButtonState, HTMLElement>({
     defaultTagName: 'a',
@@ -87,12 +89,8 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
     state: {disabled, loading},
     props: {
       ...rest,
-      'aria-busy': loading || undefined,
-      'aria-describedby': loading ? loadingAnnouncementId : rest['aria-describedby'],
-      'aria-disabled': disabled || loading || rest['aria-disabled'],
-      'aria-labelledby': loading
-        ? (rest['aria-labelledby'] ?? (rest['aria-label'] ? undefined : labelId))
-        : rest['aria-labelledby'],
+      ...ariaProps,
+      'aria-disabled': disabled || ariaProps['aria-disabled'],
       className: cn(
         buttonBaseClassName,
         getButtonClassName({
@@ -109,10 +107,11 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
         href === undefined && render === undefined && 'flex w-full',
       ),
       'data-block': block || undefined,
-      'data-component': 'LinkButton',
+      'data-component': dataComponent,
       'data-inactive': inactive || undefined,
       'data-label-wrap': labelWrap || undefined,
       'data-loading': loading,
+      'data-no-visuals': !leadingVisual && !trailingVisual && !trailingAction ? true : undefined,
       'data-size': size ?? 'medium',
       'data-variant': variant,
       href,

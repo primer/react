@@ -3,8 +3,10 @@ import {type ReactNode, useRef, useState} from 'react'
 import {Button} from '../Button'
 import {Dialog} from '../Dialog'
 import {FormControl} from '../FormControl'
+import {Spinner} from '../Spinner'
 import {Stack} from '../Stack'
 import {Token} from '../Token'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {Autocomplete} from './Autocomplete'
 
 const items = ['css', 'css-in-js', 'styled-system', 'javascript', 'typescript', 'react', 'design-systems']
@@ -205,7 +207,11 @@ export const WithCallbackWhenOverlayOpenStateChanges: Story = {
               <Autocomplete.Input id="autocomplete-input" />
               <Autocomplete.Content>
                 <Autocomplete.List>
-                  {(item: string) => <Autocomplete.Item value={item}>{item}</Autocomplete.Item>}
+                  {(item: string) => (
+                    <Autocomplete.Item key={item} value={item}>
+                      {item}
+                    </Autocomplete.Item>
+                  )}
                 </Autocomplete.List>
               </Autocomplete.Content>
             </Autocomplete>
@@ -219,16 +225,41 @@ export const WithCallbackWhenOverlayOpenStateChanges: Story = {
   },
 }
 
+function AsyncAutocomplete() {
+  const [loadedItems, setLoadedItems] = useState<string[]>([])
+  const loading = loadedItems.length === 0
+
+  return (
+    <Autocomplete
+      items={loadedItems}
+      onOpenChange={isOpen => {
+        if (isOpen && loading) window.setTimeout(() => setLoadedItems(items), 1500)
+      }}
+    >
+      <Autocomplete.Input id="autocomplete-input" />
+      <Autocomplete.Content aria-busy={loading || undefined}>
+        {loading ? (
+          <Autocomplete.Status className="flex justify-center p-4">
+            <Spinner srText={null} />
+            <VisuallyHidden>Loading items…</VisuallyHidden>
+          </Autocomplete.Status>
+        ) : null}
+        <Autocomplete.List>
+          {(item: string) => (
+            <Autocomplete.Item key={item} value={item}>
+              {item}
+            </Autocomplete.Item>
+          )}
+        </Autocomplete.List>
+      </Autocomplete.Content>
+    </Autocomplete>
+  )
+}
+
 export const AsyncLoadingOfItems: Story = {
   render: () => (
-    <FieldFixture>
-      <Autocomplete items={[]}>
-        <Autocomplete.Input id="autocomplete-input" />
-        <Autocomplete.Content>
-          <Autocomplete.List>{() => <Autocomplete.Item value="loading">Loading</Autocomplete.Item>}</Autocomplete.List>
-          <Autocomplete.Status>Loading items…</Autocomplete.Status>
-        </Autocomplete.Content>
-      </Autocomplete>
+    <FieldFixture label="Label">
+      <AsyncAutocomplete />
     </FieldFixture>
   ),
 }

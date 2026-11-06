@@ -8,6 +8,7 @@ Renders an [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
 
 ## Props
 
+- `disableFocusZone`: `boolean` — Default `false`. Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the tab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys.
 - `disableItemGap`: `boolean` — Default `false`. Disable the gap between items when this list is rendered in a `NavList`.
 - `heading`: `React.ReactNode`
 - `selectionVariant`: `SelectionVariant` — How many items may be selected, which also decides the list's ARIA role.
@@ -18,6 +19,7 @@ Renders an [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
 
 Renders an [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
+- `disableFocusZone`: `boolean` — Default `false`. Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the tab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys.
 - `disableItemGap`: `boolean` — Default `false`. Disable the gap between items when this list is rendered in a `NavList`.
 - `heading`: `React.ReactNode` — Supplies the heading region. Takes precedence over a matching `ActionList.Heading` child.
 - `selectionVariant`: `SelectionVariant` — How many items may be selected, which also decides the list's ARIA role.
@@ -32,7 +34,7 @@ Forwards unrecognized props to Base UI's [`Button`](https://base-ui.com/react/co
 - `children`: `React.ReactElement[]`
 - `className`: `string`
 - `description`: `React.ReactNode` — Supplies the description region. Takes precedence over a matching `ActionList.Description` child.
-- `disabled`: `boolean` — Prevents activation and removes the item from the keyboard order.
+- `disabled`: `boolean` — Prevents activation. In a list the item also leaves the keyboard order; in a menu or listbox it stays focusable and is marked `aria-disabled`, so keyboard users can still discover it.
 - `inactiveText`: `React.ReactNode` — Marks the item temporarily unavailable and explains why. Unlike `disabled`, the item stays reachable.
 - `leadingVisual`: `React.ReactNode` — Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child.
 - `loading`: `boolean` — Default `false`. Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation.
@@ -52,7 +54,6 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 - `description`: `React.ReactNode` — Supplies the description region. Takes precedence over a matching `ActionList.Description` child.
 - `inactiveText`: `React.ReactNode` — Marks the link temporarily unavailable and explains why. The link renders as text until it is available.
 - `leadingVisual`: `React.ReactNode` — Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child.
-- `selected`: `boolean` — Marks the link as the current one.
 - `size`: `"large" | "medium" | "small"` — Default `'medium'`. Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target.
 - `trailingAction`: `React.ReactNode` — Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child.
 - `trailingVisual`: `React.ReactNode` — Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child.
@@ -63,7 +64,7 @@ Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#a
 Renders a [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `heading`: `React.ReactNode` — Supplies the heading region. Takes precedence over a matching `ActionList.GroupHeading` child.
-- `selectionVariant`: `SelectionVariant` — Overrides the list's selection behaviour for this group.
+- `selectionVariant`: `false | SelectionVariant` — Overrides the list's selection behaviour for this group. `false` renders the group's items without selection.
 - `title`: `React.ReactNode` — Heading text for the group, as an alternative to supplying a heading child.
 
 ## ActionList.GroupHeading
@@ -119,6 +120,7 @@ Renders a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 - `loading`: `boolean` — Replaces the leading visual with a spinner and suppresses activation. Replaces the leading visual with a spinner and suppresses navigation.
 - `loadingAnnouncement`: `string` — Text announced to assistive technology while the button is loading. Text announced to assistive technology while the link is loading.
 - `style`: `React.CSSProperties`
+- `tooltipDirection`: `TooltipDirection` — Default `'w'`. Side and alignment of the tooltip that shows `label` for an icon action.
 
 ## Differences from `@primer/react`
 

@@ -14,7 +14,11 @@ describe('Autocomplete', () => {
         <Autocomplete.Input aria-label="Fruit" />
         <Autocomplete.Content>
           <Autocomplete.List>
-            {(fruit: string) => <Autocomplete.Item value={fruit}>{fruit}</Autocomplete.Item>}
+            {(fruit: string) => (
+              <Autocomplete.Item key={fruit} value={fruit}>
+                {fruit}
+              </Autocomplete.Item>
+            )}
           </Autocomplete.List>
         </Autocomplete.Content>
       </Autocomplete>,
@@ -32,7 +36,11 @@ describe('Autocomplete', () => {
           <Autocomplete.Input aria-label="Fruit" />
           <Autocomplete.Content portal={false}>
             <Autocomplete.List>
-              {(fruit: string) => <Autocomplete.Item value={fruit}>{fruit}</Autocomplete.Item>}
+              {(fruit: string) => (
+                <Autocomplete.Item key={fruit} value={fruit}>
+                  {fruit}
+                </Autocomplete.Item>
+              )}
             </Autocomplete.List>
           </Autocomplete.Content>
         </Autocomplete>

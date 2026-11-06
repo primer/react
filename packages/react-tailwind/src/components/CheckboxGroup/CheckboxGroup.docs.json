@@ -40,6 +40,12 @@
     {
       "name": "className",
       "type": "string | ((state: CheckboxGroupState) => string | undefined)"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Marks a choice as required: the label shows a required marker and the group is described as required."
     }
   ],
   "subcomponents": [
@@ -47,22 +53,26 @@
       "name": "CheckboxGroup.Label",
       "props": [
         {
+          "name": "className",
+          "type": "string | ((state: FieldsetLegendState) => string | undefined)"
+        },
+        {
           "name": "visuallyHidden",
           "type": "boolean",
           "description": "Hides the label visually while keeping it available to assistive technology."
         }
       ],
       "passthrough": {
-        "element": "div",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+        "element": "Fieldset.Legend",
+        "url": "https://base-ui.com/react/components/fieldset#legend"
       }
     },
     {
       "name": "CheckboxGroup.Caption",
       "props": [],
       "passthrough": {
-        "element": "p",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes"
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
       }
     },
     {

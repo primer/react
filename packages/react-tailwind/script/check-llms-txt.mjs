@@ -6,7 +6,12 @@ import {execFileSync} from 'node:child_process'
 const packageRoot = path.resolve(import.meta.dirname, '..')
 const outputPath = path.join(packageRoot, 'llms.txt')
 
-const before = await readFile(outputPath, 'utf8').catch(() => undefined)
+let before
+try {
+  before = await readFile(outputPath, 'utf8')
+} catch {
+  before = undefined
+}
 
 execFileSync(process.execPath, [path.join(packageRoot, 'script', 'generate-llms-txt.mjs')], {stdio: 'inherit'})
 

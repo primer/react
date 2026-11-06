@@ -34,8 +34,5 @@ export const Default: Story = {
 }
 
 export const Playground: Story = {
-  args: {
-    when: ['narrow', 'wide'],
-  },
   render: args => <Hidden {...args}>The content is hidden when the viewport is {Array(args.when).join(',')}</Hidden>,
 }

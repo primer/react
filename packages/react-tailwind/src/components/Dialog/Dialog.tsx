@@ -1,13 +1,12 @@
 'use client'
 
-import {XIcon} from '@primer/octicons-react'
 import {Dialog as BaseDialog} from '@base-ui/react/dialog'
 import React from 'react'
+import {CloseIconButton, type CloseIconButtonProps} from '../../internal/CloseIconButton'
 import {cn} from '../../internal/cn'
 import {FloatingPortal} from '../../internal/FloatingPortal'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {mergeStyle} from '../../internal/mergeStyle'
-import {IconButton} from '../IconButton'
 import {usePortalContainer} from '../../internal/portalRoot'
 import {
   getDialogPosition,
@@ -184,19 +183,14 @@ function Portal({children, container, ...rest}: BaseDialog.Portal.Props) {
   )
 }
 
+// Header content stacks in the first column with upstream's 16px/14px inset. The close button takes the top of the
+// second column and is pulled into the 8px header padding so it doesn't add height.
+const headerClassName =
+  'z-1 grid max-h-[35vh] shrink-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-x-2 overflow-y-auto py-3.5 pr-2 pl-4 shadow-[0_1px_0_var(--borderColor-default)] *:col-start-1 [&>[data-component="Dialog.CloseButton"]]:col-start-2 [&>[data-component="Dialog.CloseButton"]]:row-start-1 [&>[data-component="Dialog.CloseButton"]]:-my-1.5'
+
 const Header = React.forwardRef<HTMLDivElement, Omit<React.ComponentPropsWithoutRef<'div'>, 'data-component'>>(
   function DialogHeader({className, ...rest}, ref) {
-    return (
-      <div
-        {...rest}
-        ref={ref}
-        className={cn(
-          'flex min-h-[49px] items-start justify-between gap-4 p-2 shadow-[0_1px_0_var(--borderColor-default)]',
-          className,
-        )}
-        data-component="Dialog.Header"
-      />
-    )
+    return <div {...rest} ref={ref} className={cn(headerClassName, className)} data-component="Dialog.Header" />
   },
 )
 
@@ -208,11 +202,24 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<BaseDialog.Title.Props, 
     <BaseDialog.Title
       {...rest}
       ref={ref}
-      className={mergeClassName('m-0 mt-1.5 ml-2 flex-1 text-sm font-semibold text-default', className)}
+      className={mergeClassName('m-0 text-sm font-semibold text-default', className)}
       data-component="Dialog.Title"
     />
   )
 })
+
+const Subtitle = React.forwardRef<HTMLParagraphElement, Omit<BaseDialog.Description.Props, 'data-component'>>(
+  function DialogSubtitle({className, ...rest}, ref) {
+    return (
+      <BaseDialog.Description
+        {...rest}
+        ref={ref}
+        className={mergeClassName('m-0 mt-1 text-xs/normal font-normal text-muted', className)}
+        data-component="Dialog.Subtitle"
+      />
+    )
+  },
+)
 
 const Description = React.forwardRef<HTMLParagraphElement, Omit<BaseDialog.Description.Props, 'data-component'>>(
   function DialogDescription({className, ...rest}, ref) {
@@ -241,37 +248,17 @@ const Footer = React.forwardRef<HTMLDivElement, Omit<React.ComponentPropsWithout
       <div
         {...rest}
         ref={ref}
-        className={cn('flex flex-wrap justify-end gap-2 p-4', className)}
+        className={cn('z-1 flex shrink-0 flex-wrap justify-end gap-2 p-4', className)}
         data-component="Dialog.Footer"
       />
     )
   },
 )
 
-export interface DialogCloseButtonProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof IconButton>,
-    'aria-label' | 'data-component' | 'icon' | 'variant'
-  > {
-  /** Accessible name for the close button. */
-  'aria-label'?: string
-}
+export type DialogCloseButtonProps = Omit<CloseIconButtonProps, 'data-component'>
 
 const CloseButton = React.forwardRef<HTMLElement, DialogCloseButtonProps>(function DialogCloseButton(props, ref) {
-  return (
-    <Close
-      ref={ref}
-      render={
-        <IconButton
-          {...props}
-          icon={XIcon}
-          aria-label={props['aria-label'] ?? 'Close'}
-          data-component="Dialog.CloseButton"
-          variant="invisible"
-        />
-      }
-    />
-  )
+  return <Close ref={ref} render={<CloseIconButton {...props} data-component="Dialog.CloseButton" />} />
 })
 
 const Close = React.forwardRef<HTMLElement, Omit<BaseDialog.Close.Props, 'data-component'>>(function DialogClose(
@@ -297,6 +284,7 @@ export const Dialog = Object.assign(Root, {
   Backdrop,
   Viewport,
   Title,
+  Subtitle,
   Description,
   Close,
   CloseButton,

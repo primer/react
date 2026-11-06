@@ -26,15 +26,16 @@ Because Tailwind silently ignores an unknown class, the package runs a build che
 
 ## Composition
 
-Interactive components are built on Base UI, so use `render` to project behavior onto another element rather than `as`.
+Interactive components are built on Base UI, so use `render` to project behavior onto another element rather than `as`. Use `LinkButton` for navigation: a Base UI button rendered onto a non-`<button>` element (with `nativeButton={false}`) gets `role="button"`, even on a link.
 
 ```tsx
 // Before
 <Button as="a" href="/settings">Settings</Button>
+<Button as={RouterLink} to="/settings">Settings</Button>
 
 // After
 <LinkButton href="/settings">Settings</LinkButton>
-<Button render={<a href="/settings" />}>Settings</Button>
+<LinkButton render={<RouterLink to="/settings" />}>Settings</LinkButton>
 ```
 
 Presentational components still take `as`, for example `<Stack as="section">`, `<Text as="span">`, and `<Card as="article">`.

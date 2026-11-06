@@ -4,6 +4,7 @@ import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {Button} from '../Button'
+import {Link} from '../Link'
 import {LinkButton} from '../LinkButton'
 
 const blankslate = cva('grid justify-items-center p-8 text-center', {
@@ -173,9 +174,9 @@ export function BlankslateSecondaryAction({
       )}
       data-component="Blankslate.SecondaryAction"
     >
-      <a className={cn('text-accent underline', className)} href={href}>
+      <Link className={className} href={href}>
         {children}
-      </a>
+      </Link>
     </div>
   )
 }

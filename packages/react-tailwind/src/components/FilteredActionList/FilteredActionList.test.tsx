@@ -13,6 +13,32 @@ const fruit = [
 ]
 
 describe('FilteredActionList', () => {
+  it('names the select-all checkbox with its visible label, which toggles every option', async () => {
+    const user = userEvent.setup()
+    const onSelectAllChange = vi.fn()
+    render(<FilteredActionList items={fruit} onSelectAllChange={onSelectAllChange} selectionVariant="multiple" />)
+
+    expect(screen.getByRole('checkbox', {name: 'Select all'})).not.toBeChecked()
+    await user.click(screen.getByText('Select all'))
+
+    expect(onSelectAllChange).toHaveBeenCalledWith(true)
+    expect(screen.getByRole('checkbox', {name: 'Deselect all'})).toBeChecked()
+    for (const option of screen.getAllByRole('option')) {
+      expect(option).toHaveAttribute('aria-selected', 'true')
+      expect(option.querySelector('[data-component="ActionList.Selection"] > span')).toHaveAttribute('data-checked')
+    }
+  })
+
+  it('draws a radio for each option of a radio list', () => {
+    render(<FilteredActionList defaultSelectedItemIds={['apple']} items={fruit} selectionVariant="radio" />)
+
+    const visualOf = (name: string) =>
+      screen.getByRole('option', {name}).querySelector('[data-component="ActionList.Selection"] > span')
+    expect(visualOf('Apple')).toHaveClass('rounded-full')
+    expect(visualOf('Apple')).toHaveAttribute('data-checked')
+    expect(visualOf('Banana')).not.toHaveAttribute('data-checked')
+  })
+
   it('keeps numeric and string IDs distinct in uncontrolled multiple selection', async () => {
     const user = userEvent.setup()
     render(
@@ -384,11 +410,12 @@ describe('FilteredActionList', () => {
         scrollBehavior="smooth"
         scrollContainerRef={scrollRef}
         setInitialFocus
-        textInputProps={{name: 'filter'}}
+        textInputProps={{id: 'fruit-filter', name: 'filter'}}
       />,
     )
 
     const input = container.querySelector<HTMLInputElement>('input[name="filter"]')!
+    expect(input).toHaveAttribute('id', 'fruit-filter')
     const listbox = screen.getByRole('listbox')
     const apple = screen.getByRole('option', {name: 'Apple'})
     apple.scrollIntoView = vi.fn()

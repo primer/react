@@ -1,4 +1,4 @@
-import {cleanup, render, screen, within} from '@testing-library/react'
+import {cleanup, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
@@ -178,6 +178,56 @@ describe('UnderlineNav overflow', () => {
 
     await user.click(items[0])
     expect(onSelect).toHaveBeenCalledOnce()
+  })
+
+  it('keeps keyboard order on visible items and returns focus to More after selecting an overflow item', async () => {
+    const user = userEvent.setup()
+    stubIntersectionObserver()
+    const names = ['Code', 'Issues', 'Pull requests', 'Projects', 'Settings']
+    function Navigation() {
+      const [current, setCurrent] = React.useState('Issues')
+      return (
+        <UnderlineNav aria-label="Repository">
+          {names.map(name => (
+            <UnderlineNav.Item
+              key={name}
+              aria-current={name === current ? 'page' : undefined}
+              href={`/${name}`}
+              onSelect={event => {
+                event.preventDefault()
+                setCurrent(name)
+              }}
+            >
+              {name}
+            </UnderlineNav.Item>
+          ))}
+        </UnderlineNav>
+      )
+    }
+    render(<Navigation />)
+    const item = (name: string) => screen.getByRole('link', {name}).closest('li')!
+    clip(item('Projects'), item('Settings'))
+    const more = screen.getByRole('button', {name: /^More\s?items$/})
+
+    screen.getByRole('link', {name: 'Code'}).focus()
+    for (const name of ['Issues', 'Pull requests']) {
+      await user.tab()
+      expect(document.activeElement).toHaveTextContent(name)
+    }
+    await user.tab()
+    expect(more).toHaveFocus()
+
+    await user.keyboard('{Enter}')
+    await waitFor(() => expect(document.activeElement).toHaveTextContent(/^Projects/))
+    await user.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveTextContent(/^Settings/)
+    await user.keyboard('{Enter}')
+
+    await waitFor(() => expect(more).toHaveFocus())
+    expect(more).toHaveAccessibleName('More items, including current item')
+    expect(screen.getByRole('link', {name: 'Issues'})).not.toHaveAttribute('aria-current')
+    await user.tab({shift: true})
+    expect(document.activeElement).toHaveTextContent('Pull requests')
   })
 
   it('restores items once they fit again', () => {

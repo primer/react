@@ -4,6 +4,7 @@ import {KebabHorizontalIcon} from '@primer/octicons-react'
 import React from 'react'
 import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
+import {mergeRefs} from '../../internal/refs'
 import {ActionMenu} from '../ActionMenu'
 
 export interface BreadcrumbsProps extends React.ComponentPropsWithoutRef<'nav'> {
@@ -89,7 +90,8 @@ function Separator({compact = false}: {compact?: boolean}) {
     return (
       <span
         aria-hidden="true"
-        className="mx-[0.5em] inline-block h-[0.8em] translate-y-[0.0625em] rotate-[15deg] border-r-[0.1em] border-r-[color:var(--fgColor-muted)] align-middle"
+        // One `transform` (not `rotate-*`/`translate-*`) so the offset follows the rotated axis, as upstream does.
+        className="mx-[0.5em] inline-block h-[0.8em] transform-[rotate(15deg)_translateY(0.0625em)] border-r-[0.1em] border-r-[color:var(--fgColor-muted)]"
       />
     )
   }
@@ -134,11 +136,7 @@ const BreadcrumbsRoot = React.forwardRef<HTMLElement, BreadcrumbsProps>(function
     </li>
   ))
   const preserveRootOrder = showRoot
-  const ref = (node: HTMLElement | null) => {
-    localRef.current = node
-    if (typeof forwardedRef === 'function') forwardedRef(node)
-    else if (forwardedRef) (forwardedRef as React.MutableRefObject<HTMLElement | null>).current = node
-  }
+  const ref = mergeRefs(localRef, forwardedRef)
 
   return (
     <nav
@@ -210,7 +208,9 @@ const BreadcrumbsItem = React.forwardRef<HTMLElement, BreadcrumbsItemProps>(func
       ref={ref}
       aria-current={selected ? 'page' : undefined}
       className={cn(
-        'inline-block text-[length:var(--text-body-size-medium)] leading-[var(--text-body-lineHeight-medium)] text-accent no-underline hover:underline group-data-[variant=spacious]:rounded-md group-data-[variant=spacious]:px-1.5 group-data-[variant=spacious]:py-1 group-data-[variant=spacious]:text-default group-data-[variant=spacious]:hover:bg-muted group-data-[variant=spacious]:hover:no-underline',
+        'inline-block text-[length:var(--text-body-size-medium)] leading-[var(--text-body-lineHeight-medium)] text-accent no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'group-data-[variant=normal]:focus-visible:rounded-sm group-data-[variant=normal]:focus-visible:no-underline group-data-[variant=normal]:[&:not([aria-current])]:hover:underline',
+        'group-data-[variant=spacious]:rounded-md group-data-[variant=spacious]:px-1.5 group-data-[variant=spacious]:py-1 group-data-[variant=spacious]:text-default group-data-[variant=spacious]:hover:bg-[var(--control-transparent-bgColor-hover)]',
         selected && 'text-default group-data-[variant=spacious]:font-semibold',
         className,
       )}

@@ -9,6 +9,7 @@ import {type ButtonVisual} from './ButtonVisual'
 import {ButtonContent} from './ButtonPresentation'
 import {getNotificationIndicatorClassName, type NotificationIndicatorPlacement} from './notificationIndicator'
 import {buttonBaseClassName} from './styles'
+import {useButtonLoading} from './useButtonLoading'
 
 export interface ButtonBaseProps extends React.ComponentPropsWithoutRef<typeof BaseButton> {
   /** Overrides the marker used to identify this element in tests and styling. */
@@ -99,9 +100,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
   ref,
 ) {
   const loadingState = Boolean(loading)
-  const id = React.useId()
-  const loadingAnnouncementId = `${id}-loading-announcement`
-  const labelId = `${id}-label`
+  const {ariaProps, labelId, loadingAnnouncementId} = useButtonLoading(loadingState, rest)
 
   if (process.env.NODE_ENV !== 'production' && notificationIndicator === 'leadingVisual' && !leadingVisual) {
     // eslint-disable-next-line no-console
@@ -117,12 +116,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
       nativeButton={nativeButton}
       type={nativeButton ? (type ?? 'button') : type}
       disabled={disabled}
-      aria-busy={loadingState || undefined}
-      aria-disabled={loadingState || rest['aria-disabled']}
-      aria-describedby={loadingState ? loadingAnnouncementId : rest['aria-describedby']}
-      aria-labelledby={
-        loadingState ? (rest['aria-labelledby'] ?? (rest['aria-label'] ? undefined : labelId)) : rest['aria-labelledby']
-      }
+      {...ariaProps}
       data-component={dataComponent}
       data-block={block || undefined}
       data-inactive={inactive || undefined}

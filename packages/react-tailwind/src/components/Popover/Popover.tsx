@@ -55,11 +55,13 @@ const Trigger = React.forwardRef<HTMLElement, PopoverTriggerProps>(function Popo
 export type PopoverButtonProps = Omit<ButtonProps, 'data-component' | 'render'>
 
 const ButtonTrigger = React.forwardRef<HTMLElement, PopoverButtonProps>(function PopoverButton(
-  {children, disabled, loading, ...rest},
+  {children, disabled, id, loading, ...rest},
   ref,
 ) {
   return (
     <BasePopover.Trigger
+      // The trigger tracks its open state by `id`, so it must not be overridden on the render element.
+      id={id}
       disabled={disabled || loading}
       ref={ref as React.Ref<HTMLButtonElement>}
       render={<Button {...rest} disabled={disabled} loading={loading} data-component="Popover.Button" />}

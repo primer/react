@@ -36,6 +36,18 @@ it('uses block flex sizing for a native anchor without an href', () => {
   expect(container.firstElementChild).not.toHaveAttribute('role', 'button')
 })
 
+it('marks a link without visuals so link underlines can target the whole control', () => {
+  const {rerender} = render(<LinkButton href="/docs">Docs</LinkButton>)
+  expect(screen.getByRole('link', {name: 'Docs'})).toHaveAttribute('data-no-visuals', 'true')
+
+  rerender(
+    <LinkButton href="/docs" leadingVisual={() => <svg aria-hidden="true" />}>
+      Docs
+    </LinkButton>,
+  )
+  expect(screen.getByRole('link', {name: 'Docs'})).not.toHaveAttribute('data-no-visuals')
+})
+
 it('reuses Button content parts and loading behavior', () => {
   const onClick = vi.fn()
   const {container, rerender} = render(
@@ -58,6 +70,32 @@ it('reuses Button content parts and loading behavior', () => {
   fireEvent.click(loadingLink)
   expect(onClick).not.toHaveBeenCalled()
   expect(loadingLink).toHaveAttribute('aria-busy', 'true')
+})
+
+it('keeps consumer descriptions alongside the loading announcement', () => {
+  render(
+    <>
+      <LinkButton aria-describedby="publish-hint" href="/publish" loading>
+        Publish
+      </LinkButton>
+      <span id="publish-hint">Saves the draft</span>
+    </>,
+  )
+
+  expect(screen.getByRole('link', {name: 'Publish'})).toHaveAccessibleDescription('Loading Saves the draft')
+})
+
+it('lets composed components replace its data-component marker', () => {
+  render(
+    <LinkButton data-component="SelectPanel.SecondaryActionLink" href="/labels">
+      Edit labels
+    </LinkButton>,
+  )
+
+  expect(screen.getByRole('link', {name: 'Edit labels'})).toHaveAttribute(
+    'data-component',
+    'SelectPanel.SecondaryActionLink',
+  )
 })
 
 it('composes a custom router link through render', () => {

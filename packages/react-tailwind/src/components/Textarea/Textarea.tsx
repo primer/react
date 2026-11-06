@@ -5,10 +5,11 @@ import React from 'react'
 import {CharacterCounter} from '../../internal/CharacterCounter'
 import {useCharacterLimit} from '../../internal/useCharacterLimit'
 import {cn} from '../../internal/cn'
-import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
+import {joinIdRefs} from '../../internal/idRefs'
+import {useFormControlForwardedProps, useFormControlValidationStatus} from '../FormControl/useFormControlForwardedProps'
 
 const textareaVariants = cva(
-  'block m-0 appearance-none rounded-md border border-[var(--control-borderColor-rest)] bg-default p-3 text-sm [line-height:normal] text-default shadow-[var(--shadow-inset)] outline-none placeholder:text-muted disabled:cursor-not-allowed disabled:resize-none disabled:border-[var(--control-borderColor-disabled)] disabled:bg-[var(--control-bgColor-disabled)] disabled:text-disabled disabled:shadow-none focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-focus data-[validation=success]:border-success-emphasis aria-invalid:border-danger-emphasis aria-invalid:focus:border-[var(--control-borderColor-danger)] aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
+  'block m-0 appearance-none rounded-md border border-[var(--control-borderColor-rest)] bg-default p-3 text-sm [line-height:normal] text-default shadow-[var(--shadow-inset)] placeholder:text-muted disabled:cursor-not-allowed disabled:resize-none disabled:border-[var(--control-borderColor-disabled)] disabled:bg-[var(--control-bgColor-disabled)] disabled:text-disabled disabled:shadow-none focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-[var(--borderColor-accent-emphasis)] data-[validation=success]:border-[var(--bgColor-success-emphasis)] aria-invalid:border-danger-emphasis aria-invalid:focus:border-[var(--control-borderColor-danger)] aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
   {
     variants: {
       autoSize: {true: '[field-sizing:content]', false: ''},
@@ -18,6 +19,9 @@ const textareaVariants = cva(
     defaultVariants: {autoSize: false, block: false, resize: 'both'},
   },
 )
+
+// Primer measures min/max height inside the control border (its wrapper owns the border), so add our 1px `border` on both edges.
+const withBorder = (size: number | undefined) => (size === undefined ? undefined : size + 2)
 
 export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'data-component'> {
   /** Grows the textarea to fit its content, using CSS `field-sizing`. */
@@ -59,8 +63,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
 ) {
   const forwardedProps = useFormControlForwardedProps(rest)
   const {characterLimitId, counter, onValueChange} = useCharacterLimit({characterLimit, defaultValue, value})
-  const effectiveValidation = counter?.isOverLimit || forwardedProps['aria-invalid'] ? 'error' : validationStatus
-  const describedBy = [forwardedProps['aria-describedby'], characterLimitId].filter(Boolean).join(' ') || undefined
+  const fieldValidationStatus = useFormControlValidationStatus()
+  const effectiveValidation =
+    counter?.isOverLimit || forwardedProps['aria-invalid'] ? 'error' : (validationStatus ?? fieldValidationStatus)
+  const describedBy = joinIdRefs(forwardedProps['aria-describedby'], characterLimitId)
 
   return (
     <>
@@ -82,7 +88,11 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
           onChange?.(event)
         }}
         rows={rows}
-        style={minHeight === undefined && maxHeight === undefined ? style : {minHeight, maxHeight, ...style}}
+        style={
+          minHeight === undefined && maxHeight === undefined
+            ? style
+            : {minHeight: withBorder(minHeight), maxHeight: withBorder(maxHeight), ...style}
+        }
         value={value}
       />
       {counter && characterLimit !== undefined && characterLimitId ? (

@@ -26,7 +26,7 @@ import {Popover} from '@primer/react-tailwind'
 </Popover>
 ```
 
-Give interactive content an appropriate role and label. Keep a visible keyboard focus indicator and a clear close path.
+Give interactive content an appropriate role and label. Keep a visible keyboard focus indicator and a clear close path. Set `id` on `Popover.Button` or `Popover.Trigger` rather than on a rendered element, because the trigger tracks its open state by its `id`.
 
 <Canvas of={Features.CloseOnClickOutside} />
 

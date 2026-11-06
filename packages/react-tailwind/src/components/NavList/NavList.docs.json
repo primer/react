@@ -330,6 +330,12 @@
         {
           "name": "style",
           "type": "React.CSSProperties"
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'w'",
+          "description": "Side and alignment of the tooltip that shows `label` for an icon action."
         }
       ],
       "passthrough": {

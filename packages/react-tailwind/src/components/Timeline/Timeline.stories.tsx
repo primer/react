@@ -269,7 +269,7 @@ function EventPlaygroundStory(args: EventPlaygroundArgs) {
                 src={avatarSrc}
               />
             ) : null}
-            <Link className="inline font-semibold text-default" href="#" muted>
+            <Link className="inline font-semibold text-default hover:text-default" href="#" muted>
               {resolvedActorName}
             </Link>{' '}
             {args.summaryText}{' '}
@@ -289,7 +289,7 @@ function EventPlaygroundStory(args: EventPlaygroundArgs) {
                       src={appAvatar}
                     />
                   ) : null}
-                  <Link className="font-semibold text-default" href="#" inline muted>
+                  <Link className="font-semibold text-default hover:text-default" href="#" inline muted>
                     {appName}
                   </Link>
                 </>

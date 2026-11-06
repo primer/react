@@ -1,8 +1,7 @@
 'use client'
 
 import React from 'react'
-
-const useIsomorphicLayoutEffect = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect
+import {useIsomorphicLayoutEffect} from '../../internal/useIsomorphicLayoutEffect'
 
 export type PaneWidth = 'small' | 'medium' | 'large'
 export type CustomWidthOptions = {min: `${number}px`; default: `${number}px`; max: `${number}px`}

@@ -11,7 +11,7 @@ Forwards unrecognized props to Base UI's [`Field.Root`](https://base-ui.com/reac
 - `caption`: `React.ReactNode` — Supplies the caption region. Takes precedence over a matching `FormControl.Caption` child.
 - `className`: `string | ((state: FieldRootState) => string | undefined)`
 - `label`: `React.ReactNode` — Supplies the label region. Takes precedence over a matching `FormControl.Label` child.
-- `layout`: `"horizontal" | "vertical"` — Default `'vertical'`. Whether the label sits above the control or beside it, as it does for a checkbox or radio.
+- `layout`: `"horizontal" | "vertical"` — Whether the label sits above the control or beside it. Defaults to `horizontal` when a direct child is a `Checkbox` or `Radio`, and `vertical` otherwise.
 - `leadingVisual`: `React.ReactNode` — Supplies the leadingVisual region. Takes precedence over a matching `FormControl.LeadingVisual` child.
 - `required`: `boolean` — Default `false`. Marks the field required, which is reflected on the control and shown on the label.
 - `validation`: `React.ReactNode` — Supplies the validation region. Takes precedence over a matching `FormControl.Validation` child.

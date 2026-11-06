@@ -1,7 +1,6 @@
 'use client'
 
 import {Combobox} from '@base-ui/react/combobox'
-import {CheckIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
 import {areItemsEqual, getItemRenderKey, getItemText, itemIdKey, renderItemVisual} from '../../internal/collectionItem'
@@ -11,15 +10,21 @@ import {
   ActionItemContent,
   ActionItemElementContent,
   ActionList,
-  actionItemClassName,
   type ActionListItemProps,
   type ActionListRootProps,
 } from '../ActionList/ActionList'
-import {Checkbox} from '../Checkbox'
-import {SkeletonBox} from '../SkeletonBox'
-import {Spinner} from '../Spinner'
+import {getActionItemStateAttributes} from '../ActionList/itemState'
 import {TextInput, type TextInputProps} from '../TextInput'
 import {FilteredActionListLoadingTypes, type FilteredActionListLoadingType} from './constants'
+import {
+  filteredActionListContainerClassName,
+  filteredActionListGroupClassName,
+  filteredActionListHeaderClassName,
+  getFilteredActionListGroupHeadingClassName,
+  getFilteredActionListListClassName,
+  getFilteredActionListOptionClassName,
+} from './filteredActionListClassNames'
+import {BodyLoader, ComboboxSelectionIndicator, SelectAllRow} from './FilteredActionListParts'
 
 export type FilteredActionListItemId = string | number
 export type {FilteredActionListLoadingType} from './constants'
@@ -175,10 +180,6 @@ export interface FilteredActionListProps
 const compactVirtualRowHeight = 32
 const blockDescriptionVirtualRowHeight = 52
 const virtualOverscan = 6
-const skeletonRowHeight = 24
-const skeletonMinimumRows = 3
-const skeletonWidths = ['80%', '52.5%', '67.5%', '40%', '72.5%'] as const
-const getUndefinedSnapshot = () => undefined
 
 function getVirtualRowHeight(
   items: readonly FilteredActionListItem[],
@@ -209,59 +210,6 @@ function getVirtualRowHeight(
   }
 
   return undefined
-}
-
-/**
- * `announce` gives the loader its own status message for when the list's live region is disabled;
- * otherwise that live region already announces loading and the loader stays visual.
- */
-function BodyLoader({announce, loadingType}: {announce: boolean; loadingType: FilteredActionListLoadingType}) {
-  const [skeletonElement, setSkeletonElement] = React.useState<HTMLDivElement | null>(null)
-  const subscribeToSkeletonHeight = React.useCallback(
-    (onStoreChange: () => void) => {
-      if (!skeletonElement || typeof ResizeObserver === 'undefined') return () => {}
-      const observer = new ResizeObserver(onStoreChange)
-      observer.observe(skeletonElement)
-      return () => observer.disconnect()
-    },
-    [skeletonElement],
-  )
-  const getSkeletonHeight = React.useCallback(() => skeletonElement?.clientHeight, [skeletonElement])
-  const skeletonHeight = React.useSyncExternalStore(subscribeToSkeletonHeight, getSkeletonHeight, getUndefinedSnapshot)
-
-  if (loadingType === FilteredActionListLoadingTypes.bodySpinner) {
-    return (
-      <div
-        className="flex h-full min-h-[200px] w-full flex-1 items-center justify-center p-4 text-muted"
-        data-component="FilteredActionList.Spinner"
-        role={announce ? 'status' : undefined}
-      >
-        <Spinner data-testid="filtered-action-list-spinner" srText={null} />
-        {announce ? <span className="sr-only">Loading items</span> : null}
-      </div>
-    )
-  }
-
-  const skeletonRows =
-    skeletonHeight === undefined ? 10 : Math.max(skeletonMinimumRows, Math.floor(skeletonHeight / skeletonRowHeight))
-
-  return (
-    <div
-      className="flex h-full min-h-[200px] w-full flex-1 flex-col gap-2 p-2"
-      data-component="FilteredActionList.Skeleton"
-      data-testid="filtered-action-list-skeleton"
-      ref={setSkeletonElement}
-      role={announce ? 'status' : undefined}
-    >
-      {announce ? <span className="sr-only">Loading items</span> : null}
-      {Array.from({length: skeletonRows}, (_, index) => (
-        <div key={index} className="flex items-center gap-2">
-          <SkeletonBox className="size-4 shrink-0" />
-          <SkeletonBox height="10px" width={skeletonWidths[index % skeletonWidths.length]} />
-        </div>
-      ))}
-    </div>
-  )
 }
 
 interface FilteredActionListOptionProps {
@@ -330,43 +278,26 @@ function FilteredActionListOption({
       : undefined
   const optionDisabled = Boolean(disabled || renderedActionListItem?.props.disabled)
   const optionVariant = renderedActionListItem?.props.variant ?? variant
-  const selection = !selectable ? null : multiple ? (
-    <span
-      aria-hidden="true"
-      className="grid size-4 shrink-0 place-items-center rounded-sm border border-[var(--control-borderColor-emphasis)] bg-default group-data-[selected]:border-[var(--control-checked-bgColor-rest)] group-data-[selected]:bg-[var(--control-checked-bgColor-rest)] group-data-[selected]:text-on-emphasis"
-    >
-      <Combobox.ItemIndicator>
-        <CheckIcon className="size-3" />
-      </Combobox.ItemIndicator>
-    </span>
-  ) : radio ? (
-    <span
-      aria-hidden="true"
-      className="grid size-4 shrink-0 place-items-center rounded-full border border-[var(--control-borderColor-emphasis)] group-data-[selected]:border-[var(--control-checked-bgColor-rest)]"
-    >
-      <Combobox.ItemIndicator>
-        <span className="size-2 rounded-full bg-[var(--control-checked-bgColor-rest)]" />
-      </Combobox.ItemIndicator>
-    </span>
-  ) : (
-    <span aria-hidden="true" className="grid size-4 shrink-0 place-items-center">
-      <Combobox.ItemIndicator>
-        <CheckIcon className="size-4" />
-      </Combobox.ItemIndicator>
-    </span>
-  )
+  const selection = selectable ? (
+    <ComboboxSelectionIndicator
+      disabled={optionDisabled}
+      variant={multiple ? 'multiple' : radio ? 'radio' : 'single'}
+    />
+  ) : null
 
   return (
     <Combobox.Item
+      {...getActionItemStateAttributes({disabled: optionDisabled, variant: optionVariant})}
       aria-posinset={optionIndex + 1}
       aria-setsize={optionCount}
       className={cn(
-        actionItemClassName,
-        'group cursor-default items-center outline-none data-[highlighted]:bg-neutral-muted',
-        listVariant !== 'full' && 'mx-2 w-auto',
-        descriptionVariant === 'block' && 'items-start',
-        optionVariant === 'danger' && 'text-danger hover:bg-[var(--control-danger-bgColor-hover)]',
-        virtualized && 'h-(--filtered-action-list-virtual-row-height) overflow-hidden',
+        getFilteredActionListOptionClassName({
+          descriptionVariant,
+          disabled: optionDisabled,
+          listVariant,
+          variant: optionVariant,
+          virtualized,
+        }),
         className,
         renderedActionListItem?.props.className,
       )}
@@ -465,16 +396,19 @@ function FilteredActionListDisabledOption({
 
   return (
     <div
+      {...getActionItemStateAttributes({disabled: true, variant: optionVariant})}
       aria-disabled="true"
       aria-posinset={optionIndex + 1}
       aria-selected="false"
       aria-setsize={optionCount}
       className={cn(
-        actionItemClassName,
-        'cursor-not-allowed items-center text-disabled',
-        listVariant !== 'full' && 'mx-2 w-auto',
-        descriptionVariant === 'block' && 'items-start',
-        optionVariant === 'danger' && 'text-danger',
+        getFilteredActionListOptionClassName({
+          descriptionVariant,
+          disabled: true,
+          highlightable: false,
+          listVariant,
+          variant: optionVariant,
+        }),
         className,
         renderedActionListItem?.props.className,
       )}
@@ -746,7 +680,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
     variant: _actionListVariant,
     ...actionListDomProps
   } = actionListProps ?? {}
-  const {className: inputClassName, leadingVisual: LeadingVisual, ...inputProps} = textInputProps ?? {}
+  const {className: inputClassName, id: inputId, leadingVisual: LeadingVisual, ...inputProps} = textInputProps ?? {}
   void _actionListSelectionVariant
   void _actionListShowDividers
   void _actionListVariant
@@ -855,11 +789,10 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
         className={cn('flex h-full min-h-0 w-full flex-col overflow-hidden', className)}
         data-component="FilteredActionList"
       >
-        <div
-          className="relative z-1 shrink-0 shadow-[0_1px_0_var(--borderColor-default)]"
-          data-component="FilteredActionList.Header"
-        >
+        <div className={filteredActionListHeaderClassName} data-component="FilteredActionList.Header">
           <Combobox.Input
+            // The input tracks its own `id`, so it must not be overridden on the render element.
+            id={inputId}
             aria-describedby={filterDescriptionId}
             aria-label={ariaLabel}
             placeholder={placeholderText}
@@ -893,34 +826,27 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
           </span>
         ) : null}
         {multiple && onSelectAllChange ? (
-          <div
-            className="flex h-8 shrink-0 items-center gap-2 border-b border-default bg-muted px-4 text-sm text-muted"
-            data-component="FilteredActionList.SelectAll"
-          >
-            <Checkbox
-              aria-label={selectAllLabel}
-              checked={allSelected}
-              indeterminate={someSelected}
-              onCheckedChange={checked => {
-                const visibleKeys = new Set(selectableVisibleItems.map(item => itemIdKey(item.id!)))
-                const nextSelectedIds = checked
-                  ? [
-                      ...selectedIds,
-                      ...selectableVisibleItems
-                        .filter(item => !selectedKeys.has(itemIdKey(item.id!)))
-                        .map(item => item.id!),
-                    ]
-                  : selectedIds.filter(id => !visibleKeys.has(itemIdKey(id)))
-                updateSelectedIds(nextSelectedIds)
-                onSelectAllChange(checked)
-              }}
-              data-component="FilteredActionList.SelectAllCheckbox"
-            />
-            <span data-component="FilteredActionList.SelectAllLabel">{selectAllLabel}</span>
-          </div>
+          <SelectAllRow
+            checked={allSelected}
+            indeterminate={someSelected}
+            label={selectAllLabel}
+            onCheckedChange={checked => {
+              const visibleKeys = new Set(selectableVisibleItems.map(item => itemIdKey(item.id!)))
+              const nextSelectedIds = checked
+                ? [
+                    ...selectedIds,
+                    ...selectableVisibleItems
+                      .filter(item => !selectedKeys.has(itemIdKey(item.id!)))
+                      .map(item => item.id!),
+                  ]
+                : selectedIds.filter(id => !visibleKeys.has(itemIdKey(id)))
+              updateSelectedIds(nextSelectedIds)
+              onSelectAllChange(checked)
+            }}
+          />
         ) : null}
         <div
-          className="flex min-h-0 flex-1 overflow-auto"
+          className={filteredActionListContainerClassName}
           data-component="FilteredActionList.Container"
           onScroll={event => {
             ;(actionListOnScroll as React.UIEventHandler<HTMLDivElement> | undefined)?.(event)
@@ -939,9 +865,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
               {...(actionListDomProps as React.ComponentPropsWithoutRef<typeof Combobox.List>)}
               aria-label={actionListProps?.['aria-label'] ?? ariaLabel}
               className={cn(
-                'm-0 min-h-full flex-1 text-default',
-                variant === 'inset' && !useVirtualization && 'py-2',
-                variant === 'horizontal-inset' && 'pb-2',
+                getFilteredActionListListClassName({variant, virtualized: useVirtualization}),
                 actionListClassName,
               )}
               data-component="FilteredActionList.List"
@@ -1006,10 +930,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
                   const groupContent = (
                     <>
                       <Combobox.GroupLabel
-                        className={cn(
-                          'flex min-h-[30px] items-center px-3 py-1.5 text-xs leading-[18px] font-semibold text-muted',
-                          group.header?.variant === 'filled' && 'mb-2 border-y border-muted bg-muted',
-                        )}
+                        className={getFilteredActionListGroupHeadingClassName(group.header?.variant)}
                         data-component="FilteredActionList.GroupHeading"
                       >
                         {group.header?.title ?? `Group ${group.groupId}`}
@@ -1027,7 +948,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
 
                   return (
                     <Combobox.Group
-                      className="block pb-2 last:pb-0"
+                      className={filteredActionListGroupClassName}
                       items={group.items.filter(value => !value.item.disabled)}
                       key={group.groupId}
                     >

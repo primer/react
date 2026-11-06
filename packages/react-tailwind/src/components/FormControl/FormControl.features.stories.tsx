@@ -35,7 +35,7 @@ export const WithComplexInputs: Story = {
       <FormControl>
         <FormControl.Label>Autocomplete</FormControl.Label>
         <Autocomplete items={['css', 'javascript', 'react']}>
-          <Autocomplete.Input />
+          <Autocomplete.Input block />
         </Autocomplete>
       </FormControl>
       <FormControl>

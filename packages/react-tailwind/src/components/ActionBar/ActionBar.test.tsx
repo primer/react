@@ -42,6 +42,21 @@ describe('ActionBar', () => {
     expect(onClick).toHaveBeenCalledOnce()
   })
 
+  it('tracks the open state of a menu trigger with its own id', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionBar aria-label="Actions">
+        <ActionBar.Menu aria-label="More actions" icon={TestIcon} id="more-actions" items={[{label: 'Delete'}]} />
+      </ActionBar>,
+    )
+    const trigger = screen.getByRole('button', {name: 'More actions'})
+    expect(trigger).toHaveAttribute('id', 'more-actions')
+    await user.click(trigger)
+    const menu = await screen.findByRole('menu')
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    expect(trigger).toHaveAttribute('aria-controls', menu.id)
+  })
+
   it('does not activate disabled menu items', async () => {
     const user = userEvent.setup()
     const onClick = vi.fn()

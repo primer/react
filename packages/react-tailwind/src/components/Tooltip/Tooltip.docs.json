@@ -65,6 +65,17 @@
   ],
   "props": [
     {
+      "name": "delay",
+      "type": "TooltipDelay",
+      "defaultValue": "'short'",
+      "description": "How long the pointer rests on the trigger before the tooltip opens: `short` (50ms), `medium` (400ms) or `long`\n(1200ms). Keyboard focus opens it straight away. Without a value, the surrounding `Tooltip.Provider` delay\napplies, falling back to `short`."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Id of the element holding the tooltip text, so other elements can reference it from `aria-labelledby` or\n`aria-describedby`. Generated when omitted."
+    },
+    {
       "name": "keybindingHint",
       "type": "string | string[]",
       "description": "Keyboard shortcut, or alternative shortcuts, shown after the tooltip text. Uses the `KeybindingHint` key syntax,\nsuch as `Mod+B`. Assistive technology receives the shortcut as plain text in the trigger's description."
@@ -73,13 +84,24 @@
       "name": "type",
       "type": "TooltipType",
       "defaultValue": "'description'",
-      "description": "How the tooltip relates to its trigger. `description` adds supplementary text through `aria-describedby`.\n`label` repeats the trigger's accessible name visually, so the trigger must already be named, for example\nwith `aria-label`; the tooltip is then hidden from assistive technology."
+      "description": "How the tooltip relates to its trigger. `description` adds the text to the trigger's accessible description\nthrough `aria-describedby`. `label` names the trigger through `aria-labelledby`, for triggers without visible\ntext such as icon-only buttons; an `aria-labelledby` passed to the trigger takes precedence, and a trigger that\nalready has an `aria-label` keeps it, so the tooltip stays visual."
     }
   ],
   "subcomponents": [
     {
       "name": "Tooltip.Root",
       "props": [
+        {
+          "name": "delay",
+          "type": "TooltipDelay",
+          "defaultValue": "'short'",
+          "description": "How long the pointer rests on the trigger before the tooltip opens: `short` (50ms), `medium` (400ms) or `long`\n(1200ms). Keyboard focus opens it straight away. Without a value, the surrounding `Tooltip.Provider` delay\napplies, falling back to `short`."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Id of the element holding the tooltip text, so other elements can reference it from `aria-labelledby` or\n`aria-describedby`. Generated when omitted."
+        },
         {
           "name": "keybindingHint",
           "type": "string | string[]",
@@ -89,7 +111,7 @@
           "name": "type",
           "type": "TooltipType",
           "defaultValue": "'description'",
-          "description": "How the tooltip relates to its trigger. `description` adds supplementary text through `aria-describedby`.\n`label` repeats the trigger's accessible name visually, so the trigger must already be named, for example\nwith `aria-label`; the tooltip is then hidden from assistive technology."
+          "description": "How the tooltip relates to its trigger. `description` adds the text to the trigger's accessible description\nthrough `aria-describedby`. `label` names the trigger through `aria-labelledby`, for triggers without visible\ntext such as icon-only buttons; an `aria-labelledby` passed to the trigger takes precedence, and a trigger that\nalready has an `aria-label` keeps it, so the tooltip stays visual."
         }
       ],
       "passthrough": {
@@ -127,7 +149,7 @@
         {
           "name": "keepMounted",
           "type": "boolean",
-          "description": "Keeps the popup in the DOM while closed so `aria-describedby` always resolves. Defaults to `true` when the\ntrigger is described by the tooltip: description tooltips, and label tooltips with a keybinding hint."
+          "description": "Keeps the popup in the DOM while closed so the trigger's `aria-labelledby` or `aria-describedby` always\nresolves. Defaults to `true` unless the tooltip is disabled."
         },
         {
           "name": "portal",
@@ -143,13 +165,13 @@
         {
           "name": "side",
           "type": "FloatingSide",
-          "defaultValue": "'top'",
+          "defaultValue": "'bottom'",
           "description": "Side of the anchor the content opens on."
         },
         {
           "name": "sideOffset",
           "type": "FloatingOffset",
-          "defaultValue": "8",
+          "defaultValue": "4",
           "description": "Distance in pixels between the content and its anchor, or a callback that computes it."
         }
       ],
@@ -184,7 +206,14 @@
     },
     {
       "name": "Tooltip.Provider",
-      "props": [],
+      "props": [
+        {
+          "name": "delay",
+          "type": "TooltipDelay",
+          "defaultValue": "'short'",
+          "description": "Open delay for tooltips in this group that don't set their own `delay`: `short` (50ms), `medium` (400ms) or\n`long` (1200ms). Once one tooltip in the group is open, adjacent tooltips open without a delay."
+        }
+      ],
       "passthrough": {
         "element": "Tooltip.Provider",
         "url": "https://base-ui.com/react/components/tooltip#provider"

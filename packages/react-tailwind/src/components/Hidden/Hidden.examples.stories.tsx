@@ -60,22 +60,22 @@ export const PullRequestPage: Story = {
         <PageHeader.Description>
           <StateLabel status="pullOpened">Open</StateLabel>
           <Hidden when={['narrow']}>
-            <Text className="text-xs text-muted">
+            <Text className="text-[length:var(--text-body-size-small)] text-muted">
               <Link href="#" className="font-semibold" muted>
                 broccolinisoup
               </Link>{' '}
-              wants to merge 3 commits into{' '}
+              wants to merge 3 commits into
               <BranchName href="#" className="underline">
                 main
-              </BranchName>{' '}
-              from{' '}
+              </BranchName>
+              from
               <BranchName href="#" className="underline">
                 broccolinisoup/add-hidden-component
               </BranchName>
             </Text>
           </Hidden>
           <Hidden when={['regular', 'wide']}>
-            <Text className="text-xs text-muted">
+            <Text className="text-[length:var(--text-body-size-small)] text-muted">
               <BranchName href="#">main</BranchName>
               <ArrowRightIcon />
               <BranchName href="#">page-header-initial</BranchName>

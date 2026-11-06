@@ -1,51 +1,34 @@
+'use client'
+
 import {CheckboxGroup as BaseCheckboxGroup} from '@base-ui/react/checkbox-group'
+import {Fieldset} from '@base-ui/react/fieldset'
 import React from 'react'
-import {cn} from '../../internal/cn'
-import {ValidationMessage} from '../../internal/ValidationMessage'
+import {ChoiceGroupContext, useChoiceGroup} from '../../internal/choiceGroupContext'
+import {ChoiceGroupCaption, ChoiceGroupLabel, ChoiceGroupValidation} from '../../internal/ChoiceGroupParts'
+import {mergeClassName} from '../../internal/mergeClassName'
 
 export interface CheckboxGroupProps extends Omit<BaseCheckboxGroup.Props, 'className' | 'data-component'> {
   className?: BaseCheckboxGroup.Props['className']
+  /** Marks a choice as required: the label shows a required marker and the group is described as required. */
+  required?: boolean
 }
 
-export interface CheckboxGroupLabelProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CheckboxGroupLabelProps extends Omit<Fieldset.Legend.Props, 'className' | 'data-component'> {
+  className?: Fieldset.Legend.Props['className']
   /** Hides the label visually while keeping it available to assistive technology. */
   visuallyHidden?: boolean
 }
 
-const Label = React.forwardRef<HTMLDivElement, CheckboxGroupLabelProps>(function Label(
-  {children, className, visuallyHidden, ...rest},
-  ref,
-) {
-  return (
-    <div
-      {...rest}
-      ref={ref}
-      data-component="CheckboxGroup.Label"
-      className={cn('block text-sm font-semibold text-default', visuallyHidden && 'sr-only', className)}
-    >
-      {children}
-    </div>
-  )
+/** Names the group. It is muted while the group is disabled. */
+const Label = React.forwardRef<HTMLDivElement, CheckboxGroupLabelProps>(function Label(props, ref) {
+  return <ChoiceGroupLabel {...props} ref={ref} component="CheckboxGroup" />
 })
 
-const Caption = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(function Caption(
-  {children, className, ...rest},
-  ref,
-) {
-  return (
-    <p
-      {...rest}
-      ref={ref}
-      data-component="CheckboxGroup.Caption"
-      className={cn(
-        // Upstream renders the caption inside the legend, directly under a visible label.
-        'm-0 text-sm leading-6 text-muted [[data-component$=Label]:not(.sr-only)+&]:-mt-2',
-        className,
-      )}
-    >
-      {children}
-    </p>
-  )
+export type CheckboxGroupCaptionProps = React.HTMLAttributes<HTMLDivElement>
+
+/** Describes the group with supporting text. */
+const Caption = React.forwardRef<HTMLDivElement, CheckboxGroupCaptionProps>(function Caption(props, ref) {
+  return <ChoiceGroupCaption {...props} ref={ref} component="CheckboxGroup" />
 })
 
 export interface CheckboxGroupValidationProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -53,38 +36,67 @@ export interface CheckboxGroupValidationProps extends React.HTMLAttributes<HTMLD
   variant: 'error' | 'success'
 }
 
-const Validation = React.forwardRef<HTMLDivElement, CheckboxGroupValidationProps>(function Validation(
-  {children, className, variant, ...rest},
-  ref,
-) {
-  return (
-    <div
-      {...rest}
-      ref={ref}
-      role={variant === 'success' ? 'status' : 'alert'}
-      data-component="CheckboxGroup.Validation"
-      data-variant={variant}
-      className={ValidationMessage.getClassName(variant, className)}
-    >
-      <ValidationMessage variant={variant}>{children}</ValidationMessage>
-    </div>
-  )
+/** Describes the group with a validation message. */
+const Validation = React.forwardRef<HTMLDivElement, CheckboxGroupValidationProps>(function Validation(props, ref) {
+  return <ChoiceGroupValidation {...props} ref={ref} component="CheckboxGroup" />
 })
 
 /** Groups checkbox primitives and supplies controlled or uncontrolled values. */
 const Root = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(function CheckboxGroup(
-  {children, className, ...rest},
+  {
+    'aria-describedby': describedByProp,
+    'aria-labelledby': labelledByProp,
+    children,
+    className,
+    disabled = false,
+    id,
+    required = false,
+    ...rest
+  },
   ref,
 ) {
-  const mergedClassName =
-    typeof className === 'function'
-      ? (state: BaseCheckboxGroup.State) => cn('m-0 grid min-w-0 gap-2', className(state))
-      : cn('m-0 grid min-w-0 gap-2', className)
+  const group = useChoiceGroup({
+    'aria-describedby': describedByProp,
+    children,
+    // `role="group"` does not support `aria-required`, so the requirement is announced as a description.
+    describeRequired: true,
+    disabled,
+    id,
+    parts: {label: Label, caption: Caption, validation: Validation},
+    required,
+  })
 
   return (
-    <BaseCheckboxGroup {...rest} ref={ref} data-component="CheckboxGroup" className={mergedClassName}>
-      {children}
-    </BaseCheckboxGroup>
+    <ChoiceGroupContext.Provider value={group.context}>
+      {/* Fieldset names the group from its Label and disables every nested FormControl with it. */}
+      <Fieldset.Root
+        disabled={disabled}
+        render={(fieldsetProps, fieldsetState) => {
+          const labelledBy = labelledByProp ?? group.labelId ?? fieldsetProps['aria-labelledby']
+
+          return (
+            <BaseCheckboxGroup
+              {...rest}
+              // Without a group label, Base UI falls back to an enclosing FormControl's label.
+              {...(labelledBy ? {'aria-labelledby': labelledBy} : {})}
+              ref={ref}
+              id={id}
+              aria-describedby={group.describedBy}
+              disabled={fieldsetState.disabled}
+              data-component="CheckboxGroup"
+              className={mergeClassName('m-0 grid min-w-0 gap-2', className)}
+            >
+              {children}
+              {group.requiredId ? (
+                <span id={group.requiredId} className="sr-only">
+                  Required
+                </span>
+              ) : null}
+            </BaseCheckboxGroup>
+          )
+        }}
+      />
+    </ChoiceGroupContext.Provider>
   )
 })
 

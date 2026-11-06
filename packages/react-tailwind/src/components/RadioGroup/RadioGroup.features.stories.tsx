@@ -59,7 +59,10 @@ export const VisuallyHiddenLabel: Story = {
 export const WithExternalLabel: Story = {
   render: () => (
     <>
-      <div id="choiceHeading" className="mb-4 border-b border-default pb-2 text-title-medium leading-[30px]">
+      <div
+        id="choiceHeading"
+        className="mb-4 border-b border-default pb-2 text-[length:var(--text-title-size-medium)] leading-[30px]"
+      >
         External label
       </div>
       <Choices label="external" selected={null} />

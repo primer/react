@@ -9,8 +9,10 @@ const subscribe = () => () => {}
 
 const getPlatform = (): Platform => {
   if (typeof navigator === 'undefined') return 'other'
-  if (/mac|iphone|ipad|ipod/i.test(navigator.platform)) return 'apple'
-  if (/win/i.test(navigator.platform)) return 'windows'
+  if (/^mac/i.test(navigator.platform) || /iphone|ipad|ipod/i.test(`${navigator.platform} ${navigator.userAgent}`)) {
+    return 'apple'
+  }
+  if (/^win/i.test(navigator.platform)) return 'windows'
   return 'other'
 }
 
@@ -78,9 +80,69 @@ const accessibleKeyNames: Record<string, string> = {
   ' ': 'space',
 }
 
+const condensedKeyNames: Record<string, string> = {
+  control: '⌃',
+  shift: '⇧',
+  pageup: 'PgUp',
+  pagedown: 'PgDn',
+  arrowup: '↑',
+  arrowdown: '↓',
+  arrowleft: '←',
+  arrowright: '→',
+  plus: '+',
+  backspace: '⌫',
+  delete: 'Del',
+  space: '␣',
+  tab: '⇥',
+  enter: '⏎',
+  escape: 'Esc',
+  function: 'Fn',
+  capslock: 'CapsLock',
+  insert: 'Ins',
+  printscreen: 'PrtScn',
+}
+
+const fullKeyNames: Record<string, string> = {
+  '+': 'Plus',
+  pageup: 'Page Up',
+  pagedown: 'Page Down',
+  arrowup: 'Up Arrow',
+  arrowdown: 'Down Arrow',
+  arrowleft: 'Left Arrow',
+  arrowright: 'Right Arrow',
+  capslock: 'Caps Lock',
+  printscreen: 'Print Screen',
+}
+
 const keySortPriority = (key: string) => keySortPriorities[key] ?? Infinity
 
-const accessibleKeyName = (key: string, platform: Platform) => {
+const capitalize = ([first = '', ...rest]: string) => first.toUpperCase() + rest.join('').toLowerCase()
+
+/** Splits a chord such as `Shift+Mod+k` into lowercase keys in standard modifier order. */
+export const splitChord = (chord: string) =>
+  chord
+    .split('+')
+    .map(key => key.toLowerCase())
+    .sort((a, b) => keySortPriority(a) - keySortPriority(b))
+
+/** Short, iconic key label for the `condensed` format. Expects a lowercase key from `splitChord`. */
+export const condensedKeyName = (key: string, platform: Platform) => {
+  if (key === 'alt') return platform === 'apple' ? '⌥' : 'Alt'
+  if (key === 'meta') return platform === 'apple' ? '⌘' : platform === 'windows' ? 'Win' : 'Meta'
+  if (key === 'mod') return platform === 'apple' ? '⌘' : '⌃'
+  return condensedKeyNames[key] ?? capitalize(key)
+}
+
+/** Full-word key label for the `full` format. Expects a lowercase key from `splitChord`. */
+export const fullKeyName = (key: string, platform: Platform) => {
+  if (key === 'alt') return platform === 'apple' ? 'Option' : 'Alt'
+  if (key === 'meta') return platform === 'apple' ? 'Command' : platform === 'windows' ? 'Windows' : 'Meta'
+  if (key === 'mod') return platform === 'apple' ? 'Command' : 'Control'
+  return fullKeyNames[key] ?? capitalize(key)
+}
+
+/** Screen-reader key name, which avoids announcing punctuation as pauses. */
+export const accessibleKeyName = (key: string, platform: Platform) => {
   if (key === 'alt') return platform === 'apple' ? 'option' : 'alt'
   if (key === 'meta') return platform === 'apple' ? 'command' : platform === 'windows' ? 'Windows' : 'meta'
   if (key === 'mod') return platform === 'apple' ? 'command' : 'control'
@@ -88,10 +150,7 @@ const accessibleKeyName = (key: string, platform: Platform) => {
 }
 
 const accessibleChordString = (chord: string, platform: Platform) =>
-  chord
-    .split('+')
-    .map(key => key.toLowerCase())
-    .sort((a, b) => keySortPriority(a) - keySortPriority(b))
+  splitChord(chord)
     .map(key => accessibleKeyName(key, platform))
     .join(' ')
 

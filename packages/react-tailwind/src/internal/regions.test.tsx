@@ -196,6 +196,65 @@ const cases: RegionCase[] = [
       </TreeView>
     ),
   },
+  {
+    name: 'TreeView.Item',
+    region: 'trailingVisual',
+    viaProp: node => (
+      <TreeView aria-label="File tree">
+        <TreeView.Item id="a" trailingVisual={node}>
+          item
+        </TreeView.Item>
+      </TreeView>
+    ),
+    viaBoth: node => (
+      <TreeView aria-label="File tree">
+        <TreeView.Item id="a" trailingVisual={node}>
+          item
+          <TreeView.TrailingVisual>from child</TreeView.TrailingVisual>
+        </TreeView.Item>
+      </TreeView>
+    ),
+  },
+  {
+    name: 'TreeView.Item',
+    region: 'leadingAction',
+    viaProp: node => (
+      <TreeView aria-label="File tree">
+        <TreeView.Item id="a" leadingAction={node}>
+          item
+        </TreeView.Item>
+      </TreeView>
+    ),
+    viaBoth: node => (
+      <TreeView aria-label="File tree">
+        <TreeView.Item id="a" leadingAction={node}>
+          <TreeView.LeadingAction>from child</TreeView.LeadingAction>
+          item
+        </TreeView.Item>
+      </TreeView>
+    ),
+  },
+  {
+    name: 'TreeView.Item',
+    region: 'subtree',
+    viaProp: node => (
+      <TreeView aria-label="File tree">
+        <TreeView.Item id="a" defaultExpanded subtree={node}>
+          item
+        </TreeView.Item>
+      </TreeView>
+    ),
+    viaBoth: node => (
+      <TreeView aria-label="File tree">
+        <TreeView.Item id="a" defaultExpanded subtree={node}>
+          item
+          <TreeView.SubTree>
+            <TreeView.Item id="b">from child</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    ),
+  },
 ]
 
 describe('region props', () => {

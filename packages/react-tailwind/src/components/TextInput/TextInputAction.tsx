@@ -26,7 +26,7 @@ export const TextInputAction = React.forwardRef<HTMLElement, TextInputActionProp
         ref={ref}
         aria-label={ariaLabel}
         className={cn(
-          'relative inline-grid size-[var(--text-input-action-size)] border border-transparent bg-transparent px-1 py-0.5 text-muted shadow-none hover:bg-transparent hover:text-default [&_svg]:block',
+          'relative inline-grid size-[var(--text-input-action-size)] border border-transparent bg-transparent px-1 py-0.5 text-muted shadow-none hover:text-default focus:text-default [&_svg]:block',
           className,
         )}
         icon={icon}

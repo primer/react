@@ -9,16 +9,18 @@ Forwards unrecognized props to Base UI's [`CheckboxGroup`](https://base-ui.com/r
 ## Props
 
 - `className`: `string | ((state: CheckboxGroupState) => string | undefined)`
+- `required`: `boolean` — Default `false`. Marks a choice as required: the label shows a required marker and the group is described as required.
 
 ## CheckboxGroup.Label
 
-Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Forwards unrecognized props to Base UI's [`Fieldset.Legend`](https://base-ui.com/react/components/fieldset#legend), so it also accepts that part's props.
 
+- `className`: `string | ((state: FieldsetLegendState) => string | undefined)`
 - `visuallyHidden`: `boolean` — Hides the label visually while keeping it available to assistive technology.
 
 ## CheckboxGroup.Caption
 
-Renders a [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
+Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## CheckboxGroup.Validation
 
@@ -28,4 +30,4 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 
 ## Differences from `@primer/react`
 
-- Use `Label`, `Caption`, and `Validation` parts for group metadata; set `visuallyHidden` only when another visible label exists.
+- Use `Label`, `Caption`, and `Validation` parts for group metadata; set `visuallyHidden` only when another visible label exists. `Label` is a Base UI `Fieldset.Legend`, so it must stay inside the group.

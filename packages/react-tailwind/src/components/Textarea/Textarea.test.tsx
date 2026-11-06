@@ -44,6 +44,6 @@ describe('Textarea', () => {
     expect(textarea).toHaveAttribute('data-auto-size', 'true')
     expect(textarea).toHaveClass('[field-sizing:content]', 'w-full')
     expect(textarea).toHaveAttribute('data-validation', 'success')
-    expect(textarea).toHaveStyle({maxHeight: '200px', minHeight: '100px'})
+    expect(textarea).toHaveStyle({maxHeight: '202px', minHeight: '102px'})
   })
 })

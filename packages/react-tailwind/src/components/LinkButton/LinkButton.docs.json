@@ -85,6 +85,12 @@
       "description": "Number shown in a trailing counter."
     },
     {
+      "name": "data-component",
+      "type": "string",
+      "defaultValue": "'LinkButton'",
+      "description": "Overrides the marker used to identify this element in tests and styling."
+    },
+    {
       "name": "disabled",
       "type": "boolean",
       "defaultValue": "false",

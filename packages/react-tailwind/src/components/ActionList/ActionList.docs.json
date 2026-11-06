@@ -161,6 +161,12 @@
   ],
   "props": [
     {
+      "name": "disableFocusZone",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the\ntab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys."
+    },
+    {
       "name": "disableItemGap",
       "type": "boolean",
       "defaultValue": "false",
@@ -192,6 +198,12 @@
     {
       "name": "ActionList.Root",
       "props": [
+        {
+          "name": "disableFocusZone",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the\ntab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys."
+        },
         {
           "name": "disableItemGap",
           "type": "boolean",
@@ -250,7 +262,7 @@
         {
           "name": "disabled",
           "type": "boolean",
-          "description": "Prevents activation and removes the item from the keyboard order."
+          "description": "Prevents activation. In a list the item also leaves the keyboard order; in a menu or listbox it stays focusable\nand is marked `aria-disabled`, so keyboard users can still discover it."
         },
         {
           "name": "inactiveText",
@@ -335,11 +347,6 @@
           "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
         },
         {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Marks the link as the current one."
-        },
-        {
           "name": "size",
           "type": "\"large\" | \"medium\" | \"small\"",
           "defaultValue": "'medium'",
@@ -377,8 +384,8 @@
         },
         {
           "name": "selectionVariant",
-          "type": "SelectionVariant",
-          "description": "Overrides the list's selection behaviour for this group."
+          "type": "false | SelectionVariant",
+          "description": "Overrides the list's selection behaviour for this group. `false` renders the group's items without selection."
         },
         {
           "name": "title",
@@ -559,6 +566,12 @@
         {
           "name": "style",
           "type": "React.CSSProperties"
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'w'",
+          "description": "Side and alignment of the tooltip that shows `label` for an icon action."
         }
       ],
       "passthrough": {

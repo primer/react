@@ -35,6 +35,19 @@ describe('Button', () => {
     expect(screen.queryByText('⌘↵')).not.toBeInTheDocument()
   })
 
+  it('keeps consumer descriptions alongside the loading announcement', () => {
+    render(
+      <>
+        <Button aria-describedby="publish-hint" loading>
+          Publish
+        </Button>
+        <span id="publish-hint">Saves the draft</span>
+      </>,
+    )
+
+    expect(screen.getByRole('button', {name: 'Publish'})).toHaveAccessibleDescription('Loading Saves the draft')
+  })
+
   it('renders Primer-compatible visual, counter, and inactive parts', () => {
     render(
       <Button count={3} inactive leadingVisual={() => <span data-testid="icon" />}>
@@ -47,6 +60,20 @@ describe('Button', () => {
     expect(button).not.toBeDisabled()
     expect(screen.getByTestId('icon').parentElement).toHaveAttribute('data-component', 'leadingVisual')
     expect(screen.getByText('3')).toHaveAttribute('data-component', 'ButtonCounter')
+  })
+
+  it('drops hover, pressed, and expanded feedback while inactive', () => {
+    const {rerender} = render(<Button>Merge</Button>)
+    expect(screen.getByRole('button', {name: 'Merge'})).toHaveClass(
+      'hover:bg-[var(--button-default-bgColor-hover)]',
+      'aria-expanded:bg-[var(--button-default-bgColor-active)]',
+    )
+
+    rerender(<Button inactive>Merge</Button>)
+    const button = screen.getByRole('button', {name: 'Merge'})
+    expect(button).toHaveClass('bg-[var(--button-inactive-bgColor)]')
+    expect(button).not.toHaveClass('hover:bg-[var(--button-default-bgColor-hover)]')
+    expect(button).not.toHaveClass('aria-expanded:bg-[var(--button-default-bgColor-active)]')
   })
 
   it('does not add a native button type to a non-button render target', () => {

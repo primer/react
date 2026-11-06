@@ -1,5 +1,5 @@
 import React from 'react'
-import {cleanup, render, screen} from '@testing-library/react'
+import {cleanup, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {Dialog} from './Dialog'
@@ -36,6 +36,47 @@ describe('Dialog', () => {
     await user.click(trigger)
     await user.keyboard('{Escape}')
     expect(trigger).toHaveFocus()
+  })
+
+  it('closes on the first Escape while the focused close button shows its tooltip', async () => {
+    const user = userEvent.setup()
+    render(
+      <Dialog>
+        <Dialog.Trigger>Open dialog</Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>Settings</Dialog.Title>
+            <Dialog.CloseButton />
+          </Dialog.Header>
+        </Dialog.Content>
+      </Dialog>,
+    )
+    const trigger = screen.getByRole('button', {name: 'Open dialog'})
+    trigger.focus()
+    await user.keyboard('{Enter}')
+    await waitFor(() => expect(screen.getByRole('button', {name: 'Close'})).toHaveFocus())
+    expect(await screen.findByText('Close')).toBeVisible()
+
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+    expect(trigger).toHaveFocus()
+  })
+
+  it('describes the dialog with its subtitle', () => {
+    render(
+      <Dialog open>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>Delete repository?</Dialog.Title>
+            <Dialog.Subtitle>This cannot be undone.</Dialog.Subtitle>
+          </Dialog.Header>
+        </Dialog.Content>
+      </Dialog>,
+    )
+    expect(screen.getByText('This cannot be undone.')).toHaveAttribute('data-component', 'Dialog.Subtitle')
+    expect(screen.getByRole('dialog', {name: 'Delete repository?'})).toHaveAccessibleDescription(
+      'This cannot be undone.',
+    )
   })
 
   it('forwards content refs and rest props', async () => {

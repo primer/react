@@ -8,6 +8,7 @@ import {mergeStyle} from '../../internal/mergeStyle'
 import {Button, type ButtonProps} from '../Button'
 import {getDialogSize, type DialogHeight, type DialogWidth} from '../Dialog/dialogLayout'
 import {usePortalContainer} from '../../internal/portalRoot'
+import {useFocusZone} from '../../internal/useFocusZone'
 
 const popupClassName =
   'flex flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
@@ -201,6 +202,7 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
     initialFocus,
     onCancel,
     onConfirm,
+    onOpenChange,
     title,
     trigger,
     width,
@@ -210,6 +212,7 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
 ) {
   const cancelRef = React.useRef<HTMLElement>(null)
   const confirmRef = React.useRef<HTMLElement>(null)
+  const footerRef = useFocusZone<HTMLDivElement>({bindKeys: ['ArrowHorizontal', 'Tab'], focusInStrategy: 'closest'})
   const defaultInitialFocus = dangerous ? cancelRef : confirmRef
   const popupInitialFocus =
     initialFocus === 'cancel'
@@ -218,8 +221,21 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
         ? defaultInitialFocus
         : initialFocus
 
+  // The footer buttons call their own handlers, so only dismissals that bypass them map to `onCancel`.
+  const handleOpenChange: NonNullable<ConfirmationDialogProps['onOpenChange']> = (open, eventDetails) => {
+    onOpenChange?.(open, eventDetails)
+    if (open || eventDetails.isCanceled) return
+    if (
+      eventDetails.reason === 'escape-key' ||
+      eventDetails.reason === 'outside-press' ||
+      eventDetails.reason === 'focus-out'
+    ) {
+      onCancel?.()
+    }
+  }
+
   return (
-    <Root {...rootProps}>
+    <Root {...rootProps} onOpenChange={handleOpenChange}>
       {trigger && <Trigger render={trigger} />}
       <Portal>
         <Backdrop />
@@ -230,7 +246,11 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
               {description && <Description>{description}</Description>}
               {children && <div className="mt-4">{children}</div>}
             </div>
-            <div className="flex flex-wrap justify-end gap-2 p-4" data-component="ConfirmationDialog.Footer">
+            <div
+              ref={footerRef}
+              className="flex flex-wrap justify-end gap-2 p-4"
+              data-component="ConfirmationDialog.Footer"
+            >
               <Close
                 render={
                   <Button

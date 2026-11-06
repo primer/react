@@ -8,6 +8,9 @@ import type {ButtonVariant} from './ButtonClassName'
 import {type ButtonVisual, resolveButtonVisual} from './ButtonVisual'
 import {getNotificationIndicatorClassName} from './notificationIndicator'
 
+// Variants and states set --button-visual-fgColor on the button root, mirroring Primer's `.Visual` colors.
+const visualClassName = 'text-[var(--button-visual-fgColor,var(--fgColor-muted))]'
+
 function renderVisual(
   visual: ButtonVisual,
   component: 'leadingVisual' | 'trailingVisual' | 'trailingAction',
@@ -20,7 +23,7 @@ function renderVisual(
         notificationIndicator && getNotificationIndicatorClassName('leadingVisual'),
         component === 'leadingVisual' && '[grid-area:leadingVisual]',
         component === 'trailingVisual' && '[grid-area:trailingVisual]',
-        component !== 'trailingAction' && 'text-muted',
+        visualClassName,
         component === 'trailingAction' && '-mr-1',
       )}
       data-component={component}
@@ -63,17 +66,15 @@ export function ButtonContent({
   trailingVisual,
   variant,
 }: ButtonContentProps) {
-  const counterVariant = variant === 'primary' ? 'primary' : 'secondary'
-
   return (
     <>
       <span
         className={cn(
-          "relative grid flex-auto grid-cols-[min-content_minmax(0,auto)_min-content] [grid-template-areas:'leadingVisual_text_trailingVisual'] content-center items-center",
+          "relative grid flex-[1_0_auto] grid-cols-[min-content_minmax(0,auto)_min-content] [grid-template-areas:'leadingVisual_text_trailingVisual'] content-center items-center",
           alignContent === 'center' ? 'justify-center' : 'justify-start',
           size === 'small' ? '[&>*:not(:last-child)]:mr-1' : '[&>*:not(:last-child)]:mr-2',
           labelWrap && [
-            'self-stretch',
+            'flex-auto self-stretch',
             size === 'small'
               ? 'py-[calc(var(--control-small-paddingBlock)-2px)]'
               : size === 'large'
@@ -86,7 +87,7 @@ export function ButtonContent({
       >
         {loading && !leadingVisual && !trailingVisual && !trailingAction && count === undefined ? (
           <span
-            className="pointer-events-none absolute left-1/2 flex -translate-x-1/2 text-muted"
+            className={cn('pointer-events-none absolute left-1/2 flex -translate-x-1/2', visualClassName)}
             data-component="leadingVisual"
           >
             <Spinner aria-hidden="true" size="small" srText={null} />
@@ -119,20 +120,7 @@ export function ButtonContent({
               loading && !leadingVisual ? (
                 <Spinner aria-hidden="true" size="small" srText={null} />
               ) : (
-                <CounterLabel
-                  className={cn(
-                    variant === 'default' && 'bg-[var(--buttonCounter-default-bgColor-rest)]',
-                    variant === 'primary' &&
-                      'bg-[var(--buttonCounter-primary-bgColor-rest)] text-[var(--button-primary-fgColor-rest)]',
-                    variant === 'danger' &&
-                      'bg-[var(--buttonCounter-danger-bgColor-rest)] text-[var(--button-danger-fgColor-rest)]',
-                    variant === 'invisible' && 'bg-[var(--buttonCounter-invisible-bgColor-rest)]',
-                  )}
-                  data-component="ButtonCounter"
-                  variant={counterVariant}
-                >
-                  {count}
-                </CounterLabel>
+                <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>
               ),
               'trailingVisual',
             )

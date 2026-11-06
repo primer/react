@@ -187,6 +187,7 @@ const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(functi
     'data-component': dataComponent,
     disabled,
     icon,
+    id,
     isOverflowing = false,
     size: sizeProp,
     ...props
@@ -198,6 +199,8 @@ const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(functi
   return (
     <Toolbar.Button
       ref={ref}
+      // Passed down the render chain so the menu and tooltip triggers track the element they render.
+      id={id}
       aria-label={ariaLabel}
       data-component={dataComponent}
       data-overflowing={isOverflowing || undefined}

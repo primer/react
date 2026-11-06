@@ -55,7 +55,7 @@ export const Success: Story = {
   render: () => (
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
-      <Textarea defaultValue="Valid input" />
+      <Textarea />
       <FormControl.Validation variant="success">Success</FormControl.Validation>
     </FormControl>
   ),

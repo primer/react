@@ -9,13 +9,13 @@ const meta = {
   render: args => (
     <Header {...args}>
       <Header.Item>
-        <Header.Link href="#">
-          <MarkGithubIcon size={32} />
+        <Header.Link className="text-body-large" href="#">
+          <MarkGithubIcon className="mr-2" size={32} />
           <span>GitHub</span>
         </Header.Link>
       </Header.Item>
       <Header.Item full>Menu</Header.Item>
-      <Header.Item>
+      <Header.Item className="mr-0">
         <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
       </Header.Item>
     </Header>

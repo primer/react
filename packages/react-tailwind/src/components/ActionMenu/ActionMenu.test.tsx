@@ -3,6 +3,7 @@ import type {Menu} from '@base-ui/react/menu'
 import {cleanup, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
+import {Tooltip} from '../Tooltip'
 import {ActionMenu} from './ActionMenu'
 
 afterEach(cleanup)
@@ -25,6 +26,45 @@ describe('ActionMenu', () => {
     )
     await user.keyboard('{Escape}')
     expect(trigger).toHaveFocus()
+  })
+
+  it('tracks its open state on a Button trigger with its own id', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionMenu>
+        <ActionMenu.Button id="actions-button">Actions</ActionMenu.Button>
+        <ActionMenu.Content>
+          <ActionMenu.Item>Archive</ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+    const trigger = screen.getByRole('button', {name: 'Actions'})
+    expect(trigger).toHaveAttribute('id', 'actions-button')
+    await user.click(trigger)
+    const menu = await screen.findByRole('menu')
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    expect(trigger).toHaveAttribute('aria-controls', menu.id)
+  })
+
+  it('tracks its open state on a Button trigger wrapped in a tooltip', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionMenu>
+        <Tooltip>
+          <Tooltip.Trigger render={<ActionMenu.Button>Branches</ActionMenu.Button>} />
+          <Tooltip.Content>Switch branches</Tooltip.Content>
+        </Tooltip>
+        <ActionMenu.Content>
+          <ActionMenu.Item>main</ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>,
+    )
+    const trigger = screen.getByRole('button', {name: 'Branches'})
+    expect(trigger).toHaveAccessibleDescription('Switch branches')
+    await user.click(trigger)
+    const menu = await screen.findByRole('menu')
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    expect(trigger).toHaveAttribute('aria-controls', menu.id)
   })
 
   it('focuses the menu when opened with a pointer and the first item when opened with the keyboard', async () => {
@@ -88,7 +128,7 @@ describe('ActionMenu', () => {
     expect(ref.current).toBe(screen.getByTestId('actions'))
     expect(ref.current).toHaveTextContent('+Actions')
     expect(ref.current).toHaveClass('bg-[var(--button-danger-bgColor-rest)]')
-    expect(ref.current).toHaveClass('pr-2')
+    expect(ref.current?.querySelector('[data-component="trailingAction"] svg')).toBeInTheDocument()
     await user.click(ref.current!)
     expect(await screen.findByRole('menuitem', {name: 'Archive'})).toBeVisible()
   })

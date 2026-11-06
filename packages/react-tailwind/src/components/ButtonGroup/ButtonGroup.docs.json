@@ -41,8 +41,22 @@
   ],
   "props": [
     {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'",
+      "description": "Element to render as the group root."
+    },
+    {
       "name": "orientation",
-      "type": "\"horizontal\" | \"vertical\" | null"
+      "type": "\"horizontal\" | \"vertical\"",
+      "defaultValue": "'horizontal'",
+      "description": "Direction the buttons are joined in."
+    },
+    {
+      "name": "role",
+      "type": "AriaRole",
+      "defaultValue": "'group'",
+      "description": "Role of the group. A `toolbar` keeps one button in the tab order and moves focus between buttons with the arrow\nkeys in its orientation, Home, and End."
     }
   ],
   "passthrough": {

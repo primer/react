@@ -9,7 +9,7 @@ export const WithFullSizeItem = {
     <Header>
       <Header.Item>Item 1</Header.Item>
       <Header.Item full>Item 2</Header.Item>
-      <Header.Item>Item 3</Header.Item>
+      <Header.Item className="mr-0">Item 3</Header.Item>
     </Header>
   ),
 }

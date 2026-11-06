@@ -24,12 +24,15 @@ describe('Checkbox', () => {
     expect(new FormData(checkbox.closest('form')!).get('updates')).toBe('yes')
   })
 
-  it('uses the dash indicator when indeterminate', () => {
-    const {container} = render(<Checkbox indeterminate data-testid="checkbox" />)
+  it('draws a check when checked and a dash when indeterminate', () => {
+    const {container, rerender} = render(<Checkbox aria-label="Notifications" checked={false} />)
+    expect(container.querySelector('svg')).not.toBeInTheDocument()
 
-    const indicator = container.querySelector('[data-indeterminate] > span')
-    expect(indicator).toHaveClass('data-[indeterminate]:[&>.checkbox-check]:hidden')
-    expect(indicator?.querySelector('.checkbox-check')).toBeInTheDocument()
-    expect(indicator?.querySelector('.checkbox-dash')).toHaveClass('hidden')
+    rerender(<Checkbox aria-label="Notifications" checked />)
+    expect(container.querySelector('svg')).toHaveAttribute('viewBox', '0 0 12 9')
+
+    rerender(<Checkbox aria-label="Notifications" checked={false} indeterminate />)
+    expect(screen.getByRole('checkbox', {name: 'Notifications'})).toHaveAttribute('aria-checked', 'mixed')
+    expect(container.querySelector('svg')).toHaveAttribute('viewBox', '0 0 10 2')
   })
 })

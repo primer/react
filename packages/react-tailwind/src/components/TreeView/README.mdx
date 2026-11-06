@@ -35,13 +35,19 @@ import {TreeView} from '@primer/react-tailwind/TreeView'
 
 Every item needs a stable `id`. Put `LeadingVisual`, item text, `TrailingVisual`, and `SubTree` directly inside `Item`; `SubTree` is rendered as the item’s nested tree group. Visual children can be a node or a function that receives `{expanded}`. Give a non-decorative visual a `label`; its label is exposed as the item description.
 
-`expanded` and `onExpandedChange` control expansion; use `defaultExpanded` for uncontrolled trees. The existing `subtree`, `leadingVisual`, and `trailingVisual` props remain available as convenience APIs, but compound composition is preferred when structure or visual state matters. Use `containIntrinsicSize` on very large trees to apply `content-visibility: auto` to each row without changing its accessible tree semantics.
+`expanded` and `onExpandedChange` control expansion; use `defaultExpanded` for uncontrolled trees. The `subtree`, `leadingAction`, `leadingVisual`, and `trailingVisual` props remain available as convenience APIs, but compound composition is preferred when structure or visual state matters. Use `href` or `to` to make an item a link, and `containIntrinsicSize` on very large trees to apply `content-visibility: auto` to each row without changing its accessible tree semantics.
+
+For subtrees that load on demand, set `SubTree`'s `state` to `loading` (with an optional placeholder `count`), then `done`. Render `TreeView.ErrorDialog` inside a subtree in the `error` state to offer retry and dismiss. Put pointer affordances such as drag handles in `LeadingAction`, and per-item commands in `secondaryActions`.
 
 ## Accessibility
 
-The root has `role="tree"`, items have `role="treeitem"`, and expanded descendants are in `role="group"` lists. TreeView keeps one roving tab stop. Arrow Up/Down moves among visible items, Right expands or enters a group, Left collapses or moves to the parent, Home/End move to the first/last visible item, and typeahead moves to a matching visible label. Keep controls that perform separate actions outside TreeView items so a treeitem never contains another interactive element.
+The root has `role="tree"`, items have `role="treeitem"`, and expanded descendants are in `role="group"` lists. TreeView keeps one roving tab stop. Arrow Up/Down moves among visible items, Right expands or enters a group, Left collapses or moves to the parent, Home/End move to the first/last visible item, and Backspace moves to the parent, Enter or Space activates the item, and typeahead moves to a matching visible label. Loading and loaded subtrees are announced through a status region.
 
-See [alignment decisions](./ALIGNMENT.md) for legacy async and secondary-action differences.
+`secondaryActions` render beside the treeitem rather than inside it, so a treeitem never contains another interactive element; keyboard users reach them with Shift+Meta+U on Apple platforms or Shift+Control+U elsewhere. `LeadingAction` is hidden from assistive technology and removed from the tab order, so give keyboard users an equivalent through the item itself.
+
+See [alignment decisions](./ALIGNMENT.md) for differences from the legacy component.
 
 <Canvas of={Features.Files} />
+<Canvas of={Features.AsyncError} />
+<Canvas of={Examples.TrailingActions} />
 <Canvas of={Examples.DraggableListItem} />

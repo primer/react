@@ -5,14 +5,15 @@ import React from 'react'
 import {CharacterCounter} from '../../internal/CharacterCounter'
 import {useCharacterLimit} from '../../internal/useCharacterLimit'
 import {cn} from '../../internal/cn'
+import {joinIdRefs} from '../../internal/idRefs'
 import type {ControlSize} from '../../utils/types'
-import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
+import {useFormControlForwardedProps, useFormControlValidationStatus} from '../FormControl/useFormControlForwardedProps'
 import {Spinner} from '../Spinner'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {TextInputAction} from './TextInputAction'
 
 const inputVariants = cva(
-  'inline-flex cursor-text items-stretch overflow-hidden align-middle text-default border border-[var(--control-borderColor-rest)] bg-default shadow-[var(--shadow-inset)] outline-none rounded-md data-[focused]:border-accent-emphasis data-[focused]:outline-2 data-[focused]:outline-offset-[-1px] data-[focused]:outline-focus data-[disabled]:cursor-not-allowed data-[disabled]:border-[var(--control-borderColor-disabled)] data-[disabled]:bg-[var(--control-bgColor-disabled)] data-[disabled]:text-disabled data-[disabled]:shadow-none data-[validation=error]:border-danger-emphasis data-[validation=error]:data-[focused]:border-[var(--control-borderColor-danger)] data-[validation=error]:data-[focused]:outline-[var(--control-borderColor-danger)] data-[validation=success]:border-success-emphasis',
+  'inline-flex cursor-text items-stretch overflow-hidden align-middle text-default border border-[var(--control-borderColor-rest)] bg-default shadow-[var(--shadow-inset)] rounded-md data-[focused]:border-accent-emphasis data-[focused]:outline-2 data-[focused]:outline-offset-[-1px] data-[focused]:outline-focus data-[disabled]:cursor-not-allowed data-[disabled]:border-[var(--control-borderColor-disabled)] data-[disabled]:bg-[var(--control-bgColor-disabled)] data-[disabled]:text-disabled data-[disabled]:shadow-none data-[validation=error]:border-danger-emphasis data-[validation=error]:data-[focused]:border-[var(--control-borderColor-danger)] data-[validation=error]:data-[focused]:outline-[var(--control-borderColor-danger)] data-[validation=success]:border-[var(--bgColor-success-emphasis)]',
   {
     variants: {
       block: {
@@ -141,18 +142,21 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
   const inputDataComponent = (rest as {'data-component'?: string})['data-component'] ?? 'TextInput.Input'
   const effectiveDisabled = disabled ?? forwardedProps.disabled
   const effectiveRequired = required ?? forwardedProps.required
-  const effectiveValidation = counter?.isOverLimit || forwardedProps['aria-invalid'] ? 'error' : validationStatus
+  const fieldValidationStatus = useFormControlValidationStatus()
+  const effectiveValidation =
+    counter?.isOverLimit || forwardedProps['aria-invalid'] ? 'error' : (validationStatus ?? fieldValidationStatus)
   const showLeadingLoader =
     loading && (loaderPosition === 'leading' || (loaderPosition === 'auto' && leadingVisual !== undefined))
   const showTrailingLoader = loading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !leadingVisual))
   const hasLeading = leadingVisual !== undefined || showLeadingLoader
   const hasTrailing = trailingVisual !== undefined || showTrailingLoader
-  const descriptionIds = [forwardedProps['aria-describedby']]
-  if (leadingVisual !== undefined) descriptionIds.push(leadingVisualId)
-  if (trailingVisual !== undefined) descriptionIds.push(trailingVisualId)
-  if (loading) descriptionIds.push(loadingId)
-  if (characterLimitId) descriptionIds.push(characterLimitId)
-  const describedBy = descriptionIds.filter(Boolean).join(' ') || undefined
+  const describedBy = joinIdRefs(
+    forwardedProps['aria-describedby'],
+    leadingVisual !== undefined && leadingVisualId,
+    trailingVisual !== undefined && trailingVisualId,
+    loading && loadingId,
+    characterLimitId,
+  )
 
   const setInputRef = React.useCallback(
     (node: HTMLInputElement | null) => {

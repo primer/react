@@ -93,13 +93,14 @@ describe('TextInput', () => {
 
   it('tracks controlled and uncontrolled character limits', async () => {
     const user = userEvent.setup()
-    const {rerender} = render(<TextInput characterLimit={5} />)
+    const {unmount} = render(<TextInput characterLimit={5} />)
 
     await user.type(screen.getByRole('textbox'), 'Primer')
     expect(screen.getAllByText('1 character over')).toHaveLength(2)
     expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
 
-    rerender(<TextInput characterLimit={5} onChange={() => {}} value="Git" />)
+    unmount()
+    render(<TextInput characterLimit={5} onChange={() => {}} value="Git" />)
     expect(screen.getAllByText('2 characters remaining')).toHaveLength(2)
     expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-invalid')
   })

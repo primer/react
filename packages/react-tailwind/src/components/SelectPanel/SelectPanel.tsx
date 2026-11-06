@@ -1,8 +1,9 @@
 'use client'
 
 import {Combobox} from '@base-ui/react/combobox'
-import {AlertIcon, CheckIcon, SearchIcon, StopIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
+import {AlertIcon, SearchIcon, StopIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React from 'react'
+import {CloseIconButton} from '../../internal/CloseIconButton'
 import {cn} from '../../internal/cn'
 import {areItemsEqual, getItemRenderKey, getItemText, renderItemVisual} from '../../internal/collectionItem'
 import {FloatingPortal} from '../../internal/FloatingPortal'
@@ -15,12 +16,17 @@ import {
   ActionItemElementContent,
   type ActionListItemProps,
 } from '../ActionList/ActionList'
+import {
+  actionItemPartClassName,
+  getActionItemStateAttributes,
+  getActionItemStateClassName,
+} from '../ActionList/itemState'
 import {Banner} from '../Banner'
 import {Button, type ButtonProps} from '../Button'
-import {Checkbox} from '../Checkbox'
+import {LinkButton, type LinkButtonProps} from '../LinkButton'
 import {Dialog} from '../Dialog'
+import {ComboboxSelectionIndicator, SelectAllRow} from '../FilteredActionList/FilteredActionListParts'
 import {useFormControlContext} from '../FormControl/useFormControlForwardedProps'
-import {IconButton} from '../IconButton'
 import {Announce} from '../LiveRegion'
 import {Popover} from '../Popover'
 import {Spinner} from '../Spinner'
@@ -388,26 +394,13 @@ function SelectPanelSecondaryActionButton({block = true, children, ...props}: Se
 }
 
 // A secondary link always fills the footer and reads as a quiet action, so `block` and `variant` are fixed.
-export interface SelectPanelSecondaryActionLinkProps
-  extends Omit<ButtonProps, 'block' | 'children' | 'nativeButton' | 'render' | 'variant'> {
-  children?: React.ReactNode
+export interface SelectPanelSecondaryActionLinkProps extends Omit<LinkButtonProps, 'block' | 'variant'> {
   /** URL the secondary action navigates to. */
   href: string
 }
 
-function SelectPanelSecondaryActionLink({children, href, ...props}: SelectPanelSecondaryActionLinkProps) {
-  return (
-    <Button
-      {...props}
-      block
-      data-component="SelectPanel.SecondaryActionLink"
-      nativeButton={false}
-      render={<a href={href}>{children}</a>}
-      variant="invisible"
-    >
-      {children}
-    </Button>
-  )
+function SelectPanelSecondaryActionLink(props: SelectPanelSecondaryActionLinkProps) {
+  return <LinkButton {...props} block data-component="SelectPanel.SecondaryActionLink" variant="invisible" />
 }
 
 function useNarrowViewport() {
@@ -513,40 +506,23 @@ function renderSelectPanelOption({
       : undefined
   const selection = inactiveText ? (
     <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-attention" />
-  ) : multiple ? (
-    <span
-      aria-hidden="true"
-      className="grid size-4 shrink-0 place-items-center rounded-sm border border-[var(--control-borderColor-emphasis)] bg-default group-data-[selected]:border-[var(--control-checked-bgColor-rest)] group-data-[selected]:bg-[var(--control-checked-bgColor-rest)] group-data-[selected]:text-[var(--control-checked-fgColor-rest)]"
-    >
-      <Combobox.ItemIndicator>
-        <CheckIcon className="size-3" />
-      </Combobox.ItemIndicator>
-    </span>
-  ) : radio ? (
-    <span
-      aria-hidden="true"
-      className="grid size-4 shrink-0 place-items-center rounded-full border border-[var(--control-borderColor-emphasis)] group-data-[selected]:border-[var(--control-checked-bgColor-rest)]"
-    >
-      <Combobox.ItemIndicator>
-        <span className="size-2 rounded-full bg-[var(--control-checked-bgColor-rest)]" />
-      </Combobox.ItemIndicator>
-    </span>
   ) : (
-    <span aria-hidden="true" className="grid size-4 shrink-0 place-items-center">
-      <Combobox.ItemIndicator>
-        <CheckIcon className="size-4" />
-      </Combobox.ItemIndicator>
-    </span>
+    <ComboboxSelectionIndicator disabled={disabled} variant={multiple ? 'multiple' : radio ? 'radio' : 'single'} />
   )
 
   return (
     <Combobox.Item
       {...itemProps}
+      {...getActionItemStateAttributes({disabled, inactive: Boolean(inactiveText)})}
       aria-posinset={optionIndex === undefined ? itemProps['aria-posinset'] : optionIndex + 1}
       aria-setsize={optionCount ?? itemProps['aria-setsize']}
       className={cn(
-        'group flex w-full cursor-default items-center rounded-md px-2 py-1.5 text-left text-sm text-default outline-none data-[highlighted]:bg-neutral-muted data-[selected]:bg-accent-muted data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled',
-        virtualized && 'h-9 overflow-hidden whitespace-nowrap',
+        // Selection shows only through the indicator, as it does in ActionList listboxes.
+        'group relative flex w-full cursor-default items-center rounded-md px-2 py-1.5 text-left text-sm outline-none',
+        actionItemPartClassName.content,
+        getActionItemStateClassName({disabled, highlightable: true, inactive: Boolean(inactiveText)}),
+        // Rows clip only vertically, so the accent line beside a highlighted row stays visible.
+        virtualized && 'h-9 overflow-y-clip whitespace-nowrap',
         showItemDividers &&
           'border-b border-default last:border-b-0 [&[data-highlighted]+[data-highlighted]]:border-transparent',
         className,
@@ -916,12 +892,14 @@ function SelectPanelBody({
   ) : (
     (message as React.ReactNode)
   )
-  const {className: inputClassName, ...inputProps} = textInputProps ?? {}
+  const {className: inputClassName, id: inputId, ...inputProps} = textInputProps ?? {}
 
   return (
     <>
       <div className="border-b border-default p-3" data-component="SelectPanel.FilterContainer">
         <Combobox.Input
+          // The input tracks its own `id`, so it must not be overridden on the render element.
+          id={inputId}
           aria-label={inputProps['aria-label'] ?? inputLabel}
           autoFocus
           data-component="SelectPanel.Filter"
@@ -931,15 +909,12 @@ function SelectPanelBody({
         />
       </div>
       {multiple && showSelectAll ? (
-        <div className="flex items-center gap-2 border-b border-default px-3 py-1.5 text-sm text-default">
-          <Checkbox
-            aria-label={selectAllLabel}
-            checked={allSelected}
-            indeterminate={someSelected}
-            onCheckedChange={onSelectAllChange}
-          />
-          <span>{selectAllLabel}</span>
-        </div>
+        <SelectAllRow
+          checked={allSelected}
+          indeterminate={someSelected}
+          label={selectAllLabel}
+          onCheckedChange={onSelectAllChange}
+        />
       ) : null}
       {loading ? (
         <div className="flex flex-1 items-center justify-center gap-2 p-6 text-sm text-muted" role="status">
@@ -1085,13 +1060,11 @@ function SelectPanelContent({
             ) : null}
           </div>
           {isDialog ? (
-            <IconButton
+            <CloseIconButton
               aria-label="Cancel and close"
               className="-mr-2 -mt-2"
               data-component="SelectPanel.CloseButton"
-              icon={XIcon}
               onClick={onCancelRequest}
-              variant="invisible"
             />
           ) : null}
         </header>
@@ -1466,13 +1439,18 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     useMobileDialog && 'h-[100dvh] w-screen max-w-none rounded-none',
   )
   const contentStyle = overlayStyle
-  const triggerLabel = selectedItems.length
-    ? selectedItems.map((item, index) => (
-        <React.Fragment key={getItemRenderKey(item, index)}>
-          {index > 0 ? ', ' : null}
-          {item.text ?? item.children ?? getItemLabel(item)}
-        </React.Fragment>
-      ))
+  const selectedLabels = selectedItems.map(item => item.text ?? item.children ?? getItemLabel(item))
+  // Upstream hands `renderAnchor` a joined string, so keep plain-text labels as one string and only
+  // fall back to fragments when an item label is a node.
+  const triggerLabel = selectedLabels.length
+    ? selectedLabels.every(label => typeof label === 'string')
+      ? selectedLabels.join(', ')
+      : selectedLabels.map((label, index) => (
+          <React.Fragment key={getItemRenderKey(selectedItems[index], index)}>
+            {index > 0 ? ', ' : null}
+            {label}
+          </React.Fragment>
+        ))
     : (placeholder ?? panelTitle)
   const anchorElement =
     renderAnchor === null ? null : renderAnchor ? (

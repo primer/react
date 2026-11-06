@@ -111,3 +111,20 @@
     border-collapse: collapse;
   }
 }
+
+@layer utilities {
+  /*
+   * Mirrors Primer's BaseStyles focus reset: focusing with a pointer draws no focus ring and drops resting shadows.
+   * It sits in the utilities layer so its specificity outranks utility shadows, which a rule in `@layer base` can't.
+   */
+  /* stylelint-disable-next-line selector-max-type -- mirrors the element list in Primer's BaseStyles reset */
+  :where([data-component='BaseStyles'])
+    :is(button, summary, a, [role='button'], [role='tabpanel'][tabindex='0']):focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  [data-component='BaseStyles'] [tabindex='0']:focus:not(:focus-visible) {
+    outline: none;
+  }
+}

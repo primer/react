@@ -2,23 +2,38 @@
 
 import {Field} from '@base-ui/react/field'
 import React from 'react'
+import {useChoiceGroupContext} from '../../internal/choiceGroupContext'
 import {cn} from '../../internal/cn'
+import {joinIdRefs} from '../../internal/idRefs'
 import {isPartOf, resolveRegions} from '../../internal/regions'
 import {ValidationMessage} from '../../internal/ValidationMessage'
 import type {RegionProps} from '../../utils/types'
-import {FormControlContextProvider, useFormControlContext} from './useFormControlForwardedProps'
+import {Checkbox} from '../Checkbox/Checkbox'
+import {Radio} from '../Radio/Radio'
+import {
+  FormControlContextProvider,
+  FormControlValidationStatusProvider,
+  useFormControlContext,
+} from './useFormControlForwardedProps'
 
 export interface FormControlProps
   extends Omit<Field.Root.Props, 'className' | 'data-component'>,
     RegionProps<'label' | 'caption' | 'validation' | 'leadingVisual'> {
   className?: Field.Root.Props['className']
-  /** Whether the label sits above the control or beside it, as it does for a checkbox or radio. */
+  /**
+   * Whether the label sits above the control or beside it. Defaults to `horizontal` when a direct child is a
+   * `Checkbox` or `Radio`, and `vertical` otherwise.
+   */
   layout?: 'horizontal' | 'vertical'
   /** Marks the field required, which is reflected on the control and shown on the label. */
   required?: boolean
 }
 
 const FormControlLayoutContext = React.createContext<FormControlProps['layout']>('vertical')
+
+function isChoiceInput(child: React.ReactElement): child is React.ReactElement {
+  return child.type === Checkbox || child.type === Radio
+}
 
 const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormControl(
   {
@@ -27,7 +42,7 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
     className,
     id: idProp,
     label: labelProp,
-    layout = 'vertical',
+    layout: layoutProp,
     leadingVisual: leadingVisualProp,
     required = false,
     validation: validationProp,
@@ -40,24 +55,28 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
   // Regions stay in place because horizontal layout positions parts by `data-component`
   // selector; resolving them only tells the field which parts are present so a consumer's
   // wrapper still gets described-by wiring.
-  const {regions} = resolveRegions(
+  const {regions, matched} = resolveRegions(
     children,
     {
       label: {match: isPartOf(Label), keep: true},
       caption: {match: isPartOf(Caption), keep: true},
       validation: {match: isPartOf(Validation), keep: true},
       leadingVisual: {match: isPartOf(LeadingVisual), keep: true},
+      choiceInput: {match: isChoiceInput, keep: true},
     },
     {label: labelProp, caption: captionProp, validation: validationProp, leadingVisual: leadingVisualProp},
   )
+  const layout = layoutProp ?? (matched.choiceInput.length > 0 ? 'horizontal' : 'vertical')
   const hasCaption = regions.caption !== undefined
   const hasLeadingVisual = regions.leadingVisual !== undefined
   const hasValidation = regions.validation !== undefined
-  const hasErrorValidation =
-    React.isValidElement<FormControlValidationProps>(regions.validation) && regions.validation.props.variant === 'error'
+  const validationStatus = React.isValidElement<FormControlValidationProps>(regions.validation)
+    ? regions.validation.props.variant
+    : undefined
+  const hasErrorValidation = validationStatus === 'error'
   const captionId = hasCaption ? `${controlId}-caption` : undefined
   const validationId = hasValidation ? `${controlId}-validation` : undefined
-  const describedBy = [validationId, captionId].filter(Boolean).join(' ') || undefined
+  const describedBy = joinIdRefs(validationId, captionId)
   const isLabelHidden =
     React.isValidElement<FormControlLabelProps>(regions.label) && regions.label.props.visuallyHidden === true
   // A visually hidden label leaves the flow, so it must not push the following control down.
@@ -71,7 +90,7 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
           cn(
             layout === 'horizontal'
               ? cn(
-                  'grid gap-0 [&>input]:mx-0 [&>[data-component="Checkbox"]]:mt-0.5 [&>[data-component="Radio"]]:mt-0.5 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
+                  'grid gap-0 [&>input]:mx-0 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
                   hasLeadingVisual
                     ? 'grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component="FormControl.Caption"]]:col-start-3 [&>[data-component="FormControl.Label"]]:col-start-3 [&>[data-component="FormControl.Validation"]]:col-start-3'
                     : 'grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component="FormControl.Caption"]]:col-start-2 [&>[data-component="FormControl.Label"]]:col-start-2 [&>[data-component="FormControl.Validation"]]:col-start-2',
@@ -82,7 +101,7 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
       : cn(
           layout === 'horizontal'
             ? cn(
-                'grid gap-0 [&>input]:mx-0 [&>[data-component="Checkbox"]]:mt-0.5 [&>[data-component="Radio"]]:mt-0.5 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
+                'grid gap-0 [&>input]:mx-0 [&>[data-component="Checkbox"]]:col-start-1 [&>[data-component="Checkbox"]]:row-start-1 [&>[data-component="Radio"]]:col-start-1 [&>[data-component="Radio"]]:row-start-1 [&>[data-component="FormControl.Caption"]]:row-start-2 [&>[data-component="FormControl.Label"]]:row-start-1 [&>[data-component="FormControl.LeadingVisual"]]:col-start-2 [&>[data-component="FormControl.LeadingVisual"]]:row-start-1 [&>[data-component="FormControl.Validation"]]:row-start-3',
                 hasLeadingVisual
                   ? 'grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component="FormControl.Caption"]]:col-start-3 [&>[data-component="FormControl.Label"]]:col-start-3 [&>[data-component="FormControl.Validation"]]:col-start-3'
                   : 'grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component="FormControl.Caption"]]:col-start-2 [&>[data-component="FormControl.Label"]]:col-start-2 [&>[data-component="FormControl.Validation"]]:col-start-2',
@@ -90,16 +109,19 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
             : verticalLayoutClassName,
           className,
         )
+  const choiceGroup = useChoiceGroupContext()
+  // Base UI disables the nested Field itself; the context also mutes parts such as the leading visual.
+  const disabled = rest.disabled || choiceGroup?.disabled
   const context = React.useMemo(
     () => ({
       'aria-describedby': describedBy,
       'aria-invalid': hasErrorValidation || undefined,
-      disabled: rest.disabled,
+      disabled,
       id: controlId,
       name: rest.name,
       required,
     }),
-    [controlId, describedBy, hasErrorValidation, required, rest.disabled, rest.name],
+    [controlId, describedBy, disabled, hasErrorValidation, required, rest.name],
   )
 
   // Only reshape the tree when a region prop is actually supplied, so the common compound
@@ -122,16 +144,18 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
   return (
     <FormControlLayoutContext.Provider value={layout}>
       <FormControlContextProvider value={context}>
-        <Field.Root
-          {...rest}
-          ref={ref}
-          data-component="FormControl"
-          data-layout={layout}
-          data-required={required || undefined}
-          className={mergedClassName}
-        >
-          {content}
-        </Field.Root>
+        <FormControlValidationStatusProvider value={validationStatus}>
+          <Field.Root
+            {...rest}
+            ref={ref}
+            data-component="FormControl"
+            data-layout={layout}
+            data-required={required || undefined}
+            className={mergedClassName}
+          >
+            {content}
+          </Field.Root>
+        </FormControlValidationStatusProvider>
       </FormControlContextProvider>
     </FormControlLayoutContext.Provider>
   )
@@ -311,7 +335,7 @@ const Control = React.forwardRef<HTMLElement, FormControlControlProps>(function 
       ref={ref}
       data-component="FormControl.Control"
       className={cn(
-        'm-0 h-8 appearance-none rounded-md border border-[var(--control-borderColor-rest)] bg-default px-3 text-sm leading-5 text-default shadow-[var(--shadow-inset)] outline-none placeholder:text-muted disabled:cursor-not-allowed disabled:border-[var(--control-borderColor-disabled)] disabled:bg-[var(--control-bgColor-disabled)] disabled:text-disabled disabled:shadow-none focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-focus aria-invalid:border-danger-emphasis aria-invalid:focus:border-[var(--control-borderColor-danger)] aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
+        'm-0 h-8 appearance-none rounded-md border border-[var(--control-borderColor-rest)] bg-default px-3 text-sm leading-5 text-default shadow-[var(--shadow-inset)] placeholder:text-muted disabled:cursor-not-allowed disabled:border-[var(--control-borderColor-disabled)] disabled:bg-[var(--control-bgColor-disabled)] disabled:text-disabled disabled:shadow-none focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-[var(--borderColor-accent-emphasis)] aria-invalid:border-danger-emphasis aria-invalid:focus:border-[var(--control-borderColor-danger)] aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
         props.className,
       )}
     />

@@ -125,7 +125,12 @@ function createPassthroughResolver(program) {
   const definitionOf = symbol => {
     const node = symbol?.valueDeclaration ?? symbol?.declarations?.[0]
     // `Component.Part = Implementation`
-    if (node && ts.isPropertyAccessExpression(node) && ts.isBinaryExpression(node.parent) && node.parent.left === node) {
+    if (
+      node &&
+      ts.isPropertyAccessExpression(node) &&
+      ts.isBinaryExpression(node.parent) &&
+      node.parent.left === node
+    ) {
       return node.parent.right
     }
     return node
@@ -147,7 +152,9 @@ function createPassthroughResolver(program) {
     if (!ts.isIdentifier(head)) return undefined
     const specifier = checker.getSymbolAtLocation(head)?.declarations?.[0]
     if (!specifier || !ts.isImportSpecifier(specifier)) return undefined
-    const module = /^@base-ui\/react\/([a-z-]+)$/.exec(ts.findAncestor(specifier, ts.isImportDeclaration).moduleSpecifier.text)
+    const module = /^@base-ui\/react\/([a-z-]+)$/.exec(
+      ts.findAncestor(specifier, ts.isImportDeclaration).moduleSpecifier.text,
+    )
     if (!module) return undefined
 
     const parts = path.at(-1) === 'Props' ? path.slice(0, -1) : path
@@ -168,9 +175,7 @@ function createPassthroughResolver(program) {
       }
       // `{as: Component = 'div'}`
       if (ts.isBindingElement(node)) {
-        return node.initializer && ts.isStringLiteralLike(node.initializer)
-          ? fromTag(node.initializer.text)
-          : undefined
+        return node.initializer && ts.isStringLiteralLike(node.initializer) ? fromTag(node.initializer.text) : undefined
       }
       if (ts.isVariableDeclaration(node) || ts.isPropertyAssignment(node)) return fromComponent(node.initializer)
       if (ts.isShorthandPropertyAssignment(node)) {
@@ -230,7 +235,9 @@ function createPassthroughResolver(program) {
     const bindings = parameter.name.elements
     const as = bindings.find(binding => (binding.propertyName ?? binding.name).getText() === 'as')
     const rest = bindings.find(binding => binding.dotDotDotToken)
-    return (as && fromComponent(as)) ?? (rest && ts.isIdentifier(rest.name) ? fromSpread(component, rest.name) : undefined)
+    return (
+      (as && fromComponent(as)) ?? (rest && ts.isIdentifier(rest.name) ? fromSpread(component, rest.name) : undefined)
+    )
   }
 
   // `<div {...rest} />`: the first element the remaining props are spread onto.
@@ -446,7 +453,11 @@ function readRuntimeExports(indexPath) {
       for (const declaration of statement.declarationList.declarations) {
         if (ts.isIdentifier(declaration.name)) names.push(declaration.name.text)
       }
-    } else if (declared && (ts.isFunctionDeclaration(statement) || ts.isClassDeclaration(statement)) && statement.name) {
+    } else if (
+      declared &&
+      (ts.isFunctionDeclaration(statement) || ts.isClassDeclaration(statement)) &&
+      statement.name
+    ) {
       names.push(statement.name.text)
     } else if (ts.isExportDeclaration(statement) && !statement.isTypeOnly && statement.exportClause) {
       if (!ts.isNamedExports(statement.exportClause)) continue
@@ -465,7 +476,8 @@ function readExportedValues(checker, filePath) {
   const values = new Map()
   for (const symbol of moduleSymbol ? checker.getExportsOfModule(moduleSymbol) : []) {
     const target = symbol.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(symbol) : symbol
-    if (target.flags & ts.SymbolFlags.Value) values.set(symbol.name, {symbol: target, type: checker.getTypeOfSymbol(target)})
+    if (target.flags & ts.SymbolFlags.Value)
+      values.set(symbol.name, {symbol: target, type: checker.getTypeOfSymbol(target)})
   }
   return values
 }
@@ -655,7 +667,9 @@ export function buildDocs(componentName) {
     const typed = entry.symbol && resolvePassthrough(entry.symbol)
     const rendered = readAsDefault(props)
     if (typed?.url.startsWith(MDN_ELEMENTS) && rendered && typed.element !== rendered) {
-      elementConflicts.push(`${entry.name}: props type passes through to <${typed.element}>, as defaults to '${rendered}'`)
+      elementConflicts.push(
+        `${entry.name}: props type passes through to <${typed.element}>, as defaults to '${rendered}'`,
+      )
     }
     const passthrough = typed ?? (rendered ? htmlPassthrough(rendered) : undefined)
     return {name: entry.name, props: props.sort(byName), ...(passthrough ? {passthrough} : {})}
@@ -717,7 +731,9 @@ if (import.meta.filename === process.argv[1]) {
   }
   if (elementConflicts.length > 0) {
     // eslint-disable-next-line no-console
-    console.error(`  The props type and the as default name different elements:\n    ${elementConflicts.join('\n    ')}`)
+    console.error(
+      `  The props type and the as default name different elements:\n    ${elementConflicts.join('\n    ')}`,
+    )
     process.exitCode = 1
   }
   if (unresolved.length > 0) {

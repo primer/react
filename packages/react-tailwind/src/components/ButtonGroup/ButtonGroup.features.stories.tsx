@@ -93,8 +93,17 @@ export const DropdownSplit: Story = {
     const [selectedAction, setSelectedAction] = useState(actions[0])
     return (
       <ButtonGroup>
-        <Button onClick={() => setSelectedAction(selectedAction)}>{selectedAction}</Button>
-        <IconButton icon={TriangleDownIcon} aria-label="More options" aria-haspopup="menu" />
+        <Button>{selectedAction}</Button>
+        <ActionMenu>
+          <ActionMenu.Trigger render={<IconButton icon={TriangleDownIcon} aria-label="More options" />} />
+          <ActionMenu.Content align="end">
+            {actions.map(action => (
+              <ActionMenu.Item key={action} onClick={() => setSelectedAction(action)}>
+                {action}
+              </ActionMenu.Item>
+            ))}
+          </ActionMenu.Content>
+        </ActionMenu>
       </ButtonGroup>
     )
   },

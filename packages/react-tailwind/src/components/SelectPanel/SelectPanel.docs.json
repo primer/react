@@ -530,13 +530,9 @@
           "type": "React.ReactElement[]"
         },
         {
-          "name": "className",
-          "type": "string"
-        },
-        {
           "name": "count",
           "type": "string | number",
-          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
+          "description": "Number shown in a trailing counter."
         },
         {
           "name": "data-component",
@@ -546,7 +542,7 @@
         {
           "name": "disabled",
           "type": "boolean",
-          "description": "Prevents activation and removes the button from the keyboard order."
+          "description": "Prevents navigation and removes the link from the keyboard order."
         },
         {
           "name": "href",
@@ -557,7 +553,7 @@
         {
           "name": "inactive",
           "type": "boolean",
-          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+          "description": "Marks the link temporarily unavailable while keeping it focusable."
         },
         {
           "name": "labelWrap",
@@ -572,28 +568,33 @@
         {
           "name": "loading",
           "type": "boolean",
-          "description": "Replaces the leading visual with a spinner and suppresses activation."
+          "description": "Replaces the leading visual with a spinner and suppresses navigation."
         },
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading."
+          "description": "Text announced to assistive technology while the link is loading."
         },
         {
-          "name": "notificationIndicator",
-          "type": "\"button\" | \"leadingVisual\"",
-          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLAnchorElement>",
+          "description": "Called when the link is activated."
+        },
+        {
+          "name": "render",
+          "type": "RenderProp<LinkButtonState>",
+          "description": "Renders the link as your own element, for a router link that still needs button styling."
         },
         {
           "name": "size",
           "type": "ControlSize",
           "defaultValue": "'medium'",
-          "description": "Height and text size of the button."
+          "description": "Height and text size of the link."
         },
         {
           "name": "trailingAction",
           "type": "ButtonVisual",
-          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+          "description": "Icon shown at the far end, conventionally a chevron."
         },
         {
           "name": "trailingVisual",
@@ -602,8 +603,8 @@
         }
       ],
       "passthrough": {
-        "element": "Button",
-        "url": "https://base-ui.com/react/components/button#api-reference"
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
       }
     }
   ]

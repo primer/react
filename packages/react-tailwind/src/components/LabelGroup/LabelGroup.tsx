@@ -1,13 +1,12 @@
 'use client'
 
-import {XIcon} from '@primer/octicons-react'
 import React from 'react'
 import {flushSync} from 'react-dom'
 import {flattenChildren} from '../../internal/children'
+import {CloseIconButton} from '../../internal/CloseIconButton'
 import {cn} from '../../internal/cn'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
-import {IconButton} from '../IconButton'
 
 export interface LabelGroupProps extends Omit<React.HTMLAttributes<HTMLElement>, 'data-component'> {
   /** Customize the element type of the rendered container. */
@@ -225,9 +224,7 @@ export const LabelGroup = React.forwardRef<HTMLElement, LabelGroupProps>(functio
               >
                 <div className="flex items-start gap-2">
                   <div className="flex flex-wrap gap-1">{children}</div>
-                  <AnchoredOverlay.Close
-                    render={<IconButton aria-label="Close" icon={XIcon} size="small" variant="invisible" />}
-                  />
+                  <AnchoredOverlay.Close render={<CloseIconButton size="small" />} />
                 </div>
               </AnchoredOverlay.Content>
             </AnchoredOverlay>

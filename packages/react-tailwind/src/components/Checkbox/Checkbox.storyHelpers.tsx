@@ -21,13 +21,7 @@ export function CheckboxField({
 
   return (
     <FormControl layout="horizontal">
-      <Checkbox
-        {...checkboxProps}
-        aria-describedby={captionId}
-        className="mt-0.5"
-        id={id}
-        value={checkboxProps.value ?? 'default'}
-      />
+      <Checkbox {...checkboxProps} aria-describedby={captionId} id={id} value={checkboxProps.value ?? 'default'} />
       {leadingVisual ? (
         <FormControl.LeadingVisual className="self-center text-default">{leadingVisual}</FormControl.LeadingVisual>
       ) : null}

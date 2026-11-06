@@ -1,6 +1,6 @@
 import {ArrowRightIcon} from '@primer/octicons-react'
 import React from 'react'
-import {cleanup, render, screen, within} from '@testing-library/react'
+import {cleanup, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {ListContainerContext} from '../../internal/listContainer'
@@ -38,8 +38,43 @@ describe('ActionList', () => {
     )
 
     const [menuSelection, listboxSelection] = container.querySelectorAll('[data-component="ActionList.Selection"]')
-    expect(menuSelection.firstElementChild?.tagName.toLowerCase()).toBe('svg')
-    expect(listboxSelection.firstElementChild?.tagName.toLowerCase()).toBe('span')
+    expect(menuSelection.querySelector('svg')).toHaveAttribute('viewBox', '0 0 16 16')
+    expect(listboxSelection.querySelector('svg')).toHaveAttribute('viewBox', '0 0 12 9')
+  })
+
+  it('draws a radio for each option of a radio list', () => {
+    const {container} = render(
+      <ActionList role="listbox" selectionVariant="radio" aria-label="Branches">
+        <ActionList.Item selected>main</ActionList.Item>
+        <ActionList.Item>develop</ActionList.Item>
+      </ActionList>,
+    )
+
+    const [selected, unselected] = Array.from(
+      container.querySelectorAll('[data-component="ActionList.Selection"] > span'),
+    )
+    expect(selected).toHaveClass('rounded-full')
+    expect(selected).toHaveAttribute('data-checked')
+    expect(unselected).toHaveClass('rounded-full')
+    expect(unselected).not.toHaveAttribute('data-checked')
+  })
+
+  it('omits selection indicators from a group that opts out of selection', () => {
+    render(
+      <ActionList role="listbox" selectionVariant="multiple" aria-label="Labels">
+        <ActionList.Group selectionVariant={false}>
+          <ActionList.Item>Create label</ActionList.Item>
+        </ActionList.Group>
+        <ActionList.Group>
+          <ActionList.Item>bug</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>,
+    )
+
+    const selectionOf = (name: string) =>
+      screen.getByRole('option', {name}).querySelector('[data-component="ActionList.Selection"]')
+    expect(selectionOf('Create label')).not.toBeInTheDocument()
+    expect(selectionOf('bug')).toBeInTheDocument()
   })
 
   it('renders trailing actions beside the primary item action', () => {
@@ -67,7 +102,98 @@ describe('ActionList', () => {
     )
 
     expect(screen.getByRole('link', {name: 'Open settings'})).toBeVisible()
-    expect(screen.queryByText('Open settings')).toBeNull()
+    expect(screen.getByText('Open settings')).not.toBeVisible()
+  })
+
+  it('gives icon-only link trailing actions the muted icon button look and a label tooltip', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionList>
+        <ActionList.Item>
+          Repository settings
+          <ActionList.TrailingAction
+            as="a"
+            href="/settings"
+            icon={ArrowRightIcon}
+            label="Open settings"
+            tooltipDirection="n"
+          />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const link = screen.getByRole('link', {name: 'Open settings'})
+    expect(link).toHaveClass('text-[var(--button-invisible-iconColor-rest)]')
+    await user.tab()
+    await user.tab()
+    expect(link).toHaveFocus()
+    const tooltip = await screen.findByText('Open settings')
+    expect(tooltip.closest('[data-side]')).toHaveAttribute('data-side', 'top')
+  })
+
+  it('routes ids and ARIA references through icon-only link trailing action tooltips', async () => {
+    const user = userEvent.setup()
+    render(
+      <>
+        <p id="settings-note">Opens in the same tab</p>
+        <ActionList>
+          <ActionList.Item>
+            Repository settings
+            <ActionList.TrailingAction
+              as="a"
+              aria-describedby="settings-note"
+              href="/settings"
+              icon={ArrowRightIcon}
+              id="settings-link"
+              label="Open settings"
+            />
+          </ActionList.Item>
+        </ActionList>
+      </>,
+    )
+
+    const link = screen.getByRole('link', {name: 'Open settings'})
+    expect(link).toHaveAttribute('id', 'settings-link')
+    expect(link).toHaveAccessibleDescription('Opens in the same tab')
+    await user.tab()
+    await user.tab()
+    expect(link).toHaveFocus()
+    await waitFor(() => expect(link).toHaveAttribute('data-popup-open'))
+  })
+
+  it('keeps disabled items focusable in menus and listboxes but not in plain lists', async () => {
+    const onSelect = vi.fn()
+    render(
+      <>
+        <ActionList role="menu" aria-label="Menu">
+          <ActionList.Item disabled onSelect={onSelect}>
+            Disabled menu item
+          </ActionList.Item>
+        </ActionList>
+        <ActionList role="listbox" aria-label="Listbox" selectionVariant="single">
+          <ActionList.Item disabled onSelect={onSelect}>
+            Disabled option
+          </ActionList.Item>
+        </ActionList>
+        <ActionList>
+          <ActionList.Item disabled onSelect={onSelect}>
+            Disabled list item
+          </ActionList.Item>
+        </ActionList>
+      </>,
+    )
+
+    const menuItem = screen.getByRole('menuitem', {name: 'Disabled menu item'})
+    const option = screen.getByRole('option', {name: 'Disabled option'})
+    for (const item of [menuItem, option]) {
+      expect(item).toHaveAttribute('aria-disabled', 'true')
+      expect(item).not.toBeDisabled()
+      item.focus()
+      expect(item).toHaveFocus()
+      await userEvent.click(item)
+    }
+    expect(onSelect).not.toHaveBeenCalled()
+    expect(screen.getByRole('button', {name: 'Disabled list item'})).toBeDisabled()
   })
 
   it('normalizes label weight when only some items have descriptions', () => {
@@ -324,6 +450,100 @@ describe('ActionList', () => {
     expect(item).toHaveTextContent('Unavailable due to an outage')
   })
 
+  describe('item state', () => {
+    it('styles the list item that owns each state', () => {
+      render(
+        <ActionList>
+          <ActionList.Item variant="danger">Delete state</ActionList.Item>
+          <ActionList.Item active>Current state</ActionList.Item>
+          <ActionList.Item active disabled>
+            Disabled state
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable">Inactive state</ActionList.Item>
+          <ActionList.Item loading>Loading state</ActionList.Item>
+        </ActionList>,
+      )
+      const itemFor = (label: string) => screen.getByText(label).closest('li')
+
+      expect(itemFor('Delete state')).toHaveAttribute('data-variant', 'danger')
+      expect(itemFor('Delete state')).toHaveClass('hover:bg-[var(--control-danger-bgColor-hover)]')
+      expect(itemFor('Current state')).toHaveAttribute('data-active', 'true')
+      expect(itemFor('Current state')).toHaveClass(
+        'bg-[var(--control-transparent-bgColor-selected)]',
+        'after:bg-[var(--borderColor-accent-emphasis)]',
+      )
+      expect(itemFor('Disabled state')).toHaveAttribute('data-is-disabled', 'true')
+      expect(itemFor('Disabled state')).not.toHaveAttribute('data-active')
+      expect(itemFor('Disabled state')).not.toHaveClass('bg-[var(--control-transparent-bgColor-selected)]')
+      expect(itemFor('Inactive state')).toHaveAttribute('data-inactive', 'true')
+      expect(itemFor('Inactive state')).toHaveClass('cursor-not-allowed', 'hover:bg-transparent')
+      expect(itemFor('Loading state')).toHaveAttribute('data-loading', 'true')
+      expect(itemFor('Loading state')).toHaveClass('[--action-list-item-label-fgColor:var(--fgColor-muted)]')
+    })
+
+    it('reads part colors from the item state', () => {
+      render(
+        <ActionList>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <ArrowRightIcon />
+            </ActionList.LeadingVisual>
+            Part colors
+            <ActionList.Description>Part description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>,
+      )
+
+      expect(screen.getByText('Part colors')).toHaveClass(
+        'text-[var(--action-list-item-label-fgColor,var(--fgColor-default))]',
+      )
+      expect(screen.getByText('Part description')).toHaveClass(
+        'text-[var(--action-list-item-description-fgColor,var(--fgColor-muted))]',
+      )
+    })
+
+    it('styles a current link item on its list item', () => {
+      render(
+        <ActionList>
+          <ActionList.LinkItem href="#current" active>
+            Current link
+          </ActionList.LinkItem>
+        </ActionList>,
+      )
+
+      const item = screen.getByRole('link', {name: 'Current link'}).closest('li')
+      expect(item).toHaveAttribute('data-active', 'true')
+      expect(item).toHaveClass('bg-[var(--control-transparent-bgColor-selected)]')
+    })
+
+    it('marks the checkbox of each option with its checked and disabled state', () => {
+      const {container} = render(
+        <ActionList role="listbox" selectionVariant="multiple" aria-label="Checkbox states">
+          <ActionList.Item disabled selected>
+            Disabled checked
+          </ActionList.Item>
+          <ActionList.Item disabled>Disabled unchecked</ActionList.Item>
+          <ActionList.Item selected>Checked</ActionList.Item>
+        </ActionList>,
+      )
+      const [disabledChecked, disabledUnchecked, checked] = Array.from(
+        container.querySelectorAll('[data-component="ActionList.Selection"] > span'),
+      )
+
+      expect(disabledChecked).toHaveAttribute('data-checked')
+      expect(disabledChecked).toHaveAttribute('data-disabled')
+      expect(disabledUnchecked).not.toHaveAttribute('data-checked')
+      expect(disabledUnchecked).toHaveAttribute('data-disabled')
+      expect(checked).toHaveAttribute('data-checked')
+      expect(checked).not.toHaveAttribute('data-disabled')
+      expect(checked).toHaveClass(
+        'data-[checked]:bg-[var(--control-checked-bgColor-rest)]',
+        'data-[checked]:data-[disabled]:bg-[var(--control-checked-bgColor-disabled)]',
+        'data-[disabled]:bg-[var(--control-bgColor-disabled)]',
+      )
+    })
+  })
+
   describe('item gap', () => {
     const items = (
       <>
@@ -373,6 +593,73 @@ describe('ActionList', () => {
       )
       expect(screen.getByRole('list')).not.toHaveAttribute('data-item-gap')
       expect(screen.getByText('Quote reply').closest('li')).not.toHaveClass("[[data-component$='Item']+&]:mt-0.5")
+    })
+  })
+
+  describe('focus zone', () => {
+    it('moves focus between menu items, including disabled ones, and wraps', async () => {
+      const user = userEvent.setup()
+      render(
+        <ActionList role="menu" aria-label="File">
+          <ActionList.Item>Copy</ActionList.Item>
+          <ActionList.Item disabled>Move</ActionList.Item>
+          <ActionList.Item>Delete</ActionList.Item>
+        </ActionList>,
+      )
+      const [copy, move, remove] = screen.getAllByRole('menuitem')
+      expect([copy, move, remove].map(item => item.getAttribute('tabindex'))).toEqual(['0', '-1', '-1'])
+
+      await user.tab()
+      expect(copy).toHaveFocus()
+      await user.keyboard('{ArrowDown}')
+      expect(move).toHaveFocus()
+      await user.keyboard('{ArrowDown}{ArrowDown}')
+      expect(copy).toHaveFocus()
+      await user.keyboard('{ArrowUp}')
+      expect(remove).toHaveFocus()
+      await user.keyboard('{Home}')
+      expect(copy).toHaveFocus()
+      await user.keyboard('{PageDown}')
+      expect(remove).toHaveFocus()
+    })
+
+    it('stops at the ends of a listbox', async () => {
+      const user = userEvent.setup()
+      render(
+        <ActionList role="listbox" aria-label="Branches" selectionVariant="single">
+          <ActionList.Item>main</ActionList.Item>
+          <ActionList.Item>next</ActionList.Item>
+        </ActionList>,
+      )
+      const [main, next] = screen.getAllByRole('option')
+      await user.tab()
+      await user.keyboard('{ArrowUp}')
+      expect(main).toHaveFocus()
+      await user.keyboard('{ArrowDown}{ArrowDown}')
+      expect(next).toHaveFocus()
+    })
+
+    it('leaves plain lists and opted-out lists in the normal tab order', async () => {
+      const user = userEvent.setup()
+      const {rerender} = render(
+        <ActionList>
+          <ActionList.Item>Copy</ActionList.Item>
+          <ActionList.Item>Move</ActionList.Item>
+        </ActionList>,
+      )
+      for (const item of screen.getAllByRole('button')) expect(item).not.toHaveAttribute('tabindex', '-1')
+
+      rerender(
+        <ActionList role="menu" aria-label="File" disableFocusZone>
+          <ActionList.Item>Copy</ActionList.Item>
+          <ActionList.Item>Move</ActionList.Item>
+        </ActionList>,
+      )
+      const [copy, move] = screen.getAllByRole('menuitem')
+      expect(move).not.toHaveAttribute('tabindex', '-1')
+      await user.tab()
+      await user.keyboard('{ArrowDown}')
+      expect(copy).toHaveFocus()
     })
   })
 })

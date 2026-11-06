@@ -1,6 +1,6 @@
 export type SelectionVariant = 'single' | 'multiple' | 'radio'
 
-export function getSelectionRole(role: string | undefined, selectionVariant: SelectionVariant | undefined) {
+export function getSelectionRole(role: string | undefined, selectionVariant: SelectionVariant | false | undefined) {
   if (role === 'menu') {
     if (selectionVariant === 'multiple') return 'menuitemcheckbox'
     if (selectionVariant === 'single' || selectionVariant === 'radio') return 'menuitemradio'

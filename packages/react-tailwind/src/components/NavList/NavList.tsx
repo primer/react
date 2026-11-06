@@ -5,11 +5,17 @@ import {ChevronDownIcon, PlusIcon} from '@primer/octicons-react'
 import React from 'react'
 import {flushSync} from 'react-dom'
 import {cn} from '../../internal/cn'
+import {flattenChildren} from '../../internal/children'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {itemGapFeatureFlag, ListContainerContext} from '../../internal/listContainer'
 import {isPartOf, regionElements, resolveRegions} from '../../internal/regions'
 import type {RegionProps} from '../../utils/types'
 import {ActionList, type ActionListDescriptionProps, type ActionListTrailingActionProps} from '../ActionList/ActionList'
+import {
+  actionItemPartClassName,
+  getActionItemStateAttributes,
+  getActionItemStateClassName,
+} from '../ActionList/itemState'
 import {useFeatureFlag} from '../FeatureFlags/useFeatureFlag'
 import {Heading} from '../Heading'
 import {Tooltip} from '../Tooltip'
@@ -203,6 +209,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
     trailingAction,
     trailingVisual,
     'aria-current': ariaCurrent,
+    'aria-describedby': describedBy,
     ...props
   },
   ref,
@@ -247,6 +254,9 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
       href={href}
       to={to}
       aria-current={ariaCurrent}
+      // With a tooltip, the trigger merges this with the tooltip description. Any key on the link, even `undefined`,
+      // would replace that merged value.
+      {...(tooltipText ? {} : {'aria-describedby': describedBy})}
       aria-disabled={isInactive || undefined}
       onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
         onClick?.(event)
@@ -257,12 +267,13 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
       data-has-description={descriptions.length > 0}
       data-inactive={isInactive || undefined}
       className={cn(
-        'relative grid min-h-8 w-full min-w-0 flex-1 items-start gap-x-2 rounded-md py-1.5 text-left leading-6 text-default no-underline hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+        'relative grid min-h-8 w-full min-w-0 flex-1 items-start gap-x-2 rounded-md py-1.5 text-left leading-6 no-underline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+        actionItemPartClassName.content,
         hasLeadingVisual
           ? 'grid-cols-[min-content_minmax(0,1fr)_min-content]'
           : 'grid-cols-[minmax(0,1fr)_min-content]',
         isCurrent && 'font-semibold',
-        isInactive && 'cursor-not-allowed text-muted hover:bg-transparent',
+        isInactive && 'cursor-not-allowed',
         trailingActionChild && 'min-w-0',
         getItemPadding(depth),
         className,
@@ -271,7 +282,8 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
       {resolvedLeadingVisual
         ? React.cloneElement(resolvedLeadingVisual, {
             className: cn(
-              'row-start-1 flex min-h-5 items-center font-normal text-muted [&>svg]:size-4',
+              'row-start-1 flex min-h-5 items-center font-normal [&>svg]:size-4',
+              actionItemPartClassName.leadingVisual,
               resolvedLeadingVisual.props.className,
             ),
           })
@@ -288,6 +300,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
             'min-w-0',
             depth > 0 ? 'text-xs' : 'text-sm',
             'leading-5',
+            actionItemPartClassName.label,
             descriptions.length > 0 && 'font-semibold',
           )}
           data-item-label=""
@@ -305,7 +318,8 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
       {resolvedTrailingVisual
         ? React.cloneElement(resolvedTrailingVisual, {
             className: cn(
-              'row-start-1 flex min-h-5 items-center font-normal text-muted',
+              'row-start-1 flex min-h-5 items-center font-normal',
+              actionItemPartClassName.trailingVisual,
               hasLeadingVisual ? 'col-start-3' : 'col-start-2',
               resolvedTrailingVisual.props.className,
             ),
@@ -316,16 +330,17 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
 
   return (
     <li
+      {...getActionItemStateAttributes({active: isCurrent, inactive: isInactive})}
       className={cn(
         'relative list-none rounded-md',
-        isCurrent &&
-          'bg-[var(--control-transparent-bgColor-selected)] after:absolute after:inset-y-1 after:-left-2 after:w-1 after:rounded-full after:bg-accent-emphasis',
+        // The row owns the state, so hovering the current item replaces its fill rather than layering over it.
+        getActionItemStateClassName({active: isCurrent, inactive: isInactive}),
         trailingActionChild && 'flex items-center gap-1',
       )}
     >
       {tooltipText ? (
         <Tooltip.Root>
-          <Tooltip.Trigger render={link} delay={tooltipDelay} />
+          <Tooltip.Trigger aria-describedby={describedBy} render={link} delay={tooltipDelay} />
           <Tooltip.Content side="right">{tooltipText}</Tooltip.Content>
         </Tooltip.Root>
       ) : (
@@ -413,14 +428,18 @@ const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpandProps>
           ))
         : null}
       {currentPage < pages || currentPage === 0 ? (
-        <li className="relative list-none rounded-md">
+        <li
+          {...getActionItemStateAttributes({})}
+          className={cn('relative list-none rounded-md', getActionItemStateClassName({}))}
+        >
           <button
             ref={ref}
             type="button"
             aria-expanded="false"
             data-component="NavList.GroupExpand"
             className={cn(
-              'grid min-h-8 w-full cursor-pointer appearance-none grid-cols-[minmax(0,1fr)_min-content] items-start gap-x-2 rounded-md border-0 bg-transparent py-1.5 text-left font-normal text-default hover:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+              'grid min-h-8 w-full cursor-pointer appearance-none grid-cols-[minmax(0,1fr)_min-content] items-start gap-x-2 rounded-md border-0 bg-transparent py-1.5 text-left font-normal focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+              actionItemPartClassName.content,
               getItemPadding(depth),
             )}
             onClick={event => {
@@ -432,8 +451,13 @@ const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpandProps>
               Array.from(focusTargets).at(-1)?.focus()
             }}
           >
-            <span className={cn('min-w-0', depth > 0 ? 'text-xs' : 'text-sm', 'leading-5')}>{label}</span>
-            <span className="flex min-h-5 items-center text-muted">
+            <span
+              className={cn('min-w-0', depth > 0 ? 'text-xs' : 'text-sm', 'leading-5', actionItemPartClassName.label)}
+              data-item-label=""
+            >
+              {label}
+            </span>
+            <span className={cn('flex min-h-5 items-center', actionItemPartClassName.trailingVisual)}>
               <PlusIcon aria-hidden="true" />
             </span>
           </button>
@@ -443,42 +467,95 @@ const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpandProps>
   )
 })
 
+function hasCurrentNavItem(node: React.ReactNode): boolean {
+  return React.Children.toArray(node).some(child => {
+    if (!React.isValidElement<{children?: React.ReactNode; 'aria-current'?: unknown}>(child)) return false
+    const ariaCurrent = child.props['aria-current']
+    if (Boolean(ariaCurrent) && ariaCurrent !== 'false') return true
+    return hasCurrentNavItem(child.props.children)
+  })
+}
+
+interface SubNavContextValue {
+  /** The section is collapsed while it contains the current item. */
+  active: boolean
+  triggerId: string | undefined
+}
+const SubNavContext = React.createContext<SubNavContextValue>({active: false, triggerId: undefined})
+
 export type NavListSubNavProps = React.ComponentPropsWithoutRef<typeof Collapsible.Root>
-const SubNav = React.forwardRef<HTMLElement, NavListSubNavProps>(function NavListSubNav({className, ...props}, ref) {
+const SubNav = React.forwardRef<HTMLElement, NavListSubNavProps>(function NavListSubNav(
+  {children, className, defaultOpen = false, onOpenChange, open: openProp, ...props},
+  ref,
+) {
+  const generatedTriggerId = React.useId()
+  const trigger = flattenChildren(children).find(child =>
+    React.isValidElement(child) ? isPartOf(SubNavTrigger)(child) : false,
+  )
+  const triggerId =
+    (React.isValidElement<NavListSubNavTriggerProps>(trigger) ? trigger.props.id : undefined) ?? generatedTriggerId
+  // Upstream opens a section that contains the current item, including when navigation moves the current item into it.
+  const containsCurrentItem = hasCurrentNavItem(children)
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen || containsCurrentItem)
+  const [previousContainsCurrentItem, setPreviousContainsCurrentItem] = React.useState(containsCurrentItem)
+  if (containsCurrentItem !== previousContainsCurrentItem) {
+    setPreviousContainsCurrentItem(containsCurrentItem)
+    if (containsCurrentItem) setUncontrolledOpen(true)
+  }
+  const open = openProp ?? uncontrolledOpen
+  const active = !open && containsCurrentItem
+
   return (
-    <Collapsible.Root
-      render={<li />}
-      {...props}
-      ref={ref as React.Ref<HTMLDivElement>}
-      data-component="NavList.SubNav"
-      className={mergeClassName('list-none', className)}
-    />
+    <SubNavContext.Provider value={{active, triggerId}}>
+      <Collapsible.Root
+        render={<li />}
+        {...props}
+        ref={ref as React.Ref<HTMLDivElement>}
+        open={open}
+        onOpenChange={(nextOpen, eventDetails) => {
+          onOpenChange?.(nextOpen, eventDetails)
+          if (!eventDetails.isCanceled && openProp === undefined) setUncontrolledOpen(nextOpen)
+        }}
+        data-component="NavList.SubNav"
+        className={mergeClassName('list-none', className)}
+      >
+        {children}
+      </Collapsible.Root>
+    </SubNavContext.Provider>
   )
 })
 
 export type NavListSubNavTriggerProps = React.ComponentPropsWithoutRef<typeof Collapsible.Trigger>
 const SubNavTrigger = React.forwardRef<HTMLButtonElement, NavListSubNavTriggerProps>(function NavListSubNavTrigger(
-  {className, children, ...props},
+  {className, children, id, ...props},
   ref,
 ) {
   const depth = React.useContext(NavListDepthContext)
+  const {active, triggerId} = React.useContext(SubNavContext)
   return (
     <Collapsible.Trigger
       {...props}
+      {...getActionItemStateAttributes({active})}
       ref={ref}
+      id={id ?? triggerId}
       data-component="NavList.SubNav.Trigger"
       className={cn(
-        'group flex h-8 w-full appearance-none items-center gap-2 rounded-md border-0 bg-transparent py-1 text-left font-normal text-default hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+        'group relative flex h-8 w-full cursor-pointer appearance-none items-center gap-2 rounded-md border-0 bg-transparent py-1 text-left font-normal focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+        actionItemPartClassName.content,
+        // A section holds its own state, so a collapsed section that contains the current item is marked as current.
+        getActionItemStateClassName({active}),
         depth > 0 ? 'text-xs' : 'text-sm',
         'leading-5',
         getItemPadding(depth),
         className,
       )}
     >
-      <span className="min-w-0 flex-1">{children}</span>
+      <span className={cn('min-w-0 flex-1', actionItemPartClassName.label)} data-item-label="">
+        {children}
+      </span>
       <ChevronDownIcon
         aria-hidden="true"
-        className="shrink-0 text-muted group-data-[panel-open]:-scale-y-100"
+        className={cn('shrink-0 group-data-[panel-open]:-scale-y-100', actionItemPartClassName.trailingVisual)}
         size={16}
       />
     </Collapsible.Trigger>
@@ -495,8 +572,10 @@ const SubNavPanel = React.forwardRef<HTMLUListElement, NavListSubNavPanelProps>(
   ref,
 ) {
   const depth = React.useContext(NavListDepthContext)
+  const {triggerId} = React.useContext(SubNavContext)
   return (
     <Collapsible.Panel
+      aria-labelledby={triggerId}
       {...props}
       ref={ref as React.Ref<HTMLDivElement>}
       render={<ul />}

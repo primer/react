@@ -30,7 +30,7 @@ const LICENSE_BOT_AVATAR = 'https://avatars.githubusercontent.com/u/9919?s=40&v=
 
 function PullRequestLink({number, title}: {number: number; title: string}) {
   return (
-    <span className="mt-1 inline-flex items-center text-xs">
+    <span className="mt-1 inline-flex items-center text-xs leading-normal">
       <GitPullRequestIcon aria-hidden="true" className="mr-2 text-success" size={16} />
       <Link className="text-default hover:text-default" href={`../../pull/${number}`} inline>
         {title} #{number}

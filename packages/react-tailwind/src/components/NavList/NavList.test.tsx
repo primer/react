@@ -60,6 +60,55 @@ describe('NavList', () => {
     await user.click(trigger)
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByRole('list')).toContainElement(screen.getByRole('link', {name: 'README'}))
+    expect(screen.getByRole('list', {name: 'Files'})).toBeInTheDocument()
+  })
+
+  it('opens a section that contains the current item and marks it current while collapsed', async () => {
+    const user = userEvent.setup()
+    const subNav = (current: boolean) => (
+      <NavList aria-label="Repository">
+        <NavList.SubNav>
+          <NavList.SubNav.Trigger id="files-trigger">Files</NavList.SubNav.Trigger>
+          <NavList.SubNav.Panel>
+            <NavList.Item href="/readme" aria-current={current ? 'page' : undefined}>
+              README
+            </NavList.Item>
+          </NavList.SubNav.Panel>
+        </NavList.SubNav>
+      </NavList>
+    )
+    const {rerender} = render(subNav(false))
+    const trigger = screen.getByRole('button', {name: 'Files'})
+    expect(trigger).toHaveAttribute('aria-expanded', 'false')
+
+    rerender(subNav(true))
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    expect(trigger).not.toHaveAttribute('data-active')
+    expect(screen.getByRole('list', {name: 'Files'})).toHaveAttribute('aria-labelledby', 'files-trigger')
+
+    await user.click(trigger)
+    expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    expect(trigger).toHaveAttribute('data-active', 'true')
+    expect(trigger).toHaveClass('bg-[var(--control-transparent-bgColor-selected)]')
+  })
+
+  it('leaves a controlled section closed when it contains the current item', () => {
+    render(
+      <NavList aria-label="Repository">
+        <NavList.SubNav open={false}>
+          <NavList.SubNav.Trigger>Files</NavList.SubNav.Trigger>
+          <NavList.SubNav.Panel>
+            <NavList.Item href="/readme" aria-current="page">
+              README
+            </NavList.Item>
+          </NavList.SubNav.Panel>
+        </NavList.SubNav>
+      </NavList>,
+    )
+
+    const trigger = screen.getByRole('button', {name: 'Files'})
+    expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    expect(trigger).toHaveAttribute('data-active', 'true')
   })
 
   it('finds a heading that is grouped in a fragment', () => {
@@ -215,6 +264,25 @@ describe('NavList', () => {
     await user.hover(link)
     const tooltip = await screen.findByText('Browse the source')
     expect(link).toHaveAttribute('aria-describedby', tooltip.closest('[id]')?.id)
+  })
+
+  it('merges a consumer description with the tooltip text', () => {
+    render(
+      <>
+        <span id="code-note">Updated today</span>
+        <NavList aria-label="Main">
+          <NavList.Item aria-describedby="code-note" href="#code" tooltipText="Browse the source">
+            Code
+          </NavList.Item>
+          <NavList.Item aria-describedby="code-note" href="#issues">
+            Issues
+          </NavList.Item>
+        </NavList>
+      </>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Code'})).toHaveAccessibleDescription('Updated today Browse the source')
+    expect(screen.getByRole('link', {name: 'Issues'})).toHaveAccessibleDescription('Updated today')
   })
 
   it('reveals grouped items and moves focus to the first revealed item', async () => {

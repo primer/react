@@ -13,7 +13,7 @@ Button is the stable Base UI-backed button primitive with aligned `variant`, `si
 - Prefer LinkButton for navigation; the `link` Button variant remains available for semantic button actions rendered as inline links.
 - Pass counters through `count`, trailing disclosure icons through `trailingAction`, and keyboard shortcuts through a composed `KeybindingHint` in `trailingVisual`.
 - Use `inactive` for the interactive visually-disabled state and add an accessible description when the reason is not otherwise evident.
-- Use `render`, not `as`, when composing a Base UI trigger or other existing element.
+- Use `render`, not `as`, when composing a Base UI trigger or other existing element. Set `nativeButton={false}` when the rendered element is not a `<button>`.
 - `notificationIndicator` accepts `button` or `leadingVisual`; the dot is visual only, so include the activity in the accessible name or description.
 - The `link` variant underlines only the label on hover when visuals are present, matching upstream `data-no-visuals` behavior.
 - Replace `sx` and styled-system props with `className`.

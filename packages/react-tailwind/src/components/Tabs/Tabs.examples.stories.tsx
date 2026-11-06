@@ -1,7 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, userEvent, within} from 'storybook/test'
 import React from 'react'
-import {actionItemClassName} from '../ActionList/ActionList'
+import {actionItemClassName, getActionItemStateClassName} from '../ActionList/itemState'
+import {cn} from '../../internal/cn'
 import {StoryNotice} from '../../internal/StoryNotice.storyHelpers'
 import {Tab, TabList, TabPanel, Tabs} from './index'
 
@@ -38,7 +39,13 @@ export const WithCustomComponents: Story = {
                   key={tabValue}
                   value={tabValue}
                   disabled={tabValue === 'four'}
-                  className={`${actionItemClassName} mx-2 data-[active]:bg-neutral-muted data-[active]:font-semibold`}
+                  className={state =>
+                    cn(
+                      actionItemClassName,
+                      'relative mx-2 data-[active]:font-semibold',
+                      getActionItemStateClassName({active: state.active, disabled: state.disabled}),
+                    )
+                  }
                 >
                   {label}
                 </Tab>

@@ -15,4 +15,6 @@ Its config uses controlled state, `title`, `description`, `dangerous`, `onCancel
 - Migrate `onClose` gesture handling to `onCancel`/`onConfirm` and controlled Root state.
 - Migrate custom dialog markup to the exported compound parts where needed.
 - `width` and `height` keep upstream's dialog size scale; do not depend on legacy overlay class names.
+- The footer buttons move focus between each other with the left and right arrows and Tab, as upstream's dialog footer does. Tabbing into the footer from outside lands on the nearest button.
 - Remove `sx` and styled-system props.
+- `ConfirmationDialog.Trigger` sets `aria-expanded` while the dialog is open (Base UI semantics), so a `Button` trigger shows its active background behind the backdrop. Upstream opens confirmations from a plain button, so visual comparisons differ only in that blended trigger fill.

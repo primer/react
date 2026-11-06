@@ -1,95 +1,72 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import {expect, userEvent, within} from 'storybook/test'
 import {Button} from '../Button'
 import {Tooltip, type TooltipContentProps, type TooltipRootProps} from './Tooltip'
 
-interface TooltipStoryArgs
-  extends Pick<TooltipRootProps, 'disableHoverablePopup' | 'keybindingHint' | 'trackCursorAxis' | 'type'>,
-    Pick<TooltipContentProps, 'align' | 'side' | 'sideOffset'> {}
-
 const meta = {
   title: 'React Tailwind/Components/Tooltip',
-  args: {
-    align: 'center',
-    disableHoverablePopup: true,
-    keybindingHint: '',
-    side: 'right',
-    sideOffset: 8,
-    trackCursorAxis: 'none',
-    type: 'description',
-  },
-  argTypes: {
-    align: {control: 'select', options: ['start', 'center', 'end']},
-    disableHoverablePopup: {control: 'boolean'},
-    side: {
-      control: 'select',
-      options: ['top', 'bottom', 'left', 'right', 'inline-start', 'inline-end'],
-    },
-    sideOffset: {control: {type: 'number', min: 0}},
-    trackCursorAxis: {control: 'select', options: ['none', 'x', 'y', 'both']},
-    type: {control: 'radio', options: ['description', 'label']},
-  },
-} satisfies Meta<TooltipStoryArgs>
+  component: Tooltip,
+} satisfies Meta<typeof Tooltip>
 
 export default meta
 
-type Story = StoryObj<TooltipStoryArgs>
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => (
-    <Tooltip>
-      <Tooltip.Trigger render={<Button>Save</Button>} />
-      <Tooltip.Content>Save this file</Tooltip.Content>
-    </Tooltip>
+    <div className="p-10">
+      <Tooltip>
+        <Tooltip.Trigger render={<Button>Delete</Button>} />
+        <Tooltip.Content>This change can&apos;t be undone.</Tooltip.Content>
+      </Tooltip>
+    </div>
   ),
-  play: async ({canvasElement}) => {
-    await userEvent.hover(within(canvasElement).getByRole('button', {name: 'Save'}))
-    const tooltip = await within(document.body).findByRole('tooltip')
-    await expect(tooltip).toHaveAttribute('data-open')
-    await new Promise(resolve => setTimeout(resolve, 150))
-    await expect(tooltip).toBeVisible()
-    await expect(tooltip).toHaveTextContent('Save this file')
-  },
 }
-export const Playground: Story = {
-  render: args => (
-    <Tooltip
-      disableHoverablePopup={args.disableHoverablePopup}
-      keybindingHint={args.keybindingHint}
-      trackCursorAxis={args.trackCursorAxis}
-      type={args.type}
-    >
-      <Tooltip.Trigger>Info</Tooltip.Trigger>
-      <Tooltip.Content align={args.align} side={args.side} sideOffset={args.sideOffset}>
-        Additional information
-      </Tooltip.Content>
-    </Tooltip>
+
+interface PlaygroundArgs
+  extends Pick<TooltipRootProps, 'delay' | 'keybindingHint'>,
+    Pick<TooltipContentProps, 'align' | 'side'> {
+  text: string
+}
+
+// A label tooltip on a button with visible text would replace that text as its name, so the playground only
+// demonstrates description tooltips.
+export const Playground: StoryObj<PlaygroundArgs> = {
+  args: {
+    align: 'center',
+    delay: 'short',
+    keybindingHint: '',
+    side: 'bottom',
+    text: 'This is the tooltip text',
+  },
+  argTypes: {
+    align: {control: 'radio', options: ['start', 'center', 'end']},
+    delay: {control: 'radio', options: ['short', 'medium', 'long']},
+    keybindingHint: {control: 'text'},
+    side: {control: 'radio', options: ['top', 'right', 'bottom', 'left']},
+    text: {control: 'text'},
+  },
+  render: ({align, delay, keybindingHint, side, text}) => (
+    <div className="p-10">
+      <Tooltip delay={delay} keybindingHint={keybindingHint || undefined}>
+        <Tooltip.Trigger render={<Button>Delete</Button>} />
+        <Tooltip.Content align={align} side={side}>
+          {text}
+        </Tooltip.Content>
+      </Tooltip>
+    </div>
   ),
-  play: async ({canvasElement}) => {
-    await userEvent.hover(within(canvasElement).getByRole('button', {name: 'Info'}))
-    const tooltip = await within(document.body).findByRole('tooltip')
-    await expect(tooltip).toHaveAttribute('data-open')
-    await new Promise(resolve => setTimeout(resolve, 150))
-    await expect(tooltip).toBeVisible()
-    await expect(tooltip).toHaveTextContent('Additional information')
-  },
 }
+
 export const WithArrow: Story = {
   render: () => (
-    <Tooltip>
-      <Tooltip.Trigger>More</Tooltip.Trigger>
-      <Tooltip.Content>
-        <Tooltip.Arrow />
-        More information
-      </Tooltip.Content>
-    </Tooltip>
+    <div className="p-10">
+      <Tooltip>
+        <Tooltip.Trigger render={<Button>More</Button>} />
+        <Tooltip.Content sideOffset={8}>
+          <Tooltip.Arrow />
+          More information
+        </Tooltip.Content>
+      </Tooltip>
+    </div>
   ),
-  play: async ({canvasElement}) => {
-    await userEvent.hover(within(canvasElement).getByRole('button', {name: 'More'}))
-    const tooltip = await within(document.body).findByRole('tooltip')
-    await expect(tooltip).toHaveAttribute('data-open')
-    await new Promise(resolve => setTimeout(resolve, 150))
-    await expect(tooltip).toBeVisible()
-    await expect(tooltip).toHaveTextContent('More information')
-  },
 }

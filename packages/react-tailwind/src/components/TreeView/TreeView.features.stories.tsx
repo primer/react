@@ -10,7 +10,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import React from 'react'
 import {Button} from '../Button'
 import {IconButton} from '../IconButton'
-import {TreeView} from './TreeView'
+import {type SubTreeState, TreeView} from './TreeView'
 
 const meta = {
   title: 'React Tailwind/Navigation/TreeView/Features',
@@ -189,30 +189,57 @@ export const FilesChanged: Story = {
   ),
 }
 
-type ControlledTreeItem = {name: string; expanded: boolean; children: ControlledTreeItem[]}
-const initialTree: ControlledTreeItem[] = Array.from({length: 5}, (_, directory) => ({
-  name: `Item ${directory}`,
-  expanded: false,
-  children: Array.from({length: 5}, (_, child) => ({
-    name: `Item ${directory}.${child}`,
-    expanded: false,
-    children: Array.from({length: 5}, (_, grandchild) => ({
-      name: `Item ${directory}.${child}.${grandchild}`,
-      expanded: false,
-      children: [],
-    })),
+type ControlledTreeItem = {data: {name: string; expanded: boolean}; children: ControlledTreeItem[]}
+
+function setAllExpanded(tree: ControlledTreeItem[], expanded: boolean): ControlledTreeItem[] {
+  return tree.map(item => ({data: {...item.data, expanded}, children: setAllExpanded(item.children, expanded)}))
+}
+
+function setExpandedAt(tree: ControlledTreeItem[], path: string[], expanded: boolean): ControlledTreeItem[] {
+  return tree.map(item => {
+    if (item.data.name !== path[0]) return item
+    if (path.length === 1) return {...item, data: {...item.data, expanded}}
+    return {...item, children: setExpandedAt(item.children, path.slice(1), expanded)}
+  })
+}
+
+const initialTree: ControlledTreeItem[] = Array.from({length: 5}, (_, i) => ({
+  data: {name: `Item ${i}`, expanded: false},
+  children: Array.from({length: 5}, (_, j) => ({
+    data: {name: `Item ${i}.${j}`, expanded: false},
+    children: Array.from({length: 5}, (_, k) => ({data: {name: `Item ${i}.${j}.${k}`, expanded: false}, children: []})),
   })),
 }))
 
-function ControlledItem({item, path}: {item: ControlledTreeItem; path: string}) {
-  const [expanded, setExpanded] = React.useState(item.expanded)
+type ControlledItemProps = {
+  currentPath: string[]
+  item: ControlledTreeItem
+  onCurrentPathChange: (path: string[]) => void
+  onExpandedChange: (path: string[], expanded: boolean) => void
+  path: string[]
+}
+
+function ControlledItem({currentPath, item, onCurrentPathChange, onExpandedChange, path}: ControlledItemProps) {
   return (
-    <TreeView.Item id={path} expanded={expanded} onExpandedChange={setExpanded}>
-      {item.name}
+    <TreeView.Item
+      id={path.join('/')}
+      current={currentPath.join('/') === path.join('/')}
+      expanded={item.data.expanded}
+      onExpandedChange={expanded => onExpandedChange(path, expanded)}
+      onSelect={() => onCurrentPathChange(path)}
+    >
+      {item.data.name}
       {item.children.length > 0 ? (
         <TreeView.SubTree>
           {item.children.map(child => (
-            <ControlledItem key={child.name} item={child} path={`${path}/${child.name}`} />
+            <ControlledItem
+              key={child.data.name}
+              currentPath={currentPath}
+              item={child}
+              onCurrentPathChange={onCurrentPathChange}
+              onExpandedChange={onExpandedChange}
+              path={[...path, child.data.name]}
+            />
           ))}
         </TreeView.SubTree>
       ) : null}
@@ -220,53 +247,79 @@ function ControlledItem({item, path}: {item: ControlledTreeItem; path: string}) 
   )
 }
 
-export const Controlled: Story = {
-  render: () => {
-    const [allExpanded, setAllExpanded] = React.useState<boolean | null>(null)
-    return (
-      <div className="grid gap-4">
-        <div className="flex gap-2">
-          <Button onClick={() => setAllExpanded(false)}>Collapse all</Button>
-          <Button onClick={() => setAllExpanded(true)}>Expand all</Button>
-        </div>
-        <nav aria-label="Files">
-          <TreeView aria-label="Files">
-            {initialTree.map(item => (
-              <TreeView.Item
-                key={item.name}
-                id={item.name}
-                expanded={allExpanded ?? item.expanded}
-                onExpandedChange={() => setAllExpanded(null)}
-              >
-                {item.name}
-                <TreeView.SubTree>
-                  {item.children.map(child => (
-                    <ControlledItem key={child.name} item={child} path={`${item.name}/${child.name}`} />
-                  ))}
-                </TreeView.SubTree>
-              </TreeView.Item>
-            ))}
-          </TreeView>
-        </nav>
+function ControlledTree() {
+  const [currentPath, setCurrentPath] = React.useState<string[]>(['src', 'Avatar.tsx'])
+  const [tree, setTree] = React.useState(initialTree)
+  const handleExpandedChange = (path: string[], expanded: boolean) =>
+    setTree(current => setExpandedAt(current, path, expanded))
+
+  return (
+    <div className="grid gap-4">
+      <div className="flex gap-2">
+        <Button onClick={() => setTree(current => setAllExpanded(current, false))}>Collapse all</Button>
+        <Button onClick={() => setTree(current => setAllExpanded(current, true))}>Expand all</Button>
       </div>
-    )
-  },
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
+          {tree.map(item => (
+            <ControlledItem
+              key={item.data.name}
+              currentPath={currentPath}
+              item={item}
+              onCurrentPathChange={setCurrentPath}
+              onExpandedChange={handleExpandedChange}
+              path={[item.data.name]}
+            />
+          ))}
+        </TreeView>
+      </nav>
+    </div>
+  )
 }
 
-function AsyncTree({count, fail = false}: {count?: number; fail?: boolean}) {
-  const [state, setState] = React.useState<'initial' | 'loading' | 'done' | 'error'>('initial')
-  const [items, setItems] = React.useState<string[]>([])
-  const load = () => {
-    setState('loading')
-    window.setTimeout(() => {
-      if (fail) {
-        setState('error')
-      } else {
-        setItems(['Avatar.tsx', 'Button.tsx', 'Checkbox.tsx'])
-        setState('done')
-      }
-    }, 1000)
+export const Controlled: Story = {render: () => <ControlledTree />}
+
+function wait(ms: number) {
+  return new Promise(resolve => window.setTimeout(resolve, ms))
+}
+
+async function loadItems(responseTime: number) {
+  await wait(responseTime)
+  return ['Avatar.tsx', 'Button.tsx', 'Checkbox.tsx']
+}
+
+async function alwaysFails(responseTime: number): Promise<string[]> {
+  await wait(responseTime)
+  throw new Error('Failed to load items')
+}
+
+function getSubTreeState(isLoading: boolean, items: string[], error?: Error | null): SubTreeState {
+  if (isLoading) return 'loading'
+  if (error) return 'error'
+  return items.length > 0 ? 'done' : 'initial'
+}
+
+type AsyncTreeProps = {
+  /** Number of skeleton rows to show while loading. */
+  count?: number
+  /** Adds a directory, already loaded, after the async items. */
+  nested?: boolean
+  /** Milliseconds the fake request takes. */
+  responseTime: number
+}
+
+function AsyncTree({count, nested = false, responseTime}: AsyncTreeProps) {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  const handleExpandedChange = async (expanded: boolean) => {
+    if (!expanded || asyncItems.length > 0) return
+    setIsLoading(true)
+    const items = await loadItems(responseTime)
+    setIsLoading(false)
+    setAsyncItems(items)
   }
+
   return (
     <nav aria-label="Files">
       <TreeView aria-label="Files">
@@ -276,18 +329,13 @@ function AsyncTree({count, fail = false}: {count?: number; fail?: boolean}) {
           </TreeView.LeadingVisual>
           Some file
         </TreeView.Item>
-        <TreeView.Item id="async-directory" onExpandedChange={expanded => expanded && state === 'initial' && load()}>
+        <TreeView.Item id="async-directory" onExpandedChange={handleExpandedChange}>
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
           </TreeView.LeadingVisual>
           Directory with async items
-          <TreeView.SubTree state={state} count={count}>
-            {state === 'error' ? (
-              <li role="none" className="px-2 py-1 text-danger">
-                Failed to load items
-              </li>
-            ) : null}
-            {items.map(item => (
+          <TreeView.SubTree state={getSubTreeState(isLoading, asyncItems)} count={count}>
+            {asyncItems.map(item => (
               <TreeView.Item key={item} id={`item-${item}`}>
                 <TreeView.LeadingVisual>
                   <FileIcon />
@@ -295,6 +343,25 @@ function AsyncTree({count, fail = false}: {count?: number; fail?: boolean}) {
                 {item}
               </TreeView.Item>
             ))}
+            {nested ? (
+              <TreeView.Item id="nested-directory">
+                Nested Sub-tree
+                <TreeView.SubTree state="done">
+                  <TreeView.Item id="nested-directory/file-1">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Some file
+                  </TreeView.Item>
+                  <TreeView.Item id="nested-directory/another-file">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Another file
+                  </TreeView.Item>
+                </TreeView.SubTree>
+              </TreeView.Item>
+            ) : null}
           </TreeView.SubTree>
         </TreeView.Item>
         <TreeView.Item id="another-file">
@@ -308,19 +375,111 @@ function AsyncTree({count, fail = false}: {count?: number; fail?: boolean}) {
   )
 }
 
-export const AsyncSuccess: Story = {render: () => <AsyncTree />}
-export const AsyncWithCount: Story = {render: () => <AsyncTree count={3} />}
-export const AsyncError: Story = {render: () => <AsyncTree fail />}
+type AsyncStory = StoryObj<{responseTime: number}>
 
-export const EmptyDirectories: Story = {
-  render: () => (
+export const AsyncSuccess: AsyncStory = {
+  args: {responseTime: 4000},
+  render: ({responseTime}) => <AsyncTree responseTime={responseTime} />,
+}
+
+export const AsyncWithCount: StoryObj<{count: number; responseTime: number}> = {
+  name: 'Async with count (skeleton nodes)',
+  args: {count: 3, responseTime: 2000},
+  argTypes: {count: {control: 'number'}},
+  render: ({count, responseTime}) => <AsyncTree count={count} responseTime={responseTime} />,
+}
+
+function AsyncErrorTree({responseTime}: {responseTime: number}) {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+  const [error, setError] = React.useState<Error | null>(null)
+
+  const load = async () => {
+    if (asyncItems.length > 0) return
+    setIsLoading(true)
+    try {
+      setAsyncItems(await alwaysFails(responseTime))
+    } catch (caught) {
+      setError(caught instanceof Error ? caught : new Error(String(caught)))
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
     <TreeView aria-label="Files">
-      <TreeView.Item id="src">
+      <TreeView.Item id="some-file">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        Some file
+      </TreeView.Item>
+      <TreeView.Item id="async-directory" onExpandedChange={expanded => expanded && void load()}>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Directory with async items
+        <TreeView.SubTree state={getSubTreeState(isLoading, asyncItems, error)}>
+          {error ? (
+            <TreeView.ErrorDialog
+              onRetry={() => {
+                setError(null)
+                void load()
+              }}
+              onDismiss={() => setError(null)}
+            >
+              {error.message}
+            </TreeView.ErrorDialog>
+          ) : null}
+          {asyncItems.map(item => (
+            <TreeView.Item key={item} id={`item-${item}`}>
+              <TreeView.LeadingVisual>
+                <FileIcon />
+              </TreeView.LeadingVisual>
+              {item}
+            </TreeView.Item>
+          ))}
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="another-file">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        Another file
+      </TreeView.Item>
+    </TreeView>
+  )
+}
+
+export const AsyncError: AsyncStory = {
+  args: {responseTime: 2000},
+  render: ({responseTime}) => <AsyncErrorTree responseTime={responseTime} />,
+}
+
+function EmptyDirectoriesTree() {
+  const [expanded, setExpanded] = React.useState(false)
+  const [state, setState] = React.useState<SubTreeState>('initial')
+
+  React.useEffect(() => {
+    if (!expanded || state !== 'loading') return
+    const timeout = window.setTimeout(() => setState('done'), 2000)
+    return () => window.clearTimeout(timeout)
+  }, [expanded, state])
+
+  return (
+    <TreeView aria-label="Files">
+      <TreeView.Item
+        id="src"
+        onExpandedChange={next => {
+          setExpanded(next)
+          setState('loading')
+        }}
+      >
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
-        <TreeView.SubTree state="done" />
+        <TreeView.SubTree state={state} />
       </TreeView.Item>
       <TreeView.Item id=".github">
         <TreeView.LeadingVisual>
@@ -330,10 +489,12 @@ export const EmptyDirectories: Story = {
         <TreeView.SubTree />
       </TreeView.Item>
     </TreeView>
-  ),
+  )
 }
 
-export const NestedTrees: Story = {render: () => <AsyncTree />}
+export const EmptyDirectories: Story = {render: () => <EmptyDirectoriesTree />}
+
+export const NestedTrees: Story = {render: () => <AsyncTree nested responseTime={1000} />}
 
 export const NestedScrollContainer: Story = {
   render: () => (

@@ -354,13 +354,11 @@ function RenderSubsetControl({
   onCheckedChange: (checked: boolean) => void
 }) {
   return (
-    <div className="grid grid-cols-[1rem_minmax(0,1fr)] items-start gap-x-2">
-      <Checkbox checked={checked} className="mt-0.5" onCheckedChange={onCheckedChange} />
-      <div>
-        <div className="text-sm font-medium text-default">Render subset of items on initial open</div>
-        <div className="text-xs leading-[18px] text-muted">{caption}</div>
-      </div>
-    </div>
+    <FormControl>
+      <FormControl.Label>Render subset of items on initial open</FormControl.Label>
+      <FormControl.Caption>{caption}</FormControl.Caption>
+      <Checkbox checked={checked} onCheckedChange={onCheckedChange} />
+    </FormControl>
   )
 }
 

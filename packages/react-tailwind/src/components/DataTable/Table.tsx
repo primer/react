@@ -3,7 +3,8 @@
 import {ChevronLeftIcon, ChevronRightIcon, SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {ButtonBase} from '../Button'
+import {joinIdRefs} from '../../internal/idRefs'
+import {UnstyledButton} from '../../internal/UnstyledButton'
 import {Checkbox} from '../Checkbox'
 import {Pagination, type PaginationProps} from '../Pagination'
 import {SkeletonText} from '../SkeletonText'
@@ -23,7 +24,7 @@ const cellClassName = cn(
 )
 
 function resolveHeaders(group: React.ContextType<typeof TableGroupContext>, headers: string | undefined) {
-  return [group?.headerId, headers].filter(Boolean).join(' ') || undefined
+  return joinIdRefs(group?.headerId, headers)
 }
 
 export interface TableProps extends React.ComponentPropsWithoutRef<'table'> {
@@ -155,16 +156,12 @@ export const TableSortHeader = React.forwardRef<HTMLTableCellElement, TableSortH
       data-component="Table.SortHeader"
       className={cn('group/header', className)}
     >
-      <ButtonBase
-        type="button"
+      <UnstyledButton
         data-component="Table.SortHeader.Button"
         // The column name stays the button's name; the sort action it performs is supplementary.
         aria-description={direction === 'ASC' ? 'Sort descending' : 'Sort ascending'}
         onClick={onToggleSort}
-        className={cn(
-          'group/sort inline-flex items-center gap-2 rounded-sm border-0 bg-transparent p-0 text-inherit shadow-none focus-visible:outline-2 focus-visible:outline-focus',
-          align === 'end' && 'flex-row-reverse',
-        )}
+        className={cn('group/sort gap-x-2', align === 'end' && 'flex flex-row-reverse')}
       >
         {children}
         {direction !== 'DESC' ? (
@@ -174,7 +171,7 @@ export const TableSortHeader = React.forwardRef<HTMLTableCellElement, TableSortH
           />
         ) : null}
         {direction === 'DESC' ? <SortDescIcon aria-hidden="true" /> : null}
-      </ButtonBase>
+      </UnstyledButton>
     </TableHeader>
   )
 })
