@@ -25,6 +25,7 @@ const SKIPPED_TESTS = [
   'components-pagelayout-performance-tests--heavy-content',
   // React Tailwind equivalents of the stress and FilteredActionList stories skipped above. The FilteredActionList lists
   // are navigated with aria-activedescendant from the input, so `scrollable-region-focusable` is a false positive.
+  'react-tailwind-navigation-treeview-features--stress-test',
   'react-tailwind-navigation-treeview-features--contain-intrinsic-size',
   'react-tailwind-components-filteredactionlist-features--custom-item-rendering',
   'react-tailwind-components-filteredactionlist-features--virtualized-list',
