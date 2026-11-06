@@ -33,7 +33,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
     },
     forwardRef,
   ) => {
-    const progressAsNumber = typeof progress === 'string' ? parseInt(progress, 10) : progress
+    const progressAsNumber = typeof progress === 'string' ? parseFloat(progress) : progress
 
     const ariaAttributes = {
       'aria-valuenow':
