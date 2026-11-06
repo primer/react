@@ -98,8 +98,10 @@ describe('SkeletonAvatar', () => {
       display: 'block',
     })
 
-    const avatarStyles = getComputedStyle(page.getByTestId('avatar').element())
-    const boxStyles = getComputedStyle(page.getByTestId('box').element())
+    // The shimmer layer paints the loading appearance; the avatar clips it to its shape
+    expect(getComputedStyle(page.getByTestId('avatar').element()).overflow).toBe('hidden')
+    const avatarStyles = getComputedStyle(page.getByTestId('avatar').element(), '::before')
+    const boxStyles = getComputedStyle(page.getByTestId('box').element(), '::before')
     expect(avatarStyles.backgroundColor).not.toBe('rgba(0, 0, 0, 0)')
     expect(avatarStyles.backgroundColor).toBe(boxStyles.backgroundColor)
     expect(avatarStyles.animationName).not.toBe('none')

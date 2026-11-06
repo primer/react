@@ -81,8 +81,10 @@ describe('SkeletonText', () => {
         height: '40px',
         borderRadius: '6px',
       })
-      expect(getComputedStyle(line).backgroundColor).not.toBe('rgba(0, 0, 0, 0)')
-      expect(getComputedStyle(line).animationName).not.toBe('none')
+      // The shimmer layer paints the loading appearance
+      const shimmer = getComputedStyle(line, '::before')
+      expect(shimmer.backgroundColor).not.toBe('rgba(0, 0, 0, 0)')
+      expect(shimmer.animationName).not.toBe('none')
     }
   })
 
