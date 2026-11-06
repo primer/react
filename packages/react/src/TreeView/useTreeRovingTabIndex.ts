@@ -78,10 +78,14 @@ export function useTreeRovingTabIndex({
 
     // Keep a single tab stop: nested controls and any other treeitem rendered as tabbable
     // (e.g. a `current` item mounted after the tab stop was chosen) leave the tab order.
-    function removeFromTabOrder(root: Element) {
-      if (root.matches(NESTED_TABBABLE) || (root !== tabStop && root.matches(TABBABLE_TREE_ITEM))) {
-        root.setAttribute('tabindex', '-1')
+    function removeElementFromTabOrder(element: Element) {
+      if (element.matches(NESTED_TABBABLE) || (element !== tabStop && element.matches(TABBABLE_TREE_ITEM))) {
+        element.setAttribute('tabindex', '-1')
       }
+    }
+
+    function removeFromTabOrder(root: Element) {
+      removeElementFromTabOrder(root)
       for (const element of root.querySelectorAll(NESTED_TABBABLE)) element.setAttribute('tabindex', '-1')
       for (const element of root.querySelectorAll(TABBABLE_TREE_ITEM)) {
         if (element !== tabStop) element.setAttribute('tabindex', '-1')
@@ -100,6 +104,11 @@ export function useTreeRovingTabIndex({
 
     const observer = new MutationObserver(mutations => {
       for (const mutation of mutations) {
+        if (mutation.type === 'attributes') {
+          // An existing element became focusable, e.g. a link gained `href` or `tabIndex` changed to 0.
+          if (mutation.target instanceof Element) removeElementFromTabOrder(mutation.target)
+          continue
+        }
         for (const node of mutation.addedNodes) {
           if (node instanceof Element) removeFromTabOrder(node)
         }
@@ -110,7 +119,11 @@ export function useTreeRovingTabIndex({
         setTabStop(getPreferredItem())
       }
     })
-    observer.observe(container, {childList: true, subtree: true})
+    observer.observe(container, {
+      childList: true,
+      subtree: true,
+      attributeFilter: ['href', 'tabindex', 'contenteditable', 'controls'],
+    })
 
     function onFocusIn(event: FocusEvent) {
       const target = event.target

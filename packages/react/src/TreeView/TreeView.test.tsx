@@ -759,6 +759,36 @@ describe('Tab order', () => {
     expect(container.querySelector('button')).toHaveAttribute('tabindex', '-1')
   })
 
+  it('removes nested elements from the tab order when they become focusable after mount', async () => {
+    const tree = (focusable: boolean) => (
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">
+          <TreeView.LeadingVisual>
+            <a href={focusable ? '#nested' : undefined}>Nested link</a>
+          </TreeView.LeadingVisual>
+          Item 1
+        </TreeView.Item>
+        <TreeView.Item id="item-2">
+          <TreeView.LeadingVisual>
+            <button type="button" data-testid="nested-button" tabIndex={focusable ? 0 : -1}>
+              Nested button
+            </button>
+          </TreeView.LeadingVisual>
+          Item 2
+        </TreeView.Item>
+      </TreeView>
+    )
+    const {container, rerender} = render(tree(false))
+
+    rerender(tree(true))
+
+    await vi.waitFor(() => {
+      expect(container.querySelector('a')).toHaveAttribute('tabindex', '-1')
+      expect(container.querySelector('[data-testid="nested-button"]')).toHaveAttribute('tabindex', '-1')
+    })
+    expect(getTabStops(container)).toEqual(['item-1'])
+  })
+
   it('removes nested controls from the tab order when focus is already inside the tree at mount', () => {
     const tree = (
       <TreeView aria-label="Test tree">
