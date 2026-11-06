@@ -1,7 +1,7 @@
 import {cleanup, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {afterEach, describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 import {DataTable, type Column} from './DataTable'
 import {Table} from './index'
 
@@ -12,6 +12,15 @@ const columns: Column<Row>[] = [
 ]
 
 afterEach(cleanup)
+
+function mockOverflow() {
+  const scrollHeight = vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(200)
+  const clientHeight = vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(100)
+  return () => {
+    scrollHeight.mockRestore()
+    clientHeight.mockRestore()
+  }
+}
 
 describe('DataTable and Table', () => {
   it('renders native table semantics and toggles sortable headers', async () => {
@@ -100,4 +109,27 @@ describe('DataTable and Table', () => {
     expect(screen.getByRole('button', {name: 'Page 2'})).not.toHaveClass('hidden')
     expect(screen.getByRole('button', {name: 'Previous page'})).toHaveClass('mr-4')
   })
+})
+
+it('makes an overflowing table wrapper a focusable region named by the table', () => {
+  const restore = mockOverflow()
+  try {
+    render(
+      <>
+        <h2 id="repos-heading">Repositories</h2>
+        <Table aria-labelledby="repos-heading">
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Cell</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </>,
+    )
+    const region = screen.getByRole('region', {name: 'Repositories'})
+    expect(region).toHaveAttribute('tabindex', '0')
+    expect(region).toHaveAttribute('data-component', 'Table.OverflowWrapper')
+  } finally {
+    restore()
+  }
 })

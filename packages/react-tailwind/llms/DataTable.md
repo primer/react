@@ -50,7 +50,7 @@ Renders a [`<tbody>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/
 Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 - `aria-label`: `string` — Default `'Bulk actions'`. Accessible name for the group of actions.
-- `getSelectedCountLabel`: `((selectedCount: number) => string)` — Default `selectedCount => `${selectedCount} selected``. Formats the announced selection count.
+- `getSelectedCountLabel`: `((selectedCount: number) => string)` — Default `` selectedCount => `${selectedCount} selected` ``. Formats the announced selection count.
 - `onFocusReturn`: `(() => void)` — Called when the focused action is removed, so focus can move somewhere meaningful instead of the page.
 - `selectedCount`: `number` — Number of selected rows. The actions show only when it is greater than zero.
 
@@ -106,7 +106,7 @@ Renders a [`<nav>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/na
 
 - `data-component`: `string` — Overrides the marker used to identify this element in tests and styling.
 - `defaultPageIndex`: `number` — Default `0`. Zero-based page shown on first render.
-- `hrefBuilder`: `((page: number) => string)` — Default `page => `#${page}``. Builds the URL for a page, so pagination works without JavaScript.
+- `hrefBuilder`: `((page: number) => string)` — Default `` page => `#${page}` ``. Builds the URL for a page, so pagination works without JavaScript.
 - `marginPageCount`: `number` — How many pages stay visible at each end of the range.
 - `onChange`: `((details: { pageIndex: number; }) => void)` — Called with the new page index when the reader pages through the table.
 - `pageSize`: `number` — Number of rows shown per page.

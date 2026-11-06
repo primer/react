@@ -66,7 +66,7 @@ describe('Timeline', () => {
     expect(badgeRef.current).toHaveAttribute('data-testid', 'badge')
     expect(bodyRef.current).toHaveAttribute('data-testid', 'body')
     expect(actionsRef.current).toHaveAttribute('data-testid', 'actions')
-    expect(breakRef.current).toHaveAttribute('role', 'presentation')
+    expect(breakRef.current).toHaveAttribute('aria-hidden', 'true')
   })
 
   it('uses compact badge geometry for condensed events and keeps breaks presentational', () => {
@@ -80,6 +80,6 @@ describe('Timeline', () => {
     )
 
     expect(screen.getAllByRole('listitem').at(-1)).toHaveClass('pt-1', 'pb-0', '[&_[data-timeline-badge]]:h-4')
-    expect(screen.getAllByTestId('break').at(-1)).toHaveAttribute('role', 'presentation')
+    expect(screen.getAllByTestId('break').at(-1)).toHaveAttribute('aria-hidden', 'true')
   })
 })

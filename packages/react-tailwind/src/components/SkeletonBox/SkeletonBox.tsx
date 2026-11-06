@@ -34,6 +34,7 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
     <Component
       {...rest}
       ref={ref}
+      role={rest.role ?? (rest['aria-label'] || rest['aria-labelledby'] ? 'img' : undefined)}
       data-component={dataComponent ?? 'SkeletonBox'}
       aria-busy="true"
       className={cn(

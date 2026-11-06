@@ -793,6 +793,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
           <Combobox.Input
             // The input tracks its own `id`, so it must not be overridden on the render element.
             id={inputId}
+            aria-expanded={!bodyLoading && !hasMessage}
             aria-describedby={filterDescriptionId}
             aria-label={ariaLabel}
             placeholder={placeholderText}

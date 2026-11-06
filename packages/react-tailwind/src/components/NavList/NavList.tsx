@@ -58,6 +58,25 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
   } = resolveRegions(children, {heading: {match: isPartOf(NavListHeading)}}, {heading: headingProp})
   const heading = React.isValidElement<NavListHeadingProps>(headingNode) ? headingNode : undefined
   const headingId = heading?.props.id ?? fallbackHeadingId
+  const sections: React.ReactNode[] = []
+  let items: React.ReactNode[] = []
+  function flushItems() {
+    if (items.length === 0) return
+    sections.push(<List key={`items-${sections.length}`}>{items}</List>)
+    items = []
+  }
+  for (const child of flattenChildren(content)) {
+    if (
+      React.isValidElement(child) &&
+      (isPartOf(Group)(child) || isPartOf(List)(child) || child.type === 'ul' || child.type === 'ol')
+    ) {
+      flushItems()
+      sections.push(child)
+    } else {
+      items.push(child)
+    }
+  }
+  flushItems()
 
   return (
     <nav
@@ -74,7 +93,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
         data-component="NavList.Content"
         data-item-gap={itemGap || undefined}
       >
-        <ListContainerContext.Provider value="NavList">{content}</ListContainerContext.Provider>
+        <ListContainerContext.Provider value="NavList">{sections}</ListContainerContext.Provider>
       </div>
     </nav>
   )

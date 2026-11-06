@@ -15,9 +15,10 @@ export const ControlledMenu: Story = {
   render: () => (
     <AnchoredOverlay>
       <AnchoredOverlay.Trigger>Actions</AnchoredOverlay.Trigger>
-      <AnchoredOverlay.Content role="menu">
-        <AnchoredOverlay.Title>Actions</AnchoredOverlay.Title>
-        <button type="button">Edit</button>
+      <AnchoredOverlay.Content role="menu" aria-label="Actions">
+        <button type="button" role="menuitem">
+          Edit
+        </button>
       </AnchoredOverlay.Content>
     </AnchoredOverlay>
   ),

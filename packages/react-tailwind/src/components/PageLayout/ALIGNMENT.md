@@ -19,3 +19,4 @@ Pane dividers are horizontal at narrow widths and vertical from the regular rang
 - Preserve start/end pane and Sidebar ordering across responsive ranges.
 - Compose slots in the intended visual order. PageLayout identifies Sidebar as a root-level region without exposing Primer's internal slot marker system.
 - `sx` and styled-system props are unsupported; use `className`.
+- When the pane content overflows, it becomes a focusable `region` named by the pane's `aria-label` or `aria-labelledby`, matching upstream. The label is not applied while the pane fits.

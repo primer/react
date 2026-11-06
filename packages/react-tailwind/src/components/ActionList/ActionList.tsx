@@ -604,7 +604,7 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
 
   return (
     <li
-      role={listRole === 'menu' || listRole === 'listbox' ? 'none' : undefined}
+      role={getSelectionRole(listRole, selectionVariant) ? 'none' : undefined}
       data-component="ActionList.Item"
       {...getActionItemStateAttributes(itemState)}
       data-trailing-action-loading={trailingActionLoading || undefined}
@@ -624,8 +624,8 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
         focusableWhenDisabled={focusableWhenDisabled}
         aria-disabled={focusableWhenDisabled || inactiveText || loading ? true : undefined}
         title={typeof inactiveText === 'string' ? inactiveText : undefined}
-        aria-selected={selectionAttribute === 'aria-selected' ? selected : undefined}
-        aria-checked={selectionAttribute === 'aria-checked' ? selected : undefined}
+        aria-selected={selectionAttribute === 'aria-selected' ? Boolean(selected) : undefined}
+        aria-checked={selectionAttribute === 'aria-checked' ? Boolean(selected) : undefined}
         onClick={event => {
           onClick?.(event)
           if (!event.defaultPrevented && !inactiveText && !loading) onSelectItem?.(event)
@@ -777,7 +777,7 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
     <li
       {...rest}
       ref={ref}
-      role={context.role === 'menu' || context.role === 'listbox' ? 'none' : rest.role}
+      role={getSelectionRole(context.role, context.selectionVariant) ? 'none' : rest.role}
       className={cn('not-first:mt-2', className)}
       data-component="ActionList.Group"
     >
@@ -794,7 +794,7 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
         <ul
           className="m-0 list-none p-0"
           aria-labelledby={groupLabelId}
-          role={context.role === 'menu' || context.role === 'listbox' ? 'group' : undefined}
+          role={getSelectionRole(context.role, context.selectionVariant) ? 'group' : undefined}
         >
           {listChildren}
         </ul>
@@ -865,11 +865,15 @@ export const actionListDividerClassName =
 
 const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'li'>>(
   function ActionListDivider(props, ref) {
+    const {role} = React.useContext(ListContext)
+    // Only menus permit separator children; other list roles keep the rule decorative.
+    const isSeparator = role === 'menu' || role === 'menubar'
     return (
       <li
         {...props}
         ref={ref}
-        role="separator"
+        role={isSeparator ? 'separator' : undefined}
+        aria-hidden={isSeparator ? undefined : true}
         className={cn(actionListDividerClassName, props.className)}
         data-component="ActionList.Divider"
       />

@@ -10,6 +10,18 @@ it('renders an accessible icon-only button and forwards DOM props', () => {
   expect(screen.getByTestId('icon-button')).toBeInTheDocument()
 })
 
+it('drops aria-label when aria-labelledby names the button', () => {
+  render(
+    <>
+      <span id="external-label">Close dialog</span>
+      <IconButton aria-label="Close" aria-labelledby="external-label" icon={PlusIcon} />
+    </>,
+  )
+
+  const button = screen.getByRole('button', {name: 'Close dialog'})
+  expect(button).not.toHaveAttribute('aria-label')
+})
+
 it('preserves its accessible name while loading', () => {
   const {container} = render(<IconButton aria-label="Download" icon={PlusIcon} loading />)
 

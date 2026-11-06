@@ -81,7 +81,7 @@ export const WithArrow: Story = {
   render: () => (
     <Popover>
       <Popover.Button>More</Popover.Button>
-      <Popover.Content>
+      <Popover.Content aria-label="More details">
         <Popover.Arrow />
         Positioned content
       </Popover.Content>

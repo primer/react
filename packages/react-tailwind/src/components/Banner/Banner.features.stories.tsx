@@ -119,6 +119,7 @@ export const ActionsLayoutStacked: Story = {
           Mobile (320px)
         </Heading>
         <Banner
+          aria-label="Stacked actions, mobile"
           title="Actions Layout: Stacked"
           description="Actions are displayed in a vertical stack on both mobile and desktop."
           variant="info"
@@ -127,6 +128,7 @@ export const ActionsLayoutStacked: Story = {
           secondaryAction={<Banner.SecondaryAction>Secondary Action</Banner.SecondaryAction>}
         />
         <Banner
+          aria-label="Dismissible stacked actions, mobile"
           title="Actions Layout: Stacked"
           description="Actions are displayed in a vertical stack on both mobile and desktop."
           variant="info"
@@ -141,6 +143,7 @@ export const ActionsLayoutStacked: Story = {
           Desktop (768px)
         </Heading>
         <Banner
+          aria-label="Stacked actions, desktop"
           title="Actions Layout: Stacked"
           description="Actions are displayed in a vertical stack on both mobile and desktop."
           variant="info"
@@ -149,6 +152,7 @@ export const ActionsLayoutStacked: Story = {
           secondaryAction={<Banner.SecondaryAction>Secondary Action</Banner.SecondaryAction>}
         />
         <Banner
+          aria-label="Dismissible stacked actions, desktop"
           title="Actions Layout: Stacked"
           description="Actions are displayed in a vertical stack on both mobile and desktop."
           variant="info"
@@ -169,6 +173,7 @@ export const ActionsLayoutInline: Story = {
           Mobile (320px)
         </Heading>
         <Banner
+          aria-label="Inline actions, mobile"
           title="A short title"
           description="A very short message."
           variant="warning"
@@ -176,6 +181,7 @@ export const ActionsLayoutInline: Story = {
           primaryAction={<Banner.PrimaryAction>Primary</Banner.PrimaryAction>}
         />
         <Banner
+          aria-label="Dismissible inline actions, mobile"
           title="A short title"
           description="A very short message."
           variant="warning"
@@ -189,6 +195,7 @@ export const ActionsLayoutInline: Story = {
           Desktop (768px)
         </Heading>
         <Banner
+          aria-label="Inline actions, desktop"
           title="A short title"
           description="A very short message."
           variant="warning"
@@ -197,6 +204,7 @@ export const ActionsLayoutInline: Story = {
           secondaryAction={<Banner.SecondaryAction>Secondary</Banner.SecondaryAction>}
         />
         <Banner
+          aria-label="Dismissible inline actions, desktop"
           title="A short title"
           description="A very short message."
           variant="warning"

@@ -139,7 +139,7 @@ const TimelineBreak = React.forwardRef<HTMLLIElement, TimelineBreakProps>(functi
     <li
       {...rest}
       ref={ref}
-      role="presentation"
+      aria-hidden="true"
       className={cn(
         'relative z-1 -mb-4 h-6 border-t-4 border-default bg-default [&:has(+_[data-condensed])]:-mb-3',
         className,

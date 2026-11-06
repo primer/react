@@ -5,6 +5,7 @@ import {cn} from '../../internal/cn'
 import {isMarkedWith, resolveRegions} from '../../internal/regions'
 import {responsiveClasses} from '../../utils/responsive'
 import type {AsProp, CSSPropertiesWithCustomProperties, RegionProps, ResponsiveValue} from '../../utils/types'
+import {useOverflow} from '../ScrollableRegion/useOverflow'
 import {DragHandle} from './DragHandle'
 import {
   markPageLayoutFooter,
@@ -329,6 +330,8 @@ export type PageLayoutPaneProps = PageLayoutPaneBaseProps
 
 const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
   {
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
     children,
     className,
     currentWidth: controlledWidth,
@@ -351,6 +354,8 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
   const markers = React.useContext(PageLayoutMarkerContext)
   const isSidebar = markers.pane === markers.sidebar
   const paneRef = React.useRef<HTMLDivElement | null>(null)
+  const [paneElement, setPaneElement] = React.useState<HTMLDivElement | null>(null)
+  const hasOverflow = useOverflow(paneElement)
   const handleRef = React.useRef<HTMLDivElement | null>(null)
   const dragStart = React.useRef({clientX: 0, width: 0, max: 0})
   const {currentWidth, currentWidthRef, getDefaultWidth, getMaxPaneWidth, maxPaneWidth, minPaneWidth, saveWidth} =
@@ -420,6 +425,7 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
       <div
         ref={node => {
           paneRef.current = node
+          setPaneElement(node)
           if (typeof forwardedRef === 'function') forwardedRef(node)
           else if (forwardedRef) (forwardedRef as React.MutableRefObject<HTMLElement | null>).current = node
         }}
@@ -430,6 +436,14 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
           isSidebar && 'h-full overflow-auto',
           spacing[padding],
         )}
+        {...(hasOverflow
+          ? {
+              role: 'region',
+              tabIndex: 0,
+              'aria-label': ariaLabelledBy ? undefined : ariaLabel,
+              'aria-labelledby': ariaLabelledBy,
+            }
+          : {})}
         data-component={markers.pane}
         data-resizable={resizable || undefined}
         style={paneContentStyle}

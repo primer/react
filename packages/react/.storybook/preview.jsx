@@ -9,8 +9,8 @@ import {ThemeProvider as TailwindThemeProvider} from '../../react-tailwind/src/T
 
 import './storybook.css'
 import './primitives-v8.css'
-import '@primer/react-tailwind/base.css'
-import '../../react-tailwind/.storybook/styles.css'
+import tailwindBaseStyles from '@primer/react-tailwind/base.css?inline'
+import tailwindStorybookStyles from '../../react-tailwind/.storybook/styles.css?inline'
 
 // TODO: Update the hard-coded values when the primitives are ready
 const breakpoints = ['544px', '768px', '1012px', '1280px']
@@ -48,6 +48,9 @@ const preview = {
 
     options: {
       storySort: (a, b) => {
+        const tailwindComponentOrder = [
+          ['*', ['README', 'Default', 'Playground', /Playground$/, '*', 'Features', 'Examples']],
+        ]
         const defaultOrder = [
           [
             // Match on any story that leads with "Components"
@@ -122,13 +125,19 @@ const preview = {
           [
             'React Tailwind',
             [
-              [
-                'Get started',
-                'Foundations',
-                'Migrating from Primer React',
-                '*',
-                [['*', ['README', 'Default', 'Playground', /Playground$/, '*', 'Features', 'Examples']]],
-              ],
+              'Get started',
+              'Foundations',
+              'Migrating from Primer React',
+              ['Display', tailwindComponentOrder],
+              ['Forms', tailwindComponentOrder],
+              ['Navigation', tailwindComponentOrder],
+              ['Layout', tailwindComponentOrder],
+              ['Content', tailwindComponentOrder],
+              ['Data', tailwindComponentOrder],
+              ['Components', tailwindComponentOrder],
+              ['Behaviors', tailwindComponentOrder],
+              ['Utilities', tailwindComponentOrder],
+              ['*', tailwindComponentOrder],
             ],
           ],
           '*',
@@ -385,7 +394,13 @@ export const decorators = [
   },
   (Story, context) => {
     if (context.title.startsWith('React Tailwind/')) {
-      return <Story {...context} />
+      return (
+        <>
+          {/* Keep Tailwind's global theme and focus rules out of upstream reference stories. */}
+          <style>{tailwindBaseStyles + tailwindStorybookStyles}</style>
+          <Story {...context} />
+        </>
+      )
     }
 
     const {featureFlags} = context.globals

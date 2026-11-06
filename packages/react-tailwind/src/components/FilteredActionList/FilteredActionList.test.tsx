@@ -13,6 +13,14 @@ const fruit = [
 ]
 
 describe('FilteredActionList', () => {
+  it('exposes whether its inline combobox has an available list', () => {
+    const {rerender} = render(<FilteredActionList items={fruit} />)
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(<FilteredActionList items={fruit} loading loadingType={FilteredActionListLoadingTypes.bodySpinner} />)
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'false')
+  })
+
   it('names the select-all checkbox with its visible label, which toggles every option', async () => {
     const user = userEvent.setup()
     const onSelectAllChange = vi.fn()

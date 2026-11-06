@@ -18,6 +18,7 @@ The stable compound API provides `Heading`, `Group`, `GroupHeading`, `GroupExpan
 - `NavList.Group` renders its heading outside the list and names the list with `aria-labelledby`. A `GroupHeading` child or the `heading` region takes precedence over `title`.
 - When the `primer_react_action_list_item_gap` feature flag is on, items are separated by a small gap. Pass `disableItemGap` to opt a list out.
 - `NavList.Heading` is recognized even when grouped in a fragment.
+- Direct items and sub-navigation parts are automatically grouped into semantic lists; explicit `List` and `Group` children keep their own list boundaries.
 - The keyboard focus ring sits flush against the item edge, matching upstream's default focus outline.
 - A `NavList.SubNav` opens when one of its items is the current page (marked with `aria-current`), including after navigation moves the current item into it, unless `open` is controlled. While collapsed it marks its trigger as current, and its panel is labelled by the trigger. Detection reads `aria-current` from the items you pass, so a link component that sets `aria-current` internally needs the prop on `NavList.Item` as well.
 - Compose extra actions with `NavList.TrailingAction`; it renders as a sibling of the primary link so interactive elements are never nested.

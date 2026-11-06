@@ -70,14 +70,18 @@ await mkdir(detailDirectory, {recursive: true})
 
 /** Renders one prop row, keeping the table narrow enough to stay readable as plain text. */
 function propLine({name, type, defaultValue, description}) {
-  // A template-literal type contains backticks, so the code span needs a longer padded fence.
-  const fence = type.includes('`') ? '``' : '`'
-  const pad = type.includes('`') ? ' ' : ''
-  const head = `- \`${name}\`: ${fence}${pad}${type}${pad}${fence}`
+  const head = `- ${codeSpan(name)}: ${codeSpan(type)}`
   // A description keeps its source line wrapping, which would break the bullet it renders into.
   const prose = description?.replace(/\s+/g, ' ').trim()
-  const tail = [defaultValue ? `Default \`${defaultValue}\`.` : undefined, prose].filter(Boolean).join(' ')
+  const tail = [defaultValue ? `Default ${codeSpan(defaultValue)}.` : undefined, prose].filter(Boolean).join(' ')
   return tail ? `${head} — ${tail}` : head
+}
+
+function codeSpan(value) {
+  const longestRun = Math.max(0, ...Array.from(value.matchAll(/`+/g), match => match[0].length))
+  const fence = '`'.repeat(longestRun + 1)
+  const pad = longestRun > 0 ? ' ' : ''
+  return `${fence}${pad}${value}${pad}${fence}`
 }
 
 /** Names the HTML element or Base UI part a component forwards unrecognized props to. */

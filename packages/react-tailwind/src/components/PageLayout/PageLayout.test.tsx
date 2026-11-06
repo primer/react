@@ -3,6 +3,15 @@ import {fireEvent, render, screen} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import {PageLayout} from './PageLayout'
 
+function mockOverflow() {
+  const scrollHeight = vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(200)
+  const clientHeight = vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(100)
+  return () => {
+    scrollHeight.mockRestore()
+    clientHeight.mockRestore()
+  }
+}
+
 describe('PageLayout', () => {
   it('preserves authored layout parts and forwards root props', () => {
     render(
@@ -334,5 +343,22 @@ describe('PageLayout', () => {
 
     expect(screen.getByTestId('from-prop')).toBeInTheDocument()
     expect(screen.queryByText('from child')).not.toBeInTheDocument()
+  })
+
+  it('makes an overflowing pane a focusable, labelled region', () => {
+    const restore = mockOverflow()
+    try {
+      render(
+        <PageLayout>
+          <PageLayout.Content>Main</PageLayout.Content>
+          <PageLayout.Pane aria-label="Filters">Pane</PageLayout.Pane>
+        </PageLayout>,
+      )
+      const region = screen.getByRole('region', {name: 'Filters'})
+      expect(region).toHaveAttribute('tabindex', '0')
+      expect(region).toHaveTextContent('Pane')
+    } finally {
+      restore()
+    }
   })
 })

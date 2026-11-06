@@ -4,6 +4,15 @@ import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {Dialog} from './Dialog'
 
+function mockOverflow() {
+  const scrollHeight = vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(200)
+  const clientHeight = vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(100)
+  return () => {
+    scrollHeight.mockRestore()
+    clientHeight.mockRestore()
+  }
+}
+
 describe('Dialog', () => {
   afterEach(cleanup)
 
@@ -233,5 +242,22 @@ describe('Dialog', () => {
     )
 
     expect(ref.current).toBe(screen.getByRole('button', {name: 'Open settings'}))
+  })
+
+  it('makes an overflowing body keyboard-scrollable', () => {
+    const restore = mockOverflow()
+    try {
+      render(
+        <Dialog open>
+          <Dialog.Content>
+            <Dialog.Title>Terms</Dialog.Title>
+            <Dialog.Body data-testid="body">Long content</Dialog.Body>
+          </Dialog.Content>
+        </Dialog>,
+      )
+      expect(screen.getByTestId('body')).toHaveAttribute('tabindex', '0')
+    } finally {
+      restore()
+    }
   })
 })

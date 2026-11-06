@@ -12,7 +12,11 @@ type Story = StoryObj<typeof meta>
 export const InlineDocumentation: Story = {
   render: () => (
     <p>
-      Read the <Link href="#documentation">documentation</Link> before continuing.
+      Read the{' '}
+      <Link href="#documentation" inline>
+        documentation
+      </Link>{' '}
+      before continuing.
     </p>
   ),
 }

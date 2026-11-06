@@ -18,4 +18,5 @@ The component owns filtering, ordering, selection, announcements, and the combob
 - Virtualization is enabled only for ungrouped, enabled, default-rendered, one-line text rows. Grouped, disabled, custom-rendered, and variable-height rows use the safe regular-list fallback.
 - Item-level `renderItem` callbacks are honored. The upstream custom-rendering story currently falls back to its default item presentation even though each item supplies a renderer; this implementation preserves the documented custom-rendering behavior instead.
 - `announcementsEnabled` controls a polite result-count announcement. `messageText` is also announced.
+- The inline combobox reports its expanded state explicitly, including when a loading or message state replaces its list.
 - Styled-system `sx` props are unsupported.

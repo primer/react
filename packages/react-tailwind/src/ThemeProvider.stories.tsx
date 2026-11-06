@@ -25,8 +25,9 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+// Paints the provider's own background so the sample stays legible when the Storybook theme differs.
 function ColorScheme() {
-  return <span>Active color scheme: {useTheme().colorMode}</span>
+  return <p className="m-0 bg-default p-3">Active color scheme: {useTheme().colorMode}</p>
 }
 
 export const Default: Story = {

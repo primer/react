@@ -12,7 +12,7 @@ const packageRoot = path.resolve(import.meta.dirname, '..')
 const ALLOWED_NON_UTILITIES = new Set(['group', 'peer', 'sr-only', 'not-sr-only', 'dark', 'light', 'contents'])
 
 // A token is only worth checking when it could plausibly be a utility.
-const UTILITY_SHAPE = /^[a-z][a-z0-9]*(?:-[a-z0-9[\]()#%./,_-]+)*$/i
+const UTILITY_SHAPE = /^[a-z][a-z0-9]*(?:-[a-z0-9[\]()#%./,_-]+)?$/i
 const VARIANT_SPLIT = /(?<!\\):(?![^[]*\])/
 
 function countOf(value, character) {

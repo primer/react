@@ -9,6 +9,24 @@ import {NavList} from './NavList'
 afterEach(cleanup)
 
 describe('NavList', () => {
+  it('groups direct items into lists without nesting explicit lists or groups in a list', () => {
+    const {container} = render(
+      <NavList aria-label="Repository">
+        <NavList.Item href="/overview">Overview</NavList.Item>
+        <NavList.Group title="Settings">
+          <NavList.Item href="/settings">General</NavList.Item>
+        </NavList.Group>
+        <NavList.List>
+          <NavList.Item href="/help">Help</NavList.Item>
+        </NavList.List>
+      </NavList>,
+    )
+    for (const item of container.querySelectorAll('li')) {
+      expect(item.parentElement?.tagName).toBe('UL')
+    }
+    expect(container.querySelector('ul > section, ul > ul')).toBeNull()
+  })
+
   it('preserves landmark, heading, list, and current-page semantics', () => {
     render(
       <NavList>
@@ -59,7 +77,7 @@ describe('NavList', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'false')
     await user.click(trigger)
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
-    expect(screen.getByRole('list')).toContainElement(screen.getByRole('link', {name: 'README'}))
+    expect(screen.getByRole('list', {name: 'Files'})).toContainElement(screen.getByRole('link', {name: 'README'}))
     expect(screen.getByRole('list', {name: 'Files'})).toBeInTheDocument()
   })
 

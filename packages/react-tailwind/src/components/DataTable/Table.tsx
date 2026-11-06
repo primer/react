@@ -7,6 +7,7 @@ import {joinIdRefs} from '../../internal/idRefs'
 import {UnstyledButton} from '../../internal/UnstyledButton'
 import {Checkbox} from '../Checkbox'
 import {Pagination, type PaginationProps} from '../Pagination'
+import {useOverflow} from '../ScrollableRegion/useOverflow'
 import {SkeletonText} from '../SkeletonText'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {getGridTemplateColumns, type TableColumnLayout} from './layout'
@@ -41,8 +42,22 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(function Tab
   ref,
 ) {
   const inheritedGroup = React.useContext(TableGroupContext)
+  const [wrapper, setWrapper] = React.useState<HTMLDivElement | null>(null)
+  const hasOverflow = useOverflow(wrapper)
   const table = (
-    <div className="overflow-x-auto" data-component="Table.OverflowWrapper">
+    <div
+      ref={setWrapper}
+      className="overflow-x-auto"
+      data-component="Table.OverflowWrapper"
+      {...(hasOverflow
+        ? {
+            role: 'region',
+            tabIndex: 0,
+            'aria-label': props['aria-labelledby'] ? undefined : props['aria-label'],
+            'aria-labelledby': props['aria-labelledby'],
+          }
+        : {})}
+    >
       <table
         {...props}
         ref={ref}

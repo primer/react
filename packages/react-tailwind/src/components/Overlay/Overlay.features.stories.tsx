@@ -19,20 +19,28 @@ const Surface = ({
   children = 'Overlay content',
   className = '',
   role = 'dialog',
+  tabIndex,
 }: {
   children?: React.ReactNode
   className?: string
   role?: React.AriaRole
+  tabIndex?: number
 }) => (
   <div className="relative min-h-48 p-8">
-    <OverlayContent role={role} aria-label="Overlay surface" className={className}>
+    <OverlayContent role={role} aria-label="Overlay surface" className={className} tabIndex={tabIndex}>
       {children}
     </OverlayContent>
   </div>
 )
 
 export const DropdownOverlay: Story = {
-  render: () => <Surface role="menu" />,
+  render: () => (
+    <Surface role="menu">
+      <div role="menuitem" tabIndex={-1}>
+        Overlay content
+      </div>
+    </Surface>
+  ),
   play: visiblePlay,
 }
 export const DialogOverlay: Story = {
@@ -51,7 +59,11 @@ export const OverlayOnTopOfOverlay: Story = {
   play: visiblePlay,
 }
 export const MemexNestedOverlays: Story = {
-  render: () => <Surface className="max-h-64 overflow-auto">Nested overlay content</Surface>,
+  render: () => (
+    <Surface className="max-h-64 overflow-auto" tabIndex={0}>
+      Nested overlay content
+    </Surface>
+  ),
   play: visiblePlay,
 }
 export const NestedOverlays: Story = {
@@ -67,7 +79,11 @@ export const PositionedOverlays: Story = {
   play: visiblePlay,
 }
 export const SettingMaxHeight: Story = {
-  render: () => <Surface className="max-h-32 overflow-auto">{'Scrollable overlay content. '.repeat(40)}</Surface>,
+  render: () => (
+    <Surface className="max-h-32 overflow-auto" tabIndex={0}>
+      {'Scrollable overlay content. '.repeat(40)}
+    </Surface>
+  ),
   play: async ({canvasElement}) => {
     await expect(within(canvasElement).getByRole('dialog', {name: 'Overlay surface'})).toBeVisible()
   },

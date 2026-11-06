@@ -10,6 +10,44 @@ import {ActionList} from './ActionList'
 afterEach(cleanup)
 
 describe('ActionList', () => {
+  it('keeps tree items directly owned by their composite widget', () => {
+    render(
+      <ActionList role="tree" aria-label="Projects" selectionVariant="multiple">
+        <ActionList.Item>First</ActionList.Item>
+      </ActionList>,
+    )
+    const item = screen.getByRole('treeitem', {name: 'First'})
+    expect(item).toHaveAttribute('aria-selected', 'false')
+    expect(item.parentElement).toHaveAttribute('role', 'none')
+    expect(item.parentElement?.parentElement).toBe(screen.getByRole('tree', {name: 'Projects'}))
+  })
+
+  it('keeps decorative dividers out of ordinary list semantics', () => {
+    const {container} = render(
+      <ActionList>
+        <ActionList.Item>First</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item>Second</ActionList.Item>
+      </ActionList>,
+    )
+    const divider = container.querySelector('[data-component="ActionList.Divider"]')
+    expect(divider).toHaveAttribute('aria-hidden', 'true')
+    expect(divider).not.toHaveAttribute('role')
+  })
+
+  it('exposes false selection states and semantic separators in a menu', () => {
+    render(
+      <ActionList role="menu" selectionVariant="multiple">
+        <ActionList.Item>First</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item selected>Second</ActionList.Item>
+      </ActionList>,
+    )
+    expect(screen.getByRole('menuitemcheckbox', {name: 'First'})).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByRole('menuitemcheckbox', {name: 'Second'})).toHaveAttribute('aria-checked', 'true')
+    expect(screen.getByRole('separator')).not.toHaveAttribute('aria-hidden')
+  })
+
   it('uses listbox selection semantics and activates an item', async () => {
     const onSelect = vi.fn()
     render(

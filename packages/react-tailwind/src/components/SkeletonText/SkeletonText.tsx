@@ -48,6 +48,7 @@ export const SkeletonText = React.forwardRef<HTMLElement, SkeletonTextProps>(fun
     <div
       {...rest}
       ref={ref as React.Ref<HTMLDivElement>}
+      role={rest.role ?? (rest['aria-label'] || rest['aria-labelledby'] ? 'img' : undefined)}
       aria-busy="true"
       data-component="SkeletonText"
       data-text-skeleton-size={size}

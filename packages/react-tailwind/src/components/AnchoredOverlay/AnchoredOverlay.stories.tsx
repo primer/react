@@ -68,7 +68,7 @@ export const WithArrow: Story = {
   render: () => (
     <AnchoredOverlay>
       <AnchoredOverlay.Trigger render={<Button>Button</Button>} />
-      <AnchoredOverlay.Content>
+      <AnchoredOverlay.Content aria-label="Positioned overlay">
         <AnchoredOverlay.Arrow />
         Positioned overlay
       </AnchoredOverlay.Content>

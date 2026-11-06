@@ -107,6 +107,22 @@ describe('SegmentedControl', () => {
     expect(screen.getAllByRole('button')).toHaveLength(2)
   })
 
+  it('marks disabled segments with only the native disabled attribute', () => {
+    render(
+      <SegmentedControl aria-label="View">
+        <SegmentedControl.Button value="preview" disabled>
+          Preview
+        </SegmentedControl.Button>
+        <SegmentedControl.IconButton value="raw" aria-label="Raw" icon={() => null} disabled />
+      </SegmentedControl>,
+    )
+
+    for (const button of screen.getAllByRole('button')) {
+      expect(button).toBeDisabled()
+      expect(button).not.toHaveAttribute('aria-disabled')
+    }
+  })
+
   it('renders the subtle variant', () => {
     render(
       <SegmentedControl aria-label="File view" variant="subtle">

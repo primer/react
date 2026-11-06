@@ -67,7 +67,8 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
   const insideTooltip = useIsInsideTooltip()
   const buttonProps = {
     ...rest,
-    'aria-label': ariaLabel,
+    // `aria-labelledby` takes precedence, so a redundant `aria-label` is dropped.
+    'aria-label': rest['aria-labelledby'] ? undefined : ariaLabel,
     children: renderIcon(icon, 'block'),
     className: cn(
       getIconButtonClassName({inactive: rest.inactive, size, variant}),

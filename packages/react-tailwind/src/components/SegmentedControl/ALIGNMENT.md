@@ -28,3 +28,4 @@ The Base UI-backed control renders toggle buttons directly in a group. It preser
 - A responsive `variant` object without a `wide` value uses `default` for wide viewports; upstream inherits the `regular` value for `hideLabels` and `dropdown`.
 - Upstream's `Dev` stories (constrained controls and a changing label) are not ported.
 - `sx` and styled-system props are unsupported.
+- Disabled segments use the native `disabled` attribute only. Upstream uses `aria-disabled` to keep them focusable; Base UI's toggle group skips disabled items during roving focus, so the redundant `aria-disabled` it emits is removed.

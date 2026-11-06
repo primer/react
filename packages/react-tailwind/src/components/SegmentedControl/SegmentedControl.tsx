@@ -392,6 +392,11 @@ export interface SegmentedControlButtonProps<Value extends string = string>
   value: Value
 }
 
+// Base UI's grouped Toggle sets both `disabled` and `aria-disabled`; the native attribute already conveys the state.
+function renderToggleButton({'aria-disabled': ariaDisabled, ...props}: React.ComponentPropsWithRef<'button'>) {
+  return <button type="button" {...props} aria-disabled={props.disabled ? undefined : ariaDisabled} />
+}
+
 const Button = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(function Button(
   {
     'aria-describedby': describedBy,
@@ -427,6 +432,7 @@ const Button = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(
             ref={mergeRefs(ref, button => registerButton(value, button))}
             className={mergeClassName(buttonClassName, className)}
             data-component="SegmentedControl.Button"
+            render={renderToggleButton}
             value={value}
           >
             <span className={contentClassName}>
@@ -507,6 +513,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, SegmentedControlIconButto
               className,
             )}
             data-component="SegmentedControl.IconButton"
+            render={renderToggleButton}
             value={value}
           >
             <span className={contentClassName}>

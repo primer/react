@@ -84,7 +84,7 @@ Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/di
 - `aria-valuemax`: `number` — Largest width the separator can be dragged to, announced by assistive technology.
 - `aria-valuemin`: `number` — Smallest width the separator can be dragged to, announced by assistive technology.
 - `aria-valuenow`: `number` — Current width of the pane, announced by assistive technology.
-- `formatValueText`: `((value: number) => string)` — Default `value => `Pane width ${value} pixels``. Turns the current width into the text announced while resizing.
+- `formatValueText`: `((value: number) => string)` — Default `` value => `Pane width ${value} pixels` ``. Turns the current width into the text announced while resizing.
 - `handleRef`: `RefObject<HTMLDivElement | null>` — Ref to the drag handle element, so the pane can measure and focus it.
 - `onDoubleClick`: `MouseEventHandler<HTMLDivElement>` — Called when the handle is double-clicked, conventionally to reset the pane to its default width.
 - `onDrag`: `(value: number, isKeyboard: boolean) => void` — Called as the handle moves. A pointer drag passes the pointer's horizontal position, at most once per frame; an arrow key passes a signed step in pixels and sets `isKeyboard`.

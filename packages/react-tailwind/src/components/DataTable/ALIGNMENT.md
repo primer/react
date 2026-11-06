@@ -20,3 +20,4 @@ DataTable preserves native table semantics, nested field paths, columns, caller-
 - While any row is selected, `renderBulkActions` replaces the column headers with a `Table.BulkActions` toolbar that announces the selected count. When a focused bulk action disappears, focus moves to `bulkActionsReturnFocusRef` or the select-all checkbox.
 - Sortable headers name the button with the column title only and expose the next sort action through `aria-description`, matching the legacy accessibility fix. Sort icons are decorative.
 - `Table.Pagination` hides numbered pages on narrow viewports by default, matching the legacy footer. Pass `showPages` to change this.
+- When a table overflows its `Table.OverflowWrapper`, the wrapper becomes a focusable `region` named by the table's `aria-labelledby` or `aria-label`, so keyboard users can scroll it.

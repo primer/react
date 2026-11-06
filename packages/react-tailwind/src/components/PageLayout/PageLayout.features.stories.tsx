@@ -91,7 +91,13 @@ export const PullRequestPage: Story = {
       </PageLayout.Header>
       <PageLayout.Content className="flex flex-col">
         <div className="h-[200px] rounded-md border border-default" />
-        <div className="mt-4 overflow-x-auto whitespace-nowrap rounded-md border border-default p-4">
+        <div
+          aria-label="Long content"
+          className="mt-4 overflow-x-auto whitespace-nowrap rounded-md border border-default p-4"
+          role="region"
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
+        >
           This box has really long content. If it is too long, it will cause x overflow and should show a scrollbar.
           When this overflows, it should not break to overall page layout!
         </div>
@@ -152,7 +158,8 @@ export const NestedScrollContainer: Story = {
             <Placeholder height={64} label="Header" />
           </PageLayout.Header>
           <PageLayout.Content padding="normal" width="large">
-            <div aria-label="Page content" className="grid gap-4" role="region">
+            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+            <div aria-label="Page content" className="grid gap-4" role="region" tabIndex={0}>
               <Paragraphs count={30} />
             </div>
           </PageLayout.Content>
@@ -213,14 +220,16 @@ export const ScrollContainerWithinPageLayoutPane: Story = {
         <Placeholder height={120} label="Above inner scroll container" />
         <PageLayout columnGap="none" containerWidth="full" padding="none" rowGap="none">
           <PageLayout.Pane aria-label="Sticky pane" divider="line" padding="normal" position="start" sticky>
-            <div className="overflow-auto">
+            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+            <div aria-label="Inner scroll container" className="overflow-auto" role="region" tabIndex={0}>
               <PageLayout.Pane aria-label="Side pane" padding="normal">
                 <Placeholder height={800} label="Inner scroll container" />
               </PageLayout.Pane>
             </div>
           </PageLayout.Pane>
           <PageLayout.Content padding="normal" width="large">
-            <div aria-label="Page content" className="grid gap-4" role="region">
+            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+            <div aria-label="Page content" className="grid gap-4" role="region" tabIndex={0}>
               <Placeholder height={1600} label="Page content" />
             </div>
           </PageLayout.Content>

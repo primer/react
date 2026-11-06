@@ -16,3 +16,4 @@ IconButton is a stable icon-only button with required `icon` (an icon component 
 - `notificationIndicator` accepts `button` or `icon`; the dot is visual only, so include the activity in `aria-label` or a description.
 - Pass a rendered element such as `icon={<HeartIcon />}` when the icon comes from a Server Component.
 - Use `className`, not `sx` or styled-system props.
+- When `aria-labelledby` is passed, the redundant `aria-label` is dropped from the button; `aria-label` still provides the default tooltip text.

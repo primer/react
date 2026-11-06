@@ -8,6 +8,8 @@ import {FloatingPortal} from '../../internal/FloatingPortal'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {mergeStyle} from '../../internal/mergeStyle'
 import {usePortalContainer} from '../../internal/portalRoot'
+import {assignRef} from '../../internal/refs'
+import {useOverflow} from '../ScrollableRegion/useOverflow'
 import {
   getDialogPosition,
   getDialogSize,
@@ -235,9 +237,26 @@ const Description = React.forwardRef<HTMLParagraphElement, Omit<BaseDialog.Descr
 )
 
 const Body = React.forwardRef<HTMLDivElement, Omit<React.ComponentPropsWithoutRef<'div'>, 'data-component'>>(
-  function DialogBody({className, ...rest}, ref) {
+  function DialogBody({className, ...rest}, forwardedRef) {
+    const [element, setElement] = React.useState<HTMLDivElement | null>(null)
+    const hasOverflow = useOverflow(element)
+    const ref = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        setElement(node)
+        assignRef(forwardedRef, node)
+      },
+      [forwardedRef],
+    )
     return (
-      <div {...rest} ref={ref} className={cn('flex-1 overflow-auto p-4', className)} data-component="Dialog.Body" />
+      <div
+        // Keep overflowing content keyboard-scrollable when the body has no focusable children.
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={hasOverflow ? 0 : undefined}
+        {...rest}
+        ref={ref}
+        className={cn('flex-1 overflow-auto p-4', className)}
+        data-component="Dialog.Body"
+      />
     )
   },
 )
