@@ -281,9 +281,7 @@ describe('Tabs', () => {
     )
 
     const tabB = page.getByRole('tab', {name: 'Tab B'})
-    await act(async () => {
-      await userEvent.click(tabB)
-    })
+    await userEvent.click(tabB)
 
     await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
     await expect.element(tabB).toHaveAttribute('tabindex', '0')
@@ -306,10 +304,8 @@ describe('Tabs', () => {
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.element().focus()
-      await userEvent.keyboard('{ArrowRight}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
     await expect.element(tabB).toHaveFocus()
   })
@@ -331,10 +327,8 @@ describe('Tabs', () => {
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabC.element().focus()
-      await userEvent.keyboard('{ArrowRight}')
-    })
+    act(() => tabC.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
     await expect.element(tabA).toHaveFocus()
   })
@@ -356,10 +350,8 @@ describe('Tabs', () => {
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabB.element().focus()
-      await userEvent.keyboard('{ArrowLeft}')
-    })
+    act(() => tabB.element().focus())
+    await userEvent.keyboard('{ArrowLeft}')
 
     await expect.element(tabA).toHaveFocus()
   })
@@ -381,10 +373,8 @@ describe('Tabs', () => {
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabA.element().focus()
-      await userEvent.keyboard('{ArrowLeft}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowLeft}')
 
     await expect.element(tabC).toHaveFocus()
   })
@@ -406,10 +396,8 @@ describe('Tabs', () => {
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabC.element().focus()
-      await userEvent.keyboard('{Home}')
-    })
+    act(() => tabC.element().focus())
+    await userEvent.keyboard('{Home}')
 
     await expect.element(tabA).toHaveFocus()
   })
@@ -430,10 +418,8 @@ describe('Tabs', () => {
 
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabC = page.getByRole('tab', {name: 'Tab C'})
-    await act(async () => {
-      tabA.element().focus()
-      await userEvent.keyboard('{End}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{End}')
 
     await expect.element(tabC).toHaveFocus()
   })
@@ -453,11 +439,9 @@ describe('Tabs', () => {
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.element().focus()
-      await userEvent.keyboard('{ArrowRight}')
-      await userEvent.keyboard(' ')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
+    await userEvent.keyboard(' ')
 
     await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
   })
@@ -477,11 +461,9 @@ describe('Tabs', () => {
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.element().focus()
-      await userEvent.keyboard('{ArrowRight}')
-      await userEvent.keyboard('{Enter}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
+    await userEvent.keyboard('{Enter}')
 
     await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
   })
@@ -526,10 +508,8 @@ describe('Tabs', () => {
     const tabA = page.getByRole('tab', {name: 'Tab A'})
     const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabA.element().focus()
-      await userEvent.keyboard('{ArrowRight}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
     await expect.element(tabC).toHaveFocus()
   })
@@ -608,10 +588,8 @@ describe('Tabs', () => {
       const tabA = page.getByRole('tab', {name: 'Tab A'})
       const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-      await act(async () => {
-        tabA.element().focus()
-        await userEvent.keyboard('{ArrowRight}')
-      })
+      act(() => tabA.element().focus())
+      await userEvent.keyboard('{ArrowRight}')
 
       await expect.element(tabB).toHaveFocus()
       await expect.element(tabA).toHaveAttribute('aria-selected', 'true')
@@ -628,11 +606,9 @@ describe('Tabs', () => {
       const tabA = page.getByRole('tab', {name: 'Tab A'})
       const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-      await act(async () => {
-        tabA.element().focus()
-        await userEvent.keyboard('{ArrowRight}')
-        await userEvent.keyboard('{Enter}')
-      })
+      act(() => tabA.element().focus())
+      await userEvent.keyboard('{ArrowRight}')
+      await userEvent.keyboard('{Enter}')
 
       await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
       expect(onValueChange).toHaveBeenCalledTimes(1)
@@ -646,11 +622,9 @@ describe('Tabs', () => {
       const tabA = page.getByRole('tab', {name: 'Tab A'})
       const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-      await act(async () => {
-        tabA.element().focus()
-        await userEvent.keyboard('{ArrowLeft}')
-        await userEvent.keyboard(' ')
-      })
+      act(() => tabA.element().focus())
+      await userEvent.keyboard('{ArrowLeft}')
+      await userEvent.keyboard(' ')
 
       await expect.element(tabC).toHaveAttribute('aria-selected', 'true')
       expect(onValueChange).toHaveBeenCalledWith({value: 'c'})
@@ -675,11 +649,9 @@ describe('Tabs', () => {
       const tabB = page.getByRole('tab', {name: 'Tab B'})
       const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-      await act(async () => {
-        tabA.element().focus()
-        await userEvent.keyboard('{ArrowRight}')
-        await userEvent.keyboard('{ArrowRight}')
-      })
+      act(() => tabA.element().focus())
+      await userEvent.keyboard('{ArrowRight}')
+      await userEvent.keyboard('{ArrowRight}')
 
       await expect.element(tabA).toHaveAttribute('aria-selected', 'true')
       await expect.element(tabC).toHaveFocus()
