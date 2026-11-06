@@ -171,6 +171,71 @@ describe('LabelGroup', () => {
     expect(fourthLabel).toBeVisible()
   })
 
+  it('sizes the overlay to cover the labels through the expand button after truncation changes', async () => {
+    const user = userEvent.setup()
+    const example = (visibleChildCount: number) => {
+      return (
+        <ThemeAndStyleContainer>
+          <LabelGroup visibleChildCount={visibleChildCount}>
+            <Label>One</Label>
+            <Label>Two</Label>
+            <Label>Three</Label>
+          </LabelGroup>
+        </ThemeAndStyleContainer>
+      )
+    }
+    const {getByRole, rerender} = render(example(1))
+
+    for (const visibleChildCount of [1, 2]) {
+      rerender(example(visibleChildCount))
+      const expandButton = getByRole('button', {
+        name: `Show +${3 - visibleChildCount} more`,
+      })
+      const expectedWidth =
+        expandButton.getBoundingClientRect().right - getByRole('list').getBoundingClientRect().left + 8
+
+      await user.click(expandButton)
+
+      const overlayContainer = getByRole('dialog').querySelector<HTMLElement>(`.${classes.OverlayContainer}`)
+      expect(overlayContainer).not.toBeNull()
+      expect(Number.parseFloat(overlayContainer?.style.width ?? '')).toBeCloseTo(expectedWidth)
+
+      await user.click(
+        getByRole('button', {
+          name: 'Close',
+        }),
+      )
+      await waitFor(() => {
+        expect(expandButton).toHaveFocus()
+      })
+    }
+  })
+
+  it('focuses the first previously hidden control when expanded inline', async () => {
+    const user = userEvent.setup()
+    const {getByRole} = render(
+      <ThemeAndStyleContainer>
+        <LabelGroup visibleChildCount={1} overflowStyle="inline">
+          <button type="button">One</button>
+          <button type="button">Two</button>
+          <button type="button">Three</button>
+        </LabelGroup>
+      </ThemeAndStyleContainer>,
+    )
+
+    await user.click(
+      getByRole('button', {
+        name: 'Show +2 more',
+      }),
+    )
+
+    expect(
+      getByRole('button', {
+        name: 'Two',
+      }),
+    ).toHaveFocus()
+  })
+
   it('should focus the collapse button when expanded, and the expand button when collapsed', async () => {
     const user = userEvent.setup()
     const {getByText} = render(
