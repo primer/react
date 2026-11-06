@@ -323,7 +323,9 @@ function FilteredActionListOption({
       aria-label={ariaLabel}
       aria-labelledby={
         renderedActionListItem?.props['aria-labelledby'] ??
-        (ariaLabel === undefined ? joinIdRefs(resolvedContent?.labelId, resolvedContent?.trailingVisualId) : undefined)
+        (ariaLabel === undefined && resolvedContent?.descriptionIds.length
+          ? joinIdRefs(resolvedContent.labelId, resolvedContent.trailingVisualId)
+          : undefined)
       }
       aria-posinset={optionIndex + 1}
       aria-setsize={optionCount}
@@ -444,7 +446,9 @@ function FilteredActionListDisabledOption({
       aria-label={ariaLabel}
       aria-labelledby={
         renderedActionListItem?.props['aria-labelledby'] ??
-        (ariaLabel === undefined ? joinIdRefs(resolvedContent?.labelId, resolvedContent?.trailingVisualId) : undefined)
+        (ariaLabel === undefined && resolvedContent?.descriptionIds.length
+          ? joinIdRefs(resolvedContent.labelId, resolvedContent.trailingVisualId)
+          : undefined)
       }
       aria-posinset={optionIndex + 1}
       aria-selected="false"

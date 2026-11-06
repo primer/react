@@ -583,7 +583,9 @@ function SelectPanelOption({
       aria-label={ariaLabel}
       aria-labelledby={
         ariaLabelledBy ??
-        (ariaLabel === undefined ? joinIdRefs(resolvedContent?.labelId, resolvedContent?.trailingVisualId) : undefined)
+        (ariaLabel === undefined && (resolvedContent?.descriptionIds.length || inactiveText)
+          ? joinIdRefs(resolvedContent?.labelId, resolvedContent?.trailingVisualId)
+          : undefined)
       }
       aria-posinset={optionIndex === undefined ? itemProps['aria-posinset'] : optionIndex + 1}
       aria-setsize={optionCount ?? itemProps['aria-setsize']}

@@ -173,42 +173,59 @@ describe('FilteredActionList', () => {
 
   it('exposes descriptions separately for enabled, disabled, and rendered options', () => {
     render(
-      <FilteredActionList
-        items={[
-          {
-            id: 'enabled',
-            text: 'Enabled',
-            description: 'Available now',
-            leadingVisual: <span>Decoration</span>,
-            trailingVisual: 'Public',
-          },
-          {
-            id: 'disabled',
-            text: 'Disabled',
-            description: 'Unavailable now',
-            disabled: true,
-            trailingVisual: 'Private',
-          },
-          {id: 'rendered', text: 'Rendered'},
-          {id: 'hidden', text: 'Hidden'},
-        ]}
-        renderItem={item =>
-          item.id === 'rendered' ? (
-            <ActionList.Item>
-              {item.text}
-              <ActionList.Description>First detail</ActionList.Description>
-              <ActionList.Description variant="block">Second detail</ActionList.Description>
-              <ActionList.TrailingVisual>Premium</ActionList.TrailingVisual>
-            </ActionList.Item>
-          ) : item.id === 'hidden' ? (
-            <ActionList.Item>
-              {item.text}
-              <ActionList.Description>Hidden visual detail</ActionList.Description>
-              <ActionList.TrailingVisual hidden>Hidden visual</ActionList.TrailingVisual>
-            </ActionList.Item>
-          ) : null
-        }
-      />,
+      <>
+        <span id="external-option-label">Custom reference</span>
+        <FilteredActionList
+          items={[
+            {
+              id: 'enabled',
+              text: 'Enabled',
+              description: 'Available now',
+              leadingVisual: <span aria-hidden="true">Decoration</span>,
+              trailingVisual: 'Public',
+            },
+            {
+              id: 'disabled',
+              text: 'Disabled',
+              description: 'Unavailable now',
+              disabled: true,
+              trailingVisual: 'Private',
+            },
+            {id: 'rendered', text: 'Rendered'},
+            {id: 'hidden', text: 'Hidden'},
+            {id: 'visual-enabled', text: 'Visual enabled', leadingVisual: <span>Important</span>},
+            {id: 'visual-disabled', text: 'Visual disabled', leadingVisual: <span>Important</span>, disabled: true},
+            {id: 'explicit-label', text: 'Explicit label'},
+            {id: 'explicit-reference', text: 'Explicit reference', disabled: true},
+          ]}
+          renderItem={item =>
+            item.id === 'rendered' ? (
+              <ActionList.Item>
+                {item.text}
+                <ActionList.Description>First detail</ActionList.Description>
+                <ActionList.Description variant="block">Second detail</ActionList.Description>
+                <ActionList.TrailingVisual>Premium</ActionList.TrailingVisual>
+              </ActionList.Item>
+            ) : item.id === 'hidden' ? (
+              <ActionList.Item>
+                {item.text}
+                <ActionList.Description>Hidden visual detail</ActionList.Description>
+                <ActionList.TrailingVisual hidden>Hidden visual</ActionList.TrailingVisual>
+              </ActionList.Item>
+            ) : item.id === 'explicit-label' ? (
+              <ActionList.Item aria-label="Custom label">
+                {item.text}
+                <ActionList.Description>Label detail</ActionList.Description>
+              </ActionList.Item>
+            ) : item.id === 'explicit-reference' ? (
+              <ActionList.Item aria-labelledby="external-option-label">
+                {item.text}
+                <ActionList.Description>Reference detail</ActionList.Description>
+              </ActionList.Item>
+            ) : null
+          }
+        />
+      </>,
     )
 
     expect(screen.getByRole('option', {name: 'Enabled Public'})).toHaveAccessibleDescription('Available now')
@@ -217,6 +234,10 @@ describe('FilteredActionList', () => {
       'First detail Second detail',
     )
     expect(screen.getByRole('option', {name: 'Hidden'})).toHaveAccessibleDescription('Hidden visual detail')
+    expect(screen.getByRole('option', {name: 'ImportantVisual enabled'})).toBeInTheDocument()
+    expect(screen.getByRole('option', {name: 'ImportantVisual disabled'})).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByRole('option', {name: 'Custom label'})).toHaveAccessibleDescription('Label detail')
+    expect(screen.getByRole('option', {name: 'Custom reference'})).toHaveAccessibleDescription('Reference detail')
   })
 
   it('omits aria-controls while body content replaces the listbox and keeps empty status outside it', () => {

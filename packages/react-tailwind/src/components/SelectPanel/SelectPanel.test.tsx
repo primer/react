@@ -1455,7 +1455,7 @@ describe('SelectPanel', () => {
                 </>
               ),
               description: 'Rich description',
-              leadingVisual: <span>Leading decoration</span>,
+              leadingVisual: <span aria-hidden="true">Leading decoration</span>,
               trailingVisual: (
                 <>
                   Public<span aria-hidden="true">Hidden decoration</span>
@@ -1515,7 +1515,7 @@ describe('SelectPanel', () => {
     expect(screen.getByRole('option', {name: 'Rich item Public'})).toHaveAccessibleDescription('Rich description')
     expect(screen.getByRole('option', {name: 'Inactive item'})).toHaveAccessibleDescription('Unavailable')
     expect(screen.getAllByText('Unavailable')).toHaveLength(1)
-    expect(screen.getByRole('option', {name: 'Visual item'})).toBeInTheDocument()
+    expect(screen.getByRole('option', {name: 'ImportantVisual item'})).toBeInTheDocument()
     const rendered = screen.getByRole('option', {name: 'Rendered item Premium'})
     expect(rendered).toHaveAttribute('aria-labelledby', expect.stringContaining('custom-trailing'))
     expect(rendered).toHaveAccessibleDescription('First detail Second detail')
