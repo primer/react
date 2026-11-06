@@ -13,7 +13,6 @@
   - [Running Tests](#running-tests)
 - [Interaction Tests](#interaction-tests)
   - [As A Part Of Unit Tests](#as-a-part-of-unit-tests)
-  - [Storybook Interaction Tests](#storybook-interaction-tests)
 - [Visual Regression Tests](#visual-regression-tests)
   - [Prerequisites](#prerequisites)
   - [Components](#components)
@@ -131,13 +130,7 @@ By default, Vitest fails when tests emit unexpected console output in CI. For lo
 
 We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interactions is a core part of our testing practice.
 
-We write user interaction tests leveraging [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)’s [userEvent](<[userEvent](https://testing-library.com/docs/user-event/intro/)>) testing helper.
-
-### Storybook Interaction Tests
-
-We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test complex user interactions in story scenarios. For example, testing a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
-
-Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
+For browser-backed interactions, use locators and `userEvent` from `vitest/browser`, keeping RTL for rendering and lifecycle helpers. Follow the [browser locator pilot](#browser-locator-pilot) for examples and guidance.
 
 ## Visual Regression Tests
 

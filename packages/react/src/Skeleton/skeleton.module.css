@@ -1,0 +1,28 @@
+@keyframes shimmer {
+  from {
+    mask-position: 200%;
+  }
+
+  to {
+    mask-position: 0%;
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern -- Shared utility, not a component class. */
+.skeleton {
+  background-color: var(--skeletonLoader-bgColor);
+  animation: shimmer;
+
+  @media (prefers-reduced-motion: no-preference) {
+    mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
+    mask-size: 200%;
+    animation: shimmer;
+    animation-duration: var(--base-duration-1000);
+    animation-iteration-count: infinite;
+  }
+
+  @media (forced-colors: active) {
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+  }
+}

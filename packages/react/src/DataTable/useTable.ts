@@ -1,8 +1,9 @@
 import {useId, useState} from 'react'
 import type {Column} from './column'
-import type {DataTableData, DataTableRowGroup, UniqueRow} from './row'
+import type {DataTableData, DataTableRowGroup, DataTableRowId, UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
 import type {ObjectPathValue} from './utils'
+import {useControllableState} from '../hooks/useControllableState'
 
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>
@@ -10,7 +11,16 @@ interface TableConfig<Data extends UniqueRow> {
   initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
   externalSorting?: boolean
-  getRowId: (rowData: Data) => string | number
+  getRowId: (rowData: Data) => DataTableRowId
+  rowSelection?: boolean
+  selectedRows?: ReadonlySet<DataTableRowId>
+  defaultSelectedRows?: ReadonlySet<DataTableRowId>
+  onSelectionChange?: ({selectedRows}: {selectedRows: Set<DataTableRowId>}) => void
+  isRowSelectable?: (row: Data) => boolean
+  collapsibleGroups?: boolean
+  expandedGroups?: ReadonlySet<DataTableRowId>
+  defaultExpandedGroups?: ReadonlySet<DataTableRowId>
+  onExpandedGroupsChange?: ({expandedGroups}: {expandedGroups: Set<DataTableRowId>}) => void
 }
 
 interface Table<Data extends UniqueRow> {
@@ -18,6 +28,19 @@ interface Table<Data extends UniqueRow> {
   bodies: Array<RowBody<Data> | RowGroup<Data>>
   actions: {
     sortBy: (header: Header<Data>) => void
+    toggleRowSelection: (row: Row<Data>) => void
+    toggleAllRows: () => void
+    toggleGroupSelection: (group: RowGroup<Data>) => void
+    toggleGroupExpansion: (group: RowGroup<Data>) => void
+    clearSelection: () => void
+  }
+  selection: {
+    headerId: string
+    selectedRows: Set<DataTableRowId>
+    allSelected: boolean
+    someSelected: boolean
+    selectableCount: number
+    selectedCount: number
   }
   gridTemplateColumns: React.CSSProperties['gridTemplateColumns']
 }
@@ -32,7 +55,11 @@ interface Header<Data extends UniqueRow> {
 
 interface Row<Data extends UniqueRow> {
   type: 'row'
-  id: string | number
+  id: DataTableRowId
+  selectionId: DataTableRowId
+  selectionLabelledBy: string | undefined
+  selected: boolean
+  selectable: boolean
   getCells: () => Array<Cell<Data>>
   getValue: () => Data
 }
@@ -43,6 +70,9 @@ interface RowGroup<Data extends UniqueRow> {
   id: string | number
   label: string
   rows: Array<Row<Data>>
+  expanded: boolean
+  selection: 'all' | 'some' | 'none'
+  selectable: boolean
   'aria-label'?: string
 }
 
@@ -70,6 +100,15 @@ export function useTable<Data extends UniqueRow>({
   initialSortDirection,
   externalSorting,
   getRowId,
+  rowSelection = false,
+  selectedRows: controlledSelectedRows,
+  defaultSelectedRows,
+  onSelectionChange,
+  isRowSelectable,
+  collapsibleGroups = false,
+  expandedGroups: controlledExpandedGroups,
+  defaultExpandedGroups,
+  onExpandedGroupsChange,
 }: TableConfig<Data>): Table<Data> {
   const tableId = useId()
   const [rowOrder, setRowOrder] = useState<DataTableData<Data>>(data)
@@ -78,7 +117,23 @@ export function useTable<Data extends UniqueRow>({
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
-  const {gridTemplateColumns} = useTableLayout(columns)
+  const [selectedRows, setSelectedRows] = useControllableState<ReadonlySet<DataTableRowId>>({
+    name: 'DataTable selectedRows',
+    value: controlledSelectedRows,
+    defaultValue: () => defaultSelectedRows ?? new Set<DataTableRowId>(),
+    onChange: nextSelectedRows => {
+      onSelectionChange?.({selectedRows: new Set(nextSelectedRows)})
+    },
+  })
+  const {gridTemplateColumns} = useTableLayout(columns, rowSelection)
+  const [expandedGroups, setExpandedGroups] = useControllableState<ReadonlySet<DataTableRowId>>({
+    name: 'DataTable expandedGroups',
+    value: controlledExpandedGroups,
+    defaultValue: () => defaultExpandedGroups ?? new Set(data.filter(isDataTableRowGroup).map(group => group.groupId)),
+    onChange: nextExpandedGroups => {
+      onExpandedGroupsChange?.({expandedGroups: new Set(nextExpandedGroups)})
+    },
+  })
 
   // Reset the `sortByColumn` state if the columns change and that column is no
   // longer provided
@@ -239,14 +294,20 @@ export function useTable<Data extends UniqueRow>({
 
   function createRow(row: Data, rowIndex: number): Row<Data> {
     const rowId = getRowId(row)
-    const rowHeaderIds = hasGroups
-      ? headers.flatMap((header, index) =>
-          header.column.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : [],
-        )
-      : []
+    const rowHeaderIds =
+      hasGroups || rowSelection
+        ? headers.flatMap((header, index) =>
+            header.column.rowHeader ? [`${tableId}-row-${rowIndex}-header-${index}`] : [],
+          )
+        : []
+    const selectable = rowSelection && (isRowSelectable?.(row) ?? true)
     return {
       type: 'row',
       id: `${rowId}`,
+      selectionId: rowId,
+      selectionLabelledBy: rowHeaderIds.length > 0 ? rowHeaderIds.join(' ') : undefined,
+      selected: selectable && selectedRows.has(rowId),
+      selectable,
       getValue() {
         return row
       },
@@ -255,7 +316,7 @@ export function useTable<Data extends UniqueRow>({
           const rowHeader = header.column.rowHeader ?? false
           return {
             id: `${rowId}:${header.id}`,
-            domId: hasGroups && rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined,
+            domId: (hasGroups || rowSelection) && rowHeader ? `${tableId}-row-${rowIndex}-header-${index}` : undefined,
             headers: hasGroups ? (rowHeader ? [header.domId] : [...rowHeaderIds, header.domId]).join(' ') : undefined,
             column: header.column,
             rowHeader,
@@ -280,16 +341,26 @@ export function useTable<Data extends UniqueRow>({
         bodies.push(body)
       }
       const groupStartIndex = rowIndex
+      const rows = item.rows.map((row, index) => createRow(row, groupStartIndex + index))
+      const selectableRows = rows.filter(row => row.selectable)
       bodies.push({
         type: 'row-group',
-        key: `group:${item.groupId}`,
+        key: `group:${typeof item.groupId}:${item.groupId}`,
         id: item.groupId,
         label: item.label,
-        rows: item.rows.map((row, index) => createRow(row, groupStartIndex + index)),
+        rows,
+        expanded: !collapsibleGroups || expandedGroups.has(item.groupId),
+        selection:
+          selectableRows.length > 0 && selectableRows.every(row => row.selected)
+            ? 'all'
+            : selectableRows.some(row => row.selected)
+              ? 'some'
+              : 'none',
+        selectable: selectableRows.length > 0,
         'aria-label': item['aria-label'],
       })
       rowIndex += item.rows.length
-      body = {type: 'row-body', key: `rows:after:${item.groupId}`, rows: []}
+      body = {type: 'row-body', key: `rows:after:${typeof item.groupId}:${item.groupId}`, rows: []}
     } else {
       body.rows.push(createRow(item, rowIndex))
       rowIndex += 1
@@ -298,10 +369,88 @@ export function useTable<Data extends UniqueRow>({
   if (body.rows.length > 0 || bodies.length === 0) {
     bodies.push(body)
   }
+  const allRows = bodies.flatMap(body => body.rows)
+  const selectableRows = allRows.filter(row => row.selectable)
+  const effectiveSelectedRows = new Set(selectableRows.filter(row => row.selected).map(row => row.selectionId))
+  const selectedCount = effectiveSelectedRows.size
+  const selectableCount = selectableRows.length
+  const allSelected = selectableCount > 0 && selectedCount === selectableCount
+  const someSelected = selectedCount > 0 && !allSelected
+
+  function toggleRowSelection(row: Row<Data>) {
+    if (!row.selectable) {
+      return
+    }
+
+    const nextSelectedRows = new Set(selectedRows)
+    if (nextSelectedRows.has(row.selectionId)) {
+      nextSelectedRows.delete(row.selectionId)
+    } else {
+      nextSelectedRows.add(row.selectionId)
+    }
+    setSelectedRows(nextSelectedRows)
+  }
+
+  function toggleAllRows() {
+    toggleRowsSelection(selectableRows, allSelected)
+  }
+
+  function toggleGroupSelection(group: RowGroup<Data>) {
+    toggleRowsSelection(
+      group.rows.filter(row => row.selectable),
+      group.selection === 'all',
+    )
+  }
+
+  function toggleRowsSelection(rows: Array<Row<Data>>, allSelected: boolean) {
+    if (rows.length === 0) {
+      return
+    }
+
+    const nextSelectedRows = new Set(selectedRows)
+    for (const row of rows) {
+      if (allSelected) {
+        nextSelectedRows.delete(row.selectionId)
+      } else {
+        nextSelectedRows.add(row.selectionId)
+      }
+    }
+    setSelectedRows(nextSelectedRows)
+  }
+
+  function toggleGroupExpansion(group: RowGroup<Data>) {
+    if (!collapsibleGroups) {
+      return
+    }
+    const nextExpandedGroups = new Set(expandedGroups)
+    if (nextExpandedGroups.has(group.id)) {
+      nextExpandedGroups.delete(group.id)
+    } else {
+      nextExpandedGroups.add(group.id)
+    }
+    setExpandedGroups(nextExpandedGroups)
+  }
 
   return {
     headers,
-    actions: {sortBy},
+    actions: {
+      sortBy,
+      toggleRowSelection,
+      toggleAllRows,
+      toggleGroupSelection,
+      toggleGroupExpansion,
+      clearSelection: () => {
+        setSelectedRows(new Set<DataTableRowId>())
+      },
+    },
+    selection: {
+      headerId: `${tableId}-selection-column`,
+      selectedRows: effectiveSelectedRows,
+      allSelected,
+      someSelected,
+      selectableCount,
+      selectedCount,
+    },
     gridTemplateColumns,
     bodies,
   }
@@ -384,9 +533,12 @@ function getInitialSortState<Data extends UniqueRow>(
   return null
 }
 
-export function useTableLayout<Data extends UniqueRow>(columns: Array<Column<Data>>): {gridTemplateColumns: string} {
+export function useTableLayout<Data extends UniqueRow>(
+  columns: Array<Column<Data>>,
+  rowSelection = false,
+): {gridTemplateColumns: string} {
   return {
-    gridTemplateColumns: getGridTemplateFromColumns(columns).join(' '),
+    gridTemplateColumns: [...(rowSelection ? ['min-content'] : []), ...getGridTemplateFromColumns(columns)].join(' '),
   }
 }
 
