@@ -1,19 +1,18 @@
-import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
-import {debounce} from '@github/mini-throttle'
-import {announce} from '@primer/live-region-element'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
+import type {IconProps} from '@primer/octicons-react'
+import {PlusIcon} from '@primer/octicons-react'
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {isElement} from 'react-is'
 import type {ActionListItemProps} from '../ActionList'
 import {ActionList} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
-import type {ComponentProps, MandateProps, AriaRole} from '../utils/types'
-import Spinner from '../Spinner'
-import {useId} from '../hooks/useId'
 import {AutocompleteContext, AutocompleteDeferredInputContext} from './AutocompleteContext'
-import type {IconProps} from '@primer/octicons-react'
-import {PlusIcon} from '@primer/octicons-react'
+import Spinner from '../Spinner'
+import {useAnnounce} from '../live-region'
+import {useId} from '../hooks/useId'
+import type {ComponentProps, MandateProps, AriaRole} from '../utils/types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {isElement} from 'react-is'
 
 import classes from './AutocompleteMenu.module.css'
 
@@ -122,14 +121,6 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   ['aria-labelledby']: string
 }
 
-/**
- * Announces a message to screen readers at a slowed-down rate. This is useful when you want to announce don't want to
- * overwhelm the user with too many announcements in rapid succession.
- */
-const debounceAnnouncement = debounce((announcement: string) => {
-  announce(announcement)
-}, 250)
-
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
   const deferredInputContext = useContext(AutocompleteDeferredInputContext)
@@ -170,6 +161,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const [highlightedItem, setHighlightedItem] = useState<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
   const generatedUniqueId = useId(id)
+  const {announce, cancel} = useAnnounce()
 
   const selectableItems = useMemo(
     () =>
@@ -280,9 +272,17 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
 
   React.useEffect(() => {
     if (allItemsToRender.length === 0) {
-      debounceAnnouncement(emptyStateText as string)
+      /**
+       * Announces a message to screen readers at a slowed-down rate. This is useful when you want to announce don't want to
+       * overwhelm the user with too many announcements in rapid succession.
+       */
+      announce(emptyStateText as string, {
+        delayMs: 250,
+      })
+    } else {
+      cancel()
     }
-  }, [allItemsToRender, emptyStateText])
+  }, [allItemsToRender, announce, cancel, emptyStateText])
 
   useFocusZone(
     {

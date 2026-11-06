@@ -1,5 +1,5 @@
-import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
-import {describe, expect, it, beforeEach, vi} from 'vitest'
+import {act, fireEvent, render, renderHook, screen, waitFor} from '@testing-library/react'
+import {describe, expect, it, beforeEach, afterEach, vi, type MockInstance} from 'vitest'
 import {page} from 'vitest/browser'
 import React from 'react'
 import {flushSync} from 'react-dom'
@@ -7,7 +7,6 @@ import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProp
 import {userEvent} from '@testing-library/user-event'
 import {FeatureFlags} from '../FeatureFlags'
 import type {InitialLoadingType} from './SelectPanel'
-import type {LiveRegionElement} from '@primer/live-region-element'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import classes from './SelectPanel.test.module.css'
@@ -15,6 +14,7 @@ import {implementsClassName} from '../utils/testing'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition} from '@primer/behaviors'
 import {createRenderCounter} from '../utils/testing/profiler'
+import {useAnnounce} from '../live-region'
 
 // Mock getAnchoredPosition to verify displayInViewport is forwarded
 vi.mock('@primer/behaviors', async () => {
@@ -37,14 +37,15 @@ vi.mock('@primer/behaviors', async () => {
   }
 })
 
-// Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
-export function getLiveRegion(): LiveRegionElement {
-  const liveRegion = document.querySelector('live-region')
-  if (liveRegion) {
-    return liveRegion as LiveRegionElement
-  }
-  throw new Error('No live-region found')
-}
+let ariaNotify: MockInstance<Document['ariaNotify']>
+
+beforeEach(() => {
+  ariaNotify = vi.spyOn(document, 'ariaNotify').mockImplementation(() => {})
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
 
 const getFocusManagement = (flag?: boolean) => {
   // true = 'use roving tabindex'
@@ -112,11 +113,13 @@ describe('SelectPanel state synchronization', () => {
   function MultiSelectPanel({
     items: panelItems,
     loading,
+    notice,
     onOpenChange = () => {},
     open,
   }: {
     items: ItemInput[]
     loading?: boolean
+    notice?: SelectPanelProps['notice']
     onOpenChange?: SelectPanelProps['onOpenChange']
     open: boolean
   }) {
@@ -130,6 +133,7 @@ describe('SelectPanel state synchronization', () => {
         onSelectedChange={() => {}}
         onFilterChange={() => {}}
         loading={loading}
+        notice={notice}
         open={open}
         onOpenChange={onOpenChange}
       />
@@ -304,11 +308,6 @@ describe('SelectPanel state synchronization', () => {
 
   it('announces internally managed loading when opened', async () => {
     vi.useFakeTimers()
-    for (const element of document.querySelectorAll('live-region')) {
-      element.remove()
-    }
-    const liveRegion = document.createElement('live-region') as LiveRegionElement
-    document.body.appendChild(liveRegion)
 
     try {
       function LoadingPanel() {
@@ -322,10 +321,204 @@ describe('SelectPanel state synchronization', () => {
         await vi.runAllTimersAsync()
       })
 
-      expect(liveRegion.getMessage('polite')).toBe('Loading.')
+      expect(ariaNotify).toHaveBeenCalledWith('Loading.', {
+        priority: 'normal',
+      })
     } finally {
       vi.useRealTimers()
     }
+  })
+
+  describe('announcement cancellation', () => {
+    beforeEach(() => {
+      vi.useFakeTimers()
+    })
+
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    it('replaces pending loading with the available results', async () => {
+      const {rerender} = render(<MultiSelectPanel items={[]} open />)
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(1000)
+      })
+      expect(ariaNotify).not.toHaveBeenCalled()
+
+      rerender(<MultiSelectPanel items={items} open />)
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).not.toHaveBeenCalledWith('Loading.', {
+        priority: 'normal',
+      })
+      expect(ariaNotify).toHaveBeenCalledWith('List updated, Focused item: item one, not selected, 1 of 3', {
+        priority: 'normal',
+      })
+    })
+
+    it.each(['close', 'unmount'] as const)('cancels pending loading on %s', async action => {
+      const {rerender, unmount} = render(<MultiSelectPanel items={[]} open />)
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(1000)
+      })
+      expect(ariaNotify).not.toHaveBeenCalled()
+
+      if (action === 'close') {
+        rerender(<MultiSelectPanel items={[]} open={false} />)
+      } else {
+        unmount()
+      }
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).not.toHaveBeenCalled()
+    })
+
+    it('does not start a loading announcement after the panel closes', async () => {
+      const emptyItems: SelectPanelProps['items'] = []
+      const {rerender} = render(<MultiSelectPanel items={emptyItems} open />)
+
+      rerender(<MultiSelectPanel items={emptyItems} open={false} />)
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).not.toHaveBeenCalled()
+    })
+
+    it.each(['close', 'unmount'] as const)('cancels deferred focus announcements on %s', async action => {
+      const {rerender, unmount} = render(<MultiSelectPanel items={items} open />)
+
+      if (action === 'close') {
+        rerender(<MultiSelectPanel items={items} open={false} />)
+      } else {
+        unmount()
+      }
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).not.toHaveBeenCalled()
+    })
+
+    it('cancels a deferred results announcement when the panel closes', async () => {
+      const {rerender} = render(<MultiSelectPanel items={[]} open />)
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(1000)
+      })
+
+      rerender(<MultiSelectPanel items={items} open />)
+      rerender(<MultiSelectPanel items={items} open={false} />)
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).not.toHaveBeenCalled()
+    })
+
+    it('replaces pending loading with a notice', async () => {
+      const emptyItems: SelectPanelProps['items'] = []
+      const {rerender} = render(<MultiSelectPanel items={emptyItems} open />)
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(1000)
+      })
+      expect(ariaNotify).not.toHaveBeenCalled()
+
+      rerender(
+        <MultiSelectPanel
+          items={emptyItems}
+          open
+          notice={{
+            text: 'Updated notice',
+            variant: 'warning',
+          }}
+        />,
+      )
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(500)
+      })
+
+      expect(ariaNotify).toHaveBeenCalledExactlyOnceWith(expect.stringContaining('Updated notice'), {
+        priority: 'normal',
+      })
+    })
+
+    it('does not cancel a pending list announcement when a notice appears', async () => {
+      const {rerender} = render(<MultiSelectPanel items={items} open />)
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(100)
+      })
+      expect(ariaNotify).not.toHaveBeenCalled()
+
+      rerender(
+        <MultiSelectPanel
+          items={items}
+          open
+          notice={{
+            text: 'Updated notice',
+            variant: 'warning',
+          }}
+        />,
+      )
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(400)
+      })
+
+      expect(ariaNotify).toHaveBeenCalledWith(expect.stringContaining('Updated notice'), {
+        priority: 'normal',
+      })
+      expect(ariaNotify).toHaveBeenCalledWith(
+        'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
+        {
+          priority: 'normal',
+        },
+      )
+      expect(ariaNotify).toHaveBeenCalledTimes(2)
+    })
+
+    it('does not cancel an unrelated announcement when results arrive', async () => {
+      const {result} = renderHook(() => {
+        return useAnnounce()
+      })
+      act(() => {
+        result.current.announce('Unrelated announcement', {
+          delayMs: 2000,
+        })
+      })
+      const {rerender} = render(<MultiSelectPanel items={[]} open />)
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(1000)
+      })
+
+      rerender(<MultiSelectPanel items={items} open />)
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).toHaveBeenCalledWith('Unrelated announcement', {
+        priority: 'normal',
+      })
+      expect(ariaNotify).not.toHaveBeenCalledWith('Loading.', {
+        priority: 'normal',
+      })
+    })
   })
 })
 
@@ -970,11 +1163,6 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     })
 
     describe('screen reader announcements', () => {
-      beforeEach(() => {
-        const liveRegion = document.createElement('live-region')
-        document.body.appendChild(liveRegion)
-      })
-
       function LoadingSelectPanel({
         initialLoadingType = 'spinner',
         items = [],
@@ -1051,10 +1239,15 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await waitFor(
           async () => {
             if (usingRemoveActiveDescendant) {
-              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
+              expect(ariaNotify).toHaveBeenLastCalledWith('3 items available, 0 selected.', {
+                priority: 'normal',
+              })
             } else {
-              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
+              expect(ariaNotify).toHaveBeenLastCalledWith(
                 'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
+                {
+                  priority: 'normal',
+                },
               )
             }
           },
@@ -1104,7 +1297,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-        expect(getLiveRegion().getMessage('polite').trim()).toContain('This is a notice')
+        expect(ariaNotify).toHaveBeenCalledWith(expect.stringContaining('This is a notice'), {
+          priority: 'normal',
+        })
       })
 
       it('should announce filtered results', async () => {
@@ -1117,10 +1312,15 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await waitFor(
           async () => {
             if (usingRemoveActiveDescendant) {
-              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
+              expect(ariaNotify).toHaveBeenLastCalledWith('3 items available, 0 selected.', {
+                priority: 'normal',
+              })
             } else {
-              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
+              expect(ariaNotify).toHaveBeenLastCalledWith(
                 'Filter items, filter text box and list of items, Focused item: item one, not selected, 1 of 3',
+                {
+                  priority: 'normal',
+                },
               )
             }
           },
@@ -1133,10 +1333,15 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await waitFor(
           async () => {
             if (usingRemoveActiveDescendant) {
-              expect(getLiveRegion().getMessage('polite')).toBe('2 items available, 0 selected.')
+              expect(ariaNotify).toHaveBeenLastCalledWith('2 items available, 0 selected.', {
+                priority: 'normal',
+              })
             } else {
-              expect(getLiveRegion().getMessage('polite')).toBe(
+              expect(ariaNotify).toHaveBeenLastCalledWith(
                 'List updated, Focused item: item one, not selected, 1 of 2',
+                {
+                  priority: 'normal',
+                },
               )
             }
           },
@@ -1149,10 +1354,15 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await waitFor(
           async () => {
             if (usingRemoveActiveDescendant) {
-              expect(getLiveRegion().getMessage('polite')!.trim()).toBe('1 item available, 0 selected.')
+              expect(ariaNotify).toHaveBeenLastCalledWith('1 item available, 0 selected.', {
+                priority: 'normal',
+              })
             } else {
-              expect(getLiveRegion().getMessage('polite').trim()).toBe(
+              expect(ariaNotify).toHaveBeenLastCalledWith(
                 'List updated, Focused item: item one, not selected, 1 of 1',
+                {
+                  priority: 'normal',
+                },
               )
             }
           },
@@ -1171,11 +1381,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
         await waitFor(
           async () => {
-            if (usingRemoveActiveDescendant) {
-              expect(getLiveRegion().getMessage('polite')!.trim()).toBe('No items available.')
-            } else {
-              expect(getLiveRegion().getMessage('polite').trim()).toBe('No items available.')
-            }
+            expect(ariaNotify).toHaveBeenLastCalledWith(expect.stringMatching(/^No items available\.\s*$/), {
+              priority: 'normal',
+            })
           },
           {timeout: 3000},
         )
@@ -1223,11 +1431,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
         await waitFor(
           async () => {
-            if (usingRemoveActiveDescendant) {
-              expect(getLiveRegion().getMessage('polite')!.trim()).toBe("Nothing found. There's nothing here.")
-            } else {
-              expect(getLiveRegion().getMessage('polite').trim()).toBe("Nothing found. There's nothing here.")
-            }
+            expect(ariaNotify).toHaveBeenLastCalledWith("Nothing found. There's nothing here.", {
+              priority: 'normal',
+            })
           },
           {timeout: 3000},
         )

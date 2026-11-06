@@ -1,37 +1,48 @@
-import {describe, expect, it, beforeEach, afterEach} from 'vitest'
-import {render, screen, act, waitFor} from '@testing-library/react'
+import {StrictMode} from 'react'
+import {describe, expect, it, beforeEach, afterEach, vi, type MockInstance} from 'vitest'
+import {render, act} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {Announce} from '../Announce'
-import {getLiveRegion} from './test-helpers'
 import {implementsClassName} from '../../utils/testing'
 import {createRenderCounter} from '../../utils/testing/profiler'
 
 describe('Announce', () => {
+  let ariaNotify: MockInstance<Element['ariaNotify']>
+
   implementsClassName(Announce)
+
   beforeEach(() => {
-    const liveRegion = document.createElement('live-region')
-    document.body.appendChild(liveRegion)
+    vi.useFakeTimers()
+    ariaNotify = vi.spyOn(Element.prototype, 'ariaNotify').mockImplementation(() => {})
   })
 
   afterEach(() => {
-    // Reset the live-region after each test so that we do not have overlapping
-    // messages from previous tests
-    const liveRegion = getLiveRegion()
-    document.body.removeChild(liveRegion)
+    vi.useRealTimers()
+    vi.restoreAllMocks()
   })
 
-  it('should have a default politeness of `polite`', () => {
+  it('should have a default politeness of `polite`', async () => {
     render(<Announce>test</Announce>)
 
-    const liveRegion = getLiveRegion()
-    expect(liveRegion.getMessage('polite')).toBe('test')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('test', {
+      priority: 'normal',
+    })
   })
 
-  it('should support an `assertive` politeness', () => {
+  it('should support an `assertive` politeness', async () => {
     render(<Announce politeness="assertive">test</Announce>)
 
-    const liveRegion = getLiveRegion()
-    expect(liveRegion.getMessage('assertive')).toBe('test')
-    expect(liveRegion.getMessage('polite')).toBe('')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('test', {
+      priority: 'high',
+    })
   })
 
   it('should pass additional props to the container element', () => {
@@ -46,17 +57,20 @@ describe('Announce', () => {
         test
       </Announce>,
     )
-    expect(screen.getByTestId('container').tagName).toBe('SPAN')
+    expect(page.getByTestId('container').element().tagName).toBe('SPAN')
   })
 
-  it('should not announce the contents of the container if `hidden={false}`', () => {
+  it('should not announce the contents of the container if `hidden={true}`', async () => {
     render(<Announce hidden>test</Announce>)
 
-    const liveRegion = getLiveRegion()
-    expect(liveRegion.getMessage('polite')).not.toBe('test')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).not.toHaveBeenCalled()
   })
 
-  it('should not announce the contents of the container if `display: none`', () => {
+  it('should not announce the contents of the container if `display: none`', async () => {
     render(
       <Announce
         style={{
@@ -67,11 +81,14 @@ describe('Announce', () => {
       </Announce>,
     )
 
-    const liveRegion = getLiveRegion()
-    expect(liveRegion.getMessage('polite')).not.toBe('test')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).not.toHaveBeenCalled()
   })
 
-  it('should not announce the contents of the container if `visibility: hidden`', () => {
+  it('should not announce the contents of the container if `visibility: hidden`', async () => {
     render(
       <Announce
         style={{
@@ -82,8 +99,127 @@ describe('Announce', () => {
       </Announce>,
     )
 
-    const liveRegion = getLiveRegion()
-    expect(liveRegion.getMessage('polite')).not.toBe('test')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).not.toHaveBeenCalled()
+  })
+
+  it('does not announce hidden descendant text', async () => {
+    render(
+      <Announce>
+        Visible message
+        <span
+          style={{
+            display: 'none',
+          }}
+        >
+          Hidden message
+        </span>
+      </Announce>,
+    )
+
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('Visible message', {
+      priority: 'normal',
+    })
+  })
+
+  it.each(['polite', 'assertive'] as const)(
+    'announces once on mount in StrictMode with %s politeness',
+    async politeness => {
+      render(
+        <StrictMode>
+          <Announce politeness={politeness}>test</Announce>
+        </StrictMode>,
+      )
+
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('test', {
+        priority: politeness === 'assertive' ? 'high' : 'normal',
+      })
+    },
+  )
+
+  it('delays polite announcements and replaces pending content', async () => {
+    const {rerender} = render(<Announce delayMs={100}>First message</Announce>)
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(99)
+    })
+    expect(ariaNotify).not.toHaveBeenCalled()
+
+    rerender(<Announce delayMs={100}>Updated message</Announce>)
+
+    await act(async () => {
+      await Promise.resolve()
+      await vi.advanceTimersByTimeAsync(99)
+    })
+    expect(ariaNotify).not.toHaveBeenCalled()
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1)
+    })
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('Updated message', {
+      priority: 'normal',
+    })
+  })
+
+  it('ignores delayMs for assertive announcements', async () => {
+    render(
+      <Announce politeness="assertive" delayMs={1000}>
+        test
+      </Announce>,
+    )
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(0)
+    })
+
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('test', {
+      priority: 'high',
+    })
+  })
+
+  it.each(['message A', ''])('cancels pending content when the content changes back to "%s"', async message => {
+    const {rerender} = render(<Announce delayMs={100}>message A</Announce>)
+
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('message A', {
+      priority: 'normal',
+    })
+    ariaNotify.mockClear()
+
+    rerender(<Announce delayMs={100}>message B</Announce>)
+    await act(async () => {})
+
+    rerender(<Announce delayMs={100}>{message}</Announce>)
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).not.toHaveBeenCalled()
+  })
+
+  it('cancels a pending announcement on unmount', async () => {
+    const {unmount} = render(<Announce delayMs={100}>test</Announce>)
+
+    unmount()
+
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).not.toHaveBeenCalled()
   })
 
   it('does not commit an extra render when its content changes', async () => {
@@ -99,7 +235,9 @@ describe('Announce', () => {
       </Wrap>,
     )
     // Flush the initial mount announcement before measuring.
-    await act(async () => {})
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
     counter.reset()
 
     const changes = 5
@@ -113,13 +251,12 @@ describe('Announce', () => {
       await act(async () => {})
     }
 
-    // The announcement path actually ran (so the render-count assertion is not
-    // vacuous): wait for the live region's throttle queue to drain and surface
-    // the latest content...
-    await waitFor(() => {
-      expect(getLiveRegion().getMessage('polite')).toBe('message 5')
+    await act(async () => {
+      await vi.runAllTimersAsync()
     })
-    // ...and it did so without any extra commit beyond the prop updates.
+    expect(ariaNotify).toHaveBeenLastCalledWith('message 5', {
+      priority: 'normal',
+    })
     expect(counter.updateCount).toBe(changes)
   })
 })

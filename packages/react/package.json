@@ -33,7 +33,9 @@
   "sideEffects": [
     "dist/**/*.css",
     "src/**/test-helpers.tsx",
-    "dist/**/test-helpers.js"
+    "dist/**/test-helpers.js",
+    "src/polyfills/*.ts",
+    "dist/polyfills/*.js"
   ],
   "scripts": {
     "build": "./script/build",
@@ -73,12 +75,12 @@
     "npm": ">=7"
   },
   "dependencies": {
+    "@github/arianotify-polyfill": "^2.4.0",
     "@github/mini-throttle": "^2.1.1",
     "@github/relative-time-element": "^5.0.0",
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.5.2",
     "@primer/behaviors": "^1.10.3",
-    "@primer/live-region-element": "^0.8.1",
     "@primer/octicons-react": "^19.28.1",
     "@primer/primitives": "10.x || 11.x",
     "@tanstack/react-virtual": "^3.13.18",
@@ -98,9 +100,9 @@
     "@babel/core": "8.0.7",
     "@babel/generator": "8.0.6",
     "@babel/parser": "8.0.7",
+    "@babel/plugin-transform-modules-commonjs": "8.0.1",
     "@babel/plugin-transform-nullish-coalescing-operator": "8.0.1",
     "@babel/plugin-transform-optional-chaining": "8.0.5",
-    "@babel/plugin-transform-modules-commonjs": "8.0.1",
     "@babel/preset-react": "8.0.1",
     "@babel/preset-typescript": "8.0.7",
     "@babel/types": "8.0.6",

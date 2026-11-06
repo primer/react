@@ -11,7 +11,7 @@ import {
 import {useState} from 'react'
 import {Button, IconButton} from '.'
 import {Stack} from '../Stack/Stack'
-import {announce} from '@primer/live-region-element'
+import '../polyfills/ariaNotify'
 import {Tooltip} from '../TooltipV2/Tooltip'
 import {KeybindingHint} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -90,7 +90,9 @@ export const TrailingCounter = () => {
   const [count, setCount] = useState(0)
   const onClick = () => {
     setCount(count + 1)
-    announce(`Watch ${count + 1}`)
+    document.ariaNotify(`Watch ${count + 1}`, {
+      priority: 'normal',
+    })
   }
   return (
     <>
@@ -98,7 +100,9 @@ export const TrailingCounter = () => {
         Watch
       </Button>
       <AccessibilityNote />
-      <p>In this example, a live region has been implemented to communicate the change.</p>
+      <p>
+        In this example, <code>ariaNotify</code> communicates the change to screen reader users.
+      </p>
     </>
   )
 }
@@ -113,7 +117,9 @@ export const TrailingCounterAllVariants = () => {
   const [count, setCount] = useState(0)
   const onClick = () => {
     setCount(count + 1)
-    announce(`Watch ${count + 1}`)
+    document.ariaNotify(`Watch ${count + 1}`, {
+      priority: 'normal',
+    })
   }
   return (
     <>
@@ -144,7 +150,9 @@ export const TrailingCounterAllVariants = () => {
         </Button>
       </Stack>
       <AccessibilityNote />
-      <p>In these examples, a live region has been implemented to communicate the change.</p>
+      <p>
+        In these examples, <code>ariaNotify</code> communicates the change to screen reader users.
+      </p>
     </>
   )
 }

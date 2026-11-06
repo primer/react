@@ -1,29 +1,41 @@
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
+import {afterEach, beforeEach, describe, expect, it, vi, type MockInstance} from 'vitest'
+import {render, act} from '@testing-library/react'
 import {SelectPanel} from '../'
 
 describe('SelectPanel.Loading', () => {
+  let ariaNotify: MockInstance<Element['ariaNotify']>
+
   beforeEach(() => {
     vi.useFakeTimers()
+    ariaNotify = vi.spyOn(Element.prototype, 'ariaNotify').mockImplementation(() => {})
   })
 
   afterEach(() => {
+    vi.useRealTimers()
     vi.restoreAllMocks()
   })
 
-  it('should announce children as a polite message', () => {
+  it('should announce children as a polite message', async () => {
     render(<SelectPanel.Loading>test</SelectPanel.Loading>)
 
-    const liveRegion = document.querySelector('live-region')!
-    vi.runAllTimers()
-    expect(liveRegion.getMessage('polite')).toBe('test')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('test', {
+      priority: 'normal',
+    })
   })
 
-  it('should announce a default message when no children are provided', () => {
+  it('should announce a default message when no children are provided', async () => {
     render(<SelectPanel.Loading />)
 
-    const liveRegion = document.querySelector('live-region')!
-    vi.runAllTimers()
-    expect(liveRegion.getMessage('polite')).toBe('Fetching items...')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('Fetching items...', {
+      priority: 'normal',
+    })
   })
 })

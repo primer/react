@@ -1,30 +1,34 @@
-import {describe, expect, it, beforeEach, afterEach} from 'vitest'
-import {render, screen} from '@testing-library/react'
-import React from 'react'
+import {describe, expect, it, beforeEach, afterEach, vi, type MockInstance} from 'vitest'
+import {render, act} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {AriaAlert} from '../AriaAlert'
-import {userEvent} from '@testing-library/user-event'
-import {getLiveRegion} from './test-helpers'
 import {implementsClassName} from '../../utils/testing'
 
 describe('AriaAlert', () => {
+  let ariaNotify: MockInstance<Element['ariaNotify']>
+
   implementsClassName(AriaAlert)
+
   beforeEach(() => {
-    const liveRegion = document.createElement('live-region')
-    document.body.appendChild(liveRegion)
+    vi.useFakeTimers()
+    ariaNotify = vi.spyOn(Element.prototype, 'ariaNotify').mockImplementation(() => {})
   })
 
   afterEach(() => {
-    // Reset the live-region after each test so that we do not have overlapping
-    // messages from previous tests
-    const liveRegion = getLiveRegion()
-    document.body.removeChild(liveRegion)
+    vi.useRealTimers()
+    vi.restoreAllMocks()
   })
 
-  it('should have a default politeness of `assertive`', () => {
+  it('should have a default politeness of `assertive`', async () => {
     render(<AriaAlert>test</AriaAlert>)
 
-    const liveRegion = getLiveRegion()
-    expect(liveRegion.getMessage('assertive')).toBe('test')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('test', {
+      priority: 'high',
+    })
   })
 
   it('should pass additional props to the container element', () => {
@@ -39,34 +43,24 @@ describe('AriaAlert', () => {
         test
       </AriaAlert>,
     )
-    expect(screen.getByTestId('container').tagName).toBe('SPAN')
+    expect(page.getByTestId('container').element().tagName).toBe('SPAN')
   })
 
-  it('should update live-region element when AriaAlert goes from empty to populated', async () => {
-    function TestComponent() {
-      const [show, setShow] = React.useState(false)
-      return (
-        <>
-          <AriaAlert>{show ? 'Failed to export data!' : null}</AriaAlert>
-          <button
-            type="button"
-            onClick={() => {
-              setShow(true)
-            }}
-          >
-            Export data
-          </button>
-        </>
-      )
-    }
-    const user = userEvent.setup()
+  it('should announce when AriaAlert goes from empty to populated', async () => {
+    const {rerender} = render(<AriaAlert>{null}</AriaAlert>)
 
-    render(<TestComponent />)
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+    expect(ariaNotify).not.toHaveBeenCalled()
 
-    const liveRegion = getLiveRegion()
-    expect(liveRegion.getMessage('assertive')).toBe('')
+    rerender(<AriaAlert>Failed to export data!</AriaAlert>)
 
-    await user.click(screen.getByText('Export data'))
-    expect(liveRegion.getMessage('assertive')).toBe('Failed to export data!')
+    await act(async () => {
+      await vi.runAllTimersAsync()
+    })
+    expect(ariaNotify).toHaveBeenCalledExactlyOnceWith('Failed to export data!', {
+      priority: 'high',
+    })
   })
 })
