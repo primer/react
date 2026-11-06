@@ -38,6 +38,10 @@
     --card-padding: var(--stack-padding-normal);
   }
 
+  &[data-padding='spacious'] {
+    --card-padding: var(--stack-padding-spacious);
+  }
+
   &[data-padding='condensed'] {
     --card-padding: var(--stack-padding-condensed);
   }
@@ -143,8 +147,8 @@
 }
 
 .CardPrimaryAction {
-  position: static;
-  z-index: auto;
+  position: relative;
+  z-index: 1;
   padding: 0;
   border: 0;
   background: none;
@@ -154,34 +158,44 @@
   text-decoration: none;
   cursor: pointer;
 
-  &::after {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    content: '';
-    border-radius: var(--borderRadius-large);
-
-    .Card:where([data-border-radius='medium']) & {
-      border-radius: var(--borderRadius-medium);
-    }
-  }
-
   &:hover:not(:disabled) {
     text-decoration: underline;
   }
 
-  &:hover:where(:not(:disabled))::after {
-    outline: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
-    outline-offset: calc(-1 * var(--borderWidth-thin));
-  }
-
   &:focus-visible {
-    outline: none;
+    outline: var(--borderWidth-thick) solid var(--focus-outlineColor);
+    outline-offset: var(--borderWidth-thick);
   }
 
-  &:focus-visible::after {
-    outline: var(--borderWidth-thick) solid var(--focus-outlineColor);
-    outline-offset: calc(-1 * var(--base-size-4));
+  &[data-full-card-hit-area='true'] {
+    position: static;
+    z-index: auto;
+
+    &::after {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      content: '';
+      border-radius: var(--borderRadius-large);
+
+      .Card:where([data-border-radius='medium']) & {
+        border-radius: var(--borderRadius-medium);
+      }
+    }
+
+    &:hover:where(:not(:disabled))::after {
+      outline: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
+      outline-offset: calc(-1 * var(--borderWidth-thin));
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:focus-visible::after {
+      outline: var(--borderWidth-thick) solid var(--focus-outlineColor);
+      outline-offset: calc(-1 * var(--base-size-4));
+    }
   }
 
   &:disabled {

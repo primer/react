@@ -4,6 +4,30 @@ import {themes} from '../test-helpers/themes'
 
 test.describe('Card', () => {
   test.describe('Whole-card interactions', () => {
+    for (const kind of ['link', 'button'] as const) {
+      test(`${kind} remains heading-only when fullCardHitArea is false`, async ({page}) => {
+        await visit(page, {id: `experimental-components-card-features--with-${kind}`, args: {fullCardHitArea: false}})
+        const card = page.locator('[data-component="Card"]').first()
+        const action = page.getByRole(kind, {
+          name: kind === 'link' ? 'primer/react' : 'Open repository details',
+          exact: true,
+        })
+        await action.evaluate(element => {
+          element.setAttribute('data-activations', '0')
+          element.addEventListener('click', () => {
+            element.setAttribute('data-activations', String(Number(element.getAttribute('data-activations')) + 1))
+          })
+        })
+        await card.click({position: {x: 8, y: 8}})
+        await expect(action).toHaveAttribute('data-activations', '0')
+        await action.focus()
+        await page.keyboard.press('Enter')
+        await expect(action).toHaveAttribute('data-activations', '1')
+        await expect(action).toHaveCSS('outline-style', 'solid')
+        expect(await action.evaluate(element => getComputedStyle(element, '::after').content)).toBe('none')
+      })
+    }
+
     test('custom composition keeps header and footer actions separate from whole-card navigation', async ({page}) => {
       await visit(page, {id: 'experimental-components-card-features--custom-content'})
       const card = page.locator('[data-component="Card"]').first()

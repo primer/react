@@ -34,7 +34,7 @@ type PlaygroundArgs = {
   showIcon: boolean
   showMetadata: boolean
   layout: 'default' | 'compact'
-  padding: 'none' | 'condensed' | 'regular' | 'normal'
+  padding: 'none' | 'condensed' | 'regular' | 'spacious' | 'normal'
   shadow: boolean
   borderRadius: 'medium' | 'large'
 }
@@ -80,9 +80,9 @@ Playground.argTypes = {
   },
   padding: {
     control: {type: 'radio'},
-    options: ['none', 'condensed', 'regular', 'normal'],
+    options: ['none', 'condensed', 'regular', 'spacious', 'normal'],
     description:
-      'Internal padding: none (0px), condensed (8px), regular (16px), normal (24px, or 16px in compact layout)',
+      'Internal padding: none (0px), condensed (8px), regular (16px), spacious (24px), normal (24px, or 16px in compact layout)',
   },
   borderRadius: {
     control: {type: 'radio'},

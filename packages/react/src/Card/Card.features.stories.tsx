@@ -23,13 +23,17 @@ const meta = {
 
 export default meta
 
-export const WithLink = () => (
+export const WithLink: StoryFn<{fullCardHitArea: boolean}> = ({fullCardHitArea}) => (
   <Card shadow={false} padding="regular">
     <Card.Icon icon={RepoIcon} />
     <Card.Heading>
-      <Card.Link href="#primer-react">primer/react</Card.Link>
+      <Card.Link href="#primer-react" fullCardHitArea={fullCardHitArea}>
+        primer/react
+      </Card.Link>
     </Card.Heading>
-    <Card.Description>The entire card links to the repository. The Star action remains separate.</Card.Description>
+    <Card.Description>
+      Use fullCardHitArea to make the entire card a link. The Star action remains separate.
+    </Card.Description>
     <Card.Metadata>
       <Button leadingVisual={StarIcon} size="small">
         Star <VisuallyHidden>primer/react</VisuallyHidden>
@@ -41,20 +45,26 @@ export const WithLink = () => (
   </Card>
 )
 
-export const WithButton: StoryFn = () => {
+WithLink.args = {fullCardHitArea: true}
+
+export const WithButton: StoryFn<{fullCardHitArea: boolean}> = ({fullCardHitArea}) => {
   const [opened, setOpened] = useState(false)
   return (
     <div className={classes.CardList}>
       <Card layout="compact" padding="regular" shadow={false}>
         <Card.Icon icon={RepoIcon} />
         <Card.Heading>
-          <Card.Button onClick={() => setOpened(true)}>Open repository details</Card.Button>
+          <Card.Button onClick={() => setOpened(true)} fullCardHitArea={fullCardHitArea}>
+            Open repository details
+          </Card.Button>
         </Card.Heading>
         <Card.Description>Use a button for an action that does not navigate to another page.</Card.Description>
       </Card>
       <Card>
         <Card.Heading>
-          <Card.Button disabled>Repository details unavailable</Card.Button>
+          <Card.Button disabled fullCardHitArea={fullCardHitArea}>
+            Repository details unavailable
+          </Card.Button>
         </Card.Heading>
         <Card.Description>A disabled primary action cannot be activated.</Card.Description>
       </Card>
@@ -68,6 +78,8 @@ export const WithButton: StoryFn = () => {
     </div>
   )
 }
+
+WithButton.args = {fullCardHitArea: true}
 
 WithButton.play = async ({canvasElement}) => {
   const canvas = within(canvasElement)
@@ -86,7 +98,9 @@ export const CustomContent: StoryFn = () => {
           <div className={classes.ComposedBody}>
             <div className={classes.ComposedHeader}>
               <Card.Heading className={classes.ComposedHeading}>
-                <Card.Link href={`#${name}`}>{name}</Card.Link>
+                <Card.Link href={`#${name}`} fullCardHitArea>
+                  {name}
+                </Card.Link>
               </Card.Heading>
               <IconButton
                 icon={PinIcon}

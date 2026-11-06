@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Card: Add optional shadows, 16px regular padding, and whole-card links and buttons with hover and keyboard focus indicators. Existing default padding is unchanged.
+Card: Add optional shadows, regular (16px) and spacious (24px) padding in either layout, and heading links and buttons with opt-in full-card hit areas using fullCardHitArea. Existing normal padding and defaults are unchanged.

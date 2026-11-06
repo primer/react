@@ -8,6 +8,63 @@ import classes from './Card.module.css'
 const TestIcon = () => <svg data-testid="test-icon" aria-hidden="true" />
 
 describe('Card', () => {
+  describe.each(['link', 'button'] as const)('%s hit area', kind => {
+    it.each([undefined, false, true])(
+      'uses fullCardHitArea=%s without forwarding it to the DOM',
+      async fullCardHitArea => {
+        const onClick = vi.fn((event: React.MouseEvent) => event.preventDefault())
+        const {rerender} = render(
+          <Card data-testid="card">
+            <Card.Heading>
+              {kind === 'link' ? (
+                <Card.Link href="#repository" fullCardHitArea={fullCardHitArea} onClick={onClick}>
+                  Repository
+                </Card.Link>
+              ) : (
+                <Card.Button fullCardHitArea={fullCardHitArea} onClick={onClick}>
+                  Repository
+                </Card.Button>
+              )}
+            </Card.Heading>
+            <Card.Description>Repository details</Card.Description>
+          </Card>,
+        )
+        const action = page.getByRole(kind, {name: 'Repository'})
+        const card = page.getByTestId('card')
+        const bounds = card.element().getBoundingClientRect()
+        const target = document.elementFromPoint(bounds.left + 8, bounds.top + 8)
+        expect(target).toBe(fullCardHitArea ? action.element() : card.element())
+        await expect.element(action).not.toHaveAttribute('fullCardHitArea')
+        expect(getComputedStyle(action.element(), '::after').content).toBe(fullCardHitArea ? '""' : 'none')
+        await userEvent.tab()
+        await expect.element(action).toHaveFocus()
+        const focus = getComputedStyle(action.element(), fullCardHitArea ? '::after' : undefined)
+        expect(focus.outlineStyle).toBe('solid')
+        expect(focus.outlineWidth).toBe('2px')
+        await action.click()
+        expect(onClick).toHaveBeenCalledTimes(1)
+
+        rerender(
+          <Card data-testid="card">
+            <Card.Heading>
+              {kind === 'link' ? (
+                <Card.Link href="#repository" fullCardHitArea={!fullCardHitArea}>
+                  Repository
+                </Card.Link>
+              ) : (
+                <Card.Button fullCardHitArea={!fullCardHitArea}>Repository</Card.Button>
+              )}
+            </Card.Heading>
+            <Card.Description>Repository details</Card.Description>
+          </Card>,
+        )
+        expect(document.elementFromPoint(bounds.left + 8, bounds.top + 8)).toBe(
+          fullCardHitArea ? card.element() : action.element(),
+        )
+      },
+    )
+  })
+
   it('lets a custom body fill the card height without overriding internal grid rows', () => {
     render(
       <Card style={{height: 300}} padding="normal" data-testid="card">
@@ -92,6 +149,7 @@ describe('Card', () => {
       ['none', 0],
       ['condensed', 8],
       ['regular', 16],
+      ['spacious', 24],
       ['normal', layout === 'compact' ? 16 : 24],
     ] as const)('uses %s padding of %ipx for both content modes', (padding, pixels) => {
       const {container, rerender} = render(
@@ -112,22 +170,25 @@ describe('Card', () => {
     })
   })
 
-  it.each(['none', 'condensed', 'regular', 'normal'] as const)('keeps images edge-to-edge with %s padding', padding => {
-    const {container} = render(
-      <Card padding={padding} style={{width: 400}}>
-        <Card.Image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'/%3E" />
-        <Card.Heading>Image card</Card.Heading>
-      </Card>,
-    )
-    const card = container.querySelector('[data-component="Card"]')!
-    const image = page.getByRole('presentation').element()
-    const cardBounds = card.getBoundingClientRect()
-    const imageBounds = image.getBoundingClientRect()
-    const borderWidth = Number.parseFloat(getComputedStyle(card).borderLeftWidth)
-    expect(imageBounds.left).toBeCloseTo(cardBounds.left + borderWidth)
-    expect(imageBounds.top).toBeCloseTo(cardBounds.top + borderWidth)
-    expect(imageBounds.width).toBeCloseTo(cardBounds.width - 2 * borderWidth)
-  })
+  it.each(['none', 'condensed', 'regular', 'spacious', 'normal'] as const)(
+    'keeps images edge-to-edge with %s padding',
+    padding => {
+      const {container} = render(
+        <Card padding={padding} style={{width: 400}}>
+          <Card.Image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'/%3E" />
+          <Card.Heading>Image card</Card.Heading>
+        </Card>,
+      )
+      const card = container.querySelector('[data-component="Card"]')!
+      const image = page.getByRole('presentation').element()
+      const cardBounds = card.getBoundingClientRect()
+      const imageBounds = image.getBoundingClientRect()
+      const borderWidth = Number.parseFloat(getComputedStyle(card).borderLeftWidth)
+      expect(imageBounds.left).toBeCloseTo(cardBounds.left + borderWidth)
+      expect(imageBounds.top).toBeCloseTo(cardBounds.top + borderWidth)
+      expect(imageBounds.width).toBeCloseTo(cardBounds.width - 2 * borderWidth)
+    },
+  )
 
   implementsClassName(
     props => (
@@ -187,7 +248,7 @@ describe('Card', () => {
       render(
         <Card>
           <Card.Heading>
-            <Card.Link href="#repository" onClick={primary}>
+            <Card.Link href="#repository" onClick={primary} fullCardHitArea>
               Repository
             </Card.Link>
           </Card.Heading>
@@ -220,7 +281,7 @@ describe('Card', () => {
         <form onSubmit={onSubmit}>
           <Card>
             <Card.Heading>
-              <Card.Button ref={ref} onClick={onClick} aria-expanded={false}>
+              <Card.Button ref={ref} onClick={onClick} aria-expanded={false} fullCardHitArea>
                 Open details
               </Card.Button>
             </Card.Heading>
@@ -260,7 +321,7 @@ describe('Card', () => {
       render(
         <Card>
           <Card.Heading>
-            <Card.Button disabled onClick={onClick}>
+            <Card.Button disabled onClick={onClick} fullCardHitArea>
               Open details
             </Card.Button>
           </Card.Heading>

@@ -16,8 +16,8 @@ export type CardProps<As extends CardAs = 'div'> = PolymorphicProps<
     /** Optional className for the root element. */
     className?: string
 
-    /** Internal padding: none (0px), condensed (8px), regular (16px), normal (24px, or 16px in compact layout). @default 'normal' */
-    padding?: 'none' | 'condensed' | 'regular' | 'normal'
+    /** Internal padding: none (0px), condensed (8px), regular (16px), spacious (24px), normal (24px, or 16px in compact layout). @default 'normal' */
+    padding?: 'none' | 'condensed' | 'regular' | 'spacious' | 'normal'
 
     /** Whether to show the card's shadow. @default true */
     shadow?: boolean
@@ -43,12 +43,16 @@ export type CardProps<As extends CardAs = 'div'> = PolymorphicProps<
 type HeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 type LinkProps = React.ComponentPropsWithoutRef<'a'> & {
-  /** Destination for the whole-card link. */
+  /** Destination for the link. */
   href: string
+  /** Expand the link's hit area over the entire card. @default false */
+  fullCardHitArea?: boolean
   children: React.ReactNode
 }
 
 type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
+  /** Expand the button's hit area over the entire card. @default false */
+  fullCardHitArea?: boolean
   children: React.ReactNode
 }
 
@@ -267,12 +271,21 @@ const CardHeading = forwardRef<HTMLHeadingElement, HeadingProps>(function CardHe
 CardHeading.displayName = 'Card.Heading'
 
 /**
- * Place inside Card.Heading to make the card a link. Keep secondary controls
- * outside the link, in Card.Action or Card.Metadata.
+ * Place inside Card.Heading and set fullCardHitArea for whole-card navigation.
+ * Keep secondary controls outside the link, in Card.Action or Card.Metadata.
  */
-const CardLink = forwardRef<HTMLAnchorElement, LinkProps>(function CardLink({children, className, ...rest}, ref) {
+const CardLink = forwardRef<HTMLAnchorElement, LinkProps>(function CardLink(
+  {children, className, fullCardHitArea = false, ...rest},
+  ref,
+) {
   return (
-    <a {...rest} ref={ref} className={clsx(classes.CardPrimaryAction, className)} data-component="Card.Link">
+    <a
+      {...rest}
+      ref={ref}
+      className={clsx(classes.CardPrimaryAction, className)}
+      data-component="Card.Link"
+      data-full-card-hit-area={fullCardHitArea}
+    >
       {children}
     </a>
   )
@@ -281,11 +294,11 @@ const CardLink = forwardRef<HTMLAnchorElement, LinkProps>(function CardLink({chi
 CardLink.displayName = 'Card.Link'
 
 /**
- * Place inside Card.Heading to make the card trigger an action instead of
- * navigating. Native button semantics provide Enter, Space, and disabled support.
+ * Place inside Card.Heading and set fullCardHitArea for a whole-card action.
+ * Native button semantics provide Enter, Space, and disabled support.
  */
 const CardButton = forwardRef<HTMLButtonElement, ButtonProps>(function CardButton(
-  {className, type = 'button', ...rest},
+  {className, type = 'button', fullCardHitArea = false, ...rest},
   ref,
 ) {
   return (
@@ -295,6 +308,7 @@ const CardButton = forwardRef<HTMLButtonElement, ButtonProps>(function CardButto
       type={type === 'submit' ? 'submit' : type === 'reset' ? 'reset' : 'button'}
       className={clsx(classes.CardPrimaryAction, className)}
       data-component="Card.Button"
+      data-full-card-hit-area={fullCardHitArea}
     />
   )
 })
