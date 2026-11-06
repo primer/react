@@ -18,39 +18,12 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version-file: '.nvmrc'
-      - name: Remove inconsistent locked dependencies
-        shell: bash
-        run: |
-          node <<'NODE'
-          const fs = require('node:fs')
-          const path = require('node:path')
-          const {execFileSync} = require('node:child_process')
-          const npmRoot = execFileSync('npm', ['root', '-g'], {encoding: 'utf8'}).trim()
-          const Arborist = require(path.join(npmRoot, 'npm/node_modules/@npmcli/arborist'))
-          ;(async () => {
-            const tree = await new Arborist({path: process.cwd(), legacyPeerDeps: true}).loadVirtual()
-            const lock = JSON.parse(fs.readFileSync('package-lock.json', 'utf8'))
-            const locations = new Set()
-            for (const node of tree.inventory.values()) {
-              for (const edge of node.edgesOut.values()) {
-                if (!edge.valid && !['peer', 'peerOptional', 'optional'].includes(edge.type) && edge.to) {
-                  if (edge.to.isWorkspace) throw new Error(`Refusing to remove workspace ${edge.to.location}`)
-                  locations.add(edge.to.location)
-                }
-              }
-            }
-            for (const location of locations) delete lock.packages[location]
-            console.log('Removing inconsistent entries:', [...locations].join(', '))
-            fs.writeFileSync('package-lock.json', `${JSON.stringify(lock, null, 2)}\n`)
-          })().catch(error => {
-            console.error(error)
-            process.exitCode = 1
-          })
-          NODE
       - name: Regenerate and validate lockfile
         shell: bash
         run: |
-          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          npm update --package-lock-only --ignore-scripts --no-audit --no-fund \
+            @babel/runtime @floating-ui/react-dom @floating-ui/utils enhanced-resolve jiti lightningcss \
+            @emnapi/core @emnapi/runtime @emnapi/wasi-threads decimal.js js-tokens @jridgewell/gen-mapping csstype
           node <<'NODE'
           const path = require('node:path')
           const {execFileSync} = require('node:child_process')
@@ -79,7 +52,6 @@ jobs:
           fi
           npm ci --ignore-scripts --no-audit --no-fund
       - name: Upload lockfile
-        if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: regenerated-package-lock
