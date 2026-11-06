@@ -36,6 +36,31 @@ describe('Avatar', () => {
     expect(avatar).toHaveAttribute('src', 'primer.png')
   })
 
+  it('renders a text placeholder when src is omitted', () => {
+    render(<Avatar placeholder="NS" size={40} data-testid="avatar" />)
+    const avatar = screen.getByTestId('avatar')
+    expect(avatar).toHaveTextContent('NS')
+    expect(avatar).toHaveAttribute('role', 'img')
+    expect(avatar).toHaveAttribute('aria-label', 'NS')
+    expect(avatar).toHaveAttribute('data-placeholder')
+    expect(avatar).toHaveAttribute('data-component', 'Avatar')
+    expect(avatar).not.toHaveAttribute('src')
+  })
+
+  it('prefers the image when both src and placeholder are provided', () => {
+    render(<Avatar src="primer.png" placeholder="NS" alt="Naveed" data-testid="avatar" />)
+    const avatar = screen.getByTestId('avatar')
+    expect(avatar.tagName).toBe('IMG')
+    expect(avatar).toHaveAttribute('src', 'primer.png')
+    expect(avatar).toHaveAttribute('alt', 'Naveed')
+    expect(avatar).not.toHaveAttribute('data-placeholder')
+  })
+
+  it('uses alt text as the accessible name for a placeholder when provided', () => {
+    render(<Avatar placeholder="NS" alt="Naveed Sajjad" data-testid="avatar" />)
+    expect(screen.getByTestId('avatar')).toHaveAttribute('aria-label', 'Naveed Sajjad')
+  })
+
   it('should support the `style` prop without overriding internal styles', () => {
     render(
       <Avatar

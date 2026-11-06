@@ -11,16 +11,18 @@ export type AvatarProps = {
   size?: number | ResponsiveValue<number>
   /** Sets the shape of the avatar to a square if true. If false, the avatar will be circular. */
   square?: boolean
-  /** URL of the avatar image. */
-  src: string
+  /** URL of the avatar image. When provided, the image takes precedence over the placeholder. */
+  src?: string
+  /** Text to display when no image URL is provided, such as a user's initials. */
+  placeholder?: string
   /** Provide alt text when the Avatar is used without the user's name next to it. */
   alt?: string
   /** Additional class name. */
   className?: string
-} & React.ComponentPropsWithoutRef<'img'>
+} & Omit<React.ComponentPropsWithoutRef<'img'>, 'src'>
 
-const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, className, style, ...rest},
+const Avatar = React.forwardRef<HTMLElement, AvatarProps>(function Avatar(
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, placeholder, src, className, style, ...rest},
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)
@@ -34,26 +36,43 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
     cssSizeVars['--avatarSize-regular'] = `${size}px`
   }
 
+  const sharedProps = {
+    'data-component': 'Avatar',
+    className: clsx(className, classes.Avatar),
+    'data-responsive': isResponsive ? '' : undefined,
+    'data-square': square ? '' : undefined,
+    style: style
+      ? {
+          ...cssSizeVars,
+          ...style,
+        }
+      : (cssSizeVars as React.CSSProperties),
+    ...rest,
+  }
+
+  if (src) {
+    return (
+      <img
+        {...sharedProps}
+        ref={ref as React.Ref<HTMLImageElement>}
+        alt={alt}
+        width={isResponsive ? undefined : size}
+        height={isResponsive ? undefined : size}
+        src={src}
+      />
+    )
+  }
+
   return (
-    <img
-      data-component="Avatar"
-      className={clsx(className, classes.Avatar)}
-      ref={ref}
-      alt={alt}
-      data-responsive={isResponsive ? '' : undefined}
-      data-square={square ? '' : undefined}
-      width={isResponsive ? undefined : size}
-      height={isResponsive ? undefined : size}
-      style={
-        style
-          ? {
-              ...cssSizeVars,
-              ...style,
-            }
-          : (cssSizeVars as React.CSSProperties)
-      }
-      {...rest}
-    />
+    <span
+      {...sharedProps}
+      ref={ref as React.Ref<HTMLSpanElement>}
+      role="img"
+      aria-label={alt || placeholder || undefined}
+      data-placeholder=""
+    >
+      {placeholder}
+    </span>
   )
 })
 

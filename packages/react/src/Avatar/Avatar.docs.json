@@ -15,6 +15,9 @@
     },
     {
       "id": "components-avatar-features--size-responsive"
+    },
+    {
+      "id": "components-avatar-features--text-placeholder"
     }
   ],
   "importPath": "@primer/react",
@@ -41,8 +44,14 @@
       "name": "src",
       "type": "string",
       "required": false,
-      "description": "URL of the avatar image.",
+      "description": "URL of the avatar image. When provided, the image takes precedence over the placeholder.",
       "defaultValue": ""
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Text to display when no image URL is provided, such as a user's initials."
     }
   ],
   "subcomponents": []
