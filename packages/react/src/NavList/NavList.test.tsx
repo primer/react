@@ -79,6 +79,31 @@ describe('NavList', () => {
 describe('NavList.Item', () => {
   implementsClassName(NavList.Item)
 
+  it('preserves a focused link and its visual when a sibling status changes', () => {
+    const renderItems = (working: boolean) => (
+      <NavList>
+        <NavList.Item href="#first">
+          <NavList.LeadingVisual>
+            <span data-testid="working-visual">Working</span>
+          </NavList.LeadingVisual>
+          First session
+        </NavList.Item>
+        <NavList.Item href="#second">Second session {working ? 'working' : 'completed'}</NavList.Item>
+      </NavList>
+    )
+    const {getByRole, getByTestId, rerender} = render(renderItems(false))
+    const link = getByRole('link', {name: 'First session'})
+    const visual = getByTestId('working-visual')
+    link.focus()
+
+    rerender(renderItems(true))
+
+    expect(getByRole('link', {name: 'First session'})).toBe(link)
+    expect(getByTestId('working-visual')).toBe(visual)
+    expect(link).toHaveFocus()
+    expect(getByRole('link', {name: 'Second session working'})).toBeInTheDocument()
+  })
+
   it('renders a tooltip inside a link item when tooltipText is provided', () => {
     const ref = React.createRef<HTMLAnchorElement>()
     const {container, getByRole} = render(
