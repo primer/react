@@ -154,6 +154,25 @@ describe('Tooltip', () => {
     }
   })
 
+  it('closes on Escape when the browser cannot match the popover selector', async () => {
+    const supports = vi.spyOn(CSS, 'supports').mockReturnValue(false)
+    const onEscape = vi.fn()
+    try {
+      HTMLRender(<TooltipComponent />)
+      const tooltip = page.getByText('Tooltip text', {exact: true})
+      await userEvent.hover(page.getByRole('button', {name: 'Button Text'}))
+      await expect.element(tooltip).toBeVisible()
+
+      document.addEventListener('keydown', onEscape)
+      await userEvent.keyboard('{Escape}')
+      await expect.element(tooltip).not.toBeVisible()
+      expect(onEscape).not.toHaveBeenCalled()
+    } finally {
+      supports.mockRestore()
+      document.removeEventListener('keydown', onEscape)
+    }
+  })
+
   it('spreads the accessibility attributes correctly on the trigger (ActionMenu.Button) when tooltip is used in an action menu', () => {
     const {getByRole, getByText} = HTMLRender(
       <ExampleWithActionMenu

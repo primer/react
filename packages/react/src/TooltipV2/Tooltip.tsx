@@ -295,9 +295,14 @@ export const Tooltip: ForwardRefExoticComponent<
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
-        if (isPopoverOpen && !_privateDisableTooltip && tooltipElRef.current?.matches(':popover-open')) {
-          event.stopImmediatePropagation()
-          event.preventDefault()
+        if (isPopoverOpen) {
+          // Older browsers use the popover polyfill and cannot match :popover-open.
+          const canMatchPopoverOpen = typeof CSS !== 'undefined' && CSS.supports('selector(:popover-open)')
+          const isVisible = canMatchPopoverOpen ? tooltipElRef.current?.matches(':popover-open') : isPopoverOpen
+          if (!_privateDisableTooltip && isVisible) {
+            event.stopImmediatePropagation()
+            event.preventDefault()
+          }
           closeTooltip()
         }
       },

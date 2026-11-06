@@ -450,6 +450,7 @@ describe('Breadcrumbs', () => {
 
       // Verify menu is open
       await expect.element(menuButton).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(menuButton).not.toHaveAttribute('aria-haspopup')
 
       // Press Escape key
       await userEvent.keyboard('{Escape}')
