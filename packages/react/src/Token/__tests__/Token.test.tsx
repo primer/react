@@ -70,6 +70,28 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
     expect(domNode.parentElement).toHaveClass('testing-class')
   })
 
+  it.each(['Backspace', 'Delete'])('allows onKeyDown to cancel removal with %s', key => {
+    const onRemove = vi.fn()
+    const onKeyDown = vi.fn((event: React.KeyboardEvent) => event.preventDefault())
+    const {getByText} = HTMLRender(<Component text="token" onRemove={onRemove} onKeyDown={onKeyDown} />)
+
+    fireEvent.keyDown(getByText('token'), {key})
+
+    expect(onKeyDown).toHaveBeenCalledTimes(1)
+    expect(onRemove).not.toHaveBeenCalled()
+  })
+
+  it.each(['Backspace', 'Delete'])('removes with %s when onKeyDown does not cancel the event', key => {
+    const onRemove = vi.fn()
+    const onKeyDown = vi.fn()
+    const {getByText} = HTMLRender(<Component text="token" onRemove={onRemove} onKeyDown={onKeyDown} />)
+
+    fireEvent.keyDown(getByText('token'), {key})
+
+    expect(onKeyDown).toHaveBeenCalledTimes(1)
+    expect(onRemove).toHaveBeenCalledTimes(1)
+  })
+
   it('renders with correct data-cursor-is-interactive attribute for button element', () => {
     const {getByText} = HTMLRender(<Component as="button" text="token" />)
     const domNode = getByText('token')

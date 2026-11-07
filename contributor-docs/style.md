@@ -315,6 +315,11 @@ Use the following conventions:
   by the component, do not expose it as a prop, or use types that only offer it
   in the scenarios where the consumer can control it.
 
+Token and IssueLabelToken are exceptions for keyboard removal. They call the
+consumer's `onKeyDown` first so it can cancel removal with
+`event.preventDefault()` on Backspace or Delete. Preserve this order when
+refactoring their keyboard handlers.
+
 Use the `mergeProps` utility with component props first and consumer props
 second:
 
