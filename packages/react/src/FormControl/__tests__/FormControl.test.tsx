@@ -127,6 +127,17 @@ describe('FormControl', () => {
     await expect.element(leadingVisual).toBeInTheDocument()
   })
 
+  it('renders a non-choice input only once in horizontal layout', () => {
+    const {getAllByRole} = render(
+      <FormControl layout="horizontal">
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+      </FormControl>,
+    )
+
+    expect(getAllByRole('textbox')).toHaveLength(1)
+  })
+
   describe('vertically stacked layout (default)', () => {
     describe('rendering', () => {
       it('renders with a hidden label', async () => {
