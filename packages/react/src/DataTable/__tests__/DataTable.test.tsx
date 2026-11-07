@@ -528,10 +528,163 @@ describe('DataTable', () => {
             return cells
           })
         expect(rows).toEqual([
-          ['a', 'c'],
-          ['b', 'b'],
           ['c', 'a'],
+          ['b', 'b'],
+          ['a', 'c'],
         ])
+      })
+
+      it('should sort the rows on the first render using `initialSortColumn`', async () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                value: 3,
+              },
+              {
+                id: 2,
+                value: 1,
+              },
+              {
+                id: 3,
+                value: 2,
+              },
+            ]}
+            columns={[
+              {
+                header: 'Value',
+                field: 'value',
+                sortBy: true,
+              },
+            ]}
+            initialSortColumn="value"
+          />,
+        )
+
+        const rows = page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
+        expect(rows).toEqual(['1', '2', '3'])
+      })
+
+      it('should sort the rows on the first render when `initialSortColumn` is the field of a column with an id', async () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                value: 3,
+              },
+              {
+                id: 2,
+                value: 1,
+              },
+              {
+                id: 3,
+                value: 2,
+              },
+            ]}
+            columns={[
+              {
+                id: 'val',
+                header: 'Value',
+                field: 'value',
+                sortBy: true,
+              },
+            ]}
+            initialSortColumn="value"
+          />,
+        )
+
+        const header = page.getByRole('columnheader', {
+          name: 'Value',
+        })
+        await expect.element(header).toHaveAttribute('aria-sort', 'ascending')
+
+        const rows = page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
+        expect(rows).toEqual(['1', '2', '3'])
+      })
+
+      it('should sort the rows on the first render using `initialSortDirection` and the column strategy', async () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                value: 'z2',
+              },
+              {
+                id: 2,
+                value: 'z11',
+              },
+              {
+                id: 3,
+                value: 'z3',
+              },
+            ]}
+            columns={[
+              {
+                header: 'Value',
+                field: 'value',
+                sortBy: 'alphanumeric',
+              },
+            ]}
+            initialSortColumn="value"
+            initialSortDirection="DESC"
+          />,
+        )
+
+        const header = page.getByRole('columnheader', {
+          name: 'Value',
+        })
+        await expect.element(header).toHaveAttribute('aria-sort', 'descending')
+
+        const rows = page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
+        expect(rows).toEqual(['z11', 'z3', 'z2'])
+      })
+
+      it('should keep the given row order when `externalSorting` is set', async () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                value: 3,
+              },
+              {
+                id: 2,
+                value: 1,
+              },
+              {
+                id: 3,
+                value: 2,
+              },
+            ]}
+            columns={[
+              {
+                header: 'Value',
+                field: 'value',
+                sortBy: true,
+              },
+            ]}
+            initialSortColumn="value"
+            externalSorting
+          />,
+        )
+
+        const rows = page
+          .getByRole('cell')
+          .elements()
+          .map(cell => cell.textContent)
+        expect(rows).toEqual(['3', '1', '2'])
       })
 
       it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', async () => {
