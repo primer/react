@@ -427,7 +427,6 @@
       content: '';
       /* stylelint-disable-next-line primer/colors */
       background-color: var(--control-checked-fgColor-rest);
-      transition: visibility 0s linear 230ms;
       clip-path: inset(var(--base-size-16) 0 0 0);
 
       /* octicon checkmark image */
@@ -435,8 +434,15 @@
       mask-size: 75%;
       mask-repeat: no-repeat;
       mask-position: center;
-      animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1);
-      /*  forwards;  slightly snappier animation out */
+
+      /* The clip-path wipe is decorative, so it is opt-in like the rest of the
+         library (Checkbox, Skeleton, SegmentedControl). */
+      @media (prefers-reduced-motion: no-preference) {
+        /* checked -> unchecked - wait out the wipe-out before hiding the mark */
+        transition: visibility 0s linear 230ms;
+        animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1);
+        /*  forwards;  slightly snappier animation out */
+      }
     }
 
     @media (forced-colors: active) {
@@ -459,8 +465,15 @@
 
       &::before {
         visibility: visible;
-        transition: visibility 0s linear 0s;
-        animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
+        /* Reduced motion: the mark is simply present, without the wipe */
+        clip-path: inset(0 0 0 0);
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: visibility 0s linear 0s;
+          /* Keep the mark clipped while `checkmarkIn` waits out its 80ms delay */
+          clip-path: inset(var(--base-size-16) 0 0 0);
+          animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
+        }
       }
 
       @media (forced-colors: active) {
