@@ -23,6 +23,24 @@ describe('PageHeader', () => {
   implementsClassName(PageHeader.Description, classes.Description)
   implementsClassName(PageHeader.Navigation, classes.Navigation)
 
+  it.each(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const)('forwards the title id to %s for aria-labelledby', as => {
+    const {getByRole} = render(
+      <section aria-labelledby="page-title">
+        <PageHeader>
+          <PageHeader.TitleArea>
+            <PageHeader.Title as={as} id="page-title">
+              Project
+            </PageHeader.Title>
+          </PageHeader.TitleArea>
+        </PageHeader>
+      </section>,
+    )
+
+    const heading = getByRole('heading', {name: 'Project', level: Number(as.slice(1))})
+    expect(heading).toHaveAttribute('id', 'page-title')
+    expect(getByRole('region', {name: 'Project'})).toContainElement(heading)
+  })
+
   it('renders data-component attributes for PageHeader and exported subcomponents', () => {
     const {container} = render(
       <PageHeader aria-label="Title" role="banner">
