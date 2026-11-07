@@ -35,6 +35,25 @@ describe('Breadcrumbs', () => {
     expect(page.getByRole('navigation').element().nodeName).toEqual('NAV')
   })
 
+  it.each(['ltr', 'rtl'] as const)('aligns the first crumb with the %s inline start edge', direction => {
+    HTMLRender(
+      <div dir={direction}>
+        <Breadcrumbs>
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs" selected>
+            Docs
+          </Breadcrumbs.Item>
+        </Breadcrumbs>
+      </div>,
+    )
+
+    const navigation = page.getByRole('navigation').element().getBoundingClientRect()
+    const firstCrumb = page.getByRole('link', {name: 'Home', exact: true}).element().getBoundingClientRect()
+    const startEdge = direction === 'rtl' ? 'right' : 'left'
+
+    expect(firstCrumb[startEdge]).toBeCloseTo(navigation[startEdge], 1)
+  })
+
   it('renders data-component attributes', async () => {
     const {container} = renderWithTheme(
       <Breadcrumbs overflow="wrap">
