@@ -1517,7 +1517,10 @@ describe('SelectPanel', () => {
     expect(screen.getAllByText('Unavailable')).toHaveLength(1)
     expect(screen.getByRole('option', {name: 'ImportantVisual item'})).toBeInTheDocument()
     const rendered = screen.getByRole('option', {name: 'Rendered item Premium'})
-    expect(rendered).toHaveAttribute('aria-labelledby', expect.stringContaining('custom-trailing'))
+    expect(rendered.querySelector('[data-component="ActionList.TrailingVisual"]')).toHaveAttribute(
+      'id',
+      'custom-trailing',
+    )
     expect(rendered).toHaveAccessibleDescription('First detail Second detail')
     expect(screen.getByRole('option', {name: 'Hidden visual item'})).toHaveAccessibleDescription('Visible detail')
     expect(screen.getByRole('option', {name: 'Raw custom content'})).toHaveAccessibleDescription('Not available')

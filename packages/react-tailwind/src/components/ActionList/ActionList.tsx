@@ -430,17 +430,6 @@ function resolveActionItemContent(
         React.cloneElement(item, {id: item.props.id ?? `${accessibilityId}-description-${index}`}),
       )
     : parts.descriptions
-  const trailingVisualElement = React.isValidElement<React.ComponentPropsWithoutRef<'span'>>(parts.trailingVisual)
-    ? parts.trailingVisual
-    : undefined
-  const trailingVisualId =
-    accessibilityId &&
-    trailingVisualElement &&
-    !trailingVisualElement.props.hidden &&
-    trailingVisualElement.props['aria-hidden'] !== true &&
-    trailingVisualElement.props['aria-hidden'] !== 'true'
-      ? (trailingVisualElement.props.id ?? `${accessibilityId}-trailing-visual`)
-      : undefined
 
   return {
     ...parts,
@@ -453,11 +442,7 @@ function resolveActionItemContent(
     descriptions,
     inlineDescriptions: descriptions.filter(item => item.props.variant !== 'block'),
     labelId: accessibilityId ? `${accessibilityId}-label` : undefined,
-    trailingVisual:
-      trailingVisualId && trailingVisualElement
-        ? React.cloneElement(trailingVisualElement, {id: trailingVisualId})
-        : parts.trailingVisual,
-    trailingVisualId,
+    trailingVisualId: accessibilityId && parts.trailingVisual ? `${accessibilityId}-trailing-visual` : undefined,
   }
 }
 
@@ -517,6 +502,7 @@ function ActionItemContentRoot({
     labelId,
     leadingVisual: resolvedLeadingVisual,
     trailingVisual: resolvedTrailingVisual,
+    trailingVisualId,
   } = resolvedContent ??
   resolveActionItemContent({children, description, descriptionVariant, leadingVisual, trailingVisual})
   const hasBlockDescription = blockDescriptions.length > 0
@@ -578,7 +564,14 @@ function ActionItemContentRoot({
           </span>
           {blockDescriptions}
         </span>
-        {renderedTrailingVisual}
+        {trailingVisualId ? (
+          // Reference a visible wrapper so CSS-hidden visuals are omitted from the accessible name.
+          <span className="shrink-0" id={trailingVisualId}>
+            {renderedTrailingVisual}
+          </span>
+        ) : (
+          renderedTrailingVisual
+        )}
         {supportingText ? (
           <span className="basis-full text-xs leading-4 text-attention" id={supportingTextId}>
             {supportingText}

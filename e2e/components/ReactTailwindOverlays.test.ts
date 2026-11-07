@@ -135,6 +135,32 @@ test.describe('React Tailwind overlay integration', () => {
     await expect(popup.getByRole('option', {name: 'Custom item name', exact: true})).toHaveAccessibleDescription(
       'Item description',
     )
+    const richItem = popup.locator('[role="option"]').filter({hasText: 'Rich description'})
+    const trailingVisual = richItem.locator('[data-component="ActionList.TrailingVisual"]')
+    const description = richItem.locator('[data-component="ActionList.Description"]')
+    await description.evaluate(element => {
+      const decoration = document.createElement('span')
+      decoration.setAttribute('aria-hidden', 'true')
+      decoration.textContent = ' Hidden decoration'
+      element.append(decoration)
+    })
+    await expect(richItem).toHaveAccessibleDescription('Rich description')
+    await trailingVisual.evaluate(element => {
+      element.style.display = 'none'
+    })
+    await expect(richItem).toHaveAccessibleName('Rich item')
+    await expect(richItem).toHaveAccessibleDescription('Rich description')
+    await trailingVisual.evaluate(element => {
+      element.style.removeProperty('display')
+    })
+    await expect(richItem).toHaveAccessibleName('Rich item Public')
+    await trailingVisual.evaluate(element => {
+      element.style.visibility = 'hidden'
+    })
+    await expect(richItem).toHaveAccessibleName('Rich item')
+    await trailingVisual.evaluate(element => {
+      element.style.removeProperty('visibility')
+    })
     await expect(page).toHaveNoViolations()
   })
 
