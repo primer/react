@@ -1,5 +1,29 @@
 # @primer/react
 
+## 38.46.0
+
+### Minor Changes
+
+- [#8592](https://github.com/primer/react/pull/8592) [`0ae18d3`](https://github.com/primer/react/commit/0ae18d38f09044c40c1a181288c2783e93629b4e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Card: Add optional shadows, regular (16px) and spacious (24px) padding in either layout, and heading links and buttons with opt-in full-card hit areas using fullCardHitArea. Existing normal padding and defaults are unchanged.
+
+- [#8692](https://github.com/primer/react/pull/8692) [`918d7cf`](https://github.com/primer/react/commit/918d7cf82d3884ab134e9b074e0a595198a1c033) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Stack: Add `balance` as a value for the `wrap` prop.
+
+### Patch Changes
+
+- [#8683](https://github.com/primer/react/pull/8683) [`32d5061`](https://github.com/primer/react/commit/32d50618c58cceddf66d83716ac9742c2134b790) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Breadcrumbs: Improve the performance of `overflow="menu"` and `"menu-with-root"` on mount, resize and navigation. Server-rendered markup now applies the collapse rules before hydration, and the overflow menu trigger is a `<button>`.
+
+- [#8592](https://github.com/primer/react/pull/8592) [`0ae18d3`](https://github.com/primer/react/commit/0ae18d38f09044c40c1a181288c2783e93629b4e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Card: Improve shrinking and equal-height layouts, keep secondary controls accessible in custom whole-card compositions, and keep images edge-to-edge across padding options.
+
+- [#8679](https://github.com/primer/react/pull/8679) [`dbf2ac1`](https://github.com/primer/react/commit/dbf2ac1d758a0aae69f37ad1bd789480ce58ff4c) Thanks [@llastflowers](https://github.com/llastflowers)! - Breadcrumbs: Close the overflow menu when Escape is pressed while its tooltip is open.
+
+- [#8628](https://github.com/primer/react/pull/8628) [`41f29c8`](https://github.com/primer/react/commit/41f29c845663936043618af29dcb71de4c9384b2) Thanks [@joshblack](https://github.com/joshblack)! - SkeletonAvatar, SkeletonText: Preserve the requested size and shape regardless of stylesheet load order
+
+- [#8562](https://github.com/primer/react/pull/8562) [`ee46232`](https://github.com/primer/react/commit/ee46232fafa24701415b21eed60cca68e589cf1c) Thanks [@joshblack](https://github.com/joshblack)! - useOnEscapePress, useOnOutsideClick: Improve performance when callbacks change between renders.
+
+- [#8609](https://github.com/primer/react/pull/8609) [`da90227`](https://github.com/primer/react/commit/da9022741a8109195480d7e6ccdf80cd723d6199) Thanks [@tay1orjones](https://github.com/tay1orjones)! - ActionList.LinkItem, NavList.Item: Preserve keyboard focus and running child animations when links rerender.
+
+- [#8684](https://github.com/primer/react/pull/8684) [`35ff497`](https://github.com/primer/react/commit/35ff4972b1d62810df69f606c6785bc7f123d5d5) Thanks [@mattcosta7](https://github.com/mattcosta7)! - TreeView: Reduce mount and hydration cost for large trees. Server-rendered trees now have a single tab stop and named subtrees before hydration.
+
 ## 38.45.0
 
 ### Minor Changes
