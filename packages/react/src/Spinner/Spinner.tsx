@@ -67,15 +67,19 @@ function Spinner({
 
   return (
     /* inline-flex removes the extra line height */
-    <span className={classes.Box} data-component="Spinner">
+    <span
+      className={classes.Box}
+      data-component="Spinner"
+      role="status"
+      aria-label={ariaLabel ?? undefined}
+      aria-labelledby={hasHiddenLabel ? labelId : undefined}
+    >
       <svg
         height={size}
         width={size}
         viewBox="0 0 16 16"
         fill="none"
         aria-hidden
-        aria-label={ariaLabel ?? undefined}
-        aria-labelledby={hasHiddenLabel ? labelId : undefined}
         className={clsx(className, classes.SpinnerAnimation)}
         style={mergedStyle}
         {...props}
