@@ -229,17 +229,28 @@ describe('ActionMenu', () => {
     const removeEventListener = vi.spyOn(anchor, 'removeEventListener')
 
     for (let index = 0; index < 3; index++) {
+      const addsBeforeOpen = addEventListener.mock.calls.length
       await userEvent.click(button)
       await expect.element(page.getByRole('menu')).toBeInTheDocument()
+      const keydownHandlersAdded = addEventListener.mock.calls
+        .slice(addsBeforeOpen)
+        .filter(([type]) => type === 'keydown')
+        .map(([, listener]) => listener)
+
+      const removalsBeforeClose = removeEventListener.mock.calls.length
       await userEvent.click(button)
       await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
+      const keydownHandlersRemoved = removeEventListener.mock.calls
+        .slice(removalsBeforeClose)
+        .filter(([type]) => type === 'keydown')
+        .map(([, listener]) => listener)
+
+      for (const listener of keydownHandlersAdded) {
+        expect(keydownHandlersRemoved).toContain(listener)
+      }
     }
 
     component.unmount()
-
-    const keydownAdds = addEventListener.mock.calls.filter(([type]) => type === 'keydown')
-    const keydownRemovals = removeEventListener.mock.calls.filter(([type]) => type === 'keydown')
-    expect(keydownAdds).toHaveLength(keydownRemovals.length)
   })
 
   it('should open Menu on MenuButton click', async () => {
