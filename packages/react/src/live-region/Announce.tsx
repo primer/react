@@ -1,4 +1,5 @@
 import {announceFromElement} from '@primer/live-region-element'
+import {isVisible} from '../internal/utils/isVisible'
 import type React from 'react'
 import {useEffect, useRef, type ElementRef} from 'react'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
@@ -153,25 +154,4 @@ function getTextContent(element: HTMLElement): string {
     value = element.textContent
   }
   return value ? value.trim() : ''
-}
-
-/**
- * Determine if an element is visible (not hidden via `display: none` or
- * `visibility: hidden`). Prefers the native `checkVisibility()` API when
- * available and falls back to `getComputedStyle` for older browsers.
- */
-function isVisible(element: HTMLElement): boolean {
-  if (typeof element.checkVisibility === 'function') {
-    return element.checkVisibility({
-      // `visibilityProperty` is the standard option name (Chrome 116+, Firefox
-      // 125+, Safari 17.4+); `checkVisibilityCSS` is the legacy Chromium name
-      // (Chrome 105+). Unknown options are ignored, so passing both ensures
-      // `visibility: hidden` is treated as not visible across all engines.
-      visibilityProperty: true,
-      checkVisibilityCSS: true,
-    })
-  }
-
-  const style = window.getComputedStyle(element)
-  return style.display !== 'none' && style.visibility !== 'hidden'
 }

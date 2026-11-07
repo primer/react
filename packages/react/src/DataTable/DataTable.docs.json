@@ -155,7 +155,7 @@
     {
       "name": "bulkActionsProps",
       "type": "Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel'>",
-      "description": "Localize the bulk-action group name and selected-count announcement (including zero)."
+      "description": "Localize the bulk-action group name and selected-count announcement (including zero). getSelectedCountLabel also applies without renderBulkActions."
     },
     {
       "name": "bulkActionsReturnFocusRef",
