@@ -1,4 +1,5 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon, HeartFillIcon} from '@primer/octicons-react'
+import {useState} from 'react'
 import {Button, IconButton} from '.'
 import {Stack} from '../Stack'
 
@@ -81,6 +82,27 @@ export const DisabledButtonVariants = () => {
         <IconButton icon={HeartFillIcon} variant="default" aria-label="Default" disabled />
         <IconButton icon={HeartFillIcon} variant="primary" aria-label="Primary" disabled />
         <IconButton icon={HeartFillIcon} variant="danger" aria-label="Danger" disabled />
+      </Stack>
+    </Stack>
+  )
+}
+
+export const LoadingAnnouncement = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  return (
+    <Stack gap="normal" align="start">
+      <p>
+        With a screen reader running, activate “Export repository”. The button enters its loading state and announces
+        “Exporting repository”. Reset the loading state to repeat the test.
+      </p>
+      <Stack direction="horizontal">
+        <Button loading={isLoading} loadingAnnouncement="Exporting repository" onClick={() => setIsLoading(true)}>
+          Export repository
+        </Button>
+        <Button disabled={!isLoading} onClick={() => setIsLoading(false)}>
+          Reset loading state
+        </Button>
       </Stack>
     </Stack>
   )

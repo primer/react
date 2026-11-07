@@ -1,7 +1,6 @@
 import {announceFromElement} from '@primer/live-region-element'
 import type React from 'react'
 import {useEffect, useRef, type ElementRef} from 'react'
-import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
@@ -52,6 +51,7 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     ...rest
   } = props
   const ref = useRef<ElementRef<'div'>>(null)
+
   // Tracked in a ref rather than state because it is only used to dedupe
   // announcements and is never rendered. Using state here would trigger a React
   // commit on every content change (e.g. one per keystroke when tied to an input).
@@ -99,13 +99,15 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     previousAnnouncementText.current = textContent
   })
 
-  // Announce the initial message, this is wrapped in `useEffectOnce` so that it
-  // does not announce twice in StrictMode
-  useEffectOnce(() => {
+  const announceOnMount = useEffectCallback(() => {
     if (announceOnShow) {
       announce()
     }
   })
+
+  useEffect(() => {
+    announceOnMount()
+  }, [announceOnMount])
 
   useEffect(() => {
     const {current: container} = ref
@@ -131,10 +133,9 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
 
   useEffect(() => {
     return () => {
-      if (savedAnnouncement.current !== null) {
-        savedAnnouncement.current.cancel()
-        savedAnnouncement.current = null
-      }
+      savedAnnouncement.current?.cancel()
+      savedAnnouncement.current = null
+      previousAnnouncementText.current = null
     }
   }, [])
 
