@@ -133,6 +133,11 @@
       "description": "Enable group disclosures. Collapsing only hides members; selection and select-all still include them."
     },
     {
+      "name": "getGroupRowCountLabel",
+      "type": "(rowCount: number) => string",
+      "description": "Localize the description shared by each group checkbox and disclosure. The count includes all members, including non-selectable rows, and defaults to 1 row or N rows."
+    },
+    {
       "name": "expandedGroups",
       "type": "ReadonlySet<DataTableRowId>",
       "description": "Control expanded groups by stable groupId. String and numeric IDs remain distinct."
@@ -347,12 +352,17 @@
         {
           "name": "rowCount",
           "type": "number",
-          "description": "The number of member rows in the group. Combined with `label` to build the group header's accessible name, for example \"Admins, 2 rows\"."
+          "description": "The total number of member rows, including non-selectable rows. Shown in the header and described separately on the checkbox and disclosure."
+        },
+        {
+          "name": "getRowCountLabel",
+          "type": "(rowCount: number) => string",
+          "description": "Localize the count description shared by the checkbox and disclosure. Defaults to 1 row or N rows."
         },
         {
           "name": "aria-label",
           "type": "string",
-          "description": "Override the group header's accessible name, for example to localize its row count description."
+          "description": "Override the group name used by the header, checkbox, and disclosure. Use getRowCountLabel to localize the controls' separate count description."
         },
         {
           "name": "colSpan",
