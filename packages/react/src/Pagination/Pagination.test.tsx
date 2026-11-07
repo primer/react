@@ -4,9 +4,18 @@ import Pagination from '../Pagination'
 import {ReactRouterLikeLink} from './mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
 import classes from './Pagination.module.css'
+import {page} from 'vitest/browser'
 
 describe('Pagination', () => {
   implementsClassName(props => <Pagination pageCount={5} currentPage={1} {...props} />, classes.PaginationContainer)
+
+  it.each([true, false])('disables Next when there are no pages with showPages=%s', async showPages => {
+    HTMLRender(<Pagination pageCount={0} currentPage={1} showPages={showPages} />)
+
+    const next = page.getByText('Next', {exact: true})
+    await expect.element(next).toHaveAttribute('aria-disabled', 'true')
+    await expect.element(next).not.toHaveAttribute('href')
+  })
 
   it('should render links instead of anchor tags with the renderPage prop', () => {
     const {container} = HTMLRender(
