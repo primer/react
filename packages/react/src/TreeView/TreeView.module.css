@@ -224,6 +224,10 @@
    * Keep this a class-targeted descendant rule. Toggling an inherited custom property on the
    * root instead forces every element in the tree to restyle on each pointer enter/leave and
    * focus in/out; this rule restyles only the `.TreeViewItemLevelLine` elements.
+   *
+   * Focus uses `data-focus-within` (set by `useFocusWithinAttribute`), not `:focus-within`:
+   * WebKit re-toggles `:focus-within` on every focus move inside the tree, which restyled every
+   * level line on each arrow key press.
    */
   @media (hover: hover) {
     .TreeViewItemLevelLine {
@@ -231,7 +235,7 @@
     }
 
     &:hover .TreeViewItemLevelLine,
-    &:focus-within .TreeViewItemLevelLine {
+    &[data-focus-within] .TreeViewItemLevelLine {
       border-color: var(--borderColor-muted);
     }
   }
